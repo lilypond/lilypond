@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Tue Mar 10 17:31:24 UTC 2020
+@emph{Ultimo aggiornamento Thu Mar 26 17:29:06 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -47,11 +47,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #ff6f57">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -74,11 +74,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -140,11 +140,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -167,11 +167,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -260,11 +260,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -314,11 +314,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -341,11 +341,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -368,11 +368,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -434,11 +434,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -461,11 +461,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -515,11 +515,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -542,11 +542,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -569,11 +569,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -596,11 +596,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -623,11 +623,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -650,11 +650,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -677,11 +677,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -704,11 +704,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -758,11 +758,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -785,11 +785,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -812,11 +812,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -839,11 +839,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -866,11 +866,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -893,11 +893,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -920,11 +920,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -947,11 +947,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -974,11 +974,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1001,11 +1001,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #ffe241">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1028,11 +1028,11 @@ parzialmente (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1055,11 +1055,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1082,11 +1082,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1109,11 +1109,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1202,11 +1202,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1229,11 +1229,11 @@ parzialmente (93 %)
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1310,11 +1310,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1376,11 +1376,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1403,11 +1403,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1430,11 +1430,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1457,11 +1457,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1484,11 +1484,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1511,11 +1511,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+N/A
 @end ifnothtml
 @tab pre-GDP
 @end multitable

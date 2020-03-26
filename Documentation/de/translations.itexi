@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Tue Mar 10 17:31:24 UTC 2020
+@emph{Zuletzt aktualisiert am Thu Mar 26 17:29:06 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -49,11 +49,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #ff6f57">teilweise</span>
+<span style="background-color: #d587ff">K/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+K/A
 @end ifnothtml
 @tab vor-GDP
 @item
