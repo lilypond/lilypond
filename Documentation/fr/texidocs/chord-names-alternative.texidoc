@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
+  texidocfr = "
+Les noms d'accord sont générés à partir d'une liste de hauteurs. Les
+fonctions qui construisent ces noms peuvent être personnalisées.
+
+Voici les accords suivant la nomenclature d'Ignatzek (pp. 17-18, 1995)
+qu'utilise LilyPond par défaut depuis la version 1.7.20, comparée à une
+alternative jazz et à la notation d'Harald Banter (1987). Une police
+plus petite est utilisée pour cette dernière dans la mesure où elle tend
+à être plus verbeuse.
+
+Ceci est un reflet du mécanisme utiliséé à l'origine par LilyPond,
+jusque dans les version 1.7. N'ayant pas fait l'objet d'une maintenance
+suivie, certaines fonctionnalités ont été perdues -- notamment au niveau
+des listes d'exception -- et des bogues ont fait leur apparition.
+"
+  doctitlefr = "Noms d'accord alternatifs"

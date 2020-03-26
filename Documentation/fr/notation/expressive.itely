@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -66,6 +66,8 @@ et aborderons la manière de générer vos propres signes.
 @cindex sourdine
 @cindex orgue, marque de pédale
 @cindex grupetto
+@cindex barré, grupetto
+@cindex Haydn, grupetto
 @cindex ouvert
 @cindex flageolet
 @cindex trille
@@ -98,6 +100,8 @@ et aborderons la manière de générer vos propres signes.
 @funindex \snappizzicato
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 @funindex \trill
 @funindex \prall
 @funindex \mordent
@@ -111,10 +115,13 @@ et aborderons la manière de générer vos propres signes.
 @funindex \prallup
 @funindex \lineprall
 @funindex \signumcongruentiae
+@funindex \veryshortfermata
 @funindex \shortfermata
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -173,11 +180,8 @@ propriétés de ces objets sont abordées plus en détail au chapitre
 @c in the English documentation.
 
 Une articulation peut se rattacher aussi bien à un silence qu'à une
-note, mais @strong{pas à un silence multimesures}.  Il existe cependant
-un cas particulier : le point d'orgue -- ou point d'arrêt -- attaché à
-un silence valant l'intégralité de la mesure.  LilyPond dispose à cet
-effet de la commande @code{\fermata}, qui créera un objet
-@code{MultiMeasureRestText} rattaché à ce « silence multimesures ».
+note.  L'ajout d'un signe d'articulation à un silence multimesure crée
+un objet @code{MultiMeasureRestScript}.
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
@@ -272,15 +276,16 @@ Référence des propriétés internes :
 @funindex \spp
 @funindex \sfz
 @funindex \rfz
+@funindex \n
 
 À chaque nuance absolue correspond une commande qui peut être indiquée
-après une note : @code{c4\ff} par exemple.  Les commandes de nuance
+après une note : @code{c4\ff} par exemple. Les commandes de nuance
 disponibles sont @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp},
 @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz} et @code{\rfz}.  Les nuances se
-placent aussi bien en dessous qu'au-dessus de la portée ; pour plus
-d'information, consultez @ref{Direction et positionnement}.
+@code{\sp}, @code{\spp}, @code{\sfz}, @code{\rfz}et @code{\n}. Les
+nuances se placent aussi bien en dessous qu'au-dessus de la portée ;
+pour plus d'information, consultez @ref{Direction et positionnement}.
 
 @lilypond[verbatim,quote]
 \relative c'' {

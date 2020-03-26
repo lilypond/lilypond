@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -504,12 +504,12 @@ exemple, utiliser l'italien pour votre saisie :
 }
 @end lilypond
 
-Les langues disponibles ainsi que les noms de note utilisés
-sont les suivants :
+Les langues disponibles ainsi que les noms de note utilisés sont les
+suivantes :
 
 @quotation
 @multitable {@w{@code{português} ou}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
-@headitem Langue
+@headitem Lange
   @tab Nom des notes
 @item @code{nederlands}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{bes} @code{b}
@@ -527,7 +527,7 @@ sont les suivants :
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
-@item @code{português} ou@*@ @code{portugues}
+@item @code{português} or@*@ @code{portugues}
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
@@ -565,7 +565,7 @@ et les suffixes d'altération correspondants :
 @item @code{norsk}
   @tab @code{iss}/@code{is} @tab @code{ess}/@code{es}
     @tab @code{ississ}/@code{isis} @tab @code{essess}/@code{eses}
-@item @code{português} ou@*@ @code{portugues}
+@item @code{português} or@*@ @code{portugues}
   @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
   @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
@@ -610,14 +610,14 @@ et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
   @tab semi-dièse @tab semi-bémol @tab sesqui-dièse @tab sesqui-bémol
 @item @code{nederlands}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
-@item @code{català} ou@*@ @code{catalan}
+@item @code{català} or@*@ @code{catalan}
   @tab @code{qd}/@code{qs} @tab @code{qb} @tab @code{tqd}/@code{tqs}
    @tab @code{tqb}
 @item @code{deutsch}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{english}
   @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
-@item @code{español} ou@*@ @code{espanol}
+@item @code{español} or@*@ @code{espanol}
   @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
 @item @code{français}
   @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
@@ -626,7 +626,7 @@ et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
 @item @code{norsk}
   @tab @code{ih} @tab @code{eh} @tab @code{issih}/@code{isih}
    @tab @code{esseh}/@code{eseh}
-@item @code{português} ou@*@ @code{portugues}
+@item @code{português} or@*@ @code{portugues}
   @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
 @item @code{suomi}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
@@ -3291,27 +3291,32 @@ Référence des propriétés internes :
 @cindex Walker shape, tête de note
 @cindex tête de note, Walker
 
-@funindex \key
 @funindex \aikenHeads
-@funindex \aikenHeadsMinor
+@funindex \aikenThinHeads
 @funindex \sacredHarpHeads
-@funindex \sacredHarpHeadsMinor
 @funindex \southernHarmonyHeads
-@funindex \southernHarmonyHeadsMinor
 @funindex \funkHeads
 @funindex \walkerHeads
-@funindex \funkHeadsMinor
-@funindex \walkerHeadsMinor
 
 En notation profilée, le profil d'une tête de note correspond à la
 fonction harmonique de cette note dans la gamme.  Ce style de notation
-était très en vogue dans les recueils de chansons américains du XIXe
-siècle.  Voici comment procéder :
+était très en vogue dans les recueils de chansons américains du
+@ifnothtml
+XIX@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XIX<sup>e</sup>
+@end html
+@end ifhtml
+ siècle.  Voici comment procéder :
 
 @lilypond[verbatim,quote]
 \relative c'' {
   \aikenHeads
   c, d e f g2 a b1 c \break
+  \aikenThinHeads
+  c,4 d e f g2 a b1 c \break
   \sacredHarpHeads
   c,4 d e f g2 a b1 c \break
   \southernHarmonyHeads
@@ -3323,32 +3328,46 @@ siècle.  Voici comment procéder :
 }
 @end lilypond
 
+@funindex \key
+@funindex \aikenHeadsMinor
+@funindex \aikenThinHeadsMinor
+@funindex \sacredHarpHeadsMinor
+@funindex \southernHarmonyHeadsMinor
+@funindex \funkHeadsMinor
+@funindex \walkerHeadsMinor
+
 Les profils sont déterminés par la hauteur dans la gamme, le premier
 degré étant défini par la commande @code{\key}.  Pour une tonalité
 mineure, les degrés sont déterminés par rapport au relatif majeur :
 
-@lilypond[verbatim,quote,relative=2]
-\key a \minor
-\aikenHeads
-a b c d e2 f g1 a \break
-\aikenHeadsMinor
-a,4 b c d e2 f g1 a \break
-\sacredHarpHeadsMinor
-a,2 b c d \break
-\southernHarmonyHeadsMinor
-a2 b c d \break
-\funkHeadsMinor
-a2 b c d \break
-\walkerHeadsMinor
-a2 b c d \break
+@lilypond[verbatim,quote]
+\relative c'' {
+  \key a \minor
+  \aikenHeads
+  a b c d e2 f g1 a \break
+  \aikenHeadsMinor
+  a,4 b c d e2 f g1 a \break
+  \aikenThinHeadsMinor
+  a,4 b c d e2 f g1 a \break
+  \sacredHarpHeadsMinor
+  a,2 b c d \break
+  \southernHarmonyHeadsMinor
+  a2 b c d \break
+  \funkHeadsMinor
+  a2 b c d \break
+  \walkerHeadsMinor
+  a2 b c d \break
+}
 @end lilypond
 
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\aikenThinHeads},
+@code{\aikenThinHeadsMinor},
 @code{\funkHeads},
 @code{\funkHeadsMinor},
-@code{\sacredHarpHeads}.
+@code{\sacredHarpHeads},
 @code{\sacredHarpHeadsMinor},
 @code{\southernHarmonyHeads},
 @code{\southernHarmonyHeadsMinor},
@@ -3357,6 +3376,11 @@ a2 b c d \break
 @endpredefined
 
 @snippets
+@cindex note profilée, Aiken, variante fine
+@cindex Aiken, note profilée, variante fine
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{aiken-head-thin-variant-noteheads.ly}
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 

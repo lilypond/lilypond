@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -963,6 +963,23 @@ l'interface standard.
 >>
 @end lilypond
 
+@cindex fret, diagramme pour gaucher
+@cindex diagramme de fret pour gaucher
+@cindex gaucher, diagramme de fret
+
+Pour les gauchers qui inversent les cordes, LilyPond permet d'imprimer
+les diagrammes de fret correctement.
+
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(gaucher)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
+@end lilypond
+
 @cindex fret-diagram-terse markup
 
 @funindex \fret-diagram-terse
@@ -1157,7 +1174,7 @@ Des @emph{markups} peuvent par ailleurs venir s'insérer dans les points.
       )
     }
     \override Voice.TextScript.size = 1.5
-    <b, fis b dis' fis'>1^\markup {
+    <b, fis b dis' fis'>1^\markup
       \override #'(fret-diagram-details . ((finger-code . in-dot)))
       \fret-diagram-verbose #`(
         (place-fret 5 2 1)
@@ -1173,7 +1190,6 @@ Des @emph{markups} peuvent par ailleurs venir s'insérer dans les points.
           red)
         (place-fret 1 2 1)
       )
-    }
   }
 >>
 @end lilypond
@@ -1929,7 +1945,7 @@ Les @emph{power chords} -- terme anglais signifiant littéralement
 « accords de puissance » -- s'indiquent aussi bien en mode accord que
 dans une construction en accord.  La quinte est exceptionnellement
 indiquée dans le chiffrage de ces accords, contrairement aux
-accords habituels (parfaits ou non) :
+accords habituels (parfaits ou non) :
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {

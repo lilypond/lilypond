@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Tue Mar 10 17:31:24 UTC 2020
+@emph{Actualitzat el Thu Mar 26 17:29:06 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -846,11 +846,11 @@ parcialment (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment
+N/D
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -900,11 +900,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialment</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment
+N/D
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -927,11 +927,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialment</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment
+N/D
 @end ifnothtml
 @tab pre-GDP
 @item

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
+%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
   texidocfr = "
 Une partition LilyPond, de manière interne, n'est rien d'autre qu'une
 expression Scheme générée par l'analyseur syntaxique de LilyPond.  Il

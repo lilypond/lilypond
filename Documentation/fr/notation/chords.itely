@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -46,6 +46,7 @@ plutôt que les notes qui les composent.
 * Généralités sur le mode accords::
 * Accords courants::
 * Extension et altération d'accords::
+* Renversement d'accord et vocification spécifique::
 @end menu
 
 
@@ -352,8 +353,8 @@ quarte ; @code{sus} est alors équivalent à @code{^3}. @code{sus4} est
 @cindex accord, spécifier la basse
 @cindex basse d'un accord
 
-Les accords peuvent être renversés ou combinés avec une note étrangère à
-la basse, au moyen de @code{@var{accord}/}@var{hauteur}.
+Les accords peuvent être combinés avec une note étrangère à la basse, au
+moyen de @code{@var{accord}/}@var{hauteur}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -363,9 +364,9 @@ la basse, au moyen de @code{@var{accord}/}@var{hauteur}.
 
 @funindex /+
 
-Si la note de basse précisée appartient à l'accord, la doublure
-supérieure sera supprimée.  Pour l'éviter, utilisez la syntaxe
-@code{/+}@var{hauteur}.
+Si la note ajoutée appartient déjà à l'accord, la doublure supérieure
+sera supprimée, ce qui permet d'imprimer un renversement. Pour l'éviter,
+utilisez la syntaxe @code{/+}@var{hauteur}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -373,12 +374,16 @@ supérieure sera supprimée.  Pour l'éviter, utilisez la syntaxe
 }
 @end lilypond
 
+L'automatisation des renversements et la vocification sont abordées dans
+@ref{Renversement d'accord et vocification spécifique}.
+
 Une table étendue des modificateurs et de leur utilisation est à
 l'annexe @ref{Modificateurs d'accord usuels}.
 
 @seealso
 Manuel de notation :
-@ref{Modificateurs d'accord usuels}.
+@ref{Modificateurs d'accord usuels},
+@ref{Renversement d'accord et vocification spécifique}.
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
@@ -391,6 +396,47 @@ parce qu'elle est indiquée en dernier :
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:3.5.5-.5+ }
 @end lilypond
+
+
+@node Renversement d'accord et vocification spécifique
+@unnumberedsubsubsec Renversement d'accord et vocification spécifique
+@translationof Chord inversions and specific voicings
+
+@cindex accord, renversement
+@cindex accord, vocification
+@funindex \invertChords
+@funindex \dropNote
+@funindex \raiseNote
+
+Les modifications d'accord ou l'ajout d'une basse sont complétées  par
+diverses fonctions permettant d'imprimer automatiquement des
+renversements ou des vocifications particulières, à l'instar du
+@emph{drop 2} couramment utilisé en jazz.
+
+@lilypond[quote,verbatim]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
+
+Contrairement à l'ajout de basses comme indiqué dans
+@ref{Extension et altération d'accords}, ceci n'interfère que sur la
+façon dont les accords seront imprimés sur une portée, et aucunement sur
+leur représentation lettrée. Par ailleurs, l'utilisation de ces
+fonctions ne se limite pas seulement au mode accords ; elles sont aussi
+disponibles dans une construction d'accord avec @code{<...>} comme
+indiqué dans @ref{Notes en accords}.
+
+@seealso
+Manuel de notation :
+@ref{Extension et altération d'accords},
+@ref{Notes en accords}.
+
+Morceaux choisis :
+@rlsr{Accords}.
 
 
 @node Gravure des accords
