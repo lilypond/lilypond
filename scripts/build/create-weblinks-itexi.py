@@ -466,9 +466,9 @@ def make_all_downloads(macroName, version):
         "freebsd-64.sh", version, "1", "FreeBSD amd64")
 
     make_download("download"+macroName+"DarwinNormal", "darwin-x86/",
-        "darwin-x86.tar.bz2", version, "1", "MacOS X x86")
+        "darwin-x86.tar.bz2", version, "1", "Mac OS X x86 32-bit")
     make_download("download"+macroName+"DarwinPPC", "darwin-ppc/",
-        "darwin-ppc.tar.bz2", version, "1", "MacOS X PPC")
+        "darwin-ppc.tar.bz2", version, "1", "Mac OS X PPC")
 
     make_download("download"+macroName+"Windows", "mingw/",
         "mingw.exe", version, "1", "Windows")
