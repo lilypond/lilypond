@@ -3867,6 +3867,15 @@ def conv(str):
     str = re.sub (r"#'whiteout-box(?![a-z_-])\b", r"#'whiteout", str)
     return str
 
+@rule ((2, 19, 39), r"...-spacing #'prop... = -> ...-spacing.prop... =")
+def conv (str):
+    str = re.sub (r"(\s)((?:markup-markup-spacing|markup-system-spacing"
+                  r"|score-markup-spacing|last-bottom-spacing"
+                  r"|score-system-spacing|system-system-spacing"
+                  r"|top-markup-spacing|top-system-spacing)"
+                  r"(?:\s+#\s*'\s*" + wordsyntax + r")+)(?=\s*=)", path_replace, str)
+    return str
+
 @rule ((2, 19, 40), r"\time #'(2 3) ... -> \time 2,3 ...")
 def conv (str):
     def repl (m):
