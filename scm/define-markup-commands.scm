@@ -4615,15 +4615,13 @@ Negative values may be used to produce mirror images.
 ;; Repeating
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; TODO: this should really be pieced together at stencil level rather
-;; than markup level
-
 (define-markup-command (pattern layout props count axis space pattern)
-  (integer? integer? number? markup?)
+  (index? index? number? markup?)
   #:category other
   "
 Prints @var{count} times a @var{pattern} markup.
-Patterns are spaced apart by @var{space}.
+Patterns are spaced apart by @var{space} (defined as for
+@code{\\hspace} or @code{\\vspace}, respectively).
 Patterns are distributed on @var{axis}.
 
 @lilypond[verbatim, quote]
@@ -4636,21 +4634,9 @@ Patterns are distributed on @var{axis}.
 }
 @end lilypond"
   (let* ((pattern-stencil (interpret-markup layout props pattern))
-         (pattern-width (interval-length
-                         (ly:stencil-extent pattern-stencil X)))
-         (new-props (prepend-alist-chain 'word-space 0 (prepend-alist-chain 'baseline-skip 0 props))))
-    (let loop ((i (1- count)) (patterns (markup)))
-      (if (zero? i)
-          (interpret-markup
-           layout
-           new-props
-           (if (= axis X)
-               (markup patterns #:stencil pattern-stencil)
-               (markup #:column (patterns #:stencil pattern-stencil))))
-          (loop (1- i)
-                (if (= axis X)
-                    (markup patterns #:stencil pattern-stencil #:hspace space)
-                    (markup #:column (patterns #:stencil pattern-stencil #:vspace space))))))))
+         ;; \vspace uses a factor of 3 in contrast to \hspace
+         (space (if (= axis X) space (* 3.0 space))))
+    (stack-stencils axis 1 space (make-list count pattern-stencil))))
 
 (define-markup-command (fill-with-pattern layout props space dir pattern left right)
   (number? ly:dir? markup? markup? markup?)
@@ -4688,7 +4674,7 @@ Patterns are aligned to the @var{dir} markup.
          (right-width (interval-length (ly:stencil-extent right-stencil X)))
          (middle-width (max 0 (- line-width (+ (+ left-width right-width) (* word-space 2)))))
          (period (+ space pattern-width))
-         (count (truncate (/ (- middle-width pattern-width) period)))
+         (count (inexact->exact (truncate (/ (- middle-width pattern-width) period))))
          (x-offset (+ (* (- (- middle-width (* count period)) pattern-width) (/ (1+ dir) 2)) (abs (car pattern-x-extent)))))
     (interpret-markup layout props
                       (markup #:stencil left-stencil
