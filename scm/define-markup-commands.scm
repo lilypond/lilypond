@@ -302,7 +302,7 @@ line-length.
 
     (interpret-markup layout
                       new-props
-                      (markup #:draw-dashed-line dest))))
+                      (make-draw-dashed-line-markup dest))))
 
 (define-markup-command (draw-squiggle-line layout props sq-length dest eq-end?)
   (number? number-pair? boolean?)
@@ -407,9 +407,9 @@ controls what fraction of the page is taken up.
 @end lilypond"
   (interpret-markup layout
                     props
-                    (markup #:draw-line (cons (* line-width
-                                                 span-factor)
-                                              0))))
+                    (make-draw-line-markup (cons (* line-width
+                                                    span-factor)
+                                                 0))))
 
 (define-markup-command (draw-circle layout props radius thickness filled)
   (number? number? boolean?)
@@ -2304,7 +2304,7 @@ Print @var{arg2} with the dimensions of @var{arg1}."
   (let* ((stil1 (interpret-markup layout props arg1))
          (x (ly:stencil-extent stil1 0))
          (y (ly:stencil-extent stil1 1)))
-    (interpret-markup layout props (markup #:with-dimensions x y arg2))))
+    (interpret-markup layout props (make-with-dimensions-markup x y arg2))))
 
 (define-markup-command (pad-around layout props amount arg)
   (number? markup?)
@@ -2950,7 +2950,7 @@ Note: @code{\\smallCaps} does not support accented characters.
   (define (char-list->markup chars lower)
     (let ((final-string (string-upcase (reverse-list->string chars))))
       (if lower
-          (markup #:fontsize -2 final-string)
+          (make-fontsize-markup -2 final-string)
           final-string)))
   (define (make-small-caps rest-chars currents current-is-lower prev-result)
     (if (null? rest-chars)
@@ -3172,7 +3172,9 @@ the possible glyphs.
   \\doublesharp
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get 1 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get 1 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (sesquisharp layout props)
   ()
@@ -3184,7 +3186,9 @@ the possible glyphs.
   \\sesquisharp
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (sharp layout props)
   ()
@@ -3196,7 +3200,9 @@ the possible glyphs.
   \\sharp
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (semisharp layout props)
   ()
@@ -3208,7 +3214,9 @@ the possible glyphs.
   \\semisharp
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (natural layout props)
   ()
@@ -3220,7 +3228,9 @@ the possible glyphs.
   \\natural
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get 0 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get 0 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (semiflat layout props)
   ()
@@ -3232,7 +3242,9 @@ the possible glyphs.
   \\semiflat
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (flat layout props)
   ()
@@ -3244,7 +3256,9 @@ the possible glyphs.
   \\flat
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (sesquiflat layout props)
   ()
@@ -3256,7 +3270,9 @@ the possible glyphs.
   \\sesquiflat
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (doubleflat layout props)
   ()
@@ -3268,7 +3284,9 @@ the possible glyphs.
   \\doubleflat
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:musicglyph (assoc-get -1 standard-alteration-glyph-name-alist ""))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (assoc-get -1 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (with-color layout props color arg)
   (color? markup?)
@@ -3316,9 +3334,11 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
         (let*
             ((half-space (/ word-space 2))
              (parts (string-split str #\~))
-             (tie-str (markup #:hspace half-space
-                              #:musicglyph tie
-                              #:hspace half-space))
+             (tie-str (make-line-markup
+                       (list
+                        (make-hspace-markup half-space)
+                        (make-musicglyph-markup tie)
+                        (make-hspace-markup half-space))))
              (joined  (list-join parts tie-str)))
           (make-concat-markup joined))
         str))
@@ -3651,7 +3671,9 @@ A feta brace in point size @var{size}, rotated 180 degrees.
   \\right-brace #35
 }
 @end lilypond"
-  (interpret-markup layout props (markup #:rotate 180 #:left-brace size)))
+  (interpret-markup layout props
+                    (make-rotate-markup
+                     180 (make-left-brace-markup size))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
@@ -4176,10 +4198,10 @@ Could be disabled with @code{\\override #'(multi-measure-rest-number . #f)}
             (let* ((mmr-stil-x-center
                     (interval-center (ly:stencil-extent mmr-stil X)))
                    (duration-markup
-                    (markup
-                     #:fontsize -2
-                     #:override '(font-encoding . fetaText)
-                     (number->string mmr-duration)))
+                    (make-fontsize-markup
+                     -2 (make-override-markup
+                         '(font-encoding . fetaText)
+                         (number->string mmr-duration))))
                    (mmr-number-stil
                     (interpret-markup layout props duration-markup))
                    (mmr-number-stil-x-center
@@ -4216,9 +4238,10 @@ an inverted glyph.  Note that within music, one would usually use the
 @end lilypond
 "
   (interpret-markup layout props
-                    (if (eqv? direction DOWN)
-                        (markup #:musicglyph "scripts.dfermata")
-                        (markup #:musicglyph "scripts.ufermata"))))
+                    (make-musicglyph-markup
+                     (if (eqv? direction DOWN)
+                         "scripts.dfermata"
+                         "scripts.ufermata"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
@@ -4576,7 +4599,10 @@ width may require additional tweaking.)"
                         (gap (- (interval-length x-ext)
                                 (interval-length (ly:stencil-extent page-stencil X)))))
                    (interpret-markup layout props
-                                     (markup #:hspace gap page-markup))))))
+                                     (make-line-markup
+                                      (list
+                                       (make-hspace-markup gap)
+                                       page-markup)))))))
       x-ext
       y-ext)
      (make-filled-box-stencil x-ext y-ext))))
@@ -4677,12 +4703,18 @@ Patterns are aligned to the @var{dir} markup.
          (count (inexact->exact (truncate (/ (- middle-width pattern-width) period))))
          (x-offset (+ (* (- (- middle-width (* count period)) pattern-width) (/ (1+ dir) 2)) (abs (car pattern-x-extent)))))
     (interpret-markup layout props
-                      (markup #:stencil left-stencil
-                              #:with-dimensions (cons 0 middle-width) '(0 . 0)
-                              #:translate (cons x-offset 0)
-                              #:pattern (1+ count) X space
-                              #:stencil pattern-stencil
-                              #:stencil right-stencil))))
+                      (make-line-markup
+                       (list
+                        (make-stencil-markup left-stencil)
+                        (make-with-dimensions-markup
+                         (cons 0 middle-width)
+                         '(0 . 0)
+                         (make-translate-markup
+                          (cons x-offset 0)
+                          (make-pattern-markup
+                           (1+ count) X space
+                           (make-stencil-markup pattern-stencil))))
+                        (make-stencil-markup right-stencil))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Replacements
@@ -4704,7 +4736,7 @@ The @code{key} is the string to be replaced by the @code{value} string.
    (internal-add-text-replacements
     props
     replacements)
-   (markup arg)))
+   arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands

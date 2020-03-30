@@ -175,24 +175,25 @@ way the transposition number is displayed."
 
                           (cond
                            ((eq? #t (ly:event-property event 'diminished))
-                            (markup #:slashed-digit figure))
+                            (make-slashed-digit-markup figure))
                            ((eq? #t (ly:event-property event 'augmented-slash))
-                            (markup #:backslashed-digit figure))
-                           (else (markup #:number (number->string figure 10)))))
+                            (make-backslashed-digit-markup figure))
+                           (else (make-number-markup (number->string figure 10)))))
                          #f))
 
          (alt (ly:event-property event 'alteration))
          (alt-markup
           (if (number? alt)
-              (markup
-               #:general-align Y DOWN #:fontsize
-               (if (not (= alt DOUBLE-SHARP))
-                   -2 2)
-               (alteration->text-accidental-markup alt))
+              (make-general-align-markup
+               Y DOWN
+               (make-fontsize-markup
+                (if (not (= alt DOUBLE-SHARP))
+                    -2 2)
+                (alteration->text-accidental-markup alt)))
               #f))
 
          (plus-markup (if (eq? #t (ly:event-property event 'augmented))
-                          (markup #:number "+")
+                          (make-number-markup "+")
                           #f))
 
          (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
@@ -200,7 +201,8 @@ way the transposition number is displayed."
 
     (if (and (not fig-markup) alt-markup)
         (begin
-          (set! fig-markup (markup #:left-align #:pad-around 0.3 alt-markup))
+          (set! fig-markup (make-left-align-markup
+                            (make-pad-around-markup 0.3 alt-markup)))
           (set! alt-markup #f)))
 
 
@@ -214,26 +216,26 @@ way the transposition number is displayed."
 
     (if alt-markup
         (set! fig-markup
-              (markup #:put-adjacent
-                      X (if (number? alt-dir)
-                            alt-dir
-                            LEFT)
-                      fig-markup
-                      #:pad-x 0.2 alt-markup)))
+              (make-put-adjacent-markup
+               X (if (number? alt-dir)
+                     alt-dir
+                     LEFT)
+               fig-markup
+               (make-pad-x-markup 0.2 alt-markup))))
 
     (if plus-markup
         (set! fig-markup
               (if fig-markup
-                  (markup #:put-adjacent
-                          X (if (number? plus-dir)
-                                plus-dir
-                                LEFT)
-                          fig-markup
-                          #:pad-x 0.2 plus-markup)
+                  (make-put-adjacent-markup
+                   X (if (number? plus-dir)
+                         plus-dir
+                         LEFT)
+                   fig-markup
+                   (make-pad-x-markup 0.2 plus-markup))
                   plus-markup)))
 
     (if (markup? fig-markup)
-        (markup #:fontsize -2 fig-markup)
+        (make-fontsize-markup -2 fig-markup)
         empty-markup)))
 
 
@@ -787,12 +789,12 @@ only ~a fret labels provided")
          (begin-measure (= 0 (ly:moment-main-numerator measure-pos)))
          (maybe-open-parenthesis (if begin-measure "" "("))
          (maybe-close-parenthesis (if begin-measure "" ")")))
-    (markup (string-append maybe-open-parenthesis
-                           (number->string barnum)
-                           (make-letter ""
-                                        (car number-and-power)
-                                        (cdr number-and-power))
-                           maybe-close-parenthesis))))
+    (string-append maybe-open-parenthesis
+                   (number->string barnum)
+                   (make-letter ""
+                                (car number-and-power)
+                                (cdr number-and-power))
+                   maybe-close-parenthesis)))
 
 (define-public (all-bar-numbers-visible barnum mp) #t)
 
@@ -915,18 +917,26 @@ original @var{semitone->pitch} function."
     (-4 . "29")))
 
 (define-public ottavation-ordinals
-  `((4 . ,(markup #:concat (#:general-align Y UP "29"
-                                            #:general-align Y UP #:tiny "ma")))
-    (3 . ,(markup #:concat (#:general-align Y UP "22"
-                                            #:general-align Y UP #:tiny "ma")))
-    (2 . ,(markup #:concat (#:general-align Y UP "15"
-                                            #:general-align Y UP #:tiny "ma")))
-    (1 . ,(markup #:concat (#:general-align Y UP "8"
-                                            #:general-align Y UP #:tiny "va")))
-    (-1 . ,(markup #:concat ("8" #:tiny "va")))
-    (-2 . ,(markup #:concat ("15" #:tiny "ma")))
-    (-3 . ,(markup #:concat ("22" #:tiny "ma")))
-    (-4 . ,(markup #:concat ("29" #:tiny "ma")))))
+  `((4 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "29")
+                 (make-general-align-markup Y UP (make-tiny-markup "ma")))))
+    (3 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "22")
+                 (make-general-align-markup Y UP (make-tiny-markup "ma")))))
+    (2 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "15")
+                 (make-general-align-markup Y UP (make-tiny-markup "ma")))))
+    (1 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "8")
+                 (make-general-align-markup Y UP (make-tiny-markup "va")))))
+    (-1 . ,(make-concat-markup
+            (list "8" (make-tiny-markup "va"))))
+    (-2 . ,(make-concat-markup
+            (list "15" (make-tiny-markup "ma"))))
+    (-3 . ,(make-concat-markup
+            (list "22" (make-tiny-markup "ma"))))
+    (-4 . ,(make-concat-markup
+            (list "29" (make-tiny-markup "ma"))))))
 
 ;; former default
 (define-public ottavation-simple-ordinals

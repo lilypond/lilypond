@@ -99,9 +99,9 @@ with `header:'."
          (props (append prefixed-alist
                         (layout-extract-page-properties layout)))
 
-         (markup (ly:output-def-lookup layout what)))
+         (title-markup (ly:output-def-lookup layout what)))
 
-    (if (markup? markup)
-        (interpret-markup layout props markup)
+    (if (markup? title-markup)
+        (interpret-markup layout props title-markup)
         empty-stencil)))
 (export marked-up-title)

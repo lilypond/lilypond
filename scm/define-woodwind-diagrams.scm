@@ -227,49 +227,40 @@ returns @samp{1/3}."
   (number? markup?)
   (interpret-markup layout props
                     (if (eqv? trigger 0.5)
-                        (markup #:circle (markup in-markup))
-                        (markup in-markup))))
+                        (make-circle-markup in-markup)
+                        in-markup)))
 
 ;; Makes a list of named-keys
 (define (make-name-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
-             (markup #:conditional-circle-markup
-                     x
-                     (make-concat-markup
-                      (list
-                       (markup #:abs-fontsize font-size (car y))
-                       (if (and (< x 1) (cdr y))
-                           (if (eqv? (cdr y) 1)
-                               (markup
-                                #:abs-fontsize
-                                font-size
-                                #:raise
-                                1
-                                #:fontsize
-                                -2
-                                #:sharp)
-                               (markup
-                                #:abs-fontsize
-                                font-size
-                                #:raise
-                                1
-                                #:fontsize
-                                -2
-                                #:flat))
-                           (markup #:null)))))
-             (markup #:null)))
+             (make-conditional-circle-markup-markup
+              x
+              (make-concat-markup
+               (list
+                (make-abs-fontsize-markup font-size (car y))
+                (if (and (< x 1) (cdr y))
+                    (make-abs-fontsize-markup
+                     font-size
+                     (make-raise-markup
+                      1
+                      (make-fontsize-markup
+                       -2
+                       (if (eqv? (cdr y) 1)
+                           (make-sharp-markup)
+                           (make-flat-markup)))))
+                    (make-null-markup)))))
+             (make-null-markup)))
        input-list key-list))
 
 ;; Makes a list of number-keys
 (define (make-number-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
-             (markup
-              #:conditional-circle-markup
+             (make-conditional-circle-markup-markup
               x
-              (markup #:abs-fontsize font-size #:number y))
-             (markup #:null)))
+              (make-abs-fontsize-markup font-size (make-number-markup y)))
+             (make-null-markup)))
        input-list
        key-list))
 

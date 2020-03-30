@@ -20,10 +20,10 @@
   (let* ((fraction (ly:grob-property grob 'fraction '(4 . 4)))
          (style (ly:grob-property grob 'style 'default))
          (proc (assoc-get style time-signature-style-markup-procedures))
-         (markup (if (procedure? proc)
-                     (proc fraction)
-                     (make-glyph-time-signature-markup style fraction))))
-    (grob-interpret-markup grob markup)))
+         (fraction-markup (if (procedure? proc)
+                              (proc fraction)
+                              (make-glyph-time-signature-markup style fraction))))
+    (grob-interpret-markup grob fraction-markup)))
 
 (define-public (add-simple-time-signature-style style proc)
   "Specify the procedure @{proc} returning markup for a time signature

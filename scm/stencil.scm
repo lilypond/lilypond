@@ -908,18 +908,18 @@ with optional arrows of @code{max-size} on start and end controlled by
                           (make-simple-markup (simple-format #f "~a: NaN/inf" name))))
         (let ((text-stencil (interpret-markup
                              layout text-props
-                             (markup #:whiteout #:simple name)))
+                             (make-whiteout-markup name)))
               (dim-stencil (interpret-markup
                             layout text-props
-                            (markup #:whiteout
-                                    #:simple (cond
-                                              ((interval-empty? extent)
-                                               "empty")
-                                              (is-length
-                                               (ly:format "~$" (interval-length extent)))
-                                              (else
-                                               (ly:format "(~$,~$)"
-                                                          (car extent) (cdr extent)))))))
+                            (make-whiteout-markup
+                             (cond
+                              ((interval-empty? extent)
+                               "empty")
+                              (is-length
+                               (ly:format "~$" (interval-length extent)))
+                              (else
+                               (ly:format "(~$,~$)"
+                                          (car extent) (cdr extent)))))))
               (arrows (ly:stencil-translate-axis
                        (dimension-arrows (cons 0 (interval-length extent)) 1.0)
                        (interval-start extent) Y)))

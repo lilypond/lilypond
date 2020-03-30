@@ -53,11 +53,17 @@
          (base-skip (* (square (+ (* num-strings 0.195) 0.4)) scale-factor)))
 
     (interpret-markup layout props
-                      (markup #:vcenter #:bold
-                              #:override (cons 'font-family 'sans)
-                              #:fontsize font-size
-                              #:override (cons 'baseline-skip base-skip)
-                              #:left-align #:center-column ("T" "A" "B")))))
+                      (make-vcenter-markup
+                       (make-bold-markup
+                        (make-override-markup
+                         '(font-family . sans)
+                         (make-fontsize-markup
+                          font-size
+                          (make-override-markup
+                           `(baseline-skip . ,base-skip)
+                           (make-left-align-markup
+                            (make-center-column-markup
+                              '("T" "A" "B")))))))))))
 
 ;; this function decides which clef to take
 (define-public (clef::print-modern-tab-if-set grob)
