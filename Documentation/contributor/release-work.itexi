@@ -429,6 +429,11 @@ if needed, update the htaccess redirections
 (@code{/latest/}, @code{/stable/} etc.) in
 @file{Documentation/web/server/lilypond.org.htaccess}.
 
+@item
+if needed, add a link to the previous stable version’s
+announcement, list of changes and contributors
+acknowledgements to the @q{Attic} page, in
+@file{Documentation/web/community.itexi}.
 @end itemize
 
 @end itemize
@@ -465,33 +470,52 @@ Mail:
 
 @example
 info-lilypond@@gnu.org
+info-gnu@@gnu.org
+planet@@gnu.org
 
 linux-audio-announce@@lists.linuxaudio.org
 linux-audio-user@@lists.linuxaudio.org
 linux-audio-dev@@lists.linuxaudio.org
+consortium@@lists.linuxaudio.org
+planetccrma@@ccrma.stanford.edu
 
-tex-music@@icking-music-archive.org
-
---- non-existant?
-abcusers@@blackmill.net
+tex-music@@tug.org
 
 rosegarden-user@@lists.sourceforge.net
-info-gnu@@gnu.org
-noteedit-user@@berlios.de
+denemo-devel@@gnu.org
 
 @end example
 
-Web:
+Web (forums):
+
+@example
+imslpforums.org
+abcusers (Yahoo group)
+canorus (Github? Freenode IRC?)
+musescore.org/forum
+reddit.com/lilypond
+linuxquestions.org
+Slashdot
+
+@end example
+
+Web (websites and aggregators):
 
 @example
 lilypond.org
-freshmeat.net
-linuxfr.com
-http://www.apple.com/downloads
-harmony-central.com (news@@harmony-central.com)
-versiontracker.com [auto]
-hitsquad.com [auto]
 https://savannah.gnu.org/news/submit.php?group_id=1673  @c => planet.gnu.org
+
+freshmeat.sourceforge.net
+linuxtoday.com
+lxer.com
+fossmint.com
+fsdaily.com
+freesoftwaremagazine.com
+lwn.net
+hitsquad.com/smm
+
+in French: linuxfr.org; framalibre.org
+
 @end example
 
 @end itemize
@@ -530,6 +554,7 @@ make lilypond
 
 @end itemize
 
+@c FIXME -- is this still relevant? -vv
 
 @subsubheading stable/2.12
 
