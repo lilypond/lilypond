@@ -1,4 +1,5 @@
 #!@PYTHON@
+# -*- coding: utf-8 -*-
 
 import codecs
 import difflib
@@ -64,7 +65,7 @@ def read_pipe (c):
 def system (c):
     log_verbose ('system %s' % c)
     # explicitly use bash, so we don't get dash on Ubuntu.
-    subprocess.run(["/bin/bash", "-c", c])
+    subprocess.run(["/bin/bash", "-c", c.encode('utf-8')])
 
 
 def system_allow_exit1 (x):
@@ -1252,7 +1253,6 @@ td:empty {
         dest_file = dest_dir + '/index.html'
         open_write_file (dest_file).write (html)
 
-
         for link in changed:
             link.link_files_for_html (dest_dir)
 
@@ -1302,7 +1302,7 @@ def open_write_file (x):
     log_verbose('writing %s' % x)
     d = os.path.split (x)[0]
     mkdir (d)
-    return open (x, 'w')
+    return open (x, 'w', encoding='utf-8')
 
 
 def test_paired_files ():
@@ -1325,7 +1325,9 @@ def test_compare_tree_pairs ():
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
     system ('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir1/subdir/')
     system ('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir2/subdir/')
-    system ('echo HEAD is 1 > dir1/tree.gittxt')
+
+    # Make sure we have unicode text in the HTML
+    system (u'echo HEAD is 人人的乐谱软件 > dir1/tree.gittxt')
     system ('echo HEAD is 2 > dir2/tree.gittxt')
 
     ## introduce differences
@@ -1362,7 +1364,7 @@ def test_compare_tree_pairs ():
             ]:
         fn = os.path.join("compare-dir1dir2", f)
         assert os.path.exists(fn), fn
-    html = open("compare-dir1dir2/index.html").read()
+    html = open("compare-dir1dir2/index.html", encoding='utf-8').read()
     assert "removed.log" in html
     assert "added.log" in html
 
