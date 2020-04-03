@@ -63,7 +63,7 @@ sidebar_version = _doc (' v%(package_version)s (%(branch_str)s).')
 
 
 mail_address = 'https://lists.gnu.org/mailman/listinfo/bug-lilypond'
-help_us_url = 'http://lilypond.org/help-us.html'
+help_us_url = 'https://lilypond.org/help-us.html'
 
 header_tag = '<!-- header_tag -->'
 header_tag_re = re.compile (header_tag)

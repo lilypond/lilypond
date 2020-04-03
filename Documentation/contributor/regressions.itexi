@@ -62,13 +62,13 @@ resources page for the version of interest.
 The latest stable version of the regtests is found at:
 
 @example
-@uref{http://lilypond.org/doc/stable/input/regression/collated-files.html}
+@uref{https://lilypond.org/doc/stable/input/regression/collated-files.html}
 @end example
 
 The latest development version of the regtests is found at:
 
 @example
-@uref{http://lilypond.org/doc/latest/input/regression/collated-files.html}
+@uref{https://lilypond.org/doc/latest/input/regression/collated-files.html}
 @end example
 
 
@@ -80,7 +80,7 @@ output of the previous release.  The result of these
 comparisons is archived online:
 
 @example
-@uref{http://lilypond.org/test/}
+@uref{https://lilypond.org/test/}
 @end example
 
 Checking these pages is a very important task for the LilyPond project.
@@ -490,5 +490,5 @@ through @samp{musicxml2ly} followed by @samp{lilypond} is
 available in the LilyPond documentation:
 
 @example
-@uref{http://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
+@uref{https://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
 @end example

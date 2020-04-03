@@ -430,7 +430,7 @@ def make_macro(name, string):
     print("")
 
 def make_download(name, osA, osB, version, revision, text):
-    string = "@uref{http://lilypond.org/download/binaries/"
+    string = "@uref{https://lilypond.org/download/binaries/"
     string += osA + "lilypond-"
     string += version + "-" + revision
     string += "." + osB + ",\n"
@@ -443,7 +443,7 @@ def make_download(name, osA, osB, version, revision, text):
 def make_download_source(name, version, lang):
     assert "." in version
     vstring = "v%s.%s" % tuple(version.split(".", 2)[0:2])
-    string = "@uref{http://lilypond.org/download/sources/"
+    string = "@uref{https://lilypond.org/download/sources/"
     string += vstring + "/"
     string += "lilypond-" + version + ".tar.gz"
     string += ", "

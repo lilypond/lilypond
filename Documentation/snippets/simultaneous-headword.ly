@@ -17,7 +17,7 @@ Simultaneous notes
 } % begin verbatim
 
 %% http://lsr.di.unimi.it/LSR/Item?id=825
-%% see also http://lilypond.org/doc/v2.18/Documentation/notation/simultaneous-notes
+%% see also https://lilypond.org/doc/v2.18/Documentation/notation/simultaneous-notes
 
 \include "english.ly"
 

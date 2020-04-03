@@ -551,7 +551,7 @@ the PDF backend.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\with-url #\"http://lilypond.org/\" {
+  \\with-url #\"https://lilypond.org/\" {
     LilyPond ... \\italic {
       music notation for everyone
     }

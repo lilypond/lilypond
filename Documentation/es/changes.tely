@@ -374,8 +374,8 @@ Se ha añadido una opción, @code{-dcrop}, que formatea la salida de
 
 @ifhtml
 Para ver noticias anteriores, diríjase a
-@uref{http://lilypond.org/doc/v2.20/Documentation/changes/},
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
 o @uref{../,vuelva} al índice de la documentación.
 
 

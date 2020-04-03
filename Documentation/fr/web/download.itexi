@@ -555,7 +555,7 @@ utilisateur a besoin.}
 @downloadStableSource-fr{}
 
 L'intégralité des versions, récentes ou non, est accessible sur notre
-@uref{http://lilypond.org/download/source/?C=N;O=D, site de
+@uref{https://lilypond.org/download/source/?C=N;O=D, site de
 téléchargement}.
 
 @divEnd
@@ -581,7 +581,7 @@ Les instructions permettant de compiler LilyPond sont répertoriées dans
 @subheading Toutes les versions
 
 L'intégralité des versions, récentes ou non, est accessible sur notre
-@uref{http://lilypond.org/download/binaries/, site de
+@uref{https://lilypond.org/download/binaries/, site de
 téléchargement}.
 
 @divEnd

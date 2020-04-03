@@ -534,7 +534,7 @@ dat verwijst naar deze gegenereerde documentatie.
 @subheading Te downloaden versies
 
 @ifclear web_version
-Tarballen voor downloaden uitsluitend beschikbaar op @uref{http://lilypond.org}
+Tarballen voor downloaden uitsluitend beschikbaar op @uref{https://lilypond.org}
 @end ifclear
 @ifset web_version
 
@@ -556,34 +556,34 @@ Tarballen voor downloaden uitsluitend beschikbaar op @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/,
 LilyPond 2.12 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.11/Documentation/,
 LilyPond 2.11 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 LilyPond 2.6 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 LilyPond 2.4 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 LilyPond 2.2 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 LilyPond 2.0 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 LilyPond 1.8 Documentatie}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 LilyPond 1.6 Documentatie}
 
 @end itemize

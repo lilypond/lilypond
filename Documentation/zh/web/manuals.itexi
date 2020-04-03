@@ -488,7 +488,7 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divClass{column-left-top}
 @subheading 可下载的版本
 @ifclear web_version
-可下载的压缩包只通过 @uref{http://lilypond.org} 网站提供。
+可下载的压缩包只通过 @uref{https://lilypond.org} 网站提供。
 @end ifclear
 @ifset web_version
 
@@ -510,34 +510,34 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/,
 LilyPond 2.12 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.11/Documentation/,
 LilyPond 2.11 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 LilyPond 2.6 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 LilyPond 2.4 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 LilyPond 2.2 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 LilyPond 2.0 Documentation}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 LilyPond 1.8 Documentation}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 LilyPond 1.6 Documentation}
 
 @end itemize

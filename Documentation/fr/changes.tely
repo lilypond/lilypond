@@ -1502,8 +1502,8 @@ Prise en charge de @code{\once@tie{}\unset}
 
 @ifhtml
 Pour des annonces plus anciennes, rendez-vouz aux pages
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/},
-@uref{http://lilypond.org/doc/v2.16/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/},
 ou @uref{../,remontez} à l'index de la documentation.
 
 

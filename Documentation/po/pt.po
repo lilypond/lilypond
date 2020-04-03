@@ -10867,7 +10867,7 @@ msgstr ""
 
 #. Documentation/snippets/changing-the-default-bar-lines.ly:21 (comment)
 msgid ""
-"=> http://lilypond.1069038.n5.nabble.com/Changing-the-default-end-repeat-"
+"=> https://lilypond.1069038.n5.nabble.com/Changing-the-default-end-repeat-"
 "bracket-tc169357.html"
 msgstr ""
 
@@ -11122,7 +11122,7 @@ msgstr ""
 
 #. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:27 (comment)
 msgid ""
-"http://lilypond.org/doc/v2.18/Documentation/notation/common-notation-for-"
+"https://lilypond.org/doc/v2.18/Documentation/notation/common-notation-for-"
 "percussion#custom-percussion-staves"
 msgstr ""
 
@@ -14142,7 +14142,7 @@ msgid "http://lsr.di.unimi.it/LSR/Item?id=822"
 msgstr ""
 
 #. Documentation/snippets/rhythms-headword.ly:20 (comment)
-msgid "see also http://lilypond.org/doc/v2.18/Documentation/notation/rhythms"
+msgid "see also https://lilypond.org/doc/v2.18/Documentation/notation/rhythms"
 msgstr ""
 
 #. Documentation/snippets/rhythms-headword.ly:22 (comment)
@@ -14511,7 +14511,7 @@ msgstr ""
 
 #. Documentation/snippets/simultaneous-headword.ly:20 (comment)
 msgid ""
-"see also http://lilypond.org/doc/v2.18/Documentation/notation/simultaneous-"
+"see also https://lilypond.org/doc/v2.18/Documentation/notation/simultaneous-"
 "notes"
 msgstr ""
 
@@ -14768,7 +14768,7 @@ msgid "http://lsr.di.unimi.it/LSR/Item?id=829"
 msgstr ""
 
 #. Documentation/snippets/text-headword.ly:20 (comment)
-msgid "see also http://lilypond.org/doc/v2.18/Documentation/notation/text"
+msgid "see also https://lilypond.org/doc/v2.18/Documentation/notation/text"
 msgstr ""
 
 #. Documentation/snippets/text-headword.ly:24 (comment)
@@ -15503,7 +15503,7 @@ msgstr ""
 
 #. Documentation/snippets/vocal-headword.ly:20 (comment)
 msgid ""
-"see also http://lilypond.org/doc/v2.18/Documentation/notation/vocal-music"
+"see also https://lilypond.org/doc/v2.18/Documentation/notation/vocal-music"
 msgstr ""
 
 #. Documentation/snippets/vocal-headword.ly:22 (comment)
@@ -15565,7 +15565,7 @@ msgstr ""
 
 #. Documentation/snippets/wind-headword.ly:23 (comment)
 msgid ""
-"see also http://lilypond.org/doc/v2.18/Documentation/notation/wind-"
+"see also https://lilypond.org/doc/v2.18/Documentation/notation/wind-"
 "instruments"
 msgstr ""
 

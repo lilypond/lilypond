@@ -544,7 +544,7 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @subheading ダウンロード可能なバージョン
 
 @ifclear web_version
-ダウンロード可能な .tar.gz ファイルは @uref{http://lilypond.org} でのみ入手可能です。
+ダウンロード可能な .tar.gz ファイルは @uref{https://lilypond.org} でのみ入手可能です。
 @end ifclear
 @ifset web_version
 
@@ -566,37 +566,37 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals,
 LilyPond 2.16 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals,
 LilyPond 2.14 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/,
 LilyPond 2.12 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 LilyPond 2.6 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 LilyPond 2.4 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 LilyPond 2.2 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 LilyPond 2.0 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 LilyPond 1.8 ドキュメント}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 LilyPond 1.6 ドキュメント}
 
 @end itemize

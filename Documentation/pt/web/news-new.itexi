@@ -105,7 +105,7 @@ em vez de
 Uma lista completa de novos recursos notáveis é fornecida em:
 
 @example
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/index.html}
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html}
 @end example
 
 Muito obrigado ao grande número de entusiastas do LilyPond, cujo

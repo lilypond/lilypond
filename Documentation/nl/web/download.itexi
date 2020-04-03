@@ -31,7 +31,7 @@ eerst de informatie over onze @ref{Tekstinvoer}.}
   @heading Downloads voor LilyPond @versionDevel
 
 @warning{Links voor de stabiele versie van LilyPond staan op
-@uref{http://lilypond.org, lilypond.org}}
+@uref{https://lilypond.org, lilypond.org}}
 @end ifclear
 @ifset web_version
   @heading Downloads voor LilyPond @versionStable
@@ -591,7 +591,7 @@ de voorgebouwde versie gebruiken.}
 
 Voor een uitgebreide lijst van alle versies (zowel oude als
 nieuwe), zie onze
-@uref{http://lilypond.org/download/source/?C=N;O=D,
+@uref{https://lilypond.org/download/source/?C=N;O=D,
 download site}.
 
 @divEnd
@@ -617,7 +617,7 @@ Instructies worden beschreven in @rcontrib{Compiling}.
 
 Voor een uitgebreide lijst van alle versies (zowel oude als
 nieuwe), zie onze
-@uref{http://lilypond.org/download/binaries/,
+@uref{https://lilypond.org/download/binaries/,
 download site}.
 
 @divEnd

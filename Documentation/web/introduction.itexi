@@ -801,7 +801,7 @@ If you've already decided to try LilyPond, first read about our
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/productions.html
+@c https://lilypond.org/productions.html
 
 @node Reviews
 @unnumberedsec Reviews
@@ -915,7 +915,7 @@ A French article on the LilyPond 2.6 release appeared on
 October 2004
 
 The editors of Computer!Totaal, a Dutch computer magazine,
-@uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
 describe LilyPond} in the October 2004 issue as: @qq{Wonderful
 free (open source) software [@dots{}] The sheet music produced by
 LilyPond is exceptionally pretty [@dots{}] a very powerful system that
@@ -1122,7 +1122,7 @@ Read about our @ref{Text input}.
 @unnumberedsec Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @divClass{column-center-top}
 @subheading @qq{Compiling} Music
@@ -1304,7 +1304,7 @@ the text view when printed from there.
 @subheading Browser-based editors
 
 @subsubheading LilyBin
-@uref{http://lilybin.com/}
+@uref{https://lilybin.com/}
 
 A web-based LilyPond editor where you can typeset your scores directly
 online without needing to install LilyPond.  Code snippets are kept available
@@ -1485,12 +1485,12 @@ created as a plugin for the @uref{http://www.jedit.org,jEdit} text
 editor.
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} has been replaced by
+@uref{https://lilykde.googlecode.com/,LilyKDE} has been replaced by
 @uref{http://www.frescobaldi.org/,Frescobaldi}, and exists as LilyKDE3
 for KDE 3.5 and lilypond-KDE4 for KDE 4.1 only.
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical note
+@uref{https://lilycomp.sourceforge.net, LilyComp} is a graphical note
 entry program, acting much like a number-pad which produces LilyPond
 notes.
 

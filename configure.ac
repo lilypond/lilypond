@@ -6,7 +6,7 @@ AC_PREREQ([2.60])
 # Bootstrap the init process.
 AC_INIT([LilyPond],
     [m4_esyscmd_s([. ${SRCDIR:-.}/VERSION; echo $MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL])],
-    [bug-lilypond@gnu.org], [lilypond], [http://lilypond.org/])
+    [bug-lilypond@gnu.org], [lilypond], [https://lilypond.org/])
 
 # Bootstrap StepMake configure
 AC_CONFIG_AUX_DIR([config])

@@ -75,7 +75,7 @@ static char const *AUTHORS
     "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
 static char const *PROGRAM_NAME = "lilypond";
-static char const *PROGRAM_URL = "http://lilypond.org";
+static char const *PROGRAM_URL = "https://lilypond.org";
 
 static char const *NOTICE
   = _i ("This program is free software.  It is covered by the GNU General Public\n"
@@ -317,8 +317,8 @@ LY_DEFINE (ly_usage, "ly:usage",
      or if there is a LilyPond users list or forum in your language
      "Report bugs in English via %s or in YOUR_LANG via URI"  */
   printf ("%s", (_f ("You found a bug? Please read %s",
-                     "http://lilypond.org/bug-reports.html"
-                    ).c_str ()));
+                     "https://lilypond.org/bug-reports.html")
+                   .c_str ()));
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;

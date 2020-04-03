@@ -547,7 +547,7 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @subheading Versionen zum Herunterladen
 
 @ifclear web_version
-Tar-Archive zum Herunterladen sind nur über @uref{http://lilypond.org}
+Tar-Archive zum Herunterladen sind nur über @uref{https://lilypond.org}
 erhältlich.
 @end ifclear
 @ifset web_version
@@ -570,37 +570,37 @@ erhältlich.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals.de.html,
+@item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals.de.html,
 LilyPond 2.16 Dokumentation} (auf deutsch)
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.de.html,
+@item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals.de.html,
 LilyPond 2.14 Dokumentation} (auf deutsch)
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/index.de.html,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/index.de.html,
 LilyPond 2.12 Dokumentation} (auf deutsch)
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 Dokumentation} (auf englisch)
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Dokumentation} (auf englisch)
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 LilyPond 2.6 Dokumentation} (auf englisch)
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 LilyPond 2.4 Dokumentation} (auf englisch)
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 LilyPond 2.2 Dokumentation} (auf englisch)
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 LilyPond 2.0 Dokumentation} (auf englisch)
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 LilyPond 1.8 Dokumentation} (auf englisch)
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 LilyPond 1.6 Dokumentation} (auf englisch)
 
 

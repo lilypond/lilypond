@@ -25,7 +25,7 @@ web development.
 
 If you have not contributed to LilyPond before, a good starting
 point might be incremental changes to the CSS file, to be found at
-@uref{http://lilypond.org/css/lilypond-website.css} or in the
+@uref{https://lilypond.org/css/lilypond-website.css} or in the
 LilyPond source code at @file{./Documentation/css/lilypond-website.css}.
 
 Large scale structural changes tend to require familiarity with

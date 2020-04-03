@@ -583,9 +583,9 @@ lilypond-book-Zkoušky této verze.
 @subsubheading Všechny verze
 
 @itemize
-@item @uref{http://lilypond.org/test, Porovnání dvou verzí}:
+@item @uref{https://lilypond.org/test, Porovnání dvou verzí}:
 
-@item @uref{http://lilypond.org/downloads/binaries/test-output/,
+@item @uref{https://lilypond.org/downloads/binaries/test-output/,
 Archiv všech zkoušek regresí}
 
 @end itemize
@@ -600,7 +600,7 @@ Archiv všech zkoušek regresí}
 
 @ifclear web_version
 @warning{tyto příručky jsou pro LilyPond @version{}; nejnovější
-příručky se nacházejí na @url{http://lilypond.org}.}
+příručky se nacházejí na @url{https://lilypond.org}.}
 @end ifclear
 
 @divClass{normal-table}

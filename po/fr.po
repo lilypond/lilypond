@@ -1061,7 +1061,7 @@ msgstr "n'affiche pas les messages de progression"
 msgid "Report bugs via %s"
 msgstr ""
 "Signalez tout bogue, en français à\n"
-" http://lilypond-french-users.1298960.n2.nabble.com/\n"
+" https://lilypond-french-users.1298960.n2.nabble.com/\n"
 "ou en anglais à\n"
 "%s"
 

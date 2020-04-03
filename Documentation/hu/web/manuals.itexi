@@ -492,7 +492,7 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @subheading Letölthető változatok
 
 @ifclear web_version
-A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
+A csomagok letölthetőek a @uref{https://lilypond.org} weboldalról.
 @end ifclear
 @ifset web_version
 
@@ -514,37 +514,37 @@ A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals,
 2.14}
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/,
 2.12}
 
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.11/Documentation/,
 2.11}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 2.10}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 2.8}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 2.6}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 2.4}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 2.2}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 2.0}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 1.8}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 1.6}
 
 @end itemize

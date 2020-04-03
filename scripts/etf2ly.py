@@ -16,7 +16,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 # info mostly taken from looking at files. See also
-# http://lilypond.org/wiki/?EnigmaTransportFormat
+# https://lilypond.org/wiki/?EnigmaTransportFormat
 
 # This supports
 #

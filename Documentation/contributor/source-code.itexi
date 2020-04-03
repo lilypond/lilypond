@@ -583,7 +583,7 @@ git, and then the updates copied to @code{lilypond-extra}.
 Another item of interest might be the Grand Unified Builder, our
 cross-platform building tool.  Since it is used by other projects as
 well, it is not stored in our gub repository.  For more info, see
-@uref{http://lilypond.org/gub}.
+@uref{https://lilypond.org/gub}.
 
 The location for the repository is:
 
@@ -633,7 +633,7 @@ repository from GitHub.  Ensure that the tarball has the correct Version
 number.
 
 @item
-Copy the tarball to @code{http://lilypond.org/downloads/gub-sources/lilypad/}.
+Copy the tarball to @code{https://lilypond.org/downloads/gub-sources/lilypad/}.
 You will need to have SSH access to @code{lilypond.org}.  If you do not, contact
 the Release Manager via the lilypond-devel mailing list.
 

@@ -24,7 +24,7 @@ denotes a stable version.  For development versions 'y' is odd.
 @section Downloading
 
 The primary download site for sourcecode is
-@uref{http://lilypond.org/downloads/}.
+@uref{https://lilypond.org/downloads/}.
 
 @section Compilation
 
@@ -32,12 +32,12 @@ For compiling and running LilyPond see the installation instructions.
 These instructions can be found when you unpack lilypond, as
 @file{lilypond-x.y.z/INSTALL.txt}.  They are also available on the web
 at
-@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/INSTALL.html}.
+@uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/INSTALL.html}.
 
 @section Documentation
 
 The documentation is available online at
-@uref{http://lilypond.org/doc/}.
+@uref{https://lilypond.org/doc/}.
 
 You can also build it locally: follow the instructions under `Building
 documentation' in the installation instructions.
@@ -76,7 +76,7 @@ for sending bugreports.
  for notifications from the issue tracking systems of LilyPond.
 @end itemize
 
-You can search the lists from our @uref{http://lilypond.org/search,
+You can search the lists from our @uref{https://lilypond.org/search,
 searching facilities}.
 
 @section Bugs

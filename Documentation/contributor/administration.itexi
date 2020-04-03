@@ -719,7 +719,7 @@ are now discussing them slowly and thoroughly; agenda and exact
 proposals are online:
 
 @example
-@uref{http://lilypond.org/~graham/gop/index.html}
+@uref{https://lilypond.org/~graham/gop/index.html}
 @end example
 
 Below is a list of policies which are not @qq{on the agenda} yet.
@@ -1418,7 +1418,7 @@ then will we look at the build system itself.
 There is an existing make variable QUIET_BUILD, which
 alter the amount of output being displayed
 (@uref{
-http://lilypond.org/doc/v2.15/Documentation/contributor/useful-make-variables}
+https://lilypond.org/doc/v2.15/Documentation/contributor/useful-make-variables}
 ).  We are not planning on keeping this make variable.
 
 The standard way for GNU packages to give more output is with a

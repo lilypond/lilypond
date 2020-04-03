@@ -784,7 +784,7 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/productions.html
+@c https://lilypond.org/productions.html
 
 @node Rezensionen
 @unnumberedsec Rezensionen
@@ -905,7 +905,7 @@ Oktober 2004
 
 Die Redakteure von Computer!Totaal, einer holländischen
 Computerzeitschrift,
-@uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
 beschreiben LilyPond} in der Ausgabe Oktober 2004 als: @qq{Wunderbare
 freie (Open Source) Software [@dots{}] Die Partituren von LilyPond
 sind ausnahmslos schön [@dots{}] ein sehr mächtiges System das fast alles
@@ -1121,7 +1121,7 @@ Lesen Sie über unsere @ref{Texteingabe}.
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @divClass{column-center-top}
 @subheading Musik @qq{kompilieren}
@@ -1313,7 +1313,7 @@ Textansicht markiert, wenn man von dort aus druckt.
 @subheading Browserbasierte Editoren
 
 @subsubheading LilyBin
-@uref{http://lilybin.com}
+@uref{https://lilybin.com}
 
 Ein webbasierter LilyPond Editor, in dem man die Noten direkt online
 setzen kann, ohne LilyPond vorher installieren zu müssen.
@@ -1484,12 +1484,12 @@ constraint basierten Programmiersprache.
 ein Plugin für den @uref{http://www.jedit.org,jEdit} Text Editor.
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} wurde durch
+@uref{https://lilykde.googlecode.com/,LilyKDE} wurde durch
 @uref{http://www.frescobaldi.org/,Frescobaldi} ersetzt. Es existiert
 nur noch als LilyKDE3 für KDE 3.5 und lilypond-KDE4 für KDE 4.1.
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} ist ein graphisches
+@uref{https://lilycomp.sourceforge.net, LilyComp} ist ein graphisches
 Notationsprogramm, das wie ein Ziffernblock funktioniert, mit dem man
 LilyPond Notation erstellen kann.
 

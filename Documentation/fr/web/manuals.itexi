@@ -559,7 +559,7 @@ renvoie à la documentation générée automatiquement.
 
 @ifclear web_version
 L'intégrale de la documentation est disponible sous forme d'archive à
-l'adresse @uref{http://lilypond.org}
+l'adresse @uref{https://lilypond.org}
 @end ifclear
 @ifset web_version
 
@@ -581,40 +581,40 @@ l'adresse @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.18/Documentation/web/manuals.fr.html,
+@item @uref{https://lilypond.org/doc/v2.18/Documentation/web/manuals.fr.html,
 LilyPond 2.18 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals.fr.html,
+@item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals.fr.html,
 LilyPond 2.16 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.fr.html,
+@item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals.fr.html,
 LilyPond 2.14 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/index.fr.html,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/index.fr.html,
 LilyPond 2.12 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 LilyPond 2.6 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 LilyPond 2.4 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 LilyPond 2.2 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 LilyPond 2.0 Documentation}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 LilyPond 1.8 Documentation}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 LilyPond 1.6 Documentation}
 
 @end itemize

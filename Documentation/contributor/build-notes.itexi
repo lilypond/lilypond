@@ -1227,7 +1227,7 @@ if [ -d Documentation/web/ly-examples/out-www ]; \
 @end smallexample
 
 This does the same with the LilyPond examples (found at
-@uref{http://lilypond.org/examples.html}).  Again, these are
+@uref{https://lilypond.org/examples.html}).  Again, these are
 actually only created by @code{make doc} (and since they are
 generated from LilyPond source files, require a working LilyPond
 @code{exe} made with @code{make}).  So this does nothing

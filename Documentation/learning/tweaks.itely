@@ -662,7 +662,7 @@ belonging to a slur which controls the heaviness?}  To answer
 this we must look in the Internals Reference, or IR for short.
 
 The IR for the version of LilyPond you are using may be found
-on the LilyPond website at @uref{http://lilypond.org}.  Go to the
+on the LilyPond website at @uref{https://lilypond.org}.  Go to the
 documentation page and click on the Internals Reference link.
 For learning purposes you should use the standard HTML version,
 not the @q{one big page} or the PDF.  For the next few

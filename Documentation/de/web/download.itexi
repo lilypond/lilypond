@@ -29,7 +29,7 @@ Sie bitte über unsere @ref{Texteingabe}.}
   @heading Downloads für LilyPond @versionDevel
 
 Links für die stabile Version von LilyPond finden sich auf
-@uref{http://lilypond.org, lilypond.org}
+@uref{https://lilypond.org, lilypond.org}
 @end ifclear
 @ifset web_version
   @heading Downloads für LilyPond @versionStable
@@ -543,7 +543,7 @@ Benutzer haben mehr Vorteile von der vorkompilierten Version.}
 
 Für ein ausführliche Liste aller Versionen (alt und neu) siehe
 unsere
-@uref{http://lilypond.org/download/source/?C=N;O=D, Download-Seite}.
+@uref{https://lilypond.org/download/source/?C=N;O=D, Download-Seite}.
 
 @divEnd
 
@@ -568,7 +568,7 @@ Anweisungen finden sich unter @rcontribnamed{Compiling LilyPond,LilyPond kompili
 
 Für eine ausführliche Liste aller Versionen (alt und neu)
 siehe unsere
-@uref{http://lilypond.org/download/binaries/, Download-Seite}.
+@uref{https://lilypond.org/download/binaries/, Download-Seite}.
 
 @divEnd
 

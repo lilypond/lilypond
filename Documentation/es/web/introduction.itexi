@@ -981,7 +981,7 @@ Octubre de 2004
 
 Los editores de Computer!Totaal, una revista holandesa de
 informática,
-@uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,describen a LilyPond}
+@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,describen a LilyPond}
 en la edición de octubre de 2004 como: @qq{Maravilloso software
 libre (de código abierto) (@dots{}) Las partituras producidas por
 LilyPond son excepcionalmente bonitas (@dots{}) un sistema muy
@@ -1199,7 +1199,7 @@ Lea lo que tenemos que decirle sobre nuestra
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @divClass{column-center-top}
 @subheading @qq{Compilar} la música
@@ -1400,7 +1400,7 @@ desde el programa.
 @subheading Editores basados en el navegador web
 
 @subsubheading LilyBin
-@uref{http://lilybin.com/}
+@uref{https://lilybin.com/}
 
 Un editor web de LilyPond en el que podemos tipografiar nuestras
 partituras directamente en línea sin necesidad de instalar
@@ -1603,12 +1603,12 @@ fue creado con una extensión para el editor de texto
 @uref{http://www.jedit.org,jEdit}.
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} ha sido sustituido
+@uref{https://lilykde.googlecode.com/,LilyKDE} ha sido sustituido
 por @uref{http://www.frescobaldi.org/,Frescobaldi}, y existe como
 LilyKDE3 para KDE 3.5 y como lilypond-KDE4 para KDE 4.1 solamente.
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} es un programa
+@uref{https://lilycomp.sourceforge.net, LilyComp} es un programa
 gráfico de introducción de notas, que actúa como un teclado
 numérico que produce notas de LilyPond.
 

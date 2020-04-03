@@ -715,7 +715,7 @@ RFI@footnote{@strong{IR} (Internals Reference) en inglés}.
 
 El RFI de la versión de LilyPond que está usando se puede
 encontrar en la página web de LilyPond en
-@uref{http://lilypond.org}.  Vaya a la página de la documentación
+@uref{https://lilypond.org}.  Vaya a la página de la documentación
 y siga el enlace Manual de Referencia de Funcionamiento Interno
 (RFI).  Para nuestros propósitos pedagógicos sería mejor que
 utilizase la versión en HTML, no la @q{en una sola página} ni el

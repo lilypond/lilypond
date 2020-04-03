@@ -935,7 +935,7 @@ Octubre de 2004
 
 Els editor de Computer!Totaal, una revista holandesa
 d'informàtica,
-@uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
 descriuen al LilyPond} en l'edició d'octubre de 2004 com:
 @qq{Meravellós programari lliure (de codi obert) (@dots{}) Les
 partitures produïdes pel LilyPond son excepcionalment boniques
@@ -1152,7 +1152,7 @@ Llegiu el que tenim que dir-vos sobre la nostra @ref{Entrada de text}.
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @subheading @qq{Compilar} la música
 
@@ -1348,7 +1348,7 @@ del programa.
 @subheading Editores basados en el navegador web
 
 @subsubheading LilyBin
-@uref{http://lilybin.com}
+@uref{https://lilybin.com}
 
 Un editor del LilyPond basat en web, on podeu crear les vostres partitures directament
 online sense necessitat d'instal·lar el Lilypond.
@@ -1514,13 +1514,13 @@ va ser creat amb una extensió per a l'editor de text
 @uref{http://www.jedit.org,jEdit}.
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} s'ha substituït per
+@uref{https://lilykde.googlecode.com/,LilyKDE} s'ha substituït per
 @uref{http://www.frescobaldi.org/,Frescobaldi}, i existeix com a
 LilyKDE3 per a  KDE 3.5 i com a lilypond-KDE4 per a KDE 4.1
 solament.
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} és un programa
+@uref{https://lilycomp.sourceforge.net, LilyComp} és un programa
 gràfic d'introducció de notes, que actua com un teclat numèric que
 produeix notes del LilyPond.
 

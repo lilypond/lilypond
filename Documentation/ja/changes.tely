@@ -1477,8 +1477,8 @@ highlight = \tweak font-size 3 \tweak color #red \etc
 
 @ifhtml
 古いニュースに関しては、@c
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/},
-@uref{http://lilypond.org/doc/v2.16/Documentation/changes/}
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/}
 を参照するか、@uref{../,ドキュメントのトップ}に戻ってください。
 
 @end ifhtml

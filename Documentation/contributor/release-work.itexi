@@ -659,7 +659,7 @@ Download the test output from lilypond.org (you will need to
 replace @code{2.15.33-1} with the latest build):
 
 @smallexample
-@uref{http://lilypond.org/downloads/binaries/test-output/lilypond-2.15.33-1.test-output.tar.bz2}
+@uref{https://lilypond.org/downloads/binaries/test-output/lilypond-2.15.33-1.test-output.tar.bz2}
 @end smallexample
 
 Copy the tarball into @file{regtests/}, and tell the build system that
