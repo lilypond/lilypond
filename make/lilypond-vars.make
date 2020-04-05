@@ -17,6 +17,8 @@ endif
 
 LANGS=$(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
+# Don't create __pycache__ in the source directory.
+export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH:=$(top-src-dir)/python:$(PYTHONPATH)
 
 the-script-dir=$(wildcard $(script-dir))
