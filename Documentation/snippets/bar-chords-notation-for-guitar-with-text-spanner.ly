@@ -12,7 +12,7 @@
   texidoc = "
 Here is how to print bar chords (or barre chords) or half-bar chords
 (just uncomment the appropriate line for to select either one). The
-syntax is : @code{\\bbarre #'fret_number' note(s)}
+syntax is : @code{\\bbarre #\"fret_number\" note(s)}
 
 
 

@@ -12,7 +12,7 @@
   texidoc = "
 The shorthands are defined in @samp{ly/script-init.ly}, where the
 variables @code{dashHat}, @code{dashPlus}, @code{dashDash},
-@code{dashBar}, @code{dashLarger}, @code{dashDot}, and
+@code{dashBang}, @code{dashLarger}, @code{dashDot}, and
 @code{dashUnderscore} are assigned default values.  The default values
 for the shorthands can be modified. For example, to associate the
 @code{-+} (@code{dashPlus}) shorthand with the trill symbol instead of

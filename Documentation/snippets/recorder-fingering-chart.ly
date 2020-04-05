@@ -39,14 +39,14 @@ centermarkup = {
     f,1*1/4 \glissando
     \clef violin
     gis'1*1/4
-    \stemDown a'4^\markup{1)}
+    \stemDown a'4^\markup {1)}
     \centermarkup
     \once \override TextScript.padding = #2
-    bes'1*1/4_\markup{\override #'(baseline-skip . 1.7) \column
+    bes'1*1/4_\markup {\override #'(baseline-skip . 1.7) \column
       { \fontsize #-5 \slashed-digit #0 \finger 1 \finger 2 \finger 3 \finger 4
     \finger 5 \finger 6 \finger 7} }
     b'1*1/4
-    c''4^\markup{1)}
+    c''4^\markup {1)}
     \centermarkup
     \once \override TextScript.padding = #2
     cis''1*1/4
@@ -54,9 +54,9 @@ centermarkup = {
     \centermarkup
     \once \override TextScript.padding = #2
     \once \override Staff.HorizontalBracket.direction = #UP
-    e''1*1/4_\markup{\override #'(baseline-skip . 1.7) \column
+    e''1*1/4_\markup {\override #'(baseline-skip . 1.7) \column
       { \fontsize #-5 \slashed-digit #0 \finger 1 \finger 2 \finger 4
     \finger 5} }\startGroup
-    f''1*1/4^\markup{2)}\stopGroup
+    f''1*1/4^\markup {2)}\stopGroup
   }
 }

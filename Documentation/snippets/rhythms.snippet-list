@@ -3,6 +3,7 @@ adding-drum-parts.ly
 adjusting-grace-note-spacing.ly
 aligning-bar-numbers.ly
 alternative-breve-notes.ly
+appoggiatura-or-grace-note-before-a-bar-line.ly
 automatic-beam-subdivisions.ly
 automatically-change-durations.ly
 avoiding-collisions-with-chord-fingerings.ly
@@ -39,6 +40,7 @@ multi-measure-rest-markup.ly
 non-default-tuplet-numbers.ly
 numbering-single-measure-rests.ly
 partcombine-and-autobeamoff.ly
+percussion-example.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 positioning-grace-note-beams-at-the-height-of-normal-note-beams.ly
 positioning-grace-notes-with-floating-space.ly
@@ -61,6 +63,7 @@ skips-in-lyric-mode.ly
 stemlets.ly
 strict-beat-beaming.ly
 subdividing-beams.ly
+tam-tam-example.ly
 three-sided-box.ly
 time-signature-in-parentheses---method-3.ly
 time-signature-in-parentheses.ly

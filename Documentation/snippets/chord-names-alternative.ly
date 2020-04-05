@@ -4,32 +4,38 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-
 \version "2.18.0"
 
 \header {
   lsrtags = "chords, legacy-code"
 
   texidoc = "
-Chord names are generated from a list of pitches.  The
-functions which construct these names can be customised.
+Chord names are generated from a list of pitches.  The functions which
+construct these names can be customised.
 
-Here are shown chords following Ignatzek (pp. 17-18, 1995),
-used by default since LilyPond 1.7.20, compared with an alternative
-Jazz chord notation and Harald Banter’s (1987) notation.  A smaller
-font is used in the latter case, as these tend to be overly verbose.
 
-This mirrors the mechanism originally used in early LilyPond
-versions (pre-1.7); not having been properly maintained, however,
-some features have been lost (mainly chord exception lists) and
-bugs have been introduced.
+Here are shown chords following Ignatzek (pp. 17-18, 1995), used by
+default since LilyPond 1.7.20, compared with an alternative Jazz chord
+notation and Harald Banter’s (1987) notation.  A smaller font is used
+in the latter case, as these tend to be overly verbose.
+
+
+This mirrors the mechanism originally used in early LilyPond versions
+(pre-1.7); not having been properly maintained, however, some features
+have been lost (mainly chord exception lists) and bugs have been
+introduced.
+
+
+
+
 "
   doctitle = "Chord names alternative"
-}
+} % begin verbatim
 
 %%%% Legacy chord naming functions (formerly in scm/chord-generic-names.scm)
-%%%% Copyright (C) 2003--2020 Jan Nieuwenhuizen <janneke@gnu.org>
+%%%% Copyright (C) 2003--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 
+#(set-global-staff-size 19.7)
 
 #(define-public (banter-chordnames pitches bass inversion context)
   (old_chord->markup 'banter pitches bass inversion context))
