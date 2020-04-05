@@ -6,11 +6,11 @@
 
   texidoc = "
 Multi-measure rests have length according to their total duration which
-is under the control of @code{MultiMeasureRest.space-increment}.  Note
+is under the control of @code{MultiMeasureRest.space-increment}.  Note that
 the default value is @code{2.0}.
 
 "
-  doctitle = "Multi-measure length control"
+  doctitle = "Multi-measure rest length control"
 }
 
 \relative c' {
