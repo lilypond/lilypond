@@ -11,9 +11,9 @@
 @ifclear web_version
   @c no anchor links, just link to News page
 
-@ref{News, LilyPond 2.20.0 released - @emph{March 1, 2019}}
+@ref{News, LilyPond 2.20.0 released - @emph{March 1, 2020}}
 
-@ref{News, LilyPond 2.19.84 released - @emph{February 4, 2019}}
+@ref{News, LilyPond 2.21.0 released - @emph{April 6, 2020}}
 
 @end ifclear
 @ifset web_version
@@ -22,7 +22,7 @@
 @uref{news.html#LilyPond-2_002e20_002e0-released-March-1_002c-2020,
   LilyPond 2.20.0 released - @emph{March 1, 2020}}
 
-@uref{news.html#LilyPond-2_002e19_002e84-released-February-4_002c-2020,
-  LilyPond 2.19.84 released - @emph{February 4, 2020}}
+@uref{news.html#LilyPond-2_002e10_002e0-released-April-6_002c-2020,
+  LilyPond 2.21.0 released - @emph{April 6, 2020}}
 
 @end ifset

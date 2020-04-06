@@ -22,13 +22,11 @@ updated manuals.  We recommend all users to upgrade to this version.
 @newsEnd
 
 @newsItem
-@subheading LilyPond 2.19.84 released  @emph{February 4, 2020}
+@subheading LilyPond 2.21.0 released  @emph{April 6, 2020}
 
 We are happy to announce the release of LilyPond
-2.19.84.  This release is the final pre-release test version
-for the upcoming stable 2.20 release.  If you
-require a stable version of LilyPond, we recommend using the 2.18
-version.
+2.21.0.  If youwant to use the latest stable version of LilyPond,
+we recommend using the 2.20.0 version.
 
 @newsEnd
 
