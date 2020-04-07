@@ -37,19 +37,19 @@ public:
 void
 Context_specced_music_iterator::construct_children ()
 {
-  SCM ct = get_music ()->get_property ("context-type");
+  SCM ct = get_property (get_music (), "context-type");
 
   string c_id;
-  SCM ci = get_music ()->get_property ("context-id");
+  SCM ci = get_property (get_music (), "context-id");
   if (scm_is_string (ci))
     c_id = ly_scm2string (ci);
-  SCM ops = get_music ()->get_property ("property-operations");
+  SCM ops = get_property (get_music (), "property-operations");
   Direction dir
-    = robust_scm2dir (get_music ()->get_property ("search-direction"), CENTER);
+    = robust_scm2dir (get_property (get_music (), "search-direction"), CENTER);
 
   Context *a = 0;
 
-  if (to_boolean (get_music ()->get_property ("create-new")))
+  if (to_boolean (get_property (get_music (), "create-new")))
     {
       a = get_outlet ()->create_unique_context (dir, ct, c_id, ops);
       if (!a)

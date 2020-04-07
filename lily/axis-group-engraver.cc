@@ -67,9 +67,9 @@ Axis_group_engraver::Axis_group_engraver (Context *c)
 void
 Axis_group_engraver::initialize ()
 {
-  active_ = !to_boolean (get_property ("hasAxisGroup"));
+  active_ = !to_boolean (get_property (this, "hasAxisGroup"));
   if (active_)
-    context ()->set_property ("hasAxisGroup", SCM_BOOL_T);
+    set_property (context (), "hasAxisGroup", SCM_BOOL_T);
 }
 
 void
@@ -90,10 +90,10 @@ Axis_group_engraver::process_music ()
   if (!staffline_ && active_)
     {
       staffline_ = get_spanner ();
-      Grob *it = unsmob<Grob> (get_property ("currentCommandColumn"));
+      Grob *it = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       staffline_->set_bound (LEFT, it);
     }
-  interesting_ = get_property ("keepAliveInterfaces");
+  interesting_ = get_property (this, "keepAliveInterfaces");
 }
 
 Spanner *
@@ -107,7 +107,7 @@ Axis_group_engraver::finalize ()
 {
   if (staffline_)
     {
-      Grob *it = unsmob<Grob> (get_property ("currentCommandColumn"));
+      Grob *it = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       staffline_->set_bound (RIGHT, it);
 
       Pointer_group_interface::set_ordered (staffline_, ly_symbol2scm ("elements"), false);
@@ -122,7 +122,7 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
 
   elts_.push_back (i.grob ());
 
-  if (to_boolean (staffline_->get_property ("remove-empty")))
+  if (to_boolean (get_property (staffline_, "remove-empty")))
     {
       for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
         {
@@ -147,7 +147,7 @@ Axis_group_engraver::process_acknowledged ()
 
   for (vsize i = 0; i < elts_.size (); i++)
     {
-      if (!unsmob<Grob> (elts_[i]->get_object ("axis-group-parent-Y")))
+      if (!unsmob<Grob> (get_object (elts_[i], "axis-group-parent-Y")))
         {
           if (staffline_->get_parent (Y_AXIS)
               && staffline_->get_parent (Y_AXIS) == elts_[i])

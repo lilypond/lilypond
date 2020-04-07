@@ -81,7 +81,7 @@ Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
 void
 Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
 
   ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[d], ev);
 }
@@ -97,7 +97,7 @@ Dynamic_engraver::listen_break_span (Stream_event *event)
       if (accepted_spanevents_drul_[START])
         end_new_spanner_ = true;
       else if (current_spanner_)
-        current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
+        set_property (current_spanner_, "spanner-broken", SCM_BOOL_T);
     }
 }
 
@@ -106,7 +106,7 @@ Dynamic_engraver::get_property_setting (Stream_event *evt,
                                         char const *evprop,
                                         char const *ctxprop)
 {
-  SCM spanner_type = evt->get_property (evprop);
+  SCM spanner_type = get_property (evt, evprop);
   if (scm_is_null (spanner_type))
     spanner_type = get_property (ctxprop);
   return spanner_type;
@@ -150,15 +150,15 @@ Dynamic_engraver::process_music ()
           SCM text = get_property_setting (current_span_event_, "span-text",
                                            (start_type + "Text").c_str ());
           if (Text_interface::is_markup (text))
-            current_spanner_->set_property ("text", text);
+            set_property (current_spanner_, "text", text);
           /*
             If the line of a text spanner is hidden, end the alignment spanner
             early: this allows dynamics to be spaced individually instead of
             being linked together.
           */
-          if (scm_is_eq (current_spanner_->get_property ("style"),
+          if (scm_is_eq (get_property (current_spanner_, "style"),
                          ly_symbol2scm ("none")))
-            current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
+            set_property (current_spanner_, "spanner-broken", SCM_BOOL_T);
         }
       else
         {
@@ -174,7 +174,7 @@ Dynamic_engraver::process_music ()
       // if we have a break-dynamic-span event right after the start dynamic, break the new spanner immediately
       if (end_new_spanner_)
         {
-          current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
+          set_property (current_spanner_, "spanner-broken", SCM_BOOL_T);
           end_new_spanner_ = false;
         }
       if (finished_spanner_)
@@ -193,8 +193,8 @@ Dynamic_engraver::process_music ()
   if (script_event_)
     {
       script_ = make_item ("DynamicText", script_event_->self_scm ());
-      script_->set_property ("text",
-                             script_event_->get_property ("text"));
+      set_property (script_, "text",
+                             get_property (script_event_, "text"));
 
       if (finished_spanner_)
         finished_spanner_->set_bound (RIGHT, script_);
@@ -209,12 +209,12 @@ Dynamic_engraver::stop_translation_timestep ()
   if (finished_spanner_ && !finished_spanner_->get_bound (RIGHT))
     finished_spanner_
     ->set_bound (RIGHT,
-                 unsmob<Grob> (get_property ("currentMusicalColumn")));
+                 unsmob<Grob> (get_property (this, "currentMusicalColumn")));
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
     current_spanner_
     ->set_bound (LEFT,
-                 unsmob<Grob> (get_property ("currentMusicalColumn")));
+                 unsmob<Grob> (get_property (this, "currentMusicalColumn")));
   script_ = 0;
   script_event_ = 0;
   accepted_spanevents_drul_.set (0, 0);
@@ -243,7 +243,7 @@ string
 Dynamic_engraver::get_spanner_type (Stream_event *ev)
 {
   string type;
-  SCM start_sym = scm_car (ev->get_property ("class"));
+  SCM start_sym = scm_car (get_property (ev, "class"));
 
   if (scm_is_eq (start_sym, ly_symbol2scm ("decrescendo-event")))
     type = "decrescendo";
@@ -267,7 +267,7 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
       */
       Grob *x_parent = (heads.size ()
                         ? info.grob ()
-                        : unsmob<Grob> (info.grob ()->get_object ("rest")));
+                        : unsmob<Grob> (get_object (info.grob (), "rest")));
       if (x_parent)
         script_->set_parent (x_parent, X_AXIS);
     }

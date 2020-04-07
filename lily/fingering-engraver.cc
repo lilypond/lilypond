@@ -85,7 +85,7 @@ Fingering_engraver::acknowledge_note_column (Grob_info inf)
     {
       Grob *t = fingerings_[i];
       t->set_parent (inf.grob (), X_AXIS);
-      t->set_property ("X-align-on-main-noteheads", SCM_BOOL_T);
+      set_property (t, "X-align-on-main-noteheads", SCM_BOOL_T);
     }
 }
 
@@ -94,7 +94,7 @@ Fingering_engraver::process_music ()
 {
   for (vsize i = events_.size (); i--;)
     {
-      SCM dir = events_[i]->get_property ("direction");
+      SCM dir = get_property (events_[i], "direction");
       make_script (to_dir (dir), events_[i], i);
     }
 }
@@ -112,16 +112,16 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, size_t i)
   Self_alignment_interface::set_aligned_on_parent (fingering, X_AXIS);
 
   /* See script-engraver.cc */
-  SCM priority = fingering->get_property ("script-priority");
+  SCM priority = get_property (fingering, "script-priority");
   if (!scm_is_number (priority))
     priority = scm_from_int (200); // TODO: Explain magic.
   priority = scm_sum (priority, scm_from_size_t (i));
-  fingering->set_property ("script-priority", priority);
+  set_property (fingering, "script-priority", priority);
 
   if (d)
-    fingering->set_property ("direction", scm_from_int (d));
-  else if (!is_direction (fingering->get_property_data ("direction")))
-    fingering->set_property ("direction", scm_from_int (UP));
+    set_property (fingering, "direction", scm_from_int (d));
+  else if (!is_direction (get_property_data (fingering, "direction")))
+    set_property (fingering, "direction", scm_from_int (UP));
 
   fingerings_.push_back (fingering);
 }

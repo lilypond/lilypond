@@ -39,7 +39,7 @@ void
 Partial_iterator::process (Moment m)
 {
   if (Duration * dur
-      = unsmob<Duration> (get_music ()->get_property ("duration")))
+      = unsmob<Duration> (get_property (get_music (), "duration")))
     {
       Moment length = Moment (dur->get_length ());
 
@@ -61,7 +61,7 @@ Partial_iterator::process (Moment m)
         programming_error ("missing Timing in \\partial");
       else if (get_outlet ()->now_mom () > 0)
         {
-          timing->set_property ("partialBusy", ly_bool2scm (true));
+          set_property (timing, "partialBusy", ly_bool2scm (true));
           Global_context *g = find_global_context (get_outlet ());
           g->add_finalization (scm_list_3 (finalization_proc,
                                            get_outlet ()->self_scm (),
@@ -70,11 +70,11 @@ Partial_iterator::process (Moment m)
       else
         {
           Moment mp = robust_scm2moment
-                      (timing->get_property ("measurePosition"),
+                      (get_property (timing, "measurePosition"),
                        Rational (0));
           mp.main_part_ = 0;
-          timing->set_property
-          ("measurePosition", (mp - length).smobbed_copy ());
+          set_property
+          (timing, "measurePosition", (mp - length).smobbed_copy ());
         }
     }
   else
@@ -98,10 +98,10 @@ Partial_iterator::finalization (SCM ctx, SCM length)
       programming_error ("missing Timing in \\partial");
       return SCM_UNSPECIFIED;
     }
-  Moment mp = robust_scm2moment (timing->get_property ("measurePosition"),
+  Moment mp = robust_scm2moment (get_property (timing, "measurePosition"),
                                  Rational (0));
   mp.main_part_ = measure_length (timing);
-  timing->set_property ("measurePosition",
+  set_property (timing, "measurePosition",
                         (mp - *unsmob<Moment> (length)).smobbed_copy ());
   timing->unset_property (ly_symbol2scm ("partialBusy"));
 

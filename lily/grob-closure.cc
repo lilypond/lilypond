@@ -31,8 +31,8 @@ void
 add_offset_callback (Grob *g, SCM proc, Axis a)
 {
   SCM sym = axis_offset_symbol (a);
-  SCM data = g->get_property_data (sym);
-  g->set_property (sym, Lily::grob_offset_function (proc, data));
+  SCM data = get_property_data (g, sym);
+  set_property (g, sym, Lily::grob_offset_function (proc, data));
 }
 
 /*
@@ -47,8 +47,8 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
 void
 chain_callback (Grob *g, SCM proc, SCM sym)
 {
-  SCM data = g->get_property_data (sym);
-  g->set_property (sym, Lily::grob_compose_function (proc, data));
+  SCM data = get_property_data (g, sym);
+  set_property (g, sym, Lily::grob_compose_function (proc, data));
 }
 
 void

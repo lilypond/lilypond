@@ -33,7 +33,7 @@ Chord_name::after_line_breaking (SCM smob)
   Item *me = unsmob<Item> (smob);
   assert (me);
 
-  SCM s = me->get_property ("begin-of-line-visible");
+  SCM s = get_property (me, "begin-of-line-visible");
   if (to_boolean (s))
     {
       if (me->get_column ()->get_rank ()

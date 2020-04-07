@@ -85,8 +85,8 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      text_->set_object ("side-support-elements",
-                         grob_list_to_grob_array (get_property ("stavesFound")));
+      set_object (text_, "side-support-elements",
+                         grob_list_to_grob_array (get_property (this, "stavesFound")));
       final_text_ = text_;
       text_ = 0;
     }
@@ -97,7 +97,7 @@ void
 Mark_engraver::finalize ()
 {
   if (final_text_)
-    final_text_->set_property ("break-visibility",
+    set_property (final_text_, "break-visibility",
                                scm_c_make_vector (3, SCM_BOOL_T));
   final_text_ = 0;
 }
@@ -131,17 +131,17 @@ Mark_engraver::process_music ()
         automatic marks.
       */
 
-      SCM m = mark_ev_->get_property ("label");
-      SCM proc = get_property ("markFormatter");
+      SCM m = get_property (mark_ev_, "label");
+      SCM proc = get_property (this, "markFormatter");
       if (!Text_interface::is_markup (m)
           && ly_is_procedure (proc))
         {
           if (!scm_is_number (m))
-            m = get_property ("rehearsalMark");
+            m = get_property (this, "rehearsalMark");
 
           if (scm_is_number (m))
             {
-              context ()->set_property ("rehearsalMark", scm_oneplus (m));
+              set_property (context (), "rehearsalMark", scm_oneplus (m));
               m = scm_call_2 (proc, m, context ()->self_scm ());
             }
           else
@@ -152,7 +152,7 @@ Mark_engraver::process_music ()
         }
 
       if (Text_interface::is_markup (m))
-        text_->set_property ("text", m);
+        set_property (text_, "text", m);
       else
         mark_ev_->origin ()->warning (_ ("mark label must be a markup object"));
     }

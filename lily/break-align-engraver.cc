@@ -100,7 +100,7 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
       if (!Item::is_non_musical (item))
         return;
 
-      SCM align_name = item->get_property ("break-align-symbol");
+      SCM align_name = get_property (item, "break-align-symbol");
       if (!scm_is_symbol (align_name))
         return;
 
@@ -127,7 +127,7 @@ Break_align_engraver::create_alignment (Grob_info inf)
     Make left edge appear to come from same engraver as clef/bar-line etc.
   */
   left_edge_ = random_source->make_item ("LeftEdge", SCM_EOL);
-  add_to_group (left_edge_->get_property ("break-align-symbol"),
+  add_to_group (get_property (left_edge_, "break-align-symbol"),
                 left_edge_);
 }
 
@@ -146,7 +146,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
     {
       group = make_item ("BreakAlignGroup", item->self_scm ());
 
-      group->set_property ("break-align-symbol", align_name);
+      set_property (group, "break-align-symbol", align_name);
       group->set_parent (align_, Y_AXIS);
 
       column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());

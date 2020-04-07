@@ -58,7 +58,7 @@ Beam_collision_engraver::Beam_collision_engraver (Context *c)
 bool
 Beam_collision_engraver::covered_grob_has_interface (Grob *covered_grob, Grob *beam)
 {
-  SCM interfaces = beam->get_property ("collision-interfaces");
+  SCM interfaces = get_property (beam, "collision-interfaces");
 
   for (SCM l = interfaces; scm_is_pair (l); l = scm_cdr (l))
     {
@@ -117,7 +117,7 @@ Beam_collision_engraver::finalize ()
              then make sure the beam and the covered_grob are in the same voice.
           */
           if ((covered_grob_spanned_rank[RIGHT] >= beam_spanned_rank_[LEFT])
-              && !(to_boolean (beam_grob->get_property ("collision-voice-only"))
+              && !(to_boolean (get_property (beam_grob, "collision-voice-only"))
                    && (covered_grob_context != beam_context))
               && !(has_interface<Beam> (covered_grob)
                    && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank_[LEFT]))
@@ -125,11 +125,11 @@ Beam_collision_engraver::finalize ()
             {
               // Do not consider note heads attached to the beam.
               if (has_interface<Stem> (covered_grob))
-                if (unsmob<Grob> (covered_grob->get_object ("beam")))
+                if (unsmob<Grob> (get_object (covered_grob, "beam")))
                   continue;
 
-              if (Grob *stem = unsmob<Grob> (covered_grob->get_object ("stem")))
-                if (Grob *beam = unsmob<Grob> (stem->get_object ("beam")))
+              if (Grob *stem = unsmob<Grob> (get_object (covered_grob, "stem")))
+                if (Grob *beam = unsmob<Grob> (get_object (stem, "beam")))
                   if (beam == beam_grob)
                     continue;
 

@@ -1139,7 +1139,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 #endif
 				if (Music *m = unsmob<Music> (v))
 				{
-					if (!unsmob<Input> (m->get_property ("origin")))
+					if (!unsmob<Input> (get_property (m, "origin")))
 						m->set_spot (override_input (here_input ()));
 				}
 
@@ -1168,7 +1168,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 
 	if (Music *m = unsmob<Music> (sval))
 	{
-		if (!unsmob<Input> (m->get_property ("origin")))
+		if (!unsmob<Input> (get_property (m, "origin")))
 			m->set_spot (override_input (here_input ()));
 	}
 

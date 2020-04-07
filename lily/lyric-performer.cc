@@ -49,11 +49,11 @@ Lyric_performer::process_music ()
 {
   // FIXME: won't work with fancy lyrics
   if (events_.size ()
-      && scm_is_string (events_[0]->get_property ("text"))
-      && ly_scm2string (events_[0]->get_property ("text")).length ())
+      && scm_is_string (get_property (events_[0], "text"))
+      && ly_scm2string (get_property (events_[0], "text")).length ())
     {
       audio_ = new Audio_text (Audio_text::LYRIC,
-                               ly_scm2string (events_[0]->get_property ("text")));
+                               ly_scm2string (get_property (events_[0], "text")));
       Audio_element_info info (audio_, events_[0]);
       announce_element (info);
     }

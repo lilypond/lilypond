@@ -70,9 +70,9 @@ Quote_iterator::accept_music_type (Stream_event *ev, bool is_cue) const
   // Cue notes use the quotedCueEventTypes property, otherwise (and as fallback
   // for cue notes if quotedCueEventTypes is not set) use quotedEventTypes
   if (is_cue)
-    accept = get_outlet ()->get_property ("quotedCueEventTypes");
+    accept = get_property (get_outlet (), "quotedCueEventTypes");
   if (scm_is_null (accept))
-    accept = get_outlet ()->get_property ("quotedEventTypes");
+    accept = get_property (get_outlet (), "quotedEventTypes");
 
   for (; scm_is_pair (accept); accept = scm_cdr (accept))
     {
@@ -127,10 +127,10 @@ Quote_iterator::construct_children ()
 
   Context *cue_context = 0;
 
-  SCM name = get_music ()->get_property ("quoted-context-type");
+  SCM name = get_property (get_music (), "quoted-context-type");
   if (scm_is_symbol (name))
     {
-      SCM id = get_music ()->get_property ("quoted-context-id");
+      SCM id = get_property (get_music (), "quoted-context-id");
       std::string c_id = robust_scm2string (id, "");
       cue_context = get_outlet ()->find_create_context (CENTER,
                                                         name, c_id, SCM_EOL);
@@ -146,7 +146,7 @@ Quote_iterator::construct_children ()
     cue_context = get_outlet ()->get_default_interpreter ();
   quote_outlet_.set_context (cue_context);
 
-  event_vector_ = get_music ()->get_property ("quoted-events");
+  event_vector_ = get_property (get_music (), "quoted-events");
 
   /*
     We have to delay initting event_idx_ , since we have to
@@ -248,9 +248,9 @@ Quote_iterator::process (Moment m)
         The pitch that sounds when written central C is played.
       */
       Pitch temp_pitch;
-      Pitch *me_pitch = unsmob<Pitch> (get_music ()->get_property ("quoted-transposition"));
+      Pitch *me_pitch = unsmob<Pitch> (get_property (get_music (), "quoted-transposition"));
       if (!me_pitch)
-        me_pitch = unsmob<Pitch> (get_outlet ()->get_property ("instrumentTransposition"));
+        me_pitch = unsmob<Pitch> (get_property (get_outlet (), "instrumentTransposition"));
       else
         {
           // We are not going to win a beauty contest with this one,
@@ -260,7 +260,7 @@ Quote_iterator::process (Moment m)
           temp_pitch = me_pitch->negated ();
           me_pitch = &temp_pitch;
         }
-      SCM cid = get_music ()->get_property ("quoted-context-id");
+      SCM cid = get_property (get_music (), "quoted-context-id");
       bool is_cue = scm_is_string (cid) && (ly_scm2string (cid) == "cue");
 
       for (SCM s = scm_cdr (entry); scm_is_pair (s); s = scm_cdr (s))

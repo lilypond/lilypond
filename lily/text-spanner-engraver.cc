@@ -59,7 +59,7 @@ Text_spanner_engraver::Text_spanner_engraver (Context *c)
 void
 Text_spanner_engraver::listen_text_span (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (event_drul_[d], ev);
 }
 
@@ -87,8 +87,8 @@ Text_spanner_engraver::process_music ()
         {
           current_event_ = event_drul_[START];
           span_ = make_spanner ("TextSpanner", event_drul_[START]->self_scm ());
-          if (Direction d = to_dir (current_event_->get_property ("direction")))
-            span_->set_property ("direction", scm_from_int (d));
+          if (Direction d = to_dir (get_property (current_event_, "direction")))
+            set_property (span_, "direction", scm_from_int (d));
 
           Side_position_interface::set_axis (span_, Y_AXIS);
           event_drul_[START] = 0;
@@ -103,7 +103,7 @@ Text_spanner_engraver::typeset_all ()
     {
       if (!finished_->get_bound (RIGHT))
         {
-          Grob *e = unsmob<Grob> (get_property ("currentMusicalColumn"));
+          Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
           finished_->set_bound (RIGHT, e);
         }
       finished_ = 0;
@@ -115,7 +115,7 @@ Text_spanner_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      Grob *e = unsmob<Grob> (get_property ("currentMusicalColumn"));
+      Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       span_->set_bound (LEFT, e);
     }
 

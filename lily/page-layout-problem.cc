@@ -60,7 +60,7 @@ Page_layout_problem::get_footnote_grobs (SCM lines)
         }
       else if (Prob *p = unsmob<Prob> (scm_car (s)))
         {
-          SCM stencils = p->get_property ("footnotes");
+          SCM stencils = get_property (p, "footnotes");
           if (scm_is_null (stencils))
             continue;
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
@@ -86,9 +86,9 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines)
 
   bool footnotes_added;
   if (Grob *g = unsmob<Grob> (scm_car (lines)))
-    footnotes_added = !scm_is_null (g->get_property ("footnote-stencil"));
+    footnotes_added = !scm_is_null (get_property (g, "footnote-stencil"));
   else if (Prob *p = unsmob<Prob> (scm_car (lines)))
-    footnotes_added = !scm_is_null (p->get_property ("footnote-stencil"));
+    footnotes_added = !scm_is_null (get_property (p, "footnote-stencil"));
   else
     {
       programming_error ("Systems on a page must be a prob or grob.");
@@ -104,9 +104,9 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines)
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
       if (Grob *g = unsmob<Grob> (scm_car (s)))
-        out = scm_cons (g->get_property ("footnote-stencil"), out);
+        out = scm_cons (get_property (g, "footnote-stencil"), out);
       else if (Prob *p = unsmob<Prob> (scm_car (s)))
-        out = scm_cons (p->get_property ("footnote-stencil"), out);
+        out = scm_cons (get_property (p, "footnote-stencil"), out);
       else
         programming_error ("Systems on a page must be a prob or grob.");
     }
@@ -171,7 +171,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
     {
       if (fn_grobs[i])
         {
-          SCM assertion_function = fn_grobs[i]->get_property ("numbering-assertion-function");
+          SCM assertion_function = get_property (fn_grobs[i], "numbering-assertion-function");
           if (ly_is_procedure (assertion_function))
             (void) scm_call_1 (assertion_function, scm_from_size_t (counter));
         }
@@ -229,10 +229,10 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
           for (vsize i = 0; i < footnote_grobs.size (); i++)
             {
               Grob *footnote = footnote_grobs[i];
-              SCM footnote_markup = footnote->get_property ("footnote-text");
+              SCM footnote_markup = get_property (footnote, "footnote-text");
               if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                 if (orig->is_broken ())
-                  footnote_markup = orig->broken_intos_[0]->get_property ("footnote-text");
+                  footnote_markup = get_property (orig->broken_intos_[0], "footnote-text");
 
               SCM props = Lily::layout_extract_page_properties (paper->self_scm ());
 
@@ -240,24 +240,24 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
                                                                    props, footnote_markup);
 
               Stencil footnote_stencil = *unsmob<Stencil> (footnote_stl);
-              bool do_numbering = to_boolean (footnote->get_property ("automatically-numbered"));
+              bool do_numbering = to_boolean (get_property (footnote, "automatically-numbered"));
               if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                 {
                   if (orig->is_broken ())
                     for (vsize i = 0; i < orig->broken_intos_.size (); i++)
                       do_numbering = do_numbering
-                                     || to_boolean (orig->broken_intos_[i]->get_property ("automatically-numbered"));
+                                     || to_boolean (get_property (orig->broken_intos_[i], "automatically-numbered"));
                 }
               if (do_numbering)
                 {
                   SCM annotation_scm = scm_car (in_text_numbers);
-                  footnote->set_property ("text", annotation_scm);
+                  set_property (footnote, "text", annotation_scm);
                   if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                     {
-                      orig->set_property ("text", annotation_scm);
+                      set_property (orig, "text", annotation_scm);
                       if (orig->is_broken ())
                         for (vsize i = 0; i < orig->broken_intos_.size (); i++)
-                          orig->broken_intos_[i]->set_property ("text", annotation_scm);
+                          set_property (orig->broken_intos_[i], "text", annotation_scm);
                     }
 
                   Stencil annotation = *unsmob<Stencil> (scm_car (numbers));
@@ -271,19 +271,19 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
                 }
               if (!footnote_stencil.is_empty ())
                 {
-                  if (to_boolean (footnote->get_property ("footnote")))
+                  if (to_boolean (get_property (footnote, "footnote")))
                     mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil, padding);
                   else
                     in_note_mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil, padding);
                 }
             }
-          sys->set_property ("in-note-stencil", in_note_mol.smobbed_copy ());
-          sys->set_property ("footnote-stencil", mol.smobbed_copy ());
+          set_property (sys, "in-note-stencil", in_note_mol.smobbed_copy ());
+          set_property (sys, "footnote-stencil", mol.smobbed_copy ());
         }
       // Take care of top-level markups
       else if (Prob *p = unsmob<Prob> (scm_car (s)))
         {
-          SCM stencils = p->get_property ("footnotes");
+          SCM stencils = get_property (p, "footnotes");
           Stencil mol;
 
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
@@ -314,7 +314,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
               if (!footnote_stencil.is_empty ())
                 mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil, padding);
             }
-          p->set_property ("footnote-stencil", mol.smobbed_copy ());
+          set_property (p, "footnote-stencil", mol.smobbed_copy ());
         }
     }
 
@@ -388,8 +388,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
   if (page)
     {
-      Stencil *head = unsmob<Stencil> (page->get_property ("head-stencil"));
-      Stencil *foot = unsmob<Stencil> (page->get_property ("foot-stencil"));
+      Stencil *head = unsmob<Stencil> (get_property (page, "head-stencil"));
+      Stencil *foot = unsmob<Stencil> (get_property (page, "foot-stencil"));
 
       Stencil foot_stencil = foot ? *foot : Stencil ();
 
@@ -403,7 +403,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
       header_height_ = head ? head->extent (Y_AXIS).length () : 0;
       footer_height_ = foot_stencil.extent (Y_AXIS).length ();
-      page_height_ = robust_scm2double (page->get_property ("paper-height"), 100);
+      page_height_ = robust_scm2double (get_property (page, "paper-height"), 100);
     }
 
   // Initially, bottom_skyline_ represents the top of the page. Make
@@ -510,7 +510,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       // bottom-space has the flexibility that one can do it per-system.
       // NOTE: bottom-space is misnamed since it is not stretchable space.
       if (Prob *p = elements_.back ().prob)
-        bottom_padding = robust_scm2double (p->get_property ("bottom-space"), 0);
+        bottom_padding = robust_scm2double (get_property (p, "bottom-space"), 0);
       else if (elements_.back ().staves.size ())
         {
           SCM details = get_details (elements_.back ());
@@ -538,11 +538,11 @@ Page_layout_problem::set_footer_height (Real height)
 void
 Page_layout_problem::append_system (System *sys, Spring const &spring, Real indent, Real padding)
 {
-  Grob *align = unsmob<Grob> (sys->get_object ("vertical-alignment"));
+  Grob *align = unsmob<Grob> (get_object (sys, "vertical-alignment"));
   if (!align)
     return;
 
-  align->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (align, "positioning-done", SCM_BOOL_T);
 
   extract_grob_set (align, "elements", all_elts);
   vector<Grob *> elts = filter_dead_elements (all_elts);
@@ -554,12 +554,12 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
   build_system_skyline (elts, minimum_offsets_with_min_dist, &up_skyline, &down_skyline);
   up_skyline.shift (indent);
   down_skyline.shift (indent);
-  Stencil *in_note_stencil = unsmob<Stencil> (sys->get_property ("in-note-stencil"));
+  Stencil *in_note_stencil = unsmob<Stencil> (get_property (sys, "in-note-stencil"));
 
   if (in_note_stencil && in_note_stencil->extent (Y_AXIS).length () > 0)
     {
-      sys->set_property ("in-note-padding", scm_from_double (in_note_padding_));
-      sys->set_property ("in-note-direction", scm_from_int (in_note_direction_));
+      set_property (sys, "in-note-padding", scm_from_double (in_note_padding_));
+      set_property (sys, "in-note-direction", scm_from_int (in_note_direction_));
       Skyline *sky = in_note_direction_ == UP ? &up_skyline : &down_skyline;
       sky->set_minimum_height (sky->max_height ()
                                + in_note_direction_
@@ -574,7 +574,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
     at the time of adding in the system.
   */
   Real minimum_distance = up_skyline.distance (bottom_skyline_,
-                                               robust_scm2double (sys->get_property ("skyline-horizontal-padding"),
+                                               robust_scm2double (get_property (sys, "skyline-horizontal-padding"),
                                                    0))
                           + padding;
 
@@ -587,7 +587,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
       // store the minimum distance, considering relative indents,
       // for a loose line
       Skyline first_skyline (UP);
-      Skyline_pair *sky = unsmob<Skyline_pair> (elts[0]->get_property ("vertical-skylines"));
+      Skyline_pair *sky = unsmob<Skyline_pair> (get_property (elts[0], "vertical-skylines"));
       if (sky)
         first_skyline.merge ((*sky)[UP]);
       first_skyline.shift (indent);
@@ -623,7 +623,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
             }
 
           Spring spring (0.5, 0.0);
-          SCM spec = elts[last_spaceable_staff]->get_property ("staff-staff-spacing");
+          SCM spec = get_property (elts[last_spaceable_staff], "staff-staff-spacing");
           alter_spring_from_spacing_spec (spec, &spring);
 
           springs_.push_back (spring);
@@ -659,9 +659,9 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
 void
 Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding)
 {
-  Skyline_pair *sky = unsmob<Skyline_pair> (prob->get_property ("vertical-skylines"));
+  Skyline_pair *sky = unsmob<Skyline_pair> (get_property (prob, "vertical-skylines"));
   Real minimum_distance = 0;
-  bool tight_spacing = to_boolean (prob->get_property ("tight-spacing"));
+  bool tight_spacing = to_boolean (get_property (prob, "tight-spacing"));
 
   if (sky)
     {
@@ -669,7 +669,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
                                    bottom_loose_baseline_);
       bottom_skyline_ = (*sky)[DOWN];
     }
-  else if (Stencil *sten = unsmob<Stencil> (prob->get_property ("stencil")))
+  else if (Stencil *sten = unsmob<Stencil> (get_property (prob, "stencil")))
     {
       Interval iv = sten->extent (Y_AXIS);
       minimum_distance = iv[UP] - bottom_skyline_.max_height ();
@@ -773,7 +773,7 @@ Page_layout_problem::find_system_offsets ()
         {
           *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
           tail = SCM_CDRLOC (*tail);
-          Interval prob_extent = unsmob<Stencil> (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
+          Interval prob_extent = unsmob<Stencil> (get_property (elements_[i].prob, "stencil"))->extent (Y_AXIS);
 
           // Lay out any non-spaceable lines between this line and
           // the last one.
@@ -819,7 +819,7 @@ Page_layout_problem::find_system_offsets ()
           for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size (); ++staff_idx)
             {
               Grob *staff = elements_[i].staves[staff_idx];
-              staff->set_property ("system-Y-offset", scm_from_double (-system_position));
+              set_property (staff, "system-Y-offset", scm_from_double (-system_position));
 
               if (is_spaceable (staff))
                 {
@@ -945,7 +945,7 @@ Page_layout_problem::distribute_loose_lines (vector<Grob *> const &loose_lines,
   for (vsize i = 1; i + 1 < solution.size (); ++i)
     if (loose_lines[i])
       {
-        Real system_offset = scm_to_double (loose_lines[i]->get_property ("system-Y-offset"));
+        Real system_offset = scm_to_double (get_property (loose_lines[i], "system-Y-offset"));
         loose_lines[i]->translate_axis (first_translation - solution[i] - system_offset, Y_AXIS);
       }
 }
@@ -992,7 +992,7 @@ Page_layout_problem::build_system_skyline (vector<Grob *> const &staves,
     {
       Real dy = minimum_translations[i] - first_translation;
       Grob *g = staves[i];
-      Skyline_pair *sky = unsmob<Skyline_pair> (g->get_property ("vertical-skylines"));
+      Skyline_pair *sky = unsmob<Skyline_pair> (get_property (g, "vertical-skylines"));
       if (sky)
         {
           up->raise (-dy);
@@ -1026,7 +1026,7 @@ Page_layout_problem::build_system_skyline (vector<Grob *> const &staves,
 Interval
 Page_layout_problem::prob_extent (Prob *p)
 {
-  Stencil *sten = unsmob<Stencil> (p->get_property ("stencil"));
+  Stencil *sten = unsmob<Stencil> (get_property (p, "stencil"));
   return sten ? sten->extent (Y_AXIS) : Interval (0, 0);
 }
 
@@ -1065,19 +1065,19 @@ SCM
 Page_layout_problem::get_details (Grob *g)
 {
   Grob *left_bound = dynamic_cast<Spanner *> (g)->get_bound (LEFT);
-  return left_bound->get_property ("line-break-system-details");
+  return get_property (left_bound, "line-break-system-details");
 }
 
 bool
 Page_layout_problem::is_spaceable (Grob *g)
 {
-  return !scm_is_number (g->get_property ("staff-affinity"));
+  return !scm_is_number (get_property (g, "staff-affinity"));
 }
 
 void
 Page_layout_problem::mark_as_spaceable (Grob *g)
 {
-  g->set_property ("staff-affinity", SCM_BOOL_F);
+  set_property (g, "staff-affinity", SCM_BOOL_F);
 }
 
 bool
@@ -1123,7 +1123,7 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after,
 
   if (is_spaceable (before) && is_spaceable (after) && left_bound)
     {
-      SCM details = left_bound->get_property ("line-break-system-details");
+      SCM details = get_property (left_bound, "line-break-system-details");
       SCM manual_dists = ly_assoc_get (ly_symbol2scm ("alignment-distances"), details, SCM_EOL);
       if (scm_is_pair (manual_dists))
         {
@@ -1172,30 +1172,30 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
   if (is_spaceable (before))
     {
       if (is_spaceable (after))
-        return before->get_maybe_pure_property ("staff-staff-spacing", pure, start, end);
+        return get_maybe_pure_property (before, "staff-staff-spacing", pure, start, end);
       else
         {
-          Direction affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
+          Direction affinity = to_dir (get_maybe_pure_property (after, "staff-affinity", pure, start, end));
           return (affinity == DOWN)
-                 ? add_stretchability (after->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
+                 ? add_stretchability (get_maybe_pure_property (after, "nonstaff-unrelatedstaff-spacing", pure, start, end),
                                        LARGE_STRETCH)
-                 : after->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
+                 : get_maybe_pure_property (after, "nonstaff-relatedstaff-spacing", pure, start, end);
         }
     }
   else
     {
       if (is_spaceable (after))
         {
-          Direction affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
+          Direction affinity = to_dir (get_maybe_pure_property (before, "staff-affinity", pure, start, end));
           return (affinity == UP)
-                 ? add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
+                 ? add_stretchability (get_maybe_pure_property (before, "nonstaff-unrelatedstaff-spacing", pure, start, end),
                                        LARGE_STRETCH)
-                 : before->get_maybe_pure_property ("nonstaff-relatedstaff-spacing", pure, start, end);
+                 : get_maybe_pure_property (before, "nonstaff-relatedstaff-spacing", pure, start, end);
         }
       else
         {
-          Direction before_affinity = to_dir (before->get_maybe_pure_property ("staff-affinity", pure, start, end));
-          Direction after_affinity = to_dir (after->get_maybe_pure_property ("staff-affinity", pure, start, end));
+          Direction before_affinity = to_dir (get_maybe_pure_property (before, "staff-affinity", pure, start, end));
+          Direction after_affinity = to_dir (get_maybe_pure_property (after, "staff-affinity", pure, start, end));
           static bool warned = false;
           if (after_affinity > before_affinity
               && !warned && !pure)
@@ -1204,10 +1204,10 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
               warned = true;
             }
           if (before_affinity != UP)
-            return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
+            return get_maybe_pure_property (before, "nonstaff-nonstaff-spacing", pure, start, end);
           else if (after_affinity != DOWN)
-            return before->get_maybe_pure_property ("nonstaff-nonstaff-spacing", pure, start, end);
-          return add_stretchability (before->get_maybe_pure_property ("nonstaff-unrelatedstaff-spacing", pure, start, end),
+            return get_maybe_pure_property (before, "nonstaff-nonstaff-spacing", pure, start, end);
+          return add_stretchability (get_maybe_pure_property (before, "nonstaff-unrelatedstaff-spacing", pure, start, end),
                                      LARGE_STRETCH);
         }
     }

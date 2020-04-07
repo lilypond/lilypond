@@ -79,12 +79,12 @@ Chord_name_engraver::process_music ()
   // created the grob in the first place.
   if (rest_event_)
     {
-      SCM no_chord_markup = get_property ("noChordSymbol");
+      SCM no_chord_markup = get_property (this, "noChordSymbol");
       if (!Text_interface::is_markup (no_chord_markup))
         return;
       markup = no_chord_markup;
       chord_name = make_item ("ChordName", rest_event_->self_scm ());
-      chord_name->set_property ("text", markup);
+      set_property (chord_name, "text", markup);
     }
   else
     {
@@ -92,21 +92,21 @@ Chord_name_engraver::process_music ()
       // We cannot actually delay fetching the text property in case
       // it is a callback since we need to compare the generated
       // markups for the sake of chordChanges
-      markup = chord_name->get_property ("text");
+      markup = get_property (chord_name, "text");
       if (!Text_interface::is_markup (markup))
         {
           for (vsize i = 0; i < notes_.size (); i++)
             {
               Stream_event *n = notes_[i];
-              SCM p = n->get_property ("pitch");
+              SCM p = get_property (n, "pitch");
               if (!unsmob<Pitch> (p))
                 continue;
 
-              if (to_boolean (n->get_property ("bass")))
+              if (to_boolean (get_property (n, "bass")))
                 bass = p;
               else
                 {
-                  SCM oct = n->get_property ("octavation");
+                  SCM oct = get_property (n, "octavation");
                   if (scm_is_number (oct))
                     {
                       Pitch orig = unsmob<Pitch> (p)->transposed (Pitch (-scm_to_int (oct), 0));
@@ -114,7 +114,7 @@ Chord_name_engraver::process_music ()
                     }
                   else
                     pitches = scm_cons (p, pitches);
-                  if (to_boolean (n->get_property ("inversion")))
+                  if (to_boolean (get_property (n, "inversion")))
                     {
                       inversion = p;
                       if (!scm_is_number (oct))
@@ -125,7 +125,7 @@ Chord_name_engraver::process_music ()
 
           pitches = scm_sort_list (pitches, Pitch::less_p_proc);
 
-          SCM name_proc = get_property ("chordNameFunction");
+          SCM name_proc = get_property (this, "chordNameFunction");
           markup = scm_call_4 (name_proc, pitches, bass, inversion,
                                context ()->self_scm ());
           if (!Text_interface::is_markup (markup))
@@ -134,16 +134,16 @@ Chord_name_engraver::process_music ()
               // Use an empty string.
               markup = scm_string (SCM_EOL);
             }
-          chord_name->set_property ("text", markup);
+          set_property (chord_name, "text", markup);
         }
     }
 
-  SCM chord_changes = get_property ("chordChanges");
-  SCM last_chord = get_property ("lastChord");
+  SCM chord_changes = get_property (this, "chordChanges");
+  SCM last_chord = get_property (this, "lastChord");
   if (to_boolean (chord_changes) && ly_is_equal (markup, last_chord))
-    chord_name->set_property ("begin-of-line-visible", SCM_BOOL_T);
+    set_property (chord_name, "begin-of-line-visible", SCM_BOOL_T);
 
-  context ()->set_property ("lastChord", markup);
+  set_property (context (), "lastChord", markup);
 }
 
 void

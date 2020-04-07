@@ -38,15 +38,15 @@ SCM
 Stem_tremolo::calc_slope (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Spanner *beam = Stem::get_beam (stem);
 
-  SCM style = me->get_property ("style");
+  SCM style = get_property (me, "style");
 
   if (beam && !scm_is_eq (style, ly_symbol2scm ("constant")))
     {
       Real dy = 0;
-      SCM s = beam->get_property ("quantized-positions");
+      SCM s = get_property (beam, "quantized-positions");
       if (is_number_pair (s))
         dy = - scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
 
@@ -72,7 +72,7 @@ SCM
 Stem_tremolo::calc_width (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
   bool flag = Stem::duration_log (stem) >= 3 && !beam;
@@ -86,11 +86,11 @@ SCM
 Stem_tremolo::calc_shape (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
   bool flag = Stem::duration_log (stem) >= 3 && !beam;
-  SCM style = me->get_property ("style");
+  SCM style = get_property (me, "style");
 
   return ly_symbol2scm (!scm_is_eq (style, ly_symbol2scm ("constant"))
                         && ((dir == UP && flag) || beam)
@@ -100,23 +100,23 @@ Stem_tremolo::calc_shape (SCM smob)
 Real
 Stem_tremolo::get_beam_translation (Grob *me)
 {
-  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Spanner *beam = Stem::get_beam (stem);
 
   return (beam && beam->is_live ())
          ? Beam::get_beam_translation (beam)
          : (Staff_symbol_referencer::staff_space (me)
-            * robust_scm2double (me->get_property ("length-fraction"), 1.0) * 0.81);
+            * robust_scm2double (get_property (me, "length-fraction"), 1.0) * 0.81);
 }
 
 Stencil
 Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real thick = robust_scm2double (me->get_property ("beam-thickness"), 1);
-  Real width = robust_scm2double (me->get_property ("beam-width"), 1);
+  Real thick = robust_scm2double (get_property (me, "beam-thickness"), 1);
+  Real width = robust_scm2double (get_property (me, "beam-width"), 1);
   Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
-  SCM shape = me->get_property ("shape");
+  SCM shape = get_property (me, "shape");
   if (!scm_is_symbol (shape))
     shape = ly_symbol2scm ("beam-like");
 
@@ -132,7 +132,7 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
   a.align_to (X_AXIS, CENTER);
   a.align_to (Y_AXIS, CENTER);
 
-  int tremolo_flags = robust_scm2int (me->get_property ("flag-count"), 0);
+  int tremolo_flags = robust_scm2int (get_property (me, "flag-count"), 0);
   if (!tremolo_flags)
     {
       programming_error ("no tremolo flags");
@@ -163,7 +163,7 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
     Cannot use the real slope, since it looks at the Beam.
    */
   Stencil s1 (untranslated_stencil (me, 0.35));
-  Item *stem = unsmob<Item> (me->get_object ("stem"));
+  Item *stem = unsmob<Item> (get_object (me, "stem"));
   if (!stem)
     return ly_interval2scm (s1.extent (Y_AXIS));
 
@@ -215,7 +215,7 @@ Stem_tremolo::vertical_length (Grob *me)
 Stencil
 Stem_tremolo::untranslated_stencil (Grob *me, Real slope)
 {
-  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   if (!stem)
     {
       programming_error ("no stem for stem-tremolo");
@@ -256,7 +256,7 @@ Stem_tremolo::calc_direction (SCM smob)
 {
   Item *me = unsmob<Item> (smob);
 
-  Item *stem = unsmob<Item> (me->get_object ("stem"));
+  Item *stem = unsmob<Item> (get_object (me, "stem"));
   if (!stem)
     return scm_from_int (CENTER);
 
@@ -293,7 +293,7 @@ Stem_tremolo::calc_direction (SCM smob)
 Real
 Stem_tremolo::y_offset (Grob *me, bool pure)
 {
-  Item *stem = unsmob<Item> (me->get_object ("stem"));
+  Item *stem = unsmob<Item> (get_object (me, "stem"));
   if (!stem)
     return 0.0;
 
@@ -355,7 +355,7 @@ Stem_tremolo::print (SCM grob)
 {
   Grob *me = unsmob<Grob> (grob);
 
-  Stencil s = untranslated_stencil (me, robust_scm2double (me->get_property ("slope"), 0.25));
+  Stencil s = untranslated_stencil (me, robust_scm2double (get_property (me, "slope"), 0.25));
   return s.smobbed_copy ();
 }
 

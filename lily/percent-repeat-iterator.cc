@@ -69,7 +69,7 @@ Percent_repeat_iterator::construct_children ()
   descend_to_bottom_context ();
   if (!measure_position (get_outlet ()).main_part_)
     starting_bar_
-      = robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
+      = robust_scm2int (get_property (get_outlet (), "internalBarNumber"), 0);
 }
 
 SCM
@@ -100,7 +100,7 @@ Percent_repeat_iterator::next_element (bool side_effect)
   int current_bar = -1;
   if (!measure_position (get_outlet ()).main_part_)
     current_bar
-      = robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
+      = robust_scm2int (get_property (get_outlet (), "internalBarNumber"), 0);
 
   SCM child_list = SCM_EOL;
 
@@ -117,17 +117,17 @@ Percent_repeat_iterator::next_element (bool side_effect)
       event_type = "RepeatSlashEvent";
     }
 
-  int repeats = scm_to_int (mus->get_property ("repeat-count"));
+  int repeats = scm_to_int (get_property (mus, "repeat-count"));
   for (int i = repeats; i > 1; i--)
     {
       Music *percent = make_music_by_name (ly_symbol2scm (event_type.c_str ()));
       percent->set_spot (*mus->origin ());
-      percent->set_property ("length", length);
+      set_property (percent, "length", length);
       if (repeats > 1)
         {
-          percent->set_property ("repeat-count", scm_from_int (i));
+          set_property (percent, "repeat-count", scm_from_int (i));
           if (event_type == "RepeatSlashEvent")
-            percent->set_property ("slash-count", slash_count);
+            set_property (percent, "slash-count", slash_count);
         }
 
       child_list = scm_cons (percent->unprotect (), child_list);

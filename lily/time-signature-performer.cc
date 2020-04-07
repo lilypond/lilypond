@@ -58,7 +58,7 @@ Time_signature_performer::~Time_signature_performer ()
 void
 Time_signature_performer::process_music ()
 {
-  SCM fr = get_property ("timeSignatureFraction");
+  SCM fr = get_property (this, "timeSignatureFraction");
   if (scm_is_pair (fr) && !ly_is_equal (fr, prev_fraction_))
     {
       prev_fraction_ = fr;

@@ -45,7 +45,7 @@ Output_property_engraver::listen_apply_output (Stream_event *ev)
     UGH. Only swallow the output property event in the context
     it was intended for. This is inelegant but not inefficient.
   */
-  if (context ()->is_alias (ev->get_property ("context-type")))
+  if (context ()->is_alias (get_property (ev, "context-type")))
     props_.push_back (ev);
 }
 
@@ -56,11 +56,11 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
     {
       Stream_event *o = props_[i];
       Context *d = inf.context ();
-      SCM grob = o->get_property ("symbol");
+      SCM grob = get_property (o, "symbol");
       if (scm_is_symbol (grob)
           && ly_symbol2string (grob) != inf.grob ()->name ())
         continue;
-      SCM proc = o->get_property ("procedure");
+      SCM proc = get_property (o, "procedure");
       scm_call_3 (proc,
                   inf.grob ()->self_scm (),
                   d->self_scm (),

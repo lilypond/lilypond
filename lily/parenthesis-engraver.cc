@@ -45,7 +45,7 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
 {
   if (Stream_event *ev = info.event_cause ())
     {
-      if (to_boolean (ev->get_property ("parenthesize")))
+      if (to_boolean (get_property (ev, "parenthesize")))
         {
           if (Item *victim = dynamic_cast<Item *> (info.grob ()))
             {
@@ -55,9 +55,9 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
 
               paren->set_parent (victim, Y_AXIS);
 
-              Real size = robust_scm2double (paren->get_property ("font-size"), 0.0)
-                          + robust_scm2double (victim->get_property ("font-size"), 0.0);
-              paren->set_property ("font-size", scm_from_double (size));
+              Real size = robust_scm2double (get_property (paren, "font-size"), 0.0)
+                          + robust_scm2double (get_property (victim, "font-size"), 0.0);
+              set_property (paren, "font-size", scm_from_double (size));
 
               /*
                 TODO?

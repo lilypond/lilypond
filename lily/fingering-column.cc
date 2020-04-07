@@ -55,7 +55,7 @@ Fingering_column::calc_positioning_done (SCM smob)
   if (!me->is_live ())
     return SCM_BOOL_T;
 
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
 
   do_y_positioning (me);
   do_x_positioning (me);
@@ -82,7 +82,7 @@ Fingering_column::do_y_positioning (Grob *me)
                      common_refpoint_of_array (fingerings, me, Y_AXIS)
                     };
 
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
+  Real padding = robust_scm2double (get_property (me, "padding"), 0.2);
 
   // order the fingerings from bottom to top
   vector_sort (fingerings, pure_position_less);
@@ -128,7 +128,7 @@ Fingering_column::do_x_positioning (Grob *me)
 
   Grob *common_x = common_refpoint_of_array (fingerings, me, X_AXIS);
 
-  Real snap = robust_scm2double (me->get_property ("snap-radius"), 0.3);
+  Real snap = robust_scm2double (get_property (me, "snap-radius"), 0.3);
   vector<Fingering_and_offset> fos;
 
   for (vsize i = 0; i < fingerings.size (); i++)
@@ -158,7 +158,7 @@ Fingering_column::add_fingering (Grob *fc, Grob *f)
 {
   Pointer_group_interface::add_grob (fc, ly_symbol2scm ("fingerings"), f);
   f->set_parent (fc, X_AXIS);
-  f->set_property ("Y-offset", Grob::x_parent_positioning_proc);
+  set_property (f, "Y-offset", Grob::x_parent_positioning_proc);
 }
 
 ADD_INTERFACE (Fingering_column,

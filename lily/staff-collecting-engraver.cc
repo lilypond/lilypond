@@ -38,19 +38,19 @@ Staff_collecting_engraver::Staff_collecting_engraver (Context *c)
 void
 Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info gi)
 {
-  SCM staffs = get_property ("stavesFound");
+  SCM staffs = get_property (this, "stavesFound");
   staffs = scm_cons (gi.grob ()->self_scm (), staffs);
 
-  context ()->set_property ("stavesFound", staffs);
+  set_property (context (), "stavesFound", staffs);
 }
 
 void
 Staff_collecting_engraver::acknowledge_end_staff_symbol (Grob_info gi)
 {
-  SCM staffs = get_property ("stavesFound");
+  SCM staffs = get_property (this, "stavesFound");
   staffs = scm_delq (gi.grob ()->self_scm (), staffs);
 
-  context ()->set_property ("stavesFound", staffs);
+  set_property (context (), "stavesFound", staffs);
 }
 
 #include "translator.icc"

@@ -78,19 +78,19 @@ Part_combine_engraver::Part_combine_engraver (Context *c)
 void
 Part_combine_engraver::create_item (Stream_event *ev)
 {
-  SCM what = scm_car (ev->get_property ("class"));
+  SCM what = scm_car (get_property (ev, "class"));
   SCM text = SCM_EOL;
   if (scm_is_eq (what, ly_symbol2scm ("solo-one-event")))
-    text = get_property ("soloText");
+    text = get_property (this, "soloText");
   else if (scm_is_eq (what, ly_symbol2scm ("solo-two-event")))
-    text = get_property ("soloIIText");
+    text = get_property (this, "soloIIText");
   else if (scm_is_eq (what, ly_symbol2scm ("unisono-event")))
-    text = get_property ("aDueText");
+    text = get_property (this, "aDueText");
 
   if (Text_interface::is_markup (text))
     {
       text_ = make_item ("CombineTextScript", ev->self_scm ());
-      text_->set_property ("text", text);
+      set_property (text_, "text", text);
     }
 }
 
@@ -98,9 +98,9 @@ void
 Part_combine_engraver::process_music ()
 {
   if (waiting_event_
-      && to_boolean (get_property ("printPartCombineTexts")))
+      && to_boolean (get_property (this, "printPartCombineTexts")))
     {
-      if (note_found_ || !to_boolean (get_property ("partCombineTextsOnNote")))
+      if (note_found_ || !to_boolean (get_property (this, "partCombineTextsOnNote")))
         {
           create_item (waiting_event_);
           waiting_event_ = 0;

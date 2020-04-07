@@ -49,12 +49,12 @@ Bar_check_iterator::process (Moment m)
     {
       Context *tr = get_outlet ();
 
-      SCM check = tr->get_property ("ignoreBarChecks");
+      SCM check = get_property (tr, "ignoreBarChecks");
       if (to_boolean (check))
         return;
 
-      SCM mp = tr->get_property ("measurePosition");
-      SCM sync = tr->get_property ("barCheckSynchronize");
+      SCM mp = get_property (tr, "measurePosition");
+      SCM sync = get_property (tr, "barCheckSynchronize");
 
       Moment *where = unsmob<Moment> (mp);
       if (!where)
@@ -68,16 +68,16 @@ Bar_check_iterator::process (Moment m)
               SCM mp;
               tr = tr->where_defined (ly_symbol2scm ("measurePosition"), &mp);
               Moment zero;
-              tr->set_property ("measurePosition", zero.smobbed_copy ());
+              set_property (tr, "measurePosition", zero.smobbed_copy ());
             }
           else
             {
-              SCM lf = tr->get_property ("barCheckLastFail");
+              SCM lf = get_property (tr, "barCheckLastFail");
               if (unsmob<Moment> (lf)
                   && *unsmob<Moment> (lf) == *where)
                 warn = false;
               else
-                tr->set_property ("barCheckLastFail", mp);
+                set_property (tr, "barCheckLastFail", mp);
             }
 
           if (warn)

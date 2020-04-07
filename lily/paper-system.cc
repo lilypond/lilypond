@@ -80,7 +80,7 @@ get_footnotes (SCM expr)
 void
 paper_system_set_stencil (Prob *prob, Stencil s)
 {
-  SCM yext = prob->get_property ("Y-extent");
+  SCM yext = get_property (prob, "Y-extent");
 
   if (is_number_pair (yext))
     {
@@ -90,5 +90,5 @@ paper_system_set_stencil (Prob *prob, Stencil s)
       s = Stencil (b, s.expr ());
     }
 
-  prob->set_property ("stencil", s.smobbed_copy ());
+  set_property (prob, "stencil", s.smobbed_copy ());
 }

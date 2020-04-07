@@ -44,7 +44,7 @@ Measure_grouping_engraver::finalize ()
 {
   if (grouping_)
     {
-      grouping_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      grouping_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
       grouping_->suicide ();
       grouping_ = 0;
     }
@@ -64,7 +64,7 @@ Measure_grouping_engraver::process_music ()
   if (grouping_ && now.main_part_ >= stop_grouping_mom_ && !now.grace_part_)
     {
       grouping_->set_bound (RIGHT,
-                            unsmob<Grob> (get_property ("currentMusicalColumn")));
+                            unsmob<Grob> (get_property (this, "currentMusicalColumn")));
 
       grouping_ = 0;
     }
@@ -72,13 +72,13 @@ Measure_grouping_engraver::process_music ()
   if (now.grace_part_)
     return;
 
-  SCM grouping = get_property ("beatStructure");
+  SCM grouping = get_property (this, "beatStructure");
   if (scm_is_pair (grouping))
     {
-      Moment *measpos = unsmob<Moment> (get_property ("measurePosition"));
+      Moment *measpos = unsmob<Moment> (get_property (this, "measurePosition"));
       Rational mp = measpos->main_part_;
 
-      Moment *base_mom = unsmob<Moment> (get_property ("baseMoment"));
+      Moment *base_mom = unsmob<Moment> (get_property (this, "baseMoment"));
       Rational base_moment = base_mom->main_part_;
 
       Rational where (0);
@@ -97,15 +97,15 @@ Measure_grouping_engraver::process_music ()
               if (grouplen > 1)
                 {
                   grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
-                  grouping_->set_bound (LEFT, unsmob<Grob> (get_property ("currentMusicalColumn")));
+                  grouping_->set_bound (LEFT, unsmob<Grob> (get_property (this, "currentMusicalColumn")));
 
                   stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * base_moment;
                   find_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
                   if (grouplen == 3)
-                    grouping_->set_property ("style", ly_symbol2scm ("triangle"));
+                    set_property (grouping_, "style", ly_symbol2scm ("triangle"));
                   else
-                    grouping_->set_property ("style", ly_symbol2scm ("bracket"));
+                    set_property (grouping_, "style", ly_symbol2scm ("bracket"));
 
                   break;
                 }

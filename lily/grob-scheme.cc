@@ -37,7 +37,7 @@ LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  return sc->get_property_data (sym);
+  return get_property_data (sc, sym);
 }
 
 LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
@@ -53,7 +53,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
 
-  sc->set_property (sym, val);
+  set_property (sc, sym, val);
   return SCM_UNSPECIFIED;
 }
 
@@ -136,7 +136,7 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
   if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
-  SCM retval = sc->get_property (sym);
+  SCM retval = get_property (sc, sym);
   if (scm_is_null (retval))
     retval = val;
 
@@ -177,7 +177,7 @@ LY_DEFINE (ly_grob_set_object_x, "ly:grob-set-object!",
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  sc->set_object (sym, val);
+  set_object (sc, sym, val);
   return SCM_UNSPECIFIED;
 }
 

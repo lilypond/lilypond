@@ -65,19 +65,19 @@ Text_engraver::process_music ()
       scripts_.push_back (script);
 
       /* see script-engraver.cc */
-      SCM priority = script->get_property ("script-priority");
+      SCM priority = get_property (script, "script-priority");
       if (!scm_is_number (priority))
         priority = scm_from_int (200); // TODO: Explain magic.
       priority = scm_sum (priority, scm_from_size_t (i));
-      script->set_property ("script-priority", priority);
+      set_property (script, "script-priority", priority);
 
-      Direction dir = to_dir (ev->get_property ("direction"));
+      Direction dir = to_dir (get_property (ev, "direction"));
       if (dir)
         set_grob_direction (script, dir);
 
-      SCM mark = ev->get_property ("text");
+      SCM mark = get_property (ev, "text");
 
-      script->set_property ("text", mark);
+      set_property (script, "text", mark);
     }
 }
 
@@ -88,7 +88,7 @@ Text_engraver::acknowledge_note_column (Grob_info info)
   extract_grob_set (info.grob (), "note-heads", heads);
   Grob *x_parent = (heads.size ()
                     ? info.grob ()
-                    : unsmob<Grob> (info.grob ()->get_object ("rest")));
+                    : unsmob<Grob> (get_object (info.grob (), "rest")));
 
   for (vsize i = 0; i < scripts_.size (); i++)
     {

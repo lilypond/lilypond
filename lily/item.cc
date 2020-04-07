@@ -50,7 +50,7 @@ bool
 Item::is_non_musical (Grob *me)
 {
   Item *i = dynamic_cast<Item *> (me->get_parent (X_AXIS));
-  return i ? Item::is_non_musical (i) : to_boolean (me->get_property ("non-musical"));
+  return i ? Item::is_non_musical (i) : to_boolean (get_property (me, "non-musical"));
 }
 
 Paper_column *
@@ -146,7 +146,7 @@ bool
 Item::break_visible (Grob *g)
 {
   Item *it = dynamic_cast<Item *> (g);
-  SCM vis = g->get_property ("break-visibility");
+  SCM vis = get_property (g, "break-visibility");
   if (scm_is_vector (vis))
     return to_boolean (scm_c_vector_ref (vis, it->break_status_dir () + 1));
   return true;
@@ -155,7 +155,7 @@ Item::break_visible (Grob *g)
 bool
 Item::pure_is_visible (vsize start, vsize end) const
 {
-  SCM vis = get_property ("break-visibility");
+  SCM vis = get_property (this, "break-visibility");
   if (scm_is_vector (vis))
     {
       vsize pos = 1;
@@ -191,7 +191,7 @@ spanned_time_interval (Item *l, Item *r)
   for (LEFT_and_RIGHT (d))
     {
       if (bounds[d] && bounds[d]->get_column ())
-        iv[d] = robust_scm2moment (bounds[d]->get_column ()->get_property ("when"),
+        iv[d] = robust_scm2moment (get_property (bounds[d]->get_column (), "when"),
                                    iv[d]);
     }
 

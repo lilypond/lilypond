@@ -62,7 +62,7 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
           stem_posns.intersect (bar_height);
 
           ret = std::min (abs (stem_posns.length () / 7.0), 1.0);
-          ret *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
+          ret *= robust_scm2double (get_property (me, "stem-spacing-correction"), 1);
         }
     }
   return ret;
@@ -79,7 +79,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
 
   if (bar_grob->internal_has_interface (ly_symbol2scm ("bar-line-interface")))
     {
-      SCM glyph = bar_grob->get_property ("glyph-name");
+      SCM glyph = get_property (bar_grob, "glyph-name");
       Grob *staff_sym = Staff_symbol_referencer::get_staff_symbol (bar_grob);
 
       string glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
@@ -142,7 +142,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
       return Spring ();
     }
 
-  SCM alist = last_grob->get_property ("space-alist");
+  SCM alist = get_property (last_grob, "space-alist");
   if (!ly_is_list (alist))
     return Spring ();
 

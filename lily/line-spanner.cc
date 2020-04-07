@@ -60,7 +60,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
   Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
 
-  SCM bound_details = me->get_property ("bound-details");
+  SCM bound_details = get_property (me, "bound-details");
 
   SCM details = SCM_BOOL_F;
   if (scm_is_false (details))
@@ -117,7 +117,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       if (acc && to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
 
-      Grob *dot = unsmob<Grob> (bound_grob->get_object ("dot"));
+      Grob *dot = unsmob<Grob> (get_object (bound_grob, "dot"));
       if (dot && to_boolean (ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (dot, commonx, X_AXIS).linear_combination (attach);
 
@@ -130,13 +130,13 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
     {
       Real y = 0.0;
 
-      Real extra_dy = robust_scm2double (me->get_property ("extra-dy"),
+      Real extra_dy = robust_scm2double (get_property (me, "extra-dy"),
                                          0.0);
 
       Grob *common_y = me->common_refpoint (me->get_bound (dir), Y_AXIS);
       if (me->get_bound (dir)->break_status_dir ())
         {
-          if (to_boolean (me->get_property ("simple-Y")))
+          if (to_boolean (get_property (me, "simple-Y")))
             {
               Spanner *orig = me->original ();
               Spanner *extreme = dir == LEFT ? orig->broken_intos_.front () : orig->broken_intos_.back ();
@@ -213,8 +213,8 @@ Line_spanner::calc_cross_staff (SCM smob)
   if (!me)
     return SCM_BOOL_F;
 
-  if (to_boolean (me->get_bound (LEFT)->get_property ("non-musical"))
-      || to_boolean (me->get_bound (RIGHT)->get_property ("non-musical")))
+  if (to_boolean (get_property (me->get_bound (LEFT), "non-musical"))
+      || to_boolean (get_property (me->get_bound (RIGHT), "non-musical")))
     return SCM_BOOL_F;
 
   return scm_from_bool (Staff_symbol_referencer::get_staff_symbol (me->get_bound (LEFT))
@@ -242,7 +242,7 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob)
   SCM alist = Line_spanner::calc_bound_info (smob, LEFT);
   Spanner *me = unsmob<Spanner> (smob);
 
-  SCM text = me->get_property ("text");
+  SCM text = get_property (me, "text");
   if (Text_interface::is_markup (text)
       && me->get_bound (LEFT)->break_status_dir () == CENTER
       && scm_is_false (ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F)))
@@ -265,10 +265,10 @@ Line_spanner::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
 
   // Triggers simple-Y calculations
-  bool simple_y = to_boolean (me->get_property ("simple-Y")) && !to_boolean (me->get_property ("cross-staff"));
+  bool simple_y = to_boolean (get_property (me, "simple-Y")) && !to_boolean (get_property (me, "cross-staff"));
 
-  Drul_array<SCM> bounds (me->get_property ("left-bound-info"),
-                          me->get_property ("right-bound-info"));
+  Drul_array<SCM> bounds (get_property (me, "left-bound-info"),
+                          get_property (me, "right-bound-info"));
 
   Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
@@ -292,7 +292,7 @@ Line_spanner::print (SCM smob)
 
   // For scaling of 'padding and 'stencil-offset
   Real magstep
-    = pow (2, robust_scm2double (me->get_property ("font-size"), 0.0) / 6);
+    = pow (2, robust_scm2double (get_property (me, "font-size"), 0.0) / 6);
 
   for (LEFT_and_RIGHT (d))
     {
@@ -316,7 +316,7 @@ Line_spanner::print (SCM smob)
         span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
     }
 
-  Interval normalized_endpoints = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0, 1));
+  Interval normalized_endpoints = robust_scm2interval (get_property (me, "normalized-endpoints"), Interval (0, 1));
   Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
 
   span_points[LEFT][Y_AXIS] += normalized_endpoints[LEFT] * y_length;

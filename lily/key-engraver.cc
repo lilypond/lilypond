@@ -76,13 +76,13 @@ Key_engraver::create_key (bool is_default)
        * notes with a different clef will modify middleCPosition. The
        * Key signature, however, should still be printed at the original
        * position. */
-      item_->set_property ("c0-position",
-                           get_property ("middleCClefPosition"));
+      set_property (item_, "c0-position",
+                           get_property (this, "middleCClefPosition"));
 
-      SCM last = get_property ("lastKeyAlterations");
-      SCM key = get_property ("keyAlterations");
+      SCM last = get_property (this, "lastKeyAlterations");
+      SCM key = get_property (this, "keyAlterations");
 
-      if ((to_boolean (get_property ("printKeyCancellation"))
+      if ((to_boolean (get_property (this, "printKeyCancellation"))
            || scm_is_null (key))
           && !scm_is_eq (last, key))
         {
@@ -105,20 +105,20 @@ Key_engraver::create_key (bool is_default)
                                          key_event_
                                          ? key_event_->self_scm () : SCM_EOL);
 
-              cancellation_->set_property ("alteration-alist", restore);
-              cancellation_->set_property ("c0-position",
-                                           get_property ("middleCClefPosition"));
+              set_property (cancellation_, "alteration-alist", restore);
+              set_property (cancellation_, "c0-position",
+                                           get_property (this, "middleCClefPosition"));
             }
         }
 
-      item_->set_property ("alteration-alist", scm_reverse (key));
+      set_property (item_, "alteration-alist", scm_reverse (key));
     }
 
   if (!is_default)
     {
-      SCM visibility = get_property ("explicitKeySignatureVisibility");
-      item_->set_property ("break-visibility", visibility);
-      item_->set_property ("non-default", SCM_BOOL_T);
+      SCM visibility = get_property (this, "explicitKeySignatureVisibility");
+      set_property (item_, "break-visibility", visibility);
+      set_property (item_, "non-default", SCM_BOOL_T);
     }
 }
 
@@ -133,7 +133,7 @@ Key_engraver::listen_key_change (Stream_event *ev)
 void
 Key_engraver::acknowledge_clef (Grob_info /* info */)
 {
-  SCM c = get_property ("createKeyOnClefChange");
+  SCM c = get_property (this, "createKeyOnClefChange");
   if (to_boolean (c))
     create_key (false);
 }
@@ -148,8 +148,8 @@ void
 Key_engraver::process_music ()
 {
   if (key_event_
-      || !scm_is_eq (get_property ("lastKeyAlterations"),
-                     get_property ("keyAlterations")))
+      || !scm_is_eq (get_property (this, "lastKeyAlterations"),
+                     get_property (this, "keyAlterations")))
     create_key (false);
 }
 
@@ -157,7 +157,7 @@ void
 Key_engraver::stop_translation_timestep ()
 {
   item_ = 0;
-  context ()->set_property ("lastKeyAlterations", get_property ("keyAlterations"));
+  set_property (context (), "lastKeyAlterations", get_property (this, "keyAlterations"));
   cancellation_ = 0;
   key_event_ = 0;
 }
@@ -165,14 +165,14 @@ Key_engraver::stop_translation_timestep ()
 void
 Key_engraver::read_event (Stream_event const *r)
 {
-  SCM p = r->get_property ("pitch-alist");
+  SCM p = get_property (r, "pitch-alist");
   if (!scm_is_pair (p))
     return;
 
   SCM accs = SCM_EOL;
 
   SCM alist = scm_list_copy (p);
-  SCM order = get_property ("keyAlterationOrder");
+  SCM order = get_property (this, "keyAlterationOrder");
   for (SCM s = order;
        scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
     {
@@ -199,19 +199,19 @@ Key_engraver::read_event (Stream_event const *r)
         r->origin ()->warning (_ ("Incomplete keyAlterationOrder for key signature"));
     }
 
-  context ()->set_property ("keyAlterations", scm_reverse_x (accs, SCM_EOL));
-  context ()->set_property ("tonic",
-                            r->get_property ("tonic"));
+  set_property (context (), "keyAlterations", scm_reverse_x (accs, SCM_EOL));
+  set_property (context (), "tonic",
+                            get_property (r, "tonic"));
 }
 
 void
 Key_engraver::initialize ()
 {
-  context ()->set_property ("keyAlterations", SCM_EOL);
-  context ()->set_property ("lastKeyAlterations", SCM_EOL);
+  set_property (context (), "keyAlterations", SCM_EOL);
+  set_property (context (), "lastKeyAlterations", SCM_EOL);
 
   Pitch p;
-  context ()->set_property ("tonic", p.smobbed_copy ());
+  set_property (context (), "tonic", p.smobbed_copy ());
 }
 
 void

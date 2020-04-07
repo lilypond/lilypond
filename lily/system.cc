@@ -70,7 +70,7 @@ System::init_elements ()
   SCM scm_arr = Grob_array::make_array ();
   all_elements_ = unsmob<Grob_array> (scm_arr);
   all_elements_->set_ordered (false);
-  set_object ("all-elements", scm_arr);
+  set_object (this, "all-elements", scm_arr);
 }
 
 vsize
@@ -190,7 +190,7 @@ System::do_break_substitution_and_fixup_refpoints ()
         {
           Grob *g = child->all_elements_->grob (j);
 
-          (void) g->get_property ("after-line-breaking");
+          (void) get_property (g, "after-line-breaking");
         }
     }
 
@@ -247,7 +247,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
       bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *>(at_bat))
         {
-          Direction spanner_placement = robust_scm2dir (s->get_property ("spanner-placement"), LEFT);
+          Direction spanner_placement = robust_scm2dir (get_property (s, "spanner-placement"), LEFT);
           if (spanner_placement == CENTER)
             spanner_placement = LEFT;
 
@@ -322,13 +322,13 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
 
   for (vsize i = footnote_grobs.size (); i--;)
     if (foot
-        ? !to_boolean (footnote_grobs[i]->get_property ("footnote"))
-        : to_boolean (footnote_grobs[i]->get_property ("footnote")))
+        ? !to_boolean (get_property (footnote_grobs[i], "footnote"))
+        : to_boolean (get_property (footnote_grobs[i], "footnote")))
       footnote_grobs.erase (footnote_grobs.begin () + i);
 
   for (vsize i = 0; i < footnote_grobs.size (); i++)
     {
-      SCM footnote_markup = footnote_grobs[i]->get_property ("footnote-text");
+      SCM footnote_markup = get_property (footnote_grobs[i], "footnote-text");
 
       if (!Text_interface::is_markup (footnote_markup))
         continue;
@@ -365,11 +365,11 @@ grob_2D_less (Grob *g1, Grob *g2)
       if (Spanner *s = dynamic_cast<Spanner *> (gs[i]))
         {
           if (s->broken_intos_.size ())
-            s = (scm_to_int (s->broken_intos_[0]->get_property ("spanner-placement")) == LEFT
+            s = (scm_to_int (get_property (s->broken_intos_[0], "spanner-placement")) == LEFT
                  ? s->broken_intos_[0]
                  : s->broken_intos_.back ());
           gs[i] = s;
-          if (robust_scm2double (s->get_property ("X-offset"), 0.0) > 0)
+          if (robust_scm2double (get_property (s, "X-offset"), 0.0) > 0)
             sri[i] = s->spanned_rank_interval ()[RIGHT];
         }
     }
@@ -423,7 +423,7 @@ System::vertical_skyline_elements (SCM smob)
       vertical_skyline_grobs.push_back (my_elts[i]);
 
   System *me = dynamic_cast<System *> (me_grob);
-  Grob *align = unsmob<Grob> (me->get_object ("vertical-alignment"));
+  Grob *align = unsmob<Grob> (get_object (me, "vertical-alignment"));
   if (!align)
     {
       SCM grobs_scm = Grob_array::make_array ();
@@ -463,7 +463,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       int st = c[0]->get_rank ();
       int end = c.back ()->get_rank ();
       Interval iv (pure_y_extent (this, st, end));
-      system->set_property ("pure-Y-extent", ly_interval2scm (iv));
+      set_property (system, "pure-Y-extent", ly_interval2scm (iv));
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());
@@ -483,7 +483,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       for (vsize j = 0; j < loose.size (); j++)
         collect_labels (loose[j], &system_labels);
 
-      system->set_property ("labels", system_labels);
+      set_property (system, "labels", system_labels);
 
       set_loose_columns (system, &breaking[i]);
       broken_intos_.push_back (system);
@@ -493,7 +493,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 void
 System::collect_labels (Grob const *col, SCM *labels)
 {
-  SCM col_labels = col->get_property ("labels");
+  SCM col_labels = get_property (col, "labels");
   if (scm_is_pair (col_labels))
     *labels = scm_append (scm_list_2 (col_labels, *labels));
 }
@@ -502,11 +502,11 @@ void
 System::add_column (Paper_column *p)
 {
   Grob *me = this;
-  Grob_array *ga = unsmob<Grob_array> (me->get_object ("columns"));
+  Grob_array *ga = unsmob<Grob_array> (get_object (me, "columns"));
   if (!ga)
     {
       SCM scm_ga = Grob_array::make_array ();
-      me->set_object ("columns", scm_ga);
+      set_object (me, "columns", scm_ga);
       ga = unsmob<Grob_array> (scm_ga);
     }
 
@@ -543,13 +543,13 @@ System::pre_processing ()
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
-      (void) g->get_property ("before-line-breaking");
+      (void) get_property (g, "before-line-breaking");
     }
 
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *e = all_elements_->grob (i);
-      (void) e->get_property ("springs-and-rods");
+      (void) get_property (e, "springs-and-rods");
     }
 }
 
@@ -605,7 +605,7 @@ System::get_paper_system ()
     {
       Layer_entry e;
       e.grob_ = all_elements_->grob (j);
-      e.layer_ = robust_scm2int (e.grob_->get_property ("layer"), 1);
+      e.layer_ = robust_scm2int (get_property (e.grob_, "layer"), 1);
 
       entries.push_back (e);
     }
@@ -623,7 +623,7 @@ System::get_paper_system ()
       for (int a = X_AXIS; a < NO_AXES; a++)
         o[Axis (a)] = g->relative_coordinate (this, Axis (a));
 
-      Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
+      Offset extra = robust_scm2offset (get_property (g, "extra-offset"),
                                         Offset (0, 0))
                      * Staff_symbol_referencer::staff_space (g);
 
@@ -646,7 +646,7 @@ System::get_paper_system ()
                                  exprs));
   if (debug_skylines)
     {
-      Skyline_pair *skylines = unsmob<Skyline_pair> (get_property ("vertical-skylines"));
+      Skyline_pair *skylines = unsmob<Skyline_pair> (get_property (this, "vertical-skylines"));
       if (skylines)
         {
           Stencil up
@@ -659,23 +659,23 @@ System::get_paper_system ()
     }
 
   Paper_column *left_bound = get_bound (LEFT);
-  SCM prop_init = left_bound->get_property ("line-break-system-details");
+  SCM prop_init = get_property (left_bound, "line-break-system-details");
   Prob *pl = make_paper_system (prop_init);
   paper_system_set_stencil (pl, sys_stencil);
 
   /* information that the page breaker might need */
   Paper_column *right_bound = get_bound (RIGHT);
-  pl->set_property ("vertical-skylines", get_property ("vertical-skylines"));
-  pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
-  pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
-  pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
-  pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
+  set_property (pl, "vertical-skylines", get_property (this, "vertical-skylines"));
+  set_property (pl, "page-break-permission", get_property (right_bound, "page-break-permission"));
+  set_property (pl, "page-turn-permission", get_property (right_bound, "page-turn-permission"));
+  set_property (pl, "page-break-penalty", get_property (right_bound, "page-break-penalty"));
+  set_property (pl, "page-turn-penalty", get_property (right_bound, "page-turn-penalty"));
 
   if (right_bound->original () == original ()->get_bound (RIGHT))
-    pl->set_property ("last-in-score", SCM_BOOL_T);
+    set_property (pl, "last-in-score", SCM_BOOL_T);
 
   Interval staff_refpoints;
-  if (Grob *align = unsmob<Grob> (get_object ("vertical-alignment")))
+  if (Grob *align = unsmob<Grob> (get_object (this, "vertical-alignment")))
     {
       extract_grob_set (align, "elements", staves);
       for (vsize i = 0; i < staves.size (); i++)
@@ -685,8 +685,8 @@ System::get_paper_system ()
                                                                      Y_AXIS));
     }
 
-  pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
-  pl->set_property ("system-grob", self_scm ());
+  set_property (pl, "staff-refpoint-extent", ly_interval2scm (staff_refpoints));
+  set_property (pl, "system-grob", self_scm ());
 
   return pl->unprotect ();
 }
@@ -800,7 +800,7 @@ System::get_vertical_alignment (SCM smob)
 Grob *
 System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds)
 {
-  Grob *align = unsmob<Grob> (get_object ("vertical-alignment"));
+  Grob *align = unsmob<Grob> (get_object (this, "vertical-alignment"));
   if (!align)
     return 0;
 
@@ -830,7 +830,7 @@ Interval
 System::pure_refpoint_extent (vsize start, vsize end)
 {
   Interval ret;
-  Grob *alignment = unsmob<Grob> (get_object ("vertical-alignment"));
+  Grob *alignment = unsmob<Grob> (get_object (this, "vertical-alignment"));
   if (!alignment)
     return Interval ();
 
@@ -857,7 +857,7 @@ System::pure_refpoint_extent (vsize start, vsize end)
 Interval
 System::part_of_line_pure_height (vsize start, vsize end, bool begin)
 {
-  Grob *alignment = unsmob<Grob> (get_object ("vertical-alignment"));
+  Grob *alignment = unsmob<Grob> (get_object (this, "vertical-alignment"));
   if (!alignment)
     return Interval ();
 
@@ -988,7 +988,7 @@ static SCM
 get_maybe_spaceable_staves (SCM smob, int filter)
 {
   System *me = unsmob<System> (smob);
-  Grob *align = unsmob<Grob> (me->get_object ("vertical_alignment"));
+  Grob *align = unsmob<Grob> (get_object (me, "vertical_alignment"));
   SCM ret = SCM_EOL;
 
   if (align)

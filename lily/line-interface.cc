@@ -86,15 +86,15 @@ Line_interface::make_zigzag_line (Grob *me,
   Offset dz = to - from;
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
-  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer?
+  thick *= robust_scm2double (get_property (me, "thickness"), 1.0); // todo: staff sym referencer?
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
+  Real w = robust_scm2double (get_property (me, "zigzag-width"), 1) * staff_space;
   int count = (int) ceil (dz.length () / w);
   w = dz.length () / count;
 
-  Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
+  Real l = robust_scm2double (get_property (me, "zigzag-length"), 1) * w;
   Real h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
 
   Offset rotation_factor = dz.direction ();
@@ -179,11 +179,11 @@ Line_interface::arrows (Grob *me, Offset from, Offset to,
   if (from_arrow || to_arrow)
     {
       Real thick = Staff_symbol_referencer::line_thickness (me)
-                   * robust_scm2double (me->get_property ("thickness"), 1);
+                   * robust_scm2double (get_property (me, "thickness"), 1);
       Real ss = Staff_symbol_referencer::staff_space (me);
 
-      Real len = robust_scm2double (me->get_property ("arrow-length"), 1.3 * ss);
-      Real wid = robust_scm2double (me->get_property ("arrow-width"), 0.5 * ss);
+      Real len = robust_scm2double (get_property (me, "arrow-length"), 1.3 * ss);
+      Real wid = robust_scm2double (get_property (me, "arrow-width"), 0.5 * ss);
 
       if (to_arrow)
         a.add_stencil (make_arrow (from, to, thick, len, wid));
@@ -199,9 +199,9 @@ Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = Staff_symbol_referencer::line_thickness (me)
-               * robust_scm2double (me->get_property ("thickness"), 1);
+               * robust_scm2double (get_property (me, "thickness"), 1);
 
-  SCM type = me->get_property ("style");
+  SCM type = get_property (me, "style");
   if (scm_is_eq (type, ly_symbol2scm ("zigzag")))
     return make_zigzag_line (me, from, to);
   else if (scm_is_eq (type, ly_symbol2scm ("trill")))
@@ -218,11 +218,11 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       Real fraction
         = scm_is_eq (type, ly_symbol2scm ("dotted-line"))
           ? 0.0
-          : robust_scm2double (me->get_property ("dash-fraction"), 0.4);
+          : robust_scm2double (get_property (me, "dash-fraction"), 0.4);
 
       fraction = std::min (std::max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)
-                    * robust_scm2double (me->get_property ("dash-period"), 1.0);
+                    * robust_scm2double (get_property (me, "dash-period"), 1.0);
 
       if (period <= 0)
         return Stencil ();

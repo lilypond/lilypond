@@ -28,8 +28,8 @@
 void
 Timing_translator::stop_translation_timestep ()
 {
-  if (to_boolean (get_property ("timing"))
-      && !to_boolean (get_property ("skipBars")))
+  if (to_boolean (get_property (this, "timing"))
+      && !to_boolean (get_property (this, "skipBars")))
     {
       Moment barleft = (measure_length () - measure_position (context ()));
       Moment now = now_mom ();
@@ -59,22 +59,22 @@ Timing_translator::initialize ()
         }
     }
 
-  SCM barnumber = timing->get_property ("currentBarNumber");
+  SCM barnumber = get_property (timing, "currentBarNumber");
   if (!scm_is_integer (barnumber))
     barnumber = scm_from_int (1);
-  context ()->set_property ("currentBarNumber", barnumber);
-  context ()->set_property ("internalBarNumber", barnumber);
+  set_property (context (), "currentBarNumber", barnumber);
+  set_property (context (), "internalBarNumber", barnumber);
 
-  SCM timeSignatureFraction = timing->get_property ("timeSignatureFraction");
+  SCM timeSignatureFraction = get_property (timing, "timeSignatureFraction");
 
   if (!scm_is_pair (timeSignatureFraction))
     {
       programming_error ("missing timeSignatureFraction");
       timeSignatureFraction = scm_cons (scm_from_int (4), scm_from_int (4));
     }
-  context ()->set_property ("timeSignatureFraction", timeSignatureFraction);
+  set_property (context (), "timeSignatureFraction", timeSignatureFraction);
 
-  SCM measureLength = timing->get_property ("measureLength");
+  SCM measureLength = get_property (timing, "measureLength");
 
   if (!unsmob<Moment> (measureLength))
     {
@@ -83,30 +83,30 @@ Timing_translator::initialize ()
                   (scm_divide (scm_car (timeSignatureFraction),
                                scm_cdr (timeSignatureFraction)))).smobbed_copy ();
     }
-  context ()->set_property ("measureLength", measureLength);
+  set_property (context (), "measureLength", measureLength);
 
   /*
     Do not init measurePosition; this should be done from global
     context.
   */
 
-  SCM timeSignatureSettings = timing->get_property ("timeSignatureSettings");
+  SCM timeSignatureSettings = get_property (timing, "timeSignatureSettings");
   if (!scm_is_pair (timeSignatureSettings))
     {
       programming_error ("missing timeSignatureSettings");
       timeSignatureSettings = Lily::default_time_signature_settings;
     }
-  context ()->set_property ("timeSignatureSettings", timeSignatureSettings);
+  set_property (context (), "timeSignatureSettings", timeSignatureSettings);
 
-  SCM beamExceptions = timing->get_property ("beamExceptions");
+  SCM beamExceptions = get_property (timing, "beamExceptions");
   if (!scm_is_pair (beamExceptions))
     {
       beamExceptions = Lily::beam_exceptions (timeSignatureFraction,
                                               timeSignatureSettings);
     }
-  context ()->set_property ("beamExceptions", beamExceptions);
+  set_property (context (), "beamExceptions", beamExceptions);
 
-  SCM baseMoment = timing->get_property ("baseMoment");
+  SCM baseMoment = get_property (timing, "baseMoment");
   if (!unsmob<Moment> (baseMoment))
     {
       baseMoment
@@ -114,9 +114,9 @@ Timing_translator::initialize ()
                   (Lily::base_length (timeSignatureFraction,
                                       timeSignatureSettings))).smobbed_copy ();
     }
-  context ()->set_property ("baseMoment", baseMoment);
+  set_property (context (), "baseMoment", baseMoment);
 
-  SCM beatStructure = timing->get_property ("beatStructure");
+  SCM beatStructure = get_property (timing, "beatStructure");
   if (!scm_is_pair (beatStructure))
     {
       beatStructure
@@ -124,19 +124,19 @@ Timing_translator::initialize ()
                                 timeSignatureFraction,
                                 timeSignatureSettings);
     }
-  context ()->set_property ("beatStructure", beatStructure);
+  set_property (context (), "beatStructure", beatStructure);
 
-  context ()->set_property ("beamHalfMeasure",
-                            timing->get_property ("beamHalfMeasure"));
+  set_property (context (), "beamHalfMeasure",
+                            get_property (timing, "beamHalfMeasure"));
 
-  context ()->set_property ("autoBeaming",
-                            timing->get_property ("autoBeaming"));
+  set_property (context (), "autoBeaming",
+                            get_property (timing, "autoBeaming"));
 }
 
 Rational
 Timing_translator::measure_length () const
 {
-  SCM l = get_property ("measureLength");
+  SCM l = get_property (this, "measureLength");
   if (unsmob<Moment> (l))
     return unsmob<Moment> (l)->main_part_;
   else
@@ -171,7 +171,7 @@ Timing_translator::start_translation_timestep ()
 
   Moment measposp;
 
-  SCM s = get_property ("measurePosition");
+  SCM s = get_property (this, "measurePosition");
   if (unsmob<Moment> (s))
     measposp = *unsmob<Moment> (s);
   else
@@ -179,10 +179,10 @@ Timing_translator::start_translation_timestep ()
       measposp = now;
     }
 
-  int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
-  int internal_barnumber = robust_scm2int (get_property ("internalBarNumber"), 0);
+  int current_barnumber = robust_scm2int (get_property (this, "currentBarNumber"), 0);
+  int internal_barnumber = robust_scm2int (get_property (this, "internalBarNumber"), 0);
 
-  SCM cad = get_property ("timing");
+  SCM cad = get_property (this, "timing");
   bool c = to_boolean (cad);
 
   if (c)
@@ -213,9 +213,9 @@ Timing_translator::start_translation_timestep ()
 
   measposp.grace_part_ = now.grace_part_;
 
-  context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
-  context ()->set_property ("internalBarNumber", scm_from_int (internal_barnumber));
-  context ()->set_property ("measurePosition", measposp.smobbed_copy ());
+  set_property (context (), "currentBarNumber", scm_from_int (current_barnumber));
+  set_property (context (), "internalBarNumber", scm_from_int (internal_barnumber));
+  set_property (context (), "measurePosition", measposp.smobbed_copy ());
 }
 
 #include "translator.icc"

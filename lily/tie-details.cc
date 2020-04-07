@@ -39,11 +39,11 @@ Tie_details::from_grob (Grob *me)
   staff_symbol_referencer_ = me;
   staff_space_ = Staff_symbol_referencer::staff_space (me);
 
-  neutral_direction_ = to_dir (me->get_property ("neutral-direction"));
+  neutral_direction_ = to_dir (get_property (me, "neutral-direction"));
   if (!neutral_direction_)
     neutral_direction_ = DOWN;
 
-  SCM details = me->get_property ("details");
+  SCM details = get_property (me, "details");
 
   height_limit_ = get_real_detail ("height-limit", 0.75);
   ratio_ = get_real_detail ("ratio", .333);

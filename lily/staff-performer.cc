@@ -141,7 +141,7 @@ Staff_performer::new_audio_staff (const string &voice)
 {
   Audio_staff *audio_staff = new Audio_staff;
   audio_staff->merge_unisons_
-    = to_boolean (get_property ("midiMergeUnisons"));
+    = to_boolean (get_property (this, "midiMergeUnisons"));
   string track_name = context ()->id_string () + ":" + voice;
   if (track_name != ":")
     {
@@ -163,7 +163,7 @@ Staff_performer::new_audio_staff (const string &voice)
 Audio_staff *
 Staff_performer::get_audio_staff (const string &voice)
 {
-  SCM channel_mapping = get_property ("midiChannelMapping");
+  SCM channel_mapping = get_property (this, "midiChannelMapping");
   if (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument"))
       && staff_map_.size ())
     return staff_map_.begin ()->second;
@@ -239,7 +239,7 @@ string
 Staff_performer::new_instrument_string ()
 {
   // mustn't ask Score for instrument: it will return piano!
-  SCM minstr = get_property ("midiInstrument");
+  SCM minstr = get_property (this, "midiInstrument");
 
   if (!scm_is_string (minstr)
       || ly_scm2string (minstr) == instrument_string_)
@@ -253,7 +253,7 @@ Staff_performer::new_instrument_string ()
 int
 Staff_performer::get_channel (const string &instrument)
 {
-  SCM channel_mapping = get_property ("midiChannelMapping");
+  SCM channel_mapping = get_property (this, "midiChannelMapping");
   map<string, int> &channel_map
     = (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
       ? channel_map_
@@ -309,7 +309,7 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
   string voice;
   if (c->is_alias (ly_symbol2scm ("Voice")))
     voice = c->id_string ();
-  SCM channel_mapping = get_property ("midiChannelMapping");
+  SCM channel_mapping = get_property (this, "midiChannelMapping");
   string str = new_instrument_string ();
   if (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
     channel_ = get_channel (voice);
@@ -341,7 +341,7 @@ Staff_performer::Midi_control_initializer::Midi_control_initializer
 SCM Staff_performer::Midi_control_initializer::get_property_value
 (const char *property_name)
 {
-  return performer_->get_property (property_name);
+  return get_property (performer_, property_name);
 }
 
 void Staff_performer::Midi_control_initializer::do_announce

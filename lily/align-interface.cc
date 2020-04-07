@@ -40,9 +40,9 @@ Align_interface::align_to_minimum_distances (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
 
-  SCM axis = scm_car (me->get_property ("axes"));
+  SCM axis = scm_car (get_property (me, "axes"));
   Axis ax = Axis (scm_to_int (axis));
 
   Align_interface::align_elements_to_minimum_distances (me, ax);
@@ -56,7 +56,7 @@ Align_interface::align_to_ideal_distances (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
 
   Align_interface::align_elements_to_ideal_distances (me);
 
@@ -78,7 +78,7 @@ get_skylines (Grob *g,
 
   if (!pure)
     {
-      Skyline_pair *skys = unsmob<Skyline_pair> (g->get_property (a == Y_AXIS
+      Skyline_pair *skys = unsmob<Skyline_pair> (get_property (g, a == Y_AXIS
                                                                   ? "vertical-skylines"
                                                                   : "horizontal-skylines"));
       if (skys)
@@ -180,7 +180,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
     {
       SCM fv = ly_assoc_get (scm_cons (scm_from_size_t (start),
                                        scm_from_size_t (end)),
-                             me->get_property ("minimum-translations-alist"),
+                             get_property (me, "minimum-translations-alist"),
                              SCM_EOL);
       if (!scm_is_null (fv))
         return ly_scm2floatvector (fv);
@@ -193,13 +193,13 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (!dynamic_cast<System *> (me->get_parent (Y_AXIS)))
     include_fixed_spacing = false;
 
-  Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
+  Direction stacking_dir = robust_scm2dir (get_property (me, "stacking-dir"),
                                            DOWN);
 
   Grob *other_common = common_refpoint_of_array (elems, me, other_axis (a));
 
   Real where = 0;
-  Real default_padding = robust_scm2double (me->get_property ("padding"), 0.0);
+  Real default_padding = robust_scm2double (get_property (me, "padding"), 0.0);
   vector<Real> translates;
   Skyline down_skyline (stacking_dir);
   Grob *last_nonempty_element = 0;
@@ -283,12 +283,12 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 
   if (pure)
     {
-      SCM mta = me->get_property ("minimum-translations-alist");
+      SCM mta = get_property (me, "minimum-translations-alist");
       mta = scm_cons (scm_cons (scm_cons (scm_from_size_t (start),
                                           scm_from_size_t (end)),
                                 ly_floatvector2scm (translates)),
                       mta);
-      me->set_property ("minimum-translations-alist", mta);
+      set_property (me, "minimum-translations-alist", mta);
     }
   return translates;
 }
@@ -339,7 +339,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, vsize start, 
 Axis
 Align_interface::axis (Grob *me)
 {
-  return Axis (scm_to_int (scm_car (me->get_property ("axes"))));
+  return Axis (scm_to_int (scm_car (get_property (me, "axes"))));
 }
 
 void
@@ -349,20 +349,20 @@ Align_interface::add_element (Grob *me, Grob *element)
   SCM sym = axis_offset_symbol (a);
   SCM proc = axis_parent_positioning (a);
 
-  element->set_property (sym, proc);
+  set_property (element, sym, proc);
   Axis_group_interface::add_element (me, element);
 }
 
 void
 Align_interface::set_ordered (Grob *me)
 {
-  SCM ga_scm = me->get_object ("elements");
+  SCM ga_scm = get_object (me, "elements");
   Grob_array *ga = unsmob<Grob_array> (ga_scm);
   if (!ga)
     {
       ga_scm = Grob_array::make_array ();
       ga = unsmob<Grob_array> (ga_scm);
-      me->set_object ("elements", ga_scm);
+      set_object (me, "elements", ga_scm);
     }
 
   ga->set_ordered (true);

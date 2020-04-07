@@ -331,8 +331,8 @@ Dynamic_performer::equalize_volume (Real volume)
   /*
     properties override default equaliser setting
   */
-  SCM min = get_property ("midiMinimumVolume");
-  SCM max = get_property ("midiMaximumVolume");
+  SCM min = get_property (this, "midiMinimumVolume");
+  SCM max = get_property (this, "midiMaximumVolume");
   if (scm_is_number (min) || scm_is_number (max))
     {
       Interval iv (Audio_span_dynamic::MINIMUM_VOLUME,
@@ -348,15 +348,15 @@ Dynamic_performer::equalize_volume (Real volume)
       /*
         urg, code duplication:: staff_performer
       */
-      SCM s = get_property ("midiInstrument");
+      SCM s = get_property (this, "midiInstrument");
 
       if (!scm_is_string (s))
-        s = get_property ("instrumentName");
+        s = get_property (this, "instrumentName");
 
       if (!scm_is_string (s))
         s = scm_from_ascii_string ("piano");
 
-      SCM eq = get_property ("instrumentEqualizer");
+      SCM eq = get_property (this, "instrumentEqualizer");
       if (ly_is_procedure (eq))
         s = scm_call_1 (eq, s);
 
@@ -382,7 +382,7 @@ Real
 Dynamic_performer::look_up_absolute_volume (SCM dynamicString,
                                             Real defaultValue)
 {
-  SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
+  SCM proc = get_property (this, "dynamicAbsoluteVolumeFunction");
 
   SCM svolume = SCM_EOL;
   if (ly_is_procedure (proc))
@@ -398,7 +398,7 @@ Dynamic_performer::process_music ()
 
   if (script_event_) // explicit dynamic
     {
-      volume = look_up_absolute_volume (script_event_->get_property ("text"),
+      volume = look_up_absolute_volume (get_property (script_event_, "text"),
                                         Audio_span_dynamic::DEFAULT_VOLUME);
       volume = equalize_volume (volume);
     }
@@ -467,7 +467,7 @@ Dynamic_performer::stop_translation_timestep ()
 void
 Dynamic_performer::listen_decrescendo (Stream_event *r)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
+  Direction d = to_dir (get_property (r, "span-direction"));
   if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
     next_grow_dir_ = SMALLER;
 }
@@ -475,7 +475,7 @@ Dynamic_performer::listen_decrescendo (Stream_event *r)
 void
 Dynamic_performer::listen_crescendo (Stream_event *r)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
+  Direction d = to_dir (get_property (r, "span-direction"));
   if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
     next_grow_dir_ = BIGGER;
 }

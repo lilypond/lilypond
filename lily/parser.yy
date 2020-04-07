@@ -607,8 +607,8 @@ embedded_lilypond:
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 
 			parser->default_duration_ = *unsmob<Duration> ($1);
-			n->set_property ("duration", $1);
-			n->set_property ("articulations",
+			set_property (n, "duration", $1);
+			set_property (n, "articulations",
 					 scm_reverse_x ($2, SCM_EOL));
 			$$ = n->unprotect ();
 		}
@@ -731,7 +731,7 @@ identifier_init:
 		else
 		{
 			Music * m = MY_MAKE_MUSIC ("PostEvents", @$);
-			m->set_property ("elements", $$);
+			set_property (m, "elements", $$);
 			$$ = m->unprotect ();
 		}
 	}
@@ -1401,7 +1401,7 @@ music_list:
 	| music_list error {
 		Music *m = MY_MAKE_MUSIC("Music", @$);
 		// ugh. code dup
-		m->set_property ("error-found", SCM_BOOL_T);
+		set_property (m, "error-found", SCM_BOOL_T);
 		$$ = scm_cons (m->self_scm (), $1);
 		m->unprotect (); /* UGH */
 	}
@@ -1447,10 +1447,10 @@ music_embedded:
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 
 		parser->default_duration_ = *unsmob<Duration> ($1);
-		n->set_property ("duration", $1);
+		set_property (n, "duration", $1);
 
 		if (scm_is_pair ($2))
-			n->set_property ("articulations",
+			set_property (n, "articulations",
 					 scm_reverse_x ($2, SCM_EOL));
 		$$ = n->unprotect ();
 	}
@@ -1824,7 +1824,7 @@ function_arglist_nonbackup:
 			$$ = scm_cons (n, $3);
 		else {
 			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
-			t->set_property ("digit", $5);
+			set_property (t, "digit", $5);
 			$$ = check_scheme_arg (parser, @4, t->unprotect (),
 					       $3, $2, n);
 		}
@@ -1900,7 +1900,7 @@ reparsed_rhythm:
 		Music *m = unsmob<Music> ($$);
 		assert (m);
 		if (scm_is_pair ($4))
-			m->set_property ("articulations",
+			set_property (m, "articulations",
 					 scm_reverse_x ($4, SCM_EOL));
 	} %prec ':'
 	;
@@ -2156,7 +2156,7 @@ function_arglist_backup:
 			MYREPARSE (@5, $2, REAL, n);
 		} else {
 			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
-			t->set_property ("digit", $5);
+			set_property (t, "digit", $5);
 			$$ = t->unprotect ();
 			if (scm_is_true (scm_call_1 ($2, $$)))
 				$$ = scm_cons ($$, $3);
@@ -2548,7 +2548,7 @@ function_arglist_common_reparse:
 			MYREPARSE (@4, $1, REAL, n);
 		else {
 			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @4);
-			t->set_property ("digit", $4);
+			set_property (t, "digit", $4);
 			SCM m = t->unprotect ();
 			if (scm_is_true (scm_call_1 ($1, m)))
 				MYREPARSE (@4, $1, SCM_ARG, m);
@@ -3034,7 +3034,7 @@ event_chord:
 	simple_element post_events {
 		// Let the rhythmic music iterator sort this mess out.
 		if (scm_is_pair ($2)) {
-			unsmob<Music> ($$)->set_property ("articulations",
+			set_property (unsmob<Music> ($$), "articulations",
 							 scm_reverse_x ($2, SCM_EOL));
 		}
 	} %prec ':'
@@ -3056,14 +3056,14 @@ note_chord_element:
 	{
 		Music *m = unsmob<Music> ($1);
 		SCM dur = unsmob<Duration> ($2)->smobbed_copy ();
-		SCM es = m->get_property ("elements");
+		SCM es = get_property (m, "elements");
 		SCM postevs = scm_reverse_x ($3, SCM_EOL);
 
 		for (SCM s = es; scm_is_pair (s); s = scm_cdr (s))
-		  unsmob<Music> (scm_car (s))->set_property ("duration", dur);
+		  unsmob<Music> (scm_car (s))->set_property (this, "duration", dur);
 		es = ly_append2 (es, postevs);
 
-		m->set_property ("elements", es);
+		set_property (m, "elements", es);
 		m->set_spot (parser->lexer_->override_input (@$));
 		$$ = m->self_scm ();
 	} %prec ':'
@@ -3099,31 +3099,31 @@ chord_body_element:
 		SCM post = $5;
 
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
-		n->set_property ("pitch", $1);
+		set_property (n, "pitch", $1);
 		if (q)
-			n->set_property ("cautionary", SCM_BOOL_T);
+			set_property (n, "cautionary", SCM_BOOL_T);
                 if (ex || q)
-			n->set_property ("force-accidental", SCM_BOOL_T);
+			set_property (n, "force-accidental", SCM_BOOL_T);
 
 		if (scm_is_pair (post)) {
 			SCM arts = scm_reverse_x (post, SCM_EOL);
-			n->set_property ("articulations", arts);
+			set_property (n, "articulations", arts);
 		}
 		if (scm_is_number (check))
 		{
 			int q = scm_to_int (check);
-			n->set_property ("absolute-octave", scm_from_int (q-1));
+			set_property (n, "absolute-octave", scm_from_int (q-1));
 		}
 
 		$$ = n->unprotect ();
 	}
 	| DRUM_PITCH post_events %prec ':' {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
-		n->set_property ("drum-type", $1);
+		set_property (n, "drum-type", $1);
 
 		if (scm_is_pair ($2)) {
 			SCM arts = scm_reverse_x ($2, SCM_EOL);
-			n->set_property ("articulations", arts);
+			set_property (n, "articulations", arts);
 		}
 		$$ = n->unprotect ();
 	}
@@ -3133,7 +3133,7 @@ chord_body_element:
 
 		if (m && !m->is_mus_type ("post-event")) {
 			while (m && m->is_mus_type ("music-wrapper-music")) {
-				$$ = m->get_property ("element");
+				$$ = get_property (m, "element");
 				m = unsmob<Music> ($$);
 			}
 
@@ -3180,7 +3180,7 @@ post_event_nofinger:
 		} else {
 			m->set_spot (parser->lexer_->override_input (@$));
 			if (!SCM_UNBNDP ($1))
-				m->set_property ("direction", $1);
+				set_property (m, "direction", $1);
 			$$ = $2;
 		}
 	}
@@ -3199,7 +3199,7 @@ post_event_nofinger:
 			m->set_spot (parser->lexer_->override_input (@$));
 			if (!SCM_UNBNDP ($1))
 			{
-				m->set_property ("direction", $1);
+				set_property (m, "direction", $1);
 			}
 		}
 		$$ = $2;
@@ -3208,21 +3208,21 @@ post_event_nofinger:
 		Music *m = unsmob<Music> ($2);
 		m->set_spot (parser->lexer_->override_input (@$));
 		if (!SCM_UNBNDP ($1))
-			m->set_property ("direction", $1);
+			set_property (m, "direction", $1);
 		$$ = $2;
 	}
 	| '^' fingering
 	{
 		Music *m = unsmob<Music> ($2);
 		m->set_spot (parser->lexer_->override_input (@$));
-		m->set_property ("direction", scm_from_int (UP));
+		set_property (m, "direction", scm_from_int (UP));
 		$$ = $2;
 	}
 	| '_' fingering
 	{
 		Music *m = unsmob<Music> ($2);
 		m->set_spot (parser->lexer_->override_input (@$));
-		m->set_property ("direction", scm_from_int (DOWN));
+		set_property (m, "direction", scm_from_int (DOWN));
 		$$ = $2;
 	}
 	;
@@ -3238,7 +3238,7 @@ post_event:
 string_number_event:
 	E_UNSIGNED {
 		Music *s = MY_MAKE_MUSIC ("StringNumberEvent", @$);
-		s->set_property ("string-number", $1);
+		set_property (s, "string-number", $1);
 		$$ = s->unprotect ();
 	}
 	;
@@ -3250,7 +3250,7 @@ direction_less_event:
 	}
 	| tremolo_type  {
                Music *a = MY_MAKE_MUSIC ("TremoloEvent", @$);
-               a->set_property ("tremolo-type", $1);
+               set_property (a, "tremolo-type", $1);
                $$ = a->unprotect ();
         }
 	| event_function_event
@@ -3264,7 +3264,7 @@ direction_reqd_event:
 		SCM s = parser->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		if (scm_is_string (s)) {
 			Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
-			a->set_property ("articulation-type", s);
+			set_property (a, "articulation-type", s);
 			$$ = a->unprotect ();
 		} else {
 			Music *original = unsmob<Music> (s);
@@ -3366,19 +3366,19 @@ pitch_or_tonic_pitch:
 gen_text_def:
 	full_markup {
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
-		t->set_property ("text", $1);
+		set_property (t, "text", $1);
 		$$ = t->unprotect ();
 	}
 	| STRING {
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
-		t->set_property ("text",
+		set_property (t, "text",
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
 	| SYMBOL {
 		// Flag a warning? could be unintentional
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
-		t->set_property ("text",
+		set_property (t, "text",
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
@@ -3392,7 +3392,7 @@ gen_text_def:
 fingering:
 	UNSIGNED {
 		Music *t = MY_MAKE_MUSIC ("FingeringEvent", @$);
-		t->set_property ("digit", $1);
+		set_property (t, "digit", $1);
 		$$ = t->unprotect ();
 	}
 	;
@@ -3562,30 +3562,30 @@ bass_figure:
 		$$ = bfr->self_scm ();
 
 		if (scm_is_number ($1))
-			bfr->set_property ("figure", $1);
+			set_property (bfr, "figure", $1);
 		else if (Text_interface::is_markup ($1))
-			bfr->set_property ("text", $1);
+			set_property (bfr, "text", $1);
 
 		bfr->unprotect ();
 	}
 	| bass_figure ']' {
 		$$ = $1;
-		unsmob<Music> ($1)->set_property ("bracket-stop", SCM_BOOL_T);
+		set_property (unsmob<Music> ($1), "bracket-stop", SCM_BOOL_T);
 	}
 	| bass_figure figured_bass_alteration {
 		Music *m = unsmob<Music> ($1);
 		if (scm_to_double ($2)) {
-			SCM salter = m->get_property ("alteration");
+			SCM salter = get_property (m, "alteration");
 			SCM alter = scm_is_number (salter) ? salter : scm_from_int (0);
-			m->set_property ("alteration",
+			set_property (m, "alteration",
 					 scm_sum (alter, $2));
 		} else {
-			m->set_property ("alteration", scm_from_int (0));
+			set_property (m, "alteration", scm_from_int (0));
 		}
 	}
 	| bass_figure figured_bass_modification  {
 		Music *m = unsmob<Music> ($1);
-		m->set_property ($2, SCM_BOOL_T);
+		set_property (m, $2, SCM_BOOL_T);
 	}
 	;
 
@@ -3611,7 +3611,7 @@ br_bass_figure:
 	}
 	| '[' bass_figure {
 		$$ = $2;
-		unsmob<Music> ($$)->set_property ("bracket-start", SCM_BOOL_T);
+		set_property (unsmob<Music> ($$), "bracket-start", SCM_BOOL_T);
 	}
 	;
 
@@ -3670,25 +3670,25 @@ pitch_or_music:
 			else
 				n = MY_MAKE_MUSIC ("NoteEvent", @$);
 
-			n->set_property ("pitch", $1);
+			set_property (n, "pitch", $1);
 			if (SCM_UNBNDP ($5))
-				n->set_property ("duration",
+				set_property (n, "duration",
 						 parser->default_duration_.smobbed_copy ());
 			else
-				n->set_property ("duration", $5);
+				set_property (n, "duration", $5);
 
 			if (scm_is_number ($4))
 			{
 				int q = scm_to_int ($4);
-				n->set_property ("absolute-octave", scm_from_int (q-1));
+				set_property (n, "absolute-octave", scm_from_int (q-1));
 			}
 
 			if (to_boolean ($3))
-				n->set_property ("cautionary", SCM_BOOL_T);
+				set_property (n, "cautionary", SCM_BOOL_T);
 			if (to_boolean ($2) || to_boolean ($3))
-				n->set_property ("force-accidental", SCM_BOOL_T);
+				set_property (n, "force-accidental", SCM_BOOL_T);
 			if (scm_is_pair ($8))
-				n->set_property ("articulations",
+				set_property (n, "articulations",
 						 scm_reverse_x ($8, SCM_EOL));
 			$$ = n->unprotect ();
 		}
@@ -3715,8 +3715,8 @@ pitch_or_music:
 simple_element:
 	DRUM_PITCH optional_notemode_duration {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
-		n->set_property ("duration", $2);
-		n->set_property ("drum-type", $1);
+		set_property (n, "duration", $2);
+		set_property (n, "drum-type", $1);
 
 		$$ = n->unprotect ();
 	}
@@ -3730,7 +3730,7 @@ simple_element:
 			ev = MY_MAKE_MUSIC ("RestEvent", @$);
 
 		    }
-		ev->set_property ("duration", $2);
+		set_property (ev, "duration", $2);
  		$$ = ev->unprotect ();
 	}
 	;
@@ -3758,8 +3758,8 @@ lyric_element_music:
 	lyric_element optional_notemode_duration post_events {
 		$$ = MAKE_SYNTAX (lyric_event, @$, $1, $2);
 		if (scm_is_pair ($3))
-			unsmob<Music> ($$)->set_property
-				("articulations", scm_reverse_x ($3, SCM_EOL));
+			set_property
+				(unsmob<Music> ($$), "articulations", scm_reverse_x ($3, SCM_EOL));
 	} %prec ':'
 	;
 
@@ -4524,8 +4524,8 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 		case DRUM_PITCH:
 		{
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
-			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
-			n->set_property ("drum-type", out);
+			set_property (n, "duration", parser->default_duration_.smobbed_copy ());
+			set_property (n, "drum-type", out);
 			return n->unprotect ();
 		}
 		case NOTENAME_PITCH:
@@ -4540,8 +4540,8 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 	if (parser->lexer_->is_note_state ()) {
 		if (unsmob<Pitch> (simple)) {
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
-			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
-			n->set_property ("pitch", simple);
+			set_property (n, "duration", parser->default_duration_.smobbed_copy ());
+			set_property (n, "pitch", simple);
 			return n->unprotect ();
 		}
 		SCM d = simple;
@@ -4549,7 +4549,7 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			d = make_duration (simple);
 		if (unsmob<Duration> (d)) {
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
-			n->set_property ("duration", d);
+			set_property (n, "duration", d);
 			return n->unprotect ();
 		}
 		return simple;
@@ -4642,23 +4642,23 @@ add_post_events (Music *m, SCM events)
 
 	while (m) {
 		if (m->is_mus_type ("rhythmic-event")) {
-			m->set_property
-				("articulations",
+			set_property
+				(m, "articulations",
 				 scm_append_x (scm_list_2
-					       (m->get_property ("articulations"),
+					       (get_property (m, "articulations"),
 						events)));
 			return false;
 		}
 		if (m->is_mus_type ("event-chord")) {
-			m->set_property
-				("elements",
+			set_property
+				(m, "elements",
 				 scm_append_x (scm_list_2
-					       (m->get_property ("elements"),
+					       (get_property (m, "elements"),
 						events)));
 			return false;
 		}
 		if (m->is_mus_type ("sequential-music")) {
-			SCM lp = scm_last_pair (m->get_property ("elements"));
+			SCM lp = scm_last_pair (get_property (m, "elements"));
 			if (scm_is_pair (lp)) {
 				m = unsmob<Music> (scm_car (lp));
 				continue;
@@ -4667,7 +4667,7 @@ add_post_events (Music *m, SCM events)
 		}
 		if (m->is_mus_type ("music-wrapper-music")
 		    || m->is_mus_type ("time-scaled-music")) {
-			m = unsmob<Music> (m->get_property ("element"));
+			m = unsmob<Music> (get_property (m, "element"));
 			continue;
 		}
 		break;
@@ -4712,7 +4712,7 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 			if (scm_is_null (scm_cdr (post)))
 				return scm_car (post);
 			Music *m = MY_MAKE_MUSIC ("PostEvents", loc);
-			m->set_property ("elements", post);
+			set_property (m, "elements", post);
 			return m->unprotect ();
 		}
 		bad = ly_append2 (post, bad);
@@ -4772,13 +4772,13 @@ SCM post_event_cons (SCM post_event, SCM tail)
 		// tweaks are always collected in-order, newer tweaks
 		// nearer to the front of the list
 		if (scm_is_pair (tweaks))
-			ev->set_property ("tweaks",
-					  scm_reverse_x (tweaks, ev->get_property ("tweaks")));
+			set_property (ev, "tweaks",
+					  scm_reverse_x (tweaks, get_property (ev, "tweaks")));
 		// other properties are applied last to first so that
 		// in case of duplicate properties, the actually
 		// current one survives
 		for (SCM q = props; scm_is_pair (q); q = scm_cdr (q))
-			ev->set_property (scm_caar (q), scm_cdar (q));
+			set_property (ev, scm_caar (q), scm_cdar (q));
 	}
 	return ly_append2 (elts, tail);
 }

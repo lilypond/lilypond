@@ -130,7 +130,7 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
     return m;
 
   if (Music *mus = unsmob<Music> (origin))
-    origin = mus->get_property ("origin");
+    origin = get_property (mus, "origin");
 
   if (scm_is_false (origin) || scm_is_null (origin))
     return m;
@@ -158,7 +158,7 @@ LY_DEFINE (ly_set_origin_x, "ly:set-origin!",
   if (SCM_UNBNDP (origin))
     origin = scm_fluid_ref (Lily::f_location);
   else if (Music *mus = unsmob<Music> (origin))
-    origin = mus->get_property ("origin");
+    origin = get_property (mus, "origin");
 
   if (scm_is_false (origin) || scm_is_null (origin))
     return m;
@@ -221,7 +221,7 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
   LY_ASSERT_SMOB (Music, mus, 1);
   Music *m = unsmob<Music> (mus);
 
-  Duration *d = unsmob<Duration> (m->get_property ("duration"));
+  Duration *d = unsmob<Duration> (get_property (m, "duration"));
   Moment len;
 
   if (d)
@@ -242,9 +242,9 @@ LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
   Music *m = unsmob<Music> (mus);
   Moment *f = unsmob<Moment> (fact);
 
-  Duration *d = unsmob<Duration> (m->get_property ("duration"));
+  Duration *d = unsmob<Duration> (get_property (m, "duration"));
   if (d)
-    m->set_property ("duration", d->compressed (f->main_part_).smobbed_copy ());
+    set_property (m, "duration", d->compressed (f->main_part_).smobbed_copy ());
   return SCM_UNSPECIFIED;
 }
 

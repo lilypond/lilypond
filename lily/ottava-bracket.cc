@@ -75,13 +75,13 @@ Ottava_bracket::print (SCM smob)
     }
 
   SCM properties = Font_interface::text_font_alist_chain (me);
-  SCM markup = me->get_property ("text");
+  SCM markup = get_property (me, "text");
   Stencil text;
   if (Text_interface::is_markup (markup))
     text = *unsmob<Stencil> (Text_interface::interpret_markup (layout->self_scm (),
                                                                properties, markup));
 
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
+  Drul_array<Real> shorten = robust_scm2interval (get_property (me, "shorten-pair"),
                                                   Interval (0, 0));
 
   /*
@@ -131,15 +131,15 @@ Ottava_bracket::print (SCM smob)
   span_points[LEFT]
     = std::min (span_points[LEFT],
                 (span_points[RIGHT] - text_size
-                 - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
+                 - robust_scm2double (get_property (me, "minimum-length"), -1.0)));
 
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_size;
 
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
+  Drul_array<Real> edge_height = robust_scm2interval (get_property (me, "edge-height"),
                                                       Interval (1.0, 1.0));
 
-  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
+  Drul_array<Real> flare = robust_scm2interval (get_property (me, "bracket-flare"),
                                                 Interval (0, 0));
 
   for (LEFT_and_RIGHT (d))

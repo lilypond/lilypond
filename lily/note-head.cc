@@ -37,11 +37,11 @@ using std::string;
 static Stencil
 internal_print (Grob *me, string *font_char)
 {
-  string style = robust_symbol2string (me->get_property ("style"), "default");
+  string style = robust_symbol2string (get_property (me, "style"), "default");
 
-  string suffix = std::to_string (std::min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
+  string suffix = std::to_string (std::min (robust_scm2int (get_property (me, "duration-log"), 2), 2));
   if (style != "default")
-    suffix = robust_scm2string (me->get_property ("glyph-name"), "");
+    suffix = robust_scm2string (get_property (me, "glyph-name"), "");
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
@@ -52,7 +52,7 @@ internal_print (Grob *me, string *font_char)
   Stencil out = fm->find_by_name (idx_either + suffix);
   if (out.is_empty ())
     {
-      Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+      Grob *stem = unsmob<Grob> (get_object (me, "stem"));
       Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
 
       if (stem_dir == CENTER)
@@ -70,7 +70,7 @@ internal_print (Grob *me, string *font_char)
     {
       if (!Staff_symbol_referencer::on_line
           (me,
-           robust_scm2int (me->get_property ("staff-position"), 0)))
+           robust_scm2int (get_property (me, "staff-position"), 0)))
         {
           Stencil test = fm->find_by_name (idx_either + "r" + suffix);
           if (!test.is_empty ())
@@ -82,10 +82,10 @@ internal_print (Grob *me, string *font_char)
     }
 
   if (style == "kievan"
-      && 3 == robust_scm2int (me->get_property ("duration-log"), 2))
+      && 3 == robust_scm2int (get_property (me, "duration-log"), 2))
     {
-      Grob *stem = unsmob<Grob> (me->get_object ("stem"));
-      Grob *beam = unsmob<Grob> (stem->get_object ("beam"));
+      Grob *stem = unsmob<Grob> (get_object (me, "stem"));
+      Grob *beam = unsmob<Grob> (get_object (stem, "beam"));
       if (beam)
         out = fm->find_by_name (idx_either + "2kievan");
     }
@@ -111,9 +111,9 @@ SCM
 Note_head::stem_x_shift (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   if (stem)
-    (void) stem->get_property ("positioning-done");
+    (void) get_property (stem, "positioning-done");
 
   return scm_from_int (0);
 }
@@ -156,7 +156,7 @@ Note_head::include_ledger_line_height (SCM smob)
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  Offset off = robust_scm2offset (me->get_property ("stem-attachment"),
+  Offset off = robust_scm2offset (get_property (me, "stem-attachment"),
                                   Offset (0, 0));
 
   return off [a];

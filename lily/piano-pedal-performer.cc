@@ -153,21 +153,21 @@ Piano_pedal_performer::start_translation_timestep ()
 void
 Piano_pedal_performer::listen_sostenuto (Stream_event *r)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
+  Direction d = to_dir (get_property (r, "span-direction"));
   info_alist_[SOSTENUTO].event_drul_[d] = r;
 }
 
 void
 Piano_pedal_performer::listen_sustain (Stream_event *r)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
+  Direction d = to_dir (get_property (r, "span-direction"));
   info_alist_[SUSTAIN].event_drul_[d] = r;
 }
 
 void
 Piano_pedal_performer::listen_una_corda (Stream_event *r)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
+  Direction d = to_dir (get_property (r, "span-direction"));
   info_alist_[UNA_CORDA].event_drul_[d] = r;
 }
 

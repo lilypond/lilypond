@@ -55,18 +55,18 @@ Accidental_interface::horizontal_skylines (SCM smob)
   if (!me->is_live ())
     return Skyline_pair ().smobbed_copy ();
 
-  Stencil *my_stencil = unsmob<Stencil> (me->get_property ("stencil"));
+  Stencil *my_stencil = unsmob<Stencil> (get_property (me, "stencil"));
   if (!my_stencil)
     return Skyline_pair ().smobbed_copy ();
 
-  SCM rot = me->get_property ("rotation");
+  SCM rot = get_property (me, "rotation");
   Skyline_pair *sky
     = unsmob<Skyline_pair>
       (Stencil::skylines_from_stencil
        (my_stencil->smobbed_copy (), 0.0, rot, Y_AXIS));
 
-  SCM alist = me->get_property ("glyph-name-alist");
-  SCM alt = me->get_property ("alteration");
+  SCM alist = get_property (me, "glyph-name-alist");
+  SCM alt = get_property (me, "alteration");
   string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
                                          "");
   if (glyph_name == "accidentals.flat"
@@ -95,11 +95,11 @@ SCM
 Accidental_interface::height (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *tie = unsmob<Grob> (me->get_object ("tie"));
+  Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie
-      && !to_boolean (me->get_property ("forced"))
-      && to_boolean (me->get_property ("hide-tied-accidental-after-break")))
+      && !to_boolean (get_property (me, "forced"))
+      && to_boolean (get_property (me, "hide-tied-accidental-after-break")))
     return ly_interval2scm (Interval ());
 
   return Grob::stencil_height (smob);
@@ -110,11 +110,11 @@ SCM
 Accidental_interface::remove_tied (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *tie = unsmob<Grob> (me->get_object ("tie"));
+  Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie
-      && !to_boolean (me->get_property ("forced"))
-      && (to_boolean (me->get_property ("hide-tied-accidental-after-break"))
+      && !to_boolean (get_property (me, "forced"))
+      && (to_boolean (get_property (me, "hide-tied-accidental-after-break"))
           || !tie->original ()))
     me->suicide ();
 
@@ -135,8 +135,8 @@ Accidental_interface::get_stencil (Grob *me)
 {
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  SCM alist = me->get_property ("glyph-name-alist");
-  SCM alt = me->get_property ("alteration");
+  SCM alist = get_property (me, "glyph-name-alist");
+  SCM alt = get_property (me, "alteration");
   SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
   Stencil mol;
 
@@ -149,7 +149,7 @@ Accidental_interface::get_stencil (Grob *me)
   else
     mol = fm->find_by_name (ly_scm2string (glyph_name));
 
-  if (to_boolean (me->get_property ("restore-first")))
+  if (to_boolean (get_property (me, "restore-first")))
     {
       /*
         this isn't correct for ancient accidentals, but they don't
@@ -163,7 +163,7 @@ Accidental_interface::get_stencil (Grob *me)
         mol.add_at_edge (X_AXIS, LEFT, acc, 0.1);
     }
 
-  if (to_boolean (me->get_property ("parenthesized")))
+  if (to_boolean (get_property (me, "parenthesized")))
     mol = parenthesize (me, mol);
 
   return mol.smobbed_copy ();

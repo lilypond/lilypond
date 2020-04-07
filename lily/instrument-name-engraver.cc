@@ -79,14 +79,14 @@ Instrument_name_engraver::process_music ()
 void
 Instrument_name_engraver::consider_start_spanner ()
 {
-  SCM long_text = get_property ("instrumentName");
-  SCM short_text = get_property ("shortInstrumentName");
+  SCM long_text = get_property (this, "instrumentName");
+  SCM short_text = get_property (this, "shortInstrumentName");
 
   if (!(Text_interface::is_markup (long_text)
         || Text_interface::is_markup (short_text)))
     {
-      long_text = get_property ("vocalName");
-      short_text = get_property ("shortVocalName");
+      long_text = get_property (this, "vocalName");
+      short_text = get_property (this, "shortVocalName");
     }
 
   if ((Text_interface::is_markup (long_text)
@@ -110,15 +110,15 @@ Instrument_name_engraver::start_spanner ()
 {
   text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
 
-  Grob *col = unsmob<Grob> (get_property ("currentCommandColumn"));
+  Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
   text_spanner_->set_bound (LEFT, col);
-  text_spanner_->set_property ("text", short_text_);
-  text_spanner_->set_property ("long-text", long_text_);
+  set_property (text_spanner_, "text", short_text_);
+  set_property (text_spanner_, "long-text", long_text_);
 
   /*
     UGH, should handle this in Score_engraver.
   */
-  Grob *system = unsmob<Grob> (get_property ("rootSystem"));
+  Grob *system = unsmob<Grob> (get_property (this, "rootSystem"));
   if (system)
     Axis_group_interface::add_element (system, text_spanner_);
   else
@@ -167,7 +167,7 @@ Instrument_name_engraver::stop_spanner ()
                                        axis_groups_[i]);
 
   text_spanner_->set_bound (RIGHT,
-                            unsmob<Grob> (get_property ("currentCommandColumn")));
+                            unsmob<Grob> (get_property (this, "currentCommandColumn")));
 
   Pointer_group_interface::set_ordered (text_spanner_,
                                         ly_symbol2scm ("elements"),

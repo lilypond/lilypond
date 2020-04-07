@@ -63,7 +63,7 @@ SCM
 Tie_column::before_line_breaking (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
-  for (SCM s = me->get_property ("ties"); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_property (me, "ties"); scm_is_pair (s); s = scm_cdr (s))
     {
       Spanner *tie = unsmob<Spanner> (scm_car (s));
       for (LEFT_and_RIGHT (dir))
@@ -87,13 +87,13 @@ Tie_column::calc_positioning_done (SCM smob)
   if (!ties.size ())
     return SCM_BOOL_T;
 
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
   vector_sort (ties, Tie::less);
 
   Tie_formatting_problem problem;
   problem.from_ties (ties);
 
-  SCM manual_configs = me->get_property ("tie-configuration");
+  SCM manual_configs = get_property (me, "tie-configuration");
   problem.set_manual_tie_configuration (manual_configs);
 
   Ties_configuration base = problem.generate_optimal_configuration ();
@@ -103,7 +103,7 @@ Tie_column::calc_positioning_done (SCM smob)
                                         base[i],
                                         problem.details_);
 
-      ties[i]->set_property ("control-points", cp);
+      set_property (ties[i], "control-points", cp);
       set_grob_direction (ties[i],
                           base[i].dir_);
 

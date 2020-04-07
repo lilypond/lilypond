@@ -80,11 +80,11 @@ Cue_clef_engraver::set_glyph ()
   SCM glyph_sym = ly_symbol2scm ("glyph");
   SCM basic = ly_symbol2scm ("CueClef");
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property ("cueClefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "cueClefGlyph"));
 
   basic = ly_symbol2scm ("CueEndClef");
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property ("clefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "clefGlyph"));
 }
 
 /**
@@ -95,7 +95,7 @@ void
 Cue_clef_engraver::acknowledge_bar_line (Grob_info info)
 {
   Item *item = dynamic_cast<Item *> (info.grob ());
-  if (item && scm_is_string (get_property ("cueClefGlyph")))
+  if (item && scm_is_string (get_property (this, "cueClefGlyph")))
     create_clef ();
 }
 
@@ -114,13 +114,13 @@ Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
                                       scm_from_int (10));
 
       if (ly_is_procedure (formatter))
-        g->set_property ("text", scm_call_2 (formatter, txt, style));
+        set_property (g, "text", scm_call_2 (formatter, txt, style));
 
       Side_position_interface::add_support (g, clef_);
 
       g->set_parent (clef_, Y_AXIS);
       g->set_parent (clef_, X_AXIS);
-      g->set_property ("direction", scm_from_int (dir));
+      set_property (g, "direction", scm_from_int (dir));
       modifier_ = g;
     }
 }
@@ -133,13 +133,13 @@ Cue_clef_engraver::create_clef ()
       Item *c = make_item ("CueClef", SCM_EOL);
 
       clef_ = c;
-      SCM cpos = get_property ("cueClefPosition");
+      SCM cpos = get_property (this, "cueClefPosition");
       if (scm_is_number (cpos))
-        clef_->set_property ("staff-position", cpos);
+        set_property (clef_, "staff-position", cpos);
 
-      create_clef_modifier (get_property ("cueClefTransposition"),
-                            get_property ("cueClefTranspositionStyle"),
-                            get_property ("cueClefTranspositionFormatter"));
+      create_clef_modifier (get_property (this, "cueClefTransposition"),
+                            get_property (this, "cueClefTranspositionStyle"),
+                            get_property (this, "cueClefTranspositionFormatter"));
     }
 }
 
@@ -149,13 +149,13 @@ Cue_clef_engraver::create_end_clef ()
   if (!clef_)
     {
       clef_ = make_item ("CueEndClef", SCM_EOL);
-      SCM cpos = get_property ("clefPosition");
+      SCM cpos = get_property (this, "clefPosition");
       if (scm_is_number (cpos))
-        clef_->set_property ("staff-position", cpos);
+        set_property (clef_, "staff-position", cpos);
 
-      create_clef_modifier (get_property ("clefTransposition"),
-                            get_property ("clefTranspositionStyle"),
-                            get_property ("clefTranspositionFormatter"));
+      create_clef_modifier (get_property (this, "clefTransposition"),
+                            get_property (this, "clefTranspositionStyle"),
+                            get_property (this, "clefTranspositionFormatter"));
     }
 }
 
@@ -168,9 +168,9 @@ Cue_clef_engraver::process_music ()
 void
 Cue_clef_engraver::inspect_clef_properties ()
 {
-  SCM glyph = get_property ("cueClefGlyph");
-  SCM clefpos = get_property ("cueClefPosition");
-  SCM transposition = get_property ("cueClefTransposition");
+  SCM glyph = get_property (this, "cueClefGlyph");
+  SCM clefpos = get_property (this, "cueClefPosition");
+  SCM transposition = get_property (this, "cueClefTransposition");
 
   if (!ly_is_equal (glyph, prev_glyph_)
       || !ly_is_equal (clefpos, prev_cpos_)
@@ -181,7 +181,7 @@ Cue_clef_engraver::inspect_clef_properties ()
         {
           create_clef ();
           if (clef_)
-            clef_->set_property ("non-default", SCM_BOOL_T);
+            set_property (clef_, "non-default", SCM_BOOL_T);
         }
       else
         create_end_clef ();
@@ -198,12 +198,12 @@ Cue_clef_engraver::stop_translation_timestep ()
 {
   if (clef_)
     {
-      if (to_boolean (clef_->get_property ("non-default")))
+      if (to_boolean (get_property (clef_, "non-default")))
         {
-          SCM vis = get_property ("explicitCueClefVisibility");
+          SCM vis = get_property (this, "explicitCueClefVisibility");
 
           if (scm_is_vector (vis))
-            clef_->set_property ("break-visibility", vis);
+            set_property (clef_, "break-visibility", vis);
         }
 
       clef_ = 0;

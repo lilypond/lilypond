@@ -75,7 +75,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
   if (tuplet_start)
-    stem_->set_property ("tuplet-start", SCM_BOOL_T);
+    set_property (stem_, "tuplet-start", SCM_BOOL_T);
   (void) make_item ("StemStub", gi.grob ()->self_scm ());
   if (tremolo_ev_)
     {
@@ -87,14 +87,14 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
 
          the first and last (quarter) note both get one tremolo flag.  */
       int requested_type
-        = robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 8);
+        = robust_scm2int (get_property (tremolo_ev_, "tremolo-type"), 8);
 
       /*
         we take the duration log from the Event, since the duration-log
         for a note head is always <= 2.
       */
       Stream_event *ev = gi.event_cause ();
-      Duration *dur = unsmob<Duration> (ev->get_property ("duration"));
+      Duration *dur = unsmob<Duration> (get_property (ev, "duration"));
 
       int tremolo_flags = intlog2 (requested_type) - 2
                           - (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
@@ -110,10 +110,10 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
 
           /* The number of tremolo flags is the number of flags of the
              tremolo-type minus the number of flags of the note itself.  */
-          tremolo_->set_property ("flag-count", scm_from_int (tremolo_flags));
+          set_property (tremolo_, "flag-count", scm_from_int (tremolo_flags));
           tremolo_->set_parent (stem_, X_AXIS);
-          stem_->set_object ("tremolo-flag", tremolo_->self_scm ());
-          tremolo_->set_object ("stem", stem_->self_scm ());
+          set_object (stem_, "tremolo-flag", tremolo_->self_scm ());
+          set_object (tremolo_, "stem", stem_->self_scm ());
         }
     }
 }
@@ -127,7 +127,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   Stream_event *cause = gi.event_cause ();
   if (!cause)
     return;
-  Duration *d = unsmob<Duration> (cause->get_property ("duration"));
+  Duration *d = unsmob<Duration> (get_property (cause, "duration"));
   if (!d)
     return;
 
@@ -162,22 +162,22 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
 
   if (Stem::is_normal_stem (stem_)
       && Stem::duration_log (stem_) > 2
-      && !(unsmob<Grob> (stem_->get_object ("flag"))))
+      && !(unsmob<Grob> (get_object (stem_, "flag"))))
     {
       Item *flag = make_item ("Flag", stem_->self_scm ());
       flag->set_parent (stem_, X_AXIS);
-      stem_->set_object ("flag", flag->self_scm ());
+      set_object (stem_, "flag", flag->self_scm ());
       maybe_flags_.push_back (flag);
     }
   if (tuplet_start_)
-    stem_->set_property ("tuplet-start", SCM_BOOL_T);
+    set_property (stem_, "tuplet-start", SCM_BOOL_T);
 }
 
 void
 Stem_engraver::kill_unused_flags ()
 {
   for (vsize i = 0; i < maybe_flags_.size (); i++)
-    if (unsmob<Grob> (maybe_flags_[i]->get_parent (X_AXIS)->get_object ("beam")))
+    if (unsmob<Grob> (get_object (maybe_flags_[i]->get_parent (X_AXIS), "beam")))
       maybe_flags_[i]->suicide ();
 }
 
@@ -190,20 +190,20 @@ Stem_engraver::finalize ()
 void
 Stem_engraver::stop_translation_timestep ()
 {
-  if (scm_is_string (get_property ("whichBar")))
+  if (scm_is_string (get_property (this, "whichBar")))
     kill_unused_flags ();
 
   tremolo_ = 0;
   if (stem_)
     {
       /* FIXME: junk these properties.  */
-      SCM prop = get_property ("stemLeftBeamCount");
+      SCM prop = get_property (this, "stemLeftBeamCount");
       if (scm_is_number (prop))
         {
           Stem::set_beaming (stem_, scm_to_int (prop), LEFT);
           context ()->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
         }
-      prop = get_property ("stemRightBeamCount");
+      prop = get_property (this, "stemRightBeamCount");
       if (scm_is_number (prop))
         {
           Stem::set_beaming (stem_, scm_to_int (prop), RIGHT);
@@ -218,12 +218,12 @@ Stem_engraver::stop_translation_timestep ()
 void
 Stem_engraver::listen_tuplet_span (Stream_event *ev)
 {
-  Direction dir = to_dir (ev->get_property ("span-direction"));
+  Direction dir = to_dir (get_property (ev, "span-direction"));
   if (dir == START)
     {
       // set stem property if stem already exists
       if (stem_)
-        stem_->set_property ("tuplet-start", SCM_BOOL_T);
+        set_property (stem_, "tuplet-start", SCM_BOOL_T);
       tuplet_start_ = true;  // stash the value for use in later creation
     }
 }

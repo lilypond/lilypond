@@ -53,7 +53,7 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
       // (grob . symbol) -> targeted tweak
       // (#t . symbol-path) -> direct nested tweak
       // (grob . symbol-path) -> targeted nested tweak
-      for (SCM s = ev->get_property ("tweaks");
+      for (SCM s = get_property (ev, "tweaks");
            scm_is_pair (s); s = scm_cdr (s))
         {
           if (scm_is_pair (scm_caar (s)))
@@ -66,7 +66,7 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
                   if (scm_is_eq (scm_caaar (s), grobname))
                     {
                       if (scm_is_symbol (scm_cdaar (s)))
-                        info.grob ()->set_property (scm_cdaar (s), scm_cdar (s));
+                        set_property (info.grob (), scm_cdaar (s), scm_cdar (s));
                       else
                         set_nested_property (info.grob (), scm_cdaar (s),
                                              scm_cdar (s));
@@ -77,7 +77,7 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
                                      scm_cdar (s));
             }
           else if (direct)
-            info.grob ()->set_property (scm_caar (s), scm_cdar (s));
+            set_property (info.grob (), scm_caar (s), scm_cdar (s));
         }
     }
 }

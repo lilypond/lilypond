@@ -98,7 +98,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
   if (!note_ev)
     return;
 
-  SCM arts = note_ev->get_property ("articulations");
+  SCM arts = get_property (note_ev, "articulations");
 
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -122,7 +122,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
           // when we don't want them displayed.  So don't make space
           // for them if 'stencil is #f
           Grob *g = make_item ("StringNumber", ev->self_scm ());
-          if (scm_is_true (g->get_property ("stencil")))
+          if (scm_is_true (get_property (g, "stencil")))
             add_fingering (inf.grob (),
                            ly_symbol2scm ("StringNumber"), &string_numbers_,
                            ev, note_ev);
@@ -134,9 +134,9 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
                        ev, note_ev);
       else if (ev->in_event_class ("harmonic-event"))
         {
-          inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
-          Grob *d = unsmob<Grob> (inf.grob ()->get_object ("dot"));
-          if (d && !to_boolean (get_property ("harmonicDots")))
+          set_property (inf.grob (), "style", ly_symbol2scm ("harmonic"));
+          Grob *d = unsmob<Grob> (get_object (inf.grob (), "dot"));
+          if (d && !to_boolean (get_property (this, "harmonicDots")))
             d->suicide ();
         }
     }
@@ -165,13 +165,13 @@ New_fingering_engraver::add_script (Grob *head,
 
   Grob *g = make_item ("Script", event->self_scm ());
   make_script_from_event (g, context (),
-                          event->get_property ("articulation-type"), 0);
+                          get_property (event, "articulation-type"), 0);
   ft.script_ = g;
   ft.script_->set_parent (head, X_AXIS);
 
-  SCM forced_dir = event->get_property ("direction");
+  SCM forced_dir = get_property (event, "direction");
   if (to_dir (forced_dir))
-    ft.script_->set_property ("direction", forced_dir);
+    set_property (ft.script_, "direction", forced_dir);
 
   articulations_.push_back (ft);
 }
@@ -204,7 +204,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     if (stem_)
       {
         Side_position_interface::add_support (scripts->at (i).script_, stem_);
-        if (Grob *flag = unsmob<Grob> (stem_->get_object ("flag")))
+        if (Grob *flag = unsmob<Grob> (get_object (stem_, "flag")))
           Side_position_interface::add_support (scripts->at (i).script_, flag);
       }
 
@@ -218,7 +218,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     positioning the fingerings, setting both X and Y coordinates.
   */
   for (vsize i = 0; i < scripts->size (); i++)
-    (*scripts)[i].position_ = scm_to_int ((*scripts)[i].head_->get_property ("staff-position"));
+    (*scripts)[i].position_ = scm_to_int ((*scripts)[i].get_property (head_, "staff-position"));
 
   for (vsize i = scripts->size (); i--;)
     for (vsize j = heads_.size (); j--;)
@@ -227,7 +227,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
   vector<Finger_tuple> up, down, horiz;
   for (vsize i = scripts->size (); i--;)
     {
-      SCM d = (*scripts)[i].finger_event_->get_property ("direction");
+      SCM d = (*scripts)[i].get_property (finger_event_, "direction");
       if (to_dir (d))
         {
           ((to_dir (d) == UP) ? up : down).push_back ((*scripts)[i]);
@@ -286,14 +286,14 @@ New_fingering_engraver::position_scripts (SCM orientations,
       Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_parent (ft.head_, Y_AXIS);
-      f->set_property ("avoid-slur", ly_symbol2scm ("inside"));
+      set_property (f, "avoid-slur", ly_symbol2scm ("inside"));
       if (hordir == LEFT
-          && unsmob<Grob> (ft.head_->get_object ("accidental-grob")))
+          && unsmob<Grob> (get_object (ft.head_, "accidental-grob")))
         Side_position_interface::add_support (f,
-                                              unsmob<Grob> (ft.head_->get_object ("accidental-grob")));
+                                              unsmob<Grob> (get_object (ft.head_, "accidental-grob")));
       else if (Rhythmic_head::dot_count (ft.head_))
         for (vsize j = 0; j < heads_.size (); j++)
-          if (Grob *d = unsmob<Grob> (heads_[j]->get_object ("dot")))
+          if (Grob *d = unsmob<Grob> (get_object (heads_[j], "dot")))
             Side_position_interface::add_support (f, d);
 
       if (horiz.size () > 1)  /* -> FingeringColumn */
@@ -305,16 +305,16 @@ New_fingering_engraver::position_scripts (SCM orientations,
         {
           SCM self_align_y
             = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
-          SCM yoff = f->get_property ("Y-offset");
+          SCM yoff = get_property (f, "Y-offset");
           if (scm_is_number (yoff))
             self_align_y = scm_from_double (scm_to_double (self_align_y)
                                             + scm_to_double (yoff));
-          f->set_property ("Y-offset", self_align_y);
+          set_property (f, "Y-offset", self_align_y);
         }
 
       Side_position_interface::set_axis (f, X_AXIS);
 
-      f->set_property ("direction", scm_from_int (hordir));
+      set_property (f, "direction", scm_from_int (hordir));
     }
 
   Drul_array< vector<Finger_tuple> > vertical (down, up);
@@ -324,10 +324,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
         {
           Finger_tuple ft = vertical[d][i];
           Grob *f = ft.script_;
-          int finger_prio = robust_scm2int (f->get_property ("script-priority"), 200);
+          int finger_prio = robust_scm2int (get_property (f, "script-priority"), 200);
 
           if (heads_.size () > 1
-              && to_boolean (f->get_property ("X-align-on-main-noteheads")))
+              && to_boolean (get_property (f, "X-align-on-main-noteheads")))
             f->set_parent (note_column_, X_AXIS);
           else
             {
@@ -337,13 +337,13 @@ New_fingering_engraver::position_scripts (SCM orientations,
                   Side_position_interface::add_support (f, accidentals_[j]);
             }
 
-          f->set_property ("script-priority",
+          set_property (f, "script-priority",
                            scm_from_int (finger_prio + d * ft.position_));
 
           Self_alignment_interface::set_aligned_on_parent (f, X_AXIS);
           Side_position_interface::set_axis (f, Y_AXIS);
 
-          f->set_property ("direction", scm_from_int (d));
+          set_property (f, "direction", scm_from_int (d));
         }
     }
 }
@@ -363,21 +363,21 @@ New_fingering_engraver::position_all ()
 {
   if (fingerings_.size ())
     {
-      position_scripts (get_property ("fingeringOrientations"),
+      position_scripts (get_property (this, "fingeringOrientations"),
                         &fingerings_);
       fingerings_.clear ();
     }
 
   if (string_numbers_.size ())
     {
-      position_scripts (get_property ("stringNumberOrientations"),
+      position_scripts (get_property (this, "stringNumberOrientations"),
                         &string_numbers_);
       string_numbers_.clear ();
     }
 
   if (stroke_fingerings_.size ())
     {
-      position_scripts (get_property ("strokeFingerOrientations"),
+      position_scripts (get_property (this, "strokeFingerOrientations"),
                         &stroke_fingerings_);
       stroke_fingerings_.clear ();
     }
@@ -392,10 +392,10 @@ New_fingering_engraver::position_all ()
       for (vsize j = heads_.size (); j--;)
         Side_position_interface::add_support (script, heads_[j]);
 
-      if (stem_ && to_dir (script->get_property ("side-relative-direction")))
-        script->set_object ("direction-source", stem_->self_scm ());
+      if (stem_ && to_dir (get_property (script, "side-relative-direction")))
+        set_object (script, "direction-source", stem_->self_scm ());
 
-      if (stem_ && to_boolean (script->get_property ("add-stem-support")))
+      if (stem_ && to_boolean (get_property (script, "add-stem-support")))
         Side_position_interface::add_support (script, stem_);
     }
   articulations_.clear ();

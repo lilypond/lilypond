@@ -56,7 +56,7 @@ Horizontal_bracket_engraver::Horizontal_bracket_engraver (Context *c)
 void
 Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
 
   if (d == STOP)
     {
@@ -98,13 +98,13 @@ Horizontal_bracket_engraver::process_music ()
 
       Spanner *hbt = make_spanner ("HorizontalBracketText", sp->self_scm ());
 
-      sp->set_object ("bracket-text", hbt->self_scm ());
+      set_object (sp, "bracket-text", hbt->self_scm ());
 
       Side_position_interface::add_support (hbt, sp);
 
       hbt->set_parent (sp, X_AXIS);
       hbt->set_parent (sp, Y_AXIS);
-      hbt->set_object ("bracket", sp->self_scm ());
+      set_object (hbt, "bracket", sp->self_scm ());
 
       for (vsize i = 0; i < bracket_stack_.size (); i++)
         /* sp is the smallest, it should be added to the bigger brackets.  */

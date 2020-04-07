@@ -176,7 +176,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
   else
     max_h = sqrt (max_h);
 
-  Real eccentricity = robust_scm2double (state.slur_->get_property ("eccentricity"), 0);
+  Real eccentricity = robust_scm2double (get_property (state.slur_, "eccentricity"), 0);
 
   Real x1 = (eccentricity + indent);
   Real x2 = (eccentricity - indent);
@@ -350,7 +350,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
         Grob *t = state.extra_encompass_infos_[i].grob_;
         Grob *common_x = Grob::get_vertical_axis_group (t);
         Real rp = t->relative_coordinate (common_x, X_AXIS);
-        SCM cp = t->get_property ("control-points");
+        SCM cp = get_property (t, "control-points");
 
         Bezier b;
         for (int j = 0; j < b.CONTROL_COUNT; ++j)

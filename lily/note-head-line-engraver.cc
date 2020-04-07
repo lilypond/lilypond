@@ -68,7 +68,7 @@ Note_head_line_engraver::acknowledge_rhythmic_head (Grob_info info)
   Context *tr = find_context_above (context (), ly_symbol2scm ("Staff"));
   if (tr
       && tr != last_staff_
-      && to_boolean (get_property ("followVoice")))
+      && to_boolean (get_property (this, "followVoice")))
     {
       if (last_head_)
         follow_ = true;

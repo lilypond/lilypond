@@ -114,7 +114,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   Context *t = unsmob<Context> (context);
-  SCM result = t->get_property (sym);
+  SCM result = get_property (t, sym);
   return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
 
@@ -128,7 +128,7 @@ LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
 
   Context *tr = unsmob<Context> (context);
 
-  tr->set_property (name, val);
+  set_property (tr, name, val);
 
   return SCM_UNSPECIFIED;
 }

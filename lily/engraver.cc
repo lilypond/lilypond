@@ -55,9 +55,9 @@ Engraver::make_grob_info (Grob *e, SCM cause)
     {
       cause = m->to_event ()->unprotect ();
     }
-  if (scm_is_null (e->get_property ("cause"))
+  if (scm_is_null (get_property (e, "cause"))
       && (unsmob<Stream_event> (cause) || unsmob<Grob> (cause)))
-    e->set_property ("cause", cause);
+    set_property (e, "cause", cause);
 
   return Grob_info (this, e);
 }

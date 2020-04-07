@@ -58,9 +58,9 @@ Key_performer::process_music ()
 {
   if (key_ev_)
     {
-      SCM pitchlist = key_ev_->get_property ("pitch-alist");
+      SCM pitchlist = get_property (key_ev_, "pitch-alist");
 
-      SCM tp = get_property ("instrumentTransposition");
+      SCM tp = get_property (this, "instrumentTransposition");
 
       if (unsmob<Pitch> (tp))
         pitchlist = ly_transpose_key_alist (pitchlist, tp);

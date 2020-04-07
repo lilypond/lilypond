@@ -153,7 +153,7 @@ Translator_group::create_child_translator (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
   // get from AnnounceNewContext
-  SCM cs = ev->get_property ("context");
+  SCM cs = get_property (ev, "context");
   Context *new_context = unsmob<Context> (cs);
   Context_def *def = unsmob<Context_def> (new_context->get_definition ());
   SCM ops = new_context->get_definition_mods ();

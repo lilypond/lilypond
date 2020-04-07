@@ -102,18 +102,18 @@ Fretboard_engraver::process_music ()
                                    "fingering-event");
   fret_board_ = make_item ("FretBoard", note_events_[0]->self_scm ());
   SCM fret_notes = ly_cxx_vector_to_list (note_events_);
-  SCM proc = get_property ("noteToFretFunction");
+  SCM proc = get_property (this, "noteToFretFunction");
   if (ly_is_procedure (proc))
     scm_call_4 (proc,
                 context ()->self_scm (),
                 fret_notes,
                 scm_list_2 (tab_strings, fingers),
                 fret_board_->self_scm ());
-  SCM changes = get_property ("chordChanges");
-  SCM placements = fret_board_->get_property ("dot-placement-list");
+  SCM changes = get_property (this, "chordChanges");
+  SCM placements = get_property (fret_board_, "dot-placement-list");
   if (to_boolean (changes)
       && ly_is_equal (last_placements_, placements))
-    fret_board_->set_property ("begin-of-line-visible", SCM_BOOL_T);
+    set_property (fret_board_, "begin-of-line-visible", SCM_BOOL_T);
 
   last_placements_ = placements;
 }

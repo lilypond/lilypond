@@ -116,13 +116,13 @@ Beam_engraver::Beam_engraver (Context *c)
 void
 Beam_engraver::listen_beam (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
 
   if (d == START && valid_start_point ())
     {
       ASSIGN_EVENT_ONCE (start_ev_, ev);
 
-      Direction updown = to_dir (ev->get_property ("direction"));
+      Direction updown = to_dir (get_property (ev, "direction"));
       if (updown)
         forced_direction_ = updown;
     }
@@ -133,9 +133,9 @@ Beam_engraver::listen_beam (Stream_event *ev)
 void
 Beam_engraver::set_melisma (bool ml)
 {
-  SCM b = get_property ("autoBeaming");
+  SCM b = get_property (this, "autoBeaming");
   if (!to_boolean (b))
-    context ()->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
+    set_property (context (), "beamMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
 void
@@ -153,7 +153,7 @@ Beam_engraver::process_music ()
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
 
-      Moment mp (robust_scm2moment (get_property ("measurePosition"),
+      Moment mp (robust_scm2moment (get_property (this, "measurePosition"),
                                     Moment (0)));
 
       beam_start_location_ = mp;
@@ -246,7 +246,7 @@ void
 Beam_engraver::acknowledge_rest (Grob_info info)
 {
   if (beam_
-      && !scm_is_number (info.grob ()->get_property_data ("staff-position")))
+      && !scm_is_number (get_property_data (info.grob (), "staff-position")))
     chain_offset_callback (info.grob (),
                            Unpure_pure_container::make_smob
                            (Beam::rest_collision_callback_proc,
@@ -269,7 +269,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   // TabStaff when \tabFullNotation is switched off: the real stencil
   // callback for beams is called quite late in the process, and we
   // don't want to trigger it early.
-  if (scm_is_false (beam_->get_property_data ("stencil")))
+  if (scm_is_false (get_property_data (beam_, "stencil")))
     return;
 
   Item *stem = dynamic_cast<Item *> (info.grob ());
@@ -285,9 +285,9 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 
   last_stem_added_at_ = now;
 
-  Duration *stem_duration = unsmob<Duration> (ev->get_property ("duration"));
+  Duration *stem_duration = unsmob<Duration> (get_property (ev, "duration"));
   int durlog = stem_duration->duration_log ();
-  //int durlog = unsmob<Duration> (ev->get_property ("duration"))->duration_log ();
+  //int durlog = unsmob<Duration> (get_property (ev, "duration"))->duration_log ();
   if (durlog <= 2)
     {
       ev->origin ()->warning (_ ("stem does not fit in beam"));
@@ -302,13 +302,13 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   if (forced_direction_)
     set_grob_direction (stem, forced_direction_);
 
-  stem->set_property ("duration-log", scm_from_int (durlog));
+  set_property (stem, "duration-log", scm_from_int (durlog));
   Moment stem_location = now - beam_start_mom_ + beam_start_location_;
   beam_info_->add_stem (stem_location,
                         std::max (durlog - 2, 0),
                         Stem::is_invisible (stem),
                         stem_duration->factor (),
-                        (to_boolean (stem->get_property ("tuplet-start"))));
+                        (to_boolean (get_property (stem, "tuplet-start"))));
   Beam::add_stem (beam_, stem);
 }
 

@@ -80,7 +80,7 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
     {
       Item *s = Note_column::get_stem (g);
       if (!Stem::is_invisible (s)
-          && unsmob<Stencil> (s->get_property ("stencil")))
+          && unsmob<Stencil> (get_property (s, "stencil")))
         g = s;
     }
 
@@ -92,10 +92,10 @@ flatten_number_pair_property (Grob *me, Direction xdir, SCM sym)
 {
   Drul_array<Real> zero (0, 0);
   Drul_array<Real> pair
-    = robust_scm2drul (me->get_property (sym), zero);
+    = robust_scm2drul (get_property (me, sym), zero);
   pair[xdir] = 0.0;
 
-  me->set_property (sym, ly_interval2scm (pair));
+  set_property (me, sym, ly_interval2scm (pair));
 }
 
 /*
@@ -167,7 +167,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
           Grob *neighbor = orig_spanner->broken_intos_[neighbor_idx];
 
           /* trigger possible suicide*/
-          (void) neighbor->get_property ("positions");
+          (void) get_property (neighbor, "positions");
         }
 
       connect_to_other[d]
@@ -210,7 +210,7 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
 
   Drul_array<bool> connect_to_other
-    = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
+    = robust_scm2booldrul (get_property (me, "connect-to-neighbor"),
                            Drul_array<bool> (false, false));
 
   Interval x_span;
@@ -220,7 +220,7 @@ Tuplet_bracket::calc_x_positions (SCM smob)
 
       if (connect_to_other[d])
         {
-          Interval overshoot (robust_scm2drul (me->get_property ("break-overshoot"),
+          Interval overshoot (robust_scm2drul (get_property (me, "break-overshoot"),
                                                Interval (-0.5, 0.0)));
 
           if (d == RIGHT)
@@ -242,13 +242,13 @@ Tuplet_bracket::calc_x_positions (SCM smob)
             fullLength bracket.
           */
           Real padding
-            = robust_scm2double (me->get_property ("full-length-padding"), 1.0);
+            = robust_scm2double (get_property (me, "full-length-padding"), 1.0);
 
           if (bounds[d]->break_status_dir ())
             padding = 0.0;
 
           Real coord = bounds[d]->relative_coordinate (commonx, X_AXIS);
-          if (to_boolean (me->get_property ("full-length-to-extent")))
+          if (to_boolean (get_property (me, "full-length-to-extent")))
             coord = robust_relative_extent (bounds[d], commonx, X_AXIS)[LEFT];
 
           coord = std::max (coord, x_span[LEFT]);
@@ -290,14 +290,14 @@ make_tuplet_slur (Grob *me, Offset left_cp, Offset right_cp,
   // Move rotated curve to correct starting point.
   curve.translate (left_cp - curve.control_[0]);
 
-  SCM dash_definition = me->get_property ("dash-definition");
+  SCM dash_definition = get_property (me, "dash-definition");
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Stencil mol (Lookup::slur (curve, lt, lt, dash_definition));
 
-  Grob *number_grob = unsmob<Grob> (me->get_object ("tuplet-number"));
+  Grob *number_grob = unsmob<Grob> (get_object (me, "tuplet-number"));
   if (number_grob)
     {
-      Real padding = robust_scm2double (number_grob->get_property ("padding"), 0.3);
+      Real padding = robust_scm2double (get_property (number_grob, "padding"), 0.3);
       mol.translate_axis (padding * dir, Y_AXIS);
     }
 
@@ -317,7 +317,7 @@ Tuplet_bracket::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Stencil mol;
 
-  bool tuplet_slur = ly_scm2bool (me->get_property ("tuplet-slur"));
+  bool tuplet_slur = ly_scm2bool (get_property (me, "tuplet-slur"));
 
   extract_grob_set (me, "note-columns", columns);
   bool equally_long = false;
@@ -327,7 +327,7 @@ Tuplet_bracket::print (SCM smob)
   /*
     FIXME: The type of this prop is sucky.
   */
-  SCM bracket_vis_prop = me->get_property ("bracket-visibility");
+  SCM bracket_vis_prop = get_property (me, "bracket-visibility");
   bool bracket_prop = ly_scm2bool (bracket_vis_prop); // Flag, user has set bracket-visibility prop.
   bool bracket = scm_is_eq (bracket_vis_prop, ly_symbol2scm ("if-no-beam"));
   if (scm_is_bool (bracket_vis_prop))
@@ -339,8 +339,8 @@ Tuplet_bracket::print (SCM smob)
     Don't print a tuplet bracket and number if
     no X or Y positions were calculated.
   */
-  SCM scm_x_span = me->get_property ("X-positions");
-  SCM scm_positions = me->get_property ("positions");
+  SCM scm_x_span = get_property (me, "X-positions");
+  SCM scm_positions = get_property (me, "positions");
   if (!scm_is_pair (scm_x_span) || !scm_is_pair (scm_positions))
     {
       me->suicide ();
@@ -351,8 +351,8 @@ Tuplet_bracket::print (SCM smob)
       Only do this if the user has not explicitly specified bracket-visibility = #t.
   */
   if (!to_boolean (bracket_vis_prop)
-      && (robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
-          == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0))))
+      && (robust_scm2moment (get_property (me->get_bound (LEFT)->get_column (), "when"), Moment (0))
+          == robust_scm2moment (get_property (me->get_bound (RIGHT)->get_column (), "when"), Moment (0))))
     bracket_visibility = false;
 
   Interval x_span = robust_scm2interval (scm_x_span, Interval (0.0, 0.0));
@@ -364,7 +364,7 @@ Tuplet_bracket::print (SCM smob)
 
   Output_def *pap = me->layout ();
 
-  Grob *number_grob = unsmob<Grob> (me->get_object ("tuplet-number"));
+  Grob *number_grob = unsmob<Grob> (get_object (me, "tuplet-number"));
 
   /*
     Don't print the bracket when it would be smaller than the number.
@@ -388,7 +388,7 @@ Tuplet_bracket::print (SCM smob)
       Drul_array<Real> zero (0, 0);
 
       Drul_array<Real> shorten
-        = robust_scm2drul (me->get_property ("shorten-pair"), zero);
+        = robust_scm2drul (get_property (me, "shorten-pair"), zero);
 
       Real ss = Staff_symbol_referencer::staff_space (me);
       scale_drul (&shorten, ss);
@@ -405,9 +405,9 @@ Tuplet_bracket::print (SCM smob)
           Drul_array<Stencil> edge_stencils;
 
           Drul_array<Real> height
-            = robust_scm2drul (me->get_property ("edge-height"), zero);
+            = robust_scm2drul (get_property (me, "edge-height"), zero);
           Drul_array<Real> flare
-            = robust_scm2drul (me->get_property ("bracket-flare"), zero);
+            = robust_scm2drul (get_property (me, "bracket-flare"), zero);
 
           Direction dir = get_grob_direction (me);
 
@@ -415,7 +415,7 @@ Tuplet_bracket::print (SCM smob)
           scale_drul (&flare, ss);
 
           Drul_array<bool> connect_to_other
-            = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
+            = robust_scm2booldrul (get_property (me, "connect-to-neighbor"),
                                    Drul_array<bool> (false, false));
 
           for (LEFT_and_RIGHT (d))
@@ -426,7 +426,7 @@ Tuplet_bracket::print (SCM smob)
                   flare[d] = 0.0;
                   shorten[d] = 0.0;
 
-                  SCM edge_text = me->get_property ("edge-text");
+                  SCM edge_text = get_property (me, "edge-text");
 
                   if (scm_is_pair (edge_text))
                     {
@@ -519,9 +519,9 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   /* staff-padding doesn't work correctly on cross-staff tuplets
      because it only considers one staff symbol. Until this works,
      disable it. */
-  if (st && !to_boolean (me->get_property ("cross-staff")))
+  if (st && !to_boolean (get_property (me, "cross-staff")))
     {
-      Real pad = robust_scm2double (me->get_property ("staff-padding"), -1.0);
+      Real pad = robust_scm2double (get_property (me, "staff-padding"), -1.0);
       if (pad >= 0.0)
         {
           staff = st->extent (commony, Y_AXIS) - my_offset;
@@ -556,7 +556,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
         {
           // Trigger setting of stem lengths if necessary.
           if (Grob *beam = Stem::get_beam (stems[side]))
-            (void) beam->get_property ("quantized-positions");
+            (void) get_property (beam, "quantized-positions");
           poss[side] = stems[side]->extent (stems[side], Y_AXIS)[get_grob_direction (stems[side])]
                        + stems[side]->parent_relative (commony, Y_AXIS);
         }
@@ -630,7 +630,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
         continue;
 
       Drul_array<Real> positions
-        = robust_scm2interval (tuplets[i]->get_property ("positions"),
+        = robust_scm2interval (get_property (tuplets[i], "positions"),
                                Interval (0, 0));
 
       Real other_dy = positions[RIGHT] - positions[LEFT];
@@ -650,7 +650,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
         }
 
       // Check for number-on-bracket collisions
-      Grob *number = unsmob<Grob> (tuplets[i]->get_object ("tuplet-number"));
+      Grob *number = unsmob<Grob> (get_object (tuplets[i], "tuplet-number"));
       if (number)
         {
           Interval x_ext = robust_relative_extent (number, commonx, X_AXIS);
@@ -659,20 +659,20 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
         }
     }
 
-  if (to_boolean (me->get_property ("avoid-scripts"))
-      && !scm_is_number (me->get_property ("outside-staff-priority")))
+  if (to_boolean (get_property (me, "avoid-scripts"))
+      && !scm_is_number (get_property (me, "outside-staff-priority")))
     {
       extract_grob_set (me, "scripts", scripts);
       for (vsize i = 0; i < scripts.size (); i++)
         {
           if (!scripts[i]->is_live ())
             continue;
-          if (scm_is_number (scripts[i]->get_property ("outside-staff-priority")))
+          if (scm_is_number (get_property (scripts[i], "outside-staff-priority")))
             continue;
 
           // assume that if a script is avoiding slurs, it should not get placed
           // under a tuplet bracket
-          if (unsmob<Grob> (scripts[i]->get_object ("slur")))
+          if (unsmob<Grob> (get_object (scripts[i], "slur")))
             continue;
 
           Interval script_x
@@ -696,7 +696,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
         *offset = points[i][Y_AXIS] - tuplety;
     }
 
-  *offset += scm_to_double (me->get_property ("padding")) * dir;
+  *offset += scm_to_double (get_property (me, "padding")) * dir;
 
   /*
     horizontal brackets should not collide with staff lines.
@@ -824,13 +824,13 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, cols, &equally_long);
 
-  if (par_beam && to_boolean (par_beam->get_property ("cross-staff")))
+  if (par_beam && to_boolean (get_property (par_beam, "cross-staff")))
     return SCM_BOOL_T;
 
   for (vsize i = 0; i < cols.size (); i++)
     {
-      Grob *stem = unsmob<Grob> (cols[i]->get_object ("stem"));
-      if (stem && to_boolean (stem->get_property ("cross-staff")))
+      Grob *stem = unsmob<Grob> (get_object (cols[i], "stem"));
+      if (stem && to_boolean (get_property (stem, "cross-staff")))
         return SCM_BOOL_T;
     }
 

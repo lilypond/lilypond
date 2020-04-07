@@ -61,7 +61,7 @@ Tempo_performer::~Tempo_performer ()
 void
 Tempo_performer::process_music ()
 {
-  SCM w = get_property ("tempoWholesPerMinute");
+  SCM w = get_property (this, "tempoWholesPerMinute");
   if (unsmob<Moment> (w)
       && !ly_is_equal (w, last_tempo_))
     {

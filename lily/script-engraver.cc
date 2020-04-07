@@ -79,9 +79,9 @@ Script_engraver::listen_articulation (Stream_event *ev)
 {
   /* Discard double articulations for part-combining.  */
   for (vsize i = 0; i < scripts_.size (); i++)
-    if (ly_is_equal (scripts_[i].event_
-                     ->get_property ("articulation-type"),
-                     ev->get_property ("articulation-type")))
+    if (ly_is_equal (get_property (scripts_[i].event_
+                     , "articulation-type"),
+                     get_property (ev, "articulation-type")))
       return;
 
   Script_tuple t;
@@ -92,11 +92,11 @@ Script_engraver::listen_articulation (Stream_event *ev)
 void
 copy_property (Grob *g, SCM sym, SCM alist)
 {
-  if (scm_is_null (g->get_property (sym)))
+  if (scm_is_null (get_property (g, sym)))
     {
       SCM entry = scm_assoc (sym, alist);
       if (scm_is_pair (entry))
-        g->set_property (sym, scm_cdr (entry));
+        set_property (g, sym, scm_cdr (entry));
     }
 }
 
@@ -107,7 +107,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
 void
 make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 {
-  SCM alist = tg->get_property ("scriptDefinitions");
+  SCM alist = get_property (tg, "scriptDefinitions");
   SCM art = scm_assoc (art_type, alist);
 
   if (scm_is_false (art))
@@ -142,15 +142,15 @@ make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
           val = scm_sum (val, scm_from_size_t (index));
         }
 
-      SCM preset = p->get_property_data (sym);
+      SCM preset = get_property_data (p, sym);
       if (scm_is_null (val)
           || scm_is_false (scm_call_1 (type, preset)))
-        p->set_property (sym, val);
+        set_property (p, sym, val);
     }
 
   if (!priority_found)
     {
-      p->set_property ("script-priority", scm_from_size_t (index));
+      set_property (p, "script-priority", scm_from_size_t (index));
     }
 }
 
@@ -164,14 +164,14 @@ Script_engraver::process_music ()
       Grob *p = make_item ("Script", ev->self_scm ());
 
       make_script_from_event (p, context (),
-                              ev->get_property ("articulation-type"),
+                              get_property (ev, "articulation-type"),
                               i);
 
       scripts_[i].script_ = p;
 
-      SCM force_dir = ev->get_property ("direction");
+      SCM force_dir = get_property (ev, "direction");
       if (is_direction (force_dir) && to_dir (force_dir))
-        p->set_property ("direction", force_dir);
+        set_property (p, "direction", force_dir);
     }
 }
 
@@ -182,8 +182,8 @@ Script_engraver::acknowledge_stem (Grob_info info)
     {
       Grob *e = scripts_[i].script_;
 
-      if (to_dir (e->get_property ("side-relative-direction")))
-        e->set_object ("direction-source", info.grob ()->self_scm ());
+      if (to_dir (get_property (e, "side-relative-direction")))
+        set_object (e, "direction-source", info.grob ()->self_scm ());
 
       Side_position_interface::add_support (e, info.grob ());
     }

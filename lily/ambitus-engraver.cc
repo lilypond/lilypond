@@ -77,7 +77,7 @@ Ambitus_engraver::create_ambitus ()
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
       accidentals_[d]->set_parent (heads_[d], Y_AXIS);
-      heads_[d]->set_object ("accidental-grob",
+      set_object (heads_[d], "accidental-grob",
                              accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
@@ -115,9 +115,9 @@ Ambitus_engraver::stop_translation_timestep ()
 {
   if (ambitus_ && !is_typeset_)
     {
-      SCM c_pos = get_property ("middleCPosition");
-      SCM cue_pos = get_property ("middleCCuePosition");
-      SCM ottavation = get_property ("ottavation");
+      SCM c_pos = get_property (this, "middleCPosition");
+      SCM cue_pos = get_property (this, "middleCCuePosition");
+      SCM ottavation = get_property (this, "ottavation");
 
       /*
        * \ottava reads middleCClefPosition and overrides
@@ -130,17 +130,17 @@ Ambitus_engraver::stop_translation_timestep ()
        *     clef position.
        */
       if (Text_interface::is_markup (ottavation))
-        start_c0_ = robust_scm2int (get_property ("middleCClefPosition"), 0);
+        start_c0_ = robust_scm2int (get_property (this, "middleCClefPosition"), 0);
       else if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
         start_c0_ = scm_to_int (c_pos);
       else
         {
-          int clef_pos = robust_scm2int (get_property ("middleCClefPosition"), 0);
-          int offset = robust_scm2int (get_property ("middleCOffset"), 0);
+          int clef_pos = robust_scm2int (get_property (this, "middleCClefPosition"), 0);
+          int offset = robust_scm2int (get_property (this, "middleCOffset"), 0);
           start_c0_ = clef_pos + offset;
         }
 
-      start_key_sig_ = get_property ("keyAlterations");
+      start_key_sig_ = get_property (this, "keyAlterations");
 
       is_typeset_ = true;
     }
@@ -151,9 +151,9 @@ Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
   Stream_event *nr = info.event_cause ();
   if (nr && nr->in_event_class ("note-event")
-      && !to_boolean (info.grob ()->get_property ("ignore-ambitus")))
+      && !to_boolean (get_property (info.grob (), "ignore-ambitus")))
     {
-      SCM p = nr->get_property ("pitch");
+      SCM p = get_property (nr, "pitch");
       /*
         If the engraver is added to a percussion context,
         filter out unpitched note heads.
@@ -177,7 +177,7 @@ Ambitus_engraver::finalize ()
       Grob *accidental_placement
         = make_item ("AccidentalPlacement", accidentals_[DOWN]->self_scm ());
 
-      SCM layout_proc = get_property ("staffLineLayoutFunction");
+      SCM layout_proc = get_property (this, "staffLineLayoutFunction");
 
       for (DOWN_and_UP (d))
         {
@@ -189,8 +189,8 @@ Ambitus_engraver::finalize ()
           else
             pos = p.steps ();
 
-          heads_[d]->set_property ("cause", causes_[d]->self_scm ());
-          heads_[d]->set_property ("staff-position",
+          set_property (heads_[d], "cause", causes_[d]->self_scm ());
+          set_property (heads_[d], "staff-position",
                                    scm_from_int (start_c0_ + pos));
 
           SCM handle = scm_assoc (scm_cons (scm_from_int (p.get_octave ()),
@@ -212,11 +212,10 @@ Ambitus_engraver::finalize ()
                    && (p.get_alteration () != other.get_alteration ())))
             {
               accidentals_[d]->suicide ();
-              heads_[d]->set_object ("accidental-grob", SCM_EOL);
+              set_object (heads_[d], "accidental-grob", SCM_EOL);
             }
           else
-            accidentals_[d]->
-            set_property ("alteration",
+            set_property (accidentals_[d], "alteration",
                           ly_rational2scm (p.get_alteration ()));
           Separation_item::add_conditional_item (heads_[d],
                                                  accidental_placement);

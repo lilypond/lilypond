@@ -252,7 +252,7 @@ generic_get_acknowledger (SCM sym, SCM ack_hash)
 Moment
 get_event_length (Stream_event *e)
 {
-  Moment *m = unsmob<Moment> (e->get_property ("length"));
+  Moment *m = unsmob<Moment> (get_property (e, "length"));
   if (m)
     return *m;
   else

@@ -87,14 +87,14 @@ Score_engraver::initialize ()
 
   pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
   pscore_->unprotect ();
-  context ()->set_property ("output", pscore_->self_scm ());
+  set_property (context (), "output", pscore_->self_scm ());
 
   SCM props = Grob_property_info (context (), ly_symbol2scm ("System")).updated ();
 
   pscore_->typeset_system (new System (props));
 
   system_ = pscore_->root_system ();
-  context ()->set_property ("rootSystem", system_->self_scm ());
+  set_property (context (), "rootSystem", system_->self_scm ());
 
   Engraver_group::initialize ();
 }
@@ -146,7 +146,7 @@ Score_engraver::finalize ()
 void
 Score_engraver::one_time_step (SCM)
 {
-  if (!to_boolean (context ()->get_property ("skipTypesetting")))
+  if (!to_boolean (get_property (context (), "skipTypesetting")))
     {
       precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
       Engraver_group::do_announces ();

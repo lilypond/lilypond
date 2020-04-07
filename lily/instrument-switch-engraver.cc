@@ -57,14 +57,14 @@ Instrument_switch_engraver::Instrument_switch_engraver (Context *c)
 void
 Instrument_switch_engraver::process_music ()
 {
-  SCM cue_text = get_property ("instrumentCueName");
+  SCM cue_text = get_property (this, "instrumentCueName");
 
   if (!scm_is_eq (cue_name_, cue_text))
     {
       if (Text_interface::is_markup (cue_text))
         {
           text_ = make_item ("InstrumentSwitch", SCM_EOL);
-          text_->set_property ("text", cue_text);
+          set_property (text_, "text", cue_text);
         }
       cue_name_ = cue_text;
     }

@@ -27,9 +27,9 @@ Tie_specification::from_grob (Grob *tie)
   // In this method, Tie and Semi_tie require the same logic with different
   // types.  It might be clearer to use a template.
   tie_grob_ = tie;
-  if (scm_is_number (tie->get_property_data ("direction")))
+  if (scm_is_number (get_property_data (tie, "direction")))
     {
-      manual_dir_ = to_dir (tie->get_property ("direction"));
+      manual_dir_ = to_dir (get_property (tie, "direction"));
       has_manual_dir_ = true;
     }
 
@@ -43,11 +43,11 @@ Tie_specification::from_grob (Grob *tie)
       position_ = 0;
     }
 
-  SCM pos_scm = tie->get_property ("staff-position");
+  SCM pos_scm = get_property (tie, "staff-position");
   if (scm_is_number (pos_scm))
     {
       has_manual_delta_y_ = !ly_is_rational (pos_scm);
-      manual_position_ = scm_to_double (tie->get_property ("staff-position"));
+      manual_position_ = scm_to_double (get_property (tie, "staff-position"));
       has_manual_position_ = true;
     }
 }

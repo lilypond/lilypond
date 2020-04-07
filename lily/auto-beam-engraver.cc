@@ -113,7 +113,7 @@ Auto_beam_engraver::check_bar_property ()
      Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
 
   Moment now = now_mom ();
-  if (scm_is_string (get_property ("whichBar"))
+  if (scm_is_string (get_property (this, "whichBar"))
       && beam_start_moment_ < now)
     {
       consider_end (measure_position (context ()), shortest_mom_);
@@ -134,7 +134,7 @@ Auto_beam_engraver::process_music ()
         end_beam ();
     }
 
-  if (scm_is_string (get_property ("whichBar")))
+  if (scm_is_string (get_property (this, "whichBar")))
     {
       consider_end (measure_position (context ()), shortest_mom_);
       junk_beam ();
@@ -172,7 +172,7 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 {
-  return scm_is_true (scm_call_4 (get_property ("autoBeamCheck"),
+  return scm_is_true (scm_call_4 (get_property (this, "autoBeamCheck"),
                                   context ()->self_scm (),
                                   scm_from_int (dir),
                                   test_mom.smobbed_copy (),
@@ -182,7 +182,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 void
 Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
 {
-  bool on = to_boolean (get_property ("autoBeaming"));
+  bool on = to_boolean (get_property (this, "autoBeaming"));
   if (!stems_ && on
       && !forbid_)
     {
@@ -208,7 +208,7 @@ Auto_beam_engraver::consider_end (Moment test_mom, Moment dur)
 Spanner *
 Auto_beam_engraver::create_beam ()
 {
-  if (to_boolean (get_property ("skipTypesetting")))
+  if (to_boolean (get_property (this, "skipTypesetting")))
     return 0;
 
   for (vsize i = 0; i < stems_->size (); i++)
@@ -247,7 +247,7 @@ Auto_beam_engraver::begin_beam ()
   beam_start_context_.set_context (context ()->get_parent_context ());
   beam_start_moment_ = now_mom ();
   beam_start_location_
-    = robust_scm2moment (get_property ("measurePosition"), Moment (0));
+    = robust_scm2moment (get_property (this, "measurePosition"), Moment (0));
 }
 
 void
@@ -394,7 +394,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
       return;
     }
 
-  int durlog = unsmob<Duration> (ev->get_property ("duration"))->duration_log ();
+  int durlog = unsmob<Duration> (get_property (ev, "duration"))->duration_log ();
 
   if (durlog <= 2)
     {
@@ -410,10 +410,10 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   if (!is_same_grace_state (beam_start_location_, now))
     return;
 
-  Duration *stem_duration = unsmob<Duration> (ev->get_property ("duration"));
+  Duration *stem_duration = unsmob<Duration> (get_property (ev, "duration"));
   Moment dur = stem_duration->get_length ();
 
-  //Moment dur = unsmob<Duration> (ev->get_property ("duration"))->get_length ();
+  //Moment dur = unsmob<Duration> (get_property (ev, "duration"))->get_length ();
   Moment measure_now = measure_position (context ());
   bool recheck_needed = false;
 
@@ -436,7 +436,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
                        durlog - 2,
                        Stem::is_invisible (stem),
                        stem_duration->factor (),
-                       (to_boolean (stem->get_property ("tuplet-start"))));
+                       (to_boolean (get_property (stem, "tuplet-start"))));
   stems_->push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = std::max (extend_mom_, now) + get_event_length (ev, now);

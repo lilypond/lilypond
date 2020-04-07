@@ -74,7 +74,7 @@ Percent_repeat_engraver::start_translation_timestep ()
   if (now_mom ().main_part_ != command_moment_.main_part_)
     {
       first_command_column_
-        = unsmob<Grob> (get_property ("currentCommandColumn"));
+        = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       command_moment_ = now_mom ();
     }
 
@@ -121,15 +121,15 @@ Percent_repeat_engraver::process_music ()
       Grob *col = first_command_column_;
       percent_->set_bound (LEFT, col);
 
-      SCM count = percent_event_->get_property ("repeat-count");
-      if (!scm_is_null (count) && to_boolean (get_property ("countPercentRepeats"))
+      SCM count = get_property (percent_event_, "repeat-count");
+      if (!scm_is_null (count) && to_boolean (get_property (this, "countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           percent_counter_ = make_spanner ("PercentRepeatCounter",
                                            percent_event_->self_scm ());
 
           SCM text = scm_number_to_string (count, scm_from_int (10));
-          percent_counter_->set_property ("text", text);
+          set_property (percent_counter_, "text", text);
           percent_counter_->set_bound (LEFT, col);
           Side_position_interface::add_support (percent_counter_, percent_);
           percent_counter_->set_parent (percent_, Y_AXIS);

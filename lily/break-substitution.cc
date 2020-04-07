@@ -397,7 +397,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       if (!unsmob<Grob_array> (newval))
         {
           newval = Grob_array::make_array ();
-          sc->set_object (sym, newval);
+          set_object (sc, sym, newval);
         }
 
       Grob_array *new_array = unsmob<Grob_array> (newval);
@@ -495,7 +495,7 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
           if (!unsmob<Grob_array> (newval))
             {
               newval = Grob_array::make_array ();
-              sc->set_object (sym, newval);
+              set_object (sc, sym, newval);
             }
           Grob_array *new_arr = unsmob<Grob_array> (newval);
           new_arr->filter_map_assign (*grob_array, substitute_grob);
@@ -503,7 +503,7 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
       else
         {
           SCM newval = do_break_substitution (val);
-          sc->set_object (sym, newval);
+          set_object (sc, sym, newval);
         }
     }
 }

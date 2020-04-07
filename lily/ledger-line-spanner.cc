@@ -80,7 +80,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
     }
 
   Real min_length_fraction
-    = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
+    = robust_scm2double (get_property (me, "minimum-length-fraction"), 0.15);
 
   Drul_array<Interval> current_extents;
   Drul_array<Interval> previous_extents;
@@ -204,12 +204,12 @@ Ledger_line_spanner::print (SCM smob)
   staff_extent *= 1 / halfspace;
 
   Real length_fraction
-    = robust_scm2double (me->get_property ("length-fraction"), 0.25);
+    = robust_scm2double (get_property (me, "length-fraction"), 0.25);
 
   Grob *common_x = common_refpoint_of_array (heads, me, X_AXIS);
   for (vsize i = heads.size (); i--;)
     {
-      if (Grob *g = unsmob<Grob> (heads[i]->get_object ("accidental-grob")))
+      if (Grob *g = unsmob<Grob> (get_object (heads[i], "accidental-grob")))
         common_x = common_x->common_refpoint (g, X_AXIS);
     }
 
@@ -243,7 +243,7 @@ Ledger_line_spanner::print (SCM smob)
           hd.ledger_positions_ = ledger_positions;
           hd.ledger_extent_ = ledger_extent;
           hd.head_extent_ = head_extent;
-          if (Grob *g = unsmob<Grob> (h->get_object ("accidental-grob")))
+          if (Grob *g = unsmob<Grob> (get_object (h, "accidental-grob")))
             hd.accidental_extent_ = g->extent (common_x, X_AXIS);
           reqs[rank][vdir].heads_.push_back (hd);
         }
@@ -255,7 +255,7 @@ Ledger_line_spanner::print (SCM smob)
   // Iterate through ledger requests and when ledger lines will be
   // too close together horizontally, shorten max_ledger_extent to
   // produce more space between them.
-  Real gap = robust_scm2double (me->get_property ("gap"), 0.1);
+  Real gap = robust_scm2double (get_property (me, "gap"), 0.1);
   Ledger_requests::iterator last (reqs.end ());
   for (Ledger_requests::iterator i (reqs.begin ());
        i != reqs.end (); last = i++)

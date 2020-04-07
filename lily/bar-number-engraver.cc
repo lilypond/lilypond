@@ -61,11 +61,11 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
     return;
 
   alternative_event_ = ev;
-  int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
-  Direction alternative_dir = robust_scm2dir (ev->get_property ("alternative-dir"), CENTER);
-  bool make_alternative = scm_is_eq (get_property ("alternativeNumberingStyle"),
+  int current_barnumber = robust_scm2int (get_property (this, "currentBarNumber"), 0);
+  Direction alternative_dir = robust_scm2dir (get_property (ev, "alternative-dir"), CENTER);
+  bool make_alternative = scm_is_eq (get_property (this, "alternativeNumberingStyle"),
                                      ly_symbol2scm ("numbers"))
-                          || scm_is_eq (get_property ("alternativeNumberingStyle"),
+                          || scm_is_eq (get_property (this, "alternativeNumberingStyle"),
                                         ly_symbol2scm ("numbers-with-letters"));
   if (make_alternative)
     {
@@ -83,31 +83,31 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
       if (alternative_dir < RIGHT)
         current_barnumber = alternative_starting_bar_number_;
 
-      context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
+      set_property (context (), "currentBarNumber", scm_from_int (current_barnumber));
     }
 }
 
 void
 Bar_number_engraver::process_music ()
 {
-  SCM wb = get_property ("whichBar");
+  SCM wb = get_property (this, "whichBar");
 
   if (scm_is_string (wb))
     {
-      Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
-      SCM bn = get_property ("currentBarNumber");
-      SCM proc = get_property ("barNumberVisibility");
+      Moment mp (robust_scm2moment (get_property (this, "measurePosition"), Moment (0)));
+      SCM bn = get_property (this, "currentBarNumber");
+      SCM proc = get_property (this, "barNumberVisibility");
       if (scm_is_number (bn) && ly_is_procedure (proc)
           && to_boolean (scm_call_2 (proc, bn, mp.smobbed_copy ())))
         {
           create_items ();
-          SCM alternative_style = get_property ("alternativeNumberingStyle");
+          SCM alternative_style = get_property (this, "alternativeNumberingStyle");
           string text_tag = "";
           if (scm_is_eq (alternative_style, ly_symbol2scm ("numbers-with-letters")))
             {
               if (alternative_event_)
                 {
-                  Direction alternative_dir = robust_scm2dir (alternative_event_->get_property ("alternative-dir"), RIGHT);
+                  Direction alternative_dir = robust_scm2dir (get_property (alternative_event_, "alternative-dir"), RIGHT);
                   switch (alternative_dir)
                     {
                     case LEFT:
@@ -123,12 +123,12 @@ Bar_number_engraver::process_music ()
                     }
                   alternative_number_ += alternative_number_increment_;
 
-                  alternative_number_increment_ = robust_scm2int (alternative_event_->get_property ("alternative-increment"), 1);
+                  alternative_number_increment_ = robust_scm2int (get_property (alternative_event_, "alternative-increment"), 1);
                 }
             }
-          SCM formatter = get_property ("barNumberFormatter");
+          SCM formatter = get_property (this, "barNumberFormatter");
           if (ly_is_procedure (formatter))
-            text_->set_property ("text", scm_call_4 (formatter,
+            set_property (text_, "text", scm_call_4 (formatter,
                                                      bn,
                                                      mp.smobbed_copy (),
                                                      scm_from_int (alternative_number_),
@@ -164,8 +164,8 @@ Bar_number_engraver::stop_translation_timestep ()
   alternative_event_ = 0;
   if (text_)
     {
-      text_->set_object ("side-support-elements",
-                         grob_list_to_grob_array (get_property ("stavesFound")));
+      set_object (text_, "side-support-elements",
+                         grob_list_to_grob_array (get_property (this, "stavesFound")));
       text_ = 0;
     }
 }

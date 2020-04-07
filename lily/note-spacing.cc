@@ -50,7 +50,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
   for (vsize i = 0; i < note_columns.size (); i++)
     {
-      SCM r = note_columns[i]->get_object ("rest");
+      SCM r = get_object (note_columns[i], "rest");
       Grob *g = unsmob<Grob> (r);
       Grob *col = note_columns[i]->get_column ();
 
@@ -77,7 +77,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   */
   Real ideal = base.distance () - increment + left_head_end;
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
-  Real distance = skys[LEFT].distance (skys[RIGHT], robust_scm2double (right_col->get_property ("skyline-vertical-padding"), 0.0));
+  Real distance = skys[LEFT].distance (skys[RIGHT], robust_scm2double (get_property (right_col, "skyline-vertical-padding"), 0.0));
   Real min_dist = std::max (0.0, distance);
   base.set_min_distance (min_dist);
 
@@ -85,7 +85,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
      to the bar-line (if present), not the start of the column. */
   if (!Paper_column::is_musical (right_col)
       && !skys[RIGHT].is_empty ()
-      && to_boolean (me->get_property ("space-to-barline")))
+      && to_boolean (get_property (me, "space-to-barline")))
     {
       Grob *bar = Pointer_group_interface::find_grob (right_col,
                                                       ly_symbol2scm ("elements"),
@@ -128,7 +128,7 @@ knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
     }
 
   return -note_head_width * get_grob_direction (right_stem)
-         * robust_scm2double (note_spacing->get_property ("knee-spacing-correction"), 0);
+         * robust_scm2double (get_property (note_spacing, "knee-spacing-correction"), 0);
 }
 
 static Real
@@ -149,7 +149,7 @@ different_directions_correction (Grob *note_spacing,
       */
       ret = std::min (ret / 7, 1.0)
             * left_stem_dir
-            * robust_scm2double (note_spacing->get_property ("stem-spacing-correction"), 0);
+            * robust_scm2double (get_property (note_spacing, "stem-spacing-correction"), 0);
     }
   return ret;
 }
@@ -185,7 +185,7 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
     = (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
 
   Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
-  Real corr = robust_scm2double (note_spacing->get_property ("same-direction-correction"), 0);
+  Real corr = robust_scm2double (get_property (note_spacing, "same-direction-correction"), 0);
 
   return (delta > 1) ? -lowest * corr : 0;
 }
@@ -205,8 +205,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Drul_array<Direction> stem_dirs (CENTER, CENTER);
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;
-  Drul_array<SCM> props (me->get_object ("left-items"),
-                         me->get_object ("right-items"));
+  Drul_array<SCM> props (get_object (me, "left-items"),
+                         get_object (me, "right-items"));
 
   Drul_array<Spanner *> beams_drul (0, 0);
   Drul_array<Grob *> stems_drul (0, 0);

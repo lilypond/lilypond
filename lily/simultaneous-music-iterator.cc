@@ -51,7 +51,7 @@ Simultaneous_music_iterator::construct_children ()
 {
   int j = 0;
 
-  SCM i = get_music ()->get_property ("elements");
+  SCM i = get_property (get_music (), "elements");
 
   children_list_ = SCM_EOL;
   SCM *tail = &children_list_;

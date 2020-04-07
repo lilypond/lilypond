@@ -539,8 +539,8 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
   if (pos.system_spec_index_ == VPOS)
     return SCM_EOL;
   if (system_specs_[pos.system_spec_index_].pscore_)
-    return pos.col_->get_property (str);
-  return system_specs_[pos.system_spec_index_].prob_->get_property (str);
+    return get_property (pos.col_, str);
+  return get_property (system_specs_[pos.system_spec_index_].prob_, str);
 }
 
 SCM
@@ -574,17 +574,17 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   SCM page = make_page (page_num, last);
 
   Prob *p = unsmob<Prob> (page);
-  p->set_property ("lines", paper_systems);
-  p->set_property ("configuration", configuration);
+  set_property (p, "lines", paper_systems);
+  set_property (p, "configuration", configuration);
 
-  Stencil *foot_p = unsmob<Stencil> (p->get_property ("foot-stencil"));
+  Stencil *foot_p = unsmob<Stencil> (get_property (p, "foot-stencil"));
   Stencil foot = foot_p ? *foot_p : Stencil ();
 
   SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems);
 
   foot = Page_layout_problem::add_footnotes_to_footer (footnotes, foot, book_);
 
-  p->set_property ("foot-stencil", foot.smobbed_copy ());
+  set_property (p, "foot-stencil", foot.smobbed_copy ());
 
   return page;
 }
@@ -630,8 +630,8 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
           System *sys = unsmob<System> (scm_car (line));
           if (sys)
             {
-              sys->set_property ("rank-on-page", scm_from_int (rank_on_page));
-              sys->set_property ("page-number", scm_from_int (page_num));
+              set_property (sys, "rank-on-page", scm_from_int (rank_on_page));
+              set_property (sys, "page-number", scm_from_int (page_num));
               rank_on_page++;
             }
         }
@@ -681,10 +681,10 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
           if (Grob *line = unsmob<Grob> (scm_car (l)))
             {
               System *system = dynamic_cast<System *> (line);
-              labels = system->get_property ("labels");
+              labels = get_property (system, "labels");
             }
           else if (Prob *prob = unsmob<Prob> (scm_car (l)))
-            labels = prob->get_property ("labels");
+            labels = get_property (prob, "labels");
 
           for (SCM lbls = labels; scm_is_pair (lbls); lbls = scm_cdr (lbls))
             label_page_table = scm_cons (scm_cons (scm_car (lbls), page_num_scm),
@@ -782,7 +782,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
 
               bool last = (j == cols.size () - 1);
               bool break_point = is_break && j > 0 && is_break (cols[j]);
-              bool chunk_end = scm_is_eq (cols[j]->get_property ("page-break-permission"), force_sym);
+              bool chunk_end = scm_is_eq (get_property (cols[j], "page-break-permission"), force_sym);
               Break_position cur_pos = Break_position (i,
                                                        line_breaker_columns.size (),
                                                        cols[j],

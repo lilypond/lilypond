@@ -78,13 +78,13 @@ protected:
 void
 Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
 {
-  Direction dir = to_dir (ev->get_property ("span-direction"));
+  Direction dir = to_dir (get_property (ev, "span-direction"));
   if (dir == START)
     {
       Tuplet_description d;
       d.event_ = ev;
 
-      d.length_ = robust_scm2moment (d.event_->get_property ("length"),
+      d.length_ = robust_scm2moment (get_property (d.event_, "length"),
                                      Moment (0));
       d.start_moment_ = now_mom ();
       d.stop_moment_ = now_mom () + d.length_;
@@ -107,7 +107,7 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
           stopped_tuplets_.push_back (tuplets_.back ());
           tuplets_.pop_back ();
         }
-      else if (!to_boolean (get_property ("skipTypesetting")))
+      else if (!to_boolean (get_property (this, "skipTypesetting")))
         ev->origin ()->debug_output (_ ("No tuplet to end"));
     }
   else
@@ -140,8 +140,8 @@ Tuplet_engraver::process_music ()
             {
               Item *col
                 = unsmob<Item> (stopped_tuplets_[i].full_length_note_
-                                ? get_property ("currentMusicalColumn")
-                                : get_property ("currentCommandColumn"));
+                                ? get_property (this, "currentMusicalColumn")
+                                : get_property (this, "currentCommandColumn"));
 
               bracket->set_bound (RIGHT, col);
               number->set_bound (RIGHT, col);
@@ -179,18 +179,18 @@ Tuplet_engraver::process_music ()
       if (tuplets_[i].bracket_)
         continue;
 
-      tuplets_[i].full_length_ = to_boolean (get_property ("tupletFullLength"));
+      tuplets_[i].full_length_ = to_boolean (get_property (this, "tupletFullLength"));
       tuplets_[i].full_length_note_
-        = to_boolean (get_property ("tupletFullLengthNote"));
+        = to_boolean (get_property (this, "tupletFullLengthNote"));
 
       tuplets_[i].bracket_ = make_spanner ("TupletBracket",
                                            tuplets_[i].event_->self_scm ());
       tuplets_[i].number_ = make_spanner ("TupletNumber",
                                           tuplets_[i].event_->self_scm ());
-      tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
+      set_object (tuplets_[i].number_, "bracket", tuplets_[i].bracket_->self_scm ());
       tuplets_[i].number_->set_parent (tuplets_[i].bracket_, X_AXIS);
       tuplets_[i].number_->set_parent (tuplets_[i].bracket_, Y_AXIS);
-      tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
+      set_object (tuplets_[i].bracket_, "tuplet-number", tuplets_[i].number_->self_scm ());
       tuplets_[i].stop_moment_.grace_part_ = 0;
 
       if (i + 1 < tuplets_.size () && tuplets_[i + 1].bracket_)
@@ -261,10 +261,10 @@ Tuplet_engraver::start_translation_timestep ()
 void
 Tuplet_engraver::finalize ()
 {
-  if (to_boolean (get_property ("tupletFullLength")))
+  if (to_boolean (get_property (this, "tupletFullLength")))
     for (vsize i = 0; i < last_tuplets_.size (); i++)
       {
-        Item *col = unsmob<Item> (get_property ("currentCommandColumn"));
+        Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));
         last_tuplets_[i]->set_bound (RIGHT, col);
       }
 }

@@ -112,7 +112,7 @@ Coherent_ligature_engraver::move_related_items_to_column
       sibling_parent->warning (_f ("Coherent_ligature_engraver: "
                                    "setting `spacing-increment="
                                    "0.01': ptr=%ul", parent));
-      sibling_parent->set_property ("forced-spacing",
+      set_property (sibling_parent, "forced-spacing",
                                     scm_from_double (0.01));
 #endif
 
@@ -153,17 +153,17 @@ compute_delta_pitches (vector<Grob_info> const &primitives)
       primitive = dynamic_cast<Item *> (primitives[i].grob ());
       Stream_event *cause = primitives[i].event_cause ();
       int pitch
-        = unsmob<Pitch> (cause->get_property ("pitch"))->steps ();
+        = unsmob<Pitch> (get_property (cause, "pitch"))->steps ();
       if (prev_primitive)
         {
           delta_pitch = pitch - prev_pitch;
-          prev_primitive->set_property ("delta-position",
+          set_property (prev_primitive, "delta-position",
                                         scm_from_int (delta_pitch));
         }
       prev_pitch = pitch;
       prev_primitive = primitive;
     }
-  primitive->set_property ("delta-position", scm_from_int (0));
+  set_property (primitive, "delta-position", scm_from_int (0));
 }
 
 void

@@ -47,7 +47,7 @@ using std::vector;
 static bool
 is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 {
-  if (!to_boolean (col->get_property ("allow-loose-spacing")))
+  if (!to_boolean (get_property (col, "allow-loose-spacing")))
     return false;
 
   if ((options->float_nonmusical_columns_
@@ -82,8 +82,8 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 
   */
 
-  Item *r_neighbor = unsmob<Item> (col->get_object ("right-neighbor"));
-  Item *l_neighbor = unsmob<Item> (col->get_object ("left-neighbor"));
+  Item *r_neighbor = unsmob<Item> (get_object (col, "right-neighbor"));
+  Item *l_neighbor = unsmob<Item> (get_object (col, "left-neighbor"));
 
   if (!l_neighbor || !r_neighbor)
     return false;
@@ -117,12 +117,12 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
             {
               Grob *h = gelts[j];
 
-              if (h && scm_is_eq (h->get_property ("break-align-symbol"),
+              if (h && scm_is_eq (get_property (h, "break-align-symbol"),
                                   ly_symbol2scm ("staff-bar")))
                 {
                   extract_grob_set (h, "elements", helts);
                   for (vsize k = helts.size (); k--;)
-                    if ("" != robust_scm2string (helts[k]->get_property ("glyph-name"), ""))
+                    if ("" != robust_scm2string (get_property (helts[k], "glyph-name"), ""))
                       return false;
                 }
             }
@@ -216,7 +216,7 @@ Spacing_spanner::prune_loose_columns (Grob *me,
       if (loose && Paper_column::is_breakable (c))
         {
           loose = false;
-          c->set_property ("maybe-loose", SCM_BOOL_T);
+          set_property (c, "maybe-loose", SCM_BOOL_T);
         }
       /*
         Unbreakable columns which only contain page-labels also
@@ -224,17 +224,17 @@ Spacing_spanner::prune_loose_columns (Grob *me,
         be collected by the System: so we mark these columns too.
       */
       if (!loose && !Paper_column::is_breakable (c)
-          && scm_is_pair (c->get_property ("labels")))
+          && scm_is_pair (get_property (c, "labels")))
         {
           extract_grob_set (c, "elements", elts);
           if (elts.empty ())
-            c->set_property ("maybe-loose", SCM_BOOL_T);
+            set_property (c, "maybe-loose", SCM_BOOL_T);
         }
 
       if (loose)
         {
-          Grob *right_neighbor = unsmob<Grob> (c->get_object ("right-neighbor"));
-          Grob *left_neighbor = unsmob<Grob> (c->get_object ("left-neighbor"));
+          Grob *right_neighbor = unsmob<Grob> (get_object (c, "right-neighbor"));
+          Grob *left_neighbor = unsmob<Grob> (get_object (c, "left-neighbor"));
 
           /*
             Either object can be non existent, if the score ends
@@ -243,12 +243,12 @@ Spacing_spanner::prune_loose_columns (Grob *me,
           if (!right_neighbor || !left_neighbor)
             {
               c->programming_error ("Cannot determine neighbors for floating column.");
-              c->set_object ("between-cols", scm_cons (lastcol->self_scm (),
+              set_object (c, "between-cols", scm_cons (lastcol->self_scm (),
                                                        (*rp)->self_scm ()));
             }
           else
             {
-              c->set_object ("between-cols", scm_cons (left_neighbor->self_scm (),
+              set_object (c, "between-cols", scm_cons (left_neighbor->self_scm (),
                                                        right_neighbor->self_scm ()));
 
               /*
@@ -294,13 +294,13 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Paper_column *> const &co
 
               if (right_rank < min_right_rank)
                 {
-                  left_col->set_object ("right-neighbor", right_col->self_scm ());
+                  set_object (left_col, "right-neighbor", right_col->self_scm ());
                   min_right_rank = right_rank;
                 }
 
-              Paper_column *old_left_neighbor = unsmob<Paper_column> (right_col->get_object ("left-neighbor"));
+              Paper_column *old_left_neighbor = unsmob<Paper_column> (get_object (right_col, "left-neighbor"));
               if (!old_left_neighbor || left_rank > old_left_neighbor->get_rank ())
-                right_col->set_object ("left-neighbor", left_col->self_scm ());
+                set_object (right_col, "left-neighbor", left_col->self_scm ());
             }
         }
     }
@@ -320,9 +320,9 @@ Spacing_spanner::set_implicit_neighbor_columns (vector<Paper_column *> const &co
       if (!Paper_column::is_breakable (it) && !Paper_column::is_musical (it))
         continue;
 
-      if (i && !unsmob<Grob> (cols[i]->get_object ("left-neighbor")))
-        cols[i]->set_object ("left-neighbor", cols[i - 1]->self_scm ());
-      if (i + 1 < cols.size () && !unsmob<Grob> (cols[i]->get_object ("right-neighbor")))
-        cols[i]->set_object ("right-neighbor", cols[i + 1]->self_scm ());
+      if (i && !unsmob<Grob> (get_object (cols[i], "left-neighbor")))
+        set_object (cols[i], "left-neighbor", cols[i - 1]->self_scm ());
+      if (i + 1 < cols.size () && !unsmob<Grob> (get_object (cols[i], "right-neighbor")))
+        set_object (cols[i], "right-neighbor", cols[i + 1]->self_scm ());
     }
 }
