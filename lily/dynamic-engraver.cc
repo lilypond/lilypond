@@ -108,7 +108,7 @@ Dynamic_engraver::get_property_setting (Stream_event *evt,
 {
   SCM spanner_type = get_property (evt, evprop);
   if (scm_is_null (spanner_type))
-    spanner_type = get_property (ctxprop);
+    spanner_type = get_property (this, ctxprop);
   return spanner_type;
 }
 

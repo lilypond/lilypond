@@ -133,8 +133,8 @@ Multi_measure_rest::height (SCM smob)
 int
 calc_measure_duration_log (Grob *me)
 {
-  SCM sml = dynamic_cast<Spanner *> (me)->get_property (get_bound (LEFT)
-            , "measure-length");
+  SCM sml = get_property (dynamic_cast<Spanner *> (me)->get_bound (LEFT),
+                          "measure-length");
   Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
                 : Rational (1);
   auto duration = static_cast<double> (ml);

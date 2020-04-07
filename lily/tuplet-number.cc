@@ -454,7 +454,7 @@ SCM
 Tuplet_number::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return unsmob<Grob> (get_object (me, "bracket"))->get_property (this, "cross-staff");
+  return get_property (unsmob<Grob> (get_object (me, "bracket")), "cross-staff");
 }
 
 ADD_INTERFACE (Tuplet_number,

@@ -76,7 +76,7 @@ Grob::Grob (SCM basicprops)
       if (scm_is_pair (object_cbs))
         {
           for (SCM s = scm_cdr (object_cbs); scm_is_pair (s); s = scm_cdr (s))
-            set_object (scm_caar (s), scm_cdar (s));
+            set_object (this, scm_caar (s), scm_cdar (s));
         }
     }
 
@@ -412,11 +412,11 @@ Grob::get_offset (Axis a) const
     UGH: can't fold next 2 statements together. Apparently GCC thinks
     dim_cache_[a].offset_ is unaliased.
   */
-  Real off = robust_scm2double (get_property (sym), 0.0);
+  Real off = robust_scm2double (get_property (this, sym), 0.0);
   if (dim_cache_[a].offset_)
     {
       *dim_cache_[a].offset_ += off;
-      const_cast<Grob *> (this)->del_property (sym);
+      del_property (const_cast<Grob *> (this), sym);
       return *dim_cache_[a].offset_;
     }
   else

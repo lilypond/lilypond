@@ -498,8 +498,8 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
         // remove dots from primitive and add remember primitive for
         // creating a dot column
         {
-          Rhythmic_head::set_property (get_dots (primitive), "dot-count",
-                                                             scm_from_int (0));
+          set_property (Rhythmic_head::get_dots (primitive),
+                        "dot-count", scm_from_int (0));
           // TODO: Maybe completely remove grob "Dots" (dots->suicide
           // () ?) rather than setting property "dot-count" to 0.
 

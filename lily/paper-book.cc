@@ -540,8 +540,8 @@ Paper_book::get_system_specs ()
                 {
                   // last line so far, in a multi-line paragraph
                   last = ps;
-                  //Place closely to previous line, no set_property (stretching.
-                  ps, "tight-spacing", SCM_BOOL_T);
+                  //Place closely to previous line, no stretching.
+                  set_property (ps, "tight-spacing", SCM_BOOL_T);
                 }
               system_specs = scm_cons (ps->self_scm (), system_specs);
               ps->unprotect ();

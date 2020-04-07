@@ -294,7 +294,7 @@ Context::set_property_from_event (SCM sev)
         {
           if (to_boolean (get_property (ev, "once")))
             add_global_finalization (make_revert_finalization (sym));
-          set_property (sym, val);
+          set_property (this, sym, val);
         }
     }
 }

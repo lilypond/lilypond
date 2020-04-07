@@ -3060,7 +3060,7 @@ note_chord_element:
 		SCM postevs = scm_reverse_x ($3, SCM_EOL);
 
 		for (SCM s = es; scm_is_pair (s); s = scm_cdr (s))
-		  unsmob<Music> (scm_car (s))->set_property (this, "duration", dur);
+			set_property (unsmob<Music> (scm_car (s)), "duration", dur);
 		es = ly_append2 (es, postevs);
 
 		set_property (m, "elements", es);

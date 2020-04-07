@@ -202,8 +202,8 @@ Spacing_engraver::stop_translation_timestep ()
     start_spanner ();
 
   set_object (musical_column, "spacing", spacing_->self_scm ());
-  unsmob<Grob> (get_property (this, "currentCommandColumn"))
-  ->set_object (this, "spacing", spacing_->self_scm ());
+  set_object (unsmob<Grob> (get_property (this, "currentCommandColumn")),
+              "spacing", spacing_->self_scm ());
 
   SCM proportional = get_property (this, "proportionalNotationDuration");
   if (unsmob<Moment> (proportional))

@@ -218,7 +218,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     positioning the fingerings, setting both X and Y coordinates.
   */
   for (vsize i = 0; i < scripts->size (); i++)
-    (*scripts)[i].position_ = scm_to_int ((*scripts)[i].get_property (head_, "staff-position"));
+    (*scripts)[i].position_ = scm_to_int (get_property ((*scripts)[i].head_, "staff-position"));
 
   for (vsize i = scripts->size (); i--;)
     for (vsize j = heads_.size (); j--;)
@@ -227,7 +227,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
   vector<Finger_tuple> up, down, horiz;
   for (vsize i = scripts->size (); i--;)
     {
-      SCM d = (*scripts)[i].get_property (finger_event_, "direction");
+      SCM d = get_property ((*scripts)[i].finger_event_, "direction");
       if (to_dir (d))
         {
           ((to_dir (d) == UP) ? up : down).push_back ((*scripts)[i]);

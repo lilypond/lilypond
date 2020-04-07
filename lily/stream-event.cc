@@ -125,7 +125,7 @@ warn_reassign_event_ptr (Stream_event &old_ev, Stream_event *new_ev)
   if (to_boolean (scm_equal_p (old_ev.self_scm (), new_ev->self_scm ())))
     return; // nothing of value was lost
 
-  std::string oc = ly_symbol2string (scm_car (old_ev.get_property (this, "class")));
+  std::string oc = ly_symbol2string (scm_car (get_property (&old_ev, "class")));
   old_ev.origin ()->warning (_f ("conflict with event: `%s'", oc.c_str ()));
 
   std::string nc = ly_symbol2string (scm_car (get_property (new_ev, "class")));
