@@ -4005,7 +4005,7 @@ uso de esta propiedad, consulte @ref{Numeración de compases}.
 @item measureLength
 La longitud de los compases dentro de la indicación actual de
 compás.  Para un 4/4 esto es@tie{}1, y para el 6/8 es 3/4.  Su
-valor determinad cuándo se insertan las líneas divisorias y cómo
+valor determina cuándo se insertan las líneas divisorias y cómo
 se generan las barras automáticas.
 
 @item measurePosition
