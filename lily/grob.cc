@@ -446,7 +446,10 @@ Grob::flush_extent_cache (Axis axis)
         Ugh, this is not accurate; will flush property, causing
         callback to be called if.
        */
-      del_property ((axis == X_AXIS) ? ly_symbol2scm ("X-extent") : ly_symbol2scm ("Y-extent"));
+      if (axis == X_AXIS)
+        del_property ("X-extent");
+      else
+        del_property ("Y-extent");
       dim_cache_[axis].extent_.reset ();
       if (get_parent (axis))
         get_parent (axis)->flush_extent_cache (axis);
