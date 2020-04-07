@@ -444,7 +444,7 @@ Fragmentos de código:
 @rlsr{Rhythms}.
 
 @knownissues
-El cálculo de la posición dentro de un compás sdebe tener en
+El cálculo de la posición dentro de un compás debe tener en
 cuenta todos los factores de escalado que se han aplicado a las
 notas dentro de ese compás, y cualquier acarreo fraccionado desde
 los compases anteriores.  Este cálculo se efectúa utilizando
