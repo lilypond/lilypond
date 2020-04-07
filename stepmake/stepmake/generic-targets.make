@@ -122,10 +122,6 @@ uninstall: local-uninstall
 
 local-uninstall:
 
-installextradoc:
-	-$(INSTALLPY) -d $(DESTDIR)$(prefix)/doc/$(package)
-	cp -r $(EXTRA_DOC_FILES) $(prefix)/doc/$(package)
-
 # Create the output directory before any targets are built, except for
 # "make clean" because that would be silly.
 ifeq (,$(filter clean,$(MAKECMDGOALS)))

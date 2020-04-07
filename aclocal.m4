@@ -440,7 +440,6 @@ EOF
 depth=$depth
 include \$(depth)/config.make
 include \$(configure-srcdir)/$mf
-MODULE_INCLUDES += \$(src-dir)/\$(outbase)
 EOF
             done
 

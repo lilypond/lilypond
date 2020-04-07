@@ -1,11 +1,5 @@
 ALL_LDFLAGS = $(LDFLAGS) $(CONFIG_LDFLAGS) $(MODULE_LDFLAGS) $(CONFIG_LDFLAGS)
 
-ifeq ($(MINGW_BUILD),)
-ifeq ($(CYGWIN_BUILD),)
-PIC_FLAGS = -fpic -fPIC
-endif
-endif
-
 EXTRA_CXXFLAGS = -std=c++11 -fno-exceptions -W -Wall -Wconversion -Woverloaded-virtual
 
 o-dep-out = $(outdir)/$(subst .o,.dep,$(notdir $@))#
@@ -21,8 +15,6 @@ CC_FILES := $(call src-wildcard,*.cc)
 INL_FILES := $(call src-wildcard,*.icc)
 YY_FILES := $(call src-wildcard,*.yy)
 LL_FILES := $(call src-wildcard,*.ll)
-
-SOURCE_FILES+= $(CC_FILES) $(YY_FILES) $(INL_FILES) $(TCC_FILES) $(HH_FILES) $(LL_FILES)
 
 ALL_CC_SOURCES += $(HH_FILES) $(INL_FILES) $(CC_FILES) $(YY_FILES) $(LL_FILES)
 

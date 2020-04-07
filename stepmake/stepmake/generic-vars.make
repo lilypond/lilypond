@@ -69,19 +69,9 @@ INFO_DIRECTORIES = Documentation
 # clean file lists:
 #
 ERROR_LOG = 2> /dev/null
-SILENT_LOG = 2>&1 >  /dev/null
 date := $(shell date +%x)	#duplicated?
 
-INCLUDES = $(src-dir)/include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES)
-
-M4 = m4
-
-DOCDIR=$(depth)/$(outdir)
-
-#?
-STRIPDEBUG=true
-STRIP=strip --strip-debug
-DO_STRIP=true
+INCLUDES = $(src-dir)/include $(outdir) $(MODULE_INCLUDES)
 
 # Create a command to make targets in subdirectories.
 # $(1) is a subset of $(SUBDIRS)
@@ -96,25 +86,3 @@ LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) -C $(i) $@ &&) true
 
 ETAGS_FLAGS =
 CTAGS_FLAGS =
-
-makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
-
-IN_FILES := $(call src-wildcard,*.in)
-SOURCE_FILES += $(IN_FILES)
-
-# Preprocessed .in documentation _FILES:
-OUTIN_FILES = $(addprefix $(outdir)/, $(IN_FILES:%.in=%))
-
-ALL_SOURCES = $(SOURCE_FILES)
-
-ifeq (cygwin,$(findstring cygwin,$(HOST_ARCH)))
-CYGWIN_BUILD = yes
-endif
-
-ifeq (mingw,$(findstring mingw,$(HOST_ARCH)))
-MINGW_BUILD = yes
-endif
-
-ifeq (darwin,$(findstring darwin,$(HOST_ARCH)))
-DARWIN_BUILD = yes
-endif

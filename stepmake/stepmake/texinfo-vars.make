@@ -1,5 +1,4 @@
 TEXI_FILES = $(call src-wildcard,*.texi)
-ALL_SOURCES += $(TEXI_FILES)
 TEXINFO_SOURCES = $(TEXI_FILES)
 
 OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
