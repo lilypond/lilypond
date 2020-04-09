@@ -37,7 +37,8 @@ $(O_FILES): $(outdir)/config.hh
 
 $(LIBRARY): $(O_FILES)
 	$(call ly_progress,Making,$@,)
-	$(AR) $(ARFLAGS) $@ $(O_FILES)
+	$(RM) $@
+	$(AR) rc $@ $(O_FILES)
 	$(RANLIB) $@ || $(AR) ts $@ || true
 
 default: $(LIBRARY)
