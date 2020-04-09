@@ -1,5 +1,5 @@
 \header {
-  texinfo = "Beam collisions from modern works"
+  texidoc = "Beam collisions from modern works"
   }
 
 \layout {
@@ -41,7 +41,7 @@
     }
     >>
   r4.
-  
+
   % Ligeti 1st etude.
   \relative
   <<
@@ -54,5 +54,5 @@
   \relative {
     a,16[ d fis d a d]
   }
-  
+
 }

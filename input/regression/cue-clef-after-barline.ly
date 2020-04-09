@@ -1,5 +1,11 @@
 \version "2.21.0"
 
+\header {
+  texidoc = "
+Cue clefs can be printed after a barline.
+"
+}
+
 instrument = \relative {
   \repeat unfold 40 { c'8 }
 }

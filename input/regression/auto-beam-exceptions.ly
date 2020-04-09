@@ -4,8 +4,8 @@
 
   doctitle = "beamExceptions"
 
-  texinfo = "beamExceptions is used to modify the automatic beaming for certain durations;
-  the expected grouping is given after the note duration"
+  texidoc = "@code{beamExceptions} is used to modify the automatic beaming for
+  certain durations; the expected grouping is given after the note duration."
 
 }
 

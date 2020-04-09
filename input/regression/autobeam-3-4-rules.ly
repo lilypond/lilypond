@@ -4,7 +4,8 @@
 
   doctitle = "Special beaming rules for 3/4 time"
 
-  texinfo = "Beaming in 3/4 time has special treatment.  By default
+  texidoc = "
+Beaming in 3/4 time has special treatment.  By default
 six eighth notes are beamed in one. Beams that would imply 6/8 time
 may be avoided with @code{beamHalfMeasure = ##f}.  When the beaming
 is changed, beams should start at the beginning of the measure.
