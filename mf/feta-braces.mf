@@ -27,56 +27,56 @@ code := 64;
 braces_per_font := 64;
 
 def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
-        save pendir, height, width, thin, thick, slt, pat, ta, paux;
-        save penangle;
-        pair pendir;
-        path pat, paux;
-        numeric ta;
+  save pendir, height, width, thin, thick, slt, pat, ta, paux;
+  save penangle;
+  pair pendir;
+  path pat, paux;
+  numeric ta;
 
-        height# := height_sharp;
-        width# := width_sharp;
-        slt# := slt_sharp;
+  height# := height_sharp;
+  width# := width_sharp;
+  slt# := slt_sharp;
 
-        fet_beginchar ("brace number " & decimal (brace_number),
-                       "brace" & decimal (brace_number))
-                set_char_box (width#, 0, height# / 2, height# / 2);
+  fet_beginchar ("brace number " & decimal (brace_number),
+                 "brace" & decimal (brace_number))
+    set_char_box (width#, 0, height# / 2, height# / 2);
 
-                define_pixels (height, width, slt);
-                thin = 2 slt;
-                thick = .5 width;
+    define_pixels (height, width, slt);
+    thin = 2 slt;
+    thick = .5 width;
 
-                z2 = .5 [z1, z3];
-                y3l = y1 + height / 2;
-                x3 = x1 + width;
-                y1 = 0;
-                x1 = -b;
-                y0 = y1;
-                x0 = x1 - 2/6 thin;
+    z2 = .5 [z1, z3];
+    y3l = y1 + height / 2;
+    x3 = x1 + width;
+    y1 = 0;
+    x1 = -b;
+    y0 = y1;
+    x0 = x1 - 2/6 thin;
 
-                pendir = unitvector (x3 - x1, y3l / 8 - y1);
-                penangle = angle pendir - 90;
-                penpos3 (thin, penangle);
-                penpos2 (thick, angle (z3 - z1) - 90);
-                penpos1 (-2 * (x0 - x1), penangle);
+    pendir = unitvector (x3 - x1, y3l / 8 - y1);
+    penangle = angle pendir - 90;
+    penpos3 (thin, penangle);
+    penpos2 (thick, angle (z3 - z1) - 90);
+    penpos1 (-2 * (x0 - x1), penangle);
 
-                penlabels (1, 2, 3);
-                labels (0);
+    penlabels (1, 2, 3);
+    labels (0);
 
-                paux := z0
-                        -- z0 shifted (width, 0);
-                pat := z1r{pendir}
-                       .. z2r
-                       .. simple_serif (z3r, z3l, 90)
-                       .. z2l
-                       .. z1l{-pendir}
-                       .. z0{down};
-                ta = xpart (pat intersectiontimes paux);
-                pat := subpath (ta, length pat) of pat;
+    paux := z0
+            -- z0 shifted (width, 0);
+    pat := z1r{pendir}
+           .. z2r
+           .. simple_serif (z3r, z3l, 90)
+           .. z2l
+           .. z1l{-pendir}
+           .. z0{down};
+    ta = xpart (pat intersectiontimes paux);
+    pat := subpath (ta, length pat) of pat;
 
-                fill reverse pat yscaled -1
-                     .. pat
-                     -- cycle;
-        fet_endchar;
+    fill reverse pat yscaled -1
+         .. pat
+         -- cycle;
+  fet_endchar;
 enddef;
 
 
@@ -98,29 +98,29 @@ max_thin := 1.25 pt#;
 y := 10 pt#;
 
 for i := 0 step 1 until font_count:
-        save number;
+  save number;
 
-        number := braces_per_font * i;
+  number := braces_per_font * i;
 
-        for j := 0 step 1 until (braces_per_font - 1):
-                % message "l: "&decimal l;
-                % note: define_pixels (x) multiplies x by hppp,
-                % must never get bigger than infinity
-                y := y + increment;
-                if y > infinity / hppp:
-                        message "Resolution and/or magnification is too high";
-                        message "HPPP: "& decimal hppp &" Y: " & decimal y;
-                        errmessage "please report to <bug-lilypond@gnu.org>";
-                fi;
+  for j := 0 step 1 until (braces_per_font - 1):
+    % message "l: "&decimal l;
+    % note: define_pixels (x) multiplies x by hppp,
+    % must never get bigger than infinity
+    y := y + increment;
+    if y > infinity / hppp:
+      message "Resolution and/or magnification is too high";
+      message "HPPP: "& decimal hppp &" Y: " & decimal y;
+      errmessage "please report to <bug-lilypond@gnu.org>";
+    fi;
 
-                x := (y / last_brace_number) [min_width, max_width];
+    x := (y / last_brace_number) [min_width, max_width];
 
-                increment := x / 10;
-                linethickness := (y / last_brace_number) [min_thin, max_thin];
-                if i = font_count:
-                        draw_brace (y, x, linethickness, number);
-                fi;
+    increment := x / 10;
+    linethickness := (y / last_brace_number) [min_thin, max_thin];
+    if i = font_count:
+      draw_brace (y, x, linethickness, number);
+    fi;
 
-                number := number + 1;
-        endfor;
+    number := number + 1;
+  endfor;
 endfor;

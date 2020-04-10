@@ -39,7 +39,7 @@ class Context_mod : public Simple_smob<Context_mod>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
 private:
   SCM mods_;
 public:
@@ -52,6 +52,5 @@ public:
   Context_mod (Context_mod const &);
   Context_mod (SCM mod_list);
 };
-
 
 #endif /* CONTEXT_MOD_HH */

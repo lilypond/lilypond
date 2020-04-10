@@ -295,10 +295,11 @@ make_tuplet_slur (Grob *me, Offset left_cp, Offset right_cp,
   Stencil mol (Lookup::slur (curve, lt, lt, dash_definition));
 
   Grob *number_grob = unsmob<Grob> (me->get_object ("tuplet-number"));
-  if (number_grob) {
-    Real padding = robust_scm2double (number_grob->get_property ("padding"), 0.3);
-    mol.translate_axis (padding * dir, Y_AXIS);
-  }
+  if (number_grob)
+    {
+      Real padding = robust_scm2double (number_grob->get_property ("padding"), 0.3);
+      mol.translate_axis (padding * dir, Y_AXIS);
+    }
 
   return mol;
 }
@@ -434,8 +435,8 @@ Tuplet_bracket::print (SCM smob)
                       if (Text_interface::is_markup (text))
                         {
                           SCM t
-                          = Text_interface::interpret_markup (pap->self_scm (),
-                                                              properties, text);
+                            = Text_interface::interpret_markup (pap->self_scm (),
+                                                                properties, text);
 
                           Stencil *edge_text = unsmob<Stencil> (t);
                           edge_text->translate_axis (x_span[d] - x_span[LEFT],
@@ -446,29 +447,28 @@ Tuplet_bracket::print (SCM smob)
                 }
             }
 
-      Stencil brack;
-      if (tuplet_slur)
-        brack = make_tuplet_slur (me, points[LEFT], points[RIGHT], shorten);
-      else
-        brack = Bracket::make_bracket (
-          me, Y_AXIS, points[RIGHT] - points[LEFT], height,
-          /*
-            0.1 = more space at right due to italics
-            TODO: use italic correction of font.
-          */
-          Interval (-0.5, 0.5) * gap + 0.1,
-          flare, shorten);
+          Stencil brack;
+          if (tuplet_slur)
+            brack = make_tuplet_slur (me, points[LEFT], points[RIGHT], shorten);
+          else
+            brack = Bracket::make_bracket (me, Y_AXIS, points[RIGHT] - points[LEFT], height,
+                                           /*
+                                             0.1 = more space at right due to italics
+                                             TODO: use italic correction of font.
+                                           */
+                                           Interval (-0.5, 0.5) * gap + 0.1,
+                                           flare, shorten);
 
-      for (LEFT_and_RIGHT (d))
-        {
-          if (!edge_stencils[d].is_empty ())
-            brack.add_stencil (edge_stencils[d]);
+          for (LEFT_and_RIGHT (d))
+            {
+              if (!edge_stencils[d].is_empty ())
+                brack.add_stencil (edge_stencils[d]);
+            }
+
+          mol.add_stencil (brack);
+          mol.translate (points[LEFT]);
         }
-
-      mol.add_stencil (brack);
-      mol.translate (points[LEFT]);
     }
-  }
   return mol.smobbed_copy ();
 }
 

@@ -124,22 +124,23 @@ make
 
 There are special formatting rules for METAFONT files.
 
-Tabs are used for the indentation of commands.
+Please do not use tabs for the indentation of commands.
 
 When a path contains more than two points, put each point on a
 separate line, with the operator at the beginning of the line.
 The operators are indented to the same depth as the initial point
 on the path using spaces.  The indentation mechanism is illustrated
-below, with @samp{------->} indicating a tab character and any other
-indentation created using spaces.
+below.
 
 @example
-def draw_something (test) =
-------->if test:
-------->------->fill z1
-------->------->     -- z2
-------->------->     -- z3
-------->------->     .. cycle;
-------->fi;
+def draw_something (expr test) =
+  set_char_box (staff_space#, 1.6 linethickness# / 2,
+                0.5 staff_space#, 0.5 staff_space#);
+  if test:
+    fill z1
+         -- z2
+         -- z3
+         .. cycle;
+  fi;
 enddef;
 @end example

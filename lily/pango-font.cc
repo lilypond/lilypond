@@ -51,7 +51,7 @@ class FTFace_accessor
 
 public:
   operator FT_Face () { return face_; }
-  FT_Face operator-> () { return face_; }
+  FT_Face operator ->() { return face_; }
   FTFace_accessor (PangoFcFont *pango_font)
   {
     pango_font_ = pango_font;
@@ -425,14 +425,14 @@ Pango_font::text_stencil (Output_def * /* state */,
   */
   PangoLayout *layout = pango_layout_new (context_);
 
-  if (!features_str.empty())
+  if (!features_str.empty ())
     {
 #if HAVE_PANGO_FT2_WITH_OTF_FEATURE
-      PangoAttrList *list = pango_attr_list_new();
-      PangoAttribute *features_attr = pango_attr_font_features_new(features_str.c_str());
-      pango_attr_list_insert(list, features_attr);
-      pango_layout_set_attributes(layout, list);
-      pango_attr_list_unref(list);
+      PangoAttrList *list = pango_attr_list_new ();
+      PangoAttribute *features_attr = pango_attr_font_features_new (features_str.c_str ());
+      pango_attr_list_insert (list, features_attr);
+      pango_layout_set_attributes (layout, list);
+      pango_attr_list_unref (list);
 #else
       warning (_f ("OpenType font feature `%s' cannot be used"
                    " since this binary is configured without feature support.",

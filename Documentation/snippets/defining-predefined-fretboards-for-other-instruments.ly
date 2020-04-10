@@ -92,7 +92,7 @@ primeros = {
     \new FretBoards {
       \set Staff.stringTunings = #cuatroTuning
 %      \override FretBoard
-%        #'(fret-diagram-details string-count) = #'4
+%        #'(fret-diagram-details string-count) = 4
       \override FretBoard.fret-diagram-details.finger-code = #'in-dot
       \primeros
     }

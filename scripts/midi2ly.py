@@ -25,8 +25,7 @@
 TODO:
 '''
 
-
-
+import gettext
 import os
 import sys
 
@@ -34,6 +33,8 @@ import sys
 @relocate-preamble@
 """
 
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 import lilylib as ly
 
 ################################################################
@@ -391,7 +392,7 @@ class Text:
     def _text_only(chr):
         if ((' ' <= chr <= '~') or chr in ['\n','\r']):
             return chr
-        else: 
+        else:
             return '~'
 
     def __init__ (self, type, text):
@@ -544,7 +545,7 @@ class Channel:
                 music.insert (i, notes[0])
                 del notes[0]
         return music
-    
+
 class Track (Channel):
     def __init__ (self):
         Channel.__init__ (self, None)

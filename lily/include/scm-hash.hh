@@ -27,7 +27,6 @@
 
   Used for looking up keys by SCM value (keys compared with eq?).
   This is not much more than a C++ wrapper around a standard Guile hashtable.
-
 */
 
 class Scheme_hash_table : public Smob1<Scheme_hash_table>

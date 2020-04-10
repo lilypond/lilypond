@@ -103,7 +103,6 @@ Concurrent_hairpin_engraver::finalize ()
   hairpins_hanging_out_.resize (0);
 }
 
-
 void
 Concurrent_hairpin_engraver::boot ()
 {

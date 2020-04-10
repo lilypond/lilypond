@@ -137,7 +137,6 @@ Rhythmic_column_engraver::stop_translation_timestep ()
   flag_ = 0;
 }
 
-
 void
 Rhythmic_column_engraver::boot ()
 {

@@ -1,9 +1,11 @@
 \version "2.19.21"
 
 \header {
-  texidoc = "If using integers, the tie will vertically tuned for
-staff line avoidance. If using a floating point number, this is taken
-as the exact location."
+  texidoc = "If using exact values (this is, either integers or
+rational values like @samp{(/ 4 5)}), @code{staff-position} is used to
+vertically tune the tie for staff line avoidance.  If using an inexact
+value like a floating point number, it is taken as the vertical
+location."
 }
 
 \relative {

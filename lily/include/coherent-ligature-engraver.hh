@@ -24,7 +24,7 @@
 class Coherent_ligature_engraver : public Ligature_engraver
 {
 public:
-  Coherent_ligature_engraver(Context *c)
+  Coherent_ligature_engraver (Context *c)
     : Ligature_engraver (c)
   {}
   // no TRANSLATOR_DECLARATIONS (Coherent_ligature_engraver) needed

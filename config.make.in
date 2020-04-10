@@ -3,7 +3,6 @@
 # @configure_input@
 
 AR = @AR@
-BASH = @BASH@
 BISON = @BISON@
 CC = @CC@
 CONFIG_CPPFLAGS = @CPPFLAGS@

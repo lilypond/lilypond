@@ -1,5 +1,5 @@
 depth = ..
 
-SUBDIRS = regression 
+SUBDIRS = regression
 
 include $(depth)/make/stepmake.make

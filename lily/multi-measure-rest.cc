@@ -139,7 +139,7 @@ calc_measure_duration_log (Grob *me)
                 : Rational (1);
   auto duration = static_cast<double> (ml);
   bool round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
-                                                                scm_from_int64 (ml.denominator ())),
+                                                      scm_from_int64 (ml.denominator ())),
                                                       me->get_property ("round-up-exceptions"))))
                   || to_boolean (me->get_property ("round-up-to-longer-rest"));
   int closest_usable_duration_log;
@@ -329,7 +329,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
     inner_padding = 1.0;
 
   Real max_separation = std::max (robust_scm2double (me->get_property ("max-symbol-separation"), 8.0),
-                             1.0);
+                                  1.0);
 
   inner_padding = std::min (inner_padding, max_separation);
   Real left_offset = (space - symbols_width - (inner_padding * (symbol_count - 1)))
@@ -357,7 +357,7 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Spanner *sp = dynamic_cast<Spanner *> (me);
   if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
-      programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
+      programming_error ("Multi measure rest seems misplaced.");
       return;
     }
 
@@ -404,7 +404,7 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       rod.item_drul_[RIGHT] = ri;
 
       rod.distance_ = std::max (Paper_column::minimum_distance (li, ri) + length,
-                           minlen);
+                                minlen);
       rod.add_to_cols ();
     }
 }

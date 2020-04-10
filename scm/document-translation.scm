@@ -146,15 +146,15 @@
          (format #f "@item Set grob-property @code{~{~a~^.~}} " path)
          (format #f "in @ref{~a} to" context-sym)
          (if (pretty-printable? value)
-           (format #f ":~a\n" (scm->texi value))
-           (format #f " ~a.\n" (scm->texi value))))))
+             (format #f ":~a\n" (scm->texi value))
+             (format #f " ~a.\n" (scm->texi value))))))
      ((equal? (object-property context-sym 'is-grob?) #t) "")
      ((equal? tag 'assign)
       (string-append
-        (format #f "@item Set translator property @code{~a} to" context-sym)
-        (if (pretty-printable? (car args))
-          (format #f ":~a\n" (scm->texi (car args)))
-          (format #f " ~a.\n" (scm->texi (car args)))))))))
+       (format #f "@item Set translator property @code{~a} to" context-sym)
+       (if (pretty-printable? (car args))
+           (format #f ":~a\n" (scm->texi (car args)))
+           (format #f " ~a.\n" (scm->texi (car args)))))))))
 
 
 (define (context-doc context-desc)

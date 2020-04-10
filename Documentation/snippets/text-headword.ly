@@ -17,7 +17,7 @@ Text headword
 } % begin verbatim
 
 %% http://lsr.di.unimi.it/LSR/Item?id=829
-%% see also http://lilypond.org/doc/v2.18/Documentation/notation/text
+%% see also https://lilypond.org/doc/v2.18/Documentation/notation/text
 
 \include "english.ly"
 

@@ -195,8 +195,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @docLinks{Learning, learning,
   @rlearningnamed{Top,Learning},
   @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningBig,
+  @manualStableLearningPdf}
 
 @divEnd
 
@@ -217,8 +217,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @docLinks{Music glossary, music-glossary,
   @rglosnamed{Top,Music glossary},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -242,8 +242,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @docLinks{Essay, essay,
   @ressaynamed{Top,Essay},
   @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssayBig,
+  @manualStableEssayPdf}
 
 @divEnd
 
@@ -266,8 +266,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
   @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationBig,
+  @manualStableNotationPdf}
 
 @divEnd
 
@@ -290,8 +290,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @docLinks{Usage, usage,
   @rprogramnamed{Top,Usage},
   @manualStableUsageSplit,
-  @manualStableUsageBig, 400 KB,
-  @manualStableUsagePdf, 600 KB}
+  @manualStableUsageBig,
+  @manualStableUsagePdf}
 
 @divEnd
 
@@ -321,8 +321,8 @@ linked from the @strong{See also (参见)} portion.
 @docLinks{Snippets, snippets,
   @rlsrnamed{Top,Snippets},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -393,8 +393,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit,
-  @manualDevelWebBig, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebBig,
+  @manualDevelWebPdf}
 
 @divEnd
 
@@ -415,8 +415,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @docLinks{Changes, changes,
   @rchangesnamed{Top,Changes},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 
@@ -437,8 +437,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @docLinks{Extending, extending,
   @rextendnamed{Top,Extending},
   @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingBig,
+  @manualStableExtendingPdf}
 
 @divEnd
 
@@ -463,8 +463,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @docLinks{Internals, internals,
   @rinternalsnamed{Top,Internals},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 
@@ -488,7 +488,7 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divClass{column-left-top}
 @subheading 可下载的版本
 @ifclear web_version
-可下载的压缩包只通过 @uref{http://lilypond.org} 网站提供。
+可下载的压缩包只通过 @uref{https://lilypond.org} 网站提供。
 @end ifclear
 @ifset web_version
 
@@ -510,34 +510,34 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/,
 LilyPond 2.12 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.11/Documentation/,
 LilyPond 2.11 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 LilyPond 2.8 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 LilyPond 2.6 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 LilyPond 2.4 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 LilyPond 2.2 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 LilyPond 2.0 Documentation}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 LilyPond 1.8 Documentation}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 LilyPond 1.6 Documentation}
 
 @end itemize

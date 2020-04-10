@@ -39,6 +39,9 @@
 #if HAVE_GETTEXT
 #include <libintl.h>
 #endif
+#ifdef __MINGW32__
+#include <windows.h>
+#endif
 
 #include "all-font-metrics.hh"
 #include "file-name.hh"
@@ -54,7 +57,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
-
 
 /*
  * Global options that can be overridden through command line.
@@ -73,7 +75,7 @@ static char const *AUTHORS
     "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
 static char const *PROGRAM_NAME = "lilypond";
-static char const *PROGRAM_URL = "http://lilypond.org";
+static char const *PROGRAM_URL = "https://lilypond.org";
 
 static char const *NOTICE
   = _i ("This program is free software.  It is covered by the GNU General Public\n"
@@ -114,59 +116,99 @@ static Getopt_long *option_parser = 0;
 static Long_option_init options_static[]
 =
 {
-  {_i ("FORMATs"), "formats", 'f',
-     _i ("dump FORMAT,...  Also as separate options:")},
-  {0, "pdf", 0,
-     _i ("generate PDF files (default)")},
-  {0, "png", 0,
-     _i ("generate PNG files ")},
-  {0, "ps", 0,
-     _i ("generate PostScript files")},
-  {0, "eps", 'E',
-     _i ("generate Encapsulated PostScript files")},
-  {_i ("KEY"), "pspdfopt", 'O',
-     _i ("set ps/pdf optimization to KEY, which is either\n"
-           "'size' (default), 'TeX', or 'TeX-GS'")},
-  {_i ("SYM[=VAL]"), "define-default", 'd',
-     _i ("set Scheme option SYM to VAL (default: #t);\n"
-           "use -dhelp for help")},
-  {_i ("EXPR"), "evaluate", 'e',
-     _i ("evaluate scheme code")},
+  {
+    _i ("FORMATs"), "formats", 'f',
+    _i ("dump FORMAT,...  Also as separate options:")
+  },
+  {
+    0, "pdf", 0,
+    _i ("generate PDF files (default)")
+  },
+  {
+    0, "png", 0,
+    _i ("generate PNG files ")
+  },
+  {
+    0, "ps", 0,
+    _i ("generate PostScript files")
+  },
+  {
+    0, "eps", 'E',
+    _i ("generate Encapsulated PostScript files")
+  },
+  {
+    _i ("KEY"), "pspdfopt", 'O',
+    _i ("set ps/pdf optimization to KEY, which is either\n"
+        "'size' (default), 'TeX', or 'TeX-GS'")
+  },
+  {
+    _i ("SYM[=VAL]"), "define-default", 'd',
+    _i ("set Scheme option SYM to VAL (default: #t);\n"
+        "use -dhelp for help")
+  },
+  {
+    _i ("EXPR"), "evaluate", 'e',
+    _i ("evaluate scheme code")
+  },
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
-  {0, "help", 'h',
-     _i ("show this help and exit")},
-  {_i ("FIELD"), "header", 'H',
-     _i ("dump \\header field FIELD to file\n"
-           "named BASENAME.FIELD")},
-  {_i ("DIR"), "include", 'I',
-     _i ("append DIR to search path")},
-  {_i ("FILE"), "init", 'i',
-     _i ("use FILE as init file")},
+  {
+    0, "help", 'h',
+    _i ("show this help and exit")
+  },
+  {
+    _i ("FIELD"), "header", 'H',
+    _i ("dump \\header field FIELD to file\n"
+        "named BASENAME.FIELD")
+  },
+  {
+    _i ("DIR"), "include", 'I',
+    _i ("append DIR to search path")
+  },
+  {
+    _i ("FILE"), "init", 'i',
+    _i ("use FILE as init file")
+  },
 #if HAVE_CHROOT
-  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
-     _i ("chroot to JAIL, become USER:GROUP\n"
-           "and cd into DIR")},
+  {
+    _i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
+    _i ("chroot to JAIL, become USER:GROUP\n"
+        "and cd into DIR")
+  },
 #endif
-  {_i ("LOGLEVEL"), "loglevel", 'l',
-     _i ("print log messages according to LOGLEVEL,\n"
-           "which is either NONE, ERROR, WARNING,\n"
-           "BASIC, PROGRESS, INFO (default), or DEBUG")},
-  {_i ("FILE"), "output", 'o',
-     _i ("write output to FILE (suffix will be added)\n"
-	   "or to FOLDER, in which case the file name\n"
-	   "will be taken from the input file.")},
-  {0, "relocate", 0,
-     _i ("(ignored)")},
-  {0, "silent", 's',
-     _i ("no progress, only error messages\n"
-           "(equivalent to --loglevel=ERROR)")},
-  {0, "version", 'v',
-     _i ("show version number and exit")},
-  {0, "verbose", 'V',
-     _i ("be verbose (equivalent to --loglevel=DEBUG)")},
-  {0, "warranty", 'w',
-     _i ("show warranty and copyright")},
+  {
+    _i ("LOGLEVEL"), "loglevel", 'l',
+    _i ("print log messages according to LOGLEVEL,\n"
+        "which is either NONE, ERROR, WARNING,\n"
+        "BASIC, PROGRESS, INFO (default), or DEBUG")
+  },
+  {
+    _i ("FILE"), "output", 'o',
+    _i ("write output to FILE (suffix will be added)\n"
+        "or to FOLDER, in which case the file name\n"
+        "will be taken from the input file.")
+  },
+  {
+    0, "relocate", 0,
+    _i ("(ignored)")
+  },
+  {
+    0, "silent", 's',
+    _i ("no progress, only error messages\n"
+        "(equivalent to --loglevel=ERROR)")
+  },
+  {
+    0, "version", 'v',
+    _i ("show version number and exit")
+  },
+  {
+    0, "verbose", 'V',
+    _i ("be verbose (equivalent to --loglevel=DEBUG)")
+  },
+  {
+    0, "warranty", 'w',
+    _i ("show warranty and copyright")
+  },
   {0, 0, 0, 0}
 };
 
@@ -275,8 +317,8 @@ LY_DEFINE (ly_usage, "ly:usage",
      or if there is a LilyPond users list or forum in your language
      "Report bugs in English via %s or in YOUR_LANG via URI"  */
   printf ("%s", (_f ("You found a bug? Please read %s",
-                     "http://lilypond.org/bug-reports.html"
-                    ).c_str ()));
+                     "https://lilypond.org/bug-reports.html")
+                   .c_str ()));
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;
@@ -304,12 +346,12 @@ prepend_scheme_list (const string &dir, const string &scmlist)
  *    scmlist: The Scheme list onto which to prepend the directory
  */
 {
-  SCM var = scm_c_lookup (scmlist.c_str());
-  scm_variable_set_x (var, scm_cons (scm_from_locale_string (dir.c_str()),
-				     scm_variable_ref (var)));
+  SCM var = scm_c_lookup (scmlist.c_str ());
+  scm_variable_set_x (var, scm_cons (scm_from_locale_string (dir.c_str ()),
+                                     scm_variable_ref (var)));
   /*  string setcmd =
              "(set! " + scmlist + " (cons \"" + dir + "\" " + scmlist +"))";
-	     scm_c_eval_string (setcmd.c_str());*/
+             scm_c_eval_string (setcmd.c_str());*/
 }
 
 void init_global_tweak_registry ();
@@ -414,37 +456,37 @@ main_with_guile (void *, int, char **)
       %load-path is the symbol Guile searches for .scm files
       %load-compiled-path is the symbol Guile V2 searches for .go files
    */
-   string scm_pct_load_path = "%load-path";
-   string scm_pct_load_compiled_path = "%load-compiled-path";
+  string scm_pct_load_path = "%load-path";
+  string scm_pct_load_compiled_path = "%load-compiled-path";
 
-   prepend_scheme_list (lilypond_datadir, scm_pct_load_path );
-   prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
+  prepend_scheme_list (lilypond_datadir, scm_pct_load_path);
+  prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
 #if 0
-   /* this code is dead, but keeping this around until we sort the
-      guile2/3 situation. */
-   /*
-     Just as ughy - prepend "/scm/out" onto GUILE V2+ %load-compiled-path
-     and set %compile-fallback-path to our scm/out directory
-   */
-   /*
-     %load-compiled-path is the symbol Guile V2 searches for .go files
-   */
-   prepend_scheme_list (lilypond_datadir + "/scm/out",
-			  scm_pct_load_compiled_path);
-   /*
-     %compile-fallback-path is the guile cache root for auto-compiled files
-   */
+  /* this code is dead, but keeping this around until we sort the
+     guile2/3 situation. */
+  /*
+    Just as ughy - prepend "/scm/out" onto GUILE V2+ %load-compiled-path
+    and set %compile-fallback-path to our scm/out directory
+  */
+  /*
+    %load-compiled-path is the symbol Guile V2 searches for .go files
+  */
+  prepend_scheme_list (lilypond_datadir + "/scm/out",
+                       scm_pct_load_compiled_path);
+  /*
+    %compile-fallback-path is the guile cache root for auto-compiled files
+  */
 
-   string scm_pct_fallback_path = "%compile-fallback-path";
-   string ly_scm_go_dir = lilypond_datadir + "/scm/out";
-   //string scm_pct_set_fallback = "(set! " + scm_pct_fallback_path +
-   //  " \"" + lilypond_datadir + "/scm/out\")";
-   //scm_c_eval_string (scm_pct_set_fallback.c_str() );
-   scm_primitive_eval
-     (scm_list_3 (scm_from_latin1_symbol ("set!"),
-                  scm_from_latin1_symbol ("%compile-fallback-path"),
-                  scm_from_locale_string (ly_scm_go_dir.c_str())));
+  string scm_pct_fallback_path = "%compile-fallback-path";
+  string ly_scm_go_dir = lilypond_datadir + "/scm/out";
+  //string scm_pct_set_fallback = "(set! " + scm_pct_fallback_path +
+  //  " \"" + lilypond_datadir + "/scm/out\")";
+  //scm_c_eval_string (scm_pct_set_fallback.c_str() );
+  scm_primitive_eval
+  (scm_list_3 (scm_from_latin1_symbol ("set!"),
+               scm_from_latin1_symbol ("%compile-fallback-path"),
+               scm_from_locale_string (ly_scm_go_dir.c_str ())));
 #endif
 
   if (is_loglevel (LOG_DEBUG))
@@ -492,8 +534,8 @@ main_with_guile (void *, int, char **)
   // SCM err_handling_mod = scm_c_resolve_module ("system repl error-handling");
   // SCM call_with_error_handling = scm_c_module_lookup (err_handling_mod, "call-with-error-handling");
   // SCM result = scm_call_1 (
-  // 			   scm_variable_ref (call_with_error_handling),
-  // 			   scm_call_1 (ly_lily_module_constant ("lilypond-main"), files));
+  //                       scm_variable_ref (call_with_error_handling),
+  //                       scm_call_1 (ly_lily_module_constant ("lilypond-main"), files));
 
   Lily::lilypond_main (files);
 
@@ -511,7 +553,23 @@ setup_localisation ()
 {
 #if HAVE_GETTEXT
   /* Enable locales */
+#if !defined (__MINGW32__) || defined (_UCRT)
   setlocale (LC_ALL, "");
+#else
+  // Workaround for MinGW UTF-8 locale settings issue:
+  // `setlocale (LC_ALL, "")` in msvcrt.dll sets user-defined ANSI code page
+  // (i.e. 437 for English, 932 for Japanse, etc.)
+  // even if process code page is UTF-8 (i.e. 65001 for all languages).
+  // With this setting, outputting UTF-8 string becomes garbled.
+  // So we get the process code page with `GetACP ()` and,
+  // if it is UTF-8, explicitly set locale's code page to UTF-8 (i.e. 65001).
+  // If Universal CRT (UCRT, newer than msvcrt.dll) is used
+  // (i.e. `_UCRT' is defined), no such workaround is needed.
+  if (GetACP () == CP_UTF8)
+    setlocale (LC_ALL, ".65001");
+  else
+    setlocale (LC_ALL, "");
+#endif
 
   /* FIXME: check if this is still true.
      Disable localisation of float values. */
@@ -585,25 +643,25 @@ parse_argv (int argc, char **argv)
 
         case 'E':
           add_output_format ("ps");
-          init_scheme_variables_global +=
-            "(cons \'backend 'eps)\n(cons \'aux-files '#f)\n";
-        break;
+          init_scheme_variables_global
+          += "(cons \'backend 'eps)\n(cons \'aux-files '#f)\n";
+          break;
 
         case 'O':
           {
             string arg (option_parser->optional_argument_str0_);
             if (arg == "size")
-              init_scheme_variables_global +=
-                "(cons \'music-font-encodings '#f)\n"
-                "(cons \'gs-never-embed-fonts '#f)\n";
+              init_scheme_variables_global
+              += "(cons \'music-font-encodings '#f)\n"
+                 "(cons \'gs-never-embed-fonts '#f)\n";
             else if (arg == "TeX-GS")
-              init_scheme_variables_global +=
-                "(cons \'music-font-encodings '#t)\n"
-                "(cons \'gs-never-embed-fonts '#t)\n";
+              init_scheme_variables_global
+              += "(cons \'music-font-encodings '#t)\n"
+                 "(cons \'gs-never-embed-fonts '#t)\n";
             else if (arg == "TeX")
-              init_scheme_variables_global +=
-                "(cons \'music-font-encodings '#t)\n"
-                "(cons \'gs-never-embed-fonts '#f)\n";
+              init_scheme_variables_global
+              += "(cons \'music-font-encodings '#t)\n"
+                 "(cons \'gs-never-embed-fonts '#f)\n";
             else
               programming_error ("Ignoring unknown optimization key");
           }
@@ -644,8 +702,8 @@ parse_argv (int argc, char **argv)
           break;
 
         case 'e':
-          init_scheme_code_global +=
-            option_parser->optional_argument_str0_ + string (" ");
+          init_scheme_code_global
+          += option_parser->optional_argument_str0_ + string (" ");
           break;
         case 'w':
           warranty ();

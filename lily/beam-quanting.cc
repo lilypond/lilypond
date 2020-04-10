@@ -73,9 +73,9 @@ Beam_quant_parameters::fill (Grob *him)
 
   // forbidden quants
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0)
-    // For stems that are non-standard, the forbidden beam quanting
-    // doesn't really work, so decrease their importance.
-    * exp(- 8*fabs (1.0 - robust_scm2double(him->get_property ("length-fraction"), 1.0)));
+                           // For stems that are non-standard, the forbidden beam quanting
+                           // doesn't really work, so decrease their importance.
+                           * exp (- 8 * fabs (1.0 - robust_scm2double (him->get_property ("length-fraction"), 1.0)));
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   HORIZONTAL_INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("horizontal-inter-quant"), 500);
 
@@ -95,7 +95,7 @@ Beam_quant_parameters::fill (Grob *him)
      of the length fraction, yielding a 64% decrease.
    */
   COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5)
-    * sqr (robust_scm2double(him->get_property ("length-fraction"), 1.0));
+                      * sqr (robust_scm2double (him->get_property ("length-fraction"), 1.0));
   STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
@@ -220,7 +220,9 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
   staff_space_ = Staff_symbol_referencer::staff_space (beam_);
   beam_thickness_ = Beam::get_beam_thickness (beam_) / staff_space_;
   line_thickness_ = Staff_symbol_referencer::line_thickness (beam_) / staff_space_;
-
+  max_beam_count_ = Beam::get_beam_count (beam_);
+  length_fraction_
+    = robust_scm2double (beam_->get_property ("length-fraction"), 1.0);
   // This is the least-squares DY, corrected for concave beams.
   musical_dy_ = robust_scm2double (beam_->get_property ("least-squares-dy"), 0);
 
@@ -453,7 +455,7 @@ set_minimum_dy (Grob *me, Real *dy)
       Real hang = 1.0 - (beam_thickness - slt) / 2;
 
       *dy = sign (*dy) * std::max (fabs (*dy),
-                              std::min (std::min (sit, inter), hang));
+                                   std::min (std::min (sit, inter), hang));
     }
 }
 
@@ -877,6 +879,15 @@ Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *s
   Real base_quants [] = {straddle, sit, inter, hang};
   int num_base_quants = int (sizeof (base_quants) / sizeof (Real));
 
+  /* for normal-sized beams, in case of more than 4 beams, the outer beam
+     used for generating quants will never interfere with staff lines, but
+     prevent the inside-staff beams from being neatly positioned.
+     A correctional grid_shift has to be applied to compensate. */
+  Real grid_shift = 0.0;
+  /* grid shift only makes sense for widened normal-sized beams: */
+  if (!is_knee_ && max_beam_count_ > 4 && length_fraction_ == 1.0)
+    grid_shift = (max_beam_count_ - 4) * (1.0 - beam_translation_);
+
   /*
     Asymetry ? should run to <= region_size ?
   */
@@ -890,10 +901,17 @@ Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *s
   for (vsize i = 0; i < unshifted_quants.size (); i++)
     for (vsize j = 0; j < unshifted_quants.size (); j++)
       {
-        auto c
-          = Beam_configuration::new_config (unquanted_y_,
-                                            Interval (unshifted_quants[i],
-                                                      unshifted_quants[j]));
+        Interval corr (0.0, 0.0);
+        if (grid_shift)
+          for (LEFT_and_RIGHT (d))
+            /* apply grid shift if quant outside 5-line staff: */
+            if ((unquanted_y_[d] + unshifted_quants[i]) * edge_dirs_[d] > 2.5)
+              corr[d] = grid_shift * edge_dirs_[d];
+        auto c = Beam_configuration::new_config (unquanted_y_,
+                                                 Interval (unshifted_quants[i]
+                                                           - corr[LEFT],
+                                                           unshifted_quants[j]
+                                                           - corr[RIGHT]));
 
         for (LEFT_and_RIGHT (d))
           {
@@ -1207,10 +1225,10 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
 {
   Real dy = config->y.delta ();
 
-  Real extra_demerit =
-    parameters_.SECONDARY_BEAM_DEMERIT
-    / std::max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
-  
+  Real extra_demerit
+    = parameters_.SECONDARY_BEAM_DEMERIT
+      / std::max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
+
   Real dem = 0.0;
   Real eps = parameters_.BEAM_EPS;
 
@@ -1317,20 +1335,20 @@ Beam_scoring_problem::score_collisions (Beam_configuration *config) const
       Real dist = infinity_f;
       if (!intersection (beam_y, collision_y).is_empty ())
         dist = 0.0;
-      else 
+      else
         dist = std::min (beam_y.distance (collision_y[DOWN]),
-                    beam_y.distance (collision_y[UP]));
+                         beam_y.distance (collision_y[UP]));
 
-      
       Real scale_free
         = std::max (parameters_.COLLISION_PADDING - dist, 0.0)
           / parameters_.COLLISION_PADDING;
       Real collision_demerit = collisions_[i].base_penalty_ *
-         pow (scale_free, 3) * parameters_.COLLISION_PENALTY;
+                               pow (scale_free, 3) * parameters_.COLLISION_PENALTY;
 
-      if (collision_demerit > 0) {
-        demerits += collision_demerit;
-      }
+      if (collision_demerit > 0)
+        {
+          demerits += collision_demerit;
+        }
     }
 
   config->add (demerits, "C");

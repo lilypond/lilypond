@@ -25,7 +25,6 @@
 #include <cstring> /* strdup, strchr */
 #include <cctype>
 
-
 #include "dimensions.hh"
 #include "direction.hh"
 #include "file-path.hh"
@@ -53,7 +52,7 @@ ly_scm_write_string (SCM s)
                             scm_make_string (SCM_INUM0, SCM_UNDEFINED),
                             SCM_OPN | SCM_WRTNG,
                             "ly_write2string");
-  scm_write(s, port);
+  scm_write (s, port);
   return ly_scm2string (scm_strport_to_string (port));
 }
 
@@ -123,7 +122,7 @@ ly_scm2string (SCM str)
   assert (scm_is_string (str));
   string result;
   size_t len;
-  char *c_string = scm_to_locale_stringn (str, &len);
+  char *c_string = scm_to_utf8_stringn (str, &len);
   if (len)
     {
       result.assign (c_string, len);
@@ -135,8 +134,7 @@ ly_scm2string (SCM str)
 SCM
 ly_string2scm (string const &str)
 {
-  return scm_from_locale_stringn (str.c_str (),
-                                  str.length ());
+  return scm_from_utf8_stringn (str.c_str (), str.length ());
 }
 
 char *
@@ -454,7 +452,6 @@ ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
   scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
                           number, var, type.c_str ());
 }
-
 
 /* some SCM abbrevs
 

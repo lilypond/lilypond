@@ -16,7 +16,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 # info mostly taken from looking at files. See also
-# http://lilypond.org/wiki/?EnigmaTransportFormat
+# https://lilypond.org/wiki/?EnigmaTransportFormat
 
 # This supports
 #
@@ -43,6 +43,7 @@
 
 import __main__
 import getopt
+import gettext
 import sys
 import re
 import os
@@ -61,9 +62,11 @@ if version == '@' + 'TOPLEVEL_VERSION' + '@':
 """
 
 ################################################################
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 
 import lilylib as ly
- 
+
 finale_clefs= ['treble', 'alto', 'tenor', 'bass', 'percussion', 'treble_8', 'bass_8', 'baritone']
 
 def lily_clef (fin):
@@ -73,8 +76,8 @@ def lily_clef (fin):
         sys.stderr.write ( '\nHuh? Found clef number %d\n' % fin)
 
     return 'treble'
-    
-    
+
+
 
 def gulp_file(f):
     return open (f).read ()
@@ -88,12 +91,12 @@ def semitones (name, acc):
 def transpose(orig, delta):
     (oname, oacc) = orig
     (dname, dacc) = delta
-    
+
     old_pitch =semitones (oname, oacc)
     delta_pitch = semitones (dname, dacc)
-    nname = (oname + dname) 
+    nname = (oname + dname)
     nacc = oacc
-    new_pitch = semitones (nname, nacc) 
+    new_pitch = semitones (nname, nacc)
 
     nacc = nacc - (new_pitch - old_pitch - delta_pitch)
 
@@ -111,7 +114,7 @@ have the correct number of accidentals
 
     p = (0,0)
 
-    
+
     bank_number = finale_id >> 8
     accidental_bits = finale_id & 0xff
 
@@ -160,7 +163,7 @@ def EDU_to_duration (edu):
         dots = 1
     elif edu == d*3/4:
         dots = 2
-    return (log, dots)        
+    return (log, dots)
 
 def rational_to_lily_skip (rat):
     (n,d) = rat
@@ -182,12 +185,12 @@ def gcd (a,b):
     if b == 0:
         return a
     c = a
-    while c: 
+    while c:
         c = a % b
         a = b
         b = c
     return a
-    
+
 
 def rat_simplify (r):
     (n,d) = r
@@ -199,7 +202,7 @@ def rat_simplify (r):
     else:
         g = gcd (n, d)
         return (n/g, d/g)
-    
+
 def rat_multiply (a,b):
     (x,y) = a
     (p,q) = b
@@ -240,10 +243,10 @@ class Tuplet:
         n = self.finale[0][2]*self.finale[0][3]
         d = self.finale[0][0]*self.finale[0][1]
         return rat_simplify( (n, d))
-    
+
     def dump_start (self):
         return '\\times %d/%d { ' % self.factor ()
-    
+
     def dump_end (self):
         return ' }'
 
@@ -255,7 +258,7 @@ class Tuplet:
         while c and edu_left:
             c.tuplet = self
             if c == startch:
-                c.chord_prefix = self.dump_start () + c.chord_prefix 
+                c.chord_prefix = self.dump_start () + c.chord_prefix
 
             if not c.grace:
                 edu_left = edu_left - c.EDU_duration ()
@@ -265,7 +268,7 @@ class Tuplet:
 
         if edu_left:
             sys.stderr.write ("\nHuh? Tuplet starting at entry %d was too short." % self.start_note)
-        
+
 class Slur:
     def __init__ (self, number, params):
         self.number = number
@@ -283,14 +286,14 @@ class Slur:
 
             if not cs or not ce:
                 raise IndexError
-            
+
             cs.note_suffix = '-(' + cs.note_suffix
             ce.note_suffix = ce.note_suffix + '-)'
-            
+
         except IndexError:
             sys.stderr.write ("""\nHuh? Slur no %d between (%d,%d), with %d notes""" % (self.number,  startnote, endnote, len (chords)))
-                    
-        
+
+
 class Global_measure:
     def __init__ (self, number):
         self.timesig = ''
@@ -298,13 +301,13 @@ class Global_measure:
         self.key_signature = None
         self.scale = None
         self.force_break = 0
-        
+
         self.repeats = []
         self.finale = []
 
     def __str__ (self):
         return repr(self.finale)
-    
+
     def set_timesig (self, finale):
         (beats, fdur) = finale
         (log, dots) = EDU_to_duration (fdur)
@@ -315,28 +318,28 @@ class Global_measure:
             dots = 0
 
         if dots != 0:
-            sys.stderr.write ("\nHuh? Beat duration has  dots? (EDU Duration = %d)" % fdur) 
+            sys.stderr.write ("\nHuh? Beat duration has  dots? (EDU Duration = %d)" % fdur)
         self.timesig = (beats, log)
 
     def length (self):
         return self.timesig
-    
+
     def set_key_sig (self, finale):
         k = interpret_finale_key_sig (finale)
         self.key_signature = k
         self.scale = find_scale (k)
 
     def set_flags (self,flag1, flag2):
-        
+
         # flag1 isn't all that interesting.
         if flag2 & 0x8000:
             self.force_break = 1
-            
+
         if flag2 & 0x0008:
             self.repeats.append ('start')
         if flag2 & 0x0004:
             self.repeats.append ('stop')
-            
+
         if flag2 & 0x0002:
             if flag2 & 0x0004:
                 self.repeats.append ('bracket')
@@ -362,14 +365,14 @@ class Articulation_def:
             return articulation_dict[self.finale_glyph]
         except KeyError:
             sys.stderr.write ("\nUnknown articulation no. %d" % self.finale_glyph)
-            sys.stderr.write ("\nPlease add an entry to articulation_dict in the Python source")                        
+            sys.stderr.write ("\nPlease add an entry to articulation_dict in the Python source")
             return None
-    
+
 class Articulation:
     def __init__ (self, a,b, finale):
         self.definition = finale[0]
         self.notenumber = b
-        
+
     def calculate (self, chords, defs):
         c = chords[self.notenumber]
 
@@ -402,12 +405,12 @@ class Verse:
         for s in ss:
             if sep:
                 septor = re.sub (" +", "", s)
-                septor = re.sub ("-", " -- ", septor) 
+                septor = re.sub ("-", " -- ", septor)
                 syls[-1] = syls[-1] + septor
             else:
                 syls.append (s)
-            
-            sep = not sep 
+
+            sep = not sep
 
         self.syllables = syls
 
@@ -419,7 +422,7 @@ class Verse:
             if len (line) > 72:
                 str = str + ' ' * 4 + line + '\n'
                 line = ''
-            
+
         str = """\nverse%s = \\lyricmode {\n %s }\n""" %  (encodeint (self.number - 1) ,str)
         return str
 
@@ -427,20 +430,20 @@ class KeySignature:
     def __init__(self, pitch, sig_type = 0):
         self.pitch = pitch
         self.sig_type = sig_type
-    
+
     def signature_type (self):
         if self.sig_type == 1:
             return "\\minor"
         else:
             # really only for 0, but we only know about 0 and 1
             return "\\major"
-    
+
     def equal (self, other):
         if other and other.pitch == self.pitch and other.sig_type == self.sig_type:
             return 1
         else:
             return 0
-    
+
 
 class Measure:
     def __init__(self, no):
@@ -452,7 +455,7 @@ class Measure:
         self.global_measure = None
         self.staff = None
         self.valid = 1
-        
+
 
     def valid (self):
         return self.valid
@@ -496,18 +499,18 @@ class Frame:
             elif not c.grace and lastch and lastch.grace:
                 lastch.chord_suffix = lastch.chord_suffix + ' } '
                 in_grace = 0
-                
+
             lastch = c
 
         if lastch and in_grace:
-            lastch.chord_suffix += '}' 
+            lastch.chord_suffix += '}'
 
-        
+
     def dump (self):
         str = '%% FR(%d)\n' % self.number
         left = self.measure.global_measure.length ()
 
-        
+
         ln = ''
         for c in self.chords:
             add = c.ly_string () + ' '
@@ -517,8 +520,8 @@ class Frame:
             ln = ln + add
             left = rat_subtract (left, c.length ())
 
-        str = str + ln 
-        
+        str = str + ln
+
         if left[0] < 0:
             sys.stderr.write ("""\nHuh? Going backwards in frame no %d, start/end (%d,%d)""" % (self.number, self.start, self.end))
             left = (0,1)
@@ -527,7 +530,7 @@ class Frame:
 
         str = str + '  |\n'
         return str
-        
+
 def encodeint (i):
     return chr ( i  + ord ('A'))
 
@@ -549,7 +552,7 @@ class Staff:
         return 'staff' + encodeint (self.number - 1)
     def layerid (self, l):
         return self.staffid() +  'layer%s' % chr (l -1 + ord ('A'))
-    
+
     def dump_time_key_sigs (self):
         k  = ''
         last_key = None
@@ -559,16 +562,16 @@ class Staff:
         for m in self.measures[1:]:
             if not m or not m.valid:
                 continue # ugh.
-            
+
             g = m.global_measure
             e = ''
-            
+
             if g:
                 if g.key_signature and not g.key_signature.equal(last_key):
                     pitch= g.key_signature.pitch
                     e = e + "\\key %s %s " % (lily_notename (pitch),
                                  g.key_signature.signature_type())
-                    
+
                     last_key = g.key_signature
                 if last_time != g.timesig :
                     e = e + "\\time %d/%d " % g.timesig
@@ -584,17 +587,17 @@ class Staff:
                     if g.repeat_bar == '|:' or g.repeat_bar == ':|:' or g.bracket == 'end':
                         strs.append ('#f')
 
-                    
+
                     if g.bracket == 'start':
                         strs.append ('"0."')
 
                     str = ' '.join (['(volta %s)' % x for x in strs])
-                    
+
                     e = e + ' \\set Score.repeatCommands =  #\'(%s) ' % str
 
                 if g.force_break:
-                    e = e + ' \\break '  
-            
+                    e = e + ' \\break '
+
             if last_clef != m.clef :
                 e = e + '\\clef "%s"' % lily_clef (m.clef)
                 last_clef = m.clef
@@ -603,15 +606,15 @@ class Staff:
                     k = k +' ' + rational_to_lily_skip (gap) + '\n'
                 gap = (0,1)
                 k = k + e
-                
+
             if g:
                 gap = rat_add (gap, g.length ())
                 if 'stop' in g.repeats:
                     k = k + ' \\bar ":|." '
-                
+
         k = '%sglobal = { %s }\n\n ' % (self.staffid (), k)
         return k
-    
+
     def dump (self):
         str = ''
 
@@ -652,17 +655,17 @@ class Staff:
                 str = str  + laystr
                 layerids.append (l)
 
-        str = str +  self.dump_time_key_sigs ()                
+        str = str +  self.dump_time_key_sigs ()
         stafdef = '\\%sglobal' % self.staffid ()
         for i in layerids:
             stafdef = stafdef + ' \\' + i
-            
+
 
         str = str + '%s = \\context Staff = %s <<\n %s\n >>\n' % \
            (self.staffid (), self.staffid (), stafdef)
         return str
 
-                
+
 
 def ziplist (l):
     if len (l) < 2:
@@ -688,7 +691,7 @@ class Chord:
         self.chord_prefix = ''
         self.tuplet = None
         self.grace = 0
-        
+
     def measure (self):
         if not self.frame:
             return None
@@ -697,7 +700,7 @@ class Chord:
     def length (self):
         if self.grace:
             return (0,1)
-        
+
         l = (1, self.duration[0])
 
         d = 1 << self.duration[1]
@@ -708,13 +711,13 @@ class Chord:
         if self.tuplet:
             mylen = rat_multiply (mylen, self.tuplet.factor())
         return mylen
-        
+
 
     def EDU_duration (self):
         return self.finale[2]
     def set_duration (self):
         self.duration = EDU_to_duration(self.EDU_duration ())
-        
+
     def calculate (self):
         self.find_realpitch ()
         self.set_duration ()
@@ -722,8 +725,8 @@ class Chord:
         flag = self.finale[4]
         if Chord.GRACE_MASK & flag:
             self.grace = 1
-        
-    
+
+
     def find_realpitch (self):
 
         meas = self.measure ()
@@ -733,18 +736,18 @@ class Chord:
         elif not meas.global_measure.scale:
             sys.stderr.write ('note %d: no scale in this measure.' % self.number)
         else:
-            
+
             for p in self.notelist:
                 (pitch, flag) = p
 
 
                 nib1 = pitch & 0x0f
-                
+
                 if nib1 > 8:
                     nib1 = -(nib1 - 8)
                 rest = pitch / 16
 
-                scale =  meas.global_measure.scale 
+                scale =  meas.global_measure.scale
                 (sn, sa) =scale[rest % 7]
                 sn = sn + (rest - (rest%7)) + 7
                 acc = sa + nib1
@@ -752,11 +755,11 @@ class Chord:
                 tiestart =  tiestart or (flag & Chord.TIE_START_MASK)
         if tiestart :
             self.chord_suffix = self.chord_suffix + ' ~ '
-        
+
     REST_MASK = 0x40000000
     TIE_START_MASK = 0x40000000
     GRACE_MASK = 0x00800000
-    
+
     def ly_string (self):
         s = ''
 
@@ -765,7 +768,7 @@ class Chord:
 
         if not (self.finale[4] & Chord.REST_MASK):
             rest = 'r'
-        
+
         for p in self.pitches:
             (n,a) =  p
             o = n/ 7
@@ -777,14 +780,14 @@ class Chord:
                 nn = nn + (',' * -o)
             elif o > 0:
                 nn = nn + ('\'' * o)
-                
+
             if s:
                 s = s + ' '
 
             if rest:
                 nn = rest
-                
-            s = s + nn 
+
+            s = s + nn
 
         if not self.pitches:
             s  = 'r'
@@ -793,7 +796,7 @@ class Chord:
 
         s = s + '%d%s' % (self.duration[0], '.'* self.duration[1])
         s = self.note_prefix + s + self.note_suffix
-        
+
         s = self.chord_prefix + s + self.chord_suffix
 
         return s
@@ -817,7 +820,7 @@ Return: (value, rest-of-STR)
 
     if not str:
         return (None,str)
-    
+
     if str[0] == '$':
         str = str [1:]
 
@@ -826,7 +829,7 @@ Return: (value, rest-of-STR)
             hex = hex  + str[0]
             str = str[1:]
 
-        
+
         return (int (hex, 16), str)
     elif str[0] == '"':
         str = str[1:]
@@ -841,7 +844,7 @@ Return: (value, rest-of-STR)
         while str and str[0] in '-0123456789':
             dec = dec  + str[0]
             str = str[1:]
-            
+
         return (int (dec), str)
     else:
         sys.stderr.write ("cannot convert `%s'\n" % str)
@@ -849,17 +852,17 @@ Return: (value, rest-of-STR)
 
 
 
-    
+
 def parse_etf_file (fn, tag_dict):
 
     """ Read FN, putting ETF info into
     a giant dictionary.  The keys of TAG_DICT indicate which tags
     to put into the dict.
     """
-    
+
     sys.stderr.write ('parsing ... ' )
     f = open (fn)
-    
+
     gulp = re.sub ('[\n\r]+', '\n',  f.read ())
     ls = gulp.split ('\n^')
 
@@ -907,11 +910,11 @@ def parse_etf_file (fn, tag_dict):
 # let's not do this: this really confuses when eE happens to be before  a ^text.
 #                if last_tag and last_indices:
 #                        etf_file_dict[last_tag][last_indices].append (l)
-            
-    sys.stderr.write ('\n') 
+
+    sys.stderr.write ('\n')
     return etf_file_dict
 
-    
+
 
 
 
@@ -938,7 +941,7 @@ class Etf_file:
 
         return self.measures[no]
 
-        
+
     def get_staff(self,staffno):
         fill_list_to (self.staffs, staffno)
         if self.staffs[staffno] == None:
@@ -1006,17 +1009,17 @@ class Etf_file:
         st = self.get_staff (staffno)
         meas = st.get_measure (measno)
         meas.finale = contents
-        
+
     def try_FR(self, indices, contents):
         frameno = indices [0]
-        
+
         startnote = contents[0]
         endnote = contents[1]
 
         fill_list_to (self.frames, frameno)
-    
+
         self.frames[frameno] = Frame ((frameno, startnote, endnote))
-    
+
     def try_MS (self, indices, contents):
         measno = indices[0]
         keynum = contents[1]
@@ -1048,7 +1051,7 @@ class Etf_file:
         'BC' : try_BC,
         'IS' : try_IS,
         }
-    
+
     def parse (self, etf_dict):
         sys.stderr.write ('reconstructing ...')
         sys.stderr.flush ()
@@ -1058,7 +1061,7 @@ class Etf_file:
             ks.sort ()
             for k in ks:
                 routine (self, k, etf_dict[tag][k])
-            
+
         sys.stderr.write ('processing ...')
         sys.stderr.flush ()
 
@@ -1071,14 +1074,14 @@ class Etf_file:
             for m in st.measures[1:]:
                 if not m:
                     continue
-                
+
                 m.calculate()
                 try:
                     m.global_measure = self.measures[mno]
                 except IndexError:
                     sys.stderr.write ("Non-existent global measure %d" % mno)
                     continue
-                
+
                 frame_obj_list = [None]
                 for frno in m.frames:
                     try:
@@ -1091,9 +1094,9 @@ class Etf_file:
                 for fr in frame_obj_list[1:]:
                     if not fr:
                         continue
-                    
+
                     fr.set_measure (m)
-                    
+
                     fr.chords = self.get_thread (fr.start, fr.end)
                     for c in fr.chords:
                         c.frame = fr
@@ -1106,17 +1109,17 @@ class Etf_file:
         for f in self.frames[1:]:
             if f:
                 f.calculate ()
-            
+
         for t in self.tuplets[1:]:
             t.calculate (self.chords)
-            
+
         for s in self.slurs[1:]:
             if s:
                 s.calculate (self.chords)
-            
+
         for s in self.articulations[1:]:
             s.calculate (self.chords, self.articulation_defs)
-            
+
     def get_thread (self, startno, endno):
 
         thread = []
@@ -1128,16 +1131,16 @@ class Etf_file:
             sys.stderr.write ("Huh? Frame has invalid bounds (%d,%d)\n" % (startno, endno))
             return []
 
-        
+
         while c and c.number != endno:
             d = c # hack to avoid problem with scripts/build/grand-replace.py
             thread.append (d)
             c = c.__next__
 
-        if c: 
+        if c:
             d = c # hack to avoid problem with scripts/build/grand-replace.py
             thread.append (d)
-        
+
         return thread
 
     def dump (self):
@@ -1145,7 +1148,7 @@ class Etf_file:
         staffs = []
         for s in self.staffs[1:]:
             if s:
-                str = str + '\n\n' + s.dump () 
+                str = str + '\n\n' + s.dump ()
                 staffs.append ('\\' + s.staffid ())
 
 
@@ -1156,17 +1159,17 @@ class Etf_file:
 
         if len (self.verses) > 1:
             sys.stderr.write ("\nLyrics found; edit to use \\addlyrics to couple to a staff\n")
-            
+
         if staffs:
             str += '\\version "2.3.25"\n'
             str = str + '<<\n  %s\n>> } ' % ' '.join (staffs)
-            
+
         return str
 
 
     def __str__ (self):
         return 'ETF FILE %s %s' % (self.measures,  self.entries)
-    
+
     def unthread_entries (self):
         for e in self.chords[1:]:
             if not e:
@@ -1243,10 +1246,10 @@ for f in files:
     e = Etf_file(dict)
     if not out_filename:
         out_filename = os.path.basename (re.sub ('(?i).etf$', '.ly', f))
-        
+
     if out_filename == f:
         out_filename = os.path.basename (f + '.ly')
-        
+
     sys.stderr.write ('Writing `%s\'' % out_filename)
     ly = e.dump()
 
@@ -1254,4 +1257,3 @@ for f in files:
     fo.write ('%% lily was here -- automatically converted by etf2ly from %s\n' % f)
     fo.write(ly)
     fo.close ()
-    

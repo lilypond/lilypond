@@ -19,11 +19,11 @@ Now to take it for the first test run.
   3.  The PDF viewer will pop up. Click one of the noteheads.
 
 
-That's it.  For more information, visit http://lilypond.org .
+That's it.  For more information, visit https://lilypond.org .
 
 %}
 
-\version "2.19.84"  % necessary for upgrading to future LilyPond versions.
+\version "2.21.0"  % necessary for upgrading to future LilyPond versions.
 
 \header{
   title = "A scale in LilyPond"

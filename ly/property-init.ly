@@ -166,10 +166,10 @@ italianChords = {
   \set chordPrefixSpacer = #0.4
 }
 
-%% compressFullBarRests
+%% compressEmptyMeasures
 
-compressFullBarRests = \set Score.skipBars = ##t
-expandFullBarRests   = \set Score.skipBars = ##f
+compressEmptyMeasures = \set Score.skipBars = ##t
+expandEmptyMeasures   = \set Score.skipBars = ##f
 
 
 %% dots
@@ -754,6 +754,12 @@ allowVoltaHook =
 #(define-void-function (bar) (string?)
   (_i "Allow the volta bracket hook being drawn over bar line @var{bar}.")
                        (allow-volta-hook bar))
+
+
+%% vowel transitions
+
+vowelTransition = #(make-music 'VowelTransitionEvent)
+
 
 %% x notes
 

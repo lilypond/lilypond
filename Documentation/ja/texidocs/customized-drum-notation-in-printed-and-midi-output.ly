@@ -1,4 +1,6 @@
 %% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+\version "2.18.0"
+
   texidocja = "
 drum-pitch-names を独自の drum-style に合わせてカスタマイズし、それを
 @code{\\layout} や @code{\\midi} で使用できるようにするには、@c

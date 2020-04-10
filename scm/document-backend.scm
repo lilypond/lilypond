@@ -25,18 +25,18 @@
 ;; properly sort all properties and interfaces
 ;; within the all-grob-descriptions alist
 (set! all-grob-descriptions
-  (map!
-    (lambda (grob-description)
-      (let* ((grob-key      (car grob-description))
-             (props         (assoc-ref all-grob-descriptions grob-key))
-             (meta          (assoc-ref props 'meta))
-             (interfaces    (assoc-ref meta 'interfaces))
-             (sorted-ifaces (sort interfaces ly:symbol-ci<?))
-             (new-meta      (assoc-set! meta 'interfaces sorted-ifaces))
-             (new-props     (assoc-set! props 'meta new-meta))
-             (sorted-props  (sort-grob-properties new-props)))
-        (cons grob-key sorted-props)))
-    all-grob-descriptions))
+      (map!
+       (lambda (grob-description)
+         (let* ((grob-key      (car grob-description))
+                (props         (assoc-ref all-grob-descriptions grob-key))
+                (meta          (assoc-ref props 'meta))
+                (interfaces    (assoc-ref meta 'interfaces))
+                (sorted-ifaces (sort interfaces ly:symbol-ci<?))
+                (new-meta      (assoc-set! meta 'interfaces sorted-ifaces))
+                (new-props     (assoc-set! props 'meta new-meta))
+                (sorted-props  (sort-grob-properties new-props)))
+           (cons grob-key sorted-props)))
+       all-grob-descriptions))
 
 ;; sort all grobs in the all-grob-descriptions alist
 (set! all-grob-descriptions (sort all-grob-descriptions ly:alist-ci<?))
@@ -178,12 +178,12 @@ node."
 
 ;; sort user-settable and internal props within each grob-interface
 (set! interface-description-alist
-  (map! (lambda (iface-desc)
-          (let* ((key-name-docstr (list-head iface-desc 3))
-                 (props           (list-tail iface-desc 3))
-                 (sorted-props    (list (sort (car props) ly:symbol-ci<?))))
-            (append key-name-docstr sorted-props)))
-        interface-description-alist))
+      (map! (lambda (iface-desc)
+              (let* ((key-name-docstr (list-head iface-desc 3))
+                     (props           (list-tail iface-desc 3))
+                     (sorted-props    (list (sort (car props) ly:symbol-ci<?))))
+                (append key-name-docstr sorted-props)))
+            interface-description-alist))
 
 ;; sort list of grob interfaces
 (set! interface-description-alist

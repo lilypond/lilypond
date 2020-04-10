@@ -878,7 +878,7 @@ LilyPond を試してみる決心がついたのなら、@c
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/productions.html
+@c https://lilypond.org/productions.html
 
 @node 人々の評価
 @unnumberedsec 人々の評価
@@ -991,7 +991,7 @@ LilyPond 2.6 のリリースがフランスのウェブサイト
 2004年10月
 
 オランダのコンピューター雑誌 Computer!Totaal の編集者は 2004年10月の@c
-刊行において @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+刊行において @uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
 LilyPond をこのような文面で紹介} しました。
 @qq{素晴らしいフリーの（オープンソースの）ソフトウェア [@dots{}]
 LilyPond で生成された楽譜は並外れて綺麗で [@dots{}] ほとんど何でもすることが@c
@@ -1198,7 +1198,7 @@ LilyPond は、特に「標準」的でない場合に、最終的に望み通�
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @divClass{column-center-top}
 @subheading 楽譜を @qq{コンパイル} する
@@ -1395,7 +1395,7 @@ LilyPond テキストの中でカーソルを動かすと、@c
 @c Browser-based editors
 
 @subsubheading LilyBin
-@uref{http://lilybin.com/}
+@uref{https://lilybin.com/}
 
 LilyPond をインストールすることなく、@c
 直接オンラインで楽譜を組版することができる、@c
@@ -1591,12 +1591,12 @@ Lisp言語で書かれており、多くのインタプリタで動作します�
 は @uref{http://www.jedit.org,jEdit} テキストエディタ用プラグインでした。
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} は
+@uref{https://lilykde.googlecode.com/,LilyKDE} は
 @uref{http://www.frescobaldi.org/,Frescobaldi} に置き換わり、
 KDE 3.5 用の LilyKDE3 と KDE 4.1 用の lilypond-KDE4 だけが存在します。
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} はグラフィカルに音符を入力@c
+@uref{https://lilycomp.sourceforge.net, LilyComp} はグラフィカルに音符を入力@c
 できるプログラムで、LilyPond 版のテンキーのようなものです。
 
 @item

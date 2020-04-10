@@ -171,11 +171,11 @@ work than classifying the pitches."
              (args (list num-markup))
              (major-seven-symbol (ly:context-property context 'majorSevenSymbol))
              (total
-                    (if (and (= (ly:pitch-alteration pitch) 0)
-                             (= (pitch-step pitch) 7)
-                             (markup? major-seven-symbol))
-                        (list major-seven-symbol)
-                        (cons (accidental->markup (step-alteration pitch)) args))))
+              (if (and (= (ly:pitch-alteration pitch) 0)
+                       (= (pitch-step pitch) 7)
+                       (markup? major-seven-symbol))
+                  (list major-seven-symbol)
+                  (cons (accidental->markup (step-alteration pitch)) args))))
 
         (make-line-markup total)))
 

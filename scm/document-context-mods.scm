@@ -33,8 +33,8 @@
                   (grob-property-path path))
           (format #f "in @code{@rinternals{~a}} to" name-sym)
           (if (pretty-printable? value)
-            (format #f ":~a\n" (scm->texi value))
-            (format #f " ~a.\n" (scm->texi value))))))
+              (format #f ":~a\n" (scm->texi value))
+              (format #f " ~a.\n" (scm->texi value))))))
       ((pop)
        (string-append
         (format #f "@item Reverts grob property @code{~a} "
@@ -43,10 +43,10 @@
                 name-sym)))
       ((assign)
        (string-append
-         (format #f "@item Sets translator property @code{~a} to" name-sym)
-         (if (pretty-printable? value)
-           (format #f ":~a\n" (scm->texi (car args)))
-           (format #f " ~a.\n" (scm->texi (car args))))))
+        (format #f "@item Sets translator property @code{~a} to" name-sym)
+        (if (pretty-printable? value)
+            (format #f ":~a\n" (scm->texi (car args)))
+            (format #f " ~a.\n" (scm->texi (car args))))))
       ((unset)
        (format #f "@item Unsets translator property @code{~a}.\n"
                name-sym))
@@ -63,21 +63,21 @@
                               (eq? (car mod) 'description))
                             mod-list)))
     (format #f
-     "@item @code{\\~a}
+            "@item @code{\\~a}
 @funindex \\~a
 ~a
 @itemize
 ~{~a ~}
 @end itemize
 "
-     name-sym
-     name-sym
-     (if (pair? docstring)
-         (cadar docstring)
-         (begin
-           (ly:warning "context modification `~a' not documented." name-sym)
-           "(undocumented; fixme)"))
-     (map document-mod-list mod-list))))
+            name-sym
+            name-sym
+            (if (pair? docstring)
+                (cadar docstring)
+                (begin
+                  (ly:warning "context modification `~a' not documented." name-sym)
+                  "(undocumented; fixme)"))
+            (map document-mod-list mod-list))))
 
 (define (document-mod obj-pair)
   (and (ly:context-mod? (cdr obj-pair))
@@ -85,14 +85,14 @@
 
 (define context-mods-doc-string
   (format #f
-   "@table @asis
+          "@table @asis
 ~a
 @end table
 "
-   (string-join
-    (filter-map
-     document-mod
-     (sort
-      (ly:module->alist (current-module))
-      identifier<?)))
-   ""))
+          (string-join
+           (filter-map
+            document-mod
+            (sort
+             (ly:module->alist (current-module))
+             identifier<?)))
+          ""))

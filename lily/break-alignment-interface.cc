@@ -269,8 +269,8 @@ Break_alignable_interface::find_parent (SCM grob)
   return alignment_parent ? alignment_parent->self_scm () : SCM_BOOL_F;
 }
 
-Grob*
-Break_alignable_interface::find_parent (Grob* me)
+Grob *
+Break_alignable_interface::find_parent (Grob *me)
 {
   Item *alignment = dynamic_cast<Item *> (me->get_parent (X_AXIS));
   if (!has_interface<Break_alignment_interface> (alignment))
@@ -365,15 +365,18 @@ Break_aligned_interface::calc_joint_anchor_alignment (Grob *me)
     {
       SCM s = elts[i]->get_property ("break-align-anchor-alignment");
       double alignment = robust_scm2double (s, 0.0);
-      if (alignment < CENTER) {
-        if (direction > CENTER)
-          return CENTER; // conflict
-        direction = -1;
-      } else if (alignment > CENTER) {
-        if (direction < CENTER)
-          return CENTER; // conflict
-        direction = 1;
-      }
+      if (alignment < CENTER)
+        {
+          if (direction > CENTER)
+            return CENTER; // conflict
+          direction = -1;
+        }
+      else if (alignment > CENTER)
+        {
+          if (direction < CENTER)
+            return CENTER; // conflict
+          direction = 1;
+        }
     }
 
   return direction;

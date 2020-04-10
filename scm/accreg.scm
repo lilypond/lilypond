@@ -43,11 +43,11 @@ for examples."
           (make-general-align-markup
            Y DOWN
            (fold (lambda (d m)
-                   (markup #:combine m
-                           #:translate-scaled d
-                           #:musicglyph "accordion.dot"))
-                 (markup #:musicglyph
-                         (ly:assoc-get 'glyph instrument))
+                   (make-combine-markup
+                    m (make-translate-scaled-markup
+                       d (make-musicglyph-markup "accordion.dot"))))
+                 (make-musicglyph-markup
+                  (ly:assoc-get 'glyph instrument))
                  (or (ly:assoc-get 'dots register)
                      (append-map (lambda (x)
                                    (ly:assoc-get 'dots
@@ -245,7 +245,7 @@ Available registrations are
 
 
 (define-register-set stdBassIV
-"@code{\\stdBassIV @var{name}} generates a standard bass accordion
+  "@code{\\stdBassIV @var{name}} generates a standard bass accordion
 register symbol.
 
 To make it available,
@@ -409,7 +409,7 @@ Available registrations are
 }
 @end lilypond
 "
-'((glyph . "accordion.stdbass")
+  '((glyph . "accordion.stdbass")
     (reedbank
      (Sopranos (dots (-0.5 . 3.5) (0.5 . 3.5)))
      (Soprano (dots (0 . 3.5)))

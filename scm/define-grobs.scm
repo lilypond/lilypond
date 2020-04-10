@@ -917,11 +917,11 @@
                                 font-interface
                                 line-interface
                                 line-spanner-interface
-                                ;for now, LilyPond never will typeset
-                                ;these without a DynamicLineSpanner
-                                ;as their controlling element
-                                ;so, they do not need the
-                                ;outside-staff-interface
+                                ;; for now, LilyPond never will typeset
+                                ;; these without a DynamicLineSpanner
+                                ;; as their controlling element
+                                ;; so, they do not need the
+                                ;; outside-staff-interface
                                 spanner-interface
                                 text-interface))))))
 
@@ -2865,6 +2865,36 @@
                                 outside-staff-interface
                                 side-position-interface
                                 volta-interface))))))
+
+    (VowelTransition
+     . (
+        (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
+        (arrow-length . 0.5)
+        (arrow-width . 0.5)
+        (bound-details . ((left . ((Y . 0)
+                                   (padding . 0.14)
+                                   (attach-dir . ,RIGHT)
+                                   ))
+                          (right-broken . ((padding . 0)))
+                          (left-broken . ((padding . 0)))
+                          (right . ((Y . 0)
+                                    (padding . 0.14)
+                                    (attach-dir . ,LEFT)
+                                    (arrow . #t)
+                                    ))))
+        (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+        (minimum-length . 1.0)
+        (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+        (springs-and-rods . ,ly:vowel-transition::set-spacing-rods)
+        (stencil . ,ly:line-spanner::print)
+        (style . line)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (Y-offset . 0.5)
+        (meta . ((class . Spanner)
+                 (interfaces . (line-interface
+                                line-spanner-interface
+                                lyric-interface
+                                spanner-interface))))))
 
     ))
 

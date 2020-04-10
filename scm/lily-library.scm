@@ -123,8 +123,8 @@ This supports historic use of @code{Completion_heads_engraver} to split
 @code{c1*3} into three whole notes."
   (if (ly:moment<? (ly:context-property context 'measureLength)
                    (ly:duration-length dur))
-    1
-    #f))
+      1
+      #f))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
@@ -138,7 +138,7 @@ This supports historic use of @code{Completion_heads_engraver} to split
   "Toplevel book-part handler."
   (define (add-bookpart book-part)
     (ly:parser-define! 'toplevel-bookparts
-     (cons book-part (ly:parser-lookup 'toplevel-bookparts))))
+                       (cons book-part (ly:parser-lookup 'toplevel-bookparts))))
   ;; If toplevel scores have been found before this \bookpart,
   ;; add them first to a dedicated bookpart
   (if (pair? (ly:parser-lookup 'toplevel-scores))
@@ -150,7 +150,7 @@ This supports historic use of @code{Completion_heads_engraver} to split
 
 (define-public (collect-scores-for-book score)
   (ly:parser-define! 'toplevel-scores
-   (cons score (ly:parser-lookup 'toplevel-scores))))
+                     (cons score (ly:parser-lookup 'toplevel-scores))))
 
 (define-public (collect-music-aux score-handler music)
   (define (music-property symbol)
@@ -236,7 +236,7 @@ bookoutput function"
         (set! result (format #f "~a-~a" result output-count)))
 
     (ly:parser-define! 'counter-alist
-     (assoc-set! counter-alist alist-key (1+ output-count)))
+                       (assoc-set! counter-alist alist-key (1+ output-count)))
     (set! current-outfile-name result)
     result))
 
@@ -785,7 +785,7 @@ as rectangular coordinates @code{(x-length . y-length)}."
   (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
 
 (define-public (remove-whitespace strg)
-"Remove characters satisfying @code{char-whitespace?} from string @var{strg}"
+  "Remove characters satisfying @code{char-whitespace?} from string @var{strg}"
   (if (guile-v2)
       (string-delete char-whitespace? strg)
       (string-delete strg char-whitespace?)))
@@ -885,7 +885,7 @@ Choices include @code{roman-lower} (by default),
 @code{roman-upper}, @code{arabic} and @code{custom}.
 In the latter case, CUSTOM-FORMAT must be supplied
 and will be applied to NUM."
- (cond
+  (cond
    ((equal? number-type 'roman-lower)
     (fancy-format #f "~(~@r~)" num))
    ((equal? number-type 'roman-upper)
@@ -915,7 +915,7 @@ and will be applied to NUM."
 
 (define (ly:version? op ver)
   "Using the operator @var{op} compare the currently executed LilyPond
-   version with a given version @var{ver} which is passed as a list of 
+   version with a given version @var{ver} which is passed as a list of
    numbers."
   (lexicographic-list-compare? op (ly:version) ver))
 
@@ -988,30 +988,30 @@ print a warning and set an optional @var{default}."
 
 (define-public (scm->string val)
   (let* ((quote-style (if (string? val)
-                        'double
-                        (if (or (null? val) ; (ly-type? '()) => #t
-                                (and (not (self-evaluating? val))
-                                     (not (vector? val))
-                                     (not (hash-table? val))
-                                     (not (ly-type? val))))
-                          'single
-                          'none)))
-         ; don't confuse users with #<procedure ...> syntax
+                          'double
+                          (if (or (null? val) ; (ly-type? '()) => #t
+                                  (and (not (self-evaluating? val))
+                                       (not (vector? val))
+                                       (not (hash-table? val))
+                                       (not (ly-type? val))))
+                              'single
+                              'none)))
+         ;; don't confuse users with #<procedure ...> syntax
          (str (if (and (procedure? val)
                        (symbol? (procedure-name val)))
-                (symbol->string (procedure-name val))
-                (call-with-output-string
-                  (if (pretty-printable? val)
-                    ; property values in PDF hit margin after 64 columns
-                    (lambda (port)
-                      (pretty-print val port #:width (case quote-style
-                                                       ((single) 63)
-                                                       (else 64))))
-                    (lambda (port) (display val port)))))))
+                  (symbol->string (procedure-name val))
+                  (call-with-output-string
+                   (if (pretty-printable? val)
+                       ;; property values in PDF hit margin after 64 columns
+                       (lambda (port)
+                         (pretty-print val port #:width (case quote-style
+                                                          ((single) 63)
+                                                          (else 64))))
+                       (lambda (port) (display val port)))))))
     (case quote-style
       ((single) (string-append
-                  "'"
-                  (string-regexp-substitute "\n " "\n  " str)))
+                 "'"
+                 (string-regexp-substitute "\n " "\n  " str)))
       ((double) (string-append "\"" str "\""))
       (else str))))
 

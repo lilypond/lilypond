@@ -63,6 +63,28 @@ which scares away people.
 
 
 @item
+@code{\compressFullBarRests} has been renamed to
+@code{\compressEmptyMeasures}, to avoid
+possible confusion with @code{\compressMMRests}.
+Likewise, @code{\expandFullBarRests} has now become
+@code{\expandEmptyMeasures}.
+
+@item
+A gradual change of vowel (or sustained consonant) may
+be indicated by adding a vowel transition between lyric
+syllables with the command @code{\vowelTransition}.
+@lilypond[verbatim,quote]
+{ g'2 g' }
+\addlyrics { Ah \vowelTransition oh. }
+@end lilypond
+
+
+@item
+LilyPond for Windows (MinGW) can handle Unicode filenames
+on Windows 10 1903 and above.
+
+
+@item
 French beaming (@code{\override Stem.french-beaming = ##t}) now
 @emph{exactly} behaves like standard (i.e., default) beaming in every respect
 (beam positioning and placement of any articulation, fingering, etc.).  The

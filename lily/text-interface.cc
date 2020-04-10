@@ -48,7 +48,7 @@ replace_special_characters (string &str, SCM props)
   for (SCM s = replacement_alist; scm_is_pair (s); s = scm_cdr (s))
     {
       max_length = std::max (max_length, scm_to_int
-                        (scm_string_length (scm_caar (s))));
+                             (scm_string_length (scm_caar (s))));
     }
 
   for (vsize i = 0; i < str.size (); i++)
@@ -56,13 +56,18 @@ replace_special_characters (string &str, SCM props)
       /* Don't match in mid-UTF-8 */
       if ((str[i] & 0xc0) == 0x80)
         continue;
-      for (vsize j = max_length + 1; j--;)
+      for (vsize j = max_length; j > 0; j--)
         {
           if (j > str.size () - i)
             continue;
-          string dummy = str.substr (i, j);
-          SCM ligature = ly_assoc_get (ly_string2scm (dummy),
-                                       replacement_alist, SCM_BOOL_F);
+          // TODO: It could make sense to skip if not at the end of a UTF-8
+          // glyph. However that requires finding the start of the last glyph
+          // (not necessarily at str[i] - the longest replacement could match
+          // multiple glyphs) to get the glyph's length which is not trivial.
+          // So for now just continue checking all substrings that could be
+          // valid UTF-8 (see check for str[i] not in mid-UTF-8 above).
+          SCM substr = scm_from_latin1_stringn (str.c_str () + i, j);
+          SCM ligature = ly_assoc_get (substr, replacement_alist, SCM_BOOL_F);
           if (scm_is_true (ligature))
             str.replace (i, j, robust_scm2string (ligature, ""));
         }
@@ -211,9 +216,9 @@ bool
 Text_interface::is_markup (SCM x)
 {
   return scm_is_string (x)
-    || (scm_is_pair (x)
-        && scm_is_true (Lily::markup_command_signature (scm_car (x)))
-        && scm_is_false (Lily::markup_list_function_p (scm_car (x))));
+         || (scm_is_pair (x)
+             && scm_is_true (Lily::markup_command_signature (scm_car (x)))
+             && scm_is_false (Lily::markup_list_function_p (scm_car (x))));
 }
 bool
 Text_interface::is_markup_list (SCM x)

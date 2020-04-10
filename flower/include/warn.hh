@@ -46,7 +46,7 @@ extern bool warning_as_error;
 /* output messages, in decreasing order of importance */
 void error (std::string s, const std::string &location = ""); // Fatal error, exits lilypond!
 void programming_error (const std::string &s, const std::string &location = "");
-void non_fatal_error (const std::string&, const std::string &location = "");
+void non_fatal_error (const std::string &, const std::string &location = "");
 void warning (const std::string &s, const std::string &location = "");
 void basic_progress (const std::string &s, const std::string &location = "");
 /* progress_indication does by default *NOT* start on a new line */

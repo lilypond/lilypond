@@ -219,8 +219,8 @@ informações.
 @docLinks{Aprendizagem, learning,
   @rlearningnamed{Top,Learning},
   @manualStableLearningSplit,
-  @manualStableLearningBig, 3 MB,
-  @manualStableLearningPdf, 5 MB}
+  @manualStableLearningBig,
+  @manualStableLearningPdf}
 
 @divEnd
 
@@ -244,8 +244,8 @@ nativo de inglês), é altamente aconselhável consultar o glossário.
 @docLinks{Glossário de música, music-glossary,
   @rglosnamed{Top,Music glossary},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -272,8 +272,8 @@ de analisar na versão PDF devido à sua maior resolução.}
 @docLinks{Ensaio, essay,
   @ressaynamed{Top,Essay},
   @manualStableEssaySplit,
-  @manualStableEssayBig, 1 MB,
-  @manualStableEssayPdf, 2 MB}
+  @manualStableEssayBig,
+  @manualStableEssayPdf}
 
 @divEnd
 
@@ -300,8 +300,8 @@ glossário.}
 @docLinks{Notação, notation,
   @rusernamed{Top,Notation},
   @manualStableNotationSplit,
-  @manualStableNotationBig, 9 MB,
-  @manualStableNotationPdf, 35 MB}
+  @manualStableNotationBig,
+  @manualStableNotationPdf}
 
 @divEnd
 
@@ -325,8 +325,8 @@ qualquer projeto grande.
 @docLinks{Uso, usage,
   @rprogramnamed{Top,Usage},
   @manualStableUsageSplit,
-  @manualStableUsageBig, 400 KB,
-  @manualStableUsagePdf, 650 KB}
+  @manualStableUsageBig,
+  @manualStableUsagePdf}
 
 @divEnd
 
@@ -358,8 +358,8 @@ está vinculada da parte @strong{Veja também}.
 @docLinks{Trechos, snippets,
   @rlsrnamed{Top,Snippets},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 1.5 MB,
-  @manualStableSnippetsPdf, 12.5 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -435,8 +435,8 @@ erros e desenvolvimento.
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit,
-  @manualDevelWebBig, 2.5 MB,
-  @manualDevelWebPdf, 3.5 MB}
+  @manualDevelWebBig,
+  @manualDevelWebPdf}
 
 @divEnd
 
@@ -458,8 +458,8 @@ no LilyPond desde a versão estável anterior.
 @docLinks{Mudanças, changes,
   @rchangesnamed{Top,Changes},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 90 KB,
-  @manualStableChangesPdf, 80 KB}
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 
@@ -480,8 +480,8 @@ Este manual explica como escrever extensões para o LilyPond.
 @docLinks{Extensão, extending,
   @rextendnamed{Top,Extending},
   @manualStableExtendingSplit,
-  @manualStableExtendingBig, 300 KB,
-  @manualStableExtendingPdf, 500 KB}
+  @manualStableExtendingBig,
+  @manualStableExtendingPdf}
 
 @divEnd
 
@@ -513,8 +513,8 @@ também}, que se refere à documentação gerada.
 @docLinks{Procedimentos internos, internals,
   @rinternalsnamed{Top,Internals},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 3 MB,
-  @manualStableInternalsPdf, 4 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 
@@ -539,7 +539,7 @@ também}, que se refere à documentação gerada.
 @subheading Versões baixáveis
 
 @ifclear web_version
-Tarballs baixáveis disponível apenas em @uref{http://lilypond.org}
+Tarballs baixáveis disponível apenas em @uref{https://lilypond.org}
 @end ifclear
 @ifset web_version
 
@@ -561,37 +561,37 @@ Tarballs baixáveis disponível apenas em @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals,
 Documentação do LilyPond 2.16}
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals,
 Documentação do LilyPond 2.14}
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/,
 Documentação do LilyPond 2.12}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 Documentação do LilyPond 2.10}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 Documentação do LilyPond 2.8}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 Documentação do LilyPond 2.6}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 Documentação do LilyPond 2.4}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 Documentação do LilyPond 2.2}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 Documentação do LilyPond 2.0}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 Documentação do LilyPond 1.8}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 Documentação do LilyPond 1.6}
 
 @end itemize

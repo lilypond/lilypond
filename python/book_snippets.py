@@ -294,7 +294,7 @@ class Snippet (Chunk):
         self.formatter = formatter
         self.line_number = line_number
         self.global_options = global_options
-        self.replacements = {'program_version': ly.program_version,
+        self.replacements = {'program_version': global_options.information["program_version"],
                              'program_name': ly.program_name}
 
     # return a shallow copy of the replacements, so the caller can modify

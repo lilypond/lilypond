@@ -53,11 +53,17 @@
          (base-skip (* (square (+ (* num-strings 0.195) 0.4)) scale-factor)))
 
     (interpret-markup layout props
-                      (markup #:vcenter #:bold
-                              #:override (cons 'font-family 'sans)
-                              #:fontsize font-size
-                              #:override (cons 'baseline-skip base-skip)
-                              #:left-align #:center-column ("T" "A" "B")))))
+                      (make-vcenter-markup
+                       (make-bold-markup
+                        (make-override-markup
+                         '(font-family . sans)
+                         (make-fontsize-markup
+                          font-size
+                          (make-override-markup
+                           `(baseline-skip . ,base-skip)
+                           (make-left-align-markup
+                            (make-center-column-markup
+                              '("T" "A" "B")))))))))))
 
 ;; this function decides which clef to take
 (define-public (clef::print-modern-tab-if-set grob)
@@ -85,14 +91,14 @@
     (if (and (not (equal? X-extent empty-interval))
              (= 1 (ly:grob-property grob 'duration-log)))
 
-      ;; yes -> return double stem X-extent
-      (let* ((single-stem-width (- (cdr X-extent) (car X-extent)))
-             (separation (ly:grob-property grob 'double-stem-separation 0.5))
-             (total-width (+ single-stem-width separation))
-             (half-width (/ total-width 2)))
-        (cons (- half-width) half-width))
-      ;; no -> return simple stem X-extent
-      X-extent)))
+        ;; yes -> return double stem X-extent
+        (let* ((single-stem-width (- (cdr X-extent) (car X-extent)))
+               (separation (ly:grob-property grob 'double-stem-separation 0.5))
+               (total-width (+ single-stem-width separation))
+               (half-width (/ total-width 2)))
+          (cons (- half-width) half-width))
+        ;; no -> return simple stem X-extent
+        X-extent)))
 
 (define-public (tabvoice::draw-double-stem-for-half-notes grob)
   (let ((stem-stencil (ly:stem::print grob)))
@@ -100,14 +106,14 @@
     (if (and (ly:stencil? stem-stencil)
              (= 1 (ly:grob-property grob 'duration-log)))
 
-      ;; yes -> draw double stem
-      (let* ((separation (ly:grob-property grob 'double-stem-separation 0.5))
-             (half-separation (/ separation 2)))
-        (ly:stencil-add
-          (ly:stencil-translate-axis stem-stencil (- half-separation) X)
-          (ly:stencil-translate-axis stem-stencil half-separation X)))
-      ;; no -> draw simple stem (or none at all)
-      stem-stencil)))
+        ;; yes -> draw double stem
+        (let* ((separation (ly:grob-property grob 'double-stem-separation 0.5))
+               (half-separation (/ separation 2)))
+          (ly:stencil-add
+           (ly:stencil-translate-axis stem-stencil (- half-separation) X)
+           (ly:stencil-translate-axis stem-stencil half-separation X)))
+        ;; no -> draw simple stem (or none at all)
+        stem-stencil)))
 
 ;; as default, the glissando line between fret numbers goes
 ;; upwards, here we have a function to correct this behavior:

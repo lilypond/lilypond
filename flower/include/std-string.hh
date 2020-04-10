@@ -34,7 +34,6 @@
 
 #include <string>
 
-
 typedef size_t ssize;
 #define NPOS std::string::npos
 

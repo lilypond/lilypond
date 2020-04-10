@@ -961,10 +961,10 @@ PIDs or the number of the process."
                     (append-map
                      (lambda (f)
                        (string-split
-                         (if (guile-v2)
-                             (string-delete #\cr (ly:gulp-file f))
-                             (string-delete (ly:gulp-file f) #\cr))
-                         #\nl))
+                        (if (guile-v2)
+                            (string-delete #\cr (ly:gulp-file f))
+                            (string-delete (ly:gulp-file f) #\cr))
+                        #\nl))
                      files))))
   (if (and (number? (ly:get-option 'job-count))
            (>= (length files) (ly:get-option 'job-count)))

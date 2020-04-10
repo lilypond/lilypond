@@ -28,7 +28,7 @@ ignore = \override NoteColumn.ignore-collision = ##t
 
 \relative c' {
   \new Staff <<
-    \new Voice{ \ignore \stemDown f2 g }
-    \new Voice{ c2 \stemDown c, }
+    \new Voice { \ignore \stemDown f2 g }
+    \new Voice { c2 \stemDown c, }
   >>
 }

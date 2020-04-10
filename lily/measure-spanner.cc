@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "measure-spanner.hh"
 
 #include "bracket.hh"
@@ -27,7 +26,6 @@
 #include "directional-element-interface.hh"
 #include "spanner.hh"
 #include "paper-column.hh"
-
 
 MAKE_SCHEME_CALLBACK (Measure_spanner, calc_connect_to_neighbors, 1);
 SCM
@@ -82,11 +80,11 @@ Measure_spanner::print (SCM smob)
 
   for (LEFT_and_RIGHT (d))
     {
-      align_syms = (scm_is_pair (sp) ?
-	                index_get_cell (sp, d)
+      align_syms = (scm_is_pair (sp)
+                    ? index_get_cell (sp, d)
                     : ly_symbol2scm ("staff-bar"));
-	  x_points[d] = Paper_column::break_align_width (bounds[d],
-	                                                 align_syms)[-d];
+      x_points[d] = Paper_column::break_align_width (bounds[d],
+                                                     align_syms)[-d];
     }
 
   Stencil bracket_text;
@@ -101,8 +99,7 @@ Measure_spanner::print (SCM smob)
       bracket_text = *unsmob<Stencil> (t);
       bracket_text.align_to (X_AXIS, CENTER);
       Interval stil_Y_ext = bracket_text.extent (Y_AXIS);
-      bracket_text.translate_axis (
-        (x_points[RIGHT] - x_points[LEFT]) / 2.0, X_AXIS);
+      bracket_text.translate_axis ((x_points[RIGHT] - x_points[LEFT]) / 2.0, X_AXIS);
       bracket_text.translate_axis (-stil_Y_ext[UP] / 2.0, Y_AXIS);
       Real gap = bracket_text.extent (X_AXIS).length ();
       gap_iv = Interval (-0.5, 0.5) * gap;
@@ -110,9 +107,8 @@ Measure_spanner::print (SCM smob)
     }
 
   if (ly_scm2bool (visible))
-    brack = Bracket::make_axis_constrained_bracket (
-      me, x_points[RIGHT] - x_points[LEFT], X_AXIS,
-      get_grob_direction (me), gap_iv);
+    brack = Bracket::make_axis_constrained_bracket (me, x_points[RIGHT] - x_points[LEFT], X_AXIS,
+                                                    get_grob_direction (me), gap_iv);
 
   if (!bracket_text.is_empty ())
     brack.add_stencil (bracket_text);

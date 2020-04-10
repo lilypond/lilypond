@@ -328,7 +328,7 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
     }
 
   bool whole_note = Stem::duration_log (stem) <= 0;
-  if (whole_note || std::isinf(end_y))
+  if (whole_note || std::isinf (end_y))
     {
       /* we shouldn't position relative to the end of the stem since the stem
          is invisible */

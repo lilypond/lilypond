@@ -537,10 +537,10 @@
               (begin
                 (if (> n n-assigned)
                     (receive (assigned-elts unassigned-elts) (split-at lists* n-assigned)
-                             (set-score-choice-lists! score (append assigned-elts
-                                                                    (list (list-ref lists* n))
-                                                                    (take unassigned-elts (- n n-assigned))
-                                                                    lists))))
+                      (set-score-choice-lists! score (append assigned-elts
+                                                             (list (list-ref lists* n))
+                                                             (take unassigned-elts (- n n-assigned))
+                                                             lists))))
                 (set-score-choice-n-assigned! score (+ n-assigned 1))))
           (insert-lyrics*! lyrics/skip-list (append (if score* (list score*) '()) (cdr score-list)) context)))
        ((score-repetice? score)
@@ -582,48 +582,48 @@
                  (receive (notelist/rest note-list*) (if (lyrics? lyrics/skip)
                                                          (consume-lyrics-notes lyrics/skip note-list context)
                                                          (consume-skip-notes lyrics/skip note-list context))
-                          (debug "Consumed notes" (list lyrics/skip notelist/rest))
-                          (set! note-list note-list*)
-                          (cond
-                           ((null? notelist/rest)
-                            #f)
-                           ;; Lyrics
-                           ((and (lyrics? lyrics/skip)
-                                 unfinished-verse)
-                            (set-verse-text!
-                             unfinished-verse
-                             (string-append (verse-text unfinished-verse) (lyrics-text lyrics/skip)))
-                            (set-verse-notelist/rests!
-                             unfinished-verse
-                             (append (verse-notelist/rests unfinished-verse) (list notelist/rest)))
-                            (if (not (lyrics-unfinished lyrics/skip))
-                                (set! unfinished-verse #f)))
-                           ((lyrics? lyrics/skip)
-                            (let ((verse (make-verse #:text (if (rest? notelist/rest)
-                                                                ""
-                                                                (lyrics-text lyrics/skip))
-                                                     #:notelist/rests (list notelist/rest))))
-                              (add! verse verse-list)
-                              (set! unfinished-verse (if (lyrics-unfinished lyrics/skip) verse #f))))
-                           ;; Skip
-                           ((skip? lyrics/skip)
-                            (cond
-                             ((rest? notelist/rest)
-                              (if (null? verse-list)
-                                  (set! verse-list (list (make-verse #:text ""
-                                                                     #:notelist/rests (list notelist/rest))))
-                                  (let ((last-verse (last verse-list)))
-                                    (set-verse-notelist/rests!
-                                     last-verse
-                                     (append (verse-notelist/rests last-verse) (list notelist/rest))))))
-                             ((pair? notelist/rest)
-                              (add! (make-verse #:text (*skip-word*) #:notelist/rests (list notelist/rest))
-                                    verse-list))
-                             (else
-                              (error "Unreachable branch reached")))
-                            (set! unfinished-verse #f)))
-                          (if (not (rest? notelist/rest))
-                              (set! lyrics/skip-list (cdr lyrics/skip-list)))))))
+                   (debug "Consumed notes" (list lyrics/skip notelist/rest))
+                   (set! note-list note-list*)
+                   (cond
+                    ((null? notelist/rest)
+                     #f)
+                    ;; Lyrics
+                    ((and (lyrics? lyrics/skip)
+                          unfinished-verse)
+                     (set-verse-text!
+                      unfinished-verse
+                      (string-append (verse-text unfinished-verse) (lyrics-text lyrics/skip)))
+                     (set-verse-notelist/rests!
+                      unfinished-verse
+                      (append (verse-notelist/rests unfinished-verse) (list notelist/rest)))
+                     (if (not (lyrics-unfinished lyrics/skip))
+                         (set! unfinished-verse #f)))
+                    ((lyrics? lyrics/skip)
+                     (let ((verse (make-verse #:text (if (rest? notelist/rest)
+                                                         ""
+                                                         (lyrics-text lyrics/skip))
+                                              #:notelist/rests (list notelist/rest))))
+                       (add! verse verse-list)
+                       (set! unfinished-verse (if (lyrics-unfinished lyrics/skip) verse #f))))
+                    ;; Skip
+                    ((skip? lyrics/skip)
+                     (cond
+                      ((rest? notelist/rest)
+                       (if (null? verse-list)
+                           (set! verse-list (list (make-verse #:text ""
+                                                              #:notelist/rests (list notelist/rest))))
+                           (let ((last-verse (last verse-list)))
+                             (set-verse-notelist/rests!
+                              last-verse
+                              (append (verse-notelist/rests last-verse) (list notelist/rest))))))
+                      ((pair? notelist/rest)
+                       (add! (make-verse #:text (*skip-word*) #:notelist/rests (list notelist/rest))
+                             verse-list))
+                      (else
+                       (error "Unreachable branch reached")))
+                     (set! unfinished-verse #f)))
+                   (if (not (rest? notelist/rest))
+                       (set! lyrics/skip-list (cdr lyrics/skip-list)))))))
     (if unfinished-verse
         (set-verse-unfinished! unfinished-verse #t))
     (set-score-notes-verse-block-list!
@@ -816,17 +816,17 @@
                 (let ((text (verse-text verse))
                       (note/rest-list (verse-notelist/rests verse)))
                   (receive (rest-list note-listlist) (partition rest? note/rest-list)
-                           (debug "Rest list" rest-list)
-                           (debug "Note list" note-listlist)
-                           (if (not (null? rest-list))
-                               (set! rest-dur (+ rest-dur (apply + (map rest-duration rest-list)))))
-                           (if (not (null? note-listlist))
-                               (begin
-                                 (if (> rest-dur 0)
-                                     (begin
-                                       (write-rest-element port rest-dur)
-                                       (set! rest-dur 0)))
-                                 (write-lyrics-element port text note-listlist))))))
+                    (debug "Rest list" rest-list)
+                    (debug "Note list" note-listlist)
+                    (if (not (null? rest-list))
+                        (set! rest-dur (+ rest-dur (apply + (map rest-duration rest-list)))))
+                    (if (not (null? note-listlist))
+                        (begin
+                          (if (> rest-dur 0)
+                              (begin
+                                (write-rest-element port rest-dur)
+                                (set! rest-dur 0)))
+                          (write-lyrics-element port text note-listlist))))))
               (handle-music music))
     (if (> rest-dur 0)
         (write-rest-element port rest-dur))))

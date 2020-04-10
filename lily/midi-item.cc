@@ -194,9 +194,9 @@ Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a),
     audio_ (a),
     dynamic_byte_ (std::min (std::max (Byte ((a->dynamic_
-                                    ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f : 0x5a)
-                                   + a->extra_velocity_),
-                             Byte (0)), Byte (0x7f)))
+                                              ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f : 0x5a)
+                                             + a->extra_velocity_),
+                                       Byte (0)), Byte (0x7f)))
 {
 }
 

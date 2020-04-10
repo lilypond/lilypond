@@ -25,7 +25,6 @@
 #include "input.hh"
 #include "duration.hh"
 #include "pitch.hh"
-#include "parser.hh"
 
 bool busy_parsing ();
 void kill_lexer ();
@@ -36,14 +35,14 @@ class Lily_lexer : public Smob<Lily_lexer>, public Includable_lexer
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Lily_lexer ();
-  int scan_word (SCM & output, SCM sym);
+  int scan_word (SCM &output, SCM sym);
 private:
-  int lookup_keyword (const std::string&);
-  int scan_bare_word (const std::string&);
-  int scan_escaped_word (const std::string&);
-  int scan_shorthand (const std::string&);
+  int lookup_keyword (const std::string &);
+  int scan_bare_word (const std::string &);
+  int scan_escaped_word (const std::string &);
+  int scan_shorthand (const std::string &);
   int scan_scm_id (SCM);
   int identifier_type (SCM);
   void push_markup_predicates (SCM sig);

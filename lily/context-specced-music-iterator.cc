@@ -56,7 +56,7 @@ Context_specced_music_iterator::construct_children ()
         {
           Input *origin = get_music ()->origin ();
           origin->warning (_f ("cannot create context: %s",
-                          Context::diagnostic_id (ct, c_id).c_str ()));
+                               Context::diagnostic_id (ct, c_id).c_str ()));
         }
     }
   else

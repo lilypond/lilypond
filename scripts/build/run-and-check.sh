@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Usage run-and-check COMMAND LOGFILE
+
 # Get current working directory; this must be done first since
 # parameter 1 could contain a directory change.
 CurrDir=`pwd`
@@ -21,5 +23,7 @@ if [ $RetVal -ne 0 ]; then
 	echo
 	echo "for errors"
 	echo
+	echo "last 20 lines:"
+	tail -20 "$CurrDir/$2"
 fi
 exit $RetVal

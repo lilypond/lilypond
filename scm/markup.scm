@@ -89,25 +89,25 @@ following stencil.  Stencils with empty Y extent are not given
       ;; @code{table-of-contents} is not caught, same for user-defined commands.
       ;; markup-commands from @code{markup-commands-to-ignore} are removed.
       (lset-difference eq?
-        (map car
-          (filter
-            (lambda (x)
-              (let* ((predicates (markup-command-signature (cdr x))))
-                (and predicates
-                     (not
-                       (null?
-                         (lset-intersection eq?
-                           '(cheap-markup? markup-list?)
-                           (map procedure-name predicates)))))))
-            (ly:module->alist (resolve-module '(lily)))))
-        markup-commands-to-ignore))
+                       (map car
+                            (filter
+                             (lambda (x)
+                               (let* ((predicates (markup-command-signature (cdr x))))
+                                 (and predicates
+                                      (not
+                                       (null?
+                                        (lset-intersection eq?
+                                                           '(cheap-markup? markup-list?)
+                                                           (map procedure-name predicates)))))))
+                             (ly:module->alist (resolve-module '(lily)))))
+                       markup-commands-to-ignore))
 
     ;; helper functions to handle string cons like string lists
     (define (markup-cons->string-cons c scopes)
       (if (not (pair? c)) (markup->string c scopes)
           (cons
-            (markup->string (car c) scopes)
-            (markup-cons->string-cons (cdr c) scopes))))
+           (markup->string (car c) scopes)
+           (markup-cons->string-cons (cdr c) scopes))))
     (define (string-cons-join c)
       (if (not (pair? c)) c
           (string-join (list (car c) (string-cons-join (cdr c))) "")))
@@ -160,10 +160,10 @@ following stencil.  Stencils with empty Y extent are not given
      ((member (car m)
               (primitive-eval (cons 'list all-relevant-markup-commands)))
       (markup->string
-        (if (> (length (last-pair m)) 1)
-            (last-pair m)
-            (car (last-pair m)))
-        scopes))
+       (if (> (length (last-pair m)) 1)
+           (last-pair m)
+           (car (last-pair m)))
+       scopes))
 
      ;; ignore all other markup functions
      ((markup-function? (car m)) "")

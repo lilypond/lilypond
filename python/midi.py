@@ -31,7 +31,7 @@
 # each track is an EVENTLIST, where EVENT is
 #
 #   (time, (type, ARG1, [ARG2]))            # time = cumulative delta time
-                                            # MIDI event: 
+                                            # MIDI event:
                                             #   type = MIDI status+channel >= x80
                                             # META-event  = xFF:
                                             #   type = meta-event type <= x7F
@@ -75,7 +75,7 @@ def _add_constants ():
         (0x06, "MARKER"),
         (0x07, "CUE_POINT"),
         (0x08, "PROGRAM_NAME"), #added MIDI RP-19
-        (0X09, "DEVICE_NAME"),  #added MIDI RP-19 
+        (0X09, "DEVICE_NAME"),  #added MIDI RP-19
         (0x20, "MIDI_CHANNEL_PREFIX"),
         (0x21, "MIDI_PORT"),
         (0x2F, "END_OF_TRACK"),

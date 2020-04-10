@@ -16,32 +16,32 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define (make-bezier-sandwich-stencil coords thick)
-   (make-path-stencil
-       `(moveto
-           ,(car (list-ref coords 0))
-           ,(cdr (list-ref coords 0))
-         curveto
-           ,(car (list-ref coords 1))
-           ,(cdr (list-ref coords 1))
-           ,(car (list-ref coords 2))
-           ,(cdr (list-ref coords 2))
-           ,(car (list-ref coords 3))
-           ,(cdr (list-ref coords 3))
-         curveto
-           ,(car (list-ref coords 4))
-           ,(cdr (list-ref coords 4))
-           ,(car (list-ref coords 5))
-           ,(cdr (list-ref coords 5))
-           ,(car (list-ref coords 0))
-           ,(cdr (list-ref coords 0))
-         closepath)
-       thick
-       1
-       1
-       #t))
+  (make-path-stencil
+   `(moveto
+     ,(car (list-ref coords 0))
+     ,(cdr (list-ref coords 0))
+     curveto
+     ,(car (list-ref coords 1))
+     ,(cdr (list-ref coords 1))
+     ,(car (list-ref coords 2))
+     ,(cdr (list-ref coords 2))
+     ,(car (list-ref coords 3))
+     ,(cdr (list-ref coords 3))
+     curveto
+     ,(car (list-ref coords 4))
+     ,(cdr (list-ref coords 4))
+     ,(car (list-ref coords 5))
+     ,(cdr (list-ref coords 5))
+     ,(car (list-ref coords 0))
+     ,(cdr (list-ref coords 0))
+     closepath)
+   thick
+   1
+   1
+   #t))
 
 (define-public (make-bow-stencil
-           start stop thickness angularity bow-height orientation)
+                start stop thickness angularity bow-height orientation)
   "Create a bow stencil.
 It starts at point @var{start}, ends at point @var{stop}.
 @var{thickness} is the thickness of the bow.
@@ -75,57 +75,57 @@ Limitation: s-curves are currently not supported.
           ;;;; (1) calculate control-points for the horizontal unit-bow,
                ;; y-values for 2nd/3rd control-points
                (outer-control
-                 (* 4/3 (sign orientation) (/ bow-height length-to-print)))
+                (* 4/3 (sign orientation) (/ bow-height length-to-print)))
                (inner-control
-                 (* (sign orientation)
-                    (- (abs outer-control) (/ thickness length-to-print))))
+                (* (sign orientation)
+                   (- (abs outer-control) (/ thickness length-to-print))))
                ;; x-values for 2nd/3rd control-points depending on `angularity'
                (offset-index
-                 (- (* 0.6 angularity) 0.8))
+                (- (* 0.6 angularity) 0.8))
                (left-control
-                 (+ 0.1 (* 0.3 angularity)))
+                (+ 0.1 (* 0.3 angularity)))
                (right-control
-                 (- 1 left-control))
+                (- 1 left-control))
                ;; defining 2nd and 3rd outer control-points
                (left-outer-control-point
-                 (cons left-control outer-control))
+                (cons left-control outer-control))
                (right-outer-control-point
-                 (cons right-control outer-control))
+                (cons right-control outer-control))
                ;; defining 2nd and 3rd inner control-points
                (left-inner-control-point
-                 (cons left-control inner-control))
+                (cons left-control inner-control))
                (right-inner-control-point
-                 (cons right-control inner-control))
+                (cons right-control inner-control))
                (coord-list
-                 (list
-                   '(0 . 0)
-                   left-outer-control-point
-                   right-outer-control-point
-                   '(1 . 0)
-                   right-inner-control-point
-                   left-inner-control-point))
+                (list
+                 '(0 . 0)
+                 left-outer-control-point
+                 right-outer-control-point
+                 '(1 . 0)
+                 right-inner-control-point
+                 left-inner-control-point))
                ;;;; (2) move control-points to match `start' and `stop'
                (moved-coord-list
-                 (map
-                   (lambda (p)
-                     (cons
-                       (+ (car start) (- (* (car p) dx) (* (cdr p) dy)))
-                       (+ (cdr start) (+ (* (car p) dy) (* (cdr p) dx)))))
-                   coord-list)))
+                (map
+                 (lambda (p)
+                   (cons
+                    (+ (car start) (- (* (car p) dx) (* (cdr p) dy)))
+                    (+ (cdr start) (+ (* (car p) dy) (* (cdr p) dx)))))
+                 coord-list)))
 
           ;; final stencil
           (make-bezier-sandwich-stencil
-            moved-coord-list
-            (min (* 2 thickness) line-width))))))
+           moved-coord-list
+           (min (* 2 thickness) line-width))))))
 
 (define* (make-tie-stencil
-            start stop thickness orientation
-            #:optional (height-limit 1.0)(ratio 0.33)(angularity 0.5))
+          start stop thickness orientation
+          #:optional (height-limit 1.0)(ratio 0.33)(angularity 0.5))
   (let* (;; taken from bezier-bow.cc
          (F0_1
-           (lambda (x) (* (/ 2 PI) (atan (* PI x 0.5)))))
+          (lambda (x) (* (/ 2 PI) (atan (* PI x 0.5)))))
          (slur-height
-           (lambda (w h_inf r_0) (* (F0_1 (/ (* w r_0) h_inf)) h_inf)))
+          (lambda (w h_inf r_0) (* (F0_1 (/ (* w r_0) h_inf)) h_inf)))
          (width (abs (- (car start) (car stop))))
          (height (slur-height width height-limit ratio)))
     (make-bow-stencil start stop thickness angularity height orientation)))
@@ -151,8 +151,8 @@ a list of @var{paddings}."
                              (interval-start (ly:stencil-extent next axis)))
                           padding)))
            (ly:stencil-add
-             front
-             (ly:stencil-translate-axis next offset axis))))
+            front
+            (ly:stencil-translate-axis next offset axis))))
        (car stils)
        (cdr stils)
        paddings)))
@@ -203,13 +203,13 @@ the more angular the shape of the parenthesis."
          (stop (cons 0 (cdr y-extent)))
          (line-width 0.1)
          (bow-stil
-           (make-bow-stencil
-             start stop thickness angularity width orientation))
+          (make-bow-stencil
+           start stop thickness angularity width orientation))
          (x-extent (ly:stencil-extent bow-stil X)))
     (ly:make-stencil
-      (ly:stencil-expr bow-stil)
-      (interval-widen x-extent (/ line-width 2))
-      (interval-widen y-extent (/ line-width 2)))))
+     (ly:stencil-expr bow-stil)
+     (interval-widen x-extent (/ line-width 2))
+     (interval-widen y-extent (/ line-width 2)))))
 
 (define-public (parenthesize-stencil
                 stencil half-thickness width angularity padding)
@@ -496,41 +496,41 @@ reset by moveto commands).  @var{previous-point} is a pair of x and y
 coordinates for the previous point in the path."
     (if (pair? path)
         (let*
-         ((head-raw (car path))
-          (rest (cdr path))
-          (head (cond
-                 ((memq head-raw '(rmoveto M m)) 'moveto)
-                 ((memq head-raw '(rlineto L l)) 'lineto)
-                 ((memq head-raw '(rcurveto C c)) 'curveto)
-                 ((memq head-raw '(Z z)) 'closepath)
-                 (else head-raw)))
-          (arity (cond
-                  ((memq head '(lineto moveto)) 2)
-                  ((eq? head 'curveto) 6)
-                  (else 0)))
-          (coordinates-raw (take rest arity))
-          (is-absolute (if (memq head-raw
-                           '(rmoveto m rlineto l rcurveto c)) #f #t))
-          (coordinates (if is-absolute
-                           coordinates-raw
-                           ;; convert relative coordinates to absolute by
-                           ;; adding them to previous point values
-                           (map (lambda (c n)
-                                  (if (even? n)
-                                      (+ c (car previous-point))
-                                      (+ c (cdr previous-point))))
-                             coordinates-raw
-                             (iota arity))))
-          (new-point (if (eq? head 'closepath)
-                         origin
-                         (cons
-                          (list-ref coordinates (- arity 2))
-                          (list-ref coordinates (- arity 1)))))
-          (new-origin (if (eq? head 'moveto)
-                          new-point
-                          origin)))
-         (cons (cons head coordinates)
-           (convert-path (drop rest arity) new-origin new-point)))
+            ((head-raw (car path))
+             (rest (cdr path))
+             (head (cond
+                    ((memq head-raw '(rmoveto M m)) 'moveto)
+                    ((memq head-raw '(rlineto L l)) 'lineto)
+                    ((memq head-raw '(rcurveto C c)) 'curveto)
+                    ((memq head-raw '(Z z)) 'closepath)
+                    (else head-raw)))
+             (arity (cond
+                     ((memq head '(lineto moveto)) 2)
+                     ((eq? head 'curveto) 6)
+                     (else 0)))
+             (coordinates-raw (take rest arity))
+             (is-absolute (if (memq head-raw
+                                    '(rmoveto m rlineto l rcurveto c)) #f #t))
+             (coordinates (if is-absolute
+                              coordinates-raw
+                              ;; convert relative coordinates to absolute by
+                              ;; adding them to previous point values
+                              (map (lambda (c n)
+                                     (if (even? n)
+                                         (+ c (car previous-point))
+                                         (+ c (cdr previous-point))))
+                                   coordinates-raw
+                                   (iota arity))))
+             (new-point (if (eq? head 'closepath)
+                            origin
+                            (cons
+                             (list-ref coordinates (- arity 2))
+                             (list-ref coordinates (- arity 1)))))
+             (new-origin (if (eq? head 'moveto)
+                             new-point
+                             origin)))
+          (cons (cons head coordinates)
+                (convert-path (drop rest arity) new-origin new-point)))
         '()))
 
   (let* ((path-absolute (convert-path path (cons 0 0) (cons 0 0)))
@@ -543,9 +543,9 @@ coordinates for the previous point in the path."
                                          ((= 0 n) c)
                                          ((odd? n) (* c x-scale))
                                          (else (* c y-scale))))
-                                   path-unit
-                                   (iota (length path-unit))))
-                            path-absolute)))
+                                      path-unit
+                                      (iota (length path-unit))))
+                               path-absolute)))
          ;; a path must begin with a 'moveto'
          (path-final (if (eq? 'moveto (car (car path-scaled)))
                          path-scaled
@@ -557,10 +557,10 @@ coordinates for the previous point in the path."
                       (cdr path-headless))))
     (ly:make-stencil
      `(path ,thickness
-        `(,@',(concatenate path-final))
-        'round
-        'round
-        ,(if fill #t #f))
+            `(,@',(concatenate path-final))
+            'round
+            'round
+            ,(if fill #t #f))
      (coord-translate
       ((if (< x-scale 0) reverse-interval identity)
        (cons
@@ -588,7 +588,7 @@ path should be connected or filled, respectively."
             (case (length path-unit)
               ((2) (append (list 'lineto) path-unit))
               ((6) (append (list 'curveto) path-unit))))
-       pointlist)
+          pointlist)
      ;; if this path is connected, add closepath to the end
      (if connect (list '(closepath)) '())))
    thickness x-scale y-scale fill))
@@ -714,14 +714,14 @@ Value @code{Y} (or @code{1}) flips it vertically.  @var{stil} is
 flipped in place; its position, the coordinates of its bounding
 box, remains the same."
   (let* (
-          ;; scale stencil using -1 to flip it and
-          ;; then restore it to its original position
-          (xy (if (= axis X) '(-1 . 1) '(1 . -1)))
-          (flipped-stil (ly:stencil-scale stil (car xy) (cdr xy)))
-          (flipped-ext (ly:stencil-extent flipped-stil axis))
-          (original-ext (ly:stencil-extent stil axis))
-          (offset (- (car original-ext) (car flipped-ext)))
-          (replaced-stil (ly:stencil-translate-axis flipped-stil offset axis)))
+         ;; scale stencil using -1 to flip it and
+         ;; then restore it to its original position
+         (xy (if (= axis X) '(-1 . 1) '(1 . -1)))
+         (flipped-stil (ly:stencil-scale stil (car xy) (cdr xy)))
+         (flipped-ext (ly:stencil-extent flipped-stil axis))
+         (original-ext (ly:stencil-extent stil axis))
+         (offset (- (car original-ext) (car flipped-ext)))
+         (replaced-stil (ly:stencil-translate-axis flipped-stil offset axis)))
     replaced-stil))
 
 (define-public (stencil-with-color stencil color)
@@ -746,8 +746,8 @@ of the white stencil we make between 0 and 2*pi."
   (if (or (not (positive? angle-increments))
           (not (positive? radial-increments)))
       (begin
-       (ly:warning "Both angle-increments and radial-increments must be positive numbers.")
-       stil)
+        (ly:warning "Both angle-increments and radial-increments must be positive numbers.")
+        stil)
       (let* ((angle-inc (/ 360 angle-increments))
              (radial-inc (/ thickness radial-increments)))
 
@@ -756,45 +756,45 @@ of the white stencil we make between 0 and 2*pi."
           (if (<= ang 0)
               new-stil
               (circle-plot (- ang dec) dec radius original-stil
-                (ly:stencil-add
-                 new-stil
-                 (ly:stencil-translate original-stil
-                   (ly:directed ang radius))))))
+                           (ly:stencil-add
+                            new-stil
+                            (ly:stencil-translate original-stil
+                                                  (ly:directed ang radius))))))
 
         (define (radial-plot radius original-stil new-stil)
           (if (<= radius 0)
               new-stil
               (ly:stencil-add new-stil
-                (radial-plot
-                 (- radius radial-inc)
-                 original-stil
-                 (circle-plot 360 angle-inc
-                   radius original-stil empty-stencil)))))
+                              (radial-plot
+                               (- radius radial-inc)
+                               original-stil
+                               (circle-plot 360 angle-inc
+                                            radius original-stil empty-stencil)))))
 
         (let ((whiteout-expr
-                (ly:stencil-expr
-                 (stencil-with-color
-                  (radial-plot thickness stil empty-stencil)
-                  color))))
+               (ly:stencil-expr
+                (stencil-with-color
+                 (radial-plot thickness stil empty-stencil)
+                 color))))
           (ly:stencil-add
-            (ly:make-stencil
-              `(delay-stencil-evaluation ,(delay whiteout-expr)))
-            stil)))))
+           (ly:make-stencil
+            `(delay-stencil-evaluation ,(delay whiteout-expr)))
+           stil)))))
 
 (define*-public (stencil-whiteout-box stil
-                 #:optional (thickness 0) (blot 0) (color white))
+                                      #:optional (thickness 0) (blot 0) (color white))
   "@var{thickness} is how far, as a multiple of line-thickness,
 the white outline extends past the extents of stencil @var{stil}."
   (let*
-   ((x-ext (interval-widen (ly:stencil-extent stil X) thickness))
-    (y-ext (interval-widen (ly:stencil-extent stil Y) thickness)))
+      ((x-ext (interval-widen (ly:stencil-extent stil X) thickness))
+       (y-ext (interval-widen (ly:stencil-extent stil Y) thickness)))
 
-   (ly:stencil-add
-    (stencil-with-color (ly:round-filled-box x-ext y-ext blot) color)
-    stil)))
+    (ly:stencil-add
+     (stencil-with-color (ly:round-filled-box x-ext y-ext blot) color)
+     stil)))
 
 (define*-public (stencil-whiteout stil
-                 #:optional style thickness (line-thickness 0.1))
+                                  #:optional style thickness (line-thickness 0.1))
   "@var{style}, @var{thickness} and @var{line-thickness} are optional
 arguments. If set, @var{style} determines the shape of the white
 background.  Given @code{'outline} the white background is produced
@@ -807,12 +807,12 @@ the white background extends past the extents of stencil @var{stil}.  If
 @var{thickness} has not been specified, an appropriate default is chosen
 based on @var{style}."
   (let ((thick (* line-thickness
-                 (if (number? thickness)
-                     thickness
-                     (cond
-                      ((eq? style 'outline) 3)
-                      ((eq? style 'rounded-box) 3)
-                      (else 0))))))
+                  (if (number? thickness)
+                      thickness
+                      (cond
+                       ((eq? style 'outline) 3)
+                       ((eq? style 'rounded-box) 3)
+                       (else 0))))))
     (cond
      ((eq? style 'special) stil)
      ((eq? style 'outline) (stencil-whiteout-outline stil thick))
@@ -908,18 +908,18 @@ with optional arrows of @code{max-size} on start and end controlled by
                           (make-simple-markup (simple-format #f "~a: NaN/inf" name))))
         (let ((text-stencil (interpret-markup
                              layout text-props
-                             (markup #:whiteout #:simple name)))
+                             (make-whiteout-markup name)))
               (dim-stencil (interpret-markup
                             layout text-props
-                            (markup #:whiteout
-                                    #:simple (cond
-                                              ((interval-empty? extent)
-                                               "empty")
-                                              (is-length
-                                               (ly:format "~$" (interval-length extent)))
-                                              (else
-                                               (ly:format "(~$,~$)"
-                                                          (car extent) (cdr extent)))))))
+                            (make-whiteout-markup
+                             (cond
+                              ((interval-empty? extent)
+                               "empty")
+                              (is-length
+                               (ly:format "~$" (interval-length extent)))
+                              (else
+                               (ly:format "(~$,~$)"
+                                          (car extent) (cdr extent)))))))
               (arrows (ly:stencil-translate-axis
                        (dimension-arrows (cons 0 (interval-length extent)) 1.0)
                        (interval-start extent) Y)))
@@ -949,8 +949,8 @@ with optional arrows of @code{max-size} on start and end controlled by
          (min-dist-blocks (<= (- start-Y-offset min-dist) next-staff-Y))
          (min-dist-color (if min-dist-blocks contrast-color base-color))
          (name-string (if (string-null? name)
-                         ""
-                         (simple-format #f " (~a)" name)))
+                          ""
+                          (simple-format #f " (~a)" name)))
          (basic-annotation
           (annotate-y-interval layout
                                (simple-format #f "basic-dist~a" name-string)
@@ -1047,40 +1047,10 @@ grestore
 
 (use-modules (scm paper-system))
 (define-public (write-system-signature filename paper-system)
-  (define (float? x)
-    (and (number? x) (inexact? x)))
-
   (define system-grob
     (paper-system-system-grob paper-system))
 
   (define output (open-output-file filename))
-
-  ;; todo: optionally use a command line flag? Or just junk this?
-  (define compare-expressions #f)
-  (define (strip-floats expr)
-    "Replace floats by #f"
-    (cond
-     ((float? expr) #f)
-     ((ly:font-metric? expr) (ly:font-name expr))
-     ((pair? expr) (cons (strip-floats (car expr))
-                         (strip-floats (cdr expr))))
-     (else expr)))
-
-  (define (fold-false-pairs expr)
-    "Try to remove lists of #f as much as possible."
-    (if (pair? expr)
-        (let*
-            ((first (car expr))
-             (rest (fold-false-pairs (cdr expr))))
-
-          (if first
-              (cons (fold-false-pairs first) rest)
-              rest))
-        expr))
-
-  (define (raw-string expr)
-    "escape quotes and slashes for python consumption"
-    (regexp-substitute/global #f "[@\n]" (simple-format #f "~a" expr) 'pre " " 'post))
 
   (define (raw-pair expr)
     (simple-format #f "~a ~a"
@@ -1089,33 +1059,18 @@ grestore
   (define (found-grob expr)
     (let*
         ((grob (car expr))
-         (rest (cdr expr))
-         (collected '())
-         (cause (event-cause grob))
-         (input (if (ly:stream-event? cause) (ly:event-property cause 'origin) #f))
-         (location (if (ly:input-location? input) (ly:input-file-line-char-column input) '()))
-
-         ;; todo: use stencil extent if available.
          (x-ext (ly:grob-extent grob system-grob X))
-         (y-ext (ly:grob-extent grob system-grob Y))
-         (expression-skeleton
-          (if compare-expressions
-              (interpret-for-signature
-               #f (lambda (e)
-                    (set! collected (cons e collected)))
-               rest)
-              "")))
+         (y-ext (ly:grob-extent grob system-grob Y)))
 
       (simple-format output
-                     "~a@~a@~a@~a@~a\n"
+                     "~a@~a@~a\n"
                      (cdr (assq 'name (ly:grob-property grob 'meta) ))
-                     (raw-string location)
                      (raw-pair (if (interval-empty? x-ext) '(1 . -1) x-ext))
                      (raw-pair (if (interval-empty? y-ext) '(1 . -1) y-ext))
-                     (raw-string collected))
+                     )
       ))
 
-  (define (interpret-for-signature escape collect expr)
+  (define (interpret-for-signature handle-grob-cause expr)
     (define (interpret expr)
       (let*
           ((head (if (pair? expr)
@@ -1123,7 +1078,7 @@ grestore
                      #f)))
 
         (cond
-         ((eq? head 'grob-cause) (escape (cdr expr)))
+         ((eq? head 'grob-cause) (handle-grob-cause (cdr expr)))
          ((eq? head 'color) (interpret (caddr expr)))
          ((eq? head 'rotate-stencil) (interpret (caddr expr)))
          ((eq? head 'translate-stencil) (interpret (caddr expr)))
@@ -1131,11 +1086,7 @@ grestore
          ;; the expression interpreted.  Right?
          ((eq? head 'with-outline) (interpret (cadr expr)))
          ((eq? head 'combine-stencil)
-          (for-each interpret  (cdr expr)))
-         (else
-          (collect (fold-false-pairs (strip-floats expr))))
-
-         )))
+          (for-each interpret  (cdr expr))))))
 
     (interpret expr))
 
@@ -1143,9 +1094,9 @@ grestore
       (begin
         (display (simple-format #f "# Output signature\n# Generated by LilyPond ~a\n" (lilypond-version))
                  output)
-        (interpret-for-signature found-grob (lambda (x) #f)
+        (interpret-for-signature found-grob
                                  (ly:stencil-expr
                                   (paper-system-stencil paper-system)))))
 
-  ;; should be superfluous, but leaking "too many open files"?
+  ;; Close explicitly so we don't run out of file descriptors
   (close-port output))

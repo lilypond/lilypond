@@ -27,7 +27,7 @@
   @heading 下载 LilyPond @versionDevel
 
 @warning{Links for the stable version of LilyPond can be found at
-@uref{http://lilypond.org, lilypond.org}}
+@uref{https://lilypond.org, lilypond.org}}
 @end ifclear
 @ifset web_version
   @heading 下载 LilyPond @versionStable
@@ -574,7 +574,7 @@ pre-built version.}
 @downloadStableSource{}
 
 For an extensive listing of all versions (old and new), see our
-@uref{http://lilypond.org/download/source/?C=N;O=D,
+@uref{https://lilypond.org/download/source/?C=N;O=D,
 download site}.
 
 @divEnd
@@ -599,7 +599,7 @@ Instructions are listed in @rcontrib{Compiling}.
 @subheading 所有版本
 
 包含所有版本（旧和新）的列表见我们的
-@uref{http://lilypond.org/download/binaries/, download
+@uref{https://lilypond.org/download/binaries/, download
 site}.
 
 @divEnd

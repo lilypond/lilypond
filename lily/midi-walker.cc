@@ -93,8 +93,8 @@ Midi_walker::do_start_note (Midi_note *note)
   for (vsize i = 0; i < stop_note_queue.size (); i++)
     {
       /* if this pitch already in queue, and is not already ignored */
-      if (!stop_note_queue[i].ignore_ &&
-          stop_note_queue[i].val->get_semitone_pitch ()
+      if (!stop_note_queue[i].ignore_
+          && stop_note_queue[i].val->get_semitone_pitch ()
           == note->get_semitone_pitch ())
         {
           int queued_ticks

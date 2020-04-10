@@ -1221,7 +1221,7 @@ des äußeren Kontextes neu positioniert, anstatt innerhalb von ihm
 gesetzt zu werden.
 
 Die @qq{accepts}-Liste eines Kontextes kann mit dem Befehlen
-@code{\accepts} und @code{\denies} verändert werden.  @code{\accepts} 
+@code{\accepts} und @code{\denies} verändert werden.  @code{\accepts}
 fügt einen Kontext zur @qq{accepts}-Liste, und @code{\denies}
 entfernt einen Kontext aus der Liste.  Akkordbezeichnungen sollen
 beispielsweise normalerweise nicht innerhalb eines @code{Staff}-Kontextes
@@ -1254,7 +1254,7 @@ geführt ist.  Wenn er aber benötigt wird, kann er hinzugefügt werden:
 @end lilypond
 
 @code{\denies} wird vorrangig eingesetzt, wenn ein neuer Kontext
-basierend auf einem existierenden erstellt wird, aber sein 
+basierend auf einem existierenden erstellt wird, aber sein
 Schachtelungsverhalten sich unterscheidet.  Der
 @code{VaticanaStaff}-Kontext beispielsweise basiert auf dem
 @code{Staff}-Kontext, hat aber den @code{VaticanaVoice}-Kontext
@@ -2844,7 +2844,7 @@ a
 
 @lilypond[verbatim,quote,relative=2]
 a1
-\compressFullBarRests
+\compressEmptyMeasures
 R1*23
 % increase the length of the rest bar
 \once \override MultiMeasureRest.minimum-length = #20

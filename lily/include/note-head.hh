@@ -34,7 +34,7 @@ public:
   static Real stem_attachment_coordinate (Grob *, Axis a);
   static int get_balltype (Grob *);
 
-  static Offset get_stem_attachment (Font_metric *, const std::string&);
+  static Offset get_stem_attachment (Font_metric *, const std::string &);
 };
 #endif // NOTEHEAD_HH
 

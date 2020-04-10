@@ -109,8 +109,8 @@ Tuplet_iterator::process (Moment m)
 
       if (m.main_part_ < music_get_length ().main_part_)
         {
-          spanner_duration_ =
-            std::min (music_get_length () - next_split_mom_, spanner_duration_);
+          spanner_duration_
+            = std::min (music_get_length () - next_split_mom_, spanner_duration_);
           tuplet_handler_.set_context (get_outlet ());
           report_event (create_event (START));
 
@@ -130,7 +130,7 @@ Tuplet_iterator::construct_children ()
 {
   if (Duration *d = unsmob<Duration> (get_music ()->get_property ("duration")))
     spanner_duration_ = d->get_length ();
-  else if (Moment *mp
+  else if (Moment * mp
            = unsmob<Moment> (get_outlet ()->get_property ("tupletSpannerDuration")))
     spanner_duration_ = mp->main_part_;
   else

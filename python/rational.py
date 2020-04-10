@@ -15,7 +15,7 @@ def _gcf(a, b):
 class Rational(object):
     """
     This class provides an exact representation of rational numbers.
- 
+
     All of the standard arithmetic operators are provided.  In mixed-type
     expressions, an int or a long can be converted to a Rational without
     loss of precision, and will be done as such.

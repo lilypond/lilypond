@@ -17,6 +17,7 @@ contemporary-glissando.ly
 controlling-the-placement-of-chord-fingerings.ly
 creating-blank-staves.ly
 custodes.ly
+customized-drum-notation-in-printed-and-midi-output.ly
 demo-midiinstruments.ly
 embedding-native-postscript-in-a--markup-block.ly
 engravers-one-by-one.ly
@@ -25,7 +26,9 @@ flamenco-notation.ly
 how-to-change-fret-diagram-position.ly
 how-to-put-ties-between-syllables-in-lyrics.ly
 laissez-vibrer-ties.ly
+percussion-example.ly
 score-for-diatonic-accordion.ly
+tam-tam-example.ly
 time-signature-in-parentheses---method-3.ly
 time-signature-in-parentheses.ly
 using-an-extra-voice-for-breaks.ly

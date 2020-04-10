@@ -28,7 +28,7 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
   @heading Downloads for LilyPond @versionDevel
 
 @warning{LilyPond の安定バージョンへのリンクは
-@uref{http://lilypond.org, lilypond.org} にあります。}
+@uref{https://lilypond.org, lilypond.org} にあります。}
 @end ifclear
 @ifset web_version
   @heading LilyPond @versionStable のダウンロード
@@ -572,7 +572,7 @@ lilypond test.ly
 @downloadStableSource{}
 
 新旧すべてのバージョンは、@c
-@uref{http://lilypond.org/download/source/?C=N;O=D,
+@uref{https://lilypond.org/download/source/?C=N;O=D,
 download site}
 でリストアップされています。
 
@@ -600,7 +600,7 @@ download site}
 @c All versions
 
 新旧すべてのバージョンは、@c
-@uref{http://lilypond.org/download/binaries/,ダウンロード サイト}
+@uref{https://lilypond.org/download/binaries/,ダウンロード サイト}
 でリストアップされています。
 
 @divEnd

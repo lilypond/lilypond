@@ -17,7 +17,9 @@ endif
 
 LANGS=$(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
-export PYTHONPATH:=$(top-build-dir)/python/$(outconfbase):$(PYTHONPATH)
+# Don't create __pycache__ in the source directory.
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH:=$(top-src-dir)/python:$(PYTHONPATH)
 
 the-script-dir=$(wildcard $(script-dir))
 
@@ -29,7 +31,7 @@ LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 
 LILYPOND_BOOK_INCLUDES = -I $(src-dir) $(DOCUMENTATION_INCLUDES)
 
-## override from cmd line to speed up. 
+## override from cmd line to speed up.
 ANTI_ALIAS_FACTOR=2
 LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)
 LANG_TEXIDOC_FLAGS:=$(foreach lang,$(LANGS),--header=texidoc$(lang))
@@ -87,4 +89,3 @@ export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out-www
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
 LY2DVI = $(LILYPOND_BINARY)
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely
-

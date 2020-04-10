@@ -31,6 +31,8 @@ import shutil
 @relocate-preamble@
 """
 
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 import lilylib as ly
 
 import convertrules
@@ -93,13 +95,13 @@ def get_option_parser ():
                  action="help",
                  help=_ ("show this help and exit"))
 
-    p.add_option ('-f', '--from', 
+    p.add_option ('-f', '--from',
               action="store",
               metavar=_ ("VERSION"),
               dest="from_version",
               help=_ ("start from VERSION [default: \\version found in file]"),
               default='')
-    
+
     p.add_option ('-e', '--edit', help=_ ("edit in place"),
               action='store_true')
 
@@ -154,7 +156,7 @@ def get_option_parser ():
                         description=(
             _ ("Report bugs via %s")
             % 'bug-lilypond@gnu.org') + '\n')
-    
+
     return p
 
 def str_to_tuple (s):
@@ -316,7 +318,7 @@ def do_one_file (infile_name):
         outfile = sys.stdout
 
     outfile.write (result)
-    
+
     sys.stderr.flush ()
 
     return errors

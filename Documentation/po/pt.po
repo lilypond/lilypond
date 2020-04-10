@@ -1866,7 +1866,7 @@ msgstr "Set stems, etc., down"
 #. Documentation/notation/changing-defaults.itely:439 (context id)
 #. Documentation/notation/changing-defaults.itely:448 (context id)
 #. Documentation/snippets/adding-fingerings-to-tablatures.ly:20 (variable)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:138 (variable)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:138 (variable)
 #. Documentation/snippets/jazz-combo-template.ly:187 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:195 (context id)
 #. Documentation/snippets/overriding-articulations-of-destinct-type.ly:71 (variable)
@@ -10867,7 +10867,7 @@ msgstr ""
 
 #. Documentation/snippets/changing-the-default-bar-lines.ly:21 (comment)
 msgid ""
-"=> http://lilypond.1069038.n5.nabble.com/Changing-the-default-end-repeat-"
+"=> https://lilypond.1069038.n5.nabble.com/Changing-the-default-end-repeat-"
 "bracket-tc169357.html"
 msgstr ""
 
@@ -10900,8 +10900,8 @@ msgstr ""
 #. Documentation/snippets/changing-the-default-text-font-family.ly:27 (comment)
 #. Documentation/snippets/creating-blank-staves.ly:53 (comment)
 #. Documentation/snippets/creating-blank-staves.ly:65 (comment)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:83 (comment)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:87 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:83 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:87 (comment)
 #. Documentation/snippets/engravers-one-by-one.ly:156 (comment)
 #. Documentation/snippets/let-tabstaff-print-the-topmost-string-at-bottom.ly:27 (comment)
 #. Documentation/snippets/let-tabstaff-print-the-topmost-string-at-bottom.ly:31 (comment)
@@ -11111,267 +11111,267 @@ msgstr ""
 msgid "down"
 msgstr "Abaixo"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:25 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:25 (comment)
 #, fuzzy
 msgid "This snippet tries to amend"
 msgstr "_Corrigir commit anterior"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:26 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:26 (comment)
 msgid "NR 2.5.1 Common notation for percussion - Custom percussion staves"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:27 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:27 (comment)
 msgid ""
-"http://lilypond.org/doc/v2.18/Documentation/notation/common-notation-for-"
+"https://lilypond.org/doc/v2.18/Documentation/notation/common-notation-for-"
 "percussion#custom-percussion-staves"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:31 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:31 (comment)
 msgid ""
 "To use custom drum-pitch-names for your score and midi you need to follow"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:32 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:32 (comment)
 #, fuzzy
 msgid "this route:"
 msgstr "%d. rota não pode ser uma rota padrão"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:35 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:35 (comment)
 #, fuzzy
 msgid "LAYOUT:"
 msgstr "_Disposição"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:38 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:38 (comment)
 msgid "(1) Define a name and put it in `drumPitchNames'"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:39 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:39 (comment)
 #, fuzzy
 msgid "This can be done at toplevel with"
 msgstr "Nível superior"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:40 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:40 (comment)
 #, fuzzy
 msgid "drumPitchNames #'my-name  = #'my-name"
 msgstr "Meu nome é $name. Eu estou investigando o roubo."
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:41 (comment)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:71 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:41 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:71 (comment)
 #, fuzzy
 msgid "or shorter:"
 msgstr "A faixa tem menos de 6 segundos"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:42 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:42 (comment)
 msgid "drumPitchNames.my-name  = #'my-name"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:43 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:43 (comment)
 msgid "It's possible to add an alias as well."
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:44 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:44 (comment)
 msgid "(2) Define how it should be printed"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:45 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:45 (comment)
 msgid "Therefore put them into a toplevel-list, where each entry should look:"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:46 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:46 (comment)
 #, fuzzy
 msgid "(my-name"
 msgstr ""
 "Meu nome é Jelom e eu sou o chefe da guarda em Waste's Edge! Quem diabos é "
 "você?"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:47 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:47 (comment)
 #, fuzzy
 msgid "note-head-style-or-default"
 msgstr "Propriedades padrões da nota"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:48 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:48 (comment)
 #, fuzzy
 msgid "articulation-string-or-#f"
 msgstr "Texto de _encaminhamento:"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:49 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:49 (comment)
 #, fuzzy
 msgid "staff-position)"
 msgstr "Produção"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:50 (comment)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:77 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:50 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:77 (comment)
 #. Documentation/snippets/overriding-articulations-of-destinct-type.ly:49 (comment)
 msgid "Example:"
 msgstr "Exemplo:"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:51 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:51 (comment)
 #, fuzzy
 msgid "#(define my-style"
 msgstr "my"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:52 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:52 (comment)
 msgid "'("
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:53 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:53 (comment)
 msgid "(my-name default \\\"tenuto\\\" -1)"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:54 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:54 (comment)
 msgid "; ..."
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:55 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:55 (comment)
 msgid "))"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:56 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:56 (comment)
 msgid "(3) Tell LilyPond to use this custom-definitions, with"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:57 (comment)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:81 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:57 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:81 (comment)
 msgid "drumStyleTable = #(alist->hash-table my-style)"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:58 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:58 (comment)
 #, fuzzy
 msgid "in a \\layout or \\with"
 msgstr "sem disposição"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:60 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:60 (comment)
 msgid "Now we're done for layout, here a short, but complete example:"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:61 (comment)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:79 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:61 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:79 (comment)
 #, fuzzy
 msgid "\\new DrumStaff"
 msgstr "_Nova..."
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:62 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:62 (comment)
 msgid "\\with { drumStyleTable = #(alist->hash-table my-style) }"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:63 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:63 (comment)
 #, fuzzy
 msgid "\\drummode { my-name }"
 msgstr "my"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:66 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:66 (comment)
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:69 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:69 (comment)
 msgid "(1) Again at toplvel, assign a pitch to your custom-note-name"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:70 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:70 (comment)
 msgid "midiDrumPitches #'my-name = #(ly:make-pitch -1 4 FLAT)"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:72 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:72 (comment)
 msgid "midiDrumPitches.my-name = ges"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:73 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:73 (comment)
 msgid ""
 "Note that you have to use the name, which is in drumPitchNames, no alias"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:74 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:74 (comment)
 msgid "(2) Tell LilyPond to use this pitch(es), with"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:75 (comment)
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:82 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:75 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:82 (comment)
 msgid "drumPitchTable = #(alist->hash-table midiDrumPitches)"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:78 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:78 (comment)
 #, fuzzy
 msgid "\\score {"
 msgstr "Por pontuação"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:80 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:80 (comment)
 msgid "\\with {"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:84 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:84 (comment)
 msgid "\\drummode { my-name4 }"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:85 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:85 (comment)
 #, fuzzy
 msgid "\\layout {}"
 msgstr "sem disposição"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:86 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:86 (comment)
 #, fuzzy
 msgid "\\midi {}"
 msgstr "MIDI:"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:90 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:90 (comment)
 #, fuzzy
 msgid "TESTING"
 msgstr "Testando %s"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:93 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:93 (comment)
 msgid "To test whether all is fine, run the following sequence in terminal:"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:94 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:94 (comment)
 #, fuzzy
 msgid "lilypond my-file.ly"
 msgstr "Lilypond-book:"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:95 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:95 (comment)
 #, fuzzy
 msgid "midi2ly my-file.midi"
 msgstr ""
 "\n"
 "my_connection.disconnect();\n"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:96 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:96 (comment)
 #, fuzzy
 msgid "gedit my-file-midi.ly"
 msgstr "Use o painel lateral do gedit como um navegador de arquivos."
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:98 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:98 (comment)
 #, fuzzy
 msgid "Which will do:"
 msgstr "Que ação você deseja executar no(s) arquivo(s) selecionado(s)?"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:99 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:99 (comment)
 #, fuzzy
 msgid "1. create pdf and midi"
 msgstr "Criar uma cópia exata de um CD/DVD"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:100 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:100 (comment)
 msgid "2. transform the midi back to a .ly-file"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:101 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:101 (comment)
 msgid ""
 "(note: midi2ly is not always good in correctly identifying enharmonic "
 "pitches)"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:102 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:102 (comment)
 msgid "3. open this file in gedit (or use another editor)"
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:103 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:103 (comment)
 msgid "Now watch what you've got."
 msgstr ""
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:108 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:108 (comment)
 #, fuzzy
 msgid "FULL EXAMPLE"
 msgstr "Exemplo completo"
 
-#. Documentation/snippets/customize-drumpitchnames,-drumstyletable-and-drumpitchtable-in-layout-and-midi.ly:112 (comment)
+#. Documentation/snippets/customized-drum-notation-in-printed-and-midi-output.ly:112 (comment)
 #, fuzzy
 msgid "'db is in use already"
 msgstr "[BD]"
@@ -14142,7 +14142,7 @@ msgid "http://lsr.di.unimi.it/LSR/Item?id=822"
 msgstr ""
 
 #. Documentation/snippets/rhythms-headword.ly:20 (comment)
-msgid "see also http://lilypond.org/doc/v2.18/Documentation/notation/rhythms"
+msgid "see also https://lilypond.org/doc/v2.18/Documentation/notation/rhythms"
 msgstr ""
 
 #. Documentation/snippets/rhythms-headword.ly:22 (comment)
@@ -14511,7 +14511,7 @@ msgstr ""
 
 #. Documentation/snippets/simultaneous-headword.ly:20 (comment)
 msgid ""
-"see also http://lilypond.org/doc/v2.18/Documentation/notation/simultaneous-"
+"see also https://lilypond.org/doc/v2.18/Documentation/notation/simultaneous-"
 "notes"
 msgstr ""
 
@@ -14768,7 +14768,7 @@ msgid "http://lsr.di.unimi.it/LSR/Item?id=829"
 msgstr ""
 
 #. Documentation/snippets/text-headword.ly:20 (comment)
-msgid "see also http://lilypond.org/doc/v2.18/Documentation/notation/text"
+msgid "see also https://lilypond.org/doc/v2.18/Documentation/notation/text"
 msgstr ""
 
 #. Documentation/snippets/text-headword.ly:24 (comment)
@@ -15503,7 +15503,7 @@ msgstr ""
 
 #. Documentation/snippets/vocal-headword.ly:20 (comment)
 msgid ""
-"see also http://lilypond.org/doc/v2.18/Documentation/notation/vocal-music"
+"see also https://lilypond.org/doc/v2.18/Documentation/notation/vocal-music"
 msgstr ""
 
 #. Documentation/snippets/vocal-headword.ly:22 (comment)
@@ -15565,7 +15565,7 @@ msgstr ""
 
 #. Documentation/snippets/wind-headword.ly:23 (comment)
 msgid ""
-"see also http://lilypond.org/doc/v2.18/Documentation/notation/wind-"
+"see also https://lilypond.org/doc/v2.18/Documentation/notation/wind-"
 "instruments"
 msgstr ""
 

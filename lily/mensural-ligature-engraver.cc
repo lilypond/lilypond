@@ -180,7 +180,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
           // b. descendens longa or brevis
           else if (i < s - 1
                    && (unsmob<Pitch> (primitives[i + 1].event_cause ()
-                                     ->get_property ("pitch"))->steps () < pitch)
+                                      ->get_property ("pitch"))->steps () < pitch)
                    && duration_log > -3)
             {
               int left_stem = duration_log == -1 ? MLP_DOWN : 0;
@@ -491,7 +491,6 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
       < min_length)
     ligature->set_property ("minimum-length", scm_from_double (min_length));
 }
-
 
 void
 Mensural_ligature_engraver::boot ()

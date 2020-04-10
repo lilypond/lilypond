@@ -36,9 +36,9 @@ public:
   std::string find (const std::string &name, char const *extensions[]);
   std::string to_string () const;
   bool try_append (std::string str);
-  void append (const std::string&);
-  void parse_path (const std::string&);
-  void prepend (const std::string&);
+  void append (const std::string &);
+  void parse_path (const std::string &);
+  void prepend (const std::string &);
 };
 
 bool is_file (const std::string &file_name);

@@ -128,8 +128,7 @@ Engraver::internal_make_grob (SCM symbol,
   else
     {
       SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
-      SCM klass = scm_cdr (
-          scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
+      SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
 
       if (scm_is_eq (klass, ly_symbol2scm ("Item")))
         grob = new Item (props);

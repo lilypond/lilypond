@@ -30,7 +30,6 @@
 #include <cstdio>
 #include <sstream>
 
-
 #include "file-name-map.hh"
 #include "international.hh"
 #include "misc.hh"
@@ -333,8 +332,7 @@ Source_file::c_str () const
 
 /****************************************************************/
 
-
-const char * const Source_file::type_p_name_ = "ly:source-file?";
+const char *const Source_file::type_p_name_ = "ly:source-file?";
 
 int
 Source_file::print_smob (SCM port, scm_print_state *) const

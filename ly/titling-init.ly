@@ -14,7 +14,7 @@ tagline = \markup {
   \pad-to-box #'(0 . 0) #'(0 . 3)
   {  \with-url
 
-    "http://lilypond.org/"
+    "https://lilypond.org/"
     \line {
 
       %% 2014 = em dash.

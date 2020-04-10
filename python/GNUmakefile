@@ -2,19 +2,26 @@ depth = ..
 
 SUBDIRS=auxiliar
 
-STEPMAKE_TEMPLATES=python-module install-out po
+STEPMAKE_TEMPLATES=install-out install po
+
+PY_MODULES_IN = $(call src-wildcard,*.py)
+OUT_PY_MODULES = $(PY_MODULES_IN:%=$(outdir)/%)
 
 include $(depth)/make/stepmake.make
 
-# unset al guile stuff from configure
-CONFIG_LDFLAGS=
+$(outdir)/%.py: %.py
+	$(call ly_progress,Making,$@,(py compile))
+	cp $< $@
+	PYTHONOPTIMIZE= $(PYTHON) -c 'import py_compile; py_compile.compile ("$@", doraise=True)'
+	chmod 755 $@
 
-INSTALLATION_OUT_DIR=$(local_lilypond_datadir)/python
-INSTALLATION_OUT_FILES=$(OUT_PY_MODULES)
+default: $(OUT_PY_MODULES)
 
-default: $(outdir)/relocate-preamble.py
+INSTALLATION_DIR = $(local_lilypond_datadir)/python
+INSTALLATION_FILES = $(filter-out $(call src-wildcard, *_test.py), $(PY_MODULES_IN))
 
-$(outdir)/relocate-preamble.py: $(depth)/VERSION
+INSTALLATION_OUT_DIR = $(local_lilypond_datadir)/python/__pycache__
+INSTALLATION_OUT_FILES = $(wildcard $(outdir)/__pycache__/*.pyc)
 
-local-test:
-	$(PYTHON) book_base_test.py
+local-test: book_base_test.py
+	$(PYTHON) $<

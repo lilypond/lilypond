@@ -99,8 +99,7 @@ Grob_array::filter_map_assign (const Grob_array &src,
     filter_map (map_fun);
 }
 
-const char * const Grob_array::type_p_name_ = "ly:grob-array?";
-
+const char *const Grob_array::type_p_name_ = "ly:grob-array?";
 
 SCM
 grob_list_to_grob_array (SCM lst)

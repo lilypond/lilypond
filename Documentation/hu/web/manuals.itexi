@@ -199,8 +199,8 @@ olvasásra nem praktikus követni, csak az egész tankönyv elolvasása után, a
 @docLinks{Tankönyv, learning,
   @rlearningnamed{Top,Tankönyv},
   @manualStableLearningSplit-hu,
-  @manualStableLearningBig-hu, 1.5 MB,
-  @manualStableLearningPdf-hu, 3 MB}
+  @manualStableLearningBig-hu,
+  @manualStableLearningPdf-hu}
 
 @divEnd
 
@@ -222,8 +222,8 @@ megfelelőjére vagy kíváncsi, érdemes megnézni a fogalomtárban.
 @docLinks{Fogalomtár, music-glossary,
   @rglosnamed{Top,Fogalomtár},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig,
+  @manualStableGlossaryPdf}
 
 @divEnd
 
@@ -248,8 +248,8 @@ majd felületesen bemutatja a LilyPond szedési technikáit,
 @docLinks{Esszé, essay,
   @ressaynamed{Top,Esszé},
   @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssayBig,
+  @manualStableEssayPdf}
 
 @divEnd
 
@@ -274,8 +274,8 @@ megfelelőjét, melyek a @ref{Fogalomtár}ban vannak leírva.}
 @docLinks{Kottaírás, notation,
   @rusernamed{Top,Kottaírás},
   @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationBig,
+  @manualStableNotationPdf}
 
 @divEnd
 
@@ -299,8 +299,8 @@ Ajánlott elolvasni, mielőtt nagy művek bevitelébe kezd az ember.
 @docLinks{Használat, usage,
   @rprogramnamed{Top,Használat},
   @manualStableUsageSplit-hu,
-  @manualStableUsageBig-hu, 300 KB,
-  @manualStableUsagePdf-hu, 400 KB}
+  @manualStableUsageBig-hu,
+  @manualStableUsagePdf-hu}
 
 @divEnd
 
@@ -325,8 +325,8 @@ A kottaírás kézikönyvének megfelelő szakaszaiban is találhatóak ilyenek 
 @docLinks{Kódrészletek, snippets,
   @rlsrnamed{Top,Kódrészletek},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsBig,
+  @manualStableSnippetsPdf}
 
 @divEnd
 
@@ -398,8 +398,8 @@ fejlesztőkig.
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit-hu,
-  @manualDevelWebBig-hu, 1 MB,
-  @manualDevelWebPdf-hu, 2 MB}
+  @manualDevelWebBig-hu,
+  @manualDevelWebPdf-hu}
 
 @divEnd
 
@@ -420,8 +420,8 @@ az előző stabil verzió óta.
 @docLinks{Változások, changes,
   @rchangesnamed{Top,Változások},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 
@@ -442,8 +442,8 @@ Scheme nyelven írt bővítményekkel.
 @docLinks{Bővítés, extending,
   @rextendnamed{Top,Bővítés},
   @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingBig,
+  @manualStableExtendingPdf}
 
 @divEnd
 
@@ -466,8 +466,8 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @docLinks{Belső működés, internals,
   @rinternalsnamed{Top,Belső működés},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsBig,
+  @manualStableInternalsPdf}
 
 @divEnd
 
@@ -492,7 +492,7 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @subheading Letölthető változatok
 
 @ifclear web_version
-A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
+A csomagok letölthetőek a @uref{https://lilypond.org} weboldalról.
 @end ifclear
 @ifset web_version
 
@@ -514,37 +514,37 @@ A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals,
 2.14}
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.12/Documentation/,
 2.12}
 
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.11/Documentation/,
 2.11}
 
-@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.10/Documentation/,
 2.10}
 
-@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.8/Documentation/,
 2.8}
 
-@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+@item @uref{https://lilypond.org/doc/v2.6/Documentation/,
 2.6}
 
-@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.4/Documentation/out-www/,
 2.4}
 
-@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.2/Documentation/out-www/,
 2.2}
 
-@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v2.0/Documentation/out-www/,
 2.0}
 
-@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.8/Documentation/out-www/,
 1.8}
 
-@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+@item @uref{https://lilypond.org/doc/v1.6/Documentation/out-www/,
 1.6}
 
 @end itemize

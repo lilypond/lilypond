@@ -647,7 +647,7 @@ Olvasd el a tudnivalókat a @ref{Szöveges bevitel, szöveges bevitelről}.
 @translationof Text input
 
 @c TRANSLATORS: so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @subheading A LilyPond működése
 
@@ -771,7 +771,7 @@ szerkesztőprogramokkal!
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://lilypondtool@/.organum@/.hu}
+@uref{https://lilypondtool@/.organum@/.hu}
 
 A magyar fejlesztésű LilyPondTool a @uref{http://@/www@/.jedit@/.org@/,jEdit}
 szövegszerkesztő bővítménye, és a legtöbbet tudó integrált LilyPond-környezet.
@@ -860,7 +860,7 @@ szerkesztéséhez.
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
 
-@uref{http://lilykde.googlecode.com/}
+@uref{https://lilykde.googlecode.com/}
 
 A LilyKDE a @uref{http://kate-editor.org/,Kate} KDE-s szövegszerkesztő egy
 beépülő modulja.

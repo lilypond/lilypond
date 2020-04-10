@@ -252,8 +252,6 @@ Piano_pedal_align_engraver::finalize ()
     }
 }
 
-
-
 void
 Piano_pedal_align_engraver::boot ()
 {

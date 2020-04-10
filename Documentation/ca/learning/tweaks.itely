@@ -707,7 +707,7 @@ manual de Referència de Funcionament Intern, abreujadament
 RFI@footnote{@strong{IR} (Internals Reference) en anglès}.
 
 L'RFI és la versió del LilyPond que esteu usant es pot trobar a la
-pàgina web del LilyPond a @uref{http://lilypond.org}.  Aneu a la
+pàgina web del LilyPond a @uref{https://lilypond.org}.  Aneu a la
 pàgina de la documentació i seguiu l'enllaç Manual de Referència
 de Funcionament Intern (RFI).  Per als nostres propòsits
 pedagògics seria millor que utilitzéssiu la versió en HTML, no la

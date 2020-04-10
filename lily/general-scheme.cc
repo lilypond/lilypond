@@ -597,7 +597,9 @@ LY_DEFINE (ly_format, "ly:format",
     }
   *ptr = '\0';
 
-  return scm_take_locale_stringn (result, len);
+  SCM ret = scm_from_utf8_stringn (result, len);
+  free (result);
+  return ret;
 }
 
 int
@@ -644,7 +646,7 @@ LY_DEFINE (ly_spawn, "ly:spawn",
   LY_ASSERT_TYPE (scm_is_string, command, 1);
 
   long argc = scm_is_pair (rest) ? scm_ilength (rest) : 0;
-  char **argv = new char*[argc + 2];
+  char **argv = new char *[argc + 2];
 
   int n = 0;
   argv[n++] = ly_scm2utf8 (command);

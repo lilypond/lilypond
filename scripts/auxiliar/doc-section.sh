@@ -160,7 +160,7 @@ $BROWSER $OUTPUT_DIR/out/$SECTION.html
 
 cat <<EOF
 
-If you want to avoid recompiling the snippets on the next 
+If you want to avoid recompiling the snippets on the next
 invocation with '$MANUAL $SECTION', answer 'n' to the next question.
 
 EOF

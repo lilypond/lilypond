@@ -133,7 +133,7 @@ Dynamic_performer::Dynamic_performer (Context *c)
     state_ (STATE_INITIAL)
 {
   span_events_[LEFT]
-  = span_events_[RIGHT] = 0;
+    = span_events_[RIGHT] = 0;
 }
 
 void
@@ -141,9 +141,10 @@ Dynamic_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   // Keep track of the notes played in this translation time step so that they
   // can be pointed to the current dynamic in stop_translation_timestep.
-  if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_)) {
-    notes_.push_back (n);
-  }
+  if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
+    {
+      notes_.push_back (n);
+    }
 }
 
 bool
@@ -184,7 +185,7 @@ Dynamic_performer::close_and_enqueue_span ()
   else
     {
       DynamicQueue &dq
-      = (state_ == STATE_RETURN) ? return_queue_ : depart_queue_;
+        = (state_ == STATE_RETURN) ? return_queue_ : depart_queue_;
 
       // Changing equalizer settings in the course of the performance does not
       // seem very likely.  This is a fig leaf: Equalize these limit volumes
@@ -195,7 +196,7 @@ Dynamic_performer::close_and_enqueue_span ()
       // with dynamicAbsoluteVolumeFunction, however that would yield 0.25.)
       const Real min_target = equalize_volume (0.1);
       const Real max_target
-      = equalize_volume (Audio_span_dynamic::MAXIMUM_VOLUME);
+        = equalize_volume (Audio_span_dynamic::MAXIMUM_VOLUME);
 
       open_span_.dynamic_->set_end_moment (now_mom ());
       dq.push_back (open_span_, min_target, max_target);
@@ -272,9 +273,9 @@ Dynamic_performer::compute_departure_volume (Direction depart_dir,
   const Real vol_range = max_vol - min_vol;
 
   const Real near_vol = minmax (depart_dir, start_vol, end_vol)
-                    + depart_dir * near_padding * vol_range;
+                        + depart_dir * near_padding * vol_range;
   const Real far_vol = minmax (-depart_dir, start_vol, end_vol)
-                   + depart_dir * far_padding * vol_range;
+                       + depart_dir * far_padding * vol_range;
   const Real depart_vol = minmax (depart_dir, near_vol, far_vol);
   return std::max (std::min (depart_vol, max_vol), min_vol);
 }
@@ -431,9 +432,9 @@ Dynamic_performer::process_music ()
         volume = equalize_volume (Audio_span_dynamic::DEFAULT_VOLUME);
 
       Stream_event *cause
-      = span_events_[START] ? span_events_[START]
-        : script_event_ ? script_event_
-        : span_events_[STOP];
+        = span_events_[START] ? span_events_[START]
+          : script_event_ ? script_event_
+          : span_events_[STOP];
 
       open_span_.dynamic_ = new Audio_span_dynamic (now_mom (), volume);
       open_span_.grow_dir_ = next_grow_dir_;
@@ -446,7 +447,7 @@ Dynamic_performer::stop_translation_timestep ()
 {
   // link notes to the current dynamic
   if (!open_span_.dynamic_)
-    programming_error("no current dynamic");
+    programming_error ("no current dynamic");
   else
     {
       for (vector<Audio_note *>::const_iterator ni = notes_.begin ();
@@ -459,7 +460,7 @@ Dynamic_performer::stop_translation_timestep ()
 
   script_event_ = 0;
   span_events_[LEFT]
-  = span_events_[RIGHT] = 0;
+    = span_events_[RIGHT] = 0;
   next_grow_dir_ = CENTER;
 }
 

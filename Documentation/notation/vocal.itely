@@ -44,6 +44,7 @@ This section discusses issues common to most types of vocal music.
 * Multiple syllables to one note::
 * Multiple notes to one syllable::
 * Extenders and hyphens::
+* Gradual changes of vowel::
 @end menu
 
 
@@ -859,6 +860,48 @@ distance between two syllables) and the @code{minimum-length}
 Internals Reference:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
+
+
+@node Gradual changes of vowel
+@unnumberedsubsubsec Gradual changes of vowel
+
+@cindex vowel transition
+
+Vowel transitions (gradual changes of vowel or sustained
+consonant), which may be indicated by arrows between syllables,
+are entered with the command @code{\vowelTransition} (see
+Gould pp. 452--453).  The arrow shows the length of
+the transition, and it is by default always drawn (space is
+added if necessary in tightly engraved music).  Ties between
+notes of unchanged pitch or slurs show that there is no
+new articulation, despite a change of vowel.  The minimum length
+of the arrows may be adjusted with the @code{minimum-length}
+property of @code{VowelTransition}.
+
+@lilypond[verbatim,quote]
+{
+  c'2 c'
+  \set melismaBusyProperties = #'()
+  c'2 ~ c'
+  \time 3/2
+  d'4( e' f' e' f'2
+  e'2.)
+}
+\addlyrics
+{
+  Ah \vowelTransition oh,
+  ah \vowelTransition oh,
+  ah \vowelTransition _ _ _ _
+  oh.
+}
+@end lilypond
+
+@seealso
+Musical Glossary:
+@rglos{vowel transition}.
+
+Internals Reference:
+@rinternals{VowelTransition}.
 
 
 @node Techniques specific to lyrics

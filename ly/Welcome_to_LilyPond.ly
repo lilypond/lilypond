@@ -25,19 +25,19 @@ Next, you'll want to get started on your own scores.  To do this you'll
   need to learn about using LilyPond.
 
 LilyPond's interface is text-based, rather than graphical. Please visit the
-  help page at http://lilypond.org/introduction.html.  This will
+  help page at https://lilypond.org/introduction.html.  This will
   point you to a quick tutorial and extensive documentation.
 
 Good luck with LilyPond!  Happy engraving.
 
 %}
 
-\version "2.19.84"  % necessary for upgrading to future LilyPond versions.
+\version "2.21.0"  % necessary for upgrading to future LilyPond versions.
 
 \header{
   title = "A scale in LilyPond"
   subtitle = "For more information on using LilyPond, please see
-http://lilypond.org/introduction.html"
+https://lilypond.org/introduction.html"
 }
 
 \relative {

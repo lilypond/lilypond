@@ -497,8 +497,8 @@
                   ((= errno EEXIST)
                    (begin
                      (ly:debug
-                       (_ "Font file `~a' already exists, skipping.")
-                       filename)
+                      (_ "Font file `~a' already exists, skipping.")
+                      filename)
                      #f))
                   ;; If the cause is something else, re-throw the error.
                   (#t
@@ -513,7 +513,7 @@
                 (begin
                   (display "%%BeginProlog\n" port)
                   (format port
-"/lilypond-datadir where {pop} {userdict /lilypond-datadir (~a) put } ifelse\n"
+                          "/lilypond-datadir where {pop} {userdict /lilypond-datadir (~a) put } ifelse\n"
                           (ly:get-option 'datadir))))
             (format port "%%BeginFont: ~a\n" name)
             (display body port)
@@ -612,33 +612,33 @@
 
   (if (module? header)
       (begin
-       (display "mark " port)
-       (metadata-lookup-output 'pdfauthor 'author "Author")
-       (format port "/Creator (LilyPond ~a)\n" (lilypond-version))
-       (metadata-lookup-output 'pdftitle 'title "Title")
-       (metadata-lookup-output 'pdfsubject 'subject "Subject")
-       (metadata-lookup-output 'pdfkeywords 'keywords "Keywords")
-       (metadata-lookup-output 'pdfmodDate 'modDate "ModDate")
-       (metadata-lookup-output 'pdfsubtitle 'subtitle "Subtitle")
-       (metadata-lookup-output 'pdfcomposer 'composer "Composer")
-       (metadata-lookup-output 'pdfarranger 'arranger "Arranger")
-       (metadata-lookup-output 'pdfpoet 'poet "Poet")
-       (metadata-lookup-output 'pdfcopyright 'copyright "Copyright")
-       (display "/DOCINFO pdfmark\n\n" port)))
+        (display "mark " port)
+        (metadata-lookup-output 'pdfauthor 'author "Author")
+        (format port "/Creator (LilyPond ~a)\n" (lilypond-version))
+        (metadata-lookup-output 'pdftitle 'title "Title")
+        (metadata-lookup-output 'pdfsubject 'subject "Subject")
+        (metadata-lookup-output 'pdfkeywords 'keywords "Keywords")
+        (metadata-lookup-output 'pdfmodDate 'modDate "ModDate")
+        (metadata-lookup-output 'pdfsubtitle 'subtitle "Subtitle")
+        (metadata-lookup-output 'pdfcomposer 'composer "Composer")
+        (metadata-lookup-output 'pdfarranger 'arranger "Arranger")
+        (metadata-lookup-output 'pdfpoet 'poet "Poet")
+        (metadata-lookup-output 'pdfcopyright 'copyright "Copyright")
+        (display "/DOCINFO pdfmark\n\n" port)))
 
   (if (ly:get-option 'embed-source-code)
       (let ((source-list (delete-duplicates
                           (remove (lambda (str)
                                     (or
                                      (string-contains str
-                                       (ly:get-option 'datadir))
+                                                      (ly:get-option 'datadir))
                                      (string=? str
-                                       "<included string>")))
-                            (ly:source-files)))))
-         (display "\n/pdfmark where
+                                               "<included string>")))
+                                  (ly:source-files)))))
+        (display "\n/pdfmark where
 {pop} {userdict /pdfmark /cleartomark load put} ifelse" port)
-         (for-each (lambda (fname idx)
-                     (format port "\n
+        (for-each (lambda (fname idx)
+                    (format port "\n
 mark /_objdef {ly~a_stream} /type /stream   /OBJ pdfmark
 mark {ly~a_stream} << /Type /EmbeddedFile>> /PUT pdfmark
 mark {ly~a_stream} (~a) /PUT pdfmark
@@ -646,10 +646,10 @@ mark /Name (LilyPond source file ~a)
 /FS << /Type /Filespec /F (~a) /EF << /F {ly~a_stream} >> >> /EMBED pdfmark
 mark {ly~a_stream} /CLOSE pdfmark
 \n"
-                idx idx idx
-                (ps-quote (ly:gulp-file fname))
-                  idx fname idx idx))
-          source-list (iota (length source-list))))))
+                            idx idx idx
+                            (ps-quote (ly:gulp-file fname))
+                            idx fname idx idx))
+                  source-list (iota (length source-list))))))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((port-tmp (make-tmpfile))

@@ -39,19 +39,19 @@ The linked objects are colored with a separate command.
 %%%% test
 
 urlI =
-"http://lilypond.org/doc/v2.14/Documentation/notation/writing-pitches"
+"https://lilypond.org/doc/v2.14/Documentation/notation/writing-pitches"
 
 urlII =
-"http://lilypond.org/doc/v2.14/Documentation/notation/rhythms"
+"https://lilypond.org/doc/v2.14/Documentation/notation/rhythms"
 
 urlIII =
-"http://lilypond.org/doc/v2.14/Documentation/notation/note-heads"
+"https://lilypond.org/doc/v2.14/Documentation/notation/note-heads"
 
 urlIV =
-"http://lilypond.org/doc/v2.14/Documentation/notation/beams"
+"https://lilypond.org/doc/v2.14/Documentation/notation/beams"
 
 urlV =
-"http://lilypond.org/doc/v2.14/Documentation/notation/note-head-styles"
+"https://lilypond.org/doc/v2.14/Documentation/notation/note-head-styles"
 
 \relative c' {
   \key cis \minor

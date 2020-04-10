@@ -36,13 +36,13 @@ the property @code{\\predefinedDiagramTable}.
 
 % Add a chord to custom-fretboard-table-one
 \storePredefinedDiagram #custom-fretboard-table-one
-                        \chordmode{c}
+                        \chordmode {c}
                         #guitar-tuning
                         "3-(;3;5;5;5;3-);"
 
 % Add a chord to custom-fretboard-table-two
 \storePredefinedDiagram #custom-fretboard-table-two
-                        \chordmode{c}
+                        \chordmode {c}
                         #guitar-tuning
                         "x;3;5;5;5;o;"
 

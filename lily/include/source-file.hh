@@ -32,7 +32,7 @@ class Source_file : public Smob<Source_file>
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
   virtual ~Source_file ();
 private:
   std::vector<char const *> newline_locations_;
@@ -42,11 +42,11 @@ private:
 
   void load_stdin ();
   void init ();
-  void init_newlines();
+  void init_newlines ();
 
 public:
   Source_file (const std::string &fn);
-  Source_file (const std::string&, const std::string&);
+  Source_file (const std::string &, const std::string &);
 
   char const *c_str () const;
   std::string quote_input (char const *pos_str0) const;

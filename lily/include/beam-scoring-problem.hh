@@ -167,6 +167,8 @@ private:
   // end.  This is used for quickly weeding out invalid
   // Beam_configurations.
   Drul_array<Interval> quant_range_;
+  int max_beam_count_;
+  Real length_fraction_;
   Real beam_translation_;
   std::vector<Beam_collision> collisions_;
   std::vector<Beam_segment> segments_;
@@ -186,7 +188,7 @@ private:
   Beam_configuration *
   force_score (SCM inspect_quants,
                const std::vector<std::unique_ptr<Beam_configuration>> &configs)
-    const;
+  const;
   Real y_at (Real x, Beam_configuration const *c) const;
 
   // Scoring functions:
@@ -198,7 +200,7 @@ private:
   void score_stem_lengths (Beam_configuration *config) const;
   void
   generate_quants (std::vector<std::unique_ptr<Beam_configuration>> *scores)
-    const;
+  const;
   void score_collisions (Beam_configuration *config) const;
 };
 

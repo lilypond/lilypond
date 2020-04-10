@@ -666,7 +666,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
   if (sky)
     {
       minimum_distance = std::max ((*sky)[UP].distance (bottom_skyline_),
-                              bottom_loose_baseline_);
+                                   bottom_loose_baseline_);
       bottom_skyline_ = (*sky)[DOWN];
     }
   else if (Stencil *sten = unsmob<Stencil> (prob->get_property ("stencil")))
@@ -736,7 +736,7 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged, Real fixed_force)
           force_ = -infinity_f;
           vsize space_count = solution_.size ();
           Real spacing_increment
-              = overflow / static_cast<Real> (space_count - 2);
+            = overflow / static_cast<Real> (space_count - 2);
           for (vsize i = 2; i < space_count; i++)
             solution_[i] -= static_cast<Real> (i - 1) * spacing_increment;
         }

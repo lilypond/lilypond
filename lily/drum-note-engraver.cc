@@ -141,7 +141,6 @@ Drum_notes_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-
 void
 Drum_notes_engraver::boot ()
 {

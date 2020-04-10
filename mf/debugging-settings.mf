@@ -3,8 +3,8 @@
 test := 0;
 
 if test = -1:
-        % TODO: what's this?  Seems to be broken...
-        mode := smoke;
+  % TODO: what's this?  Seems to be broken...
+  mode := smoke;
 fi;
 
 % change this to 0.5 to have glyphs positioned on

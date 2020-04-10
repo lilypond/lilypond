@@ -10,8 +10,9 @@
   lsrtags = "chords"
 
   texidoc = "
-Chord names can be displayed only at the start of lines and when the
-chord changes.
+By default, every chord entered is printed; this behavior can be
+modified so that chord names are printed only at the start of lines and
+when the chord changes.
 
 "
   doctitle = "Showing chords at changes"

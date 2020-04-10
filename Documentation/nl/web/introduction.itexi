@@ -650,7 +650,7 @@ nu te lezen, ga dan verder naar @ref{Essay}.
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/productions.html
+@c https://lilypond.org/productions.html
 
 @node Recenties
 @unnumberedsec Recenties
@@ -769,7 +769,7 @@ oktober 2004
 
 De redacteurs van of Computer!Totaal, een Nederlands
 computerblad,
-@uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
 beschrijven LilyPond} in het oktober 2004-nummer als:
 @qq{Prachtige gratis (open source) software [..] De
 bladmuziek die LilyPond oplevert is inderdaad bijzonder
@@ -985,7 +985,7 @@ Lees over onze @ref{Tekstinvoer}.
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @subheading Muziek @qq{Compileren}
 
@@ -1148,7 +1148,7 @@ Lees over @ref{Eenvoudiger bewerken}.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://lilypondtool.organum.hu}
+@uref{https://lilypondtool.organum.hu}
 
 Gemaakt als een plugin voor de
 @uref{http://www.jedit.org,jEdit} teksteditor, is
@@ -1355,7 +1355,7 @@ constraint-gebaseerde programmeertaal.
 @itemize
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} is vervangen door
+@uref{https://lilykde.googlecode.com/,LilyKDE} is vervangen door
 @uref{http://www.frescobaldi.org/,Frescobaldi}, en bestaat alleen nog als
 LilyKDE3 voor KDE 3.5 en lilypond-KDE4 voor KDE 4.1.
 
@@ -1367,7 +1367,7 @@ in
 en @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} is een grafisch
+@uref{https://lilycomp.sourceforge.net, LilyComp} is een grafisch
 nootinvoer-programma en werkt ongeveer als een numeriek toetsenbord
 dat LilyPond noten produceert.
 

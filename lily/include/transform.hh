@@ -27,7 +27,7 @@
 class Transform : public Simple_smob<Transform>, PangoMatrix
 {
 public:
-  static const char * const type_p_name_;
+  static const char *const type_p_name_;
 
   static const Transform identity;
 
@@ -66,13 +66,13 @@ public:
   // The following change the given matrix into one representing first
   // applying the transform indicated in the arguments and then the
   // original transform
-  Transform & concat (const Transform &t);
-  Transform & translate (Offset p);
-  Transform & rotate (Real angle, Offset center);
-  Transform & scale (Real xscale, Real yscale);
+  Transform &concat (const Transform &t);
+  Transform &translate (Offset p);
+  Transform &rotate (Real angle, Offset center);
+  Transform &scale (Real xscale, Real yscale);
 
   Offset operator () (Offset point) const;
-  Transform operator () (const Transform & t) const;
+  Transform operator () (const Transform &t) const;
 
   Real get_xx () const { return xx; }
   Real get_xy () const { return xy; }
@@ -83,7 +83,7 @@ public:
 };
 
 Offset scm_transform (SCM trans, Offset p);
-Transform scm_transform (SCM trans, const Transform & t);
+Transform scm_transform (SCM trans, const Transform &t);
 
 inline Transform
 robust_scm2transform (SCM trans, const Transform &fallback = Transform::identity)

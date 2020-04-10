@@ -27,7 +27,8 @@
 
 #include "font-metric.hh"
 
-struct Preinit_Pango_font {
+struct Preinit_Pango_font
+{
   SCM physical_font_tab_;
   Preinit_Pango_font ();
 };

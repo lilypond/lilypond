@@ -26,10 +26,10 @@
 #include "lily-parser.hh"
 
 LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
-	   2, 1, 0, (SCM def, SCM sym, SCM val),
-	   "Return the value of @var{sym} in output definition @var{def}"
-	   " (e.g., @code{\\paper}).  If no value is found, return"
-	   " @var{val} or @code{'()} if @var{val} is undefined.")
+           2, 1, 0, (SCM def, SCM sym, SCM val),
+           "Return the value of @var{sym} in output definition @var{def}"
+           " (e.g., @code{\\paper}).  If no value is found, return"
+           " @var{val} or @code{'()} if @var{val} is undefined.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob<Output_def> (def);
@@ -39,7 +39,7 @@ LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
   if (SCM_UNBNDP (answer))
     {
       if (SCM_UNBNDP (val))
-	val = SCM_EOL;
+        val = SCM_EOL;
 
       answer = val;
     }
@@ -48,8 +48,8 @@ LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
 }
 
 LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
-	   1, 0, 0, (SCM def),
-	   "Return the variable scope inside @var{def}.")
+           1, 0, 0, (SCM def),
+           "Return the variable scope inside @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob<Output_def> (def);
@@ -57,8 +57,8 @@ LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 }
 
 LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
-	   1, 0, 0, (SCM def),
-	   "Return the parent output definition of @var{def}.")
+           1, 0, 0, (SCM def),
+           "Return the parent output definition of @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob<Output_def> (def);
@@ -77,8 +77,8 @@ LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!",
 }
 
 LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
-	   1, 0, 0, (SCM def),
-	   "Clone output definition @var{def}.")
+           1, 0, 0, (SCM def),
+           "Clone output definition @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob<Output_def> (def);
@@ -88,8 +88,8 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 }
 
 LY_DEFINE (ly_output_description, "ly:output-description",
-	   1, 0, 0, (SCM output_def),
-	   "Return the description of translators in @var{output-def}.")
+           1, 0, 0, (SCM output_def),
+           "Return the description of translators in @var{output-def}.")
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
 
@@ -108,9 +108,9 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 }
 
 LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
-	   1, 1, 0, (SCM output_def, SCM context_name),
-	   "Return an alist of all context defs (matching @var{context-name}"
-	   " if given) in @var{output-def}.")
+           1, 1, 0, (SCM output_def, SCM context_name),
+           "Return an alist of all context defs (matching @var{context-name}"
+           " if given) in @var{output-def}.")
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
   if (!SCM_UNBNDP (context_name))
@@ -125,18 +125,18 @@ LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
       SCM p = scm_car (s);
       Context_def *td = unsmob<Context_def> (scm_cdr (p));
       if (td && scm_is_eq (scm_car (p), td->get_context_name ())
-	  && (SCM_UNBNDP (context_name) || td->is_alias (context_name)))
-	ell = scm_cons (p, ell);
+          && (SCM_UNBNDP (context_name) || td->is_alias (context_name)))
+        ell = scm_cons (p, ell);
     }
   return ell;
 }
 
 const char
-* const Output_def::type_p_name_ = "ly:output-def?";
+*const Output_def::type_p_name_ = "ly:output-def?";
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
-	   1, 0, 0, (SCM def),
-	   "Return the output-scale for output definition @var{def}.")
+           1, 0, 0, (SCM def),
+           "Return the output-scale for output definition @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *b = unsmob<Output_def> (def);
@@ -144,19 +144,19 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 }
 
 LY_DEFINE (ly_make_output_def, "ly:make-output-def",
-	   0, 0, 0, (),
-	   "Make an output definition.")
+           0, 0, 0, (),
+           "Make an output definition.")
 {
   Output_def *bp = new Output_def;
   return bp->unprotect ();
 }
 
 LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
-	   2, 0, 0, (SCM def, SCM chain),
-	   "Find a font metric in output definition @var{def} satisfying"
-	   " the font-qualifiers in alist chain @var{chain}, and return"
-	   " it.  (An alist chain is a list of alists, containing grob"
-	   " properties.)")
+           2, 0, 0, (SCM def, SCM chain),
+           "Find a font metric in output definition @var{def} satisfying"
+           " the font-qualifiers in alist chain @var{chain}, and return"
+           " it.  (An alist chain is a list of alists, containing grob"
+           " properties.)")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
 
@@ -166,9 +166,9 @@ LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
 }
 
 LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
-	   2, 0, 0, (SCM def, SCM sym),
-	   "Return the value of variable @var{sym} in output definition"
-	   " @var{def} as a double.")
+           2, 0, 0, (SCM def, SCM sym),
+           "Return the value of variable @var{sym} in output definition"
+           " @var{def} as a double.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *layout = unsmob<Output_def> (def);
@@ -176,9 +176,9 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
 }
 
 LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
-	   1, 0, 0, (SCM def),
-	   "Return a list containing the fonts from output definition"
-	   " @var{def} (e.g., @code{\\paper}).")
+           1, 0, 0, (SCM def),
+           "Return a list containing the fonts from output definition"
+           " @var{def} (e.g., @code{\\paper}).")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *b = unsmob<Output_def> (def);
@@ -213,8 +213,8 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
       Font_metric *fm = unsmob<Font_metric> (entry);
 
       if (dynamic_cast<Modified_font_metric *> (fm)
-	  || dynamic_cast<Pango_font *> (fm))
-	font_list = scm_cons (fm->self_scm (), font_list);
+          || dynamic_cast<Pango_font *> (fm))
+        font_list = scm_cons (fm->self_scm (), font_list);
     }
 
   return font_list;

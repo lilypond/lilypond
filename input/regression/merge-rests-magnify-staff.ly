@@ -7,7 +7,7 @@
 music = {
   R1
   R1*2
-  \compressFullBarRests
+  \compressEmptyMeasures
   R1*7
   R1*11
   \time 4/2

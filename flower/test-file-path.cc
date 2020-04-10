@@ -13,7 +13,7 @@ TEST (File_path, Find)
 {
   char const *extensions[] = {"ly", "", 0};
   string file = "init";
-  if (get_working_directory().empty())
+  if (get_working_directory ().empty ())
     {
       std::cerr << "Could not get current work directory\n";
       exit (1);

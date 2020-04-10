@@ -145,7 +145,6 @@ Custos_engraver::finalize ()
   custodes_.clear ();
 }
 
-
 void
 Custos_engraver::boot ()
 {

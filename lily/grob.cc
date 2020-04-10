@@ -105,7 +105,7 @@ Grob::Grob (Grob const &s)
   mutable_property_alist_ = SCM_EOL;
 
   for (Axis a = X_AXIS; a < NO_AXES; incr (a))
-      dim_cache_ [a] = s.dim_cache_ [a];
+    dim_cache_ [a] = s.dim_cache_ [a];
 
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
@@ -155,10 +155,10 @@ Grob::get_print_stencil () const
         {
           Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
           retval = *unsmob<Stencil>
-            (Lily::stencil_whiteout (retval.smobbed_copy (),
-                                     get_property ("whiteout-style"),
-                                     get_property ("whiteout"),
-                                     scm_from_double (line_thickness)));
+                   (Lily::stencil_whiteout (retval.smobbed_copy (),
+                                            get_property ("whiteout-style"),
+                                            get_property ("whiteout"),
+                                            scm_from_double (line_thickness)));
         }
 
       if (transparent)
@@ -469,14 +469,14 @@ Grob::extent (Grob const *refp, Axis a) const
         Order is significant: ?-extent may trigger suicide.
        */
       SCM ext = (a == X_AXIS)
-              ? get_property ("X-extent")
-              : get_property ("Y-extent");
+                ? get_property ("X-extent")
+                : get_property ("Y-extent");
       if (is_number_pair (ext))
         real_ext.unite (ly_scm2interval (ext));
 
       SCM min_ext = (a == X_AXIS)
-              ? get_property ("minimum-X-extent")
-              : get_property ("minimum-Y-extent");
+                    ? get_property ("minimum-X-extent")
+                    : get_property ("minimum-Y-extent");
       if (is_number_pair (min_ext))
         real_ext.unite (ly_scm2interval (min_ext));
 
@@ -484,11 +484,11 @@ Grob::extent (Grob const *refp, Axis a) const
     }
 
   // We never want nan, so we avoid shifting infinite values.
-    if(!std::isinf (offset))
-      real_ext.translate(offset);
-    else
-      warning(_f ("ignored infinite %s-offset",
-                        a == X_AXIS ? "X" : "Y"));
+  if (!std::isinf (offset))
+    real_ext.translate (offset);
+  else
+    warning (_f ("ignored infinite %s-offset",
+                 a == X_AXIS ? "X" : "Y"));
 
   return real_ext;
 }
@@ -737,8 +737,6 @@ Grob::ultimate_event_cause () const
   return unsmob<Stream_event> (cause);
 }
 
-
-
 /****************************************************************
   MESSAGES
 ****************************************************************/
@@ -978,17 +976,17 @@ Grob::check_cross_staff (Grob *commony)
 }
 
 void
-uniquify (vector <Grob *> & grobs)
+uniquify (vector <Grob *> &grobs)
 {
-  std::unordered_set<Grob*> seen(grobs.size());
+  std::unordered_set<Grob *> seen (grobs.size ());
   vsize j = 0;
   for (vsize i = 0; i < grobs.size (); i++)
     {
-      if (seen.insert(grobs[i]).second)
+      if (seen.insert (grobs[i]).second)
         {
           grobs[j++] = grobs[i];
         }
     }
 
-  grobs.resize(j);
+  grobs.resize (j);
 }

@@ -6,7 +6,11 @@ INSTALLATION_DIR=$(local_lilypond_datadir)/scm
 INSTALLATION_FILES=$(SCM_FILES)
 
 XGETTEXT_FLAGS = --language=Scheme
-STEPMAKE_TEMPLATES=install scm po
+STEPMAKE_TEMPLATES=install po
 
 include $(depth)/make/stepmake.make
 
+SCM_FILES := $(call src-wildcard,*.scm)
+
+SOURCE_FILES += $(SCM_FILES)
+TAGS_SOURCES += $(SCM_FILES)

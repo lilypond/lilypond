@@ -10,7 +10,15 @@ HELP2MAN_EXECS = $(SEXECUTABLES)
 
 AT_FILES=relocate-preamble
 at-ext=.py
-at-dir=$(top-build-dir)/python/$(outdir)
+at-dir=$(outdir)
 
 include $(depth)/make/stepmake.make
-include $(stepdir)/executable-targets.make
+
+$(PYTHON_SCRIPTS): $(outdir)/relocate-preamble.py
+
+local-install:
+	-$(INSTALLPY) -d $(DESTDIR)$(bindir)
+	$(INSTALLPY) -c -m 755 $(addprefix $(outdir)/, $(SEXECUTABLES)) $(DESTDIR)$(bindir)
+
+local-uninstall:
+	$(foreach a, $(SEXECUTABLES), rm -f $(DESTDIR)$(bindir)/$(a) &&) true

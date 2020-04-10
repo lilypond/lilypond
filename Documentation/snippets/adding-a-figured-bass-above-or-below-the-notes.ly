@@ -16,6 +16,7 @@ the bass notes, by defining the
 in a @code{Staff} context). Choices are @code{#UP} (or @code{#1}),
 @code{#CENTER} (or @code{#0}) and @code{#DOWN} (or @code{#-1}).
 
+
 This property can be changed as many times as you wish. Use
 @code{\\once \\override} if you don't want the override to apply to the
 whole score.

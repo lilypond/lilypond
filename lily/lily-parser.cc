@@ -195,7 +195,7 @@ Lily_parser::parser_error (Input const &i, const string &s)
   error_level_ = 1;
 }
 
-const char * const Lily_parser::type_p_name_ = "ly:lily-parser?";
+const char *const Lily_parser::type_p_name_ = "ly:lily-parser?";
 
 /****************************************************************
   OUTPUT-DEF

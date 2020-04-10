@@ -135,14 +135,14 @@ date at commit COMMIT')
                   default=False,
                   dest='update_mode',
                   help='call $EDITOR to update the translation')
-    
+
     (options, files) = p.parse_args ()
     verbose = options.verbose
     lang = options.language
     use_colors = options.color
     update_mode = options.update_mode
     touch_committishes = options.touch_committishes
-    
+
     return files
 
 def main ():

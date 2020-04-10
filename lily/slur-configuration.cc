@@ -67,10 +67,10 @@ avoid_staff_line (Slur_score_state const &state,
       // Allow half the thickness of the slur at the point t, plus one basic
       // blot-diameter (half for the slur outline, half for the staff line)
       Real const min_distance = 0.5 * state.thickness_ * factor
-        + state.line_thickness_
-        + ((state.dir_ * distance > 0.0)
-           ? state.parameters_.gap_to_staffline_inside_
-           : state.parameters_.gap_to_staffline_outside_);
+                                + state.line_thickness_
+                                + ((state.dir_ * distance > 0.0)
+                                   ? state.parameters_.gap_to_staffline_inside_
+                                   : state.parameters_.gap_to_staffline_outside_);
       if (fabs (distance) < min_distance)
         {
           Direction resolution_dir = (distance > 0.0) ? UP : DOWN;
@@ -479,7 +479,7 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
   Real demerit = 0.0;
 
   demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
-                   - state.parameters_.max_slope_), 0.0)
+                        - state.parameters_.max_slope_), 0.0)
              * state.parameters_.max_slope_factor_;
 
   /* 0.2: account for staffline offset. */
@@ -492,7 +492,7 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
                * (std::max (fabs (slur_dy) - max_dy, 0.0));
 
   demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
-                   - state.parameters_.max_slope_), 0.0)
+                        - state.parameters_.max_slope_), 0.0)
              * state.parameters_.max_slope_factor_;
 
   if (sign (dy) == 0

@@ -215,7 +215,7 @@ MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
 SCM
 Tie::calc_control_points (SCM smob)
 {
-  Spanner *me = LY_ASSERT_SMOB(Spanner, smob, 1);
+  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((has_interface<Tie_column> (yparent)
@@ -283,8 +283,8 @@ Tie::print (SCM smob)
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup
-                                    (me->layout ()->self_scm (), properties,
-                                     annotation));
+                                     (me->layout ()->self_scm (), properties,
+                                      annotation));
       tm.translate (Offset (b.control_[3][X_AXIS] + 0.5,
                             b.control_[0][Y_AXIS] * 2));
       tm = tm.in_color (1.0, 0.0, 0.0);

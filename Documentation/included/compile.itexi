@@ -556,7 +556,7 @@ and
 
 The entire set of documentation for the most current build of LilyPond
 is available online at
-@uref{http://lilypond.org/doc/v2.19/Documentation/web/development}, but
+@uref{https://lilypond.org/doc/v2.19/Documentation/web/development}, but
 you can also build them locally from the source code.  This process
 requires some additional tools and packages.
 
@@ -661,7 +661,7 @@ versions and the most recent development release) are available
 here:
 
 @example
-@uref{http://lilypond.org/download/source/}
+@uref{https://lilypond.org/download/source/}
 @end example
 
 Download the tarball to your @file{~/src/} directory, or some
@@ -1355,25 +1355,6 @@ automatic font detection, add
 --with-fonts-dir=/opt/local/share/ghostscript/fonts
 @end example
 
-
-@unnumberedsubsec Solaris
-
-Solaris7, ./configure
-
-@file{./configure} needs a POSIX compliant shell.  On Solaris7,
-@file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
-is.  Run configure like
-
-@example
-CONFIG_SHELL=/bin/ksh ksh -c ./configure
-@end example
-
-@noindent
-or
-
-@example
-CONFIG_SHELL=/bin/bash bash -c ./configure
-@end example
 
 @unnumberedsubsec FreeBSD
 

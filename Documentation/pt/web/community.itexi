@@ -204,7 +204,7 @@ lista de discussão em espanhol}
 Leia o blog da nossa comunidade, @q{Scores of Beauty}:
 
 @example
-@uref{http://lilypondblog.org}
+@uref{https://lilypondblog.org}
 @end example
 
 @subsubheading Lista de discussão de lançamento: @code{info-lilypond@@gnu.org}
@@ -270,7 +270,7 @@ Todas as discussões sobre a tradução dos manuais do LilyPond devem ser
 enviadas aqui. Não envie patches para esta lista.
 
 @quotation
-@uref{http://lilypond-translations.3384276.n2.nabble.com/,
+@uref{https://lilypond-translations.3384276.n2.nabble.com/,
 Arquivo da lista de discussão de tradução}
 @end quotation
 
@@ -573,9 +573,9 @@ são os desenvolvedores mais ativos e experientes. Estatísticas
 até a versão @versionDevel{}:
 
 @multitable @columnfractions .3 .3 .3
-@item @uref{http://lilypond.org/~graham/gitstats-all/, história geral}
-@tab @uref{http://lilypond.org/~graham/gitstats-1year/, ano passado}
-@tab @uref{http://lilypond.org/~graham/gitstats-3months/, últimos três meses}
+@item @uref{https://lilypond.org/~graham/gitstats-all/, história geral}
+@tab @uref{https://lilypond.org/~graham/gitstats-1year/, ano passado}
+@tab @uref{https://lilypond.org/~graham/gitstats-3months/, últimos três meses}
 @end multitable
 
 Desenvolvedores interessados:
@@ -677,8 +677,8 @@ desenvolvimento.
 @docLinksBare{Guia do contribuidor, contributor,
   @rcontribnamed{Top,Guia do contribuidor},
   @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorBig,
+  @manualDevelContributorPdf}
 
 @divEnd
 
@@ -744,9 +744,9 @@ Os testes de lilypond-book deste lançamento.
 @subsubheading Todas as versões
 
 @itemize
-@item @uref{http://lilypond.org/test, Comparação entre testes de regressão}
+@item @uref{https://lilypond.org/test, Comparação entre testes de regressão}
 
-@item @uref{http://lilypond.org/downloads/binaries/test-output/,
+@item @uref{https://lilypond.org/downloads/binaries/test-output/,
 Arquivo de todos os testes de regressão}
 
 @end itemize
@@ -761,7 +761,7 @@ Arquivo de todos os testes de regressão}
 
 @ifclear web_version
 @warning{Esses manuais são para o LilyPond @version{}; os manuais
-mais recentes podem ser encontrados em @url{http://lilypond.org}}
+mais recentes podem ser encontrados em @url{https://lilypond.org}}
 @end ifclear
 
 @divClass{normal-table}
@@ -1015,8 +1015,8 @@ junto com anúncios antigos e registros de mudanças
 @subheading Anúncios
 
 Anúncios e notícias por versão:
-@uref{http://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
-@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
+@uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
+@uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
 @miscLink{announce-v2.8,v2.8},
@@ -1029,17 +1029,17 @@ Anúncios e notícias por versão:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Lista descritiva de mudanças por versão:
-@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
-@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
-@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
-@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
-@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
-@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
-@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
-@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
-@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
-@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
-@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
+@uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
+@uref{https://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
+@uref{https://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
+@uref{https://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
+@uref{https://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
+@uref{https://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
+@uref{https://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
+@uref{https://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
+@uref{https://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
 @miscLink{NEWS-1.4,v1.4},
 @miscLink{NEWS-1.2,v1.2}
 

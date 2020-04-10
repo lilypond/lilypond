@@ -25,7 +25,6 @@
 #include <unistd.h>
 #include <limits.h>
 
-
 #include "config.hh"
 
 #if HAVE_SYS_STAT_H

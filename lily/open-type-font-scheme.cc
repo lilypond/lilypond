@@ -216,7 +216,7 @@ LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
     }
 
   face = open_ft_face (file_name, i);
-  bool has_glyph_names = FT_HAS_GLYPH_NAMES(face);
+  bool has_glyph_names = FT_HAS_GLYPH_NAMES (face);
   FT_Done_Face (face);
 
   return has_glyph_names ? SCM_BOOL_T : SCM_BOOL_F;
@@ -280,13 +280,13 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
                        "numFonts", file_name.c_str ()));
           return SCM_BOOL_F;
         }
-      int numfonts =
-        static_cast<unsigned char>(buff[0]) << 24 |
-        static_cast<unsigned char>(buff[1]) << 16 |
-        static_cast<unsigned char>(buff[2]) << 8 |
-        static_cast<unsigned char>(buff[3]);
+      int numfonts
+        = static_cast<unsigned char>(buff[0]) << 24
+          | static_cast<unsigned char>(buff[1]) << 16
+          | static_cast<unsigned char>(buff[2]) << 8
+          | static_cast<unsigned char>(buff[3]);
 
-      if ( i > numfonts )
+      if ( i > numfonts)
         {
           warning (_f ("font index %d too large for font `%s', using index 0",
                        i, file_name.c_str ()));
@@ -303,11 +303,11 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
                        "OffsetTable", file_name.c_str ()));
           return SCM_BOOL_F;
         }
-      unsigned int offset =
-        static_cast<unsigned char>(buff[0]) << 24 |
-        static_cast<unsigned char>(buff[1]) << 16 |
-        static_cast<unsigned char>(buff[2]) << 8 |
-        static_cast<unsigned char>(buff[3]);
+      unsigned int offset
+        = static_cast<unsigned char>(buff[0]) << 24
+          | static_cast<unsigned char>(buff[1]) << 16
+          | static_cast<unsigned char>(buff[2]) << 8
+          | static_cast<unsigned char>(buff[3]);
 
       // Seek to subfont and skip `sfnt version`
       fseek (fp, offset + 4, SEEK_SET);
@@ -323,9 +323,9 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
                    "numTables", file_name.c_str ()));
       return SCM_BOOL_F;
     }
-  int numtables =
-    static_cast<unsigned char>(buff[0]) << 8 |
-    static_cast<unsigned char>(buff[1]);
+  int numtables
+    = static_cast<unsigned char>(buff[0]) << 8
+      | static_cast<unsigned char>(buff[1]);
 
   // Skip `searchRange`, `entrySelector` and `rangeShift`
   fseek (fp, 6, SEEK_CUR);
@@ -357,11 +357,11 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
                            "CFF offset", file_name.c_str ()));
               return SCM_BOOL_F;
             }
-          unsigned int offset =
-            static_cast<unsigned char>(buff[0]) << 24 |
-            static_cast<unsigned char>(buff[1]) << 16 |
-            static_cast<unsigned char>(buff[2]) << 8 |
-            static_cast<unsigned char>(buff[3]);
+          unsigned int offset
+            = static_cast<unsigned char>(buff[0]) << 24
+              | static_cast<unsigned char>(buff[1]) << 16
+              | static_cast<unsigned char>(buff[2]) << 8
+              | static_cast<unsigned char>(buff[3]);
 
           // Done
           fclose (fp);

@@ -45,10 +45,11 @@ fis b,2 @}
     \type "Engraver_group"
     \defaultchild "Voice"
     \accepts "Voice"
+    \accepts "NullVoice"
   }
 }
 
-partcombineUp =
+customPartCombineUp =
 #(define-music-function (partOne partTwo)
   (ly:music? ly:music?)
 "Take the music in @var{partOne} and @var{partTwo} and return
@@ -62,11 +63,12 @@ in the output to use upward stems."
     \context Voice = "two" { \voiceThree }
     \context Voice = "shared" { \voiceOne }
     \context Voice = "solo" { \voiceOne }
+    \context NullVoice = "null" {}
     \partCombine #partOne #partTwo
   >>
 #})
 
-partcombineDown = #
+customPartCombineDown = #
 (define-music-function (partOne partTwo)
   (ly:music? ly:music?)
 "Take the music in @var{partOne} and @var{partTwo} and return
@@ -82,6 +84,7 @@ in the output to use downward stems."
     \context Voice ="two" { \voiceTwo }
     \context Voice ="shared" { \voiceFour }
     \context Voice ="solo" { \voiceFour }
+    \context NullVoice = "null" {}
     \partCombine #partOne #partTwo
   >>
 #})
@@ -96,6 +99,6 @@ bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
   \clef alto
   \partial 4
   \transpose b b'
-  \partCombineUp \soprano \alto
-  \partCombineDown \tenor \bass
+  \customPartCombineUp \soprano \alto
+  \customPartCombineDown \tenor \bass
 >>

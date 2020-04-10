@@ -22,7 +22,7 @@ for opt in options:
         print(o)
         raise getopt.error
 
-        
+
 name = 'Emmentaler'
 filename = name.lower ()
 script = '''#!@FONTFORGE@

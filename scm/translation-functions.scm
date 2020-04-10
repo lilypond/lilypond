@@ -38,44 +38,44 @@ way the transposition number is displayed."
 ;; metronome marks
 
 (define-public (format-metronome-markup event context)
-   (let ((hide-note (ly:context-property context 'tempoHideNote #f))
-         (text (ly:event-property event 'text))
-         (dur (ly:event-property event 'tempo-unit))
-         (count (ly:event-property event 'metronome-count)))
-   (metronome-markup text dur count hide-note)))
+  (let ((hide-note (ly:context-property context 'tempoHideNote #f))
+        (text (ly:event-property event 'text))
+        (dur (ly:event-property event 'tempo-unit))
+        (count (ly:event-property event 'metronome-count)))
+    (metronome-markup text dur count hide-note)))
 (export format-metronome-markup)
 
 (define (metronome-markup text dur count hide-note)
   (let* ((note-mark
-            (if (and (not hide-note) (ly:duration? dur))
-                (make-smaller-markup
-                  (make-note-by-number-markup
-                    (ly:duration-log dur)
-                    (ly:duration-dot-count dur)
-                    UP))
-                #f))
+          (if (and (not hide-note) (ly:duration? dur))
+              (make-smaller-markup
+               (make-note-by-number-markup
+                (ly:duration-log dur)
+                (ly:duration-dot-count dur)
+                UP))
+              #f))
          (count-markup (cond ((number? count)
                               (if (> count 0)
                                   (make-simple-markup
-                                          (number->string count))
+                                   (number->string count))
                                   #f))
                              ((pair? count)
-                                ;; Thin Spaces U+2009 & En-dash U+2013
-                                (make-simple-markup
-                                  (ly:format "~a – ~a" (car count) (cdr count))))
+                              ;; Thin Spaces U+2009 & En-dash U+2013
+                              (make-simple-markup
+                               (ly:format "~a – ~a" (car count) (cdr count))))
                              (else #f)))
          (note-markup (if (and (not hide-note) count-markup)
-                           (list
-                            (make-general-align-markup Y DOWN note-mark)
-                            (make-simple-markup " = ")
-                            count-markup)
+                          (list
+                           (make-general-align-markup Y DOWN note-mark)
+                           (make-simple-markup " = ")
+                           count-markup)
                           #f))
          (text-markup (if (not (null? text)) (make-bold-markup text) #f)))
     (if text-markup
         (if (and note-markup (not hide-note))
             (make-line-markup (list (make-concat-markup
                                      (append (list text-markup
-                                              (make-simple-markup " ("))
+                                                   (make-simple-markup " ("))
                                              note-markup
                                              (list (make-simple-markup ")"))))))
             (make-line-markup (list text-markup)))
@@ -89,8 +89,8 @@ way the transposition number is displayed."
     (if o o (car available))))
 
 (define-public (format-mark-generic options)
-  ; Select “alphabet”, frame, font-series, letter-case and double letter behaviour
-  ; from options list; if none is given, default to first available.
+  ;; Select “alphabet”, frame, font-series, letter-case and double letter behaviour
+  ;; from options list; if none is given, default to first available.
   (let ((ab (select-option options '(alphabet-omit-i alphabet alphabet-omit-j barnumbers numbers roman)))
         (fr (select-option options '(noframe box circle oval)))
         (fs (select-option options '(bold medium)))
@@ -98,24 +98,24 @@ way the transposition number is displayed."
         (dl (select-option options '(combine repeat))))
     (lambda (number context)
       (let* ((the-string
-               (case ab
-                 ((barnumbers) (number->string (ly:context-property context 'currentBarNumber)))
-                 ((numbers) (number->string number))
-                 ((roman) (fancy-format #f "~@r" number))
-                 (else (markgeneric-string number ab dl))))
+              (case ab
+                ((barnumbers) (number->string (ly:context-property context 'currentBarNumber)))
+                ((numbers) (number->string number))
+                ((roman) (fancy-format #f "~@r" number))
+                (else (markgeneric-string number ab dl))))
              (the-cased-string
-               (case lc
-                 ; both roman numbers and alphabet-based marks are
-                 ; already uppercase, (bar)numbers aren’t affected
-                 ((uppercase)                    the-string)
-                 ((mixedcase) (string-capitalize the-string))
-                 ((lowercase) (string-downcase   the-string))))
+              (case lc
+                ;; both roman numbers and alphabet-based marks are
+                ;; already uppercase, (bar)numbers aren’t affected
+                ((uppercase)                    the-string)
+                ((mixedcase) (string-capitalize the-string))
+                ((lowercase) (string-downcase   the-string))))
              (the-framed-string
-               (case fr
-                 ((box)    (make-box-markup    the-cased-string))
-                 ((circle) (make-circle-markup the-cased-string))
-                 ((oval)   (make-oval-markup   the-cased-string))
-                 ((noframe)                    the-cased-string))))
+              (case fr
+                ((box)    (make-box-markup    the-cased-string))
+                ((circle) (make-circle-markup the-cased-string))
+                ((oval)   (make-oval-markup   the-cased-string))
+                ((noframe)                    the-cased-string))))
         (case fs
           ((bold) (make-bold-markup the-framed-string))
           ((medium)                 the-framed-string))))))
@@ -175,24 +175,25 @@ way the transposition number is displayed."
 
                           (cond
                            ((eq? #t (ly:event-property event 'diminished))
-                            (markup #:slashed-digit figure))
+                            (make-slashed-digit-markup figure))
                            ((eq? #t (ly:event-property event 'augmented-slash))
-                            (markup #:backslashed-digit figure))
-                           (else (markup #:number (number->string figure 10)))))
+                            (make-backslashed-digit-markup figure))
+                           (else (make-number-markup (number->string figure 10)))))
                          #f))
 
          (alt (ly:event-property event 'alteration))
          (alt-markup
           (if (number? alt)
-              (markup
-               #:general-align Y DOWN #:fontsize
-               (if (not (= alt DOUBLE-SHARP))
-                   -2 2)
-               (alteration->text-accidental-markup alt))
+              (make-general-align-markup
+               Y DOWN
+               (make-fontsize-markup
+                (if (not (= alt DOUBLE-SHARP))
+                    -2 2)
+                (alteration->text-accidental-markup alt)))
               #f))
 
          (plus-markup (if (eq? #t (ly:event-property event 'augmented))
-                          (markup #:number "+")
+                          (make-number-markup "+")
                           #f))
 
          (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
@@ -200,7 +201,8 @@ way the transposition number is displayed."
 
     (if (and (not fig-markup) alt-markup)
         (begin
-          (set! fig-markup (markup #:left-align #:pad-around 0.3 alt-markup))
+          (set! fig-markup (make-left-align-markup
+                            (make-pad-around-markup 0.3 alt-markup)))
           (set! alt-markup #f)))
 
 
@@ -214,26 +216,26 @@ way the transposition number is displayed."
 
     (if alt-markup
         (set! fig-markup
-              (markup #:put-adjacent
-                      X (if (number? alt-dir)
-                            alt-dir
-                            LEFT)
-                      fig-markup
-                      #:pad-x 0.2 alt-markup)))
+              (make-put-adjacent-markup
+               X (if (number? alt-dir)
+                     alt-dir
+                     LEFT)
+               fig-markup
+               (make-pad-x-markup 0.2 alt-markup))))
 
     (if plus-markup
         (set! fig-markup
               (if fig-markup
-                  (markup #:put-adjacent
-                          X (if (number? plus-dir)
-                                plus-dir
-                                LEFT)
-                          fig-markup
-                          #:pad-x 0.2 plus-markup)
+                  (make-put-adjacent-markup
+                   X (if (number? plus-dir)
+                         plus-dir
+                         LEFT)
+                   fig-markup
+                   (make-pad-x-markup 0.2 plus-markup))
                   plus-markup)))
 
     (if (markup? fig-markup)
-        (markup #:fontsize -2 fig-markup)
+        (make-fontsize-markup -2 fig-markup)
         empty-markup)))
 
 
@@ -277,34 +279,34 @@ micro-tones are supported for TabStaff, but not not for FretBoards."
 entries in @var{string-frets}."
     (let* ((finger-range '(0  4)) ; range of possible finger numbers
            (barre-elements 4) ; 4 elements per barre entry:
-                              ; 'barre
-                              ; highest string number
-                              ; lowest string number
-                              ; finger (seems redundant, but makes it
-                              ;  easy to convert from array to list
+                                        ; 'barre
+                                        ; highest string number
+                                        ; lowest string number
+                                        ; finger (seems redundant, but makes it
+                                        ;  easy to convert from array to list
            (barres (make-array 0 finger-range barre-elements))
            (add-string-fret
-             (lambda(sf)
-               (let ((string (car sf))
-                     (fret (cadr sf))
-                     (finger (if (null? (caddr sf)) 0 (caddr sf))))
-                   (if (and (not (= fret 0)) (not (= finger 0)))
-                       (begin
-                         (array-set! barres 'barre finger 0)
-                         (array-set! barres fret finger 3)
-                         (if (or (< (array-ref barres finger 1) string)
-                                 (= 0 (array-ref barres finger 1)))
-                             (array-set! barres string finger 1))
-                         (if (or (> (array-ref barres finger 2) string)
-                                 (= 0 (array-ref barres finger 2)))
-                             (array-set! barres string finger 2)))))))
+            (lambda(sf)
+              (let ((string (car sf))
+                    (fret (cadr sf))
+                    (finger (if (null? (caddr sf)) 0 (caddr sf))))
+                (if (and (not (= fret 0)) (not (= finger 0)))
+                    (begin
+                      (array-set! barres 'barre finger 0)
+                      (array-set! barres fret finger 3)
+                      (if (or (< (array-ref barres finger 1) string)
+                              (= 0 (array-ref barres finger 1)))
+                          (array-set! barres string finger 1))
+                      (if (or (> (array-ref barres finger 2) string)
+                              (= 0 (array-ref barres finger 2)))
+                          (array-set! barres string finger 2)))))))
            (barre-list (begin
-                        (map add-string-fret string-frets)
-                        (array->list barres))))
-         (filter (lambda(l) (and (eq? (car l) 'barre)
-                               (not (= (fourth l) 0))
-                               (> (second l) (third l))))
-               barre-list)))
+                         (map add-string-fret string-frets)
+                         (array->list barres))))
+      (filter (lambda(l) (and (eq? (car l) 'barre)
+                              (not (= (fourth l) 0))
+                              (> (second l) (third l))))
+              barre-list)))
 
 
   (define (string-frets->placement-list string-frets string-count)
@@ -314,8 +316,8 @@ dot placement entries."
                         (map (lambda (x) (list 'mute  x))
                              (iota string-count 1))))
            (no-fingers (null? (filter (lambda (sf)
-                                          (not (null? (caddr sf))))
-                                        string-frets)))
+                                        (not (null? (caddr sf))))
+                                      string-frets)))
            (b-list (barre-list string-frets)))
       (for-each (lambda (sf)
                   (let* ((string (car sf))
@@ -418,8 +420,8 @@ notes?"
                       (zero? fret))
                  (>= fret minimum-fret))
              (if (and
-                   (ly:context-property context 'supportNonIntegerFret #f)
-                   (null? rest))
+                  (ly:context-property context 'supportNonIntegerFret #f)
+                  (null? rest))
                  (integer? (truncate fret))
                  (integer? fret))
              (close-enough fret))))
@@ -438,8 +440,8 @@ the current tuning?"
             (ly:warning (_ "Negative fret for pitch ~a on string ~a")
                         (car pitch-entry) string)
             (if (and
-                  (not (integer? this-fret))
-                  (not (ly:context-property context 'supportNonIntegerFret #f)))
+                 (not (integer? this-fret))
+                 (not (ly:context-property context 'supportNonIntegerFret #f)))
                 (ly:warning (_ "Missing fret for pitch ~a on string ~a")
                             (car pitch-entry) string)))
         (if (and (= this-fret 0)
@@ -496,9 +498,9 @@ the current tuning?"
                           (possible-fret?
                            (and (>= this-fret 0)
                                 (if (and
-                                      (ly:context-property
-                                        context 'supportNonIntegerFret #f)
-                                      (null? rest))
+                                     (ly:context-property
+                                      context 'supportNonIntegerFret #f)
+                                     (null? rest))
                                     (integer? (truncate this-fret))
                                     (integer? this-fret))))
                           (handle-negative
@@ -596,9 +598,9 @@ chords.  Returns a placement-list."
   (let* ((predefined-fret-table
           (ly:context-property context 'predefinedDiagramTable))
          (tunings
-           (append
-             (ly:context-property context 'stringTunings)
-             (ly:context-property context 'additionalBassStrings '())))
+          (append
+           (ly:context-property context 'stringTunings)
+           (ly:context-property context 'additionalBassStrings '())))
          (string-count (length tunings))
          (grob (if (null? rest) '() (car rest)))
          (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes))
@@ -660,52 +662,52 @@ chords.  Returns a placement-list."
          (string-tunings (ly:context-property context 'stringTunings))
          (string-count (length string-tunings))
          (letter
-           (cond
-            ((= 0 (length labels))
-             (string (integer->char (+ fret-number (char->integer #\a)))))
-            ((and (<= 0 fret-number) (< fret-number (length labels)))
-             (list-ref labels fret-number))
-            (else
-             (ly:warning
-               (_ "No label for fret ~a (on string ~a);
+          (cond
+           ((= 0 (length labels))
+            (string (integer->char (+ fret-number (char->integer #\a)))))
+           ((and (<= 0 fret-number) (< fret-number (length labels)))
+            (list-ref labels fret-number))
+           (else
+            (ly:warning
+             (_ "No label for fret ~a (on string ~a);
 only ~a fret labels provided")
-               fret-number string-number (length labels))
-             ".")))
+             fret-number string-number (length labels))
+            ".")))
          (add-bass-string-nr ;; starting at zero
-           (- string-number string-count 1)))
+          (- string-number string-count 1)))
     (make-translate-scaled-markup '(0 . -0.5)
-      ;; For additional bass strings, we add zero up to three "/"-signs before
-      ;; the letter, even more bass strings will get numbers, starting with "4".
-      ;; In the rare case such a string isn't played open, we put out, eg."4b"
-      (make-concat-markup
-        (if (> string-number (+ string-count 4))
-            (list (number->string add-bass-string-nr)
-                  (if (zero? fret-number) "" letter))
-            (list (make-string (max 0 add-bass-string-nr) #\/)
-                  letter))))))
+                                  ;; For additional bass strings, we add zero up to three "/"-signs before
+                                  ;; the letter, even more bass strings will get numbers, starting with "4".
+                                  ;; In the rare case such a string isn't played open, we put out, eg."4b"
+                                  (make-concat-markup
+                                   (if (> string-number (+ string-count 4))
+                                       (list (number->string add-bass-string-nr)
+                                             (if (zero? fret-number) "" letter))
+                                       (list (make-string (max 0 add-bass-string-nr) #\/)
+                                             letter))))))
 
 ;; Display the fret number as a number
 (define-public (fret-number-tablature-format
                 context string-number fret-number)
   (if (integer? fret-number)
       (make-vcenter-markup
-        (format #f "~a" fret-number))
+       (format #f "~a" fret-number))
       ;; for non-integer fret-number print p.e. "2½"
       (let* ((whole-part (truncate fret-number))
              (remaining (- fret-number whole-part))
              (fret
-               (if (and (zero? whole-part) (not (zero? remaining)))
-                   ""
-                   (format #f "~a" whole-part)))
+              (if (and (zero? whole-part) (not (zero? remaining)))
+                  ""
+                  (format #f "~a" whole-part)))
              (frac
-               (if (zero? remaining)
-                   ""
-                   (format #f "~a" remaining))))
+              (if (zero? remaining)
+                  ""
+                  (format #f "~a" remaining))))
         (make-concat-markup
-          (list (make-vcenter-markup fret)
-                (make-vcenter-markup
-                  ;; the value `-2.5' is my choice
-                  (make-fontsize-markup -2.5 frac)))))))
+         (list (make-vcenter-markup fret)
+               (make-vcenter-markup
+                ;; the value `-2.5' is my choice
+                (make-fontsize-markup -2.5 frac)))))))
 
 ;; The 5-string banjo has got an extra string, the fifth (duh), which
 ;; starts at the fifth fret on the neck.  Frets on the fifth string
@@ -731,9 +733,9 @@ only ~a fret labels provided")
   (let* ((string-tunings (ly:context-property context 'stringTunings))
          (string-count (length string-tunings))
          (string-nr
-           (if (> string-number (length string-tunings))
-               (1+ (length string-tunings))
-               string-number))
+          (if (> string-number (length string-tunings))
+              (1+ (length string-tunings))
+              string-number))
          (string-one-topmost (ly:context-property context 'stringOneTopmost))
          (staff-line (- (* 2 string-nr) string-count 1)))
     (if string-one-topmost
@@ -787,12 +789,12 @@ only ~a fret labels provided")
          (begin-measure (= 0 (ly:moment-main-numerator measure-pos)))
          (maybe-open-parenthesis (if begin-measure "" "("))
          (maybe-close-parenthesis (if begin-measure "" ")")))
-    (markup (string-append maybe-open-parenthesis
-                           (number->string barnum)
-                           (make-letter ""
-                                        (car number-and-power)
-                                        (cdr number-and-power))
-                           maybe-close-parenthesis))))
+    (string-append maybe-open-parenthesis
+                   (number->string barnum)
+                   (make-letter ""
+                                (car number-and-power)
+                                (cdr number-and-power))
+                   maybe-close-parenthesis)))
 
 (define-public (all-bar-numbers-visible barnum mp) #t)
 
@@ -884,21 +886,21 @@ original @var{semitone->pitch} function."
                         (note-name->string pitch))))
     (set! markuplist
           (append markuplist
-            (if acc-style
-                (if (eq? acc-style 'lily)
-                    (list lily-str)
-                    (list basic-str
-                      (accidental->markup (ly:pitch-alteration pitch))))
-                (list basic-str))))
+                  (if acc-style
+                      (if (eq? acc-style 'lily)
+                          (list lily-str)
+                          (list basic-str
+                                (accidental->markup (ly:pitch-alteration pitch))))
+                      (list basic-str))))
     (if oct-style
         (set! markuplist
               (append markuplist
-                (list
-                 (if (eq? oct-style 'scientific)
-                     (make-sub-markup
-                      (number->string
-                       (+ 4 (ly:pitch-octave pitch))))
-                     (octave->lily-string pitch))))))
+                      (list
+                       (if (eq? oct-style 'scientific)
+                           (make-sub-markup
+                            (number->string
+                             (+ 4 (ly:pitch-octave pitch))))
+                           (octave->lily-string pitch))))))
     (make-concat-markup markuplist)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -915,20 +917,28 @@ original @var{semitone->pitch} function."
     (-4 . "29")))
 
 (define-public ottavation-ordinals
-  `((4 . ,(markup #:concat (#:general-align Y UP "29"
-                             #:general-align Y UP #:tiny "ma")))
-    (3 . ,(markup #:concat (#:general-align Y UP "22"
-                             #:general-align Y UP #:tiny "ma")))
-    (2 . ,(markup #:concat (#:general-align Y UP "15"
-                             #:general-align Y UP #:tiny "ma")))
-    (1 . ,(markup #:concat (#:general-align Y UP "8"
-                             #:general-align Y UP #:tiny "va")))
-    (-1 . ,(markup #:concat ("8" #:tiny "va")))
-    (-2 . ,(markup #:concat ("15" #:tiny "ma")))
-    (-3 . ,(markup #:concat ("22" #:tiny "ma")))
-    (-4 . ,(markup #:concat ("29" #:tiny "ma")))))
+  `((4 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "29")
+                 (make-general-align-markup Y UP (make-tiny-markup "ma")))))
+    (3 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "22")
+                 (make-general-align-markup Y UP (make-tiny-markup "ma")))))
+    (2 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "15")
+                 (make-general-align-markup Y UP (make-tiny-markup "ma")))))
+    (1 . ,(make-concat-markup
+           (list (make-general-align-markup Y UP "8")
+                 (make-general-align-markup Y UP (make-tiny-markup "va")))))
+    (-1 . ,(make-concat-markup
+            (list "8" (make-tiny-markup "va"))))
+    (-2 . ,(make-concat-markup
+            (list "15" (make-tiny-markup "ma"))))
+    (-3 . ,(make-concat-markup
+            (list "22" (make-tiny-markup "ma"))))
+    (-4 . ,(make-concat-markup
+            (list "29" (make-tiny-markup "ma"))))))
 
-; former default
+;; former default
 (define-public ottavation-simple-ordinals
   '((4 . "29ma")
     (3 . "22ma")

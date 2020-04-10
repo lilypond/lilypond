@@ -37,8 +37,10 @@
 #define scm_from_latin1_string scm_from_locale_string
 #define scm_from_latin1_stringn scm_from_locale_stringn
 #define scm_from_utf8_string scm_from_locale_string
+#define scm_from_utf8_stringn scm_from_locale_stringn
 #define scm_from_utf8_symbol scm_from_locale_symbol
 #define scm_to_utf8_string scm_to_locale_string
+#define scm_to_utf8_stringn scm_to_locale_stringn
 #endif
 
 #ifndef SMOB_FREE_RETURN_VAL

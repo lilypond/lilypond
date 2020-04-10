@@ -628,11 +628,12 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
       for (SCM line = lines; scm_is_pair (line); line = scm_cdr (line))
         {
           System *sys = unsmob<System> (scm_car (line));
-          if (sys) {
-            sys->set_property ("rank-on-page", scm_from_int (rank_on_page));
-            sys->set_property ("page-number", scm_from_int (page_num));
-            rank_on_page++;
-          }
+          if (sys)
+            {
+              sys->set_property ("rank-on-page", scm_from_int (rank_on_page));
+              sys->set_property ("page-number", scm_from_int (page_num));
+              rank_on_page++;
+            }
         }
 
       vsize fn_lines = Page_layout_problem::get_footnote_count (lines);
@@ -1116,8 +1117,8 @@ Page_breaking::compute_line_heights ()
                           ? prev.title_min_distance_
                           : prev.min_distance_;
           refpoint_hanging = std::max (refpoint_hanging + padding,
-                                  prev_refpoint_hanging - prev.refpoint_extent_[DOWN]
-                                  + cur.refpoint_extent_[UP] + min_dist);
+                                       prev_refpoint_hanging - prev.refpoint_extent_[DOWN]
+                                       + cur.refpoint_extent_[UP] + min_dist);
         }
 
       Real hanging_begin = refpoint_hanging - shape.begin_[DOWN];
@@ -1532,7 +1533,7 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, int first_page_num
   cache_line_details (configuration);
   for (vsize i = 0; i + 1 < cached_line_details_.size (); i++)
     if (scm_is_eq (cached_line_details_[i].page_permission_,
-        ly_symbol2scm ("force")))
+                   ly_symbol2scm ("force")))
       {
         vector<Line_details> lines1 (cached_line_details_.begin (), cached_line_details_.begin () + i + 1);
         vector<Line_details> lines2 (cached_line_details_.begin () + i + 1, cached_line_details_.end ());

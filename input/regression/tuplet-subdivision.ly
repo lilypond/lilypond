@@ -2,8 +2,8 @@
 
 \header {
 
-  texinfo = "
-Subdivision works properly for tuplets
+  texidoc = "
+Subdivision works properly for tuplets.
   "
 }
 

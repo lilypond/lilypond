@@ -231,7 +231,7 @@ stagger_apes (vector<unique_ptr<Accidental_placement_entry>> *apes)
 }
 
 static vector<unique_ptr<Accidental_placement_entry>>
-build_apes (SCM accs)
+                                                   build_apes (SCM accs)
 {
   vector<unique_ptr<Accidental_placement_entry>> apes;
   for (SCM s = accs; scm_is_pair (s); s = scm_cdr (s))

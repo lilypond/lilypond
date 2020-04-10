@@ -26,7 +26,7 @@ our @ref{Text input}.}
   @heading Downloads for LilyPond @versionDevel
 
 @warning{Links for the stable version of LilyPond can be found at
-@uref{http://lilypond.org, lilypond.org}}
+@uref{https://lilypond.org, lilypond.org}}
 @end ifclear
 @ifset web_version
   @heading Downloads for LilyPond @versionStable
@@ -263,15 +263,23 @@ acknowledged.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-For MacOS X 10.4 or higher, running on Intel CPUs (if in doubt,
-use this).
+For Mac OS X 10.4--10.5 running on Intel CPUs and Mac OS X
+10.6--10.14 (for 10.15 see below).
 
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-For MacOS X 10.4 or higher, running on G3 and G4 CPUs (old Apple
+For Mac OS X 10.4--10.5 running on G3 and G4 CPUs (old Apple
 computers).
+
+
+@item
+@sourceimage{logo-macosx,,,}
+@c file name is unpredictable, linking to main page
+Unofficial 64-bit application bundles for macOS 10.15 are
+available at
+@uref{https://bintray.com/marnen/lilypond-darwin-64}.
 
 
 @end itemize
@@ -544,7 +552,7 @@ pre-built version.}
 @downloadStableSource{}
 
 For an extensive listing of all versions (old and new), see our
-@uref{http://lilypond.org/download/source/?C=N;O=D,
+@uref{https://lilypond.org/download/source/?C=N;O=D,
 download site}.
 
 @divEnd
@@ -568,7 +576,7 @@ Instructions are listed in @rcontrib{Compiling}.
 @subheading All versions
 
 For an extensive listing of all versions (old and new), see our
-@uref{http://lilypond.org/download/binaries/, download
+@uref{https://lilypond.org/download/binaries/, download
 site}.
 
 @divEnd

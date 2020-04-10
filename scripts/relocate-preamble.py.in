@@ -22,5 +22,8 @@ for p in ['share', 'lib']:
 # those scripts. Assume to be in such a situation if the path to the
 # script ends with 'scripts/out'.
 if bindir.endswith (r'/scripts/out'):
+    # only works for in-tree builds
+    sys.path.insert (0, bindir + r'/../../python')
+    # build in separate dir, but incorrect.
     sys.path.insert (0, bindir + r'/../../python/out')
 """

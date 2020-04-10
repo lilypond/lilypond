@@ -571,9 +571,9 @@ actius i experimentats.  Les estadístiques estan al dia fins la
 versió @versionDevel{}:
 
 @multitable @columnfractions .3 .3 .3
-@item @uref{http://lilypond.org/~graham/gitstats-all/, història general}
-@tab @uref{http://lilypond.org/~graham/gitstats-1year/, últim any}
-@tab @uref{http://lilypond.org/~graham/gitstats-3months/, últims tres mesos}
+@item @uref{https://lilypond.org/~graham/gitstats-all/, història general}
+@tab @uref{https://lilypond.org/~graham/gitstats-1year/, últim any}
+@tab @uref{https://lilypond.org/~graham/gitstats-3months/, últims tres mesos}
 @end multitable
 
 Desenvolupadors interessats:
@@ -677,8 +677,8 @@ col·laboradors.
 @docLinksBare{Guia del col·laborador, contribuïdor,
   @rcontribnamed{Top,Guía del col·laborador},
   @manualDevelContributorSplit,
-  @manualDevelContributorBig, 500 kB,
-  @manualDevelContributorPdf, 2.8 MB}
+  @manualDevelContributorBig,
+  @manualDevelContributorPdf}
 
 @divEnd
 
@@ -744,9 +744,9 @@ Les proves del lilypond-book d'aquesta versió.
 @subsubheading Totes les versions
 
 @itemize
-@item @uref{http://lilypond.org/test, Comparacions entre proves de regressió}
+@item @uref{https://lilypond.org/test, Comparacions entre proves de regressió}
 
-@item @uref{http://lilypond.org/downloads/binaries/test-output/,
+@item @uref{https://lilypond.org/downloads/binaries/test-output/,
 Arxiu de totes les proves de regressió}
 
 @end itemize
@@ -761,7 +761,7 @@ Arxiu de totes les proves de regressió}
 
 @ifclear web_version
 @warning{Aquests manuals són per al LilyPond @version{}; els
-manuals més recents estan a @url{http://lilypond.org}}
+manuals més recents estan a @url{https://lilypond.org}}
 @end ifclear
 
 @divClass{normal-table}
@@ -1180,8 +1180,8 @@ que introduís més advertiments dels que hi ha actualment.
 @subheading Anuncis
 
 Anuncis i notícies per versió:
-@uref{http://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
-@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
+@uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
+@uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
 @miscLink{announce-v2.8,v2.8},
@@ -1194,17 +1194,17 @@ Anuncis i notícies per versió:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Llista descriptiva dels canvis per versió:
-@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
-@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
-@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
-@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
-@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
-@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
-@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
-@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
-@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
-@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
-@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
+@uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
+@uref{https://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
+@uref{https://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
+@uref{https://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
+@uref{https://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
+@uref{https://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
+@uref{https://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
+@uref{https://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
+@uref{https://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
 @miscLink{NEWS-1.4,v1.4},
 @miscLink{NEWS-1.2,v1.2}
 

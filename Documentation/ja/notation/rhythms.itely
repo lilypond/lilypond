@@ -936,7 +936,7 @@ R2.*2 |
 マークアップを複数小節にまたがる休符に付け加えることができます。
 
 @lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
+\compressEmptyMeasures
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
 @end lilypond
@@ -976,8 +976,8 @@ R1\fermata
 
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex \compressFullBarRests
-@funindex \expandFullBarRests
+@funindex \compressEmptyMeasures
+@funindex \expandEmptyMeasures
 
 @predefined
 @code{\textLengthOn},

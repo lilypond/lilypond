@@ -2,7 +2,7 @@
 % This file is part of LilyPond, the GNU music typesetter.
 %
 % Copyright (C) 2006--2020 Juergen Reuter <reuter@ipd.uka.de>
-% 
+%
 % The LilyPond font is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
@@ -24,14 +24,14 @@ save dot_diam;
 define_whole_blacker_pixels (dot_diam);
 
 fet_beginchar ("duration dot", "dotvaticana");
-        pickup pencircle scaled dot_diam;
+  pickup pencircle scaled dot_diam;
 
-        lft x0 = 0;
-        top y0 = vround (.5 dot_diam);
+  lft x0 = 0;
+  top y0 = vround (.5 dot_diam);
 
-        drawdot z0;
+  drawdot z0;
 
-        set_char_box (0, dot_diam#, .5 dot_diam#, .5 dot_diam#);
+  set_char_box (0, dot_diam#, .5 dot_diam#, .5 dot_diam#);
 fet_endchar;
 
 
@@ -48,15 +48,15 @@ define_whole_pixels (kievan_dot_diam);
 
 
 fet_beginchar ("Kievan augmentation dot", "dotkievan");
-        % parameters for superellipse are right, top, left, bottom
-        fill superellipse ((kievan_dot_diam, 0),
-                           (kievan_dot_diam / 2, kievan_dot_diam / 2),
-                           (0, 0),
-                           (kievan_dot_diam / 2, -kievan_dot_diam / 2),
-                           0.51);
+  % parameters for superellipse are right, top, left, bottom
+  fill superellipse ((kievan_dot_diam, 0),
+                     (kievan_dot_diam / 2, kievan_dot_diam / 2),
+                     (0, 0),
+                     (kievan_dot_diam / 2, -kievan_dot_diam / 2),
+                     0.51);
 
-        set_char_box (0, kievan_dot_diam#,
-                      0.5 kievan_dot_diam#, 0.5 kievan_dot_diam#);
+  set_char_box (0, kievan_dot_diam#,
+                0.5 kievan_dot_diam#, 0.5 kievan_dot_diam#);
 fet_endchar;
 
 fet_endgroup ("dots");

@@ -47,6 +47,7 @@ TODO:
 
 import codecs
 import fcntl
+import gettext
 import glob
 import hashlib
 import os
@@ -61,6 +62,9 @@ from functools import reduce
 """
 @relocate-preamble@
 """
+
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 
 import lilylib as ly
 import fontextract
@@ -100,8 +104,13 @@ progress = ly.progress
 warning = ly.warning
 error = ly.error
 
+program_version = '@TOPLEVEL_VERSION@'
+if program_version.startswith("@"):
+    # '@' in lilypond-book output confuses texinfo
+    program_version = "dev"
+
 def identify ():
-    progress('%s (GNU LilyPond) %s' % (ly.program_name, ly.program_version))
+    progress('%s (GNU LilyPond) %s' % (ly.program_name, program_version))
 
 def warranty ():
     identify ()
@@ -609,7 +618,7 @@ def do_options ():
     opt_parser = get_option_parser()
     (global_options, args) = opt_parser.parse_args ()
 
-    global_options.information = {'program_version': ly.program_version, 'program_name': ly.program_name }
+    global_options.information = {'program_version': program_version, 'program_name': ly.program_name }
     global_options.original_dir = original_dir
 
     if global_options.lily_output_dir:

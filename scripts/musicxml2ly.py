@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-
+import gettext
 import optparse
 import sys
 import re
@@ -18,6 +18,8 @@ from functools import reduce
 @relocate-preamble@
 """
 
+# Load translation and install _() into Python's builtins namespace.
+gettext.install ('lilypond', '@localedir@')
 import lilylib as ly
 
 import utilities
@@ -2283,8 +2285,8 @@ def musicxml_voice_to_lily_voice(voice):
             voice_builder.add_multibar_rest(n._duration)
             continue
 
-        # print a bar check at the beginning of each measure!
-        if n.is_first() and n._measure_position == Rational(0) and n != voice._elements[0]:
+        # Print bar checks between measures.
+        if n._measure_position == Rational(0) and n != voice._elements[0]:
             try:
                 num = int(n.get_parent().number)
             except ValueError:

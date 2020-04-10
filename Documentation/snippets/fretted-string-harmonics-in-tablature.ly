@@ -32,20 +32,20 @@ pinchedHarmonics = {
 harmonics = {
   %artificial harmonics (AH)
   \textLengthOn
-  <\parenthesize b b'\harmonic>4_\markup{ \teeny "AH 16" }
-  <\parenthesize g g'\harmonic>4_\markup{ \teeny "AH 17" }
-  <\parenthesize d' d''\harmonic>2_\markup{ \teeny "AH 19" }
+  <\parenthesize b b'\harmonic>4_\markup { \teeny "AH 16" }
+  <\parenthesize g g'\harmonic>4_\markup { \teeny "AH 17" }
+  <\parenthesize d' d''\harmonic>2_\markup { \teeny "AH 19" }
   %pinched harmonics (PH)
   \pinchedHarmonics
   <a'\harmonic>2\startTextSpan
   <d''\harmonic>4
   <e'\harmonic>4\stopTextSpan
   %tapped harmonics (TH)
-  <\parenthesize g\4 g'\harmonic>4_\markup{ \teeny "TH 17" }
-  <\parenthesize a\4 a'\harmonic>4_\markup{ \teeny "TH 19" }
-  <\parenthesize c'\3 c''\harmonic>2_\markup{ \teeny "TH 17" }
+  <\parenthesize g\4 g'\harmonic>4_\markup { \teeny "TH 17" }
+  <\parenthesize a\4 a'\harmonic>4_\markup { \teeny "TH 19" }
+  <\parenthesize c'\3 c''\harmonic>2_\markup { \teeny "TH 17" }
   %touch harmonics (TCH)
-  a4( <e''\harmonic>2. )_\markup{ \teeny "TCH" }
+  a4( <e''\harmonic>2. )_\markup { \teeny "TCH" }
 }
 
 frettedStrings = {

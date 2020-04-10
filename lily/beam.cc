@@ -222,14 +222,14 @@ Beam::calc_direction (SCM smob)
           extract_grob_set (stem, "note-heads", heads);
           /* default position of Kievan heads with beams is down
              placing this here avoids warnings downstream */
-          if (heads.size())
+          if (heads.size ())
             {
-               if (scm_is_eq (heads[0]->get_property ("style"),
-                              ly_symbol2scm ("kievan")))
-                 {
-                    if (dir == CENTER)
-                      dir = DOWN;
-                 }
+              if (scm_is_eq (heads[0]->get_property ("style"),
+                             ly_symbol2scm ("kievan")))
+                {
+                  if (dir == CENTER)
+                    dir = DOWN;
+                }
             }
         }
     }
@@ -492,7 +492,7 @@ Beam::calc_beam_segments (SCM smob)
                            || absdiff (seg.rank_, segs[j + event_dir].rank_) > 1
                            || (abs (vertical_count) >= seg.max_connect_
                                || abs (vertical_count)
-                                    >= segs[j + event_dir].max_connect_);
+                               >= segs[j + event_dir].max_connect_);
 
               if (!event)
                 // Then this edge of the current segment is irrelevant because it will
@@ -531,7 +531,7 @@ Beam::calc_beam_segments (SCM smob)
                           Real neighbor_stem_x = neighbor_stem->relative_coordinate (commonx, X_AXIS);
 
                           length = std::min (length,
-                                        fabs (neighbor_stem_x - seg.stem_x_) * max_proportion[seg.dir_]);
+                                             fabs (neighbor_stem_x - seg.stem_x_) * max_proportion[seg.dir_]);
                         }
                       current.horizontal_[event_dir] += event_dir * length;
                     }
@@ -556,10 +556,10 @@ Beam::calc_beam_segments (SCM smob)
                           for (vsize k = 0; k < heads.size (); k++)
                             current.horizontal_[event_dir]
                               = event_dir * std::min (event_dir * current.horizontal_[event_dir],
-                                                 - gap_length / 2
-                                                 + event_dir
-                                                 * heads[k]->extent (commonx,
-                                                                     X_AXIS)[-event_dir]);
+                                                      - gap_length / 2
+                                                      + event_dir
+                                                      * heads[k]->extent (commonx,
+                                                                          X_AXIS)[-event_dir]);
                         }
                     }
                 }
@@ -579,10 +579,10 @@ Beam::calc_beam_segments (SCM smob)
   for (vsize i = segments.size (); i--;)
     {
       segments_scm = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
-						     scm_from_int (segments[i].vertical_count_)),
-					   scm_cons (ly_symbol2scm ("horizontal"),
-						     ly_interval2scm (segments[i].horizontal_))),
-			       segments_scm);
+                                                     scm_from_int (segments[i].vertical_count_)),
+                                           scm_cons (ly_symbol2scm ("horizontal"),
+                                                     ly_interval2scm (segments[i].horizontal_))),
+                               segments_scm);
     }
 
   return segments_scm;
@@ -765,7 +765,7 @@ Beam::print (SCM grob)
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
       Stencil score = *unsmob<Stencil> (Text_interface::interpret_markup
-                                       (me->layout ()->self_scm (), properties, annotation));
+                                        (me->layout ()->self_scm (), properties, annotation));
 
       if (!score.is_empty ())
         {
@@ -785,7 +785,7 @@ Beam::get_default_dir (Grob *me)
   extract_grob_set (me, "stems", stems);
 
   Drul_array<Real> extremes (0.0, 0.0);
-  for (vector<Grob*>::const_iterator s = stems.begin (); s != stems.end (); s++)
+  for (vector<Grob *>::const_iterator s = stems.begin (); s != stems.end (); s++)
     {
       Interval positions = Stem::head_positions (*s);
       for (DOWN_and_UP (d))
@@ -1144,7 +1144,7 @@ Beam::set_stem_lengths (SCM smob)
         have a reference point for sloping
        */
       Stem::set_stem_positions (s, 2 * stem_y / staff_space,
-                                   2 * fb_stem_adjustment / staff_space);
+                                2 * fb_stem_adjustment / staff_space);
     }
 
   return posns;

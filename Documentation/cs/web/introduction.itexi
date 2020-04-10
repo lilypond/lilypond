@@ -604,7 +604,7 @@ LilyPond vyzkoušíte, přečtěte si nejprve o našem
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/productions.html
+@c https://lilypond.org/productions.html
 
 @node Posudky
 @unnumberedsec Posudky
@@ -687,7 +687,7 @@ Francouzský článek o LilyPondu ve verzi 2.6 se objevuje na
 
 Vydavatelé holandského časopisu Computer!Totaal,
 který se věnuje počítačům,
-@uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
 popisují LilyPond} ve vydání z října 2004 jako: @qq{báječný
 svobodný (Open Source) program [...] Noty vytvořené LilyPondem
 jsou bez výjimky nádherné [...] Jde o velmi silný systém, který
@@ -882,7 +882,7 @@ Přečtěte si o našem @ref{Textový vstup,,textovém vstupu}.
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/web/switch/howto
+@c https://lilypond.org/web/switch/howto
 
 @subheading @qq{Sestavení} not
 
@@ -1023,7 +1023,7 @@ Ještě stále nejste přesvědčeni?  Přečtěte si o @ref{Snadnější
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://lilypondtool.organum.hu}
+@uref{https://lilypondtool.organum.hu}
 
 Vytvořen jako přídavný modul pro textový editor @uref{http://www.jedit.org,jEdit},
 je LilyPondTool jedním z textově založených nástrojů s nejvíce
@@ -1197,7 +1197,7 @@ pro vytváření hudebního zápisu z programových prostředí pro počítačov
 @itemize
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} byl nahrazen
+@uref{https://lilykde.googlecode.com/,LilyKDE} byl nahrazen
 @uref{http://www.frescobaldi.org/,Frescobaldi} a existuje pouze jako
 LilyKDE3 pro KDE 3.5 a lilypond-KDE4 pro KDE 4.1.
 
@@ -1210,7 +1210,7 @@ a @uref{http://canorus.org,Canorus}.
 
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} je obrazný
+@uref{https://lilycomp.sourceforge.net, LilyComp} je obrazný
 program pro notový zápis, který se chová jako psací blok pro čísla,
 se kterým se dá vytvářet notový zápis LilyPondu.
 

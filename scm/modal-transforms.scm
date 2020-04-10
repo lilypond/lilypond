@@ -318,10 +318,10 @@ and transposes from @var{around} to @var{to}.")
                ;; Notes may not have been entered from bottom to top;
                ;; sort them depending on their pitch.
                (notes (sort-list elts
-                        (lambda (a b)
-                          (ly:pitch<?
-                           (ly:music-property a 'pitch)
-                           (ly:music-property b 'pitch))))))
+                                 (lambda (a b)
+                                   (ly:pitch<?
+                                    (ly:music-property a 'pitch)
+                                    (ly:music-property b 'pitch))))))
           (if (< -1 count-from l)
               (let* ((note (list-ref notes count-from))
                      (oct (ly:music-property note 'octavation 0))

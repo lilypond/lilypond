@@ -35,7 +35,6 @@
 #include <cassert>
 #include <string>
 
-
 template<typename T>
 int default_compare (T const &a, T const &b)
 {
@@ -115,9 +114,9 @@ lower_bound (std::vector<T> const &v,
   if (e == VPOS)
     e = v.size ();
   typename std::vector<T>::const_iterator i = lower_bound (v.begin () + b,
-                                                      v.begin () + e,
-                                                      key,
-                                                      less);
+                                                           v.begin () + e,
+                                                           key,
+                                                           less);
 
   return i - v.begin ();
 }
@@ -133,9 +132,9 @@ upper_bound (std::vector<T> const &v,
     e = v.size ();
 
   typename std::vector<T>::const_iterator i = upper_bound (v.begin () + b,
-                                                      v.begin () + e,
-                                                      key,
-                                                      less);
+                                                           v.begin () + e,
+                                                           key,
+                                                           less);
 
   return i - v.begin ();
 }
@@ -169,8 +168,8 @@ vector_sort (std::vector<T> &v,
 template<typename T, typename Compare>
 void
 vector_stable_sort (std::vector<T> &v,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+                    Compare less,
+                    vsize b = 0, vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();

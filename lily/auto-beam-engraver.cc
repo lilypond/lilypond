@@ -173,10 +173,10 @@ bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 {
   return scm_is_true (scm_call_4 (get_property ("autoBeamCheck"),
-                                    context ()->self_scm (),
-                                    scm_from_int (dir),
-                                    test_mom.smobbed_copy (),
-                                    dur.smobbed_copy ()));
+                                  context ()->self_scm (),
+                                  scm_from_int (dir),
+                                  test_mom.smobbed_copy (),
+                                  dur.smobbed_copy ()));
 }
 
 void
@@ -270,7 +270,6 @@ Auto_beam_engraver::is_same_grace_state (Moment start, Moment now)
 {
   return bool (start.grace_part_) == bool (now.grace_part_);
 }
-
 
 void
 Auto_beam_engraver::end_beam ()
@@ -634,7 +633,7 @@ Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment)
     return false;
   // Autobeam start only when at the start of the grace group.
   if (dir == START)
-      return last_grace_position_ == test_mom;
+    return last_grace_position_ == test_mom;
   // Autobeam end only when the grace part is finished.
   return !test_mom.grace_part_;
 }

@@ -6,7 +6,7 @@ AC_PREREQ([2.60])
 # Bootstrap the init process.
 AC_INIT([LilyPond],
     [m4_esyscmd_s([. ${SRCDIR:-.}/VERSION; echo $MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL])],
-    [bug-lilypond@gnu.org], [lilypond], [http://lilypond.org/])
+    [bug-lilypond@gnu.org], [lilypond], [https://lilypond.org/])
 
 # Bootstrap StepMake configure
 AC_CONFIG_AUX_DIR([config])
@@ -191,9 +191,13 @@ STEPMAKE_TEXMF_DIRS(REQUIRED)
 
 STEPMAKE_GUILE_DEVEL(REQUIRED)
 
+save_CPPFLAGS="$CPPFLAGS"
+CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
+# Some distributions like MacPorts allow guile 1.8 to co-exist with
+# guile >= 2; they rename 'libguile.h' to 'libguile18.h'.
+AC_CHECK_HEADERS([libguile18.h])
+
 # check for 3 typedefs added in Guile 1.9
-save_CXXFLAGS="$CXXFLAGS"
-CXXFLAGS="$GUILE_CFLAGS $CXXFLAGS"
 AC_CHECK_TYPES([scm_t_hash_fold_fn],
                [AC_DEFINE(HAVE_GUILE_HASH_FUNC)], [],
                [[#if HAVE_LIBGUILE18_H
@@ -208,7 +212,7 @@ AC_CHECK_TYPES([scm_t_subr],
 #else
 # include <libguile.h>
 #endif]])
-CXXFLAGS="$save_CXXFLAGS"
+CPPFLAGS="$save_CPPFLAGS"
 
 # Check if the compiler understands -Werror=unknown-warning-option.
 # This is important for Clang which otherwise just warns about unknown

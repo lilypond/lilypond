@@ -64,7 +64,7 @@ cobreixin les despeses de l'editor.  Si us plau suporteu aquesta
 iniciativa comprant el volum imprès a través de l'editor [4] o
 aportant una contribució a la campanya Indiegogo [5]!
 
-[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[1] @uref{https://lilypondblog.org/category/fried-songs}@*
 [2] @uref{http://www.best-edition.de}@*
 [3] @uref{https://musik.messefrankfurt.com/frankfurt/en/besucher/events/awards/best_edition.html}@*
 [4] @uref{http://www.sound-rel.de}@*
@@ -116,7 +116,7 @@ Una llista completa de noves funcionalitats destacables es poden
 trobar a:
 
 @example
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/index.html}
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html}
 @end example
 
 Moltes gràcies a un gran nombre d'entusiastes del LilyPond les
@@ -167,7 +167,7 @@ i nombrosos altres col·laboradors.
 @subsubheading Blog del LilyPond.  @emph{2 de juny de 2013}
 
 Janek Warchoł ha creat un blog del LilyPond.  El podeu trobar a
-@uref{http://lilypondblog.org/, lilypondblog.org}!
+@uref{https://lilypondblog.org/, lilypondblog.org}!
 
 @newsEnd
 
@@ -240,7 +240,7 @@ Les funcions musicals s'han fet molt més versàtils
 Es dóna una llista completa de noves funcionalitats a:
 
 @example
-@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html}
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html}
 @end example
 
 Feliç gravat musical!  LilyPond 2.16 us ha estat portat per...

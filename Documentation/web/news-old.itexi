@@ -27,6 +27,17 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.19.84 released  @emph{February 4, 2020}
+ 
+We are happy to announce the release of LilyPond
+2.19.84.  This release is the final pre-release test version
+for the upcoming stable 2.20 release.  If you
+require a stable version of LilyPond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.19.83 released  @emph{October 16, 2018}
 
 We are happy to announce the release of LilyPond
@@ -860,7 +871,7 @@ to inform you that they intend to make their work available under a Free
 license as soon as the publisher expenses are covered.  Please support this
 initiative by buying the printed volume through the publisher [3].
 
-[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[1] @uref{https://lilypondblog.org/category/fried-songs}@*
 [2] @uref{http://www.best-edition.de}@*
 [3] @uref{http://www.sound-rel.de}@*
 
@@ -966,7 +977,7 @@ instead of
 A full list of noteworthy new features is given in:
 
 @example
-@uref{http://lilypond.org/doc/v2.18/Documentation/changes/index.html}
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html}
 @end example
 
 Great thanks go to the large number of LilyPond enthusiasts whose
@@ -1020,9 +1031,9 @@ a potential final beta release for the upcoming stable release@tie{}2.18.  The
 developers believe this to be feature-complete, the
 documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
-latest version, see @uref{http://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
+latest version, see @uref{https://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
 Please test this release and report back any problems, see
-@uref{http://lilypond.org/website/bug-reports.html, Bug reports}.
+@uref{https://lilypond.org/website/bug-reports.html, Bug reports}.
 
 @newsEnd
 
@@ -1034,9 +1045,9 @@ a further beta release for the upcoming stable release@tie{}2.18.  The
 developers believe the release to be feature-complete, the
 documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
-latest version, see @uref{http://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
+latest version, see @uref{https://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
 Please test this release and report back any problems, see
-@uref{http://lilypond.org/website/bug-reports.html, Bug reports}.
+@uref{https://lilypond.org/website/bug-reports.html, Bug reports}.
 
 @newsEnd
 
@@ -1049,7 +1060,7 @@ developers are still busy finding solutions for some last-minute
 problems, but the release is supposed to be feature-complete, the
 documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
-latest version, see @uref{http://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
+latest version, see @uref{https://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
 Please test this release and report back any problems, see
 @rweb{Bug reports}.
 
@@ -1172,7 +1183,7 @@ a stable version of LilyPond, we recommend using the 2.16 version.
 @subheading LilyPond blog.  @emph{June 2, 2013}
 
 Janek Warchoł has created a LilyPond blog.  You can find it at
-@uref{http://lilypondblog.org/, lilypondblog.org}!
+@uref{https://lilypondblog.org/, lilypondblog.org}!
 
 @newsEnd
 
@@ -1458,7 +1469,7 @@ Music functions have become quite more versatile
 A full list of new features is given in:
 
 @example
-@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html}
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html}
 @end example
 
 Happy music typesetting!  LilyPond 2.16 was brought to you by...
@@ -1535,7 +1546,7 @@ candidate.
 The @emph{LilyPond Report} is back, with some interesting insights on
 new Scheme-related features recently added by our community’s only paid
 developer David Kastrup (thanks to your
-@uref{http://lilypond.org/sponsoring.html, continuing donations}).  Also
+@uref{https://lilypond.org/sponsoring.html, continuing donations}).  Also
 to be found in this issue are an overview of some lesser-known LilyPond
 companion projects, and a handful of more shallow factoids.
 
@@ -2293,7 +2304,7 @@ avoided.
 A full list of new features is given in:
 
 @example
-@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html}
+@uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html}
 @end example
 
 Happy music typesetting!  LilyPond 2.14 was brought to you by...
@@ -3013,7 +3024,7 @@ information on our page about @ref{Contact}.
 @warning{There are a few known problems with translations.  If you
 are a non-English speaker, you may prefer to view the old lilypond
 website at:
-@uref{http://lilypond.org/web/}}
+@uref{https://lilypond.org/web/}}
 
 @newsEnd
 
@@ -3629,7 +3640,7 @@ dynamics engravers.  Support for slur-shaped arpeggios has been added.
 A RSS feed is now available on lilypond.org.  It contains all
 news announced on the web site start page: releases, LilyPond
 report, new translations of the site and publications.
-@uref{http://lilypond.org/web/lilypond-rss-feed.xml,Feed URL}.
+@uref{https://lilypond.org/web/lilypond-rss-feed.xml,Feed URL}.
 The info mailing list (see @ref{Contact}) is still used to
 announce releases and special events.
 @newsEnd
@@ -3810,7 +3821,7 @@ and lots of updates for the translations.
 
 Release 2.11.28 is now available as a binary installer for
 FreeBSD x86_64.  Download
-@uref{http://lilypond.org/downloads/binaries/freebsd-64/,the installer} and
+@uref{https://lilypond.org/downloads/binaries/freebsd-64/,the installer} and
 do @emph{sh lilypond-2.11.28-1.freebsd-64.sh} in a command window.
 @newsEnd
 
@@ -3891,8 +3902,8 @@ This release has some documentation updates.
 @subheading Traduction de la documentation en français - @emph{25 février 2007}
 Les chapitres 1 à 4 et 6 du manuel de l'utilisateur sont désormais traduits, et
 disponibles en ligne ---
-@uref{http://lilypond.org/doc/v2.10/Documentation/user/lilypond/index.fr.html,version 2.10},
-@uref{http://lilypond.org/doc/v2.11/Documentation/user/lilypond/index.fr.html,version 2.11}.
+@uref{https://lilypond.org/doc/v2.10/Documentation/user/lilypond/index.fr.html,version 2.10},
+@uref{https://lilypond.org/doc/v2.11/Documentation/user/lilypond/index.fr.html,version 2.11}.
 Les traductions sont également incluses dans la
 @uref{install,documentation téléchargeable}.
 @newsEnd
@@ -4154,7 +4165,7 @@ within a system as well as between systems.
 
 @newsItem
 @subheading LilyPond 2.11.3 available - @emph{December 19, 2006}
-This release has @uref{http://lilypond.org/doc/v2.11/compare-v2.10.3/index.html,graphical
+This release has @uref{https://lilypond.org/doc/v2.11/compare-v2.10.3/index.html,graphical
 test results} and several website build improvements.
 @*
 @bugfixes{2_11_3,},
@@ -4182,8 +4193,8 @@ From now on, our GUB binary builds include support for Linux/PPC.  (@ref{Old dow
 @subheading Traduction du tutoriel en français.  @emph{December 13, 2006}
 Fruit du travail d'une équipe de traducteurs, le tutoriel en français est
 maintenant disponible en ligne.
-@uref{http://lilypond.org/doc/v2.10/Documentation/user/lilypond/Tutorial.fr.html,Version 2.10},
-@uref{http://lilypond.org/doc/v2.11/Documentation/user/lilypond/Tutorial.fr.html,Version 2.11}.
+@uref{https://lilypond.org/doc/v2.10/Documentation/user/lilypond/Tutorial.fr.html,Version 2.10},
+@uref{https://lilypond.org/doc/v2.11/Documentation/user/lilypond/Tutorial.fr.html,Version 2.11}.
 @newsEnd
 
 
@@ -4433,7 +4444,7 @@ infrastructure for automated regression testing.
 @newsItem
 @subheading First test results available - @emph{June 4, 2006}
 After a week of frantic tweaking, the first automated testing results
-are available.  You can now see @uref{http://lilypond.org/doc/v2.9/compare-v2.8.4/index.html,in full
+are available.  You can now see @uref{https://lilypond.org/doc/v2.9/compare-v2.8.4/index.html,in full
 glory} what features are broken in the development release
 @newsEnd
 
@@ -4703,11 +4714,11 @@ to the @ref{Old downloads} get them!
 Starting with 2.7.26, the development team has been working on the
 installers. We're proud to announce another version of these: they are
 now available for
-@uref{http://lilypond.org/downloads/binaries/linux-x86/,
+@uref{https://lilypond.org/downloads/binaries/linux-x86/,
 Linux/x86},
-@uref{http://lilypond.org/downloads/binaries/darwin-ppc/,
+@uref{https://lilypond.org/downloads/binaries/darwin-ppc/,
 MacOS X} and
-@uref{http://lilypond.org/downloads/binaries/mingw/,
+@uref{https://lilypond.org/downloads/binaries/mingw/,
 Windows}.
 @newsEnd
 
@@ -5330,7 +5341,7 @@ own risk.
 @newsItem
 @subheading February 28, 2005
 LilyPond 2.5.13 is out. This release has Point and click support for
-PDF output. You can read more about it @uref{http://lilypond.org/doc/v2.5/Documentation/user/out-www/lilypond/Point-and-click.html,here}.
+PDF output. You can read more about it @uref{https://lilypond.org/doc/v2.5/Documentation/user/out-www/lilypond/Point-and-click.html,here}.
 Take a look at the @ref{Changes}
 file and download @ref{Old downloads}!
 @newsEnd
@@ -6371,7 +6382,7 @@ More information in the
 @subheading January 4, 2004
 LilyPond 2.1.6 continues to improve the layout of  lyrics.  More
 information in the
-@uref{http://lilypond.org/doc/v2.1/Documentation/topdocs/out-www/NEWS.html,release
+@uref{https://lilypond.org/doc/v2.1/Documentation/topdocs/out-www/NEWS.html,release
 notes} and download @uref{install/#2.1,here}.
 @newsEnd
 

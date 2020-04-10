@@ -115,7 +115,7 @@ not registering the markup command, this is identical to
 `define-markup-command`"
   (while (and (pair? body) (keyword? (car body)))
          (set! body (cddr body)))
-     ;; define the COMMAND-markup function
+  ;; define the COMMAND-markup function
   (let* ((documentation
           (format #f "~a\n~a" (cddr args)
                   (if (string? (car body)) (car body) "")))
@@ -324,8 +324,8 @@ against signature, reporting MAKE-NAME as the user-invoked function.
        (markps '() markps))
       ((null? rest) (reverse markps))
     (receive (m r) (compile-markup-expression rest)
-             (set! markps (cons m markps))
-             (set! rest r))))
+      (set! markps (cons m markps))
+      (set! rest r))))
 
 (define (keyword->make-markup key)
   "Transform a keyword, e.g. #:COMMAND, in a make-COMMAND-markup symbol."
@@ -356,14 +356,14 @@ against signature, reporting MAKE-NAME as the user-invoked function.
                      (else
                       ;; pick up one arg in `rest'
                       (receive (a r) (compile-markup-arg rest)
-                               (set! args (cons a args))
-                               (set! rest r))))))))
+                        (set! args (cons a args))
+                        (set! rest r))))))))
         ((and (pair? expr)
               (pair? (car expr))
               (keyword? (caar expr)))
          ;; expr === ((#:COMMAND arg1 ...) ...)
          (receive (m r) (compile-markup-expression (car expr))
-                  (values m (cdr expr))))
+           (values m (cdr expr))))
         ((and (pair? expr)
               (string? (car expr))) ;; expr === ("string" ...)
          (values `(make-simple-markup ,(car expr)) (cdr expr)))
@@ -378,8 +378,8 @@ against signature, reporting MAKE-NAME as the user-invoked function.
        (args '() args))
       ((null? rest) (reverse args))
     (receive (a r) (compile-markup-arg rest)
-             (set! args (cons a args))
-             (set! rest r))))
+      (set! args (cons a args))
+      (set! rest r))))
 
 (define (compile-markup-arg expr)
   "Return two values: the desired markup argument, and the rest arguments"
@@ -396,10 +396,10 @@ against signature, reporting MAKE-NAME as the user-invoked function.
          ;; ==> build and return the whole markup expression(s)
          ;; found in (car expr)
          (receive (markup-expr rest-expr) (compile-markup-expression (car expr))
-                  (if (null? rest-expr)
-                      (values markup-expr (cdr expr))
-                      (values `(list ,markup-expr ,@(compile-all-markup-args rest-expr))
-                              (cdr expr)))))
+           (if (null? rest-expr)
+               (values markup-expr (cdr expr))
+               (values `(list ,markup-expr ,@(compile-all-markup-args rest-expr))
+                       (cdr expr)))))
         ((and (pair? (car expr))
               (pair? (caar expr)))
          ;; expr === (((foo ...) ...) ...)
@@ -407,7 +407,7 @@ against signature, reporting MAKE-NAME as the user-invoked function.
         (else (values (car expr) (cdr expr)))))
 
 (define (lookup-markup-command-aux symbol)
- "Look up procedure in the current module, or return #f"
+  "Look up procedure in the current module, or return #f"
   (let ((proc (catch 'misc-error
                      (lambda ()
                        (module-ref (current-module) symbol))

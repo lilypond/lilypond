@@ -59,7 +59,7 @@ call_trampoline (void *self)
 {
   // One more indirection since void * can only be safely cast to
   // pointers to data rather than pointers to function.
-  (*static_cast <void (**)()> (self)) ();
+  (*static_cast <void (* *) ()> (self)) ();
   return SCM_UNDEFINED;
 }
 
@@ -75,7 +75,7 @@ Scm_module::boot (void (*init) ())
   // Verify that every Variable has a definition, either because of
   // getting initialized with a value at definition or because of the
   // init call providing one.
-  for (Variable_record *p = variables_; p; )
+  for (Variable_record *p = variables_; p;)
     {
       Variable_record *next = p->next_;
       if (SCM_UNBNDP (SCM (*p->var_)))
@@ -120,7 +120,6 @@ Scm_variable::import (SCM module, const char *name)
   assert (SCM_UNBNDP (var_));
   var_ = scm_c_module_lookup (module, name);
 }
-
 
 Scm_variable::Scm_variable (Scm_module &m, const char *name, SCM value)
   : var_ (value)

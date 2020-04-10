@@ -1,5 +1,5 @@
 \header {
-  texinfo = "Beams do not collide with clefs, key signatures, time
+  texidoc = "Beams do not collide with clefs, key signatures, time
   signatures"
 }
 
@@ -27,5 +27,5 @@
   e[
   \key cis \major
   e]
-  
+
 }

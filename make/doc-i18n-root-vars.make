@@ -11,7 +11,7 @@ TEXINFO_MANUALS =\
  $(TEXI_FILES:%.texi=%)
 OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
 
-TOPDIR_HTML_MANUALS = 
+TOPDIR_HTML_MANUALS =
 SPLIT_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
  $(if $(findstring $(manual), $(UNSPLIT_HTML_MANUALS)),,$(manual)))
 NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLIT_HTML_MANUALS),\

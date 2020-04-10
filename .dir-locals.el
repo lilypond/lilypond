@@ -6,6 +6,8 @@
   (indent-tabs-mode . nil))
  (scheme-mode
   (indent-tabs-mode . nil))
+ (shell-script-mode
+  (indent-tabs-mode . nil))
  (texinfo-mode
   (fill-column . 66)
   (indent-tabs-mode . nil)))

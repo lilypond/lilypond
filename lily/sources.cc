@@ -51,7 +51,7 @@ Sources::get_file (string file_string, string const &current_dir)
 {
   if (file_string != "-")
     {
-      file_string = find_full_path(file_string, current_dir);
+      file_string = find_full_path (file_string, current_dir);
     }
 
   if (file_string.empty ())
@@ -65,7 +65,7 @@ Sources::get_file (string file_string, string const &current_dir)
 }
 
 string
-Sources::find_full_path(string file_string, string const &current_dir) const
+Sources::find_full_path (string file_string, string const &current_dir) const
 {
   // First, check for a path relative to the directory of the
   // file currently being parsed.
@@ -83,8 +83,9 @@ Sources::find_full_path(string file_string, string const &current_dir) const
   return file_string;
 }
 
-string Sources::search_path() const {
-  return path_->to_string();
+string Sources::search_path () const
+{
+  return path_->to_string ();
 }
 
 void
@@ -119,10 +120,10 @@ LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
 
   SCM lst = SCM_EOL;
   for (vector<string>::const_iterator
-       i = lex->file_name_strings_.begin();
-       i != lex->file_name_strings_.end(); ++i)
-       {
-         lst = scm_cons (ly_string2scm (*i), lst);
-       }
+       i = lex->file_name_strings_.begin ();
+       i != lex->file_name_strings_.end (); ++i)
+    {
+      lst = scm_cons (ly_string2scm (*i), lst);
+    }
   return scm_reverse_x (lst, SCM_EOL);
 }

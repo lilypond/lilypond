@@ -2,7 +2,7 @@
 % This file is part of LilyPond, the GNU music typesetter.
 %
 % Copyright (C) 2001--2020 Juergen Reuter <reuter@ipd.uka.de>
-% 
+%
 % The LilyPond font is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
@@ -28,62 +28,62 @@ fet_begingroup ("accidentals");
 %
 %
 fet_beginchar ("Ed. Med. Flat" , "medicaeaM1");
-        set_char_box (0.1 staff_space#, 0.6 staff_space#,
-                      0.6 staff_space#, 1.0 staff_space#);
+  set_char_box (0.1 staff_space#, 0.6 staff_space#,
+                0.6 staff_space#, 1.0 staff_space#);
 
-        save ellipse, pat, outline, T;
-        path ellipse, pat, outline;
-        transform T;
+  save ellipse, pat, outline, T;
+  path ellipse, pat, outline;
+  transform T;
 
-        T := identity xscaled 0.50 linethickness
-                      yscaled 0.22 staff_space;
-        pickup pencircle transformed T;
-        ellipse := fullcircle transformed T;
+  T := identity xscaled 0.50 linethickness
+                yscaled 0.22 staff_space;
+  pickup pencircle transformed T;
+  ellipse := fullcircle transformed T;
 
-        x1 = x2 = 0;
-        top y1 = h;
-        bot y2 = -d;
+  x1 = x2 = 0;
+  top y1 = h;
+  bot y2 = -d;
 
-        fill get_subpath (ellipse, up, down, z1)
-             -- get_subpath (ellipse, down, up, z2)
-             -- cycle;
+  fill get_subpath (ellipse, up, down, z1)
+       -- get_subpath (ellipse, down, up, z2)
+       -- cycle;
 
-        T := identity xscaled 0.50 linethickness
-                      yscaled 0.22 staff_space
-                      rotated -63;
-        pickup pencircle transformed T;
-        ellipse := fullcircle transformed T;
+  T := identity xscaled 0.50 linethickness
+                yscaled 0.22 staff_space
+                rotated -63;
+  pickup pencircle transformed T;
+  ellipse := fullcircle transformed T;
 
-        z3 = (0.10 staff_space, -0.50 staff_space);
-        z4 = (0.40 staff_space, +0.40 staff_space);
-        z5 = (0.10 staff_space, +0.40 staff_space);
+  z3 = (0.10 staff_space, -0.50 staff_space);
+  z4 = (0.40 staff_space, +0.40 staff_space);
+  z5 = (0.10 staff_space, +0.40 staff_space);
 
-        pat := z3{(1, 2)}
-               .. z4
-               .. z5{(-1, -1)};
+  pat := z3{(1, 2)}
+         .. z4
+         .. z5{(-1, -1)};
 
-        % the original envelope curve created with `draw' contains
-        % cusps which we avoid
-        outline := get_subpath (ellipse, -direction 0 of pat,
-                                direction 0 of pat, z3)
-                   .. get_subpoint (ellipse, direction 1 of pat, z4)
-                   .. get_subpath (ellipse, direction 2 of pat,
-                                   -direction 1.8 of pat, z5)
-                   .. get_subpoint (ellipse, -direction 1 of pat, z4)
-                        {-direction 1 of pat}
-                   .. cycle;
+  % the original envelope curve created with `draw' contains
+  % cusps which we avoid
+  outline := get_subpath (ellipse, -direction 0 of pat,
+                          direction 0 of pat, z3)
+             .. get_subpoint (ellipse, direction 1 of pat, z4)
+             .. get_subpath (ellipse, direction 2 of pat,
+                             -direction 1.8 of pat, z5)
+             .. get_subpoint (ellipse, -direction 1 of pat, z4)
+                               {-direction 1 of pat}
+             .. cycle;
 
-        save shift;
-        pair shift;
+  save shift;
+  pair shift;
 
-        % make the outline touch the bounding box
-        shift = find_tangent_shift (((w, -d) -- (w, h)), outline,
-                                    (b, 0), (-b, 0));
-        outline := outline shifted shift;
+  % make the outline touch the bounding box
+  shift = find_tangent_shift (((w, -d) -- (w, h)), outline,
+                              (b, 0), (-b, 0));
+  outline := outline shifted shift;
 
-        fill outline;
+  fill outline;
 
-        labels (1, 2, 3, 4, 5);
+  labels (1, 2, 3, 4, 5);
 fet_endchar;
 
 
@@ -96,94 +96,94 @@ fet_endchar;
 %
 %
 fet_beginchar ("Ed. Vat. Flat" , "vaticanaM1");
-        z1 = (0.00 staff_space, +0.80 staff_space);
-        z2 = (0.00 staff_space, -0.08 staff_space);
-        z3 = (0.25 staff_space, -0.23 staff_space);
-        z4 = (0.50 staff_space, -0.24 staff_space);
-        z5 = (0.50 staff_space, +0.03 staff_space);
-        z6 = (0.25 staff_space, +0.20 staff_space);
-        z7 = (0.15 staff_space, +0.26 staff_space);
+  z1 = (0.00 staff_space, +0.80 staff_space);
+  z2 = (0.00 staff_space, -0.08 staff_space);
+  z3 = (0.25 staff_space, -0.23 staff_space);
+  z4 = (0.50 staff_space, -0.24 staff_space);
+  z5 = (0.50 staff_space, +0.03 staff_space);
+  z6 = (0.25 staff_space, +0.20 staff_space);
+  z7 = (0.15 staff_space, +0.26 staff_space);
 
-        save pat, ellipse, T;
-        path pat, ellipse;
-        transform T;
+  save pat, ellipse, T;
+  path pat, ellipse;
+  transform T;
 
-        T := identity xscaled 0.50 linethickness
-                      yscaled 0.22 staff_space;
-        pickup pencircle transformed T;
-        ellipse := fullcircle transformed T;
+  T := identity xscaled 0.50 linethickness
+                yscaled 0.22 staff_space;
+  pickup pencircle transformed T;
+  ellipse := fullcircle transformed T;
 
-        pat := z1
-               -- z2{down}
-               ... z3
-               ... {up}z4
-               -- z5{up}
-               .. z6
-               .. z7;
+  pat := z1
+         -- z2{down}
+         ... z3
+         ... {up}z4
+         -- z5{up}
+         .. z6
+         .. z7;
 
-        % the original envelope curve created with `draw' contains
-        % cusps which we avoid
-        fill get_subpath (ellipse, up, down, z1)
-             -- get_subpath (ellipse, down, direction 1.1 of pat, z2)
-             ... bot z3
-             ... get_subpath (ellipse, direction 2.9 of pat, up, z4)
-             -- get_subpath (ellipse, up, direction 4.1 of pat, z5)
-             .. top z6
-             .. get_subpath (ellipse,
-                             direction 6 of pat, -direction 6 of pat, z7)
-             .. bot z6
-             .. {down}bot lft z5
-             -- top lft z4{down}
-             ... top z3
-             ... top rt z2{up}
-             -- cycle;
+  % the original envelope curve created with `draw' contains
+  % cusps which we avoid
+  fill get_subpath (ellipse, up, down, z1)
+       -- get_subpath (ellipse, down, direction 1.1 of pat, z2)
+       ... bot z3
+       ... get_subpath (ellipse, direction 2.9 of pat, up, z4)
+       -- get_subpath (ellipse, up, direction 4.1 of pat, z5)
+       .. top z6
+       .. get_subpath (ellipse,
+                       direction 6 of pat, -direction 6 of pat, z7)
+       .. bot z6
+       .. {down}bot lft z5
+       -- top lft z4{down}
+       ... top z3
+       ... top rt z2{up}
+       -- cycle;
 
-        set_char_box (0.00 staff_space# + 0.25 linethickness#,
-                      0.50 staff_space# + 0.25 linethickness#,
-                      0.23 staff_space# + 0.11 staff_space#,
-                      0.80 staff_space# + 0.11 staff_space#);
+  set_char_box (0.00 staff_space# + 0.25 linethickness#,
+                0.50 staff_space# + 0.25 linethickness#,
+                0.23 staff_space# + 0.11 staff_space#,
+                0.80 staff_space# + 0.11 staff_space#);
 
-        labels (1, 2, 3, 4, 5, 6, 7);
+  labels (1, 2, 3, 4, 5, 6, 7);
 fet_endchar;
 
 
 fet_beginchar ("Ed. Vat. Natural" , "vaticana0");
-        save ellipse, T;
-        path ellipse;
-        transform T;
+  save ellipse, T;
+  path ellipse;
+  transform T;
 
-        T := identity xscaled 0.80 linethickness
-                      yscaled 0.22 staff_space;
-        pickup pencircle transformed T;
-        ellipse := fullcircle transformed T;
+  T := identity xscaled 0.80 linethickness
+                yscaled 0.22 staff_space;
+  pickup pencircle transformed T;
+  ellipse := fullcircle transformed T;
 
-        z1 = (0.00 staff_space, +0.65 staff_space);
-        z2 = (0.00 staff_space, -0.35 staff_space);
+  z1 = (0.00 staff_space, +0.65 staff_space);
+  z2 = (0.00 staff_space, -0.35 staff_space);
 
-        fill get_subpath (ellipse, up, down, z1)
-             -- get_subpath (ellipse, down, up, z2)
-             -- cycle;
+  fill get_subpath (ellipse, up, down, z1)
+       -- get_subpath (ellipse, down, up, z2)
+       -- cycle;
 
-        pickup penrazor scaled 0.22 staff_space
-                        rotated 90;
+  pickup penrazor scaled 0.22 staff_space
+                  rotated 90;
 
-        z3 = (0.00 staff_space, -0.30 staff_space);
-        z4 = (0.40 staff_space, -0.08 staff_space);
+  z3 = (0.00 staff_space, -0.30 staff_space);
+  z4 = (0.40 staff_space, -0.08 staff_space);
 
-        draw z3
-             -- z4;
+  draw z3
+       -- z4;
 
-        addto currentpicture also currentpicture
-          xscaled -1
-          yscaled -1
-          shifted (0.40 staff_space, 0.0 staff_space);
+  addto currentpicture also currentpicture
+    xscaled -1
+    yscaled -1
+    shifted (0.40 staff_space, 0.0 staff_space);
 
-        set_char_box (0.00 staff_space# + 0.40 linethickness#,
-                      0.40 staff_space# + 0.40 linethickness#,
-                      0.65 staff_space# + 0.11 staff_space#,
-                      0.65 staff_space# + 0.11 staff_space#);
+  set_char_box (0.00 staff_space# + 0.40 linethickness#,
+                0.40 staff_space# + 0.40 linethickness#,
+                0.65 staff_space# + 0.11 staff_space#,
+                0.65 staff_space# + 0.11 staff_space#);
 
-        labels (1, 2, 3, 4);
+  labels (1, 2, 3, 4);
 fet_endchar;
 
 
@@ -196,199 +196,196 @@ fet_endchar;
 %
 %
 fet_beginchar ("Mensural Sharp" , "mensural1");
-        save stemthick;
+  save stemthick;
 
-        define_pixels (stemthick);
+  define_pixels (stemthick);
 
-        stemthick# = linethickness#;
+  stemthick# = linethickness#;
 
-        save circle, pat, T;
-        path circle, pat;
-        transform T;
+  save circle, pat, T;
+  path circle, pat;
+  transform T;
 
-        T := identity scaled 0.8 stemthick;
-        pickup pencircle transformed T;
-        circle := fullcircle transformed T;
+  T := identity scaled 0.8 stemthick;
+  pickup pencircle transformed T;
+  circle := fullcircle transformed T;
 
-        z1 = 0.4 staff_space * (0.8, 1);
-        z1 = -z2;
+  z1 = 0.4 staff_space * (0.8, 1);
+  z1 = -z2;
 
-        pat := get_subpath (circle, z1 - z2, z2 - z1, z1)
-               -- get_subpath (circle, z2 - z1, z1 - z2, z2)
-               -- cycle;
+  pat := get_subpath (circle, z1 - z2, z2 - z1, z1)
+         -- get_subpath (circle, z2 - z1, z1 - z2, z2)
+         -- cycle;
 
-        fill pat;
-        fill pat xscaled -1;
-        fill pat shifted (0.20 staff_space, 0);
-        fill pat xscaled -1 shifted (0.20 staff_space, 0);
+  fill pat;
+  fill pat xscaled -1;
+  fill pat shifted (0.20 staff_space, 0);
+  fill pat xscaled -1 shifted (0.20 staff_space, 0);
 
-        set_char_box (0.8 * 0.4 staff_space# + 0.4 stemthick#,
-                      (0.8 * 0.4 + 0.2) * staff_space# + 0.4 stemthick#,
-                      0.4 staff_space# + 0.4 stemthick#, 
-                      0.4 staff_space# + 0.4 stemthick#);
+  set_char_box (0.8 * 0.4 staff_space# + 0.4 stemthick#,
+                (0.8 * 0.4 + 0.2) * staff_space# + 0.4 stemthick#,
+                0.4 staff_space# + 0.4 stemthick#,
+                0.4 staff_space# + 0.4 stemthick#);
 
-        labels (1, 2);
+  labels (1, 2);
 fet_endchar;
 
 
 fet_beginchar ("Mensural Flat" , "mensuralM1");
-        save stemthick;
+  save stemthick;
 
-        define_pixels (stemthick);
+  define_pixels (stemthick);
 
-        stemthick# = linethickness#;
+  stemthick# = linethickness#;
 
-        save ellipse, pat, outline, T;
-        path ellipse, pat, outline;
-        transform T;
+  save ellipse, pat, outline, T;
+  path ellipse, pat, outline;
+  transform T;
 
-        T := identity xscaled 1.4 stemthick
-                      yscaled 0.6 stemthick
-                      rotated 45;
-        pickup pencircle transformed T;
-        ellipse := fullcircle transformed T;
+  T := identity xscaled 1.4 stemthick
+                yscaled 0.6 stemthick
+                rotated 45;
+  pickup pencircle transformed T;
+  ellipse := fullcircle transformed T;
 
-        z1 = (0.00 staff_space, +1.80 staff_space);
-        z2 = (0.00 staff_space, -0.25 staff_space);
-        z3 = (0.35 staff_space, -0.25 staff_space);
-        z4 = (0.35 staff_space, +0.25 staff_space);
-        z5 = (0.00 staff_space, +0.25 staff_space);
+  z1 = (0.00 staff_space, +1.80 staff_space);
+  z2 = (0.00 staff_space, -0.25 staff_space);
+  z3 = (0.35 staff_space, -0.25 staff_space);
+  z4 = (0.35 staff_space, +0.25 staff_space);
+  z5 = (0.00 staff_space, +0.25 staff_space);
 
-        pat := z2
-               .. z3
-               .. z4
-               .. z5;
+  pat := z2
+         .. z3
+         .. z4
+         .. z5;
 
-        save dirs, s;
-        pair dirs[];
+  save dirs, s;
+  pair dirs[];
 
-        s := 1/4;
+  s := 1/4;
 
-        % we approximate `draw pat'
-        for i = 2 step s until (length pat + 2):
-                dirs[i] := direction (i - 2) of pat;
-        endfor;
+  % we approximate `draw pat'
+  for i = 2 step s until (length pat + 2):
+    dirs[i] := direction (i - 2) of pat;
+  endfor;
 
-        outline := get_subpath (ellipse, up, down, z1)
-                   -- get_subpath (ellipse, down, dirs2, z2)
-                   for i = (2 + s) step s until (length pat + 2 - s):
-                           .. get_subpoint (ellipse, dirs[i],
-                                              point (i - 2) of pat)
-                   endfor
-                   .. top z5
-                   -- bot z5
-                   for i = (length pat + 2 - s) step -s until 2:
-                           .. get_subpoint (ellipse, -dirs[i],
-                                            point (i - 2) of pat)
-                   endfor
-                   -- get_subpoint (ellipse, up, z2)
-                   -- cycle;
+  outline := get_subpath (ellipse, up, down, z1)
+             -- get_subpath (ellipse, down, dirs2, z2)
+             for i = (2 + s) step s until (length pat + 2 - s):
+               .. get_subpoint (ellipse, dirs[i],
+                                point (i - 2) of pat)
+             endfor
+             .. top z5
+             -- bot z5
+             for i = (length pat + 2 - s) step -s until 2:
+               .. get_subpoint (ellipse, -dirs[i],
+                                point (i - 2) of pat)
+             endfor
+             -- get_subpoint (ellipse, up, z2)
+             -- cycle;
 
-        fill outline;
+  fill outline;
 
-        set_char_box (0.00 staff_space# + 0.75 stemthick#,
-                      0.40 staff_space# + 0.75 stemthick#,
-                      0.25 staff_space# + 0.75 stemthick#,
-                      1.80 staff_space# + 0.75 stemthick#);
+  set_char_box (0.00 staff_space# + 0.75 stemthick#,
+                0.40 staff_space# + 0.75 stemthick#,
+                0.25 staff_space# + 0.75 stemthick#,
+                1.80 staff_space# + 0.75 stemthick#);
 
-        labels (1, 2, 3, 4, 5);
+  labels (1, 2, 3, 4, 5);
 fet_endchar;
 
 
 fet_beginchar ("Hufnagel Flat" , "hufnagelM1");
-        save stemthick;
+  save stemthick;
 
-        define_pixels (stemthick);
+  define_pixels (stemthick);
 
-        stemthick# = linethickness#;
+  stemthick# = linethickness#;
 
-        save ellipse, pat, T;
-        path ellipse, pat;
-        transform T;
+  save ellipse, pat, T;
+  path ellipse, pat;
+  transform T;
 
-        T := identity xscaled 2.4 stemthick
-                      yscaled 0.4 stemthick
-                      rotated 45;
-        pickup pencircle transformed T;
-        ellipse := fullcircle transformed T;
+  T := identity xscaled 2.4 stemthick
+                yscaled 0.4 stemthick
+                rotated 45;
+  pickup pencircle transformed T;
+  ellipse := fullcircle transformed T;
 
-        z1 = (0.00 staff_space, +1.80 staff_space);
-        z2 = (0.00 staff_space, -0.15 staff_space);
-        z3 = (0.25 staff_space, -0.30 staff_space);
-        z4 = (0.50 staff_space, +0.00 staff_space);
-        z5 = (0.30 staff_space, +0.30 staff_space);
-        z6 = (0.00 staff_space, +0.15 staff_space);
+  z1 = (0.00 staff_space, +1.80 staff_space);
+  z2 = (0.00 staff_space, -0.15 staff_space);
+  z3 = (0.25 staff_space, -0.30 staff_space);
+  z4 = (0.50 staff_space, +0.00 staff_space);
+  z5 = (0.30 staff_space, +0.30 staff_space);
+  z6 = (0.00 staff_space, +0.15 staff_space);
 
-        pat := z3
-               .. z4
-               .. z5;
+  pat := z3
+         .. z4
+         .. z5;
 
-        save t;
-        numeric t[];
+  save t;
+  numeric t[];
 
-        % we have to find the envelope intersections (if any)
-        t1 = find_envelope_cusp (reverse ellipse, pat, 1/256) + 3;
-        if t1 < 3:
-                t1 := 3;
-        fi;
-        t2 = find_envelope_cusp (ellipse, reverse pat, 1/256);
-        if t2 < 0:
-                t2 := 3;
-        else:
-                t2 := length pat - t2 + 3;
-        fi;
+  % we have to find the envelope intersections (if any)
+  t1 = find_envelope_cusp (reverse ellipse, pat, 1/256) + 3;
+  if t1 < 3:
+    t1 := 3;
+  fi;
+  t2 = find_envelope_cusp (ellipse, reverse pat, 1/256);
+  if t2 < 0:
+    t2 := 3;
+  else:
+    t2 := length pat - t2 + 3;
+  fi;
 
-        save dirs, s;
-        pair dirs[];
+  save dirs, s;
+  pair dirs[];
 
-        s := 1/8;
+  s := 1/8;
 
-        % we approximate `draw pat'
-        for i = 3 step s until 5:
-                dirs[i] := direction (i - 3) of pat;
-        endfor;
+  % we approximate `draw pat'
+  for i = 3 step s until 5:
+    dirs[i] := direction (i - 3) of pat;
+  endfor;
 
-        fill get_subpath (ellipse, up, down, z1)
-             -- get_subpath (ellipse, down, z3 - z2, z2)
-             -- get_subpoint (ellipse, z3 - z2, z3)
-             for i = 3 step s until 5:
-                     .. get_subpoint (ellipse, dirs[i],
-                                      point (i - 3) of pat)
-             endfor
-             .. get_subpoint (ellipse, z6 - z5, z5)
-             -- get_subpoint (ellipse, z6 - z5, z6)
-             -- get_subpoint (ellipse, z5 - z6, z6)
-             -- get_subpoint (ellipse, z5 - z6, z5)
-             -- get_subpoint (ellipse, -dirs[5], z5)
-             for i = (5 - s) step -s until t2:
-                     .. get_subpoint (ellipse, -dirs[i],
-                                      point (i - 3) of pat)
-             endfor
-             .. get_subpoint (ellipse, -direction (t2 - 3) of pat,
-                              point (t2 - 3) of pat)
-             -- get_subpoint (ellipse, -direction (t1 - 3) of pat,
-                              point (t1 - 3) of pat)
-             for i = (floor ((t1 - 3) / s) * s + 3) step -s until (3 + s):
-                     .. get_subpoint (ellipse, -dirs[i],
-                                      point (i - 3) of pat)
-             endfor
-             .. get_subpoint (ellipse, -dirs[3], z3)
-             -- get_subpoint (ellipse, z2 - z3, z3)
-             -- get_subpoint (ellipse, z2 - z3, z2)
-             -- get_subpoint (ellipse, up, z2)
-             -- cycle;
+  fill get_subpath (ellipse, up, down, z1)
+       -- get_subpath (ellipse, down, z3 - z2, z2)
+       -- get_subpoint (ellipse, z3 - z2, z3)
+       for i = 3 step s until 5:
+         .. get_subpoint (ellipse, dirs[i], point (i - 3) of pat)
+       endfor
+       .. get_subpoint (ellipse, z6 - z5, z5)
+       -- get_subpoint (ellipse, z6 - z5, z6)
+       -- get_subpoint (ellipse, z5 - z6, z6)
+       -- get_subpoint (ellipse, z5 - z6, z5)
+       -- get_subpoint (ellipse, -dirs[5], z5)
+       for i = (5 - s) step -s until t2:
+         .. get_subpoint (ellipse, -dirs[i], point (i - 3) of pat)
+       endfor
+       .. get_subpoint (ellipse, -direction (t2 - 3) of pat,
+                        point (t2 - 3) of pat)
+       -- get_subpoint (ellipse, -direction (t1 - 3) of pat,
+                        point (t1 - 3) of pat)
+       for i = (floor ((t1 - 3) / s) * s + 3) step -s until (3 + s):
+         .. get_subpoint (ellipse, -dirs[i], point (i - 3) of pat)
+       endfor
+       .. get_subpoint (ellipse, -dirs[3], z3)
+       -- get_subpoint (ellipse, z2 - z3, z3)
+       -- get_subpoint (ellipse, z2 - z3, z2)
+       -- get_subpoint (ellipse, up, z2)
+       -- cycle;
 
-%        draw z1
-%             -- z2
-%             -- pat
-%             -- z6;
+  % draw z1
+  %      -- z2
+  %      -- pat
+  %      -- z6;
 
-        set_char_box (0.00 staff_space# + 1.0 stemthick#,
-                      0.50 staff_space# + 1.0 stemthick#,
-                      0.30 staff_space# + 0.5 stemthick#, 
-                      1.80 staff_space# + 0.5 stemthick#);
+  set_char_box (0.00 staff_space# + 1.0 stemthick#,
+                0.50 staff_space# + 1.0 stemthick#,
+                0.30 staff_space# + 0.5 stemthick#,
+                1.80 staff_space# + 0.5 stemthick#);
 
-        labels (1, 2, 3, 4, 5, 6);
+  labels (1, 2, 3, 4, 5, 6);
 fet_endchar;
 
 
@@ -400,87 +397,87 @@ fet_endchar;
 
 
 fet_beginchar ("Kievan sharp", "kievan1");
-        % This draws the sharp.
-        % It never occurs in Synodal music and
-        % can only be found in some early manuscripts.
+  % This draws the sharp.
+  % It never occurs in Synodal music and
+  % can only be found in some early manuscripts.
 
-        z1 = (0.579 staff_space, 1.459 staff_space);
-        z2 = (1.414 staff_space, -0.904 staff_space);
-        z3 = (0.187 staff_space, 0.904 staff_space);
+  z1 = (0.579 staff_space, 1.459 staff_space);
+  z2 = (1.414 staff_space, -0.904 staff_space);
+  z3 = (0.187 staff_space, 0.904 staff_space);
 
-        x2 - x1 = x4 - x3;
-        y1 - y2 = y3 - y4;
+  x2 - x1 = x4 - x3;
+  y1 - y2 = y3 - y4;
 
-        z5 = (1.296 staff_space, 1.613 staff_space);
-        z6 = (0.090 staff_space, -0.864 staff_space);
-        z7 = (1.532 staff_space, 0.892 staff_space);
+  z5 = (1.296 staff_space, 1.613 staff_space);
+  z6 = (0.090 staff_space, -0.864 staff_space);
+  z7 = (1.532 staff_space, 0.892 staff_space);
 
-        x5 - x6 = x7 - x8;
-        y5 - y6 = y7 - y8;
+  x5 - x6 = x7 - x8;
+  y5 - y6 = y7 - y8;
 
-        pickup pensquare xscaled 0.167staff_space
-                         yscaled 0.167staff_space
-                         rotated -69.2;
-        draw z1{dir -69.2}
-             .. {dir -74.1}z2;
-        draw z3{dir -69.2}
-             .. {dir -74.1}z4;
+  pickup pensquare xscaled 0.167staff_space
+                   yscaled 0.167staff_space
+                   rotated -69.2;
+  draw z1{dir -69.2}
+       .. {dir -74.1}z2;
+  draw z3{dir -69.2}
+       .. {dir -74.1}z4;
 
-        pickup pensquare xscaled 0.167staff_space
-                         yscaled 0.167staff_space
-                         rotated -114.6;
-        draw z5{dir -114.6}
-             ... {dir -125.0}z6;
-        draw z7{dir -114.6}
-             ... {dir -125.0}z8;
+  pickup pensquare xscaled 0.167staff_space
+                   yscaled 0.167staff_space
+                   rotated -114.6;
+  draw z5{dir -114.6}
+       ... {dir -125.0}z6;
+  draw z7{dir -114.6}
+       ... {dir -125.0}z8;
 
-        set_char_box (0, 1.6 staff_space#,
-                      1.6 staff_space#, 1.6 staff_space#);
+  set_char_box (0, 1.6 staff_space#,
+                1.6 staff_space#, 1.6 staff_space#);
 fet_endchar;
 
 
 fet_beginchar ("Kievan flat", "kievanM1");
-        % This draws the flat sign.
-        % In Synodal music, the flat only occurs on the high B
-        % but it may be used elsewhere in early manuscripts.
+  % This draws the flat sign.
+  % In Synodal music, the flat only occurs on the high B
+  % but it may be used elsewhere in early manuscripts.
 
-        z1 = (0.452 staff_space, 1.772 staff_space);
-        z2 = (0.481 staff_space, 1.735 staff_space);
-        z3 = (0.464 staff_space, 1.626 staff_space);
-        z4 = (0.249 staff_space, 0.322 staff_space);
-        z5 = (0.432 staff_space, -0.762 staff_space);
-        z6 = (0.611 staff_space, -0.583 staff_space);
-        z7 = (0.611 staff_space, 0.224 staff_space);
-        z8 = (0.652 staff_space, 0.513 staff_space);
-        z9 = (0.900 staff_space, 0.684 staff_space);
-        z10 = (0.872 staff_space, 0.640 staff_space);
-        z11 = (0.811 staff_space, 0.359 staff_space);
-        z12 = (0.811 staff_space, -0.587 staff_space);
-        z13 = (0.338 staff_space, -1.063 staff_space);
-        z14 = (0.016 staff_space, 0.196 staff_space);
-        z15 = (0.204 staff_space, 1.316 staff_space);
+  z1 = (0.452 staff_space, 1.772 staff_space);
+  z2 = (0.481 staff_space, 1.735 staff_space);
+  z3 = (0.464 staff_space, 1.626 staff_space);
+  z4 = (0.249 staff_space, 0.322 staff_space);
+  z5 = (0.432 staff_space, -0.762 staff_space);
+  z6 = (0.611 staff_space, -0.583 staff_space);
+  z7 = (0.611 staff_space, 0.224 staff_space);
+  z8 = (0.652 staff_space, 0.513 staff_space);
+  z9 = (0.900 staff_space, 0.684 staff_space);
+  z10 = (0.872 staff_space, 0.640 staff_space);
+  z11 = (0.811 staff_space, 0.359 staff_space);
+  z12 = (0.811 staff_space, -0.587 staff_space);
+  z13 = (0.338 staff_space, -1.063 staff_space);
+  z14 = (0.016 staff_space, 0.196 staff_space);
+  z15 = (0.204 staff_space, 1.316 staff_space);
 
-        fill z13
-             .. z14{up}
-             .. z15{dir 70.8}
-             .. z1{dir 4.9}
-             .. z2
-             .. z3
-             .. z4{down}
-             .. z5
-             -- z6
-             -- z7{up}
-             .. z8
-             .. {dir 23}z9
-             & z9
-             .. z10{dir -135}
-             .. {down}z11
-             -- z12
-             -- z13
-             & cycle;
+  fill z13
+       .. z14{up}
+       .. z15{dir 70.8}
+       .. z1{dir 4.9}
+       .. z2
+       .. z3
+       .. z4{down}
+       .. z5
+       -- z6
+       -- z7{up}
+       .. z8
+       .. {dir 23}z9
+       & z9
+       .. z10{dir -135}
+       .. {down}z11
+       -- z12
+       -- z13
+       & cycle;
 
-        set_char_box (0, 1.0 staff_space#,
-                      1.0 staff_space#, 1.8 staff_space#);
+  set_char_box (0, 1.0 staff_space#,
+                1.0 staff_space#, 1.8 staff_space#);
 fet_endchar;
 
 fet_endgroup ("accidentals");

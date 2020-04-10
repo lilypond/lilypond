@@ -252,7 +252,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
                                                       &spaceable_padding,
                                                       ly_symbol2scm ("padding"));
               dy = std::max (dy, (last_spaceable_skyline.distance (skyline[-stacking_dir])
-                             + stacking_dir * (last_spaceable_element_pos - where) + spaceable_padding));
+                                  + stacking_dir * (last_spaceable_element_pos - where) + spaceable_padding));
 
               Real spaceable_min_distance = 0;
               if (Page_layout_problem::read_spacing_spec (spec,
@@ -261,7 +261,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
                 dy = std::max (dy, spaceable_min_distance + stacking_dir * (last_spaceable_element_pos - where));
 
               dy = std::max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
-                                                                    pure, start, end));
+                                                                         pure, start, end));
             }
         }
 

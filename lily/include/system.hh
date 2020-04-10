@@ -51,7 +51,8 @@ public:
   Grob *get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds);
   bool accepts_as_bound_item (const Item *) const override;
   bool accepts_as_bound_paper_column (const Paper_column *) const override;
-  Paper_column *get_bound (Direction d) const {
+  Paper_column *get_bound (Direction d) const
+  {
     // This is safe because only Paper_columns are accepted as bounds.
     return static_cast<Paper_column *> (Spanner::get_bound (d));
   }
@@ -99,7 +100,7 @@ public:
   std::vector<Paper_column *> used_columns_in_range (vsize start, vsize end) const;
   std::vector<Paper_column *> used_columns () const
   {
-    return used_columns_in_range(0, std::numeric_limits<vsize>::max ());
+    return used_columns_in_range (0, std::numeric_limits<vsize>::max ());
   }
   Paper_column *column (vsize i) const;
 

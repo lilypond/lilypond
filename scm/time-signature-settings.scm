@@ -296,7 +296,7 @@ a fresh copy of the list-head is made."
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Formatting of complex/compound time signatures
 
-; There ought to be a \join-line sep {...} command
+;; There ought to be a \join-line sep {...} command
 (define (insert-markups l m)
   (let ((ll (reverse l)))
     (let join-markups ((markups (list (car ll)))
@@ -312,10 +312,10 @@ a fresh copy of the list-head is made."
          (den (car revargs))
          (nums (reverse (cdr revargs))))
     (make-override-markup '(baseline-skip . 0)
-                           (make-left-column-markup
-                            (list (make-center-column-markup
-                                   (list (make-line-markup (insert-markups nums "+"))
-                                         den)))))))
+                          (make-left-column-markup
+                           (list (make-center-column-markup
+                                  (list (make-line-markup (insert-markups nums "+"))
+                                        den)))))))
 
 (define (format-time-numerator time-sig)
   (make-vcenter-markup (number->string (car time-sig))))
@@ -366,7 +366,7 @@ a fresh copy of the list-head is made."
 (add-simple-time-signature-style 'numbered make-compound-meter-markup)
 
 (add-simple-time-signature-style 'single-digit
-  (lambda (fraction) (make-compound-meter-markup (car fraction))))
+                                 (lambda (fraction) (make-compound-meter-markup (car fraction))))
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Formatting of symbolic time signatures
@@ -385,7 +385,7 @@ a fresh copy of the list-head is made."
   "Make markup for the `C' time signature style."
   (let ((n (car fraction))
         (d (cdr fraction)))
-    ; check specific fractions to avoid warnings when no glyph exists
+    ;; check specific fractions to avoid warnings when no glyph exists
     (if (or (and (= n 2) (= d 2))
             (and (= n 4) (= d 4)))
         (make-glyph-time-signature-markup 'C fraction)

@@ -44,6 +44,7 @@ protected:
 
   void acknowledge_lyric_syllable (Grob_info);
   void listen_hyphen (Stream_event *);
+  void listen_vowel_transition (Stream_event *);
 
   void finalize () override;
 
@@ -77,6 +78,12 @@ Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
 
 void
 Hyphen_engraver::listen_hyphen (Stream_event *ev)
+{
+  ASSIGN_EVENT_ONCE (ev_, ev);
+}
+
+void
+Hyphen_engraver::listen_vowel_transition (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (ev_, ev);
 }
@@ -126,7 +133,12 @@ void
 Hyphen_engraver::process_music ()
 {
   if (ev_)
-    hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ());
+    {
+      if (ev_->in_event_class ("vowel-transition-event"))
+        hyphen_ = make_spanner ("VowelTransition", ev_->self_scm ());
+      else
+        hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ());
+    }
 }
 
 void
@@ -155,25 +167,26 @@ Hyphen_engraver::stop_translation_timestep ()
   ev_ = 0;
 }
 
-
 void
 Hyphen_engraver::boot ()
 {
   ADD_LISTENER (Hyphen_engraver, hyphen);
+  ADD_LISTENER (Hyphen_engraver, vowel_transition);
   ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
 }
 
 ADD_TRANSLATOR (Hyphen_engraver,
                 /* doc */
-                "Create lyric hyphens and distance constraints between words.",
+                "Create lyric hyphens, vowel transitions and distance "
+                "constraints between words.",
 
                 /* create */
                 "LyricHyphen "
-                "LyricSpace ",
+                "LyricSpace "
+                "VowelTransition ",
 
                 /* read */
                 "",
 
                 /* write */
-                ""
-               );
+                "");

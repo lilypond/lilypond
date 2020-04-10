@@ -23,7 +23,7 @@ TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
 
-RELEASE_FILES = ChangeLog RELEASE-COMMIT
+RELEASE_FILES = RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
 OUT_DIST_FILES += $(RELEASE_OUT_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
@@ -78,29 +78,21 @@ $(outdir)/VERSION: $(config_make) VERSION
 	-mkdir -p $(outdir)
 	echo $(TOPLEVEL_VERSION) > $@
 
-$(outdir)/ChangeLog: $(outdir)/VERSION
-	$(call ly_progress,Making,$@,)
-	@echo 'See http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=log;h=refs/tags/release/$(TOPLEVEL_VERSION)-1' > $@
-
-$(outdir)/RELEASE-COMMIT: # FIXME: any file in $(top-src-dir)/.git/ we can depend on and be sure RELEASE-COMMIT is up to date?
+$(outdir)/RELEASE-COMMIT:
 	$(call ly_progress,Making,$@,)
 	git --git-dir=$(top-src-dir)/.git show HEAD | head -100 > $@
 
-# junk me as soon as RELEASE-COMMIT FIXME: has been addressed
 refresh-release-files:
 	test -d $(top-src-dir)/.git && rm -f $(RELEASE_OUT_FILES)
 	$(MAKE) $(RELEASE_OUT_FILES)
 
 python-modules:
-	$(MAKE) -C scripts/build
 	$(MAKE) -C python
+	$(MAKE) -C scripts/build
 
 top-doc: python-modules
 
-local-clean: local-clean-ChangeLog local-clean-filelist
-
-local-clean-ChangeLog:
-	rm -f ChangeLog
+local-clean: local-clean-filelist
 
 info:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true
@@ -171,10 +163,12 @@ $(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
 	$(call ly_progress,Making,$@,)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
 	find $(outdir)/offline-root -type l | xargs rm -f
+	cd $(outdir)/offline-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize {} +
 
 $(outdir)/online-root/index.html: $(WEB_TRACKED_FILES)
 	$(call ly_progress,Making,$@,)
 	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) online
+	cd $(outdir)/online-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize {} +
 endif # ifeq ($(out),www)
 
 # For those who cannot for the life in them remember to type
@@ -193,10 +187,6 @@ tree-share = $(tree-prefix)/share
 tree-share-prefix = $(tree-share)/lilypond/current
 tree-lib-prefix = $(tree-lib)/lilypond/current
 
-C_DIRS = flower lily
-c-clean:
-	$(foreach i, $(C_DIRS), $(MAKE) -C $(i) clean &&) true
-
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
 doc-clean: snippets-clean $(tree-share-prefix)/lilypond-force
@@ -206,6 +196,7 @@ default: $(config_h) build-dir-setup build-scripts
 build-dir-setup: $(tree-share-prefix)/lilypond-force
 
 build-scripts:
+	$(MAKE) -C python
 	$(MAKE) -C scripts/build
 
 PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
@@ -224,10 +215,7 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
-	mkdir -p $(tree-share-prefix)/fonts/tfm
-	mkdir -p $(tree-share-prefix)/fonts/type1
 	mkdir -p $(tree-share-prefix)/fonts/svg
-	mkdir -p $(tree-share-prefix)/fonts/map
 	mkdir -p $(tree-share-prefix)/fonts/enc
 	mkdir -p $(tree-share-prefix)/tex
 	cd $(tree-bin) && \
@@ -268,9 +256,7 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 	rm -f $(tree-share-prefix)/fonts/fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/00-lilypond-fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/99-lilypond-fonts.conf &&  \
-	rm -f $(tree-share-prefix)/fonts/tfm/* &&  \
-	rm -f $(tree-share-prefix)/fonts/type1/* &&  \
-		cd $(tree-share-prefix)/fonts/otf && \
+	cd $(tree-share-prefix)/fonts/otf && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.otf . && \
 		$(foreach i,$(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES)), \
 			ln -s $i . && ) true && \
@@ -284,10 +270,6 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
 	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.woff .
-	-cd $(tree-share-prefix)/fonts/tfm && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.tfm .
-	-cd $(tree-share-prefix)/fonts/type1 && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.pf? .
 	touch $(tree-share-prefix)/mf-link-tree
 
 TAGS.make: dummy
@@ -322,6 +304,8 @@ test-pre: $(tree-share-prefix)/lilypond-force
 	$(call make_subdirs,python scripts flower lily mf,all)
 
 test: test-pre
+	$(MAKE) -C python local-test
+	$(MAKE) -C scripts/build local-test
 	@echo 'To begin investigating regression-test crashes, use'
 	@echo
 	@echo '    grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
@@ -375,7 +359,7 @@ local-check: local-check-pre
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
 	$(buildscript-dir)/output-distance $(if $(VERBOSE),-v) \
-		--local-datadir --create-images --output-dir $(RESULT_DIR) \
+		--local-datadir --output-dir $(RESULT_DIR) \
 		input/regression/out-test-baseline input/regression/out-test \
 		input/regression/midi/out-test-baseline input/regression/midi/out-test
 ifneq ($(TIDY),false)

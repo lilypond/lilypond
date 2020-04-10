@@ -62,13 +62,13 @@ resources page for the version of interest.
 The latest stable version of the regtests is found at:
 
 @example
-@uref{http://lilypond.org/doc/stable/input/regression/collated-files.html}
+@uref{https://lilypond.org/doc/stable/input/regression/collated-files.html}
 @end example
 
 The latest development version of the regtests is found at:
 
 @example
-@uref{http://lilypond.org/doc/latest/input/regression/collated-files.html}
+@uref{https://lilypond.org/doc/latest/input/regression/collated-files.html}
 @end example
 
 
@@ -80,18 +80,13 @@ output of the previous release.  The result of these
 comparisons is archived online:
 
 @example
-@uref{http://lilypond.org/test/}
+@uref{https://lilypond.org/test/}
 @end example
 
 Checking these pages is a very important task for the LilyPond project.
 You are invited to report anything that looks broken, or any case
 where the output quality is not on par with the previous release,
 as described in @rweb{Bug reports}.
-
-@warning{ The special regression test
-@file{test-output-distance.ly} will always show up as a
-regression.  This test changes each time it is run, and serves to
-verify that the regression tests have, in fact, run.}
 
 
 @subheading What to look for
@@ -241,11 +236,6 @@ the only changes would be the changes that you were working on.
 If regressions are introduced, they must be fixed before
 committing the code.
 
-@warning{
-The special regression test @file{test-output-distance.ly} will always
-show up as a regression.  This test changes each time it is run, and
-serves to verify that the regression tests have, in fact, run.}
-
 @item
 If you are happy with the results, then skip to the final step.
 
@@ -256,8 +246,7 @@ changes, and continue.
 To rerun just the test cases that @command{make@tie{}check}
 identified as differing from the baseline, run
 @command{make@tie{}check} again.  This updates the regression list
-at @file{out/test-results/index.html}.  It does @emph{not} redo
-@file{test-output-distance.ly}.
+at @file{out/test-results/index.html}.
 
 When all regressions have been resolved, the output list will be empty.
 
@@ -501,6 +490,5 @@ through @samp{musicxml2ly} followed by @samp{lilypond} is
 available in the LilyPond documentation:
 
 @example
-@uref{http://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
+@uref{https://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
 @end example
-

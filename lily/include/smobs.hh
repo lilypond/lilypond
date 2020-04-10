@@ -147,7 +147,6 @@
   - a static const * const type_p_name_ std::string set to something like
     "ly:grob?".  When provided, an accordingly named function for
     checking for the given smob type will be available in Scheme.
-
 */
 
 // Initialization class.  Create a variable or static data member of
@@ -156,10 +155,11 @@
 // Reference somewhere (like in the constructor of the containing
 // class) to make sure the variable is actually instantiated.
 
-class Scm_init {
-  static const Scm_init * list_;
-  void (*const fun_)(void);
-  Scm_init const * const next_;
+class Scm_init
+{
+  static const Scm_init *list_;
+  void (*const fun_) (void);
+  Scm_init const *const next_;
   Scm_init ();          // don't use default constructor, don't define
   Scm_init (const Scm_init &);  // don't define copy constructor
 public:
@@ -213,7 +213,7 @@ private:
   // Define type_p_name_ in the Super class as a const char * const.
   // Without such definition it defaults to 0, producing no predicate.
 
-  static const char * const type_p_name_; // = 0
+  static const char *const type_p_name_;  // = 0
 
   // LY_DECLARE_SMOB_PROC is used in the Super class definition for
   // making a smob callable like a function.  Its first argument is a
@@ -236,25 +236,25 @@ private:
   // least, but in emergency situations one can always use a "rest"
   // argument and take it apart manually.
 
-  template <SCM (Super::*pmf)(void)>
+  template <SCM (Super::*pmf) (void)>
   static SCM smob_trampoline (SCM self)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)();
+    return (Super::unchecked_unsmob (self)->*pmf) ();
   }
-  template <SCM (Super::*pmf)(SCM)>
+  template <SCM (Super::*pmf) (SCM)>
   static SCM smob_trampoline (SCM self, SCM arg1)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)(arg1);
+    return (Super::unchecked_unsmob (self)->*pmf) (arg1);
   }
-  template <SCM (Super::*pmf)(SCM, SCM)>
+  template <SCM (Super::*pmf) (SCM, SCM)>
   static SCM smob_trampoline (SCM self, SCM arg1, SCM arg2)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)(arg1, arg2);
+    return (Super::unchecked_unsmob (self)->*pmf) (arg1, arg2);
   }
-  template <SCM (Super::*pmf)(SCM, SCM, SCM)>
+  template <SCM (Super::*pmf) (SCM, SCM, SCM)>
   static SCM smob_trampoline (SCM self, SCM arg1, SCM arg2, SCM arg3)
   {
-    return (Super::unchecked_unsmob (self)->*pmf)(arg1, arg2, arg3);
+    return (Super::unchecked_unsmob (self)->*pmf) (arg1, arg2, arg3);
   }
 
   static bool is_smob (SCM s)
@@ -281,7 +281,8 @@ inline T *unsmob (SCM s)
 
 // Simple smobs
 template <class Super>
-class Simple_smob : public Smob_base<Super> {
+class Simple_smob : public Smob_base<Super>
+{
 public:
   static size_t free_smob (SCM obj)
   {
@@ -290,7 +291,7 @@ public:
   }
   SCM smobbed_copy () const
   {
-    Super *p = new Super(*static_cast<const Super *> (this));
+    Super *p = new Super (*static_cast<const Super *> (this));
     return Smob_base<Super>::register_ptr (p);
   }
 };
@@ -301,26 +302,29 @@ void unprotect_smob (SCM smob);
 // The Smob_core class is not templated and contains material not
 // depending on the Super class.
 
-class Smob_core {
+class Smob_core
+{
 protected:
   SCM self_scm_;
-  Smob_core () : self_scm_ (SCM_UNDEFINED) {
+  Smob_core () : self_scm_ (SCM_UNDEFINED)
+  {
     count++;
-    maybe_grow_heap();
+    maybe_grow_heap ();
   };
-  ~Smob_core() { count--; }
+  ~Smob_core () { count--; }
   static size_t count;
-  void maybe_grow_heap();
+  void maybe_grow_heap ();
 public:
   SCM self_scm () const { return self_scm_; }
   Listener get_listener (SCM callback);
 };
 
 template <class Super>
-class Smob : public Smob_core, public Smob_base<Super> {
+class Smob : public Smob_core, public Smob_base<Super>
+{
 private:
   Smob (const Smob<Super> &) = delete;
-  Smob& operator= (const Smob<Super> &) = delete;
+  Smob &operator = (const Smob<Super> &) = delete;
 protected:
   Smob () = default;
 public:
@@ -339,7 +343,8 @@ public:
   {
     protect_smob (self_scm_);
   }
-  void smobify_self () {
+  void smobify_self ()
+  {
     protect_smob (unprotected_smobify_self ());
   }
   SCM unprotect ()
@@ -375,7 +380,7 @@ public:
 // least some, so they are apparently not protected in spite of being
 // included in the GC scans.  So it would appear that scanning smobs
 // is not equivalent to marking them.  Ugh.
-#if defined(DEBUG) && !GUILEV2
+#if defined (DEBUG) && !GUILEV2
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
   do {                                                                  \
     static parsed_dead pass_here;                                       \

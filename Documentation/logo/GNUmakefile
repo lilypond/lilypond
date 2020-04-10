@@ -18,7 +18,7 @@ default: $(lilypond-icon) $(ly-icon)
 
 endif # PLATFORM_WINDOWS
 
-local-dist: $(icon) 
+local-dist: $(icon)
 xgifs: $(OUTGIF_FILES)
 pngs: $(OUTPNG_FILES)
 

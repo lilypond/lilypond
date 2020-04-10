@@ -999,7 +999,7 @@ Un article français sur LilyPond 2.6 est paru sur
 Octobre 2004
 
 Les éditeurs de @emph{Computer!Totaal}, magazine informatique
-hollandais, @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
+hollandais, @uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
 décrivent LilyPond} dans leur numéro d'octobre 2004 comme « un
 merveilleux logiciel libre [@dots{}]  Les partitions qu'il génère sont
 extrêmement belles [@dots{}]  Un système très puissant permettant
@@ -1209,7 +1209,7 @@ Lisez @ref{Entrée sous forme de texte}.
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
-@c http://lilypond.org/productions
+@c https://lilypond.org/productions
 
 
 @divClass{column-center-top}
@@ -1410,7 +1410,7 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 @c VO Browser-based editors
 
 @subsubheading LilyBin
-@uref{http://lilybin.com/}
+@uref{https://lilybin.com/}
 
 LilyBin vous permet de saisir en ligne vos partitions sans avoir
 préalablement installé LilyPond sur votre oridnateur. Les lignes de code
@@ -1604,12 +1604,12 @@ est un système de composition musicale basé sur le
 @itemize
 
 @item
-@uref{http://lilycomp.sourceforge.net,LilyComp} permet de saisir
+@uref{https://lilycomp.sourceforge.net,LilyComp} permet de saisir
 graphiquement des notes.  Il fonctionne comme un pavé numérique
 permettant de produire de la notation LilyPond.
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} a été remplacé par
+@uref{https://lilykde.googlecode.com/,LilyKDE} a été remplacé par
 @uref{http://www.frescobaldi.org/,Frescobaldi}.  Il reste cependant
 disponible en version LilyKDE3 pour KDE 3.5 et lilypond-KDE4 pour
 KDE 4.1.

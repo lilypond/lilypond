@@ -25,7 +25,7 @@ This collection of MusicXML test files is distributed under the
 means that you can use the files for any purpose, as long as you leave the
 copyright notice (or the LICENSE file) intact.
 
-@heading Connection with @uref{http://lilypond.org/,LilyPond}
+@heading Connection with @uref{https://lilypond.org/,LilyPond}
 
 At the same time as providing a generic test suite for MusicXML document,
 this test suite also serves as proofs for the musicxml2ly script provided with

@@ -40,7 +40,7 @@
 #include "transform.hh"
 #include "offset.hh"
 
-const char * const
+const char *const
 Transform::type_p_name_ = "ly:transform?";
 
 const Transform
@@ -57,7 +57,7 @@ Transform::Transform (Real angle, Offset center)
   yy = d[X_AXIS];
   x0 = center[X_AXIS];
   y0 = center[Y_AXIS];
-  d = (*this)(-center);
+  d = (*this) (-center);
   x0 = d[X_AXIS];
   y0 = d[Y_AXIS];
 }
@@ -98,7 +98,7 @@ Transform::operator () (Offset point) const
 }
 
 Transform
-Transform::operator () (const Transform & t) const
+Transform::operator () (const Transform &t) const
 {
   // This looks dangerous regarding garbage collection.  However,
   // there is no allocation happening inside of this routine, so the
@@ -110,13 +110,13 @@ Transform::operator () (const Transform & t) const
 Offset scm_transform (SCM trans, Offset p)
 {
   if (Transform *tp = unsmob<Transform> (trans))
-    return (*tp)(p);
+    return (*tp) (p);
   return p;
 }
 
-Transform scm_transform (SCM trans, const Transform & t)
+Transform scm_transform (SCM trans, const Transform &t)
 {
   if (Transform *tp = unsmob<Transform> (trans))
-    return (*tp)(t);
+    return (*tp) (t);
   return t;
 }

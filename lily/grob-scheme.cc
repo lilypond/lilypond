@@ -493,5 +493,5 @@ LY_DEFINE (ly_grob_spanned_rank_interval, "ly:grob-spanned-rank-interval",
 
   Interval_t<int> iv = gr->spanned_rank_interval ();
 
-  return scm_cons (scm_from_int(iv[LEFT]), scm_from_int(iv[RIGHT]));
+  return scm_cons (scm_from_int (iv[LEFT]), scm_from_int (iv[RIGHT]));
 }

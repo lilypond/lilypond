@@ -126,8 +126,8 @@ spacing after the divider).
     (apply ly:stencil-add
            (make-line-stencil line-width 0 0 final-x 0) ; the horizontal line
            (make-transparent-box-stencil ; space for absent boxes
-             (cons 0 final-x)
-             (interval-widen '(0 . 0) (+ box-hheight dy)))
+            (cons 0 final-x)
+            (interval-widen '(0 . 0) (+ box-hheight dy)))
            stencils)))
 
 ;; Parse the harp pedal definition string into list of directions (-1/0/1), #\o and #\|

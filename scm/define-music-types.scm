@@ -311,7 +311,7 @@ Example: @code{\\mark \"A\"}")
     (MeasureSpannerEvent
      . ((description . "Used to signal the start and end of a measure
 spanner.")
-       (types . (measure-spanner-event span-event event))
+        (types . (measure-spanner-event span-event event))
         ))
 
     (MeasureCounterEvent
@@ -679,6 +679,11 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
     (TimeSignatureEvent
      . ((description . "An event created when setting a new time signature")
         (types . (event time-signature-event))
+        ))
+
+    (VowelTransitionEvent
+     . ((description . "A vowel transition between lyric syllables.")
+        (types . (post-event vowel-transition-event event))
         ))
 
     (TransposedMusic

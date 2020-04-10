@@ -220,7 +220,7 @@ this response:
 @example
 For questions about how to use LilyPond, please read our
 documentation available from:
-  @uref{http://lilypond.org/website/manuals.html}
+  @uref{https://lilypond.org/website/manuals.html}
 or ask the lilypond-user mailing list.
 @end example
 
@@ -237,7 +237,7 @@ user to resubmit the report with this response:
 I'm sorry, but due to our limited resources for handling bugs, we
 can only accept reports in the form of Tiny examples.  Please see
 step 2 in our bug reporting guidelines:
-  @uref{http://lilypond.org/website/bug-reports.html}
+  @uref{https://lilypond.org/website/bug-reports.html}
 @end example
 
 @item
@@ -260,7 +260,7 @@ documentation about this topic.  If you think that it really is a
 mistake, please explain in more detail.  If you think that the
 docs are unclear, please suggest an improvement as described by
 @qq{Simple tasks -- Documentation} on:
-  @uref{http://lilypond.org/website/help-us.html}
+  @uref{https://lilypond.org/website/help-us.html}
 @end example
 
 @item
@@ -388,7 +388,7 @@ The official regression test comparison is online at:
 @c NOTE: leave this here.  In this case, it's worth duplicating
 @c       the link.  -gp
 @example
-@uref{http://lilypond.org/test/}
+@uref{https://lilypond.org/test/}
 @end example
 
 If anything has changed suspiciously,
@@ -396,11 +396,6 @@ ask if it was deliberate.  If the text output from LilyPond (the
 logfile) changes, the differences will be displayed with a +
 before text added to the logfile and - before any text removed
 from the logfile.  This may or may not be suspicious.
-
-There is one test designed to produce output every time the
-regtests are created. @code{test-output-distance.ly} creates
-randomly spaced notes and will always have different output if the
-regtest checker is working.
 
 More information is available from in
 @ref{Precompiled regression tests}.

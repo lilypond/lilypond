@@ -18,17 +18,17 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
- #include "bracket.hh"
+#include "bracket.hh"
 
- #include "axis-group-interface.hh"
- #include "directional-element-interface.hh"
- #include "grob.hh"
- #include "lookup.hh"
- #include "output-def.hh"
- #include "staff-symbol-referencer.hh"
- #include "spanner.hh"
- #include "item.hh"
- #include "line-interface.hh"
+#include "axis-group-interface.hh"
+#include "directional-element-interface.hh"
+#include "grob.hh"
+#include "lookup.hh"
+#include "output-def.hh"
+#include "staff-symbol-referencer.hh"
+#include "spanner.hh"
+#include "item.hh"
+#include "line-interface.hh"
 
 using std::vector;
 

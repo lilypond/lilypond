@@ -32,7 +32,7 @@ public:
   }
 
   Matrix<T, A> (vsize rows, vsize columns, T const &t)
-    : data_ (rows *columns, t)
+    : data_ (rows * columns, t)
   {
     rank_ = rows;
   }

@@ -185,11 +185,11 @@ String_convert::pad_to (const string &s, size_t n)
 string
 String_convert::to_upper (string s)
 {
-  return strnupr (const_cast<char*>(s.c_str ()), s.length ());
+  return strnupr (const_cast<char *>(s.c_str ()), s.length ());
 }
 
 string
 String_convert::to_lower (string s)
 {
-  return strnlwr (const_cast<char*>(s.c_str ()), s.length ());
+  return strnlwr (const_cast<char *>(s.c_str ()), s.length ());
 }

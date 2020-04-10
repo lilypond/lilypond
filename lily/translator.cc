@@ -201,7 +201,7 @@ Translator::find_score_context () const
   abort ();
 }
 
-const char * const Translator::type_p_name_ = "ly:translator?";
+const char *const Translator::type_p_name_ = "ly:translator?";
 
 bool
 Translator::must_be_last () const
@@ -237,7 +237,7 @@ add_acknowledger (SCM ptr,
   interface_name += "-interface";
 
   unsmob<Scheme_hash_table> (ack_hash)
-    ->set (ly_symbol2scm (interface_name.c_str ()), ptr);
+  ->set (ly_symbol2scm (interface_name.c_str ()), ptr);
 }
 
 SCM

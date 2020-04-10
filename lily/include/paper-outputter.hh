@@ -52,5 +52,4 @@ public:
   SCM scheme_to_string (SCM);
 };
 
-
 #endif /* PAPER_OUTPUTTER_HH */

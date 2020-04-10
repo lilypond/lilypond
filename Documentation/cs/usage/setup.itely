@@ -215,7 +215,7 @@ gehört ein Dokument-Ersteller mit Liedtextunterstützung, der die Neuerstellung
 von Dateien erleichtert, und ein integriertes PDF-Anzeigeprogramm mit
 @qq{point-and-click}-Unterstützung. Demos, Bildschirmphotos und
 Installationsanweisungen finden sich unter
-@uref{http://lilypondtool@/.organum@/.hu}
+@uref{https://lilypondtool@/.organum@/.hu}
 
 
 @node TexShop
@@ -249,7 +249,7 @@ ausführt.
 @subsection LilyKDE
 @translationof LilyKDE
 
-@uref{http://lilykde.googlecode.com/,LilyKDE} ist eine Erweiterung für
+@uref{https://lilykde.googlecode.com/,LilyKDE} ist eine Erweiterung für
 den Texteditor @uref{http://kate-editor.org/,Kate} für KDE. LilyKDE
 beinhaltet einen mächtigen Assistenten, mit dem sehr schnell neue
 LilyPond-Dokumente erstellt werden könne, sowie einen eingebetteten

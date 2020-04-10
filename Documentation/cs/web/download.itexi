@@ -29,7 +29,7 @@ prosím, o našem @ref{Textový vstup,,textovém vstupu}.}
   @heading Downloads for LilyPond @versionDevel
 
 Odkazy na stálou verzi LilyPondu se nacházejí na
-@uref{http://lilypond.org, lilypond.org}
+@uref{https://lilypond.org, lilypond.org}
 @end ifclear
 @ifset web_version
   @heading Stažení pro LilyPond @versionStable
@@ -561,7 +561,7 @@ uživatelé mají více výhod z používání předsestavených verzí.}
 
 Na důkladný seznam se všemi verzemi (starými a novými) se podívejte na
 naše
-@uref{http://lilypond.org/download/source/?C=N;O=D, Stránky pro stažení}.
+@uref{https://lilypond.org/download/source/?C=N;O=D, Stránky pro stažení}.
 
 @divEnd
 
@@ -585,7 +585,7 @@ Příkazy se nacházejí v @rcontribnamed{Compiling LilyPond,Sestavení LilyPond
 @subheading Všechny verze
 
 Na důkladný seznam se všemi verzemi (starými a novými) se podívejte na
-@uref{http://lilypond.org/download/binaries/, Stránky pro stažení}.
+@uref{https://lilypond.org/download/binaries/, Stránky pro stažení}.
 
 @divEnd
 

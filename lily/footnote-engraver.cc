@@ -117,7 +117,6 @@ Footnote_engraver::acknowledge_end_grob (Grob_info info)
       }
 }
 
-
 void
 Footnote_engraver::boot ()
 {

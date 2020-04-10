@@ -1983,6 +1983,7 @@ change value over time while interpreting a piece of music;
 this.  Context properties are modified with @code{\set}.
 
 For example, multimeasure rests will be combined into a single bar
+(as explained in @ref{Compressing empty measures})
 if the context property @code{skipBars} is set to @code{#t}:
 
 @lilypond[quote,fragment,verbatim]

@@ -54,9 +54,9 @@ RedirectMatch ^/doc/development/?$ /development
 # Allow to use deep links to latest stable or development docs
 RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.19/$1
 RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.19/$1
-RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.18/$1
-RedirectMatch ^/doc//*([^v].*)$ /doc/v2.18/$1
-RedirectMatch ^(/Documentation.*)$ /doc/v2.18$1
+RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.20/$1
+RedirectMatch ^/doc//*([^v].*)$ /doc/v2.20/$1
+RedirectMatch ^(/Documentation.*)$ /doc/v2.20$1
 RedirectMatch ^/index$ /
 
 # fix root calculation: no double slashes

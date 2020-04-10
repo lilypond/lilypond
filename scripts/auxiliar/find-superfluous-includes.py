@@ -20,7 +20,7 @@ def parse_file (fn):
     base = os.path.split (fn)[1]
     full_paths[base] = fn
     incs[base] = lst
-    
+
 
 def has_include (f, name):
     try:
@@ -40,5 +40,5 @@ for (f, lst) in list(incs.items ()):
                                                           inc, inc2))
                 break
 
-        
-    
+
+

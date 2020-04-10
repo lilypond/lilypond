@@ -364,6 +364,11 @@ AC_DEFUN(STEPMAKE_END, [
     AC_CONFIG_FILES([config.make:config.make.in])
     AC_OUTPUT
 
+    if test -n "$GUILE_CONFIG"; then
+        echo
+        echo "WARNING: GUILE_CONFIG deprecated, consider using PKG_CONFIG_PATH instead"
+    fi
+
     if test -n "$OPTIONAL"; then
         echo
         echo "WARNING: Please consider installing optional programs or files: $OPTIONAL"
@@ -617,7 +622,37 @@ AC_DEFUN(STEPMAKE_GUILE, [
 ])
 
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
-    if test -n "$GUILE_FLAVOR"; then
+    AC_ARG_VAR(GUILE_FLAVOR,
+               AS_HELP_STRING([], [pkgconfig name for Guile, like guile-1.8 or
+                                   guile-2.2 .  If the respective .pc file
+                                   cannot be found by pkgconfig,
+                                   add its path to PKG_CONFIG_PATH]))dnl
+    AC_ARG_VAR(GUILE_CONFIG,
+               [guile-config executable, obsoleted by pkgconfig/GUILE_FLAVOR])dnl
+
+    if test -n "$GUILE_CONFIG"; then
+        AC_MSG_CHECKING([GUILE_CONFIG for GUILE_FLAVOR])
+        tmp_GUILE_FLAVOR="$($GUILE_CONFIG info guileversion)"
+        case $tmp_GUILE_FLAVOR in
+            *.*.*) # not a regexp, just a crude check
+                GUILE_FLAVOR=guile-"${tmp_GUILE_FLAVOR%.*}"
+                AC_MSG_RESULT([$GUILE_FLAVOR])
+                ;;
+            *)
+                AC_MSG_ERROR([\$GUILE_CONFIG info guileversion failed: $tmp_GUILE_FLAVOR])
+                ;;
+        esac
+        if test -z "$GUILE_CFLAGS"; then
+            AC_MSG_CHECKING([GUILE_CONFIG for GUILE_CFLAGS])
+            GUILE_CFLAGS=$($GUILE_CONFIG compile)
+            AC_MSG_RESULT([$GUILE_CFLAGS])
+        fi
+        if test -z "$GUILE_LIBS"; then
+            AC_MSG_CHECKING([GUILE_CONFIG for GUILE_LIBS])
+            GUILE_LIBS=$($GUILE_CONFIG link)
+            AC_MSG_RESULT([$GUILE_LIBS])
+        fi
+    elif test -n "$GUILE_FLAVOR"; then
         PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR],
                             [true], [GUILE_FLAVOR="missing"])
     else
@@ -689,18 +724,6 @@ AC_DEFUN(STEPMAKE_INIT, [
     STEPMAKE_PROGS(FIND, find, REQUIRED)
 
     STEPMAKE_PROGS(TAR, tar, REQUIRED)
-
-    if test "$(echo 2)" != "2" \
-       || test "x`uname`" = "xHP-UX"; then
-        AC_PATH_PROG(KSH, ksh, /bin/ksh)
-        AC_PATH_PROG(BASH, bash, $KSH)
-        STEPMAKE_WARN(avoiding buggy /bin/sh)
-        AC_PATH_PROG(SHELL, bash, $KSH)
-    else
-        SHELL=/bin/sh
-        AC_PATH_PROG(BASH, bash, $SHELL)
-    fi
-    AC_SUBST(SHELL)
 
     STEPMAKE_PYTHON(REQUIRED, 3.5, 3.99)
 
@@ -903,14 +926,8 @@ AC_DEFUN(STEPMAKE_GLIB, [
     PKG_CHECK_MODULES(GLIB, $1 >= $3, have_glib=yes, true)
     if test "$have_glib" = yes; then
         AC_DEFINE(HAVE_GLIB)
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$GLIB_CFLAGS $CPPFLAGS"
-        LIBS="$GLIB_LIBS $LIBS"
         AC_SUBST(GLIB_CFLAGS)
         AC_SUBST(GLIB_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         r="libglib-dev or glib?-devel"
         ver="`$PKG_CONFIG --modversion $1`"
@@ -922,14 +939,8 @@ AC_DEFUN(STEPMAKE_GOBJECT, [
     PKG_CHECK_MODULES(GOBJECT, $1 >= $3, have_gobject=yes, true)
     if test "$have_gobject" = yes; then
         AC_DEFINE(HAVE_GOBJECT)
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$GOBJECT_CFLAGS $CPPFLAGS"
-        LIBS="$GOBJECT_LIBS $LIBS"
         AC_SUBST(GOBJECT_CFLAGS)
         AC_SUBST(GOBJECT_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         r="libgobject-dev or gobject?-devel"
         ver="`$PKG_CONFIG --modversion $1`"
@@ -942,14 +953,8 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
     PKG_CHECK_MODULES(FREETYPE2, $1 >= $3, have_freetype2=yes, true)
     if test "$have_freetype2" = yes; then
         AC_DEFINE(HAVE_FREETYPE2)
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$FREETYPE2_CFLAGS $CPPFLAGS"
-        LIBS="$FREETYPE2_LIBS $LIBS"
         AC_SUBST(FREETYPE2_CFLAGS)
         AC_SUBST(FREETYPE2_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         # URG
         #r="lib$1-dev or $1-devel"
@@ -1015,15 +1020,8 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
     PKG_CHECK_MODULES(FONTCONFIG, $1 >= $3, have_fontconfig=yes, true)
     if test "$have_fontconfig" = yes; then
         AC_DEFINE(HAVE_FONTCONFIG)
-        # Do not pollute user-CPPFLAGS with configure-CPPFLAGS
-        save_CPPFLAGS="$CPPFLAGS"
-        save_LIBS="$LIBS"
-        CPPFLAGS="$FONTCONFIG_CFLAGS $CPPFLAGS"
-        LIBS="$FONTCONFIG_LIBS $LIBS"
         AC_SUBST(FONTCONFIG_CFLAGS)
         AC_SUBST(FONTCONFIG_LIBS)
-        CPPFLAGS="$save_CPPFLAGS"
-        LIBS="$save_LIBS"
     else
         r="lib$1-dev or $1-devel"
         ver="`$PKG_CONFIG --modversion $1`"
@@ -1067,7 +1065,6 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     STEPMAKE_PROGS(WINDRES, $target-windres $host-windres windres, x)
     AC_SUBST(WINDRES)
 ])
-
 
 # pkg.m4 - Macros to locate and utilise pkg-config.   -*- Autoconf -*-
 # serial 12 (pkg-config-0.29.2)

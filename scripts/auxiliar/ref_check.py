@@ -16,7 +16,7 @@ Flow
     Process References list:
       Check reference is contained in Nodes list with refManual in Nodes = refManual in References
     Print results
-    
+
 Known issues
   Node names containing commas are only checked up to the comma
   Spurious warnings "Xref should be internal" for files in /included

@@ -47,7 +47,7 @@ class Axis_group_interface
   DECLARE_SCHEME_CALLBACK (calc_pure_staff_staff_spacing, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_y_common, (SCM));
-  static SCM internal_calc_pure_relevant_grobs (Grob *, const std::string&);
+  static SCM internal_calc_pure_relevant_grobs (Grob *, const std::string &);
   static Interval relative_group_extent (std::vector<Grob *> const &list,
                                          Grob *common, Axis);
   static Interval relative_maybe_bound_group_extent (std::vector<Grob *> const &list,

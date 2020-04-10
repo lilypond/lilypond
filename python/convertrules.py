@@ -3751,7 +3751,7 @@ def conv(str):
     str = re.sub (r"\b\.whiteout(?![a-z_-])\b", r".whiteout-box", str)
     str = re.sub (r"#'whiteout(?![a-z_-])\b", r"#'whiteout-box", str)
     str = re.sub (r"\bstencil-whiteout\b", r"stencil-whiteout-box", str)
-    
+
     # (define-xxx-function (parser location ...) -> (define-xxx-function (...)
     def subst(m):
         def subsub(m):
@@ -3867,6 +3867,15 @@ def conv(str):
     str = re.sub (r"#'whiteout-box(?![a-z_-])\b", r"#'whiteout", str)
     return str
 
+@rule ((2, 19, 39), r"...-spacing #'prop... = -> ...-spacing.prop... =")
+def conv (str):
+    str = re.sub (r"(\s)((?:markup-markup-spacing|markup-system-spacing"
+                  r"|score-markup-spacing|last-bottom-spacing"
+                  r"|score-system-spacing|system-system-spacing"
+                  r"|top-markup-spacing|top-system-spacing)"
+                  r"(?:\s+#\s*'\s*" + wordsyntax + r")+)(?=\s*=)", path_replace, str)
+    return str
+
 @rule ((2, 19, 40), r"\time #'(2 3) ... -> \time 2,3 ...")
 def conv (str):
     def repl (m):
@@ -3934,6 +3943,7 @@ matchscmarg = (r'(?:[a-zA-Z_][-a-zA-Z_0-9]*|"(?:[^\\"]|\\.)*"|[-+]?[0-9.]+|\('
 scripts.trilelement -> scripts.trillelement
 \fermataMarkup -> \fermata
 remove \\powerChords, deprecate banter-chord-names and jazz-chord-names
+\compressFullBarRests  -> \compressEmptyMeasures
 """)
 def conv (str):
     def repl1ly (m):
@@ -3976,6 +3986,7 @@ def conv (str):
     str = re.sub (r'\\powerChords', '', str)
     str = re.sub (r'"scripts\.trilelement"', r'"scripts.trillelement"', str)
     str = re.sub (r"\\fermataMarkup", r"\\fermata", str)
+    str = re.sub (r"\\(compress|expand)FullBarRests", r"\\\1EmptyMeasures", str)
     if re.search (r"#(banter|jazz)-chordnames", str):
         stderr_write (NOT_SMART % "alternative chord naming functions")
         stderr_write (UPDATE_MANUALLY)

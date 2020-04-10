@@ -30,8 +30,8 @@ class Output_property_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
-  vector<Stream_event*> props_;
-  
+  vector<Stream_event *> props_;
+
   void acknowledge_grob (Grob_info) override;
   void listen_apply_output (Stream_event *);
 
@@ -62,9 +62,9 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
         continue;
       SCM proc = o->get_property ("procedure");
       scm_call_3 (proc,
-		  inf.grob ()->self_scm (),
-		  d->self_scm (), 
-		  context ()->self_scm ());
+                  inf.grob ()->self_scm (),
+                  d->self_scm (),
+                  context ()->self_scm ());
     }
 }
 
@@ -87,15 +87,15 @@ Output_property_engraver::boot ()
 }
 
 ADD_TRANSLATOR (Output_property_engraver,
-		/* doc */
-		"Apply a procedure to any grob acknowledged.",
-		
-		/* create */
-		"",
-		
-		/* read */
-		"",
-		
-		/* write */
-		""
-		);
+                /* doc */
+                "Apply a procedure to any grob acknowledged.",
+
+                /* create */
+                "",
+
+                /* read */
+                "",
+
+                /* write */
+                ""
+               );

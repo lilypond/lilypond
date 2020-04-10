@@ -662,7 +662,7 @@ belonging to a slur which controls the heaviness?}  To answer
 this we must look in the Internals Reference, or IR for short.
 
 The IR for the version of LilyPond you are using may be found
-on the LilyPond website at @uref{http://lilypond.org}.  Go to the
+on the LilyPond website at @uref{https://lilypond.org}.  Go to the
 documentation page and click on the Internals Reference link.
 For learning purposes you should use the standard HTML version,
 not the @q{one big page} or the PDF.  For the next few
@@ -3171,8 +3171,8 @@ example of a collision of this type:
 The best solution here is to move the multimeasure rest down, since the
 rest is in voice two. The default in @code{\voiceTwo} (i.e. in the
 second voice of a @code{<<@{@dots{}@} \\ @{@dots{}@}>>} construct) is
-that @code{staff-position} is set to -4 for MultiMeasureRest, so we need
-to move it, say, four half-staff spaces down to @w{@code{-8}}.
+that @code{staff-position} is set to -6 for MultiMeasureRest, so we need
+to move it, say, four half-staff spaces down to @w{@code{-10}}.
 
 @cindex MultiMeasureRest, example of overriding
 @cindex staff-position property, example
@@ -3181,13 +3181,16 @@ to move it, say, four half-staff spaces down to @w{@code{-8}}.
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-10
   { R1 }
 >>
 @end lilypond
 
 This is better than using, for example, @code{extra-offset},
 because the ledger line above the rest is inserted automatically.
+
+See @ruser{Engraving ties manually} for the difference between
+exact and inexact values.
 
 @node The extra-offset property
 @unnumberedsubsubsec The @code{extra-offset} property

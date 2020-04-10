@@ -168,7 +168,7 @@ all the development code.  For further information on setting this
 up see, @ref{Working with source code}.  An alternative to setting
 up a Git repository for people wanting to do LSR work is to get
 the source code from
-@uref{http://lilypond.org/website/development.html}.
+@uref{https://lilypond.org/website/development.html}.
 
 @subheading Importing the LSR to Git
 
@@ -406,7 +406,7 @@ you only choose snippets which are already present in the LSR,
 since the LSR software isn't able to create new snippets this way.
 If you don't have a Git repository for LilyPond, you'll find these
 snippets in the source-tarball on
-@uref{http://lilypond.org/website/development.html}.
+@uref{https://lilypond.org/website/development.html}.
 Don't rename any files at this stage.
 
 @item

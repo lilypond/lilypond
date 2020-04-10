@@ -17,7 +17,7 @@ Vocal headword
 } % begin verbatim
 
 %% http://lsr.di.unimi.it/LSR/Item?id=832
-%% see also http://lilypond.org/doc/v2.18/Documentation/notation/vocal-music
+%% see also https://lilypond.org/doc/v2.18/Documentation/notation/vocal-music
 
 % L. van Beethoven. Symphony No. 9 in D minor, op.125; Finale
 % mm. 216 -- 236

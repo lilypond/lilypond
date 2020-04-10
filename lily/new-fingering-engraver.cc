@@ -293,8 +293,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
                                               unsmob<Grob> (ft.head_->get_object ("accidental-grob")));
       else if (Rhythmic_head::dot_count (ft.head_))
         for (vsize j = 0; j < heads_.size (); j++)
-           if (Grob *d = unsmob<Grob> (heads_[j]->get_object ("dot")))
-             Side_position_interface::add_support (f, d);
+          if (Grob *d = unsmob<Grob> (heads_[j]->get_object ("dot")))
+            Side_position_interface::add_support (f, d);
 
       if (horiz.size () > 1)  /* -> FingeringColumn */
         {
@@ -303,12 +303,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
         }
       else
         {
-          SCM self_align_y =
-                Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
-          SCM yoff= f->get_property ("Y-offset");
+          SCM self_align_y
+            = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
+          SCM yoff = f->get_property ("Y-offset");
           if (scm_is_number (yoff))
             self_align_y = scm_from_double (scm_to_double (self_align_y)
-                                          + scm_to_double (yoff));
+                                            + scm_to_double (yoff));
           f->set_property ("Y-offset", self_align_y);
         }
 
@@ -326,8 +326,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
           Grob *f = ft.script_;
           int finger_prio = robust_scm2int (f->get_property ("script-priority"), 200);
 
-          if (heads_.size () > 1 &&
-              to_boolean (f->get_property ("X-align-on-main-noteheads")))
+          if (heads_.size () > 1
+              && to_boolean (f->get_property ("X-align-on-main-noteheads")))
             f->set_parent (note_column_, X_AXIS);
           else
             {
@@ -406,7 +406,6 @@ New_fingering_engraver::New_fingering_engraver (Context *c)
 {
   stem_ = 0;
 }
-
 
 void
 New_fingering_engraver::boot ()

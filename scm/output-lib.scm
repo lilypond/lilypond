@@ -146,9 +146,9 @@
     (if (null? pointer-props)
         '()
         (list iface
-          (map
-           (lambda (prop) (list prop (ly:grob-object grob prop)))
-           pointer-props)))))
+              (map
+               (lambda (prop) (list prop (ly:grob-object grob prop)))
+               pointer-props)))))
 
 (define-public (grob::all-objects grob)
   "Return a list of the names and contents of all properties having type
@@ -676,7 +676,7 @@ and duration-log @var{log}."
 ;; Print a tuplet denominator with a different number than the one derived from
 ;; the actual tuplet fraction
 (define ((tuplet-number::non-default-tuplet-denominator-text denominator)
-                grob)
+         grob)
   (number->string (if denominator
                       denominator
                       (ly:event-property (event-cause grob) 'denominator))))
@@ -685,7 +685,7 @@ and duration-log @var{log}."
 ;; Print a tuplet fraction with different numbers than the ones derived from
 ;; the actual tuplet fraction
 (define ((tuplet-number::non-default-tuplet-fraction-text
-                 denominator numerator) grob)
+          denominator numerator) grob)
   (let* ((ev (event-cause grob))
          (den (if denominator denominator (ly:event-property ev 'denominator)))
          (num (if numerator numerator (ly:event-property ev 'numerator))))
@@ -696,7 +696,7 @@ and duration-log @var{log}."
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
 (define ((tuplet-number::fraction-with-notes
-                 denominatornote numeratornote) grob)
+          denominatornote numeratornote) grob)
   (let* ((ev (event-cause grob))
          (denominator (ly:event-property ev 'denominator))
          (numerator (ly:event-property ev 'numerator)))
@@ -708,7 +708,7 @@ and duration-log @var{log}."
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
 (define ((tuplet-number::non-default-fraction-with-notes
-                 denominator denominatornote numerator numeratornote) grob)
+          denominator denominatornote numerator numeratornote) grob)
   (let* ((ev (event-cause grob))
          (den (if denominator denominator (ly:event-property ev 'denominator)))
          (num (if numerator numerator (ly:event-property ev 'numerator))))
@@ -783,17 +783,17 @@ and duration-log @var{log}."
 
 (define-public (key-signature-interface::alteration-position
                 step alter c0-position)
-;; Deprecated.  Not a documented interface, and no longer used in LilyPond,
-;; but needed for a popular file, LilyJAZZ.ily for version 2.16
+  ;; Deprecated.  Not a documented interface, and no longer used in LilyPond,
+  ;; but needed for a popular file, LilyJAZZ.ily for version 2.16
   (if (pair? step)
-    (+ (cdr step) (* (car step) 7) c0-position)
-    (let* ((c-pos (modulo c0-position 7))
-           (hi (list-ref
-                 (if (< alter 0)
-                   '(2 3 4 2 1 2 1) ; position of highest flat
-                   '(4 5 4 2 3 2 3)); position of highest sharp
-                 c-pos)))
-      (- hi (modulo (- hi (+ c-pos step)) 7)))))
+      (+ (cdr step) (* (car step) 7) c0-position)
+      (let* ((c-pos (modulo c0-position 7))
+             (hi (list-ref
+                  (if (< alter 0)
+                      '(2 3 4 2 1 2 1) ; position of highest flat
+                      '(4 5 4 2 3 2 3)); position of highest sharp
+                  c-pos)))
+        (- hi (modulo (- hi (+ c-pos step)) 7)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; annotations
@@ -944,15 +944,15 @@ and duration-log @var{log}."
                    (car rest)))
          (elts (ly:grob-array->list (ly:grob-object grob 'elements)))
          (get-friends
-           (lambda (g)
-             (let ((syms (ly:grob-property g 'parenthesis-friends '()))
-                   (get-friend (lambda (s)
-                                 (let ((f (ly:grob-object g s)))
-                                   (cond
-                                     ((ly:grob? f) (list f))
-                                     ((ly:grob-array? f) (ly:grob-array->list f))
-                                     (else '()))))))
-               (apply append (map get-friend syms)))))
+          (lambda (g)
+            (let ((syms (ly:grob-property g 'parenthesis-friends '()))
+                  (get-friend (lambda (s)
+                                (let ((f (ly:grob-object g s)))
+                                  (cond
+                                   ((ly:grob? f) (list f))
+                                   ((ly:grob-array? f) (ly:grob-array->list f))
+                                   (else '()))))))
+              (apply append (map get-friend syms)))))
          (friends (apply append elts (map get-friends elts)))
          (x-ext (ly:relative-group-extent friends refp X))
          (stencils (ly:grob-property grob 'stencils))
@@ -992,8 +992,8 @@ and duration-log @var{log}."
 
 (define-public (scale-by-font-size x)
   (ly:make-unpure-pure-container
-    (lambda (grob)
-      (* x (magstep (ly:grob-property grob 'font-size 0))))))
+   (lambda (grob)
+     (* x (magstep (ly:grob-property grob 'font-size 0))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -1198,21 +1198,21 @@ gets layout information from @var{grob}"
     (if (not (pair? (cdr pts)))
         (reduce ly:stencil-add empty-stencil ls)
         (connected-points
-          grob
-          (cons
-            (ly:line-interface::line
-              grob
-              (car (first pts))
-              (cdr (first pts))
-              (car (second pts))
-              (cdr (second pts)))
-            ls)
-          (cdr pts))))
+         grob
+         (cons
+          (ly:line-interface::line
+           grob
+           (car (first pts))
+           (cdr (first pts))
+           (car (second pts))
+           (cdr (second pts)))
+          ls)
+         (cdr pts))))
   (if (< (length points) 2)
       (begin
         (ly:warning
-          "´make-connected-line´ needs at least two points: ~a"
-          points)
+         "´make-connected-line´ needs at least two points: ~a"
+         points)
         empty-stencil)
       (connected-points grob '() points)))
 
@@ -1244,8 +1244,8 @@ and draws the stencil based on its coordinates.
 "
   (define (scale-coords coords-list x y)
     (map
-      (lambda (coord) (cons (* x (car coord)) (* y (cdr coord))))
-      coords-list))
+     (lambda (coord) (cons (* x (car coord)) (* y (cdr coord))))
+     coords-list))
 
   (define (hairpin::print-part points decresc? me)
     (let ((stil (make-connected-line points me)))
@@ -1264,21 +1264,21 @@ and draws the stencil based on its coordinates.
                (uplist (scale-coords coords lenx (/ leny 2)))
                (downlist (scale-coords coords lenx (/ leny -2)))
                (stil
-                 (ly:stencil-aligned-to
-                   (ly:stencil-translate
-                     (ly:stencil-add
-                       (hairpin::print-part uplist decresc? grob)
-                       (if mirrored?
-                           (hairpin::print-part downlist decresc? grob)
-                           empty-stencil))
-                     (cons xtrans ytrans))
-                   Y CENTER))
+                (ly:stencil-aligned-to
+                 (ly:stencil-translate
+                  (ly:stencil-add
+                   (hairpin::print-part uplist decresc? grob)
+                   (if mirrored?
+                       (hairpin::print-part downlist decresc? grob)
+                       empty-stencil))
+                  (cons xtrans ytrans))
+                 Y CENTER))
                (stil-y-extent (ly:stencil-extent stil Y)))
-        ;; Return a final stencil properly aligned in Y-axis direction and with
-        ;; proper extents. Otherwise stencil-operations like 'box-stencil' will
-        ;; return badly. Extent in X-axis direction is taken from the original,
-        ;; in Y-axis direction from the new stencil.
-        (ly:make-stencil (ly:stencil-expr stil) xex stil-y-extent))
+          ;; Return a final stencil properly aligned in Y-axis direction and with
+          ;; proper extents. Otherwise stencil-operations like 'box-stencil' will
+          ;; return badly. Extent in X-axis direction is taken from the original,
+          ;; in Y-axis direction from the new stencil.
+          (ly:make-stencil (ly:stencil-expr stil) xex stil-y-extent))
         ;; return empty, if no Hairpin.stencil present.
         '())))
 (export elbowed-hairpin)
@@ -1347,18 +1347,18 @@ parent or the parent has no setting."
          (shift-in-column (ly:grob-property grob 'toward-stem-shift-in-column))
          (script-column (ly:grob-object grob 'script-column))
          (shift
-           (if (and (ly:grob? script-column)
-                    (number? shift-in-column)
-                    ;; ScriptColumn can contain grobs other than Script.
-                    ;; These should not result in a shift.
-                    (any (lambda (s)
-                           (and (not (eq? s grob))
-                                (grob::has-interface s 'script-interface)
-                                (not (grob::has-interface s
-                                       'accidental-suggestion-interface))))
-                         (ly:grob-array->list
-                           (ly:grob-object script-column 'scripts))))
-               shift-in-column shift-when-alone))
+          (if (and (ly:grob? script-column)
+                   (number? shift-in-column)
+                   ;; ScriptColumn can contain grobs other than Script.
+                   ;; These should not result in a shift.
+                   (any (lambda (s)
+                          (and (not (eq? s grob))
+                               (grob::has-interface s 'script-interface)
+                               (not (grob::has-interface s
+                                                         'accidental-suggestion-interface))))
+                        (ly:grob-array->list
+                         (ly:grob-object script-column 'scripts))))
+              shift-in-column shift-when-alone))
          (note-head-location
           (ly:self-alignment-interface::aligned-on-x-parent grob))
          (note-head-grob (ly:grob-parent grob X))
@@ -1486,20 +1486,20 @@ parent or the parent has no setting."
 (define-public (ambitus-line::calc-gap grob)
   (let ((heads (ly:grob-object grob 'note-heads)))
 
-  (if (and (ly:grob-array? heads)
+    (if (and (ly:grob-array? heads)
              (= (ly:grob-array-length heads) 2))
-      (let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
-              (head-down (ly:grob-array-ref heads 0))
-              (head-up (ly:grob-array-ref heads 1))
-              (fraction (ly:grob-property grob 'length-fraction 0.7))
-              (max-gap (ly:grob-property grob 'maximum-gap 0.45))
-              ;; distance between noteheads:
-              (distance (- (interval-start (ly:grob-extent head-up common Y))
-                          (interval-end (ly:grob-extent head-down common Y))))
-              (gap (* 0.5 distance (- 1 fraction))))
+        (let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
+               (head-down (ly:grob-array-ref heads 0))
+               (head-up (ly:grob-array-ref heads 1))
+               (fraction (ly:grob-property grob 'length-fraction 0.7))
+               (max-gap (ly:grob-property grob 'maximum-gap 0.45))
+               ;; distance between noteheads:
+               (distance (- (interval-start (ly:grob-extent head-up common Y))
+                            (interval-end (ly:grob-extent head-down common Y))))
+               (gap (* 0.5 distance (- 1 fraction))))
 
-         (min gap max-gap))
-      0)))
+          (min gap max-gap))
+        0)))
 
 ;; Print a line connecting ambitus heads:
 
@@ -1568,36 +1568,36 @@ parent or the parent has no setting."
   "Print a number for a measure count.  Broken measures are numbered in
 parentheses."
   (let* ((num (make-simple-markup
-                (number->string (ly:grob-property grob 'count-from))))
+               (number->string (ly:grob-property grob 'count-from))))
          (orig (ly:grob-original grob))
          (siblings (ly:spanner-broken-into orig)) ; have we been split?
          (num
-           (if (or (null? siblings)
-                   (eq? grob (car siblings)))
+          (if (or (null? siblings)
+                  (eq? grob (car siblings)))
               num
               (make-parenthesize-markup num)))
          (num (grob-interpret-markup grob num))
          (num (ly:stencil-aligned-to
-                num X (ly:grob-property grob 'self-alignment-X)))
+               num X (ly:grob-property grob 'self-alignment-X)))
          (left-bound (ly:spanner-bound grob LEFT))
          (right-bound (ly:spanner-bound grob RIGHT))
          (refp (ly:grob-common-refpoint left-bound right-bound X))
          (spacing-pair
-           (ly:grob-property grob
-                             'spacing-pair
-                             '(break-alignment . break-alignment)))
+          (ly:grob-property grob
+                            'spacing-pair
+                            '(break-alignment . break-alignment)))
          (ext-L (ly:paper-column::break-align-width left-bound
                                                     (car spacing-pair)))
          (ext-R (ly:paper-column::break-align-width right-bound
                                                     (cdr spacing-pair)))
          (num
-           (ly:stencil-translate-axis
-             num
-             (+ (* 0.5 (- (car ext-R)
-                          (cdr ext-L)))
-                (- (cdr ext-L)
-                   (ly:grob-relative-coordinate grob refp X)))
-             X)))
+          (ly:stencil-translate-axis
+           num
+           (+ (* 0.5 (- (car ext-R)
+                        (cdr ext-L)))
+              (- (cdr ext-L)
+                 (ly:grob-relative-coordinate grob refp X)))
+           X)))
     num))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1614,12 +1614,12 @@ parentheses."
         (let* ((orig (ly:grob-original grob))
                (siblings (ly:spanner-broken-into orig))
                (text
-                 (if (or (null? siblings)
-                         (eq? grob (car siblings)))
-                     text
-                     (if (string? text)
-                         (string-append "(" text ")")
-                         (make-parenthesize-markup text)))))
+                (if (or (null? siblings)
+                        (eq? grob (car siblings)))
+                    text
+                    (if (string? text)
+                        (string-append "(" text ")")
+                        (make-parenthesize-markup text)))))
           (grob-interpret-markup grob text)))))
 
 (define-public (ly:horizontal-bracket-text::calc-direction grob)
