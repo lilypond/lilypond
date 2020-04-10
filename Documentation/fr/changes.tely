@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 36aecbfce5f3d3cb6b1cc23198f0d5164f19fbf4
+    Translation of GIT committish: 5d575d021ea55ab8040caaced58f53026d33885f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,7 +47,7 @@ Voir le manuel d'utilisation, \NAME\
 @finalout
 
 @node Top
-@top Nouvelles fonctionnalités de la version 2.20 (depuis 2.18)
+@top Nouvelles fonctionnalités de la version 2.22 (depuis 2.20)
 
 @allowcodebreaks false
 
@@ -73,182 +73,60 @@ which scares away people.
 @itemize
 
 @item
-Dans la langue de notes @code{english}, le nom développé des notes
-altérées comprend désormais un trait d'union, pour une meilleure
-lisibilité.  Il faut donc maintenant saisir
-@example
-\key a-flat \major
-@end example
+le noms des notes en quart de ton est désormais disponible dans toutes
+les langues de saisie.
+@lilypond[verbatim,quote]
+\language "català"
+\relative { do'4 sol' miqb re do1 }
+@end lilypond
 
-@noindent
-au lieu de
-
-@example
-\key aflat \major
-@end example
-
-Les altérations doubles ne prennent pas de trait d'union
-supplémentaire ; le @code{cisis} batave s'écrit @code{c-sharpsharp} en
-anglais développé.
 
 @item
-Les règles en matière d'altération peuvent désormais se définir au
-niveau d'un contexte @code{ChoirStaff}.
+Toutes les langues de saisie (instruction @code{\language}) peuvent se
+mentionner avec leur propre orthographe UTF-8 -- autrement dit y compris
+avec des caractères spéciaux. Les dénominations @code{català} et
+@code{português} s'ajoutent désormais aux appellations originelles
+@code{catalan} et @code{portugues}.
+
 
 @item
-Deux nouvelles règles -- @code{choral} et @code{choral-cautionary} --
-sont disponibles.  Elles combinent les caractéristiques de
-@code{modern-voice} et @code{piano} ou leurs équivalents avec
-altérations de précaution.
+Définir @code{suggestAccidentals} à @code{'cautionary} a pour effet
+d'appliquer le style @code{AccidentalSuggestion} uniquement aux
+altérations accidentelles de précaution. Ceci permet de distinguer les
+accidentelles @emph{facsimile} de celles à vocation éditoriale.
+@lilypond[verbatim,quote]
+\relative {
+  \key d \minor
+  d''4 cis8 b? cis2
+  \set suggestAccidentals = ##t
+  d4 cis8 b? cis2
+  \set suggestAccidentals = #'cautionary
+  d4 cis8 b? cis2
 
-@lilypond[quote]
-musicA = {
-  <<
-    \relative { cis''8 fis, bes4 <a cis>8 f bis4 | cis2. <c, g'>4 | }
-    \\
-    \relative { ais'2 cis, | fis8 b a4 cis2 | }
-  >>
-}
-
-musicB = { \clef bass \new Voice { \voiceTwo \relative {
-      <fis a cis>8[ <fis a cis> \change Staff = up
-      cis' cis \change Staff = down
-      <fis, a> <fis a>] \showStaffSwitch \change Staff = up
-      dis'4 | \change Staff = down
-      <fis, a cis>4 gis <f a d>2 |
-    }
-  }
-}
-
-\new ChoirStaff { << \context Staff = "up" {
-  \accidentalStyle choral \musicA }
-  \context Staff = "down" { \musicB } >>
 }
 @end lilypond
 
-@noindent
-Ceci constitue désormais le style par défaut pour un @code{ChoirStaff}.
-
-@code{choral-cautionary}
-
-@lilypond[quote]
-musicA = {
-  <<
-  \relative { cis''8 fis, bes4 <a cis>8 f bis4 |
-  cis2. <c, g'>4 | }
-  \\
-  \relative { ais'2 cis, | fis8 b a4 cis2 | }
-  >>
-}
-
-musicB = { \clef bass \new Voice { \voiceTwo \relative {
-      <fis a cis>8[ <fis a cis> \change Staff = up
-      cis' cis \change Staff = down
-      <fis, a> <fis a>] \showStaffSwitch \change Staff = up
-      dis'4 | \change Staff = down
-      <fis, a cis>4 gis <f a d>2 |
-    }
-  }
-}
-
-\new ChoirStaff { << \context Staff = "up" {
-  \accidentalStyle choral-cautionary \musicA }
-  \context Staff = "down" { \musicB } >>
+@item
+Ajout de la commande @code{\ambitusAfter}, qui permet de positionner
+l'ambitus à un endroit particulier.
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \consists Ambitus_engraver
+} \relative {
+  \ambitusAfter key-signature
+  \key d \major
+  es'8 g bes cis d2
 }
 @end lilypond
 
-@noindent
-Identique au style @code{choral}, à ceci près que les altérations
-supplémentaires apparaissent comme des altérations de précaution.
-
-@noindent
-Voir aussi : @ruser{Altérations accidentelles automatiques}.
 
 @item
-Quatre nouveaux glyphes de clef sont désormais disponibles : @emph{GG}
-ou @emph{double-G}, @emph{Tenor G}, @emph{varC}, ainsi que leur
-tessiture respective, et @emph{Varpercussion}.
+La commande @code{\partcombine}, ainsi que les commandes, sous-routines
+et noms de propriété préfixées de @code{partCombine}, s'écrivent
+désormais avec un C majuscule, comme @code{\partCombine},
+@code{\partCombineApart}, etc. La commande @code{\autochange} suit le
+même principe et se libelle désormais @code{\autoChange}.
 
-@multitable @columnfractions .30 .2 .30 .2
-
-@headitem
-Exemple
-@tab
-Résultat
-@tab
-Exemple
-@tab
-Résultat
-
-@item
-@code{\clef GG}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef GG c1
-@end lilypond
-@tab
-@code{\clef tenorG}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef tenorG c1
-@end lilypond
-
-@item
-@code{\clef varC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef varC c1
-@end lilypond
-@tab
-@code{\clef altovarC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef altovarC c1
-@end lilypond
-
-@item
-@code{\clef tenorvarC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef tenorvarC c1
-@end lilypond
-@tab
-@code{\clef baritonevarC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef baritonevarC c1
-@end lilypond
-
-@item
-@code{\clef varpercussion}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef varpercussion c1
-@end lilypond
-
-@end multitable
-
-@noindent
-Voir aussi : @ruser{Styles de clef}.
-
-@item
-Les noms de note en français sont maintenant définis spécifiquement,
-plutôt qu'en alias de l'italien. En plus de la syntaxe dérivée de
-l'italien, la hauteur @var{d} peut se saisir @var{ré} ou @code{re}, et
-un double-dièse par le suffice @var{-x}.
-
-@lilypond[fragment,verbatim,quote,ragged-right,relative=1]
-\language "français"
-do ré mi fa | sol la si do | ré1
-@end lilypond
-
-@noindent
-Les doubles dièses s'indiquent par l'adjonction d'un @code{x}.
-
-@lilypond[fragment,verbatim,quote,ragged-right,relative=2]
-\language "français"
-dob, rebb misb fabsb | sold ladd six dosd | rédsd1
-@end lilypond
 
 @end itemize
 
@@ -258,162 +136,78 @@ dob, rebb misb fabsb | sold ladd six dosd | rédsd1
 @itemize
 
 @item
-Les silences multimesures ont une longueur dépendant de leur durée
-totale, sous contrôle de @code{MultiMeasureRest.space-increment}. La
-valeur par défaut est fixée à @code{2.0}.
-
-@lilypond[fragment,verbatim,quote]
-\compressEmptyMeasures
-R1*2 R1*4 R1*64 R1*16
-@end lilypond
-
-@lilypond[fragment,verbatim,quote]
-\compressEmptyMeasures
-\override Staff.MultiMeasureRest.space-increment = 2.5
-R1*2 R1*4 R1*64 R1*16
-@end lilypond
-
-@item
-La commande @code{\partial} a connu des améliorations notables afin
-d'éviter les problèmes en cas de contextes multiples ou parallèles.
-
-@item
-Il est désormais possible d'utiliser @code{\time} et @code{\partial} de
-concert pour modifier une métrique en cours de mesure.
-
-@lilypond[verbatim,quote,relative=1]
-f f f f | f2. \bar "||"
-\time 3/4 \partial 4
-f8 8 | f2 f8 f |
-@end lilypond
-
-@item
-Des durées isolées dans une séquence musicale sont désormais considérées
-comme des notes sans hauteur. Dans la partition finale, les hauteurs
-sont déterminées à partir de la note ou de l'accord qui précède. Ceci
-peut s'avérer utile pour affecter des rythmes à de la musique ou dans
-une fonction Scheme.
-
-@lilypond[verbatim,quote,fragment,relative=2]
-c64[ 64] 32 16 8^- <g b d>4~ 2 | 1
-@end lilypond
-
-@lilypond[verbatim,quote]
-\new DrumStaff \with { \override StaffSymbol.line-count = 1 }
-\drummode {
-  \time 3/4
-  tambourine 8 \tuplet 3/2 { 16 16 16 }
-             8 \tuplet 3/2 { 16 16 16 } 8 8 |
+Les ligatures à la française (@code{\override Stem.french-beaming =
+##t}) se comportent à l'identique des ligatures standard (par défaut)
+dans toutes leurs composantes (position de la ligature et placement des
+articulations, doigtés, etc.) à ceci près que les hampes intermédiaires
+ne traversent pas le trait de ligature.
+@lilypond[quote]
+testmusic = \relative {
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  c''8[ a16 a_^ e']
+  f32[_5 c_3 a64_> g]_>]
+  a,32[ b^( c a16]
+  e'32[ g) a16 r] |
+  \override Beam.auto-knee-gap = #1
+  a,64[ 64 f''64 64]
+  \tuplet 3/2 { c32[ 32 32] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { d,32[^1 e^2 f^3 g^4 a^5] } s64
+}
+\score {
+  <<
+    \new Staff \with { \override Stem.french-beaming = ##t }
+         { <>^"French" \testmusic }
+    \new Staff
+         { <>^"Standard" \testmusic }
+  >>
+  \layout { indent = 0 }
 }
 @end lilypond
 
-@item
-Les exceptions en matière de ligature peuvent désormais se libeller à
-l'aide de la fonction Scheme @code{\beamExceptions}.  Ce qui auparavant
-se définissait par
-
-@example
-\set Timing.beamExceptions =
-#'(                         ;début de la liste associative
-   (end .                   ;entrée pour la terminaison des ligatures
-    (                       ;début de la liste des terminaisons
-     ((1 . 32) . (2 2 2))   ;règle pour les triples croches -- groupées à la double
-    )))
-
-\time #'(2 1) 3/16
-c16 c c
-\repeat unfold 6 @{ c32 @}
-@end example
-
-@noindent
-se libelle, grâce à la fonction Scheme @code{\beamExceptions}
-
-@lilypond[verbatim,quote,relative=1]
-\set Timing.beamExceptions =
-  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
-
-\time #'(2 1) 3/16
-c16 c c |
-\repeat unfold 6 { c32 } |
-@end lilypond
-
-@noindent
-tout en séparant les exceptions par un @code{|} (contrôle de barre de
-mesure) -- l'absence de hauteur dans les motifs d'exception n'est pas
-obligatoire.
 
 @item
-Amélioration significative du positionnement du nombre des n-olets dans
-le cas de ligatures coudées.  Jusqu'à présent, ce nombre était placé
-selon la position du crochet même lorsque ce dernier n'était pas
-imprimé, ce qui pouvait amener à un positionnement disgracieux :
-
-@lilypond[fragment,quote,relative=1]
-% This is a contrived example to simulate the previous behaviour
-\time 3/4
-\override Beam.auto-knee-gap = 3
-\override TupletNumber.knee-to-beam = ##f
-\once \override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { g8 c'' e, }
-\tuplet 3/2 4 { g,,8 c'' e, }
-\once \override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { c'8 g,, e'' }
-\tuplet 3/2 4 { c'8 g,, e'' }
-\once \override TupletBracket.bracket-visibility = ##t
-\tuplet 2/2 4 { g,8[ e''] }
-\tuplet 2/2 4 { g,,8[ e''] }
+Le swing et les motifs rythmiques irréguliers peuvent désormais
+s'appliquer à des expressions musicales composées de durées régulières
+qui peuvent s'utiliser pour rendre une interprétation inégale en MIDI.
+@lilypond[verbatim,quote]
+\include "swing.ly"
+<<
+  \new Staff \with {
+    instrumentName = "ordinaire"
+  } \repeat unfold 8 c'8
+  \new Staff \with {
+    instrumentName = "avec swing"
+  } \repeat unfold 4 \tripletFeel 8 { c'8 c' }
+  \new Staff \with {
+    instrumentName = "triolets"
+  } \tuplet 3/2 4 \repeat unfold 12 c'8
+>>
 @end lilypond
 
-@noindent
-Le nombre est désormais positionné plus près du coude en présence d'un
-tronçon de ligature approprié à son placement et en l'absence de
-crochet.
-
-@lilypond[fragment,quote,relative=1]
-% This is a contrived example to simulate the previous behaviour
-\time 3/4
-\override Beam.auto-knee-gap = 3
-\override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { g8 c'' e, }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 3/2 4 { g,,8 c'' e, }
-\tuplet 3/2 4 { c'8 g,, e'' }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 3/2 4 { c'8 g,, e'' }
-\tuplet 2/2 4 { g,8[ e''] }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 2/2 4 { g,,8[ e''] }
-@end lilypond
 
 @item
-De plus, la détection de collision ajoutée décalera  horizontalement le
-nombre s'il était trop proche d'un empilement adjacent, tout en
-préservant son écartement de la ligature.  Dans le cas où ce nombre
-serait trop large pour tenir dans l'espace disponible,  LilyPond
-reviendra au positionnement basé sur le crochet. Dans le cas d'une
-collision avec, par exemple, une altération accidentelle, le nombre sera
-plutôt écarté verticalement.
-
-@lilypond[fragment,quote,relative=1]
-\time 2/4
-\override Beam.auto-knee-gap = 3
-\tuplet 3/2 4 { g8 c'' e, c'8 g,, e'' }
-\tuplet 3/2 4 { g,,8 e''' g,, g,8 e''' ges,, }
-@end lilypond
-
-@noindent
-L'ancien comportement des n-olets en présence de ligature coudée reste
-disponible au moyen d'une nouvelle propriété @code{knee-to-beam}
-affectée àl'objet de rendu @code{TupletNumber}.
-
-@lilypond[verbatim,fragment,quote,relative=1]
-\time 2/4
-\override Beam.auto-knee-gap = 3
-\override TupletNumber.knee-to-beam = ##f
-\override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { g8 c'' e, }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 3/2 4 { g,,8 c'' e, }
+Plusieurs glyphes, correspondant aux
+@ifnothtml
+256@sup{e}, 512@sup{e} et 1024@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+256<sup>e</sup>, 512<sup>e</sup> et 1024<sup>e</sup>
+@end html
+@end ifhtml
+ de soupir, ainsi que les crochets respectifs, ont été ajoutés.
+@lilypond[quote]
+{
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  b4 8 16 32 64 128 256 512 1024 \bar "|"
+  b''4 8 16 32 64 128 256 512 1024 \bar "|"
+  r4 r8 r16 r32 r64 r128 r256 r512 r1024 \bar "|"
+}
 @end lilypond
 
 @end itemize
@@ -424,89 +218,34 @@ affectée àl'objet de rendu @code{TupletNumber}.
 @itemize
 
 @item
-Les terminaisons des soufflets peut désormais s'affiner à l'aide de la
-propriété de @code{grob} @code{shorten-pair}. Celle-ci n'affectait
-auparavant que les extensions de type textuel tels que
-@code{TupletBracket} et @code{OttavaBracket}.
-
-@noindent
-Les valeurs positives décalent vers la droite, les négatives vers la
-gauche.
-
-@lilypond[quote,verbatim,relative=2]
-\once \override Hairpin.shorten-pair = #'(0 . 2)
-a1\< | a2 a\!
-
-\once \override Hairpin.shorten-pair = #'(2 . 0)
-\once \override Hairpin.stencil = #constante-hairpin
-a1\< | a2 a\!
-
-\once \override Hairpin.shorten-pair = #'(-1 . -1)
-\once \override Hairpin.stencil = #flared-hairpin
-a1\< | a2 a\!
-@end lilypond
-
-@item
-Les liaisons, qu'elles soient d'articulation ou de phrasé, peuvent
-désormais débuter sur une hauteur particulière d'un accord.
-
-@lilypond[quote,verbatim,relative=1]
-<f a( c>1 | <c') e g(> | <a c) e>
-@end lilypond
-
-@lilypond[quote,verbatim,relative=1]
-<f( a\( c>1 | <c'\) e\( g> | <a c e\)>
-@end lilypond
-
-@item
-Le nouvelle commande @code{\=} permet de spécifier le @code{spanner-id}
-(identificateur d'extension) pour des liaisons d'articulation ou de
-phrasé simultanées ; l'identificateur est soit un entier positif, soit
-un symbole.
-
-@noindent
-Ceci s'avère utile en présence de multiples liaisons ou lorsqu'une
-liaison en recouvre une autre ou bien encore lorsque plusieurs courtes
-laisons sont englobées dans une plus grande.
-
-
+Ajout de deux nouveaux ornements.
 @lilypond[verbatim,quote]
-\fixed c' {
-  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+{
+  c''2\slashturn c''\haydnturn
 }
 @end lilypond
 
-@noindent
-Voir aussi : @ruser{Signes d'interprétation sous forme de courbe}.
+@item
+Ajout de la commande de nuance @code{\n} pour @emph{niente}.
+@lilypond[quote]
+{
+  d'1~\mp\> 2 r\n
+}
+@end lilypond
+
 
 @end itemize
 
-
+@ignore
 @strong{Améliorations en matière de reprises}
 
 @itemize
 
 @item
-Le style visuel des traits de tremolo (allure, style et pente) est
-maintenant plus finement contrôlé.
-@lilypond[quote,relative=2]
-  a8:32 b: c: d:
-  \override StemTremolo.shape = #'beam-like
-  a: b: c: d:
-  \override StemTremolo.style = #'constant
-  a: b: c: d:
-  g,2
-@end lilypond
-
-@item
-La fonction musicale @code{\unfoldRepeats} peut maintenant prendre en
-argument optionnel une liste spécifiant le ou les types de musique à
-répéter dans le développement.  Sont disponibles les arguments
-@code{percent}, @code{tremolo} et @code{volta}.  En l'absence de liste
-optionnelle d'arguments, sera utilisé @code{repeated-music} et tout sera
-développé.
+Un
 
 @end itemize
+@end ignore
 
 
 @strong{Améliorations en matière de notation sur la portée}
@@ -514,63 +253,35 @@ développé.
 @itemize
 
 @item
-Ajout d'une nouvelle commande @code{\magnifyStaff}, qui échelonne de
-façon globale, au niveau d'un contexte @code{Staff}, sa taille, les
-lignes de portée, les barres de mesure, les hampes et l'espacement
-horizontal.  Les lignes de la portée considérée ne seront toutefois pas
-plus fines que la taille par défaut dans la mesure où l'épaisseur des
-hampes, liaisons et autres est basée sur l'épaisseur des lignes de
-portée.
-
-@item
-La nouvelle commande @code{\magnifyMusic} permet de modifier la
-taille de la musique sans changer la taille de la portée, tout en
-ajustant automatiquement les hampes, ligatures et l'espacement
-horizontal.
-
+Ajout d'un point d'arrêt ultracourt et de variantes à la Henze pour les
+points d'orgue plus ou moins long.
 @lilypond[verbatim,quote]
-\new Staff <<
-  \new Voice \relative {
-    \voiceOne
-    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
-  }
-  \new Voice \relative {
-    \voiceTwo
-    \magnifyMusic 0.63 {
-      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
-      r32 c'' a c a c a c r c a c a c a c
-      r c a c a c a c a c a c a c a c
-    }
-  }
->>
+{
+  c'1\veryshortfermata
+  c'2\henzeshortfermata c'\henzelongfermata
+}
 @end lilypond
 
-@item
-La nouvelle commande  @code{\RemoveAllEmptyStaves} agit exactement comme
-@code{\RemoveEmptyStaves}, à ceci près qu'elle supprime aussi les lignes
-du premier système de la partition.
 
 @item
-Ajout de la commande de @emph{markup} @code{\justify-line}.  Cette
-fonction est comparable à @code{\fill-line}, à ceci près qu'au lieu de
-répartir les @emph{mots} en colonnes, la commande @code{\justify-line}
-répartit les vides de telle sorte qu'en présence de trois @emph{mots} ou
-plus, ces blancs soient d'égale longueur.
-
-@lilypond[quote,verbatim,papersize=a6]
-\markup \fill-line {oooooo oooooo oooooo oooooo}
-\markup \fill-line {ooooooooo oooooooo oo ooo}
+Point d'orgue et autres articulations peuvent désormais s'ajouter
+directement à un silence multimesure. Par conséquent, l'utilisation de
+la commande @code{\fermataMarkup} est désapprouvée.
+@lilypond[verbatim,quote]
+{
+  R1\fermata
+  R->
+  R\coda
+}
 @end lilypond
 
-@lilypond[quote,verbatim,papersize=a6]
-\markup \justify-line {oooooo oooooo oooooo oooooo}
-\markup \justify-line {ooooooooo oooooooo oo ooo}
-@end lilypond
 
 @item
-L'utilisation de fontes alternatives à Emmentaler, la fonte par
-défaut de LilyPond, a été simplifiée. Voir
-@ruser{Changement des fontes musicales} pour de plus amples informations.
+@code{\compressFullBarRests} a été renommé en
+@code{\compressEmptyMeasures} afin d'éviter toute confusion avec
+@code{\compressMMRests}. Dans le même esprit, @code{\expandFullBarRests}
+devient @code{\expandEmptyMeasures}.
+
 
 @end itemize
 
@@ -580,211 +291,39 @@ défaut de LilyPond, a été simplifiée. Voir
 @itemize
 
 @item
-Il est désormais possible d'ajouter du texte à un crochet d'analyse,
-grâce à l'objet @code{HorizontalBracketText}.
-
-@lilypond[quote,verbatim]
-\layout {
-  \context {
-    \Voice
-    \consists "Horizontal_bracket_engraver"
-  }
-}
-
+Le @code{New_fingering_engraver} prend désormais en charge la propriété
+@code{X-align-on-main-noteheads} de la @code{self-alignment-interface}.
+Dès lors qu'elle est activée (@code{##t}), tous les doigtés positionnés
+@code{up} ou @code{down} seront rangés sur une unique colonne alignée
+sur les têtes de note, du côté adéquat de la hampe :
+@lilypond[verbatim,quote]
 {
-  \once \override HorizontalBracketText.text = "a"
-  c''\startGroup d''\stopGroup
-  e''-\tweak HorizontalBracketText.text "a'" \startGroup d''\stopGroup
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5>4 <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
+  \bar "."
+  \override Fingering.X-align-on-main-noteheads = ##t
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5> <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
 }
 @end lilypond
 
+
 @end itemize
 
-
+@ignore
 @strong{Améliorations en matière de mise en forme du texte}
 
 @itemize
 
 @item
-La prise en charge de fontes musicales alternative, autrement dit autres
-que Emmentaler, est facilitée.  Voir
-@ruser{Changement des fontes musicales} pour de plus amples
-informations.
 
-@item
-Les fontes textuelles par défaut -- @code{Century Schoolbook L},
-@code{sans-serif} et @code{monospace} -- ont été modifiées.
-
-Pour le moteur @code{svg} :
-@multitable @columnfractions .15 .30
-@headitem Famille @tab Fonte par défaut
-@item @emph{roman} @tab @code{serif}
-@item @emph{sans} @tab @code{sans-serif}
-@item @emph{typewriter} @tab @code{monospace}
-@end multitable
-
-@code{serif}, @code{sans-serif} et @code{monospace} sont des
-@code{generic-family} au titre des spécifications SVG et CSS.
-
-Pour les autres moteurs :
-@multitable @columnfractions .15 .30 .55
-@headitem Famille @tab Fonte par défaut (alias) @tab Listes de définition des alias
-@item @emph{roman}
-@tab @code{LilyPond Serif}
-@tab
-TeX Gyre Schola,
-C059, Century SchoolBook URW, Century Schoolbook L,
-DejaVu Serif,
-..., serif
-@item @emph{sans}
-@tab @code{LilyPond Sans Serif}
-@tab
-TeX Gyre Heros,
-Nimbus Sans, Nimbus Sans L, DejaVu Sans,
-..., sans-serif
-@item @emph{typewriter}
-@tab @code{LilyPond Monospace}
-@tab
-TeX Gyre Cursor,
-Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
-DejaVu Sans Mono,
-..., monospace
-@end multitable
-
-@code{LilyPond Serif}, @code{LilyPond Sans Serif} et @code{LilyPond
-Monospace} sont des alias de fonte définis dans le fichier de
-configuration de FontConfig spécifique à LilyPond
-@code{00-lilypond-fonts.conf}.  Lorsqu'un caractère est absent de la
-première fonte listée, il sera remplacé par celui de la fonte suivante.
-Pour plus de détails sur les définitions des alias, consultez le fichier
-@code{00-lilypond-fonts.conf} dans le répertoire d'installation.
-
-@item
-Le recours aux fontes OpenType permet d'utiliser certaines
-fonctionnalités de ces fontes.  Toutefois, les fontes OpenType ne
-disposent pas toutes de l'intégralité de ces fonctions.
-
-@lilypond[quote,verbatim]
-% Vraies petites capitales
-\markup { Style normal : Hello HELLO }
-\markup { \caps { Petites capitales : Hello } }
-\markup { \override #'(font-features . ("smcp"))
-          { Vraies petites capitales : Hello } }
-
-% Styles numériques
-\markup { Style numérique normal : 0123456789 }
-\markup { \override #'(font-features . ("onum"))
-          { Style numérique ancien : 0123456789 } }
-
-% Alternatives stylistiques
-\markup { \override #'(font-features . ("salt 0"))
-          { Alternative stylistique 0 : εφπρθ } }
-\markup { \override #'(font-features . ("salt 1"))
-          { Alternative stylistique 1 : εφπρθ } }
-
-% Fonctionnalités multiples
-\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
-          { Fonctionnalités multiples : Hello 0123456789 εφπρθ } }
-@end lilypond
-
-@item
-Deux nouveaux styles de contours à blanc sont disponibles.  Le style
-@code{outline} agit un peu comme un ombrage des glyphes, son galbe étant
-le résultat de multiples copies du glyphe.  Le style @code{rounded-box}
-produit un rectangle aux coins arrondis.  Pour tous les styles, y
-compris le style par défaut @code{box}, l'épaisseur (@code{thickness})
-du contour, mesuré en épaisseur de ligne de portée, est adaptable.
-
-@lilypond[verbatim,quote]
-\markup {
-  \combine
-    \filled-box #'(-1 . 15) #'(-3 . 4) #1
-    \override #'(thickness . 3)
-    \whiteout whiteout-box
-}
-\markup {
-  \combine
-    \filled-box #'(-1 . 24) #'(-3 . 4) #1
-    \override #'(style . rounded-box)
-    \override #'(thickness . 3)
-    \whiteout whiteout-rounded-box
-}
-\markup {
-  \combine
-    \filled-box #'(-1 . 18) #'(-3 . 4) #1
-    \override #'(style . outline)
-    \override #'(thickness . 3)
-    \whiteout whiteout-outline
-}
-\relative {
-  \override Staff.Clef.whiteout-style = #'outline
-  \override Staff.Clef.whiteout = 3
-  g'1
-}
-@end lilypond
-
-@item
-Une nouvelle commande de @emph{markup}, @code{\with-dimensions-from},
-rend plus aisée l'utilisation de @code{\with-dimensions} en adoptant les
-dimensions d'un objet @emph{markup} fourni en premier argument.
-@lilypond[quote,verbatim]
-\markup {
-  \pattern #5 #Y #0 "x"
-  \pattern #5 #Y #0 \with-dimensions-from "x" "f"
-  \pattern #5 #Y #0 \with-dimensions-from "x" "g"
-  \override #'(baseline-skip . 2)
-  \column {
-    \pattern #5 #X #0 "n"
-    \pattern #5 #X #0 \with-dimensions-from "n" "m"
-    \pattern #5 #X #0 \with-dimensions-from "n" "!"
-  }
-}
-@end lilypond
-
-@item
-La nouvelle commande de @emph{markup} @code{\draw-squiggle-line} permet
-de tracer des lignes ondulées.  Sont adaptables l'épaisseur du trait
-(@code{thickness}), l'amplitude (@code{angularity}), la hauteur
-(@code{height}) et l'orientation (@code{orientation}).
-@lilypond[quote,verbatim]
-\markup
-  \overlay {
-    \draw-squiggle-line #0.5 #'(3 . 3) ##t
-
-    \translate #'(3 . 3)
-    \override #'(thickness . 4)
-    \draw-squiggle-line #0.5 #'(3 . -3) ##t
-
-    \translate #'(6 . 0)
-    \override #'(angularity . -5)
-    \draw-squiggle-line #0.5 #'(-3 . -3) ##t
-
-    \translate #'(3 . -3)
-    \override #'(angularity . 2)
-    \override #'(height . 0.3)
-    \override #'(orientation . -1)
-    \draw-squiggle-line #0.2 #'(-3 . 3) ##t
-  }
-@end lilypond
-
-@item
-Deux commandes de @emph{markup} font leur apparition : @code{\undertie}
-et @code{\overtie}, ainsi qu'une version générique @code{\tie}.
-@lilypond[quote,verbatim]
-\markup {
-  \undertie "undertied"
-  \overtie "overtied"
-}
-
-m = {
-  c''1 \prall -\tweak text \markup \tie "131" -1
-}
-
-{ \voiceOne \m \voiceTwo \m }
-@end lilypond
 
 @end itemize
-
+@end ignore
 
 
 @subheading Nouveautés en matière de notation spécialisée
@@ -796,25 +335,13 @@ m = {
 @itemize
 
 @item
-Création d'un gabarit flexible dans le domaine de la musique chorale.
-Il s'utilise pour de la musique chorale simple, avec ou sans
-accompagnement de piano, sur deux ou quatre portées.  Contrairement aux
-autres gabarits, celui-ci est directement intégré à LilyPond ; il n'est
-donc pas besoin d'être recopié et édité, mais simplement appelé à l'aide
-d'un @code{\include} dans le fichier source.  Pour de plus amples
-détails, voir @rlearning{Gabarits préprogrammés}.
-
-
-@item
-@code{\lyricsto} et @code{\addLyrics} ont été « harmonisés ».  Tous deux
-acceptent désormais la même sorte de liste délimitée d'arguments, à
-l'instar de @code{\lyrics} et @code{\chords}.  Une rétrocompatibilité a
-été ajoutée, de sorte à accepter des identificateurs musicaux (tel
-@code{\mus}) en tant qu'arguments.  Une règle a été ajoutée à
-@code{convert-ly} visant à supprimer les utilisations redondantes de
-@code{\lyricmode} et réarranger les combinaisons avec les déclencheurs
-de contexte afin d'appliquer @code{\lyricsto} généralement en dernier
-(comme le ferait @code{\lyricmode}).
+Un changement graduel de voyelle (ou une consonne maintenue) peut
+s'indiquer en ajoutant un signe de transition entre les syllabes à
+l'aide de la commande @code{\vowelTransition}.
+@lilypond[verbatim,quote]
+{ g'2 g' }
+\addlyrics { Ah \vowelTransition oh. }
+@end lilypond
 
 @end itemize
 
@@ -824,158 +351,8 @@ de contexte afin d'appliquer @code{\lyricsto} généralement en dernier
 @itemize
 
 @item
-Ajout d'un nouveau style de tête de note pour les tablature :
-@code{TabNoteHead.style = #'slash}.
-
-@item
-L'écartement entre les diagrammes de fret et entre les cordes peut
-désormais s'ajuster de manière indépendante, à l'aide des
-sous-propriétés de @code{fret-diagram-details} @code{fret-distance} et
-@code{string-distance}.
-@lilypond[verbatim,quote]
-fretMrkp = \markup { \fret-diagram-terse "x;x;o;2;3;2;" }
-
-\markuplist
-\override #'(padding . 2)
-\table #'(0 -1) {
-  "default"
-
-  \fretMrkp
-
-  "fret-distance"
-
-  \override #'(fret-diagram-details . ((fret-distance . 2)))
-  \fretMrkp
-
-  "string-distance"
-
-  \override #'(fret-diagram-details . ((string-distance . 2)))
-  \fretMrkp
-}
-@end lilypond
-
-@item
-Dans le cadre de l'utilisation de la commande de @emph{markup}
-@code{\fret-diagram-verbose}, il est désormais possible de coloriser
-individuellement les points et les parenthèses des diagrammes de fret.
-
-@lilypond[verbatim,quote,relative=1]
-\new Voice {
-  c1^\markup {
-    \override #'(fret-diagram-details . (
-                 (finger-code . in-dot))) {
-      \fret-diagram-verbose #'((mute 6)
-                               (place-fret 5 3 1 red)
-                               (place-fret 4 5 2 inverted)
-                               (place-fret 3 5 3 green)
-                               (place-fret 2 5 4 blue inverted)
-                               (place-fret 1 3 1 violet)
-                               (barre 5 1 3 ))
-    }
-  }
-  c1^\markup {
-    \override #'(fret-diagram-details . (
-                 (finger-code . below-string))) {
-      \fret-diagram-verbose #'((mute 6)
-                             (place-fret 5 3 1 red parenthesized)
-                             (place-fret 4 5 2 yellow
-                                               default-paren-color
-                                               parenthesized)
-                             (place-fret 3 5 3 green)
-                             (place-fret 2 5 4 blue )
-                             (place-fret 1 3 1)
-                             (barre 5 1 3))
-    }
-  }
-}
-@end lilypond
-
-@item
-Deux propriétés sont ajoutées à @code{fret-diagram-details} pour une
-utilisation avec la commande de @emph{markup}
-@code{\fret-diagram-verbose} : @code{fret-label-horizontal-offset}
-affecte le @code{fret-label-indication}, et @code{paren-padding}
-contrôle l'espacement entre le point et les parenthèses qui l'entourent.
-
-@lilypond[verbatim,quote,relative=1]
-\new Voice {
-  c1^\markup {
-    \fret-diagram-verbose #'((mute 6)
-                             (place-fret 5 3 1)
-                             (place-fret 4 5 2)
-                             (place-fret 3 5 3)
-                             (place-fret 1 6 4 parenthesized)
-                             (place-fret 2 3 1)
-                             (barre 5 2 3))
-  }
-  c1^\markup {
-    \override #'(fret-diagram-details . (
-                 (fret-label-horizontal-offset . 2)
-                 (paren-padding . 0.25))) {
-      \fret-diagram-verbose #'((mute 6)
-                               (place-fret 5 3 1)
-                               (place-fret 4 5 2)
-                               (place-fret 3 5 3)
-                               (place-fret 1 6 4 parenthesized)
-                               (place-fret 2 3 1)
-                               (barre 5 2 3))
-    }
-  }
-}
-@end lilypond
-
-@item
-Dans le cadre des tablatures pour luth sont désormais disponibles les
-cordes de basse additionnelles.
-@lilypond[quote,verbatim]
-m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
-
-\score {
-  \new TabStaff \m
-  \layout {
-    \context {
-      \Score
-      tablatureFormat = #fret-letter-tablature-format
-    }
-    \context {
-      \TabStaff
-      stringTunings = \stringTuning <a, d f a d' f'>
-      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
-      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
-    }
-  }
-}
-@end lilypond
-
-@item
-Les numéros de cordes peuvent désormais s'imprimer  en chiffres romains,
-pour les instruments à cordes non frettées par exemple.
-@lilypond[verbatim,quote,relative=2]
-c2\2
-\romanStringNumbers
-c\2
-\arabicStringNumbers
-c1\3
-@end lilypond
-
-@item
-Les microaltérations peuvent désormais s'imprimer aussi sur des
-@code{TabStaff}, notamment pour indiquer des @emph{bends}.
-@lilypond[quote,verbatim]
-\layout {
-  \context {
-    \Score
-    supportNonIntegerFret = ##t
-  }
-}
-
-mus = \relative { c'4 cih d dih }
-
-<<
-  \new Staff << \clef "G_8" \mus >>
-  \new TabStaff \mus
->>
-@end lilypond
+Quelques diagrammes de fret pour ukulele ont été corrigés, et d'autres
+ont été ajoutés.
 
 @end itemize
 
@@ -985,22 +362,44 @@ mus = \relative { c'4 cih d dih }
 @itemize
 
 @item
-@code{\chordmode} prend désormais en charge les constructions @code{< >}
-et @code{<< >>}.
+Les accords peuvent être désormais automatiquement renversés, ou avoir
+l'une de leurs composantes sautée.
+@lilypond[verbatim,quote]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
 
 @item
-Il est désormais possible de modifier la propriété @code{text} des noms
-d'accord.
+Les fonctions historiques de nommage d'accord @code{banter-chord-names}
+et @code{jazz-chord-names} ont été supprimées de la base de code, tout
+comme les propriétés @code{chordNamesExceptionsFull} et
+@code{chordNamesExceptionsPartial}. Dans le cadre d'une réécriture, le
+@emph{power chord} est désormais inclus dans les exceptions par défaut
+et sera imprimé correctement (annotation en exposant comme tous les
+accords) sans avoir besoin de bricolage -- la commande prédéfinie
+@code{\powerChords} devient donc inutile. Les adeptes des fonctions
+historiques peuvent en trouver une copie (plus ou moins fonctionnelle)
+dans le morceau choisi @file{chord-names-alternative.ly}.
 
-@lilypond[verbatim,fragment,quote]
-<<
-\new ChordNames \chordmode {
-  a' b c:7
-  \once \override ChordName.text = "foo"
-  d
-}
->>
+
+@item
+Les diagrammes de fret peuvent désormais s'imprimer en version
+« gaucher » dès lors que @code{handedness} (sous-propriété de
+@code{fret-diagram-details}) aura été définie à @code{LEFT}.
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(gaucher)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
 @end lilypond
+
 
 @end itemize
 
@@ -1009,61 +408,39 @@ d'accord.
 @subheading Nouveautés en matière d'entrée et sortie
 @c VO New for input and output
 
-
+@ignore
 @strong{Améliorations pour la structure}
 
 @itemize
 
 @item
-Les blocs introduits par @code{\header} peuvent être stockés dans des
-variables et utilisés en argument à la musique ou à des fonctions Scheme
-ainsi que dans le corps de constructions @code{#@{@dots{}#@}}.  Ils sont
-représentés en tant que module Guile.
-
-Les blocs @code{\book}, @code{\bookpart}, @code{\score}, @code{\with},
-@code{\layout}, @code{\midi} et @code{\paper} peuvent être passés de
-façon similaire, mais sont représentés par des types de donnée différents.
+Un
 
 @end itemize
+@end ignore
 
 
+@ignore
 @strong{Améliorations pour les titrages et entêtes}
 
 @itemize
 
 @item
-Les numéros de page peuvent désormais s'imprimer en chiffres romains, en
-ajustant la variable de papier @code{page-number-type}.
-
+Un
 @end itemize
+@end ignore
 
 
+@ignore
 @strong{Améliorations pour les fichiers sources}
 
 @itemize
 
 @item
-La nouvelle commande @code{\tagGroup} vient en complément des commandes
-@code{\keepWithTag} et @code{\removeWithTag} déjà existantes.  Par exemple,
-
-@example
-\tagGroup #'(violinI violinII viola cello)
-@end example
-
-déclare une liste de balises appartenant à un unique « groupe de
-balises ».
-
-@example
-\keepWithTag #'violinI
-@end example
-
-n'est maintenant plus concerné que par les balises du groupe auquel
-« violinI » appartient.
-
-Tout élément balisé par une ou plusieurs balises du groupe, à
-l'exception de @var{violinI}, sera ignoré.
+Un
 
 @end itemize
+@end ignore
 
 
 @strong{Améliorations pour les fichiers résultants}
@@ -1071,154 +448,84 @@ l'exception de @var{violinI}, sera ignoré.
 @itemize
 
 @item
-Les fichiers sources LilyPond peuvent désormais être empaquetés dans les
-fichiers PDF générés.  Cette fonctionnalité est pour l'instant désactivée
-par défaut car susceptible d'être considérée comme peu sure dans la
-mesure où des documents PDF comportant des fichiers cachés peuvent
-présenter des risques en matière de sécurité.  Attention cependant :
-les lecteurs de PDF ne sont pas tous capables de gérer les fichiers
-joints ; si tel est le cas, le rendu PDF apparaîtra normalement mais les
-fichiers joints seront invisibles.  Cette fonctionnalité n'est
-opérationnelle qu'avec le moteur PDF.
+Les lignes d'horizon (@emph{skylines}) prennent désormais en compte la
+propriété @code{rotation} des objets de rendu. Faire pivoter un soufflet
+de crescendo en lui appliquant par exemple @code{\override
+Hairpin.rotation = #'(15 0 0)} aura une influence sur les lignes
+d'horizon et donc aidera à améliorer l'espacement.
+@lilypond[quote]
+#(ly:set-option 'debug-skylines #t)
+\new PianoStaff <<
+  \new Staff \relative {
+    \override TextScript.rotation = #'(30 0 0)
+    g4\<^\markup \ellipse "rot. ellipse" e' d'^\markup \box "rotated box" f\!
+    \override Hairpin.rotation = #'(15 -1 0)
+    g,,4\<^\markup \rounded-box "rounded box" e' d'^"no box" f\!
+  }
+  \new Staff \relative {
+    \override Staff.Clef.rotation = #'(180 0 -0.036)
+    <cis' ais'>4 c' g c
+    \override Accidental.rotation = #'(30 0 0)
+    <cis, ais'>2 e'4 e'
+  }
+>>
+@end lilypond
 
 @item
-La procédure @code{output-classic-framework} et l'option
-@code{-dclip-systems} sont désormais prises en charge par le moteur
-@code{SVG}.
+Un léger décallage a été ajouté au glyphe de bécarre dont les extrémités
+se touchaient à l'occasion d'un changement d'armure.
+@lilypond[verbatim,quote]
+{
+  \omit Staff.TimeSignature
+  \key ces \major s1 \key c \major s
+}
+@end lilypond
 
 @item
-Le nouvel argument @code{-dcrop} permet de formater une sortie
-@code{SVG} ou @code{PDF} sans marges ni saut de page.
+Les lignes d'horizon des boîtes reflètent désormais l'emprise réelle de
+la boîte, y compris les bords arrondis et la rotation.
+@lilypond[verbatim,quote]
+#(ly:set-option 'debug-skylines #t)
+{
+  b'1^\markup \scale #'(2 . 1)
+              \rotate #30
+              \override #'(corner-radius . 3)
+              \rounded-box \center-column { box skyline }
+}
+@end lilypond
 
-@item
-La propriété d'objet graphique @code{output-attributes} remplace, dans
-les sorties SVG, la propriété de @emph{grob} @code{id}.  Ceci permet de
-définir, à l'aide d'une liste associative, de multiples attributs.  Par
-exemple, @code{#'((id . 123) (class . foo) (data-whatever . @qq{bar}))}
-produira dans un fichier SVG le groupe de balise : @code{<g id=@qq{123}
-class=@qq{foo} data-whatever=@qq{bar}> @dots{} </g>}.
-
-@item
-La fonctionnalité PostScript d'ajustement des traits ne s'applique plus
-de manière automatique ; elle est désormais laissée à l'appréciation du
-périphérique PostScript -- Ghostscript l'utilise par défaut pour des
-résolutions inférieures à 150 dpi lorsqu'il génère des images
-@emph{raster}.  Lorsqu'elle est activée, un algorithme de dessin plus
-complexe tirant profit des ajustements de trait servira notamment pour
-les ligatures et barres de mesure.
-
-L'ajustement des traits peut se forcer, en ligne de commande, à l'aide
-de l'option @samp{-dstrokeadjust}.  En ce qui concerne la génération de
-fichiers @code{PDF}, ceci améliorera nettement la prévisualisation, au
-détriment cependant de la taille du fichier.  La qualité d'impression à
-haute résolution n'est pas affectée.
-
-@item
-Une nouvelle fonction -- @code{make-path-stencil} -- supporte toutes les
-commandes @code{path}, tant relatives qu'absolues :
-
-@code{lineto}, @code{rlineto}, @code{curveto}, @code{rcurveto},
-@code{moveto}, @code{rmoveto}, @code{closepath}.  La fonction prend
-aussi en charge la syntaxe « lettre unique » utilisée dans les commandes
-de chemin du standard SVG :
-
-@code{L}, @code{l}, @code{C}, @code{c}, @code{M}, @code{m}, @code{Z} et
-@code{z}.  Cette nouvelle commande est rétrocompatible avec la fonction
-originale @code{make-connected-path-stencil}.  Voir aussi le fichier
-@file{scm/stencil.scm}.
 
 @end itemize
 
-
+@ignore
 @strong{Améliorations pour le MIDI}
 
 @itemize
 
 @item
-La plupart des articulations communes sont réflétées dans le rendu MIDI.
-Accent et marcato donnent des notes plus fortes ; staccato,
-staccatissimo et portato abrègent les notes.  Une marque de respiration
-raccourcit la note qui précède.
-
-Ce comportement est ajustable au travers des propriétés
-@code{midiLength} et @code{midiExtraVelocity} affectées à
-@code{ArticulationEvent}.  Voir le fichier @file{script-init.ly} pour
-des exemples.
-
-@item
-Amélioration du rendu MIDI des respirations.  Après une note liée, la
-respiration prend son temps uniquement sur la dernière note de la
-prolongation.  Autrement dit, @code{@{ c4~ c8 \breathe @}} s'entendra
-comme @code{@{ c4~ c16 r @}} au lieu de @code{@{ c4 r8 @}}.  Ceci est
-plus cohérent en matière d'articulation et avec la manière dont un
-instrumentiste interprète une respiration après une note prolongée par
-une liaison.  Ceci permet aussi d'aligner plus facilement une
-respiration simultanée à plusieurs parties dont les notes différent dans
-leur durée.
-
-@item
-Il est désormais possible de contrôler le « niveau d'expression » des
-canaux MIDI à l'aide de la propriété de contexte
-@code{Staff.midiExpression}.  Ceci permet d'altérer le volume perçu y
-compris des notes tenues, bien que légèrement.  L'ajustement prend une
-valeur entre @code{0.0} et @code{1.0}.
-
-@example
-\score @{
-  \new Staff \with @{
-    midiExpression = #0.6
-    midiInstrument = "clarinet"
-  @}
-  <<
-    @{ a'1~ a'1 @}
-    @{
-      \set Staff.midiExpression = #0.7 s4\f\<
-      \set Staff.midiExpression = #0.8 s4
-      \set Staff.midiExpression = #0.9 s4
-      \set Staff.midiExpression = #1.0 s4
-
-      \set Staff.midiExpression = #0.9 s4\>
-      \set Staff.midiExpression = #0.8 s4
-      \set Staff.midiExpression = #0.7 s4
-      \set Staff.midiExpression = #0.6 s4\!
-    @}
-  >>
-  \midi @{ @}
-@}
-@end example
-
-@item
-Lorsqu'il génère un fichier MIDI, LilyPond enregistre désormais le
-@code{title} défini dans le bloc @code{\header} d'une partition en tant
-que nom de la séquence MIDI du fichier MIDI.  En l'absence de
-@code{title} au niveau @code{\score}, sera retenue la première
-définition trouvée dans l'ordre suivant : @code{\bookpart}, @code{\book}
-et enfin @code{\header} de premier niveau.  De manière optionnelle, le
-nom de la séquence MIDI peut se définir à l'aide du nouveau champ de
-@code{\header} @code{midititle} indépendamment au cas où le champ
-@code{title} contiendrait du code @emph{markup} qui ne serait pas rendu
-correctement en texte plat.
+Un
 
 @end itemize
-
+@end ignore
 
 @strong{Améliorations en matière d'extraction de la musique}
 
 @itemize
 
 @item
-@code{\displayLilyMusic} et ses fonctions Scheme sous-jacentes
-n'omettent plus les durées de note redondantes.  Il est désormais plus
-facile et sûr de reconnaître et formater les durées isolées dans des
-expressions telles que
-@example
-@{ c4 d4 8 @}
-@end example
+La procédure @code{output-classic-framework} et l'option
+@code{-dclip-systems} sont désormais disponibles avec le moteur
+@code{SVG}.
+
+@item
+L'argument @code{-dcrop} a été ajouté, permettant de formater les
+sorties @code{SVG} et @code{PDF} sans marge ni saut de page.
+
 
 @end itemize
 
 
-
+@ignore
 @subheading Nouveautés en matière d'espacements
 @c VO New for spacing issues
 
@@ -1228,85 +535,22 @@ expressions telles que
 @itemize
 
 @item
-Il est désormais possible de déplacer des systèmes relativement à
-leur positionnement actuel, à l'aide de la sous-propriété
-@code{extra-offset} de
-@code{NonMusicalPaperColumn.line-break-system-details}, que ce soit sur
-l'axe horizontal ou vertical. Cette fonctionnalité s'avère très utile
-pour effectuer un léger ajustement dans le positionnement vertical par
-défaut d'un système particulier. Voir
-@ruser{Positionnement explicite des portées et systèmes} pour de plus
-amples explications.
-
-@item
-Amélioration de l'espacement visuel du « MI », tant à taille réduite que
-normale, dans les styles Funk et Walker, de telle sorte qu'il ait la
-même taille que les autres têtes de note profilées.  Les « SOL » sont
-aussi améliorés dans les styles Aiken et Harpe sacrée normaux ou leurs
-variantes fines.
-
-@item
-@code{LeftEdge} dispose désormais d'un @code{Y-extent} (extension
-verticale) définissable.  Voir @rinternals{LeftEdge}.
-
-@item
-Les objets graphiques et leurs parents peuvent désormais s'aligner de
-manière indépendante, ce qui permet une flexibilité accrue dans le
-positionnement des @emph{grobs}.  Par exemple, le bord « gauche » d'un
-objet peut désormais s'aligner sur le « centre » de son parent.
+Un
 
 @end itemize
+@end ignore
 
-
-
+@ignore
 @subheading Nouveautés en matière de modification des réglages par défaut
 @c VO New for changing defaults
 
 @itemize
-Un argument supplémentaire a été ajouté à la commande @code{\afterGrace}.
-
-@noindent
-@code{\afterGrace} dispose à présent d'un argument permettant de
-spécifier, sous forme de fraction, l'espacement à respecter avant de
-positionner ses notes.
-@lilypond[quote,verbatim]
-<<
-\new Staff \relative {
-  % Par défaut, valeur figée à (3/4)
-  c''1 \afterGrace d1 { c16[ d] } c1
-}
-\new Staff \relative {
-  % Modification manuelle à (15/16) de la valeur figée
-  #(define afterGraceFraction (cons 15 16))
-  c''1 \afterGrace d1 { c16[ d] } c1
-}
-\new Staff \relative {
-  % Utilisation du nouvel argument (5/6)
-  c''1 \afterGrace 5/6 d1 { c16[ d] } c1
-}
->>
-@end lilypond
 
 @item
-Les différentes instructions @code{\override}, @code{\revert},
-@code{\set} et @code{\unset} acceptent désormais le préfixe @code{\once}
-qui en réduit les effets à un seule occurrence.
-@lilypond[quote,verbatim]
-\relative {
-  c'4 d
-  \override NoteHead.color = #red
-  e4 f |
-  \once \override NoteHead.color = #green
-  g4 a
-  \once \revert NoteHead.color
-  b c |
-  \revert NoteHead.color
-  f2 c |
-}
-@end lilypond
+Un
 
 @end itemize
-
+@end ignore
 
 
 @subheading Nouveautés en matière d'interfaces et fonctions internes
@@ -1315,195 +559,16 @@ qui en réduit les effets à un seule occurrence.
 @itemize
 
 @item
-La propriété musicale et d'objet graphique @code{spanner-id}, qui permet
-de distinguer des liaisons d'articulation ou de phrasé simultanées,
-prend en argument une « clé » -- entrier positif ou symbole -- au lieu
-d'une chaîne.
+LilyPond pour Windows (MinGW) gère les noms de fichier Unicode à compter
+de Windows 10-1903.
 
-@item
-Les propriétés de contexte nommées dans la propriété
-@samp{alternativeRestores}  sont restaurées à la valeur qu'elles avaient
-juste avant la @b{première} alternative, ce pour toutes les suivantes.
-
-Pour l'instant, le jeu par défaut restaure la « métrique courante » :
-
-@lilypond[verbatim,fragment,quote,relative=2]
-\time 3/4
-\repeat volta 2 { c2 e4 | }
-\alternative {
-  { \time 4/4 f2 d | }
-  { f2 d4 | }
-}
-g2. |
-@end lilypond
-
-@noindent
-la « position dans la mesure » :
-
-@lilypond[verbatim,fragment,quote,relative=2]
-\time 3/4
-\repeat volta 2 { c2 e4 | }
-\alternative {
-  { \time 4/4
-    \set Timing.measurePosition = #(ly:make-moment -1/2)
-    f2 | }
-  { f2 d4 | }
-}
-g2. |
-@end lilypond
-
-@noindent
-et les « changements d'accord »:
-
-@lilypond[verbatim,fragment,quote]
-<<
-  \new ChordNames {
-    \set chordChanges = ##t
-    \chordmode { c1:m d:m c:m d:m }
-  }
-  \new Staff {
-    \repeat volta 2 { \chordmode { c1:m } }
-    \alternative {
-      { \chordmode { d:m } }
-      { \chordmode { c:m } }
-    }
-  \chordmode { d:m }
-}
->>
-@end lilypond
-
-@item
-Les fonctions LilyPond définies à l'aide de
-@code{define-music-function}, @code{define-event-function},
-@code{define-scheme-function} et @code{define-void-function} peuvent
-désormais être appelées directement à partir de Scheme, comme s'il
-s'agissait de pures procédures Scheme. Le contrôle et la correspondance
-des arguments seront réalisés de manière identique à ce qui se passe
-lorsque la fonction est appelée au fil du code LilyPond. Ceci inclut
-l'insertion de valeurs par défaut pour des arguments optionnels qui ne
-correspondraient pas à leur prédicat. Dans la liste des arguments, il
-est possible d'utiliser @code{*unspecified*} au lieu de @code{\default}
-pour omettre explicitement une séquence d'argument optionnels.
-
-@item
-Les données @code{location} pour la saisie courante et @code{parser}
-sont désormais gérées directement dans les flux GUILE ; elles peuvent
-donc être référencées par des appels de fonction@code{(*location*)}
-et @code{(*parser*)}.  Par voie de conséquence, nombre de fonctions ont
-vu disparaître leur argument @code{parser} explicite.
-
-Les fonctions définies par @code{define-music-function},
-@code{define-event-function}, @code{define-scheme-function} et
-@code{define-void-function} n'ont désormais nul besoin d'argument
-@code{parser} ou @code{location}.
-
-Avec ces définitions particulières, LilyPond tentera de reconnaître
-l'utilisation héritée des arguments  @code{parser} et @code{location},
-fournissant ainsi une compatibilité ascendante de la sémantique pour un
-certain temps.
-
-@item
-Les définitions et identificateurs Scheme peuvent désormais s'utiliser
-en tant que définition de sortie.
-
-@item
-Les expressions Scheme peuvent désormais s'utiliser en tant que
-constituants d'un accord.
-
-@item
-Les fonctions, qu'elles soient musicales, Scheme ou fantômes, ainsi que
-les commandes de @emph{markup} pour lesquelles le paramètre final est
-l'objet de dérogations en chaîne peuvent se définir en remplaçant
-l'expression à laquelle elle s'appliquera par @code{\etc}.  Il en va de
-même pour les appels à une fonction ou une commande de @emph{markup}.
-
-@lilypond[verbatim,quote]
-bold-red-markup = \markup \bold \with-color #red \etc
-highlight = \tweak font-size 3 \tweak color #red \etc
-
-\markup \bold-red "text"
-\markuplist \column-lines \bold-red { One Two }
-
-{ c' \highlight d' e'2-\highlight -! }
-@end lilypond
-
-@item
-Les listes de symboles séparés par des points, à l'instar de
-@code{FretBoard.stencil} sont pris en charge depuis la version 2.18.
-Elles peuvent désormais contenir des entiers non signés, et leurs
-membres être séparés par des virgules. Ceci permet des libellés tels que
-@lilypond[quote,verbatim]
-{ \time 2,2,1 5/8 g'8 8 8 8 8 }
-@end lilypond
-ou
-@example
-\tagGroup violin,oboe,bassoon
-@end example
-
-@item
-De telles listes peuvent aussi apparaître au sein d'expressions aux fins
-d'assignation, de définition ou de dérogation.  Ceci permet des libellés
-tels que
-@lilypond[quote,verbatim]
-{ \unset Timing.beamExceptions
-  \set Timing.beatStructure = 1,2,1
-  g'8 8 8 8 8 8 8 8 }
-@end lilypond
-
-@item
-Les éléments d'une liste associative pouvaient déjà se voir attribuer
-des valeurs individuellement, comme par exemple
-@code{system-system-spacing.basic-distance} pour les variables
-concernant le papier.  Ils peuvent désormais être référencés de la même
-manière, comme ici
-@example
-\paper @{
-  \void \displayScheme \system-system-spacing.basic-distance
-@}
-@end example
-
-Par extension à ces modifications, il est dorénavant possible de définir
-et faire référence à des pseudovariables telles que @code{violon.1}.
-
-@item
-La commande @code{\table}, pour gérer des listes de @emph{markups} est
-disponible.  Chaque colonne peut disposer de son propre alignement.
-@lilypond[quote,verbatim]
-\markuplist {
-    \override #'(padding . 2)
-    \table
-      #'(0 1 0 -1)
-      {
-        \underline { center-aligned right-aligned center-aligned left-aligned }
-        one "1" thousandth "0.001"
-        eleven "11" hundredth "0.01"
-        twenty "20" tenth "0.1"
-        thousand "1000" one "1.0"
-      }
-}
-@end lilypond
-
-@item
-@code{InstrumentName} prend désormais en charge la
-@code{text-interface}.
-
-@item
-La propriété @code{thin-kern} du @emph{grob} @code{BarLine} est renommée
-en  @code{segno-kern}.
-
-@item
-Les objets @code{KeyCancellation} ignorent désormais les clefs de
-citation, à l'instar des objets @code{KeySignature}.
-
-@item
-Prise en charge de @code{\once@tie{}\unset}
 
 @end itemize
 
 @ifhtml
 Pour des annonces plus anciennes, rendez-vouz aux pages
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
 @uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
-@uref{https://lilypond.org/doc/v2.16/Documentation/changes/},
 ou @uref{../,remontez} à l'index de la documentation.
 
 
