@@ -17,6 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "slur-configuration.hh"
 
 #include "item.hh"
@@ -30,6 +32,11 @@
 #include "stem.hh"
 #include "tie.hh"
 #include "warn.hh"
+
+#include <cmath>
+#include <memory>
+#include <string>
+#include <vector>
 
 using std::string;
 using std::unique_ptr;
@@ -57,7 +64,7 @@ avoid_staff_line (Slur_score_state const &state,
       Real p = 2 * (y - staff->relative_coordinate (state.common_[Y_AXIS], Y_AXIS))
                / state.staff_space_;
 
-      int round_p = (int) my_round (p);
+      int round_p = (int) round_halfway_up (p);
       if (!Staff_symbol_referencer::on_staff_line (staff, round_p))
         round_p += (p > round_p) ? 1 : -1;
       if (!Staff_symbol_referencer::on_staff_line (staff, round_p))

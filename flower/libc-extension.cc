@@ -22,11 +22,9 @@
 
 #include "libc-extension.hh"
 
-/*
-  There are some strange problems with round() on early glibcs.
-*/
+// DO NOT USE in new code! See comment in libc-extension.hh
 double
-my_round (double x)
+round_halfway_up (double x)
 {
   return floor (x - 0.5) + 1.0;
 }

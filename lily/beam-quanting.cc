@@ -18,12 +18,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "beam-scoring-problem.hh"
+#include "config.hh"
 
-#include <algorithm>
-#include <memory>
-#include <queue>
-#include <set>
+#include "beam-scoring-problem.hh"
 
 #include "align-interface.hh"
 #include "beam.hh"
@@ -46,6 +43,12 @@
 #include "stem.hh"
 #include "warn.hh"
 #include "string-convert.hh"
+
+#include <algorithm>
+#include <cmath>
+#include <memory>
+#include <queue>
+#include <set>
 
 using std::set;
 using std::string;
@@ -1210,7 +1213,7 @@ Beam_scoring_problem::score_horizontal_inter_quants (Beam_configuration *config)
       && abs (config->y[LEFT]) < staff_radius_ * staff_space_)
     {
       Real yshift = config->y[LEFT] - 0.5 * staff_space_;
-      if (fabs (my_round (yshift) - yshift) < 0.01 * staff_space_)
+      if (fabs (round_halfway_up (yshift) - yshift) < 0.01 * staff_space_)
         config->add (parameters_.HORIZONTAL_INTER_QUANT_PENALTY, "H");
     }
 }

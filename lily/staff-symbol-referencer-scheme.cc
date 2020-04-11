@@ -17,10 +17,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "grob.hh"
 #include "libc-extension.hh"
 #include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
+
+#include <cmath>
 
 LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
            1, 0, 0, (SCM sg),
@@ -31,7 +35,7 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) - pos) < 1e-6) // ugh.
-    return scm_from_int ((int) my_round (pos));
+    return scm_from_int ((int) round_halfway_up (pos));
   else
     return scm_from_double (pos);
 }

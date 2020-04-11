@@ -17,6 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "dimensions.hh"
 #include "libc-extension.hh"
 #include "output-def.hh"
@@ -24,6 +26,8 @@
 #include "pango-font.hh"
 #include "all-font-metrics.hh"
 #include "lily-imports.hh"
+
+#include <cmath>
 
 Real
 output_scale (Output_def *od)
@@ -94,9 +98,9 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
   PangoFontDescription *description
     = pango_font_description_from_string (scm_i_string_chars (descr));
 
-  pango_font_description_set_size
-  (description,
-   gint (my_round (factor * pango_font_description_get_size (description))));
+  double font_description_size
+    = round_halfway_up (factor * pango_font_description_get_size (description));
+  pango_font_description_set_size (description, gint (font_description_size));
 
   Font_metric *fm = all_fonts_global->find_pango_font (description,
                                                        output_scale (layout));
