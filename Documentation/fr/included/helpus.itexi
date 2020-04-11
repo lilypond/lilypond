@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: 7fb51c5bef0605c4f189b126172d4ee3958d5cde
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -39,6 +39,14 @@ Aucun besoin de fouiller dans le code ni de compiler.
 @itemize
 @item
 La liste de diffusion : répondre aux questions des autres utilisateurs.
+Ceci peut consister à les aider dans leur navigation dans la
+documentation en ligne ; il peut s'avérer approprié en tel cas de les
+diriger sur une URL agnostique en matière de version, telles que
+@uref{https://lilypond.org/doc/latest/Documentation/notation/, @code{/latest/}}
+ou
+@uref{https://lilypond.org/doc/stable/Documentation/notation/, @code{/stable/}},
+qui font l'objet d'une redirection automatique.
+
 
 @item
 Les rapports de bogue : aider les utilisateurs à rédiger correctement et
@@ -71,7 +79,7 @@ Vous aussi, prenez part à ces discussions !
 @subheading Tâches ardues
 
 Ces travaux demandent en général de disposer du code source et d'être en
-mesure de compiler LilyPond. 
+mesure de compiler LilyPond.
 
 @warning{Nous engageons les contributeurs utilisant Windows ou
 MacOS X à utiliser une machine virtuelle pour faire tourner
