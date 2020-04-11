@@ -28,7 +28,7 @@ With 2.16.2 it is possible to put the proposed function,
 #(define (custom-script-tweaks ls)
   (lambda (grob)
     (let* ((type (ly:prob-property
-                    (assoc-ref (ly:grob-properties grob) 'cause)
+                    (ly:grob-property grob 'cause)
                     'articulation-type))
            (tweaks (assoc-ref ls type)))
       (if tweaks
