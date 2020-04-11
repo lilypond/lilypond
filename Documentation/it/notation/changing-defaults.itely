@@ -1796,7 +1796,7 @@ Guida al funzionamento interno:
 @rinternals{PropertySet}.
 
 @knownissues
-Il backend non è molto stretto nel controllo del tipo delle proprietà di un
+Il backend non è molto severo nel controllo del tipo delle proprietà di un
 oggetto.  Riferimenti ciclici nei valori Scheme delle proprietà possono
 causare attese o crash, o entrambi.
 

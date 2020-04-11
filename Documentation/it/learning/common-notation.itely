@@ -74,8 +74,8 @@ delle stanghette si trova in @ruser{Stanghette}.
 I @emph{controlli di battuta}, pur se non strettamente necessari, dovrebbero
 essere usati nel codice di input per mostrare dove si vuole che cadano le
 stanghette.  Vengono inseriti col simbolo della barra verticale, @code{|}.
-Grazie ai controlli di battuta, il programma può verificare che tu abbia inserito
-delle durate che facciano sì che ogni misura raggiunga la giusta
+Grazie ai controlli di battuta, il programma può verificare che siano state
+inserite delle durate che facciano sì che ogni misura raggiunga la giusta
 durata.  I controlli di battuta rendono anche il codice di input più
 facile da leggere, perché aiutano a tenere tutto in ordine.
 
@@ -173,7 +173,7 @@ nomi per le @notation{alterazioni}, si veda @ruser{Nomi delle note in altre ling
 Glossario musicale: @rglosnamed{key signature,armatura di chiave},
 @rglosnamed{major,maggiore}, @rglosnamed{minor,minore}.
 
-L' @notation{armatura di chiave} viene impostata col comando @code{\key}
+L'@notation{armatura di chiave} viene impostata col comando @code{\key}
 seguito da un'altezza e da @code{\major} o @code{\minor}.
 
 @lilypond[verbatim,quote]
@@ -858,9 +858,9 @@ musicale, si crea un'espressione musicale più grande.  In questo modo
 assomiglia al segno di minore in matematica.  La formula @math{(4+5)} è
 un'espressione, quindi @math{-(4+5)} è un'espressione più grande.
 
-Le indicazioni di tempo inserite in un rigo musicale si estendono di default
+Le indicazioni di tempo inserite in un rigo musicale si estendono
 a tutti gli altri righi.  L'armatura di chiave di un rigo, invece,
-@emph{non} si estende agli altri.  Questo diverso comportamento di default
+@emph{non} si estende agli altri.  Questo diverso comportamento predefinito
 è dovuto al fatto che le partiture con strumenti traspositori sono molto più
 frequenti delle partiture poliritmiche.
 
@@ -990,10 +990,10 @@ Guida alla notazione:
 @funindex \\
 @funindex >>
 
-La musica polifonica in lilypond, per quanto non difficile, fa riferimento a
-concetti non ancora affrontati, quindi non la presenteremo
-subito. Saranno le sezioni successive a introdurre questi concetti e
-a spiegarli via via.
+La musica polifonica in LilyPond, per quanto non difficile, fa
+riferimento a concetti non ancora affrontati, quindi non la
+presenteremo subito.  Saranno le sezioni successive a introdurre
+questi concetti e a spiegarli via via.
 
 @seealso
 Manuale di Apprendimento:
@@ -1529,7 +1529,7 @@ di scrivere uno o due brani.  Puoi iniziare aggiungendo delle note a uno
 dei @ref{Modelli}.  Se necessiti di una qualche notazione che non è
 stata coperta nel tutorial, dai un'occhiata alla Guida alla notazione,
 a cominciare da @ruser{Notazione musicale}.  Se vuoi scrivere per un gruppo
-di strumenti che non è incluso nei template, dai un'occhiata a
+di strumenti che non è incluso nei modelli, dai un'occhiata a
 @ref{Estendere i modelli}.
 
 Una volta che hai scritto alcuni brevi pezzi, puoi proseguire la lettura

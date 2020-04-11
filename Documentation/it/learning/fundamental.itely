@@ -479,11 +479,11 @@ input, vedi @ruser{Durata}.  Attenzione, né @code{r} né @code{s}
 sono un'altezza.
 
 La durata è composta da un numero e eventualmente da uno o più punti.  Se una
-durata non è definita esplicitamente, la durata di una nota corrente sarà la
+durata non è definita esplicitamente, la durata di una nota corrente sarà
 identica alla durata della nota, accordo, pausa o pausa spaziatrice precedenti,
 vedi @ruser{Durata}.
 
-I post-eventi seguono la nota alla quale sono collegate.  Supponiamo di voler
+I post-eventi seguono la nota alla quale sono collegati.  Supponiamo di voler
 scrivere un Do di un ottavo con diteggiatura 1, articolazione tenuto, una
 legatura di portamento e una legatura di valore che iniziano con la nota e
 un'annotazione testuale.  Ciò si può ottenere nel modo seguente:
@@ -668,7 +668,7 @@ la nota di passaggio che la legatura di portamento:
 @lilypond[quote,verbatim,ragged-right]
 \relative {
   \key g \major
-  %    Voice = "1"             Voice = "2"
+  %    Voce = "1"               Voce = "2"
   << { g'4 fis8( g) a4 g } \\ { d4 d d d }  >>
 }
 @end lilypond
@@ -680,7 +680,7 @@ Ecco un altro semplice esempio:
 @lilypond[quote,verbatim,ragged-right]
 \relative {
   \key d \minor
-  %    Voice = "1"           Voice = "2"
+  %    Voce = "1"            Voce = "2"
   << { r4 g' g4. a8 }   \\ { d,2 d4 g }       >> |
   << { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
   << { a2. r4 }         \\ { fis2. s4 }       >> |
@@ -695,12 +695,14 @@ ogni battuta è preferibile dividere ogni voce, così:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \key d \minor
-  \relative { % Voice = "1"
+  % Voce = "1"
+  \relative {
     r4 g' g4. a8 |
     bes4 bes c bes |
     a2. r4 |
   } \\
-  \relative { % Voice = "2"
+  % Voce = "2"
+  \relative {
     d'2 d4 g |
     g4 g g8( a) g4 |
     fis2. s4 |
@@ -725,9 +727,9 @@ legature di valore, dinamica, etc., è impostata correttamente.
 
 @lilypond[quote,verbatim]
 \new Staff \relative {
-  % Main voice
+  % Voce principale
   c'16 d e f
-  %    Voice = "1"   Voice = "2"              Voice = "3"
+  %    Voce = "1"    Voce = "2"              Voce = "3"
   << { g4 f e } \\ { r8 e4 d c8~ } >> |
   << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
 }
@@ -740,12 +742,12 @@ un costrutto @code{<< @dots{} >>} tramite il comando @code{\voices}:
 
 @lilypond[quote,verbatim]
 \new Staff \relative {
-  % Main voice
+  % Voce principale
   c'16 d e f
-  %  Voice = "1"   Voice = "2"
+  %    Voce = "1"    Voce = "2"
   << { g4 f e } \\ { r8 e4 d c8~ } >> |
   \voices 1,3,2
-  %  Voice = "1"   Voice = "3"    Voice = "2"
+  %    Voce = "1"    Voce = "3"     Voce = "2"
   << { d2 e }   \\ { s4 b c2 } \\ { c8 b16 a b8 g~ 2 } >> |
 }
 @end lilypond
@@ -767,9 +769,9 @@ voce con i triangoli blu.
 
 @lilypond[quote,verbatim]
 \new Staff \relative {
-  % Main voice
+  % Voce principale
   c'16 d e f
-  <<  % Bar 1
+  <<  % Battuta 1
     {
       \voiceOneStyle
       g4 f e
@@ -780,11 +782,11 @@ voce con i triangoli blu.
       r8 e4 d c8~
     }
   >> |
-  <<  % Bar 2
-     % Voice 1 continues
+  <<  % Battuta 2
+     % Voce 1 continua
     { d2 e }
   \\
-     % Voice 2 continues
+     % Voce 2 continua
     { c8 b16 a b8 g~ 2 }
   \\
     {
@@ -826,10 +828,9 @@ precedente accordo.  Dunque, in
 @end example
 
 @noindent
-@code{notaB} è relativa a @code{notaA}                      @*
-@code{notaC} è relativa a @code{notaB}, non a @code{notaA};   @*
-@code{notaD} è relativa a @code{notaB}, non a @code{notaA} o a
-@code{notaC};                                                 @*
+@code{notaB} è relativa a @code{notaA}; @*
+@code{notaC} è relativa a @code{notaB}, non a @code{notaA}; @*
+@code{notaD} è relativa a @code{notaB}, non a @code{notaA} o a @code{notaC}; @*
 @code{notaE} è relativa a @code{notaD}, non a @code{notaA}.
 
 Un metodo alternativo, che potrebbe essere più chiaro se le note nelle
@@ -982,8 +983,9 @@ correggere questo problema, dunque dovremo aspettare fino a una
 prossima sezione -- si veda la proprietà @code{force-hshift} in
 @ref{Correggere elementi della notazione sovrapposti}.
 
-@warning{Il testo e gli @emph{spanner} (come le legature di portamento e di valore, le
-forcelle, etc.) non possono essere create @q{attraverso} le voci.}
+@warning{Il testo e gli estensori, @emph{spanner} nella terminologia di LilyPond,
+(come le legature di portamento e di valore, le forcelle, etc.) non possono
+essere creati @q{attraverso} le voci.}
 
 @seealso
 Guida alla notazione: @ruser{Più voci}.
@@ -1057,7 +1059,7 @@ markup, legature di valore, legature di portamento, e dinamica:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
-  % Default behavior or behavior after \oneVoice
+  % Comportamento predefinito o comportamento dopo \oneVoice
   c4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
@@ -1095,21 +1097,21 @@ sì che sia possibile disegnare una legatura di frase sopra di esse.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative {
   \voiceOneStyle
-  % This section is homophonic
+  % Questa sezione è omofonica
   c'16^( d e f
-  % Start simultaneous section of three voices
+  % Inizia la sezione simultanea di tre voci
   <<
-    % Continue the main voice in parallel
+    % Continua la voce principale in parallelo
     { g4 f e | d2 e) | }
-    % Initiate second voice
+    % Inizia la seconda voce
     \new Voice {
-      % Set stems, etc., down
+      % Imposta in giù gambi, etc.
       \voiceTwo
       r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
     }
-    % Initiate third voice
+    % Inizia la terza voce
     \new Voice {
-      % Set stems, etc, up
+      % Imposta in su gambi, etc.
       \voiceThree
       s2. | s4 b c2 |
     }
@@ -1134,12 +1136,12 @@ principale nel costrutto simultaneo:
     <<
       % Continua la voce principale in parallelo
       { g4 f e | d2 e) | }
-      % Inizializza la seconda voce
+      % Inizia la seconda voce
     \\
       % Imposta i gambi, etc., in giù
       { r8 e4 d c8~ | 8 b16 a b8 g~ 2 | }
     \\
-      % Inizializza la terza voce
+      % Inizia la terza voce
       % Imposta i gambi, etc, in su
       { s2. | s4 b c2 | }
     >>
@@ -1187,20 +1189,20 @@ come nel seguente esempio:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative <<
-  % Initiate first voice
+  % Inizia la prima voce
   \new Voice {
     \voiceOne
     c'16^( d e f g4 f e | d2 e) |
   }
-  % Initiate second voice
+  % Inizia la seconda voce
   \new Voice {
-    % Set stems, etc, down
+    % Imposta i gambi, etc., in giù
     \voiceTwo
     s4 r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
   }
-  % Initiate third voice
+  % Inizia la terza voce
   \new Voice {
-    % Set stems, etc, up
+    % Imposta i gambi, etc., in su
     \voiceThree
     s1 | s4 b c2 |
   }
@@ -1224,7 +1226,7 @@ talvolta più, colonne, per impedire la sovrapposizione delle teste.  Esse
 vengono chiamate colonne delle note.  Le singole colonne di ognuna delle
 voci sono indipendenti, e lo scarto adottato nella voce in uso è determinato
 dal distanziamento delle colonne nei casi in cui altrimenti si determinerebbe
-una collisione. Si può vedere nell'esempio in basso.  Nella seconda battuta
+una collisione. Si può vedere nell'esempio precedente.  Nella seconda battuta
 il Do della seconda voce è spostato a destra del Re nella prima voce, e
 nell'ultimo accordo il Do nella terza voce è spostato anch'esso a destra
 delle altre note.
@@ -1551,7 +1553,7 @@ esplicitamente con @code{\new Score} è di inserire un blocco
 @code{\with} dove si possono specificare uno o più valori delle proprietà
 di contesto, predefiniti per tutto lo spartito..  Le informazioni su come
 usare i blocchi @code{\with} si trovano sotto il titolo
-@qq{Setting context properties with @code{\\with} } in
+@qq{Impostare le proprietà di contesto con @code{\\with}} in
 @ref{Modificare le proprietà di contesto}.)
 
 @warning{@bs{}@code{new Score} non dovrebbe essere usato perché il fondamentale
@@ -1567,39 +1569,39 @@ come questi comandi vengano usati in pratica, ecco un esempio
 di musica vera e propria:
 
 @lilypond[quote,verbatim,ragged-right]
-\score {  % start of single compound music expression
-  <<  % start of simultaneous staves section
+\score {  % inizio di una singola espressione musicale composta
+  <<  % inizio di una sezione di righi simultanei
     \time 2/4
-    \new Staff {  % create RH staff
+    \new Staff {  % crea rigo della mano destra (MD)
       \clef "treble"
       \key g \minor
-      \new Voice {  % create voice for RH notes
-        \relative {  % start of RH notes
+      \new Voice {  % crea la voce per le note della MD
+        \relative {  % inizio delle note della MD
           d''4 ees16 c8. |
           d4 ees16 c8. |
-        }  % end of RH notes
-      }  % end of RH voice
-    }  % end of RH staff
-    \new Staff <<  % create LH staff; needs two simultaneous voices
+        }  % fine delle note della MD
+      }  % fine della voce MD
+    }  % fine del rigo MD
+    \new Staff <<  % crea il rigo della mano sinistra (MS); servono due voci simultanee
       \clef "bass"
       \key g \minor
-      \new Voice {  % create LH voice one
+      \new Voice {  % crea la prima voce di MS
         \voiceOne
-        \relative {  % start of LH voice one notes
+        \relative {  % inizio delle note della prima voce di MS
           g8 <bes d> ees, <g c> |
           g8 <bes d> ees, <g c> |
-        }  % end of LH voice one notes
-      }  % end of LH voice one
-      \new Voice {  % create LH voice two
+        }  % fine delle note della prima voce di MS
+      }  % fine della prima voce di MS
+      \new Voice {  % crea la seconda voce di MS
         \voiceTwo
-        \relative {  % start of LH voice two notes
+        \relative {  % inizio delle note della seconda voce di MS
           g4 ees |
           g4 ees |
-        }  % end of LH voice two notes
-      }  % end of LH voice two
-    >>  % end of LH staff
-  >>  % end of simultaneous staves section
-}  % end of single compound music expression
+        }  % fine delle note della seconda voce di MS
+      }  % fine della seconda voce di MS
+    >>  % fine del rigo di MS
+  >>  % fine della sezione dei righi simultanei
+}  % fine della singola espressione musicale composta
 @end lilypond
 
 (Si noti che tutte le asserzioni che aprono un blocco o con delle
@@ -1904,13 +1906,13 @@ al valore predefinito, non all'ultimo valore impostato.
 @lilypond[quote,verbatim,ragged-right]
 \relative {
   c'4 d
-  % make note heads smaller
+  % rimpicciolisce le teste di nota
   \set fontSize = #-4
   e4 f |
-  % make note heads larger
+  % ingrandisce le teste di nota
   \set fontSize = #2.5
   g4 a
-  % return to default size
+  % ripristina la dimensione predefinita
   \unset fontSize
   b4 c |
 }
@@ -1919,10 +1921,11 @@ al valore predefinito, non all'ultimo valore impostato.
 Abbiamo visto come impostare i valori di diversi tipi di
 proprietà.  Si note che gli interi e i numeri sono sempre preceduti
 da un segno di cancelletto, @code{#}, mentre un valore vero o falso è
-specificato con @code{##t} e @code{##f}, con due cancelletti.  Una proprietà testuale
-dovrebbe essere racchiusa tra virgolette, come abbiamo visto prima, sebbene
-vedremo in seguito che in realtà il testo può essere specificato in un
-modo molto più generale usando il potente comando @code{\markup}.
+specificato con @code{##t} e @code{##f}, ovvero con due cancelletti.
+Una proprietà testuale dovrebbe essere racchiusa tra virgolette, come
+abbiamo visto prima, sebbene vedremo in seguito che in realtà il testo
+può essere specificato in un modo molto più generale usando il potente
+comando @code{\markup}.
 
 @subsubheading Impostare le proprietà di contesto con @code{\with}
 
@@ -2630,7 +2633,7 @@ ChoirStaff e PianoStaff devono essere uniti attraverso parentesi angolari,
 perché vogliamo che siano impilati uno sopra l'altro:
 
 @example
-<<  % combine ChoirStaff and PianoStaff one above the other
+<<  % combina ChoirStaff e PianoStaff uno sopra l'altro
   \new ChoirStaff <<
     \new Staff = "sopranos" <<
       \new Voice = "sopranos" @{
@@ -2847,13 +2850,13 @@ mentre la parte per il secondo manuale di una soltanto.
     \new Voice @{
       \ManualOneVoiceTwoMusic
     @}
-  >>  % end ManualOne Staff context
+  >>  % fine del contesto Staff ManualOne
   \new Staff = "ManualTwo" <<
     \new Voice @{
       \ManualTwoMusic
     @}
-  >>  % end ManualTwo Staff context
->>  % end PianoStaff context
+  >>  % fine del contesto Staff ManualTwo
+>>  % fine del contesto PianoStaff
 @end example
 
 Poi dobbiamo aggiungere un rigo per i pedali.  Questo va sotto il
@@ -2865,7 +2868,7 @@ questa sezione, togli le parentesi angolari, e compilalo per vedere
 quali errori genera.
 
 @example
-<<  % PianoStaff and Pedal Staff must be simultaneous
+<<  % PianoStaff e il rigo del pedale devono essere simultanei
   \new PianoStaff <<
     \new Staff = "ManualOne" <<
       \new Voice @{
@@ -2874,13 +2877,13 @@ quali errori genera.
       \new Voice @{
         \ManualOneVoiceTwoMusic
       @}
-    >>  % end ManualOne Staff context
+    >>  % fine del contesto Staff ManualOne
     \new Staff = "ManualTwo" <<
       \new Voice @{
         \ManualTwoMusic
       @}
-    >>  % end ManualTwo Staff context
-  >>  % end PianoStaff context
+    >>  % fine del contesto Staff ManualTwo
+  >>  % fine del contesto PianoStaff
   \new Staff = "PedalOrgan" <<
     \new Voice @{
       \PedalOrganMusic
@@ -2907,10 +2910,10 @@ attraverso la nostra variabile predefinita, @code{\keyTime}.
 
 @example
 \score @{
-  <<  % PianoStaff and Pedal Staff must be simultaneous
+  <<  % PianoStaff e il rigo del pedale devono essere simultanei
     \new PianoStaff <<
       \new Staff = "ManualOne" <<
-        \keyTime  % set key and time signature
+        \keyTime  % imposta l'armatura di chiave e il tempo
         \clef "treble"
         \new Voice @{
           \voiceOne
@@ -2920,24 +2923,24 @@ attraverso la nostra variabile predefinita, @code{\keyTime}.
           \voiceTwo
           \ManualOneVoiceTwoMusic
         @}
-      >>  % end ManualOne Staff context
+      >>  % fine del contesto Staff ManualOne
       \new Staff = "ManualTwo" <<
         \keyTime
         \clef "bass"
         \new Voice @{
           \ManualTwoMusic
         @}
-      >>  % end ManualTwo Staff context
-    >>  % end PianoStaff context
+      >>  % fine del contesto Staff ManualTwo
+    >>  % fine del contesto PianoStaff
     \new Staff = "PedalOrgan" <<
       \keyTime
       \clef "bass"
       \new Voice @{
         \PedalOrganMusic
       @}
-    >>  % end PedalOrgan Staff
+    >>  % fine del contesto Staff PedalOrgan
   >>
-@}  % end Score context
+@}  % fine del contesto Score
 @end example
 
 @cindex allungabilità dei righi
@@ -2986,7 +2989,7 @@ guardando la definizione del grob @code{VerticalAxisGroup}.  Il valore dell'
           \voiceTwo
           \ManualOneVoiceTwoMusic
         @}
-      >>  % fine del contesto ManualOne Staff
+      >>  % fine del contesto Staff ManualOne
       \new Staff = "ManualTwo" \with @{
         \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
       @} <<
@@ -2995,7 +2998,7 @@ guardando la definizione del grob @code{VerticalAxisGroup}.  Il valore dell'
         \new Voice @{
           \ManualTwoMusic
         @}
-      >>  % fine del contesto ManualTwo Staff
+      >>  % fine del contesto Staff ManualTwo
     >>  % fine del contesto PianoStaff
     \new Staff = "PedalOrgan" <<
       \keyTime
@@ -3003,7 +3006,7 @@ guardando la definizione del grob @code{VerticalAxisGroup}.  Il valore dell'
       \new Voice @{
         \PedalOrganMusic
       @}
-    >>  % fine di PedalOrgan Staff
+    >>  % fine del contesto Staff PedalOrgan
   >>
 @}  % fine del contesto Score
 @end example
@@ -3037,10 +3040,10 @@ PedalOrganMusic = \relative {
 }
 
 \score {
-  <<  % PianoStaff and Pedal Staff must be simultaneous
+  <<  % PianoStaff e Pedal Staff devono essere simultanei
     \new PianoStaff <<
       \new Staff = "ManualOne" <<
-        \keyTime  % set key and time signature
+        \keyTime  % imposta l'armatura di chiave e il tempo
         \clef "treble"
         \new Voice {
           \voiceOne
@@ -3050,7 +3053,7 @@ PedalOrganMusic = \relative {
           \voiceTwo
           \ManualOneVoiceTwoMusic
         }
-      >>  % end ManualOne Staff context
+      >>  % fine del contesto Staff ManualOne
       \new Staff = "ManualTwo" \with {
         \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
       } <<
@@ -3059,17 +3062,17 @@ PedalOrganMusic = \relative {
         \new Voice {
           \ManualTwoMusic
         }
-      >>  % end ManualTwo Staff context
-    >>  % end PianoStaff context
+      >>  % fine del contesto Staff ManualTwo
+    >>  % fine del contesto PianoStaff
     \new Staff = "PedalOrgan" <<
       \keyTime
       \clef "bass"
       \new Voice {
         \PedalOrganMusic
       }
-    >>  % end PedalOrgan Staff context
+    >>  % fine del contesto Staff PedalOrgan
   >>
-}  % end Score context
+}  % fine del contesto Score
 @end lilypond
 
 @seealso
@@ -3080,7 +3083,6 @@ Glossario musicale:
 @subsection Ridurre l'input grazie a variabili e funzioni
 @translationof Saving typing with variables and functions
 
-@cindex variabili
 @cindex variabili
 
 Finora hai visto questo tipo di cose:

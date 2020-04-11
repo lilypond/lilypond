@@ -196,7 +196,7 @@ ha aggiunto una chiave, il tempo e le durate.
 
 @noindent
 Questo comportamento può essere modificato, ma nella maggior parte dei
-casi questi valori sono utili.
+casi questi valori automatici sono utili.
 
 
 @node Altezze
@@ -259,7 +259,6 @@ hanno intervalli più ampi, sempre usando soltanto il modo @code{\relative}:
 @noindent
 Nell'esempio precedente, la prima nota -- il @code{d'} con un segno @code{'} -- è
 il Re nell'ottava che inizia dal Do centrale e va su fino al Si.
-Do centrale.
 
 Se si aggiungono (o si rimuovono) apostrofi @code{'} o virgole @code{,} dalla
 prima nota, possiamo cambiare l'ottava di partenza:
@@ -281,17 +280,17 @@ o il Fa si troveranno sotto.
 
 @lilypond[verbatim,quote]
 \relative {
-  b' c  % c is 1 staff space up, so is the c above
-  b d  % d is 2 up or 5 down, so is the d above
-  b e  % e is 3 up or 4 down, so is the e above
-  b a  % a is 6 up or 1 down, so is the a below
-  b g  % g is 5 up or 2 down, so is the g below
-  b f  % f is 4 up or 3 down, so is the f below
+  b' c  % c (Do) è uno spazio rigo sopra, quindi è il Do sopra
+  b d   % d (Re) è sopra di 2 o sotto di 5, quindi è il Re sopra
+  b e   % e (Mi) è sopra di 3 o sotto di 4, quindi è il Mi sopra
+  b a   % a (La) è sopra di 6 o sotto di 1, quindi è il La sotto
+  b g   % g (Sol) è sopra di 5 o sotto di 2, quindi è il Sol sotto
+  b f   % f (Fa) è sopra di 4 o sotto di 3, quindi è il Fa sotto
 }
 @end lilypond
 
 Accade esattamente lo stesso quando qualcuna di queste note ha un
-diesis o un bemolle.  Le @notation{Alterazioni} sono
+diesis o un bemolle.  Le @notation{alterazioni} sono
 @strong{completamente ignorate} nel calcolo della posizione relativa.
 Viene fatto lo stesso conteggio dello spazio del pentagramma da
 una nota in una qualsiasi altra posizione sul pentagramma.
@@ -334,7 +333,7 @@ Glossario musicale: @rglosnamed{beam,coda}, @rglosnamed{duration,durata},
 La @notation{durata} di una nota viene indicata da un numero che segue
 il nome della nota:  @code{1} per una @notation{semibreve}, @code{2} per
 una @notation{minima}, @code{4} per una @notation{semiminima} e
-così via.  Le @notation{Code} vengono aggiunte in automatico.
+così via.  Le @notation{code} vengono aggiunte in automatico.
 
 Se non si specifica una durata, si usa la durata precedente anche
 per la nota successiva.  La durata predefinita della prima nota è di un
@@ -348,7 +347,7 @@ quarto.
 }
 @end lilypond
 
-Per creare @notation{note puntate}, aggiungi un punto @code{.} al
+Per creare @notation{note puntate}, aggiungere un punto @code{.} al
 numero di durata.  La durata di una nota puntata deve essere dichiarata
 esplicitamente (cioè con un numero).
 
@@ -536,7 +535,7 @@ Per convenzione, la dichiarazione di versione viene posta all'inizio del file
 LilyPond.
 
 La dichiarazione di versione è importante per almeno due ragioni.  Primo,
-permette l'aggiornamento automatico del file di input file via via che la
+permette l'aggiornamento automatico del file di input via via che la
 sintassi di LilyPond cambia.  Secondo, indica la versione di LilyPond richiesta
 per compilare il file.
 
@@ -587,7 +586,7 @@ matematica.  Per evitare ambiguità, le parentesi dovrebbero essere
 racchiuse tra spazi, a meno che non si trovino all'inizio o alla fine di una linea.
 
 Anche un comando di LilyPond seguito da un'espressione semplice in
-parentesi (come @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) conta come
+parentesi (come @qq{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) conta come
 un'espressione musicale singola.
 
 @cindex commenti
@@ -610,9 +609,9 @@ b2 b
 
 Un commento di blocco segna come commento un'intera sezione di input musicale.
 Tutto ciò che è compreso tra @code{%@{} e @code{%@}} viene ignorato.
-Tuttavia, i commenti di blocco non si @q{annidano}.  Ovvero non si può
+Tuttavia, i commenti di blocco non si @qq{annidano}.  Ovvero non si può
 inserire un commento di blocco dentro a un altro commento di blocco.  Se
-ci provi, il primo @code{%@}} interromperà @emph{entrambi} i commenti di
+si prova, il primo @code{%@}} interromperà @emph{entrambi} i commenti di
 blocco.  Il seguente frammento mostra gli usi possibili per i commenti:
 
 @example
@@ -636,9 +635,9 @@ blocco.  Il seguente frammento mostra gli usi possibili per i commenti:
 
 @cindex risoluzione dei problemi
 
-Talvolta LilyPond non genera l'output che desideri.  Questa
-sezione fornisce alcuni link che possono aiutarti a risolvere i
-problemi che potrai incontrare.
+Talvolta LilyPond non genera l'output desiderato.  Questa
+sezione fornisce alcuni collegamenti che possono aiutare a risolvere i
+problemi che si potranno incontrare.
 
 
 @menu
@@ -651,10 +650,10 @@ problemi che potrai incontrare.
 @translationof General troubleshooting tips
 
 La risoluzione dei problemi in LilyPond può essere un compito impegnativo
-per le persone che sono abituate a un'interfaccia grafica, perché è possibile
+per le persone abituate a un'interfaccia grafica, perché può capitare di
 creare dei file di input non validi.  Quando questo accade, un approccio logico
 è il modo migliore per identificare e risolvere il problema.  Alcune linee guida
-che ti aiutano a imparare questo sono indicate in @rprogram{Risoluzione dei problemi}.
+che aiutano ad acquisire questa capacità si trovano in @rprogram{Risoluzione dei problemi}.
 
 
 @node Alcuni errori comuni
@@ -698,7 +697,7 @@ nella versione online della documentazione.
 @cindex file, consigli per costruirli
 
 L'input di LilyPond deve essere compreso dai segni @code{@{ @}} o da
-@q{@w{@code{@bs{}relative @{ @dots{} @}}}}, come abbiamo visto in
+@w{@code{@bs{}relative @{ @dots{} @}}}, come abbiamo visto in
 @ref{Lavorare sui file di input}.  Nel resto di questo manuale alcuni
 esempi brevi ometteranno questi segni.  Per replicare questi esempi, puoi
 copiare l'input mostrato e incollarlo tra @code{@{} e @code{@}} nel tuo

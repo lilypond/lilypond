@@ -449,9 +449,9 @@ di articolazioni:
 @cindex @code{\tweak}, esempio
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-a'4^"Black"
-  -\tweak color #red ^"Red"
-  -\tweak color #green _"Green"
+a'4^"Nero"
+  -\tweak color #red ^"Rosso"
+  -\tweak color #green _"Verde"
 @end lilypond
 
 @noindent
@@ -747,7 +747,7 @@ prima legatura di portamento e accanto ad essa.}  Facciamolo:
   \key es \major
   \time 6/8
   \relative {
-    % Increase thickness of all following slurs from 1.2 to 5.0
+    % Aumenta lo spessore di tutte le legature di portamento successive da 1.2 a 5.0
     \override Slur.thickness = #5.0
     r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
@@ -882,11 +882,13 @@ dopo la seconda legatura:
   \time 6/8
   \relative {
     r4 bes'8
-    % Aumenta lo spessore di tutte le legature di portamento che seguono da 1.2 a 5.0
+    % Aumenta lo spessore di tutte le legature di portamento che
+    % seguono da 1.2 a 5.0
     \override Slur.thickness = #5.0
     bes[( g]) g |
     g8[( es]) es
-    % Ripristina lo spessore di tutte le legature di portamento che seguono al valore predefinito 1.2
+    % Ripristina lo spessore di tutte le legature di portamento che seguono
+    % al valore predefinito 1.2
     \revert Slur.thickness
     d8[( f]) as |
     as8 g
@@ -2301,23 +2303,23 @@ questi oggetti.
 @cindex bound-details, esempio
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-% Set details for later Text Spanner
+% Imposta i dettagli per l'estensore del testo seguente
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
-% Place dynamics above staff
+% Posiziona le dinamiche sopra il rigo
 \dynamicUp
-% Start Ottava Bracket
+% Inizia la parentesi dell'ottava
 \ottava #1
 c''4 \startTextSpan
-% Add Dynamic Text and hairpin
+% Aggiunge il testo della dinamica e la forcella
 c''4\pp\<
 c''4
-% Add Text Script
+% Aggiunge la scritta testuale
 c''4^Text |
 c''4 c''
-% Add Dynamic Text and terminate hairpin
+% Aggiunge il testo della dinamica e termina la forcella
 c''4\ff c'' \stopTextSpan |
-% Stop Ottava Bracket
+% Chiude la parentesi dell'ottava
 \ottava #0
 c'4 c' c' c' |
 @end lilypond
@@ -2351,23 +2353,23 @@ nel contesto @code{Staff}:
 @cindex bound-details, esempio
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-% Set details for later Text Spanner
+% Imposta i dettagli per l'estensore del testo seguente
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
-% Place dynamics above staff
+% Posiziona le dinamiche sopra il rigo
 \dynamicUp
-% Start Ottava Bracket
+% Inizia la parentesi dell'ottava
 \ottava #1
 c''4 \startTextSpan
-% Add Dynamic Text and hairpin
+% Aggiunge il testo della dinamica e la forcella
 c''4\pp\<
 c''4
-% Add Text Script
+% Aggiunge la scritta testuale
 c''4^Text |
 c''4 c''
-% Add Dynamic Text and terminate hairpin
+% Aggiunge il testo della dinamica e termina la forcella
 c''4\ff c'' \stopTextSpan |
-% Stop Ottava Bracket
+% Chiude la parentesi dell'ottava
 \ottava #0
 c'4 c' c' c' |
 @end lilypond
@@ -2450,7 +2452,8 @@ Il comando @code{\textLengthOn} inverte questo comportamento e fa sì che
 le note si distanzino quanto basti per introdurre il testo:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\textLengthOn  % Fa sì che le note si distanzino per introdurre il testo
+% Fa sì che le note si distanzino per introdurre il testo
+\textLengthOn
 c''2^"Text1"
 c''2^"Text2" |
 c''2^"Text3"
@@ -2493,7 +2496,7 @@ che mostra come il testo a margine interagisce con tali note.
 
   % Disattiva l'elusione delle collisioni
   \once \override TextScript.outside-staff-priority = ##f
-  \textLengthOn        % e attiva textLengthOn
+  \textLengthOn          % e attiva textLengthOn
   c,,2^"Testo Lungo   "  % Gli spazi finali vengono rispettati
   c''2 |
 }
@@ -3178,7 +3181,8 @@ con un segno che contenga il simbolo desiderato:
 sesquisharp = \markup { \sesquisharp }
 \relative {
   c''4
-  % Mostra un triesis (alterazione ascendente di tre quarti di tono) ma lo spazio è troppo stretto
+  % Mostra un triesis (alterazione ascendente di tre quarti di tono),
+  % ma lo spazio è troppo stretto
   \once \override Accidental.stencil = #ly:text-interface::print
   \once \override Accidental.text = #sesquisharp
   cis4 c
