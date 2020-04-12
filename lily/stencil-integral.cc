@@ -479,21 +479,34 @@ make_draw_bezier_boxes (vector<Box> &boxes,
                            + (temp2 - temp1).length ()
                            + (temp3 - temp2).length ())
                           / QUANTIZATION_UNIT);
+
+  Offset d0 = curve.dir_at_point (0.0);
+  Offset d1 = curve.dir_at_point (1.0);
+
+  Offset normal = get_normal ((th / 2) * d0);
   for (DOWN_and_UP (d))
     {
-      Offset first = curve.control_[0]
-                     + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
-      points[d].push_back (scm_transform (trans, first));
-      for (vsize i = 1; i < (vsize) quantization; i++)
+      points[d].push_back (
+        scm_transform (trans, curve.control_[0] + d * normal));
+    }
+
+  for (vsize i = 1; i < (vsize) quantization; i++)
+    {
+      Real pt = static_cast<Real> (i) / quantization;
+      Offset norm = get_normal ((th / 2) * curve.dir_at_point (pt));
+
+      for (DOWN_and_UP (d))
         {
-          Real pt = static_cast<Real> (i) / quantization;
-          Offset inter = curve.curve_point (pt)
-                         + d * get_normal ((th / 2) * curve.dir_at_point (pt));
-          points[d].push_back (scm_transform (trans, inter));
+          points[d].push_back (
+            scm_transform (trans, curve.curve_point (pt) + d * norm));
         }
-      Offset last = curve.control_[3]
-                    + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
-      points[d].push_back (scm_transform (trans, last));
+    }
+
+  normal = get_normal ((th / 2) * d1);
+  for (DOWN_and_UP (d))
+    {
+      points[d].push_back (
+        scm_transform (trans, curve.control_[3] + d * normal));
     }
 
   for (vsize i = 0; i < points[DOWN].size () - 1; i++)
@@ -510,20 +523,10 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   if (th >= 0)
     {
       // beg line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       curve.control_[0],
-                       th / 2,
-                       -curve.dir_at_point (0.0));
+      create_path_cap (boxes, buildings, trans, curve.control_[0], th / 2, -d0);
 
       // end line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       curve.control_[3],
-                       th / 2,
-                       curve.dir_at_point (1.0));
+      create_path_cap (boxes, buildings, trans, curve.control_[3], th / 2, d1);
     }
 }
 
