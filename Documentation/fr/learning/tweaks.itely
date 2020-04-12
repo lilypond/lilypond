@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dc65755d47f9fad3edeb6b7aaa43b6121e17de78
+   Translation of GIT committish: 7d1f3dc83d049e1f1d98e71d5365bb17a98397b1
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3339,9 +3339,9 @@ Ici, la meilleure solution consiste à déplacer le symbole de pause vers
 le bas -- puisque cette pause appartient à la voix deux.  Par défaut,
 dans la @code{\voiceTwo} (c'est-à-dire dans la seconde voix d'une
 construction @code{<<@{ @dots{} @} \\ @{ @dots{} @}>>}), la propriété
-@code{staff-position} est réglée sur @code{-4} pour les
+@code{staff-position} est réglée sur @code{-6} pour les
 @code{MultiMeasureRest} ; nous avons donc besoin de la déplacer, disons,
-de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
+de quatre demi-intervalles vers le bas, ce qui donne @code{-10}.
 
 @cindex MultiMeasureRest, exemple de dérogation
 @cindex staff-position, exemple d'utilisation de la propriété
@@ -3350,7 +3350,7 @@ de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-10
   { R1 }
 >>
 @end lilypond
@@ -3358,6 +3358,9 @@ de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
 C'est mieux que d'utiliser, par exemple, @code{extra-offset},
 car la ligne supplémentaire au-dessus du silence est insérée
 automatiquement.
+
+Voir @ruser{Dessin à main levée de liaisons de tenue}
+pour ce qui différencie des valeurs exactes des valeurs inexactes.
 
 
 @node La propriété extra-offset
