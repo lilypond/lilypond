@@ -253,7 +253,11 @@ Rational::operator %= (Rational r)
 Rational &
 Rational::operator += (Rational r)
 {
-  if (is_infinity ())
+  if (r.sign_ == 0)
+    ;
+  else if (sign_ == 0)
+    *this = r;
+  else if (is_infinity ())
     ;
   else if (r.is_infinity ())
     *this = r;

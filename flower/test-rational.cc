@@ -176,6 +176,20 @@ TEST (Rational_test, init_float_neg_inf)
   CHECK (std::signbit (d));
 }
 
+TEST (Rational_test, addition)
+{
+  Rational r (1, 2);
+  Rational s (2, 3);
+  Rational z (0);
+  Rational inf (INFINITY);
+
+  CHECK (r + s == Rational (7, 6));
+  CHECK (r + z == r);
+  CHECK (z + r == r);
+  CHECK (z + inf == inf);
+  CHECK (inf + z == inf);
+}
+
 TEST (Rational_test, trunc_int)
 {
   for (int i = -6; i <= 6; ++i)
