@@ -559,7 +559,7 @@ Slur_configuration::done () const
 }
 
 unique_ptr<Slur_configuration>
-Slur_configuration::new_config (Drul_array<Offset> const &offs, int idx)
+Slur_configuration::new_config (Drul_array<Offset> const &offs, size_t idx)
 {
   unique_ptr<Slur_configuration> conf (new Slur_configuration);
   conf->attachment_ = offs;
