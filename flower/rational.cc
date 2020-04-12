@@ -234,7 +234,19 @@ Rational::compare (Rational const &r, Rational const &s)
     return 0;
   else if (r.sign_ == 0) // here s.sign_ is also zero
     return 0;
-  return ::sign (r - s);
+
+  U64 left = r.num_ * s.den_;
+  U64 right = s.num_ * r.den_;
+  if (left < right)
+    {
+      return -r.sign_;
+    }
+  else if (left > right)
+    {
+      return r.sign_;
+    }
+
+  return 0;
 }
 
 int

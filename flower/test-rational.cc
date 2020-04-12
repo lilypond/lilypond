@@ -217,3 +217,18 @@ TEST (Rational_test, trunc_int)
       }
   }
 }
+
+TEST (Rational_test, test_compare)
+{
+  Rational r (1, 2);
+  Rational s1 (1, 3);
+  Rational s2 (2, 3);
+  CHECK (r > s1);
+  CHECK (r < s2);
+
+  Rational nr (-1, 2);
+  Rational ns1 (-1, 3);
+  Rational ns2 (-2, 3);
+  CHECK (nr < ns1);
+  CHECK (nr > ns2);
+}
