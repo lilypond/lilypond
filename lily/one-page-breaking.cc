@@ -90,7 +90,7 @@ One_page_breaking::solve ()
   SCM lowest_line_pos = scm_from_int (0);
 
   Prob *page_pb = unsmob<Prob> (scm_car (pages));
-  SCM config = page_pb->internal_get_property (ly_symbol2scm ("configuration"));
+  SCM config = page_pb->get_property ("configuration");
 
   for (SCM c = config; scm_is_pair (c); c = scm_cdr (c))
     {
@@ -117,7 +117,7 @@ One_page_breaking::solve ()
       else if (Prob *pb = system_specs_[i].prob_)
         {
           // top-level markups
-          Stencil *stil = unsmob<Stencil> (pb->internal_get_property (ly_symbol2scm ("stencil")));
+          Stencil *stil = unsmob<Stencil> (pb->get_property ("stencil"));
           line_heights.push_back (stil->extent (Y_AXIS).length ());
         }
     }
@@ -145,10 +145,10 @@ One_page_breaking::solve ()
   // refpoint is 0.
   SCM refpoint_dist = scm_from_int (0);
 
-  SCM lines_probs = page_pb->internal_get_property (ly_symbol2scm ("lines"));
+  SCM lines_probs = page_pb->get_property ("lines");
   Prob *last_line_pb = unsmob<Prob> (scm_list_ref (lines_probs, scm_oneminus (scm_length (lines_probs))));
 
-  SCM refpoint_extent = last_line_pb->internal_get_property (ly_symbol2scm ("staff-refpoint-extent"));
+  SCM refpoint_extent = last_line_pb->get_property ("staff-refpoint-extent");
 
   if (scm_is_pair (refpoint_extent) && scm_is_number (scm_car (refpoint_extent)))
     refpoint_dist = scm_product (scm_car (refpoint_extent), scm_from_int (-1));
@@ -158,7 +158,7 @@ One_page_breaking::solve ()
     lowest_bound = last_bottom_bound;
 
   // SET FINAL PAPER HEIGHT
-  Stencil *foot_stil = unsmob<Stencil> (page_pb->internal_get_property (ly_symbol2scm ("foot-stencil")));
+  Stencil *foot_stil = unsmob<Stencil> (page_pb->get_property ("foot-stencil"));
   Real foot_height = foot_stil->extent (Y_AXIS).length ();
 
   SCM top_margin = book_->paper_->c_variable ("top-margin");
