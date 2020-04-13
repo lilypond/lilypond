@@ -114,8 +114,7 @@ Grob::Grob (Grob const &s)
 
   smobify_self ();
 
-  mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
-
+  mutable_property_alist_ = ly_alist_copy (s.mutable_property_alist_);
 }
 
 Grob::~Grob ()

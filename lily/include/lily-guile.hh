@@ -101,6 +101,7 @@ SCM ly_hash2alist (SCM tab);
 SCM ly_hash_table_keys (SCM tab);
 
 SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
+SCM ly_alist_copy (SCM alist);
 
 inline bool ly_is_list (SCM x) { return scm_is_true (scm_list_p (x)); }
 inline bool ly_cheap_is_list (SCM x) { return scm_is_pair (x) || scm_is_null (x); }

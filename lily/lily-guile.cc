@@ -743,3 +743,16 @@ SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
 {
   return scm_acons (key, val, scm_assoc_remove_x (alist, key));
 }
+
+SCM
+ly_alist_copy (SCM alist)
+{
+  SCM l = SCM_EOL;
+  SCM *tail = &l;
+  for (; scm_is_pair (alist); alist = scm_cdr (alist))
+    {
+      *tail = scm_acons (scm_caar (alist), scm_cdar (alist), *tail);
+      tail = SCM_CDRLOC (*tail);
+    }
+  return l;
+}
