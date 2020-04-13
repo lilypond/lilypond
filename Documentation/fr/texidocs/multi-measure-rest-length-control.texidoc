@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c7c6c948c9b70464f7069354059e5a5a8aad4a5c
+%% Translation of GIT committish: 2cc79b7f2ed1cdf881ad371cda4921ccb36b03f6
   texidocfr = "
 Les silences multimesure ont une largeur relative à leur durée totale,
 contrôlée par @code{MultiMeasureRest.space-increment}. Sa valeur par
