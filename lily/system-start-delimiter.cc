@@ -146,10 +146,8 @@ Stencil
 System_start_delimiter::staff_brace (Grob *me, Real y)
 {
   Font_metric *fm = 0;
-  /* We go through the style sheet to lookup the font file
-     name.  This is better than using find_font directly,
-     esp. because that triggers mktextfm for non-existent
-     fonts. */
+  /* We use the style sheet to look up the font file name.
+     This is better than using 'find_font' directly.*/
   SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
 		      ly_symbol2scm ("fetaBraces"));
 
