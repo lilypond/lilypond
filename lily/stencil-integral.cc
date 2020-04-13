@@ -128,15 +128,6 @@ get_path_list (SCM l)
   return SCM_BOOL_F;
 }
 
-// Gets an orthogonal vector with same size to orig, pointing left
-// (in the complex domain, a multiplication by i)
-
-Offset
-get_normal (Offset orig)
-{
-  return Offset (-orig[Y_AXIS], orig[X_AXIS]);
-}
-
 //// END UTILITY FUNCTIONS
 
 /*
@@ -172,7 +163,7 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   Offset dir = (right - left).direction ();
   for (DOWN_and_UP (d))
     {
-      Offset outward = d * get_normal ((thick / 2) * dir);
+      Offset outward = (d * thick / 2) * dir.normal ();
       Offset inter_l = scm_transform (trans, left + outward);
       Offset inter_r = scm_transform (trans, right + outward);
       if ((inter_l[X_AXIS] == inter_r[X_AXIS]) || (inter_l[Y_AXIS] == inter_r[Y_AXIS]))
@@ -268,7 +259,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
           Real ang
             = linear_map (start, end, 0, quantization, static_cast<Real> (i));
           Offset pt (offset_directed (ang).scale (rad));
-          Offset inter = t (pt + d * get_normal ((th / 2) * pt.direction ()));
+          Offset inter = t (pt + (d * th / 2) * pt.direction ().normal ());
           points[d].push_back (inter);
         }
     }
@@ -299,21 +290,11 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
     {
       // beg line cap
       Offset pt (offset_directed (start).scale (rad));
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       pt,
-                       th / 2,
-                       -get_normal (pt));
+      create_path_cap (boxes, buildings, trans, pt, th / 2, -pt.normal ());
 
       // end line cap
       pt = offset_directed (end).scale (rad);
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       pt,
-                       th / 2,
-                       get_normal (pt));
+      create_path_cap (boxes, buildings, trans, pt, th / 2, pt.normal ());
     }
 }
 
@@ -438,6 +419,13 @@ create_path_cap (vector<Box> &boxes,
                                           SCM_BOOL_F,
                                           SCM_BOOL_F,
                                           SCM_UNDEFINED));
+}
+
+// TODO - remove once https://codereview.appspot.com/583750044/ is in.
+Offset
+get_normal (Offset o)
+{
+  return o.normal ();
 }
 
 void

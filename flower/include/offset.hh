@@ -115,6 +115,14 @@ public:
   Real length () const;
   bool is_sane () const;
   Offset operator *= (Offset z2);
+
+  /*
+    Gets an orthogonal vector with same size to orig, pointing left
+    (in the complex domain, a multiplication by i)
+  */
+  Offset normal() const {
+    return Offset(-coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
+  }
 };
 
 #include "arithmetic-operator.hh"
@@ -175,4 +183,3 @@ cross_product (Offset o1, Offset o2)
 }
 
 #endif /* OFFSET_HH */
-
