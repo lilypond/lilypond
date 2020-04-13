@@ -102,25 +102,27 @@ get_number_list (SCM l)
 }
 
 /*
-  from a nested SCM list, return the first list of numbers
-  useful for paths
+  from a nested SCM list, return the first list that looks like a path
+  expression.
 */
 SCM
 get_path_list (SCM l)
 {
   if (scm_is_pair (l))
     {
-      if (scm_is_true (scm_memv (scm_car (l),
-                                 scm_list_n (ly_symbol2scm ("moveto"),
-                                             ly_symbol2scm ("rmoveto"),
-                                             ly_symbol2scm ("lineto"),
-                                             ly_symbol2scm ("rlineto"),
-                                             ly_symbol2scm ("curveto"),
-                                             ly_symbol2scm ("rcurveto"),
-                                             ly_symbol2scm ("closepath"),
-                                             SCM_UNDEFINED))))
-        return l;
-      SCM res = get_path_list (scm_car (l));
+      SCM head = scm_car (l);
+      if (scm_is_symbol (head)
+          && (scm_is_eq (head, ly_symbol2scm ("moveto"))
+              || scm_is_eq (head, ly_symbol2scm ("rmoveto"))
+              || scm_is_eq (head, ly_symbol2scm ("lineto"))
+              || scm_is_eq (head, ly_symbol2scm ("rlineto"))
+              || scm_is_eq (head, ly_symbol2scm ("curveto"))
+              || scm_is_eq (head, ly_symbol2scm ("rcurveto"))
+              || scm_is_eq (head, ly_symbol2scm ("closepath"))))
+        {
+          return l;
+        }
+      SCM res = get_path_list (head);
       if (scm_is_false (res))
         return get_path_list (scm_cdr (l));
       return res;
