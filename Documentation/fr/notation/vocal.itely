@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
+   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -52,6 +52,7 @@ particuliers en terme de musique vocale.
 * Plusieurs syllabes sur une note::
 * Plusieurs notes pour une même syllabe::
 * Traits d'union et de prolongation::
+* Changement graduel de voyelle::
 @end menu
 
 
@@ -869,6 +870,50 @@ d'union, toutes deux attachées à l'objet @code{LyricHyphen}.
 Référence des propriétés internes :
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
+
+
+@node Changement graduel de voyelle
+@unnumberedsubsubsec Changement graduel de voyelle
+@translationof Gradual changes of vowel
+
+
+@cindex voyelle, transition
+
+Un changement graduel de voyelle (ou une consonne maintenue) peut
+s’indiquer en ajoutant une flêche entre les syllabes, à l’aide de la
+commande @code{\vowelTransition} -- voir Gould p. 452--453. La flêche
+indique la longueur de la transition et sera par défaut toujourrs
+affichée -- de l'espace sera ajouté en cas d'espacement contraint. Une
+liaison de tenue ou de vocalise indique une absence d'articulation si ce
+n'est un cangement de voyelle. La taille minimale de la flêche se règle
+à l'aide de la propriété @code{minimum-length} de l'objet
+@code{VowelTransition}.
+
+@lilypond[verbatim,quote]
+{
+  c'2 c'
+  \set melismaBusyProperties = #'()
+  c'2 ~ c'
+  \time 3/2
+  d'4( e' f' e' f'2
+  e'2.)
+}
+\addlyrics
+{
+  Ah \vowelTransition oh,
+  ah \vowelTransition oh,
+  ah \vowelTransition _ _ _ _
+  oh.
+}
+@end lilypond
+
+@seealso
+Glossaire musicologique :
+@rglos{vowel transition}.
+
+Référence des propriétés internes :
+@rinternals{VowelTransition}.
+
 
 
 @node Situations particulières en matière de paroles

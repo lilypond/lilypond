@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
+   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -662,7 +662,7 @@ L'exemple suivant illustre le style @code{petrucci}.
 @c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \autoBeamOff
 \override NoteHead.style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
@@ -744,7 +744,7 @@ silences de type ancien.  Vous disposez des styles @code{mensural} et
 En voici une illustration.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'neomensural

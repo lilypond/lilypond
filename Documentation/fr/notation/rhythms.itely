@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
+   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -907,7 +907,9 @@ Référence des propriétés internes :
 @funindex R
 
 Un silence valant une ou plusieurs mesures entières s'entre avec un
-@code{R} majuscule.
+@code{R} majuscule. Sa durée s'indique comme pour n'importe quelle note,
+y compris un éventuel multiplicateur comme indiqué dans
+@ref{Changement d'échelle des durées}.
 
 @lilypond[quote,verbatim]
 % Rest measures contracted to single measure
@@ -918,6 +920,10 @@ Un silence valant une ou plusieurs mesures entières s'entre avec un
   b'2^"Tutti" b'4 a'4
 }
 @end lilypond
+
+@noindent
+Cet exmple illustre aussi la manière de condenser une succession de
+mesures vides, comme indiqué dans @ref{Compression de mesures vides}.
 
 Ceci ne peut être utile que pour une mesure complètement vide.  Sa durée
 doit donc correspondre à la longueur de la mesure telle que définie par
@@ -948,27 +954,6 @@ R1 |
 R1*3/2 |
 \time 8/4
 R1*2 |
-@end lilypond
-
-@cindex silence multimesure, expansion
-@cindex silence multimesure, contraction
-
-Par défaut, un silence multimesure sera répété sur autant de mesures
-que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
-surplombé du nombre de mesures vides -- ou « à compter » :
-
-@lilypond[quote,verbatim,fragment]
-% Default behavior
-\time 3/4 r2. | R2.*2 |
-\time 2/4 R2 |
-\time 4/4
-% Rest measures contracted to single measure
-\compressMMRests {
-  r1 | R1*17 | R1*4 |
-}
-% Rest measures expanded again
-\time 3/4
-R2.*2 |
 @end lilypond
 
 @cindex texte indiquant le nombre de mesures vides
@@ -1035,18 +1020,6 @@ numéros de mesure.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
-@cindex silence multimesure, numérotation
-@funindex restNumberThreshold
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{numbering-single-measure-rests.ly}
-
-@cindex silence d'église
-@cindex kirchenpause
-@cindex style de silence multimesure
-@cindex silence multimesure, style
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi-measure-rests.ly}
-
 @cindex silence multimesure, positionnement
 @cindex positionnement des silences multimesure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -1064,7 +1037,9 @@ Glossaire musicologique :
 @rglosnamed{multi-measure rest,silence multimesures}.
 
 Manuel de notation :
+@ref{Changement d'échelle des durées},
 @ref{Commentaires textuels},
+@ref{Compression de mesures vides},
 @ref{Durées},
 @ref{Mise en forme du texte},
 @ref{Texte}.

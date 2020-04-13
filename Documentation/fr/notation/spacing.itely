@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
+   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3221,6 +3221,7 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
   }
 }
 @end lilypond
+
 
 @node Étirement uniforme des n-olets
 @unnumberedsubsubsec Étirement uniforme des n-olets

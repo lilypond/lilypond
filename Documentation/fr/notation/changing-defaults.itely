@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9555963300c53fef253948cb41c43393bf1a0655
+   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2118,9 +2118,10 @@ avance dans le morceau -- @code{measurePosition} en est l'illustration
 parfaite.
 
 Ainsi la propriété de contexte @code{skipBars} permet de condenser les
-mesures vides de notes, en des silences multimesures.  Il s'agit d'un
-objet Scheme, auquel on attribue la valeur booléenne « vrai »,
-c'est-à-dire la lettre @code{#t} pour « True » en anglais :
+mesures vides de notes, en des silences multimesures -- voir
+@ref{Compression de mesures vides} à ce sujet. Il s'agit d'un objet
+Scheme, auquel on attribue la valeur booléenne « vrai », c'est-à-dire la
+lettre @code{#t} pour « True » en anglais :
 
 @lilypond[quote,fragment,verbatim]
 R1*2
@@ -2231,6 +2232,9 @@ Translation @expansion{} Tunable context properties.
 
 
 @seealso
+Manuel de notation :
+@ref{Compression de mesures vides}.
+
 Référence des propriétés internes :
 @rinternals{Tunable context properties}.
 
