@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: b9c17753ea135d29dd3014b100d02ee8d9ea7f15
+    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -550,6 +550,9 @@ I pacchetti scaricabili sono disponibili presso @uref{https://lilypond.org}
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{https://lilypond.org/doc/v2.18/Documentation/web/manuals,
+Dcumentazione di LilyPond 2.18}
 
 @item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals,
 Documentazione di LilyPond 2.16}

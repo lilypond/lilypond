@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: b12cb5c388f3ab75d4833d6702ac9f37604255dd
+    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -208,12 +208,12 @@ Questa mailing list è una lista a basso volume e in sola lettura che riceve
 notifiche dei nuovi rilasci.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
 iscrizione e informazioni su info-lilypond}
 
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
 archivio 1 della lista info}
-@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+@uref{https://www.mail-archive.com/info-lilypond@@gnu.org/,
 archivio 2}
 @end quotation
 
@@ -230,12 +230,12 @@ Le discussioni tra sviluppatori hanno luogo in questa lista.  Le
 @q{patch} possono essere inviate anche qui.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel,
 iscrizione e informazioni su lilypond-devel}
 
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+@uref{https://lists.gnu.org/archive/html/lilypond-devel/,
 archivio 1 della lista devel}
-@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
+@uref{https://www.mail-archive.com/lilypond-devel@@gnu.org/,
 archivio 2}
 @end quotation
 
@@ -246,12 +246,12 @@ Questa lista è dedicata alla segnalazione di bug e alle discussioni sui
 problemi di LilyPond. Non inviare @q{patch} qui.
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,
 iscrizione e informazioni su bug-lilypond}
 
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+@uref{https://lists.gnu.org/archive/html/bug-lilypond/,
 archivio 1 della lista bug}
-@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
+@uref{https://www.mail-archive.com/bug-lilypond@@gnu.org/,
 archivio 2}
 @end quotation
 
@@ -640,6 +640,10 @@ l'ultimo binario:
 
 @downloadDevelDarwinPPC
 
+@c file name is unpredictable, linking to main page
+@uref{https://bintray.com/marnen/lilypond-darwin-64,
+Mac OS X x86 64-bit (non ufficiale)}
+
 @downloadDevelWindows
 
 @downloadDevelSource
@@ -1002,6 +1006,7 @@ e registri di modifiche (changelog).
 @subheading Annunci
 
 Annunci e notizie ordinati per versione:
+@uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013-1,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
@@ -1016,6 +1021,7 @@ Annunci e notizie ordinati per versione:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Elenco descrittivo dei cambiamenti per ogni versione:
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.it.html,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
 @uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
@@ -1037,6 +1043,7 @@ Elenco descrittivo dei cambiamenti per ogni versione:
 
 Grazie a sviluppatori, collaboratori, cacciatori di bug e a chi ci ha dato
 preziosi suggerimenti
+@miscLink{THANKS-2.18,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
 @miscLink{THANKS-2.12,v2.12},

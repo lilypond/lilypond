@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 6671c51302bd71216a7d4c698c475e2abf0d78b4
+    Translation of GIT committish: 140a50e2ae2a3db4a41fab15816f00cc1f114e2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -36,6 +36,12 @@ email alla mailing list @uref{https://lists.gnu.org/mailman/listinfo/lilypond-de
 @itemize
 @item
 Supporto nelle mailing list: rispondi alle domande degli utenti.
+(Ciò potrebbe implicare di aiutarli a muoversi nella documentazione online;
+in questi casi potrebbe essere appropriato dirigerli a percorsi URL
+privi di una versione specifica, come
+@uref{https://lilypond.org/doc/latest/Documentation/notation/, @code{/latest/}} o
+@uref{https://lilypond.org/doc/stable/Documentation/notation/, @code{/stable/}},
+che vengono rediretti automaticamente.)
 
 @item
 Segnalazione bug: aiuta gli utenti a creare una @rweb{Segnalazione bug}

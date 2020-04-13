@@ -1,10 +1,18 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
+%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
   texidocit = "
 Le legature di valore possono essere disegnate a mano cambiando la
 proprietà @code{tie-configuration} dell'oggetto @code{TieColumn}. Il
 primo numero indica la distanza dal centro del rigo nell'unità di
 metà spazio rigo, mentre il secondo numero indica la
 direzione (1 = su, -1 = giù).
+
+Si noti che LilyPond fa una distinzione tra valori precisi e imprecisi
+per il primo numero. Se si usa un valore preciso (ovvero un intero o
+una frazione come @code{(/ 4 5)}), il valore serve come posizione verticale
+approssimata che viene ulteriormente aggiustata da LilyPond per far sì che
+la legatura di valore eviti le linee del rigo.  Se si usa un valore impreciso,
+come una virgola mobile, viene usato per la posizione verticale senza ulteriori
+regolazioni.
 
 "
   doctitleit = "Disegnare manualmente le legature di valore"

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 471d52053e250c8a6ca4ff21d737440adb22b95d
+    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -263,14 +263,21 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Per MacOS X 10.4 o superiori, con processore Intel (se hai dei dubbi,
-usa questo).
+Per Mac OS X 10.4--10.5 con processore Intel e Mac OS X 10.6--10.14
+(per la versione 10.15 vedi sotto).
 
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Per MacOS X 10.4 o superiori, con processori G3 e G4 (vecchi computer Apple).
+Per Mac OS X 10.4--10.5, con processori G3 e G4 (vecchi computer Apple).
+
+
+@item
+@sourceimage{logo-macosx,,,}
+@c file name is unpredictable, linking to main page
+Dei bundle applicazione 64-bit (non ufficiali) per macOS 10.15 sono disponibili
+all'indirizzo @uref{https://bintray.com/marnen/lilypond-darwin-64}.
 
 
 @end itemize

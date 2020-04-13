@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1733322f83f2a9c74668d7d071bfe1c3f6f475e4
+    Translation of GIT committish: 1edb8b3c857fa9c993164123e6f707cad5afb07b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -781,17 +781,17 @@ Manipulation Program}.
 
 @macro logoLegalFreeBSD
 Il logo FreeBSD è un marchio registrato della
-@uref{http://www.freebsd.org/, FreeBSD Foundation}.
+@uref{https://www.freebsd.org/, FreeBSD Foundation}.
 
 @end macro
 
 @macro logoLegalMacOSX
 L' @qq{immagine X} non è un marchio registrato.  È stato creato da
-@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} e
-@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, e
+@uref{https://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} e
+@uref{https://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, e
 posto sotto la GNU Free Documentation License versione 1.2 o successive.
 Abbiamo trovato l'immagine su
-@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+@uref{https://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
 questa pagina di Wikimedia Commons}.
 
 @end macro
@@ -799,10 +799,10 @@ questa pagina di Wikimedia Commons}.
 @macro logoLegalWindows
 L' @qq{immagine con quattro rettangoli colorati} non è un marchio
 registrato.  È stato creato da
-@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} ed è
+@uref{https://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} ed è
 posto sotto la GNU Free Documentation License versione 1.2.  Abbiamo
 trovato l'immagine su
-@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+@uref{https://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 questa pagina di Wikimedia Commons}.
 
 @end macro

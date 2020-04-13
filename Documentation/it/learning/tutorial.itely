@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 09ef86c87175cc6c1071eedb022ed1d01a93bcaf
+    Translation of GIT committish: 557cc9934585a9083c9e4957068889b3f393873c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -218,8 +218,13 @@ Glossario musicale: @rglosnamed{pitch,altezza}, @rglosnamed{interval,intervallo}
 @rglosnamed{scale,scala}, @rglosnamed{middle C,Do centrale}, @rglosnamed{octave,ottava},
 @rglosnamed{accidental,alterazione}.
 
-LilyPond usa lettere minuscole per indicare le altezze.  Le lettere da
-@code{c} a@tie{}@code{b} denotano le altezze nella
+LilyPond usa lettere minuscole per indicare le altezze.
+I nomi delle note in tutti gli esempi di questa sezione usano il sistema di
+denominazione olandese (tasti bianchi del pianoforte sono c-b).  Tuttavia
+LilyPond supporta molti schemi di denominazione diversi come l'inglese e
+o il @q{Do fisso} (do-re-mi-...).
+Vedi @ruser{Nomi delle note in altre lingue}.
+Le lettere da @code{c} a@tie{}@code{b} denotano le altezze nella
 @q{piccola ottava} sotto il @notation{Do centrale}.  L'aggiunta dei
 suffissi @code{'} o@tie{}@code{,} indica ottave più alte o più basse.
 Ecco una scala che inizia con un @notation{Do centrale}, e un arpeggio:

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 79c17e0eaedca79e5f7605f5b9f92db27c68e679
+%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
   texidocit = "
 Si può aggiungere del testo alle parentesi analitiche tramite la proprietà
 @code{text} del grob @code{HorizontalBracketText}.  L'aggiunta di vari frammenti

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
   texidocit = "
 La proprietà @code{chordNameExceptions} permette di salvare un elenco di
 notazioni speciali per accordi specifici.

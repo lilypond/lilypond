@@ -1,6 +1,6 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 8b66a59a9c1f1aad9eb2eab51bc33edc4e0542c9
+    Translation of GIT committish: 1c1b076adf7458ff90efb3766ef46cba026b0af6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -92,7 +92,7 @@ Per la versione di LilyPond @version{}
 LilyPond è un programma di incisione musicale e il suo scopo è produrre spartiti
 musicali della migliore qualità possibile.  Introduce nelle stampe prodotte dai
 computer l'estetica della musica incisa secondo i metodi tradizionali.  LilyPond è
-software libero e parte del @uref{http://gnu.org,Progetto GNU}.
+software libero e parte del @uref{https://gnu.org,Progetto GNU}.
 
 @divClass{align-right}
 Maggiori informazioni nella nostra @ref{Introduzione}!

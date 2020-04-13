@@ -3088,8 +3088,8 @@ da questa impostazione.
 Molti oggetti della notazione musicale si estendono per varie note o addirittura
 per molte battute.  Ne sono un esempio le legature di portamento, le travature,
 le parentesi dei gruppi irregolari, quelle delle volte delle ripetizioni, i
-crescendi, i trilli e i glissandi.  Tali oggetti vengono chiamati @qq{estensori}
-(o spanner, in inglese) e hanno delle proprietà speciali per regolare il loro
+crescendi, i trilli e i glissandi.  Tali oggetti in LilyPond si chiamano @qq{spanner},
+ovvero estensori, e hanno delle proprietà speciali per regolare il loro
 aspetto e comportamento.  Alcune di queste proprietà sono comuni a tutti gli
 estensori; altre sono limitate a un sottoinsieme di estensori.
 

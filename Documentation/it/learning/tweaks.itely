@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: e00601609d424d0a2e33e178753ed10716127256
+    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3272,12 +3272,12 @@ di collisione di questo tipo:
 << \relative { c'4 c c c } \\ { R1 } >>
 @end lilypond
 
-In questo caso la soluzione migliore è spostare in basso la pausa d'intero, poiché
-si trova nella seconda voce.  In @code{\voiceTwo} (ovvero nella seconda
+In questo caso la soluzione migliore è spostare in basso la pausa d'intero,
+poiché si trova nella seconda voce.  In @code{\voiceTwo} (ovvero nella seconda
 voce di un costrutto @code{<<@{@dots{}@} \\ @{@dots{}@}>>}) il valore predefinito
-di @code{staff-position} è -4 per la pausa multipla (MultiMeasureRest), quindi
-dobbiamo spostarla più in basso, ad esempio di altri quattro semispazi del
-rigo; il nuovo valore sarà @w{@code{-8}}.
+di @code{staff-position} è -6 per la pausa multipla (MultiMeasureRest), quindi
+dobbiamo spostarla più in basso, ad esempio di quattro semispazi del rigo; il
+nuovo valore sarà @w{@code{-10}}.
 
 @cindex MultiMeasureRest, esempio di sovrascrittura
 @cindex proprietà staff-position, esempio
@@ -3287,13 +3287,17 @@ rigo; il nuovo valore sarà @w{@code{-8}}.
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-10
   { R1 }
 >>
 @end lilypond
 
 Questa soluzione è preferibile all'uso di @code{extra-offset}, perché
 il taglio addizionale sopra la pausa è inserito automaticamente.
+@c @ruser{Engraving ties manually} is not a valid node, so I use another one - fb
+Vedi il frammento «Disegnare manualmente le legature di valore» in
+@ruser{Legature di valore} per la differenza tra valori precisi
+e imprecisi.
 
 @node La proprietà extra-offset
 @unnumberedsubsubsec La proprietà @code{extra-offset}

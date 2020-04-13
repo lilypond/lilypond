@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: b942b1a18810fce7f61d3033507cc31c90e437f9
+    Translation of GIT committish: 557cc9934585a9083c9e4957068889b3f393873c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -142,13 +142,19 @@ Glossario musicale: @rglosnamed{sharp,diesis}, @rglosnamed{flat,bemolle},
 I nomi delle note in LilyPond identificano le altezze. Per esempio, @code{c}
 indica sempre il Do naturale, indipendentemente dall'armatura di chiave.
 
-Un @notation{diesis} si ottiene aggiungendo il suffisso @code{is} al nome della nota,
-e un @notation{bemolle} aggiungendo @code{es}.  Come puoi
+In molte lingue, il nome di una nota è composto da un nome di base, che si
+riferisce ai gradi diatonici della scala di Do maggiore / La minore, per esempio
+@code{d}, e un suffisso, che indica l'@notation{alterazione} di questa altezza
+di base.  Il linguaggio di input predefinito dei nomi delle note è l'olandese
+(nederlands). 
+Un @notation{diesis} si ottiene aggiungendo il suffisso @code{is} al nome
+della nota, e un @notation{bemolle} aggiungendo @code{es}.  Come puoi
 immaginare, un @notation{doppio diesis} o un @notation{doppio bemolle}
 si ottengono aggiungendo @code{isis} o @code{eses}.  Questa sintassi
 deriva dalle convenzioni per i nomi delle note presenti nelle lingue
 nordiche e germaniche, come il tedesco e l'olandese.  Per usare altri
-nomi per le @notation{alterazioni}, si veda @ruser{Nomi delle note in altre lingue}.
+schemi di denominazione per i @notation{nomi delle note}, si veda
+@ruser{Nomi delle note in altre lingue}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
@@ -1346,7 +1352,7 @@ cello = \new Staff {
 
 @noindent
 Per convenzione, il nome di una variabile è composto soltanto da caratteri
-alfabetici.
+alfabetici.  Informazioni più dettagliate in @ruser{Struttura del file}.
 
 Le variabili devono essere definite @emph{prima} della principale espressione
 musicale, ma possono poi essere usate quante volte si vuole e ovunque, una
