@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+   Translation of GIT committish: 886df11c46895cc2bf1f84c9ef971852d782ed9b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -879,15 +879,18 @@ l'instruction @code{\Staff \RemoveEmptyStaves}, consultez
 @subsection Écriture de parties séparées
 @translationof Writing parts
 
-Nous allons voir, au fil des lignes qui suivent, comment insérer des
-indications de tempo ou des noms d'instrument dans une partition.  Nous
-aborderons aussi la citation d'autres voix, et comment la mettre en
-forme.
+Nous allons voir, au fil des lignes qui suivent, comment préparer un
+« matériel » pour orchestre ou ensemble musical, ce qui requiert souvent
+d'insérer des noms d'instrument dans une partition.  Nous aborderons
+aussi la citation d'autres voix, et comment la mettre en forme, ainsi
+que le moyen de contracter une succession de mesures vides dans une
+partition de pupitre.
 
 @menu
 * Noms d'instrument::
 * Citation d'autres voix::
 * Mise en forme d'une citation::
+* Compression de mesures vides::
 @end menu
 
 
@@ -1554,3 +1557,116 @@ silence entre les contextes @code{Voice} et @code{CueVoice}.
 Dans le cadre d'un @code{\cueDuringWithClef} ou d'un
 @code{\transposedCueDuring}, l'argument supplémentaire doit intervenir
 après l'origine et la position.
+
+
+@node Compression de mesures vides
+@unnumberedsubsubsec Compression de mesures vides
+@translationof Compressing empty measures
+
+@cindex multimesure, note, expansion
+@cindex multimesure, note, contraction
+@funindex \compressEmptyMeasures
+@funindex \expandEmptyMeasures
+
+Toutes les mesures sont par défaut imprimées, même si elles sont vides ;
+ceci peut se produire dans le cas où un événement rythmique (note,
+silence ou saut) dure au point de s'étaler sur plusieurs mesures. Ce
+comportement peut se modifier de sorte que les mesures vides sont
+compressées en une seule mesure comme ici (la deuxième partie de cet
+exemple, où les mesures sont expansées, retrouve en fait le comportement
+par défaut) :
+
+@lilypond[quote,verbatim,fragment]
+\override Score.BarNumber.break-visibility = #'#(#f #t #t)
+\time 2/4
+\compressEmptyMeasures
+c'1 d'1. e'\breve
+\bar "||"
+\expandEmptyMeasures
+c'1 d'1. e'\breve
+@end lilypond
+
+@noindent
+Bien que la syntaxe de cette notation soit correcte, elle peut être
+déroutante d'un point de vue musical, ce qu'illustre l'exemple
+ci-dessus. C'est pourquoi l'impression des numéros de mesure devient
+nécessaire, en suivant la syntaxe indiquée dans
+@ref{Utilisation de break-visibility}.
+
+@cindex multimesure, silence, expansion
+@cindex multimesure, silence, contraction
+@funindex \compressMMRests
+
+Une telle notation peut toutefois s'avérer utile lorsqu'elle
+s'applique à des @rusernamed{Silences valant une mesure,
+silences valant une mesure}. Un silence de plusieurs mesures sera alors
+affiché sous la forme d'une seule mesure contenant un symbole de silence
+multimesure surplombé du nombre de mesures de silence :
+
+@lilypond[quote,verbatim,fragment]
+% Comportement par défaut
+\time 3/4 r2. | R2.*2 |
+\time 2/4 R2 |
+\time 4/4
+% Mesures de silence comprimées en une seule mesure
+\compressEmptyMeasures
+r1 | R1*17 | R1*4 |
+\expandEmptyMeasures
+% Mesures de silence à nouveau expansées
+\time 3/4
+R2.*2 |
+@end lilypond
+
+Contrairement à @code{\compressEmptyMeasures}, la fonction musicale
+@code{\compressMMRests} s'applique exclusivement aux silences tout en
+laissant les autres événements expansés. En sa qualité de fonction, et
+non de réglage de propriété, sa syntaxe diffère quelque peu, en ceci
+qu'elle doit être suivie d'une expression musicale :
+
+@lilypond[quote,verbatim,fragment]
+\compressMMRests {
+  % Les silences sont comprimés…
+  R1*7
+  % … mais les notes peuvent s'étaler sur plusieurs mesures.
+  g'1 a'1*2 d'1
+  R1*2
+}
+@end lilypond
+
+@funindex skipBars
+Toutes les commandes décrites dans ces paragraphes reposent en fait sur
+la propriété interne @code{skipBars}, qui se définit au sein du contexte
+@code{Score} comme indiqué dans @ref{La commande de fixation (set)}.
+
+@predefined
+@code{\compressEmptyMeasures},
+@code{\expandEmptyMeasures},
+@code{\compressMMRests}.
+@endpredefined
+
+@snippets
+
+@cindex multimesure, silence, nombre
+@funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex silence d'église
+@cindex kirchenpause
+@cindex multimesure, silence, style
+@cindex silence multimesure, style
+@cindex style, silence multimesure
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-form-of-multi-measure-rests.ly}
+
+@seealso
+Manuel de notation :
+@ref{La commande de fixation (set)},
+@ref{Silences valant une mesure},
+@ref{Utilisation de break-visibility}.
+
+Référence des propriétés internes :
+@rinternals{MultiMeasureRest},
+@rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestScript},
+@rinternals{MultiMeasureRestText}.
