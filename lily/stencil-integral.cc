@@ -73,16 +73,6 @@ void create_path_cap (vector<Box> &boxes,
 //// UTILITY FUNCTIONS
 
 /*
-  map x's placement between orig_l and orig_r onto
-  the interval final_l final_r
-*/
-Real
-linear_map (Real final_l, Real final_r, Real orig_l, Real orig_r, Real x)
-{
-  return final_l + ((final_r - final_l) * ((x - orig_l) / (orig_r - orig_l)));
-}
-
-/*
   from a nested SCM list, return the first list of numbers
   useful for polygons
 */
@@ -186,10 +176,11 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
 
           for (vsize i = 0; i < 1 + passes; i++)
             {
-              Offset pt (linear_map (x0, x1, 0, static_cast<Real> (passes),
-                                     static_cast<Real> (i)),
-                         linear_map (y0, y1, 0, static_cast<Real> (passes),
-                                     static_cast<Real> (i)));
+              Offset pt (
+                linear_interpolate (static_cast<Real> (i), 0,
+                                    static_cast<Real> (passes), x0, x1),
+                linear_interpolate (static_cast<Real> (i), 0,
+                                    static_cast<Real> (passes), y0, y1));
               Offset inter = scm_transform (trans, pt + outward);
               points.push_back (inter);
             }
@@ -258,8 +249,8 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
     {
       for (vsize i = 0; i <= (vsize) quantization; i++)
         {
-          Real ang
-            = linear_map (start, end, 0, quantization, static_cast<Real> (i));
+          Real ang = linear_interpolate (static_cast<Real> (i), 0, quantization,
+                                         start, end);
           Offset pt (offset_directed (ang).scale (rad));
           Offset inter = t (pt + (d * th / 2) * pt.direction ().normal ());
           points[d].push_back (inter);
@@ -384,8 +375,8 @@ make_round_filled_box_boxes (vector<Box> &boxes,
             for (DOWN_and_UP (v))
               for (LEFT_and_RIGHT (h))
                 {
-                  Real ang = linear_map (0., 90., 0, quantization,
-                                         static_cast<Real> (i));
+                  Real ang = linear_interpolate (static_cast<Real> (i), 0,
+                                                 quantization, 0., 90.);
                   Offset pt (offset_directed (ang).scale (rad));
                   Offset inter (cx[h] + h * pt[X_AXIS],
                                 cy[v] + v * pt[Y_AXIS]);
