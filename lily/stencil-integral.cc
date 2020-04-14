@@ -98,7 +98,7 @@ get_number_list (SCM l)
 SCM
 get_path_list (SCM l)
 {
-  if (scm_is_pair (l))
+  for (; scm_is_pair (l); l = scm_cdr (l))
     {
       SCM head = scm_car (l);
       if (scm_is_symbol (head)
@@ -113,9 +113,8 @@ get_path_list (SCM l)
           return l;
         }
       SCM res = get_path_list (head);
-      if (scm_is_false (res))
-        return get_path_list (scm_cdr (l));
-      return res;
+      if (scm_is_true (res))
+        return res;
     }
   return SCM_BOOL_F;
 }
