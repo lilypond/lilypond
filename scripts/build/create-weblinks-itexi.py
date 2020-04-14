@@ -5,9 +5,14 @@
 """ when being called on lilypond.org, pass it the location of the
 top source dir on the command-line. """
 
-import sys
-import os
+import codecs
 import glob
+import os
+import sys
+
+# Force encoding for stdout, Python up to version 3.7 falls back to
+# ASCII with LANG=C (which the build system exports).
+sys.stdout = codecs.getwriter ('utf8') (sys.stdout.detach ())
 
 ### translation data -- shouldn't be here; see issue
 ### https://sourceforge.net/p/testlilyissues/issues/1050/
@@ -425,7 +430,7 @@ def macroLang(name, lang):
 
 def make_macro(name, string):
     print("@macro", name)
-    print(string.encode('utf-8'))
+    print(string)
     print("@end macro")
     print("")
 

@@ -4,7 +4,7 @@ depth = ..
 NAME = lilypond
 
 MODULE_LIBS=$(depth)/flower
-MODULE_INCLUDES= $(depth)/flower/include
+MODULE_INCLUDES=$(src-depth)/flower/include
 
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES=c++ po help2man

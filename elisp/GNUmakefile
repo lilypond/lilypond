@@ -14,7 +14,6 @@ STEPMAKE_TEMPLATES= install install-out
 include $(depth)/make/stepmake.make
 
 EL_FILES := $(call src-wildcard,*.el)
-SOURCE_FILES += $(EL_FILES)
 
 LILYPOND_WORDS = $(outdir)/lilypond-words.el
 LILYPOND_WORDS_DEPENDS =\

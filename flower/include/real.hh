@@ -26,33 +26,31 @@
 #include <algorithm>
 #include <climits>
 #include <cmath>
+#include <cstdlib>
 
 typedef double Real;
-extern const Real infinity_f;
+static constexpr Real infinity_f = INFINITY;
 
-/* namespace std { */
-
-template<class T> inline T abs (T x)
-{
-  return x > 0 ? x : -x;
-}
-
-/* } namespace std */
+using std::abs; // TODO: replace abs (x) with std::abs (x) and remove this
 
 inline Real
 distance (Real x, Real y)
 {
-  return abs (x - y);
+  return std::abs (x - y);
 }
 
-template<class T> inline int sign (T x)
+template<class T>
+inline int
+sign (T x)
 {
-  if (x)
-    return x > T (0) ? 1 : -1;
+  if (x != T (0))
+    return std::signbit (x) ? -1 : 1;
   return 0;
 }
 
-template<class T> inline T sqr (T x)
+template<class T>
+constexpr auto
+sqr (T x)->decltype (x *x)
 {
   return x * x;
 }

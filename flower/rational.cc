@@ -95,7 +95,8 @@ Rational::Rational ()
 
 Rational::Rational (I64 n, I64 d)
 {
-  sign_ = ::sign (n) * ::sign (d);
+  // use sign of n when d=0
+  sign_ = ::sign (n) * (std::signbit (d) ? -1 : 1);
   num_ = ::abs (n);
   den_ = ::abs (d);
   normalize ();
@@ -202,8 +203,7 @@ Rational::normalize ()
     }
   else if (!den_)
     {
-      sign_ = 2;
-      num_ = 1;
+      set_infinite (std::signbit (sign_) ? -1 : 1);
     }
   else if (!num_)
     {
@@ -278,6 +278,12 @@ Rational::Rational (double x)
 {
   if (x != 0.0)
     {
+      if (std::isinf (x))
+        {
+          set_infinite (::sign (x));
+          return;
+        }
+
       sign_ = ::sign (x);
       x *= sign_;
 

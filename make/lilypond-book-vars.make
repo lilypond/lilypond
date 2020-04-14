@@ -60,13 +60,3 @@ OUT_FILES = $(sort $(OUT_HTML_FILES) \
                             $(OUT_TEXINFO_FILES) \
                             $(OUT_TELY_FILES) \
                             $(OUT_DOCBOOK_FILES))
-
-ALL_SOURCES +=\
- $(HTML_FILES)\
- $(HTMLY_FILES)\
- $(XML_FILES)\
- $(LYTEX_FILES)\
- $(LATEX_FILES)\
- $(TEX_FILES)\
- $(TEXINFO_FILES)\
- $(DOCBOOK_FILES)

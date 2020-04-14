@@ -238,14 +238,12 @@ The script `mf-to-table.py' converts the just described information in the
 `*.log' file into the files `*.otf-gtable' and `*.lisp'.  A rule in
 `mf/GNUmakefile' concatenates the `*.lisp' files into `*.otf-table'.
 
-The script `gen-emmentaler-scripts' creates a FontForge script `*.genpe'
-that merges the Feta and Parmesan `*.pfb' font files (created by `mf2pt1')
-into an Emmentaler font, including kerning information (taken from the
-`*tfm' files generated during a METAFONT or METAPOST run).  It also creates
-a text file `*.subfonts' that traces which files have been merged.  The
-files `*.otf-table', `*.otf-gtable', and `*.subfonts' are then embedded
-verbatim into the OpenType font as SFNT tables `LILC', `LILY', and `LILF',
-respectively.
+The *.fontforge.py scripts merge the Feta and Parmesan `*.pfb' font
+files (created by `mf2pt1') into an Emmentaler font, including kerning
+information (taken from the `*tfm' files generated during a METAFONT
+or METAPOST run). The files `*.otf-table', `*.otf-gtable', and
+`*.subfonts' are then embedded verbatim into the OpenType font as SFNT
+tables `LILC', `LILY', and `LILF', respectively.
 
 For music symbols, LilyPond exclusively uses the data of these three tables
 for glyph metrics information; it does not use the metrics information in

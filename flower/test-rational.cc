@@ -124,23 +124,27 @@ TEST (Rational_test, init_zero_over_zero)
     }
 }
 
-#if 0 // TODO: Rational (positive, 0) -> +infinity
 TEST (Rational_test, init_pos_over_zero)
 {
   const Rational r (123, 0);
   EQUAL (1, r.sign ());
   CHECK (r.is_infinity ());
-}
-#endif
 
-#if 0 // TODO: Rational (negative, 0) -> -infinity
+  const auto d = static_cast<double> (r);
+  CHECK (std::isinf (d));
+  CHECK (!std::signbit (d));
+}
+
 TEST (Rational_test, init_neg_over_zero)
 {
   const Rational r (-123, 0);
   EQUAL (-1, r.sign ());
   CHECK (r.is_infinity ());
+
+  const auto d = static_cast<double> (r);
+  CHECK (std::isinf (d));
+  CHECK (std::signbit (d));
 }
-#endif
 
 TEST (Rational_test, init_float_zero)
 {
@@ -150,13 +154,15 @@ TEST (Rational_test, init_float_zero)
   EQUAL (1, r.den ());
 }
 
-#if 0 // TODO: debug initialization by infinities
 TEST (Rational_test, init_float_pos_inf)
 {
   const Rational r (INFINITY);
   EQUAL (1, r.sign ());
   CHECK (r.is_infinity ());
-  CHECK (std::isinf (static_cast<double> (r)));
+
+  const auto d = static_cast<double> (r);
+  CHECK (std::isinf (d));
+  CHECK (!std::signbit (d));
 }
 
 TEST (Rational_test, init_float_neg_inf)
@@ -164,9 +170,11 @@ TEST (Rational_test, init_float_neg_inf)
   const Rational r (-INFINITY);
   EQUAL (-1, r.sign ());
   CHECK (r.is_infinity ());
-  CHECK (std::isinf (static_cast<double> (r)));
+
+  const auto d = static_cast<double> (r);
+  CHECK (std::isinf (d));
+  CHECK (std::signbit (d));
 }
-#endif
 
 TEST (Rational_test, trunc_int)
 {
