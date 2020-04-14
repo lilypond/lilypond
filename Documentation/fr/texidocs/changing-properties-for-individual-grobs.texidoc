@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3ff93fbd01133506d14c929740bd26b34f59c5b4
+%% Translation of GIT committish: 90f1e587efc2159450530da3eb8fb391d156a1dc
   texidocfr = "
 La commande @code{\\applyOutput} permet de personnaliser n'importe quel
 objet de rendu.  Elle requiert une fonction Scheme à trois arguments.
