@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7d1f3dc83d049e1f1d98e71d5365bb17a98397b1
+   Translation of GIT committish: dd5581b435f6e22b492269b69e61057f4f7343a6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -569,7 +569,7 @@ avec la commande @code{\override} :
 
 @seealso
 Manuel de notation :
-@ruser{La commande d'affinage (@emph{tweak})}.
+@ruser{La commande d'affinage (tweak)}.
 
 
 @node Le préfixe single
@@ -3359,7 +3359,7 @@ C'est mieux que d'utiliser, par exemple, @code{extra-offset},
 car la ligne supplémentaire au-dessus du silence est insérée
 automatiquement.
 
-Voir @ruser{Dessin à main levée de liaisons de tenue}
+Voir @ruser{dessin à main levée de liaisons de tenue}
 pour ce qui différencie des valeurs exactes des valeurs inexactes.
 
 
