@@ -86,10 +86,8 @@ local-tags:
 			$(ERROR_LOG) ; \
 	fi
 
-# Don't use $(buildscript-dir)/make-version, because it is not known whether
-# build process has visited scripts/build
-$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(top-src-dir)/scripts/build/make-version.py
-	$(PYTHON) $(top-src-dir)/scripts/build/make-version.py $< > $@
+$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(buildscript-dir)/make-version.py
+	$(PYTHON) $(buildscript-dir)/make-version.py $< > $@
 
 $(outdir)/config.hh: $(config_h)
 	cp -p $< $@
@@ -177,7 +175,6 @@ local-doc:
 
 doc-stage-1:
 	$(MAKE) -C $(top-build-dir)/Documentation/po out=www messages
-	$(MAKE) -C $(depth)/scripts/build out=
 	$(MAKE) out=www WWW-1
 
 doc-clean:

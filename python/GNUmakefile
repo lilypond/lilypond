@@ -8,10 +8,9 @@ PY_MODULES_IN = $(filter-out %_test.py, $(call src-wildcard,*.py))
 
 include $(depth)/make/stepmake.make
 
-$(outdir)/%.pyc.dummy: %.py
+$(outdir)/%.pyc.dummy: %.py $(buildscript-dir)/compile.py
 	$(call ly_progress,Making,$@,(py compile))
-	# Do not use buildscript-dir, this has not been traversed yet.
-	$(PYTHON) $(top-src-dir)/scripts/build/compile.py $< $(outdir)
+	$(PYTHON) $(buildscript-dir)/compile.py $< $(outdir)
 	touch $@
 
 default: $(PY_MODULES_IN:%.py=$(outdir)/%.pyc.dummy)

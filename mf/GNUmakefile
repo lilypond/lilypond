@@ -34,7 +34,7 @@ $(outdir)/%.dvi: %.mf
 
 $(outdir)/%.tfm $(outdir)/%.log $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem invoke-mf2pt1.sh
 	$(call ly_progress,Making,$(outdir)/$*.pfb,< mf)
-	$(src-dir)/invoke-mf2pt1.sh $(buildscript-dir)/mf2pt1 $< $(outdir)/$*.pfb $(METAFONT_QUIET)
+	$(src-dir)/invoke-mf2pt1.sh "$(PERL) $(buildscript-dir)/mf2pt1.pl" $< $(outdir)/$*.pfb $(METAFONT_QUIET)
 
 # since recent mpost versions no longer create a mem file, we create a dummy
 # file to satisfy the dependency (which gets overwritten in case an older
@@ -54,10 +54,6 @@ endif
 $(outdir)/emmentaler-brace.subfonts:
 	$(call ly_progress,Making,$@,)
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
-
-$(outdir)/emmentaler-%.genpe: $(buildscript-dir)/gen-emmentaler-scripts
-	$(call ly_progress,Making,$@,)
-	$< --dir=$(outdir) --design-size=$(patsubst emmentaler-%.genpe,%,$(notdir $@))
 
 
 EXTRA_DIST_FILES += README mf2pt1.mp invoke-mf2pt.sh
@@ -108,7 +104,7 @@ INSTALLATION_OUT_FILES3 = $(LILYPOND_FONTS_CONF)
 #
 $(outdir)/%.global-lisp $(outdir)/%.lisp:  $(outdir)/%.log
 	$(call ly_progress,Making,$(outdir)/$*.lisp,< log)
-	$(buildscript-dir)/mf-to-table $<
+	$(PYTHON) $(buildscript-dir)/mf-to-table.py $<
 
 $(outdir)/emmentaler-%.svg $(outdir)/emmentaler-%.woff $(outdir)/emmentaler-%.otf: gen-emmentaler.fontforge.py\
 			$(outdir)/feta%.pfb \

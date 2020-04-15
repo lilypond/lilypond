@@ -19,7 +19,7 @@ $(outdir)/%.html:  %.xml
 
 $(outdir)/%.tex:  %.lytex
 	$(call ly_progress,Making,$@,< lytex)
-	$(buildscript-dir)/run-and-check "$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<"  $(outdir)/"$*.lytex.log"
+	$(buildscript-dir)/run-and-check.sh "$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<"  $(outdir)/"$*.lytex.log"
 
 $(outdir)/%.tex:  %.tex
 	$(call ly_progress,Making,$@,< tex)
@@ -35,7 +35,7 @@ $(outdir)/%.pdf:  $(outdir)/%.tex
 	$(call ly_progress,Making,$@,< tex)
 	rm -fr $(outdir)/$*.build/
 	mkdir $(outdir)/$*.build
-	cd $(outdir) && $(buildscript-dir)/run-and-check \
+	cd $(outdir) && $(buildscript-dir)/run-and-check.sh \
 		"$(PDFLATEX) -interaction=nonstopmode -halt-on-error \
 			-output-directory=$*.build \
 			$(notdir $<)" \
@@ -89,7 +89,7 @@ $(outdir)/%.xml:  %.lyxml
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.xml
 	$(call ly_progress,Making,$@,< xml)
-	cd $(outdir) && $(buildscript-dir)/run-and-check \
+	cd $(outdir) && $(buildscript-dir)/run-and-check.sh \
 		"$(DBLATEX) $(DBLATEX_BACKEND) -o $*.tmp.pdf $(notdir $<)" \
 		"$*.dblatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)

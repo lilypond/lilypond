@@ -1,5 +1,3 @@
-#!@PYTHON@
-
 from importlib.util import cache_from_source
 import os.path
 import py_compile

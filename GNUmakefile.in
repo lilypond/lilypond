@@ -50,7 +50,7 @@ dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfile
 	chmod  a+x `find $(distdir) -type d -print`
 	$(LN) $(TOPDOC_TXT_FILES) $(distdir)
 	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) .gitfilelist $(distdir)
-	cd $(top-src-dir) && xargs $(buildscript-dir)/mass-link hard . $(distdir) <$(top-build-dir)/.gitfilelist
+	cd $(top-src-dir) && xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard . $(distdir) <$(top-build-dir)/.gitfilelist
 	if test -n "`find $(top-src-dir) -name .git`"; then \
 	  COMMIT_DATE=`git --git-dir=$(top-src-dir)/.git log -1 --format=%cD`; \
 	  find $(distdir) | xargs touch -d "$$COMMIT_DATE"; fi
@@ -84,12 +84,6 @@ $(outdir)/RELEASE-COMMIT:
 refresh-release-files:
 	test -d $(top-src-dir)/.git && rm -f $(RELEASE_OUT_FILES)
 	$(MAKE) $(RELEASE_OUT_FILES)
-
-python-modules:
-	$(MAKE) -C python
-	$(MAKE) -C scripts/build
-
-top-doc: python-modules
 
 local-clean: local-clean-filelist
 
@@ -160,14 +154,14 @@ $(top-build-dir)/.htaccess:
 
 $(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
 	$(call ly_progress,Making,$@,)
-	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
 	find $(outdir)/offline-root -type l | xargs rm -f
-	cd $(outdir)/offline-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize {} +
+	cd $(outdir)/offline-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
 
 $(outdir)/online-root/index.html: $(WEB_TRACKED_FILES)
 	$(call ly_progress,Making,$@,)
-	$(buildscript-dir)/www_post $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) online
-	cd $(outdir)/online-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize {} +
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) online
+	cd $(outdir)/online-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
 endif # ifeq ($(out),www)
 
 # For those who cannot for the life in them remember to type
@@ -190,13 +184,9 @@ src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
 doc-clean: snippets-clean $(tree-share-prefix)/lilypond-force
 
-default: $(config_h) build-dir-setup build-scripts
+default: $(config_h) build-dir-setup
 
 build-dir-setup: $(tree-share-prefix)/lilypond-force
-
-build-scripts:
-	$(MAKE) -C python
-	$(MAKE) -C scripts/build
 
 PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
 HELP_CATALOGS = $(PO_FILES:po/%.po=%)
@@ -289,8 +279,7 @@ $(config_h): config.hh.in
 	@false
 
 grand-replace:
-	$(MAKE) -C scripts/build
-	cd $(top-src-dir) && $(buildscript-dir)/grand-replace
+	cd $(top-src-dir) && $(PYTHON) $(buildscript-dir)/grand-replace.py
 
 
 ################################################################
@@ -357,7 +346,7 @@ local-check-pre:
 local-check: local-check-pre
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
-	$(buildscript-dir)/output-distance $(if $(VERBOSE),-v) \
+	$(PYTHON) $(buildscript-dir)/output-distance.py $(if $(VERBOSE),-v) \
 		--local-datadir --output-dir $(RESULT_DIR) \
 		input/regression/out-test-baseline input/regression/out-test \
 		input/regression/midi/out-test-baseline input/regression/midi/out-test

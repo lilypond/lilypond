@@ -115,29 +115,10 @@ $(outdir)/ROADMAP:
 $(outdir)/contributor.texi: $(outdir)/ROADMAP
 
 ### bad hack for badly-integrated bibliography
-$(outdir)/colorado.itexi:
+$(outdir)/%.itexi: essay/%.bib
 	$(call ly_progress,Making,$@,< bib)
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/colorado.itexi \
-		-q \
-		$(src-dir)/essay/colorado.bib
-
-$(outdir)/computer-notation.itexi:
-	$(call ly_progress,Making,$@,< bib)
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/computer-notation.itexi \
-		-q \
-		$(src-dir)/essay/computer-notation.bib
-
-$(outdir)/engravingbib.itexi:
-	$(call ly_progress,Making,$@,< bib)
-	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/engravingbib.itexi \
-		-q \
-		$(src-dir)/essay/engravingbib.bib
+	BSTINPUTS=$(src-dir)/essay $(PYTHON) $(buildscript-dir)/bib2texi.py \
+		-s $(top-src-dir)/Documentation/lily-bib -o $@ -q $<
 
 $(outdir)/essay.texi: \
   $(outdir)/colorado.itexi \
@@ -204,7 +185,7 @@ endif
 
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<"  "$*.makeinfo.log"
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<"  "$*.makeinfo.log"
 
 txt-to-html: $(OUT_TXT_FILES) $(OUT_TXT_FILES:%.txt=%.html)
 
@@ -214,7 +195,7 @@ $(OUT_TXT_FILES): $(outdir)/%.txt: $(top-src-dir)/%
 
 $(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
 	$(call ly_progress,Making,$@,< txt)
-	$(buildscript-dir)/text2html $<
+	$(PYTHON) $(buildscript-dir)/text2html.py $<
 
 # Explicitly list the dependencies on generated content
 $(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi $(outdir)/version.itexi
@@ -243,12 +224,12 @@ endif
 $(outdir)/notation/notation.xml: $(outdir)/notation.texi
 	$(call ly_progress,Making,$@,< texi)
 	mkdir -p $(dir $@)
-	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
 
 $(outdir)/internals/internals.xml: $(outdir)/internals.texi
 	$(call ly_progress,Making,$@,< texi)
 	mkdir -p $(dir $@)
-	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 
@@ -274,7 +255,7 @@ $(OUT_SNIPPET_LY_FILES): out/ly-snippets.dep
 out/ly-snippets.dep: $(SNIPPET_LY_FILES)
 	$(call ly_progress,Making,$@,)
 	mkdir -p snippets/out
-	$(buildscript-dir)/makesnippets $(src-dir)/snippets snippets/out $(src-dir)
+	$(PYTHON) $(buildscript-dir)/makesnippets.py $(src-dir)/snippets snippets/out $(src-dir)
 	mkdir -p out
 	touch $@
 
@@ -294,11 +275,11 @@ $(outdir)/%.php: %.php
 $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 	$(call ly_progress,Making,$@,< yy)
 	cd $(outdir) && $(BISON) -v $<
-	$(buildscript-dir)/yyout2grammar $(outdir)/parser.output $@
+	$(PYTHON) $(buildscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
 
 $(outdir)/internals.texi: $(LILYPOND_BINARY) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	$(call ly_progress,Making,$@,)
-	cd $(outdir) && $(buildscript-dir)/run-and-check "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
+	cd $(outdir) && $(buildscript-dir)/run-and-check.sh "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
 
 ## Dependencies on the automatically generated documentation
 $(outdir)/contributor.texi: $(outdir)/ly-grammar.txt

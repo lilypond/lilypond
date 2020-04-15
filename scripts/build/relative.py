@@ -1,5 +1,3 @@
-#! @PYTHON@
-
 import os
 import sys
 

@@ -1,5 +1,3 @@
-#!@PYTHON@
-#
 #  yyout2grammar.py
 
 # This file is part of LilyPond, the GNU music typesetter.

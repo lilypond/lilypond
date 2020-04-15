@@ -44,7 +44,7 @@ $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCAL
 
 $(outdir)/others-did.itexi $(outdir)/we-wrote.itexi: $(outdir)/%.itexi: $(top-src-dir)/Documentation/web/%.bib $(top-src-dir)/Documentation/lily-bib.bst
 	$(call ly_progress,Making,$@,)
-	BSTINPUTS=$(top-src-dir)/Documentation/web/ $(buildscript-dir)/bib2texi \
+	BSTINPUTS=$(top-src-dir)/Documentation/web/ $(PYTHON) $(buildscript-dir)/bib2texi.py \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/$*.itexi \
 		-q \

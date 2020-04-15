@@ -1,5 +1,3 @@
-#!@PYTHON@
-
 # mf-to-table.py -- convert spacing info in MF logs .
 
 # This file is part of LilyPond, the GNU music typesetter.

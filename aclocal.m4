@@ -415,9 +415,6 @@ EOF
             exit 2
         fi
 
-        abssrcdir="`cd $srcdir; pwd`"
-        absbuilddir="`pwd`"
-
         depth=""
         for d in 2 3 4 5 ; do
             depth="$depth../"
@@ -706,6 +703,9 @@ AC_DEFUN(STEPMAKE_INIT, [
     else
         srcdir_build=no
     fi
+    abssrcdir="`cd $srcdir; pwd`"
+    absbuilddir="`pwd`"
+
 
     AC_SUBST(VERSION)
     AC_SUBST(MAJOR_VERSION)

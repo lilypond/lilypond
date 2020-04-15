@@ -1,4 +1,3 @@
-#!@PYTHON@
 # -*- coding: utf-8 -*-
 # extract_texi_filenames.py
 

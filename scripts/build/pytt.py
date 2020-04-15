@@ -1,5 +1,3 @@
-#! @PYTHON@
-
 '''
     Copyright (C) 2008--2020 Jan Nieuwenhuizen <janneke@gnu.org>
 

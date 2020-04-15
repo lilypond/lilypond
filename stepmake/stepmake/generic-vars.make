@@ -41,7 +41,7 @@ po-outdir = $(depth)/po/$(outdir)
 # stepmake package support.
 DEPTH = $(depth)/$(package-depth)
 
-INSTALLPY=$(buildscript-dir)/install -c
+INSTALLPY=$(PYTHON) $(buildscript-dir)/install.py -c
 INSTALL=$(INSTALLPY)
 
 package-icon = $(outdir)/$(package)-icon.xpm

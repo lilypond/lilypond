@@ -1,4 +1,3 @@
-#!@PYTHON@
 # mass-link.py
 
 # USAGE:  mass-link.py  [--prepend-suffix SUFFIX]   symbolic | hard   SOURCEDIR DESTDIR FILES

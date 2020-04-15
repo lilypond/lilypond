@@ -3,7 +3,7 @@
 ifeq ($(LILYPOND_EXTERNAL_BINARY),)
 
 # environment settings.
-export PATH:=$(top-build-dir)/lily/$(outconfbase):$(buildscript-dir):$(top-build-dir)/scripts/$(outconfbase):$(PATH)
+export PATH:=$(top-build-dir)/lily/$(outconfbase):$(top-build-dir)/scripts/$(outconfbase):$(PATH)
 export LILYPOND_BINARY=$(top-build-dir)/$(outconfbase)/bin/lilypond
 else
 
@@ -20,8 +20,6 @@ LANGS=$(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 # Don't create __pycache__ in the source directory.
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH:=$(top-src-dir)/python:$(PYTHONPATH)
-
-the-script-dir=$(wildcard $(script-dir))
 
 ABC2LY = $(script-dir)/abc2ly.py
 MIDI2LY = $(script-dir)/midi2ly.py
@@ -88,4 +86,4 @@ export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out-www
 #texi-html for www only:
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
 LY2DVI = $(LILYPOND_BINARY)
-LYS_TO_TELY = $(buildscript-dir)/lys-to-tely
+LYS_TO_TELY = $(PYTHON) $(buildscript-dir)/lys-to-tely.py

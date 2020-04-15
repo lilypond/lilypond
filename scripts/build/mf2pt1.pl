@@ -1,5 +1,3 @@
-#!@PERL@
-
 ##################################################
 # Convert stylized Metafont to PostScript Type 1 #
 # By Scott Pakin <scott+mf@pakin.org>            #

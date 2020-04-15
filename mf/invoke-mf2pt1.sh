@@ -8,7 +8,7 @@ realpath() {
 }
 
 set -eu
-mf2pt1="$(realpath $1)"
+mf2pt1="$1"
 src="$(realpath $2)"
 target="$3"
 target_path="$(realpath ${target})"

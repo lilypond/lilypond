@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 # Call with a number of HTML files as argument that may contain
 # comments of the form

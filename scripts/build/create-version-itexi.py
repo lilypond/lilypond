@@ -1,4 +1,3 @@
-#!@PYTHON@
 # create-version-itexi.py
 
 """ when being called on lilypond.org, pass it the location of the

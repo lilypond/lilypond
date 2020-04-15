@@ -2,17 +2,10 @@ depth = ..
 
 INSTALLATION_OUT_DIR=$(vimdir)/syntax
 INSTALLATION_OUT_FILES=$(LILYPOND_WORDS)
-# $(outdir)/lilypond-words $(outdir)/lilypond-words.el
 
 EXTRA_DIST_FILES=$(call src-wildcard,*.vim) vimrc
 
 LILYPOND_WORDS = $(outdir)/lilypond-words $(outdir)/lilypond-words.vim
-LILYPOND_WORDS_DEPENDS =\
-  $(top-src-dir)/lily/lily-lexer.cc \
-  $(buildscript-dir)/lilypond-words \
-  $(top-src-dir)/scm/markup.scm \
-  $(top-src-dir)/ly/engraver-init.ly
-
 STEPMAKE_TEMPLATES=install-out
 
 # vimdir defined in config.make
@@ -31,11 +24,8 @@ local-uninstall:
 	done
 	-rmdir -p $(DESTDIR)$(vimdir)
 
-$(buildscript-dir)/lilypond-words:
-	$(MAKE) -C $(depth)/scripts/build
-
 $(LILYPOND_WORDS):
 	$(call ly_progress,Making,$@,)
-	cd $(top-src-dir) && $(buildscript-dir)/lilypond-words --words --vim --dir=$(top-build-dir)/vim/$(outconfbase)
+	cd $(top-src-dir) && $(PYTHON) $(buildscript-dir)/lilypond-words.py --words --vim --dir=$(top-build-dir)/vim/$(outdir)
 
 all: $(LILYPOND_WORDS)

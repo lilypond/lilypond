@@ -15,7 +15,7 @@ endif
 
 $(outdir)/%.png: %.ly
 	$(call ly_progress,Making,$@,< ly)
-	$(buildscript-dir)/run-and-check "$(LILYPOND_PREVIEW) -o $(outdir) $<" "$*.preview.log"
+	$(buildscript-dir)/run-and-check.sh "$(LILYPOND_PREVIEW) -o $(outdir) $<" "$*.preview.log"
 	mv $(outdir)/$*.preview.png $@
 
 $(outdir)/%-small.png: $(outdir)/%.png

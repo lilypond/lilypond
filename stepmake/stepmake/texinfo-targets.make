@@ -48,7 +48,7 @@ uninstall-info-images:
 
 else # if HTML and PDF docs are installed too, symlink image directories
 install-info-images: uninstall-info-images
-	cd $(DESTDIR)$(infodir) && ln -sf $$($(PYTHON) $(buildscript-dir)/relative $(DESTDIR)$(webdir)/$(DEST_INFO_IMAGES_SUBDIR)) $(INFO_IMAGES_DIR)
+	cd $(DESTDIR)$(infodir) && ln -sf $$($(PYTHON) $(buildscript-dir)/relative.py $(DESTDIR)$(webdir)/$(DEST_INFO_IMAGES_SUBDIR)) $(INFO_IMAGES_DIR)
 
 uninstall-info-images:
 	rm -f $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR) || rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)

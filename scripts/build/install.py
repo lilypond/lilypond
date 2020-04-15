@@ -1,4 +1,3 @@
-#!@PYTHON@
 import getopt
 import sys
 import os

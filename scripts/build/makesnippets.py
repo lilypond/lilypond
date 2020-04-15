@@ -1,4 +1,3 @@
-#!@PYTHON@
 # makesnippets.py
 
 '''USAGE: makesnippets.py INPUT_DIR OUTPUT_DIR DOC_DIR

@@ -1,5 +1,3 @@
-#!@PYTHON@
-
 # Created 01 September 2003 by Heikki Junes.
 # Rewritten by John Mandereau
 

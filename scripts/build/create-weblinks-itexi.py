@@ -1,4 +1,3 @@
-#!@PYTHON@
 # -*- coding: utf-8 -*-
 # create-weblinks-itexi.py
 
