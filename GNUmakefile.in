@@ -290,7 +290,7 @@ $(config_h): config.hh.in
 
 grand-replace:
 	$(MAKE) -C scripts/build
-	PATH=$(buildscript-dir):$(PATH) $(buildscript-dir)/grand-replace
+	cd $(top-src-dir) && $(buildscript-dir)/grand-replace
 
 
 ################################################################

@@ -57,8 +57,7 @@ copied_files = [
 def main ():
     files = filter_out (lambda x: (os.path.basename (x) in copied_files
                                    or 'CHANGES' in x or 'ChangeLog' in x),
-                        read_pipe ('cd @top-src-dir@ && git ls-files').split ())
-    os.chdir ('@top-src-dir@')
+                        read_pipe ('git ls-files').split ())
     year = datetime.datetime.now ().year
     last_year = year - 1
     last_year_1d = last_year % 10
