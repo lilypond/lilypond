@@ -30,6 +30,7 @@
 #include "main.hh"
 #include "midi-chunk.hh"
 #include "midi-stream.hh"
+#include "output-def.hh"
 #include "score.hh"
 #include "string-convert.hh"
 #include "warn.hh"
@@ -39,7 +40,7 @@ using std::string;
 Performance::Performance (bool ports)
   : midi_ (0),
     ports_ (ports),
-    header_ (SCM_EOL)
+    headers_ (SCM_EOL)
 {
 }
 
@@ -51,20 +52,14 @@ Performance::~Performance ()
 void
 Performance::derived_mark () const
 {
-  scm_gc_mark (header_);
-}
-
-SCM
-Performance::get_header () const
-{
-  return header_;
+  scm_gc_mark (headers_);
 }
 
 void
-Performance::set_header (SCM module)
+Performance::push_header (SCM header)
 {
-  assert (ly_is_module (module));
-  header_ = module;
+  assert (ly_is_module (header));
+  headers_ = scm_cons (header, headers_);
 }
 
 void
@@ -128,6 +123,10 @@ Performance::write_output (string out, const string &performance_name) const
 
   output (midi_stream, performance_name);
   progress_indication ("\n");
+
+  SCM after_writing = midi_->c_variable ("after-writing");
+  if (ly_is_procedure (after_writing))
+    scm_call_2 (after_writing, self_scm (), ly_string2scm (out));
 }
 
 void

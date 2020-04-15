@@ -19,26 +19,13 @@
 
 #include "performance.hh"
 
-LY_DEFINE (ly_performance_header, "ly:performance-header",
+LY_DEFINE (ly_performance_headers, "ly:performance-headers",
            1, 0, 0, (SCM performance),
-           "Return header of performance.")
+           "Return the list of headers with the innermost first.")
 {
   LY_ASSERT_SMOB (Performance, performance, 1);
   Performance *p = unsmob<Performance> (performance);
-  return p->get_header ();
-}
-
-LY_DEFINE (ly_performance_set_header_x, "ly:performance-set-header!",
-           2, 0, 0, (SCM performance, SCM module),
-           "Set the performance header.")
-{
-  LY_ASSERT_SMOB (Performance, performance, 1);
-  SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
-                   "module");
-
-  Performance *p = unsmob<Performance> (performance);
-  p->set_header (module);
-  return SCM_UNSPECIFIED;
+  return p->get_headers ();
 }
 
 LY_DEFINE (ly_performance_write, "ly:performance-write",

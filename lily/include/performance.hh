@@ -31,8 +31,12 @@ public:
   ~Performance ();
   OVERRIDE_CLASS_NAME (Performance);
 
-  SCM get_header () const;
-  void set_header (SCM header);
+  // get list of headers (innermost is first)
+  SCM get_headers () { return headers_; }
+
+  // Add to the front of the list of headers.  The front header is considered
+  // the innermost header.
+  void push_header (SCM headers);
 
   void derived_mark () const override;
 
@@ -49,7 +53,9 @@ public:
   std::vector<Audio_element *> audio_elements_;
   Output_def *midi_;
   bool ports_;
-  SCM header_;
+private:
+  // list of headers (innermost is first)
+  SCM headers_;
 };
 
 #endif /* PERFORMANCE_HH */
