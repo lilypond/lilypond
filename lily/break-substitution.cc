@@ -437,11 +437,12 @@ Spanner::fast_substitute_grob_array (SCM sym,
   This becomes a problem if lily is linked against guile with
   pthreads. pthreads impose small limits on the stack size.
 */
-SCM
-substitute_object_alist (SCM alist, SCM dest)
+void
+substitute_object_alist (SCM alist, SCM *dest)
 {
-  SCM l = SCM_EOL;
-  SCM *tail = &l;
+  SCM old = *dest;
+  *dest = SCM_EOL;
+  SCM *tail = dest;
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sym = scm_caar (s);
@@ -449,7 +450,7 @@ substitute_object_alist (SCM alist, SCM dest)
 
       if (Grob_array *orig = unsmob<Grob_array> (val))
         {
-          SCM handle = scm_assq (sym, dest);
+          SCM handle = scm_assq (sym, old);
           SCM newval
             = (scm_is_pair (handle))
               ? scm_cdr (handle)
@@ -473,7 +474,6 @@ substitute_object_alist (SCM alist, SCM dest)
           tail = SCM_CDRLOC (*tail);
         }
     }
-  return l;
 }
 
 void
@@ -512,5 +512,5 @@ void
 Grob::substitute_object_links (SCM crit, SCM orig)
 {
   set_break_substitution (crit);
-  object_alist_ = substitute_object_alist (orig, object_alist_);
+  substitute_object_alist (orig, &object_alist_);
 }
