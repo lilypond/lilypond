@@ -32,12 +32,11 @@
 
 struct Building
 {
-  Real start_;
-  Real end_;
+  Interval x_;
   Real y_intercept_;
   Real slope_;
 
-  void precompute (Real start, Real start_height, Real end_height, Real end);
+  void precompute (Real start_height, Real end_height);
   Building (Real start, Real start_height, Real end_height, Real end);
   Building (Box const &b, Axis a, Direction d);
   void print () const;
