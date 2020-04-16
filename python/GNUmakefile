@@ -11,7 +11,7 @@ include $(depth)/make/stepmake.make
 $(outdir)/%.pyc.dummy: %.py
 	$(call ly_progress,Making,$@,(py compile))
 	# Do not use buildscript-dir, this has not been traversed yet.
-	cd $(outdir) && $(PYTHON) $(top-src-dir)/scripts/build/compile.py $<
+	$(PYTHON) $(top-src-dir)/scripts/build/compile.py $< $(outdir)
 	touch $@
 
 default: $(PY_MODULES_IN:%.py=$(outdir)/%.pyc.dummy)
