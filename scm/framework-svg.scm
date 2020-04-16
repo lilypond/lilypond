@@ -56,7 +56,7 @@
        `(viewBox . ,(ly:format "~4f ~4f ~4f ~4f"
                                (third rest) (fourth rest)
                                (fifth rest) (sixth rest))))
-   (eo 'style #t '(text . "style/css"))
+   (eo 'style #t '(type . "text/css"))
    "<![CDATA[
 tspan { white-space: pre; }
 "))
