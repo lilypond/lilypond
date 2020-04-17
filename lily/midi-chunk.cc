@@ -60,9 +60,9 @@ Midi_track::Midi_track (int number, bool port)
 
   if (port)
     {
-      string port = "00" "ff" "21" "01"
-                    + String_convert::int2hex (number_, 2, '0');
-      data_string += String_convert::hex2bin (port);
+      uint8_t num = uint8_t (number_);
+      uint8_t out[5] = {0x00, 0xff, 0x21, 0x01, num};
+      data_string += string ((char *) out, sizeof (out));
     }
 
   set ("MTrk", data_string, "");
@@ -166,17 +166,9 @@ Midi_event::to_string () const
 
 Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
 {
-  string str;
-
-  string format_string = String_convert::int2hex (format, 4, '0');
-  str += String_convert::hex2bin (format_string);
-
-  string tracks_string = String_convert::int2hex (tracks, 4, '0');
-  str += String_convert::hex2bin (tracks_string);
-
-  string tempo_string = String_convert::int2hex (clocks_per_4, 4, '0');
-  str += String_convert::hex2bin (tempo_string);
-
+  string str = String_convert::be_u16 (uint16_t (format))
+               + String_convert::be_u16 (uint16_t (tracks))
+               + String_convert::be_u16 (uint16_t (clocks_per_4));
   set ("MThd", str, "");
 }
 
@@ -207,14 +199,10 @@ Midi_chunk::to_string () const
 {
   string str = header_string_;
   string dat = data_string ();
-  string length_string = String_convert::int2hex (dat.length ()
-                                                  + footer_string_.length (), 8, '0');
-  length_string = String_convert::hex2bin (length_string);
-
-  str += length_string;
+  uint32_t total = uint32_t (dat.length () + footer_string_.length ());
+  str += String_convert::be_u32 (total);
   str += dat;
   str += footer_string_;
 
   return str;
 }
-

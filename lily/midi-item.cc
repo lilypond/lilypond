@@ -154,13 +154,10 @@ Midi_key::Midi_key (Audio_key *a)
 string
 Midi_key::to_string () const
 {
-  string str = "ff5902";
-  str += String_convert::int2hex (audio_->accidentals_, 2, '0');
-  if (audio_->major_)
-    str += String_convert::int2hex (0, 2, '0');
-  else
-    str += String_convert::int2hex (1, 2, '0');
-  return String_convert::hex2bin (str);
+  uint8_t str[] = {0xff, 0x59, 0x02, uint8_t (audio_->accidentals_),
+                   uint8_t (audio_->major_ ? 0 : 1)};
+
+  return string ((char *) str, sizeof (str));
 }
 
 Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
@@ -181,12 +178,14 @@ Midi_time_signature::to_string () const
 
   int den = audio_->one_beat_;
 
-  string str = "ff5804";
-  str += String_convert::int2hex (num, 2, '0');
-  str += String_convert::int2hex (intlog2 (den), 2, '0');
-  str += String_convert::int2hex (clocks_per_1_, 2, '0');
-  str += String_convert::int2hex (8, 2, '0');
-  return String_convert::hex2bin (str);
+  uint8_t out[] = {0xff,
+                   0x58,
+                   0x04,
+                   uint8_t (num),
+                   uint8_t (intlog2 (den)),
+                   uint8_t (clocks_per_1_),
+                   8};
+  return string ((char *) out, sizeof (out));
 }
 
 Midi_note::Midi_note (Audio_note *a)
@@ -306,10 +305,10 @@ Midi_tempo::Midi_tempo (Audio_tempo *a)
 string
 Midi_tempo::to_string () const
 {
-  int useconds_per_4 = 60 * (int)1e6 / audio_->per_minute_4_;
-  string str = "ff5103";
-  str += String_convert::int2hex (useconds_per_4, 6, '0');
-  return String_convert::hex2bin (str);
+  uint32_t useconds_per_4 = 60 * (int) 1e6 / audio_->per_minute_4_;
+  uint8_t out[] = {0xff, 0x51, 0x03};
+  return string ((char *) out, sizeof (out))
+         + String_convert::be_u24 (useconds_per_4);
 }
 
 Midi_text::Midi_text (Audio_text *a)
@@ -320,9 +319,9 @@ Midi_text::Midi_text (Audio_text *a)
 string
 Midi_text::to_string () const
 {
-  string str = "ff" + String_convert::int2hex (audio_->type_, 2, '0');
-  str = String_convert::hex2bin (str);
-  str += int2midi_varint_string (audio_->text_string_.length ());
+  uint8_t text_code[] = {0xff, audio_->type_};
+  string str ((char *) text_code, sizeof (text_code));
+  str += int2midi_varint_string (int (audio_->text_string_.length ()));
   str += audio_->text_string_;
   return str;
 }

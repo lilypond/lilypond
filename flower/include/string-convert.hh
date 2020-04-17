@@ -19,6 +19,9 @@ class String_convert
   static int hex2nibble (Byte byte);
   static Byte nibble2hex_byte (Byte byte);
 public:
+  static std::string be_u32 (uint32_t u);
+  static std::string be_u24 (uint32_t u);
+  static std::string be_u16 (uint16_t u);
   static std::string pad_to (const std::string &s, size_t length);
   static std::string bin2hex (Byte bin_char);
   static std::string bin2hex (const std::string &bin_string);

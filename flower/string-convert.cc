@@ -191,3 +191,33 @@ String_convert::to_lower (string s)
   std::transform(s.begin (), s.end (), s.begin (), ::tolower);
   return s;
 }
+
+string
+String_convert::be_u16 (uint16_t u)
+{
+  char r[2];
+  r[0] = uint8_t (u >> 8);
+  r[1] = uint8_t (u);
+  return string (r, 2);
+}
+
+string
+String_convert::be_u32 (uint32_t u)
+{
+  char r[4];
+  r[0] = uint8_t (u >> 24);
+  r[1] = uint8_t (u >> 16);
+  r[2] = uint8_t (u >> 8);
+  r[3] = uint8_t (u);
+  return string (r, 4);
+}
+
+string
+String_convert::be_u24 (uint32_t u)
+{
+  char r[3];
+  r[0] = uint8_t (u >> 16);
+  r[1] = uint8_t (u >> 8);
+  r[2] = uint8_t (u);
+  return string (r, 3);
+}
