@@ -30,11 +30,12 @@ public:
 
   void translate (Offset o);
 
-  /// smallest box enclosing #b#
   void set_empty ();
   void add_point (Offset);
   void widen (Real x, Real y);
   void scale (Real r);
+
+  /// smallest box enclosing `this` and `b`
   void unite (Box b);
   void intersect (Box b);
   void print ();
