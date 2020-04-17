@@ -853,9 +853,11 @@ stencil_dispatcher (vector<Box> &boxes,
 {
   if (not scm_is_pair (expr))
     return;
-  if (scm_is_eq (scm_car (expr), ly_symbol2scm ("draw-line")))
+
+  SCM head = scm_car (expr);
+  if (scm_is_eq (head, ly_symbol2scm ("draw-line")))
     make_draw_line_boxes (boxes, buildings, trans, scm_cdr (expr), true);
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("dashed-line")))
+  else if (scm_is_eq (head, ly_symbol2scm ("dashed-line")))
     {
       expr = scm_cdr (expr);
       SCM th = scm_car (expr);
@@ -869,7 +871,7 @@ stencil_dispatcher (vector<Box> &boxes,
                             scm_list_5 (th, scm_from_double (0.0),
                                         scm_from_double (0.0), x1, x2), true);
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("circle")))
+  else if (scm_is_eq (head, ly_symbol2scm ("circle")))
     {
       expr = scm_cdr (expr);
       SCM rad = scm_car (expr);
@@ -885,7 +887,7 @@ stencil_dispatcher (vector<Box> &boxes,
                                               SCM_BOOL_T,
                                               SCM_UNDEFINED));
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("ellipse")))
+  else if (scm_is_eq (head, ly_symbol2scm ("ellipse")))
     {
       expr = scm_cdr (expr);
       SCM x_rad = scm_car (expr);
@@ -903,17 +905,17 @@ stencil_dispatcher (vector<Box> &boxes,
                                               SCM_BOOL_T,
                                               SCM_UNDEFINED));
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("partial-ellipse")))
+  else if (scm_is_eq (head, ly_symbol2scm ("partial-ellipse")))
     make_partial_ellipse_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("round-filled-box")))
+  else if (scm_is_eq (head, ly_symbol2scm ("round-filled-box")))
     make_round_filled_box_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("named-glyph")))
+  else if (scm_is_eq (head, ly_symbol2scm ("named-glyph")))
     make_named_glyph_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("polygon")))
+  else if (scm_is_eq (head, ly_symbol2scm ("polygon")))
     make_polygon_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("path")))
+  else if (scm_is_eq (head, ly_symbol2scm ("path")))
     make_path_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("glyph-string")))
+  else if (scm_is_eq (head, ly_symbol2scm ("glyph-string")))
     make_glyph_string_boxes (boxes, buildings, trans, scm_cdr (expr));
   else
     {
@@ -937,44 +939,46 @@ stencil_traverser (SCM trans, SCM expr, SCM tail)
   if (scm_is_null (expr)
       || (scm_is_string (expr) && scm_is_true (scm_string_null_p (expr))))
     return tail;
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("combine-stencil")))
+
+  SCM head = scm_car (expr);
+  if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
     {
       for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
         tail = stencil_traverser (trans, scm_car (s), tail);
       return tail;
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("footnote")))
+  else if (scm_is_eq (head, ly_symbol2scm ("footnote")))
     return tail;
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("translate-stencil")))
+  else if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
     {
       Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
       trans = robust_scm2transform (trans).translate (p).smobbed_copy ();
       return stencil_traverser (trans, scm_caddr (expr), tail);
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("scale-stencil")))
+  else if (scm_is_eq (head, ly_symbol2scm ("scale-stencil")))
     {
       Real x = robust_scm2double (scm_caadr (expr), 0.0);
       Real y = robust_scm2double (scm_cadadr (expr), 0.0);
       trans = robust_scm2transform (trans).scale (x, y).smobbed_copy ();
       return stencil_traverser (trans, scm_caddr (expr), tail);
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rotate-stencil")))
+  else if (scm_is_eq (head, ly_symbol2scm ("rotate-stencil")))
     {
       Real ang = robust_scm2double (scm_caadr (expr), 0.0);
       Offset center = robust_scm2offset (scm_cadadr (expr), Offset (0.0, 0.0));
       trans = robust_scm2transform (trans).rotate (ang, center).smobbed_copy ();
       return stencil_traverser (trans, scm_caddr (expr), tail);
     }
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("delay-stencil-evaluation")))
+  else if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
     // should not use the place-holder text, but no need for the warning below
     return tail;
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("grob-cause")))
+  else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
     return stencil_traverser (trans, scm_caddr (expr), tail);
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("color")))
+  else if (scm_is_eq (head, ly_symbol2scm ("color")))
     return stencil_traverser (trans, scm_caddr (expr), tail);
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("output-attributes")))
+  else if (scm_is_eq (head, ly_symbol2scm ("output-attributes")))
     return stencil_traverser (trans, scm_caddr (expr), tail);
-  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("with-outline")))
+  else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
     return stencil_traverser (trans, scm_cadr (expr), tail);
   else
     {
@@ -1073,8 +1077,8 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
   SCM data = scm_reverse_x (stencil_traverser (SCM_EOL, s->expr (), SCM_EOL), SCM_EOL);
   vector<Box> boxes;
   vector<Drul_array<Offset> > buildings;
-  for (data = scm_reverse_x (data, SCM_EOL); scm_is_pair (data); data = scm_cdr (data))
-    stencil_dispatcher (boxes, buildings, scm_caar (data), scm_cdar (data));
+  for (SCM s = scm_reverse_x (data, SCM_EOL); scm_is_pair (s); s = scm_cdr (s))
+    stencil_dispatcher (boxes, buildings, scm_caar (s), scm_cdar (s));
 
   // we use the bounding box if there are no boxes
   // FIXME: Rotation?
@@ -1101,7 +1105,6 @@ Grob::vertical_skylines_from_stencil (SCM smob)
   SCM rot = me->get_property ("rotation");
   SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
                                             pad, rot, X_AXIS);
-
   return out;
 }
 
