@@ -460,12 +460,20 @@ make_draw_bezier_boxes (vector<Box> &boxes,
                            + (temp3 - temp2).length ())
                           / QUANTIZATION_UNIT);
 
-  Offset d0 = curve.dir_at_point (0.0);
-  Offset d1 = curve.dir_at_point (1.0);
+  Offset d0;
+  Offset d1;
 
-  Offset normal = get_normal ((th / 2) * d0);
+  Offset normal;
+  if (th > 0)
+    {
+      d0 = curve.dir_at_point (0.0);
+      normal = get_normal ((th / 2) * d0);
+    }
+
   for (DOWN_and_UP (d))
     {
+      if (th == 0.0 && d == UP)
+        break;
       points[d].push_back (
         scm_transform (trans, curve.control_[0] + d * normal));
     }
@@ -477,14 +485,23 @@ make_draw_bezier_boxes (vector<Box> &boxes,
 
       for (DOWN_and_UP (d))
         {
+          if (th == 0.0 && d == UP)
+            break;
           points[d].push_back (
             scm_transform (trans, curve.curve_point (pt) + d * norm));
         }
     }
 
-  normal = get_normal ((th / 2) * d1);
+  if (th > 0)
+    {
+      d1 = curve.dir_at_point (1.0);
+      normal = get_normal ((th / 2) * d1);
+    }
+
   for (DOWN_and_UP (d))
     {
+      if (th == 0.0 && d == UP)
+        break;
       points[d].push_back (
         scm_transform (trans, curve.control_[3] + d * normal));
     }
@@ -494,13 +511,15 @@ make_draw_bezier_boxes (vector<Box> &boxes,
       Box b;
       for (DOWN_and_UP (d))
         {
+          if (th == 0.0 && d == UP)
+            break;
           b.add_point (points[d][i]);
           b.add_point (points[d][i + 1]);
         }
       boxes.push_back (b);
     }
 
-  if (th >= 0)
+  if (th > 0)
     {
       // beg line cap
       create_path_cap (boxes, buildings, trans, curve.control_[0], th / 2, -d0);
