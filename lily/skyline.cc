@@ -23,7 +23,6 @@
 #include <cstdio>
 
 using std::deque;
-using std::list;
 using std::vector;
 
 /* A skyline is a sequence of non-overlapping buildings: something like
@@ -70,10 +69,10 @@ using std::vector;
 */
 
 static void
-print_buildings (list<Building> const &b)
+print_buildings (vector<Building> const &b)
 {
-  for (list<Building>::const_iterator i = b.begin (); i != b.end (); i++)
-    i->print ();
+  for (auto i : b)
+    i.print ();
 }
 
 void
@@ -87,9 +86,9 @@ Skyline::print_points () const
 {
   vector<Offset> ps (to_points (X_AXIS));
 
-  for (vsize i = 0; i < ps.size (); i++)
-    printf ("(%f,%f)%s", ps[i][X_AXIS], ps[i][Y_AXIS],
-            (i % 2) == 1 ? "\n" : " ");
+  int i = 0;
+  for (Offset p : ps)
+    printf ("(%f,%f)%s", p[X_AXIS], p[Y_AXIS], (i++ % 2) == 1 ? "\n" : " ");
 }
 
 Building::Building (Real start, Real start_height, Real end_height, Real end)
@@ -174,44 +173,22 @@ Building::above (Building const &other, Real x) const
          : (slope_ - other.slope_) * x + y_intercept_ > other.y_intercept_;
 }
 
-// Remove redundant empty buildings from the skyline.
-// If there are two adjacent empty buildings, they can be
-// turned into one.
 void
-Skyline::normalize ()
+Skyline::internal_merge_skyline (vector<Building> const *sbp,
+                                 vector<Building> const *scp,
+                                 vector<Building> *result) const
 {
-  bool last_empty = false;
-  list<Building>::iterator i;
-
-  for (i = buildings_.begin (); i != buildings_.end (); i++)
-    {
-      if (last_empty && i->y_intercept_ == -infinity_f)
-        {
-          list<Building>::iterator last = i;
-          last--;
-          last->x_[RIGHT] = i->x_[RIGHT];
-          buildings_.erase (i);
-          i = last;
-        }
-      last_empty = (i->y_intercept_ == -infinity_f);
-    }
-
-  assert (buildings_.front ().x_[LEFT] == -infinity_f);
-  assert (buildings_.back ().x_[RIGHT] == infinity_f);
-}
-
-void
-Skyline::internal_merge_skyline (list<Building> *sb, list<Building> *sc,
-                                 list<Building> *const result) const
-{
-  if (sb->empty () || sc->empty ())
+  if (sbp->empty () || scp->empty ())
     {
       programming_error ("tried to merge an empty skyline");
       return;
     }
+  result->reserve (std::max (sbp->size (), scp->size ()));
+  auto bit = sbp->begin ();
+  auto cit = scp->begin ();
 
-  Building b = sb->front ();
-  for (; !sc->empty (); sc->pop_front ())
+  Building b = *bit;
+  for (; cit != scp->end (); ++cit)
     {
       /* Building b is continuing from the previous pass through the loop.
          Building c is newly-considered, and starts no earlier than b started.
@@ -219,7 +196,7 @@ Skyline::internal_merge_skyline (list<Building> *sb, list<Building> *sc,
          with dashes where b lies above c.
          The roof of c could rise / or fall \ through the roof of b,
          or the vertical sides | of c could intersect the roof of b.  */
-      Building c = sc->front ();
+      Building c = *cit;
       if (b.x_[RIGHT] < c.x_[RIGHT]) /* finish with b */
         {
           if (b.x_[RIGHT] <= b.x_[LEFT]) /* we are already finished with b */
@@ -248,7 +225,8 @@ Skyline::internal_merge_skyline (list<Building> *sb, list<Building> *sc,
             }
           /* 'c' continues further, so move it into 'b' for the next pass. */
           b = c;
-          std::swap (sb, sc);
+          std::swap (bit, cit);
+          std::swap (sbp, scp);
         }
       else /* b.x_[RIGHT] > c.x_[RIGHT] so finish with c */
         {
@@ -278,16 +256,17 @@ Skyline::internal_merge_skyline (list<Building> *sb, list<Building> *sc,
 }
 
 static void
-empty_skyline (list<Building> *const ret)
+empty_skyline (vector<Building> *const ret)
 {
-  ret->push_front (Building (-infinity_f, -infinity_f, -infinity_f, infinity_f));
+  assert (ret->empty ());
+  ret->push_back (Building (-infinity_f, -infinity_f, -infinity_f, infinity_f));
 }
 
 /*
   Given Building 'b', build a skyline containing only that building.
 */
 static void
-single_skyline (Building b, list<Building> *const ret)
+single_skyline (Building b, vector<Building> *const ret)
 {
   assert (b.x_[RIGHT] >= b.x_[LEFT]);
 
@@ -300,52 +279,47 @@ single_skyline (Building b, list<Building> *const ret)
       Building (b.x_[RIGHT], -infinity_f, -infinity_f, infinity_f));
 }
 
-/* remove a non-overlapping set of boxes from BOXES and build a skyline
-   out of them */
-static list<Building>
-non_overlapping_skyline (list<Building> *const buildings)
+/* Partition BUILDINGS into a non-overlapping set of boxes and the rest */
+static void
+non_overlapping_skyline (vector<Building> const &buildings,
+                         vector<Building> *trimmed, vector<Building> *result)
 {
-  list<Building> result;
+  trimmed->reserve (buildings.size () / 2);
+  result->reserve (buildings.size () / 2);
   Real last_end = -infinity_f;
   Building last_building (-infinity_f, -infinity_f, -infinity_f, infinity_f);
-  list<Building>::iterator i = buildings->begin ();
-  while (i != buildings->end ())
+  for (auto const &b : buildings)
     {
-      Real x1 = i->x_[LEFT];
-      Real y1 = i->height (i->x_[LEFT]);
-      Real x2 = i->x_[RIGHT];
-      Real y2 = i->height (i->x_[RIGHT]);
+      Real x1 = b.x_[LEFT];
+      Real y1 = b.height (b.x_[LEFT]);
+      Real x2 = b.x_[RIGHT];
+      Real y2 = b.height (b.x_[RIGHT]);
 
       // Drop buildings that will obviously have no effect.
       if (last_building.height (x1) >= y1 && last_building.x_[RIGHT] >= x2
           && last_building.height (x2) >= y2)
         {
-          list<Building>::iterator j = i++;
-          buildings->erase (j);
           continue;
         }
 
       if (x1 < last_end)
         {
-          i++;
+          trimmed->push_back (b);
           continue;
         }
 
       // Insert empty Buildings into any gaps. (TODO: is this needed? -KOH)
       if (x1 > last_end)
-        result.push_back (Building (last_end, -infinity_f, -infinity_f, x1));
+        result->push_back (Building (last_end, -infinity_f, -infinity_f, x1));
 
-      result.push_back (*i);
-      last_building = *i;
-      last_end = i->x_[RIGHT];
-
-      list<Building>::iterator j = i++;
-      buildings->erase (j);
+      result->push_back (b);
+      last_building = b;
+      last_end = b.x_[RIGHT];
     }
 
   if (last_end < infinity_f)
-    result.push_back (Building (last_end, -infinity_f, -infinity_f, infinity_f));
-  return result;
+    result->push_back (
+      Building (last_end, -infinity_f, -infinity_f, infinity_f));
 }
 
 class LessThanBuilding
@@ -363,46 +337,52 @@ public:
    BUILDINGS is a list of buildings, but they could be overlapping
    and in any order.  The returned list of buildings is ordered and non-overlapping.
 */
-list<Building>
-Skyline::internal_build_skyline (list<Building> *buildings) const
+vector<Building>
+Skyline::internal_build_skyline (vector<Building> *buildings) const
 {
   vsize size = buildings->size ();
 
   if (size == 0)
     {
-      list<Building> result;
+      vector<Building> result;
       empty_skyline (&result);
       return result;
     }
   else if (size == 1)
     {
-      list<Building> result;
+      vector<Building> result;
       single_skyline (buildings->front (), &result);
       return result;
     }
 
-  deque<list<Building> > partials;
-  buildings->sort (LessThanBuilding ());
+  deque<vector<Building>> partials;
+
+  sort (buildings->begin (), buildings->end (), LessThanBuilding ());
   while (!buildings->empty ())
-    partials.push_back (non_overlapping_skyline (buildings));
+    {
+      vector<Building> trimmed, partial;
+      non_overlapping_skyline (*buildings, &trimmed, &partial);
+      partials.push_back (partial);
+      std::swap (*buildings, trimmed);
+    }
 
   /* we'd like to say while (partials->size () > 1) but that's O (n).
      Instead, we exit in the middle of the loop */
   while (!partials.empty ())
     {
-      list<Building> merged;
-      list<Building> one = partials.front ();
+      vector<Building> merged;
+      vector<Building> one = partials.front ();
       partials.pop_front ();
       if (partials.empty ())
         return one;
 
-      list<Building> two = partials.front ();
+      vector<Building> two = partials.front ();
       partials.pop_front ();
       internal_merge_skyline (&one, &two, &merged);
       partials.push_back (merged);
     }
   assert (0);
-  return list<Building> ();
+  return vector<Building> ();
 }
 
 Skyline::Skyline ()
@@ -424,16 +404,16 @@ Skyline::Skyline (Direction sky)
  */
 Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
 {
-  list<Building> buildings;
+  vector<Building> buildings;
+  buildings.reserve (boxes.size ());
   sky_ = sky;
 
   for (vsize i = 0; i < boxes.size (); i++)
     if (!boxes[i].is_empty (X_AXIS)
         && !boxes[i].is_empty (Y_AXIS))
-      buildings.push_front (Building (boxes[i], horizon_axis, sky));
+      buildings.push_back (Building (boxes[i], horizon_axis, sky));
 
   buildings_ = internal_build_skyline (&buildings);
-  normalize ();
 }
 
 /*
@@ -444,7 +424,8 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
  */
 Skyline::Skyline (vector<Drul_array<Offset> > const &segments, Axis horizon_axis, Direction sky)
 {
-  list<Building> buildings;
+  vector<Building> buildings;
+  buildings.reserve (segments.size ());
   sky_ = sky;
 
   for (vsize i = 0; i < segments.size (); i++)
@@ -465,7 +446,6 @@ Skyline::Skyline (vector<Drul_array<Offset> > const &segments, Axis horizon_axis
     }
 
   buildings_ = internal_build_skyline (&buildings);
-  normalize ();
 }
 
 Skyline::Skyline (vector<Skyline_pair> const &skypairs, Direction sky)
@@ -500,7 +480,6 @@ Skyline::Skyline (Box const &b, Axis horizon_axis, Direction sky)
     {
       Building front (b, horizon_axis, sky);
       single_skyline (front, &buildings_);
-      normalize ();
     }
 }
 
@@ -518,19 +497,15 @@ Skyline::merge (Skyline const &other)
       return;
     }
 
-  list<Building> other_bld (other.buildings_);
-  list<Building> my_bld;
-  my_bld.splice (my_bld.begin (), buildings_);
+  vector<Building> other_bld (other.buildings_);
+  vector<Building> my_bld (buildings_);
+  buildings_.clear ();
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
-  normalize ();
 }
 
 void
 Skyline::insert (Box const &b, Axis a)
 {
-  list<Building> other_bld;
-  list<Building> my_bld;
-
   if (std::isnan (b[other_axis (a)][LEFT])
       || std::isnan (b[other_axis (a)][RIGHT]))
     {
@@ -542,25 +517,25 @@ Skyline::insert (Box const &b, Axis a)
   if (b.is_empty (X_AXIS) || b.is_empty (Y_AXIS))
     return;
 
-  my_bld.splice (my_bld.begin (), buildings_);
+  vector<Building> my_bld = buildings_;
+  buildings_.clear ();
+
+  vector<Building> other_bld;
   single_skyline (Building (b, a, sky_), &other_bld);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
-  normalize ();
 }
 
 void
 Skyline::raise (Real r)
 {
-  list<Building>::iterator end = buildings_.end ();
-  for (list<Building>::iterator i = buildings_.begin (); i != end; i++)
+  for (auto i = buildings_.begin (); i != buildings_.end (); i++)
     i->y_intercept_ += sky_ * r;
 }
 
 void
 Skyline::shift (Real s)
 {
-  list<Building>::iterator end = buildings_.end ();
-  for (list<Building>::iterator i = buildings_.begin (); i != end; i++)
+  for (auto i = buildings_.begin (); i != buildings_.end (); i++)
     {
       i->x_[LEFT] += s;
       i->x_[RIGHT] += s;
@@ -604,33 +579,34 @@ Skyline::padded (Real horizon_padding) const
   if (horizon_padding <= 0.0)
     return *this;
 
-  list<Building> pad_buildings;
-  for (list<Building>::const_iterator i = buildings_.begin (); i != buildings_.end (); ++i)
+  vector<Building> pad_buildings;
+  pad_buildings.reserve (buildings_.size ());
+  for (auto const &b : buildings_)
     {
-      if (i->x_[LEFT] > -infinity_f)
+      if (b.x_[LEFT] > -infinity_f)
         {
-          Real height = i->height (i->x_[LEFT]);
+          Real height = b.height (b.x_[LEFT]);
           if (height > -infinity_f)
             {
               // Add the sloped building that pads the left side of the current building.
-              Real start = i->x_[LEFT] - 2 * horizon_padding;
-              Real end = i->x_[LEFT] - horizon_padding;
+              Real start = b.x_[LEFT] - 2 * horizon_padding;
+              Real end = b.x_[LEFT] - horizon_padding;
               pad_buildings.push_back (Building (start, height - horizon_padding, height, end));
 
               // Add the flat building that pads the left side of the current building.
-              start = i->x_[LEFT] - horizon_padding;
-              end = i->x_[LEFT];
+              start = b.x_[LEFT] - horizon_padding;
+              end = b.x_[LEFT];
               pad_buildings.push_back (Building (start, height, height, end));
             }
         }
 
-      if (i->x_[RIGHT] < infinity_f)
+      if (b.x_[RIGHT] < infinity_f)
         {
-          Real height = i->height (i->x_[RIGHT]);
+          Real height = b.height (b.x_[RIGHT]);
           if (height > -infinity_f)
             {
               // Add the flat building that pads the right side of the current building.
-              Real start = i->x_[RIGHT];
+              Real start = b.x_[RIGHT];
               Real end = start + horizon_padding;
               pad_buildings.push_back (Building (start, height, height, end));
 
@@ -643,14 +619,13 @@ Skyline::padded (Real horizon_padding) const
     }
 
   // The buildings may be overlapping, so resolve that.
-  list<Building> pad_skyline = internal_build_skyline (&pad_buildings);
+  vector<Building> pad_skyline = internal_build_skyline (&pad_buildings);
 
   // Merge the padding with the original, to make a new skyline.
   Skyline padded (sky_);
-  list<Building> my_buildings = buildings_;
+  vector<Building> my_buildings = buildings_;
   padded.buildings_.clear ();
   internal_merge_skyline (&pad_skyline, &my_buildings, &padded.buildings_);
-  padded.normalize ();
 
   return padded;
 }
@@ -660,8 +635,8 @@ Skyline::internal_distance (Skyline const &other, Real *touch_point) const
 {
   assert (sky_ == -other.sky_);
 
-  list<Building>::const_iterator i = buildings_.begin ();
-  list<Building>::const_iterator j = other.buildings_.begin ();
+  auto i = buildings_.begin ();
+  auto j = other.buildings_.begin ();
 
   Real dist = -infinity_f;
   Real start = -infinity_f;
@@ -694,11 +669,11 @@ Skyline::height (Real airplane) const
 {
   assert (!std::isinf (airplane));
 
-  list<Building>::const_iterator i;
-  for (i = buildings_.begin (); i != buildings_.end (); i++)
+  // TODO - use binary search
+  for (auto const &b : buildings_)
     {
-      if (i->x_[RIGHT] >= airplane)
-        return sky_ * i->height (airplane);
+      if (b.x_[RIGHT] >= airplane)
+        return sky_ * b.height (airplane);
     }
 
   assert (0);
@@ -710,11 +685,11 @@ Skyline::max_height () const
 {
   Real ret = -infinity_f;
 
-  list<Building>::const_iterator i;
-  for (i = buildings_.begin (); i != buildings_.end (); ++i)
+  for (auto const &b : buildings_)
     {
-      ret = std::max (ret, i->height (i->x_[LEFT]));
-      ret = std::max (ret, i->height (i->x_[RIGHT]));
+      // TODO: unnecessary calculations.
+      ret = std::max (ret, b.height (b.x_[LEFT]));
+      ret = std::max (ret, b.height (b.x_[RIGHT]));
     }
 
   return sky_ * ret;
@@ -726,22 +701,22 @@ Skyline::direction () const
   return sky_;
 }
 
+// X of first building in skyline
 Real
 Skyline::left () const
 {
-  for (list<Building>::const_iterator i (buildings_.begin ());
-       i != buildings_.end (); i++)
-    if (i->y_intercept_ > -infinity_f)
-      return i->x_[LEFT];
+  for (auto const &b : buildings_)
+    if (b.y_intercept_ > -infinity_f)
+      return b.x_[LEFT];
 
   return infinity_f;
 }
 
+// X of end of last building in skyline
 Real
 Skyline::right () const
 {
-  for (list<Building>::const_reverse_iterator i (buildings_.rbegin ());
-       i != buildings_.rend (); ++i)
+  for (auto i = buildings_.rbegin (); i != buildings_.rend (); ++i)
     if (i->y_intercept_ > -infinity_f)
       return i->x_[RIGHT];
 
@@ -752,6 +727,7 @@ Real
 Skyline::max_height_position () const
 {
   Skyline s (-sky_);
+  // TODO: should be able to calc without doing a merge?
   s.set_minimum_height (0);
   return touching_point (s);
 }
@@ -768,14 +744,14 @@ vector<Offset>
 Skyline::to_points (Axis horizon_axis) const
 {
   vector<Offset> out;
+  out.reserve (2 * buildings_.size ());
 
   Real start = -infinity_f;
-  for (list<Building>::const_iterator i (buildings_.begin ());
-       i != buildings_.end (); i++)
+  for (auto const &b : buildings_)
     {
-      out.push_back (Offset (start, sky_ * i->height (start)));
-      out.push_back (Offset (i->x_[RIGHT], sky_ * i->height (i->x_[RIGHT])));
-      start = i->x_[RIGHT];
+      out.push_back (Offset (start, sky_ * b.height (start)));
+      out.push_back (Offset (b.x_[RIGHT], sky_ * b.height (b.x_[RIGHT])));
+      start = b.x_[RIGHT];
     }
 
   if (horizon_axis == Y_AXIS)
@@ -868,6 +844,7 @@ LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
            "Return whether @var{sky} is empty.")
 {
   Skyline *s = unsmob<Skyline> (sky);
+
   LY_ASSERT_SMOB (Skyline, sky, 1);
   return scm_from_bool (s->is_empty ());
 }
