@@ -79,15 +79,15 @@ void
 Engraver_group::connect_to_context (Context *c)
 {
   Translator_group::connect_to_context (c);
-  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, override), ly_symbol2scm ("Override"));
-  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, revert), ly_symbol2scm ("Revert"));
+  c->event_source ()->add_listener (GET_LISTENER (this, override), ly_symbol2scm ("Override"));
+  c->event_source ()->add_listener (GET_LISTENER (this, revert), ly_symbol2scm ("Revert"));
 }
 
 void
 Engraver_group::disconnect_from_context ()
 {
-  context ()->event_source ()->remove_listener (GET_LISTENER (Engraver_group, override), ly_symbol2scm ("Override"));
-  context ()->event_source ()->remove_listener (GET_LISTENER (Engraver_group, revert), ly_symbol2scm ("Revert"));
+  context ()->event_source ()->remove_listener (GET_LISTENER (this, override), ly_symbol2scm ("Override"));
+  context ()->event_source ()->remove_listener (GET_LISTENER (this, revert), ly_symbol2scm ("Revert"));
   Translator_group::disconnect_from_context ();
 }
 

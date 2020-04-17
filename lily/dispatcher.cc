@@ -222,7 +222,7 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
         {
           int priority = scm_to_int (scm_cdar (disp));
           Dispatcher *d = unsmob<Dispatcher> (scm_caar (disp));
-          d->internal_add_listener (GET_LISTENER (Dispatcher, dispatch).smobbed_copy (),
+          d->internal_add_listener (GET_LISTENER (this, dispatch).smobbed_copy (),
                                     ev_class, priority);
         }
       listen_classes_ = scm_cons (ev_class, listen_classes_);
@@ -269,7 +269,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
         {
           Dispatcher *d = unsmob<Dispatcher> (scm_caar (disp));
-          d->remove_listener (GET_LISTENER (Dispatcher, dispatch), ev_class);
+          d->remove_listener (GET_LISTENER (this, dispatch), ev_class);
         }
       listen_classes_ = scm_delq_x (ev_class, listen_classes_);
     }
@@ -294,7 +294,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
 
   dispatchers_ = scm_acons (disp->self_scm (), scm_from_int (priority), dispatchers_);
 
-  SCM list = GET_LISTENER (Dispatcher, dispatch).smobbed_copy ();
+  SCM list = GET_LISTENER (this, dispatch).smobbed_copy ();
   for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))
     {
       disp->internal_add_listener (list, scm_car (cl), priority);
@@ -307,7 +307,7 @@ Dispatcher::unregister_as_listener (Dispatcher *disp)
 {
   dispatchers_ = scm_assq_remove_x (dispatchers_, disp->self_scm ());
 
-  Listener listener = GET_LISTENER (Dispatcher, dispatch);
+  Listener listener = GET_LISTENER (this, dispatch);
   for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))
     {
       disp->remove_listener (listener, scm_car (cl));

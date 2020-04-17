@@ -60,7 +60,7 @@ Translator_group::connect_to_context (Context *c)
     }
 
   context_ = c;
-  c->event_source ()->add_listener (GET_LISTENER (Translator_group, create_child_translator),
+  c->event_source ()->add_listener (GET_LISTENER (this, create_child_translator),
                                     ly_symbol2scm ("AnnounceNewContext"));
   for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
     {
@@ -77,7 +77,7 @@ Translator_group::disconnect_from_context ()
       Translator *tr = unsmob<Translator> (scm_car (tr_list));
       tr->disconnect_from_context (context_);
     }
-  context_->event_source ()->remove_listener (GET_LISTENER (Translator_group, create_child_translator),
+  context_->event_source ()->remove_listener (GET_LISTENER (this, create_child_translator),
                                               ly_symbol2scm ("AnnounceNewContext"));
   context_ = 0;
   protected_events_ = SCM_EOL;

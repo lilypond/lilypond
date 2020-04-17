@@ -105,9 +105,9 @@ Score_engraver::connect_to_context (Context *c)
   Engraver_group::connect_to_context (c);
 
   Dispatcher *d = find_top_context (c)->event_source ();
-  d->add_listener (GET_LISTENER (Score_engraver, one_time_step), ly_symbol2scm ("OneTimeStep"));
-  d->add_listener (GET_LISTENER (Score_engraver, prepare), ly_symbol2scm ("Prepare"));
-  d->add_listener (GET_LISTENER (Score_engraver, finish), ly_symbol2scm ("Finish"));
+  d->add_listener (GET_LISTENER (this, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->add_listener (GET_LISTENER (this, prepare), ly_symbol2scm ("Prepare"));
+  d->add_listener (GET_LISTENER (this, finish), ly_symbol2scm ("Finish"));
 }
 
 /*
@@ -128,9 +128,9 @@ void
 Score_engraver::disconnect_from_context ()
 {
   Dispatcher *d = find_top_context (context ())->event_source ();
-  d->remove_listener (GET_LISTENER (Score_engraver, one_time_step), ly_symbol2scm ("OneTimeStep"));
-  d->remove_listener (GET_LISTENER (Score_engraver, prepare), ly_symbol2scm ("Prepare"));
-  d->remove_listener (GET_LISTENER (Score_engraver, finish), ly_symbol2scm ("Finish"));
+  d->remove_listener (GET_LISTENER (this, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->remove_listener (GET_LISTENER (this, prepare), ly_symbol2scm ("Prepare"));
+  d->remove_listener (GET_LISTENER (this, finish), ly_symbol2scm ("Finish"));
 
   Engraver_group::disconnect_from_context ();
 }

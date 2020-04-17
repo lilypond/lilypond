@@ -114,13 +114,13 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
   if (music_context_)
     {
       music_context_->events_below ()->
-      remove_listener (GET_LISTENER (Lyric_combine_music_iterator, set_busy), ly_symbol2scm ("rhythmic-event"));
+      remove_listener (GET_LISTENER (this, set_busy), ly_symbol2scm ("rhythmic-event"));
     }
 
   music_context_ = to;
   if (to)
     {
-      to->events_below ()->add_listener (GET_LISTENER (Lyric_combine_music_iterator, set_busy),
+      to->events_below ()->add_listener (GET_LISTENER (this, set_busy),
                                          ly_symbol2scm ("rhythmic-event"));
     }
 }
@@ -220,7 +220,7 @@ Lyric_combine_music_iterator::construct_children ()
     delayed when voices are created implicitly.
   */
   Context *g = find_top_context (get_outlet ());
-  g->events_below ()->add_listener (GET_LISTENER (Lyric_combine_music_iterator, check_new_context), ly_symbol2scm ("CreateContext"));
+  g->events_below ()->add_listener (GET_LISTENER (this, check_new_context), ly_symbol2scm ("CreateContext"));
 
   /*
     We do not create a Lyrics context, because the user might

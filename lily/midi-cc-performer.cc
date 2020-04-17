@@ -78,8 +78,7 @@ void
 Midi_control_change_performer::connect_to_context (Context *c)
 {
   c->events_below ()->
-  add_listener (GET_LISTENER (Midi_control_change_performer,
-                              announce_control_change),
+  add_listener (GET_LISTENER (this, announce_control_change),
                 ly_symbol2scm ("SetProperty"));
 }
 
@@ -87,8 +86,7 @@ void
 Midi_control_change_performer::disconnect_from_context (Context *c)
 {
   c->events_below ()->
-  remove_listener (GET_LISTENER (Midi_control_change_performer,
-                                 announce_control_change),
+  remove_listener (GET_LISTENER (this, announce_control_change),
                    ly_symbol2scm ("SetProperty"));
 }
 

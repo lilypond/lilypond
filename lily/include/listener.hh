@@ -44,14 +44,16 @@
     write ("Foo hears an event!");
   }
 
-  - Extract a listener using GET_LISTENER (Foo, method)
+  With a Foo *foo; instance pointer:
+
+  - Extract a listener using GET_LISTENER (foo, method)
   - Register the method to the dispatcher using Dispatcher::register
 
   Example:
 
   Foo *foo = (...);
   Dispatcher *d = (...);
-  Listener l = foo->GET_LISTENER (Foo, method);
+  Listener l = GET_LISTENER (foo, method);
   d->add_listener (l, ly_symbol2scm ("EventClass"));
 
   Whenever d hears a stream-event ev of class "EventClass",
@@ -135,8 +137,17 @@ public:
     (t->*callback) (ev);
     return SCM_UNDEFINED;
   }
+
+  template <class T, void (T::*callback) (SCM)>
+  static Listener
+  get (SCM instance)
+  {
+    return Listener(MFP1_WRAP (callback), instance);
+  }
 };
 
-#define GET_LISTENER(cl, proc) get_listener (Callback_wrapper::make_smob<Listener::trampoline<cl, &cl::proc> > ())
+// Get a listener for given pointer
+#define GET_LISTENER(ptr, proc)                                         \
+  Listener::get<MFP_ARGS (MFP_CREATE (ptr, proc))> ((ptr)->self_scm ())
 
 #endif /* LISTENER_HH */
