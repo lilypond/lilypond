@@ -1409,29 +1409,28 @@ parent or the parent has no setting."
          (my-extent (ly:grob-extent grob system X))
          (elements (ly:grob-object system 'elements))
          (common (ly:grob-common-refpoint-of-array system elements X))
-         (total-ext empty-interval)
+         (total-left +inf.0)
          (align-x (ly:grob-property grob 'self-alignment-X 0))
          (padding (min 0 (- (interval-length my-extent) indent)))
          (right-padding (- padding
                            (/ (* padding (1+ align-x)) 2))))
 
     ;; compensate for the variation in delimiter extents by
-    ;; calculating an X-offset correction based on united extents
+    ;; calculating an X-offset correction based on the extents
     ;; of all delimiters in this system
-    (let unite-delims ((l (ly:grob-array-length elements)))
+    ;; finally we take most-left coordinate and indent
+    (let most-left-delim-x ((l (ly:grob-array-length elements)))
       (if (> l 0)
           (let ((elt (ly:grob-array-ref elements (1- l))))
-
             (if (grob::has-interface elt 'system-start-delimiter-interface)
                 (let ((dims (ly:grob-extent elt common X)))
-                  (if (interval-sane? dims)
-                      (set! total-ext (interval-union total-ext dims)))))
-            (unite-delims (1- l)))))
+                  (set! total-left (min total-left (car dims)))))
+            (most-left-delim-x (1- l)))))
 
     (+
-     (ly:side-position-interface::x-aligned-side grob)
-     right-padding
-     (- (interval-length total-ext)))))
+       (ly:side-position-interface::x-aligned-side grob)
+       right-padding
+       (- (interval-length (cons total-left indent))))))
 
 (define-public (system-start-text::calc-y-offset grob)
 
