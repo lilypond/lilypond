@@ -34,7 +34,6 @@ class Repeat_tie_engraver : public Laissez_vibrer_engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Repeat_tie_engraver);
-  TRANSLATOR_INHERIT (Laissez_vibrer_engraver);
 };
 
 Repeat_tie_engraver::Repeat_tie_engraver (Context *c)

@@ -207,8 +207,8 @@ Translator_group::create_child_translator (SCM sev)
 
   recurse_over_translators
   (new_context,
-   Callback0_wrapper::make_smob<Translator, &Translator::initialize> (),
-   Callback0_wrapper::make_smob<Translator_group, &Translator_group::initialize> (),
+   MFP0_WRAP (&Translator::initialize),
+   MFP0_WRAP (&Translator_group::initialize),
    DOWN);
 }
 

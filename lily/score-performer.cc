@@ -120,8 +120,8 @@ Score_performer::finish (SCM)
   performance_->ports_ = use_ports;
   recurse_over_translators
   (context (),
-   Callback0_wrapper::make_smob<Translator, &Translator::finalize> (),
-   Callback0_wrapper::make_smob<Translator_group, &Translator_group::finalize> (),
+   MFP0_WRAP (&Translator::finalize),
+   MFP0_WRAP (&Translator_group::finalize),
    UP);
 }
 

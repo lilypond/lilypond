@@ -31,7 +31,6 @@ class Phrasing_slur_engraver : public Slur_engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
-  TRANSLATOR_INHERIT (Slur_engraver);
 };
 
 SCM

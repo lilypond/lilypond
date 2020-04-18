@@ -43,7 +43,6 @@ protected:
 public:
   // no TRANSLATOR_DECLARATIONS (Ligature_engraver) needed since this
   // class is abstract
-  DECLARE_TRANSLATOR_CALLBACKS (Ligature_engraver);
 
 private:
   Drul_array<Stream_event *> events_drul_;

@@ -581,7 +581,6 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 class Grace_auto_beam_engraver : public Auto_beam_engraver
 {
   TRANSLATOR_DECLARATIONS (Grace_auto_beam_engraver);
-  TRANSLATOR_INHERIT (Auto_beam_engraver);
 
 private:
   Moment last_grace_start_; // Full starting time of last grace group

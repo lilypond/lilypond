@@ -29,8 +29,6 @@ public:
   // no TRANSLATOR_DECLARATIONS (Gregorian_ligature_engraver) needed
   // since this class is abstract
 
-  TRANSLATOR_INHERIT (Coherent_ligature_engraver);
-  DECLARE_TRANSLATOR_CALLBACKS (Gregorian_ligature_engraver);
 protected:
   Gregorian_ligature_engraver (Context *);
 

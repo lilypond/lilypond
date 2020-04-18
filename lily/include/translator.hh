@@ -75,34 +75,6 @@ Translator_creator::allocate (Context *ctx)
   public:                                                               \
   OVERRIDE_CLASS_NAME (NAME);                                           \
   void fetch_precomputable_methods (SCM methods[]) override;            \
-  /* Fallback for non-overriden callbacks for which &T::x degrades to   \
-     &Translator::x */                                                  \
-  template <void (Translator::*)()>                                     \
-  static SCM method_finder ()                                           \
-  {                                                                     \
-    return SCM_UNDEFINED;                                               \
-  }                                                                     \
-  DECLARE_TRANSLATOR_CALLBACKS (NAME)                                   \
-  /* end #define */
-
-#define TRANSLATOR_INHERIT(BASE)                                        \
-  DECLARE_TRANSLATOR_CALLBACKS (BASE)
-
-#define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
-  template <void (NAME::*mf)()>                                         \
-  static SCM method_finder ()                                           \
-  {                                                                     \
-    return Callback0_wrapper::make_smob<NAME, mf> ();                   \
-  }                                                                     \
-  template <void (NAME::*mf)(Stream_event *)>                           \
-  static SCM method_finder ()                                           \
-  {                                                                     \
-    return Callback_wrapper::make_smob<trampoline<NAME, mf> > ();       \
-  }                                                                     \
-  template <void (NAME::*mf)(Grob_info)>                                \
-  static SCM method_finder () {                                         \
-    return Callback2_wrapper::make_smob<trampoline <NAME, mf> > ();     \
-  }                                                                     \
   /* end #define */
 
 /*
