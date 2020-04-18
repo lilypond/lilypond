@@ -23,6 +23,7 @@
 #include "dispatcher.hh"
 #include "global-context.hh"
 #include "international.hh"
+#include "listener.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "profile.hh"

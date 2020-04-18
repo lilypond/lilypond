@@ -25,7 +25,6 @@
 #include "duration.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
-#include "listener.hh"
 #include "moment.hh"
 #include "scm-hash.hh"
 #include "std-vector.hh"

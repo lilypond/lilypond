@@ -26,6 +26,7 @@
 #include "engraver.hh"
 #include "engraver-group.hh"
 #include "international.hh"
+#include "listener.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"

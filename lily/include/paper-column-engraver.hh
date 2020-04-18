@@ -21,7 +21,6 @@
 #define PAPER_COLUMN_ENGRAVER_HH
 
 #include "engraver.hh"
-#include "listener.hh"
 #include "moment.hh"
 #include "stream-event.hh"
 

@@ -21,7 +21,6 @@
 #define TRANSLATOR_GROUP_HH
 
 #include "callback.hh"
-#include "listener.hh"
 #include "translator.hh"
 
 class Translator_group : public Smob<Translator_group>
