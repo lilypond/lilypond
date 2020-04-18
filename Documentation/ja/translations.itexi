@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Thu Mar 26 17:29:06 UTC 2020
+@emph{最終更新日 Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond 更新履歴
 @item
 セクション タイトル
 @*
-607
+665
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
@@ -49,11 +49,11 @@ Tomohiro Tatejima
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #ff6f57">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -208,11 +208,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -239,17 +239,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab post-GDP
 @item
 4 出力を調整する
 @*
-16570
+16582
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
@@ -270,11 +270,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -340,11 +340,11 @@ Tomohiro Tatejima
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #d4ff37">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -425,17 +425,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #5bff27">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 1.2 リズム
 @*
-6994
+6979
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -454,11 +454,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #54ff26">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -483,11 +483,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -512,11 +512,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #47ff24">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -541,17 +541,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 1.6 譜の記譜法
 @*
-2571
+2892
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -570,11 +570,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -599,11 +599,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -630,11 +630,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -659,17 +659,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab post-GDP
 @item
 2.1 声楽
 @*
-5066
+5170
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -688,11 +688,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -717,11 +717,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #7dff2b">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -746,11 +746,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -775,11 +775,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -804,11 +804,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #8aff2d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -831,11 +831,11 @@ N/A
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -860,11 +860,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #68ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -887,11 +887,11 @@ N/A
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -914,11 +914,11 @@ N/A
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -943,11 +943,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #ffdf42">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -972,11 +972,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1001,17 +1001,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 5 デフォルトを変更する
 @*
-17093
+17099
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1030,11 +1030,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1057,11 +1057,11 @@ A 付表
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #54ff26">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1086,11 +1086,11 @@ Tomohiro Tatejima
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab post-GDP
 @end multitable
@@ -1187,11 +1187,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #47ff24">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1226,7 +1226,7 @@ Yoshiki Sawada
 @item
 3 @command{lilypond-book} を実行する
 @*
-4211
+4212
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1276,11 +1276,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1327,7 +1327,7 @@ LilyPond -- みんなの楽譜作成
 @item
 セクション タイトル
 @*
-750
+752
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -1350,11 +1350,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1416,17 +1416,17 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
 ダウンロード
 @*
-1159
+1174
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1445,17 +1445,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
 マニュアル
 @*
-1319
+1279
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1474,17 +1474,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
 コミュニティ
 @*
-2364
+2370
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1503,11 +1503,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab pre-GDP
 @end multitable

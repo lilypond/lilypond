@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Thu Mar 26 17:29:06 UTC 2020
+@emph{Zuletzt aktualisiert am Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Überschriften
 @*
-607
+665
 @tab David Kastrup
 @*
 Lukas-Fabian Moser
@@ -49,11 +49,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">K/A</span>
+<span style="background-color: #ff6f57">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-K/A
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -489,7 +489,7 @@ teilweise
 @item
 4 Die Ausgabe verbessern
 @*
-16570
+16582
 @tab ???
 @*
 Michael Gerdau
@@ -667,7 +667,7 @@ teilweise
 @item
 1.2 Rhythmus
 @*
-6994
+6979
 @tab Till Paala
 @tab 
 @tab 
@@ -775,7 +775,7 @@ teilweise
 @item
 1.6 Notation auf Systemen
 @*
-2571
+2892
 @tab Till Paala
 @tab 
 @tab 
@@ -792,7 +792,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">teilweise</span>
+<span style="background-color: #fcff3c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -883,7 +883,7 @@ ja
 @item
 2.1 Notation von Gesang
 @*
-5066
+5170
 @tab Till Paala
 @tab 
 @tab 
@@ -1207,7 +1207,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-17093
+17099
 @tab Till Paala
 @tab 
 @tab 
@@ -1410,7 +1410,7 @@ teilweise
 @item
 3 @command{lilypond-book} aufrufen
 @*
-4211
+4212
 @tab Reinhold Kainhofer
 @tab Till Paala
 @tab 
@@ -1505,7 +1505,7 @@ LilyPond -- Notation für Jedermann
 @item
 Überschriften
 @*
-750
+752
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1524,7 +1524,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #40fe23">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1582,7 +1582,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">teilweise</span>
+<span style="background-color: #91ff2e">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1592,7 +1592,7 @@ teilweise
 @item
 Download
 @*
-1159
+1174
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1611,7 +1611,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #40fe23">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1621,7 +1621,7 @@ teilweise
 @item
 Handbücher
 @*
-1319
+1279
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1640,17 +1640,17 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #62ff28">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
 Gemeinschaft
 @*
-2364
+2370
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1669,7 +1669,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">teilweise</span>
+<span style="background-color: #acff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Thu Mar 26 17:29:06 UTC 2020
+@emph{Actualitzat el Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -167,7 +167,7 @@ parcialment
 @item
 4 Ajustament de la sortida
 @*
-16570
+16582
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -343,7 +343,7 @@ parcialment
 @item
 1.2 Duracions
 @*
-6994
+6979
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -451,7 +451,7 @@ parcialment
 @item
 1.6 Notació dels pentagrames
 @*
-2571
+2892
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -468,7 +468,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">parcialment</span>
+<span style="background-color: #6fff29">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -559,7 +559,7 @@ si
 @item
 2.1 Música vocal
 @*
-5066
+5170
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -576,7 +576,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialment</span>
+<span style="background-color: #39ff22">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -846,11 +846,11 @@ parcialment (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #40fe23">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -883,7 +883,7 @@ parcialment
 @item
 5 Canvi dels valors predeterminats
 @*
-17093
+17099
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -900,11 +900,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #25fe1f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -927,11 +927,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #54ff26">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1123,7 +1123,7 @@ LilyPond: notació musical per a tots
 @item
 Títols de secció
 @*
-750
+752
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1140,7 +1140,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialment</span>
+<span style="background-color: #40fe23">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1194,7 +1194,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">parcialment</span>
+<span style="background-color: #91ff2e">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1204,7 +1204,7 @@ parcialment
 @item
 Descàrrega
 @*
-1159
+1174
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1221,7 +1221,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialment</span>
+<span style="background-color: #40fe23">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1231,7 +1231,7 @@ parcialment
 @item
 Manuals
 @*
-1319
+1279
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1248,7 +1248,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialment</span>
+<span style="background-color: #68ff28">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1258,7 +1258,7 @@ parcialment
 @item
 Comunitat
 @*
-2364
+2370
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1275,7 +1275,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">parcialment</span>
+<span style="background-color: #c7ff35">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

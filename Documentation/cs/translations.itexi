@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Thu Mar 26 17:29:06 UTC 2020
+@emph{Naposledy obnoveno Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -165,7 +165,7 @@ ano
 @item
 4 Ladění výstupu
 @*
-16570
+16582
 @tab Pavel Fric
 @tab 
 @tab 
@@ -231,7 +231,7 @@ LilyPond -- Zápis not pro každého
 @item
 Nadpisy
 @*
-750
+752
 @tab Pavel Fric
 @tab 
 @tab 
@@ -248,7 +248,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">částečně</span>
+<span style="background-color: #f6fe3b">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -312,7 +312,7 @@ ano
 @item
 Stažení
 @*
-1159
+1174
 @tab Pavel Fric
 @tab 
 @tab 
@@ -329,7 +329,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">částečně</span>
+<span style="background-color: #acff31">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -339,7 +339,7 @@ ano
 @item
 Příručky
 @*
-1319
+1279
 @tab Pavel Fric
 @tab 
 @tab 
@@ -356,7 +356,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">částečně</span>
+<span style="background-color: #7dff2b">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -366,7 +366,7 @@ ano
 @item
 Společenství
 @*
-2364
+2370
 @tab Pavel Fric
 @tab 
 @tab 
@@ -383,7 +383,7 @@ Společenství
 @ifhtml
 
 @html
-<span style="background-color: #f6fe3b">částečně</span>
+<span style="background-color: #fcff3c">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Thu Mar 26 17:29:06 UTC 2020
+@emph{Last updated Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -295,7 +295,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-16570
+16582
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -469,7 +469,7 @@ partially
 @item
 3 A @command{lilypond-book} használata
 @*
-4211
+4212
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -508,7 +508,7 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-750
+752
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -525,7 +525,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially</span>
+<span style="background-color: #d4ff37">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -589,7 +589,34 @@ partially
 @item
 Letöltés
 @*
-1159
+1174
+@tab Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #91ff2e">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+Dokumentáció
+@*
+1279
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -614,36 +641,9 @@ partially
 @end ifnothtml
 @tab pre-GDP
 @item
-Dokumentáció
-@*
-1319
-@tab Harmath Dénes
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">yes</span>
-@end html
-@end ifhtml
-@ifnothtml
-yes
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #5bff27">partially</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially
-@end ifnothtml
-@tab pre-GDP
-@item
 Közösség
 @*
-2364
+2370
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -660,7 +660,7 @@ partially (92 %)
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">partially</span>
+<span style="background-color: #efff3a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

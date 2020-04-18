@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Thu Mar 26 17:29:06 UTC 2020
+@emph{Meest recente update Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -165,7 +165,7 @@ gedeeltelijk
 @item
 4 Tweaking output
 @*
-16570
+16582
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -231,7 +231,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-750
+752
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,7 +248,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">gedeeltelijk</span>
+<span style="background-color: #c0ff34">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -302,7 +302,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #ffef3f">gedeeltelijk</span>
+<span style="background-color: #ffed40">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -312,7 +312,7 @@ gedeeltelijk
 @item
 Download
 @*
-1159
+1174
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -329,7 +329,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">gedeeltelijk</span>
+<span style="background-color: #83fe2c">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -339,7 +339,7 @@ gedeeltelijk
 @item
 Handleidingen
 @*
-1319
+1279
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -356,7 +356,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">gedeeltelijk</span>
+<span style="background-color: #7dff2b">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml

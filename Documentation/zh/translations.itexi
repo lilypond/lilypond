@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Thu Mar 26 17:29:06 UTC 2020
+@emph{最近更新 Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond -- 人人的乐谱软件
 @item
 章节标题
 @*
-750
+752
 @tab Ben Luo
 @*
 Anthony Fok
@@ -49,7 +49,7 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">部分</span>
+<span style="background-color: #c0ff34">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -117,11 +117,38 @@ Anthony Fok
 @item
 下载
 @*
-1159
+1174
 @tab Ben Luo
 @*
 Anthony Fok
 @tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">是</span>
+@end html
+@end ifhtml
+@ifnothtml
+是
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #8aff2d">部分</span>
+@end html
+@end ifhtml
+@ifnothtml
+部分
+@end ifnothtml
+@tab GDP 前
+@item
+手册
+@*
+1279
+@tab Ben Luo
+@tab Anthony Fok
 @tab 
 @ifhtml
 
@@ -144,36 +171,9 @@ Anthony Fok
 @end ifnothtml
 @tab GDP 前
 @item
-手册
-@*
-1319
-@tab Ben Luo
-@tab Anthony Fok
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">是</span>
-@end html
-@end ifhtml
-@ifnothtml
-是
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #5bff27">部分</span>
-@end html
-@end ifhtml
-@ifnothtml
-部分
-@end ifnothtml
-@tab GDP 前
-@item
 社区
 @*
-2364
+2370
 @tab Ben Luo
 @*
 Anthony Fok
@@ -182,17 +182,17 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">部分 (95 %)</span>
+<span style="background-color: #dfef77">部分 (94 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分 (95 %)
+部分 (94 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #acff31">部分</span>
+<span style="background-color: #d4ff37">部分</span>
 @end html
 @end ifhtml
 @ifnothtml

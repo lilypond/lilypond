@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Última atualização em Thu Mar 26 17:29:06 UTC 2020
+@emph{Última atualização em Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond -- Notação musical para todos
 @item
 Títulos de seção
 @*
-750
+752
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -47,11 +47,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #39ff22">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialmente
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -74,11 +74,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #39ff22">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialmente
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -101,17 +101,17 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #7dff2b">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialmente
 @end ifnothtml
 @tab pré-GDP
 @item
 Download
 @*
-1159
+1174
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -128,17 +128,17 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #39ff22">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialmente
 @end ifnothtml
 @tab pré-GDP
 @item
 Manuais
 @*
-1319
+1279
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -155,17 +155,17 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #62ff28">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialmente
 @end ifnothtml
 @tab pré-GDP
 @item
 Comunidade
 @*
-2364
+2370
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -182,11 +182,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #54ff26">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialmente
 @end ifnothtml
 @tab pré-GDP
 @end multitable

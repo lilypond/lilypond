@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Thu Mar 26 17:29:06 UTC 2020
+@emph{Dernière mise à jour Sat Apr 18 08:27:29 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-607
+665
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -171,11 +171,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -293,11 +293,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -322,11 +322,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -491,17 +491,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab post-GDP
 @item
 4 Retouche de partition
 @*
-16570
+16582
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -524,11 +524,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab post-GDP
 @item
@@ -592,11 +592,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -650,11 +650,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -681,17 +681,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 1.2 Rythme
 @*
-6994
+6979
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -714,11 +714,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -745,11 +745,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -776,11 +776,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -809,17 +809,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 1.6 Notation sur la portée
 @*
-2571
+2892
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -838,11 +838,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -865,11 +865,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -894,11 +894,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -923,17 +923,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 2.1 Musique vocale
 @*
-5066
+5170
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -952,11 +952,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -983,11 +983,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1014,11 +1014,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1041,11 +1041,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1070,11 +1070,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1101,11 +1101,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1132,11 +1132,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1159,11 +1159,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1186,11 +1186,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1215,11 +1215,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1244,11 +1244,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1273,17 +1273,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
 5 Modification des réglages prédéfinis
 @*
-17093
+17099
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1302,11 +1302,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1331,11 +1331,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1358,11 +1358,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -1399,11 +1399,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partiellement</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-partiellement
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1492,7 +1492,7 @@ oui
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
-4211
+4212
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1509,11 +1509,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1536,11 +1536,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1569,11 +1569,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -1591,7 +1591,7 @@ LilyPond -- la notation musicale pour tous
 @item
 Titre des chapitres
 @*
-750
+752
 @tab John Mandereau
 @tab 
 @tab 
@@ -1676,7 +1676,7 @@ oui
 @item
 Téléchargement
 @*
-1159
+1174
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1705,7 +1705,7 @@ oui
 @item
 Manuels
 @*
-1319
+1279
 @tab John Mandereau
 @tab Jean-Charles Malahieude
 @tab 
@@ -1732,7 +1732,7 @@ oui
 @item
 Communauté
 @*
-2364
+2370
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1751,11 +1751,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @end multitable
