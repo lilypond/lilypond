@@ -316,7 +316,6 @@ protected:
   void maybe_grow_heap ();
 public:
   SCM self_scm () const { return self_scm_; }
-  Listener get_listener (SCM callback);
 };
 
 template <class Super>

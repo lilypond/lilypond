@@ -113,7 +113,7 @@ Translator::connect_to_context (Context *c)
       SCM event_class = scm_caar (r);
       SCM callback = scm_cdar (r);
 
-      c->events_below ()->add_listener (get_listener (callback),
+      c->events_below ()->add_listener (Listener (callback, self_scm ()),
                                         event_class);
     }
 }
@@ -126,7 +126,7 @@ Translator::disconnect_from_context (Context *c)
       SCM event_class = scm_caar (r);
       SCM callback = scm_cdar (r);
 
-      c->events_below ()->remove_listener (get_listener (callback),
+      c->events_below ()->remove_listener (Listener (callback, self_scm ()),
                                            event_class);
     }
 }

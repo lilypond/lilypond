@@ -18,17 +18,10 @@
 */
 
 #include "smobs.hh"
-#include "listener.hh"
 
 #if (GUILEV2)
 #include <gc/gc.h>
 #endif
-
-Listener
-Smob_core::get_listener (SCM callback)
-{
-  return Listener (callback, self_scm ());
-}
 
 size_t Smob_core::count = 0;
 

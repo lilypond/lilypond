@@ -59,21 +59,21 @@
   Whenever d hears a stream-event ev of class "EventClass",
   the implemented procedure is called.
 
-  GET_LISTENER actually makes use of a member function
-  get_listener (SCM) available in every Smob<...>-derived class.
-  get_listener receives a function getting an object instance and an
-  event and will turn it into a Listener that will (after turning into
-  Scheme), behave as a function receiving an event as its sole
-  argument, with the object instance being the object from which
-  get_listener was called as a member.
+  The constructor of Listener receives as first argument an SCM
+  function getting an object instance and an event, and as second
+  argument an object instance as SCM value.  It will turn it into a
+  Listener that will behave as a function receiving an event as its
+  sole argument, with the object instance being the second constructor
+  argument.
 
-  So (p->get_listener (f)).smobbed_copy () is roughly equivalent to
-  (lambda (ev) (f p->self_scm() ev))
+  So (Listener (f, p)).smobbed_copy () is roughly equivalent to
 
-  Limitations:
+  (lambda (ev) (f p ev))
 
-  The Callback_wrapper mechanism used in GET_LISTENER works only for
-  classes derived from Smob<...>.
+  which amounts to a currying mechanism.  The curried function created
+  in that manner, however, can be compared for equality based on its
+  ingredients which allows the targeted removal of event listeners.
+
 */
 
 #include "callback.hh"
