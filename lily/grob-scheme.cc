@@ -312,18 +312,6 @@ LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_grob_properties, "ly:grob-properties",
-           1, 0, 0, (SCM grob),
-           "Get the mutable properties of @var{grob}.")
-{
-  Grob *g = unsmob<Grob> (grob);
-
-  LY_ASSERT_SMOB (Grob, grob, 1);
-
-  /* FIXME: uhg? copy/read only? */
-  return g->mutable_property_alist_;
-}
-
 LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",
            1, 0, 0, (SCM grob),
            "Get the immutable properties of @var{grob}.")

@@ -36,7 +36,7 @@ public:
   Drul_array<Offset> attachment_;
   Bezier curve_;
   Real height_;
-  int index_;
+  size_t index_;
 
   /* The different scoring functions we have, ordered by increasing
      computational cost */
@@ -62,7 +62,7 @@ public:
                        std::vector<Offset> const &);
   void run_next_scorer (Slur_score_state const &);
   bool done () const;
-  static std::unique_ptr<Slur_configuration> new_config (Drul_array<Offset> const &offs, int idx);
+  static std::unique_ptr<Slur_configuration> new_config (Drul_array<Offset> const &offs, size_t idx);
 
 protected:
   void score_extra_encompass (Slur_score_state const &);
@@ -85,4 +85,3 @@ public:
 };
 
 #endif /* SLUR_CONFIGURATION_HH */
-

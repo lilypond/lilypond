@@ -17,11 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "audio-item.hh"
 #include "input.hh"
 #include "international.hh"
 #include "libc-extension.hh"
 #include "midi-cc-announcer.hh"
+
+#include <cmath>
 
 using std::string;
 
@@ -78,15 +82,15 @@ void Midi_control_change_announcer::announce_control_changes ()
           // Transform the normalized context property value into a 14-bit or
           // a 7-bit (non-negative) integer depending on the MIDI control's
           // resolution.  For directional value changes, #CENTER will
-          // correspond to 0.5 exactly, and my_round rounds upwards when in
+          // correspond to 0.5 exactly, and round_halfway_up rounds upwards in
           // case of doubt.  That means that center position will round to
           // 0x40 or 0x2000 by a hair's breadth.
           const Real full_fine_scale = 0x3FFF;
           const Real full_coarse_scale = 0x7F;
           const bool fine_resolution = (spec->lsb_control_number_ >= 0);
-          const int v = (int) (my_round (val * (fine_resolution
-                                                ? full_fine_scale
-                                                : full_coarse_scale)));
+          const int v = (int) (round_halfway_up (val * (fine_resolution
+                                                        ? full_fine_scale
+                                                        : full_coarse_scale)));
           // Announce a control change for the most significant 7 bits of the
           // control value (and, if the control supports fine resolution, for
           // the least significant 7 bits as well).

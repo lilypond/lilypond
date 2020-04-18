@@ -51,28 +51,28 @@ Transform::Transform (Real angle, Offset center)
   // Don't use pango_matrix_rotate since it does not bother
   // maintaining sane behavior at multiples of 45 degrees
   Offset d = offset_directed (angle);
-  xx = d[X_AXIS];
-  xy = -d[Y_AXIS];
-  yx = d[Y_AXIS];
-  yy = d[X_AXIS];
-  x0 = center[X_AXIS];
-  y0 = center[Y_AXIS];
+  m_.xx = d[X_AXIS];
+  m_.xy = -d[Y_AXIS];
+  m_.yx = d[Y_AXIS];
+  m_.yy = d[X_AXIS];
+  m_.x0 = center[X_AXIS];
+  m_.y0 = center[Y_AXIS];
   d = (*this) (-center);
-  x0 = d[X_AXIS];
-  y0 = d[Y_AXIS];
+  m_.x0 = d[X_AXIS];
+  m_.y0 = d[Y_AXIS];
 }
 
 Transform &
 Transform::concat (const Transform &t)
 {
-  pango_matrix_concat (this, &t);
+  pango_matrix_concat (&m_, &t.m_);
   return *this;
 }
 
 Transform &
 Transform::translate (Offset p)
 {
-  pango_matrix_translate (this, p[X_AXIS], p[Y_AXIS]);
+  pango_matrix_translate (&m_, p[X_AXIS], p[Y_AXIS]);
   return *this;
 }
 
@@ -86,14 +86,14 @@ Transform::rotate (Real angle, Offset center)
 Transform &
 Transform::scale (Real xscale, Real yscale)
 {
-  pango_matrix_scale (this, xscale, yscale);
+  pango_matrix_scale (&m_, xscale, yscale);
   return *this;
 }
 
 Offset
 Transform::operator () (Offset point) const
 {
-  pango_matrix_transform_point (this, &point[X_AXIS], &point[Y_AXIS]);
+  pango_matrix_transform_point (&m_, &point[X_AXIS], &point[Y_AXIS]);
   return point;
 }
 

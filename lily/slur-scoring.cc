@@ -18,9 +18,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "slur-scoring.hh"
+#include "config.hh"
 
-#include <queue>
+#include "slur-scoring.hh"
 
 #include "axis-group-interface.hh"
 #include "accidental-interface.hh"
@@ -44,6 +44,12 @@
 #include "staff-symbol.hh"
 #include "stem.hh"
 #include "warn.hh"
+
+#include <cmath>
+#include <memory>
+#include <queue>
+#include <string>
+#include <vector>
 
 using std::string;
 using std::unique_ptr;
@@ -639,7 +645,7 @@ Slur_score_state::move_away_from_staffline (Real y,
                                               Y_AXIS))
       * 2.0 / staff_space_;
 
-  if (fabs (pos - my_round (pos)) < 0.2
+  if (fabs (pos - round_halfway_up (pos)) < 0.2
       && Staff_symbol_referencer::on_staff_line (on_staff, (int) rint (pos)))
     y += 1.5 * staff_space_ * dir_ / 10;
 

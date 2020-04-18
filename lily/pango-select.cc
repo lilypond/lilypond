@@ -17,11 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.hh"
+
 #include "dimensions.hh"
 #include "all-font-metrics.hh"
 #include "libc-extension.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
+
+#include <cmath>
 
 using std::string;
 
@@ -58,7 +62,7 @@ properties_to_pango_description (SCM chain, Real text_size)
   Real size = text_size * pow (2.0, step / 6.0);
 
   pango_font_description_set_size (description,
-                                   gint (my_round (size * PANGO_SCALE)));
+                                   gint (round_halfway_up (size * PANGO_SCALE)));
   return description;
 }
 

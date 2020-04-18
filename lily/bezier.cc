@@ -19,7 +19,6 @@
 
 #include "bezier.hh"
 #include "warn.hh"
-#include "libc-extension.hh"
 
 using std::vector;
 
@@ -147,11 +146,10 @@ Offset
 Bezier::dir_at_point (Real t) const
 {
   Offset second_order[3];
-  Offset third_order[2];
-
   for (vsize i = 0; i < 3; i++)
     second_order[i] = ((control_[i + 1] - control_[i]) * t) + control_[i];
 
+  Offset third_order[2];
   for (vsize i = 0; i < 2; i++)
     third_order[i] = ((second_order[i + 1] - second_order[i]) * t) + second_order[i];
 

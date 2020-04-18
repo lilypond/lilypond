@@ -18,7 +18,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
 #include "tie-formatting-problem.hh"
 
 #include "axis-group-interface.hh"
@@ -38,6 +37,13 @@
 #include "warn.hh"
 #include "pointer-group-interface.hh"
 #include "output-def.hh"
+
+#include <array>
+#include <cmath>
+#include <cstdio>
+#include <set>
+#include <string>
+#include <vector>
 
 using std::array;
 using std::set;
@@ -526,7 +532,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
             {
               Real top_y = y + conf->delta_y_ + conf->dir_ * h;
               Real top_pos = top_y / (0.5 * details_.staff_space_);
-              int round_pos = int (my_round (top_pos));
+              int round_pos = int (round_halfway_up (top_pos));
 
               /* TODO: should use other variable? */
               Real clearance = details_.center_staff_line_clearance_;
@@ -900,7 +906,7 @@ Tie_formatting_problem::generate_base_chord_configuration ()
         conf.dir_ = specifications_[i].manual_dir_;
       if (specifications_[i].has_manual_position_)
         {
-          conf.position_ = (int) my_round (specifications_[i].manual_position_);
+          conf.position_ = (int) round_halfway_up (specifications_[i].manual_position_);
           if (specifications_[i].has_manual_delta_y_)
             conf.delta_y_ = (specifications_[i].manual_position_ - conf.position_)
                             * 0.5 * details_.staff_space_;

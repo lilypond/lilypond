@@ -24,41 +24,43 @@
 #include "offset.hh"
 #include "smobs.hh"
 
-class Transform : public Simple_smob<Transform>, PangoMatrix
+class Transform : public Simple_smob<Transform>
 {
+  PangoMatrix m_;
 public:
   static const char *const type_p_name_;
 
   static const Transform identity;
 
+  /* Initializes to the identity matrix. */
   Transform ()
   {
-    xx = 1.0;
-    xy = 0.0;
-    yx = 0.0;
-    yy = 1.0;
-    x0 = 0.0;
-    y0 = 0.0;
+    m_.xx = 1.0;
+    m_.xy = 0.0;
+    m_.yx = 0.0;
+    m_.yy = 1.0;
+    m_.x0 = 0.0;
+    m_.y0 = 0.0;
   }
 
   Transform (Real p0, Real p1, Real p2, Real p3, Real p4, Real p5)
   {
-    xx = p0;
-    xy = p1;
-    yx = p2;
-    yy = p3;
-    x0 = p4;
-    y0 = p5;
+    m_.xx = p0;
+    m_.xy = p1;
+    m_.yx = p2;
+    m_.yy = p3;
+    m_.x0 = p4;
+    m_.y0 = p5;
   }
 
   explicit Transform (Offset p0)
   {
-    xx = 1.0;
-    xy = 0.0;
-    yx = 0.0;
-    yy = 1.0;
-    x0 = p0[X_AXIS];
-    y0 = p0[Y_AXIS];
+    m_.xx = 1.0;
+    m_.xy = 0.0;
+    m_.yx = 0.0;
+    m_.yy = 1.0;
+    m_.x0 = p0[X_AXIS];
+    m_.y0 = p0[Y_AXIS];
   }
 
   Transform (Real angle, Offset center);
@@ -74,12 +76,12 @@ public:
   Offset operator () (Offset point) const;
   Transform operator () (const Transform &t) const;
 
-  Real get_xx () const { return xx; }
-  Real get_xy () const { return xy; }
-  Real get_yx () const { return yx; }
-  Real get_yy () const { return yy; }
-  Real get_x0 () const { return x0; }
-  Real get_y0 () const { return y0; }
+  Real get_xx () const { return m_.xx; }
+  Real get_xy () const { return m_.xy; }
+  Real get_yx () const { return m_.yx; }
+  Real get_yy () const { return m_.yy; }
+  Real get_x0 () const { return m_.x0; }
+  Real get_y0 () const { return m_.y0; }
 };
 
 Offset scm_transform (SCM trans, Offset p);

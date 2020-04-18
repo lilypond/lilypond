@@ -106,12 +106,9 @@ INSTALLATION_OUT_FILES3 = $(LILYPOND_FONTS_CONF)
 #
 # 2. are not included with teTeX
 #
-$(outdir)/%.global-lisp $(outdir)/%.lisp:  $(outdir)/%.log $(outdir)/%.tfm
+$(outdir)/%.global-lisp $(outdir)/%.lisp:  $(outdir)/%.log
 	$(call ly_progress,Making,$(outdir)/$*.lisp,< log)
-	$(buildscript-dir)/mf-to-table \
-		--global-lisp=$(outdir)/$(<F:.log=.global-lisp) \
-		--lisp=$(outdir)/$(<F:.log=.lisp) \
-		$<
+	$(buildscript-dir)/mf-to-table $<
 
 $(outdir)/emmentaler-%.svg $(outdir)/emmentaler-%.woff $(outdir)/emmentaler-%.otf: gen-emmentaler.fontforge.py\
 			$(outdir)/feta%.pfb \
@@ -126,7 +123,8 @@ $(outdir)/emmentaler-%.svg $(outdir)/emmentaler-%.woff $(outdir)/emmentaler-%.ot
 			    $(outdir)/feta-alphabet%.lisp \
 			    $(outdir)/parmesan%.lisp \
 			    $(outdir)/parmesan-noteheads%.lisp \
-			    $(outdir)/feta%.global-lisp
+			    $(outdir)/feta%.global-lisp \
+			    $(outdir)/feta-alphabet%.tfm
 	$(call ly_progress,Making,$@,)
 	$(FONTFORGE) -lang=py -script $< --version=$(VERSION) --in $(outdir)/ --out $(outdir)/emmentaler-$*.otf
 

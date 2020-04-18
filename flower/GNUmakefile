@@ -19,7 +19,7 @@ TEST_LOADLIBES = $(LIBRARY) $(CXXABI_LIBS)
 # yaffut.hh catches all exceptions, so re-enable -fexceptions for the tests.
 $(TEST_O_FILES): EXTRA_CXXFLAGS += -fexceptions
 
-$(TEST_EXECUTABLE): $(TEST_O_FILES)
+$(TEST_EXECUTABLE): $(TEST_O_FILES) $(O_FILES)
 	$(call ly_progress,Making,$@,)
 	$(CXX) -o $@ $(TEST_O_FILES) $(TEST_LOADLIBES) $(ALL_LDFLAGS)
 

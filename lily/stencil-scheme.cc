@@ -18,7 +18,6 @@
 */
 
 #include "font-metric.hh"
-#include "libc-extension.hh"
 #include "lookup.hh"
 #include "offset.hh"
 #include "stencil.hh"

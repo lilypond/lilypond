@@ -29,7 +29,6 @@
 #include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
-#include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
 #include "misc.hh"

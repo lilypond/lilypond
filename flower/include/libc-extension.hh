@@ -20,14 +20,17 @@
 #ifndef LIBC_EXTENSION_HH
 #define LIBC_EXTENSION_HH
 
-#include <cstddef>
-#include <cstdarg>
-
-#include "config.hh"
-
-char *strnlwr (char *start, size_t n);
-char *strnupr (char *start, size_t n);
-
-double my_round (double);
+// This differs from std::round() in the handling of negative numbers:
+// While std::round() rounds halfway cases away from zero, this function
+// rounds them up (for historic reasons). As an example,
+//   std::round(-7.5) = -8.0
+//   round_halfway_up(-7.5) = -7.0
+//
+// This can apparently be relied upon at least when manually positioning
+// ties (input/regression/tie-single-manual.ly). In the long run, these
+// cases should be identified and taken care of individually. Keep this
+// function (old name: my_round) for the time being, but DO NOT USE in
+// newly written code.
+double round_halfway_up (double);
 
 #endif /* LIBC_EXTENSION_HH */

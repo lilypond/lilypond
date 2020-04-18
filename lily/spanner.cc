@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "libc-extension.hh"
 #include "moment.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"

@@ -22,7 +22,6 @@
 #include "staff-symbol.hh"
 #include "grob.hh"
 #include "output-def.hh"
-#include "libc-extension.hh"
 
 bool
 Staff_symbol_referencer::on_line (Grob *me, int pos)

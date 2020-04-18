@@ -988,12 +988,10 @@ Otherwise, return #f."
 Otherwise, return #f."
   (with-music-match (expr (music
                            'ContextSpeccedMusic
+                           context-type 'Timing
                            element (music
-                                    'ContextSpeccedMusic
-                                    context-type 'Timing
-                                    element (music
-                                             'PartialSet
-                                             duration ?duration))))
+                                    'PartialSet
+                                    duration ?duration)))
 
                     (and ?duration
                          (format #f "\\partial ~a"
