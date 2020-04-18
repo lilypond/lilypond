@@ -11,7 +11,7 @@ NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 SUBDIRS = logo pictures misc po css topdocs \
   ly-examples $(LANGS)
-STEPMAKE_TEMPLATES = documentation texinfo tex
+STEPMAKE_TEMPLATES = documentation texinfo
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
 ### Extra flags

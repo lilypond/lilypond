@@ -1,6 +1,6 @@
 depth = ../..
 
-STEPMAKE_TEMPLATES=documentation tex texinfo topdocs
+STEPMAKE_TEMPLATES=documentation texinfo topdocs
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 OUT_TEXI_FILES = $(TEXI_FILES:%.texi=$(outdir)/%.texi) $(TELY_FILES:%.tely=$(outdir)/%.texi)
 HTML_FILES=$(TEXI_FILES:%.texi=$(outdir)/%.html) $(TELY_FILES:%.tely=$(outdir)/%.html)
