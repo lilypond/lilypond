@@ -1943,29 +1943,15 @@ list.
 @node Adding a Texinfo manual
 @unnumberedsubsubsec Adding a Texinfo manual
 
-In order to start translating a new manual whose basename is @var{FOO},
-do
+In order to start translating a new manual, simply copy the English files within
+your language directory and translate them.
+
+For example, if you want to translate the first chapter of the Learning Manual:
 
 @example
-cd Documentation/@var{MY-LANGUAGE}
-cp ../@var{FOO}.tely .
-mkdir @var{FOO}
-cp web/GNUmakefile @var{FOO}
+cp Documentation/learning.tely Documentation/@var{LANG}/learning.tely
+cp Documentation/learning/tutorial.itely Documentation/@var{LANG}/tutorial.itely
 @end example
-
-@noindent
-then append @var{FOO} to variable @code{SUBDIRS} in
-Documentation/@var{MY-LANGUAGE}/GNUmakefile, then translate file
-@var{MY-LANGUAGE}/@var{FOO}.tely and run @code{skeleton-update}:
-
-@example
-cd Documentation/
-make ISOLANG=@var{MY-LANGUAGE} TEXI_LANGUTIL_FLAGS=--head-only skeleton-update
-@end example
-
-@noindent
-Your are now ready to translate the new manual exactly like the web site
-or the Learning Manual.
 
 
 @node Documentation translation maintenance
@@ -2082,15 +2068,6 @@ the full file in English will be opened instead.
 
 @seeCommittishesUpdate
 
-Texinfo skeleton files, i.e. @file{.itely} files not yet translated,
-containing only the first node of the original file in English can be
-updated automatically: whenever @command{make check-translation} shows
-that such files should be updated, run from @file{Documentation/}
-
-@example
-make ISOLANG=@var{MY_LANGUAGE} skeleton-update
-@end example
-
 @file{.po} message catalogs in @file{Documentation/po/} may be updated
 by issuing from @file{Documentation/} or @file{Documentation/po/}
 
@@ -2124,16 +2101,6 @@ with a lot of care, i.e. run it on a clean Git working tree, and check
 the changes it made with @command{git diff} before committing; if you
 don't do so, some @code{@@lilypond} snippets might be broken or make
 no sense in their context.
-
-Finally, a command runs the three update processes above for all
-enabled languages (from @file{Documentation/}):
-
-@example
-make all-translations-update
-@end example
-
-Use this command with caution, and keep in mind it will not be really
-useful until translations are stabilized after the end of GDP and GOP.
 
 @seealso
 @ref{Maintaining without updating translations},
@@ -2397,7 +2364,6 @@ are located in @file{scripts/auxiliar/}.
 @item @file{check_translation.py}  -- show diff to update a translation,
 @item @file{texi-langutils.py}  -- quickly and dirtily parse Texinfo files to
 make message catalogs and Texinfo skeleton files,
-@item @file{texi-skeleton-update.py} -- update Texinfo skeleton files,
 @item @file{update-snippets.py} -- synchronize ly snippets with those
 from English docs,
 @item @file{translations-status.py} -- update translations status pages and word

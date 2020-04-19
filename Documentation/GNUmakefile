@@ -295,9 +295,6 @@ $(outdir)/notation.texi: $(outdir)/internals.texi
 po-update:
 	$(MAKE) -C po po-update
 
-all-translations-update: po-update translation-status
-	$(foreach lang, $(LANGS), $(MAKE) ISOLANG=$(lang) skeleton-update snippet-update &&) true
-
 ifneq ($(NO_COLOR),)
 CHECK_TRANSLATION_FLAGS = --no-color
 endif
@@ -330,16 +327,8 @@ new-lang:
 
 TRANSLATION_DIRS = web texidocs
 TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
-TEXI_LANGUTIL_FLAGS += --skeleton
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
-skeleton-update:
-	@echo "$@ has been discontinued"
-	@echo "simply copy .texi, .itexi files you want to translate"
-	exit 2
-	mkdir -p $(ISOLANG)
-	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) $(TEXI_LANGUTIL_FLAGS) $(TELY_FILES:$(ISOLANG)/%.tely=../%.tely)
-	$(PYTHON) $(auxscript-dir)/texi-skeleton-update.py $(ISOLANG) $(outdir)
 
 snippet-update:
 	$(PYTHON) $(auxscript-dir)/update-snippets.py user $(ISOLANG) '*.itely'
