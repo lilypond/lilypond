@@ -1543,8 +1543,35 @@ changed in scores.
 @funindex font-interface
 
 Fonts are handled through several libraries.  FontConfig is used to
-detect available fonts on the system; the selected fonts are rendered
-using Pango.
+detect available fonts; the selected fonts are rendered using Pango.
+
+@cindex font, external files
+
+In addition to any font already installed on the operating system,
+additional fonts may be added to the set detected by FontConfig
+(and thus available in LilyPond scores) through the following commands:
+
+@example
+#(ly:font-config-add-font "@var{path/to/font-file.otf}")
+
+#(ly:font-config-add-directory "@var{path/to/directory/}")
+@end example
+
+@noindent
+Both of these commands accept either absolute or relative paths,
+which makes it possible to compile a score on any system by
+simply copying the relevant font files alongside the source code.
+
+Having been detected, fonts must then be selected using the
+methods described in @ref{Single entry fonts} and
+@ref{Entire document fonts}.  As it prints the complete
+list of available fonts in the console log, the command
+@code{#(ly:font-config-display-fonts)} may be of use
+to verify which fonts are indeed detected, and under which
+names (as these may differ from the file names themselves).
+
+@cindex font, music notation
+@funindex font-encoding
 
 Music notation fonts can be described as a set of specific glyphs,
 ordered in several families.  The following syntax allows LilyPond's
