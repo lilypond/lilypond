@@ -143,6 +143,56 @@ public:
   }
 };
 
+// This duplicates std::remove_pointer (apart from erroring out if
+// there is no pointer to be removed) but it's simple enough that we
+// don't want to pull in all of <type_traits> for a header as
+// frequently included as this one.
+template <typename U> struct ly_remove_pointer {}; // Error template, no type
+template <typename U> struct ly_remove_pointer <U*> { using type = U; };
+template <typename U> struct ly_remove_pointer <const U*> { using type = U; };
+
+// Tool class for member function pointer base class identification in
+// spirit akin to the <type_traits> include file classes.
+//
+// If T is a member function pointer type, mfp_baseclass<T>::type is
+// the type of its underlying base class.
+
+template <typename T>
+class mfp_baseclass
+{
+  // We cannot make the return type U since it can be an abstract base class
+  template <typename U, typename V, typename ...W>
+  static U* strip_mfp (V (U::*) (W...));
+public:
+  using type =
+    typename ly_remove_pointer<decltype(strip_mfp (static_cast<T> (nullptr)))>::type;
+};
+
+// Build a member function pointer given a pointer to the class and
+// the unqualified name of a member function
+#define MFP_CREATE(ptr, proc)                   \
+  (&ly_remove_pointer<decltype(ptr)>::type::proc)
+
+// Split a constant member function pointer into a pair of template
+// arguments, the first being the underlying base class type, the
+// second being the member function pointer itself: this is frequently
+// needed for template resolution
+
+#define MFP_ARGS(mfp) typename mfp_baseclass<decltype (mfp)>::type, mfp
+
+// Wrapper macros for member function pointers with 0 to 2 extra
+// arguments apart from the instance.  Extra arguments are supposed to
+// be checked by type-dependent trampolines, but MFP0_WRAP works
+// as-is.
+#define MFP0_WRAP(mfp)                                  \
+  Callback0_wrapper::make_smob<MFP_ARGS (mfp)> ()
+
+#define MFP1_WRAP(mfp)                                          \
+  Callback_wrapper::make_smob<trampoline<MFP_ARGS (mfp)> > ()
+
+#define MFP2_WRAP(mfp)                                          \
+  Callback2_wrapper::make_smob<trampoline<MFP_ARGS (mfp)> > ()
+
 // The following will usually be used unsmobbified, relying on its
 // constituents being protected independently.
 
