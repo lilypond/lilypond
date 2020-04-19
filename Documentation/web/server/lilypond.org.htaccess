@@ -18,7 +18,7 @@ RewriteEngine On
 
 # Permanent redirect from www.lilypond.org to lilypond.org
 RewriteCond "%{HTTP_HOST}" "^www\.(.+)$" [NC]
-RewriteRule "^/?(.*)$"     "http://%1/$1" [R=301,L,NE]
+RewriteRule "^/?(.*)$"     "https://%1/$1" [R=301,L,NE]
 
 # Deny following of symlinks by robots.
 # HTTrack is a known offender.
@@ -52,8 +52,8 @@ RedirectMatch ^/doc/stable/?$ /manuals
 RedirectMatch ^/doc/development/?$ /development
 
 # Allow to use deep links to latest stable or development docs
-RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.19/$1
-RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.19/$1
+RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.21/$1
+RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.21/$1
 RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.20/$1
 RedirectMatch ^/doc//*([^v].*)$ /doc/v2.20/$1
 RedirectMatch ^(/Documentation.*)$ /doc/v2.20$1
@@ -96,7 +96,7 @@ RewriteCond %{REQUEST_URI} !^/website
 # ...and does not start with /doc$
 RewriteCond %{REQUEST_URI} !^/doc$
 # ...add trailing slash for [menu] and to avoid /web/ in browser url
-RewriteRule ^(.+)$ http://%{HTTP_HOST}/$1/ [R,QSA,L]
+RewriteRule ^(.+)$ https://%{HTTP_HOST}/$1/ [R,QSA,L]
 
 # Request that does not start with /website
 RewriteCond %{REQUEST_URI} !^/website
