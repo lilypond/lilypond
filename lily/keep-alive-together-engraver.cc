@@ -18,7 +18,6 @@
 */
 
 #include "context.hh"
-#include "dispatcher.hh"
 #include "engraver.hh"
 #include "grob.hh"
 #include "grob-array.hh"

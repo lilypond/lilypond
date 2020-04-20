@@ -20,7 +20,6 @@
 #include "event-chord-iterator.hh"
 
 #include "context.hh"
-#include "dispatcher.hh"
 #include "duration.hh"
 #include "input.hh"
 #include "international.hh"
