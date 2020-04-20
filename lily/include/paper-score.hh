@@ -44,7 +44,11 @@ public:
 
   void typeset_system (System *);
   std::vector<Column_x_positions> calc_breaking ();
+
+  // Ascending indices into get_columns() of breakable Paper_columns
   std::vector<vsize> const &get_break_indices () const;
+
+  // Ascending ranks of breakable Paper_columns
   std::vector<vsize> const &get_break_ranks () const;
   std::vector<Paper_column *> const &get_columns () const;
   SCM get_paper_systems ();
