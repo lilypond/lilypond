@@ -464,7 +464,7 @@ Benutzt das lxml.etree Python-Paket für die Verarbeitung von XML (benötigt wen
 @item -m --midi
 Aktiviert die MIDI-Umgebung
 
-@item -nd --no-articulation-directions
+@item --nd --no-articulation-directions
 Konvertiert keine Richtungsangaben (@code{^}, @code{_} oder @code{-})
 von Artikulations- und Lautstärkebezeichnungen.
 
