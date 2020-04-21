@@ -290,25 +290,23 @@ $(outdir)/%.php: %.php
 	$(call ly_progress,Making,$@,(hard link))
 	ln -f $< $@
 
-## notation.texi deps
-$(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
-	$(MAKE) -C $(top-src-dir)/mf
-
-$(outdir)/contributor.texi: $(outdir)/ly-grammar.txt
-
 ## Rules for the automatically generated documentation
 $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 	$(call ly_progress,Making,$@,< yy)
 	cd $(outdir) && $(BISON) -v $<
 	$(buildscript-dir)/yyout2grammar $(outdir)/parser.output $@
 
-# There used to be a dependency on a dummy target, to force a rebuild
-# of internals every time.  however, this triggers
-# compilation during install, which is a bad thing (tm).
-
 $(outdir)/internals.texi: $(LILYPOND_BINARY) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	$(call ly_progress,Making,$@,)
 	cd $(outdir) && $(buildscript-dir)/run-and-check "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
+
+## Dependencies on the automatically generated documentation
+$(outdir)/contributor.texi: $(outdir)/ly-grammar.txt
+
+# notation.tely includes, via notation/notation-appendices.itely, many
+# generated files (like markup-commands.tely). These are the result of
+# processing ly/generate-documentation.ly for internals.texi (see above).
+$(outdir)/notation.texi: $(outdir)/internals.texi
 
 ###############################################
 #  Documentation and translations maintenance #
