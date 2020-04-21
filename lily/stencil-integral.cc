@@ -870,7 +870,7 @@ stencil_dispatcher (vector<Box> &boxes,
                     vector<Drul_array<Offset> > &buildings,
                     SCM trans, SCM expr)
 {
-  if (not scm_is_pair (expr))
+  if (!scm_is_pair (expr))
     return;
 
   SCM head = scm_car (expr);
