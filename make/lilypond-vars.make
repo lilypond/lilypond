@@ -81,7 +81,7 @@ export TEXINPUTS
 TEXFONTMAPS=$(top-build-dir)/tex/$(outdir)::
 export TEXFONTMAPS
 
-export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out-www
+export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out
 
 #texi-html for www only:
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)

@@ -173,8 +173,10 @@ local-doc:
 	$(MAKE) out=www local-WWW-2
 	$(MAKE) out=www WWW-post
 
-doc-stage-1:
-	$(MAKE) -C $(top-build-dir)/Documentation/po out=www messages
+doc-messages:
+	$(MAKE) -C $(top-build-dir)/Documentation/po messages
+
+doc-stage-1: doc-messages
 	$(MAKE) out=www WWW-1
 
 doc-clean:
