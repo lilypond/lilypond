@@ -188,10 +188,6 @@ default: $(config_h) build-dir-setup doc-messages
 
 build-dir-setup: $(tree-share-prefix)/lilypond-force
 
-PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
-HELP_CATALOGS = $(PO_FILES:po/%.po=%)
-CATALOGS = $(HELP_CATALOGS:lilypond=)
-
 # Preparing LilyPond tree for build-dir exec
 link-tree: $(tree-share-prefix)/lilypond-force
 
@@ -230,10 +226,6 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 	-cd $(tree-share-prefix)/elisp && \
 		ln -sf ../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(top-src-dir)/elisp/*.el .
-	$(foreach i,$(CATALOGS), \
-		(mkdir -p $(tree-share)/locale/$i/LC_MESSAGES && \
-		cd $(tree-share)/locale/$i/LC_MESSAGES && \
-		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo) &&) true
 	touch $(tree-share-prefix)/lilypond-force
 
 link-mf-tree: $(tree-share-prefix)/mf-link-tree

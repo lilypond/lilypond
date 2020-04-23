@@ -7,7 +7,6 @@ include $(depth)/make/stepmake.make
 
 doc-localedir=$(outdir)
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-DOMAIN=lilypond-doc
 DOC_PO_SOURCES = python/auxiliar/postprocess_html.py \
  scripts/auxiliar/tely-gettext.py scripts/auxiliar/translations-status.py
 TELY_FILES = $(shell ls $(depth)/Documentation/*.tely)
@@ -22,7 +21,7 @@ $(outdir)/messages: $(MO_FILES)
 	for i in $(CATALOGS); do \
 	  rm -rf $(doc-localedir)/$$i/LC_MESSAGES; \
 	  mkdir -p $(doc-localedir)/$$i/LC_MESSAGES; \
-	  $(LN) $(outdir)/$$i.mo $(doc-localedir)/$$i/LC_MESSAGES/$(DOMAIN).mo; \
+	  $(LN) $(outdir)/$$i.mo $(doc-localedir)/$$i/LC_MESSAGES/lilypond-doc.mo; \
 	done
 	touch $@
 
@@ -32,6 +31,6 @@ po-update:
 	cd $(outdir) && xgettext --keyword=_doc -cjn -L Python -o buildscripts.pot $(foreach i, $(DOC_PO_SOURCES), $(notdir $(i)))
 	msgcat -o $(outdir)/doc.pot $(outdir)/buildscripts.pot $(outdir)/texi.pot
 	msgmerge -U lilypond-doc.pot $(outdir)/doc.pot
-	for i in $(CATALOGS); do \
-	  msgmerge -U $$i.po lilypond-doc.pot; \
+	for i in $(PO_FILES); do \
+	  msgmerge -U $$i lilypond-doc.pot; \
 	done
