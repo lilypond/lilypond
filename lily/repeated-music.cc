@@ -94,16 +94,6 @@ Repeated_music::unfolded_music_length (SCM m)
   return l.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Repeated_music, folded_music_length, 1);
-SCM
-Repeated_music::folded_music_length (SCM m)
-{
-  Music *me = unsmob<Music> (m);
-
-  Moment l = body_get_length (me) + alternatives_get_length (me, true);
-  return l.smobbed_copy ();
-}
-
 int
 Repeated_music::repeat_count (Music *me)
 {
