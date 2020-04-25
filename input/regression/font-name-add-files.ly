@@ -219,6 +219,7 @@ DQAAAAEAAAAA2m42gAAAAADapnDnAAAAANqnrLQFlwAyBZcARQ==
 \book {
 
 #(let* ((port (open-output-file dummyfontfile)))
+  (if (guile-v2) (set-port-encoding! port "ISO-8859-1"))
   (base64-decode port dummyfont)
   (close port))
 
