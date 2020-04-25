@@ -442,7 +442,7 @@ Skyline::Skyline (vector<Drul_array<Offset> > const &segments, Axis horizon_axis
       Real y1 = left[other_axis (horizon_axis)] * sky;
       Real y2 = right[other_axis (horizon_axis)] * sky;
 
-      if (x1 <= x2)
+      if (x1 < x2)
         buildings.push_back (Building (x1, y1, y2, x2));
     }
 

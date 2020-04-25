@@ -80,6 +80,7 @@ class Key_performer;
 class Keyword_ent;
 class Keyword_table;
 class Ligature_bracket_engraver;
+class Lazy_skyline_pair;
 class Ligature_engraver;
 class Lily_lexer;
 class Lily_parser;
