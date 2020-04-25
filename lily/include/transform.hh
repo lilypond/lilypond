@@ -27,6 +27,7 @@
 class Transform : public Simple_smob<Transform>
 {
   PangoMatrix m_;
+
 public:
   static const char *const type_p_name_;
 
@@ -75,6 +76,8 @@ public:
 
   Offset operator () (Offset point) const;
   Transform operator () (const Transform &t) const;
+  std::string to_string () const;
+  int print_smob (SCM p, scm_print_state *) const;
 
   Real get_xx () const { return m_.xx; }
   Real get_xy () const { return m_.xy; }

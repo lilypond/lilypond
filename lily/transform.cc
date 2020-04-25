@@ -38,7 +38,11 @@
  */
 
 #include "transform.hh"
+
 #include "offset.hh"
+#include "string-convert.hh"
+
+#include <string>
 
 const char *const
 Transform::type_p_name_ = "ly:transform?";
@@ -81,6 +85,22 @@ Transform::rotate (Real angle, Offset center)
 {
   Transform tmp (angle, center);
   return concat (tmp);
+}
+
+std::string
+Transform::to_string () const
+{
+  return String_convert::form_string ("[[%f %f %f] [%f %f %f]]", m_.xx, m_.xy,
+                                      m_.x0, m_.yx, m_.yy, m_.y0);
+}
+
+int
+Transform::print_smob (SCM p, scm_print_state *) const
+{
+  scm_puts ("#<Transform ", p);
+  scm_puts (to_string ().c_str (), p);
+  scm_puts (">", p);
+  return 1;
 }
 
 Transform &
