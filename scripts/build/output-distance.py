@@ -1267,14 +1267,14 @@ def compare_tree_pairs (tree_pairs, dest_dir, threshold):
 
     data.read_sources ()
 
-    data.print_results (threshold)
-
     if os.path.isdir (dest_dir):
         system ('rm -rf %s '% dest_dir)
 
     data.write_changed (dest_dir, threshold)
     data.create_html_result_page (dest_dir, threshold)
     data.create_text_result_page (dest_dir, threshold)
+    data.print_results (threshold)
+
 
 
 ################################################################
