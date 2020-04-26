@@ -655,28 +655,6 @@ pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
   return priority_1 < priority_2;
 }
 
-static void
-add_interior_skylines (Grob *me, Grob *x_common, Grob *y_common, vector<Skyline_pair> *skylines)
-{
-  if (Grob_array *elements = unsmob<Grob_array> (get_object (me, "elements")))
-    {
-      for (vsize i = 0; i < elements->size (); i++)
-        add_interior_skylines (elements->grob (i), x_common, y_common, skylines);
-    }
-  else if (!scm_is_number (get_property (me, "outside-staff-priority"))
-           && !to_boolean (get_property (me, "cross-staff")))
-    {
-      Skyline_pair *maybe_pair = unsmob<Skyline_pair> (get_property (me, "vertical-skylines"));
-      if (!maybe_pair)
-        return;
-      if (maybe_pair->is_empty ())
-        return;
-      skylines->push_back (Skyline_pair (*maybe_pair));
-      skylines->back ().shift (me->relative_coordinate (x_common, X_AXIS));
-      skylines->back ().raise (me->relative_coordinate (y_common, Y_AXIS));
-    }
-}
-
 // Raises the grob elt (whose skylines are given by h_skyline
 // and v_skyline) so that it doesn't intersect with staff_skyline,
 // or with anything in other_h_skylines and other_v_skylines.
@@ -880,7 +858,12 @@ Axis_group_interface::outside_staff_ancestor (Grob *me)
 Skyline_pair
 Axis_group_interface::skyline_spacing (Grob *me)
 {
-  extract_grob_set (me, unsmob<Grob_array> (get_object (me, "vertical-skyline-elements")) ? "vertical-skyline-elements" : "elements", fakeelements);
+  extract_grob_set (
+    me,
+    unsmob<Grob_array> (get_object (me, "vertical-skyline-elements"))
+      ? "vertical-skyline-elements"
+      : "elements",
+    fakeelements);
   vector<Grob *> elements (fakeelements);
   for (vsize i = 0; i < elements.size (); i++)
     /*
@@ -922,15 +905,28 @@ Axis_group_interface::skyline_spacing (Grob *me)
   vsize i = 0;
   vector<Skyline_pair> inside_staff_skylines;
 
-  for (i = 0; i < elements.size ()
-       && !scm_is_number (get_property (elements[i], "outside-staff-priority")); i++)
+  for (i = 0;
+       i < elements.size ()
+       && !scm_is_number (get_property (elements[i], "outside-staff-priority"));
+       i++)
     {
       Grob *elt = elements[i];
-      Grob *ancestor = outside_staff_ancestor (elt);
-      if (!(to_boolean (get_property (elt, "cross-staff")) || ancestor))
-        add_interior_skylines (elt, x_common, y_common, &inside_staff_skylines);
-      if (ancestor)
+      if (Grob *ancestor = outside_staff_ancestor (elt))
         riders.insert (pair<Grob *, Grob *> (ancestor, elt));
+      else if (!to_boolean (get_property (elt, "cross-staff")))
+        {
+          Skyline_pair *maybe_pair
+            = unsmob<Skyline_pair> (get_property (elt, "vertical-skylines"));
+          if (!maybe_pair)
+            continue;
+          if (maybe_pair->is_empty ())
+            continue;
+          inside_staff_skylines.push_back (Skyline_pair (*maybe_pair));
+          inside_staff_skylines.back ().shift (
+            elt->relative_coordinate (x_common, X_AXIS));
+          inside_staff_skylines.back ().raise (
+            elt->relative_coordinate (y_common, Y_AXIS));
+        }
     }
 
   Skyline_pair skylines (inside_staff_skylines);

@@ -40,6 +40,7 @@ class Figured_bass_position_engraver : public Engraver
 protected:
   void acknowledge_note_column (Grob_info);
   void acknowledge_slur (Grob_info);
+  void acknowledge_stem (Grob_info);
   void acknowledge_end_slur (Grob_info);
   void acknowledge_end_tie (Grob_info);
   void acknowledge_bass_figure_alignment (Grob_info);
@@ -88,6 +89,12 @@ Figured_bass_position_engraver::finalize ()
 
 void
 Figured_bass_position_engraver::acknowledge_note_column (Grob_info info)
+{
+  support_.push_back (info.grob ());
+}
+
+void
+Figured_bass_position_engraver::acknowledge_stem (Grob_info info)
 {
   support_.push_back (info.grob ());
 }
@@ -146,6 +153,7 @@ Figured_bass_position_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (Figured_bass_position_engraver, note_column);
   ADD_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
+  ADD_ACKNOWLEDGER (Figured_bass_position_engraver, stem);
   ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
   ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, tie);
   ADD_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
