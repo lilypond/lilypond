@@ -649,7 +649,62 @@ Default: @code{#f} (meaning no bounding box padding).
 
 @item @code{font-export-dir} @var{string}
 Set directory for exporting fonts as PostScript files to @var{string}.
-Default: @code{#f} (meaning current directory).
+This is useful when you want to create a PDF without embedded fonts first
+and later embed the fonts with Ghostscript as shown below.
+
+@example
+$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
+@end example
+
+@noindent
+Note: Unlike @code{font-ps-resdir},
+this method can embed OpenType/CFF collection (OTC) fonts.
+However, it cannnot embed CID fonts with Ghostscript 9.26 and later.
+
+@noindent
+Note: Same as @code{font-ps-resdir}, this option skips TrueType fonts
+because embedding TrueType fonts later causes garbled characters.
+To avoid garbling characters, use
+@code{gs-never-embed-fonts}, as this embeds TrueType fonts
+despite its name.
+
+@noindent
+Default: @code{#f} (meaning not to export).
+
+@item @code{font-ps-resdir} @var{string}
+Set directory (as @var{string}) to build a subset of the PostScript resource
+directory to be used for embedding fonts later.
+This is useful when you want to create a PDF without embedded fonts first
+and later embed the fonts with Ghostscript as shown below.
+
+@example
+$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -I resdir -I resdir/Font \
+     -sOutputFile=foo.embedded.pdf foo.pdf
+@end example
+
+@noindent
+Note: It is better not to specify the directory
+that contains the name @file{Resource} because it has a special meaning
+when specified with the @code{-I} option for Ghostscript.
+
+@noindent
+Note: Unlike @code{font-export-dir},
+this method can embed CID fonts with Ghostscript 9.26 and later.
+However it cannot embed OpenType/CFF collection (OTC) fonts.
+
+@noindent
+Note: Same as @code{font-export-dir}, this option skips TrueType fonts
+because embedding TrueType fonts later causes garbled characters.
+To avoid garbling characters, use
+@code{gs-never-embed-fonts}, as this embeds TrueType fonts
+despite its name.
+
+@noindent
+Default: @code{#f} (meaning not to build).
 
 @item @code{gs-load-fonts} @var{bool}
 If @var{bool} is @code{#t}, load fonts via Ghostscript.  This option
