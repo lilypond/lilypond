@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <set>
-
 #include "duration.hh"
 #include "engraver.hh"
 #include "international.hh"
@@ -33,6 +31,8 @@
 #include "warn.hh"
 
 #include "translator.icc"
+
+#include <set>
 
 using std::set;
 

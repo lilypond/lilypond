@@ -17,10 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <map>
-
 #include "file-name-map.hh"
 #include "lily-guile.hh"
+
+#include <map>
 
 using std::map;
 using std::string;
@@ -48,4 +48,3 @@ LY_DEFINE (ly_add_file_name_alist, "ly:add-file-name-alist",
     }
   return SCM_UNSPECIFIED;
 }
-

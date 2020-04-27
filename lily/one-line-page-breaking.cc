@@ -19,8 +19,6 @@
 
 #include "one-line-page-breaking.hh"
 
-#include <limits>
-
 #include "column-x-positions.hh"
 #include "international.hh"
 #include "output-def.hh"
@@ -29,6 +27,8 @@
 #include "paper-score.hh"
 #include "simple-spacer.hh"
 #include "system.hh"
+
+#include <limits>
 
 using std::vector;
 

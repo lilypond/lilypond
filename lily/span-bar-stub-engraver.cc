@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <algorithm>
-
 #include "align-interface.hh"
 #include "context.hh"
 #include "grob.hh"
@@ -28,6 +26,8 @@
 #include "engraver.hh"
 
 #include "translator.icc"
+
+#include <algorithm>
 
 using std::vector;
 

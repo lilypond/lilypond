@@ -40,8 +40,6 @@
 #include "stem.hh"
 #include "spanner.hh"
 
-#include <cmath>                // rint
-
 #include "beam.hh"
 #include "directional-element-interface.hh"
 #include "dot-column.hh"
@@ -59,6 +57,8 @@
 #include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
 #include "warn.hh"
+
+#include <cmath> // rint
 
 using std::string;
 using std::vector;

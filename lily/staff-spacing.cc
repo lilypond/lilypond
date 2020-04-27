@@ -19,8 +19,6 @@
 
 #include "staff-spacing.hh"
 
-#include <cstdio>
-
 #include "international.hh"
 #include "paper-column.hh"
 #include "separation-item.hh"
@@ -32,6 +30,8 @@
 #include "accidental-placement.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
+
+#include <cstdio>
 
 using std::string;
 using std::vector;

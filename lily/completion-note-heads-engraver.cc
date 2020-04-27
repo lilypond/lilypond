@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "dot-column.hh"
 #include "dots.hh"
 #include "duration.hh"
@@ -37,6 +35,8 @@
 #include "misc.hh"
 
 #include "translator.icc"
+
+#include <cctype>
 
 using std::vector;
 

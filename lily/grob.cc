@@ -19,10 +19,6 @@
 
 #include "grob.hh"
 
-#include <cstring>
-#include <set>
-#include <unordered_set>
-
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "input.hh"
@@ -40,6 +36,10 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#include <cstring>
+#include <set>
+#include <unordered_set>
 
 using std::set;
 using std::string;

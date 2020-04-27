@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-#include <cstdio>
-
 #include "engraver.hh"
 
 #include "context.hh"
@@ -27,6 +24,9 @@
 #include "spanner.hh"
 
 #include "translator.icc"
+
+#include <cctype>
+#include <cstdio>
 
 using std::vector;
 

@@ -19,8 +19,6 @@
 
 #include "includable-lexer.hh"
 
-#include <sstream>
-
 #include "config.hh"
 
 #include "file-name.hh"
@@ -30,6 +28,8 @@
 #include "source-file.hh"
 #include "sources.hh"
 #include "warn.hh"
+
+#include <sstream>
 
 using std::string;
 

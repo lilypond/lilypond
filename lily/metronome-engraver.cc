@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "engraver.hh"
 
 #include "context.hh"
@@ -30,6 +28,8 @@
 #include "text-interface.hh"
 
 #include "translator.icc"
+
+#include <cctype>
 
 class Metronome_mark_engraver : public Engraver
 {

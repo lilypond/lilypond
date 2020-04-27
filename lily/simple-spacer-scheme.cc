@@ -17,12 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-
 #include "paper-column.hh"
 #include "spring.hh"
 #include "warn.hh"
 #include "simple-spacer.hh"
+
+#include <cstdio>
 
 using std::vector;
 

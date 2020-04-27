@@ -20,11 +20,6 @@
 
 #include "lily-guile.hh"
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring> /* strdup, strchr */
-#include <cctype>
-
 #include "dimensions.hh"
 #include "direction.hh"
 #include "file-path.hh"
@@ -37,6 +32,11 @@
 #include "source-file.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#include <cctype>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring> /* strdup, strchr */
 
 using std::string;
 using std::vector;

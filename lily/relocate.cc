@@ -23,13 +23,6 @@
 
 /* TODO: autoconf support */
 
-#include <sys/types.h>
-#include <dirent.h>
-
-#if HAVE_GETTEXT
-#include <libintl.h>
-#endif
-
 #include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
@@ -39,9 +32,16 @@
 #include "version.hh"
 #include "warn.hh"
 
+#if HAVE_GETTEXT
+#include <libintl.h>
+#endif
+
 #ifdef __MINGW32__
 #include <winbase.h>
 #endif
+
+#include <dirent.h>
+#include <sys/types.h>
 
 using std::string;
 using std::vector;

@@ -19,8 +19,6 @@
 
 #include "accidental-placement.hh"
 
-#include <memory>
-
 #include "accidental-interface.hh"
 #include "item.hh"
 #include "music.hh"
@@ -32,6 +30,8 @@
 #include "skyline-pair.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+
+#include <memory>
 
 using std::unique_ptr;
 using std::vector;

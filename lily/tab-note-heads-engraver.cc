@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-#include <cstdio>
-
 #include "engraver.hh"
 
 #include "articulations.hh"
@@ -33,6 +30,9 @@
 #include "context.hh"
 
 #include "translator.icc"
+
+#include <cctype>
+#include <cstdio>
 
 using std::vector;
 
@@ -172,4 +172,3 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
                 /* write */
                 ""
                );
-

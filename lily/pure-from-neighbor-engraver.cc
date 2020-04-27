@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <map>
-#include <algorithm>
-
 #include "grob.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
@@ -27,6 +24,9 @@
 #include "engraver.hh"
 
 #include "translator.icc"
+
+#include <algorithm>
+#include <map>
 
 using std::vector;
 

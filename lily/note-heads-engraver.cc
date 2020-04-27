@@ -19,8 +19,6 @@
 
 #include "engraver.hh"
 
-#include <cctype>
-
 #include "duration.hh"
 #include "item.hh"
 #include "output-def.hh"
@@ -29,6 +27,8 @@
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+
+#include <cctype>
 
 #include "translator.icc"
 

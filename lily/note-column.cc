@@ -19,8 +19,6 @@
 
 #include "note-column.hh"
 
-#include <cmath>                // ceil
-
 #include "accidental-placement.hh"
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
@@ -33,6 +31,8 @@
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
+
+#include <cmath> // ceil
 
 /*
   TODO: figure out if we can prune this class. This is just an

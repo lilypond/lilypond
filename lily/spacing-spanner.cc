@@ -19,9 +19,6 @@
 
 #include "spacing-spanner.hh"
 
-#include <cmath>
-#include <cstdio>
-
 #include "spacing-options.hh"
 #include "international.hh"
 #include "main.hh"
@@ -38,6 +35,9 @@
 #include "staff-spacing.hh"
 #include "system.hh"
 #include "warn.hh"
+
+#include <cmath>
+#include <cstdio>
 
 using std::vector;
 
@@ -558,4 +558,3 @@ ADD_INTERFACE (Spacing_spanner,
                "strict-note-spacing "
                "uniform-stretching "
               );
-

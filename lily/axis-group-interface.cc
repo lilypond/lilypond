@@ -19,8 +19,6 @@
 
 #include "axis-group-interface.hh"
 
-#include <map>
-
 #include "align-interface.hh"
 #include "directional-element-interface.hh"
 #include "grob-array.hh"
@@ -39,6 +37,8 @@
 #include "system.hh"
 #include "warn.hh"
 #include "unpure-pure-container.hh"
+
+#include <map>
 
 using std::multimap;
 using std::pair;

@@ -21,14 +21,14 @@
 
 #if HAVE_FONTCONFIG
 
-#include <cstdio>
-#include <fontconfig/fontconfig.h>
-#include <sys/stat.h>
-
 #include "file-path.hh"
 #include "international.hh"
 #include "main.hh"
 #include "warn.hh"
+
+#include <cstdio>
+#include <fontconfig/fontconfig.h>
+#include <sys/stat.h>
 
 using std::string;
 using std::vector;

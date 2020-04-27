@@ -19,8 +19,6 @@
 
 #include "tie-column.hh"
 
-#include <cmath>
-
 #include "output-def.hh"
 #include "skyline.hh"
 #include "warn.hh"
@@ -31,6 +29,8 @@
 #include "directional-element-interface.hh"
 #include "tie-formatting-problem.hh"
 #include "tie-configuration.hh"
+
+#include <cmath>
 
 using std::vector;
 
@@ -121,4 +121,3 @@ ADD_INTERFACE (Tie_column,
                "tie-configuration "
                "ties "
               );
-

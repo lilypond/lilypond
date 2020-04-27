@@ -29,14 +29,14 @@
 #define FT_Get_Font_Format FT_Get_X11_Font_Format
 #endif
 
-#include <cstdio>
-
 #include FT_TRUETYPE_TABLES_H
 
 #include "dimensions.hh"
 #include "international.hh"
 #include "modified-font-metric.hh"
 #include "warn.hh"
+
+#include <cstdio>
 
 using std::map;
 using std::string;

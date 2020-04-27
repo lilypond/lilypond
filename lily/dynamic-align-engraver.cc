@@ -18,8 +18,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <set>
-
 #include "engraver.hh"
 
 #include "axis-group-interface.hh"
@@ -30,6 +28,8 @@
 #include "stream-event.hh"
 
 #include "translator.icc"
+
+#include <set>
 
 using std::set;
 using std::vector;

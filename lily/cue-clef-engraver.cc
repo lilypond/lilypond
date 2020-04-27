@@ -19,8 +19,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "item.hh"
 #include "context.hh"
 #include "staff-symbol-referencer.hh"
@@ -31,6 +29,8 @@
 #include "international.hh"
 
 #include "translator.icc"
+
+#include <cctype>
 
 class Cue_clef_engraver : public Engraver
 {

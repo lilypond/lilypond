@@ -24,9 +24,6 @@
 - decide: do or do not print custos if the next line starts with a rest
 */
 
-#include <cstdio>
-#include <cmath> // rint
-
 #include "custos.hh"
 #include "direction.hh"
 #include "font-interface.hh"
@@ -35,6 +32,9 @@
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
+
+#include <cmath> // rint
+#include <cstdio>
 
 using std::string;
 

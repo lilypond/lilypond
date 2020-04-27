@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstring>
-#include <map>
-
 #include "std-string.hh"
 #include "lily-guile.hh"
 #include "warn.hh"
@@ -36,6 +33,9 @@
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "unpure-pure-container.hh"
+
+#include <cstring>
+#include <map>
 
 using std::map;
 using std::string;

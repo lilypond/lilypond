@@ -16,7 +16,6 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <cctype>
 
 #include "modified-font-metric.hh"
 #include "pango-font.hh"
@@ -24,6 +23,8 @@
 #include "stencil.hh"
 #include "main.hh"
 #include "program-option.hh"
+
+#include <cctype>
 
 using std::string;
 

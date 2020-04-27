@@ -19,8 +19,6 @@
 
 #include "rest-collision.hh"
 
-#include <cmath>                // ceil.
-
 #include "directional-element-interface.hh"
 #include "duration.hh"
 #include "international.hh"
@@ -36,6 +34,8 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#include <cmath> // ceil.
 
 using std::vector;
 
@@ -287,4 +287,3 @@ ADD_INTERFACE (Rest_collision,
                "positioning-done "
                "elements "
               );
-

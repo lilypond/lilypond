@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-#include <cstdio>
-
 #include "articulations.hh"
 #include "context.hh"
 #include "item.hh"
@@ -29,6 +26,9 @@
 #include "warn.hh"
 
 #include "translator.icc"
+
+#include <cctype>
+#include <cstdio>
 
 using std::vector;
 
@@ -157,4 +157,3 @@ ADD_TRANSLATOR (Fretboard_engraver,
                 /* write */
                 ""
                );
-

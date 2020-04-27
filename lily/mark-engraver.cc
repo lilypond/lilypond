@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "engraver.hh"
 
 #include "axis-group-interface.hh"
@@ -31,6 +29,8 @@
 #include "warn.hh"
 
 #include "translator.icc"
+
+#include <cctype>
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,

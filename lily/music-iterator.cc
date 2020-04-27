@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-
 #include "warn.hh"
 #include "music.hh"
 #include "context.hh"
@@ -28,6 +26,8 @@
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
+
+#include <cstdio>
 
 Music_iterator::Music_iterator ()
 {

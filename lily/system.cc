@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <algorithm>
-#include <limits>
-
 #include "system.hh"
 
 #include "align-interface.hh"
@@ -44,6 +41,9 @@
 #include "warn.hh"
 #include "unpure-pure-container.hh"
 #include "lily-imports.hh"
+
+#include <algorithm>
+#include <limits>
 
 using std::vector;
 

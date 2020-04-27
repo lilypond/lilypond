@@ -19,11 +19,6 @@
 
 #include "note-head.hh"
 
-#include <cmath>
-#include <cctype>
-#include <algorithm>            //  min, max
-
-
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
 #include "grob.hh"
@@ -31,6 +26,10 @@
 #include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
+
+#include <algorithm> //  min, max
+#include <cctype>
+#include <cmath>
 
 using std::string;
 
@@ -214,4 +213,3 @@ ADD_INTERFACE (Note_head,
                "style "
                "ledger-positions "
               );
-

@@ -19,8 +19,6 @@
 
 #include "midi-stream.hh"
 
-#include <cerrno>
-
 #include "international.hh"
 #include "main.hh"
 #include "midi-chunk.hh"
@@ -28,6 +26,8 @@
 #include "program-option.hh"
 #include "string-convert.hh"
 #include "warn.hh"
+
+#include <cerrno>
 
 using std::string;
 
@@ -62,4 +62,3 @@ Midi_stream::write (Midi_chunk const &midi)
 
   return write (str);
 }
-

@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <map>
-
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
@@ -28,6 +26,8 @@
 #include "paper-column.hh"
 #include "interval-set.hh"
 #include "std-vector.hh"
+
+#include <map>
 
 using std::map;
 using std::vector;

@@ -19,14 +19,14 @@
 
 #include "spaceable-grob.hh"
 
-#include <cstdio>
-
 #include "warn.hh"
 #include "spring.hh"
 #include "pointer-group-interface.hh"
 #include "grob.hh"
 #include "paper-column.hh"
 #include "international.hh"
+
+#include <cstdio>
 
 SCM
 Spaceable_grob::get_minimum_distances (Grob *me)
@@ -107,4 +107,3 @@ ADD_INTERFACE (Spaceable_grob,
                "right-neighbor "
                "spacing-wishes "
               );
-

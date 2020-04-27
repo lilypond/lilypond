@@ -19,9 +19,6 @@
 
 #include "lily-lexer.hh"
 
-#include <cctype>
-#include <sstream>
-
 #include "context.hh" // for nested_property_alist
 #include "international.hh"
 #include "interval.hh"
@@ -35,6 +32,9 @@
 #include "program-option.hh"
 #include "lily-parser.hh"
 #include "ly-module.hh"
+
+#include <cctype>
+#include <sstream>
 
 using std::string;
 

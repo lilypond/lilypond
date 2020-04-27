@@ -17,12 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-#include <cstdlib>
-
 #include "item.hh"
 #include "system.hh"
 #include "grob-array.hh"
+
+#include <cstdio>
+#include <cstdlib>
 
 using std::vector;
 

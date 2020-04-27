@@ -2,8 +2,6 @@
   Implement storage and manipulation of grob properties.
 */
 
-#include <cstring>
-
 #include "main.hh"
 #include "input.hh"
 #include "pointer-group-interface.hh"
@@ -18,6 +16,8 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "protected-scm.hh"
+
+#include <cstring>
 
 Protected_scm grob_property_callback_stack (SCM_EOL);
 

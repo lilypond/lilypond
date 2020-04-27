@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <memory>
-
 #include "engraver.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
@@ -29,6 +27,8 @@
 #include "system-start-delimiter.hh"
 
 #include "translator.icc"
+
+#include <memory>
 
 using std::unique_ptr;
 using std::vector;

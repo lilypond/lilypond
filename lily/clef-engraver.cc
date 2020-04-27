@@ -18,8 +18,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "item.hh"
 #include "context.hh"
 #include "staff-symbol-referencer.hh"
@@ -29,6 +27,8 @@
 
 #include "translator.icc"
 #include "lily-imports.hh"
+
+#include <cctype>
 
 class Clef_engraver : public Engraver
 {

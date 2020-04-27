@@ -24,6 +24,7 @@
 #include "international.hh"
 #include "music.hh"
 #include "pitch.hh"
+
 #include <string>
 
 /* TODO: Rename Stream_event -> Event */

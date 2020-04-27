@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstring>
-
 #include "warn.hh"
 #include "font-interface.hh"
 #include "line-interface.hh"
@@ -32,6 +30,8 @@
 #include "lookup.hh"
 #include "bracket.hh"
 #include "lily-imports.hh"
+
+#include <cstring>
 
 using std::string;
 

@@ -17,11 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-#include <cmath>
-#include <map>
-#include <set>
-
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "dot-column.hh"
@@ -36,6 +31,11 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
+
+#include <cmath>
+#include <cstdio>
+#include <map>
+#include <set>
 
 using std::set;
 using std::vector;
@@ -265,4 +265,3 @@ ADD_INTERFACE (Dot_column,
                "direction "
                "note-collision "
               );
-

@@ -19,8 +19,6 @@
 
 #include "performance.hh"
 
-#include <ctime>
-
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
@@ -34,6 +32,8 @@
 #include "score.hh"
 #include "string-convert.hh"
 #include "warn.hh"
+
+#include <ctime>
 
 using std::string;
 

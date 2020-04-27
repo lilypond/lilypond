@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <map>
-#include <deque>
-
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
@@ -31,6 +28,9 @@
 #include "lily-imports.hh"
 
 #include "translator.icc"
+
+#include <deque>
+#include <map>
 
 using std::deque;
 using std::map;

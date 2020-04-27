@@ -17,11 +17,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <glib.h>
-
 #include "international.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
+
+#include <glib.h>
 
 LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
            1, 0, 0, (SCM str),

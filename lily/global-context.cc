@@ -19,8 +19,6 @@
 
 #include "global-context.hh"
 
-#include <cstdio>
-
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "international.hh"
@@ -28,6 +26,8 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "warn.hh"
+
+#include <cstdio>
 
 using std::string;
 

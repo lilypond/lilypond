@@ -20,8 +20,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-
 #include "column-x-positions.hh"
 #include "dimensions.hh"
 #include "international.hh"
@@ -30,6 +28,8 @@
 #include "spaceable-grob.hh"
 #include "spring.hh"
 #include "warn.hh"
+
+#include <cstdio>
 
 using std::vector;
 

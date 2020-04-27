@@ -20,12 +20,6 @@
 #include "main.hh"
 #include "lily-guile.hh"
 
-#include <cassert>
-#include <clocale>
-#include <cstring>
-#include <cerrno>
-#include <cstdio>
-
 #include <unistd.h>
 #include <sys/types.h>
 #include "config.hh"
@@ -57,6 +51,12 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#include <cassert>
+#include <cerrno>
+#include <clocale>
+#include <cstdio>
+#include <cstring>
 
 /*
  * Global options that can be overridden through command line.

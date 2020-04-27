@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <algorithm> // for reverse
-
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "side-position-interface.hh"
@@ -28,6 +26,8 @@
 #include "stream-event.hh"
 
 #include "translator.icc"
+
+#include <algorithm> // for reverse
 
 using std::string;
 

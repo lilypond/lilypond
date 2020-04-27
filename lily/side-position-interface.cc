@@ -19,11 +19,6 @@
 
 #include "side-position-interface.hh"
 
-#include <cmath>                // ceil.
-#include <algorithm>
-#include <set>
-#include <map>
-
 #include "accidental-interface.hh"
 #include "accidental-placement.hh"
 #include "axis-group-interface.hh"
@@ -46,6 +41,11 @@
 #include "system.hh"
 #include "warn.hh"
 #include "unpure-pure-container.hh"
+
+#include <algorithm>
+#include <cmath> // ceil.
+#include <map>
+#include <set>
 
 using std::set;
 using std::string;

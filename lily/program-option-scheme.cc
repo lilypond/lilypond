@@ -19,9 +19,6 @@
 
 #include "program-option.hh"
 
-#include <cstdio>
-#include <cstring>
-
 #include "profile.hh"
 #include "international.hh"
 #include "main.hh"
@@ -30,6 +27,9 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 #include "protected-scm.hh"
+
+#include <cstdio>
+#include <cstring>
 
 using std::string;
 using std::vector;

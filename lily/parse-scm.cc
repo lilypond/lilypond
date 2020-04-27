@@ -19,8 +19,6 @@
 
 #include "parse-scm.hh"
 
-#include <cstdio>
-
 #include "international.hh"
 #include "lily-imports.hh"
 #include "lily-lexer.hh"
@@ -29,6 +27,8 @@
 #include "overlay-string-port.hh"
 #include "paper-book.hh"
 #include "source-file.hh"
+
+#include <cstdio>
 
 // Catch stack traces on error.
 bool parse_protect_global = true;
