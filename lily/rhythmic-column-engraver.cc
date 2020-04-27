@@ -17,13 +17,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "axis-group-interface.hh"
+#include "dot-column.hh"
 #include "engraver.hh"
+#include "item.hh"
+#include "note-column.hh"
+#include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"
-#include "note-column.hh"
-#include "item.hh"
-#include "dot-column.hh"
-#include "pointer-group-interface.hh"
 
 #include "translator.icc"
 
@@ -105,7 +106,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 
       if (flag_)
         {
-          Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), flag_);
+          Axis_group_interface::add_element (note_column_, flag_);
           flag_ = 0;
         }
     }
