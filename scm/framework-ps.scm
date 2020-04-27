@@ -264,6 +264,55 @@
 (define (initialize-font-embedding)
   (check-conflict-and-embed-cff #f #f #f))
 
+(define (is-collection-font? file-name)
+  (let* ((port (open-file file-name "rb"))
+         (retval
+          (if (eq? (read-char port) #\t)
+              (if (eq? (read-char port) #\t)
+                  (if (eq? (read-char port) #\c)
+                      (if (eq? (read-char port) #\f)
+                          #t
+                          #f)
+                      #f)
+                  #f)
+              #f)))
+    (close-port port)
+    retval))
+
+(define (link-ps-resdir-font name file-name font-index)
+  (ly:debug (_ "Symlinking PostScript resource directory ~a -> ~a (~a)...")
+            name file-name font-index)
+  (let* ((index (if (number? font-index) font-index 0))
+         (font-format (ly:get-font-format file-name index)))
+    (cond
+     ((and (eq? font-format 'CFF)
+           (is-collection-font? file-name))
+      ;; OpenType/CFF Collection (OTC)
+      (ly:warning (_ "Font ~a cannot be used in PostScript resource directory\
+ because it is an OpenType/CFF Collection (OTC) font.") name))
+     ((eq? font-format 'TrueType)
+      ;; TrueType fonts (TTF) and TrueType Collection (TTC)
+      (ly:debug (_ "Font ~a is TrueType font, skipping...") name))
+     ((or (eq? font-format (string->symbol "Type 1"))
+          (and (eq? font-format 'CFF)
+               (ly:has-glyph-names? file-name 0)))
+      ;; Type 1 (PFA and PFB) fonts and non-CID OpenType/CFF fonts (OTF)
+      (let ((newpath (format #f "~a/Font/~a"
+                             (ly:get-option 'font-ps-resdir) name)))
+        (if (file-exists? newpath)
+            (ly:debug (_ "File `~a' already exists, skipping...") newpath)
+            (symlink file-name newpath))))
+     ((eq? font-format 'CFF)
+      ;; CID OpenType/CFF fonts (OTF)
+      (let ((newpath (format #f "~a/CIDFont/~a"
+                             (ly:get-option 'font-ps-resdir) name)))
+        (if (file-exists? newpath)
+            (ly:debug (_ "File `~a' already exists, skipping...") newpath)
+            (symlink file-name newpath))))
+     (else
+      (ly:warning (_ "Font ~a cannot be used in PostScript resource directory\
+ because it is unknown format." name))))))
+
 (define (write-preamble paper load-fonts? port)
   (define (internal-font? font-name-filename)
     (let* ((font (car font-name-filename))
@@ -276,31 +325,20 @@
                             (ly:get-option 'datadir)))))
 
   (define (load-font-via-GS font-name-filename)
-    (define (is-collection-font? file-name)
-      (let* ((port (open-file file-name "rb"))
-             (retval
-              (if (eq? (read-char port) #\t)
-                  (if (eq? (read-char port) #\t)
-                      (if (eq? (read-char port) #\c)
-                          (if (eq? (read-char port) #\f)
-                              #t
-                              #f)
-                          #f)
-                      #f)
-                  #f)))
-        (close-port port)
-        retval))
-
-    (define (ps-load-file file-name)
+    (define (ps-load-file file-name name)
       (if (string? file-name)
-          (if (string-contains file-name (ly:get-option 'datadir))
-              (begin
-                (set! file-name (ly:string-substitute (ly:get-option 'datadir)
-                                                      "" file-name))
-                (format #f
-                        "lilypond-datadir (~a) concatstrings (r) file .loadfont\n"
-                        file-name))
-              (format #f "(~a) (r) file .loadfont\n" file-name))
+          (begin
+            (if (ly:get-option 'font-ps-resdir)
+                (link-ps-resdir-font name file-name 0))
+            (if (string-contains file-name (ly:get-option 'datadir))
+                (begin
+                  (set! file-name (ly:string-substitute
+                                   (ly:get-option 'datadir)
+                                   "" file-name))
+                  (format #f
+                    "lilypond-datadir (~a) concatstrings (r) file .loadfont\n"
+                    file-name))
+                (format #f "(~a) (r) file .loadfont\n" file-name)))
           (format #f "% cannot find font file: ~a\n" file-name)))
 
     (let* ((font (car font-name-filename))
@@ -341,9 +379,9 @@
                     (cond
                      ((and font (cff-font? font))
                       (ps-load-file (ly:find-file
-                                     (format #f "~a.otf" file-name))))
+                                     (format #f "~a.otf" file-name)) name))
                      ((string? bare-file-name)
-                      (ps-load-file file-name))
+                      (ps-load-file file-name name))
                      (else
                       (ly:warning (_ "cannot embed ~S=~S") name file-name)
                       "")))))))))
@@ -394,6 +432,8 @@
 
   (define (font-file-as-ps-string name file-name font-index)
     (let ((font-format (ly:get-font-format file-name font-index)))
+      (if (ly:get-option 'font-ps-resdir)
+          (link-ps-resdir-font name file-name font-index))
       (cond
        ((eq? font-format (string->symbol "Type 1"))
         ;; Type 1 (PFA and PFB) fonts
@@ -426,9 +466,16 @@
             (cond ((mac-font? bare-file-name)
                    (handle-mac-font name bare-file-name))
                   ((and font (cff-font? font))
-                   (ps-embed-cff (ly:otf-font-table-data font "CFF ")
-                                 name
-                                 0))
+                   (begin
+                     (if (ly:get-option 'font-ps-resdir)
+                         (link-ps-resdir-font
+                          name
+                          (ly:find-file
+                           (format #f "~a.otf" file-name))
+                          font-index))
+                     (ps-embed-cff (ly:otf-font-table-data font "CFF ")
+                                   name
+                                   0)))
                   (bare-file-name (font-file-as-ps-string
                                    name bare-file-name font-index))
                   (else
@@ -529,6 +576,18 @@
    "/lilypond-datadir where {pop} {userdict /lilypond-datadir (~a) put } ifelse"
    (ly:get-option 'datadir))
   (set! never-embed-font-list (list))
+  (if (ly:get-option 'font-ps-resdir)
+      (let* ((resdir (format #f "~a" (ly:get-option 'font-ps-resdir)))
+             (cidfontdir (format #f "~a/CIDFont"
+                                 (ly:get-option 'font-ps-resdir)))
+             (fontdir (format #f "~a/Font"
+                              (ly:get-option 'font-ps-resdir))))
+        (if (not (file-exists? resdir))
+            (mkdir resdir))
+        (if (not (file-exists? cidfontdir))
+            (mkdir cidfontdir))
+        (if (not (file-exists? fontdir))
+            (mkdir fontdir))))
   (if (ly:get-option 'font-export-dir)
       (let ((dirname (format #f "~a" (ly:get-option 'font-export-dir))))
         (ly:debug

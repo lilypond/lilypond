@@ -289,6 +289,9 @@ given amount (in mm).")
     (font-export-dir
      #f
      "Directory for exporting fonts as PostScript files.")
+    (font-ps-resdir
+     #f
+     "Build a subset of PostScript resource directory for embedding fonts.")
     (gs-load-fonts
      #f
      "Load fonts via Ghostscript.")
