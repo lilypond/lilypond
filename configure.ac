@@ -346,7 +346,28 @@ else
   DOCUMENTATION_REQUIRED=OPTIONAL
 fi
 
+# GhostScript
 STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, $DOCUMENTATION_REQUIRED, 8.60)
+
+GS_API=no
+AC_ARG_ENABLE(gs-api,
+    [AS_HELP_STRING([--enable-gs-api],
+                    [Link to libgs and use Ghostscript API instead of invoking]
+                    [the executable. Beware of licensing implications!]
+                    [Default: off])],
+    [GS_API=$enableval])
+AC_SUBST(GS_API)
+
+if test "$GS_API" = "yes"; then
+    AC_CHECK_HEADER([ghostscript/iapi.h], [
+        AC_CHECK_LIB([gs], [gsapi_new_instance], [GHOSTSCRIPT_FOUND="yes"],
+                     [GHOSTSCRIPT_FOUND="no"])
+    ], [GHOSTSCRIPT_FOUND="no"])
+    if test "$GHOSTSCRIPT_FOUND" = "no"; then
+        STEPMAKE_ADD_ENTRY(REQUIRED, ["libgs-dev"])
+    fi
+    AC_DEFINE(GS_API)
+fi
 
 AC_SUBST(GS920)
 AC_SUBST(EXTRACTPDFMARK)

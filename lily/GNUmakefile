@@ -40,6 +40,9 @@ $(EXECUTABLE): $(O_FILES) $(outdir)/version.hh $(FLOWER_LIB)
 	$(CXX) $(ALL_CXXFLAGS) -o $@ $(O_FILES) $(LDLIBS) $(ALL_LDFLAGS)
 
 
+ifeq ($(GS_API),yes)
+MODULE_LDFLAGS += -lgs
+endif
 ifeq ($(LINK_GXX_STATICALLY),yes)
 MODULE_LDFLAGS += -L$(outdir) -static-libgcc
 endif

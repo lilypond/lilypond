@@ -52,6 +52,10 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#if GS_API
+#include <ghostscript/iapi.h>
+#endif
+
 #include <cassert>
 #include <cerrno>
 #include <clocale>
@@ -335,6 +339,26 @@ warranty ()
   copyright ();
   printf ("\n");
   printf ("%s", (_ (WARRANTY).c_str ()));
+
+#if GS_API
+  printf ("\n");
+  printf ("%s", (_ ("linked against Ghostscript:").c_str ()));
+  printf ("\n");
+
+  void *gs_inst = NULL;
+  gsapi_new_instance (&gs_inst, NULL);
+  gsapi_set_arg_encoding (gs_inst, GS_ARG_ENCODING_UTF8);
+
+  // gsapi_init_with_args wants modifiable strings, so create local variables
+  // with copies of the content.
+  // (The first argument is the "program name" and is ignored.)
+  char gs[] = "gs";
+  char nodisplay[] = "-dNODISPLAY";
+  char *argv[] = { gs, nodisplay };
+  gsapi_init_with_args (gs_inst, 2, argv);
+  gsapi_exit (gs_inst);
+  gsapi_delete_instance (gs_inst);
+#endif
 }
 
 static void
@@ -871,6 +895,12 @@ main (int argc, char **argv, char **envp)
 
   setup_paths (argv[0]);
   setup_guile_env ();  // set up environment variables to pass into Guile API
+
+#if !GS_API
+  // Let Guile know whether the Ghostscript API is not available.
+  init_scheme_variables_global += "(cons \'gs-api '#f)\n";
+#endif
+
   /*
    * Start up Guile API using main_with_guile as a callback.
    */

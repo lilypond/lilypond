@@ -75,7 +75,7 @@
                                 base-name tmp-name is-eps)
   (let* ((pdf-name (string-append base-name ".pdf"))
          (*unspecified* (if #f #f))
-         (cmd
+         (gs-cmd
           (remove (lambda (x) (eq? x *unspecified*))
                   (list
                    (search-gs)
@@ -85,29 +85,31 @@
                            (eq? PLATFORM 'windows))
                        "-dNOSAFER"
                        "-dSAFER")
-
+                   "-dNOPAUSE"
+                   "-dBATCH")))
+         (args
+          (remove (lambda (x) (eq? x *unspecified*))
+                  (list
                    (if is-eps
                        "-dEPSCrop"
                        (ly:format "-dDEVICEWIDTHPOINTS=~$" paper-width))
                    (if is-eps
                        *unspecified*
                        (ly:format "-dDEVICEHEIGHTPOINTS=~$" paper-height))
-                   "-dCompatibilityLevel=1.4"
-                   "-dNOPAUSE"
-                   "-dBATCH"
-                   "-r1200"
-                   "-sDEVICE=pdfwrite"
                    "-dAutoRotatePages=/None"
-                   "-dPrinted=false"
-                   (string-append "-sOutputFile="
-                                  (string-join
-                                   (string-split pdf-name #\%)
-                                   "%%"))
-                   "-c.setpdfwrite"
-                   (string-append "-f" tmp-name)))))
+                   "-dPrinted=false")))
+         (output-file (string-join (string-split pdf-name #\%) "%%"))
+         (gs-cmd-output
+          (list
+           "-sDEVICE=pdfwrite"
+           (string-append "-sOutputFile=" output-file)
+           "-c.setpdfwrite"
+           (string-append "-f" tmp-name))))
 
     (ly:message (_ "Converting to `~a'...\n") pdf-name)
-    (ly:system cmd)))
+    (if (ly:get-option 'gs-api)
+        (ly:gs args "pdfwrite" "" tmp-name output-file)
+        (ly:system (append gs-cmd (append args gs-cmd-output))))))
 
 (define-public (postscript->png resolution paper-width paper-height
                                 base-name tmp-name is-eps)

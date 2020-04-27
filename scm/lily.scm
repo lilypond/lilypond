@@ -292,6 +292,9 @@ given amount (in mm).")
     (font-ps-resdir
      #f
      "Build a subset of PostScript resource directory for embedding fonts.")
+    (gs-api
+     #t
+     "Whether to use the Ghostscript API (read-only if not available).")
     (gs-load-fonts
      #f
      "Load fonts via Ghostscript.")
@@ -935,6 +938,8 @@ PIDs or the number of the process."
 
 (define* (ly:exit status #:optional (silently #f))
   "Exit function for lilypond"
+  (if (ly:get-option 'gs-api)
+      (ly:shutdown-gs))
   (if (not silently)
       (case status
         ((0) (ly:basic-progress (_ "Success: compilation successfully completed")))

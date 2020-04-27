@@ -123,7 +123,7 @@
           (output-file (if multi-page? pngn-gs png1-gs))
 
           (*unspecified* (if #f #f))
-          (cmd
+          (gs-cmd
            (remove (lambda (x) (eq? x *unspecified*))
                    (list
                     (search-gs)
@@ -133,26 +133,37 @@
                             (eq? PLATFORM 'windows))
                         "-dNOSAFER"
                         "-dSAFER")
-
+                    "-dNOPAUSE"
+                    "-dBATCH")))
+          (args
+           (remove (lambda (x) (eq? x *unspecified*))
+                   (list
                     (if is-eps
                         "-dEPSCrop"
                         (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
                     (if is-eps
                         *unspecified*
                         (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
-                    "-dGraphicsAlphaBits=4"
-                    "-dTextAlphaBits=4"
-                    "-dNOPAUSE"
-                    "-dBATCH"
-                    (ly:format "-sDEVICE=~a" pixmap-format)
                     "-dAutoRotatePages=/None"
-                    "-dPrinted=false"
-                    (string-append "-sOutputFile=" output-file)
-                    (ly:format "-r~a" (* anti-alias-factor resolution))
-                    (string-append "-f" tmp-name))))
+                    "-dPrinted=false")))
+          (alpha-args "/GraphicsAlphaBits 4 /TextAlphaBits 4")
+          (hw-resolution (* anti-alias-factor resolution))
+          (hw-resolution-arg
+           (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution))
+          (device-args (string-append alpha-args " " hw-resolution-arg))
+          (gs-cmd-output
+           (list
+            "-dGraphicsAlphaBits=4"
+            "-dTextAlphaBits=4"
+            (ly:format "-r~a" hw-resolution)
+            (ly:format "-sDEVICE=~a" pixmap-format)
+            (string-append "-sOutputFile=" output-file)
+            (string-append "-f" tmp-name)))
           (files '()))
 
-     (ly:system cmd)
+    (if (ly:get-option 'gs-api)
+        (ly:gs args pixmap-format device-args tmp-name output-file)
+        (ly:system (append gs-cmd (append args gs-cmd-output))))
 
      (set! files
            (if multi-page?

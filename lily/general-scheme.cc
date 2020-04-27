@@ -33,6 +33,11 @@
 #include "version.hh"
 #include "warn.hh"
 
+#if GS_API
+#include <ghostscript/iapi.h>
+#include <ghostscript/ierrors.h>
+#endif
+
 #include <cstdio>
 #include <cstring> /* memset */
 #include <ctype.h>
@@ -673,3 +678,127 @@ LY_DEFINE (ly_spawn, "ly:spawn",
 
   return scm_from_int (exit_status);
 }
+
+#if GS_API
+static void *gs_inst = NULL;
+static string gs_args;
+
+LY_DEFINE (ly_shutdown_gs, "ly:shutdown-gs", 0, 0, 0, (),
+           "Shutdown GhostScript instance and flush pending writes.")
+{
+  if (gs_inst == NULL)
+    {
+      assert (gs_args.length () == 0);
+      return SCM_UNDEFINED;
+    }
+
+  debug_output (_ ("Exiting current GhostScript instance...\n"));
+
+  int exit_code;
+  gsapi_run_string (gs_inst, "quit", 0, &exit_code);
+  gsapi_exit (gs_inst);
+  gsapi_delete_instance (gs_inst);
+
+  gs_inst = NULL;
+  gs_args = "";
+
+  return SCM_UNDEFINED;
+}
+
+LY_DEFINE (ly_gs, "ly:gs", 5, 0, 0,
+           (SCM args, SCM device, SCM device_args, SCM input, SCM output),
+           "Use GhostScript started with @var{args} to convert @var{input}"
+           " into @var{output} using @var{device} with @var{device_args}.")
+{
+  LY_ASSERT_TYPE (scm_is_pair, args, 1);
+  LY_ASSERT_TYPE (scm_is_string, device, 2);
+  LY_ASSERT_TYPE (scm_is_string, device_args, 3);
+  LY_ASSERT_TYPE (scm_is_string, input, 4);
+  LY_ASSERT_TYPE (scm_is_string, output, 5);
+
+  // Construct vector of arguments with default / mandatory ones filled in.
+  // gsapi_init_with_args wants modifiable strings, so create local variables
+  // with copies of the content.
+  // (The first argument is the "program name" and is ignored.)
+  char gs[] = "gs";
+  char q[] = "-q";
+  char nodisplay[] = "-dNODISPLAY";
+  char nosafer[] = "-dNOSAFER";
+  char nopause[] = "-dNOPAUSE";
+  vector<char *> argv { gs, q, nodisplay, nosafer, nopause };
+  // Additionally keep track of converted strings to free them afterwards.
+  vector<char *> passed_args;
+
+  // Ensure that the string of arguments is never empty.
+  string new_args(" ");
+  for (SCM s = args; scm_is_pair (s); s = scm_cdr (s))
+    {
+      char *a = ly_scm2str0 (scm_car (s));
+      argv.push_back (a);
+      passed_args.push_back (a);
+      new_args += string(a) + " ";
+    }
+
+  if (gs_args.length () > 0)
+    {
+      assert (gs_inst != NULL);
+      if (gs_args != new_args)
+        {
+          debug_output (_ ("Mismatch of GhostScript arguments!\n"));
+          ly_shutdown_gs ();
+        }
+    }
+  if (gs_inst == NULL)
+    {
+      debug_output (_f ("Starting GhostScript instance with arguments: %s\n",
+                        new_args.c_str ()));
+      // Save current string of arguments to later compare if we need a new
+      // instance with different parameters.
+      gs_args = new_args;
+
+      int code = gsapi_new_instance (&gs_inst, NULL);
+      if (code == 0)
+        code = gsapi_set_arg_encoding (gs_inst, GS_ARG_ENCODING_UTF8);
+      int argc = static_cast<int>(argv.size ());
+      if (code == 0)
+        code = gsapi_init_with_args (gs_inst, argc, argv.data ());
+
+      // Handle errors from above calls.
+      if (code < 0)
+        {
+          warning (_ ("Could not start GhostScript instance!"));
+          scm_throw (ly_symbol2scm ("ly-file-failed"),
+                     scm_list_1 (output));
+          return SCM_UNDEFINED;
+        }
+    }
+
+  // Free all converted strings.
+  for (char *a : passed_args)
+    free (a);
+
+  // Construct the command.
+  string command = "mark ";
+  command += "/OutputFile (" + ly_scm2string (output) + ") ";
+  command += ly_scm2string (device_args) + " ";
+  command += "(" + ly_scm2string (device) + ") finddevice ";
+  command += "putdeviceprops setdevice ";
+  command += "(" + ly_scm2string (input) + ") run";
+
+  debug_output (_f ("Running GhostScript command: %s\n", command.c_str ()));
+
+  int exit_code;
+  int code = gsapi_run_string (gs_inst, command.c_str (), 0, &exit_code);
+  // gs_error_invalidexit could be avoided by having a 'quit' at the end of
+  // the command. However this leads to execstackoverflow when running many
+  // conversions, for example when compiling the Notation Reference.
+  if (code != 0 && code != gs_error_Quit && code != gs_error_invalidexit)
+    {
+      warning (_ ("Error when running GhostScript command!"));
+      scm_throw (ly_symbol2scm ("ly-file-failed"),
+                 scm_list_1 (output));
+    }
+
+  return SCM_UNDEFINED;
+}
+#endif

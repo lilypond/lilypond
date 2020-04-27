@@ -8,6 +8,9 @@
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"
 
+/* define to use the Ghostscript API */
+#define GS_API 0
+
 /* define if you have chroot */
 #define HAVE_CHROOT 0
 
