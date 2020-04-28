@@ -96,7 +96,7 @@ Domande frequenti (Frequently Asked Questions).
 questo documento.
 @details{Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambiamenti}}
+@item @ifWebLinks{@manualStableChangesSplitNoName-it,@rchangesnamed{Top,Cambiamenti}}
 cosa c'è di nuovo?
 @details{Cambiamenti}
 
