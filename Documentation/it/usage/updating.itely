@@ -307,8 +307,8 @@ for %x in (*.ly) do convert-ly -e """%x"""
 
 Non vengono gestiti tutti i cambiamenti del linguaggio.  Si può specificare solo
 un'opzione di output.  È piuttosto improbabile che si aggiornino automaticamente
-il codice scheme e le interfacce di scheme di LilyPond; tieniti pronto a
-correggere a mano il codice scheme.
+il codice scheme e le interfacce di Scheme di LilyPond; tieniti pronto a
+correggere a mano il codice Scheme.
 
 
 @node Conversioni manuali
@@ -319,8 +319,8 @@ In teoria, un programma come @command{convert-ly} potrebbe gestire qualsiasi
 cambiamento di sintassi.  Dopo tutto, un programma per computer interpreta
 la vecchia versione e la nuova versione, quindi un altro programma
 può tradurre un file in un altro@footnote{O almeno questo è possibile
-in qualsiasi file LilyPond che non contenga codice scheme.  Se c'è del
-codice scheme nel file, allora il file LilyPond contiene un linguaggio
+in qualsiasi file LilyPond che non contenga codice Scheme.  Se c'è del
+codice Scheme nel file, allora il file LilyPond contiene un linguaggio
 Turing-completo, ed è possibile imbattersi in problemi col famigerato
 @qq{Problema dell'arresto} in informatica.}.
 

@@ -126,7 +126,7 @@ Le impostazioni che possono apparire in un blocco @code{\paper} comprendono:
 @itemize
 
 @item
-la funzione scheme @code{set-paper-size},
+la funzione Scheme @code{set-paper-size},
 
 @item
 le variabili @code{\paper} per personalizzare la formattazione della pagina e
@@ -314,7 +314,7 @@ File installati:
 @unnumberedsubsubsec Ridimensionamento automatico al formato carta
 @translationof Automatic scaling to paper size
 
-Se il formato viene cambiato con una delle funzioni scheme
+Se il formato viene cambiato con una delle funzioni Scheme
 (@code{set-default-paper-size} o @code{set-paper-size}), i
 valori di diverse variabili @code{\paper} sono automaticamente
 ricalcolati in base alla nuova dimensione.  Per aggirare il ridimensionamento
@@ -1164,7 +1164,7 @@ musica.  Le impostazioni che possono apparire in un blocco
 @code{\layout} includono:
 
 @itemize
-@item la funzione scheme @code{layout-set-staff-size},
+@item la funzione Scheme @code{layout-set-staff-size},
 @item le modifiche di contesto nei blocchi @code{\context} e
 @item le variabili @code{\paper} che agiscono sulla formattazione del brano.
 @end itemize

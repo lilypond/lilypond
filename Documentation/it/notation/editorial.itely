@@ -188,7 +188,7 @@ togliendo 6 si dimezza.  Ogni punto aumenta la dimensione di circa
 il 12%.
 
 Dato che le unità logaritmiche della proprietà @code{font-size} non sono
-del tutto intuitive, viene fornita per comodità la funzione scheme
+del tutto intuitive, viene fornita per comodità la funzione Scheme
 @code{magnification->font-size}.  Per esempio, per ridurre la notazione
 musicale al 75% della dimensione predefinita si usa:
 
@@ -196,7 +196,7 @@ musicale al 75% della dimensione predefinita si usa:
 \set fontSize = #(magnification->font-size 0.75)
 @end example
 
-La funzione scheme @code{magstep} fa l'opposto: converte un valore
+La funzione Scheme @code{magstep} fa l'opposto: converte un valore
 di @code{font-size} in un fattore di ingrandimento.
 
 La proprietà @code{fontSize} avrà effetto soltanto sugli elementi

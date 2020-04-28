@@ -381,7 +381,7 @@ più recenti. Per sapere con precisione come ciò influisca sul blocco
 @ref{Il blocco layout}.
 
 @item
-Un'espressione scheme diretta, come
+Un'espressione Scheme diretta, come
 @code{#(set-default-paper-size "a7" 'landscape)} o
 @code{#(ly:set-option 'point-and-click #f)}.
 
@@ -1793,7 +1793,7 @@ contrassegnato, tramite il comando markup @code{\page-ref}.
 
 Il comando markup @code{\page-ref} prende tre argomenti:
 @enumerate
-@item l'etichetta -- un simbolo scheme -- per esempio @code{#'primoBrano};
+@item l'etichetta -- un simbolo Scheme -- per esempio @code{#'primoBrano};
 @item un testo markup da usare come misura di riferimento per stimare le
 dimensioni del testo;
 @item un testo markup che verrà usato al posto del numero di pagina se l'etichetta
@@ -3856,7 +3856,7 @@ l'informazione musicale in forma testuale.
 
 @menu
 * Mostrare la notazione LilyPond::
-* Mostrare le espressioni musicali scheme::
+* Mostrare le espressioni musicali Scheme::
 * Salvare eventi musicali in un file::
 @end menu
 
@@ -3909,8 +3909,8 @@ dal file di output, usare il comando @code{\void}:
 @end example
 
 
-@node Mostrare le espressioni musicali scheme
-@subsection Mostrare le espressioni musicali scheme
+@node Mostrare le espressioni musicali Scheme
+@subsection Mostrare le espressioni musicali Scheme
 @translationof Displaying scheme music expressions
 
 Vedi @rextend{Displaying music expressions}.
