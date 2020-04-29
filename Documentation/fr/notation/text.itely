@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+   Translation of GIT committish: 443d55bce86fe42f811a77493f06e9e3119c972f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1608,9 +1608,37 @@ partition.
 @funindex font-interface
 
 La gestion des fontes est assurée par plusieurs bibliothèques :
-FontConfig se charge de répertorier les différentes fontes installées
-sur votre système ; quant à Pango, elle se charge plus particulièrement
-de leur rendu.
+FontConfig se charge de répertorier les différentes fontes disponibles ;
+quant à Pango, elle se charge plus particulièrement de leur rendu.
+
+@cindex fontes, fichiers externes
+
+En sus de celles déjà installées sur le système, d'autres fontes peuvent
+s'ajouter au répertoire de FonConfig, ce qui les rendra donc disponibles
+pour les partitions LilyPond, à l'aide des commandes suivantes :
+
+@example
+#(ly:font-config-add-font "@var{chemin/au/fichier-fonte.otf}")
+
+#(ly:font-config-add-directory "@var{chemin/au/dossier/}")
+@end example
+
+@noindent
+Le chemin fourni à ces deux commandes peut être absolu ou relatif, ce qui
+permet de compiler une partition sur n'importe quel système dans la
+mesure où les fichiers de fontes concernés sont transmis avec les
+fichiers sources de la partition.
+
+Une fois qu'elles ont été détectées, les fontes se sélectionnent selon
+les méthodes indiquées dans @ref{Attribution d'une fonte en particulier}
+et @ref{Choix des fontes par défaut}. Dès lors que la liste affichée est
+exhaustive, l'instruction @code{#(ly:font-config-display-fonts)}
+permettra de vérifier quelles fontes auront été détectées ainsi que leur
+nom exact, celui-ci pouvant être différent du nom du fichier.
+
+@cindex fontes musicales
+@funindex font-encoding
+
 
 Les fontes musicales peuvent se décrire comme un jeu de glyphes
 spécifiques regroupés dans plusieurs familles.  L'exemple qui suit
