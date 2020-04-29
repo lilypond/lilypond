@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -171,18 +171,27 @@ corrections et de facilement ajouter à la musique texte et paroles.
 Néanmoins seule la gravure offrait l'avantage d'appréhender le rendu
 global.  C'est la raison pour laquelle la gravure est devenue le
 standard en matière de musique imprimée, à l'exception près de certains
-livres de cantiques, y compris au XXe siècle, essentiellement pour des
-raisons de simplicité et de coût.}.  Il y a encore quelques décennies,
-les partitions étaient réalisées en taillant et ciselant la musique dans
-des plaques de zinc ou d'étain, en inverse, comme dans un miroir.  Ces
-plaques étaient encrées et les reliefs créés par les poinçons et les
-découpes retenaient l'encre.  La partition était alors réalisée en
-pressant le papier contre la plaque.  Découpes et poinçons étaient
-entièrement faits à la main.  Dans la mesure où les corrections étaient
-presque irréalisables, la gravure devait être correcte dès le premier
-essai.  Cela demande évidemment une très grande habileté.  La gravure
-musicale est un métier d'artisan, appris sur le tas.  Un graveur ne
-devenait un maître accompli qu'après une dizaine d'années de pratique.
+livres de cantiques, y compris au
+@ifnothtml
+XX@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XX<sup>e</sup>
+@end html
+@end ifhtml
+ siècle, essentiellement pour des raisons de simplicité et de coût.}.
+Il y a encore quelques décennies, les partitions étaient réalisées en
+taillant et ciselant la musique dans des plaques de zinc ou d'étain, en
+inverse, comme dans un miroir. Ces plaques étaient encrées et les
+reliefs créés par les poinçons et les découpes retenaient l'encre. La
+partition était alors réalisée en pressant le papier contre la plaque.
+Découpes et poinçons étaient entièrement faits à la main. Dans la mesure
+où les corrections étaient presque irréalisables, la gravure devait être
+correcte dès le premier essai. Cela demande évidemment une très grande
+habileté. La gravure musicale est un métier d'artisan, appris sur le
+tas. Un graveur ne devenait un maître accompli qu'après une dizaine
+d'années de pratique.
 
 @quotation
 @iftex

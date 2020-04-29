@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+   Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -300,11 +300,19 @@ symbole qui apparaît à la fin d'une portée.  Il montre la hauteur de la
 ou des premières notes de la portée suivante, donnant une indication
 judicieuse à l'exécutant.
 
-Les guidons étaient couramment utilisés jusqu'au XVIIe siècle.  De nos
-jours, on les retrouve uniquement dans quelques formes particulières de
-notation telles que les éditions contemporaines de chant grégorien comme
-les @emph{editio vaticana}.  Différents glyphes existent selon le style
-de notation.
+Les guidons étaient couramment utilisés jusqu'au
+@ifnothtml
+XVII@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XVII<sup>e</sup>
+@end html
+@end ifhtml
+ siècle. De nos jours, on les retrouve uniquement dans quelques formes
+particulières de notation telles que les éditions contemporaines de
+chant grégorien comme les @emph{editio vaticana}. Différents glyphes
+existent selon le style de notation.
 
 L'impression de guidons s'obtient en affectant, dans un bloc
 @code{\layout}, le @rinternals{Custos_engraver} au contexte
@@ -557,7 +565,16 @@ d'accéder aux indicateurs de métrique anciens.  Les styles
 @code{neomensural} et @code{mensural} sont disponibles.  Vous avez vu
 ci-dessus le style @code{neomensural}, particulièrement utilisé pour
 l'incipit des transcriptions.  Le style @code{mensural} imite l'aspect
-de certaines éditions du XVIe siècle.
+de certaines éditions du
+@ifnothtml
+XVI@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XVI<sup>e</sup>
+@end html
+@end ifhtml
+ siècle.
 
 Voici les différences entre les styles :
 
@@ -828,13 +845,21 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Altérations suggérées (@emph{musica ficta})
 @translationof Annotational accidentals (musica ficta)
 
-Dans la pratique ancienne, avant le XVIIe siècle, les altérations
-accidentelles de l’échelle modale n’étaient pas systématiquement notées
-et il incombait aux chanteurs, en fonction de certaines règles, de
-décider s’ils devaient chanter tel degré bémol, bécarre ou dièse.  Cette
-technique est appelée @notation{musica ficta}.  Les transcriptions
-modernes de telles œuvres font apparaître ces altérations en surplomb de
-la note.
+Dans la pratique ancienne, avant le
+@ifnothtml
+XVII@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XVII<sup>e</sup>
+@end html
+@end ifhtml
+ siècle, les altérations accidentelles de l’échelle modale n’étaient pas
+systématiquement notées et il incombait aux chanteurs, en fonction de
+certaines règles, de décider s’ils devaient chanter tel degré bémol,
+bécarre ou dièse. Cette technique est appelée @notation{musica ficta}.
+Les transcriptions modernes de telles œuvres font apparaître ces
+altérations en surplomb de la note.
 
 @cindex altération et musica ficta
 @cindex musica ficta

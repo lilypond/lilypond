@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+   Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1743,10 +1743,19 @@ dernières lignes de cet exemple nous intéressent.
 @funindex @sortas{defaultA} default
 
 C'est la règle d'impression par défaut, qui se rapporte à l'usage
-en vigueur au XVIIIe siècle : les altérations accidentelles sont
-valables tout une mesure, et uniquement à leur propre octave.  C'est la
-raison pour laquelle il n'y a pas de bécarre avant le @notation{si} de
-la deuxième mesure, ni avant le dernier @notation{do}.
+en vigueur au
+@ifnothtml
+XVIII@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XVIII<sup>e</sup>
+@end html
+@end ifhtml
+ siècle : les altérations accidentelles sont valables toute une mesure,
+et uniquement à leur propre octave. C'est la raison pour laquelle il n'y
+a pas de bécarre avant le @notation{si} de la deuxième mesure, ni avant
+le dernier @notation{do}.
 
 @lilypond[quote]
 musicA = {
@@ -1874,7 +1883,16 @@ musicB = {
 
 @funindex modern
 
-Cette règle est la plus courante au XXe siècle.  Certains bécarres ne
+Cette règle est la plus courante au
+@ifnothtml
+XX@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XX<sup>e</sup>
+@end html
+@end ifhtml
+ siècle.  Certains bécarres ne
 sont pas imprimés, comme il était d'usage lorsqu'une note diésée suit
 cette même note flanquée d'un double dièse, ou bien un bémol un double
 bémol.  Le style @code{modern} suit la même règle que le style
@@ -2128,7 +2146,15 @@ musicB = {
 @funindex piano
 
 Cette règle est communément employée pour les partitions de piano au
-XXe siècle.  Très similaire à @code{modern} de par son comportement,
+@ifnothtml
+XX@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XX<sup>e</sup>
+@end html
+@end ifhtml
+ siècle.  Très similaire à @code{modern} de par son comportement,
 elle s'en distingue en ce que les altérations tiennent compte des autres
 portées du contexte @code{GrandStaff} ou @code{PianoStaff}.
 
@@ -2600,8 +2626,16 @@ musicB = {
 
 @funindex dodecaphonic
 
-Cette règle reproduit ce que certains compositeurs du début du XXe
-siècle ont introduit dans leur désir d'abolir la distinction entre les
+Cette règle reproduit ce que certains compositeurs du début du
+@ifnothtml
+XX@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XX<sup>e</sup>
+@end html
+@end ifhtml
+ siècle ont introduit dans leur désir d'abolir la distinction entre les
 notes naturelles ou non.  Ainsi, @strong{chaque} note est affublée d'une
 altération, même si elle est naturelle.
 
@@ -2899,7 +2933,7 @@ musicB = {
 @funindex forget
 
 Tout le contraire de @code{no-reset} : l'effet des altérations
-cesse aussitôt ; toutes les altérations, quelque soit leur place
+cesse aussitôt ; toutes les altérations, quelle que soit leur place
 dans la mesure, sont de ce fait imprimées en fonction de l'éventuelle
 armure.
 
