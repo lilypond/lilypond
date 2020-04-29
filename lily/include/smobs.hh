@@ -221,13 +221,14 @@ private:
   // correct number of SCM arguments and returning SCM.  The function
   // itself has to be defined separately.
 
-#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                        \
+#define LY_DECLARE_STATIC_SMOB_PROC(FUN, REQ, OPT, VAR)                 \
   static void smob_proc_init (scm_t_bits smob_tag)                      \
   {                                                                     \
-    scm_set_smob_apply (smob_tag,                                       \
-                        (scm_t_subr)smob_trampoline<PMF>,               \
-                        REQ, OPT, VAR);                                 \
+    scm_set_smob_apply (smob_tag, (scm_t_subr)(FUN), REQ, OPT, VAR);    \
   }
+
+#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                        \
+  LY_DECLARE_STATIC_SMOB_PROC (smob_trampoline<PMF>, REQ, OPT, VAR)
 
   // Template parameter packs could reduce repetition here; however,
   // they would allow parameter types other than SCM.  It turns out
