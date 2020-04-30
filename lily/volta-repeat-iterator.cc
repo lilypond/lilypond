@@ -62,7 +62,7 @@ Volta_repeat_iterator::derived_mark () const
 SCM
 Volta_repeat_iterator::get_music_list ()const
 {
-  return scm_cons (get_music ()->get_property ("element"),
+  return scm_cons (get_property (get_music (), "element"),
                    Sequential_iterator::get_music_list ());
 }
 
@@ -71,10 +71,10 @@ Volta_repeat_iterator::construct_children ()
 {
   Sequential_iterator::construct_children ();
 
-  SCM alts = get_music ()->get_property ("elements");
+  SCM alts = get_property (get_music (), "elements");
 
   alt_count_ = int (scm_ilength (alts));
-  rep_count_ = scm_to_int (get_music ()->get_property ("repeat-count"));
+  rep_count_ = scm_to_int (get_property (get_music (), "repeat-count"));
   done_count_ = 0;
 }
 
@@ -91,7 +91,7 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
   if (where && ly_cheap_is_list (current_reps))
     {
       current_reps = scm_cons (what, current_reps);
-      where->set_property (reps, current_reps);
+      set_property (where, reps, current_reps);
     }
 }
 
@@ -110,9 +110,9 @@ Volta_repeat_iterator::next_element (bool side_effect)
           if (done_count_ <= 1)
             {
               alt_restores_ = SCM_EOL;
-              if (to_boolean (get_outlet ()->get_property ("timing")))
+              if (to_boolean (get_property (get_outlet (), "timing")))
                 {
-                  for (SCM lst = get_outlet ()->get_property ("alternativeRestores");
+                  for (SCM lst = get_property (get_outlet (), "alternativeRestores");
                        scm_is_pair (lst);
                        lst = scm_cdr (lst))
                     {
@@ -137,7 +137,7 @@ Volta_repeat_iterator::next_element (bool side_effect)
                 {
                   add_repeat_command (ly_symbol2scm ("end-repeat"));
 
-                  if (to_boolean (get_outlet ()->get_property ("timing")))
+                  if (to_boolean (get_property (get_outlet (), "timing")))
                     {
                       SCM mps = ly_symbol2scm ("measurePosition");
                       for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))

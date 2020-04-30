@@ -32,12 +32,12 @@ Clef_modifier::calc_parent_alignment (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   Grob *clef = me->get_parent (X_AXIS);
-  string full_clef_name = ly_scm2string (clef->get_property ("glyph"));
+  string full_clef_name = ly_scm2string (get_property (clef, "glyph"));
   string clef_name = replace_all (&full_clef_name, "clefs.", "");
 
   // find entry with keyname clef_type in clef-alignments
   SCM alist_entry = scm_assq (ly_symbol2scm (clef_name.c_str ()),
-                              me->get_property ("clef-alignments"));
+                              get_property (me, "clef-alignments"));
 
   if (scm_is_pair (alist_entry))
     {
@@ -45,7 +45,7 @@ Clef_modifier::calc_parent_alignment (SCM smob)
       // the value should be a pair of numbers - first is the alignment
       // for modifiers below the clef, second for those above.
       if (scm_is_pair (entry_value))
-        if (robust_scm2dir (me->get_property ("direction"), DOWN) == DOWN)
+        if (robust_scm2dir (get_property (me, "direction"), DOWN) == DOWN)
           return scm_car (entry_value);
         else
           return scm_cdr (entry_value);

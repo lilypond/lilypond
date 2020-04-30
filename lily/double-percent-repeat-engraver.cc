@@ -54,7 +54,7 @@ Double_percent_repeat_engraver::listen_double_percent (Stream_event *ev)
 {
   if (!percent_event_)
     {
-      Moment meas_len (robust_scm2moment (get_property ("measureLength"),
+      Moment meas_len (robust_scm2moment (get_property (this, "measureLength"),
                                           Moment (1)));
       start_mom_ = now_mom () + meas_len;
       find_global_context ()->add_moment_to_process (start_mom_);
@@ -72,8 +72,8 @@ Double_percent_repeat_engraver::process_music ()
       Item *double_percent = make_item ("DoublePercentRepeat",
                                         percent_event_->self_scm ());
 
-      SCM count = percent_event_->get_property ("repeat-count");
-      if (!scm_is_null (count) && to_boolean (get_property ("countPercentRepeats"))
+      SCM count = get_property (percent_event_, "repeat-count");
+      if (!scm_is_null (count) && to_boolean (get_property (this, "countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           Item *double_percent_counter
@@ -81,7 +81,7 @@ Double_percent_repeat_engraver::process_music ()
                          percent_event_->self_scm ());
 
           SCM text = scm_number_to_string (count, scm_from_int (10));
-          double_percent_counter->set_property ("text", text);
+          set_property (double_percent_counter, "text", text);
 
           Side_position_interface::add_support (double_percent_counter,
                                                 double_percent);
@@ -89,7 +89,7 @@ Double_percent_repeat_engraver::process_music ()
           double_percent_counter->set_parent (double_percent, X_AXIS);
         }
       // forbid breaks on a % line
-      find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+      set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
       percent_event_ = 0;
     }
 }

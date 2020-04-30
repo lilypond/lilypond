@@ -59,7 +59,7 @@ Fingering_column_engraver::stop_translation_timestep ()
       {
         if (Side_position_interface::get_axis (possibles_[i]) == X_AXIS)
           {
-            Direction d = robust_scm2dir (possibles_[i]->get_property ("direction"), CENTER);
+            Direction d = robust_scm2dir (get_property (possibles_[i], "direction"), CENTER);
             if (d)
               scripts_[d].push_back (possibles_[i]);
             else

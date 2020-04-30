@@ -341,7 +341,7 @@ struct Column_description
 static bool
 is_loose (Grob *g)
 {
-  return (scm_is_pair (g->get_object ("between-cols")));
+  return (scm_is_pair (get_object (g, "between-cols")));
 }
 
 static Paper_column *
@@ -406,10 +406,10 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index, boo
         }
     }
 
-  if (!line_starter && to_boolean (col->get_property ("keep-inside-line")))
+  if (!line_starter && to_boolean (get_property (col, "keep-inside-line")))
     description.keep_inside_line_ = col->extent (col, X_AXIS);
 
-  description.break_permission_ = col->get_property ("line-break-permission");
+  description.break_permission_ = get_property (col, "line-break-permission");
   return description;
 }
 
@@ -547,7 +547,7 @@ get_line_configuration (vector<Paper_column *> const &columns,
   */
   for (vsize i = 1; i + 1 < ret.cols_.size (); i++)
     {
-      SCM p = ret.cols_[i]->get_property ("line-break-permission");
+      SCM p = get_property (ret.cols_[i], "line-break-permission");
       if (scm_is_eq (p, ly_symbol2scm ("force")))
         ret.satisfies_constraints_ = false;
     }

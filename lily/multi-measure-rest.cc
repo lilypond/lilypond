@@ -41,7 +41,7 @@
 Interval
 Multi_measure_rest::bar_width (Spanner *me)
 {
-  SCM spacing_pair = me->get_property ("spacing-pair");
+  SCM spacing_pair = get_property (me, "spacing-pair");
   Interval iv;
   for (LEFT_and_RIGHT (d))
     {
@@ -133,15 +133,15 @@ Multi_measure_rest::height (SCM smob)
 int
 calc_measure_duration_log (Grob *me)
 {
-  SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
-            ->get_property ("measure-length");
+  SCM sml = get_property (dynamic_cast<Spanner *> (me)->get_bound (LEFT),
+                          "measure-length");
   Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
                 : Rational (1);
   auto duration = static_cast<double> (ml);
   bool round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
                                                       scm_from_int64 (ml.denominator ())),
-                                                      me->get_property ("round-up-exceptions"))))
-                  || to_boolean (me->get_property ("round-up-to-longer-rest"));
+                                                      get_property (me, "round-up-exceptions"))))
+                  || to_boolean (get_property (me, "round-up-to-longer-rest"));
   int closest_usable_duration_log;
 
   // Out of range initial values.
@@ -152,7 +152,7 @@ calc_measure_duration_log (Grob *me)
   int minimum_usable_duration_log = -15;
   int maximum_usable_duration_log = 15;
 
-  SCM duration_logs_list = me->get_property ("usable-duration-logs");
+  SCM duration_logs_list = get_property (me, "usable-duration-logs");
   if (to_boolean (scm_null_p (duration_logs_list))
       || !to_boolean (scm_list_p (duration_logs_list)))
     {
@@ -195,13 +195,13 @@ Stencil
 Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
   int measure_count = 0;
-  SCM m (me->get_property ("measure-count"));
+  SCM m (get_property (me, "measure-count"));
   if (scm_is_number (m))
     measure_count = scm_to_int (m);
   if (measure_count <= 0)
     return Stencil ();
 
-  SCM limit = me->get_property ("expand-limit");
+  SCM limit = get_property (me, "expand-limit");
   if (measure_count > scm_to_int (limit))
     {
       Real padding = 0.15;
@@ -223,8 +223,8 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 Stencil
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real thick_thick = robust_scm2double (me->get_property ("thick-thickness"), 1.0);
-  Real hair_thick = robust_scm2double (me->get_property ("hair-thickness"), .1);
+  Real thick_thick = robust_scm2double (get_property (me, "thick-thickness"), 1.0);
+  Real hair_thick = robust_scm2double (get_property (me, "hair-thickness"), .1);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real slt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -261,7 +261,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   Real symbols_width = 0.0;
   int dir = get_grob_direction (me);
 
-  SCM sp = me->get_property ("staff-position");
+  SCM sp = get_property (me, "staff-position");
   Real pos;
 
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
@@ -276,7 +276,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
         }
       else
         pos = Rest::staff_position_internal (me, 1, dir);
-      me->set_property ("staff-position", scm_from_double (pos));
+      set_property (me, "staff-position", scm_from_double (pos));
     }
   else
     pos = scm_to_double (sp);
@@ -306,7 +306,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
         r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
       if (dl < 0)
         {
-          Real fs = pow (2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
+          Real fs = pow (2, robust_scm2double (get_property (me, "font-size"), 0) / 6);
           r.translate_axis (ss * 0.5 * (spi - pos) + (ss - fs), Y_AXIS);
         }
       else
@@ -328,7 +328,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   if (inner_padding < 0)
     inner_padding = 1.0;
 
-  Real max_separation = std::max (robust_scm2double (me->get_property ("max-symbol-separation"), 8.0),
+  Real max_separation = std::max (robust_scm2double (get_property (me, "max-symbol-separation"), 8.0),
                                   1.0);
 
   inner_padding = std::min (inner_padding, max_separation);
@@ -366,24 +366,24 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Item *lb = li->find_prebroken_piece (RIGHT);
   Item *rb = ri->find_prebroken_piece (LEFT);
 
-  Grob *spacing = unsmob<Grob> (li->get_object ("spacing"));
+  Grob *spacing = unsmob<Grob> (get_object (li, "spacing"));
   if (!spacing)
-    spacing = unsmob<Grob> (ri->get_object ("spacing"));
+    spacing = unsmob<Grob> (get_object (ri, "spacing"));
   if (spacing)
     {
       Spacing_options options;
       options.init_from_grob (me);
-      Moment mlen = robust_scm2moment (li->get_property ("measure-length"),
+      Moment mlen = robust_scm2moment (get_property (li, "measure-length"),
                                        Moment (1));
-      length += robust_scm2double (li->get_property ("full-measure-extra-space"), 0.0)
+      length += robust_scm2double (get_property (li, "full-measure-extra-space"), 0.0)
                 + options.get_duration_space (mlen.main_part_)
-                + (robust_scm2double (me->get_property ("space-increment"), 0.0)
-                   * log_2 (robust_scm2int (me->get_property ("measure-count"), 1)));
+                + (robust_scm2double (get_property (me, "space-increment"), 0.0)
+                   * log_2 (robust_scm2int (get_property (me, "measure-count"), 1)));
     }
 
-  length += 2 * robust_scm2double (me->get_property ("bound-padding"), 0.0);
+  length += 2 * robust_scm2double (get_property (me, "bound-padding"), 0.0);
 
-  Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0.0);
+  Real minlen = robust_scm2double (get_property (me, "minimum-length"), 0.0);
 
   Item *combinations[4][2] = {{li, ri},
     {lb, ri},

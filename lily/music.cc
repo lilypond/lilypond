@@ -40,7 +40,7 @@
 bool
 Music::internal_is_music_type (SCM k) const
 {
-  SCM ifs = get_property ("types");
+  SCM ifs = get_property (this, "types");
 
   return scm_is_true (scm_c_memq (k, ifs));
 }
@@ -54,11 +54,11 @@ Preinit_Music::Preinit_Music ()
 Music::Music (SCM init)
   : Prob (ly_symbol2scm ("Music"), init)
 {
-  length_callback_ = get_property ("length-callback");
+  length_callback_ = get_property (this, "length-callback");
   if (!ly_is_procedure (length_callback_))
     length_callback_ = duration_length_callback_proc;
 
-  start_callback_ = get_property ("start-callback");
+  start_callback_ = get_property (this, "start-callback");
 }
 
 void
@@ -90,7 +90,7 @@ Music::Music (Music const &m)
 Moment
 Music::get_length () const
 {
-  SCM lst = get_property ("length");
+  SCM lst = get_property (this, "length");
   if (unsmob<Moment> (lst))
     return *unsmob<Moment> (lst);
 
@@ -133,14 +133,14 @@ print_alist (SCM a, SCM port)
 Pitch
 Music::generic_to_relative_octave (Pitch last)
 {
-  SCM elt = get_property ("element");
-  Pitch *old_pit = unsmob<Pitch> (get_property ("pitch"));
+  SCM elt = get_property (this, "element");
+  Pitch *old_pit = unsmob<Pitch> (get_property (this, "pitch"));
   if (old_pit)
     {
       Pitch new_pit = *old_pit;
       new_pit = new_pit.to_relative_octave (last);
 
-      SCM check = get_property ("absolute-octave");
+      SCM check = get_property (this, "absolute-octave");
       if (scm_is_number (check)
           && new_pit.get_octave () != scm_to_int (check))
         {
@@ -153,7 +153,7 @@ Music::generic_to_relative_octave (Pitch last)
           new_pit = expected_pit;
         }
 
-      set_property ("pitch", new_pit.smobbed_copy ());
+      set_property (this, "pitch", new_pit.smobbed_copy ());
 
       last = new_pit;
     }
@@ -161,15 +161,15 @@ Music::generic_to_relative_octave (Pitch last)
   if (Music *m = unsmob<Music> (elt))
     last = m->to_relative_octave (last);
 
-  (void) music_list_to_relative (get_property ("articulations"), last, true);
-  last = music_list_to_relative (get_property ("elements"), last, false);
+  (void) music_list_to_relative (get_property (this, "articulations"), last, true);
+  last = music_list_to_relative (get_property (this, "elements"), last, false);
   return last;
 }
 
 Pitch
 Music::to_relative_octave (Pitch last)
 {
-  SCM callback = get_property ("to-relative-callback");
+  SCM callback = get_property (this, "to-relative-callback");
   if (ly_is_procedure (callback))
     {
       Pitch *p = unsmob<Pitch> (scm_call_2 (callback, self_scm (),
@@ -183,15 +183,15 @@ Music::to_relative_octave (Pitch last)
 void
 Music::compress (Rational factor)
 {
-  SCM elt = get_property ("element");
+  SCM elt = get_property (this, "element");
 
   if (Music *m = unsmob<Music> (elt))
     m->compress (factor);
 
-  compress_music_list (get_property ("elements"), factor);
-  Duration *d = unsmob<Duration> (get_property ("duration"));
+  compress_music_list (get_property (this, "elements"), factor);
+  Duration *d = unsmob<Duration> (get_property (this, "duration"));
   if (d)
-    set_property ("duration",
+    set_property (this, "duration",
                   d->compressed (factor).smobbed_copy ());
 }
 
@@ -202,7 +202,7 @@ Music::compress (Rational factor)
 void
 Prob::transpose (Pitch delta)
 {
-  if (to_boolean (get_property ("untransposable")))
+  if (to_boolean (get_property (this, "untransposable")))
     return;
 
   for (SCM s = mutable_property_alist_; scm_is_pair (s); s = scm_cdr (s))
@@ -242,13 +242,13 @@ Prob::transpose (Pitch delta)
 void
 Music::set_spot (Input ip)
 {
-  set_property ("origin", ip.smobbed_copy ());
+  set_property (this, "origin", ip.smobbed_copy ());
 }
 
 Input *
 Music::origin () const
 {
-  Input *ip = unsmob<Input> (get_property ("origin"));
+  Input *ip = unsmob<Input> (get_property (this, "origin"));
   return ip ? ip : &dummy_input_global;
 }
 
@@ -258,7 +258,7 @@ Music::origin () const
 Stream_event *
 Music::to_event () const
 {
-  SCM class_name = ly_camel_case_2_lisp_identifier (get_property ("name"));
+  SCM class_name = ly_camel_case_2_lisp_identifier (get_property (this, "name"));
 
   // catch programming mistakes.
   if (!internal_is_music_type (class_name))
@@ -269,10 +269,10 @@ Music::to_event () const
    mutable_property_alist_);
   Moment length = get_length ();
   if (length.to_bool ())
-    e->set_property ("length", length.smobbed_copy ());
+    set_property (e, "length", length.smobbed_copy ());
 
   // articulations as events.
-  SCM art_mus = e->get_property ("articulations");
+  SCM art_mus = get_property (e, "articulations");
   if (scm_is_pair (art_mus))
     {
       SCM art_ev = SCM_EOL;
@@ -281,14 +281,14 @@ Music::to_event () const
           Music *m = unsmob<Music> (scm_car (art_mus));
           art_ev = scm_cons (m->to_event ()->unprotect (), art_ev);
         }
-      e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
+      set_property (e, "articulations", scm_reverse_x (art_ev, SCM_EOL));
     }
 
   /*
     ES TODO: This is a temporary fix. Stream_events should not be
     aware of music.
   */
-  e->set_property ("music-cause", self_scm ());
+  set_property (e, "music-cause", self_scm ());
 
   return e;
 }
@@ -317,7 +317,7 @@ SCM
 Music::duration_length_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  Duration *d = unsmob<Duration> (me->get_property ("duration"));
+  Duration *d = unsmob<Duration> (get_property (me, "duration"));
 
   Moment mom;
   if (d)
@@ -359,5 +359,5 @@ set_origin (SCM m, SCM origin)
       m = scm_cdr (m);
     }
   if (Music *mus = unsmob<Music> (m))
-    mus->set_property ("origin", origin);
+    set_property (mus, "origin", origin);
 }

@@ -96,7 +96,7 @@ Ligature_engraver::Ligature_engraver (Context *c)
 void
 Ligature_engraver::listen_ligature (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (events_drul_[d], ev);
 }
 
@@ -122,12 +122,12 @@ Ligature_engraver::process_music ()
       primitives_.clear ();
       ligature_ = 0;
     }
-  last_bound_ = unsmob<Grob> (get_property ("currentMusicalColumn"));
+  last_bound_ = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
 
   if (ligature_)
     {
       // TODO: maybe forbid breaks only if not transcribing
-      find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+      set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
     }
 
   if (events_drul_[START])
@@ -141,7 +141,7 @@ Ligature_engraver::process_music ()
       prev_start_event_ = events_drul_[START];
       ligature_ = create_ligature_spanner ();
 
-      Grob *bound = unsmob<Grob> (get_property ("currentMusicalColumn"));
+      Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       if (!bound)
         events_drul_[START]->origin ()->warning (_ ("no left bound"));
       else
@@ -205,7 +205,7 @@ Ligature_engraver::acknowledge_ligature_head (Grob_info info)
     {
       primitives_.push_back (info);
       if (info.grob () && !scm_is_null (brew_ligature_primitive_proc))
-        info.grob ()->set_property ("stencil", brew_ligature_primitive_proc);
+        set_property (info.grob (), "stencil", brew_ligature_primitive_proc);
     }
 }
 

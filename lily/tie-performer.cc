@@ -74,7 +74,7 @@ void
 Tie_performer::process_music ()
 {
   if (event_)
-    context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
+    set_property (context (), "tieMelismaBusy", SCM_BOOL_T);
 }
 
 void
@@ -105,8 +105,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
           Stream_event *left_mus = et.event_;
 
           if (th && right_mus && left_mus
-              && ly_is_equal (right_mus->get_property ("pitch"),
-                              left_mus->get_property ("pitch")))
+              && ly_is_equal (get_property (right_mus, "pitch"),
+                              get_property (left_mus, "pitch")))
             {
               found = true;
               // (*it).moment_ already stores the end of the tied note!
@@ -128,8 +128,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
           if (!(th && right_mus && left_mus))
             continue;
 
-          SCM p1 = left_mus->get_property ("pitch");
-          SCM p2 = right_mus->get_property ("pitch");
+          SCM p1 = get_property (left_mus, "pitch");
+          SCM p2 = get_property (right_mus, "pitch");
           if (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
               && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
             {
@@ -146,7 +146,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 void
 Tie_performer::start_translation_timestep ()
 {
-  context ()->set_property ("tieMelismaBusy",
+  set_property (context (), "tieMelismaBusy",
                             ly_bool2scm (heads_to_tie_.size ()));
 }
 
@@ -169,7 +169,7 @@ Tie_performer::stop_translation_timestep ()
 {
   // We might have dangling open ties like c~ d. Close them, unless the first
   // note is still ongoing or we have we have tieWaitForNote set...
-  if (!to_boolean (get_property ("tieWaitForNote")))
+  if (!to_boolean (get_property (this, "tieWaitForNote")))
     {
       heads_to_tie_.remove_if (end_moment_passed (now_mom ()));
     }

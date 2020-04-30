@@ -67,16 +67,16 @@ Rest_engraver::process_music ()
   if (rest_event_ && !rest_)
     {
       rest_ = make_item ("Rest", rest_event_->self_scm ());
-      Pitch *p = unsmob<Pitch> (rest_event_->get_property ("pitch"));
+      Pitch *p = unsmob<Pitch> (get_property (rest_event_, "pitch"));
 
       if (p)
         {
           int pos = p->steps ();
-          SCM c0 = get_property ("middleCPosition");
+          SCM c0 = get_property (this, "middleCPosition");
           if (scm_is_number (c0))
             pos += scm_to_int (c0);
 
-          rest_->set_property ("staff-position", scm_from_int (pos));
+          set_property (rest_, "staff-position", scm_from_int (pos));
         }
     }
 }

@@ -1061,7 +1061,7 @@ Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM en
   // If the grob is cross staff, we cannot measure its Y-extent before
   // wayyyy downstream (after spacing of axis groups is done).
   // Thus, we assume that the Y extent is infinite for cross staff grobs.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (me->get_property ("cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (get_property (me, "cross-staff")));
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents, 1);
@@ -1070,7 +1070,7 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   // See comment in function above.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (me->get_property ("cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (get_property (me, "cross-staff")));
 }
 
 SCM
@@ -1120,9 +1120,9 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (me->get_property ("skyline-horizontal-padding"), 0.0);
-  SCM rot = me->get_property ("rotation");
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
+  Real pad = robust_scm2double (get_property (me, "skyline-horizontal-padding"), 0.0);
+  SCM rot = get_property (me, "rotation");
+  SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
                                             pad, rot, X_AXIS);
   return out;
 }
@@ -1132,9 +1132,9 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
-  SCM rot = me->get_property ("rotation");
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
+  Real pad = robust_scm2double (get_property (me, "skyline-vertical-padding"), 0.0);
+  SCM rot = get_property (me, "rotation");
+  SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
                                             pad, rot, Y_AXIS);
 
   return out;
@@ -1160,7 +1160,7 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   Skyline_pair res;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Skyline_pair *skyp = unsmob<Skyline_pair> (elts[i]->get_maybe_pure_property (a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
+      Skyline_pair *skyp = unsmob<Skyline_pair> (get_maybe_pure_property (elts[i], a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
       if (skyp)
         {
           /*

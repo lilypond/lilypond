@@ -50,7 +50,7 @@ protected:
 void
 Repeat_acknowledge_engraver::initialize ()
 {
-  context ()->set_property ("repeatCommands", SCM_EOL);
+  set_property (context (), "repeatCommands", SCM_EOL);
 }
 
 Repeat_acknowledge_engraver::Repeat_acknowledge_engraver (Context *c)
@@ -66,7 +66,7 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
   if (!tr)
     tr = context ();
 
-  tr->set_property ("repeatCommands", SCM_EOL);
+  set_property (tr, "repeatCommands", SCM_EOL);
 }
 
 void
@@ -78,7 +78,7 @@ Repeat_acknowledge_engraver::process_music ()
   if (!now_mom ().main_part_)
     return;
 
-  SCM cs = get_property ("repeatCommands");
+  SCM cs = get_property (this, "repeatCommands");
 
   string s = "";
   bool start = false;
@@ -106,20 +106,20 @@ Repeat_acknowledge_engraver::process_music ()
   if (segno)
     if (start)
       if (end) // { segno, start, end }
-        s = robust_scm2string (get_property ("doubleRepeatSegnoType"), ":|.S.|:");
+        s = robust_scm2string (get_property (this, "doubleRepeatSegnoType"), ":|.S.|:");
       else // { segno, start }
-        s = robust_scm2string (get_property ("startRepeatSegnoType"), "S.|:");
+        s = robust_scm2string (get_property (this, "startRepeatSegnoType"), "S.|:");
     else if (end) // { segno, end }
-      s = robust_scm2string (get_property ("endRepeatSegnoType"), ":|.S");
+      s = robust_scm2string (get_property (this, "endRepeatSegnoType"), ":|.S");
     else // { segno }
-      s = robust_scm2string (get_property ("segnoType"), "S");
+      s = robust_scm2string (get_property (this, "segnoType"), "S");
   else if (start)
     if (end) // { start, end }
-      s = robust_scm2string (get_property ("doubleRepeatType"), ":..:");
+      s = robust_scm2string (get_property (this, "doubleRepeatType"), ":..:");
     else // { start }
-      s = robust_scm2string (get_property ("startRepeatType"), ".|:");
+      s = robust_scm2string (get_property (this, "startRepeatType"), ".|:");
   else if (end) // { end }
-    s = robust_scm2string (get_property ("endRepeatType"), ":|.");
+    s = robust_scm2string (get_property (this, "endRepeatType"), ":|.");
 
   /*
     TODO: line breaks might be allowed if we set whichBar to "".
@@ -129,12 +129,12 @@ Repeat_acknowledge_engraver::process_music ()
     We only set the barline if we wouldn't overwrite a previously set
     barline.
   */
-  SCM wb = get_property ("whichBar");
-  SCM db = get_property ("defaultBarType");
+  SCM wb = get_property (this, "whichBar");
+  SCM db = get_property (this, "defaultBarType");
   if (!scm_is_string (wb) || ly_is_equal (db, wb))
     {
       if (s != "" || (volta_found && !scm_is_string (wb)))
-        context ()->set_property ("whichBar", ly_string2scm (s));
+        set_property (context (), "whichBar", ly_string2scm (s));
     }
 }
 

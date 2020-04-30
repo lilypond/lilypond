@@ -116,7 +116,7 @@ Slur_score_state::slur_direction () const
 Encompass_info
 Slur_score_state::get_encompass_info (Grob *notecol) const
 {
-  Grob *stem = unsmob<Grob> (notecol->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (notecol, "stem"));
   Encompass_info ei;
 
   if (!stem)
@@ -246,7 +246,7 @@ Slur_score_state::fill (Grob *me)
   Slur::replace_breakable_encompass_objects (me);
   staff_space_ = Staff_symbol_referencer::staff_space (me);
   line_thickness_ = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) * line_thickness_;
+  thickness_ = robust_scm2double (get_property (me, "thickness"), 1.0) * line_thickness_;
 
   dir_ = slur_direction ();
   parameters_.fill (me);
@@ -366,8 +366,8 @@ Slur::calc_control_points (SCM smob)
 
   state.generate_curves ();
 
-  SCM end_ys = me->get_property ("positions");
-  SCM inspect_quants = me->get_property ("inspect-quants");
+  SCM end_ys = get_property (me, "positions");
+  SCM inspect_quants = get_property (me, "inspect-quants");
   bool debug_slurs = to_boolean (me->layout ()
                                  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
 
@@ -388,7 +388,7 @@ Slur::calc_control_points (SCM smob)
     {
       string total = best->card ();
       total += to_string (" TOTAL=%.2f idx=%d", best->score (), best->index_);
-      me->set_property ("annotation", ly_string2scm (total));
+      set_property (me, "annotation", ly_string2scm (total));
     }
 #endif
 
@@ -685,7 +685,7 @@ Slur_score_state::generate_avoid_offsets () const
           z[Y_AXIS] += dir_ * parameters_.free_slur_distance_;
           avoid.push_back (z);
         }
-      else if (scm_is_eq (extra_encompasses[i]->get_property ("avoid-slur"),
+      else if (scm_is_eq (get_property (extra_encompasses[i], "avoid-slur"),
                           ly_symbol2scm ("inside")))
         {
           Grob *g = extra_encompasses [i];
@@ -703,8 +703,8 @@ Slur_score_state::generate_avoid_offsets () const
 void
 Slur_score_state::generate_curves () const
 {
-  Real r_0 = robust_scm2double (slur_->get_property ("ratio"), 0.33);
-  Real h_inf = staff_space_ * scm_to_double (slur_->get_property ("height-limit"));
+  Real r_0 = robust_scm2double (get_property (slur_, "ratio"), 0.33);
+  Real h_inf = staff_space_ * scm_to_double (get_property (slur_, "height-limit"));
 
   vector<Offset> avoid = generate_avoid_offsets ();
   for (vsize i = 0; i < configurations_.size (); i++)
@@ -719,7 +719,7 @@ vector<unique_ptr<Slur_configuration>>
   Drul_array<Offset> os;
   os[LEFT] = base_attachments_[LEFT];
   Real minimum_length = staff_space_
-                        * robust_scm2double (slur_->get_property ("minimum-length"), 2.0);
+                        * robust_scm2double (get_property (slur_, "minimum-length"), 2.0);
 
   for (int i = 0; dir_ * os[LEFT][Y_AXIS] <= dir_ * end_ys[LEFT]; i++)
     {
@@ -851,11 +851,11 @@ Slur_score_state::get_extra_encompass_infos () const
             {
               penalty = parameters_.accidental_collision_;
 
-              Rational alt = ly_scm2rational (g->get_property ("alteration"));
-              SCM scm_style = g->get_property ("style");
+              Rational alt = ly_scm2rational (get_property (g, "alteration"));
+              SCM scm_style = get_property (g, "style");
               if (!scm_is_symbol (scm_style)
-                  && !to_boolean (g->get_property ("parenthesized"))
-                  && !to_boolean (g->get_property ("restore-first")))
+                  && !to_boolean (get_property (g, "parenthesized"))
+                  && !to_boolean (get_property (g, "restore-first")))
                 {
                   if (alt == FLAT_ALTERATION
                       || alt == DOUBLE_FLAT_ALTERATION)
@@ -884,7 +884,7 @@ Extra_collision_info::Extra_collision_info (Grob *g, Real idx, Interval x, Inter
   extents_[Y_AXIS] = y;
   penalty_ = p;
   grob_ = g;
-  type_ = g->get_property ("avoid-slur");
+  type_ = get_property (g, "avoid-slur");
 }
 
 Extra_collision_info::Extra_collision_info ()

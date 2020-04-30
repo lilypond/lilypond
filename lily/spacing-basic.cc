@@ -44,12 +44,12 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
 
   if (Paper_column::is_breakable (l) && Paper_column::is_breakable (r))
     {
-      Moment *dt = unsmob<Moment> (l->get_property ("measure-length"));
+      Moment *dt = unsmob<Moment> (get_property (l, "measure-length"));
       Moment mlen (1);
       if (dt)
         mlen = *dt;
 
-      Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
+      Real incr = robust_scm2double (get_property (me, "spacing-increment"), 1);
       Real space = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
       Spring spring = Spring (min_dist + space, min_dist);
 
@@ -91,7 +91,7 @@ get_measure_length (Paper_column *column)
 
   do
     {
-      if (Moment *len = unsmob<Moment> (cols[col_idx]->get_property ("measure-length")))
+      if (Moment *len = unsmob<Moment> (get_property (cols[col_idx], "measure-length")))
         {
           return len;
         }
@@ -109,7 +109,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
                                Spacing_options const *options)
 {
   Moment shortest_playing_len = 0;
-  SCM s = lc->get_property ("shortest-playing-duration");
+  SCM s = get_property (lc, "shortest-playing-duration");
 
   if (unsmob<Moment> (s))
     shortest_playing_len = *unsmob<Moment> (s);
@@ -162,7 +162,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
     }
   else if (delta_t.grace_part_)
     {
-      Grob *grace_spacing = unsmob<Grob> (lc->get_object ("grace-spacing"));
+      Grob *grace_spacing = unsmob<Grob> (get_object (lc, "grace-spacing"));
       if (grace_spacing)
         {
           Spacing_options grace_opts;

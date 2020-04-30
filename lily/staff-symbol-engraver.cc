@@ -80,7 +80,7 @@ Staff_symbol_engraver::Staff_symbol_engraver (Context *c)
 void
 Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
   if (d)
     ASSIGN_EVENT_ONCE (span_events_[d], ev);
   else
@@ -110,7 +110,7 @@ Staff_symbol_engraver::start_spanner ()
     {
       span_ = make_spanner ("StaffSymbol", SCM_EOL);
       span_->set_bound (LEFT,
-                        unsmob<Grob> (get_property ("currentCommandColumn")));
+                        unsmob<Grob> (get_property (this, "currentCommandColumn")));
     }
 }
 
@@ -121,7 +121,7 @@ Staff_symbol_engraver::stop_spanner ()
     return;
 
   if (!finished_span_->get_bound (RIGHT))
-    finished_span_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+    finished_span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
 
   announce_end_grob (finished_span_,
                      span_events_[STOP]
@@ -159,7 +159,7 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
   if (span_ || finished_span_)
     {
       Spanner *my = span_ ? span_ : finished_span_;
-      s.grob ()->set_object ("staff-symbol", my->self_scm ());
+      set_object (s.grob (), "staff-symbol", my->self_scm ());
     }
 }
 

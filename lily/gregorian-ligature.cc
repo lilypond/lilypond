@@ -38,7 +38,7 @@ Gregorian_ligature::prefixes_to_str (Grob *primitive)
 {
   string str;
   int prefix_set
-    = scm_to_int (primitive->get_property ("prefix-set"));
+    = scm_to_int (get_property (primitive, "prefix-set"));
   check_prefix ("virga", VIRGA, prefix_set, &str);
   check_prefix ("stropha", STROPHA, prefix_set, &str);
   check_prefix ("inclinatum", INCLINATUM, prefix_set, &str);

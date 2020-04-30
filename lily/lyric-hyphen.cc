@@ -57,17 +57,17 @@ Lyric_hyphen::print (SCM smob)
     }
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  Real th = robust_scm2double (me->get_property ("thickness"), 1) * lt;
-  Real font_size_step = robust_scm2double (me->get_property ("font-size"), 0.0);
-  Real h = robust_scm2double (me->get_property ("height"), 0.5)
+  Real th = robust_scm2double (get_property (me, "thickness"), 1) * lt;
+  Real font_size_step = robust_scm2double (get_property (me, "font-size"), 0.0);
+  Real h = robust_scm2double (get_property (me, "height"), 0.5)
            * pow (2.0, font_size_step / 6.0);
 
   // interval?
 
-  Real dash_period = robust_scm2double (me->get_property ("dash-period"), 1.0);
-  Real dash_length = robust_scm2double (me->get_property ("length"), .5);
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
-  Real whiteout = robust_scm2double (me->get_property ("whiteout"), -1);
+  Real dash_period = robust_scm2double (get_property (me, "dash-period"), 1.0);
+  Real dash_length = robust_scm2double (get_property (me, "length"), .5);
+  Real padding = robust_scm2double (get_property (me, "padding"), 0.1);
+  Real whiteout = robust_scm2double (get_property (me, "whiteout"), -1);
 
   if (dash_period < dash_length)
     dash_period = 1.5 * dash_length;
@@ -81,7 +81,7 @@ Lyric_hyphen::print (SCM smob)
   if (l < dash_length + 2 * padding
       && !bounds[RIGHT]->break_status_dir ())
     {
-      Real minimum_length = robust_scm2double (me->get_property ("minimum-length"), .3);
+      Real minimum_length = robust_scm2double (get_property (me, "minimum-length"), .3);
       dash_length = std::max ((l - 2 * padding), minimum_length);
     }
 
@@ -132,7 +132,7 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
   Rod r;
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
-  r.distance_ = robust_scm2double (me->get_property ("minimum-distance"), 0);
+  r.distance_ = robust_scm2double (get_property (me, "minimum-distance"), 0);
   for (LEFT_and_RIGHT (d))
     {
       r.item_drul_[d] = sp->get_bound (d);

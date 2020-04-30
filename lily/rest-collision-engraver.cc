@@ -60,7 +60,7 @@ Rest_collision_engraver::process_acknowledged ()
   set<Grob *> columns;
   Moment now = now_mom ();
 
-  for (SCM s = get_property ("busyGrobs"); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_property (this, "busyGrobs"); scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *g = unsmob<Grob> (scm_cdar (s));
       Moment *m = unsmob<Moment> (scm_caar (s));

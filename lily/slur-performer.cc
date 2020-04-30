@@ -74,7 +74,7 @@ Slur_performer::process_music ()
 void
 Slur_performer::set_melisma (bool ml)
 {
-  context ()->set_property ("slurMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
+  set_property (context (), "slurMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
 void
@@ -87,7 +87,7 @@ Slur_performer::start_translation_timestep ()
 void
 Slur_performer::listen_slur (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
 
   if (d == START)
     start_ev_ = ev;

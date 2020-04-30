@@ -56,18 +56,18 @@ Note_performer::process_music ()
     return;
 
   Pitch transposing;
-  SCM prop = get_property ("instrumentTransposition");
+  SCM prop = get_property (this, "instrumentTransposition");
   if (unsmob<Pitch> (prop))
     transposing = *unsmob<Pitch> (prop);
 
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
       Stream_event *n = note_evs_[i];
-      SCM pit = n->get_property ("pitch");
+      SCM pit = get_property (n, "pitch");
 
       if (Pitch *pitp = unsmob<Pitch> (pit))
         {
-          SCM articulations = n->get_property ("articulations");
+          SCM articulations = get_property (n, "articulations");
           Stream_event *tie_event = 0;
           Moment len = get_event_length (n, now_mom ());
           int velocity = 0;
@@ -83,12 +83,12 @@ Note_performer::process_music ()
 
               if (ev->in_event_class ("tie-event"))
                 tie_event = ev;
-              SCM f = ev->get_property ("midi-length");
+              SCM f = get_property (ev, "midi-length");
               if (ly_is_procedure (f))
                 len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
                                                      context ()->self_scm ()),
                                          len);
-              velocity += robust_scm2int (ev->get_property ("midi-extra-velocity"), 0);
+              velocity += robust_scm2int (get_property (ev, "midi-extra-velocity"), 0);
             }
 
           Audio_note *p = new Audio_note (*pitp, len,
@@ -156,7 +156,7 @@ void
 Note_performer::listen_breathing (Stream_event *ev)
 {
   //Shorten previous note if needed
-  SCM f = ev->get_property ("midi-length");
+  SCM f = get_property (ev, "midi-length");
   if (ly_is_procedure (f))
     for (vsize i = 0; i < last_notes_.size (); i++)
       {

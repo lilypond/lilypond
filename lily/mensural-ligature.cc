@@ -64,7 +64,7 @@ brew_flexa (Grob *me,
   Real height = staff_space - horizontal_line_thickness;
   Stencil stencil;
   Real const interval
-    = robust_scm2double (me->get_property ("flexa-interval"), 0.0);
+    = robust_scm2double (get_property (me, "flexa-interval"), 0.0);
   Real slope = (interval / 2.0 * staff_space) / width;
 
   // Compensate optical illusion regarding vertical position of left
@@ -118,7 +118,7 @@ brew_flexa (Grob *me,
 Stencil
 internal_brew_primitive (Grob *me)
 {
-  SCM primitive_scm = me->get_property ("primitive");
+  SCM primitive_scm = get_property (me, "primitive");
   if (scm_is_null (primitive_scm))
     {
       programming_error ("Mensural_ligature:"
@@ -132,7 +132,7 @@ internal_brew_primitive (Grob *me)
   Real flexa_width = 0.0;
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  SCM style = me->get_property ("style");
+  SCM style = get_property (me, "style");
   bool const black
     = scm_is_eq (style, ly_symbol2scm ("blackpetrucci"));
   bool const semi
@@ -140,11 +140,11 @@ internal_brew_primitive (Grob *me)
 
   if (primitive & MLP_ANY)
     {
-      thickness = robust_scm2double (me->get_property ("thickness"), .13);
-      width = robust_scm2double (me->get_property ("head-width"), staff_space);
+      thickness = robust_scm2double (get_property (me, "thickness"), .13);
+      width = robust_scm2double (get_property (me, "head-width"), staff_space);
     }
   if (primitive & MLP_FLEXA)
-    flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2.0)
+    flexa_width = robust_scm2double (get_property (me, "flexa-width"), 2.0)
                   * staff_space;
 
   Stencil out;
@@ -179,7 +179,7 @@ internal_brew_primitive (Grob *me)
       if (!out.is_empty ()
           && !Staff_symbol_referencer::on_line
           (me,
-           robust_scm2int (me->get_property ("staff-position"), 0)))
+           robust_scm2int (get_property (me, "staff-position"), 0)))
         index += "r";
       out = fm->find_by_name (index + suffix);
       break;
@@ -225,9 +225,9 @@ internal_brew_primitive (Grob *me)
       out.add_stencil (join);
     }
 
-  if (to_boolean (me->get_property ("add-join")))
+  if (to_boolean (get_property (me, "add-join")))
     {
-      int join_right = scm_to_int (me->get_property ("delta-position"));
+      int join_right = scm_to_int (get_property (me, "delta-position"));
       if (join_right)
         {
           Real y_top = join_right * 0.5 * staff_space;

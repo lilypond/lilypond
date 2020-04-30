@@ -90,7 +90,7 @@ One_page_breaking::solve ()
   SCM lowest_line_pos = scm_from_int (0);
 
   Prob *page_pb = unsmob<Prob> (scm_car (pages));
-  SCM config = page_pb->get_property ("configuration");
+  SCM config = get_property (page_pb, "configuration");
 
   for (SCM c = config; scm_is_pair (c); c = scm_cdr (c))
     {
@@ -117,7 +117,7 @@ One_page_breaking::solve ()
       else if (Prob *pb = system_specs_[i].prob_)
         {
           // top-level markups
-          Stencil *stil = unsmob<Stencil> (pb->get_property ("stencil"));
+          Stencil *stil = unsmob<Stencil> (get_property (pb, "stencil"));
           line_heights.push_back (stil->extent (Y_AXIS).length ());
         }
     }
@@ -145,10 +145,10 @@ One_page_breaking::solve ()
   // refpoint is 0.
   SCM refpoint_dist = scm_from_int (0);
 
-  SCM lines_probs = page_pb->get_property ("lines");
+  SCM lines_probs = get_property (page_pb, "lines");
   Prob *last_line_pb = unsmob<Prob> (scm_list_ref (lines_probs, scm_oneminus (scm_length (lines_probs))));
 
-  SCM refpoint_extent = last_line_pb->get_property ("staff-refpoint-extent");
+  SCM refpoint_extent = get_property (last_line_pb, "staff-refpoint-extent");
 
   if (scm_is_pair (refpoint_extent) && scm_is_number (scm_car (refpoint_extent)))
     refpoint_dist = scm_product (scm_car (refpoint_extent), scm_from_int (-1));
@@ -158,7 +158,7 @@ One_page_breaking::solve ()
     lowest_bound = last_bottom_bound;
 
   // SET FINAL PAPER HEIGHT
-  Stencil *foot_stil = unsmob<Stencil> (page_pb->get_property ("foot-stencil"));
+  Stencil *foot_stil = unsmob<Stencil> (get_property (page_pb, "foot-stencil"));
   Real foot_height = foot_stil->extent (Y_AXIS).length ();
 
   SCM top_margin = book_->paper_->c_variable ("top-margin");
@@ -170,7 +170,7 @@ One_page_breaking::solve ()
   book_->paper_->set_variable (ly_symbol2scm ("paper-height"), ppr_height);
 
   // bottom-edge determines placement of footer (tagline, footnotes, etc.)
-  page_pb->set_property ("bottom-edge", scm_difference (ppr_height, bottom_margin));
+  set_property (page_pb, "bottom-edge", scm_difference (ppr_height, bottom_margin));
 
   return pages;
 }

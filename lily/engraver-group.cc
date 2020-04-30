@@ -31,13 +31,13 @@ void
 Engraver_group::override (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
-  SCM sym = ev->get_property ("symbol");
+  SCM sym = get_property (ev, "symbol");
   Grob_property_info gpi (context (), sym);
 
-  if (to_boolean (ev->get_property ("once")))
+  if (to_boolean (get_property (ev, "once")))
     {
-      SCM token = gpi.temporary_override (ev->get_property ("property-path"),
-                                          ev->get_property ("value"));
+      SCM token = gpi.temporary_override (get_property (ev, "property-path"),
+                                          get_property (ev, "value"));
       if (scm_is_pair (token))
         {
           Global_context *g = find_global_context (context ());
@@ -48,20 +48,20 @@ Engraver_group::override (SCM sev)
         }
     }
   else
-    gpi.push (ev->get_property ("property-path"),
-              ev->get_property ("value"));
+    gpi.push (get_property (ev, "property-path"),
+              get_property (ev, "value"));
 }
 
 void
 Engraver_group::revert (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
-  SCM sym = ev->get_property ("symbol");
+  SCM sym = get_property (ev, "symbol");
   Grob_property_info gpi (context (), sym);
 
-  if (to_boolean (ev->get_property ("once")))
+  if (to_boolean (get_property (ev, "once")))
     {
-      SCM token = gpi.temporary_revert (ev->get_property ("property-path"));
+      SCM token = gpi.temporary_revert (get_property (ev, "property-path"));
       if (scm_is_pair (token))
         {
           Global_context *g = find_global_context (context ());
@@ -72,7 +72,7 @@ Engraver_group::revert (SCM sev)
         }
     }
   else
-    gpi.pop (ev->get_property ("property-path"));
+    gpi.pop (get_property (ev, "property-path"));
 }
 
 void
@@ -121,7 +121,7 @@ Engraver_group::acknowledge_grobs ()
     {
       Announce_grob_info info = announce_infos_[j];
 
-      SCM meta = info.grob ()->get_property ("meta");
+      SCM meta = get_property (info.grob (), "meta");
       SCM nm = scm_assoc (name_sym, meta);
       if (scm_is_pair (nm))
         nm = scm_cdr (nm);

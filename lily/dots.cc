@@ -35,11 +35,11 @@ Dots::print (SCM d)
   Grob *sc = unsmob<Grob> (d);
   Stencil mol;
 
-  SCM c = sc->get_property ("dot-count");
+  SCM c = get_property (sc, "dot-count");
 
   if (scm_is_number (c))
     {
-      SCM scm_style = sc->get_property ("style");
+      SCM scm_style = get_property (sc, "style");
       string style = "";
       if (scm_is_symbol (scm_style))
         style = ly_symbol2string (scm_style);

@@ -143,11 +143,11 @@ Multi_measure_rest_engraver::initialize_grobs ()
           Stream_event *e = articulation_events_[i];
           Spanner *sp = make_spanner ("MultiMeasureRestScript", e->self_scm ());
           make_script_from_event (sp, context (),
-                                  e->get_property ("articulation-type"),
+                                  get_property (e, "articulation-type"),
                                   i);
-          SCM dir = e->get_property ("direction");
+          SCM dir = get_property (e, "direction");
           if (is_direction (dir))
-            sp->set_property ("direction", dir);
+            set_property (sp, "direction", dir);
 
           text_.push_back (sp);
         }
@@ -160,11 +160,11 @@ Multi_measure_rest_engraver::initialize_grobs ()
         {
           Stream_event *e = text_events_[i];
           Spanner *sp = make_spanner ("MultiMeasureRestText", e->self_scm ());
-          SCM t = e->get_property ("text");
-          SCM dir = e->get_property ("direction");
-          sp->set_property ("text", t);
+          SCM t = get_property (e, "text");
+          SCM dir = get_property (e, "direction");
+          set_property (sp, "text", t);
           if (is_direction (dir))
-            sp->set_property ("direction", dir);
+            set_property (sp, "direction", dir);
 
           text_.push_back (sp);
         }
@@ -180,7 +180,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
       Grob *last = 0;
       for (vsize i = 0; i < text_.size (); i++)
         {
-          if (ly_is_equal (dir, text_[i]->get_property ("direction")))
+          if (ly_is_equal (dir, get_property (text_[i], "direction")))
             {
               if (last)
                 Side_position_interface::add_support (text_[i], last);
@@ -209,18 +209,18 @@ Multi_measure_rest_engraver::set_measure_count (int n)
 {
   SCM n_scm = scm_from_int (n);
   assert (mmrest_);
-  mmrest_->set_property ("measure-count", n_scm);
+  set_property (mmrest_, "measure-count", n_scm);
 
   Grob *g = text_[0]; // the MultiMeasureRestNumber
   assert (g);
-  if (scm_is_null (g->get_property ("text")))
+  if (scm_is_null (get_property (g, "text")))
     {
       if (n <= number_threshold_)
         g->suicide ();
       else
         {
           SCM text = scm_number_to_string (n_scm, scm_from_int (10));
-          g->set_property ("text", text);
+          set_property (g, "text", text);
         }
     }
 }
@@ -229,18 +229,18 @@ void
 Multi_measure_rest_engraver::process_music ()
 {
   const bool measure_end
-    = scm_is_string (get_property ("whichBar"))
-      && (robust_scm2moment (get_property ("measurePosition"),
+    = scm_is_string (get_property (this, "whichBar"))
+      && (robust_scm2moment (get_property (this, "measurePosition"),
                              Moment (0)).main_part_ == Rational (0));
 
   if (measure_end || first_time_)
     {
-      last_command_item_ = unsmob<Item> (get_property ("currentCommandColumn"));
+      last_command_item_ = unsmob<Item> (get_property (this, "currentCommandColumn"));
 
       // Finalize the current grobs.
       if (grobs_initialized ())
         {
-          int curr_measure = scm_to_int (get_property ("internalBarNumber"));
+          int curr_measure = scm_to_int (get_property (this, "internalBarNumber"));
           set_measure_count (curr_measure - start_measure_);
           if (last_command_item_)
             add_bound_item_to_grobs (last_command_item_);
@@ -263,8 +263,8 @@ Multi_measure_rest_engraver::process_music ()
           last_command_item_ = 0;
         }
 
-      start_measure_ = scm_to_int (get_property ("internalBarNumber"));
-      number_threshold_ = robust_scm2int (get_property ("restNumberThreshold"), 1);
+      start_measure_ = scm_to_int (get_property (this, "internalBarNumber"));
+      number_threshold_ = robust_scm2int (get_property (this, "restNumberThreshold"), 1);
     }
 
   first_time_ = false;

@@ -158,27 +158,27 @@ Slur::print (SCM smob)
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
   Real base_thick = staff_thick
-                    * robust_scm2double (me->get_property ("thickness"), 1);
+                    * robust_scm2double (get_property (me, "thickness"), 1);
   Real line_thick = staff_thick
-                    * robust_scm2double (me->get_property ("line-thickness"), 1);
+                    * robust_scm2double (get_property (me, "line-thickness"), 1);
 
   Bezier one = get_curve (me);
   Stencil a;
 
-  SCM dash_definition = me->get_property ("dash-definition");
+  SCM dash_definition = get_property (me, "dash-definition");
   a = Lookup::slur (one,
                     get_grob_direction (me) * base_thick,
                     line_thick,
                     dash_definition);
 
 #if DEBUG_SLUR_SCORING
-  SCM annotation = me->get_property ("annotation");
+  SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
-      if (!scm_is_number (me->get_property ("font-size")))
+      if (!scm_is_number (get_property (me, "font-size")))
         properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
                                properties);
 
@@ -214,7 +214,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
             /* if we encompass a separation-item that spans multiple staves,
                we filter out the grobs that don't belong to our staff */
             if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
-                && scm_is_eq (breakables[j]->get_property ("avoid-slur"),
+                && scm_is_eq (get_property (breakables[j], "avoid-slur"),
                               ly_symbol2scm ("inside")))
               new_encompasses.push_back (breakables[j]);
         }
@@ -222,7 +222,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
         new_encompasses.push_back (g);
     }
 
-  if (Grob_array *a = unsmob<Grob_array> (me->get_object ("encompass-objects")))
+  if (Grob_array *a = unsmob<Grob_array> (get_object (me, "encompass-objects")))
     a->set_array (new_encompasses);
 }
 
@@ -230,7 +230,7 @@ Bezier
 Slur::get_curve (Grob *me)
 {
   Bezier b;
-  SCM s = me->get_property ("control-points");
+  SCM s = get_property (me, "control-points");
   for (int i = 0; i < Bezier::CONTROL_COUNT; i++)
     {
       if (scm_is_pair (s))
@@ -265,11 +265,11 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
   int start = robust_scm2int (start_scm, 0);
   int end = robust_scm2int (end_scm, 0);
   Grob *script = unsmob<Grob> (grob);
-  Grob *slur = unsmob<Grob> (script->get_object ("slur"));
+  Grob *slur = unsmob<Grob> (get_object (script, "slur"));
   if (!slur)
     return offset_scm;
 
-  SCM avoid = script->get_property ("avoid-slur");
+  SCM avoid = get_property (script, "avoid-slur");
   if (!scm_is_eq (avoid, ly_symbol2scm ("outside"))
       && !scm_is_eq (avoid, ly_symbol2scm ("around")))
     return offset_scm;
@@ -284,12 +284,12 @@ SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
   Grob *script = unsmob<Grob> (grob);
-  Grob *slur = unsmob<Grob> (script->get_object ("slur"));
+  Grob *slur = unsmob<Grob> (get_object (script, "slur"));
 
   if (!slur)
     return offset_scm;
 
-  SCM avoid = script->get_property ("avoid-slur");
+  SCM avoid = get_property (script, "avoid-slur");
   if (!scm_is_eq (avoid, ly_symbol2scm ("outside"))
       && !scm_is_eq (avoid, ly_symbol2scm ("around")))
     return offset_scm;
@@ -328,7 +328,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   yext.translate (offset);
 
   /* FIXME: slur property, script property?  */
-  Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
+  Real slur_padding = robust_scm2double (get_property (script, "slur-padding"),
                                          0.0);
   yext.widen (slur_padding);
 
@@ -383,7 +383,7 @@ Slur::vertical_skylines (SCM smob)
     return Skyline_pair (boxes, X_AXIS).smobbed_copy ();
 
   Bezier curve = Slur::get_curve (me);
-  vsize box_count = robust_scm2vsize (me->get_property ("skyline-quantizing"), 10);
+  vsize box_count = robust_scm2vsize (get_property (me, "skyline-quantizing"), 10);
   for (vsize i = 0; i < box_count; i++)
     {
       Box b;
@@ -409,7 +409,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
     return;
 
   Grob *e = info.grob ();
-  SCM avoid = e->get_property ("avoid-slur");
+  SCM avoid = get_property (e, "avoid-slur");
   Grob *slur;
   if (end_slurs.size () && !slurs.size ())
     slur = end_slurs[0];
@@ -424,7 +424,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
       for (vsize i = end_slurs.size (); i--;)
         add_extra_encompass (end_slurs[i], e);
       if (slur)
-        e->set_object ("slur", slur->self_scm ());
+        set_object (e, "slur", slur->self_scm ());
     }
   else if (scm_is_eq (avoid, ly_symbol2scm ("outside"))
            || scm_is_eq (avoid, ly_symbol2scm ("around")))
@@ -436,7 +436,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
                                                                    pure_outside_slur_callback_proc),
                                  Y_AXIS);
           chain_callback (e, outside_slur_cross_staff_proc, ly_symbol2scm ("cross-staff"));
-          e->set_object ("slur", slur->self_scm ());
+          set_object (e, "slur", slur->self_scm ());
         }
     }
   else if (!scm_is_eq (avoid, ly_symbol2scm ("ignore")))
@@ -458,11 +458,11 @@ Slur::outside_slur_cross_staff (SCM smob, SCM previous)
     return previous;
 
   Grob *me = unsmob<Grob> (smob);
-  Grob *slur = unsmob<Grob> (me->get_object ("slur"));
+  Grob *slur = unsmob<Grob> (get_object (me, "slur"));
 
   if (!slur)
     return SCM_BOOL_F;
-  return slur->get_property ("cross-staff");
+  return get_property (slur, "cross-staff");
 }
 
 MAKE_SCHEME_CALLBACK (Slur, calc_cross_staff, 1)
@@ -477,7 +477,7 @@ Slur::calc_cross_staff (SCM smob)
   for (vsize i = 0; i < cols.size (); i++)
     {
       if (Grob *s = Note_column::get_stem (cols[i]))
-        if (to_boolean (s->get_property ("cross-staff")))
+        if (to_boolean (get_property (s, "cross-staff")))
           return SCM_BOOL_T;
     }
 

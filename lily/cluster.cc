@@ -40,13 +40,13 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_p
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me) / 2;
 
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.0);
+  Real padding = robust_scm2double (get_property (me, "padding"), 0.0);
 
   Offset vpadding = Offset (0, padding);
   Offset hpadding = Offset (0.5 * blotdiameter, 0);
   Offset hvpadding = 0.5 * hpadding + vpadding;
 
-  SCM shape_scm = me->get_property ("style");
+  SCM shape_scm = get_property (me, "style");
   string shape;
 
   if (scm_is_symbol (shape_scm))
@@ -243,7 +243,7 @@ SCM
 Cluster_beacon::height (SCM g)
 {
   Grob *me = unsmob<Grob> (g);
-  Interval v = robust_scm2interval (me->get_property ("positions"),
+  Interval v = robust_scm2interval (get_property (me, "positions"),
                                     Interval (0, 0));
   return ly_interval2scm (Staff_symbol_referencer::staff_space (me) * 0.5 * v);
 }

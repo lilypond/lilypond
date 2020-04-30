@@ -67,7 +67,7 @@ Grob::Grob (SCM basicprops)
      GC. After smobify_self (), they are.  */
   smobify_self ();
 
-  SCM meta = get_property ("meta");
+  SCM meta = get_property (this, "meta");
   if (scm_is_pair (meta))
     {
       interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
@@ -76,22 +76,22 @@ Grob::Grob (SCM basicprops)
       if (scm_is_pair (object_cbs))
         {
           for (SCM s = scm_cdr (object_cbs); scm_is_pair (s); s = scm_cdr (s))
-            set_object (scm_caar (s), scm_cdar (s));
+            set_object (this, scm_caar (s), scm_cdar (s));
         }
     }
 
-  if (scm_is_null (get_property_data ("X-extent")))
-    set_property ("X-extent", Grob::stencil_width_proc);
-  if (scm_is_null (get_property_data ("Y-extent")))
-    set_property ("Y-extent",
+  if (scm_is_null (get_property_data (this, "X-extent")))
+    set_property (this, "X-extent", Grob::stencil_width_proc);
+  if (scm_is_null (get_property_data (this, "Y-extent")))
+    set_property (this, "Y-extent",
                   Unpure_pure_container::make_smob (Grob::stencil_height_proc,
                                                     Grob::pure_stencil_height_proc));
-  if (scm_is_null (get_property_data ("vertical-skylines")))
-    set_property ("vertical-skylines",
+  if (scm_is_null (get_property_data (this, "vertical-skylines")))
+    set_property (this, "vertical-skylines",
                   Unpure_pure_container::make_smob (Grob::simple_vertical_skylines_from_extents_proc,
                                                     Grob::pure_simple_vertical_skylines_from_extents_proc));
-  if (scm_is_null (get_property_data ("horizontal-skylines")))
-    set_property ("horizontal-skylines",
+  if (scm_is_null (get_property_data (this, "horizontal-skylines")))
+    set_property (this, "horizontal-skylines",
                   Unpure_pure_container::make_smob (Grob::simple_horizontal_skylines_from_extents_proc,
                                                     Grob::pure_simple_horizontal_skylines_from_extents_proc));
 }
@@ -130,33 +130,33 @@ Grob::get_stencil () const
   if (!is_live ())
     return 0;
 
-  SCM stil = get_property ("stencil");
+  SCM stil = get_property (this, "stencil");
   return unsmob<Stencil> (stil);
 }
 
 Stencil
 Grob::get_print_stencil () const
 {
-  SCM stil = get_property ("stencil");
+  SCM stil = get_property (this, "stencil");
 
   Stencil retval;
   if (Stencil *m = unsmob<Stencil> (stil))
     {
       retval = *m;
-      bool transparent = to_boolean (get_property ("transparent"));
+      bool transparent = to_boolean (get_property (this, "transparent"));
 
       /* Process whiteout before color and grob-cause to prevent colored */
       /* whiteout background and larger file sizes with \pointAndClickOn. */
       /* A grob has to be visible, otherwise the whiteout property has no effect. */
       /* Calls the scheme procedure stencil-whiteout in scm/stencils.scm */
-      if (!transparent && (scm_is_number (get_property ("whiteout"))
-                           || to_boolean (get_property ("whiteout"))))
+      if (!transparent && (scm_is_number (get_property (this, "whiteout"))
+                           || to_boolean (get_property (this, "whiteout"))))
         {
           Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
           retval = *unsmob<Stencil>
                    (Lily::stencil_whiteout (retval.smobbed_copy (),
-                                            get_property ("whiteout-style"),
-                                            get_property ("whiteout"),
+                                            get_property (this, "whiteout-style"),
+                                            get_property (this, "whiteout"),
                                             scm_from_double (line_thickness)));
         }
 
@@ -171,7 +171,7 @@ Grob::get_print_stencil () const
           retval = Stencil (retval.extent_box (), expr);
         }
 
-      SCM rot = get_property ("rotation");
+      SCM rot = get_property (this, "rotation");
       if (scm_is_pair (rot))
         {
           Real angle = scm_to_double (scm_car (rot));
@@ -182,7 +182,7 @@ Grob::get_print_stencil () const
         }
 
       /* color support... see interpret_stencil_expression () for more... */
-      SCM color = get_property ("color");
+      SCM color = get_property (this, "color");
       if (scm_is_pair (color))
         {
           SCM expr = scm_list_3 (ly_symbol2scm ("color"),
@@ -192,7 +192,7 @@ Grob::get_print_stencil () const
           retval = Stencil (retval.extent_box (), expr);
         }
 
-      SCM attributes = get_property ("output-attributes");
+      SCM attributes = get_property (this, "output-attributes");
       if (scm_is_pair (attributes))
         {
           SCM expr = scm_list_3 (ly_symbol2scm ("output-attributes"),
@@ -363,22 +363,22 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
 
   if (dim_cache_[Y_AXIS].offset_)
     {
-      if (to_boolean (get_property ("pure-Y-offset-in-progress")))
+      if (to_boolean (get_property (this, "pure-Y-offset-in-progress")))
         programming_error ("cyclic chain in pure-Y-offset callbacks");
 
       off = *dim_cache_[Y_AXIS].offset_;
     }
   else
     {
-      SCM proc = get_property_data ("Y-offset");
+      SCM proc = get_property_data (this, "Y-offset");
 
       dim_cache_[Y_AXIS].offset_ = 0;
-      set_property ("pure-Y-offset-in-progress", SCM_BOOL_T);
+      set_property (this, "pure-Y-offset-in-progress", SCM_BOOL_T);
       off = robust_scm2double (call_pure_function (proc,
                                                    scm_list_1 (self_scm ()),
                                                    start, end),
                                0.0);
-      del_property ("pure-Y-offset-in-progress");
+      del_property (this, "pure-Y-offset-in-progress");
       dim_cache_[Y_AXIS].offset_.reset ();
     }
 
@@ -412,11 +412,11 @@ Grob::get_offset (Axis a) const
     UGH: can't fold next 2 statements together. Apparently GCC thinks
     dim_cache_[a].offset_ is unaliased.
   */
-  Real off = robust_scm2double (get_property (sym), 0.0);
+  Real off = robust_scm2double (get_property (this, sym), 0.0);
   if (dim_cache_[a].offset_)
     {
       *dim_cache_[a].offset_ += off;
-      const_cast<Grob *> (this)->del_property (sym);
+      del_property (const_cast<Grob *> (this), sym);
       return *dim_cache_[a].offset_;
     }
   else
@@ -446,7 +446,10 @@ Grob::flush_extent_cache (Axis axis)
         Ugh, this is not accurate; will flush property, causing
         callback to be called if.
        */
-      del_property ((axis == X_AXIS) ? ly_symbol2scm ("X-extent") : ly_symbol2scm ("Y-extent"));
+      if (axis == X_AXIS)
+        del_property (this, "X-extent");
+      else
+        del_property (this, "Y-extent");
       dim_cache_[axis].extent_.reset ();
       if (get_parent (axis))
         get_parent (axis)->flush_extent_cache (axis);
@@ -468,14 +471,14 @@ Grob::extent (Grob const *refp, Axis a) const
         Order is significant: ?-extent may trigger suicide.
        */
       SCM ext = (a == X_AXIS)
-                ? get_property ("X-extent")
-                : get_property ("Y-extent");
+                ? get_property (this, "X-extent")
+                : get_property (this, "Y-extent");
       if (is_number_pair (ext))
         real_ext.unite (ly_scm2interval (ext));
 
       SCM min_ext = (a == X_AXIS)
-                    ? get_property ("minimum-X-extent")
-                    : get_property ("minimum-Y-extent");
+                    ? get_property (this, "minimum-X-extent")
+                    : get_property (this, "minimum-Y-extent");
       if (is_number_pair (min_ext))
         real_ext.unite (ly_scm2interval (min_ext));
 
@@ -495,11 +498,11 @@ Grob::extent (Grob const *refp, Axis a) const
 Interval
 Grob::pure_y_extent (Grob *refp, vsize start, vsize end)
 {
-  SCM iv_scm = get_pure_property ("Y-extent", start, end);
+  SCM iv_scm = get_pure_property (this, "Y-extent", start, end);
   Interval iv = robust_scm2interval (iv_scm, Interval ());
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
-  SCM min_ext = get_property ("minimum-Y-extent");
+  SCM min_ext = get_property (this, "minimum-Y-extent");
 
   /* we don't add minimum-Y-extent if the extent is empty. This solves
      a problem with Hara-kiri spanners. They would request_suicide and
@@ -721,17 +724,17 @@ Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
 Stream_event *
 Grob::event_cause () const
 {
-  SCM cause = get_property ("cause");
+  SCM cause = get_property (this, "cause");
   return unsmob<Stream_event> (cause);
 }
 
 Stream_event *
 Grob::ultimate_event_cause () const
 {
-  SCM cause = get_property ("cause");
+  SCM cause = get_property (this, "cause");
   while (Grob *g = unsmob<Grob> (cause))
     {
-      cause = g->get_property ("cause");
+      cause = get_property (g, "cause");
     }
   return unsmob<Stream_event> (cause);
 }
@@ -760,7 +763,7 @@ Grob::warning (const string &s) const
 string
 Grob::name () const
 {
-  SCM meta = get_property ("meta");
+  SCM meta = get_property (this, "meta");
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
   return scm_is_symbol (nm) ? ly_symbol2string (nm) : class_name ();
@@ -868,7 +871,7 @@ SCM
 Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 {
   Grob *me = unsmob<Grob> (smob);
-  if (unsmob<Stencil> (me->get_property_data ("stencil")))
+  if (unsmob<Stencil> (get_property_data (me, "stencil")))
     return grob_stencil_extent (me, Y_AXIS);
 
   return ly_interval2scm (Interval ());
@@ -882,7 +885,7 @@ Grob::y_parent_positioning (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *par = me->get_parent (Y_AXIS);
   if (par)
-    (void) par->get_property ("positioning-done");
+    (void) get_property (par, "positioning-done");
 
   return scm_from_double (0.0);
 }
@@ -895,7 +898,7 @@ Grob::x_parent_positioning (SCM smob)
 
   Grob *par = me->get_parent (X_AXIS);
   if (par)
-    (void) par->get_property ("positioning-done");
+    (void) get_property (par, "positioning-done");
 
   return scm_from_double (0.0);
 }

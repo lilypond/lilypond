@@ -113,7 +113,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
         continue;
 
       if (!stem)
-        stem = unsmob<Grob> (head->get_object ("stem"));
+        stem = unsmob<Grob> (get_object (head, "stem"));
 
       Real p = Staff_symbol_referencer::get_position (head);
       Interval y ((p - 1) * 0.5 * staff_space,
@@ -222,9 +222,9 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
               boxes.push_back (Box (x, y));
             }
 
-          Grob *acc = unsmob<Grob> (heads[i]->get_object ("accidental-grob"));
+          Grob *acc = unsmob<Grob> (get_object (heads[i], "accidental-grob"));
           if (acc)
-            acc->get_property ("after-line-breaking"); /* trigger tie-related suicide */
+            get_property (acc, "after-line-breaking"); /* trigger tie-related suicide */
 
           if (acc && acc->is_live () && dir == RIGHT)
             {
@@ -668,7 +668,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
           if (!spec.note_head_drul_[d])
             continue;
 
-          Grob *stem = unsmob<Grob> (spec.note_head_drul_[d]->get_object ("stem"));
+          Grob *stem = unsmob<Grob> (get_object (spec.note_head_drul_[d], "stem"));
           if (stem
               && Stem::is_normal_stem (stem))
             stems[d] = stem;
@@ -1238,7 +1238,7 @@ Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
       for (vsize i = 0; i < base.size (); i++)
         {
           string card = base.complete_tie_card (i);
-          specifications_[i].tie_grob_->set_property ("annotation",
+          set_property (specifications_[i].tie_grob_, "annotation",
                                                       ly_string2scm (card));
         }
     }

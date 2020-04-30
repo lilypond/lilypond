@@ -73,15 +73,15 @@ Time_signature_engraver::process_music ()
   if (time_signature_)
     return;
 
-  SCM fr = get_property ("timeSignatureFraction");
+  SCM fr = get_property (this, "timeSignatureFraction");
   if (!scm_is_eq (last_time_fraction_, fr) && scm_is_pair (fr))
     {
       time_signature_ = make_item ("TimeSignature", time_cause_);
-      time_signature_->set_property ("fraction", fr);
+      set_property (time_signature_, "fraction", fr);
 
       if (scm_is_false (last_time_fraction_))
-        time_signature_->set_property ("break-visibility",
-                                       get_property ("initialTimeSignatureVisibility"));
+        set_property (time_signature_, "break-visibility",
+                                       get_property (this, "initialTimeSignatureVisibility"));
 
       int den = scm_to_int (scm_cdr (fr));
       if (den != (1 << intlog2 (den)))
@@ -105,9 +105,9 @@ Time_signature_engraver::stop_translation_timestep ()
 {
   if (time_signature_ && !scm_is_null (time_cause_))
     {
-      Moment *mp = unsmob<Moment> (get_property ("measurePosition"));
+      Moment *mp = unsmob<Moment> (get_property (this, "measurePosition"));
       if (mp && (mp->main_part_ > Rational (0))
-          && !to_boolean (get_property ("partialBusy")))
+          && !to_boolean (get_property (this, "partialBusy")))
         time_signature_->warning ("mid-measure time signature without \\partial");
     }
 

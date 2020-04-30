@@ -112,7 +112,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
     {
       if (Paper_column::is_musical (cols[i]))
         {
-          Moment *when = unsmob<Moment> (cols[i]->get_property ("when"));
+          Moment *when = unsmob<Moment> (get_property (cols[i], "when"));
 
           /*
             ignore grace notes for shortest notes.
@@ -120,7 +120,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
           if (when && when->grace_part_)
             continue;
 
-          SCM st = cols[i]->get_property ("shortest-starter-duration");
+          SCM st = get_property (cols[i], "shortest-starter-duration");
           Moment this_shortest = *unsmob<Moment> (st);
           assert (this_shortest.to_bool ());
           shortest_in_measure = std::min (shortest_in_measure, this_shortest.main_part_);
@@ -165,7 +165,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
         }
     }
 
-  SCM bsd = me->get_property ("base-shortest-duration");
+  SCM bsd = get_property (me, "base-shortest-duration");
   Rational d = Rational (1, 8);
   if (Moment *m = unsmob<Moment> (bsd))
     d = m->main_part_;
@@ -185,7 +185,7 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
   if (Paper_column::is_musical (left_col))
     {
       if (!Paper_column::is_musical (right_col)
-          && (options->float_nonmusical_columns_ || to_boolean (right_col->get_property ("maybe-loose")))
+          && (options->float_nonmusical_columns_ || to_boolean (get_property (right_col, "maybe-loose")))
           && after_right_col
           && Paper_column::is_musical (after_right_col))
         {
@@ -193,7 +193,7 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
             TODO: should generate rods to prevent collisions.
           */
           musical_column_spacing (me, left_col, after_right_col, options);
-          right_col->set_object ("between-cols", scm_cons (left_col->self_scm (),
+          set_object (right_col, "between-cols", scm_cons (left_col->self_scm (),
                                                            after_right_col->self_scm ()));
         }
       else
@@ -243,7 +243,7 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
       if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
         continue;
 
-      Skyline_pair *skys = unsmob<Skyline_pair> (r->get_property ("horizontal-skylines"));
+      Skyline_pair *skys = unsmob<Skyline_pair> (get_property (r, "horizontal-skylines"));
       overhangs[i] = skys ? (*skys)[RIGHT].max_height () : 0.0;
 
       if (0 == i) continue;
@@ -308,7 +308,7 @@ Spacing_spanner::generate_springs (Grob *me,
       prev = col;
     }
 
-  Real padding = robust_scm2double (prev->get_property ("padding"), 0.1);
+  Real padding = robust_scm2double (get_property (prev, "padding"), 0.1);
   set_column_rods (cols, padding);
 }
 
@@ -360,7 +360,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
           if (found_matching_column && has_interface<Note_spacing> (wish))
             {
               Real inc = options->increment_;
-              Grob *gsp = unsmob<Grob> (left_col->get_object ("grace-spacing"));
+              Grob *gsp = unsmob<Grob> (get_object (left_col, "grace-spacing"));
               if (gsp && Paper_column::when_mom (left_col).grace_part_)
                 {
                   Spacing_options grace_opts;
@@ -453,7 +453,7 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
   Moment dt
     = Paper_column::when_mom (next) - Paper_column::when_mom (col);
 
-  Moment *len = unsmob<Moment> (left->get_property ("measure-length"));
+  Moment *len = unsmob<Moment> (get_property (left, "measure-length"));
   if (!len)
     return false;
 
@@ -483,7 +483,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
   if (Paper_column::is_musical (r)
       && l->break_status_dir () == CENTER
       && fills_measure (me, l, r))
-    full_measure_space = robust_scm2double (l->get_property ("full-measure-extra-space"), 1.0);
+    full_measure_space = robust_scm2double (get_property (l, "full-measure-extra-space"), 1.0);
 
   Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
 

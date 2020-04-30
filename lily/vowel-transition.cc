@@ -34,8 +34,8 @@ Vowel_transition::set_spacing_rods (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  SCM minimum_length = me->get_property ("minimum-length");
-  SCM broken_length = me->get_property ("minimum-length-after-break");
+  SCM minimum_length = get_property (me, "minimum-length");
+  SCM broken_length = get_property (me, "minimum-length-after-break");
   if (scm_is_number (minimum_length) || scm_is_number (broken_length))
     {
       Spanner *sp = dynamic_cast<Spanner *> (me);
@@ -49,7 +49,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
       Drul_array<Real> padding_broken = {0.0, 0.0};
       for (LEFT_and_RIGHT (d))
         {
-          SCM bounds = sp->get_property ("bound-details");
+          SCM bounds = get_property (sp, "bound-details");
           SCM details = ly_assoc_get (
               (d == LEFT ? ly_symbol2scm ("left") : ly_symbol2scm ("right")),
               bounds, SCM_BOOL_F);
@@ -93,7 +93,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
             or property after-line-breaking is set to #t.
           */
           if ((segment_time.length () != Moment (0, 0))
-              || to_boolean (me->get_property ("after-line-breaking")))
+              || to_boolean (get_property (me, "after-line-breaking")))
             {
               r2.distance_ = (scm_is_number (broken_length)
                                   ? robust_scm2double (broken_length, 0)

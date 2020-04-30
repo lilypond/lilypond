@@ -54,7 +54,7 @@ SCM
 Sequential_iterator::get_music_list () const
 {
   Music *m = get_music ();
-  SCM proc = m->get_property ("elements-callback");
+  SCM proc = get_property (m, "elements-callback");
   if (ly_is_procedure (proc))
     return scm_call_1 (proc, m->self_scm ());
   else

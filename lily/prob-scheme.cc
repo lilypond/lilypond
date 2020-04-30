@@ -27,7 +27,7 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
   Prob *ps = unsmob<Prob> (obj);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  ps->set_property (sym, value);
+  set_property (ps, sym, value);
   return SCM_UNSPECIFIED;
 }
 
@@ -54,7 +54,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
   if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
-  SCM retval = ps->get_property (sym);
+  SCM retval = get_property (ps, sym);
   if (scm_is_null (retval))
     return val;
   else
@@ -83,7 +83,7 @@ LY_DEFINE (ly_make_prob, "ly:make-prob",
       SCM sym = scm_car (s);
       SCM val = scm_cadr (s);
 
-      pr->set_property (sym, val);
+      set_property (pr, sym, val);
     }
 
   return pr->unprotect ();

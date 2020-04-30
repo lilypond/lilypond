@@ -26,7 +26,7 @@ SCM
 Music_wrapper::start_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  Music *elt = unsmob<Music> (me->get_property ("element"));
+  Music *elt = unsmob<Music> (get_property (me, "element"));
   if (elt)
     return elt->start_mom ().smobbed_copy ();
   else
@@ -38,7 +38,7 @@ SCM
 Music_wrapper::length_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  Music *elt = unsmob<Music> (me->get_property ("element"));
+  Music *elt = unsmob<Music> (get_property (me, "element"));
   if (elt)
     return elt->get_length ().smobbed_copy ();
   else

@@ -49,8 +49,8 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
   Drul_array<Direction> break_dirs (dynamic_cast<Item *> (me)->break_status_dir (),
                                     dynamic_cast<Item *> (right_col)->break_status_dir ());
   Drul_array<Skyline> skylines = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
-  Drul_array<vector<Grob *> > items (ly_scm2link_array (orig->get_object ("left-items")),
-                                     ly_scm2link_array (orig->get_object ("right-items")));
+  Drul_array<vector<Grob *> > items (ly_scm2link_array (get_object (orig, "left-items")),
+                                     ly_scm2link_array (get_object (orig, "right-items")));
 
   Grob *system = me->get_system ();
   Grob *left_col = dynamic_cast<Item *> (me)->get_column ();
@@ -68,7 +68,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
 
           if (has_interface<Separation_item> (g) && g->get_column () == columns[d])
             {
-              SCM sky_scm = g->get_property ("horizontal-skylines");
+              SCM sky_scm = get_property (g, "horizontal-skylines");
               Skyline_pair *sky = unsmob<Skyline_pair> (sky_scm);
 
               extract_grob_set (g, "elements", elts);
@@ -111,7 +111,7 @@ Spacing_interface::right_column (Grob *me)
     return 0;
 
   Paper_column *mincol = 0;
-  if (Grob_array *a = unsmob<Grob_array> (me->get_object ("right-items")))
+  if (Grob_array *a = unsmob<Grob_array> (get_object (me, "right-items")))
     {
       int min_rank = INT_MAX;
       for (vsize i = 0; i < a->size (); i++)
@@ -202,7 +202,7 @@ Spacing_interface::extremal_break_aligned_grob (Grob *me,
       if (break_item->break_status_dir () != break_dir)
         break_item = break_item->find_prebroken_piece (break_dir);
 
-      if (!break_item || !scm_is_pair (break_item->get_property ("space-alist")))
+      if (!break_item || !scm_is_pair (get_property (break_item, "space-alist")))
         continue;
 
       if (!col)

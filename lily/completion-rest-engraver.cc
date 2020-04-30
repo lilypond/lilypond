@@ -105,15 +105,15 @@ Completion_rest_engraver::listen_rest (Stream_event *ev)
 Moment
 Completion_rest_engraver::next_moment (Rational const &note_len)
 {
-  Moment *e = unsmob<Moment> (get_property ("measurePosition"));
-  Moment *l = unsmob<Moment> (get_property ("measureLength"));
-  if (!e || !l || !to_boolean (get_property ("timing")))
+  Moment *e = unsmob<Moment> (get_property (this, "measurePosition"));
+  Moment *l = unsmob<Moment> (get_property (this, "measureLength"));
+  if (!e || !l || !to_boolean (get_property (this, "timing")))
     {
       return Moment (0, 0);
     }
 
   Moment result = *l - *e;
-  Moment const *unit = unsmob<Moment> (get_property ("completionUnit"));
+  Moment const *unit = unsmob<Moment> (get_property (this, "completionUnit"));
 
   if (unit)
     {
@@ -152,13 +152,13 @@ Item *
 Completion_rest_engraver::make_rest (Stream_event *ev)
 {
   Item *rest = make_item ("Rest", ev->self_scm ());
-  if (Pitch *p = unsmob<Pitch> (ev->get_property ("pitch")))
+  if (Pitch *p = unsmob<Pitch> (get_property (ev, "pitch")))
     {
       int pos = p->steps ();
-      SCM c0 = get_property ("middleCPosition");
+      SCM c0 = get_property (this, "middleCPosition");
       if (scm_is_number (c0))
         pos += scm_to_int (c0);
-      rest->set_property ("staff-position", scm_from_int (pos));
+      set_property (rest, "staff-position", scm_from_int (pos));
     }
 
   return rest;
@@ -188,9 +188,9 @@ Completion_rest_engraver::process_music ()
     }
   else
     {
-      orig = unsmob<Duration> (rest_events_[0]->get_property ("duration"));
+      orig = unsmob<Duration> (get_property (rest_events_[0], "duration"));
       rest_dur = *orig;
-      SCM factor = get_property ("completionFactor");
+      SCM factor = get_property (this, "completionFactor");
       if (ly_is_procedure (factor))
         factor = scm_call_2 (factor,
                              context ()->self_scm (),
@@ -214,11 +214,11 @@ Completion_rest_engraver::process_music ()
       if (need_clone)
         event = event->clone ();
 
-      SCM pits = rest_events_[i]->get_property ("pitch");
-      event->set_property ("pitch", pits);
-      event->set_property ("duration", rest_dur.smobbed_copy ());
-      event->set_property ("length", Moment (rest_dur.get_length ()).smobbed_copy ());
-      event->set_property ("duration-log", scm_from_int (rest_dur.duration_log ()));
+      SCM pits = get_property (rest_events_[i], "pitch");
+      set_property (event, "pitch", pits);
+      set_property (event, "duration", rest_dur.smobbed_copy ());
+      set_property (event, "length", Moment (rest_dur.get_length ()).smobbed_copy ());
+      set_property (event, "duration-log", scm_from_int (rest_dur.duration_log ()));
 
       Item *rest = make_rest (event);
       if (need_clone)
@@ -250,7 +250,7 @@ Completion_rest_engraver::start_translation_timestep ()
     {
       rest_events_.clear ();
     }
-  context ()->set_property ("restCompletionBusy",
+  set_property (context (), "restCompletionBusy",
                             ly_bool2scm (rest_events_.size ()));
 }
 

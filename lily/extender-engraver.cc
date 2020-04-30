@@ -99,7 +99,7 @@ Extender_engraver::acknowledge_lyric_syllable (Grob_info i)
 
   if (pending_extender_)
     {
-      pending_extender_->set_object ("next", item->self_scm ());
+      set_object (pending_extender_, "next", item->self_scm ());
       completize_extender (pending_extender_);
       pending_extender_ = 0;
     }
@@ -130,7 +130,7 @@ Extender_engraver::stop_translation_timestep ()
       else
         {
           if (pending_extender_
-              && !to_boolean (get_property ("extendersOverRests")))
+              && !to_boolean (get_property (this, "extendersOverRests")))
             {
               completize_extender (pending_extender_);
               pending_extender_ = 0;

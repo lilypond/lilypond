@@ -57,7 +57,7 @@ check_meshing_chords (Grob *me,
   vector<int> ups = Stem::note_head_positions (stems[UP]);
   vector<int> dps = Stem::note_head_positions (stems[DOWN]);
 
-  int threshold = robust_scm2int (me->get_property ("note-collision-threshold"), 1);
+  int threshold = robust_scm2int (get_property (me, "note-collision-threshold"), 1);
 
   /* Too far apart to collide. */
   if (ups[0] > dps.back () + threshold)
@@ -89,8 +89,8 @@ check_meshing_chords (Grob *me,
   bool merge_possible = (ups[0] >= dps[0]) && (ups.back () >= dps.back ());
 
   /* Do not merge notes typeset in different style. */
-  if (!ly_is_equal (head_up->get_property ("style"),
-                    head_down->get_property ("style")))
+  if (!ly_is_equal (get_property (head_up, "style"),
+                    get_property (head_down, "style")))
     merge_possible = false;
 
   int up_ball_type = Rhythmic_head::duration_log (head_up);
@@ -102,13 +102,13 @@ check_meshing_chords (Grob *me,
 
   if (merge_possible
       && Rhythmic_head::dot_count (head_up) != Rhythmic_head::dot_count (head_down)
-      && !to_boolean (me->get_property ("merge-differently-dotted")))
+      && !to_boolean (get_property (me, "merge-differently-dotted")))
     merge_possible = false;
 
   /* Can only merge different heads if merge-differently-headed is set. */
   if (merge_possible
       && up_ball_type != down_ball_type
-      && !to_boolean (me->get_property ("merge-differently-headed")))
+      && !to_boolean (get_property (me, "merge-differently-headed")))
     merge_possible = false;
 
   /* Should never merge quarter and half notes, as this would make
@@ -185,7 +185,7 @@ check_meshing_chords (Grob *me,
   bool stem_to_stem = false;
   if ((full_collide
        || ((close_half_collide || distant_half_collide)
-           && to_boolean (me->get_property ("prefer-dotted-right"))))
+           && to_boolean (get_property (me, "prefer-dotted-right"))))
       && Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
     {
       shift_amount = -1;
@@ -199,7 +199,7 @@ check_meshing_chords (Grob *me,
       Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
       if ((full_collide
            || (!Staff_symbol_referencer::on_line (staff, ups[0])
-               && to_boolean (me->get_property ("prefer-dotted-right"))))
+               && to_boolean (get_property (me, "prefer-dotted-right"))))
           && Rhythmic_head::dot_count (head_up) > Rhythmic_head::dot_count (head_down))
         touch = false;
       else
@@ -210,8 +210,8 @@ check_meshing_chords (Grob *me,
      direction.  In case of a collision, one of them should be removed,
      so the resulting note does not look like a block.
   */
-  SCM up_style = head_up->get_property ("style");
-  SCM down_style = head_down->get_property ("style");
+  SCM up_style = get_property (head_up, "style");
+  SCM down_style = get_property (head_down, "style");
   if (merge_possible
       && (scm_is_eq (up_style, ly_symbol2scm ("fa"))
           || scm_is_eq (up_style, ly_symbol2scm ("faThin")))
@@ -219,8 +219,8 @@ check_meshing_chords (Grob *me,
           || scm_is_eq (down_style, ly_symbol2scm ("faThin"))))
     {
       Offset att = Offset (0.0, -1.0);
-      head_up->set_property ("stem-attachment", ly_offset2scm (att));
-      head_up->set_property ("transparent", SCM_BOOL_T);
+      set_property (head_up, "stem-attachment", ly_offset2scm (att));
+      set_property (head_up, "transparent", SCM_BOOL_T);
     }
 
   if (merge_possible)
@@ -270,12 +270,12 @@ check_meshing_chords (Grob *me,
 
       if (dot_wipe_head)
         {
-          if (Grob *d = unsmob<Grob> (dot_wipe_head->get_object ("dot")))
+          if (Grob *d = unsmob<Grob> (get_object (dot_wipe_head, "dot")))
             d->suicide ();
         }
 
       if (wipe_ball && wipe_ball->is_live ())
-        wipe_ball->set_property ("transparent", SCM_BOOL_T);
+        set_property (wipe_ball, "transparent", SCM_BOOL_T);
     }
   /* TODO: these numbers are magic; should devise a set of grob props
      to tune this behavior. */
@@ -311,18 +311,18 @@ check_meshing_chords (Grob *me,
   if (shift_amount < -1e-6
       && Rhythmic_head::dot_count (head_up))
     {
-      Grob *d = unsmob<Grob> (head_up->get_object ("dot"));
+      Grob *d = unsmob<Grob> (get_object (head_up, "dot"));
       Grob *parent = d->get_parent (X_AXIS);
       if (has_interface<Dot_column> (parent))
         Side_position_interface::add_support (parent, head_down);
     }
   else if (Rhythmic_head::dot_count (head_down))
     {
-      Grob *d = unsmob<Grob> (head_down->get_object ("dot"));
+      Grob *d = unsmob<Grob> (get_object (head_down, "dot"));
       Grob *parent = d->get_parent (X_AXIS);
       if (has_interface<Dot_column> (parent))
         {
-          Grob *stem = unsmob<Grob> (head_up->get_object ("stem"));
+          Grob *stem = unsmob<Grob> (get_object (head_up, "stem"));
           // Loop over all heads on an up-pointing-stem to see if dots
           // need to clear any heads suspended on its right side.
           extract_grob_set (stem, "note-heads", heads);
@@ -335,25 +335,25 @@ check_meshing_chords (Grob *me,
   if (shift_amount > 1e-6
       && Rhythmic_head::dot_count (head_down))
     {
-      Grob *dot_down = unsmob<Grob> (head_down->get_object ("dot"));
+      Grob *dot_down = unsmob<Grob> (get_object (head_down, "dot"));
       Grob *col_down = dot_down->get_parent (X_AXIS);
       Direction dir = UP;
       if (Rhythmic_head::dot_count (head_up))
         {
-          Grob *dot_up = unsmob<Grob> (head_up->get_object ("dot"));
+          Grob *dot_up = unsmob<Grob> (get_object (head_up, "dot"));
           Grob *col_up = dot_up->get_parent (X_AXIS);
           if (col_up == col_down) // let the common DotColumn arrange dots
             dir = CENTER;
           else // conform to the dot direction on the up-stem chord
-            dir = robust_scm2dir (dot_up->get_property ("direction"), UP);
+            dir = robust_scm2dir (get_property (dot_up, "direction"), UP);
         }
       if (dir != CENTER)
         {
-          Grob *stem = unsmob<Grob> (head_down->get_object ("stem"));
+          Grob *stem = unsmob<Grob> (get_object (head_down, "stem"));
           extract_grob_set (stem, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)
-            if (Grob *dot = unsmob<Grob> (heads[i]->get_object ("dot")))
-              dot->set_property ("direction", scm_from_int (dir));
+            if (Grob *dot = unsmob<Grob> (get_object (heads[i], "dot")))
+              set_property (dot, "direction", scm_from_int (dir));
         }
     }
 
@@ -365,7 +365,7 @@ SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
 
   Drul_array<vector<Grob *> > clash_groups = get_clash_groups (me);
 
@@ -502,7 +502,7 @@ Note_collision_interface::automatic_shift (Grob *me,
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         {
           Grob *col = clash_groups[d][i];
-          SCM sh = col->get_property ("horizontal-shift");
+          SCM sh = get_property (col, "horizontal-shift");
           shifts.push_back (robust_scm2int (sh, 0));
 
           if (i == 0)
@@ -570,7 +570,7 @@ Note_collision_interface::forced_shift (Grob *me)
     {
       Grob *se = elements[i];
 
-      SCM force = se->get_property ("force-hshift");
+      SCM force = get_property (se, "force-hshift");
       if (scm_is_number (force))
         tups = scm_cons (scm_cons (se->self_scm (), force),
                          tups);
@@ -581,7 +581,7 @@ Note_collision_interface::forced_shift (Grob *me)
 void
 Note_collision_interface::add_column (Grob *me, Grob *ncol)
 {
-  ncol->set_property ("X-offset", Grob::x_parent_positioning_proc);
+  set_property (ncol, "X-offset", Grob::x_parent_positioning_proc);
   Axis_group_interface::add_element (me, ncol);
 }
 
@@ -591,7 +591,7 @@ Note_collision_interface::note_head_positions (Grob *me)
   vector<int> out;
   extract_grob_set (me, "elements", elts);
   for (vsize i = 0; i < elts.size (); i++)
-    if (Grob *stem = unsmob<Grob> (elts[i]->get_object ("stem")))
+    if (Grob *stem = unsmob<Grob> (get_object (elts[i], "stem")))
       {
         vector<int> nhp = Stem::note_head_positions (stem);
         out.insert (out.end (), nhp.begin (), nhp.end ());

@@ -38,7 +38,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
   Drul_array<Stencil> tips (fm->find_by_name ("brackettips.down"),
                             fm->find_by_name ("brackettips.up"));
 
-  Real thickness = robust_scm2double (me->get_property ("thickness"), 0.25);
+  Real thickness = robust_scm2double (get_property (me, "thickness"), 0.25);
 
   Real overlap = 0.1 * thickness;
 
@@ -61,7 +61,7 @@ System_start_delimiter::line_bracket (Grob *me, Real height)
 {
   Real thick
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (me->get_property ("thickness"), 1);
+      * robust_scm2double (get_property (me, "thickness"), 1);
   Real w = 0.8;
 
   Stencil tip1 = Line_interface::make_line (thick,
@@ -84,7 +84,7 @@ Stencil
 System_start_delimiter::simple_bar (Grob *me, Real h)
 {
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
+  Real w = lt * robust_scm2double (get_property (me, "thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)),
                                    lt);
 }
@@ -117,12 +117,12 @@ System_start_delimiter::print (SCM smob)
         }
     }
 
-  SCM glyph_sym = me->get_property ("style");
+  SCM glyph_sym = get_property (me, "style");
   Real len = ext.length ();
 
   // Use collapse-height in multiples of the staff-space
   if (ext.is_empty ()
-      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= (len / staffspace)))
+      || (robust_scm2double (get_property (me, "collapse-height"), 0.0) >= (len / staffspace)))
     {
       me->suicide ();
       return SCM_UNSPECIFIED;

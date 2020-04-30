@@ -47,7 +47,7 @@ accidental_pitch (Grob *acc)
       return 0;
     }
 
-  return unsmob<Pitch> (mcause->get_property ("pitch"));
+  return unsmob<Pitch> (get_property (mcause, "pitch"));
 }
 
 void
@@ -59,7 +59,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long cont
 
   a->set_parent (me, X_AXIS);
 
-  SCM accs = me->get_object ("accidental-grobs");
+  SCM accs = get_object (me, "accidental-grobs");
   SCM key = scm_cons (scm_from_int (p->get_notename ()),
                       scm_from_long (stagger ? context_hash : 1));
   // assoc because we're dealing with pairs
@@ -73,7 +73,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long cont
 
   accs = scm_assoc_set_x (accs, key, entry);
 
-  me->set_object ("accidental-grobs", accs);
+  set_object (me, "accidental-grobs", accs);
 }
 
 /*
@@ -84,14 +84,14 @@ Accidental_placement::split_accidentals (Grob *accs,
                                          vector<Grob *> *break_reminder,
                                          vector<Grob *> *real_acc)
 {
-  for (SCM acs = accs->get_object ("accidental-grobs"); scm_is_pair (acs);
+  for (SCM acs = get_object (accs, "accidental-grobs"); scm_is_pair (acs);
        acs = scm_cdr (acs))
     for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
       {
         Grob *a = unsmob<Grob> (scm_car (s));
 
-        if (unsmob<Grob> (a->get_object ("tie"))
-            && !to_boolean (a->get_property ("forced")))
+        if (unsmob<Grob> (get_object (a, "tie"))
+            && !to_boolean (get_property (a, "forced")))
           break_reminder->push_back (a);
         else
           real_acc->push_back (a);
@@ -288,7 +288,7 @@ set_ape_skylines (Accidental_placement_entry *ape,
           offset -= a->extent (a, X_AXIS).length () + padding;
         }
 
-      if (Skyline_pair *sky = unsmob<Skyline_pair> (a->get_property ("horizontal-skylines")))
+      if (Skyline_pair *sky = unsmob<Skyline_pair> (get_property (a, "horizontal-skylines")))
         {
           Skyline_pair copy (*sky);
           copy.raise (a->relative_coordinate (common[X_AXIS], X_AXIS));
@@ -389,9 +389,9 @@ position_apes (Grob *me,
                vector<unique_ptr<Accidental_placement_entry>> const &apes,
                Skyline const &heads_skyline)
 {
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
+  Real padding = robust_scm2double (get_property (me, "padding"), 0.2);
   Skyline left_skyline = heads_skyline;
-  left_skyline.raise (-robust_scm2double (me->get_property ("right-padding"), 0));
+  left_skyline.raise (-robust_scm2double (get_property (me, "right-padding"), 0));
 
   /*
     Add accs entries right-to-left.
@@ -478,9 +478,9 @@ Accidental_placement::calc_positioning_done (SCM smob)
   if (!me->is_live ())
     return SCM_BOOL_T;
 
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
 
-  SCM accs = me->get_object ("accidental-grobs");
+  SCM accs = get_object (me, "accidental-grobs");
   if (!scm_is_pair (accs))
     return SCM_BOOL_T;
 
@@ -493,7 +493,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
   common[Y_AXIS] = common_refpoint_of_accidentals (apes, Y_AXIS);
   common[Y_AXIS] = common_refpoint_of_array (heads_and_stems, common[Y_AXIS], Y_AXIS);
   common[X_AXIS] = common_refpoint_of_array (heads_and_stems, me, X_AXIS);
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
+  Real padding = robust_scm2double (get_property (me, "padding"), 0.2);
 
   for (vsize i = apes.size (); i--;)
     set_ape_skylines (apes[i].get (), common, padding);
@@ -503,7 +503,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
   Interval width = position_apes (me, apes, heads_skyline);
 
   me->flush_extent_cache (X_AXIS);
-  me->set_property ("X-extent", ly_interval2scm (width));
+  set_property (me, "X-extent", ly_interval2scm (width));
 
   return SCM_BOOL_T;
 }

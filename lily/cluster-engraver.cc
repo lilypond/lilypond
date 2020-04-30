@@ -95,7 +95,7 @@ Cluster_spanner_engraver::process_music ()
 {
   if (cluster_notes_.size ())
     {
-      SCM c0scm = get_property ("middleCPosition");
+      SCM c0scm = get_property (this, "middleCPosition");
 
       int c0 = scm_is_number (c0scm) ? scm_to_int (c0scm) : 0;
       int pmax = INT_MIN;
@@ -103,7 +103,7 @@ Cluster_spanner_engraver::process_music ()
 
       for (vsize i = 0; i < cluster_notes_.size (); i++)
         {
-          Pitch *pit = unsmob<Pitch> (cluster_notes_[i]->get_property ("pitch"));
+          Pitch *pit = unsmob<Pitch> (get_property (cluster_notes_[i], "pitch"));
 
           int p = (pit ? pit->steps () : 0) + c0;
 
@@ -112,7 +112,7 @@ Cluster_spanner_engraver::process_music ()
         }
 
       beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
-      beacon_->set_property ("positions",
+      set_property (beacon_, "positions",
                              scm_cons (scm_from_int (pmin),
                                        scm_from_int (pmax)));
     }

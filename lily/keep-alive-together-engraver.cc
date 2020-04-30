@@ -54,7 +54,7 @@ Keep_alive_together_engraver::finalize ()
 {
   for (vsize i = 0; i < group_spanners_.size (); ++i)
     {
-      SCM this_layer = group_spanners_[i]->get_property ("remove-layer");
+      SCM this_layer = get_property (group_spanners_[i], "remove-layer");
       if (scm_is_false (this_layer))
         continue;
 
@@ -98,7 +98,7 @@ Keep_alive_together_engraver::finalize ()
                 }
             }
 
-          SCM that_layer = group_spanners_[j]->get_property ("remove-layer");
+          SCM that_layer = get_property (group_spanners_[j], "remove-layer");
 
           if (scm_is_false (that_layer))
             continue;
@@ -117,9 +117,9 @@ Keep_alive_together_engraver::finalize ()
             dead->add (group_spanners_[j]);
         }
       if (!live->empty ())
-        group_spanners_[i]->set_object ("keep-alive-with", live_scm);
+        set_object (group_spanners_[i], "keep-alive-with", live_scm);
       if (!dead->empty ())
-        group_spanners_[i]->set_object ("make-dead-when", dead_scm);
+        set_object (group_spanners_[i], "make-dead-when", dead_scm);
     }
 }
 

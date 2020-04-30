@@ -60,7 +60,7 @@ void
 Balloon_engraver::balloonify (Grob *g, Stream_event *event)
 {
   Grob *b = make_item ("BalloonTextItem", event->self_scm ());
-  b->set_property ("text", event->get_property ("text"));
+  set_property (b, "text", get_property (event, "text"));
   b->set_parent (g, Y_AXIS);
   b->set_parent (g, X_AXIS);
 }
@@ -70,7 +70,7 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
 {
   Stream_event *cause = info.event_cause ();
 
-  SCM arts = cause ? cause->get_property ("articulations") : SCM_EOL;
+  SCM arts = cause ? get_property (cause, "articulations") : SCM_EOL;
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
       Stream_event *e = unsmob<Stream_event> (scm_car (s));
@@ -82,7 +82,7 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
 
   for (vsize i = 0; i < events_.size (); i++)
     {
-      if (info.grob ()->name () == ly_symbol2string (events_[i]->get_property ("symbol")))
+      if (info.grob ()->name () == ly_symbol2string (get_property (events_[i], "symbol")))
         balloonify (info.grob (), events_[i]);
     }
 }

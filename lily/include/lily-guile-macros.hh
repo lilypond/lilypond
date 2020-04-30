@@ -202,24 +202,24 @@ void ly_check_name (const std::string &cxx, const std::string &fname);
   LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, \
                           VAR, ARGLIST, DOCSTRING)
 
-#define get_property(x) internal_get_property (ly_symbol2scm (x))
-#define get_pure_property(x,y,z) \
-  internal_get_pure_property (ly_symbol2scm (x), y, z)
-#define get_maybe_pure_property(w,x,y,z) \
-  internal_get_maybe_pure_property (ly_symbol2scm (w), x, y, z)
-#define get_property_data(x) internal_get_property_data (ly_symbol2scm (x))
-#define get_object(x) internal_get_object (ly_symbol2scm (x))
-#define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
-#define del_property(x) internal_del_property (ly_symbol2scm (x))
+#define get_property(p,x) (p)->internal_get_property (ly_symbol2scm (x))
+#define get_pure_property(p,x,y,z)                      \
+  (p)->internal_get_pure_property (ly_symbol2scm (x), y, z)
+#define get_maybe_pure_property(p,w,x,y,z)                      \
+  (p)->internal_get_maybe_pure_property (ly_symbol2scm (w), x, y, z)
+#define get_property_data(p,x) (p)->internal_get_property_data (ly_symbol2scm (x))
+#define get_object(p,x) (p)->internal_get_object (ly_symbol2scm (x))
+#define set_object(p, x, y) (p)->internal_set_object (ly_symbol2scm (x), y)
+#define del_property(p,x) (p)->internal_del_property (ly_symbol2scm (x))
 
 #ifdef DEBUG
 /*
   TODO: include modification callback support here, perhaps
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).
  */
-#define set_property(x, y) instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
+#define set_property(p, x, y) (p)->instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
 #else
-#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
+#define set_property(p, x, y) (p)->internal_set_property (ly_symbol2scm (x), y)
 #endif
 
 #define LY_ASSERT_TYPE(pred, var, number)                                       \

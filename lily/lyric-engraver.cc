@@ -70,13 +70,13 @@ Lyric_engraver::process_music ()
 {
   if (event_)
     {
-      SCM text = event_->get_property ("text");
+      SCM text = get_property (event_, "text");
 
       if (ly_is_equal (text, scm_from_ascii_string (" ")))
         {
           if (last_text_)
-            last_text_->set_property ("self-alignment-X",
-                                      get_property ("lyricMelismaAlignment"));
+            set_property (last_text_, "self-alignment-X",
+                                      get_property (this, "lyricMelismaAlignment"));
         }
       else
         text_ = make_item ("LyricText", event_->self_scm ());
@@ -85,25 +85,25 @@ Lyric_engraver::process_music ()
   Context *voice = get_voice_to_lyrics (context ());
   if (last_text_
       && voice
-      && to_boolean (voice->get_property ("melismaBusy"))
-      && !to_boolean (context ()->get_property ("ignoreMelismata")))
-    last_text_->set_property ("self-alignment-X",
-                              get_property ("lyricMelismaAlignment"));
+      && to_boolean (get_property (voice, "melismaBusy"))
+      && !to_boolean (get_property (context (), "ignoreMelismata")))
+    set_property (last_text_, "self-alignment-X",
+                              get_property (this, "lyricMelismaAlignment"));
 }
 
 Context *
 get_voice_to_lyrics (Context *lyrics)
 {
-  bool searchForVoice = to_boolean (lyrics->get_property ("searchForVoice"));
+  bool searchForVoice = to_boolean (get_property (lyrics, "searchForVoice"));
 
-  SCM avc = lyrics->get_property ("associatedVoiceContext");
+  SCM avc = get_property (lyrics, "associatedVoiceContext");
   if (Context *c = unsmob<Context> (avc))
     {
       if (!c->is_removable ())
         return c;
     }
 
-  SCM voice_name = lyrics->get_property ("associatedVoice");
+  SCM voice_name = get_property (lyrics, "associatedVoice");
   string nm = lyrics->id_string ();
 
   if (scm_is_string (voice_name))
@@ -117,7 +117,7 @@ get_voice_to_lyrics (Context *lyrics)
         nm = nm.substr (0, idx);
     }
 
-  SCM voice_type = lyrics->get_property ("associatedVoiceType");
+  SCM voice_type = get_property (lyrics, "associatedVoiceType");
   if (!scm_is_symbol (voice_type))
     return 0;
 
@@ -132,7 +132,7 @@ Grob *
 get_current_note_head (Context *voice)
 {
   Moment now = voice->now_mom ();
-  for (SCM s = voice->get_property ("busyGrobs");
+  for (SCM s = get_property (voice, "busyGrobs");
        scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *g = unsmob<Grob> (scm_cdar (s));;
@@ -184,9 +184,9 @@ Lyric_engraver::stop_translation_timestep ()
             {
               text_->set_parent (head->get_parent (X_AXIS), X_AXIS);
               if (melisma_busy (voice)
-                  && !to_boolean (get_property ("ignoreMelismata")))
-                text_->set_property ("self-alignment-X",
-                                     get_property ("lyricMelismaAlignment"));
+                  && !to_boolean (get_property (this, "ignoreMelismata")))
+                set_property (text_, "self-alignment-X",
+                                     get_property (this, "lyricMelismaAlignment"));
             }
         }
 

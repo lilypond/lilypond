@@ -28,17 +28,17 @@
 void
 Spacing_options::init_from_grob (Grob *me)
 {
-  increment_ = robust_scm2double (me->get_property ("spacing-increment"), 1);
+  increment_ = robust_scm2double (get_property (me, "spacing-increment"), 1);
 
-  packed_ = to_boolean (me->get_property ("packed-spacing"));
-  stretch_uniformly_ = to_boolean (me->get_property ("uniform-stretching"));
+  packed_ = to_boolean (get_property (me, "packed-spacing"));
+  stretch_uniformly_ = to_boolean (get_property (me, "uniform-stretching"));
   float_nonmusical_columns_
-    = to_boolean (me->get_property ("strict-note-spacing"));
+    = to_boolean (get_property (me, "strict-note-spacing"));
   float_grace_columns_
-    = to_boolean (me->get_property ("strict-grace-spacing"));
-  shortest_duration_space_ = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
+    = to_boolean (get_property (me, "strict-grace-spacing"));
+  shortest_duration_space_ = robust_scm2double (get_property (me, "shortest-duration-space"), 1);
 
-  Moment shortest_dur = robust_scm2moment (me->get_property ("common-shortest-duration"),
+  Moment shortest_dur = robust_scm2moment (get_property (me, "common-shortest-duration"),
                                            Moment (Rational (1, 8), Rational (1, 16)));
 
   if (shortest_dur.main_part_)

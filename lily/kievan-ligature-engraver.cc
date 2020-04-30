@@ -76,7 +76,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
         first = current;
 
       // must keep track of accidentals in spacing problem
-      Grob *acc_gr = unsmob<Grob> (current->get_object ("accidental-grob"));
+      Grob *acc_gr = unsmob<Grob> (get_object (current, "accidental-grob"));
       if (acc_gr && i > 0)
         {
           Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);
@@ -102,7 +102,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
       if (i < primitives.size () - 1)
         {
           Item *next = dynamic_cast<Item *> (primitives[i + 1].grob ());
-          Grob *acc_gr = unsmob<Grob> (next->get_object ("accidental-grob"));
+          Grob *acc_gr = unsmob<Grob> (get_object (next, "accidental-grob"));
           if (acc_gr)
             {
               Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);
@@ -122,11 +122,11 @@ Kievan_ligature_engraver::build_ligature (Spanner *ligature,
 {
   Real min_length;
 
-  Real padding = robust_scm2double (ligature->get_property ("padding"), 0.0);
+  Real padding = robust_scm2double (get_property (ligature, "padding"), 0.0);
   fold_up_primitives (primitives, padding, min_length);
-  if (robust_scm2double (ligature->get_property ("minimum-length"), 0.0)
+  if (robust_scm2double (get_property (ligature, "minimum-length"), 0.0)
       < min_length)
-    ligature->set_property ("minimum-length", scm_from_double (min_length));
+    set_property (ligature, "minimum-length", scm_from_double (min_length));
 
 }
 

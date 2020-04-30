@@ -79,7 +79,7 @@ SCM
 Music_sequence::maximum_length_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  return maximum_length (me->get_property ("elements")).smobbed_copy ();
+  return maximum_length (get_property (me, "elements")).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_length_callback, 1);
@@ -87,14 +87,14 @@ SCM
 Music_sequence::event_chord_length_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  Duration *d = unsmob<Duration> (me->get_property ("duration"));
+  Duration *d = unsmob<Duration> (get_property (me, "duration"));
   // Preset duration is used in chord repetitions.
   if (d)
     {
       Moment mom = d->get_length ();
       return mom.smobbed_copy ();
     }
-  return maximum_length (me->get_property ("elements")).smobbed_copy ();
+  return maximum_length (get_property (me, "elements")).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, cumulative_length_callback, 1);
@@ -102,7 +102,7 @@ SCM
 Music_sequence::cumulative_length_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  return cumulative_length (me->get_property ("elements")).smobbed_copy ();
+  return cumulative_length (get_property (me, "elements")).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, minimum_start_callback, 1);
@@ -110,7 +110,7 @@ SCM
 Music_sequence::minimum_start_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  return minimum_start (me->get_property ("elements")).smobbed_copy ();
+  return minimum_start (get_property (me, "elements")).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, first_start_callback, 1);
@@ -118,7 +118,7 @@ SCM
 Music_sequence::first_start_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  return first_start (me->get_property ("elements")).smobbed_copy ();
+  return first_start (get_property (me, "elements")).smobbed_copy ();
 }
 
 Pitch
@@ -178,7 +178,7 @@ Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob<Music> (music);
   Pitch p = *unsmob<Pitch> (pitch);
-  return music_list_to_relative (me->get_property ("elements"),
+  return music_list_to_relative (get_property (me, "elements"),
                                  p, false).smobbed_copy ();
 }
 
@@ -188,6 +188,6 @@ Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob<Music> (music);
   Pitch p = *unsmob<Pitch> (pitch);
-  return music_list_to_relative (me->get_property ("elements"),
+  return music_list_to_relative (get_property (me, "elements"),
                                  p, true).smobbed_copy ();
 }

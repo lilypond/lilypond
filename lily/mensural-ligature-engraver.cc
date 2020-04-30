@@ -124,7 +124,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
           continue;
         }
 
-      int pitch = unsmob<Pitch> (nr->get_property ("pitch"))->steps ();
+      int pitch = unsmob<Pitch> (get_property (nr, "pitch"))->steps ();
       int prim = 0;
 
       if (at_beginning)
@@ -177,8 +177,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
             }
           // b. descendens longa or brevis
           else if (i < s - 1
-                   && (unsmob<Pitch> (primitives[i + 1].event_cause ()
-                                      ->get_property ("pitch"))->steps () < pitch)
+                   && (unsmob<Pitch> (get_property (primitives[i + 1].event_cause ()
+                                      , "pitch"))->steps () < pitch)
                    && duration_log > -3)
             {
               int left_stem = duration_log == -1 ? MLP_DOWN : 0;
@@ -246,7 +246,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
         }
 
       if (allow_flexa
-          && to_boolean (primitive->get_property ("ligature-flexa")))
+          && to_boolean (get_property (primitive, "ligature-flexa")))
         {
           /*
             flexa requested, check whether allowed:
@@ -271,7 +271,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
                     breve: check whether descending
                   */
                   int const next_pitch = unsmob<Pitch>
-                                         (next_info.event_cause ()->get_property ("pitch"))->steps ();
+                                         (get_property (next_info.event_cause (), "pitch"))->steps ();
                   if (next_pitch < pitch)
                     /*
                       sorry, forbidden
@@ -293,27 +293,27 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
           /*
             turn the note with the previous one into a flexa
           */
-          prev_primitive->set_property
-          ("primitive",
+          set_property
+          (prev_primitive, "primitive",
            scm_from_int
            (MLP_FLEXA_BEGIN
-            | (scm_to_int (prev_primitive->get_property ("primitive"))
+            | (scm_to_int (get_property (prev_primitive, "primitive"))
                & MLP_STEM)));
-          prev_primitive->set_property
-          ("flexa-interval", scm_from_int (pitch - prev_pitch));
+          set_property
+          (prev_primitive, "flexa-interval", scm_from_int (pitch - prev_pitch));
           prim = MLP_FLEXA_END;
-          primitive->set_property
-          ("flexa-interval", scm_from_int (pitch - prev_pitch));
+          set_property
+          (primitive, "flexa-interval", scm_from_int (pitch - prev_pitch));
         }
 
       // join_primitives replacement
       if (!(at_beginning || make_flexa))
-        prev_primitive->set_property ("add-join", ly_bool2scm (true));
+        set_property (prev_primitive, "add-join", ly_bool2scm (true));
 
       at_beginning = false;
       prev_primitive = primitive;
       prev_pitch = pitch;
-      primitive->set_property ("primitive", scm_from_int (prim));
+      set_property (primitive, "primitive", scm_from_int (prim));
       prev_brevis_shape = (prim & MLP_BREVIS) != 0;
       prev_semibrevis = (prim & MLP_UP) != 0;
     }
@@ -339,7 +339,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
                                                   Real &min_length)
 {
   Real thickness
-    = robust_scm2double (ligature->get_property ("thickness"), 1.3);
+    = robust_scm2double (get_property (ligature, "thickness"), 1.3);
   thickness
   *= ligature->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
@@ -355,8 +355,8 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
   for (vsize i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
-      int output = scm_to_int (primitive->get_property ("primitive"));
-      primitive->set_property ("thickness",
+      int output = scm_to_int (get_property (primitive, "primitive"));
+      set_property (primitive, "thickness",
                                scm_from_double (thickness));
 
       switch (output & MLP_ANY)
@@ -364,11 +364,11 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
         case MLP_BREVIS:
         case MLP_LONGA:
           min_length += head_width;
-          primitive->set_property ("head-width", scm_from_double (head_width));
+          set_property (primitive, "head-width", scm_from_double (head_width));
           break;
         case MLP_MAXIMA:
           min_length += maxima_head_width;
-          primitive->set_property ("head-width",
+          set_property (primitive, "head-width",
                                    scm_from_double (maxima_head_width));
           break;
         case MLP_FLEXA_BEGIN:
@@ -378,13 +378,13 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
           break;
         case MLP_FLEXA_END:
           {
-            SCM flexa_scm = primitive->get_property ("flexa-width");
+            SCM flexa_scm = get_property (primitive, "flexa-width");
             Real const flexa_width = robust_scm2double (flexa_scm, 2.0);
             min_length += flexa_width + thickness;
             SCM head_width = scm_from_double (0.5 * (flexa_width + thickness));
-            primitive->set_property ("head-width", head_width);
-            prev_primitive->set_property ("head-width", head_width);
-            prev_primitive->set_property ("flexa-width", flexa_scm);
+            set_property (primitive, "head-width", head_width);
+            set_property (prev_primitive, "head-width", head_width);
+            set_property (prev_primitive, "flexa-width", flexa_scm);
           }
           break;
         default:
@@ -412,13 +412,13 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
         {
           first = current;
           staff_space = Staff_symbol_referencer::staff_space (first);
-          thickness = scm_to_double (current->get_property ("thickness"));
+          thickness = scm_to_double (get_property (current, "thickness"));
         }
 
       move_related_items_to_column (current, first->get_column (),
                                     distance);
 
-      Real head_width = scm_to_double (current->get_property ("head-width"));
+      Real head_width = scm_to_double (get_property (current, "head-width"));
       distance += head_width - thickness;
 
       if (size_t const dot_count = Rhythmic_head::dot_count (current))
@@ -431,10 +431,10 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
 
           bool const on_line = Staff_symbol_referencer::on_line
                                (current,
-                                robust_scm2int (current->get_property ("staff-position"), 0));
+                                robust_scm2int (get_property (current, "staff-position"), 0));
           Real vert_shift = on_line ? staff_space * 0.5 : 0.0;
           bool const flexa_begin
-            = scm_to_int (current->get_property ("primitive"))
+            = scm_to_int (get_property (current, "primitive"))
               & MLP_FLEXA_BEGIN;
 
           if (i + 1 < primitives.size ())
@@ -445,7 +445,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
             */
             {
               int const delta
-                = scm_to_int (current->get_property ("delta-position"));
+                = scm_to_int (get_property (current, "delta-position"));
               if (flexa_begin)
                 vert_shift += delta < 0
                               ? staff_space : (on_line ? -2.0 : -1.0) * staff_space;
@@ -485,9 +485,9 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
   propagate_properties (ligature, primitives, min_length);
   fold_up_primitives (primitives, min_length);
 
-  if (robust_scm2double (ligature->get_property ("minimum-length"), 0.0)
+  if (robust_scm2double (get_property (ligature, "minimum-length"), 0.0)
       < min_length)
-    ligature->set_property ("minimum-length", scm_from_double (min_length));
+    set_property (ligature, "minimum-length", scm_from_double (min_length));
 }
 
 void

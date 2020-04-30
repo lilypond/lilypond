@@ -60,7 +60,7 @@ Grob_pq_engraver::Grob_pq_engraver (Context *c)
 void
 Grob_pq_engraver::initialize ()
 {
-  context ()->set_property ("busyGrobs", SCM_EOL);
+  set_property (context (), "busyGrobs", SCM_EOL);
 }
 
 LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
@@ -113,9 +113,9 @@ Grob_pq_engraver::process_acknowledged ()
       tail = SCM_CDRLOC (*tail);
     }
 
-  SCM busy = get_property ("busyGrobs");
+  SCM busy = get_property (this, "busyGrobs");
   busy = scm_merge_x (lst, busy, ly_grob_pq_less_p_proc);
-  context ()->set_property ("busyGrobs", busy);
+  set_property (context (), "busyGrobs", busy);
 
   started_now_.clear ();
 }
@@ -124,7 +124,7 @@ void
 Grob_pq_engraver::stop_translation_timestep ()
 {
   Moment now = now_mom ();
-  SCM start_busy = get_property ("busyGrobs");
+  SCM start_busy = get_property (this, "busyGrobs");
   SCM busy = start_busy;
   while (scm_is_pair (busy) && *unsmob<Moment> (scm_caar (busy)) == now)
     busy = scm_cdr (busy);
@@ -136,7 +136,7 @@ Grob_pq_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
 
-  SCM start_busy = get_property ("busyGrobs");
+  SCM start_busy = get_property (this, "busyGrobs");
   SCM busy = start_busy;
   while (scm_is_pair (busy) && *unsmob<Moment> (scm_caar (busy)) < now)
     {
@@ -148,7 +148,7 @@ Grob_pq_engraver::start_translation_timestep ()
     }
 
   if (!scm_is_eq (start_busy, busy))
-    context ()->set_property ("busyGrobs", busy);
+    set_property (context (), "busyGrobs", busy);
 }
 
 void

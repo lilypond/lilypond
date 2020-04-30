@@ -34,7 +34,7 @@ get_detail (SCM alist, SCM sym)
 void
 Slur_score_parameters::fill (Grob *me)
 {
-  SCM details = me->get_property ("details");
+  SCM details = get_property (me, "details");
 
   region_size_
     = (int) get_detail (details, ly_symbol2scm ("region-size"));

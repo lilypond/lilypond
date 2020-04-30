@@ -94,7 +94,7 @@ void
 Midi_control_change_performer::announce_control_change (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
-  SCM sym = ev->get_property ("symbol");
+  SCM sym = get_property (ev, "symbol");
   if (!scm_is_symbol (sym))
     return;
 
@@ -115,7 +115,7 @@ SCM
 Midi_control_change_performer::Control_change_announcer::get_property_value
 (const char *property_name)
 {
-  return symbol_ == property_name ? event_->get_property ("value") : SCM_EOL;
+  return symbol_ == property_name ? get_property (event_, "value") : SCM_EOL;
 }
 
 void Midi_control_change_performer::Control_change_announcer::do_announce

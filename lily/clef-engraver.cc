@@ -80,7 +80,7 @@ Clef_engraver::set_glyph ()
   SCM basic = ly_symbol2scm ("Clef");
 
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, get_property ("clefGlyph"));
+  execute_pushpop_property (context (), basic, glyph_sym, get_property (this, "clefGlyph"));
 }
 
 /**
@@ -91,7 +91,7 @@ void
 Clef_engraver::acknowledge_bar_line (Grob_info info)
 {
   Item *item = dynamic_cast<Item *> (info.grob ());
-  if (item && scm_is_string (get_property ("clefGlyph")))
+  if (item && scm_is_string (get_property (this, "clefGlyph")))
     create_clef ();
 }
 
@@ -103,12 +103,12 @@ Clef_engraver::create_clef ()
       Item *c = make_item ("Clef", SCM_EOL);
 
       clef_ = c;
-      SCM cpos = get_property ("clefPosition");
+      SCM cpos = get_property (this, "clefPosition");
 
       if (scm_is_number (cpos))
-        clef_->set_property ("staff-position", cpos);
+        set_property (clef_, "staff-position", cpos);
 
-      SCM transp = get_property ("clefTransposition");
+      SCM transp = get_property (this, "clefTransposition");
       if (scm_is_number (transp) && scm_to_int (transp))
         {
           Item *g = make_item ("ClefModifier", SCM_EOL);
@@ -120,17 +120,17 @@ Clef_engraver::create_clef ()
           SCM txt = scm_number_to_string (scm_from_int (abs_transp),
                                           scm_from_int (10));
 
-          SCM style = get_property ("clefTranspositionStyle");
+          SCM style = get_property (this, "clefTranspositionStyle");
 
-          SCM formatter = get_property ("clefTranspositionFormatter");
+          SCM formatter = get_property (this, "clefTranspositionFormatter");
           if (ly_is_procedure (formatter))
-            g->set_property ("text", scm_call_2 (formatter, txt, style));
+            set_property (g, "text", scm_call_2 (formatter, txt, style));
 
           Side_position_interface::add_support (g, clef_);
 
           g->set_parent (clef_, Y_AXIS);
           g->set_parent (clef_, X_AXIS);
-          g->set_property ("direction", scm_from_int (dir));
+          set_property (g, "direction", scm_from_int (dir));
           modifier_ = g;
         }
     }
@@ -152,10 +152,10 @@ static void apply_on_children (Context *context, SCM fun)
 void
 Clef_engraver::inspect_clef_properties ()
 {
-  SCM glyph = get_property ("clefGlyph");
-  SCM clefpos = get_property ("clefPosition");
-  SCM transposition = get_property ("clefTransposition");
-  SCM force_clef = get_property ("forceClef");
+  SCM glyph = get_property (this, "clefGlyph");
+  SCM clefpos = get_property (this, "clefPosition");
+  SCM transposition = get_property (this, "clefTransposition");
+  SCM force_clef = get_property (this, "forceClef");
 
   if (scm_is_null (clefpos)
       || !ly_is_equal (glyph, prev_glyph_)
@@ -166,11 +166,11 @@ Clef_engraver::inspect_clef_properties ()
       apply_on_children (context (), Lily::invalidate_alterations);
 
       set_glyph ();
-      if (scm_is_true (prev_cpos_) || to_boolean (get_property ("firstClef")))
+      if (scm_is_true (prev_cpos_) || to_boolean (get_property (this, "firstClef")))
         create_clef ();
 
       if (clef_)
-        clef_->set_property ("non-default", SCM_BOOL_T);
+        set_property (clef_, "non-default", SCM_BOOL_T);
 
       prev_cpos_ = clefpos;
       prev_glyph_ = glyph;
@@ -181,7 +181,7 @@ Clef_engraver::inspect_clef_properties ()
     {
       SCM prev;
       Context *w = context ()->where_defined (ly_symbol2scm ("forceClef"), &prev);
-      w->set_property ("forceClef", SCM_EOL);
+      set_property (w, "forceClef", SCM_EOL);
     }
 }
 
@@ -190,12 +190,12 @@ Clef_engraver::stop_translation_timestep ()
 {
   if (clef_)
     {
-      if (to_boolean (clef_->get_property ("non-default")))
+      if (to_boolean (get_property (clef_, "non-default")))
         {
-          SCM vis = get_property ("explicitClefVisibility");
+          SCM vis = get_property (this, "explicitClefVisibility");
 
           if (scm_is_vector (vis))
-            clef_->set_property ("break-visibility", vis);
+            set_property (clef_, "break-visibility", vis);
         }
 
       clef_ = 0;
