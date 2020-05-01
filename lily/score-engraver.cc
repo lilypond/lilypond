@@ -60,8 +60,8 @@ Score_engraver::finish (SCM)
 {
   recurse_over_translators
   (context (),
-   MFP0_WRAP (&Translator::finalize),
-   MFP0_WRAP (&Translator_group::finalize),
+   MFP_WRAP (&Translator::finalize),
+   MFP_WRAP (&Translator_group::finalize),
    UP);
 }
 

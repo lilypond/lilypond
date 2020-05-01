@@ -55,8 +55,8 @@ Context::check_removal ()
         {
           recurse_over_translators
           (ctx,
-           MFP0_WRAP (&Translator::finalize),
-           MFP0_WRAP (&Translator_group::finalize),
+           MFP_WRAP (&Translator::finalize),
+           MFP_WRAP (&Translator_group::finalize),
            UP);
           send_stream_event (ctx, "RemoveContext", 0);
         }

@@ -75,16 +75,16 @@
   T::fetch_precomputable_methods (SCM ptrs[])                           \
   {                                                                     \
     ptrs[START_TRANSLATION_TIMESTEP] =                                  \
-      MFP0_WRAP (&T::start_translation_timestep);                       \
+      MFP_WRAP (&T::start_translation_timestep);                        \
                                                                         \
     ptrs[STOP_TRANSLATION_TIMESTEP] =                                   \
-      MFP0_WRAP (&T::stop_translation_timestep);                        \
+      MFP_WRAP (&T::stop_translation_timestep);                         \
                                                                         \
     ptrs[PROCESS_MUSIC] =                                               \
-      MFP0_WRAP (&T::process_music);                                    \
+      MFP_WRAP (&T::process_music);                                     \
                                                                         \
     ptrs[PROCESS_ACKNOWLEDGED] =                                        \
-      MFP0_WRAP (&T::process_acknowledged);                             \
+      MFP_WRAP (&T::process_acknowledged);                              \
   }
 
 void add_acknowledger (SCM ptr,
@@ -92,7 +92,7 @@ void add_acknowledger (SCM ptr,
                        SCM &ack_hash);
 
 #define ADD_ACKNOWLEDGER_FOR(CLASS, NAME, GROB)                         \
-  add_acknowledger (MFP2_WRAP (&CLASS::acknowledge_ ## NAME),           \
+  add_acknowledger (MFP_WRAP (&CLASS::acknowledge_ ## NAME),            \
                     #GROB, acknowledge_static_array_drul_[START])
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME) ADD_ACKNOWLEDGER_FOR (CLASS, NAME, NAME)
@@ -101,7 +101,7 @@ void add_acknowledger (SCM ptr,
 // end_whatever if you are utilizing acknowledge_end_whatever as a
 // different end acknowledger.
 #define ADD_END_ACKNOWLEDGER_FOR(CLASS, NAME, GROB)                     \
-  add_acknowledger (MFP2_WRAP (&CLASS::acknowledge_ ## NAME),           \
+  add_acknowledger (MFP_WRAP (&CLASS::acknowledge_ ## NAME),            \
                     #GROB, acknowledge_static_array_drul_[STOP])
 
 #define ADD_END_ACKNOWLEDGER(CLASS, NAME)               \
@@ -119,7 +119,7 @@ void add_acknowledger (SCM ptr,
 #define ADD_LISTENER_FOR(cl, m, ev)                                     \
   listener_list_ = scm_acons                                            \
     (event_class_symbol (#ev),                                          \
-     MFP1_WRAP (&cl::listen_ ## m),                                     \
+     MFP_WRAP (&cl::listen_ ## m),                                      \
      listener_list_)
 
 #define ADD_LISTENER(cl, m) ADD_LISTENER_FOR (cl, m, m)

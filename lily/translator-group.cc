@@ -208,8 +208,8 @@ Translator_group::create_child_translator (SCM sev)
 
   recurse_over_translators
   (new_context,
-   MFP0_WRAP (&Translator::initialize),
-   MFP0_WRAP (&Translator_group::initialize),
+   MFP_WRAP (&Translator::initialize),
+   MFP_WRAP (&Translator_group::initialize),
    DOWN);
 }
 

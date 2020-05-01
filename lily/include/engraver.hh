@@ -48,18 +48,6 @@ protected:
   Engraver_group *get_daddy_engraver () const;
 
 public:
-  using Translator::trampoline;
-  template <class T, void (T::*callback) (Grob_info)>
-  static SCM trampoline (SCM target, SCM grob, SCM source_engraver)
-  {
-    T *t = LY_ASSERT_SMOB (T, target, 1);
-    Grob *g = LY_ASSERT_SMOB (Grob, grob, 2);
-    Engraver *e = LY_ASSERT_SMOB (Engraver, source_engraver, 3);
-
-    (t->*callback) (Grob_info (e, g));
-    return SCM_UNSPECIFIED;
-  }
-
   /**
      Announce element. Default: pass on to daddy. Utility
   */
@@ -87,5 +75,18 @@ public:
 #define make_paper_column(x) internal_make_column (ly_symbol2scm (x), __FILE__, __LINE__, __FUNCTION__)
 
 bool ly_is_grob_cause (SCM obj);
+
+
+// Acknowledger trampolines
+template <class T, void (T::*callback) (Grob_info)>
+SCM Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
+{
+  T *t = LY_ASSERT_SMOB (T, target, 1);
+  Grob *g = LY_ASSERT_SMOB (Grob, grob, 2);
+  Engraver *e = LY_ASSERT_SMOB (Engraver, source_engraver, 3);
+
+  (t->*callback) (Grob_info (e, g));
+  return SCM_UNSPECIFIED;
+}
 
 #endif // ENGRAVER_HH

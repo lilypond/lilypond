@@ -31,7 +31,11 @@
 //
 // Check the GET_LISTENER call for a typical use case.
 
+#include "grob-info.hh"
+#include "lily-proto.hh"
 #include "smobs.hh"
+
+// Templated work class to Callbacks
 
 template <typename ... Args>
 class Callback_wrapper : public Simple_smob<Callback_wrapper <Args ...>>
@@ -68,10 +72,26 @@ public:
   }
 };
 
-// Provide a number of trampolines
 class Callbacks
 {
 public:
+  template <SCM (*trampoline) (SCM)>
+  static SCM make_smob ()
+  {
+    return Callback_wrapper<>::make_smob <trampoline> ();
+  }
+  template <SCM (*trampoline) (SCM, SCM)>
+  static SCM make_smob ()
+  {
+    return Callback_wrapper<SCM>::make_smob <trampoline> ();
+  }
+  template <SCM (*trampoline) (SCM, SCM, SCM)>
+  static SCM make_smob ()
+  {
+    return Callback_wrapper<SCM, SCM>::make_smob <trampoline> ();
+  }
+
+  // Provide a number of trampolines, first basic no-argument ones
   template <class T, SCM (T::*p) ()>
   static SCM trampoline (SCM target)
   {
@@ -86,6 +106,28 @@ public:
     (t->*p) ();
     return SCM_UNSPECIFIED;
   }
+
+  // Single SCM argument, like used in Listener
+  template <class T, void (T::*callback) (SCM)>
+  static SCM trampoline (SCM target, SCM ev)
+  {
+    T *t = unsmob<T> (target);
+    LY_ASSERT_SMOB (T, target, 1);
+
+    (t->*callback) (ev);
+    return SCM_UNDEFINED;
+  }
+
+  // The more complex trampolines are defined near their use cases.
+
+  // Stream_event argument is used in Translators
+
+  template <class T, void (T::*p) (Stream_event *)>
+  static SCM trampoline (SCM target, SCM ev);
+
+  // Acknowledger trampolines
+  template <class T, void (T::*callback) (Grob_info)>
+  static SCM trampoline (SCM target, SCM grob, SCM source_engraver);
 };
 
 // This duplicates std::remove_pointer (apart from erroring out if
@@ -125,18 +167,9 @@ public:
 
 #define MFP_ARGS(mfp) typename mfp_baseclass<decltype (mfp)>::type, mfp
 
-// Wrapper macros for member function pointers with 0 to 2 extra
-// arguments apart from the instance.  Extra arguments are supposed to
-// be checked by type-dependent trampolines, but MFP0_WRAP works
-// as-is.
-#define MFP0_WRAP(mfp)                                                  \
-  Callback_wrapper<>::make_smob<Callbacks::trampoline<MFP_ARGS (mfp)> > ()
+// Wrapper macro for member function pointers
 
-#define MFP1_WRAP(mfp)                                                  \
-  Callback_wrapper<SCM>::make_smob<trampoline<MFP_ARGS (mfp)> > ()
-
-#define MFP2_WRAP(mfp)                                                  \
-  Callback_wrapper<SCM,SCM>::make_smob<trampoline<MFP_ARGS (mfp)> > ()
+#define MFP_WRAP(mfp) Callbacks::make_smob<Callbacks::trampoline <MFP_ARGS (mfp)>> ()
 
 // The following will usually be used unsmobbified, relying on its
 // constituents being protected independently.
