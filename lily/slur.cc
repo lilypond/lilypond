@@ -377,24 +377,28 @@ SCM
 Slur::vertical_skylines (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  vector<Box> boxes;
-
   if (!me)
-    return Skyline_pair (boxes, X_AXIS).smobbed_copy ();
+    return Skyline_pair ().smobbed_copy ();
 
   Bezier curve = Slur::get_curve (me);
   vsize box_count = robust_scm2vsize (get_property (me, "skyline-quantizing"), 10);
+
+  Offset last;
+  vector<Drul_array<Offset>> segments;
   for (vsize i = 0; i < box_count; i++)
     {
-      Box b;
-      b.add_point (curve.curve_point (static_cast<Real> (i)
-                                      / static_cast<Real> (box_count)));
-      b.add_point (curve.curve_point (static_cast<Real> (i + 1)
-                                      / static_cast<Real> (box_count)));
-      boxes.push_back (b);
+      // TODO: This doesn't take into account the slur thickness or
+      // the line thickness.
+      Offset p = curve.curve_point (static_cast<Real> (i)
+                                    / static_cast<Real> (box_count));
+      if (i > 0)
+        {
+          segments.push_back (Drul_array<Offset> (last, p));
+        }
+      last = p;
     }
 
-  return Skyline_pair (boxes, X_AXIS).smobbed_copy ();
+  return Skyline_pair (segments, X_AXIS).smobbed_copy ();
 }
 
 /*
