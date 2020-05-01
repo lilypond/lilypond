@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4944e92191308c589f9ed1d3796c6403a2280d18
+   Translation of GIT committish: fc06ef9cc92c4401bc27b985fe61d46caa9787d2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -328,7 +328,7 @@ serait ainsi présentée :
 (1 . (2 . (3 . ("abc" . (17.5 . ())))))
 @end lisp
 
-Vous pouvez donc saisir une liste comme elle serrait présentée, en
+Vous pouvez donc saisir une liste comme elle serait présentée, en
 entourant ses éléments par des parenthèses à la suite d'une apostrophe
 (afin que ce qui suit ne soit pas interprété comme un appel à une
 fonction) :
@@ -1512,7 +1512,7 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 
 Le moyen d'ajouter une articulation à des notes consiste à juxtaposer
 deux expressions musicales. L'option de réaliser nous-mêmes une fonction
-musicale à cette fin..
+musicale à cette fin.
 
 Un @code{$variable} au milieu de la notation @code{#@{ @dots{} #@}} se
 comporte exactement comme un banal @code{\variable} en notation LilyPond
