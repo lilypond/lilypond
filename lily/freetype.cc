@@ -18,12 +18,16 @@
 */
 
 #include "freetype.hh"
+#include "bezier.hh"
 #include "lazy-skyline-pair.hh"
 #include "transform.hh"
 #include "warn.hh"
 
 #include FT_OUTLINE_H
 #include FT_BBOX_H
+#include FT_TRUETYPE_TAGS_H
+#include FT_TRUETYPE_TABLES_H
+#include FT_FONT_FORMATS_H
 
 FT_Library freetype2_library;
 
@@ -73,10 +77,97 @@ ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
                         static_cast<Real> (bbox.yMax)));
 }
 
-// (this is removed in a follow up change.)
-void make_draw_bezier_boxes (Lazy_skyline_pair *skyline,
-                             Transform const &transform, Real,
-                             Offset control[4]);
+Offset
+ftvector2offset (FT_Vector const &vec)
+{
+  return Offset (static_cast<Real> (vec.x), static_cast<Real> (vec.y));
+}
+
+struct Path_interpreter
+{
+  Lazy_skyline_pair *skyline_;
+  Offset cur_;
+  Transform transform_;
+
+  Path_interpreter (Lazy_skyline_pair *lazy, Transform t)
+  {
+    skyline_ = lazy;
+    transform_ = t;
+  }
+  int moveto (FT_Vector const &to)
+  {
+    cur_ = ftvector2offset (to);
+    return 0;
+  }
+  int lineto (FT_Vector const &to)
+  {
+    Offset dest = ftvector2offset (to);
+    skyline_->add_segment (transform_, cur_, dest);
+    cur_ = dest;
+    return 0;
+  }
+  int curve2to (FT_Vector const &control, FT_Vector const &to)
+  {
+    // It is a second order bezier.  We don't have code to
+    // handle these. Substitute a line segment instead.
+    (void) control;
+    return lineto (to);
+  }
+  int curve3to (FT_Vector const &c1, FT_Vector const &c2, FT_Vector const &to)
+  {
+    Bezier curve;
+    curve.control_[0] = cur_;
+    curve.control_[1] = ftvector2offset (c1);
+    curve.control_[2] = ftvector2offset (c2);
+    curve.control_[3] = ftvector2offset (to);
+    Offset start = transform_ (curve.control_[0]);
+    Offset end = transform_ (curve.control_[3]);
+    size_t quantization = std::max (2, int ((end - start).length () / 0.2));
+
+    for (vsize i = 1; i < quantization; i++)
+      {
+        // This would be faster if we did the Bezier computation in integers.
+        Offset pt = curve.curve_point (static_cast<Real> (i)
+                                       / static_cast<Real> (quantization));
+        skyline_->add_segment (transform_, cur_, pt);
+        cur_ = pt;
+      }
+    skyline_->add_segment (transform_, cur_, curve.control_[3]);
+    cur_ = curve.control_[3];
+    return 0;
+  }
+  FT_Outline_Funcs funcs () const
+  {
+    FT_Outline_Funcs funcs = {
+      .move_to = &moveto_void,
+      .line_to = &lineto_void,
+      .conic_to = &curve2to_void,
+      .cubic_to = &curve3to_void,
+      .shift = 0,
+      .delta = 0,
+    };
+    return funcs;
+  };
+
+  static int moveto_void (const FT_Vector *to, void *user)
+  {
+    return ((Path_interpreter *) user)->moveto (*to);
+  }
+  static int lineto_void (const FT_Vector *to, void *user)
+  {
+    return ((Path_interpreter *) user)->lineto (*to);
+  }
+  static int curve2to_void (const FT_Vector *c1, const FT_Vector *to,
+                            void *user)
+  {
+    return ((Path_interpreter *) user)->curve2to (*c1, *to);
+  }
+  static int curve3to_void (const FT_Vector *c1, const FT_Vector *c2,
+                            const FT_Vector *to, void *user)
+  {
+    return ((Path_interpreter *) user)->curve3to (*c1, *c2, *to);
+  }
+};
 
 void
 ly_FT_add_outline_to_skyline (Lazy_skyline_pair *lazy,
@@ -96,52 +187,9 @@ ly_FT_add_outline_to_skyline (Lazy_skyline_pair *lazy,
       return;
     }
 
+  Path_interpreter interpreter (lazy, transform);
   FT_Outline *outline = &(face->glyph->outline);
-  Offset lastpos;
-  Offset firstpos;
-  int j = 0;
-  while (j < outline->n_points)
-    {
-      if (j == 0)
-        {
-          firstpos = Offset (static_cast<Real> (outline->points[j].x),
-                             static_cast<Real> (outline->points[j].y));
-          lastpos = firstpos;
-          j++;
-        }
-      else if (outline->tags[j] & 1)
-        {
-          // it is a line
-          Offset p (static_cast<Real> (outline->points[j].x),
-                    static_cast<Real> (outline->points[j].y));
-          lazy->add_segment (transform, lastpos, p);
-          lastpos = p;
-          j++;
-        }
-      else if (outline->tags[j] & 2)
-        {
-          // it is a third order bezier
-          Offset ps[4] = {lastpos};
-          for (int i = 0; i < 3; i++)
-            {
-              ps[i + 1] = Offset (static_cast<Real> (outline->points[j + i].x),
-                                  static_cast<Real> (outline->points[j + i].y));
-            }
-          lastpos = ps[3];
-          make_draw_bezier_boxes (lazy, transform, 0.0, ps);
-          j += 3;
-        }
-      else
-        {
-          // it is a second order bezier
-          // we don't have code to handle these. Substitute a line segment instead.
-          Offset p (static_cast<Real> (outline->points[j + 1].x),
-                    static_cast<Real> (outline->points[j + 1].y));
-          lazy->add_segment (transform, lastpos, p);
-          lastpos = p;
-          j += 2;
-        }
-    }
-
-  lazy->add_segment (transform, lastpos, firstpos);
+  FT_Outline_Funcs funcs = interpreter.funcs ();
+  int err = FT_Outline_Decompose (outline, &funcs, &interpreter);
+  assert (err == 0);
 }
