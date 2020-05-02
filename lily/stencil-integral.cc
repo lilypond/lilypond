@@ -672,16 +672,58 @@ make_glyph_string_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
   receives a stencil expression and a transform matrix
   depending on the stencil name, dispatches it to the appropriate function
 */
-
-void
-stencil_dispatcher (Lazy_skyline_pair *skyline, Transform const &transform,
-                    SCM expr)
+static void
+interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
+                               Transform const &transform, SCM expr)
 {
-  if (!scm_is_pair (expr))
+  if (scm_is_null (expr)
+      || (scm_is_string (expr) && scm_is_true (scm_string_null_p (expr))))
     return;
 
   SCM head = scm_car (expr);
-  if (scm_is_eq (head, ly_symbol2scm ("draw-line")))
+  if (false)
+    ;
+  else if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
+    {
+      for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
+        interpret_stencil_for_skyline (skyline, transform, scm_car (s));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("footnote")))
+    ;
+  else if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
+    {
+      Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
+      Transform local = transform;
+      local.translate (p);
+      interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("scale-stencil")))
+    {
+      Real x = robust_scm2double (scm_caadr (expr), 0.0);
+      Real y = robust_scm2double (scm_cadadr (expr), 0.0);
+      Transform local = transform;
+      local.scale (x, y);
+      interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("rotate-stencil")))
+    {
+      Real ang = robust_scm2double (scm_caadr (expr), 0.0);
+      Offset center = robust_scm2offset (scm_cadadr (expr), Offset (0.0, 0.0));
+      Transform local = transform;
+      local.rotate (ang, center);
+      interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
+    ;
+  else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
+    interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("color")))
+    interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("output-attributes")))
+    interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
+    interpret_stencil_for_skyline (skyline, transform, scm_cadr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("draw-line")))
     make_draw_line_boxes (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("dashed-line")))
     {
@@ -693,34 +735,33 @@ stencil_dispatcher (Lazy_skyline_pair *skyline, Transform const &transform,
       SCM x1 = scm_car (expr);
       expr = scm_cdr (expr);
       SCM x2 = scm_car (expr);
-      make_draw_line_boxes (
-        skyline, transform,
-        scm_list_5 (th, scm_from_double (0.0), scm_from_double (0.0), x1, x2));
+
+      skyline->add_segment (
+        transform, Offset (0.0, 0.0),
+        Offset (robust_scm2double (x1, 0.0), robust_scm2double (x2, 0.0)),
+        robust_scm2double (th, 0.0));
     }
   else if (scm_is_eq (head, ly_symbol2scm ("circle")))
     {
       expr = scm_cdr (expr);
-      SCM rad = scm_car (expr);
+      Real rad = robust_scm2double (scm_car (expr), 0);
       expr = scm_cdr (expr);
-      SCM th = scm_car (expr);
-      make_partial_ellipse_boxes_scm (
-        skyline, transform,
-        scm_list_n (rad, rad, scm_from_double (0.0), scm_from_double (360.0),
-                    th, SCM_BOOL_F, SCM_BOOL_T, SCM_UNDEFINED));
+      Real th = robust_scm2double (scm_car (expr), 0);
+      make_partial_ellipse_boxes (skyline, transform, Offset (rad, rad), 0.0,
+                                  360.0, th, false, true);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("ellipse")))
     {
       expr = scm_cdr (expr);
-      SCM x_rad = scm_car (expr);
+      Real x_rad = robust_scm2double (scm_car (expr), 0);
+
       expr = scm_cdr (expr);
-      SCM y_rad = scm_car (expr);
+      Real y_rad = robust_scm2double (scm_car (expr), 0);
+
       expr = scm_cdr (expr);
-      SCM th = scm_car (expr);
-      make_partial_ellipse_boxes_scm (
-        skyline, transform,
-        scm_list_n (x_rad, y_rad, scm_from_double (0.0),
-                    scm_from_double (360.0), th, SCM_BOOL_F, SCM_BOOL_T,
-                    SCM_UNDEFINED));
+      Real th = robust_scm2double (scm_car (expr), 0);
+      make_partial_ellipse_boxes (skyline, transform, Offset (x_rad, y_rad), 0,
+                                  360, th, false, true);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("partial-ellipse")))
     make_partial_ellipse_boxes_scm (skyline, transform, scm_cdr (expr));
@@ -741,71 +782,6 @@ stencil_dispatcher (Lazy_skyline_pair *skyline, Transform const &transform,
         is doing stencil-checking correctly.
       */
     }
-}
-
-/*
-  traverses a stencil expression, returning a reversed list of Scheme
-  pairs, consisting of a Transform indicating where to move a stencil
-  and the stencil expression to show how to construct the stencil
-
-  The given "tail" is appended.
-*/
-SCM
-stencil_traverser (Transform const &transform, SCM expr, SCM tail)
-{
-  if (scm_is_null (expr)
-      || (scm_is_string (expr) && scm_is_true (scm_string_null_p (expr))))
-    return tail;
-
-  SCM head = scm_car (expr);
-  if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
-    {
-      for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
-        tail = stencil_traverser (transform, scm_car (s), tail);
-      return tail;
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("footnote")))
-    return tail;
-  else if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
-    {
-      Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
-      Transform local = transform;
-      local.translate (p);
-      return stencil_traverser (local, scm_caddr (expr), tail);
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("scale-stencil")))
-    {
-      Real x = robust_scm2double (scm_caadr (expr), 0.0);
-      Real y = robust_scm2double (scm_cadadr (expr), 0.0);
-      Transform local = transform;
-      local.scale (x, y);
-      return stencil_traverser (local, scm_caddr (expr), tail);
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("rotate-stencil")))
-    {
-      Real ang = robust_scm2double (scm_caadr (expr), 0.0);
-      Offset center = robust_scm2offset (scm_cadadr (expr), Offset (0.0, 0.0));
-      Transform local = transform;
-      local.rotate (ang, center);
-      return stencil_traverser (local, scm_caddr (expr), tail);
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
-    // should not use the place-holder text, but no need for the warning below
-    return tail;
-  else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
-    return stencil_traverser (transform, scm_caddr (expr), tail);
-  else if (scm_is_eq (head, ly_symbol2scm ("color")))
-    return stencil_traverser (transform, scm_caddr (expr), tail);
-  else if (scm_is_eq (head, ly_symbol2scm ("output-attributes")))
-    return stencil_traverser (transform, scm_caddr (expr), tail);
-  else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
-    return stencil_traverser (transform, scm_cadr (expr), tail);
-  else
-    {
-      return scm_acons (transform.smobbed_copy (), expr, tail);
-    }
-  warning ("Stencil expression not supported by the vertical skylines.");
-  return tail;
 }
 
 SCM
@@ -882,25 +858,18 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
   if (!s)
     return Skyline_pair ().smobbed_copy ();
 
+  Transform transform = Transform::identity;
   if (scm_is_pair (rot))
     {
       Real angle = robust_scm2double (scm_car (rot), 0.0);
       Real x = robust_scm2double (scm_cadr (rot), 0.0);
       Real y = robust_scm2double (scm_caddr (rot), 0.0);
 
-      // incorporate rotation into a stencil copy
-      sten = s->smobbed_copy ();
-      s = unsmob<Stencil> (sten);
-      s->rotate_degrees (angle, Offset (x, y));
+      transform.rotate (angle, Offset (x, y));
     }
 
-  SCM data = scm_reverse_x (
-    stencil_traverser (Transform::identity, s->expr (), SCM_EOL), SCM_EOL);
-
   Lazy_skyline_pair lazy (a);
-  for (SCM s = scm_reverse_x (data, SCM_EOL); scm_is_pair (s); s = scm_cdr (s))
-    stencil_dispatcher (&lazy, robust_scm2transform (scm_caar (s)),
-                        scm_cdar (s));
+  interpret_stencil_for_skyline (&lazy, transform, s->expr ());
 
   Skyline_pair out;
   for (DOWN_and_UP (d))
