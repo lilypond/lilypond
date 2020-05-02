@@ -506,9 +506,10 @@ Pango_font::text_stencil (Output_def * /* state */,
   if (has_utf8_string && ((to_paths && !music_string) || !to_paths))
     {
       // For Pango based backends, we take a shortcut.
-      SCM exp = scm_list_3 (ly_symbol2scm ("utf-8-string"),
+      SCM exp = scm_list_4 (ly_symbol2scm ("utf-8-string"),
                             ly_string2scm (description_string ()),
-                            ly_string2scm (str));
+                            ly_string2scm (str),
+                            scm_list_2 (ly_symbol2scm ("quote"), dest.expr ()));
 
       Box b (Interval (0, 0), Interval (0, 0));
       b.unite (dest.extent_box ());

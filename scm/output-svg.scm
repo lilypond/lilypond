@@ -650,7 +650,7 @@
         '(stroke-width . "0.0"))
    (ec 'a)))
 
-(define (utf-8-string pango-font-description string)
+(define (utf-8-string pango-font-description string orig)
   (let ((escaped-string (string-regexp-substitute
                          "<" "&lt;"
                          (string-regexp-substitute "&" "&amp;" string))))
