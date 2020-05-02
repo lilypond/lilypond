@@ -54,7 +54,7 @@ public:
   void register_font_file (const std::string &filename, const std::string &ps_name, int face_index);
 
   size_t name_to_index (std::string) const override;
-  SCM get_glyph_outline (size_t signed_idx) const;
+  void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr, size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   Box get_unscaled_indexed_char_dimensions (size_t) const;
   Box get_scaled_indexed_char_dimensions (size_t) const;

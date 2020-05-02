@@ -51,7 +51,8 @@ public:
   SCM get_global_table () const;
   SCM get_char_table () const;
   SCM glyph_list () const;
-  SCM get_glyph_outline (size_t signed_idx) const;
+
+  void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr, size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   std::string get_otf_table (const std::string &tag) const;
   static SCM make_otf (const std::string &);

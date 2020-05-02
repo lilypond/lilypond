@@ -556,17 +556,7 @@ make_named_glyph_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
   Transform local = transform;
   local.scale (scale, scale);
 
-  SCM outline = open_fm->get_glyph_outline (gidx);
-  for (SCM s = outline;
-       scm_is_pair (s);
-       s = scm_cdr (s))
-    {
-      scm_to_int (scm_length (scm_car (s))) == 4
-        ? make_draw_line_boxes (skyline, local,
-                                scm_cons (scm_from_double (0), scm_car (s)))
-        : make_draw_bezier_boxes_scm (
-          skyline, local, scm_cons (scm_from_double (0), scm_car (s)));
-    }
+  open_fm->add_outline_to_skyline (skyline, local, gidx);
 }
 
 void
@@ -605,7 +595,6 @@ make_glyph_string_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
   Real cumulative_x = 0.0;
   for (vsize i = 0; i < widths.size (); i++)
     {
-      Transform transcopy = transform;
       Offset pt0 (cumulative_x + xos[i], heights[i][DOWN] + yos[i]);
       Offset pt1 (cumulative_x + widths[i] + xos[i], heights[i][UP] + yos[i]);
       cumulative_x += widths[i];
@@ -639,12 +628,12 @@ make_glyph_string_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
         }
       else
         {
-          SCM outline = pango_fm->get_glyph_outline (gidx);
           assert (abs (xlen - ylen) < 10e-3);
 
           Real scale_factor = std::max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates
           // FIXME: this looks extremely fishy.
+          Transform transcopy = transform;
           transcopy
             .translate (
               Offset (kerned_bbox[X_AXIS][LEFT],
@@ -653,17 +642,7 @@ make_glyph_string_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
               Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
             .scale (scale_factor, scale_factor)
             .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]));
-
-          for (SCM s = outline; scm_is_pair (s); s = scm_cdr (s))
-            {
-              scm_to_int (scm_length (scm_car (s))) == 4
-                ? make_draw_line_boxes (
-                  skyline, transcopy,
-                  scm_cons (scm_from_double (0), scm_car (s)))
-                : make_draw_bezier_boxes_scm (
-                  skyline, transcopy,
-                  scm_cons (scm_from_double (0), scm_car (s)));
-            }
+          pango_fm->add_outline_to_skyline (skyline, transcopy, gidx);
         }
     }
 }
