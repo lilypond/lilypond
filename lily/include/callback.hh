@@ -147,7 +147,7 @@ public:
 // there is no pointer to be removed) but it's simple enough that we
 // don't want to pull in all of <type_traits> for a header as
 // frequently included as this one.
-template <typename U> struct ly_remove_pointer {}; // Error template, no type
+template <typename U> struct ly_remove_pointer; // Template, no default
 template <typename U> struct ly_remove_pointer <U*> { using type = U; };
 template <typename U> struct ly_remove_pointer <const U*> { using type = U; };
 
