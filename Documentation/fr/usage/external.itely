@@ -849,7 +849,7 @@ l'extension
 @cindex LibreOffice.org
 @cindex OOoLilyPond
 
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond} permet
+@uref{https://github.com/openlilylib/LO-ly,OOoLilyPond} permet
 d'insérer directement des partitions LilyPond dans OpenOffice ou
 LibreOffice.  Bien que son développement soit suspendu, cette extension
 est opérationnelle avec la version 4 des deux suites.

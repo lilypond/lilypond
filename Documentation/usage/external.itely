@@ -785,10 +785,11 @@ called
 @cindex OOoLilyPond
 
 LilyPond notation can be added to OpenOffice.org and LibreOffice with
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}, an
+@uref{https://github.com/openlilylib/LO-ly,OOoLilyPond}, an
 OpenOffice.org extension that converts LilyPond files into images within
-OpenOffice.org documents.  Although this is no longer being developed,
-it appears to still work with version 4.
+OpenOffice.org documents. OoLilyPond (OLy) works with recent versions of
+LibreOffice and OpenOffice. Older versions should work as well. It has even
+been tested with OpenOffice 2.4 without issues.
 
 
 @node Other programs

@@ -827,7 +827,7 @@ LuaTex を使用する場合、@c
 @cindex LibreOffice.org
 @cindex OOoLilyPond
 
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond} を用いて
+@uref{https://github.com/openlilylib/LO-ly,OOoLilyPond} を用いて
 LilyPond 出力を OpenOffice.org と LibreOffice に付け加えることができます。@c
 これは OpenOffice.org のドキュメント内で LilyPond のファイルを画像に変換する
 OpenOffice.org の拡張機能です。現在は開発されていませんが、バージョン 4
