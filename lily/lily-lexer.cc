@@ -205,15 +205,6 @@ Lily_lexer::lookup_keyword (SCM s)
 }
 
 SCM
-Lily_lexer::keyword_list () const
-{
-  if (Scheme_hash_table *kt = unsmob<Scheme_hash_table> (keytable_))
-    return kt->to_alist ();
-
-  return SCM_EOL;
-}
-
-SCM
 Lily_lexer::lookup_identifier_symbol (SCM sym)
 {
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
