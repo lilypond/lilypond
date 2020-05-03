@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a0f1e4d8aa9632b4324f140a56354597edd7ad87
+   Translation of GIT committish: 5152be56d7489884711de31e371b0ee1baf405d6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -412,11 +412,11 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 @unnumberedsubsec Mode Vim
 @translationof Vim mode
 
-En ce qui concerne @uref{http://@/www@/.vim@/.org,Vim}, LilyPond fournit
-tout le nécessaire pour gérer la coloration syntaxique et l'indentation.
-Le mode spécifique à Vim doit être indiqué dans le fichier
-@file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et ajoutez-y
-les trois lignes suivantes :
+En ce qui concerne @uref{https://@/www@/.vim@/.org,Vim}, LilyPond
+fournit tout le nécessaire pour gérer la coloration syntaxique et
+l'indentation. Le mode spécifique à Vim doit être indiqué dans le
+fichier @file{$HOME/.vimrc}. Localisez ce fichier, ou créez-le, et
+ajoutez-y les trois lignes suivantes :
 
 @example
 filetype off
@@ -451,7 +451,7 @@ format.  Ce chapitre passe en revue les différents outils prévus à cet
 effet et inclus dans la distribution.  Il existe d'autres outils qui
 permettent de générer du code LilyPond, comme par exemple des
 séquenceurs en mode graphique ou des convertisseurs XML.  Pour plus
-de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
+de détails, rendez-vous sur le @uref{https://@/lilypond@/.org,site}.
 
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
 en ligne de commande.  Pour plus de précisions, reportez-vous au
@@ -493,8 +493,8 @@ cette faculté prend tout son intérêt lorsqu'un programme dispose d'un
 convertisseur capable d'importer directement un fichier.
 
 @command{midi2ly} convertit les pistes en contextes de portée
-(@rinternals{Staff}) et les canaux en contextes de voix
-(@rinternals{Voice}).  Les hauteurs sont rendues en mode relatif, et
+-- @rinternals{Staff} -- et les canaux en contextes de voix
+-- @rinternals{Voice}.  Les hauteurs sont rendues en mode relatif, et
 les durées spécifiées lorsque nécessaire.
 
 Vous pouvez enregistrer un fichier MIDI grâce à un clavier
@@ -537,8 +537,8 @@ Déterminer la tonalité par défaut.  @math{@var{acc} > 0} fixe le
 nombre de dièses, @math{@var{acc} < 0} le nombre de bémols.  Une
 tonalité mineure est spécifiée par l'emploi de @code{:1}.
 
-@item -o, --output=@var{file}
-Générer le résultat dans le fichier @var{file}.
+@item -o, --output=@var{fichier}
+Générer le résultat dans le fichier @var{fichier}.
 
 @item -s, --start-quant=@var{DUR}
 Quantiser le début des notes sur @var{DUR}.
@@ -571,7 +571,7 @@ ajoutez une indication de phrasé ou de pédale.
 
 @cindex MusicXML
 
-@uref{http://@/www.@/musicxml@/.org/,MusicXML} est un dialecte XML pour
+@uref{https://@/www.@/musicxml@/.org/,MusicXML} est un dialecte XML pour
 représenter la notation musicale.
 
 @command{musicxml2ly} extrait, à partir d'un fichier MusicXML, les
@@ -598,7 +598,7 @@ Rendu en hauteurs absolues.
 
 @item --fb --fretboards
 Convertir les événements @code{<frame>} dans une voix séparée FretBoard
-pluto qu'en @emph{markups}.
+plutôt qu'en @emph{markups}.
 
 @item -h, --help
 Afficher un résumé de toutes les options utilisables.
@@ -644,8 +644,8 @@ Ignorer les sauts de page.
 Ignorer les marges de la page.
 
 @item --nsd, --no-stem-directions
-Ignorer l'orientation des hampes de directions from MusicXML, et laisser
-LilyPond s'en occuper.
+Ignorer l'orientation des hampes de MusicXML, et laisser LilyPond s'en
+occuper.
 
 @item -o, --output=@var{fichier}
 Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
@@ -668,7 +668,7 @@ Basculer entre deux types de clef de tablature (@code{tab} et
 @code{moderntab}).
 
 @item --sn --string-numbers=t[rue]/f[alse]
-Désactiver les stancil de numéro de corde avec @code{--string-numbers}
+Désactiver les stencils de numéro de corde avec @code{--string-numbers}
 @code{false} ;  @code{true} par défaut.
 
 @item -v, --verbose
@@ -687,7 +687,7 @@ Le fichier d'entrée est un fichier MusicXML zippé.
 @translationof Invoking abc2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
-susceptible d'être supprimé des versions futures de LilyPond.}
+susceptible d'être supprimé des futures versions de LilyPond.}
 
 @cindex ABC
 
@@ -761,7 +761,7 @@ ne le fait pas.
 @translationof Invoking etf2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
-susceptible d'être supprimé des versions futures de LilyPond.}
+susceptible d'être supprimé des futures versions de LilyPond.}
 
 @cindex Enigma Transport Format
 @cindex ETF

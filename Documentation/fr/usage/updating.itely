@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9f85757a0a40ef3a64ba1f28b59f0d817bd8e1eb
+   Translation of GIT committish: 5152be56d7489884711de31e371b0ee1baf405d6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -138,7 +138,7 @@ Vous pouvez convertir tous les fichiers d'un dossier en lançant
 convert-ly -e *.ly
 @end example
 
-Les utilisatuers de Gnu/Linux ou de MacOS X peuvent lancer cette
+Les utilisateurs de Gnu/Linux ou de MacOS X peuvent lancer cette
 commande dans un terminal.  Les utilisateurs de MacOS X disposent d'une
 entrée spécifique dans le menu : @code{Compile > Update syntax}.
 
