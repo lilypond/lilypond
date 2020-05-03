@@ -41,8 +41,8 @@ parenthesize (Grob *me, Stencil m)
   Stencil close
     = font->find_by_name ("accidentals.rightparen");
 
-  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0);
-  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0);
+  m.add_at_edge (X_AXIS, LEFT, open, 0);
+  m.add_at_edge (X_AXIS, RIGHT, close, 0);
 
   return m;
 }
@@ -69,8 +69,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
   SCM alt = get_property (me, "alteration");
   string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
                                          "");
-  if (glyph_name == "accidentals.flat"
-      || glyph_name == "accidentals.flatflat")
+  if (glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat")
     {
       // a bit more padding for the right of the stem
       // we raise the stem horizontally to a bit less than the average
@@ -80,10 +79,9 @@ Accidental_interface::horizontal_skylines (SCM smob)
       // completely bizarre
       Real left = my_stencil->extent (X_AXIS)[LEFT];
       Real right = my_stencil->extent (X_AXIS)[RIGHT] * 0.375;
-      Real down = my_stencil->extent (Y_AXIS)[DOWN];
-      Real up = my_stencil->extent (Y_AXIS)[UP];
       vector<Box> boxes;
-      boxes.push_back (Box (Interval (left, right), Interval (down, up)));
+      boxes.push_back (
+        Box (Interval (left, right), my_stencil->extent (Y_AXIS)));
       Skyline merge_with_me (boxes, Y_AXIS, RIGHT);
       (*sky)[RIGHT].merge (merge_with_me);
     }
@@ -127,27 +125,21 @@ Accidental_interface::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  return get_stencil (me);
-}
-
-SCM
-Accidental_interface::get_stencil (Grob *me)
-{
   Font_metric *fm = Font_interface::get_default_font (me);
 
   SCM alist = get_property (me, "glyph-name-alist");
   SCM alt = get_property (me, "alteration");
   SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
-  Stencil mol;
+  Stencil st;
 
   if (!scm_is_string (glyph_name))
     {
       me->warning (_f ("Could not find glyph-name for alteration %s",
                        ly_scm_write_string (alt).c_str ()));
-      mol = fm->find_by_name ("noteheads.s1cross");
+      st = fm->find_by_name ("noteheads.s1cross");
     }
   else
-    mol = fm->find_by_name (ly_scm2string (glyph_name));
+    st = fm->find_by_name (ly_scm2string (glyph_name));
 
   if (to_boolean (get_property (me, "restore-first")))
     {
@@ -160,13 +152,13 @@ Accidental_interface::get_stencil (Grob *me)
       if (acc.is_empty ())
         me->warning (_ ("natural alteration glyph not found"));
       else
-        mol.add_at_edge (X_AXIS, LEFT, acc, 0.1);
+        st.add_at_edge (X_AXIS, LEFT, acc, 0.1);
     }
 
   if (to_boolean (get_property (me, "parenthesized")))
-    mol = parenthesize (me, mol);
+    st = parenthesize (me, st);
 
-  return mol.smobbed_copy ();
+  return st.smobbed_copy ();
 }
 
 ADD_INTERFACE (Accidental_interface,
