@@ -380,3 +380,349 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
                file_name.c_str (), i));
   return SCM_BOOL_F;
 }
+
+LY_DEFINE (ly_extract_subfont_from_collection,
+           "ly:extract-subfont-from-collection",
+           3, 0, 0, (SCM collection_file_name, SCM idx, SCM subfont_file_name),
+           "Extract the subfont of index @var{idx} in"
+           " TrueType collection (TTC) or OpenType/CFF collection (OTC) file"
+           " @var{collection_file_name} and write it to file"
+           " @var{subfont_file_name}.")
+{
+  LY_ASSERT_TYPE (scm_is_string, collection_file_name, 1);
+  LY_ASSERT_TYPE (scm_is_integer, idx, 2);
+  LY_ASSERT_TYPE (scm_is_string, subfont_file_name, 3);
+
+  int i = scm_to_int (idx);
+  if (i < 0)
+    {
+      warning (_ ("font index must be non-negative, using index 0"));
+      i = 0;
+    }
+
+  std::string collection = ly_scm2string (collection_file_name);
+  std::string subfont = ly_scm2string (subfont_file_name);
+
+  FILE *fi = fopen (collection.c_str (), "rb");
+  if (!fi)
+    {
+      warning (_f ("font `%s': cannot open for reading",
+                   collection.c_str ()));
+      return SCM_BOOL_F;
+    }
+
+  char buff[4];
+
+  // Read `ttcTag`
+  if (fread (buff, 4, 1, fi) != 1)
+    {
+      fclose (fi);
+      warning (_f ("font `%s': cannot read field `%s'",
+                   collection.c_str (), "ttcTag"));
+      return SCM_BOOL_F;
+    }
+
+  if (!(buff[0] == 't' && buff[1] == 't' && buff[2] == 'c' && buff[3] == 'f'))
+    {
+      fclose (fi);
+      warning (_f ("font `%s': not a font collection",
+                   collection.c_str ()));
+      return SCM_BOOL_F;
+    }
+
+  // Read `majorVersion` and `minorVersion`
+  if (fread (buff, 4, 1, fi) != 1)
+    {
+      fclose (fi);
+      warning (_f ("font `%s': cannot read field `%s'",
+                   collection.c_str (), "majorVersion/minorVersion"));
+      return SCM_BOOL_F;
+    }
+
+  if (!(buff[0] == 0 && buff[2] == 0 && buff[3] == 0
+        && (buff[1] == 1 || buff[1] == 2)))
+    {
+      fclose (fi);
+      warning (_f ("font `%s': invalid TTC header version",
+                   collection.c_str ()));
+      return SCM_BOOL_F;
+    }
+
+  // Read `numFonts`
+  if (fread (buff, 4, 1, fi) != 1)
+    {
+      fclose (fi);
+      warning (_f ("font `%s': cannot read field `%s'",
+                   collection.c_str (), "numFonts"));
+      return SCM_BOOL_F;
+    }
+  int numfonts
+    = static_cast<unsigned char>(buff[0]) << 24
+    | static_cast<unsigned char>(buff[1]) << 16
+    | static_cast<unsigned char>(buff[2]) << 8
+    | static_cast<unsigned char>(buff[3]);
+
+  if ( i > numfonts)
+    {
+      warning (_f ("font `%s': index %d is too large, using index 0",
+                   collection.c_str (), i));
+      i = 0;
+    }
+
+  // Read `offsetTable[i]`
+  if (i)
+    fseek (fi, i * 4, SEEK_CUR);
+  if (fread (buff, 4, 1, fi) != 1)
+    {
+      fclose (fi);
+      warning (_f ("font `%s': cannot read offset of subfont %d",
+                   collection.c_str (), i));
+      return SCM_BOOL_F;
+    }
+  unsigned int offset
+    = static_cast<unsigned char>(buff[0]) << 24
+    | static_cast<unsigned char>(buff[1]) << 16
+    | static_cast<unsigned char>(buff[2]) << 8
+    | static_cast<unsigned char>(buff[3]);
+
+  // Seek to subfont
+  fseek (fi, offset, SEEK_SET);
+
+  // Read `sfntVersion`
+  if (fread (buff, 4, 1, fi) != 1)
+    {
+      fclose (fi);
+      warning (_f ("font `%s': cannot read field `%s' of subfont %d",
+                   collection.c_str (), "sfntVersion", i));
+      return SCM_BOOL_F;
+    }
+
+  if (!(buff[0] == 0 && buff[1] == 1 && buff[2] == 0 && buff[3] == 0) &&
+      !(buff[0] == 'O' && buff[1] == 'T' && buff[2] == 'T' && buff[3] == 'O'))
+    {
+      fclose (fi);
+      warning (_f ("font `%s': invalid field `sfntVersion' in subfont %d",
+                   collection.c_str (), i));
+      return SCM_BOOL_F;
+    }
+
+  FILE *fo = fopen (subfont.c_str (), "wb");
+  if (!fo)
+    {
+      fclose (fi);
+      warning (_f ("subfont `%s': cannot open for writing",
+                   subfont.c_str ()));
+      return SCM_BOOL_F;
+    }
+
+  // Write `sfntVersion`
+  if (fwrite (buff, 4, 1, fo) != 1)
+    {
+      fclose (fi);
+      fclose (fo);
+      warning (_f ("subfont `%s': cannot write field `%s'",
+                   subfont.c_str (), "sfntVersion"));
+      return SCM_BOOL_F;
+    }
+
+  // Read `numTables` and `searchRange`
+  if (fread (buff, 4, 1, fi) != 1)
+    {
+      fclose (fi);
+      fclose (fo);
+      warning (_f ("font `%s': cannot read field `%s' of subfont %d",
+                   collection.c_str (), "numTables/searchRange", i));
+      return SCM_BOOL_F;
+    }
+  unsigned int numtables
+    = static_cast<unsigned char>(buff[0]) << 8
+      | static_cast<unsigned char>(buff[1]);
+
+  // Write `numTables` and `searchRange`
+  if (fwrite (buff, 4, 1, fo) != 1)
+    {
+      fclose (fi);
+      fclose (fo);
+      warning (_f ("subfont `%s': cannot write field `%s'",
+                   subfont.c_str (), "numTables/searchRange"));
+      return SCM_BOOL_F;
+    }
+
+  // Read `entrySelector` and `rangeShift`
+  if (fread (buff, 4, 1, fi) != 1)
+    {
+      fclose (fi);
+      fclose (fo);
+      warning (_f ("font `%s': cannot read field `%s' of subfont %d",
+                   collection.c_str (), "entrySelector/rangeShift", i));
+      return SCM_BOOL_F;
+    }
+
+  // Write `entrySelector` and `rangeShift`
+  if (fwrite (buff, 4, 1, fo) != 1)
+    {
+      fclose (fi);
+      fclose (fo);
+      warning (_f ("subfont `%s': cannot write field `%s'",
+                   subfont.c_str (), "entrySelector/rangeShift"));
+      return SCM_BOOL_F;
+    }
+
+  struct tables
+  {
+    char tag[5];
+    unsigned int offset;
+    unsigned int length;
+    unsigned int new_offset;
+  };
+  std::vector<struct tables> ttcotc_tables;
+
+  unsigned int next_offset = static_cast<unsigned int> (ftell (fo))
+    + numtables * 16;
+
+  // Copy and modify table records
+  for (unsigned int t = 0; t < numtables; t++)
+    {
+      struct tables tbl;
+
+      // Read `tableTag`
+      if (fread (buff, 4, 1, fi) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("font `%s': cannot read field `%s' for"
+                       " table %u of subfont %d",
+                       collection.c_str (), "tableTag", t + 1, i));
+          return SCM_BOOL_F;
+        }
+      tbl.tag[0]=buff[0];
+      tbl.tag[1]=buff[1];
+      tbl.tag[2]=buff[2];
+      tbl.tag[3]=buff[3];
+      tbl.tag[4]=0;
+      // Write `tableTag`
+      if (fwrite (buff, 4, 1, fo) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("subfont `%s': cannot write field `%s' for table `%s'",
+                       subfont.c_str (), "tableTag", tbl.tag));
+          return SCM_BOOL_F;
+        }
+
+      // Read `checkSum`
+      if (fread (buff, 4, 1, fi) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("font `%s': cannot read field `%s' for"
+                       " table `%s' of subfont %d",
+                       collection.c_str (), "checkSum", tbl.tag, i));
+          return SCM_BOOL_F;
+        }
+      // Write `checkSum`
+      if (fwrite (buff, 4, 1, fo) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("subfont `%s': cannot write field `%s' for table `%s'",
+                       subfont.c_str (), "checkSum", tbl.tag));
+          return SCM_BOOL_F;
+        }
+
+      // Read `offset`
+      if (fread (buff, 4, 1, fi) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("font `%s': cannot read field `%s' for"
+                       " table `%s' of subfont %d",
+                       collection.c_str (), "offset", tbl.tag, i));
+          return SCM_BOOL_F;
+        }
+      tbl.offset
+        = static_cast<unsigned char>(buff[0]) << 24
+        | static_cast<unsigned char>(buff[1]) << 16
+        | static_cast<unsigned char>(buff[2]) << 8
+        | static_cast<unsigned char>(buff[3]);
+      tbl.new_offset = next_offset;
+      buff[0] = static_cast<char> ((tbl.new_offset >> 24) & 0xff);
+      buff[1] = static_cast<char> ((tbl.new_offset >> 16) & 0xff);
+      buff[2] = static_cast<char> ((tbl.new_offset >> 8) & 0xff);
+      buff[3] = static_cast<char> (tbl.new_offset & 0xff);
+      // Write `offset`
+      if (fwrite (buff, 4, 1, fo) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("subfont `%s': cannot write field `%s' for table `%s'",
+                       subfont.c_str (), "offset", tbl.tag));
+          return SCM_BOOL_F;
+        }
+
+      // Read `length`
+      if (fread (buff, 4, 1, fi) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("font `%s': cannot read field `%s' for"
+                       " table `%s' of subfont %d",
+                       collection.c_str (), "length", tbl.tag, i));
+          return SCM_BOOL_F;
+        }
+      tbl.length
+        = static_cast<unsigned char>(buff[0]) << 24
+        | static_cast<unsigned char>(buff[1]) << 16
+        | static_cast<unsigned char>(buff[2]) << 8
+        | static_cast<unsigned char>(buff[3]);
+      // Write `length`
+      if (fwrite (buff, 4, 1, fo) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("subfont `%s': cannot write field `%s' for table `%s'",
+                       subfont.c_str (), "length", tbl.tag));
+          return SCM_BOOL_F;
+        }
+
+      next_offset += tbl.length;
+
+      // Align table
+      if (next_offset & 0x3)
+        next_offset = (next_offset + 0x3) & 0xfffffffc;
+
+      ttcotc_tables.push_back (tbl);
+    }
+
+  // Copy tables
+  for (const auto &tbl: ttcotc_tables)
+    {
+      auto table_buffer = std::vector<char> (tbl.length, 0);
+      fseek (fi, tbl.offset, SEEK_SET);
+      fseek (fo, tbl.new_offset, SEEK_SET);
+
+      // Read table
+      if (fread (table_buffer.data (), tbl.length, 1, fi) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("font `%s': cannot read table `%s' of subfont %d",
+                       collection.c_str (), tbl.tag, i));
+          return SCM_BOOL_F;
+        }
+      // Write table
+      if (fwrite (table_buffer.data (), tbl.length, 1, fo) != 1)
+        {
+          fclose (fi);
+          fclose (fo);
+          warning (_f ("subfont `%s': cannot write table `%s'",
+                       subfont.c_str (), tbl.tag));
+          return SCM_BOOL_F;
+        }
+    }
+
+  fclose (fi);
+  fclose (fo);
+
+  return SCM_BOOL_T;
+}
