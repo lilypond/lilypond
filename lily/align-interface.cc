@@ -74,62 +74,62 @@ get_skylines (Grob *g,
               Grob *other_common,
               bool pure, vsize start, vsize end)
 {
-  Skyline_pair skylines;
-
   if (!pure)
     {
       Skyline_pair *skys = unsmob<Skyline_pair> (get_property (g, a == Y_AXIS
                                                                   ? "vertical-skylines"
                                                                   : "horizontal-skylines"));
+      Skyline_pair skylines;
       if (skys)
-        skylines = *skys;
+        {
+          skylines = *skys;
 
-      /* This skyline was calculated relative to the grob g. In order to compare it to
+          /* This skyline was calculated relative to the grob g. In order to compare it to
          skylines belonging to other grobs, we need to shift it so that it is relative
          to the common reference. */
-      Real offset = g->relative_coordinate (other_common, other_axis (a));
-      skylines.shift (offset);
+          Real offset = g->relative_coordinate (other_common, other_axis (a));
+          skylines.shift (offset);
+        }
+
+      return skylines;
     }
-  else if (Hara_kiri_group_spanner::request_suicide (g, start, end))
-    return skylines;
-  else
+
+  if (Hara_kiri_group_spanner::request_suicide (g, start, end))
+    return Skyline_pair ();
+
+  assert (a == Y_AXIS);
+  Interval extent = g->pure_y_extent (g, start, end);
+  vector<Box> boxes;
+
+  // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
+  // It's quite common for a treble clef to be the highest element of one system
+  // and for a low note (or lyrics) to be the lowest note on another. The two will
+  // never collide, but the pure-height stuff only works with bounding boxes, so it
+  // doesn't know that. The result is a significant over-estimation of the pure-height,
+  // especially on systems with many staves. To correct for this, we build a skyline
+  // in two parts: the part we did above contains most of the grobs (note-heads, etc.)
+  // while the bit we're about to do only contains the breakable grobs at the beginning
+  // of the system. This way, the tall treble clefs are only compared with the treble
+  // clefs of the other staff and they will be ignored if the staff above is, for example,
+  // lyrics.
+  if (has_interface<Axis_group_interface> (g))
     {
-      assert (a == Y_AXIS);
-      Interval extent = g->pure_y_extent (g, start, end);
-
-      // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
-      // It's quite common for a treble clef to be the highest element of one system
-      // and for a low note (or lyrics) to be the lowest note on another. The two will
-      // never collide, but the pure-height stuff only works with bounding boxes, so it
-      // doesn't know that. The result is a significant over-estimation of the pure-height,
-      // especially on systems with many staves. To correct for this, we build a skyline
-      // in two parts: the part we did above contains most of the grobs (note-heads, etc.)
-      // while the bit we're about to do only contains the breakable grobs at the beginning
-      // of the system. This way, the tall treble clefs are only compared with the treble
-      // clefs of the other staff and they will be ignored if the staff above is, for example,
-      // lyrics.
-      if (has_interface<Axis_group_interface> (g))
+      extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
+      Interval begin_of_line_extent
+        = Axis_group_interface::begin_of_line_pure_height (g, start);
+      if (!begin_of_line_extent.is_empty ())
         {
-          extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
-          Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
-          if (!begin_of_line_extent.is_empty ())
-            {
-              Box b;
-              b[a] = begin_of_line_extent;
-              b[other_axis (a)] = Interval (-infinity_f, -1);
-              skylines.insert (b, other_axis (a));
-            }
-        }
-
-      if (!extent.is_empty ())
-        {
-          Box b;
-          b[a] = extent;
-          b[other_axis (a)] = Interval (0, infinity_f);
-          skylines.insert (b, other_axis (a));
+          boxes.push_back (
+            Box (Interval (-infinity_f, -1), begin_of_line_extent));
         }
     }
-  return skylines;
+
+  if (!extent.is_empty ())
+    {
+      boxes.push_back (Box (Interval (0, infinity_f), extent));
+    }
+
+  return Skyline_pair (boxes, X_AXIS);
 }
 
 vector<Real>

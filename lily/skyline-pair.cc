@@ -32,6 +32,8 @@ Skyline_pair::Skyline_pair ()
 Skyline_pair::Skyline_pair (vector<Box> const &boxes, Axis a)
   : skylines_ (Skyline (boxes, a, DOWN), Skyline (boxes, a, UP))
 {
+  // TODO: The boxes sort equally for up & down,
+  // so we can save ourselves one sort step.
 }
 
 Skyline_pair::Skyline_pair (vector<Drul_array<Offset> > const &buildings, Axis a)
@@ -61,13 +63,6 @@ Skyline_pair::shift (Real r)
 {
   skylines_[UP].shift (r);
   skylines_[DOWN].shift (r);
-}
-
-void
-Skyline_pair::insert (Box const &b, Axis a)
-{
-  skylines_[UP].insert (b, a);
-  skylines_[DOWN].insert (b, a);
 }
 
 void

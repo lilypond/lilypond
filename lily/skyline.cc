@@ -505,28 +505,6 @@ Skyline::merge (Skyline const &other)
 }
 
 void
-Skyline::insert (Box const &b, Axis a)
-{
-  if (std::isnan (b[other_axis (a)][LEFT])
-      || std::isnan (b[other_axis (a)][RIGHT]))
-    {
-      programming_error ("insane box for skyline");
-      return;
-    }
-
-  /* do the same filtering as in Skyline (vector<Box> const&, etc.) */
-  if (b.is_empty (X_AXIS) || b.is_empty (Y_AXIS))
-    return;
-
-  vector<Building> my_bld = buildings_;
-  buildings_.clear ();
-
-  vector<Building> other_bld;
-  single_skyline (Building (b, a, sky_), &other_bld);
-  internal_merge_skyline (&other_bld, &my_bld, &buildings_);
-}
-
-void
 Skyline::raise (Real r)
 {
   for (auto i = buildings_.begin (); i != buildings_.end (); i++)

@@ -40,7 +40,6 @@ public:
   Real right () const;
   void raise (Real);
   void shift (Real);
-  void insert (Box const &, Axis);
   void merge (Skyline_pair const &other);
   Skyline &operator [] (Direction d);
   Skyline const &operator [] (Direction d) const;
