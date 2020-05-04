@@ -28,10 +28,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-#if GCC_MAJOR < 4
-#define _GLIBCXX_HAVE_MBSTATE_T
-#include <wchar.h>
-#endif /* GCC_MAJOR < 4 */
 #include <cstdio>
 #include <sstream>
 
