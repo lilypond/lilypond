@@ -1313,7 +1313,7 @@ Textansicht markiert, wenn man von dort aus druckt.
 @subheading Browserbasierte Editoren
 
 @subsubheading LilyBin
-@uref{https://lilybin.com}
+@uref{http://lilybin.com}
 
 Ein webbasierter LilyPond Editor, in dem man die Noten direkt online
 setzen kann, ohne LilyPond vorher installieren zu müssen.

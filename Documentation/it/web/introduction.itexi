@@ -1315,7 +1315,7 @@ quando elaborato da lì.
 @subheading Editor online su browser
 
 @subsubheading LilyBin
-@uref{https://lilybin.com/}
+@uref{http://lilybin.com/}
 
 Un editor LilyPond che si usa nel browser e permette di scrivere una
 partitura direttamente senza dover installare LilyPond, purché si sia

@@ -1348,7 +1348,7 @@ del programa.
 @subheading Editores basados en el navegador web
 
 @subsubheading LilyBin
-@uref{https://lilybin.com}
+@uref{http://lilybin.com}
 
 Un editor del LilyPond basat en web, on podeu crear les vostres partitures directament
 online sense necessitat d'instal·lar el Lilypond.

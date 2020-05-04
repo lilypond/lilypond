@@ -1304,7 +1304,7 @@ the text view when printed from there.
 @subheading Browser-based editors
 
 @subsubheading LilyBin
-@uref{https://lilybin.com/}
+@uref{http://lilybin.com/}
 
 A web-based LilyPond editor where you can typeset your scores directly
 online without needing to install LilyPond.  Code snippets are kept available
