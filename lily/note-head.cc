@@ -111,7 +111,7 @@ Note_head::stem_x_shift (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
-  if (stem)
+  if (stem && !ly_scm2bool (get_property (stem, "cross-staff")))
     (void) get_property (stem, "positioning-done");
 
   return scm_from_int (0);
