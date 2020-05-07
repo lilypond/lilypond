@@ -65,7 +65,6 @@ Függelék
 
 @c INCLUDES
 
-@include learning/preface.itely
 @include learning/tutorial.itely
 @include learning/common-notation.itely
 @include learning/fundamental.itely

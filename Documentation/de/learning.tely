@@ -81,7 +81,6 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @ifnottex
 @menu
-@c * Vorwort::                        Vorwort.
 * Tutorium::                   Eine Übung zur Einführung.
 * Übliche Notation::        Die häufigsten Notationsfälle.
 * Grundbegriffe::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.
@@ -105,7 +104,6 @@ Anhänge
 
 @c INCLUDES
 
-@c @include learning/preface.itely
 @include learning/tutorial.itely
 @include learning/common-notation.itely
 @include learning/fundamental.itely

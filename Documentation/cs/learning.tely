@@ -74,7 +74,6 @@ naleznete kopii tohoto a dalších souborů s dokumentací.
 
 @ifnottex
 @menu
-@c * Předmluva::                        Předmluva.
 * Cvičení::                   Cvičení na úvod.
 * Běžný notový zápis::        Nejčastější případy notového zápisu.
 * Základní pojmy::           Základní pojmy, které jsou potřeba kvůli přečtení zbytku této příručky.
@@ -99,7 +98,6 @@ Přílohy
 
 @c INCLUDES
 
-@c @include learning/preface.itely
 @include learning/tutorial.itely
 @include learning/common-notation.itely
 @include learning/fundamental.itely
