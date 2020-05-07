@@ -1619,7 +1619,7 @@ X, Y@tie{}オフセットを、@c
 独立したテキストに自動マークで脚注を付加するための構文は以下です:
 
 @example
-\markup @{ @dots{} \auto-footnote @var{text} @var{footnote} @dots{} @}
+\markup @{ @dots{} \footnote @var{text} @var{footnote} @dots{} @}
 @end example
 
 要素は以下の通りです:
@@ -1642,9 +1642,9 @@ X, Y@tie{}オフセットを、@c
   \header { tagline = ##f }
   \markup {
     "A simple"
-    \auto-footnote "tune" \italic " By me"
+    \footnote "tune" \italic " By me"
     "is shown below.  It is a"
-    \auto-footnote "recent" \italic " Aug 2012"
+    \footnote "recent" \italic " Aug 2012"
     "composition."
   }
   \relative {

@@ -1698,7 +1698,7 @@ La syntaxe consacrée dans le cas d'une gestion automatique des appels
 de note est :
 
 @example
-\markup @{ @dots{} \auto-footnote @var{texte} @var{annotation} @dots{} @}
+\markup @{ @dots{} \footnote @var{texte} @var{annotation} @dots{} @}
 @end example
 
 Ses les éléments sont :
@@ -1722,9 +1722,9 @@ Par exemple :
   \header { tagline = ##f }
   \markup {
     "A simple"
-    \auto-footnote "tune" \italic " By me"
+    \footnote "tune" \italic " By me"
     "is shown below.  It is a"
-    \auto-footnote "recent" \italic " Aug 2012"
+    \footnote "recent" \italic " Aug 2012"
     "composition."
   }
   \relative {

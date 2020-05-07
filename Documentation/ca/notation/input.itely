@@ -1674,7 +1674,7 @@ La sintaxi d'una nota al peu sobre text independent amb marques
 automàtiques és
 
 @example
-\markup @{ @dots{} \auto-footnote @var{text} @var{nota} @dots{} @}
+\markup @{ @dots{} \footnote @var{text} @var{nota} @dots{} @}
 @end example
 
 Els elements són:
@@ -1698,9 +1698,9 @@ Per exemple:
   \header { tagline = ##f }
   \markup {
     "Un melodia"
-    \auto-footnote "simple" \italic " Meva"
+    \footnote "simple" \italic " Meva"
     "es mostra a sota. És una"
-    \auto-footnote "composició" \italic " Ago 2012"
+    \footnote "composició" \italic " Ago 2012"
     "recent."
   }
   \relative {
