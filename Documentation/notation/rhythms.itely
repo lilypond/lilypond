@@ -220,7 +220,7 @@ command, multiplying the speed of the music expression by a fraction:
 @noindent
 The fraction's numerator will be printed over or under the notes,
 optionally with a bracket.  The most common tuplets are triplets
-(3@tie{}notes sound within the duration normally allowed for@tie{}2).
+(3@tie{}notes played within the duration normally allowed for@tie{}2).
 
 @lilypond[quote,verbatim]
 \relative {
@@ -268,11 +268,43 @@ Tuplets may be nested:
 }
 @end lilypond
 
+@noindent
 Modifying nested tuplets which begin at the same musical moment must be
-done with @code{\tweak}.
+done with @code{\tweak}; see @ref{The tweak command}.
 
-To modify the duration of notes without printing a tuplet bracket, see
-@ref{Scaling durations}.
+@cindex tuplet slur
+@cindex slur, for tuplets
+@funindex tuplet-slur
+
+Tuplet brackets may be replaced with slurs, as is preferred in
+many older editions:
+
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
+@noindent
+By default, a bracket is only printed if all of the notes it spans
+are not beamed together; in some cases (for example with slurs, as
+in the example above) it may be preferrable to change that behavior,
+through the @code{bracket-visibility} property as detailed in
+one of the following snippets.
+
+@cindex tuplet bracket, visibility
+@cindex tuplet number	, visibility
+@cindex visibility of tuplets
+More generally, either or both the @code{TupletBracket} and
+@code{TupletNumber} objects may be hidden or shown as explained in
+@ref{Visibility of objects}; however, a more flexible way of
+modifying the duration of notes without printing a tuplet
+bracket is also introduced in @ref{Scaling durations}.
 
 @predefined
 @code{\tupletUp},
@@ -328,6 +360,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Direction and placement},
+@ref{Visibility of objects},
 @ref{Time administration},
 @ref{Scaling durations},
 @ref{The tweak command},

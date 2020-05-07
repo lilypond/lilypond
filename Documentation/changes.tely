@@ -63,11 +63,26 @@ which scares away people.
 
 
 @item
+Tuplets can now be printed with slurs instead of brackets:
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
+
+@item
 @code{\compressFullBarRests} has been renamed to
 @code{\compressEmptyMeasures}, to avoid
 possible confusion with @code{\compressMMRests}.
 Likewise, @code{\expandFullBarRests} has now become
 @code{\expandEmptyMeasures}.
+
 
 @item
 A gradual change of vowel (or sustained consonant) may

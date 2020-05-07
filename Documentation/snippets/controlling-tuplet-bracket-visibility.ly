@@ -14,8 +14,10 @@ The default behavior of tuplet-bracket visibility is to print a bracket
 unless there is a beam of the same length as the tuplet. To control the
 visibility of tuplet brackets, set the property
 @code{'bracket-visibility} to either @code{#t} (always print a
-bracket), @code{#f} (never print a bracket) or @code{#'if-no-beam}
-(only print a bracket if there is no beam).
+bracket), @code{'if-no-beam} (only print a bracket if there is no beam,
+which is the default behavior), or @code{#f} (never print a bracket).
+The latter is in fact equivalent to omitting the @code{TupletBracket}
+object altogether from the printed output.
 
 "
   doctitle = "Controlling tuplet bracket visibility"
@@ -36,7 +38,6 @@ music = \relative c'' {
     << \music s4^"#t" >>
     \override TupletBracket.bracket-visibility = ##f
     << \music s4^"#f" >>
-    %% v2.18 :
     \omit TupletBracket
     << \music s4^"omit" >>
   }
