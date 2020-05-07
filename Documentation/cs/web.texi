@@ -27,14 +27,6 @@
 
 @afourpaper
 
-@c don't remove this comment.
-@ignore
-@omfcreator Graham Percival and Patrick McCarty
-@omfdescription General info about the LilyPond music engraving system
-@omftype program usage
-@omfcategory Applications|Publishing
-@omflanguage Czech
-@end ignore
 
 @copying
 Autorské právo @copyright{} 2009-2010 autoři.

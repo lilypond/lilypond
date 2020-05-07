@@ -26,16 +26,6 @@ Autorské právo @copyright{} 1999--2020 autoři.
 @include macros.itexi
 
 
-
-@c don't remove this comment.
-@ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen a Graham Percival
-@omfdescription Příručka k učení se systému pro sazbu not LilyPond
-@omftype program usage
-@omfcategory Applications|Publishing
-@omflanguage Czech
-@end ignore
-
 @c Translators: Pavel Fric
 
 @lilyTitlePage{Learning Manual}

@@ -26,16 +26,6 @@ Copyright @copyright{} 1999--2020 by the authors
 @include macros.itexi
 
 
-@c TODO: multiple omfcreators?
-@ignore
-@omfcreator Christian Mondrup, Kurt Kroon
-@omfdescription Glossary of musical terms with translations
-@omftype glossary
-@omfcategory Applications|Publishing
-@omflanguage English
-@end ignore
-
-
 @lilyTitlePage{Music Glossary}
 
 

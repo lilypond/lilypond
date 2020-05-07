@@ -32,15 +32,6 @@ Copyright @copyright{} 1999--2020 bei den Autoren.
 @include macros.itexi
 
 
-@c don't remove this comment.
-@ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription User manual of the LilyPond music engraving system
-@omftype user manual
-@omfcategory Applications|Publishing
-@omflanguage German
-@end ignore
-
 @lilyTitlePage{Notationsreferenz}
 
 

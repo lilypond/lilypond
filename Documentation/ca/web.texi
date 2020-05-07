@@ -23,14 +23,6 @@
 @include macros.itexi
 @include weblinks.itexi
 
-@c don't remove this comment.
-@ignore
-@omfcreator Graham Percival and Patrick McCarty
-@omfdescription General info about the LilyPond music engraving system
-@omftype program usage
-@omfcategory Applications|Publishing
-@omflanguage Catalan
-@end ignore
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:

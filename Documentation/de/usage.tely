@@ -30,15 +30,6 @@ Copyright @copyright{} 1999--2020 bei den Autoren.
 @include macros.itexi
 
 
-@c don't remove this comment.
-@ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen und Graham Percival
-@omfdescription Programmbenutzung des LilyPond-Musiksatzsystems
-@omftype program usage
-@omfcategory Applications|Publishing
-@omflanguage German
-@end ignore
-
 @c Translators: Till Paala
 
 @lilyTitlePage{Usage}

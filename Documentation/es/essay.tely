@@ -33,15 +33,6 @@ Copyright @copyright{} 2002--2020 por los autores.
 @set FDL
 @include macros.itexi
 
-@c don't remove this comment.
-@ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen
-@omfdescription Ensayo sobre grabado musical automatizado
-@omftype essay
-@omfcategory Applications|Publishing
-@omflanguage Spanish
-@end ignore
-
 
 @lilyTitlePage{Ensayo sobre grabado musical automatizado}
 

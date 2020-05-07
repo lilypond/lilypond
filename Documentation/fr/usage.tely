@@ -35,16 +35,6 @@ Copyright @copyright{} 1999--2020 par les auteurs.
 @include macros.itexi
 
 
-@c don't remove this comment.
-@ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription Program Usage of the LilyPond music engraving system
-@omftype user manual
-@omfcategory Applications|Publishing
-@omflanguage French
-@end ignore
-
-
 @c urg, makeinfo 4.9.91 French translation is funky
 @c iftex
 @frenchspacing on

@@ -27,16 +27,6 @@ Copyright @copyright{} 1999--2020 a szerzők.
 @include macros.itexi
 
 
-@c don't remove this comment.
-@ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen és Graham Percival
-@omfdescription A LilyPond kottaszedő rendszer tankönyve
-@omftype program usage
-@omfcategory Applications|Publishing
-@omflanguage Hungarian
-@end ignore
-
-
 @lilyTitlePage{Tankönyv}
 
 @c TOC -- non-tex

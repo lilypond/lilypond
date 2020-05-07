@@ -35,15 +35,6 @@ Copyright @copyright{} 1998--2020 par les auteurs.
 @c @direntry has not been added yet, as Emacs and standalone Info have
 @c no i18n support -JM
 
-@c don't remove this comment.
-@ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription User manual of the LilyPond music engraving system
-@omftype user manual
-@omfcategory Applications|Publishing
-@omflanguage French
-@end ignore
-
 @c Translators: John Mandereau, Jean-Charles Malahieude
 
 @c urg, makeinfo 4.9.91 French translation is funky

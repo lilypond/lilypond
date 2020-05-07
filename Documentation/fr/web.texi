@@ -19,15 +19,6 @@
 @include weblinks.itexi
 
 
-@c don't remove this comment.
-@ignore
-@omfcreator Graham Percival and Patrick McCarty
-@omfdescription General info about the LilyPond music engraving system
-@omftype program usage
-@omfcategory Applications|Publishing
-@omflanguage French
-@end ignore
-
 @c Translators: John Mandereau
 @c Translators checkers: Jean-Charles Malahieude
 
