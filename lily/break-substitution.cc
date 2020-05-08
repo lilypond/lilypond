@@ -31,18 +31,11 @@ using std::vector;
 // instantiation of Interval_t<>.
 typedef Interval_t<int> System_range;
 
-static SCM break_criterion;
-void
-set_break_substitution (SCM criterion)
-{
-  break_criterion = criterion;
-}
-
 /*
   Perform the substitution for a single grob.
 */
 Grob *
-substitute_grob (Grob *sc)
+substitute_grob (SCM break_criterion, Grob *sc)
 {
   if (scm_is_integer (break_criterion))
     {
@@ -78,7 +71,6 @@ substitute_grob (Grob *sc)
         - it forces us to mark the parents of a grob, leading to
         a huge recursion in the GC routine.
       */
-
       if (sc->common_refpoint (line, X_AXIS)
           && sc->common_refpoint (line, Y_AXIS))
         return sc;
@@ -103,13 +95,13 @@ substitute_grob (Grob *sc)
   generate a lot of garbage.
 */
 SCM
-do_break_substitution (SCM src)
+do_break_substitution (SCM break_criterion, SCM src)
 {
 again:
 
   if (unsmob<Grob> (src))
     {
-      Grob *new_ptr = substitute_grob (unsmob<Grob> (src));
+      Grob *new_ptr = substitute_grob (break_criterion, unsmob<Grob> (src));
       return new_ptr ? new_ptr->self_scm () : SCM_UNDEFINED;
     }
   else if (scm_is_vector (src))
@@ -118,7 +110,9 @@ again:
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
       for (size_t i = 0; i < len; i++)
         {
-          scm_c_vector_set_x (nv, i, do_break_substitution (scm_c_vector_ref (src, i)));
+          scm_c_vector_set_x (
+            nv, i,
+            do_break_substitution (break_criterion, scm_c_vector_ref (src, i)));
         }
     }
   else if (scm_is_pair (src))
@@ -126,7 +120,7 @@ again:
       /*
         UGH! breaks on circular lists.
       */
-      SCM newcar = do_break_substitution (scm_car (src));
+      SCM newcar = do_break_substitution (break_criterion, scm_car (src));
       SCM oldcdr = scm_cdr (src);
 
       if (SCM_UNBNDP (newcar)
@@ -143,7 +137,7 @@ again:
           goto again;
         }
 
-      return scm_cons (newcar, do_break_substitution (oldcdr));
+      return scm_cons (newcar, do_break_substitution (break_criterion, oldcdr));
     }
   else
     return src;
@@ -391,7 +385,6 @@ Spanner::fast_substitute_grob_array (SCM sym,
     {
       Grob *sc = broken_intos_[i];
       System *l = sc->get_system ();
-      set_break_substitution (l ? l->self_scm () : SCM_UNDEFINED);
 
       SCM newval = sc->internal_get_object (sym);
       if (!unsmob<Grob_array> (newval))
@@ -404,7 +397,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       for (int k = 0; k < 2; k++)
         for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
           {
-            Grob *substituted = substitute_grob (vec[j].grob_);
+            Grob *substituted = substitute_grob (l->self_scm (), vec[j].grob_);
             if (substituted)
               new_array->add (substituted);
           }
@@ -438,7 +431,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
   pthreads. pthreads impose small limits on the stack size.
 */
 void
-substitute_object_alist (SCM alist, SCM *dest)
+substitute_object_alist (SCM break_criterion, SCM alist, SCM *dest)
 {
   SCM old = *dest;
   *dest = SCM_EOL;
@@ -458,11 +451,11 @@ substitute_object_alist (SCM alist, SCM *dest)
 
           Grob_array *new_arr = unsmob<Grob_array> (newval);
           // TODO: What if new_arr is null?
-          new_arr->filter_map_assign (*orig, substitute_grob);
+          new_arr->filter_map_assign2 (*orig, substitute_grob, break_criterion);
           val = newval;
         }
       else
-        val = do_break_substitution (val);
+        val = do_break_substitution (break_criterion, val);
 
       if (!SCM_UNBNDP (val))
         {
@@ -487,7 +480,7 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
     {
       Grob *sc = broken_intos_[i];
       System *l = sc->get_system ();
-      set_break_substitution (l ? l->self_scm () : SCM_UNDEFINED);
+      SCM break_criterion = l->self_scm ();
 
       if (grob_array)
         {
@@ -498,11 +491,12 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
               set_object (sc, sym, newval);
             }
           Grob_array *new_arr = unsmob<Grob_array> (newval);
-          new_arr->filter_map_assign (*grob_array, substitute_grob);
+          new_arr->filter_map_assign2 (*grob_array, substitute_grob,
+                                       break_criterion);
         }
       else
         {
-          SCM newval = do_break_substitution (val);
+          SCM newval = do_break_substitution (break_criterion, val);
           set_object (sc, sym, newval);
         }
     }
@@ -511,6 +505,5 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
 void
 Grob::substitute_object_links (SCM crit, SCM orig)
 {
-  set_break_substitution (crit);
-  substitute_object_alist (orig, &object_alist_);
+  substitute_object_alist (crit, orig, &object_alist_);
 }

@@ -144,7 +144,7 @@ System::do_break_substitution_and_fixup_refpoints ()
             }
           g->suicide ();
         }
-      else if (g->is_live ())
+      else
         g->do_break_processing ();
     }
 

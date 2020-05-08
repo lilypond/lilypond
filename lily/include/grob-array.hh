@@ -58,9 +58,15 @@ public:
   // returns a Grob, replace the original grob with the returned Grob.
   void filter_map (Grob * (*map_fun) (Grob *));
 
+  // Like filter_map, but with a SCM arg.
+  void filter_map2 (Grob * (*map_fun) (SCM, Grob *), SCM arg);
+
   // Like src.filter_map (f), but store the result in this array instead of
   // mutating the input.
   void filter_map_assign (const Grob_array &src, Grob * (*map_fun) (Grob *));
+
+  // Like src.filter_map_assign, but curry an argument
+  void filter_map_assign2 (const Grob_array &src, Grob * (*map_fun) (SCM, Grob *), SCM);
 };
 
 std::vector<Grob *> const &ly_scm2link_array (SCM x);

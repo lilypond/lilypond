@@ -83,6 +83,17 @@ Grob_array::filter_map (Grob * (*map_fun) (Grob *))
 }
 
 void
+Grob_array::filter_map2 (Grob *(*map_fun) (SCM, Grob *), SCM arg)
+{
+  vsize new_size = 0;
+  for (vsize i = 0; i < grobs_.size (); ++i)
+    if (Grob *grob = map_fun (arg, grobs_[i]))
+      grobs_[new_size++] = grob;
+  grobs_.resize (new_size);
+  grobs_.shrink_to_fit ();
+}
+
+void
 Grob_array::filter_map_assign (const Grob_array &src,
                                Grob * (*map_fun) (Grob *))
 {
@@ -97,6 +108,23 @@ Grob_array::filter_map_assign (const Grob_array &src,
     }
   else
     filter_map (map_fun);
+}
+
+void
+Grob_array::filter_map_assign2 (const Grob_array &src,
+                                Grob *(*map_fun) (SCM, Grob *), SCM arg)
+{
+  if (&src != this)
+    {
+      grobs_.clear ();
+      grobs_.reserve (src.grobs_.size ());
+      for (vsize i = 0; i < src.grobs_.size (); i++)
+        if (Grob *grob = map_fun (arg, src.grobs_[i]))
+          grobs_.push_back (grob);
+      grobs_.shrink_to_fit ();
+    }
+  else
+    filter_map2 (map_fun, arg);
 }
 
 const char *const Grob_array::type_p_name_ = "ly:grob-array?";

@@ -34,7 +34,7 @@ Spanner::do_break_processing ()
   Item *left = spanned_drul_[LEFT];
   Item *right = spanned_drul_[RIGHT];
 
-  if (!left || !right)
+  if (!left || !right || !is_live ())
     return;
 
   if (get_system () || is_broken ())
