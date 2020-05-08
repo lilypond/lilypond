@@ -100,4 +100,22 @@ public:
   }
 };
 
+// This is the smallest smob of all: none.  It's just a wrapper around
+// native SCM.  You need to define a proper is_smob function for it as
+// a type checker.
+
+template <class Super>
+class Smob0
+{
+  Smob0 () = delete;
+  Smob0 (const Smob0 &) = delete;
+  Smob0 &operator = (const Smob0 &) = delete;
+public:
+  SCM self_scm () const { return SCM_PACK (this); }
+  static Super *unchecked_unsmob (SCM s)
+  {
+    return reinterpret_cast<Super *> (SCM_UNPACK (s));
+  }
+};
+
 #endif
