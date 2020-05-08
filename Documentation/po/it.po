@@ -39,9 +39,9 @@ msgstr "Altre lingue: %s."
 
 #: postprocess_html.py:70
 #, python-format
-msgid "About <A HREF=\"%s\">automatic language selection</A>."
+msgid "About <a href=\"%s\">automatic language selection</a>."
 msgstr ""
-"A proposito della <A HREF=\"%s\">selezione automatica della lingua</A>."
+"A proposito della <a href=\"%s\">selezione automatica della lingua</a>."
 
 #: postprocess_html.py:330
 msgid "stable-branch"

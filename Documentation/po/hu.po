@@ -36,7 +36,7 @@ msgstr "Más nyelvek: %s."
 
 #: postprocess_html.py:70
 #, python-format
-msgid "About <A HREF=\"%s\">automatic language selection</A>."
+msgid "About <a href=\"%s\">automatic language selection</a>."
 msgstr "Az <a href=\"%s\">automatikus nyelvválasztásról</a>."
 
 #: postprocess_html.py:330

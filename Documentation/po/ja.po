@@ -40,7 +40,7 @@ msgstr "他の言語: %s"
 # not yet
 #: postprocess_html.py:70
 #, python-format
-msgid "About <A HREF=\"%s\">automatic language selection</A>."
+msgid "About <a href=\"%s\">automatic language selection</a>."
 msgstr ""
 
 #: postprocess_html.py:330
