@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a6bd75b68e73cafe5f299b65dcf0c8b32ce59b87
+   Translation of GIT committish: 52ba1f8901f51813186a3b92e9ecd537505f38c4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -91,7 +91,7 @@ l'image ci-dessous.
 @c DIV specific
 Il est aussi possible d'utiliser les noms de notes français @qq{do
 re mi fa sol la si}, en insérant au début du fichier la ligne
-@code{\include "italiano.ly"}.
+@code{\language "italiano"}.
 @c END DIV
 
 @warning{Tout extrait de code LilyPond doit être entouré d'une
@@ -186,7 +186,7 @@ en principe plus rapidement lors des exécutions suivantes.}
 @translationof How to write input files
 
 Cette partie présente les bases de la syntaxe de LilyPond, dans le
-but de vous auder à rédiger vos premiers fichiers sources.
+but de vous aider à rédiger vos premiers fichiers sources.
 
 @menu
 * Notation simple::
@@ -376,7 +376,7 @@ Glossaire musicologique :
 La @notation{durée} d'une note est indiquée par un nombre qui suit sa
 hauteur : @code{1} pour une @notation{ronde}, @code{2} pour une
 @notation{blanche}, @code{4} pour une @notation{noire} et ainsi de
-suite.  Les @notation{crochets} et @notation{liens} (ou liggaturess)
+suite.  Les @notation{crochets} et @notation{liens} (ou ligaturess)
 sont ajoutés automatiquement.
 
 Si aucune durée n'est indiquée pour une note, la dernière durée entrée
@@ -664,7 +664,7 @@ a4 a a a
 b2 b
 @end example
 
-Le bloc de commentaire, qui peut occuper plusieurs lignes, voire toute
+Le bloc de commentaire peut occuper plusieurs lignes, voire toute
 une section : tout ce qui se trouve entre @code{%@{} et @code{%@}} est
 ignoré.  Les blocs de commentaires ne peuvent s'imbriquer, ce qui
 signifie que vous ne pouvez pas placer un commentaire-bloc à
@@ -735,7 +735,7 @@ sont répertoriés au chapitre
 
 Nous allons voir ici comment consulter la documentation le plus
 efficacement possible.  Nous en profiterons pour vous présenter quelques
-particularités de la domcumentation en ligne.
+particularités de la documentation en ligne.
 
 @menu
 * Matériel incomplet::
@@ -776,7 +776,7 @@ affiché, mais @strong{à condition} de le placer entre @code{@{} et
 Rappelez-vous aussi que tout fichier LilyPond devrait contenir une
 mention @code{\version}.  La plupart des exemples de ce manuel étant des
 extraits, non des fichiers indépendants, ils sont dépourvus de cette
-ligne @code{\version}.  C'est cependant un bonne habitude que de
+ligne @code{\version}.  C'est cependant une bonne habitude que de
 toujours inclure cette mention de version dans vos fichiers.
 
 

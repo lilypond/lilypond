@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: a6bd75b68e73cafe5f299b65dcf0c8b32ce59b87
+   Translation of GIT committish: 52ba1f8901f51813186a3b92e9ecd537505f38c4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -95,7 +95,7 @@ Les contrôles de barre de mesure -- @emph{bar checks} en anglais -- ne
 sont à priori pas strictement nécessaires.  Ils permettent cependant
 d'indiquer directement dans le code saisi -- à l'aide d'une barre
 verticale @code{|} -- l'emplacement des barres de mesure.  Grâce à ces
-contrôleurs, LilyPond sera capable de déterminer si le cumul la durée
+contrôleurs, LilyPond sera capable de déterminer si le cumul de la durée
 que vous avez attribuée aux notes correspond bien à longueur de la
 mesure qui les contient.  Les contrôles de mesure apportent aussi clarté
 et organisation à votre code.
@@ -244,7 +244,7 @@ déterminer s'il est besoin d'imprimer une altération accidentelle.
 
 La commande @code{\key} détermine l'armure, ce qui affectera la
 représentation imprimée, et ne modifiera @b{en aucun cas} la hauteur
-assignée à une note telle qu'un @code{c} que vous aurez saisi.
+assignée à une note telle qu'un @code{c} que vous aurez saisie.
 
 Dans cet exemple,
 
@@ -1554,7 +1554,7 @@ registre aigu, comme le montre cet extrait de Mozart.
 
 @funindex \fixed
 
-Les indications doctaves communes peuvent ne s'indiquer qu'une seule
+Les indications d'octaves communes peuvent ne s'indiquer qu'une seule
 fois, en faisant suivre la commande @code{\fixed} d'une hauteur de
 référence :
 
@@ -1567,7 +1567,7 @@ référence :
 }
 @end lilypond
 
-Avec un @code{\relative}, le même exemple ne recquiert pas d'indicatin
+Avec un @code{\relative}, le même exemple ne recquiert pas d'indication
 d'octave puisque la mélodie progresse sur des intervalles ne dépassant
 pas la tierce.
 
@@ -1620,7 +1620,7 @@ explicitement de la musique relative le fragment en question :
 Après avoir parcouru ce tutoriel, vous devriez essayer d'écrire un
 morceau ou deux.  Commencez par copier l'un des modèles types et
 ajoutez-y des notes -- consultez les @ref{Modèles}.  Si vous voulez
-employer une notation que vous n'avez pas trouvé dans le tutoriel,
+employer une notation que vous n'avez pas trouvée dans le tutoriel,
 consultez le manuel de notation, en commençant par la
 @ruser{Notation musicale générale}.  Si vous désirez écrire pour un
 ensemble instrumental non couvert par les modèles, lisez la section
