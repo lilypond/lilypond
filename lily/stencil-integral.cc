@@ -660,15 +660,11 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
     return;
 
   SCM head = scm_car (expr);
-  if (false)
-    ;
-  else if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
+  if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
     {
       for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
         interpret_stencil_for_skyline (skyline, transform, scm_car (s));
     }
-  else if (scm_is_eq (head, ly_symbol2scm ("footnote")))
-    ;
   else if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
     {
       Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
@@ -692,8 +688,6 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
       local.rotate (ang, center);
       interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
     }
-  else if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
-    ;
   else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
     interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("color")))
