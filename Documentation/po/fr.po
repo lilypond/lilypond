@@ -38,8 +38,8 @@ msgstr "Autres langues&nbsp;: %s."
 
 #: postprocess_html.py:70
 #, python-format
-msgid "About <A href=\"%s\">automatic language selection</A>."
-msgstr "À propos de la <A href=\"%s\">sélection automatique de la langue</A>."
+msgid "About <a href=\"%s\">automatic language selection</a>."
+msgstr "À propos de la <a href=\"%s\">sélection automatique de la langue</a>."
 
 #: postprocess_html.py:330
 msgid "stable-branch"
@@ -10459,4 +10459,3 @@ msgstr "Notes de bas de page"
 
 msgid "Table of Contents"
 msgstr "Table des matières"
-

@@ -282,7 +282,7 @@ archive2},
 liste sont répertoriées dans @ref{Signalement de bogue}.}
 
 
-@subheading Liste de diffusion des traductions : @code{translations@@lilynet.org}
+@subsubheading Liste de diffusion des traductions : @code{translations@@lilynet.org}
 
 C'est sur cette liste que se tiennent les discussions ayant trait aux
 traductions des manuels.  Merci de n'y adresser aucun patche.
@@ -1084,6 +1084,7 @@ Annonces et nouvelles, par version :
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Liste descriptive des évolutions, par version :
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/index.fr.html,v2.20},
 @uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
@@ -1106,6 +1107,7 @@ Liste descriptive des évolutions, par version :
 
 Tous nos remerciements aux développeurs, contributeurs, chasseurs
 de bogue et à ceux qui nous ont fait part de leurs suggestions pour
+@miscLink{THANKS-2.18,v2.20},
 @miscLink{THANKS-2.16,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},

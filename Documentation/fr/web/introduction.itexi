@@ -162,7 +162,7 @@ tout sens dessus dessous, vous pourrez toujours revenir en arrière sans
 @c VO Text files are failure- and future-proof
 
 Les fichiers texte résistent plus facilement à la corruption.  Leur
-nature les rend lisibles et, de fait, interprétable même en
+nature les rend lisibles et, de fait, interprétables même en
 l'absence du programme qui les a créés.
 
 
@@ -701,15 +701,15 @@ mentionnons que quelques-uns.
 Marc Hohl a écrit des partitions en allemand pour enfants et
 adolescents. Elles sont gravées avec LilyPond (et LaTeX) et disponibles
 gratuitement sur  @uref{http://www.singspielschmiede.de/} ; toute cette
-musique a été donnée lors d'auditions à m'école où Marc travaille.
+musique a été donnée lors d'auditions à l'école où Marc travaille.
 
 @item
 @uref{http://www.aurelienbello.com/,Aurélien Bello} a réalisé un
 arrangement du @emph{Chevalier à la rose} de Richard Strauss,
 pour quatre chanteurs et orchestre de chambre à treize interprètes.
 Après deux représentations en 2015 au @uref{https://www.festspielhaus.de/,
-palais des festivals de Baden-Baden} puis par l'orchestre philharmonique
-de Berlin dans la
+palais des festivals de Baden-Baden}, il a été donné par l'orchestre
+philharmonique de Berlin dans la
 @uref{https://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,
 @emph{Großer Saal} de la philharmonie de Berlin}.  Nous nous sentons
 très honorés que des musiciens d'une telle réputation aient joué avec
@@ -780,7 +780,15 @@ Une édition moderne de la @emph{Serenata Erminia} d'Alessandro
 Scarlatti, réalisée par le musicologue italien Thomas Griffin.  Celle-ci
 a servi le 22 octobre 2010 dans la gallerie du palais Zevallos
 Stigliano à Naples lors des célébrations organisées pour le
-350e anniversaire de la naissance du compositeur -- voir
+@ifnothtml
+350@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+350<sup>e</sup>
+@end html
+@end ifhtml
+ anniversaire de la naissance du compositeur -- voir
 @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010}.
 
 @item
@@ -798,7 +806,16 @@ Saint-James de Manhattan, par Frederick Renz et son ensemble
 @emph{Affaire Étrangère}, un opéra de
 @uref{http://valentin.villenave.net/, Valentin Villenave}, livret
 de @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
-dont la première a eu lieu le 1er février 2009 en France à
+dont la première a eu lieu le
+@ifnothtml
+1@sup{er}
+@end ifnothtml
+@ifhtml
+@html
+1<sup>er</sup>
+@end html
+@end ifhtml
+ février 2009 en France à
 @uref{http://www.orchestre-montpellier.com/, l'Opéra national de
 Montpellier}.
 
@@ -831,7 +848,7 @@ Creative Commons uniquement sur souscription.
 
 @item
 @uref{http://partitura.org/, Partitura Organum} propose une collection
-grandissante de pièces pour orgue dans le domaine publi, réalisées avec
+grandissante de pièces pour orgue dans le domaine public, réalisées avec
 LilyPond et sous licence Creative Commons.
 
 @item
@@ -845,13 +862,13 @@ Clairnote.
 @end itemize
 @divEnd
 
-@subsubheading Sheet source repositories
+@subsubheading Dépôts de fichiers sources
 @divClass{keep-bullets}
 @itemize
 
 @item
 @uref{https://github.com/MutopiaProject/MutopiaProject/,
-Déppôt du Projet Mutopia} :
+Dépôt du Projet Mutopia} :
 fichiers sources de toutes les pièces de la bibliothèque.
 
 @item
@@ -937,8 +954,8 @@ l'informatique pour la maintenance de leurs fonds.
 @item
 Juin 2009
 
-Dans la revue annuelle de la Fédération Nationale des Associations
-de Parents d'Éleves de Conservatoires, le compositeur français
+Dans la revue annuelle de la Fédération nationale des associations
+de parents d'éleves de conservatoires, le compositeur français
 Valentin Villenave, également contributeur LilyPond, consacre un
 @uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now, article} aux licences
 libres, et au rôle primordial que peut jouer LilyPond afin d'ouvrir
@@ -1119,7 +1136,7 @@ prépublication de leur musique. Bien que cela me revienne en partie --
 je passe beaucoup de temps à retoucher la gravure, notamment les
 liaisons et en particulier dans les accords -- LilyPond me fournit un
 excellent point de départ, une interface très intuitive, et la
-possibilité de modifier absolument n'importe quoi si je prend le temps.
+possibilité de modifier absolument n'importe quoi si je prends le temps.
 Je suis convaincu qu'aucun produit commercial ne peut approcher cela.}
 @divEnd
 
@@ -1374,7 +1391,7 @@ C'est le cas, en particulier, pour :
 Frescobaldi est un éditeur de texte léger et puissant dédié à LilyPond.
 Il dispose d'une visionneuse PDF, d'un assistant de création de
 partition et beaucoup de fonctionnalités d'édition -- pointer-cliquer,
-coloration syntaxique et auto-comlplétion.  Frescobaldi est écrit en
+coloration syntaxique et auto-complétion.  Frescobaldi est écrit en
 Python et PyQt4 ; il fonctionne actuellement sur la plupart des systèmes
 d'exploitation (GNU/Linux, MacOS X et Windows).
 
@@ -1422,7 +1439,7 @@ Son code est disponible sous licence MIT et se trouve sur la
 @uref{https://www.hacklily.org/}
 
 Hacklily est un éditeur de partition en ligne et un outil de publication
-reposant sur LilyPond qui disposse de fonctionnalités supplémentaires
+reposant sur LilyPond qui dispose de fonctionnalités supplémentaires
 telles que l'autocomplétion ou l'aide contextuelle. Le code sous-jascent
 permettant de gérer tout cela est disponible sous licence AGPL sur sa
 propre @uref{https://github.com/hacklily/hacklily,page de développement}.
@@ -1437,10 +1454,10 @@ soit nécessaire de s'enregistrer, son utilisation est gratuite.
 @subsubheading WebLily.net
 @uref{https://www.weblily.net/}
 
-Initié en 2009, WebLily.net est l'un des premiers services internet basé
-sur LilyPond et a été régulièrement mis à jour depuis. Son utilisation
-est gratuite même si elle requiert de s'enregistrer. Une version
-cliquable de la documentation de LilyPond y est disponible.
+Initié en 2009, WebLily.net est l'un des premiers services internet
+basés sur LilyPond et a été régulièrement mis à jour depuis. Son
+utilisation est gratuite même si elle requiert de s'enregistrer. Une
+version cliquable de la documentation de LilyPond y est disponible.
 
 @divEnd
 
@@ -1590,7 +1607,7 @@ d'interpréteurs, et dispose d'un portage en C++.
 @item
 @uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}
 est un système de composition musicale basé sur le
-@uref{http://mozart.github.io/, Le système de progammation Mozart}.
+@uref{http://mozart.github.io/, système de progammation Mozart}.
 
 @end itemize
 @divEnd

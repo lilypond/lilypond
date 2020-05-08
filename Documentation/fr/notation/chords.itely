@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+   Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -855,9 +855,18 @@ LilyPond permet de générer des parties de continuo.
 @c librement adapté de
 @c http://en.wikipedia.org/wiki/Basso_continuo#Basso_continuo
 Les parties de basse continue étaient très répandues dans la musique
-baroque et jusqu'à la fin du XVIIIe siècle.  Comme son nom l'indique, le
-@emph{continuo} constitue une partie à lui seul, qui se déroule tout au
-long de l'œuvre pour en donner la structure harmonique.
+baroque et jusqu'à la fin du
+@ifnothtml
+XVIII@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+XVIII<sup>e</sup>
+@end html
+@end ifhtml
+ siècle. Comme son nom l'indique, le @emph{continuo} constitue une
+partie à lui seul, qui se déroule tout au long de l'œuvre pour en donner
+la structure harmonique.
 
 Les musiciens du @emph{continuo} jouent des claviers (clavecin,
 orgue) ou de tout autre instrument pouvant réaliser des accords.  Leur

@@ -2235,7 +2235,7 @@ impostazione esplicita o perché non sono state definite internamente
 le @code{beamExceptions} per l'indicazione di tempo corrente, le
 estremità delle travature si trovano sulle suddivisioni come specificato
 dalle proprietà di contesto @code{baseMoment} e
-@code{beatStructure}.  @code{beatStructure} è una lista @emph{scheme}
+@code{beatStructure}.  @code{beatStructure} è una lista @emph{Scheme}
 che definisce la lunghezza di ogni suddivisione in rapporto alla misura in unità
 di @code{baseMoment}.  Per impostazione predefinita, @code{baseMoment}
 è uno fratto il denominatore dell'indicazione di tempo e ogni unità
@@ -2337,7 +2337,7 @@ compatibile col nuovo valore di @code{baseMoment}.
 @end lilypond
 
 @code{baseMoment} è un @i{momento}, ovvero un'unità della durata musicale.  Una
-quantità di tipo @i{moment} viene creata dalla funzione scheme
+quantità di tipo @i{moment} viene creata dalla funzione Scheme
 @code{ly:make-moment}.  Per maggiori informazioni su questa funzione, si
 veda @ref{Gestione del tempo}.
 

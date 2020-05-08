@@ -1728,8 +1728,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 È importante conoscere le convenzioni sui nomi.  Ecco una panoramica:
 
 @itemize
-@item funzioni scheme: minuscolo-con-trattini (inclusi i nomi di una-parola)
-@item funzioni scheme specifiche di LilyPond: ly:plus-scheme-style
+@item funzioni Scheme: minuscolo-con-trattini (inclusi i nomi di una-parola)
+@item funzioni Scheme specifiche di LilyPond: ly:plus-scheme-style
 @item eventi, classi e proprietà musicali:
 come-le-funzioni-scheme
 @item interfacce Grob: stile-scheme
@@ -4834,7 +4834,7 @@ dove
 @tab @var{n}esimo argomento
 
 @item @code{@var{tipoN?}}
-@tab un @emph{tipo di predicato} scheme per il quale @code{@var{argN}}
+@tab un @emph{tipo di predicato} Scheme per il quale @code{@var{argN}}
 deve ritornare @code{#t}.
 
 @item @code{@var{@dots{}musica@dots{}}}

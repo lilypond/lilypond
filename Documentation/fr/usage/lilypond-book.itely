@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 4ad395e60732df34b74ade0e63535b2671b98ddf
+    Translation of GIT committish: 5152be56d7489884711de31e371b0ee1baf405d6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -222,7 +222,7 @@ domaine des sciences exactes.  Il repose sur le moteur typographique
 @TeX{}, le @emph{nec plus ultra} en la matière.
 
 Consultez
-@uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/french/,
+@uref{https://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/french/,
 @emph{The Not So Short Introduction to @LaTeX{}} en français} pour un
 aperçu des possibilités de @LaTeX{}.
 

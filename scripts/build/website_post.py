@@ -47,6 +47,10 @@ translations = {
         'English': 'Nederlands',
         'Other languages': 'Andere talen',
         },
+    'pt': {
+        'English': 'Português',
+        'Other languages': 'Outros idiomas',
+        },
     'zh': {
         'English': '中文',
         'Other languages': '其他语言',
