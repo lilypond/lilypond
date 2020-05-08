@@ -206,7 +206,7 @@ Text_interface::print (SCM grob)
 {
   Grob *me = unsmob<Grob> (grob);
 
-  SCM t = me->get_property ("text");
+  SCM t = get_property (me, "text");
   SCM chain = Font_interface::text_font_alist_chain (me);
   return interpret_markup (me->layout ()->self_scm (), chain, t);
 }

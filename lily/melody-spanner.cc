@@ -37,7 +37,7 @@ SCM
 Melody_spanner::calc_neutral_stem_direction (SCM smob)
 {
   Grob *stem = unsmob<Grob> (smob);
-  Grob *me = unsmob<Grob> (stem->get_object ("melody-spanner"));
+  Grob *me = unsmob<Grob> (get_object (stem, "melody-spanner"));
   if (!me || !me->is_live ())
     return scm_from_int (DOWN);
 
@@ -45,7 +45,7 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 
   vector<Direction> dirs;
   for (vsize i = 0; i < stems.size (); i++)
-    dirs.push_back (to_dir (stems[i]->get_property ("default-direction")));
+    dirs.push_back (to_dir (get_property (stems[i], "default-direction")));
 
   vsize last_nonneutral = VPOS;
   vsize next_nonneutral = 0;
@@ -71,14 +71,14 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
       else if (d2 && !d1)
         total = d2;
       else
-        total = to_dir (me->get_property ("neutral-direction"));
+        total = to_dir (get_property (me, "neutral-direction"));
 
       for (vsize i = last_nonneutral + 1; i < next_nonneutral; i++)
         {
           if (stems[i] == stem)
             retval = scm_from_int (total);
           else
-            stems[i]->set_property ("neutral-direction", scm_from_int (total));
+            set_property (stems[i], "neutral-direction", scm_from_int (total));
         }
 
       last_nonneutral = next_nonneutral;
@@ -100,8 +100,8 @@ void
 Melody_spanner::add_stem (Grob *me, Grob *stem)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("stems"), stem);
-  stem->set_object ("melody-spanner", me->self_scm ());
-  stem->set_property ("neutral-direction", Melody_spanner::calc_neutral_stem_direction_proc);
+  set_object (stem, "melody-spanner", me->self_scm ());
+  set_property (stem, "neutral-direction", Melody_spanner::calc_neutral_stem_direction_proc);
 }
 
 ADD_INTERFACE (Melody_spanner,

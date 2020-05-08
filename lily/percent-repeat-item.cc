@@ -27,18 +27,18 @@
 Stencil
 Percent_repeat_item_interface::brew_slash (Grob *me, int count)
 {
-  Real slope = robust_scm2double (me->get_property ("slope"), 1);
+  Real slope = robust_scm2double (get_property (me, "slope"), 1);
   Real wid = 2.0 / slope;
 
   /*
     todo: check out if in staff-rule thickness normally.
   */
-  Real thick = robust_scm2double (me->get_property ("thickness"), 1);
+  Real thick = robust_scm2double (get_property (me, "thickness"), 1);
   Stencil slash = Lookup::repeat_slash (wid, slope, thick);
   Stencil m = slash;
 
   Real slash_neg_kern
-    = robust_scm2double (me->get_property ("slash-negative-kern"), 1.6);
+    = robust_scm2double (get_property (me, "slash-negative-kern"), 1.6);
   for (int i = count - 1; i--;)
     m.add_at_edge (X_AXIS, RIGHT, slash, -slash_neg_kern);
 
@@ -52,7 +52,7 @@ Percent_repeat_item_interface::x_percent (Grob *me, int count)
   Stencil m = brew_slash (me, count);
 
   Real dot_neg_kern
-    = robust_scm2double (me->get_property ("dot-negative-kern"), 0.75);
+    = robust_scm2double (get_property (me, "dot-negative-kern"), 0.75);
 
   Stencil d1 = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
   Stencil d2 = d1;
@@ -81,7 +81,7 @@ Percent_repeat_item_interface::beat_slash (SCM grob)
 {
   Grob *me = unsmob<Grob> (grob);
   Stream_event *cause = me->event_cause ();
-  int count = robust_scm2int (cause->get_property ("slash-count"), 1);
+  int count = robust_scm2int (get_property (cause, "slash-count"), 1);
 
   Stencil m;
   if (count == 0)

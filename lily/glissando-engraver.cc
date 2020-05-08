@@ -81,7 +81,7 @@ void
 Glissando_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *g = info.grob ();
-  if (to_boolean (g->get_property ("glissando-skip")))
+  if (to_boolean (get_property (g, "glissando-skip")))
     return;
 
   if (stop_glissandi_)
@@ -98,7 +98,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
           else
             {
               lines_[i]->set_bound (RIGHT, note_heads[note_column_2[i]]);
-              lines_[i]->set_property ("glissando-index", scm_from_int (glissando_index));
+              set_property (lines_[i], "glissando-index", scm_from_int (glissando_index));
               glissando_index++;
               announce_end_grob (lines_[i], note_heads[note_column_2[i]]->self_scm ());
             }
@@ -112,7 +112,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
   if (start_glissandi_)
     {
       extract_grob_set (g, "note-heads", note_heads);
-      SCM map = get_property ("glissandoMap");
+      SCM map = get_property (this, "glissandoMap");
       if (scm_is_null (map))
         for (vsize i = 0; i < note_heads.size (); i++)
           {

@@ -31,9 +31,14 @@
 //
 // Check the GET_LISTENER call for a typical use case.
 
+#include "grob-info.hh"
+#include "lily-proto.hh"
 #include "smobs.hh"
 
-class Callback_wrapper : public Simple_smob<Callback_wrapper>
+// Templated work class to Callbacks
+
+template <typename ... Args>
+class Callback_wrapper : public Simple_smob<Callback_wrapper <Args ...>>
 {
   // We use an ordinary function pointer pointing to a trampoline
   // function (templated on the callback in question) instead of
@@ -43,21 +48,22 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
   // pointers in connection with inheritance are somewhat opaque as
   // this involves an adjustment of the this pointer from Smob_core to
   // the scope containing the callback.
-  SCM (*trampoline_) (SCM, SCM);
-  Callback_wrapper (SCM (*trampoline) (SCM, SCM))
+  SCM (*trampoline_) (SCM, Args ...);
+  Callback_wrapper (SCM (*trampoline) (SCM, Args ...))
     : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
-  LY_DECLARE_SMOB_PROC (&Callback_wrapper::call, 2, 0, 0)
-  SCM call (SCM target, SCM arg)
+  LY_DECLARE_STATIC_SMOB_PROC (call, sizeof ...(Args) + 1, 0, 0)
+  static SCM call (SCM self, SCM target, Args ... args)
   {
-    return trampoline_ (target, arg);
+    return (Callback_wrapper::unchecked_unsmob (self)->trampoline_)(target, args ...);
   }
+
   // Callback wrappers are for an unchanging entity, so we do the Lisp
   // creation just once on the first call of make_smob.  So we only
   // get a single Callback_wrapper instance for each differently
   // templated make_smob call.
-  template <SCM (*trampoline) (SCM, SCM)>
+  template <SCM (*trampoline) (SCM, Args ...)>
   static SCM make_smob ()
   {
     static SCM res
@@ -66,55 +72,26 @@ public:
   }
 };
 
-class Callback2_wrapper : public Simple_smob<Callback2_wrapper>
+class Callbacks
 {
-  // See Callback_wrapper for the details.  Callback2_wrapper just
-  // supports an additional SCM argument as compared to
-  // Callback_wrapper but is otherwise identical.
-  SCM (*trampoline_) (SCM, SCM, SCM);
-  Callback2_wrapper (SCM (*trampoline) (SCM, SCM, SCM))
-    : trampoline_ (trampoline)
-  { } // Private constructor, use only in make_smob
 public:
-  LY_DECLARE_SMOB_PROC (&Callback2_wrapper::call, 3, 0, 0)
-  SCM call (SCM target, SCM arg1, SCM arg2)
-  {
-    return trampoline_ (target, arg1, arg2);
-  }
-
-  template <SCM (*trampoline) (SCM, SCM, SCM)>
-  static SCM make_smob ()
-  {
-    static SCM res
-      = scm_permanent_object (Callback2_wrapper (trampoline).smobbed_copy ());
-    return res;
-  }
-};
-
-class Callback0_wrapper : public Simple_smob<Callback0_wrapper>
-{
-  // See Callback_wrapper for the details.  Callback0_wrapper does not
-  // pass arguments but is otherwise identical to Callback_wrapper.
-  SCM (*trampoline_) (SCM);
-  Callback0_wrapper (SCM (*trampoline) (SCM))
-    : trampoline_ (trampoline)
-  { } // Private constructor, use only in make_smob
-public:
-  LY_DECLARE_SMOB_PROC (&Callback0_wrapper::call, 1, 0, 0)
-  SCM call (SCM target)
-  {
-    return trampoline_ (target);
-  }
-
   template <SCM (*trampoline) (SCM)>
   static SCM make_smob ()
   {
-    static SCM res
-      = scm_permanent_object (Callback0_wrapper (trampoline).smobbed_copy ());
-    return res;
+    return Callback_wrapper<>::make_smob <trampoline> ();
   }
-  // Since there are no arguments at all, we might as well provide
-  // default trampolines
+  template <SCM (*trampoline) (SCM, SCM)>
+  static SCM make_smob ()
+  {
+    return Callback_wrapper<SCM>::make_smob <trampoline> ();
+  }
+  template <SCM (*trampoline) (SCM, SCM, SCM)>
+  static SCM make_smob ()
+  {
+    return Callback_wrapper<SCM, SCM>::make_smob <trampoline> ();
+  }
+
+  // Provide a number of trampolines, first basic no-argument ones
   template <class T, SCM (T::*p) ()>
   static SCM trampoline (SCM target)
   {
@@ -130,24 +107,34 @@ public:
     return SCM_UNSPECIFIED;
   }
 
-  template <class T, SCM (T::*p) ()>
-  static SCM make_smob ()
+  // Single SCM argument, like used in Listener
+  template <class T, void (T::*callback) (SCM)>
+  static SCM trampoline (SCM target, SCM ev)
   {
-    return make_smob<trampoline<T, p> > ();
+    T *t = unsmob<T> (target);
+    LY_ASSERT_SMOB (T, target, 1);
+
+    (t->*callback) (ev);
+    return SCM_UNDEFINED;
   }
 
-  template <class T, void (T::*p) ()>
-  static SCM make_smob ()
-  {
-    return make_smob<trampoline<T, p> > ();
-  }
+  // The more complex trampolines are defined near their use cases.
+
+  // Stream_event argument is used in Translators
+
+  template <class T, void (T::*p) (Stream_event *)>
+  static SCM trampoline (SCM target, SCM ev);
+
+  // Acknowledger trampolines
+  template <class T, void (T::*callback) (Grob_info)>
+  static SCM trampoline (SCM target, SCM grob, SCM source_engraver);
 };
 
 // This duplicates std::remove_pointer (apart from erroring out if
 // there is no pointer to be removed) but it's simple enough that we
 // don't want to pull in all of <type_traits> for a header as
 // frequently included as this one.
-template <typename U> struct ly_remove_pointer {}; // Error template, no type
+template <typename U> struct ly_remove_pointer; // Template, no default
 template <typename U> struct ly_remove_pointer <U*> { using type = U; };
 template <typename U> struct ly_remove_pointer <const U*> { using type = U; };
 
@@ -180,18 +167,9 @@ public:
 
 #define MFP_ARGS(mfp) typename mfp_baseclass<decltype (mfp)>::type, mfp
 
-// Wrapper macros for member function pointers with 0 to 2 extra
-// arguments apart from the instance.  Extra arguments are supposed to
-// be checked by type-dependent trampolines, but MFP0_WRAP works
-// as-is.
-#define MFP0_WRAP(mfp)                                  \
-  Callback0_wrapper::make_smob<MFP_ARGS (mfp)> ()
+// Wrapper macro for member function pointers
 
-#define MFP1_WRAP(mfp)                                          \
-  Callback_wrapper::make_smob<trampoline<MFP_ARGS (mfp)> > ()
-
-#define MFP2_WRAP(mfp)                                          \
-  Callback2_wrapper::make_smob<trampoline<MFP_ARGS (mfp)> > ()
+#define MFP_WRAP(mfp) Callbacks::make_smob<Callbacks::trampoline <MFP_ARGS (mfp)>> ()
 
 // The following will usually be used unsmobbified, relying on its
 // constituents being protected independently.

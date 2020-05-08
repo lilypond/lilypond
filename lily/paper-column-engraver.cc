@@ -58,23 +58,23 @@ Paper_column_engraver::finalize ()
     {
       make_columns ();
       SCM m = now_mom ().smobbed_copy ();
-      command_column_->set_property ("when", m);
-      musical_column_->set_property ("when", m);
+      set_property (command_column_, "when", m);
+      set_property (musical_column_, "when", m);
     }
 
   if (command_column_)
     {
       // At the end of the score, allow page breaks and turns by default, but...
-      command_column_->set_property ("page-break-permission", ly_symbol2scm ("allow"));
-      command_column_->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+      set_property (command_column_, "page-break-permission", ly_symbol2scm ("allow"));
+      set_property (command_column_, "page-turn-permission", ly_symbol2scm ("allow"));
 
       // ...allow the user to override them.
       handle_manual_breaks (true);
 
       // On the other hand, line breaks are always allowed at the end of a score,
       // even if they try to stop us.
-      if (!scm_is_symbol (command_column_->get_property ("line-break-permission")))
-        command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
+      if (!scm_is_symbol (get_property (command_column_, "line-break-permission")))
+        set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
 
       system_->set_bound (RIGHT, command_column_);
     }
@@ -100,11 +100,11 @@ Paper_column_engraver::make_columns ()
 void
 Paper_column_engraver::initialize ()
 {
-  system_ = unsmob<System> (get_property ("rootSystem"));
+  system_ = unsmob<System> (get_property (this, "rootSystem"));
   make_columns ();
 
   system_->set_bound (LEFT, command_column_);
-  command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
+  set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
 }
 
 void
@@ -136,10 +136,10 @@ Paper_column_engraver::set_columns (Paper_column *new_command,
   command_column_ = new_command;
   musical_column_ = new_musical;
   if (new_command)
-    context ()->set_property ("currentCommandColumn", new_command->self_scm ());
+    set_property (context (), "currentCommandColumn", new_command->self_scm ());
 
   if (new_musical)
-    context ()->set_property ("currentMusicalColumn", new_musical->self_scm ());
+    set_property (context (), "currentMusicalColumn", new_musical->self_scm ());
 
   system_->add_column (command_column_);
   system_->add_column (musical_column_);
@@ -163,7 +163,7 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
   for (vsize i = 0; i < break_events_.size (); i++)
     {
       string prefix;
-      SCM name_sym = scm_car (break_events_[i]->get_property ("class"));
+      SCM name_sym = scm_car (get_property (break_events_[i], "class"));
       string name = ly_symbol2string (name_sym);
       size_t end = name.rfind ("-event");
       if (end)
@@ -177,18 +177,18 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
       string perm_str = prefix + "-permission";
       string pen_str = prefix + "-penalty";
 
-      SCM cur_pen = command_column_->get_property (pen_str.c_str ());
-      SCM pen = break_events_[i]->get_property ("break-penalty");
-      SCM perm = break_events_[i]->get_property ("break-permission");
+      SCM cur_pen = get_property (command_column_, pen_str.c_str ());
+      SCM pen = get_property (break_events_[i], "break-penalty");
+      SCM perm = get_property (break_events_[i], "break-permission");
 
       if (!only_do_permissions && scm_is_number (pen))
         {
           Real new_pen = robust_scm2double (cur_pen, 0.0) + scm_to_double (pen);
-          command_column_->set_property (pen_str.c_str (), scm_from_double (new_pen));
-          command_column_->set_property (perm_str.c_str (), ly_symbol2scm ("allow"));
+          set_property (command_column_, pen_str.c_str (), scm_from_double (new_pen));
+          set_property (command_column_, perm_str.c_str (), ly_symbol2scm ("allow"));
         }
       else
-        command_column_->set_property (perm_str.c_str (), perm);
+        set_property (command_column_, perm_str.c_str (), perm);
     }
 }
 
@@ -199,9 +199,9 @@ Paper_column_engraver::process_music ()
 
   for (vsize i = 0; i < label_events_.size (); i++)
     {
-      SCM label = label_events_[i]->get_property ("page-label");
-      SCM labels = command_column_->get_property ("labels");
-      command_column_->set_property ("labels", scm_cons (label, labels));
+      SCM label = get_property (label_events_[i], "page-label");
+      SCM labels = get_property (command_column_, "labels");
+      set_property (command_column_, "labels", scm_cons (label, labels));
     }
 
   bool start_of_measure = (last_moment_.main_part_ != now_mom ().main_part_
@@ -214,9 +214,9 @@ Paper_column_engraver::process_music ()
   if (start_of_measure)
     {
       Moment mlen = Moment (measure_length (context ()));
-      Grob *column = unsmob<Grob> (get_property ("currentCommandColumn"));
+      Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       if (column)
-        column->set_property ("measure-length", mlen.smobbed_copy ());
+        set_property (column, "measure-length", mlen.smobbed_copy ());
       else
         programming_error ("No command column?");
     }
@@ -225,23 +225,23 @@ Paper_column_engraver::process_music ()
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
-  if (to_boolean (get_property ("skipTypesetting")))
+  if (to_boolean (get_property (this, "skipTypesetting")))
     return;
 
   SCM m = now_mom ().smobbed_copy ();
-  command_column_->set_property ("when", m);
-  musical_column_->set_property ("when", m);
+  set_property (command_column_, "when", m);
+  set_property (musical_column_, "when", m);
 
-  SCM mpos = get_property ("measurePosition");
-  SCM barnum = get_property ("internalBarNumber");
+  SCM mpos = get_property (this, "measurePosition");
+  SCM barnum = get_property (this, "internalBarNumber");
   if (unsmob<Moment> (mpos)
       && scm_is_integer (barnum))
     {
       SCM where = scm_cons (barnum,
                             mpos);
 
-      command_column_->set_property ("rhythmic-location", where);
-      musical_column_->set_property ("rhythmic-location", where);
+      set_property (command_column_, "rhythmic-location", where);
+      set_property (musical_column_, "rhythmic-location", where);
     }
 
   for (vsize i = 0; i < items_.size (); i++)
@@ -251,8 +251,8 @@ Paper_column_engraver::stop_translation_timestep ()
 
       if (!elem->get_parent (X_AXIS))
         elem->set_parent (col, X_AXIS);
-      if (!unsmob<Grob> (elem->get_object ("axis-group-parent-X")))
-        elem->set_object ("axis-group-parent-X", col->self_scm ());
+      if (!unsmob<Grob> (get_object (elem, "axis-group-parent-X")))
+        set_object (elem, "axis-group-parent-X", col->self_scm ());
 
       if (has_interface<Accidental_placement> (elem)
           || has_interface<Arpeggio> (elem))
@@ -262,15 +262,15 @@ Paper_column_engraver::stop_translation_timestep ()
     }
   items_.clear ();
 
-  if (to_boolean (get_property ("forbidBreak"))
+  if (to_boolean (get_property (this, "forbidBreak"))
       && breaks_) /* don't honour forbidBreak if it occurs on the first moment of a score */
     {
-      command_column_->set_property ("page-turn-permission", SCM_EOL);
-      command_column_->set_property ("page-break-permission", SCM_EOL);
-      command_column_->set_property ("line-break-permission", SCM_EOL);
+      set_property (command_column_, "page-turn-permission", SCM_EOL);
+      set_property (command_column_, "page-break-permission", SCM_EOL);
+      set_property (command_column_, "line-break-permission", SCM_EOL);
       for (vsize i = 0; i < break_events_.size (); i++)
         {
-          SCM perm = break_events_[i]->get_property ("break-permission");
+          SCM perm = get_property (break_events_[i], "break-permission");
           if (scm_is_eq (perm, ly_symbol2scm ("force"))
               || scm_is_eq (perm, ly_symbol2scm ("allow")))
             warning (_ ("forced break was overridden by some other event, "
@@ -295,7 +295,7 @@ void
 Paper_column_engraver::start_translation_timestep ()
 {
   break_events_.clear ();
-  if (!first_ && !to_boolean (get_property ("skipTypesetting")))
+  if (!first_ && !to_boolean (get_property (this, "skipTypesetting")))
     {
       make_columns ();
       made_columns_ = true;

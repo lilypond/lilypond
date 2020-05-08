@@ -98,14 +98,14 @@ Hara_kiri_group_spanner::request_suicide (Grob *me, vsize start, vsize end)
 bool
 Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end)
 {
-  if (!to_boolean (me->get_property ("remove-empty")))
+  if (!to_boolean (get_property (me, "remove-empty")))
     return false;
 
-  bool remove_first = to_boolean (me->get_property ("remove-first"));
+  bool remove_first = to_boolean (get_property (me, "remove-first"));
   if (!remove_first && start <= 0)
     return false;
 
-  SCM important = me->get_property ("important-column-ranks");
+  SCM important = get_property (me, "important-column-ranks");
   if (scm_is_vector (important))
     {
       vsize len = scm_c_vector_length (important);
@@ -129,7 +129,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end
       SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);
       for (vsize i = 0; i < ranks.size (); i++)
         scm_c_vector_set_x (scm_vec, i, scm_from_int (ranks[i]));
-      me->set_property ("important-column-ranks", scm_vec);
+      set_property (me, "important-column-ranks", scm_vec);
 
       return request_suicide (me, start, end);
     }

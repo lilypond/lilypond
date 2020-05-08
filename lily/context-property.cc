@@ -181,7 +181,7 @@ Grob_property_info::create ()
   // prospective overrides in intermediate contexts.  If there are
   // any, they will be factored in when `updated' is being called.
   SCM props = Grob_properties (def->alist_, def->alist_).smobbed_copy ();
-  context_->set_property (symbol_, props);
+  set_property (context_, symbol_, props);
   props_ = unsmob<Grob_properties> (props);
   return props_;
 }
@@ -401,7 +401,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
           Grob_property_info (tg, context_prop).pop (grob_prop_path);
         }
       else if (scm_is_eq (type, ly_symbol2scm ("assign")))
-        tg->set_property (scm_car (entry), scm_cadr (entry));
+        set_property (tg, scm_car (entry), scm_cadr (entry));
       else if (scm_is_eq (type, ly_symbol2scm ("apply")))
         scm_apply_1 (scm_car (entry), tg->self_scm (), scm_cdr (entry));
       else if (scm_is_eq (type, ly_symbol2scm ("unset")))

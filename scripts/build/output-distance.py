@@ -720,32 +720,35 @@ class SignatureFileLink (FileLink):
             log_verbose ('entering directory %s' % abs_dir)
             os.chdir (dir)
 
-            for f in glob.glob (base):
-                outfile = (out_dir + '/' + f).replace ('.eps', '.png')
-                data_option = ''
-                if options.local_data_dir:
-                    data_option = ('-slilypond-datadir=%s/share/lilypond/current '
+            data_option = ''
+            if options.local_data_dir:
+                data_option = ('-slilypond-datadir=%s/share/lilypond/current '
                                    % abs_dir)
 
-                cmd = ('gs'
-                       ' -sDEVICE=png16m'
-                       ' -dGraphicsAlphaBits=4'
-                       ' -dTextAlphaBits=4'
-                       ' %(data_option)s'
-                       ' -r101'
-                       ' -dAutoRotatePages=/None'
-                       ' -dPrinted=false'
-                       ' -sOutputFile=%(outfile)s'
-                       ' -dNOSAFER'
-                       ' -dEPSCrop'
-                       ' -q'
-                       ' -dNOPAUSE'
-                       ' %(f)s'
-                       ' -c quit') % locals ()
-
+            driver = open('batch.ps', 'w')
+            for f in glob.glob (base):
+                outfile = (out_dir + '/' + f).replace ('.eps', '.png')
+                driver.write('''
+                mark /OutputFile (%s)
+                (png16m) finddevice putdeviceprops setdevice
+                (%s) run
+                ''' % (outfile, f))
                 files_created[oldnew].append (outfile)
-                log_terse ('creating %s' % outfile)
-                system (cmd)
+            driver.close()
+            cmd = ('gs '
+                   ' -dNOSAFER'
+                   ' -dEPSCrop'
+                   ' -q'
+                   ' -dNOPAUSE'
+                   ' -dNODISPLAY'
+                   ' -dGraphicsAlphaBits=4'
+                   ' -dTextAlphaBits=4'
+                   ' -r101'
+                   ' -dAutoRotatePages=/None'
+                   ' -dPrinted=false'
+                   ' batch.ps'
+                   ' -c quit')
+            system (cmd)
 
             log_verbose ('leaving directory %s' % abs_dir)
             os.chdir (cur_dir)
@@ -1267,14 +1270,14 @@ def compare_tree_pairs (tree_pairs, dest_dir, threshold):
 
     data.read_sources ()
 
-    data.print_results (threshold)
-
     if os.path.isdir (dest_dir):
         system ('rm -rf %s '% dest_dir)
 
     data.write_changed (dest_dir, threshold)
     data.create_html_result_page (dest_dir, threshold)
     data.create_text_result_page (dest_dir, threshold)
+    data.print_results (threshold)
+
 
 
 ################################################################

@@ -42,13 +42,13 @@ Event_chord_iterator::process (Moment m)
 {
   if (last_processed_mom_ < Moment (0))
     {
-      for (SCM s = get_music ()->get_property ("elements");
+      for (SCM s = get_property (get_music (), "elements");
            scm_is_pair (s); s = scm_cdr (s))
         {
           Music *mus = unsmob<Music> (scm_car (s));
           report_event (mus);
         }
-      for (SCM s = get_music ()->get_property ("articulations");
+      for (SCM s = get_property (get_music (), "articulations");
            scm_is_pair (s); s = scm_cdr (s))
         {
           Music *mus = unsmob<Music> (scm_car (s));

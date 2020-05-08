@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-#include <cstdio>
-
 #include "engraver.hh"
 
 #include "articulations.hh"
@@ -33,6 +30,9 @@
 #include "context.hh"
 
 #include "translator.icc"
+
+#include <cctype>
+#include <cstdio>
 
 using std::vector;
 
@@ -90,7 +90,7 @@ Tab_note_heads_engraver::process_music ()
                                            fingering_events_,
                                            "fingering-event");
   SCM tab_notes = ly_cxx_vector_to_list (note_events_);
-  SCM proc = get_property ("noteToFretFunction");
+  SCM proc = get_property (this, "noteToFretFunction");
   SCM string_fret_finger = SCM_EOL;
   if (ly_is_procedure (proc))
     string_fret_finger = scm_call_3 (proc,
@@ -102,8 +102,8 @@ Tab_note_heads_engraver::process_music ()
   SCM string_number = SCM_EOL;
   SCM fret = SCM_EOL;
   SCM fret_label = SCM_EOL;
-  SCM fret_procedure = get_property ("tablatureFormat");
-  SCM staff_line_procedure = get_property ("tabStaffLineLayoutFunction");
+  SCM fret_procedure = get_property (this, "tablatureFormat");
+  SCM staff_line_procedure = get_property (this, "tabStaffLineLayoutFunction");
   SCM staff_position = SCM_EOL;
   vsize fret_count = (vsize) scm_ilength (string_fret_finger);
   bool length_changed = (note_events_.size () != fret_count);
@@ -123,11 +123,11 @@ Tab_note_heads_engraver::process_music ()
                                      fret);
             index = length_changed ? 0 : i;
             Item *note = make_item ("TabNoteHead", note_events_[index]->self_scm ());
-            note->set_property ("text", fret_label);
+            set_property (note, "text", fret_label);
             staff_position = scm_call_2 (staff_line_procedure,
                                          context ()->self_scm (),
                                          string_number);
-            note->set_property ("staff-position", staff_position);
+            set_property (note, "staff-position", staff_position);
           }
       }
 }
@@ -172,4 +172,3 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
                 /* write */
                 ""
                );
-

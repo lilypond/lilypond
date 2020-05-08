@@ -17,11 +17,11 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <ctype.h>
-
 #include "lilypond-version.hh"
 #include "string-convert.hh"
 #include "misc.hh"
+
+#include <ctype.h>
 
 using std::string;
 using std::vector;

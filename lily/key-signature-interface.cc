@@ -50,7 +50,7 @@ Key_signature_interface::print (SCM smob)
 
   Stencil mol;
 
-  SCM c0s = me->get_property ("c0-position");
+  SCM c0s = get_property (me, "c0-position");
 
   bool is_cancellation = me->internal_has_interface
                          (ly_symbol2scm ("key-cancellation-interface"));
@@ -62,12 +62,12 @@ Key_signature_interface::print (SCM smob)
 
   Slice ht_right, last_ht_left; /* ht intervals for natural glyph kerning */
   SCM last_glyph_name = SCM_BOOL_F;
-  SCM padding_pairs = me->get_property ("padding-pairs");
+  SCM padding_pairs = get_property (me, "padding-pairs");
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  SCM alist = me->get_property ("glyph-name-alist");
+  SCM alist = get_property (me, "glyph-name-alist");
 
-  for (SCM s = me->get_property ("alteration-alist"); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = get_property (me, "alteration-alist"); scm_is_pair (s); s = scm_cdr (s))
     {
       SCM alt = is_cancellation
                 ? scm_from_int (0)
@@ -105,7 +105,7 @@ Key_signature_interface::print (SCM smob)
             has vertical edges on both sides. A little padding is
             needed to prevent collisions.
           */
-          Real padding = robust_scm2double (me->get_property ("padding"),
+          Real padding = robust_scm2double (get_property (me, "padding"),
                                             0.0);
           SCM handle = scm_assoc (scm_cons (glyph_name_scm, last_glyph_name),
                                   padding_pairs);

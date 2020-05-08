@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <algorithm>
-
 #include "align-interface.hh"
 #include "context.hh"
 #include "grob.hh"
@@ -28,6 +26,8 @@
 #include "engraver.hh"
 
 #include "translator.icc"
+
+#include <algorithm>
 
 using std::vector;
 
@@ -139,7 +139,7 @@ Span_bar_stub_engraver::process_acknowledged ()
 
               if (c && c->get_parent_context ())
                 {
-                  keep_extent.push_back (to_boolean (bars[k]->get_property ("allow-span-bar")));
+                  keep_extent.push_back (to_boolean (get_property (bars[k], "allow-span-bar")));
                   y_parents.push_back (g);
                   affected_contexts.push_back (c);
                 }

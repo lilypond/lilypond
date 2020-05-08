@@ -1427,7 +1427,7 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 @c VO Browser-based editors
 
 @subsubheading LilyBin
-@uref{https://lilybin.com/}
+@uref{http://lilybin.com/}
 
 LilyBin vous permet de saisir en ligne vos partitions sans avoir
 préalablement installé LilyPond sur votre oridnateur. Les lignes de code

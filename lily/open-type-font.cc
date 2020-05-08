@@ -29,14 +29,14 @@
 #define FT_Get_Font_Format FT_Get_X11_Font_Format
 #endif
 
-#include <cstdio>
-
 #include FT_TRUETYPE_TABLES_H
 
 #include "dimensions.hh"
 #include "international.hh"
 #include "modified-font-metric.hh"
 #include "warn.hh"
+
+#include <cstdio>
 
 using std::map;
 using std::string;
@@ -381,10 +381,12 @@ Open_type_font::get_glyph_outline_bbox (size_t signed_idx) const
   return ly_FT_get_glyph_outline_bbox (face_, signed_idx);
 }
 
-SCM
-Open_type_font::get_glyph_outline (size_t signed_idx) const
+void
+Open_type_font::add_outline_to_skyline (Lazy_skyline_pair *lazy,
+                                        Transform const &transform,
+                                        size_t signed_idx) const
 {
-  return ly_FT_get_glyph_outline (face_, signed_idx);
+  ly_FT_add_outline_to_skyline (lazy, transform, face_, signed_idx);
 }
 
 size_t

@@ -19,8 +19,6 @@
 
 #include "global-context.hh"
 
-#include <cstdio>
-
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "international.hh"
@@ -28,6 +26,8 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "warn.hh"
+
+#include <cstdio>
 
 using std::string;
 
@@ -104,7 +104,7 @@ void
 Global_context::prepare (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
-  Moment *mom = unsmob<Moment> (ev->get_property ("moment"));
+  Moment *mom = unsmob<Moment> (get_property (ev, "moment"));
 
   assert (mom);
 
@@ -134,7 +134,7 @@ Global_context::get_output ()
 {
   Context *c = get_score_context ();
   if (c)
-    return c->get_property ("output");
+    return get_property (c, "output");
   else
     return SCM_EOL;
 }
@@ -171,7 +171,7 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
             Need this to get grace notes at start of a piece correct.
           */
           first = false;
-          set_property ("measurePosition", w.smobbed_copy ());
+          set_property (this, "measurePosition", w.smobbed_copy ());
         }
 
       send_stream_event (this, "Prepare", 0,
@@ -189,8 +189,8 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
 void
 Global_context::apply_finalizations ()
 {
-  SCM lst = get_property ("finalizations");
-  set_property ("finalizations", SCM_EOL);
+  SCM lst = get_property (this, "finalizations");
+  set_property (this, "finalizations", SCM_EOL);
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
     scm_apply_0 (scm_caar (s), scm_cdar (s));
 }
@@ -199,9 +199,9 @@ Global_context::apply_finalizations ()
 void
 Global_context::add_finalization (SCM x)
 {
-  SCM lst = get_property ("finalizations");
+  SCM lst = get_property (this, "finalizations");
   lst = scm_cons (x, lst);
-  set_property ("finalizations", lst);
+  set_property (this, "finalizations", lst);
 }
 
 Moment

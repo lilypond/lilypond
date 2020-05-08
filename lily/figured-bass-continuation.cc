@@ -60,7 +60,7 @@ Figured_bass_continuation::print (SCM grob)
 
   Real thick
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (me->get_property ("thickness"), 1);
+      * robust_scm2double (get_property (me, "thickness"), 1);
 
   Interval spanned;
 
@@ -70,14 +70,14 @@ Figured_bass_continuation::print (SCM grob)
     {
       Item *bound = me->get_bound (d);
       Direction extdir
-        = (d == LEFT && to_boolean (bound->get_property ("implicit")))
+        = (d == LEFT && to_boolean (get_property (bound, "implicit")))
           ? LEFT : RIGHT;
 
       spanned[d]
         = robust_relative_extent (bound, common, X_AXIS)[extdir]
           - me->relative_coordinate (common, X_AXIS);
     }
-  spanned.widen (- robust_scm2double (me->get_property ("padding"), 0.2));
+  spanned.widen (- robust_scm2double (get_property (me, "padding"), 0.2));
 
   Stencil extender;
   if (!spanned.is_empty ())

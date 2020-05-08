@@ -53,7 +53,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       vector<Paper_column *> clique;
       while (1)
         {
-          SCM between = loose->get_object ("between-cols");
+          SCM between = get_object (loose, "between-cols");
           if (!scm_is_pair (between))
             break;
 
@@ -137,8 +137,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           Paper_column *loose_col = dynamic_cast<Paper_column *> (clique[j]);
           Paper_column *next_col = dynamic_cast<Paper_column *> (clique[j + 1]);
 
-          Grob *spacing = unsmob<Grob> (clique_col->get_object ("spacing"));
-          if (Grob *grace_spacing = unsmob<Grob> (clique_col->get_object ("grace-spacing")))
+          Grob *spacing = unsmob<Grob> (get_object (clique_col, "spacing"));
+          if (Grob *grace_spacing = unsmob<Grob> (get_object (clique_col, "grace-spacing")))
             {
               spacing = grace_spacing;
             }

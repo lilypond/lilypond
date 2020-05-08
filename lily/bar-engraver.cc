@@ -61,9 +61,9 @@ Bar_engraver::create_bar ()
   if (!bar_)
     {
       bar_ = make_item ("BarLine", SCM_EOL);
-      SCM gl = get_property ("whichBar");
-      if (!ly_is_equal (gl, bar_->get_property ("glyph")))
-        bar_->set_property ("glyph", gl);
+      SCM gl = get_property (this, "whichBar");
+      if (!ly_is_equal (gl, get_property (bar_, "glyph")))
+        set_property (bar_, "glyph", gl);
     }
 }
 
@@ -81,7 +81,7 @@ Bar_engraver::create_bar ()
 void
 Bar_engraver::process_acknowledged ()
 {
-  if (!bar_ && scm_is_string (get_property ("whichBar")))
+  if (!bar_ && scm_is_string (get_property (this, "whichBar")))
     create_bar ();
 
   if (bar_)
@@ -96,7 +96,7 @@ void
 Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_)
-    find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
 
   bar_ = 0;
   spanners_.clear ();
@@ -107,7 +107,7 @@ Bar_engraver::acknowledge_end_spanner (Grob_info gi)
 {
   Grob *g = gi.grob ();
 
-  if (to_boolean (g->get_property ("to-barline")))
+  if (to_boolean (get_property (g, "to-barline")))
     spanners_.push_back (dynamic_cast<Spanner *> (g));
 }
 

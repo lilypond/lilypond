@@ -131,7 +131,7 @@ Part_combine_iterator::kill_mmrest (Context *c)
     {
       mmrest_event_ = new Stream_event
       (Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
-      mmrest_event_->set_property ("duration", SCM_EOL);
+      set_property (mmrest_event_, "duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }
 
@@ -141,7 +141,7 @@ Part_combine_iterator::kill_mmrest (Context *c)
 void
 Part_combine_iterator::construct_children ()
 {
-  SCM lst = get_music ()->get_property ("elements");
+  SCM lst = get_property (get_music (), "elements");
   iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
   iterators_[1] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));
 }

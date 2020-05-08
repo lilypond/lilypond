@@ -48,13 +48,13 @@ Drum_note_performer::Drum_note_performer (Context *c)
 void
 Drum_note_performer::process_music ()
 {
-  SCM tab = get_property ("drumPitchTable");
+  SCM tab = get_property (this, "drumPitchTable");
 
   while (note_evs_.size ())
     {
       Stream_event *n = note_evs_.back ();
       note_evs_.pop_back ();
-      SCM sym = n->get_property ("drum-type");
+      SCM sym = get_property (n, "drum-type");
       SCM defn = SCM_EOL;
 
       if (scm_is_symbol (sym)
@@ -63,7 +63,7 @@ Drum_note_performer::process_music ()
 
       if (Pitch *pit = unsmob<Pitch> (defn))
         {
-          SCM articulations = n->get_property ("articulations");
+          SCM articulations = get_property (n, "articulations");
           Stream_event *tie_event = 0;
           Moment len = get_event_length (n, now_mom ());
           int velocity = 0;
@@ -75,12 +75,12 @@ Drum_note_performer::process_music ()
 
               if (ev->in_event_class ("tie-event"))
                 tie_event = ev;
-              SCM f = ev->get_property ("midi-length");
+              SCM f = get_property (ev, "midi-length");
               if (ly_is_procedure (f))
                 len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
                                                      context ()->self_scm ()),
                                          len);
-              velocity += robust_scm2int (ev->get_property ("midi-extra-velocity"), 0);
+              velocity += robust_scm2int (get_property (ev, "midi-extra-velocity"), 0);
             }
 
           Audio_note *p = new Audio_note (*pit, len,

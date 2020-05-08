@@ -20,9 +20,6 @@
 
 #include "paper-outputter.hh"
 
-#include <cmath>
-#include <ctime>
-
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "font-metric.hh"
@@ -36,6 +33,9 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#include <cmath>
+#include <ctime>
 
 using std::string;
 

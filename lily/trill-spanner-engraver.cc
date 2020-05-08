@@ -67,7 +67,7 @@ Trill_spanner_engraver::Trill_spanner_engraver (Context *c)
 void
 Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (event_drul_[d], ev);
 }
 
@@ -121,7 +121,7 @@ Trill_spanner_engraver::typeset_all ()
     {
       if (!finished_->get_bound (RIGHT))
         {
-          Grob *e = unsmob<Grob> (get_property ("currentMusicalColumn"));
+          Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
           finished_->set_bound (RIGHT, e);
         }
       finished_ = 0;
@@ -133,7 +133,7 @@ Trill_spanner_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      Grob *e = unsmob<Grob> (get_property ("currentMusicalColumn"));
+      Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       span_->set_bound (LEFT, e);
     }
 
@@ -147,7 +147,7 @@ Trill_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      Grob *e = unsmob<Grob> (get_property ("currentCommandColumn"));
+      Grob *e = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       span_->set_bound (RIGHT, e);
     }
 }

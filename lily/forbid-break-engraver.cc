@@ -44,7 +44,7 @@ Forbid_line_break_engraver::start_translation_timestep ()
   /*
     Check for running note heads. This should probably be done elsewhere.
   */
-  SCM busy = get_property ("busyGrobs");
+  SCM busy = get_property (this, "busyGrobs");
 
   Moment now = now_mom ();
   while (scm_is_pair (busy) && unsmob<Moment> (scm_caar (busy))->main_part_ == now.main_part_)
@@ -54,7 +54,7 @@ Forbid_line_break_engraver::start_translation_timestep ()
     {
       Grob *g = unsmob<Grob> (scm_cdar (busy));
       if (g->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
-        find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+        set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
       busy = scm_cdr (busy);
     }
 }

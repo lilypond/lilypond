@@ -1341,13 +1341,13 @@ Tagline und Copyright gezeigt wird.
 @end lilypond
 
 Für eine @code{\markup}-Beschriftung auf oberster Ebene braucht man
-den Befehl @code{\auto-footnote}:
+den Befehl @code{\footnote}:
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \markup { \auto-footnote "Eine einfache Melodie" \italic "Von mir" }
+  \markup { \footnote "Eine einfache Melodie" \italic "Von mir" }
   \relative {
     a'4 b8 e c4 d
   }

@@ -31,15 +31,15 @@ SCM
 Clef::calc_glyph_name (SCM smob)
 {
   Item *s = unsmob<Item> (smob);
-  SCM glyph = s->get_property ("glyph");
+  SCM glyph = get_property (s, "glyph");
 
   if (scm_is_string (glyph))
     {
       string str = ly_scm2string (glyph);
 
-      if (to_boolean (s->get_property ("non-default"))
+      if (to_boolean (get_property (s, "non-default"))
           && s->break_status_dir () != RIGHT
-          && !to_boolean (s->get_property ("full-size-change")))
+          && !to_boolean (get_property (s, "full-size-change")))
         {
           str += "_change";
         }
@@ -56,7 +56,7 @@ SCM
 Clef::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  SCM glyph_scm = me->get_property ("glyph-name");
+  SCM glyph_scm = get_property (me, "glyph-name");
   if (!scm_is_string (glyph_scm))
     return SCM_EOL;
 

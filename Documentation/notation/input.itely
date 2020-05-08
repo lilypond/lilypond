@@ -1602,7 +1602,7 @@ created in different ways.
 The syntax of a footnote in stand-alone text with automatic marks is
 
 @example
-\markup @{ @dots{} \auto-footnote @var{text} @var{footnote} @dots{} @}
+\markup @{ @dots{} \footnote @var{text} @var{footnote} @dots{} @}
 @end example
 
 The elements are:
@@ -1625,9 +1625,9 @@ For example:
   \header { tagline = ##f }
   \markup {
     "A simple"
-    \auto-footnote "tune" \italic " By me"
+    \footnote "tune" \italic " By me"
     "is shown below.  It is a"
-    \auto-footnote "recent" \italic " Aug 2012"
+    \footnote "recent" \italic " Aug 2012"
     "composition."
   }
   \relative {

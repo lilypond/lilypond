@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <memory>
-
 #include "engraver.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
@@ -29,6 +27,8 @@
 #include "system-start-delimiter.hh"
 
 #include "translator.icc"
+
+#include <memory>
 
 using std::unique_ptr;
 using std::vector;
@@ -195,13 +195,13 @@ System_start_delimiter_engraver::process_music ()
   if (!nesting_)
     {
       nesting_ = new Bracket_nesting_group ();
-      SCM hierarchy = get_property ("systemStartDelimiterHierarchy");
-      SCM delimiter_name = get_property ("systemStartDelimiter");
+      SCM hierarchy = get_property (this, "systemStartDelimiterHierarchy");
+      SCM delimiter_name = get_property (this, "systemStartDelimiter");
 
       nesting_->from_list (hierarchy);
       nesting_->create_grobs (this, delimiter_name);
       nesting_->set_bound (LEFT,
-                           unsmob<Grob> (get_property ("currentCommandColumn")));
+                           unsmob<Grob> (get_property (this, "currentCommandColumn")));
     }
 }
 
@@ -211,7 +211,7 @@ System_start_delimiter_engraver::finalize ()
   if (nesting_)
     {
       nesting_->set_bound (RIGHT,
-                           unsmob<Grob> (get_property ("currentCommandColumn")));
+                           unsmob<Grob> (get_property (this, "currentCommandColumn")));
       nesting_->set_nesting_support (0);
 
       delete nesting_;

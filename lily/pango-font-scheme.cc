@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <pango/pangoft2.h>
-
 #include "main.hh"
 #include "lookup.hh"
 #include "dimensions.hh"
@@ -26,6 +24,8 @@
 #include "warn.hh"
 
 #include "stencil.hh"
+
+#include <pango/pangoft2.h>
 
 LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
            1, 0, 0,

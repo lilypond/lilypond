@@ -21,9 +21,6 @@
 
 #include "lookup.hh"
 
-#include <cmath>
-#include <cctype>
-
 #include "line-interface.hh"
 #include "warn.hh"
 #include "international.hh"
@@ -32,6 +29,9 @@
 #include "file-path.hh"
 #include "main.hh"
 #include "lily-guile.hh"
+
+#include <cctype>
+#include <cmath>
 
 using std::vector;
 

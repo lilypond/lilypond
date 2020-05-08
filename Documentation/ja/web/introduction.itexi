@@ -1395,7 +1395,7 @@ LilyPond テキストの中でカーソルを動かすと、@c
 @c Browser-based editors
 
 @subsubheading LilyBin
-@uref{https://lilybin.com/}
+@uref{http://lilybin.com/}
 
 LilyPond をインストールすることなく、@c
 直接オンラインで楽譜を組版することができる、@c

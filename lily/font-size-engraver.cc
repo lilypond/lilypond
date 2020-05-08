@@ -40,7 +40,7 @@ Font_size_engraver::Font_size_engraver (Context *c)
 void
 Font_size_engraver::process_music ()
 {
-  size = robust_scm2double (get_property ("fontSize"), 0.0);
+  size = robust_scm2double (get_property (this, "fontSize"), 0.0);
 }
 
 void
@@ -56,8 +56,8 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
     return;
 
   Real font_size = size
-                   + robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
-  gi.grob ()->set_property ("font-size", scm_from_double (font_size));
+                   + robust_scm2double (get_property (gi.grob (), "font-size"), 0);
+  set_property (gi.grob (), "font-size", scm_from_double (font_size));
 }
 
 #include "translator.icc"

@@ -19,14 +19,14 @@
 
 #include "font-metric.hh"
 
-#include <cmath>
-#include <cctype>
-
 #include "dimensions.hh"
 #include "modified-font-metric.hh"
 #include "open-type-font.hh"
 #include "stencil.hh"
 #include "warn.hh"
+
+#include <cctype>
+#include <cmath>
 
 using std::string;
 

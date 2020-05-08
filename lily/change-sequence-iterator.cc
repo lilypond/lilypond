@@ -33,7 +33,7 @@ Change_sequence_iterator::construct_children ()
 {
   Music_wrapper_iterator::construct_children ();
 
-  change_list_ = get_music ()->get_property ("context-change-list");
+  change_list_ = get_property (get_music (), "context-change-list");
 }
 
 void

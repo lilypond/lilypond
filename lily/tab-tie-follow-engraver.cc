@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-#include <cstdio>
-
 #include "engraver.hh"
 
 #include "context.hh"
@@ -27,6 +24,9 @@
 #include "spanner.hh"
 
 #include "translator.icc"
+
+#include <cctype>
+#include <cstdio>
 
 using std::vector;
 
@@ -85,11 +85,11 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
           Item *left_item = slurs_[j]->get_bound (LEFT);
           if (left_item)
             {
-              SCM left_cause = left_item->get_property ("cause");
+              SCM left_cause = get_property (left_item, "cause");
               Item *slur_cause = unsmob<Item> (left_cause);
               if (slur_cause == note_heads_[k])
                 {
-                  note_heads_[k]->set_property ("span-start", SCM_BOOL_T);
+                  set_property (note_heads_[k], "span-start", SCM_BOOL_T);
                   spanner_start = true;
                   break;
                 }
@@ -101,7 +101,7 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
             Item *left_bound = glissandi_[j]->get_bound (LEFT);
             if (left_bound == note_heads_[k])
               {
-                note_heads_[k]->set_property ("span-start", SCM_BOOL_T);
+                set_property (note_heads_[k], "span-start", SCM_BOOL_T);
                 break;
               }
           }

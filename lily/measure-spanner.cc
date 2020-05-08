@@ -65,9 +65,9 @@ Measure_spanner::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Stencil mol;
   Stencil brack;
-  SCM txt = me->get_property ("text");
+  SCM txt = get_property (me, "text");
 
-  SCM visible = me->get_property ("bracket-visibility");
+  SCM visible = get_property (me, "bracket-visibility");
 
   Drul_array<Item *> bounds (me->get_bound (LEFT), me->get_bound (RIGHT));
 
@@ -75,7 +75,7 @@ Measure_spanner::print (SCM smob)
   Grob *common_x = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
   Drul_array<Real> x_points;
 
-  SCM sp = me->get_property ("spacing-pair");
+  SCM sp = get_property (me, "spacing-pair");
   SCM align_syms;
 
   for (LEFT_and_RIGHT (d))

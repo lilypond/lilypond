@@ -30,8 +30,8 @@ using std::string;
 void
 Change_iterator::error (const string &reason)
 {
-  string to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
-  string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
+  string to_type = ly_symbol2string (get_property (get_music (), "change-to-type"));
+  string to_id = ly_scm2string (get_property (get_music (), "change-to-id"));
 
   string warn1 = _f ("cannot change `%s' to `%s'", to_type, to_id)
                  + ": " + reason;
@@ -91,8 +91,8 @@ Change_iterator::change_to (Music_iterator &it,
 void
 Change_iterator::process (Moment m)
 {
-  SCM to_type = get_music ()->get_property ("change-to-type");
-  string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
+  SCM to_type = get_property (get_music (), "change-to-type");
+  string to_id = ly_scm2string (get_property (get_music (), "change-to-id"));
 
   string msg = change_to (*this, to_type, to_id);
   if (!msg.empty ())

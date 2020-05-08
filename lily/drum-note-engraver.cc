@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "item.hh"
 #include "duration.hh"
 #include "engraver.hh"
@@ -31,6 +29,8 @@
 #include "warn.hh"
 
 #include "translator.icc"
+
+#include <cctype>
 
 using std::vector;
 
@@ -67,13 +67,13 @@ Drum_notes_engraver::process_music ()
   if (events_.empty ())
     return;
 
-  SCM tab = get_property ("drumStyleTable");
+  SCM tab = get_property (this, "drumStyleTable");
   for (vsize i = 0; i < events_.size (); i++)
     {
       Stream_event *ev = events_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 
-      SCM drum_type = ev->get_property ("drum-type");
+      SCM drum_type = get_property (ev, "drum-type");
 
       SCM defn = SCM_EOL;
 
@@ -87,9 +87,9 @@ Drum_notes_engraver::process_music ()
           SCM script = scm_cadr (defn);
 
           if (scm_is_integer (pos))
-            note->set_property ("staff-position", pos);
+            set_property (note, "staff-position", pos);
           if (scm_is_symbol (style))
-            note->set_property ("style", style);
+            set_property (note, "style", style);
 
           if (scm_is_string (script))
             {
@@ -112,8 +112,8 @@ Drum_notes_engraver::acknowledge_stem (Grob_info inf)
     {
       Grob *e = scripts_[i];
 
-      if (to_dir (e->get_property ("side-relative-direction")))
-        e->set_object ("direction-source", inf.grob ()->self_scm ());
+      if (to_dir (get_property (e, "side-relative-direction")))
+        set_object (e, "direction-source", inf.grob ()->self_scm ());
 
       Side_position_interface::add_support (e, inf.grob ());
     }

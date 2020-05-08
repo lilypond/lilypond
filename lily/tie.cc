@@ -144,7 +144,7 @@ Tie::get_default_dir (Spanner *me)
   else if (int p = get_position (me))
     return Direction (sign (p));
 
-  return to_dir (me->get_property ("neutral-direction"));
+  return to_dir (get_property (me, "neutral-direction"));
 }
 
 MAKE_SCHEME_CALLBACK (Tie, calc_direction, 1);
@@ -157,14 +157,14 @@ Tie::calc_direction (SCM smob)
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((has_interface<Tie_column> (yparent)
        || has_interface<Semi_tie_column> (yparent))
-      && unsmob<Grob_array> (yparent->get_object ("ties"))
-      //      && unsmob<Grob_array> (yparent->get_object ("ties"))->size () > 1
+      && unsmob<Grob_array> (get_object (yparent, "ties"))
+      //      && unsmob<Grob_array> (get_object (yparent, "ties"))->size () > 1
      )
     {
       /* trigger positioning. */
-      (void) yparent->get_property ("positioning-done");
+      (void) get_property (yparent, "positioning-done");
 
-      return me->get_property_data ("direction");
+      return get_property_data (me, "direction");
     }
 
   programming_error ("no Tie_column or Semi_tie_column.  Killing grob.");
@@ -220,20 +220,20 @@ Tie::calc_control_points (SCM smob)
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((has_interface<Tie_column> (yparent)
        || has_interface<Semi_tie_column> (yparent))
-      && unsmob<Grob_array> (yparent->get_object ("ties")))
+      && unsmob<Grob_array> (get_object (yparent, "ties")))
     {
       extract_grob_set (yparent, "ties", ties);
       if (me->original () && ties.size () == 1
-          && !to_dir (me->get_property_data ("direction")))
+          && !to_dir (get_property_data (me, "direction")))
         {
           assert (ties[0] == me);
           set_grob_direction (me, Tie::get_default_dir (me));
         }
       /* trigger positioning. */
-      (void) yparent->get_property ("positioning-done");
+      (void) get_property (yparent, "positioning-done");
     }
 
-  SCM cp = me->get_property_data ("control-points");
+  SCM cp = get_property_data (me, "control-points");
   if (!scm_is_pair (cp))
     cp = get_default_control_points (me);
 
@@ -249,11 +249,11 @@ Tie::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  SCM cp = me->get_property ("control-points");
+  SCM cp = get_property (me, "control-points");
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
-  Real base_thick = staff_thick * robust_scm2double (me->get_property ("thickness"), 1);
-  Real line_thick = staff_thick * robust_scm2double (me->get_property ("line-thickness"), 1);
+  Real base_thick = staff_thick * robust_scm2double (get_property (me, "thickness"), 1);
+  Real line_thick = staff_thick * robust_scm2double (get_property (me, "line-thickness"), 1);
 
   Bezier b;
   for (int i = 0; i < Bezier::CONTROL_COUNT; i++)
@@ -269,14 +269,14 @@ Tie::print (SCM smob)
 
   Stencil a;
 
-  SCM dash_definition = me->get_property ("dash-definition");
+  SCM dash_definition = get_property (me, "dash-definition");
   a = Lookup::slur (b,
                     get_grob_direction (me) * base_thick,
                     line_thick,
                     dash_definition);
 
 #if DEBUG_TIE_SCORING
-  SCM annotation = me->get_property ("annotation");
+  SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
       string str;

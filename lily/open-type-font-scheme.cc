@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
 #include "international.hh"
 #include "modified-font-metric.hh"
 #include "open-type-font.hh"
@@ -31,6 +30,8 @@
 #include FT_XFREE86_H
 #define FT_Get_Font_Format FT_Get_X11_Font_Format
 #endif
+
+#include <cstdio>
 
 using std::string;
 

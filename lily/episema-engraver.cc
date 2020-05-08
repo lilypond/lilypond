@@ -62,7 +62,7 @@ Episema_engraver::Episema_engraver (Context *c)
 void
 Episema_engraver::listen_episema (Stream_event *ev)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
   // Must not ASSIGN_EVENT_ONCE here, since episema
   // can be typeset over a single neume
   event_drul_[d] = ev;
@@ -108,7 +108,7 @@ Episema_engraver::typeset_all ()
         {
           Grob *col = (note_columns_.size ()
                        ? note_columns_.back ()
-                       : unsmob<Grob> (get_property ("currentMusicalColumn")));
+                       : unsmob<Grob> (get_property (this, "currentMusicalColumn")));
           finished_->set_bound (RIGHT, col);
         }
       finished_ = 0;
@@ -122,7 +122,7 @@ Episema_engraver::stop_translation_timestep ()
     {
       Grob *col = (note_columns_.size ()
                    ? note_columns_.front ()
-                   : unsmob<Grob> (get_property ("currentMusicalColumn")));
+                   : unsmob<Grob> (get_property (this, "currentMusicalColumn")));
       span_->set_bound (LEFT, col);
     }
 

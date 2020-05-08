@@ -19,8 +19,6 @@
 
 #include "book.hh"
 
-#include <cstdio>
-
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -32,6 +30,8 @@
 #include "paper-score.hh"
 #include "page-marker.hh"
 #include "ly-module.hh"
+
+#include <cstdio>
 
 Book::Book ()
 {

@@ -80,12 +80,12 @@ struct Figure_group
   bool group_is_equal_to (Stream_event *evt) const
   {
     return
-      ly_is_equal (number_, evt->get_property ("figure"))
-      && ly_is_equal (alteration_, evt->get_property ("alteration"))
-      && ly_is_equal (augmented_, evt->get_property ("augmented"))
-      && ly_is_equal (diminished_, evt->get_property ("diminished"))
-      && ly_is_equal (augmented_slash_, evt->get_property ("augmented-slash"))
-      && ly_is_equal (text_, evt->get_property ("text"));
+      ly_is_equal (number_, get_property (evt, "figure"))
+      && ly_is_equal (alteration_, get_property (evt, "alteration"))
+      && ly_is_equal (augmented_, get_property (evt, "augmented"))
+      && ly_is_equal (diminished_, get_property (evt, "diminished"))
+      && ly_is_equal (augmented_slash_, get_property (evt, "augmented-slash"))
+      && ly_is_equal (text_, get_property (evt, "text"));
   }
   bool is_continuation () const
   {
@@ -95,12 +95,12 @@ struct Figure_group
   }
   void assign_from_event (Stream_event *currevt, Item *item)
   {
-    number_ = current_event_->get_property ("figure");
-    alteration_ = currevt->get_property ("alteration");
-    augmented_ = currevt->get_property ("augmented");
-    diminished_ = currevt->get_property ("diminished");
-    augmented_slash_ = currevt->get_property ("augmented-slash");
-    text_ = currevt->get_property ("text");
+    number_ = get_property (current_event_, "figure");
+    alteration_ = get_property (currevt, "alteration");
+    augmented_ = get_property (currevt, "augmented");
+    diminished_ = get_property (currevt, "diminished");
+    augmented_slash_ = get_property (currevt, "augmented-slash");
+    text_ = get_property (currevt, "text");
     figure_item_ = item;
   }
 };
@@ -198,8 +198,8 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 
   // Handle no-continuation here, don't even add it to the already existing
   // spanner... This fixes some layout issues (figure will be placed separately)
-  bool no_continuation = to_boolean (ev->get_property ("no-continuation"));
-  if (to_boolean (get_property ("useBassFigureExtenders")) && !no_continuation)
+  bool no_continuation = to_boolean (get_property (ev, "no-continuation"));
+  if (to_boolean (get_property (this, "useBassFigureExtenders")) && !no_continuation)
     {
       for (vsize i = 0; i < groups_.size (); i++)
         {
@@ -226,7 +226,7 @@ Figured_bass_engraver::center_continuations (vector<Spanner *> const &consecutiv
   unsmob<Grob_array> (ga)->set_array (left_figs);
 
   for (vsize j = consecutive_lines.size (); j--;)
-    consecutive_lines[j]->set_object ("figures",
+    set_object (consecutive_lines[j], "figures",
                                       unsmob<Grob_array> (ga)->smobbed_copy ());
 }
 
@@ -261,7 +261,7 @@ Figured_bass_engraver::clear_spanners ()
   announce_end_grob (alignment_, SCM_EOL);
   alignment_ = 0;
 
-  if (to_boolean (get_property ("figuredBassCenterContinuations")))
+  if (to_boolean (get_property (this, "figuredBassCenterContinuations")))
     center_repeated_continuations ();
 
   for (vsize i = 0; i < groups_.size (); i++)
@@ -285,12 +285,12 @@ Figured_bass_engraver::clear_spanners ()
 void
 Figured_bass_engraver::process_music ()
 {
-  bool use_extenders = to_boolean (get_property ("useBassFigureExtenders"));
+  bool use_extenders = to_boolean (get_property (this, "useBassFigureExtenders"));
   if (alignment_ && !use_extenders)
     clear_spanners ();
 
   // If we have a rest, or we have no new or continued events, clear all spanners
-  bool ignore_rest = to_boolean (get_property ("ignoreFiguredBassRest"));
+  bool ignore_rest = to_boolean (get_property (this, "ignoreFiguredBassRest"));
   if ((ignore_rest && have_rest_)
       || (!continuation_ && new_events_.empty ()))
     {
@@ -380,7 +380,7 @@ Figured_bass_engraver::process_music ()
         Ugh, repeated code.
        */
       vector<Spanner *> consecutive;
-      if (to_boolean (get_property ("figuredBassCenterContinuations")))
+      if (to_boolean (get_property (this, "figuredBassCenterContinuations")))
         {
           for (vsize i = 0; i <= junk_continuations.size (); i++)
             {
@@ -408,7 +408,7 @@ void
 Figured_bass_engraver::create_grobs ()
 {
   Grob *muscol
-    = unsmob<Item> (get_property ("currentMusicalColumn"));
+    = unsmob<Item> (get_property (this, "currentMusicalColumn"));
   if (!alignment_)
     {
       alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);
@@ -416,7 +416,7 @@ Figured_bass_engraver::create_grobs ()
     }
   alignment_->set_bound (RIGHT, muscol);
 
-  SCM proc = get_property ("figuredBassFormatter");
+  SCM proc = get_property (this, "figuredBassFormatter");
   for (vsize i = 0; i < groups_.size (); i++)
     {
       Figure_group &group = groups_[i];
@@ -434,10 +434,10 @@ Figured_bass_engraver::create_grobs ()
               Align_interface::add_element (alignment_, group.group_);
             }
 
-          if (scm_is_true (scm_memq (group.number_, get_property ("implicitBassFigures"))))
+          if (scm_is_true (scm_memq (group.number_, get_property (this, "implicitBassFigures"))))
             {
-              item->set_property ("transparent", SCM_BOOL_T);
-              item->set_property ("implicit", SCM_BOOL_T);
+              set_property (item, "transparent", SCM_BOOL_T);
+              set_property (item, "implicit", SCM_BOOL_T);
             }
 
           SCM text = group.text_;
@@ -448,7 +448,7 @@ Figured_bass_engraver::create_grobs ()
                                  context ()->self_scm ());
             }
 
-          item->set_property ("text", text);
+          set_property (item, "text", text);
 
           Axis_group_interface::add_element (group.group_, item);
         }
@@ -461,8 +461,8 @@ Figured_bass_engraver::create_grobs ()
             ensure the extenders of different figures always end at the same
             position, e.g. in <12 5> <12 5>
           */
-          group.figure_item_->set_property ("transparent", SCM_BOOL_T);
-          group.figure_item_->set_property ("text", ly_string2scm ("0"));
+          set_property (group.figure_item_, "transparent", SCM_BOOL_T);
+          set_property (group.figure_item_, "text", ly_string2scm ("0"));
           group.continuation_line_->set_bound (RIGHT, group.figure_item_);
         }
 
@@ -483,13 +483,13 @@ Figured_bass_engraver::add_brackets ()
       if (!groups_[i].current_event_)
         continue;
 
-      if (to_boolean (groups_[i].current_event_->get_property ("bracket-start")))
+      if (to_boolean (get_property (groups_[i].current_event_, "bracket-start")))
         inside = true;
 
       if (inside && groups_[i].figure_item_)
         encompass.push_back (groups_[i].figure_item_);
 
-      if (to_boolean (groups_[i].current_event_->get_property ("bracket-stop")))
+      if (to_boolean (get_property (groups_[i].current_event_, "bracket-stop")))
         {
           inside = false;
 

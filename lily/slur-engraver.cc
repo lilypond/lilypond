@@ -38,7 +38,7 @@ Slur_engraver::event_symbol () const
 bool
 Slur_engraver::double_property () const
 {
-  return to_boolean (get_property ("doubleSlurs"));
+  return to_boolean (get_property (this, "doubleSlurs"));
 }
 
 SCM
@@ -61,7 +61,7 @@ Slur_engraver::Slur_engraver (Context *c)
 void
 Slur_engraver::set_melisma (bool m)
 {
-  context ()->set_property ("slurMelismaBusy", ly_bool2scm (m));
+  set_property (context (), "slurMelismaBusy", ly_bool2scm (m));
 }
 
 void
@@ -114,7 +114,7 @@ Slur_engraver::derived_mark () const
 void
 Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (get_property (ev, "span-direction"));
   if (d == START)
     start_events_.push_back (Event_info (ev, note));
   else if (d == STOP)
@@ -127,7 +127,7 @@ Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
 void
 Slur_engraver::listen_note (Stream_event *ev)
 {
-  for (SCM arts = ev->get_property ("articulations");
+  for (SCM arts = get_property (ev, "articulations");
        scm_is_pair (arts); arts = scm_cdr (arts))
     {
       Stream_event *art = unsmob<Stream_event> (scm_car (arts));
@@ -192,11 +192,11 @@ void
 Slur_engraver::create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direction dir, bool left_broken)
 {
   Grob *ccc = left_broken
-              ? unsmob<Grob> (get_property ("currentCommandColumn"))
+              ? unsmob<Grob> (get_property (this, "currentCommandColumn"))
               : 0; // efficiency
   SCM cause = evi.slur_ ? evi.slur_->self_scm () : g_cause->self_scm ();
   Spanner *slur = make_spanner (grob_symbol (), cause);
-  slur->set_property ("spanner-id", spanner_id);
+  set_property (slur, "spanner-id", spanner_id);
   if (dir)
     set_grob_direction (slur, dir);
   if (left_broken)
@@ -209,7 +209,7 @@ Slur_engraver::create_slur (SCM spanner_id, Event_info evi, Grob *g_cause, Direc
     {
       set_grob_direction (slur, DOWN);
       slur = make_spanner (grob_symbol (), cause);
-      slur->set_property ("spanner-id", spanner_id);
+      set_property (slur, "spanner-id", spanner_id);
       set_grob_direction (slur, UP);
       if (left_broken)
         slur->set_bound (LEFT, ccc);
@@ -226,10 +226,10 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
   for (vsize j = slurs_.size (); j--;)
     {
       Grob *slur = slurs_[j];
-      Direction updown = to_dir (ev->get_property ("direction"));
+      Direction updown = to_dir (get_property (ev, "direction"));
 
       // Check if we already have a slur with the same spanner-id.
-      if (ly_is_equal (id, slur->get_property ("spanner-id")))
+      if (ly_is_equal (id, get_property (slur, "spanner-id")))
         {
           if (j < old_slurs)
             {
@@ -256,7 +256,7 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
               return true;
             }
 
-          Direction slur_dir = to_dir (c->get_property ("direction"));
+          Direction slur_dir = to_dir (get_property (c, "direction"));
 
           // If the existing slur does not have a direction yet,
           // we'd rather take the new one.
@@ -280,13 +280,13 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
 bool
 Slur_engraver::try_to_end (Event_info evi)
 {
-  SCM id = evi.slur_->get_property ("spanner-id");
+  SCM id = get_property (evi.slur_, "spanner-id");
 
   // Find the slurs that are ended with this event (by checking the spanner-id)
   bool ended = false;
   for (vsize j = slurs_.size (); j--;)
     {
-      if (ly_is_equal (id, slurs_[j]->get_property ("spanner-id")))
+      if (ly_is_equal (id, get_property (slurs_[j], "spanner-id")))
         {
           ended = true;
           end_slurs_.push_back (slurs_[j]);
@@ -305,14 +305,14 @@ Slur_engraver::process_music ()
 {
   for (vsize i = 0; i < stop_events_.size (); i++)
     {
-      SCM id = stop_events_[i].slur_->get_property ("spanner-id");
+      SCM id = get_property (stop_events_[i].slur_, "spanner-id");
       bool ended = try_to_end (stop_events_[i]);
       if (ended)
         {
           // Ignore redundant stop events for this id
           for (vsize j = stop_events_.size (); --j > i;)
             {
-              if (ly_is_equal (id, stop_events_[j].slur_->get_property ("spanner-id")))
+              if (ly_is_equal (id, get_property (stop_events_[j].slur_, "spanner-id")))
                 stop_events_.erase (stop_events_.begin () + j);
             }
         }
@@ -324,8 +324,8 @@ Slur_engraver::process_music ()
   for (vsize i = start_events_.size (); i--;)
     {
       Stream_event *ev = start_events_[i].slur_;
-      SCM id = ev->get_property ("spanner-id");
-      Direction updown = to_dir (ev->get_property ("direction"));
+      SCM id = get_property (ev, "spanner-id");
+      Direction updown = to_dir (get_property (ev, "direction"));
 
       if (can_create_slur (id, old_slurs, &i, ev))
         create_slur (id, start_events_[i], 0, updown, false);
@@ -337,7 +337,7 @@ Slur_engraver::process_music ()
 void
 Slur_engraver::stop_translation_timestep ()
 {
-  if (Grob *g = unsmob<Grob> (get_property ("currentCommandColumn")))
+  if (Grob *g = unsmob<Grob> (get_property (this, "currentCommandColumn")))
     {
       for (vsize i = 0; i < end_slurs_.size (); i++)
         Slur::add_extra_encompass (end_slurs_[i], g);
@@ -351,7 +351,7 @@ Slur_engraver::stop_translation_timestep ()
     {
       Spanner *s = dynamic_cast<Spanner *> (end_slurs_[i]);
       if (!s->get_bound (RIGHT))
-        s->set_bound (RIGHT, unsmob<Grob> (get_property ("currentMusicalColumn")));
+        s->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentMusicalColumn")));
       announce_end_grob (s, SCM_EOL);
     }
 

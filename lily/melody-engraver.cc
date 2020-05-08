@@ -47,7 +47,7 @@ Melody_engraver::Melody_engraver (Context *c)
 void
 Melody_engraver::process_music ()
 {
-  if (scm_is_string (get_property ("whichBar")))
+  if (scm_is_string (get_property (this, "whichBar")))
     melody_item_ = 0;
 }
 
@@ -59,7 +59,7 @@ void
 Melody_engraver::process_acknowledged ()
 {
   if (stem_
-      && !is_direction (stem_->get_property_data ("neutral-direction")))
+      && !is_direction (get_property_data (stem_, "neutral-direction")))
     {
       extract_grob_set (stem_, "rests", rests);
       if (rests.size ())

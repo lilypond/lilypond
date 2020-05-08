@@ -925,17 +925,15 @@ Lily_lexer::identifier_type (SCM sid)
 int
 Lily_lexer::scan_escaped_word (const string &str)
 {
-	// use more SCM for this.
-
-//	SCM sym = ly_symbol2scm (str.c_str ());
+	SCM sym = ly_symbol2scm (str.c_str ());
 
         yylval = SCM_UNSPECIFIED;
-	int i = lookup_keyword (str);
+	int i = lookup_keyword (sym);
 
 	if (i != -1)
 		return i;
 
-	SCM sid = lookup_identifier (str);
+	SCM sid = lookup_identifier_symbol (sym);
 	if (Music *m = unsmob<Music> (sid))
 	{
 		m->set_spot (override_input (here_input ()));
@@ -1139,7 +1137,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 #endif
 				if (Music *m = unsmob<Music> (v))
 				{
-					if (!unsmob<Input> (m->get_property ("origin")))
+					if (!unsmob<Input> (get_property (m, "origin")))
 						m->set_spot (override_input (here_input ()));
 				}
 
@@ -1168,7 +1166,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input location, char extra_token)
 
 	if (Music *m = unsmob<Music> (sval))
 	{
-		if (!unsmob<Input> (m->get_property ("origin")))
+		if (!unsmob<Input> (get_property (m, "origin")))
 			m->set_spot (override_input (here_input ()));
 	}
 

@@ -19,8 +19,6 @@
 
 #include "rest-collision.hh"
 
-#include <cmath>                // ceil.
-
 #include "directional-element-interface.hh"
 #include "duration.hh"
 #include "international.hh"
@@ -36,6 +34,8 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#include <cmath> // ceil.
 
 using std::vector;
 
@@ -55,10 +55,10 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 
   if (has_interface<Note_column> (parent) && Note_column::has_rests (parent))
     {
-      Grob *collision = unsmob<Grob> (parent->get_object ("rest-collision"));
+      Grob *collision = unsmob<Grob> (get_object (parent, "rest-collision"));
 
       if (collision)
-        (void) collision->get_property ("positioning-done");
+        (void) get_property (collision, "positioning-done");
     }
 
   return scm_from_double (0.0);
@@ -69,9 +69,9 @@ Rest_collision::add_column (Grob *me, Grob *p)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), p);
 
-  p->set_object ("rest-collision", me->self_scm ());
+  set_object (p, "rest-collision", me->self_scm ());
 
-  Grob *rest = unsmob<Grob> (p->get_object ("rest"));
+  Grob *rest = unsmob<Grob> (get_object (p, "rest"));
   if (rest)
     {
       chain_offset_callback (rest,
@@ -100,7 +100,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
 
   extract_grob_set (me, "elements", elts);
 
@@ -112,7 +112,7 @@ Rest_collision::calc_positioning_done (SCM smob)
       Grob *e = elts[i];
       if (has_interface<Note_column> (e))
         {
-          if (unsmob<Grob> (e->get_object ("rest")))
+          if (unsmob<Grob> (get_object (e, "rest")))
             rests.push_back (e);
           else
             notes.push_back (e);
@@ -219,7 +219,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 
           // Do not compute a translation for pre-positioned rests,
           //  nor count them for the "too many colliding rests" warning
-          if (scm_is_number (rest->get_property ("staff-position")))
+          if (scm_is_number (get_property (rest, "staff-position")))
             continue;
 
           Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
@@ -228,7 +228,7 @@ Rest_collision::calc_positioning_done (SCM smob)
             continue;
 
           Real staff_space = Staff_symbol_referencer::staff_space (rcol);
-          Real minimum_dist = robust_scm2double (me->get_property ("minimum-distance"), 1.0) * staff_space;
+          Real minimum_dist = robust_scm2double (get_property (me, "minimum-distance"), 1.0) * staff_space;
 
           Interval notedim;
           for (vsize i = 0; i < notes.size (); i++)
@@ -287,4 +287,3 @@ ADD_INTERFACE (Rest_collision,
                "positioning-done "
                "elements "
               );
-

@@ -509,12 +509,12 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
 
   Paper_column *c = all_[breaks_[end]];
   out->last_column_ = c;
-  out->break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
-  out->page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
-  out->turn_penalty_ = robust_scm2double (c->get_property ("page-turn-penalty"), 0);
-  out->break_permission_ = c->get_property ("line-break-permission");
-  out->page_permission_ = c->get_property ("page-break-permission");
-  out->turn_permission_ = c->get_property ("page-turn-permission");
+  out->break_penalty_ = robust_scm2double (get_property (c, "line-break-penalty"), 0);
+  out->page_penalty_ = robust_scm2double (get_property (c, "page-break-penalty"), 0);
+  out->turn_penalty_ = robust_scm2double (get_property (c, "page-turn-penalty"), 0);
+  out->break_permission_ = get_property (c, "line-break-permission");
+  out->page_permission_ = get_property (c, "page-break-permission");
+  out->turn_permission_ = get_property (c, "page-turn-permission");
 
   /* turn permission should always be stricter than page permission
      and page permission should always be stricter than line permission */
@@ -574,7 +574,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   Page_layout_problem::read_spacing_spec (spec, &min_distance_, ly_symbol2scm ("minimum-distance"));
   Page_layout_problem::read_spacing_spec (title_spec, &title_min_distance_, ly_symbol2scm ("minimum-distance"));
 
-  SCM footnotes = pb->get_property ("footnotes");
+  SCM footnotes = get_property (pb, "footnotes");
 
   if (scm_is_pair (footnotes))
     for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
@@ -590,7 +590,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
 
   last_column_ = 0;
   force_ = 0;
-  Stencil *st = unsmob<Stencil> (pb->get_property ("stencil"));
+  Stencil *st = unsmob<Stencil> (get_property (pb, "stencil"));
   Interval stencil_extent = st->is_empty (Y_AXIS) ? Interval (0, 0)
                             : st->extent (Y_AXIS);
   shape_ = Line_shape (stencil_extent, stencil_extent); // pretend it goes all the way across
@@ -598,19 +598,19 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   bottom_padding_ = 0;
   inverse_hooke_ = 1.0;
   break_permission_ = ly_symbol2scm ("allow");
-  page_permission_ = pb->get_property ("page-break-permission");
-  turn_permission_ = pb->get_property ("page-turn-permission");
+  page_permission_ = get_property (pb, "page-break-permission");
+  turn_permission_ = get_property (pb, "page-turn-permission");
   break_penalty_ = 0;
-  page_penalty_ = robust_scm2double (pb->get_property ("page-break-penalty"), 0);
-  turn_penalty_ = robust_scm2double (pb->get_property ("page-turn-penalty"), 0);
-  title_ = to_boolean (pb->get_property ("is-title"));
+  page_penalty_ = robust_scm2double (get_property (pb, "page-break-penalty"), 0);
+  turn_penalty_ = robust_scm2double (get_property (pb, "page-turn-penalty"), 0);
+  title_ = to_boolean (get_property (pb, "is-title"));
   compressed_lines_count_ = 1;
   compressed_nontitle_lines_count_ = title_ ? 0 : 1;
-  SCM last_scm = pb->get_property ("last-markup-line");
+  SCM last_scm = get_property (pb, "last-markup-line");
   last_markup_line_ = to_boolean (last_scm);
-  SCM first_scm = pb->get_property ("first-markup-line");
+  SCM first_scm = get_property (pb, "first-markup-line");
   first_markup_line_ = to_boolean (first_scm);
-  tight_spacing_ = to_boolean (pb->get_property ("tight-spacing"));
+  tight_spacing_ = to_boolean (get_property (pb, "tight-spacing"));
   refpoint_extent_ = Interval (0, 0);
 }
 

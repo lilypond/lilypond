@@ -72,10 +72,10 @@ Tuplet_iterator::create_event (Direction d)
   ev->set_spot (*mus->origin ());
   if (d == START)
     {
-      ev->set_property ("numerator", mus->get_property ("numerator"));
-      ev->set_property ("denominator", mus->get_property ("denominator"));
-      ev->set_property ("tweaks", mus->get_property ("tweaks"));
-      ev->set_property ("length", spanner_duration_.smobbed_copy ());
+      set_property (ev, "numerator", get_property (mus, "numerator"));
+      set_property (ev, "denominator", get_property (mus, "denominator"));
+      set_property (ev, "tweaks", get_property (mus, "tweaks"));
+      set_property (ev, "length", spanner_duration_.smobbed_copy ());
     }
 
   synthesized_events_ = scm_cons (ev_scm, synthesized_events_);
@@ -128,10 +128,10 @@ Tuplet_iterator::process (Moment m)
 void
 Tuplet_iterator::construct_children ()
 {
-  if (Duration *d = unsmob<Duration> (get_music ()->get_property ("duration")))
+  if (Duration *d = unsmob<Duration> (get_property (get_music (), "duration")))
     spanner_duration_ = d->get_length ();
   else if (Moment * mp
-           = unsmob<Moment> (get_outlet ()->get_property ("tupletSpannerDuration")))
+           = unsmob<Moment> (get_property (get_outlet (), "tupletSpannerDuration")))
     spanner_duration_ = mp->main_part_;
   else
     spanner_duration_.set_infinite (1);

@@ -50,11 +50,11 @@ Staff_symbol::print (SCM smob)
     --hwn.
   */
   Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  t *= robust_scm2double (me->get_property ("thickness"), 1.0);
+  t *= robust_scm2double (get_property (me, "thickness"), 1.0);
 
   for (LEFT_and_RIGHT (d))
     {
-      SCM width_scm = me->get_property ("width");
+      SCM width_scm = get_property (me, "width");
       if (d == RIGHT && scm_is_number (width_scm))
         {
           /*
@@ -76,7 +76,7 @@ Staff_symbol::print (SCM smob)
           else
             {
               SCM where = (d == RIGHT
-                           ? me->get_property ("break-align-symbols")
+                           ? get_property (me, "break-align-symbols")
                            : ly_symbol2scm ("break-alignment"));
               span_points[d] = Paper_column::break_align_width (x, where)[d];
             }
@@ -110,7 +110,7 @@ Staff_symbol::print (SCM smob)
 vector<Real>
 Staff_symbol::line_positions (Grob *me)
 {
-  SCM line_positions = me->get_property ("line-positions");
+  SCM line_positions = get_property (me, "line-positions");
   if (scm_is_pair (line_positions))
     {
       return ly_scm2floatvector (line_positions);
@@ -134,13 +134,13 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   // allow override of ledger positions via note head grob...
   if (head)
     {
-      SCM posns = head->get_property ("ledger-positions");
+      SCM posns = get_property (head, "ledger-positions");
       if (scm_is_pair (posns))
         return ly_scm2floatvector (posns);
     }
 
   // ...or via custom ledger positions function
-  SCM lp_function = me->get_property ("ledger-positions-function");
+  SCM lp_function = get_property (me, "ledger-positions-function");
   if (scm_is_pair (lp_function))
     {
       SCM func = scm_eval (lp_function, scm_interaction_environment ());
@@ -150,8 +150,8 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
                                                scm_from_int (pos)));
     }
 
-  SCM ledger_positions = me->get_property ("ledger-positions");
-  Real ledger_extra = robust_scm2double (me->get_property ("ledger-extra"), 0);
+  SCM ledger_positions = get_property (me, "ledger-positions");
+  Real ledger_extra = robust_scm2double (get_property (me, "ledger-extra"), 0);
   vector<Real> line_positions = Staff_symbol::line_positions (me);
   vector<Real> values;
 
@@ -281,7 +281,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
 int
 Staff_symbol::internal_line_count (Grob *me)
 {
-  return robust_scm2int (me->get_property ("line-count"), 0);
+  return robust_scm2int (get_property (me, "line-count"), 0);
 }
 
 Real
@@ -289,7 +289,7 @@ Staff_symbol::staff_space (Grob *me)
 {
   Real ss = me->layout ()->get_dimension (ly_symbol2scm ("staff-space"));
 
-  return robust_scm2double (me->get_property ("staff-space"), 1.0) * ss;
+  return robust_scm2double (get_property (me, "staff-space"), 1.0) * ss;
 }
 
 Real
@@ -297,13 +297,13 @@ Staff_symbol::get_line_thickness (Grob *me)
 {
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
-  return robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
+  return robust_scm2double (get_property (me, "thickness"), 1.0) * lt;
 }
 
 Real
 Staff_symbol::get_ledger_line_thickness (Grob *me)
 {
-  SCM lt_pair = me->get_property ("ledger-line-thickness");
+  SCM lt_pair = get_property (me, "ledger-line-thickness");
   Offset z = robust_scm2offset (lt_pair, Offset (1.0, 0.1));
 
   return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS] * staff_space (me);
@@ -323,7 +323,7 @@ Staff_symbol::height (SCM smob)
 
       // account for top and bottom line thickness
       Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-      t *= robust_scm2double (me->get_property ("thickness"), 1.0);
+      t *= robust_scm2double (get_property (me, "thickness"), 1.0);
       y_ext.widen (t / 2);
     }
   else
@@ -338,8 +338,8 @@ bool
 Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
 {
   // standard staff lines (any line count) and standard ledger lines
-  if (!scm_is_pair (me->get_property ("line-positions"))
-      && !scm_is_pair (me->get_property ("ledger-positions")))
+  if (!scm_is_pair (get_property (me, "line-positions"))
+      && !scm_is_pair (get_property (me, "ledger-positions")))
     {
       int const line_cnt = internal_line_count (me);
       bool result = abs (pos + line_cnt) % 2 == 1;
@@ -382,7 +382,7 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
 Interval
 Staff_symbol::line_span (Grob *me)
 {
-  SCM line_positions = me->get_property ("line-positions");
+  SCM line_positions = get_property (me, "line-positions");
   Interval iv;
 
   if (scm_is_pair (line_positions))

@@ -49,7 +49,7 @@ SCM
 Flag::width (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Stencil *sten = unsmob<Stencil> (me->get_property ("stencil"));
+  Stencil *sten = unsmob<Stencil> (get_property (me, "stencil"));
   if (!sten)
     return ly_interval2scm (Interval (0.0, 0.0));
 
@@ -75,7 +75,7 @@ Flag::glyph_name (SCM smob)
   int log = Stem::duration_log (stem);
   string flag_style;
 
-  SCM flag_style_scm = me->get_property ("style");
+  SCM flag_style_scm = get_property (me, "style");
   if (scm_is_symbol (flag_style_scm))
     flag_style = ly_symbol2string (flag_style_scm);
 
@@ -119,7 +119,7 @@ Flag::print (SCM smob)
   Direction d = get_grob_direction (stem);
   string flag_style;
 
-  SCM flag_style_scm = me->get_property ("style");
+  SCM flag_style_scm = get_property (me, "style");
   if (scm_is_symbol (flag_style_scm))
     flag_style = ly_symbol2string (flag_style_scm);
 
@@ -128,7 +128,7 @@ Flag::print (SCM smob)
 
   char dir = (d == UP) ? 'u' : 'd';
   Font_metric *fm = Font_interface::get_default_font (me);
-  string font_char = robust_scm2string (me->get_property ("glyph-name"), "");
+  string font_char = robust_scm2string (get_property (me, "glyph-name"), "");
   Stencil flag = fm->find_by_name (font_char);
   if (flag.is_empty ())
     me->warning (_f ("flag `%s' not found", font_char));
@@ -137,7 +137,7 @@ Flag::print (SCM smob)
     TODO: maybe property stroke-style should take different values,
     e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
     '() or "grace").  */
-  SCM stroke_style_scm = me->get_property ("stroke-style");
+  SCM stroke_style_scm = get_property (me, "stroke-style");
   if (scm_is_string (stroke_style_scm))
     {
       string stroke_style = ly_scm2string (stroke_style_scm);

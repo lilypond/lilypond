@@ -39,10 +39,10 @@ SCM
 Hairpin::pure_height (SCM smob, SCM, SCM)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real height = robust_scm2double (me->get_property ("height"), 0.0)
+  Real height = robust_scm2double (get_property (me, "height"), 0.0)
                 * Staff_symbol_referencer::staff_space (me);
 
-  Real thickness = robust_scm2double (me->get_property ("thickness"), 1)
+  Real thickness = robust_scm2double (get_property (me, "thickness"), 1)
                    * Staff_symbol_referencer::line_thickness (me);
 
   height += thickness / 2;
@@ -84,7 +84,7 @@ Hairpin::broken_bound_padding (SCM smob)
         if (elts[i]->internal_has_interface (ly_symbol2scm ("bar-line-interface"))
             && dynamic_cast<Item *> (elts[i])->break_status_dir () == -1)
           {
-            SCM hsb = elts[i]->get_property ("has-span-bar");
+            SCM hsb = get_property (elts[i], "has-span-bar");
             if (!scm_is_pair (hsb))
               break;
 
@@ -99,7 +99,7 @@ Hairpin::broken_bound_padding (SCM smob)
   if (span_bars[DOWN] != span_bars[UP])
     return scm_from_double (0.0);
 
-  return scm_from_double (robust_scm2double (me->get_property ("bound-padding"), 0.5)
+  return scm_from_double (robust_scm2double (get_property (me, "bound-padding"), 0.5)
                           / 2.0);
 }
 
@@ -109,7 +109,7 @@ Hairpin::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
 
-  SCM s = me->get_property ("grow-direction");
+  SCM s = get_property (me, "grow-direction");
   if (!is_direction (s))
     {
       me->suicide ();
@@ -117,7 +117,7 @@ Hairpin::print (SCM smob)
     }
 
   Direction grow_dir = to_dir (s);
-  Real padding = robust_scm2double (me->get_property ("bound-padding"), 0.5);
+  Real padding = robust_scm2double (get_property (me, "bound-padding"), 0.5);
 
   Drul_array<bool> broken;
   Drul_array<Item *> bounds;
@@ -133,7 +133,7 @@ Hairpin::print (SCM smob)
       // Hairpin-parts suicide in after-line-breaking if they need not be drawn
       if (next)
         {
-          (void) next->get_property ("after-line-breaking");
+          (void) get_property (next, "after-line-breaking");
           broken[RIGHT] = next->is_live ();
         }
       else
@@ -146,8 +146,8 @@ Hairpin::print (SCM smob)
   /*
     Use the height and thickness of the hairpin when making a circled tip
   */
-  bool circled_tip = ly_scm2bool (me->get_property ("circled-tip"));
-  Real height = robust_scm2double (me->get_property ("height"), 0.2)
+  bool circled_tip = ly_scm2bool (get_property (me, "circled-tip"));
+  Real height = robust_scm2double (get_property (me, "height"), 0.2)
                 * Staff_symbol_referencer::staff_space (me);
   /*
     FIXME: 0.525 is still just a guess...
@@ -155,9 +155,9 @@ Hairpin::print (SCM smob)
   Real rad = height * 0.525;
   Real thick = 1.0;
   if (circled_tip)
-    thick = robust_scm2double (me->get_property ("thickness"), 1.0)
+    thick = robust_scm2double (get_property (me, "thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
+  Drul_array<Real> shorten = robust_scm2interval (get_property (me, "shorten-pair"),
                                                   Interval (0, 0));
 
   for (LEFT_and_RIGHT (d))
@@ -173,14 +173,14 @@ Hairpin::print (SCM smob)
           else
             {
               Real broken_bound_padding
-                = robust_scm2double (me->get_property ("broken-bound-padding"), 0.0);
+                = robust_scm2double (get_property (me, "broken-bound-padding"), 0.0);
               extract_grob_set (me, "concurrent-hairpins", chp);
               for (vsize i = 0; i < chp.size (); i++)
                 {
                   Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
                   if (span_elt->get_bound (RIGHT)->break_status_dir () == LEFT)
                     broken_bound_padding = std::max (broken_bound_padding,
-                                                     robust_scm2double (span_elt->get_property ("broken-bound-padding"), 0.0));
+                                                     robust_scm2double (get_property (span_elt, "broken-bound-padding"), 0.0));
                 }
               x_points[d] -= d * broken_bound_padding;
             }

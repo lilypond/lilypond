@@ -48,8 +48,8 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 Real
 Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
-  Drul_array<Skyline_pair *> lines (unsmob<Skyline_pair> (l->get_property ("horizontal-skylines")),
-                                    unsmob<Skyline_pair> (r->get_property ("horizontal-skylines")));
+  Drul_array<Skyline_pair *> lines (unsmob<Skyline_pair> (get_property (l, "horizontal-skylines")),
+                                    unsmob<Skyline_pair> (get_property (r, "horizontal-skylines")));
   Skyline right = conditional_skyline (r, l);
   right.merge ((*lines[RIGHT])[LEFT]);
 
@@ -70,7 +70,7 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
 bool
 Separation_item::is_empty (Grob *me)
 {
-  Skyline_pair *sky = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines"));
+  Skyline_pair *sky = unsmob<Skyline_pair> (get_property (me, "horizontal-skylines"));
   return (!sky || sky->is_empty ());
 }
 
@@ -100,7 +100,7 @@ Separation_item::calc_skylines (SCM smob)
     vertical skylines are handled (where padding is not built into
     the skyline).
   */
-  Real vp = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
+  Real vp = robust_scm2double (get_property (me, "skyline-vertical-padding"), 0.0);
   sp[LEFT] = sp[LEFT].padded (vp);
   sp[RIGHT] = sp[RIGHT].padded (vp);
   return sp.smobbed_copy ();
@@ -162,9 +162,9 @@ Separation_item::boxes (Grob *me, Grob *left)
       Interval y (il->pure_y_extent (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
-      Interval extra_width = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
+      Interval extra_width = robust_scm2interval (get_property (elts[i], "extra-spacing-width"),
                                                   Interval (-0.1, 0.1));
-      Interval extra_height = robust_scm2interval (elts[i]->get_property ("extra-spacing-height"),
+      Interval extra_height = robust_scm2interval (get_property (elts[i], "extra-spacing-height"),
                                                    Interval (0.0, 0.0));
 
       // The conventional empty extent is (+inf.0 . -inf.0)
@@ -205,7 +205,7 @@ Separation_item::print (SCM smob)
 
   Grob *me = unsmob<Grob> (smob);
   Stencil ret;
-  if (Skyline_pair *s = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines")))
+  if (Skyline_pair *s = unsmob<Skyline_pair> (get_property (me, "horizontal-skylines")))
     {
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[LEFT].to_points (Y_AXIS)).in_color (1.0, 1.0, 0.0));
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[RIGHT].to_points (Y_AXIS)).in_color (0.0, 1.0, 1.0));

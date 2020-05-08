@@ -51,8 +51,8 @@ SCM
 Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
 {
   SCM align = (a == X_AXIS)
-              ? me->get_property ("self-alignment-X")
-              : me->get_property ("self-alignment-Y");
+              ? get_property (me, "self-alignment-X")
+              : get_property (me, "self-alignment-Y");
   if (scm_is_number (align))
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
@@ -119,7 +119,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
          (him, ly_symbol2scm ("note-column-interface"), a);
   else
     {
-      if (to_boolean (me->get_property ("X-align-on-main-noteheads"))
+      if (to_boolean (get_property (me, "X-align-on-main-noteheads"))
           && has_interface<Note_column> (him))
         he = Note_column::calc_main_extent (him);
       else
@@ -127,12 +127,12 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
     }
 
   SCM self_align = (a == X_AXIS)
-                   ? me->get_property ("self-alignment-X")
-                   : me->get_property ("self-alignment-Y");
+                   ? get_property (me, "self-alignment-X")
+                   : get_property (me, "self-alignment-Y");
 
   SCM par_align = (a == X_AXIS)
-                  ? me->get_property ("parent-alignment-X")
-                  : me->get_property ("parent-alignment-Y");
+                  ? get_property (me, "parent-alignment-X")
+                  : get_property (me, "parent-alignment-Y");
 
   if (scm_is_null (par_align))
     par_align = self_align;

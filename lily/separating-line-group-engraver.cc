@@ -89,12 +89,12 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 
   if (Item::is_non_musical (it)
       && !current_spacings_.staff_spacing_
-      && to_boolean (get_property ("createSpacing")))
+      && to_boolean (get_property (this, "createSpacing")))
     {
-      Grob *col = unsmob<Grob> (get_property ("currentCommandColumn"));
+      Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
 
       current_spacings_.staff_spacing_ = make_item ("StaffSpacing", SCM_EOL);
-      context ()->set_property ("hasStaffSpacing", SCM_BOOL_T);
+      set_property (context (), "hasStaffSpacing", SCM_BOOL_T);
 
       Pointer_group_interface::add_grob (current_spacings_.staff_spacing_,
                                          ly_symbol2scm ("left-items"),
@@ -103,12 +103,12 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
       if (!last_spacings_.note_spacings_.size ()
           && last_spacings_.staff_spacing_)
         {
-          SCM ri = last_spacings_.staff_spacing_->get_object ("right-items");
+          SCM ri = get_object (last_spacings_.staff_spacing_, "right-items");
           Grob_array *ga = unsmob<Grob_array> (ri);
           if (!ga)
             {
               SCM ga_scm = Grob_array::make_array ();
-              last_spacings_.staff_spacing_->set_object ("right-items", ga_scm);
+              set_object (last_spacings_.staff_spacing_, "right-items", ga_scm);
               ga = unsmob<Grob_array> (ga_scm);
             }
 
@@ -149,7 +149,7 @@ Separating_line_group_engraver::stop_translation_timestep ()
     last_spacings_ = current_spacings_;
 
   if (Item *sp = current_spacings_.staff_spacing_)
-    if (Grob *col = unsmob<Grob> (get_property ("currentMusicalColumn")))
+    if (Grob *col = unsmob<Grob> (get_property (this, "currentMusicalColumn")))
       Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"), col);
 
   current_spacings_.clear ();

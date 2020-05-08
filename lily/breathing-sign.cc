@@ -47,7 +47,7 @@ Breathing_sign::divisio_minima (SCM smob)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
@@ -71,7 +71,7 @@ Breathing_sign::divisio_maior (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
@@ -152,7 +152,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
@@ -175,7 +175,7 @@ Breathing_sign::finalis (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 

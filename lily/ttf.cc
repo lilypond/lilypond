@@ -17,9 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-#include <sstream>
-
 #include "freetype.hh"
 
 #include FT_TRUETYPE_TABLES_H
@@ -29,6 +26,9 @@
 #include "lily-guile.hh"
 #include "main.hh"
 #include "open-type-font.hh"
+
+#include <cstdio>
+#include <sstream>
 
 using std::string;
 using std::vector;

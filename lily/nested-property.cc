@@ -161,11 +161,11 @@ nested_property (SCM alist, SCM prop_path, SCM fallback)
 void
 set_nested_property (Grob *me, SCM big_to_small, SCM value)
 {
-  SCM alist = me->get_property (scm_car (big_to_small));
+  SCM alist = get_property (me, scm_car (big_to_small));
 
   alist = nested_property_alist (alist, scm_cdr (big_to_small), value);
 
-  me->set_property (scm_car (big_to_small), alist);
+  set_property (me, scm_car (big_to_small), alist);
 }
 
 // This converts an alist with nested overrides in it to a proper

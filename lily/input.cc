@@ -19,14 +19,14 @@
 
 #include "input.hh"
 
-#include <cstdio>
-
 #include "international.hh"
 #include "lily-imports.hh"
 #include "program-option.hh"
 #include "source-file.hh"
 #include "sources.hh"
 #include "warn.hh"
+
+#include <cstdio>
 
 using std::string;
 

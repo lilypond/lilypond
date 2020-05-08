@@ -107,7 +107,7 @@ Grace_engraver::consider_change_grace_settings ()
     }
   else if (!last_moment_.grace_part_)
     {
-      SCM settings = get_property ("graceSettings");
+      SCM settings = get_property (this, "graceSettings");
 
       grace_settings_ = SCM_EOL;
       for (SCM s = settings; scm_is_pair (s); s = scm_cdr (s))

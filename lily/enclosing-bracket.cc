@@ -70,7 +70,7 @@ Enclosing_bracket::width (SCM grob)
   Stencil right_br
     = Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS, LEFT, Interval ());
 
-  xext.widen (robust_scm2double (me->get_property ("padding"), 0.25));
+  xext.widen (robust_scm2double (get_property (me, "padding"), 0.25));
   left_br.translate_axis (xext[LEFT], X_AXIS);
   right_br.translate_axis (xext[RIGHT], X_AXIS);
 
@@ -105,7 +105,7 @@ Enclosing_bracket::print (SCM grob)
   Stencil right_br
     = Bracket::make_enclosing_bracket (me, me, elements, Y_AXIS, RIGHT);
 
-  xext.widen (robust_scm2double (me->get_property ("padding"), 0.25));
+  xext.widen (robust_scm2double (get_property (me, "padding"), 0.25));
   left_br.translate_axis (xext[LEFT], X_AXIS);
   right_br.translate_axis (xext[RIGHT], X_AXIS);
 

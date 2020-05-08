@@ -18,23 +18,22 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if GCC_MAJOR < 4
-#define _GLIBCXX_HAVE_MBSTATE_T
-#include <wchar.h>
-#endif /* GCC_MAJOR < 4 */
-
 #include "source-file.hh"
 
 #include "config.hh"
-
-#include <cstdio>
-#include <sstream>
 
 #include "file-name-map.hh"
 #include "international.hh"
 #include "misc.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#if GCC_MAJOR < 4
+#define _GLIBCXX_HAVE_MBSTATE_T
+#include <wchar.h>
+#endif /* GCC_MAJOR < 4 */
+#include <cstdio>
+#include <sstream>
 
 using std::istream;
 using std::istringstream;

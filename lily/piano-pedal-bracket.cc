@@ -37,15 +37,15 @@ Piano_pedal_bracket::print (SCM smob)
 
   Drul_array<bool> broken (false, false);
   Drul_array<Real> height = robust_scm2drul
-                            (me->get_property ("edge-height"), Interval (0, 0));
+                            (get_property (me, "edge-height"), Interval (0, 0));
   Drul_array<Real> shorten = robust_scm2drul
-                             (me->get_property ("shorten-pair"), Interval (0, 0));
+                             (get_property (me, "shorten-pair"), Interval (0, 0));
   Drul_array<Real> flare = robust_scm2drul
-                           (me->get_property ("bracket-flare"), Interval (0, 0));
+                           (get_property (me, "bracket-flare"), Interval (0, 0));
 
   Grob *common = me->get_bound (LEFT)
                  ->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Grob *textbit = unsmob<Grob> (me->get_object ("pedal-text"));
+  Grob *textbit = unsmob<Grob> (get_object (me, "pedal-text"));
 
   if (textbit)
     common = common->common_refpoint (textbit, X_AXIS);
@@ -79,7 +79,7 @@ Piano_pedal_bracket::print (SCM smob)
     {
       height[LEFT] = 0;
 
-      Real padding = robust_scm2double (me->get_property ("bound-padding"), 0);
+      Real padding = robust_scm2double (get_property (me, "bound-padding"), 0);
 
       span_points[LEFT] = padding
                           + robust_relative_extent (textbit, common, X_AXIS)[RIGHT];

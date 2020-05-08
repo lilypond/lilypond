@@ -125,7 +125,7 @@ Spacing_engraver::start_spanner ()
 
   spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
   spacing_->set_bound (LEFT,
-                       unsmob<Grob> (get_property ("currentCommandColumn")));
+                       unsmob<Grob> (get_property (this, "currentCommandColumn")));
 }
 
 void
@@ -139,7 +139,7 @@ Spacing_engraver::stop_spanner ()
 {
   if (spacing_)
     {
-      Grob *p = unsmob<Grob> (get_property ("currentCommandColumn"));
+      Grob *p = unsmob<Grob> (get_property (this, "currentCommandColumn"));
 
       spacing_->set_bound (RIGHT, p);
       spacing_ = 0;
@@ -196,21 +196,21 @@ void
 Spacing_engraver::stop_translation_timestep ()
 {
   Paper_column *musical_column
-    = unsmob<Paper_column> (get_property ("currentMusicalColumn"));
+    = unsmob<Paper_column> (get_property (this, "currentMusicalColumn"));
 
   if (!spacing_)
     start_spanner ();
 
-  musical_column->set_object ("spacing", spacing_->self_scm ());
-  unsmob<Grob> (get_property ("currentCommandColumn"))
-  ->set_object ("spacing", spacing_->self_scm ());
+  set_object (musical_column, "spacing", spacing_->self_scm ());
+  set_object (unsmob<Grob> (get_property (this, "currentCommandColumn")),
+              "spacing", spacing_->self_scm ());
 
-  SCM proportional = get_property ("proportionalNotationDuration");
+  SCM proportional = get_property (this, "proportionalNotationDuration");
   if (unsmob<Moment> (proportional))
     {
-      musical_column->set_property ("shortest-playing-duration", proportional);
-      musical_column->set_property ("shortest-starter-duration", proportional);
-      musical_column->set_property ("used", SCM_BOOL_T);
+      set_property (musical_column, "shortest-playing-duration", proportional);
+      set_property (musical_column, "shortest-starter-duration", proportional);
+      set_property (musical_column, "used", SCM_BOOL_T);
       return;
     }
 
@@ -245,8 +245,8 @@ Spacing_engraver::stop_translation_timestep ()
   SCM sh = shortest_playing.smobbed_copy ();
   SCM st = starter.smobbed_copy ();
 
-  musical_column->set_property ("shortest-playing-duration", sh);
-  musical_column->set_property ("shortest-starter-duration", st);
+  set_property (musical_column, "shortest-playing-duration", sh);
+  set_property (musical_column, "shortest-starter-duration", st);
 }
 
 void

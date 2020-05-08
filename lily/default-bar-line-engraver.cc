@@ -74,9 +74,9 @@ Default_bar_line_engraver::Default_bar_line_engraver (Context *c)
 void
 Default_bar_line_engraver::start_translation_timestep ()
 {
-  SCM automatic_bars = get_property ("automaticBars");
+  SCM automatic_bars = get_property (this, "automaticBars");
   Moment now = now_mom ();
-  SCM which = get_property ("whichBar");
+  SCM which = get_property (this, "whichBar");
 
   /* Set the first bar of the score? */
   if (!scm_is_string (which))
@@ -85,26 +85,26 @@ Default_bar_line_engraver::start_translation_timestep ()
   Moment mp = measure_position (context ());
   bool start_of_measure = (last_moment_.main_part_ != now.main_part_
                            && !mp.main_part_
-                           && to_boolean (get_property ("timing")));
+                           && to_boolean (get_property (this, "timing")));
 
   if (!scm_is_string (which) && to_boolean (automatic_bars))
     {
-      SCM always = get_property ("barAlways");
+      SCM always = get_property (this, "barAlways");
 
       if ((start_of_measure && last_moment_.main_part_ >= Moment (0))
           || to_boolean (always))
         {
           /* should this work, or be junked?  See input/bugs/no-bars.ly */
-          which = get_property ("defaultBarType");
+          which = get_property (this, "defaultBarType");
         }
     }
 
-  context ()->set_property ("whichBar", which);
+  set_property (context (), "whichBar", which);
 }
 
 void
 Default_bar_line_engraver::stop_translation_timestep ()
 {
-  context ()->set_property ("whichBar", SCM_EOL);
+  set_property (context (), "whichBar", SCM_EOL);
   last_moment_ = now_mom ();
 }

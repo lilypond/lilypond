@@ -801,7 +801,7 @@ essere usato con LuaTex:
 @cindex OOoLilyPond
 
 La notazione di LilyPond può essere aggiunta a OpenOffice e LibreOffice
-con @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond},
+con @uref{https://github.com/openlilylib/LO-ly,OOoLilyPond},
 un'estensione di OpenOffice.org che converte i file di LilyPond in immagini
 incluse nei documenti di OpenOffice.org.  Sebbene non sia più sviluppato,
 sembra che funzioni ancora nella versione 4.

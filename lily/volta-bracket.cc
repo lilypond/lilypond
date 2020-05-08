@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstring>
-
 #include "warn.hh"
 #include "font-interface.hh"
 #include "line-interface.hh"
@@ -32,6 +30,8 @@
 #include "lookup.hh"
 #include "bracket.hh"
 #include "lily-imports.hh"
+
+#include <cstring>
 
 using std::string;
 
@@ -81,11 +81,11 @@ Volta_bracket_interface::print (SCM smob)
   if (!me->is_live ())
     return SCM_EOL;
 
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
+  Drul_array<Real> edge_height = robust_scm2interval (get_property (me, "edge-height"),
                                                       Interval (1.0, 1.0));
-  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
+  Drul_array<Real> flare = robust_scm2interval (get_property (me, "bracket-flare"),
                                                 Interval (0, 0));
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
+  Drul_array<Real> shorten = robust_scm2interval (get_property (me, "shorten-pair"),
                                                   Interval (0, 0));
 
   scale_drul (&edge_height, -static_cast<Real> (get_grob_direction (me)));
@@ -100,7 +100,7 @@ Volta_bracket_interface::print (SCM smob)
 
   if (!orig_span || broken_first_bracket)
     {
-      SCM text = me->get_property ("text");
+      SCM text = get_property (me, "text");
       SCM properties = me->get_property_alist_chain (SCM_EOL);
       SCM snum = Text_interface::interpret_markup (layout->self_scm (),
                                                    properties, text);
@@ -127,7 +127,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 
   extract_grob_set (me, "bars", bars);
   Grob *endbar = bars.size () ? bars.back () : 0;
-  SCM glyph = endbar ? endbar->get_property ("glyph-name") : SCM_EOL;
+  SCM glyph = endbar ? get_property (endbar, "glyph-name") : SCM_EOL;
 
   string str;
   if (scm_is_string (glyph))
@@ -140,7 +140,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 
   if (no_vertical_end || no_vertical_start)
     {
-      Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
+      Drul_array<Real> edge_height = robust_scm2interval (get_property (me, "edge-height"),
                                                           Interval (1.0, 1.0));
       if (no_vertical_start)
         edge_height[LEFT] = 0.0;
@@ -148,7 +148,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
       if (no_vertical_end)
         edge_height[RIGHT] = 0.0;
 
-      me->set_property ("edge-height", ly_interval2scm (edge_height));
+      set_property (me, "edge-height", ly_interval2scm (edge_height));
     }
 
   if (broken_last_bracket && no_vertical_end && no_vertical_start

@@ -134,7 +134,7 @@ Lyric_combine_music_iterator::start_new_syllable () const
   if (!lyrics_context_)
     return false;
 
-  if (!to_boolean (lyrics_context_->get_property ("ignoreMelismata")))
+  if (!to_boolean (get_property (lyrics_context_, "ignoreMelismata")))
     {
       bool m = melisma_busy (music_context_);
       if (m)
@@ -194,7 +194,7 @@ Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 void
 Lyric_combine_music_iterator::construct_children ()
 {
-  Music *m = unsmob<Music> (get_music ()->get_property ("element"));
+  Music *m = unsmob<Music> (get_property (get_music (), "element"));
   lyric_iter_ = unsmob<Music_iterator> (get_iterator (m));
   if (!lyric_iter_)
     return;
@@ -206,8 +206,8 @@ Lyric_combine_music_iterator::construct_children ()
       m->origin ()->warning (_ ("argument of \\lyricsto should contain Lyrics context"));
     }
 
-  lyricsto_voice_name_ = get_music ()->get_property ("associated-context");
-  lyricsto_voice_type_ = get_music ()->get_property ("associated-context-type");
+  lyricsto_voice_name_ = get_property (get_music (), "associated-context");
+  lyricsto_voice_type_ = get_property (get_music (), "associated-context-type");
   if (!scm_is_symbol (lyricsto_voice_type_))
     lyricsto_voice_type_ = ly_symbol2scm ("Voice");
 
@@ -256,13 +256,13 @@ Lyric_combine_music_iterator::find_voice ()
 {
   SCM voice_name = lyricsto_voice_name_;
   SCM running = lyrics_context_
-                ? lyrics_context_->get_property ("associatedVoice")
+                ? get_property (lyrics_context_, "associatedVoice")
                 : SCM_EOL;
   SCM voice_type = lyricsto_voice_type_;
   if (scm_is_string (running))
     {
       voice_name = running;
-      voice_type = lyrics_context_->get_property ("associatedVoiceType");
+      voice_type = get_property (lyrics_context_, "associatedVoiceType");
     }
 
   if (scm_is_string (voice_name)
@@ -306,7 +306,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
       && lyric_iter_->ok ())
     {
       Moment now = music_context_->now_mom ();
-      if (now.grace_part_ && !to_boolean (lyrics_context_->get_property ("includeGraceNotes")))
+      if (now.grace_part_ && !to_boolean (get_property (lyrics_context_, "includeGraceNotes")))
         {
           pending_grace_moment_ = now;
           pending_grace_moment_.grace_part_ = Rational (0);
@@ -318,7 +318,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
         }
 
       Moment m = lyric_iter_->pending_moment ();
-      lyrics_context_->set_property (ly_symbol2scm ("associatedVoiceContext"),
+      set_property (lyrics_context_, ly_symbol2scm ("associatedVoiceContext"),
                                      music_context_->self_scm ());
       lyric_iter_->process (m);
 
@@ -340,11 +340,11 @@ Lyric_combine_music_iterator::do_quit ()
       Music *m = get_music ();
 
       // ugh: defaults are repeated elsewhere
-      SCM voice_type = m->get_property ("associated-context-type");
+      SCM voice_type = get_property (m, "associated-context-type");
       if (!scm_is_symbol (voice_type))
         voice_type = ly_symbol2scm ("Voice");
 
-      string id = robust_scm2string (m->get_property ("associated-context"),
+      string id = robust_scm2string (get_property (m, "associated-context"),
                                      "");
 
       Input *origin = m->origin ();

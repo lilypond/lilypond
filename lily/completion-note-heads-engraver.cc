@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "dot-column.hh"
 #include "dots.hh"
 #include "duration.hh"
@@ -37,6 +35,8 @@
 #include "misc.hh"
 
 #include "translator.icc"
+
+#include <cctype>
 
 using std::vector;
 
@@ -109,9 +109,9 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
 Moment
 Completion_heads_engraver::next_moment (Rational const &note_len)
 {
-  Moment *e = unsmob<Moment> (get_property ("measurePosition"));
-  Moment *l = unsmob<Moment> (get_property ("measureLength"));
-  if (!e || !l || !to_boolean (get_property ("timing")))
+  Moment *e = unsmob<Moment> (get_property (this, "measurePosition"));
+  Moment *l = unsmob<Moment> (get_property (this, "measureLength"));
+  if (!e || !l || !to_boolean (get_property (this, "timing")))
     {
       return Moment (0, 0);
     }
@@ -123,7 +123,7 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
                          + e->to_string () + " of " + l->to_string ());
       return 0;
     }
-  Moment const *unit = unsmob<Moment> (get_property ("completionUnit"));
+  Moment const *unit = unsmob<Moment> (get_property (this, "completionUnit"));
 
   if (unit)
     {
@@ -162,14 +162,14 @@ Item *
 Completion_heads_engraver::make_note_head (Stream_event *ev)
 {
   Item *note = make_item ("NoteHead", ev->self_scm ());
-  Pitch *pit = unsmob<Pitch> (ev->get_property ("pitch"));
+  Pitch *pit = unsmob<Pitch> (get_property (ev, "pitch"));
 
   int pos = pit ? pit->steps () : 0;
-  SCM c0 = get_property ("middleCPosition");
+  SCM c0 = get_property (this, "middleCPosition");
   if (scm_is_number (c0))
     pos += scm_to_int (c0);
 
-  note->set_property ("staff-position", scm_from_int (pos));
+  set_property (note, "staff-position", scm_from_int (pos));
 
   return note;
 }
@@ -198,9 +198,9 @@ Completion_heads_engraver::process_music ()
     }
   else
     {
-      orig = unsmob<Duration> (note_events_[0]->get_property ("duration"));
+      orig = unsmob<Duration> (get_property (note_events_[0], "duration"));
       note_dur = *orig;
-      SCM factor = get_property ("completionFactor");
+      SCM factor = get_property (this, "completionFactor");
       if (ly_is_procedure (factor))
         factor = scm_call_2 (factor,
                              context ()->self_scm (),
@@ -224,11 +224,11 @@ Completion_heads_engraver::process_music ()
       if (need_clone)
         event = event->clone ();
 
-      SCM pits = note_events_[i]->get_property ("pitch");
-      event->set_property ("pitch", pits);
-      event->set_property ("duration", note_dur.smobbed_copy ());
-      event->set_property ("length", Moment (note_dur.get_length ()).smobbed_copy ());
-      event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
+      SCM pits = get_property (note_events_[i], "pitch");
+      set_property (event, "pitch", pits);
+      set_property (event, "duration", note_dur.smobbed_copy ());
+      set_property (event, "length", Moment (note_dur.get_length ()).smobbed_copy ());
+      set_property (event, "duration-log", scm_from_int (note_dur.duration_log ()));
 
       /*
         The Completion_heads_engraver splits an event into a group of consecutive events.
@@ -236,7 +236,7 @@ Completion_heads_engraver::process_music ()
         was truncated during splitting. Based on "autosplit-end", the Tie_engraver decides whether a
         tie event should be processed.
       */
-      event->set_property ("autosplit-end",
+      set_property (event, "autosplit-end",
                            ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
 
       Item *note = make_note_head (event);
@@ -298,7 +298,7 @@ Completion_heads_engraver::start_translation_timestep ()
       note_events_.clear ();
       prev_notes_.clear ();
     }
-  context ()->set_property ("completionBusy",
+  set_property (context (), "completionBusy",
                             ly_bool2scm (note_events_.size ()));
 }
 

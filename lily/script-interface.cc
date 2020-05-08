@@ -32,7 +32,7 @@
 Stencil
 Script_interface::get_stencil (Grob *me, Direction d)
 {
-  SCM s = me->get_property ("script-stencil");
+  SCM s = get_property (me, "script-stencil");
   assert (scm_is_pair (s));
 
   SCM key = scm_car (s);
@@ -68,11 +68,11 @@ Direction
 Script_interface::get_direction (Grob *me)
 {
   Direction relative_dir = Direction (1);
-  SCM reldir = me->get_property ("side-relative-direction");
+  SCM reldir = get_property (me, "side-relative-direction");
   if (is_direction (reldir))
     relative_dir = to_dir (reldir);
 
-  SCM other_elt = me->get_object ("direction-source");
+  SCM other_elt = get_object (me, "direction-source");
   Grob *e = unsmob<Grob> (other_elt);
   if (e)
     return (Direction) (relative_dir * get_grob_direction (e));
@@ -93,7 +93,7 @@ Script_interface::calc_direction (SCM smob)
       d = DOWN;
     }
 
-  (void) me->get_property ("positioning-done");
+  (void) get_property (me, "positioning-done");
   return scm_from_int (d);
 }
 
@@ -104,12 +104,12 @@ Script_interface::calc_cross_staff (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *stem = Note_column::get_stem (me->get_parent (X_AXIS));
 
-  if (stem && to_boolean (stem->get_property ("cross-staff")))
+  if (stem && to_boolean (get_property (stem, "cross-staff")))
     return SCM_BOOL_T;
 
-  Grob *slur = unsmob<Grob> (me->get_object ("slur"));
-  SCM avoid_slur = me->get_property ("avoid-slur");
-  if (slur && to_boolean (slur->get_property ("cross-staff"))
+  Grob *slur = unsmob<Grob> (get_object (me, "slur"));
+  SCM avoid_slur = get_property (me, "avoid-slur");
+  if (slur && to_boolean (get_property (slur, "cross-staff"))
       && (scm_is_eq (avoid_slur, ly_symbol2scm ("outside"))
           || scm_is_eq (avoid_slur, ly_symbol2scm ("around"))))
     return SCM_BOOL_T;

@@ -18,6 +18,8 @@
 */
 
 #include "freetype.hh"
+#include "lazy-skyline-pair.hh"
+#include "transform.hh"
 #include "warn.hh"
 
 #include FT_OUTLINE_H
@@ -48,27 +50,6 @@ ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_i
               Interval (static_cast<Real> (vb - m.height), static_cast<Real> (vb)));
 }
 
-SCM
-box_to_scheme_lines (Box b)
-{
-  return scm_list_4 (scm_list_4 (scm_from_double (b[X_AXIS][LEFT]),
-                                 scm_from_double (b[Y_AXIS][DOWN]),
-                                 scm_from_double (b[X_AXIS][RIGHT]),
-                                 scm_from_double (b[Y_AXIS][DOWN])),
-                     scm_list_4 (scm_from_double (b[X_AXIS][RIGHT]),
-                                 scm_from_double (b[Y_AXIS][DOWN]),
-                                 scm_from_double (b[X_AXIS][RIGHT]),
-                                 scm_from_double (b[Y_AXIS][UP])),
-                     scm_list_4 (scm_from_double (b[X_AXIS][RIGHT]),
-                                 scm_from_double (b[Y_AXIS][UP]),
-                                 scm_from_double (b[X_AXIS][LEFT]),
-                                 scm_from_double (b[Y_AXIS][UP])),
-                     scm_list_4 (scm_from_double (b[X_AXIS][LEFT]),
-                                 scm_from_double (b[Y_AXIS][UP]),
-                                 scm_from_double (b[X_AXIS][LEFT]),
-                                 scm_from_double (b[Y_AXIS][DOWN])));
-}
-
 Box
 ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
 {
@@ -92,8 +73,15 @@ ly_FT_get_glyph_outline_bbox (FT_Face const &face, size_t signed_idx)
                         static_cast<Real> (bbox.yMax)));
 }
 
-SCM
-ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
+// (this is removed in a follow up change.)
+void make_draw_bezier_boxes (Lazy_skyline_pair *skyline,
+                             Transform const &transform, Real,
+                             Offset control[4]);
+
+void
+ly_FT_add_outline_to_skyline (Lazy_skyline_pair *lazy,
+                              Transform const &transform, FT_Face const &face,
+                              size_t signed_idx)
 {
   FT_UInt idx = FT_UInt (signed_idx);
   // We load the glyph unscaled; all returned outline coordinates are thus
@@ -103,12 +91,12 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
   if (!(face->glyph->format == FT_GLYPH_FORMAT_OUTLINE))
     {
       // no warnings; this happens a lot
-      return box_to_scheme_lines (ly_FT_get_unscaled_indexed_char_dimensions (face, signed_idx));
+      Box b = ly_FT_get_unscaled_indexed_char_dimensions (face, signed_idx);
+      lazy->add_box (transform, b);
+      return;
     }
 
-  FT_Outline *outline;
-  outline = &(face->glyph->outline);
-  SCM out = SCM_EOL;
+  FT_Outline *outline = &(face->glyph->outline);
   Offset lastpos;
   Offset firstpos;
   int j = 0;
@@ -124,66 +112,36 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
       else if (outline->tags[j] & 1)
         {
           // it is a line
-          out = scm_cons (scm_list_4 (scm_from_double (lastpos[X_AXIS]),
-                                      scm_from_double (lastpos[Y_AXIS]),
-                                      scm_from_long (outline->points[j].x),
-                                      scm_from_long (outline->points[j].y)),
-                          out);
-          lastpos = Offset (static_cast<Real> (outline->points[j].x),
-                            static_cast<Real> (outline->points[j].y));
+          Offset p (static_cast<Real> (outline->points[j].x),
+                    static_cast<Real> (outline->points[j].y));
+          lazy->add_segment (transform, lastpos, p);
+          lastpos = p;
           j++;
         }
       else if (outline->tags[j] & 2)
         {
           // it is a third order bezier
-          out = scm_cons (scm_list_n (scm_from_double (lastpos[X_AXIS]),
-                                      scm_from_double (lastpos[Y_AXIS]),
-                                      scm_from_long (outline->points[j].x),
-                                      scm_from_long (outline->points[j].y),
-                                      scm_from_long (outline->points[j + 1].x),
-                                      scm_from_long (outline->points[j + 1].y),
-                                      scm_from_long (outline->points[j + 2].x),
-                                      scm_from_long (outline->points[j + 2].y),
-                                      SCM_UNDEFINED),
-                          out);
-          lastpos = Offset (static_cast<Real> (outline->points[j + 2].x),
-                            static_cast<Real> (outline->points[j + 2].y));
+          Offset ps[4] = {lastpos};
+          for (int i = 0; i < 3; i++)
+            {
+              ps[i + 1] = Offset (static_cast<Real> (outline->points[j + i].x),
+                                  static_cast<Real> (outline->points[j + i].y));
+            }
+          lastpos = ps[3];
+          make_draw_bezier_boxes (lazy, transform, 0.0, ps);
           j += 3;
         }
       else
         {
           // it is a second order bezier
-          Real x0 = lastpos[X_AXIS];
-          Real x1 = static_cast<Real> (outline->points[j].x);
-          Real x2 = static_cast<Real> (outline->points[j + 1].x);
-
-          Real y0 = lastpos[Y_AXIS];
-          Real y1 = static_cast<Real> (outline->points[j].y);
-          Real y2 = static_cast<Real> (outline->points[j + 1].y);
-
-          out = scm_cons (scm_list_n (scm_from_double (x0),
-                                      scm_from_double (y0),
-                                      scm_from_double ((x0 + 2 * x1) / 3),
-                                      scm_from_double ((y0 + 2 * y1) / 3),
-                                      scm_from_double ((2 * x1 + x2) / 3),
-                                      scm_from_double ((2 * y1 + y2) / 3),
-                                      scm_from_double (x2),
-                                      scm_from_double (y2),
-                                      SCM_UNDEFINED),
-                          out);
-          lastpos = Offset (static_cast<Real> (outline->points[j + 1].x),
-                            static_cast<Real> (outline->points[j + 1].y));
+          // we don't have code to handle these. Substitute a line segment instead.
+          Offset p (static_cast<Real> (outline->points[j + 1].x),
+                    static_cast<Real> (outline->points[j + 1].y));
+          lazy->add_segment (transform, lastpos, p);
+          lastpos = p;
           j += 2;
         }
     }
 
-  // just in case, close the figure
-  out = scm_cons (scm_list_4 (scm_from_double (lastpos[X_AXIS]),
-                              scm_from_double (lastpos[Y_AXIS]),
-                              scm_from_double (firstpos[X_AXIS]),
-                              scm_from_double (firstpos[Y_AXIS])),
-                  out);
-
-  out = scm_reverse_x (out, SCM_EOL);
-  return out;
+  lazy->add_segment (transform, lastpos, firstpos);
 }

@@ -19,8 +19,6 @@
 
 #include "engraver.hh"
 
-#include <cctype>
-
 #include "duration.hh"
 #include "item.hh"
 #include "output-def.hh"
@@ -29,6 +27,8 @@
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+
+#include <cctype>
 
 #include "translator.icc"
 
@@ -61,15 +61,15 @@ Note_heads_engraver::listen_note (Stream_event *ev)
 void
 Note_heads_engraver::process_music ()
 {
-  SCM c0 = get_property ("middleCPosition");
-  SCM layout_proc = get_property ("staffLineLayoutFunction");
+  SCM c0 = get_property (this, "middleCPosition");
+  SCM layout_proc = get_property (this, "staffLineLayoutFunction");
 
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
       Stream_event *ev = note_evs_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 
-      Pitch *pit = unsmob<Pitch> (ev->get_property ("pitch"));
+      Pitch *pit = unsmob<Pitch> (get_property (ev, "pitch"));
 
 #if 0 /* TODO: should have a mechanism to switch off these warnings. */
 
@@ -82,7 +82,7 @@ Note_heads_engraver::process_music ()
         pos = 0;
       else if (ly_is_procedure (layout_proc))
         {
-          SCM pitch = ev->get_property ("pitch");
+          SCM pitch = get_property (ev, "pitch");
           pos = scm_to_int (scm_call_1 (layout_proc, pitch));
         }
       else
@@ -91,15 +91,15 @@ Note_heads_engraver::process_music ()
       if (scm_is_number (c0))
         pos += scm_to_int (c0);
 
-      note->set_property ("staff-position", scm_from_int (pos));
+      set_property (note, "staff-position", scm_from_int (pos));
 
       /*
         Shape note heads change on step of the scale.
       */
-      SCM shape_vector = get_property ("shapeNoteStyles");
+      SCM shape_vector = get_property (this, "shapeNoteStyles");
       if (scm_is_vector (shape_vector))
         {
-          SCM scm_tonic = get_property ("tonic");
+          SCM scm_tonic = get_property (this, "tonic");
           Pitch tonic;
           if (unsmob<Pitch> (scm_tonic))
             tonic = *unsmob<Pitch> (scm_tonic);
@@ -111,7 +111,7 @@ Note_heads_engraver::process_music ()
               && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
             style = scm_vector_ref (shape_vector, scm_from_int (delta));
           if (scm_is_symbol (style))
-            note->set_property ("style", style);
+            set_property (note, "style", style);
         }
     }
 }

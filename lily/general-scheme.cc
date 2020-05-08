@@ -20,11 +20,6 @@
 
 #include "config.hh"
 
-#include <cstdio>
-#include <ctype.h>
-#include <cstring>  /* memset */
-#include <glib.h>
-
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "file-path.hh"
@@ -37,6 +32,11 @@
 #include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
+
+#include <cstdio>
+#include <cstring> /* memset */
+#include <ctype.h>
+#include <glib.h>
 
 using std::string;
 using std::vector;

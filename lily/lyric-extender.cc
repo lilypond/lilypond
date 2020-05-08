@@ -34,7 +34,7 @@ Lyric_extender::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
   Item *left_edge = me->get_bound (LEFT);
-  Item *right_text = unsmob<Item> (me->get_object ("next"));
+  Item *right_text = unsmob<Item> (get_object (me, "next"));
 
   Grob *common = left_edge;
 
@@ -66,7 +66,7 @@ Lyric_extender::print (SCM smob)
 
   /* It seems that short extenders are even lengthened to go past the
      note head, but haven't found a pattern in it yet. --hwn 1/1/04  */
-  SCM minlen = me->get_property ("minimum-length");
+  SCM minlen = get_property (me, "minimum-length");
   Real right_point
     = left_point + (robust_scm2double (minlen, 0));
 
@@ -75,9 +75,9 @@ Lyric_extender::print (SCM smob)
   if (heads.size ())
     right_point = std::max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
-  Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
-  Drul_array<Real> paddings (robust_scm2double (me->get_property ("left-padding"), h),
-                             robust_scm2double (me->get_property ("right-padding"), h));
+  Real h = sl * robust_scm2double (get_property (me, "thickness"), 0);
+  Drul_array<Real> paddings (robust_scm2double (get_property (me, "left-padding"), h),
+                             robust_scm2double (get_property (me, "right-padding"), h));
 
   if (right_text)
     right_point = std::min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));

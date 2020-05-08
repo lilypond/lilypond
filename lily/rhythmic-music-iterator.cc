@@ -48,7 +48,7 @@ Rhythmic_music_iterator::process (Moment m)
 
       Context *c = get_outlet ();
       Stream_event *ev = get_music ()->to_event ();
-      SCM arts = ev->get_property ("articulations");
+      SCM arts = get_property (ev, "articulations");
 
       if (scm_is_pair (arts))
         {
@@ -62,12 +62,12 @@ Rhythmic_music_iterator::process (Moment m)
               SCM art = scm_car (arts);
 
               if (c->event_source ()->is_listened_class
-                  (unsmob<Stream_event> (art)->get_property ("class")))
+                  (get_property (unsmob<Stream_event> (art), "class")))
                 listened = scm_cons (art, listened);
               else
                 unlistened = scm_cons (art, unlistened);
             }
-          ev->set_property ("articulations", scm_reverse_x (unlistened, SCM_EOL));
+          set_property (ev, "articulations", scm_reverse_x (unlistened, SCM_EOL));
           c->event_source ()->broadcast (ev);
           arts = scm_reverse_x (listened, SCM_EOL);
           for (; scm_is_pair (arts); arts = scm_cdr (arts))

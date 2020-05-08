@@ -55,8 +55,8 @@ Context::check_removal ()
         {
           recurse_over_translators
           (ctx,
-           MFP0_WRAP (&Translator::finalize),
-           MFP0_WRAP (&Translator_group::finalize),
+           MFP_WRAP (&Translator::finalize),
+           MFP_WRAP (&Translator_group::finalize),
            UP);
           send_stream_event (ctx, "RemoveContext", 0);
         }
@@ -283,18 +283,18 @@ Context::set_property_from_event (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
 
-  SCM sym = ev->get_property ("symbol");
+  SCM sym = get_property (ev, "symbol");
   if (scm_is_symbol (sym))
     {
-      SCM val = ev->get_property ("value");
+      SCM val = get_property (ev, "value");
       bool ok = true;
       ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
 
       if (ok)
         {
-          if (to_boolean (ev->get_property ("once")))
+          if (to_boolean (get_property (ev, "once")))
             add_global_finalization (make_revert_finalization (sym));
-          set_property (sym, val);
+          set_property (this, sym, val);
         }
     }
 }
@@ -304,12 +304,12 @@ Context::unset_property_from_event (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
 
-  SCM sym = ev->get_property ("symbol");
+  SCM sym = get_property (ev, "symbol");
   bool ok = type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
 
   if (ok)
     {
-      if (to_boolean (ev->get_property ("once")))
+      if (to_boolean (get_property (ev, "once")))
         add_global_finalization (make_revert_finalization (sym));
       unset_property (sym);
     }
@@ -324,9 +324,9 @@ Context::create_context_from_event (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
 
-  string id = ly_scm2string (ev->get_property ("id"));
-  SCM ops = ev->get_property ("ops");
-  SCM type_scm = ev->get_property ("type");
+  string id = ly_scm2string (get_property (ev, "id"));
+  SCM ops = get_property (ev, "ops");
+  SCM type_scm = get_property (ev, "type");
   string type = ly_symbol2string (type_scm);
 
   vector<Context_def *> path = path_to_acceptable_context (type_scm);
@@ -418,7 +418,7 @@ Context::create_context (Context_def *cdef,
                    ly_symbol2scm ("AnnounceNewContext"));
 
   assert (infant_event_);
-  SCM infant_scm = infant_event_->get_property ("context");
+  SCM infant_scm = get_property (infant_event_, "context");
   Context *infant = unsmob<Context> (infant_scm);
 
   if (!infant || infant->get_parent_context () != this)
@@ -597,7 +597,7 @@ Context::internal_send_stream_event (SCM type, Input *origin,
                                      SCM prop, SCM val)
 {
   Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
-  e->set_property (prop, val);
+  set_property (e, prop, val);
   event_source_->broadcast (e);
   e->unprotect ();
 }
@@ -607,8 +607,8 @@ Context::internal_send_stream_event (SCM type, Input *origin,
                                      SCM prop, SCM val, SCM prop2, SCM val2)
 {
   Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
-  e->set_property (prop, val);
-  e->set_property (prop2, val2);
+  set_property (e, prop, val);
+  set_property (e, prop2, val2);
   event_source_->broadcast (e);
   e->unprotect ();
 }
@@ -619,9 +619,9 @@ Context::internal_send_stream_event (SCM type, Input *origin,
                                      SCM prop3, SCM val3)
 {
   Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
-  e->set_property (prop, val);
-  e->set_property (prop2, val2);
-  e->set_property (prop3, val3);
+  set_property (e, prop, val);
+  set_property (e, prop2, val2);
+  set_property (e, prop3, val3);
   event_source_->broadcast (e);
   e->unprotect ();
 }
@@ -632,10 +632,10 @@ Context::internal_send_stream_event (SCM type, Input *origin,
                                      SCM prop3, SCM val3, SCM prop4, SCM val4)
 {
   Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
-  e->set_property (prop, val);
-  e->set_property (prop2, val2);
-  e->set_property (prop3, val3);
-  e->set_property (prop4, val4);
+  set_property (e, prop, val);
+  set_property (e, prop2, val2);
+  set_property (e, prop3, val3);
+  set_property (e, prop4, val4);
   event_source_->broadcast (e);
   e->unprotect ();
 }
@@ -689,7 +689,7 @@ void
 Context::change_parent (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
-  Context *to = unsmob<Context> (ev->get_property ("context"));
+  Context *to = unsmob<Context> (get_property (ev, "context"));
 
   disconnect_from_parent ();
   to->add_context (this);
@@ -858,7 +858,7 @@ Context::get_parent_context () const
 Rational
 measure_length (Context const *context)
 {
-  SCM l = context->get_property ("measureLength");
+  SCM l = get_property (context, "measureLength");
   Rational length (1);
   if (unsmob<Moment> (l))
     length = unsmob<Moment> (l)->main_part_;
@@ -868,7 +868,7 @@ measure_length (Context const *context)
 Moment
 measure_position (Context const *context)
 {
-  SCM sm = context->get_property ("measurePosition");
+  SCM sm = get_property (context, "measurePosition");
 
   Moment m = 0;
   if (unsmob<Moment> (sm))
@@ -904,8 +904,8 @@ measure_position (Context const *context, Duration const *dur)
 int
 measure_number (Context const *context)
 {
-  SCM barnum = context->get_property ("internalBarNumber");
-  SCM smp = context->get_property ("measurePosition");
+  SCM barnum = get_property (context, "internalBarNumber");
+  SCM smp = get_property (context, "measurePosition");
 
   int bn = robust_scm2int (barnum, 0);
   Moment mp = robust_scm2moment (smp, Moment (0));
@@ -918,7 +918,7 @@ measure_number (Context const *context)
 void
 set_context_property_on_children (Context *trans, SCM sym, SCM val)
 {
-  trans->set_property (sym, ly_deep_copy (val));
+  set_property (trans, sym, ly_deep_copy (val));
   for (SCM p = trans->children_contexts (); scm_is_pair (p); p = scm_cdr (p))
     {
       Context *trg = unsmob<Context> (scm_car (p));
@@ -947,10 +947,10 @@ melisma_busy (Context *tr)
       return true;
     }
 
-  for (SCM melisma_properties = tr->get_property ("melismaBusyProperties");
+  for (SCM melisma_properties = get_property (tr, "melismaBusyProperties");
        scm_is_pair (melisma_properties);
        melisma_properties = scm_cdr (melisma_properties))
-    if (to_boolean (tr->get_property (scm_car (melisma_properties))))
+    if (to_boolean (get_property (tr, scm_car (melisma_properties))))
       return true;
 
   return false;
@@ -959,7 +959,7 @@ melisma_busy (Context *tr)
 bool
 check_repeat_count_visibility (Context const *context, SCM count)
 {
-  SCM proc = context->get_property ("repeatCountVisibility");
+  SCM proc = get_property (context, "repeatCountVisibility");
   return (ly_is_procedure (proc)
           && to_boolean (scm_call_2 (proc,
                                      count,

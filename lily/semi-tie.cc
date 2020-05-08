@@ -58,15 +58,15 @@ Semi_tie::calc_control_points (SCM smob)
 {
   Item *me = LY_ASSERT_SMOB (Item, smob, 1);
 
-  (void) me->get_property ("direction");
+  (void) get_property (me, "direction");
 
   Grob *yparent = me->get_parent (Y_AXIS);
   if (has_interface<Semi_tie_column> (yparent))
     {
       /* trigger positioning. */
-      yparent->get_property ("positioning-done");
+      get_property (yparent, "positioning-done");
 
-      return me->get_property_data ("control-points");
+      return get_property_data (me, "control-points");
     }
 
   programming_error ("lv tie without Semi_tie_column.  Killing lv tie.");
@@ -109,5 +109,5 @@ Semi_tie::less (Grob *g1, Grob *g2)
 Item *
 Semi_tie::head (Item *me)
 {
-  return unsmob<Item> (me->get_object ("note-head"));
+  return unsmob<Item> (get_object (me, "note-head"));
 }

@@ -26,13 +26,13 @@
 Music *
 Repeated_music::body (Music *me)
 {
-  return unsmob<Music> (me->get_property ("element"));
+  return unsmob<Music> (get_property (me, "element"));
 }
 
 SCM
 Repeated_music::alternatives (Music *me)
 {
-  return me->get_property ("elements");
+  return get_property (me, "elements");
 }
 
 Moment
@@ -48,7 +48,7 @@ Repeated_music::alternatives_get_length (Music *me, bool fold)
 
   Moment m = 0;
   int done = 0;
-  int count = robust_scm2int (me->get_property ("repeat-count"), 0);
+  int count = robust_scm2int (get_property (me, "repeat-count"), 0);
 
   SCM p = alternative_list;
   while (scm_is_pair (p) && done < count)
@@ -78,7 +78,7 @@ Moment
 Repeated_music::body_get_length (Music *me)
 {
   Moment m = 0;
-  if (Music *body = unsmob<Music> (me->get_property ("element")))
+  if (Music *body = unsmob<Music> (get_property (me, "element")))
     m = body->get_length ();
   return m;
 }
@@ -94,20 +94,10 @@ Repeated_music::unfolded_music_length (SCM m)
   return l.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Repeated_music, folded_music_length, 1);
-SCM
-Repeated_music::folded_music_length (SCM m)
-{
-  Music *me = unsmob<Music> (m);
-
-  Moment l = body_get_length (me) + alternatives_get_length (me, true);
-  return l.smobbed_copy ();
-}
-
 int
 Repeated_music::repeat_count (Music *me)
 {
-  return scm_to_int (me->get_property ("repeat-count"));
+  return scm_to_int (get_property (me, "repeat-count"));
 }
 
 MAKE_SCHEME_CALLBACK (Repeated_music, volta_music_length, 1);
@@ -124,12 +114,12 @@ SCM
 Repeated_music::minimum_start (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  Music *body = unsmob<Music> (me->get_property ("element"));
+  Music *body = unsmob<Music> (get_property (me, "element"));
 
   if (body)
     return body->start_mom ().smobbed_copy ();
   else
-    return Music_sequence::minimum_start (me->get_property ("elements")).smobbed_copy ();
+    return Music_sequence::minimum_start (get_property (me, "elements")).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Repeated_music, first_start, 1);
@@ -137,10 +127,10 @@ SCM
 Repeated_music::first_start (SCM m)
 {
   Music *me = unsmob<Music> (m);
-  Music *body = unsmob<Music> (me->get_property ("element"));
+  Music *body = unsmob<Music> (get_property (me, "element"));
 
   Moment rv = (body) ? body->start_mom ()
-              : Music_sequence::first_start (me->get_property ("elements"));
+              : Music_sequence::first_start (get_property (me, "elements"));
 
   return rv.smobbed_copy ();
 }

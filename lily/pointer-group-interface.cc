@@ -54,7 +54,7 @@ Pointer_group_interface::get_grob_array (Grob *me, SCM sym)
     {
       scm_arr = Grob_array::make_array ();
       arr = unsmob<Grob_array> (scm_arr);
-      me->set_object (sym, scm_arr);
+      set_object (me, sym, scm_arr);
     }
   return arr;
 }

@@ -1630,7 +1630,7 @@ La sintassi di una nota a piè di pagina nel testo separato con segni
 automatici è
 
 @example
-\markup @{ @dots{} \auto-footnote @var{testo} @var{nota} @dots{} @}
+\markup @{ @dots{} \footnote @var{testo} @var{nota} @dots{} @}
 @end example
 
 Gli elementi sono:
@@ -1653,9 +1653,9 @@ Per esempio:
   \header { tagline = ##f }
   \markup {
     "Una semplice"
-    \auto-footnote "canzone" \italic " Scritta da me"
+    \footnote "canzone" \italic " Scritta da me"
     "è mostrata sotto.  È una composizione"
-    \auto-footnote "recente" \italic " Agosto 2012"
+    \footnote "recente" \italic " Agosto 2012"
     "."
   }
   \relative {

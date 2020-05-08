@@ -105,7 +105,7 @@ void
 Score_performer::prepare (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
-  SCM sm = ev->get_property ("moment");
+  SCM sm = get_property (ev, "moment");
   Moment *m = unsmob<Moment> (sm);
   audio_column_ = new Audio_column (*m);
   announce_element (Audio_element_info (audio_column_, 0));
@@ -115,13 +115,13 @@ Score_performer::prepare (SCM sev)
 void
 Score_performer::finish (SCM)
 {
-  SCM channel_mapping = context ()->get_property ("midiChannelMapping");
+  SCM channel_mapping = get_property (context (), "midiChannelMapping");
   bool use_ports = scm_is_eq (channel_mapping, ly_symbol2scm ("voice"));
   performance_->ports_ = use_ports;
   recurse_over_translators
   (context (),
-   MFP0_WRAP (&Translator::finalize),
-   MFP0_WRAP (&Translator_group::finalize),
+   MFP_WRAP (&Translator::finalize),
+   MFP_WRAP (&Translator_group::finalize),
    UP);
 }
 
@@ -139,7 +139,7 @@ Score_performer::one_time_step (SCM)
 
   if (!audio_column_)
     audio_column_ = new Audio_column (context ()->now_mom ());
-  if (to_boolean (context ()->get_property ("skipTypesetting")))
+  if (to_boolean (get_property (context (), "skipTypesetting")))
     {
       if (!skipping_)
         {
@@ -177,7 +177,7 @@ Score_performer::initialize ()
 {
   performance_ = new Performance;
   performance_->unprotect ();
-  context ()->set_property ("output", performance_->self_scm ());
+  set_property (context (), "output", performance_->self_scm ());
   performance_->midi_ = context ()->get_output_def ();
 
   Translator_group::initialize ();

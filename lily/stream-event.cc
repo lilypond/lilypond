@@ -24,6 +24,7 @@
 #include "international.hh"
 #include "music.hh"
 #include "pitch.hh"
+
 #include <string>
 
 /* TODO: Rename Stream_event -> Event */
@@ -56,20 +57,20 @@ Stream_event::copy_mutable_properties () const
 Input *
 Stream_event::origin () const
 {
-  Input *i = unsmob<Input> (get_property ("origin"));
+  Input *i = unsmob<Input> (get_property (this, "origin"));
   return i ? i : &dummy_input_global;
 }
 
 void
 Stream_event::set_spot (Input *i)
 {
-  set_property ("origin", i->smobbed_copy ());
+  set_property (this, "origin", i->smobbed_copy ());
 }
 
 bool
 Stream_event::internal_in_event_class (SCM class_name)
 {
-  SCM cl = get_property ("class");
+  SCM cl = get_property (this, "class");
   return scm_is_true (scm_c_memq (class_name, cl));
 }
 
@@ -125,9 +126,9 @@ warn_reassign_event_ptr (Stream_event &old_ev, Stream_event *new_ev)
   if (to_boolean (scm_equal_p (old_ev.self_scm (), new_ev->self_scm ())))
     return; // nothing of value was lost
 
-  std::string oc = ly_symbol2string (scm_car (old_ev.get_property ("class")));
+  std::string oc = ly_symbol2string (scm_car (get_property (&old_ev, "class")));
   old_ev.origin ()->warning (_f ("conflict with event: `%s'", oc.c_str ()));
 
-  std::string nc = ly_symbol2string (scm_car (new_ev->get_property ("class")));
+  std::string nc = ly_symbol2string (scm_car (get_property (new_ev, "class")));
   new_ev->origin ()->warning (_f ("discarding event: `%s'", nc.c_str ()));
 }

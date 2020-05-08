@@ -17,11 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-#include <cmath>
-#include <map>
-#include <set>
-
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "dot-column.hh"
@@ -37,6 +32,11 @@
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 
+#include <cmath>
+#include <cstdio>
+#include <map>
+#include <set>
+
 using std::set;
 using std::vector;
 
@@ -50,10 +50,10 @@ Dot_column::calc_positioning_done (SCM smob)
     Trigger note collision resolution first, since that may kill off
     dots when merging.
   */
-  if (Grob *collision = unsmob<Grob> (me->get_object ("note-collision")))
-    (void) collision->get_property ("positioning-done");
+  if (Grob *collision = unsmob<Grob> (get_object (me, "note-collision")))
+    (void) get_property (collision, "positioning-done");
 
-  me->set_property ("positioning-done", SCM_BOOL_T);
+  set_property (me, "positioning-done", SCM_BOOL_T);
 
   vector<Grob *> dots
     = extract_grob_array (me, "dots");
@@ -67,7 +67,7 @@ Dot_column::calc_positioning_done (SCM smob)
       Grob *n = dots[i]->get_parent (Y_AXIS);
       commonx = n->common_refpoint (commonx, X_AXIS);
 
-      if (Grob *stem = unsmob<Grob> (n->get_object ("stem")))
+      if (Grob *stem = unsmob<Grob> (get_object (n, "stem")))
         {
           commonx = stem->common_refpoint (commonx, X_AXIS);
 
@@ -124,7 +124,7 @@ Dot_column::calc_positioning_done (SCM smob)
       Box b (s->extent (commonx, X_AXIS), y);
       boxes.push_back (b);
 
-      if (Grob *stem = unsmob<Grob> (s->get_object ("stem")))
+      if (Grob *stem = unsmob<Grob> (get_object (s, "stem")))
         stems.insert (stem);
     }
 
@@ -152,14 +152,14 @@ Dot_column::calc_positioning_done (SCM smob)
   */
   vector_sort (dots, pure_position_less);
 
-  SCM chord_dots_limit = me->get_property ("chord-dots-limit");
+  SCM chord_dots_limit = get_property (me, "chord-dots-limit");
   if (scm_is_number (chord_dots_limit))
     {
       // Sort dots by stem, then check for dots above the limit for each stem
       vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
-        if (Grob *stem = unsmob<Grob> (dots[i]->get_parent (Y_AXIS)
-                                       -> get_object ("stem")))
+        if (Grob *stem = unsmob<Grob> (get_object (dots[i]->get_parent (Y_AXIS)
+                                       , "stem")))
           for (vsize j = 0; j < parent_stems.size (); j++)
             if (stem == parent_stems[j])
               {
@@ -203,7 +203,7 @@ Dot_column::calc_positioning_done (SCM smob)
       if (note)
         {
           if (has_interface<Note_head> (note))
-            dp.dir_ = to_dir (dp.dot_->get_property ("direction"));
+            dp.dir_ = to_dir (get_property (dp.dot_, "direction"));
 
           dp.x_extent_ = note->extent (commonx, X_AXIS);
         }
@@ -212,13 +212,13 @@ Dot_column::calc_positioning_done (SCM smob)
 
       /* icky, since this should go via a Staff_symbol_referencer
          offset callback but adding a dot overwrites Y-offset. */
-      p += (int) robust_scm2double (dp.dot_->get_property ("staff-position"), 0.0);
+      p += (int) robust_scm2double (get_property (dp.dot_, "staff-position"), 0.0);
       dp.pos_ = p;
 
       cfg.remove_collision (p);
       cfg[p] = dp;
       if (Staff_symbol_referencer::on_line (dp.dot_, p)
-          && !scm_is_eq (dp.dot_->get_property ("style"),
+          && !scm_is_eq (get_property (dp.dot_, "style"),
                          ly_symbol2scm ("kievan")))
         cfg.remove_collision (p);
     }
@@ -234,13 +234,13 @@ Dot_column::calc_positioning_done (SCM smob)
 void
 Dot_column::add_head (Grob *me, Grob *head)
 {
-  Grob *d = unsmob<Grob> (head->get_object ("dot"));
+  Grob *d = unsmob<Grob> (get_object (head, "dot"));
   if (d)
     {
       Side_position_interface::add_support (me, head);
 
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("dots"), d);
-      d->set_property ("Y-offset", Grob::x_parent_positioning_proc);
+      set_property (d, "Y-offset", Grob::x_parent_positioning_proc);
       // Dot formatting requests the Y-offset, which for rests may
       // trigger post-linebreak callbacks.  On the other hand, we need the
       // correct X-offset of the dots for horizontal collision avoidance.
@@ -249,7 +249,7 @@ Dot_column::add_head (Grob *me, Grob *head)
       if (has_interface<Rest> (head))
         d->translate_axis (head->extent (head, X_AXIS).length (), X_AXIS);
       else
-        d->set_property ("X-offset", Grob::x_parent_positioning_proc);
+        set_property (d, "X-offset", Grob::x_parent_positioning_proc);
       Axis_group_interface::add_element (me, d);
     }
 }
@@ -265,4 +265,3 @@ ADD_INTERFACE (Dot_column,
                "direction "
                "note-collision "
               );
-

@@ -142,7 +142,7 @@ public:
   static Listener
   get (SCM instance)
   {
-    return Listener(MFP1_WRAP (callback), instance);
+    return Listener(MFP_WRAP (callback), instance);
   }
 };
 

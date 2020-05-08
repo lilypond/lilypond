@@ -37,12 +37,12 @@ typedef map<Grob *, vector <Grob *> > Grob_scripts_map;
 void
 Script_column::add_side_positioned (Grob *me, Grob *script)
 {
-  SCM p = script->get_property ("script-priority");
+  SCM p = get_property (script, "script-priority");
   if (!scm_is_number (p))
     return;
 
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), script);
-  script->set_object ("script-column", me->self_scm ());
+  set_object (script, "script-column", me->self_scm ());
 }
 
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
@@ -52,8 +52,8 @@ LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
   Grob *i1 = unsmob<Grob> (a);
   Grob *i2 = unsmob<Grob> (b);
 
-  SCM p1 = i1->get_property ("script-priority");
-  SCM p2 = i2->get_property ("script-priority");
+  SCM p1 = get_property (i1, "script-priority");
+  SCM p2 = get_property (i2, "script-priority");
 
   return scm_to_int (p1) < scm_to_int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
@@ -80,7 +80,7 @@ Script_column::row_before_line_breaking (SCM smob)
         {
           affect_all_grobs.push_back (sc);
         }
-      else if (!scm_is_eq (sc->get_property_data ("Y-offset"),
+      else if (!scm_is_eq (get_property_data (sc, "Y-offset"),
                            Side_position_interface::y_aligned_side_proc))
         {
           head_scripts_map[sc->get_parent (Y_AXIS)].push_back (sc);
@@ -115,7 +115,7 @@ Script_column::before_line_breaking (SCM smob)
       /*
         Don't want to consider scripts horizontally next to notes.
       */
-      if (!scm_is_eq (sc->get_property_data ("X-offset"),
+      if (!scm_is_eq (get_property_data (sc, "X-offset"),
                       Side_position_interface::x_aligned_side_proc))
         staff_sided.push_back (sc);
     }
@@ -151,10 +151,10 @@ Script_column::order_grobs (vector<Grob *> grobs)
            s = scm_cdr (s), last = g, last_initial_outside_staff = initial_outside_staff)
         {
           g = unsmob<Grob> (scm_car (s));
-          initial_outside_staff = g->get_property ("outside-staff-priority");
+          initial_outside_staff = get_property (g, "outside-staff-priority");
           if (last)    //not the first grob in the list
             {
-              SCM last_outside_staff = last->get_property ("outside-staff-priority");
+              SCM last_outside_staff = get_property (last, "outside-staff-priority");
               /*
                 if outside_staff_priority is missing for previous grob,
                 use all the scripts so far as support for the current grob
@@ -171,7 +171,7 @@ Script_column::order_grobs (vector<Grob *> grobs)
               else if ((!scm_is_number (initial_outside_staff))
                        || (fabs (scm_to_double (initial_outside_staff)
                                  - robust_scm2double (last_initial_outside_staff, 0)) < 0.001))
-                g->set_property ("outside-staff-priority",
+                set_property (g, "outside-staff-priority",
                                  scm_from_double (scm_to_double (last_outside_staff) + 0.1));
             }
         }

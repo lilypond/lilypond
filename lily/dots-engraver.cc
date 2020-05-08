@@ -44,10 +44,10 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
     return;
 
   Grob *note = gi.grob ();
-  if (unsmob<Grob> (note->get_object ("dot")))
+  if (unsmob<Grob> (get_object (note, "dot")))
     return;
 
-  Duration *dur = unsmob<Duration> (cause->get_property ("duration"));
+  Duration *dur = unsmob<Duration> (get_property (cause, "duration"));
   if (dur && dur->dot_count ())
     {
       Item *d = make_item ("Dots", note->self_scm ());

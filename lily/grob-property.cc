@@ -2,8 +2,6 @@
   Implement storage and manipulation of grob properties.
 */
 
-#include <cstring>
-
 #include "main.hh"
 #include "input.hh"
 #include "pointer-group-interface.hh"
@@ -18,6 +16,8 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "protected-scm.hh"
+
+#include <cstring>
 
 Protected_scm grob_property_callback_stack (SCM_EOL);
 
@@ -159,7 +159,7 @@ Grob::internal_get_property_data (SCM sym) const
 SCM
 Grob::internal_get_property (SCM sym) const
 {
-  SCM val = get_property_data (sym);
+  SCM val = get_property_data (this, sym);
 
 #ifdef DEBUG
   if (scm_is_eq (val, ly_symbol2scm ("calculation-in-progress")))
@@ -246,7 +246,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   // the callback in which case we cross fingers and continue silently.
   if (scm_is_eq (value, SCM_UNSPECIFIED))
     {
-      value = get_property_data (sym);
+      value = get_property_data (this, sym);
       if (scm_is_eq (value, marker))
         *alist = scm_assq_remove_x (*alist, sym);
       else if (!scm_is_null (value))

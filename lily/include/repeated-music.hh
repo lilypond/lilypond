@@ -31,14 +31,7 @@
    is put in REPEAT_BODY_P_.  Either the body or the alternative may
    be omitted.
 
-   There are three modes of representing this  music:
-
-   BODY A
-   B
-   C
-
-   is called "folded". Mostly used for lyrics.
-
+   There are different modes of representing this music:
 
    BODY A B C
 
@@ -69,7 +62,6 @@ public:
 
   DECLARE_SCHEME_CALLBACK (unfolded_music_length, (SCM));
   DECLARE_SCHEME_CALLBACK (volta_music_length, (SCM));
-  DECLARE_SCHEME_CALLBACK (folded_music_length, (SCM));
   DECLARE_SCHEME_CALLBACK (minimum_start, (SCM));
   DECLARE_SCHEME_CALLBACK (first_start, (SCM));
 };

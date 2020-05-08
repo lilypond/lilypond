@@ -200,7 +200,7 @@ Prob::get_property_alist (bool m) const
 string
 Prob::name () const
 {
-  SCM nm = get_property ("name");
+  SCM nm = get_property (this, "name");
   if (scm_is_symbol (nm))
     return ly_symbol2string (nm);
   else

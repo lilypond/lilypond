@@ -571,7 +571,7 @@ Siehe @ruser{Notationsfragmente extrahieren}.
 @cindex OpenOffice.org
 
 Musik im LilyPond-Format kann in OpenOffice.org eingefügt werden mittels
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
+@uref{https://github.com/openlilylib/LO-ly,OOoLilyPond}.
 
 
 @node Vložení not LilyPondu do jiných programů

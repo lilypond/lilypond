@@ -58,7 +58,7 @@ Ledger_line_engraver::start_spanner ()
   assert (!span_);
 
   span_ = make_spanner ("LedgerLineSpanner", SCM_EOL);
-  span_->set_bound (LEFT, unsmob<Grob> (get_property ("currentCommandColumn")));
+  span_->set_bound (LEFT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
 }
 
 void
@@ -68,7 +68,7 @@ Ledger_line_engraver::stop_translation_timestep ()
     {
       for (vsize i = 0; i < ledgered_grobs_.size (); i++)
         {
-          if (!to_boolean (ledgered_grobs_[i]->get_property ("no-ledgers")))
+          if (!to_boolean (get_property (ledgered_grobs_[i], "no-ledgers")))
             Pointer_group_interface::add_grob (span_,
                                                ly_symbol2scm ("note-heads"),
                                                ledgered_grobs_[i]);
@@ -99,7 +99,7 @@ Ledger_line_engraver::stop_spanner ()
 {
   if (span_)
     {
-      span_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
       span_ = 0;
     }
 }

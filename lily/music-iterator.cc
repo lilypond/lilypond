@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdio>
-
 #include "warn.hh"
 #include "music.hh"
 #include "context.hh"
@@ -28,6 +26,8 @@
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
+
+#include <cstdio>
 
 Music_iterator::Music_iterator ()
 {
@@ -78,7 +78,7 @@ Music_iterator::get_static_get_iterator (Music *m)
 {
   Music_iterator *p = 0;
 
-  SCM ctor = m->get_property ("iterator-ctor");
+  SCM ctor = get_property (m, "iterator-ctor");
   SCM iter = SCM_EOL;
   if (ly_is_procedure (ctor))
     {

@@ -138,7 +138,7 @@ Accidental_engraver::update_local_key_signature (SCM new_sig)
   SCM val;
   while (trans && trans->here_defined (ly_symbol2scm ("localAlterations"), &val))
     {
-      trans->set_property ("localAlterations", ly_deep_copy (last_keysig_));
+      set_property (trans, "localAlterations", ly_deep_copy (last_keysig_));
       trans = trans->get_parent_context ();
     }
 }
@@ -221,9 +221,9 @@ Accidental_engraver::process_acknowledged ()
 {
   if (accidentals_.size () && !accidentals_.back ().done_)
     {
-      SCM accidental_rules = get_property ("autoAccidentals");
-      SCM cautionary_rules = get_property ("autoCautionaries");
-      SCM measure_position = get_property ("measurePosition");
+      SCM accidental_rules = get_property (this, "autoAccidentals");
+      SCM cautionary_rules = get_property (this, "autoCautionaries");
+      SCM measure_position = get_property (this, "measurePosition");
       int barnum = measure_number (context ());
 
       for (vsize i = 0; i < accidentals_.size (); i++)
@@ -235,7 +235,7 @@ Accidental_engraver::process_acknowledged ()
           Stream_event *note = accidentals_[i].melodic_;
           Context *origin = accidentals_[i].origin_;
 
-          Pitch *pitch = unsmob<Pitch> (note->get_property ("pitch"));
+          Pitch *pitch = unsmob<Pitch> (get_property (note, "pitch"));
           if (!pitch)
             continue;
 
@@ -244,7 +244,7 @@ Accidental_engraver::process_acknowledged ()
           Accidental_result caut = check_pitch_against_rules (*pitch, origin, cautionary_rules,
                                                               barnum, measure_position);
 
-          bool cautionary = to_boolean (note->get_property ("cautionary"));
+          bool cautionary = to_boolean (get_property (note, "cautionary"));
           if (caut.score () > acc.score ())
             {
               acc.need_acc |= caut.need_acc;
@@ -253,7 +253,7 @@ Accidental_engraver::process_acknowledged ()
               cautionary = true;
             }
 
-          bool forced = to_boolean (note->get_property ("force-accidental"));
+          bool forced = to_boolean (get_property (note, "force-accidental"));
           if (!acc.need_acc && forced)
             acc.need_acc = true;
 
@@ -267,7 +267,7 @@ Accidental_engraver::process_acknowledged ()
                 create_accidental (&accidentals_[i], acc.need_restore, cautionary);
 
               if (forced || cautionary)
-                accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
+                set_property (accidentals_[i].accidental_, "forced", SCM_BOOL_T);
             }
         }
     }
@@ -280,7 +280,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 {
   Stream_event *note = entry->melodic_;
   Grob *support = entry->head_;
-  SCM suggest = entry->origin_->get_property ("suggestAccidentals");
+  SCM suggest = get_property (entry->origin_, "suggestAccidentals");
   bool bsuggest = to_boolean (suggest);
   Grob *a = 0;
   if (bsuggest
@@ -291,8 +291,8 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 
   if (restore_natural)
     {
-      if (to_boolean (get_property ("extraNatural")))
-        a->set_property ("restore-first", SCM_BOOL_T);
+      if (to_boolean (get_property (this, "extraNatural")))
+        set_property (a, "restore-first", SCM_BOOL_T);
     }
 
   entry->accidental_ = a;
@@ -321,7 +321,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   */
   for (vsize i = 0; i < left_objects_.size (); i++)
     {
-      if (ly_is_equal (left_objects_[i]->get_property ("side-axis"), scm_from_int (X_AXIS)))
+      if (ly_is_equal (get_property (left_objects_[i], "side-axis"), scm_from_int (X_AXIS)))
         Side_position_interface::add_support (left_objects_[i], a);
     }
 
@@ -341,10 +341,10 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   intmax_t context_hash = reinterpret_cast<intmax_t>(trans);
   Accidental_placement::add_accidental
   (accidental_placement_, a,
-   scm_is_eq (get_property ("accidentalGrouping"), ly_symbol2scm ("voice")),
+   scm_is_eq (get_property (this, "accidentalGrouping"), ly_symbol2scm ("voice")),
    static_cast<long>(context_hash));
 
-  note_head->set_object ("accidental-grob", a->self_scm ());
+  set_object (note_head, "accidental-grob", a->self_scm ());
 
   return a;
 }
@@ -357,7 +357,7 @@ Accidental_engraver::make_suggested_accidental (Stream_event * /* note */,
   Grob *a = trans->make_item ("AccidentalSuggestion", note_head->self_scm ());
 
   Side_position_interface::add_support (a, note_head);
-  if (Grob *stem = unsmob<Grob> (a->get_object ("stem")))
+  if (Grob *stem = unsmob<Grob> (get_object (a, "stem")))
     Side_position_interface::add_support (a, stem);
 
   a->set_parent (note_head, X_AXIS);
@@ -384,7 +384,7 @@ Accidental_engraver::stop_translation_timestep ()
           Stream_event *le = l->event_cause ();
           Stream_event *re = r->event_cause ();
           if (le && re
-              && !ly_is_equal (le->get_property ("pitch"), re->get_property ("pitch")))
+              && !ly_is_equal (get_property (le, "pitch"), get_property (re, "pitch")))
             continue;
         }
 
@@ -393,7 +393,7 @@ Accidental_engraver::stop_translation_timestep ()
           {
             if (Grob *g = accidentals_[i].accidental_)
               {
-                g->set_object ("tie", ties_[j]->self_scm ());
+                set_object (g, "tie", ties_[j]->self_scm ());
                 accidentals_[i].tied_ = true;
               }
             ties_.erase (ties_.begin () + j);
@@ -408,7 +408,7 @@ Accidental_engraver::stop_translation_timestep ()
 
       int barnum = measure_number (origin);
 
-      Pitch *pitch = unsmob<Pitch> (note->get_property ("pitch"));
+      Pitch *pitch = unsmob<Pitch> (get_property (note, "pitch"));
       if (!pitch)
         continue;
 
@@ -418,7 +418,7 @@ Accidental_engraver::stop_translation_timestep ()
       SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
       Moment end_mp = measure_position (context (),
-                                        unsmob<Duration> (note->get_property ("duration")));
+                                        unsmob<Duration> (get_property (note, "duration")));
       SCM position = scm_cons (scm_from_int (barnum), end_mp.smobbed_copy ());
 
       SCM localsig = SCM_EOL;
@@ -427,7 +427,7 @@ Accidental_engraver::stop_translation_timestep ()
         {
           bool change = false;
           if (accidentals_[i].tied_
-              && !(to_boolean (accidentals_[i].accidental_->get_property ("forced"))))
+              && !(to_boolean (get_property (accidentals_[i].accidental_, "forced"))))
             {
               /*
                 Remember an alteration that is different both from
@@ -450,7 +450,7 @@ Accidental_engraver::stop_translation_timestep ()
             }
 
           if (change)
-            origin->set_property ("localAlterations", localsig);
+            set_property (origin, "localAlterations", localsig);
 
           origin = origin->get_parent_context ();
         }
@@ -475,11 +475,11 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
       && (note->in_event_class ("note-event")
           || note->in_event_class ("trill-span-event"))
       // option to skip accidentals on string harmonics
-      && (to_boolean (get_property ("harmonicAccidentals"))
-          || !scm_is_eq (info.grob ()->get_property ("style"),
+      && (to_boolean (get_property (this, "harmonicAccidentals"))
+          || !scm_is_eq (get_property (info.grob (), "style"),
                          ly_symbol2scm ("harmonic")))
       // ignore accidentals in non-printing voices like NullVoice
-      && !to_boolean (info.context ()->get_property ("nullAccidentals")))
+      && !to_boolean (get_property (info.context (), "nullAccidentals")))
     {
       Accidental_entry entry;
       entry.head_ = info.grob ();
@@ -518,7 +518,7 @@ Accidental_engraver::acknowledge_finger (Grob_info info)
 void
 Accidental_engraver::process_music ()
 {
-  SCM sig = get_property ("keyAlterations");
+  SCM sig = get_property (this, "keyAlterations");
   if (!scm_is_eq (last_keysig_, sig))
     update_local_key_signature (sig);
 }

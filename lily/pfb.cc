@@ -17,18 +17,18 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <iomanip>
-#include <sstream>
-
 #include "international.hh"
 #include "program-option.hh"
 #include "source-file.hh"
 #include "open-type-font.hh"
 #include "main.hh"
 #include "warn.hh"
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <iomanip>
+#include <sstream>
 
 using std::string;
 using std::stringstream;

@@ -101,17 +101,17 @@ Vertical_align_engraver::process_music ()
 {
   if (!valign_ && !scm_is_null (id_to_group_hashtab_))
     {
-      if (to_boolean (get_property ("hasAxisGroup")))
+      if (to_boolean (get_property (this, "hasAxisGroup")))
         {
           warning (_ ("Ignoring Vertical_align_engraver in VerticalAxisGroup"));
           id_to_group_hashtab_ = SCM_EOL;
           return;
         }
 
-      top_level_ = to_boolean (get_property ("topLevelAlignment"));
+      top_level_ = to_boolean (get_property (this, "topLevelAlignment"));
 
       valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
-      valign_->set_bound (LEFT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      valign_->set_bound (LEFT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
       Align_interface::set_ordered (valign_);
     }
 }
@@ -121,7 +121,7 @@ Vertical_align_engraver::finalize ()
 {
   if (valign_)
     {
-      valign_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
+      valign_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
       valign_ = 0;
     }
 }
@@ -131,7 +131,7 @@ Vertical_align_engraver::qualifies (Grob_info i) const
 {
   return has_interface<Axis_group_interface> (i.grob ())
          && !i.grob ()->get_parent (Y_AXIS)
-         && !to_boolean (i.grob ()->get_property ("no-alignment"))
+         && !to_boolean (get_property (i.grob (), "no-alignment"))
          && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
 }
 
@@ -148,8 +148,8 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       scm_hash_set_x (id_to_group_hashtab_, ly_string2scm (id),
                       i.grob ()->self_scm ());
 
-      SCM before_id = i.context ()->get_property ("alignAboveContext");
-      SCM after_id = i.context ()->get_property ("alignBelowContext");
+      SCM before_id = get_property (i.context (), "alignAboveContext");
+      SCM after_id = get_property (i.context (), "alignBelowContext");
 
       SCM before = scm_hash_ref (id_to_group_hashtab_, before_id, SCM_BOOL_F);
       SCM after = scm_hash_ref (id_to_group_hashtab_, after_id, SCM_BOOL_F);
@@ -161,7 +161,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 
       if (before_grob || after_grob)
         {
-          Grob_array *ga = unsmob<Grob_array> (valign_->get_object ("elements"));
+          Grob_array *ga = unsmob<Grob_array> (get_object (valign_, "elements"));
           vector<Grob *> &arr = ga->array_reference ();
 
           Grob *added = arr.back ();
@@ -174,15 +174,15 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 
                   /* Only set staff affinity if it already has one.  That way we won't
                      set staff-affinity on things that don't want it (like staves). */
-                  if (scm_is_number (added->get_property ("staff-affinity")))
-                    added->set_property ("staff-affinity", scm_from_int (DOWN));
+                  if (scm_is_number (get_property (added, "staff-affinity")))
+                    set_property (added, "staff-affinity", scm_from_int (DOWN));
                   break;
                 }
               else if (arr[i] == after_grob)
                 {
                   arr.insert (arr.begin () + i + 1, added);
-                  if (scm_is_number (added->get_property ("staff-affinity")))
-                    added->set_property ("staff-affinity", scm_from_int (UP));
+                  if (scm_is_number (get_property (added, "staff-affinity")))
+                    set_property (added, "staff-affinity", scm_from_int (UP));
                   break;
                 }
             }
@@ -191,8 +191,8 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
   else if (qualifies (i))
     {
       Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
-      if (!unsmob<Grob> (i.grob ()->get_object ("staff-grouper")))
-        i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
+      if (!unsmob<Grob> (get_object (i.grob (), "staff-grouper")))
+        set_object (i.grob (), "staff-grouper", valign_->self_scm ());
     }
 }
 

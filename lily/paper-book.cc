@@ -350,12 +350,12 @@ set_page_permission (SCM sys, SCM symbol, SCM permission)
       if (cols.size ())
         {
           Paper_column *col = cols.back ();
-          col->set_property (symbol, permission);
-          col->find_prebroken_piece (LEFT)->set_property (symbol, permission);
+          set_property (col, symbol, permission);
+          set_property (col->find_prebroken_piece (LEFT), symbol, permission);
         }
     }
   else if (Prob *pb = unsmob<Prob> (sys))
-    pb->set_property (symbol, permission);
+    set_property (pb, symbol, permission);
 }
 
 /* read the breakbefore property of a score block and set up the preceding
@@ -394,18 +394,18 @@ set_labels (SCM sys, SCM labels)
       if (cols.size ())
         {
           Paper_column *col = cols[0];
-          col->set_property ("labels",
-                             scm_append_x (scm_list_2 (col->get_property ("labels"),
+          set_property (col, "labels",
+                             scm_append_x (scm_list_2 (get_property (col, "labels"),
                                                        labels)));
           Paper_column *col_right = col->find_prebroken_piece (RIGHT);
-          col_right->set_property ("labels",
-                                   scm_append_x (scm_list_2 (col_right->get_property ("labels"),
+          set_property (col_right, "labels",
+                                   scm_append_x (scm_list_2 (get_property (col_right, "labels"),
                                                              labels)));
         }
     }
   else if (Prob *pb = unsmob<Prob> (sys))
-    pb->set_property ("labels",
-                      scm_append_x (scm_list_2 (pb->get_property ("labels"),
+    set_property (pb, "labels",
+                      scm_append_x (scm_list_2 (get_property (pb, "labels"),
                                                 labels)));
 }
 
@@ -522,18 +522,18 @@ Paper_book::get_system_specs ()
               SCM t = scm_car (list);
               // TODO: init props
               Prob *ps = make_paper_system (SCM_EOL);
-              ps->set_property ("page-break-permission",
+              set_property (ps, "page-break-permission",
                                 ly_symbol2scm ("allow"));
-              ps->set_property ("page-turn-permission",
+              set_property (ps, "page-turn-permission",
                                 ly_symbol2scm ("allow"));
-              ps->set_property ("last-markup-line", SCM_BOOL_F);
-              ps->set_property ("first-markup-line", SCM_BOOL_F);
+              set_property (ps, "last-markup-line", SCM_BOOL_F);
+              set_property (ps, "first-markup-line", SCM_BOOL_F);
 
               paper_system_set_stencil (ps, *unsmob<Stencil> (t));
 
               SCM footnotes = get_footnotes (unsmob<Stencil> (t)->expr ());
-              ps->set_property ("footnotes", footnotes);
-              ps->set_property ("is-title", SCM_BOOL_T);
+              set_property (ps, "footnotes", footnotes);
+              set_property (ps, "is-title", SCM_BOOL_T);
               if (scm_is_eq (list, texts))
                 first = ps;
               else
@@ -541,7 +541,7 @@ Paper_book::get_system_specs ()
                   // last line so far, in a multi-line paragraph
                   last = ps;
                   //Place closely to previous line, no stretching.
-                  ps->set_property ("tight-spacing", SCM_BOOL_T);
+                  set_property (ps, "tight-spacing", SCM_BOOL_T);
                 }
               system_specs = scm_cons (ps->self_scm (), system_specs);
               ps->unprotect ();
@@ -559,8 +559,8 @@ Paper_book::get_system_specs ()
              we may want to add the case of a very short, single line. */
           if (first && last)
             {
-              last->set_property ("last-markup-line", SCM_BOOL_T);
-              first->set_property ("first-markup-line", SCM_BOOL_T);
+              set_property (last, "last-markup-line", SCM_BOOL_T);
+              set_property (first, "first-markup-line", SCM_BOOL_T);
             }
         }
       else
@@ -612,22 +612,22 @@ Paper_book::systems ()
       for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
         {
           Prob *ps = unsmob<Prob> (scm_car (s));
-          ps->set_property ("number", scm_from_int (++i));
+          set_property (ps, "number", scm_from_int (++i));
 
           if (last
-              && to_boolean (last->get_property ("is-title"))
-              && !scm_is_number (ps->get_property ("penalty")))
-            ps->set_property ("penalty", scm_from_int (10000));
+              && to_boolean (get_property (last, "is-title"))
+              && !scm_is_number (get_property (ps, "penalty")))
+            set_property (ps, "penalty", scm_from_int (10000));
           last = ps;
 
           if (scm_is_pair (scm_cdr (s)))
             {
-              SCM perm = ps->get_property ("page-break-permission");
+              SCM perm = get_property (ps, "page-break-permission");
               Prob *next = unsmob<Prob> (scm_cadr (s));
               if (scm_is_null (perm))
-                next->set_property ("penalty", scm_from_int (10001));
+                set_property (next, "penalty", scm_from_int (10001));
               else if (scm_is_eq (perm, ly_symbol2scm ("force")))
-                next->set_property ("penalty", scm_from_int (-10001));
+                set_property (next, "penalty", scm_from_int (-10001));
             }
         }
     }
@@ -673,7 +673,7 @@ Paper_book::pages ()
           for (SCM p = pages_; scm_is_pair (p); p = scm_cdr (p))
             {
               Prob *page = unsmob<Prob> (scm_car (p));
-              SCM systems = page->get_property ("lines");
+              SCM systems = get_property (page, "lines");
               systems_ = scm_cons (systems, systems_);
             }
           systems_ = scm_append (scm_reverse_x (systems_, SCM_EOL));

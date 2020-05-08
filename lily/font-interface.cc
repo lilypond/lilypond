@@ -28,13 +28,13 @@
 Font_metric *
 Font_interface::get_default_font (Grob *me)
 {
-  Font_metric *fm = unsmob<Font_metric> (me->get_property ("font"));
+  Font_metric *fm = unsmob<Font_metric> (get_property (me, "font"));
   if (!fm)
     {
       SCM chain = music_font_alist_chain (me);
 
       fm = select_font (me->layout (), chain);
-      me->set_property ("font", fm->self_scm ());
+      set_property (me, "font", fm->self_scm ());
     }
 
   return fm;

@@ -141,7 +141,7 @@ Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 Real
 Page_turn_engraver::penalty (Rational rest_len)
 {
-  Rational min_turn = robust_scm2moment (get_property ("minimumPageTurnLength"), Moment (1)).main_part_;
+  Rational min_turn = robust_scm2moment (get_property (this, "minimumPageTurnLength"), Moment (1)).main_part_;
 
   return (rest_len < min_turn) ? infinity_f : 0;
 }
@@ -152,7 +152,7 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
   Stream_event *cause = gi.event_cause ();
 
   Duration *dur_ptr = cause
-                      ? unsmob<Duration> (cause->get_property ("duration"))
+                      ? unsmob<Duration> (get_property (cause, "duration"))
                       : 0;
 
   if (!dur_ptr)
@@ -175,12 +175,12 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
 void
 Page_turn_engraver::listen_break (Stream_event *ev)
 {
-  string name = ly_symbol2string (scm_car (ev->get_property ("class")));
+  string name = ly_symbol2string (scm_car (get_property (ev, "class")));
 
   if (name == "page-turn-event")
     {
-      SCM permission = ev->get_property ("break-permission");
-      Real penalty = robust_scm2double (ev->get_property ("break-penalty"), 0);
+      SCM permission = get_property (ev, "break-permission");
+      Real penalty = robust_scm2double (get_property (ev, "break-penalty"), 0);
       Rational now = now_mom ().main_part_;
 
       forced_breaks_.push_back (Page_turn_event (now, now, permission, penalty));
@@ -211,21 +211,21 @@ Page_turn_engraver::start_translation_timestep ()
 void
 Page_turn_engraver::stop_translation_timestep ()
 {
-  Grob *pc = unsmob<Grob> (get_property ("currentCommandColumn"));
+  Grob *pc = unsmob<Grob> (get_property (this, "currentCommandColumn"));
 
   if (pc)
     {
       breakable_columns_.push_back (pc);
       breakable_moments_.push_back (now_mom ().main_part_);
 
-      SCM bar_scm = get_property ("whichBar");
+      SCM bar_scm = get_property (this, "whichBar");
       string bar = robust_scm2string (bar_scm, "");
 
       special_barlines_.push_back (bar != "" && bar != "|");
     }
 
   /* C&P from Repeat_acknowledge_engraver */
-  SCM cs = get_property ("repeatCommands");
+  SCM cs = get_property (this, "repeatCommands");
   bool start = false;
   bool end = false;
 
@@ -242,7 +242,7 @@ Page_turn_engraver::stop_translation_timestep ()
     {
       Rational now = now_mom ().main_part_;
       Real pen = penalty ((now_mom () - rest_begin_).main_part_ + repeat_begin_rest_length_);
-      Moment *m = unsmob<Moment> (get_property ("minimumRepeatLengthForPageTurn"));
+      Moment *m = unsmob<Moment> (get_property (this, "minimumRepeatLengthForPageTurn"));
       if (m && *m > (now_mom () - repeat_begin_))
         pen = infinity_f;
 
@@ -322,15 +322,15 @@ Page_turn_engraver::finalize ()
       Grob *pc = breakable_column (auto_breaks[i]);
       if (pc)
         {
-          SCM perm = max_permission (pc->get_property ("page-turn-permission"), brk.permission_);
-          Real pen = std::min (robust_scm2double (pc->get_property ("page-turn-penalty"), infinity_f), brk.penalty_);
-          pc->set_property ("page-turn-permission", perm);
-          pc->set_property ("page-turn-penalty", scm_from_double (pen));
+          SCM perm = max_permission (get_property (pc, "page-turn-permission"), brk.permission_);
+          Real pen = std::min (robust_scm2double (get_property (pc, "page-turn-penalty"), infinity_f), brk.penalty_);
+          set_property (pc, "page-turn-permission", perm);
+          set_property (pc, "page-turn-penalty", scm_from_double (pen));
         }
     }
 
   /* unless a manual break overrides it, allow a page turn at the end of the piece */
-  breakable_columns_.back ()->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+  set_property (breakable_columns_.back (), "page-turn-permission", ly_symbol2scm ("allow"));
 
   /* apply the manual breaks */
   for (vsize i = 0; i < forced_breaks_.size (); i++)
@@ -339,8 +339,8 @@ Page_turn_engraver::finalize ()
       Grob *pc = breakable_column (forced_breaks_[i]);
       if (pc)
         {
-          pc->set_property ("page-turn-permission", brk.permission_);
-          pc->set_property ("page-turn-penalty", scm_from_double (brk.penalty_));
+          set_property (pc, "page-turn-permission", brk.permission_);
+          set_property (pc, "page-turn-penalty", scm_from_double (brk.penalty_));
         }
     }
 }

@@ -98,7 +98,7 @@ Paper_column::Paper_column (Paper_column const &src)
 Moment
 Paper_column::when_mom (Grob *me)
 {
-  SCM m = me->get_property ("when");
+  SCM m = get_property (me, "when");
   if (Moment *when = unsmob<Moment> (m))
     return *when;
   return Moment (0);
@@ -107,7 +107,7 @@ Paper_column::when_mom (Grob *me)
 bool
 Paper_column::is_musical (Grob *me)
 {
-  SCM m = me->get_property ("shortest-starter-duration");
+  SCM m = get_property (me, "shortest-starter-duration");
   if (Moment *s = unsmob<Moment> (m))
     return *s != Moment (0);
   return false;
@@ -127,10 +127,10 @@ Paper_column::is_used (Grob *me)
   if (Paper_column::is_breakable (me))
     return true;
 
-  if (to_boolean (me->get_property ("used")))
+  if (to_boolean (get_property (me, "used")))
     return true;
 
-  if (scm_is_pair (me->get_property ("labels")))
+  if (scm_is_pair (get_property (me, "labels")))
     return true;
 
   return false;
@@ -139,7 +139,7 @@ Paper_column::is_used (Grob *me)
 bool
 Paper_column::is_breakable (Grob *me)
 {
-  return scm_is_symbol (me->get_property ("line-break-permission"));
+  return scm_is_symbol (get_property (me, "line-break-permission"));
 }
 
 Real
@@ -150,7 +150,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 
   for (LEFT_and_RIGHT (d))
     {
-      Skyline_pair *sp = unsmob<Skyline_pair> (cols[d]->get_property ("horizontal-skylines"));
+      Skyline_pair *sp = unsmob<Skyline_pair> (get_property (cols[d], "horizontal-skylines"));
       if (sp)
         skys[d] = (*sp)[-d];
     }
@@ -190,7 +190,7 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
           extract_grob_set (me, "elements", elts);
           for (vsize i = 0; i < elts.size (); i++)
             {
-              if (scm_is_eq (align_sym, elts[i]->get_property ("break-align-symbol"))
+              if (scm_is_eq (align_sym, get_property (elts[i], "break-align-symbol"))
                   // TODO SCM: there must be a simpler way to put this.
                   && !elts[i]->extent (elts[i], X_AXIS).is_empty ())
                 {
@@ -267,7 +267,7 @@ Paper_column::print (SCM p)
 
   string r = std::to_string (me->get_rank ());
 
-  Moment *mom = unsmob<Moment> (me->get_property ("when"));
+  Moment *mom = unsmob<Moment> (get_property (me, "when"));
   string when = mom ? mom->to_string () : "?/?";
 
   Font_metric *musfont = Font_interface::get_default_font (me);
@@ -295,7 +295,7 @@ Paper_column::print (SCM p)
   // number of printed arrows from *both* loops
   int j = 0;
 
-  for (SCM s = me->get_object ("ideal-distances");
+  for (SCM s = get_object (me, "ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
       Spring *sp = unsmob<Spring> (scm_caar (s));
@@ -340,7 +340,7 @@ Paper_column::print (SCM p)
       l.add_stencil (id_stencil);
     }
 
-  for (SCM s = me->get_object ("minimum-distances");
+  for (SCM s = get_object (me, "minimum-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
       Real dist = scm_to_double (scm_cdar (s));
@@ -407,7 +407,7 @@ Paper_column::before_line_breaking (SCM grob)
 {
   Grob *me = unsmob<Grob> (grob);
 
-  if (Grob_array *ga = unsmob<Grob_array> (me->get_object ("bounded-by-me")))
+  if (Grob_array *ga = unsmob<Grob_array> (get_object (me, "bounded-by-me")))
     ga->filter (grob_is_live);
 
   return SCM_UNSPECIFIED;

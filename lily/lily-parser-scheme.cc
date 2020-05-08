@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <unistd.h>
-
 #include "lily-parser.hh"
 
 #include "file-name-map.hh"
@@ -31,6 +29,8 @@
 #include "sources.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+
+#include <unistd.h>
 
 using std::string;
 

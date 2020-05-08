@@ -57,7 +57,7 @@ Stanza_number_engraver::Stanza_number_engraver (Context *c)
 void
 Stanza_number_engraver::process_music ()
 {
-  SCM stanza = get_property ("stanza");
+  SCM stanza = get_property (this, "stanza");
 
   if (Text_interface::is_markup (stanza)
       && !scm_is_eq (stanza, last_stanza_))
@@ -65,7 +65,7 @@ Stanza_number_engraver::process_music ()
       last_stanza_ = stanza;
 
       text_ = make_item ("StanzaNumber", SCM_EOL);
-      text_->set_property ("text", stanza);
+      set_property (text_, "text", stanza);
     }
 }
 

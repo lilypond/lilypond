@@ -19,8 +19,6 @@
 
 #include "spaceable-grob.hh"
 
-#include <cstdio>
-
 #include "warn.hh"
 #include "spring.hh"
 #include "pointer-group-interface.hh"
@@ -28,10 +26,12 @@
 #include "paper-column.hh"
 #include "international.hh"
 
+#include <cstdio>
+
 SCM
 Spaceable_grob::get_minimum_distances (Grob *me)
 {
-  return me->get_object ("minimum-distances");
+  return get_object (me, "minimum-distances");
 }
 
 /*todo: merge code of spring & rod?
@@ -63,22 +63,22 @@ Spaceable_grob::add_rod (Paper_column *me, Paper_column *p, Real d)
     programming_error ("Adding reverse rod");
 
   mins = scm_cons (scm_cons (p->self_scm (), newdist), mins);
-  me->set_object ("minimum-distances", mins);
+  set_object (me, "minimum-distances", mins);
 }
 
 void
 Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
 {
-  SCM ideal = me->get_object ("ideal-distances");
+  SCM ideal = get_object (me, "ideal-distances");
 
   ideal = scm_cons (scm_cons (sp.smobbed_copy (), other->self_scm ()), ideal);
-  me->set_object ("ideal-distances", ideal);
+  set_object (me, "ideal-distances", ideal);
 }
 
 Spring
 Spaceable_grob::get_spring (Paper_column *this_col, Grob *next_col)
 {
-  for (SCM s = this_col->get_object ("ideal-distances");
+  for (SCM s = get_object (this_col, "ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
       if (scm_is_pair (scm_car (s))
@@ -107,4 +107,3 @@ ADD_INTERFACE (Spaceable_grob,
                "right-neighbor "
                "spacing-wishes "
               );
-

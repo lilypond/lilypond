@@ -74,7 +74,7 @@ void
 Dispatcher::dispatch (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
-  SCM class_list = ev->get_property ("class");
+  SCM class_list = get_property (ev, "class");
   if (!scm_is_pair (class_list))
     {
       ev->origin ()->warning (_ ("Event class should be a list"));

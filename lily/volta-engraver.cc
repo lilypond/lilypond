@@ -74,7 +74,7 @@ Volta_engraver::Volta_engraver (Context *c)
 void
 Volta_engraver::process_music ()
 {
-  SCM cs = get_property ("repeatCommands");
+  SCM cs = get_property (this, "repeatCommands");
 
   bool end = false;
   start_string_ = SCM_EOL;
@@ -97,7 +97,7 @@ Volta_engraver::process_music ()
 
   if (volta_bracket_)
     {
-      SCM l (get_property ("voltaSpannerDuration"));
+      SCM l (get_property (this, "voltaSpannerDuration"));
       Moment now = now_mom ();
 
       bool early_stop = unsmob<Moment> (l)
@@ -138,7 +138,7 @@ Volta_engraver::process_music ()
 
       volta_bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
 
-      volta_bracket_->set_property ("text", start_string_);
+      set_property (volta_bracket_, "text", start_string_);
 
       if (!volta_spanner_)
         volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
@@ -163,7 +163,7 @@ Volta_engraver::acknowledge_bar_line (Grob_info i)
 void
 Volta_engraver::stop_translation_timestep ()
 {
-  Grob *cc = unsmob<Grob> (get_property ("currentCommandColumn"));
+  Grob *cc = unsmob<Grob> (get_property (this, "currentCommandColumn"));
   Item *ci = dynamic_cast<Item *> (cc);
 
   if (end_volta_bracket_ && !end_volta_bracket_->get_bound (RIGHT))
@@ -174,7 +174,7 @@ Volta_engraver::stop_translation_timestep ()
 
   if (end_volta_bracket_ && !volta_bracket_)
     {
-      for (SCM s = get_property ("stavesFound"); scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = get_property (this, "stavesFound"); scm_is_pair (s); s = scm_cdr (s))
         Side_position_interface::add_support (volta_spanner_, unsmob<Grob> (scm_car (s)));
       volta_spanner_ = 0;
     }

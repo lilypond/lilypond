@@ -28,7 +28,7 @@
 #include "std-vector.hh"
 #include "smobs.hh"
 
-#include <list>
+#include <vector>
 
 struct Building
 {
@@ -52,12 +52,12 @@ class Skyline : public Simple_smob<Skyline>
 public:
   static const char *const type_p_name_;
 private:
-  std::list<Building> buildings_;
+  std::vector<Building> buildings_;
   Direction sky_;
 
-  void internal_merge_skyline (std::list<Building> *, std::list<Building> *,
-                               std::list<Building> *result) const;
-  std::list<Building> internal_build_skyline (std::list<Building> *) const;
+  void internal_merge_skyline (std::vector<Building> const *, std::vector<Building>const *,
+                               std::vector<Building> *result) const;
+  std::vector<Building> internal_build_skyline (std::vector<Building> *) const;
   Real internal_distance (Skyline const &, Real horizon_padding, Real *touch_point) const;
   Real internal_distance (Skyline const &, Real *touch_point) const;
   void normalize ();
@@ -70,27 +70,24 @@ public:
   Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky);
   Skyline (Box const &b, Axis a, Direction sky);
 
-  std::vector<Offset> to_points (Axis) const;
-  void merge (Skyline const &);
-  void insert (Box const &, Axis);
-  void print () const;
-  void print_points () const;
   void raise (Real);
   void shift (Real);
+  void clear ();
+  void merge (Skyline const &);
+  void insert (Box const &, Axis);
+  void set_minimum_height (Real height);
+
+  std::vector<Offset> to_points (Axis) const;
+  void print () const;
+  void print_points () const;
   Real distance (Skyline const &, Real horizon_padding = 0) const;
   Real touching_point (Skyline const &, Real horizon_padding = 0) const;
-  Real shift_to_avoid (Skyline const &other, Real, Direction d, Real horizon_padding = 0);
-  Real raise_to_avoid (Skyline const &other, Real, Direction d, Real horizon_padding = 0);
-  Drul_array<Real> shifts_to_avoid_intersection (Skyline const &, Real horizon_padding = 0) const;
-  Interval raises_to_avoid_intersection (Skyline const &, Real horizon_padding = 0) const;
   Real height (Real airplane) const;
   Real max_height () const;
   Real max_height_position () const;
   Real left () const;
   Real right () const;
   Direction direction () const;
-  void set_minimum_height (Real height);
-  void clear ();
   bool is_empty () const;
   Skyline padded (Real horizon_padding) const;
 

@@ -55,7 +55,7 @@ articulation_list (vector<Stream_event *> note_events,
         stored as articulations on the note, so we check through
         the notes
       */
-      for (SCM s = event->get_property ("articulations");
+      for (SCM s = get_property (event, "articulations");
            !articulation_event && scm_is_pair (s); s = scm_cdr (s))
         {
           Stream_event *art = unsmob<Stream_event> (scm_car (s));

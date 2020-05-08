@@ -68,7 +68,7 @@ get_detail (SCM alist, SCM sym, Real def)
 void
 Beam_quant_parameters::fill (Grob *him)
 {
-  SCM details = him->get_property ("details");
+  SCM details = get_property (him, "details");
 
   // General
   BEAM_EPS = get_detail (details, ly_symbol2scm ("beam-eps"), 1e-3);
@@ -78,7 +78,7 @@ Beam_quant_parameters::fill (Grob *him)
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0)
                            // For stems that are non-standard, the forbidden beam quanting
                            // doesn't really work, so decrease their importance.
-                           * exp (- 8 * fabs (1.0 - robust_scm2double (him->get_property ("length-fraction"), 1.0)));
+                           * exp (- 8 * fabs (1.0 - robust_scm2double (get_property (him, "length-fraction"), 1.0)));
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   HORIZONTAL_INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("horizontal-inter-quant"), 500);
 
@@ -98,7 +98,7 @@ Beam_quant_parameters::fill (Grob *him)
      of the length fraction, yielding a 64% decrease.
    */
   COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5)
-                      * sqr (robust_scm2double (him->get_property ("length-fraction"), 1.0));
+                      * sqr (robust_scm2double (get_property (him, "length-fraction"), 1.0));
   STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
@@ -225,9 +225,9 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
   line_thickness_ = Staff_symbol_referencer::line_thickness (beam_) / staff_space_;
   max_beam_count_ = Beam::get_beam_count (beam_);
   length_fraction_
-    = robust_scm2double (beam_->get_property ("length-fraction"), 1.0);
+    = robust_scm2double (get_property (beam_, "length-fraction"), 1.0);
   // This is the least-squares DY, corrected for concave beams.
-  musical_dy_ = robust_scm2double (beam_->get_property ("least-squares-dy"), 0);
+  musical_dy_ = robust_scm2double (get_property (beam_, "least-squares-dy"), 0);
 
   vector<Spanner *> beams;
   align_broken_intos_ = align_broken_intos;
@@ -269,7 +269,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
         common[X_AXIS] = beams[i]->get_bound (d)->common_refpoint (common[X_AXIS], X_AXIS);
 
       // positions of the endpoints of this beam segment, including any overhangs
-      const Interval x_pos = robust_scm2interval (beams[i]->get_property ("X-positions"),
+      const Interval x_pos = robust_scm2interval (get_property (beams[i], "X-positions"),
                                                   Interval (0.0, 0.0));
 
       Drul_array<Grob *> edge_stems (Beam::first_normal_stem (beams[i]),
@@ -375,7 +375,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           for (LEFT_and_RIGHT (d))
             add_collision (b[X_AXIS][d], b[Y_AXIS], width_factor);
 
-          Grob *stem = unsmob<Grob> (collisions[j]->get_object ("stem"));
+          Grob *stem = unsmob<Grob> (get_object (collisions[j], "stem"));
           if (has_interface<Stem> (stem) && Stem::is_normal_stem (stem))
             {
               colliding_stems.insert (stem);
@@ -394,7 +394,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
                          - my_y;
 
           Real factor = parameters_.STEM_COLLISION_FACTOR;
-          if (!unsmob<Grob> (s->get_object ("beam")))
+          if (!unsmob<Grob> (get_object (s, "beam")))
             factor = 1.0;
           add_collision (x, y, factor);
         }
@@ -579,7 +579,7 @@ Beam_scoring_problem::least_squares_positions ()
     }
 
   musical_dy_ = ldy;
-  beam_->set_property ("least-squares-dy", scm_from_double (musical_dy_));
+  set_property (beam_, "least-squares-dy", scm_from_double (musical_dy_));
 }
 
 /*
@@ -669,7 +669,7 @@ calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
 Real
 Beam_scoring_problem::calc_concaveness ()
 {
-  SCM conc = beam_->get_property ("concaveness");
+  SCM conc = get_property (beam_, "concaveness");
   if (scm_is_number (conc))
     return scm_to_double (conc);
 
@@ -722,7 +722,7 @@ Beam_scoring_problem::slope_damping ()
   if (normal_stem_count_ <= 1)
     return;
 
-  SCM s = beam_->get_property ("damping");
+  SCM s = get_property (beam_, "damping");
   Real damping = scm_to_double (s);
   Real concaveness = calc_concaveness ();
   if ((concaveness >= 10000) || (damping >= 10000))
@@ -1002,14 +1002,14 @@ Beam_scoring_problem::solve () const
       return unquanted_y_;
     }
 
-  if (to_boolean (beam_->get_property ("skip-quanting")))
+  if (to_boolean (get_property (beam_, "skip-quanting")))
     return unquanted_y_;
 
   Beam_configuration *best = NULL;
 
   bool debug
     = to_boolean (beam_->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")));
-  SCM inspect_quants = beam_->get_property ("inspect-quants");
+  SCM inspect_quants = get_property (beam_, "inspect-quants");
   if (scm_is_pair (inspect_quants))
     {
       debug = true;
@@ -1064,14 +1064,14 @@ Beam_scoring_problem::solve () const
         }
 
       string card = best->score_card_ + to_string (" c%d/%zu", completed, configs.size ());
-      beam_->set_property ("annotation", ly_string2scm (card));
+      set_property (beam_, "annotation", ly_string2scm (card));
     }
 #endif
 
   configs.clear ();
   if (align_broken_intos_)
     {
-      Interval normalized_endpoints = robust_scm2interval (beam_->get_property ("normalized-endpoints"), Interval (0, 1));
+      Interval normalized_endpoints = robust_scm2interval (get_property (beam_, "normalized-endpoints"), Interval (0, 1));
       Real y_length = final_positions[RIGHT] - final_positions[LEFT];
 
       final_positions[LEFT] += normalized_endpoints[LEFT] * y_length;

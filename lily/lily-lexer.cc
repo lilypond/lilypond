@@ -19,13 +19,9 @@
 
 #include "lily-lexer.hh"
 
-#include <cctype>
-#include <sstream>
-
 #include "context.hh" // for nested_property_alist
 #include "international.hh"
 #include "interval.hh"
-#include "keyword.hh"
 #include "main.hh"
 #include "moment.hh"
 #include "parser.hh"
@@ -36,7 +32,17 @@
 #include "lily-parser.hh"
 #include "ly-module.hh"
 
+#include <cctype>
+#include <sstream>
+
 using std::string;
+
+/* for the keyword table */
+struct Keyword_ent
+{
+  char const *name_;
+  int tokcode_;
+};
 
 static Keyword_ent the_key_tab[]
 =
@@ -85,14 +91,26 @@ static Keyword_ent the_key_tab[]
   {"tempo", TEMPO},
   {"type", TYPE},
   {"unset", UNSET},
-  {"with", WITH},
-  {0, 0}
+  {"with", WITH}
 };
+
+Protected_scm Lily_lexer::keytable_;
+
+SCM
+make_keytable ()
+{
+  SCM keytable = Scheme_hash_table::make_smob ();
+  Scheme_hash_table *kt = unsmob<Scheme_hash_table> (keytable);
+  for (Keyword_ent &ent : the_key_tab)
+    {
+      kt->set (ly_symbol2scm (ent.name_), scm_from_int (ent.tokcode_));
+    }
+  return keytable;
+}
 
 Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
 {
   parser_ = parser;
-  keytable_ = new Keyword_table (the_key_tab);
   chordmodifier_tab_ = SCM_EOL;
   pitchname_tab_stack_ = SCM_EOL;
   sources_ = sources;
@@ -104,6 +122,9 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   extra_tokens_ = SCM_EOL;
   smobify_self ();
 
+  if (!keytable_.is_bound ())
+    keytable_ = make_keytable ();
+
   add_scope (ly_make_module (false));
   push_note_state (SCM_EOL);
   chordmodifier_tab_ = scm_make_vector (scm_from_int (1), SCM_EOL);
@@ -114,7 +135,6 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
   : Includable_lexer ()
 {
   parser_ = parser;
-  keytable_ = (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
@@ -132,11 +152,6 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
   smobify_self ();
 
   push_note_state (SCM_EOL);
-}
-
-Lily_lexer::~Lily_lexer ()
-{
-  delete keytable_;
 }
 
 void
@@ -181,29 +196,12 @@ Lily_lexer::set_current_scope ()
 }
 
 int
-Lily_lexer::lookup_keyword (const string &s)
+Lily_lexer::lookup_keyword (SCM s)
 {
-  return keytable_->lookup (s.c_str ());
-}
-
-SCM
-Lily_lexer::keyword_list () const
-{
-  if (!keytable_)
-    return SCM_EOL;
-
-  SCM l = SCM_EOL;
-  SCM *tail = &l;
-  for (vsize i = 0; i < keytable_->table_.size (); i++)
-    {
-      *tail = scm_acons (scm_from_utf8_string (keytable_->table_[i].name_),
-                         scm_from_int (keytable_->table_[i].tokcode_),
-                         SCM_EOL);
-
-      tail = SCM_CDRLOC (*tail);
-    }
-
-  return l;
+  SCM val;
+  if (unsmob<Scheme_hash_table> (keytable_)->try_retrieve (s, &val))
+    return scm_to_int (val);
+  return -1;
 }
 
 SCM
@@ -267,7 +265,7 @@ Lily_lexer::set_identifier (SCM path, SCM val)
 
   if (scm_is_symbol (sym))
     {
-      if (lookup_keyword (ly_symbol2string (sym)) >= 0)
+      if (lookup_keyword (sym) >= 0)
         {
           string symstr = ly_symbol2string (sym);
           warning (_f ("identifier name is a keyword: `%s'", symstr.c_str ()));

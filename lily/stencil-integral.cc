@@ -17,46 +17,31 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-tools for transform-matrices following the standard at
-http://www.w3.org/TR/SVG/coords.html
-
-a list in the form
-(list a b c d e f g)
-becomes this matrix:
-[ a c e ]
-[ b d f ]
-[ 0 0 1 ]
-when this transforms a point (x,y), the point is written as matrix:
-[ x ]
-[ y ]
-[ 1 ]
-*/
-
 // Needed because of extension definitions for POSIX functions.
 #include "config.hh"
 
-#include "box.hh"
 #include "bezier.hh"
+#include "box.hh"
 #include "dimensions.hh"
 #include "font-metric.hh"
+#include "freetype.hh"
 #include "grob.hh"
 #include "interval.hh"
-#include "freetype.hh"
+#include "lazy-skyline-pair.hh"
+#include "lily-guile.hh"
 #include "misc.hh"
-#include "offset.hh"
 #include "modified-font-metric.hh"
+#include "offset.hh"
 #include "open-type-font.hh"
 #include "pango-font.hh"
 #include "pointer-group-interface.hh"
-#include "lily-guile.hh"
 #include "real.hh"
 #include "rest.hh"
+#include "skyline-pair.hh"
+#include "skyline.hh"
+#include "spanner.hh"
 #include "stencil.hh"
 #include "string-convert.hh"
-#include "skyline.hh"
-#include "skyline-pair.hh"
-#include "spanner.hh"
 #include "transform.hh"
 
 #include <cmath>
@@ -66,9 +51,14 @@ using std::vector;
 
 Real QUANTIZATION_UNIT = 0.2;
 
-void create_path_cap (vector<Box> &boxes,
-                      vector<Drul_array<Offset> > &buildings,
-                      SCM trans, Offset pt, Real rad, Offset dir);
+void make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
+                                 Transform const &transform, Offset rad,
+                                 Real start, Real end, Real th, bool connect,
+                                 bool fill);
+
+void make_draw_bezier_boxes (Lazy_skyline_pair *skyline,
+                             Transform const &transform, Real,
+                             Offset control[4]);
 
 //// UTILITY FUNCTIONS
 
@@ -121,17 +111,9 @@ get_path_list (SCM l)
 
 //// END UTILITY FUNCTIONS
 
-/*
-  below, for all of the functions make_X_boxes, the expression
-  is always unpacked into variables.
-  then, after a line of /////, there are manipulations of these variables
-  (there may be no manipulations necessary depending on the function)
-  afterwards, there is another ///// followed by the creation of points
-  and boxes
-*/
-
 void
-make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, SCM trans, SCM expr, bool use_building)
+make_draw_line_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
+                      SCM expr)
 {
   Real thick = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -143,80 +125,15 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   expr = scm_cdr (expr);
   Real y1 = robust_scm2double (scm_car (expr), 0.0);
 
-  //////////////////////
-  if (x1 < x0)
-    {
-      std::swap (x0, x1);
-      std::swap (y0, y1);
-    }
   Offset left (x0, y0);
   Offset right (x1, y1);
-  Offset dir = (right - left).direction ();
-  for (DOWN_and_UP (d))
-    {
-      Offset outward = (d * thick / 2) * dir.normal ();
-      Offset inter_l = scm_transform (trans, left + outward);
-      Offset inter_r = scm_transform (trans, right + outward);
-      if ((inter_l[X_AXIS] == inter_r[X_AXIS]) || (inter_l[Y_AXIS] == inter_r[Y_AXIS]))
-        {
-          Box b;
-          b.add_point (inter_l);
-          b.add_point (inter_r);
-          boxes.push_back (b);
-        }
-      else if (use_building)
-        buildings.push_back (Drul_array<Offset> (inter_l, inter_r));
-      else
-        {
-          Real length = (inter_l - inter_r).length ();
 
-          vsize passes = (vsize) ((length * 2) + 1);
-          vector<Offset> points;
-
-          for (vsize i = 0; i < 1 + passes; i++)
-            {
-              Offset pt (
-                linear_interpolate (static_cast<Real> (i), 0,
-                                    static_cast<Real> (passes), x0, x1),
-                linear_interpolate (static_cast<Real> (i), 0,
-                                    static_cast<Real> (passes), y0, y1));
-              Offset inter = scm_transform (trans, pt + outward);
-              points.push_back (inter);
-            }
-          for (vsize i = 0; i < points.size () - 1; i++)
-            {
-              Box b;
-              b.add_point (points[i]);
-              b.add_point (points[i + 1]);
-              boxes.push_back (b);
-            }
-        }
-    }
-
-  if (thick > 0.0)
-    {
-      // beg line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       left,
-                       thick / 2,
-                       -dir);
-
-      // end line cap
-      create_path_cap (boxes,
-                       buildings,
-                       trans,
-                       right,
-                       thick / 2,
-                       dir);
-    }
+  skyline->add_segment (transform, left, right, thick);
 }
 
 void
-make_partial_ellipse_boxes (vector<Box> &boxes,
-                            vector<Drul_array<Offset> > &buildings,
-                            SCM trans, SCM expr)
+make_partial_ellipse_boxes_scm (Lazy_skyline_pair *skyline,
+                                Transform const &transform, SCM expr)
 {
   Real x_rad = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -232,68 +149,49 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   bool connect = to_boolean (scm_car (expr));
   expr = scm_cdr (expr);
   bool fill = to_boolean (scm_car (expr));
-  //////////////////////
+  make_partial_ellipse_boxes (skyline, transform, rad, start, end, th, connect,
+                              fill);
+}
+
+void
+make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
+                            Transform const &transform, Offset rad, Real start,
+                            Real end, Real th, bool connect, bool fill)
+{
   if (end == start)
     end += 360;
-  Offset sp (offset_directed (start).scale (rad));
-  Offset ep (offset_directed (end).scale (rad));
-  Transform t = robust_scm2transform (trans);
-  Real x_scale = sqrt (sqr (t.get_xx ()) + sqr (t.get_yx ()));
-  Real y_scale = sqrt (sqr (t.get_xy ()) + sqr (t.get_yy ()));
-  //////////////////////
-  Drul_array<vector<Offset> > points;
-  int quantization = std::max (1, (int) (((x_rad * x_scale) + (y_rad * y_scale))
-                                         * M_PI / QUANTIZATION_UNIT));
-  for (DOWN_and_UP (d))
-    {
-      for (vsize i = 0; i <= (vsize) quantization; i++)
-        {
-          Real ang = linear_interpolate (static_cast<Real> (i), 0, quantization,
-                                         start, end);
-          Offset pt (offset_directed (ang).scale (rad));
-          Offset inter = t (pt + (d * th / 2) * pt.direction ().normal ());
-          points[d].push_back (inter);
-        }
-    }
+  Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
+  Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
 
-  for (vsize i = 0; i < points[DOWN].size () - 1; i++)
+  vector<Offset> points;
+  int quantization
+    = std::max (1, (int) (((rad[X_AXIS] * x_scale) + (rad[Y_AXIS] * y_scale))
+                          * M_PI / QUANTIZATION_UNIT));
+
+  Offset last;
+  Offset first;
+  for (vsize i = 0; i <= (vsize) quantization; i++)
     {
-      Box b;
-      for (DOWN_and_UP (d))
-        {
-          b.add_point (points[d][i]);
-          b.add_point (points[d][i + 1]);
-        }
-      boxes.push_back (b);
+      Real ang = linear_interpolate (static_cast<Real> (i), 0, quantization,
+                                     start, end);
+      Offset pt (offset_directed (ang).scale (rad));
+      if (i > 0)
+        skyline->add_segment (transform, last, pt, th);
+      else
+        first = pt;
+      points.push_back (pt);
+      last = pt;
     }
 
   if (connect || fill)
     {
-      make_draw_line_boxes (boxes, buildings, trans,
-                            scm_list_5 (scm_from_double (th),
-                                        scm_from_double (sp[X_AXIS]),
-                                        scm_from_double (sp[Y_AXIS]),
-                                        scm_from_double (ep[X_AXIS]),
-                                        scm_from_double (ep[Y_AXIS])),
-                            false);
-    }
-
-  if (th > 0.0)
-    {
-      // beg line cap
-      Offset pt (offset_directed (start).scale (rad));
-      create_path_cap (boxes, buildings, trans, pt, th / 2, -pt.normal ());
-
-      // end line cap
-      pt = offset_directed (end).scale (rad);
-      create_path_cap (boxes, buildings, trans, pt, th / 2, pt.normal ());
+      skyline->add_segment (transform, first, last, th);
     }
 }
 
 void
-make_round_filled_box_boxes (vector<Box> &boxes,
-                             vector<Drul_array<Offset> > &buildings,
-                             SCM trans, SCM expr)
+make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
+                             Transform const &transform, SCM expr)
 {
   Real left = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -304,23 +202,18 @@ make_round_filled_box_boxes (vector<Box> &boxes,
   Real top = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
   Real diameter = robust_scm2double (scm_car (expr), 0.0);
-  //////////////////////
-  Transform t = robust_scm2transform (trans);
-  Real x_scale = sqrt (sqr (t.get_xx ()) + sqr (t.get_yx ()));
-  Real y_scale = sqrt (sqr (t.get_xy ()) + sqr (t.get_yy ()));
-  bool rounded = (diameter * std::max (x_scale, y_scale) > 0.5);
-  bool rotated = (t.get_yx () || t.get_xy ());
-  //////////////////////
 
+  Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
+  Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
+  bool rounded = (diameter * std::max (x_scale, y_scale) > 0.5);
+  bool rotated = (transform.get_yx () || transform.get_xy ());
+
+  vector<Box> boxes;
   if (!rotated && !rounded)
     {
       /* simple box */
-      Box b;
-      Offset p0 (-left, -bottom);
-      Offset p1 (right, top);
-      b.add_point (scm_transform (trans, p0));
-      b.add_point (scm_transform (trans, p1));
-      boxes.push_back (b);
+      Box b (Interval (-left, right), Interval (-bottom, top));
+      skyline->add_box (transform, b);
     }
   else
     {
@@ -331,37 +224,21 @@ make_round_filled_box_boxes (vector<Box> &boxes,
       Real radius = (quantization ? diameter / 2 : 0.);
 
       /* draw straight lines */
-      vector<Offset> points;
-
-      points.push_back (Offset (-left, -bottom + radius));
-      points.push_back (Offset (-left, top - radius));
-      points.push_back (Offset (-left + radius, -bottom));
-      points.push_back (Offset (right - radius, -bottom));
-      points.push_back (Offset (right, -bottom + radius));
-      points.push_back (Offset (right, top - radius));
-      points.push_back (Offset (-left + radius, top));
-      points.push_back (Offset (right - radius, top));
-
-      for (vsize i = 0; i < (vsize) points.size () - 1; i += 2)
+      Offset points[] = {
+        Offset (-left, -bottom + radius), Offset (-left, top - radius),
+        Offset (-left + radius, -bottom), Offset (right - radius, -bottom),
+        Offset (right, -bottom + radius), Offset (right, top - radius),
+        Offset (-left + radius, top),     Offset (right - radius, top),
+      };
+      for (vsize i = 0; i < ARRAYSIZE (points); i += 2)
         {
-          Offset p0 = t (points[i]);
-          Offset p1 = t (points[i + 1]);
-          if (p0[Y_AXIS] == p1[Y_AXIS])
-            {
-              Box b;
-              b.add_point (p0);
-              b.add_point (p1);
-              boxes.push_back (b);
-            }
-          else if (p0[X_AXIS] != p1[X_AXIS])
-            buildings.push_back (Drul_array<Offset> (p0, p1));
+          skyline->add_segment (transform, points[i], points[i + 1]);
         }
 
       /* draw rounded corners */
       if (radius)
         {
-          vector<Offset> points;
-          Offset rad (radius, radius);
+          Offset rad (radius, 0);
           Drul_array<Real> cx;
           Drul_array<Real> cy;
 
@@ -370,60 +247,32 @@ make_round_filled_box_boxes (vector<Box> &boxes,
           cy[DOWN] = -bottom + radius;
           cy[UP] = top - radius;
 
-          for (vsize i = 0; i <= (vsize) quantization; i++)
-            for (DOWN_and_UP (v))
-              for (LEFT_and_RIGHT (h))
-                {
-                  Real ang = linear_interpolate (static_cast<Real> (i), 0,
-                                                 quantization, 0., 90.);
-                  Offset pt (offset_directed (ang).scale (rad));
-                  Offset inter (cx[h] + h * pt[X_AXIS],
-                                cy[v] + v * pt[Y_AXIS]);
-                  points.push_back (t (inter));
-                }
+          for (DOWN_and_UP (v))
+            for (LEFT_and_RIGHT (h))
+              {
+                Offset last;
+                for (vsize i = 0; i <= (vsize) quantization; i++)
+                  {
+                    Real ang = linear_interpolate (static_cast<Real> (i), 0,
+                                                   quantization, 0., 90.);
+                    Offset pt (offset_directed (ang).scale (rad));
+                    Offset inter (cx[h] + h * pt[X_AXIS],
+                                  cy[v] + v * pt[Y_AXIS]);
 
-          for (vsize i = 0; i < points.size () - 4; i++)
-            {
-              Box b;
-              b.add_point (points[i]);
-              b.add_point (points[i + 4]);
-              boxes.push_back (b);
-            }
+                    if (i > 0)
+                      {
+                        skyline->add_segment (transform, last, inter);
+                      }
+                    last = inter;
+                  }
+              }
         }
     }
 }
 
 void
-create_path_cap (vector<Box> &boxes,
-                 vector<Drul_array<Offset> > &buildings,
-                 SCM trans, Offset pt, Real rad, Offset dir)
-{
-  Real angle = dir.angle_degrees ();
-  Transform t (pt);
-  t = scm_transform (trans, t);
-  SCM new_trans = t.smobbed_copy ();
-  make_partial_ellipse_boxes (boxes, buildings, new_trans,
-                              scm_list_n (scm_from_double (rad),
-                                          scm_from_double (rad),
-                                          scm_from_double (angle - 90.01),
-                                          scm_from_double (angle + 90.01),
-                                          scm_from_double (0.0),
-                                          SCM_BOOL_F,
-                                          SCM_BOOL_F,
-                                          SCM_UNDEFINED));
-}
-
-// TODO - remove once https://codereview.appspot.com/583750044/ is in.
-Offset
-get_normal (Offset o)
-{
-  return o.normal ();
-}
-
-void
-make_draw_bezier_boxes (vector<Box> &boxes,
-                        vector<Drul_array<Offset> > &buildings,
-                        SCM trans, SCM expr)
+make_draw_bezier_boxes_scm (Lazy_skyline_pair *skyline,
+                            Transform const &transform, SCM expr)
 {
   Real th = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -442,91 +291,51 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   Real x3 = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
   Real y3 = robust_scm2double (scm_car (expr), 0.0);
-  //////////////////////
+
+  Offset ps[] = {
+    Offset (x0, y0),
+    Offset (x1, y1),
+    Offset (x2, y2),
+    Offset (x3, y3),
+  };
+  make_draw_bezier_boxes (skyline, transform, th, ps);
+}
+
+void
+make_draw_bezier_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
+                        Real th, Offset control[4])
+{
   Bezier curve;
-  curve.control_[0] = Offset (x0, y0);
-  curve.control_[1] = Offset (x1, y1);
-  curve.control_[2] = Offset (x2, y2);
-  curve.control_[3] = Offset (x3, y3);
-  Offset temp0 (scm_transform (trans, curve.control_[0]));
-  Offset temp1 (scm_transform (trans, curve.control_[1]));
-  Offset temp2 (scm_transform (trans, curve.control_[2]));
-  Offset temp3 (scm_transform (trans, curve.control_[3]));
+
+  Real len = 0.0;
+  Offset last;
+  for (int i = 0; i < 4; i++)
+    {
+      curve.control_[i] = control[i];
+      Offset transformed = transform (control[i]);
+      if (i > 0)
+        {
+          len += (transformed - last).length ();
+        }
+      last = transformed;
+    }
 
   //////////////////////
-  Drul_array<vector<Offset> > points;
-  int quantization = int (((temp1 - temp0).length ()
-                           + (temp2 - temp1).length ()
-                           + (temp3 - temp2).length ())
-                          / QUANTIZATION_UNIT);
+  int quantization = int (len / QUANTIZATION_UNIT);
 
-  Offset d0;
-  Offset d1;
+  vector<Offset> points;
+  points.reserve (quantization + 1);
 
-  Offset normal;
-  if (th > 0)
-    {
-      d0 = curve.dir_at_point (0.0);
-      normal = get_normal ((th / 2) * d0);
-    }
-
-  for (DOWN_and_UP (d))
-    {
-      if (th == 0.0 && d == UP)
-        break;
-      points[d].push_back (
-        scm_transform (trans, curve.control_[0] + d * normal));
-    }
-
+  last = curve.control_[0];
   for (vsize i = 1; i < (vsize) quantization; i++)
     {
-      Real pt = static_cast<Real> (i) / quantization;
-      Offset norm = get_normal ((th / 2) * curve.dir_at_point (pt));
-
-      for (DOWN_and_UP (d))
-        {
-          if (th == 0.0 && d == UP)
-            break;
-          points[d].push_back (
-            scm_transform (trans, curve.curve_point (pt) + d * norm));
-        }
+      Real t = static_cast<Real> (i) / quantization;
+      Offset pt = curve.curve_point (t);
+      skyline->add_segment (transform, last, pt, th);
+      last = pt;
     }
 
-  if (th > 0)
-    {
-      d1 = curve.dir_at_point (1.0);
-      normal = get_normal ((th / 2) * d1);
-    }
-
-  for (DOWN_and_UP (d))
-    {
-      if (th == 0.0 && d == UP)
-        break;
-      points[d].push_back (
-        scm_transform (trans, curve.control_[3] + d * normal));
-    }
-
-  for (vsize i = 0; i < points[DOWN].size () - 1; i++)
-    {
-      Box b;
-      for (DOWN_and_UP (d))
-        {
-          if (th == 0.0 && d == UP)
-            break;
-          b.add_point (points[d][i]);
-          b.add_point (points[d][i + 1]);
-        }
-      boxes.push_back (b);
-    }
-
-  if (th > 0)
-    {
-      // beg line cap
-      create_path_cap (boxes, buildings, trans, curve.control_[0], th / 2, -d0);
-
-      // end line cap
-      create_path_cap (boxes, buildings, trans, curve.control_[3], th / 2, d1);
-    }
+  skyline->add_segment (transform, last, curve.control_[3], th);
 }
 
 /*
@@ -669,9 +478,8 @@ all_commands_to_absolute_and_group (SCM expr)
 }
 
 void
-internal_make_path_boxes (vector<Box> &boxes,
-                          vector<Drul_array<Offset> > &buildings,
-                          SCM trans, SCM expr, bool use_building)
+internal_make_path_boxes (Lazy_skyline_pair *skyline,
+                          Transform const &transform, SCM expr)
 {
   SCM blot = scm_car (expr);
   expr = scm_cdr (expr);
@@ -681,28 +489,30 @@ internal_make_path_boxes (vector<Box> &boxes,
   for (SCM s = path; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_to_int (scm_length (scm_car (s))) == 4
-      ? make_draw_line_boxes (boxes, buildings, trans, scm_cons (blot, scm_car (s)), use_building)
-      : make_draw_bezier_boxes (boxes, buildings, trans, scm_cons (blot, scm_car (s)));
+        ? make_draw_line_boxes (skyline, transform,
+                                scm_cons (blot, scm_car (s)))
+        : make_draw_bezier_boxes_scm (skyline, transform,
+                                      scm_cons (blot, scm_car (s)));
     }
 }
 
 void
-make_path_boxes (vector<Box> &boxes,
-                 vector<Drul_array<Offset> > &buildings,
-                 SCM trans, SCM expr)
+make_path_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
+                 SCM expr)
 {
-  return internal_make_path_boxes (boxes, buildings, trans, scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))), false);
+  return internal_make_path_boxes (
+    skyline, transform,
+    scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))));
 }
 
 void
-make_polygon_boxes (vector<Box> &boxes,
-                    vector<Drul_array<Offset> > &buildings,
-                    SCM trans, SCM expr)
+make_polygon_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
+                    SCM expr)
 {
   SCM coords = get_number_list (scm_car (expr));
   expr = scm_cdr (expr);
   SCM blot_diameter = scm_car (expr);
-  //////////////////////
+
   bool first = true;
   SCM l = SCM_EOL;
   for (SCM s = coords; scm_is_pair (s); s = scm_cddr (s))
@@ -713,14 +523,13 @@ make_polygon_boxes (vector<Box> &boxes,
       first = false;
     }
   l = scm_cons (ly_symbol2scm ("closepath"), l);
-  internal_make_path_boxes (boxes, buildings, trans,
-                            scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)), true);
+  internal_make_path_boxes (
+    skyline, transform, scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)));
 }
 
 void
-make_named_glyph_boxes (vector<Box> &boxes,
-                        vector<Drul_array<Offset> > &buildings,
-                        SCM trans, SCM expr)
+make_named_glyph_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
+                        SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -728,7 +537,6 @@ make_named_glyph_boxes (vector<Box> &boxes,
   SCM glyph = scm_car (expr);
   string glyph_s = ly_scm2string (glyph);
 
-  //////////////////////
   Open_type_font *open_fm
     = dynamic_cast<Open_type_font *>
       (dynamic_cast<Modified_font_metric *>(fm)->original_font ());
@@ -745,27 +553,15 @@ make_named_glyph_boxes (vector<Box> &boxes,
 
   Real scale = bbox[X_AXIS].length () / real_bbox[X_AXIS].length ();
 
-  trans = robust_scm2transform (trans).scale (scale, scale).smobbed_copy ();
+  Transform local = transform;
+  local.scale (scale, scale);
 
-  SCM outline = open_fm->get_glyph_outline (gidx);
-  //////////////////////
-  for (SCM s = outline;
-       scm_is_pair (s);
-       s = scm_cdr (s))
-    {
-      scm_to_int (scm_length (scm_car (s))) == 4
-      ? make_draw_line_boxes (boxes, buildings, trans,
-                              scm_cons (scm_from_double (0), scm_car (s)),
-                              false)
-      : make_draw_bezier_boxes (boxes, buildings, trans,
-                                scm_cons (scm_from_double (0), scm_car (s)));
-    }
+  open_fm->add_outline_to_skyline (skyline, local, gidx);
 }
 
 void
-make_glyph_string_boxes (vector<Box> &boxes,
-                         vector<Drul_array<Offset> > &buildings,
-                         SCM trans, SCM expr)
+make_glyph_string_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
+                         SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -779,7 +575,7 @@ make_glyph_string_boxes (vector<Box> &boxes,
   vector<Real> xos;
   vector<Real> yos;
   vector<string> char_ids;
-  //////////////////////
+
   Pango_font *pango_fm = dynamic_cast<Pango_font *> (fm);
   SCM_ASSERT_TYPE (pango_fm, fm_scm, SCM_ARG1, __FUNCTION__, "Pango font");
 
@@ -799,7 +595,6 @@ make_glyph_string_boxes (vector<Box> &boxes,
   Real cumulative_x = 0.0;
   for (vsize i = 0; i < widths.size (); i++)
     {
-      SCM transcopy = trans;
       Offset pt0 (cumulative_x + xos[i], heights[i][DOWN] + yos[i]);
       Offset pt1 (cumulative_x + widths[i] + xos[i], heights[i][UP] + yos[i]);
       cumulative_x += widths[i];
@@ -810,7 +605,6 @@ make_glyph_string_boxes (vector<Box> &boxes,
       size_t gidx = pango_fm->name_to_index (char_ids[i]);
       Box real_bbox = pango_fm->get_scaled_indexed_char_dimensions (gidx);
       Box bbox = pango_fm->get_unscaled_indexed_char_dimensions (gidx);
-      SCM outline = pango_fm->get_glyph_outline (gidx);
 
       // scales may have rounding error but should be close
       Real xlen = real_bbox[X_AXIS].length () / bbox[X_AXIS].length ();
@@ -827,8 +621,11 @@ make_glyph_string_boxes (vector<Box> &boxes,
         from the Pango_font.  This should eventually be fixed.  The solution
         for now is just to use the bounding box.
       */
-      if (std::isnan (xlen) || std::isnan (ylen) || std::isinf (xlen) || std::isinf (ylen))
-        outline = box_to_scheme_lines (kerned_bbox);
+      if (std::isnan (xlen) || std::isnan (ylen) || std::isinf (xlen)
+          || std::isinf (ylen))
+        {
+          skyline->add_box (transform, kerned_bbox);
+        }
       else
         {
           assert (abs (xlen - ylen) < 10e-3);
@@ -836,26 +633,16 @@ make_glyph_string_boxes (vector<Box> &boxes,
           Real scale_factor = std::max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates
           // FIXME: this looks extremely fishy.
+          Transform transcopy = transform;
           transcopy
-            = robust_scm2transform (transcopy)
-              .translate (Offset (kerned_bbox[X_AXIS][LEFT],
-                                  kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
-              .translate (Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
-              .scale (scale_factor, scale_factor)
-              .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]))
-              .smobbed_copy ();
-        }
-      //////////////////////
-      for (SCM s = outline;
-           scm_is_pair (s);
-           s = scm_cdr (s))
-        {
-          scm_to_int (scm_length (scm_car (s))) == 4
-          ? make_draw_line_boxes (boxes, buildings, transcopy,
-                                  scm_cons (scm_from_double (0), scm_car (s)),
-                                  false)
-          : make_draw_bezier_boxes (boxes, buildings, transcopy,
-                                    scm_cons (scm_from_double (0), scm_car (s)));
+            .translate (
+              Offset (kerned_bbox[X_AXIS][LEFT],
+                      kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
+            .translate (
+              Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
+            .scale (scale_factor, scale_factor)
+            .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]));
+          pango_fm->add_outline_to_skyline (skyline, transcopy, gidx);
         }
     }
 }
@@ -864,18 +651,53 @@ make_glyph_string_boxes (vector<Box> &boxes,
   receives a stencil expression and a transform matrix
   depending on the stencil name, dispatches it to the appropriate function
 */
-
-void
-stencil_dispatcher (vector<Box> &boxes,
-                    vector<Drul_array<Offset> > &buildings,
-                    SCM trans, SCM expr)
+static void
+interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
+                               Transform const &transform, SCM expr)
 {
-  if (!scm_is_pair (expr))
+  if (scm_is_null (expr)
+      || (scm_is_string (expr) && scm_is_true (scm_string_null_p (expr))))
     return;
 
   SCM head = scm_car (expr);
-  if (scm_is_eq (head, ly_symbol2scm ("draw-line")))
-    make_draw_line_boxes (boxes, buildings, trans, scm_cdr (expr), true);
+  if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
+    {
+      for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
+        interpret_stencil_for_skyline (skyline, transform, scm_car (s));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
+    {
+      Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
+      Transform local = transform;
+      local.translate (p);
+      interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("scale-stencil")))
+    {
+      Real x = robust_scm2double (scm_caadr (expr), 0.0);
+      Real y = robust_scm2double (scm_cadadr (expr), 0.0);
+      Transform local = transform;
+      local.scale (x, y);
+      interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("rotate-stencil")))
+    {
+      Real ang = robust_scm2double (scm_caadr (expr), 0.0);
+      Offset center = robust_scm2offset (scm_cadadr (expr), Offset (0.0, 0.0));
+      Transform local = transform;
+      local.rotate (ang, center);
+      interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
+    }
+  else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
+    interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("color")))
+    interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("output-attributes")))
+    interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
+    interpret_stencil_for_skyline (skyline, transform, scm_cadr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("draw-line")))
+    make_draw_line_boxes (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("dashed-line")))
     {
       expr = scm_cdr (expr);
@@ -886,56 +708,46 @@ stencil_dispatcher (vector<Box> &boxes,
       SCM x1 = scm_car (expr);
       expr = scm_cdr (expr);
       SCM x2 = scm_car (expr);
-      make_draw_line_boxes (boxes, buildings, trans,
-                            scm_list_5 (th, scm_from_double (0.0),
-                                        scm_from_double (0.0), x1, x2), true);
+
+      skyline->add_segment (
+        transform, Offset (0.0, 0.0),
+        Offset (robust_scm2double (x1, 0.0), robust_scm2double (x2, 0.0)),
+        robust_scm2double (th, 0.0));
     }
   else if (scm_is_eq (head, ly_symbol2scm ("circle")))
     {
       expr = scm_cdr (expr);
-      SCM rad = scm_car (expr);
+      Real rad = robust_scm2double (scm_car (expr), 0);
       expr = scm_cdr (expr);
-      SCM th = scm_car (expr);
-      make_partial_ellipse_boxes (boxes, buildings, trans,
-                                  scm_list_n (rad,
-                                              rad,
-                                              scm_from_double (0.0),
-                                              scm_from_double (360.0),
-                                              th,
-                                              SCM_BOOL_F,
-                                              SCM_BOOL_T,
-                                              SCM_UNDEFINED));
+      Real th = robust_scm2double (scm_car (expr), 0);
+      make_partial_ellipse_boxes (skyline, transform, Offset (rad, rad), 0.0,
+                                  360.0, th, false, true);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("ellipse")))
     {
       expr = scm_cdr (expr);
-      SCM x_rad = scm_car (expr);
+      Real x_rad = robust_scm2double (scm_car (expr), 0);
+
       expr = scm_cdr (expr);
-      SCM y_rad = scm_car (expr);
+      Real y_rad = robust_scm2double (scm_car (expr), 0);
+
       expr = scm_cdr (expr);
-      SCM th = scm_car (expr);
-      make_partial_ellipse_boxes (boxes, buildings, trans,
-                                  scm_list_n (x_rad,
-                                              y_rad,
-                                              scm_from_double (0.0),
-                                              scm_from_double (360.0),
-                                              th,
-                                              SCM_BOOL_F,
-                                              SCM_BOOL_T,
-                                              SCM_UNDEFINED));
+      Real th = robust_scm2double (scm_car (expr), 0);
+      make_partial_ellipse_boxes (skyline, transform, Offset (x_rad, y_rad), 0,
+                                  360, th, false, true);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("partial-ellipse")))
-    make_partial_ellipse_boxes (boxes, buildings, trans, scm_cdr (expr));
+    make_partial_ellipse_boxes_scm (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("round-filled-box")))
-    make_round_filled_box_boxes (boxes, buildings, trans, scm_cdr (expr));
+    make_round_filled_box_boxes (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("named-glyph")))
-    make_named_glyph_boxes (boxes, buildings, trans, scm_cdr (expr));
+    make_named_glyph_boxes (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("polygon")))
-    make_polygon_boxes (boxes, buildings, trans, scm_cdr (expr));
+    make_polygon_boxes (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("path")))
-    make_path_boxes (boxes, buildings, trans, scm_cdr (expr));
+    make_path_boxes (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("glyph-string")))
-    make_glyph_string_boxes (boxes, buildings, trans, scm_cdr (expr));
+    make_glyph_string_boxes (skyline, transform, scm_cdr (expr));
   else
     {
       /*
@@ -943,68 +755,6 @@ stencil_dispatcher (vector<Box> &boxes,
         is doing stencil-checking correctly.
       */
     }
-}
-
-/*
-  traverses a stencil expression, returning a reversed list of Scheme
-  pairs, consisting of a Transform indicating where to move a stencil
-  and the stencil expression to show how to construct the stencil
-
-  The given "tail" is appended.
-*/
-SCM
-stencil_traverser (SCM trans, SCM expr, SCM tail)
-{
-  if (scm_is_null (expr)
-      || (scm_is_string (expr) && scm_is_true (scm_string_null_p (expr))))
-    return tail;
-
-  SCM head = scm_car (expr);
-  if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
-    {
-      for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
-        tail = stencil_traverser (trans, scm_car (s), tail);
-      return tail;
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("footnote")))
-    return tail;
-  else if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
-    {
-      Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
-      trans = robust_scm2transform (trans).translate (p).smobbed_copy ();
-      return stencil_traverser (trans, scm_caddr (expr), tail);
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("scale-stencil")))
-    {
-      Real x = robust_scm2double (scm_caadr (expr), 0.0);
-      Real y = robust_scm2double (scm_cadadr (expr), 0.0);
-      trans = robust_scm2transform (trans).scale (x, y).smobbed_copy ();
-      return stencil_traverser (trans, scm_caddr (expr), tail);
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("rotate-stencil")))
-    {
-      Real ang = robust_scm2double (scm_caadr (expr), 0.0);
-      Offset center = robust_scm2offset (scm_cadadr (expr), Offset (0.0, 0.0));
-      trans = robust_scm2transform (trans).rotate (ang, center).smobbed_copy ();
-      return stencil_traverser (trans, scm_caddr (expr), tail);
-    }
-  else if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
-    // should not use the place-holder text, but no need for the warning below
-    return tail;
-  else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
-    return stencil_traverser (trans, scm_caddr (expr), tail);
-  else if (scm_is_eq (head, ly_symbol2scm ("color")))
-    return stencil_traverser (trans, scm_caddr (expr), tail);
-  else if (scm_is_eq (head, ly_symbol2scm ("output-attributes")))
-    return stencil_traverser (trans, scm_caddr (expr), tail);
-  else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
-    return stencil_traverser (trans, scm_cadr (expr), tail);
-  else
-    {
-      return scm_acons (trans, expr, tail);
-    }
-  warning ("Stencil expression not supported by the vertical skylines.");
-  return tail;
 }
 
 SCM
@@ -1061,7 +811,7 @@ Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM en
   // If the grob is cross staff, we cannot measure its Y-extent before
   // wayyyy downstream (after spacing of axis groups is done).
   // Thus, we assume that the Y extent is infinite for cross staff grobs.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (me->get_property ("cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (get_property (me, "cross-staff")));
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents, 1);
@@ -1070,7 +820,7 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   // See comment in function above.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (me->get_property ("cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (get_property (me, "cross-staff")));
 }
 
 SCM
@@ -1081,36 +831,22 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
   if (!s)
     return Skyline_pair ().smobbed_copy ();
 
+  Transform transform = Transform::identity;
   if (scm_is_pair (rot))
     {
       Real angle = robust_scm2double (scm_car (rot), 0.0);
       Real x = robust_scm2double (scm_cadr (rot), 0.0);
       Real y = robust_scm2double (scm_caddr (rot), 0.0);
 
-      // incorporate rotation into a stencil copy
-      sten = s->smobbed_copy ();
-      s = unsmob<Stencil> (sten);
-      s->rotate_degrees (angle, Offset (x, y));
+      transform.rotate (angle, Offset (x, y));
     }
 
-  SCM data = scm_reverse_x (stencil_traverser (SCM_EOL, s->expr (), SCM_EOL), SCM_EOL);
-  vector<Box> boxes;
-  vector<Drul_array<Offset> > buildings;
-  for (SCM s = scm_reverse_x (data, SCM_EOL); scm_is_pair (s); s = scm_cdr (s))
-    stencil_dispatcher (boxes, buildings, scm_caar (s), scm_cdar (s));
+  Lazy_skyline_pair lazy (a);
+  interpret_stencil_for_skyline (&lazy, transform, s->expr ());
 
-  // we use the bounding box if there are no boxes
-  // FIXME: Rotation?
-  if (!boxes.size () && !buildings.size ())
-    boxes.push_back (s->extent_box ());
-
-  scm_remember_upto_here (sten);
-
-  Skyline_pair out (boxes, a);
-  out.merge (Skyline_pair (buildings, a));
-
+  Skyline_pair out;
   for (DOWN_and_UP (d))
-    out[d] = out[d].padded (pad);
+    out[d] = lazy.to_pair ()[d].padded (pad);
 
   return out.smobbed_copy ();
 }
@@ -1120,9 +856,9 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (me->get_property ("skyline-horizontal-padding"), 0.0);
-  SCM rot = me->get_property ("rotation");
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
+  Real pad = robust_scm2double (get_property (me, "skyline-horizontal-padding"), 0.0);
+  SCM rot = get_property (me, "rotation");
+  SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
                                             pad, rot, X_AXIS);
   return out;
 }
@@ -1132,9 +868,9 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
-  SCM rot = me->get_property ("rotation");
-  SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"),
+  Real pad = robust_scm2double (get_property (me, "skyline-vertical-padding"), 0.0);
+  SCM rot = get_property (me, "rotation");
+  SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
                                             pad, rot, Y_AXIS);
 
   return out;
@@ -1160,30 +896,22 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   Skyline_pair res;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Skyline_pair *skyp = unsmob<Skyline_pair> (elts[i]->get_maybe_pure_property (a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
+      Skyline_pair *skyp = unsmob<Skyline_pair> (get_maybe_pure_property (elts[i], a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
       if (skyp)
         {
           /*
             Here, copying is essential.  Otherwise, the skyline pair will
             get doubly shifted!
           */
-          /*
-            It took Mike about 6 months of his life to add the `else' clause
-            below.  For horizontal skylines, the raise and shift calls need
-            to be reversed.  This is what was causing the problems in the
-            shifting with all of the tests. RIP 6 months!
-          */
           Skyline_pair copy = Skyline_pair (*skyp);
-          if (a == X_AXIS)
-            {
-              copy.shift (x_pos[i] - my_x);
-              copy.raise (y_pos[i] - my_y);
-            }
-          else
-            {
-              copy.raise (x_pos[i] - my_x);
-              copy.shift (y_pos[i] - my_y);
-            }
+          /*
+            It took Mike about 6 months of his life to flip the
+            coordinates below.  This is what was causing the problems
+            in the shifting with all of the tests. RIP 6 months!
+          */
+          Offset off (x_pos[i] - my_x, y_pos[i] - my_y);
+          copy.shift (off[a]);
+          copy.raise (off[other_axis (a)]);
           res.merge (copy);
         }
     }

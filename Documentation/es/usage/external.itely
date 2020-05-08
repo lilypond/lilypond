@@ -851,7 +851,7 @@ se emplea LuaTex, llamado
 
 Se puede añadir notación de LilyPond a los documentos de
 OpenOffice.org y LibreOffice con
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}, una
+@uref{https://github.com/openlilylib/LO-ly,OOoLilyPond}, una
 extensión de OpenOffice.org que convierte archivos de LilyPond en
 imágenes dentro de los documentos de OpenOffice.org.  Aunque ya no
 se desarrolla activamente, parece que aún funciona con la versión

@@ -63,7 +63,7 @@ Ottava_spanner_engraver::Ottava_spanner_engraver (Context *c)
 void
 Ottava_spanner_engraver::process_music ()
 {
-  SCM ott = get_property ("ottavation");
+  SCM ott = get_property (this, "ottavation");
   if (!scm_is_eq (ott, last_ottavation_))
     {
       finished_ = span_;
@@ -71,11 +71,11 @@ Ottava_spanner_engraver::process_music ()
       if (Text_interface::is_markup (ott))
         {
           span_ = make_spanner ("OttavaBracket", SCM_EOL);
-          span_->set_property ("text", ott);
+          set_property (span_, "text", ott);
 
-          SCM offset (get_property ("middleCOffset"));
+          SCM offset (get_property (this, "middleCOffset"));
           if (robust_scm2double (offset, 0) > 0)
-            span_->set_property ("direction", scm_from_int (DOWN));
+            set_property (span_, "direction", scm_from_int (DOWN));
         }
     }
   last_ottavation_ = ott;
@@ -106,7 +106,7 @@ Ottava_spanner_engraver::typeset_all ()
         {
           if (!finished_->get_bound (RIGHT))
             {
-              Grob *e = unsmob<Grob> (get_property ("currentMusicalColumn"));
+              Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
               finished_->set_bound (d, e);
             }
         }
@@ -120,7 +120,7 @@ Ottava_spanner_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      Grob *e = unsmob<Grob> (get_property ("currentMusicalColumn"));
+      Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       span_->set_bound (LEFT, e);
     }
 

@@ -87,7 +87,7 @@ vaticana_brew_flexa (Grob *me,
   Real right_height = 0.6 * staff_space;
 
   Real interval;
-  SCM flexa_height_scm = me->get_property ("flexa-height");
+  SCM flexa_height_scm = get_property (me, "flexa-height");
   if (!scm_is_null (flexa_height_scm))
     interval = scm_to_int (flexa_height_scm);
   else
@@ -100,7 +100,7 @@ vaticana_brew_flexa (Grob *me,
   if (interval >= 0.0)
     me->warning (_ ("ascending vaticana style flexa"));
 
-  Real width = robust_scm2double (me->get_property ("flexa-width"), 2);
+  Real width = robust_scm2double (get_property (me, "flexa-width"), 2);
 
   /*
    * Compensate curve thickness that appears to be smaller in steep
@@ -201,7 +201,7 @@ vaticana_brew_join (Grob *me, int delta_pitch,
 Stencil
 vaticana_brew_primitive (Grob *me)
 {
-  SCM glyph_name_scm = me->get_property ("glyph-name");
+  SCM glyph_name_scm = get_property (me, "glyph-name");
   if (scm_is_null (glyph_name_scm))
     {
       me->programming_error ("Vaticana_ligature: "
@@ -212,7 +212,7 @@ vaticana_brew_primitive (Grob *me)
   string glyph_name = ly_scm2string (glyph_name_scm);
 
   Stencil out;
-  Real thickness = robust_scm2double (me->get_property ("thickness"), 1);
+  Real thickness = robust_scm2double (get_property (me, "thickness"), 1);
 
   Real line_thickness
     = thickness * me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -222,18 +222,18 @@ vaticana_brew_primitive (Grob *me)
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
 
-  SCM delta_pitch_scm = me->get_property ("delta-position");
+  SCM delta_pitch_scm = get_property (me, "delta-position");
   int delta_pitch;
   if (!scm_is_null (delta_pitch_scm))
     delta_pitch = scm_to_int (delta_pitch_scm);
   else
     delta_pitch = 0;
 
-  Real x_offset = robust_scm2double (me->get_property ("x-offset"), 0);
+  Real x_offset = robust_scm2double (get_property (me, "x-offset"), 0);
 
-  bool add_stem = to_boolean (me->get_property ("add-stem"));
-  bool add_cauda = to_boolean (me->get_property ("add-cauda"));
-  bool add_join = to_boolean (me->get_property ("add-join"));
+  bool add_stem = to_boolean (get_property (me, "add-stem"));
+  bool add_cauda = to_boolean (get_property (me, "add-cauda"));
+  bool add_join = to_boolean (get_property (me, "add-join"));
 
   if (glyph_name == "")
     {
@@ -245,7 +245,7 @@ vaticana_brew_primitive (Grob *me)
        * flexa_width.)
        */
       Real staff_space = Staff_symbol_referencer::staff_space (me);
-      Real flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2) * staff_space;
+      Real flexa_width = robust_scm2double (get_property (me, "flexa-width"), 2) * staff_space;
       out
         = Lookup::blank (Box (Interval (0, 0.5 * flexa_width), Interval (0, 0)));
     }

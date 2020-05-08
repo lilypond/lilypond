@@ -78,7 +78,7 @@ Chord_tremolo_engraver::Chord_tremolo_engraver (Context *c)
 void
 Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
 {
-  Direction span_dir = to_dir (ev->get_property ("span-direction"));
+  Direction span_dir = to_dir (get_property (ev, "span-direction"));
   if (span_dir == START)
     {
       ASSIGN_EVENT_ONCE (repeat_, ev);
@@ -118,9 +118,9 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 {
   if (beam_)
     {
-      int tremolo_type = robust_scm2int (repeat_->get_property ("tremolo-type"), 1);
+      int tremolo_type = robust_scm2int (get_property (repeat_, "tremolo-type"), 1);
       int flags = std::max (0, intlog2 (tremolo_type) - 2);
-      int repeat_count = robust_scm2int (repeat_->get_property ("repeat-count"), 1);
+      int repeat_count = robust_scm2int (get_property (repeat_, "repeat-count"), 1);
       int gap_count = std::min (flags, intlog2 (repeat_count) + 1);
 
       Grob *s = info.grob ();
@@ -141,7 +141,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
         }
 
       if (Stem::duration_log (s) != 1)
-        beam_->set_property ("gap-count", scm_from_int (gap_count));
+        set_property (beam_, "gap-count", scm_from_int (gap_count));
 
       if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
         Beam::add_stem (beam_, s);

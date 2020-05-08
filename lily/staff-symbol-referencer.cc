@@ -43,7 +43,7 @@ Staff_symbol_referencer::get_staff_symbol (Grob *me)
   if (has_interface<Staff_symbol> (me))
     return me;
 
-  SCM st = me->get_object ("staff-symbol");
+  SCM st = get_object (me, "staff-symbol");
   return unsmob<Grob> (st);
 }
 
@@ -95,7 +95,7 @@ Staff_symbol_referencer::internal_get_position (Grob *me, bool pure)
     }
   else if (!st)
     return me->relative_coordinate (me->get_parent (Y_AXIS), Y_AXIS) * 2;
-  return robust_scm2double (me->get_property ("staff-position"), p);
+  return robust_scm2double (get_property (me, "staff-position"), p);
 }
 
 Interval
@@ -132,7 +132,7 @@ Staff_symbol_referencer::callback (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  SCM pos = me->get_property ("staff-position");
+  SCM pos = get_property (me, "staff-position");
   Real off = 0.0;
   if (scm_is_number (pos))
     {

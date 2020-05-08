@@ -43,7 +43,7 @@ void
 Spanner_break_forbid_engraver::process_music ()
 {
   if (running_spanners_.size ())
-    find_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
+    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
 }
 
 void
@@ -58,7 +58,7 @@ Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner (Grob_info gi
 void
 Spanner_break_forbid_engraver::acknowledge_unbreakable_spanner (Grob_info gi)
 {
-  if (!to_boolean (gi.grob ()->get_property ("breakable")))
+  if (!to_boolean (get_property (gi.grob (), "breakable")))
     running_spanners_.push_back (dynamic_cast<Spanner *> (gi.grob ()));
 }
 

@@ -54,9 +54,9 @@ Note_name_engraver::process_music ()
 
   for (vsize i = 0; i < events_.size (); i++)
     {
-      SCM pitch = events_[i]->get_property ("pitch");
-      SCM proc = get_property ("noteNameFunction");
-      SCM sep = get_property ("noteNameSeparator");
+      SCM pitch = get_property (events_[i], "pitch");
+      SCM proc = get_property (this, "noteNameFunction");
+      SCM sep = get_property (this, "noteNameSeparator");
 
       if (i)
         markup_list = scm_append (scm_list_2 (scm_list_1 (Text_interface::is_markup (sep) ? sep : ly_string2scm (" ")),
@@ -74,7 +74,7 @@ Note_name_engraver::process_music ()
     {
       Item *n = make_item ("NoteName", events_[0]->self_scm ());
       SCM text = Lily::make_concat_markup (scm_reverse (markup_list));
-      n->set_property ("text", text);
+      set_property (n, "text", text);
     }
 }
 

@@ -198,13 +198,15 @@ Pango_font::get_glyph_outline_bbox (size_t signed_idx) const
   return b;
 }
 
-SCM
-Pango_font::get_glyph_outline (size_t signed_idx) const
+void
+Pango_font::add_outline_to_skyline (Lazy_skyline_pair *lazy,
+                                    Transform const &transform,
+                                    size_t signed_idx) const
 {
-  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  PangoFcFont *fcfont
+    = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
   FTFace_accessor face (fcfont);
-  SCM s = ly_FT_get_glyph_outline (face, signed_idx);
-  return s;
+  ly_FT_add_outline_to_skyline (lazy, transform, face, signed_idx);
 }
 
 Stencil

@@ -105,18 +105,18 @@ void check_and_fix_all_prefixes (vector<Grob_info> const &primitives)
 
       /* compute head prefix set by inspecting primitive grob properties */
       int prefix_set
-        = (VIRGA * to_boolean (primitive->get_property ("virga")))
-          | (STROPHA * to_boolean (primitive->get_property ("stropha")))
-          | (INCLINATUM * to_boolean (primitive->get_property ("inclinatum")))
-          | (AUCTUM * to_boolean (primitive->get_property ("auctum")))
-          | (DESCENDENS * to_boolean (primitive->get_property ("descendens")))
-          | (ASCENDENS * to_boolean (primitive->get_property ("ascendens")))
-          | (ORISCUS * to_boolean (primitive->get_property ("oriscus")))
-          | (QUILISMA * to_boolean (primitive->get_property ("quilisma")))
-          | (DEMINUTUM * to_boolean (primitive->get_property ("deminutum")))
-          | (CAVUM * to_boolean (primitive->get_property ("cavum")))
-          | (LINEA * to_boolean (primitive->get_property ("linea")))
-          | (PES_OR_FLEXA * to_boolean (primitive->get_property ("pes-or-flexa")));
+        = (VIRGA * to_boolean (get_property (primitive, "virga")))
+          | (STROPHA * to_boolean (get_property (primitive, "stropha")))
+          | (INCLINATUM * to_boolean (get_property (primitive, "inclinatum")))
+          | (AUCTUM * to_boolean (get_property (primitive, "auctum")))
+          | (DESCENDENS * to_boolean (get_property (primitive, "descendens")))
+          | (ASCENDENS * to_boolean (get_property (primitive, "ascendens")))
+          | (ORISCUS * to_boolean (get_property (primitive, "oriscus")))
+          | (QUILISMA * to_boolean (get_property (primitive, "quilisma")))
+          | (DEMINUTUM * to_boolean (get_property (primitive, "deminutum")))
+          | (CAVUM * to_boolean (get_property (primitive, "cavum")))
+          | (LINEA * to_boolean (get_property (primitive, "linea")))
+          | (PES_OR_FLEXA * to_boolean (get_property (primitive, "pes-or-flexa")));
 
       /* check: ascendens and descendens exclude each other; same with
          auctum and deminutum */
@@ -199,7 +199,7 @@ void check_and_fix_all_prefixes (vector<Grob_info> const &primitives)
       /* all other combinations should be valid (unless I made a
          mistake) */
 
-      primitive->set_property ("prefix-set", scm_from_int (prefix_set));
+      set_property (primitive, "prefix-set", scm_from_int (prefix_set));
     }
 }
 
@@ -218,8 +218,8 @@ provide_context_info (vector<Grob_info> const &primitives)
       Grob *primitive = primitives[i].grob ();
       Stream_event *event_cause = primitives[i].event_cause ();
       int context_info = 0;
-      int pitch = unsmob<Pitch> (event_cause->get_property ("pitch"))->steps ();
-      int prefix_set = scm_to_int (primitive->get_property ("prefix-set"));
+      int pitch = unsmob<Pitch> (get_property (event_cause, "pitch"))->steps ();
+      int prefix_set = scm_to_int (get_property (primitive, "prefix-set"));
 
       if (prefix_set & PES_OR_FLEXA)
         {
@@ -242,7 +242,7 @@ provide_context_info (vector<Grob_info> const &primitives)
         context_info |= AFTER_DEMINUTUM;
 
       if (prev_primitive)
-        prev_primitive->set_property ("context-info",
+        set_property (prev_primitive, "context-info",
                                       scm_from_int (prev_context_info));
       prev_primitive = primitive;
       prev_prefix_set = prefix_set;
@@ -250,7 +250,7 @@ provide_context_info (vector<Grob_info> const &primitives)
       prev_pitch = pitch;
     }
   if (prev_primitive)
-    prev_primitive->set_property ("context-info",
+    set_property (prev_primitive, "context-info",
                                   scm_from_int (prev_context_info));
 }
 

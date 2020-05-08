@@ -24,9 +24,6 @@
 - decide: do or do not print custos if the next line starts with a rest
 */
 
-#include <cstdio>
-#include <cmath> // rint
-
 #include "custos.hh"
 #include "direction.hh"
 #include "font-interface.hh"
@@ -36,6 +33,9 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
+#include <cmath> // rint
+#include <cstdio>
+
 using std::string;
 
 MAKE_SCHEME_CALLBACK (Custos, print, 1);
@@ -44,7 +44,7 @@ Custos::print (SCM smob)
 {
   Item *me = (Item *)unsmob<Grob> (smob);
 
-  SCM scm_style = me->get_property ("style");
+  SCM scm_style = get_property (me, "style");
   string style;
   if (scm_is_symbol (scm_style))
     style = ly_symbol2string (scm_style);
@@ -58,9 +58,9 @@ Custos::print (SCM smob)
    */
   bool adjust = true;
 
-  int neutral_pos = robust_scm2int (me->get_property ("neutral-position"), 0);
+  int neutral_pos = robust_scm2int (get_property (me, "neutral-position"), 0);
   Direction neutral_direction
-    = to_dir (me->get_property ("neutral-direction"));
+    = to_dir (get_property (me, "neutral-direction"));
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
 

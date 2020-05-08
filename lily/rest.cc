@@ -38,7 +38,7 @@ SCM
 Rest::y_offset_callback (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  int duration_log = scm_to_int (me->get_property ("duration-log"));
+  int duration_log = scm_to_int (get_property (me, "duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   return scm_from_double (ss * 0.5 * Rest::staff_position_internal (me, duration_log, get_grob_direction (me)));
@@ -50,13 +50,13 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
   if (!me)
     return 0;
 
-  bool position_override = scm_is_number (me->get_property ("staff-position"));
+  bool position_override = scm_is_number (get_property (me, "staff-position"));
   Real pos;
 
   if (position_override)
     {
       pos
-        = robust_scm2double (me->get_property ("staff-position"), 0);
+        = robust_scm2double (get_property (me, "staff-position"), 0);
 
       /*
         semibreve rests are positioned one staff line off
@@ -74,7 +74,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
       return pos;
     }
 
-  Real vpos = dir * robust_scm2int (me->get_property ("voiced-position"), 0);
+  Real vpos = dir * robust_scm2int (get_property (me, "voiced-position"), 0);
   pos = vpos;
 
   if (duration_log > 1)
@@ -152,12 +152,12 @@ SCM
 Rest::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
 
   if (!stem)
     return SCM_BOOL_F;
 
-  return stem->get_property ("cross-staff");
+  return get_property (stem, "cross-staff");
 }
 
 /*
@@ -229,13 +229,13 @@ MAKE_SCHEME_CALLBACK (Rest, print, 1);
 SCM
 Rest::brew_internal_stencil (Grob *me, bool ledgered)
 {
-  SCM durlog_scm = me->get_property ("duration-log");
+  SCM durlog_scm = get_property (me, "duration-log");
   if (!scm_is_number (durlog_scm))
     return Stencil ().smobbed_copy ();
 
   int durlog = scm_to_int (durlog_scm);
 
-  string style = robust_symbol2string (me->get_property ("style"), "default");
+  string style = robust_symbol2string (get_property (me, "style"), "default");
 
   Font_metric *fm = Font_interface::get_default_font (me);
   string font_char = glyph_name (me, durlog, style, ledgered, 0.0);
@@ -245,7 +245,7 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   if (durlog < 0)
     {
-      Real fs = pow (2, robust_scm2double (me->get_property ("font-size"), 0) / 6);
+      Real fs = pow (2, robust_scm2double (get_property (me, "font-size"), 0) / 6);
       Real ss = Staff_symbol_referencer::staff_space (me);
       out.translate_axis (ss - fs, Y_AXIS);
     }
@@ -260,7 +260,7 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 void
 Rest::translate (Grob *me, int dy)
 {
-  if (!scm_is_number (me->get_property ("staff-position")))
+  if (!scm_is_number (get_property (me, "staff-position")))
     {
       me->translate_axis (dy * Staff_symbol_referencer::staff_space (me) / 2.0, Y_AXIS);
       Grob *p = me->get_parent (Y_AXIS);

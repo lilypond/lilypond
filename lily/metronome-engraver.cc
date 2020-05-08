@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cctype>
-
 #include "engraver.hh"
 
 #include "context.hh"
@@ -30,6 +28,8 @@
 #include "text-interface.hh"
 
 #include "translator.icc"
+
+#include <cctype>
 
 class Metronome_mark_engraver : public Engraver
 {
@@ -79,20 +79,20 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
   Grob *g = info.grob ();
 
   if (text_
-      && scm_is_eq (g->get_property ("break-align-symbol"),
+      && scm_is_eq (get_property (g, "break-align-symbol"),
                     ly_symbol2scm ("staff-bar")))
     bar_ = g;
   else if (text_
            && !support_
-           && safe_is_member (g->get_property ("break-align-symbol"),
-                              text_->get_property ("break-align-symbols"))
+           && safe_is_member (get_property (g, "break-align-symbol"),
+                              get_property (text_, "break-align-symbols"))
            && Item::break_visible (g))
     {
       support_ = g;
       text_->set_parent (g, X_AXIS);
     }
   if (bar_ || support_)
-    text_->set_property ("non-musical", SCM_BOOL_T);
+    set_property (text_, "non-musical", SCM_BOOL_T);
 }
 
 void
@@ -112,7 +112,7 @@ Metronome_mark_engraver::acknowledge_grob (Grob_info info)
   Grob *g = info.grob ();
 
   if (text_)
-    for (SCM s = text_->get_property ("non-break-align-symbols");
+    for (SCM s = get_property (text_, "non-break-align-symbols");
          scm_is_pair (s);
          s = scm_cdr (s))
       if (g->internal_has_interface (scm_car (s)))
@@ -137,13 +137,13 @@ Metronome_mark_engraver::stop_translation_timestep ()
             first notational element of the measure if no time
             signature is present in that measure).
           */
-          if (Grob *mc = unsmob<Grob> (get_property ("currentMusicalColumn")))
+          if (Grob *mc = unsmob<Grob> (get_property (this, "currentMusicalColumn")))
             text_->set_parent (mc, X_AXIS);
-          else if (Grob *cc = unsmob<Grob> (get_property ("currentCommandColumn")))
+          else if (Grob *cc = unsmob<Grob> (get_property (this, "currentCommandColumn")))
             text_->set_parent (cc, X_AXIS);
         }
-      text_->set_object ("side-support-elements",
-                         grob_list_to_grob_array (get_property ("stavesFound")));
+      set_object (text_, "side-support-elements",
+                         grob_list_to_grob_array (get_property (this, "stavesFound")));
       text_ = 0;
       support_ = 0;
       bar_ = 0;
@@ -158,12 +158,12 @@ Metronome_mark_engraver::process_music ()
     {
       text_ = make_item ("MetronomeMark", tempo_ev_->self_scm ());
 
-      SCM proc = get_property ("metronomeMarkFormatter");
+      SCM proc = get_property (this, "metronomeMarkFormatter");
       SCM result = scm_call_2 (proc,
                                tempo_ev_->self_scm (),
                                context ()->self_scm ());
 
-      text_->set_property ("text", result);
+      set_property (text_, "text", result);
     }
 }
 

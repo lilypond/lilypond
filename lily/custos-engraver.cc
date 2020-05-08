@@ -98,14 +98,14 @@ Custos_engraver::acknowledge_note_head (Grob_info info)
         don't look at the staff-position, since we can't be sure
         whether Clef_engraver already applied a vertical shift.
       */
-      pitches_.push_back (*unsmob<Pitch> (ev->get_property ("pitch")));
+      pitches_.push_back (*unsmob<Pitch> (get_property (ev, "pitch")));
     }
 }
 
 void
 Custos_engraver::process_acknowledged ()
 {
-  if (scm_is_string (get_property ("whichBar")))
+  if (scm_is_string (get_property (this, "whichBar")))
     custos_permitted_ = true;
 
   if (custos_permitted_)
@@ -115,11 +115,11 @@ Custos_engraver::process_acknowledged ()
           Item *c = create_custos ();
 
           int p = pitches_[i].steps ();
-          SCM c0 = get_property ("middleCPosition");
+          SCM c0 = get_property (this, "middleCPosition");
           if (scm_is_number (c0))
             p += scm_to_int (c0);
 
-          c->set_property ("staff-position",
+          set_property (c, "staff-position",
                            scm_from_int (p));
         }
 

@@ -79,9 +79,9 @@ Bracket::make_bracket (Grob *me, // for line properties.
     m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
                                          straight_corners[RIGHT]));
 
-  if (scm_is_eq (me->get_property ("style"), ly_symbol2scm ("dashed-line"))
-      && !to_boolean (me->get_property ("dashed-edge")))
-    me->set_property ("style", ly_symbol2scm ("line"));
+  if (scm_is_eq (get_property (me, "style"), ly_symbol2scm ("dashed-line"))
+      && !to_boolean (get_property (me, "dashed-edge")))
+    set_property (me, "style", ly_symbol2scm ("line"));
   for (LEFT_and_RIGHT (d))
     m.add_stencil (Line_interface::line (me, straight_corners[d],
                                          flare_corners[d]));
@@ -96,11 +96,11 @@ Stencil
 Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                         Direction dir, Interval gap)
 {
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
+  Drul_array<Real> edge_height = robust_scm2interval (get_property (me, "edge-height"),
                                                       Interval (1.0, 1.0));
-  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
+  Drul_array<Real> flare = robust_scm2interval (get_property (me, "bracket-flare"),
                                                 Interval (0, 0));
-  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
+  Drul_array<Real> shorten = robust_scm2interval (get_property (me, "shorten-pair"),
                                                   Interval (0, 0));
 
   // Make sure that it points in the correct direction:
@@ -110,7 +110,7 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
   start[a] = length;
 
   Drul_array<bool> connect_to_other
-    = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
+    = robust_scm2booldrul (get_property (me, "connect-to-neighbor"),
                            Drul_array<bool> (false, false));
 
   for (LEFT_and_RIGHT (d))
