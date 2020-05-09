@@ -198,7 +198,7 @@ Sequential_iterator::process (Moment until)
 {
   while (iter_)
     {
-      Grace_fixup *gf = get_grace_fixup ();
+      const Grace_fixup *gf = get_grace_fixup ();
       if (gf
           && gf->start_ + gf->length_
           + Moment (Rational (0), gf->grace_start_) == until)
@@ -236,7 +236,7 @@ Sequential_iterator::pending_moment () const
   /*
     Fix-up a grace note halfway in the music.
   */
-  Grace_fixup *gf = get_grace_fixup ();
+  const Grace_fixup *gf = get_grace_fixup ();
   if (gf
       && gf->length_ + iter_->music_start_mom () == cp)
     return here_mom_ + gf->length_ + Moment (0, gf->grace_start_);
@@ -269,7 +269,7 @@ Sequential_iterator::next_grace_fixup ()
   grace_fixups_ = n;
 }
 
-Grace_fixup *
+const Grace_fixup *
 Sequential_iterator::get_grace_fixup () const
 {
   if (grace_fixups_ && grace_fixups_->start_ == here_mom_)
