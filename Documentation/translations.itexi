@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated sam. avril 18 08:27:29 UTC 2020
+@emph{Last updated sam. mai  9 14:20:12 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(665)
+(676)
 @tab David Kastrup
 @*
 Lukas-Fabian Moser
@@ -93,7 +93,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -159,11 +159,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Masamichi Hosoda
 @*
@@ -4711,7 +4711,7 @@ partially up to date
 @item
 1.2 Rhythms
 @*
-(6979)
+(7100)
 @tab Walter Garcia-Fontes
 @*
 
@@ -4749,7 +4749,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">partially up to date</span>
+<span style="background-color: #76fe2a">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4772,7 +4772,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #fff53e">partially up to date</span>
+<span style="background-color: #fff23f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4905,7 +4905,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5982,7 +5982,7 @@ partially up to date
 @item
 1.8 Text
 @*
-(3434)
+(3573)
 @tab Walter Garcia-Fontes
 @*
 
@@ -6020,7 +6020,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially up to date</span>
+<span style="background-color: #a5ff31">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6043,7 +6043,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">partially up to date</span>
+<span style="background-color: #fffd3d">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6066,11 +6066,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -6163,7 +6163,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially up to date</span>
+<span style="background-color: #4efe25">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6190,7 +6190,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially up to date</span>
+<span style="background-color: #6fff29">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -9963,7 +9963,7 @@ partially up to date
 @item
 1 Running @command{lilypond}
 @*
-(6634)
+(6877)
 @tab Walter Garcia-Fontes
 @*
 
@@ -10001,7 +10001,7 @@ partially translated (92 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffd244">partially up to date</span>
+<span style="background-color: #ffcf44">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10046,7 +10046,7 @@ partially translated (92 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffca45">partially up to date</span>
+<span style="background-color: #ffc746">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10069,11 +10069,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -10124,11 +10124,11 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (85 %)</span>
+<span style="background-color: #dfef77">partially translated (86 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (85 %)
+partially translated (86 %)
 @end ifnothtml
 @*
 
@@ -10178,7 +10178,7 @@ partially translated (93 %)
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially up to date</span>
+<span style="background-color: #54ff26">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10205,7 +10205,7 @@ partially translated (93 %)
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially up to date</span>
+<span style="background-color: #54ff26">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10688,7 +10688,7 @@ up to date
 @item
 4 External programs
 @*
-(3040)
+(3051)
 @tab Walter Garcia-Fontes
 @*
 

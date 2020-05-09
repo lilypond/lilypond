@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Apr 18 08:27:29 UTC 2020
+@emph{Last updated Sat May  9 14:20:12 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -415,18 +415,18 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-6634
+6877
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (85 %)</span>
+<span style="background-color: #dfef77">partially (86 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (85 %)
+partially (86 %)
 @end ifnothtml
 @tab 
 @ifhtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sat Apr 18 08:27:29 UTC 2020
+@emph{最終更新日 Sat May  9 14:20:12 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond 更新履歴
 @item
 セクション タイトル
 @*
-665
+676
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
@@ -435,7 +435,7 @@ partially
 @item
 1.2 リズム
 @*
-6979
+7100
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -609,7 +609,7 @@ partially
 @item
 1.8 テキスト
 @*
-3434
+3573
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -630,7 +630,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially</span>
+<span style="background-color: #6fff29">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1166,7 +1166,7 @@ partially
 @item
 1 @command{lilypond} を実行する
 @*
-6634
+6877
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
@@ -1187,7 +1187,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #54ff26">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1255,7 +1255,7 @@ Yoshiki Sawada
 @item
 4 外部プログラム
 @*
-3040
+3051
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima

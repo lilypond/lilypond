@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat Apr 18 08:27:29 UTC 2020
+@emph{Zuletzt aktualisiert am Sat May  9 14:20:12 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Überschriften
 @*
-665
+676
 @tab David Kastrup
 @*
 Lukas-Fabian Moser
@@ -667,7 +667,7 @@ teilweise
 @item
 1.2 Rhythmus
 @*
-6979
+7100
 @tab Till Paala
 @tab 
 @tab 
@@ -684,7 +684,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #fff53e">teilweise</span>
+<span style="background-color: #fff23f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -829,7 +829,7 @@ teilweise
 @item
 1.8 Text
 @*
-3434
+3573
 @tab Till Paala
 @tab 
 @tab 
@@ -846,7 +846,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">teilweise</span>
+<span style="background-color: #fffd3d">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1354,7 +1354,7 @@ teilweise
 @item
 1 @command{lilypond} starten
 @*
-6634
+6877
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1373,7 +1373,7 @@ teilweise (92 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffca45">teilweise</span>
+<span style="background-color: #ffc746">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1437,7 +1437,7 @@ teilweise
 @item
 4 Externe Programme
 @*
-3040
+3051
 @tab Till Paala
 @*
 Reinhold Kainhofer

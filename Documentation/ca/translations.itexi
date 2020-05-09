@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat Apr 18 08:27:29 UTC 2020
+@emph{Actualitzat el Sat May  9 14:20:12 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -343,7 +343,7 @@ parcialment
 @item
 1.2 Duracions
 @*
-6979
+7100
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -360,7 +360,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialment</span>
+<span style="background-color: #76fe2a">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -505,7 +505,7 @@ parcialment
 @item
 1.8 Text
 @*
-3434
+3573
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -522,7 +522,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">parcialment</span>
+<span style="background-color: #a5ff31">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1030,7 +1030,7 @@ parcialment
 @item
 1 Execució del LilyPond
 @*
-6634
+6877
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1047,7 +1047,7 @@ parcialment (92 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffd244">parcialment</span>
+<span style="background-color: #ffcf44">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

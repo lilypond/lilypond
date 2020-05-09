@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sat Apr 18 08:27:29 UTC 2020
+@emph{Dernière mise à jour Sat May  9 14:20:12 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-665
+676
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -691,7 +691,7 @@ oui
 @item
 1.2 Rythme
 @*
-6979
+7100
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -875,7 +875,7 @@ oui
 @item
 1.8 Texte
 @*
-3434
+3573
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -1438,7 +1438,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-6634
+6877
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1519,7 +1519,7 @@ oui
 @item
 4 Programmes externes
 @*
-3040
+3051
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
