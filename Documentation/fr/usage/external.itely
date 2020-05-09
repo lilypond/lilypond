@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 5152be56d7489884711de31e371b0ee1baf405d6
+   Translation of GIT committish: d44a7a2a37fc24b6f7aa73ca1f437d5485d3a3e8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -851,8 +851,10 @@ l'extension
 
 @uref{https://github.com/openlilylib/LO-ly,OOoLilyPond} permet
 d'insérer directement des partitions LilyPond dans OpenOffice ou
-LibreOffice.  Bien que son développement soit suspendu, cette extension
-est opérationnelle avec la version 4 des deux suites.
+LibreOffice.  OoLilyPond (OLy) fonctionne avec les versions récentes
+d'OpenOffice et LibreOffice. Il devrait être fonctionnel également avec
+d'anciennes versions. Il a même été testé avec OpenOffice 2.4 sans
+problème.
 
 
 @node Autres programmes

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 5152be56d7489884711de31e371b0ee1baf405d6
+   Translation of GIT committish: d44a7a2a37fc24b6f7aa73ca1f437d5485d3a3e8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -680,8 +680,67 @@ millimètres. La valeur par défaut est @code{#f}, autrement dit sans décalage.
 
 @item @code{font-export-dir} @var{chaîne}
 Détermine à @var{chaîne} le répertoire dans lequel exporter les fontes
-en tant que fichiers PostScript. La valeur par défaut est @code{#f},
-autrement dit le répertoire courant.
+en tant que fichiers PostScript. Ceci est tout à fait approprié lorsque
+l'on crée un fichier PDF sans y incorporer les fontes dans un premier
+temps, et laisse Ghostscript le faire par la suite comme indiqué
+ci-dessous.
+
+@example
+$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
+@end example
+
+@noindent
+Note : Contrairement à @code{font-ps-resdir}, cette méthode ne permet
+pas d'incorporer de fonte CID avec une version de Ghostscript égale ou
+supérieure à 9.26.
+
+@noindent
+Note : Identique à @code{font-ps-resdir}, cette option ignore les fontes
+TrueType dans la mesure où les incorporer @i{a posteriori} cause une
+altération des caractères. L'utilisation de @code{gs-never-embed-fonts},
+dans la mesure où elle incorpore les fontes TrueType en dépit de ce
+qu'elle prétend d'après son nom, permet d'éviter les caractères altérés.
+
+@noindent
+La valeur par défaut est @code{#f}, autrement dit absence d'export.
+
+@item @code{font-ps-resdir} @var{chaîne}
+Détermine à @var{chaîne} le répertoire dans lequel sera construit le
+sous-ensemble des ressources PostScript utilisé pour l'incoporation
+ultérieure des fontes. Ceci est tout à fait approprié lorsque l'on crée
+un fichier PDF sans y incorporer les fontes dans un premier temps, et
+laisse Ghostscript le faire par la suite comme indiqué ci-dessous.
+
+@example
+$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -I resdir -I resdir/Font \
+     -sOutputFile=foo.embedded.pdf foo.pdf
+@end example
+
+@noindent
+Note : Il vaut mieux éviter que le nom du répertoire contienne le mot
+@file{Resource}, qui a une signification particulière lorsqu'utilisé avec
+une option @code{-I} de Ghostscript.
+
+@noindent
+Note : Contrairement à @code{font-export-dir}, cette méthode permet
+l'incorporation de fontes CID avec une version de Ghostscript égale ou
+supérieure à 9.26.
+
+@noindent
+Note : Identique à @code{font-export-dir}, cette option ignore les
+fontes TrueType dans la mesure où les incorporer @i{a posteriori} cause
+une altération des caractères. L'utilisation de
+@code{gs-never-embed-fonts}, dans la mesure où elle incorpore les fontes
+TrueType en dépit de ce qu'elle prétend d'après son nom, permet d'éviter
+les caractères altérés.
+
+@noindent
+La valeur par défaut est @code{#f}, autrement dit absence de
+construction d'un sous-ensemble.
 
 @item @code{gs-load-fonts} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, charge les fontes grâce à
