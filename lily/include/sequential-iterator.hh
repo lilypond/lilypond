@@ -47,8 +47,6 @@ protected:
   bool run_always () const override;
 
 protected:
-  Music_iterator *iter_;
-
   virtual SCM get_music_list () const;
   virtual void next_element (bool side_effect);
 
@@ -56,6 +54,7 @@ protected:
   void next_grace_fixup ();
 
 private:
+  Music_iterator *iter_;
   Moment here_mom_;
   SCM cursor_;
   Grace_fixup *grace_fixups_;
