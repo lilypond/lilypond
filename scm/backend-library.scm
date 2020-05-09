@@ -137,6 +137,24 @@
           (ly:message (_ "Copying to `~a'...\n") ps-name)
           (copy-binary-file tmp-name ps-name)))))
 
+(define-public (mkdir-if-not-exist path . mode)
+  (catch
+   'system-error
+   (lambda ()
+     ;; mkdir:
+     ;; If the directory already exists, it raises system-error.
+     (if (null? mode)
+         (mkdir path)
+         (mkdir path (car mode)))
+     #t)
+   (lambda stuff
+     ;; Catch the system-error
+     (if (= EEXIST (system-error-errno stuff))
+         ;; If the directory already exists, avoid error and return #f.
+         (begin #f)
+         ;; If the cause is something else, re-throw the error.
+         (throw 'system-error (cdr stuff))))))
+
 (define-public (copy-binary-file from-name to-name)
   (if (eq? PLATFORM 'windows)
       ;; MINGW hack: MinGW Guile's copy-file is broken.

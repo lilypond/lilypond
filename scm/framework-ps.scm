@@ -588,30 +588,28 @@
                                  (ly:get-option 'font-ps-resdir)))
              (fontdir (format #f "~a/Font"
                               (ly:get-option 'font-ps-resdir))))
-        (if (not (file-exists? resdir))
-            (mkdir resdir))
-        (if (not (file-exists? cidfontdir))
-            (mkdir cidfontdir))
-        (if (not (file-exists? fontdir))
-            (mkdir fontdir))))
+        (ly:debug
+         (_ "Making PostScript resource directory `~a'.") resdir)
+        (if (not (mkdir-if-not-exist resdir))
+            (ly:debug
+             (_ "PostScript resource directory `~a' already exists.") resdir))
+        (ly:debug
+         (_ "Making CIDFont directory `~a'.") cidfontdir)
+        (if (not (mkdir-if-not-exist cidfontdir))
+            (ly:debug
+             (_ "CIDFont directory `~a' already exists.") cidfontdir))
+        (ly:debug
+         (_ "Making Font directory `~a'.") fontdir)
+        (if (not (mkdir-if-not-exist fontdir))
+            (ly:debug
+             (_ "Font directory `~a' already exists.") fontdir))))
   (if (ly:get-option 'font-export-dir)
       (let ((dirname (format #f "~a" (ly:get-option 'font-export-dir))))
         (ly:debug
          (_ "Making font export directory `~a'.") dirname)
-        (catch
-         'system-error
-         (lambda ()
-           ;; mkdir:
-           ;; When the directory already exists, it raises system-error.
-           (mkdir dirname))
-         (lambda stuff
-           ;; Catch the system-error
-           (if (= EEXIST (system-error-errno stuff))
-               ;; If the directory already exists, avoid error.
-               (ly:debug
-                (_ "Font export directory `~a' already exists.") dirname)
-               ;; If the cause is something else, re-throw the error.
-               (throw 'system-error (cdr stuff)))))))
+        (if (not (mkdir-if-not-exist dirname))
+            (ly:debug
+             (_ "Font export directory `~a' already exists.") dirname))))
   (if load-fonts?
       (for-each (lambda (f)
                   (format port "\n%%BeginFont: ~a\n" (car f))
