@@ -305,16 +305,14 @@
       ;; Type 1 (PFA and PFB) fonts and non-CID OpenType/CFF fonts (OTF)
       (let ((newpath (format #f "~a/Font/~a"
                              (ly:get-option 'font-ps-resdir) name)))
-        (if (file-exists? newpath)
-            (ly:debug (_ "File `~a' already exists, skipping...") newpath)
-            (symlink file-name newpath))))
+        (if (not (symlink-if-not-exist file-name newpath))
+            (ly:debug (_ "File `~a' already exists, skipping...") newpath))))
      ((eq? font-format 'CFF)
       ;; CID OpenType/CFF fonts (OTF)
       (let ((newpath (format #f "~a/CIDFont/~a"
                              (ly:get-option 'font-ps-resdir) name)))
-        (if (file-exists? newpath)
-            (ly:debug (_ "File `~a' already exists, skipping...") newpath)
-            (symlink file-name newpath))))
+        (if (not (symlink-if-not-exist file-name newpath))
+            (ly:debug (_ "File `~a' already exists, skipping...") newpath))))
      (else
       (ly:warning (_ "Font ~a cannot be used in PostScript resource directory\
  because it is unknown format." name))))))

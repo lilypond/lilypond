@@ -155,6 +155,22 @@
          ;; If the cause is something else, re-throw the error.
          (throw 'system-error (cdr stuff))))))
 
+(define-public (symlink-if-not-exist oldpath newpath)
+  (catch
+   'system-error
+   (lambda ()
+     ;; symlink:
+     ;; If the file already exists, it raises system-error.
+     (symlink oldpath newpath)
+     #t)
+   (lambda stuff
+     ;; Catch the system-error
+     (if (= EEXIST (system-error-errno stuff))
+         ;; If the file already exists, avoid error and return #f.
+         (begin #f)
+         ;; If the cause is something else, re-throw the error.
+         (throw 'system-error (cdr stuff))))))
+
 (define-public (copy-binary-file from-name to-name)
   (if (eq? PLATFORM 'windows)
       ;; MINGW hack: MinGW Guile's copy-file is broken.
