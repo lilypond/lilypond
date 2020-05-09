@@ -65,6 +65,11 @@ public:
   std::vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
   std::vector<Grob *> get_footnote_grobs_in_range (vsize st, vsize end);
   vsize num_footnotes ();
+
+  /* Substitute pointers to account for line breaking.  Precondition:
+     break_into_pieces() must have been called for the entire range of
+     columns.
+  */
   void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
   SCM get_paper_system ();
@@ -94,7 +99,10 @@ public:
   vsize element_count () const;
   vsize spanner_count () const;
 
-  void break_into_pieces (std::vector<Column_x_positions> const &);
+  /* Create broken System grobs for columns in `cols`.  The `cols`
+     argument may cover only part of the score.
+   */
+  void break_into_pieces (std::vector<Column_x_positions> const &cols);
 
   std::vector<Item *> broken_col_range (Item const *, Item const *) const;
   std::vector<Paper_column *> used_columns_in_range (vsize start, vsize end) const;
@@ -124,4 +132,3 @@ private:
 void set_loose_columns (System *which, Column_x_positions const *posns);
 
 #endif /* SYSTEM_HH */
-
