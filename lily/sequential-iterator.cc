@@ -161,11 +161,8 @@ Sequential_iterator::next_element ()
   Moment len = iter_->music_get_length () - iter_->music_start_mom ();
   assert (!grace_fixups_ || grace_fixups_->start_ >= here_mom_);
 
-  if (len.main_part_
-      && get_grace_fixup ())
+  if (auto gf = len.main_part_ ? get_grace_fixup () : nullptr)
     {
-      Grace_fixup *gf = get_grace_fixup ();
-
       here_mom_ += gf->length_;
       here_mom_.grace_part_ += gf->grace_start_;
 
