@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dd5581b435f6e22b492269b69e61057f4f7343a6
+   Translation of GIT committish: 4860434b122611df632dfd9aaa21c430e4b67819
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -290,11 +290,46 @@ Les n-olets peuvent être imbriqués ; par exemple,
 c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4 |
 @end lilypond
 
+@noindent
 Lorsque, dans une imbrication, les n-olets débutent au même instant, il
-vous faut recourir à la commande @code{\tweak}.
+vous faut recourir à la commande @code{\tweak} -- voir
+@ref{La commande d'affinage (tweak)}.
 
-Vous pouvez interférer sur la durée des notes sans imprimer de crochet,
-comme indiqué au chapitre @ref{Changement d'échelle des durées}.
+@cindex n-olet, liaison
+@cindex triolet, liaison
+@cindex liaison de n-olet
+@funindex tuplet-slur
+
+Le crochet de n-olet peut être remplacé par une liaison, à l'instar des
+éditions anciennes :
+
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
+@noindent
+Un crochet sera imprimé en l'absence de ligature couvrant toute sa
+longueur. Dans certains cas cependant, par exemple en présence d'une
+liaison comme ci-dessus, il peut être préférable de modifier ce
+comportement à l'aide de la propriété @code{bracket-visibility} comme
+indiqué dans les exemples qui suivent.
+
+@cindex n-olet, visibilité du crochet
+@cindex n-olet, visibilité du nombre
+@cindex visibilité des n-olets
+
+De manière générale, aussi bien les objets @code{TupletBracket} que
+@code{TupletNumber} peuvent se masquer comme indiqué dans
+@ref{Visibilité des objets} ; on peut néanmoins interférer sur la durée
+des notes sans imprimer de crochet, comme indiqué au chapitre
+@ref{Changement d'échelle des durées}.
 
 @predefined
 @code{\tupletUp},
@@ -349,7 +384,8 @@ Manuel de notation :
 @ref{Direction et positionnement},
 @ref{Gestion du temps},
 @ref{La commande d'affinage (tweak)},
-@ref{Notation polymétrique}.
+@ref{Notation polymétrique},
+@ref{Visibilité des objets}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
+    Translation of GIT committish: 4860434b122611df632dfd9aaa21c430e4b67819
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -134,6 +134,21 @@ même principe et se libelle désormais @code{\autoChange}.
 @strong{Améliorations en matière de rythme}
 
 @itemize
+
+@item
+Les n-olets peuvent désormais s'indiquer à l'aide d'une liaison en
+lieu et place d'un crochet :
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
 
 @item
 Les ligatures à la française (@code{\override Stem.french-beaming =
