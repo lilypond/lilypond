@@ -730,6 +730,8 @@ class SignatureFileLink (FileLink):
                 outfile = (out_dir + '/' + f).replace ('.eps', '.png')
                 driver.write('''
                 mark /OutputFile (%s)
+                /GraphicsAlphaBits 4 /TextAlphaBits 4
+                /HWResolution [101 101]
                 (png16m) finddevice putdeviceprops setdevice
                 (%s) run
                 ''' % (outfile, f))
@@ -741,9 +743,6 @@ class SignatureFileLink (FileLink):
                    ' -q'
                    ' -dNOPAUSE'
                    ' -dNODISPLAY'
-                   ' -dGraphicsAlphaBits=4'
-                   ' -dTextAlphaBits=4'
-                   ' -r101'
                    ' -dAutoRotatePages=/None'
                    ' -dPrinted=false'
                    ' batch.ps'
