@@ -24,16 +24,7 @@
 SCM
 Scheme_hash_table::make_smob ()
 {
-  return Smob1::make_smob (scm_c_make_hash_table (119));
-}
-
-int
-Scheme_hash_table::print_smob (SCM p, scm_print_state *) const
-{
-  scm_puts ("#<Scheme_hash_table  ", p);
-  scm_display (hash_tab (), p);
-  scm_puts ("> ", p);
-  return 1;
+  return scm_c_make_hash_table (119);
 }
 
 bool

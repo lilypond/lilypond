@@ -29,7 +29,7 @@
   This is not much more than a C++ wrapper around a standard Guile hashtable.
 */
 
-class Scheme_hash_table : public Smob1<Scheme_hash_table>
+class Scheme_hash_table : public Smob0<Scheme_hash_table>
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
@@ -41,9 +41,13 @@ public:
   void operator = (Scheme_hash_table const &);
   SCM to_alist () const;
   static SCM make_smob ();
+  static bool is_smob (SCM arg)
+  {
+    return scm_is_true (scm_hash_table_p (arg));
+  }
 
 private:
-  SCM &hash_tab () const { return scm1 (); }
+  SCM hash_tab () const { return self_scm (); }
 };
 
 #endif /* SCM_HASH_HH */
