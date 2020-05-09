@@ -48,7 +48,7 @@ protected:
 
 protected:
   virtual SCM get_music_list () const;
-  virtual void next_element (bool side_effect);
+  virtual void next_element ();
 
   Grace_fixup *get_grace_fixup () const;
   void next_grace_fixup ();

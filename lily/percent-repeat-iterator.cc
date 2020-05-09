@@ -35,7 +35,7 @@ public:
 protected:
   SCM get_music_list () const override;
   void construct_children () override;
-  void next_element (bool) override;
+  void next_element () override;
   void derived_mark () const override;
 private:
   SCM child_list_;
@@ -83,12 +83,12 @@ Percent_repeat_iterator::get_music_list () const
 // are dealing with and extend the child list just in time before the
 // next iterator is getting fetched.
 void
-Percent_repeat_iterator::next_element (bool side_effect)
+Percent_repeat_iterator::next_element ()
 {
   // Do nothing if we already did our processing here.
   if (!scm_is_pair (child_list_))
     {
-      Sequential_iterator::next_element (side_effect);
+      Sequential_iterator::next_element ();
       return;
     }
 
@@ -136,5 +136,5 @@ Percent_repeat_iterator::next_element (bool side_effect)
   scm_set_cdr_x (child_list_, child_list);
   child_list_ = SCM_EOL;
 
-  Sequential_iterator::next_element (side_effect);
+  Sequential_iterator::next_element ();
 }

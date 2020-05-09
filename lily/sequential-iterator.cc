@@ -139,7 +139,7 @@ Sequential_iterator::construct_children ()
     }
 
   while (iter_ && !iter_->ok ())
-    next_element (true);
+    next_element ();
 
   here_mom_ = get_music ()->start_mom ();
   grace_fixups_ = create_grace_fixup_list (cursor_);
@@ -156,7 +156,7 @@ Sequential_iterator::construct_children ()
   swoop.
 */
 void
-Sequential_iterator::next_element (bool)
+Sequential_iterator::next_element ()
 {
   Moment len = iter_->music_get_length () - iter_->music_start_mom ();
   assert (!grace_fixups_ || grace_fixups_->start_ >= here_mom_);
@@ -227,7 +227,7 @@ Sequential_iterator::process (Moment until)
         return;
 
       descend_to_child (iter_->get_outlet ());
-      next_element (true);
+      next_element ();
     }
 }
 
