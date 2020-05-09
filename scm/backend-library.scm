@@ -171,6 +171,17 @@
          ;; If the cause is something else, re-throw the error.
          (throw 'system-error (cdr stuff))))))
 
+(define-public (symlink-or-copy-if-not-exist oldpath newpath)
+  (if (eq? PLATFORM 'windows)
+      (let ((port (create-file-exclusive newpath)))
+        (if port
+            (begin
+              (close port)
+              (copy-binary-file oldpath newpath)
+              #t)
+            (begin #f)))
+      (symlink-if-not-exist oldpath newpath)))
+
 (define-public (create-file-exclusive path . mode)
   (catch
    'system-error
