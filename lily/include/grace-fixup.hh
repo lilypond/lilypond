@@ -48,10 +48,7 @@ class Grace_fixup
 public:
   Moment start_;
   Moment length_;
-
   Rational grace_start_;
-
-  Grace_fixup *next_;
 };
 
 #endif /* GRACE_FIXUP_HH */

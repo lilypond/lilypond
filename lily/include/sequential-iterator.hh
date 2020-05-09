@@ -21,6 +21,8 @@
 #define SEQUENTIAL_ITERATOR_HH
 
 #include "music-iterator.hh"
+
+#include "grace-fixup.hh"
 #include "protected-scm.hh"
 
 /** Sequential_music iteration: walk each element in turn, and
@@ -50,14 +52,36 @@ protected:
   virtual SCM get_music_list () const;
   virtual void next_element ();
 
-  const Grace_fixup *get_grace_fixup () const;
-  void next_grace_fixup ();
+private:
+  class Lookahead
+  {
+  private:
+    Moment here_;
+    Moment last_ = -1;
+    SCM cursor_;
+
+    Grace_fixup grace_fixup_;
+    bool has_grace_fixup_ = false;
+
+  public:
+    Lookahead () = default;
+
+    void init (SCM cursor) { cursor_ = cursor; }
+    void look_ahead ();
+
+    const Grace_fixup *get_grace_fixup (const Moment &) const;
+
+    bool is_grace_fixup_sane (const Moment &m) const
+    {
+      return !has_grace_fixup_ || (grace_fixup_.start_ >= m);
+    }
+  };
 
 private:
   Music_iterator *iter_;
   Moment here_mom_;
   SCM cursor_;
-  Grace_fixup *grace_fixups_;
+  Lookahead la_;
 };
 
 #endif /* SEQUENTIAL_ITERATOR_HH */
