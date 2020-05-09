@@ -171,6 +171,23 @@
          ;; If the cause is something else, re-throw the error.
          (throw 'system-error (cdr stuff))))))
 
+(define-public (create-file-exclusive path . mode)
+  (catch
+   'system-error
+   (lambda ()
+     ;; Exclusive file create:
+     ;; If the file already exists, it raises system-error.
+     (if (null? mode)
+         (open path (logior O_WRONLY O_CREAT O_EXCL))
+         (open path (logior O_WRONLY O_CREAT O_EXCL) (car mode))))
+   (lambda stuff
+     ;; Catch the system-error
+     (if (= EEXIST (system-error-errno stuff))
+         ;; If the file already exists, avoid error and return #f.
+         (begin #f)
+         ;; If the cause is something else, re-throw the error.
+         (throw 'system-error (cdr stuff))))))
+
 (define-public (copy-binary-file from-name to-name)
   (if (eq? PLATFORM 'windows)
       ;; MINGW hack: MinGW Guile's copy-file is broken.

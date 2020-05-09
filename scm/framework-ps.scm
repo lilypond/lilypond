@@ -280,22 +280,26 @@
     retval))
 
 (define (link-ps-resdir-font name file-name font-index)
-  (ly:debug (_ "Symlinking PostScript resource directory ~a -> ~a (~a)...")
-            name file-name font-index)
+  (ly:debug (_ "Preparing font ~a in PostScript resource directory\
+ for subfont ~a of file `~a'...")
+            name font-index file-name)
   (let* ((index (if (number? font-index) font-index 0))
          (font-format (ly:get-font-format file-name index)))
     (cond
      ((and (eq? font-format 'CFF)
            (is-collection-font? file-name))
       ;; OpenType/CFF Collection (OTC)
-      (let ((newpath (if (ly:has-glyph-names? file-name index)
-                         (format #f "~a/Font/~a"
-                                 (ly:get-option 'font-ps-resdir) name)
-                         (format #f "~a/CIDFont/~a"
-                                 (ly:get-option 'font-ps-resdir) name))))
-        (if (file-exists? newpath)
+      (let* ((newpath (if (ly:has-glyph-names? file-name index)
+                          (format #f "~a/Font/~a"
+                                  (ly:get-option 'font-ps-resdir) name)
+                          (format #f "~a/CIDFont/~a"
+                                  (ly:get-option 'font-ps-resdir) name)))
+             (port (create-file-exclusive newpath)))
+        (if (not port)
             (ly:debug (_ "File `~a' already exists, skipping...") newpath)
-            (ly:extract-subfont-from-collection file-name index newpath))))
+            (begin
+              (close port)
+              (ly:extract-subfont-from-collection file-name index newpath)))))
      ((eq? font-format 'TrueType)
       ;; TrueType fonts (TTF) and TrueType Collection (TTC)
       (ly:debug (_ "Font ~a is TrueType font, skipping...") name))
@@ -533,28 +537,13 @@
     (let* ((filename (format #f "~a/~a.font.ps"
                              (ly:get-option 'font-export-dir)
                              name))
-           (port-excl
-            (catch
-             'system-error
-             (lambda ()
-               ;; Exclusive file create:
-               ;; When the file already exists, it raises system-error.
-               (open filename (logior O_WRONLY O_CREAT O_EXCL)))
-             (lambda stuff
-               ;; Catch the system-error
-               (let ((errno (system-error-errno stuff)))
-                 (cond
-                  ;; If the file already exists, return #f.
-                  ((= errno EEXIST)
-                   (begin
-                     (ly:debug
-                      (_ "Font file `~a' already exists, skipping.")
-                      filename)
-                     #f))
-                  ;; If the cause is something else, re-throw the error.
-                  (#t
-                   (throw 'system-error (cdr stuff)))))))))
-      (if port-excl
+           (port-excl (create-file-exclusive filename)))
+      (if (not port-excl)
+          (begin
+            (ly:debug
+             (_ "Font file `~a' already exists, skipping...")
+             filename)
+            #f)
           ;; MinGW hack: need to have "b"inary for fonts
           (let ((port (open-file filename "wb")))
             (close port-excl)
