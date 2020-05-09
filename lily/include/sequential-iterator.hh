@@ -56,7 +56,6 @@ protected:
   void next_grace_fixup ();
 
 private:
-  Moment last_mom_;
   Moment here_mom_;
   SCM cursor_;
   Grace_fixup *grace_fixups_;

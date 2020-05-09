@@ -141,7 +141,6 @@ Sequential_iterator::construct_children ()
   while (iter_ && !iter_->ok ())
     next_element (true);
 
-  last_mom_ = Moment (-1);
   here_mom_ = get_music ()->start_mom ();
   grace_fixups_ = create_grace_fixup_list (cursor_);
 
@@ -167,7 +166,6 @@ Sequential_iterator::next_element (bool)
     {
       Grace_fixup *gf = get_grace_fixup ();
 
-      last_mom_ = here_mom_;
       here_mom_ += gf->length_;
       here_mom_.grace_part_ += gf->grace_start_;
 
@@ -175,7 +173,6 @@ Sequential_iterator::next_element (bool)
     }
   else if (len.grace_part_ && !len.main_part_)
     {
-      last_mom_ = here_mom_;
       here_mom_.grace_part_ = 0;
     }
   else
@@ -187,7 +184,6 @@ Sequential_iterator::next_element (bool)
         in that chunk should be in len.grace_part_
 
       */
-      last_mom_ = here_mom_;
       here_mom_ += len;
     }
 
