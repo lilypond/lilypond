@@ -660,8 +660,7 @@ $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
 
 @noindent
 Note: Unlike @code{font-ps-resdir},
-this method can embed OpenType/CFF collection (OTC) fonts.
-However, it cannnot embed CID fonts with Ghostscript 9.26 and later.
+this method cannot embed CID fonts with Ghostscript 9.26 and later.
 
 @noindent
 Note: Same as @code{font-ps-resdir}, this option skips TrueType fonts
@@ -694,7 +693,6 @@ when specified with the @code{-I} option for Ghostscript.
 @noindent
 Note: Unlike @code{font-export-dir},
 this method can embed CID fonts with Ghostscript 9.26 and later.
-However it cannot embed OpenType/CFF collection (OTC) fonts.
 
 @noindent
 Note: Same as @code{font-export-dir}, this option skips TrueType fonts

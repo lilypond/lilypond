@@ -33,8 +33,6 @@ public:
   DECLARE_SCHEME_CALLBACK (horizontal_skylines, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (remove_tied, (SCM));
-
-  static SCM get_stencil (Grob *me);
 };
 
 #endif

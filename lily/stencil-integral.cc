@@ -694,6 +694,12 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
     interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("output-attributes")))
     interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
+  else if (scm_is_eq (head, ly_symbol2scm ("utf-8-string")))
+    {
+      // 4th element, strip the (quote ..)
+      SCM orig = scm_cadar (scm_cdddr (expr));
+      interpret_stencil_for_skyline (skyline, transform, orig);
+    }
   else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
     interpret_stencil_for_skyline (skyline, transform, scm_cadr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("draw-line")))

@@ -288,8 +288,14 @@
      ((and (eq? font-format 'CFF)
            (is-collection-font? file-name))
       ;; OpenType/CFF Collection (OTC)
-      (ly:warning (_ "Font ~a cannot be used in PostScript resource directory\
- because it is an OpenType/CFF Collection (OTC) font.") name))
+      (let ((newpath (if (ly:has-glyph-names? file-name index)
+                         (format #f "~a/Font/~a"
+                                 (ly:get-option 'font-ps-resdir) name)
+                         (format #f "~a/CIDFont/~a"
+                                 (ly:get-option 'font-ps-resdir) name))))
+        (if (file-exists? newpath)
+            (ly:debug (_ "File `~a' already exists, skipping...") newpath)
+            (ly:extract-subfont-from-collection file-name index newpath))))
      ((eq? font-format 'TrueType)
       ;; TrueType fonts (TTF) and TrueType Collection (TTC)
       (ly:debug (_ "Font ~a is TrueType font, skipping...") name))

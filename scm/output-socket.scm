@@ -89,7 +89,7 @@
   (format #f "draw_round_box ~a ~a ~a ~a ~a"
           breapth width depth height blot-diameter))
 
-(define (utf-8-string descr string)
+(define (utf-8-string descr string orig)
   (format #f "utf-8 \"~a\" \"~a\""
           (escape-string descr)
           ;; don't want unescaped spaces.
