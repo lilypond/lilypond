@@ -114,7 +114,7 @@ public:
       return scm_return_first_int (*pt->read_pos, port);
   }
 
-  static guile_off_t seek_scm (SCM port, guile_off_t offset, int whence)
+  static guile_off_t seek_scm (SCM port, guile_off_t /* offset */, int whence)
   {
     assert (whence == SEEK_CUR);
     scm_t_port *pt = SCM_PTAB_ENTRY (port);
