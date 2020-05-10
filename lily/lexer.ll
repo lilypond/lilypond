@@ -84,6 +84,11 @@ RH 7 fix (?)
 #pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
 #endif
 
+// generated code for yyFlexLexer::LexerInput 
+// contains a std::streamsize to int conversion
+// ignore warning
+#pragma GCC diagnostic ignored "-Wconversion"
+
 void strip_trailing_white (string&);
 void strip_leading_white (string&);
 string lyric_fudge (string s);
