@@ -22,6 +22,8 @@
 
 #include "font-metric.hh"
 
+#include <unordered_map>
+
 Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 void get_unicode_name (char *s, FT_ULong code);
 void get_glyph_index_name (char *s, FT_ULong code);
@@ -40,6 +42,7 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   /* handle to face object */
   FT_Face face_;
   std::string postscript_name_;
+  mutable std::unordered_map<std::string, size_t> name_to_index_map_;
 
   Index_to_charcode_map index_to_charcode_map_;
   Open_type_font (FT_Face);

@@ -364,9 +364,17 @@ Open_type_font::get_units_per_EM () const
 size_t
 Open_type_font::name_to_index (string nm) const
 {
+  auto it = name_to_index_map_.find (nm);
+  if (it != name_to_index_map_.end ())
+    {
+      return it->second;
+    }
+
   char *nm_str = (char *) nm.c_str ();
   FT_UInt idx = FT_Get_Name_Index (face_, nm_str);
-  return (idx != 0) ? idx : GLYPH_INDEX_INVALID;
+  size_t result = (idx != 0) ? idx : GLYPH_INDEX_INVALID;
+  name_to_index_map_[nm] = result;
+  return result;
 }
 
 Box
