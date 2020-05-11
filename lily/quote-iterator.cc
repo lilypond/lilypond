@@ -32,14 +32,14 @@ class Quote_iterator : public Music_wrapper_iterator
 {
 public:
   Quote_iterator ();
-  Moment vector_moment (int idx) const;
+  Moment vector_moment (vsize idx) const;
   Context_handle quote_outlet_;
 
   Moment start_moment_;
   Moment stop_moment_;
   SCM event_vector_;
-  int event_idx_;
-  int end_idx_;
+  vsize event_idx_;
+  vsize end_idx_;
 
   SCM transposed_musics_;
 
@@ -97,16 +97,16 @@ Quote_iterator::Quote_iterator ()
   end_idx_ = 0;
 }
 
-int
+vsize
 binsearch_scm_vector (SCM vec, SCM key, bool (*is_less) (SCM a, SCM b))
 {
-  int lo = 0;
-  int hi = scm_c_vector_length (vec);
+  vsize lo = 0;
+  vsize hi = scm_c_vector_length (vec);
 
   /* binary search */
   do
     {
-      int cmp = (lo + hi) / 2;
+      vsize cmp = (lo + hi) / 2;
 
       SCM when = scm_caar (scm_c_vector_ref (vec, cmp));
       bool result = (*is_less) (key, when);
@@ -153,7 +153,7 @@ Quote_iterator::construct_children ()
     take starting grace notes into account. Those may offset
     event_idx_.
   */
-  event_idx_ = -1;
+  event_idx_ = VPOS;
 }
 
 bool
@@ -167,7 +167,7 @@ Quote_iterator::ok () const
 bool
 Quote_iterator::quote_ok () const
 {
-  return (event_idx_ >= 0
+  return (event_idx_ != VPOS
           && scm_is_vector (event_vector_)
           && event_idx_ <= end_idx_
 
@@ -198,7 +198,7 @@ Quote_iterator::pending_moment () const
 }
 
 Moment
-Quote_iterator::vector_moment (int idx) const
+Quote_iterator::vector_moment (vsize idx) const
 {
   SCM entry = scm_c_vector_ref (event_vector_, idx);
   return *unsmob<Moment> (scm_caar (entry));
@@ -213,7 +213,7 @@ Quote_iterator::process (Moment m)
   if (!scm_is_vector (event_vector_))
     return;
 
-  if (event_idx_ < 0)
+  if (event_idx_ == VPOS)
     {
       event_idx_ = binsearch_scm_vector (event_vector_,
                                          get_outlet ()->now_mom ().smobbed_copy (),
