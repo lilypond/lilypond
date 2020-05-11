@@ -269,8 +269,8 @@ zu setzen, siehe @ref{Tondauern skalieren}.
 @cindex Triole, Formatierung
 @cindex Formatierung von Triolen
 
-@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
+@funindex \tupletSpan
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--tuplet-command.ly}

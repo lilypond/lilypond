@@ -342,7 +342,6 @@ des notes sans imprimer de crochet, comme indiqué au chapitre
 @cindex n-olet, formatage
 @cindex triolet, formatage
 @cindex n-olets successifs
-@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

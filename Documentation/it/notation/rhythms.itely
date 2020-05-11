@@ -308,7 +308,6 @@ quadra del gruppo irregolare, si veda @ref{Scalare le durate}.
 
 @cindex inserimento di gruppi irregolari multipli
 @cindex gruppo irregolare, inserirne multipli
-@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

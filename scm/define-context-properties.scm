@@ -55,8 +55,6 @@ string (starting with the lowest numbered one).")
 additional pitches within a chord name.")
      (alignAboveContext ,string? "Where to insert newly created context in
 vertical alignment.")
-     (alignBassFigureAccidentals ,boolean? "If true, then the accidentals
-are aligned in bass figure context.")
      (alignBelowContext ,string? "Where to insert newly created context in
 vertical alignment.")
      (alternativeNumberingStyle ,symbol? "The style of an alternative's bar
@@ -175,10 +173,6 @@ must be set to@tie{}3 and @var{m}@tie{}(the division remainder) to@tie{}1.
 
      (baseMoment ,ly:moment? "Smallest unit of time that will stand on its
 own as a subdivided section.")
-     (bassFigureFormatFunction ,procedure? "A procedure that is
-called to produce the formatting for a @code{BassFigure} grob.  It
-takes a list of @code{BassFigureEvent}s, a context, and the grob to
-format.")
      (beamExceptions ,list? "An alist of exceptions to autobeam rules
 that normally end on beats.")
      (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
@@ -189,11 +183,6 @@ to make beats.")
      (chordChanges ,boolean? "Only show changes in chords scheme?")
      (chordNameExceptions ,list? "An alist of chord exceptions.
 Contains @code{(@var{chord} . @var{markup})} entries.")
-     (chordNameExceptionsFull ,list? "An alist of full chord
-exceptions.  Contains @code{(@var{chord} . @var{markup})} entries.")
-     (chordNameExceptionsPartial ,list? "An alist of partial chord
-exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
-@var{suffix-markup}))} entries.")
      (chordNameFunction ,procedure? "The function that converts lists
 of pitches to chord names.")
      (chordNameLowercaseMinor ,boolean? "Downcase roots of minor chords?")
@@ -616,6 +605,8 @@ accidentals are typeset as suggestions above the note.  Setting it to
 @code{'cautionary} only applies that to cautionary accidentals.")
      (supportNonIntegerFret ,boolean? "If set in @code{Score} the
 @code{TabStaff} will print micro-tones as @samp{2½}")
+     (suspendRestMerging ,boolean? "When using the Merge_rest_engraver do not
+merge rests when this is set to true.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
 of the system/@/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
@@ -686,8 +677,6 @@ Example:
 @noindent
 This will create a start-repeat bar in this staff only.  Valid values
 are described in @file{scm/bar-line.scm}.")
-     (suspendRestMerging ,boolean? "When using the Merge_rest_engraver do not
-                         merge rests when this is set to true.")
      )))
 
 

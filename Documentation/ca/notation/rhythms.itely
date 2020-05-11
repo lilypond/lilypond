@@ -291,8 +291,8 @@ de grup especial, vegeu
 @cindex grups especials, format de
 @cindex tresets, format de
 
-@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
+@funindex \tupletSpan
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--tuplet-command.ly}

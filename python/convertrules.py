@@ -2297,6 +2297,16 @@ def conv (str):
     return str
 
 
+@rule ((2, 7, 18), r"""bassFigureFormatFunction -> figuredBassFormatter
+deprecate alignBassFigureAccidentals.
+""")
+def conv (str):
+    str = re.sub ('bassFigureFormatFunction', 'figuredBassFormatter', str)
+    if re.search ('alignBassFigureAccidentals', str):
+        stderr_write (NOT_SMART % "alignBassFigureAccidentals")
+    return str
+
+
 @rule ((2, 7, 22), r"\tag #'(a b) -> \tag #'a \tag #'b")
 def conv (str):
     def sub_syms (m):

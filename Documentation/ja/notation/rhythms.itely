@@ -296,8 +296,8 @@
 @cindex tuplet formatting (連符のフォーマット)
 @cindex triplet formatting (3 連符のフォーマット)
 
-@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
+@funindex \tupletSpan
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--tuplet-command.ly}

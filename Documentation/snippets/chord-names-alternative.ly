@@ -43,6 +43,27 @@ introduced.
 #(define-public (jazz-chordnames pitches bass inversion context)
   (old_chord->markup 'jazz pitches bass inversion context))
 
+#(define (define-translator-property symbol type? description)
+  (if (not (and (symbol? symbol)
+    (procedure? type?)
+    (string? description)))
+      (ly:error "error in call of define-translator-property"))
+  (if (not (equal? (object-property symbol 'translation-doc) #f))
+      (ly:error (_ "symbol ~S redefined") symbol))
+
+  (set-object-property! symbol 'translation-type? type?)
+  (set-object-property! symbol 'translation-doc description)
+  symbol)
+
+#(for-each
+  (lambda (x)
+    (apply define-translator-property x))
+  `((chordNameExceptionsFull ,list? "An alist of full chord
+exceptions.  Contains @code{(@var{chord} . @var{markup})} entries.")
+    (chordNameExceptionsPartial ,list? "An alist of partial chord
+exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
+@var{suffix-markup}))} entries.")))
+
 #(define-public (old_chord->markup
                 style pitches bass inversion context)
   "Entry point for @code{Chord_name_engraver}.

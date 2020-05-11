@@ -320,7 +320,6 @@ bracket is also introduced in @ref{Scaling durations}.
 
 @cindex entering multiple tuplets
 @cindex tuplet, entering multiple
-@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

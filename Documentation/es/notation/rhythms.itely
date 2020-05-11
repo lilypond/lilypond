@@ -310,7 +310,6 @@ de grupo especial, véase @ref{Escalar las duraciones}.
 @cindex tresillo, formato de
 
 @cindex grupo especial, introducir muchos
-@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
