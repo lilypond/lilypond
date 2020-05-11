@@ -1,0 +1,54 @@
+stages:
+  - build
+  - test
+  - documentation
+
+# Source files are checked out freshly for each job. This leads to the situation
+# that make considers the artifacts outdated and rebuilds LilyPond from scratch.
+# $TOUCH_BUILD contains the command needed to touch the downloaded build files.
+variables:
+  CONFIGURE_FLAGS: "--enable-gs-api --disable-debugging CFLAGS=-O2"
+  TOUCH_BUILD: "for d in python scripts flower lily mf; do make -C $$d --touch all; done"
+
+# An additional variable not set here but used below is $MAKE_FLAGS. This can
+# be set per runner and allows to enable parallel builds. For example, set its
+# value to "-j4 CPU_COUNT=4" in order to speed up the build.
+
+build:ubuntu-16.04:
+  stage: build
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200517
+  interruptible: true
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+  script:
+    - autoconf
+    - mkdir build && cd build
+    - ../configure $CONFIGURE_FLAGS
+    - make $MAKE_FLAGS
+  artifacts:
+    untracked: true
+    expire_in: 1h
+
+test:ubuntu-16.04:
+  stage: test
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200517
+  interruptible: true
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+  dependencies: [ "build:ubuntu-16.04" ]
+  script:
+    - cd build
+    - sh -c "$TOUCH_BUILD" >/dev/null
+    - make $MAKE_FLAGS test
+
+doc:ubuntu-16.04:
+  stage: documentation
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200517
+  interruptible: true
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+  dependencies: [ "build:ubuntu-16.04" ]
+  script:
+    - cd build
+    - sh -c "$TOUCH_BUILD" >/dev/null
+    - make $MAKE_FLAGS doc
