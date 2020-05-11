@@ -399,7 +399,7 @@ allora si tratta di un bug.
 Potremmo già essere a conoscenza di questo bug.  Controlla qui:
 
 @example
-@uref{http://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Per favore @strong{NON} aggiungere segnalazioni di bug direttamente
@@ -462,8 +462,7 @@ fino a 4 giorni, perché abbiamo un numero limitato di volontari per questo comp
 Una volta che un bug è stato aggiunto al tracker, puoi commentarlo per aggiungere
 informazioni a riguardo.  Per ricevere automaticamente delle notifiche su
 qualsiasi attività relativa al bug, puoi iscriverti cliccando sul simbolo
-della busta vicino al titolo del bug.  Per commentare e iscriversi occorre un
-account sourceforge.
+della busta vicino al titolo del bug.
 @divEnd
 
 @divClass{column-center-bottom}

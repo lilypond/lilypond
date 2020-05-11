@@ -397,7 +397,7 @@ then that is a bug.
 We may already know about this bug.  Check here:
 
 @example
-@uref{https://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Please @strong{DO NOT} add bug reports directly to the
@@ -870,13 +870,13 @@ to tackle these projects.
 
 Of course, there are many more things to improve in LilyPond, including
 very small ones.  A full list of all known issues can be found
-@uref{https://sourceforge.net/p/testlilyissues/issues/, here}.
+@uref{https://gitlab.com/lilypond/lilypond/-/issues, here}.
 
 @subheading Grace notes
 
 Fix problems with synchronization of grace notes,
 together with all underlying architecture (see
-@uref{https://sourceforge.net/p/testlilyissues/issues/34/,
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/34/,
 issue 34 in our tracker}).  Grace notes are confusing to LilyPond's
 timing because they're like going back in time.  This causes weird
 effects, especially when one staff has a grace note and the other

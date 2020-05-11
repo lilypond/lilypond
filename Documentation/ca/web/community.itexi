@@ -407,7 +407,7 @@ sortida defectuosa, això és una fallada.
 Probablement ja coneixem aquesta fallada.  Comproveu-ho aquí:
 
 @example
-@uref{http://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Us preguem que @strong{NO} afegeixi informes de fallades
@@ -897,13 +897,13 @@ que vulguin implicar-se en aquests projectes.
 
 Per descomptat, hi ha moltes més coses a millorar al LilyPond,
 entre elles algunes de molt petites.  Hi ha una llista completa
-@uref{http://sourceforge.net/p/testlilyissues/issues/, aquí}.
+@uref{https://gitlab.com/lilypond/lilypond/-/issues, aquí}.
 
 @subheading Notes de adorn
 
 Arreglar problemes amb la sincronització de les notes d'adorn,
 junt a tota l'arquitectura subjacent (vegeu
-@uref{https://sourceforge.net/p/testlilyissues/issues/34/, el
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/34/, el
 problema número 34 del nostre sistema de seguiment}).
 Les notes d'adorn confonen el sistema de comptabilització de temps
 del LilyPond perquè són com anar cap a darrere en el temps.  Això

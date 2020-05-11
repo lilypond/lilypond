@@ -434,7 +434,7 @@ Un recensement des bogues non encore résolus est disponible sur notre
 @emph{bug tracker} ; suivez le lien
 
 @example
-@uref{http://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Nous vous saurons gré de ne pas ajouter directement de
@@ -503,9 +503,7 @@ une fois qu'il aura été ajouté à la base.
 
 Vous pourrez alors, après l'avoir indiqué en cliquant le symbole
 « enveloppe » apparaissant en regard du titre du rapport, être
-automatiquement notifié du traitement apporté à ce bogue.  L'ajout de
-commentaire et la souscription requièrent d'avoir un identifiant reconnu
-par sourceforge.
+automatiquement notifié du traitement apporté à ce bogue.
 @divEnd
 
 

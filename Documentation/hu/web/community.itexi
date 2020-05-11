@@ -322,7 +322,7 @@ akkor hibával állunk szemben. Az ismert hibák listája a következő oldalon
 található:
 
 @example
-@uref{https://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Ide @strong{TILOS} új hibákat bejelenteni, a hibajelentés a

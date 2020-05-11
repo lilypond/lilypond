@@ -345,7 +345,7 @@ chybnou sazbu not, potom je to ta chyba.  Seznam se známými
 chybami je při sledování chyb Google:
 
 @example
-@uref{https://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Sami, prosím, @strong{NEPŘIDÁVEJTE} nová hlášení chyb!

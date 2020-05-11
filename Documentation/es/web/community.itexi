@@ -410,7 +410,7 @@ o una salida defectuosa, eso es un bug.
 Probablemente ya estamos al tanto de este bug.  Compruébelo aquí:
 
 @example
-@uref{http://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Le rogamos que @strong{NO} añada informes de fallos
@@ -475,8 +475,7 @@ Cuando el fallo se ha añadido al sistema de seguimiento, puede
 comentarlo para añadirle más información.  In order to be
 automatically notified about any activity on the tracker issue,
 you may subscribe by clicking the envelope symbol next to the
-issue title.  Commenting and subscribing require being logged in
-with a sourceforge account.
+issue title.
 @divEnd
 
 @divClass{column-center-bottom}

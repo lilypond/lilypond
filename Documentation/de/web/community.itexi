@@ -417,7 +417,7 @@ handelt es sich um einen Fehler.
 Vielleicht ist der Fehler schon bekannt.  Prüfen Sie hier:
 
 @example
-@uref{https://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Bitte fügen Sie @strong{NICHT} selber neue Fehlerberichte
@@ -909,7 +909,7 @@ verbessern und das LilyPond Entwicklerteam wird jederzeit jede/n gern unterstüt
 die/der Aufgaben wie jene unten aufgeführten angehen möchte.
 
 Eine vollständige Liste aller aktuell offenen Punkte findet sich
-@uref{https://sourceforge.net/p/testlilyissues/issues/, hier}.
+@uref{https://gitlab.com/lilypond/lilypond/-/issues, hier}.
 
 @divEnd
 

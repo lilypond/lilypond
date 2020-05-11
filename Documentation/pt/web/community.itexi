@@ -407,7 +407,7 @@ então isso é um erro.
 Nós já podemos saber sobre esse erro. Verifique aqui:
 
 @example
-@uref{http://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Por favor, @strong{NÃO} adicione relatórios de erros
@@ -478,8 +478,6 @@ comentar nele para adicionar mais informações.
 Para ser notificado automaticamente sobre qualquer atividade
 no @qq{issue} do rastreador, você pode se inscrever clicando no
 símbolo do envelope ao lado do título da questão.
-Comentar e inscrever-se exige estar autenticado com uma conta
-do sourceforge.
 @divEnd
 
 @divClass{column-center-bottom}

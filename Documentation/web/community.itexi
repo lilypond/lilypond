@@ -396,7 +396,7 @@ then that is a bug.
 We may already know about this bug.  Check here:
 
 @example
-@uref{http://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{Please @strong{DO NOT} add bug reports directly to the
@@ -460,7 +460,6 @@ more information about it.
 In order to be automatically notified about any activity on the
 tracker issue, you may subscribe by clicking the envelope
 symbol next to the issue title.
-Commenting and subscribing require being logged in with a sourceforge account.
 @divEnd
 
 @divClass{column-center-bottom}

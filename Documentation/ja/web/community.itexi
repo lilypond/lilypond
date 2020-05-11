@@ -398,7 +398,7 @@ LilyPond への理解不足である可能性が高いです！
 すでに把握しているバグがあります。以下をチェックしてください:
 
 @example
-@uref{http://sourceforge.net/p/testlilyissues/issues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
 @warning{このバグ トラッカーに直接バグ報告を @strong{送らないで下さい}。@c

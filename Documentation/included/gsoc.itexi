@@ -49,7 +49,7 @@ will look after the communication between student and mentor, and
 between the two and the community.
 
 A full list of all the current open issues can be found
-@uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
+@uref{https://gitlab.com/lilypond/lilypond/-/issues, here}.
 
 
 @subsubheading Adopt the SMuFL music font encoding standard
@@ -459,7 +459,7 @@ Fix problems with synchronization of grace notes.  Grace notes can
 interfere with LilyPond's timing and cause odd effects, especially when
 multiple staffs are used where some have grace notes and others don't.
 This is one of the longest-standing and one of the more embarrassing
-@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} in
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/34/, bugs} in
 LilyPond.
 
 @emph{Difficulty:} medium
