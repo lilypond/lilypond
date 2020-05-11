@@ -1635,7 +1635,7 @@ lilypond を以下のオプションを付けて実行すると@c
 すべてのフォントのリストを表示します:
 
 @example
-lilypond -dshow-available-fonts x
+lilypond -dshow-available-fonts
 @end example
 
 @seealso

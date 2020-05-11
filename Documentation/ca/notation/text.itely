@@ -1556,7 +1556,7 @@ L'execució del LilyPond amb l'opció següent presenta una llista de
 tots els tipus de lletra disponibles al sistema operatiu:
 
 @example
-lilypond -dshow-available-fonts x
+lilypond -dshow-available-fonts
 @end example
 
 @seealso

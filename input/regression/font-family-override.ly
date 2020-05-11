@@ -16,7 +16,7 @@
 
   run
 
-      lilypond -dshow-available-fonts blabla
+      lilypond -dshow-available-fonts
 
   to show all fonts available in the process log.
 

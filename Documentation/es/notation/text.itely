@@ -1834,7 +1834,7 @@ lista de todas las tipografías disponibles en el sistema
 operativo:
 
 @example
-lilypond -dshow-available-fonts x
+lilypond -dshow-available-fonts
 @end example
 
 @seealso

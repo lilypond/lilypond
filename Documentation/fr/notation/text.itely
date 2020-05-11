@@ -1855,10 +1855,9 @@ LilyPond, lancé avec l'option suivante, affiche la liste de toutes
 les polices disponibles sur votre machine :
 
 @example
-lilypond -dshow-available-fonts toto
+lilypond -dshow-available-fonts
 @end example
 @noindent
-(quel qu'il soit, le dernier argument est obligatoire).
 
 @seealso
 Manuel de notation :

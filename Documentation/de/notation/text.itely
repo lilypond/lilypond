@@ -1596,7 +1596,7 @@ Mit folgendem Befehl erhält man eine Liste aller verfügbaren Schriftarten
 des Betriebssystems:
 
 @example
-lilypond -dshow-available-fonts x
+lilypond -dshow-available-fonts
 @end example
 
 @seealso

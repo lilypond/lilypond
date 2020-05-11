@@ -1776,7 +1776,7 @@ Running lilypond with the following option displays a list of all
 available fonts on the operating system:
 
 @example
-lilypond -dshow-available-fonts x
+lilypond -dshow-available-fonts
 @end example
 
 @seealso

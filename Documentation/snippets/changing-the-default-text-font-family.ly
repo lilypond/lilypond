@@ -22,7 +22,7 @@ The default font families for text can be overridden with
   myStaffSize = #20
   %{
      run
-         lilypond -dshow-available-fonts blabla
+         lilypond -dshow-available-fonts
      to show all fonts available in the process log.
   %}
 

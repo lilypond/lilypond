@@ -1597,7 +1597,7 @@ Lanciando lilypond con la seguente opzione si ottiene un elenco di tutti i
 tipi di carattere disponibili nel sistema operativo:
 
 @example
-lilypond -dshow-available-fonts x
+lilypond -dshow-available-fonts
 @end example
 
 @seealso
