@@ -265,8 +265,8 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   Real pos;
 
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-  std::vector<Real> linepos = Staff_symbol::line_positions (staff);
-  bool oneline = linepos.size () == 1;
+  // If there is no StaffSymbol, print MMrests on one (invisible) line.
+  bool oneline = (!staff) || Staff_symbol::line_positions (staff). size () < 2;
 
   if (scm_is_null (sp))
     {
