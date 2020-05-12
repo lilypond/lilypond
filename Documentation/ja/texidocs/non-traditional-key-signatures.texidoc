@@ -1,4 +1,4 @@
-%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 広く使われている @code{\\key} コマンドは、@code{Staff} コンテキストの
 @code{keyAlterations} をセットしています。@c

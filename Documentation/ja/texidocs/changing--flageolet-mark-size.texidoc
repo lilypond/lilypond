@@ -1,5 +1,5 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
-@code{\\flageolet} の丸を小さくするには、以下の Scheme 関数を使用します。
+@code{\\flageolet} の丸を小さくするには、以下の tweak を使用します。
 "
   doctitleja = "\\flageolet のサイズを変更する"

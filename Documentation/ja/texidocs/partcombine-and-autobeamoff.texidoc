@@ -1,22 +1,22 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
-@code{\\partcombine} と共に @code{\\autoBeamOff} を使用した場合の挙動は@c
+@code{\\partCombine} と共に @code{\\autoBeamOff} を使用した場合の挙動は@c
 理解しづらいです。
 
 譜全体で自動連桁をオフにするために、代わりに以下を用いたほうが良いです:
 
 @code{\\set Staff.autoBeaming = ##f}
 
-@code{\\partcombine} は 3 種類のボイスを作り出します --
+@code{\\partCombine} は 3 種類のボイスを作り出します --
 符幹が上向きの単一ボイス、符幹が下向きの単一ボイス、パート結合が行われた@c
 ボイスです。
 
-@code{\\autoBeamOff} を @code{\\partcombine} の 1 つ目の引数の中で用いた@c
+@code{\\autoBeamOff} を @code{\\partCombine} の 1 つ目の引数の中で用いた@c
 場合、符幹が上向きのボイスか、結合されたボイスのどちらかの、現在アクティブな@c
 方に適用されます。@code{\\autoBeamOff} が 2 つ目の引数の中で用いられた@c
 場合、符幹が下向きのボイスに適用されます。
 
-@code{\\partcombine} の中で全ての自動連桁をオフにするために
+@code{\\partCombine} の中で全ての自動連桁をオフにするために
 @code{\\autoBeamOff} を用いるためには、3 回呼び出しを行う必要があります。
 "
-  doctitleja = "\\partcombine と \\autoBeamOff"
+  doctitleja = "\\partCombine と \\autoBeamOff"

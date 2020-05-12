@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 LilyPond は連符に表示される数字として、実際の音価の比率とは異なる値を@c
 整形して表示する関数が用意されています。連符の数や比だけでなく、音価を@c

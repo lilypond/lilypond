@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 LilyPond の楽譜は、内部的には単なる Scheme 式であり、LilyPond のパーサを通して@c
 生成されます。Scheme を用いて、入力ファイルなしに楽譜を自動的に生成することが@c

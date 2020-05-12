@@ -1,6 +1,6 @@
-%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
-自動パート結合ツール (@code{\\partcombine} コマンド) は、@c
+自動パート結合ツール (@code{\\partCombine} コマンド) は、@c
 いくつかの異なるパートを同じ譜にまとめるものです。@c
 @qq{solo} や @qq{a2} といったテキスト指示は、デフォルトで追加されます。@c
 これらを削除するには、@code{printPartCombineTexts} プロパティを @code{f}
@@ -10,7 +10,7 @@
 場合は、通常の多声構文を用いると良いでしょう。
 
 このスニペットは、2 つのパートを 1 つの譜に表示する 3 つの方法を示しています:
-通常の多声、テキストを削除した @code{\\partcombine}、テキストのある
-@code{\\partcombine} の順です。
+通常の多声、テキストを削除した @code{\\partCombine}、テキストのある
+@code{\\partCombine} の順です。
 "
   doctitleja = "2 つのパートを 1 つの譜にまとめる"
