@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -566,7 +566,10 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals,
+@item @uref{https://lilypond.org/doc/v2.18/Documentation/web/manuals,
+LilyPond 2.18 ドキュメント}
+
+@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals,
 LilyPond 2.16 ドキュメント}
 
 @item @uref{https://lilypond.org/doc/v2.14/Documentation/web/manuals,
