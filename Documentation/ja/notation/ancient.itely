@@ -1,15 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.80"
+@c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima
+@c Translators: Tomohiro Tatejima, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -261,13 +261,15 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 これらは将来@qq{後置}スタイル
 (@code{note\[ @dots{} note\]}) に置き換えられます。
 
-代わりに、@file{gregorian.ly} ファイルをインクルードすることができます。@c
-このファイルは以下の Scheme 関数を提供しますが、@c
-上記と同じ効果があり、より安定しています。
+@c 代わりに、@file{gregorian-init.ly} ファイルをインクルードすることができます。@c
+@c このファイルは以下の Scheme 関数を提供しますが、@c
+@c 上記と同じ効果があり、より安定しています。
+@c @example
+@c \ligature @var{music expr}
+@c @end example
 
-@example
-\ligature @var{music expr}
-@end example
+@c TODO: これは現時点では動作しないようです。
+@c -- eo
 
 
 @node クストス

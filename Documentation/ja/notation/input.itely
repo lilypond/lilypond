@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.21.0"
 
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -492,8 +492,16 @@ foo = @{ c4 d e d @}
 
 これは後で使用することができます。@c
 使用するには、入力ファイルの中で @code{\foo} と入力します。@c
-変数の名前はアルファベットだけで構成すべきです。@c
-数字、アンダスコアあるいはダッシュを使うことができません。
+変数の名前は、(ASCII) 数字、複数のアンダスコア、複数のダッシュまたはスペースを@c
+含めないようにすべきです。Unicode が提供する他のすべての文字、例えばラテン文字、@c
+ギリシャ文字、中国語、キリル文字はすべて許可されます。@c
+隣接しない 1 つのアンダスコアやダッシュも許可されます。@c
+言い換えると、@code{HornIII} や @code{αβγXII} のような変数名は機能します。
+
+ダブル クォーテーションに囲まれた変数名は、すべての文字の組み合わせが許可されます。@c
+この場合、バックスラッシュとダブル クォーテーションはバックスラッシュでエスケープする@c
+必要があります (これらは実際に使うべきではありません) 。@c
+例: @code{"foo bar"}, @code{"a-b-c"}, @code{"Horn 3"}
 
 @end itemize
 
@@ -900,6 +908,11 @@ foo = @{ c4 d e d @}
 @node ヘッダとフッタのデフォルト レイアウト
 @unnumberedsubsubsec ヘッダとフッタのデフォルト レイアウト
 @translationof Default layout of headers and footers
+
+@cindex page header (ページ ヘッダ)
+@cindex page footer (ページ フッタ)
+@cindex header, page (ページ ヘッダ)
+@cindex footer, page (ページ フッタ)
 
 @emph{ヘッダ} と @emph{フッタ} は、ブックのテキストとは別の、@c
 ページの最初と最後に表示されるテキスト行です。@c
@@ -1328,7 +1341,10 @@ PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在�
 
 脚注はいくつかの異なる場面で使われます。どのような場合であっても、@c
 @q{脚注マーク}が参照としてテキストや音楽のところに配置され、@c
-対応する@q{脚注テキスト}が同じページの下部に配置されます。
+対応する@q{脚注テキスト}が同じページの下部に、水平線によって音楽から区切られて@c
+配置されます。この区切りの外観は paper 変数 @code{footnote-separator-markup} を@c
+セットすることで変更することができます。
+@ref{Miscellaneous paper variables} を参照してください。
 
 音楽表記の中にある脚注と、音楽表記外の独立したテキストにある脚注では、@c
 作り方が異なります。
@@ -2319,7 +2335,10 @@ allLyrics = \lyricmode { King of glo -- ry }
 あり、音符名と混同しない場合である@emph{限り}、@code{#'} を省略することが@c
 でき、シンボルのリストはドットで区切る記法を用いることができます。例えば、@c
 @code{\tag #'(violinI violinII)} は @code{\tag violinI.violinII} と書くことが@c
-できます。@code{\keepWithTag} や @code{\removeWithTag} でも同様です。
+できます。@code{\keepWithTag} や @code{\removeWithTag} でも同様です。@c
+タグコマンドは音楽関数なので、@code{\book} または @code{\score}
+ブロックのような、音楽表記ではないオブジェクトをフィルターするのに@c
+使うことはできません。
 
 以下の例では、楽曲を 2 つのバージョンで示しています。@c
 1 つはトリルを通常の記譜法で示していて、@c
@@ -3791,17 +3810,18 @@ MIDI ファイルを生成する際、LilyPond は範囲内にある割合の数
 
 @menu
 * 奏法スクリプト::
+* スウィング スクリプト::
 @end menu
 
-デフォルトの MIDI 出力は必要最低限のものですが、@c
-MIDI の楽器を指定したり、@code{\midi} ブロックのプロパティを設定したり、@c
-奏法 (@file{articulate}) スクリプトを用いたりすることで@c
+MIDI の楽器や、@code{\midi} ブロックのプロパティを設定することで@c
 より良くすることができます。
+
+追加されたスクリプトで、強弱、アーティキュレーション、リズムを
+MIDI に書き出す方法を微調整することができます: @file{articulate}
+スクリプトと @file{swing} スクリプトです。
 
 @cindex instrument name (楽器名)
 @cindex MIDI, instrument (MIDI での楽器)
-@cindex articulate script (奏法スクリプト)
-@cindex articulate.ly
 @funindex Staff.midiInstrument
 
 
@@ -3855,6 +3875,104 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 奏法スクリプトに定義された変数を書き換えることによって、@c
 長さが短くなる挙動を抑えることができます。}
 
+
+@node スウィング スクリプト
+@unnumberedsubsubsec スウィング スクリプト
+@translationof The swing script
+
+@cindex swing script (スウィング スクリプト)
+@cindex swing.ly
+
+@file{swing} スクリプトは通常の演奏時間を均等でないリズムで@c
+演奏させることを可能にする追加の関数を提供します。@c
+最もわかりやすい例は、2 つの 8 分音符を 3 のリズムで演奏する、@c
+ジャズ音楽によく見られる@q{スウィング}演奏ですが、@c
+追加の演奏方法もサポートされます。
+
+このスクリプトは入力ファイルの先頭で @code{\include} されなければなりません:
+
+@example
+\include "swing.ly"
+@end example
+
+@funindex \tripletFeel
+@funindex \applySwing
+@funindex \applySwingWithOffset
+
+3 つのコマンドが提供されます:
+@itemize
+@item
+@code{\tripletFeel} は 3 連符風のスウィングを作成します。@c
+これは 2 つの引数を取ります: このスクリプトによって影響を受ける@c
+音符の長さ (概して、8 分音符を表す @code{8} となります)、そして、@c
+このスクリプトを適用する音楽表記です。
+
+@item
+@code{\applySwing} は音楽表記の前に追加の引数を取ります:
+通常の音符がどのように演奏されるかを表現する @var{n} 個の比の@c
+@q{重みのリスト}: 例えば、@code{#'(2 1)} は 1 つ置きの音符が後続の@c
+音符の 2 倍の長さで演奏されることを示します (実際、
+@code{\tripletFeel @var{duration} @{@var{music}@}} は
+@code{\applySwing @var{duration} #'(2 1) @{@var{music}@}} の@c
+ショートカットです) 。8 分音符をより平坦にスウィングするには、@c
+重みのリストを @code{#'(3 2)} あるいはテイストに応じて@c
+その他の値を使います。
+
+@noindent
+このリストは 2 つ以上の値を含み、より長く、より複雑なグルーヴパターンを@c
+許可します。例えば、16 分音符のサンバ感は以下のようにして得られます:
+
+@example
+\score @{
+  \applySwing 16 #'(3 2 2 3) @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+@item
+@code{\applySwingWithOffset} は@q{重みのリスト}と音楽表記の間に@c
+さらにもう 1 つの引数を足します: オフセットの長さ
+(@code{ly:make-moment} 表記のように入力します)。@c
+このコマンドは音楽表記をオフビートからスタートするときに、@c
+部分的なスウィング周期で使われるべきです。
+@end itemize
+
+@warning{@file{articulate} スクリプトで用いる場合は、すべての@c
+スウィング コマンドは譜の出力にも表示され、音符のスペーシングが@c
+不規則になります。これは、音楽を譜刻する代わりに MIDI 出力だけに@c
+専念する @code{@bs{}score} ブロックのみに用いることで@c
+避けることができます。}
+
+追加のヘルプや情報はスクリプトファイルにあります:
+@file{ly/swing.ly} を参照してください。
+
+@seealso
+学習マニュアル:
+@rlearning{Other sources of information}
+
+記譜法リファレンス:
+@ref{Rhythms}
+
+インストールされているファイル:
+@file{ly/swing.ly}
+
+@knownissues
+@itemize
+@item
+音楽の中の @code{\repeat} 構造 (@code{\repeat unfold} であっても)
+は、いつ音符のタイミングが決定されるかを考慮しません。@c
+これはすべての繰り返される部分の長さがスウィング周期の長さの@c
+整数倍でない場合に問題を起こします。
+@item
+これらの関数は拍子や小節を意識しません。音楽がオフビートから@c
+スタートする場合に、オフセットが @code{\applySwingWithOffset}
+を用いて提供される必要があるのはこのためです。
+@item
+装飾音符は無視され、単純に影響を与えないように取り除かれます;
+連符もそうです。
+@end itemize
 
 @node 音楽情報を抽出する
 @section 音楽情報を抽出する

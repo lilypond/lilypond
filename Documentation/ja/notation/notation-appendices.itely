@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima
+@c Translators: Tomohiro Tatejima, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 @node 付表
@@ -48,8 +48,11 @@
 @appendixsec コード ネーム表
 @translationof Chord name chart
 
-次の図は、コード ネームを表示する 2 つの一般的な方式を、@c
-ピッチと共に示しています:
+次の図は、コード ネームを表示する LilyPond の一般的な方式を、@c
+ピッチと共に示しています。初期の LilyPond リリース (バージョン 1.7 まで) で@c
+デフォルトで用いられた Harald Banter (1982) から着想を得た記譜法を含む@c
+追加の (サポートされていない) 命名システムも、@c
+@rlsr{Chords} の @qq{Chord names alternative} スニペットで紹介します。
 
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
@@ -856,12 +859,12 @@ cello                     lead 6 (voice)
 @cindex list of colors (色の一覧)
 @cindex color, list of (色の一覧)
 
-@verbatim
+@example
 black       white          red         green
 blue        cyan           magenta     yellow
 grey        darkred        darkgreen   darkblue
 darkcyan    darkmagenta    darkyellow
-@end verbatim
+@end example
 
 
 @subsubheading X 色名
@@ -879,60 +882,68 @@ X の色名にはいくつかの種類があります:
 
 @subsubheading 数字を付けない色名
 
-@verbatim
-snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
-OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
-bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
-ivory		LemonChiffon	seashell	honeydew	MintCream
-azure		AliceBlue	lavender	LavenderBlush	MistyRose
-white		black		DarkSlateGrey	DimGrey		SlateGrey
-LightSlateGrey	grey		LightGrey	MidnightBlue	navy
-NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
-LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
-DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
-LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
-turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
-aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
-MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
-green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
-YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
-PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
-LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
-SaddleBrown	sienna		peru		burlywood	beige
-wheat		SandyBrown	tan		chocolate	firebrick
-brown		DarkSalmon	salmon		LightSalmon	orange
-DarkOrange	coral		LightCoral	tomato		OrangeRed
-red		HotPink		DeepPink	pink		LightPink
-PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
-violet		plum		orchid		MediumOrchid	DarkOrchid
-DarkViolet	BlueViolet	purple		MediumPurple	thistle
-DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
-LightGreen
-@end verbatim
-
+@example
+AliceBlue       LawnGreen             OrangeRed      firebrick
+AntiqueWhite    LemonChiffon          PaleGoldenrod  gainsboro
+BlanchedAlmond  LightBlue             PaleGreen      gold
+BlueViolet      LightCoral            PaleTurquoise  goldenrod
+CadetBlue       LightCyan             PaleVioletRed  green
+CornflowerBlue  LightGoldenrod        PapayaWhip     grey
+DarkBlue        LightGoldenrodYellow  PeachPuff      honeydew
+DarkCyan        LightGreen            PowderBlue     ivory
+DarkGoldenrod   LightGrey             RosyBrown      khaki
+DarkGreen       LightPink             RoyalBlue      lavender
+DarkGrey        LightSalmon           SaddleBrown    linen
+DarkKhaki       LightSeaGreen         SandyBrown     magenta
+DarkMagenta     LightSkyBlue          SeaGreen       maroon
+DarkOliveGreen  LightSlateBlue        SkyBlue        moccasin
+DarkOrange      LightSlateGrey        SlateBlue      navy
+DarkOrchid      LightSteelBlue        SlateGrey      orange
+DarkRed         LightYellow           SpringGreen    orchid
+DarkSalmon      LimeGreen             SteelBlue      peru
+DarkSeaGreen    MediumAquamarine      VioletRed      pink
+DarkSlateBlue   MediumBlue            WhiteSmoke     plum
+DarkSlateGrey   MediumOrchid          YellowGreen    purple
+DarkTurquoise   MediumPurple          aquamarine     red
+DarkViolet      MediumSeaGreen        azure          salmon
+DeepPink        MediumSlateBlue       beige          seashell
+DeepSkyBlue     MediumSpringGreen     bisque         sienna
+DimGrey         MediumTurquoise       black          snow
+DodgerBlue      MediumVioletRed       blue           tan
+FloralWhite     MidnightBlue          brown          thistle
+ForestGreen     MintCream             burlywood      tomato
+GhostWhite      MistyRose             chartreuse     turquoise
+GreenYellow     NavajoWhite           chocolate      violet
+HotPink         NavyBlue              coral          wheat
+IndianRed       OldLace               cornsilk       white
+LavenderBlush   OliveDrab             cyan           yellow
+@end example
 
 @subsubheading 数字を付ける色名
 
 接尾辞 N は 1-4 の数字を取ります:
 
-@verbatim
-snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
-NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
-LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
-blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
-LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
-CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
-SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
-OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
-yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
-IndianRedN	siennaN		burlywoodN	wheatN		tanN
-chocolateN	firebrickN	brownN		salmonN		LightSalmonN
-orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
-redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
-PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
-plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
-thistleN
-@end verbatim
+@example
+AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN
+CadetBlueN       LightSteelBlueN  VioletRedN   magentaN
+DarkGoldenrodN   LightYellowN     aquamarineN  maroonN
+DarkOliveGreenN  MediumOrchidN    azureN       orangeN
+DarkOrangeN      MediumPurpleN    bisqueN      orchidN
+DarkOrchidN      MistyRoseN       blueN        pinkN
+DarkSeaGreenN    NavajoWhiteN     brownN       plumN
+DeepPinkN        OliveDrabN       burlywoodN   purpleN
+DeepSkyBlueN     OrangeRedN       chartreuseN  redN
+DodgerBlueN      PaleGreenN       chocolateN   salmonN
+HotPinkN         PaleTurquoiseN   coralN       seashellN
+IndianRedN       PaleVioletRedN   cornsilkN    siennaN
+LavenderBlushN   PeachPuffN       cyanN        snowN
+LemonChiffonN    RosyBrownN       firebrickN   tanN
+LightBlueN       RoyalBlueN       goldN        thistleN
+LightCyanN       SeaGreenN        goldenrodN   tomatoN
+LightGoldenrodN  SkyBlueN         greenN       turquoiseN
+LightPinkN       SlateBlueN       honeydewN    wheatN
+LightSalmonN     SpringGreenN     ivoryN       yellowN
+@end example
 
 
 @subsubheading グレースケール
@@ -2292,6 +2303,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \trill
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 
 @node 装飾音スクリプト
 @unnumberedsubsec 装飾音スクリプト
@@ -2372,13 +2385,26 @@ f^\turn e,_\turn b'\reverseturn
 @lilypond[notime,relative=2]
 f^\reverseturn e,_\reverseturn b'\reverseturn
 @end lilypond
+@tab
+@code{\slashturn}
+@lilypond[notime,relative=2]
+f^\slashturn e,_\slashturn b'\slashturn
+@end lilypond
+@tab
+@code{\haydnturn}
+@lilypond[notime,relative=2]
+f^\haydnturn e,_\haydnturn b'\haydnturn
+@end lilypond
 
 @end multitable
 
 @funindex \fermata
 @funindex \shortfermata
 @funindex \longfermata
+@funindex \veryshortfermata
 @funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 
 @node フェルマータ スクリプト
 @unnumberedsubsec フェルマータ スクリプト
@@ -2387,6 +2413,11 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 @multitable @columnfractions .22 .25 .25 .25
 
 @item
+@code{\veryshortfermata}
+@lilypond[notime,relative=2]
+f^\veryshortfermata e,_\veryshortfermata b'\veryshortfermata
+@end lilypond
+@tab
 @code{\shortfermata}
 @lilypond[notime,relative=2]
 f^\shortfermata e,_\shortfermata b'\shortfermata
@@ -2401,10 +2432,21 @@ f^\fermata e,_\fermata b'\fermata
 @lilypond[notime,relative=2]
 f^\longfermata e,_\longfermata b'\longfermata
 @end lilypond
-@tab
+
+@item
 @code{\verylongfermata}
 @lilypond[notime,relative=2]
 f^\verylongfermata e,_\verylongfermata b'\verylongfermata
+@end lilypond
+@tab
+@code{\henzeshortfermata}
+@lilypond[notime,relative=2]
+f^\henzeshortfermata e,_\henzeshortfermata b'\henzeshortfermata
+@end lilypond
+@tab
+@code{\henzelongfermata}
+@lilypond[notime,relative=2]
+f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @end lilypond
 
 @end multitable

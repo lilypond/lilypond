@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -8,7 +8,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -66,7 +66,7 @@
 音符の演奏時間は数とドットで入力します。入力された数は音符の長さの@c
 逆数となります。例えば、4 分音符は 1/4 の長さを持つため、@code{4} と@c
 入力します。2 分音符は @code{2}、8 分音符は @code{8} となります。@c
-@code{128} までの短い音符は入力できますが、それよりも短い音符は連桁で繋がれた@c
+@code{1024} までの短い音符は入力できますが、それよりも短い音符は連桁で繋がれた@c
 状態でしか表示できません。@ref{Beams} を参照してください。
 
 全音符よりも長い音符については、@code{\longa} -- ブレヴィスの 2 倍 --
@@ -211,7 +211,7 @@
 @c Deliberately duplicated in Durations and Rests.  -gp
 休符の演奏時間には基本的に限界 (最大値や最小値) がありませんが、@c
 図柄の数には限界があり、@c
-@code{128} から @code{\maxima} までの休符を譜刻することができます。
+@code{1024} から @code{\maxima} までの休符を譜刻することができます。
 
 
 @node 連符
@@ -369,7 +369,12 @@
 @code{*N/M} (または、@code{M} が 1 の場合は @code{*N}) を演奏時間の後に@c
 付け加えることによって、単一の音符、休符、和音の演奏時間を分数 @code{N/M}
 倍することができます。@c
-これは作り出される音符や休符の見た目には影響を与えませんが、@c
+要素は評価結果が数字または @code{*#(ly:music-length @var{music})} のような@c
+音楽的な長さとなる Scheme 表記を用いて加えることもできます。@c
+これは、音符や複数小節の休符の長さを音楽変数から導き出した長さにするために、
+@samp{1} の長さを調整するのに便利です。
+
+要素の追加は作り出される音符や休符の見た目には影響を与えませんが、@c
 変更された演奏時間は小節の中での位置を算出するためと、@c
 MIDI 出力での演奏時間を決定するために使用されます。@c
 掛け合わせる要素は @code{*L*M/N} のように組み合わせることができます。@c
@@ -405,7 +410,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 それによりそれぞれの音符、和音、休符には@c
 分数が掛け合わせられたかのようになります。@c
 これは楽譜要素の見た目をそのままにして、要素の内部演奏時間に@c
-@emph{分子}/@emph{分母}を掛け合わせます。@c
+与えられた伸縮比の要素、たいていは@emph{分子}/@emph{分母}を掛け合わせます。@c
 ここで、音楽がどのように圧縮され、伸張されるかを示す例を挙げます:
 
 @c KEEP LY
@@ -419,7 +424,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
     <c a f>4. c8 a f
   }
   % 2 を掛けます
-  \scaleDurations 2/1 {
+  \scaleDurations 2 {
     <c' a>4 c8 b
   }
 }
@@ -772,7 +777,7 @@ L.v. タイは以下のように入力します:
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
 休符の演奏時間には基本的に限界がありません (最大値としても、最小値としても)。@c
-しかしながら、図柄の数には限界があります: 128 分から全音符の 8 倍までの@c
+しかしながら、図柄の数には限界があります: 1024 分から全音符の 8 倍までの@c
 休符を譜刻することができます。
 
 
@@ -975,9 +980,9 @@ R2.*10^\markup { \italic "ad lib." }
 @c in the English documentation.
 
 @warning{
-複数小節にまたがる休符に付け加えられるマークアップはタイプ
-@code{MultiMeasureRestText} のオブジェクトであり、@c
-@code{TextScript} ではありません。@c
+複数小節にまたがる休符に付け加えられるマークアップとアーティキュレーションは@c
+タイプ @code{MultiMeasureRestText} と @code{MultiMeasureRestScript} の@c
+オブジェクトであり、@code{TextScript} と @code{Script} ではありません。@c
 オーバライドは正しいオブジェクトに対して行わなければなりません。@c
 さもないと無視されます。@c
 以下の例を見てください。
@@ -1004,33 +1009,36 @@ R1\fermata
 
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex \compressEmptyMeasures
-@funindex \expandEmptyMeasures
+@funindex \compressMMRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
-@code{\fermata},
 @code{\compressMMRests}
 @endpredefined
 
 
 @snippets
 
-@cindex church rest (教会音楽の休符)
-@cindex rest, church (教会音楽の休符)
-@cindex kirchenpausen (教会音楽の休符)
-
+@cindex multi-measure rest, length (複数小節にまたがる休符の長さ)
+@cindex length of multi-measure rest (複数小節にまたがる休符の長さ)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
 @cindex multi-measure rest, numbering (複数小節にまたがる休符の数字)
 @funindex restNumberThreshold
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex church rest (教会音楽の休符)
+@cindex rest, church (教会音楽の休符)
+@cindex kirchenpause (教会音楽の休符)
+@cindex multi-measure rest, style (複数小節にまたがる休符のスタイル)
+@cindex style, multi-measure rests (複数小節にまたがる休符のスタイル)
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
 @cindex multi-measure rest, positioning (複数小節にまたがる休符の位置)
-@cindex positioning multi-measure rests (複数小節にまたがる休符の位置)
 @cindex position, multi-measure rest (複数小節にまたがる休符の位置)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {positioning-multi-measure-rests.ly}
@@ -1041,6 +1049,7 @@ R1\fermata
 @funindex \textLengthOff
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
+
 
 @seealso
 音楽用語集:
@@ -2141,7 +2150,7 @@ R1\fermata
 
 @warning{歌曲の中でメリスマを表すために連桁を使用する場合、@c
 @code{@bs{}autoBeamOff} で自動連桁を off にして、手動で連桁を示すべきです。@c
-@code{@bs{}partcombine} を @code{@bs{}autoBeamOff} と一緒に@c
+@code{@bs{}partCombine} を @code{@bs{}autoBeamOff} と一緒に@c
 用いると予期しない結果になる可能性があります。@c
 詳細はコード断片集を参照してください。}
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.21.0"
 
 
-@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -24,15 +24,156 @@
 このセクションでは、@c
 楽譜に (さまざまなフォーマットの) テキストを含める方法について説明します。
 
-@noindent
-ここでは扱わないいくつかのテキスト要素については他のセクションで説明します:
-@ref{Vocal music}, @ref{Titles and headers}。
-
 @menu
+* テキスト オブジェクトの概要::
 * テキストを記述する::
 * テキストをフォーマットする::
 * フォント::
 @end menu
+
+@node テキスト オブジェクトの概要
+@unnumberedsubsubsec テキスト オブジェクトの概要
+@translationof Text objects overview
+
+@funindex \markup
+@cindex text object (テキスト オブジェクト)
+@cindex markup object (マークアップ オブジェクト)
+@cindex object, markup (マークアップ オブジェクト)
+
+テキスト オブジェクトは、ダブル クォーテーションの間の単純な文字列か、
+@ref{Formatting text} に詳細を書いたさまざまな高度なテキスト フォーマットや@c
+グラフィカルな改善を受け入れることができる @code{\markup} ブロックとして@c
+入力されます。
+
+このように markup ブロックは使われます:
+@itemize
+@item
+@code{TextScript} オブジェクト (音符の後に @code{-}, @code{^} または
+@tie{}@code{_} に続けて付け加えます)。@ref{Text scripts} を参照してください。
+
+@item
+@q{スパナ}として、いくつかの指示が複数の拍や小節を超えて長くなるとき。
+@ref{Text spanners} を参照してください。
+
+@item
+楽譜の上側に譜刻される @code{\mark} または @code{\tempo} キーワードによって@c
+それぞれ取り入れられる @code{RehearsalMark} または @code{MetronomeMark}
+オブジェクトのような記号。@ref{Text marks} を参照してください。
+
+@item
+単体の markup ブロックとして、@code{\score} ブロックの外側のトップレベルに@c
+譜刻される場合 (この特殊なケースでは @code{\markup@tie{}@{...@}} コマンドは@c
+必須であり、省略してダブル クォーテーションの間に単純に文字列を挟む方法を@c
+選ぶことはできません)。@ref{Separate text} を参照してください。
+
+@item
+@code{\header} ブロック内の定義 (例: @code{title}, @code{subtitle},
+@code{composer})、またはページ番号のための @code{evenHeaderMarkup} のような
+@code{\paper} ブロック内で定義される特殊な要素。@c
+これは @ref{Titles and headers} で説明されています。
+@end itemize
+
+主な使い方ではありませんが、その他の多くのテキスト ベースのオブジェクトを
+markup ブロックで入力できます。
+@itemize
+@item
+運指法は @code{\finger} コマンドを導入することで markup ブロックで簡単に@c
+置き換えることができます。@ref{Fingering instructions} を参照してください。
+
+@item
+歌詞音節は @code{\markup} コマンドを通してフォーマットできます。
+@ref{Common notation for vocal music} を参照してください。
+
+@item
+コード ネームは実際には markup ブロックとして定義されているので、@c
+和音修飾子または和音の例外をカスタムするのと同じ方法で再定義することができます。
+@ref{Displaying chords} を参照してください。
+
+@item
+強弱記号はたいていシンプルな方法で入力されますが、markup ブロックとして
+@ref{New dynamic marks} を定義することができます。@emph{crescendo} のような@c
+いくつかの強弱記号はスパナとして譜刻され、@code{crescendoText} のようなプロパティ@c
+を通して再定義することができます。@ref{Dynamics} を参照してください。
+
+@item
+@ref{Balloon help} 指示のような、いくつかの一般的なオブジェクトも markup ブロックで@c
+作られています。
+@end itemize
+
+実際、グラフィカル オブジェクト (または @q{grob}) の実質的な出現の@c
+カスタマイズのために @code{\markup} を使うことは、もしそのオブジェクトが
+@code{text} プロパティを持っている場合はそれを、もしくは @code{stencil} プロパティを@c
+上書きすることで可能となっています。これを可能にしているいくつかの仕組みは、
+@ressay{Flexible architecture} で説明されています。
+
+以下の例は markup ブロックの遍在性を説明します。@c
+上に列挙されたオブジェクトの一部としてだけではなく、@c
+さまざまな方法を通してテキスト オブジェクトで音楽オブジェクトを置き換えることにも@c
+使われます。
+
+@lilypond[quote, verbatim,line-width=4\in]
+\header { title = \markup "Header" }
+
+dyn =
+#(make-dynamic-script #{ \markup \text "DynamicText" #})
+
+\markup \box "Top-level markup"
+
+\score {
+  <<
+    \new ChordNames
+    \with {
+      majorSevenSymbol = \markup "majorSevenSymbol"
+    }
+    \chordmode { c1:maj7 }
+    \new Staff {
+      \tempo \markup "MetronomeMark"
+      \mark \markup \smaller "RehearsalMark"
+      \once \override TupletNumber.text =
+        \markup "TupletNumber"
+      \tuplet 3/2 {
+        \once \override NoteHead.stencil =
+          #ly:text-interface::print
+        \once \override NoteHead.text =
+          \markup \lower #0.5 "NoteHead"
+        c''8^\markup \italic "TextScript"
+        a'\finger \markup \text "Fingering"
+        \once \override Rest.stencil =
+          #(lambda (grob)
+             (grob-interpret-markup grob #{
+               \markup  "Rest"
+               #}))
+        r
+      }
+    }
+    \new Lyrics \lyricmode {
+      \markup \smallCaps "LyricText" 1
+    }
+    \new Dynamics { s1\dyn }
+  >>
+}
+@end lilypond
+
+@seealso
+記譜法リファレンス:
+@ref{Formatting text},
+@ref{Text scripts},
+@ref{Text spanners},
+@ref{Text marks},
+@ref{Separate text},
+@ref{Fingering instructions},
+@ref{Common notation for vocal music},
+@ref{Displaying chords},
+@ref{New dynamic marks},
+@ref{Dynamics},
+@ref{Balloon help}
+
+Essay on automated music engraving:
+@ressay{Flexible architecture}
+
+コード断片集:
+@rlsr{Text}
+
 
 @node テキストを記述する
 @subsection テキストを記述する
@@ -448,7 +589,9 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @funindex \markup
 
 @code{\markup} ブロックは @qq{マークアップ モード} と呼ばれる@c
-拡張可能な構文でテキストを譜刻するために用いられます。
+拡張可能な構文でテキストを譜刻するために用いられます。@c
+このようなブロックは、@ref{Text objects overview} で説明されているように、@c
+どこにでも用いることができます。
 
 @cindex markup expression (マークアップ表記)
 @cindex expression, markup (マークアップ表記)
@@ -536,11 +679,17 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 @ref{Text markup commands} に
-@code{\markup} 特有のコマンドの徹底したリストがあります。
+@code{\markup} 特有のコマンドの徹底したリストがあります。@c
+これらのコマンドの内部動作と、新たに実装する方法は、@rextend{Markup functions} で@c
+説明されています。
 
 @seealso
 記譜法リファレンス:
+@ref{Text objects overview},
 @ref{Text markup commands}
+
+拡張:
+@rextend{Markup functions}
 
 インストールされているファイル:
 @file{scm/markup.scm}
@@ -944,6 +1093,26 @@ allegro = \markup { \bold \large Allegro }
 }
 \markup {
   \fill-line { 1885 }
+}
+@end lilypond
+
+@cindex text, line width (テキストの線幅)
+@cindex markup text, line width (マークアップ テキストの線幅)
+
+@funindex line-width
+
+要素は @code{line-width} プロパティを上書きすることにより、@c
+指定された幅を満たすように広げることができます。@c
+デフォルトではこれは行全体を示す @code{#f} にセットされています。
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \fill-line { left center right }
+    \null
+    \override #'(line-width . 30)
+    \fill-line { left center right }
+  }
 }
 @end lilypond
 

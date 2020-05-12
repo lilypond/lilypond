@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.21.0"
 
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -67,6 +67,8 @@
 @c フラジョレット: 六孔の縦笛
 @cindex flageolet (フラジョレット)
 @cindex reverse turn (逆ターン)
+@cindex slash turn (スラッシュ ターン)
+@cindex haydn turn (ハイドン ターン)
 @cindex trill (トリル)
 @cindex pralltriller (プラルトリラー)
 @cindex mordent (モルデント)
@@ -107,6 +109,8 @@
 @funindex \snappizzicato
 @funindex \turn
 @funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 @funindex \trill
 @funindex \prall
 @funindex \mordent
@@ -120,10 +124,13 @@
 @funindex \prallup
 @funindex \lineprall
 @funindex \signumcongruentiae
+@funindex \veryshortfermata
 @funindex \shortfermata
 @funindex \fermata
 @funindex \longfermata
 @funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -182,16 +189,9 @@
 アーティキュレーションは @code{Script} オブジェクトです。@c
 これらのプロパティについて @rinternals{Script} に説明があります。
 
-@ignore
-@c TODO: the next section is out of date; \fermataMarkup has been
-@c deprecated, see section `Articulations and ornamentations'
-@c in the English documentation.
-
-アーティキュレーションは音符と同様に休符に付けることもできますが、@c
-複数小節の休符に付けることはできません。@c
-特殊な定義済みコマンド @code{\fermata} は複数小節の休符に付ける@c
-ことができます (複数小節の休符にだけ付けることができます)。@c
-このコマンドは @code{MultiMeasureRestText} オブジェクトを作成します。
+アーティキュレーションは音符と同様に休符や複数小節の休符に付ける@c
+こともできます。複数小節の休符にアーティキュレーションを付ける@c
+と、@code{MultiMeasureRestScript} オブジェクトが作成されます。
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
@@ -199,7 +199,6 @@
 a'2\fermata r\fermata
 R1\fermata
 @end lilypond
-@end ignore
 
 アーティキュレーションに加えて、テキストとマークアップを音符に付けることができます。@c
 @ref{Text scripts} を参照してください。
@@ -288,6 +287,7 @@ R1\fermata
 @funindex \spp
 @funindex \sfz
 @funindex \rfz
+@funindex \n
 
 絶対強弱記号は音符の後にコマンドを用いて
 -- @code{c4\ff} などのように
@@ -296,7 +296,8 @@ R1\fermata
 @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
 @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz}, それに @code{\rfz} です。
+@code{\sp}, @code{\spp}, @code{\sfz}, @code{\rfz},
+それに @code{\n} です。
 強弱記号を手動で譜の上または下に配置することもできます --
 @ref{Direction and placement} を参照してください。
 

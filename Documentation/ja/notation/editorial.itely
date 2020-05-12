@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.21.0"
 
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -708,10 +708,115 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 譜の外側から譜の中にある要素を強調するための方法について説明します。
 
 @menu
+* 音符名::
 * バルーン ヘルプ::
 * グリッド ライン::
 * 分析の囲み::
 @end menu
+
+@node 音符名
+@unnumberedsubsubsec 音符名
+@translationof Note names
+
+@cindex note name, printing (音符名の譜刻)
+
+@funindex NoteNames
+@funindex Note_name_engraver
+@funindex noteNameFunction
+@funindex printNotesLanguage
+@funindex printOctaveNames
+@funindex noteNameSeparator
+@funindex printAccidentalNames
+
+音符名は @code{NoteNames} コンテキストを用いて、@c
+テキストとして譜刻できます。通常の譜と同時に用いると、@c
+各音符と同期してその名前を譜の上部または下部に@c
+譜刻することができます。
+
+@lilypond[verbatim,quote]
+\language "italiano"
+melody = \relative do'' {
+  fad2 si,8 dod re mi fad4. re8 fad2
+}
+
+<<
+  \new NoteNames { \melody }
+  \new Staff { \key si \minor \melody }
+  \new NoteNames {
+    \set printNotesLanguage = "deutsch"
+    \set printAccidentalNames = ##f
+    \melody
+  }
+>>
+@end lilypond
+
+デフォルトでは、音符名は音楽の入力で使われるものと同じ言語で@c
+譜刻されます。しかしながら、@code{printNotesLanguage} プロパティで@c
+他の言語を選択することが可能です
+(@ref{Note names in other languages} を参照してください) 。@c
+臨時記号を譜刻するかどうかは、@code{printAccidentalNames} プロパティで@c
+決定されます。
+
+プロパティをシンボルにセットし、@code{printOctaveNames} を @code{##t}
+にセットすることで、音符名を LilyPond の入力構文と密接に似せることが@c
+できます。より一般的な結果が欲しい場合は、@q{科学的な}
+オクターブ名にすることもできます。
+
+@lilypond[verbatim,quote]
+melody = \relative c'' {
+  fis2 b,8 cis d e fis4. d8 fis2
+}
+
+<<
+  \new NoteNames {
+    \set printOctaveNames = ##t
+    \set printAccidentalNames = #'lily
+    \melody
+  }
+  \new Staff { \key b \minor \melody }
+  \new NoteNames {
+    \set printOctaveNames = #'scientific
+    \melody
+  }
+>>
+@end lilypond
+
+@code{noteNameSeparator} プロパティは和音がどのように譜刻されるかを@c
+定義します。その他のフォーマット関数は @code{noteNameFunction} で@c
+定義され、このような関数は、いずれかを無視する場合であっても、
+@code{pitch} と @code{context} 引数を受けなければなりません。
+
+@lilypond[verbatim,quote]
+somechords = \relative c' {
+  <b d fis>2 <b cis e g> <b d fis> q
+}
+
+<<
+  \new NoteNames {
+    \set noteNameSeparator = "+"
+    \somechords
+  }
+  \new Staff { \key b \minor \somechords }
+  \new NoteNames {
+    \set noteNameFunction =
+      #(lambda (pitch ctx)
+         (alteration->text-accidental-markup
+          (ly:pitch-alteration pitch)))
+    \somechords
+  }
+>>
+@end lilypond
+
+@seealso
+
+記譜法リファレンス:
+@ref{Note names in other languages}
+
+内部リファレンス:
+@rinternals{NoteName},
+@rinternals{NoteNames},
+@rinternals{Note_name_engraver}
+
 
 @node バルーン ヘルプ
 @unnumberedsubsubsec バルーン ヘルプ

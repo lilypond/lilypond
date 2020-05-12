@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 
 @c \version "2.19.28"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 @node 和音記譜法
@@ -42,6 +42,7 @@
 * 和音モードの概要::
 * 一般的な和音::
 * 和音の拡張と変形::
+* 和音の転回と特殊なボイシング::
 @end menu
 
 @node 和音モードの概要
@@ -352,10 +353,9 @@ maj, maj7
 @end lilypond
 
 @funindex /
-@cindex chord inversions (和音の転回)
 @cindex bass note, for chords (和音に対する低音)
 
-転回 (根音ではないピッチを和音の下に配置します) と低音の追加は、@c
+低音の追加 (根音ではないピッチを和音の下に配置します) は、@c
 和音の後に @code{/}@var{pitch} を記述することで指定できます。
 
 @lilypond[quote,ragged-right,verbatim]
@@ -366,8 +366,12 @@ maj, maj7
 
 @funindex /+
 
-転回として音を移動させる代わりに、@c
-@code{/+}@var{pitch} を用いて和音に低音を付け加えることができます。
+追加されるピッチがすでに和音の構成音であれば、@c
+これは和音の転回を譜刻するのに使うことができ、@c
+その場合にはそのピッチは追加されず、単にその和音の一番下に移動します。
+@code{/+}@var{pitch} 構文を用いることで、@c
+どんな場合でも音符の追加として扱われます
+(つまり 2 回譜刻されます) 。
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -375,11 +379,15 @@ maj, maj7
 }
 @end lilypond
 
+自動的な和音の転回やボイシングを
+@ref{Chord inversions and specific voicings} で示しています。
+
 様々な標準和音を作り出すために使用される和音修飾子を
 @ref{Common chord modifiers} で示しています。
 
 @seealso
 記譜法リファレンス:
+@ref{Chord inversions and specific voicings},
 @ref{Common chord modifiers}
 
 コード断片集:
@@ -393,6 +401,46 @@ maj, maj7
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:3.5.5-.5+ }
 @end lilypond
+
+
+@node 和音の転回と特殊なボイシング
+@unnumberedsubsubsec 和音の転回と特殊なボイシング
+@translationof Chord inversions and specific voicings
+
+@cindex chord, rotating (和音の転回)
+@cindex chord inversion (和音の転回)
+@cindex chord voicing (和音のボイシング)
+@funindex \invertChords
+@funindex \dropNote
+@funindex \raiseNote
+
+和音の修飾子と低音の追加に加えて、特殊な転回やボイシング@c
+(例えばジャズ音楽で一般的に使用される、いわゆる@c
+@q{ドロップ@tie{}2} ボイシング) を含む和音の自動的な譜刻に@c
+さまざまな関数を用いることができます。
+
+@lilypond[quote,verbatim]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
+
+@ref{Extended and altered chords} で示された低音の追加とは異なり、@c
+これは和音が譜に譜刻される方法のみに影響し、@c
+文字で書かれた和音名には影響しません。@c
+さらに、これらの関数は和音モードだけでなく、@ref{Chorded notes}
+で説明される @code{<...>} の和音構造でも用いることができます。
+
+@seealso
+記譜法リファレンス:
+@ref{Extended and altered chords},
+@ref{Chorded notes}
+
+コード断片集:
+@rlsr{Chords}
 
 
 @node 和音を表示する

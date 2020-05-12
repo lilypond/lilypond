@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1101,11 +1101,18 @@ score で使用すべきページ数です。@c
 }
 @end lilypond
 
+@item footnote-separator-markup
+@funindex footnote-separator-markup
+
+ページの下部の脚注テキストの上に挿入されるマークアップ オブジェクトです。@c
+デフォルトでは、@file{ly/paper-defaults-init.ly} で定義されている中央揃いされた@c
+水平線です。
+
 @end table
 
 @seealso
 インストールされているファイル:
-@file{ly/titling-init.ly}
+@file{ly/titling-init.ly}, @file{ly/paper-defaults-init.ly}
 
 コード断片集:
 @rlsr{Spacing}

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -331,8 +331,8 @@ music = {
 \autoChange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
-@cindex relative music, and @code{\autochange} (相対モードと @code{\autochange})
-@cindex @code{\autochange} and relative music (@code{\autochange} と相対モード)
+@cindex relative music, and @code{\autoChange} (相対モードと @code{\autoChange})
+@cindex @code{\autoChange} and relative music (@code{\autoChange} と相対モード)
 
 @funindex \relative
 

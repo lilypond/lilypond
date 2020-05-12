@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -8,7 +8,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -603,8 +603,7 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @cindex sesqui-flat (1.5 フラット)
 
 音楽の中には @q{通常の} シャープやフラットの音の変化をさらに細かく分けた@c
-微分音を使用するものがあります。@c
-さまざまな言語 (ファイル) での 4 分音
+微分音を使用するものがあります。四分音
 (訳者: シャープやフラットの半分の音の変化。4 分音符ではありません)
 の接尾辞を以下の表で挙げます。@c
 接頭辞 @notation{半-} と @notation{1.5-} はそれぞれ
@@ -3339,6 +3338,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex note head, Walker (Walker の符頭)
 
 @funindex \aikenHeads
+@funindex \aikenThinHeads
 @funindex \sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex \funkHeads
@@ -3355,6 +3355,8 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 \relative c'' {
   \aikenHeads
   c, d e f g2 a b1 c \break
+  \aikenThinHeads
+  c,4 d e f g2 a b1 c \break
   \sacredHarpHeads
   c,4 d e f g2 a b1 c \break
   \southernHarmonyHeads
@@ -3368,6 +3370,7 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 
 @funindex \key
 @funindex \aikenHeadsMinor
+@funindex \aikenThinHeadsMinor
 @funindex \sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
@@ -3385,6 +3388,8 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
   a b c d e2 f g1 a \break
   \aikenHeadsMinor
   a,4 b c d e2 f g1 a \break
+  \aikenThinHeadsMinor
+  a,4 b c d e2 f g1 a \break
   \sacredHarpHeadsMinor
   a,2 b c d \break
   \southernHarmonyHeadsMinor
@@ -3399,6 +3404,8 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\aikenThinHeads},
+@code{\aikenThinHeadsMinor},
 @code{\funkHeads},
 @code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
@@ -3410,6 +3417,11 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @endpredefined
 
 @snippets
+
+@cindex note head, Aiken, thin variant (細い Aiken の符頭)
+@cindex Aiken shape note head, thin variant (細い Aiken のシェイプ ノートの符頭)
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{aiken-head-thin-variant-noteheads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
