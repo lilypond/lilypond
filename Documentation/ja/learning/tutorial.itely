@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,7 +12,7 @@
 
 @c \version "2.19.21"
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -231,7 +231,12 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}
 
-LilyPondではピッチを指定するために小文字を使います。文字
+LilyPondではピッチを指定するために小文字を使います。@c
+このセクションの全ての例の音符名には、オランダ語の命名システム
+(ピアノの白鍵は c-b です) を用います。しかしながら、LilyPond は英語や
+@q{固定ド} (do-re-mi-...) のような、@c
+多くの異なる命名スキームをサポートしています。@c
+@ruser{他の言語での音符名} を参照してください。文字
 @code{c} から@tie{}@code{b} は@notation{ミドル C}の@c
 下の@q{スモール・オクターブ}を示します。@c
 @code{'} や@tie{}@code{,} を後ろにつけると上か下のオクターブになります。@c

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ Tutorial guidelines:  (different from policy.txt!)
 @end ignore
 
 
-@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Masamichi Hosoda, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -162,6 +162,10 @@ warning: barcheck failed at: 1/2
 LilyPond の音符名はピッチを示しています。
 例えば、@code{c} は調号に関係なく常に C-ナチュラル を意味します。
 
+多くの言語では、音符名は C メジャー / A マイナースケールのダイアトニックステップを@c
+参照する基準音、たとえば @code{d} 、そしてこの基準のピッチに対する
+@notation{変更} を示すサフィックスで構成されます。@c
+音符名のためのデフォルトの入力言語はオランダ語です。@c
 @notation{シャープ} は音符名に @code{is} を付け加えることによって作られ、@c
 @notation{フラット} は @code{es} を付け加えることによって作られます。@c
 予想しているかもしれませんが、@notation{ダブル シャープ} や@c
@@ -169,7 +173,7 @@ LilyPond の音符名はピッチを示しています。
 付け加えることによって作られます。@c
 この構文はドイツ語やオランダ語のような北欧とドイツの言語@c
 での命名規則から生まれました。
-@notation{変更} に対して他の名前を使うには、@c
+@notation{音符名} に対して他の命名スキームを使うには、@c
 @ruser{他の言語での音符名} を参照してください。
 
 @lilypond[verbatim,quote]
@@ -1384,7 +1388,8 @@ cello = \new Staff {
 @end lilypond
 
 @noindent
-慣習的に、変数の名前にはアルファベットのみを用います。
+慣習的に、変数の名前にはアルファベットのみを用います。@c
+詳細な情報は、@ruser{ファイル構造} を参照してください。
 
 変数はメインの音楽表記の @emph{前} に定義されていなければなりません。@c
 しかしながら定義後は必要とされる場所で何度でも使用できます。@c
