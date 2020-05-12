@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.21"
 
-@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 @node lilypond を実行する
@@ -64,6 +64,7 @@ OS のコマンド ラインの使用方法についての説明は@c
 * LilyPond の基本的なコマンド ライン オプション::
 * LilyPond の高度なコマンド ライン オプション::
 * 環境変数::
+* 再配置::
 * chroot jail 環境で LilyPond を実行する::
 @end menu
 
@@ -947,20 +948,6 @@ SVG ビュアーが対応していないことがあるので、@c
 @q{フォントエイリアス} や @q{フォントリスト} を使用しないことをお勧めします。@c
 デフォルト: @code{#f}。
 
-@item @code{trace-memory-frequency} @var{bool}
-@var{bool} が @code{#t} なら、@c
-Scheme セルの 1 秒毎の使用数を記録します。@c
-入力ファイル @file{foo.ly} に対して、結果を
-@file{foo.stacks} と@file{foo.graph} に吐き出します。@c
-デフォルト: @code{#f}。
-
-@item @code{trace-scheme-coverage} @var{bool}
-@var{bool} が @code{#t} なら、@c
-Scheme ファイルのカバレッジを記録します。@c
-入力ファイル @file{foo.ly} に対して、
-@file{foo.cov} に出力します。@c
-デフォルト: @code{#f}。
-
 @item @code{verbose}
 饒舌レベル。@c
 これは読み込み専用のオプションで、設定しても効果はありません。
@@ -979,17 +966,32 @@ Scheme ファイルのカバレッジを記録します。@c
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
+@cindex LILYPOND_LOCALEDIR
+@cindex LILYPOND_RELOCDIR
+@cindex LILYPOND_LOGLEVEL
 
 @command{lilypond} は以下の環境変数を認識します:
 @table @code
 @item LILYPOND_DATADIR
 これはデフォルトで参照する@c
-ロケール メッセージとデータ ファイルがあるディレクトリを指定します。@c
-このディレクトリは @file{ly/}, @file{ps/}, @file{tex/} などの@c
+ロケール メッセージとデータ ファイルがあるディレクトリを指定し、@c
+コンパイル時に定義されるか、実行時に動的に計算される場所を上書きします
+(@ref{Relocation} を参照してください) 。@c
+このディレクトリは @file{ly}, @file{ps}, @file{tex} などの@c
 サブディレクトリを保持しているべきです。
 
+@item LILYPOND_LOCALEDIR
+ロケール固有のファイルが配置されているディレクトリを指定します。@c
+これは @code{LILYPOND_DATADIR} から派生した値を上書きします。
+
+@item LILYPOND_RELOCDIR
+再配置ファイルが配置されているディレクトリを指定します。@c
+これは @command{lilypond} バイナリの場所から派生した値を上書きします。
+
 @item LANG
-これは警告メッセージの言語を選択します。
+@code{stdout} および @code{stderr} に送信される LilyPond データ、@c
+たとえば、進捗レポート、警告メッセージ、デバッグ出力などの言語を@c
+選択します。例: @code{LANG=de}
 
 @item LILYPOND_LOGLEVEL
 デフォルトのログレベル。@c
@@ -1010,6 +1012,156 @@ Scheme ファイルのカバレッジを記録します。@c
 デフォルト値は @code{70} です。
 
 @end table
+
+
+@node 再配置
+@unnumberedsubsec 再配置
+@translationof Relocation
+
+@cindex relocation (再配置)
+
+Unix の世界のほとんどのプログラムは、@c
+コンパイル前の構成時に決定されるデフォルト ディレクトリを使用します。
+LilyPond も例外ではありません。@c
+たとえば、標準的なインストールでは、@file{lilypond} バイナリが
+@file{/usr/@/bin} に配置され、LilyPond に固有のすべてのファイルが
+@file{/usr/@/share/@/lilypond/@/2.21.0/} のサブディレクトリに配置されます
+(現在のバージョンが 2.21.0 であると仮定すると) 。
+
+このアプローチは、手動コンパイルや標準のパッケージ マネージャーが付属する@c
+プラットフォームでは正常に機能しますが、@c
+そのようなマネージャーが一般的でないか、@c
+デフォルトで使用されないプラットフォームでは@c
+問題を引き起こす可能性があります。@c
+このようなプラットフォームの典型的な例は、@c
+ユーザーがアプリケーション バンドルをどこにでもインストールできると@c
+期待している Windows と MacOS です。
+
+この問題の一般的な解決策は再配置サポートです。@c
+データファイルへのハードコーディングされたパスを使用する代わりに、@c
+必要なサポートファイルの場所が実行時に@c
+@emph{実行されたバイナリに対して相対的に}計算されます。
+
+
+@menu
+* 再配置ファイル::
+* 再配置アルゴリズム::
+@end menu
+
+
+@node 再配置ファイル
+@unnumberedsubsubsec 再配置ファイル
+@translationof Relocation files
+
+実行時の構成には、実際には別のメカニズムがあります。
+LilyPond は、外部プログラムとライブラリ、@c
+特にシステムフォントを見つけるための @q{FontConfig} 、
+Scheme ファイルを処理するための @q{GUILE} ライブラリ、
+PS データを PDF ファイルに変換するための @command{gs} プログラムに@c
+それぞれ大きく依存しています。@c
+それらのすべては、関連するデータファイルを見つけるためにも構成する必要があります。@c
+これを行うために、@command{lilypond} プログラムは@c
+外部ライブラリとプログラムを制御する環境変数を操作するために、
+@file{relocate} というディレクトリ(存在する場合。@c
+下のこのディレクトリが検索される場所を参照してください)
+内のすべてのファイルを解析します。@c
+このような再配置ファイルのフォーマットは単純です。各行には構文があります
+
+@example
+@var{command} @var{key}=@var{value}
+@end example
+
+@noindent
+空の行は無視されます。
+
+@var{command} ディレクティブは次のいずれかです。
+
+@table @code
+
+@item set
+環境変数 @var{key} を無条件に @var{value} にセットします。
+これは以前に設定された値を上書きします。
+
+@item set?
+@var{key} がまだ定義されていない場合にのみ、@c
+環境変数 @var{key} を @var{value} にセットします。@c
+つまり、以前に設定された値を上書きしません。
+
+@item setdir
+@var{value} がディレクトリの場合、@c
+無条件に環境変数 @var{key} を @var{value} にセットします。@c
+それ以外の場合は、警告を発します。
+
+@item setfile
+@var{value} がファイルの場合、@c
+無条件に環境変数 @var{key} を @var{value} にセットします。@c
+それ以外の場合は、警告を発します。
+
+@item prependdir
+環境変数 @var{key} 内のディレクトリのリストにディレクトリ @var{value} を追加します。
+@var{key} が存在しない場合は作成されます。
+
+@end table
+
+(先頭のドル記号でマークされた) 環境変数は @var{value} で許可され、@c
+ディレクティブが実行される前に展開されます。
+
+以下は、GUB から取得した再配置ファイル エントリの 2 つの例です
+(@rcontrib {Grand Unified Builder (GUB)} を参照してください) 。
+
+@example
+set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf
+prependdir GUILE_LOAD_PATH=$INSTALLER_PREFIX/share/guile/1.8
+@end example
+
+@file{relocate} ディレクトリ内のファイルの解析順序は任意であるため、@c
+再配置ファイルでは、複数の行で同じ環境変数を設定することを避ける必要があります。
+
+
+@node 再配置アルゴリズム
+@unnumberedsubsubsec 再配置アルゴリズム
+@translationof Relocation algorithm
+
+LilyPond は、次のアルゴリズムを使用してデータファイルを検索します。
+
+@enumerate
+
+@item
+現在実行されている @command{lilypond} バイナリが配置されているディレクトリを@c
+計算します。これを @code{bindir} としましょう。
+(内部) 環境変数 @code{INSTALLER_PREFIX} を @file{@var{bindir}/..}
+(つまり、@code{bindir} の親ディレクトリ) にセットします。
+
+@item
+環境変数 @code{LILYPOND_DATADIR} を確認します。@c
+セットされている場合は、その値を LilyPond のデータ ディレクトリ @code{datadir}
+に使用します。@c
+それ以外の場合は、@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/@var{version}}
+(@var{version} は現在の LilyPond バージョンです) または
+@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/current} を使用します。
+
+@item
+環境変数 @code{LILYPOND_LOCALEDIR} を確認します。@c
+セットされている場合は、その値を LilyPond のロケール データ ディレクトリ
+@code{localedir} に使用します。@c
+それ以外の場合は、@file{$INSTALLER_PREFIX/@/share/@/locale} を使用します。
+
+@item
+環境変数 @code{LILYPOND_RELOCDIR} を確認します。@c
+セットされている場合は、その値を LilyPond の再配置ファイルのディレクトリ
+@code{relocdir} に使用します。@c
+それ以外の場合は、@file{$INSTALLER_PREFIX/@/etc/@/relocate} を使用します。
+
+@item
+@code{datadir} が存在しない場合は、代わりにコンパイル時の値を使用します。
+@code{localedir} についても同様です
+(ただし、@code{relocdir} に関しては無意味なので、同様ではありません) 。
+
+@item
+@code{relocdir} が存在する場合は、@ref{Relocation files} の説明に従って、@c
+このディレクトリ内のすべてのファイルを処理します。
+
+@end enumerate
 
 
 @node chroot jail 環境で LilyPond を実行する
@@ -1420,10 +1572,7 @@ UTF-8 エンコードで保存されていない場合、@c
 移動しているように見えません。
 
 @seealso
-学習マニュアル:
 @rlearning{ボイスを明示的にインスタンス化する},
-@rlearning{実際の音楽からの例}
-
-記譜法リファレンス:
+@rlearning{実際の音楽からの例},
 @ruser{単一譜の多声},
 @ruser{衝突の解決}
