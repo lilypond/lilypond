@@ -149,20 +149,12 @@
             ;; tie is split -> get TabNoteHead #'details
             (let* ((details (ly:grob-property tied-tab-note-head 'details))
                    (tied-properties (assoc-get 'tied-properties details '()))
-                   (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t))
-                   ;; we need the begin-of-line entry in the 'break-visibility vector
-                   (tab-note-head-visible
-                    (vector-ref (assoc-get 'break-visibility
-                                           tied-properties #(#f #f #t)) 2)))
+                   (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t)))
 
-              (if tab-note-head-visible
-                  ;; tab note head is visible
-                  (if tab-note-head-parenthesized
-                      (begin
-                        (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
-                        (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print)))
-                  ;; tab note head is invisible
-                  (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
+              (if tab-note-head-parenthesized
+                  (begin
+                    (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
+                    (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print))))
 
             ;; tie is not split
             (ly:grob-set-property! tied-tab-note-head 'transparent #t)))))

@@ -2428,8 +2428,7 @@
                                             (width . 0.25)))
                     (repeat-tied-properties . ((note-head-visible . #t)
                                                (parenthesize . #t)))
-                    (tied-properties . ((break-visibility . ,begin-of-line-visible)
-                                        (parenthesize . #t)))))
+                    (tied-properties . ((parenthesize . #t)))))
 
         (direction . ,CENTER)
         (duration-log . ,note-head::calc-duration-log)
