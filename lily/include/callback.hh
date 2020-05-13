@@ -150,6 +150,8 @@ class mfp_baseclass
   // We cannot make the return type U since it can be an abstract base class
   template <typename U, typename V, typename ...W>
   static U* strip_mfp (V (U::*) (W...));
+  template <typename U, typename V, typename ...W>
+  static U* strip_mfp (V (U::*) (W...) const);
 public:
   using type =
     typename ly_remove_pointer<decltype(strip_mfp (static_cast<T> (nullptr)))>::type;
