@@ -25,10 +25,16 @@
 
 #include <vector>
 
+enum Orientation {
+      CCW = DOWN,
+      CW  = UP,
+};
+
 class Lazy_skyline_pair
 {
   Axis a_;
   std::vector<Drul_array<Offset>> todo_;
+  Drul_array<std::vector<Drul_array<Offset>>> per_dir_todo_;
   Skyline_pair skylines_;
 
 public:
@@ -37,6 +43,17 @@ public:
   void add_segment (Transform const &tr, Offset p1, Offset p2)
   {
     todo_.push_back (Drul_array<Offset> (tr (p1), tr (p2)));
+  }
+  /* add segment, assuming it is a contour in some direction. */
+  void add_contour_segment (Transform const &tr, Orientation orientation,
+                            Offset p1, Offset p2)
+  {
+    Drul_array<Offset> seg(tr (p1), tr (p2));
+    if ((seg[LEFT][a_] > seg[RIGHT][a_]) == (orientation==CCW)) {
+      per_dir_todo_[(a_ == X_AXIS) ? UP : LEFT].push_back (seg);
+    } else {
+      per_dir_todo_[(a_ == X_AXIS) ? DOWN : RIGHT].push_back (seg);
+    }
   }
   void add_segment (Transform const &tr, Offset p1, Offset p2, Real thickness)
   {
@@ -56,9 +73,9 @@ public:
     p1 -= widen;
     p2 += widen;
 
-    // TODO - should have separate todo_ for UP and DOWN
-    todo_.push_back (Drul_array<Offset> (p1 + pad, p2 + pad));
-    todo_.push_back (Drul_array<Offset> (p1 - pad, p2 - pad));
+    for (DOWN_and_UP(d)) {
+      per_dir_todo_[d].push_back (Drul_array<Offset> (p1 + d * pad, p2 + d * pad));
+    }
   }
 
   Axis axis () const { return a_; }
@@ -68,18 +85,21 @@ public:
                    Offset(b[X_AXIS][RIGHT],b[Y_AXIS][UP]),
                    Offset(b[X_AXIS][RIGHT],b[Y_AXIS][DOWN])};
     for (int i = 0; i < 4; i++) {
-      add_segment(tr, ps[i], ps[(i+1)%4]);
+      add_contour_segment(tr, CW, ps[i], ps[(i+1)%4]);
     }
   }
 
   void merge ()
   {
-    if (todo_.empty ())
-      return;
+    for (DOWN_and_UP(d)) {
+      if (todo_.empty () && per_dir_todo_[d].empty())
+        continue;
 
-    Skyline_pair p (todo_, a_);
-    skylines_.merge (p);
-    todo_.clear ();
+      per_dir_todo_[d].insert(per_dir_todo_[d].end(), todo_.begin(), todo_.end());
+      skylines_[d].merge(Skyline(per_dir_todo_[d], a_, d));
+      per_dir_todo_[d].clear ();
+    }
+    todo_.clear();
   }
 
   Skyline_pair to_pair ()

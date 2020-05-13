@@ -160,6 +160,7 @@ make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
 {
   if (end == start)
     end += 360;
+
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
 
@@ -226,13 +227,14 @@ make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
       /* draw straight lines */
       Offset points[] = {
         Offset (-left, -bottom + radius), Offset (-left, top - radius),
-        Offset (-left + radius, -bottom), Offset (right - radius, -bottom),
-        Offset (right, -bottom + radius), Offset (right, top - radius),
         Offset (-left + radius, top),     Offset (right - radius, top),
+        Offset (right, top - radius),     Offset (right, -bottom + radius),
+        Offset (right - radius, -bottom), Offset (-left + radius, -bottom),
       };
       for (vsize i = 0; i < ARRAYSIZE (points); i += 2)
         {
-          skyline->add_segment (transform, points[i], points[i + 1]);
+          skyline->add_contour_segment (transform, CW, points[i],
+                                        points[i + 1]);
         }
 
       /* draw rounded corners */

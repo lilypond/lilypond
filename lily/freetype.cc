@@ -88,11 +88,14 @@ struct Path_interpreter
   Lazy_skyline_pair *skyline_;
   Offset cur_;
   Transform transform_;
+  Orientation orientation_;
 
-  Path_interpreter (Lazy_skyline_pair *lazy, Transform t)
+  Path_interpreter (Lazy_skyline_pair *lazy, Transform t,
+                    Orientation orientation)
   {
     skyline_ = lazy;
     transform_ = t;
+    orientation_ = orientation;
   }
   int moveto (FT_Vector const &to)
   {
@@ -102,7 +105,7 @@ struct Path_interpreter
   int lineto (FT_Vector const &to)
   {
     Offset dest = ftvector2offset (to);
-    skyline_->add_segment (transform_, cur_, dest);
+    skyline_->add_contour_segment (transform_, orientation_, cur_, dest);
     cur_ = dest;
     return 0;
   }
@@ -129,7 +132,7 @@ struct Path_interpreter
         // This would be faster if we did the Bezier computation in integers.
         Offset pt = curve.curve_point (static_cast<Real> (i)
                                        / static_cast<Real> (quantization));
-        skyline_->add_segment (transform_, cur_, pt);
+        skyline_->add_contour_segment (transform_, orientation_, cur_, pt);
         cur_ = pt;
       }
     skyline_->add_segment (transform_, cur_, curve.control_[3]);
@@ -187,7 +190,12 @@ ly_FT_add_outline_to_skyline (Lazy_skyline_pair *lazy,
       return;
     }
 
-  Path_interpreter interpreter (lazy, transform);
+  // TrueType and PS fonts have opposite ideas about contour
+  // orientation.
+  bool is_tt = std::string ("TrueType") == FT_Get_Font_Format (face);
+  Orientation orientation = is_tt ? CW : CCW;
+
+  Path_interpreter interpreter (lazy, transform, orientation);
   FT_Outline *outline = &(face->glyph->outline);
   FT_Outline_Funcs funcs = interpreter.funcs ();
   int err = FT_Outline_Decompose (outline, &funcs, &interpreter);
