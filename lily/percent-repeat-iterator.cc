@@ -18,6 +18,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "callback.hh"
 #include "context.hh"
 #include "input.hh"
 #include "repeated-music.hh"
@@ -33,35 +34,21 @@ public:
 protected:
   SCM get_music_list () const override;
   void construct_children () override;
-  void next_element () override;
-  void derived_mark () const override;
 private:
-  SCM child_list_;
+  SCM music_tail ();
   int starting_bar_;
 };
 
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 
 Percent_repeat_iterator::Percent_repeat_iterator ()
-  : child_list_ (SCM_UNDEFINED), starting_bar_ (-1)
+  : starting_bar_ (-1)
 {
-}
-
-void
-Percent_repeat_iterator::derived_mark () const
-{
-  scm_gc_mark (child_list_);
-  Sequential_iterator::derived_mark ();
 }
 
 void
 Percent_repeat_iterator::construct_children ()
 {
-  Music *mus = get_music ();
-
-  Music *child = Repeated_music::body (mus);
-  child_list_ = scm_list_1 (child->self_scm ());
-
   Sequential_iterator::construct_children ();
 
   descend_to_bottom_context ();
@@ -70,26 +57,22 @@ Percent_repeat_iterator::construct_children ()
       = robust_scm2int (get_property (get_outlet (), "internalBarNumber"), 0);
 }
 
+// Todo: use elements-callback instead?  We don't expose iterator
+// member functions elsewhere, though.
 SCM
 Percent_repeat_iterator::get_music_list () const
 {
-  return child_list_;
+  return scm_cons (Repeated_music::body (get_music ())->self_scm (),
+                   MFP_WRAP (&Percent_repeat_iterator::music_tail));
 }
 
-// Arrive here when child processing has been completed.  At that
-// point of time, we can determine what kind of percent expression we
-// are dealing with and extend the child list just in time before the
-// next iterator is getting fetched.
-void
-Percent_repeat_iterator::next_element ()
+// Arrive here when the original percent expression has been
+// completed.  At this point of time, we can determine what kind of
+// percent expression we are dealing with and provide the respective
+// music expressions for the remaining repeats.
+SCM
+Percent_repeat_iterator::music_tail ()
 {
-  // Do nothing if we already did our processing here.
-  if (!scm_is_pair (child_list_))
-    {
-      Sequential_iterator::next_element ();
-      return;
-    }
-
   Music *mus = get_music ();
 
   Music *child = Repeated_music::body (mus);
@@ -131,8 +114,5 @@ Percent_repeat_iterator::next_element ()
       child_list = scm_cons (percent->unprotect (), child_list);
     }
 
-  scm_set_cdr_x (child_list_, child_list);
-  child_list_ = SCM_EOL;
-
-  Sequential_iterator::next_element ();
+  return child_list;
 }
