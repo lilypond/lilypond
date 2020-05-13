@@ -105,7 +105,8 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
                  -dPrinted=false \
                  -sOutputFile=$@ \
                  -c "30000000 setvmthreshold" \
-                 -f $(top-build-dir)/out-fonts/*.font.ps \
+                 -I $(top-build-dir)/out-fonts \
+                 -I $(top-build-dir)/out-fonts/Font \
                  $(outdir)/$*.pdfmark \
                  $(outdir)/$*.tmp.pdf
 	rm $(outdir)/$*.tmp.pdf
