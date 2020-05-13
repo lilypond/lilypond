@@ -99,6 +99,14 @@ public:
     return (t->*p) ();
   }
 
+  // This version with a return value could sensibly be const
+  template <class T, SCM (T::*p) () const>
+  static SCM trampoline (SCM target)
+  {
+    T *t = LY_ASSERT_SMOB (T, target, 1);
+    return (t->*p) ();
+  }
+
   template <class T, void (T::*p) ()>
   static SCM trampoline (SCM target)
   {
