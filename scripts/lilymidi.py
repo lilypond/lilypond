@@ -46,7 +46,7 @@ def process_options (args):
 
 def read_midi (file):
     import midi
-    return midi.parse (open (file).read ())
+    return midi.parse (open (file, 'rb').read ())
 
 def track_info (data):
     tracks = data[1]
