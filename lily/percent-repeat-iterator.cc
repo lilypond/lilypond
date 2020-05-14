@@ -24,8 +24,6 @@
 #include "sequential-iterator.hh"
 #include "lily-imports.hh"
 
-using std::string;
-
 class Percent_repeat_iterator : public Sequential_iterator
 {
 public:
@@ -104,8 +102,8 @@ Percent_repeat_iterator::next_element ()
 
   SCM child_list = SCM_EOL;
 
-  string event_type;
-  SCM slash_count = SCM_EOL;
+  const char * event_type;
+  SCM slash_count = SCM_UNDEFINED;
 
   if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
     event_type = "PercentEvent";
@@ -120,13 +118,13 @@ Percent_repeat_iterator::next_element ()
   int repeats = scm_to_int (get_property (mus, "repeat-count"));
   for (int i = repeats; i > 1; i--)
     {
-      Music *percent = make_music_by_name (ly_symbol2scm (event_type.c_str ()));
+      Music *percent = make_music_by_name (ly_symbol2scm (event_type));
       percent->set_spot (*mus->origin ());
       set_property (percent, "length", length);
       if (repeats > 1)
         {
           set_property (percent, "repeat-count", scm_from_int (i));
-          if (event_type == "RepeatSlashEvent")
+          if (!SCM_UNBNDP (slash_count))
             set_property (percent, "slash-count", slash_count);
         }
 
