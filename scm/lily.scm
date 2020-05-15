@@ -377,7 +377,7 @@ given value (in dpi).")
      "Specify name of a file which contains a list of
 input files to be processed.")
     (relative-includes
-     #f
+     #t
      "When processing an \\include command, look for
 the included file relative to the current file\
 \n(instead of the root file)")

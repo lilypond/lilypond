@@ -836,7 +836,7 @@ Default: @code{#f} (meaning no input list file).
 When processing an @code{\include} command, look for the included
 file relative to the current file if @var{bool} is @code{#t}.  If set
 to @code{#f}, look for the file relative to the root file.
-Default: @code{#f}.
+Default: @code{#t}.
 
 @item @code{resolution} @var{num}
 Set resolution for generating @code{PNG} pixmaps to @var{num} dpi.

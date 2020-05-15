@@ -63,6 +63,17 @@ which scares away people.
 
 
 @item
+As announced in version 2.17.3 nearly eight years ago, the
+@code{'relative-includes} option is now enabled by default;
+included files that contain an @code{\\include} command of
+their own must account for their own path rather than the
+main file’s directory.  That behavior may however be switched
+off by setting @code{'relative-includes} to @code{#f}, either
+as a command line option or using @code{ly:set-option} in
+source files.
+
+
+@item
 Tuplets can now be printed with slurs instead of brackets:
 @lilypond[quote, verbatim]
 \relative {
