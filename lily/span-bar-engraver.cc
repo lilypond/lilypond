@@ -87,7 +87,11 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
-      Lily::span_bar_notify_grobs_of_my_existence (spanbar_->self_scm ());
+      for (vsize i = 0; i < bars_.size (); i++)
+        set_object (
+          bars_[i], "has-span-bar",
+          scm_cons (i == bars_.size () - 1 ? SCM_BOOL_F : spanbar_->self_scm (),
+                    i == 0 ? SCM_BOOL_F : spanbar_->self_scm ()));
       spanbar_ = 0;
     }
   bars_.resize (0);

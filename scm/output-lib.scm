@@ -626,7 +626,7 @@ and duration-log @var{log}."
 
 (define-public (pure-from-neighbor-interface::account-for-span-bar grob)
   (let* ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
-         (hsb (ly:grob-property grob 'has-span-bar))
+         (hsb (ly:grob-object grob 'has-span-bar))
          (ii (interval-intersection esh (cons -1.01 1.01))))
     (if (pair? hsb)
         (cons (car (if (and (car hsb)

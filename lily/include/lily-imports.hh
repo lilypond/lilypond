@@ -114,7 +114,6 @@ extern Variable scm_to_string;
 extern Variable score_lines_markup_list;
 extern Variable score_markup;
 extern Variable scorify_music;
-extern Variable span_bar_notify_grobs_of_my_existence;
 extern Variable stencil_whiteout;
 extern Variable stencil_whiteout_box;
 extern Variable symbol_list_p;

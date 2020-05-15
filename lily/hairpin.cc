@@ -84,7 +84,7 @@ Hairpin::broken_bound_padding (SCM smob)
         if (elts[i]->internal_has_interface (ly_symbol2scm ("bar-line-interface"))
             && dynamic_cast<Item *> (elts[i])->break_status_dir () == -1)
           {
-            SCM hsb = get_property (elts[i], "has-span-bar");
+            SCM hsb = get_object (elts[i], "has-span-bar");
             if (!scm_is_pair (hsb))
               break;
 

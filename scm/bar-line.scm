@@ -179,29 +179,6 @@ annotation char from string @var{str}."
            str))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; functions used by external routines
-
-(define-public (span-bar::notify-grobs-of-my-existence grob)
-  "Set the @code{'has-span-bar} property for all elements of Grob @var{grob}."
-  (let* ((elts (ly:grob-array->list (ly:grob-object grob 'elements)))
-         (sorted-elts (sort elts ly:grob-vertical<?))
-         (last-pos (1- (length sorted-elts)))
-         (idx 0))
-
-    (for-each (lambda (g)
-                (ly:grob-set-property!
-                 g
-                 'has-span-bar
-                 (cons (if (eq? idx last-pos)
-                           #f
-                           grob)
-                       (if (zero? idx)
-                           #f
-                           grob)))
-                (set! idx (1+ idx)))
-              sorted-elts)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Line break decisions.
 
 (define-public (define-bar-line bar-glyph eol-glyph bol-glyph span-glyph)
@@ -569,7 +546,7 @@ drawn by the procedure associated with glyph @var{glyph}."
 (define-public (bar-line::widen-bar-extent-on-span grob extent)
   "Widens the bar line @var{extent} towards span bars adjacent to grob @var{grob}."
   (let ((staff-symbol (get-staff-symbol grob))
-        (has-span-bar (ly:grob-property grob 'has-span-bar #f)))
+        (has-span-bar (ly:grob-object grob 'has-span-bar)))
 
     (if (and (ly:grob? staff-symbol)
              (pair? has-span-bar))

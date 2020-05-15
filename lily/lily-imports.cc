@@ -105,7 +105,6 @@ Variable scm_to_string ("scm->string");
 Variable score_lines_markup_list ("score-lines-markup-list");
 Variable score_markup ("score-markup");
 Variable scorify_music ("scorify-music");
-Variable span_bar_notify_grobs_of_my_existence ("span-bar::notify-grobs-of-my-existence");
 Variable stencil_whiteout ("stencil-whiteout");
 Variable symbol_list_p ("symbol-list?");
 Variable tremolo_get_music_list ("tremolo::get-music-list");
