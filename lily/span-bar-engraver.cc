@@ -87,9 +87,6 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
-      SCM vis = get_property (bars_[0], "break-visibility");
-      if (ly_is_equal (get_property (spanbar_, "break-visibility"), vis))
-        set_property (spanbar_, "break-visibility", vis);
       Lily::span_bar_notify_grobs_of_my_existence (spanbar_->self_scm ());
       spanbar_ = 0;
     }
