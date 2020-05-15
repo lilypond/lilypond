@@ -243,29 +243,8 @@ If you want to continue programming, then make any additional code
 changes, and continue.
 
 @item
-To rerun just the test cases that @command{make@tie{}check}
-identified as differing from the baseline, run
-@command{make@tie{}check} again.  This updates the regression list
-at @file{out/test-results/index.html}.
-
-When all regressions have been resolved, the output list will be empty.
-
-@item
-After resolving regressions incrementally, run another full check
-to prove that your changes have not caused any skipped cases to
-regress:
-
-@example
-make test-clean
-make check
-@end example
-
-@item
-This set of regression tests is not all that needs to remain
-working.  Before committing, make sure that you have successfully
-run @command{make} with your changes.  Also, weigh the risk of
-your changes against the time that @command{make@tie{}doc} will
-take, and run it if it is appropriate.
+Finally, you should verify that
+@command{make@tie{}doc} completes successfully.
 
 @end enumerate
 

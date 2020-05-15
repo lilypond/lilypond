@@ -336,7 +336,6 @@ local-check-pre:
 	  ( [ -d $$X ] && [ ! -L $$X ] ) || \
 	  [ -f $(BASELINE_STAMP) ] || \
 	  ( echo "*** no baseline for comparison" 1>&2 && false ) )
-	$(MAKE) test-clean-changed
 	$(MAKE) test
 
 local-check: local-check-pre
@@ -353,22 +352,6 @@ ifneq ($(TIDY),false)
 	done
 endif
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g'
-
-# Remove the results of test cases that have changed, so that they are
-# retested.  changed.txt remains intact so that we can repeat this if
-# necessary.
-#
-# Test cases in input/regression/midi end in "-midi", but we want to
-# remove other related files too, so we strip that suffix.
-test-clean-changed:
-	if [ -s $(RESULT_DIR)/changed.txt ] ; then \
-		echo "Removing results of changed test cases:" ; \
-		while read a ; do \
-			a=$${a%-midi} ; \
-			echo "- $$a*" ; \
-			rm -f $$a* ; \
-		done < $(RESULT_DIR)/changed.txt ; \
-	fi
 
 test-clean: test-snippets-clean
 	rm -rf $(RESULT_DIR)
