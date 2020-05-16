@@ -347,7 +347,7 @@ Figured_bass_engraver::process_music ()
 
   if (use_extenders)
     {
-      vector<int> junk_continuations;
+      vector<vsize> junk_continuations;
       for (vsize i = 0; i < groups_.size (); i++)
         {
           Figure_group &group = groups_[i];

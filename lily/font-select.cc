@@ -30,10 +30,10 @@ Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
                          SCM font_vector)
 {
-  int n = scm_c_vector_length (font_vector);
+  size_t n = scm_c_vector_length (font_vector);
   Real size = 1e6;
   Real last_size = -1e6;
-  int i = 0;
+  size_t i = 0;
 
   SCM pango_description_string = SCM_EOL;
   SCM last_pango_description_string = SCM_EOL;

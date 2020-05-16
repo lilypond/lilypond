@@ -312,9 +312,9 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
 
       for (vsize i = 0; i < points.size (); i++)
         {
-          int i0 = i;
-          int i1 = (i + 1) % points.size ();
-          int i2 = (i + 2) % points.size ();
+          vsize i0 = i;
+          vsize i1 = (i + 1) % points.size ();
+          vsize i2 = (i + 2) % points.size ();
           Offset p0 = points[i0];
           Offset p1 = points[i1];
           Offset p2 = points[i2];

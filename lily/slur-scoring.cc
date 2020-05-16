@@ -387,7 +387,7 @@ Slur::calc_control_points (SCM smob)
   if (debug_slurs)
     {
       string total = best->card ();
-      total += to_string (" TOTAL=%.2f idx=%d", best->score (), best->index_);
+      total += to_string (" TOTAL=%.2f idx=%zu", best->score (), best->index_);
       set_property (me, "annotation", ly_string2scm (total));
     }
 #endif
