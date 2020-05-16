@@ -52,7 +52,7 @@
 %parse-param {Lily_parser *parser}
 %parse-param {SCM *retval}
 %lex-param {Lily_parser *parser}
-%error-verbose
+%define parse.error verbose
 %debug
 
 /* We use SCMs to do strings, because it saves us the trouble of
