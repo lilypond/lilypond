@@ -44,6 +44,8 @@ private:
   void init ();
   void init_newlines ();
 
+  typedef Interval_t<vsize> SourceSlice;
+
 public:
   Source_file (const std::string &fn);
   Source_file (const std::string &, const std::string &);
@@ -58,7 +60,7 @@ public:
   std::string name_string () const;
   std::string file_line_column_string (char const *str0) const;
 
-  Slice line_slice (char const *pos_str0) const;
+  SourceSlice line_slice (char const *pos_str0) const;
   std::string line_string (char const *pos_str0) const;
   void get_counts (char const *pos_str0,
                    ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;

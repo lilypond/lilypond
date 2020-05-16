@@ -188,11 +188,11 @@ Source_file::~Source_file ()
   delete istream_;
 }
 
-Slice
+Source_file::SourceSlice
 Source_file::line_slice (char const *pos_str0) const
 {
   if (!contains (pos_str0))
-    return Slice (0, 0);
+    return SourceSlice (0, 0);
 
   char const *data_str0 = c_str ();
   char const *eof_C_ = data_str0 + length ();
@@ -215,7 +215,7 @@ Source_file::line_slice (char const *pos_str0) const
         break;
       }
 
-  return Slice (begin_str0 - data_str0, end_str0 - data_str0);
+  return SourceSlice (begin_str0 - data_str0, end_str0 - data_str0);
 }
 
 string
@@ -224,7 +224,7 @@ Source_file::line_string (char const *pos_str0) const
   if (!contains (pos_str0))
     return "";
 
-  Slice line = line_slice (pos_str0);
+  SourceSlice line = line_slice (pos_str0);
   char const *data_str0 = c_str ();
   return string (data_str0 + line[LEFT], line.length ());
 }
@@ -245,7 +245,7 @@ Source_file::get_counts (char const *pos_str0, ssize_t *line_number,
 
   *line_number = get_line (pos_str0);
 
-  Slice line = line_slice (pos_str0);
+  SourceSlice line = line_slice (pos_str0);
   char const *data = c_str ();
   char const *line_start = (char const *)data + line[LEFT];
 
