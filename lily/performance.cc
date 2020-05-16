@@ -42,6 +42,7 @@ Performance::Performance (bool ports)
     ports_ (ports),
     headers_ (SCM_EOL)
 {
+  start_mom_.set_infinite (1);
 }
 
 Performance::~Performance ()
@@ -71,13 +72,6 @@ Performance::output (Midi_stream &midi_stream,
   midi_stream.write (Midi_header (1, tracks_, 384));
   debug_output (_ ("Track...") + " ", false);
 
-  //Find the first Audio_item in the performance, so all staves start
-  //at the same tick.
-  Moment start_mom = 0;
-  for (vsize i = 0; i < audio_elements_.size (); i++)
-    if (Audio_item *item = dynamic_cast<Audio_item *>(audio_elements_[i]))
-      start_mom = std::min (start_mom, item->audio_column_->when ());
-
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
@@ -97,7 +91,7 @@ Performance::output (Midi_stream &midi_stream,
           text->text_string_ = performance_name;
         }
       debug_output ("[" + std::to_string (i), true);
-      s->output (midi_stream, i, ports_, start_mom);
+      s->output (midi_stream, i, ports_, start_mom_);
       debug_output ("]", false);
     }
 }
@@ -132,4 +126,17 @@ Performance::write_output (string out, const string &performance_name) const
 void
 Performance::process ()
 {
+  // Find the first Audio_item in the performance, so all staves start at the
+  // same tick.
+  // TODO: Could this be done on the fly rather than in a separate pass?
+  for (auto elem : audio_elements_)
+    {
+      if (auto item = dynamic_cast<const Audio_item *> (elem))
+        {
+          if (auto col = item->get_column ())
+            {
+              start_mom_ = std::min (start_mom_, col->when ());
+            }
+        }
+    }
 }

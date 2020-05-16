@@ -22,6 +22,7 @@
 
 #include "music-output.hh"
 
+#include "moment.hh"
 #include "std-vector.hh"
 
 /* MIDI output.  */
@@ -31,6 +32,11 @@ public:
   Performance (bool ports = false);
   ~Performance ();
   OVERRIDE_CLASS_NAME (Performance);
+
+  bool is_trivial () const
+  {
+    return start_mom_.main_part_.is_infinity ();
+  }
 
   // get list of headers (innermost is first)
   SCM get_headers () { return headers_; }
@@ -51,6 +57,7 @@ public:
   std::vector<Audio_staff *> audio_staffs_;
 private:
   std::vector<Audio_element *> audio_elements_;
+  Moment start_mom_;
 public:
   Output_def *midi_;
   bool ports_;
