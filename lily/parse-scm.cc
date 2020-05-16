@@ -191,9 +191,12 @@ evaluate_embedded_scheme (SCM form, Input const &start, bool safe, Lily_parser *
 {
   Parse_start ps (form, start, safe, parser);
 
+  // Establish the quasi-parameter (*location*) by using the location
+  // `start` covering the input of the Scheme form during its
+  // evaluation
   SCM ans = scm_c_with_fluid
             (Lily::f_location,
-             ps.parsed_.smobbed_copy (),
+             start.smobbed_copy (),
              parse_protect_global ? protected_evaluate_scheme_form
              : evaluate_scheme_form_void, (void *) &ps);
 
