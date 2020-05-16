@@ -20,8 +20,9 @@
 #ifndef PERFORMANCE_HH
 #define PERFORMANCE_HH
 
-#include "std-vector.hh"
 #include "music-output.hh"
+
+#include "std-vector.hh"
 
 /* MIDI output.  */
 class Performance : public Music_output
@@ -42,15 +43,15 @@ public:
 
   void add_element (Audio_element *p);
   void process () override;
-  void remap_grace_durations ();
   void output (Midi_stream &midi_stream, const std::string &performance_name) const;
-  void output_header_track (Midi_stream &midi_stream) const;
 
-  void print () const;
   void write_output (std::string filename, const std::string &performance_name) const;
 
+public:
   std::vector<Audio_staff *> audio_staffs_;
+private:
   std::vector<Audio_element *> audio_elements_;
+public:
   Output_def *midi_;
   bool ports_;
 private:
