@@ -89,16 +89,50 @@ Simple_spacer::fits () const
   return fits_;
 }
 
+/*
+   Heuristically try to calculate the force that will get us as close to the
+   rod distance as possible without being less than it.
+*/
 Real
-Simple_spacer::rod_force (vsize l, vsize r, Real dist)
+Simple_spacer::heuristic_rod_force (vsize l, vsize r, Real dist)
 {
-  Real d = range_ideal_len (l, r);
-  Real c = range_stiffness (l, r, dist > d);
-  Real block_stretch = dist - d;
+  Real ideal_length = range_ideal_len (l, r);
+  Real stiffness = range_stiffness (l, r, dist > ideal_length);
+  Real block_stretch = dist - ideal_length;
 
-  if (std::isinf (c) && block_stretch == 0) /* take care of the 0*infinity_f case */
-    return 0;
-  return c * block_stretch;
+  if (std::isinf (stiffness)) // nothing we can do here
+    return stiffness;
+
+  Real previous_force = stiffness * block_stretch;
+  Real previous_length = range_len (l, r, previous_force);
+  Real overcompensation = previous_length - dist;
+
+  if (! (overcompensation > 1e-6))
+    return previous_force;
+
+  Real shrink_value = overcompensation / (Real) (r - l);
+  Real current_force = previous_force;
+  Real current_length = previous_length;
+  while (overcompensation > 1e-6 && shrink_value > 1e-6)
+    {
+      previous_force = current_force;
+      previous_length = current_length;
+
+      current_force -= shrink_value;
+      current_length = range_len (l, r, current_force);
+      if (current_length < dist) // We've gone too far
+        {
+          // Go back one step and try again with smaller shrink values
+          current_force = previous_force;
+          current_length = previous_length;
+          shrink_value /= 2;
+        }
+
+      // Stop trying when we can't make it any smaller
+      if (! (previous_length - current_length > 1e-6))
+        break;
+    }
+  return current_force;
 }
 
 void
@@ -110,7 +144,7 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
       return;
     }
 
-  Real block_force = rod_force (l, r, dist);
+  Real block_force = heuristic_rod_force (l, r, dist);
 
   if (std::isinf (block_force))
     {
@@ -129,6 +163,15 @@ Simple_spacer::add_rod (vsize l, vsize r, Real dist)
   force_ = std::max (force_, block_force);
   for (vsize i = l; i < r; i++)
     springs_[i].set_blocking_force (std::max (block_force, springs_[i].blocking_force ()));
+}
+
+Real
+Simple_spacer::range_len (vsize l, vsize r, Real force) const
+{
+  Real d = 0.;
+  for (vsize i = l; i < r; i++)
+    d += springs_[i].length (force);
+  return d;
 }
 
 Real

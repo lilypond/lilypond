@@ -33,6 +33,7 @@ public:
   void solve (Real line_len, bool ragged);
   void add_rod (vsize l, vsize r, Real dist);
   void add_spring (Spring const &);
+  Real range_len (vsize l, vsize r, Real force) const;
   Real range_ideal_len (vsize l, vsize r) const;
   Real range_stiffness (vsize l, vsize r, bool stretch) const;
   Real configuration_length (Real) const;
@@ -46,7 +47,7 @@ public:
 private:
   Real expand_line ();
   Real compress_line ();
-  Real rod_force (vsize l, vsize r, Real dist);
+  Real heuristic_rod_force (vsize l, vsize r, Real dist);
 
   std::vector<Spring> springs_;
   Real line_len_;
