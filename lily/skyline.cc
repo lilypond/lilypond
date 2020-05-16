@@ -171,6 +171,7 @@ Skyline::internal_merge_skyline (vector<Building> const *sbp,
       programming_error ("tried to merge an empty skyline");
       return;
     }
+  result->clear ();
   result->reserve (std::max (sbp->size (), scp->size ()));
   auto bit = sbp->begin ();
   auto cit = scp->begin ();
@@ -358,7 +359,6 @@ Skyline::internal_build_skyline (vector<Building> *buildings) const
      Instead, we exit in the middle of the loop */
   while (!partials.empty ())
     {
-      vector<Building> merged;
       vector<Building> one = partials.front ();
       partials.pop_front ();
       if (partials.empty ())
@@ -366,6 +366,8 @@ Skyline::internal_build_skyline (vector<Building> *buildings) const
 
       vector<Building> two = partials.front ();
       partials.pop_front ();
+
+      vector<Building> merged;
       internal_merge_skyline (&one, &two, &merged);
       partials.push_back (merged);
     }
@@ -486,9 +488,9 @@ Skyline::merge (Skyline const &other)
     }
 
   vector<Building> other_bld (other.buildings_);
-  vector<Building> my_bld (buildings_);
-  buildings_.clear ();
-  internal_merge_skyline (&other_bld, &my_bld, &buildings_);
+  vector<Building> dest;
+  internal_merge_skyline (&other_bld, &buildings_, &dest);
+  dest.swap (buildings_);
 }
 
 void
@@ -546,7 +548,7 @@ Skyline::padded (Real horizon_padding) const
     return *this;
 
   vector<Building> pad_buildings;
-  pad_buildings.reserve (buildings_.size ());
+  pad_buildings.reserve (4 * buildings_.size ());
   for (auto const &b : buildings_)
     {
       if (b.x_[LEFT] > -infinity_f)
@@ -589,9 +591,7 @@ Skyline::padded (Real horizon_padding) const
 
   // Merge the padding with the original, to make a new skyline.
   Skyline padded (sky_);
-  vector<Building> my_buildings = buildings_;
-  padded.buildings_.clear ();
-  internal_merge_skyline (&pad_skyline, &my_buildings, &padded.buildings_);
+  internal_merge_skyline (&pad_skyline, &buildings_, &padded.buildings_);
 
   return padded;
 }
