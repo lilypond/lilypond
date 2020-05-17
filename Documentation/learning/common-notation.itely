@@ -1293,6 +1293,7 @@ introduction to the rest of the manual.
 @cindex variables, using
 @cindex variables, characters allowed in
 @cindex characters allowed in variables
+@cindex variables containing music expressions
 
 When all of the elements discussed earlier are combined to produce
 larger files, the music expressions get a lot bigger.  In

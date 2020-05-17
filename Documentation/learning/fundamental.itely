@@ -461,6 +461,8 @@ and @ruser{Ossia staves}.
 @node Structure of a note entry
 @subsection Structure of a note entry
 
+@cindex post-events
+
 A note entry in LilyPond consists of a pitch, followed by a duration,
 optionally followed by one or more @q{post-events}.  LilyPond
 post-events add things such as articulations, fingerings, string numbers,
@@ -3074,7 +3076,7 @@ Music Glossary:
 @subsection Saving typing with variables and functions
 
 @cindex variables
-@cindex variables
+@cindex variables containing tweaks
 
 By this point, you've seen this kind of thing:
 
@@ -3154,6 +3156,36 @@ violin = \relative @{
   @}
 @}
 @end example
+
+@cindex post-events, in variables
+@cindex variables containing post-events
+
+Remember @q{post-events}?  Articulations, fingerings, anything
+that has to be added @emph{after} a note (see
+@ref{Structure of a note entry}), often prefixed with a dash or a direction
+modifier.  In fact, even these events can be stored in
+a variable -- in which case the usual curly braces are not wanted,
+since you wouldn’t use them between a note and its articulations.
+
+@noindent
+If such a definition includes a prefix, then the variable can be
+used directly after the note -- unless you want to change its
+direction, in which case you can insert a modifier that will take
+precedence:
+
+@lilypond[verbatim,quote,ragged-right]
+articulationVar = -^-!
+
+artEsprVar = \articulationVar ^\espressivo
+
+\relative c' {
+  c\articulationVar d e2^\articulationVar
+  d2\artEsprVar c_\artEsprVar
+}
+@end lilypond
+
+@cindex music functions
+@cindex variables containing functions
 
 So far we've seen static substitution -- when LilyPond
 sees @code{\centreText}, it replaces it with the stuff that
