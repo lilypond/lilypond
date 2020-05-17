@@ -31,6 +31,7 @@
 #else
 # include <libguile.h>
 #endif
+#include <limits>
 #include <string.h>
 
 /*
@@ -205,5 +206,195 @@ std::vector<Offset> ly_scm2offsets (SCM s);
 #if !HAVE_GUILE_HASH_FUNC
 typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
 #endif
+
+template <typename T> bool is_scm (SCM);
+template <typename T> T from_scm (SCM);
+template <typename T> SCM to_scm (T);
+
+// "robust" variant with fallback
+template <typename T> inline T
+from_scm (SCM s, T fallback)
+{
+  return is_scm<T> (s) ? from_scm<T> (s) : fallback;
+}
+
+template <> inline bool
+is_scm<int> (SCM s)
+{
+  return scm_is_signed_integer (s,
+                                std::numeric_limits<int>::min (),
+                                std::numeric_limits<int>::max ());
+}
+template <> inline int
+from_scm<int> (SCM s)
+{
+  return scm_to_int (s);
+}
+template <> inline SCM
+to_scm<int> (int i)
+{
+  return scm_from_int (i);
+}
+
+template <> inline bool
+is_scm<size_t> (SCM s)
+{
+  return scm_is_unsigned_integer (s,
+                                  std::numeric_limits<size_t>::min (),
+                                  std::numeric_limits<size_t>::max ());
+}
+template <> inline size_t
+from_scm<size_t> (SCM s)
+{
+  return scm_to_size_t (s);
+}
+template <> inline SCM
+to_scm<size_t> (size_t i)
+{
+  return scm_from_size_t (i);
+}
+
+template <> inline bool
+is_scm<unsigned> (SCM s)
+{
+  return scm_is_unsigned_integer (s,
+                                  std::numeric_limits<unsigned>::min (),
+                                  std::numeric_limits<unsigned>::max ());
+}
+template <> inline unsigned
+from_scm<unsigned> (SCM s)
+{
+  return scm_to_uint (s);
+}
+template <> inline SCM
+to_scm<unsigned> (unsigned i)
+{
+  return scm_from_uint (i);
+}
+
+template <> inline bool
+is_scm<long> (SCM s)
+{
+  return scm_is_signed_integer (s,
+                                std::numeric_limits<long>::min (),
+                                std::numeric_limits<long>::max ());
+}
+template <> inline long
+from_scm<long> (SCM s)
+{
+  return scm_to_long (s);
+}
+template <> inline SCM
+to_scm<long> (long i)
+{
+  return scm_from_long (i);
+}
+
+template <> inline bool
+is_scm<long long> (SCM s)
+{
+  return scm_is_signed_integer (s,
+                                std::numeric_limits<long long>::min (),
+                                std::numeric_limits<long long>::max ());
+}
+template <> inline long long
+from_scm<long long> (SCM s)
+{
+  return scm_to_long_long (s);
+}
+template <> inline SCM
+to_scm<long long> (long long i)
+{
+  return scm_from_long_long (i);
+}
+
+template <> inline bool
+is_scm<bool> (SCM s)
+{
+  return scm_is_bool (s);
+}
+// from_scm<bool> does not error out for a non-boolean but defaults to
+// #f as that's what we generally need for an undefined boolean.  This
+// differs from Scheme which interprets anything but #f as true.
+template <> inline bool
+from_scm<bool> (SCM s)
+{
+  return scm_is_eq (s, SCM_BOOL_T);
+}
+template <> inline bool
+from_scm<bool> (SCM s, bool fallback)
+{
+  if (fallback)
+    return scm_is_true (s);
+  else
+    return from_scm<bool> (s);
+}
+template <> inline SCM
+to_scm<bool> (bool i)
+{
+  return scm_from_bool (i);
+}
+
+template <> inline bool
+is_scm<double> (SCM s)
+{
+  return scm_is_real (s);
+}
+template <> inline double
+from_scm<double> (SCM s)
+{
+  return scm_to_double (s);
+}
+template <> inline SCM
+to_scm<double> (double i)
+{
+  return scm_from_double (i);
+}
+
+template <> inline bool
+is_scm<Axis> (SCM s)
+{
+  return scm_is_unsigned_integer (s, X_AXIS, Y_AXIS);
+}
+template <> inline Axis
+from_scm<Axis> (SCM s)
+{
+  return Axis (scm_to_unsigned_integer (s, X_AXIS, Y_AXIS));
+}
+template <> inline SCM
+to_scm<Axis> (Axis d)
+{
+  return to_scm<int> (d);
+}
+
+template <> inline bool
+is_scm<Direction> (SCM s)
+{
+  return scm_is_signed_integer (s, LEFT, RIGHT);
+}
+// from_scm<Direction> does not error out for a non-direction but
+// defaults to CENTER as that's what we generally need for an
+// undefined direction.  In order not to have to call
+// is_scm<Direction> more than once, we hard-code the defaulting
+// variant and implement the one-argument version based on it.
+template <> inline Direction
+from_scm<Direction> (SCM s, Direction fallback)
+{
+  return is_scm<Direction> (s) ? Direction (scm_to_int (s)) : fallback;
+}
+template <> inline Direction
+from_scm<Direction> (SCM s)
+{
+  return from_scm<Direction> (s, CENTER);
+}
+template <> inline SCM
+to_scm<Direction> (Direction d)
+{
+  return to_scm<int> (d);
+}
+
+template <> bool is_scm<Rational> (SCM s);
+template <> Rational from_scm<Rational> (SCM s);
+template <> SCM to_scm<Rational> (Rational i);
 
 #endif /* LILY_GUILE_HH */

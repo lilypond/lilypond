@@ -558,6 +558,12 @@ robust_scm2vsize (SCM k, vsize o)
   return o;
 }
 
+template <>
+SCM to_scm<Rational> (Rational r)
+{
+  return ly_rational2scm (r);
+}
+
 SCM
 ly_rational2scm (Rational r)
 {
@@ -571,6 +577,12 @@ ly_rational2scm (Rational r)
 
   return scm_divide (scm_from_int64 (r.numerator ()),
                      scm_from_int64 (r.denominator ()));
+}
+
+template <>
+Rational from_scm<Rational> (SCM r)
+{
+  return ly_scm2rational (r);
 }
 
 Rational
@@ -599,6 +611,12 @@ robust_scm2rational (SCM n, Rational rat)
     return ly_scm2rational (n);
   else
     return rat;
+}
+
+template <>
+bool is_scm<Rational> (SCM n)
+{
+  return ly_is_rational (n);
 }
 
 bool
