@@ -19,11 +19,13 @@
 
 #include "line-interface.hh"
 
+#include "main.hh"
 #include "font-interface.hh"
 #include "grob.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
+#include "string-convert.hh"
 
 using std::vector;
 
@@ -51,6 +53,20 @@ Line_interface::make_trill_line (Grob *me,
                                  Offset to)
 {
   Offset dz = (to - from);
+  Axis a = X_AXIS;
+  while (a < NO_AXES)
+    {
+      if (std::isinf (dz[a]) || std::isnan (dz[a]) || fabs (dz[a]) > 1e6)
+        {
+          programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", dz[a])
+                             + "\n"
+                             + "Setting to zero.");
+          dz[a] = 0.0;
+          if (strict_infinity_checking)
+            scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
+        }
+      incr (a);
+    }
 
   Font_metric *fm = Font_interface::get_default_font (me);
 

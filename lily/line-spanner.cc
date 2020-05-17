@@ -354,7 +354,7 @@ Line_spanner::print (SCM smob)
 
   for (LEFT_and_RIGHT (d))
     {
-      if (stencils[d])
+      if (stencils[d] && ! stencils[d]->is_empty())
         span_points[d] += dz_dir *
                           (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
     }
