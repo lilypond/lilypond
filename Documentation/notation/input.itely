@@ -2069,7 +2069,7 @@ However, that behavior can be changed globally by passing the option
 at the top of the main input file).  In that case, each file will be
 included relatively to the location of the main file, regardless
 of where its @code{\include} statement is located.
-Complex file structures, that require to @code{\\include}
+Complex file structures, that require to @code{\include}
 @emph{both} files relative to the main directory and files
 relative to some other directory, may even be devised by setting
 @code{relative-includes} to @code{#f} or @code{#t} at appropriate

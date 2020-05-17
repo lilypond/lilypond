@@ -65,7 +65,7 @@ which scares away people.
 @item
 As announced in version 2.17.3 nearly eight years ago, the
 @code{'relative-includes} option is now enabled by default;
-included files that contain an @code{\\include} command of
+included files that contain an @code{\include} command of
 their own must account for their own path rather than the
 main file’s directory.  That behavior may however be switched
 off by setting @code{'relative-includes} to @code{#f}, either
@@ -254,14 +254,14 @@ have been removed from the main codebase,  as have been the properties
 As part of that rewrite, power chords are now included in the default
 exceptions; they will be printed correctly (with a superscript like all other
 chords) with no additional tweaks required, thereby removing the need for the
-@code{\\powerChords} predefined command.  Anyone interested in the legacy functions
+@code{\powerChords} predefined command.  Anyone interested in the legacy functions
 may found a (somewhat working) copy of them in the @file{chord-names-alternative.ly} snippet.
 
 @item
-The @code{\\partcombine} command, as well as all @code{partCombine}-prefixed
+The @code{\partcombine} command, as well as all @code{partCombine}-prefixed
 commands, subroutines and property names, are now written with a capital C,
-such as @code{\\partCombine}, @code{\\partCombineApart} etc.
-The @code{\\autochange} command is now also capitalized as @code{\\autoChange}.
+such as @code{\partCombine}, @code{\partCombineApart} etc.
+The @code{\autochange} command is now also capitalized as @code{\autoChange}.
 
 @item
 The @code{New_fingering_engraver} will now consider the
