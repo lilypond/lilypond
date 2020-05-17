@@ -1709,11 +1709,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle default
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle default
       \musicB
     }
@@ -1728,12 +1728,12 @@ both staves.
 @example
 \new PianoStaff @{
   <<
-    \context Staff = "up" @{
+    \new Staff = "up" @{
       %%% change the next line as desired:
       \accidentalStyle Score.default
       \musicA
     @}
-    \context Staff = "down" @{
+    \new Staff = "down" @{
       \musicB
     @}
   >>
@@ -1792,11 +1792,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle default
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle default
       \musicB
     }
@@ -1865,11 +1865,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle voice
       \musicB
     }
@@ -1931,11 +1931,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern
       \musicB
     }
@@ -1990,11 +1990,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-cautionary
       \musicB
     }
@@ -2056,11 +2056,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-voice
       \musicB
     }
@@ -2116,11 +2116,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-voice-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-voice-cautionary
       \musicB
     }
@@ -2179,11 +2179,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle piano
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2235,11 +2235,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle piano-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2296,11 +2296,11 @@ musicB = {
 
 \new ChoirStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle choral
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2352,11 +2352,11 @@ musicB = {
 
 \new ChoirStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle choral-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2411,11 +2411,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern
       \musicB
     }
@@ -2470,11 +2470,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-cautionary
       \musicB
     }
@@ -2530,11 +2530,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-voice
       \musicB
     }
@@ -2587,11 +2587,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-voice-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-voice-cautionary
       \musicB
     }
@@ -2647,11 +2647,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic
       \musicB
     }
@@ -2705,11 +2705,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic-no-repeat
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic-no-repeat
       \musicB
     }
@@ -2765,11 +2765,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic-first
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic-first
       \musicB
     }
@@ -2826,12 +2826,12 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \key fis \minor
       \accidentalStyle teaching
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \key fis \minor
       \accidentalStyle teaching
       \musicB
@@ -2887,11 +2887,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle no-reset
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle no-reset
       \musicB
     }
@@ -2946,11 +2946,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle forget
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle forget
       \musicB
     }

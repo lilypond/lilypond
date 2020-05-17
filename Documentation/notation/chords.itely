@@ -1139,8 +1139,7 @@ figures is adjusted automatically.
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = "myStaff"
-  {
+  \context Staff = "myStaff" {
     \clef bass
     c4 c'8 r8 c4 c'
   }
@@ -1164,8 +1163,7 @@ or below the staff.
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = "myStaff"
-  {
+  \context Staff = "myStaff" {
     \clef bass
     c4 c'8 r8 c4 c'
   }

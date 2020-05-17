@@ -400,8 +400,13 @@ context hierarchy does not already exist.  Otherwise it will be taken
 as a reference to that previously created context, and its music
 expression will be passed to that context for interpretation.
 
-One application of named contexts is in separating the score layout
-from the musical content.  Either of these two forms is valid:
+Named contexts may be useful in special cases such as
+lyrics or figured bass, as demonstrated in
+@ref{Working with lyrics and variables} and
+@rlearning{Vocal ensembles templates} for the former and
+@ref{Displaying figured bass} for the latter.
+More generally, one application of named contexts is in separating the
+score layout from the musical content.  Either of these two forms is valid:
 
 @lilypond[quote,verbatim]
 \score {
@@ -721,7 +726,7 @@ modifying it,
 @end example
 
 @noindent
-where the @dots{} should be the name of an engraver.  Here is a simple
+where each @dots{} should be the name of an engraver.  Here is a simple
 example which removes @code{Time_signature_engraver} and
 @code{Clef_engraver} from a @code{Staff} context,
 

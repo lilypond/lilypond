@@ -562,10 +562,9 @@ Also known as dead, muted, silenced or false notes; ghost notes can be
 created using the @code{\parenthesize} command, see @ref{Parentheses}.
 
 @lilypond[quote,ragged-right,verbatim]
-\new DrumStaff
-<<
-  \context DrumVoice  = "1" { s1 }
-  \context DrumVoice  = "2" { s1 }
+\new DrumStaff <<
+  \new DrumVoice  = "1" { s1 }
+  \new DrumVoice  = "2" { s1 }
   \drummode {
     <<
       {
