@@ -35,22 +35,64 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#include <unordered_map>
+#include <vector>
+
 using std::string;
+using std::unordered_map;
+using std::vector;
+
+// This is a little bit ugly, but the replacement alist is setup in
+// the layout block so it'll be the same across invocations.
+
+// size S-1 => {orig of size S => replacement}
+std::vector<unordered_map<string, string>> replacement_cache_;
+Protected_scm replacement_cache_alist_key_;
+
+static void
+populate_cache (SCM alist)
+{
+  if (alist == replacement_cache_alist_key_)
+    return;
+
+  replacement_cache_.clear ();
+  replacement_cache_alist_key_ = alist;
+  for (SCM h = alist; scm_is_pair (h); h = scm_cdr (h))
+    {
+      SCM k = scm_caar (h);
+      SCM v = scm_cdar (h);
+      if (!scm_is_string (k) || !scm_is_string (v))
+        continue;
+
+      string orig = ly_scm2string (k);
+      if (orig.empty ())
+        continue;
+
+      string dest = ly_scm2string (v);
+
+      if (replacement_cache_.size () < orig.length ())
+        replacement_cache_.resize (orig.length ());
+      replacement_cache_[orig.length () - 1][orig] = dest;
+    }
+}
 
 static void
 replace_special_characters (string &str, SCM props)
 {
+  for (vsize i = 0; i < str.size (); i++)
+    if (isspace (str[i]))
+      str[i] = ' ';
+
   SCM replacement_alist = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"),
                                               props,
                                               SCM_EOL);
 
-  int max_length = 0;
-  for (SCM s = replacement_alist; scm_is_pair (s); s = scm_cdr (s))
-    {
-      max_length = std::max (max_length, scm_to_int
-                             (scm_string_length (scm_caar (s))));
-    }
+  if (replacement_alist == SCM_EOL || str.empty ())
+    return;
 
+  populate_cache (replacement_alist);
+
+  vsize max_length = replacement_cache_.size ();
   for (vsize i = 0; i < str.size (); i++)
     {
       /* Don't match in mid-UTF-8 */
@@ -66,10 +108,14 @@ replace_special_characters (string &str, SCM props)
           // multiple glyphs) to get the glyph's length which is not trivial.
           // So for now just continue checking all substrings that could be
           // valid UTF-8 (see check for str[i] not in mid-UTF-8 above).
-          SCM substr = scm_from_latin1_stringn (str.c_str () + i, j);
-          SCM ligature = ly_assoc_get (substr, replacement_alist, SCM_BOOL_F);
-          if (scm_is_true (ligature))
-            str.replace (i, j, robust_scm2string (ligature, ""));
+          auto const &map = replacement_cache_[j - 1];
+          if (map.empty ())
+            continue;
+
+          string orig = str.substr (i, j);
+          auto it = map.find (orig);
+          if (it != map.end ())
+            str.replace (i, j, it->second);
         }
     }
 }
@@ -243,4 +289,3 @@ ADD_INTERFACE (Text_interface,
                "text-direction "
                "flag-style "
               );
-

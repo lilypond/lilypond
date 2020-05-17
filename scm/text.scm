@@ -17,10 +17,7 @@
 
 
 (define-public default-string-replacement-alist
-  '(;; Whitespaces
-    ("\t" . " ")
-    ("\n" . " ")
-    ("\v" . " ")))
+  '())
 
 (define-public (internal-add-text-replacements props alist)
   (let* ((dummy-replacements (chain-assoc-get 'replacement-alist props '()))
