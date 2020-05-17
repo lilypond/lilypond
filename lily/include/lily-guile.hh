@@ -65,7 +65,6 @@ SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
 SCM ly_chain_assoc_get (SCM key, SCM achain, SCM default_value, SCM strict_checking = SCM_BOOL_F);
-SCM ly_assoc_cdr (SCM key, SCM alist);
 SCM ly_assoc_get (SCM key, SCM alist, SCM default_value, SCM strict_checking = SCM_BOOL_F);
 Interval ly_scm2interval (SCM);
 Drul_array<Real> ly_scm2realdrul (SCM);
@@ -160,17 +159,8 @@ bool is_axis (SCM);
 Direction to_dir (SCM s);
 bool to_boolean (SCM s);
 
-void init_ly_protection ();
-
 SCM index_get_cell (SCM cell, Direction d);
 SCM index_set_cell (SCM cell, Direction d, SCM val);
-
-SCM ly_snoc (SCM s, SCM list);
-SCM ly_split_list (SCM s, SCM lst);
-SCM ly_unique (SCM lst);
-SCM ly_list_qsort_uniq_x (SCM lst);
-
-SCM ly_output_formats ();
 
 /*
   snarfing.

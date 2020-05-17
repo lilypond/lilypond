@@ -459,51 +459,6 @@ ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
                           number, var, type.c_str ());
 }
 
-/* some SCM abbrevs
-
-zijn deze nou handig?
-zijn ze er al in scheme, maar heten ze anders? */
-
-/* Remove doubles from (sorted) list */
-SCM
-ly_unique (SCM list)
-{
-  SCM unique = SCM_EOL;
-  for (SCM i = list; scm_is_pair (i); i = scm_cdr (i))
-    {
-      if (!scm_is_pair (scm_cdr (i))
-          || !ly_is_equal (scm_car (i), scm_cadr (i)))
-        unique = scm_cons (scm_car (i), unique);
-    }
-  return scm_reverse_x (unique, SCM_EOL);
-}
-
-/* Split list at member s, removing s.
-   Return (BEFORE . AFTER)  */
-SCM
-ly_split_list (SCM s, SCM list)
-{
-  SCM before = SCM_EOL;
-  SCM after = list;
-  for (; scm_is_pair (after);)
-    {
-      SCM i = scm_car (after);
-      after = scm_cdr (after);
-      if (ly_is_equal (i, s))
-        break;
-      before = scm_cons (i, before);
-    }
-  return scm_cons (scm_reverse_x (before, SCM_EOL), after);
-}
-
-void
-taint (SCM *)
-{
-  /*
-    nop.
-  */
-}
-
 /*
   display stuff without using stack
 */
