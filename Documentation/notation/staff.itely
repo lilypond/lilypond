@@ -772,12 +772,8 @@ can be done globally (in a @code{\layout} block) as well as for
 specific staves only (in a @code{\with} block).  This command removes
 all empty staves in a score except for those in the first system.  If
 you want those in the first system to be hidden also, use
-@code{\RemoveAllEmptyStaves}.  Supported contexts are @code{Staff},
-@code{RhythmicStaff} and @code{VaticanaStaff}.
+@code{\RemoveAllEmptyStaves}.
 
-@warning{A staff is considered empty when it contains only
-multi-measure rests, rests, skips, spacer rests, or a combination of these
-elements.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -801,12 +797,149 @@ elements.}
 >>
 @end lilypond
 
+A staff is considered empty when it contains only multi-measure rests,
+rests, skips, or a combination of these elements.
+
 @cindex ossia
 
 @noindent
 @code{\RemoveAllEmptyStaves} can also be used to create ossia
 sections for a staff.  For details, see @ref{Ossia staves}.
 
+The @code{Keep_alive_together_engraver} allows groups of staves
+to only be removed together and not individually.  By default,
+it is part of the @code{PianoStaff} context: a piano part will
+only be hidden when both of its staves are empty.
+Similarly, a common engraving practice in orchestral
+scores is to remove empty groups of staves rather than individual
+staves; that can be achieved by adding the
+@code{Keep_alive_together_engraver} to the relevant staff-grouping
+context, as explained @ref{Modifying context plug-ins} (see
+@ref{Grouping staves} for the context names).
+
+@example
+\layout @{
+  \context @{
+    \StaffGroup
+    \RemoveEmptyStaves
+    \consists "Keep_alive_together_engraver"
+  @}
+@}
+@end example
+
+In the following, staves devoted to wind instruments are
+removed in the second system, while the doube bass is not, because
+it is part of the larger group of fretted strings, which is playing.
+
+@lilypond
+%{
+  This is taken from Berlioz, Symphonie fantastique.
+  http://imslp.eu/files/imglnks/euimg/5/54/IMSLP522307-PMLP3653-NBE_-_Symphonie_Fantastique_-_I._Reveries,_Passions_(etc).pdf
+%}
+\layout {
+  \context {
+    \StaffGroup
+    \RemoveEmptyStaves
+    \consists "Keep_alive_together_engraver"
+  }
+}
+
+\paper {
+  indent = 25
+  short-indent = 10
+}
+
+<<
+  \new StaffGroup <<
+    \new Staff \with { instrumentName = "Flute" } \relative c'' {
+      \key c \minor
+      <<
+        { \tuplet 3/2 4 { \repeat unfold 4 { g'8( g g) } } }
+        \\
+        { r2 \tuplet 3/2 4 { \repeat unfold 2 { f8( f f) } } }
+      >>
+      <ees g>1~
+      q16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+    \new Staff \with { instrumentName = "Oboe" } \relative c' {
+      \key c \minor
+      r2
+      \tuplet 3/2 4 { g'8( a b) c( cis d) }
+      <g, ees'>1~
+      q16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+    \new Staff \with { instrumentName = "Basson" } \relative c {
+      \key c \minor
+      \clef bass
+      r2 r4 \tuplet 3/2 { r8 g'( b,) }
+      c1~
+      c16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+  >>
+  \new StaffGroup <<
+    \new Staff \with {
+      instrumentName = "Violin I"
+      shortInstrumentName = "Vl."
+    } \relative c'' {
+      \key c \minor
+      R1*2
+      g'8. g16( aes8. g16) g8( f) f8.( ees16)
+      ees2( d16) r16\fermata d8( ees f)
+      g4( ees8) r16 c aes'4( g8) r16 fis
+      g2( f8) r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Violin II"
+      shortInstrumentName = "Vl. II"
+    } \relative c' {
+      \key c \minor
+      R1*2
+      r2 b'4( c)
+      c2~ c16 r16\fermata b8( c d)
+      ees4( c8) r8 ees4~ ees8 r
+      d2~ d8 r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Alto"
+      shortInstrumentName = "Al."
+    } \relative c' {
+      \key c \minor
+      \clef alto
+      R1*2
+      r2 d4( c
+      a'2~) a16 r16\fermata aes8( g f)
+      ees4~ ees8 r c'4~ c8 r8
+      b2~ b8 r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Cello"
+      shortInstrumentName = "Cl."
+    } \relative c {
+      \key c \minor
+      \clef bass
+      R1*2
+      r2 aes'4( g
+      fis2~) fis16 r16\fermata f8( ees d)
+      c4~ c8 r8 c'4~ c8 r8
+      b2~ b8 r8 r4 \fermata
+    }
+    \new Staff \with {
+      instrumentName = "Double bass"
+      shortInstrumentName = "D.B."
+    } {
+      \key c \minor
+      \clef bass
+      R1*6
+    }
+  >>
+>>
+@end lilypond
 
 @predefined
 @code{\RemoveEmptyStaves},
@@ -826,7 +959,9 @@ Notation Reference:
 @ref{Ossia staves},
 @ref{Hidden notes},
 @ref{Invisible rests},
-@ref{Visibility of objects}.
+@ref{Visibility of objects},
+@ref{Grouping staves},
+@ref{Modifying context plug-ins}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -837,7 +972,9 @@ Internals Reference:
 @rinternals{Lyrics},
 @rinternals{Staff},
 @rinternals{VerticalAxisGroup},
-@rinternals{Staff_symbol_engraver}.
+@rinternals{Staff_symbol_engraver},
+@rinternals{Axis_group_engraver},
+@rinternals{Keep_alive_together_engraver}.
 
 @knownissues
 Removing @code{Staff_symbol_engraver} also hides bar lines.  If
@@ -851,7 +988,7 @@ engraver:
 @end example
 
 For the Known issues and warnings associated with
-@code{\Staff \RemoveEmptyStaves} see
+@code{\RemoveEmptyStaves} see
 @ref{Changing context default settings}.
 
 

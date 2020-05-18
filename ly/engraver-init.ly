@@ -762,6 +762,7 @@ automatically when an output definition (a @code{\\score} or
     bass-figure-interface
     chord-name-interface
     cluster-beacon-interface
+    dynamic-interface
     fret-diagram-interface
     lyric-syllable-interface
     note-head-interface
