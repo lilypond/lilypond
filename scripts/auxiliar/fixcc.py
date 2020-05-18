@@ -406,8 +406,8 @@ def check_astyle_version():
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
-    return (PREFERRED_ASTYLE_VERSION in stderr) \
-        or (PREFERRED_ASTYLE_VERSION in stdout)
+    return (PREFERRED_ASTYLE_VERSION in stderr.decode ()) \
+        or (PREFERRED_ASTYLE_VERSION in stdout.decode ())
 
 
 outdir = 0
