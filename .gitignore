@@ -48,6 +48,11 @@
 AUTHORS.txt
 INSTALL.txt
 README.txt
+GPATH
+GRTAGS
+GTAGS
+gtags.conf
+GTAGSROOT
 TAGS
 \#*
 \#.*
