@@ -134,7 +134,7 @@ Tuplet_iterator::construct_children ()
            = unsmob<Moment> (get_property (get_outlet (), "tupletSpannerDuration")))
     spanner_duration_ = Moment (mp->main_part_); // discard grace part
   else
-    spanner_duration_.set_infinite (1);
+    spanner_duration_ = Moment (Rational::infinity ());
 
   Music_wrapper_iterator::construct_children ();
 

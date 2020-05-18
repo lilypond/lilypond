@@ -29,9 +29,7 @@ template<>
 Rational
 Interval_t<Rational>::infinity ()
 {
-  Rational infty;
-  infty.set_infinite (1);
-  return infty;
+  return Rational::infinity ();
 }
 
 template INTERVAL__INSTANTIATE (Rational);
@@ -40,10 +38,7 @@ template<>
 Moment
 Interval_t<Moment>::infinity ()
 {
-  Moment infty;
-
-  infty.main_part_.set_infinite (1);
-  return infty;
+  return Moment (Rational::infinity ());
 }
 
 template INTERVAL__INSTANTIATE (Moment);

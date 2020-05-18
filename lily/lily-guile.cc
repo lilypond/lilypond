@@ -580,15 +580,11 @@ ly_scm2rational (SCM r)
     {
       if (scm_is_true (scm_positive_p (r)))
         {
-          Rational r;
-          r.set_infinite (1);
-          return r;
+          return Rational::infinity ();
         }
       else
         {
-          Rational r;
-          r.set_infinite (-1);
-          return r;
+          return -Rational::infinity ();
         }
     }
 

@@ -71,8 +71,8 @@ private:
   SCM lyricsto_voice_name_;
   SCM lyricsto_voice_type_;
 
-  Moment busy_moment_;
-  Moment pending_grace_moment_;
+  Moment busy_moment_ {-Rational::infinity ()};
+  Moment pending_grace_moment_ {Rational::infinity ()};
 
   Music_iterator *lyric_iter_;
 };
@@ -81,11 +81,9 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   music_found_ = false;
   lyrics_found_ = false;
-  pending_grace_moment_.set_infinite (1);
   lyric_iter_ = 0;
   music_context_ = 0;
   lyrics_context_ = 0;
-  busy_moment_.set_infinite (-1);
   lyricsto_voice_name_ = SCM_UNDEFINED;
   lyricsto_voice_type_ = SCM_UNDEFINED;
 }
@@ -147,11 +145,7 @@ Lyric_combine_music_iterator::start_new_syllable () const
 Moment
 Lyric_combine_music_iterator::pending_moment () const
 {
-  Moment m;
-
-  m.set_infinite (1);
-
-  return m;
+  return Moment (Rational::infinity ());
 }
 
 bool
@@ -314,7 +308,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
         }
       else
         {
-          pending_grace_moment_.set_infinite (1);
+          pending_grace_moment_.main_part_ = Rational::infinity ();
         }
 
       Moment m = lyric_iter_->pending_moment ();

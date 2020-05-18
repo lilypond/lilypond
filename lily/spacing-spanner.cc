@@ -105,8 +105,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
   vector<Rational> durations;
   vector<int> counts;
 
-  Rational shortest_in_measure;
-  shortest_in_measure.set_infinite (1);
+  auto shortest_in_measure = Rational::infinity ();
 
   for (vsize i = 0; i < cols.size (); i++)
     {
@@ -150,7 +149,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
               counts.push_back (1);
             }
 
-          shortest_in_measure.set_infinite (1);
+          shortest_in_measure = Rational::infinity ();
         }
     }
 

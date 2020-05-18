@@ -86,12 +86,6 @@ Rational::trunc_rat () const
   return Rational ((num_ - (num_ % den_)) * sign_, den_);
 }
 
-Rational::Rational ()
-{
-  sign_ = 0;
-  num_ = den_ = 1;
-}
-
 Rational::Rational (I64 n, I64 d)
 {
   // use sign of n when d=0
@@ -113,21 +107,6 @@ Rational::Rational (unsigned long long n)
   sign_ = ::sign (n);
   num_ = n;
   den_ = 1;
-}
-
-void
-Rational::set_infinite (int s)
-{
-  sign_ = ::sign (s) * 2;
-  num_ = 1;
-}
-
-Rational
-Rational::operator - () const
-{
-  Rational r (*this);
-  r.negate ();
-  return r;
 }
 
 Rational
@@ -202,7 +181,7 @@ Rational::normalize ()
     }
   else if (!den_)
     {
-      set_infinite (std::signbit (sign_) ? -1 : 1);
+      *this = std::signbit (sign_) ? -infinity () : infinity ();
     }
   else if (!num_)
     {
@@ -295,7 +274,7 @@ Rational::Rational (double x)
     {
       if (std::isinf (x))
         {
-          set_infinite (::sign (x));
+          *this = std::signbit (x) ? -infinity () : infinity ();
           return;
         }
 

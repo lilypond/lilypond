@@ -62,8 +62,6 @@ public:
   Rational main_part_;
   Rational grace_part_;
 
-  void set_infinite (int k);
-
   bool to_bool () const;
   I64 den () const;
   I64 num () const;

@@ -142,12 +142,6 @@ Moment::to_bool () const
   return main_part_ || grace_part_;
 }
 
-void
-Moment::set_infinite (int k)
-{
-  main_part_.set_infinite (k);
-}
-
 string
 Moment::to_string () const
 {

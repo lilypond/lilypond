@@ -583,7 +583,9 @@ class Grace_auto_beam_engraver : public Auto_beam_engraver
   TRANSLATOR_DECLARATIONS (Grace_auto_beam_engraver);
 
 private:
-  Moment last_grace_start_; // Full starting time of last grace group
+  // Full starting time of last grace group.  grace_part_ is zero ->
+  // test_moment is false, last_grace_position_ not considered.
+  Moment last_grace_start_ {-Rational::infinity ()};
   Moment last_grace_position_; // Measure position of same
   void process_music () override;
   bool is_same_grace_state (Moment, Moment) override;
@@ -593,9 +595,6 @@ private:
 Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)
   : Auto_beam_engraver (c)
 {
-  last_grace_start_.main_part_.set_infinite (-1);
-  // grace_part_ is zero -> test_moment is false, last_grace_position_
-  // not considered.
 }
 
 bool

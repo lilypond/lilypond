@@ -38,11 +38,11 @@
 using std::string;
 
 Performance::Performance (bool ports)
-  : midi_ (0),
+  : start_mom_ (Rational::infinity ()),
+    midi_ (0),
     ports_ (ports),
     headers_ (SCM_EOL)
 {
-  start_mom_.set_infinite (1);
 }
 
 Performance::~Performance ()

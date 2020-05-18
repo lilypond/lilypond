@@ -180,9 +180,7 @@ Quote_iterator::quote_ok () const
 Moment
 Quote_iterator::pending_moment () const
 {
-  Rational infty;
-  infty.set_infinite (1);
-  Moment m (infty);
+  Moment m (Rational::infinity ());
 
   if (Music_wrapper_iterator::ok ())
     m = std::min (m, Music_wrapper_iterator::pending_moment ());

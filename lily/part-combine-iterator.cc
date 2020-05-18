@@ -94,8 +94,7 @@ Part_combine_iterator::derived_substitute (Context *f,
 Moment
 Part_combine_iterator::pending_moment () const
 {
-  Moment p;
-  p.set_infinite (1);
+  Moment p (Rational::infinity ());
 
   for (size_t i = 0; i < NUM_PARTS; i++)
     if (iterators_[i]->ok ())
