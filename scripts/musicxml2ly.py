@@ -915,9 +915,9 @@ def musicxml_attributes_to_lily(attrs):
     return elts
 
 def extract_display_text(el):
-    child = el.get_maybe_exist_named_child("display-text")
-    if child:
-        return child.get_text()
+    children = el.get_typed_children (musicxml.get_class ("display-text"))
+    if children:
+        return " ".join([child.get_text () for child in children])
     else:
         return False
 
