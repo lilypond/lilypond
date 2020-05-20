@@ -207,16 +207,47 @@ std::vector<Offset> ly_scm2offsets (SCM s);
 typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
 #endif
 
-template <typename T> bool is_scm (SCM);
-template <typename T> T from_scm (SCM);
-template <typename T> SCM to_scm (T);
+// since partial template specialisation is not available for
+// functions, we default to reflecting to a helper class for template
+// types like Drul_array
+template <typename T> struct scm_conversions;
 
+template <typename T> inline bool
+is_scm (SCM s)
+{
+  return scm_conversions<T>::is_scm (s);
+}
+template <typename T> inline T
+from_scm (SCM s)
+{
+  return scm_conversions<T>::from_scm (s);
+}
 // "robust" variant with fallback
 template <typename T> inline T
 from_scm (SCM s, T fallback)
 {
-  return is_scm<T> (s) ? from_scm<T> (s) : fallback;
+  return scm_conversions<T>::from_scm (s, fallback);
 }
+template <typename T> inline SCM
+to_scm (T v)
+{
+  return scm_conversions<T>::to_scm (v);
+}
+
+template <typename T> struct scm_conversions
+{
+  // Add a default rule implementing robust_scm2T
+  //
+  // For better or worse, whenever we are specialising
+  // scm_conversions, we'll need to add this rule back in.
+  //
+  // An alternative would be to have a separate specialisation class
+  // just for the fallback
+  static T from_scm (SCM s, T fallback)
+  {
+    return ::is_scm<T> (s) ? ::from_scm<T> (s) : fallback;
+  }
+};
 
 template <> inline bool
 is_scm<int> (SCM s)
@@ -396,5 +427,140 @@ to_scm<Direction> (Direction d)
 template <> bool is_scm<Rational> (SCM s);
 template <> Rational from_scm<Rational> (SCM s);
 template <> SCM to_scm<Rational> (Rational i);
+
+template <typename T> inline bool
+is_scm_pair (SCM s)
+{
+  return scm_is_pair (s) && is_scm<T> (scm_car (s)) && is_scm<T> (scm_cdr (s));
+}
+// No generic from_scm_pair and to_scm_pair for now since the
+// construction and deconstruction of a pair-based type is not
+// standardised well enough.  We could demand typename value_type,
+// accessor functions first and second, and a two-argument
+// constructor.  Not done for now.
+
+template <> inline bool
+is_scm<Offset> (SCM s)
+{
+  return is_scm_pair<Real> (s);
+}
+
+template <> Offset from_scm<Offset> (SCM s);
+template <> SCM to_scm<Offset> (Offset i);
+
+// partial function specialisation is not allowed, partially
+// specialize helper class
+template <typename T>
+struct scm_conversions <T *>
+{
+  static bool is_scm (SCM s) { return unsmob<T> (s); }
+  static T *from_scm (SCM s) { return unsmob<T> (s); }
+  static T *from_scm (SCM s, T *fallback)
+  {
+    if (T *res = unsmob<T> (s))
+      return res;
+    return fallback;
+  }
+  static const T *from_scm (SCM s, const T *fallback)
+  {
+    if (const T *res = unsmob<T> (s))
+      return res;
+    return fallback;
+  }
+  static SCM to_scm (T *p) { return p->self_scm (); }
+};
+
+template <typename T>
+struct scm_conversions <Drul_array<T>>
+{
+  static bool is_scm (SCM s)
+  {
+    return scm_is_pair (s) && ::is_scm<T> (scm_car (s)) && ::is_scm<T> (scm_cdr (s));
+  }
+  static Drul_array<T> from_scm (SCM s)
+  {
+    return Drul_array<T> (::from_scm<T> (scm_car (s)), ::from_scm<T> (scm_cdr (s)));
+  }
+  static Drul_array<T> from_scm (SCM s, Drul_array<T> fallback)
+  {
+    return is_scm (s) ? from_scm (s) : fallback;
+  }
+  static SCM to_scm (const Drul_array<T> &s)
+  {
+    return scm_cons (::to_scm<T> (s[LEFT]), ::to_scm<T> (s[RIGHT]));
+  }
+};
+
+template <typename T>
+struct scm_conversions <Interval_t<T>>
+{
+  static bool is_scm (SCM s)
+  {
+    return scm_is_pair (s) && ::is_scm<T> (scm_car (s)) && ::is_scm<T> (scm_cdr (s));
+  }
+  static Interval_t<T> from_scm (SCM s)
+  {
+    return Interval_t<T> (::from_scm<T> (scm_car (s)), ::from_scm<T> (scm_cdr (s)));
+  }
+  static Interval_t<T> from_scm (SCM s, Interval_t<T> fallback)
+  {
+    return is_scm (s) ? from_scm (s) : fallback;
+  }
+  static SCM to_scm (const Interval_t<T> &s)
+  {
+    return scm_cons (::to_scm<T> (s[LEFT]), ::to_scm<T> (s[RIGHT]));
+  }
+};
+
+// Check for a particular scm list: note that this is _different_ from
+// from_scm_list and to_scm_list where the template argument is a
+// _container_ type while here the _element_ type is specified since
+// no container actually comes into play.
+//
+// We do the hare/tortoise algorithm in order to detect only proper
+// lists.
+template <class T> bool
+is_scm_list (SCM s)
+{
+  for (SCM tortoise = s; scm_is_pair (s); tortoise = scm_cdr (tortoise))
+    {
+      if (!is_scm<T> (scm_car (s)))
+        return false;
+      s = scm_cdr (s);
+      if (!scm_is_pair (s))
+        break;
+      if (!is_scm<T> (scm_car (s)))
+        return false;
+      s = scm_cdr (s);
+      if (scm_is_eq (s, tortoise))
+        return false;
+    }
+  return scm_is_null (s); // Don't admit dotted pairs
+}
+// Convert the given SCM list to a container.
+// The container must support the push_back method.
+template <class T> T
+from_scm_list (SCM s)
+{
+  T ct;
+  for (; scm_is_pair (s); s = scm_cdr (s))
+    {
+      ct.push_back (from_scm<typename T::value_type> (scm_car (s)));
+    }
+  return ct;
+}
+// Convert the given container to an SCM list.
+// The container must support reverse iteration.
+template <class T> SCM
+to_scm_list (const T &ct)
+{
+  SCM lst = SCM_EOL;
+  for (auto i = ct.crbegin (); i != ct.crend (); ++i)
+    {
+      lst = scm_cons (to_scm<typename T::value_type> (*i), lst);
+    }
+  return lst;
+}
+
 
 #endif /* LILY_GUILE_HH */

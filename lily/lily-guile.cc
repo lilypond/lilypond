@@ -277,6 +277,16 @@ robust_scm2booldrul (SCM k, Drul_array<bool> def)
 /*
   OFFSET
 */
+template <> Offset from_scm<Offset> (SCM s)
+{
+  return Offset (from_scm<Real> (scm_car (s)), from_scm<Real> (scm_cdr (s)));
+}
+
+template <> SCM to_scm<Offset> (Offset i)
+{
+  return scm_cons (to_scm (i[X_AXIS]), to_scm (i[Y_AXIS]));
+}
+
 SCM
 ly_offset2scm (Offset o)
 {
