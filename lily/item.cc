@@ -133,11 +133,6 @@ void
 Item::handle_prebroken_dependencies ()
 {
   Grob::handle_prebroken_dependencies ();
-
-  /*
-    Can't do this earlier, because try_visibility_lambda () might set
-    the elt property transparent, which would then be copied.
-  */
   if (!Item::break_visible (this))
     suicide ();
 }
