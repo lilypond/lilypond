@@ -220,11 +220,14 @@ This option is equivalent to setting LilyPond's command line options
 
 @item @code{-f}, @code{--format=}@var{format}
 The format of the (main) output file or files.  Possible values for
-@var{format} are @code{ps}, @code{pdf}, or @code{png}.
+@var{format} are @code{ps}, @code{pdf}, @code{png} or @code{svg}.
 
 Example: @code{lilypond -fpng foo.ly}
 
-For @code{svg} and @code{eps} formats use the @code{-dbackend} option.
+SVG internally uses a specific backend, and therefore cannot be
+obtained in the same run as other formats; using @w{@code{-fsvg}} or
+@code{--svg} is actually equivalent to using the
+@code{-dbackend=svg} option.
 See @ref{Advanced command line options for LilyPond}.
 
 @item @code{-h}, @code{--help}
@@ -429,7 +432,7 @@ Generate PostScript.  This option is equivalent to @code{-fps}.
 
 @item @code{--png}
 Generate pictures of each page, in PNG format.  This option is
-equivalent to @code{-fpng}.
+equivalent to @w{@code{-fpng}}.
 
 The resolution of the image may be set to @var{N}@tie{}DPI with
 @example
@@ -440,11 +443,19 @@ The resolution of the image may be set to @var{N}@tie{}DPI with
 @cindex output, PDF (Portable Document Format)
 
 @item @code{--pdf}
-Generate PDF.  This is the default, being equivalent to @code{-fpdf}.
+Generate PDF.  This is the default, being equivalent to @w{@code{-fpdf}}.
 
 @item @code{-s}, @code{--silent}
 Show no progress, only error messages.  This is equivalent to
 @code{-lERROR}.
+
+@cindex SVG (Scalable Vector Graphics), output
+@cindex output, SVG (Scalable Vector Graphics)
+@cindex HTML, embeddable SVG scores
+@cindex web pages, SVG scores embeddable
+
+@item @code{--svg}
+Generate SVG files for each page.  This option is equivalent to @w{@code{-fsvg}}.
 
 @item @code{-v}, @code{--version}
 Show version information.

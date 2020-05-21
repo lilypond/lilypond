@@ -63,6 +63,14 @@ which scares away people.
 
 
 @item
+SVG output is now available through the @code{--svg} command-line
+option (or its canonical form @code{--format=svg}, also shortened
+as @code{-fsvg}).  Due to its backend’s specificity, that option
+is not yet compatible with other output formats; to get a file
+in both SVG and PDF, PNG or EPS, a second LilyPond run is required.
+
+
+@item
 As announced in version 2.17.3 nearly eight years ago, the
 @code{'relative-includes} option is now enabled by default;
 included files that contain an @code{\include} command of
