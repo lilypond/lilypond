@@ -176,104 +176,6 @@ is_number_pair (SCM p)
          && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
 }
 
-bool
-is_axis (SCM s)
-{
-  if (scm_is_integer (s))
-    {
-      int i = scm_to_int (s);
-      return i == 0 || i == 1;
-    }
-  return false;
-}
-
-bool
-to_boolean (SCM s)
-{
-  return scm_is_bool (s) && ly_scm2bool (s);
-}
-
-/*
-  DIRECTIONS
- */
-Direction
-to_dir (SCM s)
-{
-  return scm_is_integer (s) ? (Direction) scm_to_int (s) : CENTER;
-}
-
-Direction
-robust_scm2dir (SCM d, Direction def)
-{
-  if (is_direction (d))
-    def = to_dir (d);
-  return def;
-}
-
-bool
-is_direction (SCM s)
-{
-  if (scm_is_number (s))
-    {
-      int i = scm_to_int (s);
-      return i >= -1 && i <= 1;
-    }
-  return false;
-}
-
-/*
-  INTERVALS
- */
-Interval
-ly_scm2interval (SCM p)
-{
-  return Interval (scm_to_double (scm_car (p)),
-                   scm_to_double (scm_cdr (p)));
-}
-
-Drul_array<Real>
-ly_scm2realdrul (SCM p)
-{
-  return Drul_array<Real> (scm_to_double (scm_car (p)),
-                           scm_to_double (scm_cdr (p)));
-}
-
-SCM
-ly_interval2scm (Drul_array<Real> i)
-{
-  return scm_cons (scm_from_double (i[LEFT]), scm_from_double (i[RIGHT]));
-}
-
-Interval
-robust_scm2interval (SCM k, Drul_array<Real> v)
-{
-  Interval i;
-  i[LEFT] = v[LEFT];
-  i[RIGHT] = v[RIGHT];
-  if (is_number_pair (k))
-    i = ly_scm2interval (k);
-  return i;
-}
-
-Drul_array<Real>
-robust_scm2drul (SCM k, Drul_array<Real> v)
-{
-  if (is_number_pair (k))
-    v = ly_scm2interval (k);
-  return v;
-}
-
-Drul_array<bool>
-robust_scm2booldrul (SCM k, Drul_array<bool> def)
-{
-  if (scm_is_pair (k))
-    {
-      def[LEFT] = to_boolean (scm_car (k));
-      def[RIGHT] = to_boolean (scm_cdr (k));
-    }
-  return def;
-}
-
 /*
   OFFSET
 */
@@ -285,48 +187,6 @@ template <> Offset from_scm<Offset> (SCM s)
 template <> SCM to_scm<Offset> (Offset i)
 {
   return scm_cons (to_scm (i[X_AXIS]), to_scm (i[Y_AXIS]));
-}
-
-SCM
-ly_offset2scm (Offset o)
-{
-  return scm_cons (scm_from_double (o[X_AXIS]), scm_from_double (o[Y_AXIS]));
-}
-
-Offset
-ly_scm2offset (SCM s)
-{
-  return Offset (scm_to_double (scm_car (s)),
-                 scm_to_double (scm_cdr (s)));
-}
-
-Offset
-robust_scm2offset (SCM k, Offset o)
-{
-  if (is_number_pair (k))
-    o = ly_scm2offset (k);
-  return o;
-}
-SCM
-ly_offsets2scm (vector<Offset> os)
-{
-  SCM l = SCM_EOL;
-  SCM *tail = &l;
-  for (vsize i = 0; i < os.size (); i++)
-    {
-      *tail = scm_cons (ly_offset2scm (os[i]), SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-    }
-  return l;
-}
-
-vector<Offset>
-ly_scm2offsets (SCM s)
-{
-  vector<Offset> os;
-  for (; scm_is_pair (s); s = scm_cdr (s))
-    os.push_back (ly_scm2offset (scm_car (s)));
-  return os;
 }
 
 /*
@@ -510,36 +370,6 @@ int_list_to_slice (SCM l)
   return s;
 }
 
-Real
-robust_scm2double (SCM k, double x)
-{
-  if (scm_is_number (k))
-    x = scm_to_double (k);
-  return x;
-}
-
-vector<Real>
-ly_scm2floatvector (SCM l)
-{
-  vector<Real> floats;
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    floats.push_back (robust_scm2double (scm_car (s), 0.0));
-  return floats;
-}
-
-SCM
-ly_floatvector2scm (vector<Real> v)
-{
-  SCM l = SCM_EOL;
-  SCM *tail = &l;
-  for (vsize i = 0; i < v.size (); i++)
-    {
-      *tail = scm_cons (scm_from_double (v[i]), SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-    }
-  return l;
-}
-
 string
 robust_scm2string (SCM k, const string &s)
 {
@@ -548,34 +378,8 @@ robust_scm2string (SCM k, const string &s)
   return s;
 }
 
-int
-robust_scm2int (SCM k, int o)
-{
-  if (scm_is_integer (k))
-    o = scm_to_int (k);
-  return o;
-}
-
-vsize
-robust_scm2vsize (SCM k, vsize o)
-{
-  if (scm_is_integer (k))
-    {
-      int i = scm_to_int (k);
-      if (i >= 0)
-        return (vsize) i;
-    }
-  return o;
-}
-
 template <>
 SCM to_scm<Rational> (Rational r)
-{
-  return ly_rational2scm (r);
-}
-
-SCM
-ly_rational2scm (Rational r)
 {
   if (r.is_infinity ())
     {
@@ -585,18 +389,12 @@ ly_rational2scm (Rational r)
       return scm_difference (scm_inf (), SCM_UNDEFINED);
     }
 
-  return scm_divide (scm_from_int64 (r.numerator ()),
-                     scm_from_int64 (r.denominator ()));
+  return scm_divide (to_scm (r.numerator ()),
+                     to_scm (r.denominator ()));
 }
 
 template <>
 Rational from_scm<Rational> (SCM r)
-{
-  return ly_scm2rational (r);
-}
-
-Rational
-ly_scm2rational (SCM r)
 {
   if (scm_is_true (scm_inf_p (r)))
     {
@@ -614,23 +412,8 @@ ly_scm2rational (SCM r)
                    scm_to_int64 (scm_denominator (r)));
 }
 
-Rational
-robust_scm2rational (SCM n, Rational rat)
-{
-  if (ly_is_rational (n))
-    return ly_scm2rational (n);
-  else
-    return rat;
-}
-
 template <>
 bool is_scm<Rational> (SCM n)
-{
-  return ly_is_rational (n);
-}
-
-bool
-ly_is_rational (SCM n)
 {
   return (scm_is_real (n)
           && (scm_is_true (scm_exact_p (n))

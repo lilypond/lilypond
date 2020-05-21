@@ -60,10 +60,6 @@ SCM ly_string2scm (std::string const &s);
 std::string ly_scm2string (SCM s);
 std::string ly_symbol2string (SCM);
 std::string robust_symbol2string (SCM, const std::string &);
-Rational ly_scm2rational (SCM);
-SCM ly_rational2scm (Rational);
-SCM ly_offset2scm (Offset);
-Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
 SCM ly_chain_assoc_get (SCM key, SCM achain, SCM default_value, SCM strict_checking = SCM_BOOL_F);
 
@@ -73,25 +69,11 @@ inline SCM ly_assoc (SCM key, SCM alist)
 }
 
 SCM ly_assoc_get (SCM key, SCM alist, SCM default_value, SCM strict_checking = SCM_BOOL_F);
-Interval ly_scm2interval (SCM);
-Drul_array<Real> ly_scm2realdrul (SCM);
 SCM ly_memv (SCM, SCM);
 Slice int_list_to_slice (SCM l);
-SCM ly_interval2scm (Drul_array<Real>);
 char *ly_scm2str0 (SCM str);
 
-Real robust_scm2double (SCM, double);
-int robust_scm2int (SCM, int);
-vsize robust_scm2vsize (SCM, vsize);
-Direction robust_scm2dir (SCM, Direction);
-Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
-Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
-Interval robust_scm2interval (SCM, Drul_array<Real>);
-Offset robust_scm2offset (SCM, Offset);
 std::string robust_scm2string (SCM, const std::string &);
-Rational robust_scm2rational (SCM, Rational);
-std::vector<Real> ly_scm2floatvector (SCM);
-SCM ly_floatvector2scm (std::vector<Real> v);
 
 SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
@@ -115,7 +97,6 @@ inline bool ly_is_module (SCM x) { return SCM_MODULEP (x); }
 inline bool ly_is_procedure (SCM x) { return scm_is_true (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return scm_is_true (scm_port_p (x)); }
 
-bool ly_is_rational (SCM);
 /*
   want to take the address of this function; scm_is_symbol() is a
   macro.
@@ -154,17 +135,7 @@ extern "C" {
 void read_lily_scm_file (std::string);
 void ly_c_init_guile ();
 
-bool is_direction (SCM s);
 bool is_number_pair (SCM);
-bool is_axis (SCM);
-
-/*
-  these conversion functions also do a typecheck on the argument, and
-  return a default value if S has the wrong type.
-*/
-
-Direction to_dir (SCM s);
-bool to_boolean (SCM s);
 
 SCM index_get_cell (SCM cell, Direction d);
 SCM index_set_cell (SCM cell, Direction d, SCM val);
@@ -187,20 +158,6 @@ void add_scm_init_func (void ( *) ());
 inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
-
-template<class T>
-SCM
-ly_cxx_vector_to_list (std::vector<T> const &src)
-{
-  SCM l = SCM_EOL;
-  for (vsize i = src.size (); i--;)
-    l = scm_cons (src[i]->self_scm (), l);
-
-  return l;
-}
-
-SCM ly_offsets2scm (std::vector<Offset> os);
-std::vector<Offset> ly_scm2offsets (SCM s);
 
 /* For backward compatability with Guile 1.8 */
 #if !HAVE_GUILE_HASH_FUNC
