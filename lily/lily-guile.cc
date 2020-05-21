@@ -118,6 +118,8 @@ extern "C" {
 string
 ly_scm2string (SCM str)
 {
+  assert (scm_is_string (str));
+
   // GUILE 1.8 with -lmcheck barfs because realloc with sz==0 returns
   // NULL.
   if (scm_c_string_length (str) == 0)
@@ -125,7 +127,6 @@ ly_scm2string (SCM str)
       return string ();
     }
 
-  assert (scm_is_string (str));
   string result;
   size_t len;
   char *c_string = scm_to_utf8_stringn (str, &len);
