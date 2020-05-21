@@ -32,30 +32,6 @@
           ;; hmmm.  what's the best failure option?
           (throw 'ly-file-failed)))))
 
-;; ly:system can't handle pipe and redirection.
-;; This procedure can handle them by using shell.
-(define-public (ly:system-with-shell command)
-  (let ((s (if (eq? PLATFORM 'windows)
-               ;; MinGW (except Cygwin): Use COMSPEC (cmd.exe)
-               ;; FIXME: Command window is displayed briefly
-               (list (or (getenv "COMSPEC")
-                         "cmd.exe")
-                     "/c")
-               ;; POSIX (also Cygwin): Use /bin/sh
-               (list "/bin/sh"
-                     "-c")))
-        (c (list (if (eq? PLATFORM 'windows)
-                     ;; MinGW hack: Double quotes can not be used here.
-                     ;; So we remove them.
-                     ;; FIXME: The filename that contains space
-                     ;; can't be handled.
-                     (string-join (string-split command #\") "")
-                     ;; Other environments (also Cygwin):
-                     ;; Double quotes can be used. Pass through.
-                     command
-                     ))))
-    (ly:system (append s c))))
-
 (define-public (search-executable names)
   (define (helper path lst)
     (if (null? (cdr lst))
