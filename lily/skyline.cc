@@ -153,19 +153,6 @@ Building::intersection_x (Building const &other) const
   return std::isnan (ret) ? -infinity_f : ret;
 }
 
-// Returns a shift s such that (x + s, y) intersects the roof of
-// this building.  If no such shift exists, returns infinity_f.
-Real
-Building::shift_to_intersect (Real x, Real y) const
-{
-  // Solve for s: y = (x + s)*m + b
-  Real ret = (y - y_intercept_ - slope_ * x) / slope_;
-
-  if (ret >= x_[LEFT] && ret <= x_[RIGHT] && !std::isinf (ret))
-    return ret;
-  return infinity_f;
-}
-
 bool
 Building::above (Building const &other, Real x) const
 {
