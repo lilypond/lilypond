@@ -59,18 +59,12 @@ Music_iterator::construct_children ()
 Moment
 Music_iterator::pending_moment () const
 {
-  return 0;
+  return Moment (Rational::infinity ());
 }
 
 void
 Music_iterator::process (Moment)
 {
-}
-
-bool
-Music_iterator::ok () const
-{
-  return false;
 }
 
 SCM

@@ -57,12 +57,6 @@ Music_wrapper_iterator::construct_children ()
                 : 0;
 }
 
-bool
-Music_wrapper_iterator::ok () const
-{
-  return child_iter_ && child_iter_->ok ();
-}
-
 void
 Music_wrapper_iterator::process (Moment m)
 {

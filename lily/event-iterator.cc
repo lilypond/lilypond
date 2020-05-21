@@ -40,7 +40,7 @@ Event_iterator::construct_children ()
 void
 Event_iterator::process (Moment m)
 {
-  if (last_processed_mom_ < Moment (0))
+  if (!has_started ())
     report_event (get_music ());
 
   Simple_music_iterator::process (m);

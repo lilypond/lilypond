@@ -152,18 +152,6 @@ Simultaneous_music_iterator::pending_moment () const
 }
 
 bool
-Simultaneous_music_iterator::ok () const
-{
-  for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Music_iterator *it = unsmob<Music_iterator> (scm_car (s));
-      if (it->ok ())
-        return true;
-    }
-  return false;
-}
-
-bool
 Simultaneous_music_iterator::run_always () const
 {
   for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))

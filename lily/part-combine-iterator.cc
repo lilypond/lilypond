@@ -41,8 +41,6 @@ protected:
   void do_quit () override;
   void process (Moment) override;
 
-  bool ok () const override;
-
 private:
   static const size_t NUM_PARTS = 2;
   Music_iterator *iterators_[NUM_PARTS];
@@ -97,20 +95,9 @@ Part_combine_iterator::pending_moment () const
   Moment p (Rational::infinity ());
 
   for (size_t i = 0; i < NUM_PARTS; i++)
-    if (iterators_[i]->ok ())
-      p = std::min (p, iterators_[i]->pending_moment ());
+    p = std::min (p, iterators_[i]->pending_moment ());
 
   return p;
-}
-
-bool
-Part_combine_iterator::ok () const
-{
-  for (size_t i = 0; i < NUM_PARTS; i++)
-    if (iterators_[i]->ok ())
-      return true;
-
-  return false;
 }
 
 bool Part_combine_iterator::is_active_outlet (const Context *c) const

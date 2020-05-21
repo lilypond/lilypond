@@ -41,9 +41,8 @@ Rhythmic_music_iterator::construct_children ()
 void
 Rhythmic_music_iterator::process (Moment m)
 {
-  if (last_processed_mom_ < Moment (0))
+  if (!has_started ())
     {
-
       descend_to_bottom_context ();
 
       Context *c = get_outlet ();

@@ -38,7 +38,6 @@ public:
   void construct_children () override;
   Moment pending_moment () const override;
   void do_quit () override;
-  bool ok () const override;
   bool run_always () const override;
 
 protected:

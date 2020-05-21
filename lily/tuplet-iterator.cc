@@ -92,8 +92,10 @@ Moment
 Tuplet_iterator::pending_moment () const
 {
   Moment next_mom = Music_wrapper_iterator::pending_moment ();
-  next_mom = std::min (next_mom, next_split_mom_);
-
+  if (next_mom < Moment (Rational::infinity ()))
+    {
+      next_mom = std::min (next_mom, next_split_mom_);
+    }
   return next_mom;
 }
 

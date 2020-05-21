@@ -28,16 +28,25 @@
 */
 class Simple_music_iterator : public Music_iterator
 {
+private:
+  Moment pending_moment_;
+
 protected:
   OVERRIDE_CLASS_NAME (Simple_music_iterator);
 
-  Moment last_processed_mom_;
+  bool has_started () const { return pending_moment_ > Moment (0); }
+
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  Simple_music_iterator ();
-  void process (Moment) override;
-  bool ok ()const override;
-  Moment pending_moment ()const override;
+  Simple_music_iterator () = default;
+
+  void process (Moment m) override
+  {
+    const auto& length = music_get_length ();
+    pending_moment_ = (m < length) ? length : Moment (Rational::infinity ());
+  }
+
+  Moment pending_moment ()const final override { return pending_moment_; }
 };
 
 #endif /* SIMPLE_MUSIC_ITERATOR_HH */

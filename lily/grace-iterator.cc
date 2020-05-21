@@ -47,11 +47,11 @@ Moment
 Grace_iterator::pending_moment () const
 {
   Moment cp = Music_wrapper_iterator::pending_moment ();
-
-  Moment pending;
-  pending.grace_part_ = start_mom_.grace_part_ + cp.main_part_;
-
-  return pending;
+  if (!cp.main_part_.is_infinity ())
+    {
+      cp = Moment (0, start_mom_.grace_part_ + cp.main_part_);
+    }
+  return cp;
 }
 
 IMPLEMENT_CTOR_CALLBACK (Grace_iterator);
