@@ -82,11 +82,9 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
       && scm_is_eq (get_property (g, "break-align-symbol"),
                     ly_symbol2scm ("staff-bar")))
     bar_ = g;
-  else if (text_
-           && !support_
+  else if (text_ && !support_
            && safe_is_member (get_property (g, "break-align-symbol"),
-                              get_property (text_, "break-align-symbols"))
-           && Item::break_visible (g))
+                              get_property (text_, "break-align-symbols")))
     {
       support_ = g;
       text_->set_parent (g, X_AXIS);
