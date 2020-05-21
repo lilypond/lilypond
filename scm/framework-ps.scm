@@ -102,7 +102,7 @@
    (if (ly:get-option 'strokeadjust) "true setstrokeadjust\n" "")
    ))
 
-(define (dump-page outputter page page-number page-count landscape?)
+(define (dump-page outputter page-stencil page-number page-count landscape?)
   (ly:outputter-dump-string
    outputter
    (string-append
@@ -114,7 +114,7 @@
     "%%EndPageSetup\n"
     "\n"
     "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"))
-  (ly:outputter-dump-stencil outputter page)
+  (ly:outputter-dump-stencil outputter page-stencil)
   (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))
 
 (define (supplies-or-needs paper load-fonts?)
