@@ -1680,7 +1680,7 @@ part of this example, with expanded measures,
 actually reverts back to the default behavior):
 
 @lilypond[quote,verbatim,fragment]
-\override Score.BarNumber.break-visibility = #'#(#f #t #t)
+\override Score.BarNumber.break-visibility = ##(#f #t #t)
 \time 2/4
 \compressEmptyMeasures
 c'1 d'1. e'\breve
