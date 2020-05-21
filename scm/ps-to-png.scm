@@ -122,12 +122,11 @@
           (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
           (output-file (if multi-page? pngn-gs png1-gs))
 
-          (*unspecified* (if #f #f))
           (gs-cmd
-           (remove (lambda (x) (eq? x *unspecified*))
+           (filter string?
                    (list
                     (search-gs)
-                    (if (ly:get-option 'verbose) *unspecified* "-q")
+                    (if (not (ly:get-option 'verbose)) "-q")
                     (if (or (ly:get-option 'gs-load-fonts)
                             (ly:get-option 'gs-load-lily-fonts)
                             (eq? PLATFORM 'windows))
@@ -135,14 +134,12 @@
                         "-dSAFER")
                     "-dNOPAUSE"
                     "-dBATCH")))
-          (args
-           (remove (lambda (x) (eq? x *unspecified*))
+          (args (filter string?
                    (list
                     (if is-eps
                         "-dEPSCrop"
                         (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
-                    (if is-eps
-                        *unspecified*
+                    (if (not is-eps)
                         (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
                     "-dAutoRotatePages=/None"
                     "-dPrinted=false")))
