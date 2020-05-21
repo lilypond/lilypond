@@ -129,37 +129,3 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
         }
     }
 }
-
-struct Font_list : Stencil_sink
-{
-  SCM fonts_;
-  Font_list () { fonts_ = SCM_EOL; }
-
-  SCM output (SCM x) override
-  {
-    if (scm_is_eq (scm_car (x), ly_symbol2scm ("placebox")))
-      {
-        SCM args = scm_cdr (x);
-        SCM what = scm_caddr (args);
-
-        if (scm_is_pair (what))
-          {
-            SCM head = scm_car (what);
-            if (scm_is_eq (head, ly_symbol2scm ("text")))
-              fonts_ = scm_cons (scm_cadr (what), fonts_);
-            else if (scm_is_eq (head, ly_symbol2scm ("char")))
-              fonts_ = scm_cons (scm_cadr (what), fonts_);
-          }
-      }
-
-    return SCM_BOOL_T;
-  }
-};
-
-SCM
-find_expression_fonts (SCM expr)
-{
-  Font_list fl;
-  interpret_stencil_expression (expr, &fl, Offset (0, 0));
-  return fl.fonts_;
-}

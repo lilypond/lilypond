@@ -55,7 +55,6 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
   return po->self_scm ();
 }
 
-/* FIXME: why is output_* wrapper called dump?  */
 LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
            2, 0, 0, (SCM outputter, SCM stencil),
            "Dump stencil @var{expr} onto @var{outputter}.")

@@ -366,16 +366,6 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
   return target.smobbed_copy ();
 }
 
-LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
-           1, 0, 0, (SCM s),
-           "Analyze @var{s}, and return a list of fonts used"
-           " in@tie{}@var{s}.")
-{
-  LY_ASSERT_SMOB (Stencil, s, 1);
-  Stencil *stil = unsmob<Stencil> (s);
-  return find_expression_fonts (stil->expr ());
-}
-
 LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
            4, 0, 0, (SCM stc, SCM r, SCM g, SCM b),
            "Put @var{stc} in a different color.")

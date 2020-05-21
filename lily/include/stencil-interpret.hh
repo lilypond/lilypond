@@ -20,6 +20,8 @@
 #ifndef STENCIL_INTERPRET_HH
 #define STENCIL_INTERPRET_HH
 
+#include "lily-guile.hh"
+
 class Stencil_sink {
 public:
   virtual SCM output(SCM expr) = 0;
@@ -28,6 +30,5 @@ public:
 void interpret_stencil_expression (SCM expr,
                                    Stencil_sink *sink,
                                    Offset o);
-SCM find_expression_fonts (SCM expr);
 
 #endif
