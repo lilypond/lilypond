@@ -164,7 +164,6 @@ make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
 
-  vector<Offset> points;
   int quantization
     = std::max (1, (int) (((rad[X_AXIS] * x_scale) + (rad[Y_AXIS] * y_scale))
                           * M_PI / QUANTIZATION_UNIT));
@@ -180,7 +179,6 @@ make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
         skyline->add_segment (transform, last, pt, th);
       else
         first = pt;
-      points.push_back (pt);
       last = pt;
     }
 
