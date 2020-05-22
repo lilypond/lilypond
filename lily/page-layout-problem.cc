@@ -624,6 +624,21 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
 
           Spring spring (0.5, 0.0);
           SCM spec = get_property (elts[last_spaceable_staff], "staff-staff-spacing");
+          // In the event an override specifies
+          // staff-staff-spacing.some-property spec will be a non-list pair with
+          // an unpure-pure container as cdr. Remove it before continuing.
+          if (!ly_is_list (spec))
+            // spec needs to be an alist
+            spec = scm_cons (scm_car (spec), SCM_EOL);
+
+          // Substitute default values for any that are missing
+          SCM default_spacing = get_property (elts[last_spaceable_staff],
+                                              "default-staff-staff-spacing");
+          if (scm_is_pair (default_spacing) && ly_is_list (spec))
+            for (SCM s = default_spacing; scm_is_pair (s); s = scm_cdr (s))
+                if (!scm_is_pair (scm_assq (scm_caar (s), spec)))
+                    spec = scm_cons (scm_car (s), spec);
+
           alter_spring_from_spacing_spec (spec, &spring);
 
           springs_.push_back (spring);
