@@ -21,12 +21,13 @@
 #include "font-interface.hh"
 #include "international.hh"
 #include "item.hh"
+#include "lazy-skyline-pair.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
+#include "skyline-pair.hh"
 #include "stencil.hh"
 #include "system.hh"
-#include "skyline-pair.hh"
 
 using std::string;
 using std::vector;
@@ -59,11 +60,8 @@ Accidental_interface::horizontal_skylines (SCM smob)
   if (!my_stencil)
     return Skyline_pair ().smobbed_copy ();
 
-  SCM rot = get_property (me, "rotation");
-  Skyline_pair *sky
-    = unsmob<Skyline_pair>
-      (Stencil::skylines_from_stencil
-       (my_stencil->smobbed_copy (), 0.0, rot, Y_AXIS));
+  Skyline_pair sky (skylines_from_stencil (
+    my_stencil->smobbed_copy (), get_property (me, "rotation"), Y_AXIS));
 
   SCM alist = get_property (me, "glyph-name-alist");
   SCM alt = get_property (me, "alteration");
@@ -83,9 +81,9 @@ Accidental_interface::horizontal_skylines (SCM smob)
       boxes.push_back (
         Box (Interval (left, right), my_stencil->extent (Y_AXIS)));
       Skyline merge_with_me (boxes, Y_AXIS, RIGHT);
-      (*sky)[RIGHT].merge (merge_with_me);
+      sky[RIGHT].merge (merge_with_me);
     }
-  return sky->smobbed_copy ();
+  return sky.smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);

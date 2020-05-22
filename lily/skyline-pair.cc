@@ -59,6 +59,15 @@ Skyline_pair::raise (Real r)
 }
 
 void
+Skyline_pair::pad (Real r)
+{
+  if (!r)
+    return;
+  for (UP_and_DOWN (d))
+    skylines_[d] = skylines_[d].padded (r);
+}
+
+void
 Skyline_pair::shift (Real r)
 {
   skylines_[UP].shift (r);

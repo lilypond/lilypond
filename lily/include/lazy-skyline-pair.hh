@@ -112,4 +112,6 @@ public:
   }
 };
 
+Skyline_pair skylines_from_stencil (SCM sten, SCM rot, Axis a);
+
 #endif
