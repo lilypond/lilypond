@@ -367,14 +367,22 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
 }
 
 LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
-           4, 0, 0, (SCM stc, SCM r, SCM g, SCM b),
-           "Put @var{stc} in a different color.")
+           2, 3, 0, (SCM stc, SCM r, SCM g, SCM b, SCM a),
+           "Put @var{stc} in a different color."
+           "Accepts either three values for @var{r},"
+           "@var{g}, @var{b} and an optional value"
+	   "for @var{a}, or a single CSS-like string.")
 {
   LY_ASSERT_SMOB (Stencil, stc, 1);
   Stencil *stil = unsmob<Stencil> (stc);
+  SCM color;
+  if (SCM_UNBNDP (g) && scm_is_string (r))
+    color = r;
+  else
+  color = SCM_UNBNDP (a) ? scm_list_3 (r, g, b) : scm_list_4 (r, g, b, a);
   return Stencil (stil->extent_box (),
                   scm_list_3 (ly_symbol2scm ("color"),
-                              scm_list_3 (r, g, b),
+                              color,
                               stil->expr ())).smobbed_copy ();
 }
 

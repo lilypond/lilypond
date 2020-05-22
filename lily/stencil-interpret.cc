@@ -59,14 +59,24 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
             sink->output (scm_list_1 (ly_symbol2scm ("no-origin")));
           return;
         }
-      else if (scm_is_eq (head, ly_symbol2scm ("color")))
+            else if (scm_is_eq (head, ly_symbol2scm ("color")))
         {
           SCM color = scm_cadr (expr);
-          SCM r = scm_car (color);
-          SCM g = scm_cadr (color);
-          SCM b = scm_caddr (color);
-
-          sink->output (scm_list_4 (ly_symbol2scm ("setcolor"), r, g, b));
+          if (scm_is_string (color))
+            sink->output (scm_list_2 (ly_symbol2scm ("setcolor"), color));
+          else
+            {
+              SCM r = scm_car (color);
+              SCM g = scm_cadr (color);
+              SCM b = scm_caddr (color);
+              if (scm_to_int (scm_length (color)) == 4)
+                {
+                  SCM a = scm_cadddr (color);
+                  sink->output (scm_list_5 (ly_symbol2scm ("setcolor"), r, g, b, a));
+                }
+              else
+                sink->output (scm_list_4 (ly_symbol2scm ("setcolor"), r, g, b));
+            }
           interpret_stencil_expression (scm_caddr (expr), sink, o);
           sink->output (scm_list_1 (ly_symbol2scm ("resetcolor")));
 

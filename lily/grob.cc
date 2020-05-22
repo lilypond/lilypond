@@ -183,7 +183,7 @@ Grob::get_print_stencil () const
 
       /* color support... see interpret_stencil_expression () for more... */
       SCM color = get_property (this, "color");
-      if (scm_is_pair (color))
+      if (scm_is_pair (color) || scm_is_string (color))
         {
           SCM expr = scm_list_3 (ly_symbol2scm ("color"),
                                  color,

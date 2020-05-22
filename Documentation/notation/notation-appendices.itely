@@ -858,20 +858,79 @@ darkcyan    darkmagenta    darkyellow
 @end example
 
 
+@subsubheading CSS color names
+
+CSS color names may be used as-is in string arguments.
+
+@example
+aliceblue       darkturquoise        lightsalmon        papayawhip
+antiquewhite    darkviolet           lightseagreen      peachpuff
+aqua            deeppink             lightskyblue       peru
+aquamarine      deepskyblue          lightslategray     pink
+azure           dimgray              lightslategrey     plum
+beige           dimgrey              lightsteelblue     powderblue
+bisque          dodgerblue           lightyellow        purple
+black           firebrick            lime               rebeccapurple
+blanchedalmond  floralwhite          limegreen          red
+blue            forestgreen          linen              rosybrown
+blueviolet      fuchsia              magenta            royalblue
+brown           gainsboro            maroon             saddlebrown
+burlywood       ghostwhite           mediumaquamarine   salmon
+cadetblue       gold                 mediumblue         sandybrown
+chartreuse      goldenrod            mediumorchid       seagreen
+chocolate       gray                 mediumpurple       seashell
+coral           green                mediumseagreen     sienna
+cornflowerblue  greenyellow          mediumslateblue    silver
+cornsilk        grey                 mediumspringgreen  skyblue
+crimson         honeydew             mediumturquoise    slateblue
+cyan            hotpink              mediumvioletred    slategray
+darkblue        indianred            midnightblue       slategrey
+darkcyan        indigo               mintcream          snow
+darkgoldenrod   ivory                mistyrose          springgreen
+darkgray        khaki                moccasin           steelblue
+darkgreen       lavender             navajowhite        tan
+darkgrey        lavenderblush        navy               teal
+darkkhaki       lawngreen            oldlace            thistle
+darkmagenta     lemonchiffon         olive              tomato
+darkolivegreen  lightblue            olivedrab          turquoise
+darkorange      lightcoral           orange             violet
+darkorchid      lightcyan            orangered          wheat
+darkred         lightgoldenrodyellow orchid             white
+darksalmon      lightgray            palegoldenrod      whitesmoke
+darkseagreen    lightgreen           palegreen          yellow
+darkslateblue   lightgrey            paleturquoise      yellowgreen
+darkslategray   lightpink            palevioletred
+darkslategrey
+@end example
+
+CSS color definitions differ from X color names for the following
+colors: @code{green}, @code{grey}, @code{maroon}, @code{purple}.
+
 @subsubheading X color names
 
-X color names come several variants:
+@uref{https://en.wikipedia.org/wiki/X11_color_names, X11 color names}
+offer a wider choice than CSS names.  They come in several variants:
 
+@itemize @bullet
+@item
 Any name that is spelled as a single word with capitalization
-(e.g., @q{LightSlateBlue}) can also be spelled as space separated
-words without capitalization (e.g., @q{light slate blue}).
+(e.g., @q{LightSlateBlue}) can also be spelled as space-separated
+words with or without capitalization (e.g., @q{light slate blue}).
 
-The word @q{grey} can always be spelled @q{gray} (e.g., @q{DarkSlateGray}).
+@item
+The word @q{grey} can always be spelled @q{gray} (e.g.,
+@q{DarkSlateGray}), without any difference in the output.
 
+@item
 Some names can take a numerical suffix (e.g., @q{LightSalmon4}).
+@end itemize
+
+The following tables present all color names that may be used
+without a numerical suffix, and then the subset of these that
+may be used with such a suffix.
 
 
-@subsubheading Color Names without a numerical suffix:
+@subsubheading Color Names without a numerical suffix
 
 @example
 AliceBlue       LawnGreen             OrangeRed      firebrick
@@ -913,7 +972,8 @@ LavenderBlush   OliveDrab             cyan           yellow
 
 @subsubheading Color names with a numerical suffix
 
-In the following names the suffix N can be a number in the range 1-4:
+In the following names the suffix N must be an integer between 1
+and@tie{}4, from lighter to darker shades:
 
 @example
 AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN

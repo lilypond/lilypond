@@ -63,6 +63,25 @@ which scares away people.
 
 
 @item
+CSS-style colors can now be used directly as text strings;
+either with predefined color names (like with the already available
+@code{css-color} function), or with hexadecimal color codes
+prefixed with @code{#}.  All stencils that support a
+@code{color} property now accept either a list or a string;
+in the latter case, that string is used directly in the
+SVG output.  This allows to use alpha transparency
+(entered as "#RRGGBBAA" or "#RGBA") in SVG.
+
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
+
+
+@item
 SVG output is now available through the @code{--svg} command-line
 option (or its canonical form @code{--format=svg}, also shortened
 as @code{-fsvg}).  Due to its backend’s specificity, that option

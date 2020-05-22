@@ -3304,7 +3304,7 @@ Draw @var{arg} in color specified by @var{color}.
   \\with-color #green
   green
   \\hspace #2
-  \\with-color #blue
+  \\with-color \"#0000ff\"
   blue
 }
 @end lilypond"

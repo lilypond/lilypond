@@ -205,9 +205,13 @@
                 (list width height x y blotdiam))))
 
 ;; save current color on stack and set new color
-(define (setcolor r g b)
+(define* (setcolor r #:optional (g #f) (b #f) (a #f))
+  ;; TODO: figure out a way to support alpha transparency
+  ;; using /SetTransparency pdfmark
   (ly:format "gsave ~4l setrgbcolor\n"
-             (list r g b)))
+             (if (string? r)
+                 (list-head (css->colorlist r) 3)
+                 (list r g b))))
 
 ;; restore color from stack
 (define (resetcolor) "grestore\n")

@@ -1,9 +1,13 @@
-\version "2.19.21"
+\version "2.21.2"
 
 \header{
   texidoc = "Each grob can have a color assigned to it.
 Use the @code{\\override} and @code{\\revert} expressions to set the
-@code{color} property."
+@code{color} property.
+
+Colors may include an alpha channel, but that is only apparent in
+SVG output.
+"
 }
 
 \paper { ragged-right = ##t }
@@ -23,4 +27,12 @@ Use the @code{\\override} and @code{\\revert} expressions to set the
   \override Stem.color = #blue
   \override Flag.color = #magenta
   e8 es d dis e4 r
+}
+
+\layout {
+  \context {
+    \Staff
+    %% Alpha transparency is enabled in SVG output.
+    \override Clef.color = #(rgb-color 0 0 0 0.5)
+  }
 }

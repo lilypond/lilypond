@@ -262,9 +262,9 @@ color of the note head:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a b c |
 }
 @end lilypond
@@ -299,9 +299,9 @@ of the note head to the default value for the final two notes:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a
   \revert NoteHead.color
   b4 c |
@@ -328,9 +328,9 @@ note like this:
 @lilypond[quote,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \once \override NoteHead.color = #green
+  \once \override NoteHead.color = "green"
   g4 a
   \once \revert NoteHead.color
   b c |
@@ -441,8 +441,8 @@ a series of articulations, as shown here:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 a'4^"Black"
-  -\tweak color #red ^"Red"
-  -\tweak color #green _"Green"
+  -\tweak color "red" ^"Red"
+  -\tweak color "green" _"Green"
 @end lilypond
 
 @noindent
@@ -461,8 +461,8 @@ the layout object, provided that LilyPond can trace its origin back to
 the original event:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-<\tweak Accidental.color #red   cis''4
- \tweak Accidental.color #green es''
+<\tweak Accidental.color "red"   cis''4
+ \tweak Accidental.color "green" es''
  g''>
 @end lilypond
 
@@ -500,7 +500,7 @@ printed in red on the first short tuplet bracket.
 \relative c'' {
   \tweak direction #up
   \tuplet 3/4 {
-    \tweak color #red
+    \tweak color "red"
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
@@ -548,7 +548,7 @@ have defined a function to do this:
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -566,7 +566,7 @@ be used to do this, see
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -1332,17 +1332,19 @@ explanation of what that list should be.  The list it
 requires is actually a list of values in internal units,
 but, to avoid having to know what these are, several ways
 are provided to specify colors.  The first way is to use one
-of the @q{normal} colors listed in the first table in
+of the predefined @q{CSS} colors listed in
 @ruser{List of colors}.  To set the bar lines to white
 we write:
 
 @cindex BarLine, example of overriding
 @cindex color property, example
+@cindex color, css
+@cindex css colors
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #white
+  \override Staff.BarLine.color = "white"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1352,23 +1354,11 @@ we write:
 @noindent
 and again, we see the bar lines are not visible.  Note that
 @emph{white} is not preceded by an apostrophe -- it is not
-a symbol, but a @emph{variable}.  When evaluated, it provides
-the list of internal values required to set the color to
-white.  The other colors in the normal list are variables
-too.  To convince yourself this is working you might like
-to change the color to one of the other variables in the
-list.
-
-@cindex color, X11
-@cindex X11 colors
-
-@funindex x11-color
-
-The second way of changing the color is to use the list of
-X11 color names in the second list in @ruser{List of colors}.
-However, these are mapped to the actual values by the function
-@code{x11-color} which
-converts X11 color symbols into the list of internal values like this:
+a symbol, but a character string, mapped to a predefined list
+of internal values.  In that regard, LilyPond’s syntax mimics the
+@uref{https://www.w3.org/Style/CSS/, CSS language}
+commonly used in webpages; in addition to predefined names,
+we can specify a hexadecimal color code:
 
 @cindex BarLine, example of overriding
 @cindex color property, example
@@ -1376,26 +1366,45 @@ converts X11 color symbols into the list of internal values like this:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #(x11-color 'white)
+  \override Staff.BarLine.color = "#FFFFFF"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
+
 @end lilypond
 
 @noindent
-Note that in this case the function @code{x11-color} takes
-a symbol as an argument, so the symbol must be preceded by
-an apostrophe to keep it from being evaluated as a variable, and
-the whole function call has to be enclosed in parentheses.
+We could even define that color as a variable, and
+then use that variable as a property definition.
+Since it is both a LilyPond variable and a Scheme
+object, it can be prefixed with a backslash
+or with a hash character without any difference:
 
-@cindex rgb colors
+@lilypond[quote,ragged-right,verbatim]
+whiteVar = "#FFFFFF"
+
+\relative {
+  \time 12/16
+  \override Staff.BarLine.color = \whiteVar
+  c''4 b8 c d16 c d8 |
+  \override Staff.BarLine.color = #whiteVar
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+
+@end lilypond
+
 @cindex color, rgb
+@cindex rgb colors
 
 @funindex rgb-color
 
-There is another function, one which converts RGB values into
-internal colors -- the @code{rgb-color} function.  This takes
+Another way of adding colors to your score is by using a function.
+There are two useful functions in this regard; one is the
+@code{x11-color} function, which we’ll get to use shortly.
+The other one, the @code{rgb-color} function, closely
+demonstrates LilyPond’s internal logic:  it takes
 three arguments giving the intensities of the red, green and
 blue colors.  These take values in the range 0 to 1.  So to
 set the color to red the value should be @code{(rgb-color 1 0 0)}
@@ -1414,9 +1423,22 @@ and to white it should be @code{(rgb-color 1 1 1)}:
 }
 @end lilypond
 
-Finally, there is also a grey scale available as part of the
-X11 set of colors.  These range from black, @code{'grey0},
-to white, @code{'grey100}, in steps of 1.  Let's illustrate
+@noindent
+Note that in this case the whole function call has to be
+enclosed in parentheses.  The same can be said of the
+@code{x11-color} function which we just skipped over.
+
+@cindex color, X11
+@cindex X11 colors
+
+@funindex x11-color
+
+@code{x11-color}, again, maps predefined color names
+to internal values -- but offers many more choices
+than CSS names, as you can see in @ruser{List of colors}).
+For example, the X11 set of colors includes an extensive
+grey scale, whose names range from black, @code{'grey0},
+to white, @code{'grey100}, in steps of@tie{}1.  Let's illustrate
 this by setting all the layout objects in our example to
 various shades of grey:
 
