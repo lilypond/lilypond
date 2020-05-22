@@ -844,18 +844,21 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
   if (!s)
     return Skyline_pair ().smobbed_copy ();
 
-  Transform transform = Transform::identity;
+  Stencil maybe_rotated (*s);
   if (scm_is_pair (rot))
     {
       Real angle = from_scm<double> (scm_car (rot), 0.0);
+      // `rot` is the Grob 'rotation property, so these are relative to
+      // the Stencil extent.
       Real x = from_scm<double> (scm_cadr (rot), 0.0);
       Real y = from_scm<double> (scm_caddr (rot), 0.0);
 
-      transform.rotate (angle, Offset (x, y));
+      maybe_rotated.rotate_degrees (angle, Offset (x, y));
     }
 
   Lazy_skyline_pair lazy (a);
-  interpret_stencil_for_skyline (&lazy, transform, s->expr ());
+  interpret_stencil_for_skyline (&lazy, Transform::identity,
+                                 maybe_rotated.expr ());
 
   Skyline_pair out;
   for (DOWN_and_UP (d))
