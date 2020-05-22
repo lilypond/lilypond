@@ -90,7 +90,13 @@ Repeated_music::unfolded_music_length (SCM m)
 {
   Music *me = unsmob<Music> (m);
 
-  Moment l = Moment (repeat_count (me)) * body_get_length (me) + alternatives_get_length (me, false);
+  // TODO: This smells fishy.  Is the result supposed to include any grace
+  // time?  If not, we should discard grace time from the alternatives as from
+  // the body.  If so, it seems improper to sum the grace time; shouldn't we
+  // report 1x the body grace time (for just the first pass) as the grace time
+  // of the unfolded music?
+  Moment l = (Moment (repeat_count (me)) * body_get_length (me).main_part_)
+    + alternatives_get_length (me, false);
   return l.smobbed_copy ();
 }
 

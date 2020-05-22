@@ -238,7 +238,7 @@ Page_turn_engraver::stop_translation_timestep ()
         end = true;
     }
 
-  if (end && repeat_begin_.main_part_ >= Moment (0))
+  if (end && (repeat_begin_.main_part_ >= 0))
     {
       Rational now = now_mom ().main_part_;
       Real pen = penalty ((now_mom () - rest_begin_).main_part_ + repeat_begin_rest_length_);

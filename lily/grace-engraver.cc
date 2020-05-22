@@ -45,7 +45,7 @@ Grace_engraver::Grace_engraver (Context *c)
   : Engraver (c)
 {
   grace_settings_ = SCM_EOL;
-  last_moment_ = Moment (Rational (-1, 1));
+  last_moment_ = -1;
 }
 
 // The iterator should usually come before process_music
@@ -69,7 +69,7 @@ void
 Grace_engraver::start_translation_timestep ()
 {
   // Only on startup
-  if (last_moment_ == Rational (-1))
+  if (last_moment_ == -1)
     consider_change_grace_settings ();
 }
 
@@ -133,7 +133,7 @@ Grace_engraver::consider_change_grace_settings ()
                                + ly_symbol2string (context_name));
         }
     }
-  if (last_moment_ == Rational (-1))
+  if (last_moment_ == -1)
     {
       Dispatcher *d = context ()->event_source ();
       d->add_listener (GET_LISTENER (this, grace_change), ly_symbol2scm ("GraceChange"));
@@ -144,7 +144,7 @@ Grace_engraver::consider_change_grace_settings ()
 void
 Grace_engraver::finalize ()
 {
-  if (last_moment_ != Rational (-1))
+  if (last_moment_ != -1)
     {
       Dispatcher *d = context ()->event_source ();
       d->remove_listener (GET_LISTENER (this, grace_change), ly_symbol2scm ("GraceChange"));

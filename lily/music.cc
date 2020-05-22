@@ -318,10 +318,7 @@ Music::duration_length_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
   Duration *d = unsmob<Duration> (get_property (me, "duration"));
-
-  Moment mom;
-  if (d)
-    mom = d->get_length ();
+  Moment mom (d ? d->get_length () : 0);
   return mom.smobbed_copy ();
 }
 

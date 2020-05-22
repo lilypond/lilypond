@@ -91,7 +91,7 @@ Default_bar_line_engraver::start_translation_timestep ()
     {
       SCM always = get_property (this, "barAlways");
 
-      if ((start_of_measure && last_moment_.main_part_ >= Moment (0))
+      if ((start_of_measure && last_moment_.main_part_ >= 0)
           || to_boolean (always))
         {
           /* should this work, or be junked?  See input/bugs/no-bars.ly */

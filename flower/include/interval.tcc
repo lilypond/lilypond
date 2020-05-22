@@ -96,31 +96,6 @@ Interval_t<T>::unite (Interval_t<T> h)
   at (RIGHT) = std::max (h.at (RIGHT), at (RIGHT));
 }
 
-/* Unites h and this interval, but in such a way
-   that h will lie in a particular direction from this
-   interval, with a minimum amount of space in between.
-   (That is, h will be translated before we unite, if
-   that is necessary to prevent overlap. */
-template<class T>
-void
-Interval_t<T>::unite_disjoint (Interval_t<T> h, T padding, Direction d)
-{
-  T dir = d;
-  T translation = dir * (at (d) + dir * padding - h.at (-d));
-  if (translation > (T) 0)
-    h.translate (translation);
-  unite (h);
-}
-
-template<class T>
-Interval_t<T>
-Interval_t<T>::union_disjoint (Interval_t<T> h, T padding, Direction d) const
-{
-  Interval_t<T> iv = *this;
-  iv.unite_disjoint (h, padding, d);
-  return iv;
-}
-
 template<class T>
 void
 Interval_t<T>::intersect (Interval_t<T> h)

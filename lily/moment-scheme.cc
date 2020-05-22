@@ -102,11 +102,11 @@ LY_DEFINE (ly_moment_mul, "ly:moment-mul",
            "Multiply two moments.")
 {
   LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2);
+  LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
   Moment *ma = unsmob<Moment> (a);
   Moment *mb = unsmob<Moment> (b);
-  return (*ma * * mb).smobbed_copy ();
+  return (*ma * mb->main_part_).smobbed_copy ();
 }
 
 LY_DEFINE (ly_moment_div, "ly:moment-div",
@@ -114,12 +114,12 @@ LY_DEFINE (ly_moment_div, "ly:moment-div",
            "Divide two moments.")
 {
   LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2);
+  LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
   Moment *ma = unsmob<Moment> (a);
   Moment *mb = unsmob<Moment> (b);
 
-  return (*ma / * mb).smobbed_copy ();
+  return (*ma / mb->main_part_).smobbed_copy ();
 }
 
 LY_DEFINE (ly_moment_mod, "ly:moment-mod",
@@ -127,11 +127,11 @@ LY_DEFINE (ly_moment_mod, "ly:moment-mod",
            "Modulo of two moments.")
 {
   LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2);
+  LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
   Moment *ma = unsmob<Moment> (a);
   Moment *mb = unsmob<Moment> (b);
-  return (*ma % * mb).smobbed_copy ();
+  return (*ma % mb->main_part_).smobbed_copy ();
 }
 
 LY_DEFINE (ly_moment_grace, "ly:moment-grace",

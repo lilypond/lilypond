@@ -140,7 +140,7 @@ Duration::to_string () const
 
   if (dots_ > 0)
     s += string (dots_, '.');
-  if (factor_ != Moment (Rational (1, 1)))
+  if (factor_ != 1)
     s += "*" + factor_.to_string ();
   return s;
 }

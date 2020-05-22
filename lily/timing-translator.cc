@@ -31,7 +31,7 @@ Timing_translator::stop_translation_timestep ()
   if (to_boolean (get_property (this, "timing"))
       && !to_boolean (get_property (this, "skipBars")))
     {
-      Moment barleft = (measure_length () - measure_position (context ()));
+      auto barleft = Moment (measure_length ()) - measure_position (context ());
       Moment now = now_mom ();
 
       if (barleft > Moment (0))

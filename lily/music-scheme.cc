@@ -225,7 +225,7 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
   Moment len;
 
   if (d)
-    len = d->get_length ();
+    len = Moment (d->get_length ());
   else
     programming_error ("music has no duration");
   return len.smobbed_copy ();

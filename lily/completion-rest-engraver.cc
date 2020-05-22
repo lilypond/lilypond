@@ -123,8 +123,9 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
           /*
             within a unit - go to the end of that
           */
-          result = unit->main_part_
+          auto r = unit->main_part_
                    * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
+          result = Moment (r);
         }
       else
         {
@@ -199,7 +200,7 @@ Completion_rest_engraver::process_music ()
       left_to_do_ = orig->get_length ();
     }
   Moment nb = next_moment (rest_dur.get_length ());
-  if (nb.main_part_ && nb < rest_dur.get_length ())
+  if (nb.main_part_ && nb < Moment (rest_dur.get_length ()))
     {
       rest_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
     }
@@ -228,7 +229,11 @@ Completion_rest_engraver::process_music ()
 
   left_to_do_ -= rest_dur.get_length ();
   if (left_to_do_)
-    find_global_context ()->add_moment_to_process (now.main_part_ + rest_dur.get_length ());
+    {
+      find_global_context ()
+      ->add_moment_to_process (Moment (now.main_part_
+                                       + rest_dur.get_length ()));
+    }
   /*
     don't do complicated arithmetic with grace rests.
   */

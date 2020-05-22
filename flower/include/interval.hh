@@ -82,8 +82,30 @@ struct Interval_t : public Drul_array<T>
   void set_empty ();
   void set_full ();
 
-  void unite_disjoint (Interval_t<T> h, T padding, Direction d);
-  Interval_t<T> union_disjoint (Interval_t<T> h, T padding, Direction d) const;
+  /* Unites h and this interval, but in such a way
+   that h will lie in a particular direction from this
+   interval, with a minimum amount of space in between.
+   (That is, h will be translated before we unite, if
+   that is necessary to prevent overlap. */
+  template<class Padding>
+  void
+  unite_disjoint (Interval_t h, Padding padding, Direction d)
+  {
+    T dir = d;
+    T translation = dir * (at (d) + dir * padding - h.at (-d));
+    if (translation > T (0))
+      h.translate (translation);
+    unite (h);
+  }
+
+  template <class Padding>
+  Interval_t
+  union_disjoint (Interval_t h, Padding padding, Direction d) const
+  {
+    Interval_t iv = *this;
+    iv.unite_disjoint (h, padding, d);
+    return iv;
+  }
 
   bool is_empty () const
   {
@@ -113,7 +135,9 @@ struct Interval_t : public Drul_array<T>
     at (RIGHT) += r;
     return *this;
   }
-  Interval_t<T> &operator *= (T r)
+
+  template <class Factor>
+  Interval_t<T> &operator *= (Factor r)
   {
     if (!is_empty ())
       {
@@ -231,7 +255,7 @@ inline T
 Interval_t<T>::center () const
 {
   assert (!is_empty ());
-  return (at (LEFT) + at (RIGHT)) / T (2);
+  return (at (LEFT) + at (RIGHT)) / 2;
 }
 
 typedef Interval_t<Real> Interval;

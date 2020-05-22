@@ -101,7 +101,7 @@ void
 Tuplet_iterator::process (Moment m)
 {
   if (spanner_duration_.to_bool ()
-      && m.main_part_ == next_split_mom_)
+      && Moment (m.main_part_) == next_split_mom_)
     {
       descend_to_bottom_context ();
       if (tuplet_handler_.get_context ())
@@ -129,10 +129,10 @@ void
 Tuplet_iterator::construct_children ()
 {
   if (Duration *d = unsmob<Duration> (get_property (get_music (), "duration")))
-    spanner_duration_ = d->get_length ();
+    spanner_duration_ = Moment (d->get_length ());
   else if (Moment * mp
            = unsmob<Moment> (get_property (get_outlet (), "tupletSpannerDuration")))
-    spanner_duration_ = mp->main_part_;
+    spanner_duration_ = Moment (mp->main_part_); // discard grace part
   else
     spanner_duration_.set_infinite (1);
 

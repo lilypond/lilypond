@@ -411,7 +411,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
     return;
 
   Duration *stem_duration = unsmob<Duration> (get_property (ev, "duration"));
-  Moment dur = stem_duration->get_length ();
+  Moment dur (stem_duration->get_length ());
 
   //Moment dur = unsmob<Duration> (get_property (ev, "duration"))->get_length ();
   Moment measure_now = measure_position (context ());

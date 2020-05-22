@@ -83,42 +83,44 @@ Moment::compare (Moment const &a, Moment const &b)
   return Rational::compare (a.grace_part_, b.grace_part_);
 }
 
-void
+Moment &
 Moment::operator += (Moment const &src)
 {
   main_part_ += src.main_part_;
   grace_part_ += src.grace_part_;
+  return *this;
 }
 
-void
+Moment &
 Moment::operator -= (Moment const &src)
 {
   main_part_ -= src.main_part_;
   grace_part_ -= src.grace_part_;
+  return *this;
 }
 
-/* Only take the main part of SRC for multiplication.  */
-void
-Moment::operator *= (Moment const &src)
+Moment &
+Moment::operator *= (Rational const &r)
 {
-  main_part_ *= src.main_part_;
-  grace_part_ *= src.main_part_;
+  main_part_ *= r;
+  grace_part_ *= r;
+  return *this;
 }
 
-/* Only take the main part of SRC for division.  */
-void
-Moment::operator /= (Moment const &src)
+Moment &
+Moment::operator /= (Rational const &r)
 {
-  main_part_ /= src.main_part_;
-  grace_part_ /= src.main_part_;
+  main_part_ /= r;
+  grace_part_ /= r;
+  return *this;
 }
 
-/* Only take the main part of SRC for division.  */
-void
-Moment::operator %= (Moment const &src)
+Moment &
+Moment::operator %= (Rational const &r)
 {
-  main_part_ %= src.main_part_;
-  grace_part_ %= src.main_part_;
+  main_part_ %= r;
+  grace_part_ %= r;
+  return *this;
 }
 
 I64
