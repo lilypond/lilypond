@@ -204,6 +204,13 @@ make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
   expr = scm_cdr (expr);
   Real diameter = from_scm<double> (scm_car (expr), 0.0);
 
+  Interval x (-left, right);
+  Interval y (-bottom, top);
+  if (x.is_empty () || y.is_empty ())
+    {
+      return;
+    }
+
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
   bool rounded = (diameter * std::max (x_scale, y_scale) > 0.5);
