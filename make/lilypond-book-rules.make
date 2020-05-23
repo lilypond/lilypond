@@ -4,15 +4,15 @@
 
 $(outdir)/%.html:  %.html
 	$(call ly_progress,Making,$@,< html)
-	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
 $(outdir)/%.html:  %.htmly
 	$(call ly_progress,Making,$@,< htmly)
-	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
 $(outdir)/%.html:  %.xml
 	$(call ly_progress,Making,$@,< xml)
-	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
 
 ############## LaTeX ########################
@@ -23,11 +23,11 @@ $(outdir)/%.tex:  %.lytex
 
 $(outdir)/%.tex:  %.tex
 	$(call ly_progress,Making,$@,< tex)
-	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) --pdf -o $(dir $@) $<
 
 $(outdir)/%.tex:  %.latex
 	$(call ly_progress,Making,$@,< latex)
-	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) --pdf -o $(dir $@) $<
 
 # Add the tex => pdf rule only if we have pdflatex
 ifeq (,$(findstring pdflatex,$(MISSING_OPTIONAL)))
@@ -65,26 +65,26 @@ endif
 
 $(outdir)/%.texi:  %.texi
 	$(call ly_progress,Making,$@,< texi)
-	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
 $(outdir)/%.texi:  %.itexi
 	$(call ly_progress,Making,$@,< itexi)
-	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
 $(outdir)/%.texi:  %.texinfo
 	$(call ly_progress,Making,$@,< texinfo)
-	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
 $(outdir)/%.texi:  %.tely
 	$(call ly_progress,Making,$@,< tely)
-	$(LILYPOND_BOOK_COMMAND) -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) -o $(dir $@) $<
 
 
 ############## DocBook ######################
 
 $(outdir)/%.xml:  %.lyxml
 	$(call ly_progress,Making,$@,< lyxml)
-	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<
+	$(LILYPOND_BOOK_COMMAND) --pdf -o $(dir $@) $<
 
 # Add the xml => pdf rule only if we have dblatex
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
