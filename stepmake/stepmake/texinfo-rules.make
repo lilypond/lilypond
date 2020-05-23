@@ -93,7 +93,7 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.ite
 					-o $*.tmp.pdf \
 					$(<F) \
 					< /dev/null" \
-			"$*.texi2pdf.log"
+			"$(outdir)/$*.texi2pdf.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
 	$(GS920) -dBATCH \
