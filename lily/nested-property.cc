@@ -51,7 +51,7 @@ assv_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 SCM
 assoc_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 {
-  if (SCM_IMP (key))
+  if (SCM_IMP (key) || scm_is_symbol (key))
     return assq_tail (key, alist, based_on);
   if (scm_is_number (key) || scm_is_true (scm_char_p (key)))
     return assv_tail (key, alist, based_on);

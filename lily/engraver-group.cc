@@ -122,7 +122,7 @@ Engraver_group::acknowledge_grobs ()
       Announce_grob_info info = announce_infos_[j];
 
       SCM meta = get_property (info.grob (), "meta");
-      SCM nm = scm_assoc (name_sym, meta);
+      SCM nm = ly_assoc (name_sym, meta);
       if (scm_is_pair (nm))
         nm = scm_cdr (nm);
       else
@@ -135,8 +135,7 @@ Engraver_group::acknowledge_grobs ()
 
       if (scm_is_false (acklist))
         {
-          SCM ifaces
-            = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
+          SCM ifaces = scm_cdr (ly_assoc (ly_symbol2scm ("interfaces"), meta));
           acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
                                                     ifaces, info.start_end ());
 

@@ -107,8 +107,8 @@ Key_signature_interface::print (SCM smob)
           */
           Real padding = robust_scm2double (get_property (me, "padding"),
                                             0.0);
-          SCM handle = scm_assoc (scm_cons (glyph_name_scm, last_glyph_name),
-                                  padding_pairs);
+          SCM handle = ly_assoc (scm_cons (glyph_name_scm, last_glyph_name),
+                                 padding_pairs);
           if (scm_is_pair (handle))
             padding = robust_scm2double (scm_cdr (handle), 0.0);
           else if (glyph_name == "accidentals.natural")

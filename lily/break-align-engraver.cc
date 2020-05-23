@@ -134,7 +134,7 @@ Break_align_engraver::create_alignment (Grob_info inf)
 void
 Break_align_engraver::add_to_group (SCM align_name, Item *item)
 {
-  SCM s = scm_assoc (align_name, column_alist_);
+  SCM s = ly_assoc (align_name, column_alist_);
   Item *group = 0;
 
   if (scm_is_true (s))

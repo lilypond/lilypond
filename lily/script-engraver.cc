@@ -94,7 +94,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
 {
   if (scm_is_null (get_property (g, sym)))
     {
-      SCM entry = scm_assoc (sym, alist);
+      SCM entry = ly_assoc (sym, alist);
       if (scm_is_pair (entry))
         set_property (g, sym, scm_cdr (entry));
     }
@@ -108,7 +108,7 @@ void
 make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 {
   SCM alist = get_property (tg, "scriptDefinitions");
-  SCM art = scm_assoc (art_type, alist);
+  SCM art = ly_assoc (art_type, alist);
 
   if (scm_is_false (art))
     {

@@ -70,7 +70,7 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 
   SCM font_table = get_font_table (mod);
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_EOL);
-  SCM handle = scm_assoc (scm_from_double (lookup_mag), sizes);
+  SCM handle = ly_assoc (scm_from_double (lookup_mag), sizes);
   if (scm_is_pair (handle))
     return unsmob<Font_metric> (scm_cdr (handle));
 
@@ -91,7 +91,7 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
   SCM table = get_pango_font_table (layout);
   SCM sizes = scm_hash_ref (table, descr, SCM_EOL);
   SCM size_key = scm_from_double (factor);
-  SCM handle = scm_assoc (size_key, sizes);
+  SCM handle = ly_assoc (size_key, sizes);
   if (scm_is_pair (handle))
     return unsmob<Font_metric> (scm_cdr (handle));
 
@@ -125,4 +125,3 @@ scale_output_def (Output_def *o, Real amount)
   o->protect ();
   return o;
 }
-

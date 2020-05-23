@@ -78,8 +78,7 @@ Key_performer::process_music ()
       /* MIDI keys are too limited for lilypond scales.
          We check for minor scale and assume major otherwise.  */
 
-      SCM third = scm_assoc (scm_from_int (2),
-                             c_pitchlist);
+      SCM third = ly_assoc (scm_from_int (2), c_pitchlist);
       bool minor = (scm_is_pair (third)
                     && scm_is_number (scm_cdr (third))
                     && ly_scm2rational (scm_cdr (third)) == FLAT_ALTERATION);

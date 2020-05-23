@@ -89,7 +89,7 @@ Key_engraver::create_key (bool is_default)
           SCM restore = SCM_EOL;
           for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
             {
-              SCM new_alter_pair = scm_assoc (scm_caar (s), key);
+              SCM new_alter_pair = ly_assoc (scm_caar (s), key);
               Rational old_alter = robust_scm2rational (scm_cdar (s), 0);
               if (scm_is_false (new_alter_pair)
                   || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter) * old_alter

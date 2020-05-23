@@ -130,7 +130,7 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 {
   LY_ASSERT_TYPE (ly_cheap_is_list, alist, 2);
 
-  SCM handle = scm_assoc (key, alist);
+  SCM handle = ly_assoc (key, alist);
   if (scm_is_pair (handle))
     return scm_cdr (handle);
 
@@ -360,7 +360,8 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 {
   if (scm_is_pair (achain))
     {
-      SCM handle = scm_assoc (key, scm_car (achain));
+      SCM handle = scm_is_symbol (key) ? scm_assq (key, scm_car (achain))
+                                       : ly_assoc (key, scm_car (achain));
       if (scm_is_pair (handle))
         return scm_cdr (handle);
       else

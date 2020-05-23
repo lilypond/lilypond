@@ -65,6 +65,12 @@ SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
 SCM ly_chain_assoc_get (SCM key, SCM achain, SCM default_value, SCM strict_checking = SCM_BOOL_F);
+
+inline SCM ly_assoc (SCM key, SCM alist)
+{
+  return (scm_is_symbol (key) || SCM_IMP (key)) ? scm_assq (key, alist) : scm_assoc (key, alist);
+}
+
 SCM ly_assoc_get (SCM key, SCM alist, SCM default_value, SCM strict_checking = SCM_BOOL_F);
 Interval ly_scm2interval (SCM);
 Drul_array<Real> ly_scm2realdrul (SCM);

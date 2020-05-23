@@ -110,7 +110,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
 
   int bn = measure_number (context ());
 
-  SCM handle = scm_assoc (key, keysig);
+  SCM handle = ly_assoc (key, keysig);
   if (scm_is_true (handle))
     {
       bool same_bar = (bn == robust_scm2int (scm_caddr (handle), 0));

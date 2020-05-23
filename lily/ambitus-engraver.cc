@@ -193,13 +193,13 @@ Ambitus_engraver::finalize ()
           set_property (heads_[d], "staff-position",
                                    scm_from_int (start_c0_ + pos));
 
-          SCM handle = scm_assoc (scm_cons (scm_from_int (p.get_octave ()),
-                                            scm_from_int (p.get_notename ())),
-                                  start_key_sig_);
+          SCM handle = ly_assoc (scm_cons (scm_from_int (p.get_octave ()),
+                                           scm_from_int (p.get_notename ())),
+                                 start_key_sig_);
 
           if (scm_is_false (handle))
-            handle = scm_assoc (scm_from_int (p.get_notename ()),
-                                start_key_sig_);
+            handle
+              = ly_assoc (scm_from_int (p.get_notename ()), start_key_sig_);
 
           Rational sig_alter = (scm_is_true (handle))
                                ? robust_scm2rational (scm_cdr (handle), Rational (0))
