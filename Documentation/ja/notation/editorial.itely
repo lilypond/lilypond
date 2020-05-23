@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.21.0"
 
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -48,23 +48,16 @@
 @unnumberedsubsubsec 記譜フォント サイズを選択する
 @translationof Selecting notation font size
 
-@cindex font size (notation) scaling (フォント サイズ (記譜法) の調整)
+@cindex font size (notation), scaling (フォント サイズ (記譜法) の調整)
 @cindex font size (notation) (フォント サイズ (記譜法))
 @cindex selecting font size (notation) (フォント サイズ (記譜法) を選択する)
-@cindex notation font size (記譜フォント サイズ)
-@cindex note heads (符頭)
+@cindex notation, font size (記譜フォント サイズ)
+@cindex note head (符頭)
 
 @funindex fontSize
 @funindex font-size
 @funindex magnification->font-size
 @funindex magstep
-@funindex magnifyMusic
-@funindex teeny
-@funindex tiny
-@funindex small
-@funindex normalsize
-@funindex large
-@funindex huge
 @funindex \magnifyMusic
 @funindex \teeny
 @funindex \tiny
@@ -305,8 +298,8 @@ c''4-3
 @rinternals{font-interface}
 
 @c The two issues mentioned below:
-@c http://code.google.com/p/lilypond/issues/detail?id=3987
-@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@c https://sourceforge.net/p/testlilyissues/issues/3987/
+@c https://sourceforge.net/p/testlilyissues/issues/3990/
 @knownissues
 @code{\magnifyMusic} を使用する際に、水平方向のスペースが不適切になる
 2 つの不具合があります。これを解決する方法が 1 つだけありますが、@c
@@ -349,21 +342,21 @@ c''4-3
 }
 @end lilypond
 
-@cindex thumb-script (サム-スクリプト)
+@cindex thumb script (サム スクリプト)
 
 @funindex \thumb
 
 ある音符を親指で演奏するよう指示するために、@c
-サム-スクリプト (thumb-script) を付け加えることができます
+サム スクリプト (thumb script) を付け加えることができます
 (例えば、チェロ音楽で)。
 
 @lilypond[verbatim,quote]
 \relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
-@cindex fingering chords (和音の運指法)
-@cindex fingering instructions for chords (和音の運指指示)
-@cindex chords, fingering (和音の運指法)
+@cindex fingering chord (和音の運指法)
+@cindex fingering instruction, for chords (和音の運指指示)
+@cindex chord, fingering (和音の運指法)
 
 和音の個々の音符の後に運指を付け加えることによって、@c
 和音に対する運指法を付け加えることができます。
@@ -379,12 +372,21 @@ c''4-3
 
 @snippets
 
+@cindex fingering, orientation (運指の向き)
+@cindex orientation, of fingerings (運指の向き)
+@funindex fingeringOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
+@cindex fingering, inside of staff (譜の内部の運指)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
+@cindex collision, chord fingering (和音内の運指の衝突)
+@cindex chord fingering, collision (和音内の運指の衝突)
+@funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {avoiding-collisions-with-chord-fingerings.ly}
 
@@ -408,12 +410,12 @@ c''4-3
 @unnumberedsubsubsec 隠された音符
 @translationof Hidden notes
 
-@cindex hidden notes (隠された音符)
-@cindex invisible notes (不可視の音符)
-@cindex transparent notes (透明な音符)
-@cindex notes, hidden (隠された音符)
-@cindex notes, invisible (不可視の音符)
-@cindex notes, transparent (透明な音符)
+@cindex hidden note (隠された音符)
+@cindex invisible note (不可視の音符)
+@cindex transparent note (透明な音符)
+@cindex note, hidden (隠された音符)
+@cindex note, invisible (不可視の音符)
+@cindex note, transparent (透明な音符)
 
 @funindex \hideNotes
 @funindex \unHideNotes
@@ -474,16 +476,14 @@ Notation Reference:
 @unnumberedsubsubsec オブジェクトに色を付ける
 @translationof Coloring objects
 
-@cindex colored objects (色付きのオブジェクト)
-@cindex objects, colored (色付きのオブジェクト)
-@cindex colors (色)
-@cindex coloring objects (オブジェクトに色を付ける)
-@cindex colored notes (色付きの音符)
-@cindex coloring notes (音符に色を付ける)
-@cindex notes, colored (色付きの音符)
+@cindex colored object (色付きのオブジェクト)
+@cindex object, colored (色付きのオブジェクト)
+@cindex color (色)
+@cindex coloring object (オブジェクトに色を付ける)
+@cindex colored note (色付きの音符)
+@cindex coloring note (音符に色を付ける)
+@cindex note, colored (色付きの音符)
 @cindex x11 color (X11 カラー)
-@cindex x11-color
-@cindex with-color
 
 @funindex color
 @funindex \with-color
@@ -536,7 +536,6 @@ X11 のために定義された色の全範囲にアクセスすることがで�
 }
 @end lilypond
 
-@cindex rgb-color
 @cindex color, rgb (RGB カラー)
 @cindex rgb color (RGB カラー)
 
@@ -571,9 +570,9 @@ Scheme 関数 @code{rgb-color} を用いることによって、@c
 @rlsr{Editorial annotations}
 
 @cindex x11 color (X11 カラー)
-@cindex colored notes in chords (和音の中にある色付きの音符)
-@cindex notes, colored in chords (和音の中にある色付きの音符)
-@cindex color in chords (和音の中で色を付ける)
+@cindex colored note in chord (和音の中にある色付きの音符)
+@cindex note, colored in chord (和音の中にある色付きの音符)
+@cindex color in chord (和音の中で色を付ける)
 
 @funindex x11-color
 
@@ -597,11 +596,11 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @unnumberedsubsubsec 括弧
 @translationof Parentheses
 
-@cindex ghost notes (ゴースト ノート)
-@cindex notes, ghost (ゴースト ノート)
-@cindex notes, parenthesized (括弧で囲まれた音符)
-@cindex parentheses (括弧)
-@cindex brackets (囲み)
+@cindex ghost note (ゴースト ノート)
+@cindex note, ghost (ゴースト ノート)
+@cindex note, parenthesized (括弧で囲まれた音符)
+@cindex parenthesis (括弧)
+@cindex bracket (囲み)
 
 @funindex \parenthesize
 
@@ -678,9 +677,13 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 
 @snippets
 
+@cindex stem, default direction on center line (中央の線上にある符幹のデフォルトの向き)
+@cindex direction, default, of stem, on center line (中央の線上にある符幹のデフォルトの向き)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+@cindex stem, automatic direction on center line (中央の線上にある自動的な符幹の向き)
+@cindex direction, automatic, of stem, on center line (中央の線上にある自動的な符幹の向き)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
@@ -705,10 +708,115 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 譜の外側から譜の中にある要素を強調するための方法について説明します。
 
 @menu
+* 音符名::
 * バルーン ヘルプ::
 * グリッド ライン::
 * 分析の囲み::
 @end menu
+
+@node 音符名
+@unnumberedsubsubsec 音符名
+@translationof Note names
+
+@cindex note name, printing (音符名の譜刻)
+
+@funindex NoteNames
+@funindex Note_name_engraver
+@funindex noteNameFunction
+@funindex printNotesLanguage
+@funindex printOctaveNames
+@funindex noteNameSeparator
+@funindex printAccidentalNames
+
+音符名は @code{NoteNames} コンテキストを用いて、@c
+テキストとして譜刻できます。通常の譜と同時に用いると、@c
+各音符と同期してその名前を譜の上部または下部に@c
+譜刻することができます。
+
+@lilypond[verbatim,quote]
+\language "italiano"
+melody = \relative do'' {
+  fad2 si,8 dod re mi fad4. re8 fad2
+}
+
+<<
+  \new NoteNames { \melody }
+  \new Staff { \key si \minor \melody }
+  \new NoteNames {
+    \set printNotesLanguage = "deutsch"
+    \set printAccidentalNames = ##f
+    \melody
+  }
+>>
+@end lilypond
+
+デフォルトでは、音符名は音楽の入力で使われるものと同じ言語で@c
+譜刻されます。しかしながら、@code{printNotesLanguage} プロパティで@c
+他の言語を選択することが可能です
+(@ref{Note names in other languages} を参照してください) 。@c
+臨時記号を譜刻するかどうかは、@code{printAccidentalNames} プロパティで@c
+決定されます。
+
+プロパティをシンボルにセットし、@code{printOctaveNames} を @code{##t}
+にセットすることで、音符名を LilyPond の入力構文と密接に似せることが@c
+できます。より一般的な結果が欲しい場合は、@q{科学的な}
+オクターブ名にすることもできます。
+
+@lilypond[verbatim,quote]
+melody = \relative c'' {
+  fis2 b,8 cis d e fis4. d8 fis2
+}
+
+<<
+  \new NoteNames {
+    \set printOctaveNames = ##t
+    \set printAccidentalNames = #'lily
+    \melody
+  }
+  \new Staff { \key b \minor \melody }
+  \new NoteNames {
+    \set printOctaveNames = #'scientific
+    \melody
+  }
+>>
+@end lilypond
+
+@code{noteNameSeparator} プロパティは和音がどのように譜刻されるかを@c
+定義します。その他のフォーマット関数は @code{noteNameFunction} で@c
+定義され、このような関数は、いずれかを無視する場合であっても、
+@code{pitch} と @code{context} 引数を受けなければなりません。
+
+@lilypond[verbatim,quote]
+somechords = \relative c' {
+  <b d fis>2 <b cis e g> <b d fis> q
+}
+
+<<
+  \new NoteNames {
+    \set noteNameSeparator = "+"
+    \somechords
+  }
+  \new Staff { \key b \minor \somechords }
+  \new NoteNames {
+    \set noteNameFunction =
+      #(lambda (pitch ctx)
+         (alteration->text-accidental-markup
+          (ly:pitch-alteration pitch)))
+    \somechords
+  }
+>>
+@end lilypond
+
+@seealso
+
+記譜法リファレンス:
+@ref{Note names in other languages}
+
+内部リファレンス:
+@rinternals{NoteName},
+@rinternals{NoteNames},
+@rinternals{Note_name_engraver}
+
 
 @node バルーン ヘルプ
 @unnumberedsubsubsec バルーン ヘルプ
@@ -722,8 +830,6 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
-@funindex balloonGrobText
-@funindex balloonText
 @funindex \balloonLengthOn
 @funindex \balloonLengthOff
 
@@ -783,10 +889,10 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @unnumberedsubsubsec グリッド ライン
 @translationof Grid lines
 
-@cindex grid lines (グリッド ライン)
-@cindex lines, grid (グリッド ライン)
+@cindex grid line (グリッド ライン)
+@cindex line, grid (グリッド ライン)
 @cindex vertical lines between staves (譜の間の垂直な線)
-@cindex lines, vertical between staves (譜の間の垂直な線)
+@cindex lines, vertical, between staves (譜の間の垂直な線)
 
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver
@@ -831,6 +937,7 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 
 @snippets
 
+@cindex grid lines, changing appearance (グリッド ラインの見た目を変更する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
@@ -851,11 +958,11 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @unnumberedsubsubsec 分析の囲み
 @translationof Analysis brackets
 
-@cindex brackets (囲み、角括弧)
+@cindex bracket (囲み、角括弧)
 @cindex bracket, phrasing (フレーズの囲み)
 @cindex phrasing bracket (フレーズの囲み)
 @cindex musicological analysis (音楽学的分析)
-@cindex analysis, musicological (音楽学的分析)
+@cindex analysis bracket, musicological (音楽学的分析の囲み)
 @cindex note grouping bracket (音符グループ化囲み)
 @cindex horizontal bracket (水平の囲み)
 @cindex bracket, horizontal (水平の囲み)
@@ -902,6 +1009,9 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-above-the-staff.ly}
 
+@cindex analysis bracket, with label (ラベル付きの分析の囲み)
+@cindex bracket, phrasing, with label (ラベル付きのフレーズの囲み)
+@funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-with-labels.ly}
 

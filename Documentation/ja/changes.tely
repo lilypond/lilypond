@@ -1,13 +1,13 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Masamichi Hosoda, Tomohiro Tatejima
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Hiroshi Fukuhara
 
 @setfilename lilypond-changes.info
 @settitle LilyPond 更新履歴
@@ -49,10 +49,11 @@ See user manual, \NAME\
 @finalout
 
 @node Top
-@top 2.18 から 2.20 での新機能
+@top 2.20 から 2.22 での新機能
 
 @allowcodebreaks false
 
+@itemize
 
 @ignore
 
@@ -68,1417 +69,284 @@ which scares away people.
 @end ignore
 
 
-
-@subheading 記譜に関する新機能
-
-
-@strong{ピッチの表示に関する改善}
-
-@itemize
-
 @item
-名前にシャープやフラットを持つピッチは、ハイフンが必要となりました。@c
-
-@example
-\key aflat \major
-@end example
-
-@noindent
-ではなく、以下を使用してください:
-
-@example
-\key a-flat \major
-@end example
-
-
-@noindent
-しかし、@emph{ダブル} シャープやフラットを持つものは、2 つ目のハイフンは必要@c
-ありません。@code{cisis} (オランダ音名) は以下のようになります:
-
-@example
-\key c-sharpsharp \major
-@end example
-
-@item
-臨時記号ルールを @code{ChoirStaff} @emph{全体}に対して定義できるように@c
-なりました。
-
-@item
-臨時記号ルールとして 2 種類が追加されました。どちらも @code{modern-voice} と
-@code{piano} を合わせたようなものです:
-
-@code{choral}
-
+フレンチビーム (@code{\override Stem.french-beaming = ##t}) が、@c
+@emph{正確に}すべての個所 (連桁、アーティキュレーション、運指記号などの配置) で@c
+標準 (つまり、デフォルト) の連桁のように振る舞うようになりました。@c
+残っている違いは、内側の符幹が連桁を通過しないことだけです。
 @lilypond[quote]
-musicA = {
-  <<
-    \relative { cis''8 fis, bes4 <a cis>8 f bis4 | cis2. <c, g'>4 | }
-    \\
-    \relative { ais'2 cis, | fis8 b a4 cis2 | }
-  >>
+testmusic = \relative {
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  c''8[ a16 a_^ e']
+  f32[_5 c_3 a64_> g]_>]
+  a,32[ b^( c a16]
+  e'32[ g) a16 r] |
+  \override Beam.auto-knee-gap = #1
+  a,64[ 64 f''64 64]
+  \tuplet 3/2 { c32[ 32 32] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { d,32[^1 e^2 f^3 g^4 a^5] } s64
 }
-
-musicB = { \clef bass \new Voice { \voiceTwo \relative {
-      <fis a cis>8[ <fis a cis> \change Staff = up
-      cis' cis \change Staff = down
-      <fis, a> <fis a>] \showStaffSwitch \change Staff = up
-      dis'4 | \change Staff = down
-      <fis, a cis>4 gis <f a d>2 |
-    }
-  }
-}
-
-\new ChoirStaff { << \context Staff = "up" {
-  \accidentalStyle choral \musicA }
-  \context Staff = "down" { \musicB } >>
-}
-@end lilypond
-
-@noindent
-これが @code{ChoirStaff} の新しいデフォルトになります。
-
-@code{choral-cautionary}
-
-@lilypond[quote]
-musicA = {
-  <<
-  \relative { cis''8 fis, bes4 <a cis>8 f bis4 |
-  cis2. <c, g'>4 | }
-  \\
-  \relative { ais'2 cis, | fis8 b a4 cis2 | }
-  >>
-}
-
-musicB = { \clef bass \new Voice { \voiceTwo \relative {
-      <fis a cis>8[ <fis a cis> \change Staff = up
-      cis' cis \change Staff = down
-      <fis, a> <fis a>] \showStaffSwitch \change Staff = up
-      dis'4 | \change Staff = down
-      <fis, a cis>4 gis <f a d>2 |
-    }
-  }
-}
-
-\new ChoirStaff { << \context Staff = "up" {
-  \accidentalStyle choral-cautionary \musicA }
-  \context Staff = "down" { \musicB } >>
-}
-@end lilypond
-
-@noindent
-@code{choral} と同じですが、追加の臨時記号が括弧付きで表示されます。
-
-@noindent
-@ruser{Automatic accidentals} も参照してください。
-
-@item
-音部記号のグリフが 4 つ追加されました: @q{GG} (ダブル G), @q{Tenor G}, @q{varC},
-@q{Varpercussion} です。@q{varC} についてはいくつかの音域用のものが@c
-定義されています。
-
-@multitable @columnfractions .30 .2 .30 .2
-
-@headitem
-Example
-@tab
-Output
-@tab
-Example
-@tab
-Output
-
-@item
-@code{\clef GG}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef GG c1
-@end lilypond
-@tab
-@code{\clef tenorG}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef tenorG c1
-@end lilypond
-
-@item
-@code{\clef varC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef varC c1
-@end lilypond
-@tab
-@code{\clef altovarC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef altovarC c1
-@end lilypond
-
-@item
-@code{\clef tenorvarC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef tenorvarC c1
-@end lilypond
-@tab
-@code{\clef baritonevarC}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef baritonevarC c1
-@end lilypond
-
-@item
-@code{\clef varpercussion}
-@tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
-\clef varpercussion c1
-@end lilypond
-
-@end multitable
-
-@noindent
-@ruser{Clef styles} も参照してください。
-
-@item
-フランス語の音名が明示的に定義されました (これまではイタリア語の音名の@c
-エイリアスになっていました)。@var{d} のピッチを @code{re} と @code{ré}
-のどちらでも入力することができます。
-
-@lilypond[fragment,verbatim,quote,ragged-right,relative=1]
-\language "français"
-do ré mi fa | sol la si do | ré1
-@end lilypond
-
-@noindent
-ダブルシャープは @code{x} を付加します。
-
-@lilypond[fragment,verbatim,quote,ragged-right,relative=2]
-\language "français"
-dob, rebb misb fabsb | sold ladd six dosd | rédsd1
-@end lilypond
-
-@end itemize
-
-
-@strong{リズムに関連した改善}
-
-@itemize
-
-@item
-複数小節にまたがる休符は、@code{MultiMeasureRest.space-increment} を基にして、@c
-長さ分の幅を持つようになりました。デフォルト値は @code{2.0} です。
-
-@lilypond[fragment,verbatim,quote]
-\compressEmptyMeasures
-R1*2 R1*4 R1*64 R1*16
-@end lilypond
-
-@lilypond[fragment,verbatim,quote]
-\compressEmptyMeasures
-\override Staff.MultiMeasureRest.space-increment = 2.5
-R1*2 R1*4 R1*64 R1*16
-@end lilypond
-
-@item
-@code{\partial} コマンドを多声の音楽や複数のコンテキストで用いる場合の@c
-動作が改善しました。
-
-@item
-@code{\time} と @code{\partial} コマンドを同時に使用することで、@c
-小節の途中で拍子記号を変更することができるようになりました。
-
-@lilypond[verbatim,quote,relative=1]
-f f f f | f2. \bar "||"
-\time 3/4 \partial 4
-f8 8 | f2 f8 f |
-@end lilypond
-
-@item
-長さだけを入力することで、ピッチを持たない音符を入力できるようになりました。@c
-その場合、前の音符や和音のピッチを受け継ぎます。これは、音楽や Scheme 関数で@c
-リズムのみを指定する場合に有用であり、また LilyPond ソースの可読性が@c
-向上します。
-
-@lilypond[verbatim,quote,fragment,relative=2]
-c64[ 64] 32 16 8^- <g b d>4~ 2 | 1
-@end lilypond
-
-@lilypond[verbatim,quote]
-\new DrumStaff \with { \override StaffSymbol.line-count = 1 }
-\drummode {
-  \time 3/4
-  tambourine 8 \tuplet 3/2 { 16 16 16 }
-             8 \tuplet 3/2 { 16 16 16 } 8 8 |
-}
-@end lilypond
-
-@item
-連桁の例外を、シンプルな @code{\beamExceptions} Scheme 関数で設定することが@c
-できるようになりました。これまでは以下のように設定していましたが:
-
-@example
-\set Timing.beamExceptions =
-#'(                         ;start of alist
-   (end .                   ;entry for end of beams
-    (                       ;start of alist of end points
-     ((1 . 32) . (2 2 2))   ;rule for 1/32 beams -- end each 1/16
-    )))
-
-\time #'(2 1) 3/16
-c16 c c
-\repeat unfold 6 @{ c32 @}
-@end example
-
-@noindent
-新しい @code{\beamExceptions} Scheme 関数を使用することで、以下のようになります:
-
-@lilypond[verbatim,quote,relative=1]
-\set Timing.beamExceptions =
-  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
-
-\time #'(2 1) 3/16
-c16 c c |
-\repeat unfold 6 { c32 } |
-@end lilypond
-
-@noindent
-複数の例外を設定するには、小節チェック記号 @code{|} で区切ります。注意:
-例外パターンをピッチ無しで指定する方法は便利ですが、強制ではありません
-(この前にある改善項目の、@c
-@emph{長さだけを入力することで、ピッチを持たない音符を入力できるようになりました}
-を参照してください)。
-
-@item
-向きが変わる連桁に付加される連符の数字が改善されました。以前は、連符の括弧が@c
-表示されない場合であっても、括弧の位置を基準にして数字が@c
-配置されており、場合によっては数字が離れた位置に表示されていました。
-
-@noindent
-以前:
-
-@lilypond[fragment,quote,relative=1]
-% This is a contrived example to simulate the previous behaviour
-\time 3/4
-\override Beam.auto-knee-gap = 3
-\override TupletNumber.knee-to-beam = ##f
-\once \override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { g8 c'' e, }
-\tuplet 3/2 4 { g,,8 c'' e, }
-\once \override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { c'8 g,, e'' }
-\tuplet 3/2 4 { c'8 g,, e'' }
-\once \override TupletBracket.bracket-visibility = ##t
-\tuplet 2/2 4 { g,8[ e''] }
-\tuplet 2/2 4 { g,,8[ e''] }
-@end lilypond
-
-@noindent
-現在は、括弧が表示されない場合には、数字が連桁の近くに表示されます。
-
-@lilypond[fragment,quote,relative=1]
-% This is a contrived example to simulate the previous behaviour
-\time 3/4
-\override Beam.auto-knee-gap = 3
-\override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { g8 c'' e, }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 3/2 4 { g,,8 c'' e, }
-\tuplet 3/2 4 { c'8 g,, e'' }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 3/2 4 { c'8 g,, e'' }
-\tuplet 2/2 4 { g,8[ e''] }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 2/2 4 { g,,8[ e''] }
-@end lilypond
-
-@item
-向きが変わる連桁に付加される連符の数字に対して、衝突検知が行われるように@c
-なりました。数字が隣の音符列に近すぎる場合には、水平方向に移動します
-(垂直方向の距離は維持します)。衝突が起こった -- 例えば臨時記号と --
-場合、垂直方向に数字が移動します。連符の数字自体が大きすぎて、使用できる@c
-スペースに収まらない場合には、従来の@q{括弧ベースの}配置システムが@c
-代わりに使用されます。k
-
-@lilypond[fragment,quote,relative=1]
-\time 2/4
-\override Beam.auto-knee-gap = 3
-\tuplet 3/2 4 { g8 c'' e, c'8 g,, e'' }
-\tuplet 3/2 4 { g,,8 e''' g,, g,8 e''' ges,, }
-@end lilypond
-
-@noindent
-従来の連符の挙動は、@code{TupletNumber} レイアウト オブジェクトの@c
-新たな @code{knee-to-beam} プロパティによって得ることができます。
-
-@lilypond[verbatim,fragment,quote,relative=1]
-\time 2/4
-\override Beam.auto-knee-gap = 3
-\override TupletNumber.knee-to-beam = ##f
-\override TupletBracket.bracket-visibility = ##t
-\tuplet 3/2 4 { g8 c'' e, }
-\once \override TupletBracket.bracket-visibility = ##f
-\tuplet 3/2 4 { g,,8 c'' e, }
-@end lilypond
-
-@end itemize
-
-
-@strong{発想記号に関する改善}
-
-@itemize
-
-@item
-ヘアピンの端点を @code{shorten-pair} Grob プロパティで微調整できるように@c
-なりました。従来は、このプロパティはテキスト スパナに対してのみ有効でした
-(例えば @code{TupletBracket} や @code{OttavaBracket})。
-
-@noindent
-正の値は右に、負の値は左に移動します。
-
-@lilypond[quote,verbatim,relative=2]
-\once \override Hairpin.shorten-pair = #'(0 . 2)
-a1\< | a2 a\!
-
-\once \override Hairpin.shorten-pair = #'(2 . 0)
-\once \override Hairpin.stencil = #constante-hairpin
-a1\< | a2 a\!
-
-\once \override Hairpin.shorten-pair = #'(-1 . -1)
-\once \override Hairpin.stencil = #flared-hairpin
-a1\< | a2 a\!
-@end lilypond
-
-@item
-Individual slurs and phrasing slurs may now be started from an explicit
-note within a chord.
-
-@lilypond[quote,verbatim,relative=1]
-<f a( c>1 | <c') e g(> | <a c) e>
-@end lilypond
-
-@lilypond[quote,verbatim,relative=1]
-<f( a\( c>1 | <c'\) e\( g> | <a c e\)>
-@end lilypond
-
-@item
-新たなコマンド @code{\=X} が追加されました。@q{X} には任意の@c
-非負整数やシンボルを使用することができます。これを用いることで、特定のスラーや@c
-フレージング スラーの始点や終点に @q{id} を付与することができます。
-
-@noindent
-これは、同時に複数のスラーが現れる場合、スラーが他のスラーと重なる場合、@c
-長いスラーの中に短いスラーが現れる場合などに有用です。
-
-@lilypond[quote,verbatim,relative=2]
-<a c e\=7\(>1 | <g b d\=£(> |
-<f\=A( a c\="foo"(> | <c'\="foo")\=A) e\=£) g\=7\)> |
-@end lilypond
-
-@noindent
-@ruser{Expressive marks as curves} も参照してください。
-
-@end itemize
-
-
-@strong{繰り返しの記譜に関する改善}
-
-@itemize
-
-@item
-トレモロを表すスラッシュの見た目 (形、スタイル、傾き) をより詳細に@c
-コントロールできるようになりました。
-@lilypond[quote,relative=2]
-  a8:32 b: c: d:
-  \override StemTremolo.shape = #'beam-like
-  a: b: c: d:
-  \override StemTremolo.style = #'constant
-  a: b: c: d:
-  g,2
-@end lilypond
-
-@item
-@code{\unfoldRepeats} 音楽関数は、任意の @code{argument-list} 引数を@c
-取るようになりました。これは、繰り返される音符がどのように展開されるかを@c
-設定します。選択肢は @code{percent}, @code{tremolo}, @code{volta} です。@c
-リストが指定されない場合、@code{repeated-music} が全て展開されます。
-
-@end itemize
-
-
-@strong{譜の記譜法に関する改善}
-
-@itemize
-
-@item
-新しいコマンド @code{\magnifyStaff} が追加されました。これは、譜のサイズ、@c
-譜線、小節線、連桁、水平方向のスペーシングを @code{Staff} コンテキストの@c
-レベルでスケーリングするものです。符幹やスラーのような線の太さは譜線の太さを@c
-基にしているため、譜線がデフォルトより細くなることはありません。
-
-@item
-新しいコマンド @code{\magnifyMusic} が追加されました。これは、譜のサイズを@c
-変更せずに記譜サイズを変更するもので、符幹、連桁、水平方向のスペーシングを@c
-自動的にスケーリングします。
-
-@lilypond[verbatim,quote]
-\new Staff <<
-  \new Voice \relative {
-    \voiceOne
-    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
-  }
-  \new Voice \relative {
-    \voiceTwo
-    \magnifyMusic 0.63 {
-      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
-      r32 c'' a c a c a c r c a c a c a c
-      r c a c a c a c a c a c a c a c
-    }
-  }
->>
-@end lilypond
-
-@item
-新しいコマンド @code{\RemoveAllEmptyStaves} が使用できるようになりました。@c
-これは、@code{\RemoveEmptyStaves} と同様に動作しますが、楽譜の最初の@c
-システムにある空の譜も削除するところが異なります。
-
-@item
-新しいマークアップ コマンド @code{\justify-line} が追加されました。@c
-@code{\fill-line} マークアップ コマンドと似ていますが、マークアップ内に
-3 つ以上の@emph{語}があった場合に、語を列に揃えるのではなく、@c
-同じ大きさのホワイトスペースを追加して均衡を取る点が異なります。
-
-@lilypond[quote,verbatim,papersize=a6]
-\markup \fill-line {oooooo oooooo oooooo oooooo}
-\markup \fill-line {ooooooooo oooooooo oo ooo}
-@end lilypond
-
-@lilypond[quote,verbatim,papersize=a6]
-\markup \justify-line {oooooo oooooo oooooo oooooo}
-\markup \justify-line {ooooooooo oooooooo oo ooo}
-@end lilypond
-
-@end itemize
-
-
-@strong{編集者の注釈に関する改善}
-
-@itemize
-
-@item
-@code{HorizontalBracketText} オブジェクトを用いて、@c
-分析の囲みにテキストを追加することができるようになりました。
-@lilypond[quote,verbatim]
-\layout {
-  \context {
-    \Voice
-    \consists "Horizontal_bracket_engraver"
-  }
-}
-
-{
-  \once \override HorizontalBracketText.text = "a"
-  c''\startGroup d''\stopGroup
-  e''-\tweak HorizontalBracketText.text "a'" \startGroup d''\stopGroup
-}
-@end lilypond
-
-@end itemize
-
-
-@strong{テキストのフォーマットに関する改善}
-
-@itemize
-
-@item
-LilyPond のデフォルトである Emmentaler 以外の@q{音楽}フォントを@c
-より簡単に使用できるようになりました。更なる情報は、@c
-@ruser{Replacing the notation font} を参照してください。
-
-@item
-デフォルトのテキスト フォントは @code{Century Schoolbook L},
-@code{sans-serif}, @code{monospace} から変更されました。
-
-@code{svg} バックエンドでは:
-@multitable @columnfractions .15 .30
-@headitem ファミリ @tab デフォルト フォント
-@item @emph{roman} @tab @code{serif}
-@item @emph{sans} @tab @code{sans-serif}
-@item @emph{typewriter} @tab @code{monospace}
-@end multitable
-
-@code{serif}, @code{sans-serif}, @code{monospace} は、SVG や CSS の@c
-仕様における @code{generic-family} です。
-
-他のバックエンドでは:
-@multitable @columnfractions .15 .30 .55
-@headitem ファミリ @tab デフォルト フォント (エイリアス) @tab エイリアスの定義リスト
-@item @emph{roman}
-@tab @code{LilyPond Serif}
-@tab
-TeX Gyre Schola,
-C059, Century SchoolBook URW, Century Schoolbook L,
-DejaVu Serif,
-..., serif
-@item @emph{sans}
-@tab @code{LilyPond Sans Serif}
-@tab
-TeX Gyre Heros,
-Nimbus Sans, Nimbus Sans L, DejaVu Sans,
-..., sans-serif
-@item @emph{typewriter}
-@tab @code{LilyPond Monospace}
-@tab
-TeX Gyre Cursor,
-Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
-DejaVu Sans Mono,
-..., monospace
-@end multitable
-
-@code{LilyPond Serif}, @code{LilyPond Sans Serif},
-@code{LilyPond Monospace} は、LilyPond 専用の FontConfig 設定ファイル
-@code{00-lilypond-fonts.conf} に定義されたエイリアスです。@c
-リストにある最初のフォントに文字が存在しない場合、@c
-リストの次のフォントが使用されます。@c
-エイリアス定義に関する詳しい情報は、インストールされたディレクトリにある
-@code{00-lilypond-fonts.conf} を参照してください。
-
-@item
-OpenType フォントを使用する際に、OpenType 機能が使用できるようになりました。@c
-注意: 全ての OpenType フォントが全機能を使用できるとは限りません。
-
-@lilypond[quote,verbatim]
-% True small caps
-\markup { Normal Style: Hello HELLO }
-\markup { \caps { Small Caps: Hello } }
-\markup { \override #'(font-features . ("smcp"))
-          { True Small Caps: Hello } }
-
-% Number styles
-\markup { Normal Number Style: 0123456789 }
-\markup { \override #'(font-features . ("onum"))
-          { Old Number Style: 0123456789 } }
-
-% Stylistic Alternates
-\markup { \override #'(font-features . ("salt 0"))
-          { Stylistic Alternates 0: εφπρθ } }
-\markup { \override #'(font-features . ("salt 1"))
-          { Stylistic Alternates 1: εφπρθ } }
-
-% Multiple features
-\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
-          { Multiple features: Hello 0123456789 εφπρθ } }
-@end lilypond
-
-@item
-ホワイトアウトに 2 つの新しいスタイルが使用できるようになりました。@c
-@code{outline} スタイルは、グリフの外側にある輪郭を近似し、ホワイトアウトは@c
-その外形を複数の場所に移動して作られます。@code{rounded-box} スタイルは、@c
-角丸の長方形を使用します。デフォルトの @code{box} を含めた
-3 つある全てのスタイルに対して、ホワイトアウトの @code{thickness} を@c
-カスタマイズすることができます。単位は譜線の太さです。
-
-@lilypond[verbatim,quote]
-\markup {
-  \combine
-    \filled-box #'(-1 . 15) #'(-3 . 4) #1
-    \override #'(thickness . 3)
-    \whiteout whiteout-box
-}
-\markup {
-  \combine
-    \filled-box #'(-1 . 24) #'(-3 . 4) #1
-    \override #'(style . rounded-box)
-    \override #'(thickness . 3)
-    \whiteout whiteout-rounded-box
-}
-\markup {
-  \combine
-    \filled-box #'(-1 . 18) #'(-3 . 4) #1
-    \override #'(style . outline)
-    \override #'(thickness . 3)
-    \whiteout whiteout-outline
-}
-\relative {
-  \override Staff.Clef.whiteout-style = #'outline
-  \override Staff.Clef.whiteout = 3
-  g'1
-}
-@end lilypond
-
-@item
-新しいマークアップ コマンド @code{\with-dimensions-from} が使用できるように@c
-なりました。これは、最初の引数にマークアップ オブジェクトを指定することで、@c
-そのマークアップの寸法を使用するもので、これにより @code{\with-dimensions}
-をより簡単に使用することができます。
-@lilypond[quote,verbatim]
-\markup {
-  \pattern #5 #Y #0 "x"
-  \pattern #5 #Y #0 \with-dimensions-from "x" "f"
-  \pattern #5 #Y #0 \with-dimensions-from "x" "g"
-  \override #'(baseline-skip . 2)
-  \column {
-    \pattern #5 #X #0 "n"
-    \pattern #5 #X #0 \with-dimensions-from "n" "m"
-    \pattern #5 #X #0 \with-dimensions-from "n" "!"
-  }
-}
-@end lilypond
-
-@item
-新しいマークアップ コマンド @code{\draw-squiggle-line} が使用できるように@c
-なりました。@code{thickness}, @code{angularity},
-@code{height} and @code{orientation} をオーバライドすることでカスタマイズ@c
-できます。
-@lilypond[quote,verbatim]
-\markup
-  \overlay {
-    \draw-squiggle-line #0.5 #'(3 . 3) ##t
-
-    \translate #'(3 . 3)
-    \override #'(thickness . 4)
-    \draw-squiggle-line #0.5 #'(3 . -3) ##t
-
-    \translate #'(6 . 0)
-    \override #'(angularity . -5)
-    \draw-squiggle-line #0.5 #'(-3 . -3) ##t
-
-    \translate #'(3 . -3)
-    \override #'(angularity . 2)
-    \override #'(height . 0.3)
-    \override #'(orientation . -1)
-    \draw-squiggle-line #0.2 #'(-3 . 3) ##t
-  }
-@end lilypond
-
-@item
-新しいマークアップ コマンド @code{\undertie}, @code{\overtie}, また両方向の
-@code{\tie} が使用できるようになりました。
-@lilypond[quote,verbatim]
-\markup {
-  \undertie "undertied"
-  \overtie "overtied"
-}
-
-m = {
-  c''1 \prall -\tweak text \markup \tie "131" -1
-}
-
-{ \voiceOne \m \voiceTwo \m }
-@end lilypond
-
-@end itemize
-
-
-
-@subheading 専門的な記譜法に関する新機能
-
-
-@strong{声楽に関する改善}
-
-@itemize
-
-@item
-様々な合唱音楽に対応する柔軟なテンプレートが使用できるようになりました。@c
-シンプルな合唱譜を、ピアノ伴奏の有無や、2 段譜か 4 段譜かを選択して作成する@c
-ことができます。他のテンプレートとは異なり、このテンプレートは@q{組み込み}@c
-であるため、使用するためにコピーし編集する必要はありません。その代わり、@c
-入力ファイル内で @code{\include} することによって使用します。@c
-詳細については、@rlearning{Built-in templates} を参照してください。
-
-@item
-@code{\addlyrics} 関数が、@code{Staff} を含む任意のコンテキストで@c
-使用できるようになりました。
-
-@item
-@code{\lyricsto} と @code{\addLyrics} が@q{調和}されました。@c
-これらの関数は、@code{\lyrics} や @code{\chords} が受け入れるような@c
-区切られた引数リストを受け入れるようになりました。後方互換性を追加し、@c
-音楽識別子 (例えば @code{\mus}) を引数に取ることができるようになりました。@c
-@code{convert-ly} のルールが追加され、余分に使用されている @code{\lyricmode}
-を削除し、コンテキストを開始するコマンドと各種歌詞コマンドが組み合わせて@c
-使用されている場合には、通常 @code{\lyricsto} が最後に配置されるように@c
-変換されます。
-
-@end itemize
-
-
-@strong{フレットの無い / ある弦楽器に関する改善}
-
-@itemize
-
-@item
-タブ譜に使用できる新たな符頭スタイルが追加されました --
-@code{TabNoteHead.style = #'slash} です。
-
-@item
-フレット図において、フレット間の距離と弦間の距離が個別に調整できるように@c
-なりました。@code{fret-diagram-details} のサブプロパティである
-@code{fret-distance} と @code{string-distance} を使用します。
-@lilypond[verbatim,quote]
-fretMrkp = \markup { \fret-diagram-terse "x;x;o;2;3;2;" }
-
-\markuplist
-\override #'(padding . 2)
-\table #'(0 -1) {
-  "default"
-
-  \fretMrkp
-
-  "fret-distance"
-
-  \override #'(fret-diagram-details . ((fret-distance . 2)))
-  \fretMrkp
-
-  "string-distance"
-
-  \override #'(fret-diagram-details . ((string-distance . 2)))
-  \fretMrkp
-}
-@end lilypond
-
-@item
-@code{\fret-diagram-verbose} マークアップ コマンドを使用した@c
-フレット図において、点や括弧の色を個別に設定できるようになりました。
-
-@lilypond[verbatim,quote,relative=1]
-\new Voice {
-  c1^\markup {
-    \override #'(fret-diagram-details . (
-                 (finger-code . in-dot))) {
-      \fret-diagram-verbose #'((mute 6)
-                               (place-fret 5 3 1 red)
-                               (place-fret 4 5 2 inverted)
-                               (place-fret 3 5 3 green)
-                               (place-fret 2 5 4 blue inverted)
-                               (place-fret 1 3 1 violet)
-                               (barre 5 1 3 ))
-    }
-  }
-  c1^\markup {
-    \override #'(fret-diagram-details . (
-                 (finger-code . below-string))) {
-      \fret-diagram-verbose #'((mute 6)
-                             (place-fret 5 3 1 red parenthesized)
-                             (place-fret 4 5 2 yellow
-                                               default-paren-color
-                                               parenthesized)
-                             (place-fret 3 5 3 green)
-                             (place-fret 2 5 4 blue )
-                             (place-fret 1 3 1)
-                             (barre 5 1 3))
-    }
-  }
-}
-@end lilypond
-
-@item
-@code{\fret-diagram-verbose} マークアップ コマンドを使用した@c
-フレット図において、@code{fret-digrams-details} のプロパティが 2 つ@c
-追加されました。@code{fret-label-horizontal-offset} は
-@code{fret-label-indication} に影響し、@c
-@code{paren-padding} は、点とそれを囲む括弧との間にある空白を調整します。
-
-@lilypond[verbatim,quote,relative=1]
-\new Voice {
-  c1^\markup {
-    \fret-diagram-verbose #'((mute 6)
-                             (place-fret 5 3 1)
-                             (place-fret 4 5 2)
-                             (place-fret 3 5 3)
-                             (place-fret 1 6 4 parenthesized)
-                             (place-fret 2 3 1)
-                             (barre 5 2 3))
-  }
-  c1^\markup {
-    \override #'(fret-diagram-details . (
-                 (fret-label-horizontal-offset . 2)
-                 (paren-padding . 0.25))) {
-      \fret-diagram-verbose #'((mute 6)
-                               (place-fret 5 3 1)
-                               (place-fret 4 5 2)
-                               (place-fret 3 5 3)
-                               (place-fret 1 6 4 parenthesized)
-                               (place-fret 2 3 1)
-                               (barre 5 2 3))
-    }
-  }
-}
-@end lilypond
-
-@item
-(リュートのタブ譜に使用する) 追加の低音弦に対応しました。
-@lilypond[quote,verbatim]
-m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
-
 \score {
-  \new TabStaff \m
-  \layout {
-    \context {
-      \Score
-      tablatureFormat = #fret-letter-tablature-format
-    }
-    \context {
-      \TabStaff
-      stringTunings = \stringTuning <a, d f a d' f'>
-      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
-      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
-    }
-  }
-}
-@end lilypond
-
-@item
-弦番号をローマ数字で表示することができるようになりました
-(例えば、フレットの無い弦楽器で使用します)。
-@lilypond[verbatim,quote,relative=2]
-c2\2
-\romanStringNumbers
-c\2
-\arabicStringNumbers
-c1\3
-@end lilypond
-
-@item
-@code{TabStaff} が、ベンディングに使用する微分音を表示できるようになりました。
-@lilypond[quote,verbatim]
-\layout {
-  \context {
-    \Score
-    supportNonIntegerFret = ##t
-  }
-}
-
-mus = \relative { c'4 cih d dih }
-
-<<
-  \new Staff << \clef "G_8" \mus >>
-  \new TabStaff \mus
->>
-@end lilypond
-
-@end itemize
-
-
-@strong{和音の記譜法に関する改善}
-
-@itemize
-
-@item
-@code{\chordmode} で @code{< >} や @code{<< >>} 表記を使用することが@c
-できるようになりました。
-
-@item
-コード ネームの @code{text} プロパティをオーバライドすることが@c
-できるようになりました。
-
-@lilypond[verbatim,fragment,quote]
-<<
-\new ChordNames \chordmode {
-  a' b c:7
-  \once \override ChordName.text = "foo"
-  d
-}
->>
-@end lilypond
-
-@end itemize
-
-
-
-@subheading 入出力に関する新機能
-
-
-@strong{入力ファイルの構造に関する改善}
-
-@itemize
-
-@item
-@code{\header} ブロックの内容を変数に保存し、音楽関数や Scheme 関数の@c
-引数として、または @code{#@{@dots{}#@}} 構造の内容として使用できるように@c
-なりました。これらは Guile モジュールとして表現されます。
-
-@code{\book}, @code{\bookpart}, @code{\score}, @code{\with}, @code{\layout},
-@code{\midi}, @code{\paper} ブロックも同様に渡すことができますが、@c
-これらは異なるデータ型で表現されています。
-
-@end itemize
-
-
-@strong{タイトルとヘッダに関する改善}
-
-@itemize
-
-@item
-@code{page-number-type} paper 変数をセットすることで、@c
-ページ番号をローマ数字で表示できるようになりました。
-
-@end itemize
-
-
-@strong{入力ファイルに関する改善}
-
-@itemize
-
-@item
-新しいコマンド @code{\tagGroup} が追加されました。これは
-@code{\keepWithTag} や @code{\removeWithTag} とセットで使用します。@c
-例えば:
-
-@example
-\tagGroup #'(violinI violinII viola cello)
-@end example
-
-で@q{タグ}のリストを宣言し、それらが一つの@q{タグ グループ}を作ります。
-
-@example
-\keepWithTag #'violinI
-@end example
-
-は、@q{violinI} が属するタグ グループ内のタグにのみ影響します。
-
-@var{violinI} の属するグループのタグが付いていて、しかし @var{violinI} の@c
-付いて@emph{いない}音楽が全て削除されます。
-
-@end itemize
-
-
-@strong{出力に関する改善}
-
-@itemize
-
-@item
-生成された PDF ファイルに LilyPond ソース ファイルを埋め込むことが@c
-できるようになりました。この実験的な機能はデフォルトで無効化されており、@c
-また隠されたコンテンツを含む PDF ドキュメントにはセキュリティ上の@c
-リスクがあるため、安全な機能ではありません。@c
-全ての PDF ビューアが埋め込みドキュメントを扱えるわけではないことに@c
-注意してください (扱えない場合、PDF 出力は通常通りとなり、ソース ファイルは@c
-不可視のままです)。この機能は PDF バックエンドでのみ有効です。
-
-@item
-@code{output-classic-framework} プロシージャと @code{-dclip-systems}
-が @code{SVG} バックエンドで使用できるようになりました。
-
-@item
-@code{-dcrop} 引数が追加されました。@code{SVG} や @code{PDF} 出力において、@c
-余白や改ページのない楽譜を生成します。
-
-@item
-SVG 出力において、@code{output-attributes} Grob プロパティが
-@code{id} Grob プロパティの代わりに使用できるようになりました。@c
-このプロパティは連想配列で定義された複数の属性をセットすることができます。@c
-例えば、@c
-@code{#'((id . 123) (class . foo) (data-whatever . @qq{bar}))}
-は SVG ファイルに置いて以下のグループ タグを作り出します:
-@code{<g id=@qq{123} class=@qq{foo} data-whatever=@qq{bar}> @dots{} </g>}
-
-@item
-PostScript の線幅補正の機能は自動で適用されなくなりました。@c
-この機能は PostScript デバイスの裁量で適用されるようになります
-(デフォルトでは、Ghostscript は 150dpi までのラスタ画像を生成する際に@c
-有効にします)。これが有効な場合、符幹や小節線などに対して、線幅補正に適した@c
-より複雑な描画アルゴリズムが使用されます。
-
-線幅補正はコマンドライン オプション @samp{-dstrokeadjust} を LilyPond に@c
-指定することで強制することができます。@code{PDF} ファイルを生成する際には、@c
-このオプションを有効にすると @code{PDF} プレビューの見た目が著しく良く@c
-なりますが、ファイルサイズが非常に大きくなります。@c
-高い解像度での印刷の見た目には影響しません。
-
-
-@item
-新しい関数 @code{make-path-stencil} が追加されました。これは、相対座標と@c
-絶対座標両方の @code{path} コマンドをサポートします:
-
-@code{lineto}, @code{rlineto}, @code{curveto}, @code{rcurveto},
-@code{moveto}, @code{rmoveto}, @code{closepath}.
-この関数は SVG 標準の path コマンドで用いられる @q{1 文字}の構文も@c
-サポートしています:
-
-@code{L}, @code{l}, @code{C}, @code{c}, @code{M}, @code{m}, @code{Z},
-@code{z}.
-更に、このコマンドは従来の @code{make-connected-path-stencil} 関数との@c
-後方互換性を持ちます。@file{scm/stencil.scm} も参照してください。
-
-@end itemize
-
-
-@strong{MIDI に関する改善}
-
-@itemize
-
-@item
-標準的なアーティキュレーションが MIDI 出力に反映されるようになりました。@c
-アクセントやマルカートは音量を大きくし、スタッカート、スタッカーティシモ、@c
-ポルタートは長さを短くします。ブレス記号は前の音符を短くします。
-
-この挙動は @code{ArticulationEvent} の @code{midiLength} や
-@code{midiExtraVelocity} プロパティを変更することでカスタマイズできます。@c
-@file{script-init.ly} に例があります。
-
-@item
-ブレス記号の MIDI 出力が改善されました。タイで繋がれた音符の後に@c
-ブレス記号がある場合、タイの最後の音符@emph{のみ}が短くなります。つまり、@c
-@code{@{ c4~ c8 \breathe @}} は
-@code{@{ c4 r8 @}} ではなく
-@code{@{ c4~ c16 r @}} のようになります。@c
-こうすることにより、アーティキュレーションとの一貫性が保たれるようになり、@c
-また人間がタイの後にあるブレスを解釈した際の挙動に近くなります。@c
-更に、複数のパートで異なる長さの音符を演奏し、同じ位置にブレス記号が@c
-ある場合に、タイミングが揃えられることになります。
-
-@item
-@code{Staff.midiExpression} コンテキスト プロパティを使用することで、@c
-MIDI チャンネルの@q{エクスプレッション レベル}を設定できるようになりました。@c
-これを使用すると、音符が持続中であっても音量を変化させることができます
-(非常に@q{低レベルな}方法ではありますが)。@c
-このプロパティは @code{0.0} から @code{1.0} までの値を取ります。
-
-@example
-\score @{
-  \new Staff \with @{
-    midiExpression = #0.6
-    midiInstrument = "clarinet"
-  @}
   <<
-    @{ a'1~ a'1 @}
-    @{
-      \set Staff.midiExpression = #0.7 s4\f\<
-      \set Staff.midiExpression = #0.8 s4
-      \set Staff.midiExpression = #0.9 s4
-      \set Staff.midiExpression = #1.0 s4
-
-      \set Staff.midiExpression = #0.9 s4\>
-      \set Staff.midiExpression = #0.8 s4
-      \set Staff.midiExpression = #0.7 s4
-      \set Staff.midiExpression = #0.6 s4\!
-    @}
+    \new Staff \with { \override Stem.french-beaming = ##t }
+         { <>^"French" \testmusic }
+    \new Staff
+         { <>^"Default" \testmusic }
   >>
-  \midi @{ @}
-@}
-@end example
-
-@item
-MIDI ファイルを出力する際、シーケンスの名前に @code{\header} ブロックの@c
-@code{title} が使われるようになりました (@code{\score} レベルで @code{title}
-が存在しない場合、外側にある @code{\bookpart}, @code{\book}, トップ レベルの
-@code{\header} ブロックを探し、最初にあるものが使用されます)。@c
-また、@code{\header} に新しい @code{midititle} フィールドが追加され、@c
-@code{title} フィールドとは別に MIDI シーケンスの名前をオーバライドできる@c
-ようになりました (例えば、@code{title} がマークアップ コードを含み、@c
-プレーン テキストに自動で変換された結果が望ましくない場合に用いることが@c
-できます)。
-
-@item
-LilyPond のデフォルトである Emmentaler 以外の@q{音楽}フォントを@c
-より簡単に使用できるようになりました。更なる情報は、@c
-@ruser{Replacing the notation font} を参照してください。
-
-@end itemize
-
-
-@strong{音楽の抽出に関する改善}
-
-@itemize
-
-@item
-@code{\displayLilyMusic} と、それが使用する Scheme 関数は、音長を省略@c
-しなくなりました。これは以下のような例において、音長が単独で出現した@c
-際の誤読を防ぎます:
-@example
-@{ c4 d4 8 @}
-@end example
-
-@end itemize
-
-
-
-@subheading スペーシングに関する新機能
-
-
-@strong{改ページに関する改善}
-
-@itemize
-
-@item
-新しい改ページ関数が 2 つ追加されました。@code{ly:one-page-breaking}
-は、ページの高さを音楽に合わせて自動的に調節し、全てが 1 ページに収まる@c
-ようにします。@code{ly:one-line-auto-height-breaking} は、@c
-@code{ly:one-line-breaking} と同様に音楽を 1 行に配置してページの幅を@c
-調節しますが、音楽に合わせて高さも自動的に調節するところが異なります。
-
-@end itemize
-
-
-@strong{縦方向と横方向のスペーシングに関する改善}
-
-@itemize
-
-@item
-@code{NonMusicalPaperColumn.line-break-system-details} を用いて、@c
-システムを現在の位置からの相対値で移動することができるようになりました。@c
-縦方向にも横方向にも移動できます。この機能は、各システムの@c
-縦方向の位置のデフォルトに対して、細かな調整を行う際に特に有用です。@c
-詳しくは @ruser{Explicit staff and system positioning} を参照してください。
-
-@item
-小さいもの (Funk, Walker) と通常サイズのもの (Aiken など) の両方のシェイプ
-ノートで@q{ミ}の符頭のスペーシングが改善され、@c
-他の階名の音符と同じ幅を持つようになりました。また、@q{ソ}の符頭も@c
-見た目が改善されました。
-
-@item
-@code{LeftEdge} に @code{Y-extent} (縦方向) を定義できるようになりました。@c
-@rinternals{LeftEdge} を参照してください。
-
-@item
-Grob とその親の揃え位置を別に設定することができるようになり、@c
-Grob の配置方法がより柔軟になりました。例えば、Grob の@q{左}端を@c
-その親の@q{中央}に揃えることができるようになります。
-
-@item
-@code{TextScript} を @code{DynamicText} や @code{LyricText} と共に使用した@c
-際の、水平方向の揃え位置が改善されました。
-
-@end itemize
-
-
-
-@subheading デフォルトの変更に関する新機能
-
-@itemize
-
-@code{\afterGrace} コマンドのオプションの引数が追加されました。
-
-@noindent
-@code{\afterGrace} には音符間の位置を分数で指定する@c
-オプションの引数が追加されました。
-@lilypond[quote,verbatim]
-<<
-\new Staff \relative {
-  % The default, hard-coded value (3/4)
-  c''1 \afterGrace d1 { c16[ d] } c1
-}
-\new Staff \relative {
-  % Changing the hard-coded value manually (15/16)
-  #(define afterGraceFraction (cons 15 16))
-  c''1 \afterGrace d1 { c16[ d] } c1
-}
-\new Staff \relative {
-  % Using the new argument (5/6)
-  c''1 \afterGrace 5/6 d1 { c16[ d] } c1
-}
->>
-@end lilypond
-
-@item
-@code{\override}, @code{\revert}, @code{\set}, @code{\unset} の全てに対して、@c
-一回限りの設定を示す
-@code{\once} 接頭辞を付加することができるようになりました。
-@lilypond[quote,verbatim]
-\relative {
-  c'4 d
-  \override NoteHead.color = #red
-  e4 f |
-  \once \override NoteHead.color = #green
-  g4 a
-  \once \revert NoteHead.color
-  b c |
-  \revert NoteHead.color
-  f2 c |
+  \layout { indent = 0 }
 }
 @end lilypond
 
-@end itemize
-
-
-
-@subheading 内部インタフェースと関数に関する新機能
-
-@itemize
 
 @item
-同時に出現するスラーやフレージング スラーを区別するための@c
-音楽プロパティや Grob プロパティ @code{spanner-id} が、文字列ではなく@c
-@emph{キー}を取るようになりました。これにより、文字列以外に非負整数や@c
-シンボルを取ることができます
-(発想記号に関する改善にある
-@emph{新たなコマンド @code{\=X} が追加されました} も参照してください)。
-
-@item
-@samp{alternativeRestores} プロパティに名前がセットされている@c
-コンテキスト プロパティの値は、別の入れ替え部分が始まった時に、
-入れ替え部分が@emph{始まる}前の値に戻されるようになりました。
-
-デフォルトのセットでは以下のプロパティを戻すようになっています。@q{拍子記号}:
-
-@lilypond[verbatim,fragment,quote,relative=2]
-\time 3/4
-\repeat volta 2 { c2 e4 | }
-\alternative {
-  { \time 4/4 f2 d | }
-  { f2 d4 | }
-}
-g2. |
-@end lilypond
-
-@noindent
-@q{小節内の位置}:
-
-@lilypond[verbatim,fragment,quote,relative=2]
-\time 3/4
-\repeat volta 2 { c2 e4 | }
-\alternative {
-  { \time 4/4
-    \set Timing.measurePosition = #(ly:make-moment -1/2)
-    f2 | }
-  { f2 d4 | }
-}
-g2. |
-@end lilypond
-
-@noindent
-@q{コード ネームの変更}:
-
-@lilypond[verbatim,fragment,quote]
-<<
-  \new ChordNames {
-    \set chordChanges = ##t
-    \chordmode { c1:m d:m c:m d:m }
-  }
-  \new Staff {
-    \repeat volta 2 { \chordmode { c1:m } }
-    \alternative {
-      { \chordmode { d:m } }
-      { \chordmode { c:m } }
-    }
-  \chordmode { d:m }
-}
->>
-@end lilypond
-
-@item
-@code{define-music-function},
-@code{define-event-function}, @code{define-scheme-function},
-@code{define-void-function} で定義された LilyPond 関数は、@c
-通常の Scheme プロシージャであるかのように Scheme から直接呼び出せるように@c
-なりました。引数のチェックやマッチングは、LilyPond 入力から呼び出された時と@c
-同じように動作します。この変更により、省略可能な引数についてデフォルト値を@c
-挿入する機能が追加されました。省略可能な引数列を明示的にスキップするために、@c
-実際の引数リストの中で @code{\default} の代わりに @code{*unspecified*}
-を使用することができるようになります。
-
-@item
-現在の入力位置やパーサは Guile の fluid に格納されるようになり、
-@code{(*location*)}, @code{(*parser*)} という関数呼び出しで参照できる@c
-ようになりました。これにより、明示的に @code{parser}
-引数を取る必要のあった関数の多くはその必要がなくなりました。
-
-@code{define-music-function},
-@code{define-event-function}, @code{define-scheme-function},
-@code{define-void-function} で定義された関数は、@code{parser},
-@code{location} 引数を取る必要がなくなりました。
-
-これらで定義された関数に関しては、@c
-しばらくは後方互換性を維持するために、@code{parser}, @code{location} を@c
-引数に取る従来の使い方も認識します。
-
-@item
-Scheme 関数や識別子を出力定義内で使用することができるようになりました。
-
-@item
-Scheme 式を和音構造内で使用することができるようになりました。
-
-@item
-音楽関数 (あるいは Scheme 関数や void 関数) やマークアップ コマンドの定義に
-@code{\etc} が使用できるようになりました。定義する関数やコマンドの@c
-内容がオーバライドのみである場合や、音楽関数やマークアップ コマンドの最後に@c
-受け取った引数を渡すのみである場合に、引数を渡す位置に @code{\etc} を@c
-記述することで定義を簡略化できます。
-
+四分音の音名がすべての入力言語で利用可能になりました。
 @lilypond[verbatim,quote]
-\markup bold-red = \markup \bold \with-color #red \etc
-highlight = \tweak font-size 3 \tweak color #red \etc
+\language "català"
+\relative { do'4 sol' miqb re do1 }
+@end lilypond
 
-\markup \bold-red "text"
-\markuplist \column-lines \bold-red { One Two }
 
-{ c' \highlight d' e'2-\highlight -! }
+@item
+すべての入力言語 (@code{\language} 宣言) で、正しい UTF-8 の綴りを使用できます
+(つまり、特殊文字を含める) 。@c
+元の名前 @code{catalan} と @code{portugues} に加えて、@code{català} と
+@code{português} が使用可能になりました。
+
+@item
+@code{suggestAccidentals} を @code{'cautionary} にセットすることで、@c
+忠告の臨時記号だけを @code{AccidentalSuggestion} に変更します。@c
+これにより、ファクシミリと編集した臨時記号を見分けるのに使うことができます。
+@lilypond[verbatim,quote]
+\relative {
+  \key d \minor
+  d''4 cis8 b? cis2
+  \set suggestAccidentals = ##t
+  d4 cis8 b? cis2
+  \set suggestAccidentals = #'cautionary
+  d4 cis8 b? cis2
+
+}
+@end lilypond
+
+
+@item
+@code{\ambitusAfter} コマンドが追加されました。@c
+これは音域を異なる位置に移動するときに使います。
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \consists Ambitus_engraver
+} \relative {
+  \ambitusAfter key-signature
+  \key d \major
+  es'8 g bes cis d2
+}
+@end lilypond
+
+
+@item
+非常に短いフェルマータ、Henze の長いフェルマータ、@c
+Henze の短いフェルマータが追加されました。
+@lilypond[verbatim,quote]
+{
+  c'1\veryshortfermata
+  c'2\henzeshortfermata c'\henzelongfermata
+}
+@end lilypond
+
+
+@item
+フェルマータや他のアーティキュレーションを複数小節にまたがる休符に直接@c
+付けることができるようになりました。@c
+これにより、@code{\fermataMarkup} コマンドは非推奨となります。
+@lilypond[verbatim,quote]
+{
+  R1\fermata
+  R->
+  R\coda
+}
+@end lilypond
+
+
+@item
+スウィングやイレギュラーなリズムパターンを、@c
+通常の演奏時間で作られた音楽表記に適用できるようになりました。@c
+これは、MIDI の均一でないリズムの解釈を表現するために使用されます。
+@lilypond[verbatim,quote]
+\include "swing.ly"
+<<
+  \new Staff \with {
+    instrumentName = "ordinary"
+  } \repeat unfold 8 c'8
+  \new Staff \with {
+    instrumentName = "with swing"
+  } \repeat unfold 4 \tripletFeel 8 { c'8 c' }
+  \new Staff \with {
+    instrumentName = "triplets"
+  } \tuplet 3/2 4 \repeat unfold 12 c'8
+>>
 @end lilypond
 
 @item
-@code{FretBoard.stencil} のようなドットで区切られたシンボルのリストは@c
-バージョン@tie{}2.18で既にサポートされていますが、符号なし整数を含むことも@c
-できるようになりました。また、コンマで区切られた形もサポートするように@c
-なりました。これにより以下のような表記が可能になります:
-@lilypond[quote,verbatim]
-{ \time 2,2,1 5/8  g'8 8 8 8 8 }
-@end lilypond
-や
-@example
-\tagGroup violin,oboe,bassoon
-@end example
-
-@item
-上のようなリストは、代入文、set, override に対しても使用することができます。@c
-以下のような表記が可能になります:
-@lilypond[quote,verbatim]
-{ \unset Timing.beamExceptions
-  \set Timing.beatStructure = 1,2,1
-  g'8 8 8 8 8 8 8 8 }
-@end lilypond
-
-@item
-連想配列の要素は個別に割り当てることができるようになっています
-(例えば、@code{system-system-spacing.basic-distance} のような paper 変数)
-が、以下のような形で参照することもできるようになりました:
-@example
-\paper @{
-  \void \displayScheme \system-system-spacing.basic-distance
-@}
-@end example
-
-先の変更と合わせることで、@code{violin.1} のような疑似変数をセットしたり@c
-参照したりすることができるようになりました。
-
-@item
-マークアップ リスト コマンド @code{\table} が使用できるようになりました。@c
-それぞれの列に対して異なる揃え位置を指定することができます。
-@lilypond[quote,verbatim]
-\markuplist {
-    \override #'(padding . 2)
-    \table
-      #'(0 1 0 -1)
-      {
-        \underline { center-aligned right-aligned center-aligned left-aligned }
-        one "1" thousandth "0.001"
-        eleven "11" hundredth "0.01"
-        twenty "20" tenth "0.1"
-        thousand "1000" one "1.0"
-      }
+コードの転回やドロップノートを用いたボイシングが自動的に行えるようになりました。
+@lilypond[verbatim,quote]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
 }
 @end lilypond
 
 @item
-@code{InstrumentName} が @code{text-interface} をサポートするようになりました。
+いくつかのウクレレのフレット図が修正され、新しいダイアグラムも追加されました。
 
 @item
-@code{BarLine} Grob の @code{thin-kern} プロパティの名前が @code{segno-kern}
-に変更されました。
+従来のコード命名関数 @code{banter-chord-names} と @code{jazz-chord-names} は@c
+メインのコードベースから削除され、@c
+プロパティ @code{chordNamesExceptionsFull} と @code{chordNamesExceptionsPartial}
+になりました。@c
+この変更の一環として、パワーコードはデフォルトの例外に含まれるようになりました。@c
+それは追加のtweakを必要とせず、
+(他のすべてのコードのような上付き記号とともに) 正確に譜刻され、@c
+これによって @code{\\powerChords} 定義済みコマンドが必要なくなります。@c
+従来の関数に興味があれば、@file{chord-names-alternative.ly} スニペットにその
+(ある程度機能する) コピーがあります。
 
 @item
-@code{KeyCancellation} Grob が合図の音部記号を無視するようになりました
-(@code{KeySignature} と同様の挙動になりました)。
+@code{\\partcombine} コマンドをはじめ、
+@code{partCombine} で始まるすべてのコマンドのサブルーチンとプロパティ名は、@c
+@code{\\partCombine} 、@code{\\partCombineApart} のように、@c
+大文字の C で記述するようになりました。@c
+@code{\\autochange} コマンドも、@code{\\autoChange} のように大文字となります。
 
 @item
-@code{\once@tie{}\unset} をサポートしました。
+@code{New_fingering_engraver} は、@code{self-alignment-interface} のプロパティ
+@code{X-align-on-main-noteheads} を考慮するようになりました。@c
+これを true にセットする (@code{##t}) ことで、
+@code{up} や @code{down} で位置づけられたすべての運指記号は@c
+まっすぐな列に配置され、@c
+符幹に対して正しい方向に接している音符の位置に揃えられます。
+@lilypond[verbatim,quote]
+{
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5>4 <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
+  \bar "."
+  \override Fingering.X-align-on-main-noteheads = ##t
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5> <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
+}
+@end lilypond
+
+@item
+スカイラインはレイアウトオブジェクトの @code{rotation} プロパティを@c
+考慮するようになりました。@c
+たとえば、@code{\override Hairpin.rotation = #'(15 0 0)} を@c
+クレッシェンドヘアピンに適用して回転させると、@c
+スカイラインに正確に影響を及ぼすので、スペースの改善に役立ちます。
+@lilypond[quote]
+#(ly:set-option 'debug-skylines #t)
+\new PianoStaff <<
+  \new Staff \relative {
+    \override TextScript.rotation = #'(30 0 0)
+    g4\<^\markup \ellipse "rot. ellipse" e' d'^\markup \box "rotated box" f\!
+    \override Hairpin.rotation = #'(15 -1 0)
+    g,,4\<^\markup \rounded-box "rounded box" e' d'^"no box" f\!
+  }
+  \new Staff \relative {
+    \override Staff.Clef.rotation = #'(180 0 -0.036)
+    <cis' ais'>4 c' g c
+    \override Accidental.rotation = #'(30 0 0)
+    <cis, ais'>2 e'4 e'
+  }
+>>
+@end lilypond
+
+@item
+調号の取り消しで、@c
+角で接するナチュラルグリフの間にわずかなパディングが追加されました。
+@lilypond[verbatim,quote]
+{
+  \omit Staff.TimeSignature
+  \key ces \major s1 \key c \major s
+}
+@end lilypond
+
+@item
+ボックスのスカイラインは、@c
+丸みをおびた角や回転を含んだ実際のボックスのアウトラインを反映するようになりました。
+@lilypond[verbatim,quote]
+#(ly:set-option 'debug-skylines #t)
+{
+  b'1^\markup \scale #'(2 . 1)
+              \rotate #30
+              \override #'(corner-radius . 3)
+              \rounded-box \center-column { box skyline }
+}
+@end lilypond
+
+@item
+2つの新しい装飾記号が追加されました。
+@lilypond[verbatim,quote]
+{
+  c''2\slashturn c''\haydnturn
+}
+@end lilypond
+
+@item
+256 分、512 分、1024 分の旗と休符のフォントグリフが追加されました。
+@lilypond[quote]
+{
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  b4 8 16 32 64 128 256 512 1024 \bar "|"
+  b''4 8 16 32 64 128 256 512 1024 \bar "|"
+  r4 r8 r16 r32 r64 r128 r256 r512 r1024 \bar "|"
+}
+@end lilypond
+
+@item
+@emph{niente} を表す強弱コマンド @code{\n} が追加されました。
+@lilypond[quote]
+{
+  d'1~\mp\> 2 r\n
+}
+@end lilypond
+
+@item
+フレット図は @code{handedness} を @code{LEFT} にセットすることで左利き用に@c
+譜刻されるようになりました (@code{fret-diagram-details} のサブプロパティとして) 。
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(left-handed)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
+@end lilypond
+
+@item
+@code{output-classic-framework} プロシージャと @code{-dclip-systems} が
+@code{SVG} バックエンドで有効になりました。
+
+@item
+@code{-dcrop} 引数が追加されました。@c
+これは @code{SVG} と @code{PDF} の出力をマージンや改ページなしでフォーマットします。
 
 @end itemize
 
 @ifhtml
 古いニュースに関しては、@c
-@uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
-@uref{https://lilypond.org/doc/v2.16/Documentation/changes/}
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/}
 を参照するか、@uref{../,ドキュメントのトップ}に戻ってください。
 
 @end ifhtml

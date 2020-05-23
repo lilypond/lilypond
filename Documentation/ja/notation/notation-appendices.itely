@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima
+@c Translators: Tomohiro Tatejima, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 @node 付表
@@ -48,8 +48,11 @@
 @appendixsec コード ネーム表
 @translationof Chord name chart
 
-次の図は、コード ネームを表示する 2 つの一般的な方式を、@c
-ピッチと共に示しています:
+次の図は、コード ネームを表示する LilyPond の一般的な方式を、@c
+ピッチと共に示しています。初期の LilyPond リリース (バージョン 1.7 まで) で@c
+デフォルトで用いられた Harald Banter (1982) から着想を得た記譜法を含む@c
+追加の (サポートされていない) 命名システムも、@c
+@rlsr{Chords} の @qq{Chord names alternative} スニペットで紹介します。
 
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
@@ -853,15 +856,15 @@ cello                     lead 6 (voice)
 
 使用する際の構文は @ref{Coloring objects} に詳しく説明されています。
 
-@cindex List of colors (色の一覧)
-@cindex Colors, list of (色の一覧)
+@cindex list of colors (色の一覧)
+@cindex color, list of (色の一覧)
 
-@verbatim
+@example
 black       white          red         green
 blue        cyan           magenta     yellow
 grey        darkred        darkgreen   darkblue
 darkcyan    darkmagenta    darkyellow
-@end verbatim
+@end example
 
 
 @subsubheading X 色名
@@ -879,60 +882,68 @@ X の色名にはいくつかの種類があります:
 
 @subsubheading 数字を付けない色名
 
-@verbatim
-snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
-OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
-bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
-ivory		LemonChiffon	seashell	honeydew	MintCream
-azure		AliceBlue	lavender	LavenderBlush	MistyRose
-white		black		DarkSlateGrey	DimGrey		SlateGrey
-LightSlateGrey	grey		LightGrey	MidnightBlue	navy
-NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
-LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
-DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
-LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
-turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
-aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
-MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
-green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
-YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
-PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
-LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
-SaddleBrown	sienna		peru		burlywood	beige
-wheat		SandyBrown	tan		chocolate	firebrick
-brown		DarkSalmon	salmon		LightSalmon	orange
-DarkOrange	coral		LightCoral	tomato		OrangeRed
-red		HotPink		DeepPink	pink		LightPink
-PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
-violet		plum		orchid		MediumOrchid	DarkOrchid
-DarkViolet	BlueViolet	purple		MediumPurple	thistle
-DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
-LightGreen
-@end verbatim
-
+@example
+AliceBlue       LawnGreen             OrangeRed      firebrick
+AntiqueWhite    LemonChiffon          PaleGoldenrod  gainsboro
+BlanchedAlmond  LightBlue             PaleGreen      gold
+BlueViolet      LightCoral            PaleTurquoise  goldenrod
+CadetBlue       LightCyan             PaleVioletRed  green
+CornflowerBlue  LightGoldenrod        PapayaWhip     grey
+DarkBlue        LightGoldenrodYellow  PeachPuff      honeydew
+DarkCyan        LightGreen            PowderBlue     ivory
+DarkGoldenrod   LightGrey             RosyBrown      khaki
+DarkGreen       LightPink             RoyalBlue      lavender
+DarkGrey        LightSalmon           SaddleBrown    linen
+DarkKhaki       LightSeaGreen         SandyBrown     magenta
+DarkMagenta     LightSkyBlue          SeaGreen       maroon
+DarkOliveGreen  LightSlateBlue        SkyBlue        moccasin
+DarkOrange      LightSlateGrey        SlateBlue      navy
+DarkOrchid      LightSteelBlue        SlateGrey      orange
+DarkRed         LightYellow           SpringGreen    orchid
+DarkSalmon      LimeGreen             SteelBlue      peru
+DarkSeaGreen    MediumAquamarine      VioletRed      pink
+DarkSlateBlue   MediumBlue            WhiteSmoke     plum
+DarkSlateGrey   MediumOrchid          YellowGreen    purple
+DarkTurquoise   MediumPurple          aquamarine     red
+DarkViolet      MediumSeaGreen        azure          salmon
+DeepPink        MediumSlateBlue       beige          seashell
+DeepSkyBlue     MediumSpringGreen     bisque         sienna
+DimGrey         MediumTurquoise       black          snow
+DodgerBlue      MediumVioletRed       blue           tan
+FloralWhite     MidnightBlue          brown          thistle
+ForestGreen     MintCream             burlywood      tomato
+GhostWhite      MistyRose             chartreuse     turquoise
+GreenYellow     NavajoWhite           chocolate      violet
+HotPink         NavyBlue              coral          wheat
+IndianRed       OldLace               cornsilk       white
+LavenderBlush   OliveDrab             cyan           yellow
+@end example
 
 @subsubheading 数字を付ける色名
 
 接尾辞 N は 1-4 の数字を取ります:
 
-@verbatim
-snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
-NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
-LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
-blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
-LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
-CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
-SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
-OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
-yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
-IndianRedN	siennaN		burlywoodN	wheatN		tanN
-chocolateN	firebrickN	brownN		salmonN		LightSalmonN
-orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
-redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
-PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
-plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
-thistleN
-@end verbatim
+@example
+AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN
+CadetBlueN       LightSteelBlueN  VioletRedN   magentaN
+DarkGoldenrodN   LightYellowN     aquamarineN  maroonN
+DarkOliveGreenN  MediumOrchidN    azureN       orangeN
+DarkOrangeN      MediumPurpleN    bisqueN      orchidN
+DarkOrchidN      MistyRoseN       blueN        pinkN
+DarkSeaGreenN    NavajoWhiteN     brownN       plumN
+DeepPinkN        OliveDrabN       burlywoodN   purpleN
+DeepSkyBlueN     OrangeRedN       chartreuseN  redN
+DodgerBlueN      PaleGreenN       chocolateN   salmonN
+HotPinkN         PaleTurquoiseN   coralN       seashellN
+IndianRedN       PaleVioletRedN   cornsilkN    siennaN
+LavenderBlushN   PeachPuffN       cyanN        snowN
+LemonChiffonN    RosyBrownN       firebrickN   tanN
+LightBlueN       RoyalBlueN       goldN        thistleN
+LightCyanN       SeaGreenN        goldenrodN   tomatoN
+LightGoldenrodN  SkyBlueN         greenN       turquoiseN
+LightPinkN       SlateBlueN       honeydewN    wheatN
+LightSalmonN     SpringGreenN     ivoryN       yellowN
+@end example
 
 
 @subsubheading グレースケール
@@ -950,11 +961,11 @@ greyN
 
 
 @cindex Emmentaler font (Emmentaler フォント)
-@cindex Font, Emmentaler (Emmentaler フォント)
+@cindex font, Emmentaler (Emmentaler フォント)
 @cindex Feta font (Feta フォント)
-@cindex Font, Feta (Feta フォント)
+@cindex font, Feta (Feta フォント)
 @cindex Parmesan font (Parmesan フォント)
-@cindex Font, Parmesan (Parmesan フォント)
+@cindex font, Parmesan (Parmesan フォント)
 
 Emmentaler フォントは 2 つのグリフの@emph{サブセット}から成ります。@c
 一つは @qq{Feta} で、伝統的な記譜法に用いられ、@c
@@ -1284,7 +1295,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @appendixsec 符頭のスタイル
 @translationof Note head styles
 
-@cindex note head styles (符頭のスタイル)
+@cindex note head style (符頭のスタイル)
 以下は、符頭のスタイルの一覧です。
 
 @lilypondfile[noindent]{note-head-style.ly}
@@ -1297,59 +1308,59 @@ g^\markup @{\musicglyph "scripts.segno" @}
 以下の表は、使用できる音部記号のスタイルの一覧です (@emph{ミドル C} が@c
 どこに位置するかも表示してあります)。
 
-@cindex Treble clef (高音部記号)
-@cindex Clef, treble (高音部記号)
-@cindex Violin clef (バイオリン音部記号)
-@cindex Clef, violin (バイオリン音部記号)
-@cindex Clef, G (G 音部記号)
-@cindex Clef, G2 (G2 音部記号)
-@cindex Clef, GG (GG 音部記号)
-@cindex Clef, tenor G (テノール G 音部記号)
-@cindex Tenor G clef (テノール G 音部記号)
-@cindex Clef, french (フレンチ (バイオリン) 音部記号)
+@cindex treble clef (高音部記号)
+@cindex clef, treble (高音部記号)
+@cindex violin clef (バイオリン音部記号)
+@cindex clef, violin (バイオリン音部記号)
+@cindex clef, G (G 音部記号)
+@cindex clef, G2 (G2 音部記号)
+@cindex clef, GG (GG 音部記号)
+@cindex clef, tenor G (テノール G 音部記号)
+@cindex tenor G clef (テノール G 音部記号)
+@cindex clef, french (フレンチ (バイオリン) 音部記号)
 @cindex French clef (フレンチ (バイオリン) 音部記号)
-@cindex Clef, soprano (ソプラノ音部記号)
-@cindex Soprano clef (ソプラノ音部記号)
-@cindex Clef, mezzosoprano (メゾソプラノ音部記号)
-@cindex Mezzosoprano clef (メゾソプラノ音部記号)
-@cindex Clef, alto (アルト音部記号)
-@cindex Alto clefa (アルト音部記号)
-@cindex Clef, C (C 音部記号)
+@cindex clef, soprano (ソプラノ音部記号)
+@cindex soprano clef (ソプラノ音部記号)
+@cindex clef, mezzosoprano (メゾソプラノ音部記号)
+@cindex mezzosoprano clef (メゾソプラノ音部記号)
+@cindex clef, alto (アルト音部記号)
+@cindex alto clefa (アルト音部記号)
+@cindex clef, C (C 音部記号)
 @cindex C clef (C 音部記号)
-@cindex Clef, varC (varC 音部記号)
-@cindex VarC clef (varC 音部記号)
-@cindex Clef, alto varC (アルト varC 音部記号)
-@cindex Alto varC clef (アルト varC 音部記号)
-@cindex Clef, tenor (テノール音部記号)
+@cindex clef, varC (変形 C 音部記号)
+@cindex varC clef (変形 C 音部記号)
+@cindex clef, alto varC (アルト 変形 C 音部記号)
+@cindex alto varC clef (アルト 変形 C 音部記号)
+@cindex clef, tenor (テノール音部記号)
 @cindex tenor clef (テノール音部記号)
-@cindex Clef, tenor varC (テノール varC 音部記号)
-@cindex Tenor varC clef (テノール varC 音部記号)
-@cindex Clef, baritone varC (バリトン varC 音部記号)
-@cindex Baritone varC clef (バリトン varC 音部記号)
-@cindex Clef, varbaritone (変形バリトン音部記号)
-@cindex Varbaritone clef (変形バリトン音部記号)
-@cindex Clef, baritone varF (バリトン varF 音部記号)
-@cindex Baritone varF clef (バリトン varF 音部記号)
-@cindex Clef, bass (低音部記号)
-@cindex Bass clef (低音部記号)
-@cindex Clef, F (F 音部記号)
+@cindex clef, tenor varC (テノール 変形 C 音部記号)
+@cindex tenor varC clef (テノール 変形 C 音部記号)
+@cindex clef, baritone varC (バリトン 変形 C 音部記号)
+@cindex baritone varC clef (バリトン 変形C 音部記号)
+@cindex clef, varbaritone (変形バリトン音部記号)
+@cindex varbaritone clef (変形バリトン音部記号)
+@cindex clef, baritone varF (バリトン 変形 F 音部記号)
+@cindex baritone varF clef (バリトン 変形 F 音部記号)
+@cindex clef, bass (低音部記号)
+@cindex bass clef (低音部記号)
+@cindex clef, F (F 音部記号)
 @cindex F clef (F 音部記号)
-@cindex Clef, subbass (低バス音部記号)
-@cindex Subbass clef (低バス音部記号)
-@cindex Clef, percussion (打楽器の音部記号)
-@cindex Percussion clef (打楽器の音部記号)
-@cindex Clef, tab (タブ譜の音部記号)
-@cindex Tab clef (タブ譜の音部記号)
-@cindex Clef styles (音部記号のスタイル)
-@cindex Ancient music clefs (古代音楽の音部記号)
-@cindex Clef, ancient music (古代音楽の音部記号)
-@cindex Clef, petrucci (Petrucci の音部記号)
-@cindex Clef, mensural (計量記譜法の音部記号)
-@cindex Clef, blackmensural (黒色計量記譜法の音部記号)
-@cindex Clef, kievan (キエフ記譜法の音部記号)
+@cindex clef, subbass (低バス音部記号)
+@cindex subbass clef (低バス音部記号)
+@cindex clef, percussion (打楽器の音部記号)
+@cindex percussion clef (打楽器の音部記号)
+@cindex clef, tab (タブ譜の音部記号)
+@cindex tab clef (タブ譜の音部記号)
+@cindex clef styles (音部記号のスタイル)
+@cindex ancient music clefs (古代音楽の音部記号)
+@cindex clef, ancient music (古代音楽の音部記号)
+@cindex clef, Petrucci (Petrucci の音部記号)
+@cindex clef, mensural (計量記譜法の音部記号)
+@cindex clef, blackmensural (黒色計量記譜法の音部記号)
+@cindex clef, Kievan (キエフ記譜法の音部記号)
 @cindex Petrucci clef (Petrucci の音部記号)
-@cindex Mensural clef (計量記譜法の音部記号)
-@cindex Blackmensural clef (黒色計量記譜法の音部記号)
+@cindex mensural clef (計量記譜法の音部記号)
+@cindex blackmensural clef (黒色計量記譜法の音部記号)
 @cindex Kievan clef (キエフ記譜法の音部記号)
 
 @menu
@@ -2218,13 +2229,19 @@ second column examples was always larger than between the remaining
 columns - JL
 @end ignore
 
-@cindex accent (アクセント)
-@cindex espressivo (エスプレッシーヴォ)
-@cindex marcato (マルカート)
-@cindex portato (ポルタート)
-@cindex staccatissimo (スタッカーティシモ)
-@cindex staccato (スタッカート)
-@cindex tenuto (テヌート)
+@funindex \accent
+@funindex ->
+@funindex \espressivo
+@funindex \marcato
+@funindex -^
+@funindex \portato
+@funindex -_
+@funindex \staccatissimo
+@funindex -!
+@funindex \staccato
+@funindex -.
+@funindex \tenuto
+@funindex --
 @cindex thumb (親指記号)
 
 @node アーティキュレーション スクリプト
@@ -2272,20 +2289,22 @@ f^\tenuto e,_\tenuto b'\tenuto
 
 @end multitable
 
-@cindex prall (プラル)
-@cindex prallup (アップ プラル)
-@cindex pralldown (ダウン プラル)
-@cindex upprall (アップ プラル)
-@cindex downprall (ダウン プラル)
-@cindex prallprall (プラルプラル)
-@cindex lineprall (ライン プラル)
-@cindex prallmordent (プラル モルデント)
-@cindex mordent (モルデント)
-@cindex upmordent (アップ モルデント)
-@cindex downmordent (ダウン モルデント)
-@cindex trill (トリル)
-@cindex turn (ターン)
-@cindex reverseturn (逆ターン)
+@funindex \prall
+@funindex \prallup
+@funindex \pralldown
+@funindex \upprall
+@funindex \downprall
+@funindex \prallprall
+@funindex \lineprall
+@funindex \prallmordent
+@funindex \mordent
+@funindex \upmordent
+@funindex \downmordent
+@funindex \trill
+@funindex \turn
+@funindex \reverseturn
+@funindex \slashturn
+@funindex \haydnturn
 
 @node 装飾音スクリプト
 @unnumberedsubsec 装飾音スクリプト
@@ -2366,13 +2385,26 @@ f^\turn e,_\turn b'\reverseturn
 @lilypond[notime,relative=2]
 f^\reverseturn e,_\reverseturn b'\reverseturn
 @end lilypond
+@tab
+@code{\slashturn}
+@lilypond[notime,relative=2]
+f^\slashturn e,_\slashturn b'\slashturn
+@end lilypond
+@tab
+@code{\haydnturn}
+@lilypond[notime,relative=2]
+f^\haydnturn e,_\haydnturn b'\haydnturn
+@end lilypond
 
 @end multitable
 
-@cindex fermata (フェルマータ)
-@cindex shortfermata (短いフェルマータ)
-@cindex longfermata (長いフェルマータ)
-@cindex verylongfermata (非常に長いフェルマータ)
+@funindex \fermata
+@funindex \shortfermata
+@funindex \longfermata
+@funindex \veryshortfermata
+@funindex \verylongfermata
+@funindex \henzeshortfermata
+@funindex \henzelongfermata
 
 @node フェルマータ スクリプト
 @unnumberedsubsec フェルマータ スクリプト
@@ -2381,6 +2413,11 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 @multitable @columnfractions .22 .25 .25 .25
 
 @item
+@code{\veryshortfermata}
+@lilypond[notime,relative=2]
+f^\veryshortfermata e,_\veryshortfermata b'\veryshortfermata
+@end lilypond
+@tab
 @code{\shortfermata}
 @lilypond[notime,relative=2]
 f^\shortfermata e,_\shortfermata b'\shortfermata
@@ -2395,25 +2432,37 @@ f^\fermata e,_\fermata b'\fermata
 @lilypond[notime,relative=2]
 f^\longfermata e,_\longfermata b'\longfermata
 @end lilypond
-@tab
+
+@item
 @code{\verylongfermata}
 @lilypond[notime,relative=2]
 f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 @end lilypond
+@tab
+@code{\henzeshortfermata}
+@lilypond[notime,relative=2]
+f^\henzeshortfermata e,_\henzeshortfermata b'\henzeshortfermata
+@end lilypond
+@tab
+@code{\henzelongfermata}
+@lilypond[notime,relative=2]
+f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
+@end lilypond
 
 @end multitable
 
-@cindex upbow (アップ ボー)
-@cindex downbow (ダウン ボー)
-@cindex flageolet (フラジョレット)
-@cindex open (オープン)
-@cindex halfopen (ハーフ オープン)
-@cindex lheel (左かかと)
-@cindex rheel (右かかと)
-@cindex ltoe (左つま先)
-@cindex rtoe (右つま先)
-@cindex snappizzicato (スナップ ピッツィカート)
-@cindex stopped (ストップ、ミュート)
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \open
+@funindex \halfopen
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \snappizzicato
+@funindex \stopped
+@funindex -+
 
 @node 楽器に固有のスクリプト
 @unnumberedsubsec 楽器に固有のスクリプト
@@ -2481,9 +2530,9 @@ f^\stopped e,_\stopped b'\stopped
 
 @end multitable
 
-@cindex segno (セーニョ)
-@cindex coda (コーダ)
-@cindex varcoda (変格コーダ)
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
 
 @node 繰り返し記号のスクリプト
 @unnumberedsubsec 繰り返し記号のスクリプト
@@ -2509,11 +2558,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex accentus
-@cindex circulus
-@cindex ictus
-@cindex semicirculus
-@cindex signumcongruentiae (合流記号)
+@funindex \accentus
+@funindex \circulus
+@funindex \ictus
+@funindex \semicirculus
+@funindex \signumcongruentiae
 
 @node 古代音楽のスクリプト
 @unnumberedsubsec 古代音楽のスクリプト
@@ -2561,7 +2610,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex drums, various (さまざまなドラム)
+@cindex drum, various (さまざまなドラム)
 @cindex acoustic bass (アコースティック バス)
 @cindex bass (バス)
 @cindex snare (スネア)
@@ -3113,8 +3162,8 @@ Scheme では、@strong{クロージャ} (@strong{closure}) は@c
 @translationof grob
 
 @cindex grob (グラフィカル オブジェクト)
-@cindex layout objects (レイアウト オブジェクト)
-@cindex graphical objects (グラフィカル オブジェクト)
+@cindex layout object (レイアウト オブジェクト)
+@cindex graphical object (グラフィカル オブジェクト)
 
 LilyPon のオブジェクトの内、
 符頭、符幹、スラー、タイ、運指、音部記号などの、@c
@@ -3138,9 +3187,9 @@ LilyPon のオブジェクトの内、
 @unnumberedsubsec immutable (イミュータブル)
 @translationof immutable
 
-@cindex immutable objects (イミュータブル オブジェクト)
-@cindex immutable properties (イミュータブル プロパティ)
-@cindex shared properties (共有プロパティ)
+@cindex immutable object (イミュータブル オブジェクト)
+@cindex immutable property (イミュータブル プロパティ)
+@cindex shared property (共有プロパティ)
 
 @strong{イミュータブル}な (@strong{immutable}) オブジェクトは、@c
 生成された後にも状態を変更できるミュータブル オブジェクトとは異なり、@c
@@ -3161,8 +3210,8 @@ LilyPond では、イミュータブル プロパティまたは共有プロパ�
 @translationof interface
 
 @cindex interface (インターフェイス)
-@cindex grob-interface
-@cindex graphical object interfaces (グラフィカル オブジェクト インターフェイス)
+@funindex grob-interface
+@cindex graphical object interface (グラフィカル オブジェクト インターフェイス)
 
 複数の Grob で共通のアクションやプロパティは、@code{grob-interface} 
 あるいは短く@q{インターフェイス} (@q{interface}) と@c
@@ -3202,8 +3251,8 @@ LilyPond の字句解析器は Flex を用いて、字句に関する規則を�
 @unnumberedsubsec mutable (ミュータブル)
 @translationof mutable
 
-@cindex mutable objects (ミュータブル オブジェクト)
-@cindex mutable properties (ミュータブル プロパティ)
+@cindex mutable object (ミュータブル オブジェクト)
+@cindex mutable property (ミュータブル プロパティ)
 
 @strong{ミュータブル}な (@strong{mutable}) オブジェクトは、@c
 生成された際に状態が固定されるイミュータブル オブジェクトとは異なり、@c
@@ -3222,7 +3271,7 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 @unnumberedsubsec output-def (出力定義クラス)
 @translationof output-def
 
-@cindex output-def (出力定義クラス)
+@funindex output-def
 
 @code{Output-def} クラスのインスタンスは、出力ブロックに関連した@c
 データ構造やメソッドを保持します。インスタンスは midi, layout, paper
@@ -3236,7 +3285,7 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 @cindex parser
 @cindex Bison
 @cindex LilyPond grammar
-@cindex grammar for LilyPond
+@cindex grammar, for LilyPond
 @cindex BNF
 
 @strong{構文解析器} (@strong{parser}, @strong{パーサ}) は、@c
@@ -3261,17 +3310,17 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 @cindex parser variable (パーサ変数)
 @cindex Scheme variable (Scheme 変数)
 @cindex global variable (グローバル変数)
-@cindex afterGraceFraction
-@cindex musicQuotes
-@cindex mode
-@cindex output-count
-@cindex output-suffix
-@cindex partCombineListener
-@cindex pitchnames
-@cindex toplevel-bookparts
-@cindex toplevel-scores
-@cindex showLastLength
-@cindex showFirstLength
+@funindex afterGraceFraction
+@funindex musicQuotes
+@funindex mode
+@funindex output-count
+@funindex output-suffix
+@funindex partCombineListener
+@funindex pitchnames
+@funindex toplevel-bookparts
+@funindex toplevel-scores
+@funindex showLastLength
+@funindex showFirstLength
 
 これらは Scheme で直接定義される変数です。これらをユーザが直接操作することは、@c
 変数のスコープが難解であるため推奨されません。

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 マカームはトルコ発祥の旋法で、1/9 音の微分音を使用します。ピッチの名前や@c
 調号についての詳細は、初期化ファイル @samp{ly/makam.ly} を参照してください。

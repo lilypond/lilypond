@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -105,12 +105,12 @@
 
 @cindex lyrics, entering (歌詞を入力する)
 @cindex entering lyrics (歌詞を入力する)
-@cindex formatting in lyrics (歌詞のフォーマット)
+@cindex formatting, in lyrics (歌詞のフォーマット)
 @cindex lyrics, formatting (歌詞のフォーマット)
-@cindex punctuation in lyrics (歌詞の句読点)
-@cindex lyrics punctuation (歌詞の句読点)
-@cindex spaces in lyrics (歌詞のスペース)
-@cindex quotes in lyrics (歌詞のスペース)
+@cindex punctuation, in lyrics (歌詞の句読点)
+@cindex lyrics, punctuation (歌詞の句読点)
+@cindex space, in lyrics (歌詞のスペース)
+@cindex quote, in lyrics (歌詞のスペース)
 @funindex \lyricmode
 
 @c TODO should we explain hyphens here
@@ -196,6 +196,8 @@
 
 @snippets
 
+@cindex lyrics, and markup (歌詞とマークアップ)
+@cindex markup, in lyrics (歌詞におけるマークアップ)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
@@ -223,7 +225,7 @@
 @translationof Aligning lyrics to a melody
 
 @cindex lyrics, aligning to a melody (歌詞を旋律に揃える)
-@cindex @code{associatedVoice}
+@funindex associatedVoice
 @funindex \lyricmode
 @funindex \addlyrics
 @funindex \lyricsto
@@ -348,9 +350,9 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @unnumberedsubsubsec 歌詞音節の自動演奏時間
 @translationof Automatic syllable durations
 
-@cindex syllable durations, automatic (歌詞音節の自動演奏時間)
-@cindex lyrics and melodies (歌詞と旋律)
-@cindex @code{associatedVoice}
+@cindex syllable duration, automatic (歌詞音節の自動演奏時間)
+@cindex lyrics, and melodies (歌詞と旋律)
+@funindex associatedVoice
 @funindex \addlyrics
 @funindex \lyricsto
 
@@ -382,7 +384,6 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 
 @subheading @code{\lyricsto} を用いる
 
-@cindex \lyricsto
 @funindex \lyricsto
 
 旋律を保持している名前の付いたボイス コンテキストを
@@ -412,7 +413,6 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 
 @subheading @code{\addlyrics} を用いる
 
-@cindex \addlyrics
 @funindex \addlyrics
 
 @code{\addlyrics} コマンドは便利なショートカットで、@c
@@ -593,9 +593,9 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @translationof Multiple syllables to one note
 
 @funindex _
-@cindex spaces, in lyrics (歌詞の中での空白)
-@cindex quotes, in lyrics (歌詞の中での引用符)
-@cindex ties, in lyrics (歌詞の中でのタイ)
+@cindex space, in lyrics (歌詞の中での空白)
+@cindex quote, in lyrics (歌詞の中での引用符)
+@cindex tie, in lyrics (歌詞の中でのタイ)
 
 1 つの音符にスペースで区切られた複数の音節を割り当てるには、@c
 そのフレーズを引用符で囲むか、@code{_} 文字を用います。@c
@@ -846,7 +846,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 -- デフォルトでは、音符のスキップは延長線を作り出しません。
 }
 
-@cindex hyphens (ハイフン)
+@cindex hyphen (ハイフン)
 
 @c leave this as samp. -gp
 同じ単語の音節間の中央にハイフンを記譜するには、@c
@@ -972,7 +972,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @unnumberedsubsubsec 歌詞の垂直方向の配置
 @translationof Placing lyrics vertically
 
-@cindex placement of lyrics (歌詞の配置)
+@cindex placement, lyrics (歌詞の配置)
 @cindex lyrics, positioning (歌詞を配置する)
 
 音楽の種類によって、歌詞が譜の上、下、あるいは間に配置されることもあります。@c
@@ -1090,6 +1090,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 ください -- を吟味することによって作り出すことができます。
 
 @snippets
+
+@cindex lyrics, version 2.12 spacing (バージョン 2.12 のスペーシングの歌詞)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
@@ -1106,8 +1108,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @unnumberedsubsubsec 歌詞の水平方向の配置
 @translationof Placing syllables horizontally
 
-@cindex Spacing lyrics (歌詞の間隔)
-@cindex Lyrics, increasing space between (歌詞の間隔を広げる)
+@cindex spacing lyrics (歌詞の間隔)
+@cindex lyrics, increasing space between (歌詞の間隔を広げる)
 
 歌詞の間隔を広げるには
 @code{LyricSpace} の @code{minimum-distance} プロパティを設定します。
@@ -1147,19 +1149,26 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
+@cindex lyrics, horizontal alignment (歌詞の水平揃え)
+@cindex alignment, horizontal, lyrics (歌詞の水平揃え)
+@cindex horizontal alignment, lyrics (歌詞の水平揃え)
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {lyrics-alignment.ly}
 
-@c TODO: move to LSR -vv
+@knownissues
 
-テキスト スクリプトと歌詞がマージンの中に納まることを確認するチェックは@c
+@cindex lyrics, keeping inside margin (歌詞を余白内に収める)
+テキスト スクリプトと歌詞がマージンの中に収まることを確認するチェックは@c
 より多くの計算を必要とします。@c
 この機能を無効にすることで、処理をわずかにスピードアップすることができます:
 
 @example
 \override Score.PaperColumn.keep-inside-line = ##f
 @end example
+
+@cindex lyrics, avoid bar lines (歌詞が小節線を避けるようにする)
+@cindex bar line, avoided by lyrics (歌詞が小節線を避けるようにする)
 
 歌詞が小節線を避けるようにするには、以下を使います:
 
@@ -1179,7 +1188,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @unnumberedsubsubsec 歌詞と繰り返し
 @translationof Lyrics and repeats
 
-@cindex repeats and lyrics (繰り返しと歌詞)
+@cindex repeat, and lyrics (繰り返しと歌詞)
 @cindex lyrics, repeating (歌詞を繰り返す)
 
 @subheading 1 回の繰り返し
@@ -1325,7 +1334,6 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@cindex alignBelowContext
 @funindex alignBelowContext
 
 しかしながら、この構造が @code{ChoirStaff} のような複数の譜を持つ@c
@@ -1378,8 +1386,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @subheading 差し替えのある繰り返し
 
 @cindex lyrics, repeats with alternative endings (差し替えのある繰り返しの歌詞)
-@cindex repeating lyrics with alternative endings (差し替えのある繰り返しの歌詞)
-@cindex alternative endings and lyrics (差し替えのある繰り返しと歌詞)
+@cindex repeating lyrics, with alternative endings (差し替えのある繰り返しの歌詞)
+@cindex alternative ending, and lyrics (差し替えのある繰り返しと歌詞)
 
 繰り返し部分の歌詞が同じで、@c
 どの @code{\alternative} ブロックも休符で始まるのでなければ、@c
@@ -1462,7 +1470,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@cindex lyrics and tied notes (歌詞とタイで結ばれた音符)
+@cindex lyrics, and tied notes (歌詞とタイで結ばれた音符)
 @funindex \repeatTie
 
 タイが途中で複数の差し替えに分かれる場合、@c
@@ -1669,10 +1677,10 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @unnumberedsubsubsec 歌詞を共有する多声
 @translationof Polyphony with shared lyrics
 
-@cindex NullVoice
+@funindex NullVoice
 @cindex polyphony, shared lyrics (歌詞を共有する多声)
 @cindex lyrics, shared among voices (歌詞を共有する多声)
-@cindex \partCombine and lyrics (\partCombine と歌詞)
+@cindex @code{\partCombine} and lyrics (@code{\partCombine} と歌詞)
 @funindex \partCombine
 
 2 つのボイスが異なるリズムを持ち、同じ歌詞を共有する場合、@c
@@ -1728,7 +1736,7 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 @knownissues
-@code{\addLyrics} 関数は @code{Voice} にのみ動作するため、@c
+@code{\addlyrics} 関数は @code{Voice} にのみ動作するため、@c
 @code{NullVoice} と一緒に用いることはできません。
 
 @noindent
@@ -1790,39 +1798,40 @@ words = \lyricmode { la __ la __ }
 
 
 @noindent
-これらの番号は歌詞の前に配置されます。
+これらの番号は歌詞の前に配置されます。@c
+2 行からなる節をグループ化することができます。@c
+これは例えば、繰り返しで歌詞が異なる場合に有用です:
 
-@c TODO Create and add snippet to show how two lines of a
-@c stanza can be grouped together, along these lines:
-@c (might need improving a bit) -td
-
-@ignore
-leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
-"brace105" }
-
-stanzaOneOne = {
-  \set stanza = \markup { "1. " \leftbrace }
-  \lyricmode { Child, you're mine and I love you.
-    Lend thine ear to what I say.
-
-  }
+@lilypond[quote,ragged-right,verbatim]
+leftbrace = \markup {
+  \override #'(font-encoding . fetaBraces)
+  \lookup "brace80"
 }
 
-stanzaOneThree =  {
-%  \set stanza = \markup { "   "}
-  \lyricmode { Child, I have no great -- er joy
-    Than to have you walk in truth.
-
+stanzaOneOne = \lyricmode {
+  \set stanza = \markup {
+    \column { \vspace #.33 "1. "}
+    \leftbrace
   }
+  Child, you’re mine and I love you.
+  Lend thine ear to what I say.
+}
+
+stanzaOneThree = \lyricmode {
+  Child, I have no great -- er joy
+  Than to have you walk in truth.
 }
 
 \new Voice {
-  \repeat volta 2 { c'8 c' c' c' c' c' c'4
-                    c'8 c' c' c' c' c' c'4   }
-}  \addlyrics { \stanzaOneOne }
-   \addlyrics { \stanzaOneThree }
+  \repeat volta 2 {
+    c'8 c' c' c' c' c' c'4
+    c'8 c' c' c' c' c' c'4
+  }
+}
+\addlyrics { \stanzaOneOne }
+\addlyrics { \stanzaOneThree }
 
-@end ignore
+@end lilypond
 
 @node 歌詞の節に強弱記号を追加する
 @unnumberedsubsubsec 歌詞の節に強弱記号を追加する
@@ -1921,8 +1930,8 @@ text = {
 
 @subsubheading 装飾小音符に音節を割り当てる
 
-@cindex grace notes and lyrics (装飾小音符と歌詞)
-@cindex lyrics on grace notes (装飾小音符の歌詞)
+@cindex grace note, and lyrics (装飾小音符と歌詞)
+@cindex lyrics, on grace notes (装飾小音符の歌詞)
 
 デフォルトでは、@code{\lyricsto} を用いても装飾小音符 (つまり、@code{\grace})
 には音節は割り当てられません。@c
@@ -1973,7 +1982,7 @@ text = {
 
 @subsubheading 代替の旋律に切り替える
 
-@cindex associatedVoice
+@funindex associatedVoice
 @cindex alternative melody, switching to (代替の旋律に切り替える)
 
 音楽への歌詞の割り当て方をもっと複雑に変化させることができます。@c
@@ -2068,19 +2077,20 @@ text = \lyricmode {
 its fleece was white as snow.
 }
 
-\score{ <<
+\score { <<
   \new Voice = "one" { \melody }
   \new Lyrics \lyricsto "one" \text
 >>
   \layout { }
 }
-\markup { \column{
-  \line{ Verse 2. }
-  \line{ All the children laughed and played }
-  \line{ To see a lamb at school. }
+\markup {
+  \column {
+    \line { Verse 2. }
+    \line { All the children laughed and played }
+    \line { To see a lamb at school. }
   }
 }
-\markup{
+\markup {
   \wordwrap-string "
   Verse 3.
 
@@ -2242,6 +2252,7 @@ text = \lyricmode {
 和音モードの構文についての説明は @ref{Chord notation} にあります。
 
 @snippets
+
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
@@ -2254,8 +2265,8 @@ text = \lyricmode {
 @subsection 合唱
 @translationof Choral
 
-@cindex anthems (賛美歌)
-@cindex part songs (パート ソング)
+@cindex anthem (賛美歌)
+@cindex part song (パート ソング)
 @cindex oratorio (聖譚曲)
 @cindex SATB (S: ソプラノ、A: アルト、T: テナー、B: バス)
 
@@ -2265,7 +2276,6 @@ text = \lyricmode {
 @menu
 * 合唱のためのリファレンス::
 * 合唱のための楽譜レイアウト::
-* ボイスの分割::
 @end menu
 
 @node 合唱のためのリファレンス
@@ -2449,12 +2459,12 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}
 
+@snippets
 
-@node ボイスの分割
-@unnumberedsubsubsec ボイスの分割
-@translationof Divided voices
-
-@cindex voices, divided (ボイスの分割)
+@cindex voice, divided (ボイスの分割)
+@cindex divided voices (ボイスの分割)
+@cindex arpeggio bracket, marking divided voices (アルペジオ囲みによってボイスの分割を示す)
+@cindex bracket, vertical, marking divided voices (縦方向の囲みによってボイスの分割を示す)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
@@ -2581,8 +2591,8 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 @unnumberedsubsubsec 役名
 @translationof Character names
 
-@cindex character names (役名)
-@cindex names, character (役名)
+@cindex character name (役名)
+@cindex name, character (役名)
 
 通常、1 つの役に割り当てられている譜には左側に役名を示します:
 
@@ -2673,8 +2683,8 @@ melchior = {
 @unnumberedsubsubsec 合図
 @translationof Musical cues
 
-@cindex musical cues (合図)
-@cindex cues, musical (合図)
+@cindex musical cue (合図)
+@cindex cue, musical (合図)
 
 入りの直前にある他のパートの音楽を示すため、@c
 合図をボーカル譜、ボーカル ブック、それにオーケストラ パートに@c
@@ -2767,6 +2777,9 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 しかしながら、以下のコード断片で示すように、@c
 タイピングを減らして、ピアノの音符を明瞭にする音楽関数を定義することが可能です。
 
+@cindex vocal score, adding cues (歌曲で合図を追加する)
+@cindex score, vocal, adding cues (歌曲で合図を追加する)
+@cindex cue, in vocal score (歌曲における合図)
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
@@ -2898,9 +2911,10 @@ dialogue = \lyricmode {
 @subsection 聖歌と賛美歌
 @translationof Chants psalms and hymns
 
-@cindex chants (詠唱)
-@cindex psalms (聖歌)
-@cindex hymns (賛美歌)
+@cindex chant (詠唱)
+@cindex psalm (聖歌)
+@cindex hymn (賛美歌)
+@cindex canticle (雅歌)
 @cindex religious music (宗教音楽)
 
 通常、詠唱、聖歌、それに賛美歌の音楽と言葉は@c
@@ -3200,14 +3214,22 @@ global = {
 
 @snippets
 
+@cindex chant (詠唱)
+@cindex psalm (聖歌)
+@cindex hymn (賛美歌)
+@cindex canticle (雅歌)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {chant-or-psalms-notation.ly}
 
+@c XXX move this text into following snippet
 雅歌や他の典礼書の設定はもっと自由度が高く、@c
 古代音楽の記譜要素を使うかもしれません。@c
 しばしば単語を譜の下に音符に揃えて配置します。@c
 そのような場合、音符の間隔を音符の演奏時間ではなく、音節に合わせます。
 
+@cindex Gregorian music, modern transcription (グレゴリオ聖歌の現代譜への転写)
+@cindex transcription, modern of Gregorian music (グレゴリオ聖歌の現代譜への転写)
+@cindex modern transcription of Gregorian music (グレゴリオ聖歌の現代譜への転写)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
@@ -3395,6 +3417,9 @@ tick = \markup {
 各行の終わりに @code{\bar "|"} または @code{\bar "||"} を配置する必要が@c
 あります。
 
+@cindex hymn, and partial measures (賛美歌と部分小節)
+@cindex partial measure, in hymns (賛美歌での部分小節)
+@cindex measure, partial, in hymns (賛美歌での部分小節)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {hymn-template.ly}
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -8,7 +8,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -45,10 +45,10 @@
 @unnumberedsubsubsec 演奏時間
 @translationof Durations
 
-@cindex durations, of notes (音符の演奏時間)
-@cindex note durations (音符の演奏時間)
-@cindex length of notes (音符の長さ)
-@cindex note lengths (音符の長さ)
+@cindex duration, of notes (音符の演奏時間)
+@cindex note duration (音符の演奏時間)
+@cindex length of note (音符の長さ)
+@cindex note length (音符の長さ)
 
 @funindex \longa
 @funindex \breve
@@ -66,7 +66,7 @@
 音符の演奏時間は数とドットで入力します。入力された数は音符の長さの@c
 逆数となります。例えば、4 分音符は 1/4 の長さを持つため、@code{4} と@c
 入力します。2 分音符は @code{2}、8 分音符は @code{8} となります。@c
-@code{128} までの短い音符は入力できますが、それよりも短い音符は連桁で繋がれた@c
+@code{1024} までの短い音符は入力できますが、それよりも短い音符は連桁で繋がれた@c
 状態でしか表示できません。@ref{Beams} を参照してください。
 
 全音符よりも長い音符については、@code{\longa} -- ブレヴィスの 2 倍 --
@@ -113,7 +113,7 @@
 }
 @end lilypond
 
-@cindex pitches, default (デフォルトのピッチ)
+@cindex pitch, default (デフォルトのピッチ)
 @cindex default pitch (デフォルトのピッチ)
 @cindex note pitch, default (デフォルトの音符ピッチ)
 @cindex pitch, isolated (独立したピッチ)
@@ -127,9 +127,9 @@
 \relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
-@cindex notes, dotted (付点音符)
-@cindex dotted notes (付点音符)
-@cindex notes, double-dotted (2 重付点音符)
+@cindex note, dotted (付点音符)
+@cindex dotted note (付点音符)
+@cindex note, double-dotted (2 重付点音符)
 @cindex double-dotted notes (2 重付点音符)
 
 @funindex .
@@ -171,9 +171,14 @@
 
 @snippets
 
+@cindex breve note, alternative style (二全音符の別のスタイル)
+@cindex alternative style of breve notes (二全音符の別のスタイル)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {alternative-breve-notes.ly}
 
+@cindex augmentation dot, change number of (付点の数を変更する)
+@cindex change number of augmentation dots (付点の数を変更する)
+@cindex dotted note, change number of dots (付点の数を変更する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
@@ -206,15 +211,15 @@
 @c Deliberately duplicated in Durations and Rests.  -gp
 休符の演奏時間には基本的に限界 (最大値や最小値) がありませんが、@c
 図柄の数には限界があり、@c
-@code{128} から @code{\maxima} までの休符を譜刻することができます。
+@code{1024} から @code{\maxima} までの休符を譜刻することができます。
 
 
 @node 連符
 @unnumberedsubsubsec 連符
 @translationof Tuplets
 
-@cindex tuplets (連符)
-@cindex triplets (3 連符)
+@cindex tuplet (連符)
+@cindex triplet (3 連符)
 
 @funindex \tuplet
 
@@ -238,7 +243,7 @@
 }
 @end lilypond
 
-@cindex 連符のグルーピング
+@cindex tuplet, grouping (連符のグルーピング)
 @noindent
 連符の長いパッセージを入力するとき、@c
 各グループに別々の @code{\tuplet} コマンドを記述することは不便です。@c
@@ -251,7 +256,7 @@
 }
 @end lilypond
 
-@cindex tuplet bracket placement (連符囲みの配置)
+@cindex tuplet bracket, placement (連符囲みの配置)
 
 @funindex \tupletUp
 @funindex \tupletDown
@@ -293,30 +298,41 @@
 
 @snippets
 
-@cindex tuplet formatting (連符のフォーマット)
-@cindex triplet formatting (3 連符のフォーマット)
+@cindex tuplet, formatting (連符のフォーマット)
+@cindex triplet, formatting (3 連符のフォーマット)
 
+@cindex entering multiple tuplets (複数の連符を入力する)
+@cindex tuplet, entering multiple (複数の連符を入力する)
+@funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--tuplet-command.ly}
 
-@cindex Tuplet number changes (連符の数の変更)
-
+@cindex tuplet number, changes (連符の数の変更)
+@cindex change tuplet number (連符の数の変更)
 @funindex TupletNumber
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-tuplet-number.ly}
 
+@cindex tuplet number, non-default (デフォルトではない連符の数)
+@cindex non-default tuplet numbers (デフォルトではない連符の数)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {non-default-tuplet-numbers.ly}
 
+@cindex tuplet bracket, visibility (連符囲みの可視性)
+@cindex visibility of tuplet brackets (連符囲みの可視性)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-tuplet-bracket-visibility.ly}
 
+@cindex beamed tuplet, line break within (連桁で繋がれた連符の途中で改行する)
+@cindex tuplet, beamed, line break within (連桁で繋がれた連符の途中で改行する)
+@funindex Forbid_line_break_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
+
 
 @seealso
 音楽用語集:
@@ -347,13 +363,18 @@
 @unnumberedsubsubsec 演奏時間を変更する
 @translationof Scaling durations
 
-@cindex scaling durations (演奏時間を伸縮する)
-@cindex durations, scaling (演奏時間を伸縮する)
+@cindex scaling duration (演奏時間を伸縮する)
+@cindex duration, scaling (演奏時間を伸縮する)
 
 @code{*N/M} (または、@code{M} が 1 の場合は @code{*N}) を演奏時間の後に@c
 付け加えることによって、単一の音符、休符、和音の演奏時間を分数 @code{N/M}
 倍することができます。@c
-これは作り出される音符や休符の見た目には影響を与えませんが、@c
+要素は評価結果が数字または @code{*#(ly:music-length @var{music})} のような@c
+音楽的な長さとなる Scheme 表記を用いて加えることもできます。@c
+これは、音符や複数小節の休符の長さを音楽変数から導き出した長さにするために、
+@samp{1} の長さを調整するのに便利です。
+
+要素の追加は作り出される音符や休符の見た目には影響を与えませんが、@c
 変更された演奏時間は小節の中での位置を算出するためと、@c
 MIDI 出力での演奏時間を決定するために使用されます。@c
 掛け合わせる要素は @code{*L*M/N} のように組み合わせることができます。@c
@@ -389,7 +410,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 それによりそれぞれの音符、和音、休符には@c
 分数が掛け合わせられたかのようになります。@c
 これは楽譜要素の見た目をそのままにして、要素の内部演奏時間に@c
-@emph{分子}/@emph{分母}を掛け合わせます。@c
+与えられた伸縮比の要素、たいていは@emph{分子}/@emph{分母}を掛け合わせます。@c
 ここで、音楽がどのように圧縮され、伸張されるかを示す例を挙げます:
 
 @c KEEP LY
@@ -403,7 +424,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
     <c a f>4. c8 a f
   }
   % 2 を掛けます
-  \scaleDurations 2/1 {
+  \scaleDurations 2 {
     <c' a>4 c8 b
   }
 }
@@ -482,8 +503,8 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 -- @ref{自動音符分割} を参照してください。@c
 これは長い音符を自動的に分割して、小節線をまたがる音符をタイで結び付けます。
 
-@cindex ties and chords (タイと和音)
-@cindex chords and ties (和音とタイ)
+@cindex tie, in chords (和音内のタイ)
+@cindex chord, and tie (和音とタイ)
 
 タイを和音に適用する場合、ピッチが一致する符頭すべてが結ばれます。@c
 一致する符頭が無い場合、タイは作成されません。@c
@@ -497,10 +518,10 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 }
 @end lilypond
 
-@cindex repeating ties (タイを含む繰り返し)
-@cindex ties, repeating (タイを含む繰り返し)
-@cindex volta brackets and ties (volta 囲みとタイ)
-@cindex ties and volta brackets (タイと volta 囲み)
+@cindex repeating tie (タイを含む繰り返し)
+@cindex tie, repeating (タイを含む繰り返し)
+@cindex volta bracket, and tie (volta 囲みとタイ)
+@cindex tie, and volta bracket (タイと volta 囲み)
 
 @funindex \repeatTie
 
@@ -521,7 +542,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 @end lilypond
 
 @cindex laissez vibrer (レセ ヴィブレ)
-@cindex ties, laissez vibrer (レセ ヴィブレのタイ)
+@cindex tie, laissez vibrer (レセ ヴィブレのタイ)
 
 @funindex \laissezVibrer
 
@@ -534,7 +555,7 @@ L.v. タイは以下のように入力します:
 <c' f' g'>1\laissezVibrer
 @end lilypond
 
-@cindex ties, placement (タイの配置)
+@cindex tie, placement (タイの配置)
 
 @funindex \tieUp
 @funindex \tieDown
@@ -543,15 +564,19 @@ L.v. タイは以下のように入力します:
 タイを手動で上向きまたは下向きに配置することができます。
 @ref{Direction and placement} を参照してください。
 
-@cindex ties, appearance (タイの見た目)
-@cindex ties, dotted (点線のタイ)
-@cindex ties, dashed (破線のタイ)
-@cindex dashed ties (破線のタイ)
-@cindex dotted ties (点線のタイ)
+@cindex tie, appearance (タイの見た目)
+@cindex tie, dotted (点線のタイ)
+@cindex tie, dashed (破線のタイ)
+@cindex dashed tie (破線のタイ)
+@cindex dotted tie (点線のタイ)
 
 @funindex \tieDotted
 @funindex \tieDashed
 @funindex \tieSolid
+
+@funindex \tieDashPattern
+@funindex \tieHalfDashed
+@funindex \tieHalfSolid
 
 タイを破線、点線、実線と破線の組み合わせにすることができます。
 
@@ -618,9 +643,15 @@ L.v. タイは以下のように入力します:
 
 @snippets
 
+@cindex tie, with arpeggios (タイとアルペジオ)
+@cindex arpeggio and ties (アルペジオとタイ)
+@funindex tieWaitForNote
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-ties-with-arpeggios.ly}
 
+@cindex tie, manual engraving (タイを手動で譜刻する)
+@cindex manual engraving of ties (タイを手動で譜刻する)
+@funindex TieColumn
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
@@ -723,6 +754,8 @@ L.v. タイは以下のように入力します:
 
 @snippets
 
+@cindex style, rests (休符のスタイル)
+@cindex rest, style (休符のスタイル)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
@@ -744,7 +777,7 @@ L.v. タイは以下のように入力します:
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
 休符の演奏時間には基本的に限界がありません (最大値としても、最小値としても)。@c
-しかしながら、図柄の数には限界があります: 128 分から全音符の 8 倍までの@c
+しかしながら、図柄の数には限界があります: 1024 分から全音符の 8 倍までの@c
 休符を譜刻することができます。
 
 
@@ -844,12 +877,12 @@ L.v. タイは以下のように入力します:
 @unnumberedsubsubsec 小節単位の休符
 @translationof Full measure rests
 
-@cindex multi-measure rests (複数小節にまたがる休符)
-@cindex full-measure rests (小節単位の休符)
+@cindex multi-measure rest (複数小節にまたがる休符)
+@cindex full-measure rest (小節単位の休符)
 @cindex rest, multi-measure (複数小節にまたがる休符)
 @cindex rest, full-measure (小節単位の休符)
-@cindex whole rest for a full measure (小節に対する全休符)
-@cindex rest, whole for a full measure (小節に対する全休符)
+@cindex whole rest, for a full measure (小節に対する全休符)
+@cindex rest, whole, for a full measure (小節に対する全休符)
 
 @funindex \compressMMRests
 @funindex R
@@ -921,13 +954,13 @@ R2.*2 |
 @end lilypond
 
 
-@cindex text on multi-measure rest (複数小節にまたがる休符上のテキスト)
+@cindex text, on multi-measure rest (複数小節にまたがる休符上のテキスト)
 @cindex multi-measure rest, attaching text (複数小節にまたがる休符にテキストを付ける)
-@cindex script on multi-measure rest (複数小節にまたがる休符上のスクリプト)
+@cindex script, on multi-measure rest (複数小節にまたがる休符上のスクリプト)
 @cindex multi-measure rest, script (複数小節にまたがる休符上のスクリプト)
-@cindex fermata on multi-measure rest (複数小節にまたがる休符上のフェルマータ)
+@cindex fermata, on multi-measure rest (複数小節にまたがる休符上のフェルマータ)
 @cindex multi-measure rest, attaching fermata (複数小節にまたがる休符にフェルマータを付ける)
-@cindex markup on multi-measure rest (複数小節にまたがる休符上のマークアップ)
+@cindex markup, on multi-measure rest (複数小節にまたがる休符上のマークアップ)
 @cindex multi-measure rest with markup (マークアップを持つ複数小節にまたがる休符)
 
 @funindex MultiMeasureRestScript
@@ -947,9 +980,9 @@ R2.*10^\markup { \italic "ad lib." }
 @c in the English documentation.
 
 @warning{
-複数小節にまたがる休符に付け加えられるマークアップはタイプ
-@code{MultiMeasureRestText} のオブジェクトであり、@c
-@code{TextScript} ではありません。@c
+複数小節にまたがる休符に付け加えられるマークアップとアーティキュレーションは@c
+タイプ @code{MultiMeasureRestText} と @code{MultiMeasureRestScript} の@c
+オブジェクトであり、@code{TextScript} と @code{Script} ではありません。@c
 オーバライドは正しいオブジェクトに対して行わなければなりません。@c
 さもないと無視されます。@c
 以下の例を見てください。
@@ -976,37 +1009,47 @@ R1\fermata
 
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex \compressEmptyMeasures
-@funindex \expandEmptyMeasures
+@funindex \compressMMRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
-@code{\fermata},
 @code{\compressMMRests}
 @endpredefined
 
 
 @snippets
 
-@cindex church rest (教会音楽の休符)
-@cindex rest, church (教会音楽の休符)
-@cindex kirchenpausen (教会音楽の休符)
-
+@cindex multi-measure rest, length (複数小節にまたがる休符の長さ)
+@cindex length of multi-measure rest (複数小節にまたがる休符の長さ)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
+@cindex multi-measure rest, numbering (複数小節にまたがる休符の数字)
+@funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex church rest (教会音楽の休符)
+@cindex rest, church (教会音楽の休符)
+@cindex kirchenpause (教会音楽の休符)
+@cindex multi-measure rest, style (複数小節にまたがる休符のスタイル)
+@cindex style, multi-measure rests (複数小節にまたがる休符のスタイル)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
-@cindex multi-measure rests, positioning (複数小節にまたがる休符の位置)
-@cindex positioning multi-measure rests (複数小節にまたがる休符の位置)
-
+@cindex multi-measure rest, positioning (複数小節にまたがる休符の位置)
+@cindex position, multi-measure rest (複数小節にまたがる休符の位置)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {positioning-multi-measure-rests.ly}
 
+@cindex multi-measure rest, markup (複数小節にまたがる休符のマークアップ)
+@cindex markup, multi-measure rest (複数小節にまたがる休符のマークアップ)
+@funindex \textLengthOn
+@funindex \textLengthOff
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
+
 
 @seealso
 音楽用語集:
@@ -1027,8 +1070,8 @@ R1\fermata
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}
 
-@cindex fingerings and multi-measure rests (運指記号と複数小節にまたがる休符)
-@cindex multi-measure rests and fingerings (運指記号と複数小節にまたがる休符)
+@cindex fingering, and multi-measure rest (運指記号と複数小節にまたがる休符)
+@cindex multi-measure rest, and fingerings (運指記号と複数小節にまたがる休符)
 
 @knownissues
 複数小節にまたがる休符の上に運指記号を配置すると (例えば、@code{R1*10-4})、@c
@@ -1076,7 +1119,7 @@ R1\fermata
 
 小節の途中で拍子記号を変更することについては、@ref{上拍}で扱っています。
 
-@cindex time signature visibility (拍子の可視性)
+@cindex time signature, visibility (拍子の可視性)
 
 拍子は楽曲の始まりと拍子が変更されたときに譜刻されます。@c
 行の終わりで変更が起こる場合、警告の拍子が行の終わりに譜刻されます。@c
@@ -1123,8 +1166,8 @@ R1\fermata
 
 計量拍子については @ref{Mensural time signatures} でカバーされています。
 
-@cindex time signature default settings (拍子のデフォルト設定)
-@cindex autobeaming properties for time signatures (拍子のための自動連桁プロパティ)
+@cindex time signature, default settings (拍子のデフォルト設定)
+@cindex auto-beaming, properties for time signatures (拍子のための自動連桁プロパティ)
 @cindex beaming, time signature default properties (連桁と拍子のデフォルト プロパティ)
 @funindex \overrideTimeSignatureSettings
 
@@ -1193,14 +1236,14 @@ R1\fermata
 @ref{自動連桁の振る舞いを設定する} に説明があります。
 @end enumerate
 
-@cindex time signature properties, restoring default values (拍子プロパティをデフォルト値に戻す)
+@cindex time signature, properties, restoring default values (拍子プロパティをデフォルト値に戻す)
 @cindex restoring default properties for time signatures (拍子をデフォルト プロパティに戻す)
 @funindex \revertTimeSignatureSettings
 
 デフォルトの拍子プロパティ値の変更を元の値に戻すことができます:
 
 @lilypond[quote,verbatim]
-\score{
+\score {
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
@@ -1269,6 +1312,8 @@ R1\fermata
 
 
 @snippets
+
+@cindex time signature, printing only numerator (拍子記号の分子のみを表示する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
@@ -1299,7 +1344,6 @@ R1\fermata
 @cindex tempo (テンポ)
 @cindex beats per minute (1 分毎の拍数)
 @cindex metronome mark (メトロノーム記号)
-@cindex metronome marking with text (テキストを持つメトロノーム記号)
 
 @funindex \tempo
 
@@ -1386,14 +1430,22 @@ R1\fermata
 
 @snippets
 
+@cindex metronome mark, below staff (譜の下にあるメトロノーム記号)
+@cindex staff, metronome mark below (譜の下にあるメトロノーム記号)
+@cindex rehearsal mark, below staff (譜の下にあるリハーサル記号)
+@cindex mark, rehearsal, below staff (譜の下にあるリハーサル記号)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
 @c perhaps also an example of how to move it horizontally?
 
+@cindex tempo, change, without metronome mark (メトロノーム記号を表示しないテンポ変化)
+@cindex change tempo without metronome mark (メトロノーム記号を表示しないテンポ変化)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-tempo-without-a-metronome-mark.ly}
 
+@cindex metronome mark, custom markup (メトロノーム記号のカスタム マークアップ)
+@cindex custom metronome mark markup (メトロノーム記号のカスタム マークアップ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-metronome-marks-in-markup-mode.ly}
 
@@ -1516,14 +1568,14 @@ R1\fermata
 @cindex unmetered music, accidentals (無韻律の音楽での臨時記号)
 @cindex unmetered music, bar lines (無韻律の音楽での小節線)
 @cindex unmetered music, bar numbers (無韻律の音楽での小節番号)
-@cindex accidentals, cadenzas (カデンツァでの臨時記号)
-@cindex accidentals, unmetered music (無韻律の音楽での臨時記号)
-@cindex bar lines, cadenzas (カデンツァでの小節線)
-@cindex bar lines, unmetered music (無韻律の音楽での小節線)
-@cindex bar numbers, cadenzas (カデンツァでの小節番号)
-@cindex bar numbers, unmetered music (無韻律の音楽での小節番号)
-@cindex beams, cadenzas (カデンツァでの連桁)
-@cindex beams, unmetered music (無韻律の音楽での連桁)
+@cindex accidental, in cadenzas (カデンツァでの臨時記号)
+@cindex accidental, in unmetered music (無韻律の音楽での臨時記号)
+@cindex bar line, cadenzas (カデンツァでの小節線)
+@cindex bar line, unmetered music (無韻律の音楽での小節線)
+@cindex bar number, cadenzas (カデンツァでの小節番号)
+@cindex bar number, unmetered music (無韻律の音楽での小節番号)
+@cindex beam, cadenzas (カデンツァでの連桁)
+@cindex beam, unmetered music (無韻律の音楽での連桁)
 
 @funindex \cadenzaOn
 @funindex \cadenzaOff
@@ -1626,11 +1678,11 @@ R1\fermata
 @cindex cadenza, page breaks (カデンツァでの改ページ)
 @cindex unmetered music, line breaks (無韻律の音楽での改行)
 @cindex unmetered music, page breaks (無韻律の音楽での改ページ)
-@cindex breaks in unmetered music (無韻律の音楽での改行、改ページ)
-@cindex line breaks, cadenzas (カデンツァでの改行)
-@cindex page breaks, cadenzas (カデンツァでの改ページ)
-@cindex line breaks, unmetered music (無韻律の音楽での改行)
-@cindex page breaks, unmetered music (無韻律の音楽での改ページ)
+@cindex break in unmetered music (無韻律の音楽での改行、改ページ)
+@cindex line break, cadenzas (カデンツァでの改行)
+@cindex page break, cadenzas (カデンツァでの改ページ)
+@cindex line break, unmetered music (無韻律の音楽での改行)
+@cindex page break, unmetered music (無韻律の音楽での改ページ)
 
 @knownissues
 自動の改行と改ページが挿入されるのは小節線のある場所だけです。@c
@@ -1649,8 +1701,8 @@ R1\fermata
 @c This section necessarily uses \set
 @c This is acceptable  -td
 
-@cindex double time signatures (2 重拍子)
-@cindex signatures, polymetric (多拍子)
+@cindex double-time signatures (2 重拍子)
+@cindex signature, polymetric (多拍子)
 @cindex time signature, polymetric (多拍子)
 @cindex time signature, double (2 重拍子)
 @cindex polymetric signatures (多拍子)
@@ -1673,8 +1725,8 @@ R1\fermata
 それから、@code{\scaleDurations} 関数を用いて共通の拍子記号に対する
 各譜の音符の演奏時間を伸縮させます。
 
-@cindex beams, with polymetric meters (多拍子での連桁)
-@cindex polymetric meters, with beams (多拍子での連桁)
+@cindex beam, with polymetric meters (多拍子での連桁)
+@cindex polymetric meter, with beams (多拍子での連桁)
 
 以下の例では、拍子記号 3/4, 9/8, それに 10/8 の音楽が並列しています。@c
 2 番目の譜では示された演奏時間に 2/3 が掛けられ
@@ -1756,7 +1808,7 @@ R1\fermata
 @end lilypond
 
 @funindex \compoundMeter
-@cindex compound time signatures (複合拍子記号)
+@cindex compound time signature (複合拍子記号)
 @cindex time signature, compound (複合拍子記号)
 
 @subsubsubheading 複合拍子記号
@@ -1815,19 +1867,39 @@ R1\fermata
 @rinternals{Staff}
 
 @knownissues
-異なる拍子を持つ譜が並列に並べられている場合、@c
-同時に起こる音符の水平方向の位置は同じになります。@c
-しかしながら、それぞれの譜の小節線により、@c
-音符の間隔は通常の異なる拍子が無い場合よりも不規則になります。
+それぞれの譜において、@c
+同時に起こる音符の水平方向の位置は同じになりますが、@c
+(それぞれの譜にある) 小節線は、@c
+異なる拍子記号によって@c
+一貫性の無いスペーシングを生み出す可能性があります。
+
+多拍子記譜法で @code{midi} ブロックを使用した場合、@c
+予期しない小節線チェックの警告が表示される可能性があります。@c
+その場合は、@code{midi} ブロック内で、@c
+@code{Timing_translator} を @code{Score} コンテキストから
+@code{Staff} コンテキストに移動してください。
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
 
 
 @node 自動音符分割
 @unnumberedsubsubsec 自動音符分割
 @translationof Automatic note splitting
 
-@cindex notes, splitting (音符を分割する)
+@cindex note, splitting (音符を分割する)
 @cindex splitting notes (音符を分割する)
-@cindex rests, splitting (休符を分割する)
+@cindex rest, splitting (休符を分割する)
 @cindex splitting rests (休符を分割する)
 
 @funindex Note_heads_engraver
@@ -1919,8 +1991,8 @@ R1\fermata
 @unnumberedsubsubsec 旋律のリズムを示す
 @translationof Showing melody rhythms
 
-@cindex melody rhythms, showing (旋律のリズムを示す)
-@cindex rhythms, showing melody (旋律のリズムを示す)
+@cindex melody rhythm, showing (旋律のリズムを示す)
+@cindex rhythm, showing melody (旋律のリズムを示す)
 
 しばしば旋律のリズムだけを示したいことがあります。@c
 これはリズム譜を使うことで達成できます。@c
@@ -1946,9 +2018,9 @@ R1\fermata
 >>
 @end lilypond
 
-@cindex guitar chord charts (ギター コード表)
-@cindex strumming rhythms, showing (つま弾き (ストラム) のリズムを示す)
-@cindex guitar strumming rhythms, showing (ギターのつま弾き (ストラム) のリズムを示す)
+@cindex guitar, chord chart (ギター コード表)
+@cindex strumming rhythm, showing (つま弾き (ストラム) のリズムを示す)
+@cindex guitar, strumming rhythm, showing (ギターのつま弾き (ストラム) のリズムを示す)
 
 @funindex Pitch_squash_engraver
 @funindex \improvisationOn
@@ -1978,6 +2050,8 @@ R1\fermata
 >>
 @end lilypond
 
+@funindex \reduceChords
+
 和音を含む音楽も、まず @code{\reduceChords} 関数で 1 つの音符にまとめることに@c
 よって @code{RhythmicStaff} に入力したり、@code{Pitch_squash_engraver} に@c
 使用することができます。
@@ -1998,12 +2072,15 @@ R1\fermata
 
 @predefined
 @code{\improvisationOn},
-@code{\improvisationOff}
+@code{\improvisationOff},
+@code{\reduceChords}
 @endpredefined
 
 
 @snippets
 
+@cindex strumming rhythm, showing (つま弾き (ストラム) のリズムを示す)
+@cindex guitar, strumming rhythm, showing (ギターのつま弾き (ストラム) のリズムを示す)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
@@ -2034,9 +2111,9 @@ R1\fermata
 
 デフォルトでは、連桁は自動的に挿入されます:
 
-@cindex beams, manual (手動連桁)
-@cindex manual beams (手動連桁)
-@cindex beams, customizing rules (連桁の規則をカスタマイズする)
+@cindex beam, manual (手動連桁)
+@cindex manual beam (手動連桁)
+@cindex beam, customizing rules (連桁の規則をカスタマイズする)
 
 @funindex \autoBeamOn
 @funindex \autoBeamOff
@@ -2068,12 +2145,12 @@ R1\fermata
 }
 @end lilypond
 
-@cindex melismata, with beams (メリスマの連桁)
-@cindex beams, with melismata (メリスマの連桁)
+@cindex melisma, with beams (メリスマの連桁)
+@cindex beam, with melisma (メリスマの連桁)
 
 @warning{歌曲の中でメリスマを表すために連桁を使用する場合、@c
 @code{@bs{}autoBeamOff} で自動連桁を off にして、手動で連桁を示すべきです。@c
-@code{@bs{}partcombine} を @code{@bs{}autoBeamOff} と一緒に@c
+@code{@bs{}partCombine} を @code{@bs{}autoBeamOff} と一緒に@c
 用いると予期しない結果になる可能性があります。@c
 詳細はコード断片集を参照してください。}
 
@@ -2086,21 +2163,26 @@ R1\fermata
 @code{\autoBeamOn}
 @endpredefined
 
-@cindex beams, line breaks (連桁と改行)
-@cindex line breaks, beams (改行と連桁)
-@cindex beams, with knee gap (向きの変わる連桁)
+@cindex beam, line breaks (連桁と改行)
+@cindex line break, beams (改行と連桁)
+@cindex beam, with knee gap (向きの変わる連桁)
 @cindex knee gap, with beams (向きの変わる連桁)
 @funindex breakable
 
 @snippets
+
+@cindex beam, line breaks (連桁と改行)
+@cindex line break, beams (改行と連桁)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beams-across-line-breaks.ly}
 
+@cindex beam, with knee gap, changing (向きの変わる連桁を変更する)
+@cindex knee gap, with beams, changing (向きの変わる連桁を変更する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-beam-knee-gap.ly}
 
-@cindex beams, \partCombine with \autoBeamOff (連桁と \autoBeamOff を伴う \partCombine)
-@cindex voices, \partCombine with \autoBeamOff (ボイスと \autoBeamOff を伴う \partCombine)
+@cindex beam, @code{\partCombine} with @code{\autoBeamOff} (連桁と @code{\autoBeamOff} を伴う @code{\partCombine})
+@cindex voice, @code{\partCombine} with @code{\autoBeamOff} (ボイスと @code{\autoBeamOff} を伴う @code{\partCombine})
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
@@ -2135,8 +2217,8 @@ R1\fermata
 @unnumberedsubsubsec 自動連桁の振る舞いを設定する
 @translationof Setting automatic beam behavior
 
-@cindex beams, with lyrics (連桁と歌詞)
-@cindex lyrics, with beams (歌詞と連桁)
+@cindex beam, with lyrics (連桁と歌詞)
+@cindex lyrics, with beam (歌詞と連桁)
 
 @funindex autoBeaming
 @funindex baseMoment
@@ -2428,26 +2510,33 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 
 @snippets
 
-@cindex beams, subdividing (連桁をサブ グループ化する)
-
+@cindex beam, subdividing (連桁をサブ グループ化する)
+@cindex subdividing beams (連桁をサブ グループ化する)
+@funindex subdivideBeams
+@funindex baseMoment
+@funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
-@cindex beamlets, orienting (16 分音符以下の連桁の向き)
-
+@cindex beaming, strict-beat (拍に厳密な連桁)
+@cindex strict-beat beaming (拍に厳密な連桁)
+@cindex beamlet, orientation (16 分音符以下の連桁の向き)
+@funindex strictBeatBeaming
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {strict-beat-beaming.ly}
 
-@cindex measure groupings (小節をグループ化する)
-@cindex beats, grouping (拍をグループ化する)
+@cindex measure grouping (小節をグループ化する)
+@cindex beat, grouping (拍をグループ化する)
 @cindex grouping beats (拍をグループ化する)
 @cindex measure sub-grouping (小節をサブ グループ化する)
-
+@cindex conducting signs (指揮記号)
+@cindex sign, conducting (指揮記号)
+@funindex Measure_grouping_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
 
-@cindex beam, endings in a score (楽譜の終わりでの連桁)
-@cindex beam, endings with multiple voices (複数のボイスの終わりでの連桁)
+@cindex beam, endings, in a score (楽譜の終わりでの連桁)
+@cindex beam, endings, with multiple voices (複数のボイスの終わりでの連桁)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
@@ -2527,11 +2616,11 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @unnumberedsubsubsec 手動連桁
 @translationof Manual beams
 
-@cindex beams, manual (手動連桁)
-@cindex manual beams (手動連桁)
+@cindex beam, manual (手動連桁)
+@cindex manual beam (手動連桁)
 
-@funindex ]
-@funindex [
+@funindex @sortas{]A} ]
+@funindex @sortas{[A} [
 
 自動連桁アルゴリズムをオーバライドする必要がある場合もあります。@c
 例えば、自動連桁は休符や小節線を越えて連桁を配置することはなく、@c
@@ -2543,8 +2632,8 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 \relative { r4 r8[ g' a r] r g[ | a] r }
 @end lilypond
 
-@cindex manual beams, direction shorthand for (手動連桁の向きを指定する短縮記譜法)
-@cindex manual beams, grace notes (装飾小音符の手動連桁)
+@cindex manual beam, direction shorthand for (手動連桁の向きを指定する短縮記譜法)
+@cindex manual beam, grace notes (装飾小音符の手動連桁)
 
 方向指示子を用いることで、連桁の向きを手動で設定することができます:
 
@@ -2608,6 +2697,11 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 
 @snippets
 
+@cindex flat flags (水平な符尾)
+@cindex flags, flat (水平な符尾)
+@cindex beam, nibs (はみ出す連桁)
+@funindex stemLeftBeamCount
+@funindex stemRightBeamCount
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
@@ -2631,8 +2725,8 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @unnumberedsubsubsec 羽状の連桁
 @translationof Feathered beams
 
-@cindex beams, feathered (羽状の連桁)
-@cindex feathered beams (羽状の連桁)
+@cindex beam, feathered (羽状の連桁)
+@cindex feathered beam (羽状の連桁)
 
 @funindex \featherDurations
 @funindex grow-direction
@@ -2710,13 +2804,13 @@ MIDI 出力での演奏時間は正確です。
 @unnumberedsubsubsec 小節線
 @translationof Bar lines
 
-@cindex bar lines (小節線)
-@cindex measure lines (小節線)
-@cindex closing bar lines (閉じの小節線)
-@cindex bar lines, closing (閉じの小節線)
-@cindex double bar lines (2 重小節線)
-@cindex bar lines, double (2 重小節線)
-@cindex repeat bars (繰り返しの小節線)
+@cindex bar line (小節線)
+@cindex measure line (小節線)
+@cindex closing bar line (閉じの小節線)
+@cindex bar line, closing (閉じの小節線)
+@cindex double bar line (2 重小節線)
+@cindex bar line, double (2 重小節線)
+@cindex repeat bar (繰り返しの小節線)
 
 @funindex \bar
 
@@ -2744,9 +2838,9 @@ MIDI 出力での演奏時間は正確です。
 @warning{誤った演奏時間の指定は改行を抑制し、結果として@c
 非常に圧縮された楽譜やページからはみ出す楽譜の原因となります。}
 
-@cindex line breaks (改行)
-@cindex bar lines, invisible (不可視の小節線)
-@cindex measure lines, invisible (不可視の小節線)
+@cindex line break (改行)
+@cindex bar line, invisible (不可視の小節線)
+@cindex measure line, invisible (不可視の小節線)
 
 手動で挿入された小節線のところでも
 -- たとえ、その小節が不完全であっても --
@@ -2763,10 +2857,10 @@ MIDI 出力での演奏時間は正確です。
 小節番号カウンタは増加しません。@c
 強制的に改行を行うには、@ref{Line breaking} を参照してください。
 
-@cindex manual bar lines (手動の小節線)
-@cindex manual measure lines (手動の小節線)
-@cindex bar lines, manual (手動の小節線)
-@cindex measure lines, manual (手動の小節線)
+@cindex manual bar line (手動の小節線)
+@cindex manual measure line (手動の小節線)
+@cindex bar line, manual (手動の小節線)
+@cindex measure line, manual (手動の小節線)
 
 不可視の小節線と他の特殊な小節線は任意の位置に手動で挿入することができます。@c
 それらの小節線の位置がある小節の終わりと一致する場合、@c
@@ -2866,7 +2960,7 @@ f'1 \bar "k"
 }
 @end lilypond
 
-@cindex repeats (繰り返し)
+@cindex repeat (繰り返し)
 
 繰り返しを表す小節線は手動で挿入される場合がありますが、@c
 それらの小節線自体は LilyPond に繰り返されるセクションを@c
@@ -2929,8 +3023,8 @@ f'1 \bar "k"
 @ref{通常の繰り返し} を参照してください。
 
 @funindex \defineBarLine
-@cindex bar lines, defining (小節線を定義する)
-@cindex defining bar lines (小節線を定義する)
+@cindex bar line, defining (小節線を定義する)
+@cindex defining bar line (小節線を定義する)
 
 @code{\defineBarLine} を用いて、新しい小節線を定義することができます:
 
@@ -2938,7 +3032,7 @@ f'1 \bar "k"
 \defineBarLine @var{bartype} #'(@var{end} @var{begin} @var{span})
 @end example
 
-@code{\defineBarline} の引数は@q{空の}文字列 @code{""} を含むことができ、@c
+@code{\defineBarLine} の引数は@q{空の}文字列 @code{""} を含むことができ、@c
 これは不可視の小節線を作り出します。または、@code{#f} にセットすることで、@c
 何の小節線も表示しないようにすることができます。
 
@@ -3038,8 +3132,8 @@ f'1 \bar "k"
 @end lilypond
 
 
-@cindex default bar lines, changing (デフォルトの小節線を変更する)
-@cindex bar lines, default, changing (デフォルトの小節線を変更する)
+@cindex default bar line, changing (デフォルトの小節線を変更する)
+@cindex bar line, default, changing (デフォルトの小節線を変更する)
 
 @funindex whichBar
 @funindex defaultBarType
@@ -3077,10 +3171,10 @@ f'1 \bar "k"
 @unnumberedsubsubsec 小節番号
 @translationof Bar numbers
 
-@cindex bar numbers (小節番号)
-@cindex measure numbers (小節番号)
-@cindex numbers, bar (小節番号)
-@cindex numbers, measure (小節番号)
+@cindex bar number (小節番号)
+@cindex measure number (小節番号)
+@cindex number, bar (小節番号)
+@cindex number, measure (小節番号)
 
 @funindex currentBarNumber
 
@@ -3098,7 +3192,7 @@ f'1 \bar "k"
 }
 @end lilypond
 
-@cindex bar numbers, regular spacing  規則的な間隔で小節番号を譜刻する
+@cindex bar number, regular spacing  規則的な間隔で小節番号を譜刻する
 
 @funindex barNumberVisibility
 @funindex BarNumber
@@ -3131,32 +3225,36 @@ f'1 \bar "k"
 @end lilypond
 
 @snippets
+@cindex bar number, printed in first measure (最初の小節に小節番号を表示する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-the-bar-number-for-the-first-measure.ly}
 
+@cindex bar number, printed at regular intervals (一定間隔で小節番号を表示する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-with-changing-regular-intervals.ly}
 
-@cindex measure number, format (小節番号のフォーマット)
-@cindex bar number, format (小節番号のフォーマット)
+@cindex measure number, style (小節番号のスタイル)
+@cindex bar number, style (小節番号のスタイル)
+@cindex style, bar number (小節番号のスタイル)
+@cindex style, measure number (小節番号のスタイル)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@cindex bar numbers, with letters (文字付きの小節番号)
-@cindex bar numbers, with repeats (繰り返しの小節番号)
-
+@c XXX also included in `repeats.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@cindex bar number alignment (小節番号を揃える)
-
+@cindex bar number, alignment (小節番号を揃える)
+@cindex alignment, bar numbers (小節番号を揃える)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {aligning-bar-numbers.ly}
 
+@cindex bar number, removal (小節番号を削除する)
+@cindex removing bar numbers (小節番号を削除する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
@@ -3168,7 +3266,7 @@ f'1 \bar "k"
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}
 
-@cindex bar number collision (小節番号の衝突)
+@cindex bar number, collision (小節番号の衝突)
 @cindex collision, bar number (小節番号の衝突)
 
 @knownissues
@@ -3269,7 +3367,7 @@ f'1 \bar "k"
 @unnumberedsubsubsec リハーサル記号
 @translationof Rehearsal marks
 
-@cindex rehearsal marks (リハーサル記号)
+@cindex rehearsal mark (リハーサル記号)
 @cindex mark, rehearsal (リハーサル記号)
 
 @funindex \mark
@@ -3284,6 +3382,8 @@ f'1 \bar "k"
   c1 \mark \default
 }
 @end lilypond
+
+@funindex @sortas{defaultB} \default
 
 @noindent
 @code{\mark \default} を使用するとリハーサル記号は自動的に +1 されますが、@c
@@ -3323,8 +3423,8 @@ f'1 \bar "k"
 }
 @end lilypond
 
-@cindex rehearsal mark format (リハーサル記号のフォーマット)
-@cindex rehearsal mark style (リハーサル記号のスタイル)
+@cindex rehearsal mark, format (リハーサル記号のフォーマット)
+@cindex rehearsal mark, style (リハーサル記号のスタイル)
 @cindex style, rehearsal mark (リハーサル記号のスタイル)
 @cindex format, rehearsal mark (リハーサル記号のフォーマット)
 @cindex mark, rehearsal, style (リハーサル記号のスタイル)
@@ -3375,15 +3475,15 @@ f'1 \bar "k"
 しかしながら、文字列として @code{\markup} 使用することができます。
 
 @example
-\mark \markup@{ \box A1 @}
+\mark \markup @{ \box A1 @}
 @end example
 
 @cindex segno (セーニョ)
 @cindex coda (コーダ)
 @cindex D.S. al Fine (ここで曲の先頭に戻り、Fine で終わる)
 @cindex fermata (フェルマータ)
-@cindex music glyphs (音楽的図柄)
-@cindex glyphs, music (音楽的図柄)
+@cindex music glyph (音楽的図柄)
+@cindex glyph, music (音楽的図柄)
 
 @funindex \musicglyph
 
@@ -3445,8 +3545,8 @@ f'1 \bar "k"
 @unnumberedsubsubsec 装飾小音符
 @translationof Grace notes
 
-@cindex ornaments (装飾音)
-@cindex grace notes (装飾小音符)
+@cindex ornament (装飾音)
+@cindex grace note (装飾小音符)
 @cindex appoggiatura (アッポジャトゥーラ)
 @cindex acciaccatura (アッチャカトゥーラ)
 
@@ -3497,7 +3597,7 @@ f'1 \bar "k"
 >>
 @end lilypond
 
-@cindex grace notes, following (装飾小音符を後ろに配置する)
+@cindex grace note, following (装飾小音符を後ろに配置する)
 
 @funindex \afterGrace
 
@@ -3554,9 +3654,9 @@ afterGraceFraction = 3/4
 }
 @end lilypond
 
-@cindex tweaking grace notes (装飾小音符を調整する)
-@cindex grace notes, tweaking (装飾小音符を調整する)
-@cindex grace notes, changing layout settings (装飾小音符のレイアウト設定を変更する)
+@cindex tweaking grace note (装飾小音符を調整する)
+@cindex grace note, tweaking (装飾小音符を調整する)
+@cindex grace note, changing layout settings (装飾小音符のレイアウト設定を変更する)
 
 @code{\grace} 音楽表記は特殊な譜刻設定を導入します
 -- 例えば、小さなフォントを作り出し、向きを設定するためです。@c
@@ -3578,21 +3678,34 @@ afterGraceFraction = 3/4
 }
 @end lilypond
 
-
-@cindex stem, with slash (スラッシュ付きの符幹)
-
-
 @snippets
 
+@cindex stem, with slash (スラッシュ付きの符幹)
+@cindex slashed stem (スラッシュ付きの符幹)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {using-grace-note-slashes-with-normal-heads.ly}
 
+@cindex tweaking grace note (装飾小音符を調整する)
+@cindex grace note, tweaking (装飾小音符を調整する)
+@cindex grace note, changing layout settings (装飾小音符のレイアウト設定を変更する)
+@funindex add-grace-property
+@funindex remove-grace-property
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-grace-layout-within-music.ly}
 
+@cindex empty chord (空の和音)
+@cindex chord, empty (空の和音)
+@funindex startGraceMusic
+@funindex stopGraceMusic
+@funindex startAcciaccaturaMusic
+@funindex stopAcciaccaturaMusic
+@funindex startAppoggiaturaMusic
+@funindex stopAppoggiaturaMusic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {redefining-grace-note-global-defaults.ly}
 
+@cindex grace note, and strict spacing (装飾小音符と厳密なスペーシング)
+@cindex strict spacing and grace notes (厳密なスペーシングと装飾小音符)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
@@ -3623,7 +3736,7 @@ afterGraceFraction = 3/4
 @knownissues
 @cindex acciaccatura, multi-note (複数音符のアッチャカトゥーラ)
 @cindex multi-note acciaccatura (複数音符のアッチャカトゥーラ)
-@cindex grace-note synchronization (装飾小音符の同期)
+@cindex grace note, synchronization (装飾小音符の同期)
 
 複数の音符を連桁でつないだ @i{アッチャカトゥーラ} には@c
 スラッシュは付けられず、@c
@@ -3742,7 +3855,7 @@ MyCadenza = \relative {
 @translationof Time administration
 
 @cindex time administration (時間管理)
-@cindex timing (within the score) ((楽譜内での) タイミング)
+@cindex timing, within score (楽譜内でのタイミング)
 @cindex music, unmetered (無韻律の音楽)
 @cindex unmetered music (無韻律の音楽)
 

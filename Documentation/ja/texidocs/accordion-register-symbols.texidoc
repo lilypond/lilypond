@@ -1,10 +1,10 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 アコーディオンの音色切り替え記号は、@code{\\markup} としても、@c
 (音色の切り替えは音と音の間に行われるため) 単独の@c
 音楽イベントとしても用いることができます。@c
 バスの音色は過度には一般化されていません。使用できるコマンドは、@c
-記譜法リファレンスの '\\markup コマンドの一覧' にある
-'Accordion Registers' を参照してください。@c
+記譜法リファレンスの 'キーボードと他の複数譜の楽器' にある
+'ディスカント記号' を参照してください。@c
 "
   doctitleja = "アコーディオンの音色切り替え記号"

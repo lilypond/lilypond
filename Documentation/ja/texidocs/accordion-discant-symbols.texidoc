@@ -1,8 +1,8 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 現在では専用のマークアップ コマンドが定義されているため、この方法を@c
-用いる必要はありません。記譜法リファレンスの '\\markup コマンドの一覧' にある
-'Accordion Registers' を参照してください。@c
+用いる必要はありません。記譜法リファレンスの 'キーボードと他の複数譜の楽器' にある
+'ディスカント記号' を参照してください。@c
 しかし、これは記号を組み合わせる例として有用です: @code{\\markup} で@c
 追加される記号の位置は、@code{\\translate-scaled} を用いて調整されます。@c
 @code{\\translate} ではなく @code{\\translate-scaled} が使われているのは、@c

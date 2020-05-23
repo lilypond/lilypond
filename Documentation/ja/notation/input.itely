@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.21.0"
 
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -102,6 +102,14 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
   >>
 @}
 @end example
+
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex comment (コメント)
+@cindex line comment (行コメント)
+@cindex single-line comment (単一行コメント)
+@cindex block comment (ブロック コメント)
+@cindex multi-line comment (複数行コメント)
 
 この一般規則の例外の 1 つにコメントがあります。@c
 (他の例外は、@ref{File structure} を参照してください。)@c
@@ -484,8 +492,16 @@ foo = @{ c4 d e d @}
 
 これは後で使用することができます。@c
 使用するには、入力ファイルの中で @code{\foo} と入力します。@c
-変数の名前はアルファベットだけで構成すべきです。@c
-数字、アンダスコアあるいはダッシュを使うことができません。
+変数の名前は、(ASCII) 数字、複数のアンダスコア、複数のダッシュまたはスペースを@c
+含めないようにすべきです。Unicode が提供する他のすべての文字、例えばラテン文字、@c
+ギリシャ文字、中国語、キリル文字はすべて許可されます。@c
+隣接しない 1 つのアンダスコアやダッシュも許可されます。@c
+言い換えると、@code{HornIII} や @code{αβγXII} のような変数名は機能します。
+
+ダブル クォーテーションに囲まれた変数名は、すべての文字の組み合わせが許可されます。@c
+この場合、バックスラッシュとダブル クォーテーションはバックスラッシュでエスケープする@c
+必要があります (これらは実際に使うべきではありません) 。@c
+例: @code{"foo bar"}, @code{"a-b-c"}, @code{"Horn 3"}
 
 @end itemize
 
@@ -506,6 +522,19 @@ foo = @{ c4 d e d @}
 
 
 ファイルの任意の場所で、以下の編集指示のいずれかが入力される可能性があります:
+
+@funindex \version
+@funindex \include
+@funindex \sourcefilename
+@funindex \sourcefileline
+
+@funindex %
+@funindex %@{ @dots{} %@}
+@cindex comment (コメント)
+@cindex line comment (行コメント)
+@cindex single-line comment (単一行コメント)
+@cindex block comment (ブロック コメント)
+@cindex multi-line comment (複数行コメント)
 
 @itemize
 @item @code{\version}
@@ -549,9 +578,9 @@ foo = @{ c4 d e d @}
 @section タイトルとヘッダ
 @translationof Titles and headers
 
-@cindex titles (タイトル)
-@cindex headers (ヘッダ)
-@cindex footers (フッタ)
+@cindex title (タイトル)
+@cindex header (ヘッダ)
+@cindex footer (フッタ)
 
 ほとんどすべての楽譜にはタイトルと作曲者名が含まれます。@c
 楽譜の中にはさらに多くの情報を含むものもあります。
@@ -612,7 +641,7 @@ foo = @{ c4 d e d @}
 よりも外側。
 
 @item
-@code{\score} ブロックの中にあり、音楽表記の後。
+@code{\score} ブロックの中。
 
 @end itemize
 
@@ -649,10 +678,6 @@ foo = @{ c4 d e d @}
 してください。
 
 @end itemize
-
-@warning{@bs{}@code{score} ブロックの内側に @bs{}@code{header} ブロックを@c
-配置する場合、@c
-音楽表記は @bs{}@code{header} ブロックの前にある必要があります。}
 
 @code{\header} ブロックを 4 つの場所全てに配置する必要はありません。@c
 どれかを、あるいは全てを省略することができます。@c
@@ -838,7 +863,7 @@ foo = @{ c4 d e d @}
 デフォルトのレイアウトを変更するには @ref{タイトルのカスタム レイアウト}
 を参照してください。
 
-@cindex breakbefore
+@funindex breakbefore
 
 @code{\book} ブロックが、すぐ後に @code{\bookpart} ブロックが来るような形で@c
 始まった場合、ブック タイトルを表示するためのページが存在しないため、
@@ -883,6 +908,11 @@ foo = @{ c4 d e d @}
 @node ヘッダとフッタのデフォルト レイアウト
 @unnumberedsubsubsec ヘッダとフッタのデフォルト レイアウト
 @translationof Default layout of headers and footers
+
+@cindex page header (ページ ヘッダ)
+@cindex page footer (ページ フッタ)
+@cindex header, page (ページ ヘッダ)
+@cindex footer, page (ページ フッタ)
 
 @emph{ヘッダ} と @emph{フッタ} は、ブックのテキストとは別の、@c
 ページの最初と最後に表示されるテキスト行です。@c
@@ -979,8 +1009,6 @@ foo = @{ c4 d e d @}
 @unnumberedsubsubsec タイトルのカスタム レイアウト
 @translationof Custom layout for titles
 
-@cindex bookTitleMarkup
-@cindex scoreTitleMarkup
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
 
@@ -1161,7 +1189,6 @@ scoreTitleMarkup = \markup @{ \column @{
 @end itemize
 
 @cindex markup, conditional (条件付マークアップ)
-@cindex on-the-fly (オンザフライ)
 @funindex \on-the-fly
 
 @code{\markup} コマンド @code{\on-the-fly} を用いて、@code{\paper}
@@ -1256,7 +1283,7 @@ variable = \markup @{
 @translationof Creating output file metadata
 
 @cindex PDF metadata (PDF メタデータ)
-@cindex MIDI metadata (MIDI メタデータ)
+@cindex MIDI, metadata (MIDI メタデータ)
 
 @code{\header} 変数には、楽譜の見た目上の出力に表示されるデータだけではなく、@c
 出力ファイルのメタデータを作り出すためにも使われます。@c
@@ -1274,7 +1301,7 @@ MIDI ファイルにおいては、上で挙げたレベルに加えて @code{\s
 使われることになります。
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
 @}
 @end example
@@ -1283,7 +1310,7 @@ MIDI ファイルにおいては、上で挙げたレベルに加えて @code{\s
 別の値にしたい場合、下の例のように @code{pdftitle} を使用することができます:
 
 @example
-\header@{
+\header @{
   title = "Symphony I"
   pdftitle = "Symphony I by Beethoven"
 @}
@@ -1310,11 +1337,14 @@ PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在�
 @subsection 脚注を作成する
 @translationof Creating footnotes
 
-@cindex footnotes (脚注)
+@cindex footnote (脚注)
 
 脚注はいくつかの異なる場面で使われます。どのような場合であっても、@c
 @q{脚注マーク}が参照としてテキストや音楽のところに配置され、@c
-対応する@q{脚注テキスト}が同じページの下部に配置されます。
+対応する@q{脚注テキスト}が同じページの下部に、水平線によって音楽から区切られて@c
+配置されます。この区切りの外観は paper 変数 @code{footnote-separator-markup} を@c
+セットすることで変更することができます。
+@ref{Miscellaneous paper variables} を参照してください。
 
 音楽表記の中にある脚注と、音楽表記外の独立したテキストにある脚注では、@c
 作り方が異なります。
@@ -1328,7 +1358,7 @@ PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在�
 @unnumberedsubsubsec 音楽表記の中にある脚注
 @translationof Footnotes in music expressions
 
-@cindex footnotes in music expressions (音楽表記の中にある脚注)
+@cindex footnote, in music expressions (音楽表記の中にある脚注)
 @funindex \footnote
 
 @subsubsubheading 音楽内の脚注の概要
@@ -1377,6 +1407,7 @@ PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在�
 しなければなりません。
 
 @item mark
+@funindex @sortas{defaultB} \default
 これは参照ポイントとページの下の脚注自体の両方に使われる、@c
 脚注マークを指定するマークアップや文字列です。これは省略することができ
 (これは @code{\default} に置き換えるのと同じです)、その時は自動的に@c
@@ -1412,7 +1443,7 @@ X, Y@tie{}オフセットを、@c
 
 @subsubsubheading イベントに紐づく脚注
 
-@cindex footnotes, event-based (イベントに紐づく脚注)
+@cindex footnote, event-based (イベントに紐づく脚注)
 
 
 以下の構文で、@var{music} によるイベントから生成されるレイアウト
@@ -1478,7 +1509,7 @@ X, Y@tie{}オフセットを、@c
 
 @subsubsubheading 時間に紐づく脚注
 
-@cindex footnotes, time-based (時間に紐づく脚注)
+@cindex footnote, time-based (時間に紐づく脚注)
 
 脚注が付加されるレイアウト オブジェクトがイベントから@emph{間接的に}@c
 生成されるものである場合 (@code{Accidental} や @code{Stem} など) には、@c
@@ -1513,6 +1544,8 @@ X, Y@tie{}オフセットを、@c
   }
 }
 @end lilypond
+
+@funindex \single
 
 和音内の各音符にはそれぞれ (イベントに紐づく) 脚注を加えることができます。@c
 @samp{NoteHead} のみが音符から直接生成されるグラフィカル オブジェクトです。@c
@@ -1604,7 +1637,7 @@ X, Y@tie{}オフセットを、@c
 @unnumberedsubsubsec 独立したテキストの中にある脚注
 @translationof Footnotes in stand-alone text
 
-@cindex footnotes in stand-alone text (独立したテキストの中にある脚注)
+@cindex footnote, in stand-alone text (独立したテキストの中にある脚注)
 
 これらは参照ポイントを指す線を表示しません。脚注マークは、@c
 脚注を付加されるマークアップの後に続いて表示されます。@c
@@ -1892,6 +1925,8 @@ tocItemMarkup = \markup \large \fill-line {
 
 @code{tocItemMarkup} 定義の中で要素のテキストとページ番号を@c
 参照する方法に注目してください。
+
+@funindex \tocItemWithDotsMarkup
 
 目次のアイテムと、対応するページ番号との間の部分をドットで埋めるために、@c
 @code{tocItemMarkup} の中に @code{\tocItemWithDotsMarkup} コマンドを@c
@@ -2300,7 +2335,10 @@ allLyrics = \lyricmode { King of glo -- ry }
 あり、音符名と混同しない場合である@emph{限り}、@code{#'} を省略することが@c
 でき、シンボルのリストはドットで区切る記法を用いることができます。例えば、@c
 @code{\tag #'(violinI violinII)} は @code{\tag violinI.violinII} と書くことが@c
-できます。@code{\keepWithTag} や @code{\removeWithTag} でも同様です。
+できます。@code{\keepWithTag} や @code{\removeWithTag} でも同様です。@c
+タグコマンドは音楽関数なので、@code{\book} または @code{\score}
+ブロックのような、音楽表記ではないオブジェクトをフィルターするのに@c
+使うことはできません。
 
 以下の例では、楽曲を 2 つのバージョンで示しています。@c
 1 つはトリルを通常の記譜法で示していて、@c
@@ -2517,7 +2555,7 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 @unnumberedsubsubsec グローバル設定を使用する
 @translationof Using global settings
 
-@cindex include-settings
+@cindex include settings (インクルード設定)
 
 別のファイルからグローバル設定をインクルードすることができます:
 
@@ -2546,8 +2584,8 @@ lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
 @subsection 特殊文字
 @translationof Special characters
 
-@cindex special characters (特殊文字)
-@cindex non-ASCII characters (非 ASCII 文字)
+@cindex special character (特殊文字)
+@cindex non-ASCII character (非 ASCII 文字)
 
 @menu
 * テキスト エンコーディング::
@@ -2770,8 +2808,8 @@ Unicode U+03BE の文字を入力します
 @end menu
 
 @funindex clip-regions
-@cindex Fragments, music (音楽の断片)
-@cindex Music fragments (音楽の断片)
+@cindex fragment, music (音楽の断片)
+@cindex music fragment (音楽の断片)
 
 @node 音楽の断片を抽出する
 @subsection 音楽の断片を抽出する
@@ -3053,7 +3091,7 @@ Gonville と同じように使用することができます。
 @section MIDI 出力を作り出す
 @translationof Creating MIDI output
 
-@cindex Sound (サウンド)
+@cindex sound (サウンド)
 @cindex MIDI
 
 LilyPond は MIDI (Musical Instrument Digital Interface) 標準に従う@c
@@ -3077,7 +3115,7 @@ MIDI ファイルは (AAC, MP3, Vorbis ファイルのような) 音を含みま
 * MIDI 出力をより良くする::
 @end menu
 
-@cindex MIDI, Supported notation (MIDI でサポートされている記法)
+@cindex MIDI, supported notation (MIDI でサポートされている記法)
 
 @node MIDI でサポートされている記法
 @subsection MIDI でサポートされている記法
@@ -3131,7 +3169,7 @@ MIDI に出力することができます:
 @noindent
 @ref{Enhancing MIDI output} を参照してください。
 
-@cindex MIDI, Unsupported notation (MIDI でサポートされていない記法)
+@cindex MIDI, unsupported notation (MIDI でサポートされていない記法)
 
 @node MIDI でサポートされていない記法
 @subsection MIDI でサポートされていない記法
@@ -3158,7 +3196,7 @@ MIDI に出力することができます:
 @subsection MIDI ブロック
 @translationof The MIDI block
 
-@cindex MIDI block (MIDI ブロック)
+@cindex MIDI, block (MIDI ブロック)
 
 LilyPond 入力ファイルから MIDI 出力ファイルを作り出す場合、@code{\score}
 ブロックの中に @code{\midi} ブロックを挿入します。@code{\midi} ブロックは@c
@@ -3207,6 +3245,25 @@ MIDI チャンネルは 15 個が利用可能で、さらにドラムのため�
 セットされている場合 -- 例えば、異なる楽器が指定されている場合 -- は@c
 問題になることがあります。
 
+多拍子記譜法で @code{midi} ブロックを使用した場合、@c
+予期しない小節線チェックの警告が表示される可能性があります。@c
+その場合は、@code{midi} ブロック内で、@c
+@code{Timing_translator} を @code{Score} コンテキストから
+@code{Staff} コンテキストに移動してください。
+
+@lilypond[verbatim]
+\midi {
+  \context {
+    \Score
+    \remove "Timing_translator"
+  }
+  \context {
+     \Staff
+     \consists "Timing_translator"
+  }
+}
+@end lilypond
+
 @node MIDI での音の強弱を制御する
 @subsection MIDI での音の強弱を制御する
 @translationof Controlling MIDI dynamics
@@ -3224,10 +3281,10 @@ MIDI 全体の音量や、強弱記号による相対的な音量、楽器ごと
 * MIDI ブロック プロパティを設定する::
 @end menu
 
-@cindex MIDI volume (MIDI での音量)
-@cindex MIDI equalization (MIDI での音量の均等化)
-@cindex MIDI dynamics (MIDI での強弱記号)
-@cindex Dynamics in MIDI (MIDI での強弱記号)
+@cindex MIDI, volume (MIDI での音量)
+@cindex MIDI, equalization (MIDI での音量の均等化)
+@cindex MIDI, dynamics (MIDI での強弱記号)
+@cindex dynamics in MIDI (MIDI での強弱記号)
 
 
 @node MIDI での強弱記号
@@ -3245,6 +3302,9 @@ MIDI 出力において、指定された強弱記号に対応した最終的な
 
 
 @snippets
+
+@cindex dynamics in MIDI, custom (MIDI でのカスタム強弱記号)
+@cindex MIDI, custom dynamics (MIDI でのカスタム強弱記号)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {creating-custom-dynamics-in-midi-output.ly}
 
@@ -3351,6 +3411,10 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
 @rinternals{Dynamic_performer}
 
 @snippets
+
+@cindex MIDI, replacing default instrument equalization (MIDI のデフォルトの音量の均等化を置き換える)
+@cindex instrument equalization in MIDI, replacing default (MIDI のデフォルトの音量の均等化を置き換える)
+@cindex equalization, instrument, replacing MIDI default (MIDI のデフォルトの音量の均等化を置き換える)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {replacing-default-midi-instrument-equalization.ly}
 
@@ -3383,7 +3447,7 @@ MIDI での音量変化は音符の開始時にのみ適用されます。その
 音楽の解釈中に、出力定義のコンテキスト内でプロパティをセットします。@c
 そのため、それはコンテキストの変更である@emph{かのように}解釈されます。
 
-@cindex MIDI context definitions (MIDI のコンテキスト定義)
+@cindex MIDI, context definitions (MIDI のコンテキスト定義)
 @cindex context definitions with MIDI (MIDI のコンテキスト定義)
 
 コンテキスト定義は、@code{\layout} ブロックと同じ表記を用います:
@@ -3487,7 +3551,7 @@ MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プ
 @translationof Using repeats with MIDI
 
 @cindex repeats in MIDI (MIDI での繰り返し)
-@cindex MIDI using repeats (MIDI で繰り返しを用いる)
+@cindex MIDI, using repeats (MIDI で繰り返しを用いる)
 @funindex \unfoldRepeats
 
 繰り返しを MIDI で表現するためには、@code{\unfoldRepeats} コマンドを適用します:
@@ -3537,8 +3601,8 @@ MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プ
 @subsection MIDI のチャンネル マッピング
 @translationof MIDI channel mapping
 
-@cindex MIDI Channels (MIDI チャンネル)
-@cindex MIDI Tracks (MIDI トラック)
+@cindex MIDI, channels (MIDI チャンネル)
+@cindex MIDI, tracks (MIDI トラック)
 @funindex midiChannelMapping
 
 楽譜から MIDI ファイルを生成する場合、LilyPond は自動的に全ての音符を、@c
@@ -3622,6 +3686,7 @@ MIDI の歌詞は MIDI チャンネルを占有しませんが、@c
 @}
 @end example
 
+@cindex MIDI, one channel per voice (MIDI におけるボイスごとのチャンネル)
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
@@ -3631,13 +3696,20 @@ MIDI の歌詞は MIDI チャンネルを占有しませんが、@c
 @subsection MIDI エフェクトのためのコンテキスト プロパティ
 @translationof Context properties for MIDI effects
 
-@cindex Effects in MIDI (MIDI でのエフェクト)
-@cindex Pan position in MIDI (MIDI でのパン ポジション)
-@cindex Stereo balance in MIDI (MIDI でのステレオ バランス)
-@cindex Balance in MIDI (MIDI でのバランス)
-@cindex Expression in MIDI (MIDI でのエクスプレッション)
-@cindex Reverb in MIDI (MIDI でのリバーブ)
-@cindex Chorus level in MIDI (MIDI でのコーラス)
+@cindex effects in MIDI (MIDI でのエフェクト)
+@cindex MIDI, effects (MIDI でのエフェクト)
+@cindex pan position in MIDI (MIDI でのパン ポジション)
+@cindex MIDI, pan position (MIDI でのパン ポジション)
+@cindex stereo balance in MIDI (MIDI でのステレオ バランス)
+@cindex MIDI, stereo balance (MIDI でのステレオ バランス)
+@cindex balance in MIDI (MIDI でのバランス)
+@cindex MIDI, balance (MIDI でのバランス)
+@cindex expression in MIDI (MIDI でのエクスプレッション)
+@cindex MIDI, expression (MIDI でのエクスプレッション)
+@cindex reverb in MIDI (MIDI でのリバーブ)
+@cindex MIDI, reverb (MIDI でのリバーブ)
+@cindex chorus level in MIDI (MIDI でのコーラス)
+@cindex MIDI, chorus level (MIDI でのコーラス)
 @funindex midiPanPosition
 @funindex midiBalance
 @funindex midiExpression
@@ -3738,23 +3810,27 @@ MIDI ファイルを生成する際、LilyPond は範囲内にある割合の数
 
 @menu
 * 奏法スクリプト::
+* スウィング スクリプト::
 @end menu
 
-デフォルトの MIDI 出力は必要最低限のものですが、@c
-MIDI の楽器を指定したり、@code{\midi} ブロックのプロパティを設定したり、@c
-奏法 (@file{articulate}) スクリプトを用いたりすることで@c
+MIDI の楽器や、@code{\midi} ブロックのプロパティを設定することで@c
 より良くすることができます。
 
-@cindex instrument names (楽器名)
-@cindex MIDI, instruments (MIDI での楽器)
-@cindex articulate script (奏法スクリプト)
-@cindex articulate.ly
+追加されたスクリプトで、強弱、アーティキュレーション、リズムを
+MIDI に書き出す方法を微調整することができます: @file{articulate}
+スクリプトと @file{swing} スクリプトです。
+
+@cindex instrument name (楽器名)
+@cindex MIDI, instrument (MIDI での楽器)
 @funindex Staff.midiInstrument
 
 
 @node 奏法スクリプト
 @unnumberedsubsubsec 奏法スクリプト
 @translationof The articulate script
+
+@cindex articulate script (奏法スクリプト)
+@cindex articulate.ly
 
 奏法スクリプトを使うには、入力ファイルの最初にこのような
 @code{\include} コマンドを追加します:
@@ -3775,6 +3851,8 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
   \midi @{ @}
 @}
 @end example
+
+@funindex \articulate
 
 @code{\articulate} コマンドは、省略記号 (トリルやターンなど) を解釈できます。@c
 対応している記号の一覧は、スクリプト内に記載してあります。@c
@@ -3797,6 +3875,104 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 奏法スクリプトに定義された変数を書き換えることによって、@c
 長さが短くなる挙動を抑えることができます。}
 
+
+@node スウィング スクリプト
+@unnumberedsubsubsec スウィング スクリプト
+@translationof The swing script
+
+@cindex swing script (スウィング スクリプト)
+@cindex swing.ly
+
+@file{swing} スクリプトは通常の演奏時間を均等でないリズムで@c
+演奏させることを可能にする追加の関数を提供します。@c
+最もわかりやすい例は、2 つの 8 分音符を 3 のリズムで演奏する、@c
+ジャズ音楽によく見られる@q{スウィング}演奏ですが、@c
+追加の演奏方法もサポートされます。
+
+このスクリプトは入力ファイルの先頭で @code{\include} されなければなりません:
+
+@example
+\include "swing.ly"
+@end example
+
+@funindex \tripletFeel
+@funindex \applySwing
+@funindex \applySwingWithOffset
+
+3 つのコマンドが提供されます:
+@itemize
+@item
+@code{\tripletFeel} は 3 連符風のスウィングを作成します。@c
+これは 2 つの引数を取ります: このスクリプトによって影響を受ける@c
+音符の長さ (概して、8 分音符を表す @code{8} となります)、そして、@c
+このスクリプトを適用する音楽表記です。
+
+@item
+@code{\applySwing} は音楽表記の前に追加の引数を取ります:
+通常の音符がどのように演奏されるかを表現する @var{n} 個の比の@c
+@q{重みのリスト}: 例えば、@code{#'(2 1)} は 1 つ置きの音符が後続の@c
+音符の 2 倍の長さで演奏されることを示します (実際、
+@code{\tripletFeel @var{duration} @{@var{music}@}} は
+@code{\applySwing @var{duration} #'(2 1) @{@var{music}@}} の@c
+ショートカットです) 。8 分音符をより平坦にスウィングするには、@c
+重みのリストを @code{#'(3 2)} あるいはテイストに応じて@c
+その他の値を使います。
+
+@noindent
+このリストは 2 つ以上の値を含み、より長く、より複雑なグルーヴパターンを@c
+許可します。例えば、16 分音符のサンバ感は以下のようにして得られます:
+
+@example
+\score @{
+  \applySwing 16 #'(3 2 2 3) @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
+@}
+@end example
+
+@item
+@code{\applySwingWithOffset} は@q{重みのリスト}と音楽表記の間に@c
+さらにもう 1 つの引数を足します: オフセットの長さ
+(@code{ly:make-moment} 表記のように入力します)。@c
+このコマンドは音楽表記をオフビートからスタートするときに、@c
+部分的なスウィング周期で使われるべきです。
+@end itemize
+
+@warning{@file{articulate} スクリプトで用いる場合は、すべての@c
+スウィング コマンドは譜の出力にも表示され、音符のスペーシングが@c
+不規則になります。これは、音楽を譜刻する代わりに MIDI 出力だけに@c
+専念する @code{@bs{}score} ブロックのみに用いることで@c
+避けることができます。}
+
+追加のヘルプや情報はスクリプトファイルにあります:
+@file{ly/swing.ly} を参照してください。
+
+@seealso
+学習マニュアル:
+@rlearning{Other sources of information}
+
+記譜法リファレンス:
+@ref{Rhythms}
+
+インストールされているファイル:
+@file{ly/swing.ly}
+
+@knownissues
+@itemize
+@item
+音楽の中の @code{\repeat} 構造 (@code{\repeat unfold} であっても)
+は、いつ音符のタイミングが決定されるかを考慮しません。@c
+これはすべての繰り返される部分の長さがスウィング周期の長さの@c
+整数倍でない場合に問題を起こします。
+@item
+これらの関数は拍子や小節を意識しません。音楽がオフビートから@c
+スタートする場合に、オフセットが @code{\applySwingWithOffset}
+を用いて提供される必要があるのはこのためです。
+@item
+装飾音符は無視され、単純に影響を与えないように取り除かれます;
+連符もそうです。
+@end itemize
 
 @node 音楽情報を抽出する
 @section 音楽情報を抽出する

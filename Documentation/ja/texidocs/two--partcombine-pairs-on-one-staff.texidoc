@@ -1,11 +1,11 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
-@code{\\partcombine} 関数は 2 パートの音楽表記を取り、@c
+@code{\\partCombine} 関数は 2 パートの音楽表記を取り、@c
 パートがどのように結合されるかに応じて、@qq{two}, @qq{one},
 @qq{solo}, @qq{chords} の 4 つの @code{Voice} に配置します。@c
-@code{\\partcombine} によって出力されたボイスは、それぞれがレイアウト
+@code{\\partCombine} によって出力されたボイスは、それぞれがレイアウト
 プロパティを持ち、通常の方法で調整することができます。@c
-ここでは、@code{\\partcombine} を拡張し、4 つのボイスを 1 つの譜を結合する@c
+ここでは、@code{\\partCombine} を拡張し、4 つのボイスを 1 つの譜を結合する@c
 作業を簡単にしています。
 
 soprano = @{ d'4 | cis'  b  e'  d'8 cis' | cis'2 b @} alto = @{ fis4 |
@@ -18,8 +18,8 @@ fis b,2 @}
   \\clef alto
   \\partial 4
   \\transpose b b'
-  \\partcombineUp \\soprano \\alto
-  \\partcombineDown \\tenor \\bass >>
+  \\partCombineUp \\soprano \\alto
+  \\partCombineDown \\tenor \\bass >>
 
 "
-  doctitleja = "1 つの譜で 2 つの \\partcombine を使用する"
+  doctitleja = "1 つの譜で 2 つの \\partCombine を使用する"

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -8,7 +8,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -50,8 +50,8 @@
 @unnumberedsubsubsec 絶対オクターブ入力
 @translationof Absolute octave entry
 
-@cindex pitch names (ピッチ名)
-@cindex pitches (ピッチ)
+@cindex pitch name (ピッチ名)
+@cindex pitch (ピッチ)
 @cindex absolute (絶対)
 @cindex absolute octave specification (絶対オクターブ指定)
 @cindex octave specification, absolute (絶対オクターブ指定)
@@ -267,8 +267,8 @@
 }
 @end lilypond
 
-@cindex chords and relative octave entry (和音と相対オクターブ入力)
-@cindex relative octave entry and chords (相対オクターブ入力と和音)
+@cindex chord, and relative octave entry (和音と相対オクターブ入力)
+@cindex relative octave entry, and chords (相対オクターブ入力と和音)
 
 前の要素が和音である場合、@c
 その和音の最初の音符が後に続く音符または和音の参照ポイントとして使用されます。@c
@@ -335,8 +335,8 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 @rinternals{RelativeOctaveMusic}
 
 
-@cindex relative octave entry and transposition (相対オクターブ入力と移調)
-@cindex transposition and relative octave entry (移調と相対オクターブ入力)
+@cindex relative octave entry, and transposition (相対オクターブ入力と移調)
+@cindex transposition, and relative octave entry (移調と相対オクターブ入力)
 
 @funindex \transpose
 @funindex \chordmode
@@ -360,9 +360,9 @@ LilyPond では、音符名はピッチを指定します
 @q{C ナチュラル} を意味します。@c
 更なる情報は、@rlearning{ピッチと調号} を参照してください。}
 
-@cindex note names, Dutch (オランダ語での音符名)
-@cindex note names, default (デフォルトの音符名)
-@cindex default note names (デフォルトの音符名)
+@cindex note name, Dutch (オランダ語での音符名)
+@cindex note name, default (デフォルトの音符名)
+@cindex default note name (デフォルトの音符名)
 @cindex sharp (シャープ)
 @cindex flat (フラット)
 @cindex double sharp (ダブル シャープ)
@@ -394,9 +394,9 @@ LilyPond では、音符名はピッチを指定します
 \relative c'' { a4 aes a2 }
 @end lilypond
 
-@cindex quarter tones (4 分音)
-@cindex semi-flats (半フラット)
-@cindex semi-sharps (半シャープ)
+@cindex quarter tone (4 分音)
+@cindex semi-flat (半フラット)
+@cindex semi-sharp (半シャープ)
 
 4 分音が付け加えられるかもしれません。@c
 以下の一連の C は左から順にピッチが増えていっています:
@@ -414,7 +414,7 @@ LilyPond では、音符名はピッチを指定します
 @cindex parenthesized accidental (括弧に囲まれた臨時記号)
 
 @funindex ?
-@funindex !
+@funindex @sortas{!A} !
 
 通常、臨時記号は自動的に譜刻されますが、@c
 手動で譜刻する場合もあるかもしれません。@c
@@ -429,7 +429,7 @@ LilyPond では、音符名はピッチを指定します
 \relative c'' { cis cis cis! cis? c c c! c? }
 @end lilypond
 
-@cindex accidental on tied note (タイで結ばれた音符への臨時記号)
+@cindex accidental, on tied note (タイで結ばれた音符への臨時記号)
 @cindex tied note, accidental (タイで結ばれた音符への臨時記号)
 
 タイで結ばれた音符に付ける臨時記号は@c
@@ -446,9 +446,13 @@ LilyPond では、音符名はピッチを指定します
 
 @snippets
 
+@cindex hiding accidentals, on tied notes at start of system (システムの先頭にあるタイで繋がれた音符の臨時記号を隠す)
+@cindex accidental, hiding, on tied notes at start of system (システムの先頭にあるタイで繋がれた音符の臨時記号を隠す)
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
+@cindex natural sign, extra, preventing (追加のナチュラル記号を表示しないようにする)
+@cindex extra natural sign, preventing (追加のナチュラル記号を表示しないようにする)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
@@ -490,8 +494,8 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @unnumberedsubsubsec 他の言語での音符名
 @translationof Note names in other languages
 
-@cindex note names, other languages (他の言語での音符名)
-@cindex pitch names, other languages (他の言語でのピッチ名)
+@cindex note name, other languages (他の言語での音符名)
+@cindex pitch name, other languages (他の言語でのピッチ名)
 @cindex language, note names in other (他の言語での音符名)
 @cindex language, pitch names in other (他の言語でのピッチ名)
 
@@ -592,40 +596,18 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @end lilypond
 
 
-@cindex microtones (微分音)
+@cindex microtone (微分音)
 @cindex semi-sharp (半シャープ)
 @cindex semi-flat (半フラット)
 @cindex sesqui-sharp (1.5 シャープ)
 @cindex sesqui-flat (1.5 フラット)
 
 音楽の中には @q{通常の} シャープやフラットの音の変化をさらに細かく分けた@c
-微分音を使用するものがあります。@c
-さまざまな言語 (ファイル) での 4 分音
+微分音を使用するものがあります。四分音
 (訳者: シャープやフラットの半分の音の変化。4 分音符ではありません)
-の音符名を以下の表で挙げます。@c
+の接尾辞を以下の表で挙げます。@c
 接頭辞 @notation{半-} と @notation{1.5-} はそれぞれ
 @q{半分} と @q{1 つ半} を意味します。
-
-@quotation
-@multitable {@code{nederlands}} {@b{半-シャープ}} {@b{半-フラット}} {@b{1.5-シャープ}} {@b{1.5-フラット}}
-@headitem 元号
-  @tab 半-シャープ @tab 半-フラット @tab 1.5-シャープ @tab 1.5-フラット
-@item @code{nederlands}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @code{deutsch}
-  @tab -ih @tab -eh @tab -isih @tab -eseh
-@item @code{english}
-  @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol} または @code{español}
-  @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @code{français}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @code{italiano}
-  @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item @code{portugues}
-  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
-@end multitable
-@end quotation
 
 @quotation
 @multitable {@w{@code{português} または}} {@b{semi-diesis}} {@b{semi-bemolle}} {@b{sesqui-diesis}} {@b{sesqui-bemolle}}
@@ -659,6 +641,15 @@ LilyPond の記号はいかなる標準にも準拠しません。
   @tab @code{hk} @tab @code{hb} @tab @code{khk} @tab @code{bhb}
 @end multitable
 @end quotation
+
+ドイツ語では、微分音に対して、上記の通常の表記の他に、@c
+似た形の短縮形を使用することもできます。
+
+@lilypond[verbatim,quote,fragment]
+\language "deutsch"
+
+\relative c'' { asah2 eh aih eisih }
+@end lilypond
 
 ここに示されている大半の言語は西洋クラシック音楽
 -- @notation{Common Practice Period}: 西暦1600年から1900年頃の@c
@@ -705,7 +696,7 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @cindex octave check (オクターブ チェック)
 @cindex control pitch (ピッチの制御)
 
-@funindex =
+@funindex @sortas{=A} =
 @funindex \octaveCheck
 @funindex controlpitch
 
@@ -779,10 +770,10 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @cindex transpose (移調)
 @cindex transposing (移調)
 @cindex transposition (移調)
-@cindex transposition of pitches (ピッチの移調)
-@cindex transposition of notes (音符の移調)
-@cindex pitches, transposition of (ピッチの移調)
-@cindex notes, transposition of (音符の移調)
+@cindex transposition, of pitches (ピッチの移調)
+@cindex transposition, of notes (音符の移調)
+@cindex pitch, transposition of (ピッチの移調)
+@cindex note, transposition of (音符の移調)
 
 @funindex \transpose
 
@@ -818,8 +809,8 @@ D-メジャーの調で書かれた楽曲を思い浮かべてください。@c
 }
 @end lilypond
 
-@cindex transposing instruments (移調楽器)
-@cindex instruments, transposing (移調楽器)
+@cindex transposing instrument (移調楽器)
+@cindex instrument, transposing (移調楽器)
 
 C (通常の @notation{コンサート ピッチ}) で書かれたパートを
 A のクラリネットで演奏する
@@ -885,6 +876,8 @@ musicInBflat = @{ e4 @dots{} @}
 
 @snippets
 
+@cindex transposition, pitches, @q{smart} (ピッチの@q{スマート} トランスポーズ)
+@cindex pitches, @q{smart} transposition (ピッチの@q{スマート} トランスポーズ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
@@ -995,9 +988,9 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @unnumberedsubsubsec 様式的な変形
 @translationof Modal transformations
 
-@cindex modal transformations (様式的な変形)
-@cindex transformations, modal (様式的な変形)
-@cindex operations, modal (様式的な操作)
+@cindex modal transformation (様式的な変形)
+@cindex transformation, modal (様式的な変形)
+@cindex operation, modal (様式的な操作)
 
 音階に基づく作曲では、モチーフはさまざまなやり方で頻繁に移調されます。@c
 これは、モチーフの開始の音程を変えるために @notation{移調} する場合や、@c
@@ -1154,7 +1147,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 @cindex alto clef (アルト音部記号)
 @cindex tenor clef (テノール音部記号)
 @cindex bass clef (ヘ音記号、バス音部記号)
-@cindex french clef (フレンチ (バイオリン) 音部記号)
+@cindex French clef (フレンチ (バイオリン) 音部記号)
 @cindex soprano clef (ソプラノ音部記号)
 @cindex mezzosoprano clef (メゾソプラノ音部記号)
 @cindex baritone clef (バリトン音部記号)
@@ -1209,8 +1202,8 @@ c'2 c'
 タブ譜の音部記号が必要な音楽に関しては、
 @ref{Default tablatures} や @ref{Custom tablatures} に説明があります。
 
-@cindex Cue clefs (合図音符の音部記号)
-@cindex Clefs with cue notes (合図音符の音部記号)
+@cindex cue clef (合図音符の音部記号)
+@cindex clef, with cue notes (合図音符の音部記号)
 合図音符を用いる際の音部記号については、@ref{Formatting cue notes} の
 @code{\cueClef} や @code{\cueDuringWithClef} コマンドを参照してください。
 
@@ -1315,6 +1308,7 @@ c'2 c'
 
 @snippets
 
+@cindex clef, tweaking properties (音部記号のプロパティを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
@@ -1390,8 +1384,8 @@ LilyPond では、音符名は未加工の入力です。@c
 @funindex \phrygian
 @funindex \dorian
 
-@cindex church modes (チャーチ モード)
-@cindex modes (モード)
+@cindex church mode (チャーチ モード)
+@cindex mode (モード)
 @cindex major (メジャー)
 @cindex minor (マイナー)
 @cindex ionian (アイオニアン)
@@ -1455,9 +1449,12 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 
 @snippets
 
+@cindex key signature, preventing natural signs (調号のナチュラル記号を表示しない)
+@cindex natural sign, preventing in key signatures (調号のナチュラル記号を表示しない)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
+@cindex key signature, non-traditional (非伝統的な調号)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -1487,8 +1484,9 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 
 @cindex ottava (オッターバ)
 @cindex 15ma
+@cindex 15mb
 @cindex 8va
-@cindex 8ve
+@cindex 8vb
 @cindex octavation (オクタベーション)
 
 @funindex set-octavation
@@ -1514,14 +1512,21 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 
 @snippets
 
+@cindex ottava text (オッターバのテキスト)
+@cindex text, ottavation (オッターバのテキスト)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
 
+@cindex ottava, for single voice (単一声部に対するオッターバ)
+@cindex voice, with ottavation (単一声部に対するオッターバ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-an-ottava-marking-to-a-single-voice.ly}
 
+@cindex ottava spanner, modify slope (オッターバのスパナの傾きを変更する)
+@cindex slope, ottava spanner, modification (オッターバのスパナの傾きを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-the-ottava-spanner-slope.ly}
+
 
 @seealso
 音楽用語集:
@@ -1544,7 +1549,7 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @cindex transposition, instrument (楽器の移調)
 @cindex transposing instrument (移調楽器)
 @cindex MIDI
-@cindex MIDI transposition (MIDI の移調)
+@cindex MIDI, transposition (MIDI の移調)
 
 @funindex \transposition
 
@@ -1646,14 +1651,14 @@ clarinet = \relative c'' {
 
 @cindex accidental style (臨時記号スタイル)
 @cindex accidental style, default (デフォルトの臨時記号スタイル)
-@cindex accidentals (臨時記号)
-@cindex accidentals, automatic (自動臨時記号)
-@cindex automatic accidentals (自動臨時記号)
+@cindex accidental (臨時記号)
+@cindex accidental, automatic (自動臨時記号)
+@cindex automatic accidental (自動臨時記号)
 @cindex default accidental style (デフォルトの臨時記号スタイル)
 
 @funindex \accidentalStyle
 @funindex voice
-@funindex default
+@funindex @sortas{defaultA} default
 
 臨時記号の譜刻の仕方には多くの異なる規約があります。@c
 LilyPond はどの臨時記号スタイルを使用するのかを指定するための関数を@c
@@ -1757,7 +1762,7 @@ musicB = {
 @cindex default accidental style (default 臨時記号スタイル)
 @cindex accidental style, default (default 臨時記号スタイル)
 
-@funindex default
+@funindex @sortas{defaultA} default
 
 これはデフォルトの譜刻の仕方です。@c
 これは 18 世紀の一般的な習慣と一致します:
@@ -1887,8 +1892,8 @@ musicB = {
 
 @item modern
 
-@cindex accidentals, modern style (modern 臨時記号スタイル)
-@cindex modern style accidentals (modern 臨時記号スタイル)
+@cindex accidental, modern style (modern 臨時記号スタイル)
+@cindex modern style accidental (modern 臨時記号スタイル)
 
 @funindex modern
 
@@ -1956,11 +1961,8 @@ musicB = {
 
 @item modern-cautionary
 
-@cindex accidentals, modern cautionary style (modern-cautionary 臨時記号スタイル)
-@cindex modern accidental style (modern 臨時記号スタイル)
-@cindex modern cautionary accidental style (modern-cautionary 臨時記号スタイル)
-@cindex modern style accidentals (modern 臨時記号スタイル)
-@cindex modern style cautionary accidentals (modern-cautionary 臨時記号スタイル)
+@cindex accidental style, modern-cautionary (modern-cautionary 臨時記号スタイル)
+@cindex modern-cautionary accidental style (modern-cautionary 臨時記号スタイル)
 
 @funindex modern-cautionary
 
@@ -2019,23 +2021,22 @@ musicB = {
 @item modern-voice
 
 @cindex accidental style, modern (modern 臨時記号スタイル)
-@cindex accidentals, modern (modern 臨時記号)
-@cindex accidentals, multivoice (マルチボイス臨時記号)
+@cindex accidental, multi-voice (多声の臨時記号)
 @cindex modern accidental style (modern 臨時記号スタイル)
-@cindex modern accidentals (modern 臨時記号)
-@cindex multivoice accidentals (マルチボイス)
+@cindex modern accidental (modern 臨時記号)
+@cindex multi-voice accidental (多声の臨時記号)
 
 @funindex modern-voice
 
-この規則はマルチボイス臨時記号として使用されます。@c
-演奏家が複数のボイスの中の 1 つのボイスを演奏する場合にも、@c
-すべてのボイスを演奏する場合にも使用されます。@c
-臨時記号はそれぞれのボイスに対して譜刻されますが、@c
-同じ @code{Staff} の中であってもボイスをまたいで@emph{キャンセルされます}。@c
+この規則は多声の臨時記号として使用されます。@c
+演奏家が複数の声部の中の 1 つの声部を演奏する場合にも、@c
+すべての声部を演奏する場合にも使用されます。@c
+臨時記号はそれぞれの声部に対して譜刻されますが、@c
+同じ @code{Staff} の中であっても声部をまたいで@emph{キャンセルされます}。@c
 そのため、最後の小節で @code{a} がキャンセルされています
- -- なぜなら、前のキャンセルは異なるボイスで行われたからです。@c
+ -- なぜなら、前のキャンセルは異なる声部で行われたからです。@c
 さらに下部譜では @code{d} がキャンセルされています
- -- その臨時記号は前の小節の異なるボイスで付けられたものだからです:
+ -- その臨時記号は前の小節の異なる声部で付けられたものだからです:
 
 @lilypond[quote]
 musicA = {
@@ -2084,9 +2085,8 @@ musicB = {
 }
 @end lilypond
 
-@cindex accidental style, cautionary, modern voice (modern-voice-cautionary 臨時記号スタイル)
-@cindex accidental style, modern voice cautionary (modern-voice-cautionary 臨時記号スタイル)
-@cindex accidental style, voice, modern cautionary (modern-voice-cautionary 臨時記号スタイル)
+@cindex accidental style, modern-voice-cautionary (modern-voice-cautionary 臨時記号スタイル)
+@cindex modern-voice-cautionary accidental style (modern-voice-cautionary 臨時記号スタイル)
 
 @funindex modern-voice-cautionary
 
@@ -2148,10 +2148,8 @@ musicB = {
 
 @item piano
 
-@cindex accidental style, piano (ピアノ臨時記号スタイル)
-@cindex accidentals, piano (ピアノ臨時記号)
-@cindex piano accidental style (ピアノ臨時記号スタイル)
-@cindex piano accidentals (ピアノ臨時記号)
+@cindex accidental style, piano (piano 臨時記号スタイル)
+@cindex piano accidental style (piano 臨時記号スタイル)
 
 @funindex piano
 
@@ -2213,12 +2211,8 @@ musicB = {
 
 @item piano-cautionary
 
-@cindex accidentals, piano cautionary (piano-cautionary 臨時記号)
-@cindex cautionary accidentals, piano (piano-cautionary 臨時記号)
-@cindex piano cautionary accidentals (piano-cautionary 臨時記号)
-@cindex accidental style, piano cautionary (piano-cautionary 臨時記号スタイル)
-@cindex cautionary accidental style, piano (piano-cautionary 臨時記号スタイル)
-@cindex piano cautionary accidental style (piano-cautionary 臨時記号スタイル)
+@cindex accidental style, piano-cautionary (piano-cautionary 臨時記号スタイル)
+@cindex piano-cautionary accidental style (piano-cautionary 臨時記号スタイル)
 
 @funindex piano-cautionary
 
@@ -2273,9 +2267,7 @@ musicB = {
 @item choral
 
 @cindex accidental style, choral (choral 臨時記号スタイル)
-@cindex accidentals, choral (choral 臨時記号)
 @cindex choral accidental style (choral 臨時記号スタイル)
-@cindex choral accidentals (choral 臨時記号)
 
 @funindex choral
 
@@ -2334,12 +2326,8 @@ musicB = {
 
 @item choral-cautionary
 
-@cindex accidentals, choral cautionary (choral-cautionary 臨時記号)
-@cindex cautionary accidentals, choral (choral-cautionary 臨時記号)
-@cindex choral cautionary accidentals (choral-cautionary 臨時記号)
-@cindex accidental style, choral cautionary (choral-cautionary 臨時記号スタイル)
-@cindex cautionary accidental style, choral (choral-cautionary 臨時記号スタイル)
-@cindex choral cautionary accidental style (choral-cautionary 臨時記号スタイル)
+@cindex accidental style, choral-cautionary (choral-cautionary 臨時記号スタイル)
+@cindex choral-cautionary accidental style (choral-cautionary 臨時記号スタイル)
 
 @funindex choral-cautionary
 
@@ -2633,7 +2621,7 @@ musicB = {
 @item dodecaphonic
 
 @cindex dodecaphonic accidental style (dodecaphonic 臨時記号スタイル)
-@cindex dodecaphonic style, neo-modern (neo-modern 12 音スタイル)
+@cindex accidental style, dodecaphonic (dodecaphonic 臨時記号スタイル)
 
 @funindex dodecaphonic
 
@@ -2694,8 +2682,8 @@ musicB = {
 
 @item dodecaphonic-no-repeat
 
-@cindex dodecaphonic accidental style (dodecaphonic 臨時記号スタイル)
-@cindex dodecaphonic style, neo-modern (neo-modern 12 音スタイル)
+@cindex dodecaphonic-no-repeat accidental style (dodecaphonic-no-repeat 臨時記号スタイル)
+@cindex accidental style, dodecaphonic-no-repeat (dodecaphonic-no-repeat 臨時記号スタイル)
 
 @funindex dodecaphonic-no-repeat
 
@@ -2752,8 +2740,8 @@ musicB = {
 
 @item dodecaphonic-first
 
-@cindex dodecaphonic accidental style (dodecaphonic 臨時記号スタイル)
-@cindex dodecaphonic style, neo-modern (neo-modern 12 音スタイル)
+@cindex dodecaphonic-first accidental style (dodecaphonic-first 臨時記号スタイル)
+@cindex accidental style, dodecaphonic-first (dodecaphonic-first 臨時記号スタイル) 
 
 @funindex dodecaphonic-first
 
@@ -2876,8 +2864,8 @@ musicB = {
 
 @item no-reset
 
-@cindex accidental style, no reset (no-reset 臨時記号スタイル)
-@cindex no reset accidental style (no-reset 臨時記号スタイル)
+@cindex accidental style, no-reset (no-reset 臨時記号スタイル)
+@cindex no-reset accidental style (no-reset 臨時記号スタイル)
 
 @funindex no-reset
 
@@ -3005,10 +2993,10 @@ musicB = {
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}
 
-@cindex accidentals and simultaneous notes (臨時記号と同時発生する音符)
+@cindex accidental, and simultaneous notes (臨時記号と同時発生する音符)
 @cindex simultaneous notes and accidentals (同時発生する音符と臨時記号)
-@cindex accidentals in chords (和音の中の臨時記号)
-@cindex chords, accidentals in (和音の中の臨時記号)
+@cindex accidental, in chords (和音の中の臨時記号)
+@cindex chord, accidentals in (和音の中の臨時記号)
 
 @knownissues
 同時発生する音符はシーケンシャル モードで入力されたものと見なされます。@c
@@ -3102,14 +3090,20 @@ forget = #(define-music-function (music) (ly:music?) #{
 
 @snippets
 
+@cindex ambitus, per voice (ボイスごとの音域)
+@cindex voice, ambitus (ボイスと音域)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
+@cindex ambitus, multiple voices (複数ボイスでの音域)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
+@cindex ambitus, line gap (音域の線の隙間)
+@funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
+
 
 @seealso
 音楽用語集:
@@ -3150,20 +3144,20 @@ forget = #(define-music-function (music) (ly:music?) #{
 @unnumberedsubsubsec 特殊な符頭
 @translationof Special note heads
 
-@cindex note heads, special (特別な符頭)
-@cindex note heads, cross (×の符頭)
-@cindex note heads, diamond (ダイアモンド形の符頭)
-@cindex note heads, parlato (語りの符頭)
-@cindex note heads, harmonic (和音の符頭)
-@cindex note heads, guitar (ギターの符頭)
-@cindex special note heads (特別な符頭)
-@cindex cross note heads (×の符頭)
-@cindex diamond note heads (ダイアモンド形の符頭)
-@cindex parlato note heads (語りの符頭)
-@cindex harmonic note heads (和音の符頭)
-@cindex guitar note heads (ギターの符頭)
-@cindex note head styles (符頭のスタイル)
-@cindex styles, note heads (符頭のスタイル)
+@cindex note head, special (特別な符頭)
+@cindex note head, cross (×の符頭)
+@cindex note head, diamond (ダイアモンド形の符頭)
+@cindex note head, parlato (語りの符頭)
+@cindex note head, harmonic (和音の符頭)
+@cindex note head, guitar (ギターの符頭)
+@cindex special note head (特別な符頭)
+@cindex cross note head (×の符頭)
+@cindex diamond note head (ダイアモンド形の符頭)
+@cindex parlato note head (語りの符頭)
+@cindex harmonic note head (和音の符頭)
+@cindex guitar note head (ギターの符頭)
+@cindex note head style (符頭のスタイル)
+@cindex style, note heads (符頭のスタイル)
 
 @funindex cross
 
@@ -3184,6 +3178,10 @@ forget = #(define-music-function (music) (ly:music?) #{
 @end lilypond
 
 すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。
+
+@funindex \xNote
+@funindex \xNotesOn
+@funindex \xNotesOff
 
 @code{cross} スタイルはさまざまな音楽的意図を表すために使用されます。@c
 以下の定義済みコマンドは符頭を譜コンテキストとタブ譜コンテキストで変更し、@c
@@ -3210,10 +3208,16 @@ forget = #(define-music-function (music) (ly:music?) #{
 }
 @end lilypond
 
+@funindex \deadNote
+@funindex \deadNotesOn
+@funindex \deadNotesOff
+
 @code{\xNote}, @code{\xNotesOn} それに @code{\xNotesOff} の同義語として
 @code{\deadNote}, @code{\deadNotesOn} それに @code{\deadNotesOff} を@c
 使用することができます。@c
 @notation{dead note} という用語はギタリストが一般的に使用します。
+
+@funindex \harmonic
 
 また、ダイアモンド形のための似たような短縮記法があります:
 
@@ -3253,15 +3257,15 @@ forget = #(define-music-function (music) (ly:music?) #{
 @unnumberedsubsubsec 演奏を容易にする記譜法の符頭
 @translationof Easy notation note heads
 
-@cindex note heads, practice (練習のための符頭)
-@cindex practice note heads (練習のための符頭)
-@cindex note heads, easy notation (演奏を容易にする記譜法の符頭)
+@cindex note head, practice (練習のための符頭)
+@cindex practice note head (練習のための符頭)
+@cindex note head, easy notation (演奏を容易にする記譜法の符頭)
 @cindex easy notation (演奏を容易にする記譜法)
 @cindex Hal Leonard
 @cindex beginners' music (初心者のための楽譜)
 @cindex music, beginners' (初心者のための楽譜)
-@cindex easy play note heads (演奏を容易にする符頭)
-@cindex note heads, easy play (演奏を容易にする符頭)
+@cindex easy play note head (演奏を容易にする符頭)
+@cindex note head, easy play (演奏を容易にする符頭)
 
 @funindex \easyHeadsOn
 @funindex \easyHeadsOff
@@ -3292,6 +3296,9 @@ forget = #(define-music-function (music) (ly:music?) #{
 
 @snippets
 
+@cindex easy notation, using numbers (演奏を容易にする記譜法で数字を使用する)
+@cindex number, in easy notation (演奏を容易にする記譜法での数字)
+@funindex Ez_numbers_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
@@ -3313,24 +3320,25 @@ forget = #(define-music-function (music) (ly:music?) #{
 @unnumberedsubsubsec シェイプ ノートの符頭
 @translationof Shape note heads
 
-@cindex note heads, shape (シェイプ ノートの符頭)
-@cindex note heads, Aiken (Aiken の符頭)
-@cindex note heads, sacred harp (Sacred Harp の符頭)
-@cindex shape notes (シェイプ ノート)
-@cindex Aiken shape note heads (Aiken のシェイプ ノートの符頭)
-@cindex sacred harp note heads (Sacred Harp の符頭)
-@cindex note heads, Southern Harmony (Southern Harmony の符頭)
-@cindex Southern Harmony note heads (Southern Harmony の符頭)
-@cindex Funk shape note heads (Funk のシェイプ ノートの符頭)
-@cindex note heads, Funk (Funk の符頭)
-@cindex note heads, Harmonia Sacra (Harmonia Sacra の符頭)
-@cindex Harmonia Sacra note heads (Harmonia Sacra の符頭)
-@cindex Christian Harmony note heads (Christian Harmony の符頭)
-@cindex note heads, Christian Harmony (Christian Harmony の符頭)
-@cindex Walker shape note heads (Walker のシェイプ ノートの符頭)
-@cindex note heads, Walker (Walker の符頭)
+@cindex note head, shape (シェイプ ノートの符頭)
+@cindex note head, Aiken (Aiken の符頭)
+@cindex note head, Sacred Harp (Sacred Harp の符頭)
+@cindex shape note (シェイプ ノート)
+@cindex Aiken shape note head (Aiken のシェイプ ノートの符頭)
+@cindex Sacred Harp note head (Sacred Harp の符頭)
+@cindex note head, Southern Harmony (Southern Harmony の符頭)
+@cindex Southern Harmony note head (Southern Harmony の符頭)
+@cindex funk shape note head (Funk のシェイプ ノートの符頭)
+@cindex note head, funk (Funk の符頭)
+@cindex note head, Harmonia Sacra (Harmonia Sacra の符頭)
+@cindex Harmonia Sacra note head (Harmonia Sacra の符頭)
+@cindex Christian Harmony note head (Christian Harmony の符頭)
+@cindex note head, Christian Harmony (Christian Harmony の符頭)
+@cindex Walker shape note head (Walker のシェイプ ノートの符頭)
+@cindex note head, Walker (Walker の符頭)
 
 @funindex \aikenHeads
+@funindex \aikenThinHeads
 @funindex \sacredHarpHeads
 @funindex \southernHarmonyHeads
 @funindex \funkHeads
@@ -3347,6 +3355,8 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 \relative c'' {
   \aikenHeads
   c, d e f g2 a b1 c \break
+  \aikenThinHeads
+  c,4 d e f g2 a b1 c \break
   \sacredHarpHeads
   c,4 d e f g2 a b1 c \break
   \southernHarmonyHeads
@@ -3360,6 +3370,7 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 
 @funindex \key
 @funindex \aikenHeadsMinor
+@funindex \aikenThinHeadsMinor
 @funindex \sacredHarpHeadsMinor
 @funindex \southernHarmonyHeadsMinor
 @funindex \funkHeadsMinor
@@ -3377,6 +3388,8 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
   a b c d e2 f g1 a \break
   \aikenHeadsMinor
   a,4 b c d e2 f g1 a \break
+  \aikenThinHeadsMinor
+  a,4 b c d e2 f g1 a \break
   \sacredHarpHeadsMinor
   a,2 b c d \break
   \southernHarmonyHeadsMinor
@@ -3391,6 +3404,8 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
+@code{\aikenThinHeads},
+@code{\aikenThinHeadsMinor},
 @code{\funkHeads},
 @code{\funkHeadsMinor},
 @code{\sacredHarpHeads},
@@ -3402,6 +3417,11 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @endpredefined
 
 @snippets
+
+@cindex note head, Aiken, thin variant (細い Aiken の符頭)
+@cindex Aiken shape note head, thin variant (細い Aiken のシェイプ ノートの符頭)
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{aiken-head-thin-variant-noteheads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
@@ -3427,9 +3447,9 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @translationof Improvisation
 
 @cindex improvisation (即興)
-@cindex slashed note heads (スラッシュ形の符頭)
-@cindex note heads, improvisation (即興の符頭)
-@cindex note heads, slashed (スラッシュ形の符頭)
+@cindex slashed note head (スラッシュ形の符頭)
+@cindex note head, improvisation (即興の符頭)
+@cindex note head, slashed (スラッシュ形の符頭)
 
 @funindex \improvisationOn
 @funindex \improvisationOff

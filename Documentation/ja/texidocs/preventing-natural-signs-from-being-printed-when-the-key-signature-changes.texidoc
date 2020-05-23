@@ -4,4 +4,4 @@
 これは @code{Staff} コンテキストの @code{printKeyCancellation} プロパティを
 @code{f} にセットすることで防止することができます。
 "
-  doctitleja = "調号が変化する際にナチュラル記号が表示されるのを防止する"
+  doctitleja = "調号が変化する際にナチュラル記号が表示されないようにする"

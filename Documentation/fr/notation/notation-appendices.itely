@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+  Translation of GIT committish: 3d5333d80d9637c03e46493ebb6bc069045553b0
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -50,9 +50,8 @@ La liste suivante répertorie les noms des accords selon la dénomination
 standard de LilyPond ainsi que ce qu'ils représentent. D'autres systèmes
 de nommage, non pris en charge, sont indiqués dans le morceau choisi
 « Noms d'accords alternatifs » (@emph{chord-names-alternative}) dans
-@rlsrnamed{Chords,Accords}, qui nclus une notation inspirée par Harald
-Banter (1982) utilisée par défaut dans Lilypond jusque dans sa version
-1.7.
+@rlsrnamed{Chords,Accords}, qui inclut une notation inspirée par Harald
+Banter (1982) utilisée par défaut dans LilyPond jusqu’à sa version 1.7.
 
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]
@@ -81,7 +80,7 @@ d'obtenir les structures habituelles d'un certain nombre d'accords.
 
 
 @item
-Majeur
+Accord parfait majeur @*(triade majeure)
 @tab
 Tierce majeure @*et quinte juste
 @tab
@@ -97,7 +96,7 @@ Tierce majeure @*et quinte juste
 @end lilypond
 
 @item
-Mineur
+Accord parfait mineur @*(triade mineure)
 @tab
 Tierce mineure @*et quinte juste
 @tab
@@ -113,7 +112,7 @@ Tierce mineure @*et quinte juste
 @end lilypond
 
 @item
-Augmenté
+Triade augmentée
 @tab
 Tierce majeure et @*quinte augmentée
 @tab
@@ -129,7 +128,7 @@ Tierce majeure et @*quinte augmentée
 @end lilypond
 
 @item
-Diminué
+Triade diminuée
 @tab
 Tierce mineure et @*quinte diminuée
 @tab
@@ -147,7 +146,7 @@ Tierce mineure et @*quinte diminuée
 @item
 Septième de dominante
 @tab
-Triton majeur et @*septième mineure
+Triade majeure et @*septième mineure
 @tab
 @code{7}
 @tab
@@ -163,7 +162,7 @@ Triton majeur et @*septième mineure
 @item
 Septième majeure
 @tab
-Triton majeur et @*septième majeure
+Triade majeure et @*septième majeure
 @tab
 @code{maj7} ou @code{maj}
 @tab
@@ -179,7 +178,7 @@ Triton majeur et @*septième majeure
 @item
 Septième mineure
 @tab
-Triton mineur et @*septième mineure
+Triade mineure et @*septième mineure
 @tab
 @code{m7}
 @tab
@@ -195,7 +194,7 @@ Triton mineur et @*septième mineure
 @item
 Septième diminuée
 @tab
-Triton diminué et @*septième diminuée
+Triade diminuée et @*septième diminuée
 @tab
 @code{dim7}
 @tab
@@ -211,7 +210,7 @@ Triton diminué et @*septième diminuée
 @item
 Septième augmentée
 @tab
-Triton augmenté et @*septième mineure
+Triade augmentée et @*septième mineure
 @tab
 @code{aug7}
 @tab
@@ -227,7 +226,7 @@ Triton augmenté et @*septième mineure
 @item
 Septième semi-diminuée
 @tab
-Triton diminué et @*septième mineure
+Triade diminuée et @*septième mineure
 @tab
 @code{m7.5-}
 @tab
@@ -241,9 +240,9 @@ Triton diminué et @*septième mineure
 @end lilypond
 
 @item
-Accord mineur avec septième majeure
+Accord mineur avec @*septième majeure
 @tab
-Triton mineur et @*septième majeure
+Triade mineure et @*septième majeure
 @tab
 @code{m7+}
 @tab
@@ -257,9 +256,9 @@ Triton mineur et @*septième majeure
 @end lilypond
 
 @item
-Sixte majeure
+Sixte ajoutée (majeur)
 @tab
-Triton majeur @*et sixte
+Triade majeure @*et sixte majeure
 @tab
 @code{6}
 @tab
@@ -273,9 +272,9 @@ Triton majeur @*et sixte
 @end lilypond
 
 @item
-Sixte mineure
+Sixte ajoutée (mineur)
 @tab
-Triton mineur @*et sixte
+Triade mineure @*et sixte majeure
 @tab
 @code{m6}
 @tab
@@ -305,7 +304,7 @@ Septième de dominante @*et neuvième majeure
 @end lilypond
 
 @item
-Neuvième majeure
+Neuvième (majeur)
 @tab
 Septième majeure et @*neuvième majeure
 @tab
@@ -321,7 +320,7 @@ Septième majeure et @*neuvième majeure
 @end lilypond
 
 @item
-Neuvième mineure
+Neuvième (mineur)
 @tab
 Septième mineure et @*neuvième majeure
 @tab
@@ -353,9 +352,9 @@ Neuvième de dominante @*et onzième juste
 @end lilypond
 
 @item
-Onzième majeure
+Onzième (majeur)
 @tab
-Neuvième majeure @*et onzième juste
+Septième majeure, neuvième @*majeure et onzième juste
 @tab
 @code{maj11}
 @tab
@@ -369,9 +368,9 @@ Neuvième majeure @*et onzième juste
 @end lilypond
 
 @item
-Onzième mineure
+Onzième (mineur)
 @tab
-Neuvième mineure @*et onzième juste
+Septième mineure, neuvième @*majeure et onzième juste
 @tab
 @code{m11}
 @tab
@@ -417,9 +416,9 @@ Onzième de dominante @*et treizième majeure
 @end lilypond
 
 @item
-Treizième majeure
+Treizième (majeur)
 @tab
-Onzième majeure et @*treizième majeure
+Septième majeure ; neuvième, @*onzième et treizième majeures
 @tab
 @code{maj13.11}
 @tab
@@ -433,9 +432,9 @@ Onzième majeure et @*treizième majeure
 @end lilypond
 
 @item
-Treizième mineure
+Treizième (mineur)
 @tab
-Onzième mineure et @*treizième majeure
+Septième mineure ; neuvième, @*onzième et treizième majeures
 @tab
 @code{m13.11}
 @tab

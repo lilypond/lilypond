@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c286e07798cd57a4785c3701b2bbcf94721b0f11
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 このテンプレートは、@qq{合唱テンプレート} で示した標準の SATB ボーカル譜に自動@c
 ピアノ譜を付け加えています。これは LilyPond の強みの 1 つを示しています - 音楽@c

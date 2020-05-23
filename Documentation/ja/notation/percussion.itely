@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdb5a275551d4e87df940924aed74a0ec273f70e
+    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,7 +69,7 @@
 @translationof Basic percussion notation
 
 @cindex percussion (打楽器)
-@cindex drums (ドラム)
+@cindex drum (ドラム)
 
 打楽器の音符は @code{\drummode} モードで入力することができます。@c
 このモードでの音符の入力の仕方は標準モードに似ています。@c
@@ -241,7 +241,6 @@ down = \drummode {
 セットすることによってレイアウトを変更できます。@c
 以下の変数があらかじめ定義されています:
 
-@c TODO: decide what to do about this table.  (ie verbatim or not)
 @table @code
 
 @item drums-style
@@ -411,13 +410,38 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end lilypond
 @end table
 
+@ref{Custom percussion staves} で説明されているように、@c
+カスタム打楽器スタイルを定義することもできます。
+
+@seealso
+学習マニュアル:
+@rlearning{I'm hearing Voices}
+
+記譜法リファレンス:
+@ref{Custom percussion staves}
+
+インストールされているファイル:
+@file{ly/drumpitch-init.ly}
+
+コード断片集:
+@rlsr{Percussion}
 
 @node カスタム打楽器譜
 @unnumberedsubsubsec カスタム打楽器譜
 @translationof Custom percussion staves
 
-入力ファイルの先頭でカスタムの打楽器スタイルを定義することができ、@c
-@code{DrumStaff} の @code{drumStyleTable} でそれを使用できます。
+@cindex percussion, custom (カスタム打楽器)
+@funindex drumStyleTable
+
+カスタム打楽器スタイルを定義することができます。@c
+スタイルは連想配列として定義し、@code{drumStyleTable} プロパティにセットします。@c
+連想配列の各エントリは 4 つのアイテムからなります:
+名前・符頭のスタイル (デフォルトは @code{default})・@c
+アーティキュレーション (必要ない場合には @code{#f})・@c
+譜内の符頭の位置です。@c
+この連想配列は最終的に
+@code{alist->hash-table} 関数を用いて Scheme ハッシュテーブルに@c
+変換しなければなりません。
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -438,8 +462,95 @@ down = \drummode { bd4 sn bd toml8 toml }
 >>
 @end lilypond
 
+@funindex drumPitchNames
+
+@code{drumPitchNames} 変数を@c
+連想配列として再定義することで、これらのカスタム スタイルに@c
+新たな名前を追加することもできます
+(あるいは下の例のように、新たなリストを既存の値に
+@code{append} することによって追加することもできます)。@c
+また、各項目を直接追加することもできます。@c
+これを用いて、エイリアス (略記法) を定義することができます。
+
+@lilypond[quote,verbatim]
+drumPitchNames =
+  #(append
+    '((leftsnap . sidestick)
+      (rightsnap . ridecymbal))
+    drumPitchNames)
+
+drumPitchNames.ls = #'sidestick
+drumPitchNames.rs = #'ridecymbal
+
+\drums {
+  leftsnap4. rightsnap8 leftsnap4 rightsnap
+  ls8 rs ls rs ls4 rs
+}
+@end lilypond
+
+@funindex midiDrumPitches
+@funindex drumPitchTable
+
+同様に、@code{drumPitchTable} プロパティは@c
+音符名と MIDI ピッチ (MIDI サウンドフォントの楽器音) を関連付けています。@c
+このプロパティもハッシュテーブルとして定義される必要があり、@c
+連想配列 (デフォルト値が @code{midiDrumPitches} 変数にセットされています) から@c
+変換しなければなりません。@c
+関連付けを変更する方法は上記と同様で、@c
+連想配列全体を定義し直すか、各要素を変更するかのどちらかになります。@c
+次の例は、入力構文・出力スタイル・対応する MIDI 出力を含めた、@c
+新たな記譜法のセットを作る方法を示しています。
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+drumPitchNames.dbass      = #'dbass
+drumPitchNames.dba        = #'dbass  % 'db は既に使われています
+drumPitchNames.dbassmute  = #'dbassmute
+drumPitchNames.dbm        = #'dbassmute
+drumPitchNames.do         = #'dopen
+drumPitchNames.dopenmute  = #'dopenmute
+drumPitchNames.dom        = #'dopenmute
+drumPitchNames.dslap      = #'dslap
+drumPitchNames.ds         = #'dslap
+drumPitchNames.dslapmute  = #'dslapmute
+drumPitchNames.dsm        = #'dslapmute
+
+#(define djembe-style
+  '((dbass      default  #f         -2)
+    (dbassmute  default  "stopped"  -2)
+    (dopen      default  #f          0)
+    (dopenmute  default  "stopped"   0)
+    (dslap      default  #f          2)
+    (dslapmute  default  "stopped"   2)))
+
+midiDrumPitches.dbass     = g
+midiDrumPitches.dbassmute = fis
+midiDrumPitches.dopen     = a
+midiDrumPitches.dopenmute = gis
+midiDrumPitches.dslap     = b
+midiDrumPitches.dslapmute = ais
+
+test = \drummode { dba4 do ds dbm dom dsm }
+
+\score {
+  \new DrumStaff \with {
+    \override StaffSymbol.line-count = #3
+    instrumentName = "Djembé "
+    drumStyleTable = #(alist->hash-table djembe-style)
+    drumPitchTable = #(alist->hash-table midiDrumPitches)
+  } {
+    \time 3/4
+    \test
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
 
 @seealso
+インストールされているファイル:
+@file{ly/drumpitch-init.ly}
+
 コード断片集:
 @rlsr{Percussion}
 
@@ -452,16 +563,16 @@ down = \drummode { bd4 sn bd toml8 toml }
 @unnumberedsubsubsec ゴースト ノート
 @translationof Ghost notes
 
-@cindex Ghost note, percussion (打楽器でのゴースト ノート)
-@cindex Dead note, percussion (打楽器での dead note)
-@cindex Muted note, percussion (打楽器での muted note)
-@cindex Silenced note, percussion (打楽器での silenced note)
-@cindex False note, percussion (打楽器での false note)
-@cindex Percussion, ghost note (打楽器でのゴースト ノート)
-@cindex Percussion, dead note (打楽器での dead note)
-@cindex Percussion, muted note (打楽器での muted note)
-@cindex Percussion, silenced note (打楽器での silenced note)
-@cindex Percussion, false note (打楽器での false note)
+@cindex ghost note, percussion (打楽器でのゴースト ノート)
+@cindex dead note, percussion (打楽器での dead note)
+@cindex muted note, percussion (打楽器での muted note)
+@cindex silenced note, percussion (打楽器での silenced note)
+@cindex false note, percussion (打楽器での false note)
+@cindex percussion, ghost note (打楽器でのゴースト ノート)
+@cindex percussion, dead note (打楽器での dead note)
+@cindex percussion, muted note (打楽器での muted note)
+@cindex percussion, silenced note (打楽器での silenced note)
+@cindex percussion, false note (打楽器での false note)
 
 ドラムと打楽器のゴースト ノート
 (dead note, muted note, silenced note, false note とも呼ばれます)

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 12/8 拍子で連桁を @code{3-4-3-2} でグループ化する場合、12/8 における@c
 デフォルトの連桁規則をオーバライドし、新たな規則を設定する必要があります。

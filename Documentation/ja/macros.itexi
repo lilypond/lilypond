@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9bb7fa99aa8bc7c14a45a42224545c726bb6c592
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,18 +11,13 @@
 @include version.itexi
 @include common-macros.itexi
 
+
 @ignore
-****************************
-MACRO DEFINITIONS GUIDELINES
-****************************
-
-This file should contain macro definitions which are common to all
-languages, i.e. all macro definitions which do not contain text that
-should be translated (namely text visible in the output).
-
-Macro definitions which contain text that should be translated in
-translations should be in macros.itexi.
+******************************************************
+See MACRO DEFINITION GUIDELINES in common-macros.itexi
+******************************************************
 @end ignore
+
 
 @c   ***** Displaying text *****
 
@@ -605,7 +600,7 @@ LilyPond バージョン @version{} 用
 @c delimits arguments in the standard way (i.e., with braces).
 
 @tex
-\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
+\gdef\lilyvindex#1{\doind{vr}{\slanted{#1}}\ignorespaces}
 @end tex
 
 @macro rglos{TEXT}
@@ -766,17 +761,17 @@ Manipulation Program}.
 
 @macro logoLegalFreeBSD
 The FreeBSD logo is a registered trademark of
-@uref{http://www.freebsd.org/, The FreeBSD Foundation}.
+@uref{https://www.freebsd.org/, The FreeBSD Foundation}.
 
 @end macro
 
 @macro logoLegalMacOSX
 The @qq{X image} is not a registered trademark.  It was created by
-@uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} and
-@uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, and
+@uref{https://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} and
+@uref{https://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, and
 placed under the GNU Free Documentation License version 1.2 or later.
 We found the image on
-@uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
+@uref{https://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
 this Wikimedia Commons page}.
 
 @end macro
@@ -784,10 +779,10 @@ this Wikimedia Commons page}.
 @macro logoLegalWindows
 The @qq{four colored rectangles image} is not a registered
 trademark.  It was created by
-@uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} and
+@uref{https://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} and
 placed under the GNU Free Documentation License version 1.2.  We
 found the image on
-@uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
+@uref{https://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 this Wikimedia Commons page}.
 
 @end macro

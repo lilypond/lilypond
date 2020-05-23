@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fdc83c8d7ca8322fc49cae1f3231d6de4874bb5d
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -51,40 +51,44 @@
 この記譜法は @ref{ピッチを記述する} で説明されていて、@c
 様々な音符名が @ref{他の言語での音符名} で説明されています。
 
-しかしながら、非西洋音楽の多く
-(それに西洋のフォーク ミュージックと伝統音楽のいくつか)
-は、異なるあるいは拡張されたチューニングシステムを採用していて、@c
+非西洋音楽のいくつかとフォーク ミュージック、伝統音楽は@c
+しばしば異なるあるいは拡張されたチューニングシステムを採用していて、@c
 標準的なクラシック音楽の記譜法とは容易に適合しません。
 
-ピッチの違いを潜在させながら、標準の記譜法を用いる場合もあります。@c
+標準の記譜法を用いますが、ピッチの違いを潜在させます。@c
 例えば、@notation{アラブ音楽} は、@c
 標準の半音 (訳者: シャープとフラット) と四分音 (訳者: シャープとフラットの半分)
-を用いて、@c
-精密なピッチの変化をコンテキストに決定させながら記譜します。@c
-一般的にはイタリアの音符名が使われますが、@c
-初期ファイル @file{arabic.ly} は、@c
+を用いますが、精密なピッチの変化はコンテキストによって決定されます。@c
+@notation{アラブ音楽} に関しては、初期ファイル @file{arabic.ly} が@c
 標準の記譜法を拡張するアラブ音楽に適したマクロと定義のセットを提供します。@c
 詳細は、@ref{アラブ音楽} を参照してください。
 
 @cindex tuning, non-Western (非西洋音楽のチューニング)
+@cindex makam (マカーム)
+@cindex makamlar (マカーム)
+@cindex maqam (マカーム)
+@cindex Turkish, classical music (トルコの伝統音楽)
+@cindex Ottoman, classical music (オスマントルコの伝統音楽)
+@cindex Arabic maqam (アラブのマカーム)
+@cindex Persian makam (ペルシアのマカーム)
+@cindex Turkish makam (トルコのマカーム)
 
 他のタイプの音楽は、拡張されたあるいは固有の記譜法を必要とします。@c
-例えば、@notation{トルコの伝統音楽} やオスマントルコの音楽は、@c
+例えば、@notation{トルコの伝統音楽} (オスマントルコの伝統音楽としても有名です)
+は、@c
 全音の 1/9 をベースとする音程を持つ @notation{マカーム} と呼ばれる旋律様式を@c
 採用しています。@c
 標準の西洋音楽の音符を使いますが、@c
-ファイル @file{makam.ly} で定義されている@c
-トルコ音楽に固有の特殊な臨時記号が用いられます。@c
+ファイル @file{turkish-makam.ly} で独自に定義されている@c
+特殊な臨時記号が用いられます。@c
 トルコの伝統音楽とマカームについての詳細は
 @ref{トルコの伝統音楽} を参照してください。
 
-@file{arabic.ly} や @file{makam.ly} 等の初期ファイルの保存場所については、@c
+他にも、関連する初期ファイル @file{hel-arabic.ly} や @file{makam.ly}
+が利用可能です。
+
+これらの初期ファイルの保存場所については、@c
 @rlearning{その他の情報源} を参照してください。
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{makam-example.ly}
 
 @seealso
 音楽用語集:
@@ -121,10 +125,9 @@
 @unnumberedsubsubsec アラブ音楽のためのリファレンス
 @translationof References for Arabic music
 
-@cindex Arabic music
-@cindex medium intervals
-@cindex maqam
-@cindex maqams
+@cindex Arabic music (アラブ音楽)
+@cindex medium interval (中間音程)
+@cindex maqam (マカーム)
 
 アラブ音楽は主に口伝えで伝えられてきました。@c
 音楽を記述するときは、演奏者が多くを即興することを前提とした@c
@@ -174,31 +177,52 @@
 @unnumberedsubsubsec アラブ音楽での音符名
 @translationof Arabic note names
 
-
-@cindex Arabic note names (アラブ音楽での音符名)
+@cindex Arabic note name (アラブ音楽での音符名)
+@cindex Hel-arabic note name (アラブ音楽での音符名)
+@cindex note name, Arabic (アラブ音楽での音符名)
+@cindex note name, Hel-arabic (アラブ音楽での音符名)
 
 伝統的なアラブ音楽の音符名は非常に長く、@c
-音楽を記述するという目的には適さないため、使いません。@c
-アラブ音楽の教育では英語の音符名は馴染まれておらず、@c
-イタリア語あるいはソルフェージュ音符名 (@code{do, re, mi, fa, sol, la, si}) が@c
-用いられます。@c
-修飾子 (臨時記号) も用いられます。@c
-イタリア語の音符名と臨時記号は、@ref{他の言語での音符名} で説明しています。@c
-非西洋音楽の記譜に標準的なクラシック音楽の記譜法を用いる方法は、@c
-@ref{非西洋音楽の一般的な記譜法} で説明しています。
+音楽を記述するという目的には必ずしも適しているとは言えません。@c
 
-例えば、アラブ音楽の @notation{マカーム ラースト} を記譜することができます:
+@file{hel-arabic.ly} で、英語の音符名を使うことができます。@c
+これは、@file{hel-arabic.ly} を用いた @notation{マカーム ラースト} スケールです:
+
+@lilypond[quote,verbatim]
+\include "hel-arabic.ly"
+\relative {
+\key c \rast
+  c' d edb f | g a bdb c | c bb a g | f d c
+}
+@end lilypond
+
+@file{arabic.ly} では、代わりにイタリア語 (あるいはソルフェージュ) の@c
+音符名を使うことができます。@c
+これは、@file{arabic.ly} を用いた @notation{マカーム ラースト} スケールです:
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
 \relative {
-  do' re misb fa sol la sisb do sisb la sol fa misb re do
+  do' re misb fa | sol la sisb do | sisb la sol fa | misb re do
 }
 @end lilypond
 
+@noindent
+@qq{マカーム ラースト} は四分音間隔が使われる七音音階であり、@c
+@qq{アラブ音楽のマカーム} の最も重要で中核的なスケールであると考えられています。@c
+サポートされているアラブ音楽のスケールの完全なリストについては、@c
+LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファイルを@c
+参照してください。
+
+非西洋音楽を記譜するための標準的な西洋記譜法の使用方法については、
+@ref{Common notation for non-Western music} で説明しています。
+@ref{Note names in other languages} も参照してください。
+
 
 @cindex Arabic semi-flat symbol (アラブ音楽での半フラット記号)
-@cindex Semi-flat symbol appearance (半フラット記号の見た目)
+@cindex semi-flat symbol appearance (半フラット記号の見た目)
+
+@funindex \dwn
 
 半フラットの記号は、アラブ音楽の記譜法で用いられる記号と一致しません。@c
 特殊なアラブ音楽の半フラット記号を用いることが重要である場合は、@c
@@ -219,7 +243,12 @@
 @seealso
 記譜法リファレンス:
 @ref{他の言語での音符名},
-@ref{非西洋音楽の一般的な記譜法}
+@ref{非西洋音楽の一般的な記譜法},
+@ref{Including LilyPond files}
+
+インストールされているファイル:
+@file{ly/arabic.ly},
+@file{ly/hel-arabic.ly}
 
 コード断片集:
 @rlsr{World music}
@@ -232,16 +261,14 @@
 @cindex Arabic key signatures (アラブ音楽での調号)
 
 マイナーとメジャーの調号に加えて、@c
-以下の調号が @file{arabic.ly} で定義されています:
-@notation{bayati}, @notation{rast}, @notation{sikah}, @notation{iraq},
-それに @notation{kurd} です。@c
-これらの調号は、一般的に用いられる多くのマカームではなく、@c
-少数のマカームを定義します。
+アラブ音楽の調号は @file{hel-arabic.ly} と @file{arabic.ly} の両方で@c
+定義され、多くの異なるマカーム グループを定義します。
 
 一般的に、マカームはそのマカーム グループあるいは隣のグループの調号を使用し、@c
-楽曲全体にさまざまな臨時記号が付けられます。
+楽曲全体にさまざまな臨時記号が付けられます。@c
+アラブ音楽のマカームの移調は、アラブ音楽の楽器の性質により、制限されています。
 
-例として、マカーム muhayer の調号を示します:
+例として、@qq{マカーム muhayer} の調号を示します:
 
 @example
 \key re \bayati
@@ -249,33 +276,33 @@
 
 @noindent
 ここで、@var{re} が muhayer マカームの終止音であり、@c
-@var{bayati} がそのグループでの基本となるマカームの名前です。
+@notation{bayati} がそのグループでの基本となるマカームの名前です。
 
 調号がグループを表していますが、@c
 一般にタイトルはより具体的なマカームを示します。@c
-そのため、上記の例ではマカーム muhayer の名前がタイトルとして表示されます。
+そのため、上記の例では@qq{マカーム muhayer} の名前もタイトルとして表示されます。
 
-以下の表で示すように同じ bayati グループに属する他のマカーム
-(bayati, hussaini, saba, それに ushaq) も同じ方法で示すことができます。@c
-それらがその bayati グループのすべてのバリエーションです。@c
+以下の表で示すように同じ @notation{bayati} グループに属する他のマカーム
+(@notation{bayati}, @notation{hussaini}, @notation{saba}, それに @notation{ushaq})
+も同じ方法で示すことができます。@c
+それらがその @notation{bayati} グループのすべてのバリエーションです。@c
 それらは基本的な特質は変わらない兄弟関係にあり、@c
-基本となるマカーム (この場合は bayati) とは上方のテトラコードが異なっていたり、@c
+基本となるマカーム (この場合は @notation{bayati}) とは上方のテトラコードが異なっていたり、@c
 詳細の一部分が異なっています。
 
-同じグループの他のマカーム (nawa) は bayati を移調したもので、@c
+同じグループの他のマカーム (@notation{nawa}) は
+@notation{bayati} を移調したもので、@c
 表では移調をマカームの後ろに括弧書きで、@c
 基本となるマカームからの移調として記載しています。@c
-アラブ音楽のマカームの移調は、アラブ音楽の楽器の性質により、@c
-制限されています。@c
-nawa は以下のように示すことができます:
+例えば、@notation{Nawa} は以下のように示すことができます:
 
 @example
 \key sol \bayati
 @end example
 
-アラブ音楽では、bayati のような用語が複数の意味を持ちます
+アラブ音楽では、@notation{bayati} のような用語が複数の意味を持ちます
 -- マカーム グループを示し、そのグループで最も重要なマカームであり、@c
-基本となるマカームでもあります。
+@emph{基本となるマカーム}でもあります。
 
 ここで、一般的なマカームの調号をマッピングしたグループを示します:
 
@@ -324,6 +351,7 @@ nawa は以下のように示すことができます:
 
 @snippets
 
+@c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -346,6 +374,10 @@ nawa は以下のように示すことができます:
 内部リファレンス:
 @rinternals{KeySignature}
 
+インストールされているファイル:
+@file{ly/arabic.ly},
+@file{ly/hel-arabic.ly}
+
 コード断片集:
 @rlsr{World music},
 @rlsr{Pitches}
@@ -356,7 +388,7 @@ nawa は以下のように示すことができます:
 @translationof Arabic time signatures
 
 @cindex Arabic time signatures (アラブ音楽での拍子記号)
-@cindex Semai form (セマーイー形式)
+@cindex semai form (セマーイー形式)
 @cindex taqasim (タクシーム)
 
 アラブ音楽とトルコ音楽の伝統的な形式
@@ -372,6 +404,8 @@ nawa は以下のように示すことができます:
 
 @snippets
 
+@cindex Arabic improvisation (アラブ音楽の即興)
+@cindex improvisation, Arabic (アラブ音楽の即興)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {arabic-improvisation.ly}
 
@@ -389,6 +423,10 @@ nawa は以下のように示すことができます:
 @ref{自動連桁の振る舞いを設定する},
 @ref{拍子}
 
+インストールされているファイル:
+@file{ly/arabic.ly},
+@file{ly/hel-arabic.ly}
+
 コード断片集:
 @rlsr{World music}
 
@@ -399,7 +437,7 @@ nawa は以下のように示すことができます:
 
 @cindex Arabic music example (アラブ音楽の例)
 @cindex Arabic music template (アラブ音楽のテンプレート)
-@cindex Template Arabic music (アラブ音楽のテンプレート)
+@cindex template Arabic music (アラブ音楽のテンプレート)
 
 
 ここで、トルコの @notation{セマーイー} (@notation{Semai}) の始めの部分を使った@c
@@ -431,6 +469,10 @@ nawa は以下のように示すことができます:
 
 
 @seealso
+インストールされているファイル:
+@file{ly/arabic.ly},
+@file{ly/hel-arabic.ly}
+
 コード断片集:
 @rlsr{World music}
 
@@ -439,47 +481,48 @@ nawa は以下のように示すことができます:
 @unnumberedsubsubsec アラブ音楽のための更なる知識
 @translationof Further reading for Arabic music
 
-@enumerate
+下方のテトラ コードの共通性または移調によって@c
+関連するマカームをグループ化するように取り決められているにもかかわらず、@c
+マカームのグループ化の方法の詳細にはいくつかのバリエーションがあります。@c
+特定のマカームに対してどのように調号を指定するかについても、@c
+同じテキスト内であっても、一貫していません。@c
+しかしながら、マカーム毎に調号を指定するのではなく、@c
+マカームの@q{グループ}毎に調号を指定するのが一般的です。
+
+@itemize
 
 @item
 Habib Hassan Touma 著 @emph{The music of the Arabs} [Amadeus Press, 1996]
 にはマカームについての説明と、それらのグループ化手法についての説明があります。
 
+@item
 マカームについて説明している様々な Web サイトもあり、@c
 それらの中には音源による例を提供しているものもあります:
 
-@itemize @bullet
+@itemize
 @item
-@uref{http://www.maqamworld.com/}
+@uref{https://www.maqamworld.com/}
 @item
-@uref{http://www.turath.org/}
+@uref{https://www.turath.org/}
 @end itemize
 
-マカームのグループ化手法の詳細にはいくつかのバリエーションがありますが、@c
-マカームをグループ化する基準
--- 下方のテトラ コードの共通性や移調に関連付けられます --
-は一致しています。
-
 @item
-特定のマカームに対してどのように調号を指定するかについては、@c
-一貫していません
--- 同じテキスト内でさえも一貫していないことがあります。@c
-しかしながら、マカーム毎に調号を指定するのではなく、@c
-グループ毎に調号を指定するのが一般的です。
-
-以下の著者による @dfn{ウード} (アラブ音楽のリュート) の教本には、@c
+以下の著者によるウード (アラブ音楽のリュート) の教本には、@c
 主なトルコ音楽とアラブ音楽の作曲についての説明があります。
 
 
-@itemize @bullet
+@itemize
 @item
 Charbel Rouhana
+
 @item
 George Farah
+
 @item
 Ibrahim Ali Darwish Al-masri
 @end itemize
-@end enumerate
+
+@end itemize
 
 
 @node トルコの伝統音楽
@@ -491,6 +534,8 @@ Ibrahim Ali Darwish Al-masri
 @menu
 * トルコの伝統音楽のためのリファレンス::
 * トルコ音楽の音符名::
+* トルコ音楽の調号::
+* トルコ音楽のための更なる知識::
 @end menu
 
 
@@ -500,7 +545,7 @@ Ibrahim Ali Darwish Al-masri
 
 @cindex Turkish music (トルコ音楽)
 @cindex Ottoman music (オスマン音楽)
-@cindex comma intervals (コンマ音程)
+@cindex comma interval (コンマ音程)
 @cindex makam (マカーム)
 @cindex makamlar (マカーム)
 
@@ -516,72 +561,28 @@ Ibrahim Ali Darwish Al-masri
 @notation{マカーム} (@notation{makam}、複数形は @notation{makamlar}) と@c
 呼ばれる旋律形式が構築されます。
 
-トルコの伝統音楽に関する問題のいくつかは他の場所でカバーされています:
-
-@itemize
-@item 特殊な音符名と臨時記号について、@c
+トルコの伝統音楽に関する問題のいくつかは他の場所でカバーされています。@c
+特殊な音符名と臨時記号について、@c
 @ref{非西洋音楽の一般的な記譜法} で説明しています。
-
-@end itemize
 
 
 @node トルコ音楽の音符名
 @unnumberedsubsubsec トルコ音楽の音符名
 @translationof Turkish note names
 
-@cindex Turkish note names (トルコ音楽の音符名)
+@cindex Turkish note name (トルコ音楽の音符名)
 @cindex makam (マカーム)
 @cindex makamlar (マカーム)
 
 トルコの伝統音楽におけるピッチは固有の名前を持ちます。@c
 全音階の 1/9 をベースとしているため、@c
 西洋音楽の音階と旋法とは全く異なる音程のセットを採用しています:
-@notation{koma} (全音階の 1/9),
-@notation{eksik bakiye} (3/9), @notation{bakiye} (4/9),
-@notation{kücük mücenneb} (5/9), @notation{büyük mücenneb} (8/9),
-@notation{tanîni} (全音階) それに
-@notation{artık ikili} (12/9 または 13/9) です。
 
 現代の記譜法の観点から見ると、@c
-西洋音楽標準の譜の音符 (ド、レ、ミ @dots{}) に@c
-音符を全音階の 1/9, 4/9, 5/9, 8/9 上げ下げする特殊な臨時記号を@c
+西洋音楽標準の譜の音符 (ド、レ、ミ、など) に@c
+音符を全音階の 1/9, 4/9, 5/9, 8/9 上げ下げするカスタム臨時記号を@c
 組み合わせて使うと便利です。@c
-これらの臨時記号はファイル @file{makam.ly} で定義されています。
-
-以下の表は下記をリストアップしています:
-@itemize
-@item
-特殊な臨時記号の名前
-@item
-音符に後ろに付ける臨時記号の接尾辞
-@item
-全音階の分数で表すピッチの変化量
-@end itemize
-
-@quotation
-@multitable {@b{büyük mücenneb (sharp)}} {@b{suffix}} {@b{pitch alteration}}
-@headitem 臨時記号名
-  @tab 接尾辞 @tab ピッチの変化量
-
-@item büyük mücenneb (シャープ)
-  @tab -bm @tab +8/9
-@item kücük mücenneb (シャープ)
-  @tab -k @tab +5/9
-@item bakiye (シャープ)
-  @tab -b @tab +4/9
-@item koma (シャープ)
-  @tab -c @tab +1/9
-
-@item koma (フラット)
-  @tab -fc @tab -1/9
-@item bakiye (フラット)
-  @tab -fb @tab -4/9
-@item kücük mücenneb (フラット)
-  @tab -fk @tab -5/9
-@item büyük mücenneb (フラット)
-  @tab -fbm @tab -8/9
-@end multitable
-@end quotation
+これらのカスタム臨時記号はファイル @file{turkish-makam.ly} で定義されています。
 
 @c ここから
 非西洋音楽の記譜法についてのもっと一般的な説明は、@c
@@ -594,3 +595,61 @@ Ibrahim Ali Darwish Al-masri
 
 記譜法リファレンス:
 @ref{非西洋音楽の一般的な記譜法}
+
+
+@node トルコ音楽の調号
+@unnumberedsubsubsec トルコ音楽の調号
+@translationof Turkish key signatures
+
+LilyPond は 200 以上のマカームの調号の定義をサポートしています --
+トルコのクラシック音楽で使用されているものをはるかに超えています --
+各マカームには独自の特定のトニック / finalis ピッチがあります
+(トルコ語では @q{karar} として知られています)。
+
+各マカームの finalis を認識することが重要です。
+@var{g} がデフォルトのトニックであり、
+@var{rast} がマカームの名前である例を次に示します。
+
+@example
+\key g \rast
+@end example
+
+@noindent
+正しい臨時記号であるコマ フラット (@var{b1}) とコマ シャープ (@code{f4})
+(どちらもトニック @var{g} に関連) が自動的に表示されます。
+
+@snippets
+
+@cindex makam, example (マカームの例)
+@cindex Turkish makam, example (トルコ音楽のマカームの例)
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{turkish-makam-example.ly}
+
+
+@node トルコ音楽のための更なる知識
+@unnumberedsubsubsec トルコ音楽のための更なる知識
+@translationof Further reading for Turkish music
+
+@itemize
+
+@item
+@emph{Turk Musikisi Nazariyati ve Usulleri: Kudum Velveleleri} by Ismail
+Hakki Ozkan [(Kultur serisi, 41) (Turkish) Paperback – 1986]
+
+@noindent
+マカームと usul の理論に関する情報が含まれています。
+
+@item
+@emph{Music of the Ottoman Court} by Walter Feldman
+[VWB Hardback – 1996]
+
+@noindent
+オスマン帝国の宮廷音楽の歴史に関する情報が含まれています。
+
+@item
+@emph{Turkish Music Makam Guide} by Murat Aydemir [Pan Paperback – 2010]
+
+@noindent
+2 枚の CD を含むトルコのマカームに関する英語の情報が含まれています。
+
+@end itemize

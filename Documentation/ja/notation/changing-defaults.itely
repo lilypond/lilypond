@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 0832ff1d3747a78f338dc8f97bb6e10883c673ab
+    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -139,7 +139,7 @@ further explanation and with links to the IR.
 実際の出力定義の例については、後で提示します
 (@ref{Changing all contexts of the same type} を参照してください)。
 
-@cindex output definitions (出力定義)
+@cindex output definition (出力定義)
 @funindex \layout
 
 ファイルに記述される音楽は、コンテキストの種類や名前を参照しますが、@c
@@ -335,9 +335,9 @@ context.
 
 @funindex \new
 @funindex \context
-@cindex new contexts (新しいコンテキスト)
-@cindex referencing contexts (コンテキストを参照する)
-@cindex Contexts, creating and referencing (コンテキストを作成して参照する)
+@cindex new context (新しいコンテキスト)
+@cindex referencing context (コンテキストを参照する)
+@cindex context, creating and referencing (コンテキストを作成して参照する)
 
 LilyPond は、適切なコンテキストが存在しないうちに音楽表記に遭遇すると、@c
 自動的に下位コンテキストを作成します。@c
@@ -491,6 +491,7 @@ score を作成するのに用いられます:
 @rlearning{Organizing pieces with variables} を参照してください。
 
 @item
+@funindex \applyContext
 コンテキスト名を持たない @code{\context} は、階層とタイプが一致する@c
 コンテキストのうち最初に作成されたものに適用され
 (例えそのコンテキストが名前を持っていたとしても適用されます)、@c
@@ -548,8 +549,8 @@ score を作成するのに用いられます:
 @subsection コンテキストを残しておく
 @translationof Keeping contexts alive
 
-@cindex contexts, keeping alive (コンテキストを残しておく)
-@cindex contexts, lifetime (コンテキストのライフタイム)
+@cindex context, keeping alive (コンテキストを残しておく)
+@cindex context, lifetime (コンテキストのライフタイム)
 
 通常、コンテキストは何もすることが無くなった最初の音楽的タイミングで@c
 消滅させられます。@c
@@ -766,6 +767,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 そのコンテキストを以下のように変更します:
 
 @funindex \with
+@funindex \consists
+@funindex \remove
 
 @example
 \new @var{context} \with @{
@@ -815,7 +818,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @code{Staff} コンテキストへ異動させることにより、@c
 楽譜の各譜に独自の拍子記号を持たせることが可能になります。
 
-@cindex polymetric scores (多拍子の楽譜)
+@cindex polymetric score (多拍子の楽譜)
 @cindex time signature, multiple (複数の拍子記号)
 
 @lilypond[quote,verbatim]
@@ -883,8 +886,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @subsection コンテキストのデフォルト設定を変更する
 @translationof Changing context default settings
 
-@cindex default context properties, changing (デフォルトのコンテキスト プロパティを変更する)
-@cindex context properties, changing defaults (デフォルトのコンテキスト プロパティを変更する)
+@cindex default context property, changing (デフォルトのコンテキスト プロパティを変更する)
+@cindex context property, changing default (デフォルトのコンテキスト プロパティを変更する)
 
 @ref{Modifying properties} で説明したように、コンテキストとグラフィカル
 オブジェクトのプロパティを @code{\set} コマンドや @code{\override}
@@ -910,7 +913,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @unnumberedsubsubsec 同じタイプの全コンテキストを変更する
 @translationof Changing all contexts of the same type
 
-@cindex \context in \layout block (\layout ブロックの中の \context)
+@cindex @code{\context} in @code{\layout} block (@code{\layout} ブロックの中の @code{\context})
 @funindex \context
 @funindex \layout
 
@@ -1057,7 +1060,6 @@ StaffDefaults = \with {
 @unnumberedsubsubsec 指定したコンテキストだけを変更する
 @translationof Changing just one specific context
 
-@cindex \with
 @funindex \with
 
 @code{\with} ブロックで指定したコンテキスト インスタンスのコンテキスト
@@ -1215,8 +1217,8 @@ StaffDefaults = \with {
 @subsection 新しいコンテキストを定義する
 @translationof Defining new contexts
 
-@cindex contexts, defining new (新しいコンテキストを定義する)
-@cindex engravers, including in contexts (エングラーバをコンテキストに含める)
+@cindex context, defining new (新しいコンテキストを定義する)
+@cindex engraver, including in context (エングラーバをコンテキストに含める)
 
 @funindex \alias
 @funindex \name
@@ -1438,7 +1440,7 @@ squashedPosition = #0
 @subsection コンテキストの配置順序
 @translationof Context layout order
 
-@cindex contexts, layout order (コンテキストの配置順序)
+@cindex context, layout order (コンテキストの配置順序)
 @funindex \accepts
 @funindex \denies
 
@@ -1499,8 +1501,8 @@ squashedPosition = #0
 ベースにしていますが、@qq{accepts} リストでは @code{Voice} コンテキスト@c
 の代わりに @code{VaticanaVoice} コンテキストを保持しています。
 
-@cindex contexts, implicit (暗黙的なコンテキスト)
-@cindex implicit contexts (暗黙的なコンテキスト)
+@cindex context, implicit (暗黙的なコンテキスト)
+@cindex implicit context (暗黙的なコンテキスト)
 @funindex \defaultchild
 
 コンテキストに保持されるべきコマンドが出現して、それを保持するための@c
@@ -1517,8 +1519,6 @@ squashedPosition = #0
 予期しない譜や楽譜が生み出される可能性があります。@code{\new} で明示的に@c
 コンテキストを作ることでこれらの問題を回避できます。
 
-@cindex alignAboveContext
-@cindex alignBelowContext
 @funindex alignAboveContext
 @funindex alignBelowContext
 
@@ -2096,9 +2096,9 @@ Scheme 値の循環参照は、ハング アップまたはクラッシュ、@c
 @subsection @code{\set} コマンド
 @translationof The set command
 
-@cindex properties (プロパティ)
+@cindex property (プロパティ)
 @funindex \set
-@cindex changing properties (プロパティを変更する)
+@cindex changing property (プロパティを変更する)
 
 各コンテキストは @emph{プロパティ} の集合を持ちます。@c
 プロパティとは、コンテキストの中に保持されている変数です。@c
@@ -2209,7 +2209,7 @@ R1*2
 は、カレントの最下位コンテキストが @code{Voice} であれば、等価です。
 
 
-@cindex \once
+@funindex \once
 @code{\set} や @code{\unset} の前に @code{\once} を置くと、@c
 その設定は単一の時間ステップにだけ適用されます:
 
@@ -2239,8 +2239,8 @@ Translation @expansion{} Tunable context properties.
 @subsection @code{\override} コマンド
 @translationof The override command
 
-@cindex grob properties (グラフィカル オブジェクト プロパティ)
-@cindex properties, grob (グラフィカル オブジェクト プロパティ)
+@cindex grob property (グラフィカル オブジェクト プロパティ)
+@cindex property, grob (グラフィカル オブジェクト プロパティ)
 @funindex \override
 
 特殊なタイプのコンテキスト プロパティがあります:
@@ -2301,8 +2301,8 @@ c''4 c''
 @end example
 
 @funindex \revert
-@cindex reverting overrides (オーバライドを元に戻す)
-@cindex overrides, reverting (オーバライドを元に戻す)
+@cindex reverting override (オーバライドを元に戻す)
+@cindex override, reverting (オーバライドを元に戻す)
 
 @code{\override} の効果は、@code{\revert} によって元に戻すことができます。
 
@@ -2382,8 +2382,8 @@ To construct this tweak we must determine these bits of information:
 @end itemize
 
 @cindex internal documentation
-@cindex finding graphical objects
-@cindex graphical object descriptions
+@cindex finding graphical object
+@cindex graphical object description
 @cindex tweaking
 @funindex \override
 @cindex internal documentation
@@ -2587,8 +2587,8 @@ f''
 拡張:
 @rextend{Displaying music expressions}
 
-@cindex tweaking control points (制御点を調整する)
-@cindex control points, tweaking (制御点を調整する)
+@cindex tweaking control point (制御点を調整する)
+@cindex control point, tweaking (制御点を調整する)
 
 @knownissues
 @code{\tweak} コマンドで和音の中にある複数のタイのうち 1 つだけの位置を@c
@@ -2646,7 +2646,7 @@ Grob 定義は @code{\override} と @code{\revert} という、@c
 @code{\set} と @code{\unset} というコマンドで操作され、小文字で始まる@c
 名前を持ちます。
 
-@cindex tweak, relation to @code{\override} (@code{\override} による調整)
+@cindex @code{tweak}, relation to @code{\override} (@code{\override} に関連した@code{\tweak})
 @funindex \tweak
 @funindex \overrideProperty
 
@@ -2663,7 +2663,7 @@ Grob のプロパティが変更されます。@code{\overrideProperty} は特�
 
 @funindex \offset
 @cindex offsetting (オフセット)
-@cindex defaults, offsetting (デフォルトのオフセット)
+@cindex default, offsetting (デフォルトのオフセット)
 
 @code{\override}, @code{\tweak}, @code{\overrideProperty} コマンドによって
 Grob プロパティを新たな値にセットすることができますが、そのようなプロパティを@c
@@ -2807,8 +2807,12 @@ arpeggioMusic = {
 }
 @end lilypond
 
+@funindex \once
+@funindex \temporary
+
 @q{override} の形では、@code{\offset} の前に @code{\once} や @code{\temporary}
-を置くことができ、@code{\revert} で元に戻すことができます。つまり、@c
+を置くことができ、@code{\revert} で元に戻すことができます
+(@rextend{Intermediate substitution functions} を参照してください)。つまり、@c
 @code{\offset} は実際には @var{property} の @code{\override} を作成している@c
 ことになります。
 
@@ -2836,6 +2840,9 @@ music = { c'8\< d' e' f'\! }
   \bar "||"
 }
 @end lilypond
+
+@funindex \single
+@funindex \undo
 
 また、@code{\override} と同様に、@code{\offset} の @q{override} 形は
 @code{\undo} や @code{\single} と使用することもできます:
@@ -3110,12 +3117,15 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 
 @subsubsubheading 和音モード
 
+@funindex \chordmode
+@funindex \chords
+
 このモードは @code{\chordmode} コマンドで有効になり、@c
 入力はコード記譜法の構文で解釈されるようになります。@c
 @ref{Chord notation} を参照してください。@c
 和音モードで入力された音楽は、@code{Staff} コンテキスト内では和音として、@c
 @code{ChordNames} コンテキスト内ではコード ネームとして、@c
-@code{FretBoards} コンテキスト内ではフレット ボードとして表示されます。
+@code{FretBoards} コンテキスト内ではフレットボードとして表示されます。
 
 和音モードは @code{\chords} コマンドでも有効になります。@c
 このコマンドを用いると、@c
@@ -3124,6 +3134,9 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 @ref{Printing chord names} を参照してください。
 
 @subsubsubheading ドラム モード
+
+@funindex \drummode
+@funindex \drums
 
 このモードは @code{\drummode} コマンドで有効になり、@c
 入力はドラム記譜法の構文で解釈されるようになります。@c
@@ -3138,6 +3151,9 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 @ref{Basic percussion notation} を参照してください。
 
 @subsubsubheading 通奏低音モード
+
+@funindex \figuremode
+@funindex \figures
 
 このモードは @code{\figuremode} コマンドで有効になり、@c
 入力は通奏低音の構文で解釈されるようになります。@c
@@ -3168,6 +3184,9 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 
 @subsubsubheading 歌詞モード
 
+@funindex \lyricmode
+@funindex \lyrics
+
 このモードは @code{\lyricmode} コマンドで有効になり、@c
 入力はオプションで演奏時間を持つ歌詞音節や、歌詞の修飾子として解釈されます。@c
 @ref{Vocal music} を参照してください。@c
@@ -3186,11 +3205,15 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 
 @subsubsubheading マークアップ モード
 
+@funindex \markup
+
 このモードは @code{\markup} コマンドで有効になり、@c
 入力はマークアップの構文で解釈されるようになります。@c
 @ref{Text markup commands} を参照してください。
 
 @subsubsubheading 音符モード
+
+@funindex \notemode
 
 このモードはデフォルトのモードであり、@c
 @code{\notemode} コマンドで有効にすることもできます。@c
@@ -3279,11 +3302,11 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 それらはすべて以下のような形式をとります:
 
 @example
-\xxxUp, xxxDown, xxxNeutral
+\@var{xxx}Up, \@var{xxx}Down, \@var{xxx}Neutral
 @end example
 
 @noindent
-ここで、@code{xxxNeutral} は @qq{デフォルトの向きを使用する}
+ここで、@code{\@var{xxx}Neutral} は @qq{デフォルトの向きを使用する}
 ことを意味します。@c
 @rlearning{譜内部オブジェクト} を参照してください。
 
@@ -3334,8 +3357,8 @@ TrillPitchGroup - not tried
 @subsection 距離と距離の単位
 @translationof Distances and measurements
 
-@cindex distances, absolute (絶対距離)
-@cindex distances, scaled (相対距離)
+@cindex distance, absolute (絶対距離)
+@cindex distance, scaled (相対距離)
 
 @funindex \mm
 @funindex \cm
@@ -3343,6 +3366,8 @@ TrillPitchGroup - not tried
 @funindex \pt
 
 LilyPond における距離には 2 つのタイプがあります: 絶対距離と相対距離です。
+
+@funindex \staff-space
 
 絶対距離は、マージン、インデント、それにその他の詳細なページ レイアウトを@c
 指定するために使用され、デフォルトではミリメートルで指定されます。
@@ -3396,7 +3421,7 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 @subsection 寸法
 @translationof Dimensions
 
-@cindex dimensions (寸法)
+@cindex dimension (寸法)
 @cindex bounding box (バウンディング ボックス)
 
 グラフィカル オブジェクトの寸法 (大きさ) は、オブジェクトの@c
@@ -3754,6 +3779,8 @@ f''1
 
 @end table
 
+@funindex \endSpanners
+
 音楽関数 @code{\endSpanners} は@c
 直後の音符から始まるスパナをすぐに終了させます。@c
 ちょうど 1 音符分でスパナを終了させますが、@c
@@ -3786,9 +3813,9 @@ f''1
 @subsection オブジェクトの可視性
 @translationof Visibility of objects
 
-@cindex objects, visibility of (オブジェクトの可視性)
-@cindex grobs, visibility of (グラフィカル オブジェクトの可視性)
-@cindex visibility of objects (オブジェクトの可視性)
+@cindex object, visibility of (オブジェクトの可視性)
+@cindex grob, visibility of (グラフィカル オブジェクトの可視性)
+@cindex visibility of object (オブジェクトの可視性)
 
 レイアウト オブジェクトの可視性を制御する主な方法は 4 つあります:
 オブジェクトのステンシルを削除する方法、オブジェクトを透明にする方法、@c
@@ -3874,13 +3901,13 @@ a' a'
 @unnumberedsubsubsec オブジェクトを白で描く
 @translationof Painting objects white
 
-@cindex objects, coloring (オブジェクトに色を付ける)
-@cindex coloring objects (オブジェクトに色を付ける)
-@cindex layers (レイヤ)
+@cindex object, coloring (オブジェクトに色を付ける)
+@cindex coloring object (オブジェクトに色を付ける)
+@cindex layer (レイヤ)
 @cindex printing order (描画の順番)
-@cindex overwriting objects (オブジェクトを上書きする)
-@cindex objects, overwriting (オブジェクトを上書きする)
-@cindex grobs, overwriting (グラフィカル オブジェクトを上書きする)
+@cindex overwriting object (オブジェクトを上書きする)
+@cindex object, overwriting (オブジェクトを上書きする)
+@cindex grob, overwriting (グラフィカル オブジェクトを上書きする)
 
 レイアウト オブジェクトはそれぞれ @code{color} プロパティを持っていて、@c
 デフォルトでは @code{black} にセットされています。@c
@@ -3932,7 +3959,7 @@ a'1
 
 @c TODO Add making other objects breakable
 
-@cindex break-visibility
+@funindex break-visibility
 
 たいていのレイアウト オブジェクトは 1 回だけ描画されます。@c
 しかしながら、小節線、音部記号、拍子記号、それに調号などのオブジェクトは、@c
@@ -4050,9 +4077,9 @@ a'1
 @subsubsubheading 明示的な変更の後の可視性
 
 @cindex key signature, visibility following explicit change (明示的な変更の後の調号の可視性)
-@cindex explicitKeySignatureVisibility
+@funindex explicitKeySignatureVisibility
 @cindex clef, visibility following explicit change (明示的な変更の後の音部記号の可視性)
-@cindex explicitClefVisibility
+@funindex explicitClefVisibility
 
 @code{break-visibility} プロパティが調号の可視性と音部記号の変更を@c
 制御するのは、行の先頭 -- つまり、改行の後 -- においてだけです。@c
@@ -4167,8 +4194,8 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 
 @subsubsubheading 自動小節線
 
-@cindex automaticBars
-@cindex bar lines, suppressing (小節線を消す)
+@funindex automaticBars
+@cindex bar line, suppressing (小節線を消す)
 
 特殊なケースとして、@c
 @code{Score} コンテキストの @code{automaticBars} プロパティを@c
@@ -4185,9 +4212,9 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 
 @subsubsubheading オクターブ移調付きの音部記号
 
-@cindex transposed clefs, visibility of (オクターブ移調付きの音部記号の可視性)
-@cindex visibility of transposed clefs (オクターブ移調付きの音部記号の可視性)
-@cindex clefs, visibility of transposition (オクターブ移調付きの音部記号の可視性)
+@cindex transposed clef, visibility of (オクターブ移調付きの音部記号の可視性)
+@cindex visibility of transposed clef (オクターブ移調付きの音部記号の可視性)
+@cindex clef, visibility of transposition (オクターブ移調付きの音部記号の可視性)
 
 オクターブ移調付きの音部記号上の小さな移調記号は
 @code{ClefModifier} レイアウト オブジェクトによって作り出されます。@c
@@ -4279,8 +4306,8 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 @unnumberedsubsubsec レイアウト オブジェクトを回転させる
 @translationof Rotating layout objects
 
-@cindex rotating objects (オブジェクトを回転させる)
-@cindex objects, rotating (オブジェクトを回転させる)
+@cindex rotating object (オブジェクトを回転させる)
+@cindex object, rotating (オブジェクトを回転させる)
 
 @code{grob-interface} をサポートするすべてのレイアウト オブジェクトは、@c
 それらのオブジェクトの @code{rotation} プロパティを設定することにより、@c
@@ -4292,8 +4319,8 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 
 回転の角度と回転の中心座標は、トライ＆エラーで決定する必要があります。
 
-@cindex hairpins, angled (回転させられたヘアピン)
-@cindex angled hairpins (回転させられたヘアピン)
+@cindex hairpin, angled (回転したヘアピン)
+@cindex angled hairpin (回転したヘアピン)
 
 レイアウト オブジェクトを回転させることが有用な状況はあまりありません。@c
 以下の例は、有用であるかもしれないシチュエーションの 1 つを示しています:
@@ -4601,8 +4628,8 @@ example shows the difference:
 @unnumberedsubsubsec @code{break-alignable-interface} を使用する
 @translationof Using the @code{break-alignable-interface}
 
-@cindex align to objects (オブジェクトに揃える)
-@cindex break-align-symbols
+@cindex align to object (オブジェクトに揃える)
+@funindex break-align-symbols
 
 リハーサル記号と小節番号を小節線ではなく、@c
 記譜オブジェクトに揃えることができます。@c
@@ -4808,10 +4835,10 @@ Emmentaler フォントに含まれる任意の @emph{Feta}
 @unnumberedsubsubsec タイとスラーの形状を変更する
 @translationof Modifying ties and slurs
 
-@cindex slurs, modifying (スラーの形状を変更する)
-@cindex ties, modifying (タイの形状を変更する)
-@cindex Bézier curves (ベジエ曲線)
-@cindex Bézier control points (ベジエ曲線の制御ポイント)
+@cindex slur, modifying (スラーの形状を変更する)
+@cindex tie, modifying (タイの形状を変更する)
+@cindex Bézier curve, control points (ベジエ曲線の制御ポイント)
+@cindex control point, Bézier curve (ベジエ曲線の制御ポイント)
 
 @code{Tie}, @code{Slur}, @code{PhrasingSlur}, @code{LaissezVibrerTie},
 それに @code{RepeatTie} はすべて 3 次のベジエ曲線として描かれます。@c
@@ -5037,8 +5064,8 @@ X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポ�
 @unnumberedsubsubsec @code{\alterBroken} を使用する
 @translationof Using alterBroken
 
-@cindex spanners, modifying (スパナを変更する)
-@cindex broken spanners, modifying (改行するスパナを変更する)
+@cindex spanner, modifying (スパナを変更する)
+@cindex broken spanner, modifying (改行するスパナを変更する)
 @funindex \alterBroken
 
 スパナが改行や改ページにまたがる場合、それぞれの部分は元のスパナの属性を@c
@@ -5076,9 +5103,13 @@ Grob の名前である場合、結果はその Grob の @code{\override} とな
 @code{\tweak} 形では前にハイフンが必要です。@code{\alterBroken} を
 @code{\override} として用いる場合には、ハイフンを付けないでください。
 
+@funindex \once
+@funindex \temporary
+
 @code{\override} として使用する場合、@code{\alterBroken} は
 @code{\once} や @code{\temporary} を前置することができ、@c
-@code{\revert} で元に戻すことができます。
+@code{\revert} で元に戻すことができます
+(@rextend{Intermediate substitution functions} を参照してください)。
 
 次のコードは、前の例におけるスラーの各部分をそれぞれ @code{\override}
 しています。
@@ -5136,10 +5167,10 @@ Grob の名前である場合、結果はその Grob の @code{\override} とな
 @subsection unpure-pure コンテナ
 @translationof Unpure-pure containers
 
-@cindex Scheme, pure containers (Scheme pure コンテナ)
-@cindex Scheme, unpure containers (Scheme unpure コンテナ)
-@cindex pure containers, Scheme (Scheme pure コンテナ)
-@cindex unpure containers, Scheme (Scheme unpure コンテナ)
+@cindex Scheme, pure container (Scheme pure コンテナ)
+@cindex Scheme, unpure container (Scheme unpure コンテナ)
+@cindex pure container, Scheme (Scheme pure コンテナ)
+@cindex unpure container, Scheme (Scheme unpure コンテナ)
 @cindex horizontal spacing, overriding (水平方向のスペースを上書きする)
 
 unpure-pure コンテナは @emph{Y-axis} スペース - 特に @code{Y-offset} と

@@ -1,5 +1,5 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
-@code{autochange} は 2 つ以上のボイスで使用することができます。
+@code{autoChange} は 2 つ以上のボイスで使用することができます。
 "
-  doctitleja = "autochange を 2 つ以上のボイスで使用する"
+  doctitleja = "autoChange を 2 つ以上のボイスで使用する"

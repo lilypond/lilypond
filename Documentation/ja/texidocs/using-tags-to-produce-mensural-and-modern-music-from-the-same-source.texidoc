@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
   texidocja = "
 タグを使用して、同じ音楽に対して計量音楽譜と現代譜の両方を生成@c
 することができます。このスニペットでは、@code{menrest} 関数が定義されており、@c
