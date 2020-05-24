@@ -828,7 +828,7 @@ context, as explained @ref{Modifying context plug-ins} (see
 @end example
 
 In the following, staves devoted to wind instruments are
-removed in the second system, while the doube bass is not, because
+removed in the second system, while the double bass is not, because
 it is part of the larger group of fretted strings, which is playing.
 
 @lilypond
