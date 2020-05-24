@@ -357,22 +357,6 @@ def process_snippets (input_name, cmd, basenames,
                          lily_output_dir,
                          logfile)
 
-def split_output_files(directory):
-    """Returns directory entries in DIRECTORY/XX/ , where XX are hex digits.
-
-    Return value is a set of strings.
-    """
-    files = []
-    def globquote(x):
-        return re.sub ("[][*?]", r"[\g<0>]", x)
-    for subdir in glob.glob (os.path.join (globquote (directory),
-                                           '[a-f0-9][a-f0-9]')):
-        base_subdir = os.path.split (subdir)[1]
-        sub_files = [os.path.join (base_subdir, name)
-                     for name in os.listdir (subdir)]
-        files += sub_files
-    return set (files)
-
 
 def lock_path (name):
     if os.name != 'posix':
@@ -411,8 +395,7 @@ def do_process_cmd (chunks, input_name, options):
 
 def do_process_cmd_locked (snippets, input_name, options):
     """Look at all snippets, write the outdated ones, and compile them."""
-    output_files = split_output_files (options.lily_output_dir)
-    outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
+    outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir)]
 
     if outdated:
         # First unique the list based on the basename, by using them as keys
@@ -439,10 +422,8 @@ def do_process_cmd_locked (snippets, input_name, options):
     abs_lily_output_dir = os.path.join (options.original_dir, options.lily_output_dir)
     abs_output_dir = os.path.join (options.original_dir, options.output_dir)
     if abs_lily_output_dir != abs_output_dir:
-        output_files = split_output_files (abs_lily_output_dir)
         for snippet in snippets:
             snippet.link_all_output_files (abs_lily_output_dir,
-                                           output_files,
                                            abs_output_dir)
 
 

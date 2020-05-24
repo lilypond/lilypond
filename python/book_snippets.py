@@ -609,8 +609,8 @@ printing diff against existing file." % filename)
     def relevant_contents (self, ly):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
 
-    def link_all_output_files (self, output_dir, output_dir_files, destination):
-        existing, missing = self.all_output_files (output_dir, output_dir_files)
+    def link_all_output_files (self, output_dir, destination):
+        existing, missing = self.all_output_files (output_dir)
         if missing:
             error (_ ('Missing files: %s') % ', '.join (missing))
             raise CompileError(self.basename())
@@ -663,7 +663,7 @@ printing diff against existing file." % filename)
         return result
 
 
-    def all_output_files (self, output_dir, output_dir_files):
+    def all_output_files (self, output_dir):
         """Return all files generated in lily_output_dir, a set.
 
         output_dir_files is the list of files in the output directory.
@@ -673,11 +673,11 @@ printing diff against existing file." % filename)
         base = self.basename()
         full = os.path.join (output_dir, base)
         def consider_file (name):
-            if name in output_dir_files:
+            if os.path.isfile(os.path.join(output_dir,name)):
                 result.add (name)
 
         def require_file (name):
-            if name in output_dir_files:
+            if os.path.isfile(os.path.join(output_dir, name)):
                 result.add (name)
             else:
                 missing.add (name)
@@ -731,8 +731,8 @@ printing diff against existing file." % filename)
 
         return (result, missing)
 
-    def is_outdated (self, output_dir, current_files):
-        found, missing = self.all_output_files (output_dir, current_files)
+    def is_outdated (self, output_dir):
+        found, missing = self.all_output_files (output_dir)
         return missing
 
     def filter_pipe (self, input, cmd):
