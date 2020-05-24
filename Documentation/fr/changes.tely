@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 4860434b122611df632dfd9aaa21c430e4b67819
+    Translation of GIT committish: 50826bb60dd695b9bd2fc2afd811b372283b6643
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -572,6 +572,16 @@ Un
 @c VO New for Internal interfaces and functions
 
 @itemize
+
+@item
+Comme il avait été annoncé lors de la diffusion de la version 2.17.3,
+l'option @code{'relative-include} est désormais activée par défaut.
+Lorsqu'un fichier faisant l'objet d'une inclusion comporte lui-même une
+instruction @code{\include}, le chemin alors recherché sera relatif à ce
+fichier, non par rapport au répertoire du fichier principal. Il est
+possible de contrevenir à ce comportement en affectant @code{#f} à la
+directive @code{'relative-includes}, que ce soit en ligne de commande ou
+par l'utilisation d'un @code{ly:set-option} dans le fichier source.
 
 @item
 LilyPond pour Windows (MinGW) gère les noms de fichier Unicode à compter
