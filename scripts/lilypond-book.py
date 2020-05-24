@@ -455,8 +455,7 @@ def write_if_updated (file_name, lines):
         pass
 
     output_dir = os.path.dirname (file_name)
-    if not os.path.exists (output_dir):
-        os.makedirs (output_dir)
+    os.makedirs (output_dir, exist_ok=True)
 
     progress (_ ("Writing `%s'...") % file_name)
     codecs.open (file_name, 'w', 'utf-8').writelines (lines)
@@ -510,9 +509,7 @@ def do_file (input_filename, included=False):
         global_options.output_dir = os.getcwd()
     else:
         global_options.output_dir = os.path.abspath(global_options.output_dir)
-
-        if not os.path.isdir (global_options.output_dir):
-            os.mkdir (global_options.output_dir, 0o777)
+        os.makedirs(global_options.output_dir, 0o777, exist_ok=True)
         os.chdir (global_options.output_dir)
 
     output_filename = os.path.join(global_options.output_dir,

@@ -589,8 +589,7 @@ class LilypondSnippet (Snippet):
         base = self.basename ()
         path = os.path.join (self.global_options.lily_output_dir, base)
         directory = os.path.split(path)[0]
-        if not os.path.isdir (directory):
-            os.makedirs (directory)
+        os.makedirs (directory, exist_ok=True)
         filename = path + '.ly'
         if os.path.exists (filename):
             existing = codecs.open (filename, 'r', 'utf-8').read ()
@@ -635,8 +634,7 @@ printing diff against existing file." % filename)
             src = os.path.join (output_dir, name)
             dst = os.path.join (destination, final_name)
             dst_path = os.path.split(dst)[0]
-            if not os.path.isdir (dst_path):
-                os.makedirs (dst_path)
+            os.makedirs (dst_path, exist_ok=True)
             try:
                 if (self.global_options.use_source_file_names
                         and isinstance (self, LilypondFileSnippet)):
@@ -902,8 +900,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         base = self.basename ()
         path = os.path.join (self.global_options.lily_output_dir, base)
         directory = os.path.split(path)[0]
-        if not os.path.isdir (directory):
-            os.makedirs (directory)
+        os.makedirs (directory, exist_ok=True)
 
         # First write the XML to a file (so we can link it!)
         if self.compressed:
