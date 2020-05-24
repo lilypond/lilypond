@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Última atualização em Sat May  9 14:20:12 UTC 2020
+@emph{Última atualização em Sun May 24 17:38:33 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -47,11 +47,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+N/D
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -74,11 +74,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+N/D
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -101,11 +101,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">parcialmente</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+N/D
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -128,11 +128,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+N/D
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -155,17 +155,17 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">parcialmente</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+N/D
 @end ifnothtml
 @tab pré-GDP
 @item
 Comunidade
 @*
-2370
+2359
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -182,11 +182,11 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialmente</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente
+N/D
 @end ifnothtml
 @tab pré-GDP
 @end multitable

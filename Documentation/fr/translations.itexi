@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sat May  9 14:20:12 UTC 2020
+@emph{Dernière mise à jour Sun May 24 17:38:33 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-676
+740
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -437,7 +437,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4512
+4517
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -472,7 +472,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11458
+11576
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -691,7 +691,7 @@ oui
 @item
 1.2 Rythme
 @*
-7100
+7098
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -819,7 +819,7 @@ oui
 @item
 1.6 Notation sur la portée
 @*
-2892
+3017
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -875,7 +875,7 @@ oui
 @item
 1.8 Texte
 @*
-3573
+3572
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -933,7 +933,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-5170
+5174
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1225,7 +1225,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-14013
+13941
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1283,7 +1283,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-17099
+17137
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1569,11 +1569,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #d587ff">N/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+N/A
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -1732,7 +1732,7 @@ oui
 @item
 Communauté
 @*
-2370
+2359
 @tab Jean-Charles Malahieude
 @*
 John Mandereau

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat May  9 14:20:12 UTC 2020
+@emph{Zuletzt aktualisiert am Sun May 24 17:38:33 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Überschriften
 @*
-676
+740
 @tab David Kastrup
 @*
 Lukas-Fabian Moser
@@ -49,11 +49,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #ff6f57">teilweise</span>
+<span style="background-color: #d587ff">K/A</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+K/A
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -117,7 +117,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">teilweise</span>
+<span style="background-color: #a5ff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -237,7 +237,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">teilweise</span>
+<span style="background-color: #acff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -359,7 +359,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #5bff27">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -429,7 +429,7 @@ teilweise
 @item
 2 Übliche Notation
 @*
-4512
+4517
 @tab ???
 @*
 Michael Gerdau
@@ -458,7 +458,7 @@ teilweise
 @item
 3 Grundbegriffe
 @*
-11458
+11576
 @tab Till Paala
 @*
 Reinhold Kainhofer
@@ -576,7 +576,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #f6fe3b">teilweise</span>
+<span style="background-color: #fff53e">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -657,7 +657,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">teilweise</span>
+<span style="background-color: #f6fe3b">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -667,7 +667,7 @@ teilweise
 @item
 1.2 Rhythmus
 @*
-7100
+7098
 @tab Till Paala
 @tab 
 @tab 
@@ -775,7 +775,7 @@ teilweise
 @item
 1.6 Notation auf Systemen
 @*
-2892
+3017
 @tab Till Paala
 @tab 
 @tab 
@@ -792,7 +792,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">teilweise</span>
+<span style="background-color: #fff73e">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -829,7 +829,7 @@ teilweise
 @item
 1.8 Text
 @*
-3573
+3572
 @tab Till Paala
 @tab 
 @tab 
@@ -883,7 +883,7 @@ ja
 @item
 2.1 Notation von Gesang
 @*
-5170
+5174
 @tab Till Paala
 @tab 
 @tab 
@@ -1153,7 +1153,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-14013
+13941
 @tab Till Paala
 @tab 
 @tab 
@@ -1207,7 +1207,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-17099
+17137
 @tab Till Paala
 @tab 
 @tab 
@@ -1317,7 +1317,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">teilweise</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1524,7 +1524,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">teilweise</span>
+<span style="background-color: #4efe25">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1650,7 +1650,7 @@ teilweise
 @item
 Gemeinschaft
 @*
-2370
+2359
 @tab Till Paala
 @*
 Michael Gerdau

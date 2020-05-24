@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat May  9 14:20:12 UTC 2020
+@emph{Actualitzat el Sun May 24 17:38:33 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -49,7 +49,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">parcialment</span>
+<span style="background-color: #91ff2e">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -113,7 +113,7 @@ parcialment
 @item
 2 Notació corrent
 @*
-4512
+4517
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -140,7 +140,7 @@ parcialment
 @item
 3 Conceptes fonamentals
 @*
-11458
+11576
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -252,7 +252,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">parcialment</span>
+<span style="background-color: #f6fe3b">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -333,7 +333,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">parcialment</span>
+<span style="background-color: #7dff2b">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -343,7 +343,7 @@ parcialment
 @item
 1.2 Duracions
 @*
-7100
+7098
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -451,7 +451,7 @@ parcialment
 @item
 1.6 Notació dels pentagrames
 @*
-2892
+3017
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -468,7 +468,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialment</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -505,7 +505,7 @@ parcialment
 @item
 1.8 Text
 @*
-3573
+3572
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -559,7 +559,7 @@ si
 @item
 2.1 Música vocal
 @*
-5170
+5174
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -829,7 +829,7 @@ parcialment
 @item
 3 Entrada i sortida generals
 @*
-14013
+13941
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -846,11 +846,11 @@ parcialment (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment
+N/D
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -883,7 +883,7 @@ parcialment
 @item
 5 Canvi dels valors predeterminats
 @*
-17099
+17137
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -900,11 +900,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialment</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment
+N/D
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -927,11 +927,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialment</span>
+<span style="background-color: #d587ff">N/D</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment
+N/D
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -993,7 +993,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialment</span>
+<span style="background-color: #83fe2c">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1140,7 +1140,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #4efe25">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1258,7 +1258,7 @@ parcialment
 @item
 Comunitat
 @*
-2370
+2359
 @tab Walter Garcia-Fontes
 @tab 
 @tab 

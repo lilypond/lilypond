@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat May  9 14:20:12 UTC 2020
+@emph{Last updated Sun May 24 17:38:33 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -49,7 +49,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -175,7 +175,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #cdfe36">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -239,7 +239,7 @@ partially
 @item
 2 Elemi kottaírás
 @*
-4512
+4517
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -266,7 +266,7 @@ partially
 @item
 3 Alapfogalmak
 @*
-11458
+11576
 @tab Griechisch Erika
 @*
 Harmath Dénes
@@ -378,7 +378,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #8aff2d">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -525,7 +525,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">partially</span>
+<span style="background-color: #e1ff39">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -643,7 +643,7 @@ partially
 @item
 Közösség
 @*
-2370
+2359
 @tab Harmath Dénes
 @tab 
 @tab 
