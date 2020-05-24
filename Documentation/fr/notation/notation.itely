@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 032de07c17caacd038f113ebcb54e9c473d64e0f
+    Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -35,4 +35,3 @@ Ce chapitre explique comment créer la notation musicale standard.
 @include notation/staff.itely
 @include notation/editorial.itely
 @include notation/text.itely
-

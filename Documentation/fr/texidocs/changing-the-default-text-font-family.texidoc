@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 9d1f4d4d16abf95cccf6bea9cf98c312e55a3ebf
+%% Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
   texidocfr = "
 Les familles de fontes par défaut pour le texte peuvent être changées à
 l'aide de la fonction @code{make-pango-font-tree}.

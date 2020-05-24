@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 886df11c46895cc2bf1f84c9ef971852d782ed9b
+   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -791,13 +791,7 @@ style d'édition s'appelle en anglais « Frenched Score ». Cette
 fonctionnalité masque et supprime toutes les portées vides d'une
 partition, hormis celles du premier système.  Le premier système sera
 lui aussi concerné dès lors que sera utilisée l'instruction
-@code{\RemoveAllEmptyStaves}.  Ces instructions couvrent les contextes
-@code{Staff}, @code{RhythmicStaff} et @code{VaticanaStaff}.
-
-@warning{Une portée est considérée comme vide dès lors qu'elle ne
-contient que des silences multimesures, des silences visibles ou
-invisibles (ou d'espacement -- les @emph{@bs{}skip}) ou bien une
-combinaison de ces éléments.}
+@code{\RemoveAllEmptyStaves}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -821,12 +815,154 @@ combinaison de ces éléments.}
 >>
 @end lilypond
 
+Une portée est considérée comme vide dès lors qu'elle ne
+contient que des silences multimesures, des silences visibles ou
+invisibles (ou d'espacement -- les @emph{@bs{}skip}) ou bien une
+combinaison de ces éléments.
+
 @cindex ossia
 
 @noindent
 @code{\RemoveAllEmptyStaves} permet aussi de gérer des fragments
 d'ossia attachés à une portée.  Pour plus de détails, voir
 @ref{Portées d'ossia}.
+
+Le @code{Keep_alive_together_engraver} permet de masquer l'intégralité
+d'un regroupement de portées plutôt que des portées individuelles. Il
+est normalement attaché au contexte @code{PianoStaff} : un système
+pianistique sera masqué uniquement dans le cas où les deux portées qui
+le composent sont vides. De la même manière, il est d'usage pour un
+conducteur d'orchestre de masquer les regroupements de portées plutôt
+que de manière individuelle. Ceci s'obtient en ajoutant le
+@code{Keep_alive_together_engraver} au regroupement de portées
+considéré, comme indiqué dans
+@ref{Modification des greffons de contexte} -- voir
+@ref{Regroupement de portées} pour leur dénomination.
+
+@example
+\layout @{
+  \context @{
+    \StaffGroup
+    \RemoveEmptyStaves
+    \consists "Keep_alive_together_engraver"
+  @}
+@}
+@end example
+
+Dans l'exemple suivant, les portées des instruments à vent sont absentes
+du deuxième système, alors que celle de la contrebasse demeure présente
+puisqu'elle est rattachée au regroupement des cordes qui, elles,
+continuent de jouer.
+
+@lilypond
+%{
+  This is taken from Berlioz, Symphonie fantastique.
+  http://imslp.eu/files/imglnks/euimg/5/54/IMSLP522307-PMLP3653-NBE_-_Symphonie_antastique_-_I._Reveries,_Passions_(etc).pdf
+%}
+\layout {
+  \context {
+    \StaffGroup
+    \RemoveEmptyStaves
+    \consists "Keep_alive_together_engraver"
+  }
+}
+
+\paper {
+  indent = 25
+  short-indent = 10
+}
+
+<<
+  \new StaffGroup <<
+    \new Staff \with { instrumentName = "Flute" } \relative c'' {
+      \key c \minor
+      <<
+        { \tuplet 3/2 4 { \repeat unfold 4 { g'8( g g) } } }
+        \\
+        { r2 \tuplet 3/2 4 { \repeat unfold 2 { f8( f f) } } }
+      >>
+      <ees g>1~
+      q16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+    \new Staff \with { instrumentName = "Oboe" } \relative c' {
+      \key c \minor
+      r2
+      \tuplet 3/2 4 { g'8( a b) c( cis d) }
+      <g, ees'>1~
+      q16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+    \new Staff \with { instrumentName = "Basson" } \relative c {
+      \key c \minor
+      \clef bass
+      r2 r4 \tuplet 3/2 { r8 g'( b,) }
+      c1~
+      c16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+  >>
+  \new StaffGroup <<
+    \new Staff \with {
+      instrumentName = "Violin I"
+      shortInstrumentName = "Vl."
+    } \relative c'' {
+      \key c \minor
+      R1*2
+      g'8. g16( aes8. g16) g8( f) f8.( ees16)
+      ees2( d16) r16\fermata d8( ees f)
+      g4( ees8) r16 c aes'4( g8) r16 fis
+      g2( f8) r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Violin II"
+      shortInstrumentName = "Vl. II"
+    } \relative c' {
+      \key c \minor
+      R1*2
+      r2 b'4( c)
+      c2~ c16 r16\fermata b8( c d)
+      ees4( c8) r8 ees4~ ees8 r
+      d2~ d8 r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Alto"
+      shortInstrumentName = "Al."
+    } \relative c' {
+      \key c \minor
+      \clef alto
+      R1*2
+      r2 d4( c
+      a'2~) a16 r16\fermata aes8( g f)
+      ees4~ ees8 r c'4~ c8 r8
+      b2~ b8 r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Cello"
+      shortInstrumentName = "Cl."
+    } \relative c {
+      \key c \minor
+      \clef bass
+      R1*2
+      r2 aes'4( g
+      fis2~) fis16 r16\fermata f8( ees d)
+      c4~ c8 r8 c'4~ c8 r8
+      b2~ b8 r8 r4 \fermata
+    }
+    \new Staff \with {
+      instrumentName = "Double bass"
+      shortInstrumentName = "D.B."
+    } {
+      \key c \minor
+      \clef bass
+      R1*6
+    }
+  >>
+>>
+@end lilypond
 
 @predefined
 @code{\RemoveEmptyStaves},
@@ -842,8 +978,10 @@ Manuel d'initiation:
 
 Manuel de notation :
 @ref{Dictée à trous},
+@ref{Modification des greffons de contexte},
 @ref{Modification des réglages par défaut d'un contexte},
 @ref{Portées d'ossia},
+@ref{Regroupement de portées},
 @ref{Silences invisibles},
 @ref{Symbole de la portée},
 @ref{Visibilité des objets}.
@@ -852,12 +990,14 @@ Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 
 Référence des propriétés internes :
+@rinternals{Axis_group_engraver},
 @rinternals{ChordNames},
 @rinternals{FiguredBass},
+@rinternals{Keep_alive_together_engraver}.
 @rinternals{Lyrics},
 @rinternals{Staff},
-@rinternals{VerticalAxisGroup},
-@rinternals{Staff_symbol_engraver}.
+@rinternals{Staff_symbol_engraver},
+@rinternals{VerticalAxisGroup}.
 
 @knownissues
 Supprimer le @code{Staff_symbol_engraver} aura pour effet de masquer les
@@ -871,7 +1011,7 @@ graveur, recourir aux dérogations suivantes :
 @end example
 
 En ce qui concerne les désagréments et messages liés à l'utilisation de
-l'instruction @code{\Staff \RemoveEmptyStaves}, consultez
+l'instruction @code{\RemoveEmptyStaves}, consultez
 @ref{Modification des réglages par défaut d'un contexte}.
 
 

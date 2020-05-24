@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4860434b122611df632dfd9aaa21c430e4b67819
+   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2146,31 +2146,11 @@ etc.
 @end example
 
 Les fichiers à inclure peuvent eux-mêmes contenir des instructions
-@code{\include}.  Ces instructions @code{\include} de second niveau ne
-pourront, par défaut, être interprétées qu'une fois intégrées dans le
-fichier principal ; leur argument doit donc comporter le chemin
-relativement au fichier principal et non par rapport au fichier dans
-lequel cette inclusion est mentionnée.  Vous pouvez toutefois influer
-sur ce comportement de manière globale à l'aide de l'option
-@w{@code{-drelative-includes}} en ligne de commande ou en ajoutant une
-clause @code{#(ly:set-option 'relative-includes #t)} en tête du fichier
-principal.
-
-Lorsque @code{relative-include} est valorisé à @code{#t}, le chemin à
-suivre pour chacune des commandes @code{\include} sera pris relativement
-au fichier qui la contient.  Cette option est vouée à être activée par
-défaut dans une future version de LilyPond.
-
-Selon l'endroit où @code{relative-includes} est valorisé à @code{#t} ou
-@code{#f}, la commande @code{\include} permettra d'incorporer des
-fichiers contenus dans l'arborescence du répertoire principal et des
-fichiers situés ailleurs.  Si, par exemple, une biblothèque générale
-libA a été créée pour utiliser des sous-fichiers à l'aide
-d'inclusions dans un fichier catalogue, les clauses @code{\include}
-devront être précédées d'un
-@code{#(ly:set-option 'relative-includes #t)}  de telle sorte
-qu'elles soient interprétées correctement lorsque rapatriées dans
-le fichier @file{.ly} principal.  Examinons cela dans les faits :
+@code{\include}. Ces instructions @code{\include} de second niveau
+seront, par défaut, interprétées par rapport à leur situation dans
+l'arborescence. Tel sera, par exemple, le cas d'une biblothèque générale
+libA créée pour utiliser des sous-fichiers à l'aide d'inclusions dans un
+fichier catalogue, comme ici :
 
 @example
 libA/
@@ -2184,12 +2164,9 @@ libA/
 puis le fichier catalogue, @code{libA.ly}, qui contient
 
 @example
-#(ly:set-option 'relative-includes #t)
 \include "A1.ly"
 \include "A2.ly"
 @dots{}
-% retour au réglage par défaut
-#(ly:set-option 'relative-includes #f)
 @end example
 
 Tout fichier @code{.ly} peut désormais consulter l'intégralité de cette
@@ -2199,8 +2176,16 @@ bibliothèque grâce à un simple
 \include "~/libA/libA.ly"
 @end example
 
-Un positionnement judicieux des commutateurs permet de gérer des
-structures de fichiers plus complexes.
+Vous pouvez toutefois influer sur ce comportement de manière globale à
+l'aide de l'option @w{@option{-drelative-includes=#f}} en ligne de
+commande ou en ajoutant une clause
+@code{#(ly:set-option 'relative-includes #f)} en tête du fichier
+principal. En pareil cas, le chemin à suivre pour chacune des commandes
+@code{\include} sera pris relativement au fichier principal. Selon
+l'endroit où @code{relative-includes} est valorisé à @code{#t} ou
+@code{#f}, la commande @code{\include} permettra d'incorporer des
+fichiers contenus dans l'arborescence du répertoire principal et des
+fichiers situés ailleurs.
 
 Vous pouvez inclure des fichiers dont vous spécifierez le chemin d'accès
 sur la ligne de commande au moment de lancer la compilation.  L'appel à
