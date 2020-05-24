@@ -524,7 +524,7 @@ def do_file (input_filename, included=False):
      exit (2)
 
     try:
-        progress (_ ("Reading %s...") % input_fullname)
+        progress (_ ("Reading `%s'") % input_fullname)
         source = in_handle.read ()
 
         if not included:
@@ -542,7 +542,7 @@ def do_file (input_filename, included=False):
                      [c.filter_text () for c in chunks])
         elif global_options.process_cmd:
             do_process_cmd (chunks, input_fullname, global_options)
-            progress (_ ("Compiling %s...") % output_filename)
+            progress (_ ("Compiling `%s'...") % output_filename)
             write_if_updated (output_filename,
                      [s.replacement_text ()
                      for s in chunks])
@@ -550,7 +550,7 @@ def do_file (input_filename, included=False):
         def process_include (snippet):
             os.chdir (original_dir)
             name = snippet.substring ('filename')
-            progress (_ ("Processing include: %s") % name)
+            progress (_ ("Processing include `%s'") % name)
             return do_file (name, included=True)
 
         include_chunks = list(map (process_include,
