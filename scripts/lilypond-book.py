@@ -356,6 +356,8 @@ def process_snippets (input_name, cmd, basenames,
     system_in_directory (' '.join ([cmd, snippet_names_arg]),
                          lily_output_dir,
                          logfile)
+    os.unlink(snippet_map_path)
+    os.unlink(snippet_names_path)
 
 
 def lock_path (name):
