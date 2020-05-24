@@ -7,7 +7,7 @@ stages:
 # that make considers the artifacts outdated and rebuilds LilyPond from scratch.
 # $TOUCH_BUILD contains the command needed to touch the downloaded build files.
 variables:
-  CONFIGURE_FLAGS: "--enable-gs-api --disable-debugging CFLAGS=-O2"
+  CONFIGURE_FLAGS: "--enable-checking --enable-gs-api --disable-debugging CFLAGS=-O2"
   TOUCH_BUILD: "for d in python scripts flower lily mf; do make -C $$d --touch all; done"
 
 # An additional variable not set here but used below is $MAKE_FLAGS. This can
