@@ -224,13 +224,13 @@ System::get_paper_systems ()
   SCM lines = scm_c_make_vector (broken_intos_.size (), SCM_EOL);
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
-      debug_output ("[", false);
+      ::debug_output ("[", false);
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
 
       scm_c_vector_set_x (lines, i, system->get_paper_system ());
 
-      debug_output (std::to_string (i) + "]", false);
+      ::debug_output (std::to_string (i) + "]", false);
     }
   return lines;
 }

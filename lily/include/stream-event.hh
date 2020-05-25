@@ -21,10 +21,11 @@
 #define STREAM_EVENT_HH
 
 #include "lily-proto.hh"
+#include "diagnostics.hh"
 #include "smobs.hh"
 #include "prob.hh"
 
-class Stream_event : public Prob
+class Stream_event : public Prob, public Diagnostics
 {
 public:
   Stream_event ();
@@ -34,7 +35,7 @@ public:
   Stream_event (SCM event_class, SCM immutable_props = SCM_EOL);
   Stream_event (SCM class_name, Input *);
 
-  Input *origin () const;
+  Input *origin () const override;
   void set_spot (Input *i);
   bool internal_in_event_class (SCM class_name);
   void make_transposable ();

@@ -94,7 +94,7 @@ Partial_iterator::finalization (SCM ctx, SCM length)
                     (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
   if (!timing)
     {
-      programming_error ("missing Timing in \\partial");
+      ::programming_error ("missing Timing in \\partial");
       return SCM_UNSPECIFIED;
     }
   Moment mp = robust_scm2moment (get_property (timing, "measurePosition"), 0);

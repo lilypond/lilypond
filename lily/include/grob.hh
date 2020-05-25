@@ -22,13 +22,14 @@
 
 #include "box.hh"
 #include "virtual-methods.hh"
+#include "diagnostics.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
 #include <set>
 
-class Grob : public Smob<Grob>
+class Grob : public Smob<Grob>, public Diagnostics
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
@@ -62,6 +63,9 @@ protected:
   SCM try_callback (SCM, SCM);
   SCM try_callback_on_alist (SCM *, SCM, SCM);
   void internal_set_value_on_alist (SCM *alist, SCM sym, SCM val);
+
+  /* messages */
+  Input *origin () const override;
 
 public:
 
@@ -121,10 +125,6 @@ public:
   /* causes */
   Stream_event *event_cause () const;
   Stream_event *ultimate_event_cause () const;
-
-  /* messages */
-  void warning (const std::string &) const;
-  void programming_error (const std::string &) const;
 
   /* class hierarchy */
   virtual System *get_system () const;

@@ -742,22 +742,12 @@ Grob::ultimate_event_cause () const
 /****************************************************************
   MESSAGES
 ****************************************************************/
-void
-Grob::programming_error (const string &s) const
+Input *
+Grob::origin () const
 {
   if (Stream_event *ev = ultimate_event_cause ())
-    ev->origin ()->programming_error (s);
-  else
-    ::programming_error (s);
-}
-
-void
-Grob::warning (const string &s) const
-{
-  if (Stream_event *ev = ultimate_event_cause ())
-    ev->origin ()->warning (s);
-  else
-    ::warning (s);
+    return ev->origin ();
+  return nullptr;
 }
 
 string
