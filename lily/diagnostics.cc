@@ -24,35 +24,53 @@
 void
 Diagnostics::error (const std::string &arg) const
 {
-  ::error (arg, origin ());
+  if (Input *input = origin ())
+    input->error (arg);
+  else
+    ::error (arg);
 }
 
 void
 Diagnostics::programming_error (const std::string &arg) const
 {
-  ::programming_error (arg, origin ());
+  if (Input *input = origin ())
+    input->programming_error (arg);
+  else
+    ::programming_error (arg);
 }
 
 void
 Diagnostics::non_fatal_error (const std::string &arg) const
 {
-  ::non_fatal_error (arg, origin ());
+  if (Input *input = origin ())
+    input->non_fatal_error (arg);
+  else
+    ::non_fatal_error (arg);
 }
 
 void
 Diagnostics::warning (const std::string &arg) const
 {
-  ::warning (arg, origin ());
+  if (Input *input = origin ())
+    input->warning (arg);
+  else
+    ::warning (arg);
 }
 
 void
 Diagnostics::message (const std::string &arg) const
 {
-  ::message (arg, origin ());
+  if (Input *input = origin ())
+    input->message (arg);
+  else
+    ::message (arg);
 }
 
 void
 Diagnostics::debug_output (const std::string &arg) const
 {
-  ::debug_output (arg, origin ());
+  if (Input *input = origin ())
+    input->debug_output (arg);
+  else
+    ::debug_output (arg);
 }
