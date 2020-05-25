@@ -35,7 +35,7 @@ protected:
   SCM get_music_list () const override;
   void construct_children () override;
 private:
-  SCM music_tail ();
+  SCM music_tail () const;
   int starting_bar_;
 };
 
@@ -71,7 +71,7 @@ Percent_repeat_iterator::get_music_list () const
 // percent expression we are dealing with and provide the respective
 // music expressions for the remaining repeats.
 SCM
-Percent_repeat_iterator::music_tail ()
+Percent_repeat_iterator::music_tail () const
 {
   Music *mus = get_music ();
 
