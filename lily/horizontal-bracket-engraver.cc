@@ -62,7 +62,7 @@ Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
     {
       pop_count_++;
       if (pop_count_ > bracket_stack_.size ())
-        ev->origin ()->warning (_ ("do not have that many brackets"));
+        ev->warning (_ ("do not have that many brackets"));
     }
   else
     {
@@ -71,7 +71,7 @@ Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
     }
 
   if (pop_count_ && push_count_)
-    ev->origin ()->warning (_ ("conflicting note group events"));
+    ev->warning (_ ("conflicting note group events"));
 }
 
 void

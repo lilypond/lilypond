@@ -119,9 +119,8 @@ Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
     start_events_.push_back (Event_info (ev, note));
   else if (d == STOP)
     stop_events_.push_back (Event_info (ev, note));
-  else ev->origin ()->warning (_f ("direction of %s invalid: %d",
-                                     ev->name ().c_str (),
-                                     int (d)));
+  else
+    ev->warning (_f ("direction of %s invalid: %d", ev->name ().c_str (), int (d)));
 }
 
 void
@@ -235,7 +234,7 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
             {
               // We already have an old slur, so give a warning
               // and completely ignore the new slur.
-              ev->origin ()->warning (_f ("already have %s", object_name ()));
+              ev->warning (_f ("already have %s", object_name ()));
               if (event_idx)
                 start_events_.erase (start_events_.begin () + (*event_idx));
               return false;
@@ -317,7 +316,7 @@ Slur_engraver::process_music ()
             }
         }
       else
-        stop_events_[i].slur_->origin ()->warning (_f ("cannot end %s", object_name ()));
+        stop_events_[i].slur_->warning (_f ("cannot end %s", object_name ()));
     }
 
   vsize old_slurs = slurs_.size ();

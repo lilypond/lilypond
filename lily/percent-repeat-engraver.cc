@@ -145,7 +145,7 @@ Percent_repeat_engraver::finalize ()
 {
   if (percent_)
     {
-      percent_event_->origin ()->warning (_ ("unterminated percent repeat"));
+      percent_event_->warning (_ ("unterminated percent repeat"));
       percent_->suicide ();
       percent_counter_->suicide ();
     }

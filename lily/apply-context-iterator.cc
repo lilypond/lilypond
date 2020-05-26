@@ -39,7 +39,7 @@ Apply_context_iterator::process (Moment m)
     with_location (get_property (get_music (), "origin"),
                    proc, get_outlet ()->self_scm ());
   else
-    get_music ()->origin ()->warning (_ ("\\applycontext argument is not a procedure"));
+    warning (_ ("\\applycontext argument is not a procedure"));
 
   Simple_music_iterator::process (m);
 }

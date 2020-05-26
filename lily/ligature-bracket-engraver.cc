@@ -69,7 +69,7 @@ Ligature_bracket_engraver::process_music ()
     {
       if (!ligature_)
         {
-          events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
+          events_drul_[STOP]->warning (_ ("cannot find start of ligature"));
           return;
         }
 
@@ -82,7 +82,7 @@ Ligature_bracket_engraver::process_music ()
     {
       if (ligature_)
         {
-          events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+          events_drul_[START]->warning (_ ("already have a ligature"));
           return;
         }
 

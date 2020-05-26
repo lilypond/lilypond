@@ -145,7 +145,7 @@ Beam_engraver::process_music ()
     {
       if (beam_)
         {
-          start_ev_->origin ()->warning (_ ("already have a beam"));
+          start_ev_->warning (_ ("already have a beam"));
           return;
         }
 
@@ -232,7 +232,7 @@ Beam_engraver::finalize ()
   typeset_beam ();
   if (beam_)
     {
-      prev_start_ev_->origin ()->warning (_ ("unterminated beam"));
+      prev_start_ev_->warning (_ ("unterminated beam"));
 
       /*
         we don't typeset it, (we used to, but it was commented
@@ -290,8 +290,8 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   //int durlog = unsmob<Duration> (get_property (ev, "duration"))->duration_log ();
   if (durlog <= 2)
     {
-      ev->origin ()->warning (_ ("stem does not fit in beam"));
-      prev_start_ev_->origin ()->warning (_ ("beam was started here"));
+      ev->warning (_ ("stem does not fit in beam"));
+      prev_start_ev_->warning (_ ("beam was started here"));
       /*
         don't return, since
 

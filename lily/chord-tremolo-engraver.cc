@@ -86,7 +86,7 @@ Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
   else if (span_dir == STOP)
     {
       if (!repeat_)
-        ev->origin ()->warning (_ ("No tremolo to end"));
+        ev->warning (_ ("No tremolo to end"));
       repeat_ = 0;
       beam_ = 0;
       previous_stem_ = 0;
@@ -107,7 +107,7 @@ Chord_tremolo_engraver::finalize ()
 {
   if (beam_)
     {
-      repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
+      repeat_->warning (_ ("unterminated chord tremolo"));
       announce_end_grob (beam_, SCM_EOL);
       beam_->suicide ();
     }
@@ -146,13 +146,8 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
         Beam::add_stem (beam_, s);
       else
-        {
-          string s = _ ("stem must have Rhythmic structure");
-          if (info.event_cause ())
-            info.event_cause ()->origin ()->warning (s);
-          else
-            ::warning (s);
-        }
+          s->warning (_ ("stem must have Rhythmic structure"));
+
       // Store current grob, so we can possibly end the spanner here (and
       // reset the beam direction to RIGHT)
       previous_stem_ = s;

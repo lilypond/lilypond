@@ -75,9 +75,8 @@ Simultaneous_music_iterator::construct_children ()
             }
           else
             {
-              Input *origin = get_music ()->origin ();
-              origin->warning (_f ("cannot find or create context: %s",
-                                   Context::diagnostic_id (name, id).c_str ()));
+              warning (_f ("cannot find or create context: %s",
+                           Context::diagnostic_id (name, id).c_str ()));
             }
         }
 

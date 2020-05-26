@@ -269,7 +269,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       string msg = _f ("expect 3 strings for piano pedals, found: %ld",
                        scm_ilength (strings));
       if (m)
-        m->origin ()->warning (msg);
+        m->warning (msg);
       else
         warning (msg);
 
@@ -281,7 +281,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
         {
           if (!p->start_ev_)
-            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
+            p->event_drul_[STOP]->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
           else
             s = scm_cadr (strings);
           p->start_ev_ = p->event_drul_[START];
@@ -292,7 +292,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
         {
           if (!p->start_ev_)
-            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
+            p->event_drul_[STOP]->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
           else
             s = scm_caddr (strings);
           p->start_ev_ = 0;
@@ -327,7 +327,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
   if (!p->bracket_ && p->event_drul_[STOP])
     {
       string msg = _f ("cannot find start of piano pedal bracket: `%s'", p->type_->base_name_.c_str ());
-      p->event_drul_[STOP]->origin ()->warning (msg);
+      p->event_drul_[STOP]->warning (msg);
       p->event_drul_[STOP] = 0;
     }
 

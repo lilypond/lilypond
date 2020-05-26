@@ -136,9 +136,8 @@ Quote_iterator::construct_children ()
                                                         name, c_id, SCM_EOL);
       if (!cue_context)
         {
-          Input *origin = get_music ()->origin ();
-          origin->warning (_f ("cannot find or create context: %s",
-                               Context::diagnostic_id (name, c_id).c_str ()));
+          warning (_f ("cannot find or create context: %s",
+                       Context::diagnostic_id (name, c_id).c_str ()));
         }
     }
 

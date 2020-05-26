@@ -81,8 +81,7 @@ Bar_check_iterator::process (Moment m)
             }
 
           if (warn)
-            get_music ()->origin ()->warning (_f ("barcheck failed at: %s",
-                                                  where->to_string ()));
+            warning (_f ("barcheck failed at: %s", where->to_string ()));
         }
     }
 }

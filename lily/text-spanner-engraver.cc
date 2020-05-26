@@ -69,7 +69,7 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-        event_drul_[STOP]->origin ()->warning (_ ("cannot find start of text spanner"));
+        event_drul_[STOP]->warning (_ ("cannot find start of text spanner"));
       else
         {
           finished_ = span_;
@@ -82,7 +82,7 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[START])
     {
       if (current_event_)
-        event_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
+        event_drul_[START]->warning (_ ("already have a text spanner"));
       else
         {
           current_event_ = event_drul_[START];
@@ -129,7 +129,7 @@ Text_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_event_->origin ()->warning (_ ("unterminated text spanner"));
+      current_event_->warning (_ ("unterminated text spanner"));
       span_->suicide ();
       span_ = 0;
     }

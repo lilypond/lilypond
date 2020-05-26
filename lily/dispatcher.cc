@@ -77,7 +77,7 @@ Dispatcher::dispatch (SCM sev)
   SCM class_list = get_property (ev, "class");
   if (!scm_is_pair (class_list))
     {
-      ev->origin ()->warning (_ ("Event class should be a list"));
+      ev->warning (_ ("Event class should be a list"));
       return;
     }
 

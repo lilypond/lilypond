@@ -54,9 +54,8 @@ Context_specced_music_iterator::construct_children ()
       a = get_outlet ()->create_unique_context (dir, ct, c_id, ops);
       if (!a)
         {
-          Input *origin = get_music ()->origin ();
-          origin->warning (_f ("cannot create context: %s",
-                               Context::diagnostic_id (ct, c_id).c_str ()));
+          warning (_f ("cannot create context: %s",
+                       Context::diagnostic_id (ct, c_id).c_str ()));
         }
     }
   else
@@ -72,9 +71,8 @@ Context_specced_music_iterator::construct_children ()
       // behavior for DOWN mode, should we do it for UP too?
       if (!a && (dir != DOWN))
         {
-          Input *origin = get_music ()->origin ();
-          origin->warning (_f ("cannot find or create context: %s",
-                               Context::diagnostic_id (ct, c_id).c_str ()));
+          warning (_f ("cannot find or create context: %s",
+                       Context::diagnostic_id (ct, c_id).c_str ()));
         }
     }
 

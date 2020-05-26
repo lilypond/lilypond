@@ -154,16 +154,13 @@ Score::set_music (SCM music)
 {
   if (unsmob<Music> (music_))
     {
-      unsmob<Music> (music)->origin ()->non_fatal_error
-      (_ ("already have music in score"));
-      unsmob<Music> (music_)->origin ()->non_fatal_error
-      (_ ("this is the previous music"));
+      unsmob<Music> (music)->non_fatal_error (_ ("already have music in score"));
+      unsmob<Music> (music_)->non_fatal_error (_ ("this is the previous music"));
     }
   Music *m = unsmob<Music> (music);
   if (m && from_scm<bool> (get_property (m, "error-found")))
     {
-      m->origin ()->non_fatal_error
-      (_ ("errors found, ignoring music expression"));
+      m->non_fatal_error (_ ("errors found, ignoring music expression"));
 
       error_found_ = true;
     }

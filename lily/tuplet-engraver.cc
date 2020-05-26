@@ -108,10 +108,10 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
           tuplets_.pop_back ();
         }
       else if (!from_scm<bool> (get_property (this, "skipTypesetting")))
-        ev->origin ()->debug_output (_ ("No tuplet to end"));
+        ev->debug_output (_ ("No tuplet to end"));
     }
   else
-    ev->origin ()->programming_error ("direction tuplet-span-event_ invalid.");
+    ev->programming_error ("direction tuplet-span-event_ invalid.");
 }
 
 void

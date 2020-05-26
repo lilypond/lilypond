@@ -63,8 +63,7 @@ check_grob (Music *mus, SCM sym)
   bool g = from_scm<bool> (scm_object_property (sym, ly_symbol2scm ("is-grob?")));
 
   if (!g)
-    mus->origin ()->warning (_f ("not a grob name, `%s'",
-                                 ly_symbol2string (sym)));
+    mus->warning (_f ("not a grob name, `%s'", ly_symbol2string (sym)));
 
   return g;
 }
@@ -95,11 +94,11 @@ Push_property_iterator::process (Moment m)
 
       if (from_scm<bool> (get_property (get_music (), "pop-first"))
           && !from_scm<bool> (once))
-        send_stream_event (get_outlet (), "Revert", get_music ()->origin (),
+        send_stream_event (get_outlet (), "Revert", origin (),
                            ly_symbol2scm ("symbol"), sym,
                            ly_symbol2scm ("property-path"), grob_property_path);
 
-      send_stream_event (get_outlet (), "Override", get_music ()->origin (),
+      send_stream_event (get_outlet (), "Override", origin (),
                          ly_symbol2scm ("symbol"), sym,
                          ly_symbol2scm ("property-path"), grob_property_path,
                          ly_symbol2scm ("once"), once,

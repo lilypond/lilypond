@@ -51,7 +51,7 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
           string s = _ ("Failed octave check, got: ");
           s += result.to_string ();
 
-          m->origin ()->warning (s);
+          m->warning (s);
 
           delta_oct = check_p->get_octave () - result.get_octave ();
         }

@@ -118,7 +118,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
       */
       if (!nr->in_event_class ("note-event"))
         {
-          nr->origin ()->warning
+          nr->warning
           (_ ("cannot determine pitch of ligature primitive -> skipping"));
           at_beginning = true;
           continue;
@@ -132,8 +132,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
           if (i == s - 1)
             {
               // we can get here after invalid input
-              nr->origin ()->warning
-              (_ ("single note ligature - skipping"));
+              nr->warning (_ ("single note ligature - skipping"));
               break;
             }
           prev_semibrevis = prev_brevis_shape = false;
@@ -143,8 +142,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
         {
           if (pitch == prev_pitch)
             {
-              nr->origin ()->warning
-              (_ ("prime interval within ligature -> skipping"));
+              nr->warning (_ ("prime interval within ligature -> skipping"));
               at_beginning = true;
               prim = MLP_NONE;
               continue;
@@ -154,7 +152,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
       if (duration_log < -3 // is this possible at all???
           || duration_log > 0)
         {
-          nr->origin ()->warning
+          nr->warning
           (_ ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
           prim = MLP_NONE;
           at_beginning = true;
@@ -197,7 +195,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
             }
           else
             {
-              nr->origin ()->warning
+              nr->warning
               (_ ("semibrevis must be followed by another one -> skipping"));
               prim = MLP_NONE;
               at_beginning = true;
@@ -207,7 +205,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
       // 3. semibreves are otherwise not allowed
       else if (duration_log == 0)
         {
-          nr->origin ()->warning
+          nr->warning
           (_ ("semibreves can only appear at the beginning of a ligature,\n"
               "and there may be only zero or two of them"));
           prim = MLP_NONE;
@@ -227,11 +225,10 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
                 }
               else
                 {
-                  nr->origin ()->warning
-                  (_ ("invalid ligatura ending:\n"
-                      "when the last note is a descending brevis,\n"
-                      "the penultimate note must be another one,\n"
-                      "or the ligatura must be LB or SSB"));
+                  nr->warning (_ ("invalid ligatura ending:\n"
+                                  "when the last note is a descending brevis,\n"
+                                  "the penultimate note must be another one,\n"
+                                  "or the ligatura must be LB or SSB"));
                   prim = MLP_NONE;
                   break;
                 }

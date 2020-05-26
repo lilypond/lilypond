@@ -147,7 +147,7 @@ Music::generic_to_relative_octave (Pitch last)
           Pitch expected_pit (scm_to_int (check),
                               new_pit.get_notename (),
                               new_pit.get_alteration ());
-          origin ()->warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
+          warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
                                   expected_pit.to_string (),
                                   new_pit.to_string ()));
           new_pit = expected_pit;

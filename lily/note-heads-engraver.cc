@@ -74,7 +74,7 @@ Note_heads_engraver::process_music ()
 #if 0 /* TODO: should have a mechanism to switch off these warnings. */
 
       if (!pit)
-        ev->origin ()->warning (_ ("NoteEvent without pitch"));
+        ev->warning (_ ("NoteEvent without pitch"));
 #endif
 
       int pos;

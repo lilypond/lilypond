@@ -4728,11 +4728,9 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 	{
 		Music *what = unsmob<Music> (scm_car (bad));
 		if (preserve)
-			what->origin ()->warning (_f ("Unattached %s",
-						      what->name ()));
+			what->warning (_f ("Unattached %s", what->name ()));
 		else
-			what->origin ()->warning (_f ("Dropping unattachable %s",
-						      what->name ()));
+			what->warning (_f ("Dropping unattachable %s", what->name ()));
 	}
 	return res;
 }

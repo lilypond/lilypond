@@ -197,7 +197,7 @@ Lyric_combine_music_iterator::construct_children ()
 
   if (!lyrics_context_)
     {
-      m->origin ()->warning (_ ("argument of \\lyricsto should contain Lyrics context"));
+      m->warning (_ ("argument of \\lyricsto should contain Lyrics context"));
     }
 
   lyricsto_voice_name_ = get_property (get_music (), "associated-context");

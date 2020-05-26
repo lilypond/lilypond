@@ -107,12 +107,12 @@ Ligature_engraver::process_music ()
     {
       if (!ligature_)
         {
-          events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
+          events_drul_[STOP]->warning (_ ("cannot find start of ligature"));
           return;
         }
 
       if (!last_bound_)
-        events_drul_[STOP]->origin ()->warning (_ ("no right bound"));
+        events_drul_[STOP]->warning (_ ("no right bound"));
       else
         ligature_->set_bound (RIGHT, last_bound_);
 
@@ -134,7 +134,7 @@ Ligature_engraver::process_music ()
     {
       if (ligature_)
         {
-          events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+          events_drul_[START]->warning (_ ("already have a ligature"));
           return;
         }
 
@@ -143,7 +143,7 @@ Ligature_engraver::process_music ()
 
       Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       if (!bound)
-        events_drul_[START]->origin ()->warning (_ ("no left bound"));
+        events_drul_[START]->warning (_ ("no left bound"));
       else
         ligature_->set_bound (LEFT, bound);
 
@@ -187,7 +187,7 @@ Ligature_engraver::finalize ()
     }
   if (ligature_)
     {
-      prev_start_event_->origin ()->warning (_ ("unterminated ligature"));
+      prev_start_event_->warning (_ ("unterminated ligature"));
       ligature_->suicide ();
     }
 }
@@ -214,8 +214,8 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
 {
   if (ligature_)
     {
-      info.event_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
-      prev_start_event_->origin ()->warning (_ ("ligature was started here"));
+      info.event_cause ()->warning (_ ("ignoring rest: ligature may not contain rest"));
+      prev_start_event_->warning (_ ("ligature was started here"));
       // TODO: maybe better should stop ligature here rather than
       // ignoring the rest?
     }

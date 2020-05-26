@@ -113,7 +113,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
                        &fingerings_,
                        ev, note_ev);
       else if (ev->in_event_class ("text-script-event"))
-        ev->origin ()->warning (_ ("cannot add text scripts to individual note heads"));
+        ev->warning (_ ("cannot add text scripts to individual note heads"));
       else if (ev->in_event_class ("script-event"))
         add_script (inf.grob (), ev, note_ev);
       else if (ev->in_event_class ("string-number-event"))

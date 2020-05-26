@@ -161,7 +161,7 @@ Glissando_engraver::finalize ()
       string msg = _ ("unterminated glissando");
 
       if (event_)
-        event_->origin ()->warning (msg);
+        event_->warning (msg);
       else
         warning (msg);
 

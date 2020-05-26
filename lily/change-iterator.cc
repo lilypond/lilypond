@@ -42,8 +42,8 @@ Change_iterator::error (const string &reason)
   string warn2 = "Change_iterator::process (): "
                  + get_outlet ()->context_name () + " = `"
                  + get_outlet ()->id_string () + "': ";
-  warning (warn2);
-  get_music ()->origin ()->warning (warn1);
+  ::warning (warn2);
+  warning (warn1);
 }
 
 string
@@ -61,14 +61,13 @@ Change_iterator::change_to (Music_iterator &it,
       Context *dest = find_context_near (it.get_outlet (), to_type, to_id);
       if (dest)
         {
-          send_stream_event (last, "ChangeParent", it.get_music ()->origin (),
+          send_stream_event (last, "ChangeParent", it.origin (),
                              ly_symbol2scm ("context"), dest->self_scm ());
         }
       else
         {
-          Input *ori = it.get_music ()->origin ();
-          ori->warning (_f ("cannot find context to change to: %s",
-                            Context::diagnostic_id (to_type, to_id).c_str ()));
+          it.warning (_f ("cannot find context to change to: %s",
+                          Context::diagnostic_id (to_type, to_id).c_str ()));
         }
     }
   else if (it.get_outlet ()->is_alias (to_type))
