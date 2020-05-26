@@ -2494,6 +2494,11 @@ Notation Reference:
 @node Opera and stage musicals
 @subsection Opera and stage musicals
 
+@cindex opera
+@cindex vocal score
+@cindex full score
+@cindex musical theatre
+
 The music, lyrics and dialogue to opera and stage musicals are
 usually set out in one or more of the following forms:
 
@@ -2543,6 +2548,14 @@ typesetting opera and musical scores.
 
 @node References for opera and stage musicals
 @unnumberedsubsubsec References for opera and stage musicals
+
+@cindex orchestral music
+@cindex ensemble music
+@cindex orchestra, notation for
+@cindex full score
+
+In addition to vocal and stage ensembles, most of the following
+notions may apply to nearly any orchestral and ensemble music:
 
 @itemize
 
