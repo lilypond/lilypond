@@ -31,15 +31,15 @@ get_grob_direction (Grob *me)
                          " progress.");
       return UP;
     }
-  if (!is_direction (d))
+  if (!is_scm<Direction> (d))
     return CENTER;
 
-  return to_dir (d);
+  return from_scm<Direction> (d);
 }
 
 void
 set_grob_direction (Grob *me, Direction d)
 {
-  SCM sd = scm_from_int (d);
+  SCM sd = to_scm (d);
   set_property (me, "direction", sd);
 }

@@ -132,7 +132,7 @@ Lyric_combine_music_iterator::start_new_syllable () const
   if (!lyrics_context_)
     return false;
 
-  if (!to_boolean (get_property (lyrics_context_, "ignoreMelismata")))
+  if (!from_scm<bool> (get_property (lyrics_context_, "ignoreMelismata")))
     {
       bool m = melisma_busy (music_context_);
       if (m)
@@ -300,7 +300,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
       && lyric_iter_->ok ())
     {
       Moment now = music_context_->now_mom ();
-      if (now.grace_part_ && !to_boolean (get_property (lyrics_context_, "includeGraceNotes")))
+      if (now.grace_part_ && !from_scm<bool> (get_property (lyrics_context_, "includeGraceNotes")))
         {
           pending_grace_moment_ = now;
           pending_grace_moment_.grace_part_ = Rational (0);

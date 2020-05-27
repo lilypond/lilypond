@@ -31,7 +31,7 @@ void register_stencil_head (SCM symbol)
 bool
 is_stencil_head (SCM symbol)
 {
-  return to_boolean (scm_object_property (symbol, ly_symbol2scm ("stencil-head?")));
+  return from_scm<bool> (scm_object_property (symbol, ly_symbol2scm ("stencil-head?")));
 }
 
 SCM

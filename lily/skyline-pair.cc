@@ -124,7 +124,7 @@ SCM
 Skyline_pair::skyline (SCM smob, SCM dir_scm)
 {
   Skyline_pair *sp = unsmob<Skyline_pair> (smob);
-  Direction dir = robust_scm2dir (dir_scm, UP);
+  Direction dir = from_scm (dir_scm, UP);
 
   if (dir == CENTER)
     {

@@ -60,8 +60,8 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long cont
   a->set_parent (me, X_AXIS);
 
   SCM accs = get_object (me, "accidental-grobs");
-  SCM key = scm_cons (scm_from_int (p->get_notename ()),
-                      scm_from_long (stagger ? context_hash : 1));
+  SCM key = scm_cons (to_scm (p->get_notename ()),
+                      to_scm (stagger ? context_hash : 1));
   // assoc because we're dealing with pairs
   SCM entry = ly_assoc (key, accs);
   if (scm_is_false (entry))
@@ -91,7 +91,7 @@ Accidental_placement::split_accidentals (Grob *accs,
         Grob *a = unsmob<Grob> (scm_car (s));
 
         if (unsmob<Grob> (get_object (a, "tie"))
-            && !to_boolean (get_property (a, "forced")))
+            && !from_scm<bool> (get_property (a, "forced")))
           break_reminder->push_back (a);
         else
           real_acc->push_back (a);
@@ -389,9 +389,9 @@ position_apes (Grob *me,
                vector<unique_ptr<Accidental_placement_entry>> const &apes,
                Skyline const &heads_skyline)
 {
-  Real padding = robust_scm2double (get_property (me, "padding"), 0.2);
+  Real padding = from_scm<double> (get_property (me, "padding"), 0.2);
   Skyline left_skyline = heads_skyline;
-  left_skyline.raise (-robust_scm2double (get_property (me, "right-padding"), 0));
+  left_skyline.raise (-from_scm<double> (get_property (me, "right-padding"), 0));
 
   /*
     Add accs entries right-to-left.
@@ -493,7 +493,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
   common[Y_AXIS] = common_refpoint_of_accidentals (apes, Y_AXIS);
   common[Y_AXIS] = common_refpoint_of_array (heads_and_stems, common[Y_AXIS], Y_AXIS);
   common[X_AXIS] = common_refpoint_of_array (heads_and_stems, me, X_AXIS);
-  Real padding = robust_scm2double (get_property (me, "padding"), 0.2);
+  Real padding = from_scm<double> (get_property (me, "padding"), 0.2);
 
   for (vsize i = apes.size (); i--;)
     set_ape_skylines (apes[i].get (), common, padding);
@@ -503,7 +503,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
   Interval width = position_apes (me, apes, heads_skyline);
 
   me->flush_extent_cache (X_AXIS);
-  set_property (me, "X-extent", ly_interval2scm (width));
+  set_property (me, "X-extent", to_scm (width));
 
   return SCM_BOOL_T;
 }

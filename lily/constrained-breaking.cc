@@ -125,8 +125,8 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
 Column_x_positions
 Constrained_breaking::space_line (vsize i, vsize j)
 {
-  bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
-  bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
+  bool ragged_right = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-right"));
+  bool ragged_last = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-last"));
 
   // TODO: Unnecessary copy.  Could pass iterators/indices to
   // get_line_configuration().  What is the real cost?
@@ -400,8 +400,8 @@ Constrained_breaking::initialize (Paper_score *ps,
       return;
     }
 
-  ragged_right_ = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
-  ragged_last_ = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
+  ragged_right_ = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-right"));
+  ragged_last_ = from_scm<bool> (pscore_->layout ()->c_variable ("ragged-last"));
 
   Output_def *l = pscore_->layout ();
 
@@ -509,9 +509,9 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start, v
 
   Paper_column *c = all_[breaks_[end]];
   out->last_column_ = c;
-  out->break_penalty_ = robust_scm2double (get_property (c, "line-break-penalty"), 0);
-  out->page_penalty_ = robust_scm2double (get_property (c, "page-break-penalty"), 0);
-  out->turn_penalty_ = robust_scm2double (get_property (c, "page-turn-penalty"), 0);
+  out->break_penalty_ = from_scm<double> (get_property (c, "line-break-penalty"), 0);
+  out->page_penalty_ = from_scm<double> (get_property (c, "page-break-penalty"), 0);
+  out->turn_penalty_ = from_scm<double> (get_property (c, "page-turn-penalty"), 0);
   out->break_permission_ = get_property (c, "line-break-permission");
   out->page_permission_ = get_property (c, "page-break-permission");
   out->turn_permission_ = get_property (c, "page-turn-permission");
@@ -601,16 +601,16 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   page_permission_ = get_property (pb, "page-break-permission");
   turn_permission_ = get_property (pb, "page-turn-permission");
   break_penalty_ = 0;
-  page_penalty_ = robust_scm2double (get_property (pb, "page-break-penalty"), 0);
-  turn_penalty_ = robust_scm2double (get_property (pb, "page-turn-penalty"), 0);
-  title_ = to_boolean (get_property (pb, "is-title"));
+  page_penalty_ = from_scm<double> (get_property (pb, "page-break-penalty"), 0);
+  turn_penalty_ = from_scm<double> (get_property (pb, "page-turn-penalty"), 0);
+  title_ = from_scm<bool> (get_property (pb, "is-title"));
   compressed_lines_count_ = 1;
   compressed_nontitle_lines_count_ = title_ ? 0 : 1;
   SCM last_scm = get_property (pb, "last-markup-line");
-  last_markup_line_ = to_boolean (last_scm);
+  last_markup_line_ = from_scm<bool> (last_scm);
   SCM first_scm = get_property (pb, "first-markup-line");
-  first_markup_line_ = to_boolean (first_scm);
-  tight_spacing_ = to_boolean (get_property (pb, "tight-spacing"));
+  first_markup_line_ = from_scm<bool> (first_scm);
+  tight_spacing_ = from_scm<bool> (get_property (pb, "tight-spacing"));
   refpoint_extent_ = Interval (0, 0);
 }
 

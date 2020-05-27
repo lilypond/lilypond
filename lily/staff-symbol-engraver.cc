@@ -80,7 +80,7 @@ Staff_symbol_engraver::Staff_symbol_engraver (Context *c)
 void
 Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   if (d)
     ASSIGN_EVENT_ONCE (span_events_[d], ev);
   else

@@ -50,7 +50,7 @@ bool
 Item::is_non_musical (Grob *me)
 {
   Item *i = dynamic_cast<Item *> (me->get_parent (X_AXIS));
-  return i ? Item::is_non_musical (i) : to_boolean (get_property (me, "non-musical"));
+  return i ? Item::is_non_musical (i) : from_scm<bool> (get_property (me, "non-musical"));
 }
 
 Paper_column *
@@ -148,7 +148,7 @@ Item::break_visible (Grob *g)
   Item *it = dynamic_cast<Item *> (g);
   SCM vis = get_property (g, "break-visibility");
   if (scm_is_vector (vis))
-    return to_boolean (scm_c_vector_ref (vis, it->break_status_dir () + 1));
+    return from_scm<bool> (scm_c_vector_ref (vis, it->break_status_dir () + 1));
   return true;
 }
 
@@ -164,7 +164,7 @@ Item::pure_is_visible (vsize start, vsize end) const
         pos = 2;
       else if (pc_rank == end)
         pos = 0;
-      return to_boolean (scm_c_vector_ref (vis, pos));
+      return from_scm<bool> (scm_c_vector_ref (vis, pos));
     }
   return Grob::pure_is_visible (start, end);
 }

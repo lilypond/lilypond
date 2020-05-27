@@ -107,7 +107,7 @@ Bar_engraver::acknowledge_end_spanner (Grob_info gi)
 {
   Grob *g = gi.grob ();
 
-  if (to_boolean (get_property (g, "to-barline")))
+  if (from_scm<bool> (get_property (g, "to-barline")))
     spanners_.push_back (dynamic_cast<Spanner *> (g));
 }
 

@@ -34,7 +34,7 @@ Chord_name::after_line_breaking (SCM smob)
   assert (me);
 
   SCM s = get_property (me, "begin-of-line-visible");
-  if (to_boolean (s))
+  if (from_scm<bool> (s))
     {
       if (me->get_column ()->get_rank ()
           - me->get_system ()->spanned_rank_interval ()[LEFT] > 1)

@@ -47,7 +47,7 @@ using std::vector;
 static bool
 is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 {
-  if (!to_boolean (get_property (col, "allow-loose-spacing")))
+  if (!from_scm<bool> (get_property (col, "allow-loose-spacing")))
     return false;
 
   if ((options->float_nonmusical_columns_

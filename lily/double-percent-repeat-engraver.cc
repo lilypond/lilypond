@@ -73,14 +73,14 @@ Double_percent_repeat_engraver::process_music ()
                                         percent_event_->self_scm ());
 
       SCM count = get_property (percent_event_, "repeat-count");
-      if (!scm_is_null (count) && to_boolean (get_property (this, "countPercentRepeats"))
+      if (!scm_is_null (count) && from_scm<bool> (get_property (this, "countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           Item *double_percent_counter
             = make_item ("DoublePercentRepeatCounter",
                          percent_event_->self_scm ());
 
-          SCM text = scm_number_to_string (count, scm_from_int (10));
+          SCM text = scm_number_to_string (count, to_scm (10));
           set_property (double_percent_counter, "text", text);
 
           Side_position_interface::add_support (double_percent_counter,

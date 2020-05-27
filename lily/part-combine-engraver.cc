@@ -98,9 +98,9 @@ void
 Part_combine_engraver::process_music ()
 {
   if (waiting_event_
-      && to_boolean (get_property (this, "printPartCombineTexts")))
+      && from_scm<bool> (get_property (this, "printPartCombineTexts")))
     {
-      if (note_found_ || !to_boolean (get_property (this, "partCombineTextsOnNote")))
+      if (note_found_ || !from_scm<bool> (get_property (this, "partCombineTextsOnNote")))
         {
           create_item (waiting_event_);
           waiting_event_ = 0;

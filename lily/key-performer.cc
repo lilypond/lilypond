@@ -69,7 +69,7 @@ Key_performer::process_music ()
 
       Pitch key_do (0,
                     scm_to_int (scm_caar (pitchlist)),
-                    ly_scm2rational (scm_cdar (pitchlist)));
+                    from_scm<Rational> (scm_cdar (pitchlist)));
 
       SCM c_pitchlist
         = ly_transpose_key_alist (pitchlist,
@@ -78,10 +78,10 @@ Key_performer::process_music ()
       /* MIDI keys are too limited for lilypond scales.
          We check for minor scale and assume major otherwise.  */
 
-      SCM third = ly_assoc (scm_from_int (2), c_pitchlist);
+      SCM third = ly_assoc (to_scm (2), c_pitchlist);
       bool minor = (scm_is_pair (third)
                     && scm_is_number (scm_cdr (third))
-                    && ly_scm2rational (scm_cdr (third)) == FLAT_ALTERATION);
+                    && from_scm<Rational> (scm_cdr (third)) == FLAT_ALTERATION);
 
       audio_ = new Audio_key (scm_to_int (acc),
                               !minor);

@@ -48,7 +48,7 @@ Repeated_music::alternatives_get_length (Music *me, bool fold)
 
   Moment m = 0;
   int done = 0;
-  int count = robust_scm2int (get_property (me, "repeat-count"), 0);
+  int count = from_scm (get_property (me, "repeat-count"), 0);
 
   SCM p = alternative_list;
   while (scm_is_pair (p) && done < count)

@@ -102,7 +102,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
       debug_output ("]", false);
 
       pf->description_ = scm_cons (SCM_BOOL_F,
-                                   scm_from_double (1.0));
+                                   to_scm (1.0));
     }
   g_free (pango_fn);
   return unsmob<Pango_font> (val);
@@ -131,7 +131,7 @@ All_font_metrics::find_otf (const string &name)
       unsmob<Font_metric> (val)->file_name_ = file_name;
       SCM name_string = ly_string2scm (name);
       unsmob<Font_metric> (val)->description_ = scm_cons (name_string,
-                                                          scm_from_double (1.0));
+                                                          to_scm (1.0));
       otf_dict_->set (sname, val);
       unsmob<Font_metric> (val)->unprotect ();
     }

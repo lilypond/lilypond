@@ -67,11 +67,11 @@ Text_engraver::process_music ()
       /* see script-engraver.cc */
       SCM priority = get_property (script, "script-priority");
       if (!scm_is_number (priority))
-        priority = scm_from_int (200); // TODO: Explain magic.
-      priority = scm_sum (priority, scm_from_size_t (i));
+        priority = to_scm (200); // TODO: Explain magic.
+      priority = scm_sum (priority, to_scm (i));
       set_property (script, "script-priority", priority);
 
-      Direction dir = to_dir (get_property (ev, "direction"));
+      Direction dir = from_scm<Direction> (get_property (ev, "direction"));
       if (dir)
         set_grob_direction (script, dir);
 

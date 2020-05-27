@@ -41,7 +41,7 @@ interpret_stencil_expression (SCM expr,
         return;
       if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
         {
-          o += ly_scm2offset (scm_cadr (expr));
+          o += from_scm<Offset> (scm_cadr (expr));
           expr = scm_caddr (expr);
         }
       else if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
@@ -57,7 +57,7 @@ interpret_stencil_expression (SCM expr,
 
           SCM link
             = (*func) (func_arg,
-                       scm_list_3 (head, ly_quote_scm (ly_offset2scm (o)), grob));
+                       scm_list_3 (head, ly_quote_scm (to_scm (o)), grob));
           interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
           if (scm_is_true (link))
             (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
@@ -91,9 +91,9 @@ interpret_stencil_expression (SCM expr,
         {
           SCM args = scm_cadr (expr);
           SCM angle = scm_car (args);
-          Offset tmp = o + robust_scm2offset (scm_cadr (args), Offset (0.0, 0.0));
+          Offset tmp = o + from_scm (scm_cadr (args), Offset (0.0, 0.0));
 
-          SCM offset = ly_offset2scm (tmp);
+          SCM offset = to_scm (tmp);
           SCM x = scm_car (offset);
           SCM y = scm_cdr (offset);
 
@@ -127,8 +127,8 @@ interpret_stencil_expression (SCM expr,
         {
           (*func) (func_arg,
                    scm_list_4 (ly_symbol2scm ("placebox"),
-                               scm_from_double (o[X_AXIS]),
-                               scm_from_double (o[Y_AXIS]),
+                               to_scm (o[X_AXIS]),
+                               to_scm (o[Y_AXIS]),
                                expr));
           return;
         }

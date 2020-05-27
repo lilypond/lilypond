@@ -47,7 +47,7 @@ Breathing_sign::divisio_minima (SCM smob)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
+  thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
@@ -71,7 +71,7 @@ Breathing_sign::divisio_maior (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
+  thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
@@ -152,7 +152,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
+  thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
@@ -175,7 +175,7 @@ Breathing_sign::finalis (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (get_property (me, "thickness"), 1.0);
+  thickness *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
@@ -210,10 +210,10 @@ Breathing_sign::offset_callback (SCM smob)
     {
       Interval iv = Staff_symbol::line_span (staff);
       Real inter = Staff_symbol::staff_space (staff) / 2;
-      return scm_from_double (inter * iv[d]);
+      return to_scm (inter * iv[d]);
     }
 
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 ADD_INTERFACE (Breathing_sign,

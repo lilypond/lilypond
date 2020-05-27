@@ -61,8 +61,8 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
     return;
 
   alternative_event_ = ev;
-  int current_barnumber = robust_scm2int (get_property (this, "currentBarNumber"), 0);
-  Direction alternative_dir = robust_scm2dir (get_property (ev, "alternative-dir"), CENTER);
+  int current_barnumber = from_scm (get_property (this, "currentBarNumber"), 0);
+  Direction alternative_dir = from_scm (get_property (ev, "alternative-dir"), CENTER);
   bool make_alternative = scm_is_eq (get_property (this, "alternativeNumberingStyle"),
                                      ly_symbol2scm ("numbers"))
                           || scm_is_eq (get_property (this, "alternativeNumberingStyle"),
@@ -83,7 +83,7 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
       if (alternative_dir < RIGHT)
         current_barnumber = alternative_starting_bar_number_;
 
-      set_property (context (), "currentBarNumber", scm_from_int (current_barnumber));
+      set_property (context (), "currentBarNumber", to_scm (current_barnumber));
     }
 }
 
@@ -98,7 +98,7 @@ Bar_number_engraver::process_music ()
       SCM bn = get_property (this, "currentBarNumber");
       SCM proc = get_property (this, "barNumberVisibility");
       if (scm_is_number (bn) && ly_is_procedure (proc)
-          && to_boolean (scm_call_2 (proc, bn, mp.smobbed_copy ())))
+          && from_scm<bool> (scm_call_2 (proc, bn, mp.smobbed_copy ())))
         {
           create_items ();
           SCM alternative_style = get_property (this, "alternativeNumberingStyle");
@@ -107,7 +107,7 @@ Bar_number_engraver::process_music ()
             {
               if (alternative_event_)
                 {
-                  Direction alternative_dir = robust_scm2dir (get_property (alternative_event_, "alternative-dir"), RIGHT);
+                  Direction alternative_dir = from_scm (get_property (alternative_event_, "alternative-dir"), RIGHT);
                   switch (alternative_dir)
                     {
                     case LEFT:
@@ -123,7 +123,7 @@ Bar_number_engraver::process_music ()
                     }
                   alternative_number_ += alternative_number_increment_;
 
-                  alternative_number_increment_ = robust_scm2int (get_property (alternative_event_, "alternative-increment"), 1);
+                  alternative_number_increment_ = from_scm (get_property (alternative_event_, "alternative-increment"), 1);
                 }
             }
           SCM formatter = get_property (this, "barNumberFormatter");
@@ -131,7 +131,7 @@ Bar_number_engraver::process_music ()
             set_property (text_, "text", scm_call_4 (formatter,
                                                      bn,
                                                      mp.smobbed_copy (),
-                                                     scm_from_int (alternative_number_),
+                                                     to_scm (alternative_number_),
                                                      context ()->self_scm ()));
         }
     }

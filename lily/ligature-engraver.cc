@@ -96,7 +96,7 @@ Ligature_engraver::Ligature_engraver (Context *c)
 void
 Ligature_engraver::listen_ligature (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (events_drul_[d], ev);
 }
 

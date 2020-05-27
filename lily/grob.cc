@@ -143,21 +143,21 @@ Grob::get_print_stencil () const
   if (Stencil *m = unsmob<Stencil> (stil))
     {
       retval = *m;
-      bool transparent = to_boolean (get_property (this, "transparent"));
+      bool transparent = from_scm<bool> (get_property (this, "transparent"));
 
       /* Process whiteout before color and grob-cause to prevent colored */
       /* whiteout background and larger file sizes with \pointAndClickOn. */
       /* A grob has to be visible, otherwise the whiteout property has no effect. */
       /* Calls the scheme procedure stencil-whiteout in scm/stencils.scm */
       if (!transparent && (scm_is_number (get_property (this, "whiteout"))
-                           || to_boolean (get_property (this, "whiteout"))))
+                           || from_scm<bool> (get_property (this, "whiteout"))))
         {
           Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
           retval = *unsmob<Stencil>
                    (Lily::stencil_whiteout (retval.smobbed_copy (),
                                             get_property (this, "whiteout-style"),
                                             get_property (this, "whiteout"),
-                                            scm_from_double (line_thickness)));
+                                            to_scm (line_thickness)));
         }
 
       if (transparent)
@@ -298,7 +298,7 @@ Grob::handle_prebroken_dependencies ()
   if (original ())
     {
       Item *it = dynamic_cast<Item *> (this);
-      substitute_object_links (scm_from_int (it->break_status_dir ()),
+      substitute_object_links (to_scm (it->break_status_dir ()),
                                original ()->object_alist_);
     }
 }
@@ -363,7 +363,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
 
   if (dim_cache_[Y_AXIS].offset_)
     {
-      if (to_boolean (get_property (this, "pure-Y-offset-in-progress")))
+      if (from_scm<bool> (get_property (this, "pure-Y-offset-in-progress")))
         programming_error ("cyclic chain in pure-Y-offset callbacks");
 
       off = *dim_cache_[Y_AXIS].offset_;
@@ -374,7 +374,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
 
       dim_cache_[Y_AXIS].offset_ = 0;
       set_property (this, "pure-Y-offset-in-progress", SCM_BOOL_T);
-      off = robust_scm2double (call_pure_function (proc,
+      off = from_scm<double> (call_pure_function (proc,
                                                    scm_list_1 (self_scm ()),
                                                    start, end),
                                0.0);
@@ -412,7 +412,7 @@ Grob::get_offset (Axis a) const
     UGH: can't fold next 2 statements together. Apparently GCC thinks
     dim_cache_[a].offset_ is unaliased.
   */
-  Real off = robust_scm2double (get_property (this, sym), 0.0);
+  Real off = from_scm<double> (get_property (this, sym), 0.0);
   if (dim_cache_[a].offset_)
     {
       *dim_cache_[a].offset_ += off;
@@ -474,13 +474,13 @@ Grob::extent (Grob const *refp, Axis a) const
                 ? get_property (this, "X-extent")
                 : get_property (this, "Y-extent");
       if (is_number_pair (ext))
-        real_ext.unite (ly_scm2interval (ext));
+        real_ext.unite (from_scm<Interval> (ext));
 
       SCM min_ext = (a == X_AXIS)
                     ? get_property (this, "minimum-X-extent")
                     : get_property (this, "minimum-Y-extent");
       if (is_number_pair (min_ext))
-        real_ext.unite (ly_scm2interval (min_ext));
+        real_ext.unite (from_scm<Interval> (min_ext));
 
       dim_cache_[a].extent_ = real_ext;
     }
@@ -499,7 +499,7 @@ Interval
 Grob::pure_y_extent (Grob *refp, vsize start, vsize end)
 {
   SCM iv_scm = get_pure_property (this, "Y-extent", start, end);
-  Interval iv = robust_scm2interval (iv_scm, Interval ());
+  Interval iv = from_scm (iv_scm, Interval ());
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
   SCM min_ext = get_property (this, "minimum-Y-extent");
@@ -508,7 +508,7 @@ Grob::pure_y_extent (Grob *refp, vsize start, vsize end)
      a problem with Hara-kiri spanners. They would request_suicide and
      return empty extents, but we would force them here to be large. */
   if (!iv.is_empty () && is_number_pair (min_ext))
-    iv.unite (ly_scm2interval (min_ext));
+    iv.unite (from_scm<Interval> (min_ext));
 
   if (!iv.is_empty ())
     iv.translate (offset);
@@ -855,7 +855,7 @@ grob_stencil_extent (Grob *me, Axis a)
   Interval e;
   if (m)
     e = m->extent (a);
-  return ly_interval2scm (e);
+  return to_scm (e);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
@@ -874,7 +874,7 @@ Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
   if (unsmob<Stencil> (get_property_data (me, "stencil")))
     return grob_stencil_extent (me, Y_AXIS);
 
-  return ly_interval2scm (Interval ());
+  return to_scm (Interval ());
 
 }
 
@@ -887,7 +887,7 @@ Grob::y_parent_positioning (SCM smob)
   if (par)
     (void) get_property (par, "positioning-done");
 
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, 1);
@@ -900,7 +900,7 @@ Grob::x_parent_positioning (SCM smob)
   if (par)
     (void) get_property (par, "positioning-done");
 
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);

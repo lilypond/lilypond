@@ -39,14 +39,14 @@ SCM
 Hairpin::pure_height (SCM smob, SCM, SCM)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real height = robust_scm2double (get_property (me, "height"), 0.0)
+  Real height = from_scm<double> (get_property (me, "height"), 0.0)
                 * Staff_symbol_referencer::staff_space (me);
 
-  Real thickness = robust_scm2double (get_property (me, "thickness"), 1)
+  Real thickness = from_scm<double> (get_property (me, "thickness"), 1)
                    * Staff_symbol_referencer::line_thickness (me);
 
   height += thickness / 2;
-  return ly_interval2scm (Interval (-height, height));
+  return to_scm (Interval (-height, height));
 }
 
 MAKE_SCHEME_CALLBACK (Hairpin, broken_bound_padding, 1);
@@ -58,13 +58,13 @@ Hairpin::broken_bound_padding (SCM smob)
   if (r_bound->break_status_dir () != -1)
     {
       me->warning (_ ("Asking for broken bound padding at a non-broken bound."));
-      return scm_from_double (0.0);
+      return to_scm (0.0);
     }
 
   System *sys = dynamic_cast<System *> (me->get_system ());
   Direction dir = get_grob_direction (me->get_parent (Y_AXIS));
   if (!dir)
-    return scm_from_double (0.0);
+    return to_scm (0.0);
 
   Grob *my_vertical_axis_group = Grob::get_vertical_axis_group (me);
   Drul_array<Grob *> vertical_axis_groups;
@@ -74,7 +74,7 @@ Hairpin::broken_bound_padding (SCM smob)
                               : my_vertical_axis_group;
 
   if (!vertical_axis_groups[dir])
-    return scm_from_double (0.0);
+    return to_scm (0.0);
 
   Drul_array<Grob *> span_bars (0, 0);
   for (DOWN_and_UP (d))
@@ -93,13 +93,13 @@ Hairpin::broken_bound_padding (SCM smob)
           }
 
       if (!span_bars[d])
-        return scm_from_double (0.0);
+        return to_scm (0.0);
     }
 
   if (span_bars[DOWN] != span_bars[UP])
-    return scm_from_double (0.0);
+    return to_scm (0.0);
 
-  return scm_from_double (robust_scm2double (get_property (me, "bound-padding"), 0.5)
+  return to_scm (from_scm<double> (get_property (me, "bound-padding"), 0.5)
                           / 2.0);
 }
 
@@ -110,14 +110,14 @@ Hairpin::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
 
   SCM s = get_property (me, "grow-direction");
-  if (!is_direction (s))
+  if (!is_scm<Direction> (s))
     {
       me->suicide ();
       return SCM_EOL;
     }
 
-  Direction grow_dir = to_dir (s);
-  Real padding = robust_scm2double (get_property (me, "bound-padding"), 0.5);
+  Direction grow_dir = from_scm<Direction> (s);
+  Real padding = from_scm<double> (get_property (me, "bound-padding"), 0.5);
 
   Drul_array<bool> broken;
   Drul_array<Item *> bounds;
@@ -147,7 +147,7 @@ Hairpin::print (SCM smob)
     Use the height and thickness of the hairpin when making a circled tip
   */
   bool circled_tip = ly_scm2bool (get_property (me, "circled-tip"));
-  Real height = robust_scm2double (get_property (me, "height"), 0.2)
+  Real height = from_scm<double> (get_property (me, "height"), 0.2)
                 * Staff_symbol_referencer::staff_space (me);
   /*
     FIXME: 0.525 is still just a guess...
@@ -155,9 +155,9 @@ Hairpin::print (SCM smob)
   Real rad = height * 0.525;
   Real thick = 1.0;
   if (circled_tip)
-    thick = robust_scm2double (get_property (me, "thickness"), 1.0)
+    thick = from_scm<double> (get_property (me, "thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
-  Drul_array<Real> shorten = robust_scm2interval (get_property (me, "shorten-pair"),
+  Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
                                                   Interval (0, 0));
 
   for (LEFT_and_RIGHT (d))
@@ -173,14 +173,14 @@ Hairpin::print (SCM smob)
           else
             {
               Real broken_bound_padding
-                = robust_scm2double (get_property (me, "broken-bound-padding"), 0.0);
+                = from_scm<double> (get_property (me, "broken-bound-padding"), 0.0);
               extract_grob_set (me, "concurrent-hairpins", chp);
               for (vsize i = 0; i < chp.size (); i++)
                 {
                   Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
                   if (span_elt->get_bound (RIGHT)->break_status_dir () == LEFT)
                     broken_bound_padding = std::max (broken_bound_padding,
-                                                     robust_scm2double (get_property (span_elt, "broken-bound-padding"), 0.0));
+                                                     from_scm<double> (get_property (span_elt, "broken-bound-padding"), 0.0));
                 }
               x_points[d] -= d * broken_bound_padding;
             }
@@ -315,8 +315,8 @@ Hairpin::print (SCM smob)
       /* Hmmm, perhaps we should have a Lookup::circle () method? */
       Stencil circle (extent,
                       scm_list_4 (ly_symbol2scm ("circle"),
-                                  scm_from_double (rad),
-                                  scm_from_double (thick),
+                                  to_scm (rad),
+                                  to_scm (thick),
                                   SCM_BOOL_F));
 
       /*

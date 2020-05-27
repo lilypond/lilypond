@@ -68,7 +68,7 @@ Slur::calc_direction (SCM smob)
           break;
         }
     }
-  return scm_from_int (d);
+  return to_scm (d);
 }
 
 MAKE_SCHEME_CALLBACK (Slur, pure_height, 3);
@@ -98,7 +98,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   if (common_refpoint_of_array (encompasses, me, Y_AXIS) != parent)
     /* this could happen if, for example, we are a cross-staff slur.
        in this case, we want to be ignored */
-    return ly_interval2scm (Interval ());
+    return to_scm (Interval ());
 
   for (vsize i = 0; i < encompasses.size (); i++)
     {
@@ -115,7 +115,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     }
 
   if (ret.is_empty ())
-    return ly_interval2scm (Interval ());
+    return to_scm (Interval ());
 
   Interval extremal_span;
   extremal_span.set_empty ();
@@ -129,7 +129,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     (see Slur_score_state.get_base_attachments ())
   */
   ret += 0.5 * dir;
-  return ly_interval2scm (ret);
+  return to_scm (ret);
 }
 
 MAKE_SCHEME_CALLBACK (Slur, height, 1);
@@ -140,8 +140,8 @@ Slur::height (SCM smob)
 
   // FIXME uncached
   Stencil *m = me->get_stencil ();
-  return m ? ly_interval2scm (m->extent (Y_AXIS))
-         : ly_interval2scm (Interval ());
+  return m ? to_scm (m->extent (Y_AXIS))
+         : to_scm (Interval ());
 }
 
 MAKE_SCHEME_CALLBACK (Slur, print, 1);
@@ -158,9 +158,9 @@ Slur::print (SCM smob)
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
   Real base_thick = staff_thick
-                    * robust_scm2double (get_property (me, "thickness"), 1);
+                    * from_scm<double> (get_property (me, "thickness"), 1);
   Real line_thick = staff_thick
-                    * robust_scm2double (get_property (me, "line-thickness"), 1);
+                    * from_scm<double> (get_property (me, "line-thickness"), 1);
 
   Bezier one = get_curve (me);
   Stencil a;
@@ -179,7 +179,7 @@ Slur::print (SCM smob)
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       if (!scm_is_number (get_property (me, "font-size")))
-        properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
+        properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), to_scm (-6), SCM_EOL),
                                properties);
 
       Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup
@@ -235,7 +235,7 @@ Slur::get_curve (Grob *me)
     {
       if (scm_is_pair (s))
         {
-          b.control_[i] = ly_scm2offset (scm_car (s));
+          b.control_[i] = from_scm<Offset> (scm_car (s));
           s = scm_cdr (s);
         }
       else
@@ -262,8 +262,8 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback, 4, 1, "");
 SCM
 Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offset_scm)
 {
-  int start = robust_scm2int (start_scm, 0);
-  int end = robust_scm2int (end_scm, 0);
+  int start = from_scm (start_scm, 0);
+  int end = from_scm (end_scm, 0);
   Grob *script = unsmob<Grob> (grob);
   Grob *slur = unsmob<Grob> (get_object (script, "slur"));
   if (!slur)
@@ -274,9 +274,9 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
       && !scm_is_eq (avoid, ly_symbol2scm ("around")))
     return offset_scm;
 
-  Real offset = robust_scm2double (offset_scm, 0.0);
+  Real offset = from_scm<double> (offset_scm, 0.0);
   Direction dir = get_grob_direction (script);
-  return scm_from_double (offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
+  return to_scm (offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1, "");
@@ -324,11 +324,11 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   if (!contains)
     return offset_scm;
 
-  Real offset = robust_scm2double (offset_scm, 0);
+  Real offset = from_scm<double> (offset_scm, 0);
   yext.translate (offset);
 
   /* FIXME: slur property, script property?  */
-  Real slur_padding = robust_scm2double (get_property (script, "slur-padding"),
+  Real slur_padding = from_scm<double> (get_property (script, "slur-padding"),
                                          0.0);
   yext.widen (slur_padding);
 
@@ -369,7 +369,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 
   Real avoidance_offset = do_shift ? curve.minmax (X_AXIS, std::max (xext[LEFT], curve.control_[0][X_AXIS] + EPS), std::min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir) - yext[-dir] : 0.0;
 
-  return scm_from_double (offset + avoidance_offset);
+  return to_scm (offset + avoidance_offset);
 }
 
 MAKE_SCHEME_CALLBACK (Slur, vertical_skylines, 1);
@@ -381,7 +381,7 @@ Slur::vertical_skylines (SCM smob)
     return Skyline_pair ().smobbed_copy ();
 
   Bezier curve = Slur::get_curve (me);
-  vsize box_count = robust_scm2vsize (get_property (me, "skyline-quantizing"), 10);
+  vsize box_count = from_scm<vsize> (get_property (me, "skyline-quantizing"), 10);
 
   Offset last;
   vector<Drul_array<Offset>> segments;
@@ -458,7 +458,7 @@ MAKE_SCHEME_CALLBACK (Slur, outside_slur_cross_staff, 2)
 SCM
 Slur::outside_slur_cross_staff (SCM smob, SCM previous)
 {
-  if (to_boolean (previous))
+  if (from_scm<bool> (previous))
     return previous;
 
   Grob *me = unsmob<Grob> (smob);
@@ -481,7 +481,7 @@ Slur::calc_cross_staff (SCM smob)
   for (vsize i = 0; i < cols.size (); i++)
     {
       if (Grob *s = Note_column::get_stem (cols[i]))
-        if (to_boolean (get_property (s, "cross-staff")))
+        if (from_scm<bool> (get_property (s, "cross-staff")))
           return SCM_BOOL_T;
     }
 

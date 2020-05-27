@@ -59,7 +59,7 @@ void
 Melody_engraver::process_acknowledged ()
 {
   if (stem_
-      && !is_direction (get_property_data (stem_, "neutral-direction")))
+      && !is_scm<Direction> (get_property_data (stem_, "neutral-direction")))
     {
       extract_grob_set (stem_, "rests", rests);
       if (rests.size ())

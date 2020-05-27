@@ -64,7 +64,7 @@ brew_flexa (Grob *me,
   Real height = staff_space - horizontal_line_thickness;
   Stencil stencil;
   Real const interval
-    = robust_scm2double (get_property (me, "flexa-interval"), 0.0);
+    = from_scm<double> (get_property (me, "flexa-interval"), 0.0);
   Real slope = (interval / 2.0 * staff_space) / width;
 
   // Compensate optical illusion regarding vertical position of left
@@ -140,11 +140,11 @@ internal_brew_primitive (Grob *me)
 
   if (primitive & MLP_ANY)
     {
-      thickness = robust_scm2double (get_property (me, "thickness"), .13);
-      width = robust_scm2double (get_property (me, "head-width"), staff_space);
+      thickness = from_scm<double> (get_property (me, "thickness"), .13);
+      width = from_scm<double> (get_property (me, "head-width"), staff_space);
     }
   if (primitive & MLP_FLEXA)
-    flexa_width = robust_scm2double (get_property (me, "flexa-width"), 2.0)
+    flexa_width = from_scm<double> (get_property (me, "flexa-width"), 2.0)
                   * staff_space;
 
   Stencil out;
@@ -179,7 +179,7 @@ internal_brew_primitive (Grob *me)
       if (!out.is_empty ()
           && !Staff_symbol_referencer::on_line
           (me,
-           robust_scm2int (get_property (me, "staff-position"), 0)))
+           from_scm (get_property (me, "staff-position"), 0)))
         index += "r";
       out = fm->find_by_name (index + suffix);
       break;
@@ -225,7 +225,7 @@ internal_brew_primitive (Grob *me)
       out.add_stencil (join);
     }
 
-  if (to_boolean (get_property (me, "add-join")))
+  if (from_scm<bool> (get_property (me, "add-join")))
     {
       int join_right = scm_to_int (get_property (me, "delta-position"));
       if (join_right)

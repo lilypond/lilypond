@@ -33,7 +33,7 @@ Tab_staff_symbol_engraver::acknowledge_staff_symbol (Grob_info gi)
 {
   long k = scm_ilength (get_property (this, "stringTunings"));
   if (k >= 0)
-    set_property (gi.grob (), "line-count", scm_from_long (k));
+    set_property (gi.grob (), "line-count", to_scm (k));
 }
 
 Tab_staff_symbol_engraver::Tab_staff_symbol_engraver (Context *c)

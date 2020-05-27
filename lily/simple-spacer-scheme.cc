@@ -44,13 +44,13 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 {
   long len = scm_ilength (springs);
   if (len == 0)
-    return scm_list_2 (scm_from_double (0.0), scm_from_double (0.0));
+    return scm_list_2 (to_scm (0.0), to_scm (0.0));
 
   SCM_ASSERT_TYPE (len >= 0, springs, SCM_ARG1, __FUNCTION__, "list of springs");
   SCM_ASSERT_TYPE (scm_ilength (rods) > 0, rods, SCM_ARG1, __FUNCTION__, "list of rods");
   LY_ASSERT_TYPE (scm_is_number, length, 3);
 
-  bool is_ragged = to_boolean (ragged);
+  bool is_ragged = from_scm<bool> (ragged);
   Simple_spacer spacer;
   for (SCM s = springs; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -79,11 +79,11 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 
   vector<Real> posns = spacer.spring_positions ();
 
-  SCM force_return = spacer.fits () ? scm_from_double (spacer.force ()) : SCM_BOOL_F;
+  SCM force_return = spacer.fits () ? to_scm (spacer.force ()) : SCM_BOOL_F;
 
   SCM retval = SCM_EOL;
   for (vsize i = posns.size (); i--;)
-    retval = scm_cons (scm_from_double (posns[i]), retval);
+    retval = scm_cons (to_scm (posns[i]), retval);
 
   retval = scm_cons (force_return, retval);
   return retval;

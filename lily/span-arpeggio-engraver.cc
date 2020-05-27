@@ -81,7 +81,7 @@ Span_arpeggio_engraver::process_acknowledged ()
 
   */
   if (!span_arpeggio_ && arpeggios_.size () > 1
-      && to_boolean (get_property (this, "connectArpeggios")))
+      && from_scm<bool> (get_property (this, "connectArpeggios")))
     span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
 
   if (span_arpeggio_)

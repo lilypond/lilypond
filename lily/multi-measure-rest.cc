@@ -127,7 +127,7 @@ Multi_measure_rest::height (SCM smob)
   Stencil mol;
   mol.add_stencil (symbol_stencil (me, space));
 
-  return ly_interval2scm (mol.extent (Y_AXIS));
+  return to_scm (mol.extent (Y_AXIS));
 }
 
 int
@@ -138,10 +138,10 @@ calc_measure_duration_log (Grob *me)
   Rational ml = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_
                 : Rational (1);
   auto duration = static_cast<double> (ml);
-  bool round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
-                                                      scm_from_int64 (ml.denominator ())),
+  bool round_up = from_scm<bool> (scm_list_p (scm_member (scm_cons (to_scm (ml.numerator ()),
+                                                      to_scm (ml.denominator ())),
                                                       get_property (me, "round-up-exceptions"))))
-                  || to_boolean (get_property (me, "round-up-to-longer-rest"));
+                  || from_scm<bool> (get_property (me, "round-up-to-longer-rest"));
   int closest_usable_duration_log;
 
   // Out of range initial values.
@@ -153,8 +153,8 @@ calc_measure_duration_log (Grob *me)
   int maximum_usable_duration_log = 15;
 
   SCM duration_logs_list = get_property (me, "usable-duration-logs");
-  if (to_boolean (scm_null_p (duration_logs_list))
-      || !to_boolean (scm_list_p (duration_logs_list)))
+  if (from_scm<bool> (scm_null_p (duration_logs_list))
+      || !from_scm<bool> (scm_list_p (duration_logs_list)))
     {
       warning (_ ("usable-duration-logs must be a non-empty list."
                   "  Falling back to whole rests."));
@@ -223,8 +223,8 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 Stencil
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real thick_thick = robust_scm2double (get_property (me, "thick-thickness"), 1.0);
-  Real hair_thick = robust_scm2double (get_property (me, "hair-thickness"), .1);
+  Real thick_thick = from_scm<double> (get_property (me, "thick-thickness"), 1.0);
+  Real hair_thick = from_scm<double> (get_property (me, "hair-thickness"), .1);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real slt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -276,7 +276,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
         }
       else
         pos = Rest::staff_position_internal (me, 1, dir);
-      set_property (me, "staff-position", scm_from_double (pos));
+      set_property (me, "staff-position", to_scm (pos));
     }
   else
     pos = scm_to_double (sp);
@@ -306,7 +306,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
         r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
       if (dl < 0)
         {
-          Real fs = pow (2, robust_scm2double (get_property (me, "font-size"), 0) / 6);
+          Real fs = pow (2, from_scm<double> (get_property (me, "font-size"), 0) / 6);
           r.translate_axis (ss * 0.5 * (spi - pos) + (ss - fs), Y_AXIS);
         }
       else
@@ -328,7 +328,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   if (inner_padding < 0)
     inner_padding = 1.0;
 
-  Real max_separation = std::max (robust_scm2double (get_property (me, "max-symbol-separation"), 8.0),
+  Real max_separation = std::max (from_scm<double> (get_property (me, "max-symbol-separation"), 8.0),
                                   1.0);
 
   inner_padding = std::min (inner_padding, max_separation);
@@ -375,15 +375,15 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       options.init_from_grob (me);
       Moment mlen = robust_scm2moment (get_property (li, "measure-length"),
                                        Moment (1));
-      length += robust_scm2double (get_property (li, "full-measure-extra-space"), 0.0)
+      length += from_scm<double> (get_property (li, "full-measure-extra-space"), 0.0)
                 + options.get_duration_space (mlen.main_part_)
-                + (robust_scm2double (get_property (me, "space-increment"), 0.0)
-                   * log_2 (robust_scm2int (get_property (me, "measure-count"), 1)));
+                + (from_scm<double> (get_property (me, "space-increment"), 0.0)
+                   * log_2 (from_scm (get_property (me, "measure-count"), 1)));
     }
 
-  length += 2 * robust_scm2double (get_property (me, "bound-padding"), 0.0);
+  length += 2 * from_scm<double> (get_property (me, "bound-padding"), 0.0);
 
-  Real minlen = robust_scm2double (get_property (me, "minimum-length"), 0.0);
+  Real minlen = from_scm<double> (get_property (me, "minimum-length"), 0.0);
 
   Item *combinations[4][2] = {{li, ri},
     {lb, ri},

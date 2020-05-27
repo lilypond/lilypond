@@ -362,7 +362,7 @@ Dynamic_performer::equalize_volume (Real volume)
 
       if (is_number_pair (s))
         {
-          Interval iv = ly_scm2interval (s);
+          Interval iv = from_scm<Interval> (s);
           volume = iv[MIN] + iv.length () * volume;
         }
     }
@@ -388,7 +388,7 @@ Dynamic_performer::look_up_absolute_volume (SCM dynamicString,
   if (ly_is_procedure (proc))
     svolume = scm_call_1 (proc, dynamicString);
 
-  return robust_scm2double (svolume, defaultValue);
+  return from_scm<double> (svolume, defaultValue);
 }
 
 void
@@ -467,7 +467,7 @@ Dynamic_performer::stop_translation_timestep ()
 void
 Dynamic_performer::listen_decrescendo (Stream_event *r)
 {
-  Direction d = to_dir (get_property (r, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (r, "span-direction"));
   if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
     next_grow_dir_ = SMALLER;
 }
@@ -475,7 +475,7 @@ Dynamic_performer::listen_decrescendo (Stream_event *r)
 void
 Dynamic_performer::listen_crescendo (Stream_event *r)
 {
-  Direction d = to_dir (get_property (r, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (r, "span-direction"));
   if (ASSIGN_EVENT_ONCE (span_events_[d], r) && (d == START))
     next_grow_dir_ = BIGGER;
 }

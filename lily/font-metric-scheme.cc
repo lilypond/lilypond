@@ -63,9 +63,9 @@ LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 
   size_t glyph_index = fm->name_to_index (ly_scm2string (name));
   if (glyph_index != GLYPH_INDEX_INVALID)
-    return scm_from_size_t (glyph_index);
+    return to_scm (glyph_index);
   else
-    return scm_from_int (-1);
+    return to_scm (-1);
 }
 
 LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
@@ -86,7 +86,7 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
   int i = scm_to_int (index);
   size_t glyph_index ((i >= 0) ? i : GLYPH_INDEX_INVALID);
   size_t charcode = fm->index_to_charcode (glyph_index);
-  return scm_from_size_t (charcode);
+  return to_scm (charcode);
 }
 
 LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
@@ -104,7 +104,7 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
   LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
-  return scm_from_unsigned_integer (fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
+  return to_scm (fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
 }
 
 /*
@@ -155,6 +155,6 @@ LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
   LY_ASSERT_SMOB (Font_metric, font, 1);
 
   Font_metric *fm = unsmob<Font_metric> (font);
-  return scm_from_double (fm->design_size ());
+  return to_scm (fm->design_size ());
 }
 

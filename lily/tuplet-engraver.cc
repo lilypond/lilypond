@@ -78,7 +78,7 @@ protected:
 void
 Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
 {
-  Direction dir = to_dir (get_property (ev, "span-direction"));
+  Direction dir = from_scm<Direction> (get_property (ev, "span-direction"));
   if (dir == START)
     {
       Tuplet_description d;
@@ -107,7 +107,7 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
           stopped_tuplets_.push_back (tuplets_.back ());
           tuplets_.pop_back ();
         }
-      else if (!to_boolean (get_property (this, "skipTypesetting")))
+      else if (!from_scm<bool> (get_property (this, "skipTypesetting")))
         ev->origin ()->debug_output (_ ("No tuplet to end"));
     }
   else
@@ -179,9 +179,9 @@ Tuplet_engraver::process_music ()
       if (tuplets_[i].bracket_)
         continue;
 
-      tuplets_[i].full_length_ = to_boolean (get_property (this, "tupletFullLength"));
+      tuplets_[i].full_length_ = from_scm<bool> (get_property (this, "tupletFullLength"));
       tuplets_[i].full_length_note_
-        = to_boolean (get_property (this, "tupletFullLengthNote"));
+        = from_scm<bool> (get_property (this, "tupletFullLengthNote"));
 
       tuplets_[i].bracket_ = make_spanner ("TupletBracket",
                                            tuplets_[i].event_->self_scm ());
@@ -261,7 +261,7 @@ Tuplet_engraver::start_translation_timestep ()
 void
 Tuplet_engraver::finalize ()
 {
-  if (to_boolean (get_property (this, "tupletFullLength")))
+  if (from_scm<bool> (get_property (this, "tupletFullLength")))
     for (vsize i = 0; i < last_tuplets_.size (); i++)
       {
         Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));

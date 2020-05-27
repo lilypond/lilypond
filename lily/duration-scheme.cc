@@ -76,11 +76,11 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
   bool compress = false;
   if (!SCM_UNBNDP (num))
     {
-      LY_ASSERT_TYPE (ly_is_rational, num, 3);
+      LY_ASSERT_TYPE (is_scm<Rational>, num, 3);
       compress = true;
     }
   else
-    num = scm_from_int (1);
+    num = to_scm (1);
 
   if (!SCM_UNBNDP (den))
     {
@@ -88,11 +88,11 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
       compress = true;
     }
   else
-    den = scm_from_int (1);
+    den = to_scm (1);
 
   Duration p (scm_to_int (length), dots);
   if (compress)
-    p = p.compressed (ly_scm2rational (scm_divide (num, den)));
+    p = p.compressed (from_scm<Rational> (scm_divide (num, den)));
 
   return p.smobbed_copy ();
 }
@@ -102,7 +102,7 @@ LY_DEFINE (ly_duration_log, "ly:duration-log",
            "Extract the duration log from @var{dur}.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  return scm_from_int (unsmob<Duration> (dur)->duration_log ());
+  return to_scm (unsmob<Duration> (dur)->duration_log ());
 }
 
 LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
@@ -110,7 +110,7 @@ LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
            "Extract the dot count from @var{dur}.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  return scm_from_int (unsmob<Duration> (dur)->dot_count ());
+  return to_scm (unsmob<Duration> (dur)->dot_count ());
 }
 
 LY_DEFINE (ly_intlog2, "ly:intlog2",
@@ -119,7 +119,7 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
 {
   LY_ASSERT_TYPE (scm_is_number, d, 1);
   int log = intlog2 (scm_to_int (d));
-  return scm_from_int (log);
+  return to_scm (log);
 }
 
 LY_DEFINE (ly_duration_length, "ly:duration-length",
@@ -145,7 +145,7 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
   Rational r = unsmob<Duration> (dur)->factor ();
-  return scm_cons (scm_from_int64 (r.num ()), scm_from_int64 (r.den ()));
+  return scm_cons (to_scm (r.num ()), to_scm (r.den ()));
 }
 
 // This is likely what ly:duration-factor should have been in the
@@ -158,5 +158,5 @@ LY_DEFINE (ly_duration_scale, "ly:duration-scale",
   LY_ASSERT_SMOB (Duration, dur, 1);
   Rational r = unsmob<Duration> (dur)->factor ();
 
-  return ly_rational2scm (r);
+  return to_scm (r);
 }

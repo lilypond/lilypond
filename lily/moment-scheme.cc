@@ -38,13 +38,13 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
            " and not a grace timing."
           )
 {
-  LY_ASSERT_TYPE (ly_is_rational, m, 1);
+  LY_ASSERT_TYPE (is_scm<Rational>, m, 1);
   if (SCM_UNBNDP (g))
-    return Moment (ly_scm2rational (m)).smobbed_copy ();
+    return Moment (from_scm<Rational> (m)).smobbed_copy ();
 
   if (SCM_UNBNDP (gn))
     {
-      LY_ASSERT_TYPE (ly_is_rational, g, 2);
+      LY_ASSERT_TYPE (is_scm<Rational>, g, 2);
       if (scm_is_true (scm_positive_p (g)))
         {
           LY_ASSERT_TYPE (scm_is_integer, m, 1);
@@ -52,8 +52,8 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
           return Moment (Rational (scm_to_int64 (m),
                                    scm_to_int64 (g))).smobbed_copy ();
         }
-      return Moment (ly_scm2rational (m),
-                     ly_scm2rational (g)).smobbed_copy ();
+      return Moment (from_scm<Rational> (m),
+                     from_scm<Rational> (g)).smobbed_copy ();
     }
 
   LY_ASSERT_TYPE (scm_is_integer, m, 1);
@@ -140,7 +140,7 @@ LY_DEFINE (ly_moment_grace, "ly:moment-grace",
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
 
-  return ly_rational2scm (unsmob<Moment> (mom)->grace_part_);
+  return to_scm (unsmob<Moment> (mom)->grace_part_);
 }
 
 LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
@@ -151,7 +151,7 @@ LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
 
   Moment *ma = unsmob<Moment> (mom);
 
-  return scm_from_int64 (ma->grace_part_.numerator ());
+  return to_scm (ma->grace_part_.numerator ());
 }
 
 LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
@@ -161,7 +161,7 @@ LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob<Moment> (mom);
 
-  return scm_from_int64 (ma->grace_part_.denominator ());
+  return to_scm (ma->grace_part_.denominator ());
 }
 
 LY_DEFINE (ly_moment_main, "ly:moment-main",
@@ -170,7 +170,7 @@ LY_DEFINE (ly_moment_main, "ly:moment-main",
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
 
-  return ly_rational2scm (unsmob<Moment> (mom)->main_part_);
+  return to_scm (unsmob<Moment> (mom)->main_part_);
 }
 
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
@@ -180,7 +180,7 @@ LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob<Moment> (mom);
 
-  return scm_from_int64 (ma->main_part_.numerator ());
+  return to_scm (ma->main_part_.numerator ());
 }
 
 LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
@@ -190,7 +190,7 @@ LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
   LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob<Moment> (mom);
 
-  return scm_from_int64 (ma->main_part_.denominator ());
+  return to_scm (ma->main_part_.denominator ());
 }
 
 LY_DEFINE (ly_moment_less_p, "ly:moment<?",

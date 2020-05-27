@@ -49,7 +49,7 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
   LY_ASSERT_TYPE (scm_is_rational, alter, 3);
 
   Pitch p (scm_to_int (octave), scm_to_int (note),
-           ly_scm2rational (alter));
+           from_scm<Rational> (alter));
 
   return p.smobbed_copy ();
 }
@@ -70,7 +70,7 @@ LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0,
 {
   LY_ASSERT_SMOB (Pitch, p, 1);
   Pitch *pp = unsmob<Pitch> (p);
-  return scm_from_int (pp->steps ());
+  return to_scm (pp->steps ());
 }
 
 LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
@@ -80,7 +80,7 @@ LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
   LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob<Pitch> (pp);
   int q = p->get_octave ();
-  return scm_from_int (q);
+  return to_scm (q);
 }
 
 LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
@@ -91,7 +91,7 @@ LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
   Pitch *p = unsmob<Pitch> (pp);
   Rational q = p->get_alteration ();
 
-  return ly_rational2scm (q);
+  return to_scm (q);
 }
 
 LY_DEFINE (ly_pitch_notename, "ly:pitch-notename",
@@ -101,7 +101,7 @@ LY_DEFINE (ly_pitch_notename, "ly:pitch-notename",
   LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob<Pitch> (pp);
   int q = p->get_notename ();
-  return scm_from_int (q);
+  return to_scm (q);
 }
 
 LY_DEFINE (ly_pitch_tones, "ly:pitch-tones",
@@ -110,7 +110,7 @@ LY_DEFINE (ly_pitch_tones, "ly:pitch-tones",
            " middle@tie{}C as a rational number.")
 {
   LY_ASSERT_SMOB (Pitch, pp, 1);
-  return ly_rational2scm (unsmob<Pitch> (pp)->tone_pitch ());
+  return to_scm (unsmob<Pitch> (pp)->tone_pitch ());
 }
 
 LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
@@ -121,7 +121,7 @@ LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
   LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob<Pitch> (pp);
   int q = p->rounded_quartertone_pitch ();
-  return scm_from_int (q);
+  return to_scm (q);
 }
 
 LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
@@ -132,7 +132,7 @@ LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
   LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob<Pitch> (pp);
   int q = p->rounded_semitone_pitch ();
-  return scm_from_int (q);
+  return to_scm (q);
 }
 
 LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",
@@ -177,13 +177,13 @@ LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!",
   LY_ASSERT_SMOB (Context, context, 1);
 
   Context *c = unsmob<Context> (context);
-  int clef_pos = robust_scm2int (get_property (c, "middleCClefPosition"), 0);
-  int offset = robust_scm2int (get_property (c, "middleCOffset"), 0);
+  int clef_pos = from_scm (get_property (c, "middleCClefPosition"), 0);
+  int offset = from_scm (get_property (c, "middleCOffset"), 0);
   /* middleCCuePosition overrides the clef! */
   SCM cue_pos = get_property (c, "middleCCuePosition");
   if (scm_is_number (cue_pos))
-    clef_pos = robust_scm2int (cue_pos, 0);
+    clef_pos = from_scm (cue_pos, 0);
 
-  set_property (c, ly_symbol2scm ("middleCPosition"), scm_from_int (clef_pos + offset));
+  set_property (c, ly_symbol2scm ("middleCPosition"), to_scm (clef_pos + offset));
   return SCM_UNSPECIFIED;
 }

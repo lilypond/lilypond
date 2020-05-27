@@ -94,13 +94,13 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
       Direction attach = (Direction)
-                         robust_scm2int (ly_assoc_get (ly_symbol2scm ("attach-dir"),
+                         from_scm (ly_assoc_get (ly_symbol2scm ("attach-dir"),
                                                        details, SCM_BOOL_F),
                                          CENTER);
 
       Item *bound_item = me->get_bound (dir);
       Grob *bound_grob = bound_item;
-      if (to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F))
+      if (from_scm<bool> (ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F))
           && bound_item->break_status_dir ())
         {
           extract_grob_set (me, "note-columns", columns);
@@ -114,15 +114,15 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                       : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
 
       Grob *acc = Note_column::accidentals (bound_grob->get_parent (X_AXIS));
-      if (acc && to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
+      if (acc && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
 
       Grob *dot = unsmob<Grob> (get_object (bound_grob, "dot"));
-      if (dot && to_boolean (ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
+      if (dot && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (dot, commonx, X_AXIS).linear_combination (attach);
 
       details = scm_acons (ly_symbol2scm ("X"),
-                           scm_from_double (x_coord),
+                           to_scm (x_coord),
                            details);
     }
 
@@ -130,13 +130,13 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
     {
       Real y = 0.0;
 
-      Real extra_dy = robust_scm2double (get_property (me, "extra-dy"),
+      Real extra_dy = from_scm<double> (get_property (me, "extra-dy"),
                                          0.0);
 
       Grob *common_y = me->common_refpoint (me->get_bound (dir), Y_AXIS);
       if (me->get_bound (dir)->break_status_dir ())
         {
-          if (to_boolean (get_property (me, "simple-Y")))
+          if (from_scm<bool> (get_property (me, "simple-Y")))
             {
               Spanner *orig = me->original ();
               Spanner *extreme = dir == LEFT ? orig->broken_intos_.front () : orig->broken_intos_.back ();
@@ -199,7 +199,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
         }
 
       y += dir * extra_dy / 2;
-      details = scm_acons (ly_symbol2scm ("Y"), scm_from_double (y), details);
+      details = scm_acons (ly_symbol2scm ("Y"), to_scm (y), details);
     }
 
   return details;
@@ -213,8 +213,8 @@ Line_spanner::calc_cross_staff (SCM smob)
   if (!me)
     return SCM_BOOL_F;
 
-  if (to_boolean (get_property (me->get_bound (LEFT), "non-musical"))
-      || to_boolean (get_property (me->get_bound (RIGHT), "non-musical")))
+  if (from_scm<bool> (get_property (me->get_bound (LEFT), "non-musical"))
+      || from_scm<bool> (get_property (me->get_bound (RIGHT), "non-musical")))
     return SCM_BOOL_F;
 
   return scm_from_bool (Staff_symbol_referencer::get_staff_symbol (me->get_bound (LEFT))
@@ -265,7 +265,7 @@ Line_spanner::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
 
   // Triggers simple-Y calculations
-  bool simple_y = to_boolean (get_property (me, "simple-Y")) && !to_boolean (get_property (me, "cross-staff"));
+  bool simple_y = from_scm<bool> (get_property (me, "simple-Y")) && !from_scm<bool> (get_property (me, "cross-staff"));
 
   Drul_array<SCM> bounds (get_property (me, "left-bound-info"),
                           get_property (me, "right-bound-info"));
@@ -277,9 +277,9 @@ Line_spanner::print (SCM smob)
 
   for (LEFT_and_RIGHT (d))
     {
-      Offset z (robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
+      Offset z (from_scm<double> (ly_assoc_get (ly_symbol2scm ("X"),
                                                  bounds[d], SCM_BOOL_F), 0.0),
-                robust_scm2double (ly_assoc_get (ly_symbol2scm ("Y"),
+                from_scm<double> (ly_assoc_get (ly_symbol2scm ("Y"),
                                                  bounds[d], SCM_BOOL_F), 0.0));
 
       span_points[d] = z;
@@ -292,13 +292,13 @@ Line_spanner::print (SCM smob)
 
   // For scaling of 'padding and 'stencil-offset
   Real magstep
-    = pow (2, robust_scm2double (get_property (me, "font-size"), 0.0) / 6);
+    = pow (2, from_scm<double> (get_property (me, "font-size"), 0.0) / 6);
 
   for (LEFT_and_RIGHT (d))
     {
-      gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
+      gaps[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"),
                                                  bounds[d], SCM_BOOL_F), 0.0);
-      arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
+      arrows[d] = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("arrow"),
                                             bounds[d], SCM_BOOL_F));
       stencils[d] = unsmob<Stencil> (ly_assoc_get (ly_symbol2scm ("stencil"),
                                                    bounds[d], SCM_BOOL_F));
@@ -316,7 +316,7 @@ Line_spanner::print (SCM smob)
         span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
     }
 
-  Interval normalized_endpoints = robust_scm2interval (get_property (me, "normalized-endpoints"), Interval (0, 1));
+  Interval normalized_endpoints = from_scm (get_property (me, "normalized-endpoints"), Interval (0, 1));
   Real y_length = span_points[RIGHT][Y_AXIS] - span_points[LEFT][Y_AXIS];
 
   span_points[LEFT][Y_AXIS] += normalized_endpoints[LEFT] * y_length;
@@ -346,7 +346,7 @@ Line_spanner::print (SCM smob)
             s.align_to (Y_AXIS, scm_to_double (align));
 
           if (is_number_pair (off))
-            s.translate (ly_scm2offset (off) * magstep);
+            s.translate (from_scm<Offset> (off) * magstep);
 
           line.add_stencil (s);
         }

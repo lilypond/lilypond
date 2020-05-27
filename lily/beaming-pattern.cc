@@ -441,8 +441,8 @@ void
 Beaming_options::from_context (Context *context)
 {
   grouping_ = get_property (context, "beatStructure");
-  subdivide_beams_ = to_boolean (get_property (context, "subdivideBeams"));
-  strict_beat_beaming_ = to_boolean (get_property (context, "strictBeatBeaming"));
+  subdivide_beams_ = from_scm<bool> (get_property (context, "subdivideBeams"));
+  strict_beat_beaming_ = from_scm<bool> (get_property (context, "strictBeatBeaming"));
   base_moment_ = robust_scm2moment (get_property (context, "baseMoment"),
                                     Moment (1, 4));
   measure_length_ = robust_scm2moment (get_property (context, "measureLength"),

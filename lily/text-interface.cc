@@ -222,7 +222,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       /* Check for non-terminating markups, e.g. recursive calls with
        * changing arguments */
       SCM opt_depth = ly_get_option (ly_symbol2scm ("max-markup-depth"));
-      size_t max_depth = robust_scm2int (opt_depth, 1024);
+      size_t max_depth = from_scm (opt_depth, 1024);
 
       // Don't use SCM_F_DYNWIND_REWINDABLE since it may be expensive
       // without any obvious use for retaining continuations into

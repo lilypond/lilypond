@@ -34,7 +34,7 @@ Engraver_group::override (SCM sev)
   SCM sym = get_property (ev, "symbol");
   Grob_property_info gpi (context (), sym);
 
-  if (to_boolean (get_property (ev, "once")))
+  if (from_scm<bool> (get_property (ev, "once")))
     {
       SCM token = gpi.temporary_override (get_property (ev, "property-path"),
                                           get_property (ev, "value"));
@@ -59,7 +59,7 @@ Engraver_group::revert (SCM sev)
   SCM sym = get_property (ev, "symbol");
   Grob_property_info gpi (context (), sym);
 
-  if (to_boolean (get_property (ev, "once")))
+  if (from_scm<bool> (get_property (ev, "once")))
     {
       SCM token = gpi.temporary_revert (get_property (ev, "property-path"));
       if (scm_is_pair (token))

@@ -25,7 +25,7 @@ Real
 get_detail (SCM alist, SCM sym)
 {
   SCM entry = scm_assq (sym, alist);
-  return robust_scm2double (scm_is_pair (entry)
+  return from_scm<double> (scm_is_pair (entry)
                             ? scm_cdr (entry)
                             : SCM_EOL,
                             0.0);

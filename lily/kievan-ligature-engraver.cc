@@ -122,11 +122,11 @@ Kievan_ligature_engraver::build_ligature (Spanner *ligature,
 {
   Real min_length;
 
-  Real padding = robust_scm2double (get_property (ligature, "padding"), 0.0);
+  Real padding = from_scm<double> (get_property (ligature, "padding"), 0.0);
   fold_up_primitives (primitives, padding, min_length);
-  if (robust_scm2double (get_property (ligature, "minimum-length"), 0.0)
+  if (from_scm<double> (get_property (ligature, "minimum-length"), 0.0)
       < min_length)
-    set_property (ligature, "minimum-length", scm_from_double (min_length));
+    set_property (ligature, "minimum-length", to_scm (min_length));
 
 }
 

@@ -108,7 +108,7 @@ Volta_repeat_iterator::next_element ()
       if (done_count_ <= 1)
         {
           alt_restores_ = SCM_EOL;
-          if (to_boolean (get_property (get_outlet (), "timing")))
+          if (from_scm<bool> (get_property (get_outlet (), "timing")))
             {
               for (SCM lst = get_property (get_outlet (), "alternativeRestores");
                    scm_is_pair (lst);
@@ -135,7 +135,7 @@ Volta_repeat_iterator::next_element ()
             {
               add_repeat_command (ly_symbol2scm ("end-repeat"));
 
-              if (to_boolean (get_property (get_outlet (), "timing")))
+              if (from_scm<bool> (get_property (get_outlet (), "timing")))
                 {
                   SCM mps = ly_symbol2scm ("measurePosition");
                   for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))

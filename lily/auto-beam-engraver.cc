@@ -174,7 +174,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 {
   return scm_is_true (scm_call_4 (get_property (this, "autoBeamCheck"),
                                   context ()->self_scm (),
-                                  scm_from_int (dir),
+                                  to_scm (dir),
                                   test_mom.smobbed_copy (),
                                   dur.smobbed_copy ()));
 }
@@ -182,7 +182,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 void
 Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
 {
-  bool on = to_boolean (get_property (this, "autoBeaming"));
+  bool on = from_scm<bool> (get_property (this, "autoBeaming"));
   if (!stems_ && on
       && !forbid_)
     {
@@ -208,7 +208,7 @@ Auto_beam_engraver::consider_end (Moment test_mom, Moment dur)
 Spanner *
 Auto_beam_engraver::create_beam ()
 {
-  if (to_boolean (get_property (this, "skipTypesetting")))
+  if (from_scm<bool> (get_property (this, "skipTypesetting")))
     return 0;
 
   for (vsize i = 0; i < stems_->size (); i++)
@@ -436,7 +436,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
                        durlog - 2,
                        Stem::is_invisible (stem),
                        stem_duration->factor (),
-                       (to_boolean (get_property (stem, "tuplet-start"))));
+                       (from_scm<bool> (get_property (stem, "tuplet-start"))));
   stems_->push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = std::max (extend_mom_, now) + get_event_length (ev, now);

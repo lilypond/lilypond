@@ -123,7 +123,7 @@ warn_reassign_event_ptr (Stream_event &old_ev, Stream_event *new_ev)
   if (!new_ev) // not expected
     return;
 
-  if (to_boolean (scm_equal_p (old_ev.self_scm (), new_ev->self_scm ())))
+  if (from_scm<bool> (scm_equal_p (old_ev.self_scm (), new_ev->self_scm ())))
     return; // nothing of value was lost
 
   std::string oc = ly_symbol2string (scm_car (get_property (&old_ev, "class")));

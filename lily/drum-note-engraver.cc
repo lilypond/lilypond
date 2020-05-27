@@ -77,7 +77,7 @@ Drum_notes_engraver::process_music ()
 
       SCM defn = SCM_EOL;
 
-      if (to_boolean (scm_hash_table_p (tab)))
+      if (from_scm<bool> (scm_hash_table_p (tab)))
         defn = scm_hashq_ref (tab, drum_type, SCM_EOL);
 
       if (scm_is_pair (defn))
@@ -112,7 +112,7 @@ Drum_notes_engraver::acknowledge_stem (Grob_info inf)
     {
       Grob *e = scripts_[i];
 
-      if (to_dir (get_property (e, "side-relative-direction")))
+      if (from_scm<Direction> (get_property (e, "side-relative-direction")))
         set_object (e, "direction-source", inf.grob ()->self_scm ());
 
       Side_position_interface::add_support (e, inf.grob ());

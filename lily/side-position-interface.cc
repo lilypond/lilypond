@@ -154,8 +154,8 @@ Side_position_interface::calc_cross_staff (SCM smob)
         to depend on staff-spacing, thus 'me' should be considered
         cross-staff.
       */
-      if (to_boolean (get_property (elts[i], "cross-staff"))
-          && !is_direction (get_property_data (elts[i], "direction")))
+      if (from_scm<bool> (get_property (elts[i], "cross-staff"))
+          && !is_scm<Direction> (get_property_data (elts[i], "direction")))
         return SCM_BOOL_T;
 
       /*
@@ -164,7 +164,7 @@ Side_position_interface::calc_cross_staff (SCM smob)
         of 'me' is influenced the cross-staffitude of elts[i]
         and thus we mark 'me' as cross-staff.
       */
-      if (to_boolean (get_property (elts[i], "cross-staff"))
+      if (from_scm<bool> (get_property (elts[i], "cross-staff"))
           && my_dir == get_grob_direction (elts[i]))
         return SCM_BOOL_T;
     }
@@ -194,7 +194,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                        me->name ().c_str ()));
       // Too much of the remaining code does not do anything sensible
       // without a direction, so we just take what we have and bail
-      return scm_from_double (current_off ? *current_off : 0.0);
+      return to_scm (current_off ? *current_off : 0.0);
     }
 
   set<Grob *> support = get_support_set (me);
@@ -208,8 +208,8 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                                            ax);
 
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
-  bool quantize_position = to_boolean (get_maybe_pure_property (me, "quantize-position", pure, start, end));
-  bool me_cross_staff = to_boolean (get_property (me, "cross-staff"));
+  bool quantize_position = from_scm<bool> (get_maybe_pure_property (me, "quantize-position", pure, start, end));
+  bool me_cross_staff = from_scm<bool> (get_property (me, "cross-staff"));
 
   bool include_staff
     = staff_symbol
@@ -259,7 +259,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
     {
       Grob *e = *it;
 
-      bool cross_staff = to_boolean (get_property (e, "cross-staff"));
+      bool cross_staff = from_scm<bool> (get_property (e, "cross-staff"));
       if (a == Y_AXIS
           && !me_cross_staff // 'me' promised not to adapt to staff-spacing
           && cross_staff) // but 'e' might move based on staff-pacing
@@ -269,7 +269,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           && has_interface<Stem> (e))
         {
           // If called as 'pure' we may not force a stem to set its direction,
-          if (pure && !is_direction (get_property_data (e, "direction")))
+          if (pure && !is_scm<Direction> (get_property_data (e, "direction")))
             continue;
           // There is no need to consider stems pointing away.
           if (dir == -get_grob_direction (e))
@@ -298,7 +298,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
               Skyline_pair copy = *unsmob<Skyline_pair> (sp);
               if (a == Y_AXIS
                   && has_interface<Stem> (e)
-                  && to_boolean (get_maybe_pure_property (me, "add-stem-support", pure, start, end)))
+                  && from_scm<bool> (get_maybe_pure_property (me, "add-stem-support", pure, start, end)))
                 copy[dir].set_minimum_height (copy[dir].max_height ());
               copy.shift (a == X_AXIS ? yc : xc);
               copy.raise (a == X_AXIS ? xc : yc);
@@ -345,12 +345,12 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
     }
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real dist = dim.distance (my_dim, robust_scm2double (get_maybe_pure_property (me, "horizon-padding", pure, start, end), 0.0));
+  Real dist = dim.distance (my_dim, from_scm<double> (get_maybe_pure_property (me, "horizon-padding", pure, start, end), 0.0));
   Real total_off = !std::isinf (dist) ? dir * dist : 0.0;
 
-  total_off += dir * ss * robust_scm2double (get_maybe_pure_property (me, "padding", pure, start, end), 0.0);
+  total_off += dir * ss * from_scm<double> (get_maybe_pure_property (me, "padding", pure, start, end), 0.0);
 
-  Real minimum_space = ss * robust_scm2double (get_maybe_pure_property (me, "minimum-space", pure, start, end), -1);
+  Real minimum_space = ss * from_scm<double> (get_maybe_pure_property (me, "minimum-space", pure, start, end), -1);
 
   if (minimum_space >= 0
       && dir
@@ -420,7 +420,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           total_off += dir * std::max (diff, 0.0);
         }
     }
-  return scm_from_double (total_off);
+  return to_scm (total_off);
 }
 
 void
@@ -428,7 +428,7 @@ Side_position_interface::set_axis (Grob *me, Axis a)
 {
   if (!scm_is_number (get_property (me, "side-axis")))
     {
-      set_property (me, "side-axis", scm_from_int (a));
+      set_property (me, "side-axis", to_scm (a));
       chain_offset_callback (me,
                              (a == X_AXIS)
                              ? x_aligned_side_proc

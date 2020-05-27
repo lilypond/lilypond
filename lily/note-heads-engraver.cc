@@ -91,7 +91,7 @@ Note_heads_engraver::process_music ()
       if (scm_is_number (c0))
         pos += scm_to_int (c0);
 
-      set_property (note, "staff-position", scm_from_int (pos));
+      set_property (note, "staff-position", to_scm (pos));
 
       /*
         Shape note heads change on step of the scale.
@@ -108,8 +108,8 @@ Note_heads_engraver::process_music ()
 
           SCM style = SCM_EOL;
           if (scm_c_vector_length (shape_vector) > delta
-              && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
-            style = scm_vector_ref (shape_vector, scm_from_int (delta));
+              && scm_is_symbol (scm_vector_ref (shape_vector, to_scm (delta))))
+            style = scm_vector_ref (shape_vector, to_scm (delta));
           if (scm_is_symbol (style))
             set_property (note, "style", style);
         }

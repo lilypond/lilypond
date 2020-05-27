@@ -43,13 +43,13 @@ Figured_bass_continuation::center_on_figures (SCM grob)
   Spanner *me = unsmob<Spanner> (grob);
   extract_grob_set (me, "figures", figures);
   if (figures.empty ())
-    return scm_from_double (0.0);
+    return to_scm (0.0);
   Grob *common = common_refpoint_of_array (figures, me, Y_AXIS);
 
   Interval ext = Axis_group_interface::relative_group_extent (figures, common, Y_AXIS);
   if (ext.is_empty ())
-    return scm_from_double (0.0);
-  return scm_from_double (ext.center () - me->relative_coordinate (common, Y_AXIS));
+    return to_scm (0.0);
+  return to_scm (ext.center () - me->relative_coordinate (common, Y_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK (Figured_bass_continuation, print, 1);
@@ -60,7 +60,7 @@ Figured_bass_continuation::print (SCM grob)
 
   Real thick
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (get_property (me, "thickness"), 1);
+      * from_scm<double> (get_property (me, "thickness"), 1);
 
   Interval spanned;
 
@@ -70,14 +70,14 @@ Figured_bass_continuation::print (SCM grob)
     {
       Item *bound = me->get_bound (d);
       Direction extdir
-        = (d == LEFT && to_boolean (get_property (bound, "implicit")))
+        = (d == LEFT && from_scm<bool> (get_property (bound, "implicit")))
           ? LEFT : RIGHT;
 
       spanned[d]
         = robust_relative_extent (bound, common, X_AXIS)[extdir]
           - me->relative_coordinate (common, X_AXIS);
     }
-  spanned.widen (- robust_scm2double (get_property (me, "padding"), 0.2));
+  spanned.widen (- from_scm<double> (get_property (me, "padding"), 0.2));
 
   Stencil extender;
   if (!spanned.is_empty ())

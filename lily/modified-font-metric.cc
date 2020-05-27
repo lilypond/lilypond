@@ -43,7 +43,7 @@ Modified_font_metric::Modified_font_metric (Font_metric *fm,
   Real total_mag = magnification * scm_to_double (scm_cdr (desc));
   assert (total_mag);
 
-  description_ = scm_cons (scm_car (desc), scm_from_double (total_mag));
+  description_ = scm_cons (scm_car (desc), to_scm (total_mag));
   orig_ = fm;
 }
 

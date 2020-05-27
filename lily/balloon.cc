@@ -63,7 +63,7 @@ Balloon_interface::print_spanner (SCM smob)
 
   if (Spanner *orig = me->original ())
     {
-      Direction spanner_placement = robust_scm2dir (get_property (me, "spanner-placement"), LEFT);
+      Direction spanner_placement = from_scm (get_property (me, "spanner-placement"), LEFT);
 
       Spanner *wanted = (spanner_placement != RIGHT)
                         ? orig->broken_intos_[0]
@@ -88,12 +88,12 @@ Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
 {
   Box b (robust_relative_extent (p, p, X_AXIS),
          robust_relative_extent (p, p, Y_AXIS));
-  Real padding = robust_scm2double (get_property (me, "padding"), .1);
+  Real padding = from_scm<double> (get_property (me, "padding"), .1);
   b.widen (padding, padding);
 
   // FIXME
   Stencil fr;
-  if (to_boolean (get_property (me, "annotation-balloon")))
+  if (from_scm<bool> (get_property (me, "annotation-balloon")))
     fr = Lookup::frame (b, 0.1, 0.05);
 
   SCM bt = get_property (me, "text");
@@ -113,7 +113,7 @@ Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
 
   Offset z2 = z1 + off;
 
-  if (to_boolean (get_property (me, "annotation-line")))
+  if (from_scm<bool> (get_property (me, "annotation-line")))
     fr.add_stencil (Line_interface::line (me, z1, z2));
 
   text_stil->translate (z2);

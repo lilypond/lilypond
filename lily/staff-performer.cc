@@ -141,7 +141,7 @@ Staff_performer::new_audio_staff (const string &voice)
 {
   Audio_staff *audio_staff = new Audio_staff;
   audio_staff->merge_unisons_
-    = to_boolean (get_property (this, "midiMergeUnisons"));
+    = from_scm<bool> (get_property (this, "midiMergeUnisons"));
   string track_name = context ()->id_string () + ":" + voice;
   if (track_name != ":")
     {
@@ -194,7 +194,7 @@ Staff_performer::set_instrument (int channel, const string &voice)
   Audio_staff *audio_staff = get_audio_staff (voice);
   audio_staff->add_audio_item (instrument_);
   SCM drums = Lily::percussion_p (ly_symbol2scm (instrument_string_.c_str ()));
-  audio_staff->percussion_ = to_boolean (drums);
+  audio_staff->percussion_ = from_scm<bool> (drums);
 }
 
 void

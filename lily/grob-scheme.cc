@@ -120,7 +120,7 @@ LY_DEFINE (ly_grob_pure_height, "ly:grob-pure-height",
 
   Interval retval = sc->pure_y_extent (ref, scm_to_int (beg), scm_to_int (end));
 
-  return ly_interval2scm (retval);
+  return to_scm (retval);
 }
 
 LY_DEFINE (ly_grob_property, "ly:grob-property",
@@ -224,7 +224,7 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
 
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_SMOB (Grob, refp, 2);
-  LY_ASSERT_TYPE (is_axis, axis, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
 
@@ -233,7 +233,7 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
       // ugh. should use other error message
       SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
     }
-  return ly_interval2scm (sc->extent (ref, a));
+  return to_scm (sc->extent (ref, a));
 }
 
 LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
@@ -246,7 +246,7 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
 
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_SMOB (Grob, refp, 2);
-  LY_ASSERT_TYPE (is_axis, axis, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
 
@@ -256,7 +256,7 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
       SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
     }
 
-  return ly_interval2scm (robust_relative_extent (sc, ref, a));
+  return to_scm (robust_relative_extent (sc, ref, a));
 }
 
 LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
@@ -269,7 +269,7 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
 
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_SMOB (Grob, refp, 2);
-  LY_ASSERT_TYPE (is_axis, axis, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
 
@@ -279,7 +279,7 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
       SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
     }
 
-  return scm_from_double (sc->relative_coordinate (ref, a));
+  return to_scm (sc->relative_coordinate (ref, a));
 }
 
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
@@ -290,7 +290,7 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
   Grob *sc = unsmob<Grob> (grob);
 
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
 
   Grob *par = sc->get_parent (Axis (scm_to_int (axis)));
   return par ? par->self_scm () : SCM_EOL;
@@ -304,7 +304,7 @@ LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
   Grob *parent = unsmob<Grob> (parent_grob);
 
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   LY_ASSERT_SMOB (Grob, parent_grob, 3);
 
   Axis a = Axis (scm_to_int (axis));
@@ -369,7 +369,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (scm_is_number, d, 2);
-  LY_ASSERT_TYPE (is_axis, a, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, a, 3);
 
   me->translate_axis (scm_to_double (d), Axis (scm_to_int (a)));
   return SCM_UNSPECIFIED;
@@ -404,7 +404,7 @@ LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
 
   Grob *o = unsmob<Grob> (other);
 
-  LY_ASSERT_TYPE (is_axis, axis, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   Grob *refp = gr->common_refpoint (o, Axis (scm_to_int (axis)));
   return refp ? refp->self_scm () : SCM_BOOL_F;
@@ -421,7 +421,7 @@ LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
   LY_ASSERT_SMOB (Grob_array, others, 2);
 
   Grob_array *ga = unsmob<Grob_array> (others);
-  LY_ASSERT_TYPE (is_axis, axis, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   Grob *refp = common_refpoint_of_array (ga->array (), gr, Axis (scm_to_int (axis)));
   return refp ? refp->self_scm () : SCM_BOOL_F;
@@ -466,7 +466,7 @@ LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-gro
 
   LY_ASSERT_SMOB (Grob, grob, 1);
 
-  return scm_from_int (Grob::get_vertical_axis_group_index (gr));
+  return to_scm (Grob::get_vertical_axis_group_index (gr));
 }
 
 LY_DEFINE (ly_grob_spanned_rank_interval, "ly:grob-spanned-rank-interval",
@@ -481,5 +481,5 @@ LY_DEFINE (ly_grob_spanned_rank_interval, "ly:grob-spanned-rank-interval",
 
   Interval_t<int> iv = gr->spanned_rank_interval ();
 
-  return scm_cons (scm_from_int (iv[LEFT]), scm_from_int (iv[RIGHT]));
+  return scm_cons (to_scm (iv[LEFT]), to_scm (iv[RIGHT]));
 }

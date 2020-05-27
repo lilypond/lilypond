@@ -64,7 +64,7 @@ Music *
 Tuplet_iterator::create_event (Direction d)
 {
   SCM ev_scm = Lily::make_span_event (ly_symbol2scm ("TupletSpanEvent"),
-                                      scm_from_int (d));
+                                      to_scm (d));
 
   Music *mus = get_music ();
 

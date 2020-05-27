@@ -80,7 +80,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
     }
 
   Real min_length_fraction
-    = robust_scm2double (get_property (me, "minimum-length-fraction"), 0.15);
+    = from_scm<double> (get_property (me, "minimum-length-fraction"), 0.15);
 
   Drul_array<Interval> current_extents;
   Drul_array<Interval> previous_extents;
@@ -204,7 +204,7 @@ Ledger_line_spanner::print (SCM smob)
   staff_extent *= 1 / halfspace;
 
   Real length_fraction
-    = robust_scm2double (get_property (me, "length-fraction"), 0.25);
+    = from_scm<double> (get_property (me, "length-fraction"), 0.25);
 
   Grob *common_x = common_refpoint_of_array (heads, me, X_AXIS);
   for (vsize i = heads.size (); i--;)
@@ -255,7 +255,7 @@ Ledger_line_spanner::print (SCM smob)
   // Iterate through ledger requests and when ledger lines will be
   // too close together horizontally, shorten max_ledger_extent to
   // produce more space between them.
-  Real gap = robust_scm2double (get_property (me, "gap"), 0.1);
+  Real gap = from_scm<double> (get_property (me, "gap"), 0.1);
   Ledger_requests::iterator last (reqs.end ());
   for (Ledger_requests::iterator i (reqs.begin ());
        i != reqs.end (); last = i++)

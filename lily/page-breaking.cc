@@ -249,13 +249,13 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
 {
   book_ = pb;
   system_count_ = 0;
-  paper_height_ = robust_scm2double (pb->paper_->c_variable ("paper-height"), 1.0);
-  ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
-  ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
-  systems_per_page_ = std::max (0, robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0));
-  max_systems_per_page_ = std::max (0, robust_scm2int (pb->paper_->c_variable ("max-systems-per-page"), 0));
-  min_systems_per_page_ = std::max (0, robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0));
-  orphan_penalty_ = robust_scm2int (pb->paper_->c_variable ("orphan-penalty"), 100000);
+  paper_height_ = from_scm<double> (pb->paper_->c_variable ("paper-height"), 1.0);
+  ragged_ = from_scm<bool> (pb->paper_->c_variable ("ragged-bottom"));
+  ragged_last_ = from_scm<bool> (pb->paper_->c_variable ("ragged-last-bottom"));
+  systems_per_page_ = std::max (0, from_scm (pb->paper_->c_variable ("systems-per-page"), 0));
+  max_systems_per_page_ = std::max (0, from_scm (pb->paper_->c_variable ("max-systems-per-page"), 0));
+  min_systems_per_page_ = std::max (0, from_scm (pb->paper_->c_variable ("min-systems-per-page"), 0));
+  orphan_penalty_ = from_scm (pb->paper_->c_variable ("orphan-penalty"), 100000);
 
   Stencil footnote_separator = Page_layout_problem::get_footnote_separator_stencil (pb->paper_);
 
@@ -269,11 +269,11 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
   else
     footnote_separator_stencil_height_ = 0.0;
 
-  footnote_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
-  in_note_padding_ = robust_scm2double (pb->paper_->c_variable ("in-note-padding"), 0.0);
-  footnote_footer_padding_ = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
+  footnote_padding_ = from_scm<double> (pb->paper_->c_variable ("footnote-padding"), 0.0);
+  in_note_padding_ = from_scm<double> (pb->paper_->c_variable ("in-note-padding"), 0.0);
+  footnote_footer_padding_ = from_scm<double> (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
 
-  footnote_number_raise_ = robust_scm2double (pb->paper_->c_variable ("footnote-number-raise"), 0.0);
+  footnote_number_raise_ = from_scm<double> (pb->paper_->c_variable ("footnote-number-raise"), 0.0);
 
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {
@@ -484,7 +484,7 @@ Page_breaking::make_page (int page_num, bool last) const
 
   return scm_apply_0 (make_page_scm,
                       scm_list_n (book_->self_scm (),
-                                  ly_symbol2scm ("page-number"), scm_from_int (page_num),
+                                  ly_symbol2scm ("page-number"), to_scm (page_num),
                                   ly_symbol2scm ("is-last-bookpart"), scm_from_bool (last_part),
                                   ly_symbol2scm ("is-bookpart-last-page"), scm_from_bool (last),
                                   SCM_UNDEFINED));
@@ -596,9 +596,9 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
     return SCM_EOL;
 
   int first_page_number
-    = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+    = from_scm (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
-  bool reset_footnotes_on_new_page = to_boolean (book_->top_paper ()->c_variable ("reset-footnotes-on-new-page"));
+  bool reset_footnotes_on_new_page = from_scm<bool> (book_->top_paper ()->c_variable ("reset-footnotes-on-new-page"));
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
   if (SCM_UNBNDP (label_page_table))
     label_page_table = SCM_EOL;
@@ -621,7 +621,7 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
       int page_num = first_page_number + static_cast<int> (i);
       bool bookpart_last_page = (i == page_count - 1);
       bool rag = ragged () || (bookpart_last_page && ragged_last ());
-      SCM line_count = scm_from_size_t (lines_per_page[i]);
+      SCM line_count = to_scm (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
 
       int rank_on_page = 0;
@@ -630,8 +630,8 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
           System *sys = unsmob<System> (scm_car (line));
           if (sys)
             {
-              set_property (sys, "rank-on-page", scm_from_int (rank_on_page));
-              set_property (sys, "page-number", scm_from_int (page_num));
+              set_property (sys, "rank-on-page", to_scm (rank_on_page));
+              set_property (sys, "page-number", to_scm (page_num));
               rank_on_page++;
             }
         }
@@ -674,7 +674,7 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
       bool bookpart_last_page = scm_is_eq (s, systems_configs_fncounts);
       SCM page = draw_page (lines, config, page_num, bookpart_last_page);
       /* collect labels */
-      SCM page_num_scm = scm_from_int (page_num);
+      SCM page_num_scm = to_scm (page_num);
       for (SCM l = lines; scm_is_pair (l); l = scm_cdr (l))
         {
           SCM labels = SCM_EOL;
@@ -1267,9 +1267,9 @@ Page_breaking::blank_page_penalty () const
 
   Break_position const &pos = breaks_[current_end_breakpoint_];
   if (Paper_score *ps = system_specs_[pos.system_spec_index_].pscore_)
-    return robust_scm2double (ps->layout ()->lookup_variable (penalty_sym), 0.0);
+    return from_scm<double> (ps->layout ()->lookup_variable (penalty_sym), 0.0);
 
-  return robust_scm2double (book_->paper_->lookup_variable (penalty_sym), 0.0);
+  return from_scm<double> (book_->paper_->lookup_variable (penalty_sym), 0.0);
 }
 
 // If systems_per_page_ is positive, we don't really try to space on N
@@ -1318,7 +1318,7 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   m_res = finalize_spacing_result (configuration, m_res);
   n_res = finalize_spacing_result (configuration, n_res);
 
-  Real page_spacing_weight = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
+  Real page_spacing_weight = from_scm<double> (book_->paper_->c_variable ("page-spacing-weight"), 10);
   n_res.demerits_ += penalty_for_fewer_pages * page_spacing_weight;
 
   if (n_res.force_.size ())
@@ -1465,7 +1465,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
   Real line_force = 0;
   Real line_penalty = 0;
   Real page_demerits = res.penalty_;
-  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
+  Real page_weighting = from_scm<double> (book_->paper_->c_variable ("page-spacing-weight"), 10);
 
   for (vsize i = 0; i < uncompressed_line_details_.size (); i++)
     {

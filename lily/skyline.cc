@@ -762,7 +762,7 @@ Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon
 
   Skyline *skyline = unsmob<Skyline> (skyline_scm);
   Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
-  return scm_from_double (skyline->touching_point (*other_skyline, horizon_padding));
+  return to_scm (skyline->touching_point (*other_skyline, horizon_padding));
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_distance, 3, 1, "")
@@ -780,29 +780,29 @@ Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_paddi
 
   Skyline *skyline = unsmob<Skyline> (skyline_scm);
   Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
-  return scm_from_double (skyline->distance (*other_skyline, horizon_padding));
+  return to_scm (skyline->distance (*other_skyline, horizon_padding));
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_max_height, 1)
 SCM
 Skyline::get_max_height (SCM skyline_scm)
 {
-  return scm_from_double (unsmob<Skyline> (skyline_scm)->max_height ());
+  return to_scm (unsmob<Skyline> (skyline_scm)->max_height ());
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_max_height_position, 1)
 SCM
 Skyline::get_max_height_position (SCM skyline_scm)
 {
-  return scm_from_double (unsmob<Skyline> (skyline_scm)->max_height_position ());
+  return to_scm (unsmob<Skyline> (skyline_scm)->max_height_position ());
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_height, 2)
 SCM
 Skyline::get_height (SCM skyline_scm, SCM x_scm)
 {
-  Real x = robust_scm2double (x_scm, 0.0);
-  return scm_from_double (unsmob<Skyline> (skyline_scm)->height (x));
+  Real x = from_scm<double> (x_scm, 0.0);
+  return to_scm (unsmob<Skyline> (skyline_scm)->height (x));
 }
 
 LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",

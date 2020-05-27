@@ -202,7 +202,7 @@ Music::compress (Rational factor)
 void
 Prob::transpose (Pitch delta)
 {
-  if (to_boolean (get_property (this, "untransposable")))
+  if (from_scm<bool> (get_property (this, "untransposable")))
     return;
 
   for (SCM s = mutable_property_alist_; scm_is_pair (s); s = scm_cdr (s))

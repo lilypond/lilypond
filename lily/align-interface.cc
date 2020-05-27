@@ -178,12 +178,12 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   // check the cache
   if (pure)
     {
-      SCM fv = ly_assoc_get (scm_cons (scm_from_size_t (start),
-                                       scm_from_size_t (end)),
+      SCM fv = ly_assoc_get (scm_cons (to_scm (start),
+                                       to_scm (end)),
                              get_property (me, "minimum-translations-alist"),
                              SCM_EOL);
       if (!scm_is_null (fv))
-        return ly_scm2floatvector (fv);
+        return from_scm_list<std::vector<Real>> (fv);
     }
 
   // If include_fixed_spacing is true, we look at things like system-system-spacing
@@ -193,13 +193,13 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (!dynamic_cast<System *> (me->get_parent (Y_AXIS)))
     include_fixed_spacing = false;
 
-  Direction stacking_dir = robust_scm2dir (get_property (me, "stacking-dir"),
+  Direction stacking_dir = from_scm (get_property (me, "stacking-dir"),
                                            DOWN);
 
   Grob *other_common = common_refpoint_of_array (elems, me, other_axis (a));
 
   Real where = 0;
-  Real default_padding = robust_scm2double (get_property (me, "padding"), 0.0);
+  Real default_padding = from_scm<double> (get_property (me, "padding"), 0.0);
   vector<Real> translates;
   Skyline down_skyline (stacking_dir);
   Grob *last_nonempty_element = 0;
@@ -284,9 +284,9 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (pure)
     {
       SCM mta = get_property (me, "minimum-translations-alist");
-      mta = scm_cons (scm_cons (scm_cons (scm_from_size_t (start),
-                                          scm_from_size_t (end)),
-                                ly_floatvector2scm (translates)),
+      mta = scm_cons (scm_cons (scm_cons (to_scm (start),
+                                          to_scm (end)),
+                                to_scm_list (translates)),
                       mta);
       set_property (me, "minimum-translations-alist", mta);
     }

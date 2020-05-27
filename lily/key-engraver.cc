@@ -82,7 +82,7 @@ Key_engraver::create_key (bool is_default)
       SCM last = get_property (this, "lastKeyAlterations");
       SCM key = get_property (this, "keyAlterations");
 
-      if ((to_boolean (get_property (this, "printKeyCancellation"))
+      if ((from_scm<bool> (get_property (this, "printKeyCancellation"))
            || scm_is_null (key))
           && !scm_is_eq (last, key))
         {
@@ -90,9 +90,9 @@ Key_engraver::create_key (bool is_default)
           for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
             {
               SCM new_alter_pair = ly_assoc (scm_caar (s), key);
-              Rational old_alter = robust_scm2rational (scm_cdar (s), 0);
+              Rational old_alter = from_scm<Rational> (scm_cdar (s), 0);
               if (scm_is_false (new_alter_pair)
-                  || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter) * old_alter
+                  || ((from_scm<Rational> (scm_cdr (new_alter_pair)) - old_alter) * old_alter
                       < Rational (0)))
                 {
                   restore = scm_cons (scm_car (s), restore);
@@ -134,7 +134,7 @@ void
 Key_engraver::acknowledge_clef (Grob_info /* info */)
 {
   SCM c = get_property (this, "createKeyOnClefChange");
-  if (to_boolean (c))
+  if (from_scm<bool> (c))
     create_key (false);
 }
 
@@ -189,7 +189,7 @@ Key_engraver::read_event (Stream_event const *r)
     {
       bool warn = false;
       for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
-        if (ly_scm2rational (scm_cdar (s)))
+        if (from_scm<Rational> (scm_cdar (s)))
           {
             warn = true;
             accs = scm_cons (scm_car (s), accs);

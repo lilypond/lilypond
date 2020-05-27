@@ -56,7 +56,7 @@ Horizontal_bracket_engraver::Horizontal_bracket_engraver (Context *c)
 void
 Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
 
   if (d == STOP)
     {

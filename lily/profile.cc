@@ -54,10 +54,10 @@ note_property_access (Protected_scm *table, SCM sym)
   SCM hashhandle = scm_hashq_get_handle (*table, sym);
   if (scm_is_false (hashhandle))
     {
-      scm_hashq_set_x (*table, sym, scm_from_int (0));
+      scm_hashq_set_x (*table, sym, to_scm (0));
       hashhandle = scm_hashq_get_handle (*table, sym);
     }
 
   int count = scm_to_int (scm_cdr (hashhandle)) + 1;
-  scm_set_cdr_x (hashhandle, scm_from_int (count));
+  scm_set_cdr_x (hashhandle, to_scm (count));
 }

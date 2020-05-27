@@ -61,7 +61,7 @@ get_detail (SCM alist, SCM sym, Real def)
   SCM entry = scm_assq (sym, alist);
 
   if (scm_is_pair (entry))
-    return robust_scm2double (scm_cdr (entry), def);
+    return from_scm<double> (scm_cdr (entry), def);
   return def;
 }
 
@@ -78,7 +78,7 @@ Beam_quant_parameters::fill (Grob *him)
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0)
                            // For stems that are non-standard, the forbidden beam quanting
                            // doesn't really work, so decrease their importance.
-                           * exp (- 8 * fabs (1.0 - robust_scm2double (get_property (him, "length-fraction"), 1.0)));
+                           * exp (- 8 * fabs (1.0 - from_scm<double> (get_property (him, "length-fraction"), 1.0)));
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   HORIZONTAL_INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("horizontal-inter-quant"), 500);
 
@@ -98,7 +98,7 @@ Beam_quant_parameters::fill (Grob *him)
      of the length fraction, yielding a 64% decrease.
    */
   COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5)
-                      * sqr (robust_scm2double (get_property (him, "length-fraction"), 1.0));
+                      * sqr (from_scm<double> (get_property (him, "length-fraction"), 1.0));
   STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
@@ -174,7 +174,7 @@ LY_DEFINE (ly_beam_score_count, "ly:beam-score-count", 0, 0, 0,
            (),
            "count number of beam scores.")
 {
-  return scm_from_int (score_count);
+  return to_scm (score_count);
 }
 
 void Beam_scoring_problem::add_collision (Real x, Interval y,
@@ -225,9 +225,9 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
   line_thickness_ = Staff_symbol_referencer::line_thickness (beam_) / staff_space_;
   max_beam_count_ = Beam::get_beam_count (beam_);
   length_fraction_
-    = robust_scm2double (get_property (beam_, "length-fraction"), 1.0);
+    = from_scm<double> (get_property (beam_, "length-fraction"), 1.0);
   // This is the least-squares DY, corrected for concave beams.
-  musical_dy_ = robust_scm2double (get_property (beam_, "least-squares-dy"), 0);
+  musical_dy_ = from_scm<double> (get_property (beam_, "least-squares-dy"), 0);
 
   vector<Spanner *> beams;
   align_broken_intos_ = align_broken_intos;
@@ -269,7 +269,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
         common[X_AXIS] = beams[i]->get_bound (d)->common_refpoint (common[X_AXIS], X_AXIS);
 
       // positions of the endpoints of this beam segment, including any overhangs
-      const Interval x_pos = robust_scm2interval (get_property (beams[i], "X-positions"),
+      const Interval x_pos = from_scm (get_property (beams[i], "X-positions"),
                                                   Interval (0.0, 0.0));
 
       Drul_array<Grob *> edge_stems (Beam::first_normal_stem (beams[i]),
@@ -579,7 +579,7 @@ Beam_scoring_problem::least_squares_positions ()
     }
 
   musical_dy_ = ldy;
-  set_property (beam_, "least-squares-dy", scm_from_double (musical_dy_));
+  set_property (beam_, "least-squares-dy", to_scm (musical_dy_));
 }
 
 /*
@@ -969,7 +969,7 @@ Beam_configuration *
 Beam_scoring_problem::force_score (SCM inspect_quants,
                                    const vector<unique_ptr<Beam_configuration>> &configs) const
 {
-  Drul_array<Real> ins = ly_scm2interval (inspect_quants);
+  Drul_array<Real> ins = from_scm<Interval> (inspect_quants);
   Real mindist = 1e6;
   Beam_configuration *best = NULL;
   for (vsize i = 0; i < configs.size (); i++)
@@ -1002,13 +1002,13 @@ Beam_scoring_problem::solve () const
       return unquanted_y_;
     }
 
-  if (to_boolean (get_property (beam_, "skip-quanting")))
+  if (from_scm<bool> (get_property (beam_, "skip-quanting")))
     return unquanted_y_;
 
   Beam_configuration *best = NULL;
 
   bool debug
-    = to_boolean (beam_->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")));
+    = from_scm<bool> (beam_->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")));
   SCM inspect_quants = get_property (beam_, "inspect-quants");
   if (scm_is_pair (inspect_quants))
     {
@@ -1071,7 +1071,7 @@ Beam_scoring_problem::solve () const
   configs.clear ();
   if (align_broken_intos_)
     {
-      Interval normalized_endpoints = robust_scm2interval (get_property (beam_, "normalized-endpoints"), Interval (0, 1));
+      Interval normalized_endpoints = from_scm (get_property (beam_, "normalized-endpoints"), Interval (0, 1));
       Real y_length = final_positions[RIGHT] - final_positions[LEFT];
 
       final_positions[LEFT] += normalized_endpoints[LEFT] * y_length;

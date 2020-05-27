@@ -81,7 +81,7 @@ Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
 void
 Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
 
   ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[d], ev);
 }

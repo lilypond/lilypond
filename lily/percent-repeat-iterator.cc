@@ -54,7 +54,7 @@ Percent_repeat_iterator::construct_children ()
   descend_to_bottom_context ();
   if (!measure_position (get_outlet ()).main_part_)
     starting_bar_
-      = robust_scm2int (get_property (get_outlet (), "internalBarNumber"), 0);
+      = from_scm (get_property (get_outlet (), "internalBarNumber"), 0);
 }
 
 // Todo: use elements-callback instead?  We don't expose iterator
@@ -81,7 +81,7 @@ Percent_repeat_iterator::music_tail ()
   int current_bar = -1;
   if (!measure_position (get_outlet ()).main_part_)
     current_bar
-      = robust_scm2int (get_property (get_outlet (), "internalBarNumber"), 0);
+      = from_scm (get_property (get_outlet (), "internalBarNumber"), 0);
 
   SCM child_list = SCM_EOL;
 
@@ -106,7 +106,7 @@ Percent_repeat_iterator::music_tail ()
       set_property (percent, "length", length);
       if (repeats > 1)
         {
-          set_property (percent, "repeat-count", scm_from_int (i));
+          set_property (percent, "repeat-count", to_scm (i));
           if (!SCM_UNBNDP (slash_count))
             set_property (percent, "slash-count", slash_count);
         }

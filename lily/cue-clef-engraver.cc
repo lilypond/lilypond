@@ -110,8 +110,8 @@ Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
       int dir = sign (abs_transp);
       abs_transp = abs (abs_transp) + 1;
 
-      SCM txt = scm_number_to_string (scm_from_int (abs_transp),
-                                      scm_from_int (10));
+      SCM txt = scm_number_to_string (to_scm (abs_transp),
+                                      to_scm (10));
 
       if (ly_is_procedure (formatter))
         set_property (g, "text", scm_call_2 (formatter, txt, style));
@@ -120,7 +120,7 @@ Cue_clef_engraver::create_clef_modifier (SCM transp, SCM style, SCM formatter)
 
       g->set_parent (clef_, Y_AXIS);
       g->set_parent (clef_, X_AXIS);
-      set_property (g, "direction", scm_from_int (dir));
+      set_property (g, "direction", to_scm (dir));
       modifier_ = g;
     }
 }
@@ -198,7 +198,7 @@ Cue_clef_engraver::stop_translation_timestep ()
 {
   if (clef_)
     {
-      if (to_boolean (get_property (clef_, "non-default")))
+      if (from_scm<bool> (get_property (clef_, "non-default")))
         {
           SCM vis = get_property (this, "explicitCueClefVisibility");
 

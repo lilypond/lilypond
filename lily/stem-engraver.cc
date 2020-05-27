@@ -87,7 +87,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
 
          the first and last (quarter) note both get one tremolo flag.  */
       int requested_type
-        = robust_scm2int (get_property (tremolo_ev_, "tremolo-type"), 8);
+        = from_scm (get_property (tremolo_ev_, "tremolo-type"), 8);
 
       /*
         we take the duration log from the Event, since the duration-log
@@ -110,7 +110,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
 
           /* The number of tremolo flags is the number of flags of the
              tremolo-type minus the number of flags of the note itself.  */
-          set_property (tremolo_, "flag-count", scm_from_int (tremolo_flags));
+          set_property (tremolo_, "flag-count", to_scm (tremolo_flags));
           tremolo_->set_parent (stem_, X_AXIS);
           set_object (stem_, "tremolo-flag", tremolo_->self_scm ());
           set_object (tremolo_, "stem", stem_->self_scm ());
@@ -218,7 +218,7 @@ Stem_engraver::stop_translation_timestep ()
 void
 Stem_engraver::listen_tuplet_span (Stream_event *ev)
 {
-  Direction dir = to_dir (get_property (ev, "span-direction"));
+  Direction dir = from_scm<Direction> (get_property (ev, "span-direction"));
   if (dir == START)
     {
       // set stem property if stem already exists

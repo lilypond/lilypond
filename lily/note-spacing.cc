@@ -77,7 +77,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   */
   Real ideal = base.distance () - increment + left_head_end;
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
-  Real distance = skys[LEFT].distance (skys[RIGHT], robust_scm2double (get_property (right_col, "skyline-vertical-padding"), 0.0));
+  Real distance = skys[LEFT].distance (skys[RIGHT], from_scm<double> (get_property (right_col, "skyline-vertical-padding"), 0.0));
   Real min_dist = std::max (0.0, distance);
   base.set_min_distance (min_dist);
 
@@ -85,7 +85,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
      to the bar-line (if present), not the start of the column. */
   if (!Paper_column::is_musical (right_col)
       && !skys[RIGHT].is_empty ()
-      && to_boolean (get_property (me, "space-to-barline")))
+      && from_scm<bool> (get_property (me, "space-to-barline")))
     {
       Grob *bar = Pointer_group_interface::find_grob (right_col,
                                                       ly_symbol2scm ("elements"),
@@ -128,7 +128,7 @@ knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
     }
 
   return -note_head_width * get_grob_direction (right_stem)
-         * robust_scm2double (get_property (note_spacing, "knee-spacing-correction"), 0);
+         * from_scm<double> (get_property (note_spacing, "knee-spacing-correction"), 0);
 }
 
 static Real
@@ -149,7 +149,7 @@ different_directions_correction (Grob *note_spacing,
       */
       ret = std::min (ret / 7, 1.0)
             * left_stem_dir
-            * robust_scm2double (get_property (note_spacing, "stem-spacing-correction"), 0);
+            * from_scm<double> (get_property (note_spacing, "stem-spacing-correction"), 0);
     }
   return ret;
 }
@@ -185,7 +185,7 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
     = (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
 
   Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
-  Real corr = robust_scm2double (get_property (note_spacing, "same-direction-correction"), 0);
+  Real corr = from_scm<double> (get_property (note_spacing, "same-direction-correction"), 0);
 
   return (delta > 1) ? -lowest * corr : 0;
 }

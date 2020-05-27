@@ -79,7 +79,7 @@ Grob::instrumented_set_property (SCM sym, SCM v,
     scm_apply_0 (modification_callback,
                  scm_list_n (self_scm (),
                              scm_from_locale_string (file),
-                             scm_from_int (line),
+                             to_scm (line),
                              scm_from_ascii_string (fun),
                              sym, v, SCM_UNDEFINED));
 #else
@@ -341,8 +341,8 @@ call_pure_function (SCM value, SCM args, vsize start, vsize end)
       if (ly_is_procedure (value))
         return scm_apply_3 (value,
                             scm_car (args),
-                            scm_from_size_t (start),
-                            scm_from_size_t (end),
+                            to_scm (start),
+                            to_scm (end),
                             scm_cdr (args));
 
       return value;

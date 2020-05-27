@@ -61,7 +61,7 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
         (void) get_property (collision, "positioning-done");
     }
 
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 void
@@ -228,7 +228,7 @@ Rest_collision::calc_positioning_done (SCM smob)
             continue;
 
           Real staff_space = Staff_symbol_referencer::staff_space (rcol);
-          Real minimum_dist = robust_scm2double (get_property (me, "minimum-distance"), 1.0) * staff_space;
+          Real minimum_dist = from_scm<double> (get_property (me, "minimum-distance"), 1.0) * staff_space;
 
           Interval notedim;
           for (vsize i = 0; i < notes.size (); i++)

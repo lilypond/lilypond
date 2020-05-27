@@ -247,7 +247,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
       bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *>(at_bat))
         {
-          Direction spanner_placement = robust_scm2dir (get_property (s, "spanner-placement"), LEFT);
+          Direction spanner_placement = from_scm (get_property (s, "spanner-placement"), LEFT);
           if (spanner_placement == CENTER)
             spanner_placement = LEFT;
 
@@ -322,8 +322,8 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
 
   for (vsize i = footnote_grobs.size (); i--;)
     if (foot
-        ? !to_boolean (get_property (footnote_grobs[i], "footnote"))
-        : to_boolean (get_property (footnote_grobs[i], "footnote")))
+        ? !from_scm<bool> (get_property (footnote_grobs[i], "footnote"))
+        : from_scm<bool> (get_property (footnote_grobs[i], "footnote")))
       footnote_grobs.erase (footnote_grobs.begin () + i);
 
   for (vsize i = 0; i < footnote_grobs.size (); i++)
@@ -369,7 +369,7 @@ grob_2D_less (Grob *g1, Grob *g2)
                  ? s->broken_intos_[0]
                  : s->broken_intos_.back ());
           gs[i] = s;
-          if (robust_scm2double (get_property (s, "X-offset"), 0.0) > 0)
+          if (from_scm<double> (get_property (s, "X-offset"), 0.0) > 0)
             sri[i] = s->spanned_rank_interval ()[RIGHT];
         }
     }
@@ -463,7 +463,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       int st = c[0]->get_rank ();
       int end = c.back ()->get_rank ();
       Interval iv (pure_y_extent (this, st, end));
-      set_property (system, "pure-Y-extent", ly_interval2scm (iv));
+      set_property (system, "pure-Y-extent", to_scm (iv));
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());
@@ -605,7 +605,7 @@ System::get_paper_system ()
     {
       Layer_entry e;
       e.grob_ = all_elements_->grob (j);
-      e.layer_ = robust_scm2int (get_property (e.grob_, "layer"), 1);
+      e.layer_ = from_scm (get_property (e.grob_, "layer"), 1);
 
       entries.push_back (e);
     }
@@ -623,7 +623,7 @@ System::get_paper_system ()
       for (int a = X_AXIS; a < NO_AXES; a++)
         o[Axis (a)] = g->relative_coordinate (this, Axis (a));
 
-      Offset extra = robust_scm2offset (get_property (g, "extra-offset"),
+      Offset extra = from_scm (get_property (g, "extra-offset"),
                                         Offset (0, 0))
                      * Staff_symbol_referencer::staff_space (g);
 
@@ -685,7 +685,7 @@ System::get_paper_system ()
                                                                      Y_AXIS));
     }
 
-  set_property (pl, "staff-refpoint-extent", ly_interval2scm (staff_refpoints));
+  set_property (pl, "staff-refpoint-extent", to_scm (staff_refpoints));
   set_property (pl, "system-grob", self_scm ());
 
   return pl->unprotect ();
@@ -951,7 +951,7 @@ System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
   Interval rest = me->rest_of_line_pure_height (start, end);
   begin.unite (rest);
 
-  return ly_interval2scm (begin);
+  return to_scm (begin);
 }
 
 Paper_column *

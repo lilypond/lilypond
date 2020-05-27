@@ -38,7 +38,7 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 {
   LY_ASSERT_SMOB (Item, it, 1);
   Item *me = unsmob<Item> (it);
-  return scm_from_int (me->break_status_dir ());
+  return to_scm (me->break_status_dir ());
 }
 
 LY_DEFINE (ly_item_get_column, "ly:item-get-column",

@@ -136,7 +136,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
         {
           set_property (inf.grob (), "style", ly_symbol2scm ("harmonic"));
           Grob *d = unsmob<Grob> (get_object (inf.grob (), "dot"));
-          if (d && !to_boolean (get_property (this, "harmonicDots")))
+          if (d && !from_scm<bool> (get_property (this, "harmonicDots")))
             d->suicide ();
         }
     }
@@ -170,7 +170,7 @@ New_fingering_engraver::add_script (Grob *head,
   ft.script_->set_parent (head, X_AXIS);
 
   SCM forced_dir = get_property (event, "direction");
-  if (to_dir (forced_dir))
+  if (from_scm<Direction> (forced_dir))
     set_property (ft.script_, "direction", forced_dir);
 
   articulations_.push_back (ft);
@@ -228,9 +228,9 @@ New_fingering_engraver::position_scripts (SCM orientations,
   for (vsize i = scripts->size (); i--;)
     {
       SCM d = get_property ((*scripts)[i].finger_event_, "direction");
-      if (to_dir (d))
+      if (from_scm<Direction> (d))
         {
-          ((to_dir (d) == UP) ? up : down).push_back ((*scripts)[i]);
+          ((from_scm<Direction> (d) == UP) ? up : down).push_back ((*scripts)[i]);
           scripts->erase (scripts->begin () + i);
         }
     }
@@ -308,14 +308,14 @@ New_fingering_engraver::position_scripts (SCM orientations,
               = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
             SCM yoff = get_property (f, "Y-offset");
             if (scm_is_number (yoff))
-              self_align_y = scm_from_double (scm_to_double (self_align_y)
+              self_align_y = to_scm (scm_to_double (self_align_y)
                                               + scm_to_double (yoff));
             set_property (f, "Y-offset", self_align_y);
           }
 
         Side_position_interface::set_axis (f, X_AXIS);
 
-        set_property (f, "direction", scm_from_int (hordir));
+        set_property (f, "direction", to_scm (hordir));
       }
     }
 
@@ -326,10 +326,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
         {
           Finger_tuple ft = vertical[d][i];
           Grob *f = ft.script_;
-          int finger_prio = robust_scm2int (get_property (f, "script-priority"), 200);
+          int finger_prio = from_scm (get_property (f, "script-priority"), 200);
 
           if (heads_.size () > 1
-              && to_boolean (get_property (f, "X-align-on-main-noteheads")))
+              && from_scm<bool> (get_property (f, "X-align-on-main-noteheads")))
             f->set_parent (note_column_, X_AXIS);
           else
             {
@@ -340,12 +340,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
             }
 
           set_property (f, "script-priority",
-                           scm_from_int (finger_prio + d * ft.position_));
+                           to_scm (finger_prio + d * ft.position_));
 
           Self_alignment_interface::set_aligned_on_parent (f, X_AXIS);
           Side_position_interface::set_axis (f, Y_AXIS);
 
-          set_property (f, "direction", scm_from_int (d));
+          set_property (f, "direction", to_scm (d));
         }
     }
 }
@@ -394,10 +394,10 @@ New_fingering_engraver::position_all ()
       for (vsize j = heads_.size (); j--;)
         Side_position_interface::add_support (script, heads_[j]);
 
-      if (stem_ && to_dir (get_property (script, "side-relative-direction")))
+      if (stem_ && from_scm<Direction> (get_property (script, "side-relative-direction")))
         set_object (script, "direction-source", stem_->self_scm ());
 
-      if (stem_ && to_boolean (get_property (script, "add-stem-support")))
+      if (stem_ && from_scm<bool> (get_property (script, "add-stem-support")))
         Side_position_interface::add_support (script, stem_);
     }
   articulations_.clear ();

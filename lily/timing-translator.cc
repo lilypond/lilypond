@@ -28,8 +28,8 @@
 void
 Timing_translator::stop_translation_timestep ()
 {
-  if (to_boolean (get_property (this, "timing"))
-      && !to_boolean (get_property (this, "skipBars")))
+  if (from_scm<bool> (get_property (this, "timing"))
+      && !from_scm<bool> (get_property (this, "skipBars")))
     {
       auto barleft = Moment (measure_length ()) - measure_position (context ());
       Moment now = now_mom ();
@@ -61,7 +61,7 @@ Timing_translator::initialize ()
 
   SCM barnumber = get_property (timing, "currentBarNumber");
   if (!scm_is_integer (barnumber))
-    barnumber = scm_from_int (1);
+    barnumber = to_scm (1);
   set_property (context (), "currentBarNumber", barnumber);
   set_property (context (), "internalBarNumber", barnumber);
 
@@ -70,7 +70,7 @@ Timing_translator::initialize ()
   if (!scm_is_pair (timeSignatureFraction))
     {
       programming_error ("missing timeSignatureFraction");
-      timeSignatureFraction = scm_cons (scm_from_int (4), scm_from_int (4));
+      timeSignatureFraction = scm_cons (to_scm (4), to_scm (4));
     }
   set_property (context (), "timeSignatureFraction", timeSignatureFraction);
 
@@ -79,7 +79,7 @@ Timing_translator::initialize ()
   if (!unsmob<Moment> (measureLength))
     {
       measureLength
-        = Moment (ly_scm2rational
+        = Moment (from_scm<Rational>
                   (scm_divide (scm_car (timeSignatureFraction),
                                scm_cdr (timeSignatureFraction)))).smobbed_copy ();
     }
@@ -110,7 +110,7 @@ Timing_translator::initialize ()
   if (!unsmob<Moment> (baseMoment))
     {
       baseMoment
-        = Moment (ly_scm2rational
+        = Moment (from_scm<Rational>
                   (Lily::base_length (timeSignatureFraction,
                                       timeSignatureSettings))).smobbed_copy ();
     }
@@ -120,7 +120,7 @@ Timing_translator::initialize ()
   if (!scm_is_pair (beatStructure))
     {
       beatStructure
-        = Lily::beat_structure (ly_rational2scm (unsmob<Moment> (baseMoment)->main_part_),
+        = Lily::beat_structure (to_scm (unsmob<Moment> (baseMoment)->main_part_),
                                 timeSignatureFraction,
                                 timeSignatureSettings);
     }
@@ -179,11 +179,11 @@ Timing_translator::start_translation_timestep ()
       measposp = now;
     }
 
-  int current_barnumber = robust_scm2int (get_property (this, "currentBarNumber"), 0);
-  int internal_barnumber = robust_scm2int (get_property (this, "internalBarNumber"), 0);
+  int current_barnumber = from_scm (get_property (this, "currentBarNumber"), 0);
+  int internal_barnumber = from_scm (get_property (this, "internalBarNumber"), 0);
 
   SCM cad = get_property (this, "timing");
-  bool c = to_boolean (cad);
+  bool c = from_scm<bool> (cad);
 
   if (c)
     {
@@ -213,8 +213,8 @@ Timing_translator::start_translation_timestep ()
 
   measposp.grace_part_ = now.grace_part_;
 
-  set_property (context (), "currentBarNumber", scm_from_int (current_barnumber));
-  set_property (context (), "internalBarNumber", scm_from_int (internal_barnumber));
+  set_property (context (), "currentBarNumber", to_scm (current_barnumber));
+  set_property (context (), "internalBarNumber", to_scm (internal_barnumber));
   set_property (context (), "measurePosition", measposp.smobbed_copy ());
 }
 

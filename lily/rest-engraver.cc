@@ -76,7 +76,7 @@ Rest_engraver::process_music ()
           if (scm_is_number (c0))
             pos += scm_to_int (c0);
 
-          set_property (rest_, "staff-position", scm_from_int (pos));
+          set_property (rest_, "staff-position", to_scm (pos));
         }
     }
 }

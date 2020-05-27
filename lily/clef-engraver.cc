@@ -117,8 +117,8 @@ Clef_engraver::create_clef ()
           int dir = sign (abs_transp);
           abs_transp = abs (abs_transp) + 1;
 
-          SCM txt = scm_number_to_string (scm_from_int (abs_transp),
-                                          scm_from_int (10));
+          SCM txt = scm_number_to_string (to_scm (abs_transp),
+                                          to_scm (10));
 
           SCM style = get_property (this, "clefTranspositionStyle");
 
@@ -130,7 +130,7 @@ Clef_engraver::create_clef ()
 
           g->set_parent (clef_, Y_AXIS);
           g->set_parent (clef_, X_AXIS);
-          set_property (g, "direction", scm_from_int (dir));
+          set_property (g, "direction", to_scm (dir));
           modifier_ = g;
         }
     }
@@ -161,12 +161,12 @@ Clef_engraver::inspect_clef_properties ()
       || !ly_is_equal (glyph, prev_glyph_)
       || !ly_is_equal (clefpos, prev_cpos_)
       || !ly_is_equal (transposition, prev_transposition_)
-      || to_boolean (force_clef))
+      || from_scm<bool> (force_clef))
     {
       apply_on_children (context (), Lily::invalidate_alterations);
 
       set_glyph ();
-      if (scm_is_true (prev_cpos_) || to_boolean (get_property (this, "firstClef")))
+      if (scm_is_true (prev_cpos_) || from_scm<bool> (get_property (this, "firstClef")))
         create_clef ();
 
       if (clef_)
@@ -177,7 +177,7 @@ Clef_engraver::inspect_clef_properties ()
       prev_transposition_ = transposition;
     }
 
-  if (to_boolean (force_clef))
+  if (from_scm<bool> (force_clef))
     {
       SCM prev;
       Context *w = context ()->where_defined (ly_symbol2scm ("forceClef"), &prev);
@@ -190,7 +190,7 @@ Clef_engraver::stop_translation_timestep ()
 {
   if (clef_)
     {
-      if (to_boolean (get_property (clef_, "non-default")))
+      if (from_scm<bool> (get_property (clef_, "non-default")))
         {
           SCM vis = get_property (this, "explicitClefVisibility");
 

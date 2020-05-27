@@ -30,6 +30,6 @@ LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
   Font_metric *fm = unsmob<Font_metric> (font_metric);
   LY_ASSERT_TYPE (scm_is_string, glyph_name, 2);
 
-  return ly_offset2scm (Note_head::get_stem_attachment (fm, ly_scm2string (glyph_name)));
+  return to_scm (Note_head::get_stem_attachment (fm, ly_scm2string (glyph_name)));
 }
 

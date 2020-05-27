@@ -122,13 +122,13 @@ Percent_repeat_engraver::process_music ()
       percent_->set_bound (LEFT, col);
 
       SCM count = get_property (percent_event_, "repeat-count");
-      if (!scm_is_null (count) && to_boolean (get_property (this, "countPercentRepeats"))
+      if (!scm_is_null (count) && from_scm<bool> (get_property (this, "countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           percent_counter_ = make_spanner ("PercentRepeatCounter",
                                            percent_event_->self_scm ());
 
-          SCM text = scm_number_to_string (count, scm_from_int (10));
+          SCM text = scm_number_to_string (count, to_scm (10));
           set_property (percent_counter_, "text", text);
           percent_counter_->set_bound (LEFT, col);
           Side_position_interface::add_support (percent_counter_, percent_);

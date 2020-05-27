@@ -198,8 +198,8 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 
   // Handle no-continuation here, don't even add it to the already existing
   // spanner... This fixes some layout issues (figure will be placed separately)
-  bool no_continuation = to_boolean (get_property (ev, "no-continuation"));
-  if (to_boolean (get_property (this, "useBassFigureExtenders")) && !no_continuation)
+  bool no_continuation = from_scm<bool> (get_property (ev, "no-continuation"));
+  if (from_scm<bool> (get_property (this, "useBassFigureExtenders")) && !no_continuation)
     {
       for (vsize i = 0; i < groups_.size (); i++)
         {
@@ -261,7 +261,7 @@ Figured_bass_engraver::clear_spanners ()
   announce_end_grob (alignment_, SCM_EOL);
   alignment_ = 0;
 
-  if (to_boolean (get_property (this, "figuredBassCenterContinuations")))
+  if (from_scm<bool> (get_property (this, "figuredBassCenterContinuations")))
     center_repeated_continuations ();
 
   for (vsize i = 0; i < groups_.size (); i++)
@@ -285,12 +285,12 @@ Figured_bass_engraver::clear_spanners ()
 void
 Figured_bass_engraver::process_music ()
 {
-  bool use_extenders = to_boolean (get_property (this, "useBassFigureExtenders"));
+  bool use_extenders = from_scm<bool> (get_property (this, "useBassFigureExtenders"));
   if (alignment_ && !use_extenders)
     clear_spanners ();
 
   // If we have a rest, or we have no new or continued events, clear all spanners
-  bool ignore_rest = to_boolean (get_property (this, "ignoreFiguredBassRest"));
+  bool ignore_rest = from_scm<bool> (get_property (this, "ignoreFiguredBassRest"));
   if ((ignore_rest && have_rest_)
       || (!continuation_ && new_events_.empty ()))
     {
@@ -380,7 +380,7 @@ Figured_bass_engraver::process_music ()
         Ugh, repeated code.
        */
       vector<Spanner *> consecutive;
-      if (to_boolean (get_property (this, "figuredBassCenterContinuations")))
+      if (from_scm<bool> (get_property (this, "figuredBassCenterContinuations")))
         {
           for (vsize i = 0; i <= junk_continuations.size (); i++)
             {
@@ -483,13 +483,13 @@ Figured_bass_engraver::add_brackets ()
       if (!groups_[i].current_event_)
         continue;
 
-      if (to_boolean (get_property (groups_[i].current_event_, "bracket-start")))
+      if (from_scm<bool> (get_property (groups_[i].current_event_, "bracket-start")))
         inside = true;
 
       if (inside && groups_[i].figure_item_)
         encompass.push_back (groups_[i].figure_item_);
 
-      if (to_boolean (get_property (groups_[i].current_event_, "bracket-stop")))
+      if (from_scm<bool> (get_property (groups_[i].current_event_, "bracket-stop")))
         {
           inside = false;
 

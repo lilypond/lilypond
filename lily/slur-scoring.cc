@@ -246,7 +246,7 @@ Slur_score_state::fill (Grob *me)
   Slur::replace_breakable_encompass_objects (me);
   staff_space_ = Staff_symbol_referencer::staff_space (me);
   line_thickness_ = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  thickness_ = robust_scm2double (get_property (me, "thickness"), 1.0) * line_thickness_;
+  thickness_ = from_scm<double> (get_property (me, "thickness"), 1.0) * line_thickness_;
 
   dir_ = slur_direction ();
   parameters_.fill (me);
@@ -368,7 +368,7 @@ Slur::calc_control_points (SCM smob)
 
   SCM end_ys = get_property (me, "positions");
   SCM inspect_quants = get_property (me, "inspect-quants");
-  bool debug_slurs = to_boolean (me->layout ()
+  bool debug_slurs = from_scm<bool> (me->layout ()
                                  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
 
   if (is_number_pair (inspect_quants))
@@ -379,7 +379,7 @@ Slur::calc_control_points (SCM smob)
 
   Slur_configuration *best = NULL;
   if (is_number_pair (end_ys))
-    best = state.get_forced_configuration (ly_scm2interval (end_ys));
+    best = state.get_forced_configuration (from_scm<Interval> (end_ys));
   else
     best = state.get_best_curve ();
 
@@ -398,7 +398,7 @@ Slur::calc_control_points (SCM smob)
       Offset o = best->curve_.control_[i]
                  - Offset (me->relative_coordinate (state.common_[X_AXIS], X_AXIS),
                            me->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
-      controls = scm_cons (ly_offset2scm (o), controls);
+      controls = scm_cons (to_scm (o), controls);
     }
 
   return controls;
@@ -703,7 +703,7 @@ Slur_score_state::generate_avoid_offsets () const
 void
 Slur_score_state::generate_curves () const
 {
-  Real r_0 = robust_scm2double (get_property (slur_, "ratio"), 0.33);
+  Real r_0 = from_scm<double> (get_property (slur_, "ratio"), 0.33);
   Real h_inf = staff_space_ * scm_to_double (get_property (slur_, "height-limit"));
 
   vector<Offset> avoid = generate_avoid_offsets ();
@@ -719,7 +719,7 @@ vector<unique_ptr<Slur_configuration>>
   Drul_array<Offset> os;
   os[LEFT] = base_attachments_[LEFT];
   Real minimum_length = staff_space_
-                        * robust_scm2double (get_property (slur_, "minimum-length"), 2.0);
+                        * from_scm<double> (get_property (slur_, "minimum-length"), 2.0);
 
   for (int i = 0; dir_ * os[LEFT][Y_AXIS] <= dir_ * end_ys[LEFT]; i++)
     {
@@ -851,11 +851,11 @@ Slur_score_state::get_extra_encompass_infos () const
             {
               penalty = parameters_.accidental_collision_;
 
-              Rational alt = ly_scm2rational (get_property (g, "alteration"));
+              Rational alt = from_scm<Rational> (get_property (g, "alteration"));
               SCM scm_style = get_property (g, "style");
               if (!scm_is_symbol (scm_style)
-                  && !to_boolean (get_property (g, "parenthesized"))
-                  && !to_boolean (get_property (g, "restore-first")))
+                  && !from_scm<bool> (get_property (g, "parenthesized"))
+                  && !from_scm<bool> (get_property (g, "restore-first")))
                 {
                   if (alt == FLAT_ALTERATION
                       || alt == DOUBLE_FLAT_ALTERATION)

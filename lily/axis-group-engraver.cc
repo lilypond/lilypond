@@ -67,7 +67,7 @@ Axis_group_engraver::Axis_group_engraver (Context *c)
 void
 Axis_group_engraver::initialize ()
 {
-  active_ = !to_boolean (get_property (this, "hasAxisGroup"));
+  active_ = !from_scm<bool> (get_property (this, "hasAxisGroup"));
   if (active_)
     set_property (context (), "hasAxisGroup", SCM_BOOL_T);
 }
@@ -122,7 +122,7 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
 
   elts_.push_back (i.grob ());
 
-  if (to_boolean (get_property (staffline_, "remove-empty")))
+  if (from_scm<bool> (get_property (staffline_, "remove-empty")))
     {
       for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
         {

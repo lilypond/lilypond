@@ -130,13 +130,13 @@ Ambitus_engraver::stop_translation_timestep ()
        *     clef position.
        */
       if (Text_interface::is_markup (ottavation))
-        start_c0_ = robust_scm2int (get_property (this, "middleCClefPosition"), 0);
+        start_c0_ = from_scm (get_property (this, "middleCClefPosition"), 0);
       else if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
         start_c0_ = scm_to_int (c_pos);
       else
         {
-          int clef_pos = robust_scm2int (get_property (this, "middleCClefPosition"), 0);
-          int offset = robust_scm2int (get_property (this, "middleCOffset"), 0);
+          int clef_pos = from_scm (get_property (this, "middleCClefPosition"), 0);
+          int offset = from_scm (get_property (this, "middleCOffset"), 0);
           start_c0_ = clef_pos + offset;
         }
 
@@ -151,7 +151,7 @@ Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
   Stream_event *nr = info.event_cause ();
   if (nr && nr->in_event_class ("note-event")
-      && !to_boolean (get_property (info.grob (), "ignore-ambitus")))
+      && !from_scm<bool> (get_property (info.grob (), "ignore-ambitus")))
     {
       SCM p = get_property (nr, "pitch");
       /*
@@ -191,18 +191,18 @@ Ambitus_engraver::finalize ()
 
           set_property (heads_[d], "cause", causes_[d]->self_scm ());
           set_property (heads_[d], "staff-position",
-                                   scm_from_int (start_c0_ + pos));
+                                   to_scm (start_c0_ + pos));
 
-          SCM handle = ly_assoc (scm_cons (scm_from_int (p.get_octave ()),
-                                           scm_from_int (p.get_notename ())),
+          SCM handle = ly_assoc (scm_cons (to_scm (p.get_octave ()),
+                                           to_scm (p.get_notename ())),
                                  start_key_sig_);
 
           if (scm_is_false (handle))
             handle
-              = ly_assoc (scm_from_int (p.get_notename ()), start_key_sig_);
+              = ly_assoc (to_scm (p.get_notename ()), start_key_sig_);
 
           Rational sig_alter = (scm_is_true (handle))
-                               ? robust_scm2rational (scm_cdr (handle), Rational (0))
+                               ? from_scm<Rational> (scm_cdr (handle), Rational (0))
                                : Rational (0);
 
           const Pitch other = pitch_interval_[-d];
@@ -216,7 +216,7 @@ Ambitus_engraver::finalize ()
             }
           else
             set_property (accidentals_[d], "alteration",
-                          ly_rational2scm (p.get_alteration ()));
+                          to_scm (p.get_alteration ()));
           Separation_item::add_conditional_item (heads_[d],
                                                  accidental_placement);
           Accidental_placement::add_accidental (accidental_placement,

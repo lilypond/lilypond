@@ -180,7 +180,7 @@ Page_turn_engraver::listen_break (Stream_event *ev)
   if (name == "page-turn-event")
     {
       SCM permission = get_property (ev, "break-permission");
-      Real penalty = robust_scm2double (get_property (ev, "break-penalty"), 0);
+      Real penalty = from_scm<double> (get_property (ev, "break-penalty"), 0);
       Rational now = now_mom ().main_part_;
 
       forced_breaks_.push_back (Page_turn_event (now, now, permission, penalty));
@@ -323,9 +323,9 @@ Page_turn_engraver::finalize ()
       if (pc)
         {
           SCM perm = max_permission (get_property (pc, "page-turn-permission"), brk.permission_);
-          Real pen = std::min (robust_scm2double (get_property (pc, "page-turn-penalty"), infinity_f), brk.penalty_);
+          Real pen = std::min (from_scm<double> (get_property (pc, "page-turn-penalty"), infinity_f), brk.penalty_);
           set_property (pc, "page-turn-permission", perm);
-          set_property (pc, "page-turn-penalty", scm_from_double (pen));
+          set_property (pc, "page-turn-penalty", to_scm (pen));
         }
     }
 
@@ -340,7 +340,7 @@ Page_turn_engraver::finalize ()
       if (pc)
         {
           set_property (pc, "page-turn-permission", brk.permission_);
-          set_property (pc, "page-turn-penalty", scm_from_double (brk.penalty_));
+          set_property (pc, "page-turn-penalty", to_scm (brk.penalty_));
         }
     }
 }

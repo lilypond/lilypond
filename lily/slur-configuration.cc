@@ -176,7 +176,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
   else
     max_h = sqrt (max_h);
 
-  Real eccentricity = robust_scm2double (get_property (state.slur_, "eccentricity"), 0);
+  Real eccentricity = from_scm<double> (get_property (state.slur_, "eccentricity"), 0);
 
   Real x1 = (eccentricity + indent);
   Real x2 = (eccentricity - indent);
@@ -357,7 +357,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
           {
             if (scm_is_pair (cp))
               {
-                b.control_[j] = ly_scm2offset (scm_car (cp));
+                b.control_[j] = from_scm<Offset> (scm_car (cp));
                 cp = scm_cdr (cp);
               }
             else
@@ -525,7 +525,7 @@ LY_DEFINE (ly_slur_score_count, "ly:slur-score-count", 0, 0, 0,
            (),
            "count number of slur scores.")
 {
-  return scm_from_int (score_count);
+  return to_scm (score_count);
 }
 
 void

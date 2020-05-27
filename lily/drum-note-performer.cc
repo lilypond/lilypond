@@ -58,7 +58,7 @@ Drum_note_performer::process_music ()
       SCM defn = SCM_EOL;
 
       if (scm_is_symbol (sym)
-          && to_boolean (scm_hash_table_p (tab)))
+          && from_scm<bool> (scm_hash_table_p (tab)))
         defn = scm_hashq_ref (tab, sym, SCM_EOL);
 
       if (Pitch *pit = unsmob<Pitch> (defn))
@@ -80,7 +80,7 @@ Drum_note_performer::process_music ()
                 len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
                                                      context ()->self_scm ()),
                                          len);
-              velocity += robust_scm2int (get_property (ev, "midi-extra-velocity"), 0);
+              velocity += from_scm (get_property (ev, "midi-extra-velocity"), 0);
             }
 
           Audio_note *p = new Audio_note (*pit, len,

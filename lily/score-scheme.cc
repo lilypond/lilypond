@@ -124,14 +124,14 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   /* UGR, FIXME, these are default \layout blocks once again.  They
      suck. */
   for (vsize i = 0; !score_def && i < sc->defs_.size (); i++)
-    if (to_boolean (sc->defs_[i]->c_variable ("is-layout")))
+    if (from_scm<bool> (sc->defs_[i]->c_variable ("is-layout")))
       score_def = sc->defs_[i];
 
   if (!score_def)
     return SCM_BOOL_F;
 
   /* Don't rescale if the layout has already been scaled */
-  if (to_boolean (score_def->c_variable ("cloned")))
+  if (from_scm<bool> (score_def->c_variable ("cloned")))
     score_def = score_def->clone ();
   else
     score_def = scale_output_def (score_def, output_scale (od));

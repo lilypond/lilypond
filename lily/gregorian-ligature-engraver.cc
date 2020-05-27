@@ -105,18 +105,18 @@ void check_and_fix_all_prefixes (vector<Grob_info> const &primitives)
 
       /* compute head prefix set by inspecting primitive grob properties */
       int prefix_set
-        = (VIRGA * to_boolean (get_property (primitive, "virga")))
-          | (STROPHA * to_boolean (get_property (primitive, "stropha")))
-          | (INCLINATUM * to_boolean (get_property (primitive, "inclinatum")))
-          | (AUCTUM * to_boolean (get_property (primitive, "auctum")))
-          | (DESCENDENS * to_boolean (get_property (primitive, "descendens")))
-          | (ASCENDENS * to_boolean (get_property (primitive, "ascendens")))
-          | (ORISCUS * to_boolean (get_property (primitive, "oriscus")))
-          | (QUILISMA * to_boolean (get_property (primitive, "quilisma")))
-          | (DEMINUTUM * to_boolean (get_property (primitive, "deminutum")))
-          | (CAVUM * to_boolean (get_property (primitive, "cavum")))
-          | (LINEA * to_boolean (get_property (primitive, "linea")))
-          | (PES_OR_FLEXA * to_boolean (get_property (primitive, "pes-or-flexa")));
+        = (VIRGA * from_scm<bool> (get_property (primitive, "virga")))
+          | (STROPHA * from_scm<bool> (get_property (primitive, "stropha")))
+          | (INCLINATUM * from_scm<bool> (get_property (primitive, "inclinatum")))
+          | (AUCTUM * from_scm<bool> (get_property (primitive, "auctum")))
+          | (DESCENDENS * from_scm<bool> (get_property (primitive, "descendens")))
+          | (ASCENDENS * from_scm<bool> (get_property (primitive, "ascendens")))
+          | (ORISCUS * from_scm<bool> (get_property (primitive, "oriscus")))
+          | (QUILISMA * from_scm<bool> (get_property (primitive, "quilisma")))
+          | (DEMINUTUM * from_scm<bool> (get_property (primitive, "deminutum")))
+          | (CAVUM * from_scm<bool> (get_property (primitive, "cavum")))
+          | (LINEA * from_scm<bool> (get_property (primitive, "linea")))
+          | (PES_OR_FLEXA * from_scm<bool> (get_property (primitive, "pes-or-flexa")));
 
       /* check: ascendens and descendens exclude each other; same with
          auctum and deminutum */
@@ -199,7 +199,7 @@ void check_and_fix_all_prefixes (vector<Grob_info> const &primitives)
       /* all other combinations should be valid (unless I made a
          mistake) */
 
-      set_property (primitive, "prefix-set", scm_from_int (prefix_set));
+      set_property (primitive, "prefix-set", to_scm (prefix_set));
     }
 }
 
@@ -243,7 +243,7 @@ provide_context_info (vector<Grob_info> const &primitives)
 
       if (prev_primitive)
         set_property (prev_primitive, "context-info",
-                                      scm_from_int (prev_context_info));
+                                      to_scm (prev_context_info));
       prev_primitive = primitive;
       prev_prefix_set = prefix_set;
       prev_context_info = context_info;
@@ -251,7 +251,7 @@ provide_context_info (vector<Grob_info> const &primitives)
     }
   if (prev_primitive)
     set_property (prev_primitive, "context-info",
-                                  scm_from_int (prev_context_info));
+                                  to_scm (prev_context_info));
 }
 
 void

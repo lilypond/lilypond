@@ -194,7 +194,7 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
                    factor, SCM_ARG2, __FUNCTION__,
                    "non-negative rational, fraction, or moment");
 
-  sc->compress (ly_scm2rational (Lily::scale_to_factor (factor)));
+  sc->compress (from_scm<Rational> (Lily::scale_to_factor (factor)));
   return m;
 }
 
@@ -271,23 +271,23 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
         {
           Pitch orig (scm_to_int (scm_car (key)),
                       scm_to_int (scm_cdr (key)),
-                      ly_scm2rational (alter));
+                      from_scm<Rational> (alter));
 
           orig = orig.transposed (p);
 
-          SCM key = scm_cons (scm_from_int (orig.get_octave ()),
-                              scm_from_int (orig.get_notename ()));
+          SCM key = scm_cons (to_scm (orig.get_octave ()),
+                              to_scm (orig.get_notename ()));
 
-          newlist = scm_cons (scm_cons (key, ly_rational2scm (orig.get_alteration ())),
+          newlist = scm_cons (scm_cons (key, to_scm (orig.get_alteration ())),
                               newlist);
         }
       else if (scm_is_number (key))
         {
-          Pitch orig (0, scm_to_int (key), ly_scm2rational (alter));
+          Pitch orig (0, scm_to_int (key), from_scm<Rational> (alter));
           orig = orig.transposed (p);
 
-          key = scm_from_int (orig.get_notename ());
-          alter = ly_rational2scm (orig.get_alteration ());
+          key = to_scm (orig.get_notename ());
+          alter = to_scm (orig.get_alteration ());
           newlist = scm_cons (scm_cons (key, alter), newlist);
         }
     }

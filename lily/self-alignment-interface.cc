@@ -44,7 +44,7 @@ MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self, 3);
 SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
-  return aligned_on_self (unsmob<Grob> (smob), Y_AXIS, true, robust_scm2int (start, 0), robust_scm2int (end, INT_MAX));
+  return aligned_on_self (unsmob<Grob> (smob), Y_AXIS, true, from_scm (start, 0), from_scm (end, INT_MAX));
 }
 
 SCM
@@ -59,7 +59,7 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
       // Empty extent doesn't mean an error - we simply don't align such grobs.
       // However, empty extent and non-empty stencil would be suspicious.
       if (!ext.is_empty ())
-        return scm_from_double (- ext.linear_combination (scm_to_double (align)));
+        return to_scm (- ext.linear_combination (scm_to_double (align)));
       else
         {
           Stencil *st = me->get_stencil ();
@@ -67,13 +67,13 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
             warning (me->name () + " has empty extent and non-empty stencil.");
         }
     }
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 SCM
 Self_alignment_interface::centered_on_object (Grob *him, Axis a)
 {
-  return scm_from_double (robust_relative_extent (him, him, a).center ());
+  return to_scm (robust_relative_extent (him, him, a).center ());
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_x_parent, 1);
@@ -119,7 +119,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
          (him, ly_symbol2scm ("note-column-interface"), a);
   else
     {
-      if (to_boolean (get_property (me, "X-align-on-main-noteheads"))
+      if (from_scm<bool> (get_property (me, "X-align-on-main-noteheads"))
           && has_interface<Note_column> (him))
         he = Note_column::calc_main_extent (him);
       else
@@ -167,7 +167,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
         }
     }
 
-  return scm_from_double (x);
+  return to_scm (x);
 }
 
 void

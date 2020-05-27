@@ -102,15 +102,15 @@ Line_interface::make_zigzag_line (Grob *me,
   Offset dz = to - from;
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
-  thick *= robust_scm2double (get_property (me, "thickness"), 1.0); // todo: staff sym referencer?
+  thick *= from_scm<double> (get_property (me, "thickness"), 1.0); // todo: staff sym referencer?
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real w = robust_scm2double (get_property (me, "zigzag-width"), 1) * staff_space;
+  Real w = from_scm<double> (get_property (me, "zigzag-width"), 1) * staff_space;
   int count = (int) ceil (dz.length () / w);
   w = dz.length () / count;
 
-  Real l = robust_scm2double (get_property (me, "zigzag-length"), 1) * w;
+  Real l = from_scm<double> (get_property (me, "zigzag-length"), 1) * w;
   Real h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
 
   Offset rotation_factor = dz.direction ();
@@ -145,12 +145,12 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   Real off = std::max (0.0, dash_period - on);
 
   SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-                       scm_from_double (thick),
-                       scm_from_double (on),
-                       scm_from_double (off),
-                       scm_from_double (to[X_AXIS] - from[X_AXIS]),
-                       scm_from_double (to[Y_AXIS] - from[Y_AXIS]),
-                       scm_from_double (0.0),
+                       to_scm (thick),
+                       to_scm (on),
+                       to_scm (off),
+                       to_scm (to[X_AXIS] - from[X_AXIS]),
+                       to_scm (to[Y_AXIS] - from[Y_AXIS]),
+                       to_scm (0.0),
                        SCM_UNDEFINED);
 
   Box box;
@@ -169,11 +169,11 @@ Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-                       scm_from_double (th),
-                       scm_from_double (from[X_AXIS]),
-                       scm_from_double (from[Y_AXIS]),
-                       scm_from_double (to[X_AXIS]),
-                       scm_from_double (to[Y_AXIS]),
+                       to_scm (th),
+                       to_scm (from[X_AXIS]),
+                       to_scm (from[Y_AXIS]),
+                       to_scm (to[X_AXIS]),
+                       to_scm (to[Y_AXIS]),
                        SCM_UNDEFINED);
 
   Box box;
@@ -195,11 +195,11 @@ Line_interface::arrows (Grob *me, Offset from, Offset to,
   if (from_arrow || to_arrow)
     {
       Real thick = Staff_symbol_referencer::line_thickness (me)
-                   * robust_scm2double (get_property (me, "thickness"), 1);
+                   * from_scm<double> (get_property (me, "thickness"), 1);
       Real ss = Staff_symbol_referencer::staff_space (me);
 
-      Real len = robust_scm2double (get_property (me, "arrow-length"), 1.3 * ss);
-      Real wid = robust_scm2double (get_property (me, "arrow-width"), 0.5 * ss);
+      Real len = from_scm<double> (get_property (me, "arrow-length"), 1.3 * ss);
+      Real wid = from_scm<double> (get_property (me, "arrow-width"), 0.5 * ss);
 
       if (to_arrow)
         a.add_stencil (make_arrow (from, to, thick, len, wid));
@@ -215,7 +215,7 @@ Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = Staff_symbol_referencer::line_thickness (me)
-               * robust_scm2double (get_property (me, "thickness"), 1);
+               * from_scm<double> (get_property (me, "thickness"), 1);
 
   SCM type = get_property (me, "style");
   if (scm_is_eq (type, ly_symbol2scm ("zigzag")))
@@ -234,11 +234,11 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       Real fraction
         = scm_is_eq (type, ly_symbol2scm ("dotted-line"))
           ? 0.0
-          : robust_scm2double (get_property (me, "dash-fraction"), 0.4);
+          : from_scm<double> (get_property (me, "dash-fraction"), 0.4);
 
       fraction = std::min (std::max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)
-                    * robust_scm2double (get_property (me, "dash-period"), 1.0);
+                    * from_scm<double> (get_property (me, "dash-period"), 1.0);
 
       if (period <= 0)
         return Stencil ();

@@ -107,7 +107,7 @@ Tie_engraver::Tie_engraver (Context *c)
 void
 Tie_engraver::listen_tie (Stream_event *ev)
 {
-  if (!to_boolean (get_property (this, "skipTypesetting")))
+  if (!from_scm<bool> (get_property (this, "skipTypesetting")))
     {
       ASSIGN_EVENT_ONCE (event_, ev);
     }
@@ -133,7 +133,7 @@ bool
 Tie_engraver::has_autosplit_end (Stream_event *event)
 {
   if (event)
-    return to_boolean (get_property (event, "autosplit-end"));
+    return from_scm<bool> (get_property (event, "autosplit-end"));
   return false;
 }
 
@@ -190,10 +190,10 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
           Tie::set_head (p, LEFT, th);
           Tie::set_head (p, RIGHT, h);
 
-          if (is_direction (get_property (cause, "direction")))
+          if (is_scm<Direction> (get_property (cause, "direction")))
             {
-              Direction d = to_dir (get_property (cause, "direction"));
-              set_property (p, "direction", scm_from_int (d));
+              Direction d = from_scm<Direction> (get_property (cause, "direction"));
+              set_property (p, "direction", to_scm (d));
             }
 
           ties_.push_back (p);
@@ -238,7 +238,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 void
 Tie_engraver::start_translation_timestep ()
 {
-  if (heads_to_tie_.size () && !to_boolean (get_property (this, "tieWaitForNote")))
+  if (heads_to_tie_.size () && !from_scm<bool> (get_property (this, "tieWaitForNote")))
     {
       Moment now = now_mom ();
       for (vsize i = heads_to_tie_.size (); i--;)
@@ -258,7 +258,7 @@ Tie_engraver::start_translation_timestep ()
 void
 Tie_engraver::process_acknowledged ()
 {
-  bool wait = to_boolean (get_property (this, "tieWaitForNote"));
+  bool wait = from_scm<bool> (get_property (this, "tieWaitForNote"));
   if (ties_.size ())
     {
       if (!wait)
