@@ -20,6 +20,7 @@
 #include "font-metric.hh"
 #include "lookup.hh"
 #include "offset.hh"
+#include "stencil-interpret.hh"
 #include "stencil.hh"
 
 using std::vector;
@@ -387,17 +388,21 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
                               stil->expr ())).smobbed_copy ();
 }
 
-struct Stencil_interpret_arguments
+struct Stencil_interpret_arguments : Stencil_sink
 {
-  SCM func;
-  SCM arg1;
-};
+  SCM func_;
+  SCM arg1_;
 
-SCM stencil_interpret_in_scm (void *p, SCM expr)
-{
-  Stencil_interpret_arguments *ap = (Stencil_interpret_arguments *) p;
-  return scm_call_2 (ap->func, ap->arg1, expr);
-}
+  Stencil_interpret_arguments (SCM f, SCM arg)
+  {
+    func_ = f;
+    arg1_ = arg;
+  }
+  virtual SCM output (SCM expr) override
+  {
+    return scm_call_2 (func_, arg1_, expr);
+  }
+};
 
 LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
            4, 0, 0, (SCM expr, SCM func, SCM arg1, SCM offset),
@@ -406,12 +411,10 @@ LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
 {
   LY_ASSERT_TYPE (ly_is_procedure, func, 2);
 
-  Stencil_interpret_arguments a;
-  a.func = func;
-  a.arg1 = arg1;
+  Stencil_interpret_arguments a (func, arg1);
   Offset o = from_scm<Offset> (offset);
 
-  interpret_stencil_expression (expr, stencil_interpret_in_scm, (void *) & a, o);
+  interpret_stencil_expression (expr, &a, o);
 
   return SCM_UNSPECIFIED;
 }

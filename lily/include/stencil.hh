@@ -93,12 +93,6 @@ public:
   static SCM skylines_from_stencil (SCM, Real, SCM, Axis);
 };
 
-void interpret_stencil_expression (SCM expr,
-                                   SCM (*func) (void *, SCM),
-                                   void *func_arg,
-                                   Offset o);
-SCM find_expression_fonts (SCM expr);
-
 void register_stencil_head (SCM symbol);
 bool is_stencil_head (SCM symbol);
 SCM all_stencil_heads ();
