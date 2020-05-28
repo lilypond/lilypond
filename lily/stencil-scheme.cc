@@ -378,37 +378,6 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
                               stil->expr ())).smobbed_copy ();
 }
 
-struct Stencil_interpret_arguments : Stencil_sink
-{
-  SCM func_;
-  SCM arg1_;
-
-  Stencil_interpret_arguments (SCM f, SCM arg)
-  {
-    func_ = f;
-    arg1_ = arg;
-  }
-  virtual SCM output (SCM expr) override
-  {
-    return scm_call_2 (func_, arg1_, expr);
-  }
-};
-
-LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
-           4, 0, 0, (SCM expr, SCM func, SCM arg1, SCM offset),
-           "Parse @var{expr}, feed bits to @var{func} with first arg"
-           " @var{arg1} having offset @var{offset}.")
-{
-  LY_ASSERT_TYPE (ly_is_procedure, func, 2);
-
-  Stencil_interpret_arguments a (func, arg1);
-  Offset o = from_scm<Offset> (offset);
-
-  interpret_stencil_expression (expr, &a, o);
-
-  return SCM_UNSPECIFIED;
-}
-
 LY_DEFINE (ly_bracket, "ly:bracket",
            4, 0, 0,
            (SCM a, SCM iv, SCM t, SCM p),
