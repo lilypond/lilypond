@@ -246,7 +246,7 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
       /* draw rounded corners */
       if (radius)
         {
-          Offset rad (radius, 0);
+          Offset rad (radius, radius);
           Drul_array<Real> cx;
           Drul_array<Real> cy;
 
