@@ -407,6 +407,20 @@ are now available with the @code{SVG} backend.
 An argument, @code{-dcrop}, has been added, formatting @code{SVG} and
 @code{PDF} output without margins or page-breaks.
 
+@item
+The @code{\note} markup command now takes as its first argument a duration
+instead of a string:
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(style . cross) {
+    \note {4..} #UP
+  }
+  \hspace #2
+  \note {\breve} #0
+}
+@end lilypond
+
+
 @end itemize
 
 @ifhtml
