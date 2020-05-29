@@ -893,9 +893,6 @@ This subsection discusses how to place text in markup mode.  Markup
 objects can also be moved as a whole, using the syntax described in
 @rlearning{Moving objects}.
 
-@c Padding commands should be mentioned on this page, but
-@c most of these require \box to be more clearly illustrated. -vv
-
 @cindex text, horizontal alignment
 @cindex horizontal text alignment
 
@@ -906,6 +903,8 @@ objects can also be moved as a whole, using the syntax described in
 Markup objects may be aligned in different ways.  By default, a text
 indication is aligned on its left edge: in the following example,
 there is no difference between the first and the second markup.
+That example also demonstrates various syntactically correct ways
+of placing the alignment commands:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -915,7 +914,7 @@ there is no difference between the first and the second markup.
   f
   d-\markup { \center-align { poco } }
   f
-  d-\markup { \right-align poco }
+  d-\markup \right-align { poco }
 }
 @end lilypond
 
@@ -935,6 +934,29 @@ Horizontal alignment may be fine-tuned using a numeric value:
 }
 @end lilypond
 
+@funindex \hspace
+@cindex padding in markup, horizontal
+@cindex horizontal padding in markup
+
+Lastly, words and any other objects may be moved by preceding
+them with padding.  Negative padding is also supported, and
+will move any objects that follow in the opposite direction.
+Although padding is normally invisible, in the following
+example some commands have been added to make it appear
+more clearly:
+
+@lilypond[quote,verbatim]
+\relative {
+  d''1-\markup { poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #4 poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #-4 poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #10 poco }
+}
+@end lilypond
+
 @noindent
 Some objects may have alignment procedures of their own, and therefore
 are not affected by these commands.  It is possible to move such
@@ -949,15 +971,9 @@ markup objects as a whole, as shown for instance in
 @funindex \lower
 @funindex \null
 
-@c QUERY Should the function of ``\null'' be clarified? rp
-
-Vertical alignment is a bit more complex.  As stated above, markup
+Vertical alignment can be set in a similar way.  As stated above, markup
 objects can be moved as a whole; however, it is also possible to move
-specific elements inside a markup block.  In this case, the element to
-be moved needs to be preceded with an @emph{anchor point}, that can be
-another markup element or an invisible object.  The following example
-demonstrates these two possibilities; the last markup in this example
-has no anchor point, and therefore is not moved.
+specific elements inside a markup block.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -967,12 +983,11 @@ has no anchor point, and therefore is not moved.
   }
   a'
   g_\markup {
-    \null
     \lower #4 \bold { Très modéré }
   }
   a
-  d,^\markup {
-    \raise #4 \italic { Une forêt. }
+  d,^\markup \raise #4 \italic {
+    Une forêt.
   }
   a'4 a g2 a
 }
@@ -983,8 +998,7 @@ has no anchor point, and therefore is not moved.
 @funindex \translate-scaled
 
 Some commands can affect both the horizontal and vertical alignment of
-text objects in markup mode.  Any object affected by these commands
-must be preceded with an anchor point:
+text objects in markup mode:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -994,13 +1008,41 @@ must be preceded with an anchor point:
   }
   a'
   g_\markup {
-    \null
     \general-align #Y #3.2 \bold "Très modéré"
   }
   a
-  d,^\markup {
-    \null
-    \translate-scaled #'(-1 . 2) \teeny "Une forêt."
+  d,^\markup \translate-scaled #'(-1 . 2) \teeny {
+   "Une forêt."
+  }
+  a'4 a g2 a
+}
+@end lilypond
+
+@funindex \vspace
+@cindex padding in markup, vertical
+@cindex vertical padding in markup
+
+Here again, padding (either positive or negative) is a convenient way
+of positioning objects vertically, when inserted into markup columns:
+
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \column {
+      \with-color #darkred \box \vspace #-1
+      "Scène 1"
+    }
+  }
+  a'
+  g_\markup \column {
+    \with-color #darkred \box \vspace #1
+    "Très modéré"
+  }
+  a
+  d,^\markup \column {
+   "Une forêt."
+    \with-color #darkred \box \vspace #2
   }
   a'4 a g2 a
 }
