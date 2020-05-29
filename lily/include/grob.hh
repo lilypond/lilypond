@@ -174,10 +174,6 @@ public:
 
   /* skylines */
   virtual Interval_t<int> spanned_rank_interval () const;
-  virtual bool pure_is_visible (vsize /*start*/, vsize /*end*/) const
-  {
-    return true;
-  }
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
   static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis, bool, int, int, bool, bool);

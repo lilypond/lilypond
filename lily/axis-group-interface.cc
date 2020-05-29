@@ -48,6 +48,27 @@ using std::vector;
 static bool
 pure_staff_priority_less (Grob *const &g1, Grob *const &g2);
 
+/* gets the relevant version of `g` in the context of a line running
+   from `start` to `end` */
+Grob *
+pure_subst_prebroken_piece (Grob *g, vsize start, vsize end)
+{
+  Item *it = dynamic_cast<Item *> (g);
+  if (!it)
+    return g;
+
+  if (it->get_column ()->get_rank () == int (start))
+    {
+      return it->find_prebroken_piece (RIGHT);
+    }
+  if (it->get_column ()->get_rank () == int (end))
+    {
+      return it->find_prebroken_piece (LEFT);
+    }
+
+  return it;
+}
+
 Real Axis_group_interface::default_outside_staff_padding_ = 0.46;
 
 Real
@@ -254,7 +275,13 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
         continue;
 
       if (!g->is_live ())
-        continue;
+        {
+          Item *it = dynamic_cast<Item *> (g);
+          if (!it)
+            continue;
+          if (!it->get_column ())
+            continue;
+        }
 
       bool outside_staff = scm_is_number (get_property (g, "outside-staff-priority"));
       Real padding = from_scm<double> (get_property (g, "outside-staff-padding"), get_default_outside_staff_padding ());
@@ -292,9 +319,11 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
           // end-of-line-visible.
           vsize visibility_end = j + 2 < ranks.size () ? ranks[j + 2] : end;
 
-          if (g->pure_is_visible (start, visibility_end))
+          Grob *maybe_subst
+            = pure_subst_prebroken_piece (g, start, visibility_end);
+          if (Item::break_visible (maybe_subst))
             {
-              Interval dims = g->pure_y_extent (common, start, end);
+              Interval dims = maybe_subst->pure_y_extent (common, start, end);
               if (!dims.is_empty ())
                 {
                   if (rank_span[LEFT] <= start)
@@ -351,10 +380,11 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
   Interval r;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Grob *g = elts[i];
+      Grob *g = pure_subst_prebroken_piece (elts[i], start, end);
+
       Interval_t<int> rank_span = g->spanned_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
-          && g->pure_is_visible (start, end)
+          && Item::break_visible (g)
           && !(from_scm<bool> (get_property (g, "cross-staff"))
                && has_interface<Stem> (g)))
         {
@@ -507,29 +537,14 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string 
 
   for (vsize i = 0; i < elts.size (); i++)
     {
-      if (elts[i] && elts[i]->is_live ())
-        relevant_grobs.push_back (elts[i]);
-      /*
-        TODO (mikesol): it is probably bad that we're reading prebroken
-        pieces from potentially suicided elements.  This behavior
-        has been in current master since at least 2.16.
-
-        We need to fully suicide all Items, meaning that their
-        prebroken pieces should not be accessible, which means that
-        Item::handle_prebroken_dependencies should only be called
-        AFTER this list is composed.  The list composition function
-        should probably not check for suicided items or NULL pointers
-        but leave that to the various methods that use it.
-      */
       if (Item *it = dynamic_cast<Item *> (elts[i]))
         {
-          for (LEFT_and_RIGHT (d))
-            {
-              Item *piece = it->find_prebroken_piece (d);
-              if (piece && piece->is_live ())
-                relevant_grobs.push_back (piece);
-            }
+          if (it->original ())
+            continue;
         }
+      /* This might include potentially suicided items. Callers should
+         look at the relevant prebroken clone where necesary */
+      relevant_grobs.push_back (elts[i]);
     }
 
   vector_sort (relevant_grobs, pure_staff_priority_less);
@@ -649,8 +664,28 @@ staff_priority_less (Grob *const &g1, Grob *const &g2)
 static bool
 pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
 {
-  Real priority_1 = from_scm<double> (get_property (g1, "outside-staff-priority"), -infinity_f);
-  Real priority_2 = from_scm<double> (get_property (g2, "outside-staff-priority"), -infinity_f);
+  Grob *p[2] = {g1, g2};
+  for (int i = 0; i < 2; i++)
+    {
+      Item *it = dynamic_cast<Item *> (p[i]);
+      if (it && !it->is_live ())
+        {
+          for (LEFT_and_RIGHT (d))
+            {
+              Item *b = it->find_prebroken_piece (d);
+              if (b && b->is_live ())
+                {
+                  p[i] = b;
+                  break;
+                }
+            }
+        }
+    }
+
+  Real priority_1 = from_scm<double> (
+    get_property (p[0], "outside-staff-priority"), -infinity_f);
+  Real priority_2 = from_scm<double> (
+    get_property (p[1], "outside-staff-priority"), -infinity_f);
 
   return priority_1 < priority_2;
 }

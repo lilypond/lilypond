@@ -153,23 +153,6 @@ Item::break_visible (Grob *g)
 }
 
 bool
-Item::pure_is_visible (vsize start, vsize end) const
-{
-  SCM vis = get_property (this, "break-visibility");
-  if (scm_is_vector (vis))
-    {
-      vsize pos = 1;
-      vsize pc_rank = get_column ()->get_rank ();
-      if (pc_rank == start)
-        pos = 2;
-      else if (pc_rank == end)
-        pos = 0;
-      return from_scm<bool> (scm_c_vector_ref (vis, pos));
-    }
-  return Grob::pure_is_visible (start, end);
-}
-
-bool
 Item::internal_set_as_bound_of_spanner (Spanner *s, Direction)
 {
   return s->accepts_as_bound_item (this);

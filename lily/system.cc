@@ -912,17 +912,12 @@ System::calc_pure_relevant_grobs (SCM smob)
     {
       if (!has_interface<Axis_group_interface> (elts[i]))
         {
-          relevant_grobs.push_back (elts[i]);
-
           if (Item *it = dynamic_cast<Item *> (elts[i]))
             {
-              for (LEFT_and_RIGHT (d))
-                {
-                  Item *piece = it->find_prebroken_piece (d);
-                  if (piece && piece->is_live ())
-                    relevant_grobs.push_back (piece);
-                }
+              if (it->original ())
+                continue;
             }
+          relevant_grobs.push_back (elts[i]);
         }
     }
 
