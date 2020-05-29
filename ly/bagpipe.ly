@@ -35,8 +35,10 @@ pitchnamesBagpipe = #`(
   (B . ,(ly:make-pitch 1 6 NATURAL))
   (C . ,(ly:make-pitch 2 0 SHARP))
 )
-pitchnames = \pitchnamesBagpipe
-#(ly:parser-set-note-names pitchnames)
+#(set! language-pitch-names
+       (append language-pitch-names
+               (list `(bagpipe . ,pitchnamesBagpipe))))
+\language "bagpipe"
 
 % Bagpipe music is written in something like D major. If we use
 % flattened notes, the flat should be shown on all instances.

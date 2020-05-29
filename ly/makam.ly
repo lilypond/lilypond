@@ -116,8 +116,10 @@ makamPitchNames = #`(
 
 
 %% set pitch names.
-pitchnames = \makamPitchNames
-#(ly:parser-set-note-names makamPitchNames)
+#(set! language-pitch-names
+       (append language-pitch-names
+               (list `(makam . ,makamPitchNames))))
+\language "makam"
 
 #(define eksikMirroredSlashedFlat
   (if (defined? 'eksikMirroredSlashedFlat)
@@ -140,6 +142,10 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
        (-5/9 . "accidentals.flat")
        (-8/9 . "accidentals.flat.slashslash")
        (-1 . "accidentals.flatflat"))
+
+#(set! standard-alteration-glyph-name-alist
+       (append makamGlyphs
+               standard-alteration-glyph-name-alist))
 
 \layout {
   \context {
