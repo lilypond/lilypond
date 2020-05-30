@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-Doigtés et numéros de corde, lorsque affectés à des notes individuelles,
-évitent les hampes et ligatures.  Cette fonctionnalité n'est pas activée
-par défaut en ce qui concerne les notes appartenant à un accord.  Voici
-comment mettre en place la dérogation appropriée en pareil cas.
-
-"
-  doctitlefr = "Évitement de collision des doigtés d'un accord"

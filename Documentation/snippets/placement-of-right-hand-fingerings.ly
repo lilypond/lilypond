@@ -12,7 +12,7 @@
   texidoc = "
 It is possible to exercise greater control over the placement of
 right-hand fingerings by setting a specific property, as demonstrated
-in the following example. Note: you must use a chord construct
+in the following example.
 
 "
   doctitle = "Placement of right-hand fingerings"
@@ -24,11 +24,14 @@ in the following example. Note: you must use a chord construct
   \clef "treble_8"
 
   \set strokeFingerOrientations = #'(up down)
-  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >4
-
+  <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >4
+  
   \set strokeFingerOrientations = #'(up right down)
-  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >4
-
+  <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >4
+  
   \set strokeFingerOrientations = #'(left)
-  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >2
+  <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >2
+  
+  \set strokeFingerOrientations = #'(right)
+  c\RH #1
 }

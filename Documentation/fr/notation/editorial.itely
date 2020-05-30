@@ -393,20 +393,14 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 @cindex doigté, positionnement
 @cindex positionnement, doigté
 @funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex doigté, dans la portée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
-@cindex collision, doigté d'accord
-@cindex doigté, accord, collision
-@funindex fingeringOrientations
-@funindex stringNumberOrientations
-@funindex strokeFingerOrientations
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{avoiding-collisions-with-chord-fingerings.ly}
 
 @seealso
 Manuel de notation :

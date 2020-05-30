@@ -19,7 +19,7 @@
     {
       \set strokeFingerOrientations = #'(right)
       \omit StrokeFinger
-      <g'-\rightHandFinger #2 c''-\rightHandFinger #4 >
+      <g'\rightHandFinger #2 c''\rightHandFinger #4 >
     }
   }
   \score {

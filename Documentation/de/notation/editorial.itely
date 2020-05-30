@@ -196,14 +196,14 @@ Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
 
 @snippets
 
+@funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{avoiding-collisions-with-chord-fingerings.ly}
 
 @seealso
 Notationsreferenz:

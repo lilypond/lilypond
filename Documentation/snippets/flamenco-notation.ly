@@ -96,7 +96,6 @@ headsOn = {
 
 part = \relative c' {
   \set strokeFingerOrientations = #'(up)
-  \override StrokeFinger.add-stem-support = ##t
   \key a\major
   <a, e' a cis e\RHu\RHi>8
   <a e' a cis e\RHd\RHi>8

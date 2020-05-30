@@ -56,6 +56,10 @@ added as simple text -- see @ref{Text scripts}.
 @item Fingerings, including the thumb indication, are described
 in @ref{Fingering instructions}.
 
+@item String numbers may be added (generally in roman
+numbers for bowed instruments) as explained in
+@ref{String number indications}.
+
 @item Double stopping is normally indicated by writing a chord,
 see @ref{Chorded notes}.  Directives for playing chords may be
 added, see @ref{Arpeggio}.
@@ -106,7 +110,7 @@ with slurs as follows:
 
 @noindent
 
-Roman numerals can be added as strings numbers (rather
+Roman numerals can be used for string numbers (rather
 than the default circled Arabic numbers), as explained in
 @ref{String number indications}.
 

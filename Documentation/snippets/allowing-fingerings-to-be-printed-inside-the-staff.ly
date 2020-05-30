@@ -11,8 +11,12 @@
 
   texidoc = "
 By default, vertically oriented fingerings are positioned outside the
-staff.  However, this behavior can be canceled. Note: you must use a
-chord construct <>, even if it is only a single note.
+staff; that behavior, however, may be disabled.   Attention needs to be
+paid to situations where fingerings and stems are in the same direction:
+by default, fingerings will avoid only beamed stems.  That setting can
+be changed to avoid no stems or all stems; the following example
+demonstrates these two options, as well as how to go back to the
+default behavior.
 
 "
   doctitle = "Allowing fingerings to be printed inside the staff"
@@ -21,5 +25,12 @@ chord construct <>, even if it is only a single note.
 \relative c' {
   <c-1 e-2 g-3 b-5>2
   \override Fingering.staff-padding = #'()
-  <c-1 e-2 g-3 b-5>4 <g'-0>
+  <c-1 e-2 g-3 b-5>4 g'-0
+  a8[-1 b]-2 g-0 r
+  \override Fingering.add-stem-support = ##f
+  a[-1 b]-2 g-0 r
+  \override Fingering.add-stem-support = ##t
+  a[-1 b]-2 g-0 r
+  \override Fingering.add-stem-support = #only-if-beamed
+  a[-1 b]-2 g-0 r
 }

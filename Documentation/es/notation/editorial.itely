@@ -391,20 +391,14 @@ o debajo del pentagrama, véase @ref{Dirección y posición}.
 @cindex digitación, orientación
 @cindex orientación de las digitaciones
 @funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex digitación, dentro del pentagrama
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
-@cindex colisión, digitaciones de acorde
-@cindex acorde, digitación, colisión
-@funindex fingeringOrientations
-@funindex stringNumberOrientations
-@funindex strokeFingerOrientations
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{avoiding-collisions-with-chord-fingerings.ly}
 
 @seealso
 Referencia de la notación:

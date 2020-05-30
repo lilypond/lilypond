@@ -19,6 +19,5 @@ The scripts should not be folded under the time signature.
   \set stringNumberOrientations = #'(left) 
   \set fingeringOrientations = #'(left) 
   \set strokeFingerOrientations = #'(left) 
-  <cis'-1\4
-   -\rightHandFinger #1 f>\arpeggio
+  <cis'-1\4\rightHandFinger #1 f>\arpeggio
 }

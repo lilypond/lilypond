@@ -2251,6 +2251,7 @@
 
     (StringNumber
      . (
+        (add-stem-support . ,only-if-beamed)
         (avoid-slur . around)
         (cross-staff . ,script-or-side-position-cross-staff)
         (font-encoding . fetaText)
@@ -2277,6 +2278,7 @@
 
     (StrokeFinger
      . (
+        (add-stem-support . ,only-if-beamed)
         (digit-names . #("p" "i" "m" "a" "x"))
         (font-shape . italic)
         (font-size . -4)                ; don't overlap when next to heads.
