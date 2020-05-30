@@ -1243,6 +1243,7 @@ supported.
 @funindex \arpeggioArrowUp
 @funindex \arpeggioArrowDown
 @funindex \arpeggioNormal
+@funindex arpeggio-direction
 
 An @notation{arpeggio} on a chord (also known as a broken chord)
 is denoted by appending @code{\arpeggio} to the chord construct:
@@ -1268,6 +1269,10 @@ Different types of arpeggios may be written.
   <c e g c>2\arpeggio
 }
 @end lilypond
+
+These predefined commands internally modify the 
+@code{'arpeggio-direction} property; see their full
+definition in the @file{ly/property-init.ly} file.
 
 @cindex arpeggio symbol, special
 @cindex special arpeggio symbol
@@ -1295,6 +1300,11 @@ Special @emph{bracketed} arpeggio symbols can be created:
   <c e g c>2\arpeggio
 }
 @end lilypond
+
+These predefined commands internally override the @code{Arpeggio}
+object’s @code{'stencil} property, and may also adapt its
+@code{'X-extent} (that is, the horizontal dimension it takes
+not to collide with other objects).
 
 The dash properties of the parenthesis arpeggio are controlled
 with the @code{'dash-definition} property, which is described at
@@ -1338,6 +1348,9 @@ Notation Reference:
 @ref{Slurs},
 @ref{Ties}.
 
+Installed Files:
+@file{ly/property-init.ly}.
+
 Snippets:
 @rlsr{Expressive marks}.
 
@@ -1347,6 +1360,31 @@ Internals Reference:
 @rinternals{PianoStaff}.
 
 @knownissues
+Predefined commands such as @code{\arpeggioArrowUp} only
+apply to the current context, and thus will not affect
+arpeggios spanning several voices or staves.  In such cases,
+these commands need to be used in a @code{\context} block within
+@code{\layout}, or in a @code{\with} block, as explained in
+@ref{Changing context default settings}.
+Alternatively, rather than using predefined shortcuts, it may be
+advisable to directly override the relevant properties for the
+@code{Arpeggio} object in the appropriate context; for example:
+
+@example
+\override Staff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
+@end example
+
+@noindent
+to print cross-voice arpeggio brackets at the @code{Staff} level, or
+
+@example
+\override PianoStaff.Arpeggio.arpeggio-direction = #UP
+@end example
+
+@noindent
+to print cross-staff arrowed arpeggios (pointing upwards) in a
+@code{PianoStaff} context.
+
 @cindex cross-staff parenthesis-style arpeggio
 @cindex arpeggio, cross-staff parenthesis-style
 
