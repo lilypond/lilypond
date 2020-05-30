@@ -47,7 +47,7 @@ substitute_grob (Grob *sc)
   if (scm_is_integer (break_criterion))
     {
       Item *i = dynamic_cast<Item *> (sc);
-      Direction d = to_dir (break_criterion);
+      Direction d = from_scm<Direction> (break_criterion);
       if (i && i->break_status_dir () != d)
         {
           Item *br = i->find_prebroken_piece (d);

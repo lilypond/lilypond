@@ -35,7 +35,7 @@ protected:
   SCM get_music_list () const override;
   void construct_children () override;
 private:
-  SCM music_tail ();
+  SCM music_tail () const;
   int starting_bar_;
 };
 
@@ -54,7 +54,7 @@ Percent_repeat_iterator::construct_children ()
   descend_to_bottom_context ();
   if (!measure_position (get_outlet ()).main_part_)
     starting_bar_
-      = robust_scm2int (get_property (get_outlet (), "internalBarNumber"), 0);
+      = from_scm (get_property (get_outlet (), "internalBarNumber"), 0);
 }
 
 // Todo: use elements-callback instead?  We don't expose iterator
@@ -71,7 +71,7 @@ Percent_repeat_iterator::get_music_list () const
 // percent expression we are dealing with and provide the respective
 // music expressions for the remaining repeats.
 SCM
-Percent_repeat_iterator::music_tail ()
+Percent_repeat_iterator::music_tail () const
 {
   Music *mus = get_music ();
 
@@ -81,32 +81,32 @@ Percent_repeat_iterator::music_tail ()
   int current_bar = -1;
   if (!measure_position (get_outlet ()).main_part_)
     current_bar
-      = robust_scm2int (get_property (get_outlet (), "internalBarNumber"), 0);
+      = from_scm (get_property (get_outlet (), "internalBarNumber"), 0);
 
   SCM child_list = SCM_EOL;
 
-  const char * event_type;
-  SCM slash_count = SCM_UNDEFINED;
+  SCM event_type = SCM_UNDEFINED;
+  SCM slash_count = SCM_UNDEFINED; // Only defined for RepeatSlashEvent
 
   if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
-    event_type = "PercentEvent";
+    event_type = ly_symbol2scm ("PercentEvent");
   else if (starting_bar_ >= 0 && current_bar == starting_bar_ + 2)
-    event_type = "DoublePercentEvent";
+    event_type = ly_symbol2scm ("DoublePercentEvent");
   else
     {
       slash_count = Lily::calc_repeat_slash_count (child->self_scm ());
-      event_type = "RepeatSlashEvent";
+      event_type = ly_symbol2scm ("RepeatSlashEvent");
     }
 
   int repeats = scm_to_int (get_property (mus, "repeat-count"));
   for (int i = repeats; i > 1; i--)
     {
-      Music *percent = make_music_by_name (ly_symbol2scm (event_type));
+      Music *percent = make_music_by_name (event_type);
       percent->set_spot (*mus->origin ());
       set_property (percent, "length", length);
       if (repeats > 1)
         {
-          set_property (percent, "repeat-count", scm_from_int (i));
+          set_property (percent, "repeat-count", to_scm (i));
           if (!SCM_UNBNDP (slash_count))
             set_property (percent, "slash-count", slash_count);
         }

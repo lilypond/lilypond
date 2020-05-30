@@ -130,7 +130,7 @@ Extender_engraver::stop_translation_timestep ()
       else
         {
           if (pending_extender_
-              && !to_boolean (get_property (this, "extendersOverRests")))
+              && !from_scm<bool> (get_property (this, "extendersOverRests")))
             {
               completize_extender (pending_extender_);
               pending_extender_ = 0;

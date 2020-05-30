@@ -81,7 +81,7 @@ Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
 void
 Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
 
   ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[d], ev);
 }
@@ -166,7 +166,8 @@ Dynamic_engraver::process_music ()
             {
               string as_string = ly_scm_write_string (cresc_type);
               current_span_event_
-              ->origin ()->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.", as_string.c_str ()));
+              ->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.",
+                             as_string.c_str ()));
             }
           current_spanner_ = make_spanner ("Hairpin",
                                            current_span_event_->self_scm ());
@@ -231,9 +232,8 @@ Dynamic_engraver::finalize ()
   if (current_spanner_)
     {
       current_span_event_
-      ->origin ()->warning (_f ("unterminated %s",
-                                get_spanner_type (current_span_event_)
-                                .c_str ()));
+      ->warning (_f ("unterminated %s",
+                     get_spanner_type (current_span_event_).c_str ()));
       current_spanner_->suicide ();
       current_spanner_ = 0;
     }

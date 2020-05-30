@@ -2960,13 +2960,15 @@ Stretchability of staves can be controlled with the
 the details right now; this is fully explained later.  For the
 curious, have a look at @ruser{Overview of modifying properties}.
 In this case, we want to modify the @code{stretchability}
-sub-property only. Again, for the curious, you can find the
-default values for the staff-staff-spacing property
-in file @file{scm/define-grobs.scm} by looking up the definition
-of the @code{VerticalAxisGroup} grob.  The value for
-@code{stretchability} is taken from the definition of the
-@code{PianoStaff} context (in file @file{ly/engraver-init.ly})
-so that the values are identical.
+sub-property only.  Any values not changed will use the default
+value.  Again, for the curious, you can find the default values for
+the @code{staff-staff-spacing} property in file
+@file{scm/define-grobs.scm} by looking up the definition of the
+@code{default-staff-staff-spacing} property of the
+@code{VerticalAxisGroup} grob.  The value for @code{stretchability}
+below is taken from the definition of the @code{StaffGrouper} grob
+(in file @file{scm/define-grobs.scm}) so that the values are
+identical.
 
 @example
 \score @{

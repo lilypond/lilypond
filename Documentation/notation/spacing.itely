@@ -2132,7 +2132,9 @@ group, or the @code{default-staff-staff-spacing} of the staff
 otherwise.  This allows staves to be spaced differently when they
 are grouped.  For uniform spacing regardless of grouping, this
 function may be replaced by a flexible-spacing alist, using the
-complete-redefinition form of override shown above.
+complete-redefinition form of override shown above.  If only some
+values are specified in an override, missing values will be taken
+from @code{default-staff-staff-spacing} (if it has values for them).
 
 @item default-staff-staff-spacing
 A flexible-spacing alist defining the @code{staff-staff-spacing} used for

@@ -87,7 +87,7 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
     {
       if (!mus->is_mus_type ("footnote-event"))
         {
-          mus->origin ()->programming_error (_ ("Must be footnote-event."));
+          mus->programming_error (_ ("Must be footnote-event."));
           return;
         }
 

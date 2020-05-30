@@ -60,6 +60,9 @@ protected:
       EQUAL (L ? -1 : 0, r.sign ());
       EQUAL (static_cast<decltype (r.num ())> (L), r.num ());
       EQUAL (1, r.den ());
+
+      CHECK (-Rational::infinity () < r);
+      CHECK (r < Rational::infinity ());
     }
 
     // highest value, explicit construction
@@ -69,6 +72,9 @@ protected:
       EQUAL (1, r.sign ());
       EQUAL (static_cast<decltype (r.num ())> (H), r.num ());
       EQUAL (1, r.den ());
+
+      CHECK (-Rational::infinity () < r);
+      CHECK (r < Rational::infinity ());
     }
   }
 };
@@ -174,6 +180,22 @@ TEST (Rational_test, init_float_neg_inf)
   const auto d = static_cast<double> (r);
   CHECK (std::isinf (d));
   CHECK (std::signbit (d));
+}
+
+TEST (Rational_test, neg_infinity)
+{
+  constexpr auto r = -Rational::infinity ();
+  EQUAL (-1, r.sign ());
+  CHECK (r.is_infinity ());
+  CHECK (r == Rational (-INFINITY));
+}
+
+TEST (Rational_test, infinity)
+{
+  constexpr auto r = Rational::infinity ();
+  EQUAL (1, r.sign ());
+  CHECK (r.is_infinity ());
+  CHECK (r == Rational (INFINITY));
 }
 
 TEST (Rational_test, addition)

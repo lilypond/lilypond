@@ -43,7 +43,7 @@ One_page_breaking::read_spacing_alist (SCM spec, SCM sym)
   if (scm_is_pair (pair) && scm_is_number (scm_cdr (pair)))
     return scm_cdr (pair);
   else
-    return scm_from_int (0);
+    return to_scm (0);
 }
 
 /*
@@ -68,7 +68,7 @@ One_page_breaking::solve ()
   // TEMPORARILY SET VERY LARGE PAPER HEIGHT
   // Stencil::translate throws a programming error (for the tagline
   // position) if this is set any larger than 1e6
-  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), scm_from_double (1e6));
+  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), to_scm (1e6));
 
   // LINE BREAKING
   message (_ ("Calculating line breaks..."));
@@ -78,7 +78,7 @@ One_page_breaking::solve ()
 
   // PAGE BREAKING
   message (_ ("Fitting music on 1 page..."));
-  int first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_num = from_scm (book_->paper_->c_variable ("first-page-number"), 1);
   Page_spacing_result res = space_systems_on_n_pages (0, 1, first_page_num);
   SCM lines = systems ();
   SCM pages = make_pages (res.systems_per_page_, lines);
@@ -87,7 +87,7 @@ One_page_breaking::solve ()
   // Larger values are lower on the page.  We can't just use the last
   // one, because the last does not necessarily have the lowest bound.
   vector<Real> line_posns;
-  SCM lowest_line_pos = scm_from_int (0);
+  SCM lowest_line_pos = to_scm (0);
 
   Prob *page_pb = unsmob<Prob> (scm_car (pages));
   SCM config = get_property (page_pb, "configuration");
@@ -143,7 +143,7 @@ One_page_breaking::solve ()
   // If the last line is a musical system get the distance between its
   // refpoint and its upper bound. If it is a top level markup its
   // refpoint is 0.
-  SCM refpoint_dist = scm_from_int (0);
+  SCM refpoint_dist = to_scm (0);
 
   SCM lines_probs = get_property (page_pb, "lines");
   Prob *last_line_pb = unsmob<Prob> (scm_list_ref (lines_probs, scm_oneminus (scm_length (lines_probs))));
@@ -151,7 +151,7 @@ One_page_breaking::solve ()
   SCM refpoint_extent = get_property (last_line_pb, "staff-refpoint-extent");
 
   if (scm_is_pair (refpoint_extent) && scm_is_number (scm_car (refpoint_extent)))
-    refpoint_dist = scm_product (scm_car (refpoint_extent), scm_from_int (-1));
+    refpoint_dist = scm_product (scm_car (refpoint_extent), to_scm (-1));
 
   Real last_bottom_bound = scm_to_double (scm_sum (lowest_line_pos, scm_sum (refpoint_dist, max_dist)));
   if (last_bottom_bound > lowest_bound)
@@ -165,7 +165,7 @@ One_page_breaking::solve ()
   SCM bottom_margin = book_->paper_->c_variable ("bottom-margin");
   SCM margins = scm_sum (top_margin, bottom_margin);
 
-  SCM ppr_height = scm_sum (margins, scm_from_double (lowest_bound + foot_height));
+  SCM ppr_height = scm_sum (margins, to_scm (lowest_bound + foot_height));
 
   book_->paper_->set_variable (ly_symbol2scm ("paper-height"), ppr_height);
 

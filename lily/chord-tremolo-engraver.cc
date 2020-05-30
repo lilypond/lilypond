@@ -78,7 +78,7 @@ Chord_tremolo_engraver::Chord_tremolo_engraver (Context *c)
 void
 Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
 {
-  Direction span_dir = to_dir (get_property (ev, "span-direction"));
+  Direction span_dir = from_scm<Direction> (get_property (ev, "span-direction"));
   if (span_dir == START)
     {
       ASSIGN_EVENT_ONCE (repeat_, ev);
@@ -86,7 +86,7 @@ Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
   else if (span_dir == STOP)
     {
       if (!repeat_)
-        ev->origin ()->warning (_ ("No tremolo to end"));
+        ev->warning (_ ("No tremolo to end"));
       repeat_ = 0;
       beam_ = 0;
       previous_stem_ = 0;
@@ -107,7 +107,7 @@ Chord_tremolo_engraver::finalize ()
 {
   if (beam_)
     {
-      repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
+      repeat_->warning (_ ("unterminated chord tremolo"));
       announce_end_grob (beam_, SCM_EOL);
       beam_->suicide ();
     }
@@ -118,9 +118,9 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 {
   if (beam_)
     {
-      int tremolo_type = robust_scm2int (get_property (repeat_, "tremolo-type"), 1);
+      int tremolo_type = from_scm (get_property (repeat_, "tremolo-type"), 1);
       int flags = std::max (0, intlog2 (tremolo_type) - 2);
-      int repeat_count = robust_scm2int (get_property (repeat_, "repeat-count"), 1);
+      int repeat_count = from_scm (get_property (repeat_, "repeat-count"), 1);
       int gap_count = std::min (flags, intlog2 (repeat_count) + 1);
 
       Grob *s = info.grob ();
@@ -141,18 +141,13 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
         }
 
       if (Stem::duration_log (s) != 1)
-        set_property (beam_, "gap-count", scm_from_int (gap_count));
+        set_property (beam_, "gap-count", to_scm (gap_count));
 
       if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
         Beam::add_stem (beam_, s);
       else
-        {
-          string s = _ ("stem must have Rhythmic structure");
-          if (info.event_cause ())
-            info.event_cause ()->origin ()->warning (s);
-          else
-            ::warning (s);
-        }
+          s->warning (_ ("stem must have Rhythmic structure"));
+
       // Store current grob, so we can possibly end the spanner here (and
       // reset the beam direction to RIGHT)
       previous_stem_ = s;

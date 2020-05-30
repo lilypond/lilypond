@@ -75,9 +75,8 @@ Simultaneous_music_iterator::construct_children ()
             }
           else
             {
-              Input *origin = get_music ()->origin ();
-              origin->warning (_f ("cannot find or create context: %s",
-                                   Context::diagnostic_id (name, id).c_str ()));
+              warning (_f ("cannot find or create context: %s",
+                           Context::diagnostic_id (name, id).c_str ()));
             }
         }
 
@@ -141,8 +140,7 @@ Simultaneous_music_iterator::process (Moment until)
 Moment
 Simultaneous_music_iterator::pending_moment () const
 {
-  Moment next;
-  next.set_infinite (1);
+  Moment next (Rational::infinity ());
 
   for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
     {

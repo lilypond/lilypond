@@ -70,8 +70,7 @@ Partial_iterator::process (Moment m)
       else
         {
           Moment mp = robust_scm2moment
-                      (get_property (timing, "measurePosition"),
-                       Rational (0));
+                      (get_property (timing, "measurePosition"), 0);
           mp.main_part_ = 0;
           set_property
           (timing, "measurePosition", (mp - length).smobbed_copy ());
@@ -95,11 +94,10 @@ Partial_iterator::finalization (SCM ctx, SCM length)
                     (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
   if (!timing)
     {
-      programming_error ("missing Timing in \\partial");
+      ::programming_error ("missing Timing in \\partial");
       return SCM_UNSPECIFIED;
     }
-  Moment mp = robust_scm2moment (get_property (timing, "measurePosition"),
-                                 Rational (0));
+  Moment mp = robust_scm2moment (get_property (timing, "measurePosition"), 0);
   mp.main_part_ = measure_length (timing);
   set_property (timing, "measurePosition",
                         (mp - *unsmob<Moment> (length)).smobbed_copy ());

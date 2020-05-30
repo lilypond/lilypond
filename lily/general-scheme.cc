@@ -137,7 +137,7 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
   if (SCM_UNBNDP (default_value))
     default_value = SCM_BOOL_F;
 
-  if (to_boolean (strict_checking))
+  if (from_scm<bool> (strict_checking))
     {
       string key_string = ly_scm2string
                           (scm_object_to_string (key, SCM_UNDEFINED));
@@ -368,7 +368,7 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
         return ly_chain_assoc_get (key, scm_cdr (achain), default_value);
     }
 
-  if (to_boolean (strict_checking))
+  if (from_scm<bool> (strict_checking))
     {
       string key_string = ly_scm2string
                           (scm_object_to_string (key, SCM_UNDEFINED));
@@ -677,7 +677,7 @@ LY_DEFINE (ly_spawn, "ly:spawn",
     free (argv[i]);
   delete[] argv;
 
-  return scm_from_int (exit_status);
+  return to_scm (exit_status);
 }
 
 #if GS_API

@@ -107,7 +107,7 @@ Time_signature_engraver::stop_translation_timestep ()
     {
       Moment *mp = unsmob<Moment> (get_property (this, "measurePosition"));
       if (mp && (mp->main_part_ > Rational (0))
-          && !to_boolean (get_property (this, "partialBusy")))
+          && !from_scm<bool> (get_property (this, "partialBusy")))
         time_signature_->warning ("mid-measure time signature without \\partial");
     }
 

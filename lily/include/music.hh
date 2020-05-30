@@ -21,6 +21,7 @@
 #define MUSIC_HH
 
 #include "smobs.hh"
+#include "diagnostics.hh"
 #include "moment.hh"
 #include "pitch.hh"
 #include "prob.hh"
@@ -34,7 +35,7 @@ struct Preinit_Music
   Preinit_Music ();
 };
 
-class Music : Preinit_Music, public Prob
+class Music : Preinit_Music, public Prob, public Diagnostics
 {
 public:
   Music (SCM init);
@@ -42,7 +43,7 @@ public:
   OVERRIDE_CLASS_NAME (Music);
   virtual Music *clone () const { return new Music (*this); }
 
-  Input *origin () const;
+  Input *origin () const override;
   void set_spot (Input);
 
   bool internal_is_music_type (SCM) const;

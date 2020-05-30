@@ -70,14 +70,14 @@ Key_signature_interface::print (SCM smob)
   for (SCM s = get_property (me, "alteration-alist"); scm_is_pair (s); s = scm_cdr (s))
     {
       SCM alt = is_cancellation
-                ? scm_from_int (0)
+                ? to_scm (0)
                 : scm_cdar (s);
 
       SCM glyph_name_scm = ly_assoc_get (alt, alist, SCM_BOOL_F);
       if (!scm_is_string (glyph_name_scm))
         {
           me->warning (_f ("No glyph found for alteration: %s",
-                           ly_scm2rational (alt).to_string ().c_str ()));
+                           from_scm<Rational> (alt).to_string ().c_str ()));
           continue;
         }
 
@@ -105,12 +105,12 @@ Key_signature_interface::print (SCM smob)
             has vertical edges on both sides. A little padding is
             needed to prevent collisions.
           */
-          Real padding = robust_scm2double (get_property (me, "padding"),
+          Real padding = from_scm<double> (get_property (me, "padding"),
                                             0.0);
           SCM handle = ly_assoc (scm_cons (glyph_name_scm, last_glyph_name),
                                  padding_pairs);
           if (scm_is_pair (handle))
-            padding = robust_scm2double (scm_cdr (handle), 0.0);
+            padding = from_scm<double> (scm_cdr (handle), 0.0);
           else if (glyph_name == "accidentals.natural")
             if (!intersection (ht_right, last_ht_left).is_empty ())
               padding += (intersection (ht_right, last_ht_left).length ()

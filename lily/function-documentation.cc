@@ -104,13 +104,13 @@ predicate_to_typename (void *ptr)
 void
 init_func_doc ()
 {
-  ly_add_type_predicate ((void *) &is_direction, "direction");
+  ly_add_type_predicate ((void *) &is_scm<Direction>, "direction");
   ly_add_type_predicate ((void *) &ly_is_port, "port");
   ly_add_type_predicate ((void *) &ly_cheap_is_list, "list");
   ly_add_type_predicate ((void *) &unsmob<Global_context>, "Global_context");
   ly_add_type_predicate ((void *) &unsmob<Paper_score>, "Paper_score");
   ly_add_type_predicate ((void *) &unsmob<Performance>, "Performance");
-  ly_add_type_predicate ((void *) &is_axis, "axis");
+  ly_add_type_predicate ((void *) &is_scm<Axis>, "axis");
   ly_add_type_predicate ((void *) &is_number_pair, "number pair");
   ly_add_type_predicate ((void *) &ly_is_list, "list");
   ly_add_type_predicate ((void *) &ly_is_procedure, "procedure");

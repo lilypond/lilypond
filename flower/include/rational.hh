@@ -40,10 +40,22 @@ class Rational
   */
   int sign_;
   U64 num_, den_;
+
+private:
+  // n.b. can be used to intialize abnormally
+  constexpr Rational (int sign, U64 num, U64 den)
+    : sign_ (sign), num_ (num), den_ (den)
+  {
+  }
+
   void normalize ();
 
 public:
-  void set_infinite (int sign);
+  // true for positive or negative infinity
+  //
+  // TODO: Replace this with ::isinf(const Rational&), paralleling std::isinf,
+  // and consider that ::isfinite(const Rational&) would likely make more sense
+  // in some cases, even though Rational doesn't properly represent NaN yet.
   bool is_infinity () const;
   void invert ();
   I64 numerator () const { return sign_ * num_; }
@@ -62,11 +74,13 @@ public:
   explicit operator bool () const { return sign_ != 0; }
   explicit operator double () const;
 
-  Rational operator - () const;
-  /**
-     Initialize to 0.
-  */
-  Rational ();
+  constexpr Rational operator - () const { return { -sign_, num_, den_ }; }
+
+  // default to zero
+  constexpr Rational () : sign_ (0), num_ (1), den_ (1) {}
+
+  // positive infinity
+  static constexpr Rational infinity () { return { 2, 1, 1 }; }
 
   // Allow implicit conversion from integer.  All of these must be defined or
   // deleted to avoid ambiguity.  "long long" is specified by the C++ standard

@@ -38,7 +38,7 @@ Slur_engraver::event_symbol () const
 bool
 Slur_engraver::double_property () const
 {
-  return to_boolean (get_property (this, "doubleSlurs"));
+  return from_scm<bool> (get_property (this, "doubleSlurs"));
 }
 
 SCM
@@ -114,14 +114,13 @@ Slur_engraver::derived_mark () const
 void
 Slur_engraver::listen_note_slur (Stream_event *ev, Stream_event *note)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   if (d == START)
     start_events_.push_back (Event_info (ev, note));
   else if (d == STOP)
     stop_events_.push_back (Event_info (ev, note));
-  else ev->origin ()->warning (_f ("direction of %s invalid: %d",
-                                     ev->name ().c_str (),
-                                     int (d)));
+  else
+    ev->warning (_f ("direction of %s invalid: %d", ev->name ().c_str (), int (d)));
 }
 
 void
@@ -226,7 +225,7 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
   for (vsize j = slurs_.size (); j--;)
     {
       Grob *slur = slurs_[j];
-      Direction updown = to_dir (get_property (ev, "direction"));
+      Direction updown = from_scm<Direction> (get_property (ev, "direction"));
 
       // Check if we already have a slur with the same spanner-id.
       if (ly_is_equal (id, get_property (slur, "spanner-id")))
@@ -235,7 +234,7 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
             {
               // We already have an old slur, so give a warning
               // and completely ignore the new slur.
-              ev->origin ()->warning (_f ("already have %s", object_name ()));
+              ev->warning (_f ("already have %s", object_name ()));
               if (event_idx)
                 start_events_.erase (start_events_.begin () + (*event_idx));
               return false;
@@ -256,7 +255,7 @@ Slur_engraver::can_create_slur (SCM id, vsize old_slurs, vsize *event_idx, Strea
               return true;
             }
 
-          Direction slur_dir = to_dir (get_property (c, "direction"));
+          Direction slur_dir = from_scm<Direction> (get_property (c, "direction"));
 
           // If the existing slur does not have a direction yet,
           // we'd rather take the new one.
@@ -317,7 +316,7 @@ Slur_engraver::process_music ()
             }
         }
       else
-        stop_events_[i].slur_->origin ()->warning (_f ("cannot end %s", object_name ()));
+        stop_events_[i].slur_->warning (_f ("cannot end %s", object_name ()));
     }
 
   vsize old_slurs = slurs_.size ();
@@ -325,7 +324,7 @@ Slur_engraver::process_music ()
     {
       Stream_event *ev = start_events_[i].slur_;
       SCM id = get_property (ev, "spanner-id");
-      Direction updown = to_dir (get_property (ev, "direction"));
+      Direction updown = from_scm<Direction> (get_property (ev, "direction"));
 
       if (can_create_slur (id, old_slurs, &i, ev))
         create_slur (id, start_events_[i], 0, updown, false);

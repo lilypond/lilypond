@@ -101,14 +101,14 @@ Vertical_align_engraver::process_music ()
 {
   if (!valign_ && !scm_is_null (id_to_group_hashtab_))
     {
-      if (to_boolean (get_property (this, "hasAxisGroup")))
+      if (from_scm<bool> (get_property (this, "hasAxisGroup")))
         {
           warning (_ ("Ignoring Vertical_align_engraver in VerticalAxisGroup"));
           id_to_group_hashtab_ = SCM_EOL;
           return;
         }
 
-      top_level_ = to_boolean (get_property (this, "topLevelAlignment"));
+      top_level_ = from_scm<bool> (get_property (this, "topLevelAlignment"));
 
       valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
       valign_->set_bound (LEFT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
@@ -131,7 +131,7 @@ Vertical_align_engraver::qualifies (Grob_info i) const
 {
   return has_interface<Axis_group_interface> (i.grob ())
          && !i.grob ()->get_parent (Y_AXIS)
-         && !to_boolean (get_property (i.grob (), "no-alignment"))
+         && !from_scm<bool> (get_property (i.grob (), "no-alignment"))
          && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
 }
 
@@ -175,14 +175,14 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
                   /* Only set staff affinity if it already has one.  That way we won't
                      set staff-affinity on things that don't want it (like staves). */
                   if (scm_is_number (get_property (added, "staff-affinity")))
-                    set_property (added, "staff-affinity", scm_from_int (DOWN));
+                    set_property (added, "staff-affinity", to_scm (DOWN));
                   break;
                 }
               else if (arr[i] == after_grob)
                 {
                   arr.insert (arr.begin () + i + 1, added);
                   if (scm_is_number (get_property (added, "staff-affinity")))
-                    set_property (added, "staff-affinity", scm_from_int (UP));
+                    set_property (added, "staff-affinity", to_scm (UP));
                   break;
                 }
             }

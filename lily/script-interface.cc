@@ -69,8 +69,8 @@ Script_interface::get_direction (Grob *me)
 {
   Direction relative_dir = Direction (1);
   SCM reldir = get_property (me, "side-relative-direction");
-  if (is_direction (reldir))
-    relative_dir = to_dir (reldir);
+  if (is_scm<Direction> (reldir))
+    relative_dir = from_scm<Direction> (reldir);
 
   SCM other_elt = get_object (me, "direction-source");
   Grob *e = unsmob<Grob> (other_elt);
@@ -94,7 +94,7 @@ Script_interface::calc_direction (SCM smob)
     }
 
   (void) get_property (me, "positioning-done");
-  return scm_from_int (d);
+  return to_scm (d);
 }
 
 MAKE_SCHEME_CALLBACK (Script_interface, calc_cross_staff, 1);
@@ -104,12 +104,12 @@ Script_interface::calc_cross_staff (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Grob *stem = Note_column::get_stem (me->get_parent (X_AXIS));
 
-  if (stem && to_boolean (get_property (stem, "cross-staff")))
+  if (stem && from_scm<bool> (get_property (stem, "cross-staff")))
     return SCM_BOOL_T;
 
   Grob *slur = unsmob<Grob> (get_object (me, "slur"));
   SCM avoid_slur = get_property (me, "avoid-slur");
-  if (slur && to_boolean (get_property (slur, "cross-staff"))
+  if (slur && from_scm<bool> (get_property (slur, "cross-staff"))
       && (scm_is_eq (avoid_slur, ly_symbol2scm ("outside"))
           || scm_is_eq (avoid_slur, ly_symbol2scm ("around"))))
     return SCM_BOOL_T;

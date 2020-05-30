@@ -127,7 +127,7 @@ Paper_column::is_used (Grob *me)
   if (Paper_column::is_breakable (me))
     return true;
 
-  if (to_boolean (get_property (me, "used")))
+  if (from_scm<bool> (get_property (me, "used")))
     return true;
 
   if (scm_is_pair (get_property (me, "labels")))
@@ -220,7 +220,7 @@ LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-wid
                    align_syms, SCM_ARG2, __FUNCTION__, "symbol or list");
 
   Interval ext = Paper_column::break_align_width (unsmob<Grob> (col), align_syms);
-  return ly_interval2scm (ext);
+  return to_scm (ext);
 }
 
 /*

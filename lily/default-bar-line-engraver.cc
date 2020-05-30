@@ -85,14 +85,14 @@ Default_bar_line_engraver::start_translation_timestep ()
   Moment mp = measure_position (context ());
   bool start_of_measure = (last_moment_.main_part_ != now.main_part_
                            && !mp.main_part_
-                           && to_boolean (get_property (this, "timing")));
+                           && from_scm<bool> (get_property (this, "timing")));
 
-  if (!scm_is_string (which) && to_boolean (automatic_bars))
+  if (!scm_is_string (which) && from_scm<bool> (automatic_bars))
     {
       SCM always = get_property (this, "barAlways");
 
-      if ((start_of_measure && last_moment_.main_part_ >= Moment (0))
-          || to_boolean (always))
+      if ((start_of_measure && last_moment_.main_part_ >= 0)
+          || from_scm<bool> (always))
         {
           /* should this work, or be junked?  See input/bugs/no-bars.ly */
           which = get_property (this, "defaultBarType");

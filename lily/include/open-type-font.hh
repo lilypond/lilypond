@@ -75,5 +75,6 @@ public:
 std::string get_otf_table (FT_Face face, const std::string &tag);
 FT_Face open_ft_face (const std::string &, FT_Long idx);
 std::string get_postscript_name (FT_Face face);
+std::string get_cff_name (FT_Face face);
 
 #endif /* OPEN_TYPE_FONT_HH */

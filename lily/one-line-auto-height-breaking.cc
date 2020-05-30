@@ -90,16 +90,16 @@ One_line_auto_height_breaking::solve ()
   // Alter paper-width so that it is large enough to fit every system.
   // TODO: it might be nice to allow different pages to have different widths
   // and heights.  This would need support in the backends (eg. framework-ps.scm).
-  Real right_margin = robust_scm2double (book_->paper_->c_variable ("right-margin"), 0.0);
-  Real left_margin = robust_scm2double (book_->paper_->c_variable ("left-margin"), 0.0);
+  Real right_margin = from_scm<double> (book_->paper_->c_variable ("right-margin"), 0.0);
+  Real left_margin = from_scm<double> (book_->paper_->c_variable ("left-margin"), 0.0);
   Real width = max_width + right_margin + left_margin;
-  book_->paper_->set_variable (ly_symbol2scm ("paper-width"), scm_from_double (width));
+  book_->paper_->set_variable (ly_symbol2scm ("paper-width"), to_scm (width));
 
   // Alter paper-height so that it fits the height of the tallest system.
-  Real top_margin = robust_scm2double (book_->paper_->c_variable ("top-margin"), 0.0);
-  Real bottom_margin = robust_scm2double (book_->paper_->c_variable ("bottom-margin"), 0.0);
+  Real top_margin = from_scm<double> (book_->paper_->c_variable ("top-margin"), 0.0);
+  Real bottom_margin = from_scm<double> (book_->paper_->c_variable ("bottom-margin"), 0.0);
   Real height = max_height + top_margin + bottom_margin;
-  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), scm_from_double (height));
+  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), to_scm (height));
 
   return scm_reverse_x (all_pages, SCM_EOL);
 }

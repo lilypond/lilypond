@@ -96,9 +96,9 @@ Accidental_interface::height (SCM smob)
   Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie
-      && !to_boolean (get_property (me, "forced"))
-      && to_boolean (get_property (me, "hide-tied-accidental-after-break")))
-    return ly_interval2scm (Interval ());
+      && !from_scm<bool> (get_property (me, "forced"))
+      && from_scm<bool> (get_property (me, "hide-tied-accidental-after-break")))
+    return to_scm (Interval ());
 
   return Grob::stencil_height (smob);
 }
@@ -111,8 +111,8 @@ Accidental_interface::remove_tied (SCM smob)
   Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie
-      && !to_boolean (get_property (me, "forced"))
-      && (to_boolean (get_property (me, "hide-tied-accidental-after-break"))
+      && !from_scm<bool> (get_property (me, "forced"))
+      && (from_scm<bool> (get_property (me, "hide-tied-accidental-after-break"))
           || !tie->original ()))
     me->suicide ();
 
@@ -141,7 +141,7 @@ Accidental_interface::print (SCM smob)
   else
     st = fm->find_by_name (ly_scm2string (glyph_name));
 
-  if (to_boolean (get_property (me, "restore-first")))
+  if (from_scm<bool> (get_property (me, "restore-first")))
     {
       /*
         this isn't correct for ancient accidentals, but they don't
@@ -155,7 +155,7 @@ Accidental_interface::print (SCM smob)
         st.add_at_edge (X_AXIS, LEFT, acc, 0.1);
     }
 
-  if (to_boolean (get_property (me, "parenthesized")))
+  if (from_scm<bool> (get_property (me, "parenthesized")))
     st = parenthesize (me, st);
 
   return st.smobbed_copy ();

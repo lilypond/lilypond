@@ -50,7 +50,7 @@ bool
 Item::is_non_musical (Grob *me)
 {
   Item *i = dynamic_cast<Item *> (me->get_parent (X_AXIS));
-  return i ? Item::is_non_musical (i) : to_boolean (get_property (me, "non-musical"));
+  return i ? Item::is_non_musical (i) : from_scm<bool> (get_property (me, "non-musical"));
 }
 
 Paper_column *
@@ -133,11 +133,6 @@ void
 Item::handle_prebroken_dependencies ()
 {
   Grob::handle_prebroken_dependencies ();
-
-  /*
-    Can't do this earlier, because try_visibility_lambda () might set
-    the elt property transparent, which would then be copied.
-  */
   if (!Item::break_visible (this))
     suicide ();
 }
@@ -148,25 +143,8 @@ Item::break_visible (Grob *g)
   Item *it = dynamic_cast<Item *> (g);
   SCM vis = get_property (g, "break-visibility");
   if (scm_is_vector (vis))
-    return to_boolean (scm_c_vector_ref (vis, it->break_status_dir () + 1));
+    return from_scm<bool> (scm_c_vector_ref (vis, it->break_status_dir () + 1));
   return true;
-}
-
-bool
-Item::pure_is_visible (vsize start, vsize end) const
-{
-  SCM vis = get_property (this, "break-visibility");
-  if (scm_is_vector (vis))
-    {
-      vsize pos = 1;
-      vsize pc_rank = get_column ()->get_rank ();
-      if (pc_rank == start)
-        pos = 2;
-      else if (pc_rank == end)
-        pos = 0;
-      return to_boolean (scm_c_vector_ref (vis, pos));
-    }
-  return Grob::pure_is_visible (start, end);
 }
 
 bool

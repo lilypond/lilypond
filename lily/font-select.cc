@@ -41,7 +41,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
     {
       SCM entry = scm_c_vector_ref (font_vector, i);
 
-      if (to_boolean (scm_promise_p (entry)))
+      if (from_scm<bool> (scm_promise_p (entry)))
         {
           Font_metric *fm = unsmob<Font_metric> (scm_force (entry));
           size = fm->design_size ();
@@ -118,7 +118,7 @@ select_encoded_font (Output_def *layout, SCM chain)
       SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
       SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
-      Real req = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
+      Real req = from_scm<double> (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
                                     0.0);
 
       return get_font_by_mag_step (layout, req, vec,

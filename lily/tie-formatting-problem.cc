@@ -1232,7 +1232,7 @@ void
 Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
 {
 #if DEBUG_TIE_SCORING
-  if (to_boolean (x_refpoint_->layout ()
+  if (from_scm<bool> (x_refpoint_->layout ()
                   ->lookup_variable (ly_symbol2scm ("debug-tie-scoring"))))
     {
       for (vsize i = 0; i < base.size (); i++)

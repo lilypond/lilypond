@@ -43,7 +43,7 @@ int
 Rhythmic_head::dot_count (Grob *me)
 {
   return get_dots (me)
-         ? robust_scm2int (get_property (get_dots (me), "dot-count"), 0) : 0;
+         ? from_scm (get_property (get_dots (me), "dot-count"), 0) : 0;
 }
 
 void

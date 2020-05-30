@@ -469,11 +469,11 @@ toplevel_expression:
 		} else if (Output_def * od = unsmob<Output_def> ($1)) {
 			SCM id = SCM_EOL;
 
-			if (to_boolean (od->c_variable ("is-paper")))
+			if (from_scm<bool> (od->c_variable ("is-paper")))
 				id = ly_symbol2scm ("$defaultpaper");
-			else if (to_boolean (od->c_variable ("is-midi")))
+			else if (from_scm<bool> (od->c_variable ("is-midi")))
 				id = ly_symbol2scm ("$defaultmidi");
-			else if (to_boolean (od->c_variable ("is-layout")))
+			else if (from_scm<bool> (od->c_variable ("is-layout")))
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $1);
@@ -490,11 +490,11 @@ toplevel_expression:
 		SCM id = SCM_EOL;
 		Output_def * od = unsmob<Output_def> ($1);
 
-		if (to_boolean (od->c_variable ("is-paper")))
+		if (from_scm<bool> (od->c_variable ("is-paper")))
 			id = ly_symbol2scm ("$defaultpaper");
-		else if (to_boolean (od->c_variable ("is-midi")))
+		else if (from_scm<bool> (od->c_variable ("is-midi")))
 			id = ly_symbol2scm ("$defaultmidi");
-		else if (to_boolean (od->c_variable ("is-layout")))
+		else if (from_scm<bool> (od->c_variable ("is-layout")))
 			id = ly_symbol2scm ("$defaultlayout");
 
 		parser->lexer_->set_identifier (id, $1);
@@ -1016,7 +1016,7 @@ book_body:
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			scm_call_2 (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
+			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
 				unsmob<Book> ($1)->paper_ = od;
 				set_paper (parser, od);
 			} else {
@@ -1096,7 +1096,7 @@ bookpart_body:
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			scm_call_2 (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
+			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper")))) {
 				unsmob<Book> ($1)->paper_ = od;
 			} else {
 				parser->parser_error (@2, _ ("need \\paper for paper block"));
@@ -1168,7 +1168,7 @@ score_items:
 	{
 		Output_def *od = unsmob<Output_def> ($2);
 		if (od) {
-			if (to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper"))))
+			if (from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper"))))
 			{
 				parser->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
 				od = 0;
@@ -1249,7 +1249,7 @@ paper_block:
 	output_def {
                 Output_def *od = unsmob<Output_def> ($1);
 
-		if (!to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper"))))
+		if (!from_scm<bool> (od->lookup_variable (ly_symbol2scm ("is-paper"))))
 		{
 			parser->parser_error (@1, _ ("need \\paper for paper block"));
 			$$ = get_paper (parser)->unprotect ();
@@ -2826,7 +2826,7 @@ grob_prop_spec:
 	{
 		SCM l = scm_reverse_x ($1, SCM_EOL);
 		if (scm_is_pair (l)
-		    && to_boolean
+		    && from_scm<bool>
 		    (scm_object_property (scm_car (l),
 					  ly_symbol2scm ("is-grob?"))))
 			l = scm_cons (ly_symbol2scm ("Bottom"), l);
@@ -2899,7 +2899,7 @@ simple_revert_context:
 	{
 		$1 = scm_reverse_x ($1, SCM_EOL);
 		if (scm_is_null ($1)
-		    || to_boolean
+		    || from_scm<bool>
 		    (scm_object_property (scm_car ($1),
 					  ly_symbol2scm ("is-grob?")))) {
 			$$ = ly_symbol2scm ("Bottom");
@@ -3093,8 +3093,8 @@ chord_body_elements:
 chord_body_element:
 	pitch_or_tonic_pitch exclamations questions octave_check post_events %prec ':'
 	{
-		bool q = to_boolean ($3);
-		bool ex = to_boolean ($2);
+		bool q = from_scm<bool> ($3);
+		bool ex = from_scm<bool> ($2);
 		SCM check = $4;
 		SCM post = $5;
 
@@ -3112,7 +3112,7 @@ chord_body_element:
 		if (scm_is_number (check))
 		{
 			int q = scm_to_int (check);
-			set_property (n, "absolute-octave", scm_from_int (q-1));
+			set_property (n, "absolute-octave", to_scm (q-1));
 		}
 
 		$$ = n->unprotect ();
@@ -3215,14 +3215,14 @@ post_event_nofinger:
 	{
 		Music *m = unsmob<Music> ($2);
 		m->set_spot (parser->lexer_->override_input (@$));
-		set_property (m, "direction", scm_from_int (UP));
+		set_property (m, "direction", to_scm (UP));
 		$$ = $2;
 	}
 	| '_' fingering
 	{
 		Music *m = unsmob<Music> ($2);
 		m->set_spot (parser->lexer_->override_input (@$));
-		set_property (m, "direction", scm_from_int (DOWN));
+		set_property (m, "direction", to_scm (DOWN));
 		$$ = $2;
 	}
 	;
@@ -3304,7 +3304,7 @@ erroneous_quotes:
 
 sup_quotes:
 	'\'' {
-		$$ = scm_from_int (1);
+		$$ = to_scm (1);
 	}
 	| sup_quotes '\'' {
 		$$ = scm_oneplus ($1);
@@ -3313,7 +3313,7 @@ sup_quotes:
 
 sub_quotes:
 	',' {
-		$$ = scm_from_int (-1);
+		$$ = to_scm (-1);
 	}
 	| sub_quotes ',' {
 		$$ = scm_oneminus ($1);
@@ -3422,8 +3422,8 @@ script_abbreviation:
 	;
 
 script_dir:
-	'_'	{ $$ = scm_from_int (DOWN); }
-	| '^'	{ $$ = scm_from_int (UP); }
+	'_'	{ $$ = to_scm (DOWN); }
+	| '^'	{ $$ = to_scm (UP); }
 	| '-'	{ $$ = SCM_UNDEFINED; }
 	;
 
@@ -3514,12 +3514,12 @@ multipliers:
 
 tremolo_type:
 	':'	{
-		$$ = scm_from_int (parser->default_tremolo_type_);
+		$$ = to_scm (parser->default_tremolo_type_);
 	}
 	| ':' UNSIGNED {
 		if (SCM_UNBNDP (make_duration ($2))) {
 			parser->parser_error (@2, _ ("not a duration"));
-			$$ = scm_from_int (parser->default_tremolo_type_);
+			$$ = to_scm (parser->default_tremolo_type_);
 		} else {
 			$$ = $2;
 			parser->default_tremolo_type_ = scm_to_int ($2);
@@ -3547,9 +3547,9 @@ bass_number:
 	;
 
 figured_bass_alteration:
-	'-' 	{ $$ = ly_rational2scm (FLAT_ALTERATION); }
-	| '+'	{ $$ = ly_rational2scm (SHARP_ALTERATION); }
-	| '!'	{ $$ = scm_from_int (0); }
+	'-' 	{ $$ = to_scm (FLAT_ALTERATION); }
+	| '+'	{ $$ = to_scm (SHARP_ALTERATION); }
+	| '!'	{ $$ = to_scm (0); }
 	;
 
 bass_figure:
@@ -3576,11 +3576,11 @@ bass_figure:
 		Music *m = unsmob<Music> ($1);
 		if (scm_to_double ($2)) {
 			SCM salter = get_property (m, "alteration");
-			SCM alter = scm_is_number (salter) ? salter : scm_from_int (0);
+			SCM alter = scm_is_number (salter) ? salter : to_scm (0);
 			set_property (m, "alteration",
 					 scm_sum (alter, $2));
 		} else {
-			set_property (m, "alteration", scm_from_int (0));
+			set_property (m, "alteration", to_scm (0));
 		}
 	}
 	| bass_figure figured_bass_modification  {
@@ -3680,12 +3680,12 @@ pitch_or_music:
 			if (scm_is_number ($4))
 			{
 				int q = scm_to_int ($4);
-				set_property (n, "absolute-octave", scm_from_int (q-1));
+				set_property (n, "absolute-octave", to_scm (q-1));
 			}
 
-			if (to_boolean ($3))
+			if (from_scm<bool> ($3))
 				set_property (n, "cautionary", SCM_BOOL_T);
-			if (to_boolean ($2) || to_boolean ($3))
+			if (from_scm<bool> ($2) || from_scm<bool> ($3))
 				set_property (n, "force-accidental", SCM_BOOL_T);
 			if (scm_is_pair ($8))
 				set_property (n, "articulations",
@@ -4604,7 +4604,7 @@ make_duration (SCM d, int dots, SCM factor)
 	}
 
 	if (!SCM_UNBNDP (factor))
-		k = k.compressed (ly_scm2rational (factor));
+		k = k.compressed (from_scm<Rational> (factor));
 
 	return k.smobbed_copy ();
 }
@@ -4728,11 +4728,9 @@ SCM reverse_music_list (Lily_parser *parser, Input loc, SCM lst, bool preserve, 
 	{
 		Music *what = unsmob<Music> (scm_car (bad));
 		if (preserve)
-			what->origin ()->warning (_f ("Unattached %s",
-						      what->name ()));
+			what->warning (_f ("Unattached %s", what->name ()));
 		else
-			what->origin ()->warning (_f ("Dropping unattachable %s",
-						      what->name ()));
+			what->warning (_f ("Dropping unattachable %s", what->name ()));
 	}
 	return res;
 }

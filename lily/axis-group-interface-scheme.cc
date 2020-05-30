@@ -33,7 +33,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
 
   SCM_ASSERT_TYPE (ga || scm_is_pair (elements), elements, SCM_ARG1, __FUNCTION__, "list or Grob_array");
   LY_ASSERT_SMOB (Grob, common, 2);
-  LY_ASSERT_TYPE (is_axis, axis, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   vector<Grob *> elts;
   if (!ga)
@@ -45,7 +45,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   Interval ext = Axis_group_interface::relative_group_extent (ga ? ga->array () : elts,
                                                               unsmob<Grob> (common),
                                                               (Axis) scm_to_int (axis));
-  return ly_interval2scm (ext);
+  return to_scm (ext);
 }
 
 LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
@@ -59,7 +59,7 @@ LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
   LY_ASSERT_SMOB (Grob, common, 2);
 
   Interval ext = Axis_group_interface::generic_bound_extent (unsmob<Grob> (grob), unsmob<Grob> (common), X_AXIS);
-  return ly_interval2scm (ext);
+  return to_scm (ext);
 }
 
 LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",

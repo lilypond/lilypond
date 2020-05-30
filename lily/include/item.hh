@@ -47,7 +47,6 @@ public:
   static bool break_visible (Grob *);
 
   bool is_broken () const;
-  bool pure_is_visible (vsize start, vsize end) const override;
 
   Direction break_status_dir () const;
 

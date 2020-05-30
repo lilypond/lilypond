@@ -51,7 +51,7 @@ Flag::width (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Stencil *sten = unsmob<Stencil> (get_property (me, "stencil"));
   if (!sten)
-    return ly_interval2scm (Interval (0.0, 0.0));
+    return to_scm (Interval (0.0, 0.0));
 
   Grob *stem = me->get_parent (X_AXIS);
 
@@ -61,7 +61,7 @@ Flag::width (SCM smob)
     the bounding boxes for the flags are slightly off and need to be fixed.
   */
 
-  return ly_interval2scm (sten->extent (X_AXIS) - stem->extent (stem, X_AXIS)[RIGHT]);
+  return to_scm (sten->extent (X_AXIS) - stem->extent (stem, X_AXIS)[RIGHT]);
 }
 
 MAKE_SCHEME_CALLBACK (Flag, glyph_name, 1);
@@ -190,7 +190,7 @@ Flag::internal_calc_y_offset (SCM smob, bool pure)
                          ? stem->pure_y_extent (stem, 0, INT_MAX)
                          : stem->extent (stem, Y_AXIS);
 
-  return scm_from_double (stem_extent.is_empty ()
+  return to_scm (stem_extent.is_empty ()
                           ? 0.0
                           : stem_extent[d] - d * blot / 2);
 }
@@ -201,7 +201,7 @@ Flag::calc_x_offset (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   Grob *stem = me->get_parent (X_AXIS);
-  return scm_from_double (stem->extent (stem, X_AXIS)[RIGHT]);
+  return to_scm (stem->extent (stem, X_AXIS)[RIGHT]);
 }
 
 ADD_INTERFACE (Flag,

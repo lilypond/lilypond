@@ -42,7 +42,7 @@ Minimal_page_breaking::solve ()
   break_into_pieces (0, end, current_configuration (0));
 
   message (_ ("Calculating page breaks..."));
-  int first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_num = from_scm (book_->paper_->c_variable ("first-page-number"), 1);
   Page_spacing_result res = pack_systems_on_least_pages (0, first_page_num);
   SCM lines = systems ();
   return make_pages (res.systems_per_page_, lines);

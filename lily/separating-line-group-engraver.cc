@@ -89,7 +89,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 
   if (Item::is_non_musical (it)
       && !current_spacings_.staff_spacing_
-      && to_boolean (get_property (this, "createSpacing")))
+      && from_scm<bool> (get_property (this, "createSpacing")))
     {
       Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
 

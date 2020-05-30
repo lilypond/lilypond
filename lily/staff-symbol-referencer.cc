@@ -95,7 +95,7 @@ Staff_symbol_referencer::internal_get_position (Grob *me, bool pure)
     }
   else if (!st)
     return me->relative_coordinate (me->get_parent (Y_AXIS), Y_AXIS) * 2;
-  return robust_scm2double (get_property (me, "staff-position"), p);
+  return from_scm<double> (get_property (me, "staff-position"), p);
 }
 
 Interval
@@ -140,7 +140,7 @@ Staff_symbol_referencer::callback (SCM smob)
       off = scm_to_double (pos) * space / 2.0;
     }
 
-  return scm_from_double (off);
+  return to_scm (off);
 }
 
 /*  This sets the position relative to the center of the staff symbol.

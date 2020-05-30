@@ -49,7 +49,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
       if (dt)
         mlen = *dt;
 
-      Real incr = robust_scm2double (get_property (me, "spacing-increment"), 1);
+      Real incr = from_scm<double> (get_property (me, "spacing-increment"), 1);
       Real space = incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
       Spring spring = Spring (min_dist + space, min_dist);
 

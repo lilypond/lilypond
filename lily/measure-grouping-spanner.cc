@@ -32,9 +32,9 @@ Measure_grouping::print (SCM grob)
   Spanner *me = unsmob<Spanner> (grob);
 
   SCM which = get_property (me, "style");
-  Real height = robust_scm2double (get_property (me, "height"), 1);
+  Real height = from_scm<double> (get_property (me, "height"), 1);
 
-  Real t = Staff_symbol_referencer::line_thickness (me) * robust_scm2double (get_property (me, "thickness"), 1);
+  Real t = Staff_symbol_referencer::line_thickness (me) * from_scm<double> (get_property (me, "thickness"), 1);
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
                                                         X_AXIS);
 

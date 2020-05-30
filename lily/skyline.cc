@@ -153,19 +153,6 @@ Building::intersection_x (Building const &other) const
   return std::isnan (ret) ? -infinity_f : ret;
 }
 
-// Returns a shift s such that (x + s, y) intersects the roof of
-// this building.  If no such shift exists, returns infinity_f.
-Real
-Building::shift_to_intersect (Real x, Real y) const
-{
-  // Solve for s: y = (x + s)*m + b
-  Real ret = (y - y_intercept_ - slope_ * x) / slope_;
-
-  if (ret >= x_[LEFT] && ret <= x_[RIGHT] && !std::isinf (ret))
-    return ret;
-  return infinity_f;
-}
-
 bool
 Building::above (Building const &other, Real x) const
 {
@@ -184,6 +171,7 @@ Skyline::internal_merge_skyline (vector<Building> const *sbp,
       programming_error ("tried to merge an empty skyline");
       return;
     }
+  result->clear ();
   result->reserve (std::max (sbp->size (), scp->size ()));
   auto bit = sbp->begin ();
   auto cit = scp->begin ();
@@ -371,7 +359,6 @@ Skyline::internal_build_skyline (vector<Building> *buildings) const
      Instead, we exit in the middle of the loop */
   while (!partials.empty ())
     {
-      vector<Building> merged;
       vector<Building> one = partials.front ();
       partials.pop_front ();
       if (partials.empty ())
@@ -379,6 +366,8 @@ Skyline::internal_build_skyline (vector<Building> *buildings) const
 
       vector<Building> two = partials.front ();
       partials.pop_front ();
+
+      vector<Building> merged;
       internal_merge_skyline (&one, &two, &merged);
       partials.push_back (merged);
     }
@@ -499,9 +488,9 @@ Skyline::merge (Skyline const &other)
     }
 
   vector<Building> other_bld (other.buildings_);
-  vector<Building> my_bld (buildings_);
-  buildings_.clear ();
-  internal_merge_skyline (&other_bld, &my_bld, &buildings_);
+  vector<Building> dest;
+  internal_merge_skyline (&other_bld, &buildings_, &dest);
+  dest.swap (buildings_);
 }
 
 void
@@ -559,7 +548,7 @@ Skyline::padded (Real horizon_padding) const
     return *this;
 
   vector<Building> pad_buildings;
-  pad_buildings.reserve (buildings_.size ());
+  pad_buildings.reserve (4 * buildings_.size ());
   for (auto const &b : buildings_)
     {
       if (b.x_[LEFT] > -infinity_f)
@@ -602,9 +591,7 @@ Skyline::padded (Real horizon_padding) const
 
   // Merge the padding with the original, to make a new skyline.
   Skyline padded (sky_);
-  vector<Building> my_buildings = buildings_;
-  padded.buildings_.clear ();
-  internal_merge_skyline (&pad_skyline, &my_buildings, &padded.buildings_);
+  internal_merge_skyline (&pad_skyline, &buildings_, &padded.buildings_);
 
   return padded;
 }
@@ -775,7 +762,7 @@ Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon
 
   Skyline *skyline = unsmob<Skyline> (skyline_scm);
   Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
-  return scm_from_double (skyline->touching_point (*other_skyline, horizon_padding));
+  return to_scm (skyline->touching_point (*other_skyline, horizon_padding));
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_distance, 3, 1, "")
@@ -793,29 +780,29 @@ Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_paddi
 
   Skyline *skyline = unsmob<Skyline> (skyline_scm);
   Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
-  return scm_from_double (skyline->distance (*other_skyline, horizon_padding));
+  return to_scm (skyline->distance (*other_skyline, horizon_padding));
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_max_height, 1)
 SCM
 Skyline::get_max_height (SCM skyline_scm)
 {
-  return scm_from_double (unsmob<Skyline> (skyline_scm)->max_height ());
+  return to_scm (unsmob<Skyline> (skyline_scm)->max_height ());
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_max_height_position, 1)
 SCM
 Skyline::get_max_height_position (SCM skyline_scm)
 {
-  return scm_from_double (unsmob<Skyline> (skyline_scm)->max_height_position ());
+  return to_scm (unsmob<Skyline> (skyline_scm)->max_height_position ());
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_height, 2)
 SCM
 Skyline::get_height (SCM skyline_scm, SCM x_scm)
 {
-  Real x = robust_scm2double (x_scm, 0.0);
-  return scm_from_double (unsmob<Skyline> (skyline_scm)->height (x));
+  Real x = from_scm<double> (x_scm, 0.0);
+  return to_scm (unsmob<Skyline> (skyline_scm)->height (x));
 }
 
 LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",

@@ -114,7 +114,7 @@ Score::book_rendering (Output_def *layoutbook,
 
   Real scale = 1.0;
 
-  if (layoutbook && to_boolean (layoutbook->c_variable ("is-paper")))
+  if (layoutbook && from_scm<bool> (layoutbook->c_variable ("is-paper")))
     scale = scm_to_double (layoutbook->c_variable ("output-scale"));
 
   SCM outputs = SCM_EOL;
@@ -126,7 +126,7 @@ Score::book_rendering (Output_def *layoutbook,
       Output_def *def = outdef_count ? defs_[i] : default_def;
       SCM scaled = def->self_scm ();
 
-      if (to_boolean (def->c_variable ("is-layout")))
+      if (from_scm<bool> (def->c_variable ("is-layout")))
         {
           def = scale_output_def (def, scale);
           def->parent_ = layoutbook;
@@ -154,16 +154,13 @@ Score::set_music (SCM music)
 {
   if (unsmob<Music> (music_))
     {
-      unsmob<Music> (music)->origin ()->non_fatal_error
-      (_ ("already have music in score"));
-      unsmob<Music> (music_)->origin ()->non_fatal_error
-      (_ ("this is the previous music"));
+      unsmob<Music> (music)->non_fatal_error (_ ("already have music in score"));
+      unsmob<Music> (music_)->non_fatal_error (_ ("this is the previous music"));
     }
   Music *m = unsmob<Music> (music);
-  if (m && to_boolean (get_property (m, "error-found")))
+  if (m && from_scm<bool> (get_property (m, "error-found")))
     {
-      m->origin ()->non_fatal_error
-      (_ ("errors found, ignoring music expression"));
+      m->non_fatal_error (_ ("errors found, ignoring music expression"));
 
       error_found_ = true;
     }

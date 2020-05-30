@@ -38,7 +38,7 @@ internal_print (Grob *me, string *font_char)
 {
   string style = robust_symbol2string (get_property (me, "style"), "default");
 
-  string suffix = std::to_string (std::min (robust_scm2int (get_property (me, "duration-log"), 2), 2));
+  string suffix = std::to_string (std::min (from_scm (get_property (me, "duration-log"), 2), 2));
   if (style != "default")
     suffix = robust_scm2string (get_property (me, "glyph-name"), "");
 
@@ -69,7 +69,7 @@ internal_print (Grob *me, string *font_char)
     {
       if (!Staff_symbol_referencer::on_line
           (me,
-           robust_scm2int (get_property (me, "staff-position"), 0)))
+           from_scm (get_property (me, "staff-position"), 0)))
         {
           Stencil test = fm->find_by_name (idx_either + "r" + suffix);
           if (!test.is_empty ())
@@ -81,7 +81,7 @@ internal_print (Grob *me, string *font_char)
     }
 
   if (style == "kievan"
-      && 3 == robust_scm2int (get_property (me, "duration-log"), 2))
+      && 3 == from_scm (get_property (me, "duration-log"), 2))
     {
       Grob *stem = unsmob<Grob> (get_object (me, "stem"));
       Grob *beam = unsmob<Grob> (get_object (stem, "beam"));
@@ -114,7 +114,7 @@ Note_head::stem_x_shift (SCM smob)
   if (stem && !ly_scm2bool (get_property (stem, "cross-staff")))
     (void) get_property (stem, "positioning-done");
 
-  return scm_from_int (0);
+  return to_scm (0);
 }
 
 MAKE_SCHEME_CALLBACK (Note_head, print, 1);
@@ -146,16 +146,16 @@ Note_head::include_ledger_line_height (SCM smob)
       // the whole interval between the note and the staff.
       Interval iv (std::min (0.0, lines[UP] - my_ext[DOWN] + 1),
                    std::max (0.0, lines[DOWN] - my_ext[UP] - 1));
-      return ly_interval2scm (iv);
+      return to_scm (iv);
     }
 
-  return ly_interval2scm (Interval (0, 0));
+  return to_scm (Interval (0, 0));
 }
 
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  Offset off = robust_scm2offset (get_property (me, "stem-attachment"),
+  Offset off = from_scm (get_property (me, "stem-attachment"),
                                   Offset (0, 0));
 
   return off [a];
@@ -195,7 +195,7 @@ Note_head::calc_stem_attachment (SCM smob)
   string key;
   internal_print (me, &key);
 
-  return ly_offset2scm (get_stem_attachment (fm, key));
+  return to_scm (get_stem_attachment (fm, key));
 }
 
 ADD_INTERFACE (Note_head,

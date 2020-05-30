@@ -144,7 +144,7 @@ Tie::get_default_dir (Spanner *me)
   else if (int p = get_position (me))
     return Direction (sign (p));
 
-  return to_dir (get_property (me, "neutral-direction"));
+  return from_scm<Direction> (get_property (me, "neutral-direction"));
 }
 
 MAKE_SCHEME_CALLBACK (Tie, calc_direction, 1);
@@ -169,7 +169,7 @@ Tie::calc_direction (SCM smob)
 
   programming_error ("no Tie_column or Semi_tie_column.  Killing grob.");
   me->suicide ();
-  return scm_from_int (CENTER);
+  return to_scm (CENTER);
 }
 
 SCM
@@ -206,7 +206,7 @@ Tie::get_control_points (Grob *me,
     {
       if (!b.control_[i].is_sane ())
         programming_error ("Insane offset");
-      controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
+      controls = scm_cons (to_scm (b.control_[i]), controls);
     }
   return controls;
 }
@@ -224,7 +224,7 @@ Tie::calc_control_points (SCM smob)
     {
       extract_grob_set (yparent, "ties", ties);
       if (me->original () && ties.size () == 1
-          && !to_dir (get_property_data (me, "direction")))
+          && !from_scm<Direction> (get_property_data (me, "direction")))
         {
           assert (ties[0] == me);
           set_grob_direction (me, Tie::get_default_dir (me));
@@ -252,15 +252,15 @@ Tie::print (SCM smob)
   SCM cp = get_property (me, "control-points");
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
-  Real base_thick = staff_thick * robust_scm2double (get_property (me, "thickness"), 1);
-  Real line_thick = staff_thick * robust_scm2double (get_property (me, "line-thickness"), 1);
+  Real base_thick = staff_thick * from_scm<double> (get_property (me, "thickness"), 1);
+  Real line_thick = staff_thick * from_scm<double> (get_property (me, "line-thickness"), 1);
 
   Bezier b;
   for (int i = 0; i < Bezier::CONTROL_COUNT; i++)
     {
       if (scm_is_pair (cp))
         {
-          b.control_[i] = ly_scm2offset (scm_car (cp));
+          b.control_[i] = from_scm<Offset> (scm_car (cp));
           cp = scm_cdr (cp);
         }
       else

@@ -106,8 +106,8 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
    */
 
   expr_ = scm_list_3 (ly_symbol2scm ("rotate-stencil"),
-                      scm_list_2 (scm_from_double (a),
-                                  scm_cons (scm_from_double (x), scm_from_double (y))),
+                      scm_list_2 (to_scm (a),
+                                  scm_cons (to_scm (x), to_scm (y))),
                       expr_);
 
   /*
@@ -169,7 +169,7 @@ Stencil::translate (Offset o)
 
   if (!scm_is_null (expr_))
     expr_ = scm_list_3 (ly_symbol2scm ("translate-stencil"),
-                        ly_offset2scm (o),
+                        to_scm (o),
                         expr_);
   dim_.translate (o);
 }
@@ -186,8 +186,8 @@ void
 Stencil::scale (Real x, Real y)
 {
   expr_ = scm_list_3 (ly_symbol2scm ("scale-stencil"),
-                      scm_list_2 (scm_from_double (x),
-                                  scm_from_double (y)),
+                      scm_list_2 (to_scm (x),
+                                  to_scm (y)),
                       expr_);
   dim_[X_AXIS] *= x;
   dim_[Y_AXIS] *= y;
@@ -399,9 +399,9 @@ Stencil::in_color (Real r, Real g, Real b) const
 {
   Stencil new_stencil (extent_box (),
                        scm_list_3 (ly_symbol2scm ("color"),
-                                   scm_list_3 (scm_from_double (r),
-                                               scm_from_double (g),
-                                               scm_from_double (b)),
+                                   scm_list_3 (to_scm (r),
+                                               to_scm (g),
+                                               to_scm (b)),
                                    expr ()));
   return new_stencil;
 }

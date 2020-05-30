@@ -92,7 +92,7 @@ Pitched_trill_engraver::acknowledge_trill_spanner (Grob_info info)
   Stream_event *ev = info.event_cause ();
   if (ev
       && ev->in_event_class ("trill-span-event")
-      && to_dir (get_property (ev, "span-direction")) == START
+      && from_scm<Direction> (get_property (ev, "span-direction")) == START
       && unsmob<Pitch> (get_property (ev, "pitch")))
     make_trill (ev);
 }
@@ -105,17 +105,17 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
 
   SCM keysig = get_property (this, "localAlterations");
 
-  SCM key = scm_cons (scm_from_int (p->get_octave ()),
-                      scm_from_int (p->get_notename ()));
+  SCM key = scm_cons (to_scm (p->get_octave ()),
+                      to_scm (p->get_notename ()));
 
   int bn = measure_number (context ());
 
   SCM handle = ly_assoc (key, keysig);
   if (scm_is_true (handle))
     {
-      bool same_bar = (bn == robust_scm2int (scm_caddr (handle), 0));
+      bool same_bar = (bn == from_scm (scm_caddr (handle), 0));
       bool same_alt
-        = (p->get_alteration () == robust_scm2rational (scm_cadr (handle), 0));
+        = (p->get_alteration () == from_scm<Rational> (scm_cadr (handle), 0));
 
       if (!same_bar || (same_bar && !same_alt))
         handle = SCM_BOOL_F;
@@ -123,7 +123,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
 
   bool print_acc = scm_is_false (handle)
                    || p->get_alteration () == Rational (0)
-                   || to_boolean (get_property (ev, "force-accidental"));
+                   || from_scm<bool> (get_property (ev, "force-accidental"));
 
   if (trill_head_)
     {
@@ -137,7 +137,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   int c0 = scm_is_number (c0scm) ? scm_to_int (c0scm) : 0;
 
   set_property (trill_head_, "staff-position",
-                             scm_from_int (unsmob<Pitch> (scm_pitch)->steps ()
+                             to_scm (unsmob<Pitch> (scm_pitch)->steps ()
                                            + c0));
 
   trill_group_ = make_item ("TrillPitchGroup", ev->self_scm ());
@@ -150,7 +150,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
       trill_accidental_ = make_item ("TrillPitchAccidental", ev->self_scm ());
 
       // fixme: naming -> alterations
-      set_property (trill_accidental_, "alteration", ly_rational2scm (p->get_alteration ()));
+      set_property (trill_accidental_, "alteration", to_scm (p->get_alteration ()));
       Side_position_interface::add_support (trill_accidental_, trill_head_);
 
       set_object (trill_head_, "accidental-grob", trill_accidental_->self_scm ());

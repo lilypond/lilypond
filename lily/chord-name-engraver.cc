@@ -102,7 +102,7 @@ Chord_name_engraver::process_music ()
               if (!unsmob<Pitch> (p))
                 continue;
 
-              if (to_boolean (get_property (n, "bass")))
+              if (from_scm<bool> (get_property (n, "bass")))
                 bass = p;
               else
                 {
@@ -114,7 +114,7 @@ Chord_name_engraver::process_music ()
                     }
                   else
                     pitches = scm_cons (p, pitches);
-                  if (to_boolean (get_property (n, "inversion")))
+                  if (from_scm<bool> (get_property (n, "inversion")))
                     {
                       inversion = p;
                       if (!scm_is_number (oct))
@@ -140,7 +140,7 @@ Chord_name_engraver::process_music ()
 
   SCM chord_changes = get_property (this, "chordChanges");
   SCM last_chord = get_property (this, "lastChord");
-  if (to_boolean (chord_changes) && ly_is_equal (markup, last_chord))
+  if (from_scm<bool> (chord_changes) && ly_is_equal (markup, last_chord))
     set_property (chord_name, "begin-of-line-visible", SCM_BOOL_T);
 
   set_property (context (), "lastChord", markup);

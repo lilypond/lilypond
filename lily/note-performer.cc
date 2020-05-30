@@ -88,7 +88,7 @@ Note_performer::process_music ()
                 len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
                                                      context ()->self_scm ()),
                                          len);
-              velocity += robust_scm2int (get_property (ev, "midi-extra-velocity"), 0);
+              velocity += from_scm (get_property (ev, "midi-extra-velocity"), 0);
             }
 
           Audio_note *p = new Audio_note (*pitp, len,

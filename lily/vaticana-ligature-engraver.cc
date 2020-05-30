@@ -304,7 +304,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
        * Save the head's final x-offset.
        */
       set_property (primitive, "x-offset",
-                               scm_from_double (x_offset));
+                               to_scm (x_offset));
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
@@ -409,7 +409,7 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
       Item *primitive
         = dynamic_cast<Item *> (augmented_primitives_[i].grob ());
       Item *dot = make_item ("Dots", primitive->self_scm ());
-      set_property (dot, "dot-count", scm_from_int (1));
+      set_property (dot, "dot-count", to_scm (1));
       dot->set_parent (primitive, Y_AXIS);
       set_object (primitive, "dot", dot->self_scm ());
       Dot_column::add_head (dotcol, primitive);
@@ -462,9 +462,9 @@ void
 Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
                                              vector<Grob_info> const &primitives)
 {
-  Real flexa_width = robust_scm2double (get_property (ligature, "flexa-width"), 2);
+  Real flexa_width = from_scm<double> (get_property (ligature, "flexa-width"), 2);
 
-  Real thickness = robust_scm2double (get_property (ligature, "thickness"), 1);
+  Real thickness = from_scm<double> (get_property (ligature, "thickness"), 1);
 
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;
@@ -499,7 +499,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
         // creating a dot column
         {
           set_property (Rhythmic_head::get_dots (primitive),
-                        "dot-count", scm_from_int (0));
+                        "dot-count", to_scm (0));
           // TODO: Maybe completely remove grob "Dots" (dots->suicide
           // () ?) rather than setting property "dot-count" to 0.
 
@@ -518,7 +518,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
         {
           context_info |= STACKED_HEAD;
           set_property (primitive, "context-info",
-                                   scm_from_int (context_info));
+                                   to_scm (context_info));
         }
 
       /*
@@ -654,16 +654,16 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
           check_for_prefix_loss (prev_primitive);
           prev_glyph_name = "flexa";
           set_property (prev_primitive, "flexa-height",
-                                        scm_from_int (prev_delta_pitch));
+                                        to_scm (prev_delta_pitch));
           set_property (prev_primitive, "flexa-width",
-                                        scm_from_double (flexa_width));
+                                        to_scm (flexa_width));
           bool add_cauda = !(prev_prefix_set & PES_OR_FLEXA);
           set_property (prev_primitive, "add-cauda",
                                         ly_bool2scm (add_cauda));
           check_for_prefix_loss (primitive);
           glyph_name = "";
           set_property (primitive, "flexa-width",
-                                   scm_from_double (flexa_width));
+                                   to_scm (flexa_width));
         }
 
       /*
@@ -698,7 +698,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * ligature grob's value for thickness to each ligature head (even
        * if not all of them need to know).
        */
-      set_property (primitive, "thickness", scm_from_double (thickness));
+      set_property (primitive, "thickness", to_scm (thickness));
 
       prev_primitive = primitive;
       prev_prefix_set = prefix_set;
@@ -723,7 +723,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   paper_column->warning (_f ("Vaticana_ligature_engraver:"
                              " setting `spacing-increment = %f': ptr =%ul",
                              ligature_width, paper_column));
-  set_property (paper_column, "forced-spacing", scm_from_double (ligature_width));
+  set_property (paper_column, "forced-spacing", to_scm (ligature_width));
 #endif
 }
 

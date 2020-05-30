@@ -147,7 +147,7 @@ Music::generic_to_relative_octave (Pitch last)
           Pitch expected_pit (scm_to_int (check),
                               new_pit.get_notename (),
                               new_pit.get_alteration ());
-          origin ()->warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
+          warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
                                   expected_pit.to_string (),
                                   new_pit.to_string ()));
           new_pit = expected_pit;
@@ -202,7 +202,7 @@ Music::compress (Rational factor)
 void
 Prob::transpose (Pitch delta)
 {
-  if (to_boolean (get_property (this, "untransposable")))
+  if (from_scm<bool> (get_property (this, "untransposable")))
     return;
 
   for (SCM s = mutable_property_alist_; scm_is_pair (s); s = scm_cdr (s))
@@ -318,10 +318,7 @@ Music::duration_length_callback (SCM m)
 {
   Music *me = unsmob<Music> (m);
   Duration *d = unsmob<Duration> (get_property (me, "duration"));
-
-  Moment mom;
-  if (d)
-    mom = d->get_length ();
+  Moment mom (d ? d->get_length () : 0);
   return mom.smobbed_copy ();
 }
 

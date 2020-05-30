@@ -99,6 +99,14 @@ public:
     return (t->*p) ();
   }
 
+  // This version with a return value could sensibly be const
+  template <class T, SCM (T::*p) () const>
+  static SCM trampoline (SCM target)
+  {
+    T *t = LY_ASSERT_SMOB (T, target, 1);
+    return (t->*p) ();
+  }
+
   template <class T, void (T::*p) ()>
   static SCM trampoline (SCM target)
   {
@@ -150,6 +158,8 @@ class mfp_baseclass
   // We cannot make the return type U since it can be an abstract base class
   template <typename U, typename V, typename ...W>
   static U* strip_mfp (V (U::*) (W...));
+  template <typename U, typename V, typename ...W>
+  static U* strip_mfp (V (U::*) (W...) const);
 public:
   using type =
     typename ly_remove_pointer<decltype(strip_mfp (static_cast<T> (nullptr)))>::type;

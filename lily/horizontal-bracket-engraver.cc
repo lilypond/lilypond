@@ -56,13 +56,13 @@ Horizontal_bracket_engraver::Horizontal_bracket_engraver (Context *c)
 void
 Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
 
   if (d == STOP)
     {
       pop_count_++;
       if (pop_count_ > bracket_stack_.size ())
-        ev->origin ()->warning (_ ("do not have that many brackets"));
+        ev->warning (_ ("do not have that many brackets"));
     }
   else
     {
@@ -71,7 +71,7 @@ Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
     }
 
   if (pop_count_ && push_count_)
-    ev->origin ()->warning (_ ("conflicting note group events"));
+    ev->warning (_ ("conflicting note group events"));
 }
 
 void

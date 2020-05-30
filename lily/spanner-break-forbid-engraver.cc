@@ -58,7 +58,7 @@ Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner (Grob_info gi
 void
 Spanner_break_forbid_engraver::acknowledge_unbreakable_spanner (Grob_info gi)
 {
-  if (!to_boolean (get_property (gi.grob (), "breakable")))
+  if (!from_scm<bool> (get_property (gi.grob (), "breakable")))
     running_spanners_.push_back (dynamic_cast<Spanner *> (gi.grob ()));
 }
 

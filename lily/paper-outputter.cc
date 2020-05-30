@@ -24,15 +24,16 @@
 #include "file-name.hh"
 #include "font-metric.hh"
 #include "input.hh"
+#include "lily-imports.hh"
 #include "lily-version.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "paper-system.hh"
 #include "scm-hash.hh"
+#include "stencil-interpret.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "lily-imports.hh"
 
 #include <cmath>
 #include <ctime>
@@ -99,18 +100,20 @@ Paper_outputter::output_scheme (SCM scm)
   return str;
 }
 
-SCM
-paper_outputter_dump (void *po, SCM x)
+struct Scm_to_file : Stencil_sink
 {
-  Paper_outputter *me = (Paper_outputter *) po;
-  return me->output_scheme (x);
-}
+  Paper_outputter *po_;
+
+  virtual SCM output (SCM scm) override { return po_->output_scheme (scm); }
+};
 
 void
 Paper_outputter::output_stencil (Stencil stil)
 {
-  interpret_stencil_expression (stil.expr (), paper_outputter_dump,
-                                (void *) this, Offset (0, 0));
+  Scm_to_file stf;
+  stf.po_ = this;
+
+  interpret_stencil_expression (stil.expr (), &stf, Offset (0, 0));
 }
 
 void

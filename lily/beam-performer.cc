@@ -70,7 +70,7 @@ void
 Beam_performer::set_melisma (bool ml)
 {
   SCM b = get_property (this, "autoBeaming");
-  if (!to_boolean (b))
+  if (!from_scm<bool> (b))
     set_property (context (), "beamMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
@@ -84,7 +84,7 @@ Beam_performer::start_translation_timestep ()
 void
 Beam_performer::listen_beam (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
 
   if (d == START)
     start_ev_ = ev;

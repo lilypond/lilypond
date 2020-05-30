@@ -59,7 +59,7 @@ Text_spanner_engraver::Text_spanner_engraver (Context *c)
 void
 Text_spanner_engraver::listen_text_span (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (event_drul_[d], ev);
 }
 
@@ -69,7 +69,7 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-        event_drul_[STOP]->origin ()->warning (_ ("cannot find start of text spanner"));
+        event_drul_[STOP]->warning (_ ("cannot find start of text spanner"));
       else
         {
           finished_ = span_;
@@ -82,13 +82,13 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[START])
     {
       if (current_event_)
-        event_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
+        event_drul_[START]->warning (_ ("already have a text spanner"));
       else
         {
           current_event_ = event_drul_[START];
           span_ = make_spanner ("TextSpanner", event_drul_[START]->self_scm ());
-          if (Direction d = to_dir (get_property (current_event_, "direction")))
-            set_property (span_, "direction", scm_from_int (d));
+          if (Direction d = from_scm<Direction> (get_property (current_event_, "direction")))
+            set_property (span_, "direction", to_scm (d));
 
           Side_position_interface::set_axis (span_, Y_AXIS);
           event_drul_[START] = 0;
@@ -129,7 +129,7 @@ Text_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_event_->origin ()->warning (_ ("unterminated text spanner"));
+      current_event_->warning (_ ("unterminated text spanner"));
       span_->suicide ();
       span_ = 0;
     }

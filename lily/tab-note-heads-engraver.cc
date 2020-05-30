@@ -89,7 +89,7 @@ Tab_note_heads_engraver::process_music ()
   SCM defined_fingers = articulation_list (note_events_,
                                            fingering_events_,
                                            "fingering-event");
-  SCM tab_notes = ly_cxx_vector_to_list (note_events_);
+  SCM tab_notes = to_scm_list (note_events_);
   SCM proc = get_property (this, "noteToFretFunction");
   SCM string_fret_finger = SCM_EOL;
   if (ly_is_procedure (proc))
@@ -112,7 +112,7 @@ Tab_note_heads_engraver::process_music ()
   if (!scm_is_null (string_fret_finger))
     for (vsize i = 0; i < fret_count; i++)
       {
-        note_entry = scm_list_ref (string_fret_finger, scm_from_size_t (i));
+        note_entry = scm_list_ref (string_fret_finger, to_scm (i));
         string_number = scm_car (note_entry);
         if (scm_is_true (string_number))
           {

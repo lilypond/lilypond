@@ -140,7 +140,7 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *b = unsmob<Output_def> (def);
-  return scm_from_double (output_scale (b));
+  return to_scm (output_scale (b));
 }
 
 LY_DEFINE (ly_make_output_def, "ly:make-output-def",
@@ -172,7 +172,7 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *layout = unsmob<Output_def> (def);
-  return scm_from_double (layout->get_dimension (sym));
+  return to_scm (layout->get_dimension (sym));
 }
 
 LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
@@ -187,7 +187,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
   SCM tab2 = b->lookup_variable (ly_symbol2scm ("pango-fonts"));
 
   SCM alist1 = SCM_EOL;
-  if (to_boolean (scm_hash_table_p (tab1)))
+  if (from_scm<bool> (scm_hash_table_p (tab1)))
     {
       alist1 = scm_append (ly_alist_vals (ly_hash2alist (tab1)));
 

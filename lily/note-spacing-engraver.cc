@@ -121,7 +121,7 @@ Note_spacing_engraver::stop_translation_timestep ()
   Grob *last_spacing = last_spacings_[parent];
 
   if (last_spacing
-      && to_boolean (get_property (this, "hasStaffSpacing")))
+      && from_scm<bool> (get_property (this, "hasStaffSpacing")))
     {
       Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       Pointer_group_interface::add_grob (last_spacing,

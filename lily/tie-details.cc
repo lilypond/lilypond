@@ -29,9 +29,9 @@
   this is a macro because we want ly_symbol2scm()
  */
 #define get_real_detail(src, defvalue) \
-  robust_scm2double(ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL), defvalue)
+  from_scm<double>(ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL), defvalue)
 #define get_int_detail(src, defvalue) \
-  robust_scm2int(ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL), defvalue)
+  from_scm(ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL), defvalue)
 
 void
 Tie_details::from_grob (Grob *me)
@@ -39,7 +39,7 @@ Tie_details::from_grob (Grob *me)
   staff_symbol_referencer_ = me;
   staff_space_ = Staff_symbol_referencer::staff_space (me);
 
-  neutral_direction_ = to_dir (get_property (me, "neutral-direction"));
+  neutral_direction_ = from_scm<Direction> (get_property (me, "neutral-direction"));
   if (!neutral_direction_)
     neutral_direction_ = DOWN;
 

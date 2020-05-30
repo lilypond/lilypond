@@ -138,7 +138,6 @@ extra-local-help:
 	@echo "  fix-xrefs [ISOLANG=LL]   interactively fix Texinfo cross-references"
 	@echo "                             (use with caution)"
 	@echo "  info                     update info pages"
-	@echo "  xml                      update Docbook xml documentation"
 	@echo
 	@echo "Translations specific targets (see TRANSLATION for details):"
 	@echo "  new-lang ISOLANG=LL           create and initialize"
@@ -159,9 +158,6 @@ extra-local-help:
 	@echo
 
 info: $(INFO_FILES)
-
-xml: $(outdir)/notation/notation.xml $(outdir)/internals/internals.xml
-
 
 local-clean:
 	rm -f $(INFO_IMAGES_DIR)
@@ -185,7 +181,7 @@ endif
 
 $(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<"  "$*.makeinfo.log"
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
 
 txt-to-html: $(OUT_TXT_FILES) $(OUT_TXT_FILES:%.txt=%.html)
 
@@ -218,18 +214,6 @@ $(outdir)/ly-examples:
 	$(MAKE) -C ly-examples out=www WWW-1
 	ln -sf ../ly-examples/$(outdir) $@
 endif
-
-
-# Ugh, using '%' twice not possible
-$(outdir)/notation/notation.xml: $(outdir)/notation.texi
-	$(call ly_progress,Making,$@,< texi)
-	mkdir -p $(dir $@)
-	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
-
-$(outdir)/internals/internals.xml: $(outdir)/internals.texi
-	$(call ly_progress,Making,$@,< texi)
-	mkdir -p $(dir $@)
-	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(dir $@) --docbook $<"  "$*.makeinfoxml.log"
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 
@@ -279,7 +263,7 @@ $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 
 $(outdir)/internals.texi: $(LILYPOND_BINARY) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	$(call ly_progress,Making,$@,)
-	cd $(outdir) && $(buildscript-dir)/run-and-check.sh "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
+	cd $(outdir) && $(buildscript-dir)/run-and-check.sh "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "$(outdir)/generate-documentation.log"
 
 ## Dependencies on the automatically generated documentation
 $(outdir)/contributor.texi: $(outdir)/ly-grammar.txt

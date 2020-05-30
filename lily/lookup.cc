@@ -48,37 +48,37 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
 
   SCM points = SCM_EOL;
 
-  points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
+  points = scm_cons (to_scm (p[X_AXIS]),
+                     scm_cons (to_scm (p[Y_AXIS]),
                                points));
 
   p = Offset (0, -thick / 2);
   b.add_point (p);
   p += Offset (1, 1) * (blot / 2);
 
-  points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
+  points = scm_cons (to_scm (p[X_AXIS]),
+                     scm_cons (to_scm (p[Y_AXIS]),
                                points));
 
   p = Offset (width, width * slope - thick / 2);
   b.add_point (p);
   p += Offset (-1, 1) * (blot / 2);
 
-  points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
+  points = scm_cons (to_scm (p[X_AXIS]),
+                     scm_cons (to_scm (p[Y_AXIS]),
                                points));
 
   p = Offset (width, width * slope + thick / 2);
   b.add_point (p);
   p += Offset (-1, -1) * (blot / 2);
 
-  points = scm_cons (scm_from_double (p[X_AXIS]),
-                     scm_cons (scm_from_double (p[Y_AXIS]),
+  points = scm_cons (to_scm (p[X_AXIS]),
+                     scm_cons (to_scm (p[Y_AXIS]),
                                points));
 
   SCM expr = scm_list_4 (ly_symbol2scm ("polygon"),
                          ly_quote_scm (points),
-                         scm_from_double (blot),
+                         to_scm (blot),
                          SCM_BOOL_T);
 
   return Stencil (b, expr);
@@ -101,11 +101,11 @@ Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-                       scm_from_double (th),
-                       scm_from_double (w[LEFT]),
-                       scm_from_double (0),
-                       scm_from_double (w[RIGHT]),
-                       scm_from_double (0),
+                       to_scm (th),
+                       to_scm (w[LEFT]),
+                       to_scm (0),
+                       to_scm (w[RIGHT]),
+                       to_scm (0),
                        SCM_UNDEFINED);
 
   Box box;
@@ -126,8 +126,8 @@ Lookup::circle (Real rad, Real thick, bool filled)
 {
   Box b (Interval (-rad, rad), Interval (-rad, rad));
   return Stencil (b, scm_list_4 (ly_symbol2scm ("circle"),
-                                 scm_from_double (rad),
-                                 scm_from_double (thick),
+                                 to_scm (rad),
+                                 to_scm (thick),
                                  scm_from_bool (filled)));
 }
 
@@ -181,11 +181,11 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
     }
 
   SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
-                        scm_from_double (-b[X_AXIS][LEFT]),
-                        scm_from_double (b[X_AXIS][RIGHT]),
-                        scm_from_double (-b[Y_AXIS][DOWN]),
-                        scm_from_double (b[Y_AXIS][UP]),
-                        scm_from_double (blotdiameter),
+                        to_scm (-b[X_AXIS][LEFT]),
+                        to_scm (b[X_AXIS][RIGHT]),
+                        to_scm (-b[Y_AXIS][DOWN]),
+                        to_scm (b[Y_AXIS][UP]),
+                        to_scm (blotdiameter),
                         SCM_UNDEFINED));
 
   return Stencil (b, at);
@@ -365,8 +365,8 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
   Box shrunk_box;
   for (vsize i = 0; i < shrunk_points.size (); i++)
     {
-      SCM x = scm_from_double (shrunk_points[i][X_AXIS]);
-      SCM y = scm_from_double (shrunk_points[i][Y_AXIS]);
+      SCM x = to_scm (shrunk_points[i][X_AXIS]);
+      SCM y = to_scm (shrunk_points[i][Y_AXIS]);
       shrunk_points_scm = scm_cons (x, scm_cons (y, shrunk_points_scm));
       box.add_point (points[i]);
       shrunk_box.add_point (shrunk_points[i]);
@@ -375,7 +375,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
   box.unite (shrunk_box);
   SCM polygon_scm = scm_list_4 (ly_symbol2scm ("polygon"),
                                 ly_quote_scm (shrunk_points_scm),
-                                scm_from_double (blotdiameter),
+                                to_scm (blotdiameter),
                                 SCM_BOOL_T);
 
   Stencil polygon = Stencil (box, polygon_scm);
@@ -438,13 +438,13 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick,
       int num_segments = scm_to_int (scm_length (dash_details));
       for (int i = 0; i < num_segments; i++)
         {
-          SCM dash_pattern = scm_list_ref (dash_details, scm_from_int (i));
-          Real t_min = robust_scm2double (scm_car (dash_pattern), 0);
-          Real t_max = robust_scm2double (scm_cadr (dash_pattern), 1.0);
+          SCM dash_pattern = scm_list_ref (dash_details, to_scm (i));
+          Real t_min = from_scm<double> (scm_car (dash_pattern), 0);
+          Real t_max = from_scm<double> (scm_cadr (dash_pattern), 1.0);
           Real dash_fraction
-            = robust_scm2double (scm_caddr (dash_pattern), 1.0);
+            = from_scm<double> (scm_caddr (dash_pattern), 1.0);
           Real dash_period
-            = robust_scm2double (scm_cadddr (dash_pattern), 0.75);
+            = from_scm<double> (scm_cadddr (dash_pattern), 0.75);
           Bezier back_segment = back.extract (t_min, t_max);
           Bezier curve_segment = curve.extract (t_min, t_max);
           if (dash_fraction == 1.0)
@@ -504,30 +504,30 @@ Stencil
 Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 {
   SCM commands = scm_list_n (ly_symbol2scm ("moveto"),
-                             scm_from_double (top_curve.control_[0][X_AXIS]),
-                             scm_from_double (top_curve.control_[0][Y_AXIS]),
+                             to_scm (top_curve.control_[0][X_AXIS]),
+                             to_scm (top_curve.control_[0][Y_AXIS]),
                              ly_symbol2scm ("curveto"),
-                             scm_from_double (top_curve.control_[1][X_AXIS]),
-                             scm_from_double (top_curve.control_[1][Y_AXIS]),
-                             scm_from_double (top_curve.control_[2][X_AXIS]),
-                             scm_from_double (top_curve.control_[2][Y_AXIS]),
-                             scm_from_double (top_curve.control_[3][X_AXIS]),
-                             scm_from_double (top_curve.control_[3][Y_AXIS]),
+                             to_scm (top_curve.control_[1][X_AXIS]),
+                             to_scm (top_curve.control_[1][Y_AXIS]),
+                             to_scm (top_curve.control_[2][X_AXIS]),
+                             to_scm (top_curve.control_[2][Y_AXIS]),
+                             to_scm (top_curve.control_[3][X_AXIS]),
+                             to_scm (top_curve.control_[3][Y_AXIS]),
                              ly_symbol2scm ("lineto"),
-                             scm_from_double (bottom_curve.control_[3][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[3][Y_AXIS]),
+                             to_scm (bottom_curve.control_[3][X_AXIS]),
+                             to_scm (bottom_curve.control_[3][Y_AXIS]),
                              ly_symbol2scm ("curveto"),
-                             scm_from_double (bottom_curve.control_[2][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[2][Y_AXIS]),
-                             scm_from_double (bottom_curve.control_[1][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[1][Y_AXIS]),
-                             scm_from_double (bottom_curve.control_[0][X_AXIS]),
-                             scm_from_double (bottom_curve.control_[0][Y_AXIS]),
+                             to_scm (bottom_curve.control_[2][X_AXIS]),
+                             to_scm (bottom_curve.control_[2][Y_AXIS]),
+                             to_scm (bottom_curve.control_[1][X_AXIS]),
+                             to_scm (bottom_curve.control_[1][Y_AXIS]),
+                             to_scm (bottom_curve.control_[0][X_AXIS]),
+                             to_scm (bottom_curve.control_[0][Y_AXIS]),
                              ly_symbol2scm ("closepath"),
                              SCM_UNDEFINED);
 
   SCM horizontal_bend = scm_list_n (ly_symbol2scm ("path"),
-                                    scm_from_double (thickness),
+                                    to_scm (thickness),
                                     ly_quote_scm (commands),
                                     ly_quote_scm (ly_symbol2scm ("round")),
                                     ly_quote_scm (ly_symbol2scm ("round")),
@@ -552,22 +552,22 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   Real height = w * s;
 
   SCM controls = scm_list_n (ly_symbol2scm ("moveto"),
-                             scm_from_double (0),
-                             scm_from_double (0),
+                             to_scm (0),
+                             to_scm (0),
                              ly_symbol2scm ("rlineto"),
-                             scm_from_double (x_width),
-                             scm_from_double (0),
+                             to_scm (x_width),
+                             to_scm (0),
                              ly_symbol2scm ("rlineto"),
-                             scm_from_double (w),
-                             scm_from_double (height),
+                             to_scm (w),
+                             to_scm (height),
                              ly_symbol2scm ("rlineto"),
-                             scm_from_double (-x_width),
-                             scm_from_double (0),
+                             to_scm (-x_width),
+                             to_scm (0),
                              ly_symbol2scm ("closepath"),
                              SCM_UNDEFINED);
 
   SCM slashnodot = scm_list_n (ly_symbol2scm ("path"),
-                               scm_from_double (0),
+                               to_scm (0),
                                ly_quote_scm (controls),
                                ly_quote_scm (ly_symbol2scm ("round")),
                                ly_quote_scm (ly_symbol2scm ("round")),

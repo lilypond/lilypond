@@ -57,7 +57,7 @@ check_meshing_chords (Grob *me,
   vector<int> ups = Stem::note_head_positions (stems[UP]);
   vector<int> dps = Stem::note_head_positions (stems[DOWN]);
 
-  int threshold = robust_scm2int (get_property (me, "note-collision-threshold"), 1);
+  int threshold = from_scm (get_property (me, "note-collision-threshold"), 1);
 
   /* Too far apart to collide. */
   if (ups[0] > dps.back () + threshold)
@@ -102,13 +102,13 @@ check_meshing_chords (Grob *me,
 
   if (merge_possible
       && Rhythmic_head::dot_count (head_up) != Rhythmic_head::dot_count (head_down)
-      && !to_boolean (get_property (me, "merge-differently-dotted")))
+      && !from_scm<bool> (get_property (me, "merge-differently-dotted")))
     merge_possible = false;
 
   /* Can only merge different heads if merge-differently-headed is set. */
   if (merge_possible
       && up_ball_type != down_ball_type
-      && !to_boolean (get_property (me, "merge-differently-headed")))
+      && !from_scm<bool> (get_property (me, "merge-differently-headed")))
     merge_possible = false;
 
   /* Should never merge quarter and half notes, as this would make
@@ -185,7 +185,7 @@ check_meshing_chords (Grob *me,
   bool stem_to_stem = false;
   if ((full_collide
        || ((close_half_collide || distant_half_collide)
-           && to_boolean (get_property (me, "prefer-dotted-right"))))
+           && from_scm<bool> (get_property (me, "prefer-dotted-right"))))
       && Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
     {
       shift_amount = -1;
@@ -199,7 +199,7 @@ check_meshing_chords (Grob *me,
       Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
       if ((full_collide
            || (!Staff_symbol_referencer::on_line (staff, ups[0])
-               && to_boolean (get_property (me, "prefer-dotted-right"))))
+               && from_scm<bool> (get_property (me, "prefer-dotted-right"))))
           && Rhythmic_head::dot_count (head_up) > Rhythmic_head::dot_count (head_down))
         touch = false;
       else
@@ -219,7 +219,7 @@ check_meshing_chords (Grob *me,
           || scm_is_eq (down_style, ly_symbol2scm ("faThin"))))
     {
       Offset att = Offset (0.0, -1.0);
-      set_property (head_up, "stem-attachment", ly_offset2scm (att));
+      set_property (head_up, "stem-attachment", to_scm (att));
       set_property (head_up, "transparent", SCM_BOOL_T);
     }
 
@@ -345,7 +345,7 @@ check_meshing_chords (Grob *me,
           if (col_up == col_down) // let the common DotColumn arrange dots
             dir = CENTER;
           else // conform to the dot direction on the up-stem chord
-            dir = robust_scm2dir (get_property (dot_up, "direction"), UP);
+            dir = from_scm (get_property (dot_up, "direction"), UP);
         }
       if (dir != CENTER)
         {
@@ -353,7 +353,7 @@ check_meshing_chords (Grob *me,
           extract_grob_set (stem, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)
             if (Grob *dot = unsmob<Grob> (get_object (heads[i], "dot")))
-              set_property (dot, "direction", scm_from_int (dir));
+              set_property (dot, "direction", to_scm (dir));
         }
     }
 
@@ -503,7 +503,7 @@ Note_collision_interface::automatic_shift (Grob *me,
         {
           Grob *col = clash_groups[d][i];
           SCM sh = get_property (col, "horizontal-shift");
-          shifts.push_back (robust_scm2int (sh, 0));
+          shifts.push_back (from_scm (sh, 0));
 
           if (i == 0)
             offset = inner_offset;
@@ -553,7 +553,7 @@ Note_collision_interface::automatic_shift (Grob *me,
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         tups = scm_cons (scm_cons (clash_groups[d][i]->self_scm (),
-                                   scm_from_double (offsets[d][i])),
+                                   to_scm (offsets[d][i])),
                          tups);
     }
 

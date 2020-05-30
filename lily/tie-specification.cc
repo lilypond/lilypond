@@ -29,7 +29,7 @@ Tie_specification::from_grob (Grob *tie)
   tie_grob_ = tie;
   if (scm_is_number (get_property_data (tie, "direction")))
     {
-      manual_dir_ = to_dir (get_property (tie, "direction"));
+      manual_dir_ = from_scm<Direction> (get_property (tie, "direction"));
       has_manual_dir_ = true;
     }
 
@@ -46,7 +46,7 @@ Tie_specification::from_grob (Grob *tie)
   SCM pos_scm = get_property (tie, "staff-position");
   if (scm_is_number (pos_scm))
     {
-      has_manual_delta_y_ = !ly_is_rational (pos_scm);
+      has_manual_delta_y_ = !is_scm<Rational> (pos_scm);
       manual_position_ = scm_to_double (get_property (tie, "staff-position"));
       has_manual_position_ = true;
     }

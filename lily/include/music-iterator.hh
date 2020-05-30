@@ -21,6 +21,7 @@
 #define MUSIC_ITERATOR_HH
 
 #include "std-vector.hh"
+#include "diagnostics.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"
 #include "context-handle.hh"
@@ -58,13 +59,14 @@
 
    merge pending_moment and process?
 */
-class Music_iterator : public Smob<Music_iterator>
+class Music_iterator : public Smob<Music_iterator>, public Diagnostics
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char *const type_p_name_;
   virtual ~Music_iterator ();
+  Input *origin () const override;
 protected:
   Moment music_length_;
   Moment start_mom_;

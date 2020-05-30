@@ -103,7 +103,7 @@ make_keytable ()
   Scheme_hash_table *kt = unsmob<Scheme_hash_table> (keytable);
   for (Keyword_ent &ent : the_key_tab)
     {
-      kt->set (ly_symbol2scm (ent.name_), scm_from_int (ent.tokcode_));
+      kt->set (ly_symbol2scm (ent.name_), to_scm (ent.tokcode_));
     }
   return keytable;
 }
@@ -127,7 +127,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
 
   add_scope (ly_make_module (false));
   push_note_state (SCM_EOL);
-  chordmodifier_tab_ = scm_make_vector (scm_from_int (1), SCM_EOL);
+  chordmodifier_tab_ = scm_make_vector (to_scm (1), SCM_EOL);
 }
 
 Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,

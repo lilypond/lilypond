@@ -61,7 +61,7 @@ Collision_engraver::acknowledge_note_column (Grob_info i)
       if (Note_column::has_rests (i.grob ()) || i.grob ()->get_parent (X_AXIS))
         return;
 
-      if (to_boolean (get_property (i.grob (), "ignore-collision")))
+      if (from_scm<bool> (get_property (i.grob (), "ignore-collision")))
         return;
 
       note_columns_.push_back (i.grob ());

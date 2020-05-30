@@ -37,9 +37,9 @@ Clef::calc_glyph_name (SCM smob)
     {
       string str = ly_scm2string (glyph);
 
-      if (to_boolean (get_property (s, "non-default"))
+      if (from_scm<bool> (get_property (s, "non-default"))
           && s->break_status_dir () != RIGHT
-          && !to_boolean (get_property (s, "full-size-change")))
+          && !from_scm<bool> (get_property (s, "full-size-change")))
         {
           str += "_change";
         }

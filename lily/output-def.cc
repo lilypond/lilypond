@@ -140,7 +140,7 @@ Output_def::normalize ()
   Real paper_width;
   SCM scm_paper_width = c_variable ("paper-width");
 
-  bool twosided = to_boolean (c_variable ("two-sided"));
+  bool twosided = from_scm<bool> (c_variable ("two-sided"));
   // We don't distinguish between outer-margin / left-margin and so on
   // until page-stencil positioning in page.scm
   Real left_margin, left_margin_default;
@@ -180,7 +180,7 @@ Output_def::normalize ()
 
   Real binding_offset = 0;
   if (twosided)
-    binding_offset = robust_scm2double (c_variable ("binding-offset"), 0);
+    binding_offset = from_scm<double> (c_variable ("binding-offset"), 0);
 
   if (SCM_UNBNDP (scm_line_width))
     {
@@ -218,7 +218,7 @@ Output_def::normalize ()
         }
     }
 
-  if (to_boolean (c_variable ("check-consistency")))
+  if (from_scm<bool> (c_variable ("check-consistency")))
     {
       // Consistency checks. If values don't match, set defaults.
       if (abs (paper_width - line_width - left_margin - right_margin) > 1e-6)
@@ -237,9 +237,9 @@ Output_def::normalize ()
         }
     }
 
-  set_variable (ly_symbol2scm ("left-margin"), scm_from_double (left_margin));
-  set_variable (ly_symbol2scm ("right-margin"), scm_from_double (right_margin));
-  set_variable (ly_symbol2scm ("line-width"), scm_from_double (line_width));
+  set_variable (ly_symbol2scm ("left-margin"), to_scm (left_margin));
+  set_variable (ly_symbol2scm ("right-margin"), to_scm (right_margin));
+  set_variable (ly_symbol2scm ("line-width"), to_scm (line_width));
 }
 
 /* FIXME.  This is broken until we have a generic way of

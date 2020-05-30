@@ -726,12 +726,70 @@ and duration-log @var{log}."
 ;; Color
 
 (define-public (color? x)
-  (and (list? x)
-       (= 3 (length x))
-       (every number? x)
-       (every (lambda (y) (<= 0 y 1)) x)))
+  (or
+   (string? x)
+   (and (list? x)
+        (let ((l (length x)))
+          (or (= 3 l)
+              (= 4 l)))
+        (every number? x)
+        (every (lambda (y) (<= 0 y 1)) x))))
 
-(define-public (rgb-color r g b) (list r g b))
+(define (hexadec->decimal x)
+  (let ((num (string->number x 16)))
+    (if (= 0 num)
+        num
+        (exact->inexact
+         (/ num 255)))))
+
+(define (css->hexadec code)
+  (let ((str (if (string-prefix? "#" code)
+                 (string-drop code 1)
+                 code)))
+    (if (< (string-length str) 6)
+        (let ((ls '()))
+          (map (lambda (char)
+                 (set! ls (append
+                           (make-list 2 char)
+                           ls)))
+               (string->list str))
+          (list->string (reverse ls)))
+        str)))
+
+(define-public (css->colorlist code)
+  "Turn a CSS-like color string into an
+@code{rgb-color} list.  The given string
+may be either a predefined color name or
+a hexadecimal color code, in which case
+it must be prefixed with @samp{#} and
+entered between double quotes.
+Alpha channel information is supported
+(as eight-character color codes, or
+four chars in shorthand mode), and will
+be passed to the output backend -- that
+may or may not use it."
+  (if (and
+       (string-prefix? "#" code)
+       (string-every
+        (->char-set "#0123456789abcdef")
+        (string-downcase code)))
+      (let* ((str (css->hexadec code))
+             (r (substring str 0 2))
+             (g (substring str 2 4))
+             (b (substring str 4 6))
+             (a (if (> (string-length str) 6)
+                    (substring str 6 8)
+                    #f)))
+        (map hexadec->decimal
+             (if a
+                 (list r g b a)
+                 (list r g b))))
+      (css-color (string->symbol code))))
+
+(define*-public (rgb-color r g b #:optional (a #f))
+  (if a
+      (list r g b a)
+      (list r g b)))
 
 ;; predefined colors
 (define-public black       '(0.0 0.0 0.0))

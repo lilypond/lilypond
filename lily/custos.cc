@@ -58,9 +58,9 @@ Custos::print (SCM smob)
    */
   bool adjust = true;
 
-  int neutral_pos = robust_scm2int (get_property (me, "neutral-position"), 0);
+  int neutral_pos = from_scm (get_property (me, "neutral-position"), 0);
   Direction neutral_direction
-    = to_dir (get_property (me, "neutral-direction"));
+    = from_scm<Direction> (get_property (me, "neutral-direction"));
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
 

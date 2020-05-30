@@ -144,8 +144,8 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
   SCM numbering_function = paper->c_variable ("footnote-numbering-function");
   SCM layout = paper->self_scm ();
   SCM props = Lily::layout_extract_page_properties (layout);
-  Real padding = robust_scm2double (paper->c_variable ("footnote-padding"), 0.0);
-  Real number_raise = robust_scm2double (paper->c_variable ("footnote-number-raise"), 0.0);
+  Real padding = from_scm<double> (paper->c_variable ("footnote-padding"), 0.0);
+  Real number_raise = from_scm<double> (paper->c_variable ("footnote-number-raise"), 0.0);
 
   vector<Grob *> fn_grobs = get_footnote_grobs (lines);
   vsize fn_count = fn_grobs.size ();
@@ -173,9 +173,9 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
         {
           SCM assertion_function = get_property (fn_grobs[i], "numbering-assertion-function");
           if (ly_is_procedure (assertion_function))
-            (void) scm_call_1 (assertion_function, scm_from_size_t (counter));
+            (void) scm_call_1 (assertion_function, to_scm (counter));
         }
-      SCM markup = scm_call_1 (numbering_function, scm_from_size_t (counter));
+      SCM markup = scm_call_1 (numbering_function, to_scm (counter));
       SCM stencil = Text_interface::interpret_markup (layout, props, markup);
       Stencil *st = unsmob<Stencil> (stencil);
       if (!st)
@@ -240,13 +240,13 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
                                                                    props, footnote_markup);
 
               Stencil footnote_stencil = *unsmob<Stencil> (footnote_stl);
-              bool do_numbering = to_boolean (get_property (footnote, "automatically-numbered"));
+              bool do_numbering = from_scm<bool> (get_property (footnote, "automatically-numbered"));
               if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                 {
                   if (orig->is_broken ())
                     for (vsize i = 0; i < orig->broken_intos_.size (); i++)
                       do_numbering = do_numbering
-                                     || to_boolean (get_property (orig->broken_intos_[i], "automatically-numbered"));
+                                     || from_scm<bool> (get_property (orig->broken_intos_[i], "automatically-numbered"));
                 }
               if (do_numbering)
                 {
@@ -271,7 +271,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
                 }
               if (!footnote_stencil.is_empty ())
                 {
-                  if (to_boolean (get_property (footnote, "footnote")))
+                  if (from_scm<bool> (get_property (footnote, "footnote")))
                     mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil, padding);
                   else
                     in_note_mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil, padding);
@@ -289,7 +289,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
             {
               Stencil footnote_stencil = *unsmob<Stencil> (scm_caddar (st));
-              bool do_numbering = to_boolean (scm_cadar (st));
+              bool do_numbering = from_scm<bool> (scm_cadar (st));
               SCM in_text_stencil = Stencil ().smobbed_copy ();
               if (do_numbering)
                 {
@@ -345,8 +345,8 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil foot, Paper
 {
 
   bool footnotes_found = false;
-  Real footnote_padding = robust_scm2double (pb->paper_->c_variable ("footnote-padding"), 0.0);
-  Real footnote_footer_padding = robust_scm2double (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
+  Real footnote_padding = from_scm<double> (pb->paper_->c_variable ("footnote-padding"), 0.0);
+  Real footnote_footer_padding = from_scm<double> (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
 
   footnotes = scm_reverse (footnotes);
 
@@ -403,7 +403,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
       header_height_ = head ? head->extent (Y_AXIS).length () : 0;
       footer_height_ = foot_stencil.extent (Y_AXIS).length ();
-      page_height_ = robust_scm2double (get_property (page, "paper-height"), 100);
+      page_height_ = from_scm<double> (get_property (page, "paper-height"), 100);
     }
 
   // Initially, bottom_skyline_ represents the top of the page. Make
@@ -439,13 +439,13 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       // Note: the page height here does _not_ reserve space for headers and
       // footers. This is because we want to anchor the top-system-spacing
       // spring at the _top_ of the header.
-      page_height_ -= robust_scm2double (paper->c_variable ("top-margin"), 0)
-                      + robust_scm2double (paper->c_variable ("bottom-margin"), 0);
+      page_height_ -= from_scm<double> (paper->c_variable ("top-margin"), 0)
+                      + from_scm<double> (paper->c_variable ("bottom-margin"), 0);
 
       read_spacing_spec (top_system_spacing, &header_padding_, ly_symbol2scm ("padding"));
       read_spacing_spec (last_bottom_spacing, &footer_padding_, ly_symbol2scm ("padding"));
-      in_note_padding_ = robust_scm2double (paper->c_variable ("in-note-padding"), 0.5);
-      in_note_direction_ = robust_scm2dir (paper->c_variable ("in-note-direction"), UP);
+      in_note_padding_ = from_scm<double> (paper->c_variable ("in-note-padding"), 0.5);
+      in_note_direction_ = from_scm (paper->c_variable ("in-note-direction"), UP);
     }
   bool last_system_was_title = false;
 
@@ -510,11 +510,11 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       // bottom-space has the flexibility that one can do it per-system.
       // NOTE: bottom-space is misnamed since it is not stretchable space.
       if (Prob *p = elements_.back ().prob)
-        bottom_padding = robust_scm2double (get_property (p, "bottom-space"), 0);
+        bottom_padding = from_scm<double> (get_property (p, "bottom-space"), 0);
       else if (elements_.back ().staves.size ())
         {
           SCM details = get_details (elements_.back ());
-          bottom_padding = robust_scm2double (ly_assoc_get (ly_symbol2scm ("bottom-space"),
+          bottom_padding = from_scm<double> (ly_assoc_get (ly_symbol2scm ("bottom-space"),
                                                             details,
                                                             SCM_BOOL_F),
                                               0.0);
@@ -558,8 +558,8 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
 
   if (in_note_stencil && in_note_stencil->extent (Y_AXIS).length () > 0)
     {
-      set_property (sys, "in-note-padding", scm_from_double (in_note_padding_));
-      set_property (sys, "in-note-direction", scm_from_int (in_note_direction_));
+      set_property (sys, "in-note-padding", to_scm (in_note_padding_));
+      set_property (sys, "in-note-direction", to_scm (in_note_direction_));
       Skyline *sky = in_note_direction_ == UP ? &up_skyline : &down_skyline;
       sky->set_minimum_height (sky->max_height ()
                                + in_note_direction_
@@ -574,7 +574,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
     at the time of adding in the system.
   */
   Real minimum_distance = up_skyline.distance (bottom_skyline_,
-                                               robust_scm2double (get_property (sys, "skyline-horizontal-padding"),
+                                               from_scm<double> (get_property (sys, "skyline-horizontal-padding"),
                                                    0))
                           + padding;
 
@@ -624,6 +624,21 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
 
           Spring spring (0.5, 0.0);
           SCM spec = get_property (elts[last_spaceable_staff], "staff-staff-spacing");
+          // In the event an override specifies
+          // staff-staff-spacing.some-property spec will be a non-list pair with
+          // an unpure-pure container as cdr. Remove it before continuing.
+          if (!ly_is_list (spec))
+            // spec needs to be an alist
+            spec = scm_cons (scm_car (spec), SCM_EOL);
+
+          // Substitute default values for any that are missing
+          SCM default_spacing = get_property (elts[last_spaceable_staff],
+                                              "default-staff-staff-spacing");
+          if (scm_is_pair (default_spacing) && ly_is_list (spec))
+            for (SCM s = default_spacing; scm_is_pair (s); s = scm_cdr (s))
+                if (!scm_is_pair (scm_assq (scm_caar (s), spec)))
+                    spec = scm_cons (scm_car (s), spec);
+
           alter_spring_from_spacing_spec (spec, &spring);
 
           springs_.push_back (spring);
@@ -661,7 +676,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
 {
   Skyline_pair *sky = unsmob<Skyline_pair> (get_property (prob, "vertical-skylines"));
   Real minimum_distance = 0;
-  bool tight_spacing = to_boolean (get_property (prob, "tight-spacing"));
+  bool tight_spacing = from_scm<bool> (get_property (prob, "tight-spacing"));
 
   if (sky)
     {
@@ -771,7 +786,7 @@ Page_layout_problem::find_system_offsets ()
     {
       if (elements_[i].prob)
         {
-          *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
+          *tail = scm_cons (to_scm (solution_[spring_idx]), SCM_EOL);
           tail = SCM_CDRLOC (*tail);
           Interval prob_extent = unsmob<Stencil> (get_property (elements_[i].prob, "stencil"))->extent (Y_AXIS);
 
@@ -819,7 +834,7 @@ Page_layout_problem::find_system_offsets ()
           for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size (); ++staff_idx)
             {
               Grob *staff = elements_[i].staves[staff_idx];
-              set_property (staff, "system-Y-offset", scm_from_double (-system_position));
+              set_property (staff, "system-Y-offset", to_scm (-system_position));
 
               if (is_spaceable (staff))
                 {
@@ -898,7 +913,7 @@ Page_layout_problem::find_system_offsets ()
           if (!found_spaceable_staff)
             spring_idx++;
 
-          *tail = scm_cons (scm_from_double (system_position), SCM_EOL);
+          *tail = scm_cons (to_scm (system_position), SCM_EOL);
           tail = SCM_CDRLOC (*tail);
         }
     }
@@ -1111,7 +1126,7 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after,
       // size of the cache by ignoring it.
       SCM cached = after_sp->get_cached_pure_property (cache_symbol, start, 0);
       if (scm_is_number (cached))
-        return robust_scm2double (cached, 0.0);
+        return from_scm<double> (cached, 0.0);
     }
 
   Real ret = -infinity_f;
@@ -1135,7 +1150,7 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after,
 
   // Cache the result.  As above, we ignore "end."
   if (pure)
-    after_sp->cache_pure_property (cache_symbol, start, 0, scm_from_double (ret));
+    after_sp->cache_pure_property (cache_symbol, start, 0, to_scm (ret));
 
   return ret;
 }
@@ -1144,7 +1159,7 @@ static SCM
 add_stretchability (SCM alist, Real stretch)
 {
   if (!scm_is_pair (scm_sloppy_assq (ly_symbol2scm ("stretchability"), alist)))
-    return scm_acons (ly_symbol2scm ("stretchability"), scm_from_double (stretch), alist);
+    return scm_acons (ly_symbol2scm ("stretchability"), to_scm (stretch), alist);
 
   return alist;
 }
@@ -1175,7 +1190,7 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
         return get_maybe_pure_property (before, "staff-staff-spacing", pure, start, end);
       else
         {
-          Direction affinity = to_dir (get_maybe_pure_property (after, "staff-affinity", pure, start, end));
+          Direction affinity = from_scm<Direction> (get_maybe_pure_property (after, "staff-affinity", pure, start, end));
           return (affinity == DOWN)
                  ? add_stretchability (get_maybe_pure_property (after, "nonstaff-unrelatedstaff-spacing", pure, start, end),
                                        LARGE_STRETCH)
@@ -1186,7 +1201,7 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
     {
       if (is_spaceable (after))
         {
-          Direction affinity = to_dir (get_maybe_pure_property (before, "staff-affinity", pure, start, end));
+          Direction affinity = from_scm<Direction> (get_maybe_pure_property (before, "staff-affinity", pure, start, end));
           return (affinity == UP)
                  ? add_stretchability (get_maybe_pure_property (before, "nonstaff-unrelatedstaff-spacing", pure, start, end),
                                        LARGE_STRETCH)
@@ -1194,8 +1209,8 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
         }
       else
         {
-          Direction before_affinity = to_dir (get_maybe_pure_property (before, "staff-affinity", pure, start, end));
-          Direction after_affinity = to_dir (get_maybe_pure_property (after, "staff-affinity", pure, start, end));
+          Direction before_affinity = from_scm<Direction> (get_maybe_pure_property (before, "staff-affinity", pure, start, end));
+          Direction after_affinity = from_scm<Direction> (get_maybe_pure_property (after, "staff-affinity", pure, start, end));
           static bool warned = false;
           if (after_affinity > before_affinity
               && !warned && !pure)

@@ -146,7 +146,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
                                   get_property (e, "articulation-type"),
                                   i);
           SCM dir = get_property (e, "direction");
-          if (is_direction (dir))
+          if (is_scm<Direction> (dir))
             set_property (sp, "direction", dir);
 
           text_.push_back (sp);
@@ -163,7 +163,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
           SCM t = get_property (e, "text");
           SCM dir = get_property (e, "direction");
           set_property (sp, "text", t);
-          if (is_direction (dir))
+          if (is_scm<Direction> (dir))
             set_property (sp, "direction", dir);
 
           text_.push_back (sp);
@@ -176,7 +176,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
   */
   for (DOWN_and_UP (d))
     {
-      SCM dir = scm_from_int (d);
+      SCM dir = to_scm (d);
       Grob *last = 0;
       for (vsize i = 0; i < text_.size (); i++)
         {
@@ -207,7 +207,7 @@ Multi_measure_rest_engraver::reset_grobs ()
 void
 Multi_measure_rest_engraver::set_measure_count (int n)
 {
-  SCM n_scm = scm_from_int (n);
+  SCM n_scm = to_scm (n);
   assert (mmrest_);
   set_property (mmrest_, "measure-count", n_scm);
 
@@ -219,7 +219,7 @@ Multi_measure_rest_engraver::set_measure_count (int n)
         g->suicide ();
       else
         {
-          SCM text = scm_number_to_string (n_scm, scm_from_int (10));
+          SCM text = scm_number_to_string (n_scm, to_scm (10));
           set_property (g, "text", text);
         }
     }
@@ -264,7 +264,7 @@ Multi_measure_rest_engraver::process_music ()
         }
 
       start_measure_ = scm_to_int (get_property (this, "internalBarNumber"));
-      number_threshold_ = robust_scm2int (get_property (this, "restNumberThreshold"), 1);
+      number_threshold_ = from_scm (get_property (this, "restNumberThreshold"), 1);
     }
 
   first_time_ = false;

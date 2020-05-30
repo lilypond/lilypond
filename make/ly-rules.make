@@ -11,7 +11,7 @@ $(outdir)/%.latex: %.doc $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 		$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) \
 		--process='$(LILYPOND_BOOK_PROCESS) \
 		$(LILYPOND_BOOK_LILYPOND_FLAGS)' \
-		--output=$(outdir) $(LILYPOND_BOOK_FLAGS) \
+		--output=$(dir $@) $(LILYPOND_BOOK_FLAGS) \
 		--redirect-lilypond-output $<
 
 $(eval $(firstword $(TEXI_FILES_FROM_TELY)):\
@@ -27,7 +27,7 @@ $(outdir)/%.texi: %.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) 
 		$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) \
 		--process='$(LILYPOND_BOOK_PROCESS) \
 		$(LILYPOND_BOOK_LILYPOND_FLAGS)' \
-		--output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) \
+		--output=$(dir $@) --format=$(LILYPOND_BOOK_FORMAT) \
 		$(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
 
 
@@ -38,7 +38,7 @@ $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCAL
 		$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) \
 		--process='$(LILYPOND_BOOK_PROCESS) \
 		$(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' \
-		--output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) \
+		--output=$(dir $@) --format=$(LILYPOND_BOOK_FORMAT) \
 		$(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
 
 

@@ -116,13 +116,13 @@ Beam_engraver::Beam_engraver (Context *c)
 void
 Beam_engraver::listen_beam (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
 
   if (d == START && valid_start_point ())
     {
       ASSIGN_EVENT_ONCE (start_ev_, ev);
 
-      Direction updown = to_dir (get_property (ev, "direction"));
+      Direction updown = from_scm<Direction> (get_property (ev, "direction"));
       if (updown)
         forced_direction_ = updown;
     }
@@ -134,7 +134,7 @@ void
 Beam_engraver::set_melisma (bool ml)
 {
   SCM b = get_property (this, "autoBeaming");
-  if (!to_boolean (b))
+  if (!from_scm<bool> (b))
     set_property (context (), "beamMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
@@ -145,7 +145,7 @@ Beam_engraver::process_music ()
     {
       if (beam_)
         {
-          start_ev_->origin ()->warning (_ ("already have a beam"));
+          start_ev_->warning (_ ("already have a beam"));
           return;
         }
 
@@ -232,7 +232,7 @@ Beam_engraver::finalize ()
   typeset_beam ();
   if (beam_)
     {
-      prev_start_ev_->origin ()->warning (_ ("unterminated beam"));
+      prev_start_ev_->warning (_ ("unterminated beam"));
 
       /*
         we don't typeset it, (we used to, but it was commented
@@ -290,8 +290,8 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   //int durlog = unsmob<Duration> (get_property (ev, "duration"))->duration_log ();
   if (durlog <= 2)
     {
-      ev->origin ()->warning (_ ("stem does not fit in beam"));
-      prev_start_ev_->origin ()->warning (_ ("beam was started here"));
+      ev->warning (_ ("stem does not fit in beam"));
+      prev_start_ev_->warning (_ ("beam was started here"));
       /*
         don't return, since
 
@@ -302,13 +302,13 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   if (forced_direction_)
     set_grob_direction (stem, forced_direction_);
 
-  set_property (stem, "duration-log", scm_from_int (durlog));
+  set_property (stem, "duration-log", to_scm (durlog));
   Moment stem_location = now - beam_start_mom_ + beam_start_location_;
   beam_info_->add_stem (stem_location,
                         std::max (durlog - 2, 0),
                         Stem::is_invisible (stem),
                         stem_duration->factor (),
-                        (to_boolean (get_property (stem, "tuplet-start"))));
+                        (from_scm<bool> (get_property (stem, "tuplet-start"))));
   Beam::add_stem (beam_, stem);
 }
 

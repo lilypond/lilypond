@@ -98,10 +98,10 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
   Pointer_group_interface::add_grob (lv_column_, ly_symbol2scm ("ties"),
                                      lv_tie);
 
-  if (is_direction (get_property (tie_ev, "direction")))
+  if (is_scm<Direction> (get_property (tie_ev, "direction")))
     {
-      Direction d = to_dir (get_property (tie_ev, "direction"));
-      set_property (lv_tie, "direction", scm_from_int (d));
+      Direction d = from_scm<Direction> (get_property (tie_ev, "direction"));
+      set_property (lv_tie, "direction", to_scm (d));
     }
 
   lv_tie->set_parent (lv_column_, Y_AXIS);

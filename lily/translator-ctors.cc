@@ -55,7 +55,7 @@ add_translator_creator (SCM creator, SCM name, SCM description)
     {
       global_translator_dict = Scheme_hash_table::make_smob ();
       global_translator_dict_rev
-        = scm_make_weak_key_hash_table (scm_from_int (119));
+        = scm_make_weak_key_hash_table (to_scm (119));
       dict = unsmob<Scheme_hash_table> (global_translator_dict);
     }
   dict->set (name, creator);

@@ -44,7 +44,6 @@ struct Building
   Real height (Real x) const;
   Real intersection_x (Building const &other) const;
   bool above (Building const &other, Real x) const;
-  Real shift_to_intersect (Real x, Real y) const;
 };
 
 class Skyline : public Simple_smob<Skyline>

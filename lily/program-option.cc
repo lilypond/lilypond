@@ -33,6 +33,6 @@ get_program_option (const char *s)
 {
   SCM sym = ly_symbol2scm (s);
 
-  return to_boolean (ly_get_option (sym));
+  return from_scm<bool> (ly_get_option (sym));
 }
 

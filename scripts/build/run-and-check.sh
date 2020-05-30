@@ -5,7 +5,7 @@
 # Get current working directory; this must be done first since
 # parameter 1 could contain a directory change.
 CurrDir=`pwd`
-
+mkdir -p $(dirname $2)
 # The next code line takes the value in parameter 1, evaluates
 # it (necessary if it contains spaces), and runs it.
 #

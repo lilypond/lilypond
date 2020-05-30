@@ -39,7 +39,7 @@ SCM
 get_font_table (Output_def *def)
 {
   SCM font_table = def->lookup_variable (ly_symbol2scm ("scaled-fonts"));
-  if (!to_boolean (scm_hash_table_p (font_table)))
+  if (!from_scm<bool> (scm_hash_table_p (font_table)))
     {
       font_table = scm_c_make_hash_table (11);
       def->set_variable (ly_symbol2scm ("scaled-fonts"), font_table);
@@ -51,7 +51,7 @@ SCM
 get_pango_font_table (Output_def *def)
 {
   SCM font_table = def->lookup_variable (ly_symbol2scm ("pango-fonts"));
-  if (!to_boolean (scm_hash_table_p (font_table)))
+  if (!from_scm<bool> (scm_hash_table_p (font_table)))
     {
       font_table = scm_c_make_hash_table (11);
       def->set_variable (ly_symbol2scm ("pango-fonts"), font_table);
@@ -70,13 +70,13 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 
   SCM font_table = get_font_table (mod);
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_EOL);
-  SCM handle = ly_assoc (scm_from_double (lookup_mag), sizes);
+  SCM handle = ly_assoc (to_scm (lookup_mag), sizes);
   if (scm_is_pair (handle))
     return unsmob<Font_metric> (scm_cdr (handle));
 
   SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag);
 
-  sizes = scm_acons (scm_from_double (lookup_mag), val, sizes);
+  sizes = scm_acons (to_scm (lookup_mag), val, sizes);
   unsmob<Font_metric> (val)->unprotect ();
   scm_hashq_set_x (font_table, f->self_scm (), sizes);
   return unsmob<Font_metric> (val);
@@ -90,7 +90,7 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
 
   SCM table = get_pango_font_table (layout);
   SCM sizes = scm_hash_ref (table, descr, SCM_EOL);
-  SCM size_key = scm_from_double (factor);
+  SCM size_key = to_scm (factor);
   SCM handle = ly_assoc (size_key, sizes);
   if (scm_is_pair (handle))
     return unsmob<Font_metric> (scm_cdr (handle));
@@ -119,7 +119,7 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
 Output_def *
 scale_output_def (Output_def *o, Real amount)
 {
-  SCM new_pap = Lily::scale_layout (o->self_scm (), scm_from_double (amount));
+  SCM new_pap = Lily::scale_layout (o->self_scm (), to_scm (amount));
 
   o = unsmob<Output_def> (new_pap);
   o->protect ();

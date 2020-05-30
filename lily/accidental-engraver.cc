@@ -161,8 +161,8 @@ struct Accidental_result
 
   Accidental_result (SCM scm)
   {
-    need_restore = to_boolean (scm_car (scm));
-    need_acc = to_boolean (scm_cdr (scm));
+    need_restore = from_scm<bool> (scm_car (scm));
+    need_acc = from_scm<bool> (scm_cdr (scm));
   }
 
   int score () const
@@ -179,7 +179,7 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
 {
   Accidental_result result;
   SCM pitch_scm = pitch.smobbed_copy ();
-  SCM barnum_scm = scm_from_int (bar_number);
+  SCM barnum_scm = to_scm (bar_number);
 
   if (scm_is_pair (rules) && !scm_is_symbol (scm_car (rules)))
     warning (_f ("accidental typesetting list must begin with context-name: %s",
@@ -244,7 +244,7 @@ Accidental_engraver::process_acknowledged ()
           Accidental_result caut = check_pitch_against_rules (*pitch, origin, cautionary_rules,
                                                               barnum, measure_position);
 
-          bool cautionary = to_boolean (get_property (note, "cautionary"));
+          bool cautionary = from_scm<bool> (get_property (note, "cautionary"));
           if (caut.score () > acc.score ())
             {
               acc.need_acc |= caut.need_acc;
@@ -253,7 +253,7 @@ Accidental_engraver::process_acknowledged ()
               cautionary = true;
             }
 
-          bool forced = to_boolean (get_property (note, "force-accidental"));
+          bool forced = from_scm<bool> (get_property (note, "force-accidental"));
           if (!acc.need_acc && forced)
             acc.need_acc = true;
 
@@ -281,7 +281,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
   Stream_event *note = entry->melodic_;
   Grob *support = entry->head_;
   SCM suggest = get_property (entry->origin_, "suggestAccidentals");
-  bool bsuggest = to_boolean (suggest);
+  bool bsuggest = from_scm<bool> (suggest);
   Grob *a = 0;
   if (bsuggest
       || (cautionary && scm_is_eq (suggest, ly_symbol2scm ("cautionary"))))
@@ -291,7 +291,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 
   if (restore_natural)
     {
-      if (to_boolean (get_property (this, "extraNatural")))
+      if (from_scm<bool> (get_property (this, "extraNatural")))
         set_property (a, "restore-first", SCM_BOOL_T);
     }
 
@@ -321,7 +321,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   */
   for (vsize i = 0; i < left_objects_.size (); i++)
     {
-      if (ly_is_equal (get_property (left_objects_[i], "side-axis"), scm_from_int (X_AXIS)))
+      if (ly_is_equal (get_property (left_objects_[i], "side-axis"), to_scm (X_AXIS)))
         Side_position_interface::add_support (left_objects_[i], a);
     }
 
@@ -415,11 +415,11 @@ Accidental_engraver::stop_translation_timestep ()
       int n = pitch->get_notename ();
       int o = pitch->get_octave ();
       Rational a = pitch->get_alteration ();
-      SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
+      SCM key = scm_cons (to_scm (o), to_scm (n));
 
       Moment end_mp = measure_position (context (),
                                         unsmob<Duration> (get_property (note, "duration")));
-      SCM position = scm_cons (scm_from_int (barnum), end_mp.smobbed_copy ());
+      SCM position = scm_cons (to_scm (barnum), end_mp.smobbed_copy ());
 
       SCM localsig = SCM_EOL;
       while (origin
@@ -427,7 +427,7 @@ Accidental_engraver::stop_translation_timestep ()
         {
           bool change = false;
           if (accidentals_[i].tied_
-              && !(to_boolean (get_property (accidentals_[i].accidental_, "forced"))))
+              && !(from_scm<bool> (get_property (accidentals_[i].accidental_, "forced"))))
             {
               /*
                 Remember an alteration that is different both from
@@ -444,7 +444,7 @@ Accidental_engraver::stop_translation_timestep ()
                 note head with the same notename.
               */
               localsig = ly_assoc_prepend_x (localsig, key,
-                                             scm_cons (ly_rational2scm (a),
+                                             scm_cons (to_scm (a),
                                                        position));
               change = true;
             }
@@ -475,11 +475,11 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
       && (note->in_event_class ("note-event")
           || note->in_event_class ("trill-span-event"))
       // option to skip accidentals on string harmonics
-      && (to_boolean (get_property (this, "harmonicAccidentals"))
+      && (from_scm<bool> (get_property (this, "harmonicAccidentals"))
           || !scm_is_eq (get_property (info.grob (), "style"),
                          ly_symbol2scm ("harmonic")))
       // ignore accidentals in non-printing voices like NullVoice
-      && !to_boolean (get_property (info.context (), "nullAccidentals")))
+      && !from_scm<bool> (get_property (info.context (), "nullAccidentals")))
     {
       Accidental_entry entry;
       entry.head_ = info.grob ();

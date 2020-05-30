@@ -70,6 +70,9 @@ public:
 
     p1 = tr (p1);
     p2 = tr (p2);
+    if (p1[a_] > p2[a_]) {
+      std::swap(p1, p2);
+    }
     p1 -= widen;
     p2 += widen;
 

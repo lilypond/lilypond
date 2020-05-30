@@ -86,7 +86,8 @@ gulp_file_to_string (const string &fn, bool must_exist, int size)
         {
           string e = _f ("cannot find file: `%s'", fn);
           e += " ";
-          e += _f ("(load path: `%s')", global_path.to_string ());
+          e += _f ("(load path: `%s', cwd: `%s')", global_path.to_string (),
+                   get_current_dir_name ());
           error (e);
           /* unreachable */
         }
@@ -118,6 +119,8 @@ extern "C" {
 string
 ly_scm2string (SCM str)
 {
+  assert (scm_is_string (str));
+
   // GUILE 1.8 with -lmcheck barfs because realloc with sz==0 returns
   // NULL.
   if (scm_c_string_length (str) == 0)
@@ -125,7 +128,6 @@ ly_scm2string (SCM str)
       return string ();
     }
 
-  assert (scm_is_string (str));
   string result;
   size_t len;
   char *c_string = scm_to_utf8_stringn (str, &len);
@@ -176,147 +178,17 @@ is_number_pair (SCM p)
          && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
 }
 
-bool
-is_axis (SCM s)
-{
-  if (scm_is_integer (s))
-    {
-      int i = scm_to_int (s);
-      return i == 0 || i == 1;
-    }
-  return false;
-}
-
-bool
-to_boolean (SCM s)
-{
-  return scm_is_bool (s) && ly_scm2bool (s);
-}
-
-/*
-  DIRECTIONS
- */
-Direction
-to_dir (SCM s)
-{
-  return scm_is_integer (s) ? (Direction) scm_to_int (s) : CENTER;
-}
-
-Direction
-robust_scm2dir (SCM d, Direction def)
-{
-  if (is_direction (d))
-    def = to_dir (d);
-  return def;
-}
-
-bool
-is_direction (SCM s)
-{
-  if (scm_is_number (s))
-    {
-      int i = scm_to_int (s);
-      return i >= -1 && i <= 1;
-    }
-  return false;
-}
-
-/*
-  INTERVALS
- */
-Interval
-ly_scm2interval (SCM p)
-{
-  return Interval (scm_to_double (scm_car (p)),
-                   scm_to_double (scm_cdr (p)));
-}
-
-Drul_array<Real>
-ly_scm2realdrul (SCM p)
-{
-  return Drul_array<Real> (scm_to_double (scm_car (p)),
-                           scm_to_double (scm_cdr (p)));
-}
-
-SCM
-ly_interval2scm (Drul_array<Real> i)
-{
-  return scm_cons (scm_from_double (i[LEFT]), scm_from_double (i[RIGHT]));
-}
-
-Interval
-robust_scm2interval (SCM k, Drul_array<Real> v)
-{
-  Interval i;
-  i[LEFT] = v[LEFT];
-  i[RIGHT] = v[RIGHT];
-  if (is_number_pair (k))
-    i = ly_scm2interval (k);
-  return i;
-}
-
-Drul_array<Real>
-robust_scm2drul (SCM k, Drul_array<Real> v)
-{
-  if (is_number_pair (k))
-    v = ly_scm2interval (k);
-  return v;
-}
-
-Drul_array<bool>
-robust_scm2booldrul (SCM k, Drul_array<bool> def)
-{
-  if (scm_is_pair (k))
-    {
-      def[LEFT] = to_boolean (scm_car (k));
-      def[RIGHT] = to_boolean (scm_cdr (k));
-    }
-  return def;
-}
-
 /*
   OFFSET
 */
-SCM
-ly_offset2scm (Offset o)
+template <> Offset from_scm<Offset> (SCM s)
 {
-  return scm_cons (scm_from_double (o[X_AXIS]), scm_from_double (o[Y_AXIS]));
+  return Offset (from_scm<Real> (scm_car (s)), from_scm<Real> (scm_cdr (s)));
 }
 
-Offset
-ly_scm2offset (SCM s)
+template <> SCM to_scm<Offset> (Offset i)
 {
-  return Offset (scm_to_double (scm_car (s)),
-                 scm_to_double (scm_cdr (s)));
-}
-
-Offset
-robust_scm2offset (SCM k, Offset o)
-{
-  if (is_number_pair (k))
-    o = ly_scm2offset (k);
-  return o;
-}
-SCM
-ly_offsets2scm (vector<Offset> os)
-{
-  SCM l = SCM_EOL;
-  SCM *tail = &l;
-  for (vsize i = 0; i < os.size (); i++)
-    {
-      *tail = scm_cons (ly_offset2scm (os[i]), SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-    }
-  return l;
-}
-
-vector<Offset>
-ly_scm2offsets (SCM s)
-{
-  vector<Offset> os;
-  for (; scm_is_pair (s); s = scm_cdr (s))
-    os.push_back (ly_scm2offset (scm_car (s)));
-  return os;
+  return scm_cons (to_scm (i[X_AXIS]), to_scm (i[Y_AXIS]));
 }
 
 /*
@@ -500,36 +372,6 @@ int_list_to_slice (SCM l)
   return s;
 }
 
-Real
-robust_scm2double (SCM k, double x)
-{
-  if (scm_is_number (k))
-    x = scm_to_double (k);
-  return x;
-}
-
-vector<Real>
-ly_scm2floatvector (SCM l)
-{
-  vector<Real> floats;
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    floats.push_back (robust_scm2double (scm_car (s), 0.0));
-  return floats;
-}
-
-SCM
-ly_floatvector2scm (vector<Real> v)
-{
-  SCM l = SCM_EOL;
-  SCM *tail = &l;
-  for (vsize i = 0; i < v.size (); i++)
-    {
-      *tail = scm_cons (scm_from_double (v[i]), SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-    }
-  return l;
-}
-
 string
 robust_scm2string (SCM k, const string &s)
 {
@@ -538,28 +380,8 @@ robust_scm2string (SCM k, const string &s)
   return s;
 }
 
-int
-robust_scm2int (SCM k, int o)
-{
-  if (scm_is_integer (k))
-    o = scm_to_int (k);
-  return o;
-}
-
-vsize
-robust_scm2vsize (SCM k, vsize o)
-{
-  if (scm_is_integer (k))
-    {
-      int i = scm_to_int (k);
-      if (i >= 0)
-        return (vsize) i;
-    }
-  return o;
-}
-
-SCM
-ly_rational2scm (Rational r)
+template <>
+SCM to_scm<Rational> (Rational r)
 {
   if (r.is_infinity ())
     {
@@ -569,26 +391,22 @@ ly_rational2scm (Rational r)
       return scm_difference (scm_inf (), SCM_UNDEFINED);
     }
 
-  return scm_divide (scm_from_int64 (r.numerator ()),
-                     scm_from_int64 (r.denominator ()));
+  return scm_divide (to_scm (r.numerator ()),
+                     to_scm (r.denominator ()));
 }
 
-Rational
-ly_scm2rational (SCM r)
+template <>
+Rational from_scm<Rational> (SCM r)
 {
   if (scm_is_true (scm_inf_p (r)))
     {
       if (scm_is_true (scm_positive_p (r)))
         {
-          Rational r;
-          r.set_infinite (1);
-          return r;
+          return Rational::infinity ();
         }
       else
         {
-          Rational r;
-          r.set_infinite (-1);
-          return r;
+          return -Rational::infinity ();
         }
     }
 
@@ -596,17 +414,8 @@ ly_scm2rational (SCM r)
                    scm_to_int64 (scm_denominator (r)));
 }
 
-Rational
-robust_scm2rational (SCM n, Rational rat)
-{
-  if (ly_is_rational (n))
-    return ly_scm2rational (n);
-  else
-    return rat;
-}
-
-bool
-ly_is_rational (SCM n)
+template <>
+bool is_scm<Rational> (SCM n)
 {
   return (scm_is_real (n)
           && (scm_is_true (scm_exact_p (n))

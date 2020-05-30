@@ -111,7 +111,7 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
 {
   Moment *e = unsmob<Moment> (get_property (this, "measurePosition"));
   Moment *l = unsmob<Moment> (get_property (this, "measureLength"));
-  if (!e || !l || !to_boolean (get_property (this, "timing")))
+  if (!e || !l || !from_scm<bool> (get_property (this, "timing")))
     {
       return Moment (0, 0);
     }
@@ -133,8 +133,9 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
           /*
             within a unit - go to the end of that
           */
-          result = unit->main_part_
+          auto r = unit->main_part_
                    * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
+          result = Moment (r);
         }
       else
         {
@@ -169,7 +170,7 @@ Completion_heads_engraver::make_note_head (Stream_event *ev)
   if (scm_is_number (c0))
     pos += scm_to_int (c0);
 
-  set_property (note, "staff-position", scm_from_int (pos));
+  set_property (note, "staff-position", to_scm (pos));
 
   return note;
 }
@@ -205,11 +206,11 @@ Completion_heads_engraver::process_music ()
         factor = scm_call_2 (factor,
                              context ()->self_scm (),
                              note_dur.smobbed_copy ());
-      factor_ = robust_scm2rational (factor, note_dur.factor ());
+      factor_ = from_scm<Rational> (factor, note_dur.factor ());
       left_to_do_ = orig->get_length ();
     }
   Moment nb = next_moment (note_dur.get_length ());
-  if (nb.main_part_ && nb < note_dur.get_length ())
+  if (nb.main_part_ && nb < Moment (note_dur.get_length ()))
     {
       note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
     }
@@ -228,7 +229,7 @@ Completion_heads_engraver::process_music ()
       set_property (event, "pitch", pits);
       set_property (event, "duration", note_dur.smobbed_copy ());
       set_property (event, "length", Moment (note_dur.get_length ()).smobbed_copy ());
-      set_property (event, "duration-log", scm_from_int (note_dur.duration_log ()));
+      set_property (event, "duration-log", to_scm (note_dur.duration_log ()));
 
       /*
         The Completion_heads_engraver splits an event into a group of consecutive events.
@@ -260,7 +261,11 @@ Completion_heads_engraver::process_music ()
 
   left_to_do_ -= note_dur.get_length ();
   if (left_to_do_)
-    find_global_context ()->add_moment_to_process (now.main_part_ + note_dur.get_length ());
+    {
+      find_global_context ()
+      ->add_moment_to_process (Moment (now.main_part_
+                                       + note_dur.get_length ()));
+    }
   /*
     don't do complicated arithmetic with grace notes.
   */

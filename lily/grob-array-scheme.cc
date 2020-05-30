@@ -29,7 +29,7 @@ LY_DEFINE (ly_grob_array_length, "ly:grob-array-length",
   LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
 
   Grob_array *me = unsmob<Grob_array> (grob_arr);
-  return scm_from_size_t (me->size ());
+  return to_scm (me->size ());
 }
 
 LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
@@ -43,7 +43,7 @@ LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
 
   vsize i = scm_to_uint (index);
   if (i == VPOS || i >= me->size ())
-    scm_out_of_range (NULL, scm_from_unsigned_integer (i));
+    scm_out_of_range (NULL, to_scm (i));
 
   return me->grob (i)->self_scm ();
 }

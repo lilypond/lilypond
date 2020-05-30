@@ -477,11 +477,9 @@ Internals Reference:
 @cindex colored note
 @cindex coloring note
 @cindex note, colored
-@cindex x11 color
 
 @funindex color
 @funindex \with-color
-@funindex x11-color
 
 Individual objects may be assigned colors.  Valid color names
 are listed in the @ref{List of colors}.
@@ -491,20 +489,55 @@ are listed in the @ref{List of colors}.
 c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
 d''
-\override Stem.color = #blue
+\override Stem.color = "deepskyblue"
 e''
 @end lilypond
 
+@cindex css color codes
+@cindex color, css-like codes
 
-The full range of colors defined for X11 can be accessed by using
-the Scheme function @code{x11-color}.  The function takes one
-argument; this can be a symbol in the form @code{'@var{FooBar}} or
-a string in the form @code{"@var{FooBar}"}.  The first form is
-quicker to write and is more efficient.  However, using the second
-form it is possible to access X11 colors by the multi-word form of
-its name.
+In addition to a limited set of simple colors
+available as predefined variables (see @q{Normal colors} in
+@ref{List of colors}), any color may be entered as a string.
+That string may be either a
+@uref{https://www.w3.org/Style/CSS/, CSS}-style predefined color name,
+or a hexadecimal color code prefixed by the @code{#} character
+(@emph{inside} the double quotes):
 
-If @code{x11-color} cannot make sense of the parameter then the
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
+
+@cindex transparency, semi
+@cindex alpha transparency
+@cindex semi-transparent colors
+
+@noindent
+If that color code includes an alpha channel for semi-transparency,
+by using an eight-character code @var{"#RRGGBBAA"} or its
+shorthand form @var{"#RGBA"}, it will be used in SVG output
+but not in PostScript/PDF output.  In the previous example,
+the rest can be seen through only if the code is compiled with
+the SVG backend, as explained in
+@ref{Alternative output formats}.
+
+@cindex x11 color
+@funindex x11-color
+
+In a different way, the full range of colors
+@uref{https://en.wikipedia.org/wiki/X11_color_names, defined for X11}
+can be accessed by using the Scheme function @code{x11-color}.
+That function takes one argument, which can be a symbol, such as
+@code{'DarkSeaGreen4}, or a string, such as @code{"DarkSeaGreen4"}.
+The first form is quicker to write and slightly more efficient;  however,
+the second form also makes it possible to specify X11 colors as multiple
+words: in this instance, @code{"dark sea green 4"}.
+
+If @code{x11-color} cannot make sense of the parameter, then the
 color returned defaults to black.
 
 @lilypond[verbatim,quote]
@@ -534,13 +567,20 @@ color returned defaults to black.
 @funindex rgb-color
 
 Exact RGB colors can be specified using the Scheme function
-@code{rgb-color}.
+@code{rgb-color}.  This function takes three arguments used
+respectively for the @var{red}, @var{green} and @var{blue}
+channels, and an optional @var{alpha} number for
+semi-transparency.  (All values must be numbers from 0 to@tie{}1.)
+Again, transparency is only supported in SVG output;
+for example, in the following fragment the staff’s clef
+can be seen through when rendered in SVG.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  instrumentName = \markup {
-    \with-color #(x11-color 'red) "Clarinet"
-    }
+    instrumentName = \markup {
+      \with-color #(x11-color 'red) "Clarinet"
+      }
+    \override Clef.color = #(rgb-color 0 0 0 0.5)
   }
 \relative c'' {
   \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
@@ -574,8 +614,8 @@ similarly named normal color.
 
 Not all X11 colors are distinguishable in a web browser, i.e.,
 a web browser might not display a difference between @code{LimeGreen}
-and @code{ForestGreen}.  For web use normal colors are recommended
-(i.e., @code{blue}, @code{green}, @code{red}).
+and @code{ForestGreen}.  For web use CSS colors are recommended,
+as detailed in @ref{List of colors}.
 
 Notes in a chord cannot be separately colored with
 @code{\override}; use @code{\tweak} or the equivalent

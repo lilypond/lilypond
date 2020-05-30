@@ -48,7 +48,7 @@ Break_alignment_interface::break_align_order (Item *me)
     return SCM_BOOL_F;
 
   SCM order = scm_vector_ref (order_vec,
-                              scm_from_int (me->break_status_dir () + 1));
+                              to_scm (me->break_status_dir () + 1));
 
   return order;
 }
@@ -311,12 +311,12 @@ Break_alignable_interface::self_align_callback (SCM grob)
   Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *alignment_parent = find_parent (me);
   if (!alignment_parent)
-    return scm_from_int (0);
+    return to_scm (0);
 
   Grob *common = me->common_refpoint (alignment_parent, X_AXIS);
-  Real anchor = robust_scm2double (get_property (alignment_parent, "break-align-anchor"), 0);
+  Real anchor = from_scm<double> (get_property (alignment_parent, "break-align-anchor"), 0);
 
-  return scm_from_double (alignment_parent->relative_coordinate (common, X_AXIS)
+  return to_scm (alignment_parent->relative_coordinate (common, X_AXIS)
                           - me->relative_coordinate (common, X_AXIS)
                           + anchor);
 }
@@ -341,7 +341,7 @@ Break_aligned_interface::calc_average_anchor (SCM grob)
         }
     }
 
-  return scm_from_double (count > 0 ? avg / count : 0);
+  return to_scm (count > 0 ? avg / count : 0);
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment, 1)
@@ -349,7 +349,7 @@ SCM
 Break_aligned_interface::calc_joint_anchor_alignment (SCM grob)
 {
   Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
-  return scm_from_int (calc_joint_anchor_alignment (me));
+  return to_scm (calc_joint_anchor_alignment (me));
 }
 
 int
@@ -364,7 +364,7 @@ Break_aligned_interface::calc_joint_anchor_alignment (Grob *me)
   for (vsize i = 0; i < elts.size (); i++)
     {
       SCM s = get_property (elts[i], "break-align-anchor-alignment");
-      double alignment = robust_scm2double (s, 0.0);
+      double alignment = from_scm<double> (s, 0.0);
       if (alignment < CENTER)
         {
           if (direction > CENTER)
@@ -387,13 +387,13 @@ SCM
 Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real alignment = robust_scm2double (get_property (me, "break-align-anchor-alignment"), 0.0);
+  Real alignment = from_scm<double> (get_property (me, "break-align-anchor-alignment"), 0.0);
   Interval iv = me->extent (me, X_AXIS);
 
   if (std::isinf (iv[LEFT]) && std::isinf (iv[RIGHT])) /* avoid NaN */
-    return scm_from_double (0.0);
+    return to_scm (0.0);
 
-  return scm_from_double (iv.linear_combination (alignment));
+  return to_scm (iv.linear_combination (alignment));
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility, 1)
@@ -410,7 +410,7 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
       for (vsize i = 0; i < elts.size (); i++)
         {
           SCM vis = get_property (elts[i], "break-visibility");
-          if (scm_is_vector (vis) && to_boolean (scm_c_vector_ref (vis, dir)))
+          if (scm_is_vector (vis) && from_scm<bool> (scm_c_vector_ref (vis, dir)))
             visible = true;
         }
       scm_c_vector_set_x (ret, dir, scm_from_bool (visible));

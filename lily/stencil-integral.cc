@@ -115,15 +115,15 @@ void
 make_draw_line_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
                       SCM expr)
 {
-  Real thick = robust_scm2double (scm_car (expr), 0.0);
+  Real thick = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real x0 = robust_scm2double (scm_car (expr), 0.0);
+  Real x0 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real y0 = robust_scm2double (scm_car (expr), 0.0);
+  Real y0 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real x1 = robust_scm2double (scm_car (expr), 0.0);
+  Real x1 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real y1 = robust_scm2double (scm_car (expr), 0.0);
+  Real y1 = from_scm<double> (scm_car (expr), 0.0);
 
   Offset left (x0, y0);
   Offset right (x1, y1);
@@ -135,20 +135,20 @@ void
 make_partial_ellipse_boxes_scm (Lazy_skyline_pair *skyline,
                                 Transform const &transform, SCM expr)
 {
-  Real x_rad = robust_scm2double (scm_car (expr), 0.0);
+  Real x_rad = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real y_rad = robust_scm2double (scm_car (expr), 0.0);
+  Real y_rad = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
   Offset rad (x_rad, y_rad);
-  Real start = robust_scm2double (scm_car (expr), 0.0);
+  Real start = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real end = robust_scm2double (scm_car (expr), 0.0);
+  Real end = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real th = robust_scm2double (scm_car (expr), 0.0);
+  Real th = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  bool connect = to_boolean (scm_car (expr));
+  bool connect = from_scm<bool> (scm_car (expr));
   expr = scm_cdr (expr);
-  bool fill = to_boolean (scm_car (expr));
+  bool fill = from_scm<bool> (scm_car (expr));
   make_partial_ellipse_boxes (skyline, transform, rad, start, end, th, connect,
                               fill);
 }
@@ -164,7 +164,6 @@ make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
 
-  vector<Offset> points;
   int quantization
     = std::max (1, (int) (((rad[X_AXIS] * x_scale) + (rad[Y_AXIS] * y_scale))
                           * M_PI / QUANTIZATION_UNIT));
@@ -180,7 +179,6 @@ make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
         skyline->add_segment (transform, last, pt, th);
       else
         first = pt;
-      points.push_back (pt);
       last = pt;
     }
 
@@ -194,15 +192,22 @@ void
 make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
                              Transform const &transform, SCM expr)
 {
-  Real left = robust_scm2double (scm_car (expr), 0.0);
+  Real left = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real right = robust_scm2double (scm_car (expr), 0.0);
+  Real right = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real bottom = robust_scm2double (scm_car (expr), 0.0);
+  Real bottom = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real top = robust_scm2double (scm_car (expr), 0.0);
+  Real top = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real diameter = robust_scm2double (scm_car (expr), 0.0);
+  Real diameter = from_scm<double> (scm_car (expr), 0.0);
+
+  Interval x (-left, right);
+  Interval y (-bottom, top);
+  if (x.is_empty () || y.is_empty ())
+    {
+      return;
+    }
 
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
@@ -276,23 +281,23 @@ void
 make_draw_bezier_boxes_scm (Lazy_skyline_pair *skyline,
                             Transform const &transform, SCM expr)
 {
-  Real th = robust_scm2double (scm_car (expr), 0.0);
+  Real th = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real x0 = robust_scm2double (scm_car (expr), 0.0);
+  Real x0 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real y0 = robust_scm2double (scm_car (expr), 0.0);
+  Real y0 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real x1 = robust_scm2double (scm_car (expr), 0.0);
+  Real x1 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real y1 = robust_scm2double (scm_car (expr), 0.0);
+  Real y1 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real x2 = robust_scm2double (scm_car (expr), 0.0);
+  Real x2 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real y2 = robust_scm2double (scm_car (expr), 0.0);
+  Real y2 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real x3 = robust_scm2double (scm_car (expr), 0.0);
+  Real x3 = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
-  Real y3 = robust_scm2double (scm_car (expr), 0.0);
+  Real y3 = from_scm<double> (scm_car (expr), 0.0);
 
   Offset ps[] = {
     Offset (x0, y0),
@@ -365,92 +370,92 @@ all_commands_to_absolute_and_group (SCM expr)
       if (scm_is_eq (scm_car (expr), ly_symbol2scm ("moveto"))
           || (scm_is_eq (scm_car (expr), ly_symbol2scm ("rmoveto")) && first))
         {
-          Real x = robust_scm2double (scm_cadr (expr), 0.0);
-          Real y = robust_scm2double (scm_caddr (expr), 0.0);
+          Real x = from_scm<double> (scm_cadr (expr), 0.0);
+          Real y = from_scm<double> (scm_caddr (expr), 0.0);
           start = Offset (x, y);
           current = start;
           expr = scm_cdddr (expr);
         }
       if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rmoveto")))
         {
-          Real x = robust_scm2double (scm_cadr (expr), 0.0);
-          Real y = robust_scm2double (scm_caddr (expr), 0.0);
+          Real x = from_scm<double> (scm_cadr (expr), 0.0);
+          Real y = from_scm<double> (scm_caddr (expr), 0.0);
           start = (Offset (x, y) + current);
           current = start;
           expr = scm_cdddr (expr);
         }
       else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("lineto")))
         {
-          Real x = robust_scm2double (scm_cadr (expr), 0.0);
-          Real y = robust_scm2double (scm_caddr (expr), 0.0);
-          out = scm_cons (scm_list_4 (scm_from_double (current[X_AXIS]),
-                                      scm_from_double (current[Y_AXIS]),
-                                      scm_from_double (x),
-                                      scm_from_double (y)),
+          Real x = from_scm<double> (scm_cadr (expr), 0.0);
+          Real y = from_scm<double> (scm_caddr (expr), 0.0);
+          out = scm_cons (scm_list_4 (to_scm (current[X_AXIS]),
+                                      to_scm (current[Y_AXIS]),
+                                      to_scm (x),
+                                      to_scm (y)),
                           out);
           current = Offset (x, y);
           expr = scm_cdddr (expr);
         }
       else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rlineto")))
         {
-          Real x = robust_scm2double (scm_cadr (expr), 0.0);
-          Real y = robust_scm2double (scm_caddr (expr), 0.0);
-          out = scm_cons (scm_list_4 (scm_from_double (current[X_AXIS]),
-                                      scm_from_double (current[Y_AXIS]),
-                                      scm_from_double (x + current[X_AXIS]),
-                                      scm_from_double (y + current[Y_AXIS])),
+          Real x = from_scm<double> (scm_cadr (expr), 0.0);
+          Real y = from_scm<double> (scm_caddr (expr), 0.0);
+          out = scm_cons (scm_list_4 (to_scm (current[X_AXIS]),
+                                      to_scm (current[Y_AXIS]),
+                                      to_scm (x + current[X_AXIS]),
+                                      to_scm (y + current[Y_AXIS])),
                           out);
           current = (Offset (x, y) + current);
           expr = scm_cdddr (expr);
         }
       else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("curveto")))
         {
-          Real x1 = robust_scm2double (scm_cadr (expr), 0.0);
+          Real x1 = from_scm<double> (scm_cadr (expr), 0.0);
           expr = scm_cddr (expr);
-          Real y1 = robust_scm2double (scm_car (expr), 0.0);
+          Real y1 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real x2 = robust_scm2double (scm_car (expr), 0.0);
+          Real x2 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real y2 = robust_scm2double (scm_car (expr), 0.0);
+          Real y2 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real x3 = robust_scm2double (scm_car (expr), 0.0);
+          Real x3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real y3 = robust_scm2double (scm_car (expr), 0.0);
+          Real y3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          out = scm_cons (scm_list_n (scm_from_double (current[X_AXIS]),
-                                      scm_from_double (current[Y_AXIS]),
-                                      scm_from_double (x1),
-                                      scm_from_double (y1),
-                                      scm_from_double (x2),
-                                      scm_from_double (y2),
-                                      scm_from_double (x3),
-                                      scm_from_double (y3),
+          out = scm_cons (scm_list_n (to_scm (current[X_AXIS]),
+                                      to_scm (current[Y_AXIS]),
+                                      to_scm (x1),
+                                      to_scm (y1),
+                                      to_scm (x2),
+                                      to_scm (y2),
+                                      to_scm (x3),
+                                      to_scm (y3),
                                       SCM_UNDEFINED),
                           out);
           current = Offset (x3, y3);
         }
       else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rcurveto")))
         {
-          Real x1 = robust_scm2double (scm_cadr (expr), 0.0);
+          Real x1 = from_scm<double> (scm_cadr (expr), 0.0);
           expr = scm_cddr (expr);
-          Real y1 = robust_scm2double (scm_car (expr), 0.0);
+          Real y1 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real x2 = robust_scm2double (scm_car (expr), 0.0);
+          Real x2 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real y2 = robust_scm2double (scm_car (expr), 0.0);
+          Real y2 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real x3 = robust_scm2double (scm_car (expr), 0.0);
+          Real x3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          Real y3 = robust_scm2double (scm_car (expr), 0.0);
+          Real y3 = from_scm<double> (scm_car (expr), 0.0);
           expr = scm_cdr (expr);
-          out = scm_cons (scm_list_n (scm_from_double (current[X_AXIS]),
-                                      scm_from_double (current[Y_AXIS]),
-                                      scm_from_double (x1 + current[X_AXIS]),
-                                      scm_from_double (y1 + current[Y_AXIS]),
-                                      scm_from_double (x2 + current[X_AXIS]),
-                                      scm_from_double (y2 + current[Y_AXIS]),
-                                      scm_from_double (x3 + current[X_AXIS]),
-                                      scm_from_double (y3 + current[Y_AXIS]),
+          out = scm_cons (scm_list_n (to_scm (current[X_AXIS]),
+                                      to_scm (current[Y_AXIS]),
+                                      to_scm (x1 + current[X_AXIS]),
+                                      to_scm (y1 + current[Y_AXIS]),
+                                      to_scm (x2 + current[X_AXIS]),
+                                      to_scm (y2 + current[Y_AXIS]),
+                                      to_scm (x3 + current[X_AXIS]),
+                                      to_scm (y3 + current[Y_AXIS]),
                                       SCM_UNDEFINED),
                           out);
           current = (Offset (x3, y3) + current);
@@ -460,10 +465,10 @@ all_commands_to_absolute_and_group (SCM expr)
           if ((current[X_AXIS] != start[X_AXIS])
               || (current[Y_AXIS] != start[Y_AXIS]))
             {
-              out = scm_cons (scm_list_4 (scm_from_double (current[X_AXIS]),
-                                          scm_from_double (current[Y_AXIS]),
-                                          scm_from_double (start[X_AXIS]),
-                                          scm_from_double (start[Y_AXIS])),
+              out = scm_cons (scm_list_4 (to_scm (current[X_AXIS]),
+                                          to_scm (current[Y_AXIS]),
+                                          to_scm (start[X_AXIS]),
+                                          to_scm (start[Y_AXIS])),
                               out);
               current = start;
             }
@@ -584,13 +589,13 @@ make_glyph_string_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
   for (SCM s = whxy; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM now = scm_car (s);
-      widths.push_back (robust_scm2double (scm_car (now), 0.0));
+      widths.push_back (from_scm<double> (scm_car (now), 0.0));
       now = scm_cdr (now);
-      heights.push_back (robust_scm2interval (scm_car (now), Interval (0, 0)));
+      heights.push_back (from_scm (scm_car (now), Interval (0, 0)));
       now = scm_cdr (now);
-      xos.push_back (robust_scm2double (scm_car (now), 0.0));
+      xos.push_back (from_scm<double> (scm_car (now), 0.0));
       now = scm_cdr (now);
-      yos.push_back (robust_scm2double (scm_car (now), 0.0));
+      yos.push_back (from_scm<double> (scm_car (now), 0.0));
       now = scm_cdr (now);
       char_ids.push_back (robust_scm2string (scm_car (now), ""));
     }
@@ -669,23 +674,23 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
     }
   else if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
     {
-      Offset p = robust_scm2offset (scm_cadr (expr), Offset (0.0, 0.0));
+      Offset p = from_scm (scm_cadr (expr), Offset (0.0, 0.0));
       Transform local = transform;
       local.translate (p);
       interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
     }
   else if (scm_is_eq (head, ly_symbol2scm ("scale-stencil")))
     {
-      Real x = robust_scm2double (scm_caadr (expr), 0.0);
-      Real y = robust_scm2double (scm_cadadr (expr), 0.0);
+      Real x = from_scm<double> (scm_caadr (expr), 0.0);
+      Real y = from_scm<double> (scm_cadadr (expr), 0.0);
       Transform local = transform;
       local.scale (x, y);
       interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
     }
   else if (scm_is_eq (head, ly_symbol2scm ("rotate-stencil")))
     {
-      Real ang = robust_scm2double (scm_caadr (expr), 0.0);
-      Offset center = robust_scm2offset (scm_cadadr (expr), Offset (0.0, 0.0));
+      Real ang = from_scm<double> (scm_caadr (expr), 0.0);
+      Offset center = from_scm (scm_cadadr (expr), Offset (0.0, 0.0));
       Transform local = transform;
       local.rotate (ang, center);
       interpret_stencil_for_skyline (skyline, local, scm_caddr (expr));
@@ -719,28 +724,28 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
 
       skyline->add_segment (
         transform, Offset (0.0, 0.0),
-        Offset (robust_scm2double (x1, 0.0), robust_scm2double (x2, 0.0)),
-        robust_scm2double (th, 0.0));
+        Offset (from_scm<double> (x1, 0.0), from_scm<double> (x2, 0.0)),
+        from_scm<double> (th, 0.0));
     }
   else if (scm_is_eq (head, ly_symbol2scm ("circle")))
     {
       expr = scm_cdr (expr);
-      Real rad = robust_scm2double (scm_car (expr), 0);
+      Real rad = from_scm<double> (scm_car (expr), 0);
       expr = scm_cdr (expr);
-      Real th = robust_scm2double (scm_car (expr), 0);
+      Real th = from_scm<double> (scm_car (expr), 0);
       make_partial_ellipse_boxes (skyline, transform, Offset (rad, rad), 0.0,
                                   360.0, th, false, true);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("ellipse")))
     {
       expr = scm_cdr (expr);
-      Real x_rad = robust_scm2double (scm_car (expr), 0);
+      Real x_rad = from_scm<double> (scm_car (expr), 0);
 
       expr = scm_cdr (expr);
-      Real y_rad = robust_scm2double (scm_car (expr), 0);
+      Real y_rad = from_scm<double> (scm_car (expr), 0);
 
       expr = scm_cdr (expr);
-      Real th = robust_scm2double (scm_car (expr), 0);
+      Real th = from_scm<double> (scm_car (expr), 0);
       make_partial_ellipse_boxes (skyline, transform, Offset (x_rad, y_rad), 0,
                                   360, th, false, true);
     }
@@ -794,8 +799,8 @@ SCM
 Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
 {
   Grob *me = unsmob<Grob> (smob);
-  int beg = robust_scm2int (begscm, 0);
-  int end = robust_scm2int (endscm, INT_MAX);
+  int beg = from_scm (begscm, 0);
+  int end = from_scm (endscm, INT_MAX);
   // We cannot measure the widths before line breaking,
   // so we assume that the width is infinite: pass ignore_x=true
   return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, true, false);
@@ -814,12 +819,12 @@ SCM
 Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
 {
   Grob *me = unsmob<Grob> (smob);
-  int beg = robust_scm2int (begscm, 0);
-  int end = robust_scm2int (endscm, INT_MAX);
+  int beg = from_scm (begscm, 0);
+  int end = from_scm (endscm, INT_MAX);
   // If the grob is cross staff, we cannot measure its Y-extent before
   // wayyyy downstream (after spacing of axis groups is done).
   // Thus, we assume that the Y extent is infinite for cross staff grobs.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (get_property (me, "cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, from_scm<bool> (get_property (me, "cross-staff")));
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents, 1);
@@ -828,7 +833,7 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   // See comment in function above.
-  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (get_property (me, "cross-staff")));
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, from_scm<bool> (get_property (me, "cross-staff")));
 }
 
 SCM
@@ -839,18 +844,21 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
   if (!s)
     return Skyline_pair ().smobbed_copy ();
 
-  Transform transform = Transform::identity;
+  Stencil maybe_rotated (*s);
   if (scm_is_pair (rot))
     {
-      Real angle = robust_scm2double (scm_car (rot), 0.0);
-      Real x = robust_scm2double (scm_cadr (rot), 0.0);
-      Real y = robust_scm2double (scm_caddr (rot), 0.0);
+      Real angle = from_scm<double> (scm_car (rot), 0.0);
+      // `rot` is the Grob 'rotation property, so these are relative to
+      // the Stencil extent.
+      Real x = from_scm<double> (scm_cadr (rot), 0.0);
+      Real y = from_scm<double> (scm_caddr (rot), 0.0);
 
-      transform.rotate (angle, Offset (x, y));
+      maybe_rotated.rotate_degrees (angle, Offset (x, y));
     }
 
   Lazy_skyline_pair lazy (a);
-  interpret_stencil_for_skyline (&lazy, transform, s->expr ());
+  interpret_stencil_for_skyline (&lazy, Transform::identity,
+                                 maybe_rotated.expr ());
 
   Skyline_pair out;
   for (DOWN_and_UP (d))
@@ -864,7 +872,7 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (get_property (me, "skyline-horizontal-padding"), 0.0);
+  Real pad = from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0);
   SCM rot = get_property (me, "rotation");
   SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
                                             pad, rot, X_AXIS);
@@ -876,7 +884,7 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = robust_scm2double (get_property (me, "skyline-vertical-padding"), 0.0);
+  Real pad = from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0);
   SCM rot = get_property (me, "rotation");
   SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
                                             pad, rot, Y_AXIS);
@@ -947,8 +955,8 @@ SCM
 Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
 {
   Grob *me = unsmob<Grob> (smob);
-  int beg = robust_scm2int (beg_scm, 0);
-  int end = robust_scm2int (end_scm, 0);
+  int beg = from_scm (beg_scm, 0);
+  int end = from_scm (end_scm, 0);
   return internal_skylines_from_element_stencils (me, X_AXIS, true, beg, end);
 }
 
@@ -957,7 +965,7 @@ SCM
 Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
 {
   Grob *me = unsmob<Grob> (smob);
-  int beg = robust_scm2int (beg_scm, 0);
-  int end = robust_scm2int (end_scm, 0);
+  int beg = from_scm (beg_scm, 0);
+  int end = from_scm (end_scm, 0);
   return internal_skylines_from_element_stencils (me, Y_AXIS, true, beg, end);
 }

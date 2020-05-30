@@ -589,8 +589,7 @@ class LilypondSnippet (Snippet):
         base = self.basename ()
         path = os.path.join (self.global_options.lily_output_dir, base)
         directory = os.path.split(path)[0]
-        if not os.path.isdir (directory):
-            os.makedirs (directory)
+        os.makedirs (directory, exist_ok=True)
         filename = path + '.ly'
         if os.path.exists (filename):
             existing = codecs.open (filename, 'r', 'utf-8').read ()
@@ -609,8 +608,8 @@ printing diff against existing file." % filename)
     def relevant_contents (self, ly):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
 
-    def link_all_output_files (self, output_dir, output_dir_files, destination):
-        existing, missing = self.all_output_files (output_dir, output_dir_files)
+    def link_all_output_files (self, output_dir, destination):
+        existing, missing = self.all_output_files (output_dir)
         if missing:
             error (_ ('Missing files: %s') % ', '.join (missing))
             raise CompileError(self.basename())
@@ -635,8 +634,7 @@ printing diff against existing file." % filename)
             src = os.path.join (output_dir, name)
             dst = os.path.join (destination, final_name)
             dst_path = os.path.split(dst)[0]
-            if not os.path.isdir (dst_path):
-                os.makedirs (dst_path)
+            os.makedirs (dst_path, exist_ok=True)
             try:
                 if (self.global_options.use_source_file_names
                         and isinstance (self, LilypondFileSnippet)):
@@ -663,7 +661,7 @@ printing diff against existing file." % filename)
         return result
 
 
-    def all_output_files (self, output_dir, output_dir_files):
+    def all_output_files (self, output_dir):
         """Return all files generated in lily_output_dir, a set.
 
         output_dir_files is the list of files in the output directory.
@@ -673,11 +671,11 @@ printing diff against existing file." % filename)
         base = self.basename()
         full = os.path.join (output_dir, base)
         def consider_file (name):
-            if name in output_dir_files:
+            if os.path.isfile(os.path.join(output_dir,name)):
                 result.add (name)
 
         def require_file (name):
-            if name in output_dir_files:
+            if os.path.isfile(os.path.join(output_dir, name)):
                 result.add (name)
             else:
                 missing.add (name)
@@ -731,8 +729,8 @@ printing diff against existing file." % filename)
 
         return (result, missing)
 
-    def is_outdated (self, output_dir, current_files):
-        found, missing = self.all_output_files (output_dir, current_files)
+    def is_outdated (self, output_dir):
+        found, missing = self.all_output_files (output_dir)
         return missing
 
     def filter_pipe (self, input, cmd):
@@ -902,8 +900,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         base = self.basename ()
         path = os.path.join (self.global_options.lily_output_dir, base)
         directory = os.path.split(path)[0]
-        if not os.path.isdir (directory):
-            os.makedirs (directory)
+        os.makedirs (directory, exist_ok=True)
 
         # First write the XML to a file (so we can link it!)
         if self.compressed:

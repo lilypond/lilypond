@@ -117,7 +117,7 @@ Beam_collision_engraver::finalize ()
              then make sure the beam and the covered_grob are in the same voice.
           */
           if ((covered_grob_spanned_rank[RIGHT] >= beam_spanned_rank_[LEFT])
-              && !(to_boolean (get_property (beam_grob, "collision-voice-only"))
+              && !(from_scm<bool> (get_property (beam_grob, "collision-voice-only"))
                    && (covered_grob_context != beam_context))
               && !(has_interface<Beam> (covered_grob)
                    && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank_[LEFT]))

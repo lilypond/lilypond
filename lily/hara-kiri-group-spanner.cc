@@ -51,13 +51,13 @@ SCM
 Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   Grob *me = unsmob<Grob> (smob);
-  int start = robust_scm2int (start_scm, 0);
-  int end = robust_scm2int (end_scm, INT_MAX);
+  int start = from_scm (start_scm, 0);
+  int end = from_scm (end_scm, INT_MAX);
 
   if (request_suicide (me, start, end))
-    return ly_interval2scm (Interval ());
+    return to_scm (Interval ());
 
-  return ly_interval2scm (Axis_group_interface::pure_group_height (me, start, end));
+  return to_scm (Axis_group_interface::pure_group_height (me, start, end));
 }
 
 /* there is probably a way that doesn't involve re-implementing a binary
@@ -98,10 +98,10 @@ Hara_kiri_group_spanner::request_suicide (Grob *me, vsize start, vsize end)
 bool
 Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end)
 {
-  if (!to_boolean (get_property (me, "remove-empty")))
+  if (!from_scm<bool> (get_property (me, "remove-empty")))
     return false;
 
-  bool remove_first = to_boolean (get_property (me, "remove-first"));
+  bool remove_first = from_scm<bool> (get_property (me, "remove-first"));
   if (!remove_first && start <= 0)
     return false;
 
@@ -128,7 +128,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end
 
       SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);
       for (vsize i = 0; i < ranks.size (); i++)
-        scm_c_vector_set_x (scm_vec, i, scm_from_int (ranks[i]));
+        scm_c_vector_set_x (scm_vec, i, to_scm (ranks[i]));
       set_property (me, "important-column-ranks", scm_vec);
 
       return request_suicide (me, start, end);
@@ -171,7 +171,7 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   consider_suicide (me);
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callback, 1);
@@ -180,7 +180,7 @@ Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 {
   Grob *daughter = unsmob<Grob> (smob);
   force_hara_kiri_callback (daughter->get_parent (Y_AXIS)->self_scm ());
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 void

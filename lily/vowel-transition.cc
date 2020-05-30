@@ -58,12 +58,12 @@ Vowel_transition::set_spacing_rods (SCM smob)
                                          : ly_symbol2scm ("right-broken")),
                               bounds, SCM_BOOL_F);
           if (!scm_is_false (details))
-            padding[d] = robust_scm2double (
+            padding[d] = from_scm<double> (
                 ly_assoc_get (ly_symbol2scm ("padding"), details, SCM_BOOL_F),
                 0.0);
           if (!scm_is_false (details_broken))
             padding_broken[d]
-                = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
+                = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"),
                                                    details_broken, SCM_BOOL_F),
                                      0.0);
         }
@@ -74,7 +74,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
           Rod r1;
           r1.item_drul_[LEFT] = sp->get_bound (LEFT);
           r1.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
-          r1.distance_ = robust_scm2double (minimum_length, 0);
+          r1.distance_ = from_scm<double> (minimum_length, 0);
           r1.distance_ += padding[LEFT];
           r1.distance_ += padding_broken[RIGHT];
           r1.distance_ += bounds_protrusion (&r1);
@@ -93,11 +93,11 @@ Vowel_transition::set_spacing_rods (SCM smob)
             or property after-line-breaking is set to #t.
           */
           if ((segment_time.length () != Moment (0, 0))
-              || to_boolean (get_property (me, "after-line-breaking")))
+              || from_scm<bool> (get_property (me, "after-line-breaking")))
             {
               r2.distance_ = (scm_is_number (broken_length)
-                                  ? robust_scm2double (broken_length, 0)
-                                  : robust_scm2double (minimum_length, 0));
+                                  ? from_scm<double> (broken_length, 0)
+                                  : from_scm<double> (minimum_length, 0));
               r2.distance_ += padding_broken[LEFT];
               r2.distance_ += padding[RIGHT];
               r2.distance_ += bounds_protrusion (&r2);
@@ -106,7 +106,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
         }
 
       Rod r;
-      r.distance_ = robust_scm2double (minimum_length, 0);
+      r.distance_ = from_scm<double> (minimum_length, 0);
       r.item_drul_[LEFT] = sp->get_bound (LEFT);
       r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
       for (LEFT_and_RIGHT (d))

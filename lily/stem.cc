@@ -77,7 +77,7 @@ Stem::set_beaming (Grob *me, int beam_count, Direction d)
   SCM lst = index_get_cell (pair, d);
   if (beam_count)
     for (int i = 0; i < beam_count; i++)
-      lst = scm_cons (scm_from_int (i), lst);
+      lst = scm_cons (to_scm (i), lst);
   else
     lst = SCM_BOOL_F;
 
@@ -141,7 +141,7 @@ Stem::set_stem_positions (Grob *me, Real se, Real fc)
   height[-d] = stem_beg * half_space;
   height[d] = se * half_space + beam_end_corrective (me);
 
-  Real stemlet_length = robust_scm2double (get_property (me, "stemlet-length"),
+  Real stemlet_length = from_scm<double> (get_property (me, "stemlet-length"),
                                            0.0);
   bool stemlet = stemlet_length > 0.0;
 
@@ -166,11 +166,11 @@ Stem::set_stem_positions (Grob *me, Real se, Real fc)
         me->programming_error ("Can't have a stemlet without a beam.");
     }
 
-  set_property (me, "stem-begin-position", scm_from_double (height[-d] * 2 / staff_space));
-  set_property (me, "length", scm_from_double (height.length () * 2 / staff_space));
+  set_property (me, "stem-begin-position", to_scm (height[-d] * 2 / staff_space));
+  set_property (me, "length", to_scm (height.length () * 2 / staff_space));
 
   if (fc)
-    set_property (me, "french-beaming-stem-adjustment", scm_from_double (fc));
+    set_property (me, "french-beaming-stem-adjustment", to_scm (fc));
 }
 
 /* Note head that determines hshift for upstems
@@ -291,7 +291,7 @@ Stem::is_invisible (Grob *me)
   else if (head_count (me))
     return true;
   else // if there are no note-heads, we might want stemlets
-    return 0.0 == robust_scm2double (get_property (me, "stemlet-length"), 0.0);
+    return 0.0 == from_scm<double> (get_property (me, "stemlet-length"), 0.0);
 }
 
 bool
@@ -310,7 +310,7 @@ Stem::pure_height (SCM smob,
                    SCM /* end */)
 {
   Grob *me = unsmob<Grob> (smob);
-  return ly_interval2scm (internal_pure_height (me, true));
+  return to_scm (internal_pure_height (me, true));
 }
 
 Interval
@@ -390,7 +390,7 @@ SCM
 Stem::calc_stem_end_position (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return scm_from_double (internal_calc_stem_end_position (me, true));
+  return to_scm (internal_calc_stem_end_position (me, true));
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_end_position, 3)
@@ -400,7 +400,7 @@ Stem::pure_calc_stem_end_position (SCM smob,
                                    SCM /* end */)
 {
   Grob *me = unsmob<Grob> (smob);
-  return scm_from_double (internal_calc_stem_end_position (me, false));
+  return to_scm (internal_calc_stem_end_position (me, false));
 }
 
 Real
@@ -416,8 +416,8 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
   if (beam && calc_beam)
     {
       (void) get_property (beam, "quantized-positions");
-      return robust_scm2double (get_property (me, "length"), 0.0)
-             + dir * robust_scm2double (get_property (me, "stem-begin-position"), 0.0);
+      return from_scm<double> (get_property (me, "length"), 0.0)
+             + dir * from_scm<double> (get_property (me, "stem-begin-position"), 0.0);
     }
 
   vector<Real> a;
@@ -440,7 +440,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
       SCM sshorten = ly_assoc_get (ly_symbol2scm ("stem-shorten"), details, SCM_EOL);
       SCM scm_shorten = scm_is_pair (sshorten)
                         ? robust_list_ref (std::max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
-      Real shorten_property = 2 * robust_scm2double (scm_shorten, 0);
+      Real shorten_property = 2 * from_scm<double> (scm_shorten, 0);
       /*  change in length between full-size and shortened stems is executed gradually.
           "transition area" = stems between full-sized and fully-shortened.
           */
@@ -463,7 +463,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
       length -= shorten;
     }
 
-  length *= robust_scm2double (get_property (me, "length-fraction"), 1.0);
+  length *= from_scm<double> (get_property (me, "length-fraction"), 1.0);
 
   /* Tremolo stuff.  */
   Grob *t_flag = unsmob<Grob> (get_object (me, "tremolo-flag"));
@@ -498,7 +498,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
   Real stem_end = dir ? hp[dir] + dir * length : 0;
 
   /* TODO: change name  to extend-stems to staff/center/'()  */
-  bool no_extend = to_boolean (get_property (me, "no-stem-extend"));
+  bool no_extend = from_scm<bool> (get_property (me, "no-stem-extend"));
   if (!no_extend && dir * stem_end < 0)
     stem_end = 0.0;
 
@@ -564,7 +564,7 @@ Stem::calc_positioning_done (SCM smob)
   bool parity = true;
   Real lastpos
     = static_cast<Real> (Staff_symbol_referencer::get_position (heads[0]));
-  int threshold = robust_scm2int (get_property (me, "note-collision-threshold"), 1);
+  int threshold = from_scm (get_property (me, "note-collision-threshold"), 1);
   for (vsize i = 1; i < heads.size (); i++)
     {
       Real p = Staff_symbol_referencer::get_position (heads[i]);
@@ -656,12 +656,12 @@ Stem::calc_direction (SCM smob)
   else
     {
       SCM dd = get_property (me, "default-direction");
-      dir = to_dir (dd);
+      dir = from_scm<Direction> (dd);
       if (!dir)
         return get_property (me, "neutral-direction");
     }
 
-  return scm_from_int (dir);
+  return to_scm (dir);
 }
 
 MAKE_SCHEME_CALLBACK (Stem, calc_default_direction, 1);
@@ -681,7 +681,7 @@ Stem::calc_default_direction (SCM smob)
       dir = Direction (sign (ddistance - udistance));
     }
 
-  return scm_from_int (dir);
+  return to_scm (dir);
 }
 
 // note - height property necessary to trigger quantized beam positions
@@ -691,13 +691,13 @@ SCM
 Stem::height (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return ly_interval2scm (internal_height (me, true));
+  return to_scm (internal_height (me, true));
 }
 
 Grob *
 Stem::get_reference_head (Grob *me)
 {
-  return to_boolean (get_property (me, "avoid-note-head"))
+  return from_scm<bool> (get_property (me, "avoid-note-head"))
          ? last_head (me)
          : first_head (me);
 }
@@ -741,12 +741,12 @@ Stem::internal_height (Grob *me, bool calc_beam)
   if (calc_beam && !beam && !unsmob<Stencil> (get_property (me, "stencil")))
     return Interval ();
 
-  Real y1 = robust_scm2double ((calc_beam
+  Real y1 = from_scm<double> ((calc_beam
                                 ? get_property (me, "stem-begin-position")
                                 : get_pure_property (me, "stem-begin-position", 0, INT_MAX)),
                                0.0);
 
-  Real y2 = dir * robust_scm2double ((calc_beam
+  Real y2 = dir * from_scm<double> ((calc_beam
                                       ? get_property (me, "length")
                                       : get_pure_property (me, "length", 0, INT_MAX)),
                                      0.0)
@@ -775,7 +775,7 @@ Stem::width (SCM e)
       r *= thickness (me) / 2;
     }
 
-  return ly_interval2scm (r);
+  return to_scm (r);
 }
 
 Real
@@ -790,7 +790,7 @@ SCM
 Stem::calc_stem_begin_position (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return scm_from_double (internal_calc_stem_begin_position (me, true));
+  return to_scm (internal_calc_stem_begin_position (me, true));
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_begin_position, 3);
@@ -800,7 +800,7 @@ Stem::pure_calc_stem_begin_position (SCM smob,
                                      SCM /* end */)
 {
   Grob *me = unsmob<Grob> (smob);
-  return scm_from_double (internal_calc_stem_begin_position (me, false));
+  return to_scm (internal_calc_stem_begin_position (me, false));
 }
 
 Real
@@ -811,7 +811,7 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
   if (beam && calc_beam)
     {
       (void) get_property (beam, "quantized-positions");
-      return robust_scm2double (get_property (me, "stem-begin-position"), 0.0);
+      return from_scm<double> (get_property (me, "stem-begin-position"), 0.0);
     }
 
   Direction d = get_grob_direction (me);
@@ -840,9 +840,9 @@ SCM
 Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real beg = robust_scm2double (get_pure_property (me, "stem-begin-position", 0, INT_MAX), 0.0);
+  Real beg = from_scm<double> (get_pure_property (me, "stem-begin-position", 0, INT_MAX), 0.0);
   Real res = fabs (internal_calc_stem_end_position (me, false) - beg);
-  return scm_from_double (res);
+  return to_scm (res);
 }
 
 MAKE_SCHEME_CALLBACK (Stem, calc_length, 1);
@@ -853,12 +853,12 @@ Stem::calc_length (SCM smob)
   if (unsmob<Grob> (get_object (me, "beam")))
     {
       me->programming_error ("ly:stem::calc-length called but will not be used for beamed stem.");
-      return scm_from_double (0.0);
+      return to_scm (0.0);
     }
 
-  Real beg = robust_scm2double (get_property (me, "stem-begin-position"), 0.0);
+  Real beg = from_scm<double> (get_property (me, "stem-begin-position"), 0.0);
   Real res = fabs (internal_calc_stem_end_position (me, true) - beg);
-  return scm_from_double (res);
+  return to_scm (res);
 }
 
 bool
@@ -889,10 +889,10 @@ Stem::print (SCM smob)
     return SCM_EOL;
 
   Direction dir = get_grob_direction (me);
-  Real y1 = robust_scm2double (get_property (me, "stem-begin-position"), 0.0);
-  Real stem_length = robust_scm2double (get_property (me, "length"), 0.0);
+  Real y1 = from_scm<double> (get_property (me, "stem-begin-position"), 0.0);
+  Real stem_length = from_scm<double> (get_property (me, "length"), 0.0);
   Real fb_stem_adjustment
-    = robust_scm2double (get_property (me, "french-beaming-stem-adjustment"),
+    = from_scm<double> (get_property (me, "french-beaming-stem-adjustment"),
                          0.0);
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
@@ -934,7 +934,7 @@ Stem::offset_callback (SCM smob)
     {
       Grob *rest = rests.back ();
       Real r = robust_relative_extent (rest, rest, X_AXIS).center ();
-      return scm_from_double (r);
+      return to_scm (r);
     }
 
   if (Grob *f = first_head (me))
@@ -960,11 +960,11 @@ Stem::offset_callback (SCM smob)
           Real rule_thick = thickness (me);
           r += -d * rule_thick * 0.5;
         }
-      return scm_from_double (r);
+      return to_scm (r);
     }
 
   programming_error ("Weird stem.");
-  return scm_from_double (0.0);
+  return to_scm (0.0);
 }
 
 Spanner *
@@ -1011,7 +1011,7 @@ Stem::calc_stem_info (SCM smob)
   Real beam_thickness = Beam::get_beam_thickness (beam);
   int beam_count = Beam::get_direction_beam_count (beam, my_dir);
   Real length_fraction
-    = robust_scm2double (get_property (me, "length-fraction"), 1.0);
+    = from_scm<double> (get_property (me, "length-fraction"), 1.0);
 
   /* Simple standard stem length */
   SCM details = get_property (me, "details");
@@ -1089,7 +1089,7 @@ Stem::calc_stem_info (SCM smob)
   Obviously not for grace beams.
 
   Also, not for knees.  Seems to be a good thing. */
-  bool no_extend = to_boolean (get_property (me, "no-stem-extend"));
+  bool no_extend = from_scm<bool> (get_property (me, "no-stem-extend"));
   bool is_knee = Beam::is_knee (beam);
   if (!no_extend && !is_knee)
     {
@@ -1101,7 +1101,7 @@ Stem::calc_stem_info (SCM smob)
                                     - beam_thickness + height_of_my_beams));
     }
 
-  ideal_y -= robust_scm2double (get_property (beam, "shorten"), 0);
+  ideal_y -= from_scm<double> (get_property (beam, "shorten"), 0);
 
   SCM bemfl = ly_assoc_get (ly_symbol2scm ("beamed-extreme-minimum-free-lengths"),
                             details, SCM_EOL);
@@ -1122,8 +1122,8 @@ Stem::calc_stem_info (SCM smob)
   Real minimum_y = note_start + minimum_length;
   Real shortest_y = minimum_y * my_dir;
 
-  return scm_list_2 (scm_from_double (ideal_y),
-                     scm_from_double (shortest_y));
+  return scm_list_2 (to_scm (ideal_y),
+                     to_scm (shortest_y));
 }
 
 Slice

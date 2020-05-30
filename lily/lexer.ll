@@ -826,7 +826,7 @@ void
 Lily_lexer::push_extra_token (Input const &where, int token_type, SCM scm)
 {
 	extra_tokens_ = scm_cons (scm_cons2 (where.smobbed_copy (),
-					     scm_from_int (token_type),
+					     to_scm (token_type),
 					     scm), extra_tokens_);
 }
 

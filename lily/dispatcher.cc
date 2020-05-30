@@ -77,7 +77,7 @@ Dispatcher::dispatch (SCM sev)
   SCM class_list = get_property (ev, "class");
   if (!scm_is_pair (class_list))
     {
-      ev->origin ()->warning (_ ("Event class should be a list"));
+      ev->warning (_ ("Event class should be a list"));
       return;
     }
 
@@ -227,7 +227,7 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
         }
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
-  SCM entry = scm_cons (scm_from_int (priority), callback);
+  SCM entry = scm_cons (to_scm (priority), callback);
   list = scm_merge (list, scm_list_1 (entry), Lily::car_less);
   scm_set_cdr_x (handle, list);
 }
@@ -292,7 +292,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
       return;
     }
 
-  dispatchers_ = scm_acons (disp->self_scm (), scm_from_int (priority), dispatchers_);
+  dispatchers_ = scm_acons (disp->self_scm (), to_scm (priority), dispatchers_);
 
   SCM list = GET_LISTENER (this, dispatch).smobbed_copy ();
   for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))

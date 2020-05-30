@@ -64,7 +64,7 @@ Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
     When we have an even number of stems, we choose between the central
     two stems.
   */
-  Direction me_dir = robust_scm2dir (get_property (me, "direction"), UP);
+  Direction me_dir = from_scm (get_property (me, "direction"), UP);
   Drul_array<Item *> bounding_stems (Note_column::get_stem (cols[col_count / 2 - 1]),
                                      Note_column::get_stem (cols[col_count / 2]));
 
@@ -160,10 +160,10 @@ Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
 
-  bool bracket_visible = to_boolean (get_property (me, "bracket-visibility"))
+  bool bracket_visible = from_scm<bool> (get_property (me, "bracket-visibility"))
                          || !tuplet->extent (tuplet, Y_AXIS).is_empty ();
 
-  if (bracket_visible || !to_boolean (get_property (me, "knee-to-beam")))
+  if (bracket_visible || !from_scm<bool> (get_property (me, "knee-to-beam")))
     return false;
 
   Grob *beam = Stem::get_beam (ref_stem);
@@ -187,7 +187,7 @@ Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
   Drul_array<Item *> bounds (left, right);
 
   Interval available_ext;
-  Real padding = robust_scm2double (get_property (me, "padding"), 0.5);
+  Real padding = from_scm<double> (get_property (me, "padding"), 0.5);
 
   /*
      If there is no note column on a given side of the tuplet number, we use
@@ -241,8 +241,8 @@ Real
 calc_beam_y_shift (Grob *ref_stem, Real dx)
 {
   Grob *beam = Stem::get_beam (ref_stem);
-  Interval x_pos = robust_scm2interval (get_property (beam, "X-positions"), Interval (0.0, 0.0));
-  Interval y_pos = robust_scm2interval (get_property (beam, "quantized-positions"), Interval (0.0, 0.0));
+  Interval x_pos = from_scm (get_property (beam, "X-positions"), Interval (0.0, 0.0));
+  Interval y_pos = from_scm (get_property (beam, "quantized-positions"), Interval (0.0, 0.0));
   Real beam_dx = x_pos.length ();
   Real beam_dy = y_pos[RIGHT] - y_pos[LEFT];
   Real slope = beam_dx ? beam_dy / beam_dx : 0.0;
@@ -290,9 +290,9 @@ Tuplet_number::calc_x_offset (SCM smob)
       || !knee_position_against_beam (me, ref_stem))
     {
       Interval x_positions;
-      x_positions = robust_scm2interval (get_property (tuplet, "X-positions"),
+      x_positions = from_scm (get_property (tuplet, "X-positions"),
                                          Interval (0.0, 0.0));
-      return scm_from_double (x_positions.center ());
+      return to_scm (x_positions.center ());
     }
 
   /*
@@ -307,7 +307,7 @@ Tuplet_number::calc_x_offset (SCM smob)
   Drul_array<Grob *> adj_cols = adjacent_note_columns (me, ref_stem);
   Interval number_ext = me->extent (commonx, X_AXIS);
   number_ext.translate (x_offset);
-  Real padding = robust_scm2double (get_property (me, "padding"), 0.5);
+  Real padding = from_scm<double> (get_property (me, "padding"), 0.5);
   number_ext.widen (padding);
 
   Interval cor (0.0, 0.0);
@@ -323,7 +323,7 @@ Tuplet_number::calc_x_offset (SCM smob)
         x_offset += cor[d];
       }
 
-  return scm_from_double (x_offset);
+  return to_scm (x_offset);
 }
 
 MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset, 1);
@@ -332,9 +332,9 @@ Tuplet_number::calc_y_offset (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
-  Drul_array<Real> positions = robust_scm2drul (get_property (tuplet, "positions"),
+  Drul_array<Real> positions = from_scm (get_property (tuplet, "positions"),
                                                 Drul_array<Real> (0.0, 0.0));
-  SCM to_bracket = scm_from_double ((positions[LEFT] + positions[RIGHT]) / 2.0);
+  SCM to_bracket = to_scm ((positions[LEFT] + positions[RIGHT]) / 2.0);
 
   Grob *commonx = Tuplet_bracket::get_common_x (me);
   commonx = commonx->common_refpoint (me, X_AXIS);
@@ -361,7 +361,7 @@ Tuplet_number::calc_y_offset (SCM smob)
   Direction ref_stem_dir = get_grob_direction (ref_stem);
 
   Real y_offset = ref_stem_ext[ref_stem_dir] - tuplet_y;
-  Real padding = robust_scm2double (get_property (me, "padding"), 0.5);
+  Real padding = from_scm<double> (get_property (me, "padding"), 0.5);
   Real num_height = me->extent (commony, Y_AXIS).length ();
 
   y_offset += ref_stem_dir * (padding + num_height / 2.0);
@@ -409,7 +409,7 @@ Tuplet_number::calc_y_offset (SCM smob)
   Drul_array<Grob *> adj_cols = adjacent_note_columns (me, ref_stem);
 
   if (!adj_cols[RIGHT])
-    return scm_from_double (y_offset);
+    return to_scm (y_offset);
 
   /*
     Collect Y-extents of accidentals that overlap the number
@@ -446,7 +446,7 @@ Tuplet_number::calc_y_offset (SCM smob)
   if (!overlap_acc_y.is_empty ())
     y_offset += colliding_acc_ext_y[ref_stem_dir] - num_ext_y[-ref_stem_dir] + padding * ref_stem_dir;
 
-  return scm_from_double (y_offset);
+  return to_scm (y_offset);
 }
 
 MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff, 1)

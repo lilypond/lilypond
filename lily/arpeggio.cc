@@ -109,7 +109,7 @@ Arpeggio::calc_positions (SCM grob)
 
   heads *= 1 / Staff_symbol_referencer::staff_space (me);
 
-  return ly_interval2scm (heads);
+  return to_scm (heads);
 }
 
 MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
@@ -117,13 +117,13 @@ SCM
 Arpeggio::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Interval heads = robust_scm2interval (get_property (me, "positions"),
+  Interval heads = from_scm (get_property (me, "positions"),
                                         Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
   if (heads.is_empty () || heads.length () < 0.5)
     {
-      if (to_boolean (get_property (me, "transparent")))
+      if (from_scm<bool> (get_property (me, "transparent")))
         {
           /*
             This is part of a cross-staff/-voice span-arpeggio,
@@ -143,8 +143,8 @@ Arpeggio::print (SCM smob)
 
   SCM ad = get_property (me, "arpeggio-direction");
   Direction dir = CENTER;
-  if (is_direction (ad))
-    dir = to_dir (ad);
+  if (is_scm<Direction> (ad))
+    dir = from_scm<Direction> (ad);
 
   Stencil mol;
   Stencil squiggle (get_squiggle (me));
@@ -185,16 +185,16 @@ SCM
 Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Interval heads = robust_scm2interval (get_property (me, "positions"),
+  Interval heads = from_scm (get_property (me, "positions"),
                                         Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
   Real th
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (get_property (me, "thickness"), 1);
+      * from_scm<double> (get_property (me, "thickness"), 1);
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
-  Real x = robust_scm2double (get_property (me, "protrusion"), 0.4);
+  Real x = from_scm<double> (get_property (me, "protrusion"), 0.4);
 
   Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), th, x, th));
   mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
@@ -207,16 +207,16 @@ Arpeggio::brew_chord_slur (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   SCM dash_definition = get_property (me, "dash-definition");
-  Interval heads = robust_scm2interval (get_property (me, "positions"),
+  Interval heads = from_scm (get_property (me, "positions"),
                                         Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
   Real lt
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (get_property (me, "line-thickness"), 1.0);
+      * from_scm<double> (get_property (me, "line-thickness"), 1.0);
   Real th
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-      * robust_scm2double (get_property (me, "thickness"), 1.0);
+      * from_scm<double> (get_property (me, "thickness"), 1.0);
   Real dy = heads.length ();
 
   Real height_limit = 1.5;
@@ -238,7 +238,7 @@ SCM
 Arpeggio::width (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  return ly_interval2scm (get_squiggle (me).extent (X_AXIS));
+  return to_scm (get_squiggle (me).extent (X_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, 3);
@@ -246,8 +246,8 @@ SCM
 Arpeggio::pure_height (SCM smob, SCM, SCM)
 {
   Grob *me = unsmob<Grob> (smob);
-  if (to_boolean (get_property (me, "cross-staff")))
-    return ly_interval2scm (Interval ());
+  if (from_scm<bool> (get_property (me, "cross-staff")))
+    return to_scm (Interval ());
 
   return Grob::stencil_height (smob);
 }

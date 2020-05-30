@@ -37,21 +37,30 @@ public:
   Moment (int m);
 
   Moment (Rational, Rational);
-  Moment (Rational m);
+  explicit Moment (Rational m);
 
   Moment operator - () const;
 
-  void operator += (Moment const &m);
-  void operator -= (Moment const &m);
+  Moment &operator += (Moment const &m);
+  Moment &operator -= (Moment const &m);
 
-  void operator *= (Moment const &m);
-  void operator /= (Moment const &m);
-  void operator %= (Moment const &m);
+  Moment operator + (Moment const &m) const { return Moment (*this) += m; }
+  Moment operator - (Moment const &m) const { return Moment (*this) -= m; }
+
+  Moment &operator += (Rational const &r) { main_part_ += r; return *this; }
+  Moment &operator -= (Rational const &r) { main_part_ -= r; return *this; }
+  Moment &operator *= (Rational const &); // affects main and grace parts
+  Moment &operator /= (Rational const &); // affects main and grace parts
+  Moment &operator %= (Rational const &); // affects main and grace parts
+
+  Moment operator + (Rational const &r) const { return Moment (*this) += r; }
+  Moment operator - (Rational const &r) const { return Moment (*this) -= r; }
+  Moment operator * (Rational const &r) const { return Moment (*this) *= r; }
+  Moment operator / (Rational const &r) const { return Moment (*this) /= r; }
+  Moment operator % (Rational const &r) const { return Moment (*this) %= r; }
 
   Rational main_part_;
   Rational grace_part_;
-
-  void set_infinite (int k);
 
   bool to_bool () const;
   I64 den () const;
@@ -60,12 +69,6 @@ public:
   std::string to_string () const;
   static int compare (Moment const &, Moment const &);
 };
-
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, +);
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, -);
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, *);
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, % );
 
 int compare (Moment const &, Moment const &);
 INSTANTIATE_COMPARE (Moment const &, Moment::compare);

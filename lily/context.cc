@@ -292,7 +292,7 @@ Context::set_property_from_event (SCM sev)
 
       if (ok)
         {
-          if (to_boolean (get_property (ev, "once")))
+          if (from_scm<bool> (get_property (ev, "once")))
             add_global_finalization (make_revert_finalization (sym));
           set_property (this, sym, val);
         }
@@ -309,7 +309,7 @@ Context::unset_property_from_event (SCM sev)
 
   if (ok)
     {
-      if (to_boolean (get_property (ev, "once")))
+      if (from_scm<bool> (get_property (ev, "once")))
         add_global_finalization (make_revert_finalization (sym));
       unset_property (sym);
     }
@@ -907,7 +907,7 @@ measure_number (Context const *context)
   SCM barnum = get_property (context, "internalBarNumber");
   SCM smp = get_property (context, "measurePosition");
 
-  int bn = robust_scm2int (barnum, 0);
+  int bn = from_scm (barnum, 0);
   Moment mp = robust_scm2moment (smp, Moment (0));
   if (mp.main_part_ < Rational (0))
     bn--;
@@ -950,7 +950,7 @@ melisma_busy (Context *tr)
   for (SCM melisma_properties = get_property (tr, "melismaBusyProperties");
        scm_is_pair (melisma_properties);
        melisma_properties = scm_cdr (melisma_properties))
-    if (to_boolean (get_property (tr, scm_car (melisma_properties))))
+    if (from_scm<bool> (get_property (tr, scm_car (melisma_properties))))
       return true;
 
   return false;
@@ -961,7 +961,7 @@ check_repeat_count_visibility (Context const *context, SCM count)
 {
   SCM proc = get_property (context, "repeatCountVisibility");
   return (ly_is_procedure (proc)
-          && to_boolean (scm_call_2 (proc,
+          && from_scm<bool> (scm_call_2 (proc,
                                      count,
                                      context->self_scm ())));
 }

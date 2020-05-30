@@ -48,6 +48,27 @@ using std::vector;
 static bool
 pure_staff_priority_less (Grob *const &g1, Grob *const &g2);
 
+/* gets the relevant version of `g` in the context of a line running
+   from `start` to `end` */
+Grob *
+pure_subst_prebroken_piece (Grob *g, vsize start, vsize end)
+{
+  Item *it = dynamic_cast<Item *> (g);
+  if (!it)
+    return g;
+
+  if (it->get_column ()->get_rank () == int (start))
+    {
+      return it->find_prebroken_piece (RIGHT);
+    }
+  if (it->get_column ()->get_rank () == int (end))
+    {
+      return it->find_prebroken_piece (LEFT);
+    }
+
+  return it;
+}
+
 Real Axis_group_interface::default_outside_staff_padding_ = 0.46;
 
 Real
@@ -86,7 +107,7 @@ Axis_group_interface::has_axis (Grob *me, Axis a)
 {
   SCM axes = get_property (me, "axes");
 
-  return scm_is_true (scm_memq (scm_from_int (a), axes));
+  return scm_is_true (scm_memq (to_scm (a), axes));
 }
 
 Interval
@@ -104,7 +125,7 @@ Axis_group_interface::relative_maybe_bound_group_extent (vector<Grob *> const &e
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
-      if (!to_boolean (get_property (se, "cross-staff")))
+      if (!from_scm<bool> (get_property (se, "cross-staff")))
         {
           Interval dims = (bound && has_interface<Axis_group_interface> (se)
                            ? generic_bound_extent (se, common, a)
@@ -162,7 +183,7 @@ Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, vsize star
                      : ly_symbol2scm ("rest-of-line-pure-height");
   SCM cached = sp->get_cached_pure_property (cache_symbol, start, end);
   if (scm_is_pair (cached))
-    return robust_scm2interval (cached, Interval (0, 0));
+    return from_scm (cached, Interval (0, 0));
 
   SCM adjacent_pure_heights = get_property (me, "adjacent-pure-heights");
   Interval ret;
@@ -181,7 +202,7 @@ Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, vsize star
         ret = Interval (0, 0);
     }
 
-  sp->cache_pure_property (cache_symbol, start, end, ly_interval2scm (ret));
+  sp->cache_pure_property (cache_symbol, start, end, to_scm (ret));
   return ret;
 }
 
@@ -215,7 +236,7 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents,
       if (r >= end)
         break;
 
-      ext.unite (ly_scm2interval (scm_c_vector_ref (measure_extents, i)));
+      ext.unite (from_scm<Interval> (scm_c_vector_ref (measure_extents, i)));
     }
 
   return ext;
@@ -250,14 +271,20 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
     {
       Grob *g = elts[i];
 
-      if (to_boolean (get_property (g, "cross-staff")))
+      if (from_scm<bool> (get_property (g, "cross-staff")))
         continue;
 
       if (!g->is_live ())
-        continue;
+        {
+          Item *it = dynamic_cast<Item *> (g);
+          if (!it)
+            continue;
+          if (!it->get_column ())
+            continue;
+        }
 
       bool outside_staff = scm_is_number (get_property (g, "outside-staff-priority"));
-      Real padding = robust_scm2double (get_property (g, "outside-staff-padding"), get_default_outside_staff_padding ());
+      Real padding = from_scm<double> (get_property (g, "outside-staff-padding"), get_default_outside_staff_padding ());
 
       // When we encounter the first outside-staff grob, make a copy
       // of the current heights to use as an estimate for the staff heights.
@@ -272,7 +299,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
         }
 
       // TODO: consider a pure version of get_grob_direction?
-      Direction d = to_dir (get_property_data (g, "direction"));
+      Direction d = from_scm<Direction> (get_property_data (g, "direction"));
       d = (d == CENTER) ? UP : d;
 
       Interval_t<vsize> rank_span (g->spanned_rank_interval ());
@@ -292,9 +319,11 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
           // end-of-line-visible.
           vsize visibility_end = j + 2 < ranks.size () ? ranks[j + 2] : end;
 
-          if (g->pure_is_visible (start, visibility_end))
+          Grob *maybe_subst
+            = pure_subst_prebroken_piece (g, start, visibility_end);
+          if (Item::break_visible (maybe_subst))
             {
-              Interval dims = g->pure_y_extent (common, start, end);
+              Interval dims = maybe_subst->pure_y_extent (common, start, end);
               if (!dims.is_empty ())
                 {
                   if (rank_span[LEFT] <= start)
@@ -322,9 +351,9 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   for (vsize i = 0; i < begin_line_heights.size (); ++i)
     {
       scm_c_vector_set_x (begin_scm, i,
-                          ly_interval2scm (begin_line_heights[i]));
+                          to_scm (begin_line_heights[i]));
       scm_c_vector_set_x (mid_scm, i,
-                          ly_interval2scm (mid_line_heights[i]));
+                          to_scm (mid_line_heights[i]));
     }
 
   return scm_cons (begin_scm, mid_scm);
@@ -351,11 +380,12 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
   Interval r;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Grob *g = elts[i];
+      Grob *g = pure_subst_prebroken_piece (elts[i], start, end);
+
       Interval_t<int> rank_span = g->spanned_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
-          && g->pure_is_visible (start, end)
-          && !(to_boolean (get_property (g, "cross-staff"))
+          && Item::break_visible (g)
+          && !(from_scm<bool> (get_property (g, "cross-staff"))
                && has_interface<Stem> (g)))
         {
           Interval dims = g->pure_y_extent (common, start, end);
@@ -386,8 +416,8 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, pure_height, 3);
 SCM
 Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
-  int start = robust_scm2int (start_scm, 0);
-  int end = robust_scm2int (end_scm, INT_MAX);
+  int start = from_scm (start_scm, 0);
+  int end = from_scm (end_scm, INT_MAX);
   Grob *me = unsmob<Grob> (smob);
 
   /* Maybe we are in the second pass of a two-pass spacing run. In that
@@ -401,7 +431,7 @@ Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
         return scm_cdr (system_y_extent);
     }
 
-  return ly_interval2scm (pure_group_height (me, start, end));
+  return to_scm (pure_group_height (me, start, end));
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines, 1);
@@ -456,7 +486,7 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   if (a == Y_AXIS)
     for (vsize i = 0; i < elts.size (); i++)
       if (!(has_interface<Stem> (elts[i])
-            && to_boolean (get_property (elts[i], "cross-staff"))))
+            && from_scm<bool> (get_property (elts[i], "cross-staff"))))
         (void) get_property (elts[i], "vertical-skylines");
 
   Grob *common = common_refpoint_of_array (elts, me, a);
@@ -464,7 +494,7 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   Real my_coord = me->relative_coordinate (common, a);
   Interval r (relative_group_extent (elts, common, a));
 
-  return ly_interval2scm (r - my_coord);
+  return to_scm (r - my_coord);
 }
 
 /* This is like generic_group_extent, but it only counts the grobs that
@@ -507,29 +537,14 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string 
 
   for (vsize i = 0; i < elts.size (); i++)
     {
-      if (elts[i] && elts[i]->is_live ())
-        relevant_grobs.push_back (elts[i]);
-      /*
-        TODO (mikesol): it is probably bad that we're reading prebroken
-        pieces from potentially suicided elements.  This behavior
-        has been in current master since at least 2.16.
-
-        We need to fully suicide all Items, meaning that their
-        prebroken pieces should not be accessible, which means that
-        Item::handle_prebroken_dependencies should only be called
-        AFTER this list is composed.  The list composition function
-        should probably not check for suicided items or NULL pointers
-        but leave that to the various methods that use it.
-      */
       if (Item *it = dynamic_cast<Item *> (elts[i]))
         {
-          for (LEFT_and_RIGHT (d))
-            {
-              Item *piece = it->find_prebroken_piece (d);
-              if (piece && piece->is_live ())
-                relevant_grobs.push_back (piece);
-            }
+          if (it->original ())
+            continue;
         }
+      /* This might include potentially suicided items. Callers should
+         look at the relevant prebroken clone where necesary */
+      relevant_grobs.push_back (elts[i]);
     }
 
   vector_sort (relevant_grobs, pure_staff_priority_less);
@@ -625,8 +640,8 @@ Axis_group_interface::get_children (Grob *me, vector<Grob *> *found)
 static bool
 staff_priority_less (Grob *const &g1, Grob *const &g2)
 {
-  Real priority_1 = robust_scm2double (get_property (g1, "outside-staff-priority"), -infinity_f);
-  Real priority_2 = robust_scm2double (get_property (g2, "outside-staff-priority"), -infinity_f);
+  Real priority_1 = from_scm<double> (get_property (g1, "outside-staff-priority"), -infinity_f);
+  Real priority_2 = from_scm<double> (get_property (g2, "outside-staff-priority"), -infinity_f);
 
   if (priority_1 < priority_2)
     return true;
@@ -649,8 +664,28 @@ staff_priority_less (Grob *const &g1, Grob *const &g2)
 static bool
 pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
 {
-  Real priority_1 = robust_scm2double (get_property (g1, "outside-staff-priority"), -infinity_f);
-  Real priority_2 = robust_scm2double (get_property (g2, "outside-staff-priority"), -infinity_f);
+  Grob *p[2] = {g1, g2};
+  for (int i = 0; i < 2; i++)
+    {
+      Item *it = dynamic_cast<Item *> (p[i]);
+      if (it && !it->is_live ())
+        {
+          for (LEFT_and_RIGHT (d))
+            {
+              Item *b = it->find_prebroken_piece (d);
+              if (b && b->is_live ())
+                {
+                  p[i] = b;
+                  break;
+                }
+            }
+        }
+    }
+
+  Real priority_1 = from_scm<double> (
+    get_property (p[0], "outside-staff-priority"), -infinity_f);
+  Real priority_2 = from_scm<double> (
+    get_property (p[1], "outside-staff-priority"), -infinity_f);
 
   return priority_1 < priority_2;
 }
@@ -764,11 +799,11 @@ add_grobs_of_one_priority (Grob *me,
         {
           Grob *elt = elements[i];
           Real padding
-            = robust_scm2double (get_property (elt, "outside-staff-padding"),
+            = from_scm<double> (get_property (elt, "outside-staff-padding"),
                                  Axis_group_interface
                                  ::get_default_outside_staff_padding ());
           Real horizon_padding
-            = robust_scm2double (get_property (elt, "outside-staff-horizontal-padding"), 0.0);
+            = from_scm<double> (get_property (elt, "outside-staff-horizontal-padding"), 0.0);
           Interval x_extent = elt->extent (x_common, X_AXIS);
           x_extent.widen (horizon_padding);
 
@@ -913,7 +948,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
       Grob *elt = elements[i];
       if (Grob *ancestor = outside_staff_ancestor (elt))
         riders.insert (pair<Grob *, Grob *> (ancestor, elt));
-      else if (!to_boolean (get_property (elt, "cross-staff")))
+      else if (!from_scm<bool> (get_property (elt, "cross-staff")))
         {
           Skyline_pair *maybe_pair
             = unsmob<Skyline_pair> (get_property (elt, "vertical-skylines"));
@@ -946,7 +981,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
 
   for (; i < elements.size (); i++)
     {
-      if (to_boolean (get_property (elements[i], "cross-staff")))
+      if (from_scm<bool> (get_property (elements[i], "cross-staff")))
         continue;
 
       // Collect all the outside-staff grobs that have a particular priority.
@@ -956,7 +991,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
       while (i + 1 < elements.size ()
              && ly_is_equal (get_property (elements[i + 1], "outside-staff-priority"), priority))
         {
-          if (!to_boolean (get_property (elements[i + 1], "cross-staff")))
+          if (!from_scm<bool> (get_property (elements[i + 1], "cross-staff")))
             current_elts.push_back (elements[i + 1]);
           ++i;
         }

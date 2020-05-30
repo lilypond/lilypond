@@ -449,7 +449,7 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index, boo
         }
     }
 
-  if (!line_starter && to_boolean (get_property (col, "keep-inside-line")))
+  if (!line_starter && from_scm<bool> (get_property (col, "keep-inside-line")))
     description.keep_inside_line_ = col->extent (col, X_AXIS);
 
   description.break_permission_ = get_property (col, "line-break-permission");

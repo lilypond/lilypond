@@ -139,7 +139,7 @@ Score_performer::one_time_step (SCM)
 
   if (!audio_column_)
     audio_column_ = new Audio_column (context ()->now_mom ());
-  if (to_boolean (get_property (context (), "skipTypesetting")))
+  if (from_scm<bool> (get_property (context (), "skipTypesetting")))
     {
       if (!skipping_)
         {

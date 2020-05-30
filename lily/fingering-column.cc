@@ -82,7 +82,7 @@ Fingering_column::do_y_positioning (Grob *me)
                      common_refpoint_of_array (fingerings, me, Y_AXIS)
                     };
 
-  Real padding = robust_scm2double (get_property (me, "padding"), 0.2);
+  Real padding = from_scm<double> (get_property (me, "padding"), 0.2);
 
   // order the fingerings from bottom to top
   vector_sort (fingerings, pure_position_less);
@@ -128,7 +128,7 @@ Fingering_column::do_x_positioning (Grob *me)
 
   Grob *common_x = common_refpoint_of_array (fingerings, me, X_AXIS);
 
-  Real snap = robust_scm2double (get_property (me, "snap-radius"), 0.3);
+  Real snap = from_scm<double> (get_property (me, "snap-radius"), 0.3);
   vector<Fingering_and_offset> fos;
 
   for (vsize i = 0; i < fingerings.size (); i++)

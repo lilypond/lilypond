@@ -122,7 +122,7 @@ Paper_book::output_aux (SCM output_channel,
     {
       Lily::write_performances_midis (performances (),
                                       output_channel,
-                                      scm_from_long (*first_performance_number));
+                                      to_scm (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
@@ -143,7 +143,7 @@ Paper_book::output_aux (SCM output_channel,
       if (scm_is_null (scores_))
         return 0;
       paper_->set_variable (ly_symbol2scm ("first-page-number"),
-                            scm_from_long (*first_page_number));
+                            to_scm (*first_page_number));
       paper_->set_variable (ly_symbol2scm ("is-last-bookpart"),
                             ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
@@ -157,7 +157,7 @@ void
 Paper_book::output (SCM output_channel)
 {
   long first_page_number
-    = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
+    = from_scm (paper_->c_variable ("first-page-number"), 1);
   long first_performance_number = 0;
 
   /* FIXME: We need a line-width for ps output (framework-ps.scm:92).
@@ -250,7 +250,7 @@ Paper_book::classic_output_aux (SCM output,
     {
       Lily::write_performances_midis (performances (),
                                       output,
-                                      scm_from_long (*first_performance_number));
+                                      to_scm (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
@@ -371,7 +371,7 @@ set_system_penalty (SCM sys, SCM header)
       if (SCM_VARIABLEP (force)
           && scm_is_bool (SCM_VARIABLE_REF (force)))
         {
-          if (to_boolean (SCM_VARIABLE_REF (force)))
+          if (from_scm<bool> (SCM_VARIABLE_REF (force)))
             {
               set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
                                    ly_symbol2scm ("force"));
@@ -612,12 +612,12 @@ Paper_book::systems ()
       for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
         {
           Prob *ps = unsmob<Prob> (scm_car (s));
-          set_property (ps, "number", scm_from_int (++i));
+          set_property (ps, "number", to_scm (++i));
 
           if (last
-              && to_boolean (get_property (last, "is-title"))
+              && from_scm<bool> (get_property (last, "is-title"))
               && !scm_is_number (get_property (ps, "penalty")))
-            set_property (ps, "penalty", scm_from_int (10000));
+            set_property (ps, "penalty", to_scm (10000));
           last = ps;
 
           if (scm_is_pair (scm_cdr (s)))
@@ -625,9 +625,9 @@ Paper_book::systems ()
               SCM perm = get_property (ps, "page-break-permission");
               Prob *next = unsmob<Prob> (scm_cadr (s));
               if (scm_is_null (perm))
-                set_property (next, "penalty", scm_from_int (10001));
+                set_property (next, "penalty", to_scm (10001));
               else if (scm_is_eq (perm, ly_symbol2scm ("force")))
-                set_property (next, "penalty", scm_from_int (-10001));
+                set_property (next, "penalty", to_scm (-10001));
             }
         }
     }

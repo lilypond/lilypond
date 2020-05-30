@@ -253,7 +253,7 @@ Spanner::Spanner (Spanner const &s)
 Real
 Spanner::spanner_length () const
 {
-  Interval lr = robust_scm2interval (get_property (this, "X-positions"),
+  Interval lr = from_scm (get_property (this, "X-positions"),
                                      Interval (1, -1));
 
   if (lr.is_empty ())
@@ -262,7 +262,7 @@ Spanner::spanner_length () const
                               get_property (this, "right-bound-info"));
 
       for (LEFT_and_RIGHT (d))
-        lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
+        lr[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("X"),
                                                  bounds[d], SCM_BOOL_F), -d);
     }
 
@@ -381,7 +381,7 @@ Spanner::set_spacing_rods (SCM smob)
           Rod r;
           r.item_drul_[LEFT] = sp->get_bound (LEFT);
           r.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
-          r.distance_ = robust_scm2double (num_length, 0);
+          r.distance_ = from_scm<double> (num_length, 0);
           r.add_to_cols ();
 
           r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
@@ -394,8 +394,8 @@ Spanner::set_spacing_rods (SCM smob)
               changed value), we cannot directly reset r.distance_ to
               broken_length.
             */
-            r.distance_ += robust_scm2double (broken_length, 0)
-                           - robust_scm2double (num_length, 0);
+            r.distance_ += from_scm<double> (broken_length, 0)
+                           - from_scm<double> (num_length, 0);
           r.add_to_cols ();
         }
 
@@ -403,7 +403,7 @@ Spanner::set_spacing_rods (SCM smob)
       /*
         As r is a fresh rod, we can set distance_ with no complication.
       */
-      r.distance_ = robust_scm2double (num_length, 0);
+      r.distance_ = from_scm<double> (num_length, 0);
       r.item_drul_[LEFT] = sp->get_bound (LEFT);
       r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
       r.add_to_cols ();
@@ -458,7 +458,7 @@ Spanner::calc_normalized_endpoints (SCM smob)
 
       for (vsize i = 0; i < unnormalized_endpoints.size (); i++)
         {
-          SCM t = ly_interval2scm (1 / total_width * unnormalized_endpoints[i]);
+          SCM t = to_scm (1 / total_width * unnormalized_endpoints[i]);
           set_property (orig->broken_intos_[i], "normalized-endpoints", t);
           if (me->get_break_index () == i)
             result = t;
@@ -466,7 +466,7 @@ Spanner::calc_normalized_endpoints (SCM smob)
     }
   else
     {
-      result = scm_cons (scm_from_double (0.0), scm_from_double (1.0));
+      result = scm_cons (to_scm (0.0), to_scm (1.0));
       set_property (orig, "normalized-endpoints", result);
     }
 
@@ -486,7 +486,7 @@ Spanner::bounds_width (SCM grob)
 
   w -= me->relative_coordinate (common, X_AXIS);
 
-  return ly_interval2scm (w);
+  return to_scm (w);
 }
 
 MAKE_SCHEME_CALLBACK (Spanner, kill_zero_spanned_time, 1);
@@ -526,7 +526,7 @@ Spanner::kill_zero_spanned_time (SCM grob)
 static SCM
 make_pure_property_cache_key (SCM sym, vsize start, vsize end)
 {
-  return scm_cons2 (sym, scm_from_size_t (start), scm_from_size_t (end));
+  return scm_cons2 (sym, to_scm (start), to_scm (end));
 }
 
 SCM

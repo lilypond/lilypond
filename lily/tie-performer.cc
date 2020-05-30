@@ -170,7 +170,7 @@ Tie_performer::stop_translation_timestep ()
 {
   // We might have dangling open ties like c~ d. Close them, unless the first
   // note is still ongoing or we have we have tieWaitForNote set...
-  if (!to_boolean (get_property (this, "tieWaitForNote")))
+  if (!from_scm<bool> (get_property (this, "tieWaitForNote")))
     {
       heads_to_tie_.remove_if (end_moment_passed (now_mom ()));
     }

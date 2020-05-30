@@ -20,6 +20,7 @@
 #include "font-metric.hh"
 #include "lookup.hh"
 #include "offset.hh"
+#include "stencil-interpret.hh"
 #include "stencil.hh"
 
 using std::vector;
@@ -38,7 +39,7 @@ LY_DEFINE (ly_angle, "ly:angle",
   if (SCM_UNBNDP (y))
     {
       LY_ASSERT_TYPE (is_number_pair, x, 1);
-      off = ly_scm2offset (x);
+      off = from_scm<Offset> (x);
     }
   else
     {
@@ -46,7 +47,7 @@ LY_DEFINE (ly_angle, "ly:angle",
       LY_ASSERT_TYPE (scm_is_number, y, 2);
       off = Offset (scm_to_double (x), scm_to_double (y));
     }
-  return scm_from_double (off.angle_degrees ());
+  return to_scm (off.angle_degrees ());
 }
 
 LY_DEFINE (ly_length, "ly:length",
@@ -59,7 +60,7 @@ LY_DEFINE (ly_length, "ly:length",
   if (SCM_UNBNDP (y))
     {
       LY_ASSERT_TYPE (is_number_pair, x, 1);
-      off = ly_scm2offset (x);
+      off = from_scm<Offset> (x);
     }
   else
     {
@@ -67,7 +68,7 @@ LY_DEFINE (ly_length, "ly:length",
       LY_ASSERT_TYPE (scm_is_number, y, 2);
       off = Offset (scm_to_double (x), scm_to_double (y));
     }
-  return scm_from_double (off.length ());
+  return to_scm (off.length ());
 }
 
 LY_DEFINE (ly_directed, "ly:directed",
@@ -82,7 +83,7 @@ LY_DEFINE (ly_directed, "ly:directed",
   if (scm_is_pair (direction))
     {
       LY_ASSERT_TYPE (is_number_pair, direction, 1);
-      res = ly_scm2offset (direction).direction ();
+      res = from_scm<Offset> (direction).direction ();
     }
   else
     {
@@ -90,14 +91,14 @@ LY_DEFINE (ly_directed, "ly:directed",
       res = offset_directed (scm_to_double (direction));
     }
   if (SCM_UNBNDP (magnitude))
-    return ly_offset2scm (res);
+    return to_scm (res);
   if (scm_is_pair (magnitude))
     {
       LY_ASSERT_TYPE (is_number_pair, magnitude, 2);
-      return ly_offset2scm (res.scale (ly_scm2offset (magnitude)));
+      return to_scm (res.scale (from_scm<Offset> (magnitude)));
     }
   LY_ASSERT_TYPE (scm_is_number, magnitude, 2);
-  return ly_offset2scm (scm_to_double (magnitude) * res);
+  return to_scm (scm_to_double (magnitude) * res);
 }
 
 /*
@@ -113,7 +114,7 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, amount, 2);
 
-  LY_ASSERT_TYPE (is_axis, axis, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   Real real_amount = scm_to_double (amount);
 
@@ -133,7 +134,7 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
   Stencil *s = unsmob<Stencil> (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (is_number_pair, offset, 2);
-  Offset o = ly_scm2offset (offset);
+  Offset o = from_scm<Offset> (offset);
 
   SCM new_s = s->smobbed_copy ();
   scm_remember_upto_here_1 (stil);
@@ -160,9 +161,9 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
 {
   Stencil *s = unsmob<Stencil> (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
 
-  return ly_interval2scm (s->extent (Axis (scm_to_int (axis))));
+  return to_scm (s->extent (Axis (scm_to_int (axis))));
 }
 
 LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
@@ -175,7 +176,7 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
   LY_ASSERT_SMOB (Stencil, stil, 1);
   if (SCM_UNBNDP (axis))
     return scm_from_bool (s->is_empty ());
-  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   return scm_from_bool (s->is_empty (Axis (scm_to_int (axis))));
 }
 
@@ -198,8 +199,8 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
                    first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
   SCM_ASSERT_TYPE (s2 || scm_is_false (second) || scm_is_null (second),
                    second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
-  LY_ASSERT_TYPE (is_axis, axis, 2);
-  LY_ASSERT_TYPE (is_direction, direction, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
+  LY_ASSERT_TYPE (is_scm<Direction>, direction, 3);
 
   Real p = 0.0;
   if (!SCM_UNBNDP (padding))
@@ -245,8 +246,8 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
                    first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
   SCM_ASSERT_TYPE (s2 || scm_is_false (second) || scm_is_null (second),
                    second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
-  LY_ASSERT_TYPE (is_axis, axis, 2);
-  LY_ASSERT_TYPE (is_direction, direction, 3);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
+  LY_ASSERT_TYPE (is_scm<Direction>, direction, 3);
 
   Real p = 0.0;
   if (!SCM_UNBNDP (padding))
@@ -333,14 +334,14 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
   if (!SCM_UNBNDP (xext))
     {
       LY_ASSERT_TYPE (is_number_pair, xext, 2);
-      x = ly_scm2interval (xext);
+      x = from_scm<Interval> (xext);
     }
 
   Interval y;
   if (!SCM_UNBNDP (yext))
     {
       LY_ASSERT_TYPE (is_number_pair, yext, 3);
-      y = ly_scm2interval (yext);
+      y = from_scm<Interval> (yext);
     }
 
   Box b (x, y);
@@ -355,7 +356,7 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
            "  Other values are interpolated (so @code{0} means the center).")
 {
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   LY_ASSERT_TYPE (scm_is_number, dir, 3);
 
   Stencil target = *unsmob<Stencil> (stil);
@@ -365,55 +366,24 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
   return target.smobbed_copy ();
 }
 
-LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
-           1, 0, 0, (SCM s),
-           "Analyze @var{s}, and return a list of fonts used"
-           " in@tie{}@var{s}.")
-{
-  LY_ASSERT_SMOB (Stencil, s, 1);
-  Stencil *stil = unsmob<Stencil> (s);
-  return find_expression_fonts (stil->expr ());
-}
-
 LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
-           4, 0, 0, (SCM stc, SCM r, SCM g, SCM b),
-           "Put @var{stc} in a different color.")
+           2, 3, 0, (SCM stc, SCM r, SCM g, SCM b, SCM a),
+           "Put @var{stc} in a different color."
+           "Accepts either three values for @var{r},"
+           "@var{g}, @var{b} and an optional value"
+	   "for @var{a}, or a single CSS-like string.")
 {
   LY_ASSERT_SMOB (Stencil, stc, 1);
   Stencil *stil = unsmob<Stencil> (stc);
+  SCM color;
+  if (SCM_UNBNDP (g) && scm_is_string (r))
+    color = r;
+  else
+  color = SCM_UNBNDP (a) ? scm_list_3 (r, g, b) : scm_list_4 (r, g, b, a);
   return Stencil (stil->extent_box (),
                   scm_list_3 (ly_symbol2scm ("color"),
-                              scm_list_3 (r, g, b),
+                              color,
                               stil->expr ())).smobbed_copy ();
-}
-
-struct Stencil_interpret_arguments
-{
-  SCM func;
-  SCM arg1;
-};
-
-SCM stencil_interpret_in_scm (void *p, SCM expr)
-{
-  Stencil_interpret_arguments *ap = (Stencil_interpret_arguments *) p;
-  return scm_call_2 (ap->func, ap->arg1, expr);
-}
-
-LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
-           4, 0, 0, (SCM expr, SCM func, SCM arg1, SCM offset),
-           "Parse @var{expr}, feed bits to @var{func} with first arg"
-           " @var{arg1} having offset @var{offset}.")
-{
-  LY_ASSERT_TYPE (ly_is_procedure, func, 2);
-
-  Stencil_interpret_arguments a;
-  a.func = func;
-  a.arg1 = arg1;
-  Offset o = ly_scm2offset (offset);
-
-  interpret_stencil_expression (expr, stencil_interpret_in_scm, (void *) & a, o);
-
-  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_bracket, "ly:bracket",
@@ -424,12 +394,12 @@ LY_DEFINE (ly_bracket, "ly:bracket",
            " of@tie{}@var{p}, which may be negative.  The thickness is given"
            " by@tie{}@var{t}.")
 {
-  LY_ASSERT_TYPE (is_axis, a, 1);
+  LY_ASSERT_TYPE (is_scm<Axis>, a, 1);
   LY_ASSERT_TYPE (is_number_pair, iv, 2);
   LY_ASSERT_TYPE (scm_is_number, t, 3);
   LY_ASSERT_TYPE (scm_is_number, p, 4);
 
-  return Lookup::bracket ((Axis)scm_to_int (a), ly_scm2interval (iv),
+  return Lookup::bracket ((Axis)scm_to_int (a), from_scm<Interval> (iv),
                           scm_to_double (t),
                           scm_to_double (p),
                           0.95 * scm_to_double (t)).smobbed_copy ();
@@ -486,7 +456,7 @@ LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
   LY_ASSERT_TYPE (is_number_pair, yext, 2);
   LY_ASSERT_TYPE (scm_is_number, blot, 3);
 
-  return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
+  return Lookup::round_filled_box (Box (from_scm<Interval> (xext), from_scm<Interval> (yext)),
                                    scm_to_double (blot)).smobbed_copy ();
 }
 
@@ -514,7 +484,7 @@ LY_DEFINE (ly_round_filled_polygon, "ly:round-filled-polygon",
       SCM scm_pt = scm_car (p);
       if (scm_is_pair (scm_pt))
         {
-          pts.push_back (ly_scm2offset (scm_pt));
+          pts.push_back (from_scm<Offset> (scm_pt));
         }
       else
         {

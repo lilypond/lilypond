@@ -52,8 +52,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
-  if (!to_boolean (ly_get_option (ly_symbol2scm ("gui")))
-      && to_boolean (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
+  if (!from_scm<bool> (ly_get_option (ly_symbol2scm ("gui")))
+      && from_scm<bool> (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
     {
       out_file_name.dir_ = "";
       out_file_name.is_absolute_ = false;

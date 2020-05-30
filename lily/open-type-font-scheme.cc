@@ -113,7 +113,7 @@ LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
-  return scm_from_int ((int) otf->count ());
+  return to_scm ((int) otf->count ());
 }
 
 LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
@@ -366,7 +366,7 @@ LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
 
           // Done
           fclose (fp);
-          return scm_from_unsigned_integer (offset);
+          return to_scm (offset);
         }
 
       // For non-CFF table

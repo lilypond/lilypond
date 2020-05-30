@@ -31,6 +31,7 @@
 #else
 # include <libguile.h>
 #endif
+#include <limits>
 #include <string.h>
 
 /*
@@ -59,10 +60,6 @@ SCM ly_string2scm (std::string const &s);
 std::string ly_scm2string (SCM s);
 std::string ly_symbol2string (SCM);
 std::string robust_symbol2string (SCM, const std::string &);
-Rational ly_scm2rational (SCM);
-SCM ly_rational2scm (Rational);
-SCM ly_offset2scm (Offset);
-Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
 SCM ly_chain_assoc_get (SCM key, SCM achain, SCM default_value, SCM strict_checking = SCM_BOOL_F);
 
@@ -72,25 +69,11 @@ inline SCM ly_assoc (SCM key, SCM alist)
 }
 
 SCM ly_assoc_get (SCM key, SCM alist, SCM default_value, SCM strict_checking = SCM_BOOL_F);
-Interval ly_scm2interval (SCM);
-Drul_array<Real> ly_scm2realdrul (SCM);
 SCM ly_memv (SCM, SCM);
 Slice int_list_to_slice (SCM l);
-SCM ly_interval2scm (Drul_array<Real>);
 char *ly_scm2str0 (SCM str);
 
-Real robust_scm2double (SCM, double);
-int robust_scm2int (SCM, int);
-vsize robust_scm2vsize (SCM, vsize);
-Direction robust_scm2dir (SCM, Direction);
-Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
-Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
-Interval robust_scm2interval (SCM, Drul_array<Real>);
-Offset robust_scm2offset (SCM, Offset);
 std::string robust_scm2string (SCM, const std::string &);
-Rational robust_scm2rational (SCM, Rational);
-std::vector<Real> ly_scm2floatvector (SCM);
-SCM ly_floatvector2scm (std::vector<Real> v);
 
 SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
@@ -114,7 +97,6 @@ inline bool ly_is_module (SCM x) { return SCM_MODULEP (x); }
 inline bool ly_is_procedure (SCM x) { return scm_is_true (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return scm_is_true (scm_port_p (x)); }
 
-bool ly_is_rational (SCM);
 /*
   want to take the address of this function; scm_is_symbol() is a
   macro.
@@ -153,17 +135,7 @@ extern "C" {
 void read_lily_scm_file (std::string);
 void ly_c_init_guile ();
 
-bool is_direction (SCM s);
 bool is_number_pair (SCM);
-bool is_axis (SCM);
-
-/*
-  these conversion functions also do a typecheck on the argument, and
-  return a default value if S has the wrong type.
-*/
-
-Direction to_dir (SCM s);
-bool to_boolean (SCM s);
 
 SCM index_get_cell (SCM cell, Direction d);
 SCM index_set_cell (SCM cell, Direction d, SCM val);
@@ -187,23 +159,365 @@ inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
 
-template<class T>
-SCM
-ly_cxx_vector_to_list (std::vector<T> const &src)
-{
-  SCM l = SCM_EOL;
-  for (vsize i = src.size (); i--;)
-    l = scm_cons (src[i]->self_scm (), l);
-
-  return l;
-}
-
-SCM ly_offsets2scm (std::vector<Offset> os);
-std::vector<Offset> ly_scm2offsets (SCM s);
-
 /* For backward compatability with Guile 1.8 */
 #if !HAVE_GUILE_HASH_FUNC
 typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
 #endif
+
+// since partial template specialisation is not available for
+// functions, we default to reflecting to a helper class for template
+// types like Drul_array
+template <typename T> struct scm_conversions;
+
+template <typename T> inline bool
+is_scm (SCM s)
+{
+  return scm_conversions<T>::is_scm (s);
+}
+template <typename T> inline T
+from_scm (SCM s)
+{
+  return scm_conversions<T>::from_scm (s);
+}
+// "robust" variant with fallback
+template <typename T> inline T
+from_scm (SCM s, T fallback)
+{
+  return scm_conversions<T>::from_scm (s, fallback);
+}
+template <typename T> inline SCM
+to_scm (T v)
+{
+  return scm_conversions<T>::to_scm (v);
+}
+
+template <typename T> struct scm_conversions
+{
+  // Add a default rule implementing robust_scm2T
+  //
+  // For better or worse, whenever we are specialising
+  // scm_conversions, we'll need to add this rule back in.
+  //
+  // An alternative would be to have a separate specialisation class
+  // just for the fallback
+  static T from_scm (SCM s, T fallback)
+  {
+    return ::is_scm<T> (s) ? ::from_scm<T> (s) : fallback;
+  }
+};
+
+template <> inline bool
+is_scm<int> (SCM s)
+{
+  return scm_is_signed_integer (s,
+                                std::numeric_limits<int>::min (),
+                                std::numeric_limits<int>::max ());
+}
+template <> inline int
+from_scm<int> (SCM s)
+{
+  return scm_to_int (s);
+}
+template <> inline SCM
+to_scm<int> (int i)
+{
+  return scm_from_int (i);
+}
+
+template <> inline bool
+is_scm<size_t> (SCM s)
+{
+  return scm_is_unsigned_integer (s,
+                                  std::numeric_limits<size_t>::min (),
+                                  std::numeric_limits<size_t>::max ());
+}
+template <> inline size_t
+from_scm<size_t> (SCM s)
+{
+  return scm_to_size_t (s);
+}
+template <> inline SCM
+to_scm<size_t> (size_t i)
+{
+  return scm_from_size_t (i);
+}
+
+template <> inline bool
+is_scm<unsigned> (SCM s)
+{
+  return scm_is_unsigned_integer (s,
+                                  std::numeric_limits<unsigned>::min (),
+                                  std::numeric_limits<unsigned>::max ());
+}
+template <> inline unsigned
+from_scm<unsigned> (SCM s)
+{
+  return scm_to_uint (s);
+}
+template <> inline SCM
+to_scm<unsigned> (unsigned i)
+{
+  return scm_from_uint (i);
+}
+
+template <> inline bool
+is_scm<long> (SCM s)
+{
+  return scm_is_signed_integer (s,
+                                std::numeric_limits<long>::min (),
+                                std::numeric_limits<long>::max ());
+}
+template <> inline long
+from_scm<long> (SCM s)
+{
+  return scm_to_long (s);
+}
+template <> inline SCM
+to_scm<long> (long i)
+{
+  return scm_from_long (i);
+}
+
+template <> inline bool
+is_scm<long long> (SCM s)
+{
+  return scm_is_signed_integer (s,
+                                std::numeric_limits<long long>::min (),
+                                std::numeric_limits<long long>::max ());
+}
+template <> inline long long
+from_scm<long long> (SCM s)
+{
+  return scm_to_long_long (s);
+}
+template <> inline SCM
+to_scm<long long> (long long i)
+{
+  return scm_from_long_long (i);
+}
+
+template <> inline bool
+is_scm<bool> (SCM s)
+{
+  return scm_is_bool (s);
+}
+// from_scm<bool> does not error out for a non-boolean but defaults to
+// #f as that's what we generally need for an undefined boolean.  This
+// differs from Scheme which interprets anything but #f as true.
+template <> inline bool
+from_scm<bool> (SCM s)
+{
+  return scm_is_eq (s, SCM_BOOL_T);
+}
+template <> inline bool
+from_scm<bool> (SCM s, bool fallback)
+{
+  if (fallback)
+    return scm_is_true (s);
+  else
+    return from_scm<bool> (s);
+}
+template <> inline SCM
+to_scm<bool> (bool i)
+{
+  return scm_from_bool (i);
+}
+
+template <> inline bool
+is_scm<double> (SCM s)
+{
+  return scm_is_real (s);
+}
+template <> inline double
+from_scm<double> (SCM s)
+{
+  return scm_to_double (s);
+}
+template <> inline SCM
+to_scm<double> (double i)
+{
+  return scm_from_double (i);
+}
+
+template <> inline bool
+is_scm<Axis> (SCM s)
+{
+  return scm_is_unsigned_integer (s, X_AXIS, Y_AXIS);
+}
+template <> inline Axis
+from_scm<Axis> (SCM s)
+{
+  return Axis (scm_to_unsigned_integer (s, X_AXIS, Y_AXIS));
+}
+template <> inline SCM
+to_scm<Axis> (Axis d)
+{
+  return to_scm<int> (d);
+}
+
+template <> inline bool
+is_scm<Direction> (SCM s)
+{
+  return scm_is_signed_integer (s, LEFT, RIGHT);
+}
+// from_scm<Direction> does not error out for a non-direction but
+// defaults to CENTER as that's what we generally need for an
+// undefined direction.  In order not to have to call
+// is_scm<Direction> more than once, we hard-code the defaulting
+// variant and implement the one-argument version based on it.
+template <> inline Direction
+from_scm<Direction> (SCM s, Direction fallback)
+{
+  return is_scm<Direction> (s) ? Direction (scm_to_int (s)) : fallback;
+}
+template <> inline Direction
+from_scm<Direction> (SCM s)
+{
+  return from_scm<Direction> (s, CENTER);
+}
+template <> inline SCM
+to_scm<Direction> (Direction d)
+{
+  return to_scm<int> (d);
+}
+
+template <> bool is_scm<Rational> (SCM s);
+template <> Rational from_scm<Rational> (SCM s);
+template <> SCM to_scm<Rational> (Rational i);
+
+template <typename T> inline bool
+is_scm_pair (SCM s)
+{
+  return scm_is_pair (s) && is_scm<T> (scm_car (s)) && is_scm<T> (scm_cdr (s));
+}
+// No generic from_scm_pair and to_scm_pair for now since the
+// construction and deconstruction of a pair-based type is not
+// standardised well enough.  We could demand typename value_type,
+// accessor functions first and second, and a two-argument
+// constructor.  Not done for now.
+
+template <> inline bool
+is_scm<Offset> (SCM s)
+{
+  return is_scm_pair<Real> (s);
+}
+
+template <> Offset from_scm<Offset> (SCM s);
+template <> SCM to_scm<Offset> (Offset i);
+
+// partial function specialisation is not allowed, partially
+// specialize helper class
+template <typename T>
+struct scm_conversions <T *>
+{
+  static bool is_scm (SCM s) { return unsmob<T> (s); }
+  static T *from_scm (SCM s) { return unsmob<T> (s); }
+  static T *from_scm (SCM s, T *fallback)
+  {
+    if (T *res = unsmob<T> (s))
+      return res;
+    return fallback;
+  }
+  static const T *from_scm (SCM s, const T *fallback)
+  {
+    if (const T *res = unsmob<T> (s))
+      return res;
+    return fallback;
+  }
+  static SCM to_scm (T *p) { return p->self_scm (); }
+};
+
+template <typename T>
+struct scm_conversions <Drul_array<T>>
+{
+  static bool is_scm (SCM s)
+  {
+    return scm_is_pair (s) && ::is_scm<T> (scm_car (s)) && ::is_scm<T> (scm_cdr (s));
+  }
+  static Drul_array<T> from_scm (SCM s)
+  {
+    return Drul_array<T> (::from_scm<T> (scm_car (s)), ::from_scm<T> (scm_cdr (s)));
+  }
+  static Drul_array<T> from_scm (SCM s, Drul_array<T> fallback)
+  {
+    return is_scm (s) ? from_scm (s) : fallback;
+  }
+  static SCM to_scm (const Drul_array<T> &s)
+  {
+    return scm_cons (::to_scm<T> (s[LEFT]), ::to_scm<T> (s[RIGHT]));
+  }
+};
+
+template <typename T>
+struct scm_conversions <Interval_t<T>>
+{
+  static bool is_scm (SCM s)
+  {
+    return scm_is_pair (s) && ::is_scm<T> (scm_car (s)) && ::is_scm<T> (scm_cdr (s));
+  }
+  static Interval_t<T> from_scm (SCM s)
+  {
+    return Interval_t<T> (::from_scm<T> (scm_car (s)), ::from_scm<T> (scm_cdr (s)));
+  }
+  static Interval_t<T> from_scm (SCM s, Interval_t<T> fallback)
+  {
+    return is_scm (s) ? from_scm (s) : fallback;
+  }
+  static SCM to_scm (const Interval_t<T> &s)
+  {
+    return scm_cons (::to_scm<T> (s[LEFT]), ::to_scm<T> (s[RIGHT]));
+  }
+};
+
+// Check for a particular scm list: note that this is _different_ from
+// from_scm_list and to_scm_list where the template argument is a
+// _container_ type while here the _element_ type is specified since
+// no container actually comes into play.
+//
+// We do the hare/tortoise algorithm in order to detect only proper
+// lists.
+template <class T> bool
+is_scm_list (SCM s)
+{
+  for (SCM tortoise = s; scm_is_pair (s); tortoise = scm_cdr (tortoise))
+    {
+      if (!is_scm<T> (scm_car (s)))
+        return false;
+      s = scm_cdr (s);
+      if (!scm_is_pair (s))
+        break;
+      if (!is_scm<T> (scm_car (s)))
+        return false;
+      s = scm_cdr (s);
+      if (scm_is_eq (s, tortoise))
+        return false;
+    }
+  return scm_is_null (s); // Don't admit dotted pairs
+}
+// Convert the given SCM list to a container.
+// The container must support the push_back method.
+template <class T> T
+from_scm_list (SCM s)
+{
+  T ct;
+  for (; scm_is_pair (s); s = scm_cdr (s))
+    {
+      ct.push_back (from_scm<typename T::value_type> (scm_car (s)));
+    }
+  return ct;
+}
+// Convert the given container to an SCM list.
+// The container must support reverse iteration.
+template <class T> SCM
+to_scm_list (const T &ct)
+{
+  SCM lst = SCM_EOL;
+  for (auto i = ct.crbegin (); i != ct.crend (); ++i)
+    {
+      lst = scm_cons (to_scm<typename T::value_type> (*i), lst);
+    }
+  return lst;
+}
+
 
 #endif /* LILY_GUILE_HH */

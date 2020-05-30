@@ -68,7 +68,7 @@ Ledger_line_engraver::stop_translation_timestep ()
     {
       for (vsize i = 0; i < ledgered_grobs_.size (); i++)
         {
-          if (!to_boolean (get_property (ledgered_grobs_[i], "no-ledgers")))
+          if (!from_scm<bool> (get_property (ledgered_grobs_[i], "no-ledgers")))
             Pointer_group_interface::add_grob (span_,
                                                ly_symbol2scm ("note-heads"),
                                                ledgered_grobs_[i]);

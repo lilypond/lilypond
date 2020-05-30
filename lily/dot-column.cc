@@ -203,7 +203,7 @@ Dot_column::calc_positioning_done (SCM smob)
       if (note)
         {
           if (has_interface<Note_head> (note))
-            dp.dir_ = to_dir (get_property (dp.dot_, "direction"));
+            dp.dir_ = from_scm<Direction> (get_property (dp.dot_, "direction"));
 
           dp.x_extent_ = note->extent (commonx, X_AXIS);
         }
@@ -212,7 +212,7 @@ Dot_column::calc_positioning_done (SCM smob)
 
       /* icky, since this should go via a Staff_symbol_referencer
          offset callback but adding a dot overwrites Y-offset. */
-      p += (int) robust_scm2double (get_property (dp.dot_, "staff-position"), 0.0);
+      p += (int) from_scm<double> (get_property (dp.dot_, "staff-position"), 0.0);
       dp.pos_ = p;
 
       cfg.remove_collision (p);

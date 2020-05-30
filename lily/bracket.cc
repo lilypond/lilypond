@@ -80,7 +80,7 @@ Bracket::make_bracket (Grob *me, // for line properties.
                                          straight_corners[RIGHT]));
 
   if (scm_is_eq (get_property (me, "style"), ly_symbol2scm ("dashed-line"))
-      && !to_boolean (get_property (me, "dashed-edge")))
+      && !from_scm<bool> (get_property (me, "dashed-edge")))
     set_property (me, "style", ly_symbol2scm ("line"));
   for (LEFT_and_RIGHT (d))
     m.add_stencil (Line_interface::line (me, straight_corners[d],
@@ -96,11 +96,11 @@ Stencil
 Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                         Direction dir, Interval gap)
 {
-  Drul_array<Real> edge_height = robust_scm2interval (get_property (me, "edge-height"),
+  Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
                                                       Interval (1.0, 1.0));
-  Drul_array<Real> flare = robust_scm2interval (get_property (me, "bracket-flare"),
+  Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                                 Interval (0, 0));
-  Drul_array<Real> shorten = robust_scm2interval (get_property (me, "shorten-pair"),
+  Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
                                                   Interval (0, 0));
 
   // Make sure that it points in the correct direction:
@@ -110,7 +110,7 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
   start[a] = length;
 
   Drul_array<bool> connect_to_other
-    = robust_scm2booldrul (get_property (me, "connect-to-neighbor"),
+    = from_scm (get_property (me, "connect-to-neighbor"),
                            Drul_array<bool> (false, false));
 
   for (LEFT_and_RIGHT (d))

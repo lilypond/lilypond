@@ -139,7 +139,7 @@ make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
           /* Make sure they're in order of user input by adding index i.
              Don't use the direction in this priority. Smaller means closer
              to the head.  */
-          val = scm_sum (val, scm_from_size_t (index));
+          val = scm_sum (val, to_scm (index));
         }
 
       SCM preset = get_property_data (p, sym);
@@ -150,7 +150,7 @@ make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
 
   if (!priority_found)
     {
-      set_property (p, "script-priority", scm_from_size_t (index));
+      set_property (p, "script-priority", to_scm (index));
     }
 }
 
@@ -170,7 +170,7 @@ Script_engraver::process_music ()
       scripts_[i].script_ = p;
 
       SCM force_dir = get_property (ev, "direction");
-      if (is_direction (force_dir) && to_dir (force_dir))
+      if (is_scm<Direction> (force_dir) && from_scm<Direction> (force_dir))
         set_property (p, "direction", force_dir);
     }
 }
@@ -182,7 +182,7 @@ Script_engraver::acknowledge_stem (Grob_info info)
     {
       Grob *e = scripts_[i].script_;
 
-      if (to_dir (get_property (e, "side-relative-direction")))
+      if (from_scm<Direction> (get_property (e, "side-relative-direction")))
         set_object (e, "direction-source", info.grob ()->self_scm ());
 
       Side_position_interface::add_support (e, info.grob ());

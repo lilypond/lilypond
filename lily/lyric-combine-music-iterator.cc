@@ -71,8 +71,8 @@ private:
   SCM lyricsto_voice_name_;
   SCM lyricsto_voice_type_;
 
-  Moment busy_moment_;
-  Moment pending_grace_moment_;
+  Moment busy_moment_ {-Rational::infinity ()};
+  Moment pending_grace_moment_ {Rational::infinity ()};
 
   Music_iterator *lyric_iter_;
 };
@@ -81,11 +81,9 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   music_found_ = false;
   lyrics_found_ = false;
-  pending_grace_moment_.set_infinite (1);
   lyric_iter_ = 0;
   music_context_ = 0;
   lyrics_context_ = 0;
-  busy_moment_.set_infinite (-1);
   lyricsto_voice_name_ = SCM_UNDEFINED;
   lyricsto_voice_type_ = SCM_UNDEFINED;
 }
@@ -134,7 +132,7 @@ Lyric_combine_music_iterator::start_new_syllable () const
   if (!lyrics_context_)
     return false;
 
-  if (!to_boolean (get_property (lyrics_context_, "ignoreMelismata")))
+  if (!from_scm<bool> (get_property (lyrics_context_, "ignoreMelismata")))
     {
       bool m = melisma_busy (music_context_);
       if (m)
@@ -147,11 +145,7 @@ Lyric_combine_music_iterator::start_new_syllable () const
 Moment
 Lyric_combine_music_iterator::pending_moment () const
 {
-  Moment m;
-
-  m.set_infinite (1);
-
-  return m;
+  return Moment (Rational::infinity ());
 }
 
 bool
@@ -203,7 +197,7 @@ Lyric_combine_music_iterator::construct_children ()
 
   if (!lyrics_context_)
     {
-      m->origin ()->warning (_ ("argument of \\lyricsto should contain Lyrics context"));
+      m->warning (_ ("argument of \\lyricsto should contain Lyrics context"));
     }
 
   lyricsto_voice_name_ = get_property (get_music (), "associated-context");
@@ -306,7 +300,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
       && lyric_iter_->ok ())
     {
       Moment now = music_context_->now_mom ();
-      if (now.grace_part_ && !to_boolean (get_property (lyrics_context_, "includeGraceNotes")))
+      if (now.grace_part_ && !from_scm<bool> (get_property (lyrics_context_, "includeGraceNotes")))
         {
           pending_grace_moment_ = now;
           pending_grace_moment_.grace_part_ = Rational (0);
@@ -314,7 +308,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
         }
       else
         {
-          pending_grace_moment_.set_infinite (1);
+          pending_grace_moment_.main_part_ = Rational::infinity ();
         }
 
       Moment m = lyric_iter_->pending_moment ();

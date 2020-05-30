@@ -81,7 +81,7 @@ void
 Glissando_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *g = info.grob ();
-  if (to_boolean (get_property (g, "glissando-skip")))
+  if (from_scm<bool> (get_property (g, "glissando-skip")))
     return;
 
   if (stop_glissandi_)
@@ -98,7 +98,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
           else
             {
               lines_[i]->set_bound (RIGHT, note_heads[note_column_2[i]]);
-              set_property (lines_[i], "glissando-index", scm_from_int (glissando_index));
+              set_property (lines_[i], "glissando-index", to_scm (glissando_index));
               glissando_index++;
               announce_end_grob (lines_[i], note_heads[note_column_2[i]]->self_scm ());
             }
@@ -125,8 +125,8 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
             SCM candidate = scm_car (m);
             if (!scm_is_pair (candidate))
               continue;
-            int n1 = robust_scm2int (scm_car (candidate), -1);
-            int n2 = robust_scm2int (scm_cdr (candidate), -1);
+            int n1 = from_scm (scm_car (candidate), -1);
+            int n2 = from_scm (scm_cdr (candidate), -1);
             if ((n1 < 0) || (n2 < 0) || (size_t (n1) >= note_heads.size ()))
               continue;
             note_column_1.push_back (vsize (n1));
@@ -161,7 +161,7 @@ Glissando_engraver::finalize ()
       string msg = _ ("unterminated glissando");
 
       if (event_)
-        event_->origin ()->warning (msg);
+        event_->warning (msg);
       else
         warning (msg);
 

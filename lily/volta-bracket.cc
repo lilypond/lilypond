@@ -81,11 +81,11 @@ Volta_bracket_interface::print (SCM smob)
   if (!me->is_live ())
     return SCM_EOL;
 
-  Drul_array<Real> edge_height = robust_scm2interval (get_property (me, "edge-height"),
+  Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
                                                       Interval (1.0, 1.0));
-  Drul_array<Real> flare = robust_scm2interval (get_property (me, "bracket-flare"),
+  Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                                 Interval (0, 0));
-  Drul_array<Real> shorten = robust_scm2interval (get_property (me, "shorten-pair"),
+  Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
                                                   Interval (0, 0));
 
   scale_drul (&edge_height, -static_cast<Real> (get_grob_direction (me)));
@@ -140,7 +140,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 
   if (no_vertical_end || no_vertical_start)
     {
-      Drul_array<Real> edge_height = robust_scm2interval (get_property (me, "edge-height"),
+      Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
                                                           Interval (1.0, 1.0));
       if (no_vertical_start)
         edge_height[LEFT] = 0.0;
@@ -148,7 +148,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
       if (no_vertical_end)
         edge_height[RIGHT] = 0.0;
 
-      set_property (me, "edge-height", ly_interval2scm (edge_height));
+      set_property (me, "edge-height", to_scm (edge_height));
     }
 
   if (broken_last_bracket && no_vertical_end && no_vertical_start

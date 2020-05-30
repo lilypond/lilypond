@@ -32,7 +32,7 @@ Grace_iterator::process (Moment m)
   const auto now_in_grace = static_cast<bool> (m.grace_part_);
   if (in_grace_ != now_in_grace && child_iter_ && child_iter_->get_outlet ())
     {
-      send_stream_event (child_iter_->get_outlet (), "GraceChange", get_music ()->origin ());
+      send_stream_event (child_iter_->get_outlet (), "GraceChange", origin ());
     }
   in_grace_ = now_in_grace;
 

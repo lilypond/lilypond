@@ -62,7 +62,7 @@ Episema_engraver::Episema_engraver (Context *c)
 void
 Episema_engraver::listen_episema (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   // Must not ASSIGN_EVENT_ONCE here, since episema
   // can be typeset over a single neume
   event_drul_[d] = ev;
@@ -74,7 +74,7 @@ Episema_engraver::process_music ()
   if (event_drul_[START])
     {
       if (current_event_)
-        event_drul_[START]->origin ()->warning (_ ("already have an episema"));
+        event_drul_[START]->warning (_ ("already have an episema"));
       else
         {
           current_event_ = event_drul_[START];
@@ -86,8 +86,7 @@ Episema_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-        event_drul_[STOP]
-        ->origin ()->warning (_ ("cannot find start of episema"));
+        event_drul_[STOP]->warning (_ ("cannot find start of episema"));
       else
         {
           finished_ = span_;
@@ -136,7 +135,7 @@ Episema_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_event_->origin ()->warning (_ ("unterminated episema"));
+      current_event_->warning (_ ("unterminated episema"));
       span_->suicide ();
       span_ = 0;
     }

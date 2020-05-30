@@ -52,5 +52,5 @@ LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
       Interval iv2 = s2->extent (Y_AXIS);
       ret = iv2[UP] - iv1[DOWN];
     }
-  return scm_from_double (ret);
+  return to_scm (ret);
 }

@@ -45,18 +45,17 @@ Context_specced_music_iterator::construct_children ()
     c_id = ly_scm2string (ci);
   SCM ops = get_property (get_music (), "property-operations");
   Direction dir
-    = robust_scm2dir (get_property (get_music (), "search-direction"), CENTER);
+    = from_scm (get_property (get_music (), "search-direction"), CENTER);
 
   Context *a = 0;
 
-  if (to_boolean (get_property (get_music (), "create-new")))
+  if (from_scm<bool> (get_property (get_music (), "create-new")))
     {
       a = get_outlet ()->create_unique_context (dir, ct, c_id, ops);
       if (!a)
         {
-          Input *origin = get_music ()->origin ();
-          origin->warning (_f ("cannot create context: %s",
-                               Context::diagnostic_id (ct, c_id).c_str ()));
+          warning (_f ("cannot create context: %s",
+                       Context::diagnostic_id (ct, c_id).c_str ()));
         }
     }
   else
@@ -72,9 +71,8 @@ Context_specced_music_iterator::construct_children ()
       // behavior for DOWN mode, should we do it for UP too?
       if (!a && (dir != DOWN))
         {
-          Input *origin = get_music ()->origin ();
-          origin->warning (_f ("cannot find or create context: %s",
-                               Context::diagnostic_id (ct, c_id).c_str ()));
+          warning (_f ("cannot find or create context: %s",
+                       Context::diagnostic_id (ct, c_id).c_str ()));
         }
     }
 

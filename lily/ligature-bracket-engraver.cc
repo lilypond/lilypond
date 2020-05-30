@@ -49,7 +49,7 @@ private:
 void
 Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (events_drul_[d], ev);
 }
 
@@ -69,7 +69,7 @@ Ligature_bracket_engraver::process_music ()
     {
       if (!ligature_)
         {
-          events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
+          events_drul_[STOP]->warning (_ ("cannot find start of ligature"));
           return;
         }
 
@@ -82,7 +82,7 @@ Ligature_bracket_engraver::process_music ()
     {
       if (ligature_)
         {
-          events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+          events_drul_[START]->warning (_ ("already have a ligature"));
           return;
         }
 

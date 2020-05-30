@@ -113,7 +113,7 @@ Pango_font::register_font_file (const string &filename,
   scm_hash_set_x (physical_font_tab_,
                   ly_string2scm (ps_name),
                   scm_list_2 (ly_string2scm (filename),
-                              scm_from_int (face_index)));
+                              to_scm (face_index)));
 }
 
 size_t
@@ -336,11 +336,11 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
       b_sub.scale (scale_);
 
-      *tail = scm_cons (scm_list_5 (scm_from_double (b_sub[X_AXIS][RIGHT] - b_sub[X_AXIS][LEFT]),
-                                    scm_cons (scm_from_double (b_sub[Y_AXIS][DOWN]),
-                                              scm_from_double (b_sub[Y_AXIS][UP])),
-                                    scm_from_double (ggeo.x_offset * scale_),
-                                    scm_from_double (- ggeo.y_offset * scale_),
+      *tail = scm_cons (scm_list_5 (to_scm (b_sub[X_AXIS][RIGHT] - b_sub[X_AXIS][LEFT]),
+                                    scm_cons (to_scm (b_sub[Y_AXIS][DOWN]),
+                                              to_scm (b_sub[Y_AXIS][UP])),
+                                    to_scm (ggeo.x_offset * scale_),
+                                    to_scm (- ggeo.y_offset * scale_),
                                     char_id),
                         SCM_EOL);
       tail = SCM_CDRLOC (*tail);
@@ -394,7 +394,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
       SCM expr = scm_list_n (ly_symbol2scm ("glyph-string"),
                              self_scm (),
                              ly_string2scm (ps_name),
-                             scm_from_double (size),
+                             to_scm (size),
                              scm_from_bool (cid_keyed),
                              ly_quote_scm (glyph_exprs),
                              SCM_UNDEFINED);

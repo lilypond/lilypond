@@ -201,21 +201,21 @@ Piano_pedal_engraver::initialize ()
 void
 Piano_pedal_engraver::listen_sostenuto (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (info_list_[SOSTENUTO].event_drul_[d], ev);
 }
 
 void
 Piano_pedal_engraver::listen_sustain (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (info_list_[SUSTAIN].event_drul_[d], ev);
 }
 
 void
 Piano_pedal_engraver::listen_una_corda (Stream_event *ev)
 {
-  Direction d = to_dir (get_property (ev, "span-direction"));
+  Direction d = from_scm<Direction> (get_property (ev, "span-direction"));
   ASSIGN_EVENT_ONCE (info_list_[UNA_CORDA].event_drul_[d], ev);
 }
 
@@ -269,7 +269,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       string msg = _f ("expect 3 strings for piano pedals, found: %ld",
                        scm_ilength (strings));
       if (m)
-        m->origin ()->warning (msg);
+        m->warning (msg);
       else
         warning (msg);
 
@@ -281,7 +281,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
         {
           if (!p->start_ev_)
-            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
+            p->event_drul_[STOP]->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
           else
             s = scm_cadr (strings);
           p->start_ev_ = p->event_drul_[START];
@@ -292,7 +292,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
         {
           if (!p->start_ev_)
-            p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
+            p->event_drul_[STOP]->warning (_f ("cannot find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
           else
             s = scm_caddr (strings);
           p->start_ev_ = 0;
@@ -327,7 +327,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
   if (!p->bracket_ && p->event_drul_[STOP])
     {
       string msg = _f ("cannot find start of piano pedal bracket: `%s'", p->type_->base_name_.c_str ());
-      p->event_drul_[STOP]->origin ()->warning (msg);
+      p->event_drul_[STOP]->warning (msg);
       p->event_drul_[STOP] = 0;
     }
 
@@ -348,7 +348,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
           SCM flare = get_property (p->bracket_, "bracket-flare");
           if (scm_is_pair (flare))
             set_property (p->bracket_, "bracket-flare", scm_cons (scm_car (flare),
-                                                                  scm_from_double (0)));
+                                                                  to_scm (0)));
         }
 
       p->finished_bracket_ = p->bracket_;
@@ -374,7 +374,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->finished_bracket_)
         {
           SCM flare = get_property (p->bracket_, "bracket-flare");
-          set_property (p->bracket_, "bracket-flare", scm_cons (scm_from_double (0), scm_cdr (flare)));
+          set_property (p->bracket_, "bracket-flare", scm_cons (to_scm (0), scm_cdr (flare)));
         }
 
       /* Set this property for 'mixed style' pedals,    Ped._______/\ ,

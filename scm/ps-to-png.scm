@@ -33,54 +33,6 @@
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
 
-(define (search-pngtopam)
-  (search-executable
-   (if (eq? PLATFORM 'windows)
-       '("pngtopam.exe" "pngtopnm.exe")
-       '("pngtopam" "pngtopnm"))))
-
-(define (search-pamscale)
-  (search-executable
-   (if (eq? PLATFORM 'windows)
-       '("pamscale.exe" "pnmscale.exe")
-       '("pamscale" "pnmscale"))))
-
-(define (search-pnmtopng)
-  (search-executable
-   (if (eq? PLATFORM 'windows)
-       '("pnmtopng.exe")
-       '("pnmtopng"))))
-
-(define (scale-down-image factor file)
-  (let* ((port-tmp1 (make-tmpfile))
-         (tmp1-name (port-filename port-tmp1))
-         (port-tmp2 (make-tmpfile))
-         (tmp2-name (port-filename port-tmp2))
-         ;; Netpbm commands (pngtopnm, pnmscale, pnmtopng)
-         ;; outputs only standard output instead of a file.
-         ;; So we need pipe and redirection.
-         ;; However, ly:system can't handle them.
-         ;; Therefore, we use ly:system-with-shell.
-         (cmd
-          (ly:format
-           "~a \"~a\" | ~a -reduce ~a | ~a -compression 9 > \"~a\""
-           (search-pngtopam) tmp1-name
-           (search-pamscale) factor
-           (search-pnmtopng)
-           tmp2-name)))
-
-    (close-port port-tmp1)
-    (close-port port-tmp2)
-    (ly:debug (_ "Copying `~a' to `~a'...") file tmp1-name)
-    (copy-binary-file file tmp1-name)
-    (ly:system-with-shell cmd)
-    (ly:debug (_ "Copying `~a' to `~a'...") tmp2-name file)
-    (copy-binary-file tmp2-name file)
-    (ly:debug (_ "Deleting `~a'...") tmp1-name)
-    (delete-file tmp1-name)
-    (ly:debug (_ "Deleting `~a'...") tmp2-name)
-    (delete-file tmp2-name)))
-
 (define-public (ps-page-count ps-name)
   (let* ((byte-count 10240)
          (header (gulp-file ps-name byte-count))
@@ -122,12 +74,11 @@
           (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
           (output-file (if multi-page? pngn-gs png1-gs))
 
-          (*unspecified* (if #f #f))
           (gs-cmd
-           (remove (lambda (x) (eq? x *unspecified*))
+           (filter string?
                    (list
                     (search-gs)
-                    (if (ly:get-option 'verbose) *unspecified* "-q")
+                    (if (not (ly:get-option 'verbose)) "-q")
                     (if (or (ly:get-option 'gs-load-fonts)
                             (ly:get-option 'gs-load-lily-fonts)
                             (eq? PLATFORM 'windows))
@@ -135,26 +86,25 @@
                         "-dSAFER")
                     "-dNOPAUSE"
                     "-dBATCH")))
-          (args
-           (remove (lambda (x) (eq? x *unspecified*))
+          (args (filter string?
                    (list
                     (if is-eps
                         "-dEPSCrop"
                         (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
-                    (if is-eps
-                        *unspecified*
+                    (if (not is-eps)
                         (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
                     "-dAutoRotatePages=/None"
                     "-dPrinted=false")))
           (alpha-args "/GraphicsAlphaBits 4 /TextAlphaBits 4")
           (hw-resolution (* anti-alias-factor resolution))
           (hw-resolution-arg
-           (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution))
+           (ly:format "/HWResolution [~a ~a] /DownScaleFactor ~a" hw-resolution hw-resolution anti-alias-factor))
           (device-args (string-append alpha-args " " hw-resolution-arg))
           (gs-cmd-output
            (list
             "-dGraphicsAlphaBits=4"
             "-dTextAlphaBits=4"
+            (ly:format "-dDownScaleFactor=~a" anti-alias-factor)
             (ly:format "-r~a" hw-resolution)
             (ly:format "-sDEVICE=~a" pixmap-format)
             (string-append "-sOutputFile=" output-file)
@@ -181,7 +131,4 @@
                        (cdr files)))
            ))
 
-     (if (not (= 1 anti-alias-factor))
-         (for-each
-          (lambda (f) (scale-down-image anti-alias-factor f)) files))
      files)))

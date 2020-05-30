@@ -61,7 +61,7 @@ Semi_tie_column::calc_positioning_done (SCM smob)
 
   Tie_formatting_problem problem;
 
-  problem.from_semi_ties (lv_ties, to_dir (get_property (me, "head-direction")));
+  problem.from_semi_ties (lv_ties, from_scm<Direction> (get_property (me, "head-direction")));
 
   SCM manual_configs = get_property (me, "tie-configuration");
   problem.set_manual_tie_configuration (manual_configs);
@@ -91,13 +91,13 @@ Semi_tie_column::calc_head_direction (SCM smob)
   Direction d = LEFT;
   for (vsize i = 0; i < ties.size (); i++)
     {
-      Direction this_d = to_dir (get_property (ties[i], "head-direction"));
+      Direction this_d = from_scm<Direction> (get_property (ties[i], "head-direction"));
       if (i > 0 && d != this_d)
         {
           programming_error ("all semi-ties in a semi-tie-column should have the same head-direction");
-          return scm_from_int (d);
+          return to_scm (d);
         }
       d = this_d;
     }
-  return scm_from_int (d);
+  return to_scm (d);
 }

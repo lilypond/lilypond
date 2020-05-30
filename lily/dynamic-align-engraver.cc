@@ -91,7 +91,7 @@ Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info info)
    * create a new spanner
    */
   bool spanner_broken = (current_dynamic_spanner_ == sp)
-                        && to_boolean (get_property (sp, "spanner-broken"));
+                        && from_scm<bool> (get_property (sp, "spanner-broken"));
   if (spanner_broken)
     {
       if (ended_line_)
@@ -131,7 +131,7 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
   if (line_ && cause)
     {
       Direction line_dir = get_grob_direction (line_);
-      Direction grob_dir = to_dir (get_property (cause, "direction"));
+      Direction grob_dir = from_scm<Direction> (get_property (cause, "direction"));
 
       // If we have an explicit direction for the new dynamic grob
       // that differs from the current line spanner, break the spanner
@@ -159,7 +159,7 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
 
   if (cause)
     {
-      if (Direction d = to_dir (get_property (cause, "direction")))
+      if (Direction d = from_scm<Direction> (get_property (cause, "direction")))
         set_grob_direction (line_, d);
     }
 }
@@ -220,7 +220,7 @@ Dynamic_align_engraver::stop_translation_timestep ()
   // add any more support points (needed e.g. for style=none, where the
   // invisible spanner should NOT be shifted since we don't have a line).
   bool spanner_broken = current_dynamic_spanner_
-                        && to_boolean (get_property (current_dynamic_spanner_, "spanner-broken"));
+                        && from_scm<bool> (get_property (current_dynamic_spanner_, "spanner-broken"));
   for (vsize i = 0; line_ && !spanner_broken && i < support_.size (); i++)
     Side_position_interface::add_support (line_, support_[i]);
 

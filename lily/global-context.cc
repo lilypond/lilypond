@@ -42,8 +42,8 @@ Global_context::Global_context (Output_def *o)
   output_def_ = o;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
 
-  now_mom_.set_infinite (-1);
-  prev_mom_.set_infinite (-1);
+  now_mom_.main_part_ = -Rational::infinity ();
+  prev_mom_.main_part_ = -Rational::infinity ();
 
   /* We only need the most basic stuff to bootstrap the context tree */
   event_source ()->add_listener (GET_LISTENER (this, create_context_from_event),
@@ -142,15 +142,14 @@ Global_context::get_output ()
 void
 Global_context::run_iterator_on_me (Music_iterator *iter)
 {
-  prev_mom_.set_infinite (-1);
-  now_mom_.set_infinite (-1);
+  prev_mom_.main_part_ = -Rational::infinity ();
+  now_mom_.main_part_ = -Rational::infinity ();
   Moment final_mom = iter->get_music ()->get_length ();
 
   bool first = true;
   while (iter->ok () || get_moments_left ())
     {
-      Moment w;
-      w.set_infinite (1);
+      Moment w (Rational::infinity ());
       if (iter->ok ())
         w = iter->pending_moment ();
 

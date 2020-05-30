@@ -85,8 +85,8 @@ Lyric_engraver::process_music ()
   Context *voice = get_voice_to_lyrics (context ());
   if (last_text_
       && voice
-      && to_boolean (get_property (voice, "melismaBusy"))
-      && !to_boolean (get_property (context (), "ignoreMelismata")))
+      && from_scm<bool> (get_property (voice, "melismaBusy"))
+      && !from_scm<bool> (get_property (context (), "ignoreMelismata")))
     set_property (last_text_, "self-alignment-X",
                               get_property (this, "lyricMelismaAlignment"));
 }
@@ -94,7 +94,7 @@ Lyric_engraver::process_music ()
 Context *
 get_voice_to_lyrics (Context *lyrics)
 {
-  bool searchForVoice = to_boolean (get_property (lyrics, "searchForVoice"));
+  bool searchForVoice = from_scm<bool> (get_property (lyrics, "searchForVoice"));
 
   SCM avc = get_property (lyrics, "associatedVoiceContext");
   if (Context *c = unsmob<Context> (avc))
@@ -184,7 +184,7 @@ Lyric_engraver::stop_translation_timestep ()
             {
               text_->set_parent (head->get_parent (X_AXIS), X_AXIS);
               if (melisma_busy (voice)
-                  && !to_boolean (get_property (this, "ignoreMelismata")))
+                  && !from_scm<bool> (get_property (this, "ignoreMelismata")))
                 set_property (text_, "self-alignment-X",
                                      get_property (this, "lyricMelismaAlignment"));
             }

@@ -183,8 +183,8 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 
       if (!only_do_permissions && scm_is_number (pen))
         {
-          Real new_pen = robust_scm2double (cur_pen, 0.0) + scm_to_double (pen);
-          set_property (command_column_, pen_str.c_str (), scm_from_double (new_pen));
+          Real new_pen = from_scm<double> (cur_pen, 0.0) + scm_to_double (pen);
+          set_property (command_column_, pen_str.c_str (), to_scm (new_pen));
           set_property (command_column_, perm_str.c_str (), ly_symbol2scm ("allow"));
         }
       else
@@ -225,7 +225,7 @@ Paper_column_engraver::process_music ()
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
-  if (to_boolean (get_property (this, "skipTypesetting")))
+  if (from_scm<bool> (get_property (this, "skipTypesetting")))
     return;
 
   SCM m = now_mom ().smobbed_copy ();
@@ -262,7 +262,7 @@ Paper_column_engraver::stop_translation_timestep ()
     }
   items_.clear ();
 
-  if (to_boolean (get_property (this, "forbidBreak"))
+  if (from_scm<bool> (get_property (this, "forbidBreak"))
       && breaks_) /* don't honour forbidBreak if it occurs on the first moment of a score */
     {
       set_property (command_column_, "page-turn-permission", SCM_EOL);
@@ -295,7 +295,7 @@ void
 Paper_column_engraver::start_translation_timestep ()
 {
   break_events_.clear ();
-  if (!first_ && !to_boolean (get_property (this, "skipTypesetting")))
+  if (!first_ && !from_scm<bool> (get_property (this, "skipTypesetting")))
     {
       make_columns ();
       made_columns_ = true;

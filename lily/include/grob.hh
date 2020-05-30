@@ -22,13 +22,14 @@
 
 #include "box.hh"
 #include "virtual-methods.hh"
+#include "diagnostics.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
 #include <set>
 
-class Grob : public Smob<Grob>
+class Grob : public Smob<Grob>, public Diagnostics
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
@@ -62,6 +63,9 @@ protected:
   SCM try_callback (SCM, SCM);
   SCM try_callback_on_alist (SCM *, SCM, SCM);
   void internal_set_value_on_alist (SCM *alist, SCM sym, SCM val);
+
+  /* messages */
+  Input *origin () const override;
 
 public:
 
@@ -122,10 +126,6 @@ public:
   Stream_event *event_cause () const;
   Stream_event *ultimate_event_cause () const;
 
-  /* messages */
-  void warning (const std::string &) const;
-  void programming_error (const std::string &) const;
-
   /* class hierarchy */
   virtual System *get_system () const;
   static System *get_system (Grob *);
@@ -174,10 +174,6 @@ public:
 
   /* skylines */
   virtual Interval_t<int> spanned_rank_interval () const;
-  virtual bool pure_is_visible (vsize /*start*/, vsize /*end*/) const
-  {
-    return true;
-  }
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
   static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis, bool, int, int, bool, bool);

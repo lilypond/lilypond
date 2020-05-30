@@ -157,6 +157,45 @@ get_postscript_name (FT_Face face)
 
   // For OTF and OTC fonts, we use data from the font's 'CFF' table only
   // because other tables are not embedded in the output PS file.
+  // However, parsing CFF takes time, so we use a cache.
+  std::string cff_name;
+  static std::map<std::string, std::string> cff_name_cache;
+  auto it = cff_name_cache.find (face_ps_name);
+  if (it == cff_name_cache.end ())
+    {
+      cff_name = get_cff_name (face);
+
+      if (cff_name == "")
+        {
+          warning (_f ("cannot get CFF name from font %s",
+                       face_ps_name.c_str ()));
+          return face_ps_name;
+        }
+      if (face_ps_name != cff_name)
+        {
+          debug_output (_f ("Subsitute font name: %s => %s",
+                            face_ps_name.c_str (),
+                            cff_name.c_str ()));
+        }
+      else
+        {
+          debug_output (_f ("CFF name for font %s is the same.",
+                            cff_name.c_str ()));
+        }
+
+      cff_name_cache[face_ps_name] = cff_name;
+    }
+  else
+    {
+      cff_name = it->second;
+    }
+
+  return cff_name;
+}
+
+std::string
+get_cff_name (FT_Face face)
+{
   string cff_table = get_otf_table (face, "CFF ");
 
   FT_Open_Args args;
@@ -174,10 +213,9 @@ get_postscript_name (FT_Face face)
                                       &cff_face);
   if (error_code)
     {
-      warning (_f ("cannot read CFF %s: %s",
-                   face_ps_name,
+      warning (_f ("cannot read CFF: %s",
                    freetype_error_string (error_code).c_str ()));
-      return face_ps_name;
+      return "";
     }
 
   string ret;
@@ -191,8 +229,7 @@ get_postscript_name (FT_Face face)
       //  FreeType 2.6.2+ has this bug fixed.)
       // So we need direct parsing of the 'CFF' table, in this case.
 
-      debug_output (_f ("Directly parsing 'CFF' table of font %s.",
-                        face_ps_name.c_str ()));
+      debug_output (_ ("Directly parsing 'CFF' table of font."));
 
       // See Adobe technote '5176.CFF.pdf', sections 2 and 5-7.
       size_t hdrsize = static_cast<unsigned char>(cff_table.at (2));
@@ -230,16 +267,11 @@ get_postscript_name (FT_Face face)
 
       if (ret.empty ())
         {
-          warning (_f ("cannot get font %s CFF name", face_ps_name.c_str ()));
-          ret = face_ps_name;
+          warning (_ ("cannot get CFF name"));
+          ret = "";
         }
     }
 
-  if (face_ps_name != ret)
-    {
-      debug_output (_f ("Subsitute font name: %s => %s", face_ps_name.c_str (),
-                        ret.c_str ()));
-    }
   FT_Done_Face (cff_face);
 
   return ret;
@@ -298,7 +330,7 @@ Open_type_font::attachment_point (const string &glyph_name) const
   SCM char_alist = entry;
   SCM att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment"), char_alist));
 
-  return point_constant * ly_scm2offset (att_scm);
+  return point_constant * from_scm<Offset> (att_scm);
 }
 
 Box
@@ -307,7 +339,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
   if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
     {
       SCM box = scm_hashq_ref (lily_index_to_bbox_table_,
-                               scm_from_unsigned_integer (signed_idx), SCM_BOOL_F);
+                               to_scm (signed_idx), SCM_BOOL_F);
       Box *box_ptr = unsmob<Box> (box);
       if (box_ptr)
         return *box_ptr;
@@ -343,7 +375,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
           b.scale (point_constant);
 
           scm_hashq_set_x (lily_index_to_bbox_table_,
-                           scm_from_unsigned_integer (signed_idx),
+                           to_scm (signed_idx),
                            b.smobbed_copy ());
           return b;
         }
@@ -430,7 +462,7 @@ Open_type_font::design_size () const
                                which will trip errors more
                                quickly. --hwn.
                              */
-                             scm_from_unsigned_integer (1));
+                             to_scm (1));
   return scm_to_double (entry) * static_cast<Real> (point_constant);
 }
 

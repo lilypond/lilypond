@@ -55,7 +55,7 @@ internal_set_option (SCM var,
                      SCM val)
 {
   string varstr = robust_symbol2string (var, "");
-  bool valbool = to_boolean (val);
+  bool valbool = from_scm<bool> (val);
   SCM val_scm_bool = scm_from_bool (valbool);
   if (0)
     ;
@@ -216,7 +216,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   if (varstr.substr (0, 3) == string ("no-"))
     {
       var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3).c_str ());
-      val = scm_from_bool (!to_boolean (val));
+      val = scm_from_bool (!from_scm<bool> (val));
     }
 
   SCM handle = scm_hashq_get_handle (option_hash, var);

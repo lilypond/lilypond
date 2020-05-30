@@ -173,7 +173,7 @@ Music_iterator::report_event (Music *m)
     FIXME: then don't do it.
   */
   if (!m->is_mus_type ("event"))
-    m->origin ()->programming_error ("Sending non-event to context");
+    m->programming_error ("Sending non-event to context");
 
   m->send_to_context (get_outlet ());
 }
@@ -184,6 +184,14 @@ Music *
 Music_iterator::get_music () const
 {
   return music_;
+}
+
+Input *
+Music_iterator::origin () const
+{
+  if (Music *m = get_music ())
+    return m->origin ();
+  return nullptr;
 }
 
 /****************************************************************/

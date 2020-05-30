@@ -50,7 +50,7 @@ Bar_check_iterator::process (Moment m)
       Context *tr = get_outlet ();
 
       SCM check = get_property (tr, "ignoreBarChecks");
-      if (to_boolean (check))
+      if (from_scm<bool> (check))
         return;
 
       SCM mp = get_property (tr, "measurePosition");
@@ -63,7 +63,7 @@ Bar_check_iterator::process (Moment m)
       if (where->main_part_)
         {
           bool warn = true;
-          if (to_boolean (sync))
+          if (from_scm<bool> (sync))
             {
               SCM mp;
               tr = tr->where_defined (ly_symbol2scm ("measurePosition"), &mp);
@@ -81,8 +81,7 @@ Bar_check_iterator::process (Moment m)
             }
 
           if (warn)
-            get_music ()->origin ()->warning (_f ("barcheck failed at: %s",
-                                                  where->to_string ()));
+            warning (_f ("barcheck failed at: %s", where->to_string ()));
         }
     }
 }

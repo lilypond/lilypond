@@ -100,7 +100,7 @@ Separation_item::calc_skylines (SCM smob)
     vertical skylines are handled (where padding is not built into
     the skyline).
   */
-  Real vp = robust_scm2double (get_property (me, "skyline-vertical-padding"), 0.0);
+  Real vp = from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0);
   sp[LEFT] = sp[LEFT].padded (vp);
   sp[RIGHT] = sp[RIGHT].padded (vp);
   return sp.smobbed_copy ();
@@ -162,9 +162,9 @@ Separation_item::boxes (Grob *me, Grob *left)
       Interval y (il->pure_y_extent (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
-      Interval extra_width = robust_scm2interval (get_property (elts[i], "extra-spacing-width"),
+      Interval extra_width = from_scm (get_property (elts[i], "extra-spacing-width"),
                                                   Interval (-0.1, 0.1));
-      Interval extra_height = robust_scm2interval (get_property (elts[i], "extra-spacing-height"),
+      Interval extra_height = from_scm (get_property (elts[i], "extra-spacing-height"),
                                                    Interval (0.0, 0.0));
 
       // The conventional empty extent is (+inf.0 . -inf.0)

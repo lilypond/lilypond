@@ -136,9 +136,8 @@ Quote_iterator::construct_children ()
                                                         name, c_id, SCM_EOL);
       if (!cue_context)
         {
-          Input *origin = get_music ()->origin ();
-          origin->warning (_f ("cannot find or create context: %s",
-                               Context::diagnostic_id (name, c_id).c_str ()));
+          warning (_f ("cannot find or create context: %s",
+                       Context::diagnostic_id (name, c_id).c_str ()));
         }
     }
 
@@ -180,9 +179,7 @@ Quote_iterator::quote_ok () const
 Moment
 Quote_iterator::pending_moment () const
 {
-  Rational infty;
-  infty.set_infinite (1);
-  Moment m (infty);
+  Moment m (Rational::infinity ());
 
   if (Music_wrapper_iterator::ok ())
     m = std::min (m, Music_wrapper_iterator::pending_moment ());

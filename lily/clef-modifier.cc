@@ -45,16 +45,16 @@ Clef_modifier::calc_parent_alignment (SCM smob)
       // the value should be a pair of numbers - first is the alignment
       // for modifiers below the clef, second for those above.
       if (scm_is_pair (entry_value))
-        if (robust_scm2dir (get_property (me, "direction"), DOWN) == DOWN)
+        if (from_scm (get_property (me, "direction"), DOWN) == DOWN)
           return scm_car (entry_value);
         else
           return scm_cdr (entry_value);
 
       else // default alignment = centered
-        return scm_from_double (0);
+        return to_scm (0);
     }
   else // default alignment = centered
-    return scm_from_double (0);
+    return to_scm (0);
 }
 
 ADD_INTERFACE (Clef_modifier,

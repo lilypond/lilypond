@@ -50,7 +50,7 @@ Staff_symbol::print (SCM smob)
     --hwn.
   */
   Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  t *= robust_scm2double (get_property (me, "thickness"), 1.0);
+  t *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
   for (LEFT_and_RIGHT (d))
     {
@@ -113,7 +113,7 @@ Staff_symbol::line_positions (Grob *me)
   SCM line_positions = get_property (me, "line-positions");
   if (scm_is_pair (line_positions))
     {
-      return ly_scm2floatvector (line_positions);
+      return from_scm_list<std::vector<Real>> (line_positions);
     }
   else
     {
@@ -136,7 +136,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
     {
       SCM posns = get_property (head, "ledger-positions");
       if (scm_is_pair (posns))
-        return ly_scm2floatvector (posns);
+        return from_scm_list<std::vector<Real>> (posns);
     }
 
   // ...or via custom ledger positions function
@@ -145,13 +145,13 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
     {
       SCM func = scm_eval (lp_function, scm_interaction_environment ());
       if (ly_is_procedure (func))
-        return ly_scm2floatvector (scm_call_2 (func,
+        return from_scm_list<std::vector<Real>> (scm_call_2 (func,
                                                me->self_scm (),
-                                               scm_from_int (pos)));
+                                               to_scm (pos)));
     }
 
   SCM ledger_positions = get_property (me, "ledger-positions");
-  Real ledger_extra = robust_scm2double (get_property (me, "ledger-extra"), 0);
+  Real ledger_extra = from_scm<double> (get_property (me, "ledger-extra"), 0);
   vector<Real> line_positions = Staff_symbol::line_positions (me);
   vector<Real> values;
 
@@ -281,7 +281,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
 int
 Staff_symbol::internal_line_count (Grob *me)
 {
-  return robust_scm2int (get_property (me, "line-count"), 0);
+  return from_scm (get_property (me, "line-count"), 0);
 }
 
 Real
@@ -289,7 +289,7 @@ Staff_symbol::staff_space (Grob *me)
 {
   Real ss = me->layout ()->get_dimension (ly_symbol2scm ("staff-space"));
 
-  return robust_scm2double (get_property (me, "staff-space"), 1.0) * ss;
+  return from_scm<double> (get_property (me, "staff-space"), 1.0) * ss;
 }
 
 Real
@@ -297,14 +297,14 @@ Staff_symbol::get_line_thickness (Grob *me)
 {
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
-  return robust_scm2double (get_property (me, "thickness"), 1.0) * lt;
+  return from_scm<double> (get_property (me, "thickness"), 1.0) * lt;
 }
 
 Real
 Staff_symbol::get_ledger_line_thickness (Grob *me)
 {
   SCM lt_pair = get_property (me, "ledger-line-thickness");
-  Offset z = robust_scm2offset (lt_pair, Offset (1.0, 0.1));
+  Offset z = from_scm (lt_pair, Offset (1.0, 0.1));
 
   return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS] * staff_space (me);
 }
@@ -323,7 +323,7 @@ Staff_symbol::height (SCM smob)
 
       // account for top and bottom line thickness
       Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-      t *= robust_scm2double (get_property (me, "thickness"), 1.0);
+      t *= from_scm<double> (get_property (me, "thickness"), 1.0);
       y_ext.widen (t / 2);
     }
   else
@@ -331,7 +331,7 @@ Staff_symbol::height (SCM smob)
       y_ext = Interval (0, 0);
     }
 
-  return ly_interval2scm (y_ext);
+  return to_scm (y_ext);
 }
 
 bool

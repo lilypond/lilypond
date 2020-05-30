@@ -107,7 +107,7 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
 {
   Moment *e = unsmob<Moment> (get_property (this, "measurePosition"));
   Moment *l = unsmob<Moment> (get_property (this, "measureLength"));
-  if (!e || !l || !to_boolean (get_property (this, "timing")))
+  if (!e || !l || !from_scm<bool> (get_property (this, "timing")))
     {
       return Moment (0, 0);
     }
@@ -123,8 +123,9 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
           /*
             within a unit - go to the end of that
           */
-          result = unit->main_part_
+          auto r = unit->main_part_
                    * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
+          result = Moment (r);
         }
       else
         {
@@ -158,7 +159,7 @@ Completion_rest_engraver::make_rest (Stream_event *ev)
       SCM c0 = get_property (this, "middleCPosition");
       if (scm_is_number (c0))
         pos += scm_to_int (c0);
-      set_property (rest, "staff-position", scm_from_int (pos));
+      set_property (rest, "staff-position", to_scm (pos));
     }
 
   return rest;
@@ -195,11 +196,11 @@ Completion_rest_engraver::process_music ()
         factor = scm_call_2 (factor,
                              context ()->self_scm (),
                              rest_dur.smobbed_copy ());
-      factor_ = robust_scm2rational (factor, rest_dur.factor ());
+      factor_ = from_scm<Rational> (factor, rest_dur.factor ());
       left_to_do_ = orig->get_length ();
     }
   Moment nb = next_moment (rest_dur.get_length ());
-  if (nb.main_part_ && nb < rest_dur.get_length ())
+  if (nb.main_part_ && nb < Moment (rest_dur.get_length ()))
     {
       rest_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
     }
@@ -218,7 +219,7 @@ Completion_rest_engraver::process_music ()
       set_property (event, "pitch", pits);
       set_property (event, "duration", rest_dur.smobbed_copy ());
       set_property (event, "length", Moment (rest_dur.get_length ()).smobbed_copy ());
-      set_property (event, "duration-log", scm_from_int (rest_dur.duration_log ()));
+      set_property (event, "duration-log", to_scm (rest_dur.duration_log ()));
 
       Item *rest = make_rest (event);
       if (need_clone)
@@ -228,7 +229,11 @@ Completion_rest_engraver::process_music ()
 
   left_to_do_ -= rest_dur.get_length ();
   if (left_to_do_)
-    find_global_context ()->add_moment_to_process (now.main_part_ + rest_dur.get_length ());
+    {
+      find_global_context ()
+      ->add_moment_to_process (Moment (now.main_part_
+                                       + rest_dur.get_length ()));
+    }
   /*
     don't do complicated arithmetic with grace rests.
   */

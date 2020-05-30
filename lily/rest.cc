@@ -41,7 +41,7 @@ Rest::y_offset_callback (SCM smob)
   int duration_log = scm_to_int (get_property (me, "duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
-  return scm_from_double (ss * 0.5 * Rest::staff_position_internal (me, duration_log, get_grob_direction (me)));
+  return to_scm (ss * 0.5 * Rest::staff_position_internal (me, duration_log, get_grob_direction (me)));
 }
 
 Real
@@ -56,7 +56,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
   if (position_override)
     {
       pos
-        = robust_scm2double (get_property (me, "staff-position"), 0);
+        = from_scm<double> (get_property (me, "staff-position"), 0);
 
       /*
         semibreve rests are positioned one staff line off
@@ -74,7 +74,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
       return pos;
     }
 
-  Real vpos = dir * robust_scm2int (get_property (me, "voiced-position"), 0);
+  Real vpos = dir * from_scm (get_property (me, "voiced-position"), 0);
   pos = vpos;
 
   if (duration_log > 1)
@@ -245,7 +245,7 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   if (durlog < 0)
     {
-      Real fs = pow (2, robust_scm2double (get_property (me, "font-size"), 0) / 6);
+      Real fs = pow (2, from_scm<double> (get_property (me, "font-size"), 0) / 6);
       Real ss = Staff_symbol_referencer::staff_space (me);
       out.translate_axis (ss - fs, Y_AXIS);
     }
@@ -306,7 +306,7 @@ Rest::generic_extent_callback (Grob *me, Axis a)
     with ledgered rests.
   */
   SCM m = brew_internal_stencil (me, a != X_AXIS);
-  return ly_interval2scm (unsmob<Stencil> (m)->extent (a));
+  return to_scm (unsmob<Stencil> (m)->extent (a));
 }
 
 MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
@@ -317,7 +317,7 @@ Rest::pure_height (SCM smob,
 {
   Grob *me = unsmob<Grob> (smob);
   SCM m = brew_internal_stencil (me, false);
-  return ly_interval2scm (unsmob<Stencil> (m)->extent (Y_AXIS));
+  return to_scm (unsmob<Stencil> (m)->extent (Y_AXIS));
 }
 
 ADD_INTERFACE (Rest,

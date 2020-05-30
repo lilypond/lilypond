@@ -68,16 +68,16 @@ Lyric_extender::print (SCM smob)
      note head, but haven't found a pattern in it yet. --hwn 1/1/04  */
   SCM minlen = get_property (me, "minimum-length");
   Real right_point
-    = left_point + (robust_scm2double (minlen, 0));
+    = left_point + (from_scm<double> (minlen, 0));
 
   right_point = std::min (right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
 
   if (heads.size ())
     right_point = std::max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
-  Real h = sl * robust_scm2double (get_property (me, "thickness"), 0);
-  Drul_array<Real> paddings (robust_scm2double (get_property (me, "left-padding"), h),
-                             robust_scm2double (get_property (me, "right-padding"), h));
+  Real h = sl * from_scm<double> (get_property (me, "thickness"), 0);
+  Drul_array<Real> paddings (from_scm<double> (get_property (me, "left-padding"), h),
+                             from_scm<double> (get_property (me, "right-padding"), h));
 
   if (right_text)
     right_point = std::min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));

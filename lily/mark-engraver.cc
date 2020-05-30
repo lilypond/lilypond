@@ -147,14 +147,13 @@ Mark_engraver::process_music ()
           else
             /* Score.rehearsalMark is initialized to #1 so we
                never should see this case without user error */
-            mark_ev_->origin ()->warning
-            (_ ("rehearsalMark must have integer value"));
+            mark_ev_->warning (_ ("rehearsalMark must have integer value"));
         }
 
       if (Text_interface::is_markup (m))
         set_property (text_, "text", m);
       else
-        mark_ev_->origin ()->warning (_ ("mark label must be a markup object"));
+        mark_ev_->warning (_ ("mark label must be a markup object"));
     }
 }
 
