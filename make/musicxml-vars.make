@@ -1,6 +1,0 @@
-# rules for directories with MusicXML files.
-
-MUSICXML_FILES = $(call src-wildcard,*.xml)
-MUSICMXL_FILES = $(call src-wildcard,*.mxl)  # Allow .mxl for compressed files
-OUT_LY_FILES = $(sort ${MUSICXML_FILES:%.xml=$(outdir)/%.ly} ${MUSICMXL_FILES:%.mxl=$(outdir)/%.ly})
-OUT_FILES = $(OUT_LY_FILES)
