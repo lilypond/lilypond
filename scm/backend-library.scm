@@ -50,12 +50,11 @@
 (define-public (postscript->pdf paper-width paper-height
                                 base-name tmp-name is-eps)
   (let* ((pdf-name (string-append base-name ".pdf"))
-         (*unspecified* (if #f #f))
          (gs-cmd
-          (remove (lambda (x) (eq? x *unspecified*))
+          (filter string?
                   (list
                    (search-gs)
-                   (if (ly:get-option 'verbose) *unspecified* "-q")
+                   (if (not (ly:get-option 'verbose)) "-q")
                    (if (or (ly:get-option 'gs-load-fonts)
                            (ly:get-option 'gs-load-lily-fonts)
                            (eq? PLATFORM 'windows))
@@ -63,28 +62,27 @@
                        "-dSAFER")
                    "-dNOPAUSE"
                    "-dBATCH")))
-         (args
-          (remove (lambda (x) (eq? x *unspecified*))
-                  (list
-                   (if is-eps
-                       "-dEPSCrop"
-                       (ly:format "-dDEVICEWIDTHPOINTS=~$" paper-width))
-                   (if is-eps
-                       *unspecified*
-                       (ly:format "-dDEVICEHEIGHTPOINTS=~$" paper-height))
-                   "-dAutoRotatePages=/None"
-                   "-dPrinted=false")))
+         (args (filter string? (list
+                (if is-eps
+                    "-dEPSCrop")
+                "-dAutoRotatePages=/None"
+                "-dPrinted=false")))
          (output-file (string-join (string-split pdf-name #\%) "%%"))
          (gs-cmd-output
-          (list
+          (filter string? (list
            "-sDEVICE=pdfwrite"
+           (if (not is-eps) (ly:format "-dDEVICEHEIGHTPOINTS=~$" paper-height))
+           (if (not is-eps) (ly:format "-dDEVICEWIDTHPOINTS=~$" paper-width))
            (string-append "-sOutputFile=" output-file)
            "-c.setpdfwrite"
            (string-append "-f" tmp-name))))
+         (device-args (if is-eps
+                          ""
+                          (ly:format "/PageSize [~$ ~$]" paper-width paper-height))))
 
     (ly:message (_ "Converting to `~a'...\n") pdf-name)
     (if (ly:get-option 'gs-api)
-        (ly:gs args "pdfwrite" "" tmp-name output-file)
+        (ly:gs args "pdfwrite" device-args tmp-name output-file)
         (ly:system (append gs-cmd (append args gs-cmd-output))))))
 
 (define-public (postscript->png resolution paper-width paper-height

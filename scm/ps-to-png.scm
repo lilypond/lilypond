@@ -89,26 +89,27 @@
           (args (filter string?
                    (list
                     (if is-eps
-                        "-dEPSCrop"
-                        (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
-                    (if (not is-eps)
-                        (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
+                        "-dEPSCrop")
                     "-dAutoRotatePages=/None"
                     "-dPrinted=false")))
-          (alpha-args "/GraphicsAlphaBits 4 /TextAlphaBits 4")
           (hw-resolution (* anti-alias-factor resolution))
-          (hw-resolution-arg
-           (ly:format "/HWResolution [~a ~a] /DownScaleFactor ~a" hw-resolution hw-resolution anti-alias-factor))
-          (device-args (string-append alpha-args " " hw-resolution-arg))
+          (device-arg-list (filter string? (list  "/GraphicsAlphaBits 4 /TextAlphaBits 4"
+                                  (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution)
+                                  (ly:format "/DownScaleFactor ~a" anti-alias-factor)
+                                  (if (not is-eps)
+                                      (ly:format "/PageSize [~a ~a]" page-width page-height)))))
+          (device-args (string-join device-arg-list " "))
           (gs-cmd-output
-           (list
+           (filter string? (list
             "-dGraphicsAlphaBits=4"
             "-dTextAlphaBits=4"
+            (if (not is-eps) (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
+            (if (not is-eps) (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
             (ly:format "-dDownScaleFactor=~a" anti-alias-factor)
             (ly:format "-r~a" hw-resolution)
             (ly:format "-sDEVICE=~a" pixmap-format)
             (string-append "-sOutputFile=" output-file)
-            (string-append "-f" tmp-name)))
+            (string-append "-f" tmp-name))))
           (files '()))
 
     (if (ly:get-option 'gs-api)
