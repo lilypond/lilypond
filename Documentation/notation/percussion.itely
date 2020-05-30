@@ -428,6 +428,11 @@ the note head’s position on the staff.  That list must then
 be converted into a Scheme hash table, using the
 @code{alist->hash-table} function.
 
+@funindex \halfopen
+@funindex \stopped
+@cindex halfopen
+@cindex stopped
+
 @lilypond[quote,verbatim]
 #(define mydrums '(
          (bassdrum        default   #f           -1)

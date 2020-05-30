@@ -2211,11 +2211,26 @@ for more readability.
 @node List of articulations
 @appendixsec List of articulations
 
+@cindex articulations
+@cindex post-events
+@cindex scripts
 
-The following lists show all the scripts in the Feta font that may be
-attached to notes (eg. @samp{f\accent} or @samp{f->}).  Each example
-shows the script in the @emph{up}, @emph{down} and @emph{neutral}
-positions respectively.
+In LilyPond’s internal logic, an @q{articulation} is any object
+(other than dynamics) that may be attached directly after a rhythmic
+event: notes, chords; even silences and skips, or the empty chord
+construct @code{<>} (see @rlearning{Structure of a note entry}).
+Even slurs, fingerings and text scripts are technically
+articulations, although these are not shown here.
+
+Therefore, the following lists include not only articulation marks,
+but also all other scripts in the Emmentaler font that may be
+attached to notes (the way an accent is entered as @samp{c'\accent}
+or @samp{c'->}).  Each example shows the script in its two possible
+vertical positions: respectively @emph{up} and @emph{down}, as well
+as its default (@emph{neutral}) position.  See also
+@ref{Script glyphs} for a more extensive list of glyphs,
+for use with the @code{\musicglyph} markup command as explained in
+@ref{Music notation inside markup}.
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -2223,8 +2238,8 @@ positions respectively.
 @c   Bowing indications
 @c   Harmonics
 @c   Snap (Bartók) pizzicato
-@c Custom percussion staves (for "halfopen" -- not yet funindexed)
-@c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
+@c Custom percussion staves (for "halfopen" and "stopped")
+@c References for wind instruments (for "open"/"stopped")
 
 
 @menu
