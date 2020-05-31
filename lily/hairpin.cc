@@ -158,7 +158,7 @@ Hairpin::print (SCM smob)
     thick = from_scm<double> (get_property (me, "thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                                  Interval (0, 0));
+                                       Drul_array<Real> (0.0, 0.0));
 
   for (LEFT_and_RIGHT (d))
     {
