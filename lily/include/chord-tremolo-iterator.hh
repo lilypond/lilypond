@@ -22,7 +22,7 @@
 
 #include "sequential-iterator.hh"
 
-class Chord_tremolo_iterator : public Sequential_iterator
+class Chord_tremolo_iterator final : public Sequential_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

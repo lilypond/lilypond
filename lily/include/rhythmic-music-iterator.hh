@@ -25,7 +25,7 @@
 /*
   Iterator for rhythmic music events that are not enclosed by EventChord
 */
-class Rhythmic_music_iterator : public Simple_music_iterator
+class Rhythmic_music_iterator final : public Simple_music_iterator
 {
 protected:
   OVERRIDE_CLASS_NAME (Rhythmic_music_iterator);

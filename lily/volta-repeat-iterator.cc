@@ -24,7 +24,7 @@
 
 using std::string;
 
-class Volta_repeat_iterator : public Sequential_iterator
+class Volta_repeat_iterator final : public Sequential_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

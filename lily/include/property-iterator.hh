@@ -25,7 +25,7 @@
 /**
    Iterate a property.
 */
-class Property_iterator : public Simple_music_iterator
+class Property_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -38,7 +38,7 @@ protected:
 /**
    Iterate a property.
 */
-class Property_unset_iterator : public Simple_music_iterator
+class Property_unset_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -47,7 +47,7 @@ protected:
   void process (Moment) override;
 };
 
-class Push_property_iterator : public Simple_music_iterator
+class Push_property_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -56,7 +56,7 @@ protected:
   void process (Moment) override;
 };
 
-class Pop_property_iterator : public Simple_music_iterator
+class Pop_property_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

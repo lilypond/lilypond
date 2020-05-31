@@ -42,7 +42,7 @@ using std::string;
   the LYRICS.
 */
 
-class Lyric_combine_music_iterator : public Music_iterator
+class Lyric_combine_music_iterator final : public Music_iterator
 {
 public:
   Lyric_combine_music_iterator ();

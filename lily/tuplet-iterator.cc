@@ -31,7 +31,7 @@
   tuplet bracket.  Extra stop/start events are sent at regular
   intervals if tupletSpannerDuration is set.
 */
-class Tuplet_iterator : public Music_wrapper_iterator
+class Tuplet_iterator final : public Music_wrapper_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

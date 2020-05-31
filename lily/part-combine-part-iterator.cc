@@ -22,7 +22,7 @@
 
 using std::string;
 
-class Part_combine_part_iterator : public Change_sequence_iterator
+class Part_combine_part_iterator final : public Change_sequence_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

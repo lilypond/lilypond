@@ -22,7 +22,7 @@
 
 #include "music-iterator.hh"
 
-class Simultaneous_music_iterator : public Music_iterator
+class Simultaneous_music_iterator final : public Music_iterator
 {
 public:
   Simultaneous_music_iterator ();

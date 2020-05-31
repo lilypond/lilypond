@@ -27,7 +27,7 @@
 
 using std::string;
 
-class Context_specced_music_iterator : public Music_wrapper_iterator
+class Context_specced_music_iterator final : public Music_wrapper_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

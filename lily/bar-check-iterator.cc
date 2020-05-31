@@ -27,7 +27,7 @@
   Check bar checks. We do this outside the engravers so that you can
   race through the score using skipTypesetting to correct durations.
 */
-class Bar_check_iterator : Simple_music_iterator
+class Bar_check_iterator final : Simple_music_iterator
 {
 public:
   void process (Moment) override;

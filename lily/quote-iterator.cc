@@ -28,7 +28,7 @@
 #include "music.hh"
 #include "warn.hh"
 
-class Quote_iterator : public Music_wrapper_iterator
+class Quote_iterator final : public Music_wrapper_iterator
 {
 public:
   Quote_iterator ();

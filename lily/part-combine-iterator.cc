@@ -26,7 +26,7 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-class Part_combine_iterator : public Music_iterator
+class Part_combine_iterator final : public Music_iterator
 {
 public:
   Part_combine_iterator ();

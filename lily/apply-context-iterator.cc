@@ -23,7 +23,7 @@
 #include "music.hh"
 #include "simple-music-iterator.hh"
 
-class Apply_context_iterator : public Simple_music_iterator
+class Apply_context_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
