@@ -80,13 +80,6 @@ Interval_t<T>::length () const
     return at (RIGHT) - at (LEFT);
 }
 
-template<class T>
-T
-Interval_t<T>::delta () const
-{
-  return at (RIGHT) - at (LEFT);
-}
-
 /* smallest Interval which includes *this and #h#  */
 template<class T>
 void

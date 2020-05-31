@@ -60,6 +60,10 @@ struct Drul_array
     array_[0] = t1;
     array_[1] = t2;
   }
+  T delta () const
+  {
+    return at (RIGHT) - at (LEFT);
+  }
   Real linear_combination (Real x) const;
 };
 
