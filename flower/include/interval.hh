@@ -149,7 +149,6 @@ struct Interval_t : public Drul_array<T>
     return *this;
   }
 
-  Real linear_combination (Real x) const;
   std::string to_string () const;
 
   bool contains (T r) const;

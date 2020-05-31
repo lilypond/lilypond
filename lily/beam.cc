@@ -1035,7 +1035,7 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
   Real relx = dx ? (stem->relative_coordinate (common[X_AXIS], X_AXIS) - xl) / dx : 0;
   Real xdir = 2 * relx - 1;
 
-  Real stem_y = linear_combination (pos, xdir);
+  Real stem_y = pos.linear_combination (xdir);
 
   Slice beam_slice = Stem::beam_multiplicity (stem);
   if (beam_slice.is_empty ())

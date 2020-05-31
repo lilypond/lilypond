@@ -42,11 +42,3 @@ Interval_t<Moment>::infinity ()
 }
 
 template INTERVAL__INSTANTIATE (Moment);
-
-template<>
-Real
-Interval_t<Real>::linear_combination (Real x) const
-{
-  Drul_array<Real> da (at (LEFT), at (RIGHT));
-  return ::linear_combination (da, x);
-}
