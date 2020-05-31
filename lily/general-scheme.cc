@@ -782,7 +782,19 @@ LY_DEFINE (ly_gs, "ly:gs", 5, 0, 0,
   string command = "mark ";
   command += "/OutputFile (" + ly_scm2string (output) + ") ";
   command += ly_scm2string (device_args) + " ";
-  command += "(" + ly_scm2string (device) + ") finddevice ";
+  string device_str = ly_scm2string (device);
+  if (device_str == "pdfwrite")
+    {
+      // Cannot create multiple copies of the pdfwrite device, re-use the same
+      // instance across invocations.
+      command += "(pdfwrite) finddevice ";
+    }
+  else
+    {
+      // For all other devices, create a fresh copy so that modified properties
+      // are discarded after this output.
+      command += "(" + device_str + ") findprotodevice copydevice ";
+    }
   command += "putdeviceprops setdevice ";
   command += "(" + ly_scm2string (input) + ") run";
 
