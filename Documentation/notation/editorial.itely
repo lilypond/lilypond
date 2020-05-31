@@ -339,11 +339,12 @@ Markup texts or strings may be used for finger changes.
 }
 @end lilypond
 
-@cindex thumb script
+@cindex @q{thumb} fingering
+@cindex fingering, thumb
 
 @funindex \thumb
 
-A thumb script can be added (e.g., cello music) to indicate
+A thumb fingering can be added (e.g., cello music) to indicate
 that a note should be played with the thumb.
 
 @lilypond[verbatim,quote]

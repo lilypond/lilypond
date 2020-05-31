@@ -2905,7 +2905,8 @@ f'1 \bar "k"
 Further details of this notation are explained in
 @ref{Typesetting Kievan square notation}.
 
-@cindex segno
+@cindex @q{segno} sign
+@cindex sign, @q{segno}
 
 For in-line segno signs, there are three types of bar lines which
 differ in their behavior at line breaks:
@@ -3451,8 +3452,10 @@ string.
 \mark \markup @{ \box A1 @}
 @end example
 
-@cindex segno
-@cindex coda
+@cindex @q{segno} sign
+@cindex sign, segno
+@cindex @q{coda} sign
+@cindex sign, coda
 @cindex D.S. al Fine
 @cindex fermata
 @cindex music glyph

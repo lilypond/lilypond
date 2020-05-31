@@ -40,44 +40,98 @@ Methods to create new dynamic markings are also discussed.
 @node Articulations and ornamentations
 @unnumberedsubsubsec Articulations and ornamentations
 
-@cindex articulation
-@cindex ornamentation
-@cindex script
-@cindex ornament
-@cindex espressivo
-@cindex fermata
-@cindex up-bow
-@cindex down-bow
+
+@cindex @q{accent} articulation
+@cindex articulation, accent
+@cindex @q{marcato} articulation
+@cindex articulation, marcato
+@cindex @q{staccatissimo} articulation
+@cindex articulation, staccatissimo
+@cindex @q{espressivo} articulation
+@cindex articulation, espressivo
+@cindex @q{staccato} articulation
+@cindex articulation, staccato
+@cindex @q{tenuto} articulation
+@cindex articulation, tenuto
+@cindex @q{portato} articulation
+@cindex articulation, portato
+@cindex @q{up-bow} bowing indication
+@cindex bowing, up
+@cindex @q{down-bow} bowing indication
+@cindex bowing, down
+@cindex @q{flageolet} harmonics
+@cindex harmonics, flageolet
+@cindex @q{thumb} fingering
+@cindex fingering, thumb
 @cindex foot mark
 @cindex organ pedal mark
 @cindex pedal mark, organ
-@cindex turn
-@cindex open
-@cindex stopped
-@cindex flageolet
-@cindex reverse turn
-@cindex slash turn
-@cindex haydn turn
-@cindex trill
-@cindex pralltriller
-@cindex mordent
-@cindex long pralltriller
-@cindex pralltriller, long
-@cindex mordent
-@cindex pralltriller, up
-@cindex pralltriller, down
-@cindex mordent, upper
-@cindex mordent, lower
-@cindex upper mordent
-@cindex lower mordent
-@cindex thumb marking
-@cindex segno sign
-@cindex coda sign
-@cindex coda sign, variant
+@cindex @q{heel} pedal mark
+@cindex pedal mark, heel
+@cindex @q{toe} pedal mark
+@cindex pedal mark, toe
+@cindex @q{open} articulation
+@cindex articulation, open
+@cindex open high hat
+@cindex high hat, open
+@cindex @q{half open} articulation
+@cindex articulation, half open
+@cindex half-open high hat
+@cindex high hat, half open
+@cindex @q{stopped} articulation
+@cindex articulation, stopped
+@cindex pedal high hat
+@cindex high hat, pedal
+@cindex @q{snappizzicato} sign
+@cindex sign, snappizzicato
+@cindex @q{turn} ornament
+@cindex ornament, turn
+@cindex @q{reverse turn} ornament
+@cindex ornament, reverse turn
+@cindex @q{slash turn} ornament
+@cindex ornament, slash turn
+@cindex @q{Haydn turn} ornament
+@cindex ornament, Haydn turn
+@cindex @q{trill} ornament
+@cindex ornament, trill
+@cindex @q{pralltriller} ornament
+@cindex ornament, pralltriller
+@cindex @q{mordent} ornament
+@cindex ornament, mordent
+@cindex @q{pralltriller, long} ornament
+@cindex ornament, pralltriller, long
+@cindex @q{mordent, upper} ornament
+@cindex ornament, mordent, upper
+@cindex @q{mordent, lower} ornament
+@cindex ornament, mordent, lower
+@cindex @q{upper mordent} ornament
+@cindex ornament, upper mordent
+@cindex @q{lower mordent} ornament
+@cindex ornament, lower mordent
+@cindex @q{pralltriller, down} ornament
+@cindex ornament, pralltriller, down
+@cindex @q{pralltriller, up} ornament
+@cindex ornament, pralltriller, up
+@cindex @q{up pralltriller} ornament
+@cindex ornament, up pralltriller
+@cindex @q{down pralltriller} ornament
+@cindex ornament, down pralltriller
+@cindex @q{signum congruentiae} ornament
+@cindex ornament, signum congruentiae
+@cindex fermata
+@cindex fermata, short
+@cindex short fermata
+@cindex fermata, long
+@cindex long fermata
+@cindex fermata, Henze
+@cindex Henze fermata
+@cindex @q{segno} sign
 @cindex sign, segno
+@cindex @q{coda} sign
 @cindex sign, coda
+@cindex @q{variant coda} sign
 @cindex sign, variant coda
-@cindex variant coda sign
+@cindex coda sign, variant
 
 @funindex \accent
 @funindex \marcato

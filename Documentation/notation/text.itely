@@ -360,8 +360,8 @@ Internals Reference:
 @cindex text mark
 @cindex mark, text
 @cindex text, on bar line
-@cindex coda sign, on bar line
-@cindex segno sign, on bar line
+@cindex @q{coda} sign, on bar line
+@cindex @q{segno} sign, on bar line
 @cindex fermata, on bar line
 @cindex bar line, symbols on
 
