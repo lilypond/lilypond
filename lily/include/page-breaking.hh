@@ -214,7 +214,7 @@ private:
   vsize current_end_breakpoint_;
 
   void cache_line_details (vsize configuration_index);
-  void compute_line_heights ();
+  void calc_line_heights ();
   void clear_line_details_cache ();
   vsize cached_configuration_index_;
   std::vector<Line_details> cached_line_details_;

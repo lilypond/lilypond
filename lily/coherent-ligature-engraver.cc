@@ -143,7 +143,7 @@ Coherent_ligature_engraver::collect_accidentals (Spanner *,
 }
 
 void
-compute_delta_pitches (vector<Grob_info> const &primitives)
+calc_delta_pitches (vector<Grob_info> const &primitives)
 {
   int prev_pitch = 0;
   int delta_pitch = 0;
@@ -172,7 +172,7 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
 {
   // compute some commonly needed context info stored as grob
   // properties
-  compute_delta_pitches (primitives);
+  calc_delta_pitches (primitives);
 
   // prepare ligature for typesetting
   build_ligature (ligature, primitives);
