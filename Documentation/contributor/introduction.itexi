@@ -46,25 +46,18 @@ since the program was born.
 @end itemize
 
 The @q{official} LilyPond Git repository is hosted by the GNU
-Savannah software forge at @uref{http://git.sv.gnu.org}.
-
-Changes made within one contributor's copy of the repository can
-be shared with other contributors using @emph{patches}.  A patch
-is a text file that indicates what changes have been made.
-If a contributor's patch is approved for inclusion (usually
-through the mailing list), someone on the current development team
-will @emph{push} the patch to the official repository.
-
-The Savannah software forge provides two separate interfaces for
-viewing the LilyPond Git repository online:
+Savannah software forge at @uref{https://git.sv.gnu.org}.
+The server provides two separate interfaces for viewing the
+LilyPond Git repository online:
 @uref{http://git.sv.gnu.org/cgit/lilypond.git/, cgit} and
 @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, gitweb}.
 
-@ignore
-The cgit interface should work faster than gitweb
-in most situations, but only gitweb allows you to search through
-the source code using @command{grep}, which you may find useful.
-@end ignore
+However, the main development takes place at
+@uref{https://gitlab.com/lilypond/lilypond/}, which also hosts the
+project's issues.  Automatic mirroring ensures that @q{important}
+branches (such as @code{master} and @code{stable/*}) are up-to-date
+on the @q{official} repository at GNU Savannah, so you can also base
+your development on a clone from there.
 
 Git is a complex and powerful tool, but tends to be confusing at
 first, particularly for users not familiar with the command line
@@ -102,11 +95,18 @@ If you are already familiar with typical open-source tools, here's
 what you need to know:
 
 @itemize
-@item @strong{source repository}:
-hosted by GNU savannah.
+@item @strong{@q{official} source repository}:
+hosted by GNU Savannah
 
 @example
-@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
+@uref{https://git.savannah.gnu.org/gitweb/?p=lilypond.git}
+@end example
+
+@item @strong{development platform}:
+hosted by GitLab
+
+@example
+@uref{https://gitlab.com/lilypond/lilypond/}
 @end example
 
 @item @strong{issue tracker}:

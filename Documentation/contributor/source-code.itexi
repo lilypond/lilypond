@@ -2003,98 +2003,39 @@ following procedure to obtain commit access:
 
 @enumerate
 @item
-If you don't already have one, set up a Savannah user account at
-@uref{https://savannah.gnu.org/account/register.php}.
-
-@warning{Savannah will silently put your username in lower-case --
-do not try to use capital letters.}
+If you don't already have one, set up a GitLab user account at
+@uref{https://gitlab.com/users/sign_in}.
 
 
 @item
 After registering, if you are not logged in automatically, login
-at @uref{https://savannah.gnu.org/account/login.php}---this should
-take you to your @qq{my} page
-(@uref{https://savannah.gnu.org/my/}).
+at the same page, and confirm your email address.
 
 
 @item
-Click on the @qq{My Groups} link to access the @qq{My Group
-Membership} page.  From there, find the @qq{Request for Inclusion}
-box and search for @qq{LilyPond}.  Among the search results, check
-the box labeled @qq{GNU LilyPond Music Typesetter} and write a
-brief (required) message for the Project Manager (@qq{Hey it's
-me!} should be fine).
+Navigate to @uref{https://gitlab.com/lilypond} and @q{Request access}
+to the group.  Make sure that your account can be related to your
+activity on the mailing list.  If in doubt, please post the username
+after requesting access.
 
 Note that you will not have commit access until the Project
 Manager activates your membership.  Once your membership is
-activated, LilyPond should appear under the heading @qq{Groups I'm
-Contributor of} on your @qq{My Group Membership} page.
+activated, LilyPond should appear under the heading @qq{Groups}
+on your profile page.
 
 
 @item
-Generate an SSH @q{rsa} key pair.  Enter the following at the
-command prompt:
-
-@example
-ssh-keygen -t rsa
-@end example
-
-When prompted for a location to save the key, press <ENTER> to
-accept the default location (@file{~/.ssh/id_rsa}).
-
-Next you are asked to enter an optional passphrase.  On most
-systems, if you use a passphrase, you will likely be prompted for
-it every time you use @command{git push} or
-@command{git pull}.  You may prefer this since it can protect
-you from your own mistakes (like pushing when you mean to pull),
-though you may find it tedious to keep re-entering it.
-
-You can change/enable/disable your passphrase at any time with:
-
-@example
-ssh-keygen -f ~/.ssh/id_rsa -p
-@end example
-
-Note that the GNOME desktop has a feature which stores your
-passphrase for you for an entire GNOME session.  If you use a
-passphrase to @qq{protect you from yourself}, you will want to
-disable this feature, since you'll only be prompted once.  Run the
-following command, then logout of GNOME and log back in:
-
-@example
-gconftool-2 --set -t bool \
-  /apps/gnome-keyring/daemon-components/ssh false
-@end example
-
-After setting up your passphrase, your private key is saved as
-@file{~/.ssh/id_rsa} and your public key is saved as
-@file{~/.ssh/id_rsa.pub}.
+Generate and register an SSH key pair.  Excellent instructions are provided in
+@uref{https://docs.gitlab.com/ee/ssh/, GitLab's documentation}.
 
 
 @item
-Register your public SSH @q{rsa} key with Savannah.  From the
-@qq{My Account Configuration} page, click on @qq{Edit SSH Keys},
-then paste the contents of your @file{~/.ssh/id_rsa.pub} file into
-one of the @qq{Authorized keys} text fields, and click
-@qq{Update}.
-
-Savannah should respond with something like:
+Configure Git to use the SSH protocol (instead of the GIT or HTTP
+protocols).  From your local Git repository, enter:
 
 @example
-Success: Key #1 seen Keys registered
+git remote set-url origin git@@gitlab.com:lilypond/lilypond.git
 @end example
-
-
-@item
-Configure Git to use the SSH protocol (instead of the GIT
-protocol).  From your local Git repository, enter:
-
-@example
-git remote set-url origin ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
-@end example
-
-@noindent
-replacing @var{user} with your Savannah username.
 
 
 @item
@@ -2108,21 +2049,19 @@ git pull --verbose
 SSH should issue the following warning:
 
 @example
-The authenticity of host 'git.sv.gnu.org (140.186.70.72)' can't
-be established.
-RSA key fingerprint is
-80:5a:b0:0c:ec:93:66:29:49:7e:04:2b:fd:ba:2c:d5.
-Are you sure you want to continue connecting (yes/no)?
+The authenticity of host 'gitlab.com' can't be established.
+ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
 @end example
 
-Make sure the RSA key fingerprint displayed matches the one above.
-If it doesn't, respond @qq{no} and check that you configured Git
-properly in the previous step.  If it does match, respond
+Make sure the key fingerprint displayed matches the one above or one of the
+@uref{https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-host-keys-fingerprints,
+others published by GitLab}.  If it doesn't, respond @qq{no} and check that
+you configured Git properly in the previous step.  If it does match, respond
 @qq{yes}.  SSH should then issue another warning:
 
 @example
-Warning: Permanently added 'git.sv.gnu.org,140.186.70.72' (RSA) to
-the list of known hosts.
+Warning: Permanently added 'gitlab.com' (ECDSA) to the list of known hosts.
 @end example
 
 The list of known hosts is stored in the file
@@ -2140,28 +2079,23 @@ fatal: The remote end hung up unexpectedly
 @end example
 
 If you get the above error, you may have made a mistake when
-registering your SSH key at Savannah.  If the key is properly
-registered, you probably just need to wait for the Savannah server
-to activate it.  It usually takes a few minutes for the key to be
-active after registering it, but if it still doesn't work after an
-hour, ask for help on the mailing list.
+registering your SSH key.  If the key is properly registered
+and it still doesn't work after an hour, ask for help on the
+mailing list.
 
 If @command{git pull --verbose} succeeds, the output
 will include a @q{From} line that shows @q{ssh} as the protocol:
 
 @example
-From ssh://git.sv.gnu.org/srv/git/lilypond
+From git@@gitlab.com:lilypond/lilypond.git
 @end example
-
-If the protocol shown is not @q{ssh}, check that you configured
-Git properly in the previous step.
 
 
 @item
 Test your commit access with a dry run:
 
-@warning{Do not push directly to master; instead, push to staging.
-See @ref{Pushing to staging}.}
+@warning{Do not push directly to master; instead, push to a private
+development branch.}
 
 @example
 git push --dry-run --verbose
@@ -2181,7 +2115,7 @@ details, consult the @code{git@tie{}push} man page.
 
 
 @item
-Repeat the steps from generating an RSA key through to testing
+Repeat the steps from generating an SSH key through to testing
 your commit access, for each machine from which you will be
 making commits, or you may simply copy the files from your
 local @file{~/.ssh} folder to the same folder on the other
@@ -2206,11 +2140,8 @@ should now be changed to:
 
 @example
 [remote "origin"]
-        url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+        url = git@@gitlab.com:lilypond/lilypond.git
 @end example
-
-@noindent
-where @var{user} is your login name on Savannah.
 
 @item
 Similarly, the

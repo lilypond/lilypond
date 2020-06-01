@@ -249,24 +249,36 @@ git grep functionName
 @end example
 
 will search through all of the files that are present in the git
-repository looking for functionName.  It also presents the results
+repository looking for @var{functionName}.  It also presents the results
 of the search using @code{less}, so the results are displayed one page
 at a time.
 
-@subsection Searching on the git repository at Savannah
+@subsection Searching on the git repository at GitLab and Savannah
 
-You can also use the equivalent of git grep on the Savannah server.
+GitLab's web interface provides a built-in search.
 
 @itemize
 
 @item
-Go to http://git.sv.gnu.org/gitweb/?p=lilypond.git
+Go to @uref{https://gitlab.com/lilypond/lilypond/}
+
+@item
+Type @var{functionName} in the search box on the top, and hit enter/return
+
+@end itemize
+
+Alternatively you can also use the equivalent of git grep on the Savannah server.
+
+@itemize
+
+@item
+Go to @uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git}
 
 @item
 In the pulldown box that says commit, select grep.
 
 @item
-Type functionName in the search box, and hit enter/return
+Type @var{functionName} in the search box, and hit enter/return
 
 @end itemize
 
