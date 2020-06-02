@@ -266,9 +266,8 @@ of LilyPond's documentation is required to be able to test & push new
 commits.  See @ref{Compiling}.
 
 @item
-Commit access @emph{is} required to test and push new commits, but a
-valid login to @uref{https://sourceforge.net} is @emph{not}.  See
-@ref{Commit access}.
+Commit access @emph{is} required to test and push new commits.
+See @ref{Commit access}.
 
 @end itemize
 

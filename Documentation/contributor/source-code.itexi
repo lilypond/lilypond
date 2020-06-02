@@ -1518,7 +1518,7 @@ The Patch Meister reviews the tracker periodically, to list patches
 which have been on review for at least 24 hours. The list is found at
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Areview}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name[]=Patch%3A%3Areview}
 @end smallexample
 
 @item
@@ -1575,7 +1575,7 @@ There is a single Patch Meister, and a number of Patch Helpers
 (rename this?).  The list of known patches awaiting review is:
 
 @example
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+%28_patch%3Anew+OR+_patch%3Areview+OR+_patch%3Acountdown+OR+_patch%3Apush+OR+_patch%3Awaiting+OR+_patch%3Aabandoned+OR+_patch%3Aneeds_work%29}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?sort=label_priority}
 @end example
 
 

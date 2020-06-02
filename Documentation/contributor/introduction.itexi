@@ -103,17 +103,10 @@ hosted by GNU Savannah
 @end example
 
 @item @strong{development platform}:
-hosted by GitLab
+hosted by GitLab; also includes the issue tracker (see @ref{Issues})
 
 @example
 @uref{https://gitlab.com/lilypond/lilypond/}
-@end example
-
-@item @strong{issue tracker}:
-currently hosted by Sourceforge.
-
-@example
-@uref{https://sourceforge.net/p/testlilyissues/issues/}
 @end example
 
 @item @strong{patch review}:
