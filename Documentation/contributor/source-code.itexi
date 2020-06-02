@@ -424,8 +424,10 @@ Make sure that you're on your branch, then upload:
 
 @example
 git checkout dev/cg
-git-cl upload master
+git push ...
 @end example
+
+Afterwards create a merge request to indicate the branch is ready for review.
 
 
 @subsubheading Wait for reviews
@@ -1351,47 +1353,11 @@ provided on the Wine wiki at
 @node Uploading a patch for review
 @subsection Uploading a patch for review
 
-Any non-trivial change should be uploaded to our @qq{Rietveld}
-code review website:
+Any non-trivial change should be reviewed as a merge request:
 
 @example
-@uref{http://codereview.appspot.com/}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests}
 @end example
-
-You can upload a patch for review by using our custom @code{git-cl}
-@q{helper-script}.  This section assumes you have already installed,
-updated, and configured @code{git-cl}.  See @ref{git-cl}.
-
-@warning{Unless you are familiar with branches, only work on one
-set of changes at once.}
-
-There are two methods, depending on your git setup.
-
-@itemize
-@item
-@strong{Master branch}: (easy option)
-
-If you added your patch to @code{master}, then:
-
-@example
-git pull -r
-git-cl upload origin/master
-@end example
-
-@c Mention staging here?
-If you have git push ability, make sure that you @emph{remove}
-your patch (with @command{git rebase} or @command{git reset})
-before pushing other stuff.
-
-@c don't make this one an @example; we don't want to make it easy
-@c for people to use this accidently
-Notifications of patches are automatically added to our issue
-tracker to reduce the chance of patches getting lost.  To suppress
-this (not recommended), add the @code{-n / --no-code-issue}
-option.
-
-@item
-@strong{Separate branch}: (complicated option)
 
 Ensure your changes are committed in a separate branch, which should
 differ from the reference branch to be used (usually
@@ -1411,74 +1377,27 @@ the head of @code{origin/master}.  For example:
 git pull -r origin master
 @end example
 
-Finally, start the upload by entering:
+To upload a patch for review, the changes must be pushed.  If you
+have commit access, this may use a @code{dev/} branch.  Otherwise,
+or at your convenience, you may use a private fork.
 
-@example
-git-cl upload <reference SHA1 ID>
-@end example
+Afterwards create a merge request to start the review cycle.  There
+are multiple options for this as outlined in GitLab's documentation
+at @uref{https://docs.gitlab.com/ee/user/project/merge_requests/}.
+This will also ask you for a message that will accompany your patch.
 
-@noindent
-where <reference SHA1 ID> is the SHA1 ID of the commit to be used
-as a reference source for the patch.  Generally, this will be the
-SHA1 ID of origin/master, and in that case you can just use the command:
-
-@example
-git-cl upload origin/master
-@end example
-
-@end itemize
-
-First you will see a terminal editor where you can edit the
-message that will accompany your patch. @command{git-cl} will
-respect the @env{EDITOR} environment variable if defined,
-otherwise it will use @command{vi} as the default editor.
-
-After prompting for your Google email address and password, the
-patch set will be posted to Rietveld, and you will be given a URL
-for your patch.
-
-@warning{Some installations of git-cl fail when uploading a patch
-with certain filename extensions.  If this happens, it can
-generally be fixed by editing the list of exceptions at top of
-@file{git-cl.py}.}
-
-@subsubheading Announcing your patch set
-
-You should then announce the patch by logging into the code review
-issue webpage and using @qq{Publish + Mail Comments} to add a
-(mostly bogus) comment to your issue.  The text of your comment
-will be sent to our developer mailing list.
-
-@warning{There is no automatic notification of a new patch; you
-must add a comment yourself.}
+If you are not a member of the team and create the merge request
+from a fork, consider enabling the box to @qq{Allow commits from
+members who can merge to the target branch}. This makes it possible
+for somebody with permissions to rebase your changes and merge them
+for you.
 
 @subsubheading Revisions
 
 As revisions are made in response to comments, successive patch sets
-for the same issue can be uploaded by reissuing the git-cl command
-with the modified branch checked out.
-
-Sometimes in response to comments on revisions, the best way to
-work may require creation of a new branch in git.  In order to
-associate the new branch with an existing Rietveld issue,
-the following command can be used:
-
-@example
-git-cl issue issue-number
-@end example
-
-@noindent
-where @code{issue-number} is the number of the existing Rietveld
-issue.
-
-@subsubheading Resetting git-cl
-
-If @command{git-cl} becomes confused, you can @qq{reset} it by
-running:
-
-@example
-git-cl issue 0
-@end example
+for the same issue can be uploaded by pushing to the same branch.
+GitLab automatically keeps track of all pushed commits and allows to
+compare revisions with each other.
 
 
 @node The patch review cycle
@@ -1487,31 +1406,31 @@ git-cl issue 0
 Your patch will be available for reviews for the next few hours or
 days.  Three times a week, patches with no known problems are
 gathered into a @qq{patch countdown} and their status changed to
-@code{patch-countdown}.  The countdown is a 48-hour waiting period
+@code{Patch::countdown}.  The countdown is a 48-hour waiting period
 in which any final reviews or complaints should be made.
 
 During the countdown, your patch may be set to
-@code{patch-needs_work}, indicating that you should fix something
+@code{Patch::needs_work}, indicating that you should fix something
 (or at least discuss why the patch needs no modification).  If no
 problems are found, the patch will be set to @code{patch-push}.
 
-Once a patch has @code{patch-push}, it should be sent to your
+Once a patch has @code{Patch::push}, it should be sent to your
 mentor for uploading.  If you have git push ability, look at
 @ref{Pushing to staging}.
 
 @itemize
 
 @item
-Patches get added to the tracker and to Rietveld by the @qq{git-cl} tool, with
-a status of @qq{patch-new}.
+Patches get added by opening a merge request.  A bot automatically adds
+the @code{Patch::new} label to it.
 
 @item
 The automated tester, Patchy, verifies that the patch can be applied
 to current master.  By default, it checks that the patch allows @code{make}
 and @code{make test} to complete successfully.  It can also be configured to
 check that @code{make doc} is successful. If it passes, Patchy changes the
-status to @qq{patch-review} and emails the developer list.  If the patch
-fails, Patchy sets it to @qq{patch-needs_work} and notifies the developer list.
+status to @code{Patch::review} and emails the developer list.  If the patch
+fails, Patchy sets it to @code{Patch::needs_work} and notifies the developer list.
 
 @item
 The Patch Meister reviews the tracker periodically, to list patches
@@ -1522,15 +1441,15 @@ which have been on review for at least 24 hours. The list is found at
 @end smallexample
 
 @item
-For each patch, the Handler reviews any discussion on the tracker
-and on Rietveld, to determine whether the patch can go forward.  If
+For each patch, the Handler reviews any discussion on the merge request,
+to determine whether the patch can go forward.  If
 there is any indication that a developer thinks the patch is not
-ready, the Handler marks it @qq{patch-needs_work} and makes a comment
-regarding the reason, referring to the Rietveld item if needed.
+ready, the Handler marks it @code{Patch::needs_work} and makes a comment
+regarding the reason, referring to the comment if needed.
 
 @item
 Patches with explicit approval, or at least no negative comment, can
-be updated to @qq{patch-countdown}.  When saving the tracker item,
+be updated to @code{Patch::countdown}.  When saving the tracker item,
 clear the @qq{send email} box to prevent sending notification for
 each patch.
 

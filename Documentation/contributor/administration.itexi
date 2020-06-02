@@ -170,11 +170,6 @@ a patch for testing and review.  See @ref{Uploading a patch for review}
 and @ref{The patch review cycle}.
 
 @item
-To makes sure that any patch submitted has a corresponding Issue Tracker
-and Rietveld Issue created for it before it enters the testing and
-review process.  See @ref{Issues}.
-
-@item
 Updates all Issue statuses for all patches that are currently in the
 testing and review process periodically -- currently every 3 - 4 days.
 See @ref{Patch handling}.
