@@ -1495,7 +1495,7 @@ la fonction @code{ottava} qui s'en charge.
 @cindex octaviation, texte
 @cindex texte, octaviation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
+{changing-ottava-text.ly}
 
 @cindex octaviation, une seule voix
 @cindex voix, octaviation d'une seule

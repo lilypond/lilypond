@@ -218,6 +218,33 @@ used to distinguish between facsimile and editorial accidentals.
 
 
 @item
+Ottava brackets are now introduced with a single number by default
+(e.g., @q{8} or @q{15}), and printed in bold.  A new
+@code{ottavationMarkups} property has been introduced to modify
+that behavior, with several predefined lists of markups available:
+@lilypond[verbatim,quote]
+\relative c'' {
+  \ottava #1
+  a'2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-simple-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+}
+@end lilypond
+
+
+@item
 The command @code{\ambitusAfter} has been added. It is used to move
 the ambitus to a different position.
 @lilypond[verbatim,quote]

@@ -1567,7 +1567,7 @@ de una octava para el pentagrama.
 @cindex texto, de octava
 @cindex octavación, texto
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
+{changing-ottava-text.ly}
 
 @cindex octava, para una voz
 @cindex voz, con octavación

@@ -1492,7 +1492,7 @@ addicional d'una octava per al pentagrama.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
+{changing-ottava-text.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-an-ottava-marking-to-a-single-voice.ly}

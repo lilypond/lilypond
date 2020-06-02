@@ -1515,7 +1515,7 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @cindex ottava text (オッターバのテキスト)
 @cindex text, ottavation (オッターバのテキスト)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
+{changing-ottava-text.ly}
 
 @cindex ottava, for single voice (単一声部に対するオッターバ)
 @cindex voice, with ottavation (単一声部に対するオッターバ)

@@ -1475,14 +1475,13 @@ Internals Reference:
 @cindex 8vb
 @cindex octavation
 
-@funindex set-octavation
 @funindex \ottava
 
 @notation{Ottava brackets} introduce an extra transposition of an
 octave for the staff:
 
 @lilypond[verbatim,quote]
-\relative a' {
+\relative c'' {
   a2 b
   \ottava #-2
   a2 b
@@ -1497,14 +1496,60 @@ octave for the staff:
 }
 @end lilypond
 
+@funindex ottavationMarkups
+@funindex ottavation-ordinals
+@funindex ottavation-simple-ordinals
+@funindex ottavation-numbers
+
+By default, only a number is printed at the start of the
+bracket.  That setting may be changed to include an abbreviated
+ordinal, either in superscript or in normal letters (the latter
+was formerly used by default); the default bold font weight of
+these characters may also be altered, as explained in
+@ref{Selecting font and font size}.
+
+The following example demonstrates various options, as well as
+how to go back to the current default behavior:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \ottava #1
+  a'2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \override Staff.OttavaBracket.font-series = #'medium
+  \set Staff.ottavationMarkups = #ottavation-simple-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \revert Staff.OttavaBracket.font-series
+  \set Staff.ottavationMarkups = #ottavation-numbers
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+}
+@end lilypond
+
 
 @snippets
 
+@funindex ottavation
 @cindex ottava text
 @cindex text, ottavation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
+{changing-ottava-text.ly}
 
+@funindex middleCPosition
 @cindex ottava, for single voice
 @cindex voice, with ottavation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1519,6 +1564,9 @@ octave for the staff:
 @seealso
 Music Glossary:
 @rglos{octavation}.
+
+Notation Reference:
+@ref{Selecting font and font size}.
 
 Snippets:
 @rlsr{Pitches}.
