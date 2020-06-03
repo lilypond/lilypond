@@ -2314,14 +2314,14 @@ translations to Git.
 @itemize
 @item Translation work is made on
 @code{translation} branch.  This branch is merged on
-@code{staging} once a week, approximately.  Then,
+@code{master} once a week, approximately.  Then,
 @code{master} branch is merged on
 @code{translation}, where the check-translation script (see
 @ref{Check state of translation}) shows changes in English docs which
 should be translated, and the cycle starts again.
 
-@item Translations may be pushed directly to
-@code{staging} only if they do not break compilation of LilyPond and
+@item Translations may be merged directly to
+@code{master} only if they do not break compilation of LilyPond and
 its documentation.  Those changes could be pushed to
 @code{translation} too, or alternatively translators could wait until
 they come from
@@ -2331,13 +2331,12 @@ they come from
 @code{X.Ytranslation}.
 
 @item @code{translation} Git branch may be merged into
-@code{staging} branch only if LilyPond (@command{make all}) and
+@code{master} branch only if LilyPond (@command{make all}) and
 documentation (@command{make doc}) compile successfully.
 
 @item @command{make} and @command{make doc} are usually successful in
 @code{master} Git branch because those tests should have already
-succeeded in
-@code{staging} branch before merging.
+succeeded when merging the contained commits.
 @code{master} branch may be merged into
 @code{translation} when significant changes had been made in
 documentation in English in

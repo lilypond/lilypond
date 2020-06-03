@@ -121,12 +121,8 @@ given on @rweb{Contact}.
 @itemize
 @item @code{master}:
 always base your work from this branch, but @strong{never push} directly
-to it.  Patches are always pushed directly to the @code{staging} branch
-instead.
-
-@item @code{staging}:
-always push to this branch after a successful patch review cycle (see
-below).
+to it.  Instead, use GitLab to merge changes after they have passed
+automatic testing (see below).
 
 @item @code{translation}:
 Translators should base their work on this branch only and push any
@@ -176,14 +172,9 @@ the Patch Meister accordingly.
 @item
 Once another three days have passed, any patch that has been given
 @code{Patch::countdown} status will be changed to @code{Patch::push}, the
-issue tracker is updated, and the developer can now push it directly to
-the @code{staging} branch (or email the patch -- created with
-@w{@code{git format-patch}} command -- to one of the other developers
-who can push it for you).
-
-@item
-Automatic scripts run every few hours to merge the @code{staging} branch
-with @code{master}.
+merge request is updated, and the developer can now rebase and merge to
+the @code{master} branch (or ask one of the other developers to merge it
+for you).
 
 @end enumerate
 

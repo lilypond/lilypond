@@ -787,13 +787,11 @@ email should contain a link to the issue you just added.
 separate person handling this task.}
 
 For contributors/developers: follow the steps in
-@ref{Patches}, and @ref{Pushing to staging}.
+@ref{Patches}, and @ref{Merging to master}.
 
 @ignore
 For people doing maintenance tasks: A bot is adding Patch::new, James
-is testing patches and managing the Patch countdown.  He also generally
-runs the scripts that merging to Staging (although other developers are
-available to do this task if required).
+is testing patches and managing the Patch countdown.
 @end ignore
 
 

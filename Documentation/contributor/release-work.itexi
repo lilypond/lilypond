@@ -258,11 +258,11 @@ make lilypond-upload \
 @enumerate
 
 @item
-Update the current staging branch with the current news:
+Update the current @code{master} branch with the current news:
 
 @example
 git fetch
-git checkout origin/staging
+git checkout origin/master
 git merge origin/release/unstable
 @end example
 
@@ -280,19 +280,12 @@ VERSION = what you just did +0.0.1
 
 @example
 git commit -m "Release: bump VERSION." VERSION
-git push origin HEAD:staging
+git push origin HEAD:release/unstable
 @end example
 
-If the push fails with a message like
-
-@example
- ! [rejected]        HEAD -> staging (non-fast-forward)
-@end example
-
-@noindent
-it means that somebody else updated the staging branch while you were
-preparing your change.  In that case, you need to restart the Post
-Release process.  Otherwise, proceed:
+@item
+Create a merge request from @code{release/unstable} to merge the changes
+into @code{master}.
 
 @item Wait a few hours for the website to update.
 
@@ -766,6 +759,4 @@ website with the standard @code{make website} command.  They run
 hourly, 30 minutes apart.  So - to update the front page of the
 website, it's necessary to update @code{VERSION} and
 @code{news-headlines.itexi} in master and then wait for the cron
-jobs to run.  (N.B. - this is done by pushing the changes to
-staging and letting patchy do its checks before it pushes to
-master).
+jobs to run.

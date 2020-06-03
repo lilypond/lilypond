@@ -333,7 +333,6 @@ Switching branches is easy:
 
 @example
 git checkout master
-git checkout origin/staging
 git checkout origin/release/unstable
 git checkout dev/cg
 @end example
@@ -342,8 +341,8 @@ Branches that begin with @code{origin/} are part of the remote repository,
 rather than your local repository, so when you check them out you get a 
 temporary local branch.  You should never make changes directly on a
 branch beginning with @code{origin/}.  You get changes into the remote
-repository by making them in local branches, and then pushing them to
-@code{origin/staging} as described below. 
+repository by making them in local branches, and then @ref{Merging to
+master}.
 
 @subsubheading Make your changes
 
@@ -463,59 +462,24 @@ work.  Make a backup of your commits by saving them to
 your work, don't despair.  You can get it back by using @code{git reflog}.
 The use of @code{git reflog} is not covered here.}
 
-@warning{If any of the commits on your branch represent partial work that will
-not pass @var{make && make doc}, you @strong{must} squash these 
-commits into a working commit.  Otherwise, your push will break staging
-and will not be able to be merged to master.  In general, you will
-be safer to have one commit per push.}
+@warning{If any of the commits on your branch represents partial
+work that will not pass @var{make && make doc}, you @strong{must}
+squash these commits into a working commit.  Otherwise, your push
+will break automatic testing and will not be able to be merged to
+@code{master}.  In general, you will be safer to have one commit
+per push.}
 
 
-@subsubheading Push to staging
+@subsubheading Merge to master
 
-When you've got the coveted @code{Patch-push} status, time to
-prepare your upload:
-
-@example
-git fetch
-git rebase origin/staging dev/cg~0
-gitk HEAD
-@end example
-
-@warning{Do not skip the @command{gitk} step; a quick 5-second
-check of the visual history can save a great deal of frustration
-later on.  You should see a set of your commits that are ahead of
-@code{origin/staging}, with no label for the top commit -- only a
-SHA1 id.}
-
-@warning{If @code{origin/staging} and @code{origin/master} are the
-same commit, your branch (@code{dev/cg} in the example) will also
-be at the top of the @code{gitk} tree.  This is normal.}
-
-If everything looks good, push it:
-
-@example
-git push origin HEAD:staging
-@end example
-
-Then change back to your working branch:
-
-@example
-git checkout dev/cg
-@end example
-
-@warning{It is a best practice to avoid rebasing any of your branches
-to @code{origin/staging}.  If @code{origin/staging} is broken, it
-will be deleted and rebuilt.  If you have rebased one of your branches
-to @code{origin/staging}, the broken commits can end up in your branch.
-The commands given above do the rebase on a temporary branch, and avoid
-changing your working branch.}
+When you've got the coveted @code{Patch::push} status, time to
+merge your changes as described in @ref{Merging to master}.
 
 
-@subsubheading Delete your branch (safe)
+@subsubheading Delete your branch
 
-After a few hours, if there's nothing wrong with your branch, it
-should be automatically moved to @code{origin/master}.  Update,
-then try removing your branch:
+After the merge request has passed testing and was merged to
+@code{master}, you can update and then try removing your branch:
 
 @example
 git checkout master
@@ -523,18 +487,12 @@ git pull -r origin master
 git branch -d dev/cg
 @end example
 
-The last command will fail if the contents of @code{dev/cg} are
-not present in @code{origin/master}.
-
-
-@subsubheading Delete your branch (UNSAFE)
-
-@c don't give explicit commands here -- this is too dangerous to copy and paste
-Sometimes everything goes wrong.  If you want to remove a branch even though 
-it will cause your work to be lost (that is, if the contents of @code{dev/cg}
-are @strong{not} present in master), follow the instructions in @qq{Delete
-your branch (safe)}, but replace the @code{-d} on the final line with 
-a @code{-D}.
+The last command will fail if the commit hashes of @code{dev/cg}
+are not present in @code{origin/master}.  This can be because
+you used GitLab to rebase your branch, which modifies the commit
+data and changes the hash.  If you are sure that the branch is not
+needed anymore, replace the @code{-d} on the final line with a
+@code{-D} instead.
 
 
 @node Other repositories
@@ -692,7 +650,7 @@ The @code{translation} branch is a side branch that
 allows translators to work without needing to worry about
 compilation problems.  Periodically, the Translation Meister
 (after verifying that it doesn't break compilation), will
-@emph{merge} this branch into @code{staging} to incorporate
+@emph{merge} this branch into @code{master} to incorporate
 recent translations.  Similarly, the @code{master} branch is
 usually merged into the @code{translation} branch after
 significant changes to the English documentation.  See
@@ -1094,7 +1052,7 @@ If any conflict happens, see @ref{Resolving conflicts}.
 There are common usage cases for merging: as a translator, you will
 often want the Translations meister to merge @code{master} into
 @code{translation}; on the other hand, the Translations meister wants
-to merge @code{translation} into @code{staging} whenever he has
+to merge @code{translation} into @code{master} whenever he has
 checked that @code{translation} builds successfully.
 
 
@@ -1390,7 +1348,7 @@ If you are not a member of the team and create the merge request
 from a fork, consider enabling the box to @qq{Allow commits from
 members who can merge to the target branch}. This makes it possible
 for somebody with permissions to rebase your changes and merge them
-for you.
+for you.  Please refer to @ref{Merging to master} for more details.
 
 @subsubheading Revisions
 
@@ -1416,7 +1374,7 @@ problems are found, the patch will be set to @code{patch-push}.
 
 Once a patch has @code{Patch::push}, it should be sent to your
 mentor for uploading.  If you have git push ability, look at
-@ref{Pushing to staging}.
+@ref{Merging to master}.
 
 @itemize
 
@@ -1425,12 +1383,11 @@ Patches get added by opening a merge request.  A bot automatically adds
 the @code{Patch::new} label to it.
 
 @item
-The automated tester, Patchy, verifies that the patch can be applied
-to current master.  By default, it checks that the patch allows @code{make}
-and @code{make test} to complete successfully.  It can also be configured to
-check that @code{make doc} is successful. If it passes, Patchy changes the
-status to @code{Patch::review} and emails the developer list.  If the patch
-fails, Patchy sets it to @code{Patch::needs_work} and notifies the developer list.
+GitLab triggers automated testing which ensures that the patch completes
+@code{make}, @code{make test}, and @code{make doc}. Afterwards, the Patch
+Meister manually runs @code{make check} to verify regression tests.  If
+both steps pass, the merge request is labelled @code{Patch::review}.  On
+failure, the status is updated to @code{Patch::needs_work}.
 
 @item
 The Patch Meister reviews the tracker periodically, to list patches
@@ -1635,7 +1592,7 @@ several Git branches of LilyPond source code is presented.
 * Applying remote patches::
 * Cleaning up multiple patches::
 * Commit access::
-* Pushing to staging::
+* Merging to master::
 @end menu
 
 
@@ -2099,93 +2056,77 @@ over ATM.  If this problem is encountered a possible work-around is
 to set the MTU in the local router to 1500.
 
 
-@node Pushing to staging
-@subsection Pushing to staging
+@node Merging to master
+@subsection Merging to master
 
 Do not push directly to the git @code{master} branch.  Instead,
-push to @code{staging}.
+all changes need to be @q{merged} with a merge request on GitLab.
+Before allowing the merge, GitLab ensures the following:
 
-You will not see your patch on @code{origin/master} until some
-automatic tests have been run.  These tests are run every couple
-of hours; please wait at least 12 hours before wondering if your
-patch has been lost.  Note that you can check the commits on
-@code{origin/staging} by looking at the git web interface on
-savannah.
+@enumerate
+@item
+The merge must be fast-forward.  In most cases, this can be
+achieved by @q{rebasing} the branch with the most recent commits
+from @code{master}.  This can be handled via GitLab, if no
+conflicts arise.  Otherwise, or if preferred, the operation can
+be performed locally. Afterwards, the branch needs to be pushed
+with the option @code{--force} to overwrite commits.
 
-It may happen occasionally that the staging branch breaks automated
-testing.  In this case the automatic move of staging material to
-master gets halted in order to avoid broken material entering master.
-This is a safety net.  Please do not try breaking out from it by
-adding fixes on top of staging: in that case the whole sequence will
-end up in master after all, defeating the purpose of the system.  The
-proper fix usually involves rewriting the staging branch and is best
-left to core developers after discussion on the developer list.
+@warning{Be careful when performing these operations manually:
+They are potentially dangerous and could result in losing commits
+if issued incorrectly!}
 
-Before pushing to staging it is a good practice to check whether
-staging is ahead of master, and if so, wait until master has caught up
-with staging before pushing.  This simplifies things if changes to
-staging have to be backed out for some reason.  To check whether
-master has caught up with staging you can look at the git web interface
-on savannah, or do:
+@item
+The (possibly rebased) changes must have passed automatic testing.
+This ensures that the @code{master} branch is always clean and ready
+for development and translation.
+
+@end enumerate
+
+After rebasing, GitLab will immediately start the automatic testing
+pipeline.  At the moment, all steps may take up to one hour to
+complete.  If you are confident about the rebased result of your
+changes, you may click @qq{Merge when pipeline succeeds} to avoid
+waiting for the tests.  On failure, the merge will be aborted and
+no harm is done to the @code{master} branch.
+
+Because GitLab enforces fast-forward merges, this means only one
+set of changes can be rebased and merged at once.  A second merge
+request would be rejected later on because it does not contain the
+commit(s) merged first.  To avoid wasting testing resources, please
+avoid this situation and check first if a pipeline with a scheduled
+merge is already running.
+
+@subsubheading How to merge a branch without rebasing
+
+It is generally recommended to rebase commits before merging to get
+a linear history.  However, this is not always possible or wanted.
+This particularly holds for the @code{translation} branch and
+@code{release/unstable} which cannot be force-pushed.  For these
+cases, use the following procedure:
+
+@enumerate
+@item
+Merge the branch manually using the command line. The example
+assumes no pending changes in the local @code{master} branch and
+merges the @code{translation} branch:
 
 @example
-git fetch
-gitk
-@end example
-
-and check that @code{origin/master} is at the same commit as
-@code{origin/staging}.  Another option is to see if any commits are
-listed when you do:
-
-@example
-git fetch
-git log origin/master..origin/staging
-@end example
-
-@subsubheading If your work is in a patch file
-
-Assuming that your patch is in a file called
-@file{0001-my-patch.patch} (see @ref{Patches}), and you are currently
-on git master, do:
-
-@example
-git checkout staging
-git pull -r
-git am 0001-my-patch.patch
-gitk
-git push origin staging
 git checkout master
+git pull
+git merge translation
+git push origin HEAD:translation
 @end example
 
-@warning{Do not skip the @command{gitk} step; a quick 5-second
-check of the visual history can save a great deal of frustration
-later on.  You should only see that @command{staging} is only 1
-commit ahead of @code{origin/staging}.}
+@item
+Open a merge request at GitLab.  This will immediately trigger
+automatic testing as described above.
 
-@subsubheading If your work is in a branch
+@item
+Accept the merge request once the testing finishes, or use the
+button to @qq{Merge when pipeline succeeds}.
 
-If you are working on branches and your work is in
-@code{my_branch_name}, then do:
-
-@example
-git checkout my_branch_name
-git pull -r origin staging
-@end example
-
-This will rebase your branch on @code{origin/staging}.  At this point
-git will let you know if there are any conflicts.  If so, resolve them
-before continuing:
-
-@example
-gitk
-git push origin HEAD:staging
-@end example
-
-@warning{Do not skip the @command{gitk} step; a quick 5-second
-check of the visual history can save a great deal of frustration
-later on.  You should see that @code{my_branch_name} is only ahead of
-@code{origin/staging} by the commits from your branch.}
-
+@end enumerate
 
 
 @node Git on Windows
