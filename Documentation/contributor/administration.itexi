@@ -916,9 +916,9 @@ area}, reason to move this to a different type.
 
 @item
 anything which stops contributors from helping out (e.g.
-lily-git.tcl not working, source tree(s) not being available,
-LilyDev being unable to compile git master, inaccurate
-instructions in the Contributor's Guide 2 Quick start).
+source tree(s) not being available, LilyDev being unable
+to compile Git master, inaccurate instructions in the
+Contributor's Guide 2 Quick start).
 
 To limit this scope of this point, we will assume that the
 contributor is using the latest LilyDev and has read the relevant

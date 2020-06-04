@@ -59,12 +59,6 @@ branches (such as @code{master} and @code{stable/*}) are up-to-date
 on the @q{official} repository at GNU Savannah, so you can also base
 your development on a clone from there.
 
-Git is a complex and powerful tool, but tends to be confusing at
-first, particularly for users not familiar with the command line
-and/or version control systems.  We have created the
-@command{lily-git} graphical user interface to ease this
-difficulty.
-
 @emph{Compiling} (@q{building}) LilyPond allows developers to see
 how changes to the source code affect the program itself.
 Compiling is also needed to package the program for specific

@@ -4,14 +4,13 @@
 @node Working with source code
 @chapter Working with source code
 
-@warning{New contributors should read @ref{Quick start}, and in
-particular @ref{lily-git}, instead of this chapter.}
+@warning{New contributors should read @ref{Quick start}
+instead of this chapter.}
 
 Advanced contributors will find this material quite useful,
 particularly if they are working on major new features.
 
 @menu
-* Manually installing lily-git.tcl::
 * Starting with Git::
 * Basic Git procedures::
 * Advanced Git procedures::
@@ -21,92 +20,8 @@ particularly if they are working on major new features.
 @end menu
 
 
-@node Manually installing lily-git.tcl
-@section Manually installing lily-git.tcl
-
-We have created an easy-to-use GUI to simplify git for new
-contributors.  If you are comfortable with the command-line, then
-skip ahead to @ref{Starting with Git}.
-
-@warning{These instructions are only for people who are @emph{not}
-using @ref{LilyDev}.}
-
-@c there's some duplication in this section with stuff covered in
-@c Quick Start, but moving it into a macro inside included/ would
-@c be getting a bit icky.  -gp
-
-@enumerate
-@item
-If you haven't already, download and install Git.
-
-@itemize
-
-@item Windows users: download the @code{.exe} file labeled
-@qq{Full installer for official Git} from:
-
-@example
-@uref{https://git-for-windows.github.io/}
-@end example
-
-@item Other operating systems: either install @command{git} with
-your package manager, or download it from the @qq{Binaries}
-section of:
-
-@example
-@uref{http://git-scm.com/download}
-@end example
-
-@end itemize
-
-
-@item
-Download the @command{lily-git.tcl} script from:
-
-@c don't change the cgit link below to gitweb; gitweb uses
-@c long filenames like "scripts_auxiliar_lily-git.tcl"
-
-@smallexample
-@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
-@end smallexample
-
-@item
-To run the program from the command line, navigate to the
-directory containing @command{lily-git.tcl} and enter:
-
-@example
-wish lily-git.tcl
-@end example
-
-@item
-Click on the @qq{Get source} button.
-
-This will create a directory called @file{lilypond-git/} within
-your home directory, and will download the source code into that
-directory (around 150@tie{}Mb).  When the process is finished, the
-@qq{Command output} window will display @qq{Done}, and the button
-label will change to say @qq{Update source}.
-
-@item
-Navigate to the @file{lilypond-git/} directory to view the source
-files.
-
-@end enumerate
-
-@warning{Throughout the rest of this manual, most command-line
-input should be entered from @file{$LILYPOND_GIT}.  This is
-referred to as the @emph{top source directory}.}
-
-Further instructions are in @ref{How to use lily-git}.
-
-
 @node Starting with Git
 @section Starting with Git
-
-Using the Git program directly (as opposed to using the
-@command{lily-git.tcl} GUI) allows you to have much greater control
-over the contributing process.  You should consider using Git if
-you want to work on complex projects, or if you want to work on
-multiple projects concurrently.
 
 
 @menu
@@ -280,13 +195,11 @@ soon as possible.  If you want to learn about git, go read
 @ref{Other Git documentation}.
 @*
 Also, these instructions are designed to eliminate the most common
-problems we have found in using git.  If you already know git and
+problems we have found in using git.  If you already know Git and
 have a different way of working, great!  Feel free to ignore the
 advice in this subsection.}
 
-
-Ok, so you've been using @command{lily-git.tcl} for a while, but
-it's time to take the next step.  Since our review process delays
+Since our review process delays
 patches by 60-120 hours, and you want to be able to work on other
 stuff while your previous work is getting reviewed, you're going
 to use @strong{branches}.
