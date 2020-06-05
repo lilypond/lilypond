@@ -45,12 +45,6 @@ using std::set;
 using std::string;
 using std::vector;
 
-Grob *
-Grob::clone () const
-{
-  return new Grob (*this);
-}
-
 Grob::Grob (SCM basicprops)
 {
 
@@ -519,12 +513,6 @@ Interval
 Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, vsize start, vsize end)
 {
   return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end) : extent (refp, a);
-}
-
-Interval_t<int>
-Grob::spanned_rank_interval () const
-{
-  return Interval_t<int> (-1, 0);
 }
 
 /* Sort grobs according to their starting column. */
