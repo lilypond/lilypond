@@ -524,7 +524,7 @@ def do_file (input_filename, included=False):
      exit (2)
 
     try:
-        progress (_ ("Reading `%s'") % input_fullname)
+        progress (_ ("Reading `%s'") % input_absname)
         source = in_handle.read ()
 
         if not included:
