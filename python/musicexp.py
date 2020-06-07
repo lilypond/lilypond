@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
-
-
+from fractions import Fraction
 import inspect
-import sys
-import re
 import math
-import lilylib as ly
-import warnings
+import re
+import sys
 import utilities
+import warnings
 
-from rational import Rational
+import lilylib as ly
 
 # Store previously converted pitch for \relative conversion as a global state variable
 previous_pitch = None
@@ -33,7 +31,7 @@ def escape_instrument_string (input_string):
 
 class Output_stack_element:
     def __init__ (self):
-        self.factor = Rational (1)
+        self.factor = Fraction (1)
     def copy (self):
         o = Output_stack_element()
         o.factor = self.factor
@@ -150,13 +148,13 @@ class Duration:
     def __init__(self):
         self.duration_log = 0
         self.dots = 0
-        self.factor = Rational(1)
+        self.factor = Fraction(1)
 
     def lisp_expression(self):
         return '(ly:make-duration %d %d %d %d)' % (self.duration_log,
                              self.dots,
-                             self.factor.numerator(),
-                             self.factor.denominator())
+                             self.factor.numerator,
+                             self.factor.denominator)
 
     def ly_expression(self, factor=None, scheme_mode=False):
         global ly_dur # stores lilypond durations
@@ -173,11 +171,11 @@ class Duration:
             dur_str = '%d' % (1 << self.duration_log)
         dur_str += '.' * self.dots
 
-        if factor != Rational(1, 1):
-            if factor.denominator() != 1:
-                dur_str += '*%d/%d' % (factor.numerator(), factor.denominator())
+        if factor != Fraction(1, 1):
+            if factor.denominator != 1:
+                dur_str += '*%d/%d' % (factor.numerator, factor.denominator)
             else:
-                dur_str += '*%d' % factor.numerator()
+                dur_str += '*%d' % factor.numerator
 
         if dur_str.isdigit():
             ly_dur = int(dur_str)
@@ -200,15 +198,15 @@ class Duration:
         return d
 
     def get_length(self):
-        dot_fact = Rational((1 << (1 + self.dots)) - 1,
+        dot_fact = Fraction((1 << (1 + self.dots)) - 1,
                              1 << self.dots)
 
         log = abs(self.duration_log)
         dur = 1 << log
         if self.duration_log < 0:
-            base = Rational(dur)
+            base = Fraction(dur)
         else:
-            base = Rational(1, dur)
+            base = Fraction(1, dur)
 
         return base * dot_fact * self.factor
 
@@ -503,12 +501,12 @@ class Pitch:
 class Music:
     def __init__ (self):
         self.parent = None
-        self.start = Rational (0)
+        self.start = Fraction (0)
         self.comment = ''
         self.identifier = None
 
     def get_length(self):
-        return Rational (0)
+        return Fraction (0)
 
     def get_properties (self):
         return ''
@@ -676,7 +674,7 @@ class TimeScaledMusic (MusicWrapper):
 
         func ('\\times %d/%d ' %
            (self.numerator, self.denominator))
-        func.add_factor (Rational (self.numerator, self.denominator))
+        func.add_factor (Fraction (self.numerator, self.denominator))
         MusicWrapper.print_ly (self, func)
         func.revert ()
 
@@ -989,7 +987,7 @@ class ChordEvent (NestedMusic):
 
 
     def get_length (self):
-        l = Rational (0)
+        l = Fraction (0)
         for e in self.elements:
             l = max(l, e.get_length())
         return l
@@ -2521,10 +2519,10 @@ if __name__ == '__main__':
     test_pitch()
 
     expr = test_expr()
-    expr.set_start (Rational (0))
+    expr.set_start (Fraction (0))
     print(expr.ly_expression())
-    start = Rational (0, 4)
-    stop = Rational (4, 2)
+    start = Fraction (0, 4)
+    stop = Fraction (4, 2)
     def sub(x, start=start, stop=stop):
         ok = x.start >= start and x.start + x.get_length() <= stop
         return ok

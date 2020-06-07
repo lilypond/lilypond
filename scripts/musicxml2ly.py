@@ -2,17 +2,18 @@
 # -*- coding: utf-8 -*-
 
 
-import gettext
-import optparse
-import sys
-import re
-import os
 import codecs
-import zipfile
-import tempfile
-import io
-import warnings
+from fractions import Fraction
 from functools import reduce
+import gettext
+import io
+import optparse
+import os
+import re
+import sys
+import tempfile
+import warnings
+import zipfile
 
 """
 @relocate-preamble@
@@ -26,8 +27,6 @@ import utilities
 import musicxml2ly_conversion
 import musicxml
 import musicexp
-
-from rational import Rational
 
 lilypond_version = "@TOPLEVEL_VERSION@"
 
@@ -1847,7 +1846,7 @@ def musicxml_figured_bass_to_lily(n):
     dur = n.get_maybe_exist_named_child('duration')
     if dur:
         # apply the duration to res
-        length = Rational(int(dur.get_text()), n._divisions) * Rational(1, 4)
+        length = Fraction(int(dur.get_text()), n._divisions) * Fraction(1, 4)
         res.set_real_duration(length)
         duration = musicxml2ly_conversion.rational_to_lily_duration(length)
         if duration:
@@ -1915,12 +1914,12 @@ class LilyPondVoiceBuilder:
     def __init__(self):
         self.elements = []
         self.pending_dynamics = []
-        self.end_moment = Rational(0)
-        self.begin_moment = Rational(0)
-        self.pending_multibar = Rational(0)
+        self.end_moment = Fraction(0)
+        self.begin_moment = Fraction(0)
+        self.pending_multibar = Fraction(0)
         self.ignore_skips = False
         self.has_relevant_elements = False
-        self.measure_length = Rational(4, 4)
+        self.measure_length = Fraction(4, 4)
         self.stay_here = False
 
     def _insert_multibar(self):
@@ -1932,7 +1931,7 @@ class LilyPondVoiceBuilder:
         self.elements.append(r)
         self.begin_moment = self.end_moment
         self.end_moment = self.begin_moment + self.pending_multibar
-        self.pending_multibar = Rational(0)
+        self.pending_multibar = Fraction(0)
 
     def set_measure_length(self, mlen):
         if (mlen != self.measure_length) and self.pending_multibar:
@@ -1954,7 +1953,7 @@ class LilyPondVoiceBuilder:
 
     def add_music(self, music, duration, relevant=True):
         assert isinstance(music, musicexp.Music)
-        if self.pending_multibar > Rational(0):
+        if self.pending_multibar > Fraction(0):
             self._insert_multibar()
 
         self.has_relevant_elements = self.has_relevant_elements or relevant
@@ -1978,7 +1977,7 @@ class LilyPondVoiceBuilder:
     # Insert some music command that does not affect the position in the measure
     def add_command(self, command, relevant=True):
         assert isinstance(command, musicexp.Music)
-        if self.pending_multibar > Rational(0):
+        if self.pending_multibar > Fraction(0):
             self._insert_multibar()
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append(command)
@@ -1988,9 +1987,9 @@ class LilyPondVoiceBuilder:
         has_relevant = self.has_relevant_elements
         if (not (self.elements) or
             not (isinstance (self.elements[-1], musicexp.BarLine)) or
-            (self.pending_multibar > Rational(0))):
+            (self.pending_multibar > Fraction(0))):
 
-            self.add_music(barline, Rational(0))
+            self.add_music(barline, Fraction(0))
 
         self.has_relevant_elements = has_relevant or relevant
 
@@ -2017,24 +2016,24 @@ class LilyPondVoiceBuilder:
             current_end = self.end_moment + self.pending_multibar
             diff = moment - current_end
 
-            if diff < Rational(0):
+            if diff < Fraction(0):
                 ly.warning(_('Negative skip %s (from position %s to %s)') %
                             (diff, current_end, moment))
-                diff = Rational(0)
+                diff = Fraction(0)
 
-            if diff > Rational(0) and not(self.ignore_skips and moment == 0):
+            if diff > Fraction(0) and not(self.ignore_skips and moment == 0):
                 skip = musicexp.SkipEvent()
                 duration_factor = 1
-                duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get(diff.denominator(), -1)
+                duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get(diff.denominator, -1)
                 duration_dots = 0
                 # TODO: Use the time signature for skips, too. Problem: The skip
                 #       might not start at a measure boundary!
                 if duration_log > 0: # denominator is a power of 2...
-                    if diff.numerator() == 3:
+                    if diff.numerator == 3:
                         duration_log -= 1
                         duration_dots = 1
                     else:
-                        duration_factor = Rational(diff.numerator())
+                        duration_factor = Fraction(diff.numerator)
                 else:
                     # for skips of a whole or more, simply use s1*factor
                     duration_log = 0
@@ -2047,7 +2046,7 @@ class LilyPondVoiceBuilder:
                 evc.elements.append(skip)
                 self.add_music(evc, diff, False)
 
-            if diff > Rational(0) and moment == 0:
+            if diff > Fraction(0) and moment == 0:
                 self.ignore_skips = False
 
     def last_event_chord(self, starting_at):
@@ -2213,7 +2212,7 @@ def musicxml_voice_to_lily_voice(voice):
     figured_bass_builder = LilyPondVoiceBuilder()
     chordnames_builder = LilyPondVoiceBuilder()
     fretboards_builder = LilyPondVoiceBuilder()
-    current_measure_length = Rational(4, 4)
+    current_measure_length = Fraction(4, 4)
     voice_builder.set_measure_length(current_measure_length)
     in_slur = False
 
@@ -2281,12 +2280,12 @@ def musicxml_voice_to_lily_voice(voice):
         # Don't handle new MM rests yet, because for them we want bar checks!
         rest = n.get_maybe_exist_typed_child(musicxml.Rest)
         if (rest and rest.is_whole_measure()
-                 and voice_builder.pending_multibar > Rational(0)):
+                 and voice_builder.pending_multibar > Fraction(0)):
             voice_builder.add_multibar_rest(n._duration)
             continue
 
         # Print bar checks between measures.
-        if n._measure_position == Rational(0) and n != voice._elements[0]:
+        if n._measure_position == Fraction(0) and n != voice._elements[0]:
             try:
                 num = int(n.get_parent().number)
             except ValueError:
@@ -2596,7 +2595,7 @@ def musicxml_voice_to_lily_voice(voice):
             is_tied = False
 
     # force trailing mm rests to be written out.
-    # voice_builder.add_music (musicexp.ChordEvent(), Rational(0))
+    # voice_builder.add_music (musicexp.ChordEvent(), Fraction(0))
     if hasattr(options, 'shift_meter') and options.shift_meter:
         for event in voice_builder.elements:
             if isinstance(event, musicexp.TimeSignatureChange):
