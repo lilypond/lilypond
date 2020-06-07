@@ -80,10 +80,11 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
         }
     }
 
-  for (vsize i = 0; i < events_.size (); i++)
+  for (Stream_event *ev : events_)
     {
-      if (info.grob ()->name () == ly_symbol2string (get_property (events_[i], "symbol")))
-        balloonify (info.grob (), events_[i]);
+      if (info.grob ()->name ()
+          == ly_symbol2string (get_property (ev, "symbol")))
+        balloonify (info.grob (), ev);
     }
 }
 
