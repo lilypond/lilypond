@@ -207,6 +207,21 @@
                                 font-interface
                                 text-interface))))))
 
+    (BalloonTextSpanner
+     . (
+        (annotation-balloon . #t)
+        (annotation-line . #t)
+        (extra-spacing-width . (+inf.0 . -inf.0))
+        (stencil . ,ly:balloon-interface::print-spanner)
+        (text . ,(grob::calc-property-by-copy 'text))
+        (X-offset . ,(grob::calc-property-by-copy 'X-offset))
+        (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
+        (Y-extent . ,balloon::height)
+        (meta . ((class . Spanner)
+                 (interfaces . (balloon-interface
+                                font-interface
+                                text-interface))))))
+
     (BarLine
      . (
         (allow-span-bar . #t)

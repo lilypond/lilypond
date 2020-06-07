@@ -1379,6 +1379,14 @@ parent or the parent has no setting."
 (export grob::inherit-parent-property)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; balloons
+
+(define-public balloon::height
+  (ly:make-unpure-pure-container
+   ly:grob::stencil-height
+   ly:balloon-interface::pure-height))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret boards
 
 (define-public (fret-board::calc-stencil grob)
@@ -1386,7 +1394,6 @@ parent or the parent has no setting."
    grob
    (make-fret-diagram-verbose-markup
     (ly:grob-property grob 'dot-placement-list))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; slurs

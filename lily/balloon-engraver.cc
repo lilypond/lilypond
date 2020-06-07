@@ -19,8 +19,9 @@
 
 #include "engraver.hh"
 
-#include "stream-event.hh"
 #include "item.hh"
+#include "spanner.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -31,9 +32,10 @@ class Balloon_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Balloon_engraver);
 
   void listen_annotate_output (Stream_event *);
+  void acknowledge_end_grob (Grob_info info);
   void acknowledge_grob (Grob_info) override;
   vector<Stream_event *> events_;
-
+  vector<Spanner *> spanners_;
   void stop_translation_timestep ();
 
   void balloonify (Grob *, Stream_event *);
@@ -59,10 +61,38 @@ Balloon_engraver::Balloon_engraver (Context *c)
 void
 Balloon_engraver::balloonify (Grob *g, Stream_event *event)
 {
-  Grob *b = make_item ("BalloonTextItem", event->self_scm ());
-  set_property (b, "text", get_property (event, "text"));
-  b->set_parent (g, Y_AXIS);
-  b->set_parent (g, X_AXIS);
+  if (dynamic_cast<Item *> (g))
+    {
+      Grob *b = make_item ("BalloonTextItem", event->self_scm ());
+      set_property (b, "text", get_property (event, "text"));
+      b->set_parent (g, Y_AXIS);
+      b->set_parent (g, X_AXIS);
+    }
+  else if (dynamic_cast<Spanner *> (g))
+    {
+      Spanner *sp = make_spanner ("BalloonTextSpanner", event->self_scm ());
+      set_property (sp, "text", get_property (event, "text"));
+      sp->set_parent (g, Y_AXIS);
+      spanners_.push_back (sp);
+    }
+}
+
+void
+Balloon_engraver::acknowledge_end_grob (Grob_info info)
+{
+  vector<Spanner *> next;
+  for (Spanner *sp : spanners_)
+    if (sp->get_parent (Y_AXIS) == info.grob ())
+      {
+        for (LEFT_and_RIGHT (d))
+          sp->set_bound (d,
+                         dynamic_cast<Spanner *> (info.grob ())->get_bound (d));
+      }
+    else
+      {
+        next.push_back (sp);
+      }
+  spanners_.swap (next);
 }
 
 void
@@ -93,6 +123,7 @@ Balloon_engraver::boot ()
 {
   ADD_LISTENER (Balloon_engraver, annotate_output);
   ADD_ACKNOWLEDGER (Balloon_engraver, grob);
+  ADD_END_ACKNOWLEDGER (Balloon_engraver, grob);
 }
 
 ADD_TRANSLATOR (Balloon_engraver,
