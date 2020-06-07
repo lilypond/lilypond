@@ -566,18 +566,6 @@ Grob::common_refpoint (Grob const *s, Axis a) const
 }
 
 void
-Grob::set_parent (Grob *g, Axis a)
-{
-  dim_cache_[a].parent_ = g;
-}
-
-Grob *
-Grob::get_parent (Axis a) const
-{
-  return dim_cache_[a].parent_;
-}
-
-void
 Grob::fixup_refpoint ()
 {
   for (int a = X_AXIS; a < NO_AXES; a++)

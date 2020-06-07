@@ -160,8 +160,12 @@ public:
 
   /* refpoints */
   Grob *common_refpoint (Grob const *s, Axis a) const;
-  void set_parent (Grob *e, Axis);
-  Grob *get_parent (Axis a) const;
+  void set_x_parent (Grob *e) { dim_cache_[X_AXIS].parent_ = e; }
+  void set_y_parent (Grob *e) { dim_cache_[Y_AXIS].parent_ = e; }
+  void set_parent (Grob *e, Axis a) { dim_cache_[a].parent_ = e; }
+  Grob *get_x_parent () const { return dim_cache_[X_AXIS].parent_; }
+  Grob *get_y_parent () const { return dim_cache_[Y_AXIS].parent_; }
+  Grob *get_parent (Axis a) const { return dim_cache_[a].parent_; }
   void fixup_refpoint ();
 
   /* vertical ordering */
