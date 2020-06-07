@@ -64,14 +64,12 @@ Balloon_engraver::balloonify (Grob *g, Stream_event *event)
   if (dynamic_cast<Item *> (g))
     {
       Grob *b = make_item ("BalloonTextItem", event->self_scm ());
-      set_property (b, "text", get_property (event, "text"));
       b->set_parent (g, Y_AXIS);
       b->set_parent (g, X_AXIS);
     }
   else if (dynamic_cast<Spanner *> (g))
     {
       Spanner *sp = make_spanner ("BalloonTextSpanner", event->self_scm ());
-      set_property (sp, "text", get_property (event, "text"));
       sp->set_parent (g, Y_AXIS);
       spanners_.push_back (sp);
     }
