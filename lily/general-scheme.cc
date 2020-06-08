@@ -243,7 +243,7 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
       snprintf (str, sizeof (str), "%.4f", r);
     }
   else
-    snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));
+    snprintf (str, sizeof (str), "%lld", from_scm<long long> (s));
 
   return scm_from_ascii_string (str);
 }
