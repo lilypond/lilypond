@@ -58,11 +58,10 @@ web_footer = '''
 
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
 # ugh, must not have "_doc" in strings because it is naively replaced with "_" in hacked gettext process
-footer_report_links = _doc ('We welcome your aid; please <a href="%(help_us_url)s">help us</a> by reporting errors to our <a href="%(mail_address_url)s">bug list</a>.')
+footer_report_links = _doc ('We welcome your aid; please <a href="%(help_us_url)s">help us</a> by reporting errors to our <a href="%(bug_lilypond_url)s">bug list</a>.')
 sidebar_version = _doc (' v%(package_version)s (%(branch_str)s).')
 
-
-mail_address = 'https://lists.gnu.org/mailman/listinfo/bug-lilypond'
+bug_lilypond_url = 'https://lists.gnu.org/mailman/listinfo/bug-lilypond'
 help_us_url = 'https://lilypond.org/help-us.html'
 
 header_tag = '<!-- header_tag -->'
@@ -323,11 +322,6 @@ def process_html_files (package_name = '',
     """
     translation = langdefs.translation
     localtime = time.strftime ('%c %Z', time.localtime (time.time ()))
-
-    if "http://" in mail_address:
-        mail_address_url = mail_address
-    else:
-        mail_address_url= 'mailto:' + mail_address
 
     versiontup = package_version.split ('.')
     branch_str = _doc ('stable-branch')
