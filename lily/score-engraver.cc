@@ -85,7 +85,7 @@ Score_engraver::initialize ()
              + _ ("Aborting"));
     }
 
-  pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
+  pscore_ = new Paper_score (context ()->get_output_def ());
   pscore_->unprotect ();
   set_property (context (), "output", pscore_->self_scm ());
 

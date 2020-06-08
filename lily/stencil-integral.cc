@@ -913,7 +913,7 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
             Here, copying is essential.  Otherwise, the skyline pair will
             get doubly shifted!
           */
-          Skyline_pair copy = Skyline_pair (*skyp);
+          Skyline_pair copy (*skyp);
           /*
             It took Mike about 6 months of his life to flip the
             coordinates below.  This is what was causing the problems

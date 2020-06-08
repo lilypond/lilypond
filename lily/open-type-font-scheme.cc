@@ -85,7 +85,7 @@ LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
 
   string tab = otf->get_otf_table (string (ctag));
 
-  return scm_from_latin1_stringn ((char const *) tab.data (), tab.length ());
+  return scm_from_latin1_stringn (tab.data (), tab.length ());
 }
 
 LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,

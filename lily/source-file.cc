@@ -247,9 +247,9 @@ Source_file::get_counts (char const *pos_str0, ssize_t *line_number,
 
   SourceSlice line = line_slice (pos_str0);
   char const *data = c_str ();
-  char const *line_start = (char const *)data + line[LEFT];
+  char const *line_start = data + line[LEFT];
 
-  ssize left = (char const *) pos_str0 - line_start;
+  ssize left = pos_str0 - line_start;
   *line_byte_offset = left;
 
   // TODO: copying into line_begin looks pointless and wasteful

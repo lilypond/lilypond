@@ -956,7 +956,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
             continue;
           if (maybe_pair->is_empty ())
             continue;
-          inside_staff_skylines.push_back (Skyline_pair (*maybe_pair));
+          inside_staff_skylines.push_back (*maybe_pair);
           inside_staff_skylines.back ().shift (
             elt->relative_coordinate (x_common, X_AXIS));
           inside_staff_skylines.back ().raise (

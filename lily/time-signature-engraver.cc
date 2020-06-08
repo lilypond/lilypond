@@ -92,7 +92,7 @@ Time_signature_engraver::process_music ()
             OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
           */
           time_signature_->warning (_f ("strange time signature found: %d/%d",
-                                        int (scm_to_int (scm_car (fr))),
+                                        from_scm<int> (scm_car (fr)),
                                         den));
         }
 

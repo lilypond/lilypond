@@ -363,8 +363,7 @@ Rational::to_string () const
 {
   if (is_infinity ())
     {
-      string s (sign_ > 0 ? "" : "-");
-      return string (s + "infinity");
+      return string (sign_ > 0 ? "" : "-") + "infinity";
     }
 
   string s = std::to_string (num ());

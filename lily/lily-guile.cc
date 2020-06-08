@@ -325,7 +325,7 @@ ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
       // unsmob<T> delivers true.  This means that unsmob<T> is a
       // matching check from a base class of T, but var is of an
       // incompatible derived type.
-      type = string (_ ("Wrong kind of ")).append (type);
+      type = (_ ("Wrong kind of ")).append (type);
     }
   scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
                           number, var, type.c_str ());

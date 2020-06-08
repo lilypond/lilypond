@@ -93,8 +93,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
-      Direction attach = (Direction)
-                         from_scm (ly_assoc_get (ly_symbol2scm ("attach-dir"),
+      Direction attach = from_scm (ly_assoc_get (ly_symbol2scm ("attach-dir"),
                                                        details, SCM_BOOL_F),
                                          CENTER);
 
