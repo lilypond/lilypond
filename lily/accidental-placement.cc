@@ -31,6 +31,7 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
+#include <functional>
 #include <memory>
 
 using std::unique_ptr;
@@ -51,7 +52,8 @@ accidental_pitch (Grob *acc)
 }
 
 void
-Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long context_hash)
+Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger,
+                                      const void *hash_key)
 {
   Pitch *p = accidental_pitch (a);
   if (!p)
@@ -61,7 +63,9 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long cont
 
   SCM accs = get_object (me, "accidental-grobs");
   SCM key = scm_cons (to_scm (p->get_notename ()),
-                      to_scm (stagger ? context_hash : 1));
+                      to_scm (stagger
+                              ? std::hash<const void *> () (hash_key)
+                              : 1));
   // assoc because we're dealing with pairs
   SCM entry = ly_assoc (key, accs);
   if (scm_is_false (entry))
