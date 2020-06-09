@@ -856,6 +856,11 @@ distance between two syllables) and the @code{minimum-length}
 (threshold below which hyphens are removed) properties of
 @code{LyricHyphen}.
 
+By default a hyphen is not repeated after a system break when the
+next line begins with a new syllable.  Setting the
+@code{after-line-breaking} property to @code{#t} allows hyphens
+to be drawn in such situations.
+
 @seealso
 Internals Reference:
 @rinternals{LyricExtender},

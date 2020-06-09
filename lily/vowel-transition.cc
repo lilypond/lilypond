@@ -71,21 +71,21 @@ Vowel_transition::set_spacing_rods (SCM smob)
       if (cols.size ())
         {
           /* Before line break */
-          Rod r1;
-          r1.item_drul_[LEFT] = sp->get_bound (LEFT);
-          r1.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
-          r1.distance_ = from_scm<double> (minimum_length, 0);
-          r1.distance_ += padding[LEFT];
-          r1.distance_ += padding_broken[RIGHT];
-          r1.distance_ += bounds_protrusion (&r1);
-          r1.add_to_cols ();
+          Rod rod_before_break;
+          rod_before_break.item_drul_[LEFT] = sp->get_bound (LEFT);
+          rod_before_break.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
+          rod_before_break.distance_ = from_scm<double> (minimum_length, 0);
+          rod_before_break.distance_ += padding[LEFT];
+          rod_before_break.distance_ += padding_broken[RIGHT];
+          rod_before_break.distance_ += rod_before_break.bounds_protrusion ();
+          rod_before_break.add_to_cols ();
 
           /* After line break */
-          Rod r2;
-          r2.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
-          r2.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+          Rod rod_after_break;
+          rod_after_break.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
+          rod_after_break.item_drul_[RIGHT] = sp->get_bound (RIGHT);
           Interval_t<Moment> segment_time = spanned_time_interval (
-              r2.item_drul_[LEFT], r2.item_drul_[RIGHT]);
+              rod_after_break.item_drul_[LEFT], rod_after_break.item_drul_[RIGHT]);
           segment_time[LEFT].grace_part_ = 0;
           /*
             Calculate and add space only if the vowel transition is to be drawn.
@@ -95,44 +95,31 @@ Vowel_transition::set_spacing_rods (SCM smob)
           if ((segment_time.length () != Moment (0, 0))
               || from_scm<bool> (get_property (me, "after-line-breaking")))
             {
-              r2.distance_ = (scm_is_number (broken_length)
+              rod_after_break.distance_ = (scm_is_number (broken_length)
                                   ? from_scm<double> (broken_length, 0)
                                   : from_scm<double> (minimum_length, 0));
-              r2.distance_ += padding_broken[LEFT];
-              r2.distance_ += padding[RIGHT];
-              r2.distance_ += bounds_protrusion (&r2);
-              r2.add_to_cols ();
+              rod_after_break.distance_ += padding_broken[LEFT];
+              rod_after_break.distance_ += padding[RIGHT];
+              rod_after_break.distance_ += rod_after_break.bounds_protrusion ();
+              rod_after_break.add_to_cols ();
             }
         }
 
-      Rod r;
-      r.distance_ = from_scm<double> (minimum_length, 0);
-      r.item_drul_[LEFT] = sp->get_bound (LEFT);
-      r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+      Rod rod;
+      rod.distance_ = from_scm<double> (minimum_length, 0);
+      rod.item_drul_[LEFT] = sp->get_bound (LEFT);
+      rod.item_drul_[RIGHT] = sp->get_bound (RIGHT);
       for (LEFT_and_RIGHT (d))
-        r.distance_ += padding[d];
-      r.distance_ += bounds_protrusion (&r);
-      r.add_to_cols ();
+        rod.distance_ += padding[d];
+      rod.distance_ += rod.bounds_protrusion ();
+      rod.add_to_cols ();
 
       if (Item *left_pbp = sp->get_bound (RIGHT)->find_prebroken_piece (LEFT))
         {
-          r.item_drul_[RIGHT] = left_pbp;
-          r.add_to_cols ();
+          rod.item_drul_[RIGHT] = left_pbp;
+          rod.add_to_cols ();
         }
     }
 
   return SCM_UNSPECIFIED;
-}
-
-Real
-Vowel_transition::bounds_protrusion (const Rod *r)
-{
-  /* Calculate protrusion of bounds into rod */
-  Real w = 0;
-  for (LEFT_and_RIGHT (d))
-    {
-      if (r->item_drul_[d])
-        w += -d * r->item_drul_[d]->extent (r->item_drul_[d], X_AXIS)[-d];
-    }
-  return w;
 }

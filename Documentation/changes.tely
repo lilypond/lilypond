@@ -63,6 +63,21 @@ which scares away people.
 
 
 @item
+A lyric hyphen may now be repeated at the start of
+a system beginning with a new syllable:
+@lilypond[quote]
+\relative {
+  d'8^( e f e f4) \bar "" \break
+  e4
+}
+\addlyrics {
+  \override LyricHyphen.after-line-breaking = ##t
+  A -- men.
+}
+@end lilypond
+
+
+@item
 CSS-style colors can now be used directly as text strings;
 either with predefined color names (like with the already available
 @code{css-color} function), or with hexadecimal color codes

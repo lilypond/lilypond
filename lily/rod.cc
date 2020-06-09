@@ -53,3 +53,16 @@ Rod::add_to_cols ()
                                distance_);
     }
 }
+
+Real
+Rod::bounds_protrusion () const
+{
+  // Return the distance that bounds protrude into rod
+  Real w = 0;
+  for (LEFT_and_RIGHT (d))
+    {
+      if (item_drul_[d])
+        w += -d * item_drul_[d]->extent (item_drul_[d], X_AXIS)[-d];
+    }
+  return w;
+}

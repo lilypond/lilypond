@@ -1,14 +1,15 @@
-\version "2.19.21"
+\version "2.21.0"
 
 \header {
 
   texidoc = "Hyphens are printed at the beginning of the line only when
-they go past the first note. "
+they go past the first note, or when property @code{after-line-breaking}
+is @code{#t}."
 
 }
 
 
-\layout   {
+\layout {
   indent = 0.0 \cm
   line-width = 3.4 \cm
 
@@ -18,19 +19,20 @@ they go past the first note. "
 }
 
 
-
 <<
   \new Voice \relative {
-    \time 1/4 c''16[ c c  c]
     \time 1/4
+    c''16[ c c c]
     c16[ c c c]
-    \time 1/4
     r c16[ c c]
+    c16[ c c c]
+    c16[ c c c]
   } \addlyrics {
-    bla16 -- bla -- bla -- bla --
-    bla -- bla -- bla -- bla8 --
-    bla16 -- bla -- bla
+    bla -- bla -- bla -- bla --
+    bla -- bla -- bla -- bla --
+    \override LyricHyphen.after-line-breaking = ##t
+    bla -- bla -- bla --
+    bla -- bla -- bla -- bla --
+    verylongsyllable -- bla -- bla -- bla
   }
 >>
-
-
