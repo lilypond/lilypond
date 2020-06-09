@@ -72,6 +72,8 @@
          (args
           (filter string?
                   (list
+                   ;; Keep arguments in sync with those in make-ps-images
+                   ;; to avoid restarts of the GS interpreter.
                    (search-gs)
                    (if (not (ly:get-option 'verbose)) "-q")
                    "-dNODISPLAY"
@@ -87,9 +89,9 @@
          (run-strings
           (filter string?
                   (list
+                   (ly:format "mark /OutputFile (~a) " output-file)
                    (if is-eps ""
                        (ly:format "/PageSize [~$ ~$] " paper-width paper-height))
-                   (ly:format "mark /OutputFile (~a) " output-file)
                    "(pdfwrite) finddevice putdeviceprops setdevice "
                    (ly:format "(~a) ~a run " tmp-name gs-safe-option
                               )))

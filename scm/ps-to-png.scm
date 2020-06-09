@@ -77,11 +77,13 @@
           (args
            (filter string?
                    (list
+                    ;; Keep arguments in sync with those in postscript->pdf
+                    ;; to avoid restarts of the GS interpreter.
                     (search-gs)
                     (if (not (ly:get-option 'verbose)) "-q")
+                    "-dNODISPLAY"
                     "-dNOSAFER"
                     "-dNOPAUSE"
-                    "-dNODISPLAY"
                     "-dBATCH"
                     (if is-eps
                         "-dEPSCrop")
