@@ -33,6 +33,12 @@ AC_ARG_ENABLE(documentation,
     [DOCUMENTATION=$enableval])
 AC_SUBST(DOCUMENTATION)
 
+ENABLE_TEXI2HTML=yes
+AC_ARG_ENABLE(texi2html,
+    [AS_HELP_STRING([--enable-texi2html],
+                    [build texi2html for HTML documentation.  Default: on])],
+    [ENABLE_TEXI2HTML=$enableval])
+
 AC_ARG_WITH(flexlexer-dir,
     [AS_HELP_STRING([--with-flexlexer-dir=DIR],
                     [location of FlexLexer.h.])],
@@ -390,7 +396,11 @@ if test "$USE_EXTRACTPDFMARK" != "yes"; then
 fi
 
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 6.1)
-STEPMAKE_PROGS(TEXI2HTML, texi2html, $DOCUMENTATION_REQUIRED, 1.82, 1.82)
+TEXI2HTML_REQUIRED=$DOCUMENTATION_REQUIRED
+if test "$ENABLE_TEXI2HTML" = "no"; then
+  TEXI2HTML_REQUIRED=OPTIONAL
+fi
+STEPMAKE_PROGS(TEXI2HTML, texi2html, $TEXI2HTML_REQUIRED, 1.82, 1.82)
 STEPMAKE_PROGS(DBLATEX, dblatex, OPTIONAL, 0.1.4)
 STEPMAKE_PROGS(BIBTEX, bibtex, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(PDFLATEX, xelatex pdflatex, $DOCUMENTATION_REQUIRED)
