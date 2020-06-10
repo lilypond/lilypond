@@ -676,6 +676,10 @@
         (metadata-lookup-output 'pdfcopyright 'copyright "Copyright")
         (display "/DOCINFO pdfmark\n\n" port)))
 
+  (if (ly:get-option 'outline-bookmarks)
+      ;; Presenting the outline by default in PDF viewers.
+      (display "mark /PageMode /UseOutlines /DOCVIEW pdfmark\n\n" port))
+
   (if (ly:get-option 'embed-source-code)
       (let ((source-list (delete-duplicates
                           (remove (lambda (str)
@@ -700,6 +704,31 @@ mark {ly~a_stream} /CLOSE pdfmark
                             (ps-quote (ly:gulp-file fname))
                             idx fname idx idx))
                   source-list (iota (length source-list))))))
+
+(define (dump-pdf-bookmarks toc-alist page-numbers port)
+  (let* ((sorted-page-numbers
+          (sort (reverse page-numbers)
+                (lambda (pairA pairB)
+                  (< (cdr pairA) (cdr pairB)))))
+         (remaining (map car sorted-page-numbers)))
+    ;; TODO -- properly handle non-linear parent-children
+    ;; relationships (within the format’s limitations) -vv
+    (map
+     (lambda (entry)
+       (let* ((id (car entry))
+              (page-number (cdr entry))
+              (alist (assoc-get id toc-alist)))
+         (set! remaining (cdr remaining))
+         (if (and (number? page-number) alist
+                  (not (memq id remaining)))
+             (display
+              (format "mark /Page ~a /Title (~a) /Count ~a\
+ /View [/XYZ null null 0] /Subtype /Link /OUT pdfmark\n"
+                      page-number
+                      (ps-quote (assoc-get 'text alist))
+                      (length (assoc-get 'children alist)))
+              port))))
+     sorted-page-numbers)))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((port-tmp (make-tmpfile))
@@ -733,6 +762,11 @@ mark {ly~a_stream} /CLOSE pdfmark
        (set! page-number (1+ page-number))
        (dump-page outputter page page-number page-count landscape?))
      page-stencils)
+    (if (ly:get-option 'outline-bookmarks)
+        (dump-pdf-bookmarks
+         (ly:output-def-lookup paper 'label-alist-table)
+         (ly:output-def-lookup paper 'label-page-table)
+         port))
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
     (postprocess-output book framework-ps-module (ly:output-formats)

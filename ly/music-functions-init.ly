@@ -660,7 +660,7 @@ killCues =
 
 label =
 #(define-music-function (label) (symbol?)
-   (_i "Create @var{label} as a bookmarking label.")
+   (_i "Create @var{label} as a referrable label.")
    (make-music 'EventChord
                'page-marker #t
                'page-label label

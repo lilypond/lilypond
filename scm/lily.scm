@@ -345,6 +345,9 @@ to a music font.")
     (music-font-encodings
      #f
      "Use font encodings and the ps show operator with music fonts.")
+    (outline-bookmarks
+     #f
+     "Use bookmarks in table of contents metadata (e.g. for PDF viewers).")
     (point-and-click
      #t
      "Add point & click links to PDF and SVG output.")

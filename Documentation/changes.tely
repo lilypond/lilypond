@@ -63,6 +63,24 @@ which scares away people.
 
 
 @item
+PDF bookmarks are now supported and allow for @code{\tocItem} entries to
+appear in the @q{table of contents} panel of PDF viewers that support it.
+
+@item
+@code{\table-of-contents} now accepts a hierarchical structure;
+@code{\tocItem} entries may optionally take a symbol (like
+@code{\label}) or a dot-separated list of symbols, indicating their
+position in the score’s structure.  A side-effect of that feature
+is that @code{\tocItem} can no longer take a simple string as its
+argument; a @code{\markup} command must be used.
+@example
+\tocItem \markup "Top-level entry"
+\tocItem symbol "Named top-level entry"
+\tocItem symbol.list "Second-level (child) entry"
+@end example
+
+
+@item
 A lyric hyphen may now be repeated at the start of
 a system beginning with a new syllable:
 @lilypond[quote]

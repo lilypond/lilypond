@@ -4573,7 +4573,7 @@ a column containing several lines of text.
 @cindex referencing page number, in text
 
 Reference to a page number.  @var{label} is the label set on the referenced
-page (using the @code{\\label} command), @var{gauge} a markup used to estimate
+page (using @code{\\label} or @code{\\tocItem}), @var{gauge} a markup used to estimate
 the maximum width of the page number, and @var{default} the value to display
 when @var{label} is not found.
 
@@ -4582,14 +4582,29 @@ the reference will be formatted accordingly -- in which case the @var{gauge}'s
 width may require additional tweaking.)"
   (let* ((gauge-stencil (interpret-markup layout props gauge))
          (x-ext (ly:stencil-extent gauge-stencil X))
-         (y-ext (ly:stencil-extent gauge-stencil Y)))
+         (y-ext (ly:stencil-extent gauge-stencil Y))
+         ;; Ugh -- code duplication with ly/toc-init.ly -vv
+         (assoc-name-get
+          (lambda (name ls)
+            (do ((ls ls (cdr ls)) (result '() result))
+              ((null? ls) result)
+              (if (and (car ls) (eq? name (assoc-get 'name (cdar ls))))
+                  (set! result (cons (car ls) result)))))))
+
     (ly:stencil-outline
      (ly:make-stencil
       `(delay-stencil-evaluation
         ,(delay (ly:stencil-expr
                  (let* ((table (ly:output-def-lookup layout 'label-page-table))
+                        (alist-table (ly:output-def-lookup layout 'label-alist-table))
+                        (retrieve-id (if (list? alist-table)
+                                         (let ((entry (assoc-name-get label alist-table)))
+                                           (if (null? entry)
+                                               #f
+                                               (caar entry)))
+                                         #f))
                         (page-number (if (list? table)
-                                         (assoc-get label table)
+                                         (assoc-get (or retrieve-id label) table)
                                          #f))
                         (number-type (ly:output-def-lookup layout 'page-number-type))
                         (page-markup (if page-number

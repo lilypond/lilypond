@@ -1,8 +1,10 @@
-\version "2.17.6"
+\version "2.21.2"
 
 \header {
   texidoc = "Page labels may be placed inside music or at top-level,
-and referred to in markups."
+and referred to in markups.  Labels created with @code{\\tocItem}
+(and thus bearing an internally-generated unique identifying symbol)
+remain referrable by their user-specified name."
 }
 
 #(set-default-paper-size "a6")
@@ -32,14 +34,18 @@ and referred to in markups."
   \label #'firstScore
   \score {
     { c'2 c'
-      \mark \markup { A (page \concat { \page-ref #'markA "0" "?" ) }} \label #'markA 
+      \mark \markup {
+        A (page \concat { \page-ref #'markA "0" "?" ) }
+      } \label #'markA
       c' c'
       \pageBreak
       \mark "B" \label #'markB
       d' d'
+      \tocItem parent "This shouldn’t be printed"
       d' d'
-      \once \override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
-      \mark "C" \label #'markC
+      \once \override Score.RehearsalMark.break-visibility =
+        #begin-of-line-invisible
+      \mark "C" \tocItem parent.markC "This shouldn’t be printed"
     }
     \header { piece = "First score" }
   }

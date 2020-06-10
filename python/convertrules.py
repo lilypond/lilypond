@@ -4002,6 +4002,11 @@ def conv (str):
         stderr_write (UPDATE_MANUALLY)
     return str
 
+@rule ((2, 21, 2), r'''\tocItem "string" -> \tocItem \markup "string"''')
+def conv (str):
+    str = re.sub (r'\\tocItem\s+\"', r'\\tocItem \\markup \"', str)
+    return str
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #
