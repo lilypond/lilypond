@@ -18,6 +18,7 @@
 */
 
 #include "bezier.hh"
+
 #include "warn.hh"
 
 using std::vector;
@@ -51,6 +52,19 @@ translate (vector<Offset> *array, Offset o)
 {
   for (vsize i = 0; i < array->size (); i++)
     (*array)[i] += o;
+}
+
+Bezier::Bezier (const ly_scm_list &control_points)
+{
+  // Offsets in control_ are initialized to zero by default.  We could to save
+  // a little time by adding a way to skip that (explicitly).
+  size_t i = 0;
+  for (SCM point : control_points)
+    {
+      if (i >= CONTROL_COUNT)
+        break;
+      control_[i++] = from_scm<Offset> (point);
+    }
 }
 
 /*

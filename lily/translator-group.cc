@@ -27,6 +27,7 @@
 #include "engraver-group.hh"
 #include "international.hh"
 #include "listener.hh"
+#include "ly-smob-list.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -90,43 +91,6 @@ Translator_group::finalize ()
 }
 
 /*
-  Both filter_performers and filter_engravers used to use a direct dynamic_cast
-  on the unsmobbed translator to be filtered, i.e.,
-
-  if (unsmob<Performer> (scm_car (*tail)))
-
-  but this caused mysterious optimisation issues in several GUB builds.  See
-  issue #818 for the background to this change.
-*/
-SCM
-filter_performers (SCM ell)
-{
-  SCM *tail = &ell;
-  for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
-    {
-      if (unsmob<Performer> (scm_car (*tail)))
-        *tail = scm_cdr (*tail);
-      else
-        tail = SCM_CDRLOC (*tail);
-    }
-  return ell;
-}
-
-SCM
-filter_engravers (SCM ell)
-{
-  SCM *tail = &ell;
-  for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
-    {
-      if (unsmob<Engraver> (scm_car (*tail)))
-        *tail = scm_cdr (*tail);
-      else
-        tail = SCM_CDRLOC (*tail);
-    }
-  return ell;
-}
-
-/*
   Protects the parameter from being garbage collected. The object is
   protected until the next disconnect_from_context call.
 
@@ -158,15 +122,12 @@ Translator_group::create_child_translator (SCM sev)
   Context_def *def = unsmob<Context_def> (new_context->get_definition ());
   SCM ops = new_context->get_definition_mods ();
 
-  SCM trans_names = def->get_translator_names (ops);
-
   Translator_group *g = get_translator_group (def->get_translator_group_type ());
-  SCM trans_list = SCM_EOL;
+  ly_scm_list trans_list;
+  auto tail = trans_list.begin ();
 
-  for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM trans : ly_scm_list (def->get_translator_names (ops)))
     {
-      SCM trans = scm_car (s);
-
       if (ly_is_symbol (trans))
         trans = get_translator_creator (trans);
       if (ly_is_procedure (trans))
@@ -180,25 +141,24 @@ Translator_group::create_child_translator (SCM sev)
           continue;
         }
 
-      if (instance->must_be_last ())
+      if (instance->must_be_last () || trans_list.empty ())
         {
-          SCM cons = scm_cons (trans, SCM_EOL);
-          if (scm_is_pair (trans_list))
-            scm_set_cdr_x (scm_last_pair (trans_list), cons);
-          else
-            trans_list = cons;
+          tail = trans_list.insert_before (tail, trans);
+          ++tail;
         }
       else
-        trans_list = scm_cons (trans, trans_list);
-
+        {
+          trans_list.insert_before (trans_list.begin (), trans);
+        }
     }
 
   /* Filter unwanted translator types. Required to make
      \with { \consists "..." } work. */
   if (dynamic_cast<Engraver_group *> (g))
-    g->simple_trans_list_ = filter_performers (trans_list);
+    trans_list.remove_if ([] (SCM s) { return unsmob<Performer> (s); });
   else if (dynamic_cast<Performer_group *> (g))
-    g->simple_trans_list_ = filter_engravers (trans_list);
+    trans_list.remove_if ([] (SCM s) { return unsmob<Engraver> (s); });
+  g->simple_trans_list_ = trans_list.begin_scm ();
 
   // TODO: scrap Context::implementation
   new_context->implementation_ = g;

@@ -127,6 +127,7 @@ FIXME:
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
 #include "ly-module.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "music.hh"
@@ -4457,12 +4458,11 @@ try_word_variants (SCM pred, SCM str)
 		return SCM_UNDEFINED;
 
 	str = scm_string_split (str, SCM_MAKE_CHAR ('.'));
-	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
-		scm_set_car_x (p, scm_string_split (scm_car (p),
-						    SCM_MAKE_CHAR (',')));
+	for (SCM &p : as_ly_scm_list (str))
+		p = scm_string_split (p, SCM_MAKE_CHAR (','));
 	str = scm_append_x (str);
-	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
-		scm_set_car_x (p, scm_string_to_symbol (scm_car (p)));
+	for (SCM &p : as_ly_scm_list (str))
+		p = scm_string_to_symbol (p);
 
 	// Let's attempt the symbol list interpretation first.
 

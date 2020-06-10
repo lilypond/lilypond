@@ -17,11 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "stencil.hh"
+
 #include "font-metric.hh"
 #include "lookup.hh"
+#include "ly-scm-list.hh"
 #include "offset.hh"
-#include "stencil-interpret.hh"
-#include "stencil.hh"
 
 using std::vector;
 
@@ -287,11 +288,11 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
   Box extent;
   extent.set_empty ();
 
-  while (!SCM_NULLP (args))
+  for (SCM scm_s : as_ly_scm_list (args))
     {
-      Stencil *s = unsmob<Stencil> (scm_car (args));
+      Stencil *s = unsmob<Stencil> (scm_s);
       if (!s)
-        SCM_ASSERT_TYPE (s, scm_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
+        SCM_ASSERT_TYPE (s, scm_s, SCM_ARGn, __FUNCTION__, "Stencil");
 
       extent.unite (s->extent_box ());
       if (scm_is_pair (s->expr ()) && scm_is_eq (cs, s->expr ()))
@@ -301,8 +302,6 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
         }
       else
         expr = scm_cons (s->expr (), expr);
-
-      args = scm_cdr (args);
     }
 
   expr = scm_cons (cs, scm_reverse_x (expr, SCM_EOL));
@@ -479,9 +478,8 @@ LY_DEFINE (ly_round_filled_polygon, "ly:round-filled-polygon",
       ext = scm_to_double (extroversion);
     }
   vector<Offset> pts;
-  for (SCM p = points; scm_is_pair (p); p = scm_cdr (p))
+  for (SCM scm_pt : as_ly_scm_list (points))
     {
-      SCM scm_pt = scm_car (p);
       if (scm_is_pair (scm_pt))
         {
           pts.push_back (from_scm<Offset> (scm_pt));

@@ -22,6 +22,8 @@
 
 #include "music-iterator.hh"
 
+#include "ly-smob-list.hh"
+
 class Simultaneous_music_iterator final : public Music_iterator
 {
 public:
@@ -44,7 +46,7 @@ protected:
   void process (Moment) override;
 
 private:
-  SCM children_list_;
+  ly_smob_list<Music_iterator> children_list_;
 };
 
 #endif // SIMULTANEOUS_MUSIC_ITERATOR_HH

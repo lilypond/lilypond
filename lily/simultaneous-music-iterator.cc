@@ -30,35 +30,30 @@ using std::string;
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
   create_separate_contexts_ = false;
-  children_list_ = SCM_EOL;
 }
 
 void
 Simultaneous_music_iterator::derived_mark () const
 {
-  scm_gc_mark (children_list_);
+  children_list_.gc_mark ();
 }
 
 void
 Simultaneous_music_iterator::derived_substitute (Context *f, Context *t)
 {
-  for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
-    unsmob<Music_iterator> (scm_car (s))->substitute_outlet (f, t);
+  for (auto *child : children_list_)
+    child->substitute_outlet (f, t);
 }
 
 void
 Simultaneous_music_iterator::construct_children ()
 {
   int j = 0;
-
-  SCM i = get_property (get_music (), "elements");
-
-  children_list_ = SCM_EOL;
-  SCM *tail = &children_list_;
-  for (; scm_is_pair (i); i = scm_cdr (i), j++)
+  children_list_.clear ();
+  auto tail = children_list_.begin ();
+  const ly_smob_list<Music> elements (get_property (get_music (), "elements"));
+  for (auto *mus : elements)
     {
-      Music *mus = unsmob<Music> (scm_car (i));
-
       SCM scm_iter = get_static_get_iterator (mus);
       Music_iterator *mi = unsmob<Music_iterator> (scm_iter);
 
@@ -85,11 +80,13 @@ Simultaneous_music_iterator::construct_children ()
 
       if (mi->ok ())
         {
-          *tail = scm_cons (scm_iter, *tail);
-          tail = SCM_CDRLOC (*tail);
+          tail = children_list_.insert_before (tail, mi);
+          ++tail;
         }
       else
         mi->quit ();
+
+      ++j;
     }
 }
 
@@ -101,21 +98,21 @@ Simultaneous_music_iterator::construct_children ()
 void
 Simultaneous_music_iterator::process (Moment until)
 {
-  SCM *proc = &children_list_;
   bool finite = !pending_moment ().main_part_.is_infinity ();
-  while (scm_is_pair (*proc))
+  for (auto proc = children_list_.begin ();
+       proc != children_list_.end (); /*in loop*/)
     {
-      Music_iterator *i = unsmob<Music_iterator> (scm_car (*proc));
-      if (i->run_always () || i->pending_moment () == until)
-        i->process (until);
-      if (!i->ok ())
+      auto *child = *proc;
+      if (child->run_always () || (child->pending_moment () == until))
+        child->process (until);
+      if (!child->ok ())
         {
-          i->quit ();
-          *proc = scm_cdr (*proc);
+          child->quit ();
+          proc = children_list_.erase (proc);
         }
       else
         {
-          proc = SCM_CDRLOC (*proc);
+          ++proc;
         }
     }
   // If there were definite-ended iterators and all of them died, take
@@ -131,9 +128,9 @@ Simultaneous_music_iterator::process (Moment until)
   // simultaneous iterator.
   if (finite && pending_moment ().main_part_.is_infinity ())
     {
-      for (SCM p = children_list_; scm_is_pair (p); p = scm_cdr (p))
-        unsmob<Music_iterator> (scm_car (p))->quit ();
-      children_list_ = SCM_EOL;
+      for (auto *child : children_list_)
+        child->quit ();
+      children_list_.clear ();
     }
 }
 
@@ -142,10 +139,9 @@ Simultaneous_music_iterator::pending_moment () const
 {
   Moment next (Rational::infinity ());
 
-  for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
+  for (const auto *child : children_list_)
     {
-      Music_iterator *it = unsmob<Music_iterator> (scm_car (s));
-      next = std::min (next, it->pending_moment ());
+      next = std::min (next, child->pending_moment ());
     }
 
   return next;
@@ -154,10 +150,9 @@ Simultaneous_music_iterator::pending_moment () const
 bool
 Simultaneous_music_iterator::run_always () const
 {
-  for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
+  for (const auto *child : children_list_)
     {
-      Music_iterator *it = unsmob<Music_iterator> (scm_car (s));
-      if (it->run_always ())
+      if (child->run_always ())
         return true;
     }
   return false;
@@ -166,8 +161,8 @@ Simultaneous_music_iterator::run_always () const
 void
 Simultaneous_music_iterator::do_quit ()
 {
-  for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
-    unsmob<Music_iterator> (scm_car (s))->quit ();
+  for (auto *child : children_list_)
+    child->quit ();
 }
 
 IMPLEMENT_CTOR_CALLBACK (Simultaneous_music_iterator);

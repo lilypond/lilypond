@@ -23,6 +23,8 @@
 #include "font-interface.hh"
 #include "international.hh"
 #include "lookup.hh"
+#include "ly-scm-list.hh"
+#include "ly-smob-list.hh"
 #include "misc.hh"
 #include "moment.hh"
 #include "output-def.hh"
@@ -162,9 +164,8 @@ calc_measure_duration_log (Grob *me)
     }
   else
     {
-      for (SCM s = duration_logs_list; scm_is_pair (s); s = scm_cdr (s))
+      for (const auto &dur_log : as_ly_scm_list_t<int> (duration_logs_list))
         {
-          int dur_log = scm_to_int (scm_car (s));
           if (dur_log > minimum_usable_duration_log)
             minimum_usable_duration_log = dur_log;
           if (dur_log < maximum_usable_duration_log)
@@ -336,9 +337,8 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
                      / 2;
 
   Stencil mol;
-  for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
-    mol.add_at_edge (X_AXIS, LEFT, *unsmob<Stencil> (scm_car (s)),
-                     inner_padding);
+  for (const auto *s : as_ly_smob_list<Stencil> (mols))
+    mol.add_at_edge (X_AXIS, LEFT, *s, inner_padding);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (left_offset, X_AXIS);
 

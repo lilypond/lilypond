@@ -47,6 +47,7 @@
 #include "interval-set.hh"
 #include "item.hh"
 #include "lookup.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "note-head.hh"
@@ -322,14 +323,12 @@ Beam::calc_beaming (SCM smob)
           for (LEFT_and_RIGHT (d))
             {
               new_slice.set_empty ();
-              SCM s = index_get_cell (this_beaming, d);
-              for (; scm_is_pair (s); s = scm_cdr (s))
+              for (SCM &s : ly_scm_list (index_get_cell (this_beaming, d)))
                 {
-                  int new_beam_pos
-                    = start_point - this_dir * scm_to_int (scm_car (s));
-
+                  const auto new_beam_pos
+                    = start_point - this_dir * from_scm<int> (s);
                   new_slice.add_point (new_beam_pos);
-                  scm_set_car_x (s, to_scm (new_beam_pos));
+                  s = to_scm (new_beam_pos);
                 }
             }
 
@@ -341,11 +340,10 @@ Beam::calc_beaming (SCM smob)
           /*
             FIXME: what's this for?
            */
-          SCM s = scm_cdr (this_beaming);
-          for (; scm_is_pair (s); s = scm_cdr (s))
+          for (SCM &s : ly_scm_list (scm_cdr (this_beaming)))
             {
-              int np = -this_dir * scm_to_int (scm_car (s));
-              scm_set_car_x (s, to_scm (np));
+              int np = -this_dir * from_scm<int> (s);
+              s = to_scm (np);
               last_int.add_point (np);
             }
         }

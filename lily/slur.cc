@@ -19,6 +19,7 @@
 */
 
 #include "slur.hh"
+
 #include "grob-info.hh"
 #include "grob-array.hh"
 #include "beam.hh"
@@ -28,6 +29,7 @@
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "lookup.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"              // DEBUG_SLUR_SCORING
 #include "note-column.hh"
 #include "output-def.hh"
@@ -229,20 +231,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
 Bezier
 Slur::get_curve (Grob *me)
 {
-  Bezier b;
-  SCM s = get_property (me, "control-points");
-  for (int i = 0; i < Bezier::CONTROL_COUNT; i++)
-    {
-      if (scm_is_pair (s))
-        {
-          b.control_[i] = from_scm<Offset> (scm_car (s));
-          s = scm_cdr (s);
-        }
-      else
-        b.control_[i] = Offset (0.0, 0.0);
-    }
-
-  return b;
+  return Bezier (ly_scm_list (get_property (me, "control-points")));
 }
 
 void

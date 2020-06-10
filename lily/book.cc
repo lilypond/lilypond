@@ -19,6 +19,7 @@
 
 #include "book.hh"
 
+#include "ly-smob-list.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -174,15 +175,17 @@ Book::add_bookpart (SCM b)
 bool
 Book::error_found () const
 {
-  for (SCM s = scores_; scm_is_pair (s); s = scm_cdr (s))
-    if (Score *score = unsmob<Score> (scm_car (s)))
-      if (score->error_found_)
+  for (const auto *score : as_ly_smob_list<Score> (scores_))
+    {
+      if (score && score->error_found_)
         return true;
+    }
 
-  for (SCM part = bookparts_; scm_is_pair (part); part = scm_cdr (part))
-    if (Book *bookpart = unsmob<Book> (scm_car (part)))
-      if (bookpart->error_found ())
+  for (const auto *bookpart : as_ly_smob_list<Book> (bookparts_))
+    {
+      if (bookpart && bookpart->error_found ())
         return true;
+    }
 
   return false;
 }
@@ -198,9 +201,9 @@ void
 Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Output_def *layout)
 {
   add_scores_to_bookpart ();
-  for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
+  for (auto *book : ly_smob_list<Book> (scm_reverse (bookparts_)))
     {
-      if (Book *book = unsmob<Book> (scm_car (p)))
+      if (book)
         {
           Paper_book *paper_book_part = book->process (paper, layout, output_paper_book);
           if (paper_book_part)

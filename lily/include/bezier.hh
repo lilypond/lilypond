@@ -21,6 +21,7 @@
 #define BEZIER_HH
 
 #include "interval.hh"
+#include "ly-scm-list.hh"
 #include "offset.hh"
 #include "polynomial.hh"
 
@@ -30,6 +31,9 @@
 class Bezier
 {
 public:
+  Bezier () = default;
+  explicit Bezier (const ly_scm_list &control_points);
+
   void assert_sanity () const;
   void scale (Real x, Real y);
   void reverse ();

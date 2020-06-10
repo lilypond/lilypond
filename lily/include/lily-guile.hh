@@ -206,6 +206,13 @@ template <typename T> struct scm_conversions
   }
 };
 
+// TODO: The asymmetry of having this without the others is irritating.
+template <> inline SCM
+to_scm<SCM> (SCM s)
+{
+  return s;
+}
+
 template <> inline bool
 is_scm<int> (SCM s)
 {

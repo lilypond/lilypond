@@ -20,6 +20,7 @@
 #include "context.hh"
 #include "translator.hh"
 #include "lily-imports.hh"
+#include "ly-scm-list.hh"
 #include "international.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
@@ -41,8 +42,8 @@ LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
   Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
   SCM l = dict ? dict->to_alist () : SCM_EOL;
 
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    scm_set_car_x (s, scm_cdar (s));
+  for (SCM &s : as_ly_scm_list (l))
+    s = scm_cdr (s);
 
   return l;
 }
