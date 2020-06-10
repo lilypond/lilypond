@@ -284,39 +284,40 @@ New_fingering_engraver::position_scripts (SCM orientations,
     {
       Finger_tuple ft = horiz[i];
       Grob *f = ft.script_;
-      if (scm_is_true (get_property (f, "stencil"))) {
-        f->set_parent (ft.head_, X_AXIS);
-        f->set_parent (ft.head_, Y_AXIS);
-        set_property (f, "avoid-slur", ly_symbol2scm ("inside"));
-        if (hordir == LEFT
-            && unsmob<Grob> (get_object (ft.head_, "accidental-grob")))
-          Side_position_interface::add_support (f,
-                                                unsmob<Grob> (get_object (ft.head_, "accidental-grob")));
-        else if (Rhythmic_head::dot_count (ft.head_))
-          for (vsize j = 0; j < heads_.size (); j++)
-            if (Grob *d = unsmob<Grob> (get_object (heads_[j], "dot")))
-              Side_position_interface::add_support (f, d);
+      if (scm_is_true (get_property (f, "stencil")))
+        {
+          f->set_parent (ft.head_, X_AXIS);
+          f->set_parent (ft.head_, Y_AXIS);
+          set_property (f, "avoid-slur", ly_symbol2scm ("inside"));
+          if (hordir == LEFT
+              && unsmob<Grob> (get_object (ft.head_, "accidental-grob")))
+            Side_position_interface::add_support
+            (f, unsmob<Grob> (get_object (ft.head_, "accidental-grob")));
+          else if (Rhythmic_head::dot_count (ft.head_))
+            for (vsize j = 0; j < heads_.size (); j++)
+              if (Grob *d = unsmob<Grob> (get_object (heads_[j], "dot")))
+                Side_position_interface::add_support (f, d);
 
-        if (horiz.size () > 1)  /* -> FingeringColumn */
-          {
-            Stencil *fs = f->get_stencil ();
-            fs->align_to (Y_AXIS, CENTER);
-          }
-        else
-          {
-            SCM self_align_y
-              = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
-            SCM yoff = get_property (f, "Y-offset");
-            if (scm_is_number (yoff))
-              self_align_y = to_scm (scm_to_double (self_align_y)
-                                              + scm_to_double (yoff));
-            set_property (f, "Y-offset", self_align_y);
-          }
+          if (horiz.size () > 1)  /* -> FingeringColumn */
+            {
+              Stencil *fs = f->get_stencil ();
+              fs->align_to (Y_AXIS, CENTER);
+            }
+          else
+            {
+              SCM self_align_y
+                = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
+              SCM yoff = get_property (f, "Y-offset");
+              if (scm_is_number (yoff))
+                self_align_y = to_scm (scm_to_double (self_align_y)
+                                       + scm_to_double (yoff));
+              set_property (f, "Y-offset", self_align_y);
+            }
 
-        Side_position_interface::set_axis (f, X_AXIS);
+          Side_position_interface::set_axis (f, X_AXIS);
 
-        set_property (f, "direction", to_scm (hordir));
-      }
+          set_property (f, "direction", to_scm (hordir));
+        }
     }
 
   Drul_array< vector<Finger_tuple> > vertical (down, up);
@@ -340,7 +341,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
             }
 
           set_property (f, "script-priority",
-                           to_scm (finger_prio + d * ft.position_));
+                        to_scm (finger_prio + d * ft.position_));
 
           Self_alignment_interface::set_aligned_on_parent (f, X_AXIS);
           Side_position_interface::set_axis (f, Y_AXIS);

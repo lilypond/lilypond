@@ -222,11 +222,11 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
   Skyline my_dim;
   SCM skyp = get_maybe_pure_property (me, a == X_AXIS
-                                          ? "horizontal-skylines"
-                                          : "vertical-skylines",
-                                          pure,
-                                          start,
-                                          end);
+                                      ? "horizontal-skylines"
+                                      : "vertical-skylines",
+                                      pure,
+                                      start,
+                                      end);
   if (unsmob<Skyline_pair> (skyp))
     {
       // for spanner pure heights, we don't know horizontal spacing,
@@ -279,11 +279,11 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       if (e)
         {
           SCM sp = get_maybe_pure_property (e, a == X_AXIS
-                                               ? "horizontal-skylines"
-                                               : "vertical-skylines",
-                                               pure,
-                                               start,
-                                               end);
+                                            ? "horizontal-skylines"
+                                            : "vertical-skylines",
+                                            pure,
+                                            start,
+                                            end);
 
           if (unsmob<Skyline_pair> (sp))
             {
@@ -443,9 +443,9 @@ Side_position_interface::get_axis (Grob *me)
   if (scm_is_number (get_property (me, "side-axis")))
     return Axis (scm_to_int (get_property (me, "side-axis")));
 
-  string msg = String_convert::form_string ("side-axis not set for grob %s.",
-                                            me->name ().c_str ());
-  me->programming_error (msg);
+  if (scm_is_true (get_property (me, "stencil")))
+    me->programming_error (_f ("no side-axis setting found for grob %s.",
+                               me->name ().c_str ()));
   return NO_AXES;
 }
 

@@ -87,7 +87,7 @@ Script_interface::calc_direction (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Direction d = Script_interface::get_direction (me);
 
-  if (!d)
+  if (!d && scm_is_true (get_property (me, "stencil")))
     {
       me->programming_error ("script direction not yet known");
       d = DOWN;
