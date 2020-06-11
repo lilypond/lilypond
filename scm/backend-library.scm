@@ -53,14 +53,6 @@
     (delete-file tmp-name)
     ))
 
-(define-public
-  gs-safe-option (if (or (ly:get-option 'gs-api)
-                         (ly:get-option 'gs-load-fonts)
-                         (ly:get-option 'gs-load-lily-fonts)
-                         (eq? PLATFORM 'windows))
-                     ""
-                     " .setsafe "))
-
 (define-public (gs-cmd-args is-eps)
   (filter string?
           (list
@@ -85,7 +77,7 @@
                    (if (not is-eps)
                        (ly:format "/PageSize [~$ ~$]" paper-width paper-height))
                    "(pdfwrite) finddevice putdeviceprops setdevice"
-                   (ly:format "(~a) ~a run" tmp-name gs-safe-option)))
+                   (ly:format "(~a) run" tmp-name)))
           ))
 
     (ly:message (_ "Converting to `~a'...\n") pdf-name)

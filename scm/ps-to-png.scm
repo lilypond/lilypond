@@ -87,7 +87,7 @@
                          (if (not is-eps)
                              (ly:format "/PageSize [~a ~a]" page-width page-height))
                          (ly:format "(~a) findprotodevice copydevice putdeviceprops setdevice" pixmap-format)
-                         (ly:format "(~a) ~a run" tmp-name gs-safe-option))))
+                         (ly:format "(~a) run" tmp-name))))
 
           (files '()))
 
