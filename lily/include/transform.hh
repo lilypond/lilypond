@@ -29,6 +29,8 @@ class Transform : public Simple_smob<Transform>
   PangoMatrix m_;
 
 public:
+  LY_DECLARE_SMOB_PROC (&Transform::call, 1, 0, 0);
+  SCM call (SCM arg);
   static const char *const type_p_name_;
 
   static const Transform identity;

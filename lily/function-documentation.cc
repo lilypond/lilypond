@@ -32,6 +32,7 @@
 #include "protected-scm.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
+#include "transform.hh"
 #include "unpure-pure-container.hh"
 
 #include <cstring>
@@ -123,6 +124,7 @@ init_func_doc ()
   ly_add_type_predicate ((void *) &scm_is_pair, "pair");
   ly_add_type_predicate ((void *) &scm_is_rational, "rational");
   ly_add_type_predicate ((void *) &scm_is_string, "string");
+  ly_add_type_predicate ((void *) &unsmob<Transform>, "coordinate transform");
   ly_add_type_predicate ((void *) &scm_is_vector, "vector");
   ly_add_type_predicate ((void *) &unsmob<Item>, "Item");
   ly_add_type_predicate ((void *) &unsmob<Music>, "Music");
