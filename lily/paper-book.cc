@@ -394,19 +394,19 @@ set_labels (SCM sys, SCM labels)
       if (cols.size ())
         {
           Paper_column *col = cols[0];
-          set_property (col, "labels",
-                             scm_append_x (scm_list_2 (get_property (col, "labels"),
-                                                       labels)));
+          set_property (
+            col, "labels",
+            scm_append (scm_list_2 (get_property (col, "labels"), labels)));
           Paper_column *col_right = col->find_prebroken_piece (RIGHT);
           set_property (col_right, "labels",
-                                   scm_append_x (scm_list_2 (get_property (col_right, "labels"),
-                                                             labels)));
+                        scm_append (scm_list_2 (
+                          get_property (col_right, "labels"), labels)));
         }
     }
   else if (Prob *pb = unsmob<Prob> (sys))
-    set_property (pb, "labels",
-                      scm_append_x (scm_list_2 (get_property (pb, "labels"),
-                                                labels)));
+    set_property (
+      pb, "labels",
+      scm_append (scm_list_2 (get_property (pb, "labels"), labels)));
 }
 
 SCM
