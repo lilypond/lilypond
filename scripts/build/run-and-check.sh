@@ -20,14 +20,14 @@ eval $1 >> $2 2>&1
 # Capture return value of the just executed command.
 RetVal=$?
 if [ $RetVal -ne 0 ]; then
+	cp "$CurrDir/$2" "$CurrDir/$2.fail.log"
 	echo
 	echo "Please check the logfile"
 	echo
 	echo "  $CurrDir/$2"
 	echo
-	echo "for errors"
+	echo "for errors. Last 20 lines:"
 	echo
-	echo "last 20 lines:"
 	tail -20 "$CurrDir/$2"
 fi
 exit $RetVal
