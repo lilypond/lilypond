@@ -679,8 +679,6 @@ messages into errors.")
     (,port? . "port")
     (,input-port? . "input port")
     (,output-port? . "output port")
-
-    ;; would this ever be used?
     (,eof-object? . "end-of-file object")
 
     (,procedure? . "procedure")
