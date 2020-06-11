@@ -237,7 +237,7 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
         Offset (right, top - radius),     Offset (right, -bottom + radius),
         Offset (right - radius, -bottom), Offset (-left + radius, -bottom),
       };
-      for (vsize i = 0; i < ARRAYSIZE (points); i += 2)
+      for (vsize i = 0; i < sizeof(points) / sizeof(Offset); i += 2)
         {
           skyline->add_contour_segment (transform, CW, points[i],
                                         points[i + 1]);
