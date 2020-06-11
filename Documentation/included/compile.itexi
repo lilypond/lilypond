@@ -929,7 +929,6 @@ re-install.  See @ref{Configuring target directories}.
 * Building documentation::
 * Building a single document::
 * Saving time with CPU_COUNT::
-* AJAX search::
 * Installing documentation::
 * Building documentation without compiling::
 @end menu
@@ -1101,23 +1100,6 @@ problems with @samp{make doc} (this applies to both @option{-j}
 and @option{CPU_COUNT}).  For example, with a quad-core processor,
 it is possible for @samp{make -j5 CPU_COUNT=5 doc} to work
 consistently even if @samp{make -j5} rarely succeeds.
-
-
-@node AJAX search
-@unnumberedsubsubsec AJAX search
-
-To build the documentation with interactive searching, use:
-
-@example
-make doc AJAX_SEARCH=1
-@end example
-
-This requires PHP, and you must view the docs via a http
-connection (you cannot view them on your local filesystem).
-
-@warning{Due to potential security or load issues, this option is
-not enabled in the official documentation builds.  Enable at your
-own risk.}
 
 
 @node Installing documentation

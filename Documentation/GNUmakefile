@@ -97,13 +97,6 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 ### Web site idiosyncrasies
 $(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
 
-### AJAX scripts
-JS_FILES = $(call src-wildcard,*.js)
-PHP_FILES = $(call src-wildcard,*.php)
-
-OUT_JS_FILES = $(JS_FILES:%.js=$(outdir)/%.js)
-OUT_PHP_FILES = $(PHP_FILES:%.php=$(outdir)/%.php)
-
 
 
 ### bad hack for badly-integrated roadmap.
@@ -164,13 +157,7 @@ local-clean:
 
 ifeq ($(out),www)
 local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
-
-ifeq ($(AJAX_SEARCH),1)
-local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(OUT_JS_FILES) $(OUT_PHP_FILES) $(source-links)
-else
 local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
-endif
-
 endif
 
 
@@ -242,14 +229,6 @@ out/ly-snippets.dep: $(SNIPPET_LY_FILES)
 	touch $@
 
 $(outdir)/%.bib: %.bib
-	$(call ly_progress,Making,$@,(copy))
-	cp $< $@
-
-$(outdir)/%.js: %.js
-	$(call ly_progress,Making,$@,(copy))
-	cp $< $@
-
-$(outdir)/%.php: %.php
 	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 

@@ -351,19 +351,6 @@ sub lilypond_css_lines ($$)
 	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-manuals-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
   }
 
-  if ($ENV{'AJAX_SEARCH'} == 1) {
-    # Add the JavaScript file only if we have an index.
-    # Unfortunately, init_out is called after css_lines, so as a workaround
-    # here we have to check again for the existence of an index...
-    my $ix = main::get_index ("cp");
-    $have_index_entries = (scalar $ix > 0);
-    my $reldir = "";
-    $reldir = "../" unless $bigpage;
-    if ($have_index_entries) {
-      $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" type=\"text/javascript\" src=\"${reldir}lily_search.js\"></script>\n";
-    }
-  }
-
   ## This section makes the manual name visible to CSS through the body tag
   ## so that styles can be applied per manual. It will add the manual
   ## directory name (e.g., 'notation' or 'learning') as a CSS class, as well
@@ -784,16 +771,6 @@ sub lilypond_print_toc_div ($)
 	 &ly_get_string ('Back to Documentation Index') .
 	 "</a></p>\n";
 
-      # AJAX search box, written in JavaScript
-      if ($ENV{'AJAX_SEARCH'} == 1) {
-        if ($have_index_entries) {
-          my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-          print $fh '<script language="JavaScript">print_search_field ("' .
-             $Texi2HTML::THISDOC{current_lang} . '", "' .
-             $docu_name . "\", " . $bigpage . ")</script>\n";
-        }
-      }
-
       print $fh '<h4 class="toc_header"> ' . &$anchor('',
                                     $Texi2HTML::HREF{'Top'},
                                     $topname . " <!-- Sidebar Version Tag  --> ",
@@ -823,17 +800,15 @@ sub lilypond_print_toc_div ($)
         }
     }
 
-    if (!($ENV{AJAX_SEARCH} == 1)) {
-      local $/=undef;
-      my $name = "search-box";
-      $lang = $Texi2HTML::THISDOC{current_lang};
-      open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
-	open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name.ihtml"  or
-	die "no such file: $name.ihtml: $!";
-      my $search_string = decode ('UTF-8', <FILE>);
-      print $fh $search_string;
-      close FILE;
-    }
+    local $/=undef;
+    my $name = "search-box";
+    $lang = $Texi2HTML::THISDOC{current_lang};
+    open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
+        open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name.ihtml"  or
+        die "no such file: $name.ihtml: $!";
+    my $search_string = decode ('UTF-8', <FILE>);
+    print $fh $search_string;
+    close FILE;
 
     print $fh "</div>\n\n";
 }

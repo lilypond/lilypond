@@ -468,32 +468,6 @@ table.menu {
 }
 
 /***********************************************************/
-/*           FORMATTING of AJAX SEARCH BOX                 */
-/***********************************************************/
-
-div#search {
-  border: none;
-  border-bottom: 1pt solid #C5972C;
-  background: #E8E3AC;
-  padding-left: 3px;
-  padding-top: 2px;
-  padding-bottom: 1px;
-}
-div#search p, div#search form {
-  padding: 0;
-  margin: 0;
-}
-#search_results {
-  font-size: 0.75em;
-  padding: 0;
-  margin: 0;
-  display: none;
-}
-#search_results table {
-  width: 100%;
-}
-
-/***********************************************************/
 /*               OTHER                                     */
 /***********************************************************/
 
