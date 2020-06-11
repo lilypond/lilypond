@@ -86,8 +86,10 @@ gulp_file_to_string (const string &fn, bool must_exist, int size)
         {
           string e = _f ("cannot find file: `%s'", fn);
           e += " ";
+          char buf[PATH_MAX];
+          char *cwd = getcwd(buf, PATH_MAX);
           e += _f ("(load path: `%s', cwd: `%s')", global_path.to_string (),
-                   get_current_dir_name ());
+                   cwd);
           error (e);
           /* unreachable */
         }
