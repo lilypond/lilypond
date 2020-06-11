@@ -664,9 +664,25 @@ messages into errors.")
 (define-public r5rs-primary-predicates
   `((,boolean? . "boolean")
     (,char? . "character")
+
+    (,list? . "list")
+    (,null? . "null")
+
     (,number? . "number")
+    (,complex? . "complex number")
+    (,integer? . "integer")
+    (,rational? . "rational number")
+    (,real? . "real number")
+
     (,pair? . "pair")
+
     (,port? . "port")
+    (,input-port? . "input port")
+    (,output-port? . "output port")
+
+    ;; would this ever be used?
+    (,eof-object? . "end-of-file object")
+
     (,procedure? . "procedure")
     (,string? . "string")
     (,symbol? . "symbol")
@@ -679,26 +695,13 @@ messages into errors.")
     (,char-upper-case? . "upper-case character")
     (,char-whitespace? . "whitespace character")
 
-    (,complex? . "complex number")
     (,even? . "even number")
     (,exact? . "exact number")
     (,inexact? . "inexact number")
-    (,integer? . "integer")
     (,negative? . "negative number")
     (,odd? . "odd number")
     (,positive? . "positive number")
-    (,rational? . "rational number")
-    (,real? . "real number")
     (,zero? . "zero")
-
-    (,list? . "list")
-    (,null? . "null")
-
-    (,input-port? . "input port")
-    (,output-port? . "output port")
-
-    ;; would this ever be used?
-    (,eof-object? . "end-of-file object")
     ))
 
 (define-public guile-predicates
