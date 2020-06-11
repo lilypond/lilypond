@@ -93,19 +93,6 @@ LilyPond está publicado bajo la
 
 
 @divClass{column-center-bottom}
-
-@subheading Patrocinadores
-
-Nuestro agradecimiento a @uref{http://www.vt.edu/, Virginia Tech} y a
-@uref{http://www.linuxaudio.org/, linuxaudio.org} por patrocinar
-nuestro ancho de banda.
-
-@sourceimage{VTlogo_ITF,,,}
-@sourceimage{lao_banner_06_on_white_demo,,,}
-
-@divEnd
-
-@divClass{column-center-bottom}
 @subheading Legalismos
 
 @divClass{legal}

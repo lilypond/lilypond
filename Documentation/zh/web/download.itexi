@@ -89,16 +89,6 @@ LilyPond 是以
 @divEnd
 
 
-@divClass{color1}
-
-@subheading 赞助商
-
-非常感谢 @uref{http://www.vt.edu/, Virginia Tech} 和
-@uref{http://www.linuxaudio.org/, linuxaudio.org} 赞助我们的网络带宽。
-
-@sourceimage{VTlogo_ITF,,,}
-@sourceimage{lao_banner_06_on_white_demo,,,}
-
 @subheading 法律条文
 
 @divClass{legal}

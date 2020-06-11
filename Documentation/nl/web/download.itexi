@@ -99,15 +99,6 @@ License} (GNU Algemene Publieke Licentie).
 
 @divClass{color1}
 
-@subheading Sponsors
-
-Hartelijk dank aan @uref{http://www.vt.edu/, Virginia Tech} en
-@uref{http://www.linuxaudio.org/, linuxaudio.org} voor het
-sponsoren van onze bandbreedte.
-
-@sourceimage{VTlogo_ITF,,,}
-@sourceimage{lao_banner_06_on_white_demo,,,}
-
 @subheading Legalese
 
 @divClass{legal}
@@ -148,11 +139,11 @@ acknowledged.
 @divClass{column-center-top}
 @subheading Generieke pakketten of distributie-pakketten?
 
-Veel Linux-distributies (zoals Fedora, openSUSE, Ubuntu) 
+Veel Linux-distributies (zoals Fedora, openSUSE, Ubuntu)
 leveren LilyPond mee als onderdeel van hun
 normale software-pakketsysteem.  Zo'n LilyPond-pakket is
 eenvoudiger te installeren en verwijderen dan een generiek
-pakket, maar het kan een verouderde versie zijn.  Als je 
+pakket, maar het kan een verouderde versie zijn.  Als je
 liever één van onze generieke  pakketten wilt gebruiken, verwijder dan eerst
 de officiële versie van LilyPond met het normale
 pakketbeheer van je distributie (softwarecentrum).  Zie de

@@ -76,16 +76,6 @@ A LilyPond licence a
 @divEnd
 
 
-@divClass{color1}
-
-@subheading Támogatók
-
-Köszönet a @uref{http://www.vt.edu/, Virgina Tech} és a
-@uref{http://www.linuxaudio.org/, linuxaudio.org} részére a sávszélesség költségeinek fedezéséért.
-
-@sourceimage{VTlogo_ITF,,,}
-@sourceimage{lao_banner_06_on_white_demo,,,}
-
 @subheading Jogi tudnivalók
 
 @divClass{legal}
