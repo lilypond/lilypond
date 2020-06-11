@@ -105,6 +105,8 @@ void
 init_func_doc ()
 {
   ly_add_type_predicate ((void *) &is_scm<Direction>, "direction");
+  ly_add_type_predicate ((void *) &scm_is_real, "real number");
+  ly_add_type_predicate ((void *) &is_scm<Offset>, "pair of reals");
   ly_add_type_predicate ((void *) &ly_is_port, "port");
   ly_add_type_predicate ((void *) &ly_cheap_is_list, "list");
   ly_add_type_predicate ((void *) &unsmob<Global_context>, "Global_context");
