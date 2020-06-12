@@ -128,8 +128,8 @@ Clef_engraver::create_clef ()
 
           Side_position_interface::add_support (g, clef_);
 
-          g->set_parent (clef_, Y_AXIS);
-          g->set_parent (clef_, X_AXIS);
+          g->set_y_parent (clef_);
+          g->set_x_parent (clef_);
           set_property (g, "direction", to_scm (dir));
           modifier_ = g;
         }

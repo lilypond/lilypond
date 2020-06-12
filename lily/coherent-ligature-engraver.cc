@@ -116,7 +116,7 @@ Coherent_ligature_engraver::move_related_items_to_column
                                     to_scm (0.01));
 #endif
 
-      sibling->set_parent (target_column, X_AXIS);
+      sibling->set_x_parent (target_column);
       sibling->translate_axis (offset, X_AXIS);
     }
 }

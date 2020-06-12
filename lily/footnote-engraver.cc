@@ -64,8 +64,8 @@ Footnote_engraver::footnotify (Grob *g, SCM cause)
   if (dynamic_cast<Spanner *> (g))
     {
       Spanner *b = make_spanner ("FootnoteSpanner", cause);
-      b->set_parent (g, Y_AXIS);
-      b->set_parent (g, X_AXIS);
+      b->set_y_parent (g);
+      b->set_x_parent (g);
       Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       b->set_bound (LEFT, bound);
       annotated_spanners_.insert (std::make_pair (g, b));
@@ -73,8 +73,8 @@ Footnote_engraver::footnotify (Grob *g, SCM cause)
   else
     {
       Grob *b = make_item ("FootnoteItem", cause);
-      b->set_parent (g, Y_AXIS);
-      b->set_parent (g, X_AXIS);
+      b->set_y_parent (g);
+      b->set_x_parent (g);
     }
 }
 

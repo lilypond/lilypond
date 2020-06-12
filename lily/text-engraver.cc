@@ -95,7 +95,7 @@ Text_engraver::acknowledge_note_column (Grob_info info)
       Grob *el = scripts_[i];
 
       if (el && !el->get_parent (X_AXIS) && x_parent)
-        el->set_parent (x_parent, X_AXIS);
+        el->set_x_parent (x_parent);
     }
 }
 

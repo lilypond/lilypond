@@ -51,7 +51,7 @@ Tie_column::add_tie (Grob *tc, Spanner *tie)
       me->set_bound (RIGHT, Tie::head (tie, RIGHT));
     }
 
-  tie->set_parent (me, Y_AXIS);
+  tie->set_y_parent (me);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), tie);
 }
 

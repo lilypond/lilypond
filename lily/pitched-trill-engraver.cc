@@ -141,7 +141,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
                                            + c0));
 
   trill_group_ = make_item ("TrillPitchGroup", ev->self_scm ());
-  trill_group_->set_parent (trill_head_, Y_AXIS);
+  trill_group_->set_y_parent (trill_head_);
 
   Axis_group_interface::add_element (trill_group_, trill_head_);
 
@@ -154,7 +154,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
       Side_position_interface::add_support (trill_accidental_, trill_head_);
 
       set_object (trill_head_, "accidental-grob", trill_accidental_->self_scm ());
-      trill_accidental_->set_parent (trill_head_, Y_AXIS);
+      trill_accidental_->set_y_parent (trill_head_);
       Axis_group_interface::add_element (trill_group_, trill_accidental_);
     }
 }

@@ -188,8 +188,8 @@ Tuplet_engraver::process_music ()
       tuplets_[i].number_ = make_spanner ("TupletNumber",
                                           tuplets_[i].event_->self_scm ());
       set_object (tuplets_[i].number_, "bracket", tuplets_[i].bracket_->self_scm ());
-      tuplets_[i].number_->set_parent (tuplets_[i].bracket_, X_AXIS);
-      tuplets_[i].number_->set_parent (tuplets_[i].bracket_, Y_AXIS);
+      tuplets_[i].number_->set_x_parent (tuplets_[i].bracket_);
+      tuplets_[i].number_->set_y_parent (tuplets_[i].bracket_);
       set_object (tuplets_[i].bracket_, "tuplet-number", tuplets_[i].number_->self_scm ());
       tuplets_[i].stop_moment_.grace_part_ = 0;
 

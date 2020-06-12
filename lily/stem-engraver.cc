@@ -111,7 +111,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
           /* The number of tremolo flags is the number of flags of the
              tremolo-type minus the number of flags of the note itself.  */
           set_property (tremolo_, "flag-count", to_scm (tremolo_flags));
-          tremolo_->set_parent (stem_, X_AXIS);
+          tremolo_->set_x_parent (stem_);
           set_object (stem_, "tremolo-flag", tremolo_->self_scm ());
           set_object (tremolo_, "stem", stem_->self_scm ());
         }
@@ -165,7 +165,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
       && !(unsmob<Grob> (get_object (stem_, "flag"))))
     {
       Item *flag = make_item ("Flag", stem_->self_scm ());
-      flag->set_parent (stem_, X_AXIS);
+      flag->set_x_parent (stem_);
       set_object (stem_, "flag", flag->self_scm ());
       maybe_flags_.push_back (flag);
     }

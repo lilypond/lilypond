@@ -366,7 +366,7 @@ Figured_bass_engraver::process_music ()
                     Don't add as child. This will cache the wrong
                     (pre-break) stencil when callbacks are triggered.
                   */
-                  line->set_parent (group.group_, Y_AXIS);
+                  line->set_y_parent (group.group_);
                   Pointer_group_interface::add_grob (line, ly_symbol2scm ("figures"), item);
 
                   group.figure_item_ = 0;

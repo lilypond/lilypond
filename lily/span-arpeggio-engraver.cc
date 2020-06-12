@@ -120,7 +120,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
           set_property (arpeggios_[j], "transparent", SCM_BOOL_T);
         }
 
-      span_arpeggio_->set_parent (arpeggios_[0]->get_parent (Y_AXIS), Y_AXIS);
+      span_arpeggio_->set_y_parent (arpeggios_[0]->get_parent (Y_AXIS));
       span_arpeggio_ = 0;
     }
   arpeggios_.clear ();

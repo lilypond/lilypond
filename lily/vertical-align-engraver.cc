@@ -206,7 +206,7 @@ Vertical_align_engraver::acknowledge_outside_staff (Grob_info i)
           // Claim outside-staff grobs created by engravers in this immediate
           // context.
           if (i.context () == context ())
-            i.grob ()->set_parent (valign_, Y_AXIS);
+            i.grob ()->set_y_parent (valign_);
         }
       else
         {

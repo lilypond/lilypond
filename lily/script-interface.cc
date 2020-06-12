@@ -59,7 +59,7 @@ Script_interface::calc_positioning_done (SCM smob)
     {
       Grob *stem = Note_column::get_stem (par);
       if (stem && Stem::first_head (stem))
-        me->set_parent (Stem::first_head (stem), X_AXIS);
+        me->set_x_parent (Stem::first_head (stem));
     }
   return SCM_BOOL_T;
 }

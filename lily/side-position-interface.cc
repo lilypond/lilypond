@@ -484,7 +484,7 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
   if (!top_staff)
     return SCM_BOOL_F;
 
-  me->set_parent (top_staff, Y_AXIS);
+  me->set_y_parent (top_staff);
   me->flush_extent_cache (Y_AXIS);
   Axis_group_interface::add_element (top_staff, me);
 

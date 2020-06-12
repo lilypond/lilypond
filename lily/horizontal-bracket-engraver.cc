@@ -102,8 +102,8 @@ Horizontal_bracket_engraver::process_music ()
 
       Side_position_interface::add_support (hbt, sp);
 
-      hbt->set_parent (sp, X_AXIS);
-      hbt->set_parent (sp, Y_AXIS);
+      hbt->set_x_parent (sp);
+      hbt->set_y_parent (sp);
       set_object (hbt, "bracket", sp->self_scm ());
 
       for (vsize i = 0; i < bracket_stack_.size (); i++)

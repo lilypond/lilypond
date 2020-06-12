@@ -59,7 +59,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger,
   if (!p)
     return;
 
-  a->set_parent (me, X_AXIS);
+  a->set_x_parent (me);
 
   SCM accs = get_object (me, "accidental-grobs");
   SCM key = scm_cons (to_scm (p->get_notename ()),

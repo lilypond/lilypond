@@ -53,7 +53,7 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
               Item *paren = eng->make_item ("ParenthesesItem", victim->self_scm ());
               Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
 
-              paren->set_parent (victim, Y_AXIS);
+              paren->set_y_parent (victim);
 
               Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
                           + from_scm<double> (get_property (victim, "font-size"), 0.0);

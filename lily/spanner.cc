@@ -204,7 +204,7 @@ Spanner::set_bound (Direction d, Grob *g)
       This happens e.g. for MultiMeasureRestNumbers and PercentRepeatCounters.
     */
     if (!dynamic_cast <Spanner *> (get_parent (X_AXIS)))
-      set_parent (g, X_AXIS);
+      set_x_parent (g);
 }
 
 bool

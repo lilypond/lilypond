@@ -328,7 +328,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   for (vsize i = 0; i < right_objects_.size (); i++)
     Side_position_interface::add_support (a, right_objects_[i]);
 
-  a->set_parent (note_head, Y_AXIS);
+  a->set_y_parent (note_head);
 
   if (!accidental_placement_)
     accidental_placement_ = make_item ("AccidentalPlacement",
@@ -355,7 +355,7 @@ Accidental_engraver::make_suggested_accidental (Stream_event * /* note */,
   if (Grob *stem = unsmob<Grob> (get_object (a, "stem")))
     Side_position_interface::add_support (a, stem);
 
-  a->set_parent (note_head, X_AXIS);
+  a->set_x_parent (note_head);
   return a;
 }
 

@@ -104,7 +104,7 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
       set_property (lv_tie, "direction", to_scm (d));
     }
 
-  lv_tie->set_parent (lv_column_, Y_AXIS);
+  lv_tie->set_y_parent (lv_column_);
 
   lv_ties_.push_back (lv_tie);
 }

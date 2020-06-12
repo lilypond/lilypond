@@ -154,7 +154,7 @@ Bar_number_engraver::acknowledge_break_alignment (Grob_info inf)
   if (text_
       && dynamic_cast<Item *> (s))
     {
-      text_->set_parent (s, X_AXIS);
+      text_->set_x_parent (s);
     }
 }
 

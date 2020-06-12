@@ -149,7 +149,7 @@ Span_bar_stub_engraver::process_acknowledged ()
       for (vsize j = 0; j < affected_contexts.size (); j++)
         {
           Item *it = new Item (Grob_property_info (affected_contexts[j], ly_symbol2scm ("SpanBarStub")).updated ());
-          it->set_parent (spanbars_[i], X_AXIS);
+          it->set_x_parent (spanbars_[i]);
           Grob_info gi = make_grob_info (it, spanbars_[i]->self_scm ());
           announce_grob (gi, affected_contexts[j]);
           if (!keep_extent[j])

@@ -192,8 +192,8 @@ Multi_measure_rest_engraver::initialize_grobs ()
   for (vsize i = 0; i < text_.size (); i++)
     {
       Side_position_interface::add_support (text_[i], mmrest_);
-      text_[i]->set_parent (mmrest_, Y_AXIS);
-      text_[i]->set_parent (mmrest_, X_AXIS);
+      text_[i]->set_y_parent (mmrest_);
+      text_[i]->set_x_parent (mmrest_);
     }
 }
 

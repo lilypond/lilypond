@@ -117,7 +117,7 @@ Part_combine_engraver::acknowledge_note_head (Grob_info i)
       Side_position_interface::add_support (t, i.grob ());
       if (Side_position_interface::get_axis (t) == X_AXIS
           && !t->get_parent (Y_AXIS))
-        t->set_parent (i.grob (), Y_AXIS);
+        t->set_y_parent (i.grob ());
     }
 }
 

@@ -403,14 +403,14 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
       return;
     }
   Item *dotcol = make_item ("DotColumn", SCM_EOL);
-  dotcol->set_parent (column, X_AXIS);
+  dotcol->set_x_parent (column);
   for (vsize i = 0; i < augmented_primitives_.size (); i++)
     {
       Item *primitive
         = dynamic_cast<Item *> (augmented_primitives_[i].grob ());
       Item *dot = make_item ("Dots", primitive->self_scm ());
       set_property (dot, "dot-count", to_scm (1));
-      dot->set_parent (primitive, Y_AXIS);
+      dot->set_y_parent (primitive);
       set_object (primitive, "dot", dot->self_scm ());
       Dot_column::add_head (dotcol, primitive);
 
