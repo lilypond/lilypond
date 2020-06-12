@@ -286,6 +286,7 @@ test-pre: $(tree-share-prefix)/lilypond-force
 test: test-pre
 	$(MAKE) -C python local-test
 	$(MAKE) -C scripts/build local-test
+	$(MAKE) -C ly local-test
 	@echo 'To begin investigating regression-test crashes, use'
 	@echo
 	@echo '    grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
