@@ -991,6 +991,13 @@ behavior.  A higher values means the program uses more memory, a
 smaller value means more CPU time is used.  The default value is
 @code{70}.
 
+@item TMPDIR
+This specifies the temporary directory in GNU/Linux and Mac.
+Default is @file{/tmp}.  It is the directory where intermediate
+files (such as PostScript files) are saved during compilation.
+Overriding this variable might be useful, for example, if the
+user running lilypond does not have write access to the default
+temporary directory.  Example: @code{TMPDIR=~/foo}.
 @end table
 
 
