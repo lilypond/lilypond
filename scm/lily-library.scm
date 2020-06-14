@@ -498,7 +498,8 @@ For example:
 (define-safe-public (alist->hash-table lst)
   "Convert alist to table"
   (let ((m (make-hash-table (length lst))))
-    (for-each (lambda (k-v) (hashq-set! m (car k-v) (cdr k-v))) lst)
+    ;; first association wins.
+    (for-each (lambda (k-v) (hashq-create-handle! m (car k-v) (cdr k-v))) lst)
     m))
 
 ;;;;;;;;;;;;;;;;
