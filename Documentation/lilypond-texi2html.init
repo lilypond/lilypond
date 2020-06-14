@@ -152,6 +152,7 @@ $default_print_element_header = $Texi2HTML::Config::print_element_header;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
+$Texi2HTML::Config::about_body           = sub { return ''; };
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
 $default_external_href = $Texi2HTML::Config::external_href;
 $Texi2HTML::Config::external_href        = \&lilypond_external_href;
