@@ -93,7 +93,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   Interval ret;
   ret.set_empty ();
 
-  Grob *parent = me->get_parent (Y_AXIS);
+  Grob *parent = me->get_y_parent ();
   Drul_array<Real> extremal_heights (infinity_f, -infinity_f);
   if (common_refpoint_of_array (encompasses, me, Y_AXIS) != parent)
     /* this could happen if, for example, we are a cross-staff slur.
@@ -213,7 +213,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
           for (vsize j = 0; j < breakables.size (); j++)
             /* if we encompass a separation-item that spans multiple staves,
                we filter out the grobs that don't belong to our staff */
-            if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
+            if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_y_parent ()
                 && scm_is_eq (get_property (breakables[j], "avoid-slur"),
                               ly_symbol2scm ("inside")))
               new_encompasses.push_back (breakables[j]);
@@ -495,7 +495,7 @@ Slur::calc_cross_staff (SCM smob)
   Grob *common = common_refpoint_of_array (cols, me, Y_AXIS);
   common = common_refpoint_of_array (non_sep_extras, common, Y_AXIS);
 
-  return scm_from_bool (common != me->get_parent (Y_AXIS));
+  return scm_from_bool (common != me->get_y_parent ());
 }
 
 ADD_INTERFACE (Slur,

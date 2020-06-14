@@ -105,7 +105,7 @@ Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info info)
 void
 Dynamic_align_engraver::acknowledge_footnote_spanner (Grob_info info)
 {
-  Grob *parent = info.grob ()->get_parent (Y_AXIS);
+  Grob *parent = info.grob ()->get_y_parent ();
   if (line_ && parent
       && parent->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
     Axis_group_interface::add_element (line_, info.grob ());

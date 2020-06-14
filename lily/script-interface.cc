@@ -55,7 +55,7 @@ SCM
 Script_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  if (Grob *par = me->get_parent (X_AXIS))
+  if (Grob *par = me->get_x_parent ())
     {
       Grob *stem = Note_column::get_stem (par);
       if (stem && Stem::first_head (stem))
@@ -102,7 +102,7 @@ SCM
 Script_interface::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = Note_column::get_stem (me->get_parent (X_AXIS));
+  Grob *stem = Note_column::get_stem (me->get_x_parent ());
 
   if (stem && from_scm<bool> (get_property (stem, "cross-staff")))
     return SCM_BOOL_T;

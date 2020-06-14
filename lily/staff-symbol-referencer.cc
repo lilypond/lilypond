@@ -94,7 +94,7 @@ Staff_symbol_referencer::internal_get_position (Grob *me, bool pure)
       return p;
     }
   else if (!st)
-    return me->relative_coordinate (me->get_parent (Y_AXIS), Y_AXIS) * 2;
+    return me->relative_coordinate (me->get_y_parent (), Y_AXIS) * 2;
   return from_scm<double> (get_property (me, "staff-position"), p);
 }
 

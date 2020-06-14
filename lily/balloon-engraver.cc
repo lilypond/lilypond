@@ -80,7 +80,7 @@ Balloon_engraver::acknowledge_end_grob (Grob_info info)
 {
   vector<Spanner *> next;
   for (Spanner *sp : spanners_)
-    if (sp->get_parent (Y_AXIS) == info.grob ())
+    if (sp->get_y_parent () == info.grob ())
       {
         for (LEFT_and_RIGHT (d))
           sp->set_bound (d,

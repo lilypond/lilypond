@@ -49,21 +49,21 @@ Item::Item (Item const &s)
 bool
 Item::is_non_musical (Grob *me)
 {
-  Item *i = dynamic_cast<Item *> (me->get_parent (X_AXIS));
+  Item *i = dynamic_cast<Item *> (me->get_x_parent ());
   return i ? Item::is_non_musical (i) : from_scm<bool> (get_property (me, "non-musical"));
 }
 
 Paper_column *
 Item::get_column () const
 {
-  Item *parent = dynamic_cast<Item *> (get_parent (X_AXIS));
+  Item *parent = dynamic_cast<Item *> (get_x_parent ());
   return parent ? parent->get_column () : 0;
 }
 
 System *
 Item::get_system () const
 {
-  Grob *g = get_parent (X_AXIS);
+  Grob *g = get_x_parent ();
   return g ? g->get_system () : 0;
 }
 

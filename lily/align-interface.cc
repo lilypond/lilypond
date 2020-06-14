@@ -190,7 +190,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   // and alignment-distances, which only make sense for the toplevel VerticalAlignment.
   // If we aren't toplevel, we're working on something like BassFigureAlignment
   // and so we definitely don't want to include alignment-distances!
-  if (!dynamic_cast<System *> (me->get_parent (Y_AXIS)))
+  if (!dynamic_cast<System *> (me->get_y_parent ()))
     include_fixed_spacing = false;
 
   Direction stacking_dir = from_scm (get_property (me, "stacking-dir"),

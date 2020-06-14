@@ -258,7 +258,7 @@ Dynamic_engraver::get_spanner_type (Stream_event *ev)
 void
 Dynamic_engraver::acknowledge_note_column (Grob_info info)
 {
-  if (script_ && !script_->get_parent (X_AXIS))
+  if (script_ && !script_->get_x_parent ())
     {
       extract_grob_set (info.grob (), "note-heads", heads);
       /*

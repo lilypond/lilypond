@@ -69,7 +69,7 @@ Rest_collision_engraver::process_acknowledged ()
 
       if (has_interface<Rhythmic_head> (g) && (*m) > now)
         {
-          Grob *column = g->get_parent (X_AXIS);
+          Grob *column = g->get_x_parent ();
           if (!column)
             continue;
 

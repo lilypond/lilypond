@@ -204,8 +204,8 @@ Note_column::accidentals (Grob *me)
   if (!acc)
     return 0;
 
-  if (has_interface<Accidental_placement> (acc->get_parent (X_AXIS)))
-    return acc->get_parent (X_AXIS);
+  if (has_interface<Accidental_placement> (acc->get_x_parent ()))
+    return acc->get_x_parent ();
 
   /* compatibility. */
   return acc;
@@ -219,7 +219,7 @@ Note_column::dot_column (Grob *me)
     {
       Grob *dots = unsmob<Grob> (get_object (heads[i], "dot"));
       if (dots)
-        return dots->get_parent (X_AXIS);
+        return dots->get_x_parent ();
     }
 
   return 0;

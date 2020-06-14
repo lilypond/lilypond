@@ -149,8 +149,8 @@ Axis_group_engraver::process_acknowledged ()
     {
       if (!unsmob<Grob> (get_object (elts_[i], "axis-group-parent-Y")))
         {
-          if (staffline_->get_parent (Y_AXIS)
-              && staffline_->get_parent (Y_AXIS) == elts_[i])
+          if (staffline_->get_y_parent ()
+              && staffline_->get_y_parent () == elts_[i])
             {
               staffline_->warning (_ ("Axis_group_engraver: vertical group already has a parent"));
               staffline_->warning (_ ("are there two Axis_group_engravers?"));

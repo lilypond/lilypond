@@ -108,7 +108,7 @@ Coherent_ligature_engraver::move_related_items_to_column
         continue;
 
 #if 0 /* experimental code to collapse spacing after ligature */
-      Grob *sibling_parent = sibling->get_parent (X_AXIS);
+      Grob *sibling_parent = sibling->get_x_parent ();
       sibling_parent->warning (_f ("Coherent_ligature_engraver: "
                                    "setting `spacing-increment="
                                    "0.01': ptr=%ul", parent));

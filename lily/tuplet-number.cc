@@ -114,7 +114,7 @@ Tuplet_number::adjacent_note_columns (Grob *me_grob, Grob *ref_stem)
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
 
   extract_grob_set (tuplet, "note-columns", columns);
-  Grob *ref_col = ref_stem->get_parent (X_AXIS); // X-parent of Stem = NoteColumn
+  Grob *ref_col = ref_stem->get_x_parent (); // X-parent of Stem = NoteColumn
   Direction ref_stem_dir = get_grob_direction (ref_stem);
   vector<Grob *> filtered_cols;
   vsize ref_pos = 0;

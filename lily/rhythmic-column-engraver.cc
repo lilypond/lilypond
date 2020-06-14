@@ -89,7 +89,7 @@ Rhythmic_column_engraver::process_acknowledged ()
         note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
 
       for (vsize i = 0; i < rheads_.size (); i++)
-        if (!rheads_[i]->get_parent (X_AXIS))
+        if (!rheads_[i]->get_x_parent ())
           Note_column::add_head (note_column_, rheads_[i]);
 
       rheads_.resize (0);
@@ -98,7 +98,7 @@ Rhythmic_column_engraver::process_acknowledged ()
   if (note_column_)
     {
       if (stem_
-          && !stem_->get_parent (X_AXIS))
+          && !stem_->get_x_parent ())
         {
           Note_column::set_stem (note_column_, stem_);
           stem_ = 0;

@@ -122,8 +122,8 @@ Metronome_mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      if (text_->get_parent (X_AXIS)
-          && text_->get_parent (X_AXIS)->internal_has_interface (ly_symbol2scm ("multi-measure-rest-interface"))
+      if (text_->get_x_parent ()
+          && text_->get_x_parent ()->internal_has_interface (ly_symbol2scm ("multi-measure-rest-interface"))
           && bar_)
         text_->set_x_parent (bar_);
       else if (!support_)

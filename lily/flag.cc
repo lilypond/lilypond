@@ -53,7 +53,7 @@ Flag::width (SCM smob)
   if (!sten)
     return to_scm (Interval (0.0, 0.0));
 
-  Grob *stem = me->get_parent (X_AXIS);
+  Grob *stem = me->get_x_parent ();
 
   /*
     TODO:
@@ -69,7 +69,7 @@ SCM
 Flag::glyph_name (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = me->get_parent (X_AXIS);
+  Grob *stem = me->get_x_parent ();
 
   Direction d = get_grob_direction (stem);
   int log = Stem::duration_log (stem);
@@ -114,7 +114,7 @@ SCM
 Flag::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = me->get_parent (X_AXIS);
+  Grob *stem = me->get_x_parent ();
 
   Direction d = get_grob_direction (stem);
   string flag_style;
@@ -180,7 +180,7 @@ SCM
 Flag::internal_calc_y_offset (SCM smob, bool pure)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = me->get_parent (X_AXIS);
+  Grob *stem = me->get_x_parent ();
   Direction d = get_grob_direction (stem);
 
   Real blot
@@ -200,7 +200,7 @@ SCM
 Flag::calc_x_offset (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = me->get_parent (X_AXIS);
+  Grob *stem = me->get_x_parent ();
   return to_scm (stem->extent (stem, X_AXIS)[RIGHT]);
 }
 

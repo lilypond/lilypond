@@ -48,7 +48,7 @@ Balloon_interface::print (SCM smob)
     if (!Item::break_visible (item))
       return SCM_EOL;
 
-  Grob *p = me->get_parent (X_AXIS);
+  Grob *p = me->get_x_parent ();
 
   Offset off (me->relative_coordinate (p, X_AXIS),
               me->relative_coordinate (p, Y_AXIS));
@@ -76,7 +76,7 @@ Balloon_interface::print_spanner (SCM smob)
         return SCM_EOL;
     }
 
-  Spanner *p = dynamic_cast<Spanner *> (me->get_parent (Y_AXIS));
+  Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());
 
   if (!p)
     return SCM_EOL;
@@ -93,7 +93,7 @@ SCM
 Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   Grob *me = unsmob<Grob> (smob);
-  Spanner *p = dynamic_cast<Spanner *> (me->get_parent (Y_AXIS));
+  Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());
 
   if (!p || !p->is_live ())
     return SCM_EOL;

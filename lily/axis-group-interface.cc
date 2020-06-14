@@ -370,7 +370,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
      Usually, the only VerticalAlignment comes from Score. This makes it
      reasonably safe to assume that if our parent is a VerticalAlignment,
      we can assume additivity and cache things nicely. */
-  Grob *p = me->get_parent (Y_AXIS);
+  Grob *p = me->get_y_parent ();
   if (has_interface<Align_interface> (p))
     return Axis_group_interface::sum_partial_pure_heights (me, start, end);
 
@@ -871,7 +871,7 @@ add_grobs_of_one_priority (Grob *me,
 Grob *
 Axis_group_interface::outside_staff_ancestor (Grob *me)
 {
-  Grob *parent = me->get_parent (Y_AXIS);
+  Grob *parent = me->get_y_parent ();
   if (!parent)
     return 0;
 

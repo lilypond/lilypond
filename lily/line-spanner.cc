@@ -49,7 +49,7 @@ Spanner *parent_spanner (Grob *g)
 {
   if (has_interface<Spanner> (g))
     return dynamic_cast<Spanner *> (g);
-  return parent_spanner (g->get_parent (Y_AXIS));
+  return parent_spanner (g->get_y_parent ());
 }
 
 SCM
@@ -112,7 +112,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                       ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
                       : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
 
-      Grob *acc = Note_column::accidentals (bound_grob->get_parent (X_AXIS));
+      Grob *acc = Note_column::accidentals (bound_grob->get_x_parent ());
       if (acc && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
 

@@ -62,7 +62,7 @@ Hairpin::broken_bound_padding (SCM smob)
     }
 
   System *sys = me->get_system ();
-  Direction dir = get_grob_direction (me->get_parent (Y_AXIS));
+  Direction dir = get_grob_direction (me->get_y_parent ());
   if (!dir)
     return to_scm (0.0);
 

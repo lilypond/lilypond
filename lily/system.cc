@@ -767,8 +767,8 @@ get_root_system (Grob *me)
 {
   Grob *system_grob = me;
 
-  while (system_grob->get_parent (Y_AXIS))
-    system_grob = system_grob->get_parent (Y_AXIS);
+  while (system_grob->get_y_parent ())
+    system_grob = system_grob->get_y_parent ();
 
   return dynamic_cast<System *> (system_grob);
 }

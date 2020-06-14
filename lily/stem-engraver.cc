@@ -177,7 +177,7 @@ void
 Stem_engraver::kill_unused_flags ()
 {
   for (vsize i = 0; i < maybe_flags_.size (); i++)
-    if (unsmob<Grob> (get_object (maybe_flags_[i]->get_parent (X_AXIS), "beam")))
+    if (unsmob<Grob> (get_object (maybe_flags_[i]->get_x_parent (), "beam")))
       maybe_flags_[i]->suicide ();
 }
 

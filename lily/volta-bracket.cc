@@ -67,7 +67,7 @@ Volta_bracket_interface::print (SCM smob)
       left = pc->break_align_width (pc, ly_symbol2scm ("break-alignment"))[RIGHT]
              // For some reason, break_align_width is relative to
              // the x-parent of the column.
-             - bound->relative_coordinate (pc->get_parent (X_AXIS), X_AXIS);
+             - bound->relative_coordinate (pc->get_x_parent (), X_AXIS);
     }
   else
     {

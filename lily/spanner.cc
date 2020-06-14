@@ -203,7 +203,7 @@ Spanner::set_bound (Direction d, Grob *g)
       original parent for alignment.
       This happens e.g. for MultiMeasureRestNumbers and PercentRepeatCounters.
     */
-    if (!dynamic_cast <Spanner *> (get_parent (X_AXIS)))
+    if (!dynamic_cast <Spanner *> (get_x_parent ()))
       set_x_parent (g);
 }
 

@@ -174,7 +174,7 @@ Score_engraver::typeset_all ()
     {
       Grob *elem = elems_[i];
 
-      if (!elem->get_parent (Y_AXIS))
+      if (!elem->get_y_parent ())
         Axis_group_interface::add_element (system_, elem);
     }
   elems_.clear ();
