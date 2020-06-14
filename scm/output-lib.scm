@@ -278,11 +278,9 @@
                            '(0 . 0)
                            quant2))
                (factor (/ (atan (abs slope1)) PI-OVER-TWO))
-               (base (cons-map
-                      (lambda (x)
-                        (+ (* (x quant1) (- 1 factor))
-                           (* (x quant2) factor)))
-                      (cons car cdr))))
+               (base (offset-add
+                      (offset-scale quant1 (- 1 factor))
+                      (offset-scale quant2 factor))))
           (ly:beam::quanting grob base #f)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
