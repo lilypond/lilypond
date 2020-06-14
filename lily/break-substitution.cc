@@ -300,7 +300,7 @@ bool
 Spanner::fast_substitute_grob_array (SCM sym,
                                      Grob_array *grob_array)
 {
-  int len = grob_array->size ();
+  vsize len = grob_array->size ();
 
   if (grob_array->ordered ())
     return false;
@@ -316,7 +316,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
     FIXME: will not multithread.
   */
   static Substitution_entry *vec;
-  static int vec_room;
+  static vsize vec_room;
 
   if (vec_room < len)
     {
@@ -326,8 +326,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
   System_range system_range = spanner_system_range (this);
 
-  int spanner_index = len;
-  int item_index = 0;
+  vsize spanner_index = len;
+  vsize item_index = 0;
 
   for (vsize i = 0; i < grob_array->size (); i++)
     {
@@ -337,7 +337,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       sr.intersect (system_range);
 
       // ugh: maybe a job for a virtual method
-      int idx = 0;
+      vsize idx = 0;
       if (dynamic_cast<Spanner *> (g))
         idx = --spanner_index;
       else if (dynamic_cast<Item *> (g))
@@ -349,21 +349,17 @@ Spanner::fast_substitute_grob_array (SCM sym,
   qsort (vec, item_index,
          sizeof (Substitution_entry), &Substitution_entry::item_compare);
 
-  vector<Slice> item_indices;
-  vector<Slice> spanner_indices;
+  vector<Interval_t<vsize>> item_indices;
+  vector<Interval_t<vsize>> spanner_indices;
   for (int i = 0; i <= system_range.length (); i++)
     {
-      item_indices.push_back (Slice (len, 0));
-      spanner_indices.push_back (Slice (len, 0));
+      item_indices.push_back (Interval_t<vsize> (len, 0));
+      spanner_indices.push_back (Interval_t<vsize> (len, 0));
     }
 
-  vector<Slice> *arrs[]
-  =
-  {
-    &item_indices, &spanner_indices
-  };
+  vector<Interval_t<vsize>> *arrs[] = {&item_indices, &spanner_indices};
 
-  for (int i = 0; i < item_index; i++)
+  for (vsize i = 0; i < item_index; i++)
     {
       for (int j = vec[i].left_; j <= vec[i].right_; j++)
         item_indices[j - system_range[LEFT]].add_point (i);
@@ -375,7 +371,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
     ordering, since they go across the entire score.
   */
   for (vsize i = spanner_indices.size (); i--;)
-    spanner_indices[i] = Slice (spanner_index, len - 1);
+    spanner_indices[i] = Interval_t<vsize> (spanner_index, len - 1);
 
   assert (item_index <= spanner_index);
 
@@ -395,7 +391,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
       Grob_array *new_array = unsmob<Grob_array> (newval);
       for (int k = 0; k < 2; k++)
-        for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
+        for (vsize j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
           {
             Grob *substituted = substitute_grob (l->self_scm (), vec[j].grob_);
             if (substituted)
