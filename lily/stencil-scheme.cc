@@ -398,10 +398,16 @@ LY_DEFINE (ly_bracket, "ly:bracket",
   LY_ASSERT_TYPE (scm_is_number, t, 3);
   LY_ASSERT_TYPE (scm_is_number, p, 4);
 
-  return Lookup::bracket ((Axis)scm_to_int (a), from_scm<Interval> (iv),
-                          scm_to_double (t),
-                          scm_to_double (p),
-                          0.95 * scm_to_double (t)).smobbed_copy ();
+  Interval extent = from_scm<Interval> (iv);
+  if (std::isinf (extent[LEFT]) || std::isinf (extent[RIGHT]))
+    {
+      programming_error ("bracket extent may not be infinite");
+      return Stencil ().smobbed_copy ();
+    }
+
+  return Lookup::bracket ((Axis) scm_to_int (a), extent, scm_to_double (t),
+                          scm_to_double (p), 0.95 * scm_to_double (t))
+    .smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
