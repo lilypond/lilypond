@@ -70,16 +70,6 @@ AC_ARG_ENABLE(static-gxx,
     [LINK_GXX_STATICALLY=$enableval])
 AC_SUBST(LINK_GXX_STATICALLY)
 
-AC_MSG_CHECKING([how to replicate source files to build files])
-if ln $srcdir/configure.ac dummy 2>/dev/null ; then
-    LN_SRC_TO_BUILD="ln"
-    rm -f dummy
-else
-    LN_SRC_TO_BUILD="cp -p"
-fi
-AC_MSG_RESULT($LN_SRC_TO_BUILD)
-AC_SUBST(LN_SRC_TO_BUILD)
-
 AC_USE_SYSTEM_EXTENSIONS
 
 # must come before any header checks

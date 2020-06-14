@@ -34,12 +34,12 @@ $(outdir)/%-flat-bw.png: %-flat-bw.png
 	convert -strip -depth 8 -geometry 50x50% $< $@
 
 $(outdir)/%.png: $(top-src-dir)/Documentation/pictures/%.png
-	$(call ly_progress,Making,$@,(hard link))
-	$(LN_SRC_TO_BUILD) -f $< $@
+	$(call ly_progress,Making,$@,(copy))
+	cp $< $@
 
 $(outdir)/%.jpg: $(top-src-dir)/Documentation/pictures/%.jpg
-	$(call ly_progress,Making,$@,(hard link))
-	$(LN_SRC_TO_BUILD) -f $< $@
+	$(call ly_progress,Making,$@,(copy))
+	cp $< $@
 
 $(outdir)/%.png: %.eps
 	$(call ly_progress,Making,$@,< eps)

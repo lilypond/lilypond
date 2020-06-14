@@ -21,5 +21,5 @@ endif
 ### Rules
 
 $(outdir)/%.css: $(top-src-dir)/Documentation/css/%.css
-	$(call ly_progress,Making,$@,(hard link))
-	rm -f $@ && $(LN_SRC_TO_BUILD) $< $@
+	$(call ly_progress,Making,$@,(copy))
+	rm -f $@ && cp $< $@

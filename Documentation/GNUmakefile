@@ -242,16 +242,16 @@ out/ly-snippets.dep: $(SNIPPET_LY_FILES)
 	touch $@
 
 $(outdir)/%.bib: %.bib
-	$(call ly_progress,Making,$@,(hard link))
-	ln -f $< $@
+	$(call ly_progress,Making,$@,(copy))
+	cp $< $@
 
 $(outdir)/%.js: %.js
-	$(call ly_progress,Making,$@,(hard link))
-	ln -f $< $@
+	$(call ly_progress,Making,$@,(copy))
+	cp $< $@
 
 $(outdir)/%.php: %.php
-	$(call ly_progress,Making,$@,(hard link))
-	ln -f $< $@
+	$(call ly_progress,Making,$@,(copy))
+	cp $< $@
 
 ## Rules for the automatically generated documentation
 $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
