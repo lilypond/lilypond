@@ -2752,12 +2752,14 @@ Application Usage:
 @funindex skipTypesetting
 @funindex showFirstLength
 @funindex showLastLength
+@cindex skip typesetting
+@cindex typesetting, skip
 
 When entering or copying music, usually only the music near the end (where
-you
-are adding notes) is interesting to view and correct.  To speed up
+new notes are being added) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
-the last few measures.  This is achieved by putting
+the last few measures.  This is achieved by defining a special variable
+at the source file’s top level, as follows:
 
 @example
 showLastLength = R1*5
@@ -2765,34 +2767,48 @@ showLastLength = R1*5
 @end example
 
 @noindent
-in your source file.  This will render only the last 5 measures
+In this instance, nothing will be rendered but the last five measures
 (assuming 4/4 time signature) of every @code{\score} in the input
 file.  For longer pieces, rendering only a small part is often an order
 of magnitude quicker than rendering it completely.  When working on the
-beginning of a score you have already typeset (e.g., to add a new part),
+beginning of a score that has already been typeset (for example to add a new part),
 the @code{showFirstLength} property may be useful as well.
 
 Skipping parts of a score can be controlled in a more fine-grained
 fashion with the property @code{Score.skipTypesetting}.  When it is
-set, no typesetting is performed at all.
+set, no typesetting is performed at all.  As a property of the
+@code{Score} context, it affects all voices and staves; see
+@ref{Score - the master of all contexts}.
 
-This property is also used to control output to the MIDI file.  Note that
-it skips all events, including tempo and instrument changes.  You have
-been warned.
+This property is also used to control output to the MIDI file.
+If some event in the skipped section alters some of its context
+properties, for example a tempo or instrument change, then that
+new setting will take effect only at the point in time where
+@code{skipTypesetting} is disabled again:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
-  c1
-  \set Score.skipTypesetting = ##t
-  \tempo 4 = 80
   c4 c c c
-  \set Score.skipTypesetting = ##f
+  \set Score.skipTypesetting = ##t
   d4 d d d
+  \tempo 4 = 80
+  e4 e e e
+  \set Score.skipTypesetting = ##f
+  f4 f f f
 }
 @end lilypond
 
-In polyphonic music, @code{Score.skipTypesetting} will affect all
-voices and staves, saving even more time.
+@predefined
+@code{showLastLength},
+@code{showFirstLength}.
+@endpredefined
+
+@seealso
+Notation Reference:
+@ref{Interpretation contexts},
+@ref{Score - the master of all contexts},
+@ref{All context properties}.
+
 
 @node Alternative output formats
 @subsection Alternative output formats
