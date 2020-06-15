@@ -510,7 +510,7 @@ System::add_column (Paper_column *p)
       ga = unsmob<Grob_array> (scm_ga);
     }
 
-  p->set_rank (ga->size ());
+  p->set_rank (static_cast<int> (ga->size ()));
 
   ga->add (p);
   Axis_group_interface::add_element (this, p);
