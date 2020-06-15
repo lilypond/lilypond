@@ -95,13 +95,8 @@ or
 
 %left PREC_TOP
 
-
-
-
-%pure-parser
+%define api.pure full
 %locations
-
-
 
 %{ // -*-Fundamental-*-
 
