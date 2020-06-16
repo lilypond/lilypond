@@ -38,9 +38,11 @@ class Footnote_engraver : public Engraver
 
   void acknowledge_grob (Grob_info) override;
   void acknowledge_end_grob (Grob_info);
+  void process_acknowledged ();
 
-  // Map annotated spanner to associated footnote spanner
+  // Map annotated grob to associated footnote spanner
   std::map<Grob *, Spanner *> annotated_spanners_;
+  std::vector<Spanner *> finished_spanners_;
 
   void finalize () override;
 
@@ -61,21 +63,21 @@ Footnote_engraver::Footnote_engraver (Context *c)
 void
 Footnote_engraver::footnotify (Grob *g, SCM cause)
 {
+  Grob *footnote = nullptr;
   if (dynamic_cast<Spanner *> (g))
     {
       Spanner *b = make_spanner ("FootnoteSpanner", cause);
-      b->set_y_parent (g);
-      b->set_x_parent (g);
       Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       b->set_bound (LEFT, bound);
       annotated_spanners_.insert (std::make_pair (g, b));
+      footnote = b;
     }
   else
     {
-      Grob *b = make_item ("FootnoteItem", cause);
-      b->set_y_parent (g);
-      b->set_x_parent (g);
+      footnote = make_item ("FootnoteItem", cause);
     }
+  footnote->set_y_parent (g);
+  footnote->set_x_parent (g);
 }
 
 void
@@ -106,10 +108,29 @@ Footnote_engraver::acknowledge_end_grob (Grob_info info)
   auto it = annotated_spanners_.find (info.grob ());
   if (it == annotated_spanners_.end ())
     return;
-  Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
-  it->second->set_bound (RIGHT, bound);
-  announce_end_grob (it->second, SCM_EOL);
-  annotated_spanners_.erase (it);
+
+  finished_spanners_.push_back (it->second);
+}
+
+void
+Footnote_engraver::process_acknowledged ()
+{
+  for (Spanner *sp : finished_spanners_)
+    {
+      for (LEFT_and_RIGHT (d))
+        {
+          Spanner *parent = dynamic_cast<Spanner *> (sp->get_parent (X_AXIS));
+          Item *bound = parent->get_bound (d);
+          if (!bound)
+            {
+              bound
+                = unsmob<Item> (get_property (this, "currentMusicalColumn"));
+            }
+          sp->set_bound (d, bound);
+        }
+      announce_end_grob (sp, SCM_EOL);
+    }
+  finished_spanners_.clear ();
 }
 
 void
