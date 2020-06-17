@@ -28,7 +28,7 @@ ${mf2pt1} --rounding=0.0001 \
   --fullname=$name \
   --name=$name $src
 
-echo -n "${target} : " > ${name}.pfb.dep
+printf %s "${target} : " > ${name}.pfb.dep
 grep '^INPUT.*mf$' ${name}.fls | sed "s|INPUT||;s|${srcdir}/||" | tr -d '\n' >> ${name}.pfb.dep
 
 mv *.pfb *.tfm *.log *.dep ..
