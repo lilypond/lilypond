@@ -70,8 +70,8 @@ License''.
 @c TITLE PAGE
 @ifnottex
 @node Top
-@top LilyPond... Notová sazba pro každého
-@translationof Top
+@c This is intentionally blank because we have @settitle above
+@top
 @end ifnottex
 
 @c hack for texi2html, bleh -gp
@@ -98,6 +98,11 @@ Pro LilyPond ve verzi @version{}
 
 @c ************************ WEBSITE START ***************
 
+
+@ifhtml
+@node index
+@unnumbered LilyPond
+@end ifhtml
 
 @divId{pageHeader}
 @heading LilyPond

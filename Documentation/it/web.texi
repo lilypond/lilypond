@@ -39,7 +39,8 @@ License''.
 @c TITLE PAGE
 @ifnottex
 @node Top
-@top LilyPond... notazione musicale per tutti
+@c This is intentionally blank because we have @settitle above
+@top
 @end ifnottex
 
 
@@ -67,6 +68,11 @@ Per la versione di LilyPond @version{}
 
 @c ************************ WEBSITE START ***************
 
+
+@ifhtml
+@node index
+@unnumbered LilyPond
+@end ifhtml
 
 @divId{pageHeader}
 @heading LilyPond

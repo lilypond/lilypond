@@ -849,6 +849,10 @@ sub lilypond_generate_page_toc_body($)
     my $current_element = $element;
     my %parentelements;
     $parentelements{$element->{'id'}} = 1;
+    if ($web_manual and $element->{'top'}) {
+      # Add index to path, even though it's not the top node.
+      $parentelements{'index'} = 1;
+    }
     # Find the path to the current element
     while ( defined($current_element->{'sectionup'}) and
            ($current_element->{'sectionup'} ne $current_element) )
@@ -863,22 +867,12 @@ sub lilypond_generate_page_toc_body($)
       }
     }
     return () if not defined($current_element);
-    # Create the toc entries recursively
+
     my @toc_entries = "";
-    if ($web_manual) {
-        @toc_entries = "<ul$NO_BULLET_LIST_ATTRIBUTE>\n";
-        # FIXME: add link to main page, really hackily.
-        if ($element->{'sectionup'}) {
-            # it's not the top element
-            push (@toc_entries, "<li><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
-        } else {
-            push (@toc_entries,
-		  "<li class=\"toc_current\"><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
-        }
-    } else {
-        push (@toc_entries, "<div class=\"contents\">\n");
-        push (@toc_entries, "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
-    }
+    push (@toc_entries, "<div class=\"contents\">\n");
+    push (@toc_entries, "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+
+    # Create the toc entries recursively
     my $children = $current_element->{'section_childs'};
     foreach ( @$children ) {
       push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth, 0, $element));
@@ -899,11 +893,7 @@ sub lilypond_generate_page_toc_body($)
     }
 
     push (@toc_entries, "</ul>\n");
-    if ($web_manual) {
-	push (@toc_entries, "\n");
-    } else {
-	push (@toc_entries, "</div>\n");
-    }
+    push (@toc_entries, "</div>\n");
     return @toc_entries;
 }
 

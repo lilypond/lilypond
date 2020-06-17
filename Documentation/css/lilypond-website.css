@@ -97,16 +97,17 @@ div#tocframe {
   margin: 0;
 }
 
-#tocframe > ul:first-child > li:first-child a {
+#tocframe ul:first-child > li:first-child a {
   border-bottom-left-radius: 7px;
 }
 
-#tocframe > ul:first-child > li:first-child a span {
+#tocframe ul:first-child > li:first-child a::before {
   background: url(../pictures/lily-home-32x32.png) no-repeat scroll 0% 40% transparent;
+  content: "";
   padding: 16px 0px 16px 38px;
 }
 
-#tocframe > ul:first-child > li:last-child {
+#tocframe ul:first-child > li:last-child {
   border-bottom-right-radius: 7px;
 }
 
@@ -230,43 +231,6 @@ div#tocframe {
   background: linear-gradient(to top,
     rgb(100, 170, 80),
     rgb(170, 200, 160));
-}
-
-/* third level toc (unnumberedsubsec) */
-#tocframe .toc .toc .toc {
-  position: absolute;
-  top: 2em;
-  left: 5%;
-  font-size: 1em;
-}
-
-#tocframe .toc .toc .toc li {
-  display: inline;
-  padding: 0;
-  margin: 0;
-}
-
-#tocframe .toc .toc .toc li a {
-  float: left;
-  width: auto;
-  background: #ceffae;
-  text-decoration: none;
-  text-indent: 0;
-  font-weight: normal;
-  padding: 0 0.75em;
-  margin: 0;
-}
-
-#tocframe .toc .toc .toc li a:hover {
-  background: #bdee9d;
-}
-
-#tocframe .toc .toc .toc li.toc_current a {
-  background: #acdd8c;
-}
-
-#tocframe .toc .toc .toc li.toc_current a:hover {
-  background: #acdd8c;
 }
 
 /* Divs */

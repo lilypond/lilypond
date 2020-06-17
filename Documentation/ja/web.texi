@@ -75,7 +75,8 @@ TIPS、それに例。
 @c TITLE PAGE
 @ifnottex
 @node Top
-@top LilyPond... みんなの楽譜作成
+@c This is intentionally blank because we have @settitle above
+@top
 @end ifnottex
 
 
@@ -103,6 +104,11 @@ LilyPond バージョン @version{} 用
 
 @c ************************ WEBSITE START ***************
 
+
+@ifhtml
+@node index
+@unnumbered LilyPond
+@end ifhtml
 
 @divId{pageHeader}
 @heading LilyPond
