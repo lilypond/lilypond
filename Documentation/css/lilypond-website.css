@@ -118,7 +118,7 @@ div#tocframe {
 }
 
 /* search box */
-#tocframe li form {
+#tocframe form {
   float: left;
   width: 16%;
   font-size: 1em;
@@ -126,7 +126,7 @@ div#tocframe {
   margin: 0 0 0 1%;
 }
 
-#tocframe li form input {
+#tocframe form input {
   display: block;
   float: left;
   width: 92%;
@@ -139,7 +139,7 @@ div#tocframe {
   border-radius: 7px;
 }
 
-#tocframe li form input[type="hidden"] {
+#tocframe form input[type="hidden"] {
   position: relative;
   height: 0;
   overflow: hidden;
@@ -175,6 +175,10 @@ div#tocframe {
 
 /* second level toc (unnumberedsec) */
 #tocframe .toc .toc {
+  display: none;
+}
+#tocframe .toc li.toc_current .toc {
+  display: block;
   position: absolute;
   top: 3.8em;
   left: 0.5%;
