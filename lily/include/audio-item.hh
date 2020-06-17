@@ -115,7 +115,7 @@ public:
 class Audio_text : public Audio_item
 {
 public:
-  enum Type
+  enum Type : uint8_t
   {
     TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
     MARKER, CUE_POINT
