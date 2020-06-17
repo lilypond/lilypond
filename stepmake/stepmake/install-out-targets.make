@@ -17,9 +17,9 @@ local-uninstall: local-uninstall-outfiles local-uninstall-files
 local-uninstall-files:
 
 local-uninstall-outfiles:
-	rm -f $(foreach  i, $(INSTALLATION_OUT_FILES:$(outdir)/%=%), \
+	rm -f $(foreach  i, $(notdir $(INSTALLATION_OUT_FILES)), \
 		$(DESTDIR)$(INSTALLATION_OUT_DIR)/$(i))
 	rm -f $(foreach suff, $(INSTALLATION_OUT_SUFFIXES),  \
-		$(foreach i, $(INSTALLATION_OUT_FILES$(suff):$(outdir)/%=%), \
+		$(foreach i, $(notdir $(INSTALLATION_OUT_FILES$(suff))), \
 			$(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/$(i)))
 	-rmdir -p $(DESTDIR)$(INSTALLATION_OUT_DIR) $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff)))
