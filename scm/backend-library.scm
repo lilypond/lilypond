@@ -44,11 +44,11 @@
 
 (define-public (ly:gs-cli args run-str)
   (let*
-      ((tmp (make-tmpfile))
+      ((tmp (make-tmpfile #f))
        (tmp-name (port-filename tmp)))
-    (display  run-str tmp)
+    (display run-str tmp)
     (close-port tmp)
-    (set! args  (append args (list tmp-name)))
+    (set! args (append args (list tmp-name)))
     (ly:system args)
     (delete-file tmp-name)
     ))
@@ -68,7 +68,9 @@
 
 (define-public (postscript->pdf paper-width paper-height
                                 base-name tmp-name is-eps)
-  (let* ((pdf-name (string-append base-name ".pdf"))
+  (let* ((pdf-name (ly:format "~a.~a.pdf" tmp-name (random 1000000)))
+         (flush-name (string-append pdf-name ".flush"))
+         (dest (string-append base-name ".pdf"))
          (output-file (string-join (string-split pdf-name #\%) "%%"))
          (run-strings
           (filter string?
@@ -83,9 +85,21 @@
                    (ly:format "(~a) run" tmp-name)))
           ))
 
-    (ly:message (_ "Converting to `~a'...\n") pdf-name)
+    (ly:message (_ "Converting to `~a'...\n") dest)
     ((if (ly:get-option 'gs-api) ly:gs-api ly:gs-cli)
-      (gs-cmd-args is-eps) (string-join run-strings " "))))
+      (gs-cmd-args is-eps) (string-join run-strings " "))
+
+    ;; for pdfwrite, the output is only finalized once a new output
+    ;; file is opened.
+    (if (ly:get-option 'gs-api)
+        (begin
+          (ly:gs-api (gs-cmd-args is-eps)
+                     (ly:format "mark /OutputFile (~a) (pdfwrite) finddevice putdeviceprops setdevice "
+                                   flush-name))
+          (delete-file flush-name)))
+
+    (rename-file pdf-name dest)
+    ))
 
 (define-public (postscript->png resolution paper-width paper-height
                                 base-name tmp-name is-eps)
@@ -147,6 +161,11 @@
          ;; If the cause is something else, re-throw the error.
          (throw 'system-error (cdr stuff))))))
 
+(define-public (close-port-rename port name)
+  (let* ((tmp (port-filename port)))
+    (close-port port)
+    (rename-file tmp name)))
+
 (define-public (symlink-or-copy-if-not-exist oldpath newpath)
   (if (eq? PLATFORM 'windows)
       (let ((port (create-file-exclusive newpath)))
@@ -192,41 +211,36 @@
                      (loop (read-char port-from))))))
       ;; Cygwin and other platforms:
       ;; Pass through to copy-file
+      ;; TODO: this should write destination atomically.
       (copy-file from-name to-name)))
 
-(define-public (make-tmpfile)
-  (let* ((tmpl
-          (string-append (cond
-                          ;; MINGW hack: TMP / TEMP may include
-                          ;; unusable characters (Unicode etc.).
-                          ((eq? PLATFORM 'windows) "./tmp-")
-                          ;; Cygwin can handle any characters
-                          ;; including Unicode.
-                          ((eq? PLATFORM 'cygwin) (string-append
-                                                   (or (getenv "TMP")
-                                                       (getenv "TEMP"))
-                                                   "/"))
-                          ;; Other platforms (POSIX platforms)
-                          ;; use TMPDIR or /tmp.
-                          (else (string-append
-                                 (or (getenv "TMPDIR")
-                                     "/tmp")
-                                 "/")))
-                         "lilypond-XXXXXX"))
-         (port-tmp (mkstemp! tmpl)))
-    (if (eq? PLATFORM 'windows)
-        ;; MINGW hack: MinGW Guile's mkstemp! is broken.
-        ;; It creates a file by the text mode instead of the binary mode.
-        ;; (It is fixed from Guile 2.0.9.)
-        ;; We need the binary mode for embeddings CFFs.
-        ;; So, we re-open the same file by the binary mode.
-        (let* ((filename (port-filename port-tmp))
-               (port (open-file filename "r+b")))
-          (close port-tmp)
-          port)
-        ;; Cygwin and other platforms:
-        ;; Pass through the return value of mkstemp!
-        port-tmp)))
+(define-public (make-tmpfile basename)
+  "Returns a temp file as port. If basename is #f, a file under $TMPDIR is created."
+  (if (not basename)
+      (set! basename (cond
+                      ;; MINGW hack: TMP / TEMP may include
+                      ;; unusable characters (Unicode etc.).
+                      ((eq? PLATFORM 'windows) "./tmp-")
+                      ;; Cygwin can handle any characters
+                      ;; including Unicode.
+                      ((eq? PLATFORM 'cygwin) (string-append
+                                               (or (getenv "TMP")
+                                                   (getenv "TEMP"))
+                                               "/"))
+                      ;; Other platforms (POSIX platforms)
+                      ;; use TMPDIR or /tmp.
+                      (else (string-append
+                             (or (getenv "TMPDIR")
+                                 "/tmp")
+                             "/lilypond")))))
+
+  (let*
+      ((name (ly:format "~a-tmp-~a" basename (random 10000000)))
+       (port (create-file-exclusive name #o666))
+       (bport (open-file name "wb")))
+    (close-port port)
+    bport))
+
 
 (define-public (postprocess-output paper-book module formats
                                    base-name tmp-name is-eps)
@@ -238,8 +252,7 @@
              (or (not is-eps)
                  (not (member "ps" completed)))
              (file-exists? tmp-name))
-        (begin (ly:message (_ "Deleting `~a'...\n") tmp-name)
-               (delete-file tmp-name)))))
+        (delete-file tmp-name))))
 
 (define-public (completize-formats formats is-eps)
   (define new-fmts '())

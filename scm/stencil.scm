@@ -1043,15 +1043,16 @@ grestore
 
           (ly:message "Writing ~a" outname)
           (write-system-signature outname (car paper-systems))
-          (write-system-signatures basename (cdr paper-systems) (1+ count))))))
+          (write-system-signatures basename (cdr paper-systems) (1+ count))
+          ))))
 
 (use-modules (scm paper-system))
+
 (define-public (write-system-signature filename paper-system)
   (define system-grob
     (paper-system-system-grob paper-system))
 
-  (define output (open-output-file filename))
-
+  (define output (make-tmpfile filename))
   (define (raw-pair expr)
     (simple-format #f "~a ~a"
                    (car expr) (cdr expr)))
@@ -1098,5 +1099,4 @@ grestore
                                  (ly:stencil-expr
                                   (paper-system-stencil paper-system)))))
 
-  ;; Close explicitly so we don't run out of file descriptors
-  (close-port output))
+  (close-port-rename output filename))

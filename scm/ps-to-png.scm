@@ -61,54 +61,42 @@
                       ((string-contains format-str "jpeg") "jpeg")
                       (else
                        (ly:error "Unknown pixmap format ~a" pixmap-format))))
-          (png1 (format #f "~a.~a" base-name extension))
-          (pngn (format #f "~a-page%d.~a" base-name extension))
-          (page-count (ps-page-count tmp-name))
+          (pngn (format #f "~a-page%d.~a" tmp-name extension))
+          (page-count (if is-eps 1 (ps-page-count tmp-name)))
           (multi-page? (> page-count 1))
 
           ;; Escape `%' (except `page%d') for ghostscript
           (base-name-gs (string-join
-                         (string-split base-name #\%)
+                         (string-split tmp-name #\%)
                          "%%"))
-          (png1-gs (format #f "~a.~a" base-name-gs extension))
           (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
-          (output-file (if multi-page? pngn-gs png1-gs))
 
           (hw-resolution (* anti-alias-factor resolution))
-
           (run-strings (filter
                         string?
                         (list
 
-                         (ly:format "mark /OutputFile (~a)" output-file)
+                         (ly:format "mark /OutputFile (~a)" pngn-gs)
                          "/GraphicsAlphaBits 4 /TextAlphaBits 4"
                          (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution)
                          (ly:format "/DownScaleFactor ~a" anti-alias-factor)
                          (if (not is-eps)
                              (ly:format "/PageSize [~a ~a]" page-width page-height))
                          (ly:format "(~a) findprotodevice copydevice putdeviceprops setdevice" pixmap-format)
-                         (ly:format "(~a) run" tmp-name))))
-
-          (files '()))
+                         (ly:format "(~a) run" tmp-name)))))
 
      ((if (ly:get-option 'gs-api)
           ly:gs-api ly:gs-cli)
       (gs-cmd-args is-eps) (string-join run-strings " "))
 
-     (set! files
-           (if multi-page?
-               (map
-                (lambda (n)
-                  (format #f "~a-page~a.png" base-name (1+ n)))
-                (iota page-count))
-               (list (format #f "~a.png" base-name))))
-
-     (if (and rename-page-1 multi-page?)
-         (begin
-           (rename-file (re-sub "%d" "1" pngn) png1)
-           (set! files
-                 (cons png1
-                       (cdr files)))
-           ))
-
-     files)))
+     (map (lambda (n)
+            (let*
+                ((src (ly:format "~a-page~a.~a" tmp-name (1+ n) extension))
+                 (dst
+                  (if (or (not multi-page?) (and multi-page? rename-page-1))
+                      (ly:format "~a.~a" base-name extension)
+                      (ly:format "~a-page~a.~a" base-name (1+ n) extension))))
+              (rename-file src dst)
+              dst))
+          (iota page-count))
+     )))

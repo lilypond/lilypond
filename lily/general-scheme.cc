@@ -82,6 +82,16 @@ LY_DEFINE (ly_find_file, "ly:find-file",
   return ly_string2scm (file_name);
 }
 
+LY_DEFINE (ly_randomize_rand_seed, "ly:randomize-rand-seed", 0, 0, 0, (),
+           "Randomize C random generator.")
+{
+  struct timeval tv = {};
+  pid_t pid = getpid ();
+  gettimeofday (&tv, NULL);
+  srand ((unsigned int) (tv.tv_sec ^ tv.tv_usec ^ pid));
+  return SCM_UNSPECIFIED;
+}
+
 /*
   Ugh. Gulped file is copied twice. (maybe thrice if you count stdio
   buffering.)

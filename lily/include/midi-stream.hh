@@ -37,7 +37,8 @@ public:
   void open ();
 
   FILE *out_file_;
-  std::string file_name_string_;
+  std::string tmp_file_name_;
+  std::string dest_file_name_;
 };
 
 #endif // MIDI_STREAM_HH

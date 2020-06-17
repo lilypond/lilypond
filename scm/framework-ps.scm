@@ -731,19 +731,16 @@ mark {ly~a_stream} /CLOSE pdfmark
      sorted-page-numbers)))
 
 (define-public (output-framework basename book scopes fields)
-  (let* ((port-tmp (make-tmpfile))
-         (tmp-name (port-filename port-tmp))
-         (outputter (ly:make-paper-outputter
-                     port-tmp
-                     'ps))
+  (let* ((port (make-tmpfile basename))
+         (tmp-name (port-filename port))
+         (outputter (ly:make-paper-outputter port 'ps))
          (paper (ly:paper-book-paper book))
          (header (ly:paper-book-header book))
          (systems (ly:paper-book-systems book))
          (page-stencils (map page-stencil (ly:paper-book-pages book)))
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
-         (page-count (length page-stencils))
-         (port (ly:outputter-port outputter)))
+         (page-count (length page-stencils)))
     (if (guile-v2)
         (set-port-encoding! port "Latin1"))
     (initialize-font-embedding)
@@ -822,12 +819,11 @@ mark {ly~a_stream} /CLOSE pdfmark
             (directed-round (max (1+ (car box)) (caddr box)) ceiling)
             (directed-round (max (1+ (cadr box)) (cadddr box)) ceiling))))
 
-  (let* ((outputter (ly:make-paper-outputter
-                     ;; FIXME: better wrap open/open-file,
-                     ;; content-mangling is always bad.
-                     ;; MINGW hack: need to have "b"inary for embedding CFFs
-                     (open-file (format #f "~a.eps" filename) "wb")
-                     'ps))
+  (let* ((dest-name  (format #f "~a.eps" filename))
+         (ignore (ly:message (_  "Layout output to `~a'...") dest-name))
+         (port (make-tmpfile dest-name))
+         (tmp-name (port-filename port))
+         (outputter (ly:make-paper-outputter port 'ps))
          (port (ly:outputter-port outputter))
          (rounded-bbox (to-rounded-bp-box bbox))
          (port (ly:outputter-port outputter))
@@ -839,7 +835,9 @@ mark {ly~a_stream} /CLOSE pdfmark
     (display "gsave set-ps-scale-to-lily-scale\n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
-    (ly:outputter-close outputter)))
+    (ly:outputter-close outputter)
+    (rename-file tmp-name dest-name)
+    ))
 
 (define (clip-systems-to-region basename paper systems region do-pdf do-png)
   (let* ((extents-system-pairs

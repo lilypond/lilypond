@@ -96,7 +96,6 @@ alignment."
              (counted-systems  (count-list widened-stencils))
              (eps-files (map dump-counted-stencil counted-systems)))
         (if do-pdf
-            ;; par-for-each: a bit faster ...
             (for-each (lambda (y) (postscript->pdf 0 0
                                                    (dir-basename y ".eps")
                                                    y #t))
@@ -108,10 +107,10 @@ alignment."
       (let* ((write-file (lambda (str-port ext)
                            (if create-aux-files
                                (let* ((name (format #f "~a-systems.~a" basename ext))
-                                      (port (open-output-file name)))
+                                      (port (make-tmpfile name)))
                                  (ly:message (_ "Writing ~a...") name)
                                  (display (get-output-string str-port) port)
-                                 (close-output-port port)))))
+                                 (close-port-rename port name)))))
              (tex-system-port (open-output-string))
              (texi-system-port (open-output-string))
              (count-system-port (open-output-string)))

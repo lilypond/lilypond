@@ -27,6 +27,13 @@
 
 (defmacro-public _i (x) x)
 
+;; GUILE defaults to fixed seed.
+(define-public (randomize-rand-seed)
+  (ly:randomize-rand-seed)
+  (set! *random-state* (seed->random-state (format #f "~a ~a" (gettimeofday) (getpid)))))
+
+(randomize-rand-seed)
+
 ;;; Boolean thunk - are we integrating Guile V2.0 or higher with LilyPond?
 (define-public (guile-v2)
   (string>? (version) "1.9.10"))
@@ -932,7 +939,9 @@ PIDs or the number of the process."
     (if (> count 0)
         (let* ((pid (primitive-fork)))
           (if (= pid 0)
-              (1- count)
+              (begin
+                (randomize-rand-seed)
+                (1- count))
               (helper (1- count) (cons pid acc))))
         acc))
 
