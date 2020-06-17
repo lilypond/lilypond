@@ -480,7 +480,7 @@ sub lilypond_element_file_name($$$)
       return $filename;
     } else {
       $$element{doc_nr} = $docnr;
-      $filename = lc_last($filename);
+      $filename = lc_last($lastfilename);
       print STDERR "File name: $filename\n";
       return $filename;
     }
