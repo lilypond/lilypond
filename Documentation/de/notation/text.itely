@@ -118,7 +118,7 @@ und Artikulationen, siehe @rlearning{Positionierung von Objekten}.
 @endpredefined
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Positionierung von Objekten}.
 
@@ -220,7 +220,7 @@ Textstrecker sind Teil des @code{Dynamic}-Kontextes, siehe
 {dynamics-custom-text-spanner-postfix.ly}
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Linienstile},
 @ref{Dynamik},
@@ -318,7 +318,7 @@ c  c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Übungszeichen},
 @ref{Text formatieren},
@@ -403,7 +403,7 @@ sich in @ref{Textbeschriftung über mehrere Seiten}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Text formatieren},
 @ref{Die Dateistruktur},
@@ -537,7 +537,7 @@ allegro = \markup { \bold \large Allegro }
 Eine ausführliche Liste der @code{\markup}-Befehle findet sich in
 @ref{Textbeschriftungsbefehle}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Textbeschriftungsbefehle}.
 
@@ -745,7 +745,7 @@ Es ist auch möglich, eigene Schriftfamilien zu definieren, wie erklärt in
 @endpredefined
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Font},
 @ref{Neue Lautstärkezeichen},
@@ -1014,7 +1014,7 @@ linksbündig oder im Blocksatz, wie das nächste Beispiel illustriert:
 Eine vollständige Liste der Textausrichtungsbefehle findet sich in
 @ref{Align}.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Verschieben von Objekten}.
 
@@ -1202,7 +1202,7 @@ c'
 Eine ausführliche Liste der Graphik-Befehle findet sich in
 @ref{Graphic}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Graphic},
 @ref{Anmerkungen},
@@ -1345,7 +1345,7 @@ eine @code{\layout}-Umgebung haben, wie in diesem Beispiel:
 
 Eine vollständige Liste der Musiksymbol-Befehle findet sich in @ref{Music}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Music},
 @ref{Die Emmentaler-Schriftart},
@@ -1409,7 +1409,7 @@ eine Liste von Beschriftungslisten.
 Eine vollständige Liste der Beschriftungslistenbefehle findet sich in
 @ref{Textbeschriftungslistenbefehle}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Textbeschriftungslistenbefehle}.
 
@@ -1556,7 +1556,7 @@ umzuschalten, kann man auch eigene Schriftarten verwenden, wie erklärt
 in folgenden Abschnitten: @ref{Schriftarten für einen Eintrag} und
 @ref{Schriftart des gesamten Dokuments}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Die Emmentaler-Schriftart},
 @ref{Drehen von Objekten},
@@ -1599,7 +1599,7 @@ des Betriebssystems:
 lilypond -dshow-available-fonts
 @end example
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Was sind Schriftarten},
 @ref{Schriftart des gesamten Dokuments}.
@@ -1645,7 +1645,7 @@ Schriftarten in @ref{Was sind Schriftarten}.
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Was sind Schriftarten},
 @ref{Schriftarten für einen Eintrag},

@@ -116,7 +116,7 @@ notate modern Gregorian chant.  It does not show bar lines.
 New single staff contexts may be defined.  For details, see
 @ref{Defining new contexts}.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{staff},
 @rglos{staves}.
@@ -255,7 +255,7 @@ New staff group contexts may be defined.  For details, see
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{brace},
 @rglos{bracket},
@@ -320,7 +320,7 @@ New nested staff group contexts can be defined.  For details, see
 {nesting-staves.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Grouping staves},
 @ref{Instrument names},
@@ -380,7 +380,7 @@ turned on with a @code{\paper} option.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Page layout}.
 
@@ -561,7 +561,7 @@ line spacing as well.
 {making-some-staff-lines-thicker-than-the-others.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{line},
 @rglos{ledger line},
@@ -714,7 +714,7 @@ break.  For more information about
 {vertically-aligning-ossias-and-lyrics.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ossia},
 @rglos{staff},
@@ -1045,7 +1045,7 @@ sections for a staff.  For details, see @ref{Ossia staves}.
 @code{\RemoveAllEmptyStaves}.
 @endpredefined
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{Frenched staff}.
 
@@ -1264,7 +1264,7 @@ setFlute = {
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents},
 @ref{Modifying context plug-ins}.
@@ -1448,7 +1448,7 @@ oboeNotes = \relative {
 
 Quotes can also be tagged, see @ref{Using tags}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Using tags}.
@@ -1753,7 +1753,7 @@ bassoonNotes = \relative c {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Quoting other voices},
 @ref{Instrument transpositions},
@@ -1876,7 +1876,7 @@ set in the @code{Score} context as explained in
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Using break-visibility},
 @ref{Full measure rests},

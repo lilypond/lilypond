@@ -480,7 +480,7 @@ Alább látható egy rövid példa, mely az eddig tanult elemeket mutatja be:
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.

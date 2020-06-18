@@ -120,7 +120,7 @@ La altura de las notas de la expresión musical que sigue a
 @code{\fixed} no reultan afectadas por un @code{\relative}
 circundante, que se estudia a continuación.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{Pitch names}.
 
@@ -330,7 +330,7 @@ Esto se puede hacer utilizando @code{\resetRelativeOctave}:
 @funindex \resetRelativeOctave
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{fifth},
 @rglos{interval},
@@ -464,7 +464,7 @@ al comienzo de un sistema:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{sharp},
 @rglos{flat},
@@ -669,7 +669,7 @@ están contempladas las alturas y los sistemas de afinación
 alternativos: véase @ref{Notación común para músicas no
 occidentales}.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{Pitch names},
 @rglos{Common Practice Period}.
@@ -765,7 +765,7 @@ correcta.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Pitches}.
 
@@ -894,7 +894,7 @@ Para ver más información sobre instrumentos transpositores, consulte
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Transposición de los instrumentos},
 @ref{Inversión},
@@ -958,7 +958,7 @@ music = \relative { c' d e f }
 absoluto o convertirse previamente a la forma absoluta
 encerrándolos en un bloque @code{\relative}.}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Transformaciones modales},
 @ref{Retrogradación},
@@ -997,7 +997,7 @@ tienen que añadirse en los elementos de cierre correspondientes:
 @code{\enddecr}.  Las instrucciones o sobreescrituras que cambien propiedades
 y que tengan un efecto duradero, probablemente produzcan sorpresas.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Inversión},
 @ref{Transformaciones modales},
@@ -1147,7 +1147,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Inversión},
 @ref{Retrogradación},
@@ -1357,7 +1357,7 @@ este comportamiento.
 {tweaking-clef-properties.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Claves de la música mensural},
 @ref{Claves de canto gregoriano},
@@ -1508,7 +1508,7 @@ de la octava que termina en dicha posición del pentagrama.
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -1580,7 +1580,7 @@ de una octava para el pentagrama.
 {modifying-the-ottava-spanner-slope.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{octavation}.
 
@@ -1688,7 +1688,7 @@ clarinet = \relative c'' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
@@ -3036,7 +3036,7 @@ musicB = {
 @end lilypond
 @end table
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Pitches}.
 
@@ -3161,7 +3161,7 @@ tonalidad.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ambitus}.
 
@@ -3297,7 +3297,7 @@ También existe una abreviatura similar para las formas en rombo:
 @code{\xNote}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Pitches}.
 
@@ -3366,7 +3366,7 @@ pentagrama}.
 {numbers-as-easy-note-heads.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Establecer el tamaño del pentagrama}.
 
@@ -3497,7 +3497,7 @@ determinar a partir del relativo mayor:
 Para ver todos los estilos de formas de cabeza de nota, consulte
 @ref{Estilos de cabezas de nota}.
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Pitches}.
 
@@ -3547,7 +3547,7 @@ nota se crean así:
 @code{\improvisationOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Pitches}.
 

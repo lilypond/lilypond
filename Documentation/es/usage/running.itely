@@ -1610,7 +1610,7 @@ una verdadera colisión, o si las voces se cruzan respecto a su
 orden natural (cuando una voz con @code{\voiceThree} es más aguda
 que otra con @code{\voiceOne}, y casos semejantes).
 
-@seealso
+@morerefs
 @rlearning{Voces explícitas},
 @rlearning{Ejemplos reales de música}.
 @ruser{Polifonía en un solo pentagrama},

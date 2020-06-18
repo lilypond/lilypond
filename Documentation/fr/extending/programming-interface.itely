@@ -209,7 +209,7 @@ appel à des types d'argument plus spécifiques.
 Les différents types de prédicat propres à LilyPond sont recensés à
 l'annexe @ruser{Types de prédicats prédéfinis}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Types de prédicats prédéfinis}.
 
@@ -367,7 +367,7 @@ Scheme}.  La plupart du temps, le @var{corps} sera constitué d'un
 Les différents types des prédicat sont recensés à l'annexe
 @ruser{Types de prédicats prédéfinis}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Types de prédicats prédéfinis}.
 

@@ -116,7 +116,7 @@
 @code{\fixed} の後に続く音楽表記内のピッチは、外側にあるいかなる
 @code{\relative} の影響も受けません。次で説明します。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{Pitch names}
 
@@ -319,7 +319,7 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 @funindex \resetRelativeOctave
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{fifth},
 @rglos{interval},
@@ -456,7 +456,7 @@ LilyPond では、音符名はピッチを指定します
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{sharp},
 @rglos{flat},
@@ -658,7 +658,7 @@ LilyPond の記号はいかなる標準にも準拠しません。
 しかしながら、他のピッチやチューニング方法もサポートされています:
 @ref{Common notation for non-Western music} を参照してください。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{Pitch names},
 @rglos{Common Practice Period}.
@@ -755,7 +755,7 @@ LilyPond の記号はいかなる標準にも準拠しません。
 }
 @end lilypond
 
-@seealso
+@morerefs
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
 
@@ -881,7 +881,7 @@ musicInBflat = @{ e4 @dots{} @}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Instrument transpositions},
 @ref{Inversion},
@@ -941,7 +941,7 @@ music = \relative { c' d e f }
 最初に絶対オクターブ形式に変換されるよう @code{\relative} ブロックで囲む@c
 必要があります。}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Modal transformations},
 @ref{Retrograde},
@@ -977,7 +977,7 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @code{\enddecr} で終わらなければなりません。効果が永続するような@c
 プロパティ変更のコマンドやオーバライドは予期しない結果を生み出すかもしれません。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Inversion},
 @ref{Modal transformations},
@@ -1112,7 +1112,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Inversion},
 @ref{Retrograde},
@@ -1312,7 +1312,7 @@ c'2 c'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
@@ -1458,7 +1458,7 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{church mode},
 @rglos{scordatura}
@@ -1528,7 +1528,7 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 {modifying-the-ottava-spanner-slope.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{octavation}
 
@@ -1632,7 +1632,7 @@ clarinet = \relative c'' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{concert pitch},
 @rglos{transposing instrument}
@@ -2979,7 +2979,7 @@ musicB = {
 @end lilypond
 @end table
 
-@seealso
+@morerefs
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
 
@@ -3105,7 +3105,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 {changing-the-ambitus-gap.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{ambitus}
 
@@ -3234,7 +3234,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 @code{\xNote}.
 @endpredefined
 
-@seealso
+@morerefs
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
 
@@ -3302,7 +3302,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Setting the staff size}
 
@@ -3428,7 +3428,7 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 
 すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。
 
-@seealso
+@morerefs
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
 
@@ -3478,7 +3478,7 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @code{\improvisationOff}
 @endpredefined
 
-@seealso
+@morerefs
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
 

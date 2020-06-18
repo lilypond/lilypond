@@ -120,7 +120,7 @@ Si la durée manquante est évitente au vu du rendu musical de cet exemple
 minimaliste, l'avertissement émis en console ne manquera pas de porter à
 votre attention l'absence du @code{4} à la troisième mesure.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Barres de mesure},
 @ruser{Vérification des limites et numéros de mesure}.
@@ -284,7 +284,7 @@ connaître les différentes manières dont les altérations accidentelles
 peuvent être imprimées, consultez
 @ruser{Altérations accidentelles automatiques}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Nom des notes dans d'autres langues},
 @ruser{Altérations},
@@ -410,7 +410,7 @@ enchâssées dans un @emph{legato} ou un phrasé.
 \relative { c''4(~ c8 d~ 4 e) }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Liaisons de prolongation},
 @ruser{Liaisons d'articulation},
@@ -530,7 +530,7 @@ nuance d'arrivée, par exemple @code{\f}, soit par la commande
 \relative { c''4\< c\ff\> c c\! }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Articulations et ornements},
 @ruser{Doigtés},
@@ -562,7 +562,7 @@ a'2_\markup {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Ajout de texte}.
 
@@ -617,7 +617,7 @@ entiers, utilisez la commande @code{\autoBeamOff}, et utilisez
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Barres de ligature automatiques},
 @ruser{Barres de ligature manuelles}.
@@ -718,7 +718,7 @@ expression musicale :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Notes d'ornement},
 @ruser{N-olets},
@@ -1007,7 +1007,7 @@ entière, avec ses particularités, tant au niveau du signe qui regroupe
 les portées au sein d'un @notation{système} qu'au niveau de l'étendue
 des barres de mesure.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Instruments utilisant des portées multiples},
 @ruser{Gravure des portées}.
@@ -1051,7 +1051,7 @@ durée, donc @emph{à l'extérieur} des chevrons.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Notes en accords}.
 
@@ -1077,7 +1077,7 @@ raison pour laquelle nous ne nous étendrons pas tout de suite sur ce
 sujet et préférons vous inciter à consulter les chapitres dédiés à
 l'étude de ces concepts.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{Les voix contiennent la musique}.
 
@@ -1307,7 +1307,7 @@ la syllabe @emph{al} est chantée sur la même note que @emph{go}.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Musique vocale}.
 
@@ -1352,7 +1352,7 @@ la partition des notes et paroles, grâce à des variables.  Ceci sera
 détaillé plus loin dans
 @ref{Organisation du code source avec des variables}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Musique vocale}.
 

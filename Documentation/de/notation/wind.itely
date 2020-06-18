@@ -113,7 +113,7 @@ notiert. Siehe
 {changing--flageolet-mark-size.ly}
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Atemzeichen},
 @ref{Legatobögen},
@@ -149,7 +149,7 @@ Diagramme für Holzbläser können erstellt werden nach den Anweisungen in
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
 
-@seealso
+@morerefs
 
 Notationsreferenz:
 @ref{Holzbläserdiagramme}.
@@ -223,7 +223,7 @@ diese Noten zu erniedrigen.  Das kann angezeigt werden mit @code{c-flat}
 bzw. @code{f-flat}.  Gleicherweise kann das piobaireachd hohe g als
 @code{g-flat} geschrieben werden, wenn es in leichter Musik vorkommt.
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Winds}.
 
@@ -272,7 +272,7 @@ Dudelsack notiert.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Winds}.
 
@@ -454,7 +454,7 @@ Scheme-Kenntnisse. Die Muster für die Diagramme befinden sich in den Dateien
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
-@seealso
+@morerefs
 
 Installierte Dateien:
 @file{scm/define-woodwind-diagrams.scm}, @*

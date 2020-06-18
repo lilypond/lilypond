@@ -690,7 +690,7 @@ copy salida\miproyecto.pdf MiProyecto.pdf
 @end example
 
 
-@seealso
+@morerefs
 Manual de utilización del programa:
 @rprogram{Utilización desde la línea de órdenes},
 @rprogram{lilypond-book}

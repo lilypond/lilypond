@@ -117,7 +117,7 @@ warning: barcheck failed at: 1/2
 コンソール出力の警告は 3 小節目に @code{4} が欠けていることが@c
 効果的にわかります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{小節と小節番号のチェック}
 
@@ -273,7 +273,7 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 @c 臨時記号の自動譜刻
 
 
-@seealso
+@morerefs
 記譜法リファレンス: @ruser{他の言語での音符名},
 @ruser{臨時記号},
 @ruser{自動臨時記号},
@@ -381,7 +381,7 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{タイ},
 @ruser{スラー},
@@ -497,7 +497,7 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{アーティキュレーションと装飾},
 @ruser{運指の指示},
@@ -530,7 +530,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{テキストを記述する}
 
@@ -583,7 +583,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{自動連桁},
 @ruser{手動連桁}
@@ -683,7 +683,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{装飾小音符},
 @ruser{連符},
@@ -960,7 +960,7 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 さらに、小節線の高さを制御します。
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{Keyboard and other multi-staff instruments},
 @ruser{譜を表示する}
@@ -1007,7 +1007,7 @@ Music Glossary: @rglos{chord}
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{和音の音符}
 
@@ -1033,7 +1033,7 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 以下のセクションで多声音楽で用いるコンセプトを紹介し、@c
 多声音楽について説明します。
 
-@seealso
+@morerefs
 学習マニュアル:
 @ref{音楽を保持するボイス}
 
@@ -1267,7 +1267,7 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 >>
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{Vocal music}
 @c 歌曲譜
@@ -1312,7 +1312,7 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 このことは @ref{変数を用いて楽曲を編成する} で議論されています。
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{Vocal music}
 @c 歌曲譜

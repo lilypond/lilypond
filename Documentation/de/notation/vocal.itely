@@ -82,7 +82,7 @@ um Platz für den Text zu schaffen.  Siehe @ref{Partiturbeispiele für Chormusik
 
 @end itemize
 
-@seealso
+@morerefs
 Glossar:
 @rglos{ambitus}.
 
@@ -213,7 +213,7 @@ hierzu @ref{Text formatieren}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Lieder}.
 
@@ -342,7 +342,7 @@ assoziierte Stimme angibt, wenn eine existiert.  Zu Einzelheiten siehe
 @ref{Manuelle Silbendauern}.
 @end itemize
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Text an einer Melodie ausrichten}.
 
@@ -515,7 +515,7 @@ Ein Beispiel demonstiert das:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Fülllinien und Trennstriche},
 @ref{Kontexte am Leben halten},
@@ -597,7 +597,7 @@ hinter Wörtern für Fülllinien benutzt werden:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Dialog zur Musik},
 @ref{Kontexte am Leben halten}.
@@ -633,7 +633,7 @@ gesetzt werden.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{LyricCombineMusic}.
 
@@ -822,7 +822,7 @@ angegeben werden:
 @code{\melisma},
 @code{\melismaEnd}.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{melisma}.
 
@@ -879,7 +879,7 @@ Dieses Verhalten kann aber auch unterbunden werden, wenn den Eigenschaften
 @code{minimum-length} (Wert, unterhalb von dem Bindestriche wegfallen)
 andere Werte erhalten.  Beide sind Eigenschaften von @code{LyricHyphen}.
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
@@ -975,7 +975,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Gesangstext vertikal verschieben}.
 
@@ -1108,7 +1108,7 @@ indem man die gegebenen Beispiele modifiziert oder auch die
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Vokalensemble}.
 
@@ -1606,7 +1606,7 @@ benutzen wollen, müssen sie manuell notiert werden:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Kontexte am Leben halten},
 @ref{Wiederholungszeichen}.
@@ -2093,7 +2093,7 @@ text = \lyricmode {
 @end lilypond
 
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
@@ -2154,7 +2154,7 @@ in @ref{Übliche Notation für Saiteninstrumente mit Bünden}.
 
 @end itemize
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Lieder}.
 
@@ -2182,7 +2182,7 @@ Akkorden im Akkord-Modus kombiniert; die Syntax ist erklärt in
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Notation von Akkorden}.
 
@@ -2259,7 +2259,7 @@ Siehe @ref{Mehrstimmigkeit in einem System}.
 @code{\voiceTwo}.
 @endpredefined
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Vierstimmige SATB-Partitur},
 @rlearning{Vokalensemble}.
@@ -2351,7 +2351,7 @@ Form genutzt werden, wie das Beispiel zeigt:
 @code{\dynamicUp}.
 @endpredefined
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Die Notensystemgröße einstellen},
 @ref{Vertikale Abstände},
@@ -2378,7 +2378,7 @@ Referenz der Interna:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Ausdrucksbezeichnungen als Linien}.
 
@@ -2471,7 +2471,7 @@ mit Abschnitten von alleinstehenden Textbeschriftungen zwischen zwei
 
 @end itemize
 
-@seealso
+@morerefs
 Glossar:
 @rglos{Frenched score},
 @rglos{Frenched staves},
@@ -2585,7 +2585,7 @@ der Figur angezeigt werden kann.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Instrumentenbezeichnungen},
 @ref{Scheme-Funktionen},
@@ -2707,7 +2707,7 @@ die Tipparbeit erspart und die Klaviernoten klarer macht.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{cue-notes}.
 
@@ -2828,7 +2828,7 @@ dialogue = \lyricmode {
 
 @c TODO show use of \column to produce dialogue on two lines
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Manuelle Silbendauern},
 @ref{Text}.
@@ -2864,7 +2864,7 @@ unterscheidet, sind jedoch die typographischen Probleme sehr
 Wie der Gregorianische Choral in verschiedenen alten Notationsstilen
 gesetzt wird, findet sich in @ref{Notation von alter Musik}.
 
-@seealso
+@morerefs
 Notationreferenz:
 @ref{Notation von alter Musik}.
 
@@ -3155,7 +3155,7 @@ Ausdehnung des Textes und nicht der Notenlänge gesetzt.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Sichtbarkeit und Farbe von Objekten},
 @rlearning{Vokalensemble}.
@@ -3323,7 +3323,7 @@ Die meisten dieser Elemente werden in einem der beiden Strophen
 der @qq{Psalm}-Vorlage demonstriert, siehe
 @rlearning{Vokalensemble}.
 
-@seealso
+@morerefs
 Handbuch zum :
 @rlearning{Vokalensemble}.
 
@@ -3358,7 +3358,7 @@ Alte Vokalmusik  ist unterstützt, wie erklärt in
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Notation von alter Musik}.
 

@@ -185,7 +185,7 @@ und nicht nur eine Funktion für die allgemeine Verwendung schreibt.
 Eine Liste der möglichen vordefinierten Typenprädikte findet sich in
 @ruser{Vordefinierte Typprädikate}.
 
-@seealso
+@morerefs
 
 Notationsreferenz
 @ruser{Vordefinierte Typprädikate}.
@@ -324,7 +324,7 @@ In der Mehrzahl der Fälle ist @var{body} ein LilyPond-Codeabschnitt (siehe
 Eine Liste der möglichen Typenprädikate findet sich in
 @ruser{Vordefinierte Typprädikate}.
 
-@seealso
+@morerefs
 
 Notationsreferenz:
 @ruser{Vordefinierte Typprädikate}.

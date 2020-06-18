@@ -100,7 +100,7 @@ Oktave.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{Pitch names}.
 
@@ -275,7 +275,7 @@ Eine Konsequenz dieser Regeln ist, dass die erste Note innerhalb von
 @code{@w{\relative f}} auf die selbe Art interpretiert wird als wenn
 sie im absoluten Tonhöhenmodus geschrieben worden wäre.
 
-@seealso
+@morerefs
 Musikgossar:
 @rglos{fifth},
 @rglos{interval},
@@ -429,7 +429,7 @@ cis
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{sharp},
 @rglos{flat},
@@ -623,7 +623,7 @@ Stimmungen sind aber auch unterstützt: siehe
 @ref{Übliche Notation für nichteuropäische Musik}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{Pitch names},
 @rglos{Common Practice Period}.
@@ -722,7 +722,7 @@ einen Fehler aus, die zweite dagegen ist erfolgreich:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -843,7 +843,7 @@ siehe auch @ref{Transposition von Instrumenten}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Relative Oktavenbezeichnung},
 @ref{Transposition von Instrumenten}.
@@ -911,7 +911,7 @@ music = \relative { c' d e f }
 notiert werden oder zuerst in absolute Tonhöhen umgewandelt werden,
 indem sie in eine @code{\relative}-Umgebung eingeschlossen werden.}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Modale Transformierungen},
 @ref{Krebs},
@@ -944,7 +944,7 @@ Manuell gesetzte Bindebögen innerhalb des Krebsgangs @code{\retrograde} werden
 aufgebrochen und erzeugen Warnungen.  Einige Bindebögen können automatisch
 ersetllt werden, indem man @ref{Automatic note splitting} aktiviert.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Modale Transformierungen},
 @ref{Umkehrung},
@@ -1090,7 +1090,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Umkehrung},
 @ref{Krebs},
@@ -1226,7 +1226,7 @@ bei Stichnoten siehe die Funktionen @code{\cueClef} und
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Mensurale Schlüssel},
 @ref{Gregorianische Schlüssel}
@@ -1334,7 +1334,7 @@ Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian}
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -1393,7 +1393,7 @@ Transposition von einer Oktave an:
 {changing-ottava-text.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{octavation}.
 
@@ -1495,7 +1495,7 @@ zwischen B- und A-Klarinette wechseln.
 @end lilypond
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
@@ -2617,7 +2617,7 @@ musicB = {
 @end lilypond
 @end table
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -2736,7 +2736,7 @@ Tonart definiert werden.
 {changing-the-ambitus-gap.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{ambitus}.
 
@@ -2858,7 +2858,7 @@ von Akkorden benutzt werden kann:
 @code{\xNote}.
 @endpredefined
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -2922,7 +2922,7 @@ sich in @ref{Die Notensystemgröße einstellen}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Die Notensystemgröße einstellen}.
 
@@ -3035,7 +3035,7 @@ a2 b c d \break
 
 Alle Notenkopfstile finden sich in @ref{Notenkopfstile}.
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Pitches}.
 
@@ -3086,7 +3086,7 @@ benutzt werden:
 @code{\improvisationOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Pitches}.
 

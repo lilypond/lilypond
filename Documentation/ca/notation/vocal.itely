@@ -87,7 +87,7 @@ sobre del pentagrama per evitar la lletra, com s'explica a
 
 @end itemize
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{ambitus}.
 
@@ -217,7 +217,7 @@ veure una explicació de moltes de les opcions, vegeu
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
-@seealso
+@morerefs
 Manual d'aprenentatge;
 @rlearning{Cançons}.
 
@@ -353,7 +353,7 @@ per veure exemple que mostren això, consulteu
 
 @end itemize
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @rlearning{Alineació de la lletra a una melodia}.
 
@@ -532,7 +532,7 @@ Heus ací un exemple que mostra el seu ús:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Línies d'extensió i guions},
 @ref{Manteniment amb vida dels contextos},
@@ -610,7 +610,7 @@ la propietat @code{self-alignment-X}:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Manteniment amb vida dels contextos}.
 
@@ -650,7 +650,7 @@ lligadura de text.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{LyricCombineMusic}.
 
@@ -845,7 +845,7 @@ dins del melisma:
 @code{\melismaEnd}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{melisma}.
 
@@ -903,7 +903,7 @@ propietats @code{minimum-distance} (distància mínima entre les
 dues síl·labes) i la @code{minimum-length} (umbral per sota del
 qual se suprimeixen els guionets) de @code{LyricHyphen}.
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
@@ -1000,7 +1000,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Posicionament vertical de la lletra}.
 
@@ -1133,7 +1133,7 @@ plantilles del Manual d'Aprenentatge, vegeu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
-@seealso
+@morerefs
 Manual d' aprenentatge:
 @rlearning{Plantilles de conjunts vocals}.
 
@@ -1631,7 +1631,7 @@ manualment.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Manteniment amb vida dels contextos},
 @ref{Repeticions}.
@@ -2221,7 +2221,7 @@ text = \lyricmode {
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
@@ -2289,7 +2289,7 @@ d'acord} dins de
 
 @end itemize
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Cançons}.
 
@@ -2316,7 +2316,7 @@ Es poden imprimir fulls guia d'acords combinant parts vocals i el
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @rusernamed{Chord notation,Notació d'acords}.
 
@@ -2404,7 +2404,7 @@ Quan una part vocal es divideix temporalment, hem d'usar
 @code{\voiceTwo}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Partitura vocal a quatre veus SATB},
 @rlearning{Plantilles de conjunts vocals}.
@@ -2504,7 +2504,7 @@ mostra aquí:
 @code{\dynamicNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Canvi de l'espaiat},
 @ref{Mostrar l'espaiat},
@@ -2530,7 +2530,7 @@ Referència de funcionament interno:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Marques expressives en forma de línies}.
 
@@ -2633,7 +2633,7 @@ amb una secció d'elements de marcatge independents entres dos blocs
 
 @end itemize
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{Frenched score},
 @rglos{Frenched staves},
@@ -2742,7 +2742,7 @@ melchior = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Organitzar les peces mitjançant variables}.
 
@@ -2854,7 +2854,7 @@ les notes del piano estiguin més clares.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{cue-notes}.
 
@@ -2974,7 +2974,7 @@ dialogue = \lyricmode {
 
 @c TODO show use of \column to produce dialogue on two lines
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Duració manual de les síl·labes},
 @ref{Text}.
@@ -3012,7 +3012,7 @@ s'estudien a aquesta secció.
 El gravat del cant gregorià en diferents estils de notació es
 descriuen a @ref{Notació antiga}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Notació antiga}.
 
@@ -3309,7 +3309,7 @@ duracions de les notes.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Visibilitat i color dels objectes},
 @rlearning{Plantilles de conjunts vocals}.
@@ -3473,7 +3473,7 @@ tick = \markup {
 L'us del marcatge per centrar text i per disposar les línies en
 columnes es descriu a @ref{Donar format al text}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge
 @rlearning{Salms},
 @rlearning{Plantilles de conjunts vocals}.
@@ -3510,6 +3510,6 @@ s'explica a
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Notació antiga}.

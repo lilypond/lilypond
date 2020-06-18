@@ -78,7 +78,7 @@ D'altres plantilles es mostres a la secció de fragments de codi.
 
 @end itemize
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Plantilles de quartet de corda}.
 
@@ -146,7 +146,7 @@ a'2^\markup { \small "sul A" }
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Articulacions i ornaments},
 @ref{Indicació dels números de corda},
@@ -221,7 +221,7 @@ presenten els puntets.  S'ha d'activar la propietat de context
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{harmonics}.
 

@@ -140,7 +140,7 @@ qui passent d'une voix à l'autre, comme le montre
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres utilisations des retouches},
 @rlearning{Exemple concret}.
@@ -283,7 +283,7 @@ portée.  Lorsque des collisions surviennent en pareil cas, il vous
 faudra les résoudre, en suivant les directives du chapitre
 @rlearning{Correction des collisions d'objets}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Correction des collisions d'objets}.
 
@@ -395,7 +395,7 @@ portée inférieure :
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Changement de portée manuel}.
 
@@ -484,7 +484,7 @@ d'arrivée de cette ligne.
 @code{\hideStaffSwitch}.
 @endpredefined
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
@@ -517,7 +517,7 @@ symbole @emph{hash} (un @code{#}).
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
 
@@ -615,7 +615,7 @@ Les indications de pédale peuvent s'inscrire dans un contexte
 @code{Dynamics}, ce qui aura pour effet de leur attribuer une ligne en
 propre.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Liaisons de prolongation}.
 
@@ -670,7 +670,7 @@ Une liste des différents symboles est disponible à l'annexe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-register-symbols.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsr{Keyboards, Claviers}.
 
@@ -712,7 +712,7 @@ d'autres chapitres, tels que :
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Arpèges},
 @ref{Glissando},
@@ -763,7 +763,7 @@ de caractères, où @code{^} indique que la pédale est relâchée ou en haut
 le séparateur (entre gauche et droite de l'instrumentiste). Faire
 précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Commentaires textuels},
 @rusernamed{Instrument Specific Markup,

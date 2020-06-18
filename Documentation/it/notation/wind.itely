@@ -96,7 +96,7 @@ Vedi @ref{Articolazioni e abbellimenti}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Respiri},
 @ref{Legature di portamento},
@@ -135,7 +135,7 @@ Si possono creare diagrammi per i legni, descritti in @ref{Diagrammi per legni}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Diagrammi per legni}.
 
@@ -202,7 +202,7 @@ bemolli queste note.  Ciò si può indicare con @code{c-flat} o @code{f-flat}.
 Analogamente, il Sol alto del @qq{piobaireachd} può essere scritto come
 @code{g-flat} quando si tratta di musica leggera.
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Winds}.
 
@@ -255,7 +255,7 @@ cornamusa.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Winds}.
 
@@ -444,7 +444,7 @@ dei diagrammi si trovano in @file{scm/define-woodwind-diagrams.scm} e
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
-@seealso
+@morerefs
 File installati:
 @file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.

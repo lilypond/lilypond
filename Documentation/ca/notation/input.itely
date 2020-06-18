@@ -125,7 +125,7 @@ com a resultat @file{sardanaperaelefants.pdf}.
 @ref{Diversos fitxers de sortida a partir d'un d'entrada} i
 @ref{Estructura del fitxer}.)
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Treball sobre els fitxers d'entrada},
 @rlearning{Explicació de les expressions musicals},
@@ -543,7 +543,7 @@ signe@tie{}@code{#}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Com funcionen els fitxers d'entrada del LilyPond}
 
@@ -764,7 +764,7 @@ sobreescrits i altres suprimits manualment:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Estructura del fitxer},
 @ref{Presentació predeterminada dels títols de parts de llibre i partitura},
@@ -885,7 +885,7 @@ primera pàgina, començant la música (definida al bloc
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Com funcionen els fitxers d'entrada del LilyPond}
 
@@ -990,7 +990,7 @@ text de qualsevol capçalera, peu o títol dins del bloc @code{\header}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Donar format al text}.
 
@@ -1153,7 +1153,7 @@ i referir-nos a ells a la definició de l'element de marcatge.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Explicació dels títols}.
 
@@ -1263,7 +1263,7 @@ operador @q{and}, per exemple:
 
 determina si la sortida és una sola pàgina.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Explicació dels títols},
 @ref{Presentació predeterminada dels títols de parts de llibre i partitura}.
@@ -1782,7 +1782,7 @@ especificar les marques (vegeu @ref{Unicode}):
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Objectes i interfícies}
 
@@ -2047,7 +2047,7 @@ dins del context d'un índex general:
 }
 @end verbatim
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{ly/toc-init.ly}.
 
@@ -2226,7 +2226,7 @@ instal·la una nova versió del LilyPond.
 Es poden veure exemples senzills sobre l'ús de @code{\include} a
 en @rlearning{Partitures i particel·les}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge
 @rlearning{Altres fonts d'informació},
 @rlearning{Partitures i particel·les}.
@@ -2562,7 +2562,7 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 Les dues ordres admeten una etiqueta, el material que divideix en
 cada aparició de l'etiqueta, i l'expressió etiquetada.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Organitzar les peces mitjançant variables}.
 
@@ -2601,7 +2601,7 @@ l'especificació del fitxer d'ajustaments adequat.
 Aquesta tècnica també funciona bé amb l'ús de fulls d'estil, com
 s'estudia a @rlearning{Fulls d'estil}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Organitzar les peces mitjançant variables}.
 @rlearning{Fulls d'estil}.
@@ -2811,7 +2811,7 @@ o local:
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Llista de caràcters especials}.
 
@@ -2872,7 +2872,7 @@ música extreta s'obté a la sortida com si hagués estat literalment
 fragment s'estén sobre una o més línies, es genera un fitxer de
 sortida diferent per a cada línia generada.
 
-@seealso
+@morerefs
 Referencia de la notació:
 @ref{El bloc layout}.
 
@@ -3028,7 +3028,7 @@ creat explícitament com implícita.  Això significa que cada
 principals cridant a @code{set-global-fonts} prèviament.  Per a
 més informació, vegeu @ref{Tipus de lletra del document complet}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Altres fonts d'informació}.
 
@@ -3230,7 +3230,7 @@ abans del començament d'un dels blocs @code{\book},
 #(ly:set-option 'midi-extension "mid")
 @end example
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Estructura del fitxer},
 @ref{Creació de metadades al fitxers de sortida}.
@@ -3394,7 +3394,7 @@ instruments.  Vegeu @file{scm/midi.scm}.
 Fitxers instal·lats:
 @file{scm/midi.scm}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Disposició de la partitura}.
 
@@ -3460,7 +3460,7 @@ Aquest exemple suprimeix l'efecte de les indicacions dinàmiques
 sobre la sortida MIDI.  Nota: els mòduls de traducció del LilyPond
 usats per al so s'anomenen @q{performers}.
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @rlearning{Altres fonts d'informació}.
 
@@ -3518,7 +3518,7 @@ instruments de la llista de la secció @q{instruments MIDI},
 s'usarà l'instrument Piano de cua (@code{"acoustic grand"}).
 Vegeu @ref{Instruments MIDI}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Altres fonts d'informació}.
 
@@ -3591,7 +3591,7 @@ Si s'usen diverses veus, cada una d'elles ha de contenir les
 repeticions completament desplegades per poder obtenir una sortida
 MIDI correcta.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Repeticions}.
 
@@ -3875,7 +3875,7 @@ abreviatures com trins i mordents de diverses notes.  En el propi
 script pot veure's una llista completa dels elements que estan
 previstos.  Vegeu @file{ly/articulate.ly}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Altres fonts d'informació}.
 

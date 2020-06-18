@@ -113,7 +113,7 @@ Las trompas tapadas se indican por medio de la articulación
 {changing--flageolet-mark-size.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Marcas de respiración},
 @ref{Ligaduras de expresión},
@@ -156,7 +156,7 @@ viento madera,como se describe en
 {recorder-fingering-chart.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Diagramas de posiciones para viento madera}.
 
@@ -227,7 +227,7 @@ el Fa para bemolizar estas notas.  Se puede indicar esto mediante
 piobaireachd se puede escribir @code{g-flat} cuando aparece en
 música ligera.
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Winds}.
 
@@ -279,7 +279,7 @@ de gaita.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Winds}.
 
@@ -474,7 +474,7 @@ patrones de los diagramas están en
 {woodwind-diagrams-key-lists.ly}
 
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.

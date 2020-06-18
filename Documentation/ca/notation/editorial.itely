@@ -301,7 +301,7 @@ tipus de lletra de 11 punts.
 @code{\huge} (enorme).
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Selecció del tipus de lletra i la seva mida}
 @ref{Establiment de la mida del pentagrama}.
@@ -406,7 +406,7 @@ a sota del pentagrama, vegeu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Direcció i posició}.
 
@@ -471,7 +471,7 @@ invisibles, són, malgrat això, visibles.
 @code{\unHideNotes}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Visibilitat i color dels objectes}
 
@@ -580,7 +580,7 @@ l'Scheme @code{rgb-color}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Llista de colors},
 @ref{L'ordre tweak}.
@@ -647,7 +647,7 @@ parèntesis.  Per a les articulacions cal un guió abans de l'ordre
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Editorial annotations}.
 
@@ -699,7 +699,7 @@ avall; vegeu @ref{Direcció i posició}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Direcció i posició}.
 
@@ -785,7 +785,7 @@ això es pot canviar:
 @code{\balloonLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Editorial annotations}.
 
@@ -853,7 +853,7 @@ d'especificar la duració entre les línies de reixeta.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-@seealso
+@morerefs
 Fragment de codi:
 @rlsr{Editorial annotations}.
 
@@ -924,7 +924,7 @@ Les claus d'anàlisi es poden niuar.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-with-labels.ly}
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{Horizontal_bracket_engraver},
 @rinternals{HorizontalBracket},

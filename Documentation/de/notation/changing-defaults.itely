@@ -76,7 +76,7 @@ verändern kann.
 @end menu
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Kontexte und Engraver}.
 
@@ -705,7 +705,7 @@ der @code{Timing_translator} muss vor dem @code{Bar_number_engraver}
 kommen.
 @end itemize
 
-@seealso
+@morerefs
 Installlierte Dateien:
 @file{ly/engraver-init.ly}.
 
@@ -1006,7 +1006,7 @@ ansonsten wied der Standardwert aus der letzten passenden
 ansonsten wird der Standardwert von LilyPond eingesetzt.
 @end itemize
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Kontexteigenschaften verändern}.
 
@@ -1295,7 +1295,7 @@ Beispiele, die diese Neuordnung von temporären Kontexten zeigen, finden sich
 an anderen Stellen; siehe @rlearning{Musikalische Ausdrücke ineinander verschachteln},
 @ref{Einzelne Systeme verändern} und @ref{Techniken für die Gesangstextnotation}.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Musikalische Ausdrücke ineinander verschachteln}.
 
@@ -1766,7 +1766,7 @@ wie beispielsweise
 @end example
 @end ignore
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{OverrideProperty},
 @rinternals{RevertProperty},
@@ -1922,7 +1922,7 @@ findet sich in der Referenz der Interna, siehe
 @qq{Translation @expansion{} Tunable context properties}.
 @end ifnothtml
 
-@seealso
+@morerefs
 
 Internals Reference:
 
@@ -2076,7 +2076,7 @@ ausschalten will, die Probleme verursachen.
 @end ignore
 
 
-@seealso
+@morerefs
 
 Referenz der Interna:
 @rinternals{Backend}.
@@ -2255,7 +2255,7 @@ Elemente gehören, kann betrachtet werden, siehe
 wenn man herausfinden will, was mit dem @code{\tweak}-Befehl
 verändert werden kann.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Optimierungsmethoden}.
 
@@ -2679,7 +2679,7 @@ In polyphoner Musik ist es normalerweise besser, eine explizite
 Stimme (@code{voice} zu erstellen, als die Richtung eines Objektes zu
 ändern.  Zu mehr Information siehe @ref{Mehrere Stimmen}.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{within-staff (Objekte innerhalb des Notensystems)}.
 
@@ -2748,7 +2748,7 @@ konvertieren.  Zu einer Erklärung und Beispielen zu ihrer
 Verwendung siehe @rlearning{Länge und Dicke von Objekten}.
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Länge und Dicke von Objekten}.
 
@@ -3092,7 +3092,7 @@ zu beenden, und es ist auch nicht nötig, Crescendo-Klammern
 mit @code{\!} zu beenden.
 
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -3488,7 +3488,7 @@ Bei expliziten Schlüsseländerungn kontrolliert die
 @code{explicitClefVisibility}-Eigenschaft wohl das
 Schlüsselsymbol als auch das damit verknüpfte Oktavierungssymbol.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Sichtbarkeit und Farbe von Objekten}.
 
@@ -3642,7 +3642,7 @@ Aussehen des Notenbildes zu polieren.
 @end menu
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Die Ausgabe verbessern},
 @rlearning{Mehr Information}.
@@ -3709,7 +3709,7 @@ Schlüsseln, Taktarten und Tonartvorzeichen) ausgerichtet werden.
 In @code{break-aligned-interface} finden sich besondere Eigenschaften,
 mit denen Übungszeichen an derartigen Objekten ausgerichtet werden können.
 
-@seealso
+@morerefs
 
 Notationshandbuch:
 @ref{Benutzung des break-alignable-interface}.
@@ -4064,7 +4064,7 @@ Alle Schriftzeichen in der Feta-Glyphe können
 mit dem @code{\musicglyph}-Befehl erreicht werden.
 Siehe auch @ref{Die Emmentaler-Schriftart}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Graphische Notation innerhalb einer Textbeschriftung},
 @ref{Text formatieren},
@@ -4167,7 +4167,7 @@ auftreten, nicht einmal mit dem @code{\tweak}-Befehl.  Die Eigenschaft
 @code{tie-configuration} von @code{TieColumn} kann jedoch verändert
 werden, sodass Startlinie und Richtung wie benötigt platziert werden.
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{TieColumn}.
 
@@ -4289,7 +4289,7 @@ nicht ist, können unerwartete Ergebnisse auftreten.}
 @section Musikfunktionen benutzen
 @translationof Using music functions
 
-@c TODO -- add @seealso, etc. to these subsections
+@c TODO -- add @morerefs, etc. to these subsections
 
 Wenn Optimierungen von unterschiedlichen musikalischen Ausdrücken
 wiederverwendet werden sollen, bietet es sich oft an, den
@@ -4370,7 +4370,7 @@ Eine Liste aller Typprädikate findet sich unter
 sind auch erlaubt.
 
 
-@seealso
+@morerefs
 
 Notationsreferenz:
 @ref{Vordefinierte Typprädikate}.

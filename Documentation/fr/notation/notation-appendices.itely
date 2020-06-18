@@ -3203,7 +3203,7 @@ une ligature.  Un jeu de glyphes aux mêmes style et allure constitue une
 fonte ; un jeu de fontes comprenant plusieurs styles et tailles constitue
 un type de caractère.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Fontes},
 @ref{Caractères spéciaux}.
@@ -3224,7 +3224,7 @@ sont appelés « objets de rendu » ou objet graphique -- en anglais
 @emph{GRaphical OBjects} couramment abrégé en @strong{grob}.  Ils sont
 représentés par des instances de la classe @code{grob}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Objets et interfaces},
 @rlearning{Conventions de nommage des objets et propriétés},
@@ -3255,7 +3255,7 @@ En apparente contradiction avec ce que leur nom laisse accroire, de
 telles propriétés peuvent être adaptées par @code{\override} et
 @code{\revert}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{altérable}.
 
@@ -3272,7 +3272,7 @@ Les actions et propriétés communes à plusieurs objets graphiques sont
 regroupées dans un objet appelé @code{grob-interface}, ou « interface »
 pour faire court.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Objets et interfaces},
 @rlearning{Conventions de nommage des objets et propriétés},
@@ -3322,7 +3322,7 @@ spécifiques à un objet graphique.  En particulier, les listes d'autres
 objets ou résultats de calculs sont enregistrés sous dorme de propriétés
 altérables.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{inaltérable}.
 
@@ -3470,7 +3470,7 @@ d'expressions Scheme des stencils qui la composent.
 La propriété @code{stencil}, qui permet de connecter un @emph{grob} à
 son stencil, est définie par l'interface @code{grob-interface}.
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{grob-interface}.
 

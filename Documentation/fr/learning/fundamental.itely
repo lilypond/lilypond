@@ -261,7 +261,7 @@ chiffre, ni ponctuation, ni caractère accentué, ni espace.} ; ce peut
 plus de détails, voir
 @ref{Économie de saisie grâce aux identificateurs et fonctions}.
 
-@seealso
+@morerefs
 Pour une description complète du format des fichiers d'entrée, voir
 @ruser{Structure de fichier}.
 
@@ -415,7 +415,7 @@ une indentation stricte et propre est vraiment d'une aide précieuse :
 assurez-vous que chaque élément d'un même niveau a le même décalage
 horizontal dans votre éditeur de texte !
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Structure d'une partition}.
 
@@ -480,7 +480,7 @@ portée individuelle.  Nous indiquons ici que la nouvelle portée doit se
 placer au-dessus de la portée @qq{principal} plutôt qu'en dessous, ce
 qui est le comportement par défaut.
 
-@seealso
+@morerefs
 Les ossias apparaissent souvent sans clef ni métrique, et dans une
 taille plus petite.  Ceci requiert des commandes dont nous n'avons pas
 encore parlé.  Voir @ref{Taille des objets} et @ruser{Portées d'ossia}.
@@ -518,7 +518,7 @@ Voici comment procéder :
 { c'8-1--(~^\markup{"annotation textuelle"} c' d') }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{Liaisons},
 @ref{Articulations et nuances},
@@ -1017,7 +1017,7 @@ examinerons ce problème dans un autre chapitre (voir la propriété
 @warning{Paroles et objets étendus (liaisons, soufflets, etc.) ne peuvent
 passer d'une voix à l'autre.}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Plusieurs voix}.
 
@@ -1290,7 +1290,7 @@ même moment et qu'aucun décalage n'a été spécifié ou qu'ils sont
 identiques, LilyPond vous le signalera par le message « Cette voix
 requiert un @code{@bs{}voiceXx} ou un réglage @code{@bs{}shiftXx}  ».
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{Déplacement d'objets}
 
@@ -1466,7 +1466,7 @@ VerseFour  =
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Musique vocale}.
 
@@ -1559,7 +1559,7 @@ Le nom de chacun des contextes est formé d'un ou plusieurs mots aux
 initiales en capitale et directement accolés les uns aux autres sans
 ponctuation, comme par exemple @code{GregorianTranscriptionStaff}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Tout savoir sur les contextes}.
 
@@ -1681,7 +1681,7 @@ Comme nous l'avons déjà vu dans le chapitre consacré aux paroles
 (@ref{Voix et paroles}), cet identifiant permettra ensuite de se
 référer à ce contexte particulier.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Création et référencement d'un contexte}.
 
@@ -1767,7 +1767,7 @@ partir du nom, et vice versa.
 Nous verrons plus avant comment le résultat de LilyPond peut changer
 lorsqu'on modifie l'action des graveurs.
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{Engravers and Performers}.
 
@@ -2098,7 +2098,7 @@ Les propriétés de contexte ainsi définies peuvent être adaptées pour
 chacun des contextes en particulier grâce à un bloc @code{\with} ou bien
 une commande @code{\set} au fil des notes.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Modification des réglages par défaut d'un contexte},
 @ruser{La commande de fixation (set)}.
@@ -2265,7 +2265,7 @@ Vous réglerez de la même manière les propriétés de tous les contextes
 d'un type particulier si vous insérez les commandes @code{\set} dans un
 bloc @code{\context}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Modification des greffons de contexte},
 @ruser{Modification des réglages par défaut d'un contexte}.
@@ -2482,7 +2482,7 @@ celloMusic = \relative {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Les patrons originaux sont disponibles à l'annexe
 @ref{Modèles pour portée unique}.
 
@@ -3146,7 +3146,7 @@ PedalOrganMusic = \relative {
 }  % end Score context
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{system,système}.
 
@@ -3390,7 +3390,7 @@ ce qui équivaut à
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{Organisation du code source avec des variables}.
 

@@ -486,7 +486,7 @@ Ecco un piccolo esempio che mostra tutti questi elementi insieme:
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione: @ruser{Inserimento delle altezze},
 @ruser{Inserimento delle durate}, @ruser{Inserimento delle pause},
 @ruser{Indicazione di tempo}, @ruser{Chiave}.

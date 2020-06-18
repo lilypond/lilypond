@@ -280,7 +280,7 @@ c''4-3
 @code{\huge}
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Selecting font and font size},
 @ref{Setting the staff size},
@@ -384,7 +384,7 @@ c''4-3
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Direction and placement}
 
@@ -448,7 +448,7 @@ c''4-3
 @code{\unHideNotes}
 @endpredefined
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{オブジェクトの可視性と色}
 
@@ -554,7 +554,7 @@ Scheme 関数 @code{rgb-color} を用いることによって、@c
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{List of colors},
 @ref{The tweak command}
@@ -622,7 +622,7 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 }
 @end lilypond
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Editorial annotations}
 
@@ -680,7 +680,7 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Direction and placement}
 
@@ -800,7 +800,7 @@ somechords = \relative c' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 
 記譜法リファレンス:
 @ref{Note names in other languages}
@@ -868,7 +868,7 @@ somechords = \relative c' {
 @code{\balloonLengthOff}
 @endpredefined
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Editorial annotations}
 
@@ -934,7 +934,7 @@ somechords = \relative c' {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Editorial annotations}
 
@@ -1008,7 +1008,7 @@ somechords = \relative c' {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-with-labels.ly}
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{Horizontal_bracket_engraver},
 @rinternals{HorizontalBracket},

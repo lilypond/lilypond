@@ -141,7 +141,7 @@ der obigen Definition ist:
 @}
 @end example
 
-@seealso
+@morerefs
 Notationsreferenz
 @ref{Papierformat und automatische Skalierung},
 @ref{Eigene Kopf und Fußzeilen sowie Titel},
@@ -246,7 +246,7 @@ Wenn das Symbol @code{'landscape} an die Funktion
 
 Die Notenausgabe wird @emph{nicht} gedreht, nur das Papierformat.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Automatische Skalierung auf ein Papierformat},
 @ref{Vordefinierte Papierformate}.
@@ -287,7 +287,7 @@ benutzt werden.  Das sind die Werte für die Standardpapiergröße
 @code{a4}.  Zum Vergleich: @code{a4} hat Werte von @code{297\mm} für
 @code{paper-height} und @code{210\mm} für @code{paper-width}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Vertikale paper-Variablen mit festen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit festen Abständen},
 @ref{paper-Variablen für horizontale Abstände,,@code{@bs{}paper}-Variablen für horizontale Abstände}.
@@ -347,7 +347,7 @@ falsch (@code{false}) gesetzt werden.  Hiermit wird auch die letzte Seite von Te
 
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Automatische Skalierung auf ein Papierformat}.
 
@@ -559,7 +559,7 @@ oberen Randes) zur ersten (Titel-)Beschriftung (auf höchster Ebene) auf
 einer Seite, wenn keine Systemgruppe dazwischen kommt.
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Flexible vertikale Abstände in Systemgruppen}.
 
@@ -680,7 +680,7 @@ kann auch in der @code{\layout}-Umgebung definiert werden.
 
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Automatische Skalierung auf ein Papierformat}.
 
@@ -739,7 +739,7 @@ wenn @code{two-sided} wahr ist.
 
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Automatische Skalierung auf ein Papierformat}.
 
@@ -782,7 +782,7 @@ Diese Variable kann auch in der @code{\layout}-Umgebung definiert werden.
 
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Automatische Skalierung auf ein Papierformat}.
 
@@ -843,7 +843,7 @@ Standard: nicht gesetzt.  Diese Variablen kann auch in der
 
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Zeilenumbrüche}.
 
@@ -906,7 +906,7 @@ Standard: nicht gesetzt.
 
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Seitenumbrüche},
 @ref{Optimale Seitenumbrüche},
@@ -958,7 +958,7 @@ Wenn falsch, werden Seitenzahlen nicht ausgegeben.
 
 @end table
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
 
@@ -1017,7 +1017,7 @@ benutzt werden, etwa so:
 @end table
 
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{ly/titling-init.ly}.
 
@@ -1207,7 +1207,7 @@ Instrument sein, um das Layout-Design von Quellen zu strukturieren und
 auch dazu dienen, die Layout-Einstellungen an einer bestimmten Stelle
 wieder zurückzusetzen.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Die Standardeinstellungen von Kontexten ändern},
 @ref{Die Notensystemgröße einstellen},
@@ -1325,7 +1325,7 @@ einzelne Systeme zu verändern.  Die Größe von einzelnen Systemen
 ist relativ zur globalen Systemgröße.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Auswahl der Notations-Schriftgröße}.
 
@@ -1479,7 +1479,7 @@ kompliziert.  Mehr Einzelheiten finden sich in
 @code{\noBreak}.
 @endpredefined
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{paper-Variablen für den Zeilenumbruch,,@code{@bs{}paper}-Variablen für den Zeilenumbruch}.
 
@@ -1574,7 +1574,7 @@ Buchteilen benutzt werden.
 @code{\noPageBreak}.
 @endpredefined
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{paper-Variablen für den Seitenumbruch,,@code{@bs{}paper}-Variablen für den Seitenumbruch}.
 
@@ -1595,7 +1595,7 @@ minimieren, sowohl horizontal als auch vertikal.  Anders als die
 @code{ly:page-turn-breaking}-Funktion hat diese Methode keine
 Möglichkeit, Überlegungen zum Umblättern mit einzubeziehen.
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -1682,7 +1682,7 @@ werden, etwa zwischen Partituren und Textabschnitten.
 @code{\allowPageTurn}.
 @endpredefined
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -1712,7 +1712,7 @@ ist die Funktion geeignet.  Sie wird folgendermaßen aktiviert:
 @}
 @end example
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -1787,7 +1787,7 @@ music = \relative { c''8 c c c }
 @end lilypond
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -1875,7 +1875,7 @@ music = \relative { c''4 c c c }
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Vertikale Abstände}.
 
@@ -2258,7 +2258,7 @@ individueller Notensysteme kann mit @code{\override} in andere Platzierungswerte
 für dieses Notensystem geändert werden.
 @end table
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Vertikale paper-Variablen mit flexiblen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit flexiblen Abständen},
 @ref{Alisten verändern}.
@@ -2339,7 +2339,7 @@ in denen die Systeme gruppiert sind.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{scm/define-grobs.scm}.
 
@@ -2409,7 +2409,7 @@ beeinflussen kann:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{scm/define-grobs.scm}.
 
@@ -2479,7 +2479,7 @@ werden:
 @end lilypond
 
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
@@ -2723,7 +2723,7 @@ Parameter werden derartiges Verhalten vermeiden.
 @end itemize
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -2819,7 +2819,7 @@ c4
 c''2
 @end lilypond
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -2935,7 +2935,7 @@ besser sieht:
 
 Proportionale Notation ist unterstützt, siehe @ref{Proportionale Notation}.
 
-@seealso
+@morerefs
 Aufsatz über den automatischen Notensatz:
 @ressay{Optischer Ausgleich}.
 
@@ -2994,7 +2994,7 @@ Der @code{\newSpacingSection}-Befehl erstellt ein neues
 mit dem @code{\override}-Befehl an dieser Stelle eingesetzt
 werden können.
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -3097,7 +3097,7 @@ zusätzlichen Platz erhalten.
 @end lilypond
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -3155,7 +3155,7 @@ ragged-last = ##t
 @}
 @end example
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -3550,7 +3550,7 @@ gesetzt werden, dass Klammern von rhythmischen Gruppen bis zu den
 Anfangs- und Endpunkten ausgedehnt werden und lassen dehnbare
 Objekte wie Balken und Glissandi auch über Taktstriche hinweg zu.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Eine neuer Bereich mit anderen Abständen}.
 
@@ -3628,7 +3628,7 @@ die Höhe eines quer gelegten A6-Papiers.  Die Paare (@var{a},@var{b}) sind
 Intervalle, wobei @var{a} der untere Rand und @var{b} der
 obere Rand des Intervalls.
 
-@seealso
+@morerefs
 
 Notationsreferenz:
 @ref{Die Notensystemgröße einstellen}
@@ -3758,7 +3758,7 @@ auf eine ganze @code{\score}-Umgebung aus.
 
 @end itemize
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Seitenlayout},
 @ref{Horizontale Abstände verändern}.

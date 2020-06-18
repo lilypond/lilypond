@@ -88,7 +88,7 @@ See @ref{Articulations and ornamentations}.
 {changing--flageolet-mark-size.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Breath marks},
 @ref{Slurs},
@@ -135,7 +135,7 @@ Woodwind diagrams can be produced and are described in
 {recorder-fingering-chart.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Woodwind diagrams}.
 
@@ -200,7 +200,7 @@ This can be indicated by @code{c-flat} or @code{f-flat}.  Similarly, the
 piobaireachd high g can be written @code{g-flat} when it occurs in light
 music.
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Winds}.
 
@@ -251,7 +251,7 @@ notation.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Winds}.
 
@@ -441,7 +441,7 @@ patterns for the diagrams are in
 {woodwind-diagrams-key-lists.ly}
 
 
-@seealso
+@morerefs
 Installed Files:
 @file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.

@@ -65,7 +65,7 @@
 @item @ref{Ligatures}
 @end itemize
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{custos},
 @rglos{ligature},
@@ -151,7 +151,7 @@ Petrucci スタイルには符尾や臨時記号がありません。
 スタイルの符頭と、Classical スタイルの休符、Vaticana スタイルの音部記号を@c
 使うことができます。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{mensural notation},
 @rglos{flag}
@@ -191,7 +191,7 @@ Voice および Staff コンテキストが定義されています。これら�
 @noindent
 にあります。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{mensural notation}
 
@@ -238,7 +238,7 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 @ref{White mensural ligatures} や @ref{Gregorian square neume ligatures} で
 説明されています。
 
-@seealso
+@morerefs
 音楽用語集
 @rglos{ligature}
 
@@ -336,7 +336,7 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{custos}
 
@@ -397,7 +397,7 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{mensural notation}
 
@@ -451,7 +451,7 @@ c'1
 参照してください。使用できる音部記号の完全な一覧については、@ref{Clef styles}
 を参照してください。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{mensural notation},
 @rglos{clef}
@@ -567,7 +567,7 @@ c'1
 
 @ref{Time signature} では、拍子記号に関する一般的な説明があります。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{mensural notation}
 
@@ -696,7 +696,7 @@ tseealso
 neo-mensural や Petrucci スタイル専用の符尾はありません。@c
 グレゴリオ聖歌の記譜では符尾は用いません。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{mensural notation},
 @rglos{flag}
@@ -732,7 +732,7 @@ r\longa^"neomensural" r\breve r1 r2 r4 r8 r16
 mensural や neo-mensural スタイルには 32 分や 64 分の休符がありません。@c
 通常のスタイルの休符が使用されます。
 
-@seealso
+@morerefs
 音楽用語集
 @rglos{mensural notation}
 
@@ -785,7 +785,7 @@ mensural スタイルにおけるマキシマ休符の形は、実際には完�
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{mensural notation},
 @rglos{Pitch names},
@@ -843,7 +843,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}
@@ -936,7 +936,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{ligature}
 
@@ -971,7 +971,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 同じように、@code{Mensural_ligature_engraver} が自動的に@c
 計量記譜法のリガトゥーラを作り出します。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{ligature}
 
@@ -1014,7 +1014,7 @@ Editio Vaticana のスタイルでグレゴリオ聖歌の楽譜を記譜する�
 @end lilypond
 
 
-@c @seealso
+@c @morerefs
 @c TODO: nothing here yet ...
 
 
@@ -1149,7 +1149,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @end lilypond
 @end multitable
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{clef}
 
@@ -1202,7 +1202,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{accidental},
 @rglos{key signature}
@@ -1292,7 +1292,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @code{\finalis}.
 @endpredefined
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{caesura},
 @rglos{divisio}
@@ -1338,7 +1338,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Articulations and ornamentations}
 
@@ -1379,7 +1379,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Breath marks}
 
@@ -2324,7 +2324,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 
 付点 (モラ) を追加するには 1 引数のコマンド @code{\augmentum} を使ってください。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{ligature}
 
@@ -2395,7 +2395,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{kievan notation}
 
@@ -2421,7 +2421,7 @@ LilyPond はガリツィアでルシン語の単旋律聖歌に使われた、@c
   c'
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{kievan notation},
 @rglos{clef}
@@ -2459,7 +2459,7 @@ b'1 b'2 b'4 b'8 b'\breve b'\longa
 b'2
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{kievan notation},
 @rglos{note head}
@@ -2496,7 +2496,7 @@ Synodal スタイルの音楽ではシャープ記号は使われませんが、
 bes' dis'
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{kievan notation},
 @rglos{accidental}
@@ -2520,7 +2520,7 @@ bes' dis'
   c' \bar "k"
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Bars},
 @ref{The Emmentaler font}
@@ -2583,7 +2583,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{ligature}
 
@@ -2663,7 +2663,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 必要があります。楽器名が必要ない場合には、
 @code{\set Staff.instrumentName = ""} としてください。
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2690,7 +2690,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @c from lsr and -user
 @c TBC
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2863,7 +2863,7 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2875,7 +2875,7 @@ spirLyr = \lyricmode {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2904,5 +2904,5 @@ spirLyr = \lyricmode {
 @c TBC
 
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...

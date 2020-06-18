@@ -631,7 +631,7 @@ copy out\myproject.pdf MyProject.pdf
 @end example
 
 
-@seealso
+@morerefs
 Programmbenutzung:
 @rprogram{Benutzung auf der Kommandozeile},
 @rprogram{lilypond-book}.

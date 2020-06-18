@@ -77,7 +77,7 @@ Aquesta secció explica que són els contextos i com modificar-los.
 * Ordre de disposició dels contextos::
 @end menu
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Contextos i gravadors}.
 
@@ -152,7 +152,7 @@ definició de context d'un bloc @code{\layout} no es repeteixen
 dins del corresponent bloc @code{\midi}, la lletra i la música
 deixaran d'estar sincronitzades dins del MIDI.
 
-@seealso
+@morerefs
 Fitxers instal·lats:
 @file{ly/engraver-init.ly}.
 @file{ly/performer-init.ly}.
@@ -497,7 +497,7 @@ un sols context, s'ha d'usar un bloc
 @code{\with}, vefeu
 @ref{Canvi de sols un context determinat}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge
 @rlearning{Organitzar les peces mitjançant variables}.
 
@@ -813,7 +813,7 @@ números de compàs @code{Bar_number_engraver}.
 
 @end itemize
 
-@seealso
+@morerefs
 Fitxers instal·lats:
 @file{ly/engraver-init.ly}.
 
@@ -1115,7 +1115,7 @@ Una ordre predefinida tal com @code{\dynamicUp}
 
 @end itemize
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Modes d'entrada}
 
@@ -1146,7 +1146,7 @@ en cas contrari s'usa el valor predeterminat que el LilyPond porti
 preprogramat.
 @end itemize
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Modificar les propietats dels contextos}.
 
@@ -1373,7 +1373,7 @@ Per completar l'exemple, els canvis que afecten a la jerarquia de
 contextos s'han de repetir dins d'un bloc @code{\midi} de manera
 que la sortida MIDI depengui de les mateixes relacions de context.
 
-@seealso
+@morerefs
 
 Referència de funcionament intern:
 @rinternals{Note_heads_engraver},
@@ -1501,7 +1501,7 @@ recol·locació de contextos temporals: vegeu
 @ref{Modificació de pentagrames separats} i
 @ref{Tècniques específiques per a les lletres}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Niuat d'expressions musicals}.
 
@@ -1946,7 +1946,7 @@ tals com
 
 @end ignore
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{Backend},
 @rinternals{All layout objects},
@@ -2095,7 +2095,7 @@ disponibles, consulteu
 Traducció @expansion{} Propietats de context modificables per l'usuari.
 @end ifnothtml
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{Tunable context properties}.
 
@@ -2264,7 +2264,7 @@ Mostrarem a continuació com localitzar aquesta informació al
 manual de notació i a la referència de funcionament intern.
 @end ignore
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{Backend}
 
@@ -2447,7 +2447,7 @@ automáticamente) puede examinarse, véase
 expressions musicals}.  Això pot ser d'utilitat en la determinació
 del que es pot modificar per mitjà d'una ordre @code{\tweak}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Mètodes d'ajustament}.
 
@@ -3230,7 +3230,7 @@ A la música polifònica, en general és millor especificar una veu
 explícita que canviar la direcció d'un objecte.  Per veure més
 informació, vegeu @ref{Veus múltiples}.
 
-@seealso
+@morerefs
 Manual de aprenentatge
 @rlearning{Objectes interiors al pentagrama}.
 
@@ -3295,7 +3295,7 @@ des d'un canvi de la mida de la lletra fins un canvi equivalent a
 d'utilització, consulteu
 @rlearning{Longitud i gruix dels objectes}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge;
 @rlearning{Longitud i gruix dels objectes}.
 
@@ -3330,7 +3330,7 @@ límit a -5, el seu límit a 10, l'inferior a -3 i el superior a
 15, tots ells mesurats a partir del punt de referència de
 l'objecte en unitats d'espais de pentagrama.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Distàncies i mesures}.
 
@@ -3689,7 +3689,7 @@ produeix una divisòria abans de la nota següent.
 Si s'usa @code{\endSpanners} no cal tancar \startTextSpan amb
 \stopTextSpan, ni tancar els reguladors amb @code{\!}.
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -4128,7 +4128,7 @@ Per als canvis de clau explícits, la propietat
 @code{explicitClefVisibility} controla tant el símbol de clau
 com el símbol de transposició o d'octava associat.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Visibilitat i color dels objectes}.
 
@@ -4275,7 +4275,7 @@ impresa.
 * Contenidors unpure-pure::
 @end menu
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Ajustament de la sortida},
 @rlearning{Altres fonts d'informació}.
@@ -4344,7 +4344,7 @@ propietats especials, que es troben a
 @code{break-aligned-interface} per al posicionament de les lletres
 d'assaig sobre aquests objectes.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Ús de la break-alignable-interface}.
 
@@ -4718,7 +4718,7 @@ Es poden inserir en línia tant imatges en forma @file{EPS} com
 ordres de Postscrip usant les ordres de marcatge @code{\epsfile} i
 @code{\postscript} respectivament; vegeu @rusernamed{Graphic,Grafisme}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Notació gràfica dins d'elements de marcatge},
 @ref{Donar format al text},
@@ -4973,7 +4973,7 @@ més d'una en el mateix moment musical, ni tan sols usant l'ordre
 @code{tie-configuration} de @code{TieColumn} per fixar la línia
 d'inici i la direcció segons es requereixi.
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{TieColumn}.
 
@@ -5093,7 +5093,7 @@ L'ordre @code{\alterBroken} no és efectiva per a propietats dels
 objectes extensos accedides abans del salt de línia, com
 @code{direction}.
 
-@seealso
+@morerefs
 Extender LilyPond:
 @rextendnamed{Difficult tweaks,Ajustaments difícils}.
 
@@ -5219,7 +5219,7 @@ resulta que no ho és, el resultat pot ser inesperat.}
 @section Ús de les funcions musicals
 @translationof Using music functions
 
-@c TODO -- add @seealso, etc. to these subsections
+@c TODO -- add @morerefs, etc. to these subsections
 
 Sempre que calgui reutilitzar ajustaments amb diferents
 expressions musicals, freqüentment convé fer que l'ajustament
@@ -5292,7 +5292,7 @@ Per veure una llista dels predicats de tipus disponibles consulteu
 @ref{Predicats de tipus predefinits}.
 També es permeten els predicats de tipus definits per l'usuari.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Predicats de tipus predefinits}.
 

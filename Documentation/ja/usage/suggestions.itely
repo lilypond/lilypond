@@ -681,7 +681,7 @@ copy out\myproject.pdf MyProject.pdf
 @end example
 
 
-@seealso
+@morerefs
 アプリケーションの使用方法:
 @rprogram{コマンド ラインの使用方法},
 @rprogram{lilypond-book}

@@ -72,7 +72,7 @@ gestellt.
 
 @end itemize
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Streichquartett}.
 
@@ -125,7 +125,7 @@ a2^\markup { \small "sul A" }
 @code{\open}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Artikulationszeichen und Verzierungen},
 @ref{Legatobögen}.
@@ -191,7 +191,7 @@ leicht aufgesetzten Fingers anzeigt.
 gesetzt werden, auch wenn nur eine Note gesetzt wird.  Normalerweise würde
 @code{@bs{}harmonicsOn} in dieser Situation benutzt.}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{harmonics}.
 

@@ -90,7 +90,7 @@ Pour savoir où se trouvent les fichiers @file{hel-arabic.ly} et
 @rlearning{Autres sources de documentation}.
 
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{Common Practice Period},
 @rglos{makamlar}.
@@ -169,7 +169,7 @@ libres, peuvent être écrites en omettant les barres de mesures, de la
 façon indiquée dans @ref{Musique sans métrique}.
 @end itemize
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Armure},
 @ref{Barres de ligature manuelles},
@@ -245,7 +245,7 @@ l'aspect du demi-bémol dans l'armure.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Insertion de fichiers LilyPond}
 @ref{Nom des notes dans d'autres langues},
@@ -366,7 +366,7 @@ courants à leur armure :
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{maqam},
 @rglos{bayati},
@@ -420,7 +420,7 @@ chiffres de mesure composés.
 {arabic-improvisation.ly}
 
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{semai},
 @rglos{taqasim}.
@@ -477,7 +477,7 @@ chapitre.
 @end lilypond
 
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{ly/arabic.ly},
 @file{ly/hel-arabic.ly}.
@@ -611,7 +611,7 @@ reportez-vous au chapitre
 @ref{Noms des notes et altérations non-occidentaux}.
 
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{makam},
 @rglos{makamlar}.

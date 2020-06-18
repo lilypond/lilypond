@@ -83,7 +83,7 @@
 
 @end itemize
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{ambitus}
 
@@ -201,7 +201,7 @@
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Songs}
 
@@ -330,7 +330,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 
 @end itemize
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Aligning lyrics to a melody}
 
@@ -502,7 +502,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 >>
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Extenders and hyphens},
 @ref{Keeping contexts alive},
@@ -579,7 +579,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 >>
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Dialogue over music}
 
@@ -618,7 +618,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @end lilypond
 
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{LyricCombineMusic}
 
@@ -802,7 +802,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @code{\melismaEnd}
 @endpredefined
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{melisma}
 
@@ -862,7 +862,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @code{minimum-length} (ハイフンを削除するかどうかの閾値) で@c
 制御することができます。
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
@@ -959,7 +959,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Placing lyrics vertically}
 
@@ -1095,7 +1095,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Vocal ensembles templates}
 
@@ -1588,7 +1588,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Keeping contexts alive},
 @ref{Repeats}
@@ -2169,7 +2169,7 @@ text = \lyricmode {
 }
 @end lilypond
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}
@@ -2227,7 +2227,7 @@ text = \lyricmode {
 
 @end itemize
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Songs}
 
@@ -2256,7 +2256,7 @@ text = \lyricmode {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Chord notation}
 
@@ -2339,7 +2339,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @code{\voiceTwo}
 @endpredefined
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Four-part SATB vocal score},
 @rlearning{Vocal ensembles templates}
@@ -2443,7 +2443,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @code{\dynamicNeutral}
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Changing spacing},
 @ref{Displaying spacing},
@@ -2469,7 +2469,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Expressive marks as lines}
 
@@ -2565,7 +2565,7 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 
 @end itemize
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{Frenched score},
 @rglos{Frenched staves},
@@ -2670,7 +2670,7 @@ melchior = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Organizing pieces with variables}
 
@@ -2784,7 +2784,7 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{cue-notes}
 
@@ -2898,7 +2898,7 @@ dialogue = \lyricmode {
 
 @c TODO show use of \column to produce dialogue on two lines
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Manual syllable durations},
 @ref{Text}
@@ -2936,7 +2936,7 @@ dialogue = \lyricmode {
 グレゴリオ聖歌を様々なスタイルの古代記譜法で譜刻する方法を
 @ref{Ancient notation} で説明しています。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Ancient notation}
 
@@ -3233,7 +3233,7 @@ global = {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Visibility and color of objects},
 @rlearning{Vocal ensembles templates}
@@ -3397,7 +3397,7 @@ tick = \markup {
 これらの要素のほとんどをテンプレートの歌詞で示しています。@c
 @rlearning{Psalms} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Psalms},
 @rlearning{Vocal ensembles templates}
@@ -3436,6 +3436,6 @@ tick = \markup {
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Ancient notation}

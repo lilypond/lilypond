@@ -56,7 +56,7 @@ werden.  Das wird gezeigt in
 @end itemize
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Melodierhythmus anzeigen},
 @ref{Neue Notensysteme erstellen}.
@@ -117,7 +117,7 @@ gesetzt Werden.  Auch andere Schlüssel können benutzt werden.
 Es gibt einige Probleme mit der MIDI-Unterstützung für Schlagzeuginstrumente.
 Details finden sich in @ref{Schlagzeug in MIDI}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Schlagzeug in MIDI},
 @ref{Schlagzeugnoten}.
@@ -168,7 +168,7 @@ Linie zu ermöglichen.
 @end lilypond
 
 
-@seealso
+@morerefs
 
 Notationsreferenz:
 @ref{Tremolo-Wiederholung}.
@@ -186,7 +186,7 @@ vibraphone und Pauken) werden auf normalen Systemen geschrieben.  Das
 wird in anderen Abschnitten des Handbuchs behandelt.
 
 
-@seealso
+@morerefs
 @c TODO: possibly link to an alternate section of NR 3.5, if
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
@@ -584,7 +584,7 @@ drumsB = {
 @end lilypond
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Percussion}.
 
@@ -629,6 +629,6 @@ Um jede Klammer-Definition (@code{\parenthesize}) müssen
  zusätzlich die spitzen
 Klammern für Akkorde (@code{< >}) gesetzt werden.
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Percussion}.

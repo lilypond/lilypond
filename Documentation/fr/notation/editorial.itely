@@ -296,7 +296,7 @@ de la portée.  À une portée de 20 points correspond une police de
 @code{\huge}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Définition de la taille de portée},
 @ref{Mise en forme d'une citation},
@@ -402,7 +402,7 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Direction et positionnement}.
 
@@ -465,7 +465,7 @@ masqués pour autant.
 @code{\unHideNotes}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets}.
 
@@ -575,7 +575,7 @@ l'exemple suivant correspond à 128).
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{La commande d'affinage (tweak)},
 @ref{Liste des couleurs}.
@@ -641,7 +641,7 @@ doit cependant être précédée d'un tiret.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
@@ -696,7 +696,7 @@ L'orientation des hampes peut être définie manuellement -- voir
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Direction et positionnement}.
 
@@ -819,7 +819,7 @@ somechords = \relative c' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 
 Manuel de notation :
 @ref{Nom des notes dans d'autres langues}.
@@ -890,7 +890,7 @@ peut toutefois le gérer ainsi :
 @code{\balloonLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
@@ -959,7 +959,7 @@ entre chaque ligne.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
@@ -1031,7 +1031,7 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
 {analysis-brackets-with-labels.ly}
 
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{Horizontal_bracket_engraver},
 @rinternals{HorizontalBracket},

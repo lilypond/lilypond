@@ -76,7 +76,7 @@ Scheme の要素は、@code{.ly} の中で、@c
 * コンテキストの配置順序::
 @end menu
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{コンテキストとエングラーバ}
 
@@ -167,7 +167,7 @@ MIDI 出力を作り出すのに使われる出力定義はもっと単純で、
 しかし対応する @code{\midi} ブロックでは変更されていない場合、MIDI では@c
 歌詞と音楽が一致しなくなります。
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/engraver-init.ly},
 @file{ly/performer-init.ly}
@@ -535,7 +535,7 @@ score を作成するのに用いられます:
 必要があります -- @ref{Changing just one specific context} を参照@c
 してください。
 
-@seealso
+@morerefs
 
 学習マニュアル:
 @rlearning{Organizing pieces with variables}
@@ -877,7 +877,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 
 @end itemize
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/engraver-init.ly}
 
@@ -1174,7 +1174,7 @@ StaffDefaults = \with {
 
 @end itemize
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Input modes}
 
@@ -1201,7 +1201,7 @@ StaffDefaults = \with {
 さもなければ、LilyPond の組み込みデフォルト値が用いられます。
 @end itemize
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Modifying context properties}
 
@@ -1427,7 +1427,7 @@ squashedPosition = #0
 ブロックでも同様に記述される必要があります。そうすることで、MIDI 出力に@c
 おいてもコンテキスト間の関係が同様に定義されます。
 
-@seealso
+@morerefs
 
 内部リファレンス:
 @rinternals{Note_heads_engraver},
@@ -1546,7 +1546,7 @@ squashedPosition = #0
 -- @rlearning{Nesting music expressions}、+@ref{Modifying single staves}、@c
 それに @ref{Techniques specific to lyrics} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Nesting music expressions}
 
@@ -2074,7 +2074,7 @@ such as
 
 @end ignore
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{Backend},
 @rinternals{All layout objects},
@@ -2230,7 +2230,7 @@ c''4
 Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{Tunable context properties}
 
@@ -2397,7 +2397,7 @@ We demonstrate how to glean this information from the notation manual
 and the program reference.
 @end ignore
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{Backend}
 
@@ -2580,7 +2580,7 @@ f''
 あるいは、@c
 @code{\tweak} の適用で入力を調整する方法を決定するときに役に立つかもしれません。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{調整手段}
 
@@ -3345,7 +3345,7 @@ TrillPitchGroup - not tried
 @code{voice} を指定した方が良いです。@c
 更なる情報は、@ref{Multiple voices} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Within-staff objects}
 
@@ -3408,7 +3408,7 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 この関数の説明と使用例については、@c
 @rlearning{オブジェクトの長さと太さ} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{オブジェクトの長さと太さ}
 
@@ -3440,7 +3440,7 @@ Scheme ペアです:
 左端を -5, 右端を 10, 下端を -3, 上端を 15 に指定しています。@c
 全てオブジェクトの参照ポイントから、譜スペースの単位で計測されています。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{距離と距離の単位}
 
@@ -3800,7 +3800,7 @@ f''1
 @code{\startTextSpan} を @code{\endTextSpan} で閉じる必要はなく、@c
 ヘアピンを @code{\!} で閉じる必要もありません。
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -4228,7 +4228,7 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 @code{explicitClefVisibility} プロパティが@c
 音部記号とそれに関連する移調記号の両方を制御します。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{オブジェクトの可視性と色}
 
@@ -4371,7 +4371,7 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 * unpure-pure コンテナ::
 @end menu
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{出力を調整する},
 @rlearning{その他の情報源}
@@ -4436,7 +4436,7 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 リハーサル記号をそのようなオブジェクトに合わせて配置するために、@c
 @code{break-aligned-interface} の中に特別なプロパティがあります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{break-alignable-interface を使用する},
 
@@ -4814,7 +4814,7 @@ Emmentaler フォントに含まれる任意の @emph{Feta}
 行内に埋め込むことができます。@c
 @ref{Graphic} を参照してください。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{マークアップ内部でのグラフィック記譜法},
 @ref{テキストをフォーマットする},
@@ -5047,7 +5047,7 @@ X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポ�
 しかしながら、@code{TieColumn} の @code{tie-configuration} プロパティを@c
 オーバライドすることで、タイの垂直方向の位置と領域を変更することができます。
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{TieColumn}
 
@@ -5158,7 +5158,7 @@ Grob の名前である場合、結果はその Grob の @code{\override} とな
 @code{\alterBroken} コマンドは、@code{direction} のように、改行処理の前に@c
 アクセスされるプロパティに対しては効果がありません。
 
-@seealso
+@morerefs
 拡張:
 @rextend{Difficult tweaks}
 
@@ -5272,7 +5272,7 @@ smartSquareLineCircleSpace = {
 @section 音楽関数を使用する
 @translationof Using music functions
 
-@c TODO -- add @seealso, etc. to these subsections
+@c TODO -- add @morerefs, etc. to these subsections
 
 調整を異なる音楽表記に再利用する必要がある場合、@c
 その調整を音楽関数にしておくと便利です。@c
@@ -5342,7 +5342,7 @@ symbol?
 @ref{Predefined type predicates} を参照してください。@c
 ユーザが型述語を定義することもできます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Predefined type predicates}
 

@@ -89,7 +89,7 @@ in @ref{Risoluzione delle collisioni}.
 
 @end itemize
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Indicazioni di diteggiatura},
 @ref{Legature di valore},
@@ -166,7 +166,7 @@ g1\4
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Indicazioni di diteggiatura}.
 
@@ -546,7 +546,7 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hammer-on-and-pull-off-using-chords.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ripetizione di un accordo},
 @ref{Glissando},
@@ -816,7 +816,7 @@ mus = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ottava assoluta},
 @ref{Diagrammi dei tasti predefiniti},
@@ -1245,7 +1245,7 @@ tipo markup, le proprietà dell'interfaccia appartengono a @code{Voice.TextScrip
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Instrument Specific Markup}.
 
@@ -1553,7 +1553,7 @@ le proprietà dell'interfaccia appartengono a @code{FretBoards.FretBoard}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Intavolature personalizzate},
 @ref{Diagrammi dei tasti automatici},
@@ -1719,7 +1719,7 @@ le proprie preferenze tramite le proprietà dell'interfaccia
 @code{\predefinedFretboardsOn}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Intavolature personalizzate}.
 
@@ -1780,7 +1780,7 @@ RH=#rightHandFinger
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Fretted strings}.
 
@@ -1830,7 +1830,7 @@ indicazioni di barré.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Estensori del testo}.
 
@@ -1909,7 +1909,7 @@ una forma triangolare.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Fretted strings}.
 
@@ -1985,7 +1985,7 @@ mixedChords = \chordmode {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{power chord}.
 
@@ -2056,7 +2056,7 @@ la funzione @code{four-string-banjo}:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
+@morerefs
 File installati:
 @file{ly/string-tunings-init.ly}.
 

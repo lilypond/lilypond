@@ -642,7 +642,7 @@ copy out\myproject.pdf MyProject.pdf
 @end example
 
 
-@seealso
+@morerefs
 
 Questo manuale:
 @ref{Uso da linea di comando},

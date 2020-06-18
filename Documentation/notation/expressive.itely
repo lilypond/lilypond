@@ -275,7 +275,7 @@ are attached to the notes, see @rlearning{Placement of objects}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{tenuto},
 @rglos{accent},
@@ -587,7 +587,7 @@ items such as text scripts, text spanners, and piano pedal marks.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{al niente},
 @rglos{crescendo},
@@ -724,7 +724,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 Font settings in markup mode are described in
 @ref{Selecting font and font size}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -909,7 +909,7 @@ Custom dash patterns for slurs can be defined:
 {making-slurs-with-complex-dash-structure.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{slur}.
 
@@ -1049,7 +1049,7 @@ complex dash patterns, see the snippets under @ref{Slurs}.
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{On the un-nestedness of brackets and ties}.
 
@@ -1113,7 +1113,7 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 {inserting-a-caesura.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{caesura}.
 
@@ -1159,7 +1159,7 @@ indicates the pitch interval that the fall or doit will extend
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{fall},
 @rglos{doit}.
@@ -1268,7 +1268,7 @@ Different styles of glissandi can be created.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{glissando}.
 
@@ -1394,7 +1394,7 @@ information, see @ref{Ties}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{arpeggio}.
 
@@ -1577,7 +1577,7 @@ to be added manually.
 @code{\stopTrillSpan}.
 @endpredefined
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{trill}.
 

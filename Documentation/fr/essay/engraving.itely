@@ -1419,7 +1419,7 @@ contextes de portée peuvent être assemblés dans un contexte de partition
 }
 @end lilypond
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{Contexts}.
 

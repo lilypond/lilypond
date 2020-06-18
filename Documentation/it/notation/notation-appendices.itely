@@ -3108,7 +3108,7 @@ Un insieme di glifi con un solo stile e forma costituiscono un tipo
 di carattere (font), e un insieme di tipi di carattere con vari stili e
 dimensioni costituiscono una famiglia di caratteri tipografici.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Tipi di carattere},
 @ref{Caratteri speciali}.
@@ -3128,7 +3128,7 @@ in inglese, @q{Layout objects} (@q{Oggetti della formattazione})
 o anche @q{GRaphical OBjects} o @strong{grobs} in forma breve.  Sono
 rappresentati da istanze della classe @code{Grob}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Oggetti e interfacce},
 @rlearning{Convenzioni per i nomi di oggetti e proprietà},
@@ -3158,7 +3158,7 @@ il comportamento predefinito dei grob.  Sono condivise tra molti
 oggetti. In apparente contraddizione col loro nome, possono essere
 modificate con @code{\override} e @code{\revert}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{mutable}.
 
@@ -3174,7 +3174,7 @@ Le azioni e le proprietà comuni a un insieme di grob sono raggruppate
 in un oggetto chiamato @code{grob-interface} o semplicemente
 @q{interface}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Oggetti e interfacce},
 @rlearning{Convenzioni per i nomi di oggetti e proprietà},
@@ -3221,7 +3221,7 @@ In LilyPond, le proprietà variabili contengono valori specifici
 di un grob.  Di solito, le liste di altri oggetti o i risultati di
 calcoli sono salvati in proprietà variabili.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{immutable}.
 
@@ -3354,7 +3354,7 @@ espressioni Scheme degli stencil che li compongono.
 La proprietà @code{stencil}, che connette un grob al suo stencil,
 è definita nell'interfaccia @code{grob-interface}.
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{grob-interface}.
 

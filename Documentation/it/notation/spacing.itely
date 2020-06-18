@@ -186,7 +186,7 @@ L'equivalente Scheme dell'esempio precedente è:
 @}
 @end example
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Formato carta e ridimensionamento automatico},
 @ref{Titoli intestazioni e piè di pagina personalizzati},
@@ -301,7 +301,7 @@ Quando il formato termina con un esplicito @samp{landscape} (orizzontale) o
 influisce @emph{solo} sull'orientamento della stampa, non sul formato
 usato per la formattazione.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ridimensionamento automatico al formato carta},
 @ref{Formati carta predefiniti}.
@@ -342,7 +342,7 @@ Questi valori si riferiscono al formato predefinito @code{a4}.
 Per riferimento, nel formato @code{a4} il valore di @code{paper-height} è
 @code{297\mm} e quello di @code{paper-width} è @code{210\mm}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{@bs{}paper}},
 @ref{Horizontal spacing paper variables,,Variabili della spaziatura orizzontale di @code{@bs{}paper}}.
@@ -401,7 +401,7 @@ giustificate verticalmente come nelle pagine precedenti.
 
 @end table
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ridimensionamento automatico al formato carta}.
 
@@ -613,7 +613,7 @@ inferiore del margine superiore) e il primo testo (titolo o markup di
 livello superiore) di una pagina, quando non c'è alcun sistema tra i due.
 @end table
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Spaziatura verticale flessibile all'interno dei sistemi}.
 
@@ -743,7 +743,7 @@ Questa variabile può essere impostata anche in un blocco @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ridimensionamento automatico al formato carta}.
 
@@ -801,7 +801,7 @@ Funziona soltanto con @code{two-sided} impostato su vero.
 
 @end table
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ridimensionamento automatico al formato carta}.
 
@@ -848,7 +848,7 @@ anche in blocchi @code{\layout} per impostare le brevi indentazioni brano per br
 
 @end table
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ridimensionamento automatico al formato carta}.
 
@@ -907,7 +907,7 @@ Questa variabile può essere impostata anche in un blocco @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Interruzioni di linea}.
 
@@ -1002,7 +1002,7 @@ Valore predefinito: 2.
 @end table
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Interruzioni di pagina},
 @ref{Interruzione di pagina ottimale},
@@ -1063,7 +1063,7 @@ Valore predefinito: @code{'arabic}.
 
 @end table
 
-@seealso
+@morerefs
 File installati:
 @file{ly/paper-defaults-init.ly}.
 
@@ -1122,7 +1122,7 @@ predefinito, per esempio:
 
 @end table
 
-@seealso
+@morerefs
 File installati:
 @file{ly/titling-init.ly}.
 
@@ -1307,7 +1307,7 @@ Se ben organizzate, le variabili @code{\layout} possono essere un
 valido strumento per strutturare le formattazioni dei sorgenti, e anche
 per ripristinare la configurazione di @code{\layout} a uno stato conosciuto.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Modifica delle impostazioni predefinite di un contesto}.
 
@@ -1420,7 +1420,7 @@ consigliate sono elencate nella seguente tabella:
 @item feta26 @tab 25.2  @tab 8.9 @tab @c modern rental material?
 @end multitable
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Impostare la dimensione del rigo},
 @ref{Il font Emmentaler}.
@@ -1590,7 +1590,7 @@ ogni 4 misure, usare:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Variabili di paper per l'interruzione di linea},
 @ref{Il blocco layout}.
@@ -1717,7 +1717,7 @@ pagina diversi per le diverse parti del libro.
 @code{\autoPageBreaksOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Variabili di paper per l'interruzione di pagina}.
 
@@ -1746,7 +1746,7 @@ di pagina che minimizzi la densità e l'allungamento, sia orizzontalmente che
 verticalmente.  Diversamente da @code{ly:page-turn-breaking}, non prende in
 considerazione le voltate di pagina.
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Spacing}.
 
@@ -1771,7 +1771,7 @@ memoria, o con molto testo.  Si abilita con:
 @}
 @end example
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Spacing}.
 
@@ -1914,7 +1914,7 @@ nei blocchi markup di livello superiore e tra una partitura e l'altra.
 @code{\allowPageTurn}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Variabili di paper per l'interruzione di linea}.
 
@@ -1926,7 +1926,7 @@ Usare soltanto un incisore @code{Page_turn_engraver} per partitura.  Se ce
 n'è più d'uno, interferiranno uno con l'altro.
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Spaziatura verticale}.
 
@@ -2270,7 +2270,7 @@ di un singolo rigo può essere sovrascritta con varie impostazioni di
 spaziatura per quel rigo.
 @end table
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Flexible vertical spacing paper variables,,Variabili @code{@bs{}paper} della spaziatura verticale flessibile},
 @ref{Modifica delle liste associative}.
@@ -2350,7 +2350,7 @@ combinati in uno o più gruppi.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 File installati:
 @file{scm/define-grobs.scm}.
 
@@ -2417,7 +2417,7 @@ L'esempio seguente mostra come le proprietà del grob
 >>
 @end lilypond
 
-@seealso
+@morerefs
 File installati:
 @file{scm/define-grobs.scm}.
 
@@ -2486,7 +2486,7 @@ riesce a allungarsi molto più del solito:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 File installati:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
@@ -2768,7 +2768,7 @@ perfino sovrapporre righi e sistemi uno sopra l'altro.  Ciò può essere
 evitato assegnando valori ragionevoli a queste diverse impostazioni.
 @end itemize
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Spacing}.
 
@@ -2854,7 +2854,7 @@ in su il testo per impedire che si avvicini troppo ai tagli addizionali.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Spacing}.
 
@@ -2966,7 +2966,7 @@ predefinite e una volta con un aggiustamento esagerato:
 
 LilyPond supporta la notazione proporzionale, vedi @ref{Proportional notation}.
 
-@seealso
+@morerefs
 Essay on automated music engraving:
 @ressay{Spaziatura ottica}.
 
@@ -3043,7 +3043,7 @@ le proprietà non vengono cambiate in una nuova sezione.  Per esempio:
 @end lilypond
 
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Spacing}.
 
@@ -3139,7 +3139,7 @@ conto di chiavi, stanghette e abbellimenti:
   c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Spacing}.
 
@@ -3193,7 +3193,7 @@ In un paragrafo l'ultima linea occupa la sua naturale lunghezza orizzontale.
 @}
 @end example
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Spacing}.
 
@@ -3538,7 +3538,7 @@ fine del ritmo, e permettono agli elementi che si estendono orizzontalmente
 di andare oltre i sistemi e le pagine.  Consultare le sezioni del manuale
 per queste impostazioni.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{New spacing section}.
 
@@ -3612,7 +3612,7 @@ in orientamento orizzontale.  Le coppie (@var{a},@var{b}) sono
 intervalli, dove @var{a} è l'estremo inferiore e @var{b} l'estremo
 superiore dell'intervallo.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Impostare la dimensione del rigo}.
 
@@ -3735,7 +3735,7 @@ così che sia applicata all'intera partitura.
 
 @end itemize
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Formattazione della pagina},
 @ref{Modifica della spaziatura orizzontale}.

@@ -75,7 +75,7 @@ Otras se muestran en la sección de fragmentos de código.
 
 @end itemize
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Plantillas de cuarteto de cuerda}.
 
@@ -144,7 +144,7 @@ a'2^\markup { \small "sul A" }
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Articulaciones y ornamentos},
 @ref{Indicación de los números de cuerda},
@@ -218,7 +218,7 @@ presentan los puntillos.  La propiedad de contexto
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{harmonics}.
 

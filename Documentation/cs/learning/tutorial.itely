@@ -487,7 +487,7 @@ Zde je malý příklad, který obsahuje všechna tato vymezení:
 @end lilypond
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis: @ruser{Nastavení výšek tónů},
 @ruser{Zadání rytmu}, @ruser{Zadání pomlk},
 @ruser{Udání taktu}, @ruser{Notový klíč}.

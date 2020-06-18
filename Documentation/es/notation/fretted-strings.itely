@@ -87,7 +87,7 @@ Las instrucciones para la indicación de armónicos está en
 
 @end itemize
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Indicaciones de digitación},
 @ref{Ligaduras de unión},
@@ -168,7 +168,7 @@ g1\4
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Indicaciones de digitación}.
 
@@ -542,7 +542,7 @@ ratioHarmonics = {
 {hammer-on-and-pull-off-using-chords.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Repetición de acordes},
 @ref{Repeticiones explícitas},
@@ -805,7 +805,7 @@ mus = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Escritura de octava absoluta},
 @ref{Diagramas predefinidos de trastes},
@@ -1285,7 +1285,7 @@ de trastes, las propiedades del interface pertenecen a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Instrument Specific Markup}.
 
@@ -1613,7 +1613,7 @@ predefinido, las propiedades de interface pertenecen a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Tablaturas personalizadas},
 @ref{Diagramas de traste automáticos},
@@ -1784,7 +1784,7 @@ pertenecen a @code{FretBoards.FretBoard}.
 @code{\predefinedFretboardsOn}.
 @endpredefined
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Tablaturas personalizadas}.
 
@@ -1846,7 +1846,7 @@ RH=#rightHandFinger
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Fretted strings}.
 
@@ -1898,7 +1898,7 @@ cejilla de guitarra:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Extensiones de texto}.
 
@@ -1978,7 +1978,7 @@ nota a un triángulo.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Fretted strings}.
 
@@ -2035,7 +2035,7 @@ ChordsAndSymbols = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{power chord}.
 
@@ -2111,7 +2111,7 @@ cuatro cuerdas utilizando la función @code{four-string-banjo}:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{ly/string-tunings-init.ly}
 

@@ -196,7 +196,7 @@ objeto se modifican por parte de diferentes instrucciones; así pues,
 es útil poder reconocer los tipos de objetos y propiedades
 a partir de sus nombres.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Modificar las propiedades}.
 
@@ -573,7 +573,7 @@ instrucciones @code{\override}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{La instrucción tweak}.
 
@@ -631,7 +631,7 @@ notas individuales de un acorde.  Sin embargo, @code{\single} no
 convierte @code{\revert}, @code{\set} ni @code{\unset} en trucos
 de @code{\tweak}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @ref{La instrucción tweak,,La instrucción @code{@bs{}tweak}},
 @ref{Uso de variables para los ajustes de disposición}.
@@ -1074,7 +1074,7 @@ y toda la letra se imprime en cursiva.
 final y la llave de cierre.}
 
 
-@seealso
+@morerefs
 Manual de Extensión:
 @rextend{Tutorial de Scheme}.
 
@@ -1150,7 +1150,7 @@ Scheme}.
 @end multitable
 
 
-@seealso
+@morerefs
 Manual de Extensión:
 @rextend{Tutorial de Scheme}.
 
@@ -4221,7 +4221,7 @@ voz, da la impresión de que la ligadura se cruza entre las voces:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje
 @ref{El prefijo once,,El prefijo @code{@bs{}once}},
 @ref{La propiedad stencil (sello)}.
@@ -4304,7 +4304,7 @@ transparente de la primera línea fuerza una colocación muy alta de
 la indicación de tempo que sigue, mientras que la segunda (con el
 sello suprimido) no lo hace.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{system}.
 

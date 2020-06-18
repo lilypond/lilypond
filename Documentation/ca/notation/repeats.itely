@@ -355,7 +355,7 @@ anteriorment amb la instrucció @code{\defineBarLine}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{repeat},
 @rglos{volta}.
@@ -549,7 +549,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Barres de compàs},
 @ref{Donar format al text}.
@@ -684,7 +684,7 @@ repetició d'acords @code{q}.  Vegeu
 @code{Voice}, apareixeran pentagrames no desitjats.  Vegeu
 @rprogram{Apareix un pentagrama de més}.}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Repetició d'acords}.
 
@@ -787,7 +787,7 @@ barrejades utilitzen un símbol de percentatge doble.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{percent repeat},
 @rglos{simile}.
@@ -902,7 +902,7 @@ s'afegeix una barra de corxera a la plica de la nota.  Si
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Repeats}.
 

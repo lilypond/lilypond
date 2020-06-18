@@ -120,7 +120,7 @@ In diesem einfachen Beispiel ist die fehlende Längenangabe offensichtlich
 deutlich im erzeugten Notenbild zu erkennen,  aber die Konsolenausgabe ist
 ein noch direkter Hinweis auf das fehlende @code{4} in Takt 3.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Takt- und Taktzahlüberprüfung}.
 
@@ -275,7 +275,7 @@ von Versetzungszeichen nach unterschiedlichen Regeln erfolgen kann. Siehe
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Notenbezeichnungen in anderen Sprachen},
 @ruser{Versetzungszeichen},
@@ -391,7 +391,7 @@ geschachtelt werden.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Bindebögen},
 @ruser{Legatobögen},
@@ -505,7 +505,7 @@ Mit dem Befehl @code{\!} kann es explizit beendet werden.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Artikulationszeichen und Verzierungen},
 @ruser{Fingersatzanweisungen},
@@ -541,7 +541,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Text eingeben}.
 
@@ -592,7 +592,7 @@ und @code{\autoBeamOn}, um sie wieder einzuschalten.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Automatische Balken},
 @ruser{Manuelle Balken}.
@@ -688,7 +688,7 @@ und Vorschläge mit @code{\acciaccatura}.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Verzierungen},
 @ruser{Andere rhythmische Aufteilungen},
@@ -989,7 +989,7 @@ darüber entscheidet, ob die Taktlinien nur auf dem System
 oder auch zwischen System gesetzt werden.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Tasteninstrumente und andere Instrumente mit mehreren Systemen},
 @ruser{Systeme anzeigen lassen}.
@@ -1037,7 +1037,7 @@ spitzen Klammern gesetzt werden.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Chorded notes}.
 
@@ -1064,7 +1064,7 @@ nicht erklärt werden sollten. Anstelle dessen führen die folgenden
 Abschnitte in diese Konzepte ein und erklären sie ausführlich.
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @ref{Voice enthält Noten}.
 
@@ -1308,7 +1308,7 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden muss.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Notation von Gesang}.
 
@@ -1353,7 +1353,7 @@ Noten und dem Gesangstext durch Variablen trennt. Die Benutzung
 von Variablen wird erklärt im Abschnitt @ref{Stücke durch Variablen organisieren}.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Notation von Gesang}.
 

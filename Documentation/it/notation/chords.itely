@@ -86,7 +86,7 @@ modalità nota:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{chord,accordo}.
 
@@ -221,7 +221,7 @@ per creare una triade maggiore.
 
 @end multitable
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Modificatori degli accordi comuni},
 @ref{Accordi estesi e alterati}.
@@ -372,7 +372,7 @@ essere spostata come in un'inversione, usando @code{/+}@var{altezza}.
 I modificatori degli accordi che possono essere usati per produrre i vari
 accordi standard sono elencati in @ref{Modificatori degli accordi comuni}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Modificatori degli accordi comuni}.
 
@@ -503,7 +503,7 @@ simbolo @code{noChordSymbol} (nessun accordo).
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{chord,accordo}.
 
@@ -753,7 +753,7 @@ porre uno spazio tra la fondamentale e il modificatore impostando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Grafico dei nomi degli accordi},
 @ref{Modificatori degli accordi comuni}.
@@ -852,7 +852,7 @@ example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 @end ignore
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{figured bass,basso continuo}.
 
@@ -1049,7 +1049,7 @@ Fine della linea di continuazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Chords}.
 
@@ -1143,7 +1143,7 @@ visualizzato sopra o sotto il rigo.
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Chords}.
 

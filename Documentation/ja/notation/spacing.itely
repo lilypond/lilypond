@@ -187,7 +187,7 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 @}
 @end example
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{紙面サイズと自動拡縮},
 @ref{カスタム タイトル、ヘッダ、フッタ},
@@ -298,7 +298,7 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 @code{'landscape} シンボルは出力の回転に@emph{のみ}影響し、紙面の@c
 縦横サイズには影響しません。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Automatic scaling to paper size},
 @ref{Predefined paper sizes}
@@ -340,7 +340,7 @@ Scheme 関数
 @code{paper-height} は @code{297\mm} であり、@c
 @code{paper-width} は @code{210\mm} です。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{固定された垂直方向の paper スペース変数,,固定された垂直方向の @code{@bs{}paper} スペース変数},
 @ref{水平方向の paper スペース変数,,水平方向の @code{@bs{}paper} スペース変数}
@@ -394,7 +394,7 @@ Scheme 関数
 
 @end table
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{紙面サイズに応じた自動拡縮}
 
@@ -592,7 +592,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 -- 間にシステムが無い場合。
 @end table
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{システム内部の可変な垂直方向のスペース}
 
@@ -728,7 +728,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 
 @end table
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{紙面サイズに応じた自動拡縮}
 
@@ -785,7 +785,7 @@ book の一部であるページすべてが見開きページの外側に持つ
 
 @end table
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{紙面サイズに応じた自動拡縮}
 
@@ -831,7 +831,7 @@ score の最初のシステムに対するインデントのレベルです。@c
 
 @end table
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{紙面サイズに応じた自動拡縮}
 
@@ -891,7 +891,7 @@ score で使用すべきシステム数です。@c
 
 @end table
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{改行}
 
@@ -981,7 +981,7 @@ score で使用すべきページ数です。@c
 @end table
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{改ページ},
 @ref{最適改ページ},
@@ -1041,7 +1041,7 @@ score で使用すべきページ数です。@c
 
 @end table
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
 
@@ -1110,7 +1110,7 @@ score で使用すべきページ数です。@c
 
 @end table
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/titling-init.ly}, @file{ly/paper-defaults-init.ly}
 
@@ -1294,7 +1294,7 @@ layoutVariable = \layout @{
 して、@code{\layout} 構成を既知の状態にリセットするための有用なツールに@c
 なります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Changing context default settings}
 
@@ -1406,7 +1406,7 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 @item feta26 @tab 25.2 @tab 8.9 @tab @c modern rental material?
 @end multitable
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{記譜フォント サイズを選択する},
 @ref{The Emmentaler font}
@@ -1575,7 +1575,7 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{改行のための paper 変数,,改行のための @code{@bs{}paper} 変数},
 @ref{The layout block}
@@ -1704,7 +1704,7 @@ LilyPond は改ページを算出するためにいくつかのアルゴリズ�
 @code{\autoPageBreaksOff}
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{改行のための paper 変数,,改行のための @code{@bs{}paper} 変数}
 
@@ -1735,7 +1735,7 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 @code{ly:page-turn-breaking} とは異なり、@c
 この関数はページめくりについて考慮しません。
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Spacing}
 
@@ -1760,7 +1760,7 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 @}
 @end example
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Spacing}
 
@@ -1908,7 +1908,7 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 @code{\allowPageTurn}
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{paper variables for line breaking}
 
@@ -1921,7 +1921,7 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 互いに干渉し合います。
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Vertical spacing}
 
@@ -2268,7 +2268,7 @@ labelContext =
 譜毎のスペース設定で上書きされる可能性があります。
 @end table
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{可変な垂直方向の paper スペース変数,,可変な垂直方向の @code{@bs{}paper} スペース変数},
 @ref{Modifying alists}
@@ -2348,7 +2348,7 @@ labelContext =
 >>
 @end lilypond
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{scm/define-grobs.scm}
 
@@ -2415,7 +2415,7 @@ labelContext =
 >>
 @end lilypond
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{scm/define-grobs.scm}
 
@@ -2485,7 +2485,7 @@ labelContext =
 @end lilypond
 
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}
@@ -2773,7 +2773,7 @@ labelContext =
 これらの設定に適切な値を渡すことで、そのようなことは避けられます。
 @end itemize
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Spacing}
 
@@ -2862,7 +2862,7 @@ LilyPond は譜外部オブジェクトを、既に配置済みのオブジェ�
 }
 @end lilypond
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Spacing}
 
@@ -2984,7 +2984,7 @@ LilyPond は譜外部オブジェクトを、既に配置済みのオブジェ�
 プロポーショナル ノーテーション (proportional notation) がサポートされます。@c
 @ref{プロポーショナル ノーテーション} を参照してください。
 
-@seealso
+@morerefs
 Essay on automated music engraving:
 @ressay{Optical spacing}
 
@@ -3059,7 +3059,7 @@ Essay on automated music engraving:
 @end lilypond
 
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Spacing}
 
@@ -3158,7 +3158,7 @@ Essay on automated music engraving:
   c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Spacing}
 
@@ -3216,7 +3216,7 @@ Essay on automated music engraving:
 @}
 @end example
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Spacing}
 
@@ -3578,7 +3578,7 @@ OFF であるかのどちらかであるということです。@c
 システムやページが改まるときに中断されることを許可します。@c
 これらの設定について、本書の関連パートを参照してください。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{新しいスペース セクション}
 
@@ -3652,7 +3652,7 @@ OFF であるかのどちらかであるということです。@c
 ペア (@var{a},@var{b}) は間隔を表します。@c
 @var{a} は間隔の下端を、@var{b} は上端を表します。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{譜サイズを設定する}
 
@@ -3779,7 +3779,7 @@ OFF であるかのどちらかであるということです。@c
 
 @end itemize
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{ページ レイアウト},
 @ref{水平方向のスペースを変更する}

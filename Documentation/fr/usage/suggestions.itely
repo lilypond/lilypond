@@ -679,7 +679,7 @@ cd ..
 copy out\monprojet.pdf MonProjet.pdf
 @end example
 
-@seealso
+@morerefs
 Manuel d'utilisation :
 @ref{Utilisation en ligne de commande},
 @ref{lilypond-book}

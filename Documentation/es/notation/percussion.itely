@@ -58,7 +58,7 @@ La salida MIDI se trata en una sección aparte; véase
 
 @end itemize
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Mostrar los ritmos de la melodía},
 @ref{Crear instancias de pentagramas nuevos}.
@@ -126,7 +126,7 @@ Hay ciertos detalles respecto a cómo está contemplado el MIDI para
 los instrumentos de percusión; para ver los detalles consulte
 @ref{Creación de salida MIDI}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Creación de salida MIDI},
 @ref{Notas de percusión}.
@@ -176,7 +176,7 @@ conseguir una línea de base satisfactoria.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Repeticiones de trémolo}.
 
@@ -193,7 +193,7 @@ xilófono, el vibráfono y los timbales) se escriben usando
 pentagramas normales.  Esto se estudia en otras secciones del
 manual.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Instrumentos MIDI}.
 
@@ -424,7 +424,7 @@ También se pueden definir estilos de percusión
 personalizados como se explica en
 @ref{Pautas de percusión personalizadas}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Oigo voces}.
 
@@ -561,7 +561,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Percussion}.
 
@@ -610,7 +610,7 @@ falsas, se pueden crear utilizando la instrucción
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Paréntesis}.
 

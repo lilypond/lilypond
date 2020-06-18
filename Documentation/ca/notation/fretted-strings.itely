@@ -90,7 +90,7 @@ Les ordres per a la indicació de harmònics està a
 
 @end itemize
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Indicacions de digitació},
 @ref{Lligadures d'unió},
@@ -164,7 +164,7 @@ g1\4
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Indicacions de digitació}.
 
@@ -521,7 +521,7 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hammer-on-and-pull-off-using-chords.ly}
 
-@seealso
+@morerefs
 Referencia de la notació:
 @ref{Repetició d'acords},
 @ref{Repeticions explícites},
@@ -781,7 +781,7 @@ mus = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Escriptura d'octava absoluta},
 @ref{Diagrames predefinits de trasts},
@@ -1245,7 +1245,7 @@ diagrama de trasts, les propietats de la interfície pertanyen a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Instrument Specific Markup}.
 
@@ -1558,7 +1558,7 @@ predefinit, les propietats d'interfície pertanyen a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Tabulatures personalitzades},
 @ref{Diagrames de trast automàtics},
@@ -1726,7 +1726,7 @@ pertanyen a @code{FretBoards.FretBoard}.
 @code{\predefinedFretboardsOn}.
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Tabulatures personalitzades}.
 
@@ -1784,7 +1784,7 @@ RH=#rightHandFinger
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Fretted strings}.
 
@@ -1836,7 +1836,7 @@ celleta de guitarra:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Extensions de text}.
 
@@ -1915,7 +1915,7 @@ de palma mitjançant el canvi de la forma del cap de nota a un triangle.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Fretted strings}.
 
@@ -1994,7 +1994,7 @@ mixedChords = \chordmode {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{power chord}.
 
@@ -2070,7 +2070,7 @@ quatre cordes utilitzant la funció @code{four-string-banjo}:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{ly/string-tunings-init.ly}
 

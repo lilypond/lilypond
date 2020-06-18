@@ -74,7 +74,7 @@
 
 @end itemize
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{String quartet templates}
 
@@ -139,7 +139,7 @@ a'2^\markup { \small "sul A" }
 @code{\romanStringNumbers}
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Articulations and ornamentations},
 @ref{String number indications},
@@ -209,7 +209,7 @@ d''2^\flageolet d''_\flageolet
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{harmonics}
 

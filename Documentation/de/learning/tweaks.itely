@@ -590,7 +590,7 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Der tweak-Befehl}.
 
@@ -645,7 +645,7 @@ lediglich overrides enthält auf einzelne Noten innerhalb eines Akkords
 anzuwenden.  Es sei jedoch darauf hingewiesen, @code{\single} wandelt
 weder @code{\revert}, noch noch @code{\set} oder @code{\unset} in tweaks.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @ref{Der tweak-Befehl,,Der @code{@bs{}tweak}-Befehl},
 @ref{Variablen für Layout Anpassungen einsetzen}.
@@ -1107,7 +1107,7 @@ Leerzeichen zwischen der letzten Silbe und der schließenden
 Klammer gesetzt werden.}
 
 
-@seealso
+@morerefs
 Erweitern: @rextend{Scheme-Tutorium}.
 
 
@@ -1186,7 +1186,7 @@ Für die Verwendungen von mit Scheme berechneten Werten siehe
 @end multitable
 
 
-@seealso
+@morerefs
 Erweitern: @rextend{Scheme-Tutorium}.
 
 
@@ -4311,7 +4311,7 @@ den Stimmen stattfindet:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @ref{Der once-Präfix,,Der @code{@bs{}once}-Präfix},
 @ref{Die stencil-Eigenschaft}.
@@ -4396,7 +4396,7 @@ schiebt aber die folgende Bezeichnung in die Höhe, während
 das im zweiten Beispiel, in dem der @code{stencil} entfernt
 wurde, nicht passiert.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{system}.
 

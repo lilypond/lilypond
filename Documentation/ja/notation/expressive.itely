@@ -233,7 +233,7 @@ R1\fermata
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{tenuto},
 @rglos{accent},
@@ -552,7 +552,7 @@ R1\fermata
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{al niente},
 @rglos{crescendo},
@@ -692,7 +692,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 マークアップ モードでのフォント設定は
 @ref{Selecting font and font size} で記述されています。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Formatting text},
 @ref{Selecting font and font size},
@@ -875,7 +875,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{slur}
 
@@ -1016,7 +1016,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @code{\phrasingSlurSolid}
 @endpredefined
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{ネストされない括弧とタイ}
 
@@ -1082,7 +1082,7 @@ divisio (ディビジオ: 区切り記号) がサポートされています。@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{caesura}
 
@@ -1127,7 +1127,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{fall},
 @rglos{doit}
@@ -1236,7 +1236,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{glissando}
 
@@ -1353,7 +1353,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{arpeggio}
 
@@ -1505,7 +1505,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @endpredefined
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{trill}
 

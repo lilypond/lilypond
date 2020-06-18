@@ -186,7 +186,7 @@ duración, véase @ref{Notación proporcional}.
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{breve},
 @rglos{longa},
@@ -337,7 +337,7 @@ de grupo especial, véase @ref{Escalar las duraciones}.
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{triplet},
 @rglos{tuplet},
@@ -440,7 +440,7 @@ muestra cómo se puede comprimir y expandir la música:
 Una aplicación de esta instrucción se encuentra en la notación
 polimétrica, véase @ref{Notación polimétrica}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Grupos especiales},
 @ref{Silencios invisibles},
@@ -671,7 +671,7 @@ las ligaduras de unión.
 {engraving-ties-manually.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -779,7 +779,7 @@ silencios no mueve estos silencios.
 {rest-styles.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{breve},
 @rglos{longa},
@@ -882,7 +882,7 @@ ninguna salida, de ninguna clase.
 { \skip 1 \skip1 \skip 1 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos}.
 
@@ -1071,7 +1071,7 @@ comprobación de compás.
 {multi-measure-rest-markup.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{multi-measure rest}.
 
@@ -1357,7 +1357,7 @@ comportamiento de las barras automáticas}.
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{time signature}
 
@@ -1497,7 +1497,7 @@ espaciado horizontal.
 
 Para ver más detalles, consulte @ref{Formatear el texto}.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1589,7 +1589,7 @@ La instrucción @code{\partial} fija la propiedad
 @code{Timing.measurePosition}, que un número racional que indica
 cuánto tiempo ha transcurrido dentro del compás actual.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{anacrusis}.
 
@@ -1709,7 +1709,7 @@ contexto @code{Score} al contexto @code{Staff}, véase
 @code{\cadenzaOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{cadenza}.
 
@@ -1890,7 +1890,7 @@ dependiendo de los valores.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -2009,7 +2009,7 @@ factor de escala que la nota original de la entrada.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{tie}
 
@@ -2134,7 +2134,7 @@ notas individuales con la función musical @code{\reduceChords}:
 {guitar-strum-rhythms.ly}
 
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -2237,7 +2237,7 @@ automáticos predeterminados; véase
 {partcombine-and-autobeamoff.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Barras manuales},
 @ref{Establecer el comportamiento de las barras automáticas}.
@@ -2614,7 +2614,7 @@ Las reglas de barrado predefinidas están en el archivo
 {beam-endings-in-score-context.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Indicación de compás}.
 
@@ -2787,7 +2787,7 @@ grupo como un todo.
 {flat-flags-and-beam-nibs.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Dirección y posición},
 @ref{Notas de adorno}.
@@ -2863,7 +2863,7 @@ notas de una forma sólo aproximada, pero la salida MIDI es exacta.
 @code{\featherDurations}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -3253,7 +3253,7 @@ divisorias insertadas automáticamente es @code{"|"}.  Se puede
 cambiar en cualquier momento con @samp{\set Timing.defaultBarType
 = @var{tipo de barra}}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Saltos de línea},
 @ref{Repeticiones},
@@ -3359,7 +3359,7 @@ números de compás en todos los sitios posibles:
 {removing-bar-numbers-from-a-score.ly}
 
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -3473,7 +3473,7 @@ el que está copiando.  Esto se puede comprobar con
 imprime una advertencia si el @code{currentBarNumber} (número del
 compás actual) no es el 123 en el momento de la compilación.
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -3639,7 +3639,7 @@ definiciones de @code{format-mark-numbers} y de
 @code{format-mark-letters}.  Se pueden utilizar como inspiración
 para escribir otras funciones de formateo.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{La tipografía Emmentaler},
 @ref{Formatear el texto},
@@ -3841,7 +3841,7 @@ luego se revierte.
 {positioning-grace-notes-with-floating-space.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -3976,7 +3976,7 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{cadenza}.
 
@@ -4061,7 +4061,7 @@ una duración de la fracción n/m de una redonda.  Por ejemplo,
 @code{ly:make-moment 1/8} es una duración de una corchea y
 @code{ly:make-moment 7/16} es la duración de siete semicorcheas.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Numeración de compases},
 @ref{Música sin compasear}.

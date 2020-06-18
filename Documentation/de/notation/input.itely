@@ -123,7 +123,7 @@ Zu weiteren Einzelheiten zu @code{\book}-Umgebungen siehe
 @ref{Die Dateistruktur}.
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Arbeiten an Eingabe-Dateien},
 @rlearning{Musikalische Ausdrücke erklärt},
@@ -550,7 +550,7 @@ und vor dem gesamten Befehl geschrieben werden.
 
 @end itemize
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert}.
 
@@ -681,7 +681,7 @@ gesetzt oder manuell unterdrückt werden:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Die Dateistruktur},
 @ref{Angepasstes Layout für Titelumgebungen}.
@@ -793,7 +793,7 @@ Seite beginnen.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert},
 
@@ -910,7 +910,7 @@ zu verändern.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Text formatieren}.
 
@@ -1069,7 +1069,7 @@ in der Beschriftungsdefinition zu verweisen:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Wie funktioniert die Titel-Umgebung?}.
 
@@ -1179,7 +1179,7 @@ Verschiedene @code{\on-the-fly}-Bedingungen können mit dem Operator
 @noindent
 ob es sich um eine einzelne Seite bei der Ausgabe handelt.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Wie funktioniert die Titel-Umgebung?},
 @ref{Standardlayout von book und Partitur Titelumgebungen}.
@@ -1460,7 +1460,7 @@ annotiert:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Objekte und Schnittstellen}.
 
@@ -1678,7 +1678,7 @@ Linie gefüllt werden:
 @end lilypond
 
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{ly/toc-init.ly}.
 
@@ -1812,7 +1812,7 @@ Einige einfache Beispiele, die die Benutzung von @code{\include} demonstrieren,
 sind dargestellt in
 @rlearning{Partituren und Stimmen}.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Mehr Information},
 @rlearning{Partituren und Stimmen}.
@@ -2089,7 +2089,7 @@ des Tags eingefügt werden soll und den Ausdruck, der mit dem Tag versehen
 ist.  Der Befehl stellt sicher, dass alle Änderungen kopiert werden, sodass
 das ursprüngliche @code{\test} seine Bedeutung behält.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Stücke durch Variablen organisieren}.
 
@@ -2133,7 +2133,7 @@ die entsprechende Einstellungsdatei angibt.
 Diese Technik funktioniert auch gut für Formatvorlagen, wie
 in @rlearning{Formatvorlagen} behandelt.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Stücke durch Variablen organisieren},
 @rlearning{Formatvorlagen}.
@@ -2337,7 +2337,7 @@ oder lokal:
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Liste der Sonderzeichen}.
 
@@ -2501,7 +2501,7 @@ Benennen Sie das existierende @code{fonts}-Verzeichnis in
 @code{fonts_orig} können Sie einfach in @code{fonts}
 zurückbenennen, um wieder nach Feta zu wechseln.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Mehr Information}.
 

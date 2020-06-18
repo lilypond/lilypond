@@ -183,7 +183,7 @@ Vedi @ref{Notazione proporzionale}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{breve},
 @rglos{longa},
@@ -334,7 +334,7 @@ quadra del gruppo irregolare, si veda @ref{Scalare le durate}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{triplet,terzina},
 @rglosnamed{tuplet,gruppo irregolare},
@@ -427,7 +427,7 @@ che mostra come la musica possa essere compressa e espansa:
 Questo comando torna utile nella notazione polimetrica, si veda
 @ref{Notazione polimetrica}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Gruppi irregolari},
 @ref{Pause invisibili},
@@ -646,7 +646,7 @@ degli oggetti che devono creare uno spazio vuoto tra le legature di valore.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{tie,legatura di valore},
 @rglos{laissez vibrer}.
@@ -749,7 +749,7 @@ questo tipo di pause.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{breve},
 @rglos{longa},
@@ -846,7 +846,7 @@ output.
 \skip 1 \skip1 \skip 1
 @end lilypond
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Visibilità e colore degli oggetti}.
 
@@ -1023,7 +1023,7 @@ non apparire i relativi avvertimenti del controllo battuta.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{multi-measure rest,pausa multipla}.
 
@@ -1298,7 +1298,7 @@ cambio, è descritto in @ref{Impostare il comportamento delle travature automati
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{time signature,indicazione di tempo}
 
@@ -1436,7 +1436,7 @@ orizzontale.
 
 I dettagli si trovano in @ref{Formattazione del testo}.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{metronome,metronomo},
 @rglosnamed{tempo indication,indicazione di tempo},
@@ -1523,7 +1523,7 @@ di tempo cambia in mezzo a una misura, ma si può usare anche da solo.
 Il comando @code{\partial} imposta la proprietà @code{Timing.measurePosition},
 che è un numero razionale che indica quanto tempo della misura è trascorsa.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{anacrusis,anacrusi}.
 
@@ -1642,7 +1642,7 @@ si sposta @code{Timing_translator} dal contesto @code{Score} al contesto
 @code{\cadenzaOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{cadenza}.
 
@@ -1822,7 +1822,7 @@ valori.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{polymetric,polimetrico},
 @rglosnamed{polymetric time signature,indicazione di tempo polimetrico},
@@ -1939,7 +1939,7 @@ della nota di input.
 @end lilypond
 
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{tie,legatura di valore}
 
@@ -2064,7 +2064,7 @@ a note singole con la funzione musicale @code{\reduceChords}:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsr{Rhythms}.
 
@@ -2161,7 +2161,7 @@ quelli automatici predefiniti, come è spiegato in @ref{Impostare il comportamen
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Travature manuali},
 @ref{Impostare il comportamento delle travature automatiche}.
@@ -2512,7 +2512,7 @@ Le regole predefinite per le travature si trovano in
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Indicazione di tempo}.
 
@@ -2680,7 +2680,7 @@ all'interno dell'intero raggruppamento.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Direzione e posizionamento},
 @ref{Abbellimenti}.
@@ -2753,7 +2753,7 @@ modo approssimato, mentre il tempo nel file MIDI è esatto.
 @code{\featherDurations}.
 @endpredefined
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsr{Rhythms}.
 
@@ -3115,7 +3115,7 @@ Il tipo di stanghetta predefinita per le stanghette inserite automaticamente
 è @code{"|"}.  Si può modificare in qualsiasi momento con
 @samp{\set Timing.defaultBarType = @var{tipo-stanghetta}}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Interruzioni di linea},
 @ref{Ripetizioni},
@@ -3223,7 +3223,7 @@ i numeri di battuta compaiono in tutti i punti possibili:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsr{Rhythms}.
 
@@ -3330,7 +3330,7 @@ esempio,
 genererà un avvertimento se @code{currentBarNumber} non è 123
 nel momento in cui viene elaborato.
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsr{Rhythms}.
 
@@ -3487,7 +3487,7 @@ definizioni di @code{format-mark-numbers} e
 @code{format-mark-letters}, che possono essere usate come fonte di
 ispirazione per creare altre funzioni di formattazione.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Il font Emmentaler},
 @ref{Formattazione del testo},
@@ -3683,7 +3683,7 @@ gambo viene prima sovrascritta e poi ripristinata.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{grace notes,acciaccatura},
 @rglos{acciaccatura},
@@ -3816,7 +3816,7 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{cadenza}.
 
@@ -3898,7 +3898,7 @@ di n/m della nota intera.  Ad esempio, @code{ly:make-moment 1/8} corrisponde
 alla durata di un ottavo mentre @code{ly:make-moment 7/16} a quella di sette
 sedicesimi.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Numeri di battuta},
 @ref{Musica in tempo libero}.

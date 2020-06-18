@@ -476,7 +476,7 @@ toont:
 @end lilypond
 
 
-@seealso
+@morerefs
 Notatiehandleiding: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.

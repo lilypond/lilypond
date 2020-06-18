@@ -172,7 +172,7 @@ de la pauta; vegeu @ref{Direcció i posició}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{breve},
 @rglos{longa},
@@ -313,7 +313,7 @@ de grup especial, vegeu
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{triplet},
 @rglos{tuplet},
@@ -409,7 +409,7 @@ mostra com es pot comprimir i expandir la música:
 Una aplicació d'aquesta ordre es troba a la notació polimètrica,
 vegeu @ref{Notació polimètrica}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Grups especials},
 @ref{Silencis invisibles},
@@ -628,7 +628,7 @@ les lligadures d'unió.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -731,7 +731,7 @@ silencis no mou aquests silencis.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{breve},
 @rglos{longa},
@@ -831,7 +831,7 @@ sortida, de cap classe.
 { \skip 1 \skip1 \skip 1 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @rlearning{Visibilitat i color dels objectes}.
 
@@ -1006,7 +1006,7 @@ mostrin els advertiments corresponents de comprovació de compàs.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{multi-measure rest}.
 
@@ -1286,7 +1286,7 @@ compàs en el moment del canvi, es mostra a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{time signature}
 
@@ -1416,7 +1416,7 @@ d'ignorar les indicacions de tempo per a l'espaiat horitzontal.
 
 Para veure més detalls, consulteu @ref{Donar format al text}.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1508,7 +1508,7 @@ L'ordre @code{\partial} fixa la propietat
 @code{Timing.measurePosition}, que és un nombre racional que
 indica quant temps ha transcorregut dins del compàs actual.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{anacrusis}.
 
@@ -1628,7 +1628,7 @@ context @code{Score} al context @code{Staff}, Vegeu
 @code{\cadenzaOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{cadenza}.
 
@@ -1809,7 +1809,7 @@ depenent dels valors.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -1912,7 +1912,7 @@ d'escala que la nota original de l'entrada.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{tie}
 
@@ -2013,7 +2013,7 @@ d'acompanyament.  Això es pot fer amb el gravador
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Rhythms}.
 
@@ -2109,7 +2109,7 @@ automàtics predeterminats; vegeu
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Barres manuals},
 @ref{Establir el comportament de les barres automàtiques}.
@@ -2472,7 +2472,7 @@ Les regles de barrat predefinides estan al fitxer
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Indicació de compàs}.
 
@@ -2638,7 +2638,7 @@ grup com un tot.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Direcció i posició},
 @ref{Notes d'adorn}.
@@ -2711,7 +2711,7 @@ notes d'una forma sols aproximada, però la sortida MIDI és exacta.
 @code{\featherDurations}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Rhythms}.
 
@@ -3097,7 +3097,7 @@ divisòries inserides automàticament és @code{"|"}.  Es pot canviar
 en qualsevol moment amb @samp{\set Timing.defaultBarType
 = @var{tipus de barra}}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Salts de línia},
 @ref{Repeticions},
@@ -3198,7 +3198,7 @@ números de compàs en tots els llocs possibles:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Rhythms}.
 
@@ -3309,7 +3309,7 @@ qual s'està copiant.  Això es pot comprovar amb
 imprimeix un advertiment si el @code{currentBarNumber} (número del
 compàs actual) no és el 123 en el moment de la compilació.
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Rhythms}.
 
@@ -3472,7 +3472,7 @@ definicions de @code{format-mark-numbers} i de
 @code{format-mark-letters}.  Es poden utilitzar com a inspiració
 per escriure altres funcions per donar format.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{El tipus de lletra Emmentaler},
 @ref{Donar format al text},
@@ -3643,7 +3643,7 @@ de la nota d'adorn se sobreescriu i després es reverteix.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -3777,7 +3777,7 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{cadenza}.
 
@@ -3862,7 +3862,7 @@ una duració de la fracció d'una rodona.  Per exemple,
 @code{ly:make-moment 1 8} és una duració d'una corxera i
 @code{ly:make-moment 7 16} és la duració de set semicorxeres.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Numeració de compassos},
 @ref{Música sense compassos}.

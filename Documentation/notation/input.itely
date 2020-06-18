@@ -121,7 +121,7 @@ output file produced is derived from the name of the input file, so
 @ref{Multiple scores in a book},
 @ref{Multiple output files from one input file} @ref{File structure}.)
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
@@ -541,7 +541,7 @@ expression, i.e., every item that begins with a @code{#}@tie{}sign.
 
 @end itemize
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{How LilyPond input files work}.
 
@@ -746,7 +746,7 @@ suppressed:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{File structure},
 @ref{Default layout of bookpart and score titles},
@@ -859,7 +859,7 @@ the music (defined in the @code{\score} block) starting on the next.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{How LilyPond input files work},
 
@@ -962,7 +962,7 @@ footer and title text within the @code{\header} block.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Formatting text}.
 
@@ -1116,7 +1116,7 @@ them in the markup definition.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Titles explained}.
 
@@ -1222,7 +1222,7 @@ Several @code{\on-the-fly} conditions can be combined with an
 
 determines if the output is a single page.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Titles explained},
 @ref{Default layout of bookpart and score titles}.
@@ -1705,7 +1705,7 @@ Unicode character codes may also be used to specify marks
 }
 @end lilypond
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Objects and interfaces}.
 
@@ -2015,7 +2015,7 @@ The previous example also demonstrates how to use the
 @code{\fill-with-pattern} markup command within
 the context of a table of contents.
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/toc-init.ly}.
 
@@ -2175,7 +2175,7 @@ version of LilyPond.
 Some simple examples of using @code{\include} are shown in
 @rlearning{Scores and parts}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Other sources of information},
 @rlearning{Scores and parts}.
@@ -2500,7 +2500,7 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 Both commands get a tag, the material to splice in at every occurence of
 the tag, and the tagged expression.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Organizing pieces with variables}.
 
@@ -2537,7 +2537,7 @@ specifying the proper settings file.
 This technique also works well with the use of style sheets, as
 discussed in @rlearning{Style sheets}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Organizing pieces with variables},
 @rlearning{Style sheets}.
@@ -2738,7 +2738,7 @@ or locally:
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{List of special characters}.
 
@@ -2796,7 +2796,7 @@ literally @q{cut} from the original printed score so if a fragment runs
 over one or more lines, a separate output file for each line will be
 generated.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{The layout block}.
 
@@ -2863,7 +2863,7 @@ new setting will take effect only at the point in time where
 @code{showFirstLength}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Interpretation contexts},
 @ref{Score - the master of all contexts},
@@ -2993,7 +2993,7 @@ that follows it, whether created explicitly or implicitly. This means that each
 @code{set-global-fonts} before it.
 For more information, see @ref{Entire document fonts}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Other sources of information}.
 
@@ -3188,7 +3188,7 @@ either the @code{\book}, @code{\bookpart} or @code{\score} blocks.  See
 #(ly:set-option 'midi-extension "mid")
 @end example
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{File structure},
 @ref{Creating output file metadata}.
@@ -3367,7 +3367,7 @@ If these volumes properties are not set then LilyPond still applies a
 Installed Files:
 @file{scm/midi.scm}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Score layout}.
 
@@ -3435,7 +3435,7 @@ block;
 This example removes the effect of dynamics from the MIDI output.  Note:
 LilyPond's translation modules used for sound are called @q{performers}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Other sources of information}.
 
@@ -3492,7 +3492,7 @@ If the instrument name does not match any of the instruments listed in
 the @q{MIDI instruments} section, the @code{acoustic grand} instrument
 will be used instead. See @ref{MIDI instruments}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Other sources of information}.
 
@@ -3561,7 +3561,7 @@ repeats);
 When using multiple voices, each of the voices must contain completely
 unfolded repeats for correct MIDI output.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Repeats}.
 
@@ -3836,7 +3836,7 @@ The @code{\articulate} command enables abbreviatures (such as trills and
 turns) to be processed.  A full list of supported items can be found in
 the script itself.  See @file{ly/articulate.ly}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Other sources of information}.
 
@@ -3925,7 +3925,7 @@ to MIDI output, rather than to printed music.}
 Additional help and information is included in the script file:
 see @file{ly/swing.ly}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Other sources of information}.
 

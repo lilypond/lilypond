@@ -115,7 +115,7 @@ Voir le chapitre @ref{Articulations et ornements}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Chutes et sauts},
@@ -155,7 +155,7 @@ plus en profondeur au chapitre @ref{Diagrammes pour bois}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Diagrammes pour bois}.
 
@@ -228,7 +228,7 @@ Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
 « piobaireachd », et que l'on indiquera par @code{g-flat}.
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 
@@ -280,7 +280,7 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
 }
 @end lilypond
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}
 
@@ -472,7 +472,7 @@ utilisateurs.  Des gabarits sont contenus dans les fichiers
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.

@@ -69,7 +69,7 @@ concepts sont spécifiques à la notation ancienne :
 @item @ref{Ligatures}.
 @end itemize
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{custos},
 @rglos{ligature},
@@ -166,7 +166,7 @@ indépendante jusqu'à, pourquoi pas, utiliser dans une même partition des
 crochet en @emph{Mensural}, des têtes de note de @emph{Petrucci}, des
 silences du @emph{Classical} et des clefs du style @emph{Vaticana}.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{flag},
 @rglos{mensural notation}.
@@ -203,7 +203,7 @@ détails sur ces contextes aux rubriques
 @item @ref{Contextes de musique mensurale}.
 @end itemize
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{mensural notation}.
 
@@ -251,7 +251,7 @@ le graveur de ligature qui convient -- voir les rubriques
 @ref{Ligatures mensurales} et @ref{Neumes et ligatures grégoriennes} à
 ce sujet.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ligature}.
 
@@ -360,7 +360,7 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{custos}.
 
@@ -421,7 +421,7 @@ lancer dans la saisie de votre chant comme ci-après :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{mensural notation}.
 
@@ -473,7 +473,7 @@ une ligne particulière, comme indiqué à la rubrique @ref{Clefs}.  Une
 liste exhaustive des différentes clefs est disponible à l’annexe
 @ref{Styles de clef}.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{clef},
 @rglos{mensural notation}.
@@ -605,7 +605,7 @@ Voici les différences entre les styles :
 La rubrique @ref{Métrique} expose les principes généraux sur
 l'utilisation des indications de métrique.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{mensural notation}.
 
@@ -694,7 +694,7 @@ a'\longa
 La rubrique @ref{Têtes de note} présente tous les styles de notes
 disponibles.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{mensural notation},
 @rglos{note head}.
@@ -733,7 +733,7 @@ Il n'existe pas de crochet spécifique au style néomensural.
 
 Les crochets n'existent pas en notation grégorienne.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{flag},
 @rglos{mensural notation}.
@@ -772,7 +772,7 @@ Les styles @code{mensural} et @code{neomensural} ne disposent pas des
 huitième et seizième de soupir ; LilyPond utilise dans de tels cas
 le style par défaut.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{mensural notation}.
 
@@ -824,7 +824,7 @@ et @code{KeySignature}, comme ceci :
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{accidental},
 @rglos{key signature},
@@ -895,7 +895,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
@@ -990,7 +990,7 @@ par le @code{Mensural_ligature_engraver}, on obtient
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ligature}.
 
@@ -1025,7 +1025,7 @@ utiliser.  Vous pouvez cependant spécifier par exemple le style
 c'est le @code{Mensural_ligature_engraver} qui se chargera des ligatures
 mensurales.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ligature}.
 
@@ -1068,7 +1068,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 }
 @end lilypond
 
-@c @seealso
+@c @morerefs
 @c TODO: nothing here yet ...
 
 
@@ -1204,7 +1204,7 @@ Clef combinée ut/fa, style historique Hufnagel
 @end lilypond
 @end multitable
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{clef}.
 
@@ -1257,7 +1257,7 @@ et @code{KeySignature}, comme ceci :
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{accidental},
 @rglos{key signature}.
@@ -1347,7 +1347,7 @@ Les divisions sont disponibles après inclusion du fichier
 @code{\finalis}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{caesura},
 @rglos{divisio}.
@@ -1392,7 +1392,7 @@ spécifiquement destinées au style des éditions vaticanes.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Articulations et ornements}.
 
@@ -1435,7 +1435,7 @@ abrégée de @code{\augmentum a \augmentum g}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Signes de respiration}.
 
@@ -2385,7 +2385,7 @@ respectivement ascendante ou descendante.
 Utilisez la fonction musicale unaire @code{\augmentum} pour ajouter
 des points d'augmentum.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ligature}.
 
@@ -2459,7 +2459,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{kievan notation, notation kiévienne}.
 
@@ -2487,7 +2487,7 @@ La notation kiévienne n'utilise qu'une seule clef -- la clef
   c'
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{clef},
 @rglosnamed{kievan notation, notation kiévienne}.
@@ -2527,7 +2527,7 @@ b'1 b'2 b'4 b'8 b'\breve b'\longa
 b'2
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{kievan notation, notation kiévienne},
 @rglosnamed{note head, tête de note}.
@@ -2565,7 +2565,7 @@ anciens.
 bes' dis'
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{accidental, altération},
 @rglosnamed{kievan notation, notation kiévienne}.
@@ -2590,7 +2590,7 @@ d'un @code{\bar "k"}.
   c' \bar "k"
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Barres de mesure},
 @ref{La fonte Emmentaler}.
@@ -2652,7 +2652,7 @@ Voici comment générer des ligatures en notation kiévienne :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ligature}.
 
@@ -2741,7 +2741,7 @@ La propriété @code{instrumentName} doit se placer au sein de la musique
 de l'incipit à produire.  Lorsqu'il n'y a pas de nom d'instrument, il
 faut cependant le définir avec @code{\set Staff.instrumentName = ""}.
 
-@seealso
+@morerefs
 @c ... and reference to other sections ...
 Morceaux choisis :
 @rlsrnamed{Ancient notation, Notations anciennes}.
@@ -2769,7 +2769,7 @@ constituer les barres de mesure.
 @c from lsr and -user
 @c TBC
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2948,7 +2948,7 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2963,7 +2963,7 @@ spirLyr = \lyricmode {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2993,5 +2993,5 @@ spirLyr = \lyricmode {
 
 @c TBC
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...

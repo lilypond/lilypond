@@ -131,7 +131,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 
 和音についての更なる情報は、@ref{Chord notation} を参照してください。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{chord}
 
@@ -257,7 +257,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 暗黙的な繰り返し和音の展開はすべての @code{\relative} インスタンスが@c
 処理されてから行われます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Chord notation},
 @ref{Articulations and ornamentations}
@@ -371,7 +371,7 @@ warning: This voice needs a \voiceXx or \shiftXx setting
 そのようなケースでは、通常の音符とクラスタの衝突を@c
 自動的に回避しようとする試みは行われません。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{cluster}
 
@@ -632,7 +632,7 @@ etc.
 @code{\oneVoice}
 @endpredefined
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Voices contain music},
 @rlearning{Explicitly instantiating voices}
@@ -684,7 +684,7 @@ etc.
 @code{\voiceNeutralStyle}
 @endpredefined
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{I'm hearing Voices},
 @rlearning{Other sources of information}.
@@ -904,7 +904,7 @@ etc.
 {forcing-horizontal-shift-of-notes.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{polyphony}
 
@@ -1179,7 +1179,7 @@ instrumentTwo = \relative {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{a due},
 @rglos{part}
@@ -1337,7 +1337,7 @@ global = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Organizing pieces with variables}
 

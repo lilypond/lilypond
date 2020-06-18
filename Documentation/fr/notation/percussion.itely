@@ -60,7 +60,7 @@ dédiée : @ref{Génération de fichiers MIDI}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Génération de fichiers MIDI},
 @ref{Gravure de lignes rythmiques},
@@ -127,7 +127,7 @@ leur prise en charge au niveau de la génération de fichiers MIDI ;
 de plus amples informations sont disponibles à la rubrique
 @ref{Génération de fichiers MIDI}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Génération de fichiers MIDI},
 @ref{Notes utilisées en percussion}.
@@ -180,7 +180,7 @@ base satisfaisante.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Direction et positionnement},
 @ref{Répétitions en trémolo}.
@@ -198,7 +198,7 @@ xylophone, le vibraphone ou les timbales ; ils utilisent donc des
 portées classiques.  Cette possibilité est abordée dans d'autres parties
 du manuel.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Gestion des instruments MIDI}.
 
@@ -427,7 +427,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 Il est par ailleurs possible de définir son propre style, comme indiqué
 dans @ref{Personnalisation de portées de percussion}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{J'entends des Voix}.
 
@@ -562,7 +562,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{ly/drumpitch-init.ly}.
 
@@ -610,7 +610,7 @@ rubrique @ref{Parenthèses}.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Parenthèses}.
 

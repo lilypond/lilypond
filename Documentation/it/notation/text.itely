@@ -105,7 +105,7 @@ articolazioni si veda @rlearning{Posizionamento degli oggetti}.
 @code{\textLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuale d'apprendimento:
 @rlearning{Posizionamento degli oggetti}.
 
@@ -200,7 +200,7 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-custom-text-spanner-postfix.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Stili della linea},
 @ref{Dinamiche},
@@ -311,7 +311,7 @@ successiva.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Segni di chiamata},
 @ref{Formattazione del testo},
@@ -387,7 +387,7 @@ in @ref{Testo formattato su più pagine}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Formattazione del testo},
 @ref{Struttura del file},
@@ -512,7 +512,7 @@ allegro = \markup { \bold \large Allegro }
 Una lista completa dei comandi specifici di @code{\markup} si trova in
 @ref{Comandi per markup}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Comandi per markup}.
 
@@ -717,7 +717,7 @@ tipi di carattere personalizzati si trova in @ref{Font}.
 @code{\larger}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Font},
 @ref{Nuove indicazioni dinamiche},
@@ -971,7 +971,7 @@ sinistra o giustificate, come mostra l'esempio seguente.
 Una lista completa dei comandi di allineamento del testo si trova in
 @ref{Align}.
 
-@seealso
+@morerefs
 Manuale d'apprendimento:
 @rlearning{Spostare gli oggetti}.
 
@@ -1136,7 +1136,7 @@ c'
 Una lista completa dei comandi specifici per la grafica si trova in
 @ref{Graphic}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Align},
 @ref{Dimensioni},
@@ -1270,7 +1270,7 @@ Questi diagrammi sono documentati in @ref{Instrument Specific Markup}.
 Una lista completa dei comandi relativi alla notazione musicale si trova
 in @ref{Music}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Music},
 @ref{Il font Emmentaler},
@@ -1337,7 +1337,7 @@ una lista di \markuplists.
 Una lista completa dei comandi che si possono usare con \markuplist si
 trova in @ref{Comandi per una lista di markup}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Comandi per una lista di markup}.
 
@@ -1553,7 +1553,7 @@ possibile usare altri tipi, come viene spiegato nelle sezioni successive:
 @ref{Tipi di carattere per singolo oggetto} e
 @ref{Tipi di carattere per l'intero documento}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Il font Emmentaler},
 @ref{Notazione musicale nel blocco markup},
@@ -1600,7 +1600,7 @@ tipi di carattere disponibili nel sistema operativo:
 lilypond -dshow-available-fonts
 @end example
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Tipi di carattere in dettaglio},
 @ref{Tipi di carattere per l'intero documento}.
@@ -1728,7 +1728,7 @@ per ciascuno, basta ripetere @code{set-global-fonts}, in questo modo:
 @end example
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Tipi di carattere in dettaglio},
 @ref{Tipi di carattere per singolo oggetto},

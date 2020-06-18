@@ -1539,7 +1539,7 @@ shifted unless an actual clash of the note heads occurs, or when the
 voices cross over from their natural order (when @code{\voiceThree}
 is higher than @code{\voiceOne}, etc.)
 
-@seealso
+@morerefs
 @rlearning{Explicitly instantiating voices},
 @rlearning{Real music example},
 @ruser{Single-staff polyphony},

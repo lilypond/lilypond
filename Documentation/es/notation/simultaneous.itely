@@ -138,7 +138,7 @@ a la nota anterior @emph{dentro del mismo acorde}.
 Para ver más información sobre los acordes, consulte
 @ref{Notación de acordes}.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{chord}.
 
@@ -271,7 +271,7 @@ implícita al comienzo del proceso de tipografiado se hace en un
 momento en que todas las instancias de @code{\relative} ya se han
 procesado.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Notación de acordes},
 @ref{Articulaciones y ornamentos}.
@@ -383,7 +383,7 @@ clusters, incluso al mismo tiempo.  En tal caso, no se hace ningún
 intento de evitar automáticamente las colisiones entre clusters y
 notas normales.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{cluster}.
 
@@ -651,7 +651,7 @@ fragmentos de música no tienen las mismas duraciones exactas.
 @code{\oneVoice}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Las voces contienen música},
 @rlearning{Voces explícitas}.
@@ -704,7 +704,7 @@ Para recuperar la presentación normal se utiliza la instrucción
 @code{\voiceNeutralStyle}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Oigo voces},
 @rlearning{Otras fuentes de información}.
@@ -935,7 +935,7 @@ explícitamente en direcciones opuestas).
 {forcing-horizontal-shift-of-notes.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{polyphony}.
 
@@ -1224,7 +1224,7 @@ letras compartidas}.
 {changing-partcombine-texts.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{a due},
 @rglos{part}.
@@ -1393,7 +1393,7 @@ global = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Organizar las piezas mediante variables}
 

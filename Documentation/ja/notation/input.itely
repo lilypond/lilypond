@@ -132,7 +132,7 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 @ref{Multiple output files from one input file}、@c
 @ref{File structure} を参照してください。)
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
@@ -565,7 +565,7 @@ foo = @{ c4 d e d @}
 
 @end itemize
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{How LilyPond input files work}
 
@@ -773,7 +773,7 @@ foo = @{ c4 d e d @}
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{File structure},
 @ref{Default layout of bookpart and score titles},
@@ -893,7 +893,7 @@ foo = @{ c4 d e d @}
 }
 @end lilypond
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{How LilyPond input files work}
 
@@ -1000,7 +1000,7 @@ foo = @{ c4 d e d @}
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Formatting text}
 
@@ -1163,7 +1163,7 @@ scoreTitleMarkup = \markup @{ \column @{
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Titles explained}
 
@@ -1270,7 +1270,7 @@ variable = \markup @{
 
 これは、出力が単一のページかどうかを判断します。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Titles explained},
 @ref{Default layout of bookpart and score titles}
@@ -1757,7 +1757,7 @@ Unicode 文字をマークに使うこともできます
 }
 @end lilypond
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Objects and interfaces}
 
@@ -2016,7 +2016,7 @@ tocAct =
 }
 @end verbatim
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/toc-init.ly}
 
@@ -2198,7 +2198,7 @@ LilyPond が使用するパスとファイルのリストを表示します。@c
 @rlearning{Scores and parts} で示されています。
 
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Other sources of information},
 @rlearning{Scores and parts}
@@ -2534,7 +2534,7 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 どちらのコマンドもタグ、組み込む素材、それにタグ付けされた音楽表記を
 取り、タグが出現するたびに素材を組み込みます。@c
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Organizing pieces with variables}
 
@@ -2571,7 +2571,7 @@ lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
 このテクニックはスタイル シートでも使えます。@c
 @rlearning{Style sheets} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Organizing pieces with variables},
 @rlearning{Style sheets}
@@ -2788,7 +2788,7 @@ Unicode U+03BE の文字を入力します
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{List of special characters}
 
@@ -2844,7 +2844,7 @@ Unicode U+03BE の文字を入力します
 出力されるため、断片が複数行にまたがる場合には、行ごとに出力ファイルが@c
 分割されます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{layout ブロック,,@code{@bs{}layout} ブロック}
 
@@ -3032,7 +3032,7 @@ Gonville フォントに変更します:
 フォントを指定することができます。@c
 更なる情報は、@ref{Entire document fonts} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Other sources of information}
 
@@ -3229,7 +3229,7 @@ lilypond -dmidi-extension=mid MyFile.ly
 #(ly:set-option 'midi-extension "mid")
 @end example
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{File structure},
 @ref{Creating output file metadata}
@@ -3403,7 +3403,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
 インストールされているファイル:
 @file{scm/midi.scm}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Score layout}
 
@@ -3468,7 +3468,7 @@ MIDI での音量変化は音符の開始時にのみ適用されます。その
 音楽表記から MIDI 出力に変換するモジュール (translator) は@c
 @q{パフォーマ} (performer) と呼ばれます。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Other sources of information}
 
@@ -3524,7 +3524,7 @@ MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プ
 @code{acoustic grand} 楽器が代わりに使用されます。
 @ref{MIDI instruments} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Other sources of information}
 
@@ -3593,7 +3593,7 @@ MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プ
 複数のボイスを使用している場合、正しい MIDI 出力を得るためには@c
 全てのボイスの繰り返しが完全に展開されている必要があります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Repeats}
 
@@ -3858,7 +3858,7 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 対応している記号の一覧は、スクリプト内に記載してあります。@c
 @file{ly/articulate.ly} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{その他の情報源}
 
@@ -3948,7 +3948,7 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 追加のヘルプや情報はスクリプトファイルにあります:
 @file{ly/swing.ly} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Other sources of information}
 

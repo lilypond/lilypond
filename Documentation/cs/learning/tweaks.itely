@@ -506,7 +506,7 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Der tweak-Befehl}.
 
@@ -1003,7 +1003,7 @@ Klammer gesetzt werden.}
 Gesangstexten müssen Leerzeichen um Punkte zwischen
 Kontext- und Objektbezeichnungen gesetzt werden.}
 
-@seealso
+@morerefs
 Erweitern: @rextend{Scheme-Übung}.
 
 
@@ -1077,7 +1077,7 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
 @end multitable
 
 
-@seealso
+@morerefs
 Erweitern: @rextend{Scheme-Übung}.
 
 
@@ -3901,7 +3901,7 @@ schiebt aber die folgende Bezeichnung in die Höhe, während
 das im zweiten Beispiel, in dem der @code{stencil} entfernt
 wurde, nicht passiert.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{system}.
 

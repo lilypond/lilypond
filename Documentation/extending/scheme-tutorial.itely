@@ -795,7 +795,7 @@ should be used for material that is created @q{from scratch} (or that is
 explicitly copied) rather than being used, instead, to directly
 reference material.
 
-@seealso
+@morerefs
 Extending:
 @ref{LilyPond Scheme syntax}.
 

@@ -352,7 +352,7 @@ with the @code{\defineBarLine} command (see @ref{Bar lines}).
 {alternative-bar-numbering.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{repeat},
 @rglos{volta}.
@@ -533,7 +533,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Bar lines},
 @ref{Formatting text}.
@@ -661,7 +661,7 @@ Chord constructs can be repeated by the chord repetition symbol
 without explicitly instantiating the @code{Voice} context, extra
 (unwanted) staves will appear.  See @rprogram{An extra staff appears}.}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Chord repetition}.
 
@@ -772,7 +772,7 @@ use a double-percent symbol.
 {isolated-percent-repeats.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{percent repeat},
 @rglos{simile}.
@@ -886,6 +886,6 @@ the last value is used:
 {cross-staff-tremolos.ly}
 
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Repeats}.

@@ -1631,7 +1631,7 @@ de visuellement décaler les notes affublées de hampe sans toutefois
 bouger les rondes, hormis dans le cas d'un réel chevauchement ou lorsque
 ces voix se croisent (@code{\voiceThree} au dessus de@code{\voiceOne}).
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Instanciation explicite des voix},
 @rlearning{Exemple concret}.

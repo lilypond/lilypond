@@ -75,7 +75,7 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 * Orden de disposición de los contextos::
 @end menu
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Contextos y grabadores}.
 
@@ -152,7 +152,7 @@ la definición de contexto de un bloque @code{\layout} no se
 repiten dentro del correspondiente bloque @code{\midi}, la letra y
 la música dejarán de estar sincronizadas dentro del MIDI.
 
-@seealso
+@morerefs
 Archivos instalados:
 @file{ly/engraver-init.ly}.
 @file{ly/performer-init.ly}.
@@ -505,7 +505,7 @@ se va a modificar un solo contexto, debe usarse un bloque
 @code{\with}, véase
 @ref{Cambiar solamente un contexto determinado}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Organizar las piezas mediante variables}.
 
@@ -829,7 +829,7 @@ de compás @code{Bar_number_engraver}.
 
 @end itemize
 
-@seealso
+@morerefs
 Archivos instalados:
 @file{ly/engraver-init.ly}.
 
@@ -1135,7 +1135,7 @@ Una instrucción predefinida tal como @code{\dynamicUp}
 
 @end itemize
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Modos de entrada}
 
@@ -1166,7 +1166,7 @@ de lo contrario se usa el valor predeterminado que LilyPond lleva
 preprogramado.
 @end itemize
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Modificar las propiedades de los contextos}.
 
@@ -1401,7 +1401,7 @@ de contextos se deben repetir dentro de un bloque @code{\midi} de
 manera que la salida MIDI dependa de las mismas relaciones de
 contexto.
 
-@seealso
+@morerefs
 
 Referencia de funcionamiento interno:
 @rinternals{Note_heads_engraver},
@@ -1532,7 +1532,7 @@ recolocación de contextos temporales: véase
 @ref{Modificación de pentagramas sueltos} y
 @ref{Técnicas específicas para la letra}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Anidado de expresiones musicales}.
 
@@ -1986,7 +1986,7 @@ tales como
 
 @end ignore
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{Backend},
 @rinternals{All layout objects},
@@ -2141,7 +2141,7 @@ Traducción @expansion{} Propiedades de contexto modificables por el
 usuario.
 @end ifnothtml
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{Tunable context properties}.
 
@@ -2312,7 +2312,7 @@ Mostraremos a continuación cómo localizar esta información en el
 manual de notación y en la referencia de funcionamiento interno.
 @end ignore
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{Backend}
 
@@ -2495,7 +2495,7 @@ automáticamente) puede examinarse, véase
 ser de utilidad en la determinación de lo que puede modificarse
 por medio de una instrucción @code{\tweak}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Métodos de trucaje}.
 
@@ -3312,7 +3312,7 @@ En música polifónica, en general es mejor especificar una voz
 explícita que cambiar la dirección de un objeto.  Para ver más
 información, véase @ref{Varias voces}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Objetos interiores al pentagrama}.
 
@@ -3379,7 +3379,7 @@ de la fuente al cambio equivalente en @code{staff-space}.  Para
 ver una explicación y un ejemplo de su utilización, consulte
 @rlearning{Longitud y grosor de los objetos}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Longitud y grosor de los objetos}.
 
@@ -3415,7 +3415,7 @@ izquierdo en -5, su límite derecho en 10, el inferior en -3 y el
 superior e 15, todos ellos medidos a partir del punto de
 referencia del objeto en unidades de espacios de pentagrama.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Distancias y medidas}.
 
@@ -3779,7 +3779,7 @@ Si se usa @code{\endSpanners} no es necesario cerrar
 \startTextSpan con \stopTextSpan, ni cerrar los reguladores con
 @code{\!}.
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -4224,7 +4224,7 @@ Para los cambios de clave explícitos, la propiedad
 @code{explicitClefVisibility} controla tanto el símbolo de clave
 como el símbolo de transposición o de octava asociado.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos}
 
@@ -4374,7 +4374,7 @@ ajustes finos a la apariencia de la partitura impresa.
 * Contenedores unpure-pure::
 @end menu
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Trucar la salida},
 @rlearning{Otras fuentes de información}.
@@ -4445,7 +4445,7 @@ Hay propiedades especiales que se encuentran en
 @code{break-aligned-interface} para el posicionamiento de las
 letras de ensayo sobre dichos objetos.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Uso del break-alignable-interface}.
 
@@ -4825,7 +4825,7 @@ marcado @code{\epsfile} y @code{\postscript} respectivamente;
 véase @ref{Graphic}.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Notación gráfica dentro de elementos de marcado},
 @ref{Formatear el texto},
@@ -5084,7 +5084,7 @@ instrucción @code{\tweak}.  Sin embargo, se puede sobreescribir la
 propiedad @code{tie-configuration} de @code{TieColumn} para fijar
 la línea de inicio y la dirección según se requiera.
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{TieColumn}.
 
@@ -5207,7 +5207,7 @@ La instrucción @code{\alterBroken} no es efectiva para propiedades
 de los objetos extensos accedidas antes del salto de línea, como
 @code{direction}.
 
-@seealso
+@morerefs
 Extender LilyPond:
 @rextend{Trucos difíciles}.
 
@@ -5336,7 +5336,7 @@ que no lo es, el resultado puede ser inesperado.}
 @section Uso de las funciones musicales
 @translationof Using music functions
 
-@c TODO -- add @seealso, etc. to these subsections
+@c TODO -- add @morerefs, etc. to these subsections
 
 Dondequiera que se necesite reutilizar trucos con distintas
 expresiones musicales, con frecuencia conviene hacer que el truco
@@ -5410,7 +5410,7 @@ Para ver una lista de los predicados de tipo disponibles, consulte
 @ref{Predicados de tipo predefinidos}.  También se permiten los
 predicados de tipo definidos por el usuario.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Predicados de tipo predefinidos}.
 

@@ -358,7 +358,7 @@ c'4 e g
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{repeat},
 @rglos{volta}
@@ -543,7 +543,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Bar lines},
 @ref{Formatting text}
@@ -671,7 +671,7 @@ a'4 b c | a'4 b c
 @rprogram{余計な譜が表示される} を参照してください。}
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Chord repetition}
 
@@ -784,7 +784,7 @@ a'4 b c | a'4 b c
 {isolated-percent-repeats.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{percent repeat},
 @rglos{simile}
@@ -900,6 +900,6 @@ a'4 b c | a'4 b c
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Repeats}

@@ -87,7 +87,7 @@ Per localitzar els fitxers d'inici com @file{arabic.ly} o
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {makam-example.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{Common Practice Period},
 @rglos{makamlar}.
@@ -166,7 +166,7 @@ apareix a @ref{Música sense compassos}.
 @end itemize
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Notació comuna per a músiques no occidentals},
 @ref{Armadura de la tonalitat},
@@ -225,7 +225,7 @@ alterar mitjançant aquest mètode.
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Noms de les notes en altres llengües},
 @ref{Notació comuna per a músiques no occidentals}.
@@ -340,7 +340,7 @@ els maqams més comuns a armadures de tonalitat:
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{maqam},
 @rglos{bayati},
@@ -388,7 +388,7 @@ barrat automàtic i/o utilitzar indicacions compostes de compàs.
 {arabic-improvisation.ly}
 
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{semai},
 @rglos{taqasim}.
@@ -441,7 +441,7 @@ els modes poc usuals que tractem a aquesta secció.
 @end lilypond
 
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{World music}.
 
@@ -599,7 +599,7 @@ Per veure una explicació més general sobre la notació musical no
 occidental, consulteu
 @ref{Notació comuna per a músiques no occidentals}.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{makam},
 @rglos{makamlar}.

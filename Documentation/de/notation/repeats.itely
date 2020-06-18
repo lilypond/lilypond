@@ -310,7 +310,7 @@ Bindebögen können auch an eine zweite Klammer angefügt werden:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{repeat},
 @rglos{volta}.
@@ -481,7 +481,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Taktstriche},
 @ref{Text formatieren}.
@@ -614,7 +614,7 @@ notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
 zusätzliche (ungewollte) Systeme.
 Siehe auch @rprogram{Ein zusätzliches System erscheint}.}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Akkord-Wiederholungen}.
 
@@ -720,7 +720,7 @@ benützten ein doppeltes Prozent-Symbol.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{percent repeat},
 @rglos{simile}.
@@ -816,7 +816,7 @@ benutzte Wert eingesetzt (gespeichert in @code{tremoloFlags}):
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Repeats}.
 

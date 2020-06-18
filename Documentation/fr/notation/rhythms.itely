@@ -179,7 +179,7 @@ cette forme de notation, reportez vous à @ref{Notation proportionnelle}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{breve},
 @rglos{longa},
@@ -369,7 +369,7 @@ des notes sans imprimer de crochet, comme indiqué au chapitre
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{triplet,triolet},
 @rglosnamed{tuplet,n-olet},
@@ -474,7 +474,7 @@ manière de comprimer ou étirer de la musique :
 Cette technique est tout à fait appropriée à la notation polymétrique --
 voir @ref{Notation polymétrique}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{N-olets},
 @ref{Notation polymétrique},
@@ -702,7 +702,7 @@ permet d'obtenir une meilleure lisibilité.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{tie,liaison de tenue},
 @rglos{laissez vibrer}.
@@ -805,7 +805,7 @@ collision des silences laissera ces silences tranquilles.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{breve},
 @rglos{longa},
@@ -914,7 +914,7 @@ rien du tout, pas même un symbole transparent.
 { \skip 1 \skip1 \skip 1 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets}.
 
@@ -1068,7 +1068,7 @@ numéros de mesure.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{multi-measure rest,silence multimesures}.
 
@@ -1347,7 +1347,7 @@ rubrique @ref{Définition des règles de ligature automatique}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{time signature,métrique}.
 
@@ -1484,7 +1484,7 @@ calculs d'espacement horizontal.
 Pour de plus amples détails, veuillez consulter
 @ref{Mise en forme du texte}.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{metronome,métronome},
 @rglosnamed{metronomic indication,indication métronomique},
@@ -1574,7 +1574,7 @@ La commande @code{\partial} détermine la propriété
 @code{Timing.measurePosition}, nombre rationnel qui indique combien de
 temps est déjà passé dans la mesure.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{anacrusis,anacrouse}.
 
@@ -1690,7 +1690,7 @@ partition, même si vous ne les placez que dans un simple contexte
 @code{\cadenzaOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{cadenza,cadence}.
 
@@ -1879,7 +1879,7 @@ valeurs.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{polymetric,polymétrie},
 @rglosnamed{polymetric time signature,métrique composite},
@@ -1996,7 +1996,7 @@ triolet, en notes ayant le même facteur d'échelle que les otes saisies.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{tie,liaison de tenue}.
 
@@ -2114,7 +2114,7 @@ l'aide de la fonction musicale @code{\reduceChords} :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
@@ -2216,7 +2216,7 @@ possibles ; voir @ref{Définition des règles de ligature automatique}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {partcombine-and-autobeamoff.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Barres de ligature manuelles},
 @ref{Définition des règles de ligature automatique}.
@@ -2576,7 +2576,7 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Métrique}.
 
@@ -2741,7 +2741,7 @@ supplémentaire que sur sa gauche ; autrement dit, c'est la ligature
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Direction et positionnement},
 @ref{Notes d'ornement}.
@@ -2814,7 +2814,7 @@ approximative, la sortie MIDI sera quant à elle parfaitement
 @code{\featherDurations}.
 @endpredefined
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
@@ -3186,7 +3186,7 @@ Le type de barre de mesure par défaut utilisé pour l'insertion
 automatique est @code{"|"}.  Vous pouvez en changer à tout moment grâce
 à @samp{\set Timing.defaultBarType = @var{type_de_barre}}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Regroupement de portées},
 @ref{Répétitions et reprises},
@@ -3287,7 +3287,7 @@ numéros de mesure :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
@@ -3386,7 +3386,7 @@ l'on recopie.  Cela se fait avec @code{\barNumberCheck}.  Par exemple,
 affiche un avertissement lors du traitement si le numéro de mesure à ce
 point (variable @code{currentBarNumber}) n'est pas égal à 123.
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
@@ -3538,7 +3538,7 @@ sont inscrites dan le fichier @file{scm/translation-functions.scm}.
 Elles seront une source d'inspiration en matière de fonctions de
 formatage.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Alignement des objets},
 @ref{La fonte Emmentaler},
@@ -3730,7 +3730,7 @@ désactivés dans cette même expression.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{grace notes,ornements},
 @rglosnamed{acciaccatura,acciaccature},
@@ -3865,7 +3865,7 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{cadenza}.
 
@@ -3945,7 +3945,7 @@ durée de n/d fois une ronde. Par conséquent, @code{ly:make-moment 1/8}
 correspond à une croche, et @code{ly:make-moment 7/16} à la durée de
 sept doubles croches.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Musique sans métrique},
 @ref{Numéros de mesure}.

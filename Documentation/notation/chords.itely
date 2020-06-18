@@ -78,7 +78,7 @@ Chord mode and note mode can be mixed in sequential music:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{chord}.
 
@@ -211,7 +211,7 @@ to create a major triad.
 
 @end multitable
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Common chord modifiers},
 @ref{Extended and altered chords}.
@@ -370,7 +370,7 @@ Chord modifiers that can be used to produce a variety of
 standard chords are shown in
 @ref{Common chord modifiers}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Chord inversions and specific voicings},
 @ref{Common chord modifiers}.
@@ -419,7 +419,7 @@ functions may be used not only in chord mode but also
 with @code{<...>} chords constructs explained in
 @ref{Chorded notes}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Extended and altered chords},
 @ref{Chorded notes}.
@@ -538,7 +538,7 @@ Rests passed to a @code{ChordNames} context will cause the
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{chord}.
 
@@ -786,7 +786,7 @@ used when the root is altered.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Chord name chart},
 @ref{Common chord modifiers}.
@@ -889,7 +889,7 @@ example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 @end ignore
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{figured bass}.
 
@@ -1086,7 +1086,7 @@ End of continuation line
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Chords}.
 
@@ -1177,7 +1177,7 @@ or below the staff.
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Chords}.
 

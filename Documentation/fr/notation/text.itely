@@ -188,7 +188,7 @@ dyn =
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Commentaires textuels},
 @ref{Doigtés},
@@ -266,7 +266,7 @@ textuelles et articulations, reportez-vous au chapitre
 @code{\textLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Positionnement des objets}.
 
@@ -361,7 +361,7 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-custom-text-spanner-postfix.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Nuances},
@@ -477,7 +477,7 @@ de la ligne suivante.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Indications de repère},
 @ref{La fonte Emmentaler},
@@ -554,7 +554,7 @@ détail au chapitre @ref{Texte avec sauts de page}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Plusieurs partitions dans un même ouvrage},
@@ -694,7 +694,7 @@ anglais).@*
 Le fonctionnement interne de ces commandes et la façon d'en implémenter
 de nouveaux est abordée dans @rextend{Fonctions pour markups}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Commandes pour markup},
 @ref{Vue d'ensemble des objets textuels}.
@@ -900,7 +900,7 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @code{\larger}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @rusernamed{Font,Fonte},
 @ref{Fontes},
@@ -1181,7 +1181,7 @@ le montre l'exemple suivant :
 Une liste des différentes commandes permettant d'aligner du texte en
 mode @emph{markup} est disponible à l'annexe @ref{Align}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Déplacement d'objets}.
 
@@ -1351,7 +1351,7 @@ c'
 L'annexe @ref{Graphic} répertorie les différentes commandes en matière
 de graphisme.
 
-@seealso
+@morerefs
 Manuel de notation :
 @rusernamed{Align,Alignement},
 @ref{Annotations éditoriales},
@@ -1488,7 +1488,7 @@ Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.
 Les différentes commandes @emph{markup} relatives à la notation musicale
 sont répertoriées à l'annexe @ref{Music}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{La fonte Emmentaler},
 @rusernamed{Music,Musique},
@@ -1563,7 +1563,7 @@ anglais).
 @code{\markuplist}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Commandes pour liste de markups}.
 
@@ -1812,7 +1812,7 @@ deux prochaines parties :
 @ref{Attribution d'une fonte en particulier}
 et @ref{Choix des fontes par défaut}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{La fonte Emmentaler},
 @ref{Notation musicale dans du texte formaté},
@@ -1859,7 +1859,7 @@ lilypond -dshow-available-fonts
 @end example
 @noindent
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Choix des fontes par défaut},
 @ref{Tout savoir sur les fontes}.
@@ -1989,7 +1989,7 @@ peut donc disposer de son propre jeu de fontes grâce à un simple appel à
 @}
 @end example
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Attribution d'une fonte en particulier},
 @rusernamed{Font,Fonte},

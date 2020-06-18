@@ -96,7 +96,7 @@ Bár a hiányzó időtartam ezen egyszerű példánál a zenei kimenetből
 egyértelműen látszik, a figyelmeztető üzenet célravezetően
 hívja fel a figyelmet a hiányzó @code{4}-re a 3. ütemben.
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Bar and bar number checks}.
 
@@ -235,7 +235,7 @@ rendszer szerint határozhatóak meg. Ezekre a rendszerekre látható néhány p
 az @ruser{Automatic accidentals} c. fejezetben.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Note names in other languages},
 @ruser{Accidentals},
@@ -340,7 +340,7 @@ c4~( c8 d~ 4 e)
 @end lilypond
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Ties},
 @ruser{Slurs},
@@ -442,7 +442,7 @@ c2\< c2\ff\> c2 c2\!
 @end lilypond
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions},
@@ -475,7 +475,7 @@ a2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Writing text}.
 
@@ -524,7 +524,7 @@ a8 c b4 d8. c16 b4 |
 @end lilypond
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Automatic beams},
 @ruser{Manual beams}.
@@ -613,7 +613,7 @@ c2 \acciaccatura b16 c2
 @end lilypond
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Grace notes},
 @ruser{Tuplets},
@@ -882,7 +882,7 @@ szolgáló @w{@code{\new ChoirStaff}}. Ezek hasonló kontextusok, mint a
 össze az ütemvonalakat.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
@@ -924,7 +924,7 @@ r4 <c e g>~ <c f a>2 |
 r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Chorded notes}.
 
@@ -949,7 +949,7 @@ még nem tárgyaltunk. Ezt most sem fogjuk megtenni. Ehelyett a
 tankönyv megfelelő részére hivatkozunk, amely részletesen
 elmagyarázza a témakört.
 
-@seealso
+@morerefs
 Tankönyv:
 @ref{A szólamok zenét tartalmaznak}.
 
@@ -1172,7 +1172,7 @@ kezdetű áriájában a @notation{Largo} szó @notation{go} szótagját és az
 @end lilypond
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Vocal music}.
 
@@ -1214,7 +1214,7 @@ mely Händel @notation{Júdás Makkabeus} c. oratóriumából való:
 változók segítségével. Ez a módszer a @ref{Művek szervezettebbé tétele változók segítségével}
 c. szakaszban olvasható.
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Vocal music}.
 

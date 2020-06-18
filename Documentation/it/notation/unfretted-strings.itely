@@ -71,7 +71,7 @@ come eseguire gli accordi, vedi @ref{Arpeggio}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Modelli per quartetto d'archi}.
 
@@ -136,7 +136,7 @@ a'2^\markup { \small "sul A" }
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Articolazioni e abbellimenti},
 @ref{Indicazioni di numero di corda},
@@ -205,7 +205,7 @@ far apparire i punti.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{harmonics,armonici}.
 

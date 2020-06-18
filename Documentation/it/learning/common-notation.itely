@@ -99,7 +99,7 @@ Sebbene in questo semplice esempio la durata mancante sia evidente nella
 partitura generata, l'avvertimento nel terminale è molto più efficace
 nel guidare l'attenzione al @code{4} mancante nella terza battuta.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Controlli di battuta e del numero di battuta}.
 
@@ -251,7 +251,7 @@ sia possibile produrre delle alterazioni in base a regole diverse, si veda
 @ruser{Alterazioni automatiche}.
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Nomi delle note in altre lingue},
 @ruser{Alterazioni},
@@ -364,7 +364,7 @@ possono essere annidate le une dentro le altre.
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Legature di valore},
 @ruser{Legature di portamento},
@@ -472,7 +472,7 @@ il comando @code{\!}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Articolazioni e abbellimenti},
 @ruser{Indicazioni di diteggiatura},
@@ -504,7 +504,7 @@ a'2_\markup {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Inserimento del testo}.
 
@@ -560,7 +560,7 @@ riattivarlo.
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Travature automatiche},
 @ruser{Travature manuali}.
@@ -655,7 +655,7 @@ musicale le parole chiave @code{\appoggiatura} o @code{\acciaccatura}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Abbellimenti},
 @ruser{Gruppi irregolari},
@@ -930,7 +930,7 @@ all'estremità sinistra di ogni sistema e controlla inoltre l'estensione
 delle linee della battuta.
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Tastiera e altri strumenti multirigo},
 @ruser{Aspetto del rigo}.
@@ -976,7 +976,7 @@ parentesi angolari.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Note in un accordo}.
 
@@ -1001,7 +1001,7 @@ riferimento a concetti non ancora affrontati, quindi non la
 presenteremo subito.  Saranno le sezioni successive a introdurre
 questi concetti e a spiegarli via via.
 
-@seealso
+@morerefs
 Manuale di Apprendimento:
 @ref{Le voci contengono la musica}.
 
@@ -1232,7 +1232,7 @@ Ecco un esempio tratto dal @notation{Figaro} di Rossini, dove
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Musica vocale}.
 
@@ -1277,7 +1277,7 @@ mediante l'uso di variabili. Di queste si parla più approfonditamente
 in @ref{Organizzare i brani con le variabili}.
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Musica vocale}.
 

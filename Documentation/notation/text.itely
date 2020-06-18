@@ -169,7 +169,7 @@ dyn =
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Formatting text},
 @ref{Text scripts},
@@ -243,7 +243,7 @@ articulations, see @rlearning{Placement of objects}.
 @code{\textLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Placement of objects}.
 
@@ -339,7 +339,7 @@ LilyPond is only able to handle one text spanner per voice.
 {dynamics-custom-text-spanner-postfix.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Line styles},
 @ref{Dynamics},
@@ -451,7 +451,7 @@ the next line.
 {printing-marks-on-every-staff.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Rehearsal marks},
 @ref{Formatting text},
@@ -531,7 +531,7 @@ requires, are described in @ref{Multi-page markup}.
 {stand-alone-two-column-markup.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Formatting text},
 @ref{File structure},
@@ -658,7 +658,7 @@ An exhaustive list of @code{\markup}-specific commands can be found in
 The inner workings of these commands, and how to implement new ones, is
 explained in @rextend{Markup functions}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Text objects overview},
 @ref{Text markup commands}.
@@ -856,7 +856,7 @@ Defining custom font sets is also possible, as explained in
 @code{\larger}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Font},
 @ref{New dynamic marks},
@@ -1173,7 +1173,7 @@ as shown in the following example.
 An exhaustive list of text alignment commands can be found in
 @ref{Align}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Moving objects}.
 
@@ -1339,7 +1339,7 @@ c'
 An exhaustive list of graphics-specific commands can be found in
 @ref{Graphic}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Align},
 @ref{Dimensions},
@@ -1473,7 +1473,7 @@ A whole score can even be nested inside a markup object:
 An exhaustive list of music notation related commands can be found in
 @ref{Music}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Music},
 @ref{The Emmentaler font},
@@ -1538,7 +1538,7 @@ a list of markup lists.
 An exhaustive list of markup list commands can be found in
 @ref{Text markup list commands}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Text markup list commands}.
 
@@ -1775,7 +1775,7 @@ Although it is easy to switch between preconfigured fonts, it is also
 possible to use other fonts, as explained in the following sections:
 @ref{Single entry fonts} and @ref{Entire document fonts}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{The Emmentaler font},
 @ref{Music notation inside markup},
@@ -1821,7 +1821,7 @@ available fonts on the operating system:
 lilypond -dshow-available-fonts
 @end example
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Fonts explained},
 @ref{Entire document fonts}.
@@ -1946,7 +1946,7 @@ for each, simply call @code{set-global-fonts} again, like this:
 @}
 @end example
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Fonts explained},
 @ref{Single entry fonts},

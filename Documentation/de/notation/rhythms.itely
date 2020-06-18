@@ -163,7 +163,7 @@ siehe @ref{Richtung und Platzierung}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{breve},
 @rglos{longa},
@@ -291,7 +291,7 @@ zu setzen, siehe @ref{Tondauern skalieren}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{triplet},
 @rglos{tuplet},
@@ -406,7 +406,7 @@ ausgedehnt werden kann:
 Eine Anwendung für diesen Befehl ist polymetrische Notation,
 siehe @ref{Polymetrische Notation}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Andere rhythmische Aufteilungen},
 @ref{Unsichtbare Pausen},
@@ -606,7 +606,7 @@ Objekten im Notensystem zusammenstoßen.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -717,7 +717,7 @@ Auflösung von Zusammenstößen diese Pausen nicht mit einbezieht.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{breve},
 @rglos{longa},
@@ -812,7 +812,7 @@ Durch ihn wird überhaupt nichts gesetzt, auch keine transparenten Objekte.
 { \skip 1 \skip1 \skip 1 }
 @end lilypond
 
-@seealso
+@morerefs
 Handbuch zum lernen:
 @rlearning{Sichtbarkeit und Farbe von Objekten}.
 
@@ -986,7 +986,7 @@ Taktprüfungswarnungen nicht angezeigt.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-markup.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{multi-measure rest}.
 
@@ -1270,7 +1270,7 @@ Notensysteme können eingerichtet werden, indem man den
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{time signature}
 
@@ -1373,7 +1373,7 @@ werden, indem eine leere Zeichenkette hinzugefügt wird:
 
 Zu Einzelheiten siehe @ref{Text formatieren}.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1453,7 +1453,7 @@ sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt
 zu @w{@code{-4}} was soviel bedeutet wie:
 @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{anacrusis}.
 
@@ -1582,7 +1582,7 @@ wie gezeigt in @ref{Polymetrische Notation}.
 @code{\cadenzaOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossar:
 @rglos{cadenza}.
 
@@ -1781,7 +1781,7 @@ entsprechend der Werte angepasst.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -1855,7 +1855,7 @@ Partituren auf Fehler überprüfen möchte: Wenn die Takte nicht
 vollständig gefüllt sind, zeigt die Überbindung genau an, wie viele
 Notenwerte noch in dem jeweiligen Takt fehlen.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{tie}
 
@@ -1958,7 +1958,7 @@ eingeschaltet wird mit @code{\improvisationOn}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Rhythms}.
 
@@ -2059,7 +2059,7 @@ können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Manuelle Balken},
 @ref{Einstellung von automatischen Balken}.
@@ -2414,7 +2414,7 @@ Die Standardbebalkungsregeln finden sich in der Datei
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{scm/beam-settings.scm}.
 
@@ -2568,7 +2568,7 @@ Gruppe gewertet wird).
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Richtung und Platzierung},
 @ref{Verzierungen}.
@@ -2644,7 +2644,7 @@ nur annähernd, aber die MIDI-Ausgabe ist exakt.
 @code{\featherDurations}.
 @endpredefined
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Rhythms}.
 
@@ -2928,7 +2928,7 @@ Der automatisch erzeugte Taktstrich ist @code{"|"}.  Das kann
 jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
 @var{Taktstrichart} geändert werden.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Zeilenumbrüche},
 @ref{Wiederholungszeichen},
@@ -3025,7 +3025,7 @@ c1 | c | c | c
 {removing-bar-numbers-from-a-score.ly}
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Rhythms}.
 
@@ -3122,7 +3122,7 @@ Eine Warnung wird ausgegeben, wenn der interne Zähler
 @code{currentBarNumber} von LilyPond
 nicht mit dem Wert 123 übereinstimmt.
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Rhythms}.
 
@@ -3282,7 +3282,7 @@ Die Datei @file{scm/translation-functions.scm} enthält die Definitionen
 von @code{format-mark-numbers} und @code{format-mark-letters}.  Sie
 können als Anregung für andere Formatierungsfunktionen genommen werden.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Die Emmentaler-Schriftart},
 @ref{Text formatieren},
@@ -3456,7 +3456,7 @@ Standard eingestellt:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -3614,7 +3614,7 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{cadenza}.
 
@@ -3701,7 +3701,7 @@ die Dauer Zähler/Nenner einer ganzen Note.  Zum Beispiel heißt
 @code{ly:make-moment 7 16} die Dauer von sieben Sechszehntelnoten.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Taktzahlen},
 @ref{Musik ohne Metrum}.

@@ -200,7 +200,7 @@ d'objet sont modifiées par des commandes différentes, si bien qu'il est
 bon de savoir reconnaître le type d'un objet ou d'une propriété en
 fonction de son nom.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{Modification de propriétés}.
 
@@ -567,7 +567,7 @@ avec la commande @code{\override} :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ruser{La commande d'affinage (tweak)}.
 
@@ -624,7 +624,7 @@ notes d'un accord.  Néanmoins, l'instruction @code{\single} ne permet
 pas de convertir des @code{\revert}, @code{\set} ou @code{\unset} en
 @code{\tweak}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{La commande tweak},
 @ref{Utilisation de variables dans les retouches}.
@@ -1056,7 +1056,7 @@ et voilà les paroles en italiques.
 @warning{Dans la saisie des paroles, pensez à toujours laisser une
 espace entre la dernière syllabe et l'accolade fermante.}
 
-@seealso
+@morerefs
 Manuel d'extension :
 @rextend{Tutoriel Scheme}.
 
@@ -1129,7 +1129,7 @@ par des parenthèses et précédés par une apostrophe
   @tab @code{'#(#t #t #f)}
 @end multitable
 
-@seealso
+@morerefs
 Manuel d'extension :
 @rextend{Tutoriel Scheme}.
 
@@ -4158,7 +4158,7 @@ voix ; on a alors l'impression que la liaison couvre les deux voix.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{Le préfixe once},
 @ref{La propriété stencil}.
@@ -4239,7 +4239,7 @@ métronomique transparente repousse vers le haut l'indication de tempo,
 contrairement à la seconde (avec le stencil désactivé) qui la laisse à
 sa place.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{system,système}.
 

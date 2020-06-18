@@ -1791,7 +1791,7 @@ eine Gruppe an Fonts, die mehrere Stile darstellen, bilden
 eine Schriftfamilie (engl. typeface).
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Fonts},
 @ref{Sonderzeichen}.
@@ -1813,7 +1813,7 @@ Bögen, Bindebögen, Fingersatz, Schlüssel usw., werden
 @qq{Layout-Objekte} genannt, auch oft als @qq{GRaphische OBjekte}
 bezeichnet, was dann zu  @strong{grob} abgekürzt wird.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Objects and interfaces},
 @rlearning{Naming conventions of objects and properties},
@@ -1839,7 +1839,7 @@ Standardverhalten von Grobs.  Sie werden zwischen vielen Objekten
 geteilt.  Entgegen ihrer Bezeichnung können sie jedoch mit
 @code{\override} und @code{\revert} verändert werden.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{mutable}.
 
@@ -1859,7 +1859,7 @@ haben, werden in ein Objekt gesammelt, das als @code{grob-interface}
 oder auch @qq{Schnittstelle} (engl. interface) bezeichnet wird.
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Objekte und Schnittstellen},
 @rlearning{Regeln zur Benennung von Objekten und Eigenschaften},
@@ -1902,7 +1902,7 @@ einen Grob gelten.  Normalerweise werden Listen von anderen
 Objekten oder Resultate einer Berechnung in mutablen Eigenschaften
 gespeichert.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{immutable}.
 
@@ -2034,7 +2034,7 @@ Stencil bestehen.
 Die @code{stencil}-Eigenschaft, die einen Grob mit seinem Stencil
 verbindet, ist in der @code{grob-interface}-Schnittstelle definiert.
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{grob-interface}.
 

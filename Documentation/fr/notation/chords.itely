@@ -91,7 +91,7 @@ séquence musicale :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{chord,Accord}.
 
@@ -226,7 +226,7 @@ sert pas à créer une triade majeure.
 
 @end multitable
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Extension et altération d'accords},
 @ref{Modificateurs d'accord usuels}.
@@ -380,7 +380,7 @@ L'automatisation des renversements et la vocification sont abordées dans
 Une table étendue des modificateurs et de leur utilisation est à
 l'annexe @ref{Modificateurs d'accord usuels}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Modificateurs d'accord usuels},
 @ref{Renversement d'accord et vocification spécifique}.
@@ -430,7 +430,7 @@ fonctions ne se limite pas seulement au mode accords ; elles sont aussi
 disponibles dans une construction d'accord avec @code{<...>} comme
 indiqué dans @ref{Notes en accords}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Extension et altération d'accords},
 @ref{Notes en accords}.
@@ -553,7 +553,7 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{chord,Accord}.
 
@@ -792,7 +792,7 @@ réduit à néant si la fondamentale est altérée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Modificateurs d'accord usuels},
 @ref{Table des noms d'accord}.
@@ -917,7 +917,7 @@ pouvez formater à votre convenance grâce aux propriétés des
 déterminé par la propriété @code{baseline-skip}.
 @end ignore
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{figured bass, basse chifrée}.
 
@@ -1115,7 +1115,7 @@ Terminaison d'une prolongation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 
@@ -1206,7 +1206,7 @@ positionner au-dessus ou en dessous de la portée.
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
 

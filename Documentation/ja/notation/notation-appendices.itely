@@ -3151,7 +3151,7 @@ Scheme では、@strong{クロージャ} (@strong{closure}) は@c
 あるスタイルや形のグリフが集まってフォントを形成し、@c
 いくつかのスタイルやサイズのフォントが集まると書体となります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Fonts},
 @ref{Special characters}
@@ -3172,7 +3172,7 @@ LilyPon のオブジェクトの内、
 (@q{GRaphical OBject}, 略して @strong{grob}) と呼ばれます。@c
 これらは @code{Grob} クラスのインスタンスとして表されます。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Objects and interfaces},
 @rlearning{Naming conventions of objects and properties},
@@ -3200,7 +3200,7 @@ LilyPond では、イミュータブル プロパティまたは共有プロパ�
 オブジェクトの間で共有されます。名前に反して実際には
 @code{\override} や @code{\revert} で変更することができます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{mutable}
 
@@ -3217,7 +3217,7 @@ LilyPond では、イミュータブル プロパティまたは共有プロパ�
 あるいは短く@q{インターフェイス} (@q{interface}) と@c
 呼ばれるオブジェクトにまとめられます。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Objects and interfaces},
 @rlearning{Naming conventions of objects and properties},
@@ -3262,7 +3262,7 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 用いられます。通常、他のオブジェクトのリストや、計算結果が@c
 ミュータブル プロパティに格納されます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{immutable}
 
@@ -3398,7 +3398,7 @@ C++ オブジェクトから生成されます。Scheme オブジェクトには
 @code{stencil} プロパティは、@code{grob-inteface} で定義されており、@c
 grob とステンシルを繋ぐ役目を果たします。
 
-@seealso
+@morerefs
 内部リファレンス:
 @rinternals{grob-interface}
 

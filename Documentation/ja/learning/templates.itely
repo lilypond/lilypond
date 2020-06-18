@@ -206,7 +206,7 @@ Layout = \layout @{ ... @}
 見ることができます。 @ref{その他の情報源} を参照してください。
 
 
-@seealso
+@morerefs
 学習マニュアル:
 @ref{変数を用いて楽曲を編成する},
 @ref{合唱テンプレート},
@@ -318,7 +318,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 変更することのできる全ての変数の一覧は @file{ly/ssaattbb.ly} から@c
 見ることができます。 @ref{その他の情報源} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @ref{変数を用いて楽曲を編成する},
 @ref{合唱テンプレート},

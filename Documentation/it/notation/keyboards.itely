@@ -117,7 +117,7 @@ che attraversano le voci, come mostrato in @rlearning{Altri usi delle modifiche 
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Esempio musicale},
 @rlearning{Altri usi delle modifiche con \tweak}.
@@ -259,7 +259,7 @@ di righi diversi, così come per gambi e articolazioni se il loro posizionamento
 Le collisioni risultanti devono essere risolte manualmente, laddove necessario,
 usando i metodi descritti in @rlearning{Correggere elementi della notazione sovrapposti}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Correggere elementi della notazione sovrapposti}.
 
@@ -368,7 +368,7 @@ un'armatura di chiave nel rigo inferiore:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Modifica manuale del rigo}.
 
@@ -455,7 +455,7 @@ regolare velocemente le posizioni verticali di inizio e fine della linea.
 @code{\hideStaffSwitch}.
 @endpredefined
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Keyboards}.
 
@@ -494,7 +494,7 @@ il suo nome deve essere preceduto dal simbolo di cancelletto @code{#}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Keyboards}.
 
@@ -591,7 +591,7 @@ finale che disattiva il pedale.
 Le indicazioni del pedale possono essere poste in un contesto @code{Dynamics},
 che le allinea su una linea orizzontale.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Legature di valore}.
 
@@ -649,7 +649,7 @@ trova in @ref{Accordion Registers}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-register-symbols.ly}
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Keyboards}.
 
@@ -689,7 +689,7 @@ trattate altrove:
 
 @end itemize
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ripetizioni con tremolo},
 @ref{Glissando},
@@ -737,7 +737,7 @@ posizione più bassa del pedale (altezza diesis) e @code{|} è il divisore.
 @code{o} posto prima di un simbolo produrrà un cerchio intorno al simbolo di
 pedale.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Scritte},
 @c Questo nodo porta a una sezione dell'appendice che è generata dai

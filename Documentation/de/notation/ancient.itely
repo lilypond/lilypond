@@ -65,7 +65,7 @@ Alter Musik eingeführt worden:
 @item @ref{Ligaturen}.
 @end itemize
 
-@seealso
+@morerefs
 Glossar:
 @rglos{custos},
 @rglos{ligature},
@@ -173,7 +173,7 @@ verändert werden, sodass man gut mensurale Fähnchen,
 Petrucci-Notenköpfe, klassische Pausen und Vatikana-Schlüssel
 nebeneinander benutzen kann, wenn das gewünscht ist.
 
-@seealso
+@morerefs
 Glossary:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -212,7 +212,7 @@ Siehe auch
 @item @ref{Mensural-Kontexte}.
 @end itemize
 
-@seealso
+@morerefs
 Glossar:
 @rglos{mensural notation}.
 
@@ -256,7 +256,7 @@ Ligatur-Engraver im Stimmenkontext ausgetauscht werden, wie
 erklärt in @ref{Weiße Mensuralligaturen} und
 @ref{Ligaturen der gregorianischen Quadratnotation}.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{ligature}.
 
@@ -346,7 +346,7 @@ und @code{mensural}. Sie werden im folgenden Fragment demonstriert.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{custos}.
 
@@ -365,7 +365,7 @@ Referenz der Interna:
 Es gibt beschränkte Unterstützung für Generalbassziffern aus der
 Barockzeit.  Siehe hierzu @ref{Generalbass}.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{figured bass}.
 
@@ -431,7 +431,7 @@ werden kann. Siehe das folgende Beispiel:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{mensural notation}.
 
@@ -550,7 +550,7 @@ Mensuraler G-Schlüssel im Petrucci-Stil
 
 @end multitable
 
-@seealso
+@morerefs
 Glossar:
 @rglos{mensural notation},
 @rglos{clef}.
@@ -651,7 +651,7 @@ unterschiedlichen Stile dargestellt.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossary:
 @rglos{mensural notation}.
 
@@ -741,7 +741,7 @@ a'8*4/3 a'
 a'\longa
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{mensural notation},
 @rglos{note head}.
@@ -777,7 +777,7 @@ Es gibt keinen eigenen Stil für den neomensuralen oder Petrucci-Stil.
 Für die Notation des Gregorianischen Chorals gibt es keine
 Fähnchen.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -829,7 +829,7 @@ Standardstiles verwendet.
 
 Eine Liste aller Pausen findet sich in @rlsr{Ancient notation}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Pausen}.
 
@@ -878,7 +878,7 @@ also etwa folgendermaßen:
 @end example
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{mensural notation},
 @rglos{Pitch names},
@@ -938,7 +938,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 @end lilypond
 
 
-@seealso
+@morerefs
 Referenz der Interna:
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
@@ -1044,7 +1044,7 @@ wie folgt ausgegeben:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{ligature}.
 
@@ -1082,7 +1082,7 @@ auf @code{vaticana_punctum} um punctum-Neumen zu erzeugen.  Ähnlich
 funktioniert auch der @code{Mensural_ligature_engraver},
 der Mensuralligaturen setzt.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{ligature}.
 
@@ -1266,7 +1266,7 @@ Kombinierter Do/Fa-Hufnagelschlüssel für den historischen Stil
 
 @end multitable
 
-@seealso
+@morerefs
 Glossar:
 @rglos{clef}.
 
@@ -1322,7 +1322,7 @@ kontrolliert, beispielsweise:
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glossar:
 @rglos{accidental},
 @rglos{key signature}.
@@ -1421,7 +1421,7 @@ sich in der Datei @file{gregorian.ly} auch eine Definition für
 @endpredefined
 
 
-@seealso
+@morerefs
 Glossary:
 @rglos{caesura},
 @rglos{divisio}.
@@ -1464,7 +1464,7 @@ Vaticana-Stils zur Verfügung gestellt.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationreferenz:
 @ref{Artikulationszeichen und Verzierungen}.
 
@@ -1510,7 +1510,7 @@ Man kann @code{\augmentum @{a g@}} als Kurznotation für
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Atemzeichen}.
 
@@ -2489,7 +2489,7 @@ fallende Melodielinie zu notieren.
 Die musikalische Funktion @code{\augmentum} muss benutzt werden, um
 augmentum-Punkte hinzuzufügen.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{ligature}.
 
@@ -2557,7 +2557,7 @@ richtigen Werten, sodass man sofort den Choral notieren kann:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{kievan notation}.
 
@@ -2585,7 +2585,7 @@ Er bezeichnet die Position von @code{c}:
   c'
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{kievan notation},
 @rglos{clef}.
@@ -2619,7 +2619,7 @@ b'1 b'2 b'4 b'8 b'\breve b'\longa
 b'2
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{kievan notation},
 @rglos{note head}.
@@ -2655,7 +2655,7 @@ vor allem der Vollständigkeit halber eingesetzt.
 bes' dis'
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{kievan notation},
 @rglos{accidental}.
@@ -2679,7 +2679,7 @@ Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "k"}.
   c \bar "k"
 @end lilypond
 
-@seealso
+@morerefs
 @ref{Takte},
 @ref{Die Emmentaler-Schriftart}
 

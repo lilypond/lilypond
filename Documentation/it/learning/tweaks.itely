@@ -180,7 +180,7 @@ Come vedremo tra poco, ogni tipo di oggetto richiede un comando diverso
 per modificare le sue proprietà, dunque è utile poter riconoscere i tipi
 di oggetti e proprietà dai loro nomi.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Modifica delle proprietà}.
 
@@ -544,7 +544,7 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla Notazione:
 @ruser{Il comando tweak}.
 
@@ -600,7 +600,7 @@ a note individuali in un accordo.  Tuttavia, @code{\single} non converte
 @code{\revert}, @code{\set} e @code{\unset} in modifiche che hanno le
 proprietà di @code{\tweak}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @ref{Il comando di ritocco tweak},
 @ref{Uso delle variabili per modificare la formattazione}.
@@ -1010,7 +1010,7 @@ e tutto il testo è in corsivo.
 sillaba e la parentesi graffa che chiude il blocco.}
 
 
-@seealso
+@morerefs
 Estendere: @rextend{Scheme tutorial}.
 
 
@@ -1086,7 +1086,7 @@ preceduto da un apostrofo
 @end multitable
 
 
-@seealso
+@morerefs
 Estendere: @rextend{Scheme tutorial}.
 
 
@@ -4069,7 +4069,7 @@ attraversare le voci:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @ref{Il prefisso once,,Il prefisso @code{@bs{}once}},
 @ref{La proprietà stencil}.
@@ -4149,7 +4149,7 @@ metronomica trasparente sposta troppo in alto
 l'indicazione di tempo successiva, mentre nel secondo esempio, dove
 viene tolto lo stampo (@emph{stencil}), ciò non accade.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{system,sistema}.
 

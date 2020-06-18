@@ -208,7 +208,7 @@ más específicos.
 Para ver una lista de los predicados de tipo disponibles,
 consulte @ruser{Predicados de tipo predefinidos}.
 
-@seealso
+@morerefs
 
 Referencia de la notación:
 @ruser{Predicados de tipo predefinidos}.
@@ -363,7 +363,7 @@ el @var{cuerpo} sea un
 Para ver una lista de los predicados de tipo disponibles,
 consulte @ruser{Predicados de tipo predefinidos}.
 
-@seealso
+@morerefs
 
 Referencia de la notación:
 @ruser{Predicados de tipo predefinidos}.

@@ -48,7 +48,7 @@ discussed in @ref{Showing melody rhythms}, and
 
 @end itemize
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves}.
@@ -111,7 +111,7 @@ be set explicitly.  Other clefs may be used as well.
 There are a few issues concerning MIDI support for percussion
 instruments; for details please see @ref{Creating MIDI output}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Creating MIDI output},
 @ref{Percussion notes}.
@@ -158,7 +158,7 @@ may be overridden to achieve a pleasing baseline.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Tremolo repeats}.
 
@@ -173,7 +173,7 @@ Certain pitched percussion instruments (e.g., xylophone,
 vibraphone, and timpani) are written using normal staves.
 This is covered in other sections of the manual.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Creating MIDI output}.
 
@@ -398,7 +398,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 Custom percussion styles may also be defined,
 as explained in @ref{Custom percussion staves}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{I'm hearing Voices}.
 
@@ -539,7 +539,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/drumpitch-init.ly}.
 
@@ -587,7 +587,7 @@ created using the @code{\parenthesize} command, see @ref{Parentheses}.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Parentheses}.
 

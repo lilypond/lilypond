@@ -361,7 +361,7 @@ definidos anteriormente con la instrucción @code{\defineBarLine}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{repeat},
 @rglos{volta}.
@@ -558,7 +558,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Barras de compás},
 @ref{Formatear el texto}.
@@ -692,7 +692,7 @@ acordes}.
 @code{Voice}, aparecerán pentagramas no deseados.  Véase
 @rprogram{Aparece un pentagrama de más}.}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Repetición de acordes}.
 
@@ -807,7 +807,7 @@ duraciones mezcladas utilizan un símbolo de porcentaje doble.
 {isolated-percent-repeats.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{percent repeat},
 @rglos{simile}.
@@ -927,6 +927,6 @@ añade una barra de corchea a la plica de la nota.  Si
 {cross-staff-tremolos.ly}
 
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Repeats}.

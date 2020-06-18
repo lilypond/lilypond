@@ -123,7 +123,7 @@ moderna de canto gregoriano.  No muestra líneas divisorias.
 Se pueden definir contextos nuevos de pentagrama único.  Para ver
 más detalles, consulte @ref{Definir contextos nuevos}.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{staff},
 @rglos{staves}.
@@ -268,7 +268,7 @@ ver más detalles, consulte @ref{Definir contextos nuevos}.
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{brace},
 @rglos{bracket},
@@ -332,7 +332,7 @@ anidados.  Para ver más detalles, consulte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Agrupar pentagramas},
 @ref{Nombres de instrumentos},
@@ -393,7 +393,7 @@ nulo, pero se puede activar con una opción de @code{\paper}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Disposición de la página}.
 
@@ -586,7 +586,7 @@ afecta también al espaciado de las líneas adicionales.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{line},
 @rglos{ledger line},
@@ -741,7 +741,7 @@ información sobre @code{\RemoveAllEmptyStaves}, consulte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ossia},
 @rglos{staff},
@@ -841,7 +841,7 @@ consulte @ref{Pentagramas de Ossia}.
 @code{\RemoveAllEmptyStaves}.
 @endpredefined
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{Frenched staff}.
 
@@ -1049,7 +1049,7 @@ setFlute = {
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Variables de paper para desplazamientos y sangrados,,Variables de @code{@bs{}paper} para desplazamientos y sangrados},
 @ref{Modificar los complementos (plug-ins) de contexto}.
@@ -1238,7 +1238,7 @@ oboeNotes = \relative {
 
 Las citas también se pueden etiquetar, véase @ref{Uso de etiquetas}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Transposición de los instrumentos},
 @ref{Uso de etiquetas}.
@@ -1560,7 +1560,7 @@ bassoonNotes = \relative c {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Citar otras voces},
 @ref{Transposición de los instrumentos},

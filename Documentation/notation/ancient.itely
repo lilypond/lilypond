@@ -63,7 +63,7 @@ notation,
 @item @ref{Ligatures}.
 @end itemize
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{custos},
 @rglos{ligature},
@@ -157,7 +157,7 @@ others, so that one can use mensural flags, petrucci note heads,
 classical rests and vaticana clefs in the same piece, if one
 wishes.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -190,7 +190,7 @@ and @code{MensuralStaff}.  See further
 @item @ref{Mensural contexts}.
 @end itemize
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation}.
 
@@ -239,7 +239,7 @@ specialized ligature engravers in the @code{Voice} context,
 as explained in @ref{White mensural ligatures} and
 @ref{Gregorian square neume ligatures}.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ligature}.
 
@@ -337,7 +337,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{custos}.
 
@@ -396,7 +396,7 @@ entering the chant, as the following excerpt demonstrates:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation}.
 
@@ -451,7 +451,7 @@ It is possible to manually force a clef glyph to be typeset on an
 arbitrary line, as described in @ref{Clef}.  For the complete range of
 possible clefs see @ref{Clef styles}.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation},
 @rglos{clef}.
@@ -567,7 +567,7 @@ differences in style:
 @ref{Time signature}, gives a general introduction to
 the use of time signatures.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation}.
 
@@ -655,7 +655,7 @@ a'\longa
 @ref{Note head styles}, gives an overview of all available note head
 styles.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation},
 @rglos{note head}.
@@ -691,7 +691,7 @@ vertically aligned with a staff line.
 There is no particular flag style for neo-mensural or Petrucci notation.
 There are no flags in Gregorian chant notation.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -726,7 +726,7 @@ r\longa^"neomensural" r\breve r1 r2 r4 r8 r16
 There are no 32nd and 64th rests specifically for the mensural or
 neo-mensural styles.  Rests from the default style are used.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation}.
 
@@ -775,7 +775,7 @@ The style for accidentals and key signatures is controlled by the
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{mensural notation},
 @rglos{Pitch names},
@@ -833,7 +833,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
@@ -926,7 +926,7 @@ Without replacing @code{Ligature_bracket_engraver} with
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ligature}.
 
@@ -960,7 +960,7 @@ head style.  Still, the note head style can be set, e.g., to
 @code{Mensural_ligature_engraver} automatically assembles
 mensural ligatures.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ligature}.
 
@@ -1003,7 +1003,7 @@ the following excerpt demonstrates:
 @end lilypond
 
 
-@c @seealso
+@c @morerefs
 @c TODO: nothing here yet ...
 
 
@@ -1138,7 +1138,7 @@ hufnagel style combined do/fa clef
 @end lilypond
 @end multitable
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{clef}.
 
@@ -1190,7 +1190,7 @@ The style for accidentals and key signatures is controlled by the
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{accidental},
 @rglos{key signature}.
@@ -1280,7 +1280,7 @@ Therefore, @file{gregorian.ly} also defines @code{\virgula} and
 @code{\finalis}.
 @endpredefined
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{caesura},
 @rglos{divisio}.
@@ -1344,7 +1344,7 @@ specifically designed for use with notation in
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Articulations and ornamentations}.
 
@@ -1386,7 +1386,7 @@ note that you can say @code{\augmentum @{a g@}} as a shortcut for
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Breath marks}.
 
@@ -2346,7 +2346,7 @@ respectively.
 
 Use the unary music function @code{\augmentum} to add augmentum dots.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ligature}.
 
@@ -2412,7 +2412,7 @@ values, so you can immediately go ahead entering the chant:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{kievan notation}.
 
@@ -2437,7 +2437,7 @@ It is used to indicate the position of @code{c}:
   c'
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{kievan notation},
 @rglos{clef}.
@@ -2477,7 +2477,7 @@ b'1 b'2 b'4 b'8 b'\breve b'\longa
 b'2
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{kievan notation},
 @rglos{note head}.
@@ -2513,7 +2513,7 @@ primarily for the sake of compatibility.
 bes' dis'
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{kievan notation},
 @rglos{accidental}.
@@ -2536,7 +2536,7 @@ It can be invoked as @code{\bar "k"}.
   c' \bar "k"
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Bars},
 @ref{The Emmentaler font}
@@ -2596,7 +2596,7 @@ The following example demonstrates the use of Kievan ligatures:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ligature}.
 
@@ -2676,7 +2676,7 @@ Note that instrumentName must be set in the music for the incipit to be
 produced.  If no instrument name is required then use
 @code{\set Staff.instrumentName = ""}.
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2702,7 +2702,7 @@ orientation aids that bar lines give.
 @c from lsr and -user
 @c TBC
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2880,7 +2880,7 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2891,7 +2891,7 @@ spirLyr = \lyricmode {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2919,5 +2919,5 @@ spirLyr = \lyricmode {
 @c TBC
 
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...

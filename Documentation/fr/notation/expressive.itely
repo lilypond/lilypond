@@ -224,7 +224,7 @@ Pour plus d'information sur la manière d'ordonner @code{Scripts} et
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{accent},
 @rglos{portato},
@@ -534,7 +534,7 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{al niente},
 @rglos{crescendo},
@@ -679,7 +679,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 L'utilisation des fontes en mode @emph{markup} est abordée au chapitre
 @ref{Sélection de la fonte et de la taille}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Amélioration du rendu MIDI},
 @ref{Gestion des nuances en MIDI},
@@ -872,7 +872,7 @@ liaison :
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{slur,liaison}.
 
@@ -1015,7 +1015,7 @@ détails, référez-vous aux morceaux choisis de la section
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Non-imbrication des crochets et liaisons}.
 
@@ -1082,7 +1082,7 @@ voir @ref{Divisions}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{caesura,césure}.
 
@@ -1127,7 +1127,7 @@ l'intervalle avec la note de départ.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
+@morerefs
 Glossaire musical :
 @rglosnamed{fall,chute},
 @rglosnamed{doit,saut}.
@@ -1240,7 +1240,7 @@ vaguelettes -- voir @ref{Styles de ligne}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{glissando}.
 
@@ -1357,7 +1357,7 @@ liaisons de tenue.  Pour plus d'information, voir
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{arpeggio}.
 
@@ -1511,7 +1511,7 @@ devra être forcée en ajoutant un @code{!} à la note considérée.
 @code{\stopTrillSpan}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{trill,trille}.
 

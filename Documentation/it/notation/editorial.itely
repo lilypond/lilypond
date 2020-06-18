@@ -283,7 +283,7 @@ di 11pt.
 @code{\huge}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Scelta del tipo di carattere e della dimensione},
 @ref{Impostare la dimensione del rigo},
@@ -389,7 +389,7 @@ rigo, come è spiegato in @ref{Direzione e posizionamento}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Direzione e posizionamento}.
 
@@ -453,7 +453,7 @@ nascosta.  Mentre gli oggetti attaccati a note invisibili sono comunque visibili
 @code{\unHideNotes}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuale d'apprendimento:
 @rlearning{Visibilità e colore degli oggetti}.
 
@@ -556,7 +556,7 @@ I colori RGB esatti si specificano con la funzione Scheme @code{rgb-color}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Elenco dei colori}, @ref{Il comando tweak}.
 
@@ -617,7 +617,7 @@ articolazioni è necessario usare un trattino prima del comando @code{\parenthes
 }
 @end lilypond
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Editorial annotations}.
 
@@ -674,7 +674,7 @@ I gambi si possono posizionare sopra o sotto, vedi
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Direzione e posizionamento}.
 
@@ -760,7 +760,7 @@ ma è possibile modificare questo comportamento:
 @code{\balloonLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Editorial annotations}.
 
@@ -825,7 +825,7 @@ Le linee  si estendono a partire dalle linee centrali di ciascun rigo.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Editorial annotations}.
 
@@ -899,7 +899,7 @@ Le parentesi analitiche si possono annidare.
 {analysis-brackets-with-labels.ly}
 
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{Horizontal_bracket_engraver},
 @rinternals{HorizontalBracket},

@@ -85,7 +85,7 @@ Per trovare i file di inizializzazione come @file{arabic.ly} o
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {makam-example.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{Common Practice Period,Periodo di pratica comune},
 @rglos{makamlar}.
@@ -162,7 +162,7 @@ scritti omettendo le stanghette, come è spiegato in @ref{Musica in tempo libero
 @end itemize
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Notazione comune per la musica non occidentale},
 @ref{Armatura di chiave},
@@ -220,7 +220,7 @@ può essere modificato con questo metodo.
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Nomi delle note in altre lingue},
 @ref{Notazione comune per la musica non occidentale}.
@@ -332,7 +332,7 @@ più comuni maqam:
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{maqam},
 @rglos{bayati},
@@ -382,7 +382,7 @@ automatica delle travature e/o usare indicazioni di tempo composto.
 {arabic-improvisation.ly}
 
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{semai},
 @rglos{taqasim}.
@@ -435,7 +435,7 @@ inusuali discussi in questa sezione.
 @end lilypond
 
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{World music}.
 
@@ -591,7 +591,7 @@ e l'alterazione di altezza rappresentata come una frazione dell'intero tono.
 Per una spiegazione più generale della notazione musicale non occidentale, leggere
 @ref{Notazione comune per la musica non occidentale}.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{makam},
 @rglos{makamlar}.

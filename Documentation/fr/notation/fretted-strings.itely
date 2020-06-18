@@ -88,7 +88,7 @@ chapitre @ref{Résolution des collisions}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Arpèges},
 @ref{Clefs},
@@ -171,7 +171,7 @@ g1\4
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Doigtés}.
 
@@ -533,7 +533,7 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hammer-on-and-pull-off-using-chords.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Glissando},
 @ref{Hampes},
@@ -780,7 +780,7 @@ mus = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Fonctions Scheme},
 @ref{Hauteurs avec octave absolue},
@@ -1254,7 +1254,7 @@ propriétés de l'interface dépendent de @code{Voice.TextScript}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @rusernamed{Instrument Specific Markup,
 Markups spécifiques aux instruments (en anglais)}.
@@ -1568,7 +1568,7 @@ d'accord donné, les propriétés de l'interface dépendent de
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Généralités sur le mode accords},
 @ref{Tablatures automatiques},
@@ -1731,7 +1731,7 @@ dépendent de @code{FretBoards.FretBoard}.
 @code{\predefinedFretboardsOn}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Tablatures personnalisées}.
 
@@ -1794,7 +1794,7 @@ MD = #rightHandFinger
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
@@ -1846,7 +1846,7 @@ Cet exemple montre comment indiquer les positions et les barrés :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Indication textuelle avec extension}.
 
@@ -1925,7 +1925,7 @@ ce style de jeu en affectant un profil spécifique aux têtes de note.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Têtes de note spécifiques},
 @ref{Têtes de note}.
@@ -1978,7 +1978,7 @@ ChordsAndSymbols = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{power chord}.
 
@@ -2052,7 +2052,7 @@ moyen de la fonction @code{four-string-banjo} :
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{ly/string-tunings-init.ly}.
 

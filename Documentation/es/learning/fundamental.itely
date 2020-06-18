@@ -261,7 +261,7 @@ limitaciones exactas que afectan a los nombres de variable se
 detallan en @ruser{Estructura del archivo}.
 
 
-@seealso
+@morerefs
 Para ver una definición completa del formato del código de
 entrada, consulte @ruser{Estructura del archivo}.
 
@@ -423,7 +423,7 @@ márgenes (asegúrese de que en su editor de texto cada elemento
 del mismo nivel comienza en la misma posición horizontal).
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Estructura de una partitura}.
 
@@ -494,7 +494,7 @@ llamado @qq{main} en vez de la posición predeterminada que sería
 por debajo.
 
 
-@seealso
+@morerefs
 Los fragmentos de ossia se escriben a menudo sin clave y sin
 indicación de compás, y generalmente en un tipo más pequeño.
 Esto necesitaría más instrucciones que aún no se han visto.
@@ -534,7 +534,7 @@ Esto puede obtenerse tal y como se muestra a continuación.
 { c'8-1--(~^\markup{"anotación textual"} c' d') }
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @ref{Ligaduras de unión y de expresión},
 @ref{Articulaciones y matices dinámicos},
@@ -1056,7 +1056,7 @@ superposiciones}).
 @warning{No se pueden crear letras ni objetos de extensión (como
 ligaduras, reguladores, etc.) @q{entre} voces distintas.}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Varias voces}.
 
@@ -1337,7 +1337,7 @@ error @qq{Esta voz requiere un ajuste de @code{@bs{}voiceXx} o
 @code{@bs{}shiftXx}}.
 
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @ref{Mover objetos}.
 
@@ -1514,7 +1514,7 @@ VerseFour  =
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Música vocal}.
 
@@ -1617,7 +1617,7 @@ a otras sin guión ni barra baja, por ejemplo:
 @code{GregorianTranscriptionStaff}.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Explicación de los contextos}.
 
@@ -1744,7 +1744,7 @@ instancia en particular de un contexto.  Hemos visto esto en la
 sección acerca de la letra, en @ref{Voces y música vocal}.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Crear y referenciar contextos}.
 
@@ -1837,7 +1837,7 @@ Más adelante veremos cómo la salida de LilyPond se puede cambiar
 mediante la modificación del funcionamiento de los Grabadores.
 
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{Engravers and Performers}.
 
@@ -2178,7 +2178,7 @@ instrucciones @code{\set} intercaladas dentro de enunciados
 musicales.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Cambiar los valores por omisión de los contextos},
 @c FIXME
@@ -2349,7 +2349,7 @@ en particular incluyendo la instrucción @code{\set} dentro de un
 bloque @code{\context} de la misma forma.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Modificar los complementos (plug-ins) de contexto},
 @ruser{Cambiar los valores por omisión de los contextos}.
@@ -2569,7 +2569,7 @@ celloMusic = \relative {
 @end lilypond
 
 
-@seealso
+@morerefs
 Las plantillas de inicio se pueden encontrar en el apéndice
 @q{Plantillas}, véase @ref{Plantillas de pentagrama único}.
 
@@ -3246,7 +3246,7 @@ PedalOrganMusic = \relative {
 }  % end Score context
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{system}.
 
@@ -3499,7 +3499,7 @@ lo que nos lleva a
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @ref{Organizar las piezas mediante variables}.
 

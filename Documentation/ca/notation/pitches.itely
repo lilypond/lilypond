@@ -123,7 +123,7 @@ L'altura de les notes de l'expressió musical que segueix a
 @code{\fixed} no resulta afectada per un @code{\relative} que
 l'envolta, que s'estudia a continuació.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{Pitch names}.
 
@@ -313,7 +313,7 @@ independentment del número de semitons de cada un d'ells.
 @end lilypond
 
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{fifth},
 @rglos{interval},
@@ -441,7 +441,7 @@ s'imprimeixen al començament d'un sistema:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{sharp},
 @rglos{flat},
@@ -635,7 +635,7 @@ estan contemplades les altures i els sistemes d'afinació
 alternatius: vegeu
 @ref{Notació comuna per a músiques no occidentals}.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{Pitch names},
 @rglos{Common Practice Period}.
@@ -730,7 +730,7 @@ comprovacions de @code{\octaveCheck} fracassen, però la segona és correcta.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Pitches}.
 
@@ -849,7 +849,7 @@ Per veure més informació sobre instruments transpositors, consulteu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Transposició dels instruments},
 @ref{Inversió},
@@ -913,7 +913,7 @@ music = \relative { c' d e f }
 absolut o convertir-se prèviament a la forma absoluta
 envoltant-los en un bloc @code{\relative}.}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Transformacions modals},
 @ref{Retrogradació},
@@ -946,7 +946,7 @@ trencaran i generaran advertiments.  Es poden generar algunes
 lligadures automàticament activant
 @ruser{Divisió automàtica de les notes}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Inversió},
 @ref{Transformacions modals},
@@ -1094,7 +1094,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Inversió},
 @ref{Retrogradació},
@@ -1293,7 +1293,7 @@ Quan hi ha un canvi de clau manual, el glif de la clau modificada
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Claus de la música mensural},
 @ref{Claus de cant gregorià},
@@ -1438,7 +1438,7 @@ posició del pentagrama.
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -1500,7 +1500,7 @@ addicional d'una octava per al pentagrama.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-the-ottava-spanner-slope.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{octavation}.
 
@@ -1608,7 +1608,7 @@ clarinet = \relative c'' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
@@ -2840,7 +2840,7 @@ musicB = {
 @end lilypond
 @end table
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Pitches}.
 
@@ -2956,7 +2956,7 @@ tonalitat.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
-@seealso
+@morerefs
 Glossri musical:
 @rglos{ambitus}.
 
@@ -3080,7 +3080,7 @@ També hi ha una abreviatura semblant per a les formes en rombe:
 @code{\xNote}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Pitches}.
 
@@ -3142,7 +3142,7 @@ un tipus de lletra més gran, vegeu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Establiment de la mida del pentagrama}.
 
@@ -3257,7 +3257,7 @@ relatiu major:
 Per veure tots els estils de formes de cap de nota, consulteu
 @ref{Estils de caps de nota}.
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Pitches}.
 
@@ -3308,7 +3308,7 @@ així:
 @code{\improvisationOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Pitches}.
 

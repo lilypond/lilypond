@@ -181,7 +181,7 @@ As we shall see shortly, the properties of different types of object are
 modified by different commands, so it is useful to be able to recognize
 the types of objects and properties from their names.
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Modifying properties}.
 
@@ -532,7 +532,7 @@ appearance may be modified in the usual way with
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{The tweak command}.
 
@@ -585,7 +585,7 @@ containing just overrides may be applied to individual notes in a
 chord.  However, @code{\single} does not convert @code{\revert},
 @code{\set} or @code{\unset} into tweaks.
 
-@seealso
+@morerefs
 Learning Manual:
 @ref{The tweak command,,The @code{@bs{}tweak} command},
 @ref{Using variables for layout adjustments}.
@@ -990,7 +990,7 @@ and the lyrics are all printed in italics.
 syllable and the terminating brace.}
 
 
-@seealso
+@morerefs
 Extending: @rextend{Scheme tutorial}.
 
 
@@ -1066,7 +1066,7 @@ preceded by an apostrophe
 @end multitable
 
 
-@seealso
+@morerefs
 Extending: @rextend{Scheme tutorial}.
 
 
@@ -3984,7 +3984,7 @@ appears to cross voices:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Learning Manual:
 @ref{The once prefix,,The @code{@bs{}once} prefix},
 @ref{The stencil property}.
@@ -4063,7 +4063,7 @@ required, but the transparent metronome mark in the first line
 forces the following tempo indication too high while the
 second (with the stencil removed) does not.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{system}.
 

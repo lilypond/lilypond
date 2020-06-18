@@ -130,7 +130,7 @@ consulte @ref{Varias partituras en un libro},
 @ref{Varios archivos de salida a partir de uno de entrada} y
 @ref{Estructura del archivo}.)
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Trabajar sobre los archivos de entrada},
 @rlearning{Explicación de las expresiones musicales},
@@ -571,7 +571,7 @@ por un signo@tie{}@code{#}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Cómo funcionan los archivos de entrada de LilyPond}.
 
@@ -795,7 +795,7 @@ campos sobreescritos y otros suprimidos manualmente:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Estructura del archivo},
 @ref{Presentación predeterminada de los títulos de partes de libro y partitura},
@@ -919,7 +919,7 @@ primera página, empezando la música (definida en el bloque
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Cómo funcionan los archivos de entrada de LilyPond}
 
@@ -1026,7 +1026,7 @@ del bloque @code{\header}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Formatear el texto}.
 
@@ -1188,7 +1188,7 @@ elemento de marcado.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Explicación de los títulos}.
 
@@ -1300,7 +1300,7 @@ un operador @q{and}, por ejemplo:
 
 determina si la salida es una sola página.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Explicación de los títulos},
 @ref{Presentación predeterminada de los títulos de partes de libro y partitura}.
@@ -1824,7 +1824,7 @@ especificar las marcas (véase @ref{Unicode}):
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Objetos e interfaces}.
 
@@ -2097,7 +2097,7 @@ usada dentro del contexto de un índice general:
 }
 @end verbatim
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{ly/toc-init.ly}.
 
@@ -2277,7 +2277,7 @@ ellos se perderán al instalar una nueva versión de LilyPond.
 Pueden verse ejemplos sencillos sobre el uso de @code{\include}
 en @rlearning{Partituras y particellas}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información},
 @rlearning{Partituras y particellas}.
@@ -2618,7 +2618,7 @@ Las dos instrucciones admiten una etiqueta, el material que
 dividir en cada ocurrencia de la etiqueta, y la expresión
 etiquetada.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Organizar las piezas mediante variables}.
 
@@ -2661,7 +2661,7 @@ especificación del archivo de ajustes adecuado.
 Esta técnica también funciona bien con el uso de hojas de estilo,
 como se estudia en @rlearning{Hojas de estilo}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Organizar las piezas mediante variables},
 @rlearning{Hojas de estilo}.
@@ -2876,7 +2876,7 @@ o local:
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Lista de caracteres especiales}.
 
@@ -2939,7 +2939,7 @@ impresa, de forma que si un fragmento se extiende sobre una o más
 líneas, se genera un archivo de salida distinto por cada línea
 generada.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{El bloque layout}.
 
@@ -3138,7 +3138,7 @@ explícitamente como implícitamente.  Esto significa que cada
 llamando a @code{set-global-fonts} previamente.  Para más
 información, véase @ref{Fuentes tipográficas del documento completo}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información}.
 
@@ -3341,7 +3341,7 @@ antes del comienzo de uno de los bloques @code{\book},
 #(ly:set-option 'midi-extension "mid")
 @end example
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Estructura del archivo},
 @ref{Crear metadatos en los archivos de salida}.
@@ -3529,7 +3529,7 @@ instrumentos.  Véase @file{scm/midi.scm}.
 Archivos instalados:
 @file{scm/midi.scm}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Disposición de la partitura}.
 
@@ -3599,7 +3599,7 @@ Este ejemplo suprime el efecto de las indicaciones dinámicas
 sobre la salida MIDI.  Nota: los módulos de traducción de
 LilyPond usados para el sonido se llaman @q{performers}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información}.
 
@@ -3659,7 +3659,7 @@ instrumentos de la lista de la sección @q{instrumentos MIDI}, se
 usará el instrumento Piano de Cola (@code{"acoustic grand"}).
 Véase @ref{Instrumentos MIDI}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información}.
 
@@ -3733,7 +3733,7 @@ Si se usan varias voces, cada una de ellas debe contener las
 repeticiones completamente desplegadas para poder obtener una
 salida MIDI correcta.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Repeticiones}.
 
@@ -4038,7 +4038,7 @@ abreviaturas como trinos y mordentes de varias notas.  En el
 propio script puede verse una lista completa de los elementos que
 están previstos.  Véase @file{ly/articulate.ly}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Otras fuentes de información}.
 

@@ -356,7 +356,7 @@ comando @code{\defineBarLine} (vedi @ref{Stanghette}).
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglosnamed{repeat,ripetizione},
 @rglos{volta}.
@@ -542,7 +542,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Stanghette},
 @ref{Formattazione del testo}.
@@ -671,7 +671,7 @@ Gli accordi si ripetono col simbolo di ripetizione dell'accordo
 senza istanziare esplicitamente il contesto @code{Voice}, appare un rigo
 in  più (non desiderato).  Vedi @rprogram{Appare un rigo in più}.}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ripetizione di un accordo}.
 
@@ -780,7 +780,7 @@ simbolo di doppia percentuale.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglos{percent repeat},
 @rglos{simile}.
@@ -893,7 +893,7 @@ usato l'ultimo valore:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
-@seealso
+@morerefs
 Frammenti:
 @rlsr{Repeats}.
 

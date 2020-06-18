@@ -85,7 +85,7 @@ por encima del pentagrama para evitar la letra, como se explica en
 
 @end itemize
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ambitus}.
 
@@ -214,7 +214,7 @@ Para ver una explicación de muchas de las opciones, consulte
 {formatting-lyrics-syllables.ly}
 
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Canciones}.
 
@@ -353,7 +353,7 @@ para ver ejemplos que lo muestran, consulte
 
 @end itemize
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Alineación de la letra a una melodía}.
 
@@ -532,7 +532,7 @@ He aquí un ejemplo que muestra su uso:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Líneas de extensión y guiones},
 @ref{Mantener vivos los contextos},
@@ -610,7 +610,7 @@ sobreescriba la propiedad @code{self-alignment-X}:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Mantener vivos los contextos}.
 
@@ -650,7 +650,7 @@ ligadura de texto.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}.
 
@@ -846,7 +846,7 @@ debe incluir dentro del melisma:
 @code{\melismaEnd}.
 @endpredefined
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{melisma}.
 
@@ -905,7 +905,7 @@ propiedades @code{minimum-distance} (distancia mínima entre las
 dos sílabas) y la @code{minimum-length} (umbral por debajo del
 cual se suprimen los guiones) de @code{LyricHyphen}.
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
@@ -1002,7 +1002,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Posicionamiento vertical de la letra}.
 
@@ -1139,7 +1139,7 @@ plantillas del Manual de Aprendizaje, véase
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Plantillas de conjuntos vocales}.
 
@@ -1648,7 +1648,7 @@ insertarlos manualmente.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Mantener vivos los contextos},
 @ref{Repeticiones}.
@@ -2246,7 +2246,7 @@ text = \lyricmode {
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
@@ -2314,7 +2314,7 @@ acorde} dentro de @ref{Notación común para cuerdas con trastes}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Canciones}.
 
@@ -2343,7 +2343,7 @@ y el @q{modo de acordes}; esta sintaxis se explica en
 {simple-lead-sheet.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Notación de acordes}.
 
@@ -2432,7 +2432,7 @@ Cuando una parte vocal se divide temporalmente, debemos usar
 @code{\voiceTwo}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Partitura vocal a cuatro voces SATB},
 @rlearning{Plantillas de conjuntos vocales}.
@@ -2533,7 +2533,7 @@ aquí:
 @code{\dynamicNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Cambiar el espaciado},
 @ref{Mostrar el espaciado},
@@ -2560,7 +2560,7 @@ Referencia de funcionamiento interno:
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Expresiones como líneas}.
 
@@ -2662,7 +2662,7 @@ sección de elementos de marcado independientes entre dos bloques
 
 @end itemize
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{Frenched score},
 @rglos{Frenched staves},
@@ -2770,7 +2770,7 @@ melchior = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Organizar las piezas mediante variables}.
 
@@ -2888,7 +2888,7 @@ claras.
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{cue-notes}.
 
@@ -3009,7 +3009,7 @@ dialogue = \lyricmode {
 
 @c TODO show use of \column to produce dialogue on two lines
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Duración manual de las sílabas},
 @ref{Texto}.
@@ -3047,7 +3047,7 @@ similares, y se estudian en esta sección.
 El tipografiado del canto gregoriano en distintos estilos de
 notación antigua se describe en @ref{Notación antigua}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Notación antigua}.
 
@@ -3355,7 +3355,7 @@ con las duraciones de las notas.
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos},
 @rlearning{Plantillas de conjuntos vocales}.
@@ -3524,7 +3524,7 @@ en columnas se describe en @ref{Formatear el texto}.
 Casi todos estos elementos se muestran en uno u otro de los dos
 versos en la plantilla, véase @rlearning{Salmos}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Salmos},
 @rlearning{Plantillas de conjuntos vocales}.
@@ -3564,6 +3564,6 @@ como se explica en @ref{Notación antigua}.
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Notación antigua}.

@@ -192,7 +192,7 @@ l'Scheme.  L'equivalent de l'Scheme de l'exemple anterior és:
 @}
 @end example
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Mida del paper i escalat automàtic},
 @ref{Títols encapçalaments i peus de pàgina personalitzats},
@@ -312,7 +312,7 @@ Quan la mida del paper acaba de forma explícita amb
 impressió, no a les dimensions del paper que s'usen per a la
 disposició.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Escalat automàtic de la mida del paper},
 @ref{Mides de pàgina predefinides}.
@@ -356,7 +356,7 @@ resulten de la mida predeterminat del paper @code{a4}.  Com a
 referència, amb el paper @code{a4} l'alçada  @code{paper-height}
 és @code{297\mm} i l'amplada @code{paper-width} és @code{210\mm}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Variables fixes d'espaiat vertical de paper},
 @ref{Variables d'espaiat horitzontal de paper}.
@@ -416,7 +416,7 @@ document com de cada secció que s'hagué creat amb un bloc
 que les pàgines anteriors.
 @end table
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Escalat automàtic de la mida del paper}.
 
@@ -639,7 +639,7 @@ de marcatge (de títol o del nivell superior) sobre una pàgina,
 quan no hi ha cap sistema entre els dos.
 @end table
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Espaiat vertical flexible dins dels sistemes}.
 
@@ -785,7 +785,7 @@ dins d'un bloc @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Escalat automàtic de la mida del paper}.
 
@@ -845,7 +845,7 @@ valor vertader.
 
 @end table
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Escalat automàtic de la mida del paper}.
 
@@ -897,7 +897,7 @@ partitura.
 
 @end table
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Escalat automàtic de la mida del paper}.
 
@@ -957,7 +957,7 @@ dins d'un bloc @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Salts de línia}.
 
@@ -1059,7 +1059,7 @@ partitura.  Predeterminat: 2.
 @end table
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Salts de pàgina},
 @ref{Salts de pàgina òptims},
@@ -1121,7 +1121,7 @@ Tipus de numeració per a les pàgines.  Entre les possibilitat estan
 
 @end table
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{ly/paper-defaults-init.ly}.
 
@@ -1180,7 +1180,7 @@ predeterminat adequat, per exemple:
 
 @end table
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{ly/titling-init.ly}.
 
@@ -1375,7 +1375,7 @@ ser una eina valuosa per estructurar el disseny de la disposició
 de les fonts, i també per reiniciar la configuració de
 @code{\layout} a un estat conegut.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Canvi dels paràmetres predeterminats dels contextos}.
 
@@ -1493,7 +1493,7 @@ de glif recomanades es relacionen en la taula següent:
 @item feta26 @tab 25.2 @tab 8.9 @tab @c material modern de lloguer?
 @end multitable
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Selecció del la mida del tipus de lletra per a la notació}
 @ref{El tipus de lletra Emmentaler}
@@ -1668,7 +1668,7 @@ compassos, i sols en aquests llocs:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Variables de paper per als salts de línia},
 @ref{El bloc layout}.
@@ -1799,7 +1799,7 @@ del llibre.
 @code{\autoPageBreaksOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Variables de paper per als salts de pàgina}.
 
@@ -1829,7 +1829,7 @@ tant horitzontalment com vertical.  A diferència de
 @code{ly:page-turn-breaking}, no inclou un concepte dels passos de
 pàgina.
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Spacing}.
 
@@ -1854,7 +1854,7 @@ utilitzant:
 @}
 @end example
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Spacing}.
 
@@ -2008,7 +2008,7 @@ superior i entre les partitures.
 @code{\allowPageTurn}.
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Variables de paper per als salts de línia}.
 
@@ -2019,7 +2019,7 @@ Fragments de codi:
 Utilitzeu un sols gravador @code{Page_turn_engraver} en cada
 partitura.  Si hi ha més d'un, s'interferiran entre sí.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Espaiat vertical}.
 
@@ -2372,7 +2372,7 @@ pauta individual es pot sobreescriure amb diferents ajustament
 d'espaiat per a aquesta pauta.
 @end table
 
-@seealso
+@morerefs
 Referencia de la notació:
 @ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{@bs{}paper}}.
 @ref{Modificació de les llistes-A}.
@@ -2456,7 +2456,7 @@ grup o grups.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{scm/define-grobs.scm}.
 
@@ -2525,7 +2525,7 @@ L'exemple següent mostra com poden afectar les propietats del grob
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{scm/define-grobs.scm}.
 
@@ -2597,7 +2597,7 @@ que és usual:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
@@ -2893,7 +2893,7 @@ dels altres.  Això s'evitaria passant als diferents ajustaments
 uns valors raonables.
 @end itemize
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Spacing}.
 
@@ -2986,7 +2986,7 @@ addicionals.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Spacing}.
 
@@ -3106,7 +3106,7 @@ valors predeterminats i un altre amb un ajustament exagerat:
 També hi ha suport per a la notació proporcional; consulteu
 @ref{Notació proporcional}.
 
-@seealso
+@morerefs
 Assaig sobre gravat musical automatitzat:
 @ressaynamed{Optical spacing,Espaiat òptic}.
 
@@ -3184,7 +3184,7 @@ canviïn a una nova secció d'espaiat, per exemple:
 @end lilypond
 
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Spacing}.
 
@@ -3268,7 +3268,7 @@ sense tenir en compte les claus, línies divisòries ni notes d'adorn:
   c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Spacing}.
 
@@ -3325,7 +3325,7 @@ senzillament ocupa la seva longitud horitzontal natural.
 @}
 @end example
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Spacing}.
 
@@ -3685,7 +3685,7 @@ d'extensió es divideixin entre els sistemes i les pàgines.
 Consulteu les parts respectives del manual per veure aquests
 ajustaments relacionats.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Secció nova d'espaiat}.
 
@@ -3758,7 +3758,7 @@ En aquest cas, un @code{staff-space} equival aproximadament a
 són intervals, on @var{a} és el límit inferior i @var{b} és el
 límit superior de l'interval.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Establiment de la mida del pentagrama}.
 
@@ -3887,7 +3887,7 @@ completa.
 
 @end itemize
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Disposició de la pàgina},
 @ref{Canvi de l'espaiat horitzontal}.

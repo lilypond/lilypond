@@ -1402,7 +1402,7 @@ Der Score-Kontext ist auf der höchsten Ebene der Kontexte.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referenz der Interna: @rinternals{Contexts}.
 
 

@@ -402,7 +402,7 @@ and then saying only how many systems you want before each fragment,
 @end example
 
 
-@seealso
+@morerefs
 There are specific @command{lilypond-book} command line options and
 other details to know when processing @LaTeX{} documents, see
 @ref{Invoking lilypond-book}.

@@ -349,7 +349,7 @@ voir @ref{Barres de mesure}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {alternative-bar-numbering.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{repeat,répétition},
 @rglos{volta}.
@@ -526,7 +526,7 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Barres de mesure},
 @ref{Mise en forme du texte}.
@@ -654,7 +654,7 @@ Une construction en accord peut se répéter à l'aide du symbole @code{q}
 génèrera une portée supplémentaire -- voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Répétition d'accords}.
 
@@ -765,7 +765,7 @@ différentes sont remplacées par un double symbole de pourcentage.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {isolated-percent-repeats.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{percent repeat},
 @rglos{simile}.
@@ -886,7 +886,7 @@ utilisée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 

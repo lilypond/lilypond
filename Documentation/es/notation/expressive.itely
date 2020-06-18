@@ -229,7 +229,7 @@ Script y TextScript que se adjuntan a las notas, consulte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{tenuto},
 @rglos{accent},
@@ -558,7 +558,7 @@ piano.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{al niente},
 @rglos{crescendo},
@@ -699,7 +699,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 Los ajustes para las fuentes tipográficas en el modo de marcado se
 describen en @ref{Seleccionar la tipografía y su tamaño}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Seleccionar la tipografía y su tamaño},
@@ -894,7 +894,7 @@ expresión:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{slur}.
 
@@ -1043,7 +1043,7 @@ código bajo @ref{Ligaduras de expresión}.
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Acerca de la no anidabilidad de llaves y ligaduras}.
 
@@ -1112,7 +1112,7 @@ detalles, consulte @ref{Divisiones}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{caesura}.
 
@@ -1161,7 +1161,7 @@ intervalo de alturas sobre el que se extiende la caída o elevación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{fall},
 @rglos{doit}.
@@ -1272,7 +1272,7 @@ detalles, consulte @ref{Estilos de línea}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{glissando}.
 
@@ -1390,7 +1390,7 @@ utilizando @notation{ligaduras de unión}.  Véase
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{arpeggio}.
 
@@ -1548,7 +1548,7 @@ la misma nota dentro del mismo compás).
 @code{\stopTrillSpan}.
 @endpredefined
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{trill}.
 

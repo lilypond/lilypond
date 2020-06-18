@@ -90,7 +90,7 @@
 これらの初期ファイルの保存場所については、@c
 @rlearning{その他の情報源} を参照してください。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{Common Practice Period},
 @rglos{makamlar}
@@ -163,7 +163,7 @@
 @end itemize
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{非西洋音楽の一般的な記譜法},
 @ref{調号},
@@ -240,7 +240,7 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{他の言語での音符名},
 @ref{非西洋音楽の一般的な記譜法},
@@ -356,7 +356,7 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{maqam},
 @rglos{bayati},
@@ -410,7 +410,7 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 {arabic-improvisation.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{semai},
 @rglos{taqasim}
@@ -468,7 +468,7 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @end lilypond
 
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/arabic.ly},
 @file{ly/hel-arabic.ly}
@@ -588,7 +588,7 @@ Ibrahim Ali Darwish Al-masri
 非西洋音楽の記譜法についてのもっと一般的な説明は、@c
 @ref{非西洋音楽の一般的な記譜法} を参照してください。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{makam},
 @rglos{makamlar}

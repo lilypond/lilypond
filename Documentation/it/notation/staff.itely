@@ -122,7 +122,7 @@ il canto gregoriano moderno.  Non mostra le stanghette delle battute.
 Si possono creare nuovi contesti per un singolo rigo, come è spiegato
 dettagliatamente in @ref{Definizione di nuovi contesti}.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{staff,rigo},
 
@@ -258,7 +258,7 @@ spiegati in @ref{Definizione di nuovi contesti}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{brace,graffa},
 @rglosnamed{bracket,parentesi quadra},
@@ -323,7 +323,7 @@ in @ref{Definizione di nuovi contesti}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Raggruppare i righi},
 @ref{Nomi degli strumenti},
@@ -385,7 +385,7 @@ in @code{\paper}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Formattazione della pagina}.
 
@@ -568,7 +568,7 @@ effetto anche sulla spaziatura della linea.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{line,linea},
 @rglosnamed{ledger line,taglio addizionale},
@@ -719,7 +719,7 @@ su @code{\RemoveAllEmptyStaves} si trovano in @ref{Nascondere i righi}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{ossia},
 @rglosnamed{staff,rigo (pentagramma)},
@@ -816,7 +816,7 @@ per un rigo.  I dettagli si trovano in @ref{Righi ossia}.
 @code{\RemoveAllEmptyStaves}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{Frenched staff,rigo temporaneo}.
 
@@ -1015,7 +1015,7 @@ setFlute = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Variabili paper per spostamenti e indentazioni,,Variabili @code{@bs{}paper} per spostamenti e indentazioni},
 @ref{Modifica dei componenti aggiuntivi di un contesto}.
@@ -1200,7 +1200,7 @@ oboeNotes = \relative {
 
 Le citazioni possono anche essere contrassegnate; si veda @ref{Uso delle etichette}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Trasporto strumentale},
 @ref{Uso delle etichette}.
@@ -1508,7 +1508,7 @@ bassoonNotes = \relative c {
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Citare altre voci},
 @ref{Trasporto strumentale},

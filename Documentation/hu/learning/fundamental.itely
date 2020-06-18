@@ -232,7 +232,7 @@ változónevek csak betűket tartalmazhatnak, és nem ütközhetnek a
 LilyPond parancsok neveivel. A pontos szabályok a @ruser{File structure} c.
 részben vannak leírva.
 
-@seealso
+@morerefs
 A bemeneti formátum teljes definíciója a
 @ruser{File structure} c. szakaszban található.
 
@@ -356,7 +356,7 @@ felé haladva. Nagyban segít, ha ügyelünk a behúzásokra -- minden blokk
 kezdődjön egy tabulátorral beljebb, így az egy szinten levő blokkok ugyanolyan
 mértékben lesznek behúzva.
 
-@seealso
+@morerefs
 Referencia: @ruser{Structure of a score}.
 
 
@@ -417,7 +417,7 @@ ami azt mondja, hogy az új kottasor a @qq{main} nevű kottasor felett
 helyezkedjen el (ahelyett, hogy alatta helyezkedne el, ami az alapértelmezés).
 
 
-@seealso
+@morerefs
 Az ossiákat általában kulcs és ütemmutató nélkül, valamint kisebb méretben
 szedjük. Ehhez további új parancsok kellenek; ld. az @ref{Size of objects} és
 @ruser{Ossia staves} szakaszokat.
@@ -855,7 +855,7 @@ a hangok szárai a szólamon belül ütköznek más kottafejekkel más szólamok
 A hangok megtervezéséhez a LilyPond lehetővé teszi, hogy hangok illetve akkordok esetén, két hang ugyanazt a függőleges pozíciót foglalja el akár ellentétes szárirány esetén, viszont figyelembe veszi azt, hogy bizonyos esetekben a harmadik és a negyedik szólam elmozdulhat, ezzel elkerülve azt, hogy a kottafejek egymást fedjék. Ez általában működik, de a fenti példában egyértelmű, hogy az alacsonyabb szólamok alapértelmezetten nem jól helyezkednek el. Jelenleg még nem vagyunk készen rá, hogy ezt kijavítsuk, úgyhogy most ezt érintetlenül hagyjuk és visszatérünk rá egy későbbi fejezetben -- lásd  @code{force-hshift} tulajdonság az @ref{Egymást átfedő jelek javítása} fejezetben.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Multiple voices}.
 
@@ -1070,7 +1070,7 @@ azonos irányú szárral kerül ugyanabba a pozícióba és egyik szólamban sin
 vagy ugyanazt az eltolást adjuk meg, akkor a @qq{Too many clashing note columns} hibaüzenetet kapjuk.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Multiple voices}.
 
@@ -1412,7 +1412,7 @@ refrainwordsB = \lyricmode {
 @end lilypond
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Vocal music}.
 
@@ -1505,7 +1505,7 @@ preceding word with no hyphen or underscore, e.g.,
 @code{GregorianTranscriptionStaff}.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{A kontextus fogalma}.
 
@@ -1627,7 +1627,7 @@ refer back to that particular instance of a context.  We saw this in
 use in the section on lyrics, see @ref{Szólamok és vokális zene}.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Kontextusok létrehozása}.
 
@@ -1713,7 +1713,7 @@ We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.
 
 
-@seealso
+@morerefs
 Internals reference: @rinternals{Engravers and Performers}.
 
 
@@ -2018,7 +2018,7 @@ instances of contexts by statements in a @code{\with} block, and by
 @code{\set} commands embedded in music statements.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Changing context default settings}.
 @ruser{The set command}.
@@ -2180,7 +2180,7 @@ for all contexts of a particular type by including the
 same way.
 
 
-@seealso
+@morerefs
 A kottaírás kézikönyve:
 @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
@@ -2386,7 +2386,7 @@ celloMusic = \relative {
 @end lilypond
 
 
-@seealso
+@morerefs
 The starting templates can be found in the @q{Templates} appendix,
 see @ref{Single staff}.
 

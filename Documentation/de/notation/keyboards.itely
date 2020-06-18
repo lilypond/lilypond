@@ -133,7 +133,7 @@ können, sind demonstriert in
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Beispiel aus dem Leben},
 @rlearning{Andere Benutzung von Optimierungen}.
@@ -257,7 +257,7 @@ die Methoden anwenden, die in @rlearning{Überlappende Notation in Ordnung bring
 gezeigt werden.
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Überlappende Notation in Ordnung bringen}.
 
@@ -356,7 +356,7 @@ System gesetzt werden kann:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Notensysteme manuell verändern}.
 
@@ -420,7 +420,7 @@ Stimmenverlaufs ausgegeben werden:
 @code{\hideStaffSwitch}.
 @endpredefined
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Keyboards}.
 
@@ -456,7 +456,7 @@ mit Balken versieht, wenn es auf dem anderen nicht nötig wäre.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Keyboards}.
 
@@ -546,7 +546,7 @@ halten, muss der letzte Pedal-hoch-Befehl weggelassen werden.
 Pedalbezeichnungen können innerhalb eines @code{Dynamics}-Kontextes
 notiert werden, sodass sie an einer horizontalen Linie ausgerichtet werden.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Bindebögen}.
 
@@ -600,7 +600,7 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Keyboards}.
 
@@ -639,7 +639,7 @@ Einige übliche Notationseigenheiten für Harfe sind woanders behandelt:
 
 @end itemize
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Tremolo-Wiederholung},
 @ref{Glissando},
@@ -687,7 +687,7 @@ welchen @code{^} die höchste Pedalposition (erniedrigte Tonhöhe),
 tiefste Pedalposition (erhöhter Ton) anzeigt.  @code{|} ist ein
 Trenner.  Ein @code{o} vor der Definition umrandet das Symbol.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Textarten},
 @ref{Instrument Specific Markup}.

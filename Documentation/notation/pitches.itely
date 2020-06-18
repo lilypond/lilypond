@@ -111,7 +111,7 @@ when they are above or below the octave of the reference pitch.
 Pitches in the music expression following @code{\fixed} are
 unaffected by any enclosing @code{\relative}, discussed next.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{Pitch names}.
 
@@ -316,7 +316,7 @@ done using @code{\resetRelativeOctave}:
 @funindex \resetRelativeOctave
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{fifth},
 @rglos{interval},
@@ -447,7 +447,7 @@ new system:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{sharp},
 @rglos{flat},
@@ -646,7 +646,7 @@ Western classical music, also referred to as
 pitches and tuning systems are also supported: see
 @ref{Common notation for non-Western music}.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{Pitch names},
 @rglos{Common Practice Period}.
@@ -737,7 +737,7 @@ checks fail, but the second one does not fail.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Pitches}.
 
@@ -862,7 +862,7 @@ see @ref{Instrument transpositions}.
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Instrument transpositions},
 @ref{Inversion},
@@ -922,7 +922,7 @@ music = \relative { c' d e f }
 or be first converted to absolute form by enclosing them in a
 @code{\relative} block.}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Modal transformations},
 @ref{Retrograde},
@@ -958,7 +958,7 @@ closing spanners: @code{^(} needs to be ended by @code{^)}, every
 by @code{\enddecr}.  Property-changing commands/overrides with a
 lasting effect will likely cause surprises.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Inversion},
 @ref{Modal transformations},
@@ -1098,7 +1098,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Inversion},
 @ref{Retrograde},
@@ -1302,7 +1302,7 @@ will be smaller than normal.  This behaviour can be overridden.
 {tweaking-clef-properties.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
@@ -1445,7 +1445,7 @@ position.
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -1561,7 +1561,7 @@ how to go back to the current default behavior:
 {modifying-the-ottava-spanner-slope.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{octavation}.
 
@@ -1669,7 +1669,7 @@ clarinet = \relative c'' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{concert pitch},
 @rglos{transposing instrument}.
@@ -3007,7 +3007,7 @@ musicB = {
 @end lilypond
 @end table
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Pitches}.
 
@@ -3127,7 +3127,7 @@ printed if they are not part of the key signature.
 {changing-the-ambitus-gap.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ambitus}.
 
@@ -3255,7 +3255,7 @@ There is also a similar shorthand for diamond shapes:
 @code{\xNote}.
 @endpredefined
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Pitches}.
 
@@ -3321,7 +3321,7 @@ font, see @ref{Setting the staff size}.
 {numbers-as-easy-note-heads.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Setting the staff size}.
 
@@ -3448,7 +3448,7 @@ major:
 To see all note head styles, see @ref{Note head styles}.
 
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Pitches}.
 
@@ -3496,7 +3496,7 @@ rhythm.  Such note heads can be created:
 @code{\improvisationOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Pitches}.
 

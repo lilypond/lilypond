@@ -128,7 +128,7 @@ in the chord are relative to the note that came before it
 
 For more information about chords, see @ref{Chord notation}.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{chord}.
 
@@ -252,7 +252,7 @@ Interactions with @code{\relative} occur only with explicit calls of
 is done at a time where all instances of @code{\relative} have already
 been processed.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Chord notation},
 @ref{Articulations and ornamentations}.
@@ -357,7 +357,7 @@ Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
 automatically avoid collisions between ordinary notes and clusters.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{cluster}.
 
@@ -615,7 +615,7 @@ music do not have the same rhythm.
 @code{\oneVoice}.
 @endpredefined
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Voices contain music},
 @rlearning{Explicitly instantiating voices}.
@@ -668,7 +668,7 @@ standard presentation.
 @code{\voiceNeutralStyle}.
 @endpredefined
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{I'm hearing Voices},
 @rlearning{Other sources of information}.
@@ -890,7 +890,7 @@ the stems are explicitly set in opposite directions).
 {forcing-horizontal-shift-of-notes.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{polyphony}.
 
@@ -1164,7 +1164,7 @@ this effect can be achieved using a @code{NullVoice} context.  See
 {changing-partcombine-texts.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{a due},
 @rglos{part}.
@@ -1320,7 +1320,7 @@ global = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Organizing pieces with variables}.
 

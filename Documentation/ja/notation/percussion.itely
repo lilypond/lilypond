@@ -54,7 +54,7 @@
 
 @end itemize
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves},
@@ -117,7 +117,7 @@
 打楽器のための MIDI サポートにはいくつか考慮すべき問題があります。@c
 @ref{Creating MIDI output} を参照してください。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Creating MIDI output},
 @ref{Percussion notes}
@@ -168,7 +168,7 @@
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Tremolo repeats}
 
@@ -184,7 +184,7 @@
 は通常の譜を用いて記述します。@c
 通常の譜については、このマニュアルの他のセクションでカバーしています。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Creating MIDI output}
 
@@ -413,7 +413,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @ref{Custom percussion staves} で説明されているように、@c
 カスタム打楽器スタイルを定義することもできます。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{I'm hearing Voices}
 
@@ -547,7 +547,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 }
 @end lilypond
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/drumpitch-init.ly}
 
@@ -600,7 +600,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 >>
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Parentheses}
 

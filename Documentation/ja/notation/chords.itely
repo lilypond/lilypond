@@ -84,7 +84,7 @@
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{chord}
 
@@ -222,7 +222,7 @@ maj, maj7
 
 @end multitable
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Common chord modifiers},
 @ref{和音の拡張と変形}
@@ -385,7 +385,7 @@ maj, maj7
 様々な標準和音を作り出すために使用される和音修飾子を
 @ref{Common chord modifiers} で示しています。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Chord inversions and specific voicings},
 @ref{Common chord modifiers}
@@ -434,7 +434,7 @@ maj, maj7
 さらに、これらの関数は和音モードだけでなく、@ref{Chorded notes}
 で説明される @code{<...>} の和音構造でも用いることができます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Extended and altered chords},
 @ref{Chorded notes}
@@ -556,7 +556,7 @@ chordmusic = \relative {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{chord}
 
@@ -807,7 +807,7 @@ chordmusic = \relative {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Chord name chart},
 @ref{Common chord modifiers}
@@ -913,7 +913,7 @@ example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 @end ignore
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{figured bass}
 
@@ -1109,7 +1109,7 @@ example, the vertical spacing of the figures may be set with
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Chords}
 
@@ -1201,7 +1201,7 @@ example, the vertical spacing of the figures may be set with
 @code{\bassFigureStaffAlignmentNeutral}
 @endpredefined
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Chords}
 

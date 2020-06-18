@@ -117,7 +117,7 @@ este ejemplo sencillo, la advertencia de la salida de consola es
 mucho más efectiva al atraer la atención concretamente al @code{4}
 que falta en el compás 3.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Comprobación de compás y de número de compás}.
 
@@ -289,7 +289,7 @@ cómo se pueden imprimir las alteraciones de acuerdo a reglas
 diferentes.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Nombres de las notas en otros idiomas},
 @ruser{Alteraciones accidentales},
@@ -410,7 +410,7 @@ otras.
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Ligaduras de unión},
 @ruser{Ligaduras de expresión},
@@ -525,7 +525,7 @@ matiz, como por ejemplo @code{\f}, dará por terminado el
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Articulaciones y ornamentos},
 @ruser{Indicaciones de digitación},
@@ -559,7 +559,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Escritura del texto}.
 
@@ -616,7 +616,7 @@ activarlo de nuevo.
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Barras automáticas},
 @ruser{Barras manuales}.
@@ -716,7 +716,7 @@ expresión musical por la palabra clave @code{\appoggiatura} o
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Notas de adorno},
 @ruser{Grupos especiales},
@@ -1003,7 +1003,7 @@ distinto, que produce la llave a la izquierda y que también
 controla el alcance de las líneas divisorias.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Teclados y otros instrumentos de varios pentagramas},
 @ruser{Impresión de los pentagramas}.
@@ -1051,7 +1051,7 @@ con acordes.  Tan sólo debe recordar que se escriben por fuera de los
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Notas en acorde}.
 
@@ -1078,7 +1078,7 @@ presentarlos en este momento.  En su lugar, las secciones
 siguientes presentan estos conceptos y los explican en
 profundidad.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @ref{Las voces contienen música}.
 
@@ -1321,7 +1321,7 @@ el aria de Fígaro @notation{Largo al factotum}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Música vocal}.
 
@@ -1367,7 +1367,7 @@ de pentagramas mediante variables (expresiones con nombre).  Éstas
 se tratan en @ref{Organizar las piezas mediante variables}.
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ruser{Música vocal}.
 

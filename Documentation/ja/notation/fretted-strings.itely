@@ -79,7 +79,7 @@
 
 @end itemize
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Fingering instructions},
 @ref{Ties},
@@ -156,7 +156,7 @@ g1\4
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Fingering instructions}
 
@@ -520,7 +520,7 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {hammer-on-and-pull-off-using-chords.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Chord repetition},
 @ref{Glissando},
@@ -777,7 +777,7 @@ mus = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Absolute octave entry},
 @ref{Predefined fret diagrams},
@@ -1244,7 +1244,7 @@ and color of dots.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Instrument Specific Markup}
 
@@ -1578,7 +1578,7 @@ mychords = \chordmode {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Custom tablatures},
 @ref{Automatic fret diagrams},
@@ -1743,7 +1743,7 @@ property.
 @code{\predefinedFretboardsOn}
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Custom tablatures}
 
@@ -1804,7 +1804,7 @@ RH=#rightHandFinger
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Fretted strings}
 
@@ -1853,7 +1853,7 @@ LilyPond は楽譜譜刻プログラムなので、@c
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Text spanners}
 
@@ -1930,7 +1930,7 @@ LilyPond は、符頭を三角形に変更することで、@c
 }
 @end lilypond
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Fretted strings}
 
@@ -1982,7 +1982,7 @@ ChordsAndSymbols = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{power chord}
 
@@ -2055,7 +2055,7 @@ music = {
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{ly/string-tunings-init.ly}
 

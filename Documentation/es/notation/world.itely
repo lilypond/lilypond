@@ -92,7 +92,7 @@ Para localizar estos archivos de inicio en su sistema, consulte
 @rlearning{Otras fuentes de información}.
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{Common Practice Period},
 @rglos{makamlar}.
@@ -172,7 +172,7 @@ aparece en @ref{Música sin compasear}.
 @end itemize
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Notación común para músicas no occidentales},
 @ref{Armadura de la tonalidad},
@@ -250,7 +250,7 @@ alterar mediante este método.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Nombres de las notas en otros idiomas},
 @ref{Notación común para músicas no occidentales},
@@ -374,7 +374,7 @@ asigna los maqams más comunes a armaduras de tonalidad:
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{maqam},
 @rglos{bayati},
@@ -428,7 +428,7 @@ barrado automático y/o utilizar indicaciones de compás compuestas.
 {arabic-improvisation.ly}
 
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{semai},
 @rglos{taqasim}.
@@ -484,12 +484,12 @@ tratamos en esta sección.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Archivos instalados:
 @file{ly/arabic.ly}
 @file{ly/hel-arabic.ly}
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{World music}.
 
@@ -613,7 +613,7 @@ Para ver una explicación más general sobre la notación musical no
 occidental, consulte
 @ref{Notación común para músicas no occidentales}.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{makam},
 @rglos{makamlar}.

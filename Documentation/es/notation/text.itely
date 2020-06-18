@@ -183,7 +183,7 @@ dyn =
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Guiones de texto},
@@ -263,7 +263,7 @@ inscripciones de texto y las articulaciones, consulte
 @code{\textLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Colocación de los objetos}.
 
@@ -365,7 +365,7 @@ cada voz.
 {dynamics-custom-text-spanner-postfix.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Estilos de línea},
 @ref{Matices dinámicos},
@@ -479,7 +479,7 @@ siguiente.
 {printing-marks-on-every-staff.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Llamadas de ensayo},
 @ref{Formatear el texto},
@@ -562,7 +562,7 @@ requiere se describen en
 {stand-alone-two-column-markup.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Estructura del archivo},
@@ -693,7 +693,7 @@ Se puede encontrar una lista exhaustiva de las instrucciones
 específicas de @code{\markup} en @ref{Instrucciones de marcado de texto}.  The inner workings of these commands, and how to implement new ones, is
 explained in @rextend{Markup functions}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Panorámica de los objetos de texto},
 @ref{Instrucciones de marcado de texto}.
@@ -899,7 +899,7 @@ tal y como se explica en @ref{Tipografías}.
 @code{\larger}.
 @endpredefined
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Tipografías},
 @ref{Indicaciones dinámicas nuevas},
@@ -1183,7 +1183,7 @@ siguiente.
 Hay una lista exhaustiva de instrucciones de alineación de texto
 en @ref{Align}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Mover objetos}.
 
@@ -1354,7 +1354,7 @@ c'
 Hay una lista exhaustiva de instrucciones específicas de gráficos
 en @ref{Graphic}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Align},
 @ref{Dimensions},
@@ -1492,7 +1492,7 @@ objeto de marcado:
 Hay una lista exhaustiva de instrucciones relacionadas con la
 notación musical en @ref{Music}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Music},
 @ref{La tipografía Emmentaler},
@@ -1560,7 +1560,7 @@ o una lista de listas de marcado.
 Hay una lista exhaustiva de las instrucciones de lista de marcado
 en @ref{Instrucciones de listas de marcado de texto}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Instrucciones de listas de marcado de texto}.
 
@@ -1787,7 +1787,7 @@ explica en las siguientes secciones:
 @ref{Fuentes de un solo elemento} y
 @ref{Fuentes tipográficas del documento completo}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{La tipografía Emmentaler},
 @ref{Notación musical dentro de elementos de marcado},
@@ -1837,7 +1837,7 @@ operativo:
 lilypond -dshow-available-fonts
 @end example
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Explicación de las fuentes tipográficas},
 @ref{Fuentes tipográficas del documento completo}.
@@ -1971,7 +1971,7 @@ nuevo a @code{set-global-fonts}, así:
 @}
 @end example
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Explicación de las fuentes tipográficas},
 @ref{Fuentes de un solo elemento},

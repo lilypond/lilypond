@@ -510,7 +510,7 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{ピッチを記述する},
 @ruser{リズムを記述する},

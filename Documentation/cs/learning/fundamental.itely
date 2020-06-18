@@ -299,7 +299,7 @@ informací se podívejte na
 tato omezení popsána v části @ruser{Stavba souboru}.
 
 
-@seealso
+@morerefs
 Úplné vymezení vstupního souboru se nachází v
 @ruser{Stavba souboru}.
 
@@ -462,7 +462,7 @@ téže úrovni, skutečně vodorovně začínal na tom
 samém místě.
 
 
-@seealso
+@morerefs
 Notace: @ruser{Stavba notového zápisu}.
 
 
@@ -533,7 +533,7 @@ se má umístit nad již jsoucí osnovu s názvem
 pod ní.
 
 
-@seealso
+@morerefs
 Ossia jsou často tisknuta bez notového klíče a bez taktového označení,
 většinou také o něco menší, než jiné osnovy.  Toto je přirozeně možné
 i v LilyPondu, vyžaduje to ale příkazy, jež dosud ještě nebyly
@@ -1011,7 +1011,7 @@ tento problém odložíme na později; viz vlastnost @code{force-hshift} v
 @ref{Oprava překrývajících se not}.
 
 
-@seealso
+@morerefs
 Notace: @ruser{Více hlasů}.
 
 
@@ -1255,7 +1255,7 @@ posun, nebo je stanoven stejný posun, je vydáno hlášení o chybě
 @qq{Příliš mnoho střetávajících se notových sloupců}.
 
 
-@seealso
+@morerefs
 Notace: @ruser{Více hlasů}.
 
 
@@ -1426,7 +1426,7 @@ VerseFour  =
 @end lilypond
 
 
-@seealso
+@morerefs
 Notace: @ruser{Notový zápis zpěvu}.
 
 
@@ -1533,7 +1533,7 @@ angeschlossen, etwa
 @code{GregorianTranscriptionStaff}.
 
 
-@seealso
+@morerefs
 Notationreferenz: @ruser{Vysvětlení prostředí}.
 
 
@@ -1663,7 +1663,7 @@ zu verweisen.  Dieses Vorgehen wurde schon in dem Abschnitt
 zu Gesangstexten angewandt, siehe @ref{Hlasy a zpěvy,,hlasy a zpěvy}.
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Vytvoření prostředí}.
 
 
@@ -1757,7 +1757,7 @@ verändert werden kann, indem die Wirkungsweise der
 Engraver beeinflusst wird.
 
 
-@seealso
+@morerefs
 Referenz der Interna: @rinternals{Engravers and Performers}.
 
 
@@ -2096,7 +2096,7 @@ bestimmten Kontexte überschrieben werden, indem die
 innerhalb der aktuellen Noten.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Die Standardeinstellungen von Kontexten ändern},
 @ruser{Der set-Befehl}.
@@ -2277,7 +2277,7 @@ Weise geändert werden, indem der @code{\set}-Befehl in
 einer @code{\context}-Umgebung angewendet wird.
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Umgebungs-Plugins verändern},
 @ruser{Die Standardeinstellungen von Kontexten ändern}.
 
@@ -2508,7 +2508,7 @@ celloMusic = \relative {
 @end lilypond
 
 
-@seealso
+@morerefs
 Die Vorlagen, mit denen wir begonnen haben, können im
 Anhang @qq{Předlohy} gefunden werden, siehe
 @ref{Jednotlivá notová osnova}.
@@ -3180,7 +3180,7 @@ PedalOrganMusic = \relative {
 }  % end Score context
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{system}.
 

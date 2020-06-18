@@ -1571,7 +1571,7 @@ UTF-8 エンコードで保存されていない場合、@c
 @code{\voiceOne} よりも高い位置にある場合) ではない限り、@c
 移動しているように見えません。
 
-@seealso
+@morerefs
 @rlearning{ボイスを明示的にインスタンス化する},
 @rlearning{実際の音楽からの例},
 @ruser{単一譜の多声},

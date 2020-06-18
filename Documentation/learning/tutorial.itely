@@ -475,7 +475,7 @@ Here is a small example showing all these elements together:
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.

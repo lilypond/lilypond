@@ -130,7 +130,7 @@ d'unió que es creuen entre veus, com s'explica a
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Exemple real de música},
 @rlearning{Altres aplicacions dels ajustaments}.
@@ -255,7 +255,7 @@ resultants es poden resoldre manualment on calgui, utilitzant els
 mètodes descrits a la secció
 @rlearning{Ajustament de la notació amb superposicions}.
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @rlearning{Ajustament de la notació amb superposicions}.
 
@@ -369,7 +369,7 @@ tonalitat al pentagrama inferior:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Canvi manual de pentagrama}.
 
@@ -434,7 +434,7 @@ automàticament una línia que connecti les notes:
 @code{\hideStaffSwitch}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Keyboards}.
 
@@ -479,7 +479,7 @@ a causa de com està implementat.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Keyboards}.
 
@@ -579,7 +579,7 @@ l'omissió de l'ordre final d'aixecar el pedal.
 Les indicacions de pedal es poden posar dins d'un context
 @code{Dynamics}, que els alinea sobr una línia horitzontal.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Lligadures d'unió}.
 
@@ -636,7 +636,7 @@ d'execució.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-register-symbols.ly}
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Keyboards}.
 
@@ -678,7 +678,7 @@ altres parts de la documentació:
 
 @end itemize
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Repeticions de trèmol},
 @ref{Glissando},
@@ -727,7 +727,7 @@ posició bixa (alçada sostingut), i @code{|} és la línia vertical
 separadora.  Si s'anteposa @code{o}, el següent símbol de pedal es
 rodeja per una el·lipsi.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Scripts de text},
 @ref{Instrument Specific Markup}.

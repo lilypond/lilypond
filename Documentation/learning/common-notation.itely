@@ -111,7 +111,7 @@ Although the missing duration is clear in the musical output in this
 simple example, the warning in the console output is far more
 effective in drawing attention to the missing @code{4} in bar 3.
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Bar and bar number checks}.
 
@@ -260,7 +260,7 @@ accidentals can be printed according to different rules, see
 @ruser{Automatic accidentals}.
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Note names in other languages},
 @ruser{Accidentals},
@@ -366,7 +366,7 @@ larger groups of notes.  Slurs and ties can be nested.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Ties},
 @ruser{Slurs},
@@ -472,7 +472,7 @@ example @code{\f}, will end the (de)crescendo, or the command
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions},
@@ -504,7 +504,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Writing text}.
 
@@ -557,7 +557,7 @@ on again.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Automatic beams},
 @ruser{Manual beams}.
@@ -651,7 +651,7 @@ with the keyword @code{\appoggiatura} or @code{\acciaccatura}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Grace notes},
 @ruser{Tuplets},
@@ -921,7 +921,7 @@ type of context, one that generates the brace at the left end of
 every system and also controls the extent of bar lines.
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
@@ -965,7 +965,7 @@ ties with chords.  They must be placed outside the angle brackets.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Chorded notes}.
 
@@ -990,7 +990,7 @@ that we haven't discussed yet, so we're not going to introduce
 them here.  Instead, the following sections introduce these concepts
 and explain them thoroughly.
 
-@seealso
+@morerefs
 Learning Manual:
 @ref{Voices contain music}.
 
@@ -1217,7 +1217,7 @@ Here's an example from Rossini's @notation{Figaro}, where
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Vocal music}.
 
@@ -1261,7 +1261,7 @@ lyrics with variables.  These are discussed in @ref{Organizing
 pieces with variables}.
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Vocal music}.
 

@@ -114,7 +114,7 @@ de text i les articulacions, consulteu
 @code{\textLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @rlearning{Col·locació dels objectes}.
 
@@ -211,7 +211,7 @@ cada veu.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-custom-text-spanner-postfix.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Estils de línia},
 @ref{Matisos dinàmics},
@@ -317,7 +317,7 @@ s'imprimeixen al principi de la línia següent.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Marques d'assaig},
 @ref{Donar format al text},
@@ -395,7 +395,7 @@ requereix es descriuen a
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Donar format al text},
 @ref{Estructura del fitxer},
@@ -522,7 +522,7 @@ allegro = \markup { \bold \large Allegro }
 Es pot trobar una llista exhaustiva de les ordres específiques
 @code{\markup} a @ref{Ordres de marcatge de text}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Ordres de marcatge de text}.
 
@@ -722,7 +722,7 @@ lletra, tal i com s'explica a @ref{Explicació dels tipus de lletra}.
 @code{\larger}.
 @endpredefined
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Tipus de lletra},
 @ref{Indicacions dinàmiques contemporànies},
@@ -983,7 +983,7 @@ següent:
 Hi ha una llista exhaustiva d'ordres d'alineació de text a
 @ref{Align}.
 
-@seealso
+@morerefs
 Manual d'aprenentage:
 @rlearning{Moviment d'objectes}.
 
@@ -1152,7 +1152,7 @@ c'
 Hi una llista exhaustiva d'ordres específiques de gràfics a
 @ref{Graphic}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Align},
 @ref{Dimensions},
@@ -1293,7 +1293,7 @@ de contenir un bloc @code{\layout}, com es mostra aquí:
 Hi ha una llista exhaustiva d'ordres relacionades amb la notació
 musical a @ref{Music}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Music},
 @ref{El tipus de lletra Emmentaler},
@@ -1357,7 +1357,7 @@ o una llista de llistes de marcatge.
 Hi una llista exhaustiva de les ordres de llista de marcage a
 @ref{Ordres de llistes de marcatge de text}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Ordres de llistes de marcatge de text}.
 
@@ -1510,7 +1510,7 @@ s'explica a les seccions següents:
 @ref{Tipus de lletra d'un sol element} i
 @ref{Tipus de lletra del document complet}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{El tipus de lletra Emmentaler},
 @ref{Notació musical dins d'elements de marcatge},
@@ -1559,7 +1559,7 @@ tots els tipus de lletra disponibles al sistema operatiu:
 lilypond -dshow-available-fonts
 @end example
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Explicació dels tipus de lletra},
 @ref{Tipus de lletra del document complet}.
@@ -1613,7 +1613,7 @@ més explicacions sobre els tipus de lletra, consulteu
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Explicació dels tipus de lletra},
 @ref{Tipus de lletra d'un sol element},

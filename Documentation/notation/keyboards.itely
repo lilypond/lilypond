@@ -115,7 +115,7 @@ as shown in @rlearning{Other uses for tweaks}.
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Real music example},
 @rlearning{Other uses for tweaks}.
@@ -255,7 +255,7 @@ affected by a cross-staff spanner.
 The resulting collisions must be resolved manually, where necessary,
 using the methods in @rlearning{Fixing overlapping notation}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Fixing overlapping notation}.
 
@@ -363,7 +363,7 @@ key signature in the lower staff:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Changing staff manually}.
 
@@ -448,7 +448,7 @@ vertical start and end positions.
 @code{\hideStaffSwitch}.
 @endpredefined
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Keyboards}.
 
@@ -483,7 +483,7 @@ double quotes.  Instead its name must be prefixed with a hash symbol
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Keyboards}.
 
@@ -574,7 +574,7 @@ is indicated by omitting the final pedal off command.
 Pedal indications may be placed in a @code{Dynamics} context,
 which aligns them on a horizontal line.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Ties}.
 
@@ -633,7 +633,7 @@ A complete list of all available accordion registers can be found in
 {accordion-register-symbols.ly}
 
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Keyboards}.
 
@@ -669,7 +669,7 @@ repeats}.
 
 @end itemize
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Tremolo repeats},
 @ref{Glissando},
@@ -714,7 +714,7 @@ the middle pedal position (natural pitch), @code{v} is the lowest pedal
 position (sharpened pitch), and @code{|} is the divider.  A prefixed
 @code{o} will circle the following pedal symbol.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Text scripts},
 @ref{Instrument Specific Markup}.

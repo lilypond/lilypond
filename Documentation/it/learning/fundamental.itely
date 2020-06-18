@@ -240,7 +240,7 @@ LilyPond.  Le esatte limitazioni relative ai nomi delle variabili sono spiegate
 dettagliatamente in @ruser{Struttura del file}.
 
 
-@seealso
+@morerefs
 Per una definizione completa del formato di input, si veda
 @ruser{Struttura del file}.
 
@@ -386,7 +386,7 @@ fare attenzione che ogni elemento di uno stesso livello presente nell'editor
 di testo si trovi nella stessa posizione orizzontale.
 
 
-@seealso
+@morerefs
 Guida alla notazione: @ruser{Struttura di una partitura}.
 
 
@@ -454,7 +454,7 @@ posizionato sopra il rigo chiamato @qq{main} invece che nella posizione
 predefinita, che è in basso.
 
 
-@seealso
+@morerefs
 Gli ossia vengono spesso scritti senza armatura di chiave e senza
 tempo, e solitamente hanno un font più piccolo.  Richiedono ulteriori
 comandi che non sono stati ancora presentati.  Si veda @ref{Dimensione degli oggetti},
@@ -492,7 +492,7 @@ un'annotazione testuale.  Ciò si può ottenere nel modo seguente:
 { c'8-1--(~^\markup{"text annotation"} c' d') }
 @end lilypond
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @ref{Legature di valore e di portamento},
 @ref{Articolazioni e dinamiche},
@@ -987,7 +987,7 @@ prossima sezione -- si veda la proprietà @code{force-hshift} in
 (come le legature di portamento e di valore, le forcelle, etc.) non possono
 essere creati @q{attraverso} le voci.}
 
-@seealso
+@morerefs
 Guida alla notazione: @ruser{Più voci}.
 
 
@@ -1252,7 +1252,7 @@ produrrà il messaggio di errore
 @qq{questa voce ha bisogno di un'impostazione @code{@bs{}\voiceXx} o @code{@bs{}\shiftXx}}.
 
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @ref{Spostare gli oggetti}.
 
@@ -1419,7 +1419,7 @@ VerseFour  =
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione: @ruser{Musica vocale}.
 
 
@@ -1510,7 +1510,7 @@ precedente senza trattini o underscore bensì con la prima lettera
 maiuscola: ad esempio, @code{GregorianTranscriptionStaff}.
 
 
-@seealso
+@morerefs
 Guida alla notazione: @ruser{Tutto sui contesti}.
 
 
@@ -1638,7 +1638,7 @@ particolare esempio di un contesto.  Abbiamo visto questo utilizzo
 nella sezione sul testo, si veda @ref{Voci e musica vocale}.
 
 
-@seealso
+@morerefs
 Guida alla notazione: @ruser{Creazione e citazione di un contesto}.
 
 
@@ -1723,7 +1723,7 @@ Vedremo in seguito come cambiare l'output di LilyPond
 modificando il comportamento degli incisori.
 
 
-@seealso
+@morerefs
 Guida al funzionamento interno: @rinternals{Engravers and Performers}.
 
 
@@ -2037,7 +2037,7 @@ alcuni particolari contesti attraverso asserzioni in un blocco @code{\with}, e t
 comandi @code{\set} incorporati nelle asserzioni musicali.
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ruser{Modifica delle impostazioni predefinite di un contesto},
 @ruser{Il comando set}.
@@ -2200,7 +2200,7 @@ I valori delle proprietà di un contesto possono essere impostati anche
 per tutti i contesti di un particolare tipo includendo il comando
 @code{\set} in un blocco @code{\context} nello stesso modo.
 
-@seealso
+@morerefs
 Guida alla notazione: @ruser{Modifica dei componenti aggiuntivi di un contesto},
 @ruser{Modifica delle impostazioni predefinite di un contesto}.
 
@@ -2416,7 +2416,7 @@ musicaVioloncello = \relative {
 @end lilypond
 
 
-@seealso
+@morerefs
 I modelli da cui partire si trovano nell'appendice @q{Modelli},
 si veda @ref{Modelli per rigo singolo}.
 
@@ -3075,7 +3075,7 @@ PedalOrganMusic = \relative {
 }  % fine del contesto Score
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{system,sistema}.
 
@@ -3320,7 +3320,7 @@ ovvero
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @ref{Organizzare i brani con le variabili}.
 

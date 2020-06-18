@@ -84,7 +84,7 @@ rigo per evitare il testo, come è spiegato in @ref{Struttura di una partitura c
 
 @end itemize
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{ambitus}.
 
@@ -206,7 +206,7 @@ molte opzioni disponibili leggere @ref{Formattazione del testo}.
 {formatting-lyrics-syllables.ly}
 
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Canzoni}.
 
@@ -338,7 +338,7 @@ si può vedere negli esempi in @ref{Dialogo sopra la musica}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Allineare il testo alla melodia}.
 
@@ -512,7 +512,7 @@ Ecco un esempio che ne dimostra l'utilizzo:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Estensori e trattini},
 @ref{Conservazione di un contesto},
@@ -590,7 +590,7 @@ proprietà @code{self-alignment-X}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Dialogo sopra la musica}.
 
@@ -629,7 +629,7 @@ tilde (@code{~}) per ottenere una legatura di valore per il testo.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{LyricCombineMusic}.
 
@@ -812,7 +812,7 @@ per ogni nota che debba essere inclusa nel melisma:
 @code{\melismaEnd}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{melisma}.
 
@@ -870,7 +870,7 @@ Questo comportamento è controllato da due proprietà di @code{LyricHyphen}:
 @code{minimum-distance} (distanza minima tra le due sillabe) e
 @code{minimum-length} (soglia sotto la quale i trattini vengono rimossi).
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
@@ -965,7 +965,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Posizionamento verticale del testo}.
 
@@ -1096,7 +1096,7 @@ Manuale di apprendimento, vedi @rlearning{Modelli per gruppi vocali}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Modelli per gruppi vocali}.
 
@@ -1588,7 +1588,7 @@ un finale alternativo, questi vanno inseriti a mano.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Conservazione di un contesto},
 @ref{Ripetizioni}.
@@ -2178,7 +2178,7 @@ text = \lyricmode {
 @end lilypond
 
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
@@ -2237,7 +2237,7 @@ altri strumenti a tasti: @qq{Fret diagram markups} in @ref{Common notation for f
 
 @end itemize
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Canzoni}.
 
@@ -2265,7 +2265,7 @@ spiegata in @ref{Notazione per accordi}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Notazione per accordi}.
 
@@ -2345,7 +2345,7 @@ Quando una parte vocale si divide temporaneamente, si devono usare i
 @code{\voiceTwo}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Partitura vocale a quattro parti SATB},
 @rlearning{Modelli per gruppi vocali}.
@@ -2440,7 +2440,7 @@ partitura sopra i loro rispettivi righi, come mostrato in questo esempio:
 @code{\dynamicUp}, @code{\dynamicDown}, @code{\dynamicNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Modificare la spaziatura},
 @ref{Visualizzare la spaziatura},
@@ -2466,7 +2466,7 @@ Guida al funzionamento interno:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Indicazioni espressive lineari}.
 
@@ -2564,7 +2564,7 @@ tra i due blocchi @code{\score}, vedi @ref{Testo separato}.
 
 @end itemize
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{Frenched score,Partitura senza righi vuoti},
 @rglosnamed{Frenched staves,Rigo temporaneo},
@@ -2671,7 +2671,7 @@ melchior = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Organizzare i brani con le variabili}.
 
@@ -2783,7 +2783,7 @@ e rendere più chiare le note per pianoforte.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{cue-notes,Notine o Citazioni in corpo più piccolo}.
 
@@ -2897,7 +2897,7 @@ dialogue = \lyricmode {
 
 @c TODO show use of \column to produce dialogue on two lines
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Durate manuali delle sillabe},
 @ref{Testo}.
@@ -2934,7 +2934,7 @@ incontrare sono generalmente simili e sono trattati in questa sezione.
 La composizione tipografica dei canti gregoriani in vari stili di
 notazione antica è descritta in @ref{Notazione antica}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Notazione antica}.
 
@@ -3233,7 +3233,7 @@ alle durate delle note.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Visibilità e colore degli oggetti},
 @rlearning{Modelli per gruppi vocali}.
@@ -3399,7 +3399,7 @@ colonne è descritto in @ref{Formattazione del testo}.
 La maggior parte di questi elementi sono mostrati in uno dei due versi
 del modello @rlearning{Salmi}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Salmi},
 @rlearning{Modelli per gruppi vocali}.
@@ -3438,6 +3438,6 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Notazione antica}.

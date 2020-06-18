@@ -418,7 +418,7 @@ kpsewhich feta20.tex
 @end example
 
 
-@seealso
+@morerefs
 @LaTeX{} ドキュメント専用の @command{lilypond-book} コマンド
 オプションがあり、他にも知っておくべき細かなことがあります。@c
 @ref{Invoking lilypond-book} を参照してください。

@@ -193,7 +193,7 @@ Scheme.  El equivalente de Scheme del ejemplo anterior es:
 @}
 @end example
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Tamaño del papel y escalado automático},
 @ref{Títulos encabezamientos y pies de página personalizados},
@@ -314,7 +314,7 @@ Cuando el tamaño del papel termina de forma explícita con
 impresión, no a las dimensiones del papel que se usan para la
 disposición.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Escalado automático al tamaño del papel},
 @ref{Tamaños de página predefinidos}.
@@ -359,7 +359,7 @@ resultan del tamaño predeterminado del papel @code{a4}.  Como
 referencia, con el papel @code{a4} la altura @code{paper-height}
 es @code{297\mm} y la anchura @code{paper-width} es @code{210\mm}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Variables de espaciado de paper verticales fijas},
 @ref{Variables de espaciado de paper horizontales}.
@@ -421,7 +421,7 @@ bloque @code{\bookpart}) se justifica verticalmente de la misma
 forma que las páginas anteriores.
 @end table
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Escalado automático al tamaño del papel}.
 
@@ -647,7 +647,7 @@ elemento de marcado (de título o del nivel superior) sobre una
 página, cuando no hay ningún sistema entre los dos.
 @end table
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Espaciado vertical flexible dentro de los sistemas}.
 
@@ -794,7 +794,7 @@ ajustarse dentro de un bloque @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Escalado automático al tamaño del papel}.
 
@@ -854,7 +854,7 @@ escala de acuerdo con ello.  Solamente funciona con
 
 @end table
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Escalado automático al tamaño del papel}.
 
@@ -906,7 +906,7 @@ partitura a partitura.
 
 @end table
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Escalado automático al tamaño del papel}.
 
@@ -967,7 +967,7 @@ ajustar dentro de un bloque @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Saltos de línea}.
 
@@ -1068,7 +1068,7 @@ una partitura.  Predeterminado: 2.
 @end table
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Saltos de página},
 @ref{Saltos de página óptimos},
@@ -1131,7 +1131,7 @@ están @code{roman-lower} (números romanos en minúsculas),
 
 @end table
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
@@ -1200,7 +1200,7 @@ bottom of the page.  Default: a centered horizontal line, defined in
 
 @end table
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{ly/titling-init.ly},
 @file{ly/paper-defaults-init.ly}.
@@ -1399,7 +1399,7 @@ pueden ser una herramienta valiosa para estructurar el diseño de
 la disposición de las fuentes, y también para reiniciar la
 configuración de @code{\layout} a un estado conocido.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Cambiar los valores por omisión de los contextos}.
 
@@ -1519,7 +1519,7 @@ tabla siguiente:
 @item feta26 @tab 25.2 @tab 8.9 @tab @c modern rental material?
 @end multitable
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Seleccionar el tamaño de la tipografía para la notación},
 @ref{La tipografía Emmentaler}.
@@ -1699,7 +1699,7 @@ compases, y sólo en dichos lugares:
 {using-an-extra-voice-for-breaks.ly}
 
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Variables de paper para los saltos de línea},
 @ref{The layout block}.
@@ -1833,7 +1833,7 @@ páginas para las distintas partes del libro.
 @code{\autoPageBreaksOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Variables de paper para los saltos de página}.
 
@@ -1863,7 +1863,7 @@ distensión, tanto horizontal como verticalmente.  A diferencia de
 @code{ly:page-turn-breaking}, no tiene un concepto de los pasos de
 página.
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -1888,7 +1888,7 @@ cantidad de textos.  Se habilita utilizando:
 @}
 @end example
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -2047,7 +2047,7 @@ del nivel superior y entre las partituras.
 @code{\allowPageTurn}.
 @endpredefined
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Variables de paper para los saltos de línea}.
 
@@ -2059,7 +2059,7 @@ Utilice un solo grabador @code{Page_turn_engraver} en cada
 partitura.  Si hay más de uno, se interferirán entre sí.
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Vertical spacing}.
 
@@ -2418,7 +2418,7 @@ una pauta individual se puede sobreescribir con distintos ajustes
 de espaciado para dicha pauta.
 @end table
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Variables de espaciado de paper verticales flexibles,,Variables de espaciado de @code{@bs{}paper} verticales flexibles},
 @ref{Modificación de las listas-A}.
@@ -2502,7 +2502,7 @@ grupo o grupos.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{scm/define-grobs.scm}.
 
@@ -2571,7 +2571,7 @@ del grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{scm/define-grobs.scm}.
 
@@ -2643,7 +2643,7 @@ mucho más de lo que es usual:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Archivos de inicio:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
@@ -2940,7 +2940,7 @@ de otros.  Esto se evitaría pasando a los diferentes ajustes unos
 valores razonables.
 @end itemize
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -3032,7 +3032,7 @@ líneas adicionales.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -3153,7 +3153,7 @@ valores predeterminados y otra con un ajuste exagerado:
 Está contemplada la notación proporcional; consulte
 @ref{Notación proporcional}.
 
-@seealso
+@morerefs
 Ensayo sobre grabado musical automatizado:
 @ressay{Espaciado óptico}.
 
@@ -3232,7 +3232,7 @@ se cambien en una nueva sección de espaciado, por ejemplo:
 @end lilypond
 
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -3331,7 +3331,7 @@ de adorno:
   c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -3389,7 +3389,7 @@ sencillamente ocupa su longitud horizontal natural.
 @}
 @end example
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Spacing}.
 
@@ -3761,7 +3761,7 @@ de extensión se dividan entre los sistemas y las páginas.
 Consulte las partes respectivas del manual para ver estos ajustes
 relacionados.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Sección de espaciado nueva}.
 
@@ -3838,7 +3838,7 @@ hoja @code{a6} en orientación apaisada.  Las parejas
 (@var{a},@var{b}) son intervalos, donde @var{a} es el límite
 inferior y @var{b} es el límite superior del intervalo.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Establecer el tamaño del pentagrama}.
 
@@ -3970,7 +3970,7 @@ completa.
 
 @end itemize
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Disposición de la página},
 @ref{Cambiar el espaciado horizontal}.

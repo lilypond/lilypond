@@ -121,7 +121,7 @@ Les hauteurs d'une expression musicale venant après un @code{\fixed} ne
 seront en rien affectées par un éventuel @code{\relative} qui la
 contiendrait.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{Pitch names,Noms des notes}.
 
@@ -327,7 +327,7 @@ auparavant, à l'aide d'un @code{\resetRelativeOctave} :
 
 @funindex \resetRelativeOctave
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{fifth,quinte},
 @rglosnamed{interval,intervalle},
@@ -448,7 +448,7 @@ sera réimprimée que s'il y a un saut de ligne.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{sharp,dièse},
 @rglosnamed{flat,bémol},
@@ -652,7 +652,7 @@ musique classique occidentale au tempérament égal -- le concept de
 charge d'autres systèmes de notation, comme indiqué au chapitre
 @ref{Noms des notes et altérations non-occidentaux}.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{Pitch names,Nom des notes},
 @rglos{Common Practice Period}.
@@ -748,7 +748,7 @@ Dans les deux mesures qui suivent, les premier et troisième
 }
 @end lilypond
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
@@ -862,7 +862,7 @@ Pour plus d'information à ce sujet, consultez
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Instruments transpositeurs},
 @ref{Inversion},
@@ -923,7 +923,7 @@ music = \relative { c' d e f }
 moins d'avoir été préalablement inclus explicitement dans un bloc
 @code{@bs{}relative}.}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Rétrogradation},
 @ref{Transformations modales},
@@ -962,7 +962,7 @@ terminer par un @code{\!} ou un @code{\endcresc} et tout @code{\>} ou
 ou commandes modifiant les propriétés sur la durée peuvent avoir des
 effets surprenants.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Inversion},
 @ref{Transformations modales},
@@ -1102,7 +1102,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Inversion},
 @ref{Rétrogradation},
@@ -1289,7 +1289,7 @@ clef initiale.  La taille peut toutefois être ajustée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Clefs anciennes},
 @ref{Clefs grégoriennes},
@@ -1436,7 +1436,7 @@ finissant à cette position sur la portée.
 {non-traditional-key-signatures.ly}
 
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{church mode,mode d'église},
 @rglos{scordatura}.
@@ -1508,7 +1508,7 @@ la fonction @code{ottava} qui s'en charge.
 {modifying-the-ottava-spanner-slope.ly}
 
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{octavation,octaviation}.
 
@@ -1612,7 +1612,7 @@ clarinet = \relative c'' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{concert pitch,tonalité de concert},
 @rglosnamed{transposing instrument,instrument transpositeur}.
@@ -2985,7 +2985,7 @@ musicB = {
 @end lilypond
 @end table
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 
@@ -3107,7 +3107,7 @@ de note représentant la hauteur la plus basse et la plus haute.  Les
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ambitus}.
 
@@ -3232,7 +3232,7 @@ Il existe un raccourci pour les notes en losange :
 @code{\xNote}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Indication des harmoniques et notes étouffées},
 @ref{Notes en accords},
@@ -3292,7 +3292,7 @@ Voir à ce propos @ref{Définition de la taille de portée}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Définition de la taille de portée}.
 
@@ -3421,7 +3421,7 @@ mineure, les degrés sont déterminés par rapport au relatif majeur :
 Pour une liste exhaustive des styles de tête de note, consultez
 @ref{Styles de tête de note}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Styles de tête de note}.
 
@@ -3471,7 +3471,7 @@ créées ainsi :
 @code{\improvisationOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
 

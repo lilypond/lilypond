@@ -81,7 +81,7 @@ Bögen zwischen Arpeggios und Tremolos sind beschrieben in
 
 @end itemize
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Fingersatzanweisungen},
 @ref{Bindebögen},
@@ -137,7 +137,7 @@ g-0\3
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Fingersatzanweisungen}.
 
@@ -477,7 +477,7 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Hälse},
 @ref{Akkord-Wiederholungen},
@@ -696,7 +696,7 @@ Auch ein moderner Tabulatur-Schlüssel kann verwendet werden:
 
 Der moderne Tabulatur-Schlüssel unterstützt Tabulaturen von 4 bis 7 Saiten.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Absolute Oktavenbezeichnung},
 @ref{Vordefinierte Bund-Diagramme},
@@ -1109,7 +1109,7 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Instrument Specific Markup}.
 
@@ -1422,7 +1422,7 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 {fretboards-alternate-tables.ly}
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Angepasste Tabulaturen},
 @ref{Automatische Bund-Diagramme},
@@ -1589,7 +1589,7 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 @endpredefined
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Angepasste Tabulaturen}.
 
@@ -1648,7 +1648,7 @@ RH=#rightHandFinger
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Fretted strings}.
 
@@ -1703,7 +1703,7 @@ notieren kann.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Text mit Verbindungslinien}.
 
@@ -1787,7 +1787,7 @@ so gedämpften Noten durch Dreiecke ersetzt werden.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Besondere Notenköpfe},
 @ref{Notenkopfstile}.
@@ -1837,7 +1837,7 @@ ChordsAndSymbols = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{power chord}.
 
@@ -1908,7 +1908,7 @@ indem die @code{four-string-banjo}-Funktion eingesetzt wird:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
+@morerefs
 Installierte Dateien:
 @file{ly/string-tunings-init.ly}.
 

@@ -878,7 +878,7 @@ cualquier material creado @q{partiendo de cero} (o que se ha
 copiado explícitamente) en lugar de utilizarse para referenciar
 música directamente.
 
-@seealso
+@morerefs
 Manual de extensión:
 @ref{Sintaxis del Scheme de LilyPond}.
 

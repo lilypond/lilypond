@@ -432,7 +432,7 @@ nombre de systèmes requis :
 \begin@{lilypond@}@dots{}\end@{lilypond@}
 @end example
 
-@seealso
+@morerefs
 @command{lilypond-book} dispose d'options en ligne de commande
 particulières.  Elles sont consultables, ainsi que d'autres détails
 spécifiques au traitement de documents @LaTeX{}, au chapitre

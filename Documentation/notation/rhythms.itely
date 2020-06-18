@@ -170,7 +170,7 @@ Notes can also be spaced proportionately to their duration, see
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{breve},
 @rglos{longa},
@@ -348,7 +348,7 @@ bracket is also introduced in @ref{Scaling durations}.
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{triplet},
 @rglos{tuplet},
@@ -448,7 +448,7 @@ showing how music can be compressed and expanded:
 One application of this command is in polymetric
 notation, see @ref{Polymetric notation}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Tuplets},
 @ref{Invisible rests},
@@ -669,7 +669,7 @@ that should cause a gap in ties.
 {engraving-ties-manually.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{tie},
 @rglos{laissez vibrer}.
@@ -771,7 +771,7 @@ automatic rest collision formatter will not move these rests.
 {rest-styles.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{breve},
 @rglos{longa},
@@ -869,7 +869,7 @@ any kind.
 { \skip 1 \skip1 \skip 1 }
 @end lilypond
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Visibility and color of objects}.
 
@@ -1022,7 +1022,7 @@ setting, resulting bar-check warnings may not be displayed.
 {multi-measure-rest-markup.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{multi-measure rest}.
 
@@ -1299,7 +1299,7 @@ is shown in @ref{Setting automatic beam behavior}.
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{time signature}
 
@@ -1437,7 +1437,7 @@ for horizontal spacing.
 For more details, see @ref{Formatting text}.
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1529,7 +1529,7 @@ The @code{\partial} command sets the @code{Timing.measurePosition}
 property, which is a rational number that indicates how much of
 the measure has passed.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{anacrusis}.
 
@@ -1646,7 +1646,7 @@ placed in just one @code{Voice} context.  To change this, move the
 @code{\cadenzaOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{cadenza}.
 
@@ -1824,7 +1824,7 @@ automatic beaming settings will be adjusted depending on the values.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -1938,7 +1938,7 @@ into notes with the same scale-factor as in the input note.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{tie}
 
@@ -2060,7 +2060,7 @@ reduced to single notes with the @code{\reduceChords} music function:
 {guitar-strum-rhythms.ly}
 
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Rhythms}.
 
@@ -2157,7 +2157,7 @@ created; see @ref{Setting automatic beam behavior}.
 {partcombine-and-autobeamoff.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Manual beams},
 @ref{Setting automatic beam behavior}.
@@ -2511,7 +2511,7 @@ The default beaming rules can be found in
 {beam-endings-in-score-context.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Time signature}.
 
@@ -2678,7 +2678,7 @@ the group as a whole.
 {flat-flags-and-beam-nibs.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Direction and placement},
 @ref{Grace notes}.
@@ -2750,7 +2750,7 @@ note durations only approximately, but the MIDI output is exact.
 @code{\featherDurations}.
 @endpredefined
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Rhythms}.
 
@@ -3156,7 +3156,7 @@ The default bar type used for automatically inserted bar lines is
 @code{"|"}.  This may be changed at any time with
 @samp{\set Timing.defaultBarType = @var{bartype}}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Line breaking},
 @ref{Repeats},
@@ -3262,7 +3262,7 @@ are printed at all possible places:
 {removing-bar-numbers-from-a-score.ly}
 
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Rhythms}.
 
@@ -3364,7 +3364,7 @@ example,
 will print a warning if the @code{currentBarNumber} is not 123
 when it is processed.
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Rhythms}.
 
@@ -3524,7 +3524,7 @@ the definitions of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
 other formatting functions.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{The Emmentaler font},
 @ref{Formatting text},
@@ -3720,7 +3720,7 @@ direction is overridden and then reverted.
 {positioning-grace-notes-with-floating-space.ly}
 
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -3850,7 +3850,7 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{cadenza}.
 
@@ -3934,7 +3934,7 @@ duration of n/m of a whole note.  For example,
 @code{ly:make-moment 7/16} is the duration of seven sixteenths
 notes.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Bar numbers},
 @ref{Unmetered music}.

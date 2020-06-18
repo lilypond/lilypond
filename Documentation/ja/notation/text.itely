@@ -154,7 +154,7 @@ dyn =
 }
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Formatting text},
 @ref{Text scripts},
@@ -254,7 +254,7 @@ Essay on automated music engraving:
 @code{\textLengthOff}
 @endpredefined
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{オブジェクトの配置}
 
@@ -352,7 +352,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-custom-text-spanner-postfix.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Line styles},
 @ref{強弱記号},
@@ -465,7 +465,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{リハーサル記号},
 @ref{テキストをフォーマットする},
@@ -547,7 +547,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {stand-alone-two-column-markup.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{テキストをフォーマットする},
 @ref{File structure},
@@ -683,7 +683,7 @@ allegro = \markup { \bold \large Allegro }
 これらのコマンドの内部動作と、新たに実装する方法は、@rextend{Markup functions} で@c
 説明されています。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Text objects overview},
 @ref{Text markup commands}
@@ -883,7 +883,7 @@ allegro = \markup { \bold \large Allegro }
 @code{\larger}
 @endpredefined
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{フォント},
 @ref{新たな強弱記号},
@@ -1161,7 +1161,7 @@ allegro = \markup { \bold \large Allegro }
 
 @ref{Align} にテキスト揃えコマンドの徹底したリストがあります。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{オブジェクトを移動させる}
 
@@ -1332,7 +1332,7 @@ c'
 
 @ref{Graphic} にグラフィック特有のコマンドの徹底したリストがあります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Align},
 @ref{Dimensions},
@@ -1466,7 +1466,7 @@ a'1_\markup {
 
 @ref{Music} に、音楽記譜法関連のコマンドの徹底したリストがあります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Music},
 @ref{The Emmentaler font},
@@ -1535,7 +1535,7 @@ a'1_\markup {
 @ref{Text markup list commands} に、@c
 マークアップ リスト コマンドの徹底したリストがあります。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Text markup list commands}
 
@@ -1766,7 +1766,7 @@ OpenType フォントの script と language は指定できません。@c
 他のフォントを使用する方法は以下のセクションで説明されています:
 @ref{個々に登録するフォント} と @ref{ドキュメント全体のフォント}。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{The Emmentaler font},
 @ref{マークアップ内部での音楽記譜法},
@@ -1816,7 +1816,7 @@ lilypond を以下のオプションを付けて実行すると@c
 lilypond -dshow-available-fonts
 @end example
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{フォントの説明},
 @ref{ドキュメント全体のフォント}
@@ -1941,7 +1941,7 @@ lilypond -dshow-available-fonts
 @}
 @end example
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{フォントの説明},
 @ref{個々に登録するフォント},

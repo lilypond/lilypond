@@ -198,7 +198,7 @@ TextScripten, die an Noten angehängt werden, siehe
 {creating-a-delayed-turn.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{tenuto},
 @rglos{accent},
@@ -463,7 +463,7 @@ aufzunehmen.
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{al niente},
 @rglos{crescendo},
@@ -594,7 +594,7 @@ Die Auswahl von Schriftarten in Textbeschriftungen ist erklärt in
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle}.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Text formatieren},
 @ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
@@ -760,7 +760,7 @@ Eigene Muster für die Strichelung können definiert werden:
 {making-slurs-with-complex-dash-structure.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{slur}.
 
@@ -903,7 +903,7 @@ die Schnipsel im Abschnitt @ref{Legatobögen}.
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Über die Nicht-Schachtelung von Klammern und Bindebögen}.
 
@@ -955,7 +955,7 @@ Divisiones genannt, sind unterstützt.  Für Einzelheiten siehe
 {inserting-a-caesura.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{caesura}.
 
@@ -1006,7 +1006,7 @@ der Note erstreckt.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{fall},
 @rglos{doit}.
@@ -1055,7 +1055,7 @@ Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{glissando}.
 
@@ -1168,7 +1168,7 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{arpeggio}.
 
@@ -1309,7 +1309,7 @@ des ersten Trillers mit Tonhöhe innerhalb eines Taktes wird ausgegeben.
 @code{\stopTrillSpan}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossar:
 @rglos{trill}.
 

@@ -82,7 +82,7 @@ Um Dateien wie @file{arabic.ly} oder @file{makam.ly} zu finden, siehe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {makam-example.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{Common Practice Period},
 @rglos{makamlar}.
@@ -162,7 +162,7 @@ können ohne Taktlinien notiert werden, siehe hierzu
 @end itemize
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Übliche Notation für nichteuropäische Musik},
 @ref{Tonartbezeichnung},
@@ -218,7 +218,7 @@ werden.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Notenbezeichnungen in anderen Sprachen},
 @ref{Übliche Notation für nichteuropäische Musik}.
@@ -331,7 +331,7 @@ häufigsten Maqams bestimmten Vorzeichen zugeordnet werden:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{maqam},
 @rglos{bayati},
@@ -383,7 +383,7 @@ zu benutzen.
 {arabic-improvisation.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{semai},
 @rglos{taqasim}.
@@ -435,7 +435,7 @@ etwa Zwischenintervalle und ungewöhnliche Modi, zu illustrieren.
 @end lilypond
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{World music}.
 
@@ -592,7 +592,7 @@ die Tonhöhenveränderung als Bruch eines Ganztones.
 Eine weitergehende Erklärung der Notation nichteuropäischer Musik findet
 sich in @ref{Übliche Notation für nichteuropäische Musik}.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{makam},
 @rglos{makamlar}.

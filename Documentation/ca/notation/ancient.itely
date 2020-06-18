@@ -67,7 +67,7 @@ notació antiga:
 @item @ref{Lligadures}.
 @end itemize
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{custos},
 @rglos{ligature},
@@ -168,7 +168,7 @@ altres, i així usar corxets mensurals, caps de petrucci, silencis
 de notació clàssica i claus de vaticana a la mateixa peça, si així
 ho volem.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -203,7 +203,7 @@ Vegeu un dels contextos predefinits @code{VaticanaVoice},
 @item @ref{Contextos de la música mensural}.
 @end itemize
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation}.
 
@@ -252,7 +252,7 @@ especialitzats de lligadures del context @code{Voice}, com
 s'explica a @ref{Lligadures mensurals blanques} i
 @ref{Lligadures de neumes quadrats gregorians}.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{ligature}.
 
@@ -347,7 +347,7 @@ fragment següent:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{custos}.
 
@@ -408,7 +408,7 @@ escriure el cant, como ho demostra el fragment següent:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation}.
 
@@ -540,7 +540,7 @@ clau de Sol en l'estil d'en Petrucci
 @end lilypond
 @end multitable
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation},
 @rglos{clef}.
@@ -647,7 +647,7 @@ diferències que hi ha entre els estils:
 @ref{Indicació de compàs} ofereix una introducció general a l'ús
 de les indicacions de compàs.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation}.
 
@@ -737,7 +737,7 @@ a'\longa
 @ref{Estils de caps de nota} ofereix una visió de conjunt sobre la
 totalitat dels estils de cap disponibles.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation},
 @rglos{note head}.
@@ -775,7 +775,7 @@ No hi ha un estil particular de corxet per a la notació
 neo-mensural ni Petrucci.  No hi ha corxets a la notació de cant
 gregorià.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -814,7 +814,7 @@ No hi ha silencis de fusa i semifusa específics per als estils
 mensural ni neo-mensural.  S'usen els silencis de l'estil
 predeterminat.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation}.
 
@@ -867,7 +867,7 @@ respectivament; per exemple:
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{mensural notation},
 @rglos{Pitch names},
@@ -927,7 +927,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
@@ -1024,7 +1024,7 @@ l'aparença següent:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{ligature}.
 
@@ -1061,7 +1061,7 @@ produir neumes de punctum.  De forma semblant, el gravador
 automàticament.  Consulteu @ref{Lligadures} per veure com
 funcionen els gravadors de lligadures.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{ligature}.
 
@@ -1106,7 +1106,7 @@ demostra el fragment següent:
 @end lilypond
 
 
-@c @seealso
+@c @morerefs
 @c TODO: nothing here yet ...
 
 
@@ -1243,7 +1243,7 @@ Clau combinada de Do i Fa, estil hufnagel
 @end lilypond
 @end multitable
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{clef}.
 
@@ -1295,7 +1295,7 @@ grobs (objectes gràfics) @rinternals{Accidental} i
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{accidental},
 @rglos{key signature}.
@@ -1388,7 +1388,7 @@ ordres @code{\virgula} i @code{\caesura}.
 @code{\finalis}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{caesura},
 @rglos{divisio}.
@@ -1427,7 +1427,7 @@ notació a l'estil de l'@emph{Editio Vaticana}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Articulacions i ornaments}.
 
@@ -1470,7 +1470,7 @@ de @code{\augmentum a \augmentum g}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Marques de respiració}.
 
@@ -2412,7 +2412,7 @@ descendent, respectivament.
 Utilitzeu la funció musical unària @code{\augmentum} per afegir
 punts d'augmentum.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{ligature}.
 
@@ -2484,7 +2484,7 @@ cant:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{kievan notation}.
 
@@ -2510,7 +2510,7 @@ Tse-fa-ut).  S'utilitza per indicar la posició del Do:
   c'
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{kievan notation},
 @rglos{clef}.
@@ -2549,7 +2549,7 @@ b'1 b'2 b'4 b'8 b'\breve b'\longa
 b'2
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{kievan notation},
 @rglos{note head}.
@@ -2586,7 +2586,7 @@ més antics.  S'ha inclòs principalment a efectes de compatibilitat.
 bes' dis'
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{kievan notation},
 @rglos{accidental}.
@@ -2610,7 +2610,7 @@ del cant kievà». Es pot invocar com @code{\bar "k"}.
   c' \bar "k"
 @end lilypond
 
-@seealso
+@morerefs
 @ref{Barres de compàs},
 @ref{El tipus de lletra Emmentaler}.
 
@@ -2672,7 +2672,7 @@ lligadures del cant kievà:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{ligature}.
 
@@ -2757,7 +2757,7 @@ Observeu que s'ha de configurar el contingut de
 l'incipit.  Si no voleu que aparegui cap nom per a l'instrument,
 utilitzeu @code{\set Staff.instrumentName = ""}.
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2777,7 +2777,7 @@ orientativa que proporcionen les barres de compàs.
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2961,7 +2961,7 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2972,7 +2972,7 @@ spirLyr = \lyricmode {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -3001,6 +3001,6 @@ spirLyr = \lyricmode {
 Continuarà...
 
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 >

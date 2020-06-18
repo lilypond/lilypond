@@ -129,7 +129,7 @@ siehe
 @ref{Neue Kontexte definieren}.
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{staff},
 @rglos{staves}.
@@ -266,7 +266,7 @@ Neue Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{brace},
 @rglos{bracket},
@@ -339,7 +339,7 @@ Neue geschachtelte Systemgruppen können definiert werden.  Zu Einzelheiten sieh
 {nesting-staves.ly}
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Systeme gruppieren},
 @ref{Instrumentenbezeichnungen},
@@ -401,7 +401,7 @@ mit einer Option in der @code{\paper}-Umgebung angeschalten.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Seitenlayout}.
 
@@ -589,7 +589,7 @@ Einstellung wirkt sich auch auf den Abstand der Hilfslinien aus.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{line},
 @rglos{ledger line},
@@ -755,7 +755,7 @@ Mehr Information zu @code{\Staff \RemoveEmptyStaves} findet sich in
 {vertically-aligning-ossias-and-lyrics.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{ossia},
 @rglos{staff},
@@ -863,7 +863,7 @@ leere Takte in einem
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
-@seealso
+@morerefs
 Glossar:
 @rglos{Frenched staff}.
 
@@ -1092,7 +1092,7 @@ wird dann benutzt, um den Wechsel vorzunehmen:
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen},
 @ref{Umgebungs-Plugins verändern}.
@@ -1246,7 +1246,7 @@ oboeNotes = \relative {
 Zitate können auch mit Marken (engl. tag) versehen werden. Siehe auch
 @ref{Marken benutzen}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Transposition von Instrumenten},
 @ref{Marken benutzen}.
@@ -1567,7 +1567,7 @@ auch in eine Instrument-Definition unter Einsatz des Befehls
 @code{\addInstrumentDefinition} zusammengefasst werden, siehe
 @ref{Instrumentenbezeichnungen}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Andere Stimmen zitieren},
 @ref{Transposition von Instrumenten},

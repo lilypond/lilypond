@@ -61,7 +61,7 @@ La sortida MIDI es tracta a una secció a part; vegeu
 
 @end itemize
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Mostrar els ritmes de la melodia},
 @ref{Creació d'instàncies de pentagrames nous},
@@ -125,7 +125,7 @@ Hi ha certs detalls respecte a com s'incorpora el MIDI per als
 instruments de percussió; per veure els detalls, consulteu
 @ref{Instruments MIDI}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Instruments MIDI},
 @ref{Notes de percussió}.
@@ -176,7 +176,7 @@ aconseguir una línia de base satisfactòria.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Repeticions de trèmol}.
 
@@ -193,7 +193,7 @@ el xilòfon, el vibràfon i els timbals) s'escriuen usant
 pentagrames normals.  Això s'estudia a d'altres seccions del
 manual.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Instruments MIDI}.
 
@@ -612,7 +612,7 @@ drumsB = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Percussion}.
 
@@ -650,6 +650,6 @@ poden crear utilitzant l'ordre @code{\parenthesize} detallada a
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Percussion}.

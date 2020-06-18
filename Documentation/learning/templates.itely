@@ -206,7 +206,7 @@ The complete set of variables which may be changed can be seen by
 examining the file @file{ly/satb.ly}, see
 @ref{Other sources of information}.
 
-@seealso
+@morerefs
 Learning Manual:
 @ref{Organizing pieces with variables},
 @ref{Vocal ensembles templates},
@@ -322,7 +322,7 @@ The complete set of variables which may be changed can be seen by
 examining the file @file{ly/ssaattbb.ly}, see
 @ref{Other sources of information}.
 
-@seealso
+@morerefs
 Learning Manual:
 @ref{Organizing pieces with variables},
 @ref{Vocal ensembles templates},

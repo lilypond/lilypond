@@ -189,7 +189,7 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 そのため、名前からオブジェクトやプロパティのタイプを識別できるように@c
 なると役に立ちます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{プロパティを変更する}
 
@@ -551,7 +551,7 @@ a'4^"Black"
 @end lilypond
 
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ruser{The tweak command}
 
@@ -602,7 +602,7 @@ emphNoteHead = {
 しかし、@code{\single} は @code{\revert}, @code{\set}, @code{\unset} を
 @code{\tweak} に変換することはできません。
 
-@seealso
+@morerefs
 学習マニュアル:
 @ref{tweak コマンド,,@code{@bs{}tweak} コマンド},
 @ref{レイアウトの調整のために変数を使用する}
@@ -1037,7 +1037,7 @@ LilyPond に読み込まれます。@c
 置いてください。}
 
 
-@seealso
+@morerefs
 拡張: @rextend{Scheme tutorial}
 
 
@@ -1113,7 +1113,7 @@ LilyPond に読み込まれます。@c
 @end multitable
 
 
-@seealso
+@morerefs
 拡張: @rextend{Scheme tutorial}
 
 
@@ -4112,7 +4112,7 @@ lhMusic = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Learning Manual:
 @ref{once 接頭辞,,@code{@bs{}once} 接頭辞},
 @ref{stencil プロパティ}.
@@ -4195,7 +4195,7 @@ Learning Manual:
 上に押し上げているのに対して、2 番目のメトロノーム記号 (ステンシルが@c
 削除されたもの) は押し上げていません。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{system}
 

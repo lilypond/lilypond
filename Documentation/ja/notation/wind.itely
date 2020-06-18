@@ -93,7 +93,7 @@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Breath marks},
 @ref{Slurs},
@@ -133,7 +133,7 @@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Woodwind diagrams}
 
@@ -204,7 +204,7 @@ C と F をフラットにするためクロス フィンガリングを使う�
 同様に、軽音楽のピブロホ ハイ G (piobaireachd high g) は、@c
 @code{g-flat} で示すことができます。
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Winds}
 
@@ -255,7 +255,7 @@ C と F をフラットにするためクロス フィンガリングを使う�
 }
 @end lilypond
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Winds}
 
@@ -446,7 +446,7 @@ c''1^\markup {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
-@seealso
+@morerefs
 インストールされているファイル:
 @file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}

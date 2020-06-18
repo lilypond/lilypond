@@ -1375,7 +1375,7 @@ tra teste di nota oppure quando le voci si incrociano rispetto al loro ordine
 naturale (quando le note di @code{\voiceThree} sono più alte di quelle di
 @code{\voiceOne}, etc.)
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Definire esplicitamente le voci},
 @rlearning{Esempio musicale}.

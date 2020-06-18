@@ -213,7 +213,7 @@ i TextScript que s'annexen a les notes, consulteu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{tenuto},
 @rglos{accent},
@@ -509,7 +509,7 @@ piano.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{al niente},
 @rglos{crescendo},
@@ -656,7 +656,7 @@ Els ajustos per als tipus de lletra en mode de marcatge es
 descriuen a
 @ref{Selecció del tipus de lletra i la seva mida}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Donar format al text},
 @ref{Selecció del tipus de lletra i la seva mida},
@@ -836,7 +836,7 @@ Es poden definir patrons de discontinuïtat per a les lligadures d'expressió:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{slur}.
 
@@ -986,7 +986,7 @@ codi sota @ref{Lligadures d'expressió}.
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @rlearning{Quant a la impossibilitat de niuar claus i lligadures}
 
@@ -1051,7 +1051,7 @@ consulteu @ref{Divisiones}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{caesura}.
 
@@ -1100,7 +1100,7 @@ l'interval d'alçades sobre el qual s'estén la caiguda o elevació
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{fall},
 @rglos{doit}.
@@ -1200,7 +1200,7 @@ detalls, consulteu @ref{Estils de línia}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{glissando}.
 
@@ -1313,7 +1313,7 @@ utilitzant @notation{lligadures d'unió}.  Vegeu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{arpeggio}.
 
@@ -1456,7 +1456,7 @@ primer refilet amb nota, dins d'un compàs.
 @code{\stopTrillSpan}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{trill}.
 

@@ -263,7 +263,7 @@ lauten.  Für mehr Information siehe
 Einschränkungen sind beschrieben in @ruser{Die Dateistruktur}.
 
 
-@seealso
+@morerefs
 Eine vollständige Definition des Eingabeformats findet sich in
 @ruser{Die Dateistruktur}.
 
@@ -428,7 +428,7 @@ der gleichen Ebene angehört, wirklich horizontal an der
 gleichen Stelle beginnt.
 
 
-@seealso
+@morerefs
 Benutzerhandbuch: @ruser{Struktur einer Partitur}.
 
 
@@ -500,7 +500,7 @@ mit Namen @qq{Hauptzeile} plaziert werden soll, anstatt
 standardmäßig unterhalb.
 
 
-@seealso
+@morerefs
 Ossia werden oft ohne Notenschlüssel und Taktangabe gedruckt, meist
 auch etwas kleiner als die anderen Notenzeilen.  Dies ist natürlich
 auch in LilyPond möglich, benötigt aber Befehle, die bisher noch
@@ -999,7 +999,7 @@ auf; siehe @code{force-hshift}-Eigenschaft in
 nicht von einer Stimme zur anderen erstellt werden.}
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Mehrere Stimmen}.
 
 
@@ -1255,7 +1255,7 @@ definiert, wird die Fehlermeldung
 ausgegeben.
 
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @ref{Verschieben von Objekten}.
 
@@ -1437,7 +1437,7 @@ VerseFour  =
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Notation von Gesang}.
 
 
@@ -1544,7 +1544,7 @@ angeschlossen, etwa
 @code{GregorianTranscriptionStaff}.
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Was sind Kontexte?}.
 
 
@@ -1674,7 +1674,7 @@ zu verweisen.  Dieses Vorgehen wurde schon in dem Abschnitt
 zu Gesangstexten angewandt, siehe @ref{Stimmen und Text}.
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Kontexte erstellen und referenzieren}.
 
 
@@ -1768,7 +1768,7 @@ verändert werden kann, indem die Wirkungsweise der
 Engraver beeinflusst wird.
 
 
-@seealso
+@morerefs
 Referenz der Interna: @rinternals{Engravers and Performers}.
 
 
@@ -2108,7 +2108,7 @@ bestimmten Kontexte überschrieben werden, indem die
 innerhalb der aktuellen Noten.
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ruser{Die Standardeinstellungen von Kontexten ändern},
 @ruser{Der set-Befehl}.
@@ -2287,7 +2287,7 @@ Weise geändert werden, indem der @code{\set}-Befehl in
 einer @code{\context}-Umgebung angewendet wird.
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Umgebungs-Plugins verändern},
 @ruser{Die Standardeinstellungen von Kontexten ändern}.
 
@@ -2519,7 +2519,7 @@ celloMusic = \relative {
 @end lilypond
 
 
-@seealso
+@morerefs
 Die Vorlagen, mit denen wir begonnen haben, können im
 Anhang @qq{Vorlagen} gefunden werden, siehe
 @ref{Vorlagen für ein einzelnes System}.
@@ -3195,7 +3195,7 @@ PedalOrganMusic = \relative {
 }  % end Score context
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{system}.
 
@@ -3445,7 +3445,7 @@ woraus sich ergibt:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @ref{Stücke durch Variablen organisieren}.
 

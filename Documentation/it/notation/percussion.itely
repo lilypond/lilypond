@@ -54,7 +54,7 @@ argomento è trattato in @ref{Mostrare i ritmi della melodia} e
 
 @end itemize
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Mostrare i ritmi della melodia},
 @ref{Istanziare nuovi righi}.
@@ -119,7 +119,7 @@ chiavi.
 Ci sono alcuni problemi relativi al supporto del MIDI per gli strumenti
 percussivi; maggiori dettagli in @ref{Creazione dell'output MIDI}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Creazione dell'output MIDI},
 @ref{Note percussive}.
@@ -166,7 +166,7 @@ proprietà @code{staff-padding} per ottenere un allineamento soddisfacente.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ripetizioni con tremolo}.
 
@@ -182,7 +182,7 @@ Alcuni strumenti percussivi a suono determinato (per esempio xilofono, vibrafono
 e timpani) si scrivono usando i righi normali, come è spiegato in altre sezioni
 del manuale.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Creazione dell'output MIDI}.
 
@@ -408,7 +408,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 Si possono anche definite stili percussivi personalizzati, come è
 spiegato in @ref{Righi delle percussioni personalizzati}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Sento le Voci}.
 
@@ -541,7 +541,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 @end lilypond
 
 
-@seealso
+@morerefs
 File installati:
 @file{ly/drumpitch-init.ly}.
 
@@ -591,7 +591,7 @@ possono essere create col comando @code{\parenthesize}, spiegato in @ref{Parente
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla Notazione:
 @ref{Parentesi}.
 

@@ -182,7 +182,7 @@
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{breve},
 @rglos{longa},
@@ -334,7 +334,7 @@
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{triplet},
 @rglos{tuplet},
@@ -433,7 +433,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 このコマンドの応用例の 1 つは多拍子記譜法での使用です。@c
 @ref{多拍子記譜法} を参照してください。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Tuplets},
 @ref{Invisible rests},
@@ -655,7 +655,7 @@ L.v. タイは以下のように入力します:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{tie},
 @rglos{laissez vibrer}
@@ -759,7 +759,7 @@ L.v. タイは以下のように入力します:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{breve},
 @rglos{longa},
@@ -858,7 +858,7 @@ L.v. タイは以下のように入力します:
 { \skip 1 \skip1 \skip 1 }
 @end lilypond
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Visibility and color of objects}
 
@@ -1051,7 +1051,7 @@ R1\fermata
 {multi-measure-rest-markup.ly}
 
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{multi-measure rest}
 
@@ -1317,7 +1317,7 @@ R1\fermata
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{time signature}
 
@@ -1451,7 +1451,7 @@ R1\fermata
 
 詳細は @ref{Formatting text} を参照してください。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{metronome},
 @rglos{metronomic indication},
@@ -1540,7 +1540,7 @@ R1\fermata
 @code{\partial} コマンドは @code{Timing.measurePosition} プロパティを@c
 セットします。これは小節のどれだけが経過したかを表す分数です。
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{anacrusis}
 
@@ -1661,7 +1661,7 @@ R1\fermata
 @code{\cadenzaOff}
 @endpredefined
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{cadenza}
 
@@ -1845,7 +1845,7 @@ R1\fermata
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{polymetric},
 @rglos{polymetric time signature},
@@ -1963,7 +1963,7 @@ R1\fermata
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集: @rglos{tie}
 
 学習マニュアル:
@@ -2084,7 +2084,7 @@ R1\fermata
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Rhythms}
 
@@ -2187,7 +2187,7 @@ R1\fermata
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
 {partcombine-and-autobeamoff.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Manual beams},
 @ref{Setting automatic beam behavior}.
@@ -2541,7 +2541,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {beam-endings-in-score-context.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{拍子}
 
@@ -2705,7 +2705,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {flat-flags-and-beam-nibs.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Direction and placement},
 @ref{Grace notes}
@@ -2779,7 +2779,7 @@ MIDI 出力での演奏時間は正確です。
 @code{\featherDurations}
 @endpredefined
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Rhythms}
 
@@ -3149,7 +3149,7 @@ f'1 \bar "k"
 これは @samp{\set Timing.defaultBarType = @var{bartype}} でいつでも@c
 変更することができます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Line breaking},
 @ref{Repeats},
@@ -3258,7 +3258,7 @@ f'1 \bar "k"
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {removing-bar-numbers-from-a-score.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Rhythms}
 
@@ -3358,7 +3358,7 @@ f'1 \bar "k"
 を使用すると、@code{currentBarNumber} が処理された時に 123 でなければ、@c
 警告が表示されます。
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Rhythms}
 
@@ -3512,7 +3512,7 @@ f'1 \bar "k"
 しています。@c
 ここにある定義を参考にして他のフォーマット関数を作り出すことができます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{The Emmentaler font},
 @ref{Formatting text},
@@ -3709,7 +3709,7 @@ afterGraceFraction = 3/4
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{grace notes},
 @rglos{acciaccatura},
@@ -3842,7 +3842,7 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{cadenza}
 
@@ -3926,7 +3926,7 @@ MyCadenza = \relative {
 例えば、@code{ly:make-moment 1/8} は 1 個の 8 分音符の演奏時間であり、@c
 @code{ly:make-moment 7/16} は 7 個の 16 分音符の演奏時間です。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Bar numbers},
 @ref{Unmetered music}

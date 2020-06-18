@@ -74,7 +74,7 @@ Questa sezione spiega cosa sono i contesti e come modificarli.
 * Ordine di disposizione dei contesti::
 @end menu
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Contesti e incisori}.
 
@@ -145,7 +145,7 @@ sia per l'output grafico che per il Midi.  Se le modifiche fatte a
 non sono ripetute nel corrispondente blocco @code{\midi}, il testo e la
 musica andranno fuori sincrono nel Midi.
 
-@seealso
+@morerefs
 File installati:
 @file{ly/engraver-init.ly}.
 @file{ly/performer-init.ly}.
@@ -479,7 +479,7 @@ un mezzo per mantenere le istruzioni di formattazione separate dal contenuto
 musicale.  Se occorre modificare un solo contesto, bisogna usare un blocco
 @code{\with}, vedi @ref{Modifica di un solo contesto specifico}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Organizzare i brani con le variabili}.
 
@@ -783,7 +783,7 @@ l'incisore @code{New_fingering_engraver} deve precedere l'incisore
 
 @end itemize
 
-@seealso
+@morerefs
 File installati:
 @file{ly/engraver-init.ly}.
 
@@ -1077,7 +1077,7 @@ Un comando predefinito come @code{\dynamicUp}
 
 @end itemize
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Modalità di inserimento}
 
@@ -1106,7 +1106,7 @@ appropriato più recente nei blocchi @code{\layout} o @code{\midi},
 altrimenti viene usato il valore predefinito in LilyPond.
 @end itemize
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Modificare le proprietà di contesto}.
 
@@ -1328,7 +1328,7 @@ Per completare questo esempio, le modifiche che alterano la gerarchia dei
 contesti devono essere ripetute in un blocco @code{\midi} per far sì che
 l'output Midi dipenda dalle stesse relazioni di contesto.
 
-@seealso
+@morerefs
 
 Guida al funzionamento interno:
 @rinternals{Note_heads_engraver},
@@ -1446,7 +1446,7 @@ Esempi che mostrano questo riposizionamento di contesti temporanei possono
 essere trovati altrove --- vedi @rlearning{Annidare le espressioni musicali},
 @ref{Modificare singoli righi} e @ref{Tecniche specifiche per il testo vocale}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Annidare le espressioni musicali}.
 
@@ -1787,7 +1787,7 @@ delle proprietà di contesto.  I comandi @code{\override} e @code{\revert}
 servono a cambiare i valori delle proprietà dei grob.
 
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{Backend},
 @rinternals{All layout objects},
@@ -1935,7 +1935,7 @@ trova nella Guida al funzionamento interno, vedi
 Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{Tunable context properties}.
 
@@ -2065,7 +2065,7 @@ per agire solo sul momento corrente:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{Backend}
 
@@ -2182,7 +2182,7 @@ gli elementi inseriti automaticamente, può essere esaminato, vedi
 cosa può essere modificato da un comando @code{\tweak} o nel valutare come
 aggiustare l'input per far sì che un @code{\tweak} sia applicato.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Metodi di modifica}.
 
@@ -2947,7 +2947,7 @@ Nella musica polifonica, generalmente è meglio specificare una voce esplicita
 invece di cambiare la direzione di un oggetto.  Maggiori informazioni
 in @ref{Più voci}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Oggetti interni al rigo}.
 
@@ -3007,7 +3007,7 @@ permette di convertire una modifica della dimensione del tipo di carattere
 nella modifica equivalente in @code{staff-space}.  Questa funzione è spiegata
 e esemplificata in @rlearning{Lunghezza e spessore degli oggetti}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Lunghezza e spessore degli oggetti}.
 
@@ -3041,7 +3041,7 @@ si trova a -5, il margine destro a 10, il margine inferiore a -3 e quello
 superiore a 15, tutti misurati a partire dal punto di riferimento degli
 oggetti in unità di spazi rigo.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Distanze e misurazioni}.
 
@@ -3363,7 +3363,7 @@ Quando si usa @code{\endSpanners} non è necessario chiudere
 \startTextSpan con \stopTextSpan, né è necessario chiudere le
 forcelle con @code{\!}.
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -3779,7 +3779,7 @@ Per cambi di chiave espliciti, la proprietà @code{explicitClefVisibility}
 regola sia il simbolo della chiave che qualsiasi simbolo di trasposizione
 ad esso associato.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Visibilità e colore degli oggetti}.
 
@@ -3920,7 +3920,7 @@ l'aspetto delle partiture.
 * Contenitori unpure-pure::
 @end menu
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Modifica dell'output},
 @rlearning{Altre fonti di informazione}.
@@ -3984,7 +3984,7 @@ di chiave.  Ci sono proprietà speciali elencate nell'interfaccia
 @code{break-aligned-interface} per posizionare i segni di chiamata su tali
 oggetti.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Uso di break-alignable-interface}.
 
@@ -4317,7 +4317,7 @@ corpo del testo con i comandi markup @code{\epsfile} e @code{\postscript} --
 vedi @ref{Graphic}.
 
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Notazione grafica nel blocco markup},
 @ref{Formattazione del testo},
@@ -4558,7 +4558,7 @@ in questo caso.  Tuttavia si può sovrascrivere la proprietà
 @code{tie-configuration} di @code{TieColumn} per impostare l'inizio della linea
 e la direzione come desiderato.
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{TieColumn}.
 
@@ -4673,7 +4673,7 @@ conviene fare un uso esplicito di @code{\break}.
 Il comando @code{\alterBroken} non funziona nel caso di proprietà dell'estensore
 a cui si accede prima di line-breaking, come @code{direction}.
 
-@seealso
+@morerefs
 Estendere LilyPond:
 @rextend{Difficult tweaks}.
 
@@ -4795,7 +4795,7 @@ non lo è, i risultati possono essere imprevedibili.}
 @section Uso delle funzioni musicali
 @translationof Using music functions
 
-@c TODO -- add @seealso, etc. to these subsections
+@c TODO -- add @morerefs, etc. to these subsections
 
 Quando le modifiche devono essere riusate con diverse espressioni musicali,
 è spesso conveniente fare in modo che la modifica faccia parte di una
@@ -4865,7 +4865,7 @@ Un elenco dei tipi di predicati disponibili si trova in
 @ref{Tipi di predicati predefiniti}.  Sono consentiti anche tipi di predicati
 definiti dagli utenti.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Tipi di predicati predefiniti}.
 

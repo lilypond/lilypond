@@ -113,7 +113,7 @@ Las trompes tapades s'indiquen per mitjà de l'articulació
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Marques de respiració},
 @ref{Lligadures d'expressió},
@@ -150,7 +150,7 @@ fusta, com es descriu a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {recorder-fingering-chart.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Diagrames de posicions per a vent fusta}.
 
@@ -222,7 +222,7 @@ això mitjançant @code{c-flat} o @code{f-flat}. De forma semblant,
 el sol agut piobaireachd es pot escriure @code{g-flat} quan
 apareix a la música lleugera.
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Winds}.
 
@@ -274,7 +274,7 @@ gaita.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Winds}.
 
@@ -460,7 +460,7 @@ patrons dels diagrames estan a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {woodwind-diagrams-key-lists.ly}
 
-@seealso
+@morerefs
 Fitxers d'inici:
 @file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.

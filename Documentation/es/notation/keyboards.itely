@@ -127,7 +127,7 @@ que se cruzan entre voces, como se explica en
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Ejemplos reales de música},
 @rlearning{Otras aplicaciones de los trucos}.
@@ -274,7 +274,7 @@ colisiones resultantes se pueden resolver manualmente donde sea
 necesario, utilizando los métodos descritos en la sección
 @rlearning{Arreglar notación con superposiciones}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Arreglar notación con superposiciones}.
 
@@ -390,7 +390,7 @@ tonalidad en el pentagrama inferior:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Cambiar de pentagrama manualmente}.
 
@@ -481,7 +481,7 @@ posiciones verticales del comienzo y el final de la línea.
 @code{\hideStaffSwitch}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Keyboards}.
 
@@ -520,7 +520,7 @@ implementado.
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Keyboards}.
 
@@ -622,7 +622,7 @@ pedal.
 Las indicaciones de pedal se pueden poner dentro de un contexto
 @code{Dynamics}, que los alinea sobre una línea horizontal.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Ligaduras de unión}.
 
@@ -688,7 +688,7 @@ disponibles en
 {accordion-register-symbols.ly}
 
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Keyboards}.
 
@@ -729,7 +729,7 @@ en otras partes de la documentación:
 
 @end itemize
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Repeticiones de trémolo},
 @ref{Glissando},
@@ -778,7 +778,7 @@ la posición baja (altura sostenido), y @code{|} es la línea
 vertical separadora.  Si se antepone @code{o}, el siguiente
 símbolo de pedal se rodea por una elipse.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Guiones de texto},
 @ref{Instrument Specific Markup}.

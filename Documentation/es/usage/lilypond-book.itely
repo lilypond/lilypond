@@ -432,7 +432,7 @@ fragmento:
 @end example
 
 
-@seealso
+@morerefs
 Hay opciones de línea de órdenes específicas de
 @command{lilypond-book} y otros detalles que conocer para procesar
 documentos de@LaTeX{} véase @ref{Invocar lilypond-book}.

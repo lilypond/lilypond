@@ -199,7 +199,7 @@ fonctions Scheme.  Voici l'équivalent de l'exemple précédent :
 @}
 @end example
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Format du papier et adaptation automatique},
 @ref{Le bloc layout},
@@ -320,7 +320,7 @@ Lorsque la taille du papier comporte explicitement @samp{landscape} ou
 seul effet de modifier l'orientation de l'image et non les dimensions de
 la feuille.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Adaptation automatique au format},
 @ref{Formats de papier prédéfinis}.
@@ -362,7 +362,7 @@ correspondant au format par défaut -- papier A4 -- pour lequel
 @code{paper-height} est à @code{297\mm} et @code{paper-width} à
 @code{210\mm}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Variables d'espacement horizontal},
 @ref{Variables d'espacement vertical fixe}.
@@ -429,7 +429,7 @@ dernière page de chacune des parties -- créées à l'aide d'un bloc
 
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Adaptation automatique au format}.
 
@@ -644,7 +644,7 @@ page.
 
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Espacement vertical au sein d'un système}.
 
@@ -782,7 +782,7 @@ gérer au sein d'un bloc @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Adaptation automatique au format}.
 
@@ -847,7 +847,7 @@ défaut est de @code{0} et s'ajustera selon le format du papier.
 
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Adaptation automatique au format}.
 
@@ -896,7 +896,7 @@ bloc @code{\layout}.
 
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Adaptation automatique au format}.
 
@@ -956,7 +956,7 @@ définie par défaut.  Cette variable peut se gérer au sein d'un bloc
 
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Sauts de ligne}.
 
@@ -1053,7 +1053,7 @@ valeur par défaut est de @code{2}.
 
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Minimisation des sauts de page},
 @ref{Optimisation des sauts de page},
@@ -1120,7 +1120,7 @@ Le type de chiffres à utiliser pour la numérotation : @code{roman-lower}
 
 @end table
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
 
@@ -1189,7 +1189,7 @@ horizontale centrée, définie dans @file{ly/paper-defaults-init.ly}.
 
 @end table
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly},
 @file{ly/titling-init.ly}.
@@ -1391,7 +1391,7 @@ Une gestion attentive des variables de @code{\layout} se révèle être un
 outil précieux dans la mise en forme des sources et le retour à une
 configuration donnée.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Modification des réglages par défaut d'un contexte}.
 
@@ -1513,7 +1513,7 @@ différentes tailles de police.
 @item feta26 @tab 25,2 @tab 8,9 @tab @c matériel de location moderne ?
 @end multitable
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Indication de la taille de fonte musicale},
 @ref{La fonte Emmentaler}.
@@ -1686,7 +1686,7 @@ ailleurs :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-an-extra-voice-for-breaks.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Le bloc layout},
 @ref{Variables de gestion des sauts de ligne}.
@@ -1813,7 +1813,7 @@ sections.
 @code{\autoPageBreaksOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Variables de gestion des sauts de page}.
 
@@ -1843,7 +1843,7 @@ rupture qui évite d'obtenir à la fois une page trop dense ou exagérément
 aérée.  Contrairement à la fonction @code{ly:page-turn-breaking}, elle
 n'a aucune notion de ce qu'est une « tourne ».
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -1869,7 +1869,7 @@ beaucoup de texte.  Il suffit de la mentionner au sein du bloc
 @}
 @end example
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -2018,7 +2018,7 @@ entre des blocs @code{\score} ou des @emph{markups} de haut niveau.
 @code{\allowPageTurn}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Variables de gestion des sauts de ligne}.
 
@@ -2372,7 +2372,7 @@ regroupement a été ajustée au niveau de son propre
 @code{VerticalAxisGroup}, cette dernière aura préséance.
 @end table
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Modification de listes associatives},
 @ref{Variables d'espacement vertical fluctuant}.
@@ -2453,7 +2453,7 @@ sein de regroupements.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{scm/define-grobs.scm}.
 
@@ -2524,7 +2524,7 @@ regroupées, à l'aide des propriétés de l'objet graphique
 @end lilypond
 
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{scm/define-grobs.scm}.
 
@@ -2594,7 +2594,7 @@ Vous noterez que la valeur élevée attribuée à la clé
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
@@ -2884,7 +2884,7 @@ quant aux différentes valeurs que vous affectez à ces réglages.
 
 @end itemize
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -2975,7 +2975,7 @@ supplémentaires.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -3092,7 +3092,7 @@ réglages par défaut, puis avec des corrections forcées.
 L'espacement spécifique à la notation proportionnelle fait l'objet d'une
 @rusernamed{Notation proportionnelle,rubrique dédiée}.
 
-@seealso
+@morerefs
 Essai sur la gravure musicale automatisée :
 @ressay{Espacement}.
 
@@ -3166,7 +3166,7 @@ qu'ils soient à nouveau modifiés par une nouvelle section, comme ici :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -3269,7 +3269,7 @@ d'ornement qui pourraient apparaître :
   c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -3326,7 +3326,7 @@ paragraphe de texte, la dernière ligne s'arrête au dernier caractère.
 @}
 @end example
 
-@seealso
+@morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -3709,7 +3709,7 @@ d'ornement, d'étendre les indications de n-olet afin d'indiquer de façon
 l'occasion d'un saut de ligne ou de page.  Nous vous renvoyons aux
 différentes rubriques associées du manuel pour chacun de ces réglages.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Changement d'espacement en cours de partition}.
 
@@ -3785,7 +3785,7 @@ hauteur d'une feuille au format A6 à l'italienne.  Les paires
 @code{(@var{a},@var{b})} sont des intervalles, @var{a} en étant
 l'extrémité inférieure et @var{b} l'extrémité supérieure.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Définition de la taille de portée}.
 
@@ -3910,7 +3910,7 @@ s'applique à l'intégralité de la partition.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Mise en forme de la page},
 @ref{Modification de l'espacement horizontal}.

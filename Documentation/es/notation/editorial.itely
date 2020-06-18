@@ -293,7 +293,7 @@ fuente de 11 puntos.
 @code{\huge} (enorme).
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Seleccionar la tipografía y su tamaño},
 @ref{Establecer el tamaño del pentagrama},
@@ -400,7 +400,7 @@ o debajo del pentagrama, véase @ref{Dirección y posición}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Dirección y posición}.
 
@@ -466,7 +466,7 @@ notas invisibles, son a pesar de ello visibles.
 @code{\unHideNotes}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos}.
 
@@ -574,7 +574,7 @@ Scheme @code{rgb-color}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Lista de colores},
 @ref{La instrucción tweak}.
@@ -642,7 +642,7 @@ la instrucción @code{\parenthesize}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -699,7 +699,7 @@ hacia abajo; véase @ref{Dirección y posición}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Dirección y posición}.
 
@@ -822,7 +822,7 @@ somechords = \relative c' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 
 Referencia de la notación:
 @ref{Nombres de las notas en otros idiomas}.
@@ -891,7 +891,7 @@ esto puede cambiarse:
 @code{\balloonLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -961,7 +961,7 @@ de rejilla.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
@@ -1036,7 +1036,7 @@ Los corchetes de análisis se pueden anidar.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-with-labels.ly}
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{Horizontal_bracket_engraver},
 @rinternals{HorizontalBracket},

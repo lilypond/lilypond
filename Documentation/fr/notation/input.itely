@@ -128,7 +128,7 @@ Pour de plus amples informations à propos du bloc @code{\book}, lisez
 @ref{Plusieurs éditions pour une même source} et
 @ref{Structure de fichier}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{La partition est une (unique) expression musicale composée},
 @rlearning{Les expressions musicales en clair},
@@ -562,7 +562,7 @@ En mode parole -- @code{lyricmode} -- avant et après les commandes
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
@@ -780,7 +780,7 @@ supprimés manuellement :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Mise en forme par défaut des titrages subalternes},
 @ref{Mise en forme personnalisée des titrages},
@@ -899,7 +899,7 @@ principal de la musique.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
@@ -1008,7 +1008,7 @@ contenus dans un bloc @code{\header}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Mise en forme du texte}.
 
@@ -1166,7 +1166,7 @@ faire référence dans la définition du @emph{markup}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Généralités en matière de titrages}.
 
@@ -1278,7 +1278,7 @@ l'autre se cumulent.  Ainsi, par exemple,
 @noindent
 teste si la sortie tient sur une page unique.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Généralités en matière de titrages},
 @ref{Mise en forme par défaut des titrages subalternes}.
@@ -1808,7 +1808,7 @@ unicode -- voir la rubrique @ref{Unicode} :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Objets et interfaces}.
 
@@ -2079,7 +2079,7 @@ cadre d'une table des matières :
 @code{\tocItem}.
 @endpredefined
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{../ly/toc-init.ly}.
 
@@ -2228,7 +2228,7 @@ nouvelle version de LilyPond.
 Vous trouverez quelques exemples simples d'utilisation de la commande
 @code{\include} au chapitre @rlearning{Conducteurs et parties}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation},
 @rlearning{Conducteurs et parties}.
@@ -2578,7 +2578,7 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 Ces deux instructions sont affectées d'une balise, le matériau à
 raccorder à chaque instance de la balise, et l'expression balisée.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
 
@@ -2619,7 +2619,7 @@ quelle qu'elle soit.
 Cette technique peut s'utiliser en combinaison avec des feuilles de
 styles, comme indiqué au chapitre @rlearning{Feuilles de style}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Feuilles de style},
 @rlearning{Organisation du code source avec des variables}.
@@ -2826,7 +2826,7 @@ qu'en un point particulier de votre source :
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Liste des caractères spéciaux}.
 
@@ -2887,7 +2887,7 @@ vous aurez stipulé.  La musique extraite est rendue comme si elle avait
 conséquence, un fragment dépassant une ligne fera l'objet d'autant de
 fichiers séparés que de lignes de la partition complète.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Le bloc layout}.
 
@@ -3087,7 +3087,7 @@ jeu de fontes principales s'il est précédé d'un appel à
 @code{set-global-fonts}. Pour plus d'informations, voir
 @ref{Choix des fontes par défaut}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
@@ -3294,7 +3294,7 @@ début de votre fichier source, avant l'ouverture de tout bloc
 #(ly:set-option 'midi-extension "mid")
 @end example
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Structure de fichier}.
 
@@ -3372,7 +3372,7 @@ dans le fichier @file{scm/midi.scm}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {creating-custom-dynamics-in-midi-output.ly}
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{ly/script-init.ly},
 @file{scm/midi.scm}.
@@ -3482,7 +3482,7 @@ instruments -- voir @file{scm/midi.scm}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {replacing-default-midi-instrument-equalization.ly}
 
-@seealso
+@morerefs
 Fichiers d'initialisation :
 @file{scm/midi.scm}.
 
@@ -3550,7 +3550,7 @@ nuances à la sortie MIDI.  Vous aurez noté que les modules de traduction
 de LilyPond en matière de son s'appelent @emph{performers} -- des
 « interprètes ».
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
@@ -3612,7 +3612,7 @@ Lorsque l'instrument choisi ne correspond pas exactement à l'une des
 dénominations consacrées, LilyPond le remplacera par un piano de concert
 (@code{"acoustic grand"}) -- voir @ref{Instruments MIDI}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
@@ -3687,7 +3687,7 @@ Dans une partition comportant plusieurs voix, le développement des
 reprises ne sera effectif en MIDI qu'à la condition que ces reprises
 soient mentionnée correctement dans @strong{toutes} les voix.
 
-@seealso
+@morerefs
 Manuel de notation  :
 @ref{Répétitions et reprises}.
 
@@ -3963,7 +3963,7 @@ Le script @code{\articulate} tient compte des abréviations telles que les
 trilles ou groupettos.  L'intégralité des éléments traités est
 répertoriée dans le script lui-même -- voir @file{ly/articulate.ly}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
@@ -4054,7 +4054,7 @@ un bloc @code{@bs{}score} dédié à la sortie MIDI.}
 Une aide et des informations supplémentaires sont directement incluses
 dans le script -- voir @file{ly/swing.ly}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 

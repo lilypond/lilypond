@@ -124,7 +124,7 @@ moderna de cant gregorià.  No mostra línies divisòries.
 Es poden definir contextos nous de pentagrama únic.  Per veure més
 detalls, consulteu @ref{Definició de contextos nous}.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{staff},
 @rglos{staves}.
@@ -259,7 +259,7 @@ més detalls, consulteu @ref{Definició de contextos nous}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{brace},
 @rglos{bracket},
@@ -323,7 +323,7 @@ Per veure més detalls, consulteu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Agrupament de pentagrames},
 @ref{Noms d'instruments},
@@ -385,7 +385,7 @@ sistemes està inhabilitat, però es pot activar amb una opció de
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Disposició de la pàgina}.
 
@@ -576,7 +576,7 @@ també l'espaiat de les línies addicionals.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{line},
 @rglos{ledger line},
@@ -724,7 +724,7 @@ informació sobre @code{\RemoveAllEmptyStaves}, consulteu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{ossia},
 @rglos{staff},
@@ -824,7 +824,7 @@ seccions d'ossia per a un pentagrama.  Per veure més detalls, consulteu
 @code{\RemoveAllEmptyStaves}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{Frenched staff}.
 
@@ -1035,7 +1035,7 @@ setFlute = {
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Variables de paper per a desplaçaments i sagnats},
 @ref{Modificació dels connectors (plug-ins) de context}.
@@ -1227,7 +1227,7 @@ oboeNotes = \relative {
 Las cites també es poden etiquetar, vegeu
 @ref{Ús d'etiquetes}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Transposició dels instruments},
 @ref{Ús d'etiquetes}.
@@ -1549,7 +1549,7 @@ es poden recol·lectar dins d'una definició d'instrument per al seu
 @code{\addInstrumentDefinition} que es descriu a
 @ref{Noms d'instruments}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Cites a altres veus},
 @ref{Transposició dels instruments},

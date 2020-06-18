@@ -197,7 +197,7 @@ tipus d'objecte es poden modificar mitjançant diferents ordres;
 així doncs, és útil poder reconèixer els tipus d'objectes i
 propietats a partir dels seus noms.
 
-@seealso
+@morerefs
 Referencia de la notació:
 @ruser{Modificació de les propietats}
 
@@ -569,7 +569,7 @@ es pot modificar de la forma usual mitjançant ordres @code{\override}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{L'ordre tweak}.
 
@@ -626,7 +626,7 @@ que contingui sols sobreescriptures, pot aplicar-se a les notes
 individuals d'un acord. Malgrat això, @code{\single} no converteix
 @code{\revert}, @code{\set} ni @code{\unset} en ajustaments de @code{\tweak}.
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @ref{L'ordre tweak,,L'ordre @code{@bs{}tweak}},
 @ref{Ús de variables per als ajustaments de disposició}.
@@ -1063,7 +1063,7 @@ i tota la lletra s'escriu en cursiva.
 @warning{Dins de la lletra, deixeu sempre espais entre la síl·laba
 final i la clau de tancament.}
 
-@seealso
+@morerefs
 Manual de Extensió:
 @rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
 
@@ -1139,7 +1139,7 @@ int}, @code{ly:text-interface::print},
 @end multitable
 
 
-@seealso
+@morerefs
 Manual de Extensió:
 @rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
 
@@ -4175,7 +4175,7 @@ les veus:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @ref{El prefix once,,El prefix @code{@bs{}once}},
 @ref{La propietat stencil (segell)}.
@@ -4258,7 +4258,7 @@ de la primera línia força una col·locació molt alta de la
 indicació de tempo que segueix, mentre que la segona (amb el
 segell suprimit) no ho fa.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{system}.
 

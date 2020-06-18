@@ -498,7 +498,7 @@ appearance may be modified in the usual way with
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{The tweak command}.
 
@@ -902,7 +902,7 @@ and the lyrics are all printed in italics.
 syllable and the terminating brace.}
 
 
-@seealso
+@morerefs
 Extending: @rextend{Scheme tutorial}.
 
 
@@ -978,7 +978,7 @@ preceded by an apostrophe
 @end multitable
 
 
-@seealso
+@morerefs
 Extending: @rextend{Scheme tutorial}.
 
 
@@ -3745,7 +3745,7 @@ required, but the transparent metronome mark in the first line
 forces the following tempo indication too high while the
 second (with the stencil removed) does not.
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{system}.
 

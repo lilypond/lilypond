@@ -276,7 +276,7 @@ For a 20pt staff, an 11pt font is selected.
 @code{\huge}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Selecting font and font size},
 @ref{Setting the staff size},
@@ -389,7 +389,7 @@ staff, see @ref{Direction and placement}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Direction and placement}.
 
@@ -452,7 +452,7 @@ attached to invisible notes are still visible.
 @code{\unHideNotes}.
 @endpredefined
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Visibility and color of objects}.
 
@@ -595,7 +595,7 @@ can be seen through when rendered in SVG.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{List of colors}, @ref{The
 tweak command}.
@@ -658,7 +658,7 @@ a hyphen is needed before the @code{\parenthesize} command.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -715,7 +715,7 @@ Stems may be manually placed to point up or down; see
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Direction and placement}.
 
@@ -836,7 +836,7 @@ somechords = \relative c' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 
 Notation Reference:
 @ref{Note names in other languages}.
@@ -902,7 +902,7 @@ Balloon text does not influence note spacing, but this can be altered:
 @code{\balloonLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -970,7 +970,7 @@ lines.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Editorial annotations}.
 
@@ -1044,7 +1044,7 @@ Analysis brackets may be nested.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {analysis-brackets-with-labels.ly}
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{Horizontal_bracket_engraver},
 @rinternals{HorizontalBracket},

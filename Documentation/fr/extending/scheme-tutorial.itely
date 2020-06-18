@@ -882,7 +882,7 @@ Par voie de conséquence, une expression musicale introduite par @code{#}
 ne devrait pas contenir de matériau inexistant auparavant ou bien
 littéralement recopié, mais plutôt une référence explicite.
 
-@seealso
+@morerefs
 Manuel d'extension :
 @ref{Syntaxe Scheme dans LilyPond}.
 

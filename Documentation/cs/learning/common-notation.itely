@@ -74,7 +74,7 @@ na správných místech.  Přezkoušení taktů rovněž ulehčuje
 g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
 @end lilypond
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Přezkoušení taktů a počtu taktů}.
 
@@ -210,7 +210,7 @@ pravidel. Podívejte se na
 předznamenání (posuvky) na základě různých pravidel vytisknuta.
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Označení not v jiných jazycích},
 @ruser{Předznamenání},
@@ -290,7 +290,7 @@ být naskládány do sebe.
 @end lilypond
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Ligatury},
 @ruser{Legatové obloučky},
@@ -388,7 +388,7 @@ Může se přesně ukončit i příkazem @code{\!}.
 @end lilypond
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Artikulační znaménka a ozdoby},
 @ruser{Příkazy pro prstoklad},
@@ -425,7 +425,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Zadání textu}.
 
@@ -477,7 +477,7 @@ a @code{\autoBeamOn}, abyste je opět zapnul.
 @end lilypond
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Automatické trámce},
 @ruser{Ruční trámce}.
@@ -557,7 +557,7 @@ příraz, prodleva) a @code{\acciaccatura} (příraz, krátká appoggiatura).
 @end lilypond
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Ozdoby},
 @ruser{Jiná rytmická rozdělení},
@@ -842,7 +842,7 @@ zda jsou taktové čáry zapsány jen na notové osnově
 nebo také mezi notovými osnovami.
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Klávesové nástroje a jiné nástroje s více notovými osnovami},
 @ruser{Nechat ukázat osnovy}.
@@ -885,7 +885,7 @@ Avšak musí se zapsat vně špičatých závorek.
 r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Akordové noty}.
 
@@ -912,7 +912,7 @@ vysvětleny. Místo toho následující části do těchto pojmů uvádějí
 a podrobně je vysvětlují.
 
 
-@seealso
+@morerefs
 Příručka k učení se:
 @ref{Hlasy obsahují noty}.
 
@@ -1201,7 +1201,7 @@ ve Figarově árii @notation{Largo al factotum}.
 @end lilypond
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Notový zápis zpěvu}.
 
@@ -1246,7 +1246,7 @@ a textu zpěvu pomocí proměnných. Používání proměnných
 se vysvětluje v části @ref{Pořádání děl pomocí proměnných}.
 
 
-@seealso
+@morerefs
 Doporučení pro notový zápis:
 @ruser{Notový zápis zpěvu}.
 

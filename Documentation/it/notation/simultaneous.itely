@@ -134,7 +134,7 @@ dell'accordo sono relative alla nota che le precede @emph{all'interno dell'accor
 
 Maggiori informazioni sugli accordi si trovano in @ref{Notazione per accordi}.
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglosnamed{chord,accordo}.
 
@@ -262,7 +262,7 @@ di @code{\chordRepeats}: l'espansione implicita all'inizio della creazione
 della partitura viene fatta in un momento in cui tutti i @code{\relative} sono
 stati già elaborati.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Notazione per accordi},
 @ref{Articolazioni e abbellimenti}.
@@ -369,7 +369,7 @@ Si possono inserire insieme sullo stesso rigo le normali note e i cluster,
 anche contemporaneamente.  In tal caso non viene fatto alcun tentativo di
 evitare automaticamente collisioni tra le note normali e i cluster.
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglos{cluster}.
 
@@ -626,7 +626,7 @@ non hanno lo stesso ritmo.
 @code{\oneVoice}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuale d'apprendimento:
 @rlearning{Le voci contengono la musica},
 @rlearning{Definire esplicitamente le voci}.
@@ -680,7 +680,7 @@ predefinito.
 @code{\voiceNeutralStyle}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuale d'apprendimento:
 @rlearning{Sento le Voci},
 @rlearning{Altre fonti di informazione}.
@@ -902,7 +902,7 @@ impostati esplicitamente in direzioni opposte).
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglosnamed{polyphony,polifonia}.
 
@@ -1177,7 +1177,7 @@ usando un contesto @code{NullVoice}.  Vedi @ref{Polifonia con testo in comune}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglos{a due},
 @rglosnamed{part,parte}.
@@ -1335,7 +1335,7 @@ global = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuale d'apprendimento:
 @rlearning{Organizzare i brani con le variabili}.
 

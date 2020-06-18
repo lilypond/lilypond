@@ -175,7 +175,7 @@ The Scheme equivalent of the above example is:
 @}
 @end example
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Paper size and automatic scaling},
 @ref{Custom titles headers and footers},
@@ -285,7 +285,7 @@ When the paper size ends with an explicit @samp{landscape} or
 @samp{portrait}, the presence of a @code{'landscape} symbol @emph{only}
 affects print orientation, not the paper dimensions used for layout.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Automatic scaling to paper size},
 @ref{Predefined paper sizes}.
@@ -326,7 +326,7 @@ These are the values that result at the default paper size
 @code{paper-height} is @code{297\mm} and the @code{paper-width} is
 @code{210\mm}.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables},
 @ref{Horizontal spacing paper variables,,Horizontal spacing @code{@bs{}paper} variables}.
@@ -383,7 +383,7 @@ will be vertically justified in the same way as the earlier pages.
 
 @end table
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Automatic scaling to paper size}.
 
@@ -588,7 +588,7 @@ of the top margin) to the first (title or top-level) markup on a
 page, when there is no system between the two.
 @end table
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Flexible vertical spacing within systems}.
 
@@ -713,7 +713,7 @@ set in a @code{\layout} block.
 
 @end table
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Automatic scaling to paper size}.
 
@@ -770,7 +770,7 @@ with @code{two-sided} set to true.
 
 @end table
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Automatic scaling to paper size}.
 
@@ -817,7 +817,7 @@ basis.
 
 @end table
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Automatic scaling to paper size}.
 
@@ -874,7 +874,7 @@ This variable can also be set in a @code{\layout} block.
 
 @end table
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Line breaking}.
 
@@ -963,7 +963,7 @@ inserted in preference to blank pages within a score.  Default: 2.
 @end table
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Page breaking},
 @ref{Optimal page breaking},
@@ -1022,7 +1022,7 @@ Default: @code{'arabic}.
 
 @end table
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
@@ -1086,7 +1086,7 @@ bottom of the page.  Default: a centered horizontal line, defined in
 
 @end table
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/titling-init.ly},
 @file{ly/paper-defaults-init.ly}.
@@ -1270,7 +1270,7 @@ If carefully planned, @code{\layout} variables can be a valuable tool
 to structure the layout design of sources, and also to reset the
 @code{\layout} configuration to a known state.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Changing context default settings}.
 
@@ -1382,7 +1382,7 @@ the following table:
 @item feta26 @tab 25.2 @tab 8.9 @tab @c modern rental material?
 @end multitable
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Selecting notation font size},
 @ref{The Emmentaler font}.
@@ -1550,7 +1550,7 @@ broken every 4 measures, and only there:
 {using-an-extra-voice-for-breaks.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{paper variables for line breaking}
 @ref{The layout block}.
@@ -1671,7 +1671,7 @@ functions may also be used in different book parts.
 @code{\autoPageBreaksOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{paper variables for page breaking}.
 
@@ -1697,7 +1697,7 @@ breaking that minimizes cramping and stretching, both horizontally
 and vertically.  Unlike @code{ly:page-turn-breaking}, it has no
 concept of page turns.
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -1720,7 +1720,7 @@ a lot of texts.  It is enabled using:
 @}
 @end example
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -1861,7 +1861,7 @@ markups and between scores.
 @code{\allowPageTurn}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{paper variables for line breaking}.
 
@@ -1873,7 +1873,7 @@ Use only one @code{Page_turn_engraver} per score.  If there are
 more, they will interfere with each other.
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Vertical spacing}.
 
@@ -2211,7 +2211,7 @@ staves.  Does not apply to the bottom staff of a system.  The
 spacing settings for that staff.
 @end table
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Flexible vertical spacing paper variables,,Flexible vertical spacing @code{@bs{}paper} variables},
 @ref{Modifying alists}.
@@ -2290,7 +2290,7 @@ are combined in a group or groups.
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Installed Files:
 @file{scm/define-grobs.scm}.
 
@@ -2357,7 +2357,7 @@ The following example shows how properties of the
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Installed Files:
 @file{scm/define-grobs.scm}.
 
@@ -2425,7 +2425,7 @@ able to stretch much more than usual:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/engraver-init.ly},
 @file{scm/define-grobs.scm}.
@@ -2705,7 +2705,7 @@ to print staves or systems on top of one another.  Reasonable values
 passed to these different settings will avoid this.
 @end itemize
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -2792,7 +2792,7 @@ to prevent it from getting too close to the ledger lines.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -2901,7 +2901,7 @@ once with an exaggerated adjustment:
 
 Proportional notation is supported; see @ref{Proportional notation}.
 
-@seealso
+@morerefs
 Essay on automated music engraving:
 @ressay{Optical spacing}.
 
@@ -2976,7 +2976,7 @@ example:
 @end lilypond
 
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -3071,7 +3071,7 @@ regard for clefs, bar lines, and grace notes,
   c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -3124,7 +3124,7 @@ paragraph, the last line simply takes its natural horizontal length.
 @}
 @end example
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Spacing}.
 
@@ -3465,7 +3465,7 @@ mark both rhythmic start- and stop-points, and allow spanning elements
 to break across systems and pages.  See the respective parts of the manual
 for these related settings.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{New spacing section}.
 
@@ -3537,7 +3537,7 @@ of @code{a6} paper in landscape orientation.  The pairs
 (@var{a},@var{b}) are intervals, where @var{a} is the lower
 edge and @var{b} the upper edge of the interval.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Setting the staff size}.
 
@@ -3658,7 +3658,7 @@ block so that it applies to the whole score.
 
 @end itemize
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Page layout},
 @ref{Changing horizontal spacing}.

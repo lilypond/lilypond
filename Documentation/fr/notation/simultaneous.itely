@@ -139,7 +139,7 @@ positionnent relativement à la précédente @emph{dans cet accord}.
 Pour plus d'information à propos des accords, voir
 @ref{Notation des accords}.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{chord,accord}.
 
@@ -271,7 +271,7 @@ appel explicite de @code{\chordRepeats} : l'expansion implicite en
 début de saisie intervient à un moment où toutes les instances de
 @code{\relative} ont déjà été interprétées.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Notation des accords}.
@@ -386,7 +386,7 @@ Des notes ordinaires et des clusters peuvent cohabiter sur une même
 portée, y compris simultanément -- en pareil cas, rien ne sera fait
 pour tenter d'empêcher les chevauchements entre notes et clusters.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{cluster}.
 
@@ -657,7 +657,7 @@ messages d'avertissement.
 @code{\oneVoice}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Instanciation explicite des voix},
 @rlearning{Les voix contiennent la musique}.
@@ -711,7 +711,7 @@ présentation normale.
 @code{\voiceNeutralStyle}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Autres sources de documentation},
 @rlearning{J'entends des Voix}.
@@ -927,7 +927,7 @@ bien explicitement.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{polyphony,polyphonie}.
 
@@ -1206,7 +1206,7 @@ les effets escomptés -- voir @ref{Polyphonie et paroles communes}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{a due},
 @rglosnamed{part,partie}.
@@ -1364,7 +1364,7 @@ global = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
 

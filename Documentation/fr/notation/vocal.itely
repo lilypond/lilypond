@@ -88,7 +88,7 @@ la rubrique @ref{Mise en forme d'une partition chorale}.
 
 @end itemize
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ambitus}.
 
@@ -202,7 +202,7 @@ chapitre @ref{Mise en forme du texte}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Chansons}
 
@@ -336,7 +336,7 @@ technique permet aussi d'ajouter des dialogues, comme indiqué à la rubrique
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Alignement des paroles sur une mélodie}.
 
@@ -506,7 +506,7 @@ Voici un exemple de cette manière de procéder :
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Conservation d'un contexte},
 @ref{Traits d'union et de prolongation}.
@@ -580,7 +580,7 @@ Les syllabes seront alignées selon la dérogation apportée à la propriété
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Dialogue et musique}.
 
@@ -619,7 +619,7 @@ pour obtenir une liaison entre les syllabes.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{LyricCombineMusic}.
 
@@ -809,7 +809,7 @@ par un simple caractère souligné pour chaque note à inclure :
 @code{\melismaEnd}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{melisma}.
 
@@ -866,7 +866,7 @@ imprimés.  Cet inconvénient peut être contrôlé par les propriétés
 et @code{minimum-length}, seuil en deçà duquel il n'y a pas de trait
 d'union, toutes deux attachées à l'objet @code{LyricHyphen}.
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
@@ -907,7 +907,7 @@ n'est un changement de voyelle. La taille minimale de la flêche se règle
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{vowel transition}.
 
@@ -1009,7 +1009,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Positionnement vertical des paroles}.
 
@@ -1145,7 +1145,7 @@ de ces exemples, ou en examinant ce qui figure à la rubrique
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Modèles pour ensemble vocal}.
 
@@ -1636,7 +1636,7 @@ doivent être insérées manuellement :
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Conservation d'un contexte},
 @ref{Répétitions et reprises}.
@@ -2253,7 +2253,7 @@ text = \lyricmode {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Référence des propriétés internes :
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
@@ -2319,7 +2319,7 @@ d’étiquette », au chapitre @ref{Vue d'ensemble des cordes frettées}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Chansons}.
 
@@ -2347,7 +2347,7 @@ chapitre @ref{Notation des accords}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Notation des accords}.
 
@@ -2435,7 +2435,7 @@ passage polyphonique temporaire, est expliquée à la section
 @code{\voiceTwo}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Modèles pour ensemble vocal},
 @rlearning{Partition pour chœur à quatre voix mixtes}.
@@ -2535,7 +2535,7 @@ du chœur.
 @code{\dynamicNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Définition de la taille de portée},
 @ref{Espacement vertical},
@@ -2558,7 +2558,7 @@ Référence des propriétés internes :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Signes d'interprétation sous forme de ligne}.
 
@@ -2662,7 +2662,7 @@ indications de mise en scène peuvent s'intercaler entre deux blocs
 
 @end itemize
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{Frenched score,Partition à la française},
 @rglos{Frenched staves},
@@ -2769,7 +2769,7 @@ melchior = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
 
@@ -2884,7 +2884,7 @@ la lisibilité des notes du piano.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{cue-notes}.
 
@@ -3004,7 +3004,7 @@ dialogue = \lyricmode {
 
 @c TODO show use of \column to produce dialogue on two lines
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Durée explicite des syllabes},
 @ref{Texte}.
@@ -3044,7 +3044,7 @@ l'obédience.
 La présentation du plain chant et du grégorien selon différents styles
 est abordée au chapitre @ref{Notations anciennes}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Notations anciennes}.
 
@@ -3345,7 +3345,7 @@ syllabes et non leur durée.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets},
 @rlearning{Modèles pour ensemble vocal}.
@@ -3513,7 +3513,7 @@ lignes est abordée en détails au chapitre @ref{Mise en forme du texte}.
 La plupart de ces éléments sont regroupés dans l'un des versets du modèle
 présenté à la rubrique @rlearning{Psalmodie}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Modèles pour ensemble vocal},
 @rlearning{Psalmodie}.
@@ -3552,6 +3552,6 @@ en détails au chapitre @ref{Notations anciennes}.
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Notations anciennes}.

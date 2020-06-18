@@ -197,10 +197,10 @@ LilyPond バージョン @version{} 用
 @end macro
 
 
-@c Don't insert an empty line after @seealso!  Otherwise we get
+@c Don't insert an empty line after @morerefs!  Otherwise we get
 @c unwanted extra vertical space in the PDF output.
 
-@macro seealso
+@macro morerefs
 @noindent
 @subsubheading 参照
 @indent

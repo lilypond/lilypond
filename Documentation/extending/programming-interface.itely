@@ -183,7 +183,7 @@ rather calls for more specific argument types.
 For a list of available predefined type predicates, see
 @ruser{Predefined type predicates}.
 
-@seealso
+@morerefs
 
 Notation Reference:
 @ruser{Predefined type predicates}.
@@ -318,7 +318,7 @@ not, @var{body} will be a @ref{LilyPond code blocks, LilyPond code block}.
 For a list of available type predicates, see
 @ruser{Predefined type predicates}.
 
-@seealso
+@morerefs
 
 Notation Reference:
 @ruser{Predefined type predicates}.

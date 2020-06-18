@@ -3172,7 +3172,7 @@ forman una ligadura.  Un conjunto de glifos con un estilo y forma
 uniformes forman una fuente tipográfica, y un conjunto de fuentes
 tipográficas que abarcan varios estilos forman un tipo.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Tipografías},
 @ref{Caracteres especiales}.
@@ -3193,7 +3193,7 @@ denominan @q{objetos de presentación}, a menudo conocidos como
 @q{OBjetos GRáficos}, o abreviadamente @strong{grobs}.  Se
 representan mediante instancias de la clase @code{Grob}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Objetos e interfaces},
 @rlearning{Convenciones de nombres de objetos y propiedades},
@@ -3222,7 +3222,7 @@ comparten por parte de muchos objetos.  En aparente contradicción
 con su nombre, se pueden cambiar utilizando @code{\override} y
 @code{\revert}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{mutable}.
 
@@ -3239,7 +3239,7 @@ Las acciones y propiedades comunes a un conjunto de grobs se
 agrupan en un objeto denominado @code{interfaz de grob
 (grob-inerface)}, o abreviadamente @q{interfaz}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @rlearning{Objetos e interfaces},
 @rlearning{Convenciones de nombres de objetos y propiedades},
@@ -3290,7 +3290,7 @@ específicos de un grob.  Por lo general, las listas de otros
 objetos o los resultados de los cálculos se almacenan en
 propiedades mutables.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{inmutable}.
 
@@ -3439,7 +3439,7 @@ componen.
 La propiedad @code{stencil}, que conecta a un grob con su sello,
 se define dentro del interfaz @code{grob-interface}.
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{grob-interface}.
 

@@ -641,7 +641,7 @@ copy out\myproject.pdf MyProject.pdf
 @end example
 
 
-@seealso
+@morerefs
 
 This manual:
 @ref{Command-line usage},

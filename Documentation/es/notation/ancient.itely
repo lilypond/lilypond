@@ -65,7 +65,7 @@ notación antigua:
 @item @ref{Ligaduras}.
 @end itemize
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{custos},
 @rglos{ligature},
@@ -170,7 +170,7 @@ de los otros, y así podemos usar corchetes mensurales, cabezas de
 petrucci, silencios de classical y claves de vaticana en la misma
 pieza, si queremos.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -206,7 +206,7 @@ predefinidos @code{VaticanaVoice}, @code{VaticanaStaff},
 @item @ref{Contextos de la música mensural}.
 @end itemize
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation}.
 
@@ -258,7 +258,7 @@ especializados en ligaduras del contexto @code{Voice}, como se
 explica en @ref{Ligaduras mensurales blancas} y
 @ref{Ligaduras de neumas cuadrados gregorianos}.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ligature}.
 
@@ -364,7 +364,7 @@ El glifo del custos se selecciona mediante la propiedad
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{custos}.
 
@@ -426,7 +426,7 @@ fragmento:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation}.
 
@@ -484,7 +484,7 @@ de clave sobre cualquier línea seleccionada arbitrariamente, según
 se describe en @ref{Clave}.  Para ver el abanico completo de las
 claves posibles, consulte @ref{Estilos de clave}.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation},
 @rglos{clef}.
@@ -606,7 +606,7 @@ las diferencias que existen entre los estilos:
 @ref{Indicación de compás} ofrece una introducción general al uso
 de las indicaciones de compás.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation}.
 
@@ -698,7 +698,7 @@ a'\longa
 @ref{Estilos de cabezas de nota} ofrece una visión de conjunto
 sobre la totalidad de los estilos de cabeza disponibles.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation},
 @rglos{note head}.
@@ -737,7 +737,7 @@ No existe un estilo particular de corchete para la notación
 neo-mensural ni Petrucci.  No existen corchetes en la notación del
 canto gregoriano.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation},
 @rglos{flag}.
@@ -777,7 +777,7 @@ No existen silencios de fusa y semifusa específicos para los
 estilos mensural ni neo-mensural.  Se usan los silencios del
 estilo predeterminado.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation}.
 
@@ -830,7 +830,7 @@ respectivamente; p.ej.:
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{mensural notation},
 @rglos{Pitch names},
@@ -891,7 +891,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de funcionamiento interno:
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
@@ -990,7 +990,7 @@ la siguiente apariencia:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ligature}.
 
@@ -1029,7 +1029,7 @@ punctum.  De forma similar, el grabador
 automáticamente.  Consulte @ref{Ligaduras} para ver cómo funcionan
 los grabadores de ligaduras.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ligature}.
 
@@ -1074,7 +1074,7 @@ sí, como lo demuestra el siguiente fragmento:
 @end lilypond
 
 
-@c @seealso
+@c @morerefs
 @c TODO: nothing here yet ...
 
 
@@ -1212,7 +1212,7 @@ Clave combinada de Do y Fa, estilo hufnagel
 @end lilypond
 @end multitable
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{clef}.
 
@@ -1267,7 +1267,7 @@ grobs (objetos gráficos) @rinternals{Accidental} y
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{accidental},
 @rglos{key signature}.
@@ -1360,7 +1360,7 @@ instrucciones @code{\virgula} y @code{\caesura}.
 @code{\finalis}.
 @endpredefined
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{caesura},
 @rglos{divisio}.
@@ -1408,7 +1408,7 @@ Vaticana}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Articulaciones y ornamentos}.
 
@@ -1453,7 +1453,7 @@ lugar, escriba @code{\virga \augmentum c} o @code{\augmentum
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Marcas de respiración}.
 
@@ -2410,7 +2410,7 @@ ascendente y descendente, respectivamente.
 Utilice la función musical unaria @code{\augmentum} para añadir
 puntos de augmentum.
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ligature}.
 
@@ -2481,7 +2481,7 @@ propio canto:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{kievan notation}.
 
@@ -2509,7 +2509,7 @@ Tse-fa-ut).  Se utiliza para indicar la posición del Do:
   c'
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{kievan notation},
 @rglos{clef}.
@@ -2552,7 +2552,7 @@ b'1 b'2 b'4 b'8 b'\breve b'\longa
 b'2
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{kievan notation},
 @rglos{note head}.
@@ -2591,7 +2591,7 @@ efectos de compatibilidad.
 bes' dis'
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{kievan notation},
 @rglos{accidental}.
@@ -2615,7 +2615,7 @@ del canto kievano».  Se puede invocar como @code{\bar "k"}.
   c' \bar "k"
 @end lilypond
 
-@seealso
+@morerefs
 @ref{Barras de compás},
 @ref{La tipografía Emmentaler}.
 
@@ -2680,7 +2680,7 @@ kievano:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{ligature}.
 
@@ -2765,7 +2765,7 @@ Observe que se debe configurar el contenido de
 incipit.  Si no quiere que aparezca ningún nombre para el
 instrumento, utilice @code{\set Staff.instrumentName = ""}.
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2789,7 +2789,7 @@ compás.
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2973,7 +2973,7 @@ spirLyr = \lyricmode {
 
 @c extract from 1.6.1.1
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -2985,7 +2985,7 @@ spirLyr = \lyricmode {
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...
 
 
@@ -3014,5 +3014,5 @@ spirLyr = \lyricmode {
 Continuará...
 
 
-@c @seealso
+@c @morerefs
 @c ... and reference to other sections ...

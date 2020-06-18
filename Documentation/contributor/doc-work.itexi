@@ -629,7 +629,7 @@ Don't use @code{@@rinternals@{@}} in the main text.  If you're
 tempted to do so, you're probably getting too close to @qq{talking
 through the code}.  If you really want to refer to a context, use
 @code{@@code@{@}} in the main text and @code{@@rinternals@{@}} in
-the @code{@@seealso}.
+the @code{@@morerefs}.
 @end itemize
 
 
@@ -1027,7 +1027,7 @@ information see the
 @uref{http://www.gnu.org/software/texinfo/manual/texinfo/,texinfo
 manual}.  Ideally this should also be the final sentence of a
 paragraph, but this is not required.  Any link in a doc section
-must be duplicated in the @code{@@seealso} section at the bottom.
+must be duplicated in the @code{@@morerefs} section at the bottom.
 
 @item
 Introducing examples must be done with
@@ -1174,16 +1174,16 @@ main docs
 @@predefined
 @@endpredefined
 @@snippets
-@@seealso
+@@morerefs
 @@knownissues
 @end example
 
 @item
-You @emph{must} include a @@seealso.
+You @emph{must} include a @@morerefs.
 
 @itemize
 @item
-The order of items inside the @@seealso section is
+The order of items inside the @@morerefs section is
 
 @example
 Music Glossary:
@@ -1236,7 +1236,7 @@ Any new concepts or links which require an explanation should go
 as a full sentence(s) in the main text.
 
 @item
-Don't insert an empty line between @@seealso and the first entry!
+Don't insert an empty line between @@morerefs and the first entry!
 Otherwise there is excessive vertical space in the PDF output.
 
 @end itemize
@@ -1413,13 +1413,13 @@ time.  For each subsection,
 
 @item
 check the mundane formatting.  Are the headings (@@predefined,
-@@seealso, etc.) in the right order?
+@@morerefs, etc.) in the right order?
 
 @item
 add any appropriate index entries.
 
 @item
-check the links in the @@seealso section -- links to music
+check the links in the @@morerefs section -- links to music
 glossary, internal references, and other NR sections are the main
 concern.  Check for potential additions.
 
@@ -1456,7 +1456,7 @@ In general, any \set or \override commands should go in the
 @qq{select snippets} section, which means that they should go in
 LSR and not the @file{.itely} file.  For some cases, the command
 obviously belongs in the @qq{main text} (i.e. not inside
-@@predefined or @@seealso or whatever) -- instrument names are a
+@@predefined or @@morerefs or whatever) -- instrument names are a
 good example of this.
 
 @example
@@ -1488,7 +1488,7 @@ or upgrading tweaks is creating tweaks to deal with known issues.  It
 would be ideal if every significant known issue had a workaround to avoid
 the difficulty.
 
-@seealso
+@morerefs
 @ref{Adding and editing snippets}.
 
 
@@ -2039,7 +2039,7 @@ This will also leave @file{out/translations-status.txt}, which contains
 up-to-dateness percentages for each translated file, and update word
 counts of documentation files in this Guide.
 
-@seealso
+@morerefs
 @ref{Maintaining without updating translations}.
 
 @node Updating documentation translation
@@ -2102,7 +2102,7 @@ the changes it made with @command{git diff} before committing; if you
 don't do so, some @code{@@lilypond} snippets might be broken or make
 no sense in their context.
 
-@seealso
+@morerefs
 @ref{Maintaining without updating translations},
 @ref{Adding and editing snippets}.
 
@@ -2142,7 +2142,7 @@ cd Documentation/LANG/texidocs
 sed -i -r 's/[0-9a-z]@{40@}/NEW-COMMITTISH/' *.texidoc
 @end example
 
-@seealso
+@morerefs
 @ref{LSR work}.
 
 @node Translations management policies

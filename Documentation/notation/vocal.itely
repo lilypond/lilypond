@@ -77,7 +77,7 @@ avoid the lyrics, as explained in @ref{Score layouts for choral}.
 
 @end itemize
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{ambitus}.
 
@@ -194,7 +194,7 @@ options, see @ref{Formatting text}.
 {formatting-lyrics-syllables.ly}
 
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Songs}.
 
@@ -324,7 +324,7 @@ when setting dialogue over music; for examples showing this, see
 
 @end itemize
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Aligning lyrics to a melody}.
 
@@ -498,7 +498,7 @@ Here is an example demonstrating its use:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Extenders and hyphens},
 @ref{Keeping contexts alive},
@@ -574,7 +574,7 @@ property:
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Dialogue over music}.
 
@@ -612,7 +612,7 @@ the tilde symbol (@code{~}) to get a lyric tie.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{LyricCombineMusic}.
 
@@ -799,7 +799,7 @@ should be included in the melisma:
 @code{\melismaEnd}.
 @endpredefined
 
-@seealso
+@morerefs
 Musical Glossary:
 @rglos{melisma}.
 
@@ -861,7 +861,7 @@ next line begins with a new syllable.  Setting the
 @code{after-line-breaking} property to @code{#t} allows hyphens
 to be drawn in such situations.
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
@@ -901,7 +901,7 @@ property of @code{VowelTransition}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Musical Glossary:
 @rglos{vowel transition}.
 
@@ -997,7 +997,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Placing lyrics vertically}.
 
@@ -1132,7 +1132,7 @@ Learning Manual, see @rlearning{Vocal ensembles templates}.
 {obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Vocal ensembles templates}.
 
@@ -1624,7 +1624,7 @@ alternative sections these must be inserted manually.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Keeping contexts alive},
 @ref{Repeats}.
@@ -2201,7 +2201,7 @@ text = \lyricmode {
 @end lilypond
 
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
@@ -2260,7 +2260,7 @@ markups} in @ref{Common notation for fretted strings}.
 
 @end itemize
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Songs}.
 
@@ -2289,7 +2289,7 @@ Lead sheets may be printed by combining vocal parts and
 {simple-lead-sheet.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Chord notation}.
 
@@ -2368,7 +2368,7 @@ When a vocal part temporarily splits, you should use
 @code{\voiceTwo}.
 @endpredefined
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Four-part SATB vocal score},
 @rlearning{Vocal ensembles templates}.
@@ -2464,7 +2464,7 @@ above their respective staves, as shown here:
 @code{\dynamicNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Changing spacing},
 @ref{Displaying spacing},
@@ -2491,7 +2491,7 @@ Internals Reference:
 {using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Expressive marks as lines}.
 
@@ -2597,7 +2597,7 @@ can also be added with a section of stand-alone markups between two
 
 @end itemize
 
-@seealso
+@morerefs
 Musical Glossary:
 @rglos{Frenched score},
 @rglos{Frenched staves},
@@ -2702,7 +2702,7 @@ melchior = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Organizing pieces with variables}.
 
@@ -2816,7 +2816,7 @@ and to make the piano notes clearer.
 {adding-orchestral-cues-to-a-vocal-score.ly}
 
 
-@seealso
+@morerefs
 Musical Glossary:
 @rglos{cue-notes}.
 
@@ -2929,7 +2929,7 @@ dialogue = \lyricmode {
 
 @c TODO show use of \column to produce dialogue on two lines
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Manual syllable durations},
 @ref{Text}.
@@ -2965,7 +2965,7 @@ which arise are broadly similar, and are covered in this section.
 Typesetting Gregorian chant in various styles of ancient notation
 is described in @ref{Ancient notation}.
 
-@seealso
+@morerefs
 Notation reference:
 @ref{Ancient notation}.
 
@@ -3261,7 +3261,7 @@ durations.
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Visibility and color of objects},
 @rlearning{Vocal ensembles templates}.
@@ -3425,7 +3425,7 @@ described in @ref{Formatting text}.
 Most of these elements are shown in one or other of the two verses
 in the template, see @rlearning{Psalms}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Psalms},
 @rlearning{Vocal ensembles templates}.
@@ -3462,7 +3462,7 @@ Ancient vocal music is supported, as explained in
 @c Add "Printing both the ancient and the modern clef in vocal music" snippet,
 @c and "Transcription of Ancient music with incipit" snippet. -vv
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Ancient notation}.
 

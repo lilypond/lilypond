@@ -264,7 +264,7 @@ limitacions exactes que afecten els noms de variable es detallen a
 @ruser{Estructura del fitxer}.
 
 
-@seealso
+@morerefs
 Per veure una definició completa del format del codi d'entrada,
 consulteu @ruser{Estructura del fitxer}.
 
@@ -420,7 +420,7 @@ d'una gran ajuda ser molt estricte amb els marges (assegureu-vos
 que al seu editor de text cada element del mateix nivell comença a
 la mateixa posició horitzontal).
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Estructura d'una partitura}.
 
@@ -489,7 +489,7 @@ predeterminat d'un sol pentagrama.  En aquest exemple, diu que el
 pentagrama nou s'ha de col·locar per sobre del pentagrama anomenat
 @qq{main} en comptes de la posició predeterminada que seria per sota.
 
-@seealso
+@morerefs
 Els fragments d'ossia s'escriuen sovint sense clau i sense
 indicació de compàs, i generalment amb una lletra més petita.  Per
 fer això caldrien més ordres que encara no s'han vist.  Vegeu
@@ -972,7 +972,7 @@ propietat @code{force-hshift} a
 @warning{No es poden crear lletres ni objectes d'extensió
 (com ara lligadures, reguladors, etc.) @q{entre} veus diferents.}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Veus múltiples}.
 
@@ -1215,7 +1215,7 @@ les dues veus no tenen cap desplaçament o porten especificat el
 mateix desplaçament, es produirà el missatge d'error @qq{Xoquen
 massa columnes de notes}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @ref{Moviment d'objectes}.
 
@@ -1388,7 +1388,7 @@ VerseFour  =
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Música vocal}.
 
@@ -1485,7 +1485,7 @@ paraules que comencen amb majúscula i que estan unides unes a les
 altres sense guió ni barra baixa, per exemple:
 @code{PartituraDeTranscripcióGregoriana}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Explicació dels contextos}.
 
@@ -1606,7 +1606,7 @@ El nom  identificatiu s'utilitza per referir-nos més tard a
 aquesta instància en particular d'un context. Hem vist això a la
 secció sobre la lletra, a @ref{Veus i música vocal}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Creació i referenciació dels contextos}.
 
@@ -1696,7 +1696,7 @@ a partir del nom (en anglès), i a l'inrevés.
 Més endavant veurem es pot canviar com la sortida del LilyPond
 mitjançant la modificació del funcionament dels Gravadors.
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{Engravers and Performers}.
 
@@ -2025,7 +2025,7 @@ sobreescriure per a exemples concrets de contextos mitjançant
 enunciats dins d'un bloc @code{\with}, i mitjançant instruccions
 @code{\set} intercalades dins d'enunciats musicals.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Canvi dels paràmetres predeterminats dels contextos}.
 @c FIXME
@@ -2196,7 +2196,7 @@ particular incloent-hi la instrucció @code{\set} dins d'un bloc
 @code{\context} de la mateixa forma.
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Modificació dels connectors (plug-ins) de context},
 @ruser{Canvi dels paràmetres predeterminats dels contextos}.
@@ -2414,7 +2414,7 @@ musicaVioloncel = \relative {
 @end lilypond
 
 
-@seealso
+@morerefs
 Les plantilles d'inici es poden trobar a l'apèndix
 @q{Plantilles}, vegeu
 @ref{Plantilles de pentagrama únic}.
@@ -3060,7 +3060,7 @@ MusicaOrganPedal = \relative {
 }  % fi del context Score
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{system}.
 

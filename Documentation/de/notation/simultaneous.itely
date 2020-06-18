@@ -128,7 +128,7 @@ des Akkordes sind relativ zu der Note vorher innerhalb des selben Akkordes.
 
 Mehr Information über Akkorden findet sich in @ref{Notation von Akkorden}.
 
-@seealso
+@morerefs
 Musikglossar:
 @rglos{chord}.
 
@@ -256,7 +256,7 @@ explizit aufgerufen wird: die Verarbeitung von einfachem @code{q} wird
 erst vorgenommen, wenn alle @code{\relative}-Umgebungen schon verarbeitet
 sind.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Notation von Akkorden},
 @ref{Artikulationszeichen und Verzierungen}.
@@ -372,7 +372,7 @@ werden, sogar gleichzeitig.  In solchen Fällen wird nicht versucht,
 automatisch Zusammenstöße zwischen normalen Noten und Clustern
 aufzulösen.
 
-@seealso
+@morerefs
 Musikglossar:
 @rglos{cluster}.
 
@@ -618,7 +618,7 @@ ergeben, wenn die Musikausdrücke nicht den gleichen Rhythmus haben.
 @code{\oneVoice}.
 @endpredefined
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Voice enthält Noten},
 @rlearning{Stimmen explizit beginnen}.
@@ -674,7 +674,7 @@ die Standardausgabe einzuschalten.
 @code{\voiceNeutralStyle}.
 @endpredefined
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Ich höre Stimmen},
 @rlearning{Mehr Information}.
@@ -892,7 +892,7 @@ Richtungen gedreht sind).
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
-@seealso
+@morerefs
 Musikglossar:
 @rglos{polyphony}.
 
@@ -1092,7 +1092,7 @@ instrumentTwo = \relative {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
+@morerefs
 Musikglossar:
 @rglos{a due},
 @rglos{part}.
@@ -1256,7 +1256,7 @@ global = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Stücke durch Variablen organisieren}.
 

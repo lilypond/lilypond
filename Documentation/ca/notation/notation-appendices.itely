@@ -3115,7 +3115,7 @@ una lligadura.  Un conjunt de glifs amb un estil i forma uniformes
 formen un tipus de lletra, i un conjunt de tipus de lletra que
 abasten diversos estils formen un tipus.
 
-@seealso
+@morerefs
 Referencia de la notació:
 @ref{Tipus de lletra},
 @ref{Caràcters especials}.
@@ -3136,7 +3136,7 @@ denominen @q{objectes de presentació}, sovint coneguts com
 @q{OBjectes GRàfics}, o abreujadament, @strong{grobs}.  Es
 representen mitjançant instàncies de la classe @code{Grob}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Objectes i interfícies},
 @rlearning{Convencions de noms d'objectes i propietats},
@@ -3166,7 +3166,7 @@ comparteixen per part de molts objectes.  En aparent contradicció
 amb el seu nom, es poden canviar utilitzant @code{\override} i
 @code{\revert}.
 
-@seealso
+@morerefs
 Referècia de la notació:
 @ref{mutable}.
 
@@ -3183,7 +3183,7 @@ Les accions i propietats comunes a un conjunt de grobs s'agrupen
 en un objecte denominat @code{interfície de grob
 (grob-interface)}, o abreujadament @q{interfície}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Objectes i interfícies},
 @rlearning{Convencions de noms d'objectes i propietats},
@@ -3232,7 +3232,7 @@ Al LilyPond les propietats mutables contenen valors específics
 d'un grob.  En general, les llistes d'altres objectes o els
 resultats dels càlculs s'emmagatzemen a propietats mutables.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{immutable}.
 
@@ -3374,7 +3374,7 @@ partir de les expressions de l'Scheme dels segells que el composen.
 La propietat @code{stencil}, que connecta a un grob amb el seu
 segell es defineix dins de la interfície @code{grob-interface}.
 
-@seealso
+@morerefs
 Referència de funcionament intern:
 @rinternals{grob-interface}.
 

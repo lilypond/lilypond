@@ -211,7 +211,7 @@ Für eine vollständige Liste aller Variablen, die gesetzt werden können,
 schauen sie sich bitte direkt die Vorlagendatei @file{ly/satb.ly} an,
 siehe auch @ref{Mehr Information}.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @ref{Stücke durch Variablen organisieren},
 @ref{Vokalensemble},
@@ -329,7 +329,7 @@ Für eine vollständige Liste aller Variablen, die gesetzt werden können,
 schauen sie sich bitte direkt die Vorlagendatei @file{ly/ssaattbb.ly} an,
 siehe auch @ref{Mehr Information}.
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @ref{Stücke durch Variablen organisieren},
 @ref{Vokalensemble},

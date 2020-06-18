@@ -220,7 +220,7 @@ collegati alle note si trovano in @rlearning{Posizionamento degli oggetti}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-a-delayed-turn.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglos{tenuto},
 @rglosnamed{accent,accento},
@@ -531,7 +531,7 @@ indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglos{al niente},
 @rglos{crescendo},
@@ -668,7 +668,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 Le impostazioni dei tipi di carattere in modalità markup sono descritti in
 @ref{Scelta del tipo di carattere e della dimensione}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Formattazione del testo},
 @ref{Scelta del tipo di carattere e della dimensione},
@@ -848,7 +848,7 @@ portamento:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-slurs-with-complex-dash-structure.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglosnamed{slur,legatura di portamento}.
 
@@ -983,7 +983,7 @@ in @ref{Legature di portamento}.
 @code{\phrasingSlurSolid}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Sul non annidamento di parentesi e legature di valore}.
 
@@ -1050,7 +1050,7 @@ antica.  Maggiori dettagli in @ref{Divisiones}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglosnamed{caesura,cesura}.
 
@@ -1094,7 +1094,7 @@ l'intervallo per cui il portamento si estenderà @emph{oltre} la nota principale
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglosnamed{fall,portamento indeterminato verso il basso},
 @rglosnamed{doit,portamento indeterminato verso l'alto}.
@@ -1202,7 +1202,7 @@ Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Stili
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglos{glissando}.
 
@@ -1314,7 +1314,7 @@ valore.  Per maggiori dettagli si veda @ref{Legature di valore}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglos{arpeggio}.
 
@@ -1469,7 +1469,7 @@ aggiunte manualmente.
 @code{\stopTrillSpan}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossario Musicale:
 @rglosnamed{trill,trillo}.
 

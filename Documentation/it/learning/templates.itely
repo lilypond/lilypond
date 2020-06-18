@@ -208,7 +208,7 @@ Layout = \layout @{ ... @}
 L'insieme completo di variabili modificabili è visibile esaminando il
 file @file{ly/satb.ly}, vedi @ref{Altre fonti di informazione}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @ref{Organizzare i brani con le variabili},
 @ref{Modelli per gruppi vocali},
@@ -325,7 +325,7 @@ L'insieme completo di variabili che possono essere modificate può essere
 visto esaminando il file @file{ly/ssaattbb.ly}, vedi
 @ref{Altre fonti di informazione}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @ref{Organizzare i brani con le variabili},
 @ref{Modelli per gruppi vocali},

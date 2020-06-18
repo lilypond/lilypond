@@ -86,7 +86,7 @@ Akkordmodus und Notenmodus können gemischt verwendet werden:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossar:
 @rglos{chord}.
 
@@ -247,7 +247,7 @@ benutzen, um einen Durdreiklang zu notieren.
 
 @end multitable
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Übliche Akkord-Variablen},
 @ref{Erweiterte und modifizierte Akkorde}.
@@ -415,7 +415,7 @@ Akkordmodifikatoren, die benutzt werden können, um eine große
 Anzahl an Standardakkorden zu erzeugen, werden gezeigt in
 @ref{Übliche Akkord-Variablen}.
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Übliche Akkord-Variablen}.
 
@@ -559,7 +559,7 @@ mit der @code{noChordSymbol}-Beschriftung darstellt.
 {simple-lead-sheet.ly}
 
 
-@seealso
+@morerefs
 Glossar:
 @rglos{chord}.
 
@@ -802,7 +802,7 @@ nicht verwendet, wenn der Grundton erhöht oder erniedrigt ist.
 {changing-chord-separator.ly}
 
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Liste der Akkordbezeichnungen},
 @ref{Übliche Akkord-Variablen}.
@@ -899,7 +899,7 @@ einfacher.  @code{\figuremode} speichert einfach die Zahlen und der
 @code{FiguredBass}-Kontext setzt sie in der Form, wie sie notiert
 wurden.  Sie werden nicht in Tonhöhen umgewandelt.
 
-@seealso
+@morerefs
 Glossar:
 @rglos{figured bass}.
 
@@ -1080,7 +1080,7 @@ End of continuation line
 {changing-the-positions-of-figured-bass-alterations.ly}
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Chords}.
 

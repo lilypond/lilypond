@@ -92,7 +92,7 @@ seqüencial:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{chord}.
 
@@ -230,7 +230,7 @@ utilitzeu aquest modificador per crear una triada major.
 
 @end multitable
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Modificadors d'acord més usuals},
 @ref{Acords estesos i alterats}.
@@ -386,7 +386,7 @@ Els modificadors d'acord que es poden fer servir per produir una
 àmplia varietat d'acords estàndard es mostren a
 @ref{Modificadors d'acord més usuals}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Modificadors d'acord més usuals}.
 
@@ -517,7 +517,7 @@ N.C., Sense Acord).
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{chord}.
 
@@ -763,7 +763,7 @@ l'acord està alterat.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-@seealso
+@morerefs
 Referència de la notació:
 @ref{Taula de noms d'acords},
 @ref{Modificadors d'acord més usuals}.
@@ -865,7 +865,7 @@ impressió de les xifres. Per exemple, l'espaiat vertical de les
 xifres es pot ajustar amb @code{baseline-skip}.
 @end ignore
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{figured bass}.
 
@@ -1056,7 +1056,7 @@ Fin de línia de continuació
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Chords}.
 
@@ -1148,7 +1148,7 @@ pot presentar a sobre o a sota del pentagrama.
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragments de codi:
 @rlsr{Chords}.
 

@@ -405,7 +405,7 @@ e poi specificando prima di ogni frammento la quantità di sistemi desiderata,
 @end example
 
 
-@seealso
+@morerefs
 Esistono opzioni specifiche da linea di comando per @command{lilypond-book} e
 altri dettagli da conoscere quando si elaborano documenti @LaTeX{}; si veda
 @ref{Utilizzo di lilypond-book}.

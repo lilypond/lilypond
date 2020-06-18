@@ -126,7 +126,7 @@ Maggiori dettagli sui blocchi @code{\book} si trovano in
 @ref{Molteplici partiture in un libro},
 @ref{Molteplici file di output da un unico file di input} e @ref{Struttura del file}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Lavorare sui file di input},
 @rlearning{Espressioni musicali},
@@ -548,7 +548,7 @@ e @code{\override}.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Come funzionano i file di input di LilyPond}.
 
@@ -756,7 +756,7 @@ di tutti i brani, magari sovrascrivendo alcuni campi e sopprimendone altri:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Struttura del file},
 @ref{Formattazione predefinita dei titoli delle parti e dei brani},
@@ -873,7 +873,7 @@ pagina successiva.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Come funzionano i file di input di LilyPond},
 
@@ -974,7 +974,7 @@ intestazione, piè di pagina e titolo di un blocco @code{\header}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Formattazione del testo}.
 
@@ -1130,7 +1130,7 @@ ad esso nella definizione di markup.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Come funzionano i titoli}.
 
@@ -1236,7 +1236,7 @@ le condizioni sono vere. Per esempio, queste due condizioni
 
 verificano se l'output è una pagina singola.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Come funzionano i titoli},
 @ref{Formattazione predefinita dei titoli delle parti e dei brani}.
@@ -1734,7 +1734,7 @@ si possono usare gli alias ASCII (vedi @ref{Alias ASCII}):
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Oggetti e interfacce}.
 
@@ -1998,7 +1998,7 @@ un indice:
 }
 @end verbatim
 
-@seealso
+@morerefs
 File installati:
 @file{ly/toc-init.ly}.
 
@@ -2163,7 +2163,7 @@ nuova versione di LilyPond.
 Alcuni semplici esempi d'uso di @code{\include} si trovano in
 @rlearning{Partiture e parti}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione},
 @rlearning{Partiture e parti}.
@@ -2493,7 +2493,7 @@ music = { \tag #'qui { \tag #'qui <<c''>> } }
 Entrambi i comandi prendono tre argomenti: un'etichetta, il materiale da
 combinare ad ogni occorenza dell'etichetta e l'espressione contrassegnata.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Organizzare i brani con le variabili}.
 
@@ -2532,7 +2532,7 @@ delle impostazioni.
 Questa tecnica è la stessa usata per i fogli di stile, trattati
 in @rlearning{Fogli di stile}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Organizzare i brani con le variabili},
 @rlearning{Fogli di stile}.
@@ -2735,7 +2735,7 @@ che localmente:
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Elenco dei caratteri speciali}.
 
@@ -2793,7 +2793,7 @@ se necessario si possono creare anche altri formati come @code{PDF} o
 un frammento supera una o più linee, verrà creato un file di output
 separato per ciascuna linea.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Il blocco layout}.
 
@@ -2978,7 +2978,7 @@ Ciò significa che ogni blocco @code{\book} può avere il suo insieme di font
 principali usando @code{set-global-fonts} prima di esso.
 Maggiori informazioni in @ref{Tipi di carattere per l'intero documento}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
@@ -3182,7 +3182,7 @@ dei blocchi @code{\book}, @code{\bookpart} o @code{\score}.  Vedi
 #(ly:set-option 'midi-extension "mid")
 @end example
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Struttura del file},
 @ref{Creazione di metadati per i file di output}.
@@ -3359,7 +3359,7 @@ Se queste proprietà del volume non sono impostate, LilyPond applica comunque
 File installati:
 @file{scm/midi.scm}.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Formattazione della partitura}.
 
@@ -3425,7 +3425,7 @@ blocco @code{\layout};
 Questo esempio toglie l'effetto delle dinamiche dall'output MIDI.  Nota bene:
 i moduli di traduzione di LilyPond usati per l'audio si chiamano @q{performer}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
@@ -3481,7 +3481,7 @@ Se il nome dello strumento non corrisponde a nessuno degli strumenti elencati
 nella sezione @q{Strumenti MIDI}, verrà usato lo strumento @code{acoustic grand}.
 Vedi @ref{Strumenti MIDI}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 
@@ -3551,7 +3551,7 @@ tremolo e percentuale):
 Quando si usa più di una voce, ciascuna voce deve avere tutte le ripetizioni
 ricopiate per generare un output MIDI corretto.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Ripetizioni}.
 
@@ -3826,7 +3826,7 @@ Il comando @code{\articulate} permette di elaborare le abbreviazioni (come
 i trilli e i gruppetti). L'elenco completo degli elementi supportati si
 trova nello script stesso.  Vedi @file{ly/articulate.ly}.
 
-@seealso
+@morerefs
 Manuale di apprendimento:
 @rlearning{Altre fonti di informazione}.
 

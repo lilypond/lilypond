@@ -267,7 +267,7 @@ beperkingen van variabelenamen staan beschreven in
 @ruser{File structure}.
 
 
-@seealso
+@morerefs
 Voor een volledige definitie van het invoerformaat, zie
 @ruser{File structure}.
 
@@ -413,7 +413,7 @@ indentation -- make sure that each item on the same level starts
 on the same horizontal position in your text editor.
 
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Structure of a score}.
 
 
@@ -480,7 +480,7 @@ placed above the staff called @qq{main} instead of the default
 position which is below.
 
 
-@seealso
+@morerefs
 Ossia are often written without clef and without
 time signature and are usually in a smaller font.
 These require further commands which
@@ -959,7 +959,7 @@ later section --- see the @code{force-hshift} property in
 created @q{across} voices.}
 
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Multiple voices}.
 
 
@@ -1193,7 +1193,7 @@ have no shift or the same shift specified, the error message
 @qq{Too many clashing note columns} will be produced.
 
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Multiple voices}.
 
 
@@ -1358,7 +1358,7 @@ VerseFour  =
 @end lilypond
 
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Vocal music}.
 
 
@@ -1449,7 +1449,7 @@ preceding word with no hyphen or underscore, e.g.,
 @code{GregorianTranscriptionStaff}.
 
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Contexts explained}.
 
 
@@ -1563,7 +1563,7 @@ refer back to that particular instance of a context.  We saw this in
 use in the section on lyrics, see @ref{Voices and vocals}.
 
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Creating contexts}.
 
 
@@ -1647,7 +1647,7 @@ We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.
 
 
-@seealso
+@morerefs
 Internals reference: @rinternals{Engravers and Performers}.
 
 
@@ -1959,7 +1959,7 @@ instances of contexts by statements in a @code{\with} block, and by
 @code{\set} commands embedded in music statements.
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ruser{Changing context default settings}.
 @ruser{The set command}.
@@ -2123,7 +2123,7 @@ for all contexts of a particular type by including the
 @code{\set} command in a @code{\context} block in the
 same way.
 
-@seealso
+@morerefs
 Notation Reference: @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
 
@@ -2335,7 +2335,7 @@ celloMusic = \relative {
 @end lilypond
 
 
-@seealso
+@morerefs
 The starting templates can be found in the @q{Templates} appendix,
 see @ref{Single staff templates}.
 
@@ -2972,7 +2972,7 @@ PedalOrganMusic = \relative {
 }  % end Score context
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{system}.
 

@@ -81,7 +81,7 @@ te lezen, omdat ze helpen deze opgeruimd te houden.
 g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
 @end lilypond
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Bar and bar number checks}.
 
@@ -229,7 +229,7 @@ toevallige tekens volgens verschillende regels, zie
 @ruser{Automatic accidentals}.
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Note names in other languages},
 @ruser{Accidentals},
@@ -311,7 +311,7 @@ overbindingen kunnen worden genest.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Ties},
 @ruser{Slurs},
@@ -410,7 +410,7 @@ gebruiken:
 @end lilypond
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions},
@@ -445,7 +445,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Writing text}.
 
@@ -499,7 +499,7 @@ zetten en @code{\autoBeamOn} om ze weer aan te zetten.
 @end lilypond
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Automatic beams},
 @ruser{Manual beams}.
@@ -589,7 +589,7 @@ voor een muziekuitdrukking te zetten
 @end lilypond
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Grace notes},
 @ruser{Tuplets},
@@ -877,7 +877,7 @@ elk systeem maakt en ook de lengte van de maatstrepen
 bepaalt.
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
@@ -923,7 +923,7 @@ r4 <c e g>~ <c f a>2 |
 r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Chorded notes}.
 
@@ -950,7 +950,7 @@ kunnen we nog niet introduceren.  In plaats daarvan worden
 in de volgende paragrafen eerst deze concepten uitvoerig
 verklaard.
 
-@seealso
+@morerefs
 Beginnershandleiding:
 @ref{Voices contain music}.
 
@@ -1215,7 +1215,7 @@ in Figaro's aria @notation{Largo al factotum}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Vocal music}.
 
@@ -1262,7 +1262,7 @@ gebruik van variabelen.  Dit wordt behandeld in
 @ref{Stukken organiseren met variabelen}.
 
 
-@seealso
+@morerefs
 Notatiehandleiding:
 @ruser{Vocal music}.
 

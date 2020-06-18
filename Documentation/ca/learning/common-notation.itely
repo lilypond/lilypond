@@ -119,7 +119,7 @@ d'aquest exemple senzill, l'advertiment de la sortida de consola
 es molt més efectiva en atraure l'atenció concretament al @code{4}
 que falta al compàs 3.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Comprovació de compàs i de número de compàs}.
 
@@ -281,7 +281,7 @@ imprimir seguint diverses convencions diferents.  Consulteu
 @ruser{Alteracions accidentals automàtiques} per veure exemple de
 com es poden imprimir les alteracions d'acord amb regles diferents.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Noms de les notes en altres llengües},
 @ruser{Alteracions accidentals},
@@ -382,7 +382,7 @@ altres.
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Lligadures d'unió},
 @ruser{Lligadures d'expressió},
@@ -490,7 +490,7 @@ la instrucció @code{\!}:
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Articulacions i ornaments},
 @ruser{Indicacions de digitació},
@@ -523,7 +523,7 @@ a'2_\markup {
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Escriptura del text}.
 
@@ -578,7 +578,7 @@ cop.
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Barres automàtiques},
 @ruser{Barres manuals}.
@@ -677,7 +677,7 @@ expressió musical amb la paraula clau @code{\appoggiatura} o
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Notes d'adorn},
 @ruser{Grups especials},
@@ -960,7 +960,7 @@ vocals. Cadascú d'aquests grups de pautes forma un tipus de
 context diferent, que produeix la clau a l'esquerra i que
 també controla l'abast de les línies divisòries.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Teclats i altres instruments de pentagrames múltiples},
 @ruser{Visualització dels pentagrames}.
@@ -1006,7 +1006,7 @@ per fora dels angles.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Notes a un acord}.
 
@@ -1033,7 +1033,7 @@ presentarem en aquest moment.  En comptes d'això, les seccions
 següents presenten aquests conceptes i els expliquen en
 profunditat.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @ref{Les veus contenen música}.
 
@@ -1288,7 +1288,7 @@ del @notation{Barber de Sevilla} de Rossini, on la síl·laba
 @end lilypond
 
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Música vocal}.
 
@@ -1333,7 +1333,7 @@ pentagrames mitjançant variables (expressions amb nom).  Les
 variables es tracten a @ref{Organitzar les peces mitjançant
 variables}.
 
-@seealso
+@morerefs
 Referència de la notació:
 @ruser{Música vocal}.
 

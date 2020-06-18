@@ -136,7 +136,7 @@ werden, die Schrift-Dateien benutzen.  Das sind die, welche die
 @code{\huge}.
 @endpredefined
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -205,7 +205,7 @@ Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Richtung und Platzierung}.
 
@@ -274,7 +274,7 @@ Noten angehängt werden, sind trotzdem noch sichtbar.
 @code{\unHideNotes}.
 @endpredefined
 
-@seealso
+@morerefs
 Handbuch zum Lernen:
 @rlearning{Sichtbarkeit und Farbe von Objekten}.
 
@@ -372,7 +372,7 @@ definiert werden.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Liste der Farben}, @ref{Der tweak-Befehl}.
 
@@ -434,7 +434,7 @@ braucht man ein Minuszeichen vor dem @code{\parenthesize}-Befehl.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -494,7 +494,7 @@ zeigen, siehe @ref{Direction and placement}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
-@seealso
+@morerefs
 Notationsreferenz:
 @ref{Richtung und Platzierung}.
 
@@ -587,7 +587,7 @@ aber das kann geändert werden.
 @code{\balloonLengthOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -654,7 +654,7 @@ den Linien festgesetzt.
 {grid-lines--changing-their-appearance.ly}
 
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Editorial annotations}.
 
@@ -717,7 +717,7 @@ Analyseklammern können verschachtelt sein.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Schnipsel:
 @rlsr{Editorial annotations}.
 

@@ -1315,7 +1315,7 @@ context is the top level notation context.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Internals Reference: @rinternals{Contexts}.
 
 @node Flexible architecture

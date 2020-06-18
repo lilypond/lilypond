@@ -218,7 +218,7 @@ Layout = \layout @{ ... @}
 Le jeu complet des variables modifiables disponibles est contenu dans le
 fichier @file{ly/satb.ly} -- voir @ref{Autres sources de documentation}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{Autres sources de documentation},
 @ref{Extension des modèles}.
@@ -335,7 +335,7 @@ Le jeu complet des variables modifiables disponibles est contenu dans le
 fichier @file{ly/ssaattbb.ly} -- voir
 @ref{Autres sources de documentation}.
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @ref{Autres sources de documentation},
 @ref{Extension des modèles}.

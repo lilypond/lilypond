@@ -117,7 +117,7 @@
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Real music example},
 @rlearning{Other uses for tweaks}
@@ -260,7 +260,7 @@
 そのような場合、必要に応じて、手動で衝突を解決する必要があります
 -- 解決手段は @rlearning{表記の重なりを修正する} を参照してください。
 
-@seealso
+@morerefs
 学習マニュアル:
 @rlearning{Fixing overlapping notation}
 
@@ -370,7 +370,7 @@ music = {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Changing staff manually}
 
@@ -455,7 +455,7 @@ music = {
 @code{\hideStaffSwitch}
 @endpredefined
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Keyboards}
 
@@ -488,7 +488,7 @@ music = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Keyboards}
 
@@ -582,7 +582,7 @@ music = {
 
 ペダル指示を @code{Dynamics} コンテキストに配置させることができます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Ties}
 
@@ -643,7 +643,7 @@ music = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-register-symbols.ly}
 
-@seealso
+@morerefs
 コード断片集:
 @rlsr{Keyboards}
 
@@ -684,7 +684,7 @@ music = {
 
 @end itemize
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Tremolo repeats},
 @ref{Glissando},
@@ -733,7 +733,7 @@ c''!1_\markup { \harp-pedal "^o--|vv-^" }
 @code{|} 区切り線です。@c
 接頭辞 @code{o} は、その後のペダル記号を丸で囲みます。
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{テキスト スクリプト},
 @ref{Instrument Specific Markup}

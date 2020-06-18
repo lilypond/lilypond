@@ -131,7 +131,7 @@ Vous pourrez toujours définir d'autres contextes de portée selon vos
 besoins, en suivant les indications fournies au chapitre
 @ref{Définition de nouveaux contextes}.
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{staff},
 @rglosnamed{staves,portées}.
@@ -269,7 +269,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{brace,accolade},
 @rglosnamed{bracket,crochet},
@@ -331,7 +331,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Définition de nouveaux contextes},
 @ref{Noms d'instrument},
@@ -393,7 +393,7 @@ défaut, mais vous pouvez l'activer par une option au sein du bloc
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Mise en forme de la page}.
 
@@ -583,7 +583,7 @@ lignes supplémentaires.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglosnamed{line,ligne},
 @rglosnamed{ledger line,ligne supplémentaire},
@@ -735,7 +735,7 @@ chapitre @ref{Masquage de portées}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{ossia},
 @rglosnamed{staff,portée},
@@ -969,7 +969,7 @@ continuent de jouer.
 @code{\RemoveAllEmptyStaves},
 @endpredefined
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{Frenched staff}.
 
@@ -1184,7 +1184,7 @@ setFlute = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Modification des greffons de contexte},
 @ref{Variables d'indentation et de décalage}.
@@ -1369,7 +1369,7 @@ Les citations peuvent être « balisées » par un nom particulier afin de
 les utiliser de différentes manières.  Pour de plus amples détails à ce
 propos, consultez le chapitre @ref{Utilisation de balises}.
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Instruments transpositeurs},
 @ref{Utilisation de balises}.
@@ -1674,7 +1674,7 @@ bassoonNotes = \relative c {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Citation d'autres voix},
 @ref{Citation-repère},
@@ -1799,7 +1799,7 @@ la propriété interne @code{skipBars}, qui se définit au sein du contexte
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi-measure-rests.ly}
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{La commande de fixation (set)},
 @ref{Silences valant une mesure},

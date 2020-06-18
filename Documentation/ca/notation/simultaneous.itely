@@ -137,7 +137,7 @@ nota anterior @emph{dins del mateix acord}.
 Per veure més informació sobre els acords, consulteu
 @rusernamed{Chord notation,Notació d'acords}.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{chord}.
 
@@ -269,7 +269,7 @@ crides explícites de @code{\chordRepeats}: l'expansió implícita al
 començament del procés de gravat es fa en un moment en el
 qual totes les instàncies de @code{\relative} ja s'han processat.
 
-@seealso
+@morerefs
 Referència de la notació:
 @rusernamed{Chord notation,Notació d'acords},
 @ref{Articulacions i ornaments}.
@@ -381,7 +381,7 @@ clústers, fins i tot al mateix temps.  En aquest cas, no es fa cap
 intent d'evitar automàticament les col·lisions entre clústers i
 notes normals.
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{cluster}.
 
@@ -616,7 +616,7 @@ fragments de música no tenen les mateixes duracions exactes.
 @code{\oneVoice}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Les veus contenen música},
 @rlearning{Veus explícites}.
@@ -669,7 +669,7 @@ Per recuperar la presentació normal s'utilitza l'ordre
 @code{\voiceNeutralStyle}.
 @endpredefined
 
-@seealso
+@morerefs
 Manual d'aprenentatge
 @rlearning{Sento veus},
 @rlearning{Altres fonts d'informació}
@@ -883,7 +883,7 @@ direccions oposades).
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {forcing-horizontal-shift-of-notes.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{polyphony}.
 
@@ -1130,7 +1130,7 @@ context @code{NullVoice}.  Vegeu
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-@seealso
+@morerefs
 Glossari musical:
 @rglos{a due},
 @rglos{part}.
@@ -1296,7 +1296,7 @@ global = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @rlearning{Organitzar les peces mitjançant variables}
 

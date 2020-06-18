@@ -115,7 +115,7 @@ riferimento.
 Le altezze dell'espressione musicale che segue @code{\fixed} non cambiano
 se racchiuse da un blocco @code{\relative}, che vedremo tra poco.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{Pitch names,Nomi delle altezze}.
 
@@ -321,7 +321,7 @@ tener conto di ciò che è successo prima, usando @code{\resetRelativeOctave}:
 @funindex \resetRelativeOctave
 
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{fifth,quinta},
 @rglosnamed{interval,intervallo},
@@ -455,7 +455,7 @@ viene ripetuta solo all'inizio di un nuovo sistema:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{sharp,diesis},
 @rglosnamed{flat,bemolle},
@@ -655,7 +655,7 @@ alla musica classica occidentale, nota anche come
 anche altezze e sistemi di accordatura alternativi: si veda
 @ref{Notazione comune per la musica non occidentale}.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{Pitch names,Nomi delle altezze},
 @rglosnamed{Common Practice Period,Periodo di pratica comune}.
@@ -748,7 +748,7 @@ falliscono, mentre il secondo non fallisce.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsr{Pitches, Altezze}.
 
@@ -873,7 +873,7 @@ si veda @ref{Trasporto strumentale}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Trasporto strumentale},
 @ref{Inversione},
@@ -936,7 +936,7 @@ music = \relative { c' d e f }
 oppure devono essere prima convertiti in forma assoluta racchiudendoli
 in un blocco @code{\relative}.}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Trasposizioni modali},
 @ref{Retrogradazione},
@@ -974,7 +974,7 @@ o @code{\endcr}, ogni @code{\>} o @code{\decr} deve essere terminato da
 @code{\enddecr}.  Comandi e modifiche che cambiano le proprietà con un effetto
 duraturo causeranno facilmente delle sorprese.
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Inversione},
 @ref{Trasposizioni modali},
@@ -1115,7 +1115,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Inversione},
 @ref{Retrogradazione},
@@ -1316,7 +1316,7 @@ più piccolo del normale.  Tale comportamento può essere modificato.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Chiavi mensurali},
 @ref{Chiavi gregoriane},
@@ -1459,7 +1459,7 @@ posizione del rigo.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{church mode},
 @rglos{scordatura}.
@@ -1529,7 +1529,7 @@ ottava nel rigo:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {modifying-the-ottava-spanner-slope.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{octavation,ottavazione}.
 
@@ -1633,7 +1633,7 @@ clarinet = \relative c'' {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{concert pitch,intonazione reale},
 @rglosnamed{transposing instrument,strumento traspositore}.
@@ -2967,7 +2967,7 @@ musicB = {
 @end lilypond
 @end table
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
@@ -3089,7 +3089,7 @@ di chiave.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{ambitus}.
 
@@ -3219,7 +3219,7 @@ Esiste anche una scorciatoia simile per le forme a diamante:
 @code{\xNote}.
 @endpredefined
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
@@ -3283,7 +3283,7 @@ proposito si veda @ref{Impostare la dimensione del rigo}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Impostare la dimensione del rigo}.
 
@@ -3397,7 +3397,7 @@ in base alla relativa maggiore:
 
 La lista completa di tutti gli stili delle teste si trova in @ref{Stili delle teste di nota}.
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
@@ -3446,7 +3446,7 @@ indicato.  Si possono creare queste teste:
 @code{\improvisationOff}.
 @endpredefined
 
-@seealso
+@morerefs
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 

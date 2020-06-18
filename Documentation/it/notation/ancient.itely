@@ -64,7 +64,7 @@ Alcuni concetti sono presentati in modo specifico per la notazione antica:
 @item @ref{Legature}.
 @end itemize
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{custos},
 @rglosnamed{ligature,legatura},
@@ -157,7 +157,7 @@ dagli altri elementi, dunque è possibile usare code mensurali, teste
 di nota Petrucci, pause classiche e chiavi vaticane nello stesso
 brano.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale},
 @rglosnamed{flag,coda}.
@@ -192,7 +192,7 @@ Vedere anche:
 @item @ref{Contesti mensurali}.
 @end itemize
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale}.
 
@@ -238,7 +238,7 @@ l'incisore predefinito @code{Ligature_bracket_engraver} con uno degli
 incisori specializzati, come è spiegato in @ref{Legature mensurali bianche} e
 @ref{Legature di neumi quadrati gregoriani}.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{ligature,legatura}.
 
@@ -333,7 +333,7 @@ stili supportati sono @code{vaticana}, @code{medicaea}, @code{hufnagel} e
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{custos}.
 
@@ -393,7 +393,7 @@ l'inserimento del canto, come dimostra il seguente estratto:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale}.
 
@@ -449,7 +449,7 @@ c'1
 una linea arbitraria, come è spiegato in @ref{Clef}.  Tutte le chiavi possibili
 sono descritte in @ref{Clef styles}.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale},
 @rglosnamed{clef,chiave}.
@@ -566,7 +566,7 @@ Gli esempi successivi mostrano le differenze tra gli stili:
 @ref{Time signature} fornisce un'introduzione generale all'uso delle
 indicazioni di tempo.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{mensural notation}.
 
@@ -653,7 +653,7 @@ a'\longa
 @ref{Note head styles} fornisce una panoramica di tutti gli stili di teste di
 nota disponibili.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale},
 @rglosnamed{note head,teste di nota}.
@@ -691,7 +691,7 @@ verticalmente con una linea del rigo.
 Non esiste uno stile di coda specifico per la notazione neomensurale o Petrucci.
 Non esistono code nella notazione del canto gregoriano.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale},
 @rglosnamed{flag,coda}.
@@ -728,7 +728,7 @@ Non esistono pause di un trentaduesimo e di un sessantaquattresimo specifiche
 per gli stili mensurali o neomensurali; vengono quindi usate le pause dello
 stile predefinito.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale}.
 
@@ -778,7 +778,7 @@ Per esempio:
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{mensural notation,notazione mensurale},
 @rglosnamed{Pitch names,nomi delle altezze},
@@ -836,7 +836,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida al funzionamento interno:
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
@@ -930,7 +930,7 @@ Senza sostituire l'incisore @code{Ligature_bracket_engraver} con
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{ligature,legatura}.
 
@@ -965,7 +965,7 @@ di nota, per esempio su @code{vaticana_punctum} per produrre i neumi @i{punctum}
 Analogamente, l'incisore @code{Mensural_ligature_engraver} raggruppa
 automaticamente le legature mensurali.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{ligature,legatura}.
 
@@ -1008,7 +1008,7 @@ far altro che inserire il canto, come dimostra il passo seguente:
 @end lilypond
 
 
-@c @seealso
+@c @morerefs
 @c TODO: nothing here yet ...
 
 
@@ -1143,7 +1143,7 @@ stile hufnagel chiave combinata Do/Fa
 @end lilypond
 @end multitable
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{clef,chiave}.
 
@@ -1196,7 +1196,7 @@ proprietà @code{glyph-name-alist} dei grob @code{Accidental} e
   #alteration-mensural-glyph-name-alist
 @end example
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{accidental,alterazione},
 @rglosnamed{key signature,armatura di chiave}.
@@ -1286,7 +1286,7 @@ Dunque @file{gregorian.ly} contiene anche una definizione per @code{\virgula} e
 @code{\finalis}.
 @endpredefined
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglos{caesura},
 @rglos{divisio}.
@@ -1333,7 +1333,7 @@ di articolazione progettati specificamente per la notazione in stile
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Articolazioni e abbellimenti}.
 
@@ -1376,7 +1376,7 @@ Scrivere invece @code{\virga \augmentum c} o @code{\augmentum @{\virga c@}}.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Breath marks}.
 
@@ -2317,7 +2317,7 @@ crescente o calante.
 Usare la funzione musicale unaria @code{\augmentum} per aggiungere punti di
 aumentazione.
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{ligature,legatura}.
 
@@ -2386,7 +2386,7 @@ immediatamente all'inserimento delle note del canto:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{kievan notation,notazione di Kiev}.
 
@@ -2414,7 +2414,7 @@ per indicare la posizione del Do (@code{c}):
   c'
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{kievan notation,notazione di Kiev},
 @rglosnamed{clef,chiave}.
@@ -2452,7 +2452,7 @@ b'1 b'2 b'4 b'8 b'\breve b'\longa
 b'2
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{kievan notation,notazione di Kiev},
 @rglosnamed{note head,testa di nota}.
@@ -2490,7 +2490,7 @@ soprattutto per garantire la compatibilità.
 bes' dis'
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{kievan notation,notazione di Kiev},
 @rglosnamed{accidental,alterazione}.
@@ -2514,7 +2514,7 @@ nello stile di Kiev.  Può essere richiamata con @code{\bar "k"}.
   c' \bar "k"
 @end lilypond
 
-@seealso
+@morerefs
 Guida alla notazione:
 @ref{Bars},
 @ref{The Emmentaler font}
@@ -2575,7 +2575,7 @@ L'esempio seguente illustra l'uso delle legature di Kiev:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glossario musicale:
 @rglosnamed{ligature,legatura}.
 

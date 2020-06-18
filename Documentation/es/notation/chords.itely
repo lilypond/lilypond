@@ -91,7 +91,7 @@ secuencial:
 }
 @end lilypond
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{chord}.
 
@@ -229,7 +229,7 @@ utilice este modificador para crear una tríada mayor.
 
 @end multitable
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Modificadores de acorde más usuales},
 @ref{Acordes extendidos y alterados}.
@@ -392,7 +392,7 @@ Los modificadores de acorde que se pueden utilizar para producir
 una amplia variedad de acordes estándar se muestran en
 @ref{Modificadores de acorde más usuales}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Inversiones de acorde y realizaciones especiales},
 @ref{Modificadores de acorde más usuales}.
@@ -444,7 +444,7 @@ pueden usar no solo en el modo de acordes sino también con la
 construcción de acorde habitual @code{<...>} que se explica en
 @ref{Notas en acorde}.
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Acordes extendidos y alterados},
 @ref{Notas en acorde}.
@@ -570,7 +570,7 @@ N.C., Sin Acorde).
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{chord}.
 
@@ -831,7 +831,7 @@ se usa cuando el acorde está alterado.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-@seealso
+@morerefs
 Referencia de la notación:
 @ref{Cuadro de nombres de acordes},
 @ref{Modificadores de acorde más usuales}.
@@ -935,7 +935,7 @@ impresión de las cifras.  Por ejemplo, el espaciado vertical de las
 cifras se puede ajustar con @code{baseline-skip}.
 @end ignore
 
-@seealso
+@morerefs
 Glosario musical:
 @rglos{figured bass}.
 
@@ -1141,7 +1141,7 @@ Fin de línea de continuación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Chords}.
 
@@ -1237,7 +1237,7 @@ cifrado se puede presentar encima o debajo del mismo.
 @code{\bassFigureStaffAlignmentNeutral}.
 @endpredefined
 
-@seealso
+@morerefs
 Fragmentos de código:
 @rlsr{Chords}.
 

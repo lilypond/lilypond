@@ -79,7 +79,7 @@ se trouvent dans les exemples de code.
 
 @end itemize
 
-@seealso
+@morerefs
 Manuel d'initiation :
 @rlearning{Modèles pour quatuor à cordes}.
 
@@ -141,7 +141,7 @@ a'2^\markup { \small "sul A" }
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Indications du numéro de corde},
@@ -210,7 +210,7 @@ d'ajouter un point aux notes pointées affublées d'un @code{\harmonic}.
 <e a\harmonic>2.  <c g'\harmonic>4
 @end lilypond
 
-@seealso
+@morerefs
 Glossaire musicologique :
 @rglos{harmonics}.
 

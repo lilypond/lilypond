@@ -221,7 +221,7 @@ El conjunt complet de variables que poden modificar-se es poden
 consultar al fitxer @file{ly/satb.ly}, vegeu
 @ref{Altres fonts d'informació}.
 
-@seealso
+@morerefs
 Manual d'aprenentatge:
 @ref{Organitzar les peces mitjançant variables}
 @ref{Plantilles de conjunts vocals},
@@ -342,7 +342,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 canviar examinant el fitxer @file{ly/ssaattbb.ly}, vegeu
 @ref{Altres fonts d'informació}.
 
-@seealso
+@morerefs
 Manual de aprenentatge:
 @ref{Organitzar les peces mitjançant variables},
 @ref{Plantilles de conjunts vocals},

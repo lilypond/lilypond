@@ -1374,7 +1374,7 @@ livello massimo.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternalsnamed{Contexts, Contesti}.
 

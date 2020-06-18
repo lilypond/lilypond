@@ -221,7 +221,7 @@ El conjunto completo de variables que pueden modificarse se pueden
 consultar en el archivo @file{ly/satb.ly}, véase @ref{Otras
 fuentes de información}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @ref{Organizar las piezas mediante variables},
 @ref{Plantillas de conjuntos vocales},
@@ -343,7 +343,7 @@ Es posible ver el conjunto completo de variables que se pueden
 cambiar examinando el archivo @file{ly/ssaattbb.ly}, véase
 @ref{Otras fuentes de información}.
 
-@seealso
+@morerefs
 Manual de aprendizaje:
 @ref{Organizar las piezas mediante variables},
 @ref{Plantillas de conjuntos vocales},

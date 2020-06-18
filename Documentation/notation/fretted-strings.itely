@@ -77,7 +77,7 @@ in @ref{Collision resolution}.
 
 @end itemize
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Fingering instructions},
 @ref{Ties},
@@ -149,7 +149,7 @@ may be set in the same way as fingerings: see
 @code{\romanStringNumbers}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Fingering instructions}.
 
@@ -511,7 +511,7 @@ ratioHarmonics = {
 {hammer-on-and-pull-off-using-chords.ly}
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Chord repetition},
 @ref{Glissando},
@@ -765,7 +765,7 @@ mus = \relative {
 >>
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Absolute octave entry},
 @ref{Predefined fret diagrams},
@@ -1227,7 +1227,7 @@ markup, the interface properties belong to @code{Voice.TextScript}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {customizing-markup-fret-diagrams.ly}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Instrument Specific Markup}.
 
@@ -1544,7 +1544,7 @@ the interface properties belong to @code{FretBoards.FretBoard}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Custom tablatures},
 @ref{Automatic fret diagrams},
@@ -1709,7 +1709,7 @@ diagram, the interface properties belong to
 @code{\predefinedFretboardsOn}.
 @endpredefined
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Custom tablatures}.
 
@@ -1773,7 +1773,7 @@ object) may be set in the same way as ordinary fingerings: see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Fingering instructions}.
 
@@ -1823,7 +1823,7 @@ barring indications.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Text spanners}.
 
@@ -1900,7 +1900,7 @@ triangle shape.
 }
 @end lilypond
 
-@seealso
+@morerefs
 Snippets:
 @rlsr{Fretted strings}.
 
@@ -1950,7 +1950,7 @@ ChordsAndSymbols = {
 }
 @end lilypond
 
-@seealso
+@morerefs
 Music Glossary:
 @rglos{power chord}.
 
@@ -2020,7 +2020,7 @@ These may be converted to four-string tunings using the
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/string-tunings-init.ly}.
 

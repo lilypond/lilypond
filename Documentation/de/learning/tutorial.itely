@@ -527,7 +527,7 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 @end lilypond
 
 
-@seealso
+@morerefs
 Notationsreferenz: @ruser{Tonhöhen setzen},
 @ruser{Rhythmen eingeben}, @ruser{Pausen eingeben},
 @ruser{Taktangabe}, @ruser{Notenschlüssel}.

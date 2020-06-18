@@ -67,7 +67,7 @@ This section describes what contexts are, and how to modify them.
 * Context layout order::
 @end menu
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Contexts and engravers}.
 
@@ -154,7 +154,7 @@ for printed output as well as for Midi.  If changes made to
 block are not repeated in the corresponding @code{\midi} block,
 lyrics and music will get out of sync in Midi.
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/engraver-init.ly}.
 @file{ly/performer-init.ly}.
@@ -511,7 +511,7 @@ provides a means of keeping layout instructions separate from the
 musical content.  If a single context is to be modified, a @code{\with}
 block must be used, see @ref{Changing just one specific context}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Organizing pieces with variables}.
 
@@ -816,7 +816,7 @@ the @code{Timing_translator} must come before the
 
 @end itemize
 
-@seealso
+@morerefs
 Installed Files:
 @file{ly/engraver-init.ly}.
 
@@ -1107,7 +1107,7 @@ A predefined command such as @code{\dynamicUp}
 
 @end itemize
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Input modes}
 
@@ -1135,7 +1135,7 @@ is used,
 otherwise the LilyPond built-in default is used.
 @end itemize
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Modifying context properties}.
 
@@ -1358,7 +1358,7 @@ To complete this example, changes affecting the context hierarchy
 should be repeated in a @code{\midi} block so that Midi output
 depends on the same context relations.
 
-@seealso
+@morerefs
 
 Internals Reference:
 @rinternals{Note_heads_engraver},
@@ -1476,7 +1476,7 @@ Examples showing this repositioning of temporary contexts can be
 found elsewhere --- see @rlearning{Nesting music expressions},
 @ref{Modifying single staves} and @ref{Techniques specific to lyrics}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Nesting music expressions}.
 
@@ -1946,7 +1946,7 @@ such as
 
 @end ignore
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{Backend},
 @rinternals{All layout objects},
@@ -2092,7 +2092,7 @@ internals reference, see
 Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{Tunable context properties}.
 
@@ -2255,7 +2255,7 @@ We demonstrate how to glean this information from the notation manual
 and the program reference.
 @end ignore
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{Backend}
 
@@ -2434,7 +2434,7 @@ determining what may be modified by a @code{\tweak} command, or
 in determining how to adjust the input to make a @code{\tweak}
 apply.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Tweaking methods}.
 
@@ -3187,7 +3187,7 @@ In polyphonic music, it is generally better to specify an explicit
 @code{voice} than change an object's direction.  For more information,
 see @ref{Multiple voices}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Within-staff objects}.
 
@@ -3245,7 +3245,7 @@ convert from a font size change to the equivalent change in
 @code{staff-space}.  For an explanation and an example of its use,
 see @rlearning{Length and thickness of objects}.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Length and thickness of objects}.
 
@@ -3278,7 +3278,7 @@ its right edge at 10, its bottom edge at -3 and its top edge at 15,
 all measured from the objects' reference point in units of
 staff-spaces.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Distances and measurements}.
 
@@ -3624,7 +3624,7 @@ When using @code{\endSpanners} it is not necessary to close
 \startTextSpan with \stopTextSpan, nor is it necessary to close
 hairpins with @code{\!}.
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{TextSpanner},
 @rinternals{Glissando},
@@ -4033,7 +4033,7 @@ For explicit clef changes, the @code{explicitClefVisibility}
 property controls both the clef symbol and any transposition symbol
 associated with it.
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Visibility and color of objects}.
 
@@ -4170,7 +4170,7 @@ appearance of the printed score.
 * Unpure-pure containers::
 @end menu
 
-@seealso
+@morerefs
 Learning Manual:
 @rlearning{Tweaking output},
 @rlearning{Other sources of information}.
@@ -4231,7 +4231,7 @@ lines, clef symbols, time signature symbols and key signatures.  There
 are special properties to be found in the @code{break-aligned-interface}
 for positioning rehearsal marks on such objects.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Using the break-alignable-interface}.
 
@@ -4587,7 +4587,7 @@ using the @code{\epsfile} and @code{\postscript} markup commands
 respectively -- see @ref{Graphic}.
 
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},
@@ -4828,7 +4828,7 @@ work in this case.  However, the @code{tie-configuration} property of
 @code{TieColumn} can be overridden to set start line and direction as
 required.
 
-@seealso
+@morerefs
 Internals Reference:
 @rinternals{TieColumn}.
 
@@ -4944,7 +4944,7 @@ The @code{\alterBroken} command is ineffective for spanner
 properties accessed before line-breaking such as
 @code{direction}.
 
-@seealso
+@morerefs
 Extending LilyPond:
 @rextend{Difficult tweaks}.
 
@@ -5062,7 +5062,7 @@ be, the results can be unexpected.}
 @node Using music functions
 @section Using music functions
 
-@c TODO -- add @seealso, etc. to these subsections
+@c TODO -- add @morerefs, etc. to these subsections
 
 Where tweaks need to be reused with different music expressions,
 it is often convenient to make the tweak part of a @emph{music
@@ -5132,7 +5132,7 @@ For a list of available type predicates, see
 @ref{Predefined type predicates}.  User-defined type predicates
 are also allowed.
 
-@seealso
+@morerefs
 Notation Reference:
 @ref{Predefined type predicates}.
 
