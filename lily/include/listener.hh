@@ -135,7 +135,7 @@ public:
     LY_ASSERT_SMOB (T, target, 1);
 
     (t->*callback) (ev);
-    return SCM_UNDEFINED;
+    return SCM_UNSPECIFIED;
   }
 
   template <class T, void (T::*callback) (SCM)>

@@ -123,7 +123,7 @@ public:
     LY_ASSERT_SMOB (T, target, 1);
 
     (t->*callback) (ev);
-    return SCM_UNDEFINED;
+    return SCM_UNSPECIFIED;
   }
 
   // The more complex trampolines are defined near their use cases.

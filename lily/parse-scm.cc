@@ -63,7 +63,7 @@ struct Parse_start
     if (scm_ilength (args) > 2)
       scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
 
-    return SCM_UNDEFINED;
+    return SCM_UNSPECIFIED;
   }
 };
 

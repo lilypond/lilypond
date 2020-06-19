@@ -60,7 +60,7 @@ call_trampoline (void *self)
   // One more indirection since void * can only be safely cast to
   // pointers to data rather than pointers to function.
   (*static_cast <void (* *) ()> (self)) ();
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 void
