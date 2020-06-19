@@ -713,7 +713,7 @@ LY_DEFINE (ly_shutdown_gs, "ly:shutdown-gs", 0, 0, 0, (),
   gs_inst = NULL;
   gs_args = "";
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
@@ -765,7 +765,7 @@ LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
         {
           warning (_ ("Could not start GhostScript instance!"));
           scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
-          return SCM_UNDEFINED;
+          return SCM_UNSPECIFIED;
         }
     }
 
@@ -789,6 +789,6 @@ LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
       scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
     }
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 #endif
