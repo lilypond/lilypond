@@ -77,6 +77,9 @@
                    (if (not is-eps)
                        (ly:format "/PageSize [~$ ~$]" paper-width paper-height))
                    "(pdfwrite) finddevice putdeviceprops setdevice"
+                   ;; from Resource/Init/gs_pdfwr.ps; needed here because we
+                   ;; do not have the pdfwrite device initially (-dNODISPLAY).
+                   "newpath fill"
                    (ly:format "(~a) run" tmp-name)))
           ))
 
