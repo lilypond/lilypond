@@ -347,7 +347,7 @@ Symphony/
 |-- Parts/
 |   |-- symphony-cello.ly
 |   |-- symphony-horn.ly
-|   |-- symphony-oboes.ly
+|   |-- symphony-oboe.ly
 |   |-- symphony-viola.ly
 |   |-- symphony-violinOne.ly
 |   `-- symphony-violinTwo.ly
@@ -366,8 +366,8 @@ files in the @file{Notes} directory:
 
 @example
 %%% top of file "symphony-cello.ly"
-\include ../symphonyDefs.ily
-\include ../Notes/cello.ily
+\include "../symphonyDefs.ily"
+\include "../Notes/cello.ily"
 @end example
 
 The makefile will have targets of @code{score} (entire piece in
@@ -383,38 +383,46 @@ subsequent lines must begin with tabs, not spaces.}
 
 @example
 # the name stem of the output files
-piece = symphony
-# determine how many processors are present
-CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+piece := symphony
 # The command to run lilypond
-LILY_CMD = lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click -djob-count=$(CPU_CORES)
+LILY_CMD := lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click
 
 # The suffixes used in this Makefile.
 .SUFFIXES: .ly .ily .pdf .midi
 
+.DEFAULT_GOAL := score
+
+PDFDIR := PDF
+MIDIDIR := MIDI
+
 # Input and output files are searched in the directories listed in
 # the VPATH variable.  All of them are subdirectories of the current
 # directory (given by the GNU make variable `CURDIR').
-VPATH = \
+VPATH := \
   $(CURDIR)/Scores \
-  $(CURDIR)/PDF \
   $(CURDIR)/Parts \
-  $(CURDIR)/Notes
+  $(CURDIR)/Notes \
+  $(CURDIR)/$(PDFDIR) \
+  $(CURDIR)/$(MIDIDIR)
 
 # The pattern rule to create PDF and MIDI files from a LY input file.
 # The .pdf output files are put into the `PDF' subdirectory, and the
 # .midi files go into the `MIDI' subdirectory.
-%.pdf %.midi: %.ly
-        $(LILY_CMD) $<; \           # this line begins with a tab
-        if test -f "$*.pdf"; then \
-            mv "$*.pdf" PDF/; \
-        fi; \
-        if test -f "$*.midi"; then \
-            mv "$*.midi" MIDI/; \
-        fi
+%.pdf %.midi: %.ly | $(PDFDIR) $(MIDIDIR)
+	$(LILY_CMD) $<          	# this line begins with a tab
+	mv "$*.pdf" $(PDFDIR)/		# this line begins with a tab
+	mv "$*.midi" $(MIDIDIR)/	# this line begins with a tab
 
-notes = \
+$(PDFDIR):
+	mkdir $(PDFDIR)
+
+$(MIDIDIR):
+	mkdir $(MIDIDIR)
+
+common := symphonyDefs.ily
+
+notes := \
   cello.ily \
   horn.ily \
   oboe.ily \
@@ -423,21 +431,21 @@ notes = \
   violinTwo.ily
 
 # The dependencies of the movements.
-$(piece)I.pdf: $(piece)I.ly $(notes)
-$(piece)II.pdf: $(piece)II.ly $(notes)
-$(piece)III.pdf: $(piece)III.ly $(notes)
-$(piece)IV.pdf: $(piece)IV.ly $(notes)
+$(piece)I.pdf: $(piece)I.ly $(notes) $(common)
+$(piece)II.pdf: $(piece)II.ly $(notes) $(common)
+$(piece)III.pdf: $(piece)III.ly $(notes) $(common)
+$(piece)IV.pdf: $(piece)IV.ly $(notes) $(common)
 
 # The dependencies of the full score.
-$(piece).pdf: $(piece).ly $(notes)
+$(piece).pdf: $(piece).ly $(notes) $(common)
 
 # The dependencies of the parts.
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
-$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
-$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
-$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
-$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
-$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(common)
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily $(common)
+$(piece)-oboe.pdf: $(piece)-oboe.ly oboe.ily $(common)
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily $(common)
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily $(common)
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily $(common)
 
 # Type `make score' to generate the full score of all four
 # movements as one file.
@@ -445,14 +453,14 @@ $(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
 score: $(piece).pdf
 
 # Type `make parts' to generate all parts.
-# Type `make foo.pdf' to generate the part for instrument `foo'.
+# Type `make symphony-foo.pdf' to generate the part for instrument `foo'.
 # Example: `make symphony-cello.pdf'.
 .PHONY: parts
 parts: $(piece)-cello.pdf \
        $(piece)-violinOne.pdf \
        $(piece)-violinTwo.pdf \
        $(piece)-viola.pdf \
-       $(piece)-oboes.pdf \
+       $(piece)-oboe.pdf \
        $(piece)-horn.pdf
 
 # Type `make movements' to generate files for the
@@ -465,11 +473,6 @@ movements: $(piece)I.pdf \
 
 all: score parts movements
 
-archive:
-        tar -cvvf stamitz.tar \       # this line begins with a tab
-        --exclude=*pdf --exclude=*~ \
-        --exclude=*midi --exclude=*.tar \
-        ../Stamitz/*
 @end example
 
 
@@ -489,37 +492,47 @@ C:\Program Files\GnuWin32\bin
 
 The makefile itself has to be altered to handle different shell
 commands and to deal with spaces that are present
-in some default system directories.  The @code{archive} target
-is eliminated since Windows does not have the @code{tar} command,
-and Windows also has a different default extension for midi files.
+in some default system directories.  Windows also has a different default 
+extension for midi files.
 
 
 @example
 ## WINDOWS VERSION
 ##
-piece = symphony
-LILY_CMD = lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click \
-                    -djob-count=$(NUMBER_OF_PROCESSORS)
+piece := symphony
+LILY_CMD := lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click
 
 #get the 8.3 name of CURDIR (workaround for spaces in PATH)
-workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+workdir := $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
           do @@echo %%~sb)
 
 .SUFFIXES: .ly .ily .pdf .mid
 
-VPATH = \
+.DEFAULT_GOAL := score
+
+PDFDIR := PDF
+MIDIDIR := MIDI
+
+VPATH := \
   $(workdir)/Scores \
-  $(workdir)/PDF \
   $(workdir)/Parts \
-  $(workdir)/Notes
+  $(workdir)/Notes \
+  $(workdir)/$(PDFDIR) \
+  $(workdir)/$(MIDIDIR)
 
-%.pdf %.mid: %.ly
-        $(LILY_CMD) $<      # this line begins with a tab
-        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # begin with tab
-        if exist "$*.mid" move /Y "$*.mid" MIDI/  # begin with tab
+%.pdf %.mid: %.ly | $(PDFDIR) $(MIDIDIR)
+        $(LILY_CMD) $<			# this line begins with a tab
+        move /Y "$*.pdf"  $(PDFDIR)/	# begin with tab
+        move /Y "$*.mid" $(MIDIDIR)/	# begin with tab
 
-notes = \
+$(PDFDIR):
+    mkdir $(PDFDIR)/
+
+$(MIDIDIR):
+    mkdir $(MIDIDIR)/
+
+notes := \
   cello.ily \
   figures.ily \
   horn.ily \
@@ -529,19 +542,21 @@ notes = \
   violinOne.ily \
   violinTwo.ily
 
-$(piece)I.pdf: $(piece)I.ly $(notes)
-$(piece)II.pdf: $(piece)II.ly $(notes)
-$(piece)III.pdf: $(piece)III.ly $(notes)
-$(piece)IV.pdf: $(piece)IV.ly $(notes)
+common := symphonyDefs.ily
 
-$(piece).pdf: $(piece).ly $(notes)
+$(piece)I.pdf: $(piece)I.ly $(notes) $(common)
+$(piece)II.pdf: $(piece)II.ly $(notes) $(common)
+$(piece)III.pdf: $(piece)III.ly $(notes) $(common)
+$(piece)IV.pdf: $(piece)IV.ly $(notes) $(common)
 
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
-$(piece)-horn.pdf: $(piece)-horn.ly horn.ily
-$(piece)-oboes.pdf: $(piece)-oboes.ly oboe.ily
-$(piece)-viola.pdf: $(piece)-viola.ly viola.ily
-$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily
-$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily
+$(piece).pdf: $(piece).ly $(notes) $(common)
+
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(common)
+$(piece)-horn.pdf: $(piece)-horn.ly horn.ily $(common)
+$(piece)-oboe.pdf: $(piece)-oboe.ly oboe.ily $(common)
+$(piece)-viola.pdf: $(piece)-viola.ly viola.ily $(common)
+$(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily $(common)
+$(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily $(common)
 
 .PHONY: score
 score: $(piece).pdf
@@ -551,7 +566,7 @@ parts: $(piece)-cello.pdf \
        $(piece)-violinOne.pdf \
        $(piece)-violinTwo.pdf \
        $(piece)-viola.pdf \
-       $(piece)-oboes.pdf \
+       $(piece)-oboe.pdf \
        $(piece)-horn.pdf
 
 .PHONY: movements
