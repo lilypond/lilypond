@@ -172,7 +172,7 @@ Book::add_bookpart (SCM b)
 }
 
 bool
-Book::error_found ()
+Book::error_found () const
 {
   for (SCM s = scores_; scm_is_pair (s); s = scm_cdr (s))
     if (Score *score = unsmob<Score> (scm_car (s)))

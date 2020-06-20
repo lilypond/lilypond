@@ -55,7 +55,7 @@ public:
 protected:
   void set_parent (Book *parent);
   void add_scores_to_bookpart ();
-  bool error_found ();
+  bool error_found () const;
   void process_score (SCM score,
                       Paper_book *output_paper_book,
                       Output_def *layout);
