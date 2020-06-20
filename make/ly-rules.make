@@ -4,7 +4,7 @@
 LYS_OUTPUT_OPTION= --lily-output-dir $(LYS_OUTPUT_DIR)
 LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-db
 LILYPOND_BOOK_FLAGS += $(LYS_OUTPUT_OPTION)
-$(outdir)/%.latex: %.doc $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
+$(outdir)/%.latex: %.doc
 	$(call ly_progress,Making,$@,< doc)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
 		TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
@@ -20,7 +20,7 @@ $(eval $(firstword $(TEXI_FILES_FROM_TELY)):\
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
-$(outdir)/%.texi: %.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
+$(outdir)/%.texi: %.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET)
 	$(call ly_progress,Making,$@,< tely)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
 		TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
@@ -31,7 +31,7 @@ $(outdir)/%.texi: %.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) 
 		$(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
 
 
-$(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
+$(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET)
 	$(call ly_progress,Making,$@,< tely)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
 		TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
