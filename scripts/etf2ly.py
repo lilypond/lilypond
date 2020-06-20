@@ -2,6 +2,9 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
+# Copyright (C) 2001--2020  Han-Wen Nienhuys <hanwen@xs4all.nl>
+#                           Jan Nieuwenhuizen <janneke@gnu.org>
+#
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +19,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 # info mostly taken from looking at files. See also
-# https://lilypond.org/wiki/?EnigmaTransportFormat
+# https://www.gnu.org/software/lilypond/src/Developers/Details/etfformat.html
 
 # This supports
 #
