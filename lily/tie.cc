@@ -154,7 +154,7 @@ Tie::calc_direction (SCM smob)
   // In this method, Tie and Semi_tie require the same logic with different
   // types.  It might be clearer to use a template.
   Grob *me = unsmob<Grob> (smob);
-  Grob *yparent = me->get_parent (Y_AXIS);
+  Grob *yparent = me->get_y_parent ();
   if ((has_interface<Tie_column> (yparent)
        || has_interface<Semi_tie_column> (yparent))
       && unsmob<Grob_array> (get_object (yparent, "ties"))
@@ -217,7 +217,7 @@ Tie::calc_control_points (SCM smob)
 {
   Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
-  Grob *yparent = me->get_parent (Y_AXIS);
+  Grob *yparent = me->get_y_parent ();
   if ((has_interface<Tie_column> (yparent)
        || has_interface<Semi_tie_column> (yparent))
       && unsmob<Grob_array> (get_object (yparent, "ties")))

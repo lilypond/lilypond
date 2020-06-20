@@ -82,7 +82,7 @@ Ottava_bracket::print (SCM smob)
                                                                properties, markup));
 
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                                  Interval (0, 0));
+                                       Drul_array<Real> (0.0, 0.0));
 
   /*
     TODO: we should check if there are ledgers, and modify length of
@@ -137,10 +137,10 @@ Ottava_bracket::print (SCM smob)
   bracket_span_points[LEFT] += text_size;
 
   Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
-                                                      Interval (1.0, 1.0));
+                                           Drul_array<Real> (1.0, 1.0));
 
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
-                                                Interval (0, 0));
+                                     Drul_array<Real> (0.0, 0.0));
 
   for (LEFT_and_RIGHT (d))
     {

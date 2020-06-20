@@ -55,11 +55,11 @@ SCM
 Script_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  if (Grob *par = me->get_parent (X_AXIS))
+  if (Grob *par = me->get_x_parent ())
     {
       Grob *stem = Note_column::get_stem (par);
       if (stem && Stem::first_head (stem))
-        me->set_parent (Stem::first_head (stem), X_AXIS);
+        me->set_x_parent (Stem::first_head (stem));
     }
   return SCM_BOOL_T;
 }
@@ -87,7 +87,7 @@ Script_interface::calc_direction (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   Direction d = Script_interface::get_direction (me);
 
-  if (!d)
+  if (!d && scm_is_true (get_property (me, "stencil")))
     {
       me->programming_error ("script direction not yet known");
       d = DOWN;
@@ -102,7 +102,7 @@ SCM
 Script_interface::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *stem = Note_column::get_stem (me->get_parent (X_AXIS));
+  Grob *stem = Note_column::get_stem (me->get_x_parent ());
 
   if (stem && from_scm<bool> (get_property (stem, "cross-staff")))
     return SCM_BOOL_T;

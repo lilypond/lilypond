@@ -64,6 +64,12 @@ LANG=C
 export LANG
 
 
+# texi2html iterates over section headers stored as entries of a map.
+# Disable Perl's hash randomization to make the order reproducible.
+PERL_HASH_SEED=0
+export PERL_HASH_SEED
+
+
 INFO_DIRECTORIES = Documentation
 
 # clean file lists:

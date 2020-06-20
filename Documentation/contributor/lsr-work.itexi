@@ -191,7 +191,7 @@ scripts/auxiliar/makelsr.py
 
 Commit the changes and make a patch.  Check the patch has nothing
 other than minor changes.  If all is good and you're confident in what
-you've done, this can be pushed directly to staging.
+you've done, this can be merged directly to @code{master}.
 
 @item
 Next, download the updated snippets and run @command{makelsr.py}
@@ -247,11 +247,11 @@ command into our source tree if you do not do this!  Take this
 step @strong{VERY SERIOUSLY}.}
 
 If there is any doubt about any of the files, you are strongly
-advised to run a review on Rietveld.
+advised to submit a merge request to get review.
 
 @item
-If a Review is not needed, commit the changes and push to
-@code{staging}.
+If a review is not needed, merge to @code{master} after the changes
+passed automatic testing.
 
 @end enumerate
 

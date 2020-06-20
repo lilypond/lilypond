@@ -330,9 +330,8 @@ Ledger_line_spanner::print (SCM smob)
                   if (l == 0 && !acc_extent.is_empty ())
                     {
                       Real dist
-                        = linear_combination (Drul_array<Real> (acc_extent[RIGHT],
-                                                                head_size[LEFT]),
-                                              0.0);
+                        = Drul_array<Real> (acc_extent[RIGHT],
+                                            head_size[LEFT]).linear_combination (0.0);
 
                       Real left_shorten = std::max (-ledger_size[LEFT] + dist, 0.0);
                       x_extent[LEFT] += left_shorten;

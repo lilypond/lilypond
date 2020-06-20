@@ -278,11 +278,9 @@
                            '(0 . 0)
                            quant2))
                (factor (/ (atan (abs slope1)) PI-OVER-TWO))
-               (base (cons-map
-                      (lambda (x)
-                        (+ (* (x quant1) (- 1 factor))
-                           (* (x quant2) factor)))
-                      (cons car cdr))))
+               (base (offset-add
+                      (offset-scale quant1 (- 1 factor))
+                      (offset-scale quant2 factor))))
           (ly:beam::quanting grob base #f)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1379,6 +1377,14 @@ parent or the parent has no setting."
 (export grob::inherit-parent-property)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; balloons
+
+(define-public balloon::height
+  (ly:make-unpure-pure-container
+   ly:grob::stencil-height
+   ly:balloon-interface::pure-height))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret boards
 
 (define-public (fret-board::calc-stencil grob)
@@ -1386,7 +1392,6 @@ parent or the parent has no setting."
    grob
    (make-fret-diagram-verbose-markup
     (ly:grob-property grob 'dot-placement-list))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; slurs

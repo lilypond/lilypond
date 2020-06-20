@@ -30,6 +30,8 @@ struct Rod
 
   void add_to_cols ();
   Rod ();
+
+  Real bounds_protrusion () const;
 };
 
 #endif /* ROD_HH */

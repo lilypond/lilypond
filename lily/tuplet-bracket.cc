@@ -631,7 +631,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       Drul_array<Real> positions
         = from_scm (get_property (tuplets[i], "positions"),
-                               Interval (0, 0));
+                    Drul_array<Real> (0.0, 0.0));
 
       Real other_dy = positions[RIGHT] - positions[LEFT];
 

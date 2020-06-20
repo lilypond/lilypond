@@ -243,7 +243,7 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
       snprintf (str, sizeof (str), "%.4f", r);
     }
   else
-    snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));
+    snprintf (str, sizeof (str), "%lld", from_scm<long long> (s));
 
   return scm_from_ascii_string (str);
 }
@@ -706,29 +706,15 @@ LY_DEFINE (ly_shutdown_gs, "ly:shutdown-gs", 0, 0, 0, (),
   return SCM_UNDEFINED;
 }
 
-LY_DEFINE (ly_gs, "ly:gs", 5, 0, 0,
-           (SCM args, SCM device, SCM device_args, SCM input, SCM output),
-           "Use GhostScript started with @var{args} to convert @var{input}"
-           " into @var{output} using @var{device} with @var{device_args}.")
+LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
+           "Use GhostScript started with @var{args}, and run @var{run_string}")
 {
   LY_ASSERT_TYPE (scm_is_pair, args, 1);
-  LY_ASSERT_TYPE (scm_is_string, device, 2);
-  LY_ASSERT_TYPE (scm_is_string, device_args, 3);
-  LY_ASSERT_TYPE (scm_is_string, input, 4);
-  LY_ASSERT_TYPE (scm_is_string, output, 5);
+  LY_ASSERT_TYPE (scm_is_string, run_string, 2);
 
-  // Construct vector of arguments with default / mandatory ones filled in.
   // gsapi_init_with_args wants modifiable strings, so create local variables
   // with copies of the content.
-  // (The first argument is the "program name" and is ignored.)
-  char gs[] = "gs";
-  char q[] = "-q";
-  char nodisplay[] = "-dNODISPLAY";
-  char nosafer[] = "-dNOSAFER";
-  char nopause[] = "-dNOPAUSE";
-  vector<char *> argv { gs, q, nodisplay, nosafer, nopause };
-  // Additionally keep track of converted strings to free them afterwards.
-  vector<char *> passed_args;
+  vector<char *> argv;
 
   // Ensure that the string of arguments is never empty.
   string new_args(" ");
@@ -736,7 +722,6 @@ LY_DEFINE (ly_gs, "ly:gs", 5, 0, 0,
     {
       char *a = ly_scm2str0 (scm_car (s));
       argv.push_back (a);
-      passed_args.push_back (a);
       new_args += string(a) + " ";
     }
 
@@ -749,6 +734,7 @@ LY_DEFINE (ly_gs, "ly:gs", 5, 0, 0,
           ly_shutdown_gs ();
         }
     }
+
   if (gs_inst == NULL)
     {
       debug_output (_f ("Starting GhostScript instance with arguments: %s\n",
@@ -768,23 +754,17 @@ LY_DEFINE (ly_gs, "ly:gs", 5, 0, 0,
       if (code < 0)
         {
           warning (_ ("Could not start GhostScript instance!"));
-          scm_throw (ly_symbol2scm ("ly-file-failed"),
-                     scm_list_1 (output));
+          scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
           return SCM_UNDEFINED;
         }
     }
 
   // Free all converted strings.
-  for (char *a : passed_args)
+  for (char *a : argv)
     free (a);
 
   // Construct the command.
-  string command = "mark ";
-  command += "/OutputFile (" + ly_scm2string (output) + ") ";
-  command += ly_scm2string (device_args) + " ";
-  command += "(" + ly_scm2string (device) + ") finddevice ";
-  command += "putdeviceprops setdevice ";
-  command += "(" + ly_scm2string (input) + ") run";
+  string command = ly_scm2string (run_string);
 
   debug_output (_f ("Running GhostScript command: %s\n", command.c_str ()));
 
@@ -796,8 +776,7 @@ LY_DEFINE (ly_gs, "ly:gs", 5, 0, 0,
   if (code != 0 && code != gs_error_Quit && code != gs_error_invalidexit)
     {
       warning (_ ("Error when running GhostScript command!"));
-      scm_throw (ly_symbol2scm ("ly-file-failed"),
-                 scm_list_1 (output));
+      scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
     }
 
   return SCM_UNDEFINED;

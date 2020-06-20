@@ -11,8 +11,9 @@
 
   texidoc = "
 The placement of fingering numbers can be controlled precisely. For
-fingering orientation to apply, you must use a chord construct <> even
-if it is a single note.
+fingering orientation to apply, it must be used within a chord
+construct <>, even for single notes.  Orientation for string numbers
+and right-hand fingerings may be set in a similar way.
 
 "
   doctitle = "Controlling the placement of chord fingerings"
@@ -31,4 +32,8 @@ if it is a single note.
   <c-1>2
   \set fingeringOrientations = #'(down)
   <e-3>2
+  \set stringNumberOrientations = #'(up left down)
+  <f\3 a\2 c\1>1
+  \set strokeFingerOrientations = #'(down right up)
+  <c\rightHandFinger #1 e\rightHandFinger #2 c'\rightHandFinger #4 >
 }

@@ -15,6 +15,10 @@
 This chapter explains how to create musical notation for specific
 types of instrument or in specific styles.
 
+Orchestral and ensemble music is not addressed in a separate section;
+however, several notions commonly useful in orchestral scores are
+found in @ref{References for opera and stage musicals}.
+
 @menu
 * Vocal music::
 * Keyboard and other multi-staff instruments::

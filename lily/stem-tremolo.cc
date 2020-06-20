@@ -267,7 +267,7 @@ Stem_tremolo::calc_direction (SCM smob)
    * We re-decide stem-dir if there may be collisions with other
    * note heads in the staff.
    */
-  Grob *maybe_nc = stem->get_parent (X_AXIS)->get_parent (X_AXIS);
+  Grob *maybe_nc = stem->get_x_parent ()->get_x_parent ();
   bool whole_note = Stem::duration_log (stem) <= 0;
   if (whole_note && has_interface<Note_collision_interface> (maybe_nc))
     {

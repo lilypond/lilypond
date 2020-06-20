@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-from rational import *
+
+import copy
+from fractions import Fraction
 import re
 import sys
-import copy
-import lilylib as ly
 import warnings
 
+import lilylib as ly
 import musicexp
 import musicxml2ly_conversion
 import utilities
@@ -117,8 +118,8 @@ class Xml_node(object):
 class Music_xml_node(Xml_node):
     def __init__(self):
         Xml_node.__init__(self)
-        self.duration = Rational(0)
-        self.start = Rational(0)
+        self.duration = Fraction(0)
+        self.start = Fraction(0)
         self.converted = False
         self.voice_id = None;
 
@@ -375,7 +376,7 @@ class Credit(Xml_node):
 class Duration(Music_xml_node):
 
     def get_length(self):
-        dur = int(self.get_text()) * Rational(1, 4)
+        dur = int(self.get_text()) * Fraction(1, 4)
         return dur
 
 
@@ -477,7 +478,7 @@ class Attributes(Measure_element):
         n = 0
         for i in sig[0:-1]:
           n += i
-        return Rational(n, sig[-1])
+        return Fraction(n, sig[-1])
 
     def get_measure_length(self):
         sig = self.get_time_signature()
@@ -1255,14 +1256,14 @@ class Part(Music_xml_node):
 
         part_list = self.get_part_list()
 
-        now = Rational(0)
-        factor = Rational(1)
+        now = Fraction(0)
+        factor = Fraction(1)
         attributes_dict = {}
         attributes_object = None
         measures = self.get_typed_children(Measure)
-        last_moment = Rational(-1)
-        last_measure_position = Rational(-1)
-        measure_position = Rational(0)
+        last_moment = Fraction(-1)
+        last_measure_position = Fraction(-1)
+        measure_position = Fraction(0)
         measure_start_moment = now
         is_first_measure = True
         previous_measure = None
@@ -1291,7 +1292,7 @@ class Part(Music_xml_node):
                             previous_measure.message('%s measure? Expected: %s, Difference: %s' %(problem, now, new_now - now))
                     now = new_now
                 measure_start_moment = now
-                measure_position = Rational(0)
+                measure_position = Fraction(0)
 
             voice_id = None;
             assign_to_next_voice = []
@@ -1315,14 +1316,14 @@ class Part(Music_xml_node):
                 # figured bass has a duration, but applies to the next note
                 # and should not change the current measure position!
                 if isinstance(n, FiguredBass):
-                    n._divisions = factor.denominator()
+                    n._divisions = factor.denominator
                     n._when = now
                     n._measure_position = measure_position
                     continue
 
                 if isinstance(n, Hash_text):
                     continue
-                dur = Rational(0)
+                dur = Fraction(0)
 
                 if n.__class__ == Attributes:
                     n.set_attributes_from_previous(attributes_dict)
@@ -1330,7 +1331,7 @@ class Part(Music_xml_node):
                     attributes_dict = n._dict.copy()
                     attributes_object = n
 
-                    factor = Rational(1,
+                    factor = Fraction(1,
                                        int(attributes_dict.get('divisions').get_text()))
 
 
@@ -1344,7 +1345,7 @@ class Part(Music_xml_node):
                         self.graces_to_aftergraces(pending_graces)
                         pending_graces = []
                     if n.get_maybe_exist_typed_child(Grace):
-                        dur = Rational(0)
+                        dur = Fraction(0)
 
                     rest = n.get_maybe_exist_typed_child(Rest)
                     if(rest
@@ -1353,7 +1354,7 @@ class Part(Music_xml_node):
 
                         rest._is_whole_measure = True
 
-                if(dur > Rational(0)
+                if(dur > Fraction(0)
                     and n.get_maybe_exist_typed_child(Chord)):
                     now = last_moment
                     measure_position = last_measure_position
@@ -1374,16 +1375,16 @@ class Part(Music_xml_node):
                     n._measure_position = last_measure_position
                 elif isinstance(n, Note) and n.is_grace():
                     pending_graces.append(n)
-                elif(dur > Rational(0)):
+                elif(dur > Fraction(0)):
                     pending_graces = [];
 
                 n._duration = dur
-                if dur > Rational(0):
+                if dur > Fraction(0):
                     last_moment = now
                     last_measure_position = measure_position
                     now += dur
                     measure_position += dur
-                elif dur < Rational(0):
+                elif dur < Fraction(0):
                     # backup element, reset measure position
                     now += dur
                     measure_position += dur

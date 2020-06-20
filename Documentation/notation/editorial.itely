@@ -339,11 +339,12 @@ Markup texts or strings may be used for finger changes.
 }
 @end lilypond
 
-@cindex thumb script
+@cindex @q{thumb} fingering
+@cindex fingering, thumb
 
 @funindex \thumb
 
-A thumb script can be added (e.g., cello music) to indicate
+A thumb fingering can be added (e.g., cello music) to indicate
 that a note should be played with the thumb.
 
 @lilypond[verbatim,quote]
@@ -370,22 +371,23 @@ staff, see @ref{Direction and placement}.
 @snippets
 
 @cindex fingering, orientation
+@cindex string numbers, orientation
+@cindex stroke finger, orientation
 @cindex orientation, of fingerings
+@cindex orientation, of string numbers
+@cindex orientation, of stroke finger
 @funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex fingering, inside of staff
+@cindex fingering, stem support
+@funindex staff-padding
+@funindex add-stem-support
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
-@cindex collision, chord fingering
-@cindex chord fingering, collision
-@funindex fingeringOrientations
-@funindex stringNumberOrientations
-@funindex strokeFingerOrientations
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{avoiding-collisions-with-chord-fingerings.ly}
 
 @seealso
 Notation Reference:

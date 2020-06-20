@@ -37,8 +37,8 @@ using std::vector;
 void
 Tie_column::add_tie (Grob *tc, Spanner *tie)
 {
-  if (tie->get_parent (Y_AXIS)
-      && has_interface<Tie_column> (tie->get_parent (Y_AXIS)))
+  if (tie->get_y_parent ()
+      && has_interface<Tie_column> (tie->get_y_parent ()))
     return;
 
   // TODO: Change to a Spanner in the function signature.
@@ -51,7 +51,7 @@ Tie_column::add_tie (Grob *tc, Spanner *tie)
       me->set_bound (RIGHT, Tie::head (tie, RIGHT));
     }
 
-  tie->set_parent (me, Y_AXIS);
+  tie->set_y_parent (me);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), tie);
 }
 

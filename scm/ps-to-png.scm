@@ -74,46 +74,26 @@
           (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
           (output-file (if multi-page? pngn-gs png1-gs))
 
-          (gs-cmd
-           (filter string?
-                   (list
-                    (search-gs)
-                    (if (not (ly:get-option 'verbose)) "-q")
-                    (if (or (ly:get-option 'gs-load-fonts)
-                            (ly:get-option 'gs-load-lily-fonts)
-                            (eq? PLATFORM 'windows))
-                        "-dNOSAFER"
-                        "-dSAFER")
-                    "-dNOPAUSE"
-                    "-dBATCH")))
-          (args (filter string?
-                   (list
-                    (if is-eps
-                        "-dEPSCrop"
-                        (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
-                    (if (not is-eps)
-                        (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
-                    "-dAutoRotatePages=/None"
-                    "-dPrinted=false")))
-          (alpha-args "/GraphicsAlphaBits 4 /TextAlphaBits 4")
           (hw-resolution (* anti-alias-factor resolution))
-          (hw-resolution-arg
-           (ly:format "/HWResolution [~a ~a] /DownScaleFactor ~a" hw-resolution hw-resolution anti-alias-factor))
-          (device-args (string-append alpha-args " " hw-resolution-arg))
-          (gs-cmd-output
-           (list
-            "-dGraphicsAlphaBits=4"
-            "-dTextAlphaBits=4"
-            (ly:format "-dDownScaleFactor=~a" anti-alias-factor)
-            (ly:format "-r~a" hw-resolution)
-            (ly:format "-sDEVICE=~a" pixmap-format)
-            (string-append "-sOutputFile=" output-file)
-            (string-append "-f" tmp-name)))
+
+          (run-strings (filter
+                        string?
+                        (list
+
+                         (ly:format "mark /OutputFile (~a)" output-file)
+                         "/GraphicsAlphaBits 4 /TextAlphaBits 4"
+                         (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution)
+                         (ly:format "/DownScaleFactor ~a" anti-alias-factor)
+                         (if (not is-eps)
+                             (ly:format "/PageSize [~a ~a]" page-width page-height))
+                         (ly:format "(~a) findprotodevice copydevice putdeviceprops setdevice" pixmap-format)
+                         (ly:format "(~a) run" tmp-name))))
+
           (files '()))
 
-    (if (ly:get-option 'gs-api)
-        (ly:gs args pixmap-format device-args tmp-name output-file)
-        (ly:system (append gs-cmd (append args gs-cmd-output))))
+     ((if (ly:get-option 'gs-api)
+          ly:gs-api ly:gs-cli)
+      (gs-cmd-args is-eps) (string-join run-strings " "))
 
      (set! files
            (if multi-page?

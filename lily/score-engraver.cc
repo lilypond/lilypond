@@ -85,7 +85,7 @@ Score_engraver::initialize ()
              + _ ("Aborting"));
     }
 
-  pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
+  pscore_ = new Paper_score (context ()->get_output_def ());
   pscore_->unprotect ();
   set_property (context (), "output", pscore_->self_scm ());
 
@@ -174,7 +174,7 @@ Score_engraver::typeset_all ()
     {
       Grob *elem = elems_[i];
 
-      if (!elem->get_parent (Y_AXIS))
+      if (!elem->get_y_parent ())
         Axis_group_interface::add_element (system_, elem);
     }
   elems_.clear ();

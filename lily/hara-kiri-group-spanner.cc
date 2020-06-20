@@ -179,7 +179,7 @@ SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 {
   Grob *daughter = unsmob<Grob> (smob);
-  force_hara_kiri_callback (daughter->get_parent (Y_AXIS)->self_scm ());
+  force_hara_kiri_callback (daughter->get_y_parent ()->self_scm ());
   return to_scm (0.0);
 }
 

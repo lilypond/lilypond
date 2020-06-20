@@ -67,7 +67,7 @@ Volta_bracket_interface::print (SCM smob)
       left = pc->break_align_width (pc, ly_symbol2scm ("break-alignment"))[RIGHT]
              // For some reason, break_align_width is relative to
              // the x-parent of the column.
-             - bound->relative_coordinate (pc->get_parent (X_AXIS), X_AXIS);
+             - bound->relative_coordinate (pc->get_x_parent (), X_AXIS);
     }
   else
     {
@@ -82,11 +82,11 @@ Volta_bracket_interface::print (SCM smob)
     return SCM_EOL;
 
   Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
-                                                      Interval (1.0, 1.0));
+                                           Drul_array<Real> (1.0, 1.0));
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
-                                                Interval (0, 0));
+                                     Drul_array<Real> (0.0, 0.0));
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                                  Interval (0, 0));
+                                       Drul_array<Real> (0.0, 0.0));
 
   scale_drul (&edge_height, -static_cast<Real> (get_grob_direction (me)));
 
@@ -141,7 +141,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   if (no_vertical_end || no_vertical_start)
     {
       Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
-                                                          Interval (1.0, 1.0));
+                                               Drul_array<Real> (1.0, 1.0));
       if (no_vertical_start)
         edge_height[LEFT] = 0.0;
 

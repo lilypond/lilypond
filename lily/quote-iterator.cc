@@ -28,7 +28,7 @@
 #include "music.hh"
 #include "warn.hh"
 
-class Quote_iterator : public Music_wrapper_iterator
+class Quote_iterator final : public Music_wrapper_iterator
 {
 public:
   Quote_iterator ();
@@ -53,7 +53,6 @@ protected:
   Moment pending_moment () const override;
   void process (Moment) override;
   void do_quit () override;
-  bool ok () const override;
 };
 
 void
@@ -156,14 +155,6 @@ Quote_iterator::construct_children ()
 }
 
 bool
-Quote_iterator::ok () const
-{
-  return
-    Music_wrapper_iterator::ok ()
-    || quote_ok ();
-}
-
-bool
 Quote_iterator::quote_ok () const
 {
   return (event_idx_ != VPOS
@@ -179,10 +170,7 @@ Quote_iterator::quote_ok () const
 Moment
 Quote_iterator::pending_moment () const
 {
-  Moment m (Rational::infinity ());
-
-  if (Music_wrapper_iterator::ok ())
-    m = std::min (m, Music_wrapper_iterator::pending_moment ());
+  Moment m = Music_wrapper_iterator::pending_moment ();
 
   /*
     In case event_idx_ < 0, we're not initted yet, and the wrapped
@@ -204,8 +192,12 @@ Quote_iterator::vector_moment (vsize idx) const
 void
 Quote_iterator::process (Moment m)
 {
-  if (Music_wrapper_iterator::ok ())
-    Music_wrapper_iterator::process (m);
+  // process the wrapped music, if any remains
+  {
+    const auto &pm = Music_wrapper_iterator::pending_moment ();
+    if (pm < Moment (Rational::infinity ()))
+      Music_wrapper_iterator::process (m);
+  }
 
   if (!scm_is_vector (event_vector_))
     return;

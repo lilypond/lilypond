@@ -375,21 +375,14 @@ c''4-3
 @cindex fingering, orientation (運指の向き)
 @cindex orientation, of fingerings (運指の向き)
 @funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex fingering, inside of staff (譜の内部の運指)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
-@cindex collision, chord fingering (和音内の運指の衝突)
-@cindex chord fingering, collision (和音内の運指の衝突)
-@funindex fingeringOrientations
-@funindex stringNumberOrientations
-@funindex strokeFingerOrientations
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{avoiding-collisions-with-chord-fingerings.ly}
-
 
 @seealso
 記譜法リファレンス:

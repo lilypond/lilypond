@@ -1737,6 +1737,9 @@ footnote marks and annotation lines.
 @node Reference to page numbers
 @subsection Reference to page numbers
 
+@cindex bookmarks
+@cindex page numbers, referencing
+
 A particular place of a score can be marked using the @code{\label}
 command, either at top-level or inside music.  This label can then be
 referred to in a markup, to get the number of the page where the marked
@@ -1760,11 +1763,11 @@ point is placed, using the @code{\page-ref} markup command.
 
 The @code{\page-ref} markup command takes three arguments:
 @enumerate
-@item the label, a scheme symbol, eg. @code{#'firstScore};
+@item the label, a Scheme symbol, for example @code{#'firstScore};
 @item a markup that will be used as a gauge to estimate the dimensions
 of the markup;
 @item a markup that will be used in place of the page number if the label
-is not known;
+is not known.
 @end enumerate
 
 The reason why a gauge is needed is that, at the time markups are
@@ -1786,6 +1789,11 @@ ie. a two digit number.
 
 @node Table of contents
 @subsection Table of contents
+
+@cindex table of contents
+@cindex toc
+@cindex bookmarks
+
 A table of contents is included using the
 @code{\markuplist \table-of-contents} command.  The elements which
 should appear in the table of contents are entered with the
@@ -1809,12 +1817,24 @@ inside a music expression.
 \score {
   {
     e'4 % ...
+    \tocItem actI \markup "Act I"
+    f'4 % ...
+    \tocItem actI.sceneI \markup "Scene 1"
+    g'4 % ...
+    \tocItem actI.sceneI.recitativo \markup "Recit."
+    a'4 % ...
   }
 }
 @end verbatim
 
+Optionally, a label can be associated with a particular item, or a
+hierarchical list of existing labels, finishing with that item’s
+label.  That latter case allows to mark the item as a @q{child}
+of the preceeding labeled items, thus making the score’s structure
+apparent in the table of contents.
+
 Markups used for formatting the table of contents are defined in the
-@code{\paper} block.  There are two @q{pre-defined} markups already
+@code{\paper} block.  There are three @q{pre-defined} markups already
 available;
 
 @itemize
@@ -1844,12 +1864,35 @@ tocItemMarkup = \markup \fill-line {
 }
 @end verbatim
 
+@item
+@code{tocFormatMarkup}
+
+@noindent
+How the table’s top level entries will be formatted (if there
+are several hierarchical levels).  This is actually a procedure,
+as explained in @rextend{Markup construction in Scheme}.
+
+@verbatim
+tocFormatMarkup = #make-bold-markup
+@end verbatim
+@item
+@code{tocIndentMarkup}
+
+@noindent
+Used to define how the outline’s hierarchy will be made apparent.
+This markup is printed zero, one or several times depending on
+the level of each entry.
+
+@verbatim
+tocIndentMarkup = \markup \hspace #4
+@end verbatim
+
 @end itemize
 
 @noindent
-Both of these variables can be changed.
+Any of these variables can be changed.
 
-Here is an example changing the table of contents' title into French;
+Here is an example translating the table of contents' title into French:
 
 @verbatim
 \paper {
@@ -1860,7 +1903,7 @@ Here is an example changing the table of contents' title into French;
 @end verbatim
 
 Here is an example changing the font-size of the elements in the table
-of contents;
+of contents:
 
 @verbatim
 tocItemMarkup = \markup \large \fill-line {
@@ -1875,7 +1918,7 @@ Note how the element text and page numbers are referred to in the
 
 The @code{\tocItemWithDotsMarkup} command can be included within the
 @code{tocItemMarkup} to fill the line, between a table of contents item
-and its corresponding page number, with dots;
+and its corresponding page number, with dots:
 
 @lilypond[verbatim,line-width=10.0\cm]
 \header { tagline = ##f }
@@ -1891,13 +1934,17 @@ and its corresponding page number, with dots;
 }
 @end lilypond
 
-Custom commands with their own markups can also be defined to build a
-more complex table of contents.  In the following example, a new style
-is defined for entering act names in a table of contents of an opera;
+@funindex add-toc-item!
+@cindex table of contents, customized functions
+
+In addition to the built-in outline mechanism, custom commands can also
+be defined to build a more personalized table of contents with different markups
+In the following example, a new style is defined for entering act and scenes in
+the table of contents of an opera:
 
 @noindent
 A new markup variable (called @code{tocActMarkup}) is defined in the
-@code{\paper} block;
+@code{\paper} block:
 
 @verbatim
 \paper {
@@ -1911,57 +1958,62 @@ A new markup variable (called @code{tocActMarkup}) is defined in the
 
 @noindent
 A custom music function (@code{tocAct}) is then created -- which uses
-the new @code{tocActMarkup} markup definition.
+the new @code{tocActMarkup} markup definition, and allows to specify
+a label for each act.
 
 @verbatim
 tocAct =
-  #(define-music-function (text) (markup?)
-     (add-toc-item! 'tocActMarkup text))
+  #(define-music-function (label text) (symbol? markup?)
+     (add-toc-item! 'tocActMarkup label text))
 @end verbatim
 
 @noindent
-A LilyPond input file, using these customer definitions, could look
-something like this;
+Using these custom definitions and modifying some of the existing
+definitions, the source file could then be written as follows:
+
+@funindex \fill-with-pattern
 
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
+  tocFormatMarkup = #markup %% Cancelling the default bold setting.
   tocActMarkup = \markup \large \column {
     \hspace #1
     \fill-line { \null \italic \fromproperty #'toc:text \null }
     \hspace #1
   }
+  tocItemMarkup = \markup \fill-line {
+    \fill-with-pattern #1.5 #CENTER .
+    \line {
+      \hspace #-4 %% Cancelling the first level’s tocIndentMarkup
+      \fromproperty #'toc:indent \fromproperty #'toc:text
+      \hspace #2
+    }
+    \fromproperty #'toc:page
+  }
 }
 
 tocAct =
-#(define-music-function (text) (markup?)
-   (add-toc-item! 'tocActMarkup text))
+#(define-music-function (label text) (symbol-list-or-symbol? markup?)
+   (add-toc-item! 'tocActMarkup text label))
 
 \book {
   \markuplist \table-of-contents
-  \tocAct \markup { Atto Primo }
-  \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
-  \tocAct \markup { Atto Secondo }
-  \tocItem \markup { Sinfonia }
-  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \tocAct actI \markup { Atto Primo }
+  \tocItem actI.sceneI \markup { Coro. Viva il nostro Alcide }
+  \tocItem actI.sceneII \markup { Cesare. Presti omai l'Egizia terra }
+  \tocItem actI.sceneII.recitativo \markup { \italic Recit. Curio, Cesare venne, e vide, e vinse. }
+  \tocAct actII \markup { Atto Secondo }
+  \tocItem actII.sceneI \markup { Sinfonia }
+  \tocItem actII.sceneII \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
   \markup \null
 }
 @end lilypond
 
-
-Here is an example of the @code{\fill-with-pattern} command used within
-the context of a table of contents;
-
-@verbatim
-\paper {
-  tocItemMarkup = \markup { \fill-line {
-    \override #'(line-width . 70)
-    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
-    }
-  }
-}
-@end verbatim
+@noindent
+The previous example also demonstrates how to use the
+@code{\fill-with-pattern} markup command within
+the context of a table of contents.
 
 @seealso
 Installed Files:
@@ -1971,7 +2023,15 @@ Installed Files:
 @funindex \table-of-contents
 @code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem}.
+@code{\tocItem},
+@funindex tocItemMarkup
+@code{tocItemMarkup},
+@funindex tocTitleMarkup
+@code{tocTitleMarkup},
+@funindex tocFormatMarkup
+@code{tocFormatMarkup},
+@funindex tocIndentMarkup
+@code{tocIndentMarkup}.
 @endpredefined
 
 
@@ -2752,12 +2812,14 @@ Application Usage:
 @funindex skipTypesetting
 @funindex showFirstLength
 @funindex showLastLength
+@cindex skip typesetting
+@cindex typesetting, skip
 
 When entering or copying music, usually only the music near the end (where
-you
-are adding notes) is interesting to view and correct.  To speed up
+new notes are being added) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
-the last few measures.  This is achieved by putting
+the last few measures.  This is achieved by defining a special variable
+at the source file’s top level, as follows:
 
 @example
 showLastLength = R1*5
@@ -2765,34 +2827,48 @@ showLastLength = R1*5
 @end example
 
 @noindent
-in your source file.  This will render only the last 5 measures
+In this instance, nothing will be rendered but the last five measures
 (assuming 4/4 time signature) of every @code{\score} in the input
 file.  For longer pieces, rendering only a small part is often an order
 of magnitude quicker than rendering it completely.  When working on the
-beginning of a score you have already typeset (e.g., to add a new part),
+beginning of a score that has already been typeset (for example to add a new part),
 the @code{showFirstLength} property may be useful as well.
 
 Skipping parts of a score can be controlled in a more fine-grained
 fashion with the property @code{Score.skipTypesetting}.  When it is
-set, no typesetting is performed at all.
+set, no typesetting is performed at all.  As a property of the
+@code{Score} context, it affects all voices and staves; see
+@ref{Score - the master of all contexts}.
 
-This property is also used to control output to the MIDI file.  Note that
-it skips all events, including tempo and instrument changes.  You have
-been warned.
+This property is also used to control output to the MIDI file.
+If some event in the skipped section alters some of its context
+properties, for example a tempo or instrument change, then that
+new setting will take effect only at the point in time where
+@code{skipTypesetting} is disabled again:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
-  c1
-  \set Score.skipTypesetting = ##t
-  \tempo 4 = 80
   c4 c c c
-  \set Score.skipTypesetting = ##f
+  \set Score.skipTypesetting = ##t
   d4 d d d
+  \tempo 4 = 80
+  e4 e e e
+  \set Score.skipTypesetting = ##f
+  f4 f f f
 }
 @end lilypond
 
-In polyphonic music, @code{Score.skipTypesetting} will affect all
-voices and staves, saving even more time.
+@predefined
+@code{showLastLength},
+@code{showFirstLength}.
+@endpredefined
+
+@seealso
+Notation Reference:
+@ref{Interpretation contexts},
+@ref{Score - the master of all contexts},
+@ref{All context properties}.
+
 
 @node Alternative output formats
 @subsection Alternative output formats

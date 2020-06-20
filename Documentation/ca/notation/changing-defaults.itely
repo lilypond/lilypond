@@ -5289,12 +5289,12 @@ symbol?
 
 @noindent
 Per veure una llista dels predicats de tipus disponibles consulteu
-@ref{Predefined type predicates,Predicats de tipus predefinits}.
+@ref{Predicats de tipus predefinits}.
 També es permeten els predicats de tipus definits per l'usuari.
 
 @seealso
 Referència de la notació:
-@ref{Predefined type predicates,Predicats de tipus predefinits}.
+@ref{Predicats de tipus predefinits}.
 
 Expansió del LilyPond:
 @rextendnamed{Music functions,Funcions musicals}.

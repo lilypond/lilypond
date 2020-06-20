@@ -164,9 +164,9 @@ Getopt_long::report (Errorcod c)
       break;
     case E_UNKNOWNOPTION:
       str += _f ("unrecognized option: `%s'",
-                 string (argument_index_
-                         ? string ("-" + string (1, arg_value_char_a_a_[array_index_][argument_index_]))
-                         : string (arg_value_char_a_a_[array_index_])));
+                 argument_index_
+                         ? ("-" + string (1, arg_value_char_a_a_[array_index_][argument_index_]))
+                         : string (arg_value_char_a_a_[array_index_]));
       break;
     case E_ILLEGALARG:
       str += _f ("invalid argument `%s' to option `%s'",

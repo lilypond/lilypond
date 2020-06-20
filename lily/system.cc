@@ -144,7 +144,7 @@ System::do_break_substitution_and_fixup_refpoints ()
             }
           g->suicide ();
         }
-      else if (g->is_live ())
+      else
         g->do_break_processing ();
     }
 
@@ -510,7 +510,7 @@ System::add_column (Paper_column *p)
       ga = unsmob<Grob_array> (scm_ga);
     }
 
-  p->set_rank (ga->size ());
+  p->set_rank (static_cast<int> (ga->size ()));
 
   ga->add (p);
   Axis_group_interface::add_element (this, p);
@@ -767,8 +767,8 @@ get_root_system (Grob *me)
 {
   Grob *system_grob = me;
 
-  while (system_grob->get_parent (Y_AXIS))
-    system_grob = system_grob->get_parent (Y_AXIS);
+  while (system_grob->get_y_parent ())
+    system_grob = system_grob->get_y_parent ();
 
   return dynamic_cast<System *> (system_grob);
 }

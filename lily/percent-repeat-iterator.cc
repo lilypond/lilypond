@@ -25,7 +25,7 @@
 #include "sequential-iterator.hh"
 #include "lily-imports.hh"
 
-class Percent_repeat_iterator : public Sequential_iterator
+class Percent_repeat_iterator final : public Sequential_iterator
 {
 public:
   OVERRIDE_CLASS_NAME (Percent_repeat_iterator);

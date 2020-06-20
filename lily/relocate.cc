@@ -177,8 +177,7 @@ setup_paths (char const *argv0_ptr)
     }
   else if (argv0_filename.dir_.length ())
     {
-      argv0_abs = get_working_directory ()
-                  + "/" + string (argv0_filename.to_string ());
+      argv0_abs = get_working_directory () + "/" + argv0_filename.to_string ();
       debug_output (_f ("  LilyPond binary has relative file name:\n"
                         "    %s\n",
                         argv0_ptr));

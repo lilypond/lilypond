@@ -42,7 +42,7 @@ Audio_column::when () const
 int
 Audio_column::ticks () const
 {
-  return int (moment_to_ticks (when_));
+  return moment_to_ticks (when_);
 }
 
 void

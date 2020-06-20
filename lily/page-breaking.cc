@@ -1024,7 +1024,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
             }
         }
       cached_line_details_ = compress_lines (uncompressed_line_details_);
-      compute_line_heights ();
+      calc_line_heights ();
     }
 }
 
@@ -1086,7 +1086,7 @@ Page_breaking::line_divisions_rec (vsize system_count,
 }
 
 void
-Page_breaking::compute_line_heights ()
+Page_breaking::calc_line_heights ()
 {
   Real prev_hanging = 0;
   Real prev_hanging_begin = 0;

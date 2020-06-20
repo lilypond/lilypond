@@ -45,12 +45,6 @@ using std::set;
 using std::string;
 using std::vector;
 
-Grob *
-Grob::clone () const
-{
-  return new Grob (*this);
-}
-
 Grob::Grob (SCM basicprops)
 {
 
@@ -233,7 +227,7 @@ Grob::get_system () const
 System *
 Grob::get_system (Grob *me)
 {
-  Grob *p = me->get_parent (X_AXIS);
+  Grob *p = me->get_x_parent ();
   return p ? get_system (p) : dynamic_cast<System *>(me);
 }
 
@@ -387,7 +381,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
      it probably means that the Alignment was fixed and it has already been
      calculated.
   */
-  if (Grob *p = get_parent (Y_AXIS))
+  if (Grob *p = get_y_parent ())
     {
       Real trans = 0;
       if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
@@ -521,12 +515,6 @@ Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, vsize start, vsize end)
   return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end) : extent (refp, a);
 }
 
-Interval_t<int>
-Grob::spanned_rank_interval () const
-{
-  return Interval_t<int> (-1, 0);
-}
-
 /* Sort grobs according to their starting column. */
 bool
 Grob::less (Grob *g1, Grob *g2)
@@ -578,18 +566,6 @@ Grob::common_refpoint (Grob const *s, Axis a) const
 }
 
 void
-Grob::set_parent (Grob *g, Axis a)
-{
-  dim_cache_[a].parent_ = g;
-}
-
-Grob *
-Grob::get_parent (Axis a) const
-{
-  return dim_cache_[a].parent_;
-}
-
-void
 Grob::fixup_refpoint ()
 {
   for (int a = X_AXIS; a < NO_AXES; a++)
@@ -633,8 +609,8 @@ get_maybe_root_vertical_alignment (Grob *g, Grob *maybe)
   if (!g)
     return maybe;
   if (has_interface<Align_interface> (g))
-    return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), g);
-  return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), maybe);
+    return get_maybe_root_vertical_alignment (g->get_y_parent (), g);
+  return get_maybe_root_vertical_alignment (g->get_y_parent (), maybe);
 
 }
 
@@ -649,12 +625,12 @@ Grob::get_vertical_axis_group (Grob *g)
 {
   if (!g)
     return 0;
-  if (!g->get_parent (Y_AXIS))
+  if (!g->get_y_parent ())
     return 0;
   if (has_interface<Axis_group_interface> (g)
-      && has_interface<Align_interface> (g->get_parent (Y_AXIS)))
+      && has_interface<Align_interface> (g->get_y_parent ()))
     return g;
-  return get_vertical_axis_group (g->get_parent (Y_AXIS));
+  return get_vertical_axis_group (g->get_y_parent ());
 
 }
 
@@ -873,7 +849,7 @@ SCM
 Grob::y_parent_positioning (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Grob *par = me->get_parent (Y_AXIS);
+  Grob *par = me->get_y_parent ();
   if (par)
     (void) get_property (par, "positioning-done");
 
@@ -886,7 +862,7 @@ Grob::x_parent_positioning (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  Grob *par = me->get_parent (X_AXIS);
+  Grob *par = me->get_x_parent ();
   if (par)
     (void) get_property (par, "positioning-done");
 
@@ -960,7 +936,7 @@ Grob::check_cross_staff (Grob *commony)
   if (has_interface<Align_interface> (commony))
     return true;
 
-  for (Grob *g = this; g && g != commony; g = g->get_parent (Y_AXIS))
+  for (Grob *g = this; g && g != commony; g = g->get_y_parent ())
     if (has_interface<Align_interface> (g))
       return true;
 

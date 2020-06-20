@@ -97,11 +97,11 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                         Direction dir, Interval gap)
 {
   Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
-                                                      Interval (1.0, 1.0));
+                                           Drul_array<Real> (1.0, 1.0));
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
-                                                Interval (0, 0));
+                                     Drul_array<Real> (0.0, 0.0));
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                                  Interval (0, 0));
+                                       Drul_array<Real> (0.0, 0.0));
 
   // Make sure that it points in the correct direction:
   scale_drul (&edge_height, static_cast<Real> (-dir));

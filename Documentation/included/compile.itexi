@@ -216,14 +216,6 @@ sudo dnf install git
 
 Also see @rcontrib{Starting with Git}.
 
-@item
-To use the @code{lily-git.tcl} GUI;
-
-@example
-sudo dnf install tk
-@end example
-
-See @rcontrib{lily-git}.
 
 @end itemize
 
@@ -299,14 +291,6 @@ sudo apt-get install git
 
 Also see @rcontrib{Starting with Git}.
 
-@item
-To use the @code{lily-git.tcl} GUI;
-
-@example
-sudo apt-get install tk
-@end example
-
-Also see @rcontrib{lily-git}.
 
 @end itemize
 
@@ -367,15 +351,6 @@ sudo zypper install git
 
 Also see @rcontrib{Starting with Git}.
 
-@item
-To use the @code{lily-git.tcl} GUI;
-
-@example
-sudo zypper install tk
-@end example
-
-Also see @rcontrib{lily-git}.
-
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
@@ -425,15 +400,6 @@ sudo apt-get install git
 @end example
 
 Also see @rcontrib{Starting with Git}.
-
-@item
-To use the @code{lily-git.tcl} GUI;
-
-@example
-sudo apt-get install tk
-@end example
-
-Also see @rcontrib{lily-git}.
 
 @end itemize
 

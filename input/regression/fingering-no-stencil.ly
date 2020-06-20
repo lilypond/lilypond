@@ -5,7 +5,9 @@
 "
 }
 
-%% This regtest produces progerrors, but no segfault.
+%% This regtest compiles without errors.
+#(define orig-setting (ly:get-option 'warning-as-error))
+#(ly:set-option 'warning-as-error #t)
 
 \markup {
   \score {
@@ -19,7 +21,7 @@
     {
       \set strokeFingerOrientations = #'(right)
       \omit StrokeFinger
-      <g'-\rightHandFinger #2 c''-\rightHandFinger #4 >
+      <g'\rightHandFinger #2 c''\rightHandFinger #4 >
     }
   }
   \score {
@@ -30,3 +32,5 @@
     }
   }
 }
+
+#(ly:set-option 'warning-as-error orig-setting)

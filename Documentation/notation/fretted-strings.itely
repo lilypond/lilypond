@@ -139,17 +139,10 @@ a\3
 g1\4
 @end lilypond
 
-
-@snippets
-
-@c XXX also included in `editorial.itely'
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
-
-@c XXX also included in `editorial.itely'
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
+Most behaviors of string number indications (namely, the
+@code{StringNumber} object), including their placement,
+may be set in the same way as fingerings: see
+@ref{Fingering instructions}.
 
 @predefined
 @code{\arabicStringNumbers},
@@ -1756,13 +1749,17 @@ c'\rightHandFinger #4
  g\rightHandFinger #3 c'\rightHandFinger #4 >1
 @end lilypond
 
-For convenience, you can abbreviate @code{\rightHandFinger} to something
-short, for example @code{RH},
+For convenience, @code{\rightHandFinger} may be abbreviated to something
+shorter, for example @code{\RH}, by adding the appropriate definition
+at the source file’s top level:
 
 @example
-RH=#rightHandFinger
+RH = \rightHandFinger \etc
 @end example
 
+Most behaviors of right-hand fingerings (namely, the @code{StrokeFinger}
+object) may be set in the same way as ordinary fingerings: see
+@ref{Fingering instructions}.
 
 @snippets
 
@@ -1777,6 +1774,9 @@ RH=#rightHandFinger
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @seealso
+Notation Reference:
+@ref{Fingering instructions}.
+
 Snippets:
 @rlsr{Fretted strings}.
 

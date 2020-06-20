@@ -26,7 +26,7 @@
 #include "simple-music-iterator.hh"
 #include "lily-imports.hh"
 
-class Partial_iterator : public Simple_music_iterator
+class Partial_iterator final : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());

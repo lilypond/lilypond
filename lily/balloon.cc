@@ -33,8 +33,9 @@ class Balloon_interface
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (print_spanner, (SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
 
-  static SCM internal_balloon_print (Grob *me, Grob *p, Offset off);
+  static Stencil internal_balloon_print (Grob *me, Box b, Offset off);
 };
 
 MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
@@ -47,12 +48,14 @@ Balloon_interface::print (SCM smob)
     if (!Item::break_visible (item))
       return SCM_EOL;
 
-  Grob *p = me->get_parent (X_AXIS);
+  Grob *p = me->get_x_parent ();
 
   Offset off (me->relative_coordinate (p, X_AXIS),
               me->relative_coordinate (p, Y_AXIS));
+  Box b (robust_relative_extent (p, p, X_AXIS),
+         robust_relative_extent (p, p, Y_AXIS));
 
-  return internal_balloon_print (me, p, off);
+  return internal_balloon_print (me, b, off).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Balloon_interface, print_spanner, 1);
@@ -73,21 +76,43 @@ Balloon_interface::print_spanner (SCM smob)
         return SCM_EOL;
     }
 
-  Spanner *p = dynamic_cast<Spanner *> (me->get_parent (Y_AXIS));
+  Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());
 
   if (!p)
     return SCM_EOL;
 
   Offset off (me->relative_coordinate (me->get_bound (LEFT), X_AXIS),
               me->relative_coordinate (p, Y_AXIS));
-  return internal_balloon_print (me, p, off);
-}
-
-SCM
-Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
-{
   Box b (robust_relative_extent (p, p, X_AXIS),
          robust_relative_extent (p, p, Y_AXIS));
+  return internal_balloon_print (me, b, off).smobbed_copy ();
+}
+
+MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height, 3);
+SCM
+Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+{
+  Grob *me = unsmob<Grob> (smob);
+  Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());
+
+  if (!p || !p->is_live ())
+    return SCM_EOL;
+
+  vsize start = from_scm<vsize> (start_scm);
+  int end = scm_to_int (end_scm);
+
+  Interval y = p->pure_y_extent (p, start, end);
+
+  Real off = me->relative_coordinate (p, Y_AXIS);
+
+  return to_scm (
+    internal_balloon_print (me, Box (Interval (0, 0), y), Offset (0, off))
+      .extent (Y_AXIS));
+}
+
+Stencil
+Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
+{
   Real padding = from_scm<double> (get_property (me, "padding"), .1);
   b.widen (padding, padding);
 
@@ -120,7 +145,7 @@ Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
   fr.add_stencil (*text_stil);
 
   fr.translate (-off);
-  return fr.smobbed_copy ();
+  return fr;
 }
 
 ADD_INTERFACE (Balloon_interface,
@@ -134,4 +159,3 @@ ADD_INTERFACE (Balloon_interface,
                "spanner-placement "
                "text "
               );
-

@@ -31,6 +31,7 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
+#include <functional>
 #include <memory>
 
 using std::unique_ptr;
@@ -39,7 +40,7 @@ using std::vector;
 static Pitch *
 accidental_pitch (Grob *acc)
 {
-  Stream_event *mcause = acc->get_parent (Y_AXIS)->event_cause ();
+  Stream_event *mcause = acc->get_y_parent ()->event_cause ();
 
   if (!mcause)
     {
@@ -51,17 +52,20 @@ accidental_pitch (Grob *acc)
 }
 
 void
-Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long context_hash)
+Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger,
+                                      const void *hash_key)
 {
   Pitch *p = accidental_pitch (a);
   if (!p)
     return;
 
-  a->set_parent (me, X_AXIS);
+  a->set_x_parent (me);
 
   SCM accs = get_object (me, "accidental-grobs");
   SCM key = scm_cons (to_scm (p->get_notename ()),
-                      to_scm (stagger ? context_hash : 1));
+                      to_scm (stagger
+                              ? std::hash<const void *> () (hash_key)
+                              : 1));
   // assoc because we're dealing with pairs
   SCM entry = ly_assoc (key, accs);
   if (scm_is_false (entry))
@@ -313,8 +317,8 @@ extract_heads_and_stems (vector<unique_ptr<Accidental_placement_entry>> const &a
       for (vsize j = ape->grobs_.size (); j--;)
         {
           Grob *acc = ape->grobs_[j];
-          Grob *head = acc->get_parent (Y_AXIS);
-          Grob *col = head->get_parent (X_AXIS);
+          Grob *head = acc->get_y_parent ();
+          Grob *col = head->get_x_parent ();
 
           if (has_interface<Note_column> (col))
             note_cols.push_back (col);
@@ -329,7 +333,7 @@ extract_heads_and_stems (vector<unique_ptr<Accidental_placement_entry>> const &a
   */
   for (vsize i = note_cols.size (); i--;)
     {
-      Grob *c = note_cols[i]->get_parent (X_AXIS);
+      Grob *c = note_cols[i]->get_x_parent ();
       if (has_interface<Note_collision_interface> (c))
         {
           extract_grob_set (c, "elements", columns);

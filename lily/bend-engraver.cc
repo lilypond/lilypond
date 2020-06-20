@@ -76,7 +76,7 @@ Bend_engraver::stop_translation_timestep ()
   if (fall_ && !fall_->get_bound (LEFT))
     {
       fall_->set_bound (LEFT, note_head_);
-      fall_->set_parent (note_head_, Y_AXIS);
+      fall_->set_y_parent (note_head_);
     }
 }
 

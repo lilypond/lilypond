@@ -312,14 +312,14 @@ check_meshing_chords (Grob *me,
       && Rhythmic_head::dot_count (head_up))
     {
       Grob *d = unsmob<Grob> (get_object (head_up, "dot"));
-      Grob *parent = d->get_parent (X_AXIS);
+      Grob *parent = d->get_x_parent ();
       if (has_interface<Dot_column> (parent))
         Side_position_interface::add_support (parent, head_down);
     }
   else if (Rhythmic_head::dot_count (head_down))
     {
       Grob *d = unsmob<Grob> (get_object (head_down, "dot"));
-      Grob *parent = d->get_parent (X_AXIS);
+      Grob *parent = d->get_x_parent ();
       if (has_interface<Dot_column> (parent))
         {
           Grob *stem = unsmob<Grob> (get_object (head_up, "stem"));
@@ -336,12 +336,12 @@ check_meshing_chords (Grob *me,
       && Rhythmic_head::dot_count (head_down))
     {
       Grob *dot_down = unsmob<Grob> (get_object (head_down, "dot"));
-      Grob *col_down = dot_down->get_parent (X_AXIS);
+      Grob *col_down = dot_down->get_x_parent ();
       Direction dir = UP;
       if (Rhythmic_head::dot_count (head_up))
         {
           Grob *dot_up = unsmob<Grob> (get_object (head_up, "dot"));
-          Grob *col_up = dot_up->get_parent (X_AXIS);
+          Grob *col_up = dot_up->get_x_parent ();
           if (col_up == col_down) // let the common DotColumn arrange dots
             dir = CENTER;
           else // conform to the dot direction on the up-stem chord

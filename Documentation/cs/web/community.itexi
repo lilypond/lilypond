@@ -423,13 +423,11 @@ pro tuto chybu přihodí nějaká činnost.  K tomu potřebujete mít
 
 @divClass{column-left-top}
 @divClass{keep-bullets}
-@helpusTasks
 
 @divEnd
 @divEnd
 
 @divClass{column-right-top}
-@helpusProjects
 
 @divEnd
 

@@ -60,7 +60,7 @@ Semi_tie::calc_control_points (SCM smob)
 
   (void) get_property (me, "direction");
 
-  Grob *yparent = me->get_parent (Y_AXIS);
+  Grob *yparent = me->get_y_parent ();
   if (has_interface<Semi_tie_column> (yparent))
     {
       /* trigger positioning. */

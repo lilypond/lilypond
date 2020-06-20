@@ -22,7 +22,7 @@
 
 #include "simple-music-iterator.hh"
 
-class Change_iterator : public Simple_music_iterator
+class Change_iterator final : public Simple_music_iterator
 {
 public:
   /* constructor is public */

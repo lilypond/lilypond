@@ -92,20 +92,6 @@ LilyPond wird unter der
 @ref{GPL, GNU General Public License} veröffentlicht.
 @divEnd
 
-
-@divClass{column-center-bottom}
-
-@subheading Sponsoren
-
-Vielen Dank an @uref{http://www.vt.edu/, Virginia Tech} und
-@uref{http://www.linuxaudio.org/, linuxaudio.org}, die unsere
-Bandbreite bezahlen.
-
-@sourceimage{VTlogo_ITF,,,}
-@sourceimage{lao_banner_06_on_white_demo,,,}
-
-@divEnd
-
 @divClass{column-center-bottom}
 @subheading Legales
 

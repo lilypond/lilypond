@@ -70,11 +70,6 @@ public:
   Input (Input const &i) = default;
   Input () = default;
 
-  friend std::string source_location (const Input &input) // for logging
-  {
-    return input.message_location ();
-  }
-
 protected:
   std::string message_location () const;
   std::string message_string (const std::string &msg) const;

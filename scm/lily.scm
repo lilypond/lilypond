@@ -269,12 +269,12 @@ configurations.")
     (delete-intermediate-files
      #t
      "Delete unusable, intermediate PostScript files.")
-    (dump-profile
-     #f
-     "Dump memory and time information for each file.")
     (dump-cpu-profile
      #f
      "Dump timing information (system-dependent).")
+    (dump-profile
+     #f
+     "Dump memory and time information for each file.")
     (dump-signatures
      #f
      "Dump output signatures of each system.  Used for
@@ -306,8 +306,7 @@ given amount (in mm).")
      "Make Ghostscript embed only TrueType fonts and no other font format.")
     (gui
      #f
-     "Run LilyPond from a GUI and redirect stderr to
-a log file.")
+     "Run LilyPond from a GUI and redirect stderr to a log file.")
     (help
      #f
      "Show this help.")
@@ -338,40 +337,39 @@ null markup instead.")
                          "midi")
                     "Set the default file extension for MIDI output
 file to given string.")
+    (music-font-encodings
+     #f
+     "Use font encodings and the ps show operator with music fonts.")
     (music-strings-to-paths
      #f
      "Convert text strings to paths when glyphs belong
 to a music font.")
-    (music-font-encodings
-     #f
-     "Use font encodings and the ps show operator with music fonts.")
-    (point-and-click
+    (outline-bookmarks
      #t
-     "Add point & click links to PDF and SVG output.")
+     "Use bookmarks in table of contents metadata (e.g. for PDF viewers).")
     (paper-size
      "a4"
      "Set default paper size.")
     (pixmap-format
      "png16m"
      "Set GhostScript's output format for pixel images.")
+    (point-and-click
+     #t
+     "Add point & click links to PDF and SVG output.")
     (preview
      #f
      "Create preview images also.")
     (print-pages
      #t
      "Print pages in the normal way.")
+    (profile-property-accesses
+     #f
+     "Keep statistics of get_property() calls.")
     (protected-scheme-parsing
      #t
      "Continue when errors in inline scheme are caught
 in the parser.  If #f, halt on errors and print
 a stack trace.")
-    (profile-property-accesses
-     #f
-     "Keep statistics of get_property() calls.")
-    (resolution
-     101
-     "Set resolution for generating PNG pixmaps to
-given value (in dpi).")
     (read-file-list
      #f
      "Specify name of a file which contains a list of
@@ -381,6 +379,10 @@ input files to be processed.")
      "When processing an \\include command, look for
 the included file relative to the current file\
 \n(instead of the root file)")
+    (resolution
+     101
+     "Set resolution for generating PNG pixmaps to
+given value (in dpi).")
     (safe
      #f
      "Run in safer mode.")
@@ -426,7 +428,7 @@ messages into errors.")
 
 (for-each (lambda (x)
             (ly:set-option (car x) (cdr x)))
-          (eval-string (ly:command-line-options)))
+          (with-input-from-string (ly:command-line-options) read))
 
 (debug-set! stack 0)
 
@@ -662,9 +664,23 @@ messages into errors.")
 (define-public r5rs-primary-predicates
   `((,boolean? . "boolean")
     (,char? . "character")
+
+    (,list? . "list")
+    (,null? . "null")
+
     (,number? . "number")
+    (,complex? . "complex number")
+    (,integer? . "integer")
+    (,rational? . "rational number")
+    (,real? . "real number")
+
     (,pair? . "pair")
+
     (,port? . "port")
+    (,input-port? . "input port")
+    (,output-port? . "output port")
+    (,eof-object? . "end-of-file object")
+
     (,procedure? . "procedure")
     (,string? . "string")
     (,symbol? . "symbol")
@@ -677,26 +693,13 @@ messages into errors.")
     (,char-upper-case? . "upper-case character")
     (,char-whitespace? . "whitespace character")
 
-    (,complex? . "complex number")
     (,even? . "even number")
     (,exact? . "exact number")
     (,inexact? . "inexact number")
-    (,integer? . "integer")
     (,negative? . "negative number")
     (,odd? . "odd number")
     (,positive? . "positive number")
-    (,rational? . "rational number")
-    (,real? . "real number")
     (,zero? . "zero")
-
-    (,list? . "list")
-    (,null? . "null")
-
-    (,input-port? . "input port")
-    (,output-port? . "output port")
-
-    ;; would this ever be used?
-    (,eof-object? . "end-of-file object")
     ))
 
 (define-public guile-predicates
@@ -780,6 +783,7 @@ messages into errors.")
     (,ly:spring? . "spring")
     (,ly:stencil? . "stencil")
     (,ly:stream-event? . "stream event")
+    (,ly:transform? . "coordinate transform")
     (,ly:translator? . "translator")
     (,ly:translator-group? . "translator group")
     (,ly:undead? . "undead container")

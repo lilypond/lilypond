@@ -22,7 +22,7 @@
 
 #include "music-wrapper-iterator.hh"
 
-class Grace_iterator : public Music_wrapper_iterator
+class Grace_iterator final : public Music_wrapper_iterator
 {
   bool in_grace_;
 public:

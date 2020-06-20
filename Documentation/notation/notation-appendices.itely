@@ -2211,11 +2211,26 @@ for more readability.
 @node List of articulations
 @appendixsec List of articulations
 
+@cindex articulations
+@cindex post-events
+@cindex scripts
 
-The following lists show all the scripts in the Feta font that may be
-attached to notes (eg. @samp{f\accent} or @samp{f->}).  Each example
-shows the script in the @emph{up}, @emph{down} and @emph{neutral}
-positions respectively.
+In LilyPond’s internal logic, an @q{articulation} is any object
+(other than dynamics) that may be attached directly after a rhythmic
+event: notes, chords; even silences and skips, or the empty chord
+construct @code{<>} (see @rlearning{Structure of a note entry}).
+Even slurs, fingerings and text scripts are technically
+articulations, although these are not shown here.
+
+Therefore, the following lists include not only articulation marks,
+but also all other scripts in the Emmentaler font that may be
+attached to notes (the way an accent is entered as @samp{c'\accent}
+or @samp{c'->}).  Each example shows the script in its two possible
+vertical positions: respectively @emph{up} and @emph{down}, as well
+as its default (@emph{neutral}) position.  See also
+@ref{Script glyphs} for a more extensive list of glyphs,
+for use with the @code{\musicglyph} markup command as explained in
+@ref{Music notation inside markup}.
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -2223,8 +2238,8 @@ positions respectively.
 @c   Bowing indications
 @c   Harmonics
 @c   Snap (Bartók) pizzicato
-@c Custom percussion staves (for "halfopen" -- not yet funindexed)
-@c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
+@c Custom percussion staves (for "halfopen" and "stopped")
+@c References for wind instruments (for "open"/"stopped")
 
 
 @menu
@@ -2257,7 +2272,20 @@ columns - JL
 @funindex -.
 @funindex \tenuto
 @funindex --
-@cindex thumb
+@cindex @q{accent} articulation
+@cindex articulation, accent
+@cindex @q{espressivo} articulation
+@cindex articulation, espressivo
+@cindex @q{marcato} articulation
+@cindex articulation, marcato
+@cindex @q{portato} articulation
+@cindex articulation, portato
+@cindex @q{staccatissimo} articulation
+@cindex articulation, staccatissimo
+@cindex @q{staccato} articulation
+@cindex articulation, staccato
+@cindex @q{tenuto} articulation
+@cindex articulation, tenuto
 
 @node Articulation scripts
 @unnumberedsubsec Articulation scripts
@@ -2286,12 +2314,16 @@ f^\portato e,_\portato b'\portato
 @end lilypond
 
 @item
-@code{\staccatissimo} @* or @code{-!}
+@code{\staccatissimo}@tie{}or@tie{}@code{-!}
 @lilypond[notime,relative=2]
 f^\staccatissimo e,_\staccatissimo b'\staccatissimo
 @end lilypond
 @tab
-@code{\staccato} or @code{-.}
+
+@c These additional spaces improve the PDF version,
+@c without affecting the HTML rendering. -vv
+
+@code{    \staccato} or @code{-.}
 @lilypond[notime,relative=2]
 f^\staccato e,_\staccato b'\staccato
 @end lilypond
@@ -2319,6 +2351,38 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \reverseturn
 @funindex \slashturn
 @funindex \haydnturn
+@cindex @q{pralltriller} ornament
+@cindex ornament, pralltriller
+@cindex @q{mordent} ornament
+@cindex ornament, mordent
+@cindex @q{pralltriller, long} ornament
+@cindex ornament, pralltriller, long
+@cindex @q{mordent, upper} ornament
+@cindex ornament, mordent, upper
+@cindex @q{mordent, lower} ornament
+@cindex ornament, mordent, lower
+@cindex @q{upper mordent} ornament
+@cindex ornament, upper mordent
+@cindex @q{lower mordent} ornament
+@cindex ornament, lower mordent
+@cindex @q{pralltriller, down} ornament
+@cindex ornament, pralltriller, down
+@cindex @q{pralltriller, up} ornament
+@cindex ornament, pralltriller, up
+@cindex @q{up pralltriller} ornament
+@cindex ornament, up pralltriller
+@cindex @q{down pralltriller} ornament
+@cindex ornament, down pralltriller
+@cindex @q{trill} ornament
+@cindex ornament, trill
+@cindex @q{turn} ornament
+@cindex ornament, turn
+@cindex @q{reverse turn} ornament
+@cindex ornament, reverse turn
+@cindex @q{slash turn} ornament
+@cindex ornament, slash turn
+@cindex @q{Haydn turn} ornament
+@cindex ornament, Haydn turn
 
 @node Ornament scripts
 @unnumberedsubsec Ornament scripts
@@ -2418,6 +2482,13 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @funindex \verylongfermata
 @funindex \henzeshortfermata
 @funindex \henzelongfermata
+@cindex fermata
+@cindex fermata, short
+@cindex short fermata
+@cindex fermata, long
+@cindex long fermata
+@cindex fermata, Henze
+@cindex Henze fermata
 
 @node Fermata scripts
 @unnumberedsubsec Fermata scripts
@@ -2475,6 +2546,29 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @funindex \snappizzicato
 @funindex \stopped
 @funindex -+
+@cindex @q{up-bow} bowing indication
+@cindex bowing, up
+@cindex @q{down-bow} bowing indication
+@cindex bowing, down
+@cindex @q{flageolet} harmonics
+@cindex harmonics, flageolet
+@cindex @q{open} articulation
+@cindex articulation, open
+@cindex @q{half open} articulation
+@cindex articulation, half open
+@cindex foot mark
+@cindex organ pedal mark
+@cindex pedal mark, organ
+@cindex @q{heel} pedal mark
+@cindex pedal mark, heel
+@cindex @q{toe} pedal mark
+@cindex pedal mark, toe
+@cindex @q{stopped} articulation
+@cindex articulation, stopped
+@cindex @q{snappizzicato} sign
+@cindex sign, snappizzicato
+@cindex @q{thumb} fingering
+@cindex fingering, thumb
 
 @node Instrument-specific scripts
 @unnumberedsubsec Instrument-specific scripts
@@ -2538,12 +2632,24 @@ f^\snappizzicato e,_\snappizzicato b'\snappizzicato
 @lilypond[notime,relative=2]
 f^\stopped e,_\stopped b'\stopped
 @end lilypond
+@tab
+@code{\thumb}
+@lilypond[notime,relative=2]
+f^\thumb e,_\thumb b'\thumb
+@end lilypond
 
 @end multitable
 
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
+@cindex @q{segno} sign
+@cindex sign, segno
+@cindex @q{coda} sign
+@cindex sign, coda
+@cindex @q{variant coda} sign
+@cindex sign, variant coda
+@cindex coda sign, variant
 
 @node Repeat sign scripts
 @unnumberedsubsec Repeat sign scripts
@@ -2573,6 +2679,20 @@ f^\varcoda e,_\varcoda b'\varcoda
 @funindex \ictus
 @funindex \semicirculus
 @funindex \signumcongruentiae
+@cindex @q{accentus} gregorian articulation
+@cindex gregorian articulation, accentus
+@cindex articulation, gregorian, accentus
+@cindex @q{circulus} gregorian articulation
+@cindex gregorian articulation, circulus
+@cindex articulation, gregorian, circulus
+@cindex @q{ictus} gregorian articulation
+@cindex gregorian articulation, ictus
+@cindex articulation, gregorian, ictus
+@cindex @q{semicirculus} gregorian articulation
+@cindex gregorian articulation, semicirculus
+@cindex articulation, gregorian, semicirculus
+@cindex @q{signum congruentiae} mensural notation
+@cindex mensural notation, signum congruentiae
 
 @node Ancient scripts
 @unnumberedsubsec Ancient scripts
@@ -2636,8 +2756,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex mid tom tom
 @cindex high hat
 @cindex pedal high hat
+@cindex high hat, pedal
 @cindex open high hat
-@cindex half-open high hat
+@cindex high hat, open
+@cindex half open high hat
+@cindex high hat, half open
 @cindex cymbal, various
 @cindex crash cymbal
 @cindex ride cymbal

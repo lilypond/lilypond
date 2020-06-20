@@ -23,13 +23,9 @@
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
-struct Rod;
-
 struct Vowel_transition
 {
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
-private:
-  static Real bounds_protrusion (const Rod *);
 };
 #endif

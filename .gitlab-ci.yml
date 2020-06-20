@@ -27,7 +27,7 @@ build:ubuntu-16.04:
     - make $MAKE_FLAGS
   artifacts:
     untracked: true
-    expire_in: 1h
+    expire_in: 1 week
 
 test:ubuntu-16.04:
   stage: test
@@ -40,6 +40,12 @@ test:ubuntu-16.04:
     - cd build
     - sh -c "$TOUCH_BUILD" >/dev/null
     - make $MAKE_FLAGS test
+  artifacts:
+    name: "logs"
+    when: on_failure
+    expire_in: 1 week
+    paths:
+      - "**/*.fail.log"
 
 doc:ubuntu-16.04:
   stage: documentation
@@ -52,3 +58,9 @@ doc:ubuntu-16.04:
     - cd build
     - sh -c "$TOUCH_BUILD" >/dev/null
     - make $MAKE_FLAGS doc
+  artifacts:
+    name: "logs"
+    when: on_failure
+    expire_in: 1 week
+    paths:
+      - "**/*.fail.log"

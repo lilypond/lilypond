@@ -36,15 +36,16 @@
 
    ---
 
-   Conceptually a music-iterator operates on a queue of musical events
-   that are pending. This queue does not actually exist, but it is a
-   way of viewing and traversing music-expressions.
+   Conceptually, a music-iterator traverses a queue of pending musical events.
+   This way of viewing and traversing music-expressions does not require an
+   actual queue.
 
 
-   ok () -- events left ?
+   ok () -- processing is incomplete: the queue still holds events or the
+   iterator wants to continue regardless
 
-   pending_mom () -- time tag of the next event to be processed.
-   PRECONDITION: ok () holds.
+   pending_moment () -- the time of the next event in the queue (+infinity
+   once the queue is empty)
 
    process (M) -- process all at M (Precondition: no events exist
    before M, ok () holds).  Side-effects:
@@ -54,6 +55,9 @@
    * Typically this reports the music to an interpretation context,
    thus changing the state of the interpretation context.
 
+   run_always () -- when true, process (M) should be called even if M is
+   earlier than pending_moment (); when false, process (M) should not be
+   called until M reaches pending_moment ()
 
    TODO:
 
@@ -93,7 +97,11 @@ public:
   void descend_to_bottom_context ();
   virtual void derived_substitute (Context *, Context *);
   virtual Moment pending_moment () const;
-  virtual bool ok () const;
+  bool ok () const
+  {
+    return (pending_moment () < Moment (Rational::infinity ()))
+           || run_always ();
+  }
   virtual bool run_always () const;
   // process is called with a time relative to the iterator start, so
   // usually the last processed moment is the same as music_get_length.

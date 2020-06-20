@@ -91,17 +91,6 @@ LilyPond je zveřejněn pod
 @divEnd
 
 
-@divClass{color1}
-
-@subheading Sponzoři
-
-Velmi děkujeme @uref{http://www.vt.edu/, Virginia Tech} a
-@uref{http://www.linuxaudio.org/, linuxaudio.org}, kteří
-platí šířku pásma.
-
-@sourceimage{VTlogo_ITF,,,}
-@sourceimage{lao_banner_06_on_white_demo,,,}
-
 @subheading Zákonnost
 
 @divClass{legal}
@@ -518,7 +507,7 @@ a klepněte na @qq{OK} pro uzavření okna.
 
 @subsubheading Vyvolání jednotlivých programů
 
-LilyPond-Programme 
+LilyPond-Programme
 -- jak mohou být lilypond, lilypond-book, convert-ly a tak dále --
 vyvolány z příkazového řádku:
 
@@ -609,6 +598,3 @@ naleznete v @ref{Svoboda}.
 @include gpl.itexi
 
 @divEnd
-
-
-

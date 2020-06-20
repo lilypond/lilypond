@@ -222,8 +222,7 @@ Translator_group::get_simple_trans_list ()
 void
 precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir)
 {
-  Translator_group *tg
-    = dynamic_cast<Translator_group *> (c->implementation ());
+  Translator_group *tg = c->implementation ();
 
   if (tg && dir == DOWN)
     {

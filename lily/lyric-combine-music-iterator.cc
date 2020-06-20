@@ -42,7 +42,7 @@ using std::string;
   the LYRICS.
 */
 
-class Lyric_combine_music_iterator : public Music_iterator
+class Lyric_combine_music_iterator final : public Music_iterator
 {
 public:
   Lyric_combine_music_iterator ();
@@ -50,11 +50,9 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   void construct_children () override;
-  Moment pending_moment () const override;
   void do_quit () override;
   void process (Moment) override;
   bool run_always () const override;
-  bool ok () const override;
   void derived_mark () const override;
   void derived_substitute (Context *, Context *) override;
   void set_music_context (Context *to);
@@ -142,20 +140,8 @@ Lyric_combine_music_iterator::start_new_syllable () const
   return true;
 }
 
-Moment
-Lyric_combine_music_iterator::pending_moment () const
-{
-  return Moment (Rational::infinity ());
-}
-
 bool
 Lyric_combine_music_iterator::run_always () const
-{
-  return true;
-}
-
-bool
-Lyric_combine_music_iterator::ok () const
 {
   return lyric_iter_ && lyric_iter_->ok ()
          && !(music_context_ && music_context_->is_removable ());

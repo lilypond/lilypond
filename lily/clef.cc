@@ -60,7 +60,7 @@ Clef::print (SCM smob)
   if (!scm_is_string (glyph_scm))
     return SCM_EOL;
 
-  string glyph = string (ly_scm2string (glyph_scm));
+  const string &glyph = ly_scm2string (glyph_scm);
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil out = fm->find_by_name (glyph);
   if (out.is_empty ())

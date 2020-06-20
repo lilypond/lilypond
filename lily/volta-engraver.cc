@@ -176,10 +176,15 @@ Volta_engraver::stop_translation_timestep ()
     {
       for (SCM s = get_property (this, "stavesFound"); scm_is_pair (s); s = scm_cdr (s))
         Side_position_interface::add_support (volta_spanner_, unsmob<Grob> (scm_car (s)));
+
       volta_spanner_ = 0;
     }
 
-  end_volta_bracket_ = 0;
+  if (end_volta_bracket_)
+    {
+      announce_end_grob (end_volta_bracket_, SCM_EOL);
+      end_volta_bracket_ = 0;
+    }
 
   if (volta_bracket_ && !volta_bracket_->get_bound (LEFT))
     volta_bracket_->set_bound (LEFT, ci);

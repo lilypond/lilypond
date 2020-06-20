@@ -66,8 +66,8 @@ Arpeggio_engraver::acknowledge_stem (Grob_info info)
 {
   if (arpeggio_)
     {
-      if (!arpeggio_->get_parent (Y_AXIS))
-        arpeggio_->set_parent (info.grob (), Y_AXIS);
+      if (!arpeggio_->get_y_parent ())
+        arpeggio_->set_y_parent (info.grob ());
 
       Pointer_group_interface::add_grob (arpeggio_,
                                          ly_symbol2scm ("stems"),

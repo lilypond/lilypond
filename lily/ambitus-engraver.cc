@@ -76,14 +76,14 @@ Ambitus_engraver::create_ambitus ()
     {
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
-      accidentals_[d]->set_parent (heads_[d], Y_AXIS);
+      accidentals_[d]->set_y_parent (heads_[d]);
       set_object (heads_[d], "accidental-grob",
                              accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
     }
 
-  ambitus_->set_parent (heads_[DOWN], X_AXIS);
+  ambitus_->set_x_parent (heads_[DOWN]);
   Axis_group_interface::add_element (group_, ambitus_);
 
   is_typeset_ = false;

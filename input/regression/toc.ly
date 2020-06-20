@@ -15,7 +15,8 @@ to the corresponding pages."
 
   \tocItem \markup "The first score"
   \score {
-    { 
+    {
+      \tocItem \markup "(score begins here)"
       c'1 \pageBreak
       \mark "A" \tocItem \markup "Mark A"
       d'

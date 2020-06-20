@@ -157,7 +157,7 @@ void
 Fingering_column::add_fingering (Grob *fc, Grob *f)
 {
   Pointer_group_interface::add_grob (fc, ly_symbol2scm ("fingerings"), f);
-  f->set_parent (fc, X_AXIS);
+  f->set_x_parent (fc);
   set_property (f, "Y-offset", Grob::x_parent_positioning_proc);
 }
 

@@ -52,7 +52,7 @@ Grid_line_span_engraver::acknowledge_grid_point (Grob_info i)
   if (lines_.size () >= 2 && !spanline_)
     {
       spanline_ = make_item ("GridLine", SCM_EOL);
-      spanline_->set_parent (lines_[0], X_AXIS);
+      spanline_->set_x_parent (lines_[0]);
     }
 }
 

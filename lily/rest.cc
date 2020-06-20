@@ -263,7 +263,7 @@ Rest::translate (Grob *me, int dy)
   if (!scm_is_number (get_property (me, "staff-position")))
     {
       me->translate_axis (dy * Staff_symbol_referencer::staff_space (me) / 2.0, Y_AXIS);
-      Grob *p = me->get_parent (Y_AXIS);
+      Grob *p = me->get_y_parent ();
       p->flush_extent_cache (Y_AXIS);
     }
 }

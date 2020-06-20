@@ -34,7 +34,7 @@ Spanner::do_break_processing ()
   Item *left = spanned_drul_[LEFT];
   Item *right = spanned_drul_[RIGHT];
 
-  if (!left || !right)
+  if (!left || !right || !is_live ())
     return;
 
   if (get_system () || is_broken ())
@@ -203,8 +203,8 @@ Spanner::set_bound (Direction d, Grob *g)
       original parent for alignment.
       This happens e.g. for MultiMeasureRestNumbers and PercentRepeatCounters.
     */
-    if (!dynamic_cast <Spanner *> (get_parent (X_AXIS)))
-      set_parent (g, X_AXIS);
+    if (!dynamic_cast <Spanner *> (get_x_parent ()))
+      set_x_parent (g);
 }
 
 bool

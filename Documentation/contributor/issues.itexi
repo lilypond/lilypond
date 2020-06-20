@@ -87,16 +87,15 @@ Subscribe your email account to @code{bug-lilypond}.  See
 Send your email address to the @ref{Meisters, Bug Meister}.
 
 @item
-Create your own Sourceforge login (required for the Allura issue
-tracker):
+Create your own GitLab login (required to manage issues):
 
 @itemize
 
 @item
-Go to @uref{https://sourceforge.net/p/testlilyissues/issues/}
+Go to @uref{https://gitlab.com/users/sign_in}.
 
 @item
-Click on 'Join' in the top-right corner.
+Click on the @q{Register} tab to create a new account.
 
 @item
 Fill in your details as required and click the @emph{Register} button to
@@ -105,35 +104,13 @@ complete the registration.
 @end itemize
 
 @item
-Send your Sourceforge @emph{username} (not your email address) to
-@email{bug-lilypond@@gnu.org} asking to be given appropriate permissions
-to either create, edit and comment on tracker issues.
+Go to @uref{https://gitlab.com/lilypond} and @q{Request access} to
+the group.  Additionally send your GitLab @emph{username} (not your
+email address) to @email{bug-lilypond@@gnu.org}, asking to be given
+appropriate permissions to manage issues.
 
 @item
-Configure your email client:
-
-@itemize
-
-@item
-Any email sent with your address in the @code{To:} or @code{CC:} fields
-should be configured to go into a @code{bug-answers} folder.
-
-@item
-Any email either @code{From:} or @code{CC:} to,
-
-@example
-testlilyissues-auto@@lists.sourceforge.net
-@end example
-
-@noindent
-should be configured to go into a @code{bug-ignore} folder or,
-alternately, configure your email client to delete these automatically.
-You do @emph{not} need to read mails in the @code{bug-ignore} folder.
-If you are curious (and have time) then read them, but they are not
-necessary for Bug Squad work.
-
-@item
-Any email sent @code{To:} or @code{CC:} to,
+Configure your email client:  Any email sent @code{To:} or @code{CC:} to
 
 @example
 bug-lilypond
@@ -141,8 +118,6 @@ bug-lilypond
 
 @noindent
 should be configured to go into a @code{bug-current} folder.
-
-@end itemize
 
 @end enumerate
 
@@ -329,15 +304,12 @@ After @strong{every release} (both stable and unstable):
 Issues to verify: go to
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AFixed}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues?state=closed&label_name[]=Status%3A%3AFixed}
 @end smallexample
 
-(You can also generate this list by selecting the @qq{Open (Fixed)}
-button down the left-hand frame)
-
-You should see a list of Issues that have been marked as 'Fixed' by a
-developer.  If the developer has done their job properly, the
-Issue should have the @qq{Labels} field filled in with @qq{Fixed_x_y_z},
+You should see a list of issues that have been marked as 'Status::Fixed'
+by a developer.  If the developer has done their job properly, the
+issue should have the @qq{Labels} field filled in with @qq{Fixed_x_y_z},
 where X is the major version, y the minor version and z the current
 release.
 
@@ -346,13 +318,18 @@ Fixed_2_19_39
 @end example
 
 This will help you work out which you can verify - do not verify any
-Issues where the claimed fixed build is not yet released.  Work your
+issues where the claimed fixed build is not yet released.  Work your
 way through these as follows:
 
-If the Issue refers to a bug, try to reproduce the bug with the latest
+If the issue refers to a bug, try to reproduce the bug with the latest
 officially released version (not one you've built yourself from
 source); if the bug is no longer there, mark the
-issue @qq{Verified} (i.e. @qq{the fix has been verified to work}).
+issue @qq{Status::Verified} (i.e., @qq{the fix has been verified to work}).
+
+@c Patches are not tracked by issues anymore, we use merge requests.
+@c The following needs updating once we have discussed whether we
+@c want to verify merge requests or if we trust the UI to show that
+@c a set of changes was merged to master.
 
 Quite a few of these will be issues tracking patches.  @strong{You
 do not have to prove these patches work - simply that they have
@@ -443,6 +420,9 @@ same (broken) output as the initial report, then simply post a
 
 @node Issue classification
 @section Issue classification
+
+@c The following section needs updating after discussion about a
+@c changed policy for GitLab.
 
 The Bug Squad should classify issues according to the guidelines
 given by developers.  Every issue should have a Status and Type;
@@ -546,10 +526,6 @@ scripts.  Mostly used for convert-ly, lilypond-book, etc.
 Type-Enhancement: a feature request for the core program.  The
 distinction between enhancement and defect isn't extremely clear;
 when in doubt, mark it as enhancement.
-
-@item
-Type-Patch: tracking a patch on Rietveld.  Bug squad should not
-need to use this label.
 
 @item
 Type-Other: anything else.
@@ -811,13 +787,11 @@ email should contain a link to the issue you just added.
 separate person handling this task.}
 
 For contributors/developers: follow the steps in
-@ref{Patches}, and @ref{Pushing to staging}.
+@ref{Patches}, and @ref{Merging to master}.
 
 @ignore
-For people doing maintenance tasks: git-cl is adding issues, James
-is testing patches and managing the Patch countdown.  He also generally
-runs the scripts that merging to Staging (although other developers are
-available to do this task if required).
+For people doing maintenance tasks: A bot is adding Patch::new, James
+is testing patches and managing the Patch countdown.
 @end ignore
 
 
@@ -826,10 +800,10 @@ available to do this task if required).
 
 @subsubheading Project overview
 
-Project activity
+All issues
 
 @smallexample
-@uref{https://sourceforge.net/projects/testlilyissues/}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end smallexample
 
 @subsubheading Hindering development
@@ -837,7 +811,7 @@ Project activity
 These issues stop or slow development work:
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status:Accepted%20AND%20_type:Maintainability}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues?label_name[]=Type%3A%3AMaintainability}
 @end smallexample
 
 @subsubheading Easy tasks
@@ -849,19 +823,15 @@ with material in this manual, but does not know anything else about
 LilyPond development.
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status:Accepted%20AND%20labels:Frog}
+@uref{https://gitlab.com/lilypond/lilypond/-/issues?label_name[]=Frog}
 @end smallexample
 
 @subsubheading Patches currently in the Patch Review cycle
 
 Overview
 
-@c The following URL is provided by one of the Developers giving a much
-@c easier way to see all patches at all stages of the Review cycle in a
-@c single place.
-
 @example
-http://philholmes.net/lilypond/allura/
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?sort=label_priority}
 @end example
 
 
@@ -869,7 +839,7 @@ http://philholmes.net/lilypond/allura/
 New patches
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Anew}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name[]=Patch%3A%3Anew}
 @end smallexample
 
 
@@ -877,7 +847,7 @@ New patches
 Patches under Review
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Areview}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name%5B%5D=Patch%3A%3Areview}
 @end smallexample
 
 
@@ -885,7 +855,7 @@ Patches under Review
 Patches on final Countdown
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Acountdown}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name%5B%5D=Patch%3A%3Acountdown}
 @end smallexample
 
 
@@ -893,5 +863,5 @@ Patches on final Countdown
 Patches that can be pushed
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Apush}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name%5B%5D=Patch%3A%3Apush}
 @end smallexample

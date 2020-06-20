@@ -48,7 +48,7 @@ enum Scorers
 class Beam_configuration
 {
 public:
-  Interval y;
+  Drul_array<Real> y;
   Real demerits;
 #if DEBUG_BEAM_SCORING
   std::string score_card_;
@@ -59,8 +59,8 @@ public:
   Beam_configuration ();
   bool done () const;
   void add (Real demerit, const std::string &reason);
-  static std::unique_ptr<Beam_configuration> new_config (Interval start,
-                                                         Interval offset);
+  static std::unique_ptr<Beam_configuration> new_config (Drul_array<Real> start,
+                                                         Drul_array<Real> offset);
 };
 
 // Comparator for a queue of Beam_configuration*.
@@ -125,7 +125,7 @@ public:
 private:
   Spanner *beam_;
 
-  Interval unquanted_y_;
+  Drul_array<Real> unquanted_y_;
   bool align_broken_intos_;
   bool do_initial_slope_calculations_;
 

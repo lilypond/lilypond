@@ -163,7 +163,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 Interval
 Paper_column::break_align_width (Grob *me, SCM align_syms)
 {
-  Grob *p = me->get_parent (X_AXIS);
+  Grob *p = me->get_x_parent ();
 
   if (scm_is_symbol (align_syms))
     align_syms = scm_list_1 (align_syms);

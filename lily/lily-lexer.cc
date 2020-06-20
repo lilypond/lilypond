@@ -332,7 +332,7 @@ Lily_lexer::escaped_char (char c) const
 Input
 Lily_lexer::here_input () const
 {
-  return Input (*lexloc_);
+  return *lexloc_;
 }
 
 Input const &

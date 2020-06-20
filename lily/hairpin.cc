@@ -61,8 +61,8 @@ Hairpin::broken_bound_padding (SCM smob)
       return to_scm (0.0);
     }
 
-  System *sys = dynamic_cast<System *> (me->get_system ());
-  Direction dir = get_grob_direction (me->get_parent (Y_AXIS));
+  System *sys = me->get_system ();
+  Direction dir = get_grob_direction (me->get_y_parent ());
   if (!dir)
     return to_scm (0.0);
 
@@ -70,7 +70,7 @@ Hairpin::broken_bound_padding (SCM smob)
   Drul_array<Grob *> vertical_axis_groups;
   for (DOWN_and_UP (d))
     vertical_axis_groups[d] = d == dir
-                              ? sys->get_neighboring_staff (d, my_vertical_axis_group, Interval_t<int> (me->spanned_rank_interval ()))
+                              ? sys->get_neighboring_staff (d, my_vertical_axis_group, me->spanned_rank_interval ())
                               : my_vertical_axis_group;
 
   if (!vertical_axis_groups[dir])
@@ -158,7 +158,7 @@ Hairpin::print (SCM smob)
     thick = from_scm<double> (get_property (me, "thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
-                                                  Interval (0, 0));
+                                       Drul_array<Real> (0.0, 0.0));
 
   for (LEFT_and_RIGHT (d))
     {
@@ -266,8 +266,8 @@ Hairpin::print (SCM smob)
       width = 0;
     }
 
-  bool continued = broken[Direction (-grow_dir)];
-  bool continuing = broken[Direction (grow_dir)];
+  bool continued = broken[-grow_dir];
+  bool continuing = broken[grow_dir];
 
   Real starth = 0;
   Real endh = 0;
@@ -323,7 +323,7 @@ Hairpin::print (SCM smob)
         don't add another circle if the hairpin is broken
       */
       if (!broken[tip_dir])
-        mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0);
+        mol.add_at_edge (X_AXIS, tip_dir, circle, 0);
     }
 
   mol.translate_axis (x_points[LEFT]

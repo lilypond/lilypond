@@ -99,7 +99,7 @@ public:
   /* life & death */
   Grob (SCM basic_props);
   Grob (Grob const &);
-  virtual Grob *clone () const;
+  virtual Grob *clone () const = 0;
 
   /* forced death */
   void suicide ();
@@ -160,8 +160,12 @@ public:
 
   /* refpoints */
   Grob *common_refpoint (Grob const *s, Axis a) const;
-  void set_parent (Grob *e, Axis);
-  Grob *get_parent (Axis a) const;
+  void set_x_parent (Grob *e) { dim_cache_[X_AXIS].parent_ = e; }
+  void set_y_parent (Grob *e) { dim_cache_[Y_AXIS].parent_ = e; }
+  void set_parent (Grob *e, Axis a) { dim_cache_[a].parent_ = e; }
+  Grob *get_x_parent () const { return dim_cache_[X_AXIS].parent_; }
+  Grob *get_y_parent () const { return dim_cache_[Y_AXIS].parent_; }
+  Grob *get_parent (Axis a) const { return dim_cache_[a].parent_; }
   void fixup_refpoint ();
 
   /* vertical ordering */
@@ -173,7 +177,7 @@ public:
   static int get_vertical_axis_group_index (Grob *g);
 
   /* skylines */
-  virtual Interval_t<int> spanned_rank_interval () const;
+  virtual Interval_t<int> spanned_rank_interval () const = 0;
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
   static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis, bool, int, int, bool, bool);

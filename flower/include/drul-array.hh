@@ -60,6 +60,11 @@ struct Drul_array
     array_[0] = t1;
     array_[1] = t2;
   }
+  T delta () const
+  {
+    return at (RIGHT) - at (LEFT);
+  }
+  Real linear_combination (Real x) const;
 };
 
 template<class T>
@@ -70,11 +75,12 @@ scale_drul (Drul_array<T> *dr, T x)
   dr->at (RIGHT) *= x;
 }
 
+template <>
 inline Real
-linear_combination (Drul_array<Real> const &d, Real x)
+Drul_array<Real>::linear_combination (Real x) const
 {
-  return ((1.0 - x) * static_cast<Real> (d.at (LEFT))
-          + (x + 1.0) * static_cast<Real> (d.at (RIGHT))) * 0.5;
+  return ((1.0 - x) * at (LEFT)
+          + (x + 1.0) * at (RIGHT)) * 0.5;
 }
 
 #endif /* DRUL_ARRAY_HH */

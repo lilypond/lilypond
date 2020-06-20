@@ -113,7 +113,7 @@ shrink_extra_weight (Real x, Real fac)
 
 Beam_configuration::Beam_configuration ()
 {
-  y = Interval (0.0, 0.0);
+  y = Drul_array<Real> (0.0, 0.0);
   demerits = 0.0;
   next_scorer_todo = ORIGINAL_DISTANCE;
 }
@@ -134,12 +134,12 @@ void Beam_configuration::add (Real demerit, const string &reason)
 }
 
 unique_ptr<Beam_configuration>
-Beam_configuration::new_config (Interval start,
-                                Interval offset)
+Beam_configuration::new_config (Drul_array<Real> start,
+                                Drul_array<Real> offset)
 {
   unique_ptr<Beam_configuration> qs (new Beam_configuration);
-  qs->y = Interval (int (start[LEFT]) + offset[LEFT],
-                    int (start[RIGHT]) + offset[RIGHT]);
+  qs->y = Drul_array<Real> (int (start[LEFT]) + offset[LEFT],
+                            int (start[RIGHT]) + offset[RIGHT]);
 
   // This orders the sequence so we try combinations closest to the
   // the ideal offset first.
@@ -296,7 +296,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           Beam_stem_end stem_end
             = Beam::calc_stem_y (beams[i], s, common,
                                  x_pos[LEFT], x_pos[RIGHT], CENTER,
-                                 Interval (0, 0), 0);
+                                 Drul_array<Real> (0.0, 0.0), 0);
           Real y = stem_end.stem_y_;
           /* Remark:  French Beaming is irrelevant for beam quanting */
           base_lengths_.push_back (y / staff_space_);
@@ -467,7 +467,7 @@ Beam_scoring_problem::no_visible_stem_positions ()
 {
   if (!head_positions_.size ())
     {
-      unquanted_y_ = Interval (0, 0);
+      unquanted_y_ = Drul_array<Real> (0.0, 0.0);
       return;
     }
 
@@ -488,7 +488,7 @@ Beam_scoring_problem::no_visible_stem_positions ()
            * 0.5 * staff_space_
            + dir * beam_translation_ * (multiplicity.length () + 1);
 
-  unquanted_y_ = Interval (y, y);
+  unquanted_y_ = Drul_array<Real> (y, y);
 }
 
 vsize
@@ -528,8 +528,8 @@ Beam_scoring_problem::least_squares_positions ()
   vsize fnx = first_normal_index ();
   vsize lnx = last_normal_index ();
 
-  Interval ideal (stem_infos_[fnx].ideal_y_ + stem_ypositions_[fnx],
-                  stem_infos_[lnx].ideal_y_ + stem_ypositions_[lnx]);
+  Drul_array<Real> ideal (stem_infos_[fnx].ideal_y_ + stem_ypositions_[fnx],
+                          stem_infos_[lnx].ideal_y_ + stem_ypositions_[lnx]);
 
   Real y = 0;
   Real slope = 0;
@@ -537,8 +537,8 @@ Beam_scoring_problem::least_squares_positions ()
   Real ldy = 0.0;
   if (!ideal.delta ())
     {
-      Interval chord (chord_start_y_[0],
-                      chord_start_y_.back ());
+      Drul_array<Real> chord (chord_start_y_[0],
+                              chord_start_y_.back ());
 
       /* Simple beams (2 stems) on middle line should be allowed to be
          slightly sloped.
@@ -575,7 +575,7 @@ Beam_scoring_problem::least_squares_positions ()
       set_minimum_dy (beam_, &dy);
 
       ldy = dy;
-      unquanted_y_ = Interval (y, (y + dy));
+      unquanted_y_ = Drul_array<Real> (y, (y + dy));
     }
 
   musical_dy_ = ldy;
@@ -910,11 +910,10 @@ Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *s
             /* apply grid shift if quant outside 5-line staff: */
             if ((unquanted_y_[d] + unshifted_quants[i]) * edge_dirs_[d] > 2.5)
               corr[d] = grid_shift * edge_dirs_[d];
-        auto c = Beam_configuration::new_config (unquanted_y_,
-                                                 Interval (unshifted_quants[i]
-                                                           - corr[LEFT],
-                                                           unshifted_quants[j]
-                                                           - corr[RIGHT]));
+        auto c = Beam_configuration::new_config
+          (unquanted_y_,
+           Drul_array<Real> (unshifted_quants[i] - corr[LEFT],
+                             unshifted_quants[j] - corr[RIGHT]));
 
         for (LEFT_and_RIGHT (d))
           {
@@ -969,7 +968,7 @@ Beam_configuration *
 Beam_scoring_problem::force_score (SCM inspect_quants,
                                    const vector<unique_ptr<Beam_configuration>> &configs) const
 {
-  Drul_array<Real> ins = from_scm<Interval> (inspect_quants);
+  Drul_array<Real> ins = from_scm<Drul_array<Real>> (inspect_quants);
   Real mindist = 1e6;
   Beam_configuration *best = NULL;
   for (vsize i = 0; i < configs.size (); i++)
@@ -1050,7 +1049,7 @@ Beam_scoring_problem::solve () const
         }
     }
 
-  Interval final_positions = best->y;
+  Drul_array<Real> final_positions = best->y;
 
 #if DEBUG_BEAM_SCORING
   if (debug)

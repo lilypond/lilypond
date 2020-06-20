@@ -46,31 +46,18 @@ since the program was born.
 @end itemize
 
 The @q{official} LilyPond Git repository is hosted by the GNU
-Savannah software forge at @uref{http://git.sv.gnu.org}.
-
-Changes made within one contributor's copy of the repository can
-be shared with other contributors using @emph{patches}.  A patch
-is a text file that indicates what changes have been made.
-If a contributor's patch is approved for inclusion (usually
-through the mailing list), someone on the current development team
-will @emph{push} the patch to the official repository.
-
-The Savannah software forge provides two separate interfaces for
-viewing the LilyPond Git repository online:
+Savannah software forge at @uref{https://git.sv.gnu.org}.
+The server provides two separate interfaces for viewing the
+LilyPond Git repository online:
 @uref{http://git.sv.gnu.org/cgit/lilypond.git/, cgit} and
 @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, gitweb}.
 
-@ignore
-The cgit interface should work faster than gitweb
-in most situations, but only gitweb allows you to search through
-the source code using @command{grep}, which you may find useful.
-@end ignore
-
-Git is a complex and powerful tool, but tends to be confusing at
-first, particularly for users not familiar with the command line
-and/or version control systems.  We have created the
-@command{lily-git} graphical user interface to ease this
-difficulty.
+However, the main development takes place at
+@uref{https://gitlab.com/lilypond/lilypond/}, which also hosts the
+project's issues.  Automatic mirroring ensures that @q{important}
+branches (such as @code{master} and @code{stable/*}) are up-to-date
+on the @q{official} repository at GNU Savannah, so you can also base
+your development on a clone from there.
 
 @emph{Compiling} (@q{building}) LilyPond allows developers to see
 how changes to the source code affect the program itself.
@@ -102,25 +89,18 @@ If you are already familiar with typical open-source tools, here's
 what you need to know:
 
 @itemize
-@item @strong{source repository}:
-hosted by GNU savannah.
+@item @strong{@q{official} source repository}:
+hosted by GNU Savannah
 
 @example
-@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
+@uref{https://git.savannah.gnu.org/gitweb/?p=lilypond.git}
 @end example
 
-@item @strong{issue tracker}:
-currently hosted by Sourceforge.
+@item @strong{development platform}:
+hosted by GitLab; also includes the issue tracker (see @ref{Issues})
 
 @example
-@uref{https://sourceforge.net/p/testlilyissues/issues/}
-@end example
-
-@item @strong{patch review}:
-Rietveld -- the collaborative code review tool.
-
-@example
-@uref{https://codereview.appspot.com}
+@uref{https://gitlab.com/lilypond/lilypond/}
 @end example
 
 @item @strong{environment variables}:
@@ -135,12 +115,8 @@ given on @rweb{Contact}.
 @itemize
 @item @code{master}:
 always base your work from this branch, but @strong{never push} directly
-to it.  Patches are always pushed directly to the @code{staging} branch
-instead.
-
-@item @code{staging}:
-always push to this branch after a successful patch review cycle (see
-below).
+to it.  Instead, use GitLab to merge changes after they have passed
+automatic testing (see below).
 
 @item @code{translation}:
 Translators should base their work on this branch only and push any
@@ -168,45 +144,31 @@ after finishing work on a patch or branch:
 
 @enumerate
 @item
-upload it with our custom @code{git-cl} @q{helper-script}; see
-@ref{git-cl}.  In addition to uploading patches to the Google's Rietveld
-code review tool the script will also update the issue tracker (or add a
-new issue as appropriate) so that any reference to the patch is not
-lost.  The current @qq{status} of any patch submitted is always managed
-on the issue tracker; also see @ref{Issues}.
-
-Once submitted the patch will be given a status of @code{Patch-new} and
-will enter the @qq{Patch Countdown}.  More information on this can be
-found in the section @ref{Uploading a patch for review}.
+Commit the changes and create a merge request.  More information on
+this can be found in the section @ref{Uploading a patch for review}.
 
 @item
 Patches are generally tested within 24 hours of submission.  Once
 it has passed the basic tests -- @command{make@tie{}check},
 @command{make}, @command{make@tie{}doc} -- the tracker will be
-updated and the patch's status will change to @code{Patch-review}
+updated and the patch's status will change to @code{Patch::review}
 for other developers to examine.
 
 @item
-Every third day, the @qq{Patch Meister} will examine the issue tracker
-and the Rietveld code review tool for the submitted patch, looking for
-any comments by other developers.  Depending on what has been posted,
-the patch will be either; @qq{moved on} to the next patch status
-(@code{Patch-countdown}); set back to @code{Patch-needs_work}; or if
-more discussion is needed, left at @code{Patch-review}.  In all cases
-the issue tracker (not the Rietveld code review tool) will be updated by
+Every third day, the @qq{Patch Meister} will examine all merge requests
+currently under review, looking for any comments by other developers.
+Depending on what has been posted, the patch will be either; @qq{moved on}
+to the next patch status (@code{Patch::countdown}); set back to
+@code{Patch::needs_work}; or if more discussion is needed, left at
+@code{Patch::review}.  In all cases the merge request will be updated by
 the Patch Meister accordingly.
 
 @item
 Once another three days have passed, any patch that has been given
-@code{Patch-countdown} status will be changed to @code{Patch-push}, the
-issue tracker is updated, and the developer can now push it directly to
-the @code{staging} branch (or email the patch -- created with
-@w{@code{git format-patch}} command -- to one of the other developers
-who can push it for you).
-
-@item
-Automatic scripts run every few hours to merge the @code{staging} branch
-with @code{master}.
+@code{Patch::countdown} status will be changed to @code{Patch::push}, the
+merge request is updated, and the developer can now rebase and merge to
+the @code{master} branch (or ask one of the other developers to merge it
+for you).
 
 @end enumerate
 
@@ -301,12 +263,9 @@ for docs and translations; code patches should almost always go to
 -devel before being pushed).
 
 @item
-Keep track of patches from your contributor.  Either upload them
-to Rietveld yourself, or help+encourage them to upload the patches
-themselves.  When a patch is on Rietveld, it's your responbility
-to get comments for it, and to add a link to the patch to the
-google tracker.  (tag it @qq{patch-new}, or @qq{patch-review} if
-you feel very confident in it)
+Keep track of patches from your contributor.  Either open merge
+requests yourself, or help and encourage them to upload the patches
+themselves.
 
 @item
 Encourage your contributor to review patches, particularly your

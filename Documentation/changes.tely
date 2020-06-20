@@ -63,6 +63,39 @@ which scares away people.
 
 
 @item
+PDF bookmarks are now supported and allow for @code{\tocItem} entries to
+appear in the @q{table of contents} panel of PDF viewers that support it.
+
+@item
+@code{\table-of-contents} now accepts a hierarchical structure;
+@code{\tocItem} entries may optionally take a symbol (like
+@code{\label}) or a dot-separated list of symbols, indicating their
+position in the score’s structure.  A side-effect of that feature
+is that @code{\tocItem} can no longer take a simple string as its
+argument; a @code{\markup} command must be used.
+@example
+\tocItem \markup "Top-level entry"
+\tocItem symbol "Named top-level entry"
+\tocItem symbol.list "Second-level (child) entry"
+@end example
+
+
+@item
+A lyric hyphen may now be repeated at the start of
+a system beginning with a new syllable:
+@lilypond[quote]
+\relative {
+  d'8^( e f e f4) \bar "" \break
+  e4
+}
+\addlyrics {
+  \override LyricHyphen.after-line-breaking = ##t
+  A -- men.
+}
+@end lilypond
+
+
+@item
 CSS-style colors can now be used directly as text strings;
 either with predefined color names (like with the already available
 @code{css-color} function), or with hexadecimal color codes
@@ -198,6 +231,33 @@ used to distinguish between facsimile and editorial accidentals.
   \set suggestAccidentals = #'cautionary
   d4 cis8 b? cis2
 
+}
+@end lilypond
+
+
+@item
+Ottava brackets are now introduced with a single number by default
+(e.g., @q{8} or @q{15}), and printed in bold.  A new
+@code{ottavationMarkups} property has been introduced to modify
+that behavior, with several predefined lists of markups available:
+@lilypond[verbatim,quote]
+\relative c'' {
+  \ottava #1
+  a'2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-simple-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
 }
 @end lilypond
 
@@ -406,6 +466,20 @@ are now available with the @code{SVG} backend.
 @item
 An argument, @code{-dcrop}, has been added, formatting @code{SVG} and
 @code{PDF} output without margins or page-breaks.
+
+@item
+The @code{\note} markup command now takes as its first argument a duration
+instead of a string:
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(style . cross) {
+    \note {4..} #UP
+  }
+  \hspace #2
+  \note {\breve} #0
+}
+@end lilypond
+
 
 @end itemize
 

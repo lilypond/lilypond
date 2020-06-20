@@ -249,8 +249,8 @@ Paper_column_engraver::stop_translation_timestep ()
       Item *elem = items_[i];
       Grob *col = Item::is_non_musical (elem) ? command_column_ : musical_column_;
 
-      if (!elem->get_parent (X_AXIS))
-        elem->set_parent (col, X_AXIS);
+      if (!elem->get_x_parent ())
+        elem->set_x_parent (col);
       if (!unsmob<Grob> (get_object (elem, "axis-group-parent-X")))
         set_object (elem, "axis-group-parent-X", col->self_scm ());
 

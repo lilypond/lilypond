@@ -239,7 +239,8 @@ Ties may be added to a second ending:
 
 @funindex \inStaffSegno
 @cindex repeat, with segno
-@cindex segno, with repeats
+@cindex @q{segno} sign, with repeats
+@cindex sign, segno, with repeats
 
 The @code{\inStaffSegno} command can be used to generate a composite
 bar line incorporating the segno symbol with the appropriate repeat

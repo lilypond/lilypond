@@ -363,8 +363,8 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
             else
               b.control_[j] = Offset (0.0, 0.0);
           }
-        forbidden_attachments.push_back (Offset (b.control_[0]) + Offset (rp, 0));
-        forbidden_attachments.push_back (Offset (b.control_[3]) + Offset (rp, 0));
+        forbidden_attachments.push_back (b.control_[0] + Offset (rp, 0));
+        forbidden_attachments.push_back (b.control_[3] + Offset (rp, 0));
       }
 
   bool too_close = false;

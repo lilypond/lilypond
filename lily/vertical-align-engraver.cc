@@ -130,7 +130,7 @@ bool
 Vertical_align_engraver::qualifies (Grob_info i) const
 {
   return has_interface<Axis_group_interface> (i.grob ())
-         && !i.grob ()->get_parent (Y_AXIS)
+         && !i.grob ()->get_y_parent ()
          && !from_scm<bool> (get_property (i.grob (), "no-alignment"))
          && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
 }
@@ -206,7 +206,7 @@ Vertical_align_engraver::acknowledge_outside_staff (Grob_info i)
           // Claim outside-staff grobs created by engravers in this immediate
           // context.
           if (i.context () == context ())
-            i.grob ()->set_parent (valign_, Y_AXIS);
+            i.grob ()->set_y_parent (valign_);
         }
       else
         {

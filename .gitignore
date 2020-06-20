@@ -24,6 +24,7 @@
 *.signature
 *.stacks
 *.svg
+*.swp
 *.tfm
 *~
 *~*

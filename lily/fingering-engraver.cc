@@ -84,7 +84,7 @@ Fingering_engraver::acknowledge_note_column (Grob_info inf)
   for (vsize i = 0; i < fingerings_.size (); i++)
     {
       Grob *t = fingerings_[i];
-      t->set_parent (inf.grob (), X_AXIS);
+      t->set_x_parent (inf.grob ());
       set_property (t, "X-align-on-main-noteheads", SCM_BOOL_T);
     }
 }

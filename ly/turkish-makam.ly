@@ -20,7 +20,7 @@ Define pitch names
 
 %}
 
-makamPitchNames = #`(
+turkishMakamPitchNames = #`(
   (c . ,(ly:make-pitch -1 0 NATURAL))
   (d . ,(ly:make-pitch -1 1 NATURAL))
   (e . ,(ly:make-pitch -1 2 NATURAL))
@@ -137,14 +137,16 @@ makamPitchNames = #`(
 )
 
 %% Set pitch names.
-pitchnames = \makamPitchNames
-#(ly:parser-set-note-names makamPitchNames)
+#(set! language-pitch-names
+       (append language-pitch-names
+               (list `(turkish-makam . ,turkishMakamPitchNames))))
+\language "turkish-makam"
 
 #(define eksikMirroredSlashedFlat
   (if (defined? 'eksikMirroredSlashedFlat)
   eksikMirroredSlashedFlat #t))
 
-makamGlyphs = #`(
+turkishMakamGlyphs = #`(
        (,TANINI  . "accidentals.doublesharp")
        (,BUYUKMUCENNEB  . "accidentals.sharp.slashslashslash.stemstem")
        (,KUCUK  . "accidentals.sharp.slashslashslash.stem")
@@ -161,6 +163,9 @@ makamGlyphs = #`(
        (,(- TANINI) . "accidentals.flatflat")
 )
 
+#(set! standard-alteration-glyph-name-alist
+       (append turkishMakamGlyphs
+               standard-alteration-glyph-name-alist))
 %{
 
 key signature definitions
@@ -581,11 +586,11 @@ key signature padding pairs
   (("accidentals.sharp.slashslashslash.stemstem" . "accidentals.flat.slashslash") . 0.0)
 )
 
-    \override KeySignature.glyph-name-alist = \makamGlyphs
-    \override Accidental.glyph-name-alist = \makamGlyphs
-    \override AccidentalCautionary.glyph-name-alist = \makamGlyphs
-    \override TrillPitchAccidental.glyph-name-alist = \makamGlyphs
-    \override AmbitusAccidental.glyph-name-alist = \makamGlyphs
+    \override KeySignature.glyph-name-alist = \turkishMakamGlyphs
+    \override Accidental.glyph-name-alist = \turkishMakamGlyphs
+    \override AccidentalCautionary.glyph-name-alist = \turkishMakamGlyphs
+    \override TrillPitchAccidental.glyph-name-alist = \turkishMakamGlyphs
+    \override AmbitusAccidental.glyph-name-alist = \turkishMakamGlyphs
   }
 }
 

@@ -797,14 +797,22 @@ you want those in the first system to be hidden also, use
 >>
 @end lilypond
 
+@funindex keepAliveInterfaces
+
 A staff is considered empty when it contains only multi-measure rests,
-rests, skips, or a combination of these elements.
+rests, skips, or a combination of these elements.  All @emph{other} musical
+objects (that cause a staff not to be considered as empty) are listed in the
+@code{keepAliveInterfaces} context property, as initially set in the
+@file{ly/engraver-init.ly} file.
 
-@cindex ossia
+@funindex remove-empty
+@funindex remove-first
 
-@noindent
-@code{\RemoveAllEmptyStaves} can also be used to create ossia
-sections for a staff.  For details, see @ref{Ossia staves}.
+@code{\RemoveEmptyStaves} and @code{\RemoveAllEmptyStaves} are
+both predefined shortcuts that set such properties as
+@code{remove-empty} and @code{remove-first} for the
+@code{VerticalAxisGroup} object, as explained in
+@ref{Context modification identifiers}.
 
 The @code{Keep_alive_together_engraver} allows groups of staves
 to only be removed together and not individually.  By default,
@@ -827,8 +835,8 @@ context, as explained @ref{Modifying context plug-ins} (see
 @}
 @end example
 
-In the following, staves devoted to wind instruments are
-removed in the second system, while the double bass is not, because
+In the following example, staves devoted to wind instruments are
+removed in the second system; however, the double bass is not, because
 it is part of the larger group of fretted strings, which is playing.
 
 @lilypond
@@ -941,6 +949,97 @@ it is part of the larger group of fretted strings, which is playing.
 >>
 @end lilypond
 
+@cindex divisi staves
+@cindex staves, divisi
+@funindex remove-layer
+
+The @code{Keep_alive_together_engraver} internally uses the
+@code{remove-layer} property of a staff’s @code{VerticalAxisGroup}
+to decide whether to print it or not when it is considered empty.
+That property may also be set directly, in which case it acts as
+a priority index: values closest to zero take precedence over
+higher numbers, and thus staves whose @code{remove-layer} is
+higher will be masked in favor of staves of a lower number.
+
+This is particularly useful for @q{divisi} staves, where some
+individual parts (see @ref{Writing parts}) occasionally need
+to be expanded to more than one staff.
+In the following example, two parts are routed to @emph{three} staves;
+however, all three staves are never printed at the same time:
+
+@itemize
+
+@item
+in the first systems, only a single one of them is shown, as the
+@code{keepAliveInterfaces} property has been set to an empty list -- therefore
+the other two staves are considered empty and thus hidden, regardless of what
+they may contain;
+
+@item
+when that property gets unset (and thus reverts to its default
+setting), it is no longer preventing the two other staves from being
+printed; however, as their @code{remove-layer} setting is lower than
+the single staff’s, these two staves are now printed in its place.
+
+@end itemize
+
+@noindent
+Such substitutions are applied not just to notes, chords and other musical
+events that occur immediately after the new setting, but to the whole system
+where it takes place.
+
+@lilypond[verbatim,papersize=a6]
+\layout {
+  short-indent = 2\cm
+  indent = 3\cm
+  \context {
+    \Staff
+    keepAliveInterfaces = #'()
+  }
+}
+
+violI = {
+  \repeat unfold 24 { d'4 }
+  \once \unset Staff.keepAliveInterfaces
+  <d' g''>2
+  \repeat unfold 14 { d'4 }
+  \bar "|."
+}
+
+violII = {
+  \repeat unfold 24 { g4 }
+  <g d'>2
+  \repeat unfold 14 { g4 }
+  \bar "|."
+}
+
+\new StaffGroup \with { \consists "Keep_alive_together_engraver" } <<
+  \new Staff \with {
+    instrumentName = "Violins"
+    shortInstrumentName = "V I & II"
+    \override VerticalAxisGroup.remove-layer = 2
+  } <<  \violI \\ \violII  >>
+  \new Staff \with {
+    instrumentName = "Violin I"
+    shortInstrumentName = "V I"
+    \RemoveAllEmptyStaves
+    \override VerticalAxisGroup.remove-layer = 1
+  } \violI
+  \new Staff \with {
+    instrumentName = "Violin II"
+    shortInstrumentName = "V II"
+    \RemoveAllEmptyStaves
+    \override VerticalAxisGroup.remove-layer = 1
+  } \violII
+>>
+@end lilypond
+
+@cindex ossia
+
+@code{\RemoveAllEmptyStaves} can also be used to create ossia
+sections for a staff.  For details, see @ref{Ossia staves}.
+
+
 @predefined
 @code{\RemoveEmptyStaves},
 @code{\RemoveAllEmptyStaves}.
@@ -960,8 +1059,12 @@ Notation Reference:
 @ref{Hidden notes},
 @ref{Invisible rests},
 @ref{Visibility of objects},
+@ref{Context modification identifiers},
 @ref{Grouping staves},
 @ref{Modifying context plug-ins}.
+
+Installed Files:
+@file{ly/engraver-init.ly}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -995,12 +1098,23 @@ For the Known issues and warnings associated with
 @node Writing parts
 @subsection Writing parts
 
+@cindex individual parts
+@cindex desk parts
+@cindex section parts
+@cindex parts, individual
+@cindex parts, desk
+@cindex parts, section
+
 This section explains how to prepare parts
 for orchestral or ensemble music, which often
 requires to insert instrument names into the score.
 Methods to quote other voices and to format cue notes
 are also described, as well as a way to contract
 multiple consecutive empty measures in individual parts.
+
+Aditionally, a method for printing @emph{divisi} staves,
+sometimes used in individual or desk parts, can be found in
+@ref{Hiding staves}.
 
 @menu
 * Instrument names::

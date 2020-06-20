@@ -44,7 +44,7 @@ SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
   Grob *rest_grob = unsmob<Grob> (rest);
-  Grob *parent = rest_grob->get_parent (X_AXIS);
+  Grob *parent = rest_grob->get_x_parent ();
 
   /*
     translate REST; we need the result of this translation later on,
@@ -85,8 +85,8 @@ Rest_collision::add_column (Grob *me, Grob *p)
 static bool
 rest_shift_less (Grob *const &r1, Grob *const &r2)
 {
-  Grob *col1 = r1->get_parent (X_AXIS);
-  Grob *col2 = r2->get_parent (X_AXIS);
+  Grob *col1 = r1->get_x_parent ();
+  Grob *col2 = r2->get_x_parent ();
   return Note_column::shift_less (col1, col2);
 }
 

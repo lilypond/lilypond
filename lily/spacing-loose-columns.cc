@@ -40,7 +40,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
     return;
 
   for (vsize i = 0; i < loose_col_count; i++)
-    dynamic_cast<Paper_column *> (posns->loose_cols_[i])->set_system (which);
+    posns->loose_cols_[i]->set_system (which);
 
   for (vsize i = 0; i < loose_col_count; i++)
     {
@@ -134,8 +134,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
         {
           Grob *clique_col = clique[j];
 
-          Paper_column *loose_col = dynamic_cast<Paper_column *> (clique[j]);
-          Paper_column *next_col = dynamic_cast<Paper_column *> (clique[j + 1]);
+          Paper_column *loose_col = clique[j];
+          Paper_column *next_col = clique[j + 1];
 
           Grob *spacing = unsmob<Grob> (get_object (clique_col, "spacing"));
           if (Grob *grace_spacing = unsmob<Grob> (get_object (clique_col, "grace-spacing")))
@@ -198,7 +198,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       Real scale_factor = std::max (0.0, std::min (1.0, (permissible_distance - left_padding - sum_tight_spacing) / (sum_spacing - sum_tight_spacing)));
       for (vsize j = clique.size () - 2; j > 0; j--)
         {
-          Paper_column *clique_col = dynamic_cast<Paper_column *> (clique[j]);
+          Paper_column *clique_col = clique[j];
 
           right_point = finished_right_column->relative_coordinate (common, X_AXIS);
 

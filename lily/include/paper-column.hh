@@ -26,8 +26,17 @@
 
 class Paper_column : public Item
 {
+  /* Columns are sequentially numbered on creation. 0 is the
+   left-most. Columns are created in pairs, so the musical column
+   always add and the non-musical column always has even
+   rank. Typically, the last column created is the musical column
+   beyond the non-musical column that ends the score.
+  */
   int rank_;
-  /// if lines are broken then this column is in #line#
+
+  /* after line breaking, `system_` indicates in which line this
+    column is
+  */
   System *system_;
 
 public:

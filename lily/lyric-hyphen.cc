@@ -25,6 +25,7 @@
 #include "paper-column.hh"
 #include "moment.hh"
 #include "spanner.hh"
+#include "system.hh"
 
 /*
   TODO: should extract hyphen dimensions or hyphen glyph from the
@@ -41,7 +42,8 @@ Lyric_hyphen::print (SCM smob)
 
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
-          == Paper_column::when_mom (bounds[RIGHT]->get_column ())))
+          == Paper_column::when_mom (bounds[RIGHT]->get_column ())
+      && !from_scm<bool> (get_property (me, "after-line-breaking"))))
     return SCM_EOL;
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
@@ -129,20 +131,34 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  Rod r;
+  Rod rod;
   Spanner *sp = dynamic_cast<Spanner *> (me);
+  System *root = get_root_system (me);
+  Drul_array<Item *> bounds (sp->get_bound (LEFT), sp->get_bound (RIGHT));
+  if (!bounds[LEFT] || !bounds[RIGHT])
+    return SCM_UNSPECIFIED;
+  std::vector<Item *> cols (root->broken_col_range (
+    bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
 
-  r.distance_ = from_scm<double> (get_property (me, "minimum-distance"), 0);
+  rod.distance_ = from_scm<double> (get_property (me, "minimum-distance"), 0);
   for (LEFT_and_RIGHT (d))
-    {
-      r.item_drul_[d] = sp->get_bound (d);
-      if (r.item_drul_[d])
-        r.distance_ += -d * r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
-    }
+    rod.item_drul_[d] = bounds[d];
+  rod.distance_ += rod.bounds_protrusion ();
 
-  if (r.item_drul_[LEFT]
-      && r.item_drul_[RIGHT])
-    r.add_to_cols ();
+  if (rod.item_drul_[LEFT]
+      && rod.item_drul_[RIGHT])
+    rod.add_to_cols ();
+
+  if (cols.size () && from_scm<bool> (get_property (me, "after-line-breaking")))
+    {
+      Rod rod_after_break;
+      rod_after_break.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
+      rod_after_break.item_drul_[RIGHT] = bounds[RIGHT];
+      rod_after_break.distance_ = from_scm<double> (get_property (me, "length"), 0.5);
+      rod_after_break.distance_ += from_scm<double> (get_property (me, "padding"), 0.1) * 2;
+      rod_after_break.distance_ += rod_after_break.bounds_protrusion ();
+      rod_after_break.add_to_cols ();
+    }
 
   return SCM_UNSPECIFIED;
 }

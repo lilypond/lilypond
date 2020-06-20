@@ -64,7 +64,7 @@ Dot_column::calc_positioning_done (SCM smob)
   Grob *commonx = me;
   for (vsize i = 0; i < dots.size (); i++)
     {
-      Grob *n = dots[i]->get_parent (Y_AXIS);
+      Grob *n = dots[i]->get_y_parent ();
       commonx = n->common_refpoint (commonx, X_AXIS);
 
       if (Grob *stem = unsmob<Grob> (get_object (n, "stem")))
@@ -158,7 +158,7 @@ Dot_column::calc_positioning_done (SCM smob)
       // Sort dots by stem, then check for dots above the limit for each stem
       vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
-        if (Grob *stem = unsmob<Grob> (get_object (dots[i]->get_parent (Y_AXIS)
+        if (Grob *stem = unsmob<Grob> (get_object (dots[i]->get_y_parent ()
                                        , "stem")))
           for (vsize j = 0; j < parent_stems.size (); j++)
             if (stem == parent_stems[j])
@@ -199,7 +199,7 @@ Dot_column::calc_positioning_done (SCM smob)
       Dot_position dp;
       dp.dot_ = dots[i];
 
-      Grob *note = dots[i]->get_parent (Y_AXIS);
+      Grob *note = dots[i]->get_y_parent ();
       if (note)
         {
           if (has_interface<Note_head> (note))

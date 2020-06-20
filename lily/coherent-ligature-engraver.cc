@@ -108,7 +108,7 @@ Coherent_ligature_engraver::move_related_items_to_column
         continue;
 
 #if 0 /* experimental code to collapse spacing after ligature */
-      Grob *sibling_parent = sibling->get_parent (X_AXIS);
+      Grob *sibling_parent = sibling->get_x_parent ();
       sibling_parent->warning (_f ("Coherent_ligature_engraver: "
                                    "setting `spacing-increment="
                                    "0.01': ptr=%ul", parent));
@@ -116,7 +116,7 @@ Coherent_ligature_engraver::move_related_items_to_column
                                     to_scm (0.01));
 #endif
 
-      sibling->set_parent (target_column, X_AXIS);
+      sibling->set_x_parent (target_column);
       sibling->translate_axis (offset, X_AXIS);
     }
 }
@@ -143,7 +143,7 @@ Coherent_ligature_engraver::collect_accidentals (Spanner *,
 }
 
 void
-compute_delta_pitches (vector<Grob_info> const &primitives)
+calc_delta_pitches (vector<Grob_info> const &primitives)
 {
   int prev_pitch = 0;
   int delta_pitch = 0;
@@ -172,7 +172,7 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
 {
   // compute some commonly needed context info stored as grob
   // properties
-  compute_delta_pitches (primitives);
+  calc_delta_pitches (primitives);
 
   // prepare ligature for typesetting
   build_ligature (ligature, primitives);

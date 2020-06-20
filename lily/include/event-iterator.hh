@@ -23,7 +23,7 @@
 
 #include "simple-music-iterator.hh"
 
-class Event_iterator : public Simple_music_iterator
+class Event_iterator final : public Simple_music_iterator
 {
   OVERRIDE_CLASS_NAME (Event_iterator);
 

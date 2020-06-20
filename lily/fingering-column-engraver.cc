@@ -55,17 +55,19 @@ void
 Fingering_column_engraver::stop_translation_timestep ()
 {
   for (vsize i = 0; i < possibles_.size (); i++)
-    if (!Item::is_non_musical (possibles_[i]))
-      {
-        if (Side_position_interface::get_axis (possibles_[i]) == X_AXIS)
-          {
-            Direction d = from_scm (get_property (possibles_[i], "direction"), CENTER);
-            if (d)
-              scripts_[d].push_back (possibles_[i]);
-            else
-              possibles_[i]->warning ("Cannot add a fingering without a direction.");
-          }
-      }
+    {
+      Grob *item = possibles_[i];
+      if (!Item::is_non_musical (item)
+          && scm_is_true (get_property (item, "stencil"))
+          && Side_position_interface::get_axis (item) == X_AXIS)
+        {
+          Direction d = from_scm (get_property (item, "direction"), CENTER);
+          if (d)
+            scripts_[d].push_back (item);
+          else
+            possibles_[i]->warning ("Cannot add a fingering without a direction.");
+        }
+    }
 
   for (LEFT_and_RIGHT (d))
     {

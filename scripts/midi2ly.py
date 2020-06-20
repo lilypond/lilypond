@@ -26,6 +26,7 @@ TODO:
 '''
 
 import gettext
+import math
 import os
 import sys
 
@@ -120,7 +121,7 @@ class Duration:
                 return global_options.allowed_tuplets[i]
 
         dur = 0; num = 1; den = 1;
-        g = gcd (clocks, clocks_per_1)
+        g = math.gcd (int (clocks), clocks_per_1)
         if g:
             (dur, num) = (clocks_per_1 / g, clocks / g)
         if not dur in self.allowed_durs:
@@ -637,16 +638,6 @@ def unthread_notes (channel):
         channel = todo
 
     return threads
-
-def gcd (a,b):
-    if b == 0:
-        return a
-    c = a
-    while c:
-        c = a % b
-        a = b
-        b = c
-    return a
 
 def dump_skip (skip, clocks):
     return skip + Duration (clocks).dump () + ' '

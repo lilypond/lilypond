@@ -97,7 +97,7 @@ Drum_notes_engraver::process_music ()
               make_script_from_event (p, context (), script,
                                       0);
 
-              p->set_parent (note, Y_AXIS);
+              p->set_y_parent (note);
               Side_position_interface::add_support (p, note);
               scripts_.push_back (p);
             }
@@ -126,9 +126,9 @@ Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
     {
       Grob *e = scripts_[i];
 
-      if (!e->get_parent (X_AXIS)
+      if (!e->get_x_parent ()
           && Side_position_interface::get_axis (e) == Y_AXIS)
-        e->set_parent (inf.grob (), X_AXIS);
+        e->set_x_parent (inf.grob ());
 
       Side_position_interface::add_support (e, inf.grob ());
     }

@@ -2905,7 +2905,8 @@ f'1 \bar "k"
 Further details of this notation are explained in
 @ref{Typesetting Kievan square notation}.
 
-@cindex segno
+@cindex @q{segno} sign
+@cindex sign, @q{segno}
 
 For in-line segno signs, there are three types of bar lines which
 differ in their behavior at line breaks:
@@ -2992,12 +2993,24 @@ when used with a @code{\repeat volta} command, see
 @funindex \defineBarLine
 @cindex bar line, defining
 @cindex defining bar line
+@cindex span bar
+@cindex bar line, between staves
 
 New bar line types can be defined with @code{\defineBarLine}:
 
 @example
 \defineBarLine @var{bartype} #'(@var{end} @var{begin} @var{span})
 @end example
+
+@noindent
+In addition to @var{bartype} (the character string that will
+then be used to refer to that new bar line), it takes three values:
+the first two determine the bar line’s appearance when it occurs at
+a line break, in which case the first and second given glyphs
+are printed respectively at the @var{end} of the system and at
+the @var{begin}ning of the next one.  The third given glyph is
+only relevant in multi-staff systems (see @ref{Grouping staves}),
+where it is used as @var{span} bar, printed between staves.
 
 The @code{\defineBarLine} variables can include the
 @q{empty} string @code{""}, which is equivalent to an invisible
@@ -3031,9 +3044,9 @@ There are currently ten bar line elements available:
 @end lilypond
 
 The @code{"="} bar line provides the double span bar line, used
-in combination with the segno sign.  Do not use it as a standalone
-double thin bar line; here, @code{\bar} @var{"||"} is
-preferred.
+in combination with the segno sign.  Using it as a standalone
+double thin bar line is not recommended; in most cases,
+@code{\bar} @var{"||"} is preferred.
 
 The @code{"-"} sign starts annotations to bar lines which
 are useful to distinguish those with identical appearance
@@ -3070,6 +3083,30 @@ for defining span bars correctly aligned to the main bar lines:
     c1 \bar ":|.-wrong"
     c1 \bar ":|.-right"
     c1
+  }
+  \new Staff \relative c'' {
+    c1
+    c1
+    c1
+  }
+>>
+@end lilypond
+
+New bar line types defined using @code{\defineBarLine} may even,
+in turn, be used in a @emph{second} bar line definition.  Such
+@q{nested} definitions make it possible to use customized glyphs
+in places where it would not be otherwise possible, such as
+system ends:
+
+@lilypond[quote,verbatim]
+\defineBarLine "||-dashEverywhere" #'("!!" "!!" "!!")
+\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" "" "!!")
+
+\new StaffGroup <<
+  \new Staff \relative c'' {
+    c1 \bar "||"
+    c1 \bar "||-advancedDashSpan"
+    c1 \bar "||-advancedDashSpan"
   }
   \new Staff \relative c'' {
     c1
@@ -3451,8 +3488,10 @@ string.
 \mark \markup @{ \box A1 @}
 @end example
 
-@cindex segno
-@cindex coda
+@cindex @q{segno} sign
+@cindex sign, segno
+@cindex @q{coda} sign
+@cindex sign, coda
 @cindex D.S. al Fine
 @cindex fermata
 @cindex music glyph

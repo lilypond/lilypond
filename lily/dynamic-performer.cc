@@ -44,11 +44,11 @@ protected:
 
 private:
   void close_and_enqueue_span ();
-  Real compute_departure_volume (Direction depart_dir,
-                                 Real start_vol,
-                                 Real end_vol,
-                                 Real min_vol,
-                                 Real max_vol);
+  Real calc_departure_volume (Direction depart_dir,
+                              Real start_vol,
+                              Real end_vol,
+                              Real min_vol,
+                              Real max_vol);
   bool drive_state_machine (Direction next_grow_dir);
   // next_vol < 0 means select a target dynamic based on growth direction.
   // return actual next volume (computed if not provided)
@@ -237,11 +237,11 @@ Dynamic_performer::DynamicQueue::set_volume (Real start_vol,
 //
 // The given minimum and maximum volumes are the allowable dynamic range.
 Real
-Dynamic_performer::compute_departure_volume (Direction depart_dir,
-                                             Real start_vol,
-                                             Real end_vol,
-                                             Real min_vol,
-                                             Real max_vol)
+Dynamic_performer::calc_departure_volume (Direction depart_dir,
+                                          Real start_vol,
+                                          Real end_vol,
+                                          Real min_vol,
+                                          Real max_vol)
 {
   if (depart_dir == CENTER)
     return start_vol;
@@ -299,10 +299,10 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
       // direction of growth, choose a reasonable target.
       if ((next_vol < 0) || (depart_dir_ != sign (next_vol - start_vol)))
         {
-          depart_vol = compute_departure_volume (depart_dir_,
-                                                 start_vol, start_vol,
-                                                 depart_queue_.min_target_vol_,
-                                                 depart_queue_.max_target_vol_);
+          depart_vol = calc_departure_volume (depart_dir_,
+                                              start_vol, start_vol,
+                                              depart_queue_.min_target_vol_,
+                                              depart_queue_.max_target_vol_);
         }
 
       depart_queue_.set_volume (start_vol, depart_vol);
@@ -313,10 +313,10 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
     {
       // If the next dynamic is not specified, return to the starting volume.
       const Real return_vol = (next_vol >= 0) ? next_vol : start_vol;
-      Real depart_vol = compute_departure_volume (depart_dir_,
-                                                  start_vol, return_vol,
-                                                  depart_queue_.min_target_vol_,
-                                                  depart_queue_.max_target_vol_);
+      Real depart_vol = calc_departure_volume (depart_dir_,
+                                               start_vol, return_vol,
+                                               depart_queue_.min_target_vol_,
+                                               depart_queue_.max_target_vol_);
       depart_queue_.set_volume (start_vol, depart_vol);
       depart_queue_.clear ();
       return_queue_.set_volume (depart_vol, return_vol);

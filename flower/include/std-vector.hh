@@ -221,6 +221,4 @@ junk_pointers (std::vector<T> &v)
 std::vector<std::string> string_split (std::string str, char c);
 std::string string_join (std::vector<std::string> const &strs, const std::string &infix);
 
-#define ARRAYSIZE(a)  sizeof(a)/sizeof(a[0])
-
 #endif /* STD_VECTOR_HH */

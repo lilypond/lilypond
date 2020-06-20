@@ -22,7 +22,7 @@
 
 #include "music-iterator.hh"
 
-class Simultaneous_music_iterator : public Music_iterator
+class Simultaneous_music_iterator final : public Music_iterator
 {
 public:
   Simultaneous_music_iterator ();
@@ -38,7 +38,6 @@ public:
   void construct_children () override;
   Moment pending_moment () const override;
   void do_quit () override;
-  bool ok () const override;
   bool run_always () const override;
 
 protected:

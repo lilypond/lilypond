@@ -42,50 +42,50 @@
   (let ((path (parse-path (getenv "PATH"))))
     (helper path names)))
 
-(define-public (search-gs)
+(define-public (ly:gs-cli args run-str)
+  (let*
+      ((tmp (make-tmpfile))
+       (tmp-name (port-filename tmp)))
+    (display  run-str tmp)
+    (close-port tmp)
+    (set! args  (append args (list tmp-name)))
+    (ly:system args)
+    (delete-file tmp-name)
+    ))
 
-  ;; must be sure that we don't catch stuff from old GUBs.
-  (search-executable '("gs")))
+(define-public (gs-cmd-args is-eps)
+  (filter string?
+          (list
+           (search-executable '("gs"))
+           (if (not (ly:get-option 'verbose)) "-q")
+           "-dNODISPLAY"
+           "-dNOSAFER"
+           "-dNOPAUSE"
+           "-dBATCH"
+           (if is-eps "-dEPSCrop")
+           "-dAutoRotatePages=/None"
+           "-dPrinted=false")))
 
 (define-public (postscript->pdf paper-width paper-height
                                 base-name tmp-name is-eps)
   (let* ((pdf-name (string-append base-name ".pdf"))
-         (*unspecified* (if #f #f))
-         (gs-cmd
-          (remove (lambda (x) (eq? x *unspecified*))
-                  (list
-                   (search-gs)
-                   (if (ly:get-option 'verbose) *unspecified* "-q")
-                   (if (or (ly:get-option 'gs-load-fonts)
-                           (ly:get-option 'gs-load-lily-fonts)
-                           (eq? PLATFORM 'windows))
-                       "-dNOSAFER"
-                       "-dSAFER")
-                   "-dNOPAUSE"
-                   "-dBATCH")))
-         (args
-          (remove (lambda (x) (eq? x *unspecified*))
-                  (list
-                   (if is-eps
-                       "-dEPSCrop"
-                       (ly:format "-dDEVICEWIDTHPOINTS=~$" paper-width))
-                   (if is-eps
-                       *unspecified*
-                       (ly:format "-dDEVICEHEIGHTPOINTS=~$" paper-height))
-                   "-dAutoRotatePages=/None"
-                   "-dPrinted=false")))
          (output-file (string-join (string-split pdf-name #\%) "%%"))
-         (gs-cmd-output
-          (list
-           "-sDEVICE=pdfwrite"
-           (string-append "-sOutputFile=" output-file)
-           "-c.setpdfwrite"
-           (string-append "-f" tmp-name))))
+         (run-strings
+          (filter string?
+                  (list
+                   (ly:format "mark /OutputFile (~a)" output-file)
+                   (if (not is-eps)
+                       (ly:format "/PageSize [~$ ~$]" paper-width paper-height))
+                   "(pdfwrite) finddevice putdeviceprops setdevice"
+                   ;; from Resource/Init/gs_pdfwr.ps; needed here because we
+                   ;; do not have the pdfwrite device initially (-dNODISPLAY).
+                   "newpath fill"
+                   (ly:format "(~a) run" tmp-name)))
+          ))
 
     (ly:message (_ "Converting to `~a'...\n") pdf-name)
-    (if (ly:get-option 'gs-api)
-        (ly:gs args "pdfwrite" "" tmp-name output-file)
-        (ly:system (append gs-cmd (append args gs-cmd-output))))))
+    ((if (ly:get-option 'gs-api) ly:gs-api ly:gs-cli)
+      (gs-cmd-args is-eps) (string-join run-strings " "))))
 
 (define-public (postscript->png resolution paper-width paper-height
                                 base-name tmp-name is-eps)

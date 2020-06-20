@@ -33,9 +33,11 @@
    No invariants.  T must be a totally ordered ring (with division, anyway ..)
    At instantiation, the function infinity () has to be defined explicitly. */
 template<class T>
-struct Interval_t : public Drul_array<T>
+struct Interval_t : private Drul_array<T>
 {
   using Drul_array<T>::at;
+  using Drul_array<T>::operator [];
+  using Drul_array<T>::linear_combination;
 
   template <typename T2>
   Interval_t (Interval_t<T2> const &src) : Interval_t (src[LEFT], src[RIGHT])
@@ -77,8 +79,6 @@ struct Interval_t : public Drul_array<T>
   }
   T length () const;
 
-  // Returns RIGHT - LEFT, even if the interval is empty.
-  T delta () const;
   void set_empty ();
   void set_full ();
 
@@ -149,7 +149,6 @@ struct Interval_t : public Drul_array<T>
     return *this;
   }
 
-  Real linear_combination (Real x) const;
   std::string to_string () const;
 
   bool contains (T r) const;

@@ -51,14 +51,14 @@ using std::vector;
 
 Real QUANTIZATION_UNIT = 0.2;
 
-void make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
-                                 Transform const &transform, Offset rad,
-                                 Real start, Real end, Real th, bool connect,
-                                 bool fill);
+void add_partial_ellipse_segments (Lazy_skyline_pair *skyline,
+                                   Transform const &transform, Offset rad,
+                                   Real start, Real end, Real th, bool connect,
+                                   bool fill);
 
-void make_draw_bezier_boxes (Lazy_skyline_pair *skyline,
-                             Transform const &transform, Real,
-                             Offset control[4]);
+void add_draw_bezier_segments (Lazy_skyline_pair *skyline,
+                               Transform const &transform, Real,
+                               Offset control[4]);
 
 //// UTILITY FUNCTIONS
 
@@ -112,8 +112,8 @@ get_path_list (SCM l)
 //// END UTILITY FUNCTIONS
 
 void
-make_draw_line_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
-                      SCM expr)
+add_draw_line_segments (Lazy_skyline_pair *skyline, Transform const &transform,
+                        SCM expr)
 {
   Real thick = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -132,8 +132,8 @@ make_draw_line_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
 }
 
 void
-make_partial_ellipse_boxes_scm (Lazy_skyline_pair *skyline,
-                                Transform const &transform, SCM expr)
+add_partial_ellipse_segments_scm (Lazy_skyline_pair *skyline,
+                                  Transform const &transform, SCM expr)
 {
   Real x_rad = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -149,14 +149,15 @@ make_partial_ellipse_boxes_scm (Lazy_skyline_pair *skyline,
   bool connect = from_scm<bool> (scm_car (expr));
   expr = scm_cdr (expr);
   bool fill = from_scm<bool> (scm_car (expr));
-  make_partial_ellipse_boxes (skyline, transform, rad, start, end, th, connect,
-                              fill);
+  add_partial_ellipse_segments (skyline, transform, rad, start, end, th,
+                                connect, fill);
 }
 
 void
-make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
-                            Transform const &transform, Offset rad, Real start,
-                            Real end, Real th, bool connect, bool fill)
+add_partial_ellipse_segments (Lazy_skyline_pair *skyline,
+                              Transform const &transform, Offset rad,
+                              Real start, Real end, Real th, bool connect,
+                              bool fill)
 {
   if (end == start)
     end += 360;
@@ -189,8 +190,8 @@ make_partial_ellipse_boxes (Lazy_skyline_pair *skyline,
 }
 
 void
-make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
-                             Transform const &transform, SCM expr)
+add_round_filled_box_segments (Lazy_skyline_pair *skyline,
+                               Transform const &transform, SCM expr)
 {
   Real left = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -236,7 +237,7 @@ make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
         Offset (right, top - radius),     Offset (right, -bottom + radius),
         Offset (right - radius, -bottom), Offset (-left + radius, -bottom),
       };
-      for (vsize i = 0; i < ARRAYSIZE (points); i += 2)
+      for (vsize i = 0; i < sizeof(points) / sizeof(Offset); i += 2)
         {
           skyline->add_contour_segment (transform, CW, points[i],
                                         points[i + 1]);
@@ -245,7 +246,7 @@ make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
       /* draw rounded corners */
       if (radius)
         {
-          Offset rad (radius, 0);
+          Offset rad (radius, radius);
           Drul_array<Real> cx;
           Drul_array<Real> cy;
 
@@ -278,8 +279,8 @@ make_round_filled_box_boxes (Lazy_skyline_pair *skyline,
 }
 
 void
-make_draw_bezier_boxes_scm (Lazy_skyline_pair *skyline,
-                            Transform const &transform, SCM expr)
+add_draw_bezier_segments_scm (Lazy_skyline_pair *skyline,
+                              Transform const &transform, SCM expr)
 {
   Real th = from_scm<double> (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -305,12 +306,13 @@ make_draw_bezier_boxes_scm (Lazy_skyline_pair *skyline,
     Offset (x2, y2),
     Offset (x3, y3),
   };
-  make_draw_bezier_boxes (skyline, transform, th, ps);
+  add_draw_bezier_segments (skyline, transform, th, ps);
 }
 
 void
-make_draw_bezier_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
-                        Real th, Offset control[4])
+add_draw_bezier_segments (Lazy_skyline_pair *skyline,
+                          Transform const &transform, Real th,
+                          Offset control[4])
 {
   Bezier curve;
 
@@ -485,8 +487,8 @@ all_commands_to_absolute_and_group (SCM expr)
 }
 
 void
-internal_make_path_boxes (Lazy_skyline_pair *skyline,
-                          Transform const &transform, SCM expr)
+internal_add_path_segments (Lazy_skyline_pair *skyline,
+                            Transform const &transform, SCM expr)
 {
   SCM blot = scm_car (expr);
   expr = scm_cdr (expr);
@@ -496,25 +498,25 @@ internal_make_path_boxes (Lazy_skyline_pair *skyline,
   for (SCM s = path; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_to_int (scm_length (scm_car (s))) == 4
-        ? make_draw_line_boxes (skyline, transform,
-                                scm_cons (blot, scm_car (s)))
-        : make_draw_bezier_boxes_scm (skyline, transform,
-                                      scm_cons (blot, scm_car (s)));
+        ? add_draw_line_segments (skyline, transform,
+                                  scm_cons (blot, scm_car (s)))
+        : add_draw_bezier_segments_scm (skyline, transform,
+                                        scm_cons (blot, scm_car (s)));
     }
 }
 
 void
-make_path_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
-                 SCM expr)
+add_path_segments (Lazy_skyline_pair *skyline, Transform const &transform,
+                   SCM expr)
 {
-  return internal_make_path_boxes (
+  return internal_add_path_segments (
     skyline, transform,
     scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))));
 }
 
 void
-make_polygon_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
-                    SCM expr)
+add_polygon_segments (Lazy_skyline_pair *skyline, Transform const &transform,
+                      SCM expr)
 {
   SCM coords = get_number_list (scm_car (expr));
   expr = scm_cdr (expr);
@@ -530,13 +532,13 @@ make_polygon_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
       first = false;
     }
   l = scm_cons (ly_symbol2scm ("closepath"), l);
-  internal_make_path_boxes (
+  internal_add_path_segments (
     skyline, transform, scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)));
 }
 
 void
-make_named_glyph_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
-                        SCM expr)
+add_named_glyph_segments (Lazy_skyline_pair *skyline,
+                          Transform const &transform, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -567,8 +569,8 @@ make_named_glyph_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
 }
 
 void
-make_glyph_string_boxes (Lazy_skyline_pair *skyline, Transform const &transform,
-                         SCM expr)
+add_glyph_string_segments (Lazy_skyline_pair *skyline,
+                           Transform const &transform, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -710,7 +712,7 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
   else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))
     interpret_stencil_for_skyline (skyline, transform, scm_cadr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("draw-line")))
-    make_draw_line_boxes (skyline, transform, scm_cdr (expr));
+    add_draw_line_segments (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("dashed-line")))
     {
       expr = scm_cdr (expr);
@@ -733,8 +735,8 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
       Real rad = from_scm<double> (scm_car (expr), 0);
       expr = scm_cdr (expr);
       Real th = from_scm<double> (scm_car (expr), 0);
-      make_partial_ellipse_boxes (skyline, transform, Offset (rad, rad), 0.0,
-                                  360.0, th, false, true);
+      add_partial_ellipse_segments (skyline, transform, Offset (rad, rad), 0.0,
+                                    360.0, th, false, true);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("ellipse")))
     {
@@ -746,21 +748,21 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
 
       expr = scm_cdr (expr);
       Real th = from_scm<double> (scm_car (expr), 0);
-      make_partial_ellipse_boxes (skyline, transform, Offset (x_rad, y_rad), 0,
-                                  360, th, false, true);
+      add_partial_ellipse_segments (skyline, transform, Offset (x_rad, y_rad),
+                                    0, 360, th, false, true);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("partial-ellipse")))
-    make_partial_ellipse_boxes_scm (skyline, transform, scm_cdr (expr));
+    add_partial_ellipse_segments_scm (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("round-filled-box")))
-    make_round_filled_box_boxes (skyline, transform, scm_cdr (expr));
+    add_round_filled_box_segments (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("named-glyph")))
-    make_named_glyph_boxes (skyline, transform, scm_cdr (expr));
+    add_named_glyph_segments (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("polygon")))
-    make_polygon_boxes (skyline, transform, scm_cdr (expr));
+    add_polygon_segments (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("path")))
-    make_path_boxes (skyline, transform, scm_cdr (expr));
+    add_path_segments (skyline, transform, scm_cdr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("glyph-string")))
-    make_glyph_string_boxes (skyline, transform, scm_cdr (expr));
+    add_glyph_string_segments (skyline, transform, scm_cdr (expr));
   else
     {
       /*
@@ -836,13 +838,14 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
   return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, from_scm<bool> (get_property (me, "cross-staff")));
 }
 
-SCM
-Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
+Skyline_pair
+skylines_from_stencil (SCM sten, SCM rot, Axis a)
 {
   Stencil *s = unsmob<Stencil> (sten);
 
+  Lazy_skyline_pair lazy (a);
   if (!s)
-    return Skyline_pair ().smobbed_copy ();
+    return lazy.to_pair ();
 
   Stencil maybe_rotated (*s);
   if (scm_is_pair (rot))
@@ -856,15 +859,9 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, SCM rot, Axis a)
       maybe_rotated.rotate_degrees (angle, Offset (x, y));
     }
 
-  Lazy_skyline_pair lazy (a);
   interpret_stencil_for_skyline (&lazy, Transform::identity,
                                  maybe_rotated.expr ());
-
-  Skyline_pair out;
-  for (DOWN_and_UP (d))
-    out[d] = lazy.to_pair ()[d].padded (pad);
-
-  return out.smobbed_copy ();
+  return lazy.to_pair ();
 }
 
 MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_stencil, 1);
@@ -872,11 +869,11 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0);
-  SCM rot = get_property (me, "rotation");
-  SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
-                                            pad, rot, X_AXIS);
-  return out;
+  Skyline_pair p (skylines_from_stencil (
+    get_property (me, "stencil"), get_property (me, "rotation"), X_AXIS));
+  p.pad (
+    from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0));
+  return p.smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_stencil, 1);
@@ -884,18 +881,15 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Real pad = from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0);
-  SCM rot = get_property (me, "rotation");
-  SCM out = Stencil::skylines_from_stencil (get_property (me, "stencil"),
-                                            pad, rot, Y_AXIS);
-
-  return out;
+  Skyline_pair p = skylines_from_stencil (
+    get_property (me, "stencil"), get_property (me, "rotation"), Y_AXIS);
+  p.pad (from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0));
+  return p.smobbed_copy ();
 }
 
 SCM
 Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int beg, int end)
 {
-
   extract_grob_set (me, "elements", elts);
   vector<Real> x_pos;
   vector<Real> y_pos;
@@ -919,7 +913,7 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
             Here, copying is essential.  Otherwise, the skyline pair will
             get doubly shifted!
           */
-          Skyline_pair copy = Skyline_pair (*skyp);
+          Skyline_pair copy (*skyp);
           /*
             It took Mike about 6 months of his life to flip the
             coordinates below.  This is what was causing the problems

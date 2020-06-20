@@ -328,21 +328,16 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   for (vsize i = 0; i < right_objects_.size (); i++)
     Side_position_interface::add_support (a, right_objects_[i]);
 
-  a->set_parent (note_head, Y_AXIS);
+  a->set_y_parent (note_head);
 
   if (!accidental_placement_)
     accidental_placement_ = make_item ("AccidentalPlacement",
                                        a->self_scm ());
 
-  // FIXME: We should get a proper hash based on the pointer. We cannot use
-  // intptr_t because it is optional and not portable. Truncation to long
-  // (see call to Accidental_placement::add_accidental) seems to work for now
-  // but may break in subtle corner cases.
-  intmax_t context_hash = reinterpret_cast<intmax_t>(trans);
   Accidental_placement::add_accidental
   (accidental_placement_, a,
    scm_is_eq (get_property (this, "accidentalGrouping"), ly_symbol2scm ("voice")),
-   static_cast<long>(context_hash));
+   trans);
 
   set_object (note_head, "accidental-grob", a->self_scm ());
 
@@ -360,7 +355,7 @@ Accidental_engraver::make_suggested_accidental (Stream_event * /* note */,
   if (Grob *stem = unsmob<Grob> (get_object (a, "stem")))
     Side_position_interface::add_support (a, stem);
 
-  a->set_parent (note_head, X_AXIS);
+  a->set_x_parent (note_head);
   return a;
 }
 

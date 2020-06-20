@@ -520,9 +520,11 @@ Beam::calc_beam_segments (SCM smob)
                     {
                       Grob *stem = stems[seg.stem_index_];
                       Drul_array<Real> beamlet_length
-                        = from_scm (get_property (stem, "beamlet-default-length"), Interval (1.1, 1.1));
+                        = from_scm (get_property (stem, "beamlet-default-length"),
+                                    Drul_array<Real> (1.1, 1.1));
                       Drul_array<Real> max_proportion
-                        = from_scm (get_property (stem, "beamlet-max-length-proportion"), Interval (0.75, 0.75));
+                        = from_scm (get_property (stem, "beamlet-max-length-proportion"),
+                                    Drul_array<Real> (0.75, 0.75));
                       Real length = beamlet_length[seg.dir_];
 
                       if (inside_stem)
@@ -656,11 +658,11 @@ Beam::print (SCM grob)
 
   SCM posns = get_property (me, "quantized-positions");
   Interval span = from_scm (get_property (me, "X-positions"), Interval (0, 0));
-  Interval pos;
+  Drul_array<Real> pos;
   if (!is_number_pair (posns))
     {
       programming_error ("no beam positions?");
-      pos = Interval (0, 0);
+      pos = Drul_array<Real> (0.0, 0.0);
     }
   else
     pos = from_scm<Drul_array<Real>> (posns);
@@ -1035,7 +1037,7 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
   Real relx = dx ? (stem->relative_coordinate (common[X_AXIS], X_AXIS) - xl) / dx : 0;
   Real xdir = 2 * relx - 1;
 
-  Real stem_y = linear_combination (pos, xdir);
+  Real stem_y = pos.linear_combination (xdir);
 
   Slice beam_slice = Stem::beam_multiplicity (stem);
   if (beam_slice.is_empty ())

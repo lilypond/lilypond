@@ -242,23 +242,25 @@ to_scm<size_t> (size_t i)
   return scm_from_size_t (i);
 }
 
-template <> inline bool
-is_scm<unsigned> (SCM s)
+// The following specializations for unsigned are declared inside
+// scm_conversions<unsigned> because on 32 bit targets, unsigned
+// and size_t are the  same type. Having multiple definitions is
+// an error, but implementing an unused fallback is ok.
+template <>
+struct scm_conversions <unsigned>
 {
-  return scm_is_unsigned_integer (s,
-                                  std::numeric_limits<unsigned>::min (),
-                                  std::numeric_limits<unsigned>::max ());
-}
-template <> inline unsigned
-from_scm<unsigned> (SCM s)
-{
-  return scm_to_uint (s);
-}
-template <> inline SCM
-to_scm<unsigned> (unsigned i)
-{
-  return scm_from_uint (i);
-}
+  static bool is_scm (SCM s) {
+    return scm_is_unsigned_integer (s,
+                                    std::numeric_limits<unsigned>::min (),
+                                    std::numeric_limits<unsigned>::max ());
+  }
+  static unsigned from_scm (SCM s) { return scm_to_uint (s); }
+  static unsigned from_scm (SCM s, unsigned fallback)
+  {
+    return is_scm (s) ? from_scm (s) : fallback;
+  }
+  static SCM to_scm (unsigned i) { return scm_from_uint (i); }
+};
 
 template <> inline bool
 is_scm<long> (SCM s)

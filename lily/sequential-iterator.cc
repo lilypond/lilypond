@@ -239,6 +239,9 @@ Sequential_iterator::process (Moment until)
 Moment
 Sequential_iterator::pending_moment () const
 {
+  if (!iter_)
+    return Moment (Rational::infinity ());
+
   Moment cp = iter_->pending_moment ();
 
   /*
@@ -253,12 +256,6 @@ Sequential_iterator::pending_moment () const
     Fix-up a grace note at  the start of the music.
   */
   return cp + here_mom_ - iter_->music_start_mom ();
-}
-
-bool
-Sequential_iterator::ok () const
-{
-  return iter_;
 }
 
 IMPLEMENT_CTOR_CALLBACK (Sequential_iterator);

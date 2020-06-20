@@ -36,6 +36,10 @@ HelmakamGlyphs = #'(
   (-1 . "accidentals.flatflat")
 )
 
+#(set! standard-alteration-glyph-name-alist
+       (append HelmakamGlyphs
+               standard-alteration-glyph-name-alist))
+
 \layout {
   \context {
     \Score

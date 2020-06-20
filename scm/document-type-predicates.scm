@@ -33,11 +33,12 @@
        (else (cdr entry)))
      "\n")))
 
-(define (document-type-predicate-category alist nodename)
+(define (document-type-predicate-category alist nodename description)
   (string-append
    "@node " nodename "\n"
    "@unnumberedsubsec " nodename "\n"
-   "\n"
+   "\n\n"
+   description "\n\n"
    "@multitable @columnfractions .33 .66\n"
    "@headitem Type predicate @tab Description\n"
    (string-concatenate
@@ -48,6 +49,8 @@
 
 (define-public type-predicates-doc-string
   (string-append
+   "Predicates return @code{#t} when their argument is of the named type
+and @code{#f} if it isn't.\n\n"
    "@menu\n"
    "* R5RS primary predicates::\n"
    "* R5RS secondary predicates::\n"
@@ -61,8 +64,22 @@
      (lambda (alist-nodename-list)
        (apply document-type-predicate-category
               alist-nodename-list))
-     `((,r5rs-primary-predicates "R5RS primary predicates")
-       (,r5rs-secondary-predicates "R5RS secondary predicates")
-       (,guile-predicates "Guile predicates")
-       (,lilypond-scheme-predicates "LilyPond scheme predicates")
-       (,lilypond-exported-predicates "LilyPond exported predicates"))))))
+     `((,r5rs-primary-predicates
+        "R5RS primary predicates"
+        "Primary predicates can be applied to any expression.  They can
+be used on their own as predicates for LilyPond functions.
+The predicates here are part of the Scheme standard R5RS.")
+       (,r5rs-secondary-predicates
+        "R5RS secondary predicates"
+        "Secondary predicates are only applicable to specific expressions
+(for example, to numbers).  They will throw a type error when applied to expressions
+they are not intended for.  The predicates here are part of the Scheme standard R5RS.")
+       (,guile-predicates
+        "Guile predicates"
+        "These predicates are defined by Guile but are not part of a Scheme standard.")
+       (,lilypond-scheme-predicates
+        "LilyPond scheme predicates"
+        "These predicates are only available within LilyPond and defined in Scheme.")
+       (,lilypond-exported-predicates
+        "LilyPond exported predicates"
+        "These predicates are only available within LilyPond and usually defined in C++."))))))

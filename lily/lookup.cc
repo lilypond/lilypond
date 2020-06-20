@@ -167,9 +167,9 @@ Lookup::filled_box (Box b)
 Stencil
 Lookup::round_filled_box (Box b, Real blotdiameter)
 {
-  Real width = b.x ().delta ();
+  Real width = b.x ().length ();
   blotdiameter = std::min (blotdiameter, width);
-  Real height = b.y ().delta ();
+  Real height = b.y ().length ();
   blotdiameter = std::min (blotdiameter, height);
 
   if (blotdiameter < 0.0)

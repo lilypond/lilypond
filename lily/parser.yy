@@ -29,6 +29,9 @@
 
 %{
 
+// generated code contains some useless casts
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+
 #define yyerror Lily_parser::parser_error
 
 /* We use custom location type: Input objects */
@@ -92,13 +95,8 @@ or
 
 %left PREC_TOP
 
-
-
-
-%pure-parser
+%define api.pure full
 %locations
-
-
 
 %{ // -*-Fundamental-*-
 

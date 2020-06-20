@@ -4,14 +4,13 @@
 @node Working with source code
 @chapter Working with source code
 
-@warning{New contributors should read @ref{Quick start}, and in
-particular @ref{lily-git}, instead of this chapter.}
+@warning{New contributors should read @ref{Quick start}
+instead of this chapter.}
 
 Advanced contributors will find this material quite useful,
 particularly if they are working on major new features.
 
 @menu
-* Manually installing lily-git.tcl::
 * Starting with Git::
 * Basic Git procedures::
 * Advanced Git procedures::
@@ -21,92 +20,8 @@ particularly if they are working on major new features.
 @end menu
 
 
-@node Manually installing lily-git.tcl
-@section Manually installing lily-git.tcl
-
-We have created an easy-to-use GUI to simplify git for new
-contributors.  If you are comfortable with the command-line, then
-skip ahead to @ref{Starting with Git}.
-
-@warning{These instructions are only for people who are @emph{not}
-using @ref{LilyDev}.}
-
-@c there's some duplication in this section with stuff covered in
-@c Quick Start, but moving it into a macro inside included/ would
-@c be getting a bit icky.  -gp
-
-@enumerate
-@item
-If you haven't already, download and install Git.
-
-@itemize
-
-@item Windows users: download the @code{.exe} file labeled
-@qq{Full installer for official Git} from:
-
-@example
-@uref{https://git-for-windows.github.io/}
-@end example
-
-@item Other operating systems: either install @command{git} with
-your package manager, or download it from the @qq{Binaries}
-section of:
-
-@example
-@uref{http://git-scm.com/download}
-@end example
-
-@end itemize
-
-
-@item
-Download the @command{lily-git.tcl} script from:
-
-@c don't change the cgit link below to gitweb; gitweb uses
-@c long filenames like "scripts_auxiliar_lily-git.tcl"
-
-@smallexample
-@uref{http://git.sv.gnu.org/cgit/lilypond.git/plain/scripts/auxiliar/lily-git.tcl}
-@end smallexample
-
-@item
-To run the program from the command line, navigate to the
-directory containing @command{lily-git.tcl} and enter:
-
-@example
-wish lily-git.tcl
-@end example
-
-@item
-Click on the @qq{Get source} button.
-
-This will create a directory called @file{lilypond-git/} within
-your home directory, and will download the source code into that
-directory (around 150@tie{}Mb).  When the process is finished, the
-@qq{Command output} window will display @qq{Done}, and the button
-label will change to say @qq{Update source}.
-
-@item
-Navigate to the @file{lilypond-git/} directory to view the source
-files.
-
-@end enumerate
-
-@warning{Throughout the rest of this manual, most command-line
-input should be entered from @file{$LILYPOND_GIT}.  This is
-referred to as the @emph{top source directory}.}
-
-Further instructions are in @ref{How to use lily-git}.
-
-
 @node Starting with Git
 @section Starting with Git
-
-Using the Git program directly (as opposed to using the
-@command{lily-git.tcl} GUI) allows you to have much greater control
-over the contributing process.  You should consider using Git if
-you want to work on complex projects, or if you want to work on
-multiple projects concurrently.
 
 
 @menu
@@ -280,13 +195,11 @@ soon as possible.  If you want to learn about git, go read
 @ref{Other Git documentation}.
 @*
 Also, these instructions are designed to eliminate the most common
-problems we have found in using git.  If you already know git and
+problems we have found in using git.  If you already know Git and
 have a different way of working, great!  Feel free to ignore the
 advice in this subsection.}
 
-
-Ok, so you've been using @command{lily-git.tcl} for a while, but
-it's time to take the next step.  Since our review process delays
+Since our review process delays
 patches by 60-120 hours, and you want to be able to work on other
 stuff while your previous work is getting reviewed, you're going
 to use @strong{branches}.
@@ -333,7 +246,6 @@ Switching branches is easy:
 
 @example
 git checkout master
-git checkout origin/staging
 git checkout origin/release/unstable
 git checkout dev/cg
 @end example
@@ -342,8 +254,8 @@ Branches that begin with @code{origin/} are part of the remote repository,
 rather than your local repository, so when you check them out you get a 
 temporary local branch.  You should never make changes directly on a
 branch beginning with @code{origin/}.  You get changes into the remote
-repository by making them in local branches, and then pushing them to
-@code{origin/staging} as described below. 
+repository by making them in local branches, and then @ref{Merging to
+master}.
 
 @subsubheading Make your changes
 
@@ -424,8 +336,10 @@ Make sure that you're on your branch, then upload:
 
 @example
 git checkout dev/cg
-git-cl upload master
+git push ...
 @end example
+
+Afterwards create a merge request to indicate the branch is ready for review.
 
 
 @subsubheading Wait for reviews
@@ -461,59 +375,24 @@ work.  Make a backup of your commits by saving them to
 your work, don't despair.  You can get it back by using @code{git reflog}.
 The use of @code{git reflog} is not covered here.}
 
-@warning{If any of the commits on your branch represent partial work that will
-not pass @var{make && make doc}, you @strong{must} squash these 
-commits into a working commit.  Otherwise, your push will break staging
-and will not be able to be merged to master.  In general, you will
-be safer to have one commit per push.}
+@warning{If any of the commits on your branch represents partial
+work that will not pass @var{make && make doc}, you @strong{must}
+squash these commits into a working commit.  Otherwise, your push
+will break automatic testing and will not be able to be merged to
+@code{master}.  In general, you will be safer to have one commit
+per push.}
 
 
-@subsubheading Push to staging
+@subsubheading Merge to master
 
-When you've got the coveted @code{Patch-push} status, time to
-prepare your upload:
-
-@example
-git fetch
-git rebase origin/staging dev/cg~0
-gitk HEAD
-@end example
-
-@warning{Do not skip the @command{gitk} step; a quick 5-second
-check of the visual history can save a great deal of frustration
-later on.  You should see a set of your commits that are ahead of
-@code{origin/staging}, with no label for the top commit -- only a
-SHA1 id.}
-
-@warning{If @code{origin/staging} and @code{origin/master} are the
-same commit, your branch (@code{dev/cg} in the example) will also
-be at the top of the @code{gitk} tree.  This is normal.}
-
-If everything looks good, push it:
-
-@example
-git push origin HEAD:staging
-@end example
-
-Then change back to your working branch:
-
-@example
-git checkout dev/cg
-@end example
-
-@warning{It is a best practice to avoid rebasing any of your branches
-to @code{origin/staging}.  If @code{origin/staging} is broken, it
-will be deleted and rebuilt.  If you have rebased one of your branches
-to @code{origin/staging}, the broken commits can end up in your branch.
-The commands given above do the rebase on a temporary branch, and avoid
-changing your working branch.}
+When you've got the coveted @code{Patch::push} status, time to
+merge your changes as described in @ref{Merging to master}.
 
 
-@subsubheading Delete your branch (safe)
+@subsubheading Delete your branch
 
-After a few hours, if there's nothing wrong with your branch, it
-should be automatically moved to @code{origin/master}.  Update,
-then try removing your branch:
+After the merge request has passed testing and was merged to
+@code{master}, you can update and then try removing your branch:
 
 @example
 git checkout master
@@ -521,18 +400,12 @@ git pull -r origin master
 git branch -d dev/cg
 @end example
 
-The last command will fail if the contents of @code{dev/cg} are
-not present in @code{origin/master}.
-
-
-@subsubheading Delete your branch (UNSAFE)
-
-@c don't give explicit commands here -- this is too dangerous to copy and paste
-Sometimes everything goes wrong.  If you want to remove a branch even though 
-it will cause your work to be lost (that is, if the contents of @code{dev/cg}
-are @strong{not} present in master), follow the instructions in @qq{Delete
-your branch (safe)}, but replace the @code{-d} on the final line with 
-a @code{-D}.
+The last command will fail if the commit hashes of @code{dev/cg}
+are not present in @code{origin/master}.  This can be because
+you used GitLab to rebase your branch, which modifies the commit
+data and changes the hash.  If you are sure that the branch is not
+needed anymore, replace the @code{-d} on the final line with a
+@code{-D} instead.
 
 
 @node Other repositories
@@ -690,7 +563,7 @@ The @code{translation} branch is a side branch that
 allows translators to work without needing to worry about
 compilation problems.  Periodically, the Translation Meister
 (after verifying that it doesn't break compilation), will
-@emph{merge} this branch into @code{staging} to incorporate
+@emph{merge} this branch into @code{master} to incorporate
 recent translations.  Similarly, the @code{master} branch is
 usually merged into the @code{translation} branch after
 significant changes to the English documentation.  See
@@ -1092,7 +965,7 @@ If any conflict happens, see @ref{Resolving conflicts}.
 There are common usage cases for merging: as a translator, you will
 often want the Translations meister to merge @code{master} into
 @code{translation}; on the other hand, the Translations meister wants
-to merge @code{translation} into @code{staging} whenever he has
+to merge @code{translation} into @code{master} whenever he has
 checked that @code{translation} builds successfully.
 
 
@@ -1351,47 +1224,11 @@ provided on the Wine wiki at
 @node Uploading a patch for review
 @subsection Uploading a patch for review
 
-Any non-trivial change should be uploaded to our @qq{Rietveld}
-code review website:
+Any non-trivial change should be reviewed as a merge request:
 
 @example
-@uref{http://codereview.appspot.com/}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests}
 @end example
-
-You can upload a patch for review by using our custom @code{git-cl}
-@q{helper-script}.  This section assumes you have already installed,
-updated, and configured @code{git-cl}.  See @ref{git-cl}.
-
-@warning{Unless you are familiar with branches, only work on one
-set of changes at once.}
-
-There are two methods, depending on your git setup.
-
-@itemize
-@item
-@strong{Master branch}: (easy option)
-
-If you added your patch to @code{master}, then:
-
-@example
-git pull -r
-git-cl upload origin/master
-@end example
-
-@c Mention staging here?
-If you have git push ability, make sure that you @emph{remove}
-your patch (with @command{git rebase} or @command{git reset})
-before pushing other stuff.
-
-@c don't make this one an @example; we don't want to make it easy
-@c for people to use this accidently
-Notifications of patches are automatically added to our issue
-tracker to reduce the chance of patches getting lost.  To suppress
-this (not recommended), add the @code{-n / --no-code-issue}
-option.
-
-@item
-@strong{Separate branch}: (complicated option)
 
 Ensure your changes are committed in a separate branch, which should
 differ from the reference branch to be used (usually
@@ -1411,74 +1248,27 @@ the head of @code{origin/master}.  For example:
 git pull -r origin master
 @end example
 
-Finally, start the upload by entering:
+To upload a patch for review, the changes must be pushed.  If you
+have commit access, this may use a @code{dev/} branch.  Otherwise,
+or at your convenience, you may use a private fork.
 
-@example
-git-cl upload <reference SHA1 ID>
-@end example
+Afterwards create a merge request to start the review cycle.  There
+are multiple options for this as outlined in GitLab's documentation
+at @uref{https://docs.gitlab.com/ee/user/project/merge_requests/}.
+This will also ask you for a message that will accompany your patch.
 
-@noindent
-where <reference SHA1 ID> is the SHA1 ID of the commit to be used
-as a reference source for the patch.  Generally, this will be the
-SHA1 ID of origin/master, and in that case you can just use the command:
-
-@example
-git-cl upload origin/master
-@end example
-
-@end itemize
-
-First you will see a terminal editor where you can edit the
-message that will accompany your patch. @command{git-cl} will
-respect the @env{EDITOR} environment variable if defined,
-otherwise it will use @command{vi} as the default editor.
-
-After prompting for your Google email address and password, the
-patch set will be posted to Rietveld, and you will be given a URL
-for your patch.
-
-@warning{Some installations of git-cl fail when uploading a patch
-with certain filename extensions.  If this happens, it can
-generally be fixed by editing the list of exceptions at top of
-@file{git-cl.py}.}
-
-@subsubheading Announcing your patch set
-
-You should then announce the patch by logging into the code review
-issue webpage and using @qq{Publish + Mail Comments} to add a
-(mostly bogus) comment to your issue.  The text of your comment
-will be sent to our developer mailing list.
-
-@warning{There is no automatic notification of a new patch; you
-must add a comment yourself.}
+If you are not a member of the team and create the merge request
+from a fork, consider enabling the box to @qq{Allow commits from
+members who can merge to the target branch}. This makes it possible
+for somebody with permissions to rebase your changes and merge them
+for you.  Please refer to @ref{Merging to master} for more details.
 
 @subsubheading Revisions
 
 As revisions are made in response to comments, successive patch sets
-for the same issue can be uploaded by reissuing the git-cl command
-with the modified branch checked out.
-
-Sometimes in response to comments on revisions, the best way to
-work may require creation of a new branch in git.  In order to
-associate the new branch with an existing Rietveld issue,
-the following command can be used:
-
-@example
-git-cl issue issue-number
-@end example
-
-@noindent
-where @code{issue-number} is the number of the existing Rietveld
-issue.
-
-@subsubheading Resetting git-cl
-
-If @command{git-cl} becomes confused, you can @qq{reset} it by
-running:
-
-@example
-git-cl issue 0
-@end example
+for the same issue can be uploaded by pushing to the same branch.
+GitLab automatically keeps track of all pushed commits and allows to
+compare revisions with each other.
 
 
 @node The patch review cycle
@@ -1487,50 +1277,49 @@ git-cl issue 0
 Your patch will be available for reviews for the next few hours or
 days.  Three times a week, patches with no known problems are
 gathered into a @qq{patch countdown} and their status changed to
-@code{patch-countdown}.  The countdown is a 48-hour waiting period
+@code{Patch::countdown}.  The countdown is a 48-hour waiting period
 in which any final reviews or complaints should be made.
 
 During the countdown, your patch may be set to
-@code{patch-needs_work}, indicating that you should fix something
+@code{Patch::needs_work}, indicating that you should fix something
 (or at least discuss why the patch needs no modification).  If no
 problems are found, the patch will be set to @code{patch-push}.
 
-Once a patch has @code{patch-push}, it should be sent to your
+Once a patch has @code{Patch::push}, it should be sent to your
 mentor for uploading.  If you have git push ability, look at
-@ref{Pushing to staging}.
+@ref{Merging to master}.
 
 @itemize
 
 @item
-Patches get added to the tracker and to Rietveld by the @qq{git-cl} tool, with
-a status of @qq{patch-new}.
+Patches get added by opening a merge request.  A bot automatically adds
+the @code{Patch::new} label to it.
 
 @item
-The automated tester, Patchy, verifies that the patch can be applied
-to current master.  By default, it checks that the patch allows @code{make}
-and @code{make test} to complete successfully.  It can also be configured to
-check that @code{make doc} is successful. If it passes, Patchy changes the
-status to @qq{patch-review} and emails the developer list.  If the patch
-fails, Patchy sets it to @qq{patch-needs_work} and notifies the developer list.
+GitLab triggers automated testing which ensures that the patch completes
+@code{make}, @code{make test}, and @code{make doc}. Afterwards, the Patch
+Meister manually runs @code{make check} to verify regression tests.  If
+both steps pass, the merge request is labelled @code{Patch::review}.  On
+failure, the status is updated to @code{Patch::needs_work}.
 
 @item
 The Patch Meister reviews the tracker periodically, to list patches
 which have been on review for at least 24 hours. The list is found at
 
 @smallexample
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Areview}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?label_name[]=Patch%3A%3Areview}
 @end smallexample
 
 @item
-For each patch, the Handler reviews any discussion on the tracker
-and on Rietveld, to determine whether the patch can go forward.  If
+For each patch, the Handler reviews any discussion on the merge request,
+to determine whether the patch can go forward.  If
 there is any indication that a developer thinks the patch is not
-ready, the Handler marks it @qq{patch-needs_work} and makes a comment
-regarding the reason, referring to the Rietveld item if needed.
+ready, the Handler marks it @code{Patch::needs_work} and makes a comment
+regarding the reason, referring to the comment if needed.
 
 @item
 Patches with explicit approval, or at least no negative comment, can
-be updated to @qq{patch-countdown}.  When saving the tracker item,
+be updated to @code{Patch::countdown}.  When saving the tracker item,
 clear the @qq{send email} box to prevent sending notification for
 each patch.
 
@@ -1575,7 +1364,7 @@ There is a single Patch Meister, and a number of Patch Helpers
 (rename this?).  The list of known patches awaiting review is:
 
 @example
-@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+%28_patch%3Anew+OR+_patch%3Areview+OR+_patch%3Acountdown+OR+_patch%3Apush+OR+_patch%3Awaiting+OR+_patch%3Aabandoned+OR+_patch%3Aneeds_work%29}
+@uref{https://gitlab.com/lilypond/lilypond/-/merge_requests?sort=label_priority}
 @end example
 
 
@@ -1716,7 +1505,7 @@ several Git branches of LilyPond source code is presented.
 * Applying remote patches::
 * Cleaning up multiple patches::
 * Commit access::
-* Pushing to staging::
+* Merging to master::
 @end menu
 
 
@@ -2003,98 +1792,39 @@ following procedure to obtain commit access:
 
 @enumerate
 @item
-If you don't already have one, set up a Savannah user account at
-@uref{https://savannah.gnu.org/account/register.php}.
-
-@warning{Savannah will silently put your username in lower-case --
-do not try to use capital letters.}
+If you don't already have one, set up a GitLab user account at
+@uref{https://gitlab.com/users/sign_in}.
 
 
 @item
 After registering, if you are not logged in automatically, login
-at @uref{https://savannah.gnu.org/account/login.php}---this should
-take you to your @qq{my} page
-(@uref{https://savannah.gnu.org/my/}).
+at the same page, and confirm your email address.
 
 
 @item
-Click on the @qq{My Groups} link to access the @qq{My Group
-Membership} page.  From there, find the @qq{Request for Inclusion}
-box and search for @qq{LilyPond}.  Among the search results, check
-the box labeled @qq{GNU LilyPond Music Typesetter} and write a
-brief (required) message for the Project Manager (@qq{Hey it's
-me!} should be fine).
+Navigate to @uref{https://gitlab.com/lilypond} and @q{Request access}
+to the group.  Make sure that your account can be related to your
+activity on the mailing list.  If in doubt, please post the username
+after requesting access.
 
 Note that you will not have commit access until the Project
 Manager activates your membership.  Once your membership is
-activated, LilyPond should appear under the heading @qq{Groups I'm
-Contributor of} on your @qq{My Group Membership} page.
+activated, LilyPond should appear under the heading @qq{Groups}
+on your profile page.
 
 
 @item
-Generate an SSH @q{rsa} key pair.  Enter the following at the
-command prompt:
-
-@example
-ssh-keygen -t rsa
-@end example
-
-When prompted for a location to save the key, press <ENTER> to
-accept the default location (@file{~/.ssh/id_rsa}).
-
-Next you are asked to enter an optional passphrase.  On most
-systems, if you use a passphrase, you will likely be prompted for
-it every time you use @command{git push} or
-@command{git pull}.  You may prefer this since it can protect
-you from your own mistakes (like pushing when you mean to pull),
-though you may find it tedious to keep re-entering it.
-
-You can change/enable/disable your passphrase at any time with:
-
-@example
-ssh-keygen -f ~/.ssh/id_rsa -p
-@end example
-
-Note that the GNOME desktop has a feature which stores your
-passphrase for you for an entire GNOME session.  If you use a
-passphrase to @qq{protect you from yourself}, you will want to
-disable this feature, since you'll only be prompted once.  Run the
-following command, then logout of GNOME and log back in:
-
-@example
-gconftool-2 --set -t bool \
-  /apps/gnome-keyring/daemon-components/ssh false
-@end example
-
-After setting up your passphrase, your private key is saved as
-@file{~/.ssh/id_rsa} and your public key is saved as
-@file{~/.ssh/id_rsa.pub}.
+Generate and register an SSH key pair.  Excellent instructions are provided in
+@uref{https://docs.gitlab.com/ee/ssh/, GitLab's documentation}.
 
 
 @item
-Register your public SSH @q{rsa} key with Savannah.  From the
-@qq{My Account Configuration} page, click on @qq{Edit SSH Keys},
-then paste the contents of your @file{~/.ssh/id_rsa.pub} file into
-one of the @qq{Authorized keys} text fields, and click
-@qq{Update}.
-
-Savannah should respond with something like:
+Configure Git to use the SSH protocol (instead of the GIT or HTTP
+protocols).  From your local Git repository, enter:
 
 @example
-Success: Key #1 seen Keys registered
+git remote set-url origin git@@gitlab.com:lilypond/lilypond.git
 @end example
-
-
-@item
-Configure Git to use the SSH protocol (instead of the GIT
-protocol).  From your local Git repository, enter:
-
-@example
-git remote set-url origin ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
-@end example
-
-@noindent
-replacing @var{user} with your Savannah username.
 
 
 @item
@@ -2108,21 +1838,19 @@ git pull --verbose
 SSH should issue the following warning:
 
 @example
-The authenticity of host 'git.sv.gnu.org (140.186.70.72)' can't
-be established.
-RSA key fingerprint is
-80:5a:b0:0c:ec:93:66:29:49:7e:04:2b:fd:ba:2c:d5.
-Are you sure you want to continue connecting (yes/no)?
+The authenticity of host 'gitlab.com' can't be established.
+ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
 @end example
 
-Make sure the RSA key fingerprint displayed matches the one above.
-If it doesn't, respond @qq{no} and check that you configured Git
-properly in the previous step.  If it does match, respond
+Make sure the key fingerprint displayed matches the one above or one of the
+@uref{https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-host-keys-fingerprints,
+others published by GitLab}.  If it doesn't, respond @qq{no} and check that
+you configured Git properly in the previous step.  If it does match, respond
 @qq{yes}.  SSH should then issue another warning:
 
 @example
-Warning: Permanently added 'git.sv.gnu.org,140.186.70.72' (RSA) to
-the list of known hosts.
+Warning: Permanently added 'gitlab.com' (ECDSA) to the list of known hosts.
 @end example
 
 The list of known hosts is stored in the file
@@ -2140,28 +1868,23 @@ fatal: The remote end hung up unexpectedly
 @end example
 
 If you get the above error, you may have made a mistake when
-registering your SSH key at Savannah.  If the key is properly
-registered, you probably just need to wait for the Savannah server
-to activate it.  It usually takes a few minutes for the key to be
-active after registering it, but if it still doesn't work after an
-hour, ask for help on the mailing list.
+registering your SSH key.  If the key is properly registered
+and it still doesn't work after an hour, ask for help on the
+mailing list.
 
 If @command{git pull --verbose} succeeds, the output
 will include a @q{From} line that shows @q{ssh} as the protocol:
 
 @example
-From ssh://git.sv.gnu.org/srv/git/lilypond
+From git@@gitlab.com:lilypond/lilypond.git
 @end example
-
-If the protocol shown is not @q{ssh}, check that you configured
-Git properly in the previous step.
 
 
 @item
 Test your commit access with a dry run:
 
-@warning{Do not push directly to master; instead, push to staging.
-See @ref{Pushing to staging}.}
+@warning{Do not push directly to master; instead, push to a private
+development branch.}
 
 @example
 git push --dry-run --verbose
@@ -2181,7 +1904,7 @@ details, consult the @code{git@tie{}push} man page.
 
 
 @item
-Repeat the steps from generating an RSA key through to testing
+Repeat the steps from generating an SSH key through to testing
 your commit access, for each machine from which you will be
 making commits, or you may simply copy the files from your
 local @file{~/.ssh} folder to the same folder on the other
@@ -2206,11 +1929,8 @@ should now be changed to:
 
 @example
 [remote "origin"]
-        url = ssh://@var{user}@@git.sv.gnu.org/srv/git/lilypond.git
+        url = git@@gitlab.com:lilypond/lilypond.git
 @end example
-
-@noindent
-where @var{user} is your login name on Savannah.
 
 @item
 Similarly, the
@@ -2249,93 +1969,77 @@ over ATM.  If this problem is encountered a possible work-around is
 to set the MTU in the local router to 1500.
 
 
-@node Pushing to staging
-@subsection Pushing to staging
+@node Merging to master
+@subsection Merging to master
 
 Do not push directly to the git @code{master} branch.  Instead,
-push to @code{staging}.
+all changes need to be @q{merged} with a merge request on GitLab.
+Before allowing the merge, GitLab ensures the following:
 
-You will not see your patch on @code{origin/master} until some
-automatic tests have been run.  These tests are run every couple
-of hours; please wait at least 12 hours before wondering if your
-patch has been lost.  Note that you can check the commits on
-@code{origin/staging} by looking at the git web interface on
-savannah.
+@enumerate
+@item
+The merge must be fast-forward.  In most cases, this can be
+achieved by @q{rebasing} the branch with the most recent commits
+from @code{master}.  This can be handled via GitLab, if no
+conflicts arise.  Otherwise, or if preferred, the operation can
+be performed locally. Afterwards, the branch needs to be pushed
+with the option @code{--force} to overwrite commits.
 
-It may happen occasionally that the staging branch breaks automated
-testing.  In this case the automatic move of staging material to
-master gets halted in order to avoid broken material entering master.
-This is a safety net.  Please do not try breaking out from it by
-adding fixes on top of staging: in that case the whole sequence will
-end up in master after all, defeating the purpose of the system.  The
-proper fix usually involves rewriting the staging branch and is best
-left to core developers after discussion on the developer list.
+@warning{Be careful when performing these operations manually:
+They are potentially dangerous and could result in losing commits
+if issued incorrectly!}
 
-Before pushing to staging it is a good practice to check whether
-staging is ahead of master, and if so, wait until master has caught up
-with staging before pushing.  This simplifies things if changes to
-staging have to be backed out for some reason.  To check whether
-master has caught up with staging you can look at the git web interface
-on savannah, or do:
+@item
+The (possibly rebased) changes must have passed automatic testing.
+This ensures that the @code{master} branch is always clean and ready
+for development and translation.
+
+@end enumerate
+
+After rebasing, GitLab will immediately start the automatic testing
+pipeline.  At the moment, all steps may take up to one hour to
+complete.  If you are confident about the rebased result of your
+changes, you may click @qq{Merge when pipeline succeeds} to avoid
+waiting for the tests.  On failure, the merge will be aborted and
+no harm is done to the @code{master} branch.
+
+Because GitLab enforces fast-forward merges, this means only one
+set of changes can be rebased and merged at once.  A second merge
+request would be rejected later on because it does not contain the
+commit(s) merged first.  To avoid wasting testing resources, please
+avoid this situation and check first if a pipeline with a scheduled
+merge is already running.
+
+@subsubheading How to merge a branch without rebasing
+
+It is generally recommended to rebase commits before merging to get
+a linear history.  However, this is not always possible or wanted.
+This particularly holds for the @code{translation} branch and
+@code{release/unstable} which cannot be force-pushed.  For these
+cases, use the following procedure:
+
+@enumerate
+@item
+Merge the branch manually using the command line. The example
+assumes no pending changes in the local @code{master} branch and
+merges the @code{translation} branch:
 
 @example
-git fetch
-gitk
-@end example
-
-and check that @code{origin/master} is at the same commit as
-@code{origin/staging}.  Another option is to see if any commits are
-listed when you do:
-
-@example
-git fetch
-git log origin/master..origin/staging
-@end example
-
-@subsubheading If your work is in a patch file
-
-Assuming that your patch is in a file called
-@file{0001-my-patch.patch} (see @ref{Patches}), and you are currently
-on git master, do:
-
-@example
-git checkout staging
-git pull -r
-git am 0001-my-patch.patch
-gitk
-git push origin staging
 git checkout master
+git pull
+git merge translation
+git push origin HEAD:translation
 @end example
 
-@warning{Do not skip the @command{gitk} step; a quick 5-second
-check of the visual history can save a great deal of frustration
-later on.  You should only see that @command{staging} is only 1
-commit ahead of @code{origin/staging}.}
+@item
+Open a merge request at GitLab.  This will immediately trigger
+automatic testing as described above.
 
-@subsubheading If your work is in a branch
+@item
+Accept the merge request once the testing finishes, or use the
+button to @qq{Merge when pipeline succeeds}.
 
-If you are working on branches and your work is in
-@code{my_branch_name}, then do:
-
-@example
-git checkout my_branch_name
-git pull -r origin staging
-@end example
-
-This will rebase your branch on @code{origin/staging}.  At this point
-git will let you know if there are any conflicts.  If so, resolve them
-before continuing:
-
-@example
-gitk
-git push origin HEAD:staging
-@end example
-
-@warning{Do not skip the @command{gitk} step; a quick 5-second
-check of the visual history can save a great deal of frustration
-later on.  You should see that @code{my_branch_name} is only ahead of
-@code{origin/staging} by the commits from your branch.}
-
+@end enumerate
 
 
 @node Git on Windows

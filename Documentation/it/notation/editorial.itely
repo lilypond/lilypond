@@ -380,20 +380,14 @@ rigo, come è spiegato in @ref{Direzione e posizionamento}.
 @cindex diteggiatura, orientamento
 @cindex orientamento delle diteggiature
 @funindex fingeringOrientations
+@funindex stringNumberOrientations
+@funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex diteggiatura, dentro al rigo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
-
-@cindex collisione, diteggiatura per accordo
-@cindex accordo, diteggiatura, collisione
-@funindex fingeringOrientations
-@funindex stringNumberOrientations
-@funindex strokeFingerOrientations
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{avoiding-collisions-with-chord-fingerings.ly}
 
 @seealso
 Guida alla notazione:

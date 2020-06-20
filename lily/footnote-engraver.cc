@@ -29,7 +29,8 @@
 
 #include "translator.icc"
 
-using std::vector;
+#include <map>
+#include <utility>
 
 class Footnote_engraver : public Engraver
 {
@@ -37,8 +38,11 @@ class Footnote_engraver : public Engraver
 
   void acknowledge_grob (Grob_info) override;
   void acknowledge_end_grob (Grob_info);
+  void process_acknowledged ();
 
-  vector<Drul_array<Spanner *> > annotated_spanners_;
+  // Map annotated grob to associated footnote spanner
+  std::map<Grob *, Spanner *> annotated_spanners_;
+  std::vector<Spanner *> finished_spanners_;
 
   void finalize () override;
 
@@ -59,23 +63,21 @@ Footnote_engraver::Footnote_engraver (Context *c)
 void
 Footnote_engraver::footnotify (Grob *g, SCM cause)
 {
-  Spanner *s = dynamic_cast<Spanner *>(g);
-
-  if (s)
+  Grob *footnote = nullptr;
+  if (dynamic_cast<Spanner *> (g))
     {
       Spanner *b = make_spanner ("FootnoteSpanner", cause);
-      b->set_parent (s, Y_AXIS);
-      b->set_parent (s, X_AXIS);
       Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
       b->set_bound (LEFT, bound);
-      annotated_spanners_.push_back (Drul_array<Spanner *> (s, b));
+      annotated_spanners_.insert (std::make_pair (g, b));
+      footnote = b;
     }
   else
     {
-      Grob *b = make_item ("FootnoteItem", cause);
-      b->set_parent (g, Y_AXIS);
-      b->set_parent (g, X_AXIS);
+      footnote = make_item ("FootnoteItem", cause);
     }
+  footnote->set_y_parent (g);
+  footnote->set_x_parent (g);
 }
 
 void
@@ -103,18 +105,32 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
 void
 Footnote_engraver::acknowledge_end_grob (Grob_info info)
 {
-  Spanner *s = dynamic_cast<Spanner *>(info.grob ());
+  auto it = annotated_spanners_.find (info.grob ());
+  if (it == annotated_spanners_.end ())
+    return;
 
-  if (s)
-    for (vsize i = 0; i < annotated_spanners_.size (); i++)
-      {
-        if (annotated_spanners_[i][LEFT] == s)
-          {
-            Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
-            annotated_spanners_[i][RIGHT]->set_bound (RIGHT, bound);
-            break;
-          }
-      }
+  finished_spanners_.push_back (it->second);
+}
+
+void
+Footnote_engraver::process_acknowledged ()
+{
+  for (Spanner *sp : finished_spanners_)
+    {
+      for (LEFT_and_RIGHT (d))
+        {
+          Spanner *parent = dynamic_cast<Spanner *> (sp->get_parent (X_AXIS));
+          Item *bound = parent->get_bound (d);
+          if (!bound)
+            {
+              bound
+                = unsmob<Item> (get_property (this, "currentMusicalColumn"));
+            }
+          sp->set_bound (d, bound);
+        }
+      announce_end_grob (sp, SCM_EOL);
+    }
+  finished_spanners_.clear ();
 }
 
 void

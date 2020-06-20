@@ -85,8 +85,8 @@ Double_percent_repeat_engraver::process_music ()
 
           Side_position_interface::add_support (double_percent_counter,
                                                 double_percent);
-          double_percent_counter->set_parent (double_percent, Y_AXIS);
-          double_percent_counter->set_parent (double_percent, X_AXIS);
+          double_percent_counter->set_y_parent (double_percent);
+          double_percent_counter->set_x_parent (double_percent);
         }
       // forbid breaks on a % line
       set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);

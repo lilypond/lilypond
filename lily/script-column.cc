@@ -83,7 +83,7 @@ Script_column::row_before_line_breaking (SCM smob)
       else if (!scm_is_eq (get_property_data (sc, "Y-offset"),
                            Side_position_interface::y_aligned_side_proc))
         {
-          head_scripts_map[sc->get_parent (Y_AXIS)].push_back (sc);
+          head_scripts_map[sc->get_y_parent ()].push_back (sc);
         }
     }
 

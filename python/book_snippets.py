@@ -603,7 +603,6 @@ printing diff against existing file." % filename)
         else:
             out = codecs.open (filename, 'w', 'utf-8')
             out.write (self.full_ly ())
-            open (path + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
@@ -682,9 +681,7 @@ printing diff against existing file." % filename)
 
         # UGH - junk self.global_options
         skip_lily = self.global_options.skip_lilypond_run
-        for required in [base + '.ly',
-                         base + '.txt']:
-            require_file (required)
+        require_file (base + '.ly')
         if not skip_lily:
             require_file (base + '-systems.count')
 
@@ -932,8 +929,6 @@ printing diff against existing file.") % filename)
             out = codecs.open (filename, 'w', 'utf-8')
             out.write (self.full_ly ())
             out.close ()
-            open (path + '.txt', 'w').write ('image of music')
-
 
 
 class LilyPondVersionString (Snippet):

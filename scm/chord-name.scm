@@ -39,14 +39,37 @@
 ;;
 ;; TODO: make into markup.
 ;;
+
+;; flat and flat-based glyphs have a lesser Y-extent than sharps.
+(define (short-glyph? alteration)
+  (< alteration 0))
+
+;; natural, single flat and mirrored flat have a narrower X-extent.
+(define (narrow-glyph? alteration)
+  (member alteration
+          ;; flat-based glyphs in various notation systems.
+          ;; (duplicates come from the input files, for
+          ;; consistency’s sake) -vv
+          '(0
+            ;; western accidentals
+            -1/2 -1/4
+            ;; makam
+            -1/9 -5/18 -6/18 -4/9 -5/9 -8/9
+            ;; turkish makam
+            -1/12 -3/12 -4/12 -5/12 -6/12 -10/12
+            ;; hel-arabic
+            -1/4 -3/4 ; -5/2 -> flatflat, ignored
+            -7/2)))
+
 (define-public (alteration->text-accidental-markup alteration)
 
   (make-smaller-markup
    (make-raise-markup
-    (if (= alteration FLAT)
+    (if (short-glyph? alteration)
         0.3
         0.6)
     (make-musicglyph-markup
+     ;; FIXME -- use current glyph-name-alist here.
      (assoc-get alteration standard-alteration-glyph-name-alist "")))))
 
 (define (accidental->markup alteration)
@@ -55,7 +78,7 @@
       (make-line-markup (list empty-markup))
       (conditional-kern-before
        (alteration->text-accidental-markup alteration)
-       (= alteration FLAT) 0.094725)))
+       (narrow-glyph? alteration) 0.094725)))
 
 (define (accidental->markup-italian alteration)
   "Return accidental markup for ALTERATION, for use after an italian chord root name."
@@ -63,6 +86,7 @@
       (make-hspace-markup 0.2)
       (make-line-markup
        (list
+        ;; FIXME -- see issue 3330.
         (make-hspace-markup (if (= alteration FLAT) 0.57285385 0.5))
         (make-raise-markup 0.7 (alteration->text-accidental-markup alteration))
         (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))

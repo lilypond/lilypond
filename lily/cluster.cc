@@ -138,7 +138,7 @@ Cluster::calc_cross_staff (SCM smob)
   extract_grob_set (me, "columns", cols);
   Grob *commony = common_refpoint_of_array (cols, me, Y_AXIS);
 
-  return scm_from_bool (commony != me->get_parent (Y_AXIS));
+  return scm_from_bool (commony != me->get_y_parent ());
 }
 
 MAKE_SCHEME_CALLBACK (Cluster, print, 1);

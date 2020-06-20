@@ -83,7 +83,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
 static Moment *
 get_measure_length (Paper_column *column)
 {
-  Grob *sys = column->get_parent (X_AXIS);
+  Grob *sys = column->get_x_parent ();
 
   extract_grob_set (sys, "columns", cols);
 

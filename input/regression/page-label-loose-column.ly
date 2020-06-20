@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.21.2"
 
 \header {
   texidoc = "Page labels on loose columns are not ignored: this includes both mid-line
@@ -12,10 +12,10 @@ break-aligned grobs)."
   \markuplist \table-of-contents
 
   \relative {
-    c'2 \tocItem "Mid-line" c^"mid"
+    c'2 \tocItem \markup "Mid-line" c^"mid"
     c1
     \bar ""
-    \tocItem "Empty bar line"
+    \tocItem \markup "Empty bar line"
     c1^"empty"
   }
 }

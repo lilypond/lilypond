@@ -82,8 +82,8 @@ Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
 
   Grob *g = inf.grob ();
 
-  if (!g->get_parent (X_AXIS))
-    g->set_parent (align_, X_AXIS);
+  if (!g->get_x_parent ())
+    g->set_x_parent (align_);
 }
 
 void
@@ -94,7 +94,7 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
       /*
         Removed check for item->empty (X_AXIS). --hwn 20/1/04
       */
-      if (item->get_parent (X_AXIS))
+      if (item->get_x_parent ())
         return;
 
       if (!Item::is_non_musical (item))
@@ -147,7 +147,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
       group = make_item ("BreakAlignGroup", item->self_scm ());
 
       set_property (group, "break-align-symbol", align_name);
-      group->set_parent (align_, Y_AXIS);
+      group->set_y_parent (align_);
 
       column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
 

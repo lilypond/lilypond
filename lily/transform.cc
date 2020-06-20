@@ -44,9 +44,6 @@
 
 #include <string>
 
-const char *const
-Transform::type_p_name_ = "ly:transform?";
-
 const Transform
 Transform::identity;
 
@@ -56,7 +53,7 @@ Transform::Transform (Real angle, Offset center)
   // maintaining sane behavior at multiples of 45 degrees
   Offset d = offset_directed (angle);
   m_.xx = d[X_AXIS];
-  m_.xy = -d[Y_AXIS];
+  m_.xy = 0.0 - d[Y_AXIS];  // Avoid -0.0
   m_.yx = d[Y_AXIS];
   m_.yy = d[X_AXIS];
   m_.x0 = center[X_AXIS];

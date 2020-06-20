@@ -58,7 +58,7 @@ Collision_engraver::acknowledge_note_column (Grob_info i)
   if (has_interface<Note_column> (i.grob ()))
     {
       /*should check Y axis? */
-      if (Note_column::has_rests (i.grob ()) || i.grob ()->get_parent (X_AXIS))
+      if (Note_column::has_rests (i.grob ()) || i.grob ()->get_x_parent ())
         return;
 
       if (from_scm<bool> (get_property (i.grob (), "ignore-collision")))

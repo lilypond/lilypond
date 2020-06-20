@@ -222,11 +222,11 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
   Skyline my_dim;
   SCM skyp = get_maybe_pure_property (me, a == X_AXIS
-                                          ? "horizontal-skylines"
-                                          : "vertical-skylines",
-                                          pure,
-                                          start,
-                                          end);
+                                      ? "horizontal-skylines"
+                                      : "vertical-skylines",
+                                      pure,
+                                      start,
+                                      end);
   if (unsmob<Skyline_pair> (skyp))
     {
       // for spanner pure heights, we don't know horizontal spacing,
@@ -242,7 +242,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       // we assume that it is all pure
       Real yc = a == X_AXIS
                 ? me->pure_relative_y_coordinate (common[Y_AXIS], start, end)
-                : me->get_parent (Y_AXIS)->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure, start, end);
+                : me->get_y_parent ()->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure, start, end);
       Skyline_pair copy = *unsmob<Skyline_pair> (skyp);
       copy.shift (a == X_AXIS ? yc : xc);
       copy.raise (a == X_AXIS ? xc : yc);
@@ -279,11 +279,11 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       if (e)
         {
           SCM sp = get_maybe_pure_property (e, a == X_AXIS
-                                               ? "horizontal-skylines"
-                                               : "vertical-skylines",
-                                               pure,
-                                               start,
-                                               end);
+                                            ? "horizontal-skylines"
+                                            : "vertical-skylines",
+                                            pure,
+                                            start,
+                                            end);
 
           if (unsmob<Skyline_pair> (sp))
             {
@@ -384,12 +384,12 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       if (quantize_position)
         {
           Grob *common = me->common_refpoint (staff, Y_AXIS);
-          Real my_off = me->get_parent (Y_AXIS)->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
+          Real my_off = me->get_y_parent ()->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Real staff_off = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Real ss = Staff_symbol::staff_space (staff);
           Real position = 2 * (my_off + total_off - staff_off) / ss;
           Real rounded = directed_round (position, dir);
-          Grob *head = me->get_parent (X_AXIS);
+          Grob *head = me->get_x_parent ();
 
           Interval staff_span = Staff_symbol::line_span (staff);
           staff_span.widen (1);
@@ -409,7 +409,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
             = Staff_symbol_referencer::staff_space (me)
               * scm_to_double (get_maybe_pure_property (me, "staff-padding", pure, start, end));
 
-          Grob *parent = me->get_parent (Y_AXIS);
+          Grob *parent = me->get_y_parent ();
           Grob *common = me->common_refpoint (staff, Y_AXIS);
           Real parent_position = parent->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Real staff_position = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
@@ -443,9 +443,9 @@ Side_position_interface::get_axis (Grob *me)
   if (scm_is_number (get_property (me, "side-axis")))
     return Axis (scm_to_int (get_property (me, "side-axis")));
 
-  string msg = String_convert::form_string ("side-axis not set for grob %s.",
-                                            me->name ().c_str ());
-  me->programming_error (msg);
+  if (scm_is_true (get_property (me, "stencil")))
+    me->programming_error (_f ("no side-axis setting found for grob %s.",
+                               me->name ().c_str ()));
   return NO_AXES;
 }
 
@@ -465,7 +465,7 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
   Interval iv = me->extent (sys, X_AXIS);
   iv.widen (1.0);
 
-  Grob *grouper = me->get_parent (Y_AXIS);
+  Grob *grouper = me->get_y_parent ();
   if (has_interface<Staff_grouper_interface> (grouper))
     ; // find the extremal staff of this group
   else if (grouper == sys)
@@ -484,7 +484,7 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
   if (!top_staff)
     return SCM_BOOL_F;
 
-  me->set_parent (top_staff, Y_AXIS);
+  me->set_y_parent (top_staff);
   me->flush_extent_cache (Y_AXIS);
   Axis_group_interface::add_element (top_staff, me);
 

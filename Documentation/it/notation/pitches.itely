@@ -1517,7 +1517,7 @@ ottava nel rigo:
 @cindex testo dell'ottava
 @cindex ottava, testo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
+{changing-ottava-text.ly}
 
 @cindex ottava, per una sola voce
 @cindex voce, con ottavazione

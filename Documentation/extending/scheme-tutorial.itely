@@ -201,7 +201,7 @@ The string @code{\a said "b"} is entered as
 
 There are additional Scheme data types that are not discussed here.
 For a complete listing see the Guile reference guide,
-@uref{http://www.gnu.org/software/guile/manual/html_node/Simple-Data-Types.html}.
+@uref{http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
 
 @node Scheme compound data types
 @subsection Scheme compound data types
@@ -270,7 +270,7 @@ guile>
 
 Note:  @code{cdr} is pronounced "could-er", according Sussman and
 Abelson, see
-@uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
+@uref{http://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
 @node Lists
 @unnumberedsubsubsec Lists

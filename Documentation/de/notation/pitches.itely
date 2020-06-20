@@ -1390,7 +1390,7 @@ Transposition von einer Oktave an:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
+{changing-ottava-text.ly}
 
 
 @seealso

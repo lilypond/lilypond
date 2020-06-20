@@ -14,6 +14,6 @@ the first and second examples.
   \set strokeFingerOrientations = #'(up)
   \override StrokeFinger.avoid-slur = #'outside
   \autoBeamOff
-  <a'-\rightHandFinger #2 >16 b
-  <a-\rightHandFinger #2 >16( b)
+  <a'\rightHandFinger #2 >16 b
+  <a\rightHandFinger #2 >16( b)
 }

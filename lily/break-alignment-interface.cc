@@ -272,7 +272,7 @@ Break_alignable_interface::find_parent (SCM grob)
 Grob *
 Break_alignable_interface::find_parent (Grob *me)
 {
-  Item *alignment = dynamic_cast<Item *> (me->get_parent (X_AXIS));
+  Item *alignment = dynamic_cast<Item *> (me->get_x_parent ());
   if (!has_interface<Break_alignment_interface> (alignment))
     return 0;
 

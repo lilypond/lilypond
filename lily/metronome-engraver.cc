@@ -87,7 +87,7 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
                               get_property (text_, "break-align-symbols")))
     {
       support_ = g;
-      text_->set_parent (g, X_AXIS);
+      text_->set_x_parent (g);
     }
   if (bar_ || support_)
     set_property (text_, "non-musical", SCM_BOOL_T);
@@ -101,7 +101,7 @@ Metronome_mark_engraver::acknowledge_break_alignment (Grob_info info)
   if (text_
       && support_
       && dynamic_cast<Item *> (g))
-    text_->set_parent (g, X_AXIS);
+    text_->set_x_parent (g);
 }
 
 void
@@ -114,7 +114,7 @@ Metronome_mark_engraver::acknowledge_grob (Grob_info info)
          scm_is_pair (s);
          s = scm_cdr (s))
       if (g->internal_has_interface (scm_car (s)))
-        text_->set_parent (g, X_AXIS);
+        text_->set_x_parent (g);
 }
 
 void
@@ -122,10 +122,10 @@ Metronome_mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      if (text_->get_parent (X_AXIS)
-          && text_->get_parent (X_AXIS)->internal_has_interface (ly_symbol2scm ("multi-measure-rest-interface"))
+      if (text_->get_x_parent ()
+          && text_->get_x_parent ()->internal_has_interface (ly_symbol2scm ("multi-measure-rest-interface"))
           && bar_)
-        text_->set_parent (bar_, X_AXIS);
+        text_->set_x_parent (bar_);
       else if (!support_)
         {
           /*
@@ -136,9 +136,9 @@ Metronome_mark_engraver::stop_translation_timestep ()
             signature is present in that measure).
           */
           if (Grob *mc = unsmob<Grob> (get_property (this, "currentMusicalColumn")))
-            text_->set_parent (mc, X_AXIS);
+            text_->set_x_parent (mc);
           else if (Grob *cc = unsmob<Grob> (get_property (this, "currentCommandColumn")))
-            text_->set_parent (cc, X_AXIS);
+            text_->set_x_parent (cc);
         }
       set_object (text_, "side-support-elements",
                          grob_list_to_grob_array (get_property (this, "stavesFound")));

@@ -25,7 +25,7 @@
 /**
    Walk through an Event_chord
 */
-class Event_chord_iterator : public Simple_music_iterator
+class Event_chord_iterator final : public Simple_music_iterator
 {
   /**
      Find a bottom notation context to deliver events to.

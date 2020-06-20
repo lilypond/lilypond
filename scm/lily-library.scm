@@ -498,17 +498,12 @@ For example:
 (define-safe-public (alist->hash-table lst)
   "Convert alist to table"
   (let ((m (make-hash-table (length lst))))
-    (for-each (lambda (k-v) (hashq-set! m (car k-v) (cdr k-v))) lst)
+    ;; first association wins.
+    (for-each (lambda (k-v) (hashq-create-handle! m (car k-v) (cdr k-v))) lst)
     m))
 
 ;;;;;;;;;;;;;;;;
 ;; list
-
-(define (functional-or . rest)
-  (any identity rest))
-
-(define (functional-and . rest)
-  (every identity rest))
 
 (define (split-list lst n)
   "Split LST in N equal sized parts"
@@ -551,10 +546,6 @@ For example:
     (cond ((list? x) (fold-right loop tail x))
           ((not (pair? x)) (cons x tail))
           (else (loop (car x) (loop (cdr x) tail))))))
-
-(define (list-minus a b)
-  "Return list of elements in A that are not in B."
-  (lset-difference eq? a b))
 
 (define-public (uniq-list lst)
   "Uniq @var{lst}, assuming that it is sorted.  Uses @code{equal?}
@@ -840,10 +831,6 @@ Handy for debugging, possibly turned off."
   (if (equal? dir 1)
       (cdr cell)
       (car cell)))
-
-(define (cons-map f x)
-  "map F to contents of X"
-  (cons (f (car x)) (f (cdr x))))
 
 (define-public (list-insert-separator lst between)
   "Create new list, inserting @var{between} between elements of @var{lst}."
