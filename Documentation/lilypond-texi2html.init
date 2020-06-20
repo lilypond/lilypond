@@ -1078,65 +1078,6 @@ sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
 
 
 #############################################################################
-###  WRITING OUT THE INDEX FOR THE AJAX SEARCH FIELD
-#############################################################################
-
-$Texi2HTML::Config::IDX_SUMMARY   = 1;
-$Texi2HTML::Config::init_out                  = \&lilypond_init_out;
-$Texi2HTML::Config::finish_out                = \&lilypond_finish_out;
-$Texi2HTML::Config::index_summary_file_entry  = \&lilypond_index_summary_file_entry;
-
-my @index_entries;
-
-sub lilypond_init_out ()
-{
-  t2h_default_init_out ();
-  # Check whether we have an index at all! If not -> don't print out a search box!
-  my $ix = main::get_index ("cp");
-  $have_index_entries = (scalar $ix > 0);
-}
-
-sub lilypond_index_summary_file_entry ($$$$$$$$$)
-{
-  my $index_name = shift;
-  my $entry_text = shift;
-  my $entry_reference = shift;
-  my $formatted_entry = shift;
-  my $texi_entry = shift;
-  my $entry_element_reference = shift;
-  my $entry_element_header = shift;
-  my $is_printed = shift;
-  my $manual_name = shift;
-
-  if ($ENV{'AJAX_SEARCH'}==1) {
-    if ($index_name eq "cp")
-    {
-      # The entries in the index file have the form:
-      # SearchText \t FormattedText \t EntryURL \t SectionText \t SectionURL
-      push @index_entries, "$entry_text\t$formatted_entry\t$entry_reference\t$entry_element_header\t$entry_element_reference\n";
-    }
-  }
-}
-
-sub lilypond_finish_out ()
-{
-  if ($ENV{'AJAX_SEARCH'}==1) {
-    if (((scalar @index_entries) > 0) and $have_index_entries) {
-      my $lang = $Texi2HTML::THISDOC{current_lang};
-      my $big = "";
-      $big = "-big-page" if $bigpage;
-      my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-      my $idx_file = "$docu_dir/$docu_name$big.$lang.idx";
-      open IDXOUTFILE, ">:utf8", $idx_file;
-      print IDXOUTFILE @index_entries;
-      close IDXOUTFILE;
-    }
-  }
-}
-
-
-
-#############################################################################
 ###  OTHER SETTINGS
 #############################################################################
 
