@@ -54,7 +54,7 @@ dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfile
 	if test -n "`find $(top-src-dir) -name .git`"; then \
 	  COMMIT_DATE=`git --git-dir=$(top-src-dir)/.git log -1 --format=%cD`; \
 	  find $(distdir) | xargs touch -d "$$COMMIT_DATE"; fi
-	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
+	(cd ./$(depth)/$(outdir); $(TAR) --sort=order -cf - --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
 	rm -rf $(distdir)
 
 top-doc:
