@@ -57,6 +57,7 @@ options_list, files = getopt.getopt (sys.argv[1:],'o:s:hI:m:k:q',
                                       'help', 'include=',
                                       'master-map-file=',
                                       'known-missing-files=',
+                                      'suppress-language-detection',
                                       'quiet'])
 
 help_text = r"""Usage: %(program_name)s [OPTIONS]... TEXIFILE...
@@ -86,6 +87,7 @@ known_missing_files = []
 known_missing_files_file = ''
 docs_without_directories = ['changes', 'music-glossary']
 suppress_output = False
+suppress_language_detection = False
 initial_map = {}
 for opt in options_list:
     o = opt[0]
@@ -102,6 +104,8 @@ for opt in options_list:
                 print(a, 'is not a directory.')
                 print('Please consider adding it to the list of ')
                 print('known missing files in extract_texi_filename.py.')
+    elif o == '--suppress-language-detection':
+        suppress_language_detection = True
     elif o == '-o' or o == '--output':
         outdir = a
     elif o == '-s' or o == '--split':
@@ -162,11 +166,13 @@ def extract_sections (filename):
     page = f.read ()
     f.close()
     # Search document language
+    lang_suffix = ''
     m = lang_re.search (page)
-    if m and m.group (1) != 'en':
+    if not suppress_language_detection and m and m.group (1) != 'en':
         lang_suffix = '.' + m.group (1)
     else:
         lang_suffix = ''
+
     # Replace all includes by their list of sections and extract all sections
     page = include_re.sub (lambda m: expand_includes (m, filename), page)
     sections = section_translation_re.findall (page)
@@ -236,6 +242,7 @@ if split in file_name_section_level:
     splitting_level = file_name_section_level[split]
 else:
     splitting_level = -1
+
 def process_sections (filename, lang_suffix, page):
     sections = section_translation_re.findall (page)
     basename = os.path.splitext (os.path.basename (filename))[0]
