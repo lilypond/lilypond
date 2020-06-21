@@ -99,9 +99,6 @@ def debug (s):
     if global_options.debug:
         progress ("debug: " + s)
 
-def system (cmd, ignore_error = 0):
-    return ly.system (cmd, ignore_error=ignore_error)
-
 def strip_extension (f, ext):
     (p, e) = os.path.splitext (f)
     if e == ext:
