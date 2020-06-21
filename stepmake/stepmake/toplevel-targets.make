@@ -15,12 +15,6 @@ $(package-icon):
 	$(MAKE) -C Documentation/logo icon
 
 
-top-doc:
-	$(MAKE) -C Documentation/topdocs/ README_TOP_FILES="$(TOPDOC_FILES)" txt-files
-
-
-$(README_TXT_FILES): top-doc
-
 local-clean:
 
 install:

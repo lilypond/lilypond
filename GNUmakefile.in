@@ -20,7 +20,7 @@ SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
 README_FILES = COPYING COPYING.FDL DEDICATION ROADMAP HACKING \
   LICENSE LICENSE.DOCUMENTATION
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
-TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
+TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/topdocs/$(outdir)/$(T).txt)
 
 RELEASE_FILES = RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
@@ -56,6 +56,9 @@ dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfile
 	  find $(distdir) | xargs touch -d "$$COMMIT_DATE"; fi
 	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
 	rm -rf $(distdir)
+
+top-doc:
+	$(MAKE) -C Documentation/topdocs/ $(foreach T,$(TOPDOC_FILES),$(outdir)/$(T).txt)
 
 ifneq ($(shell find $(top-src-dir) -name .git),)
 .gitfilelist: $(top-src-dir)/.git/index

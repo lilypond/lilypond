@@ -449,5 +449,6 @@ Type:
 
 Edit local.make for local Makefile overrides.
 
+See INSTALL.txt and README.txt for more information
 
 EOF
