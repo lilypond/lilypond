@@ -56,6 +56,7 @@ import hashlib
 import os
 import re
 import stat
+import subprocess
 import sys
 import tempfile
 from optparse import OptionGroup
@@ -293,28 +294,36 @@ global_options = None
 
 
 
-def system_in_directory (cmd, directory, logfile):
-    """Execute a command in a different directory.
+def command_name (cmd):
+    # Strip all stuf after command,
+    # deal with "((latex ) >& 1 ) .." too
+    cmd = re.match ('([\(\)]*)([^\\\ ]*)', cmd).group (2)
+    return os.path.basename (cmd)
 
-    Because of win32 compatibility, we can't simply use subprocess.
-    """
 
-    current = os.getcwd()
-    os.chdir (directory)
-    """NB - ignore_error is deliberately set to the same value
-    as redirect_output - this is not a typo."""
-    retval = ly.system(cmd,
-              be_verbose=ly.is_verbose (),
-              redirect_output=global_options.redirect_output,
-              log_file=logfile,
-              progress_p=1,
-              ignore_error=global_options.redirect_output)
-    if retval != 0:
-        print ("Error trapped by lilypond-book")
-        print(("\nPlease see " + logfile + ".log\n"))
+def system_in_directory (cmd_str, directory, log_file):
+    """Execute a command in a different directory."""
+
+    if global_options.redirect_output:
+        ly.progress (_ ("Processing %s.ly") % log_file)
+    else:
+        if ly.is_verbose():
+            ly.progress (_ ("Invoking `%s\'") % cmd_str)
+        else:
+            name = command_name (cmd_str)
+            ly.progress ( _("Running %s...") % name)
+
+    output_location = None
+    if global_options.redirect_output:
+       output_location = open(log_file + '.log', 'w')
+
+    try:
+        subprocess.run(cmd_str, stdout=output_location,
+                       stderr=output_location, cwd=directory,
+                       shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write("%s\n" % e)
         sys.exit(1)
-
-    os.chdir (current)
 
 
 def process_snippets (input_name, cmd, basenames,
@@ -334,6 +343,7 @@ def process_snippets (input_name, cmd, basenames,
     # Write snippet map.
     with open (snippet_map_path, 'w') as snippet_map:
         snippet_map.write ("""
+
 #(define version-seen #t)
 #(define output-empty-score-list #f)
 """)
@@ -626,6 +636,7 @@ def do_options ():
         exit (2)
 
     return args
+
 
 def main ():
     # FIXME: 85 lines of `main' macramee??
