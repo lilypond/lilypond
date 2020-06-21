@@ -34,11 +34,10 @@ import langdefs
 import mirrortree
 import postprocess_html
 
-package_name, package_version, outdir, targets = sys.argv[1:]
-targets = targets.split (' ')
+package_name, package_version, outdir, target = sys.argv[1:]
 outdir = os.path.normpath (outdir)
 doc_dirs = ['input', 'Documentation', outdir]
-target_pattern = os.path.join (outdir, '%s-root')
+target_dir = os.path.join (outdir, '%s-root' % target)
 
 # these redirection pages allow to go back to the documentation index
 # from HTML manuals/snippets page
@@ -100,41 +99,39 @@ while outdir in dirs:
 dirs = list (set (dirs))
 dirs.sort ()
 
-strip_file_name = {}
+strip_file_name = None
 strip_re = re.compile (outdir + '/')
-for t in targets:
-    out_root = target_pattern % t
-    strip_file_name[t] = lambda s: os.path.join (target_pattern % t, (strip_re.sub ('', s)))
-    if not os.path.exists (out_root):
-        os.mkdir (out_root)
-    for d in dirs:
-        new_dir = os.path.join (out_root, d)
-        if not os.path.exists (new_dir):
-            os.mkdir (new_dir)
-    for f in hardlinked_files:
-        dest_filename = strip_file_name[t] (f)
-        if os.path.isfile (dest_filename):
-            os.remove (dest_filename)
-        os.link (f, dest_filename)
-    for l in symlinks:
-        p = mirrortree.new_link_path (os.path.normpath (os.readlink (l)), os.path.dirname (l), strip_re)
-        dest = strip_file_name[t] (l)
-        if not os.path.lexists (dest):
-            os.symlink (p, dest)
+
+strip_file_name = lambda s: os.path.join (target_dir, (strip_re.sub ('', s)))
+if not os.path.exists (target_dir):
+    os.mkdir (target_dir)
+for d in dirs:
+    new_dir = os.path.join (target_dir, d)
+    if not os.path.exists (new_dir):
+        os.mkdir (new_dir)
+for f in hardlinked_files:
+    dest_filename = strip_file_name (f)
+    if os.path.isfile (dest_filename):
+        os.remove (dest_filename)
+    os.link (f, dest_filename)
+for l in symlinks:
+    p = mirrortree.new_link_path (os.path.normpath (os.readlink (l)), os.path.dirname (l), strip_re)
+    dest = strip_file_name (l)
+    if not os.path.lexists (dest):
+        os.symlink (p, dest)
 
 
 # need this for content negotiation with documentation index
-if 'online' in targets:
-    f = open (os.path.join (target_pattern % 'online', 'Documentation/.htaccess'), 'w')
+if 'online' == target:
+    f = open (os.path.join (target_dir, 'Documentation/.htaccess'), 'w')
     f.write ('#.htaccess\nDirectoryIndex index\n')
     f.close ()
 
 postprocess_html.build_pages_dict (html_files)
-for t in targets:
-    sys.stderr.write ("Processing HTML pages for %s target...\n" % t)
-    postprocess_html.process_html_files (
-        package_name = package_name,
-        package_version = package_version,
-        target = t,
-        name_filter = strip_file_name[t])
 
+sys.stderr.write ("Processing HTML pages for %s target...\n" % target)
+postprocess_html.process_html_files (
+    package_name = package_name,
+    package_version = package_version,
+    target = target,
+    name_filter = strip_file_name)
