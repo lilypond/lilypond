@@ -95,21 +95,6 @@ def debug_output (s, fullmessage = False, newline = True):
 
 
 
-# A modified version of the commands.mkarg(x) that always uses
-# double quotes (since Windows can't handle the single quotes)
-# and escapes the characters \, $, ", and ` for unix shells.
-def mkarg(x):
-    if os.name == 'nt':
-        return ' "%s"' % x
-    s = ' "'
-    for c in x:
-        if c in '\\$"`':
-            s = s + '\\'
-        s = s + c
-    s = s + '"'
-    return s
-
-
 def strip_extension (f, ext):
     (p, e) = os.path.splitext (f)
     if e == ext:

@@ -638,8 +638,26 @@ def do_options ():
     return args
 
 
+
+def mkarg(x):
+    """
+    A modified version of the commands.mkarg(x)
+
+    Uses double quotes (since Windows can't handle the single quotes)
+    and escapes the characters \, $, ", and ` for unix shells.
+    """
+    if os.name == 'nt':
+        return ' "%s"' % x
+    s = ' "'
+    for c in x:
+        if c in '\\$"`':
+            s = s + '\\'
+        s = s + c
+    s = s + '"'
+    return s
+
+
 def main ():
-    # FIXME: 85 lines of `main' macramee??
     if ("LILYPOND_BOOK_LOGLEVEL" in os.environ):
         ly.set_loglevel (os.environ["LILYPOND_BOOK_LOGLEVEL"])
     files = do_options ()
@@ -666,7 +684,7 @@ def main ():
 
     if global_options.process_cmd:
         includes = global_options.include_path
-        global_options.process_cmd += ' '.join ([' -I %s' % ly.mkarg (p)
+        global_options.process_cmd += ' '.join ([' -I %s' % mkarg (p)
                                                  for p in includes])
 
     global_options.formatter.process_options (global_options)
