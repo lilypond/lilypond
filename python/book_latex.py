@@ -34,6 +34,7 @@ warning = ly.warning
 error = ly.error
 debug = ly.debug_output
 
+
 # Recognize special sequences in the input.
 #
 #   (?P<name>regex) -- Assign result of REGEX to NAME.
@@ -315,10 +316,14 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
 
     def input_fullname (self, input_filename):
         # Use kpsewhich if available, otherwise fall back to the default:
-        if ly.search_exe_path ('kpsewhich'):
-            trial = os.popen ('kpsewhich ' + input_filename).read()[:-1]
+        try:
+            trial = subprocess.run (['kpsewhich', input_filename],
+                                    check=True, stdout=subprocess.PIPE).stdout
             if trial:
                 return trial
+        except subprocess.CalledProcessError:
+            pass
+
         return book_base.BookOutputFormat.input_fullname (self, input_filename)
 
     def process_chunks (self, chunks):

@@ -102,14 +102,6 @@ def strip_extension (f, ext):
     return p + e
 
 
-def search_exe_path (name):
-    p = os.environ['PATH']
-    exe_paths = p.split (':')
-    for e in exe_paths:
-        full = os.path.join (e, name)
-        if os.path.exists (full):
-            return full
-    return None
 
 
 def print_environment ():
