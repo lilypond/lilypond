@@ -9,10 +9,10 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
-@subheading LilyPond 2.21.1 released  @emph{April 28, 2020}
+@subheading LilyPond 2.21.2 released  @emph{June 21, 2020}
 
 We are happy to announce the release of LilyPond
-2.21.1.  This is a development version, but these are usually
+2.21.2.  This is a development version, but these are usually
 reliable.  If you want to use the latest stable version of LilyPond,
 we recommend using the 2.20.0 version.
 
