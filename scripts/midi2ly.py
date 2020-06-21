@@ -1127,7 +1127,7 @@ def do_options ():
 
     if not args or args[0] == '-':
         opt_parser.print_help ()
-        ly.stderr_write ('\n%s: %s %s\n' % (program_name, _ ('error: '),
+        sys.stderr.write ('\n%s: %s %s\n' % (program_name, _ ('error: '),
                          _ ('no files specified on command line.')))
         sys.exit (2)
 

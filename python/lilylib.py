@@ -26,6 +26,7 @@ import sys
 import optparse
 import time
 import codecs
+
 sys.stdin = codecs.getreader ('utf8') (sys.stdin.detach ())
 sys.stdout = codecs.getwriter ('utf8') (sys.stdout.detach ())
 sys.stderr = codecs.getwriter ('utf8') (sys.stderr.detach ())
@@ -66,17 +67,14 @@ def is_loglevel (l):
 def is_verbose ():
     return is_loglevel ("DEBUG")
 
-def stderr_write (s):
-    sys.stderr.write (s)
-
 def print_logmessage (level, s, fullmessage = True, newline = True):
     if (is_loglevel (level)):
         if fullmessage:
-            stderr_write (program_name + ": " + s + '\n')
+            sys.stderr.write (program_name + ": " + s + '\n')
         elif newline:
-            stderr_write (s + '\n')
+            sys.stderr.write (s + '\n')
         else:
-            stderr_write (s)
+            sys.stderr.write (s)
 
 def error (s):
     print_logmessage ("ERROR", _ ("error: %s") % s);
@@ -84,16 +82,11 @@ def error (s):
 def warning (s):
     print_logmessage ("WARN", _ ("warning: %s") % s);
 
-def basic_progress (s):
-    print_logmessage ("BASIC", s);
-
 def progress (s, fullmessage = False, newline = True):
     print_logmessage ("PROGRESS", s, fullmessage, newline);
 
 def debug_output (s, fullmessage = False, newline = True):
     print_logmessage ("DEBUG", s, fullmessage, newline);
-
-
 
 def strip_extension (f, ext):
     (p, e) = os.path.splitext (f)
@@ -101,12 +94,6 @@ def strip_extension (f, ext):
         e = ''
     return p + e
 
-
-
-
-def print_environment ():
-    for (k,v) in list(os.environ.items ()):
-        sys.stderr.write ("%s=\"%s\"\n" % (k, v))
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):

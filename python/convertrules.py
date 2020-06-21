@@ -35,7 +35,7 @@ class FatalConversionError:
     pass
 
 conversions = []
-stderr_write = lilylib.stderr_write
+stderr_write = sys.stderr.write
 
 def warning (str):
     stderr_write (_ ("warning: %s") % str)

@@ -618,7 +618,7 @@ class LilypondSnippet (Snippet):
 printing diff against existing file." % filename)
                 encoded = self.full_ly ().encode ('utf-8')
                 cmd = 'diff -u %s -' % filename
-                ly.stderr_write (self.filter_pipe (encoded, cmd).decode ('utf-8'))
+                sys.stderr.write (self.filter_pipe (encoded, cmd).decode ('utf-8'))
         else:
             out = codecs.open (filename, 'w', 'utf-8')
             out.write (self.full_ly ())
@@ -775,8 +775,8 @@ printing diff against existing file." % filename)
             exit_status = status >> 8
             ly.error (_ ("`%s' failed (%d)") % (cmd, exit_status))
             ly.error (_ ("The error log is as follows:"))
-            ly.stderr_write (err)
-            ly.stderr_write (stderr.read ().decode ('utf-8'))
+            sys.stderr.write (err)
+            sys.stderr.write (stderr.read ().decode ('utf-8'))
             exit (status)
 
         debug ('\n')
@@ -928,7 +928,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
             if diff_against_existing:
                 warning (_ ("%s: duplicate filename but different contents of original file,\n\
 printing diff against existing file.") % xmlfilename)
-                ly.stderr_write (diff_against_existing.decode ('utf-8'))
+                sys.stderr.write (diff_against_existing.decode ('utf-8'))
         else:
             out = open (xmlfilename, 'wb')
             out.write (self.get_contents())
@@ -943,7 +943,7 @@ printing diff against existing file.") % xmlfilename)
             if diff_against_existing:
                 warning (_ ("%s: duplicate filename but different contents of converted lilypond file,\n\
 printing diff against existing file.") % filename)
-                ly.stderr_write (diff_against_existing.decode ('utf-8'))
+                sys.stderr.write (diff_against_existing.decode ('utf-8'))
         else:
             out = codecs.open (filename, 'w', 'utf-8')
             out.write (self.full_ly ())
