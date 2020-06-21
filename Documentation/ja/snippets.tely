@@ -1,0 +1,134 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+
+@setfilename lilypond-snippets.info
+@settitle LilyPond snippets
+@documentencoding UTF-8
+@documentlanguage ja
+@afourpaper
+
+@macro manualIntro
+This document shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  It is in the public domain.
+
+We would like to address many thanks to Sebastiano Vigna for maintaining
+LSR web site and database, and the University of Milano for hosting LSR.
+
+Please note that this document is not an exact subset of LSR: some
+snippets come from @file{input/new} LilyPond sources directory, and
+snippets from LSR are converted through @command{convert-ly}, as LSR is
+based on a stable LilyPond version, and this document is for
+version @version{}.
+
+Snippets are grouped by tags; tags listed in the table of contents match
+a section of LilyPond notation manual.  Snippets may have several tags,
+and not all LSR tags may appear in this document.
+
+In the HTML version of this document, you can click on the file name
+or figure for each example to see the corresponding input file.
+
+@end macro
+
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2020 by the authors.
+@end macro
+
+@c This disables @lydoctitle definition in common-macros.itexi
+@set snippets-sections
+
+@include macros.itexi
+
+@ifnothtml
+@macro nodeprefix{PRE}
+@end macro
+@macro lydoctitle{TEXT}
+@unnumberedsec \TEXT\
+@end macro
+@end ifnothtml
+
+@ifhtml
+@macro nodeprefix{PRE}
+@unmacro lydoctitle
+@macro lydoctitle{TEXT}
+@node \PRE\: \\TEXT\\
+@unnumberedsec \\TEXT\\
+@end macro
+@end macro
+@end ifhtml
+
+
+@lilyTitlePage{Snippets}
+
+
+@c maybe generate/update @menu and @includes automatically? --jm
+@ifnottex
+@menu
+Musical notation
+* Pitches::
+* Rhythms::
+* Expressive marks::
+* Repeats::
+* Simultaneous notes::
+* Staff notation::
+* Editorial annotations::
+* Text::
+
+Specialist notation
+* Vocal music::
+* Chords::
+* Keyboards::
+* Percussion::
+* Fretted strings::
+* Unfretted strings::
+* Winds::
+* Ancient notation::
+* World music::
+
+Other collections
+* Contexts and engravers::
+* Tweaks and overrides::
+* Paper and layout::
+* Titles::
+* Spacing::
+* MIDI::
+* Templates::
+@end menu
+
+@docMain
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@c Please take care of naming every .itely
+@c with an existing tag name.
+
+@include snippets/pitches.itely
+@include snippets/rhythms.itely
+@include snippets/expressive-marks.itely
+@include snippets/repeats.itely
+@include snippets/simultaneous-notes.itely
+@include snippets/staff-notation.itely
+@include snippets/editorial-annotations.itely
+@include snippets/text.itely
+
+@include snippets/vocal-music.itely
+@include snippets/chords.itely
+@include snippets/keyboards.itely
+@include snippets/percussion.itely
+@include snippets/fretted-strings.itely
+@include snippets/unfretted-strings.itely
+@include snippets/winds.itely
+@include snippets/ancient-notation.itely
+@include snippets/world-music.itely
+
+@include snippets/contexts-and-engravers.itely
+@include snippets/tweaks-and-overrides.itely
+@include snippets/paper-and-layout.itely
+@include snippets/titles.itely
+@include snippets/spacing.itely
+@include snippets/midi.itely
+@include snippets/template.itely
+
+@bye

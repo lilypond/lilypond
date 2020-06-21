@@ -1,10 +1,9 @@
 %% Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
   texidocde = "
-Dieses Schnipsel zeigt den Einsatz von {Span_stem_engraver} und
+Dieses Schnipsel zeigt den Einsatz von @code{Span_stem_engraver} und
 @code{\\crossStaff}, um Hälse über Systeme hinweg automatisch zu
 verbinden.  Die Länge des Halses muss definiert werden, da der
 variable Abstand zwischen Notenköpfen und Notensystemen automatisch
 errechnet wird.
 "
   doctitlede = "Hälse über beide Systeme"
-

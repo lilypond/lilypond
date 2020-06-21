@@ -1,6 +1,6 @@
 %% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
   texidocja = "
-空の譜を作成するには、空の小節を作って code{Score} コンテキストから
+空の譜を作成するには、空の小節を作って @code{Score} コンテキストから
 @code{Bar_number_engraver} を削除します。また @code{Staff} コンテキストから
 @code{Time_signature_engraver}, @code{Clef_engraver}, @code{Bar_engraver}
 を削除します。
