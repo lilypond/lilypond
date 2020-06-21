@@ -2,7 +2,7 @@ depth = ../..
 
 NAME = documentation
 
-STEPMAKE_TEMPLATES = documentation texinfo
+STEPMAKE_TEMPLATES = texinfo
 
 TEXTS = $(call src-wildcard,ANNOUNCE-*[0-9]) \
   $(call src-wildcard,CHANGES-*[0-9]) \

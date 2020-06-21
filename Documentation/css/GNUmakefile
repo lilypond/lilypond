@@ -4,7 +4,7 @@ CSS_FILES = $(call src-wildcard,*.css)
 
 OUT_CSS_FILES = $(CSS_FILES:%=$(outdir)/%)
 
-STEPMAKE_TEMPLATES = documentation
+STEPMAKE_TEMPLATES =
 
 include $(depth)/make/stepmake.make
 

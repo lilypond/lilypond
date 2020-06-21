@@ -1,6 +1,6 @@
 depth = ../..
 
-STEPMAKE_TEMPLATES=documentation
+STEPMAKE_TEMPLATES=
 XPM_FILES=$(call src-wildcard,*.xpm)
 
 lilypond-icon = $(outdir)/lilypond.ico
@@ -19,7 +19,6 @@ default: $(lilypond-icon) $(ly-icon)
 endif # PLATFORM_WINDOWS
 
 local-dist: $(icon)
-xgifs: $(OUTGIF_FILES)
 pngs: $(OUTPNG_FILES)
 
 ifeq ($(out),www)

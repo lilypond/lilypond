@@ -9,7 +9,7 @@ OUT_PDF_IMAGES = $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.pdf)
 OUT_BITMAP_IMAGES = $(BITMAP_IMAGES:%=$(outdir)/%)
 OUT_BITMAP_IMAGES += $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.png)
 
-STEPMAKE_TEMPLATES = documentation
+STEPMAKE_TEMPLATES =
 
 include $(depth)/make/stepmake.make
 
