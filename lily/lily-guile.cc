@@ -183,12 +183,12 @@ is_number_pair (SCM p)
 /*
   OFFSET
 */
-template <> Offset from_scm<Offset> (SCM s)
+template <> Offset from_scm<Offset> (const SCM &s)
 {
   return Offset (from_scm<Real> (scm_car (s)), from_scm<Real> (scm_cdr (s)));
 }
 
-template <> SCM to_scm<Offset> (Offset i)
+template <> SCM to_scm<Offset> (const Offset &i)
 {
   return scm_cons (to_scm (i[X_AXIS]), to_scm (i[Y_AXIS]));
 }
@@ -383,7 +383,7 @@ robust_scm2string (SCM k, const string &s)
 }
 
 template <>
-SCM to_scm<Rational> (Rational r)
+SCM to_scm<Rational> (const Rational &r)
 {
   if (r.is_infinity ())
     {
@@ -398,7 +398,7 @@ SCM to_scm<Rational> (Rational r)
 }
 
 template <>
-Rational from_scm<Rational> (SCM r)
+Rational from_scm<Rational> (const SCM &r)
 {
   if (scm_is_true (scm_inf_p (r)))
     {

@@ -164,6 +164,28 @@ inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
 typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
 #endif
 
+// These are patterns for conversion functions.  We currently use them to
+// predict the return types of overloaded functions before they are defined,
+// but other things could be added here, if necessary.
+template <typename T>
+struct conv_scm_traits
+{
+  static T from (SCM);
+
+  static SCM to (const T &);
+};
+
+// specialization for SCM passthrough, which is convenient in generic code
+template <>
+struct conv_scm_traits<SCM>
+{
+  static const SCM &from (const SCM &);
+  static SCM &from (SCM &);
+
+  static const SCM &to (const SCM &);
+  static SCM &to (SCM &);
+};
+
 // since partial template specialisation is not available for
 // functions, we default to reflecting to a helper class for template
 // types like Drul_array
@@ -174,21 +196,42 @@ is_scm (SCM s)
 {
   return scm_conversions<T>::is_scm (s);
 }
-template <typename T> inline T
-from_scm (SCM s)
+
+template <typename T> inline auto
+from_scm (const SCM &s)->decltype (conv_scm_traits<T>::from (s))
 {
   return scm_conversions<T>::from_scm (s);
 }
+template <typename T> inline auto
+from_scm (SCM &s)->decltype (conv_scm_traits<T>::from (s))
+{
+  const auto &cs = s;
+  return ::from_scm<T> (cs); // defer to the const & overload
+}
+
 // "robust" variant with fallback
-template <typename T> inline T
-from_scm (SCM s, T fallback)
+template <typename T> inline auto
+from_scm (const SCM &s, T fallback)->decltype (conv_scm_traits<T>::from (s))
 {
   return scm_conversions<T>::from_scm (s, fallback);
 }
-template <typename T> inline SCM
-to_scm (T v)
+template <typename T> inline auto
+from_scm (SCM &s, T fallback)->decltype (conv_scm_traits<T>::from (s))
+{
+  const auto &cs = s;
+  return ::from_scm<T> (cs, fallback); // defer to the const & overload
+}
+
+template <typename T> inline auto
+to_scm (const T &v)->decltype (conv_scm_traits<T>::to (v))
 {
   return scm_conversions<T>::to_scm (v);
+}
+template <typename T> inline auto
+to_scm (T &v)->decltype (conv_scm_traits<T>::to (v))
+{
+  const auto &cv = v;
+  return ::to_scm (cv); // defer to the const & overload
 }
 
 template <typename T> struct scm_conversions
@@ -206,12 +249,17 @@ template <typename T> struct scm_conversions
   }
 };
 
-// TODO: The asymmetry of having this without the others is irritating.
-template <> inline SCM
-to_scm<SCM> (SCM s)
-{
-  return s;
-}
+// These pass-through conversions for SCM are useful in generic code.
+template <> inline bool is_scm<SCM> (SCM) { return true; }
+
+template <> inline const SCM &from_scm<SCM> (const SCM &s) { return s; }
+template <> inline SCM &from_scm<SCM> (SCM &s) { return s; }
+
+template <> inline const SCM &from_scm<SCM> (const SCM &s, SCM) { return s; }
+template <> inline SCM &from_scm<SCM> (SCM &s, SCM) { return s; }
+
+template <> inline const SCM &to_scm<SCM> (const SCM &s) { return s; }
+template <> inline SCM &to_scm<SCM> (SCM &s) { return s; }
 
 template <> inline bool
 is_scm<int> (SCM s)
@@ -221,12 +269,12 @@ is_scm<int> (SCM s)
                                 std::numeric_limits<int>::max ());
 }
 template <> inline int
-from_scm<int> (SCM s)
+from_scm<int> (const SCM &s)
 {
   return scm_to_int (s);
 }
 template <> inline SCM
-to_scm<int> (int i)
+to_scm<int> (const int &i)
 {
   return scm_from_int (i);
 }
@@ -239,12 +287,12 @@ is_scm<size_t> (SCM s)
                                   std::numeric_limits<size_t>::max ());
 }
 template <> inline size_t
-from_scm<size_t> (SCM s)
+from_scm<size_t> (const SCM &s)
 {
   return scm_to_size_t (s);
 }
 template <> inline SCM
-to_scm<size_t> (size_t i)
+to_scm<size_t> (const size_t &i)
 {
   return scm_from_size_t (i);
 }
@@ -256,7 +304,8 @@ to_scm<size_t> (size_t i)
 template <>
 struct scm_conversions <unsigned>
 {
-  static bool is_scm (SCM s) {
+  static bool is_scm (SCM s)
+  {
     return scm_is_unsigned_integer (s,
                                     std::numeric_limits<unsigned>::min (),
                                     std::numeric_limits<unsigned>::max ());
@@ -277,12 +326,12 @@ is_scm<long> (SCM s)
                                 std::numeric_limits<long>::max ());
 }
 template <> inline long
-from_scm<long> (SCM s)
+from_scm<long> (const SCM &s)
 {
   return scm_to_long (s);
 }
 template <> inline SCM
-to_scm<long> (long i)
+to_scm<long> (const long &i)
 {
   return scm_from_long (i);
 }
@@ -295,12 +344,12 @@ is_scm<long long> (SCM s)
                                 std::numeric_limits<long long>::max ());
 }
 template <> inline long long
-from_scm<long long> (SCM s)
+from_scm<long long> (const SCM &s)
 {
   return scm_to_long_long (s);
 }
 template <> inline SCM
-to_scm<long long> (long long i)
+to_scm<long long> (const long long &i)
 {
   return scm_from_long_long (i);
 }
@@ -314,12 +363,12 @@ is_scm<bool> (SCM s)
 // #f as that's what we generally need for an undefined boolean.  This
 // differs from Scheme which interprets anything but #f as true.
 template <> inline bool
-from_scm<bool> (SCM s)
+from_scm<bool> (const SCM &s)
 {
   return scm_is_eq (s, SCM_BOOL_T);
 }
 template <> inline bool
-from_scm<bool> (SCM s, bool fallback)
+from_scm<bool> (const SCM &s, bool fallback)
 {
   if (fallback)
     return scm_is_true (s);
@@ -327,7 +376,7 @@ from_scm<bool> (SCM s, bool fallback)
     return from_scm<bool> (s);
 }
 template <> inline SCM
-to_scm<bool> (bool i)
+to_scm<bool> (const bool &i)
 {
   return scm_from_bool (i);
 }
@@ -338,12 +387,12 @@ is_scm<double> (SCM s)
   return scm_is_real (s);
 }
 template <> inline double
-from_scm<double> (SCM s)
+from_scm<double> (const SCM &s)
 {
   return scm_to_double (s);
 }
 template <> inline SCM
-to_scm<double> (double i)
+to_scm<double> (const double &i)
 {
   return scm_from_double (i);
 }
@@ -354,12 +403,12 @@ is_scm<Axis> (SCM s)
   return scm_is_unsigned_integer (s, X_AXIS, Y_AXIS);
 }
 template <> inline Axis
-from_scm<Axis> (SCM s)
+from_scm<Axis> (const SCM &s)
 {
   return Axis (scm_to_unsigned_integer (s, X_AXIS, Y_AXIS));
 }
 template <> inline SCM
-to_scm<Axis> (Axis d)
+to_scm<Axis> (const Axis &d)
 {
   return to_scm<int> (d);
 }
@@ -375,24 +424,24 @@ is_scm<Direction> (SCM s)
 // is_scm<Direction> more than once, we hard-code the defaulting
 // variant and implement the one-argument version based on it.
 template <> inline Direction
-from_scm<Direction> (SCM s, Direction fallback)
+from_scm<Direction> (const SCM &s, Direction fallback)
 {
   return is_scm<Direction> (s) ? Direction (scm_to_int (s)) : fallback;
 }
 template <> inline Direction
-from_scm<Direction> (SCM s)
+from_scm<Direction> (const SCM &s)
 {
   return from_scm<Direction> (s, CENTER);
 }
 template <> inline SCM
-to_scm<Direction> (Direction d)
+to_scm<Direction> (const Direction &d)
 {
   return to_scm<int> (d);
 }
 
 template <> bool is_scm<Rational> (SCM s);
-template <> Rational from_scm<Rational> (SCM s);
-template <> SCM to_scm<Rational> (Rational i);
+template <> Rational from_scm<Rational> (const SCM &s);
+template <> SCM to_scm<Rational> (const Rational &i);
 
 template <typename T> inline bool
 is_scm_pair (SCM s)
@@ -411,8 +460,8 @@ is_scm<Offset> (SCM s)
   return is_scm_pair<Real> (s);
 }
 
-template <> Offset from_scm<Offset> (SCM s);
-template <> SCM to_scm<Offset> (Offset i);
+template <> Offset from_scm<Offset> (const SCM &s);
+template <> SCM to_scm<Offset> (const Offset &i);
 
 // partial function specialisation is not allowed, partially
 // specialize helper class
@@ -521,6 +570,5 @@ to_scm_list (const T &ct)
     }
   return lst;
 }
-
 
 #endif /* LILY_GUILE_HH */

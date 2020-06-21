@@ -127,8 +127,8 @@ public:
     return *SCM_CARLOC (*it_);
   }
 
-  // For SCM, we can return a reference to the car of the current pair.
-  // Recommended range-based for loop syntax:
+  // When the value type is SCM, we return a reference to the car of the
+  // current pair.  Recommended range-based for loop syntax:
   //
   //     for (SCM &s : things)        // assigning to s changes the car
   //     for (SCM s : things)         // s is a mutable copy of the car
@@ -136,19 +136,6 @@ public:
   // Note that "const SCM &s" prevents modifying the immediate value of s, but
   // not non-immediate values (pairs, Smobs, etc.).
   //
-  template <class T2 = T>
-  typename std::enable_if<std::is_same<T2, SCM>::value, reference>::type
-  operator * () const
-  {
-    // TODO: We wouldn't need the enable_if stuff if we had
-    // a reference-preserving from_scm:
-    //
-    //     SCM &from_scm<SCM> (SCM &);
-    //     const SCM &from_scm<SCM> (const SCM &);
-    //
-    return dereference_scm ();
-  }
-
   // For value types other than SCM, conversion is built into dereferencing.
   // This can be very convenient, but there are limitations.
   //
@@ -176,9 +163,7 @@ public:
   // operator * takes no parameters.  TODO: It might be possible to provide a
   // uniform fallback value as a parameter of the list template.
   //
-  template <class T2 = T>
-  typename std::enable_if < !std::is_same<T2, SCM>::value, T >::type
-  operator * () const
+  auto operator * () const->decltype (from_scm<T> (dereference_scm ()))
   {
     return from_scm<T> (dereference_scm ());
   }
