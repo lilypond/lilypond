@@ -6,7 +6,6 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 include $(depth)/make/stepmake.make
 
 doc-localedir=$(outdir)
-LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 DOC_PO_SOURCES = python/auxiliar/postprocess_html.py \
  scripts/auxiliar/tely-gettext.py scripts/auxiliar/translations-status.py
 TELY_FILES = $(shell ls $(depth)/Documentation/*.tely)

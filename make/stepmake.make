@@ -33,6 +33,7 @@ include $(depth)/make/toplevel-version.make
 
 BUILD_VERSION=1
 
+LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
 outdir=$(outroot)/$(outbase)
 

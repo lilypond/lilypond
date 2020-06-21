@@ -1,7 +1,5 @@
 # ISOLANG must be defined
 
-LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-
 TELY_FILES := $(call src-wildcard,*.tely)
 TEXI_FILES := $(call src-wildcard,*.texi)
 MASTER_TEXI_FILES := $(TEXI_FILES:%=$(outdir)/%) $(TELY_FILES:%.tely=$(outdir)/%.texi)

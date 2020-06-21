@@ -15,8 +15,6 @@ else
 export LILYPOND_BINARY=$(LILYPOND_EXTERNAL_BINARY)
 endif
 
-LANGS=$(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-
 # Don't create __pycache__ in the source directory.
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH:=$(top-src-dir)/python:$(PYTHONPATH)

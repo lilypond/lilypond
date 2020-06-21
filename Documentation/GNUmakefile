@@ -8,7 +8,6 @@ depth = ..
 ### Variables
 
 NAME = documentation
-LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 SUBDIRS = logo pictures misc po css topdocs \
   ly-examples $(LANGS)
 STEPMAKE_TEMPLATES = texinfo
@@ -224,7 +223,7 @@ $(OUT_SNIPPET_LY_FILES): out/ly-snippets.dep
 out/ly-snippets.dep: $(SNIPPET_LY_FILES)
 	$(call ly_progress,Making,$@,)
 	mkdir -p snippets/out
-	$(PYTHON) $(buildscript-dir)/makesnippets.py $(src-dir)/snippets snippets/out $(src-dir)
+	$(PYTHON) $(buildscript-dir)/makesnippets.py $(src-dir)/snippets snippets/out "$(LANGS)" $(src-dir)
 	mkdir -p out
 	touch $@
 

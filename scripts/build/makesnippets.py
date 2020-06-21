@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-'''USAGE: makesnippets.py INPUT_DIR OUTPUT_DIR DOC_DIR
+'''USAGE: makesnippets.py INPUT_DIR OUTPUT_DIR LANGUAGES DOC_DIR
 
 Read all .ly files from INPUT_DIR, insert translations from .texidoc
 files found in DOC_DIR/LANG/texdiocs, and write ther result to OUTPUT_DIR.'''
@@ -28,12 +28,12 @@ import sys
 import os.path
 import re
 
-import langdefs
+(input_dir, output_dir, languages_str, doc_dir) = sys.argv[1:5]
 
-(input_dir, output_dir, doc_dir) = sys.argv[1:4]
+languages = languages_str.split(' ')
 
-texidoc_dirs = [os.path.join (doc_dir, language_code, 'texidocs')
-                for language_code in langdefs.LANGDICT]
+texidoc_dirs = [os.path.join (doc_dir, lang, 'texidocs')
+                for lang in languages if lang]
 
 begin_header_re = re.compile (r'\\header\s*{', re.M)
 
