@@ -253,20 +253,20 @@ UNTRANSLATED NODE: IGNORE ME
 @end macro
 
 @ifhtml
-  @ifclear bigpage
+@ifclear bigpage
 @macro docSize{before,target,after}
 @html
 \before\<!-- file-size:, href="../\target\"-->\after\
 @end html
 @end macro
-  @end ifclear
-  @ifset bigpage
+@end ifclear
+@ifset bigpage
 @macro docSize{before,target,after}
 @html
 \before\<!-- file-size:, href="\target\"-->\after\
 @end html
 @end macro
-  @end ifset
+@end ifset
 @end ifhtml
 @ifnothtml
 @macro docSize{before,target,after}
@@ -275,21 +275,21 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifnothtml
 
 @ifclear web_version
-  @ifclear bigpage
-    @macro docLink{name,target,webLink}
-      @uref{../\target\, \name\}
-    @end macro
-  @end ifclear
-  @ifset bigpage
-    @macro docLink{name,target,webLink}
-      @uref{\target\, \name\}
-    @end macro
-  @end ifset
+@ifclear bigpage
+@macro docLink{name,target,webLink}
+@uref{../\target\, \name\}
+@end macro
+@end ifclear
+@ifset bigpage
+@macro docLink{name,target,webLink}
+@uref{\target\, \name\}
+@end macro
+@end ifset
 @end ifclear
 @ifset web_version
-  @macro docLink{name,target,webLink}
-    \webLink\
-  @end macro
+@macro docLink{name,target,webLink}
+\webLink\
+@end macro
 @end ifset
 
 @macro miscLink{MISC-FILE,MISC-TEXT}
