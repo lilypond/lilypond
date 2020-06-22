@@ -271,7 +271,9 @@ Admireu la nostra galeria de @ref{Examples} i inspireu-vos''
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore

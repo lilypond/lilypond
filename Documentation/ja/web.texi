@@ -273,7 +273,9 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore

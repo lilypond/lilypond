@@ -70,7 +70,9 @@ Appendices
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @include contributor/introduction.itexi
 @include contributor/quick-start.itexi

@@ -64,7 +64,9 @@ Copyright @copyright{} 1999--2020 by the authors.
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @include usage/running.itely
 @include usage/updating.itely

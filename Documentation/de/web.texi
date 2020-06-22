@@ -269,7 +269,9 @@ Sehen Sie sich unsere @ref{Beispiele} an und lassen sich inspirieren!
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore

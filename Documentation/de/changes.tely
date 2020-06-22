@@ -50,7 +50,9 @@ Siehe Benutzerhandbuch, \NAME\
 @top Neuerungen von Version 2.20 gegenüber 2.18
 @c New features in 2.20 since 2.18
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 
 @ignore

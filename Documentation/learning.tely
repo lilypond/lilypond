@@ -57,7 +57,9 @@ Appendices
 @c TOC - tex
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c INCLUDES
 

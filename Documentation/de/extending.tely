@@ -52,7 +52,9 @@ Anhänge
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 
 @include extending/scheme-tutorial.itely

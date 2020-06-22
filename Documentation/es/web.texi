@@ -273,7 +273,9 @@ e incluso
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore

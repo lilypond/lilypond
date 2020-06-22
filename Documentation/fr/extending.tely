@@ -57,7 +57,9 @@ Appendices
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @include extending/scheme-tutorial.itely
 @include extending/programming-interface.itely

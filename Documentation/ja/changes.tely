@@ -51,7 +51,9 @@ See user manual, \NAME\
 @node Top
 @top 2.20 から 2.22 での新機能
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @itemize
 

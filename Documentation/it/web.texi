@@ -230,7 +230,9 @@ Guarda la galleria di @ref{Esempi} e lasciati ispirare!
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore

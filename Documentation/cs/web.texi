@@ -181,7 +181,9 @@ Více se dočtete v @ref{Úvod,,úvodu}!
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 
 @c ****************** GENERAL STUFF FOR INFO ************

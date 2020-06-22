@@ -59,7 +59,9 @@ Appendici
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @include notation/notation.itely
 @include notation/specialist.itely

@@ -53,7 +53,9 @@ Copyright @copyright{} 2002--2020 degli autori.
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @include essay/engraving.itely
 @include essay/literature.itely

@@ -47,7 +47,9 @@ Véase el manual del usuario, \NAME\
 @node Top
 @top Funcionalidades nuevas de la versión 2.22 desde la 2.20
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @itemize
 

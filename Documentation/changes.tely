@@ -38,7 +38,9 @@ See user manual, \NAME\
 @node Top
 @top New features in 2.22 since 2.20
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @itemize
 

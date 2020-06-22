@@ -215,7 +215,9 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore

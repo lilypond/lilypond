@@ -63,7 +63,9 @@ Copyright @copyright{} 1998--2020 by the authors.
 @c TOC - tex
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c INCLUDES
 

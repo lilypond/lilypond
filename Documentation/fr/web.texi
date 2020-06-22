@@ -269,7 +269,9 @@ Venez puiser l'inspiration dans notre galerie
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore

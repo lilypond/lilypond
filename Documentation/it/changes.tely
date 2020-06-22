@@ -47,7 +47,9 @@ Vedi il manuale utente, \NAME\
 @node Top
 @top Nuove funzionalità nella versione 2.22 rispetto alla 2.20
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @c I'd better wait and translate all at once just before 2.22 release.
 Questa pagina verrà tradotta poco prima del rilascio della versione 2.22.

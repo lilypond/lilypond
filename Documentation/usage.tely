@@ -60,7 +60,9 @@ Appendices
 
 @contents
 
+@iftex
 @allowcodebreaks false
+@end iftex
 
 @include usage/running.itely
 @include usage/updating.itely
