@@ -33,10 +33,12 @@ See user manual, \NAME\
 @documentlanguage en
 @afourpaper
 
-@finalout
+@macro manualIntro
+This document lists changes and new features
+in LilyPond version @version{} since 2.20.
+@end macro
 
-@node Top
-@top New features in 2.22 since 2.20
+@lilyTitlePage{Changes}
 
 @iftex
 @allowcodebreaks false
