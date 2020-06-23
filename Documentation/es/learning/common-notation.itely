@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 557cc9934585a9083c9e4957068889b3f393873c
+    Translation of GIT committish: 08e07410fe74286ef9c4ad57a3e1bfbb62ed788c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1401,6 +1401,7 @@ al resto del manual.
 @cindex variables, uso de
 @cindex variables, caracteres permitidos en
 @cindex caracteres permitidos en variables
+@cindex variables, que contienen expresiones musicales
 
 Cuando los elementos que hemos discutido anteriormente se combinan
 para producir archivos mayores, las expresiones musicales se hacen

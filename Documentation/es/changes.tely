@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: cf714372e43703b6a76e2abcfacbda912f66d662
+    Translation of GIT committish: 9891c98f11b06bdfa26040ca42d3be2be0a9a4a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,6 +69,120 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+
+@item
+Ahora se contemplan los marcadores de PDF y permiten que las
+entradas de @code{\tocItem} aparezcan dentro del panel de @q{tabla
+de contenidos} de los visores de PDF que lo permiten.
+
+@item
+@code{\table-of-contents} ahora acepta una estructura jerárquica;
+las entradas de @code{\tocItem} pueden opcionalmente aceptar un
+símbolo (como @code{\label}) o una lista de símbolos separados por
+puntos, indicando su posición dentro de la estructura de la
+partitura. Un efecto secundario de esta funcionalidad es que
+@code{\tocItem} ya no puede tomar una simple cadena como
+argumento; se debe utilizar una instrucción @code{\markup}.
+@example
+\tocItem \markup "Entrada principal"
+\tocItem symbol "Entrada principal con nombre"
+\tocItem symbol.list "Entrada secundaria (de segundo nivel)"
+@end example
+
+
+@item
+Ahora se puede repetir un guión de letra al comienzo de un sistema
+que comienza con una sílaba nueva:
+@lilypond[quote]
+\relative {
+  d'8^( e f e f4) \bar "" \break
+  e4
+}
+\addlyrics {
+  \override LyricHyphen.after-line-breaking = ##t
+  A -- men.
+}
+@end lilypond
+
+
+@item
+Ahora se pueden usar colores de estilo CSS directamente como
+cadenas de texto; ya sea como nombres de color predefinidos (como
+ocurre con la función @code{css-color} que ya está disponible), o
+con códigos de color hexadecimales con el prefijo @code{#}.  Todos
+los sellos o stencils que contemplan una propiedad @code{color}
+ahora aceptan tanto una lista como una cadena; en este último
+caso, la cadena se utiliza directamente en la salida de SVG.  Esto
+permite usar transparencia alpha (introducido como "#RRGGBBAA" o
+"#RGBA") dentro del SVG.
+
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
+
+
+@item
+Es posible obtener salida de SVG a través de la opción de línea de
+órdenes @code{--svg} (o su forma canónica @code{--format=svg}, que
+también se puede abreviar como @code{-fsvg}).  A causa de su
+especificidad respetco al backend, esa opción no es compatible aún
+con otros formatos de salida; para obtener un archivo en los dos
+formatos SVG y PDF, PNG o EPS, es necesaria otra ejecución del
+programa LilyPond.
+
+
+@item
+COmo se anunció en la versión 2.17.3 hace casi ocho años, la
+opción @code{'relative-includes} está activada de forma
+predeterminada; los archivos de inclusión que contienen a su vez
+alguna instrucción @code{\include}, deben tener en cuenta su
+propia ruta en lugar del directorio del archivo principal.  Sin
+embargo, este comportamiento se puede desactivar mediante el
+establecimiento de @code{'relative-includes} al valor falso
+@code{#f}, ya sea como una opción de la línea de órdenes o
+utilizando @code{ly:set-option} dentro de los archivos de entrada.
+
+
+@item
+Los grupos de valoración especial se pueden imprimir ahora
+con ligaduras en lugar de corchetes:
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
+
+@item
+La palabra clave @code{\compressFullBarRests} ha cambiado su
+nombre por @code{\compressEmptyMeasures}, para evitar cualquier
+confusión con @code{\compressMMRests}.  De manera similar,
+@code{\expandFullBarRests} es ahora @code{\expandEmptyMeasures}.
+
+
+@item
+Un cambio progresivo en una vocal (o en una consonante mantenida)
+puede indicarse añadiendo una transición de vocal entre sílabas de
+la letra con la instrucción @code{\vowelTransition}.
+@lilypond[verbatim,quote]
+{ g'2 g' } \addlyrics { Ah
+\vowelTransition oh. }
+@end lilypond
+
+
+@item
+LilyPond para Windows (MinGW) maneja correctamente nombres de
+archivo en Unicode sobre Windows 10 1903 o superior.
 
 
 @item
