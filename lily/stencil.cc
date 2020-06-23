@@ -348,7 +348,9 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindis
   if (is_empty (other_axis (a)))
     {
       Stencil toadd (s);
-      Real offset = d * first_extent.length ();
+      // Spacing assigns meaning to "intervals" with negative extent,
+      // so we cannot use first_extent.length () here
+      Real offset = first_extent[d] - first_extent[-d];
       toadd.translate_axis (offset, a);
       toadd.add_stencil (*this);
       expr_ = toadd.expr ();
@@ -368,7 +370,7 @@ Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindis
       expr_ = toadd.expr ();
       dim_ = toadd.extent_box ();
       dim_[a][-d] = first_extent[-d];
-      dim_[a][d] = first_extent[d] + d * next_extent.length ();
+      dim_[a][d] = first_extent[d] + next_extent[d] - next_extent[-d];
       return;
     }
 
