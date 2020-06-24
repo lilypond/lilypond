@@ -83,10 +83,14 @@ $normalise_node = \&lilypond_normalise_node;
 use utf8;
 use Encode qw(decode);
 
+sub ly_get_language () {
+    return $Texi2HTML::THISDOC{'current_lang'};
+}
+
 # Translations declared in lilypond-texi2html-lang.init.
 
 sub ly_get_string () {
-    my $lang = $Texi2HTML::THISDOC{current_lang};
+    my $lang = ly_get_language ();
     my $string = shift;
     if ($lang and $lang ne "en" and $LY_LANGUAGES->{$lang}->{$string}) {
 	return $LY_LANGUAGES->{$lang}->{$string};
@@ -116,7 +120,7 @@ $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Tran
     );
 
 sub web_settings() {
-  print STDERR "Processing web site: [$Texi2HTML::THISDOC{current_lang}]\n";
+  print STDERR "Processing web site: [" . ly_get_language () . "]\n";
   $Texi2HTML::Config::BODYTEXT = "";
   @Texi2HTML::Config::CSS_REFS      = (
       {FILENAME => "lilypond-website.css", TITLE => "Default style"}
@@ -530,6 +534,14 @@ sub lilypond_element_target_name($$$)
   return ($target, $id);
 }
 
+sub ly_map_filename ($)
+{
+    my $map_name = shift;
+    my $map_filename = $map_name . '.' . ly_get_language () . '.xref-map';
+    $map_filename = main::locate_include_file ($map_filename)
+        || main::locate_include_file ($map_name . '.xref-map');
+    return $map_filename;
+}
 
 ## Load the map file for the corrently processed texi file. We do this
 #  using a command init handler, since texi2html does not have any
@@ -538,8 +550,7 @@ sub lilypond_element_target_name($$$)
 sub lilypond_init_map ()
 {
     my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-    my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
-	|| main::locate_include_file ("${docu_name}.xref-map");
+    my $map_filename = ly_map_filename ($docu_name);
     #print STDERR "Map filename is: $map_filename\nDocu name is $docu_name\n";
     if ($docu_name eq 'web') {
 	$web_manual = 1;
@@ -561,7 +572,7 @@ sub lilypond_bodytext ()
   # Create the extra information for the <body> tag.
   # For example, the development Notation reference in English
   # will output in HTML as <body lang='en' class='notation'>
-  $Texi2HTML::Config::BODYTEXT = 'lang="' . $Texi2HTML::THISDOC{'current_lang'} . '" class="' . $docu_name . '"';
+  $Texi2HTML::Config::BODYTEXT = 'lang="' . ly_get_language () . '" class="' . $docu_name . '"';
 }
 push @Texi2HTML::Config::command_handler_process, \&lilypond_bodytext;
 
@@ -674,9 +685,7 @@ sub lilypond_external_href($$$)
 
     # Load the map if we haven't done so already
     if (!exists($translated_books{$map_name})) {
-      my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-      my $map_filename = main::locate_include_file ("${map_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
-	  || main::locate_include_file ("${map_name}.xref-map");
+      $map_filename = ly_map_filename ($map_name);
       $translated_books{$map_name} = load_map_file ($map_filename);
     }
 
@@ -743,7 +752,7 @@ sub lilypond_print_toc_div ($)
     $topname =~ s/^GNU LilyPond(:| &[mn]dash;) //;
 
     # construct the top-level Docs index (relative path and including language!)
-    my $lang = $Texi2HTML::THISDOC{current_lang};
+    my $lang = ly_get_language ();
     if ($lang and $lang ne "en") {
       $lang .= ".";
     } else {
@@ -797,7 +806,7 @@ sub lilypond_print_toc_div ($)
 
     local $/=undef;
     my $name = "search-box";
-    $lang = $Texi2HTML::THISDOC{current_lang};
+    $lang = ly_get_language ();
     open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
         open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name.ihtml"  or
         die "no such file: $name.ihtml: $!";
