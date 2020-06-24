@@ -29,20 +29,11 @@ begin_font_regex = re.compile ('%%BeginFont: (.*)')
 end_font_regex = re.compile ('%%EndFont')
 verbose = 0
 
-try:
-    import gettext
-    gettext.bindtextdomain ('lilypond', localedir)
-    gettext.textdomain ('lilypond')
-    _ = gettext.gettext
-except:
-    def _ (s):
-        return s
-
 def scan_files (files):
     file_of_font_dict = {}
     for f in files:
         if verbose:
-            sys.stderr.write (_('Scanning %s') % f + '\n')
+            sys.stderr.write ('Scanning %s\n' % f)
 
         header = open (f, 'r').read ()
         idx = 0
@@ -87,8 +78,7 @@ def extract_fonts_from_file (extract_from_this, font_dict, filename):
                 if curr_font_name in extract_from_this:
                     font_dict[curr_font_name] = ''.join (curr_font)
                     if verbose:
-                        sys.stderr.write (_('Extracted %s')
-                                          % curr_font_name + '\n')
+                        sys.stderr.write ('Extracted %s\n' % curr_font_name)
 
                     extract_from_this.remove (curr_font_name)
             elif in_font:
@@ -102,7 +92,7 @@ def extract_fonts_from_file (extract_from_this, font_dict, filename):
 
 def write_extracted_fonts (output_file_name, font_dict):
     if verbose:
-        sys.stderr.write( _('Writing fonts to %s') % output_file_name + '\n')
+        sys.stderr.write('Writing fonts to %s\n' % output_file_name)
     output = open (output_file_name, 'w')
     output.write ('''%!PS-Adobe-3.0
 %%VMusage: 0 0
