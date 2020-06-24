@@ -71,9 +71,6 @@ public:
   static const char *const type_p_name_;
   virtual ~Music_iterator ();
   Input *origin () const override;
-protected:
-  Moment music_length_;
-  Moment start_mom_;
 
   VIRTUAL_CLASS_NAME (Music_iterator);
 private:
@@ -81,12 +78,12 @@ private:
   Music_iterator &operator = (Music_iterator const &) = delete;
 
 public:
-  Moment music_get_length () const;
+  const Moment &music_get_length () const { return music_length_; }
   // music_start_mom () is calculated relative to the time where the
   // iterator occurs in the music stream, so it will usually be
   // non-zero only for expressions starting with grace notes.
-  Moment music_start_mom () const;
   Music_iterator ();
+  const Moment &music_start_mom () const { return start_mom_; }
   void report_event (Music *);
   virtual Context *get_outlet () const;
   virtual void set_context (Context *);
@@ -119,6 +116,8 @@ protected:
 private:
   Context_handle handle_;
   Music *music_;
+  Moment music_length_;
+  Moment start_mom_;
 };
 
 bool is_child_context (Context *me, Context *child);

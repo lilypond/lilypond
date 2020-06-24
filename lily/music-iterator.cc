@@ -100,18 +100,6 @@ Music_iterator::get_static_get_iterator (Music *m)
   return iter;
 }
 
-Moment
-Music_iterator::music_get_length () const
-{
-  return music_length_;
-}
-
-Moment
-Music_iterator::music_start_mom ()const
-{
-  return start_mom_;
-}
-
 void
 Music_iterator::init_context (Music *m, Context *report)
 {
