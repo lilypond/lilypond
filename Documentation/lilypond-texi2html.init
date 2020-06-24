@@ -350,25 +350,6 @@ sub lilypond_css_lines ($$)
     $Texi2HTML::THISDOC{'CSS_LINES'} .=
 	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-manuals-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
   }
-
-  ## This section makes the manual name visible to CSS through the body tag
-  ## so that styles can be applied per manual. It will add the manual
-  ## directory name (e.g., 'notation' or 'learning') as a CSS class, as well
-  ## as a development status.
-
-  # Parse the input file name to determine the manual we're dealing with.
-  my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-
-  # Hard-coded value to indicate if this is a development version
-  # ('devStatus') or stable version ('stableStatus')
-  # TODO: Figure out how to automatically set this value based on the even/odd minor revision number or some other mechanism.
-  $documentstatus = 'devStatus';
-
-  # Create the extra information for the <body> tag.
-  # For example, the development Notation reference in English
-  # will output in HTML as <body lang='en' class='notation devStatus'>
-  $Texi2HTML::Config::BODYTEXT = 'lang="' . $Texi2HTML::THISDOC{current_lang} . '" class="' . $docu_name . ' ' . $documentstatus . '"';
-
 }
 
 
@@ -568,7 +549,21 @@ sub lilypond_init_map ()
 }
 push @Texi2HTML::Config::command_handler_init, \&lilypond_init_map;
 
+sub lilypond_bodytext ()
+{
+  ## This section makes the manual name visible to CSS through the body tag
+  ## so that styles can be applied per manual. It will add the manual
+  ## directory name (e.g., 'notation' or 'learning') as a CSS class.
 
+  # Parse the input file name to determine the manual we're dealing with.
+  my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+
+  # Create the extra information for the <body> tag.
+  # For example, the development Notation reference in English
+  # will output in HTML as <body lang='en' class='notation'>
+  $Texi2HTML::Config::BODYTEXT = 'lang="' . $Texi2HTML::THISDOC{'current_lang'} . '" class="' . $docu_name . '"';
+}
+push @Texi2HTML::Config::command_handler_process, \&lilypond_bodytext;
 
 #############################################################################
 ###  CLEANER LINK TITLE FOR EXTERNAL REFS
