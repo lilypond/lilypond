@@ -611,7 +611,7 @@ sub lilypond_external_ref($$$$$$)
   }
 
   $displaytext = &$anchor('', $href, $displaytext) if ($displaytext ne '');
-  return &$I('%{node_file_href}', { 'node_file_href' => $displaytext });
+  return $displaytext;
 }
 
 
