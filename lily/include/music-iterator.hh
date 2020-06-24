@@ -82,7 +82,6 @@ public:
   // music_start_mom () is calculated relative to the time where the
   // iterator occurs in the music stream, so it will usually be
   // non-zero only for expressions starting with grace notes.
-  Music_iterator ();
   const Moment &music_start_mom () const { return start_mom_; }
   void report_event (Music *);
   virtual Context *get_outlet () const;
@@ -110,6 +109,7 @@ public:
 
   Music *get_music () const;
 protected:
+  Music_iterator ();
   virtual void do_quit ();
   void descend_to_child (Context *);
 
