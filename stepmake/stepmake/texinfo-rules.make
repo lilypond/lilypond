@@ -37,19 +37,11 @@ $(outdir)/%.itexi: %.itexi
 
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
-ifeq ($(WEB_VERSION),yes)
-	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) -D web_version --output=$@ $<" "$(outdir)/$*.makeinfoweb.log"
-else
 	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<" "$(outdir)/$*.makeinfo.log"
-endif
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
-ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
-else
-	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
-endif
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
@@ -59,11 +51,7 @@ $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 	mkdir -p $(dir $@)
-ifeq ($(WEB_VERSION),yes)
-	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth)/../ $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
-else
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth)/../ $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
-endif
 
 ifneq ($(ISOLANG),)
 $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map | $(OUT_TEXINFO_MANUALS)
@@ -75,11 +63,6 @@ $(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
 	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) $<
 endif
 
-TEXI2PDF_WEB_VERSION_FLAGS :=
-ifeq ($(WEB_VERSION),yes)
-TEXI2PDF_WEB_VERSION_FLAGS += -D web_version
-endif
-
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(call ly_progress,Making,$@,< texi)
 	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
@@ -87,7 +70,6 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.ite
 			"cd $(outdir); \
 				texi2pdf --batch $(TEXI2PDF_FLAGS) \
 					$(TEXI2PDF_QUIET) \
-					$(TEXI2PDF_WEB_VERSION_FLAGS) \
 					-I $(abs-src-dir) \
 					$(TEXINFO_PAPERSIZE_OPTION) \
 					-o $*.tmp.pdf \
