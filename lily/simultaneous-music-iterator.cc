@@ -77,7 +77,7 @@ Simultaneous_music_iterator::construct_children ()
             }
         }
 
-      mi->init_context (mus, c);
+      mi->init_context (c);
       mi->construct_children ();
 
       if (mi->ok ())

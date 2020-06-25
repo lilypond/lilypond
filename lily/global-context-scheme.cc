@@ -104,7 +104,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);
   Music_iterator *iter = unsmob<Music_iterator> (protected_iter);
 
-  iter->init_context (music, g);
+  iter->init_context (g);
   iter->construct_children ();
 
   if (!iter->ok ())

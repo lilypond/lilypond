@@ -96,10 +96,8 @@ Music_iterator::get_static_get_iterator (Music *m)
 }
 
 void
-Music_iterator::init_context (Music *m, Context *report)
+Music_iterator::init_context (Context *report)
 {
-  music_ = m;
-  assert (m);
   if (! get_outlet ())
     set_context (report);
 }
@@ -126,7 +124,7 @@ Music_iterator::get_iterator (Music *m) const
   SCM ip = get_static_get_iterator (m);
   Music_iterator *p = unsmob<Music_iterator> (ip);
 
-  p->init_context (m, get_outlet ());
+  p->init_context (get_outlet ());
 
   p->construct_children ();
   return ip;
