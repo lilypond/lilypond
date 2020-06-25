@@ -84,7 +84,10 @@ use utf8;
 use Encode qw(decode);
 
 sub ly_get_language () {
-    return $Texi2HTML::THISDOC{'current_lang'};
+    my $lang = $Texi2HTML::THISDOC{'documentlanguage'};
+    # Old key for texi2html-1.82
+    $lang = $Texi2HTML::THISDOC{'current_lang'} if !defined $lang;
+    return $lang;
 }
 
 # Translations declared in lilypond-texi2html-lang.init.
@@ -137,6 +140,9 @@ $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not
 
 $DO_CONTENTS = 1;
 
+# The default has changed to 'class="no-bullet"' in texi2html 5.0.
+$NO_BULLET_LIST_CLASS = 'toc';
+
 my $bigpage = 0;
 my $have_index_entries = 0;
 if ($Texi2HTML::Config::SPLIT eq 'section' or
@@ -153,6 +159,7 @@ $default_print_page_head = $Texi2HTML::Config::print_page_head;
 $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
 $Texi2HTML::Config::print_page_foot      = \&lilypond_print_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
+$Texi2HTML::Config::print_title          = \&lilypond_print_title;
 $Texi2HTML::Config::about_body           = sub { return ''; };
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
 $default_external_href = $Texi2HTML::Config::external_href;
@@ -572,7 +579,12 @@ sub lilypond_bodytext ()
   # Create the extra information for the <body> tag.
   # For example, the development Notation reference in English
   # will output in HTML as <body lang='en' class='notation'>
-  $Texi2HTML::Config::BODYTEXT = 'lang="' . ly_get_language () . '" class="' . $docu_name . '"';
+  my $bodytext = 'lang="' . ly_get_language () . '" class="' . $docu_name . '"';
+
+  $Texi2HTML::THISDOC{'BODYTEXT'} = $bodytext;
+  # Set the global config variable for texi2html-1.82 which sets the previous
+  # variable at the beginning of init_out.
+  $Texi2HTML::Config::BODYTEXT = $bodytext;
 }
 push @Texi2HTML::Config::command_handler_process, \&lilypond_bodytext;
 
@@ -716,6 +728,11 @@ sub lilypond_external_href($$$)
     $href = remove_unneeded_anchor($href);
     return $href;
   }
+}
+
+sub lilypond_print_title ()
+{
+  return "";
 }
 
 sub remove_unneeded_anchor($)
