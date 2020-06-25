@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 41a35ee2dda003efc36f281de7160660fafd410b
+    Translation of GIT committish: 3594a1e3692c736b9da2eb35bfb177528048f295
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -503,6 +503,8 @@ Véase @ref{Tamaño de los objetos} y @ruser{Pentagramas de Ossia}.
 @node Estructura de un elemento de nota
 @subsection Estructura de un elemento de nota
 @translationof Structure of a note entry
+
+@cindex post-eventos
 
 Un elemento de nota en LilyPond consiste en una altura seguida de
 una duración, y opcionalmente seguida de uno o más
@@ -3136,14 +3138,16 @@ de lilypond); no se preocupe por el momento de los detalles, pues
 esto se explica más tarde de forma exhaustiva.  Los más curiosos
 pueden echar un vistazo a @ruser{Panorámica de la modificación de
 las propiedades}.  En este caso, queremos modificar solamente la
-sub-propiedad @code{stretchability}.  De nuevo, los curiosos
-encontrarán los valores predeterminados para la propiedad
-staff-staff-spacing en el archivo @file{scm/define-grobs.scm}
-examinando la definición del grob @code{VerticalAxisGroup} grob.
-El valor de @code{stretchability} se toma de la definición del
-contexto @code{PianoStaff} (en el archivo
-@file{ly/engraver-init.ly}) de forma que los valores sean
-idénticos.
+sub-propiedad @code{stretchability}.  Cualquier valor que no se
+modifique, empleará el valor predeterminado. De nuevo, los
+curiosos encontrarán los valores predeterminados para la propiedad
+@code{staff-staff-spacing} en el archivo
+@file{scm/define-grobs.scm} examinando la definición de la
+propiedad @code{default-staff-staff-spacing} del grob
+@code{VerticalAxisGroup}.  El valor de @code{stretchability} que
+se ve a continucación se toma de la definición del grob
+@code{StaffGrouper} (en el archivo @file{scm/define-grobs.scm}) de
+forma que los valores sean idénticos.
 
 @example
 \score @{
@@ -3256,6 +3260,7 @@ Glosario musical:
 
 @cindex variables
 @cindex identificadores
+@cindex variables, que contienen trucos
 
 Llegado a este punto, usted ha visto cosas de este tipo:
 
@@ -3336,6 +3341,38 @@ violin = \relative @{
   @}
 @}
 @end example
+
+@cindex post-eventos, en variables
+@cindex variables, que contienen post-eventos
+
+¿Se acuerda de los @q{post-eventos}?  Las articulaciones,
+digitaciones, y cualquier cosa que se deba añadir @emph{después}
+de una nota (véase @ref{Estructura de un elemento de nota}), con
+frecuencia precedido de un guion o un modificador de dirección.
+De hecho, incluso estos eventos se pueden almacenar en una
+variable (en cuyo caso no se requieren las llaves curvas
+acostumbradas, ya que no las usaríamos tampoco entre una nota y
+sus articulaciones).
+
+@noindent
+Si la mencionada definición incluye un prefijo, entonces la
+variable se peude usar directamente después de la nota, a no ser
+que queramos cambiar la dirección, en cuyo caso podemos insertar
+un modificador que tendrá la prevalencia:
+
+@lilypond[verbatim,quote,ragged-right]
+articulationVar = -^-!
+
+artEsprVar = \articulationVar ^\espressivo
+
+\relative c' {
+  c\articulationVar d e2^\articulationVar
+  d2\artEsprVar c_\artEsprVar
+}
+@end lilypond
+
+@cindex funciones musicales
+@cindex variables que contienen funciones
 
 Hasta ahora hemos contemplado la sustitución estática: cuando
 LilyPond se encuentra con @code{\centreText}, lo sustituye con
