@@ -607,6 +607,15 @@ sub lilypond_external_ref($$$$$$)
   $href = lc_last($href);
 
   my $cross_ref = shift;
+  my $args_texi = shift;
+  my $formatted_args = shift;
+  my $node = shift;
+
+  # In texi2html-1.82, the node was passed as the section in case that was not
+  # available. Since version 5.0, the node is passed as an additional argument.
+  if ($section eq '' and defined $node) {
+    $section = $node;
+  }
 
   my $displaytext = '';
 
