@@ -453,7 +453,7 @@ struct scm_conversions <Drul_array<T>>
   }
   static SCM to_scm (const Drul_array<T> &s)
   {
-    return scm_cons (::to_scm<T> (s[LEFT]), ::to_scm<T> (s[RIGHT]));
+    return scm_cons (::to_scm (s[LEFT]), ::to_scm (s[RIGHT]));
   }
 };
 
@@ -474,7 +474,7 @@ struct scm_conversions <Interval_t<T>>
   }
   static SCM to_scm (const Interval_t<T> &s)
   {
-    return scm_cons (::to_scm<T> (s[LEFT]), ::to_scm<T> (s[RIGHT]));
+    return scm_cons (::to_scm (s[LEFT]), ::to_scm (s[RIGHT]));
   }
 };
 
@@ -523,7 +523,7 @@ to_scm_list (const T &ct)
   SCM lst = SCM_EOL;
   for (auto i = ct.crbegin (); i != ct.crend (); ++i)
     {
-      lst = scm_cons (to_scm<typename T::value_type> (*i), lst);
+      lst = scm_cons (::to_scm (*i), lst);
     }
   return lst;
 }
