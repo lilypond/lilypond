@@ -1848,7 +1848,7 @@ function_arglist_nonbackup:
 			$$ = check_scheme_arg (parser, @4,
 					       make_music_from_simple
 					       (parser, @4, $4),
-					       $3, $2);
+					       $3, $2, $4);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup bare_number_common
 	{
@@ -1862,7 +1862,7 @@ function_arglist_nonbackup:
 			$$ = check_scheme_arg (parser, @3,
 					       make_music_from_simple
 					       (parser, @3, $3),
-					       $1, $2);
+					       $1, $2, $3);
 	}
 	| function_arglist_nonbackup_reparse REPARSE duration
 	{
@@ -2355,7 +2355,7 @@ function_arglist_common:
 			$$ = check_scheme_arg (parser, @3,
 					       make_music_from_simple
 					       (parser, @3, $3),
-					       $2, $1);
+					       $2, $1, $3);
 	}
 	| EXPECT_SCM function_arglist_optional bare_number_common
 	{
@@ -2390,7 +2390,7 @@ function_arglist_common:
 			$$ = check_scheme_arg (parser, @3,
 					       make_music_from_simple
 					       (parser, @3, $3),
-					       $1, $2);
+					       $1, $2, $3);
 	}
 	| function_arglist_common_reparse REPARSE bare_number_common
 	{
