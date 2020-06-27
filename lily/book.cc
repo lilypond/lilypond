@@ -175,13 +175,13 @@ Book::add_bookpart (SCM b)
 bool
 Book::error_found () const
 {
-  for (const auto *score : as_ly_smob_list<Score> (scores_))
+  for (auto *score : as_ly_smob_list<const Score> (scores_))
     {
       if (score && score->error_found_)
         return true;
     }
 
-  for (const auto *bookpart : as_ly_smob_list<Book> (bookparts_))
+  for (auto *bookpart : as_ly_smob_list<const Book> (bookparts_))
     {
       if (bookpart && bookpart->error_found ())
         return true;

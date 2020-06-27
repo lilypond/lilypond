@@ -337,7 +337,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
                      / 2;
 
   Stencil mol;
-  for (const auto *s : as_ly_smob_list<Stencil> (mols))
+  for (auto *s : as_ly_smob_list<const Stencil> (mols))
     mol.add_at_edge (X_AXIS, LEFT, *s, inner_padding);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (left_offset, X_AXIS);

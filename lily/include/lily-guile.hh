@@ -427,12 +427,6 @@ struct scm_conversions <T *>
       return res;
     return fallback;
   }
-  static const T *from_scm (SCM s, const T *fallback)
-  {
-    if (const T *res = unsmob<T> (s))
-      return res;
-    return fallback;
-  }
   static SCM to_scm (T *p) { return p->self_scm (); }
 };
 
