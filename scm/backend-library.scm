@@ -94,8 +94,13 @@
     (if (ly:get-option 'gs-api)
         (begin
           (ly:gs-api (gs-cmd-args is-eps)
-                     (ly:format "mark /OutputFile (~a) (pdfwrite) finddevice putdeviceprops setdevice "
-                                   flush-name))
+                     (string-join
+                      (list
+                       (ly:format "mark /OutputFile (~a)" flush-name)
+                       "(pdfwrite) finddevice putdeviceprops setdevice"
+                       ;; see above
+                       "newpath fill")
+                       " "))
           (delete-file flush-name)))
 
     (rename-file pdf-name dest)
