@@ -22,7 +22,15 @@
 srcdir=`dirname $0`
 
 case $1 in
-    --noconf*) NOCONFIGURE=true;;
+    --ci)
+        CI=true
+        shift
+        ;;
+
+    --noconf*)
+        NOCONFIGURE=true
+        shift
+        ;;
 esac
 
 if test -w "$srcdir"; then
@@ -47,7 +55,16 @@ if test -n "$NOCONFIGURE"; then
     exit 0
 fi
 
-if test -z "$*"; then
+if test -n "$CI" ; then
+    conf_flags="$conf_flags --enable-checking"
+    conf_flags="$conf_flags --enable-gs-api"
+    conf_flags="$conf_flags --disable-debugging"
+
+    cflags="-O2"
+    conf_flags="$conf_flags CFLAGS=\"$cflags\""
+fi
+
+if test -z "${conf_flags}$*"; then
     cat <<EOF
     Warning: about to run \`configure' without arguments.
     arguments on the \`$0' command line
@@ -58,4 +75,4 @@ EOF
 fi
 
 echo Running $configure $conf_flags "$@" ...
-"$configure" $conf_flags "$@"
+eval exec "$configure" $conf_flags "$@"
