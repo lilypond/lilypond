@@ -1173,8 +1173,11 @@ is written in Texinfo.
 
 @example
 \input texinfo @c -*-texinfo-*-
+
+@@ifnottex
 @@node Top
 @@top
+@@end ifnottex
 
 Texinfo text
 
