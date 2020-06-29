@@ -36,7 +36,6 @@ import langdefs
 lang = sys.argv[1]
 files = sys.argv[2:]
 
-double_punct_char_separator = langdefs.LANGDICT[lang].double_punct_char_sep
 _doc = langdefs.translation[lang]
 
 include_re = re.compile (r'@include (.*?)$', re.M)

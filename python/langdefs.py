@@ -33,7 +33,7 @@ def lang_file_name (p, langext, ext):
     return p + ext
 
 class LanguageDef:
-    def __init__ (self, code, name, webext=None, double_punct_char_sep='', html_filter=lambda s: s, enable_ly_identifier_l10n=True):
+    def __init__ (self, code, name, webext=None, html_filter=lambda s: s, enable_ly_identifier_l10n=True):
         self.code = code
         self.name = name
         self.enabled = True
@@ -41,7 +41,6 @@ class LanguageDef:
             self.webext = self.code
         else:
             self.webext = webext
-        self.double_punct_char_sep = double_punct_char_sep
         self.html_filter = html_filter
         self.enable_ly_identifier_l10n = enable_ly_identifier_l10n
     def file_name (self, prefix, ext):
@@ -80,7 +79,7 @@ cs = LanguageDef ('cs', 'česky', enable_ly_identifier_l10n=False)
 de = LanguageDef ('de', 'deutsch')
 en = LanguageDef ('en', 'English')
 es = LanguageDef ('es', 'español')
-fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
+fr = LanguageDef ('fr', 'français', html_filter = french_html_filter)
 hu = LanguageDef ('hu', 'magyar')
 it = LanguageDef ('it', 'italiano')
 ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
