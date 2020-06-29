@@ -1894,8 +1894,9 @@ function_arglist_nonbackup:
 reparsed_rhythm:
 	DURATION_ARG dots multipliers post_events
 	{
-		$$ = make_music_from_simple (parser, @$,
-					     make_duration ($1, scm_to_int ($2), $3));
+		SCM d = make_duration ($1, scm_to_int ($2), $3);
+		parser->default_duration_ = *unsmob<Duration> (d);
+		$$ = make_music_from_simple (parser, @$, d);
 		Music *m = unsmob<Music> ($$);
 		assert (m);
 		if (scm_is_pair ($4))
