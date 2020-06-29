@@ -947,7 +947,13 @@ Many @code{\paper} block variables will also not work within a
 To produce a Texinfo document (in any output format), follow the normal
 procedures for Texinfo; this is, either call @command{texi2pdf} or
 @command{texi2dvi} or @command{makeinfo}, depending on the output format
-you want to create.
+you want to create.  By default, @command{texi2pdf} uses @command{pdftex}
+for processing, which you can verify in the console output.  In this case,
+run @command{lilypond-book} with the @option{--pdf} option so that it
+creates @file{.pdf} snippets instead of @file{.eps} files.  @command{pdftex}
+is unable to include the latter ones and will output an error message
+otherwise.
+
 @ifinfo
 @xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating
 an Info File, , , texinfo, GNU Texinfo}.
