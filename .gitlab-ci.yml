@@ -41,6 +41,7 @@ build:ubuntu-16.04:
     - mkdir build && cd build
     - ../autogen.sh $CONFIGURE_FLAGS
     - make $MAKE_FLAGS
+    - rm -rf Documentation/out out/lybook-db
   artifacts:
     untracked: true
     expire_in: 1 week
