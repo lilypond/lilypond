@@ -8,6 +8,16 @@
 
 @c used for news about the upcoming release; see CG on Release Work
 
+@c Please keep this news here for some months for visibility
+@newsItem
+@subheading New Italian mailing list
+
+@emph{June 22, 2020} - All Italian users are welcome to join the
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-it,new Italian mailing list},
+where they can get help and discuss about LilyPond in their mother language.
+
+@newsEnd
+
 @newsItem
 @subheading LilyPond 2.21.2 released  @emph{June 21, 2020}
 
