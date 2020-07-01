@@ -99,7 +99,14 @@ void
 Music_iterator::init_context (Context *report)
 {
   if (! get_outlet ())
-    set_context (report);
+    {
+      set_context (report);
+      construct_children ();
+    }
+  else
+    {
+      programming_error ("context already initialized; skipping");
+    }
 }
 
 void
@@ -123,10 +130,7 @@ Music_iterator::get_iterator (Music *m) const
 {
   SCM ip = get_static_get_iterator (m);
   Music_iterator *p = unsmob<Music_iterator> (ip);
-
   p->init_context (get_outlet ());
-
-  p->construct_children ();
   return ip;
 }
 

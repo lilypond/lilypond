@@ -105,7 +105,6 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
   Music_iterator *iter = unsmob<Music_iterator> (protected_iter);
 
   iter->init_context (g);
-  iter->construct_children ();
 
   if (!iter->ok ())
     {

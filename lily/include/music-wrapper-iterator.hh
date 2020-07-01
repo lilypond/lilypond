@@ -38,11 +38,12 @@ public:
   void set_context (Context *trans) override;
   void derived_substitute (Context *f, Context *t) override;
   void derived_mark () const override;
-  void construct_children () override;
   Moment pending_moment () const override;
   void do_quit () override;
   bool run_always () const override;
+
 protected:
+  void construct_children () override;
   void process (Moment) override;
 
   Music_iterator *child_iter_;

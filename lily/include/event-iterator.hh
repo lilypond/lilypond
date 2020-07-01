@@ -31,9 +31,9 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Event_iterator ();
   Event_iterator (Event_iterator const &);
-  void construct_children () override;
 
 protected:
+  void construct_children () override;
   void process (Moment) override;
 };
 

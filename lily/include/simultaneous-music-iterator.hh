@@ -37,12 +37,12 @@ public:
   /// make a new context for every child.
   bool create_separate_contexts_;
 
-  void construct_children () override;
   Moment pending_moment () const override;
   void do_quit () override;
   bool run_always () const override;
 
 protected:
+  void construct_children () override;
   void process (Moment) override;
 
 private:

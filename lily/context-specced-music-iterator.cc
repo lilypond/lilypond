@@ -31,6 +31,8 @@ class Context_specced_music_iterator final : public Music_wrapper_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+
+protected:
   void construct_children () override;
 };
 
