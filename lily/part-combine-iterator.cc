@@ -127,6 +127,8 @@ Part_combine_iterator::kill_mmrest (Context *c)
 void
 Part_combine_iterator::construct_children ()
 {
+  Music_iterator::construct_children ();
+
   SCM lst = get_property (get_music (), "elements");
   iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
   iterators_[1] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));

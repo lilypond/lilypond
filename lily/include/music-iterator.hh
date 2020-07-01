@@ -103,7 +103,7 @@ public:
   // usually the last processed moment is the same as music_get_length.
   virtual void process (Moment until);
   virtual void derived_mark () const;
-  virtual void construct_children ();
+  virtual void construct_children () {}
   DECLARE_SCHEME_CALLBACK (constructor, ());
   SCM get_iterator (Music *) const;
 

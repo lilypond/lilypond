@@ -174,6 +174,8 @@ Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 void
 Lyric_combine_music_iterator::construct_children ()
 {
+  Music_iterator::construct_children ();
+
   Music *m = unsmob<Music> (get_property (get_music (), "element"));
   lyric_iter_ = unsmob<Music_iterator> (get_iterator (m));
   if (!lyric_iter_)

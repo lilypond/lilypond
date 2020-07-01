@@ -50,6 +50,8 @@ Music_wrapper_iterator::derived_substitute (Context *f, Context *t)
 void
 Music_wrapper_iterator::construct_children ()
 {
+  Music_iterator::construct_children ();
+
   Music *my_music = get_music ();
   Music *child = unsmob<Music> (get_property (my_music, "element"));
   child_iter_ = (child)

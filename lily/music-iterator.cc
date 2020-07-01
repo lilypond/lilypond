@@ -51,11 +51,6 @@ Music_iterator::set_context (Context *trans)
   handle_.set_context (trans);
 }
 
-void
-Music_iterator::construct_children ()
-{
-}
-
 Moment
 Music_iterator::pending_moment () const
 {
