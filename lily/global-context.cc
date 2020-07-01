@@ -152,12 +152,14 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
           /*
             Need this to get grace notes at start of a piece correct.
           */
-          first = false;
           set_property (this, "measurePosition", w.smobbed_copy ());
         }
 
       send_stream_event (this, "Prepare", 0,
                          ly_symbol2scm ("moment"), w.smobbed_copy ());
+
+      if (first)
+        iter->init_context (this);
 
       if (iter->ok ())
         iter->process (w);
@@ -165,6 +167,8 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
       send_stream_event (this, "OneTimeStep", 0);
       apply_finalizations ();
       check_removal ();
+
+      first = false;
     }
 }
 
