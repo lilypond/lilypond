@@ -37,7 +37,7 @@ Auto_change_iterator::change_to (const string &id)
 {
   // N.B. change_to() returns an error message. Silence is the legacy
   // behavior here, but maybe that should be changed.
-  Change_iterator::change_to (*child_iter_, ly_symbol2scm ("Staff"), id);
+  Change_iterator::change_to (*get_child (), ly_symbol2scm ("Staff"), id);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

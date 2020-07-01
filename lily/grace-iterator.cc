@@ -30,9 +30,13 @@ Grace_iterator::process (Moment m)
   // GraceChange is announced in order to make the Grace_engraver able
   // to distinguish \stemNeutral \grace { ... and \grace { \stemNeutral ...
   const auto now_in_grace = static_cast<bool> (m.grace_part_);
-  if (in_grace_ != now_in_grace && child_iter_ && child_iter_->get_outlet ())
+  if (in_grace_ != now_in_grace)
     {
-      send_stream_event (child_iter_->get_outlet (), "GraceChange", origin ());
+      auto *child = get_child ();
+      if (child && child->get_outlet ())
+        {
+          send_stream_event (child->get_outlet (), "GraceChange", origin ());
+        }
     }
   in_grace_ = now_in_grace;
 
@@ -40,7 +44,7 @@ Grace_iterator::process (Moment m)
 
   /* We can safely do this, since \grace should always be inside
      sequential.  */
-  descend_to_child (child_iter_->get_outlet ());
+  descend_to_child (get_child ()->get_outlet ());
 }
 
 Moment

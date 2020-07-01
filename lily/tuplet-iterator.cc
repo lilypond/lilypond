@@ -122,8 +122,10 @@ Tuplet_iterator::process (Moment m)
         tuplet_handler_.set_context (0);
     }
   Music_wrapper_iterator::process (m);
-  if (child_iter_ && child_iter_->ok ())
-    descend_to_child (child_iter_->get_outlet ());
+
+  auto *child = get_child ();
+  if (child && child->ok ())
+    descend_to_child (child->get_outlet ());
 
 }
 
@@ -140,8 +142,9 @@ Tuplet_iterator::construct_children ()
 
   Music_wrapper_iterator::construct_children ();
 
-  if (child_iter_ && child_iter_->ok ())
-    descend_to_child (child_iter_->get_outlet ());
+  auto *child = get_child ();
+  if (child && child->ok ())
+    descend_to_child (child->get_outlet ());
 }
 
 void

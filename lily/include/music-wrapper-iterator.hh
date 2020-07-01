@@ -46,6 +46,9 @@ protected:
   void construct_children () override;
   void process (Moment) override;
 
+  Music_iterator *get_child () { return child_iter_; }
+
+private:
   Music_iterator *child_iter_;
 };
 
