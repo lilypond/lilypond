@@ -1237,11 +1237,9 @@ parenthesize =
           (evs2 (recording-group-emulate m2 listener))
           (evs1 (recording-group-emulate m1 listener))
           (split-list
-           (if (and (assoc "one" evs1) (assoc "two" evs2))
-               (determine-split-list (reverse! (assoc-get "one" evs1) '())
-                                     (reverse! (assoc-get "two" evs2) '())
-                                     chord-range)
-               '()))
+           (determine-split-list (reverse! (assoc-get "one" evs1 '()) '())
+                                 (reverse! (assoc-get "two" evs2 '()) '())
+                                 chord-range))
           (L1 (ly:music-length part1))
           (L2 (ly:music-length part2))
           ;; keep the contexts alive for the full duration
