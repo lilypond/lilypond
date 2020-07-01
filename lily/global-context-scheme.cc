@@ -92,7 +92,6 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
   Music *music = unsmob<Music> (mus);
   if (!music)
     {
-      warning (_ ("no music found in score"));
       return SCM_BOOL_F;
     }
 
@@ -110,7 +109,6 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 
   if (!iter->ok ())
     {
-      warning (_ ("no music found in score"));
       /* todo: should throw exception. */
       return SCM_BOOL_F;
     }
@@ -142,6 +140,9 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 
   SCM glob = ly_make_global_context (output_def);
   ly_make_global_translator (glob);
-  ly_interpret_music_expression (mus, glob);
+  if (!scm_is_true (ly_interpret_music_expression (mus, glob)))
+    {
+      warning (_ ("no music found in score"));
+    }
   return glob;
 }
