@@ -60,8 +60,10 @@ if test -n "$CI" ; then
     conf_flags="$conf_flags --enable-gs-api"
     conf_flags="$conf_flags --disable-debugging"
 
-    cflags="-O2"
-    conf_flags="$conf_flags CFLAGS=\"$cflags\""
+    c_flags="$c_flags -O2"
+    # TODO: Treat more warnings as errors (in CI) as we eliminate them.
+    c_flags="$c_flags -Werror=format"
+    conf_flags="$conf_flags CFLAGS=\"$c_flags\" LDFLAGS=\"$ld_flags\""
 fi
 
 if test -z "${conf_flags}$*"; then
