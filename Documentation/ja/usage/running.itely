@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -705,6 +705,59 @@ CPU 時間情報を吐き出します (システムに依存します)。@c
 PostScript ファイルとしてフォントをエクスポートするディレクトリを
 @var{string} に指定します。@c
 デフォルト: @code{#f} （カレントディレクトリを意味します）。
+これは、次に示すように、フォントを埋め込まずに PDF を作成し、@c
+後でフォントを Ghostscript で埋め込む場合に便利です。
+
+@example
+$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
+@end example
+
+@noindent
+注: @code{font-ps-resdir} とは異なり、@c
+このメソッドは Ghostscript 9.26 以降で CID フォントを埋め込むことはできません。
+
+@noindent
+注: @code{font-ps-resdir} と同様に、
+TrueType フォントを埋め込むと文字化けが発生するため、@c
+このオプションは TrueType フォントをスキップします。@c
+文字化けしないようにするには、@code{gs-never-embed-fonts} を使用します。@c
+これは、TrueType フォントをその名前に関係なく埋め込みます。
+
+@noindent
+デフォルト: @code{#f} (エクスポートしないことを意味します)。
+
+@item @code{font-ps-resdir} @var{string}
+(@var{string} として) ディレクトリを設定して、後でフォントを埋め込むために使用する
+PostScript リソース ディレクトリのサブセットをビルドします。@c
+これは、次に示すように、フォントを埋め込まずに PDF を作成し、@c
+後でフォントを Ghostscript で埋め込む場合に便利です。
+
+@example
+$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -I resdir -I resdir/Font \
+     -sOutputFile=foo.embedded.pdf foo.pdf
+@end example
+
+@noindent
+注: Ghostscript の @code{-I} オプションで指定した場合、特別な意味があるため、
+@file{Resource} という名前を含むディレクトリは指定しない方がよいでしょう。
+
+@noindent
+注: @code{font-export-dir} とは異なり、@c
+このメソッドは Ghostscript 9.26 以降で CID フォントを埋め込むことができます。
+
+@noindent
+注: @code{font-export-dir} と同様に、
+TrueType フォントを埋め込むと文字化けが発生するため、@c
+このオプションは TrueType フォントをスキップします。@c
+文字化けしないようにするには、@code{gs-never-embed-fonts} を使用します。@c
+これは、TrueType フォントをその名前に関係なく埋め込みます。
+
+@noindent
+デフォルト: @code{#f} (ビルドしないことを意味します)。
 
 @item @code{gs-load-fonts} @var{bool}
 @var{bool} が @code{#t} なら、@c
