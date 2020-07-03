@@ -51,6 +51,8 @@ class LanguageDef:
 # here. For each 'Documentation/ab' directory containing docs
 # translated in 'ab', there should be one entry in LANGUAGES.
 
+site = LanguageDef ('en', 'English', webext='')
+
 html_body_re = re.compile ('<body.*?>', re.I)
 html_end_body_re = re.compile ('</body>', re.I)
 french_html_typo_rules = ((' :', '&nbsp;:'),
@@ -77,7 +79,6 @@ def french_html_filter (page):
 ca = LanguageDef ('ca', 'català')
 cs = LanguageDef ('cs', 'česky', enable_ly_identifier_l10n=False)
 de = LanguageDef ('de', 'deutsch')
-en = LanguageDef ('en', 'English')
 es = LanguageDef ('es', 'español')
 fr = LanguageDef ('fr', 'français', html_filter = french_html_filter)
 hu = LanguageDef ('hu', 'magyar')
@@ -91,8 +92,8 @@ zh = LanguageDef ('zh', '中文', enable_ly_identifier_l10n=False)
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (ca, cs, de, en, es, fr, hu, it, ja, nl, pt, zh)
-WEB_LANGUAGES = (ca, cs, de, en, es, fr, hu, it, ja, nl, pt, zh)
+LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
+WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
 
 if os.getenv("MAKEWEB") == '1':
     LANGUAGES=WEB_LANGUAGES
@@ -109,7 +110,7 @@ else:
 
         translation = {}
         for l in LANGUAGES:
-            if l.enabled:
+            if l.enabled and l.code != 'en':
                 t = gettext.translation('lilypond-doc',
                                         os.environ['LYDOC_LOCALEDIR'],
                                         [l.code])
