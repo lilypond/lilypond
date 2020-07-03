@@ -1,4 +1,4 @@
-%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 このテンプレートは @code{StaffGroup} と @code{GrandStaff} コンテキストを@c
 ネストさせて用いることで、楽器のサブ グループを表示しています。また、@c

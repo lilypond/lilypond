@@ -1,4 +1,4 @@
-%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号の@c
 ために @code{\\global} セクションを使っています。

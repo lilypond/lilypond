@@ -1,8 +1,8 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 アーティキュレーションの省略記法は @code{ly/script-init.ly} に定義されており、@c
 変数 @code{dashHat}, @code{dashPlus}, @code{dashDash},
-@code{dashBar}, @code{dashLarger}, @code{dashDot},
+@code{dashBang}, @code{dashLarger}, @code{dashDot},
 @code{dashUnderscore} にデフォルト設定がセットされています。@c
 これらを変更することができます。この例では、@code{dashPlus} 変数に
 @code{trill} をセットすることで、@code{-+} を入力した際に@c

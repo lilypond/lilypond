@@ -1,0 +1,6 @@
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
+  texidocja = "
+複数小節にまたがる休符は、単一の小節を除いて、長さを数字で表示します。@c
+これは、@code{restNumberThreshold} を設定することで変更できます。
+"
+  doctitleja = "単一の小節の休符に数字を付ける"

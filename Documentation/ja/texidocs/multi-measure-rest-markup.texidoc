@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 複数小節にまたがる休符に付加されるマークアップは、休符の上または下に@c
 中央揃えされます。マークアップが長い場合であっても、休符が広げられることは@c

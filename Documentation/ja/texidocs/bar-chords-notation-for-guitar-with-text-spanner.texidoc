@@ -1,7 +1,7 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 このスニペットでは、バレーコードやハーフ バレーコードを表示する方法を@c
 示しています (必要な方の行のコメントアウトを解除してください)。@c
-構文は以下の通りです: @code{\\bbarre #'fret_number' note(s)}
+構文は以下の通りです: @code{\\bbarre #\"fret_number\" note(s)}
 "
   doctitleja = "ギターのバレーコード (セーハ) の記譜法 (テキスト スパナを使用)"

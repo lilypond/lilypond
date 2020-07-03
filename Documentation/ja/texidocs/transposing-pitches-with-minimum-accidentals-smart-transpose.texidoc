@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 この例は、臨時記号の数が最小になるように、異名同音を置き換える Scheme
 コードを使用しています。この場合、次のルールが適用されます:

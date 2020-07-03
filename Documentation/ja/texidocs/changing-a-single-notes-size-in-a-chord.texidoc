@@ -1,10 +1,10 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 和音内の各音符の符頭は、和音内で @code{\\tweak} を使用し、@code{font-size}
 を変更することでサイズを変えられます。
 
 和音の中 (@code{< >} の内部) では、変更したい音符の前に @code{\\tweak}
-コマンドを配置し、@code{#'font-size} とサイズ値の @code{#-2}
+コマンドを配置し、@code{font-size} とサイズ値の @code{#-2}
 (非常に小さい) を指定します。
 "
   doctitleja = "和音内の各音符のサイズを変更する"
