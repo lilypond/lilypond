@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 @node 声楽
@@ -49,6 +49,7 @@
 * 複数の歌詞音節を 1 つの音符に割り当てる::
 * 複数の音符を 1 つの歌詞音節に割り当てる::
 * 延長線とハイフン::
+* 母音の段階的な変化::
 @end menu
 
 
@@ -866,6 +867,48 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 内部リファレンス:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
+
+
+@node 母音の段階的な変化
+@unnumberedsubsubsec 母音の段階的な変化
+@translationof Gradual changes of vowel
+
+@cindex vowel transition (母音の遷移)
+
+音節間の矢印で示される可能性のある母音の遷移
+(母音または持続する子音の段階的な変化) は、
+@code{\vowelTransition} コマンドで入力します
+(Gould pp. 452--453 を参照してください)。@c
+矢印は遷移の長さを示し、デフォルトでは常に描画されます
+(ぎっしりと譜刻された音楽では、必要に応じてスペースが追加されます)。@c
+ピッチが変化しない音符間のタイやスラーは、母音の変化にもかかわらず、@c
+新しいアーティキュレーションがないことを示しています。矢印の最小の長さは、
+@code{VowelTransition} の @code{minimum-length} プロパティで調整できます。
+
+@lilypond[verbatim,quote]
+{
+  c'2 c'
+  \set melismaBusyProperties = #'()
+  c'2 ~ c'
+  \time 3/2
+  d'4( e' f' e' f'2
+  e'2.)
+}
+\addlyrics
+{
+  Ah \vowelTransition oh,
+  ah \vowelTransition oh,
+  ah \vowelTransition _ _ _ _
+  oh.
+}
+@end lilypond
+
+@seealso
+音楽用語集:
+@rglos{vowel transition}
+
+内部リファレンス:
+@rinternals{VowelTransition}
 
 
 @node 歌詞に特有のテクニック

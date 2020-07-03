@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.21.0"
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 @node デフォルトを変更する
@@ -2124,7 +2124,8 @@ Scheme 値の循環参照は、ハング アップまたはクラッシュ、@c
 
 例えば、コンテキスト プロパティ @code{skipBars} が
 @code{#t} にセットされていれば、@c
-複小節休符は 1 つの小節に統合されます:
+複小節休符は 1 つの小節に統合されます
+(@ref{Compressing empty measures} で説明されています):
 
 @lilypond[quote,fragment,verbatim]
 R1*2

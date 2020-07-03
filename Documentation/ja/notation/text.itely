@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1583,8 +1583,36 @@ a'1_\markup {
 @funindex font-interface
 
 フォントはいくつかのライブラリを通じて扱われます。@c
-FontConfig はシステムで利用可能なフォントを検出するために使用されます。@c
+FontConfig は利用可能なフォントを検出するために使用されます。@c
 選択されたフォントは Pango を用いて描かれます。
+
+@cindex font, external files (外部のフォントファイル)
+
+オペレーティング システムに既にインストールされているフォントに加えて、@c
+次のコマンドを使用して、FontConfig によって検出された
+(したがって LilyPond スコアで利用できる)
+セットに追加のフォントを追加できます:
+
+@example
+#(ly:font-config-add-font "@var{path/to/font-file.otf}")
+
+#(ly:font-config-add-directory "@var{path/to/directory/}")
+@end example
+
+@noindent
+これらのコマンドはどちらも、絶対パスまたは相対パスのいずれかを受け入れます。@c
+これにより、関連するフォントファイルをソースコードとともにコピーするだけで、@c
+任意のシステムで楽譜をコンパイルできます。
+
+検出されたフォントは、@ref{Single entry fonts} および @ref{Entire document fonts}
+で説明されている方法を使用して選択する必要があります。@c
+使用可能なフォントの完全なリストをコンソールログに出力するときに、
+@code{#(ly:font-config-display-fonts)} コマンドを使用して、@c
+実際に検出されたフォントとその名前を確認することができます
+(これらはファイル名自体とは異なる場合があるため)。
+
+@cindex font, music notation (音楽記譜フォント)
+@funindex font-encoding
 
 音楽記譜フォントはいくつかのファミリに分類された特殊な図柄のセットと@c
 言うことができます。@c
