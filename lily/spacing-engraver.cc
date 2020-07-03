@@ -89,6 +89,7 @@ protected:
   void process_music ();
   void add_starter_duration (Grob_info i);
 
+  void initialize () override;
   void finalize () override;
 
   void start_spanner ();
@@ -126,6 +127,12 @@ Spacing_engraver::start_spanner ()
   spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
   spacing_->set_bound (LEFT,
                        unsmob<Grob> (get_property (this, "currentCommandColumn")));
+}
+
+void
+Spacing_engraver::initialize ()
+{
+  now_ = now_mom ();
 }
 
 void
