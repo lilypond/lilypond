@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Masamichi Hosoda, Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Yoshiki Sawada, Hiroshi Fukuhara
 
 @include included/generating-output.itexi
 
@@ -268,13 +268,20 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Intel CPU の MacOS X 10.4 以上用 (迷っているのなら、こちらを使ってください)
+Intel CPU の Mac OS X 10.4--10.5 および
+Mac OS X 10.6--10.14 用 (10.15 については下記を参照)
 
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-G3 と G4 CPU の MacOS X 10.4 以上用 (古い Apple コンピュータ)
+G3 と G4 CPU の MacOS X 10.4--10.5 用 (古い Apple コンピュータ)
+
+
+@item
+@sourceimage{logo-macosx,,,}
+macOS 10.15 用の非公式の 64 ビット アプリケーション バンドルは、
+@uref{https://bintray.com/marnen/lilypond-darwin-64} から入手できます。
 
 
 @end itemize
