@@ -161,6 +161,8 @@ def expand_includes (m, filename):
 lang_re = re.compile (r'^@documentlanguage (.+)', re.M)
 
 def extract_sections (filename):
+    if not suppress_output:
+        print('reading: %s' % filename)
     result = ''
     f = codecs.open (filename, 'r', 'utf-8')
     page = f.read ()
