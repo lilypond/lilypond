@@ -61,6 +61,12 @@
 
 (define-public _ gettext)
 
+;; Guile 1.8 doesn't have (and doesn't need) eval-when.
+(defmacro-public eval-early (expr)
+  `(cond-expand
+    (guile-2 (eval-when (expand load eval) ,expr))
+    (else ,expr)))
+
 ;; It would be nice to convert occurences of parser/location to
 ;; (*parser*)/(*location*) using the syncase module but it is utterly
 ;; broken in GUILE 1 and would require changing a lot of unrelated
