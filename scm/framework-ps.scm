@@ -607,14 +607,18 @@
                 (load-fonts paper)))
   (if (ly:get-option 'gs-never-embed-fonts)
       (begin
-        (display "\nsystemdict /DEVICE known\n" port)
-        (display " { systemdict /DEVICE get (pdfwrite) eq {\n" port)
-        (display ".setpdfwrite << /NeverEmbed [" port)
+        (display "
+/currentpagedevice where {
+  pop currentpagedevice /Name known {
+    currentpagedevice /Name get (pdfwrite) eq {
+      << /NeverEmbed [" port)
         (display (string-concatenate
                   (map (lambda (f) (string-append " /" f))
                        never-embed-font-list)) port)
-        (display " ] >> setdistillerparams\n" port)
-        (display " } if } if\n" port)))
+        (display " ] >> setdistillerparams
+    } if
+  } if
+} if\n" port)))
   (if (ly:get-option 'music-font-encodings)
       (display (procset "encodingdefs.ps") port))
   (display (setup-variables paper) port)
