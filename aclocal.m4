@@ -389,11 +389,7 @@ AC_DEFUN(STEPMAKE_END, [
 
     # regular in-place build
     # test for srcdir_build = yes ?
-    if test "$srcdir_build" = "yes"; then
-        rm -f $srcdir/GNUmakefile
-        cp $srcdir/GNUmakefile.in $srcdir/GNUmakefile
-        chmod 444 $srcdir/GNUmakefile
-    else
+    if test "$srcdir_build" != "yes"; then
         if test -f $srcdir/GNUmakefile; then
             cat <<EOF
 Source directory already configured.  Please clean the source directory
@@ -452,16 +448,15 @@ include \$(configure-srcdir)/$mf
 EOF
             done
         done
-
-        rm -f GNUmakefile
-        cat <<EOF > GNUmakefile
+    fi
+    rm -f GNUmakefile
+    cat <<EOF > GNUmakefile
 depth = .
 include config.make
 include \$(configure-srcdir)/GNUmakefile.in
 EOF
-        chmod 444 GNUmakefile
-        AC_SUBST(VPATH)
-    fi
+    chmod 444 GNUmakefile
+    AC_SUBST(VPATH)
 ])
 
 
