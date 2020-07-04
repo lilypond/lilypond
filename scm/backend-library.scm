@@ -46,6 +46,8 @@
   (let*
       ((tmp (make-tmpfile #f))
        (tmp-name (port-filename tmp)))
+    (ly:debug (_ "Preparing Ghostscript command to `~a': ~a")
+              tmp-name run-str)
     (display run-str tmp)
     (close-port tmp)
     (set! args (append args (list tmp-name)))
