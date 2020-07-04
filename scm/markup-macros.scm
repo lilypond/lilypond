@@ -101,9 +101,9 @@ command.  There is no protection against circular definitions.
                       command-and-args))
          (args (and (pair? command-and-args) (cdr command-and-args))))
     (if args
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command (markup-lambda ,args ,@definition) #f)
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command ,@definition #f))))
 
 (defmacro*-public markup-lambda
@@ -162,12 +162,12 @@ interpreted, returns a list of stencils instead of a single one"
                       command-and-args))
          (args (and (pair? command-and-args) (cdr command-and-args))))
     (if args
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command (markup-list-lambda ,args ,@definition) #t)
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command ,@definition #t))))
 
-(define (define-markup-command-internal command definition is-list)
+(define-public (define-markup-command-internal command definition is-list)
   (let* ((suffix (if is-list "-list" ""))
          (command-name (string->symbol (format #f "~a-markup~a" command suffix)))
          (make-markup-name (string->symbol (format #f "make-~a-markup~a" command suffix))))
