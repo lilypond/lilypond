@@ -80,7 +80,12 @@ Music_wrapper_iterator::get_context () const
 {
   if (child_iter_)
     return child_iter_->get_context ();
-  return Music_iterator::get_context ();
+
+  // We could fall back on returning this wrapper's context, but there is no
+  // good reason for it.  The code creating the hierarchy knows whether the
+  // wrapped iterator is supposed to have been created yet, and it can call
+  // get_own_context () if it hasn't.
+  return nullptr;
 }
 
 void
@@ -88,6 +93,10 @@ Music_wrapper_iterator::set_context (Context *trans)
 {
   if (child_iter_)
     child_iter_->set_context (trans);
+
+  // Is keeping the context of the wrapper in sync with the wrapped iterator
+  // just paranoia?  I haven't found a case that demonstrates its necessity.
+  // Still, I hesitate to remove it. [DE]
   Music_iterator::set_context (trans);
 }
 

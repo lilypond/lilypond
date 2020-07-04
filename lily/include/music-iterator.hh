@@ -84,8 +84,18 @@ public:
   // non-zero only for expressions starting with grace notes.
   const Moment &music_start_mom () const { return start_mom_; }
   void report_event (Music *);
-  virtual Context *get_context () const;
-  virtual void set_context (Context *);
+
+  // N.B. Subclasses can modify the behavior of these to address a child
+  // iterator.  Where it is important to avoid that, use get_own_context () and
+  // set_own_context () instead.
+  virtual Context *get_context () const { return get_own_context (); }
+  virtual void set_context (Context *c) { set_own_context (c); }
+
+  // Circumvent the virtual get_context () and set_context () to address the
+  // context of this very iterator.
+  Context *get_own_context () const { return handle_.get_context (); }
+  void set_own_context (Context *c) { handle_.set_context (c); }
+
   static SCM get_static_get_iterator (Music *mus);
   void init_context (Context *);
   void quit ();

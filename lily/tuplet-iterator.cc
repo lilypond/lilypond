@@ -134,11 +134,14 @@ Tuplet_iterator::create_children ()
 {
   if (Duration *d = unsmob<Duration> (get_property (get_music (), "duration")))
     spanner_duration_ = Moment (d->get_length ());
-  else if (Moment * mp
-           = unsmob<Moment> (get_property (get_context (), "tupletSpannerDuration")))
-    spanner_duration_ = Moment (mp->main_part_); // discard grace part
   else
-    spanner_duration_ = Moment (Rational::infinity ());
+    {
+      SCM d_scm = get_property (get_own_context (), "tupletSpannerDuration");
+      if (auto *mp = unsmob<Moment> (d_scm))
+        spanner_duration_ = Moment (mp->main_part_); // discard grace part
+      else
+        spanner_duration_ = Moment (Rational::infinity ());
+    }
 
   Music_wrapper_iterator::create_children ();
 
