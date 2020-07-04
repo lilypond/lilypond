@@ -33,7 +33,7 @@ bool check_grob (Music *mus, SCM sym);
 void
 Property_iterator::process (Moment mom)
 {
-  Context *o = get_outlet ();
+  Context *o = get_context ();
   Music *m = get_music ();
 
   send_stream_event (o, "SetProperty", m->origin (),
@@ -47,7 +47,7 @@ Property_iterator::process (Moment mom)
 void
 Property_unset_iterator::process (Moment mom)
 {
-  Context *o = get_outlet ();
+  Context *o = get_context ();
   Music *m = get_music ();
 
   send_stream_event (o, "UnsetProperty", m->origin (),
@@ -94,11 +94,11 @@ Push_property_iterator::process (Moment m)
 
       if (from_scm<bool> (get_property (get_music (), "pop-first"))
           && !from_scm<bool> (once))
-        send_stream_event (get_outlet (), "Revert", origin (),
+        send_stream_event (get_context (), "Revert", origin (),
                            ly_symbol2scm ("symbol"), sym,
                            ly_symbol2scm ("property-path"), grob_property_path);
 
-      send_stream_event (get_outlet (), "Override", origin (),
+      send_stream_event (get_context (), "Override", origin (),
                          ly_symbol2scm ("symbol"), sym,
                          ly_symbol2scm ("property-path"), grob_property_path,
                          ly_symbol2scm ("once"), once,
@@ -117,7 +117,7 @@ Pop_property_iterator::process (Moment mom)
     {
       SCM grob_property_path = get_property_path (m);
 
-      send_stream_event (get_outlet (), "Revert", m->origin (),
+      send_stream_event (get_context (), "Revert", m->origin (),
                          ly_symbol2scm ("symbol"), sym,
                          ly_symbol2scm ("once"), get_property (m, "once"),
                          ly_symbol2scm ("property-path"), grob_property_path);

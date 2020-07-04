@@ -86,7 +86,7 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
 {
   SCM reps = ly_symbol2scm ("repeatCommands");
   SCM current_reps = SCM_EOL;
-  Context *where = get_outlet ()->where_defined (reps, &current_reps);
+  Context *where = get_context ()->where_defined (reps, &current_reps);
 
   if (where && ly_cheap_is_list (current_reps))
     {
@@ -108,14 +108,14 @@ Volta_repeat_iterator::next_element ()
       if (done_count_ <= 1)
         {
           alt_restores_ = SCM_EOL;
-          if (from_scm<bool> (get_property (get_outlet (), "timing")))
+          if (from_scm<bool> (get_property (get_context (), "timing")))
             {
-              for (SCM lst = get_property (get_outlet (), "alternativeRestores");
+              for (SCM lst = get_property (get_context (), "alternativeRestores");
                    scm_is_pair (lst);
                    lst = scm_cdr (lst))
                 {
                   SCM res = SCM_EOL;
-                  Context *t = get_outlet ()->where_defined (scm_car (lst),
+                  Context *t = get_context ()->where_defined (scm_car (lst),
                                                              &res);
                   if (t)
                     {
@@ -135,7 +135,7 @@ Volta_repeat_iterator::next_element ()
             {
               add_repeat_command (ly_symbol2scm ("end-repeat"));
 
-              if (from_scm<bool> (get_property (get_outlet (), "timing")))
+              if (from_scm<bool> (get_property (get_context (), "timing")))
                 {
                   SCM mps = ly_symbol2scm ("measurePosition");
                   for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
@@ -150,7 +150,7 @@ Volta_repeat_iterator::next_element ()
                         // too late to avoid bad side-effects
                         {
                           Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
-                                     get_outlet ()->now_mom ().grace_part_);
+                                     get_context ()->now_mom ().grace_part_);
                           Lily::ly_context_set_property_x (scm_car (ls),
                                                            mps,
                                                            mp.smobbed_copy ());

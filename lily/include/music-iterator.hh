@@ -84,12 +84,12 @@ public:
   // non-zero only for expressions starting with grace notes.
   const Moment &music_start_mom () const { return start_mom_; }
   void report_event (Music *);
-  virtual Context *get_outlet () const;
+  virtual Context *get_context () const;
   virtual void set_context (Context *);
   static SCM get_static_get_iterator (Music *mus);
   void init_context (Context *);
   void quit ();
-  void substitute_outlet (Context *from, Context *to);
+  void substitute_context (Context *from, Context *to);
   void descend_to_bottom_context ();
   virtual void derived_substitute (Context *, Context *);
   virtual Moment pending_moment () const;

@@ -54,17 +54,17 @@ Partial_iterator::process (Moment m)
       // measurePosition when initializing.
 
       Context *timing = unsmob<Context>
-                        (Lily::ly_context_find (get_outlet ()->self_scm (),
+                        (Lily::ly_context_find (get_context ()->self_scm (),
                                                 ly_symbol2scm ("Timing")));
 
       if (!timing)
         programming_error ("missing Timing in \\partial");
-      else if (get_outlet ()->now_mom () > 0)
+      else if (get_context ()->now_mom () > 0)
         {
           set_property (timing, "partialBusy", ly_bool2scm (true));
-          Global_context *g = find_global_context (get_outlet ());
+          Global_context *g = find_global_context (get_context ());
           g->add_finalization (scm_list_3 (finalization_proc,
-                                           get_outlet ()->self_scm (),
+                                           get_context ()->self_scm (),
                                            length.smobbed_copy ()));
         }
       else

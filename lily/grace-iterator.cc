@@ -33,9 +33,9 @@ Grace_iterator::process (Moment m)
   if (in_grace_ != now_in_grace)
     {
       auto *child = get_child ();
-      if (child && child->get_outlet ())
+      if (child && child->get_context ())
         {
-          send_stream_event (child->get_outlet (), "GraceChange", origin ());
+          send_stream_event (child->get_context (), "GraceChange", origin ());
         }
     }
   in_grace_ = now_in_grace;
@@ -44,7 +44,7 @@ Grace_iterator::process (Moment m)
 
   /* We can safely do this, since \grace should always be inside
      sequential.  */
-  descend_to_child (get_child ()->get_outlet ());
+  descend_to_child (get_child ()->get_context ());
 }
 
 Moment

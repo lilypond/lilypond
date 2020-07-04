@@ -33,7 +33,7 @@ class Quote_iterator final : public Music_wrapper_iterator
 public:
   Quote_iterator () = default;
   Moment vector_moment (vsize idx) const;
-  Context_handle quote_outlet_;
+  Context_handle quote_handle_;
 
   Moment start_moment_;
   Moment stop_moment_;
@@ -59,7 +59,7 @@ void
 Quote_iterator::do_quit ()
 {
   Music_wrapper_iterator::do_quit ();
-  quote_outlet_.set_context (0);
+  quote_handle_.set_context (0);
 }
 
 bool
@@ -69,9 +69,9 @@ Quote_iterator::accept_music_type (Stream_event *ev, bool is_cue) const
   // Cue notes use the quotedCueEventTypes property, otherwise (and as fallback
   // for cue notes if quotedCueEventTypes is not set) use quotedEventTypes
   if (is_cue)
-    accept = get_property (get_outlet (), "quotedCueEventTypes");
+    accept = get_property (get_context (), "quotedCueEventTypes");
   if (scm_is_null (accept))
-    accept = get_property (get_outlet (), "quotedEventTypes");
+    accept = get_property (get_context (), "quotedEventTypes");
 
   for (; scm_is_pair (accept); accept = scm_cdr (accept))
     {
@@ -123,8 +123,8 @@ Quote_iterator::create_children ()
     {
       SCM id = get_property (get_music (), "quoted-context-id");
       std::string c_id = robust_scm2string (id, "");
-      cue_context = get_outlet ()->find_create_context (CENTER,
-                                                        name, c_id, SCM_EOL);
+      cue_context = get_context ()->find_create_context (CENTER,
+                                                         name, c_id, SCM_EOL);
       if (!cue_context)
         {
           warning (_f ("cannot find or create context: %s",
@@ -133,8 +133,8 @@ Quote_iterator::create_children ()
     }
 
   if (!cue_context)
-    cue_context = get_outlet ()->get_default_interpreter ();
-  quote_outlet_.set_context (cue_context);
+    cue_context = get_context ()->get_default_interpreter ();
+  quote_handle_.set_context (cue_context);
 
   event_vector_ = get_property (get_music (), "quoted-events");
 }
@@ -190,9 +190,9 @@ Quote_iterator::process (Moment m)
   if (event_idx_ == VPOS)
     {
       event_idx_ = binsearch_scm_vector (event_vector_,
-                                         get_outlet ()->now_mom ().smobbed_copy (),
+                                         get_context ()->now_mom ().smobbed_copy (),
                                          &moment_less);
-      start_moment_ = get_outlet ()->now_mom () - music_start_mom ();
+      start_moment_ = get_context ()->now_mom () - music_start_mom ();
       stop_moment_ = start_moment_ + get_music ()->get_length ();
 
       end_idx_ = binsearch_scm_vector (event_vector_,
@@ -224,7 +224,7 @@ Quote_iterator::process (Moment m)
       Pitch temp_pitch;
       Pitch *me_pitch = unsmob<Pitch> (get_property (get_music (), "quoted-transposition"));
       if (!me_pitch)
-        me_pitch = unsmob<Pitch> (get_property (get_outlet (), "instrumentTransposition"));
+        me_pitch = unsmob<Pitch> (get_property (get_context (), "instrumentTransposition"));
       else
         {
           // We are not going to win a beauty contest with this one,
@@ -261,7 +261,7 @@ Quote_iterator::process (Moment m)
                   ev->transpose (diff);
                   transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
                 }
-              quote_outlet_.get_context ()->event_source ()->broadcast (ev);
+              quote_handle_.get_context ()->event_source ()->broadcast (ev);
             }
         }
 

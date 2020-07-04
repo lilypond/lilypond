@@ -44,7 +44,7 @@ void
 Music_wrapper_iterator::derived_substitute (Context *f, Context *t)
 {
   if (child_iter_)
-    child_iter_->substitute_outlet (f, t);
+    child_iter_->substitute_context (f, t);
 }
 
 void
@@ -76,11 +76,11 @@ Music_wrapper_iterator::pending_moment () const
 }
 
 Context *
-Music_wrapper_iterator::get_outlet () const
+Music_wrapper_iterator::get_context () const
 {
   if (child_iter_)
-    return child_iter_->get_outlet ();
-  return Music_iterator::get_outlet ();
+    return child_iter_->get_context ();
+  return Music_iterator::get_context ();
 }
 
 void

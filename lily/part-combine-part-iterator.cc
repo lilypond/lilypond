@@ -38,7 +38,7 @@ Part_combine_part_iterator::change_to (const string &id)
 {
   Context *voice = find_voice (id);
   if (voice)
-    substitute_outlet (get_outlet (), voice);
+    substitute_context (get_context (), voice);
   else
     {
       string s = "can not find Voice context: ";
@@ -50,9 +50,9 @@ Part_combine_part_iterator::change_to (const string &id)
 Context *
 Part_combine_part_iterator::find_voice (const string &id)
 {
-  // Find a Voice among the siblings of the current outlet.  (Well, this might
+  // Find a Voice among the siblings of the current context.  (Well, this might
   // also find a sibling's descendant, but that should not be a problem.)
-  Context *c = get_outlet ()->get_parent_context ();
+  Context *c = get_context ()->get_parent_context ();
   if (c)
     return find_context_below (c, ly_symbol2scm ("Voice"), id);
   programming_error ("no parent context");

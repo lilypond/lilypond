@@ -90,7 +90,7 @@ void
 Sequential_iterator::derived_substitute (Context *f, Context *t)
 {
   if (iter_)
-    iter_->substitute_outlet (f, t);
+    iter_->substitute_context (f, t);
 }
 
 void Sequential_iterator::Lookahead::look_ahead ()
@@ -154,7 +154,7 @@ Sequential_iterator::create_children ()
     iter_->ok () is tautology, but what the heck.
   */
   if (iter_ && iter_->ok ())
-    descend_to_child (iter_->get_outlet ());
+    descend_to_child (iter_->get_context ());
 }
 
 /*
@@ -233,7 +233,7 @@ Sequential_iterator::process (Moment until)
       if (iter_->ok ())
         return;
 
-      descend_to_child (iter_->get_outlet ());
+      descend_to_child (iter_->get_context ());
       next_element ();
     }
 }

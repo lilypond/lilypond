@@ -40,8 +40,8 @@ Change_iterator::error (const string &reason)
     GUHG!
   */
   string warn2 = "Change_iterator::process (): "
-                 + get_outlet ()->context_name () + " = `"
-                 + get_outlet ()->id_string () + "': ";
+                 + get_context ()->context_name () + " = `"
+                 + get_context ()->id_string () + "': ";
   ::warning (warn2);
   warning (warn1);
 }
@@ -54,11 +54,11 @@ Change_iterator::change_to (Music_iterator &it,
   string result; // error message
 
   // Find the context that should have its parent changed.
-  Context *last = find_context_above_by_parent_type (it.get_outlet (), to_type);
+  Context *last = find_context_above_by_parent_type (it.get_context (), to_type);
   if (last)
     {
       // Find the new parent.
-      Context *dest = find_context_near (it.get_outlet (), to_type, to_id);
+      Context *dest = find_context_near (it.get_context (), to_type, to_id);
       if (dest)
         {
           send_stream_event (last, "ChangeParent", it.origin (),
@@ -70,7 +70,7 @@ Change_iterator::change_to (Music_iterator &it,
                           Context::diagnostic_id (to_type, to_id).c_str ()));
         }
     }
-  else if (it.get_outlet ()->is_alias (to_type))
+  else if (it.get_context ()->is_alias (to_type))
     {
       // No enclosing context of the right kind was found
       // and the iterator's immediate context is the kind that was sought.

@@ -53,7 +53,7 @@ Context_specced_music_iterator::create_children ()
 
   if (from_scm<bool> (get_property (get_music (), "create-new")))
     {
-      a = get_outlet ()->create_unique_context (dir, ct, c_id, ops);
+      a = get_context ()->create_unique_context (dir, ct, c_id, ops);
       if (!a)
         {
           warning (_f ("cannot create context: %s",
@@ -62,7 +62,7 @@ Context_specced_music_iterator::create_children ()
     }
   else
     {
-      a = get_outlet ()->find_create_context (dir, ct, c_id, ops);
+      a = get_context ()->find_create_context (dir, ct, c_id, ops);
       // Warnings in regression tests would be pretty common if we didn't
       // ignore them for DOWN.
       //

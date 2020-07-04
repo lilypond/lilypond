@@ -40,7 +40,7 @@ Music_iterator::~Music_iterator ()
 }
 
 Context *
-Music_iterator::get_outlet () const
+Music_iterator::get_context () const
 {
   return handle_.get_context ();
 }
@@ -98,7 +98,7 @@ Music_iterator::get_static_get_iterator (Music *m)
 void
 Music_iterator::init_context (Context *report)
 {
-  if (! get_outlet ())
+  if (! get_context ())
     {
       set_context (report);
       create_children ();
@@ -110,11 +110,11 @@ Music_iterator::init_context (Context *report)
 }
 
 void
-Music_iterator::substitute_outlet (Context *f, Context *t)
+Music_iterator::substitute_context (Context *f, Context *t)
 {
   if (f != t)
     {
-      if (get_outlet () == f)
+      if (get_context () == f)
         set_context (t);
       derived_substitute (f, t);
     }
@@ -130,7 +130,7 @@ Music_iterator::get_iterator (Music *m) const
 {
   SCM ip = get_static_get_iterator (m);
   Music_iterator *p = unsmob<Music_iterator> (ip);
-  p->init_context (get_outlet ());
+  p->init_context (get_context ());
   return ip;
 }
 
@@ -138,9 +138,9 @@ Music_iterator::get_iterator (Music *m) const
 void
 Music_iterator::descend_to_bottom_context ()
 {
-  assert (get_outlet ());
-  if (!get_outlet ()->is_bottom_context ())
-    set_context (get_outlet ()->get_default_interpreter ());
+  assert (get_context ());
+  if (!get_context ()->is_bottom_context ())
+    set_context (get_context ()->get_default_interpreter ());
 }
 
 void
@@ -154,7 +154,7 @@ Music_iterator::report_event (Music *m)
   if (!m->is_mus_type ("event"))
     m->programming_error ("Sending non-event to context");
 
-  m->send_to_context (get_outlet ());
+  m->send_to_context (get_context ());
 }
 
 IMPLEMENT_CTOR_CALLBACK (Music_iterator);
@@ -185,7 +185,7 @@ Music_iterator::mark_smob () const
     Careful with GC, although we intend the following as pointers
     only, we _must_ mark them.
   */
-  /* Use handle_ directly as get_outlet is a virtual function and we
+  /* Use handle_ directly as get_context is a virtual function and we
      need to protect the context until Music_iterator::quit is being
      run. */
   if (handle_.get_context ())
@@ -245,7 +245,7 @@ is_child_context (Context *me, Context *child)
 void
 Music_iterator::descend_to_child (Context *child_report)
 {
-  Context *me_report = get_outlet ();
+  Context *me_report = get_context ();
   if (is_child_context (me_report, child_report))
     set_context (child_report);
 }

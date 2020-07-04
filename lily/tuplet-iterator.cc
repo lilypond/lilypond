@@ -113,7 +113,7 @@ Tuplet_iterator::process (Moment m)
         {
           spanner_duration_
             = std::min (music_get_length () - next_split_mom_, spanner_duration_);
-          tuplet_handler_.set_context (get_outlet ());
+          tuplet_handler_.set_context (get_context ());
           report_event (create_event (START));
 
           next_split_mom_ += spanner_duration_;
@@ -125,7 +125,7 @@ Tuplet_iterator::process (Moment m)
 
   auto *child = get_child ();
   if (child && child->ok ())
-    descend_to_child (child->get_outlet ());
+    descend_to_child (child->get_context ());
 
 }
 
@@ -135,7 +135,7 @@ Tuplet_iterator::create_children ()
   if (Duration *d = unsmob<Duration> (get_property (get_music (), "duration")))
     spanner_duration_ = Moment (d->get_length ());
   else if (Moment * mp
-           = unsmob<Moment> (get_property (get_outlet (), "tupletSpannerDuration")))
+           = unsmob<Moment> (get_property (get_context (), "tupletSpannerDuration")))
     spanner_duration_ = Moment (mp->main_part_); // discard grace part
   else
     spanner_duration_ = Moment (Rational::infinity ());
@@ -144,7 +144,7 @@ Tuplet_iterator::create_children ()
 
   auto *child = get_child ();
   if (child && child->ok ())
-    descend_to_child (child->get_outlet ());
+    descend_to_child (child->get_context ());
 }
 
 void

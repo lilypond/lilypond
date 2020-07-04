@@ -42,7 +42,7 @@ void
 Simultaneous_music_iterator::derived_substitute (Context *f, Context *t)
 {
   for (auto *child : children_list_)
-    child->substitute_outlet (f, t);
+    child->substitute_context (f, t);
 }
 
 void
@@ -59,7 +59,7 @@ Simultaneous_music_iterator::create_children ()
       SCM scm_iter = get_static_get_iterator (mus);
       Music_iterator *mi = unsmob<Music_iterator> (scm_iter);
 
-      Context *c = get_outlet ();
+      Context *c = get_context ();
       if (j && create_separate_contexts_)
         {
           // create a new context of the same kind with the number as ID

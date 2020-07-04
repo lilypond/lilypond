@@ -52,9 +52,9 @@ Percent_repeat_iterator::create_children ()
   Sequential_iterator::create_children ();
 
   descend_to_bottom_context ();
-  if (!measure_position (get_outlet ()).main_part_)
+  if (!measure_position (get_context ()).main_part_)
     starting_bar_
-      = from_scm (get_property (get_outlet (), "internalBarNumber"), 0);
+      = from_scm (get_property (get_context (), "internalBarNumber"), 0);
 }
 
 // Todo: use elements-callback instead?  We don't expose iterator
@@ -79,9 +79,9 @@ Percent_repeat_iterator::music_tail () const
   SCM length = child->get_length ().smobbed_copy ();
 
   int current_bar = -1;
-  if (!measure_position (get_outlet ()).main_part_)
+  if (!measure_position (get_context ()).main_part_)
     current_bar
-      = from_scm (get_property (get_outlet (), "internalBarNumber"), 0);
+      = from_scm (get_property (get_context (), "internalBarNumber"), 0);
 
   SCM child_list = SCM_EOL;
 

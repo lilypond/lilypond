@@ -47,7 +47,7 @@ private:
 
   Stream_event *mmrest_event_;
 
-  bool is_active_outlet (const Context *c) const;
+  bool is_active_context (const Context *c) const;
   void kill_mmrest (Context *c);
 };
 
@@ -86,7 +86,7 @@ Part_combine_iterator::derived_substitute (Context *f,
 {
   // (Explain why just iterators_[0].)
   if (iterators_[0])
-    iterators_[0]->substitute_outlet (f, t);
+    iterators_[0]->substitute_context (f, t);
 }
 
 Moment
@@ -100,10 +100,10 @@ Part_combine_iterator::pending_moment () const
   return p;
 }
 
-bool Part_combine_iterator::is_active_outlet (const Context *c) const
+bool Part_combine_iterator::is_active_context (const Context *c) const
 {
   for (size_t i = 0; i < NUM_PARTS; i++)
-    if (iterators_[i] && (iterators_[i]->get_outlet () == c))
+    if (iterators_[i] && (iterators_[i]->get_context () == c))
       return true;
 
   return false;
@@ -137,27 +137,27 @@ Part_combine_iterator::create_children ()
 void
 Part_combine_iterator::process (Moment m)
 {
-  Context *prev_active_outlets[NUM_PARTS];
-  bool any_outlet_changed = false;
+  Context *prev_active_contexts[NUM_PARTS];
+  bool any_context_changed = false;
   for (size_t i = 0; i < NUM_PARTS; i++)
     {
-      prev_active_outlets[i] = iterators_[i]->get_outlet ();
+      prev_active_contexts[i] = iterators_[i]->get_context ();
 
       if (iterators_[i]->ok ())
         iterators_[i]->process (m);
 
-      if (prev_active_outlets[i] != iterators_[i]->get_outlet ())
-        any_outlet_changed = true;
+      if (prev_active_contexts[i] != iterators_[i]->get_context ())
+        any_context_changed = true;
     }
 
-  if (any_outlet_changed)
+  if (any_context_changed)
     {
-      // Kill multi-measure rests in outlets that were previously active and
+      // Kill multi-measure rests in contexts that were previously active and
       // are no longer active.
       for (size_t i = 0; i < NUM_PARTS; i++)
         {
-          Context *c = prev_active_outlets[i];
-          if (c && !is_active_outlet (c))
+          Context *c = prev_active_contexts[i];
+          if (c && !is_active_context (c))
             kill_mmrest (c);
         }
     }

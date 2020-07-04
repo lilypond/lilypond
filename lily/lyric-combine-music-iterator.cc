@@ -164,7 +164,7 @@ void
 Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 {
   if (lyric_iter_)
-    lyric_iter_->substitute_outlet (f, t);
+    lyric_iter_->substitute_context (f, t);
   if (lyrics_context_ && lyrics_context_ == f)
     lyrics_context_ = t;
   if (music_context_ && music_context_ == f)
@@ -180,7 +180,7 @@ Lyric_combine_music_iterator::create_children ()
   lyric_iter_ = unsmob<Music_iterator> (get_iterator (m));
   if (!lyric_iter_)
     return;
-  lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
+  lyrics_context_ = find_context_below (lyric_iter_->get_context (),
                                         ly_symbol2scm ("Lyrics"), "");
 
   if (!lyrics_context_)
@@ -201,7 +201,7 @@ Lyric_combine_music_iterator::create_children ()
     Wait for a Create_context event. If this isn't done, lyrics can be
     delayed when voices are created implicitly.
   */
-  Context *g = find_top_context (get_outlet ());
+  Context *g = find_top_context (get_context ());
   g->events_below ()->add_listener (GET_LISTENER (this, check_new_context), ly_symbol2scm ("CreateContext"));
 
   /*
@@ -251,7 +251,7 @@ Lyric_combine_music_iterator::find_voice ()
       && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ())
       && scm_is_symbol (voice_type))
     {
-      return find_context_below (find_top_context (get_outlet ()),
+      return find_context_below (find_top_context (get_context ()),
                                  voice_type, ly_scm2string (voice_name));
     }
 

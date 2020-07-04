@@ -34,7 +34,7 @@ public:
   Music_wrapper_iterator ();
   OVERRIDE_CLASS_NAME (Music_wrapper_iterator);
 
-  Context *get_outlet () const override;
+  Context *get_context () const override;
   void set_context (Context *trans) override;
   void derived_substitute (Context *f, Context *t) override;
   void derived_mark () const override;

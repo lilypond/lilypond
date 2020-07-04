@@ -35,7 +35,7 @@ public:
 
   int get_count () const;
 private:
-  Context *outlet_;
+  Context *context_;
   void down ();
   void up (Context *);
 };

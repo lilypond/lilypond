@@ -47,7 +47,7 @@ Bar_check_iterator::process (Moment m)
   Simple_music_iterator::process (m);
   if (!m.to_bool ())
     {
-      Context *tr = get_outlet ();
+      Context *tr = get_context ();
 
       SCM check = get_property (tr, "ignoreBarChecks");
       if (from_scm<bool> (check))

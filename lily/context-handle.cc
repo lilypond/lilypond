@@ -22,14 +22,14 @@
 
 Context_handle::Context_handle ()
 {
-  outlet_ = 0;
+  context_ = 0;
 }
 
 Context_handle::Context_handle (Context_handle const &s)
 {
-  outlet_ = 0;
-  if (s.outlet_)
-    up (s.outlet_);
+  context_ = 0;
+  if (s.context_)
+    up (s.context_);
 }
 
 Context_handle::~Context_handle ()
@@ -37,7 +37,7 @@ Context_handle::~Context_handle ()
   /*
     Don't do
 
-    if (outlet_)
+    if (context_)
     down ();
 
     with GC, this is asynchronous.
@@ -47,29 +47,29 @@ Context_handle::~Context_handle ()
 void
 Context_handle::up (Context *t)
 {
-  outlet_ = t;
+  context_ = t;
   t->client_count_++;
 }
 
 void
 Context_handle::down ()
 {
-  outlet_->client_count_--;
-  outlet_ = 0;
+  context_->client_count_--;
+  context_ = 0;
 }
 
 void
 Context_handle::operator = (Context_handle const &s)
 {
-  set_context (s.outlet_);
+  set_context (s.context_);
 }
 
 void
 Context_handle::set_context (Context *trans)
 {
-  if (outlet_ == trans)
+  if (context_ == trans)
     return;
-  if (outlet_)
+  if (context_)
     down ();
   if (trans)
     up (trans);
@@ -79,11 +79,11 @@ Context *
 Context_handle::get_context () const
 {
 
-  return outlet_;
+  return context_;
 }
 
 int
 Context_handle::get_count () const
 {
-  return outlet_->client_count_;
+  return context_->client_count_;
 }
