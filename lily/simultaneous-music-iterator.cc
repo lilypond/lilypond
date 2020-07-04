@@ -46,9 +46,9 @@ Simultaneous_music_iterator::derived_substitute (Context *f, Context *t)
 }
 
 void
-Simultaneous_music_iterator::construct_children ()
+Simultaneous_music_iterator::create_children ()
 {
-  Music_iterator::construct_children ();
+  Music_iterator::create_children ();
 
   int j = 0;
   children_list_.clear ();

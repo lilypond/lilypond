@@ -31,9 +31,9 @@ Event_chord_iterator::Event_chord_iterator ()
 }
 
 void
-Event_chord_iterator::construct_children ()
+Event_chord_iterator::create_children ()
 {
-  Simple_music_iterator::construct_children ();
+  Simple_music_iterator::create_children ();
   descend_to_bottom_context ();
 }
 

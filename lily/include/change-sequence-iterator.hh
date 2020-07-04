@@ -30,7 +30,7 @@ public:
   Change_sequence_iterator ();
 
 protected:
-  void construct_children () override;
+  void create_children () override;
   void process (Moment) override;
 
 private:

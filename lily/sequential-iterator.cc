@@ -127,9 +127,9 @@ void Sequential_iterator::Lookahead::look_ahead ()
 }
 
 void
-Sequential_iterator::construct_children ()
+Sequential_iterator::create_children ()
 {
-  Music_iterator::construct_children ();
+  Music_iterator::create_children ();
 
   cursor_ = get_music_list ();
 

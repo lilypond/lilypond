@@ -101,7 +101,7 @@ Music_iterator::init_context (Context *report)
   if (! get_outlet ())
     {
       set_context (report);
-      construct_children ();
+      create_children ();
     }
   else
     {

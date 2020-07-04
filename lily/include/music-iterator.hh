@@ -109,7 +109,7 @@ public:
   Music *get_music () const;
 protected:
   Music_iterator ();
-  virtual void construct_children () {}
+  virtual void create_children () {}
   virtual void do_quit ();
   void descend_to_child (Context *);
 

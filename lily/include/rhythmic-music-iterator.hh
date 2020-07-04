@@ -37,7 +37,7 @@ public:
 
 protected:
   void process (Moment) override;
-  void construct_children () override;
+  void create_children () override;
 };
 
 #endif /* RHYTHMIC_MUSIC_ITERATOR_HH */

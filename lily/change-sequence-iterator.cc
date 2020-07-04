@@ -29,9 +29,9 @@ Change_sequence_iterator::Change_sequence_iterator ()
 }
 
 void
-Change_sequence_iterator::construct_children ()
+Change_sequence_iterator::create_children ()
 {
-  Music_wrapper_iterator::construct_children ();
+  Music_wrapper_iterator::create_children ();
 
   change_list_ = get_property (get_music (), "context-change-list");
 }

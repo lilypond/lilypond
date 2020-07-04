@@ -33,11 +33,11 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
 
 protected:
-  void construct_children () override;
+  void create_children () override;
 };
 
 void
-Context_specced_music_iterator::construct_children ()
+Context_specced_music_iterator::create_children ()
 {
   SCM ct = get_property (get_music (), "context-type");
 
@@ -81,7 +81,7 @@ Context_specced_music_iterator::construct_children ()
   if (a)
     set_context (a);
 
-  Music_wrapper_iterator::construct_children ();
+  Music_wrapper_iterator::create_children ();
 }
 
 IMPLEMENT_CTOR_CALLBACK (Context_specced_music_iterator);

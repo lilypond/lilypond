@@ -49,7 +49,7 @@ public:
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
-  void construct_children () override;
+  void create_children () override;
   void do_quit () override;
   void process (Moment) override;
   bool run_always () const override;
@@ -172,9 +172,9 @@ Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 }
 
 void
-Lyric_combine_music_iterator::construct_children ()
+Lyric_combine_music_iterator::create_children ()
 {
-  Music_iterator::construct_children ();
+  Music_iterator::create_children ();
 
   Music *m = unsmob<Music> (get_property (get_music (), "element"));
   lyric_iter_ = unsmob<Music_iterator> (get_iterator (m));

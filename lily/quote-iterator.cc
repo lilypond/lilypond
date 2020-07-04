@@ -49,7 +49,7 @@ public:
 
 protected:
   void derived_mark () const override;
-  void construct_children () override;
+  void create_children () override;
   Moment pending_moment () const override;
   void process (Moment) override;
   void do_quit () override;
@@ -112,9 +112,9 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less) (SCM a, SCM b))
 }
 
 void
-Quote_iterator::construct_children ()
+Quote_iterator::create_children ()
 {
-  Music_wrapper_iterator::construct_children ();
+  Music_wrapper_iterator::create_children ();
 
   Context *cue_context = 0;
 

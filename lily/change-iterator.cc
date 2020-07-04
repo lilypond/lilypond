@@ -85,7 +85,7 @@ Change_iterator::change_to (Music_iterator &it,
 }
 
 /*
-  move to construct_children ?
+  move to create_children ?
 */
 void
 Change_iterator::process (Moment m)

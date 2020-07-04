@@ -34,7 +34,7 @@ public:
 protected:
   SCM get_music_list () const override;
   void next_element () override;
-  void construct_children () override;
+  void create_children () override;
   void process (Moment) override;
   void derived_mark () const override;
 
@@ -67,9 +67,9 @@ Volta_repeat_iterator::get_music_list ()const
 }
 
 void
-Volta_repeat_iterator::construct_children ()
+Volta_repeat_iterator::create_children ()
 {
-  Sequential_iterator::construct_children ();
+  Sequential_iterator::create_children ();
 
   SCM alts = get_property (get_music (), "elements");
 

@@ -36,7 +36,7 @@ protected:
   void derived_substitute (Context *f, Context *t) override;
   void derived_mark () const override;
 
-  void construct_children () override;
+  void create_children () override;
   Moment pending_moment () const override;
   void do_quit () override;
   void process (Moment) override;
@@ -125,9 +125,9 @@ Part_combine_iterator::kill_mmrest (Context *c)
 }
 
 void
-Part_combine_iterator::construct_children ()
+Part_combine_iterator::create_children ()
 {
-  Music_iterator::construct_children ();
+  Music_iterator::create_children ();
 
   SCM lst = get_property (get_music (), "elements");
   iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));

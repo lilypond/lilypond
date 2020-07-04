@@ -40,7 +40,7 @@ public:
   Tuplet_iterator ();
 protected:
   void process (Moment m) override;
-  void construct_children () override;
+  void create_children () override;
   void derived_mark () const override;
   Moment pending_moment () const override;
 
@@ -130,7 +130,7 @@ Tuplet_iterator::process (Moment m)
 }
 
 void
-Tuplet_iterator::construct_children ()
+Tuplet_iterator::create_children ()
 {
   if (Duration *d = unsmob<Duration> (get_property (get_music (), "duration")))
     spanner_duration_ = Moment (d->get_length ());
@@ -140,7 +140,7 @@ Tuplet_iterator::construct_children ()
   else
     spanner_duration_ = Moment (Rational::infinity ());
 
-  Music_wrapper_iterator::construct_children ();
+  Music_wrapper_iterator::create_children ();
 
   auto *child = get_child ();
   if (child && child->ok ())

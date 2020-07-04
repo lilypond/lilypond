@@ -43,7 +43,7 @@ public:
   bool run_always () const override;
 
 protected:
-  void construct_children () override;
+  void create_children () override;
   void process (Moment) override;
 
   Music_iterator *get_child () { return child_iter_; }
