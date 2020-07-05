@@ -180,7 +180,7 @@ newline_indices is an ordered iterable of all newline indices.
     sup = len (newline_indices) - 1
     n = len (newline_indices)
     while inf + 1 != sup:
-        m = (inf + sup) / 2
+        m = (inf + sup) // 2
         if index >= newline_indices [m]:
             inf = m
         else:
@@ -328,15 +328,15 @@ def choose_in_numbered_list (message, string_list, sep=' ', retries=3):
         value = ''
         stdout.write (message +
                       "(press Enter to discard and start a new search)\n")
-        input = input (numbered_list)
-        if not input:
+        response = input (numbered_list)
+        if not response:
             return ''
         try:
-            value = string_list[int (input) - 1]
+            value = string_list[int (response) - 1]
         except IndexError:
             stdout.write ("Error: index number out of range\n")
         except ValueError:
-            matches = [input in v for v in string_list]
+            matches = [response in v for v in string_list]
             n = matches.count (True)
             if n == 0:
                 stdout.write ("Error: input matches no item in the list\n")
