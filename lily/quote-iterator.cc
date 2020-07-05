@@ -31,17 +31,17 @@
 class Quote_iterator final : public Music_wrapper_iterator
 {
 public:
-  Quote_iterator ();
+  Quote_iterator () = default;
   Moment vector_moment (vsize idx) const;
   Context_handle quote_outlet_;
 
   Moment start_moment_;
   Moment stop_moment_;
-  SCM event_vector_;
-  vsize event_idx_;
-  vsize end_idx_;
+  SCM event_vector_ = SCM_EOL;
+  vsize event_idx_ = VPOS;
+  vsize end_idx_ = 0;
 
-  SCM transposed_musics_;
+  SCM transposed_musics_ = SCM_EOL;
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
   bool quote_ok () const;
@@ -86,14 +86,6 @@ Quote_iterator::derived_mark () const
 {
   Music_wrapper_iterator::derived_mark ();
   scm_gc_mark (transposed_musics_);
-}
-
-Quote_iterator::Quote_iterator ()
-{
-  transposed_musics_ = SCM_EOL;
-  event_vector_ = SCM_EOL;
-  event_idx_ = 0;
-  end_idx_ = 0;
 }
 
 vsize
@@ -145,13 +137,6 @@ Quote_iterator::construct_children ()
   quote_outlet_.set_context (cue_context);
 
   event_vector_ = get_property (get_music (), "quoted-events");
-
-  /*
-    We have to delay initting event_idx_ , since we have to
-    take starting grace notes into account. Those may offset
-    event_idx_.
-  */
-  event_idx_ = VPOS;
 }
 
 bool
