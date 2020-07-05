@@ -60,10 +60,10 @@ if test -n "$CI" ; then
     conf_flags="$conf_flags --enable-gs-api"
     conf_flags="$conf_flags --disable-debugging"
 
-    c_flags="$c_flags -O2"
+    CFLAGS="$CFLAGS -O2"
     # TODO: Treat more warnings as errors (in CI) as we eliminate them.
-    c_flags="$c_flags -Werror=format"
-    conf_flags="$conf_flags CFLAGS=\"$c_flags\" LDFLAGS=\"$ld_flags\""
+    CFLAGS="$CFLAGS -Werror=format"
+    export CFLAGS
 fi
 
 if test -z "${conf_flags}$*"; then
@@ -77,4 +77,4 @@ EOF
 fi
 
 echo Running $configure $conf_flags "$@" ...
-eval exec "$configure" $conf_flags "$@"
+exec "$configure" $conf_flags "$@"
