@@ -52,7 +52,7 @@ Part_combine_part_iterator::find_voice (const string &id)
 {
   // Find a Voice among the siblings of the current context.  (Well, this might
   // also find a sibling's descendant, but that should not be a problem.)
-  Context *c = get_context ()->get_parent_context ();
+  Context *c = get_context ()->get_parent ();
   if (c)
     return find_context_below (c, ly_symbol2scm ("Voice"), id);
   programming_error ("no parent context");

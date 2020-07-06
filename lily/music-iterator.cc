@@ -233,7 +233,7 @@ bool
 is_child_context (Context *me, Context *child)
 {
   while (child && child != me)
-    child = child->get_parent_context ();
+    child = child->get_parent ();
 
   return child == me;
 }

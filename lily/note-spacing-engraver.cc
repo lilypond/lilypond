@@ -100,7 +100,7 @@ Note_spacing_engraver::acknowledge_rhythmic_grob (Grob_info gi)
 void
 Note_spacing_engraver::finalize ()
 {
-  Context *parent = context ()->get_parent_context ();
+  Context *parent = context ()->get_parent ();
   Grob *last_spacing = last_spacings_[parent];
 
   if (last_spacing
@@ -117,7 +117,7 @@ Note_spacing_engraver::finalize ()
 void
 Note_spacing_engraver::stop_translation_timestep ()
 {
-  Context *parent = context ()->get_parent_context ();
+  Context *parent = context ()->get_parent ();
   Grob *last_spacing = last_spacings_[parent];
 
   if (last_spacing

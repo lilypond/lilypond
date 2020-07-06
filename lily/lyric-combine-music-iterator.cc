@@ -270,7 +270,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
   if (!music_context_)
     return;
 
-  if (!music_context_->get_parent_context ())
+  if (!music_context_->get_parent ())
     {
       /*
         The melody has died.

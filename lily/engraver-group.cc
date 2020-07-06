@@ -98,7 +98,7 @@ Engraver_group::announce_grob (Grob_info info, Direction dir,
   announce_infos_.push_back (Announce_grob_info (info, dir));
 
   Context *dad_con = reroute_context ? reroute_context
-                     : context_->get_parent_context ();
+                     : context_->get_parent ();
 
   Engraver_group *dad_eng
     = dad_con

@@ -43,7 +43,7 @@ Performer_group::announce_element (Audio_element_info info)
 {
   announce_infos_.push_back (info);
   Translator_group *t
-    = context ()->get_parent_context ()->implementation ();
+    = context ()->get_parent ()->implementation ();
 
   if (Performer_group *eg = dynamic_cast<Performer_group *> (t))
     eg->announce_element (info);

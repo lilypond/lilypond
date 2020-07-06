@@ -422,7 +422,7 @@ SCM Grob_property_info::updated ()
   if (!where)
     return SCM_EOL;
 
-  Context *dad = where.context_->get_parent_context ();
+  Context *dad = where.context_->get_parent ();
 
   SCM daddy_props
     = dad ? Grob_property_info (dad, symbol_).updated () : SCM_EOL;

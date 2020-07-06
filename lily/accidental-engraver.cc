@@ -128,7 +128,7 @@ Accidental_engraver::update_local_key_signature (SCM new_sig)
                                     ly_symbol2scm ("localAlterations"),
                                     new_sig);
 
-  Context *trans = context ()->get_parent_context ();
+  Context *trans = context ()->get_parent ();
 
   /*
     Reset parent contexts so that e.g. piano-accidentals won't remember old
@@ -139,7 +139,7 @@ Accidental_engraver::update_local_key_signature (SCM new_sig)
   while (trans && trans->here_defined (ly_symbol2scm ("localAlterations"), &val))
     {
       set_property (trans, "localAlterations", ly_deep_copy (last_keysig_));
-      trans = trans->get_parent_context ();
+      trans = trans->get_parent ();
     }
 }
 
@@ -447,7 +447,7 @@ Accidental_engraver::stop_translation_timestep ()
           if (change)
             set_property (origin, "localAlterations", localsig);
 
-          origin = origin->get_parent_context ();
+          origin = origin->get_parent ();
         }
     }
 

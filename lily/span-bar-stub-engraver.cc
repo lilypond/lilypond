@@ -137,7 +137,7 @@ Span_bar_stub_engraver::process_acknowledged ()
 
               k--;
 
-              if (c && c->get_parent_context ())
+              if (c && c->get_parent ())
                 {
                   keep_extent.push_back (from_scm<bool> (get_property (bars[k], "allow-span-bar")));
                   y_parents.push_back (g);

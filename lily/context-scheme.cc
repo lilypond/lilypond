@@ -170,7 +170,7 @@ LY_DEFINE (ly_context_parent, "ly:context-parent",
   LY_ASSERT_SMOB (Context, context, 1);
   Context *tr = unsmob<Context> (context);
 
-  tr = tr->get_parent_context ();
+  tr = tr->get_parent ();
   if (tr)
     return tr->self_scm ();
   else

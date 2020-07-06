@@ -40,7 +40,7 @@ bool
 Context::is_removable () const
 {
   return scm_is_null (context_list_) && ! client_count_
-         && !dynamic_cast<Global_context const *> (daddy_context_);
+         && !dynamic_cast<Global_context const *> (parent_);
 }
 
 void
@@ -75,13 +75,13 @@ Context::add_context (Context *child)
   context_list_ = ly_append2 (context_list_,
                               scm_cons (child->self_scm (), SCM_EOL));
 
-  child->daddy_context_ = this;
+  child->parent_ = this;
   events_below_->register_as_listener (child->events_below_);
 }
 
 Context::Context ()
 {
-  daddy_context_ = 0;
+  parent_ = 0;
   aliases_ = SCM_EOL;
   client_count_ = 0;
   implementation_ = 0;
@@ -165,8 +165,8 @@ Context::core_find (FindMode mode, Direction dir,
         }
     }
 
-  if (walk_up && daddy_context_)
-    return daddy_context_->core_find (mode, dir, n, id, ops);
+  if (walk_up && parent_)
+    return parent_->core_find (mode, dir, n, id, ops);
 
   return nullptr;
 }
@@ -421,7 +421,7 @@ Context::create_context (Context_def *cdef,
   SCM infant_scm = get_property (infant_event_, "context");
   Context *infant = unsmob<Context> (infant_scm);
 
-  if (!infant || infant->get_parent_context () != this)
+  if (!infant || infant->get_parent () != this)
     {
       programming_error ("create_context: can't locate newly created context");
       return 0;
@@ -542,7 +542,7 @@ Context::where_defined (SCM sym, SCM *value) const
   if (properties_dict ()->try_retrieve (sym, value))
     return (Context *)this;
 
-  return (daddy_context_) ? daddy_context_->where_defined (sym, value) : 0;
+  return (parent_) ? parent_->where_defined (sym, value) : 0;
 }
 
 /* Quick variant of where_defined.  Checks only the context itself. */
@@ -573,8 +573,8 @@ Context::internal_get_property (SCM sym) const
   if (properties_dict ()->try_retrieve (sym, &val))
     return val;
 
-  if (daddy_context_)
-    return daddy_context_->internal_get_property (sym);
+  if (parent_)
+    return parent_->internal_get_property (sym);
 
   return val;
 }
@@ -711,15 +711,15 @@ Context::remove_context (SCM)
 void
 Context::disconnect_from_parent ()
 {
-  daddy_context_->events_below_->unregister_as_listener (events_below_);
-  daddy_context_->context_list_ = scm_delq_x (self_scm (), daddy_context_->context_list_);
-  daddy_context_ = 0;
+  parent_->events_below_->unregister_as_listener (events_below_);
+  parent_->context_list_ = scm_delq_x (self_scm (), parent_->context_list_);
+  parent_ = 0;
 }
 
 Context *
 find_context_above_by_parent_type (Context *where, SCM parent_type)
 {
-  while (Context *parent = where->get_parent_context ())
+  while (Context *parent = where->get_parent ())
     {
       if (parent->is_alias (parent_type))
         return where;
@@ -732,7 +732,7 @@ Context *
 find_top_context (Context *where)
 {
   Context *top = where;
-  for (; where; where = where->get_parent_context ())
+  for (; where; where = where->get_parent ())
     top = where;
   return top;
 }
@@ -773,7 +773,7 @@ Context::diagnostic_id (SCM name, const string &id)
 Output_def *
 Context::get_output_def () const
 {
-  return daddy_context_ ? daddy_context_->get_output_def () : 0;
+  return parent_ ? parent_->get_output_def () : 0;
 }
 
 Context::~Context ()
@@ -784,8 +784,8 @@ Moment
 Context::now_mom () const
 {
   Context const *p = this;
-  while (p->daddy_context_)
-    p = p->daddy_context_;
+  while (p->parent_)
+    p = p->parent_;
 
   return p->now_mom ();
 }
@@ -845,12 +845,6 @@ Context::mark_smob () const
 }
 
 const char *const Context::type_p_name_ = "ly:context?";
-
-Context *
-Context::get_parent_context () const
-{
-  return daddy_context_;
-}
 
 /*
   Ugh. Where to put this?

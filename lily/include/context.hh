@@ -79,7 +79,9 @@ private:
 
 protected:
   virtual void derived_mark () const;
-  Context *daddy_context_;
+private:
+  Context *parent_;
+protected:
   /* The used Context_def */
   SCM definition_;
   /* Additions to the Context_def, given by \with */
@@ -138,7 +140,7 @@ public:
   SCM get_definition_mods () const { return definition_mods_; }
 
   Translator_group *implementation () const { return implementation_; }
-  Context *get_parent_context () const;
+  Context *get_parent () const { return parent_; }
   Context ();
 
   /* properties:  */

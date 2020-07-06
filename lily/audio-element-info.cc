@@ -46,7 +46,7 @@ Audio_element_info::origin_contexts (Translator *end) const
   do
     {
       r.push_back (t);
-      t = t->get_parent_context ();
+      t = t->get_parent ();
     }
   while (t && t != end->context ());
 
