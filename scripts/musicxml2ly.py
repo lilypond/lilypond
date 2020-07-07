@@ -2241,6 +2241,7 @@ def musicxml_voice_to_lily_voice(voice):
         for number in list(lyrics.keys()):
             extracted_lyrics = extract_lyrics(voice, number, lyrics)
 
+    last_bar_check = -1
     for idx, n in enumerate(voice._elements):
         tie_started = False
         if n.get_name() == 'forward':
@@ -2310,11 +2311,12 @@ def musicxml_voice_to_lily_voice(voice):
                 num = int(n.get_parent().number)
             except ValueError:
                 num = 0
-            if num > 0:
+            if num > 0 and num > last_bar_check:
                 voice_builder.add_bar_check(num)
                 figured_bass_builder.add_bar_check(num)
                 chordnames_builder.add_bar_check(num)
                 fretboards_builder.add_bar_check(num)
+                last_bar_check = num
 
         if isinstance(n, musicxml.Direction):
             # check if Direction already has been converted in another voice.
