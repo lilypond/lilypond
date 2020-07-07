@@ -24,10 +24,10 @@
 #include "warn.hh"
 
 Performer_group *
-Performer::get_daddy_performer () const
+Performer::get_group () const
 {
-  return
-    dynamic_cast<Performer_group *> (get_daddy_translator ());
+  // safe: Performers belong to Performer_groups
+  return static_cast<Performer_group *> (Translator::get_group ());
 }
 
 void
@@ -46,5 +46,5 @@ Performer::announce_element (Audio_element_info i)
   if (!i.origin_trans_)
     i.origin_trans_ = this;
 
-  get_daddy_performer ()->announce_element (i);
+  get_group ()->announce_element (i);
 }

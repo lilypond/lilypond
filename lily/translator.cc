@@ -45,7 +45,7 @@ Translator::process_acknowledged ()
 }
 
 Translator::Translator (Context *c)
-  : daddy_context_ (c)
+  : context_ (c)
 {
   smobify_self ();
 }
@@ -53,31 +53,31 @@ Translator::Translator (Context *c)
 Moment
 Translator::now_mom () const
 {
-  return daddy_context_->now_mom ();
+  return context_->now_mom ();
 }
 
 Output_def *
 Translator::get_output_def () const
 {
-  return daddy_context_->get_output_def ();
+  return context_->get_output_def ();
 }
 
 Translator_group *
-Translator::get_daddy_translator () const
+Translator::get_group () const
 {
-  return daddy_context_->implementation ();
+  return context_->implementation ();
 }
 
 void
 Translator::protect_event (SCM ev)
 {
-  get_daddy_translator ()->protect_event (ev);
+  get_group ()->protect_event (ev);
 }
 
 SCM
 Translator::internal_get_property (SCM sym) const
 {
-  return daddy_context_->internal_get_property (sym);
+  return context_->internal_get_property (sym);
 }
 
 void
@@ -188,13 +188,13 @@ Translator::mark_smob () const
 Global_context *
 Translator::find_global_context () const
 {
-  return ::find_global_context (daddy_context_);
+  return ::find_global_context (context_);
 }
 
 Context *
 Translator::find_score_context () const
 {
-  Context *score = find_context_above (daddy_context_, ly_symbol2scm ("Score"));
+  Context *score = find_context_above (context_, ly_symbol2scm ("Score"));
   if (score)
     return score;
   programming_error ("no score context");

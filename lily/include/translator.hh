@@ -124,7 +124,7 @@ public:
   static const char *const type_p_name_;
   virtual ~Translator ();
 
-  Context *context () const { return daddy_context_; }
+  Context *context () const { return context_; }
 
 protected:
   Translator (Context *);
@@ -140,7 +140,7 @@ public:
   SCM internal_get_property (SCM symbol) const;
 
   virtual Output_def *get_output_def () const;
-  virtual Translator_group *get_daddy_translator ()const;
+  Translator_group *get_group ()const;
   virtual Moment now_mom () const;
   virtual bool must_be_last () const;
 
@@ -162,7 +162,7 @@ public:
   virtual SCM get_acknowledger (SCM sym, Direction start_end) = 0;
 
 private:
-  Context *daddy_context_;
+  Context *context_;
 
 protected:
   void protect_event (SCM ev);

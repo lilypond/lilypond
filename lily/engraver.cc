@@ -30,21 +30,22 @@
 #include "warn.hh"
 
 Engraver_group *
-Engraver::get_daddy_engraver () const
+Engraver::get_group () const
 {
-  return dynamic_cast<Engraver_group *> (get_daddy_translator ());
+  // safe: Engravers belong to Engraver_groups
+  return static_cast<Engraver_group *> (Translator::get_group ());
 }
 
 void
 Engraver::announce_grob (Grob_info inf, Context *reroute_context)
 {
-  get_daddy_engraver ()->announce_grob (inf, START, reroute_context);
+  get_group ()->announce_grob (inf, START, reroute_context);
 }
 
 void
 Engraver::announce_end_grob (Grob_info inf, Context *reroute_context)
 {
-  get_daddy_engraver ()->announce_grob (inf, STOP, reroute_context);
+  get_group ()->announce_grob (inf, STOP, reroute_context);
 }
 
 Grob_info
