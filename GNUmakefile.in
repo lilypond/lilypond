@@ -343,7 +343,9 @@ local-check: local-check-pre
 	$(PYTHON) $(buildscript-dir)/output-distance.py $(if $(VERBOSE),-v) \
 		--local-datadir --output-dir $(RESULT_DIR) \
 		input/regression/out-test-baseline input/regression/out-test \
-		input/regression/midi/out-test-baseline input/regression/midi/out-test
+		input/regression/abc2ly/out-test-baseline input/regression/abc2ly/out-test \
+		input/regression/midi/out-test-baseline input/regression/midi/out-test \
+		input/regression/musicxml/out-test-baseline input/regression/musicxml/out-test
 ifneq ($(TIDY),false)
 	find $(RESULT_DIR) -name '*.html' | while read f ; do \
 		echo "Validating $$f" ; \

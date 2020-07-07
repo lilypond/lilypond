@@ -432,7 +432,7 @@ class FileLink:
         return os.path.join (self.prefix (), base)
 
     def prefix (self):
-        return os.path.dirname (os.path.commonpath (self.file_names))
+        return os.path.commonpath (self.file_names)
 
     def extension (self):
         return os.path.splitext (self.file_names[1])[1]
