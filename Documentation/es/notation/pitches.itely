@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7b52921bb762657e1f2317c9ad2f834529f0ff99
+    Translation of GIT committish: 4b4574931a2cbbbd7d5853ad0073f3bb379472c9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1539,14 +1539,13 @@ Referencia de funcionamiento interno:
 @cindex 8vb
 @cindex octavación
 
-@funindex set-octavation
 @funindex \ottava
 
 Los @notation{corchetes de Ottava} introducen un trasporte adicional
 de una octava para el pentagrama.
 
 @lilypond[verbatim,quote]
-\relative a' {
+\relative c'' {
   a2 b
   \ottava #-2
   a2 b
@@ -1561,14 +1560,61 @@ de una octava para el pentagrama.
 }
 @end lilypond
 
+@funindex ottavationMarkups
+@funindex ottavation-ordinals
+@funindex ottavation-simple-ordinals
+@funindex ottavation-numbers
+
+De forma predeterminada, solo se imprime un número al comienzo del
+corchete.  Este ajuste se puede modificar para que incluya un
+ordinal abreviado, ya sea como superíndice o en letras de tipo
+normal (este último estilo se usaba anteriormente por defecto); la
+tipografía predeterminada en negrita de estos caracteres se puede
+también alterar, como se explica en
+@ref{Seleccionar la tipografía y su tamaño}.
+
+El ejemplo siguiente muestra diversas opciones, así como la forma
+de volver al comportamiento predeterminado actualmente:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \ottava #1
+  a'2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \override Staff.OttavaBracket.font-series = #'medium
+  \set Staff.ottavationMarkups = #ottavation-simple-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \revert Staff.OttavaBracket.font-series
+  \set Staff.ottavationMarkups = #ottavation-numbers
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+}
+@end lilypond
+
 
 @snippets
 
+@cindex octavación
 @cindex texto, de octava
 @cindex octavación, texto
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-ottava-text.ly}
 
+@funindex middleCPosition
 @cindex octava, para una voz
 @cindex voz, con octavación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1583,6 +1629,9 @@ de una octava para el pentagrama.
 @seealso
 Glosario musical:
 @rglos{octavation}.
+
+Referencia de la notación:
+@ref{Seleccionar la tipografía y su tamaño}.
 
 Fragmentos de código:
 @rlsr{Pitches}.
@@ -1778,11 +1827,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle default
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle default
       \musicB
     }
@@ -1797,12 +1846,12 @@ en los dos pentagramas.
 @example
 \new PianoStaff @{
   <<
-    \context Staff = "up" @{
+    \new Staff = "up" @{
       %%% cambie la línea siguiente como desee:
       \accidentalStyle Score.default
       \musicA
     @}
-    \context Staff = "down" @{
+    \new Staff = "down" @{
       \musicB
     @}
   >>
@@ -1859,11 +1908,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle default
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle default
       \musicB
     }
@@ -1932,11 +1981,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle voice
       \musicB
     }
@@ -1998,11 +2047,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern
       \musicB
     }
@@ -2059,11 +2108,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-cautionary
       \musicB
     }
@@ -2125,11 +2174,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-voice
       \musicB
     }
@@ -2186,11 +2235,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle modern-voice-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle modern-voice-cautionary
       \musicB
     }
@@ -2249,11 +2298,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle piano
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2305,11 +2354,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle piano-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2370,11 +2419,11 @@ musicB = {
 
 \new ChoirStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle choral
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2426,11 +2475,11 @@ musicB = {
 
 \new ChoirStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle choral-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \musicB
     }
   >>
@@ -2486,11 +2535,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern
       \musicB
     }
@@ -2546,11 +2595,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-cautionary
       \musicB
     }
@@ -2607,11 +2656,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-voice
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-voice
       \musicB
     }
@@ -2665,11 +2714,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle neo-modern-voice-cautionary
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle neo-modern-voice-cautionary
       \musicB
     }
@@ -2724,11 +2773,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic
       \musicB
     }
@@ -2783,11 +2832,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic-no-repeat
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic-no-repeat
       \musicB
     }
@@ -2843,11 +2892,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle dodecaphonic-first
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle dodecaphonic-first
       \musicB
     }
@@ -2905,12 +2954,12 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \key fis \minor
       \accidentalStyle teaching
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \key fis \minor
       \accidentalStyle teaching
       \musicB
@@ -2964,11 +3013,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle no-reset
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle no-reset
       \musicB
     }
@@ -3023,11 +3072,11 @@ musicB = {
 
 \new PianoStaff {
   <<
-    \context Staff = "up" {
+    \new Staff = "up" {
       \accidentalStyle forget
       \musicA
     }
-    \context Staff = "down" {
+    \new Staff = "down" {
       \accidentalStyle forget
       \musicB
     }
