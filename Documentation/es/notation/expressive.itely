@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 520c0c31d468f9112aa305b93c8f038bf5d7e996
+    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,43 +44,126 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @unnumberedsubsubsec Articulaciones y ornamentos
 @translationof Articulations and ornamentations
 
-@cindex articulación
-@cindex ornamentación
-@cindex guión
-@cindex ornamento
-@cindex espressivo
-@cindex calderón
-@cindex arco arriba
+
+@cindex @q{abierta}, articulación
+@cindex @q{acento}, articulación
+@cindex @q{acro arriba}, indicación de arco
+@cindex @q{coda de variante}, signo
+@cindex @q{coda}, signo
+@cindex @q{down pralltriller}, ornamento
+@cindex @q{down-bow}, indicación de arco
+@cindex @q{espressivo}, articulación
+@cindex @q{flageolet}, armónicos
+@cindex @q{grupeto circular barrado}, ornamento
+@cindex @q{grupeto circular invertido}, ornamento
+@cindex @q{grupeto circular}, ornamento
+@cindex @q{grupeto de Haydn}, ornamento
+@cindex @q{marcato}, articulación
+@cindex @q{mordente ascendente}, ornamento
+@cindex @q{mordente descendente}, ornamento
+@cindex @q{mordente}, ornamento
+@cindex @q{nota tapada}, articulación
+@cindex @q{portato}, articulación
+@cindex @q{pralltriller, ascendente}, ornamento
+@cindex @q{pralltriller, descendente}, ornamento
+@cindex @q{pralltriller, largo}, ornamento
+@cindex @q{pralltriller}, ornamento
+@cindex @q{pulgar}, digitación
+@cindex @q{punta}, marca de pedal
+@cindex @q{segno}, signo
+@cindex @q{semi abierta}, articulación
+@cindex @q{semitrino ascendente}, ornamento
+@cindex @q{semitrino}, ornamento
+@cindex @q{signum congruentiae}, ornamento
+@cindex @q{snappizzicato}, sign
+@cindex @q{staccatissimo}, articulación
+@cindex @q{staccato}, articulación
+@cindex @q{talón}, marca de pedal
+@cindex @q{tenuto}, articulación
+@cindex Henze, calderón de
+@cindex abierto, high hat
 @cindex arco abajo
+@cindex arco arriba
+@cindex armónico, flageolet
+@cindex articulación
+@cindex articulación, abierta
+@cindex articulación, acento
+@cindex articulación, espressivo
+@cindex articulación, marcato
+@cindex articulación, nota tapada
+@cindex articulación, portato
+@cindex articulación, semiabierta
+@cindex articulación, staccatissimo
+@cindex articulación, staccato
+@cindex articulación, tenuto
+@cindex calderón
+@cindex calderón corto
+@cindex calderón de Henze
+@cindex calderón largo
+@cindex coda
+@cindex coda de variante
+@cindex coda de variante, símbolo
+@cindex corto, calderón
+@cindex digitación de pulgar
+@cindex espressivo
+@cindex fermata o calderón
+@cindex flageolet
+@cindex grupeto
+@cindex guión
+@cindex high hat, abierto
+@cindex high hat, pedal
+@cindex high hat, semi abierto
 @cindex indicación de pedal
 @cindex indicación de pedalero de órgano
-@cindex pedal de órgano
-@cindex grupeto
+@cindex indicación de pulgar
+@cindex largo, calderón
+@cindex mordente
+@cindex mordente, ascendente
 @cindex mordente, circular
-@cindex nota abierta
-@cindex nota tapada
-@cindex flageolet
-@cindex mordente, circular, inverso
 @cindex mordente, circular, cruzado
 @cindex mordente, circular, de Haydn
-@cindex trino
-@cindex semitrino
-@cindex mordente
-@cindex prallprall
-@cindex prallmordent
-@cindex semitrino ascendente
-@cindex semitrino descendente
-@cindex mordente, ascendente
+@cindex mordente, circular, inverso
 @cindex mordente, descendente
-@cindex indicación de pulgar
+@cindex nota, abierta
+@cindex nota, tapada
+@cindex ornamentación
+@cindex ornamento
+@cindex ornamento, grupeto circular
+@cindex ornamento, grupeto circular barrado
+@cindex ornamento, grupeto circular de Haydn
+@cindex ornamento, grupeto circular invertido
+@cindex ornamento, mordente
+@cindex ornamento, mordente, ascendente
+@cindex ornamento, mordente, descendente
+@cindex ornamento, semitrino
+@cindex ornamento, semitrino, ascendente
+@cindex ornamento, semitrino, descendente
+@cindex ornamento, semitrino, descendente
+@cindex ornamento, semitrino, largo
+@cindex ornamento, signum congruentiae
+@cindex ornamento, trino
+@cindex pedal de órgano
+@cindex pedal, high hat
+@cindex pedal, indicación, punta
+@cindex pedal, indicación, talón
+@cindex pedal, indicación, órgano
+@cindex pie, indicación de
 @cindex segno
-@cindex coda
-@cindex coda variante
-@cindex varcoda
-@cindex coda variante, símbolo
+@cindex semi abierto, high hat
+@cindex semitrino
+@cindex semitrino, ascendente
+@cindex semitrino, descendente
+@cindex semitrino, doble
+@cindex signo, coda
+@cindex signo, coda de variación
+@cindex signo, segno
+@cindex signo, snappizzicato
 @cindex símbolo, coda
 @cindex símbolo, coda variante
 @cindex símbolo, segno
+@cindex trino
+@cindex varcoda
+@cindex órgano, marca de pedal
 
 @funindex \accent
 @funindex \marcato
@@ -1302,6 +1385,7 @@ está contemplada.
 @funindex \arpeggioArrowUp
 @funindex \arpeggioArrowDown
 @funindex \arpeggioNormal
+@funindex arpeggio-direction
 
 Un signo de @notation{acorde arpegiado} (conocido también como
 acorde quebrado) sobre un acorde, se denota adjuntando
@@ -1329,6 +1413,10 @@ Se pueden escribir distintos tipos de acordes arpegiados.
 }
 @end lilypond
 
+Estas instrucciones predefinidas modifican internamente la
+propiedad @code{'arpeggio-direction}; véanse sus definiciones
+completas en el archivo @file{ly/property-init.ly}.
+
 @cindex arpegiado, acorde, símbolos especiales
 @cindex especial, símbolos de arpegio
 
@@ -1355,6 +1443,11 @@ Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
   <c e g c>2\arpeggio
 }
 @end lilypond
+
+Estas instrucciones predefinidas sobreescriben internamente la
+propiedad @code{'stencil} del objeto @code{Arpeggio}, y puede
+también adaptar su @code{'X-extent} (esto es, la dimensión
+horizontal que le supone no colisionar con otros objetos).
 
 Las propiedades de discontinuidad del paréntesis del arpegio se
 controlan mediante la propiedad @code{'dash-definition}, que se
@@ -1398,6 +1491,9 @@ Referencia de la notación:
 @ref{Ligaduras de expresión},
 @ref{Ligaduras de unión}.
 
+Archivos instalados:
+@file{ly/property-init.ly}.
+
 Fragmentos de código:
 @rlsr{Expressive marks}.
 
@@ -1407,6 +1503,35 @@ Referencia de funcionamiento interno:
 @rinternals{PianoStaff}.
 
 @knownissues
+Las instrucciones predefinidas como @code{\arpeggioArrowUp}
+solamente se aplican al contexto en curso, y por ello no afectan a
+los arpegios que abarcan varias voces o pentagramas.  En tales
+casos, estas instrucciones requieren utilizarse en un bloque
+@code{\context} dentro de @code{\layout}, o en un bloque
+@code{\with}, como se explica en
+@ref{Cambiar los valores por omisión de los contextos}.  De manera
+alternativa, en lugar de usar las abreviaturas predefinidas, se
+recomienda sebreescribir directamente las propiedades adecuadas
+para el objeto @code{Arpeggio} dentro del contexto
+correspondiente; por ejemplo:
+
+@example
+\override Staff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
+@end example
+
+@noindent
+para imprimir corchetes de arpegio que comprenden más de una voz
+en el nivel de @code{Staff}, o bien
+
+@example
+\override PianoStaff.Arpeggio.arpeggio-direction = #UP
+@end example
+
+@noindent
+para imprimir arpegios con punta de flecha (hacia arriba) que
+comprendan más de un pentagrama dentro de un contexto
+@code{PianoStaff}.
+
 @cindex pentagrama cruzado, arpegios con paréntesis
 @cindex arpegio con paréntesis de pentagrama cruzado
 
