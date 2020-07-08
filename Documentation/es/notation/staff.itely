@@ -1582,3 +1582,115 @@ Pueden ocurrir colisiones con los silencios si se usa
 @code{CueVoice}.  Al usar @code{\cueDuringWithClef} o
 @code{\transposedCueDuring} el argumento adicional requerido para
 cada caso debe ir después de la cita y de la dirección.
+
+@node Compresión de los compases vacíos
+@unnumberedsubsubsec Compresión de los compases vacíos
+@translationof Compressing empty measures
+
+@cindex multi-measure notes, expanding
+@cindex multi-measure notes, contracting
+@funindex \compressEmptyMeasures
+@funindex \expandEmptyMeasures
+
+By default, all measures are printed even if they are empty
+-- which can happen if a rhythmic event (such as notes, rests
+or invisible rests) is so long as to span several measures.
+This behaviour can be changed by contracting all empty
+measures into a single one, as illustrated here (the second
+part of this example, with expanded measures,
+actually reverts back to the default behavior):
+
+@lilypond[quote,verbatim,fragment]
+\override Score.BarNumber.break-visibility = ##(#f #t #t)
+\time 2/4
+\compressEmptyMeasures
+c'1 d'1. e'\breve
+\bar "||"
+\expandEmptyMeasures
+c'1 d'1. e'\breve
+@end lilypond
+
+@noindent
+Although that notation is syntactically correct, it may be
+confusing from a musical point of view, as illustrated in
+the previous example; hence the need for measure numbers
+to be explicitly printed, using the syntax described in
+@ref{Using break-visibility}.
+
+@cindex multi-measure rests, expanding
+@cindex multi-measure rests, contracting
+@funindex \compressMMRests
+
+Where such a notation may become more useful is when applied to
+@ref{Full measure rests}.  A multi-measure rest will then be shown
+as a single measure containing a multi-measure rest symbol,
+with the number of measures of rest printed above the measure:
+
+@lilypond[quote,verbatim,fragment]
+% Default behavior
+\time 3/4 r2. | R2.*2 |
+\time 2/4 R2 |
+\time 4/4
+% Rest measures contracted to single measure
+\compressEmptyMeasures
+r1 | R1*17 | R1*4 |
+\expandEmptyMeasures
+% Rest measures expanded again
+\time 3/4
+R2.*2 |
+@end lilypond
+
+Unlike @code{\compressEmptyMeasures}, the music function
+@code{\compressMMRests} will only apply to rests, leaving
+any other events uncompressed.  As a function rather than
+a property setting, its syntax differs slightly in that
+it must be followed by a music expression:
+
+@lilypond[quote,verbatim,fragment]
+\compressMMRests {
+  % Rests are compressed…
+  R1*7
+  % … but notes can still span multiple measures.
+  g'1 a'1*2 d'1
+  R1*2
+}
+@end lilypond
+
+@funindex skipBars
+All of the commands described in this section actually
+rely on the @code{skipBars} internal property, which is
+set in the @code{Score} context as explained in
+@ref{The set command}.
+
+@predefined
+@code{\compressEmptyMeasures},
+@code{\expandEmptyMeasures},
+@code{\compressMMRests}.
+@endpredefined
+
+@snippets
+
+@cindex multi-measure rest, numbering
+@funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex church rest
+@cindex rest, church
+@cindex kirchenpause
+@cindex multi-measure rest, style
+@cindex style, multi-measure rests
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-form-of-multi-measure-rests.ly}
+
+@seealso
+Notation Reference:
+@ref{Using break-visibility},
+@ref{Full measure rests},
+@ref{The set command}.
+
+Internals Reference:
+@rinternals{MultiMeasureRest},
+@rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestScript},
+@rinternals{MultiMeasureRestText}.
