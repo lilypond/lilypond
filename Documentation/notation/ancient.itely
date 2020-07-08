@@ -213,8 +213,8 @@ of Gregorian chant notation to denote ascending or descending
 sequences of notes on the same syllable.  They are also used in
 mensural notation.
 
-@funindex @sortas{[B} \[
-@funindex @sortas{]B} \]
+@funindexpost \[
+@funindexpost \]
 
 Ligatures are entered by @emph{enclosing} them in @code{\[} and
 @code{\]}.  Some ligature styles may need additional input syntax

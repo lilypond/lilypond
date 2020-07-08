@@ -406,7 +406,7 @@ increasing pitches:
 @cindex parenthesized accidental
 
 @funindex ?
-@funindex @sortas{!A} !
+@funindex !
 
 
 Normally accidentals are printed automatically, but you may also
@@ -681,7 +681,8 @@ This section discusses how to modify pitches.
 @cindex octave check
 @cindex control pitch
 
-@funindex @sortas{=A} =
+@c `@funindex \=' is auto-generated
+@funindexpre =
 @funindex \octaveCheck
 @funindex controlpitch
 
@@ -1694,7 +1695,7 @@ Snippets:
 
 @funindex \accidentalStyle
 @funindex voice
-@funindex @sortas{defaultA} default
+@funindex default
 
 There are many different conventions on how to typeset
 accidentals.  LilyPond provides a function to specify which
@@ -1796,7 +1797,7 @@ both staves.
 @cindex default accidental style
 @cindex accidental style, default
 
-@funindex @sortas{defaultA} default
+@funindex default
 
 This is the default typesetting behavior.  It corresponds to
 eighteenth-century common practice: accidentals are remembered to

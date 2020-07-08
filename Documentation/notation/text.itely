@@ -1213,7 +1213,8 @@ commands.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex @sortas{bracketB} \bracket
+@c `@funindex \bracket' is auto-generated, too
+@funindex \bracket
 @funindex \hbracket
 
 Some markup commands allow decoration of text elements with graphics,

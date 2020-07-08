@@ -114,7 +114,15 @@ Macro definitions that contain translatable text belong to file
 @c special sorting key, and we redefine texinfo's internal macro
 @c `\indexwritesortas' to swallow backslashes.  We also modify
 @c `@cindex' to insert another sorting key to ensure that `\foo'
-@c  immediately comes after `foo', followed by entries like `foo bar'.
+@c immediately comes after `foo', followed by entries like `foo bar'.
+@c
+@c While the above works well for most cases, there is still a problem
+@c if we have `@funindex foo' and `@funindex \foo' at the same time.
+@c This can't be handled in an automated way, so we introduce two
+@c macros `@funindexpre' and `@funindexpost'.  In particular,
+@c
+@c * `@funindexpre foo' gets sorted before `@funindex \foo'.
+@c * `@funindexpost \foo' gets sorted after `@funindex foo'.
 @c
 @c `@cpindex' is the internal version of `@cindex'.
 
@@ -138,19 +146,37 @@ Macro definitions that contain translatable text belong to file
 {
 \catcode`\^^A=11 % 0x01
 \catcode`\^^B=11 % 0x02
+\catcode`\^^C=11 % 0x03
+\catcode`\^^D=11 % 0x04
 \xdef\indexA{^^A}
 \xdef\indexB{^^B}
+\xdef\indexC{^^C}
+\xdef\indexD{^^D}
 }
 @end tex
 
 @macro cindex {TEXT}
-@cpindex @sortas{\TEXT\@indexA{}} \TEXT\
+@cpindex @sortas{\TEXT\@indexA{}}\TEXT\
+@c
+@end macro
+
+@macro funindexpre {TEXT}
+@findex @sortas{\TEXT\@indexB{}}\TEXT\
+@kindex @sortas{\TEXT\@indexB{}}\TEXT\
 @c
 @end macro
 
 @macro funindex {TEXT}
-@findex @sortas{\TEXT\@indexB{}} \TEXT\
+@findex @sortas{\TEXT\@indexB{}}\TEXT\
 @kindex \TEXT\
+@findex @sortas{\TEXT\@indexC{}}\TEXT\
+@kindex @sortas{\TEXT\@indexC{}}\TEXT\
+@c
+@end macro
+
+@macro funindexpost {TEXT}
+@findex @sortas{\TEXT\@indexD{}}\TEXT\
+@kindex @sortas{\TEXT\@indexD{}}\TEXT\
 @c
 @end macro
 
@@ -158,7 +184,19 @@ Macro definitions that contain translatable text belong to file
 
 @ifnottex
 
+@macro funindexpre {TEXT}
+@findex \TEXT\
+@kindex \TEXT\
+@c
+@end macro
+
 @macro funindex {TEXT}
+@findex \TEXT\
+@kindex \TEXT\
+@c
+@end macro
+
+@macro funindexpost {TEXT}
 @findex \TEXT\
 @kindex \TEXT\
 @c

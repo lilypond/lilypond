@@ -2589,8 +2589,8 @@ beaming settings for a time signature are described in
 @cindex beam, manual
 @cindex manual beam
 
-@funindex @sortas{]A} ]
-@funindex @sortas{[A} [
+@funindex ]
+@funindex [
 
 In some cases it may be necessary to override the automatic
 beaming algorithm.  For example, the autobeamer will not put beams
@@ -3388,7 +3388,7 @@ To print a rehearsal mark, use the @code{\mark} command.
 }
 @end lilypond
 
-@funindex @sortas{defaultB} \default
+@funindexpost \default
 
 @noindent
 The mark is incremented automatically if you use @code{\mark
