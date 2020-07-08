@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -248,7 +248,7 @@ Se pueden añadir ligaduras de unión al segundo final:
 
 @funindex \inStaffSegno
 @cindex repetición, con segno
-@cindex segno, con repeticiones
+@cindex @q{segno}, con repeticiones
 
 La instrucción @code{\inStaffSegno} se puede utilizar para generar
 una barra de compás combinada que incorpora el símbolo del segno
