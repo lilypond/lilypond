@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 7930d8777ef2142c5189a5b9d8c8a163dff24529
+Translation of GIT committish: 8f9929ddd50f9229bc1c6c38011bb5284601bc44
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -393,9 +393,14 @@ contrario, se toma como referencia a dicho contexto creado
 previamente, y su expresión musical se pasa a este contexto para
 su interpretación.
 
-Una aplicación de los contextos con nombre es la separación entre
-la disposición de la partitura y el contenido musical.  Son
-válidas culaquiera de las dos formas siguientes:
+Los contextos con nombre pueden ser útiles en casos especiales
+como la letra de las canciones o los bajos cifrados, como se ve en
+los ejemplos de @ref{Trabajar con letra y variables} y
+@rlearning{Plantillas de conjuntos vocales} para el primer caso, y
+@ref{Imprimir el bajo cifrado} para el segundo.  De manera más
+general, una aplicación de los contextos con nombre es la
+separación entre la disposición de la partitura y el contenido
+musical.  Son válidas culaquiera de las dos formas siguientes:
 
 @lilypond[quote,verbatim]
 \score {
@@ -732,8 +737,8 @@ y modificándolo:
 @end example
 
 @noindent
-donde los @dots{} deben ser el nombre de un grabador.  Aquí
-tenemos un ejemplo sencillo que suprime los grabadores
+donde cada uno de los @dots{} deben ser el nombre de un grabador.
+Aquí tenemos un ejemplo sencillo que suprime los grabadores
 @code{Time_signature_engraver} y @code{Clef_engraver} de un
 contexto @code{Staff}:
 
@@ -2033,8 +2038,9 @@ propiedades de contexto se modifican mediante la instrucción
 @code{\set}.
 
 Por ejemplo, los silencios multicompás se combinan en un solo
-compás si el valor de la propiedad de contexto @code{skipBars} se
-establece a @code{#t} (verdadero):
+compás (como se explica en @ref{Compressing empty measures}) si el
+valor de la propiedad de contexto @code{skipBars} se establece a
+@code{#t} (verdadero):
 
 @lilypond[quote,fragment,verbatim]
 R1*2

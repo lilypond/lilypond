@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 7930d8777ef2142c5189a5b9d8c8a163dff24529
+    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -682,7 +682,7 @@ El ejemplo siguiente muestra el estilo @code{petrucci}:
 @c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \autoBeamOff
 \override NoteHead.style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
@@ -766,7 +766,7 @@ antigua contemplados son @code{classical}, @code{neomensural} y
 El ejemplo siguiente muestra estos estilos:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'neomensural
@@ -1391,6 +1391,24 @@ Vaticana}.
 @funindex \episemFinis
 @funindex \ictus
 @funindex \semicirculus
+@cindex @q{accentus}, articulación gregoriana
+@cindex gregoriano, articulación, accentus
+@cindex articulación, gregoriano, accentus
+@cindex @q{circulus}, articulación gregoriana
+@cindex gregoriano, articulación, circulus
+@cindex articulación, gregoriano, circulus
+@cindex @q{episemInitium}, articulación gregoriana
+@cindex gregoriano, articulación, episemInitium
+@cindex articulación, gregoriano, episemInitium
+@cindex @q{episemFinis}, articulación gregoriana
+@cindex gregoriano, articulación, episemFinis
+@cindex articulación, gregoriano, episemFinis
+@cindex @q{ictus}, articulación gregoriana
+@cindex gregoriano, articulación, ictus
+@cindex articulación, gregoriano, ictus
+@cindex @q{semicirculus}, articulación gregoriana
+@cindex gregoriano, articulación, semicirculus
+@cindex articulación, gregoriano, semicirculus
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"

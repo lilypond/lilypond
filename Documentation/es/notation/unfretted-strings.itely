@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 2eaeb5aaf92eb307dae3b36e742da7d8b680e373
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -64,6 +64,11 @@ Las digitaciones, entre ellas la indicación de pulgar, se describen en
 @ref{Indicaciones de digitación}.
 
 @item
+Se pueden añadir números de cuerda (en general como números
+romanos para los instrumentos de cuedra frotada) como se explica
+en @ref{Indicación de los números de cuerda}.
+
+@item
 Las dobles cuerdas se indican normalmente escribiendo un acorde, véase
 @ref{Notas en acorde}.  Hay otras indicaciones que se pueden añadir para
 la interpretación de acordes, véase @ref{Arpegio}.
@@ -120,7 +125,7 @@ la siguiente manera:
 
 @noindent
 
-Se pueden añadir números romanos como números de cuerda (en
+Se pueden usar números romanos para los números de cuerda (en
 sustitución de la opción predeterminada, que son cifras arábigas
 rodeadas por un círculo), tal y como se explica en
 @ref{Indicación de los números de cuerda}.
