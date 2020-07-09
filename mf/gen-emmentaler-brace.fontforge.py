@@ -61,7 +61,10 @@ for c in "abcdefghi" :
     # b53e885e Aug 28, 2018 "Allow passing a font object to
     # mergeFonts()"
     tmp = "tmp.feta-brace-scaled.pfb"
-    f.generate(tmp)
+    # Normally, generate() outputs a corresponding *.afm
+    # file when creating *.pfb files. Avoid that by calling
+    # it with an empty 'flags' tuple.
+    f.generate(tmp, flags=())
     font.mergeFonts(tmp)
     os.remove(tmp)
     scale += 1.0
