@@ -365,7 +365,7 @@ def process_snippets (input_name, cmd, basenames,
     cmd = formatter.adjust_snippet_command (cmd)
     # Remove .ly ending.
     logfile = os.path.splitext (snippet_names_path)[0]
-    snippet_names_arg = snippet_names_path.replace (os.path.sep, '/')
+    snippet_names_arg = mkarg (snippet_names_path.replace (os.path.sep, '/'))
     system_in_directory (' '.join ([cmd, snippet_names_arg]),
                          lily_output_dir,
                          logfile)
