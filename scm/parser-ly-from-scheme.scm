@@ -111,9 +111,9 @@ from @var{port} and return the corresponding Scheme music expression.
                                   (else
                                    (do ((c (copy-char) (copy-char)))
                                        ((char=? c #\nl)))))))))))))
-    (list (if (guile-v2)
-              '(@@ (lily) read-lily-expression-internal)
-              read-lily-expression-internal)
+    (list (cond-expand
+            (guile-2 '(@@ (lily) read-lily-expression-internal))
+            (else read-lily-expression-internal))
           lily-string filename line (cons 'list (reverse! closures)))))
 
 (read-hash-extend #\{ read-lily-expression)

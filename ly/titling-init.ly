@@ -1,7 +1,9 @@
 \version "2.21.0"
 
-#(if (guile-v2)
-  (use-modules (ice-9 curried-definitions)))
+#(cond-expand
+  (guile-2
+    (use-modules (ice-9 curried-definitions)))
+  (else))
 
 slashSeparator = \markup {
   \center-align

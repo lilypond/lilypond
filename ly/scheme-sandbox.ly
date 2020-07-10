@@ -31,8 +31,9 @@
 % requirements may be different.
 
 #(newline)
-#(if (guile-v2)
+#(cond-expand
+   (guile-2
      (begin
        (use-modules (system repl repl))
-       (start-repl))
-     (scm-style-repl))
+       (start-repl)))
+   (else (scm-style-repl)))

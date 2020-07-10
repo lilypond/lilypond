@@ -745,8 +745,9 @@ mark {ly~a_stream} /CLOSE pdfmark
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
          (page-count (length page-stencils)))
-    (if (guile-v2)
-        (set-port-encoding! port "Latin1"))
+    (cond-expand
+      (guile-2 (set-port-encoding! port "Latin1"))
+      (else))
     (initialize-font-embedding)
     (if (ly:get-option 'clip-systems)
         (clip-system-EPSes basename book))
