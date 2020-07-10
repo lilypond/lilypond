@@ -19,6 +19,7 @@ stages:
   - build
   - test
   - documentation
+  - website
 
 # Source files are checked out freshly for each job. This leads to the situation
 # that make considers the artifacts outdated and rebuilds LilyPond from scratch.
@@ -37,6 +38,7 @@ build:ubuntu-16.04:
   interruptible: true
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+    - if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"
   script:
     - mkdir build && cd build
     - ../autogen.sh $CONFIGURE_FLAGS
@@ -81,3 +83,23 @@ doc:ubuntu-16.04:
     expire_in: 1 week
     paths:
       - "**/*.fail.log"
+
+website:ubuntu-16.04:
+  stage: website
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200517
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"
+  dependencies: [ "build:ubuntu-16.04" ]
+  script:
+    - cd build
+    - sh -c "$TOUCH_BUILD" >/dev/null
+    - rm -rf out/website-root
+    - ls -l
+    - make VERBOSE=1 $MAKE_FLAGS out/website-root/index.html
+  artifacts:
+    name: "website"
+    when: always
+    expire_in: 1 week
+    paths:
+      - "build/out/website-root/**"

@@ -172,6 +172,12 @@ $(outdir)/online-root/index.html: $(WEB_TRACKED_FILES)
 	cd $(outdir)/online-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
 endif # ifeq ($(out),www)
 
+$(outdir)/website-root/index.html:
+	mkdir -p $(dir $@)/pictures
+	echo '<html><body>hello,world</body></html>' > $@
+	date > $(dir $@)/stamp.txt
+	cp $@ $(dir $@)/pictures/subdir.html
+
 # For those who cannot for the life in them remember to type
 # WEB_TARGETS=..., just bloody make all doc stuff, already.
 all-doc:
