@@ -1,9 +1,14 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 2eaeb5aaf92eb307dae3b36e742da7d8b680e373
   texidoces = "
 Las cifras de digitación orientadas verticalmente se colocan de forma
 predeterminada fuera del pentagrama.  Sin embargo, este comportamiento
-se puede cancelar.  Nota: se debe usar una construcción de acorde <>,
-aunque sea una sola nota.
+se puede cancelar.  Hay que prestar atención en situaciones en las que
+las digitaciones y las plicas están en la misma dirección: por
+defecto, las digitaciones solo evitan la colisión con plicas unidas
+por una barra.  Se puede cambiar este ajuste para no evitar ninguna
+plica o evitarlas todas; el ejemplo siguiente muestra las dos
+copciones, así como la manera de volver al comportamiento
+predeteminado.
 
 "
   doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"

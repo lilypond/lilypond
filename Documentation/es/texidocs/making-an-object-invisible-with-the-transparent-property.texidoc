@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 01cf27b0b2ef4625b7b7f023848df87bb1e4e382
+%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
   texidoces = "
 Si se ajusta la propiedad @code{transparent} de un objeto, se imprime
 en @qq{tinta invisible}: el objeto no se imprime pero se retienen
