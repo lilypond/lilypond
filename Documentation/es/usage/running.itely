@@ -1,8 +1,7 @@
-
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5534def4466aca7d38868b9decf96c684ae939f4
+    Translation of GIT committish: 3297465e768cd0d8f283b5896b6540f12deab5e1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -249,14 +248,16 @@ Esta opción equivale a establecer las opciones de la línea de
 
 @item @code{-f}, @code{--format=}@var{formato}
 Formato del archivo o archivos (principal/es) de salida. Los
-valores posibles de @var{formato} son @code{ps}, @code{pdf} o
-@code{png}.
+valores posibles de @var{formato} son @code{ps}, @code{pdf},
+@code{png} o @core{svg}.
 
 Ejemplo: @code{lilypond -fpng archivo.ly}
 
-Para los formatos @code{svg} y @code{eps} utilice la opción
-@code{-dbackend}.  Véase @ref{Opciones avanzadas de línea de
-órdenes para LilyPond}.
+El SVG usa internamente un backend específico, y por tanto no se
+puede obtener dentro de la misma ejecución que otros formatos; el
+uso de @w{@code{-fsvg}} o de @code{--svg} son en realidad
+equivalentes al empleo de la opción @code{-dbackend=svg}.  Véase
+@ref{Opciones avanzadas de línea de órdenes para LilyPond}.
 
 @item @code{-h}, @code{--help}
 Mostrar un resumen de las formas de utilización.
@@ -480,7 +481,7 @@ Generar PostScript.
 
 @item @code{--png}
 Generar imágenes de las páginas en formato PNG.  Esta opción
-equivale a @code{-fpng}.
+equivale a @w{@code{-fpng}}.
 
 La resolución de la imagen se puede fijar a @var{N}@tie{}PPP con
 @example
@@ -492,11 +493,20 @@ La resolución de la imagen se puede fijar a @var{N}@tie{}PPP con
 
 @item @code{--pdf}
 Generar un PDF.  Esta es la opción predeterminada, equivalente a
-@code{-fpdf}.
+@w{@code{-fpdf}}.
 
 @item @code{-s}, @code{--silent}
 No mostrar el avance, solo los mensajes de error.  Equivale a
 @code{-lERROR}.
+
+@cindex SVG (Scalable Vector Graphics), salida
+@cindex salida, SVG (Scalable Vector Graphics)
+@cindex HTML, partituras SVG empotrables
+@cindex web, páginas, partituras SVG empotrables en
+
+@item @code{--svg}
+Generar archivos SVG para cada página.  Esta opción equivale a
+@w{@code{-fsvg}}.
 
 @item @code{-v}, @code{--version}
 Mostrar la información de la versión.
@@ -711,8 +721,63 @@ del EPS de salida en @var{número} milímetros.  Predeterminado:
 
 @item @code{font-export-dir} @var{cadena}
 Fijar el directorio para la exportación de fuentes tipográficas
-como archivos de PostScript a @var{cadena}.  Predeterminado:
-@code{#f} (que significa el directorio actual).
+como archivos de PostScript a @var{cadena}.  Esto es de utilidad
+cuando queremos crear primero un PDF sin las fuentes incrustadas,
+e incrustar más tarde las fuentes con Ghostscript como se ve más
+abajo.
+
+@example
+$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
+@end example
+
+@noindent
+Nota: a diferencia de @code{font-ps-resdir}, este método no puede
+empotrar las fuentes CID con Ghostscript 9.26 y posteriores.
+
+@noindent
+Nota: de la misma manera que @code{font-ps-resdir}, esta opción se
+salta las fuentes TrueType porque el empotrado de fuentes TrueType
+produce un desbaratamiento de los caracteres.  Para evitar este
+dessbaratabiento, use @code{gs-never-embed-fonts}, pues a pesar de
+su nombre esta opción empotra las fuentes TrueType.
+
+@noindent
+Predeterminado: @code{#f} (que significa no exportar).
+
+@item @code{font-ps-resdir} @var{cadena}
+Fijar el directorio (como @var{cadena}) para construir un
+subconjunto del directorio de recursos PostScript y usarlo para
+empotrar las fuentes más tarde.  Esto es útil si queremos crear
+primero un PDF sin las fuentes empotradas y empotrar las fuentes
+más tarde con Ghostscript como se ve más abajo.
+
+@example
+$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -I resdir -I resdir/Font \
+     -sOutputFile=foo.embedded.pdf foo.pdf
+@end example
+
+@noindent
+Nota: es mejor no especificar el directorio que contiene el nombre
+@file{Resource} porque este tiene un significado especial al
+especificarlo con la opción @code{-I} para Ghostscript.
+
+@noindent
+Nota: a diferencia de @code{font-export-dir}, este método puede
+empotrar fuentes CID con Ghostscript 9.26 y posteriores.
+
+@noindent
+Nota: de igual manera que @code{font-export-dir}, esta opción se
+salta las fuentes TrueType porque el empotrado tardío de fuentes
+TrueType causa un desbaratamiento de los caracteres.  Para evitar
+el desbaratamiento, use @code{gs-never-embed-fonts}, ya que este
+empotra las fuentes TrueType a pesar de su nombre.
+
+@noindent
+Predeterminado: @code{#f} (que significa no construir).
 
 @item @code{gs-load-fonts} @var{bool}
 Si @var{bool} es @code{#t}, cargar fuentes a través de
@@ -856,10 +921,11 @@ archivos de entrada que procesar.  Predeterminado: @code{#f} (que
 significa ningún archivo de lista de entrada).
 
 @item @code{relative-includes} @var{bool}
-Cuando se procesa una instrucción @code{\include}, buscar el archivo
-de inclusión en una ruta relativa al archivo actual si @var{bool} es
-@code{#t}.  Si se establece a @code{#f}, buscar el archivo según una
-ruta relativa al archivo raíz.  Predeterminado: @code{#f}.
+Cuando se procesa una instrucción @code{\include}, buscar el
+archivo de inclusión en una ruta relativa al archivo actual si
+@var{bool} es @code{#t}.  Si se establece a @code{#f}, buscar el
+archivo según una ruta relativa al archivo raíz.  Predeterminado:
+@code{#t}.
 
 @item @code{resolution} @var{número}
 Fijar la resolución para generar imágenes de matriz de puntos
@@ -1011,6 +1077,14 @@ administración de memoria.  Con valores más altos, el programa usa
 más memoria; con valores más bajos, usa más tiempo de CPU.  El
 valor predeterminado es @code{70}.
 
+@item TMPDIR
+Esto especifica el directorio temporal en GNU/Linux y Mac.  EL
+predeterminado es @file{/tmp}.  Es el directorio en que se guardan
+los archivos intermedios (tales como archivos de PostScript)
+durante la compilación.  La sobreescritura de esta variable podría
+ser útil, por ejemplo, si el usuario que ejecuta lilypond no tiene
+privilegios de escritura sobre el directorio temporal
+predeteminado.  Ejemplo: @code{TMPDIR=~/foo}.
 @end table
 
 
