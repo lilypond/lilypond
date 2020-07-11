@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f56b2f49e4b7849c54dcae857d48ed1c25992cf3
+    Translation of GIT committish: 7176c0496fd21c40ba61499d676f72cf163552e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -860,6 +860,8 @@ nuestros usuarios.  Si ya tiene decidido probar LilyPond, en
 primer lugar infórmese sobre nuestra @ref{Entrada de texto}.
 @divEnd
 
+@c TRANSLATORS, so far it's mostly from
+@c https://lilypond.org/productions.html
 
 @node Reseñas
 @unnumberedsec Reseñas

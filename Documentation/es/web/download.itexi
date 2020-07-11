@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ede8872f0dd420be3710baf10aa01b85f3dbb339
+    Translation of GIT committish: bf293e8909c10ea803f22c8d0f78c5f0424cdd63
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -90,7 +90,6 @@ versiones anteriores
 LilyPond está publicado bajo la
 @ref{GPL, Licencia General Pública de GNU}.
 @divEnd
-
 
 @divClass{column-center-bottom}
 @subheading Legalismos
@@ -254,15 +253,22 @@ todos los logotipos e imágenes de producto.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Para MacOS X 10.4 o superior sobre
-CPU Intel (si no está seguro, utilice éste).
+Para Mac OS X 10.4--10.5 sobre CPU Intel y Mac OS X 10.6--10.14
+(para 10.15 véase más abajo).
 
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Para MacOS X 10.4 o superior sobre
-CPUs G3 y G4 (ordenadores Apple antiguos).
+Para Mac OS X 10.4--10.5 sobre CPUs G3 y G4 (ordenadores Apple
+antiguos).
+
+@item
+@sourceimage{logo-macosx,,,}
+@c file name is unpredictable, linking to main page
+Los paquetes de aplicación de 64 bits no oficiales para Mac OS
+10.15 están a su disposición en
+@uref{https://bintray.com/marnen/lilypond-darwin-64}.
 
 
 @end itemize
