@@ -935,7 +935,7 @@ Octubre de 2004
 
 Els editor de Computer!Totaal, una revista holandesa
 d'informàtica,
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
+@staticFile{media/computer-totaal.jpeg,
 descriuen al LilyPond} en l'edició d'octubre de 2004 com:
 @qq{Meravellós programari lliure (de codi obert) (@dots{}) Les
 partitures produïdes pel LilyPond son excepcionalment boniques

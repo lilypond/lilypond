@@ -409,3 +409,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end macro
 
 @end ifset
+
+@macro staticFile{RELLINK, DESC}
+@uref{https://lilypond.gitlab.io/static-files/\RELLINK\, \DESC\}
+@end macro

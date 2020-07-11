@@ -905,7 +905,7 @@ Oktober 2004
 
 Die Redakteure von Computer!Totaal, einer holländischen
 Computerzeitschrift,
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
+@staticFile{media/computer-totaal.jpeg,
 beschreiben LilyPond} in der Ausgabe Oktober 2004 als: @qq{Wunderbare
 freie (Open Source) Software [@dots{}] Die Partituren von LilyPond
 sind ausnahmslos schön [@dots{}] ein sehr mächtiges System das fast alles

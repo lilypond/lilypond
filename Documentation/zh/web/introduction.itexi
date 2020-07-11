@@ -718,7 +718,7 @@ A French article on the LilyPond 2.6 release appeared on
 2004年10月
 
 The editors of Computer!Totaal, a Dutch computer magazine,
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
+@staticFile{media/computer-totaal.jpeg,
 describe LilyPond} in the October 2004 issue as: @qq{Wonderful
 free (open source) software [..] The sheet music produced by
 LilyPond is exceptionally pretty [..] a very powerful system that

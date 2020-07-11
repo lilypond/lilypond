@@ -687,7 +687,7 @@ Francouzský článek o LilyPondu ve verzi 2.6 se objevuje na
 
 Vydavatelé holandského časopisu Computer!Totaal,
 který se věnuje počítačům,
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
+@staticFile{media/computer-totaal.jpeg,
 popisují LilyPond} ve vydání z října 2004 jako: @qq{báječný
 svobodný (Open Source) program [...] Noty vytvořené LilyPondem
 jsou bez výjimky nádherné [...] Jde o velmi silný systém, který
