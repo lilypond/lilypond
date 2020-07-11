@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b12cb5c388f3ab75d4833d6702ac9f37604255dd
+    Translation of GIT committish: e09932b9014300e2a622a98ffeb23d7b6451fdb5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -472,10 +472,10 @@ de seguimiento de fallos.  Déles un tiempo de unos 4 días, pues
 disponemos de un número limitado de voluntarios para esta tarea.
 
 Cuando el fallo se ha añadido al sistema de seguimiento, puede
-comentarlo para añadirle más información.  In order to be
-automatically notified about any activity on the tracker issue,
-you may subscribe by clicking the envelope symbol next to the
-issue title.
+comentarlo para añadirle más información.  Para recibir
+automáticamente notificaciones sobre cualquier actividad en la
+página del fallo, puede suscribirse a la misma pulsando sobre el
+símbolo del sobre que hay junto al título del fallo.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -656,6 +656,10 @@ pruebas querrán descargar el último archivo binario:
 @downloadDevelDarwinNormal
 
 @downloadDevelDarwinPPC
+
+@c file name is unpredictable, linking to main page
+@uref{https://bintray.com/marnen/lilypond-darwin-64,
+Mac OS X x86 64-bit (no oficial)}
 
 @downloadDevelWindows
 
@@ -1029,6 +1033,7 @@ Anuncios y noticias por versión:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Lista descriptiva de los cambios por versión:
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
 @uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
@@ -1050,6 +1055,7 @@ Lista descriptiva de los cambios por versión:
 
 Gracias a los desarrolladores, colaboradores, cazadores de fallos
 y aportadores de sugerencias por
+@miscLink{THANKS-2.18,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
 @miscLink{THANKS-2.12,v2.12},
