@@ -295,10 +295,10 @@ test: test-pre
 	@echo '    grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
 	@echo
 	$(MAKE) -C input/regression out=test lysdoc-gittxt lysdoc-test
-	$(MAKE) -C input/regression/midi out=test lysdoc-test
-	$(MAKE) -C input/regression/musicxml out=test lysdoc-test
 	$(MAKE) -C input/regression/abc2ly out=test lysdoc-test
 	$(MAKE) -C input/regression/lilypond-book out=test local-test
+	$(MAKE) -C input/regression/midi out=test lysdoc-test
+	$(MAKE) -C input/regression/musicxml out=test lysdoc-test
 
 test-baseline-pre:
 	cd $(top-src-dir) && \
@@ -320,10 +320,9 @@ test-baseline: test-baseline-pre
 		$(top-build-dir)/out/share/lilypond/current/fonts \
 		$(top-build-dir)/out-baseline/share/lilypond/current
 	$(MAKE) out=test -C input/regression local-test-baseline
+	$(MAKE) out=test -C input/regression/abc2ly local-test-baseline
 	$(MAKE) out=test -C input/regression/midi local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
-	$(MAKE) out=test -C input/regression/abc2ly local-test-baseline
-	$(MAKE) out=test -C input/regression/lilypond-book local-test-baseline
 	$(MAKE) test-snippets-clean
 	touch $(BASELINE_STAMP)
 
