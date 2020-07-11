@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -145,8 +145,14 @@ viento madera,como se describe en
 
 @snippets
 
+@funindex \stopped
+@funindex \open
 @cindex digitación, símbolos para instrumentos de viento
 @cindex viento, instrumentos, símbolos de digitación
+@cindex @q{tapada}, articulación
+@cindex articulación, tapada
+@cindex @q{abierta}, articulación
+@cindex articulación, abierta
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingering-symbols-for-wind-instruments.ly}
 
