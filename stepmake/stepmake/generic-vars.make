@@ -26,7 +26,9 @@ abs-src-dir = $(top-src-dir)$(tree-dir)
 
 .UNEXPORT: build-dir src-dir tree-dir
 
-src-wildcard = $(subst $(src-dir)/,,$(wildcard $(src-dir)/$(1)))
+# Sort to make execution order deterministic. It also provides a
+# poor man's progress indicator.
+src-wildcard = $(sort $(subst $(src-dir)/,,$(wildcard $(src-dir)/$(1))))
 
 ifeq ($(distdir),)
   distdir = $(top-build-dir)/$(outdir)/$(DIST_NAME)
