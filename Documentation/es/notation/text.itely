@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 520c0c31d468f9112aa305b93c8f038bf5d7e996
+    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -386,8 +386,8 @@ Referencia de funcionamiento interno:
 @cindex texto, indicaciones de
 @cindex indicación, de texto
 @cindex texto, sobre la barra de compás
-@cindex coda, sobre la línea divisoria
-@cindex segno, sobre la línea divisoria
+@cindex @q{coda}, sobre la línea divisoria
+@cindex @q{segno}, sobre la línea divisoria
 @cindex calderón, sobre la línea divisoria
 @cindex línea, divisoria, símbolos sobre las
 
@@ -938,9 +938,6 @@ marcado.  Los objetos de marcado también se pueden mover como un
 todo, usando la sintaxis que se describe en
 @rlearning{Mover objetos}.
 
-@c Padding commands should be mentioned on this page, but
-@c most of these require \box to be more clearly illustrated. -vv
-
 @cindex texto, alineación horizontal
 @cindex horizontal, alineación de texto
 
@@ -951,7 +948,9 @@ todo, usando la sintaxis que se describe en
 Los objetos de marcado se pueden alinear de distintas maneras.  De
 forma predeterminada, una indicación de texto se alinea sobre el
 borde izquierdo: en el ejemplo siguiente, no existe diferencia
-entre los marcados primero y segundo.
+entre los marcados primero y segundo.  El ejemplo muestra también
+varias formas sintácticamente correctas de ubicar las
+instrucciones de alineación:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -961,7 +960,7 @@ entre los marcados primero y segundo.
   f
   d-\markup { \center-align { poco } }
   f
-  d-\markup { \right-align poco }
+  d-\markup \right-align { poco }
 }
 @end lilypond
 
@@ -982,6 +981,29 @@ valor numérico:
 }
 @end lilypond
 
+@funindex \hspace
+@cindex marcado, relleno horizontal
+@cindex horizontal, relleno en marcado
+
+Por último, las palabras y otros objetos se pueden desplazar si
+los hacemos preceder de un relleno.  También es posible usar un
+relleno negativo que hará moverse a los objetos subsiguentes en la
+dirección opuesta.  Aunqe normalmente el relleno es invisible, en
+el ejemplo siguiente se han añadido instrucciones para poder verlo
+con más claridad:
+
+@lilypond[quote,verbatim]
+\relative {
+  d''1-\markup { poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #4 poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #-4 poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #10 poco }
+}
+@end lilypond
+
 @noindent
 Ciertos objetos pueden poseer sus propios procedimientos de
 alineación, y por tanto no resultan afectados por estas
@@ -996,14 +1018,10 @@ todo, como se muestra por ejemplo en @ref{Indicaciones de texto}.
 @funindex \lower
 @funindex \null
 
-La alineación vertical es un poco más compleja.  Como se ha dicho
-más arriba, los objetos de marcado se pueden mover como un todo;
-sin embargo, también es posible mover elementos específicos dentro
-de un bloque de marcado.  En este caso, el elemento a mover se
-debe preceder de un @emph{punto de anclaje}, que puede ser otro
-elemento de marcado o un objeto invisible.  El ejemplo siguiente
-ejemplifica estas dos posibilidades; el último marcado en este
-ejemplo no tiene punto de anclaje y por ello no resulta movido.
+La alineación vertical se puede establecer de una forma similar.
+Como se ha dicho más arriba, los objetos de marcado se pueden
+mover como un todo; sin embargo, también es posible mover
+elementos específicos dentro de un bloque de marcado.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1013,12 +1031,11 @@ ejemplo no tiene punto de anclaje y por ello no resulta movido.
   }
   a'
   g_\markup {
-    \null
     \lower #4 \bold { Très modéré }
   }
   a
-  d,^\markup {
-    \raise #4 \italic { Une forêt. }
+  d,^\markup \raise #4 \italic {
+    Une forêt.
   }
   a'4 a g2 a
 }
@@ -1030,8 +1047,7 @@ ejemplo no tiene punto de anclaje y por ello no resulta movido.
 
 Algunas instrucciones pueden afectar tanto a la alineación
 horizontal como a la vertical de los objetos de texto en el modo
-de marcado.  Cualquier objeto afectado por estas instrucciones se
-deben preceder de un punto de anclaje:
+de marcado:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1041,13 +1057,42 @@ deben preceder de un punto de anclaje:
   }
   a'
   g_\markup {
-    \null
     \general-align #Y #3.2 \bold "Très modéré"
   }
   a
-  d,^\markup {
-    \null
-    \translate-scaled #'(-1 . 2) \teeny "Une forêt."
+  d,^\markup \translate-scaled #'(-1 . 2) \teeny {
+   "Une forêt."
+  }
+  a'4 a g2 a
+}
+@end lilypond
+
+@funindex \vspace
+@cindex padding in markup, vertical
+@cindex vertical padding in markup
+
+Una vez más resulta muy útil el relleno (ya sea positivo o
+negativo) para colocar los objetos verticalmente, cuando van
+dentro de columnas de elementos de marcado:
+
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \column {
+      \with-color #darkred \box \vspace #-1
+      "Scène 1"
+    }
+  }
+  a'
+  g_\markup \column {
+    \with-color #darkred \box \vspace #1
+    "Très modéré"
+  }
+  a
+  d,^\markup \column {
+   "Une forêt."
+    \with-color #darkred \box \vspace #2
   }
   a'4 a g2 a
 }
@@ -1612,8 +1657,42 @@ tipográficas, y cómo se pueden cambiar en las partituras.
 
 Las fuentes tipográficas se manejan a través de distintas
 bibliotecas.  FontConfig se utiliza para detectar las tipografías
-disponibles en el sistema; las tipografías seleccionadas se trazan
-utilizando Pango.
+disponibles; las tipografías seleccionadas se trazan utilizando
+Pango.
+
+@cindex tipografía, archivos externos
+@cindex fuentes externas
+
+Además de cualquier fuente tipográfica que ya esté instalada en el
+sistema operativo, se pueden añadir fuentes adicionales al
+conjunto que detecta FontConfig (y por ello disponibles en las
+partituras de LilyPond) a través de las instrucciones siguientes:
+
+@example
+#(ly:font-config-add-font "@var{ruta/hacia/archivo-de-fuente.otf}")
+
+#(ly:font-config-add-directory "@var{ruta/hacia/directorio/}")
+@end example
+
+@noindent
+Las dos instrucciones admiten rutas absolutas y relativas, lo que
+permite compilar una partitura en cualquier sistema, simplemente
+copiando los archivos de fuente necesarios junto al código fuente
+de la partitura.
+
+Cuando las fuentes han sido instaladas y detectadas, se pueden
+seleccionar usando los métodos que se describen en
+@ref{Fuentes de un solo elemento} y en
+@ref{Fuentes tipográficas del documento completo}.  Dado que
+imprime la lista completa de las fuentes tipográficas disponibles
+en el archivo de registro de la consola, puede ser de utilidad la
+instrucción @code{#(ly:font-config-display-fonts)} para verificar
+qué fuentes se están efectivamente detectando, y bajo qué nombres
+(ya que pueden ser diferentes de los propios nombres de archivo).
+
+@cindex fuente, notación musical
+@cindex tipografía, notación musical
+@funindex font-encoding
 
 Las tipografías de notación musical se pueden describir como un
 conjunto de glifos específicos, ordenados en varias familias.  La
