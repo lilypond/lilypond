@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7930d8777ef2142c5189a5b9d8c8a163dff24529
+    Translation of GIT committish: 705639d3f985c813576c75bd73f850224e80cc7b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -48,6 +48,7 @@ los tipos de música vocal.
 * Varias sílabas sobre una nota::
 * Varias notas sobre una sílaba::
 * Líneas de extensión y guiones::
+* Gradual changes of vowel::
 @end menu
 
 
@@ -905,10 +906,59 @@ propiedades @code{minimum-distance} (distancia mínima entre las
 dos sílabas) y la @code{minimum-length} (umbral por debajo del
 cual se suprimen los guiones) de @code{LyricHyphen}.
 
+De manera predeterminada no se repiten los guiones después de un
+salto de sistema cuando la línea siguiente comienza con una sílaba
+distinta.  Si se establece la propiedad @code{after-line-breaking}
+al valor @code{#t}, se pueden imprimir los guiones en estas
+situaciones.
+
 @seealso
 Referencia de funcionamiento interno:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
+
+
+@node Cambios de vocal graduales
+@unnumberedsubsubsec Cambios de vocal graduales
+@translationof Gradual changes of vowel
+
+@cindex vocal, transición de
+
+Las transiciones de vocal (cambios graduales de una vocal o de una
+consonante mantenida), que pueden venir indicadas por flechas
+entre dos sílabas, se introducen con la instrucción
+@code{\vowelTransition} (véase Gould págs. 452--453).  La flecha
+muestra la longitud de la transición, y por defecto siempre se
+imprime (se añade espacio en caso necesario si la música está muy
+apretada).  Se indica que no hay ninguna articulación, a pesar del
+cambio de vocal, mediante ligaduras de unión o de expresión.  La
+longitud mínima de las flechas puede ajustarse con la propiedad
+@code{minimum-length} del objeto @code{VowelTransition}.
+
+@lilypond[verbatim,quote]
+{
+  c'2 c'
+  \set melismaBusyProperties = #'()
+  c'2 ~ c'
+  \time 3/2
+  d'4( e' f' e' f'2
+  e'2.)
+}
+\addlyrics
+{
+  Ah \vowelTransition oh,
+  ah \vowelTransition oh,
+  ah \vowelTransition _ _ _ _
+  oh.
+}
+@end lilypond
+
+@seealso
+GLosario musical:
+@rglos{vowel transition}.
+
+Referencia de funcionamiento interno:
+@rinternals{VowelTransition}.
 
 
 @node Técnicas específicas para la letra
@@ -2036,9 +2086,9 @@ cambiarse:
 @knownissues
 Como ocurre con @code{associatedVoice}, @code{includeGraceNotes}
 se tiene que establecer al menos una sílaba antes de la que se va
-a colocar bajo una nota de adorno.  Para el caso de una nota de
-adorno al comienzo mismo de una pieza, considere la posibilidad de
-usar un bloque @code{\with} o @code{\context}:
+a colocar bajo una nota de adorno.  En caso de una nota de adorno
+al comienzo mismo de una pieza, se recomienda usar un bloque
+@code{\with} o @code{\context}:
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -2569,6 +2619,12 @@ Referencia de la notación:
 @subsection Ópera y musicales
 @translationof Opera and stage musicals
 
+
+@cindex ópera
+@cindex vocal, partitura
+@cindex partitura, general
+@cindex musical, teatro
+
 La música, letra y diálogos de las óperas y musicales se disponen
 normalmente de una o más de las siguientes formas:
 
@@ -2623,6 +2679,16 @@ musical de las partituras de ópera y de musicales.
 @node Referencias para ópera y musicales
 @unnumberedsubsubsec Referencias para ópera y musicales
 @translationof References for opera and stage musicals
+
+@cindex orquestal, música
+@cindex ensemble, música de
+@cindex orquesta, notación para
+@cindex partitura general
+
+La gran mayoría de las nociones que aparecen a continuación se
+pueden aplicar a prácticamente cualquier música orquestal y de
+conjunto, además de a la música vocal y de escena:
+
 @itemize
 
 @item
