@@ -249,7 +249,7 @@ Esta opción equivale a establecer las opciones de la línea de
 @item @code{-f}, @code{--format=}@var{formato}
 Formato del archivo o archivos (principal/es) de salida. Los
 valores posibles de @var{formato} son @code{ps}, @code{pdf},
-@code{png} o @core{svg}.
+@code{png} o @code{svg}.
 
 Ejemplo: @code{lilypond -fpng archivo.ly}
 
