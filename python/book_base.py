@@ -123,7 +123,7 @@ class BookOutputFormat:
         self.global_options = {}
         self.document_language = ''
         self.default_snippet_options = default_snippet_opts
-        self.snippet_option_separator = "\s*,\s*"
+        self.snippet_option_separator = r"\s*,\s*"
 
     def supported_snippet_types(self):
         """List of snippet types (strings)"""

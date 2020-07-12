@@ -157,7 +157,7 @@ def check_clef(s):
              ("perc", "percussion", 0)]
     modifier = [("-8va", "_8", -1),
                 ("-8", "_8", -1),
-                ("\+8", "^8", +1),
+                (r"\+8", "^8", +1),
                 ("8", "_8", -1)]
 
     if not s:
@@ -285,7 +285,7 @@ def dump_voices(outf):
 def try_parse_q(a):
     # assume that Q takes the form "Q:'opt. description' 1/4=120"
     # There are other possibilities, but they are deprecated
-    r = re.compile('^(.*) *([0-9]+) */ *([0-9]+) *=* *([0-9]+)\s*')
+    r = re.compile(r'^(.*) *([0-9]+) */ *([0-9]+) *=* *([0-9]+)\s*')
     m = r.match(a)
     if m:
         descr = m.group(1)  # possibly empty
@@ -580,7 +580,7 @@ tup_lookup = {
 
 
 def try_parse_tuplet_begin(str, state):
-    if re.match('\([2-9]', str):
+    if re.match(r'\([2-9]', str):
         dig = str[1]
         str = str[2:]
         prev_tuplet_state = state.parsing_tuplet
@@ -674,7 +674,7 @@ def fix_lyric(str):
             word = m.group(1)
             str = m.group(2)
             word = re.sub('"', '\\"', word)  # escape "
-            if re.match('.*[0-9"\(]', word):
+            if re.match(r'.*[0-9"\(]', word):
                 word = re.sub('_', ' ', word)  # _ causes probs inside ""
                 ret = ret + '\"' + word + '\" '
             else:
@@ -690,9 +690,9 @@ def slyrics_append(a):
     a = re.sub('([^-])-([^-])', '\\1- \\2', a)
     a = re.sub('\\\\- ', '-', a)         # unless \-
     a = re.sub('~', '_', a)        # ~ to space('_')
-    a = re.sub('\*', '_ ', a)        # * to to space
+    a = re.sub(r'\*', '_ ', a)        # * to to space
     a = re.sub('#', '\\#', a)        # latex does not like naked #'s
-    if re.match('.*[0-9"\(]', a):        # put numbers and " and ( into quoted string
+    if re.match(r'.*[0-9"\(]', a):        # put numbers and " and ( into quoted string
         a = fix_lyric(a)
     a = re.sub('$', ' ', a)        # insure space between lines
     __main__.lyric_idx = lyric_idx + 1
@@ -989,7 +989,7 @@ def try_parse_articulation(str, state):
         str = str[1:]
 
     # s7m2 input doesn't care about spaces
-    if re.match('[ \t]*\(', str):
+    if re.match(r'[ \t]*\(', str):
         str = str.lstrip()
 
     slur_begin = 0
@@ -1080,7 +1080,7 @@ def try_parse_note(str, parser_state):
 
     (str, num, den, current_dots) = parse_duration(str, parser_state)
 
-    if re.match('[ \t]*\)', str):
+    if re.match(r'[ \t]*\)', str):
         str = str.lstrip()
 
     slur_end = 0
@@ -1285,7 +1285,7 @@ def try_parse_tie(str):
 
 
 def bracket_escape(str, state):
-    m = re.match('^([^\]]*)] *(.*)$', str)
+    m = re.match(r'^([^\]]*)] *(.*)$', str)
     if m:
         cmd = m.group(1)
         str = m.group(2)

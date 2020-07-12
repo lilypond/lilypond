@@ -53,36 +53,36 @@ rules = {
     CXX:
     [
         # space before parenthesis open; astyle -xd does this except for foo().
-        ('([\w\)\]])\(', '\\1 ('),
+        (r'([\w\)\]])\(', '\\1 ('),
         # delete inline double spaces
-        ('(\S)  +', '\\1 '),
+        (r'(\S)  +', '\\1 '),
         # delete space before parenthesis close
-        (' *\)', ')'),
+        (r' *\)', ')'),
         # delete spaces after prefix
-        ('(--|\+\+) *([\w\(])', '\\1\\2'),
+        (r'(--|\+\+) *([\w\(])', '\\1\\2'),
         # delete spaces before postfix
-        ('([\w\)\]]) *(--|\+\+)', '\\1\\2'),
+        (r'([\w\)\]]) *(--|\+\+)', '\\1\\2'),
 
         # delete space around operator
-        ('([\w\(\)\]]) *(\.|->) *([\w\(\)])', '\\1\\2\\3'),
+        (r'([\w\(\)\]]) *(\.|->) *([\w\(\)])', '\\1\\2\\3'),
         # delete space after operator
-        ('(::) *([\w\(\)])', '\\1\\2'),
+        (r'(::) *([\w\(\)])', '\\1\\2'),
 
         # delete superflous space around operator
-        ('([\w\(\)\]]) +(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&|\||\*) +([\w\(\)])', '\\1 \\2 \\3'),
+        (r'([\w\(\)\]]) +(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&|\||\*) +([\w\(\)])', '\\1 \\2 \\3'),
 
         # trailing operator, but don't un-trail close angle-braces > nor pointer *, and not before a preprocessor line
-        ('(?<!\s) (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|\+|-|=|/|:|&XXX|\||\*XXX) *\n( *)([^\s#])', '\n\\2\\1 \\3'),
+        (r'(?<!\s) (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|\+|-|=|/|:|&XXX|\||\*XXX) *\n( *)([^\s#])', '\n\\2\\1 \\3'),
         # space after `operator'
-        ('(\Woperator) *([^\w\s])', '\\1 \\2'),
+        (r'(\Woperator) *([^\w\s])', '\\1 \\2'),
         # trailing parenthesis open
-        ('\( *\n *', '('),
+        (r'\( *\n *', '('),
         # dangling parenthesis close: Disabled to leave ADD_TRANSLATOR format in place
         #('\n *\)', ')'),
         # dangling comma
         ('\n( *),', ',\n\\1'),
         # delete space after case, label
-        ('(\W(case|label) [\w]+) :', '\\1:'),
+        (r'(\W(case|label) [\w]+) :', '\\1:'),
         # delete space before comma
         (' +,', ','),
         # delete space before semicolon
@@ -97,9 +97,9 @@ rules = {
     COMMENT:
     [
         # delete empty first lines
-        ('(/\*\n)\n*', '\\1'),
+        (r'(/\*\n)\n*', '\\1'),
         # delete empty last lines
-        ('\n*(\n\*/)', '\\1'),
+        (r'\n*(\n\*/)', '\\1'),
         # delete newline after start?
         #('/(\*)\n', '\\1'),
         # delete newline before end?

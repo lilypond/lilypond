@@ -109,7 +109,7 @@ class Output_printer(object):
     def unformatted_output(self, str):
         # don't indent on \< and indent only once on <<
         self._nesting += (str.count('<')
-                          - str.count('\<') - str.count('<<')
+                          - str.count(r'\<') - str.count('<<')
                           + str.count('{'))
         self._nesting -= (str.count('>') - str.count('\>') - str.count('>>')
                           - str.count('->') - str.count('_>')
@@ -913,7 +913,7 @@ class Lyrics:
         printer.newline()
 
     def ly_expression(self):
-        lstr = "\lyricmode {\set ignoreMelismata = ##t"
+        lstr = r"\lyricmode {\set ignoreMelismata = ##t"
         for l in self.lyrics_syllables:
             lstr += l
         #lstr += "\n}"
@@ -949,7 +949,7 @@ class Header:
         printer.newline()
 
     def print_ly(self, printer):
-        printer.dump("\header {")
+        printer.dump(r"\header {")
         printer.newline()
         for (k, v) in list(self.header_fields.items()):
             if v:
@@ -1278,7 +1278,7 @@ class PedalEvent (SpanEvent):
 class TextSpannerEvent (SpanEvent):
     def print_before_note(self, printer):
         if hasattr(self, 'style') and self.style == "wave":
-            printer.dump("\once \override TextSpanner.style = #'trill")
+            printer.dump(r"\once \override TextSpanner.style = #'trill")
         try:
             x = {-1: '\\textSpannerDown', 0: '\\textSpannerNeutral',
                  1: '\\textSpannerUp'}.get(self.force_direction, '')
@@ -1309,16 +1309,16 @@ class BracketSpannerEvent (SpanEvent):
     def print_before_note(self, printer):
         if self.span_direction == -1:
             if self.force_direction == 1:
-                printer.dump("\once \override LigatureBracket.direction = #UP")
+                printer.dump(r"\once \override LigatureBracket.direction = #UP")
             elif self.force_direction == -1:
                 printer.dump(
                     "\once \override LigatureBracket.direction = #DOWN")
-            printer.dump('\[')
+            printer.dump(r'\[')
     # the bracket after the last note
 
     def print_after_note(self, printer):
         if self.span_direction == 1:
-            printer.dump('\]')
+            printer.dump(r'\]')
     # we're printing everything in print_(before|after)_note...
 
     def ly_expression(self):
@@ -1348,7 +1348,7 @@ class OctaveShiftEvent (SpanEvent):
         dir = self.ly_octave_shift_indicator()
         value = ''
         if dir:
-            value = '\ottava #%s' % dir
+            value = r'\ottava #%s' % dir
         return {
             - 1: value,
             1: '\ottava #0'}.get(self.span_direction, '')
@@ -1416,9 +1416,9 @@ class HairpinEvent (SpanEvent):
 
     def hairpin_to_ly(self):
         if self.span_direction == 1:
-            return '\!'
+            return r'\!'
         else:
-            return {1: '\<', -1: '\>'}.get(self.span_type, '')
+            return {1: r'\<', -1: r'\>'}.get(self.span_type, '')
 
     def direction_mod(self):
         return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
@@ -1444,7 +1444,7 @@ class DynamicsEvent (Event):
 
     def ly_expression(self):
         if self.type:
-            return '\%s' % self.type
+            return r'\%s' % self.type
         else:
             return
 
@@ -1496,7 +1496,7 @@ class TextEvent (Event):
         But in some cases this might lead to a wrong placement of the text.
         In case of words like Allegro the text should be put in a '\tempo'-command.
         In this case we don't want to wait for the next note.
-        In some other cases the text is supposed to be used in a '\mark\markup' construct.
+        In some other cases the text is supposed to be used in a r'\mark\markup' construct.
         We would not want to wait for the next note either.
         There might be other problematic situations.
         In the long run we should differentiate between various contexts in MusicXML, e.g.
@@ -1524,7 +1524,7 @@ class TextEvent (Event):
         # properly detects the opening quote.
         base_string = '%s \"%s\"'
         if self.markup:
-            base_string = '%s\markup{ ' + self.markup + ' {%s} }'
+            base_string = r'%s\markup{ ' + self.markup + ' {%s} }'
         return base_string % (self.direction_mod(), self.text)
 
 
@@ -1635,7 +1635,7 @@ class FretBoardNote (Music):
         if self.fingering:
             str += "-%s" % self.fingering
         if self.string:
-            str += "\%s" % self.string
+            str += r"\%s" % self.string
         return str
 
 
@@ -2080,7 +2080,7 @@ class TimeSignatureChange (Music):
         if self.visible:
             omit = ''
         else:
-            omit = '\omit Staff.TimeSignature'
+            omit = r'\omit Staff.TimeSignature'
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len(self.fractions) == 2 and isinstance(self.fractions[0], int):
@@ -2503,7 +2503,7 @@ class Staff (StaffGroup):
             else:
                 printer('\\context %s << ' % sub_staff_type)
             printer.newline()
-            printer.dump("\mergeDifferentlyDottedOn\mergeDifferentlyHeadedOn")
+            printer.dump(r"\mergeDifferentlyDottedOn\mergeDifferentlyHeadedOn")
             printer.newline()
             n = 0
             nr_voices = len(voices)
@@ -2569,7 +2569,7 @@ class DrumStaff (Staff):
 
     def print_ly_overrides(self, printer):
         if self.drum_style_table:
-            printer.dump("\with {")
+            printer.dump(r"\with {")
             printer.dump("drumStyleTable = #%s" % self.drum_style_table)
             printer.dump("}")
 

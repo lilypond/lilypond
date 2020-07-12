@@ -245,7 +245,7 @@ def add_version(ly_code):
 
 def escape_backslashes_in_header(snippet):
     # ASSUME: the \header exists.
-    header_char_number_start = snippet.find('\header {')
+    header_char_number_start = snippet.find(r'\header {')
     header_char_number_end = snippet.find('} % begin verbatim')
 
     header = snippet[header_char_number_start:header_char_number_end]

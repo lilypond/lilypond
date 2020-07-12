@@ -305,7 +305,7 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
         self.output = Latex_output
         self.handled_extensions = ['.latex', '.lytex', '.tex']
         self.image_formats = "ps"
-        self.snippet_option_separator = '\s*,\s*'
+        self.snippet_option_separator = r'\s*,\s*'
 
     def process_options(self, global_options):
         self.process_options_pdfnotdefault(global_options)

@@ -119,7 +119,7 @@ class BookHTMLOutputFormat (book_base.BookOutputFormat):
         self.snippet_res = HTML_snippet_res
         self.output = HTML_output
         self.handled_extensions = ['.html', '.xml', '.htmly']
-        self.snippet_option_separator = '\s+'
+        self.snippet_option_separator = r'\s+'
 
     def split_snippet_options(self, option_string):
         if option_string:

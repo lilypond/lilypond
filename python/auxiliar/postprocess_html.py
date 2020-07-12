@@ -244,7 +244,7 @@ def add_title(s):
     return s
 
 
-footer_insert_re = re.compile('<!--\s*FOOTER\s*-->')
+footer_insert_re = re.compile(r'<!--\s*FOOTER\s*-->')
 end_body_re = re.compile('(?i)</body>')
 end_html_re = re.compile('(?i)</html>')
 

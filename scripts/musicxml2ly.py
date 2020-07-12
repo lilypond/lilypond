@@ -1497,12 +1497,12 @@ def musicxml_accordion_to_markup(mxl_event):
     low = mxl_event.get_maybe_exist_named_child('accordion-low')
     if low:
         commandname += "L"
-        command += """\\combine
-          \\raise #0.5 \musicglyph #\"accordion.dot\"
+        command += r"""\combine
+          \raise #0.5 \musicglyph #"accordion.dot"
           """
 
-    command += "\musicglyph #\"accordion.discant\""
-    command = "\\markup { \\normalsize %s }" % command
+    command += r'\musicglyph #"accordion.discant"'
+    command = r"\markup { \normalsize %s }" % command
     # Define the newly built command \accReg[H][MMM][L]
     additional_definitions[commandname] = "%s = %s" % (commandname, command)
     needed_additional_definitions.append(commandname)
@@ -2001,7 +2001,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
     elif continued and text:
         if hasattr(options, 'convert_beaming') and options.convert_beaming:
             if (ignoremelismata == "on"):
-                return " \set ignoreMelismata = ##t " + utilities.escape_ly_output_string(text)
+                return r" \set ignoreMelismata = ##t " + utilities.escape_ly_output_string(text)
             elif (ignoremelismata == "off"):
                 return " " + utilities.escape_ly_output_string(text) + " -- \\unset ignoreMelismata"
             else:
@@ -2297,7 +2297,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
         # Note has any lyric.
         elif get_lyric_elements(elem) and \
                 not note_has_lyric_belonging_to_lyric_part:
-            result.append('\skip1 ')
+            result.append(r'\skip1 ')
         # Note does not have any lyric attached to it.
         elif is_chord(elem):
             # note without lyrics part of a chord. MusicXML format is
@@ -2305,7 +2305,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
             # asume that we do not want to put a skip here.
             continue
         elif is_note_and_not_rest(elem):
-            result.append('\skip1 ')
+            result.append(r'\skip1 ')
 
     lyrics_dict[lyric_key].extend(result)
 
@@ -3297,7 +3297,7 @@ def convert(filename, options):
     if not options.output_name:
         options.output_name = os.path.basename(filename)
         options.output_name = os.path.splitext(options.output_name)[0]
-    elif re.match(".*\.ly", options.output_name):
+    elif re.match(r".*\.ly", options.output_name):
         options.output_name = os.path.splitext(options.output_name)[0]
 
     #defs_ly_name = options.output_name + '-defs.ly'

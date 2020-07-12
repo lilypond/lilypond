@@ -312,7 +312,7 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         self.snippet_res = TexInfo_snippet_res
         self.output = TexInfo_output
         self.handled_extensions = ['.itely', '.tely', '.texi', '.texinfo']
-        self.snippet_option_separator = '\s*,\s*'
+        self.snippet_option_separator = r'\s*,\s*'
 
     def can_handle_format(self, format):
         return (book_base.BookOutputFormat.can_handle_format(self, format) or

@@ -900,7 +900,7 @@ def parse_etf_file(fn, tag_dict):
     last_numbers = None
 
     for l in ls:
-        m = re.match('^([a-zA-Z0-9&]+)\(([^)]+)\)', l)
+        m = re.match(r'^([a-zA-Z0-9&]+)\(([^)]+)\)', l)
         if m and m.group(1) in tag_dict:
             tag = m.group(1)
 
@@ -914,7 +914,7 @@ def parse_etf_file(fn, tag_dict):
             parsed = []
 
             if tag == 'verse' or tag == 'block':
-                m2 = re.match('(.*)\^end', content)
+                m2 = re.match(r'(.*)\^end', content)
                 if m2:
                     parsed = [m2.group(1)]
             else:
@@ -994,7 +994,7 @@ class Etf_file:
         body = contents[0]
 
         body = re.sub(r"""\^[a-z]+\([^)]+\)""", "", body)
-        body = re.sub("\^[a-z]+", "", body)
+        body = re.sub(r"\^[a-z]+", "", body)
         self.verses.append(Verse(a, body))
 
     def try_ve(self, indices, contents):

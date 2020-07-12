@@ -164,7 +164,7 @@ def classic_lilypond_book_compatibility(key, value):
     if key == 'singleline' and value is None:
         return (RAGGED_RIGHT, None)
 
-    m = re.search('relative\s*([-0-9])', key)
+    m = re.search(r'relative\s*([-0-9])', key)
     if m:
         return ('relative', m.group(1))
 
@@ -401,7 +401,7 @@ class LilypondSnippet (Snippet):
         for option in options:
             (key, value) = (option, None)
             if '=' in option:
-                (key, value) = re.split('\s*=\s*', option)
+                (key, value) = re.split(r'\s*=\s*', option)
             else:
                 # a no... option removes a previous option if present!
                 if key in no_options:

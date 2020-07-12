@@ -123,7 +123,7 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
         self.snippet_res = Docbook_snippet_res
         self.output = Docbook_output
         self.handled_extensions = ['.lyxml']
-        self.snippet_option_separator = '\s+'
+        self.snippet_option_separator = r'\s+'
 
     def adjust_snippet_command(self, cmd):
         if '--formats' not in cmd:

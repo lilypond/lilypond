@@ -76,7 +76,7 @@ def add_old_name(file_path):
     return file_path + ' ' + old_file_path
 
 
-revision_re = re.compile('GIT [Cc]ommittish:\s+([a-f0-9]+)')
+revision_re = re.compile(r'GIT [Cc]ommittish:\s+([a-f0-9]+)')
 vc_diff_cmd = 'git diff -M %(color_flag)s %(revision)s \
 %(upper_revision)s -- %(original_with_old_name)s | cat'
 no_committish_fatal_error = """error: %s: no 'GIT committish: <hash>' found.

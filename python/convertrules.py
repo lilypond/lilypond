@@ -318,7 +318,7 @@ def conv(str):
     return str
 
 
-@rule((1, 3, 38), '\musicalpitch { a b c } -> #\'(a b c)')
+@rule((1, 3, 38), r"\musicalpitch { a b c } -> #'(a b c)")
 def conv(str):
     str = re.sub("([a-z]+)[ \t]*=[ \t]*\\\\musicalpitch *{([- 0-9]+)} *\n",
                  "(\\1 . (\\2))\n", str)
@@ -365,7 +365,7 @@ def conv(str):
     return str
 
 
-@rule((1, 3, 59), '\key X ; -> \key X major; ')
+@rule((1, 3, 59), r'\key X ; -> \key X major; ')
 def conv(str):
     str = re.sub(r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""", str)
     return str
@@ -568,7 +568,7 @@ def conv(str):
 
     def regularize_assignment(match):
         return '\n' + regularize_id(match.group(1)) + ' = '
-    str = re.sub('\$([^\t\n ]+)', regularize_dollar_reference, str)
+    str = re.sub(r'\$([^\t\n ]+)', regularize_dollar_reference, str)
     str = re.sub('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
     return str
 
@@ -669,8 +669,8 @@ def conv(str):
 
 @rule((1, 3, 148), '"(align" -> "(axis", "(rows" -> "(columns"')
 def conv(str):
-    str = re.sub('\(align', '(axis', str)
-    str = re.sub('\(rows', '(columns', str)
+    str = re.sub(r'\(align', '(axis', str)
+    str = re.sub(r'\(rows', '(columns', str)
     return str
 
 
@@ -855,7 +855,7 @@ def subst_csp_inline(match):
     return '#(ly-export (make-event-chord (list %s)))' % subst_ev_name(match)
 
 
-@rule((1, 7, 2), '\\spanrequest -> #(make-span-event .. ), \script -> #(make-articulation .. )')
+@rule((1, 7, 2), r'\\spanrequest -> #(make-span-event .. ), \script -> #(make-articulation .. )')
 def conv(str):
     str = re.sub(
         r' *= *\\spanrequest *([^ ]+) *"([^"]+)"', subst_definition_ev_name, str)
@@ -932,7 +932,7 @@ def conv(str):
     return str
 
 
-@rule((1, 7, 6), 'note\\script -> note-\script')
+@rule((1, 7, 6), r'note\\script -> note-\script')
 def conv(str):
     kws = ['arpeggio',
            'sustainDown',
@@ -953,7 +953,7 @@ def conv(str):
     return str
 
 
-@rule((1, 7, 10), "\property ChordName #'style -> #(set-chord-name-style 'style)")
+@rule((1, 7, 10), r"\property ChordName #'style -> #(set-chord-name-style 'style)")
 def conv(str):
     str = re.sub(r"\\property *ChordNames *\. *ChordName *\\(set|override) *#'style *= *#('[a-z]+)",
                  r"#(set-chord-name-style \2)", str)
@@ -1116,7 +1116,7 @@ def sub_chord(m):
                      sub_tremolos, str)
 
         def sub_dyn_end(m, dyns=dyns):
-            dyns.append(' \!')
+            dyns.append(r' \!')
             return ' ' + m.group(2)
 
         str = re.sub(r'(\\!)\s*([a-z]+)', sub_dyn_end, str)
@@ -1127,8 +1127,8 @@ def sub_chord(m):
             return m.group(1)
 
         def sub_p_slurs(m, slur_strs=slur_strs):
-            if '-\)' not in slur_strs:
-                slur_strs.append('\)')
+            if r'-\)' not in slur_strs:
+                slur_strs.append(r'\)')
             return m.group(1)
 
         str = re.sub(r"\)[ ]*([a-z]+)", sub_slurs, str)
@@ -1143,8 +1143,8 @@ def sub_chord(m):
                      sub_begin_slurs, str)
 
         def sub_begin_p_slurs(m, slur_strs=slur_strs):
-            if '-\(' not in slur_strs:
-                slur_strs.append('\(')
+            if r'-\(' not in slur_strs:
+                slur_strs.append(r'\(')
             return m.group(1)
 
         str = re.sub(r"([a-z]+[,'!?0-9 ]*)\\\(",
@@ -1241,7 +1241,7 @@ def text_markup(str):
     # Find the beginning of each markup:
     match = markup_start.search(str)
     while match:
-        result = result + str[:match.end(1)] + " \markup"
+        result = result + str[:match.end(1)] + r" \markup"
         str = str[match.end(2):]
         # Count matching parentheses to find the end of the
         # current markup:
@@ -1357,8 +1357,8 @@ def conv(str):
     str = re.sub(r'-\\', r'\\', str)
     str = re.sub(r'-\)', ')', str)
     str = re.sub(r'-\(', '(', str)
-    str = re.sub('-\[', '[', str)
-    str = re.sub('-\]', ']', str)
+    str = re.sub(r'-\[', '[', str)
+    str = re.sub(r'-\]', ']', str)
     str = re.sub('-~', '~', str)
     str = re.sub(r'@\\markup', r'-\\markup', str)
     return str
@@ -1695,7 +1695,7 @@ def conv(str):
                  + r"""\\(set|override)\s*#'style\s*=\s*#'harmonic"""
                  + r"""\s+([a-z]+[,'=]*)([0-9]*\.*)""", r"""<\3\\harmonic>\4""", str)
 
-    str = re.sub(r"""\\new Thread""", """\context Voice""", str)
+    str = re.sub(r"""\\new Thread""", r"""\context Voice""", str)
     str = re.sub(r"""Thread""", """Voice""", str)
 
     if re.search('\bLyrics\b', str):
@@ -2139,7 +2139,7 @@ def conv(str):
     return str
 
 
-@rule((2, 5, 2), '\markup .. < .. > .. -> \markup .. { .. } ..')
+@rule((2, 5, 2), r'\markup .. < .. > .. -> \markup .. { .. } ..')
 def conv(str):
     str = re.sub(r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<(([^>]|<[^>]*>)*)>',
                  r'\\\1 {\2}', str)
@@ -2166,7 +2166,7 @@ def conv(str):
     return str
 
 
-@rule((2, 5, 12), '\set Slur #\'dashed = #X -> \slurDashed')
+@rule((2, 5, 12), r'\set Slur #\'dashed = #X -> \slurDashed')
 def conv(str):
     str = re.sub(r"\\override\s+(Voice\.)?Slur #'dashed\s*=\s*#\d*(\.\d+)?",
                  r"\\slurDashed", str)
@@ -2460,7 +2460,7 @@ def conv(str):
     return str
 
 
-@rule((2, 7, 32), _("foobar -> foo-bar for \paper, \layout"))
+@rule((2, 7, 32), _(r"foobar -> foo-bar for \paper, \layout"))
 def conv(str):
     identifier_subs = [
         ('inputencoding', 'input-encoding'),
@@ -2976,7 +2976,7 @@ def conv(str):
     str = re.sub(r'ly:hairpin::after-line-breaking',
                  r'ly:spanner::kill-zero-spanned-time', str)
     if re.search("(Slur|Tie)\w+#\'dash-fraction", str) \
-            or re.search("(Slur|Tie)\w+#\'dash-period", str):
+            or re.search(r"(Slur|Tie)\w+#'dash-period", str):
         stderr_write(NOT_SMART % "dash-fraction, dash-period")
         stderr_write(
             _("Dash parameters for slurs and ties are now in \'dash-definition.\n"))
@@ -3407,7 +3407,7 @@ def undollar_embedded(m):
     str = re.sub(r"#\$", "#", m.group(1))
     # poor man's matched paren scanning after #, gives up
     # after 25 levels.
-    str = re.sub("#`?\("+paren_matcher(25)+"\)", undollar_scm, str)
+    str = re.sub(r"#`?\("+paren_matcher(25)+r"\)", undollar_scm, str)
     return m.string[m.start(0):m.start(1)] + str + m.string[m.end(1):m.end(0)]
 
 
@@ -3451,7 +3451,7 @@ def conv(str):
                  + r")\)", ugly_function_rewriter, str)
     str = re.sub(r"#(?=\(" + should_really_be_music_function + ")", "$", str)
     str = re.sub(r"#\(markup\*(?=\s)", r"$(markup", str)
-    str = re.sub("#\("+paren_matcher(25)+"\)", export_puller, str)
+    str = re.sub(r"#\("+paren_matcher(25)+r"\)", export_puller, str)
     if re.search(r"\(ly:export\s+", str):
         stderr_write(NOT_SMART % "ly:export")
     return str
@@ -3555,7 +3555,7 @@ def conv(str):
     str = re.sub("(" + matchfullmarkup + ")|"
                  + r"(\\footnote(?:\s*"
                  + matchmarkup + ")?" + matcharg + "(?:" + matcharg
-                 + ")?\s+" + matchmarkup + ")",
+                 + r")?\s+" + matchmarkup + ")",
                  not_first(r"\2 \\default"), str)
     return str
 

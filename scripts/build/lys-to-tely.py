@@ -126,12 +126,12 @@ for opt in options:
     else:
         raise Exception('unknown option: ' + o)
 
-html_file_re = re.compile('.*\.i?html?$')
-info_file_re = re.compile('.*\.info$')
-pdf_file_re = re.compile('.*\.i?pdf$')
-tex_file_re = re.compile('.*\.i?(la)?tex$')
-texi_file_re = re.compile('.*\.i?te(ly|xi|xinfo)$')
-xml_file_re = re.compile('.*\.i?(xm|mx)l$')
+html_file_re = re.compile(r'.*\.i?html?$')
+info_file_re = re.compile(r'.*\.info$')
+pdf_file_re = re.compile(r'.*\.i?pdf$')
+tex_file_re = re.compile(r'.*\.i?(la)?tex$')
+texi_file_re = re.compile(r'.*\.i?te(ly|xi|xinfo)$')
+xml_file_re = re.compile(r'.*\.i?(xm|mx)l$')
 
 
 def name2line(n):
