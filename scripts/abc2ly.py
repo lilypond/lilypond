@@ -410,7 +410,7 @@ def sharp_keys():
     p = (0, 0)
     l = []
     k = 0
-    while 1:
+    while True:
         l.append(p)
         (t, a) = fifth_above_pitch(p)
         if semitone_pitch((t, a)) % 12 == 0:
@@ -424,7 +424,7 @@ def flat_keys():
     p = (0, 0)
     l = []
     k = 0
-    while 1:
+    while True:
         l.append(p)
         (t, a) = quart_above_pitch(p)
         if semitone_pitch((t, a)) % 12 == 0:

@@ -232,7 +232,7 @@ def find_linestarts(s):
     nls = [0]
     start = 0
     end = len(s)
-    while 1:
+    while True:
         i = s.find('\n', start)
         if i < 0:
             break
@@ -263,7 +263,7 @@ def find_toplevel_snippets(input_string, formatter, global_options):
     # where we search.
     # Since every part of the string is traversed at most once for
     # every type of snippet, this is linear.
-    while 1:
+    while True:
         first = None
         endex = 1 << 30
         for type in types:

@@ -100,7 +100,7 @@ def parse_logfile(fn):
             global_info['FontName'] = '-'.join(name)
             global_info['FullName'] = ' '.join(name)
             global_info['FamilyName'] = '-'.join(name[1:-1])
-            if 1:
+            if True:
                 global_info['Weight'] = tags[4]
             else:  # testing
                 global_info['Weight'] = tags[-1]

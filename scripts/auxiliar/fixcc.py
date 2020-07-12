@@ -259,7 +259,7 @@ def find_toplevel_snippets(s, types):
     # Since every part of the string is traversed at most once for
     # every type of snippet, this is linear.
 
-    while 1:
+    while True:
         if verbose_p:
             sys.stderr.write('.')
         first = None
