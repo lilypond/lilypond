@@ -111,16 +111,10 @@ class Xml_node(object):
         if len(cn) == 0:
             return None
         else:
-            try:
-                assert len(cn) == 1
-                return cn[0]
-            except:
-                msg = ' '.join(
-                    ['more than one child of class ',
-                     klass.__name__,
-                     '...all but the first will be ignored!'])
-                warnings.warn(msg)
-                return cn[0]
+            if len(cn) > 1:
+                warnings.warn(_('more than one child of class %s, all but'
+                                'the first will be ignored') % klass.__name__)
+            return cn[0]
 
     def get_unique_typed_child(self, klass):
         cn = self.get_typed_children(klass)
