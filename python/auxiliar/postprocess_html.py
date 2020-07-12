@@ -391,9 +391,9 @@ def process_html_files(package_name='',
     # Initialize dictionaries for string formatting
     subst = {}
     subst[''] = dict([i for i in list(globals().items())
-                      if type(i[1]) is str])
+                      if isinstance(i[1], str)])
     subst[''].update(dict([i for i in list(locals().items())
-                           if type(i[1]) is str]))
+                           if isinstance(i[1], str)]))
     for l in translation:
         e = langdefs.LANGDICT[l].webext
         if e:

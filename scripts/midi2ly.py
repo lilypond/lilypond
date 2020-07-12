@@ -850,7 +850,7 @@ def get_voice_layout(average_pitch):
     for i, n in zip(s, names):
         if i:
             v = d[i]
-            if type(v) == list:
+            if isinstance(v, list):
                 d[i] = v[1:]
                 v = v[0]
             layout[v] = n
