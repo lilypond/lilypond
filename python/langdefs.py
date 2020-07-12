@@ -23,6 +23,7 @@
 Documentation i18n module
 """
 
+import gettext
 import os
 import re
 import sys
@@ -102,25 +103,32 @@ WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
 if os.getenv("MAKEWEB") == '1':
     LANGUAGES = WEB_LANGUAGES
 
+LANGDICT = {l.code: l for l in LANGUAGES}
+
+non_english_enabled_langs = [
+  l for l in LANGUAGES if l.enabled and l.code != 'en'
+]
+
+# This file needs two modes of operations depending on
+# wether it is run directly or imported.
+
 if __name__ == '__main__':
-    print(' '.join([l.code for l in LANGUAGES if l.enabled and l.code != 'en']))
+    print(*[l.code for l in non_english_enabled_langs])
 else:
-    LANGDICT = {}
-    for l in LANGUAGES:
-        LANGDICT[l.code] = l
+    translation_fallback = {(l.code, lambda x: x) for l in LANGUAGES}
+    if 'LYDOC_LOCALEDIR' in os.environ:
+        localedir = os.environ['LYDOC_LOCALEDIR']
+        try:
+            translation = {
+              l.code: gettext.translation('lilypond-doc',
+                                          localedir, [l.code]).gettext
+              for l in non_english_enabled_langs
+            }
+        # TODO: use fallback=True in gettext.translation() ?
+        except OSError:
+            sys.stderr.write('langdefs.py: warning: lilypond-doc gettext '
+                             'domain not found.\n')
+            translation = translation_fallback
 
-    try:
-        import gettext
-
-        translation = {}
-        for l in LANGUAGES:
-            if l.enabled and l.code != 'en':
-                t = gettext.translation('lilypond-doc',
-                                        os.environ['LYDOC_LOCALEDIR'],
-                                        [l.code])
-                translation[l.code] = t.gettext
-    except:
-        if 'LYDOC_LOCALEDIR' in os.environ:
-            sys.stderr.write(
-                'langdefs.py: warning: lilypond-doc gettext domain not found.\n')
-        translation = dict([(l.code, lambda x: x) for l in LANGUAGES])
+    else:
+        translation = translation_fallback
