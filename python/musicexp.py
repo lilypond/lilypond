@@ -1279,12 +1279,10 @@ class TextSpannerEvent (SpanEvent):
     def print_before_note(self, printer):
         if hasattr(self, 'style') and self.style == "wave":
             printer.dump(r"\once \override TextSpanner.style = #'trill")
-        try:
+        if hasattr(self, 'force_direction'):
             x = {-1: '\\textSpannerDown', 0: '\\textSpannerNeutral',
                  1: '\\textSpannerUp'}.get(self.force_direction, '')
             printer.dump(x)
-        except:
-            pass
     def print_after_note(self, printer):
         pass
 
