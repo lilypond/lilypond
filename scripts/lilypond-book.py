@@ -466,18 +466,19 @@ def guess_format(input_filename):
 
 def write_if_updated(file_name, lines):
     try:
-        f = open(file_name)
-        oldstr = f.read()
+        with open(file_name, encoding='utf-8') as file:
+            old_str = file.read()
+    except FileNotFoundError:
+        pass
+    else:
         new_str = ''.join(lines)
-        if oldstr == new_str:
+        if old_str == new_str:
             progress(_("%s is up to date.") % file_name)
 
             # this prevents make from always rerunning lilypond-book:
             # output file must be touched in order to be up to date
             os.utime(file_name, None)
             return
-    except:
-        pass
 
     output_dir = os.path.dirname(file_name)
     os.makedirs(output_dir, exist_ok=True)

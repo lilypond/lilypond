@@ -370,7 +370,7 @@ def gulp_file(f):
         i.seek(0, 2)
         n = i.tell()
         i.seek(0, 0)
-    except:
+    except FileNotFoundError:
         sys.stderr.write("cannot open file: `%s'\n" % f)
         return ''
     s = i.read(n)

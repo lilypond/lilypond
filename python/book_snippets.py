@@ -356,7 +356,13 @@ class LilypondSnippet (Snippet):
             t = langdefs.translation[lang]
         except:
             return s
-
+        # TODO: this part is flawed. langdefs is not imported,
+        # so the line under `try:` raises a NameError, which is
+        # catched by the too broad `except:` that was likely meant
+        # only to except KeyError. As a result, this function
+        # always returns `s` and the below code is never executed.
+        # Investigate what the intent was and change the code accordingly
+        # if possible.   --jas
         s = ly_comment_re.sub(lambda m: ly_comment_gettext(t, m), s)
 
         if langdefs.LANGDICT[lang].enable_ly_identifier_l10n:

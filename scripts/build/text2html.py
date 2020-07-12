@@ -47,7 +47,7 @@ for a in sys.argv[1:]:
 
     try:
         os.unlink(outfile)
-    except:
+    except OSError:
         pass
 
     s = r"""

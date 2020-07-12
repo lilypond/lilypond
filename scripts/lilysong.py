@@ -164,7 +164,7 @@ def process_xml_file(file_name, voice, speedup, play_program):
             if speedup:
                 try:
                     os.delete(wav_temp_file)
-                except:
+                except OSError:
                     pass
         sys.stdout.write("%s created.\n" % (wav_file,))
         # play
@@ -173,7 +173,7 @@ def process_xml_file(file_name, voice, speedup, play_program):
     finally:
         try:
             os.delete(xml_temp_file)
-        except:
+        except OSError:
             pass
 
 

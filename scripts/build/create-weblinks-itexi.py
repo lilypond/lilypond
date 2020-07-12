@@ -389,7 +389,7 @@ VERSION_DEVEL = ""
 
 try:
     topDir = sys.argv[1]
-except:
+except IndexError:
     myDir = os.path.dirname(sys.argv[0])
     # use two abspaths to work around some windows python bug
     topDir = os.path.join(os.path.abspath(

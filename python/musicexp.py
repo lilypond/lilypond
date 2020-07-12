@@ -258,7 +258,7 @@ def get_create_midi():
     """
     try:
         return midi_option
-    except:
+    except NameError:
         return False
 
 # implement the command line option '--transpose'
@@ -276,7 +276,7 @@ def get_transpose(optType):
         elif(optType == "integer"):
             p = generic_tone_to_pitch(transpose_option)
             return p.semitones()
-    except:
+    except Exception: ## TODO: find out what the possible exception is here.
         if(optType == "string"):
             return ""
         elif(optType == "integer"):
@@ -293,7 +293,7 @@ def set_tab_clef(option):
 def get_tab_clef():
     try:
         return ("tab", tab_clef_option)[tab_clef_option == "tab" or tab_clef_option == "moderntab"]
-    except:
+    except NameError:
         return "tab"
 
 # definitions of the command line option '--string-numbers'
@@ -307,7 +307,7 @@ def set_string_numbers(option):
 def get_string_numbers():
     try:
         return ("t", string_numbers_option)[string_numbers_option == "t" or string_numbers_option == "f"]
-    except:
+    except NameError:
         return "t"
 
 
@@ -1285,7 +1285,6 @@ class TextSpannerEvent (SpanEvent):
             printer.dump(x)
         except:
             pass
-
     def print_after_note(self, printer):
         pass
 

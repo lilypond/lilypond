@@ -42,7 +42,7 @@ def get_pictures_from(dirname):
         filenames = (
             glob.glob(os.path.join(examine_dirname, "*.png")) +
             glob.glob(os.path.join(examine_dirname, "*.jpg")))
-    except:
+    except Exception:
         print("Cannot find files (maybe a problem with your build directory?)")
     return filenames
 

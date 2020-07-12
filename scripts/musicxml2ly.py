@@ -1257,7 +1257,7 @@ def OrnamenthasWhat(mxl_event):
                 start = True
             elif i.type == "stop":
                 stop = True
-        except:
+        except Exception: ## TODO: find out what to except.
             pass
     if start == True:
         if wavy == True and trilly == False:

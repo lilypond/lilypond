@@ -21,10 +21,12 @@ import sys
 
 try:
     infile = sys.argv[1]
-    lines = open(infile).readlines()
-except:
-    print("ERROR: need a filename")
+except IndexError:
+    print("Error: need a filename")
     sys.exit(1)
+
+with open(infile) as file:
+    lines = file.readlines()
 
 nodes = []
 

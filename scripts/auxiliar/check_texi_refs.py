@@ -119,11 +119,6 @@ def set_exit_code(n):
 
 
 if options.interactive:
-    try:
-        import readline
-    except:
-        pass
-
     def yes_prompt(question, default=False, retries=3):
         d = {True: 'y', False: 'n'}.get(default, False)
         while retries:
