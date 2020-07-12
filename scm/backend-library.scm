@@ -80,7 +80,10 @@
                    (ly:format "mark /OutputFile (~a)" output-file)
                    (if (not is-eps)
                        (ly:format "/PageSize [~$ ~$]" paper-width paper-height))
-                   "(pdfwrite) finddevice putdeviceprops setdevice"
+                   "(pdfwrite) finddevice putdeviceprops pop"
+                   ;; `setdevice` does not set some defaults. So we use
+                   ;; `selectdevide` instead.
+                   "(pdfwrite) selectdevice"
                    ;; from Resource/Init/gs_pdfwr.ps; needed here because we
                    ;; do not have the pdfwrite device initially (-dNODISPLAY).
                    "newpath fill"
@@ -99,7 +102,9 @@
                      (string-join
                       (list
                        (ly:format "mark /OutputFile (~a)" flush-name)
-                       "(pdfwrite) finddevice putdeviceprops setdevice"
+                       "(pdfwrite) finddevice putdeviceprops pop"
+                       ;; see above
+                       "(pdfwrite) selectdevice"
                        ;; see above
                        "newpath fill")
                        " "))
