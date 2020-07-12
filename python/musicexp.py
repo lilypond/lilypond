@@ -690,7 +690,7 @@ class TimeScaledMusic (MusicWrapper):
         self.display_denominator = None
 
     def print_ly(self, func):
-        if self.display_bracket == None:
+        if self.display_bracket is None:
             func("\\once \\omit TupletBracket")
             func.newline()
         elif self.display_bracket == "curved":
@@ -723,7 +723,7 @@ class TimeScaledMusic (MusicWrapper):
                  (base_number_function, base_duration))
             func.newline()
         elif self.display_type == "both":  # TODO: Implement this using actual_type and normal_type!
-            if self.display_number == None:
+            if self.display_number is None:
                 func("\\once \\omit TupletNumber")
                 func.newline()
             elif self.display_number == "both":
@@ -743,7 +743,7 @@ class TimeScaledMusic (MusicWrapper):
                          (den_duration, num_duration))
                     func.newline()
         else:
-            if self.display_number == None:
+            if self.display_number is None:
                 func("\\once \\omit TupletNumber")
                 func.newline()
             elif self.display_number == "both":
@@ -771,8 +771,8 @@ class NestedMusic(Music):
         return self.elements
 
     def insert_around(self, succ, elt, dir):
-        assert elt.parent == None
-        assert succ == None or succ in self.elements
+        assert elt.parent is None
+        assert succ is None or succ in self.elements
 
         idx = 0
         if succ:
@@ -1193,7 +1193,7 @@ class BarLine (Music):
                       'heavy': "|", 'light-light': "||", 'light-heavy': "|.",
                       'heavy-light': ".|", 'heavy-heavy': ".|.", 'tick': "'",
                       'short': "'", 'none': ""}.get(self.type, None)
-        if bar_symbol != None:
+        if bar_symbol is not None:
             printer.dump('\\bar "%s"' % bar_symbol)
         else:
             printer.dump("|")
@@ -1848,7 +1848,7 @@ class BendEvent (ArticulationEvent):
         self.alter = None
 
     def ly_expression(self):
-        if self.alter != None:
+        if self.alter is not None:
             return "-\\bendAfter #%s" % self.alter
         else:
             return ''
@@ -2387,9 +2387,9 @@ class StaffGroup:
     def needs_with(self):
         needs_with = False
         needs_with |= self.spanbar == "no"
-        needs_with |= self.instrument_name != None
-        needs_with |= self.short_instrument_name != None
-        needs_with |= (self.symbol != None) and (self.symbol != "bracket")
+        needs_with |= self.instrument_name is not None
+        needs_with |= self.short_instrument_name is not None
+        needs_with |= (self.symbol is not None) and (self.symbol != "bracket")
         return needs_with
 
     def print_ly_context_mods(self, printer):

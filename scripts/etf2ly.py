@@ -402,7 +402,7 @@ class Articulation:
 
         adef = defs[self.definition]
         lystr = adef.dump()
-        if lystr == None:
+        if lystr is None:
             lystr = '"art"'
             sys.stderr.write("\nThis happened on note %d" % self.notenumber)
 
@@ -523,7 +523,7 @@ class Frame:
         lastch = None
         in_grace = 0
         for c in self.chords:
-            if c.grace and (lastch == None or (not lastch.grace)):
+            if c.grace and (lastch is None or (not lastch.grace)):
                 c.chord_prefix = r'\grace {' + c.chord_prefix
                 in_grace = 1
             elif not c.grace and lastch and lastch.grace:
@@ -573,7 +573,7 @@ class Staff:
     def get_measure(self, no):
         fill_list_to(self.measures, no)
 
-        if self.measures[no] == None:
+        if self.measures[no] is None:
             m = Measure(no)
             self.measures[no] = m
             m.staff = self
@@ -920,7 +920,7 @@ def parse_etf_file(fn, tag_dict):
             else:
                 while content:
                     (v, content) = read_finale_value(content)
-                    if v != None:
+                    if v is not None:
                         parsed.append(v)
 
             tdict[indices].extend(parsed)
@@ -956,14 +956,14 @@ class Etf_file:
 
     def get_global_measure(self, no):
         fill_list_to(self.measures, no)
-        if self.measures[no] == None:
+        if self.measures[no] is None:
             self.measures[no] = Global_measure(no)
 
         return self.measures[no]
 
     def get_staff(self, staffno):
         fill_list_to(self.staffs, staffno)
-        if self.staffs[staffno] == None:
+        if self.staffs[staffno] is None:
             self.staffs[staffno] = Staff(staffno)
 
         return self.staffs[staffno]
@@ -979,7 +979,7 @@ class Etf_file:
     def try_TP(self,  indices, contents):
         (nil, num) = indices
 
-        if self.tuplets[-1] == None or num != self.tuplets[-1].start_note:
+        if self.tuplets[-1] is None or num != self.tuplets[-1].start_note:
             self.tuplets.append(Tuplet(num))
 
         self.tuplets[-1].append_finale(contents)

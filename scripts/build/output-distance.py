@@ -331,7 +331,7 @@ class SystemLink:
     def calc_orphan_count(self):
         count = 0
         for (g1, g2) in list(self.back_link_dict.items()):
-            if g2 == None:
+            if g2 is None:
                 self.orphans.append((g1, None))
 
                 count += 1
@@ -347,15 +347,15 @@ class SystemLink:
         return ', '.join(['%s: %f' % (g1.name, d) for (d, g1, g2) in results])
 
     def orphan_details_string(self):
-        return ', '.join(['%s' % g1.name for (g1, g2) in self.orphans if g2 == None])
+        return ', '.join(['%s' % g1.name for (g1, g2) in self.orphans if g2 is None])
 
     def geometric_distance(self):
-        if self._geometric_distance == None:
+        if self._geometric_distance is None:
             self.calc_geometric_distance()
         return self._geometric_distance
 
     def orphan_count(self):
-        if self._orphan_count == None:
+        if self._orphan_count is None:
             self.calc_orphan_count()
 
         return self._orphan_count
@@ -433,7 +433,7 @@ class FileLink:
         return 0.0
 
     def distance(self):
-        if self._distance == None:
+        if self._distance is None:
             self._distance = self.calc_distance()
 
         return self._distance

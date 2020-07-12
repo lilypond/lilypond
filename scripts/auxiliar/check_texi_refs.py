@@ -475,7 +475,7 @@ and x-ref by index number or beginning of name:\n", [''.join([i[0], ' ', i[1]])
             # ask user for substring to look in node names
             while True:
                 node_list = search_prompt()
-                if node_list == None:
+                if node_list is None:
                     if options.interactive:
                         stdout.write(warn_not_fixed)
                     break

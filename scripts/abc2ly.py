@@ -1262,12 +1262,12 @@ def try_parse_bar(str, state):
     if str[:1] == '}':
         close_beam_state(state)
 
-    if bs != None or state.next_bar != '':
+    if bs is not None or state.next_bar != '':
         if state.parsing_tuplet:
             state.parsing_tuplet = 0
             voices_append('} ')
 
-    if bs != None:
+    if bs is not None:
         clear_bar_acc(state)
         close_beam_state(state)
         voices_append(bs)

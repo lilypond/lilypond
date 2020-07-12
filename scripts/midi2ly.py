@@ -598,7 +598,7 @@ class Track (Channel):
         self.events.append(event)
 
     def add(self, event, channel=None):
-        if channel == None:
+        if channel is None:
             self._add(event)
         else:
             self.channels[channel] = self.channels.get(

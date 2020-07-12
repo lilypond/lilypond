@@ -763,7 +763,7 @@ def conv(str):
 @rule((1, 5, 67), _('automaticMelismata turned on by default'))
 def conv(str):
     if re.search(r'\addlyrics', str) \
-            and re.search('automaticMelismata', str) == None:
+            and re.search('automaticMelismata', str) is None:
         stderr_write(NOT_SMART % "automaticMelismata")
         stderr_write(
             _("automaticMelismata is turned on by default since 1.5.67."))

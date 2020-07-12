@@ -161,7 +161,7 @@ snippet_options = {
 def classic_lilypond_book_compatibility(key, value):
     if key == 'lilyquote':
         return (QUOTE, value)
-    if key == 'singleline' and value == None:
+    if key == 'singleline' and value is None:
         return (RAGGED_RIGHT, None)
 
     m = re.search('relative\s*([-0-9])', key)
@@ -428,7 +428,7 @@ class LilypondSnippet (Snippet):
 
         # If LINE_WIDTH is used without parameter, set it to default.
         has_line_width = LINE_WIDTH in self.snippet_option_dict
-        if has_line_width and self.snippet_option_dict[LINE_WIDTH] == None:
+        if has_line_width and self.snippet_option_dict[LINE_WIDTH] is None:
             del self.snippet_option_dict[LINE_WIDTH]
 
         # RELATIVE does not work without FRAGMENT, so imply that
@@ -449,7 +449,7 @@ class LilypondSnippet (Snippet):
         )) if x_y[0] not in PROCESSING_INDEPENDENT_OPTIONS]
         option_list = []
         for (key, value) in lst:
-            if value == None:
+            if value is None:
                 option_list.append(key)
             else:
                 option_list.append(key + "=" + value)
@@ -890,9 +890,9 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         xml2ly_option_list = []
         for (key, value) in list(self.option_dict.items()):
             cmd_key = self.musicxml_options_dict.get(key, None)
-            if cmd_key == None:
+            if cmd_key is None:
                 continue
-            if value == None:
+            if value is None:
                 xml2ly_option_list.append(cmd_key)
             else:
                 xml2ly_option_list.append(cmd_key + '=' + value)
@@ -908,7 +908,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         return ly_code
 
     def ly(self):
-        if self.converted_ly == None:
+        if self.converted_ly is None:
             self.converted_ly = self.convert_from_musicxml()
         name = self.filename
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'

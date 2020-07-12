@@ -298,7 +298,7 @@ def extract_score_information(tree):
     has_composer = False
     for cred in credits:
         type = credit_dict.get(cred.get_type())
-        if(type == None):
+        if(type is None):
             type = credit_dict.get(cred.find_type(credits))
         if(type == 'composer'):
             if(has_composer):
@@ -311,7 +311,7 @@ def extract_score_information(tree):
                 set_if_exists('title', cred.get_text())
             # elif(not(movement_title)): #bullshit!
             #    set_if_exists('subtitle', cred.get_text()) #bullshit! otherwise both title and subtitle show the work-title.
-        elif(type == None):
+        elif(type is None):
             pass
         else:
             set_if_exists(type, cred.get_text())
@@ -1049,7 +1049,7 @@ def musicxml_spanner_to_lily_event(mxl_event):
     span_direction = spanner_type_dict.get(type)
     # really check for None, because some types will be translated to 0, which
     # would otherwise also lead to the unknown span warning
-    if span_direction != None:
+    if span_direction is not None:
         ev.span_direction = span_direction
     else:
         ly.warning(_('unknown span type %s for %s') % (type, name))
@@ -1780,7 +1780,7 @@ chordkind_dict = {
 def musicxml_chordkind_to_lily(kind):
     res = chordkind_dict.get(kind, None)
     # Check for None, since a major chord is converted to ''
-    if res == None:
+    if res is None:
         ly.warning(_("Unable to convert chord type %s to lilypond.") % kind)
     return res
 
@@ -1791,7 +1791,7 @@ string_tunings = None
 
 def musicxml_get_string_tunings(lines):
     global string_tunings
-    if (string_tunings == None):
+    if (string_tunings is None):
         if not lines:
             lines = 6
         string_tunings = [musicexp.Pitch()] * lines
@@ -3165,7 +3165,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
     score_structure.set_tempo('100')
     if len(sounds) != 0:
         for sound in sounds:
-            if (sound.get_tempo() != None and sound.get_tempo() != ""):
+            if (sound.get_tempo() is not None and sound.get_tempo() != ""):
                 score_structure.set_tempo(sound.get_tempo())
                 break
 

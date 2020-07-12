@@ -188,7 +188,7 @@ def get_latex_textwidth(source, global_options):
     textwidth = 550.0
 
     m = re.search(r'''(?P<preamble>\\begin\s*{document})''', source)
-    if m == None:
+    if m is None:
         warning(_("cannot find \\begin{document} in LaTeX document"))
         return textwidth
 

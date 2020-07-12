@@ -39,7 +39,7 @@ class LanguageDef:
         self.code = code
         self.name = name
         self.enabled = True
-        if webext == None:
+        if webext is None:
             self.webext = self.code
         else:
             self.webext = webext

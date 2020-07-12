@@ -120,7 +120,7 @@ def build_pages_dict(filelist):
         m = html_re.match(f)
         if m:
             g = m.groups()
-            if len(g) <= 1 or g[1] == None:
+            if len(g) <= 1 or g[1] is None:
                 e = ''
             else:
                 e = g[1]
@@ -211,7 +211,7 @@ css_link = ('    <link rel="stylesheet" type="text/css" title="Default design"'
 
 def add_header(s, prefix):
     """Add header (<body>, doctype and CSS)"""
-    if header_tag_re.search(s) == None:
+    if header_tag_re.search(s) is None:
         body = '<body\\1>'
         (s, n) = body_tag_re.subn(body + header, s, 1)
         if not n:
@@ -219,10 +219,10 @@ def add_header(s, prefix):
             if not n:
                 s = header + s
 
-        if doctype_re.search(s) == None:
+        if doctype_re.search(s) is None:
             s = doctype + header_tag + '\n' + s
 
-        if css_re.search(s) == None:
+        if css_re.search(s) is None:
             depth = (prefix.count('/') - 1) * '../'
             s = end_head_tag_re.sub((css_link % {'rel': depth})
                                     + '</head>', s)
@@ -428,7 +428,7 @@ def process_html_files(package_name='',
                               sidebar_version)
 
                 # add footer
-                if footer_tag_re.search(s) == None:
+                if footer_tag_re.search(s) is None:
                     if 'web' in file_name:
                         s = add_footer(s, footer_tag + web_footer)
                     else:

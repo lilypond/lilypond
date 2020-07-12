@@ -306,7 +306,7 @@ class Credit(Xml_node):
 
     def get_type(self):
         type = self.get_maybe_exist_named_child('credit-type')
-        if(type != None):
+        if(type is not None):
             return type.get_text()
         else:
             return None
@@ -327,7 +327,7 @@ class Credit(Xml_node):
         halign = None
         valign = None
         justify = None
-        if(words != None):
+        if(words is not None):
             if hasattr(words, 'font-size'):
                 size = utilities.string_to_integer(getattr(words, 'font-size'))
             if hasattr(words, 'default-x'):
@@ -370,7 +370,7 @@ class Credit(Xml_node):
         sizes = []
         for cred in credits:
             words = cred.get_maybe_exist_named_child('credit-words')
-            if((words != None) and hasattr(words, 'font-size')):
+            if((words is not None) and hasattr(words, 'font-size')):
                 sizes.append(getattr(words, 'font-size'))
         return list(map(utilities.string_to_integer, sizes))
 
@@ -378,7 +378,7 @@ class Credit(Xml_node):
         default_xs = []
         for cred in credits:
             words = cred.get_maybe_exist_named_child('credit-words')
-            if((words != None) and hasattr(words, 'default-x')):
+            if((words is not None) and hasattr(words, 'default-x')):
                 default_xs.append(getattr(words, 'default-x'))
         return list(map(round, list(map(float, default_xs))))
 
@@ -386,13 +386,13 @@ class Credit(Xml_node):
         default_ys = []
         for cred in credits:
             words = cred.get_maybe_exist_named_child('credit-words')
-            if((words != None) and hasattr(words, 'default-y')):
+            if((words is not None) and hasattr(words, 'default-y')):
                 default_ys.append(getattr(words, 'default-y'))
         return list(map(round, list(map(float, default_ys))))
 
     def get_text(self):
         words = self.get_maybe_exist_named_child('credit-words')
-        if(words != None):
+        if(words is not None):
             return words.get_text()
         else:
             return ''
@@ -700,7 +700,7 @@ class Stem(Music_xml_node):
         style_elm = musicexp.StemstyleEvent()
         if hasattr(self, 'color'):
             style_elm.color = utilities.hex_to_color(getattr(self, 'color'))
-        if(style_elm.color != None):
+        if(style_elm.color is not None):
             styles.append(style_elm)
         return styles
 
@@ -745,7 +745,7 @@ class Notehead(Music_xml_node):
             event.filled = (getattr(self, 'filled') == "yes")
         if hasattr(self, 'color'):
             event.color = utilities.hex_to_color(getattr(self, 'color'))
-        if event.style or (event.filled != None) or (event.color != None):
+        if event.style or (event.filled is not None) or (event.color is not None):
             styles.append(event)
         # parentheses
         if hasattr(self, 'parentheses') and (self.parentheses == "yes"):
@@ -785,7 +785,7 @@ class Note(Measure_element):
 
     def get_duration_info(self):
         log = self.get_duration_log()
-        if log != None:
+        if log is not None:
             dots = len(self.get_typed_children(Dot))
             return(log, dots)
         else:
@@ -1493,7 +1493,7 @@ class Part(Music_xml_node):
                 else:
                     vid = "1"
 
-            if(vid != None):
+            if(vid is not None):
                 last_voice = vid
 
             staff_id = n.get_maybe_exist_named_child('staff')

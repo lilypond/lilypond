@@ -530,7 +530,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         if isinstance(formats, str):
             formats = [formats]
         p = self.uptodate_percentage
-        if p == None:
+        if p is None:
             status = 'N/A'
         elif p == 100:
             status = 'up to date'
@@ -538,7 +538,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             status = 'outdated'
         l = {}
         for f in formats:
-            if f == 'color' and p != None:
+            if f == 'color' and p is not None:
                 l['color'] = percentage_color(p)
             else:
                 l[f] = translation(format_table[status][f]) % locals()
