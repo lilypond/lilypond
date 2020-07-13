@@ -24,7 +24,6 @@ TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/topdocs/$(outdir)/$
 
 RELEASE_FILES = RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
-OUT_DIST_FILES += $(RELEASE_OUT_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
 GENERATED_BUILD_FILES=configure aclocal.m4 autogen.sh
@@ -37,24 +36,26 @@ include $(depth)/make/stepmake.make
 
 .PHONY: test info website
 
-dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
-	@cd $(top-src-dir) && \
-	  if test -n "`find . -name .git`" -a '(' -n "`git diff HEAD | head -1`" \
-	    -o -n "`git status | grep -i untracked`" ')'; \
+dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
+	@if ! test -d  $(top-src-dir)/.git ; \
+	  then echo "***   dist needs a git repository" \
+	    exit 1 ;  \
+	  fi
+	@cd $(top-src-dir) && if ! git diff --quiet HEAD ; \
 	  then echo "***   dist must been rolled on a clean git tree;"; \
-	  echo "uncommitted changes or untracked files detected, aborting."; \
-	  exit 1; fi
+	    echo "uncommitted changes detected, aborting."; \
+	    exit 1 ;  \
+	  fi
 	rm -rf $(distdir)
-	$(MAKE) local-dist $(distdir)
-	chmod -R a+r $(distdir)
-	chmod  a+x `find $(distdir) -type d -print`
-	$(LN) $(TOPDOC_TXT_FILES) $(distdir)
+	mkdir -p  $(distdir)
+	$(LN) $(RELEASE_OUT_FILES) $(TOPDOC_TXT_FILES) $(distdir)
 	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) .gitfilelist $(distdir)
 	cd $(top-src-dir) && xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard . $(distdir) <$(top-build-dir)/.gitfilelist
-	if test -n "`find $(top-src-dir) -name .git`"; then \
-	  COMMIT_DATE=`git --git-dir=$(top-src-dir)/.git log -1 --format=%cD`; \
-	  find $(distdir) | xargs touch -d "$$COMMIT_DATE"; fi
-	(cd ./$(depth)/$(outdir); $(TAR) --sort=name -cf - --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
+	chmod -R a+r $(distdir)
+	chmod  a+x `find $(distdir) -type d -print`
+	(cd $(outdir); \
+		$(TAR) --sort=name --mtime="$$(git --git-dir=$(top-src-dir)/.git log -1 --format=%cD)" \
+		-cf - --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
 	rm -rf $(distdir)
 
 top-doc:
@@ -82,10 +83,14 @@ $(outdir)/VERSION: $(config_make) VERSION
 
 $(outdir)/RELEASE-COMMIT:
 	$(call ly_progress,Making,$@,)
-	git --git-dir=$(top-src-dir)/.git show HEAD | head -100 > $@
+	git --git-dir=$(top-src-dir)/.git show --no-patch HEAD > $@
 
 refresh-release-files:
-	test -d $(top-src-dir)/.git && rm -f $(RELEASE_OUT_FILES)
+	@if ! test -d  $(top-src-dir)/.git ; \
+	  then echo "***   dist needs a git repository" \
+	    exit 1 ;  \
+	  fi
+	rm -f $(RELEASE_OUT_FILES)
 	$(MAKE) $(RELEASE_OUT_FILES)
 
 local-clean: local-clean-filelist

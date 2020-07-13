@@ -62,15 +62,6 @@ help: generic-help local-help
 
 local-help:
 
-local-dist: $(OUT_DIST_FILES)
-	case "$(OUT_DIST_FILES)x" in x) ;; \
-	     *) mkdir -p $(distdir)/$(localdir)/$(outdir) && \
-	        $(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/$(outdir);; \
-	esac
-	$(foreach i, $(SUBDIRS), $(MAKE) top-src-dir=$(top-src-dir) distdir=$(distdir) localdir=$(localdir)/$(notdir $(i)) -C $(i) local-dist &&) true
-
-
-
 html: $(HTML_FILES)
 
 TAGS:
