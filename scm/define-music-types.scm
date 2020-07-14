@@ -188,6 +188,13 @@ An alternative syntax is @var{note}@code{\\decr} @dots{}
         (types . (event double-percent-event rhythmic-event))
         ))
 
+    (DurationLineEvent
+     . ((description . "Initiate a duration line.
+
+Syntax: @var{note}@code{\\-}")
+        (types . (duration-line-event post-event event))
+        ))
+
     (EpisemaEvent
      . ((description . "Begin or end an episema.")
         (types . (post-event span-event event episema-event))

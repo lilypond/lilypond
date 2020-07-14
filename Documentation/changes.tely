@@ -67,6 +67,53 @@ which scares away people.
 
 
 @item
+A new grob @code{DurationLine} is now available.
+It continues a rhythmic grob with a line, ending at the next rhythmic grob.
+Possible styles are @code{'beam}, @code{'line}, @code{'dashed-line},
+@code{'dotted-line}, @code{'zigzag}, @code{'trill} and @code{'none}.
+The duration line may end with a hook (beam-style only) or an arrow.
+
+@lilypond[quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+{
+  a'1\- s2 r
+  \once \override DurationLine.style = #'line
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dashed-line
+  \once \override DurationLine.dash-period = 2
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dotted-line
+  \once \override DurationLine.dash-period = 1
+  \once \override DurationLine.bound-details.right.padding = 1
+  a'1\- s2 r
+  \once \override DurationLine.thickness = 2
+  \once \override DurationLine.style = #'zigzag
+  a'1\- s2 r
+  \once \override DurationLine.style = #'trill
+  a'1\- s2 r
+  \once \override DurationLine.style = #'none
+  a'1\- s2 r
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  a'1\- s2 r
+  \override DurationLine.bound-details.right.end-style = #'hook
+  a'1\- s2 r
+  \override DurationLine.details.hook-direction = #DOWN
+  a'1\- s2 r
+  \bar "|."
+}
+@end lilypond
+
+@item
 PDF bookmarks are now supported and allow for @code{\tocItem} entries to
 appear in the @q{table of contents} panel of PDF viewers that support it.
 

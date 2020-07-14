@@ -907,6 +907,39 @@ and will be applied to NUM."
   (lexicographic-list-compare? op (ly:version) ver))
 
 ;;;;;;;;;;;;;;;;
+;; broken spanner
+
+(define spanner-bounds-break-status
+  (lambda (spanner)
+    (cons
+      (ly:item-break-dir (ly:spanner-bound spanner LEFT))
+      (ly:item-break-dir (ly:spanner-bound spanner RIGHT)))))
+
+(define-public unbroken-spanner?
+  (lambda (spanner) (equal? '(0 . 0) (spanner-bounds-break-status spanner))))
+
+(define-public first-broken-spanner?
+  (lambda (spanner) (equal? '(0 . -1) (spanner-bounds-break-status spanner))))
+
+(define-public middle-broken-spanner?
+  (lambda (spanner) (equal? '(1 . -1) (spanner-bounds-break-status spanner))))
+
+(define-public end-broken-spanner?
+  (lambda (spanner) (equal? '(1 . 0) (spanner-bounds-break-status spanner))))
+
+(define-public not-first-broken-spanner?
+  (lambda (spanner) (positive? (car (spanner-bounds-break-status spanner)))))
+
+(define-public not-last-broken-spanner?
+  (lambda (spanner) (negative? (cdr (spanner-bounds-break-status spanner)))))
+
+(define-public unbroken-or-last-broken-spanner?
+  (lambda (spanner) (zero? (cdr (spanner-bounds-break-status spanner)))))
+
+(define-public unbroken-or-first-broken-spanner?
+  (lambda (spanner) (zero? (car (spanner-bounds-break-status spanner)))))
+
+;;;;;;;;;;;;;;;;
 ;; other
 
 (define (sign x)

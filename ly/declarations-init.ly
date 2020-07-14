@@ -89,6 +89,7 @@ noBeam = #(make-music 'BeamForbidEvent)
 "\\]" = #(make-span-event 'LigatureEvent STOP)
 "\\~" = #(make-music 'PesOrFlexaEvent)
 "\\\\" = #(make-music 'VoiceSeparator)
+"\\-" = #(make-music 'DurationLineEvent)
 
 
 \include "scale-definitions-init.ly"

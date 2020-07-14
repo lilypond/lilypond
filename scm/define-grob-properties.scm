@@ -1221,7 +1221,7 @@ relative to its Y-parent.")
 zigzag, relative to @code{zigzag-width}.  A value of@tie{}@code{1}
 gives 60-degree zigzags.")
      (zigzag-width ,ly:dimension? "The width of one zigzag squiggle.
-This number is adjusted slightly so that the glissando line can be
+This number is adjusted slightly so that the spanner line can be
 constructed from a whole number of squiggles.")
      )))
 

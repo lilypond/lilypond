@@ -167,6 +167,98 @@ addressed in @ref{Grouping staves}.
 @node Graphical notation
 @subsection Graphical notation
 
+@cindex duration line
+@cindex note continuation
+@cindex line, to indicate duration
+@cindex continuation, of notes
+
+@funindex \-
+
+Rhythmic items may be continued by a duration line, which gets represented by a
+@code{DurationLine} grob.
+Possible styles are @code{'beam}, @code{'line}, @code{'dashed-line},
+@code{'dotted-line}, @code{'zigzag}, @code{'trill} and @code{'none}.
+The duration line may end with a hook (beam-style only) or an arrow.
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+{
+  a'1\- s2 r
+  \once \override DurationLine.style = #'line
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dashed-line
+  \once \override DurationLine.dash-period = 2
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dotted-line
+  \once \override DurationLine.dash-period = 1
+  \once \override DurationLine.bound-details.right.padding = 1
+  a'1\- s2 r
+  \once \override DurationLine.thickness = 2
+  \once \override DurationLine.style = #'zigzag
+  a'1\- s2 r
+  \once \override DurationLine.style = #'trill
+  a'1\- s2 r
+  \once \override DurationLine.style = #'none
+  a'1\- s2 r
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  a'1\- s2 r
+  \override DurationLine.bound-details.right.end-style = #'hook
+  a'1\- s2 r
+  \override DurationLine.details.hook-direction = #DOWN
+  a'1\- s2 r
+  \bar "|."
+}
+@end lilypond
+
+@knownissues
+If a @code{DurationLine} grob runs to the very end of a score, ending items are
+not printed for technical reasons.
+A workaround would be:
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+lastEndStyle =
+#(define-music-function (end-style)(symbol?)
+#{
+  \override DurationLine.after-line-breaking =
+    #(lambda (grob)
+      (let* ((orig (ly:grob-original grob))
+             (siblings (if (ly:grob? orig) (ly:spanner-broken-into orig) '()))
+             (last-grob (if (pair? siblings) (last siblings) #f)))
+        (if last-grob
+            (ly:grob-set-nested-property!
+              last-grob
+              '(bound-details right-broken end-style) end-style))))
+#})
+
+{
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  \lastEndStyle #'arrow
+  a'1\-
+  \bar "|."
+}
+@end lilypond
+
 
 @node Contemporary scoring techniques
 @subsection Contemporary scoring techniques
