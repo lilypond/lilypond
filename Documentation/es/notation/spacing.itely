@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7930d8777ef2142c5189a5b9d8c8a163dff24529
+    Translation of GIT committish: 3594a1e3692c736b9da2eb35bfb177528048f295
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2332,7 +2332,10 @@ espaciadas de forma diferente cuando están agrupadas.  Para
 conseguir un espaciado regular sin importar el agrupamiento, esta
 función se puede sustituir por una lista-A de espaciado flexible,
 utilizando la forma de sobreescritura de redefinición completa que
-se ha mostrado más arriba.
+se ha mostrado más arriba.  Si solo se especifican algunos valores
+en una operación de sobreescritura, los valores que faltan se
+toman de @code{default-staff-staff-spacing} (si tiene valores para
+ellos).
 
 @item default-staff-staff-spacing
 Una lista-A de espaciado flexible que define el espacio

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6ca1d8c80817f9baaa7b66b2fde9a7b98b0ffc0a
+    Translation of GIT committish: 3fa99142fdc38cee6972e76edb37c052f029fe1b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -798,13 +798,7 @@ hacer globalmente (dentro del bloque @code{\layout}) así como para
 pautas específicas solamente (dentro de un bloque @code{\with}).
 Esta instrucción elimina todas las pautas vacías de la partitura
 excepto las del primer sistema.  Si queremos ocultar también las
-del primer sistema, usamos @code{\RemoveAllEmptyStaves}.  Los
-contextos que están contemplados son @code{Staff},
-@code{RhythmicStaff} y @code{VaticanaStaff}.
-
-@warning{Un pentagrama se considera vacío cuando contiene
-solamente silencios, silencios multicompás, desplazamientos,
-silencios de separación o una combinación de estos elementos.}
+del primer sistema, usamos @code{\RemoveAllEmptyStaves}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -828,9 +822,256 @@ silencios de separación o una combinación de estos elementos.}
 >>
 @end lilypond
 
-@cindex ossia
+@funindex keepAliveInterfaces
+
+Se considera que un pentagrama está vacío cuando contiene
+solamente silencios multicompás, silencios normales, silencios
+oscultos o saltos, o una combinación de todos los elementos
+anteriores.  @emph{Cualquier otro} objeto musical (que hace que un
+pentagrama no se considere como vacío) está en la lista de la
+propiedad de contexto @code{keepAliveInterfaces}, como se
+establece inicialmente en el archivo @file{ly/engraver-init.ly}.
+
+@funindex remove-empty
+@funindex remove-first
+
+Tanto @code{\RemoveEmptyStaves} como @code{\RemoveAllEmptyStaves}
+son atajos predefinidos que establecen propiedades tales como
+@code{remove-empty} y @code{remove-first} para el objeto
+@code{VerticalAxisGroup}, como aparece explicado en
+@ref{Identificadores de modificación de contextos}.
+
+El grabador @code{Keep_alive_together_engraver} solo permite que
+grupos de pentagramas se puedan eliminar juntos y no
+individualmente.  Por defecto, forma parte del contexto
+@code{PianoStaff}: una parte de piano solo se oculta cuando sus
+dos pentagramas están vacíos.  De forma semejante, es una práctica
+común del tipografiado de las partituras orquestales eliminar
+grupos de pentagramas vacíos en lugar de pautas individuales; esto
+es posible conseguirlo añadiendo el grabador
+@code{Keep_alive_together_engraver} al contexto de agrupamiento de
+pentagramas adecuado, como aparece explicado en
+@ref{Modificar los complementos (plug-ins) de contexto} (consulte
+@ref{Agrupar pentagramas} para ver los nombres de los contextos).
+
+@example
+\layout @{
+  \context @{
+    \StaffGroup
+    \RemoveEmptyStaves
+    \consists "Keep_alive_together_engraver"
+  @}
+@}
+@end example
+
+En el ejemplo siguiente, los pentagramas de instrumentos de viento
+son eliminados en el segundo sistema; sin embargo, el contrabajo
+no se elimina porque forma parte del grupo mayor de cuerda
+frotada, que está tocando en ese momento.
+
+@lilypond
+%{
+  This is taken from Berlioz, Symphonie fantastique.
+  http://imslp.eu/files/imglnks/euimg/5/54/IMSLP522307-PMLP3653-NBE_-_Symphonie_Fantastique_-_I._Reveries,_Passions_(etc).pdf
+%}
+\layout {
+  \context {
+    \StaffGroup
+    \RemoveEmptyStaves
+    \consists "Keep_alive_together_engraver"
+  }
+}
+
+\paper {
+  indent = 25
+  short-indent = 10
+}
+
+<<
+  \new StaffGroup <<
+    \new Staff \with { instrumentName = "Flute" } \relative c'' {
+      \key c \minor
+      <<
+        { \tuplet 3/2 4 { \repeat unfold 4 { g'8( g g) } } }
+        \\
+        { r2 \tuplet 3/2 4 { \repeat unfold 2 { f8( f f) } } }
+      >>
+      <ees g>1~
+      q16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+    \new Staff \with { instrumentName = "Oboe" } \relative c' {
+      \key c \minor
+      r2
+      \tuplet 3/2 4 { g'8( a b) c( cis d) }
+      <g, ees'>1~
+      q16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+    \new Staff \with { instrumentName = "Basson" } \relative c {
+      \key c \minor
+      \clef bass
+      r2 r4 \tuplet 3/2 { r8 g'( b,) }
+      c1~
+      c16 r16 r8 r4 r2
+      R1\fermata
+      R1*3
+    }
+  >>
+  \new StaffGroup <<
+    \new Staff \with {
+      instrumentName = "Violin I"
+      shortInstrumentName = "Vl."
+    } \relative c'' {
+      \key c \minor
+      R1*2
+      g'8. g16( aes8. g16) g8( f) f8.( ees16)
+      ees2( d16) r16\fermata d8( ees f)
+      g4( ees8) r16 c aes'4( g8) r16 fis
+      g2( f8) r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Violin II"
+      shortInstrumentName = "Vl. II"
+    } \relative c' {
+      \key c \minor
+      R1*2
+      r2 b'4( c)
+      c2~ c16 r16\fermata b8( c d)
+      ees4( c8) r8 ees4~ ees8 r
+      d2~ d8 r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Alto"
+      shortInstrumentName = "Al."
+    } \relative c' {
+      \key c \minor
+      \clef alto
+      R1*2
+      r2 d4( c
+      a'2~) a16 r16\fermata aes8( g f)
+      ees4~ ees8 r c'4~ c8 r8
+      b2~ b8 r8 r4\fermata
+    }
+    \new Staff \with {
+      instrumentName = "Cello"
+      shortInstrumentName = "Cl."
+    } \relative c {
+      \key c \minor
+      \clef bass
+      R1*2
+      r2 aes'4( g
+      fis2~) fis16 r16\fermata f8( ees d)
+      c4~ c8 r8 c'4~ c8 r8
+      b2~ b8 r8 r4 \fermata
+    }
+    \new Staff \with {
+      instrumentName = "Double bass"
+      shortInstrumentName = "D.B."
+    } {
+      \key c \minor
+      \clef bass
+      R1*6
+    }
+  >>
+>>
+@end lilypond
+
+@cindex divisi, pentagramas
+@cindex pentagramas, divisi
+@funindex remove-layer
+
+El grabador @code{Keep_alive_together_engraver} usa internamente
+la propiedad @code{remove-layer} del @code{VerticalAxisGroup} de
+un pentagrama para decidir si imprimirlo o no, cuando se considera
+vacío.  Dicha propiedad puede también establecerse directamente,
+en cuyo caso actúa como un índice de prioridad: los valores más
+cercanos a cero tienen precedencia frente a los números más altos,
+y de esta forma los pentagramas cuyo @code{remove-layer} es más
+alto quedarán enmascarados en favor de los que tienen un número
+más bajo.
+
+Esto es especialmente útil para los pentagramas en @q{divisi},
+donde ciertas partes individuales (véase
+@ref{Escritura de las particellas}) a veces tienen que expandirse
+a más de un pentagrama.  En el ejemplo siguiente, dos partes
+resultan dirigidas a un total de @emph{tres} pentagramas; sin
+embargo, los tres pentagramas nunca se imprimen todos al mismo
+tiempo:
+
+@itemize
+
+@item
+en los primeros sistemas, solo uno de ellos se imprime, porque la
+propiedad @code{keepAliveInterfaces} se ha establecido a una lista
+vacía; por tanto, los otros dos pentagramas se considera que están
+vacíos y por ello ocultos, sin que importe su contenido;
+
+@item
+cuando la propiedad resulta des-establecida (volviendo así a su
+valor predeterminado), ya no impide que los otros dos pentagramas
+se impriman; sin embargo, como el valor de @code{remove-layer} de
+éstos es menor que el del pentagrama suelto, estos dos pentagramas
+se imprimen ahora en su lugar.
+
+@end itemize
 
 @noindent
+Tales sustituciones se aplican no solamente a notas, acordes y
+otros eventos musicales que tienen lugar inmediatamente después de
+cambiar el valor, sino a todo el sistema dentro del cual ocurre el
+cambio.
+
+@lilypond[verbatim,papersize=a6]
+\layout {
+  short-indent = 2\cm
+  indent = 3\cm
+  \context {
+    \Staff
+    keepAliveInterfaces = #'()
+  }
+}
+
+violI = {
+  \repeat unfold 24 { d'4 }
+  \once \unset Staff.keepAliveInterfaces
+  <d' g''>2
+  \repeat unfold 14 { d'4 }
+  \bar "|."
+}
+
+violII = {
+  \repeat unfold 24 { g4 }
+  <g d'>2
+  \repeat unfold 14 { g4 }
+  \bar "|."
+}
+
+\new StaffGroup \with { \consists "Keep_alive_together_engraver" } <<
+  \new Staff \with {
+    instrumentName = "Violins"
+    shortInstrumentName = "V I & II"
+    \override VerticalAxisGroup.remove-layer = 2
+  } <<  \violI \\ \violII  >>
+  \new Staff \with {
+    instrumentName = "Violin I"
+    shortInstrumentName = "V I"
+    \RemoveAllEmptyStaves
+    \override VerticalAxisGroup.remove-layer = 1
+  } \violI
+  \new Staff \with {
+    instrumentName = "Violin II"
+    shortInstrumentName = "V II"
+    \RemoveAllEmptyStaves
+    \override VerticalAxisGroup.remove-layer = 1
+  } \violII
+>>
+@end lilypond
+
+@cindex ossia
+
 También se puede usar @code{\RemoveAllEmptyStaves} para crear
 secciones de ossia para un pentagrama.  Para ver más detalles,
 consulte @ref{Pentagramas de Ossia}.
@@ -854,7 +1095,13 @@ Referencia de la notación:
 @ref{Pentagramas de Ossia},
 @ref{Notas ocultas},
 @ref{Silencios invisibles},
-@ref{Visibilidad de los objetos}.
+@ref{Visibilidad de los objetos},
+@ref{Identificadores de modificación de contextos},
+@ref{Agrupar pentagramas},
+@ref{Modificar los complementos (plug-ins) de contexto}.
+
+Archivos instalados:
+@file{ly/engraver-init.ly}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -865,7 +1112,9 @@ Referencia de funcionamiento interno:
 @rinternals{Lyrics},
 @rinternals{Staff},
 @rinternals{VerticalAxisGroup},
-@rinternals{Staff_symbol_engraver}.
+@rinternals{Staff_symbol_engraver},
+@rinternals{Axis_group_engraver},
+@rinternals{Keep_alive_together_engraver}.
 
 @knownissues
 La eliminación del grabador @code{Staff_symbol_engraver} también
@@ -888,14 +1137,30 @@ advertencias asociadas con @code{\RemoveEmptyStaves}, consulte
 @subsection Escritura de las particellas
 @translationof Writing parts
 
-Esta sección explica cómo insertar indicaciones de tempo y nombres
-de instrumento en una partitura.  También se describen métodos
-para citar otras voces y dar formato a las notas guía.
+@cindex partes individuales
+@cindex particellas
+@cindex partes de sección
+@cindex partes, individuales
+@cindex partes, de atril
+@cindex partes, de sección
+
+Esta sección explica cómo preparar el papel de atril, o
+particellas, para música orquestal o de conjunto, lo que
+frecuentemente requiere insertar nombres de instrumentos en la
+partitura.  También se describen métodos para citar otras voces y
+dar formato a las notas guía, así como una manera de contraer
+varios compases vacíos consecutivos dentro de las partes
+individuales.
+
+Además, puede verse un método para la impresión de los pentagramas
+de @emph{divisi}, que se usan a veces en las particellas, en
+@ref{Ocultar pentagramas}.
 
 @menu
 * Nombres de instrumentos::
 * Citar otras voces::
 * Formateo de las notas guía::
+* Compresión de los compases vacíos::
 @end menu
 
 
@@ -1002,8 +1267,8 @@ ajustes, consulte
 Para añadir nombres de instrumento a otros contextos (como
 @code{ChordNames} o @code{FiguredBass}), debemos añadir el
 grabador @code{Instrument_name_engraver} a dicho contexto. Para
-ver más detalles, consulte @ref{Modificar los complementos
-(plug-ins) de contexto}.
+ver más detalles, consulte
+@ref{Modificar los complementos (plug-ins) de contexto}.
 
 @cindex nombre, de instrumento, cambiar
 @cindex cambiar, nombre de instrumento
@@ -1582,3 +1847,116 @@ Pueden ocurrir colisiones con los silencios si se usa
 @code{CueVoice}.  Al usar @code{\cueDuringWithClef} o
 @code{\transposedCueDuring} el argumento adicional requerido para
 cada caso debe ir después de la cita y de la dirección.
+
+@node Compresión de los compases vacíos
+@unnumberedsubsubsec Compresión de los compases vacíos
+@translationof Compressing empty measures
+
+@cindex multicompás, notas, expandir
+@cindex multicompás, notas, comtraer
+@funindex \compressEmptyMeasures
+@funindex \expandEmptyMeasures
+
+De forma predeterminada, todos los compases se imprimen aunque
+estén vacíos (cosa que puede ocurrir si un evento rítmico, como
+notas, silencios o saltos invisibles, es tan largo que abarca
+varios compases.  Este comportamiento se puede cambiar contrayendo
+todos los compases vacíos en uno solo, como se ilustra aquí (la
+segunda parte del ejemplo, con compases expandidos, en realidad
+vuelve de nuevo al comportamiento predeterminado):
+
+@lilypond[quote,verbatim,fragment]
+\override Score.BarNumber.break-visibility = ##(#f #t #t)
+\time 2/4
+\compressEmptyMeasures
+c'1 d'1. e'\breve
+\bar "||"
+\expandEmptyMeasures
+c'1 d'1. e'\breve
+@end lilypond
+
+@noindent
+Aunque esta notación es correcta sintácticamente, puede dar lugar
+a confusión desde el punto de vista musical, como queda ilustrado
+en el ejemplo anterior; de ahí la necesidad de imprimir
+explícitamente los números de compás, usando la sintaxis que se
+describe en
+@ref{Uso de break-visibility (visibilidad en el salto)}.
+
+@cindex multicompás, silencios, expandir
+@cindex multicompás, silencios, contraer
+@funindex \compressMMRests
+
+Donde esta notación puede ser más útil es cuando se aplica a los
+@ref{Silencios de compás completo}.  Un silencio multicompás se
+imprimirá entonces como un solo compás que contiene un símbolo de
+silencio multicompás, con el número de compases de duración de
+este silencio impreso encima del compás:
+
+@lilypond[quote,verbatim,fragment]
+% Default behavior
+\time 3/4 r2. | R2.*2 |
+\time 2/4 R2 |
+\time 4/4
+% Rest measures contracted to single measure
+\compressEmptyMeasures
+r1 | R1*17 | R1*4 |
+\expandEmptyMeasures
+% Rest measures expanded again
+\time 3/4
+R2.*2 |
+@end lilypond
+
+A diferencia de @code{\compressEmptyMeasures}, la función musical
+@code{\compressMMRests} solo se aplica a los silencios, dejando
+sin comprimir todos los demás eventos.  Dado que es una función, y
+no un ajuste del valor de una propiedad, su sintaxis difiere
+ligeramente en que debe ir seguida de una expresión musical:
+
+@lilypond[quote,verbatim,fragment]
+\compressMMRests {
+  % Rests are compressed…
+  R1*7
+  % … but notes can still span multiple measures.
+  g'1 a'1*2 d'1
+  R1*2
+}
+@end lilypond
+
+@funindex skipBars
+Todas las instrucciones descritas en esta sección, descansan en
+realidad en la propiedad interna @code{skipBars}, que se establece
+dentro del contexto de @code{Score} como se explica en
+@ref{La instrucción set}.
+
+@predefined
+@code{\compressEmptyMeasures},
+@code{\expandEmptyMeasures},
+@code{\compressMMRests}.
+@endpredefined
+
+@snippets
+
+@cindex multicompás, silencio, numerar
+@funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex silencio, eclesiástico
+@cindex kirchenpause
+@cindex multicompás, silencio, estilo
+@cindex estilo, silencios multicompás
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-form-of-multi-measure-rests.ly}
+
+@morerefs
+Referencia de la notación:
+@ref{Uso de break-visibility (visibilidad en el salto)},
+@ref{Silencios de compás completo},
+@ref{La instrucción set}.
+
+Referencia de funcionamiento interno:
+@rinternals{MultiMeasureRest},
+@rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestScript},
+@rinternals{MultiMeasureRestText}.

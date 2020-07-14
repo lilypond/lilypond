@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 同じ音符列が異なる音高で複数出現する音楽では、次の音楽関数が@c
 便利です。これは音符を引数として取り、その音高のみが使用されます。@c

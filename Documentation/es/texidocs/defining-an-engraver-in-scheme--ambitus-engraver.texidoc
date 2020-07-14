@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 43e591c72387cd624d98ed48f63cfc063d857359
+%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
   texidoces = "
 Este ejemplo muestra cómo puede definirse el grabador de ámbito o
 tesitura en el espacio del usuario, con un grabador de Scheme.

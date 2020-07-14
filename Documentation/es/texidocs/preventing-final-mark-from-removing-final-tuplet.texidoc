@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 069c8e54d8eaf449262a180674330b31c8c723d9
   texidoces = "
 Al añadir una marca de ensayo @code{mark} al final puede ocurrir que
 se pierda una indicación de grupo especial colocado al final.  Se
-puede solventar fijando @code{TupletBracket #'full-length-to-extent}
+puede solventar fijando @code{TupletBracket.full-length-to-extent}
 al valor @code{false}.
 
 "

@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 6671c51302bd71216a7d4c698c475e2abf0d78b4
+    Translation of GIT committish: 9f53f5b5f32e89c8df0ed18de7440fd1dd20907c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -38,8 +38,15 @@ y nosotros le ayudaremos a iniciarse.
 
 @itemize
 @item
-Apoyo en la lista de distribución de correo: responda las preguntas de
-sus colegas usuarios.
+Apoyo en la lista de distribución de correo: responda a las
+preguntas de sus colegas usuarios (esto podría incluir ayudarles a
+navegar por la documentación en línea; en tales casos podría ser
+oportuno indicarles rutas neutras o agnósticas respecto a la
+versión, tales como
+@uref{https://lilypond.org/doc/latest/Documentation/notation/,
+@code{/latest/}} o
+@uref{https://lilypond.org/doc/stable/Documentation/notation/,
+@code{/stable/}}, que se redireccionan automáticamente).
 
 @item
 Informar de fallos: ayude a los usuarios a crear @ref{Informes de

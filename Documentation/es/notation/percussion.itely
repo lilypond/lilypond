@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
+    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -455,6 +455,13 @@ elementos: un nombre, el estilo de cabezas de nota (o
 pauta.  Dicha lista se debe entonces convertir a una tabla de hash
 de Scheme usando la función @code{alist->hash-table}.
 
+@funindex \halfopen
+@funindex \stopped
+@cindex half-open high hat
+@cindex high hat, half open
+@cindex pedal high hat
+@cindex high hat, pedal
+
 @lilypond[quote,verbatim]
 #(define mydrums '(
          (bassdrum        default   #f           -1)
@@ -591,10 +598,9 @@ falsas, se pueden crear utilizando la instrucción
 @code{\parenthesize}, véase @ref{Paréntesis}.
 
 @lilypond[quote,ragged-right,verbatim]
-\new DrumStaff
-<<
-  \context DrumVoice  = "1" { s1 }
-  \context DrumVoice  = "2" { s1 }
+\new DrumStaff <<
+  \new DrumVoice  = "1" { s1 }
+  \new DrumVoice  = "2" { s1 }
   \drummode {
     <<
       {

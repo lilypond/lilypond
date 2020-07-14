@@ -1,4 +1,4 @@
-%% Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 デフォルトの MIDI 楽器の音量は @code{Score} コンテキストの
 @code{instrumentEqualizer} プロパティをセットすることで置き換えることが@c

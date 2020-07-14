@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3064ac9d3d8bbc0cc7c2bcd8e4f72b232b5a8af7
+    Translation of GIT committish: 8f9929ddd50f9229bc1c6c38011bb5284601bc44
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1197,13 +1197,13 @@ las cifras se ajusta automáticamente.
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = "myStaff"
-  {
+  \context Staff = "myStaff" {
     \clef bass
     c4 c'8 r8 c4 c'
   }
 >>
 @end lilypond
+
 
 @funindex \bassFigureStaffAlignmentDown
 @funindex \bassFigureStaffAlignmentUp
@@ -1221,14 +1221,12 @@ cifrado se puede presentar encima o debajo del mismo.
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = "myStaff"
-  {
+  \context Staff = "myStaff" {
     \clef bass
     c4 c'8 r8 c4 c'
   }
 >>
 @end lilypond
-
 
 @predefined
 @cindex bajo cifrado, alineación

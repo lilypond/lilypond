@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -234,7 +234,7 @@
 分数 (@var{fraction}) の分子が音符の上または下に譜刻され、@c
 オプションで囲みが付きます。@c
 最も一般的な連符は 3 連符です。@c
-（ 3 つの音符が音符 2 つ分の演奏時間を持ちます。）
+(3 つの音符が音符 2 つ分の演奏時間で演奏されます。)
 
 @lilypond[quote,verbatim]
 \relative {
@@ -282,12 +282,44 @@
 }
 @end lilypond
 
+@noindent
 ネストされた連符の演奏開始点が同時である場合に、それらの連符を変更するには
 @code{\tweak} を使う必要があります。
+@ref{The tweak command} を参照してください。
 
-連符囲みを譜刻せずに音符の演奏時間を変更する方法は
-@ref{演奏時間を変更する} を参照してください。
+@cindex tuplet slur (連符のスラー)
+@cindex slur, for tuplets (連符のスラー)
+@funindex tuplet-slur
 
+多くの古い版で好まれるように、連符囲みはスラーに置き換えることができます:
+
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
+@noindent
+デフォルトでは、連符囲みは、@c
+それがまたがるすべての音符が連桁でつながれない場合にのみ譜刻されます。@c
+場合によっては (上記の例のようにスラーを使用するなど)、@c
+次のスニペットのいずれかで詳しく説明されているように、@c
+@code{bracket-visibility} プロパティを使用して、@c
+その動作を変更することが望ましい場合があります。
+
+@cindex tuplet bracket, visibility (連符囲みの表示)
+@cindex tuplet number   , visibility (連符の数字の表示)
+@cindex visibility of tuplets (連符の見た目)
+より一般的には、@ref{Visibility of objects} で説明されているように、
+@code{TupletBracket} オブジェクトと @code{TupletNumber} オブジェクトの@c
+どちらかまたは両方を非表示または表示できます。@c
+しかしながら、連符囲みを譜刻せずに音符の演奏時間をより柔軟に変更する方法も
+@ref{Scaling durations} で紹介されています。
 
 @predefined
 @code{\tupletUp},
@@ -345,6 +377,7 @@
 
 記譜法リファレンス:
 @ref{Direction and placement},
+@ref{Visibility of objects},
 @ref{Time administration},
 @ref{Scaling durations},
 @ref{The tweak command},
@@ -652,6 +685,7 @@ L.v. タイは以下のように入力します:
 @cindex tie, manual engraving (タイを手動で譜刻する)
 @cindex manual engraving of ties (タイを手動で譜刻する)
 @funindex TieColumn
+@anchor{タイを手動で譜刻する}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
@@ -888,7 +922,10 @@ L.v. タイは以下のように入力します:
 @funindex R
 
 1 つまたは複数の小節に対する休符は@c
-音符名として大文字の @code{R} を持つ音符として入力します:
+音符名として大文字の @samp{R} を持つ音符として入力します。@c
+これらの演奏時間は、@ref{Scaling durations} で説明されているように、@c
+演奏時間の乗数を使用する機能を含めて、@c
+音符に使用される演奏時間表記と同じように入力されます。
 
 @c KEEP LY
 @lilypond[quote,verbatim]
@@ -901,9 +938,12 @@ L.v. タイは以下のように入力します:
 }
 @end lilypond
 
-小節単位の休符の演奏時間は、音符に対する演奏時間と同じ表記を使います。@c
-複数小節にまたがる休符の演奏時間は常に小節の長さの整数倍になります。@c
-そのため、しばしばドットや分数を使う必要があります:
+上記の例は、@ref{Compressing empty measures} で説明されているように、@c
+複数の空の小節を圧縮する方法も示しています。
+
+複数小節にまたがる休符の演奏時間は、@c
+常に 1 つまたは複数の小節の長さに等しくなければなりません。@c
+したがって、一部の拍子記号では、ドットや分数を使う必要があります:
 
 @lilypond[quote,verbatim]
 \compressMMRests {
@@ -929,30 +969,6 @@ R1*3/2 |
 \time 8/4
 R1*2 |
 @end lilypond
-
-@cindex multi-measure rest, expanding (複数小節にまたがる休符を展開する)
-@cindex multi-measure rest, contracting (複数小節にまたがる休符をまとめる)
-
-デフォルトでは、複数小節にまたがる休符は@c
-休みの小節すべてを明示的に示すように譜刻される楽譜に展開されます。@c
-そうする代わりに、複数小節にまたがる休符を複数小節の休符記号を持つ単一の@c
-小節として譜刻することもできます -- 休みの小節数がその小節の上に譜刻されます。
-
-@c KEEP LY
-@lilypond[quote,verbatim,fragment]
-% デフォルトの振る舞い
-\time 3/4 r2. | R2.*2 |
-\time 2/4 R2 |
-\time 4/4
-% 休みの小節を 1 つの小節にまとめます
-\compressMMRests {
-  r1 | R1*17 | R1*4 |
-}
-% 休みの小節を展開します
-\time 3/4
-R2.*2 |
-@end lilypond
-
 
 @cindex text, on multi-measure rest (複数小節にまたがる休符上のテキスト)
 @cindex multi-measure rest, attaching text (複数小節にまたがる休符にテキストを付ける)
@@ -1025,19 +1041,6 @@ R1\fermata
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {multi-measure-rest-length-control.ly}
 
-@cindex multi-measure rest, numbering (複数小節にまたがる休符の数字)
-@funindex restNumberThreshold
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{numbering-single-measure-rests.ly}
-
-@cindex church rest (教会音楽の休符)
-@cindex rest, church (教会音楽の休符)
-@cindex kirchenpause (教会音楽の休符)
-@cindex multi-measure rest, style (複数小節にまたがる休符のスタイル)
-@cindex style, multi-measure rests (複数小節にまたがる休符のスタイル)
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi-measure-rests.ly}
-
 @cindex multi-measure rest, positioning (複数小節にまたがる休符の位置)
 @cindex position, multi-measure rest (複数小節にまたがる休符の位置)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -1057,6 +1060,8 @@ R1\fermata
 
 記譜法リファレンス:
 @ref{Durations},
+@ref{Scaling durations},
+@ref{Compressing empty measures},
 @ref{Text},
 @ref{Formatting text},
 @ref{Text scripts}
@@ -1410,8 +1415,9 @@ R1\fermata
 @funindex \markLengthOn
 @funindex \markLengthOff
 
-長い休符がある楽器のパート譜では、テンポ表示同士が近づいてしまうことが@c
-あります。@code{\markLengthOn} コマンドは、テンポ表示が重ならないように@c
+長い休符 (@ref{Full measure rests} を参照してください) がある楽器のパート譜では、@c
+テンポ表示同士が近づいてしまうことがあります。
+@code{\markLengthOn} コマンドは、テンポ表示が重ならないように@c
 水平方向のスペースを追加し、@code{\markLengthOff} はテンポ表示が水平方向の@c
 スペースを無視するデフォルトの挙動に戻します。
 
@@ -1460,7 +1466,8 @@ R1\fermata
 
 記譜法リファレンス:
 @ref{Formatting text},
-@ref{Creating MIDI output}
+@ref{Creating MIDI output},
+@ref{Full measure rests}
 
 コード断片集:
 @rlsr{Staff notation}

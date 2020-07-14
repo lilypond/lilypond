@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 @code{\\partCombine} 関数は 2 パートの音楽表記を取り、@c
 パートがどのように結合されるかに応じて、@qq{two}, @qq{one},

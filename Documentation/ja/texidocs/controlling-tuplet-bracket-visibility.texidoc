@@ -1,9 +1,11 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
 連符の括弧の可視性についての挙動は、デフォルトでは同じ長さの連桁がある場合に@c
 表示されないようになっています。これをコントロールするには、@c
 @code{bracket-bisibility} プロパティを @code{#t} (常に表示),
-@code{#f} (常に非表示), @code{#'if-no-beam} (連桁が無い場合にのみ表示)
-のいずれかにセットします。
+@code{#'if-no-beam} (連桁が無い場合にのみ表示。デフォルトの振る舞い),
+@code{#f} (常に非表示) のいずれかにセットします。
+3 つ目の選択肢は、実際には @code{TupletBracket} オブジェクトを@c
+出力から完全に省略することに相当します。
 "
   doctitleja = "連符の括弧の可視性をコントロールする"

@@ -1,6 +1,6 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,6 +69,41 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+
+@item
+連符を括弧の代わりにスラーで譜刻できるようになりました:
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
+
+@item
+@code{\compressFullBarRests} は、@code{\compressMMRests} との混同を避けるために、
+@code{\compressEmptyMeasures} に名前が変更されました。
+同様に、@code{\expandFullBarRests} は @code{\expandEmptyMeasures} になりました。
+
+
+@item
+@code{\vowelTransition} コマンドを使用して、@c
+歌詞の音節間の母音遷移を追加することで、@c
+母音 (または持続する子音) の段階的な変化を示すことができます。
+@lilypond[verbatim,quote]
+{ g'2 g' }
+\addlyrics { Ah \vowelTransition oh. }
+@end lilypond
+
+
+@item
+LilyPond for Windows (MinGW) は、
+Windows 10 1903 以降で Unicode のファイル名を処理できます。
 
 
 @item

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 3fa99142fdc38cee6972e76edb37c052f029fe1b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,6 +15,11 @@
 
 Este capítulo explica cómo crear notación musical para instrumentos de
 un tipo específico o dentro de estilos específicos.
+
+La música orquestal y la de grupos menores no se estudian en
+ningún apartado distinto; sin embargo, varias nociones que son con
+frecuencia útiles en las partituras orquestales pueden verse en
+@ref{Referencias para ópera y musicales}.
 
 @menu
 * Música vocal::

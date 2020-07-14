@@ -1,5 +1,7 @@
-%% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
+%% Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
   texidocja = "
-コード ネームを、行頭と変更時にのみ表示することができます。
+デフォルトでは、入力されたすべてのコードが出力されます。@c
+この動作を変更して、@c
+コード ネームが行頭とコード変更時にのみ表示されるようにすることができます。
 "
   doctitleja = "コード ネームを変更時のみ表示する"

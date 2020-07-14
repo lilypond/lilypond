@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e00601609d424d0a2e33e178753ed10716127256
+    Translation of GIT committish: 1ea236291f96dbe583059f64a9b3048b413b6e0b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -287,9 +287,9 @@ ejemplo sencillo para cambiar el color de una cabeza:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a b c |
 }
 @end lilypond
@@ -326,9 +326,9 @@ las dos últimas notas:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a
   \revert NoteHead.color
   b4 c |
@@ -357,9 +357,9 @@ color de una sola nota de la siguiente manera:
 @lilypond[quote,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \once \override NoteHead.color = #green
+  \once \override NoteHead.color = "green"
   g4 a
   \once \revert NoteHead.color
   b c |
@@ -477,8 +477,8 @@ sólo una de una serie de articulaciones, como se muestra aquí:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 a'4^"Black"
-  -\tweak color #red ^"Red"
-  -\tweak color #green _"Green"
+  -\tweak color "red" ^"Red"
+  -\tweak color "green" _"Green"
 @end lilypond
 
 @noindent
@@ -500,8 +500,8 @@ objeto de presentación, siempre y cuando LilyPond pueda rastrear
 su origen hasta el evento original:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-<\tweak Accidental.color #red   cis''4
- \tweak Accidental.color #green es''
+<\tweak Accidental.color "red"   cis''4
+ \tweak Accidental.color "green" es''
  g''>
 @end lilypond
 
@@ -509,7 +509,6 @@ Esta forma extensa de la instrucción @code{\tweak} se puede describir
 como
 @example
 \tweak @var{LayoutObject}.@var{layout-property} #@var{value}
-"ANTES" \tweak @var{objeto-de-presentación}.@var{propiedad-de-presentación} @var{valor}
 @end example
 
 @cindex grupos especiales anidados
@@ -541,7 +540,7 @@ imprimir en rojo sobre el corchete del primer tresillo corto.
 \relative c'' {
   \tweak direction #up
   \tuplet 3/4 {
-    \tweak color #red
+    \tweak color "red"
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
@@ -591,7 +590,7 @@ cómoda:
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -609,7 +608,7 @@ función; ahí es donde entra la instrucción @code{\single}:
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -1440,17 +1439,19 @@ debe ir en esa lista.  La lista que requiere es realmente una
 lista de valores en unidades internas, pero para evitar tener que
 saber cuáles son, se ofrecen varias vías para la especificación de
 los colores.  La primera forma es utilizar uno de los colores
-@q{normales} que están relacionados en la primera tabla de la
-@ruser{Lista de colores}.  Para poner las líneas divisorias de
-color blanco, escribimos:
+@q{CSS} predefinidos que están relacionados en la @ruser{Lista de
+colores}.  Para poner las líneas divisorias de color blanco,
+escribimos:
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex color, propiedad, ejemplo
+@cindex color, css
+@cindex css, colores
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #white
+  \override Staff.BarLine.color = "white"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1460,24 +1461,12 @@ color blanco, escribimos:
 @noindent
 y de nuevo podemos comprobar que las barras de compás no son
 visibles.  Observe que @emph{white} no viene precedido de un
-apóstrofo: no es un símbolo, sino una @emph{variable}.  Cuando se
-evalúa, proporciona la lista de valores internos que se requieren
-para establecer el color a blanco.  Los otros colores de la lista
-normal también son variables.  Para convencerse de que esto
-funciona, quizá quiera cambiar el color a una de las otras
-variables de la lista.
-
-@cindex colores de X11
-@cindex X11, colores de
-
-@funindex x11-color
-
-La segunda forma de cambiar el color es utilizar la lista de
-nombres de colores de X11 que aparecen en la segunda lista de
-@ruser{Lista de colores}.  De todas formas, se hacen corresponder
-a los valores reales por medio de la función @code{x11-color} que
-convierte los símbolos de color de X11 en la lista de valores
-internos como éstos:
+apóstrofo: no es un símbolo, sino una cadena de caracteres,
+mapeado a una lista predefinida de valores internos.  A este
+respecto, la sintaxis de LilyPond refleja el
+@uref{https://www.w3.org/Style/CSS/, lenguaje CSS} que se usa
+habitualmente en las páginas web; además de los nombres
+predefinidos, podemos especificar un código de color hexadecimal:
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex color, propiedad, ejemplo
@@ -1485,31 +1474,49 @@ internos como éstos:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #(x11-color 'white)
+  \override Staff.BarLine.color = "#FFFFFF"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
+
 @end lilypond
 
 @noindent
-Observe que en este caso la función @code{x11-color} toma un
-símbolo como argumento, así que el símbolo debe ir precedido de un
-apóstrofo para evitar que resulte evaluado como si fuera una
-variable, y toda la llamada a la función se debe encerrar entre
-paréntesis.
+Podemos incluso definir dicho color como variable, y después usar
+esa variable como una definición de propiedad.  Como es al mismo
+tiempo una variable de LilyPond y un objeto de Scheme, puede ir
+prefijada por una barra invertida o un símbolo de almohadilla sin
+distinción alguna:
+
+@lilypond[quote,ragged-right,verbatim]
+whiteVar = "#FFFFFF"
+
+\relative {
+  \time 12/16
+  \override Staff.BarLine.color = \whiteVar
+  c''4 b8 c d16 c d8 |
+  \override Staff.BarLine.color = #whiteVar
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+
+@end lilypond
 
 @cindex rgb, colores
 @cindex color, rgb
 
 @funindex rgb-color
 
-Aún existe otra función, que convierte valores RGB en colores
-internos: la función @code{rgb-color}.  Toma tres argumentos que
-dan las intensidades de rojo, verde y azul.  Cada uno de ellos
-puede tomar valores entre 0 y 1.  Por lo tanto, para establecer el
-color a rojo el valor debe ser @code{(rgb-color 1 0 0)} y para
-blanco debe ser @code{(rgb-color 1 1 1)}:
+Otra manera de añadir colores a nuestra partitura es mediante el
+uso de una función.  Existen dos funciones útiles para ello; una
+es la función @code{x11-color}, que utilizaremos más adelante.  La
+otra es la función @code{rgb-color}, que presenta la lógica
+interna de LilyPond: toma tres argumentos que dan las intensidades
+de los colores rojo, verde y azul.  Cada uno de ellos toma valores
+entre 0 y 1. Así pues, para establecer el color a rojo, el valor
+sería @code{(rgb-color 1 0 0)} y para el blanco sería
+@code{(rgb-color 1 1 1)}:
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex color, propiedad, ejemplo
@@ -1524,11 +1531,24 @@ blanco debe ser @code{(rgb-color 1 1 1)}:
 }
 @end lilypond
 
-Finalmente, existe también una escala de grises como parte del
-conjunto de colores de X11.  Varían desde el negro, @code{'grey0},
-hasta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar
-esto estableciendo todos los objetos de presentación de nuestro
-ejemplo a varias gradaciones de gris:
+@noindent
+Observe que en este caso, toda la llamada a la función debe estar
+entre paréntesis.  Lo mismo vale para la función @code{x11-color}
+que pasamos anteriormente por alto.
+
+@cindex colores, de X11
+@cindex X11, colores
+
+@funindex x11-color
+
+@code{x11-color}, de nuevo, lleva a cabo una asignación de nombres
+de color predefinidos a valores internos, pero ofrece muchas más
+alternativas que los nombres de CSS, como se ve en
+@ruser{Lista de colores}).  Por ejemplo, el conjunto de colores de
+X11 incluye una completa gama de tonos de gris, cuyos nombres van
+desde el negro, @code{'grey0}, hasta el blanco, @code{'grey100},
+en pasos de@tie{}1.  Vamos a ilustrar esto estableciendo todos los
+objetos de nuetro ejemplo en distintos tonos de gris:
 
 @cindex StaffSymbol, ejemplo de sobreescritura
 @cindex TimeSignature, ejemplo de sobreescritura
@@ -3400,9 +3420,9 @@ La mejor solución aquí es mover el silencio multi-compás hacia
 abajo, pues el silencio está en la voz dos.  El ajuste
 predeterminado para @code{\voiceTwo} (es decir, en la segunda voz
 de una construcción @code{<<@{@dots{}@} \\ @{@dots{}@}>>}) es que
-@code{staff-position} tenga el valor -4 para MultiMeasureRest, así
+@code{staff-position} tenga el valor -6 para MultiMeasureRest, así
 que tenemos que bajarlo, digamos, cuatro semi-espacios de
-pentagrama, al valor @w{@code{-8}}.
+pentagrama, al valor @w{@code{-10}}.
 
 @cindex MultiMeasureRest, ejemplo de sobreescritura
 @cindex staff-position, propiedad, ejemplo
@@ -3411,7 +3431,7 @@ pentagrama, al valor @w{@code{-8}}.
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-10
   { R1 }
 >>
 @end lilypond
@@ -3419,6 +3439,11 @@ pentagrama, al valor @w{@code{-8}}.
 Esto es mejor que utilizar, por ejemplo, @code{extra-offset},
 porque la línea adicional por encima del silencio se inserta
 automáticamente.
+
+@c @ruser{Engraving ties manually} is not a valid node, so I use another one - fv
+Consulte la sección @q{Edición manual de las ligaduras} en
+@ruser{Ligaduras de unión} para ver la diferencia entre valores
+exactos e inexactos.
 
 @node La propiedad extra-offset (desplazamiento adicional)
 @unnumberedsubsubsec La propiedad @code{extra-offset} (desplazamiento adicional)
