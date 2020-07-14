@@ -1475,24 +1475,24 @@ def musicxml_accordion_to_markup(mxl_event):
             pass
         if txt == 3:
             commandname += "MMM"
-            command += """\\combine
-          \\raise #1.5 \\musicglyph #\"accordion.dot\"
-          \\combine
-          \\raise #1.5 \\translate #(cons 1 0) \\musicglyph #\"accordion.dot\"
-          \\combine
-          \\raise #1.5 \\translate #(cons -1 0) \\musicglyph #\"accordion.dot\"
+            command += r"""\combine
+          \raise #1.5 \musicglyph #"accordion.dot"
+          \combine
+          \raise #1.5 \translate #(cons 1 0) \musicglyph #"accordion.dot"
+          \combine
+          \raise #1.5 \translate #(cons -1 0) \musicglyph #"accordion.dot"
           """
         elif txt == 2:
             commandname += "MM"
-            command += """\\combine
-          \\raise #1.5 \\translate #(cons 0.5 0) \\musicglyph #\"accordion.dot\"
-          \\combine
-          \\raise #1.5 \\translate #(cons -0.5 0) \\musicglyph #\"accordion.dot\"
+            command += r"""\combine
+          \raise #1.5 \translate #(cons 0.5 0) \musicglyph #"accordion.dot"
+          \combine
+          \raise #1.5 \translate #(cons -0.5 0) \musicglyph #"accordion.dot"
           """
         elif not txt <= 0:
             commandname += "M"
-            command += """\\combine
-          \\raise #1.5 \\musicglyph #\"accordion.dot\"
+            command += r"""\combine
+          \raise #1.5 \musicglyph #"accordion.dot"
           """
     low = mxl_event.get_maybe_exist_named_child('accordion-low')
     if low:
@@ -2243,7 +2243,7 @@ def music_xml_fretboards_name_to_lily_name(part_id, voicename):
 
 
 def get_all_lyric_parts_in_voice(voice):
-    '''
+    r'''
     Collect the indexes of all lyric parts in this voice.
     In case not all of the current lyric parts are active (a typical case would be
     a refrain/chorus), the current implementation inserts \skip-commands in the

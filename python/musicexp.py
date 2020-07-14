@@ -111,7 +111,7 @@ class Output_printer(object):
         self._nesting += (s.count('<')
                           - s.count(r'\<') - s.count('<<')
                           + s.count('{'))
-        self._nesting -= (s.count('>') - s.count('\>') - s.count('>>')
+        self._nesting -= (s.count('>') - s.count(r'\>') - s.count('>>')
                           - s.count('->') - s.count('_>')
                           - s.count('^>')
                           + s.count('}'))
@@ -1309,7 +1309,7 @@ class BracketSpannerEvent (SpanEvent):
                 printer.dump(r"\once \override LigatureBracket.direction = #UP")
             elif self.force_direction == -1:
                 printer.dump(
-                    "\once \override LigatureBracket.direction = #DOWN")
+                    r"\once \override LigatureBracket.direction = #DOWN")
             printer.dump(r'\[')
     # the bracket after the last note
 
@@ -1348,7 +1348,7 @@ class OctaveShiftEvent (SpanEvent):
             value = r'\ottava #%s' % dir
         return {
             - 1: value,
-            1: '\ottava #0'}.get(self.span_direction, '')
+            1: r'\ottava #0'}.get(self.span_direction, '')
 
 
 class TrillSpanEvent (SpanEvent):
@@ -1487,7 +1487,7 @@ class TextEvent (Event):
         self.markup = ''
 
     def wait_for_note(self):
-        """ This is problematic: the lilypond-markup ^"text"
+        r""" This is problematic: the lilypond-markup ^"text"
         requires wait_for_note to be true. Otherwise the
         compilation will fail.  So we are forced to set return to True.
         But in some cases this might lead to a wrong placement of the text.
@@ -2422,7 +2422,7 @@ class StaffGroup:
             for [staff_id, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if chordnames:
-                        printer('\context ChordNames = "%s" {%s \\%s}' % (
+                        printer(r'\context ChordNames = "%s" {%s \%s}' % (
                             chordnames, get_transpose("string"), chordnames))
                         printer.newline()
         except TypeError:
@@ -2433,7 +2433,7 @@ class StaffGroup:
             for [staff_id, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if fretboards:
-                        printer('\context FretBoards = "%s" {%s \\%s}' % (
+                        printer(r'\context FretBoards = "%s" {%s \%s}' % (
                             fretboards, get_transpose("string"), fretboards))
                         printer.newline()
         except TypeError:
@@ -2523,7 +2523,7 @@ The next line contains a bug: The voices might not appear in numerical order! So
                     lyrics_id += 1
                     printer.newline()
                 if figuredbass:
-                    printer('\context FiguredBass = "%s" \\%s' %
+                    printer('\context FiguredBass = "%s" \%s' %
                             (figuredbass, figuredbass))
             printer('>>')
             # printer.dump ("test") #prints test after each definition of a context.

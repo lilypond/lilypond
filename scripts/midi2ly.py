@@ -1100,7 +1100,7 @@ def convert_midi(in_file, out_file):
         if context:
             s += '    \\context %(context)s=%(staff_name)s \\%(track_name)s\n' % locals()
 
-    s = s + '''  >>
+    s = s + r'''  >>
   \layout {}
   \midi {}
 }

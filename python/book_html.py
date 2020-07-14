@@ -123,9 +123,9 @@ class BookHTMLOutputFormat (book_base.BookOutputFormat):
 
     def split_snippet_options(self, option_string):
         if option_string:
-            options = re.findall('[-\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',
+            options = re.findall(r'''[-\w\.-:]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|\S+))?''',
                                  option_string)
-            options = [re.sub('^([^=]+=\s*)(?P<q>["\'])(.*)(?P=q)', '\g<1>\g<3>', opt)
+            options = [re.sub(r'''^([^=]+=\s*)(?P<q>["'])(.*)(?P=q)''', r'\g<1>\g<3>', opt)
                        for opt in options]
             return options
         return []

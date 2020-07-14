@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-'''
+r'''
 Example usage:
 
 test:
@@ -663,7 +663,7 @@ def do_options():
 
 
 def mkarg(x):
-    """
+    r"""
     A modified version of the commands.mkarg(x)
 
     Uses double quotes (since Windows can't handle the single quotes)
