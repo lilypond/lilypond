@@ -824,7 +824,13 @@ sub lilypond_print_toc_div ($)
 
     foreach my $line (@{$Texi2HTML::TOC_LINES}) {
         if ($line =~ /<a name="(.*)" href/ and $parentelements{$1}) {
-            print $fh ($line =~ s/<li>/<li class="toc_current">/r);
+            # Copy the line to avoid modifying the original string. More recent
+            # versions of Perl (5.14, released in 2011) support non-destructive
+            # substitutions via option /r. To support Perl 5.10 in GUB, use the
+            # old way of doing it.
+            my $current_line = $line;
+            $current_line =~ s/<li>/<li class="toc_current">/;
+            print $fh $current_line;
         } else {
             print $fh $line;
         }
