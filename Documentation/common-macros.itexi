@@ -167,8 +167,6 @@ Macro definitions that contain translatable text belong to file
 @end macro
 
 @macro funindex {TEXT}
-@findex @sortas{\TEXT\@indexB{}}\TEXT\
-@kindex \TEXT\
 @findex @sortas{\TEXT\@indexC{}}\TEXT\
 @kindex @sortas{\TEXT\@indexC{}}\TEXT\
 @c
