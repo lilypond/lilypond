@@ -132,21 +132,21 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
             return cmd
 
     def snippet_output(self, basename, snippet):
-        str = ''
+        s = ''
         rep = snippet.get_replacements()
         for image in snippet.get_images():
             rep['image'] = image
             (rep['base'], rep['ext']) = os.path.splitext(image)
-            str += self.output[book_snippets.OUTPUT] % rep
-            str += self.output_print_filename(basename, snippet)
+            s += self.output[book_snippets.OUTPUT] % rep
+            s += self.output_print_filename(basename, snippet)
             if (snippet.substring('inline') == 'inline'):
-                str = '<inlinemediaobject>' + str + '</inlinemediaobject>'
+                s = '<inlinemediaobject>' + s + '</inlinemediaobject>'
             else:
-                str = '<mediaobject>' + str + '</mediaobject>'
+                s = '<mediaobject>' + s + '</mediaobject>'
         if book_snippets.VERBATIM in snippet.option_dict:
             rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
-            str = self.output[book_snippets.VERBATIM] % rep + str
-        return str
+            s = self.output[book_snippets.VERBATIM] % rep + s
+        return s
 
 
 book_base.register_format(BookDocbookOutputFormat())

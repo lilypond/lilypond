@@ -167,10 +167,8 @@ def get_option_parser():
 def str_to_tuple(s):
     return tuple([int(n) for n in s.split('.')])
 
-
 def tup_to_str(t):
     return '.'.join(['%s' % x for x in t])
-
 
 def version_cmp(t1, t2):
     for x in [0, 1, 2]:
@@ -195,8 +193,7 @@ def show_rules(file, from_version, to_version):
            and (not to_version or x[0] <= to_version):
             file.write('%s: %s\n' % (tup_to_str(x[0]), x[2]))
 
-
-def do_conversion(str, from_version, to_version):
+def do_conversion(s, from_version, to_version):
     """Apply conversions from FROM_VERSION to TO_VERSION.  Return
 tuple (LAST,LASTCHANGED,STR,ERRORS), with the last applied conversion,
 the last conversion resulting in a change, the resulting
@@ -215,11 +212,11 @@ string and the number of errors."""
                 ly.progress(', ', newline=False)
             else:
                 ly.progress(tup_to_str(x[0]))
-            newstr = x[1](str)
+            newstr = x[1](s)
             last_conversion = x[0]
-            if (newstr != str):
+            if (newstr != s):
                 last_change = last_conversion
-            str = newstr
+            s = newstr
 
     except convertrules.FatalConversionError:
         ly.error(_("Error while converting")
@@ -227,7 +224,7 @@ string and the number of errors."""
                  + _("Stopping at last successful rule"))
         errors += 1
 
-    return (last_conversion, last_change, str, errors)
+    return (last_conversion, last_change, s, errors)
 
 
 def guess_lilypond_version(input):

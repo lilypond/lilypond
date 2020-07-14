@@ -201,15 +201,15 @@ class BookOutputFormat:
         return self.output.get(type, '') % variables
 
     def output_print_filename(self, basename, snippet):
-        str = ''
+        s = ''
         rep = snippet.get_replacements()
         if book_snippets.PRINTFILENAME in snippet.option_dict:
             rep['base'] = basename
             rep['filename'] = os.path.basename(snippet.filename)
             rep['ext'] = snippet.ext
-            str = self.output[book_snippets.PRINTFILENAME] % rep
+            s = self.output[book_snippets.PRINTFILENAME] % rep
 
-        return str
+        return s
 
     def required_files(self, snippet, base, full, required_files):
         return []

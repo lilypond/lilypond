@@ -1007,9 +1007,9 @@ def convert_midi(in_file, out_file):
     global allowed_tuplet_clocks
     global time
 
-    str = open(in_file, 'rb').read()
+    full_content = open(in_file, 'rb').read()
     clocks_max = bar_max * clocks_per_1 * 2
-    midi_dump = midi.parse(str, clocks_max)
+    midi_dump = midi.parse(full_content, clocks_max)
 
     clocks_per_1 = midi_dump[0][1]
     clocks_per_4 = clocks_per_1 / 4

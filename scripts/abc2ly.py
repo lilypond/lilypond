@@ -579,23 +579,23 @@ tup_lookup = {
 }
 
 
-def try_parse_tuplet_begin(str, state):
-    if re.match(r'\([2-9]', str):
-        dig = str[1]
-        str = str[2:]
+def try_parse_tuplet_begin(s, state):
+    if re.match(r'\([2-9]', s):
+        dig = s[1]
+        s = s[2:]
         prev_tuplet_state = state.parsing_tuplet
         state.parsing_tuplet = int(dig[0])
         if prev_tuplet_state:
             voices_append("}")
         voices_append("\\times %s {" % tup_lookup[dig])
-    return str
+    return s
 
 
-def try_parse_group_end(str, state):
-    if str and str[0] in HSPACE:
-        str = str[1:]
+def try_parse_group_end(s, state):
+    if s and s[0] in HSPACE:
+        s = s[1:]
         close_beam_state(state)
-    return str
+    return s
 
 
 def header_append(key, a):
@@ -666,13 +666,13 @@ def lyrics_append(a):
 # break lyrics to words and put "'s around words containing numbers and '"'s
 
 
-def fix_lyric(str):
+def fix_lyric(s):
     ret = ''
-    while str != '':
-        m = re.match('[ \t]*([^ \t]*)[ \t]*(.*$)', str)
+    while s != '':
+        m = re.match('[ \t]*([^ \t]*)[ \t]*(.*$)', s)
         if m:
             word = m.group(1)
-            str = m.group(2)
+            s = m.group(2)
             word = re.sub('"', '\\"', word)  # escape "
             if re.match(r'.*[0-9"\(]', word):
                 word = re.sub('_', ' ', word)  # _ causes probs inside ""
@@ -846,16 +846,16 @@ def octave_to_lilypond_quotes(o):
     return s * o
 
 
-def parse_num(str):
+def parse_num(s):
     durstr = ''
-    while str and str[0] in DIGITS:
-        durstr = durstr + str[0]
-        str = str[1:]
+    while s and s[0] in DIGITS:
+        durstr = durstr + s[0]
+        s = s[1:]
 
     n = None
     if durstr:
         n = int(durstr)
-    return (str, n)
+    return (s, n)
 
 
 def duration_to_lilypond_duration(multiply_tup, defaultlen, dots):
@@ -889,22 +889,22 @@ class Parser_state:
 
 
 # return (str, num,den,dots)
-def parse_duration(str, parser_state):
+def parse_duration(s, parser_state):
     num = 0
     den = parser_state.next_den
     parser_state.next_den = 1
 
-    (str, num) = parse_num(str)
+    (s, num) = parse_num(s)
     if not num:
         num = 1
-    if len(str):
-        if str[0] == '/':
-            if len(str[0]):
-                while str[:1] == '/':
-                    str = str[1:]
+    if len(s):
+        if s[0] == '/':
+            if len(s[0]):
+                while s[:1] == '/':
+                    s = s[1:]
                     d = 2
-                    if str[0] in DIGITS:
-                        (str, d) = parse_num(str)
+                    if s[0] in DIGITS:
+                        (s, d) = parse_num(s)
 
                     den = den * d
 
@@ -912,16 +912,16 @@ def parse_duration(str, parser_state):
 
     current_dots = parser_state.next_dots
     parser_state.next_dots = 0
-    if re.match('[ \t]*[<>]', str):
-        while str[0] in HSPACE:
-            str = str[1:]
-        while str[0] == '>':
-            str = str[1:]
+    if re.match('[ \t]*[<>]', s):
+        while s[0] in HSPACE:
+            s = s[1:]
+        while s[0] == '>':
+            s = s[1:]
             current_dots = current_dots + 1
             parser_state.next_den = parser_state.next_den * 2
 
-        while str[0] == '<':
-            str = str[1:]
+        while s[0] == '<':
+            s = s[1:]
             den = den * 2
             parser_state.next_dots = parser_state.next_dots + 1
 
@@ -934,12 +934,12 @@ def parse_duration(str, parser_state):
             den = den / f
             current_dots = current_dots + d
 
-    return (str, num, den, current_dots)
+    return (s, num, den, current_dots)
 
 
-def try_parse_rest(str, parser_state):
-    if not str or str[0] != 'z' and str[0] != 'x':
-        return str
+def try_parse_rest(s, parser_state):
+    if not s or s[0] != 'z' and s[0] != 'x':
+        return s
 
     __main__.lyric_idx = -1
 
@@ -947,20 +947,20 @@ def try_parse_rest(str, parser_state):
         voices_append(parser_state.next_bar)
         parser_state.next_bar = ''
 
-    if str[0] == 'z':
+    if s[0] == 'z':
         rest = 'r'
     else:
         rest = 's'
-    str = str[1:]
+    s = s[1:]
 
-    (str, num, den, d) = parse_duration(str, parser_state)
+    (s, num, den, d) = parse_duration(s, parser_state)
     voices_append(
         '%s%s' % (rest, duration_to_lilypond_duration((num, den), default_len, d)))
     if parser_state.next_articulation:
         voices_append(parser_state.next_articulation)
         parser_state.next_articulation = ''
 
-    return str
+    return s
 
 
 artic_tbl = {
@@ -980,25 +980,25 @@ artic_tbl = {
 }
 
 
-def try_parse_articulation(str, state):
-    while str and str[:1] in artic_tbl:
-        state.next_articulation = state.next_articulation + artic_tbl[str[:1]]
-        if not artic_tbl[str[:1]]:
-            sys.stderr.write("Warning: ignoring `%s'\n" % str[:1])
+def try_parse_articulation(s, state):
+    while s and s[:1] in artic_tbl:
+        state.next_articulation = state.next_articulation + artic_tbl[s[:1]]
+        if not artic_tbl[s[:1]]:
+            sys.stderr.write("Warning: ignoring `%s'\n" % s[:1])
 
-        str = str[1:]
+        s = s[1:]
 
     # s7m2 input doesn't care about spaces
-    if re.match(r'[ \t]*\(', str):
-        str = str.lstrip()
+    if re.match(r'[ \t]*\(', s):
+        s = s.lstrip()
 
     slur_begin = 0
-    while str[:1] == '(' and str[1] not in DIGITS:
+    while s[:1] == '(' and s[1] not in DIGITS:
         slur_begin = slur_begin + 1
         state.next_articulation = state.next_articulation + '('
-        str = str[1:]
+        s = s[1:]
 
-    return str
+    return s
 
 #
 # remember accidental for rest of bar
@@ -1034,18 +1034,18 @@ def close_beam_state(state):
 
 
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
-def try_parse_note(str, parser_state):
+def try_parse_note(s, parser_state):
     mud = ''
 
     slur_begin = 0
-    if not str:
-        return str
+    if not s:
+        return s
 
     articulation = ''
     acc = UNDEF
-    if str[0] in '^=_':
-        c = str[0]
-        str = str[1:]
+    if s[0] in '^=_':
+        c = s[0]
+        s = s[1:]
         if c == '^':
             acc = 1
         if c == '=':
@@ -1054,16 +1054,16 @@ def try_parse_note(str, parser_state):
             acc = -1
 
     octave = parser_state.base_octave
-    if str[0] in "ABCDEFG":
-        str = str[0].lower() + str[1:]
+    if s[0] in "ABCDEFG":
+        s = s[0].lower() + s[1:]
         octave = octave - 1
 
     notename = 0
-    if str[0] in "abcdefg":
-        notename = (ord(str[0]) - ord('a') + 5) % 7
-        str = str[1:]
+    if s[0] in "abcdefg":
+        notename = (ord(s[0]) - ord('a') + 5) % 7
+        s = s[1:]
     else:
-        return str                # failed; not a note!
+        return s                # failed; not a note!
 
     __main__.lyric_idx = -1
 
@@ -1071,22 +1071,22 @@ def try_parse_note(str, parser_state):
         voices_append(parser_state.next_bar)
         parser_state.next_bar = ''
 
-    while str[0] == ',':
+    while s[0] == ',':
         octave = octave - 1
-        str = str[1:]
-    while str[0] == '\'':
+        s = s[1:]
+    while s[0] == '\'':
         octave = octave + 1
-        str = str[1:]
+        s = s[1:]
 
-    (str, num, den, current_dots) = parse_duration(str, parser_state)
+    (s, num, den, current_dots) = parse_duration(s, parser_state)
 
-    if re.match(r'[ \t]*\)', str):
-        str = str.lstrip()
+    if re.match(r'[ \t]*\)', s):
+        s = s.lstrip()
 
     slur_end = 0
-    while str[:1] == ')':
+    while s[:1] == ')':
         slur_end = slur_end + 1
-        str = str[1:]
+        s = s[1:]
 
     bar_acc = get_bar_acc(notename, octave, parser_state)
     pit = pitch_to_lilypond_name(notename, acc, bar_acc, global_key[notename])
@@ -1117,52 +1117,52 @@ def try_parse_note(str, parser_state):
             voices_append("}")
 
     if global_options.beams and \
-            str[0] in '^=_ABCDEFGabcdefg' and \
+            s[0] in '^=_ABCDEFGabcdefg' and \
             not parser_state.parsing_beam and \
             not parser_state.parsing_tuplet:
         parser_state.parsing_beam = 1
         voices_append_back('[')
 
-    return str
+    return s
 
 
-def junk_space(str, state):
-    while str and str[0] in '\t\n\r ':
-        str = str[1:]
+def junk_space(s, state):
+    while s and s[0] in '\t\n\r ':
+        s = s[1:]
         close_beam_state(state)
 
-    return str
+    return s
 
 
-def try_parse_guitar_chord(str, state):
-    if str[:1] == '"':
-        str = str[1:]
+def try_parse_guitar_chord(s, state):
+    if s[:1] == '"':
+        s = s[1:]
         gc = ''
-        if str[0] == '_' or (str[0] == '^'):
-            position = str[0]
-            str = str[1:]
+        if s[0] == '_' or (s[0] == '^'):
+            position = s[0]
+            s = s[1:]
         else:
             position = '^'
-        while str and str[0] != '"':
-            gc = gc + str[0]
-            str = str[1:]
+        while s and s[0] != '"':
+            gc = gc + s[0]
+            s = s[1:]
 
-        if str:
-            str = str[1:]
+        if s:
+            s = s[1:]
         gc = re.sub('#', '\\#', gc)        # escape '#'s
         state.next_articulation = ("%c\"%s\"" % (position, gc)) \
             + state.next_articulation
-    return str
+    return s
 
 
-def try_parse_escape(str):
-    if not str or str[0] != '\\':
-        return str
+def try_parse_escape(s):
+    if not s or s[0] != '\\':
+        return s
 
-    str = str[1:]
-    if str[:1] == 'K':
+    s = s[1:]
+    if s[:1] == 'K':
         key_table = compute_key()
-    return str
+    return s
 
 
 #
@@ -1208,8 +1208,7 @@ in_repeat = [''] * 8
 doing_alternative = [''] * 8
 using_old = ''
 
-
-def try_parse_bar(str, state):
+def try_parse_bar(string, state):
     global in_repeat, doing_alternative, using_old
     do_curly = ''
     bs = None
@@ -1217,13 +1216,13 @@ def try_parse_bar(str, state):
         select_voice('default', '')
     # first try the longer one
     for trylen in [3, 2, 1]:
-        if str[:trylen] and str[:trylen] in bar_dict:
-            s = str[:trylen]
+        if string[:trylen] and string[:trylen] in bar_dict:
+            s = string[:trylen]
             if using_old:
                 bs = "\\bar \"%s\"" % old_bar_dict[s]
             else:
                 bs = "%s" % bar_dict[s]
-            str = str[trylen:]
+            string = string[trylen:]
             if s in alternative_opener:
                 if not in_repeat[current_voice_idx]:
                     using_old = 't'
@@ -1253,13 +1252,13 @@ def try_parse_bar(str, state):
                 else:
                     bs = bar_dict[s]
             break
-    if str[:1] == '|':
+    if string[:1] == '|':
         state.next_bar = '|\n'
-        str = str[1:]
+        string = string[1:]
         clear_bar_acc(state)
         close_beam_state(state)
 
-    if str[:1] == '}':
+    if string[:1] == '}':
         close_beam_state(state)
 
     if bs is not None or state.next_bar != '':
@@ -1274,37 +1273,37 @@ def try_parse_bar(str, state):
         if do_curly != '':
             voices_append("} ")
             do_curly = ''
-    return str
+    return string
 
 
-def try_parse_tie(str):
-    if str[:1] == '-':
-        str = str[1:]
+def try_parse_tie(s):
+    if s[:1] == '-':
+        s = s[1:]
         voices_append(' ~ ')
-    return str
+    return s
 
 
-def bracket_escape(str, state):
-    m = re.match(r'^([^\]]*)] *(.*)$', str)
+def bracket_escape(s, state):
+    m = re.match(r'^([^\]]*)] *(.*)$', s)
     if m:
         cmd = m.group(1)
-        str = m.group(2)
+        s = m.group(2)
         try_parse_header_line(cmd, state)
-    return str
+    return s
 
 
-def try_parse_chord_delims(str, state):
-    if str[:1] == '[':
-        str = str[1:]
-        if re.match('[A-Z]:', str):        # bracket escape
-            return bracket_escape(str, state)
+def try_parse_chord_delims(s, state):
+    if s[:1] == '[':
+        s = s[1:]
+        if re.match('[A-Z]:', s):        # bracket escape
+            return bracket_escape(s, state)
         if state.next_bar:
             voices_append(state.next_bar)
             state.next_bar = ''
         voices_append('<<')
 
-    if str[:1] == '+':
-        str = str[1:]
+    if s[:1] == '+':
+        s = s[1:]
         if state.plus_chord:
             voices_append('>>')
             state.plus_chord = 0
@@ -1316,39 +1315,39 @@ def try_parse_chord_delims(str, state):
             state.plus_chord = 1
 
     ch = ''
-    if str[:1] == ']':
-        str = str[1:]
+    if s[:1] == ']':
+        s = s[1:]
         ch = '>>'
 
     end = 0
-    while str[:1] == ')':
+    while s[:1] == ')':
         end = end + 1
-        str = str[1:]
+        s = s[1:]
 
     voices_append("\\spanrequest \\stop \"slur\"" * end)
     voices_append(ch)
-    return str
+    return s
 
 
-def try_parse_grace_delims(str, state):
-    if str[:1] == '{':
+def try_parse_grace_delims(s, state):
+    if s[:1] == '{':
         if state.next_bar:
             voices_append(state.next_bar)
             state.next_bar = ''
-        str = str[1:]
+        s = s[1:]
         voices_append('\\grace { ')
 
-    if str[:1] == '}':
-        str = str[1:]
+    if s[:1] == '}':
+        s = s[1:]
         voices_append('}')
 
-    return str
+    return s
 
 
-def try_parse_comment(str):
+def try_parse_comment(s):
     global nobarlines
-    if (str[0] == '%'):
-        if str[0:5] == '%MIDI':
+    if (s[0] == '%'):
+        if s[0:5] == '%MIDI':
             # the nobarlines option is necessary for an abc to lilypond translator for
             # exactly the same reason abc2midi needs it: abc requires the user to enter
             # the note that will be printed, and MIDI and lilypond expect entry of the
@@ -1362,19 +1361,19 @@ def try_parse_comment(str):
             # convention, such as most music written before 1700, or ethnic music in
             # non-western scales, it is necessary to be able to tell a translator that
             # the barlines should not affect its interpretation of the pitch.
-            if 'nobarlines' in str:
+            if 'nobarlines' in s:
                 nobarlines = 1
-        elif str[0:3] == '%LY':
-            p = str.find('voices')
+        elif s[0:3] == '%LY':
+            p = s.find('voices')
             if (p > -1):
-                voices_append(str[p+7:])
+                voices_append(s[p+7:])
                 voices_append("\n")
-            p = str.find('slyrics')
+            p = s.find('slyrics')
             if (p > -1):
-                slyrics_append(str[p+8:])
+                slyrics_append(s[p+8:])
 
 # write other kinds of appending  if we ever need them.
-    return str
+    return s
 
 
 lineno = 0

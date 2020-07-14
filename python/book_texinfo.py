@@ -341,7 +341,7 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
             return cmd
 
     def output_info(self, basename, snippet):
-        str = ''
+        s = ''
         rep = snippet.get_replacements()
         rep['base'] = basename
         rep['filename'] = os.path.basename(snippet.filename)
@@ -353,31 +353,31 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
             rep1['alt'] = snippet.option_dict[book_snippets.ALT]
             rep1['info_image_path'] = os.path.join(
                 self.global_options.info_images_dir, rep1['base'])
-            str += self.output[book_snippets.OUTPUTIMAGE] % rep1
+            s += self.output[book_snippets.OUTPUTIMAGE] % rep1
 
-        str += self.output[book_snippets.OUTPUT] % rep
-        return str
+        s += self.output[book_snippets.OUTPUT] % rep
+        return s
 
     def snippet_output(self, basename, snippet):
-        str = ''
+        s = ''
         base = basename
         if book_snippets.DOCTITLE in snippet.option_dict:
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + self.document_language
             if os.path.exists(translated_doctitle):
-                str += '\n@lydoctitle %s\n\n' % codecs.open(
+                s += '\n@lydoctitle %s\n\n' % codecs.open(
                     translated_doctitle, 'r', 'utf-8').read()
             elif os.path.exists(doctitle):
-                str += '\n@lydoctitle %s\n\n' % codecs.open(
+                s += '\n@lydoctitle %s\n\n' % codecs.open(
                     doctitle, 'r', 'utf-8').read()
         if book_snippets.TEXIDOC in snippet.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + self.document_language
             if os.path.exists(translated_texidoc):
-                str += '@include %(translated_texidoc)s\n\n' % vars()
+                s += '@include %(translated_texidoc)s\n\n' % vars()
             elif os.path.exists(texidoc):
-                str += '@include %(texidoc)s\n\n' % vars()
-        str += self.output_print_filename(basename, snippet)
+                s += '@include %(texidoc)s\n\n' % vars()
+        s += self.output_print_filename(basename, snippet)
 
         substr = ''
         rep = snippet.get_replacements()
@@ -390,12 +390,12 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         substr += self.output_info(basename, snippet)
         if book_snippets.QUOTE in snippet.option_dict:
             substr = self.output[book_snippets.QUOTE] % {'str': substr}
-        str += substr
+        s += substr
 
         # need par after image
-        str += '\n'
+        s += '\n'
 
-        return str
+        return s
 
     def required_files(self, snippet, base, full, required_files):
         return self.required_files_png(snippet, base, full, required_files)

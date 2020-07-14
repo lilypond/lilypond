@@ -2217,29 +2217,29 @@ def measure_length_from_attributes(attr, current_measure_length):
 
 
 def music_xml_voice_name_to_lily_name(part_id, name):
-    str = "Part%sVoice%s" % (part_id, name)
-    return musicxml_id_to_lily(str)
+    s = "Part%sVoice%s" % (part_id, name)
+    return musicxml_id_to_lily(s)
 
 
 def music_xml_lyrics_name_to_lily_name(part_id, name, lyricsnr):
-    str = music_xml_voice_name_to_lily_name(
+    s = music_xml_voice_name_to_lily_name(
         part_id, name)+("Lyrics%s" % lyricsnr)
-    return musicxml_id_to_lily(str)
+    return musicxml_id_to_lily(s)
 
 
 def music_xml_figuredbass_name_to_lily_name(part_id, voicename):
-    str = music_xml_voice_name_to_lily_name(part_id, voicename)+"FiguredBass"
-    return musicxml_id_to_lily(str)
+    s = music_xml_voice_name_to_lily_name(part_id, voicename)+"FiguredBass"
+    return musicxml_id_to_lily(s)
 
 
 def music_xml_chordnames_name_to_lily_name(part_id, voicename):
-    str = music_xml_voice_name_to_lily_name(part_id, voicename)+"Chords"
-    return musicxml_id_to_lily(str)
+    s = music_xml_voice_name_to_lily_name(part_id, voicename)+"Chords"
+    return musicxml_id_to_lily(s)
 
 
 def music_xml_fretboards_name_to_lily_name(part_id, voicename):
-    str = music_xml_voice_name_to_lily_name(part_id, voicename)+"FretBoards"
-    return musicxml_id_to_lily(str)
+    s = music_xml_voice_name_to_lily_name(part_id, voicename)+"FretBoards"
+    return musicxml_id_to_lily(s)
 
 
 def get_all_lyric_parts_in_voice(voice):

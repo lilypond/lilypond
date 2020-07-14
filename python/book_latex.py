@@ -286,14 +286,14 @@ def get_latex_textwidth(source, global_options):
 
 
 def modify_preamble(chunk):
-    str = chunk.replacement_text()
-    if (re.search(r"\\begin *{document}", str)
-            and not re.search("{graphic[sx]", str)):
-        str = re.sub(r"\\begin{document}",
+    s = chunk.replacement_text()
+    if (re.search(r"\\begin *{document}", s)
+            and not re.search("{graphic[sx]", s)):
+        s = re.sub(r"\\begin{document}",
                      r"\\usepackage{graphics}" + '\n'
                      + r"\\begin{document}",
-                     str)
-        chunk.override_text = str
+                     s)
+        chunk.override_text = s
 
 
 class BookLatexOutputFormat (book_base.BookOutputFormat):
@@ -335,28 +335,28 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
         return chunks
 
     def snippet_output(self, basename, snippet):
-        str = ''
+        s = ''
         rep = snippet.get_replacements()
         rep['base'] = basename.replace('\\', '/')
         rep['filename'] = os.path.basename(snippet.filename).replace('\\', '/')
         rep['ext'] = snippet.ext
         if book_snippets.PRINTFILENAME in snippet.option_dict:
-            str += self.output[book_snippets.PRINTFILENAME] % rep
+            s += self.output[book_snippets.PRINTFILENAME] % rep
         if book_snippets.VERBATIM in snippet.option_dict:
             rep['verb'] = snippet.verb_ly()
-            str += self.output[book_snippets.VERBATIM] % rep
+            s += self.output[book_snippets.VERBATIM] % rep
 
-        str += self.output[book_snippets.OUTPUT] % rep
+        s += self.output[book_snippets.OUTPUT] % rep
 
         # todo: maintain breaks
         if 0:
             breaks = snippet.ly().count("\n")
-            str += "".ljust(breaks, "\n").replace("\n", "%\n")
+            s += "".ljust(breaks, "\n").replace("\n", "%\n")
 
         if book_snippets.QUOTE in snippet.option_dict:
-            str = self.output[book_snippets.QUOTE] % {'str': str}
+            s = self.output[book_snippets.QUOTE] % {'str': s}
 
-        return str
+        return s
 
 
 book_base.register_format(BookLatexOutputFormat())

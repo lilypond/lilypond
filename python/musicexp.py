@@ -103,25 +103,25 @@ class Output_printer(object):
     def duration_factor(self):
         return self._output_state_stack[-1].factor
 
-    def print_verbatim(self, str):
-        self._line += str
+    def print_verbatim(self, s):
+        self._line += s
 
-    def unformatted_output(self, str):
+    def unformatted_output(self, s):
         # don't indent on \< and indent only once on <<
-        self._nesting += (str.count('<')
-                          - str.count(r'\<') - str.count('<<')
-                          + str.count('{'))
-        self._nesting -= (str.count('>') - str.count('\>') - str.count('>>')
-                          - str.count('->') - str.count('_>')
-                          - str.count('^>')
-                          + str.count('}'))
-        self.print_verbatim(str)
+        self._nesting += (s.count('<')
+                          - s.count(r'\<') - s.count('<<')
+                          + s.count('{'))
+        self._nesting -= (s.count('>') - s.count('\>') - s.count('>>')
+                          - s.count('->') - s.count('_>')
+                          - s.count('^>')
+                          + s.count('}'))
+        self.print_verbatim(s)
 
-    def print_duration_string(self, str):
-        if self._last_duration == str:
+    def print_duration_string(self, s):
+        if self._last_duration == s:
             return
 
-        self.unformatted_output(str)
+        self.unformatted_output(s)
 
 #    def print_note_color (self, object, rgb=None):
 #        if rgb:
@@ -132,14 +132,14 @@ class Output_printer(object):
 #            self.add_word(str)
 #            self.newline()
 
-    def add_word(self, str):
-        if (len(str) + 1 + len(self._line) > self._line_len):
+    def add_word(self, s):
+        if (len(s) + 1 + len(self._line) > self._line_len):
             self.newline()
             self._skipspace = True
 
         if not self._skipspace:
             self._line += ' '
-        self.unformatted_output(str)
+        self.unformatted_output(s)
         self._skipspace = False
 
     def newline(self):
@@ -153,14 +153,14 @@ class Output_printer(object):
     def __call__(self, arg):
         self.dump(arg)
 
-    def dump(self, str):
+    def dump(self, s):
         if self._skipspace:
             self._skipspace = False
-            self.unformatted_output(str)
+            self.unformatted_output(s)
         else:
             # Avoid splitting quoted strings (e.g. "1. Wie") when indenting.
             words = utilities.split_string_and_preserve_doublequoted_substrings(
-                str)
+                s)
             for w in words:
                 self.add_word(w)
 
@@ -333,12 +333,12 @@ def generic_tone_to_pitch(tone):
 
 
 def pitch_generic(pitch, notenames, accidentals):
-    str = notenames[pitch.step]
+    s = notenames[pitch.step]
     halftones = int(pitch.alteration)
     if halftones < 0:
-        str += accidentals[0] * (-halftones)
+        s += accidentals[0] * (-halftones)
     elif pitch.alteration > 0:
-        str += accidentals[3] * (halftones)
+        s += accidentals[3] * (halftones)
     # Handle remaining fraction to pitch.alteration (for microtones)
     if (halftones != pitch.alteration):
         if None in accidentals[1:3]:
@@ -346,20 +346,20 @@ def pitch_generic(pitch, notenames, accidentals):
                 _("Language does not support microtones contained in the piece"))
         else:
             try:
-                str += {-0.5: accidentals[1], 0.5: accidentals[2]
+                s += {-0.5: accidentals[1], 0.5: accidentals[2]
                         }[pitch.alteration - halftones]
             except KeyError:
                 ly.warning(
                     _("Language does not support microtones contained in the piece"))
-    return str
+    return s
 
 
 def pitch_general(pitch):
-    str = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], [
+    s = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], [
                         'es', 'eh', 'ih', 'is'])
-    if "h" in str:    # no short forms for quarter tones
-        return str
-    return str.replace('aes', 'as').replace('ees', 'es')
+    if "h" in s:    # no short forms for quarter tones
+        return s
+    return s.replace('aes', 'as').replace('ees', 'es')
 
 
 def pitch_nederlands(pitch):
@@ -367,77 +367,77 @@ def pitch_nederlands(pitch):
 
 
 def pitch_catalan(pitch):
-    str = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
+    s = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
                         'b', 'qb', 'qd', 'd'])
-    return str.replace('bq', 'tq').replace('dq', 'tq').replace('bt', 'c').replace('dt', 'c')
+    return s.replace('bq', 'tq').replace('dq', 'tq').replace('bt', 'c').replace('dt', 'c')
 
 
 def pitch_deutsch(pitch):
-    str = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
+    s = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
                         'es', 'eh', 'ih', 'is'])
-    if str == 'hes':
+    if s == 'hes':
         return 'b'
-    if str[0] == "a":
-        return str.replace('e', 'a').replace('aa', 'a')
-    return str.replace('ee', 'e')
+    if s[0] == "a":
+        return s.replace('e', 'a').replace('aa', 'a')
+    return s.replace('ee', 'e')
 
 
 def pitch_english(pitch):
-    str = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], [
+    s = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], [
                         'f', 'qf', 'qs', 's'])
-    return str[0] + str[1:].replace('fq', 'tq').replace('sq', 'tq')
+    return s[0] + s[1:].replace('fq', 'tq').replace('sq', 'tq')
 
 
 def pitch_espanol(pitch):
-    str = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
+    s = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
                         'b', 'cb', 'cs', 's'])
-    return str.replace('bc', 'tc').replace('sc', 'tc')
+    return s.replace('bc', 'tc').replace('sc', 'tc')
 
 
 def pitch_francais(pitch):
-    str = pitch_generic(pitch, ['do', 'ré', 'mi', 'fa', 'sol', 'la', 'si'], [
+    s = pitch_generic(pitch, ['do', 'ré', 'mi', 'fa', 'sol', 'la', 'si'], [
                         'b', 'sb', 'sd', 'd'])
-    return str
+    return s
 
 
 def pitch_italiano(pitch):
-    str = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
+    s = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
                         'b', 'sb', 'sd', 'd'])
-    return str
+    return s
 
 
 def pitch_norsk(pitch):
-    str = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
+    s = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
                         'ess', 'eh', 'ih', 'iss'])
-    return str.replace('hess', 'b')
+    return s.replace('hess', 'b')
 
 
 def pitch_portugues(pitch):
-    str = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
+    s = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
                         'b', 'bqt', 'sqt', 's'])
-    return str.replace('bbq', 'btq').replace('ssq', 'stq')
+    return s.replace('bbq', 'btq').replace('ssq', 'stq')
 
 
 def pitch_suomi(pitch):
-    str = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
+    s = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
                         'es', 'eh', 'ih', 'is'])
-    if str == 'hes':
+    if s == 'hes':
         return 'b'
-    return str.replace('aes', 'as').replace('ees', 'es')
+    return s.replace('aes', 'as').replace('ees', 'es')
 
 
 def pitch_svenska(pitch):
-    str = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
+    s = pitch_generic(pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], [
                         'ess', 'eh', 'ih', 'iss'])
-    if str == 'hess':
+    if s == 'hess':
         return 'b'
-    return str.replace('aes', 'as').replace('ees', 'es')
+    return s.replace('aes', 'as').replace('ees', 'es')
 
 
 def pitch_vlaams(pitch):
-    str = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
+    s = pitch_generic(pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], [
                         'b', 'hb', 'hk', 'k'])
-    return str
+    return s
 
 
 def set_pitch_language(language):
@@ -559,12 +559,12 @@ class Pitch:
             return ""
 
     def ly_expression(self):
-        str = self.ly_step_expression()
+        s = self.ly_step_expression()
         if relative_pitches and not self._force_absolute_pitch:
-            str += self.relative_pitch()
+            s += self.relative_pitch()
         else:
-            str += self.absolute_pitch()
-        return str
+            s += self.absolute_pitch()
+        return s
 
     def print_ly(self, outputter):
         outputter(self.ly_expression())
@@ -1628,12 +1628,12 @@ class FretBoardNote (Music):
         self.fingering = None
 
     def ly_expression(self):
-        str = self.pitch.ly_expression()
+        s = self.pitch.ly_expression()
         if self.fingering:
-            str += "-%s" % self.fingering
+            s += "-%s" % self.fingering
         if self.string:
-            str += r"\%s" % self.string
-        return str
+            s += r"\%s" % self.string
+        return s
 
 
 class FretBoardEvent (NestedMusic):
@@ -1922,12 +1922,12 @@ class NoteEvent(RhythmicEvent):
         self.forced_accidental = False
 
     def get_properties(self):
-        str = RhythmicEvent.get_properties(self)
+        s = RhythmicEvent.get_properties(self)
 
         if self.pitch:
-            str += self.pitch.lisp_expression()
+            s += self.pitch.lisp_expression()
 
-        return str
+        return s
 
     def pitch_mods(self):
         excl_question = ''

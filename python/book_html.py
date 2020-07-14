@@ -137,28 +137,28 @@ class BookHTMLOutputFormat (book_base.BookOutputFormat):
             return cmd
 
     def snippet_output(self, basename, snippet):
-        str = ''
+        s = ''
         rep = snippet.get_replacements()
         rep['base'] = basename
         rep['filename'] = os.path.basename(snippet.filename)
         rep['ext'] = snippet.ext
-        str += self.output_print_filename(basename, snippet)
+        s += self.output_print_filename(basename, snippet)
         if book_snippets.VERBATIM in snippet.option_dict:
             rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
-            str += self.output[book_snippets.VERBATIM] % rep
+            s += self.output[book_snippets.VERBATIM] % rep
         if book_snippets.QUOTE in snippet.option_dict:
-            str = self.output[book_snippets.QUOTE] % {'str': str}
+            s = self.output[book_snippets.QUOTE] % {'str': s}
 
-        str += self.output[book_snippets.BEFORE] % rep
+        s += self.output[book_snippets.BEFORE] % rep
         for image in snippet.get_images():
             rep1 = copy.copy(rep)
             rep1['image'] = image
             (rep1['base'], rep1['ext']) = os.path.splitext(image)
             rep1['alt'] = snippet.option_dict[book_snippets.ALT]
-            str += self.output[book_snippets.OUTPUT] % rep1
+            s += self.output[book_snippets.OUTPUT] % rep1
 
-        str += self.output[book_snippets.AFTER] % rep
-        return str
+        s += self.output[book_snippets.AFTER] % rep
+        return s
 
     def required_files(self, snippet, base, full, required_files):
         return self.required_files_png(snippet, base, full, required_files)
