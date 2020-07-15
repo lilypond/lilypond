@@ -3086,9 +3086,6 @@ def print_voice_definitions(printer, part_list, voices):
                 printer.newline()
 
 
-def uniq_list(l):
-    return list(dict([(elt, 1) for elt in l]).keys())
-
 # format the information about the staff in the form
 #     [staffid,
 #         [
@@ -3138,7 +3135,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
         staves_info = []
         if len(staves) > 1:
             staves_info = []
-            staves = sorted(uniq_list(staves))
+            staves = sorted(set(staves))
             for s in staves:
                 thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames, voice.fretboards)
                                         for (voice_name, voice) in list(nv_dict.items())
