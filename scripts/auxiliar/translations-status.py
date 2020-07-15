@@ -775,10 +775,9 @@ def update_category_word_counts_sub(m):
 
 progress("Reading documents...")
 
-master_files = \
-    buildlib.read_pipe(
-        "git ls-files | grep -E '[^/]*/?[^/]*[.](tely|texi)$'")[0].splitlines()
-master_files.sort()
+master_files = sorted(buildlib.read_pipe(
+        "git ls-files | grep -E '[^/]*/?[^/]*[.](tely|texi)$'")[0].splitlines())
+
 master_docs = [MasterTelyDocument(os.path.normpath(filename))
                for filename in master_files]
 master_docs = [doc for doc in master_docs if doc.translations]

@@ -855,8 +855,7 @@ class SignatureFileLink (FileLink):
             return empty_cell()
 
     def get_distance_details(self, dest_file):
-        systems = list(self.system_links.items())
-        systems.sort()
+        systems = sorted(self.system_links.items())
 
         rel_top = os.path.relpath(os.path.curdir, os.path.dirname(dest_file))
         style_href = os.path.join(rel_top, 'style.css')
@@ -1518,8 +1517,7 @@ def test_compare_signatures(names, timing=False):
     if timing:
         print('elapsed', (time.clock() - t0)/count)
 
-    results = list(combinations.items())
-    results.sort()
+    results = sorted(combinations.items())
 
     if options.verbose:
         for k, v in results:

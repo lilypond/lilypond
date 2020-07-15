@@ -96,8 +96,7 @@ for f in files:
 dirs = [re.sub('/' + outdir, '', d) for d in dirs]
 while outdir in dirs:
     dirs.remove(outdir)
-dirs = list(set(dirs))
-dirs.sort()
+dirs = sorted(set(dirs))
 
 strip_file_name = None
 strip_re = re.compile(outdir + '/')

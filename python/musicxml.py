@@ -1892,6 +1892,5 @@ if __name__ == '__main__':
 
     tree = lxml.etree.parse('beethoven.xml')
     mxl_tree = lxml_demarshal_node(tree.getroot())
-    ks = list(class_dict.keys())
-    ks.sort()
+    ks = sorted(class_dict.keys())
     print('\n'.join(ks))

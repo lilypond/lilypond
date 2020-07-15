@@ -524,8 +524,7 @@ class LilypondSnippet (Snippet):
         for a in compose_types:
             compose_dict[a] = []
 
-        option_names = list(self.option_dict.keys())
-        option_names.sort()
+        option_names = sorted(self.option_dict.keys())
         for key in option_names:
             value = self.option_dict[key]
 

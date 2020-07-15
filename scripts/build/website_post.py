@@ -122,8 +122,7 @@ for file in html_files:
     # make sure it's a translated language
     if lang != "en":
         langs_set.add(lang)
-langs = list(langs_set)
-langs.sort()
+langs = sorted(langs_set)
 
 
 # helper functions

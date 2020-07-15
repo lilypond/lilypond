@@ -220,8 +220,7 @@ def select_voice(name, rol):
 
 def dump_header(outf, hdr):
     outf.write('\\header {\n')
-    ks = list(hdr.keys())
-    ks.sort()
+    ks = sorted(hdr.keys())
     for k in ks:
         hdr[k] = re.sub('"', '\\"', hdr[k])
         outf.write('\t%s = "%s"\n' % (k, hdr[k]))
@@ -246,8 +245,7 @@ def dump_default_bar(outf):
 
 
 def dump_slyrics(outf):
-    ks = list(voice_idx_dict.keys())
-    ks.sort()
+    ks = sorted(voice_idx_dict.keys())
     for k in ks:
         if re.match('[1-9]', k):
             m = alphabet(int(k))
@@ -262,8 +260,7 @@ def dump_slyrics(outf):
 
 def dump_voices(outf):
     global doing_alternative, in_repeat
-    ks = list(voice_idx_dict.keys())
-    ks.sort()
+    ks = sorted(voice_idx_dict.keys())
     for k in ks:
         if re.match('[1-9]', k):
             m = alphabet(int(k))
@@ -314,8 +311,7 @@ def dump_score(outf):
     <<
 """)
 
-    ks = list(voice_idx_dict.keys())
-    ks.sort()
+    ks = sorted(voice_idx_dict.keys())
     for k in ks:
         if re.match('[1-9]', k):
             m = alphabet(int(k))

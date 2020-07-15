@@ -3138,8 +3138,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
         staves_info = []
         if len(staves) > 1:
             staves_info = []
-            staves = uniq_list(staves)
-            staves.sort()
+            staves = sorted(uniq_list(staves))
             for s in staves:
                 thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames, voice.fretboards)
                                         for (voice_name, voice) in list(nv_dict.items())
