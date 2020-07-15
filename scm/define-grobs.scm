@@ -25,7 +25,7 @@
 ;; TODO: junk the meta field in favor of something more compact?
 
 
-(define-session-public all-grob-descriptions
+(define all-grob-descriptions-data
   `(
     (Accidental
      . (
@@ -2969,8 +2969,10 @@
   ;;  (display (car x))
   ;;  (newline)
   (let* ((name-sym  (car x))
-         (grob-entry (cdr x))
-         (meta-entry (assoc-get 'meta grob-entry))
+         ;; Make (shallow) copies of the list and its items because we modify
+         ;; them below.
+         (grob-entry (map list-copy (cdr x)))
+         (meta-entry (map list-copy (assoc-get 'meta grob-entry)))
          (class (assoc-get 'class meta-entry))
          (ifaces-entry
           (assoc-get 'interfaces meta-entry)))
@@ -2993,22 +2995,14 @@
     (set! ifaces-entry (cons 'grob-interface ifaces-entry))
 
     (set! meta-entry (assoc-set! meta-entry 'name name-sym))
-    (set! meta-entry (assoc-set! meta-entry 'interfaces
-                                 ifaces-entry))
+    (set! meta-entry (assoc-set! meta-entry 'interfaces ifaces-entry))
     (set! grob-entry (assoc-set! grob-entry 'meta meta-entry))
+
+    ;; make sure that \property Foo.Bar =\turnOff doesn't complain
+    (set-object-property! name-sym 'translation-type? ly:grob-properties?)
+    (set-object-property! name-sym 'is-grob? #t)
+
     (cons name-sym grob-entry)))
 
-(set! all-grob-descriptions (map completize-grob-entry all-grob-descriptions))
-
-;;  (display (map pair? all-grob-descriptions))
-
-;; make sure that \property Foo.Bar =\turnOff doesn't complain
-
-(for-each (lambda (x)
-            ;; (display (car x)) (newline)
-
-            (set-object-property! (car x) 'translation-type? ly:grob-properties?)
-            (set-object-property! (car x) 'is-grob? #t))
-          all-grob-descriptions)
-
-(set! all-grob-descriptions (sort all-grob-descriptions alist<?))
+(define-session-public all-grob-descriptions
+  (sort (map completize-grob-entry all-grob-descriptions-data) alist<?))
