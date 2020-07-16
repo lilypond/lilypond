@@ -33,11 +33,11 @@ def rational_to_lily_duration(rational_len):
     # Duration of the form 1/2^n or 3/2^n can be converted to a simple lilypond duration
     dots = {1: 0, 3: 1, 7: 2, 15: 3, 31: 4, 63: 5,
             127: 6}.get(rational_len.numerator, -1)
-    if(d_log >= dots >= 0):
+    if d_log >= dots >= 0:
         # account for the dots!
         d.duration_log = d_log - dots
         d.dots = dots
-    elif(d_log >= 0):
+    elif d_log >= 0:
         d.duration_log = d_log
         d.factor = Fraction(rational_len.numerator)
     else:

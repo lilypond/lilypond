@@ -300,7 +300,7 @@ class Credit(Xml_node):
 
     def get_type(self):
         type = self.get_maybe_exist_named_child('credit-type')
-        if(type is not None):
+        if type is not None:
             return type.get_text()
         else:
             return None
@@ -321,7 +321,7 @@ class Credit(Xml_node):
         halign = None
         valign = None
         justify = None
-        if(words is not None):
+        if words is not None:
             if hasattr(words, 'font-size'):
                 size = utilities.string_to_integer(getattr(words, 'font-size'))
             if hasattr(words, 'default-x'):
@@ -334,27 +334,31 @@ class Credit(Xml_node):
                 valign = getattr(words, 'valign')
             if hasattr(words, 'justify'):
                 justify = getattr(words, 'justify')
-        if(size and size == max(sizes) and y and y == max(ys) and (justify or halign) and (justify == 'center' or halign == 'center')):
+        if (size and size == max(sizes) and y and y == max(ys) and
+              (justify or halign) and (justify == 'center' or halign == 'center')):
             return 'title'
-        elif((y and y > min(ys) and y < max(ys)) and ((justify or halign) and (justify == 'center' or halign == 'center'))):
+        elif (y and y > min(ys) and y < max(ys) and (justify or halign) and
+              (justify == 'center' or halign == 'center')):
             return 'subtitle'
-        elif((justify or halign) and (justify == 'left' or halign == 'left') and (not(x) or x == min(xs))):
+        elif ((justify or halign) and (justify == 'left' or halign == 'left') and
+              (not x or x == min(xs))):
             return 'lyricist'
-        elif((justify or halign) and (justify == 'right' or halign == 'right') and (not(x) or x == max(xs))):
+        elif ((justify or halign) and (justify == 'right' or halign == 'right')
+              and (not x or x == max(xs))):
             return 'composer'
-        elif(size and size == min(sizes) and y == min(ys)):
+        elif size and size == min(sizes) and y == min(ys):
             return 'rights'
         # Special cases for Finale NotePad
-        elif((valign and (valign == 'top')) and (y and y == ys[1])):
+        elif valign and valign == 'top' and y and y == ys[1]:
             return 'subtitle'
-        elif((valign and (valign == 'top')) and (x and x == min(xs))):
+        elif valign and valign == 'top' and x and x == min(xs):
             return 'lyricist'
-        elif((valign and (valign == 'top')) and (y and y == min(ys))):
+        elif valign and valign == 'top' and y and y == min(ys):
             return 'rights'
         # Other special cases
-        elif((valign and (valign == 'bottom'))):
+        elif valign and valign == 'bottom':
             return 'rights'
-        elif(len([item for item in range(len(ys)) if ys[item] == y]) == 2):
+        elif len([i for i, item in enumerate(ys) if item == y]) == 2:
             # The first one is the composer, the second one is the lyricist
             return 'composer'
 
@@ -380,13 +384,13 @@ class Credit(Xml_node):
         default_ys = []
         for cred in credits:
             words = cred.get_maybe_exist_named_child('credit-words')
-            if((words is not None) and hasattr(words, 'default-y')):
+            if words is not None and hasattr(words, 'default-y'):
                 default_ys.append(getattr(words, 'default-y'))
         return list(map(round, list(map(float, default_ys))))
 
     def get_text(self):
         words = self.get_maybe_exist_named_child('credit-words')
-        if(words is not None):
+        if words is not None:
             return words.get_text()
         else:
             return ''
@@ -694,7 +698,7 @@ class Stem(Music_xml_node):
         style_elm = musicexp.StemstyleEvent()
         if hasattr(self, 'color'):
             style_elm.color = utilities.hex_to_color(getattr(self, 'color'))
-        if(style_elm.color is not None):
+        if style_elm.color is not None:
             styles.append(style_elm)
         return styles
 
@@ -941,16 +945,16 @@ class Syllabic(Music_xml_node):
 
     def continued(self):
         text = self.get_text()
-        return(text == "begin") or (text == "middle")
+        return text == "begin" or text == "middle"
 
     def begin(self):
-        return(text == "begin")
+        return text == "begin"
 
     def middle(self):
-        return(text == "middle")
+        return text == "middle"
 
     def end(self):
-        return(text == "end")
+        return text == "end"
 
 
 class Lyric(Music_xml_node):
@@ -1244,7 +1248,7 @@ class Musicxml_voice:
 
         for l in lyrics:
             nr = l.get_number()
-            if(nr > 0) and not(nr in self._lyrics):
+            if nr > 0 and nr not in self._lyrics:
                 self._lyrics.append(nr)
 
     def insert(self, idx, e):
@@ -1327,7 +1331,7 @@ class Part(Music_xml_node):
             assign_to_next_voice = []
             for n in m.get_all_children():
                 # assign a voice to all measure elements
-                if (n.get_name() == 'backup'):
+                if n.get_name() == 'backup':
                     voice_id = None
 
                 if isinstance(n, Measure_element):
@@ -1363,7 +1367,7 @@ class Part(Music_xml_node):
                     factor = Fraction(1,
                                       int(attributes_dict.get('divisions').get_text()))
 
-                if(n.get_maybe_exist_typed_child(Duration)):
+                if n.get_maybe_exist_typed_child(Duration):
                     mxl_dur = n.get_maybe_exist_typed_child(Duration)
                     dur = mxl_dur.get_length() * factor
 
@@ -1403,7 +1407,7 @@ class Part(Music_xml_node):
                     n._measure_position = last_measure_position
                 elif isinstance(n, Note) and n.is_grace():
                     pending_graces.append(n)
-                elif(dur > Fraction(0)):
+                elif dur > Fraction(0):
                     pending_graces = []
 
                 n._duration = dur
@@ -1452,8 +1456,8 @@ class Part(Music_xml_node):
         if staff == "None":
             staff = "1"
         for c in attr._children:
-            if(not(hasattr(c, 'number') and (c.number != staff)) and
-                    not(isinstance(c, Hash_text))):
+            if ((not hasattr(c, 'number') or c.number == staff) and
+                  not isinstance(c, Hash_text)):
                 attributes._children.append(c)
         if not attributes._children:
             return None
@@ -1487,7 +1491,7 @@ class Part(Music_xml_node):
                 else:
                     vid = "1"
 
-            if(vid is not None):
+            if vid is not None:
                 last_voice = vid
 
             staff_id = n.get_maybe_exist_named_child('staff')
@@ -1530,7 +1534,7 @@ class Part(Music_xml_node):
                 else:
                     id = "1"
 
-            if(id != "None"):
+            if id != "None":
                 last_voice = id
 
             # We don't need backup/forward any more, since we have already
@@ -1561,7 +1565,7 @@ class Part(Music_xml_node):
                 continue
 
             if isinstance(n, Direction):
-                if (n.voice_id):
+                if n.voice_id:
                     voices[n.voice_id].add_element(n)
                 else:
                     assign_to_next_note.append(n)

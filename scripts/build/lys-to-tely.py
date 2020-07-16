@@ -149,7 +149,7 @@ def name2line(n):
 @end ifhtml
 """ % (os.path.basename(n), os.path.basename(n))
 
-    elif (xml_file_re.match(n)):
+    elif xml_file_re.match(n):
         # Assume it's a MusicXML file -> convert, create image etc.
         s = r"""
 @ifhtml

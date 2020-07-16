@@ -228,7 +228,7 @@ def dump_header(outf, hdr):
 
 
 def dump_lyrics(outf):
-    if (len(lyrics)):
+    if lyrics:
         outf.write("\n\\markup \\column {\n")
         for i in range(len(lyrics)):
             outf.write(lyrics[i])
@@ -481,7 +481,7 @@ def lily_key(k):
         sys.stderr.write("ignoring unknown key: `%s'" % orig)
         sys.stderr.write('\n')
         return 0
-    return ("%s \\%s" % (key, key_lookup[type]))
+    return "%s \\%s" % (key, key_lookup[type])
 
 
 def shift_key(note, acc, shift):
@@ -676,8 +676,8 @@ def fix_lyric(s):
             else:
                 ret = ret + word + ' '
         else:
-            return (ret)
-    return (ret)
+            return ret
+    return ret
 
 
 def slyrics_append(a):
@@ -827,7 +827,7 @@ def pitch_to_lilypond_name(name, acc, bar_acc, key):
 
     if name > 4:
         name = name - 7
-    return(chr(name + ord('c')) + s)
+    return chr(name + ord('c')) + s
 
 
 def octave_to_lilypond_quotes(o):
@@ -1013,9 +1013,9 @@ def set_bar_acc(note, octave, acc, state):
 def get_bar_acc(note, octave, state):
     n_oct = note + octave * 7
     if n_oct in state.in_acc:
-        return(state.in_acc[n_oct])
+        return state.in_acc[n_oct]
     else:
-        return(UNDEF)
+        return UNDEF
 
 
 def clear_bar_acc(state):
@@ -1342,7 +1342,7 @@ def try_parse_grace_delims(s, state):
 
 def try_parse_comment(s):
     global nobarlines
-    if (s[0] == '%'):
+    if s[0] == '%':
         if s[0:5] == '%MIDI':
             # the nobarlines option is necessary for an abc to lilypond translator for
             # exactly the same reason abc2midi needs it: abc requires the user to enter
@@ -1361,11 +1361,11 @@ def try_parse_comment(s):
                 nobarlines = 1
         elif s[0:3] == '%LY':
             p = s.find('voices')
-            if (p > -1):
+            if p > -1:
                 voices_append(s[p+7:])
                 voices_append("\n")
             p = s.find('slyrics')
-            if (p > -1):
+            if p > -1:
                 slyrics_append(s[p+8:])
 
 # write other kinds of appending  if we ever need them.
@@ -1392,7 +1392,7 @@ def parse_file(fn):
     for ln in ls:
         lineno = lineno + 1
 
-        if not (lineno % happy_count):
+        if not lineno % happy_count:
             sys.stderr.write('[%d]' % lineno)
             sys.stderr.flush()
         m = re.match('^([^%]*)%(.*)$', ln)  # add comments to current voice

@@ -73,7 +73,7 @@ def is_verbose():
 
 
 def print_logmessage(level, s, fullmessage=True, newline=True):
-    if (is_loglevel(level)):
+    if is_loglevel(level):
         if fullmessage:
             sys.stderr.write(program_name + ": " + s + '\n')
         elif newline:

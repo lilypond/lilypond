@@ -561,7 +561,7 @@ class Channel:
                     text = Text(e[1][1], e[1][2])
                     text.track = self
                     music.append((t, text))
-                    if (text.type == midi.SEQUENCE_TRACK_NAME):
+                    if text.type == midi.SEQUENCE_TRACK_NAME:
                         self.name = text.text
                 else:
                     if global_options.verbose:

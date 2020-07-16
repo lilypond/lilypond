@@ -214,7 +214,7 @@ string and the number of errors."""
                 ly.progress(tup_to_str(x[0]))
             newstr = x[1](s)
             last_conversion = x[0]
-            if (newstr != s):
+            if newstr != s:
                 last_change = last_conversion
             s = newstr
 

@@ -88,7 +88,7 @@ open(tmpfile + '.aux', 'w').write(r'''
 
 tmpdir = tempfile.gettempdir()
 
-if (show_output):
+if show_output:
     quiet_flag = ''
 else:
     quiet_flag = ' -terse '
@@ -96,7 +96,7 @@ else:
 # The command line to invoke bibtex
 cmd = "TEXMFOUTPUT=%s bibtex %s %s" % (tmpdir, quiet_flag, tmpfile)
 
-if (show_output):
+if show_output:
     sys.stdout.write("Running bibtex on %s\n" % files)
     sys.stdout.write(cmd)
 # And invoke it

@@ -411,15 +411,15 @@ major = 0
 minor = 0
 patch = 0
 for line in version_contents:
-    if (line.startswith('MAJOR_VERSION')):
+    if line.startswith('MAJOR_VERSION'):
         major = line[14:-1]
-    if (line.startswith('MINOR_VERSION')):
+    if line.startswith('MINOR_VERSION'):
         minor = line[14:-1]
-    if (line.startswith('PATCH_LEVEL')):
+    if line.startswith('PATCH_LEVEL'):
         patch = line[12:-1]
-    if (line.startswith('VERSION_STABLE')):
+    if line.startswith('VERSION_STABLE'):
         VERSION_STABLE = line[15:-1]
-    if (line.startswith('VERSION_DEVEL')):
+    if line.startswith('VERSION_DEVEL'):
         VERSION_DEVEL = line[14:-1]
 
 VERSION = str(major)+'.'+str(minor)+'.'+str(patch)
@@ -541,15 +541,15 @@ def make_manual_links(name, version, lang):
     for m in manuals:
         manual = m
         # TODO: this is a stupid way of doing it
-        if (m == 'music-glossary'):
+        if m == 'music-glossary':
             mshort = 'Glossary'
         else:
             mshort = m.capitalize()
-        if (manual == 'music-glossary'):
+        if manual == 'music-glossary':
             manual = 'Music glossary'
         url = translateNameToUrl(m, version)
 
-        if (url.endswith('.html')):
+        if url.endswith('.html'):
             make_ver_link(macroLang("manual"+name+mshort+'Pdf', lang),
                           addLang(url, lang),
                           getTrans(manual.capitalize(), lang) + '.pdf')

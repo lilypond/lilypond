@@ -174,26 +174,26 @@ def dump_event(ev, time, padding):
     ch = ev[0] & 0x0F
     func = ev[0] & 0xF0
     f = None
-    if (ev[0] == 0xFF):
+    if ev[0] == 0xFF:
         f = meta_dict.get(ev[1], formatter())
-    if (func == 0x80):
+    if func == 0x80:
         f = note_formatter("Note off: ", ch)
-    elif (func == 0x90):
-        if (ev[2] == 0):
+    elif func == 0x90:
+        if ev[2] == 0:
             desc = "Note off: "
         else:
             desc = "Note on: "
         f = note_formatter(desc, ch)
-    elif (func == 0xA0):
+    elif func == 0xA0:
         f = note_formatter("Polyphonic aftertouch: ",
                            ch, "Aftertouch pressure: ")
-    elif (func == 0xB0):
+    elif func == 0xB0:
         f = control_mode_formatter("Control mode change: ", ch)
-    elif (func == 0xC0):
+    elif func == 0xC0:
         f = channel_formatter("Program Change: ", ch)
-    elif (func == 0xD0):
+    elif func == 0xD0:
         f = channel_formatter("Channel aftertouch: ", ch)
-    elif (ev[0] in [0xF0, 0xF7]):
+    elif ev[0] in [0xF0, 0xF7]:
         f = meta_formatter("System-exclusive event: ")
 
     if f:

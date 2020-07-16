@@ -463,7 +463,6 @@ def guess_format(input_filename):
     error(_("cannot determine format for: %s" % input_filename))
     exit(1)
 
-
 def write_if_updated(file_name, lines):
     try:
         with open(file_name, encoding='utf-8') as file:
@@ -681,7 +680,7 @@ def mkarg(x):
 
 
 def main():
-    if ("LILYPOND_BOOK_LOGLEVEL" in os.environ):
+    if "LILYPOND_BOOK_LOGLEVEL" in os.environ:
         ly.set_loglevel(os.environ["LILYPOND_BOOK_LOGLEVEL"])
     files = do_options()
 

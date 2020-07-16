@@ -320,7 +320,7 @@ td { border: 1px solid black; text-align: center; }
     def table(self, string):
         # Ugh, makeinfo is fine without @columnfractions
         # but texi2html 1.82 barfs: `empty multicolumn'
-        return (self.entity('multitable', string))
+        return self.entity('multitable', string)
 
     def headrow(self, string, attributes=[]):
         return '''

@@ -113,10 +113,10 @@ html_files = glob.glob('*.html')
 langs_set = set()
 for file in html_files:
     file_split = file.split('.')
-    if (len(file_split) == 2):
+    if len(file_split) == 2:
         # it's English
         lang = ''
-    elif (len(file_split) == 3):
+    elif len(file_split) == 3:
         # it's a translation
         lang = file_split[1]
     # make sure it's a translated language
@@ -130,9 +130,9 @@ def addLangExt(filename, lang, ext):
     text = filename
     exclude = 0
     for dir in exclude_manuals:
-        if (text.find(dir) >= 0):
+        if text.find(dir) >= 0:
             exclude = 1
-    if (not (exclude or (lang == ""))):
+    if not exclude and lang != "":
         text += "." + lang
     text += "." + ext
     return text
@@ -166,11 +166,11 @@ def getLocalHref(line):
     match = re.search(r'href=[\'"]?([^\'" >]+)', line)
     if match:
         url = match.group(0)[6:]
-        if (url[0:7] == "http://"):
+        if url[0:7] == "http://":
             url = ''
         # strip any '#'
         omit = url.find('#')
-        if (omit >= 0):
+        if omit >= 0:
             url = url[0:omit]
     else:
         url = ''
@@ -182,17 +182,17 @@ for file in html_files:
     # we want to strip the .html and get the lang
     file_split = file.split('.')
     file_base = os.path.basename(file_split[0])
-    if (len(file_split) == 2):
+    if len(file_split) == 2:
         # it's English
         lang = ''
         # possibly necessary for automatic language selection
         file_symlink = file.replace(".html", ".en.html")
         if not os.path.lexists(file_symlink):
             os.symlink(file, file_symlink)
-    elif (len(file_split) == 3):
+    elif len(file_split) == 3:
         # it's a translation
         lang = file_split[1]
-        if (lang == "en"):
+        if lang == "en":
             # it's a symlink
             continue
     else:
@@ -211,17 +211,17 @@ for file in html_files:
     for line in lines:
         # alter links as appropriate
         link = getLocalHref(line)
-        if (link != ""):
+        if link != "":
             # questionable
-            if (not link.startswith("../doc/")):
-                if (link.endswith(".html")):
+            if not link.startswith("../doc/"):
+                if link.endswith(".html"):
                     langlink = addLangExt(link[:-5], lang, "html")
                     line = line.replace(link, langlink)
-                if (link.endswith(".pdf")):
+                if link.endswith(".pdf"):
                     langlink = addLangExt(link[:-4], lang, "pdf")
                     line = line.replace(link, langlink)
         # add google tracker header
-        if (line.find("</head>") >= 0):
+        if line.find("</head>") >= 0:
             outfile.write("""<!-- Google tracking !-->
 <script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -235,19 +235,19 @@ for file in html_files:
 </script>
 """)
         # add google tracker goals
-        if (line.find("href=\"http://download.linuxaudio.org") >= 0):
+        if line.find("href=\"http://download.linuxaudio.org") >= 0:
             # TODO: more ugly hardcoding to make releases hard. :(
-            if (line.find('2.16') >= 0):
+            if line.find('2.16') >= 0:
                 line = line.replace(
                     'a href=', 'a onClick=\"javascript:urchinTracker(\'/download/v2.16\');\" href=')
-            elif (line.find('2.17') >= 0):
+            elif line.find('2.17') >= 0:
                 line = line.replace(
                     'a href=', 'a onClick=\"javascript:urchinTracker(\'/download/v2.17\');\" href=')
         # add language selection footer
-        if (line.find("<div id=\"verifier_texinfo\">") >= 0):
+        if line.find("<div id=\"verifier_texinfo\">") >= 0:
             outfile.write("<div id=\"footer\">\n")
             outfile.write(lang_footer)
-        if (line.find("</body") >= 0):
+        if line.find("</body") >= 0:
             outfile.write("</div>\n")
         outfile.write(line)
     outfile.close()

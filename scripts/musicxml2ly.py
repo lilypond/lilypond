@@ -298,20 +298,20 @@ def extract_score_information(tree):
     has_composer = False
     for cred in credits:
         type = credit_dict.get(cred.get_type())
-        if(type is None):
+        if type is None:
             type = credit_dict.get(cred.find_type(credits))
-        if(type == 'composer'):
-            if(has_composer):
+        if type == 'composer':
+            if has_composer:
                 type = 'poet'
             else:
                 has_composer = True
             set_if_exists(type, cred.get_text())
-        elif(type == 'title'):
-            if(not(work) and not(movement_title)):
+        elif type == 'title':
+            if not work and not movement_title:
                 set_if_exists('title', cred.get_text())
             # elif(not(movement_title)): #bullshit!
             #    set_if_exists('subtitle', cred.get_text()) #bullshit! otherwise both title and subtitle show the work-title.
-        elif(type is None):
+        elif type is None:
             pass
         else:
             set_if_exists(type, cred.get_text())
@@ -755,7 +755,7 @@ def group_tuplets(music_list, events):
 
     j = 0
     for(ev_chord, tuplet_elt, time_modification) in events:
-        while(j < len(music_list)):
+        while j < len(music_list):
             if music_list[j] == ev_chord:
                 break
             j += 1
@@ -988,11 +988,11 @@ def musicxml_print_to_lily(el):
     elts = []
     if (hasattr(el, "new-system") and conversion_settings.convert_system_breaks):
         val = getattr(el, "new-system")
-        if (val == "yes"):
+        if val == "yes":
             elts.append(musicexp.Break("break"))
-    if (hasattr(el, "new-page") and conversion_settings.convert_page_breaks):
+    if hasattr(el, "new-page") and conversion_settings.convert_page_breaks:
         val = getattr(el, "new-page")
-        if (val == "yes"):
+        if val == "yes":
             elts.append(musicexp.Break("pageBreak"))
     child = el.get_maybe_exist_named_child("part-name-display")
     if child:
@@ -1791,7 +1791,7 @@ string_tunings = None
 
 def musicxml_get_string_tunings(lines):
     global string_tunings
-    if (string_tunings is None):
+    if string_tunings is None:
         if not lines:
             lines = 6
         string_tunings = [musicexp.Pitch()] * lines
@@ -2000,9 +2000,9 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
         return "__"
     elif continued and text:
         if hasattr(options, 'convert_beaming') and options.convert_beaming:
-            if (ignoremelismata == "on"):
+            if ignoremelismata == "on":
                 return r" \set ignoreMelismata = ##t " + utilities.escape_ly_output_string(text)
-            elif (ignoremelismata == "off"):
+            elif ignoremelismata == "off":
                 return " " + utilities.escape_ly_output_string(text) + " -- \\unset ignoreMelismata"
             else:
                 return " " + utilities.escape_ly_output_string(text) + " --"
@@ -2132,7 +2132,7 @@ class LilyPondVoiceBuilder:
         self.add_barline(b)
 
     def jumpto(self, moment):
-        if (not self.stay_here):
+        if not self.stay_here:
             current_end = self.end_moment + self.pending_multibar
             diff = moment - current_end
 
@@ -2458,7 +2458,7 @@ def musicxml_voice_to_lily_voice(voice):
             continue
 
         if isinstance(n, musicxml.Harmony):
-            if (options.fretboards):
+            if options.fretboards:
                 # Makes fretboard diagrams in a separate FretBoards voice
                 for a in musicxml_harmony_to_lily_fretboards(n):
                     pending_fretboards.append(a)
@@ -2557,7 +2557,7 @@ def musicxml_voice_to_lily_voice(voice):
         if pending_figured_bass:
             try:
                 figured_bass_builder.jumpto(n._when)
-                if (figured_bass_builder.stay_here):
+                if figured_bass_builder.stay_here:
                     figured_bass_builder.stay_here = False
             except NegativeSkip as neg:
                 pass
@@ -2574,7 +2574,7 @@ def musicxml_voice_to_lily_voice(voice):
         if pending_chordnames:
             try:
                 chordnames_builder.jumpto(n._when)
-                if (chordnames_builder.stay_here):
+                if chordnames_builder.stay_here:
                     chordnames_builder.stay_here = False
             except NegativeSkip as neg:
                 pass
@@ -2587,7 +2587,7 @@ def musicxml_voice_to_lily_voice(voice):
         if pending_fretboards:
             try:
                 fretboards_builder.jumpto(n._when)
-                if (fretboards_builder.stay_here):
+                if fretboards_builder.stay_here:
                     fretboards_builder.stay_here = False
             except NegativeSkip as neg:
                 pass
@@ -2852,7 +2852,7 @@ def voices_in_part_in_parts(parts):
     dictionary = {}
     for p in parts:
         voices = voices_in_part(p)
-        if (hasattr(p, "id")):
+        if hasattr(p, "id"):
             dictionary[p.id] = voices
         else:
             # TODO: extract correct part id from other sources
@@ -3297,14 +3297,14 @@ def convert(filename, options):
         options.output_name = os.path.splitext(options.output_name)[0]
 
     #defs_ly_name = options.output_name + '-defs.ly'
-    if (options.output_name == "-"):
+    if options.output_name == "-":
         output_ly_name = 'Standard output'
     else:
         output_ly_name = options.output_name + '.ly'
     ly.progress(_("Output to `%s'") % output_ly_name, True)
     printer = musicexp.Output_printer()
     #ly.progress(_("Output to `%s'") % defs_ly_name, True)
-    if (options.output_name == "-"):
+    if options.output_name == "-":
         printer.set_file(sys.stdout)
     else:
         printer.set_file(codecs.open(output_ly_name, 'w', encoding='utf-8'))
@@ -3325,7 +3325,7 @@ def convert(filename, options):
     printer.newline()
 
     # Syntax update to current version
-    if (options.output_name != "-"):
+    if options.output_name != "-":
         version = os.popen(
             "lilypond --version | head -1 | cut -d' ' -f3").read().strip()
         ly.progress(

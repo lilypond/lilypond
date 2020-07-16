@@ -133,7 +133,7 @@ class Output_printer(object):
 #            self.newline()
 
     def add_word(self, s):
-        if (len(s) + 1 + len(self._line) > self._line_len):
+        if len(s) + 1 + len(self._line) > self._line_len:
             self.newline()
             self._skipspace = True
 
@@ -271,15 +271,15 @@ def set_transpose(option):
 
 def get_transpose(optType):
     try:
-        if(optType == "string"):
+        if optType == "string":
             return '\\transpose c %s' % transpose_option
-        elif(optType == "integer"):
+        elif optType == "integer":
             p = generic_tone_to_pitch(transpose_option)
             return p.semitones()
     except Exception: ## TODO: find out what the possible exception is here.
-        if(optType == "string"):
+        if optType == "string":
             return ""
-        elif(optType == "integer"):
+        elif optType == "integer":
             return 0
 
 # implement the command line option '--tab-clef'
@@ -340,7 +340,7 @@ def pitch_generic(pitch, notenames, accidentals):
     elif pitch.alteration > 0:
         s += accidentals[3] * (halftones)
     # Handle remaining fraction to pitch.alteration (for microtones)
-    if (halftones != pitch.alteration):
+    if halftones != pitch.alteration:
         if None in accidentals[1:3]:
             ly.warning(
                 _("Language does not support microtones contained in the piece"))
@@ -521,7 +521,7 @@ class Pitch:
     def add_semitones(self, number):
         semi = number + self.alteration
         self.alteration = 0
-        if(semi == 0):
+        if semi == 0:
             return
         sign = (1, -1)[semi < 0]
         prev = self.semitones()
@@ -1019,9 +1019,9 @@ class Paper:
         # TODO: font width ?
         char_per_cm = (len(self.get_longest_instrument_name())
                        * 13) / self.page_width
-        if (self.indent != 0):
+        if self.indent != 0:
             self.print_length_field(printer, "indent", self.indent/char_per_cm)
-        if (self.short_indent != 0):
+        if self.short_indent != 0:
             self.print_length_field(
                 printer, "short-indent", self.short_indent/char_per_cm)
 
@@ -1142,7 +1142,7 @@ class ChordEvent (NestedMusic):
             basepitch = None
             stem = None
             for x in note_events:
-                if(x.associated_events):
+                if x.associated_events:
                     for aev in x.associated_events:
                         if (isinstance(aev, StemEvent) and aev.value):
                             stem = aev
@@ -1398,7 +1398,7 @@ class ArpeggioEvent(Event):
             printer.dump("\\arpeggioNormal")
 
     def ly_expression(self):
-        return ('\\arpeggio')
+        return '\\arpeggio'
 
 
 class TieEvent(Event):
@@ -2069,7 +2069,7 @@ class TimeSignatureChange (Music):
         if self.style and self.visible:
             if self.style == "common":
                 st = "\\defaultTimeSignature"
-            elif (self.style != "'()"):
+            elif self.style != "'()":
                 st = "\\once \\override Staff.TimeSignature.style = #%s " % self.style
             elif (self.style != "'()") or is_common_signature:
                 st = "\\numericTimeSignature"
@@ -2182,7 +2182,7 @@ class StaffLinesEvent (Music):
         self.lines = lines
 
     def ly_expression(self):
-        if (self.lines > 0):
+        if self.lines > 0:
             return "\\stopStaff \\override Staff.StaffSymbol.line-count = #%s \\startStaff" % self.lines
         else:
             return "\\stopStaff \\revert Staff.StaffSymbol.line-count \\startStaff"

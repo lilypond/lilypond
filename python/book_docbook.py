@@ -139,7 +139,7 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
             (rep['base'], rep['ext']) = os.path.splitext(image)
             s += self.output[book_snippets.OUTPUT] % rep
             s += self.output_print_filename(basename, snippet)
-            if (snippet.substring('inline') == 'inline'):
+            if snippet.substring('inline') == 'inline':
                 s = '<inlinemediaobject>' + s + '</inlinemediaobject>'
             else:
                 s = '<mediaobject>' + s + '</mediaobject>'

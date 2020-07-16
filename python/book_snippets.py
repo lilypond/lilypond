@@ -757,7 +757,7 @@ printing diff against existing file." % filename)
         debug(_("Running through filter `%s'") % cmd, True)
 
         closefds = True
-        if (sys.platform == "mingw32"):
+        if sys.platform == "mingw32":
             closefds = False
         p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=closefds)

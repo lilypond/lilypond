@@ -61,15 +61,15 @@ major = 0
 minor = 0
 patch = 0
 for line in version_contents:
-    if (line.startswith('MAJOR_VERSION')):
+    if line.startswith('MAJOR_VERSION'):
         major = line[14:-1]
-    if (line.startswith('MINOR_VERSION')):
+    if line.startswith('MINOR_VERSION'):
         minor = line[14:-1]
-    if (line.startswith('PATCH_LEVEL')):
+    if line.startswith('PATCH_LEVEL'):
         patch = line[12:-1]
-    if (line.startswith('VERSION_STABLE')):
+    if line.startswith('VERSION_STABLE'):
         VERSION_STABLE = line[15:-1]
-    if (line.startswith('VERSION_DEVEL')):
+    if line.startswith('VERSION_DEVEL'):
         VERSION_DEVEL = line[14:-1]
 
 VERSION = str(major)+'.'+str(minor)+'.'+str(patch)

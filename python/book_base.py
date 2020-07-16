@@ -278,7 +278,7 @@ def find_toplevel_snippets(input_string, formatter, global_options):
 
                 start = m.start('match')
                 line_number = line_start_idx
-                while (line_starts[line_number] < start):
+                while line_starts[line_number] < start:
                     line_number += 1
 
                 line_number += 1
@@ -308,7 +308,7 @@ def find_toplevel_snippets(input_string, formatter, global_options):
                 input_string, index, len(input_string), line_start_idx))
             break
 
-        while (start > line_starts[line_start_idx+1]):
+        while start > line_starts[line_start_idx+1]:
             line_start_idx += 1
 
         (start, snip) = found[first]

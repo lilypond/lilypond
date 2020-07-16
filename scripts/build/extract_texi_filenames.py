@@ -148,7 +148,7 @@ def expand_includes(m, filename):
             filepath = os.path.join(directory, include_name)
             if os.path.exists(filepath):
                 return extract_sections(filepath)[1]
-        if not (include_name in known_missing_files):
+        if include_name not in known_missing_files:
             # Not found
             print('Warning: No such file: ' + include_name +
                   ' (search path: ' + ':'.join(include_path)+')')

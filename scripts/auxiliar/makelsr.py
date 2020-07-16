@@ -168,7 +168,7 @@ def exit_with_usage(n=0):
 
 if len(args):
     in_dir = args[0]
-    if not (os.path.isdir(in_dir)):
+    if not os.path.isdir(in_dir):
         sys.stderr.write("Error: %s: not a directory\n" % in_dir)
         sys.exit(4)
     if len(args) > 1:

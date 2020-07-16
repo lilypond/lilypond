@@ -3708,18 +3708,18 @@ def conv(s):
 
 # if den is no power of 2, don't even try to use an unscaled duration
         if (den & (den - 1)) != 0:
-            return (r"\tupletSpan 1*%d/%d" % (num, den))
+            return r"\tupletSpan 1*%d/%d" % (num, den)
 
         if den >= 4 and num == 7:
-            return (r"\tupletSpan %d.." % (den/4))
+            return r"\tupletSpan %d.." % (den/4)
 
         if den >= 2 and num == 3:
-            return (r"\tupletSpan %d." % (den/2))
+            return r"\tupletSpan %d." % (den/2)
 
         if num == 1:
-            return (r"\tupletSpan %d" % den)
+            return r"\tupletSpan %d" % den
 
-        return (r"\tupletSpan 1*%d/%d" % (num, den))
+        return r"\tupletSpan 1*%d/%d" % (num, den)
 
     s = re.sub(r"\\set\s+tupletSpannerDuration\s*=\s*" +
                  r"#\(ly:make-moment\s+([0-9]+)\s+([0-9]+)\s*\)",
