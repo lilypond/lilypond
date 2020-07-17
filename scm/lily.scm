@@ -544,6 +544,16 @@ messages into errors.")
       (slashify (getcwd))
       (getcwd)))
 
+(define-public (ly:rename-file src dst)
+  "Rename file, overwriting DST if it exists"
+  ;; Atomic rename on windows needs to use MoveFileExW, which GUILE doesn't attempt to do.
+  ;; We fake it by not being atomic.
+  (if (and
+       (eq? PLATFORM 'windows)
+       (file-exists? dst))
+      (delete-file dst))
+  (rename-file src dst))
+
 (define-public (is-absolute? file-name)
   (let ((file-name-length (string-length file-name)))
     (if (= file-name-length 0)

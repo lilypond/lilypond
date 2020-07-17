@@ -110,7 +110,7 @@
                        " "))
           (delete-file flush-name)))
 
-    (rename-file pdf-name dest)
+    (ly:rename-file pdf-name dest)
     ))
 
 (define-public (postscript->png resolution paper-width paper-height
@@ -176,7 +176,7 @@
 (define-public (close-port-rename port name)
   (let* ((tmp (port-filename port)))
     (close-port port)
-    (rename-file tmp name)))
+    (ly:rename-file tmp name)))
 
 (define-public (symlink-or-copy-if-not-exist oldpath newpath)
   (if (eq? PLATFORM 'windows)

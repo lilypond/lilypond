@@ -840,7 +840,7 @@ mark {ly~a_stream} /CLOSE pdfmark
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
-    (rename-file tmp-name dest-name)
+    (ly:rename-file tmp-name dest-name)
     ))
 
 (define (clip-systems-to-region basename paper systems region do-pdf do-png)

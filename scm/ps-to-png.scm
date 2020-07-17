@@ -114,7 +114,7 @@
                   (if (or (not multi-page?) (and multi-page? rename-page-1))
                       (ly:format "~a.~a" base-name extension)
                       (ly:format "~a-page~a.~a" base-name (1+ n) extension))))
-              (rename-file src dst)
+              (ly:rename-file src dst)
               dst))
           (iota page-count))
      )))
