@@ -17,15 +17,15 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 import __main__
+import codecs
 import gettext
 import glob
+import optparse
 import os
 import re
 import shutil
 import sys
-import optparse
 import time
-import codecs
 
 sys.stdin = codecs.getreader('utf8')(sys.stdin.detach())
 sys.stdout = codecs.getwriter('utf8')(sys.stdout.detach())

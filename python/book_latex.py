@@ -20,11 +20,12 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import re
-import tempfile
 import os
-import sys
+import re
 import subprocess
+import sys
+import tempfile
+
 import book_base
 import book_snippets
 import lilylib as ly

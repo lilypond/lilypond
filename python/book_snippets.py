@@ -19,16 +19,17 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import book_base
-import lilylib as ly
 import codecs
-import hashlib
-import re
-import os
 import copy
+import hashlib
+import os
+import re
 import shutil
 import subprocess
 import sys
+
+import book_base
+import lilylib as ly
 
 progress = ly.progress
 warning = ly.warning

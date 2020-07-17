@@ -17,12 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-
-import re
-
 import getopt
-import sys
 import os
+import re
+import sys
 
 dsr_font_regex = re.compile('%%DocumentSuppliedResources: font (.*)')
 begin_font_regex = re.compile('%%BeginFont: (.*)')

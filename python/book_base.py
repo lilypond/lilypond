@@ -19,12 +19,12 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import re
 
-import lilylib as ly
 import book_snippets as BookSnippet
 import book_snippets
-import re
-import os
+import lilylib as ly
 
 progress = ly.progress
 warning = ly.warning

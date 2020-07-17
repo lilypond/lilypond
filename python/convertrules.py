@@ -20,9 +20,10 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import string
 import re
+import string
 import sys
+
 import lilylib
 
 

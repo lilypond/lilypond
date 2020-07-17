@@ -17,12 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+import getopt
+import os
+import re
+import sys
 
 import fontforge
-import getopt
-import sys
-import re
-import os
 
 (options, files) = \
     getopt.getopt(sys.argv[1:],

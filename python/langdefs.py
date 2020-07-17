@@ -23,9 +23,9 @@
 Documentation i18n module
 """
 
+import os
 import re
 import sys
-import os
 
 
 def lang_file_name(p, langext, ext):

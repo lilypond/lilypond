@@ -48,28 +48,29 @@ TODO:
 
 # TODO: Better solve the global_options copying to the snippets...
 
-import pipes
-import book_latex
-import book_texinfo
-import book_docbook
-import book_html
-import book_snippets
-import book_base
-import langdefs
-import fontextract
 import codecs
 import fcntl
+from functools import reduce
 import gettext
 import glob
 import hashlib
+from optparse import OptionGroup
 import os
+import pipes
 import re
 import stat
 import subprocess
 import sys
 import tempfile
-from optparse import OptionGroup
-from functools import reduce
+
+import book_base
+import book_docbook
+import book_html
+import book_latex
+import book_texinfo
+import book_snippets
+import fontextract
+import langdefs
 
 
 """

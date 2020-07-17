@@ -23,9 +23,9 @@ import codecs
 import copy
 import os
 import re
-import tempfile
 import subprocess
 import sys
+import tempfile
 
 import book_base
 import book_snippets

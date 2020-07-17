@@ -47,9 +47,9 @@
 import __main__
 import getopt
 import gettext
-import sys
-import re
 import os
+import re
+import sys
 
 program_name = sys.argv[0]
 

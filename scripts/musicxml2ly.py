@@ -22,10 +22,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import musicexp
-import musicxml
-import musicxml2ly_conversion
-import utilities
 import codecs
 from fractions import Fraction
 from functools import reduce
@@ -38,6 +34,11 @@ import sys
 import tempfile
 import warnings
 import zipfile
+
+import musicexp
+import musicxml
+import musicxml2ly_conversion
+import utilities
 
 """
 @relocate-preamble@

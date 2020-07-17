@@ -18,12 +18,13 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import fontforge
 import getopt
 import os
-import psMat
 import re
 import sys
+
+import fontforge
+import psMat
 
 (options, files) = \
     getopt.getopt(sys.argv[1:],
