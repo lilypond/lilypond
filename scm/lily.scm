@@ -30,7 +30,17 @@
 ;; GUILE defaults to fixed seed.
 (define-public (randomize-rand-seed)
   (ly:randomize-rand-seed)
-  (set! *random-state* (seed->random-state (format #f "~a ~a" (gettimeofday) (getpid)))))
+  (let*
+      ((t (gettimeofday))
+       ;; GUILE's random initialization is clumsy (it converts the
+       ;; integer to decimal string, and then sums groups of 8 bytes
+       ;; as 64 bit integers.  Here we multiply to spread the entropy
+       ;; around a bit better.
+       (seed (*
+              (cdr t)
+              (car t)
+              (getpid))))
+  (set! *random-state* (seed->random-state seed))))
 
 (randomize-rand-seed)
 
