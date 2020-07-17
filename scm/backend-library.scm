@@ -228,6 +228,25 @@
 
 (define-public (make-tmpfile basename)
   "Returns a temp file as port. If basename is #f, a file under $TMPDIR is created."
+  (define max-try 10)
+  (define (inner basename tries)
+    (if (> tries 0)
+        (let*
+            ((name (ly:format "~a-tmp-~a" basename (random 10000000)))
+             (port (create-file-exclusive name #o666))
+             (bport #f))
+
+          (if port
+              (begin
+                (set! bport (open-file name "wb"))
+                (close-port port)
+                bport)
+
+              (make-tmpfile basename (1- tries))))
+
+        (ly:error "can't create temp file for ~a after ~a times" basename max-try)
+        ))
+
   (if (not basename)
       (set! basename (cond
                       ;; MINGW hack: TMP / TEMP may include
@@ -246,12 +265,7 @@
                                  "/tmp")
                              "/lilypond")))))
 
-  (let*
-      ((name (ly:format "~a-tmp-~a" basename (random 10000000)))
-       (port (create-file-exclusive name #o666))
-       (bport (open-file name "wb")))
-    (close-port port)
-    bport))
+  (inner basename max-try))
 
 
 (define-public (postprocess-output paper-book module formats
