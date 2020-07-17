@@ -25,9 +25,9 @@ import re
 import os
 
 (options, files) = \
- getopt.getopt (sys.argv[1:],
-                '',
-                ['in=', 'out=', 'version='])
+    getopt.getopt(sys.argv[1:],
+                  '',
+                  ['in=', 'out=', 'version='])
 
 design_size = 0
 version = "dev"
@@ -68,7 +68,7 @@ for fn in ["feta%(design_size)d.pfb",
            "feta-flags%(design_size)d.pfb",
            "parmesan%(design_size)d.pfb",
            "parmesan-noteheads%(design_size)d.pfb"]:
-    name = fn%vars()
+    name = fn % vars()
     font.mergeFonts(os.path.join(indir, name))
 
     name, _ = os.path.splitext(name)
@@ -85,7 +85,7 @@ font.mergeFonts(os.path.join(indir, alphabet + ".pfb"))
 font.mergeFeature(os.path.join(indir, alphabet + ".tfm"))
 subfonts.append(alphabet)
 
-subfonts_str = ' '.join (subfonts)
+subfonts_str = ' '.join(subfonts)
 
 lisp = b""
 for sub in subfonts:
@@ -93,7 +93,8 @@ for sub in subfonts:
 
 font.setTableData("LILF", subfonts_str.encode("ascii"))
 font.setTableData("LILC", lisp)
-font.setTableData("LILY", open(os.path.join(indir, "feta%(design_size)d.global-lisp" % vars()), "rb").read());
+font.setTableData("LILY", open(os.path.join(
+    indir, "feta%(design_size)d.global-lisp" % vars()), "rb").read())
 
 font.generate(output)
 base, ext = os.path.splitext(output)

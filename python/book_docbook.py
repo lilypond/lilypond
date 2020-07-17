@@ -39,7 +39,7 @@ import book_snippets
 # See book_base.BookOutputFormat for  possible keys
 Docbook_snippet_res = {
     'lilypond':
-         r'''(?smx)
+    r'''(?smx)
           (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
           <textobject.*?>\s*
@@ -50,7 +50,7 @@ Docbook_snippet_res = {
           </(inline)?mediaobject>)''',
 
     'lilypond_block':
-         r'''(?smx)
+    r'''(?smx)
           (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
           <textobject.*?>\s*
@@ -61,7 +61,7 @@ Docbook_snippet_res = {
           </(inline)?mediaobject>)''',
 
     'lilypond_file':
-         r'''(?smx)
+    r'''(?smx)
           (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*
           <imageobject.*?>\s*
@@ -73,7 +73,7 @@ Docbook_snippet_res = {
           </(inline)?mediaobject>)''',
 
     'multiline_comment':
-         r'''(?smx)
+    r'''(?smx)
           (?P<match>
           \s*(?!@c\s+)
           (?P<code><!--\s.*?!-->)
@@ -115,11 +115,9 @@ Docbook_output = {
 }
 
 
-
-
 class BookDocbookOutputFormat (book_base.BookOutputFormat):
-    def __init__ (self):
-        book_base.BookOutputFormat.__init__ (self)
+    def __init__(self):
+        book_base.BookOutputFormat.__init__(self)
         self.format = "docbook"
         self.default_extension = ".xml"
         self.snippet_res = Docbook_snippet_res
@@ -127,28 +125,28 @@ class BookDocbookOutputFormat (book_base.BookOutputFormat):
         self.handled_extensions = ['.lyxml']
         self.snippet_option_separator = '\s+'
 
-    def adjust_snippet_command (self, cmd):
+    def adjust_snippet_command(self, cmd):
         if '--formats' not in cmd:
             return cmd + ' --formats=png,pdf '
         else:
             return cmd
 
-    def snippet_output (self, basename, snippet):
+    def snippet_output(self, basename, snippet):
         str = ''
-        rep = snippet.get_replacements ();
-        for image in snippet.get_images ():
+        rep = snippet.get_replacements()
+        for image in snippet.get_images():
             rep['image'] = image
-            (rep['base'], rep['ext']) = os.path.splitext (image)
+            (rep['base'], rep['ext']) = os.path.splitext(image)
             str += self.output[book_snippets.OUTPUT] % rep
-            str += self.output_print_filename (basename, snippet)
+            str += self.output_print_filename(basename, snippet)
             if (snippet.substring('inline') == 'inline'):
                 str = '<inlinemediaobject>' + str + '</inlinemediaobject>'
             else:
                 str = '<mediaobject>' + str + '</mediaobject>'
         if book_snippets.VERBATIM in snippet.option_dict:
-                rep['verb'] = book_base.verbatim_html (snippet.verb_ly ())
-                str = self.output[book_snippets.VERBATIM]  % rep + str
+            rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
+            str = self.output[book_snippets.VERBATIM] % rep + str
         return str
 
 
-book_base.register_format (BookDocbookOutputFormat ());
+book_base.register_format(BookDocbookOutputFormat())

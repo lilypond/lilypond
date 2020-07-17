@@ -22,29 +22,32 @@ import sys
 
 dry_run = False
 
-def pytt (from_re, to, file_name):
-    s = open (file_name, mode='rb').read ()
-    name = os.path.basename (file_name)
-    base, ext = os.path.splitext (name)
-    t = re.sub (from_re.encode ('utf-8'), to.encode ('utf-8') % locals (), s)
+
+def pytt(from_re, to, file_name):
+    s = open(file_name, mode='rb').read()
+    name = os.path.basename(file_name)
+    base, ext = os.path.splitext(name)
+    t = re.sub(from_re.encode('utf-8'), to.encode('utf-8') % locals(), s)
     if s != t:
         if dry_run:
-            sys.stdout.write (t)
+            sys.stdout.write(t)
         else:
-            stat_info = os.stat (file_name)
-            mode = stat.S_IMODE (stat_info[stat.ST_MODE])
-            os.system ('mv --backup=t %(file_name)s %(file_name)s~' % locals ())
-            open (file_name, 'wb').write (t)
-            os.chmod (file_name, mode)
+            stat_info = os.stat(file_name)
+            mode = stat.S_IMODE(stat_info[stat.ST_MODE])
+            os.system('mv --backup=t %(file_name)s %(file_name)s~' % locals())
+            open(file_name, 'wb').write(t)
+            os.chmod(file_name, mode)
 
-def main ():
-    from_re = re.compile (sys.argv[1], re.MULTILINE)
+
+def main():
+    from_re = re.compile(sys.argv[1], re.MULTILINE)
     to = sys.argv[2]
     if not sys.argv[3:] or sys.argv[3] == '-':
-        sys.stdout.write (re.sub (from_re, to, sys.stdin.read ()))
+        sys.stdout.write(re.sub(from_re, to, sys.stdin.read()))
     else:
         for f in sys.argv[3:]:
-            pytt (from_re, to, f)
+            pytt(from_re, to, f)
+
 
 if __name__ == '__main__':
-    main ()
+    main()

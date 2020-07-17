@@ -1,5 +1,5 @@
 # langdefs.py
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
@@ -27,13 +27,15 @@ import re
 import sys
 import os
 
-def lang_file_name (p, langext, ext):
+
+def lang_file_name(p, langext, ext):
     if langext != '':
         return p + '.' + langext + ext
     return p + ext
 
+
 class LanguageDef:
-    def __init__ (self, code, name, webext=None, html_filter=lambda s: s, enable_ly_identifier_l10n=True):
+    def __init__(self, code, name, webext=None, html_filter=lambda s: s, enable_ly_identifier_l10n=True):
         self.code = code
         self.name = name
         self.enabled = True
@@ -43,50 +45,53 @@ class LanguageDef:
             self.webext = webext
         self.html_filter = html_filter
         self.enable_ly_identifier_l10n = enable_ly_identifier_l10n
-    def file_name (self, prefix, ext):
-        return lang_file_name (prefix, self.webext, ext)
+
+    def file_name(self, prefix, ext):
+        return lang_file_name(prefix, self.webext, ext)
 
 
 # All language information needed for documentation i18n is defined
 # here. For each 'Documentation/ab' directory containing docs
 # translated in 'ab', there should be one entry in LANGUAGES.
 
-site = LanguageDef ('en', 'English', webext='')
+site = LanguageDef('en', 'English', webext='')
 
-html_body_re = re.compile ('<body.*?>', re.I)
-html_end_body_re = re.compile ('</body>', re.I)
+html_body_re = re.compile('<body.*?>', re.I)
+html_end_body_re = re.compile('</body>', re.I)
 french_html_typo_rules = ((' :', '&nbsp;:'),
                           (' ;', '&nbsp;;'),
                           (' ?', '<font size="-4">&nbsp;</font>?'),
                           (' !', '<font size="-4">&nbsp;</font>!'))
 
-def french_html_filter (page):
-    m = html_body_re.search (page)
+
+def french_html_filter(page):
+    m = html_body_re.search(page)
     if m:
-        body_begin = m.end ()
+        body_begin = m.end()
     else:
         body_begin = 0
-    m = html_end_body_re.search (page)
+    m = html_end_body_re.search(page)
     if m:
-        body_end = m.start ()
+        body_end = m.start()
     else:
-        body_end = len (page)
+        body_end = len(page)
     body = page[body_begin:body_end]
     for r in french_html_typo_rules:
-        body = body.replace (r[0], r[1])
+        body = body.replace(r[0], r[1])
     return page[:body_begin] + body + page[body_end:]
 
-ca = LanguageDef ('ca', 'català')
-cs = LanguageDef ('cs', 'česky', enable_ly_identifier_l10n=False)
-de = LanguageDef ('de', 'deutsch')
-es = LanguageDef ('es', 'español')
-fr = LanguageDef ('fr', 'français', html_filter = french_html_filter)
-hu = LanguageDef ('hu', 'magyar')
-it = LanguageDef ('it', 'italiano')
-ja = LanguageDef ('ja', '日本語', enable_ly_identifier_l10n=False)
-nl = LanguageDef ('nl', 'nederlands')
-pt = LanguageDef ('pt', 'Português')
-zh = LanguageDef ('zh', '中文', enable_ly_identifier_l10n=False)
+
+ca = LanguageDef('ca', 'català')
+cs = LanguageDef('cs', 'česky', enable_ly_identifier_l10n=False)
+de = LanguageDef('de', 'deutsch')
+es = LanguageDef('es', 'español')
+fr = LanguageDef('fr', 'français', html_filter=french_html_filter)
+hu = LanguageDef('hu', 'magyar')
+it = LanguageDef('it', 'italiano')
+ja = LanguageDef('ja', '日本語', enable_ly_identifier_l10n=False)
+nl = LanguageDef('nl', 'nederlands')
+pt = LanguageDef('pt', 'Português')
+zh = LanguageDef('zh', '中文', enable_ly_identifier_l10n=False)
 
 # Outdated or broken translations may be disabled
 # (please run 'make doc-clean' before doing that):
@@ -96,10 +101,10 @@ LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
 WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, pt, zh)
 
 if os.getenv("MAKEWEB") == '1':
-    LANGUAGES=WEB_LANGUAGES
+    LANGUAGES = WEB_LANGUAGES
 
 if __name__ == '__main__':
-    print(' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en']))
+    print(' '.join([l.code for l in LANGUAGES if l.enabled and l.code != 'en']))
 else:
     LANGDICT = {}
     for l in LANGUAGES:
@@ -117,5 +122,6 @@ else:
                 translation[l.code] = t.gettext
     except:
         if 'LYDOC_LOCALEDIR' in os.environ:
-            sys.stderr.write ('langdefs.py: warning: lilypond-doc gettext domain not found.\n')
-        translation = dict ([(l.code, lambda x: x) for l in LANGUAGES])
+            sys.stderr.write(
+                'langdefs.py: warning: lilypond-doc gettext domain not found.\n')
+        translation = dict([(l.code, lambda x: x) for l in LANGUAGES])

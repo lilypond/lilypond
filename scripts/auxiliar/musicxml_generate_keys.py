@@ -21,7 +21,8 @@
 notes = "CDEFGAB"
 alterations = [-1, 0, 1]
 
-def print_measure (nr, fifth, mode, atts1 = "", atts = "", final = ""):
+
+def print_measure(nr, fifth, mode, atts1="", atts="", final=""):
     print("""    <measure number="%s">
       <attributes>
 %s        <key>
@@ -39,6 +40,7 @@ def print_measure (nr, fifth, mode, atts1 = "", atts = "", final = ""):
         <type>half</type>
       </note>
 %s    </measure>""" % (nr, atts1, fifth, mode, atts, final))
+
 
 first_div = """        <divisions>1</divisions>
 """
@@ -82,14 +84,14 @@ measure = 0
 for fifth in range(-max_range, max_range+1):
     measure += 1
     if fifth == -max_range:
-        print_measure (measure, fifth, "major", first_div, first_atts)
+        print_measure(measure, fifth, "major", first_div, first_atts)
     else:
-        print_measure (measure, fifth, "major")
+        print_measure(measure, fifth, "major")
     measure += 1
     if fifth == max_range:
-        print_measure (measure, fifth, "minor", "", "", final_barline)
+        print_measure(measure, fifth, "minor", "", "", final_barline)
     else:
-        print_measure (measure, fifth, "minor")
+        print_measure(measure, fifth, "minor")
 
 
 print("""  </part>

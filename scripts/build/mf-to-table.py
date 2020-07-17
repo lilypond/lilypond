@@ -22,37 +22,41 @@ import re
 import sys
 import time
 
-def read_log_file (fn):
-    str = open (fn).read ()
-    str = re.sub ('[\n\r]', '', str)
-    str = re.sub ('[\t ]+', ' ', str)
+
+def read_log_file(fn):
+    str = open(fn).read()
+    str = re.sub('[\n\r]', '', str)
+    str = re.sub('[\t ]+', ' ', str)
 
     autolines = []
-    def auto_func (match, a = autolines):
-        a.append (match.group (1))
+
+    def auto_func(match, a=autolines):
+        a.append(match.group(1))
         return ''
 
-    str = re.sub ('@{(.*?)@}', auto_func, str)
+    str = re.sub('@{(.*?)@}', auto_func, str)
     return autolines
 
 
 class Char_metric:
-    def __init__ (self):
+    def __init__(self):
         pass
+
 
 font_family = 'feta'
 
-def parse_logfile (fn):
-    autolines = read_log_file (fn)
+
+def parse_logfile(fn):
+    autolines = read_log_file(fn)
     charmetrics = []
 
     global_info = {
-        'filename' : os.path.splitext (os.path.basename (fn))[0]
-        }
+        'filename': os.path.splitext(os.path.basename(fn))[0]
+    }
     group = ''
 
     for i, l in enumerate(autolines):
-        tags = l.split ('@:')
+        tags = l.split('@:')
         if tags[0] == 'group':
             group = tags[1]
         elif tags[0] == 'puorg':
@@ -71,34 +75,34 @@ def parse_logfile (fn):
             m = {
                 'description': tags[1],
                 'name': name,
-                'code': int (tags[2]),
-                'breapth': float (tags[3]),
-                'width': float (tags[4]),
-                'depth': float (tags[5]),
-                'height': float (tags[6]),
-                'wx': float (tags[7]),
-                'wy': float (tags[8]),
+                'code': int(tags[2]),
+                'breapth': float(tags[3]),
+                'width': float(tags[4]),
+                'depth': float(tags[5]),
+                'height': float(tags[6]),
+                'wx': float(tags[7]),
+                'wy': float(tags[8]),
             }
-            charmetrics.append (m)
+            charmetrics.append(m)
         elif tags[0] == 'font':
             global font_family
             font_family = (tags[3])
             # To omit 'GNU' (foundry) from font name proper:
             # name = tags[2:]
-            #urg
-            if 0: # testing
-                tags.append ('Regular')
+            # urg
+            if 0:  # testing
+                tags.append('Regular')
 
-            encoding = re.sub (' ','-', tags[5])
+            encoding = re.sub(' ', '-', tags[5])
             tags = tags[:-1]
             name = tags[1:]
-            global_info['design_size'] = float (tags[4])
-            global_info['FontName'] = '-'.join (name)
-            global_info['FullName'] = ' '.join (name)
-            global_info['FamilyName'] = '-'.join (name[1:-1])
+            global_info['design_size'] = float(tags[4])
+            global_info['FontName'] = '-'.join(name)
+            global_info['FullName'] = ' '.join(name)
+            global_info['FamilyName'] = '-'.join(name[1:-1])
             if 1:
                 global_info['Weight'] = tags[4]
-            else: # testing
+            else:  # testing
                 global_info['Weight'] = tags[-1]
 
             global_info['FontBBox'] = '0 0 1000 1000'
@@ -107,60 +111,59 @@ def parse_logfile (fn):
             global_info['EncodingScheme'] = encoding
 
         elif tags[0] == 'parameter':
-            global_info[tags[1]] = tags[2];
+            global_info[tags[1]] = tags[2]
 
     return (global_info, charmetrics)
 
 
+def character_lisp_table(global_info, charmetrics):
 
-def character_lisp_table (global_info, charmetrics):
-
-    def conv_char_metric (charmetric):
+    def conv_char_metric(charmetric):
         f = 1.0
         s = """(%s .
 ((bbox . (%f %f %f %f))
 (subfont . "%s")
 (subfont-index . %d)
 (attachment . (%f . %f))))
-""" %(charmetric['name'],
-   -charmetric['breapth'] * f,
-   -charmetric['depth'] * f,
-   charmetric['width'] * f,
-   charmetric['height'] * f,
-   global_info['filename'],
-   charmetric['code'],
-   charmetric['wx'],
-   charmetric['wy'])
+""" % (charmetric['name'],
+            -charmetric['breapth'] * f,
+            -charmetric['depth'] * f,
+            charmetric['width'] * f,
+            charmetric['height'] * f,
+            global_info['filename'],
+            charmetric['code'],
+            charmetric['wx'],
+            charmetric['wy'])
 
         return s
 
     s = ''
     for c in charmetrics:
-        s += conv_char_metric (c)
+        s += conv_char_metric(c)
 
     return s
 
 
-def global_lisp_table (global_info):
+def global_lisp_table(global_info):
     str = ''
 
     keys = ['staffsize', 'stafflinethickness', 'staff_space',
-        'linethickness', 'black_notehead_width', 'ledgerlinethickness',
-        'design_size',
-        'blot_diameter'
-        ]
+            'linethickness', 'black_notehead_width', 'ledgerlinethickness',
+            'design_size',
+            'blot_diameter'
+            ]
     for k in keys:
         if k in global_info:
-            str = str + "(%s . %s)\n" % (k,global_info[k])
+            str = str + "(%s . %s)\n" % (k, global_info[k])
 
     return str
 
 
 for name in sys.argv[1:]:
     root, _ = os.path.splitext(name)
-    global_lisp_nm = root +  '.global-lisp'
+    global_lisp_nm = root + '.global-lisp'
     char_lisp_nm = root + '.lisp'
 
-    g, m = parse_logfile (name)
-    open (char_lisp_nm, 'w').write (character_lisp_table (g, m))
-    open (global_lisp_nm, 'w').write (global_lisp_table (g))
+    g, m = parse_logfile(name)
+    open(char_lisp_nm, 'w').write(character_lisp_table(g, m))
+    open(global_lisp_nm, 'w').write(global_lisp_table(g))

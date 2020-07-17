@@ -34,16 +34,18 @@ except KeyError:
 
 build_dir = os.path.join(lilypond_git_dir, 'build')
 
+
 def get_pictures_from(dirname):
     try:
         examine_dirname = os.path.join(build_dir,
-            "Documentation", dirname, "out-www")
+                                       "Documentation", dirname, "out-www")
         filenames = (
             glob.glob(os.path.join(examine_dirname, "*.png")) +
             glob.glob(os.path.join(examine_dirname, "*.jpg")))
     except:
         print("Cannot find files (maybe a problem with your build directory?)")
     return filenames
+
 
 pictures_filenames = get_pictures_from("pictures")
 ly_examples_filenames = get_pictures_from(os.path.join("web", "ly-examples"))
@@ -57,4 +59,3 @@ for filename in ly_examples_filenames:
 
 print("Finished copying.")
 print("Don't forget to git commit and push to the lilypond-web-media repository!")
-

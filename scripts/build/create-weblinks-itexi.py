@@ -21,6 +21,7 @@
 """ when being called on lilypond.org, pass it the location of the
 top source dir on the command-line. """
 
+import langdefs
 import codecs
 import glob
 import os
@@ -28,12 +29,11 @@ import sys
 
 # Force encoding for stdout, Python up to version 3.7 falls back to
 # ASCII with LANG=C (which the build system exports).
-sys.stdout = codecs.getwriter ('utf8') (sys.stdout.detach ())
+sys.stdout = codecs.getwriter('utf8')(sys.stdout.detach())
 
-### translation data -- shouldn't be here; see issue
-### https://sourceforge.net/p/testlilyissues/issues/1050/
+# translation data -- shouldn't be here; see issue
+# https://sourceforge.net/p/testlilyissues/issues/1050/
 
-import langdefs
 langs = [i.code if i.code != 'en' else '' for i in langdefs.WEB_LANGUAGES]
 
 
@@ -80,7 +80,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'Proves de regressió de MusicXML en PDF per a ',
 
         'Doc tarball for ': 'Tarball de la documentació per a ',
-        },
+    },
     'cs': {
         'Source': 'Source',
         'Learning': 'Učení',
@@ -109,7 +109,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF MusicXML zkoušky regresí ',
 
         'Doc tarball for ': 'Doc tarball for ',
-        },
+    },
     'de': {
         'Source': 'Quellen',
         'Learning': 'Einführung',
@@ -138,7 +138,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF der MusicXML Regressionstests für ',
 
         'Doc tarball for ': 'Dokumentation tar-gepackt für ',
-        },
+    },
     'es': {
         'Source': 'Código fuente',
 
@@ -154,7 +154,7 @@ translations = {
         'Internals': 'Funcionamiento interno',
         'Contributor': 'Guía del colaborador',
 
-# keep the spaces!
+        # keep the spaces!
         ' (split HTML)': ' (HTML seccionado)',
         ' (big HTML)': ' (HTML monolítico)',
 
@@ -168,7 +168,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'Pruebas de MusicXML en PDF para ',
 
         'Doc tarball for ': 'Tarball de la documentación para ',
-     },
+    },
     'fr': {
         'Source': 'Sources',
 
@@ -184,7 +184,7 @@ translations = {
         'Internals': 'Propriétés internes',
         'Contributor': 'Guide du contributeur',
 
-# keep the spaces!
+        # keep the spaces!
         ' (split HTML)': ' (HTML multipages)',
         ' (big HTML)': ' (HTML en page unique)',
 
@@ -198,7 +198,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF des tests de régression de MusicXML pour ',
 
         'Doc tarball for ': 'Archive de la documentation pour ',
-        },
+    },
     'hu': {
         'Source': 'Forrás',
         'Learning': 'Tankönyv',
@@ -226,7 +226,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF formátumban - verzió: ',
 
         'Doc tarball for ': 'Tömörített csomag - verzió: ',
-        },
+    },
     'it': {
         'Source': 'Sorgenti',
         'Learning': 'Apprendimento',
@@ -241,7 +241,7 @@ translations = {
         'Internals': 'Funzionamento interno',
         'Contributor': 'Guida del collaboratore',
 
-# keep the spaces!
+        # keep the spaces!
         ' (split HTML)': ' (HTML multipagina)',
         ' (big HTML)': ' (HTML pagina unica)',
 
@@ -255,7 +255,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF dei test di collaudo di MusicXML per ',
 
         'Doc tarball for ': 'Archivio della documentazione per ',
-        },
+    },
     'ja': {
         'Source': 'ソース',
         'Learning': '学習',
@@ -267,12 +267,12 @@ translations = {
         'Web': 'Web',
         'Changes': '変更点',
 
-        #TODO
+        # TODO
         'Extending': '拡張',
         'Internals': '内部リファレンス',
         'Contributor': '貢献者向けガイド',
 
-# keep the spaces!
+        # keep the spaces!
         ' (split HTML)': ' (ページ毎に分割された HTML)',
         ' (big HTML)': ' (1 つの大きな HTML)',
 
@@ -287,7 +287,7 @@ translations = {
 
         'Doc tarball for ': 'ドキュメント アーカイブ バージョン ',
 
-        },
+    },
     'nl': {
         'Source': 'Broncode',
 
@@ -303,7 +303,7 @@ translations = {
         'Internals': 'Internals',
         'Contributor': 'Contributor',
 
-# keep the spaces!
+        # keep the spaces!
         ' (split HTML)': ' (opgesplitste HTML)',
         ' (big HTML)': ' (grote pagina HTML)',
 
@@ -317,7 +317,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'MusicXML regressietesten voor ',
 
         'Doc tarball for ': 'Tarball met documentation voor ',
-     },
+    },
     'pt': {
         'Source': 'Código-fonte',
 
@@ -333,7 +333,7 @@ translations = {
         'Internals': 'Procedimentos internos',
         'Contributor': 'Guia do contribuidor',
 
-# keep the spaces!
+        # keep the spaces!
         ' (split HTML)': ' (HTML dividido)',
         ' (big HTML)': ' (HTML único)',
 
@@ -347,7 +347,7 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF des testos de regressão de MusicXML de ',
 
         'Doc tarball for ': 'Arquivo da documentação de ',
-        },
+    },
     'zh': {
         'Source': '源码',
         'Learning': '学习',
@@ -363,7 +363,7 @@ translations = {
         'Internals': '内部机制',
         'Contributor': '贡献者',
 
-# keep the spaces!
+        # keep the spaces!
         ' (split HTML)': ' (分开的 HTML)',
         ' (big HTML)': ' (大的 HTML)',
 
@@ -377,13 +377,11 @@ translations = {
         'PDF of MusicXML regtests for ': 'MusicXML 的 PDF 回归测试 ',
 
         'Doc tarball for ': '为文档压缩包',
-        },
-    }
+    },
+}
 
 
-
-
-### actual program
+# actual program
 
 
 VERSION_STABLE = ""
@@ -394,13 +392,14 @@ try:
 except:
     myDir = os.path.dirname(sys.argv[0])
     # use two abspaths to work around some windows python bug
-    topDir = os.path.join(os.path.abspath(myDir)+os.sep+'..'+os.sep+'..'+os.sep)
-    topDir = os.path.abspath( topDir )
+    topDir = os.path.join(os.path.abspath(
+        myDir)+os.sep+'..'+os.sep+'..'+os.sep)
+    topDir = os.path.abspath(topDir)
 
 
 # TODO: this might be useful for other scripts; can we make it available?
 manuals = [os.path.splitext(x)[0] for x in list(map(os.path.basename,
-                  glob.glob(os.path.join(topDir,'Documentation', '*.te??'))))]
+                                                    glob.glob(os.path.join(topDir, 'Documentation', '*.te??'))))]
 #manuals = map(lambda x: 'glossary' if x=='music-glossary' else x, manuals)
 manuals.append('internals')
 
@@ -425,30 +424,38 @@ for line in version_contents:
 
 VERSION = str(major)+'.'+str(minor)+'.'+str(patch)
 
-def _ (string, lang):
-    return translations.get (lang.split ('_')[0], {}).get (string, None)
+
+def _(string, lang):
+    return translations.get(lang.split('_')[0], {}).get(string, None)
+
 
 getTrans = _
 # let's not barf, but print a warning when something's missing
+
+
 def getTrans(text, lang):
     if not lang:
         return text
-    trans = _ (text, lang)
+    trans = _(text, lang)
     if not trans:
         trans = text
-        sys.stderr.write ('create-weblinks-itexi: warning: [%(lang)s]: translation missing for: %(text)s\n' % locals ())
+        sys.stderr.write(
+            'create-weblinks-itexi: warning: [%(lang)s]: translation missing for: %(text)s\n' % locals())
     return trans
+
 
 def macroLang(name, lang):
     if lang:
         return name + '-' + lang
     return name
 
+
 def make_macro(name, string):
     print("@macro", name)
     print(string)
     print("@end macro")
     print("")
+
 
 def make_download(name, osA, osB, version, revision, text):
     string = "@uref{https://lilypond.org/download/binaries/"
@@ -461,6 +468,7 @@ def make_download(name, osA, osB, version, revision, text):
     string += "}"
     make_macro(name, string)
 
+
 def make_download_source(name, version, lang):
     assert "." in version
     vstring = "v%s.%s" % tuple(version.split(".", 2)[0:2])
@@ -471,28 +479,30 @@ def make_download_source(name, version, lang):
     string += getTrans("Source", lang)
     string += ": lilypond-" + version + ".tar.gz"
     string += "}"
-    make_macro(macroLang(name,lang), string)
+    make_macro(macroLang(name, lang), string)
+
 
 def make_all_downloads(macroName, version):
     make_download("download"+macroName+"LinuxNormal", "linux-x86/",
-        "linux-x86.sh",    version, "1", "GNU/Linux x86")
+                  "linux-x86.sh",    version, "1", "GNU/Linux x86")
     make_download("download"+macroName+"LinuxBig", "linux-64/",
-        "linux-64.sh", version, "1", "GNU/Linux 64")
+                  "linux-64.sh", version, "1", "GNU/Linux 64")
     make_download("download"+macroName+"LinuxPPC", "linux-ppc/",
-        "linux-ppc.sh", version, "1", "GNU/Linux PPC")
+                  "linux-ppc.sh", version, "1", "GNU/Linux PPC")
 
     make_download("download"+macroName+"FreeBSDNormal", "freebsd-x86/",
-        "freebsd-x86.sh", version, "1", "FreeBSD i386")
+                  "freebsd-x86.sh", version, "1", "FreeBSD i386")
     make_download("download"+macroName+"FreeBSDBig", "freebsd-64/",
-        "freebsd-64.sh", version, "1", "FreeBSD amd64")
+                  "freebsd-64.sh", version, "1", "FreeBSD amd64")
 
     make_download("download"+macroName+"DarwinNormal", "darwin-x86/",
-        "darwin-x86.tar.bz2", version, "1", "Mac OS X x86 32-bit")
+                  "darwin-x86.tar.bz2", version, "1", "Mac OS X x86 32-bit")
     make_download("download"+macroName+"DarwinPPC", "darwin-ppc/",
-        "darwin-ppc.tar.bz2", version, "1", "Mac OS X PPC")
+                  "darwin-ppc.tar.bz2", version, "1", "Mac OS X PPC")
 
     make_download("download"+macroName+"Windows", "mingw/",
-        "mingw.exe", version, "1", "Windows")
+                  "mingw.exe", version, "1", "Windows")
+
 
 def make_ver_link(macroname, url, linktext):
     string = "@uref{"
@@ -504,6 +514,8 @@ def make_ver_link(macroname, url, linktext):
 
 # TODO: this kind of thing should really be in a central place for
 # lilypond python build scripts
+
+
 def translateNameToUrl(manual, version):
     ver_split = version.split('.')
     ver_minor = ver_split[0] + '.' + ver_split[1]
@@ -511,12 +523,14 @@ def translateNameToUrl(manual, version):
 
     return url+manual
 
+
 def addLang(url, lang):
     if lang:
         base, ext = os.path.splitext(url)
         return base + '.' + lang + ext
     else:
         return url
+
 
 def make_manual_links(name, version, lang):
     """Here is where all the macros manualStableLearningSplit,
@@ -527,44 +541,45 @@ def make_manual_links(name, version, lang):
     for m in manuals:
         manual = m
         # TODO: this is a stupid way of doing it
-        if (m=='music-glossary'):
+        if (m == 'music-glossary'):
             mshort = 'Glossary'
         else:
             mshort = m.capitalize()
-        if (manual=='music-glossary'):
+        if (manual == 'music-glossary'):
             manual = 'Music glossary'
         url = translateNameToUrl(m, version)
 
         if (url.endswith('.html')):
-            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
-                      addLang(url, lang),
-                      getTrans(manual.capitalize(),lang) + '.pdf')
-            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
-                      addLang(url, lang),
-                      getTrans(manual.capitalize(),lang) +
-                      getTrans(' (split HTML)',lang))
-            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
-                      addLang(url, lang),
-                      getTrans(manual.capitalize(),lang) +
-                      getTrans(' (big HTML)',lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Pdf', lang),
+                          addLang(url, lang),
+                          getTrans(manual.capitalize(), lang) + '.pdf')
+            make_ver_link(macroLang("manual"+name+mshort+'Split', lang),
+                          addLang(url, lang),
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (split HTML)', lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Big', lang),
+                          addLang(url, lang),
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (big HTML)', lang))
             newurl = url
         else:
-            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
-                      # TODO: this is an even stupider way of doing it
-                      addLang(url+'.pdf', lang),
-                      getTrans(manual.capitalize(),lang) + '.pdf')
-            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
-                      addLang(url + '/index.html', lang),
-                      getTrans(manual.capitalize(),lang) +
-                      getTrans(' (split HTML)',lang))
-            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
-                      addLang(url + '-big-page.html', lang),
-                      getTrans(manual.capitalize(),lang) +
-                      getTrans(' (big HTML)',lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Pdf', lang),
+                          # TODO: this is an even stupider way of doing it
+                          addLang(url+'.pdf', lang),
+                          getTrans(manual.capitalize(), lang) + '.pdf')
+            make_ver_link(macroLang("manual"+name+mshort+'Split', lang),
+                          addLang(url + '/index.html', lang),
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (split HTML)', lang))
+            make_ver_link(macroLang("manual"+name+mshort+'Big', lang),
+                          addLang(url + '-big-page.html', lang),
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (big HTML)', lang))
             newurl = url + '/index.html'
-        make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
-                  addLang(newurl, lang),
-                  getTrans(manual.capitalize(),lang))
+        make_ver_link(macroLang("manual"+name+mshort+'SplitNoName', lang),
+                      addLang(newurl, lang),
+                      getTrans(manual.capitalize(), lang))
+
 
 def make_regtest_links(name, version, lang):
     ver_split = version.split('.')
@@ -572,29 +587,30 @@ def make_regtest_links(name, version, lang):
     url = depth + "doc/v" + ver_minor + "/input/regression/"
 
     make_ver_link(macroLang("regtest"+name, lang),
-        url+"collated-files.html",
-        getTrans("Regression tests for ", lang)+version)
+                  url+"collated-files.html",
+                  getTrans("Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"Pdf", lang),
-        url+"collated-files.pdf",
-        getTrans("PDF of regtests for ", lang)+version)
+                  url+"collated-files.pdf",
+                  getTrans("PDF of regtests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"Xml", lang),
-        url+"musicxml/collated-files.html",
-        getTrans("MusicXML Regression tests for ", lang)+version)
+                  url+"musicxml/collated-files.html",
+                  getTrans("MusicXML Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"Abc", lang),
-        url+"abc2ly/collated-files.html",
-        getTrans("abc2ly Regression tests for ", lang)+version)
+                  url+"abc2ly/collated-files.html",
+                  getTrans("abc2ly Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"LilypondBook", lang),
-        url+"lilypond-book/collated-files.html",
-        getTrans("lilypond-book Regression tests for ", lang)+version)
+                  url+"lilypond-book/collated-files.html",
+                  getTrans("lilypond-book Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"XmlPdf", lang),
-         url+"musicxml/collated-files.pdf",
-        getTrans("PDF of MusicXML regtests for ", lang)+version)
+                  url+"musicxml/collated-files.pdf",
+                  getTrans("PDF of MusicXML regtests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"AbcPdf", lang),
-         url+"abc2ly/collated-files.pdf",
-        getTrans("PDF of abc2ly regtests for ", lang)+version)
+                  url+"abc2ly/collated-files.pdf",
+                  getTrans("PDF of abc2ly regtests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"LilypondBookPdf", lang),
-         url+"lilypond-book/collated-files.pdf",
-        getTrans("PDF of lilypond-book regtests for ", lang)+version)
+                  url+"lilypond-book/collated-files.pdf",
+                  getTrans("PDF of lilypond-book regtests for ", lang)+version)
+
 
 def make_doctarball_links(name, version, lang):
     url = depth + "downloads/binaries/documentation/lilypond-"
@@ -602,7 +618,8 @@ def make_doctarball_links(name, version, lang):
     url += version + "-1"
     url += ".documentation.tar.bz2"
     make_ver_link(macroLang("doctarball"+name, lang),
-        url, getTrans("Doc tarball for ", lang)+version)
+                  url, getTrans("Doc tarball for ", lang)+version)
+
 
 print("@c This file was autogenerated")
 print("@c     from: %s" % VERSION)

@@ -39,42 +39,42 @@ import book_snippets
 # See book_base.BookOutputFormat for  possible keys
 HTML_snippet_res = {
     'lilypond':
-         r'''(?mx)
+    r'''(?mx)
           (?P<match>
           <lilypond(\s+(?P<options>.*?))?\s*:\s*(?P<code>.*?)\s*/>)''',
 
     'lilypond_block':
-         r'''(?msx)
+    r'''(?msx)
           (?P<match>
           <lilypond\s*(?P<options>.*?)\s*>
           (?P<code>.*?)
           </lilypond\s*>)''',
 
     'lilypond_file':
-         r'''(?mx)
+    r'''(?mx)
           (?P<match>
           <lilypondfile\s*(?P<options>.*?)\s*>
           \s*(?P<filename>.*?)\s*
           </lilypondfile\s*>)''',
 
     'multiline_comment':
-         r'''(?smx)(?P<match>\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s)''',
+    r'''(?smx)(?P<match>\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s)''',
 
     'musicxml_file':
-         r'''(?mx)
+    r'''(?mx)
           (?P<match>
           <musicxmlfile\s*(?P<options>.*?)\s*>
           \s*(?P<filename>.*?)\s*
           </musicxmlfile\s*>)''',
 
     'verb':
-         r'''(?x)(?P<match>(?P<code><pre>.*?</pre>))''',
+    r'''(?x)(?P<match>(?P<code><pre>.*?</pre>))''',
 
     'verbatim':
-         r'''(?xs)(?P<match>(?P<code><pre>\s.*?</pre>\s))''',
+    r'''(?xs)(?P<match>(?P<code><pre>\s.*?</pre>\s))''',
 
     'lilypondversion':
-         r'''(?mx)(?P<match><lilypondversion\s*/>)''',
+    r'''(?mx)(?P<match><lilypondversion\s*/>)''',
 }
 
 
@@ -112,16 +112,16 @@ HTML_output = {
 
 
 class BookHTMLOutputFormat (book_base.BookOutputFormat):
-    def __init__ (self):
-        book_base.BookOutputFormat.__init__ (self)
+    def __init__(self):
+        book_base.BookOutputFormat.__init__(self)
         self.format = "html"
         self.default_extension = ".html"
         self.snippet_res = HTML_snippet_res
         self.output = HTML_output
-        self.handled_extensions = ['.html', '.xml','.htmly']
+        self.handled_extensions = ['.html', '.xml', '.htmly']
         self.snippet_option_separator = '\s+'
 
-    def split_snippet_options (self, option_string):
+    def split_snippet_options(self, option_string):
         if option_string:
             options = re.findall('[-\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',
                                  option_string)
@@ -130,38 +130,38 @@ class BookHTMLOutputFormat (book_base.BookOutputFormat):
             return options
         return []
 
-    def adjust_snippet_command (self, cmd):
+    def adjust_snippet_command(self, cmd):
         if '--formats' not in cmd:
             return cmd + ' --formats=png '
         else:
             return cmd
 
-    def snippet_output (self, basename, snippet):
+    def snippet_output(self, basename, snippet):
         str = ''
-        rep = snippet.get_replacements ();
+        rep = snippet.get_replacements()
         rep['base'] = basename
-        rep['filename'] = os.path.basename (snippet.filename)
+        rep['filename'] = os.path.basename(snippet.filename)
         rep['ext'] = snippet.ext
-        str += self.output_print_filename (basename, snippet)
+        str += self.output_print_filename(basename, snippet)
         if book_snippets.VERBATIM in snippet.option_dict:
-            rep['verb'] = book_base.verbatim_html (snippet.verb_ly ())
+            rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
             str += self.output[book_snippets.VERBATIM] % rep
         if book_snippets.QUOTE in snippet.option_dict:
             str = self.output[book_snippets.QUOTE] % {'str': str}
 
         str += self.output[book_snippets.BEFORE] % rep
-        for image in snippet.get_images ():
-            rep1 = copy.copy (rep)
+        for image in snippet.get_images():
+            rep1 = copy.copy(rep)
             rep1['image'] = image
-            (rep1['base'], rep1['ext']) = os.path.splitext (image)
+            (rep1['base'], rep1['ext']) = os.path.splitext(image)
             rep1['alt'] = snippet.option_dict[book_snippets.ALT]
             str += self.output[book_snippets.OUTPUT] % rep1
 
         str += self.output[book_snippets.AFTER] % rep
         return str
 
-    def required_files (self, snippet, base, full, required_files):
-        return self.required_files_png (snippet, base, full, required_files)
+    def required_files(self, snippet, base, full, required_files):
+        return self.required_files_png(snippet, base, full, required_files)
 
 
-book_base.register_format (BookHTMLOutputFormat ());
+book_base.register_format(BookHTMLOutputFormat())

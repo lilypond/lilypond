@@ -26,9 +26,9 @@ import re
 import sys
 
 (options, files) = \
- getopt.getopt (sys.argv[1:],
-                '',
-                ['in=', 'out=', 'version='])
+    getopt.getopt(sys.argv[1:],
+                  '',
+                  ['in=', 'out=', 'version='])
 
 version = "dev"
 indir = ""
@@ -50,8 +50,8 @@ font = fontforge.font()
 
 scale = 1.0
 subfonts = []
-for c in "abcdefghi" :
-    subfont = "feta-braces-%s" %c
+for c in "abcdefghi":
+    subfont = "feta-braces-%s" % c
     subfonts.append(subfont)
     f = fontforge.open(os.path.join(indir, subfont + ".pfb"))
     f.selection.all()
@@ -69,7 +69,7 @@ for c in "abcdefghi" :
     os.remove(tmp)
     scale += 1.0
 
-font.fontname= "Emmentaler-Brace"
+font.fontname = "Emmentaler-Brace"
 font.familyname = "Emmentaler-Brace"
 font.weight = "Regular"
 font.copyright = "GNU GPL"
@@ -81,7 +81,7 @@ for glyph in font.glyphs():
     glyph.unicode = i + 0xE000
     i += 1
 
-subfonts_str = ' '.join (subfonts)
+subfonts_str = ' '.join(subfonts)
 
 
 lisp = b""

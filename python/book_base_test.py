@@ -24,8 +24,10 @@ import book_base
 import book_snippets
 import book_texinfo
 
+
 class Dummy:
     pass
+
 
 class TestFindSnippets(unittest.TestCase):
     def test_basic_texi(self):
@@ -58,18 +60,19 @@ Include a file that includes a file:
 """,  formatter, global_options)
 
         # comment
-        types  = [book_snippets.Substring,
-                  book_snippets.Snippet, # @c
-                  book_snippets.Substring,
-                  book_snippets.LilypondFileSnippet,
-                  book_snippets.Substring,
-                  book_snippets.LilypondFileSnippet,
-                  book_snippets.Substring,
-                  book_snippets.LilypondSnippet,
-                  book_snippets.Substring]
+        types = [book_snippets.Substring,
+                 book_snippets.Snippet,  # @c
+                 book_snippets.Substring,
+                 book_snippets.LilypondFileSnippet,
+                 book_snippets.Substring,
+                 book_snippets.LilypondFileSnippet,
+                 book_snippets.Substring,
+                 book_snippets.LilypondSnippet,
+                 book_snippets.Substring]
         for i in range(0, len(types)):
             self.assertIsInstance(chunks[i], types[i])
         self.assertEqual(chunks[7].line_number, 18)
+
 
 if __name__ == '__main__':
     unittest.main()

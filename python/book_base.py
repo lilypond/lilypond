@@ -34,36 +34,38 @@ error = ly.error
 # Helper functions
 ########################################################################
 
-def find_file (name, include_path, working_dir=None, raise_error=True):
-    current_path = working_dir or os.getcwd();
+
+def find_file(name, include_path, working_dir=None, raise_error=True):
+    current_path = working_dir or os.getcwd()
     for i in [current_path] + include_path:
-        full = os.path.join (i, name)
-        full = os.path.normpath (os.path.join (current_path, full))
-        if os.path.exists (full):
+        full = os.path.join(i, name)
+        full = os.path.normpath(os.path.join(current_path, full))
+        if os.path.exists(full):
             return full
 
     if raise_error:
-        error (_ ("file not found: %s") % name + '\n')
-        exit (1)
+        error(_("file not found: %s") % name + '\n')
+        exit(1)
     return ''
 
-def verbatim_html (s):
-    return re.sub ('>', '&gt;',
-           re.sub ('<', '&lt;',
-               re.sub ('&', '&amp;', s)))
+
+def verbatim_html(s):
+    return re.sub('>', '&gt;',
+                  re.sub('<', '&lt;',
+                         re.sub('&', '&amp;', s)))
 
 
 ########################################################################
 # Option handling
 ########################################################################
 
-#TODO: Definitions just once in all files!!!
+# TODO: Definitions just once in all files!!!
 LINE_WIDTH = 'line-width'
 
 # TODO: Implement the intertext snippet option:
 #         'intertext': r',?\s*intertext=\".*?\"',
 
-default_snippet_opts = { 'alt': "[image of music]" }
+default_snippet_opts = {'alt': "[image of music]"}
 
 
 ########################################################################
@@ -71,9 +73,10 @@ default_snippet_opts = { 'alt': "[image of music]" }
 ########################################################################
 
 all_formats = []
-def register_format (fmt):
-  all_formats.append (fmt)
 
+
+def register_format(fmt):
+    all_formats.append(fmt)
 
 
 ########################################################################
@@ -84,7 +87,6 @@ def register_format (fmt):
 # is unsorted, so we need to return sorted keys to ensure processing
 # in a pre-defined order)
 # Containing blocks must be first, see find_toplevel_snippets.
-
 snippet_type_order = [
     'multiline_comment',
     'verbatim',
@@ -101,8 +103,9 @@ snippet_type_order = [
 # Base class for all output formats
 ########################################################################
 
+
 class BookOutputFormat:
-    def __init__ (self):
+    def __init__(self):
         self.format = None
         self.default_extension = None
 
@@ -122,137 +125,137 @@ class BookOutputFormat:
         self.default_snippet_options = default_snippet_opts
         self.snippet_option_separator = "\s*,\s*"
 
-    def supported_snippet_types (self):
+    def supported_snippet_types(self):
         """List of snippet types (strings)"""
         # Sort according to snippet_type_order, unknown keys come last
-        keys = list(self.snippet_res.keys ())
+        keys = list(self.snippet_res.keys())
         # First the entries in snippet_type_order in that order (if present)
         # then all entries not in snippet_type_order in given order
-        res = [x for x in snippet_type_order if x in keys] + [x for x in keys if x not in snippet_type_order]
+        res = [x for x in snippet_type_order if x in keys] + \
+            [x for x in keys if x not in snippet_type_order]
         return res
 
-    def snippet_regexp (self, snippettype):
+    def snippet_regexp(self, snippettype):
         """return regex string for snippettype"""
-        return self.snippet_res.get (snippettype, None)
+        return self.snippet_res.get(snippettype, None)
 
-    def can_handle_format (self, format):
+    def can_handle_format(self, format):
         return format == self.format
-    def can_handle_extension (self, extension):
+
+    def can_handle_extension(self, extension):
         return extension in self.handled_extensions
 
-    def add_options (self, option_parser):
+    def add_options(self, option_parser):
         pass
 
-    def process_options (self, global_options):
+    def process_options(self, global_options):
         pass
 
-    def process_options_pdfnotdefault (self, global_options):
-        ## prevent PDF from being switched on by default.
+    def process_options_pdfnotdefault(self, global_options):
+        # prevent PDF from being switched on by default.
         global_options.process_cmd += ' --formats=eps '
         if global_options.create_pdf:
             global_options.process_cmd += "--pdf -dinclude-eps-fonts -dgs-load-fonts "
             if global_options.latex_program == 'latex':
-                    global_options.latex_program = 'pdflatex'
+                global_options.latex_program = 'pdflatex'
 
+    def snippet_class(self, type):
+        return BookSnippet.snippet_type_to_class.get(type, BookSnippet.Snippet)
 
-    def snippet_class (self, type):
-      return BookSnippet.snippet_type_to_class.get (type, BookSnippet.Snippet)
-
-    def get_document_language (self, source):
+    def get_document_language(self, source):
         return ''
 
-
-    def init_default_snippet_options (self, source):
-        self.document_language = self.get_document_language (source)
+    def init_default_snippet_options(self, source):
+        self.document_language = self.get_document_language(source)
         if LINE_WIDTH not in self.default_snippet_options:
-            line_width = self.get_line_width (source)
+            line_width = self.get_line_width(source)
             if line_width:
                 self.default_snippet_options[LINE_WIDTH] = line_width
 
-    def get_line_width (self, source):
-        return None;
+    def get_line_width(self, source):
+        return None
 
-    def split_snippet_options (self, option_string):
+    def split_snippet_options(self, option_string):
         if option_string:
-            return re.split (self.snippet_option_separator, option_string)
+            return re.split(self.snippet_option_separator, option_string)
         return []
 
-    def input_fullname (self, input_filename):
-        return find_file (input_filename, self.global_options.include_path,
-            self.global_options.original_dir)
+    def input_fullname(self, input_filename):
+        return find_file(input_filename, self.global_options.include_path,
+                         self.global_options.original_dir)
 
-    def adjust_snippet_command (self, cmd):
+    def adjust_snippet_command(self, cmd):
         return cmd
 
-    def process_chunks (self, chunks):
+    def process_chunks(self, chunks):
         return chunks
 
-    def snippet_output (self, basename, snippet):
-        warning (_("Output function not implemented"))
+    def snippet_output(self, basename, snippet):
+        warning(_("Output function not implemented"))
         return ''
 
-    def output_simple (self, type, snippet):
-        return self.output.get (type, '') % snippet.get_replacements ()
+    def output_simple(self, type, snippet):
+        return self.output.get(type, '') % snippet.get_replacements()
 
-    def output_simple_replacements (self, type, variables):
-        return self.output.get (type, '') % variables
+    def output_simple_replacements(self, type, variables):
+        return self.output.get(type, '') % variables
 
-    def output_print_filename (self, basename, snippet):
+    def output_print_filename(self, basename, snippet):
         str = ''
-        rep = snippet.get_replacements ()
+        rep = snippet.get_replacements()
         if book_snippets.PRINTFILENAME in snippet.option_dict:
             rep['base'] = basename
-            rep['filename'] = os.path.basename (snippet.filename)
+            rep['filename'] = os.path.basename(snippet.filename)
             rep['ext'] = snippet.ext
             str = self.output[book_snippets.PRINTFILENAME] % rep
 
         return str
 
-    def required_files (self, snippet, base, full, required_files):
+    def required_files(self, snippet, base, full, required_files):
         return []
 
-    def required_files_png (self, snippet, base, full, required_files):
+    def required_files_png(self, snippet, base, full, required_files):
         # UGH - junk global_options
         res = []
         if (base + '.eps' in required_files and not snippet.global_options.skip_png_check):
-            page_count = BookSnippet.ps_page_count (full + '.eps')
+            page_count = BookSnippet.ps_page_count(full + '.eps')
             if page_count <= 1:
-                res.append (base + '.png')
+                res.append(base + '.png')
             else:
-                for page in range (1, page_count + 1):
-                    res.append (base + '-page%d.png' % page)
+                for page in range(1, page_count + 1):
+                    res.append(base + '-page%d.png' % page)
         return res
 
 
-def find_linestarts (s):
+def find_linestarts(s):
     """Return a list of indices indicating the first char of a line."""
     nls = [0]
     start = 0
-    end = len (s)
+    end = len(s)
     while 1:
-        i = s.find ('\n', start)
+        i = s.find('\n', start)
         if i < 0:
             break
 
         i = i + 1
-        nls.append (i)
+        nls.append(i)
         start = i
 
-    nls.append (len (s))
+    nls.append(len(s))
     return nls
 
 
-def find_toplevel_snippets (input_string, formatter, global_options):
+def find_toplevel_snippets(input_string, formatter, global_options):
     res = {}
-    types = formatter.supported_snippet_types ()
+    types = formatter.supported_snippet_types()
     for t in types:
-        res[t] = re.compile (formatter.snippet_regexp (t))
+        res[t] = re.compile(formatter.snippet_regexp(t))
 
     snippets = []
     index = 0
-    found = dict ([(t, None) for t in types])
+    found = dict([(t, None) for t in types])
 
-    line_starts = find_linestarts (input_string)
+    line_starts = find_linestarts(input_string)
     line_start_idx = 0
     # We want to search for multiple regexes, without searching
     # the string multiple times for one regex.
@@ -267,19 +270,19 @@ def find_toplevel_snippets (input_string, formatter, global_options):
             if not found[type] or found[type][0] < index:
                 found[type] = None
 
-                m = res[type].search (input_string, index, endex)
+                m = res[type].search(input_string, index, endex)
                 if not m:
                     continue
 
-                klass = formatter.snippet_class (type)
+                klass = formatter.snippet_class(type)
 
-                start = m.start ('match')
+                start = m.start('match')
                 line_number = line_start_idx
                 while (line_starts[line_number] < start):
                     line_number += 1
 
                 line_number += 1
-                snip = klass (type, m, formatter, line_number, global_options)
+                snip = klass(type, m, formatter, line_number, global_options)
 
                 found[type] = (start, snip)
 
@@ -301,16 +304,18 @@ def find_toplevel_snippets (input_string, formatter, global_options):
                 endex = found[first][0]
 
         if not first:
-            snippets.append (BookSnippet.Substring (input_string, index, len (input_string), line_start_idx))
+            snippets.append(BookSnippet.Substring(
+                input_string, index, len(input_string), line_start_idx))
             break
 
         while (start > line_starts[line_start_idx+1]):
             line_start_idx += 1
 
         (start, snip) = found[first]
-        snippets.append (BookSnippet.Substring (input_string, index, start, line_start_idx + 1))
-        snippets.append (snip)
+        snippets.append(BookSnippet.Substring(
+            input_string, index, start, line_start_idx + 1))
+        snippets.append(snip)
         found[first] = None
-        index = start + len (snip.match.group ('match'))
+        index = start + len(snip.match.group('match'))
 
     return snippets

@@ -21,11 +21,13 @@
 
 import re
 
+
 def string_to_number(s):
     try:
         return int(s)
     except ValueError:
         return float(s)
+
 
 def string_to_integer(s):
     num = string_to_number(s)
@@ -34,53 +36,59 @@ def string_to_integer(s):
     else:
         return int(num)
 
-def escape_ly_output_string (input_string):
+
+def escape_ly_output_string(input_string):
     return_string = input_string
-    needs_quotes = not re.match ("^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
+    needs_quotes = not re.match("^[a-zA-ZäöüÜÄÖßñ]*$", return_string)
     if needs_quotes:
-        return_string = "\"" + return_string.replace ("\"", "\\\"") + "\""
+        return_string = "\"" + return_string.replace("\"", "\\\"") + "\""
     return return_string
 
-def interpret_alter_element (alter_elm):
+
+def interpret_alter_element(alter_elm):
     alter = 0
     if alter_elm:
-        val = eval(alter_elm.get_text ())
-        if type (val) in (int, float):
+        val = eval(alter_elm.get_text())
+        if type(val) in (int, float):
             alter = val
     return alter
 
-def musicxml_duration_to_log (dur):
-    return  {'256th': 8,
-             '128th': 7,
-             '64th': 6,
-             '32nd': 5,
-             '16th': 4,
-             'eighth': 3,
-             'quarter': 2,
-             'half': 1,
-             'whole': 0,
-             'breve':-1,
-             'longa':-2,
-             'long':-2}.get (dur, 0)
 
-def hexcolorval_to_nr (hex_val):
+def musicxml_duration_to_log(dur):
+    return {'256th': 8,
+            '128th': 7,
+            '64th': 6,
+            '32nd': 5,
+            '16th': 4,
+            'eighth': 3,
+            'quarter': 2,
+            'half': 1,
+            'whole': 0,
+            'breve': -1,
+            'longa': -2,
+            'long': -2}.get(dur, 0)
+
+
+def hexcolorval_to_nr(hex_val):
     try:
-        v = int (hex_val, 16)
+        v = int(hex_val, 16)
         if v == 255:
             v = 256
         return v / 256.
     except ValueError:
         return 0.
 
+
 def hex_to_color(hex_val):
-    res = re.match (
+    res = re.match(
         r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$',
         hex_val,
         re.IGNORECASE)
     if res:
-        return [hexcolorval_to_nr (x) for x in res.group (2, 3, 4)]
+        return [hexcolorval_to_nr(x) for x in res.group(2, 3, 4)]
     else:
         return None
+
 
 def split_string_and_preserve_doublequoted_substrings(value):
     import shlex
@@ -89,6 +97,7 @@ def split_string_and_preserve_doublequoted_substrings(value):
     lex.whitespace_split = True
     lex.commenters = ''
     return list(lex)
+
 
 def musicxml_sound_to_lilypond_midi_instrument(sound):
     sounds = {
@@ -283,5 +292,5 @@ def musicxml_sound_to_lilypond_midi_instrument(sound):
         "wind.reed.shenai": 'shanai',
         "wood.temple-block": 'wood block',
         "wood.wood-block": 'wood block',
-        }
+    }
     return sounds.get(sound, 'acoustic grand')

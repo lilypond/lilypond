@@ -55,14 +55,16 @@ Options:
    option is used, NAME and TITLE are ignored.
 """
 
-def help (text):
-    sys.stdout.write ( text)
-    sys.exit (0)
 
-(options, files) = getopt.getopt (sys.argv[1:], 'f:hn:t:',
-                     ['fragment-options=', 'help', 'name=',
-                     'title=', 'author=', 'template=',
-                     'input-filenames=', 'glob-input='])
+def help(text):
+    sys.stdout.write(text)
+    sys.exit(0)
+
+
+(options, files) = getopt.getopt(sys.argv[1:], 'f:hn:t:',
+                                 ['fragment-options=', 'help', 'name=',
+                                  'title=', 'author=', 'template=',
+                                  'input-filenames=', 'glob-input='])
 
 name = "ly-doc"
 title = "Ly Doc"
@@ -106,7 +108,7 @@ for opt in options:
         # We can't use vars () inside a function, as that only contains all
         # local variables and none of the global variables! Thus we have to
         # generate the help text here and pass it to the function...
-        help (help_text % vars ())
+        help(help_text % vars())
     elif o == '-n' or o == '--name':
         name = a
     elif o == '-t' or o == '--title':
@@ -120,23 +122,24 @@ for opt in options:
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
     elif o == '--template':
-        template = open (a, 'r').read ()
+        template = open(a, 'r').read()
     else:
-        raise Exception ('unknown option: ' + o)
+        raise Exception('unknown option: ' + o)
 
-html_file_re = re.compile ('.*\.i?html?$')
-info_file_re = re.compile ('.*\.info$')
-pdf_file_re = re.compile ('.*\.i?pdf$')
-tex_file_re = re.compile ('.*\.i?(la)?tex$')
-texi_file_re = re.compile ('.*\.i?te(ly|xi|xinfo)$')
-xml_file_re = re.compile ('.*\.i?(xm|mx)l$')
+html_file_re = re.compile('.*\.i?html?$')
+info_file_re = re.compile('.*\.info$')
+pdf_file_re = re.compile('.*\.i?pdf$')
+tex_file_re = re.compile('.*\.i?(la)?tex$')
+texi_file_re = re.compile('.*\.i?te(ly|xi|xinfo)$')
+xml_file_re = re.compile('.*\.i?(xm|mx)l$')
 
-def name2line (n):
-    if texi_file_re.match (n):
+
+def name2line(n):
+    if texi_file_re.match(n):
         # We have a texi include file, simply include it:
-        s = r"@include %s" % os.path.basename (n)
-    elif (html_file_re.match (n) or info_file_re.match (n)
-          or pdf_file_re.match (n) or tex_file_re.match (n)):
+        s = r"@include %s" % os.path.basename(n)
+    elif (html_file_re.match(n) or info_file_re.match(n)
+          or pdf_file_re.match(n) or tex_file_re.match(n)):
         s = r"""
 @ifhtml
 @html
@@ -144,9 +147,9 @@ def name2line (n):
 <br/>
 @end html
 @end ifhtml
-""" % (os.path.basename (n), os.path.basename (n))
+""" % (os.path.basename(n), os.path.basename(n))
 
-    elif (xml_file_re.match (n)):
+    elif (xml_file_re.match(n)):
         # Assume it's a MusicXML file -> convert, create image etc.
         s = r"""
 @ifhtml
@@ -156,7 +159,7 @@ def name2line (n):
 @end ifhtml
 
 @musicxmlfile[%s]{%s}
-""" % (os.path.basename (n), fragment_options, n)
+""" % (os.path.basename(n), fragment_options, n)
 
     else:
         # Assume it's a lilypond file -> create image etc.
@@ -168,8 +171,9 @@ def name2line (n):
 @end ifhtml
 
 @lilypondfile[%s]{%s}
-""" % (os.path.basename (n), fragment_options, n)
+""" % (os.path.basename(n), fragment_options, n)
     return s
+
 
 if glob_input:
     files = glob.glob(glob_input)
@@ -177,18 +181,19 @@ elif input_filename:
     files = open(input_filename).read().split()
 
 if files:
-    dir = os.path.dirname (name) or "."
+    dir = os.path.dirname(name) or "."
 # don't strip .tely extension, Documentation/snippets uses .itely
-    name = os.path.basename (name)
-    template = template % vars ()
+    name = os.path.basename(name)
+    template = template % vars()
 
-    s = "\n".join (map (name2line, files))
-    s = template.replace (include_snippets, s, 1)
+    s = "\n".join(map(name2line, files))
+    s = template.replace(include_snippets, s, 1)
     f = "%s/%s" % (dir, name)
-    h = open (f, "w")
-    h.write (s)
-    h.close ()
+    h = open(f, "w")
+    h.write(s)
+    h.close()
 else:
     # not Unix philosophy, but hey, at least we notice when
     # we don't distribute any .ly files.
-    sys.stderr.write ("No files specified. Doing nothing. Use -h to display usage.")
+    sys.stderr.write(
+        "No files specified. Doing nothing. Use -h to display usage.")

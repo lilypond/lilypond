@@ -41,40 +41,44 @@ _USAGE = """lilysong [-p PLAY-PROGRAM] FILE.xml [LANGUAGE-CODE-OR-VOICE [SPEEDUP
        lilysong --list-languages
 """
 
-def usage ():
-    print('Usage:', _USAGE)
-    sys.exit (2)
 
-def process_options (args):
-    parser = optparse.OptionParser (usage=_USAGE, version="@TOPLEVEL_VERSION@")
-    parser.add_option ('', '--list-voices', action='store_true', dest='list_voices',
-                       help="list available Festival voices")
-    parser.add_option ('', '--list-languages', action='store_true', dest='list_languages',
-                       help="list available Festival languages")
-    parser.add_option ('-p', '--play-program', metavar='PROGRAM',
-                       action='store', type='string', dest='play_program',
-                       help="use PROGRAM to play song immediately")
-    options, args = parser.parse_args (args)
+def usage():
+    print('Usage:', _USAGE)
+    sys.exit(2)
+
+
+def process_options(args):
+    parser = optparse.OptionParser(usage=_USAGE, version="@TOPLEVEL_VERSION@")
+    parser.add_option('', '--list-voices', action='store_true', dest='list_voices',
+                      help="list available Festival voices")
+    parser.add_option('', '--list-languages', action='store_true', dest='list_languages',
+                      help="list available Festival languages")
+    parser.add_option('-p', '--play-program', metavar='PROGRAM',
+                      action='store', type='string', dest='play_program',
+                      help="use PROGRAM to play song immediately")
+    options, args = parser.parse_args(args)
     return options, args
 
-def call_festival (scheme_code):
-    p = subprocess.Popen (FESTIVAL_COMMAND, stdin=subprocess.PIPE,
-                          stdout=subprocess.PIPE, close_fds=True)
-    p.stdin.write (scheme_code)
-    p.stdin.close ()
+
+def call_festival(scheme_code):
+    p = subprocess.Popen(FESTIVAL_COMMAND, stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE, close_fds=True)
+    p.stdin.write(scheme_code)
+    p.stdin.close()
     answer = ''
     while True:
-        process_output = p.stdout.read ()
+        process_output = p.stdout.read()
         if not process_output:
             break
         answer = answer + process_output
     return answer
 
-def select_voice (language_or_voice):
+
+def select_voice(language_or_voice):
     if language_or_voice[:6] == 'voice_':
         voice = language_or_voice
     else:
-        voice = call_festival ('''
+        voice = call_festival('''
 (let ((candidates '()))
   (mapcar (lambda (v)
             (if (eq (cadr (assoc 'language (cadr (voice.description v)))) '%s)
@@ -88,8 +92,9 @@ def select_voice (language_or_voice):
             voice = None
     return voice
 
-def list_voices ():
-    print(call_festival ('''
+
+def list_voices():
+    print(call_festival('''
 (let ((voices (voice.list))
       (print-voice (lambda (v) (format t "voice_%s\n" v))))
   (mapcar print-voice voices)
@@ -97,8 +102,9 @@ def list_voices ():
           (mapcar car Voice_descriptions)))
 '''))
 
-def list_languages ():
-    print(call_festival ('''
+
+def list_languages():
+    print(call_festival('''
 (let ((languages '()))
   (let ((voices (voice.list))
         (print-language (lambda (v)
@@ -112,106 +118,112 @@ def list_languages ():
             (mapcar car Voice_descriptions))))
 '''))
 
-def process_xml_file (file_name, voice, speedup, play_program):
+
+def process_xml_file(file_name, voice, speedup, play_program):
     if speedup == 1:
         speedup = None
-    coding = (VOICE_CODINGS.get (voice) or 'iso-8859-1')
-    _, xml_temp_file = tempfile.mkstemp ('.xml')
+    coding = (VOICE_CODINGS.get(voice) or 'iso-8859-1')
+    _, xml_temp_file = tempfile.mkstemp('.xml')
     try:
         # recode the XML file
         recodep = (coding != 'utf-8')
         if recodep:
-            decode = codecs.getdecoder ('utf-8')
-            encode = codecs.getencoder (coding)
-        input = open (file_name)
-        output = open (xml_temp_file, 'w')
+            decode = codecs.getdecoder('utf-8')
+            encode = codecs.getencoder(coding)
+        input = open(file_name)
+        output = open(xml_temp_file, 'w')
         while True:
-            data = input.read ()
+            data = input.read()
             if not data:
                 break
             if recodep:
-                data = encode (decode (data)[0])[0]
-            output.write (data)
-        output.close ()
+                data = encode(decode(data)[0])[0]
+            output.write(data)
+        output.close()
         # synthesize
         wav_file = file_name[:-3] + 'wav'
         if speedup:
-            _, wav_temp_file = tempfile.mkstemp ('.wav')
+            _, wav_temp_file = tempfile.mkstemp('.wav')
         else:
             wav_temp_file = wav_file
         try:
-            print("text2wave -eval '(%s)' -mode singing '%s' -o '%s'" % (voice, xml_temp_file, wav_temp_file,))
-            result = os.system ("text2wave -eval '(%s)' -mode singing '%s' -o '%s'" %
-                                (voice, xml_temp_file, wav_temp_file,))
+            print("text2wave -eval '(%s)' -mode singing '%s' -o '%s'" %
+                  (voice, xml_temp_file, wav_temp_file,))
+            result = os.system("text2wave -eval '(%s)' -mode singing '%s' -o '%s'" %
+                               (voice, xml_temp_file, wav_temp_file,))
             if result:
-                sys.stdout.write ("Festival processing failed.\n")
+                sys.stdout.write("Festival processing failed.\n")
                 return
             if speedup:
-                result = os.system ("sox '%s' '%s' speed '%f'" % (wav_temp_file, wav_file, speedup,))
+                result = os.system("sox '%s' '%s' speed '%f'" %
+                                   (wav_temp_file, wav_file, speedup,))
                 if result:
-                    sys.stdout.write ("Festival processing failed.\n")
+                    sys.stdout.write("Festival processing failed.\n")
                     return
         finally:
             if speedup:
                 try:
-                    os.delete (wav_temp_file)
+                    os.delete(wav_temp_file)
                 except:
                     pass
-        sys.stdout.write ("%s created.\n" % (wav_file,))
+        sys.stdout.write("%s created.\n" % (wav_file,))
         # play
         if play_program:
-            os.system ("%s '%s' >/dev/null" % (play_program, wav_file,))
+            os.system("%s '%s' >/dev/null" % (play_program, wav_file,))
     finally:
         try:
-            os.delete (xml_temp_file)
+            os.delete(xml_temp_file)
         except:
             pass
 
-def process_ly_file (file_name, voice):
-    result = os.system ("lilypond '%s'" % (file_name,))
+
+def process_ly_file(file_name, voice):
+    result = os.system("lilypond '%s'" % (file_name,))
     if result:
         return
     xml_file = None
-    for f in os.listdir (os.path.dirname (file_name) or '.'):
+    for f in os.listdir(os.path.dirname(file_name) or '.'):
         if (f[-4:] == '.xml' and
-            (not xml_file or os.stat.st_mtime (f) > os.stat.st_mtime (xml_file))):
+                (not xml_file or os.stat.st_mtime(f) > os.stat.st_mtime(xml_file))):
             xml_file = f
     if xml_file:
-        process_xml_file (xml_file, voice, None, None)
+        process_xml_file(xml_file, voice, None, None)
     else:
-        sys.stderr.write ("No XML file found\n")
+        sys.stderr.write("No XML file found\n")
 
-def go ():
-    options, args = process_options (sys.argv[1:])
+
+def go():
+    options, args = process_options(sys.argv[1:])
     if options.list_voices:
-        list_voices ()
+        list_voices()
     elif options.list_languages:
-        list_languages ()
+        list_languages()
     else:
-        arglen = len (args)
+        arglen = len(args)
         if arglen < 1:
-            usage ()
+            usage()
         file_name = args[0]
         if arglen > 1:
             language_or_voice = args[1]
-            voice = select_voice (language_or_voice)
+            voice = select_voice(language_or_voice)
         else:
             voice = None
         if file_name[-3:] == '.ly':
             if arglen > 2:
-                usage ()
-            process_ly_file (file_name, voice)
+                usage()
+            process_ly_file(file_name, voice)
         else:
             if arglen > 3:
-                usage ()
+                usage()
             elif arglen == 3:
                 try:
-                    speedup = float (args[2])
+                    speedup = float(args[2])
                 except ValueError:
-                    usage ()
+                    usage()
             else:
                 speedup = None
-            process_xml_file (file_name, voice, speedup, options.play_program)
+            process_xml_file(file_name, voice, speedup, options.play_program)
+
 
 if __name__ == '__main__':
-    go ()
+    go()
