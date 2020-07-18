@@ -932,28 +932,6 @@ messages into errors.")
     (set! gc-dumping #f)
     (close-port outfile)))
 
-(define (check-memory)
-  "Read `/proc/self' to check up on memory use."
-  (define (gulp-file name)
-    (let* ((file (open-input-file name))
-           (text (read-delimited "" file)))
-      (close file)
-      text))
-
-  (let* ((stat (gulp-file "/proc/self/status"))
-         (lines (string-split stat #\newline))
-         (interesting (filter-map
-                       (lambda (l)
-                         (string-match "^VmData:[ \t]*([0-9]*) kB" l))
-                       lines))
-         (mem (string->number (match:substring (car interesting) 1))))
-    (format #t "VMDATA: ~a\n" mem)
-    (display (gc-stats))
-    (newline)
-    (if (> mem 500000)
-        (begin (dump-gc-protects)
-               (raise 1)))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (multi-fork count)
