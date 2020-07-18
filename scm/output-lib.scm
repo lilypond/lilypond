@@ -488,10 +488,7 @@ and duration-log @var{log}."
 
 (define-public (note-head::calc-glyph-name grob)
   (let* ((style (ly:grob-property grob 'style))
-         (log (if (and (symbol? style)
-                       (string-match "kievan*" (symbol->string style)))
-                  (min 3 (ly:grob-property grob 'duration-log))
-                  (min 2 (ly:grob-property grob 'duration-log)))))
+         (log (min (if (eq? 'kievan style) 3 2) (ly:grob-property grob 'duration-log))))
     (select-head-glyph style log)))
 
 (define-public (note-head::brew-ez-stencil grob)
