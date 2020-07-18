@@ -37,7 +37,7 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   /* construction */
   OVERRIDE_CLASS_NAME (Tuplet_iterator);
-  Tuplet_iterator ();
+  Tuplet_iterator () = default;
 protected:
   void process (Moment m) override;
   void create_children () override;
@@ -55,7 +55,7 @@ private:
   Moment next_split_mom_;
 
   /* Recycle start/stop events if tupletSpannerDuration is set. */
-  SCM synthesized_events_;
+  SCM synthesized_events_ = SCM_EOL;
 
   Context_handle tuplet_handler_;
 };
@@ -80,12 +80,6 @@ Tuplet_iterator::create_event (Direction d)
 
   synthesized_events_ = scm_cons (ev_scm, synthesized_events_);
   return ev;
-}
-
-Tuplet_iterator::Tuplet_iterator ()
-{
-  spanner_duration_ = next_split_mom_ = 0;
-  synthesized_events_ = SCM_EOL;
 }
 
 Moment
