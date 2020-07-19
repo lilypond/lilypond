@@ -51,6 +51,13 @@ TEXI2HTML_SPLIT = --prefix=index --split=section
 
 TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
 TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)
+
+# texi2html v5 has fatal errors in the build, so only be strict about
+# errors in the version we officially support
+ifeq ($(TEXI2HTML_VERSION),1082000)
+TEXI2HTML_FLAGS+=--error-limit=0
+endif
+
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 ###########
 
