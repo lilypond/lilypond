@@ -549,43 +549,6 @@ tipus de qüestions es resolguin abans que comenci qualsevol feina.
 @end itemize
 
 @divEnd
-
-@divClass{column-center-bottom}
-@subheading Desenvolupadors interessats
-
-A continuació apareix una llista de les persones que han expressat
-interès en rebre recompenses.  Observeu que la quantitat de feina
-feta per persones individuals varia força al llarg dels anys. No
-garantim que aquesta llista estigui actualitzada, ni que les
-persones aquí relacionades tinguin qualsevol disponibilitat.
-L'únic criteri és "Fulanet ha demanat aparèixer en aquesta pàgina".
-
-L'examen de la història del sistema de control de versions Git és
-una bona manera de determinar quins són els desenvolupadores més
-actius i experimentats.  Les estadístiques estan al dia fins la
-versió @versionDevel{}:
-
-@multitable @columnfractions .3 .3 .3
-@item @uref{https://lilypond.org/~graham/gitstats-all/, història general}
-@tab @uref{https://lilypond.org/~graham/gitstats-1year/, últim any}
-@tab @uref{https://lilypond.org/~graham/gitstats-3months/, últims tres mesos}
-@end multitable
-
-Desenvolupadors interessats:
-@table @asis
-@item @email{dak@@gnu.org, David Kastrup}
-Es necessiten donacions perquè pugui continuar la meva actual
-feina a temps complet sobre el LilyPond.  Em concentro en disseny
-d'interfícies d'usuari i del programador, coherència,
-implementació, simplificació, documentació i depuració.
-
-@c Format
-@c @item @email{name@@adress.domain, Name}
-@c area of interest (256 chars max)
-
-@end table
-
-@divEnd
 @divEnd
 
 @node Desenvolupament

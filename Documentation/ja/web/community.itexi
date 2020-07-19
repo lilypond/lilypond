@@ -536,41 +536,6 @@ LilyPond 開発者は時々、彼らが行ったサービスを lilypond email �
 @end itemize
 
 @divEnd
-
-@divClass{column-center-bottom}
-@subheading 興味のある開発者
-
-報酬への興味を表明した人々のリストを挙げます。@c
-それぞれの行った作業量はここ数年でかなり変化していることに注意して@c
-ください。@c
-このリストが最新であることを保証しませんし、このリストに挙がっている@c
-人々の能力を保証することもしません。@c
-このリストの基準は「このページのリストに掲載されることを依頼した者」で@c
-あるということだけです。
-
-git 履歴を調べることで、活発に活動していて、経験豊富な開発者を探すことが@c
-できます。@c
-バージョン @versionDevel{} までの統計情報があります:
-
-@multitable @columnfractions .3 .3 .3
-@item @uref{https://lilypond.org/~graham/gitstats-all/, 全体の履歴}
-@tab @uref{https://lilypond.org/~graham/gitstats-1year/, 過去 1 年の履歴}
-@tab @uref{https://lilypond.org/~graham/gitstats-3months/, 過去 3 ヶ月の履歴}
-@end multitable
-
-興味のある開発者:
-@table @asis
-@item @email{lilypond-devel@@gnu.org, LilyPond 開発者メーリング リスト}
-現在、報酬付きの開発に興味のある開発者はいません。@c
-開発者メーリング リストに尋ねると良いでしょう。
-
-@c Format
-@c @item @email{name@@adress.domain, Name}
-@c area of interest (256 chars max)
-
-@end table
-
-@divEnd
 @divEnd
 
 

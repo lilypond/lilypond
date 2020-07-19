@@ -536,41 +536,6 @@ su tali questioni prima che il lavoro inizi.
 @end itemize
 
 @divEnd
-
-@divClass{column-center-bottom}
-@subheading Sviluppatori interessati
-
-Di seguito riportiamo una lista di persone interessate a lavorare
-dietro remunerazione.  Si noti che la quantità di lavoro fatto da parte dei
-singoli varia nel corso degli anni.  Non garantiamo che questa lista
-sia aggiornata, né che le persone qui elencate abbiano particolari
-abilità.  L'unico criterio è "XYZ ha chiesto di essere
-inserito in questa pagina".
-
-Un buon modo per sapere quali sono gli sviluppatori più attivi e preparati
-è guardare la storia del repository git.  Statistiche fino alla versione
-@versionDevel{}:
-
-@multitable @columnfractions .3 .3 .3
-@item @uref{https://lilypond.org/~graham/gitstats-all/, storia complessiva}
-@tab @uref{https://lilypond.org/~graham/gitstats-1year/, ultimo anno}
-@tab @uref{https://lilypond.org/~graham/gitstats-3months/, ultimi tre mesi}
-@end multitable
-
-Sviluppatori interessati:
-@table @asis
-@item @email{lilypond-devel@@gnu.org, mailing list degli sviluppatori di LilyPond}
-In questo momento nessuno programmatore si è proposto per fornire miglioramenti
-di LilyPond a pagamento, ma è comunque possibile provare a chiedere nella
-mailing list degli sviluppatori.
-
-@c Format
-@c @item @email{name@@adress.domain, Name}
-@c area of interest (256 chars max)
-
-@end table
-
-@divEnd
 @divEnd
 
 

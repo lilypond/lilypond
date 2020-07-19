@@ -549,43 +549,6 @@ cualquier trabajo.
 @end itemize
 
 @divEnd
-
-@divClass{column-center-bottom}
-@subheading Desarrolladores interesados
-
-A continuación aparece una lista de las personas que han expresado
-interés en recibir recompensas.  Observe que la cantidad de
-trabajo hecha por personas individuales varía bastante a lo largo
-de los años. No garantizamos que esta lista esté actualizada, ni
-que las personas aquí relacionadas tengan cualquier
-disponibilidad.  El único criterio es "Fulanito ha pedido aparecer
-en esta página".
-
-El examen de la historia del sistema de control de versiones Git
-es una buena manera de determinar quiénes son los desarrolladores
-más activos y experimentados.  Las estadísticas están al día hasta
-la versión @versionDevel{}:
-
-@multitable @columnfractions .3 .3 .3
-@item @uref{https://lilypond.org/~graham/gitstats-all/, historia general}
-@tab @uref{https://lilypond.org/~graham/gitstats-1year/, último año}
-@tab @uref{https://lilypond.org/~graham/gitstats-3months/, últimos tres meses}
-@end multitable
-
-Desarrolladores interesados:
-@table @asis
-@item @email{lilypond-devel@@gnu.org, Lista de desarrolladores de LilyPond}
-Puesto que no hay ningún desarrollador en la lista de interesados para el
-desarrollo comercial, lo mejor que puede hacer es preguntar en la lista
-de desarrolladores.
-
-@c Format
-@c @item @email{name@@adress.domain, Name}
-@c area of interest (256 chars max)
-
-@end table
-
-@divEnd
 @divEnd
 
 @node Desarrollo

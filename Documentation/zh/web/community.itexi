@@ -542,41 +542,6 @@ questions should be resolved before any work begins.
 @end itemize
 
 @divEnd
-
-@divClass{column-center-bottom}
-@subheading Interested developers
-
-Here is a list of people who have expressed an interest in
-bounties.  Note that the amount of work done by individuals varies
-quite a bit throughout the years.  We do not guarantee that this
-list is up-to-date, nor do we guarantee that the people listed
-here have any ability.  The only criteria is "XYZ asked to be
-listed on this page".
-
-Looking at the git history is a good way to determine who the most
-active and experienced developers are.  Statistics up to version
-@versionDevel{}:
-
-@multitable @columnfractions .3 .3 .3
-@item @uref{https://lilypond.org/~graham/gitstats-all/, overall history}
-@tab @uref{https://lilypond.org/~graham/gitstats-1year/, past year}
-@tab @uref{https://lilypond.org/~graham/gitstats-3months/, past three months}
-@end multitable
-
-Interested developers:
-@table @asis
-@item @email{dak@@gnu.org, David Kastrup}
-Donations are required to let me continue my current fulltime work on
-LilyPond.  I focus on user and programmer interface design, coherence,
-implementation, simplification, documentation, and debugging.
-
-@c Format
-@c @item @email{name@@adress.domain, Name}
-@c area of interest (256 chars max)
-
-@end table
-
-@divEnd
 @divEnd
 
 

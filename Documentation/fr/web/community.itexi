@@ -577,41 +577,6 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 @end itemize
 
 @divEnd
-
-
-@divClass{column-center-bottom}
-@subheading Développeurs intéressés
-@c VO Interested developers
-
-Vous trouverez ci-dessous une liste des personnes ayant exprimé leur
-intérêt pour une rémunération.  Notez bien que la somme de travail varie
-selon les gens et dans le temps.  Nous ne saurions garantir que cette
-liste soit à jour, ni les capacités des intéressés.  Le seul critère est
-« XYZ a demandé à être mentionné sur cette page ».
-
-Un aperçu de l'historique des sources de LilyPond peut vous aider à
-déterminer l'activité et l'expérience des développeurs.  Les
-statistiques s'arrêtent à la version @versionDevel{}.
-
-@multitable @columnfractions .3 .3 .3
-@item @uref{https://lilypond.org/~graham/gitstats-all/, depuis les origines}
-@tab @uref{https://lilypond.org/~graham/gitstats-1year/, sur un an}
-@tab @uref{https://lilypond.org/~graham/gitstats-3months/, sur un trimestre}
-@end multitable
-
-Développeurs intéressés :
-@table @asis
-@item @email{lilypond-devel@@gnu.org, Liste des développeurs de LilyPond}
-Dans la mesure où aucun développeur ne s'est actuellement déclaré,
-veuillez vous adresser directement à la liste de diffusion des développeurs.
-
-@c Format
-@c @item @email{name@@adress.domain, Name}
-@c area of interest (256 chars max)
-
-@end table
-
-@divEnd
 @divEnd
 
 

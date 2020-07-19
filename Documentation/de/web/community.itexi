@@ -565,45 +565,6 @@ dieser Punkte geklärt werden sollten, bevor die Arbeit beginng.
 @end itemize
 
 @divEnd
-
-@divClass{column-center-bottom}
-@subheading Interessierte Entwickler
-
-Hier ist eine Liste der Leute, die sich Dienstleistungen
-sponsoren lassen.  Die Menge an Arbeit, die unterschiedliche
-Entwickler im Laufe des Jahres vollbringen, kann stark
-schwanken.  Wir können nicht garantieren, dass die Liste
-aktuell ist oder die Leute auf der Liste über bestimmte
-Fähigkeiten verfügen.  Das einzige Kriterium ist, dass
-die entsprechende Person um Aufnahme in die Liste gebeten
-hat.
-
-Ein Blick auf die erbrachten Leistungen im git-Repositorium
-ist eine gute Art sich über Aktivität und Erfahrenheit von
-Entwicklern Klarheit zu verschaffen.  Statistiken bis
-@versionDevel{}:
-
-@multitable @columnfractions .3 .3 .3
-@item @uref{https://lilypond.org/~graham/gitstats-all/, gesamter Zeitraum}
-@tab @uref{https://lilypond.org/~graham/gitstats-1year/, das letzte Jahr}
-@tab @uref{https://lilypond.org/~graham/gitstats-3months/, die letzten drei Monate}
-@end multitable
-
-Interessirte Entwickler:
-@table @asis
-@item @email{dak@@gnu.org, David Kastrup}
-Spenden sind notwendig, damit ich meine aktuelle Vollzeitbeschäftigung
-an LilyPond aufrechterhalten kann.  Ich konzentriere mich auf das
-Schnittstellendesign für Benutzer und Programmieren, auf Kohäränz,
-Implementation, Vereinfachung, Dokumentation und Fehlerbeseitigung.
-
-@c Format
-@c @item @email{name@@adress.domain, Name}
-@c area of interest (256 chars max)
-
-@end table
-
-@divEnd
 @divEnd
 
 
