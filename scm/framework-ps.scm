@@ -970,12 +970,6 @@ mark {ly~a_stream} /CLOSE pdfmark
          (h (if landscape paper-width paper-height)))
     (cons w h)))
 
-(define (output-resolution defs)
-  (let ((defs-resolution (ly:output-def-lookup defs 'pngresolution)))
-    (if (number? defs-resolution)
-        defs-resolution
-        (ly:get-option 'resolution))))
-
 (define-public (convert-to-pdf book base-name tmp-name is-eps)
   (let* ((defs (ly:paper-book-paper book))
          (width-height (output-width-height defs))
@@ -985,10 +979,10 @@ mark {ly~a_stream} /CLOSE pdfmark
 
 (define-public (convert-to-png book base-name tmp-name is-eps)
   (let* ((defs (ly:paper-book-paper book))
-         (resolution (output-resolution defs))
          (width-height (output-width-height defs))
          (width (car width-height))
-         (height (cdr width-height)))
+         (height (cdr width-height))
+         (resolution (ly:get-option 'resolution)))
     (postscript->png resolution width height base-name tmp-name is-eps)))
 
 (define-public (convert-to-ps book base-name tmp-name is-eps)
