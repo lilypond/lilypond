@@ -11,7 +11,6 @@
 @c Translators: Rafael Fontenelle
 @c Translators checkers:
 
-@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/gsoc.itexi
 @include included/helpus.itexi
@@ -60,9 +59,6 @@ ao discutir sobre LilyPond.
 @item
 @ref{Autores}: as pessoas que fizeram o LilyPond como ele é hoje.
 
-@item
-@ref{Agradecimentos}: projetos e instituições que apoiam o LilyPond
-
 @end itemize
 @divEnd
 
@@ -96,7 +92,6 @@ notícias antigas, etc.
 * Desenvolvimento::
 * Google Summer of Code::
 * Autores::
-* Agradecimentos::
 * Publicações::
 * Notícias::
 * Sótão::
@@ -950,18 +945,6 @@ mais recentes podem ser encontrados em @url{https://lilypond.org}}
 
 @translationsPrevious
 
-@divEnd
-@divEnd
-
-@node Agradecimentos
-@unnumberedsec Agradecimentos
-@translationof Acknowledgements
-
-@divClass{column-center-top}
-@subheading Agradecimentos
-
-@divClass{keep-bullets}
-@acknowledgementsCurrent
 @divEnd
 @divEnd
 

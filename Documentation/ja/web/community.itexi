@@ -9,7 +9,6 @@
 
 @c Translators: Masamichi Hosoda, Yoshiki Sawada
 
-@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/gsoc.itexi
 @include included/helpus.itexi
@@ -58,9 +57,6 @@
 @item
 @ref{著者}: 現在の LilyPond を作った人々。
 
-@item
-@ref{謝辞}: LilyPond をサポートするプロジェクトや団体。
-
 @end itemize
 @divEnd
 
@@ -93,7 +89,6 @@
 * 開発::
 * Google Summer of Code::
 * 著者::
-* 謝辞::
 * 出版物::
 * ニュース::
 * 物置::
@@ -938,18 +933,6 @@ LilyPond の開発手法はかなり複雑です。@c
 
 @translationsPrevious
 
-@divEnd
-@divEnd
-
-@node 謝辞
-@unnumberedsec 謝辞
-@translationof Acknowledgements
-
-@divClass{column-center-top}
-@subheading 謝辞
-
-@divClass{keep-bullets}
-@acknowledgementsCurrent
 @divEnd
 @divEnd
 

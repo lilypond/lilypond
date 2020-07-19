@@ -7,7 +7,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/gsoc.itexi
 @include included/helpus.itexi
@@ -56,9 +55,6 @@ quando si discute di LilyPond.
 @item
 @ref{Autori}: le persone che hanno reso LilyPond quello che è oggi.
 
-@item
-@ref{Riconoscimenti}: progetti e istituzioni che supportano LilyPond
-
 @end itemize
 @divEnd
 
@@ -91,7 +87,6 @@ quando si discute di LilyPond.
 * Sviluppo::
 * Google Summer of Code::
 * Autori::
-* Riconoscimenti::
 * Pubblicazioni::
 * Notizie::
 * Soffitta::
@@ -936,20 +931,6 @@ manuali sono reperibili su @url{https://lilypond.org}}
 
 @divEnd
 @divEnd
-
-
-@node Riconoscimenti
-@unnumberedsec Riconoscimenti
-@translationof Acknowledgements
-
-@divClass{column-center-top}
-@subheading Riconoscimenti
-
-@divClass{keep-bullets}
-@acknowledgementsCurrent
-@divEnd
-@divEnd
-
 
 
 @node Pubblicazioni

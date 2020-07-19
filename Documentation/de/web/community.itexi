@@ -9,7 +9,6 @@
 
 @c Translators: Till Paala, Michael Gerdau
 
-@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi
 
@@ -59,9 +58,6 @@ wenn man über LilyPond diskutieren will.
 @ref{Autoren}: die Menschen, die LilyPond zu dem gemacht haben,
 was es heute ist.
 
-@item
-@ref{Danksagungen}: Projekte und Institutionen, die LilyPond unterstützen
-
 @end itemize
 @divEnd
 
@@ -95,7 +91,6 @@ uns geschrieben wurde.
 * Entwicklung::
 * Google Summer of Code::
 * Autoren::
-* Danksagungen::
 * Veröffentlichungen::
 * Ältere Neuigkeiten::
 * Abstellkammer::
@@ -1121,18 +1116,6 @@ automatisiert Patches, die zusätzliche Warnungen erzeugen, abzulehnen.
 
 @translationsPrevious
 
-@divEnd
-@divEnd
-
-@node Danksagungen
-@unnumberedsec Danksagungen
-@translationof Acknowledgements
-
-@divClass{column-center-top}
-@subheading Danksagungen
-
-@divClass{keep-bullets}
-@acknowledgementsCurrent
 @divEnd
 @divEnd
 

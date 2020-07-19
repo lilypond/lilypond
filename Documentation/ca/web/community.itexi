@@ -11,7 +11,6 @@
 @c Translation checkers:
 
 
-@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi
 
@@ -60,9 +59,6 @@ Summer of Code» (Estiu de Codi del Google).
 @item
 @ref{Autors}: les persones que han fet el LilyPond el que és.
 
-@item
-@ref{Reconeixements}: projectes i institucions que recolzen el LilyPond
-
 @end itemize
 @divEnd
 
@@ -95,7 +91,6 @@ Summer of Code» (Estiu de Codi del Google).
 * Desenvolupament::
 * GSoC 2012::
 * Autors::
-* Reconeixements::
 * Publicacions::
 * Notícies antigues::
 * Golfes::
@@ -1118,18 +1113,6 @@ que introduís més advertiments dels que hi ha actualment.
 
 @translationsPrevious
 
-@divEnd
-@divEnd
-
-@node Reconeixements
-@unnumberedsec Reconeixements
-@translationof Acknowledgements
-
-@divClass{column-center-top}
-@subheading Reconeixements
-
-@divClass{keep-bullets}
-@acknowledgementsCurrent
 @divEnd
 @divEnd
 

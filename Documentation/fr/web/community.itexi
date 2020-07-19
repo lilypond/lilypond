@@ -12,7 +12,6 @@
 @c Translation checkers:
 
 
-@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/gsoc.itexi
 @include included/helpus.itexi
@@ -66,9 +65,6 @@ Code.
 @ref{Auteurs} : ceux qui ont permis à LilyPond d'être ce qu'il est
 aujourd'hui.
 
-@item
-@ref{Remerciements} : projets et institutions soutenant LilyPond
-
 @end itemize
 @divEnd
 
@@ -103,7 +99,6 @@ aux cours des versions précédentes, actualités passée, etc.
 * Développement::
 * Google Summer of Code::
 * Auteurs::
-* Remerciements::
 * Publications::
 * Actualités::
 * Grenier::
@@ -1000,18 +995,6 @@ paragraphes qui suivent.}
 
 @translationsPrevious
 
-@divEnd
-@divEnd
-
-
-@node Remerciements
-@unnumberedsec Remerciements
-
-@divClass{column-center-top}
-@subheading Remerciements
-
-@divClass{keep-bullets}
-@acknowledgementsCurrent
 @divEnd
 @divEnd
 
