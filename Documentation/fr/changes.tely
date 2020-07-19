@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 50826bb60dd695b9bd2fc2afd811b372283b6643
+    Translation of GIT committish: 94e8bb380b5c838de2b7725621e92136fe3e65b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,10 +44,12 @@ Voir le manuel d'utilisation, \NAME\
 @documentlanguage fr
 @afourpaper
 
-@finalout
+@macro manualIntro
+Ce document recense les modifications et les nouvelles fonctionnalités
+de LilyPond pour la version @version{} (depuis la 2.20).
+@end macro
 
-@node Top
-@top Nouvelles fonctionnalités de la version 2.22 (depuis 2.20)
+@lilyTitlePage{Nouveautés}
 
 @iftex
 @allowcodebreaks false
@@ -128,6 +130,33 @@ et noms de propriété préfixées de @code{partCombine}, s'écrivent
 désormais avec un C majuscule, comme @code{\partCombine},
 @code{\partCombineApart}, etc. La commande @code{\autochange} suit le
 même principe et se libelle désormais @code{\autoChange}.
+
+
+@item
+Les crochets d'octaviation (par ex. « 8 » ou « 15 ») s'indiquent
+désormais par un simple chiffre et sont imprimés en gras. La nouvelle
+propriété @code{ottavationMarkups} permet d'influer sur ce comportement
+par défaut, à l'aide d'une liste déterminée de @emph{markups} :
+@lilypond[verbatim,quote]
+\relative c'' {
+  \ottava #1
+  a'2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-simple-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+}
+@end lilypond
 
 
 @end itemize
@@ -329,18 +358,46 @@ sur les têtes de note, du côté adéquat de la hampe :
 @end lilypond
 
 
+@item
+Les couleurs style CSS peuvent désormais s'utiliser directement sous
+forme de chaîne textuelle, soit par leur nom de couleur prédifini comme
+avec la fonction existante @code{css-color}, soit par leur code
+hexadécimal préfixé d'un @code{#}. Tous les stencils disposant de la
+propriété @code{color} acceptent maintenant une liste ou une chaîne.
+Dans le cas d'une chaîne, celle-ci sera directement utilisée pour une
+sortie SVG, ce qui autorisera le recours à la transparence alpha (saisie
+"#RRGGBBAA" ou "#RGBA").
+
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
+
+
 @end itemize
 
-@ignore
 @strong{Améliorations en matière de mise en forme du texte}
 
 @itemize
 
 @item
+La commande de @emph{markup} @code{\note} prend désormais une durée en
+tant que premier argument, au lieu d'une chaîne :
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(style . cross) {
+    \note {4..} #UP
+  }
+  \hspace #2
+  \note {\breve} #0
+}
+@end lilypond
 
 
 @end itemize
-@end ignore
 
 
 @subheading Nouveautés en matière de notation spécialisée
@@ -358,6 +415,20 @@ l'aide de la commande @code{\vowelTransition}.
 @lilypond[verbatim,quote]
 { g'2 g' }
 \addlyrics { Ah \vowelTransition oh. }
+@end lilypond
+
+@item
+Un trait d'union peut désormais être redoublé après un saut de ligne,
+avant la première syllabe du nouveau système :
+@lilypond[quote]
+\relative {
+  d'8^( e f e f4) \bar "" \break
+  e4
+}
+\addlyrics {
+  \override LyricHyphen.after-line-breaking = ##t
+  A -- men.
+}
 @end lilypond
 
 @end itemize
@@ -420,6 +491,60 @@ Les diagrammes de fret peuvent désormais s'imprimer en version
 
 @end itemize
 
+
+@strong{Améliorations pour la notation contemporaine}
+
+@itemize
+
+@item
+Un nouvel objet graphique, appelé @code{DurationLine}, est désormais
+disponible. Il prolonge un objet rythmique par une ligne jusqu'à l'objet
+rythmique suivant. Cette ligne peut adopter différents styles :
+@code{'beam}, @code{'line}, @code{'dashed-line}, @code{'dotted-line},
+@code{'zigzag}, @code{'trill} ou @code{'none}. La ligne peut se terminer
+par un crochet (uniquement pour le style @code{'beam}) ou une flêche.
+
+@lilypond[quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+{
+  a'1\- s2 r
+  \once \override DurationLine.style = #'line
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dashed-line
+  \once \override DurationLine.dash-period = 2
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dotted-line
+  \once \override DurationLine.dash-period = 1
+  \once \override DurationLine.bound-details.right.padding = 1
+  a'1\- s2 r
+  \once \override DurationLine.thickness = 2
+  \once \override DurationLine.style = #'zigzag
+  a'1\- s2 r
+  \once \override DurationLine.style = #'trill
+  a'1\- s2 r
+  \once \override DurationLine.style = #'none
+  a'1\- s2 r
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  a'1\- s2 r
+  \override DurationLine.bound-details.right.end-style = #'hook
+  a'1\- s2 r
+  \override DurationLine.details.hook-direction = #DOWN
+  a'1\- s2 r
+  \bar "|."
+}
+@end lilypond
+
+@end itemize
 
 
 @subheading Nouveautés en matière d'entrée et sortie
@@ -510,6 +635,34 @@ la boîte, y compris les bords arrondis et la rotation.
               \rounded-box \center-column { box skyline }
 }
 @end lilypond
+
+
+@item
+Les marque-pages sont désormais pris en charge, ce qui permet aux
+entrées @code{\tocItem} d'apparaître dans le panneau latéral des
+visionneuses de PDF qui disposent de cette fonctionnalité.
+
+@item
+@code{\table-of-contents} accepte désormais une structure hiérarchique.
+Les entrées @code{\tocItem} acceptent en option un symbole, comme
+@code{\label}, ou une liste de symboles séparés par un point, afin
+d'indiquer leur position dans la partition. Cette fonctionnalité a pour
+effet qu'il n'est plus possible de donner une simple chaîne en argument
+à @code{\tocItem} ; il faut utiliser une commande @code{\markup}.
+@example
+\tocItem \markup "Top-level entry"
+\tocItem symbol "Named top-level entry"
+\tocItem symbol.list "Second-level (child) entry"
+@end example
+
+
+@item
+La sortie SVG est désormais disponible avec l'option en ligne de
+commande @code{--svg} -- ou l'option canonique @code{--format=svg}
+abrégée en @code{-fsvg}. En raison des spécificités du moteur de rendu,
+cette option est à ce jour incompatible avec les autres formats de
+sortie ; pour obtenir, en plus du SVG, un fichier PDF, PNG ou EPS, sera
+requis un traitement supplémentaire par LilyPond.
 
 
 @end itemize
