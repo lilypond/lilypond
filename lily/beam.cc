@@ -759,7 +759,8 @@ Beam::print (SCM grob)
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
-      properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), to_scm (-5), SCM_EOL),
+      properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"),
+                                        to_scm (-6), SCM_EOL),
                              properties);
 
       Direction stem_dir = stems.size () ? from_scm<Direction> (get_property (stems[0], "direction")) : UP;

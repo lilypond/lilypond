@@ -446,7 +446,6 @@
         (meta . ((class . Spanner)
                  (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems)))
                  (interfaces . (beam-interface
-                                font-interface
                                 staff-symbol-referencer-interface
                                 unbreakable-spanner-interface))))))
 
@@ -2604,7 +2603,6 @@
                     (between-length-limit . 1.0)))
 
         (direction . ,ly:tie::calc-direction)
-        (font-size . -6)
         (line-thickness . 0.8)
         (neutral-direction . ,UP)
         (springs-and-rods . ,ly:spanner::set-spacing-rods)

@@ -282,6 +282,11 @@ Tie::print (SCM smob)
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
+      if (!scm_is_number (get_property (me, "font-size")))
+        properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"),
+                                          to_scm (-6), SCM_EOL),
+                               properties);
+
       Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup
                                      (me->layout ()->self_scm (), properties,
                                       annotation));
