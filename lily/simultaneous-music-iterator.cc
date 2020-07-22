@@ -87,6 +87,7 @@ Simultaneous_music_iterator::create_children ()
       else
         mi->quit ();
 
+      scm_remember_upto_here_1 (scm_iter);
       ++j;
     }
 }
