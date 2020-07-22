@@ -61,12 +61,36 @@
            (search-executable '("gs"))
            (if (not (ly:get-option 'verbose)) "-q")
            "-dNODISPLAY"
+           ;; see function gs-safe-run below where we use .setsafe instead
            "-dNOSAFER"
            "-dNOPAUSE"
            "-dBATCH"
            (if is-eps "-dEPSCrop")
            "-dAutoRotatePages=/None"
            "-dPrinted=false")))
+
+(define-public (gs-safe-run input)
+  ;; The PostScript Language Reference Manual says "run is a convenience
+  ;; operator that combines the functions of file and exec". (This does
+  ;; not seem to hold for Ghostscript, the second operator must be 'run'
+  ;; for PNG output).
+  ;; To enable access control (as usually done with -dSAFER), we need to
+  ;; insert the operator .setsafe between file and run, _after_ we have
+  ;; opened the input file. We cannot use .addcontrolpath because it was
+  ;; introduced in version 9.50, but .setsafe should also work with older
+  ;; releases.
+  (string-join
+   (list
+    (ly:format "(~a)" input)
+    "(r) file"
+    (if (or (ly:get-option 'gs-api)
+            (ly:get-option 'gs-load-fonts)
+            (ly:get-option 'gs-load-lily-fonts)
+            (eq? PLATFORM 'windows))
+        ""
+        ".setsafe")
+    "run")
+   " "))
 
 (define-public (postscript->pdf paper-width paper-height
                                 base-name tmp-name is-eps)
@@ -87,7 +111,7 @@
                    ;; from Resource/Init/gs_pdfwr.ps; needed here because we
                    ;; do not have the pdfwrite device initially (-dNODISPLAY).
                    "newpath fill"
-                   (ly:format "(~a) run" tmp-name)))
+                   (gs-safe-run tmp-name)))
           ))
 
     (ly:message (_ "Converting to `~a'...\n") dest)

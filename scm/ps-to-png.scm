@@ -101,7 +101,13 @@
              "} {"
              "(Warning: .setdefaultscreen not available) print"
              "} ifelse"
-             (ly:format "(~a) run" tmp-name)))))
+             ;; Enable writing to the formattable OutputFile with a wildcard.
+             ;; (When setting -sOutputFile from the command line, this happens
+             ;; in gs_main_add_outputfile_control_path.)
+             "/.addcontrolpath where { pop"
+             (ly:format "/PermitFileWriting (~a*) .addcontrolpath" base-name-gs)
+             "} if"
+             (gs-safe-run tmp-name)))))
 
      ((if (ly:get-option 'gs-api)
           ly:gs-api ly:gs-cli)
