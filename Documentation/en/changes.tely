@@ -531,6 +531,8 @@ instead of a string:
 }
 @end lilypond
 
+@item
+The default fonts are now those from the URW Core 35 set, version 2.0, replacing the TeX Gyre fonts.
 
 @end itemize
 

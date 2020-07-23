@@ -1667,21 +1667,22 @@ For other backends:
 @item @emph{roman}
 @tab @code{LilyPond Serif}
 @tab
-TeX Gyre Schola,
-C059, Century SchoolBook URW, Century Schoolbook L,
+C059,
+Century SchoolBook URW, Century Schoolbook L, TeX Gyre Schola,
 DejaVu Serif,
 ..., serif
 @item @emph{sans}
 @tab @code{LilyPond Sans Serif}
 @tab
-TeX Gyre Heros,
-Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+Nimbus Sans,
+Nimbus Sans L, TeX Gyre Heros,
+DejaVu Sans,
 ..., sans-serif
 @item @emph{typewriter}
 @tab @code{LilyPond Monospace}
 @tab
-TeX Gyre Cursor,
-Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+Nimbus Mono PS,
+Nimbus Mono, Nimbus Mono L, TeX Gyre Cursor,
 DejaVu Sans Mono,
 ..., monospace
 @end multitable
@@ -1739,30 +1740,30 @@ is preferable to use the simpler syntax explained in
 @noindent
 When using OpenType fonts, font features can be used.
 OpenType font scripts and languages can not be specified.
-Note: Not all OpenType fonts have all functions.
+Note: Not all OpenType fonts have all features.
 If you request a feature that doesn't exist in the chosen font,
-then the feature is simply ignored.
+then the feature is simply ignored. These examples use TeX Gyre Schola.
 
 @lilypond[quote,verbatim]
 % True small caps
-\markup { Normal Style: Hello HELLO }
-\markup { \caps { Small Caps: Hello } }
-\markup { \override #'(font-features . ("smcp"))
+\markup { \override #'(font-name . "TeX Gyre Schola") Normal Style: Hello HELLO }
+\markup { \override #'(font-name . "TeX Gyre Schola") \caps { Small Caps: Hello } }
+\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("smcp"))
           { True Small Caps: Hello } }
 
 % Number styles
-\markup { Normal Number Style: 0123456789 }
-\markup { \override #'(font-features . ("onum"))
+\markup { \override #'(font-name . "TeX Gyre Schola") Normal Number Style: 0123456789 }
+\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("onum"))
           { Old Number Style: 0123456789 } }
 
 % Stylistic Alternates
-\markup { \override #'(font-features . ("salt 0"))
+\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("salt 0"))
           { Stylistic Alternates 0: εφπρθ } }
-\markup { \override #'(font-features . ("salt 1"))
+\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("salt 1"))
           { Stylistic Alternates 1: εφπρθ } }
 
 % Multiple features
-\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("onum" "smcp" "salt 1"))
           { Multiple features: Hello 0123456789 εφπρθ } }
 @end lilypond
 
