@@ -5,7 +5,16 @@
   the order in which objects are placed outside the staff."
 }
 
-music = \transpose c c' { f2^"some" f^"words" f^"that" f^"overlap" }
+music = {
+  f'2^"Black A,"
+  2^"White E,"
+  2^"Red I,"
+  2^"Green U,"
+  2^"Blue O:"
+  2^"voyels:"
+  2^"Rimbaud,"
+  2^"“Voyels”"
+}
 
 {
   \override Staff.VerticalAxisGroup.outside-staff-placement-directive =
