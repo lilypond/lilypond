@@ -84,11 +84,7 @@ Timing_translator::initialize ()
                                scm_cdr (timeSignatureFraction)))).smobbed_copy ();
     }
   set_property (context (), "measureLength", measureLength);
-
-  /*
-    Do not init measurePosition; this should be done from global
-    context.
-  */
+  set_property (context (), "measurePosition", now_mom ().smobbed_copy ());
 
   SCM timeSignatureSettings = get_property (timing, "timeSignatureSettings");
   if (!scm_is_pair (timeSignatureSettings))
