@@ -80,16 +80,15 @@ def french_html_filter(page):
         body = body.replace(r[0], r[1])
     return page[:body_begin] + body + page[body_end:]
 
-
-ca = LanguageDef('ca', 'català')
-cs = LanguageDef('cs', 'česky', enable_ly_identifier_l10n=False)
-de = LanguageDef('de', 'deutsch')
-es = LanguageDef('es', 'español')
-fr = LanguageDef('fr', 'français', html_filter=french_html_filter)
-hu = LanguageDef('hu', 'magyar')
-it = LanguageDef('it', 'italiano')
+ca = LanguageDef('ca', 'Català')
+cs = LanguageDef('cs', 'Česky', enable_ly_identifier_l10n=False)
+de = LanguageDef('de', 'Deutsch')
+es = LanguageDef('es', 'Español')
+fr = LanguageDef('fr', 'Français', html_filter = french_html_filter)
+hu = LanguageDef('hu', 'Magyar')
+it = LanguageDef('it', 'Italiano')
 ja = LanguageDef('ja', '日本語', enable_ly_identifier_l10n=False)
-nl = LanguageDef('nl', 'nederlands')
+nl = LanguageDef('nl', 'Nederlands')
 pt = LanguageDef('pt', 'Português')
 zh = LanguageDef('zh', '中文', enable_ly_identifier_l10n=False)
 
