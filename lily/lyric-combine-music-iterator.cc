@@ -177,9 +177,11 @@ Lyric_combine_music_iterator::create_children ()
   Music_iterator::create_children ();
 
   Music *m = unsmob<Music> (get_property (get_music (), "element"));
-  lyric_iter_ = unsmob<Music_iterator> (get_iterator (m));
+  SCM it_scm = get_static_get_iterator (m);
+  lyric_iter_ = unsmob<Music_iterator> (it_scm);
   if (!lyric_iter_)
     return;
+  lyric_iter_->init_context (get_context ());
   lyrics_context_ = find_context_below (lyric_iter_->get_context (),
                                         ly_symbol2scm ("Lyrics"), "");
 

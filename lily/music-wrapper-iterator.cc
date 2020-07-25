@@ -54,9 +54,12 @@ Music_wrapper_iterator::create_children ()
 
   Music *my_music = get_music ();
   Music *child = unsmob<Music> (get_property (my_music, "element"));
-  child_iter_ = (child)
-                ? unsmob<Music_iterator> (get_iterator (child))
-                : 0;
+  if (child)
+    {
+      SCM it_scm = get_static_get_iterator (child);
+      child_iter_ = unsmob<Music_iterator> (it_scm);
+      child_iter_->init_context (get_own_context ());
+    }
 }
 
 void

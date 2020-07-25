@@ -140,7 +140,9 @@ Sequential_iterator::create_children ()
   if (scm_is_pair (cursor_))
     {
       Music *m = unsmob<Music> (scm_car (cursor_));
-      iter_ = unsmob<Music_iterator> (get_iterator (m));
+      SCM it_scm = get_static_get_iterator (m);
+      iter_ = unsmob<Music_iterator> (it_scm);
+      iter_->init_context (get_own_context ());
     }
 
   while (iter_ && !iter_->ok ())
@@ -198,7 +200,12 @@ Sequential_iterator::next_element ()
     cursor_ = scm_call_1 (cursor_, self_scm ());
 
   if (scm_is_pair (cursor_))
-    iter_ = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (cursor_))));
+    {
+      Music *m = unsmob<Music> (scm_car (cursor_));
+      SCM scm_it = get_static_get_iterator (m);
+      iter_ = unsmob<Music_iterator> (scm_it);
+      iter_->init_context (get_own_context ());
+    }
   else
     iter_ = 0;
 }

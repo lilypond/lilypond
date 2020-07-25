@@ -113,15 +113,6 @@ Music_iterator::derived_substitute (Context *, Context *)
 {
 }
 
-SCM
-Music_iterator::get_iterator (Music *m) const
-{
-  SCM ip = get_static_get_iterator (m);
-  Music_iterator *p = unsmob<Music_iterator> (ip);
-  p->init_context (get_own_context ());
-  return ip;
-}
-
 /* Descend to a bottom context; implicitly create a new one if necessary */
 void
 Music_iterator::descend_to_bottom_context ()

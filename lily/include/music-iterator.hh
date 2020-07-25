@@ -114,7 +114,6 @@ public:
   virtual void process (Moment until);
   virtual void derived_mark () const;
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  SCM get_iterator (Music *) const;
 
   Music *get_music () const;
 protected:
