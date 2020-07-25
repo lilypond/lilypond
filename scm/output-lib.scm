@@ -168,6 +168,27 @@
   (pretty-print (grob::all-objects grob))
   (newline))
 
+(define-public (grob-elts::X-extent grob)
+"Take the grob @var{grob}, get its @code{'elements}, calculate their
+@code{'X-extent} and return the minimum and maximum value as a pair.
+If @code{'elements} is empty return @code{'(0 . 0)}"
+;; TODO make 'elements and/or 'X-extent optional to cover more use-cases?
+  (let* ((grob-elts-array
+          (ly:grob-object grob 'elements))
+         (grob-elts-list
+           (if (ly:grob-array? grob-elts-array)
+               (ly:grob-array->list grob-elts-array)
+               '()))
+         (live-grobs
+           (filter grob::is-live? grob-elts-list))
+         (grob-elts-X-ext
+           (if (pair? live-grobs)
+               (map
+                 (lambda (elt) (ly:grob-property elt 'X-extent))
+                 live-grobs)
+               '((0 . 0)))))
+    (reduce interval-union '() grob-elts-X-ext)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
@@ -1688,6 +1709,414 @@ parentheses."
   (let* ((bracket (ly:grob-object grob 'bracket))
          (bracket-dir (ly:grob-property bracket 'direction DOWN)))
     bracket-dir))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DurationLine
+
+;; helper
+(define-public (note-column::main-extent grob)
+"Return extent of the noteheads in the 'main column' (i.e., excluding any
+suspended noteheads), or extent of the rest (if there are no heads)."
+;; Partial rewrite of a C++-procedure
+  (let* ((note-heads (ly:grob-object grob 'note-heads))
+         ;; stem is currently not needed, for now we let it in, commented
+         ;(stem (ly:grob-object grob 'stem))
+         (rest (ly:grob-object grob 'rest)))
+    (cond ((ly:grob-array? note-heads)
+           (let (;; get the cdr from all note-heads-extents, where the car
+                 ;; is zero
+                 (n-h-right-coords
+                   (filter-map
+                     (lambda (n-h)
+                       (let ((ext (ly:grob-extent n-h grob X)))
+                          (and (= (car ext) 0) (cdr ext))))
+                     (ly:grob-array->list note-heads))))
+             ;; better be paranoid, find the max of n-h-right-coords and return
+             ;; a pair with (cons 0 <max>)
+             (cons 0.0 (reduce max 0 n-h-right-coords))))
+          ((ly:grob? rest)
+           (ly:grob-extent rest grob X))
+          ;; better be paranoid again
+          (else '(0 . 0)))))
+
+;;;; We separate coding the stencil of DurationLine into
+;;;; - coding arrow-stencil
+;;;; - coding hook-stencil
+;;;; - coding duration-line::calc (providing all needed values)
+;;;; - coding duration-line::print (putting it all together)
+;;;;
+;;;; This lowers the hurdle to change those stencil-definitions for the user, if
+;;;; he wants to.
+(define-public (arrow-stencil x y thick staff-space grob)
+"Returns a right-pointing, filled arrow-head, where @var{x} determines the basic
+horizontal position and @var{y) determines the basic vertical position.
+Both values are adjusted using @var{staff-space}, which is @code{StaffSymbol}'s
+staff space.  @var{thick} is the used line thickness."
+  (let* ((arrow-length (ly:grob-property grob 'arrow-length))
+         (arrow-width (ly:grob-property grob 'arrow-width))
+         (moveto-x
+           ;; In duration-line::calc the right end is shortened a bit.
+           ;; Thus place the arrow-tip to the right of it.
+           ;; (* arrow-length (* staff-space 2/3)) is my choice for it, here and
+           ;; in duration-line::calc, harm
+           (+ x (* arrow-length (* staff-space 2/3))))
+         (moveto-y (* y staff-space))
+         ;; scale arrow-width/length by staff-space
+         (scaled-arrow-width
+           (* arrow-width staff-space))
+         (scaled-arrow-length
+           (* arrow-length staff-space)))
+    (make-path-stencil
+      (list
+        'moveto moveto-x moveto-y
+        'rlineto (- scaled-arrow-length) (/ scaled-arrow-width 2)
+        'rlineto 0 (* scaled-arrow-width -1)
+        'closepath)
+      thick
+      1 1 #t)))
+
+(define-public (hook-stencil x y staff-space thick blot grob)
+"Returns a hook-stencil, where @var{x} determines the horizontal position and
+@var{y) determines the basic vertical position.
+The final stencil is adjusted vertically using @var{staff-space}, which is
+@code{StaffSymbol}'s  staff space, and uses @var{blot}, which is the current
+@code{'blot-diameter}.  The stencil's thickness is usually taken from @var{grob}
+@code{'details}, @var{thick} serves as a fallback value."
+  (let* ((details (ly:grob-property grob 'details))
+         (hook-dir (assoc-get 'hook-direction details 1))
+         (hook-height
+           (assoc-get 'hook-height details (* staff-space 2/3)))
+         (hook-thick
+           (or (assoc-get 'hook-thickness details) thick))
+         (hook-X-ext
+           (cons (- x hook-thick) x))
+         (hook-Y-ext
+           (ordered-cons
+             (* hook-dir (+ hook-height thick))
+             0)))
+    (ly:round-filled-box
+      hook-X-ext
+      (coord-translate hook-Y-ext (* y staff-space))
+      blot)))
+
+(define-public (duration-line::calc grob)
+"Return list of values needed to print a stencil for @code{DurationLine}."
+  (let* ((note-head-or-rest?
+           (lambda (x)
+             (and (ly:grob? x)
+                  (or (grob::has-interface x 'note-head-interface)
+                      (grob::has-interface x 'rest-interface)))))
+         (staff-space (ly:staff-symbol-staff-space grob))
+         (staff-line-thickness (ly:staff-symbol-line-thickness grob))
+
+         (grob-layout (ly:grob-layout grob))
+         (blot-diameter
+           (ly:output-def-lookup grob-layout 'blot-diameter))
+         (line-width
+           (ly:output-def-lookup grob-layout 'line-width))
+         (style (ly:grob-property grob 'style 'beam))
+         (thickness
+           (ly:grob-property grob 'thickness 2))
+         (used-thick (* thickness staff-line-thickness))
+         (bound-details
+           (ly:grob-property grob 'bound-details))
+         (left-bound-details
+           (if (unbroken-or-first-broken-spanner? grob)
+               (assoc-get 'left bound-details)
+               (assoc-get 'left-broken bound-details)))
+         (right-bound-details
+           (if (unbroken-or-last-broken-spanner? grob)
+               (assoc-get 'right bound-details)
+               (assoc-get 'right-broken bound-details)))
+         (start-at-dot?
+           (assoc-get 'start-at-dot left-bound-details #f))
+         (end-on-accidental?
+           (assoc-get 'end-on-accidental right-bound-details))
+         (end-on-arpeggio?
+           (assoc-get 'end-on-arpeggio right-bound-details))
+         (left-padding
+           (assoc-get 'padding left-bound-details 0))
+         (right-padding
+           (assoc-get 'padding right-bound-details 0))
+         (right-end-style
+           (assoc-get 'end-style right-bound-details #f))
+    ;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;; DurationLine start
+    ;;;;;;;;;;;;;;;;;;;;;;;;
+         (left-bound (ly:spanner-bound grob LEFT))
+         (left-note-column
+           (if (note-head-or-rest? left-bound)
+               (ly:grob-parent left-bound X)
+               left-bound))
+         (stem (ly:grob-object left-note-column 'stem))
+         (stem-thick
+           (if (ly:grob? stem)
+               (ly:grob-property stem 'thickness)
+               0))
+         (dir (if (ly:grob? stem)
+                  (ly:grob-property stem 'direction)
+                  0))
+         ;; We need to care about suspended NoteHeads to start DurationLine
+         ;; correctly.
+         ;; A NoteHead is suspended, if its grob-extent relative to the
+         ;; parent NoteColumn is not zero.
+         ;; NB NoteHeads placed left and right of Stem overlap a little, thus
+         ;; the suspended NoteHead widens the NoteColumn by the difference
+         ;; of the whole NoteColumn-width and main NoteColumn-width.
+         ;; Depending on the stem-direction this happens to the left or right.
+
+
+         (left-note-column-main-X-ext
+           (note-column::main-extent left-note-column))
+     ;;;;
+     ;;;; adjust for DotColumn of left NoteColumn
+     ;;;;
+         ;; If DotColumn is present and `start-at-dot' is enabled, we
+         ;; calculate the values to move line-start to the right of DotColumn.
+         (dot-column (ly:note-column-dot-column left-note-column))
+         (adjust-for-dot-column
+           (if (and start-at-dot? (ly:grob? dot-column))
+               (let* ((lnc-dc-common-ref
+                        (ly:grob-common-refpoint
+                          left-note-column dot-column X))
+                      (dot-column-X-ext
+                        (ly:grob-extent dot-column lnc-dc-common-ref X))
+                      (left-note-column-all-X-extent
+                        (ly:grob-extent left-note-column left-note-column X))
+                      (lb-lnc-X-ext
+                        (ly:grob-extent left-bound left-note-column X))
+                      (left-bound-is-suspended-head?
+                        (not (zero? (car lb-lnc-X-ext))))
+                      (added-X-length-for-suspended-head
+                        (- (interval-length left-note-column-all-X-extent)
+                           (interval-length left-note-column-main-X-ext))))
+                 (+
+                    (cond ((and (not left-bound-is-suspended-head?)
+                                (positive? dir))
+                            added-X-length-for-suspended-head)
+                          ((and left-bound-is-suspended-head?
+                                (negative? dir))
+                            added-X-length-for-suspended-head)
+                          (else 0))
+                    ;; Add a little extra padding.
+                    ;; Mmmh, hardcoded, make it a bound-details subproperty?
+                    0.4
+                    (interval-length dot-column-X-ext)))
+               0))
+         (left-bound-X-ext
+           ;; For a broken DurationLine take line-starting grobs into account.
+           ;; Otherwise use left-bound directly
+           (cond ((not-first-broken-spanner? grob)
+                   (grob-elts::X-extent left-bound))
+                 (else left-note-column-main-X-ext)))
+         ;; `left-X' is line-starting X-coordinate relative to grob's system
+         ;; NB the final line-stencil will start at left-bound not at `left-X'
+         ;;    we need this value to calculate `right-end' lateron
+         (left-X
+           (ly:grob-relative-coordinate
+             left-bound (ly:grob-system left-bound) X))
+         ;; `left-Y' is line-starting Y-coordinate, taken from staff-postion
+         ;; of grob's first initiating NoteHead.
+         (left-bound-original (ly:spanner-bound (ly:grob-original grob) LEFT))
+         (raw-left-Y
+           (if (grob::has-interface left-bound-original 'note-column-interface)
+               (let* ((nhds-array
+                        (ly:grob-object left-bound-original 'note-heads))
+                      (nhds-list
+                        (if (ly:grob-array? nhds-array)
+                            (ly:grob-array->list nhds-array)
+                            '()))
+                      (nhds-pos
+                        (map
+                          (lambda (nhd) (ly:grob-property nhd 'staff-position))
+                          nhds-list)))
+                 ;; the middle-y of NoteColumn
+                 (/ (+ (apply min nhds-pos) (apply max nhds-pos)) 2))
+               ;; staff-position of NoteHead/Rest
+               (ly:grob-property left-bound-original 'staff-position 0)))
+         (left-Y
+           (/ (+ (ly:grob-property grob 'Y-offset 0) raw-left-Y) 2))
+    ;;;;
+    ;;;; final calculation of `left-start'
+    ;;;;
+         ;; `left-start' is line-starting X-coordinate relative to left-bound
+         (left-start
+           (+ (cdr left-bound-X-ext)
+              adjust-for-dot-column
+              left-padding))
+    ;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;; DurationLine end
+    ;;;;;;;;;;;;;;;;;;;;;;;;
+         ;; NB `right-bound' may not always be a NoteColumn
+         (right-bound (ly:spanner-bound grob RIGHT))
+         (right-note-column
+           (if (note-head-or-rest? right-bound)
+               (ly:grob-parent right-bound X)
+               right-bound))
+         ;; If right-bound is a NoteColumn with suspended NoteHeads or
+         ;; broken items at line-break occurring, we need to find an accurate
+         ;; value to adjust the end of DurationLine.
+         ;; Applied later while calculating `right-end'
+         (right-bound-X-ext (ly:grob-extent right-note-column right-bound X))
+         (right-bound-main-X-ext (note-column::main-extent right-note-column))
+         (adjust-right-for-suspended-heads-and-broken-items
+           ;; Could be simple (if ...)
+           (cond ;; compensate suspended heads if present
+                 ((and (unbroken-or-last-broken-spanner? grob)
+                       (grob::has-interface right-bound 'note-column-interface))
+                   (if (negative? dir)
+                       (- (interval-length right-bound-X-ext)
+                          (interval-length right-bound-main-X-ext))
+                       0))
+                 ;; respect items at line-break
+                 (else
+                   (- (car (grob-elts::X-extent right-bound))))))
+         ;; `right-X' is line-ending X-coordinate relative to grob's system
+         ;; NB the final line-stencil will end at `right-end' not at `right-X'
+         ;;    we need this value to calculate `right-end' lateron
+         (right-X
+           (ly:grob-relative-coordinate
+             right-bound
+             (ly:grob-system right-bound) X))
+    ;;;;
+    ;;;; adjust or Arpeggio of right NoteColumn
+    ;;;;
+         (adjust-for-arpeggio
+           (if end-on-arpeggio?
+               (let* ((conditional-elements
+                        (ly:grob-object right-bound 'conditional-elements))
+                      (cond-elts-list
+                        (if (ly:grob-array? conditional-elements)
+                            (ly:grob-array->list conditional-elements)
+                            '()))
+                      (arpeggio-ls
+                        (filter
+                          (lambda (g)
+                            (grob::has-interface g 'arpeggio-interface))
+                          cond-elts-list)))
+                 (if (and (pair? arpeggio-ls) (ly:grob? (car arpeggio-ls)))
+                     (+
+                        (cdr (ly:grob-property (car arpeggio-ls) 'X-extent))
+                        (ly:grob-property (car arpeggio-ls) 'padding))
+                     0))
+               0))
+    ;;;;
+    ;;;; adjust for AccidentalPlacement of right NoteColumn
+    ;;;;
+         (acc-placement (ly:note-column-accidentals right-bound))
+         (adjust-for-accidentals
+           ;; Calculate it, if:
+           ;; Accidentals are present and
+           ;;   Arpeggio is present and `end-on-arpeggio' is enabled
+           ;;   or
+           ;;   `end-on-accidental' is enabled
+           (if (and (ly:grob? acc-placement)
+                    (or (and (not (zero? adjust-for-arpeggio))
+                             end-on-arpeggio?)
+                        end-on-accidental?))
+               (let* ((acc-X-extent
+                        (ly:grob-property acc-placement 'X-extent))
+                      (acc-right-padding
+                        (ly:grob-property acc-placement 'right-padding)))
+                 (+
+                    (- (cdr acc-X-extent) (car acc-X-extent))
+                    (* 2 acc-right-padding)))
+               0))
+    ;;;;
+    ;;;; adjust for arrow
+    ;;;;
+         (adjust-for-arrow
+           (if (eq? right-end-style 'arrow)
+               ;; We do not go for the full arrow-length, to avoid a
+               ;; visible gap for certain styles
+               (* (ly:grob-property grob 'arrow-length)
+                  (* staff-space 2/3))
+               0))
+    ;;;;
+    ;;;; final calculation of `right-end'
+    ;;;;
+         ;; The simple difference: (- right-X left-X) will end the line
+         ;; exactly at right-bound.
+         ;; Needs to be adjusted to repect padding and other possible items.
+         (right-end
+           (-
+              right-X
+              left-X
+              right-padding
+              adjust-right-for-suspended-heads-and-broken-items
+              adjust-for-arrow
+              adjust-for-accidentals
+              adjust-for-arpeggio))
+    ;; TODO find a method to accept user-generated line-ending stencils
+
+    ;;;;
+    ;;;; arrow
+    ;;;;
+         (arrow-stil
+           (if (and (not (eq? style 'none))
+                    (eq? right-end-style 'arrow))
+               (arrow-stencil
+                 right-end left-Y staff-line-thickness staff-space grob)
+               empty-stencil))
+    ;;;;;;;;
+    ;;;; hook
+    ;;;;;;;;
+         (hook-stil
+           ;; hooks are currently implemented for beam-style only
+           (if (and (eq? style 'beam) (eq? right-end-style 'hook))
+               (hook-stencil
+                 right-end left-Y staff-space used-thick blot-diameter grob)
+               empty-stencil)))
+
+    (if (>  left-start right-end)
+        (ly:warning "Please consider to increase 'minimum-length"))
+
+    ;;;;;;;;;;;;;;;;;;;;
+    ;;;; final alist
+    ;;;;;;;;;;;;;;;;;;;;
+
+    (list
+      (cons 'x-start left-start)
+      (cons 'x-end right-end)
+      (cons 'y left-Y)
+      (cons 'staff-space staff-space)
+      (cons 'blot blot-diameter)
+      (cons 'style style)
+      (cons 'thick used-thick)
+      (cons 'arrow arrow-stil)
+      (cons 'hook hook-stil))))
+
+(define-public (duration-line::print grob)
+"Return the stencil of @code{DurationLine}."
+  (let* ((vals (duration-line::calc grob))
+         (style (assoc-get 'style vals))
+         (left-start (assoc-get 'x-start vals))
+         (right-end (assoc-get 'x-end vals))
+         (left-Y (assoc-get 'y vals))
+         (staff-space (assoc-get 'staff-space vals))
+         (blot-diameter (assoc-get 'blot vals))
+         (used-thick (assoc-get 'thick vals))
+         (hook-stil (assoc-get 'hook vals))
+         (arrow-stil (assoc-get 'arrow vals)))
+
+    (if (eq? style 'beam)
+        (ly:stencil-add
+          (ly:round-filled-box
+            (cons left-start right-end)
+            (coord-translate
+              (cons (/ used-thick -2) (/ used-thick 2))
+              (* left-Y staff-space))
+            blot-diameter)
+          hook-stil
+          arrow-stil)
+        (ly:stencil-add
+          (ly:line-interface::line
+            grob
+            left-start
+            left-Y
+            right-end
+            left-Y)
+          arrow-stil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro

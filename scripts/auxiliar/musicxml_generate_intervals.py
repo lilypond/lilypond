@@ -21,8 +21,10 @@
 notes = "CDEFGAB"
 alterations = [-1, 0, 1]
 
-def print_note (octave, note, alteration):
-    print("      <note>\n        <pitch>\n          <step>%s</step>" % notes[note])
+
+def print_note(octave, note, alteration):
+    print("      <note>\n        <pitch>\n          <step>%s</step>" %
+          notes[note])
     if alteration != 0:
         print("          <alter>%s</alter>" % alteration)
     print("          <octave>%s</octave>\n        </pitch>\n        <duration>1</duration>\n        <voice>1</voice>\n        <type>quarter</type>\n      </note>" % octave)
@@ -61,14 +63,15 @@ print("""<?xml version="1.0" encoding="UTF-8"?>
 start_octave = 5
 
 for octave in (start_octave, start_octave+1):
-    for note in (0,1,2,3,4,5,6):
+    for note in (0, 1, 2, 3, 4, 5, 6):
         for alteration in alterations:
             if octave == start_octave and note == 0 and alteration == -1:
                 continue
-            print_note (octave, note, alteration)
+            print_note(octave, note, alteration)
 #             if octave == start_octave and note == 0 and alteration == 0:
 #                 continue
-            print_note (start_octave-(octave-start_octave)-(1-(7-note)/7), (7-note)%7, -alteration)
+            print_note(start_octave-(octave-start_octave) -
+                       (1-(7-note)/7), (7-note) % 7, -alteration)
 
 print("""    </measure>
   </part>

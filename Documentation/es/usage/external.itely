@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7d4316025c10a8ac153c765b0238523950d3ffbe
+    Translation of GIT committish: 57617f931023d96645723d8139579e09948942f1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -853,9 +853,11 @@ Se puede añadir notación de LilyPond a los documentos de
 OpenOffice.org y LibreOffice con
 @uref{https://github.com/openlilylib/LO-ly,OOoLilyPond}, una
 extensión de OpenOffice.org que convierte archivos de LilyPond en
-imágenes dentro de los documentos de OpenOffice.org.  Aunque ya no
-se desarrolla activamente, parece que aún funciona con la versión
-4.
+imágenes dentro de los documentos de OpenOffice.org.  OoLilyPond
+(OLy) funciona con versiones recientes de LibreOffice y
+OpenOffice. También deben funcionar las versiones
+antiguas. Incluso se ha comprobado que funciona con OpenOffice 2.4
+sin ningún problema.
 
 
 @node Otros programas

@@ -282,6 +282,7 @@ the symbol @samp{hihat}) as keys, and a list
 @code{(@var{notehead-style} @var{script} @var{vertical-position})} as
 values.")
 
+     (endAtSkip ,boolean? "End @code{DurationLine} grob on @code{skip-event}")
      (endRepeatSegnoType ,string? "Set the default bar line for the
 combinations ending of repeat with segno. Default is @samp{:|.S}.")
      (endRepeatType ,string? "Set the default bar line for the ending
@@ -579,6 +580,10 @@ part-combining.")
 @code{\\magnifyStaff}.")
      (stanza ,markup? "Stanza @q{number} to print before the start of a
 verse.  Use in @code{Lyrics} context.")
+     (startAtSkip ,boolean? "Start @code{DurationLine} grob at
+@code{skip-event}.")
+     (startAtNoteColumn ,boolean? "Start @code{DurationLine} grob at entire
+@code{NoteColumn}.")
      (startRepeatSegnoType ,string? "Set the default bar line for the
 combinations beginning of repeat with segno. Default is @samp{S.|:}.")
      (startRepeatType ,string? "Set the default bar line for the beginning

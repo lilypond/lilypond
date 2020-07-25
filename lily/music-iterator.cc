@@ -39,18 +39,6 @@ Music_iterator::~Music_iterator ()
 {
 }
 
-Context *
-Music_iterator::get_context () const
-{
-  return handle_.get_context ();
-}
-
-void
-Music_iterator::set_context (Context *trans)
-{
-  handle_.set_context (trans);
-}
-
 Moment
 Music_iterator::pending_moment () const
 {
@@ -98,9 +86,9 @@ Music_iterator::get_static_get_iterator (Music *m)
 void
 Music_iterator::init_context (Context *report)
 {
-  if (! get_context ())
+  if (!get_own_context ())
     {
-      set_context (report);
+      set_own_context (report);
       create_children ();
     }
   else
@@ -114,8 +102,8 @@ Music_iterator::substitute_context (Context *f, Context *t)
 {
   if (f != t)
     {
-      if (get_context () == f)
-        set_context (t);
+      if (get_own_context () == f)
+        set_own_context (t);
       derived_substitute (f, t);
     }
 }
@@ -130,7 +118,7 @@ Music_iterator::get_iterator (Music *m) const
 {
   SCM ip = get_static_get_iterator (m);
   Music_iterator *p = unsmob<Music_iterator> (ip);
-  p->init_context (get_context ());
+  p->init_context (get_own_context ());
   return ip;
 }
 
@@ -185,11 +173,8 @@ Music_iterator::mark_smob () const
     Careful with GC, although we intend the following as pointers
     only, we _must_ mark them.
   */
-  /* Use handle_ directly as get_context is a virtual function and we
-     need to protect the context until Music_iterator::quit is being
-     run. */
-  if (handle_.get_context ())
-    scm_gc_mark (handle_.get_context ()->self_scm ());
+  if (get_own_context ())
+    scm_gc_mark (get_own_context ()->self_scm ());
   if (music_)
     scm_gc_mark (music_->self_scm ());
 
@@ -215,7 +200,7 @@ void
 Music_iterator::quit ()
 {
   do_quit ();
-  handle_.set_context (0);
+  set_own_context (nullptr);
 }
 
 void

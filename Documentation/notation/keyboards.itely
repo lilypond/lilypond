@@ -547,7 +547,8 @@ Sustain pedals are also found on vibraphones and celestas.
 
 @funindex pedalSustainStyle
 @funindex mixed
-@funindex @sortas{bracketA} bracket
+@c `@funindex \bracket' is auto-generated
+@funindexpre bracket
 @funindex text
 
 There are three styles of pedal indications: text, bracket, and mixed.

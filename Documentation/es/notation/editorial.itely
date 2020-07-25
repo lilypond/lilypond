@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 3064ac9d3d8bbc0cc7c2bcd8e4f72b232b5a8af7
+    Translation of GIT committish: 2eaeb5aaf92eb307dae3b36e742da7d8b680e373
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -359,11 +359,12 @@ texto o de cadenas de caracteres.
 }
 @end lilypond
 
-@cindex articulación de pulgar
+@cindex @q{pulgar}, digitación
+@cindex digitación, pulgar
 
 @funindex \thumb
 
-Puede usar la articulación de pulgar para indicar que una nota se
+Puede usar la digitación de pulgar para indicar que una nota se
 debe tocar con el pulgar (p.ej. en música de violoncello).
 
 @lilypond[verbatim,quote]
@@ -389,6 +390,10 @@ o debajo del pentagrama, véase @ref{Dirección y posición}.
 @snippets
 
 @cindex digitación, orientación
+@cindex cuerda, números de, orientación
+@cindex orientación, de las digitaciones
+@cindex orientación, de los números de cuerda
+@cindex digitación, orientación
 @cindex orientación de las digitaciones
 @funindex fingeringOrientations
 @funindex stringNumberOrientations
@@ -397,6 +402,9 @@ o debajo del pentagrama, véase @ref{Dirección y posición}.
 {controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex digitación, dentro del pentagrama
+@cindex digitación, y plicas
+@funindex staff-padding
+@funindex add-stem-support
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
@@ -494,14 +502,10 @@ Referencia de funcionamiento interno:
 @cindex coloreada, nota
 @cindex colorear notas
 @cindex nota coloreada
-@cindex x11, color de
-@cindex x11-color
-@cindex colores de x11
 @cindex with-color
 
 @funindex color
 @funindex \with-color
-@funindex x11-color
 
 Se pueden asignar colores a los objetos individuales.  Los nombres
 de color válidos se encuentran relacionados en la @ref{Lista de
@@ -512,18 +516,56 @@ colores}.
 c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
 d''
-\override Stem.color = #blue
+\override Stem.color = "deepskyblue"
 e''
 @end lilypond
 
-Se puede acceder al espectro completo de colores definido para X11
-usando la función de Scheme x11-color.  Esta función acepta un
-único argumento; éste puede ser un símbolo de la forma
-@code{@var{'FulanoMengano}} o una cadena de la forma
-@code{"@var{FulanoMengano}"}.  La primera forma es más rápida de
-escribir y también más eficiente.  Sin embargo, al usar la segunda
-forma es posible acceder a los colores de X11 por medio de la
-forma del nombre que tiene varias palabras.
+@cindex CSS, códis de color
+@cindex color, códigos de CSS
+
+Además de un conjunto limitado de colores sencillos que están
+disponibles como variables predefinidas (véase @q{Colores
+normales} dentro de @ref{Lista de colores}), se puede introducir
+cualquier color como una cadena de caracteres.  Dicha cadena puede
+ser un nombre predefinido de color al estilo de
+@uref{https://www.w3.org/Style/CSS/, CSS}, o un código de color
+hexadecimal con el carácter @code{#} como prefijo (@emph{dentro}
+de las comillas):
+
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
+
+@cindex transparencia, semi
+@cindex alfa, transparencia
+@cindex colores semitransparentes
+
+@noindent
+Si dicho color incluye un canal alfa para la semitransparencia
+mediante el uso de un código de ocho caracteres del tipo
+@var{"#RRGGBBAA"} o su forma abreviada @var{"#RGBA"}, se usará en
+la salida de SVG pero no en la salida de PostScript/PDF.  En el
+ejemplo anterior, el silencio es semitransparente solo si el
+código se compila con el backend de SVG, como se explica en
+@ref{Formatos de salida alternativos}.
+
+@cindex color de x11
+@funindex x11-color
+
+De manera completamente distinta, se puede acceder al rango de
+colores completo
+@uref{https://en.wikipedia.org/wiki/X11_color_names, definido para
+X11} mediante el uso de la función de Scheme @code{x11-color}.
+Esta función admite un argumento que puede ser un símbolo, como
+@code{'DarkSeaGreen4}, o una cadena de caracteres, como
+@code{"DarkSeaGreen4"}.  La primera manera es más rápida de
+escribir y ligeramente más eficiente; sin embargo la segunda forma
+permite además especificar colores de X11 como frases de varias
+palabras: en el ejemplo, @code{"dark sea green 4"}.
 
 Si @code{x11-color} no entiende el parámetro, el color
 predeterminado que se devuelve es el negro.
@@ -555,13 +597,20 @@ predeterminado que se devuelve es el negro.
 @funindex rgb-color
 
 Se pueden especificar colores RGB exactos utilizando la función de
-Scheme @code{rgb-color}.
+Scheme @code{rgb-color}.  Esta función admite tres argumentos que
+se utilizan respectivamente para los canales @var{rojo},
+@var{verde} y @var{azul}, y un número de @var{alfa} opcional para
+la semitransparencia (todos los valores deben ser números entre 0
+y@tie{}1).  De nuevo, la transparencia solo se contempla en la
+salida de SVG; por ejemplo, en el fragmento siguiente la clave es
+semitransparente cuando se produce un documento SVG.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  instrumentName = \markup {
-    \with-color #(x11-color 'red) "Clarinet"
-    }
+    instrumentName = \markup {
+      \with-color #(x11-color 'red) "Clarinet"
+      }
+    \override Clef.color = #(rgb-color 0 0 0 0.5)
   }
 \relative c'' {
   \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
@@ -597,8 +646,8 @@ No todos los colores de X11 se distinguen entre sí en un navegador
 web, es decir, un navegador de web podría no mostrar ninguna
 diferencia entre @code{LimeGreen} (verde lima) y
 @code{ForestGreen} (verde bosque).  Para la web se recomiendan los
-colores normales (o sea: @code{blue}, azul, @code{green}, verde,
-@code{red}, rojo).
+colores de CSS, como aparece detallado en @ref{Lista de colores}.
+
 
 Las notas de un acorde no se pueden colorear individualmente con
 @code{\override}; en su lugar utilice @code{\tweak} o su

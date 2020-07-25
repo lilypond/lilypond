@@ -124,7 +124,7 @@ Seventh chords can be created:
 @end lilypond
 
 @funindex aug
-@funindex @sortas{dimA} dim
+@funindex dim
 @funindex maj
 @funindex m
 

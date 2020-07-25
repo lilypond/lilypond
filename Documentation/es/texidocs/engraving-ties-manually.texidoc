@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 069c8e54d8eaf449262a180674330b31c8c723d9
   doctitlees = "Grabado manual de las ligaduras"
   texidoces = "
 Se pueden grabar a mano las ligaduras modificando la propiedad
@@ -6,5 +6,13 @@ Se pueden grabar a mano las ligaduras modificando la propiedad
 indica la distancia a partir de la tercera línea del pentagrama en
 espacios de pentagrama, y el segundo número indica la dirección (1 =
 hacia arriba, -1 = hacia abajo).
+
+Observe que LilyPond distingue entre valores exactos e inexactos para
+el primer número. Si se está usando un valor exacto (p.ej., un entero
+o una fracción como @code{(/ 4 5)}), el valor sirve como una posición
+vertical aproximada que después se ajusta por parte de LilyPond para
+que la ligadura evite las líneas del pentagrama. Si se usa un valor
+inexacto, como un número de coma flotante, se toma como la posición
+vertical sin más ajustes posteriores.
 
 "

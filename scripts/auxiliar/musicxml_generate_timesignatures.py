@@ -29,23 +29,23 @@ tie_notation_xml = """        <notations><tied type="%s"/></notations>
 """
 
 
-def generate_note (duration, end_tie = False):
+def generate_note(duration, end_tie=False):
     if duration < 2:
-      (notetype, dur) = ("8th", 1)
+        (notetype, dur) = ("8th", 1)
     elif duration < 4:
-      (notetype, dur) = ("quarter", 2)
+        (notetype, dur) = ("quarter", 2)
     elif duration < 8:
-      (notetype, dur) = ("half", 4)
+        (notetype, dur) = ("half", 4)
     else:
-      (notetype, dur) = ("whole", 8)
+        (notetype, dur) = ("whole", 8)
     dur_processed = dur
     dot = ""
     if (duration - dur_processed >= dur/2):
-      dot = dot_xml
-      dur_processed += dur/2
-      if (duration - dur_processed >= max(dur/4, 1)):
-        dot += dot_xml
-        dur_processed += dur/4
+        dot = dot_xml
+        dur_processed += dur/2
+        if (duration - dur_processed >= max(dur/4, 1)):
+            dot += dot_xml
+            dur_processed += dur/4
     tie = ""
     tie_notation = ""
     if end_tie:
@@ -53,7 +53,7 @@ def generate_note (duration, end_tie = False):
         tie_notation += tie_notation_xml % "stop"
     second_note = None
     if duration - dur_processed > 0:
-        second_note = generate_note (duration-dur_processed, True)
+        second_note = generate_note(duration-dur_processed, True)
         tie += tie_xml % "start"
         tie_notation += tie_notation_xml % "start"
     note = """      <note>
@@ -70,9 +70,10 @@ def generate_note (duration, end_tie = False):
     else:
         return note
 
-def print_measure (nr, beats, type, params = "", attr = "", attr2 = "", barline = ""):
+
+def print_measure(nr, beats, type, params="", attr="", attr2="", barline=""):
     duration = 8*beats/type
-    note = generate_note (duration)
+    note = generate_note(duration)
 
     print("""    <measure number="%s">
       <attributes>
@@ -83,6 +84,7 @@ def print_measure (nr, beats, type, params = "", attr = "", attr2 = "", barline 
 %s      </attributes>
 %s
 %s    </measure>""" % (nr, attr, params, beats, type, attr2, note, barline))
+
 
 first_key = """        <divisions>2</divisions>
         <key>
@@ -122,37 +124,37 @@ print("""<?xml version="1.0" encoding="UTF-8"?>
 
 measure = 1
 
-print_measure (measure, 2, 2, " symbol=\"common\"", first_key, first_clef)
+print_measure(measure, 2, 2, " symbol=\"common\"", first_key, first_clef)
 measure += 1
 
-print_measure (measure, 4, 4, " symbol=\"common\"")
+print_measure(measure, 4, 4, " symbol=\"common\"")
 measure += 1
 
-print_measure (measure, 2, 2)
+print_measure(measure, 2, 2)
 measure += 1
 
-print_measure (measure, 3, 2)
+print_measure(measure, 3, 2)
 measure += 1
 
-print_measure (measure, 2, 4)
+print_measure(measure, 2, 4)
 measure += 1
 
-print_measure (measure, 3, 4)
+print_measure(measure, 3, 4)
 measure += 1
 
-print_measure (measure, 4, 4)
+print_measure(measure, 4, 4)
 measure += 1
 
-print_measure (measure, 5, 4)
+print_measure(measure, 5, 4)
 measure += 1
 
-print_measure (measure, 3, 8)
+print_measure(measure, 3, 8)
 measure += 1
 
-print_measure (measure, 6, 8)
+print_measure(measure, 6, 8)
 measure += 1
 
-print_measure (measure, 12, 8, "", "", "", final_barline)
+print_measure(measure, 12, 8, "", "", "", final_barline)
 measure += 1
 
 print("""  </part>

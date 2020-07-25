@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c4c1512a79d84d8d1acffa663c588b617a4dead8
+%% Translation of GIT committish: 3644eb495bbef7020ed449e94be05d4b8f471136
   texidoces = "
 Las familias de fuente tipográfica para el texto se pueden
 sobreescribir con @code{make-pango-font-tree}.

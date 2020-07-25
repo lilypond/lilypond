@@ -30,20 +30,23 @@ import goocanvas
 import sys
 import re
 
+
 class GtkSkylineCanvas (goocanvas.Canvas):
     """A Canvas for displaying skylines."""
-    def __init__ (self):
-        super (GtkSkylineCanvas, self).__init__ ()
-        self.connect ('size-allocate', GtkSkylineCanvas.rescale)
-        self.x_min = float ('inf')
-        self.x_max = float ('-inf')
-        self.y_min = float ('inf')
-        self.y_max = float ('-inf')
 
-        self.colors = ('black', 'red', 'green', 'blue', 'maroon', 'olive', 'teal')
+    def __init__(self):
+        super(GtkSkylineCanvas, self).__init__()
+        self.connect('size-allocate', GtkSkylineCanvas.rescale)
+        self.x_min = float('inf')
+        self.x_max = float('-inf')
+        self.y_min = float('inf')
+        self.y_max = float('-inf')
+
+        self.colors = ('black', 'red', 'green', 'blue',
+                       'maroon', 'olive', 'teal')
         self.cur_color_index = 0
 
-    def rescale (self, allocation):
+    def rescale(self, allocation):
         width = (self.x_max - self.x_min + 1) * 1.1
         height = (self.y_max - self.y_min + 1) * 1.1
         if width <= 0 or height <= 0:
@@ -51,8 +54,8 @@ class GtkSkylineCanvas (goocanvas.Canvas):
 
         scale_x = allocation.width / width
         scale_y = allocation.height / height
-        scale = min (scale_x, scale_y)
-        self.set_scale (scale)
+        scale = min(scale_x, scale_y)
+        self.set_scale(scale)
 
         center_x = (self.x_max + self.x_min) / 2
         center_y = (self.y_max + self.y_min) / 2
@@ -63,10 +66,10 @@ class GtkSkylineCanvas (goocanvas.Canvas):
         actual_min_y = center_y - actual_height / 2
         actual_max_y = center_y + actual_height / 2
 
-        self.set_bounds (actual_min_x, actual_min_y, actual_max_x, actual_max_y)
-        self.scroll_to (actual_min_x, actual_min_y)
+        self.set_bounds(actual_min_x, actual_min_y, actual_max_x, actual_max_y)
+        self.scroll_to(actual_min_x, actual_min_y)
 
-    def add_skyline (self, lines):
+    def add_skyline(self, lines):
         """Adds a skyline to the current canvas, in a new color.
 
         The canvas will be rescaled, if necessary, to make room for the
@@ -76,60 +79,64 @@ class GtkSkylineCanvas (goocanvas.Canvas):
         lines = [(x1, -y1, x2, -y2) for (x1, y1, x2, y2) in lines]
 
         color = self.colors[self.cur_color_index]
-        self.cur_color_index = (self.cur_color_index + 1) % len (self.colors)
+        self.cur_color_index = (self.cur_color_index + 1) % len(self.colors)
 
         # Update the bounding box of the skylines.
         x_vals = [s[0] for s in lines] + [s[2] for s in lines]
         y_vals = [s[1] for s in lines] + [s[3] for s in lines]
-        self.x_min = min ([self.x_min] + x_vals)
-        self.x_max = max ([self.x_max] + x_vals)
-        self.y_min = min ([self.y_min] + y_vals)
-        self.y_max = max ([self.y_max] + y_vals)
+        self.x_min = min([self.x_min] + x_vals)
+        self.x_max = max([self.x_max] + x_vals)
+        self.y_min = min([self.y_min] + y_vals)
+        self.y_max = max([self.y_max] + y_vals)
 
         # Add the lines to the canvas.
-        root = self.get_root_item ()
+        root = self.get_root_item()
         for (x1, y1, x2, y2) in lines:
-            goocanvas.polyline_new_line (root, x1, y1, x2, y2,
-                    stroke_color=color,
-                    line_width=0.05)
-        self.rescale (self.get_allocation ())
+            goocanvas.polyline_new_line(root, x1, y1, x2, y2,
+                                        stroke_color=color,
+                                        line_width=0.05)
+        self.rescale(self.get_allocation())
 
 # We want to run the gtk main loop in a separate thread so that
 # the main thread can be responsible for reading stdin.
+
+
 class SkylineWindowThread (Thread):
     """A thread that runs a Gtk.Window displaying a skyline."""
 
-    def run (self):
-        gtk.gdk.threads_init ()
+    def run(self):
+        gtk.gdk.threads_init()
         self.window = None
         self.canvas = None
-        gtk.main ()
+        gtk.main()
 
     # This should only be called from the Gtk main loop.
-    def _destroy_window (self, window):
-        sys.exit (0)
+    def _destroy_window(self, window):
+        sys.exit(0)
 
     # This should only be called from the Gtk main loop.
-    def _setup_window (self):
+    def _setup_window(self):
         if self.window is None:
-            self.window = gtk.Window ()
-            self.canvas = GtkSkylineCanvas ()
-            self.window.add (self.canvas)
-            self.window.connect ("destroy", self._destroy_window)
-            self.window.show_all ()
+            self.window = gtk.Window()
+            self.canvas = GtkSkylineCanvas()
+            self.window.add(self.canvas)
+            self.window.connect("destroy", self._destroy_window)
+            self.window.show_all()
 
     # This should only be called from the Gtk main loop.
-    def _add_skyline (self, lines):
-        self._setup_window ()
-        self.canvas.add_skyline (lines)
+    def _add_skyline(self, lines):
+        self._setup_window()
+        self.canvas.add_skyline(lines)
 
-    def add_skyline (self, lines):
+    def add_skyline(self, lines):
         # Copy the lines, just in case someone modifies them.
-        gobject.idle_add (self._add_skyline, list (lines))
+        gobject.idle_add(self._add_skyline, list(lines))
 
-thread = SkylineWindowThread ()
-thread.setDaemon (True)
-thread.start ()
+
+thread = SkylineWindowThread()
+thread.setDaemon(True)
+thread.start()
+
 
 def lines(infile):
     line = infile.readline()
@@ -137,9 +144,10 @@ def lines(infile):
         yield line[:-1]
         line = infile.readline()
 
+
 point_re_str = r'\(([a-z.0-9-]*) *,([a-z0-9.-]*)\)'
 line_re_str = point_re_str + r' +' + point_re_str
-line_re = re.compile (line_re_str)
+line_re = re.compile(line_re_str)
 
 # The main loop just reads lines from stdin and feeds them to the
 # display.
@@ -150,7 +158,7 @@ for line in lines(sys.stdin):
         current_skyline = []
         continue
 
-    m = re.search (line_re, line)
+    m = re.search(line_re, line)
     if m is None:
         print('line did not match')
     else:

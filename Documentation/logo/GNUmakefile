@@ -18,7 +18,6 @@ default: $(lilypond-icon) $(ly-icon)
 
 endif # PLATFORM_WINDOWS
 
-local-dist: $(icon)
 pngs: $(OUTPNG_FILES)
 
 ifeq ($(out),www)

@@ -25,7 +25,7 @@
 ;; TODO: junk the meta field in favor of something more compact?
 
 
-(define-session-public all-grob-descriptions
+(define all-grob-descriptions-data
   `(
     (Accidental
      . (
@@ -833,6 +833,51 @@
                                 percent-repeat-interface
                                 percent-repeat-item-interface
                                 rhythmic-grob-interface))))))
+
+    (DurationLine
+     . (
+        (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
+        (arrow-width . 1.5)
+        (arrow-length . 2)
+        (bound-details
+          .
+          ((right . ((end-on-accidental . #t)
+                     (end-on-arpeggio . #t)
+                     (padding . 0.4)
+                     ;; possible values for endstyle: arrow, hook
+                     (end-style . #f)))
+           (right-broken . ((padding . 0.4)
+                            (end-style . #f)))
+           (left-broken . ((padding . 0.4)))
+           (left . ((padding . -0.3)
+                    (start-at-dot . #f)))))
+        (breakable . #t)
+        ;; TODO needed/wished?
+        (cross-staff . ,ly:line-spanner::calc-cross-staff)
+        (details
+          .
+          ((hook-height . 0.34)
+           ;; Unless set by the user, grob's thickness is taken as default
+           (hook-thickness . #f)
+           (hook-direction . ,UP)))
+        (minimum-length . 2)
+        (minimum-length-after-break . 6)
+        (springs-and-rods . ,ly:spanner::set-spacing-rods)
+        (stencil . ,duration-line::print)
+        (style . beam)
+        (to-barline . #f)
+        (thickness . 4)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (Y-offset . 0)
+        (zigzag-length . 1)
+        (zigzag-width . 1)
+        (meta . ((class . Spanner)
+                 (interfaces . (spanner-interface
+                                line-interface
+                                line-spanner-interface
+                                duration-line-interface
+                                font-interface
+                                unbreakable-spanner-interface))))))
 
     (DynamicLineSpanner
      . (
@@ -2924,8 +2969,10 @@
   ;;  (display (car x))
   ;;  (newline)
   (let* ((name-sym  (car x))
-         (grob-entry (cdr x))
-         (meta-entry (assoc-get 'meta grob-entry))
+         ;; Make (shallow) copies of the list and its items because we modify
+         ;; them below.
+         (grob-entry (map list-copy (cdr x)))
+         (meta-entry (map list-copy (assoc-get 'meta grob-entry)))
          (class (assoc-get 'class meta-entry))
          (ifaces-entry
           (assoc-get 'interfaces meta-entry)))
@@ -2948,22 +2995,14 @@
     (set! ifaces-entry (cons 'grob-interface ifaces-entry))
 
     (set! meta-entry (assoc-set! meta-entry 'name name-sym))
-    (set! meta-entry (assoc-set! meta-entry 'interfaces
-                                 ifaces-entry))
+    (set! meta-entry (assoc-set! meta-entry 'interfaces ifaces-entry))
     (set! grob-entry (assoc-set! grob-entry 'meta meta-entry))
+
+    ;; make sure that \property Foo.Bar =\turnOff doesn't complain
+    (set-object-property! name-sym 'translation-type? ly:grob-properties?)
+    (set-object-property! name-sym 'is-grob? #t)
+
     (cons name-sym grob-entry)))
 
-(set! all-grob-descriptions (map completize-grob-entry all-grob-descriptions))
-
-;;  (display (map pair? all-grob-descriptions))
-
-;; make sure that \property Foo.Bar =\turnOff doesn't complain
-
-(for-each (lambda (x)
-            ;; (display (car x)) (newline)
-
-            (set-object-property! (car x) 'translation-type? ly:grob-properties?)
-            (set-object-property! (car x) 'is-grob? #t))
-          all-grob-descriptions)
-
-(set! all-grob-descriptions (sort all-grob-descriptions alist<?))
+(define-session-public all-grob-descriptions
+  (sort (map completize-grob-entry all-grob-descriptions-data) alist<?))

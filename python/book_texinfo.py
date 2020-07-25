@@ -198,50 +198,53 @@ dummy
 @bye
 '''
 
-def get_texinfo_width_indent (source, global_options):
-    #TODO: Check for end of header command "@c %**end of header"
+
+def get_texinfo_width_indent(source, global_options):
+    # TODO: Check for end of header command "@c %**end of header"
     #      only use material before that comment ?
 
     # extract all relevant papter settings from the input:
     pagesize = None
-    texinfo_paper_size_regexp = r'''(@(?:afourpaper|afourwide|afourlatex|afivepaper|smallbook|letterpaper))''';
-    m = re.search (texinfo_paper_size_regexp, source);
+    texinfo_paper_size_regexp = r'''(@(?:afourpaper|afourwide|afourlatex|afivepaper|smallbook|letterpaper))'''
+    m = re.search(texinfo_paper_size_regexp, source)
     if m:
-        pagesize = m.group (1)
+        pagesize = m.group(1)
 
-    relevant_settings_regexp = r'''(@(?:fonttextsize|pagesizes|cropmarks|exampleindent).*)\n''';
-    m = re.findall (relevant_settings_regexp, source);
+    relevant_settings_regexp = r'''(@(?:fonttextsize|pagesizes|cropmarks|exampleindent).*)\n'''
+    m = re.findall(relevant_settings_regexp, source)
     if pagesize:
-        m.insert (0, pagesize);
+        m.insert(0, pagesize)
     # all relevant options to insert into the test document:
-    preamble = "\n".join (m);
+    preamble = "\n".join(m)
 
     texinfo_document = TEXINFO_INSPECTION_DOCUMENT % {'preamble': preamble}
 
     (handle, tmpfile) = tempfile.mkstemp('.texi')
-    outfile = os.path.splitext (tmpfile)[0] + '.pdf'
+    outfile = os.path.splitext(tmpfile)[0] + '.pdf'
 
-    tmp_handle = os.fdopen (handle,'w')
-    tmp_handle.write (texinfo_document)
-    tmp_handle.close ()
+    tmp_handle = os.fdopen(handle, 'w')
+    tmp_handle.write(texinfo_document)
+    tmp_handle.close()
 
     # Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
     # used to detect relative/absolute paths, so the absolute path is not
     # detected as such and this command fails:
-    ly.progress (_ ("Running texi2pdf on file %s to detect default page settings.\n") % tmpfile);
+    ly.progress(
+        _("Running texi2pdf on file %s to detect default page settings.\n") % tmpfile)
 
     # execute the command and pipe stdout to the parameter_string:
-    cmd = '%s --batch -c -o %s %s' % (global_options.texinfo_program, outfile, tmpfile);
-    ly.debug_output ("Executing: %s\n" % cmd);
+    cmd = '%s --batch -c -o %s %s' % (
+        global_options.texinfo_program, outfile, tmpfile)
+    ly.debug_output("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
 
-    ### unknown why this is necessary
+    # unknown why this is necessary
     universal_newlines = True
     if sys.platform == 'mingw32':
         universal_newlines = False
-        ### use os.system to avoid weird sleep() problems on
-        ### GUB's python 2.4.2 on mingw
+        # use os.system to avoid weird sleep() problems on
+        # GUB's python 2.4.2 on mingw
         # make file to write to
         output_dir = tempfile.mkdtemp()
         output_filename = os.path.join(output_dir, 'output.txt')
@@ -250,59 +253,60 @@ def get_texinfo_width_indent (source, global_options):
         returncode = os.system(cmd)
         parameter_string = open(output_filename).read()
         if returncode != 0:
-            ly.warning (_ ("Unable to auto-detect default settings:\n"))
+            ly.warning(_("Unable to auto-detect default settings:\n"))
         # clean up
         os.remove(output_filename)
         os.rmdir(output_dir)
     else:
-        proc = subprocess.Popen (cmd,
-            env=run_env,
-            universal_newlines=universal_newlines,
-            shell=True,
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        (parameter_string, error_string) = proc.communicate ()
+        proc = subprocess.Popen(cmd,
+                                env=run_env,
+                                universal_newlines=universal_newlines,
+                                shell=True,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (parameter_string, error_string) = proc.communicate()
         if proc.returncode != 0:
-            ly.warning (_ ("Unable to auto-detect default settings:\n%s")
-                    % error_string)
-    os.unlink (tmpfile)
+            ly.warning(_("Unable to auto-detect default settings:\n%s")
+                       % error_string)
+    os.unlink(tmpfile)
     if os.path.exists(outfile):
-        os.unlink (outfile)
+        os.unlink(outfile)
 
     # Find textwidth and exampleindent and format it as \\mm or \\in
     # Use defaults if they cannot be extracted
     textwidth = 0
-    m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
+    m = re.search('textwidth=([0-9.]+)pt', parameter_string)
     if m:
-        val = float (m.group (1))/72.27
-        if pagesize and pagesize.startswith ("@afour"):
-            textwidth = "%g\\mm" % round (val*25.4, 3);
+        val = float(m.group(1))/72.27
+        if pagesize and pagesize.startswith("@afour"):
+            textwidth = "%g\\mm" % round(val*25.4, 3)
         else:
-            textwidth = "%g\\in" % round (val, 3);
+            textwidth = "%g\\in" % round(val, 3)
     else:
         textwidth = texinfo_line_widths.get(pagesize, "6\\in")
 
     exampleindent = 0
-    m = re.search ('exampleindent=([0-9.]+)pt', parameter_string)
+    m = re.search('exampleindent=([0-9.]+)pt', parameter_string)
     if m:
-        val = float (m.group (1))/72.27
-        if pagesize and pagesize.startswith ("@afour"):
-            exampleindent = "%g\\mm" % round (val*25.4, 3);
+        val = float(m.group(1))/72.27
+        if pagesize and pagesize.startswith("@afour"):
+            exampleindent = "%g\\mm" % round(val*25.4, 3)
         else:
-            exampleindent = "%g\\in" % round (val, 3);
+            exampleindent = "%g\\in" % round(val, 3)
     else:
         exampleindent = "0.4\\in"
 
-    retval = {book_snippets.LINE_WIDTH: textwidth, book_snippets.EXAMPLEINDENT: exampleindent}
-    ly.debug_output ("Auto-detected values are: %s\n" % retval);
-    return retval;
+    retval = {book_snippets.LINE_WIDTH: textwidth,
+              book_snippets.EXAMPLEINDENT: exampleindent}
+    ly.debug_output("Auto-detected values are: %s\n" % retval)
+    return retval
 
 
+texinfo_lang_re = re.compile('(?m)^@documentlanguage (.*?)( |$)')
 
-texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 
 class BookTexinfoOutputFormat (book_base.BookOutputFormat):
-    def __init__ (self):
-        book_base.BookOutputFormat.__init__ (self)
+    def __init__(self):
+        book_base.BookOutputFormat.__init__(self)
         self.format = "texinfo"
         self.default_extension = ".texi"
         self.snippet_res = TexInfo_snippet_res
@@ -310,76 +314,80 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         self.handled_extensions = ['.itely', '.tely', '.texi', '.texinfo']
         self.snippet_option_separator = '\s*,\s*'
 
-    def can_handle_format (self, format):
-        return (book_base.BookOutputFormat.can_handle_format (self, format) or
-               (format in ['texi-html', 'texi']))
+    def can_handle_format(self, format):
+        return (book_base.BookOutputFormat.can_handle_format(self, format) or
+                (format in ['texi-html', 'texi']))
 
-    def process_options (self, global_options):
-        self.process_options_pdfnotdefault (global_options)
+    def process_options(self, global_options):
+        self.process_options_pdfnotdefault(global_options)
 
-    def get_document_language (self, source):
-        m = texinfo_lang_re.search (source)
-        if m and not m.group (1).startswith ('en'):
-            return m.group (1)
+    def get_document_language(self, source):
+        m = texinfo_lang_re.search(source)
+        if m and not m.group(1).startswith('en'):
+            return m.group(1)
         else:
             return ''
 
-    def init_default_snippet_options (self, source):
-        texinfo_defaults = get_texinfo_width_indent (source, self.global_options);
-        self.default_snippet_options.update (texinfo_defaults)
-        book_base.BookOutputFormat.init_default_snippet_options (self, source)
+    def init_default_snippet_options(self, source):
+        texinfo_defaults = get_texinfo_width_indent(
+            source, self.global_options)
+        self.default_snippet_options.update(texinfo_defaults)
+        book_base.BookOutputFormat.init_default_snippet_options(self, source)
 
-    def adjust_snippet_command (self, cmd):
+    def adjust_snippet_command(self, cmd):
         if '--formats' not in cmd:
             return cmd + ' --formats=png '
         else:
             return cmd
 
-    def output_info (self, basename, snippet):
+    def output_info(self, basename, snippet):
         str = ''
-        rep = snippet.get_replacements ();
+        rep = snippet.get_replacements()
         rep['base'] = basename
-        rep['filename'] = os.path.basename (snippet.filename)
+        rep['filename'] = os.path.basename(snippet.filename)
         rep['ext'] = snippet.ext
-        for image in snippet.get_images ():
-            rep1 = copy.copy (rep)
-            rep1['base'] = os.path.splitext (image)[0]
+        for image in snippet.get_images():
+            rep1 = copy.copy(rep)
+            rep1['base'] = os.path.splitext(image)[0]
             rep1['image'] = image
             rep1['alt'] = snippet.option_dict[book_snippets.ALT]
-            rep1['info_image_path'] = os.path.join (self.global_options.info_images_dir, rep1['base'])
+            rep1['info_image_path'] = os.path.join(
+                self.global_options.info_images_dir, rep1['base'])
             str += self.output[book_snippets.OUTPUTIMAGE] % rep1
 
         str += self.output[book_snippets.OUTPUT] % rep
         return str
 
-    def snippet_output (self, basename, snippet):
+    def snippet_output(self, basename, snippet):
         str = ''
         base = basename
         if book_snippets.DOCTITLE in snippet.option_dict:
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + self.document_language
-            if os.path.exists (translated_doctitle):
-                str += '\n@lydoctitle %s\n\n' % codecs.open (translated_doctitle, 'r', 'utf-8').read ()
-            elif os.path.exists (doctitle):
-                str += '\n@lydoctitle %s\n\n' % codecs.open (doctitle, 'r', 'utf-8').read ()
+            if os.path.exists(translated_doctitle):
+                str += '\n@lydoctitle %s\n\n' % codecs.open(
+                    translated_doctitle, 'r', 'utf-8').read()
+            elif os.path.exists(doctitle):
+                str += '\n@lydoctitle %s\n\n' % codecs.open(
+                    doctitle, 'r', 'utf-8').read()
         if book_snippets.TEXIDOC in snippet.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + self.document_language
-            if os.path.exists (translated_texidoc):
-                str += '@include %(translated_texidoc)s\n\n' % vars ()
-            elif os.path.exists (texidoc):
-                str += '@include %(texidoc)s\n\n' % vars ()
-        str += self.output_print_filename (basename, snippet)
+            if os.path.exists(translated_texidoc):
+                str += '@include %(translated_texidoc)s\n\n' % vars()
+            elif os.path.exists(texidoc):
+                str += '@include %(texidoc)s\n\n' % vars()
+        str += self.output_print_filename(basename, snippet)
 
         substr = ''
-        rep = snippet.get_replacements ();
+        rep = snippet.get_replacements()
         if book_snippets.VERBATIM in snippet.option_dict:
             rep['version'] = ''
             if book_snippets.ADDVERSION in snippet.option_dict:
                 rep['version'] = self.output[book_snippets.ADDVERSION]
-            rep['verb'] = snippet.verb_ly ()
+            rep['verb'] = snippet.verb_ly()
             substr = self.output[book_snippets.VERBATIM] % rep
-        substr += self.output_info (basename, snippet)
+        substr += self.output_info(basename, snippet)
         if book_snippets.QUOTE in snippet.option_dict:
             substr = self.output[book_snippets.QUOTE] % {'str': substr}
         str += substr
@@ -389,9 +397,8 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
 
         return str
 
-    def required_files (self, snippet, base, full, required_files):
-        return self.required_files_png (snippet, base, full, required_files)
+    def required_files(self, snippet, base, full, required_files):
+        return self.required_files_png(snippet, base, full, required_files)
 
 
-
-book_base.register_format (BookTexinfoOutputFormat ());
+book_base.register_format(BookTexinfoOutputFormat())

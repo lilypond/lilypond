@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: fce9b78cb834ad4d5ef27f8ebe7ab2352823ff1d
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,7 +9,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 
@@ -865,13 +865,16 @@
 @subsection パートを記述する
 @translationof Writing parts
 
-このセクションでは、テンポ指示と楽器名を楽譜に挿入する方法について説明します。@c
-他のボイスを引用する方法と、演奏指示音符を譜刻する方法についても記述します。
+このセクションでは、楽譜に楽器名を挿入するためにしばしば必要となる、@c
+オーケストラまたはアンサンブル音楽用のパートを作成する方法について説明します。@c
+他のボイスを引用する方法、演奏指示音符を譜刻する方法、@c
+個々のパートで複数の連続する空の小節をまとめる方法についても記述します。
 
 @menu
 * 楽器名::
 * 他のボイスを引用する::
 * 合図音符をフォーマットする::
+* 空の小節を圧縮する::
 @end menu
 
 
@@ -1534,3 +1537,115 @@ bassoonNotes = \relative c {
 コンテキストの間で休符の衝突が発生する可能性があります。@c
 @code{\cueDuringWithClef} や @code{\transposedCueDuring} を使用する場合、@c
 追加で必要となる引数は引用と向きの後に配置する必要があります。
+
+
+@node 空の小節を圧縮する
+@unnumberedsubsubsec 空の小節を圧縮する
+@translationof Compressing empty measures
+
+@cindex multi-measure notes, expanding (複数小節にまたがる音符を展開する)
+@cindex multi-measure notes, contracting (複数小節にまたがる音符をまとめる)
+@funindex \compressEmptyMeasures
+@funindex \expandEmptyMeasures
+
+デフォルトでは、すべての小節は空であっても譜刻されます --
+これは、リズムイベント (音符、休符、非表示の休符など)
+が複数の小節にまたがるほど長い場合に発生する可能性があります。
+この動作は、次の図に示すように、@c
+すべての空の小節を単一の小節にまとめることで変更できます
+(この例の 2 番目の部分は小節を展開して実際にはデフォルトの動作に戻ります):
+
+@lilypond[quote,verbatim,fragment]
+\override Score.BarNumber.break-visibility = #'#(#f #t #t)
+\time 2/4
+\compressEmptyMeasures
+c'1 d'1. e'\breve
+\bar "||"
+\expandEmptyMeasures
+c'1 d'1. e'\breve
+@end lilypond
+
+@noindent
+その表記法は構文的には正しいですが、前の例で示したように、@c
+音楽的な観点からは混乱するかもしれません。@c
+したがって、@ref{Using break-visibility} で説明されている構文を使用して、@c
+小節番号を明示的に譜刻する必要があります。
+
+@cindex multi-measure rests, expanding (複数小節にまたがる休符を展開する)
+@cindex multi-measure rests, contracting (複数小節にまたがる休符をまとめる)
+@funindex \compressMMRests
+
+そのような表記がより有用になる可能性があるのは、@ref{Full measure rests} に適用される場合です。@c
+複数小節にまたがる休符は、複数小節にまたがる休符の記号を含む単一の小節として表示され、@c
+休符の小節数が小節の上に譜刻されます。
+
+@c KEEP LY
+@lilypond[quote,verbatim,fragment]
+% デフォルトの振る舞い
+\time 3/4 r2. | R2.*2 |
+\time 2/4 R2 |
+\time 4/4
+% 休みの小節を 1 つの小節にまとめます
+\compressEmptyMeasures
+r1 | R1*17 | R1*4 |
+\expandEmptyMeasures
+% 休みの小節を展開します
+\time 3/4
+R2.*2 |
+@end lilypond
+
+@code{\compressEmptyMeasures} とは異なり、@c
+音楽関数 @code{\compressMMRests} は休符にのみ適用され、@c
+他のイベントは圧縮されません。@c
+プロパティ設定ではなく関数として、@c
+その構文は音楽表現が続く必要があるという点でわずかに異なります:
+
+@c KEEP LY
+@lilypond[quote,verbatim,fragment]
+\compressMMRests {
+  % 休符は圧縮されます…
+  R1*7
+  % …ただし、音符は複数の小節にまたがることができます。
+  g'1 a'1*2 d'1
+  R1*2
+}
+@end lilypond
+
+@funindex skipBars
+このセクションで説明するすべてのコマンドは、@c
+実際には @code{skipBars} 内部プロパティに依存しています。@c
+これは、@ref{The set command} で説明されているように、
+@code{Score} コンテキストで設定されます。
+
+@predefined
+@code{\compressEmptyMeasures},
+@code{\expandEmptyMeasures},
+@code{\compressMMRests}
+@endpredefined
+
+@snippets
+
+@cindex multi-measure rest, numbering (複数小節にまたがる休符の数字)
+@funindex restNumberThreshold
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{numbering-single-measure-rests.ly}
+
+@cindex church rest (教会音楽の休符)
+@cindex rest, church (教会音楽の休符)
+@cindex kirchenpause (教会音楽の休符)
+@cindex multi-measure rest, style (複数小節にまたがる休符のスタイル)
+@cindex style, multi-measure rests (複数小節にまたがる休符のスタイル)
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-form-of-multi-measure-rests.ly}
+
+@seealso
+記譜法リファレンス:
+@ref{Using break-visibility},
+@ref{Full measure rests},
+@ref{The set command}
+
+内部リファレンス:
+@rinternals{MultiMeasureRest},
+@rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestScript},
+@rinternals{MultiMeasureRestText}

@@ -255,10 +255,11 @@ Simple_spacer::compress_line ()
      will actually be compressed (as in, a negative force) because
      we start out with a stretched line. Here, we check whether we
      will be compressed or stretched (so we know which spring constant to use) */
-  if (configuration_length (0.0) > line_len_)
+  double neutral_length = configuration_length (0.0);
+  if (neutral_length > line_len_)
     {
       cur_force = 0.0;
-      cur_len = configuration_length (0.0);
+      cur_len = neutral_length;
       compressed = true;
     }
 

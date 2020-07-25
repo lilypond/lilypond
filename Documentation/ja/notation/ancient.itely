@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 0cc270b871321ae5aa8622cea8d8262aafd16641
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -641,7 +641,7 @@ breveTP = #(ly:make-duration -1 0 3/2)
 @c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \autoBeamOff
 \override NoteHead.style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
@@ -722,7 +722,7 @@ neo-mensural や Petrucci スタイル専用の符尾はありません。@c
 次に示すのはこれらのスタイルの例です:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\set Score.skipBars = ##t
+\compressEmptyMeasures
 \override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'neomensural

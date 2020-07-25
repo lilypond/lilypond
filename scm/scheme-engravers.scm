@@ -283,3 +283,249 @@ Engraver to merge rests in multiple voices on the same staff.  This works by
 gathering all rests at a time step.  If they are all of the same length and
 there are at least two they are moved to the correct location as if there were
 one voice.")))
+
+(define-public (event-has-articulation? event-type stream-event)
+"Is @var{event-type} in the @code{articulations} list of @var{stream-event}?"
+  (if (ly:stream-event? stream-event)
+      (any
+        (lambda (evt-type) (eq? evt-type event-type))
+        (append-map
+          (lambda (art) (ly:prob-property art 'types))
+          (ly:prob-property
+            (ly:prob-property stream-event 'music-cause)
+            'articulations)))
+      #f))
+
+(define-public (Duration_line_engraver context)
+  (let ((dur-event #f)
+        (start-duration-line #f)
+        (stop-duration-line #f)
+        (current-dur-grobs #f)
+        (rhyth-event #f)
+        (mmr-event #f)
+        (skip #f)
+        (tie #f))
+    (make-engraver
+      (listeners
+        ((duration-line-event this-engraver event)
+          (set! dur-event event)
+          (set! start-duration-line #t))
+        ((multi-measure-rest-event this-engraver event)
+          (set! mmr-event event))
+        ((rhythmic-event this-engraver event)
+          (set! rhyth-event (cons (ly:context-current-moment context) event)))
+        ((skip-event this-engraver event)
+          (set! skip event))
+        ((tie-event this-engraver event)
+          (set! tie event)))
+
+      (acknowledgers
+        ((multi-measure-rest-interface this-engraver grob source-engraver)
+          (if stop-duration-line
+              (begin
+                (for-each
+                  (lambda (dur-line)
+                    ;; TODO rethink:
+                    ;; For MultiMeasureRest always use to-barline #t
+                    (ly:grob-set-property! dur-line 'to-barline #t)
+                    (ly:spanner-set-bound! dur-line RIGHT
+                      (ly:context-property context 'currentMusicalColumn))
+                    (ly:engraver-announce-end-grob this-engraver dur-line grob))
+                  current-dur-grobs)
+                (set! stop-duration-line #f)
+                (set! current-dur-grobs #f)))
+
+
+           (if (and start-duration-line
+                    (event-has-articulation? 'duration-line-event mmr-event))
+               (begin
+                 (set! start-duration-line #f)
+                 (set! stop-duration-line #t)
+                 (set! current-dur-grobs
+                       (let ((dur-line
+                               (ly:engraver-make-grob
+                                 this-engraver
+                                 'DurationLine
+                                 dur-event)))
+                          (ly:spanner-set-bound! dur-line LEFT
+                            (ly:context-property context 'currentMusicalColumn))
+                          (list dur-line)))
+                 (set! mmr-event #f)
+                 (set! dur-event #f))))
+        ((note-column-interface this-engraver grob source-engraver)
+         (let* ((note-heads-array (ly:grob-object grob 'note-heads))
+                (nc-rest (ly:grob-object grob 'rest))
+                (note-heads
+                  (if (ly:grob-array? note-heads-array)
+                      (ly:grob-array->list note-heads-array)
+                      '())))
+           (cond  ;; Don't stop at tied NoteHeads
+                  ;; TODO make this a context-property?
+                  ((and (ly:stream-event? tie) stop-duration-line)
+                   (set! tie #f))
+                  (stop-duration-line
+                    (begin
+                      (for-each
+                        (lambda (dur-line)
+                          (ly:spanner-set-bound! dur-line RIGHT grob)
+                          (ly:engraver-announce-end-grob
+                            this-engraver dur-line grob))
+                        current-dur-grobs)
+                      (set! stop-duration-line #f)
+                      (set! current-dur-grobs #f))))
+
+           (if start-duration-line
+               (begin
+                 (set! start-duration-line #f)
+                 (set! stop-duration-line #t)
+                 (set! current-dur-grobs
+                       (cond
+                         ;; get one DurationLine for entire NoteColumn
+                         ((ly:context-property context 'startAtNoteColumn #f)
+                           (let ((dur-line
+                                   (ly:engraver-make-grob
+                                     this-engraver
+                                     'DurationLine
+                                     dur-event)))
+                              (ly:spanner-set-bound! dur-line LEFT grob)
+                              (list dur-line)))
+                         ;; get DurationLines for every NoteHead
+                         ((pair? note-heads)
+                            (map
+                              (lambda (nhd)
+                                (let ((dur-line
+                                        (ly:engraver-make-grob
+                                          this-engraver
+                                          'DurationLine
+                                          dur-event)))
+                                  (ly:spanner-set-bound! dur-line LEFT nhd)
+                                  dur-line))
+                              note-heads))
+                         ;; get DurationLine for Rest
+                         (else
+                           (let ((dur-line
+                                   (ly:engraver-make-grob
+                                     this-engraver
+                                     'DurationLine
+                                     dur-event)))
+                              (ly:spanner-set-bound! dur-line LEFT nc-rest)
+                              (list dur-line)))))
+                 (set! dur-event #f))))))
+
+      ((process-music this-engraver)
+        ;; Needed?
+        ;(if (ly:stream-event? dur-event)
+        ;    (set! start-duration-line #t))
+        ;; If 'endAtSkip is set #t, DurationLine may end at skips.
+        ;; In this case set right bound to PaperColumn
+        (if (and (pair? current-dur-grobs)
+                 (ly:stream-event? skip)
+                 (ly:context-property context 'endAtSkip #f)
+                 stop-duration-line)
+            (begin
+              (for-each
+                (lambda (dur-line)
+                  (if (null? (ly:spanner-bound dur-line RIGHT))
+                      (let ((cmc (ly:context-property
+                                   context
+                                   'currentMusicalColumn)))
+                        (ly:spanner-set-bound! dur-line RIGHT cmc)
+                        (ly:engraver-announce-end-grob
+                          this-engraver dur-line cmc))))
+                current-dur-grobs)
+              (set! stop-duration-line #f)
+              (set! skip #f)
+              (set! current-dur-grobs #f)))
+        ;; If 'startAtSkip is set #t, DurationLine may start at skips.
+        ;; In this case set left bound to PaperColumn .
+        ;; We need to care about 'duration-line-event, otherwise we loose the
+        ;; ability to ignore skips.
+        ;; Thus, only do so if skip has a 'duration-line-event.
+        (if (and start-duration-line
+                 (event-has-articulation? 'duration-line-event skip)
+                 (ly:context-property context 'startAtSkip #t))
+            (begin
+              (set! start-duration-line #f)
+              (set! stop-duration-line #t)
+              (set! current-dur-grobs
+                    (let ((dur-line
+                            (ly:engraver-make-grob
+                              this-engraver
+                              'DurationLine
+                              dur-event)))
+                            (ly:grob-set-property! dur-line 'to-barline #f)
+                       (ly:spanner-set-bound! dur-line LEFT
+                         (ly:context-property context 'currentMusicalColumn))
+                       (list dur-line)))
+              (set! skip #f)
+              (set! dur-event #f))))
+      ((stop-translation-timestep this-engraver)
+        ;; If a context dies or "pauses" (i.e. no rhythmic-event for some time,
+        ;; because other contexts are active), set right bound to
+        ;; NonMusicalPaperColumn.
+        ;; We calculate the end-moment of the rhythmic-event and compare with
+        ;; current-moment to get the condition for ending the DurationLine.
+        ;; We can't go for (ly:context-property context 'busyGrobs), because
+        ;; we then wouldn't know if a skip-event needs to be respected.
+        ;;
+        ;; FIXME
+        ;; As a result a DurationLine running to the very end of a score is the
+        ;; first or a middle part of a broken spanner.
+        ;; Other parts are disregarded
+
+        (if rhyth-event
+            (let* ((rhyhtmic-evt-start (car rhyth-event))
+                   (rhyhtmic-evt-length
+                     (ly:prob-property (cdr rhyth-event) 'length))
+                   (rhyhtmic-evt-end
+                     (ly:moment-add rhyhtmic-evt-start rhyhtmic-evt-length))
+                   (current-moment (ly:context-current-moment context)))
+            (if (and (equal? current-moment rhyhtmic-evt-end)
+                     (pair? current-dur-grobs)
+                     stop-duration-line)
+                (begin
+                  (for-each
+                    (lambda (dur-line)
+                      (if (null? (ly:spanner-bound dur-line RIGHT))
+                          (let ((cmc (ly:context-property
+                                       context
+                                       'currentCommandColumn)))
+                            (ly:spanner-set-bound! dur-line RIGHT cmc)
+                            (ly:engraver-announce-end-grob
+                              this-engraver dur-line cmc))))
+                    current-dur-grobs)
+                  (set! stop-duration-line #f)
+                  (set! current-dur-grobs #f)
+                  (set! rhyth-event #f))))))
+
+      ((finalize this-engraver)
+        ;; likely unneeded, better be paranoid
+        (if (pair? current-dur-grobs)
+            (begin
+              (for-each
+                (lambda (dur-line)
+                  (ly:warning "unterminated DurationLine")
+                  (ly:grob-suicide! dur-line))
+                current-dur-grobs)
+              (set! current-dur-grobs #f)
+              (set! stop-duration-line #f)))
+
+        ;; house-keeping
+        (set! rhyth-event #f)
+        (set! skip #f)
+        (set! mmr-event #f)))))
+
+(ly:register-translator
+ Duration_line_engraver 'Duration_line_engraver
+ '((grobs-created . (DurationLine))
+   (events-accepted . (duration-line-event))
+   (properties-read . (currentCommandColumn
+                       currentMusicalColumn
+                       startAtSkip
+                       endAtSkip
+                       startAtNoteColumn
+                       ))
+   (properties-written . ())
+   (description . "\
+Engraver to print a line representing the duration of a rhythmic event like
+@code{NoteHead}, @code{NoteColumn} or @code{Rest}.")))

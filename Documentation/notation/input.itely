@@ -1355,7 +1355,7 @@ indicator (@code{-, _, ^}) in order to attach @var{music} (with
 a footnote mark) to the preceding note or rest.
 
 @item mark
-@funindex @sortas{defaultB} \default
+@funindexpost \default
 is a markup or string specifying the footnote mark which is used for
 marking both the reference point and the footnote itself at the
 bottom of the page.  It may be omitted (or equivalently replaced with

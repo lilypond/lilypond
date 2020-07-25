@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 1edb8b3c857fa9c993164123e6f707cad5afb07b
+    Translation of GIT committish: 15de2c8874262c2c0a9f2cc3beee5070c766dde4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'

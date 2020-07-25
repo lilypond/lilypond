@@ -43,12 +43,12 @@ import glob
 import getopt
 import shutil
 
-optlist, args = getopt.getopt (sys.argv[1:], '', ['prepend-suffix='])
+optlist, args = getopt.getopt(sys.argv[1:], '', ['prepend-suffix='])
 link_type, source_dir, dest_dir = args[0:3]
 files = args[3:]
 
-source_dir = os.path.normpath (source_dir)
-dest_dir = os.path.normpath (dest_dir)
+source_dir = os.path.normpath(source_dir)
+dest_dir = os.path.normpath(dest_dir)
 
 prepended_suffix = ''
 for x in optlist:
@@ -56,53 +56,59 @@ for x in optlist:
         prepended_suffix = x[1]
 
 if prepended_suffix:
-    def insert_suffix (p):
-        l = p.split ('.')
-        if len (l) >= 2:
+    def insert_suffix(p):
+        l = p.split('.')
+        if len(l) >= 2:
             l[-2] += prepended_suffix
-            return '.'.join (l)
+            return '.'.join(l)
         return p + prepended_suffix
 else:
-    insert_suffix = lambda p: p
+    def insert_suffix(p): return p
 
 if link_type == 'symbolic':
-    if hasattr (os, 'symlink'):
+    if hasattr(os, 'symlink'):
         link = os.symlink
     else:
         link = shutil.copy
 elif link_type == 'hard':
-    if hasattr (os, 'link'):
+    if hasattr(os, 'link'):
         link = os.link
     else:
         link = shutil.copy
 else:
-    sys.stderr.write(sys.argv[0] + ': ' + link_type + ": wrong argument, expected 'symbolic' or 'hard'\n")
-    sys.exit (1)
+    sys.stderr.write(sys.argv[0] + ': ' + link_type +
+                     ": wrong argument, expected 'symbolic' or 'hard'\n")
+    sys.exit(1)
 
 sourcefiles = []
 for pattern in files:
-    sourcefiles += (glob.glob (os.path.join (source_dir, pattern)))
+    sourcefiles += (glob.glob(os.path.join(source_dir, pattern)))
 
-def relative_path (f):
+
+def relative_path(f):
     if source_dir == '.':
         return f
-    return f[len (source_dir) + 1:]
+    return f[len(source_dir) + 1:]
 
-destfiles = [os.path.join (dest_dir, insert_suffix (relative_path (f))) for f in sourcefiles]
 
-destdirs = set ([os.path.dirname (dest) for dest in destfiles])
-[os.makedirs (d) for d in destdirs if not os.path.exists (d)]
+destfiles = [os.path.join(dest_dir, insert_suffix(
+    relative_path(f))) for f in sourcefiles]
 
-def force_link (src,dest):
-    if os.path.exists (dest):
-        os.remove (dest)
+destdirs = set([os.path.dirname(dest) for dest in destfiles])
+[os.makedirs(d) for d in destdirs if not os.path.exists(d)]
+
+
+def force_link(src, dest):
+    if os.path.exists(dest):
+        os.remove(dest)
     try:
-        link (src, dest)
+        link(src, dest)
     except OSError as e:
         if e.errno == 18:
-            shutil.copy (src, dest)
+            shutil.copy(src, dest)
         else:
             raise
-    os.utime (dest, None)
+    os.utime(dest, None)
 
-list(map (force_link, sourcefiles, destfiles))
+
+list(map(force_link, sourcefiles, destfiles))

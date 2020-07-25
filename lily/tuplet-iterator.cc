@@ -37,7 +37,7 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   /* construction */
   OVERRIDE_CLASS_NAME (Tuplet_iterator);
-  Tuplet_iterator ();
+  Tuplet_iterator () = default;
 protected:
   void process (Moment m) override;
   void create_children () override;
@@ -49,13 +49,13 @@ protected:
 private:
 
   /* tupletSpannerDuration */
-  Moment spanner_duration_;
+  Moment spanner_duration_ {-1};
 
   /* next time to add a stop/start pair */
   Moment next_split_mom_;
 
   /* Recycle start/stop events if tupletSpannerDuration is set. */
-  SCM synthesized_events_;
+  SCM synthesized_events_ = SCM_EOL;
 
   Context_handle tuplet_handler_;
 };
@@ -82,12 +82,6 @@ Tuplet_iterator::create_event (Direction d)
   return ev;
 }
 
-Tuplet_iterator::Tuplet_iterator ()
-{
-  spanner_duration_ = next_split_mom_ = 0;
-  synthesized_events_ = SCM_EOL;
-}
-
 Moment
 Tuplet_iterator::pending_moment () const
 {
@@ -102,6 +96,22 @@ Tuplet_iterator::pending_moment () const
 void
 Tuplet_iterator::process (Moment m)
 {
+  if (spanner_duration_.main_part_ < 0) // first time
+    {
+      if (auto *d = unsmob<Duration> (get_property (get_music (), "duration")))
+        {
+          spanner_duration_ = Moment (d->get_length ());
+        }
+      else
+        {
+          SCM d_scm = get_property (get_context (), "tupletSpannerDuration");
+          if (auto *mp = unsmob<Moment> (d_scm))
+            spanner_duration_ = Moment (mp->main_part_); // discard grace part
+          else
+            spanner_duration_ = Moment (Rational::infinity ());
+        }
+    }
+
   if (spanner_duration_.to_bool ()
       && Moment (m.main_part_) == next_split_mom_)
     {
@@ -132,14 +142,6 @@ Tuplet_iterator::process (Moment m)
 void
 Tuplet_iterator::create_children ()
 {
-  if (Duration *d = unsmob<Duration> (get_property (get_music (), "duration")))
-    spanner_duration_ = Moment (d->get_length ());
-  else if (Moment * mp
-           = unsmob<Moment> (get_property (get_context (), "tupletSpannerDuration")))
-    spanner_duration_ = Moment (mp->main_part_); // discard grace part
-  else
-    spanner_duration_ = Moment (Rational::infinity ());
-
   Music_wrapper_iterator::create_children ();
 
   auto *child = get_child ();

@@ -769,7 +769,7 @@ oktober 2004
 
 De redacteurs van of Computer!Totaal, een Nederlands
 computerblad,
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
+@staticFile{media/computer-totaal.jpeg,
 beschrijven LilyPond} in het oktober 2004-nummer als:
 @qq{Prachtige gratis (open source) software [..] De
 bladmuziek die LilyPond oplevert is inderdaad bijzonder

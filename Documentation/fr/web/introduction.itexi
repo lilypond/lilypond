@@ -1016,7 +1016,7 @@ Un article français sur LilyPond 2.6 est paru sur
 Octobre 2004
 
 Les éditeurs de @emph{Computer!Totaal}, magazine informatique
-hollandais, @uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
+hollandais, @staticFile{media/computer-totaal.jpeg,
 décrivent LilyPond} dans leur numéro d'octobre 2004 comme « un
 merveilleux logiciel libre [@dots{}]  Les partitions qu'il génère sont
 extrêmement belles [@dots{}]  Un système très puissant permettant

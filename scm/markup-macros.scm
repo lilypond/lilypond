@@ -101,10 +101,18 @@ command.  There is no protection against circular definitions.
                       command-and-args))
          (args (and (pair? command-and-args) (cdr command-and-args))))
     (if args
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command (markup-lambda ,args ,@definition) #f)
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command ,@definition #f))))
+
+(define-public (markup-lambda-worker command signature properties category)
+  (set! (markup-command-signature command) signature)
+  ;; Register the new function, for markup documentation
+  (set! (markup-function-category command) category)
+  ;; Used properties, for markup documentation
+  (set! (markup-function-properties command) properties)
+  command)
 
 (defmacro*-public markup-lambda
   (args signature
@@ -133,14 +141,7 @@ not registering the markup command, this is identical to
                             `(,prop (chain-assoc-get ',prop ,props ,default-value))))
                         (filter pair? properties))
                ,@real-body))))
-    (define (markup-lambda-worker command signature properties category)
-      (set! (markup-command-signature command) signature)
-      ;; Register the new function, for markup documentation
-      (set! (markup-function-category command) category)
-      ;; Used properties, for markup documentation
-      (set! (markup-function-properties command) properties)
-      command)
-    `(,markup-lambda-worker
+    `(markup-lambda-worker
       ,result
       (list ,@signature)
       (list ,@(map (lambda (prop-spec)
@@ -162,12 +163,12 @@ interpreted, returns a list of stencils instead of a single one"
                       command-and-args))
          (args (and (pair? command-and-args) (cdr command-and-args))))
     (if args
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command (markup-list-lambda ,args ,@definition) #t)
-        `(,define-markup-command-internal
+        `(define-markup-command-internal
            ',command ,@definition #t))))
 
-(define (define-markup-command-internal command definition is-list)
+(define-public (define-markup-command-internal command definition is-list)
   (let* ((suffix (if is-list "-list" ""))
          (command-name (string->symbol (format #f "~a-markup~a" command suffix)))
          (make-markup-name (string->symbol (format #f "make-~a-markup~a" command suffix))))
@@ -182,15 +183,15 @@ interpreted, returns a list of stencils instead of a single one"
     (module-export! (current-module)
                     (list command-name make-markup-name))))
 
+(define-public (markup-lambda-listify fun)
+  (set! (markup-list-function? fun) #t)
+  fun)
+
 (defmacro*-public markup-list-lambda
   (arg signature #:key (properties '()) #:rest body)
   "Same as `markup-lambda' but defines a markup list command that, when
 interpreted, returns a list of stencils instead of a single one"
-  (let ()                               ; Guile 1.8 defmacro* workaround
-    (define (markup-lambda-listify fun)
-      (set! (markup-list-function? fun) #t)
-      fun)
-    (list markup-lambda-listify (cons* 'markup-lambda arg signature body))))
+  (list 'markup-lambda-listify (cons* 'markup-lambda arg signature body)))
 
 ;;;;;;;;;;;;;;;
 ;;; Utilities for storing and accessing markup commands signature

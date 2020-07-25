@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -642,6 +642,9 @@ git とコンパイルについての説明は貢献者向けガイドにあり�
 
 @downloadDevelDarwinPPC
 
+@uref{https://bintray.com/marnen/lilypond-darwin-64,
+Mac OS X x86 64-bit (unofficial)}
+
 @downloadDevelWindows
 
 @downloadDevelSource
@@ -997,6 +1000,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @subheading アナウンス
 
 バージョン毎のアナウンスとニュース:
+@uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013-1,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
@@ -1011,6 +1015,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 バージョン毎の変更についての説明リスト:
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
 @uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
@@ -1031,6 +1036,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @subheading 感謝
 
 開発者、貢献者、バグ発見者および提案に感謝します
+@miscLink{THANKS-2.18,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
 @miscLink{THANKS-2.12,v2.12},

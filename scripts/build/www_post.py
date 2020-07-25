@@ -18,8 +18,8 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-## This is www_post.py. This script is the main stage
-## of toplevel GNUmakefile local-WWW-post target.
+# This is www_post.py. This script is the main stage
+# of toplevel GNUmakefile local-WWW-post target.
 
 # USAGE: www_post PACKAGE_NAME TOPLEVEL_VERSION OUTDIR TARGETS
 # please call me from top of the source directory
@@ -35,14 +35,14 @@ import mirrortree
 import postprocess_html
 
 package_name, package_version, outdir, target = sys.argv[1:]
-outdir = os.path.normpath (outdir)
+outdir = os.path.normpath(outdir)
 doc_dirs = ['input', 'Documentation', outdir]
-target_dir = os.path.join (outdir, '%s-root' % target)
+target_dir = os.path.join(outdir, '%s-root' % target)
 
 # these redirection pages allow to go back to the documentation index
 # from HTML manuals/snippets page
 static_files = {
-    os.path.join (outdir, 'index.html'):
+    os.path.join(outdir, 'index.html'):
         '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/web/index.html">
 <html>
 <head>
@@ -52,29 +52,29 @@ static_files = {
 <body>Redirecting to the documentation index...</body>
 </html>
 ''' % sys.argv[0],
-    os.path.join (outdir, 'VERSION'):
+    os.path.join(outdir, 'VERSION'):
         package_version + '\n',
-    }
+}
 
-for f, contents in list(static_files.items ()):
-    open (f, 'w').write (contents)
+for f, contents in list(static_files.items()):
+    open(f, 'w').write(contents)
 
-sys.stderr.write ("Mirroring...\n")
-dirs, symlinks, files = mirrortree.walk_tree (
-    tree_roots = doc_dirs,
-    process_dirs = outdir,
-    exclude_dirs = '(^|/)((' + \
-        r'po|xref-maps|out|out-test(-baseline)?|out-cov|.*?[.]t2d|\w*?-root)|^Documentation/(' + \
-        '|'.join ([l.code for l in langdefs.LANGUAGES]) + '))(/|$)',
-    find_files = r'.*?\.(?:midi|html|pdf|png|jpe?g|txt|i?ly|signature|css|zip|js|..\.idx|php)$|VERSION',
-    exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
+sys.stderr.write("Mirroring...\n")
+dirs, symlinks, files = mirrortree.walk_tree(
+    tree_roots=doc_dirs,
+    process_dirs=outdir,
+    exclude_dirs='(^|/)((' +
+    r'po|xref-maps|out|out-test(-baseline)?|out-cov|.*?[.]t2d|\w*?-root)|^Documentation/(' +
+    '|'.join([l.code for l in langdefs.LANGUAGES]) + '))(/|$)',
+    find_files=r'.*?\.(?:midi|html|pdf|png|jpe?g|txt|i?ly|signature|css|zip|js|..\.idx|php)$|VERSION',
+    exclude_files=r'lily-[0-9a-f]+.*\.(pdf|txt)')
 # extra files: info and tex output from lilypond-book regtests
-extra_files = mirrortree.walk_tree (
-    tree_roots = ['input/regression/lilypond-book'],
-    process_dirs = outdir,
-    exclude_dirs = r'(^|/)(out|out-test(-baseline)?)(/|$)',
-    find_files = r'.+\.(info|tex)$',
-    exclude_files = r'lily-[0-9a-f]+.*\.tex')[2]
+extra_files = mirrortree.walk_tree(
+    tree_roots=['input/regression/lilypond-book'],
+    process_dirs=outdir,
+    exclude_dirs=r'(^|/)(out|out-test(-baseline)?)(/|$)',
+    find_files=r'.+\.(info|tex)$',
+    exclude_files=r'lily-[0-9a-f]+.*\.tex')[2]
 files.extend(extra_files)
 
 # actual mirrorring stuff
@@ -87,51 +87,55 @@ whitelisted_files = [
     'Documentation/out-www/contributor/website-build.html',
 ]
 for f in files:
-    if f.endswith ('.html'):
-        contents = codecs.open (f, 'r', 'utf-8').read ()
+    if f.endswith('.html'):
+        contents = codecs.open(f, 'r', 'utf-8').read()
         if f in whitelisted_files or not 'UNTRANSLATED NODE: IGNORE ME' in contents:
-            html_files.append (f)
+            html_files.append(f)
     else:
-        hardlinked_files.append (f)
-dirs = [re.sub ('/' + outdir, '', d) for d in dirs]
+        hardlinked_files.append(f)
+dirs = [re.sub('/' + outdir, '', d) for d in dirs]
 while outdir in dirs:
-    dirs.remove (outdir)
-dirs = list (set (dirs))
-dirs.sort ()
+    dirs.remove(outdir)
+dirs = list(set(dirs))
+dirs.sort()
 
 strip_file_name = None
-strip_re = re.compile (outdir + '/')
+strip_re = re.compile(outdir + '/')
 
-strip_file_name = lambda s: os.path.join (target_dir, (strip_re.sub ('', s)))
-if not os.path.exists (target_dir):
-    os.mkdir (target_dir)
+
+def strip_file_name(s): return os.path.join(target_dir, (strip_re.sub('', s)))
+
+
+if not os.path.exists(target_dir):
+    os.mkdir(target_dir)
 for d in dirs:
-    new_dir = os.path.join (target_dir, d)
-    if not os.path.exists (new_dir):
-        os.mkdir (new_dir)
+    new_dir = os.path.join(target_dir, d)
+    if not os.path.exists(new_dir):
+        os.mkdir(new_dir)
 for f in hardlinked_files:
-    dest_filename = strip_file_name (f)
-    if os.path.isfile (dest_filename):
-        os.remove (dest_filename)
-    os.link (f, dest_filename)
+    dest_filename = strip_file_name(f)
+    if os.path.isfile(dest_filename):
+        os.remove(dest_filename)
+    os.link(f, dest_filename)
 for l in symlinks:
-    p = mirrortree.new_link_path (os.path.normpath (os.readlink (l)), os.path.dirname (l), strip_re)
-    dest = strip_file_name (l)
-    if not os.path.lexists (dest):
-        os.symlink (p, dest)
+    p = mirrortree.new_link_path(os.path.normpath(
+        os.readlink(l)), os.path.dirname(l), strip_re)
+    dest = strip_file_name(l)
+    if not os.path.lexists(dest):
+        os.symlink(p, dest)
 
 
 # need this for content negotiation with documentation index
 if 'online' == target:
-    f = open (os.path.join (target_dir, 'Documentation/.htaccess'), 'w')
-    f.write ('#.htaccess\nDirectoryIndex index\n')
-    f.close ()
+    f = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w')
+    f.write('#.htaccess\nDirectoryIndex index\n')
+    f.close()
 
-postprocess_html.build_pages_dict (html_files)
+postprocess_html.build_pages_dict(html_files)
 
-sys.stderr.write ("Processing HTML pages for %s target...\n" % target)
-postprocess_html.process_html_files (
-    package_name = package_name,
-    package_version = package_version,
-    target = target,
-    name_filter = strip_file_name)
+sys.stderr.write("Processing HTML pages for %s target...\n" % target)
+postprocess_html.process_html_files(
+    package_name=package_name,
+    package_version=package_version,
+    target=target,
+    name_filter=strip_file_name)

@@ -29,8 +29,7 @@ number of stages.  This process, along with the types of routines that
 accomplish the various stages of the process, is described in this section.  A
 more complete description of the LilyPond architecture and internal program
 execution is found in Erik Sandberg's
-@uref{https://lilypond.org/website/pdf/thesis-erik-sandberg.pdf, master's
-thesis}.
+@staticFile{media/thesis-erik-sandberg.pdf, master's thesis}.
 
 The first stage of LilyPond processing is @emph{parsing}.  In the parsing
 process, music expressions in LilyPond input format are converted to music

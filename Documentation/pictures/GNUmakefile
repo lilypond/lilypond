@@ -65,7 +65,6 @@ $(outdir)/%.pdf: %.eps
            -dBATCH \
            -sOutputFile=$@ \
            -dEPSCrop \
-           -c .setpdfwrite \
            -f $<
 
 $(outdir)/pdf:

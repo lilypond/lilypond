@@ -86,6 +86,11 @@ or 15 (two octaves), but LilyPond allows any integer here."
  '(clef-alignments))
 
 (ly:add-interface
+ 'duration-line-interface
+ "A line lasting for the duration of a rhythmic event."
+ '(details))
+
+(ly:add-interface
  'dynamic-interface
  "Any kind of loudness sign."
  '())

@@ -36,8 +36,8 @@ for i in range(len(lines)):
         # ASSUME: the last line of the file is not @node
         section_line = lines[i+1]
         if (section_line.startswith('@chapter ') or
-              section_line.startswith('@unnumbered ') or
-              section_line.startswith('@appendix ')):
+            section_line.startswith('@unnumbered ') or
+                section_line.startswith('@appendix ')):
             section_type = 1
         elif (section_line.startswith('@section ') or
               section_line.startswith('@unnumberedsec ') or
@@ -55,11 +55,12 @@ for i in range(len(lines)):
             print("ERROR: unknown sectioning command")
             print(section_line)
             sys.exit(1)
-        nodes.append( (section_type, node_name) )
+        nodes.append((section_type, node_name))
 
 # sanity check for debugging
-#for node in nodes:
+# for node in nodes:
 #    print ' '*2*node[0] + node[1]
+
 
 def getMenuFor(node_name):
     i = 0
@@ -79,13 +80,14 @@ def getMenuFor(node_name):
             pass
     return menu
 
+
 # rewrite file with new menus from TOC
 outfile = open(infile, 'w')
 
 lastNode = ''
 line_index = 0
 while line_index < len(lines):
-    line = lines[ line_index ]
+    line = lines[line_index]
     if line.startswith('@node'):
         lastNode = line[6:].rstrip()
     if line.startswith('@menu'):
@@ -99,11 +101,10 @@ while line_index < len(lines):
         menu = getMenuFor(lastNode)
         for item in menu:
             node_formatted = '* ' + item + '::\n'
-            outfile.write( node_formatted )
+            outfile.write(node_formatted)
 
         line = lines[line_index]
     line_index += 1
     # write normal line.  Removes tabs and spaces; leaves EOL
     outfile.write(line.rstrip('\t '))
 outfile.close()
-

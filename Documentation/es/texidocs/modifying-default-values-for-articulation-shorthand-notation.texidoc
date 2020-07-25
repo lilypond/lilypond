@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 069c8e54d8eaf449262a180674330b31c8c723d9
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
 @file{ly/script-init.ly}, donde las variables @code{dashHat},
-@code{dashPlus}, @code{dashDash}, @code{dashBar}, @code{dashLarger},
+@code{dashPlus}, @code{dashDash}, @code{dashBang}, @code{dashLarger},
 @code{dashDot} y @code{dashUnderscore} reciben valores
 predeterminados.  Se pueden modificar estos valores predeterminados
 para las abreviaturas. Por ejemplo, para asociar la abreviatura

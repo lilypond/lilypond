@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 654cdecf1023c8343301323af8055c45a7263959
+    Translation of GIT committish: b3a311cd9a5a91c0243ff90835a445768e7f3e4c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -219,7 +219,7 @@ precediéndolas de una barra invertida.  La cadena @code{\a dijo
 Existen más tipos de datos de Scheme que no se estudian aquí.
 Para ver un listado completo, consulte la guía de referencia de
 Guile,
-@uref{http://www.gnu.org/software/guile/manual/html_node/Simple-Data-Types.html}.
+@uref{http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
 
 @node Tipos de datos compuestos de Scheme
 @subsection Tipos de datos compuestos de Scheme
@@ -294,7 +294,7 @@ guile>
 
 Nota: @code{cdr} se pronuncia "could-er", según Sussman y Abelson,
 véase
-@uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
+@uref{http://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
 @node Listas
 @unnumberedsubsubsec Listas

@@ -19,6 +19,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import midi
 import codecs
 import difflib
 import errno
@@ -34,11 +35,10 @@ import sys
 import tempfile
 import time
 
-## so we can call directly as scripts/build/output-distance.py
-me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
-sys.path.insert (0, me_path + '/../../python/')
-sys.path.insert (0, me_path + '/../../python/out/')
-import midi
+# so we can call directly as scripts/build/output-distance.py
+me_path = os.path.abspath(os.path.split(sys.argv[0])[0])
+sys.path.insert(0, me_path + '/../../python/')
+sys.path.insert(0, me_path + '/../../python/out/')
 
 X_AXIS = 0
 Y_AXIS = 1
@@ -47,94 +47,107 @@ INFTY = 1e6
 ORPHAN_GROB_PENALTY = 1
 options = None
 
-def log_terse (s):
+
+def log_terse(s):
     if not options.verbose:
         print(s)
 
-def log_verbose (s):
+
+def log_verbose(s):
     if options.verbose:
         print(s)
+
 
 ################################################################
 # system interface.
 temp_dir = None
+
+
 class TempDirectory:
-    def __init__ (self):
-        self.dir = tempfile.mkdtemp ()
-        log_verbose ('dir is %s' % self.dir)
-    def __del__ (self):
-        log_verbose ('rm -rf %s' % self.dir)
-        os.system ('rm -rf %s' % self.dir)
-    def __call__ (self):
+    def __init__(self):
+        self.dir = tempfile.mkdtemp()
+        log_verbose('dir is %s' % self.dir)
+
+    def __del__(self):
+        log_verbose('rm -rf %s' % self.dir)
+        os.system('rm -rf %s' % self.dir)
+
+    def __call__(self):
         return self.dir
 
 
-def get_temp_dir  ():
+def get_temp_dir():
     global temp_dir
     if not temp_dir:
-        temp_dir = TempDirectory ()
-    return temp_dir ()
-
-def read_pipe (c):
-    log_verbose ('pipe %s' % c)
-    return os.popen (c).read ()
+        temp_dir = TempDirectory()
+    return temp_dir()
 
 
-def system (c):
-    log_verbose ('system %s' % c)
+def read_pipe(c):
+    log_verbose('pipe %s' % c)
+    return os.popen(c).read()
+
+
+def system(c):
+    log_verbose('system %s' % c)
     # explicitly use bash, so we don't get dash on Ubuntu.
     subprocess.run(["/bin/bash", "-c", c.encode('utf-8')])
 
 
-def system_allow_exit1 (x):
-    log_verbose ('invoking %s' % x)
-    stat = os.system (x)
-    assert (stat == 0) or (stat == 256) # This return value convention is sick.
+def system_allow_exit1(x):
+    log_verbose('invoking %s' % x)
+    stat = os.system(x)
+    # This return value convention is sick.
+    assert (stat == 0) or (stat == 256)
 
 
-def shorten_string (s, threshold = 15):
-    if len (s) > 2*threshold:
+def shorten_string(s, threshold=15):
+    if len(s) > 2*threshold:
         s = s[:threshold] + '..' + s[-threshold:]
     return s
 
-def max_distance (x1, x2):
+
+def max_distance(x1, x2):
     dist = 0.0
 
-    for (p,q) in zip (x1, x2):
-        dist = max (abs (p-q), dist)
+    for (p, q) in zip(x1, x2):
+        dist = max(abs(p-q), dist)
 
     return dist
 
 
-def compare_png_images (old, new, dest_dir):
-    def png_dims (f):
-        m = re.search ('([0-9]+) x ([0-9]+)', read_pipe ('file %s' % f))
+def compare_png_images(old, new, dest_dir):
+    def png_dims(f):
+        m = re.search('([0-9]+) x ([0-9]+)', read_pipe('file %s' % f))
 
-        return tuple (map (int, m.groups ()))
+        return tuple(map(int, m.groups()))
 
-    dest = os.path.join (dest_dir, new.replace ('.png', '.compare.jpeg'))
+    dest = os.path.join(dest_dir, new.replace('.png', '.compare.jpeg'))
     try:
-        dims1 = png_dims (old)
-        dims2 = png_dims (new)
+        dims1 = png_dims(old)
+        dims2 = png_dims(new)
     except AttributeError:
-        ## hmmm. what to do?
-        system ('touch %(dest)s' % locals ())
+        # hmmm. what to do?
+        system('touch %(dest)s' % locals())
         return
 
-    dims = (min (dims1[0], dims2[0]),
-            min (dims1[1], dims2[1]))
+    dims = (min(dims1[0], dims2[0]),
+            min(dims1[1], dims2[1]))
 
-    dir = get_temp_dir ()
+    dir = get_temp_dir()
     # Removing the ICC profile with -strip suppresses the warning
     # "RGB color space not permitted on grayscale PNG."
-    system ('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
-    system ('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
+    system('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' %
+           (dims + (old, dir)))
+    system('convert -strip -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' %
+           (dims + (new, dir)))
 
-    system_allow_exit1 ('compare -depth 8 -dissimilarity-threshold 1 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
+    system_allow_exit1(
+        'compare -depth 8 -dissimilarity-threshold 1 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals())
 
-    system ("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals ())
+    system("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals())
 
-    system ("composite -compose atop -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals ())
+    system("composite -compose atop -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals())
 
 
 ################################################################
@@ -143,68 +156,79 @@ def compare_png_images (old, new, dest_dir):
 empty_interval = (INFTY, -INFTY)
 empty_bbox = (empty_interval, empty_interval)
 
-def interval_is_empty (i):
+
+def interval_is_empty(i):
     return i[0] > i[1]
 
-def interval_length (i):
-    return max (i[1]-i[0], 0)
 
-def interval_union (i1, i2):
-    return (min (i1[0], i2[0]),
-            max (i1[1], i2[1]))
-
-def interval_intersect (i1, i2):
-    return (max (i1[0], i2[0]),
-            min (i1[1], i2[1]))
-
-def bbox_is_empty (b):
-    return (interval_is_empty (b[0])
-            or interval_is_empty (b[1]))
-
-def bbox_union (b1, b2):
-    return (interval_union (b1[X_AXIS], b2[X_AXIS]),
-            interval_union (b1[Y_AXIS], b2[Y_AXIS]))
-
-def bbox_intersection (b1, b2):
-    return (interval_intersect (b1[X_AXIS], b2[X_AXIS]),
-            interval_intersect (b1[Y_AXIS], b2[Y_AXIS]))
-
-def bbox_area (b):
-    return interval_length (b[X_AXIS]) * interval_length (b[Y_AXIS])
-
-def bbox_diameter (b):
-    return max (interval_length (b[X_AXIS]),
-                interval_length (b[Y_AXIS]))
+def interval_length(i):
+    return max(i[1]-i[0], 0)
 
 
-def difference_area (a, b):
-    return bbox_area (a) - bbox_area (bbox_intersection (a,b))
+def interval_union(i1, i2):
+    return (min(i1[0], i2[0]),
+            max(i1[1], i2[1]))
+
+
+def interval_intersect(i1, i2):
+    return (max(i1[0], i2[0]),
+            min(i1[1], i2[1]))
+
+
+def bbox_is_empty(b):
+    return (interval_is_empty(b[0])
+            or interval_is_empty(b[1]))
+
+
+def bbox_union(b1, b2):
+    return (interval_union(b1[X_AXIS], b2[X_AXIS]),
+            interval_union(b1[Y_AXIS], b2[Y_AXIS]))
+
+
+def bbox_intersection(b1, b2):
+    return (interval_intersect(b1[X_AXIS], b2[X_AXIS]),
+            interval_intersect(b1[Y_AXIS], b2[Y_AXIS]))
+
+
+def bbox_area(b):
+    return interval_length(b[X_AXIS]) * interval_length(b[Y_AXIS])
+
+
+def bbox_diameter(b):
+    return max(interval_length(b[X_AXIS]),
+               interval_length(b[Y_AXIS]))
+
+
+def difference_area(a, b):
+    return bbox_area(a) - bbox_area(bbox_intersection(a, b))
+
 
 class GrobSignature:
     """A (grob-name, bbox) tuple"""
-    def __init__ (self, exp_list):
-        (self.name, bbox_x, bbox_y) = tuple (exp_list)
+
+    def __init__(self, exp_list):
+        (self.name, bbox_x, bbox_y) = tuple(exp_list)
 
         self.bbox = (bbox_x, bbox_y)
         self.centroid = ((bbox_x[0] + bbox_x[1])/2.0,
                          (bbox_y[0] + bbox_y[1])/2.0)
 
-    def __repr__ (self):
+    def __repr__(self):
         return '%s: (%.2f,%.2f), (%.2f,%.2f)\n' % (self.name,
                                                    self.bbox[0][0],
                                                    self.bbox[0][1],
                                                    self.bbox[1][0],
                                                    self.bbox[1][1])
 
-    def centroid_distance (self, other, scale):
-        return max_distance (self.centroid, other.centroid) / scale
+    def centroid_distance(self, other, scale):
+        return max_distance(self.centroid, other.centroid) / scale
 
-    def bbox_distance (self, other):
-        divisor = bbox_area (self.bbox) + bbox_area (other.bbox)
+    def bbox_distance(self, other):
+        divisor = bbox_area(self.bbox) + bbox_area(other.bbox)
 
         if divisor:
-            return (difference_area (self.bbox, other.bbox) +
-                    difference_area (other.bbox, self.bbox)) / divisor
+            return (difference_area(self.bbox, other.bbox) +
+                    difference_area(other.bbox, self.bbox)) / divisor
         else:
             return 0.0
 
@@ -215,25 +239,25 @@ class SystemSignature:
     Abstracts away from the precise appearance to a list of grob-type => list<GrobSignature>.
     """
 
-    def __init__ (self, grob_sigs):
+    def __init__(self, grob_sigs):
         d = {}
         for g in grob_sigs:
-            val = d.setdefault (g.name, [])
+            val = d.setdefault(g.name, [])
             val += [g]
 
         self.grob_dict = d
         self.bbox = empty_bbox
         for g in grob_sigs:
-            self.bbox = bbox_union (g.bbox, self.bbox)
+            self.bbox = bbox_union(g.bbox, self.bbox)
 
-    def closest (self, grob_name, centroid):
+    def closest(self, grob_name, centroid):
         min_d = INFTY
         min_g = None
         try:
             grobs = self.grob_dict[grob_name]
 
             for g in grobs:
-                d = max_distance (g.centroid, centroid)
+                d = max_distance(g.centroid, centroid)
                 if d < min_d:
                     min_d = d
                     min_g = g
@@ -242,14 +266,14 @@ class SystemSignature:
         except KeyError:
             return None
 
-    def grobs (self):
-        return functools.reduce (lambda x,y: x+y, list(self.grob_dict.values()), [])
+    def grobs(self):
+        return functools.reduce(lambda x, y: x+y, list(self.grob_dict.values()), [])
 
 
 class SystemLink:
     """Compares two Systems through their SystemSignatures."""
 
-    def __init__ (self, system1, system2):
+    def __init__(self, system1, system2):
         """Init from two SystemSignature instances"""
 
         self.system1 = system1
@@ -257,13 +281,13 @@ class SystemLink:
 
         self.link_list_dict = {}
 
-        ## pairs
+        # pairs
         self.orphans = []
 
-        ## pair -> distance
+        # pair -> distance
         self.geo_distances = {}
 
-        ## pairs
+        # pairs
         self.expression_changed = []
 
         self._geometric_distance = None
@@ -276,110 +300,113 @@ class SystemLink:
             # This is quadratic, because closest() has no geometric
             # structure to speed up searching. For small snippets,
             # this is acceptable.
-            for g in system1.grobs ():
+            for g in system1.grobs():
 
-                ## skip empty bboxes.
-                if bbox_is_empty (g.bbox):
+                # skip empty bboxes.
+                if bbox_is_empty(g.bbox):
                     continue
 
-                closest = system2.closest (g.name, g.centroid)
+                closest = system2.closest(g.name, g.centroid)
 
-                self.link_list_dict.setdefault (closest, [])
-                self.link_list_dict[closest].append (g)
+                self.link_list_dict.setdefault(closest, [])
+                self.link_list_dict[closest].append(g)
                 self.back_link_dict[g] = closest
 
-    def calc_geometric_distance (self):
+    def calc_geometric_distance(self):
         if self.system1 and self.system2:
             total = 0.0
         else:
             total = 100.0 * (self.system1 != self.system2)
 
-        for (g1, g2) in list(self.back_link_dict.items ()):
+        for (g1, g2) in list(self.back_link_dict.items()):
             if g2:
-                d = g1.bbox_distance (g2)
+                d = g1.bbox_distance(g2)
                 if d:
-                    self.geo_distances[(g1,g2)] = d
+                    self.geo_distances[(g1, g2)] = d
 
                 total += d
 
         self._geometric_distance = total
 
-    def calc_orphan_count (self):
+    def calc_orphan_count(self):
         count = 0
-        for (g1, g2) in list(self.back_link_dict.items ()):
+        for (g1, g2) in list(self.back_link_dict.items()):
             if g2 == None:
-                self.orphans.append ((g1, None))
+                self.orphans.append((g1, None))
 
                 count += 1
 
         self._orphan_count = count
 
-    def geo_details_string (self):
-        results = [(d, g1,g2) for ((g1, g2), d) in list(self.geo_distances.items())]
+    def geo_details_string(self):
+        results = [(d, g1, g2)
+                   for ((g1, g2), d) in list(self.geo_distances.items())]
         # Only compare distances.
-        results.sort (key=lambda x: -x[0])
+        results.sort(key=lambda x: -x[0])
 
-        return ', '.join (['%s: %f' % (g1.name, d) for (d, g1, g2) in results])
+        return ', '.join(['%s: %f' % (g1.name, d) for (d, g1, g2) in results])
 
-    def orphan_details_string (self):
-        return ', '.join (['%s' % g1.name for (g1, g2) in self.orphans if g2==None])
+    def orphan_details_string(self):
+        return ', '.join(['%s' % g1.name for (g1, g2) in self.orphans if g2 == None])
 
-    def geometric_distance (self):
+    def geometric_distance(self):
         if self._geometric_distance == None:
-            self.calc_geometric_distance ()
+            self.calc_geometric_distance()
         return self._geometric_distance
 
-    def orphan_count (self):
+    def orphan_count(self):
         if self._orphan_count == None:
-            self.calc_orphan_count ()
+            self.calc_orphan_count()
 
         return self._orphan_count
 
-    def distance_tuple (self):
-        return (self.orphan_count (),
-                self.geometric_distance ())
+    def distance_tuple(self):
+        return (self.orphan_count(),
+                self.geometric_distance())
 
 
-def scheme_float (s) :
-    if 'nan' not in s :
+def scheme_float(s):
+    if 'nan' not in s:
         return float(s)
     return float(s.split('.')[0])
 
 
-def read_signature_file (name):
+def read_signature_file(name):
     """Returns SystemSignature or None if file doesn't exist."""
-    log_verbose ('reading %s' % name)
+    log_verbose('reading %s' % name)
 
     try:
-        f = open (name)
+        f = open(name)
     except IOError as e:
         if e.errno == errno.ENOENT:
             return None
         else:
             raise
 
-    entries = f.read ().split ('\n')
-    def string_to_tup (s):
-        return tuple (map (scheme_float, s.split (' ')))
+    entries = f.read().split('\n')
 
-    def string_to_entry (s):
+    def string_to_tup(s):
+        return tuple(map(scheme_float, s.split(' ')))
+
+    def string_to_entry(s):
         fields = s.split('@')
 
         # Backward compatibility; remove this once we stop comparing
         # againsts older versions
         if len(fields) == 5:
-            fields = (fields[0], string_to_tup(fields[2]), string_to_tup(fields[3]))
+            fields = (fields[0], string_to_tup(
+                fields[2]), string_to_tup(fields[3]))
         else:
-            fields[1] = string_to_tup (fields[1])
-            fields[2] = string_to_tup (fields[2])
+            fields[1] = string_to_tup(fields[1])
+            fields[2] = string_to_tup(fields[2])
 
-        return tuple (fields)
+        return tuple(fields)
 
-    entries = [string_to_entry (e) for e in entries
-               if e and not e.startswith ('#')]
+    entries = [string_to_entry(e) for e in entries
+               if e and not e.startswith('#')]
 
-    grob_sigs = [GrobSignature (e) for e in entries]
-    sig = SystemSignature (grob_sigs)
+    grob_sigs = [GrobSignature(e) for e in entries]
+    sig = SystemSignature(grob_sigs)
     return sig
 
 
@@ -388,93 +415,95 @@ def read_signature_file (name):
 
 hash_to_original_name = {}
 
+
 class FileLink:
     """Base class of files that should be compared."""
-    def __init__ (self, f1, f2):
+
+    def __init__(self, f1, f2):
         self._distance = None
         self.file_names = (f1, f2)
 
-    def text_record_string (self):
-        return '%-30f %-20s\n' % (self.distance (),
-                                  self.name ()
-                                  + os.path.splitext (self.file_names[1])[1]
+    def text_record_string(self):
+        return '%-30f %-20s\n' % (self.distance(),
+                                  self.name()
+                                  + os.path.splitext(self.file_names[1])[1]
                                   )
 
-    def calc_distance (self):
+    def calc_distance(self):
         return 0.0
 
-    def distance (self):
+    def distance(self):
         if self._distance == None:
-           self._distance = self.calc_distance ()
+            self._distance = self.calc_distance()
 
         return self._distance
 
-    def source_file (self):
+    def source_file(self):
         """Returns the corresponding .ly file."""
         for ext in ('.ly', '.ly.txt'):
-            base = os.path.splitext (self.file_names[1])[0]
+            base = os.path.splitext(self.file_names[1])[0]
             f = base + ext
-            if os.path.exists (f):
+            if os.path.exists(f):
                 return f
 
         return ''
 
-    def directories (self):
+    def directories(self):
         """Directories of the two files"""
-        return list(map (os.path.dirname, self.file_names))
+        return list(map(os.path.dirname, self.file_names))
 
-    def name (self):
+    def name(self):
         """Returns the \\sourcefilename for this test file"""
-        base = os.path.basename (self.file_names[1])
-        base = os.path.splitext (base)[0]
-        base = hash_to_original_name.get (base, base)
-        base = os.path.splitext (base)[0]
-        return os.path.join (self.prefix (), base)
+        base = os.path.basename(self.file_names[1])
+        base = os.path.splitext(base)[0]
+        base = hash_to_original_name.get(base, base)
+        base = os.path.splitext(base)[0]
+        return os.path.join(self.prefix(), base)
 
-    def prefix (self):
-        return os.path.commonpath (self.file_names)
+    def prefix(self):
+        return os.path.commonpath(self.file_names)
 
-    def extension (self):
-        return os.path.splitext (self.file_names[1])[1]
+    def extension(self):
+        return os.path.splitext(self.file_names[1])[1]
 
-    def link_files_for_html (self, dest_dir):
+    def link_files_for_html(self, dest_dir):
         for f in self.file_names:
-            link_file (f, os.path.join (dest_dir, f))
+            link_file(f, os.path.join(dest_dir, f))
 
-    def get_distance_details (self, dest_file):
+    def get_distance_details(self, dest_file):
         return ''
 
-    def get_cell (self, oldnew):
+    def get_cell(self, oldnew):
         return '', ''
 
-    def get_file (self, oldnew):
+    def get_file(self, oldnew):
         return self.file_names[oldnew]
 
-    def html_record_string (self, dest_dir):
+    def html_record_string(self, dest_dir):
         dist = self.distance()
 
-        details = self.get_distance_details (self.file_names[1])
+        details = self.get_distance_details(self.file_names[1])
         if details:
-            details_base = os.path.splitext (self.file_names[1])[0]
+            details_base = os.path.splitext(self.file_names[1])[0]
             details_base += '.details.html'
-            fn = dest_dir + '/'  + details_base
-            open_write_file (fn).write (details)
+            fn = dest_dir + '/' + details_base
+            open_write_file(fn).write(details)
 
-            details = '<br>(<a href="%(details_base)s">details</a>)' % locals ()
+            details = '<br>(<a href="%(details_base)s">details</a>)' % locals()
 
-        name = self.name () + self.extension ()
+        name = self.name() + self.extension()
 
         cells = ['', '']
-        for oldnew in (0,1):
-            file = self.get_file (oldnew)
-            class_attr, cell = self.get_cell (oldnew)
+        for oldnew in (0, 1):
+            file = self.get_file(oldnew)
+            class_attr, cell = self.get_cell(oldnew)
             if class_attr:
                 class_attr = ' class="%s"' % class_attr
-            if cell or os.path.exists (file):
+            if cell or os.path.exists(file):
                 cells[oldnew] = '''<figure%(class_attr)s>
 %(cell)s
 <figcaption><a href="%(file)s">%(name)s</a></figcaption>
-</figure>''' % locals ()
+</figure>''' % locals()
 
         cell1 = cells[0]
         cell2 = cells[1]
@@ -486,28 +515,28 @@ class FileLink:
 </td>
 <td>%(cell1)s</td>
 <td>%(cell2)s</td>
-</tr>''' % locals ()
+</tr>''' % locals()
 
 
 class FileCompareLink (FileLink):
-    def __init__ (self, f1, f2):
-        FileLink.__init__ (self, f1, f2)
-        self.contents = (self.get_content (self.file_names[0]),
-                         self.get_content (self.file_names[1]))
+    def __init__(self, f1, f2):
+        FileLink.__init__(self, f1, f2)
+        self.contents = (self.get_content(self.file_names[0]),
+                         self.get_content(self.file_names[1]))
 
-    def calc_distance (self):
-        ## todo: could use import MIDI to pinpoint
-        ## what & where changed.
+    def calc_distance(self):
+        # todo: could use import MIDI to pinpoint
+        # what & where changed.
 
         if self.contents[0] == self.contents[1]:
             return 0.0
         else:
-            return 100.0;
+            return 100.0
 
-    def get_content (self, name):
-        log_verbose ('reading %s' % name)
+    def get_content(self, name):
+        log_verbose('reading %s' % name)
         try:
-            return codecs.open (name, 'r', 'utf-8').read ()
+            return codecs.open(name, 'r', 'utf-8').read()
         except IOError as e:
             if e.errno == errno.ENOENT:
                 return None
@@ -516,28 +545,29 @@ class FileCompareLink (FileLink):
 
 
 class GitFileCompareLink (FileCompareLink):
-    def get_cell (self, oldnew):
+    def get_cell(self, oldnew):
         str = self.contents[oldnew]
 
         # truncate long lines
-        str = '\n'.join ([l[:80] for l in str.split ('\n')])
+        str = '\n'.join([l[:80] for l in str.split('\n')])
 
         if str:
-            str = '<pre>%s</pre>' % html.escape (str)
+            str = '<pre>%s</pre>' % html.escape(str)
         return '', str
 
-    def calc_distance (self):
+    def calc_distance(self):
         if self.contents[0] == self.contents[1]:
             d = 0.0
         else:
-            d = 1.0001 *options.threshold
+            d = 1.0001 * options.threshold
 
         return d
 
 
 class TextFileCompareLink (FileCompareLink):
-    snippet_fn_re = re.compile (r"`\./([0-9a-f]{2}/lily-[0-9a-f]{8}).eps'");
-    def calc_distance (self):
+    snippet_fn_re = re.compile(r"`\./([0-9a-f]{2}/lily-[0-9a-f]{8}).eps'")
+
+    def calc_distance(self):
         if self.contents[0] == self.contents[1]:
             return 0
 
@@ -550,80 +580,80 @@ class TextFileCompareLink (FileCompareLink):
         # Extract the old and the new hashed snippet names from the log file
         # and replace the old by the new, so file name changes don't show
         # up as log differences...
-        cont0 = self.contents[0].strip();
-        cont1 = self.contents[1].strip();
-        m0 = re.search (TextFileCompareLink.snippet_fn_re, cont0);
-        m1 = re.search (TextFileCompareLink.snippet_fn_re, cont1);
+        cont0 = self.contents[0].strip()
+        cont1 = self.contents[1].strip()
+        m0 = re.search(TextFileCompareLink.snippet_fn_re, cont0)
+        m1 = re.search(TextFileCompareLink.snippet_fn_re, cont1)
         if (m0 and m1 and (m0.group(1) != m1.group(1))):
-            cont0 = cont0.replace (m0.group(1), m1.group(1));
+            cont0 = cont0.replace(m0.group(1), m1.group(1))
 
-        diff = difflib.unified_diff (cont0.split ('\n'),
-                                     cont1.split ('\n'),
-                                     fromfiledate = self.file_names[0],
-                                     tofiledate = self.file_names[1]
-                                     )
+        diff = difflib.unified_diff(cont0.split('\n'),
+                                    cont1.split('\n'),
+                                    fromfiledate=self.file_names[0],
+                                    tofiledate=self.file_names[1]
+                                    )
 
-        self.diff_lines =  [l for l in diff]
+        self.diff_lines = [l for l in diff]
         self.diff_lines = self.diff_lines[2:]
 
-        return math.sqrt (float (len ([l for l in self.diff_lines if l[0] in '-+'])))
+        return math.sqrt(float(len([l for l in self.diff_lines if l[0] in '-+'])))
 
-    def get_cell (self, oldnew):
+    def get_cell(self, oldnew):
         str = ''
         if oldnew == 1:
-            str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
+            str = '\n'.join([d.replace('\n', '') for d in self.diff_lines])
         if str:
-            str = '<pre>%s</pre>' % html.escape (str)
+            str = '<pre>%s</pre>' % html.escape(str)
         return '', str
 
 
 class LogFileCompareLink (TextFileCompareLink):
-  def get_content (self, name):
-      c = TextFileCompareLink.get_content (self, name)
-      if c:
-          c = re.sub ("\nProcessing `[^\n]+'\n", '', c)
-      return c
+    def get_content(self, name):
+        c = TextFileCompareLink.get_content(self, name)
+        if c:
+            c = re.sub("\nProcessing `[^\n]+'\n", '', c)
+        return c
 
 
 class ProfileFileLink (FileCompareLink):
     HEADINGS = ('time', 'cells')
 
-    def __init__ (self, f1, f2):
-        FileCompareLink.__init__ (self, f1, f2)
+    def __init__(self, f1, f2):
+        FileCompareLink.__init__(self, f1, f2)
         self.results = [{}, {}]
 
-    def get_cell (self, oldnew):
+    def get_cell(self, oldnew):
         str = ''
         if self.results[oldnew]:
             if oldnew and self.results[0]:
                 for k in self.HEADINGS:
                     str += '%-8s: %8d (%5.3f)\n' % (
-                        k, int (self.results[oldnew][k]), self.get_ratio (k))
+                        k, int(self.results[oldnew][k]), self.get_ratio(k))
             else:
                 for k in self.HEADINGS:
-                    str += '%-8s: %d\n' %  (k, int (self.results[oldnew][k]))
+                    str += '%-8s: %d\n' % (k, int(self.results[oldnew][k]))
 
         if str:
-            str = '<pre>%s</pre>' % html.escape (str)
+            str = '<pre>%s</pre>' % html.escape(str)
         return '', str
 
-    def get_ratio (self, key):
-        (v1,v2) = (self.results[0].get (key, -1),
-                   self.results[1].get (key, -1))
+    def get_ratio(self, key):
+        (v1, v2) = (self.results[0].get(key, -1),
+                    self.results[1].get(key, -1))
 
         if v1 <= 0 or v2 <= 0:
             return 0.0
 
-        return (v1 - v2) / float (v1+v2)
+        return (v1 - v2) / float(v1+v2)
 
-    def calc_distance (self):
-        for oldnew in (0,1):
-            def note_info (m):
-                self.results[oldnew][m.group(1)] = float (m.group (2))
+    def calc_distance(self):
+        for oldnew in (0, 1):
+            def note_info(m):
+                self.results[oldnew][m.group(1)] = float(m.group(2))
 
             if self.contents[oldnew]:
-                re.sub ('([a-z]+): ([-0-9.]+)\n',
-                        note_info, self.contents[oldnew])
+                re.sub('([a-z]+): ([-0-9.]+)\n',
+                       note_info, self.contents[oldnew])
 
         if not self.contents[0] or not self.contents[1]:
             return 100.0 * (self.contents[0] != self.contents[1])
@@ -632,28 +662,28 @@ class ProfileFileLink (FileCompareLink):
         factor = {
             'time': 0.1,
             'cells': 5.0,
-            }
+        }
 
         for k in self.HEADINGS:
-            real_val = math.tan (self.get_ratio (k) * 0.5 * math.pi)
-            dist += math.exp (math.fabs (real_val) * factor[k])  - 1
+            real_val = math.tan(self.get_ratio(k) * 0.5 * math.pi)
+            dist += math.exp(math.fabs(real_val) * factor[k]) - 1
 
-        dist = min (dist, 100)
+        dist = min(dist, 100)
         return dist
 
 
 class MidiFileLink (TextFileCompareLink):
-    def get_content (self, name):
+    def get_content(self, name):
         try:
-            f = open (name, 'rb')
+            f = open(name, 'rb')
         except IOError as e:
             if e.errno == errno.ENOENT:
                 return None
             else:
                 raise
 
-        data = f.read ()
-        midi_data = midi.parse (data)
+        data = f.read()
+        midi_data = midi.parse(data)
         tracks = midi_data[1]
 
         str = ''
@@ -663,55 +693,53 @@ class MidiFileLink (TextFileCompareLink):
             j += 1
 
             for e in t:
-                ev_str = repr (e)
-                if re.search ('LilyPond [0-9.]+', ev_str):
+                ev_str = repr(e)
+                if re.search('LilyPond [0-9.]+', ev_str):
                     continue
 
                 str += '  ev %s\n' % repr(e)
         return str
 
 
-
 class SignatureFileLink (FileLink):
-    def __init__ (self, f1, f2 ):
-        FileLink.__init__ (self, f1, f2)
+    def __init__(self, f1, f2):
+        FileLink.__init__(self, f1, f2)
         self.system_links = {}
 
-    def add_system_link (self, link, number):
+    def add_system_link(self, link, number):
         self.system_links[number] = link
 
-    def calc_distance (self):
+    def calc_distance(self):
         d = 0.0
 
         orphan_distance = 0.0
-        for l in list(self.system_links.values ()):
-            d = max (d, l.geometric_distance ())
-            orphan_distance += l.orphan_count ()
+        for l in list(self.system_links.values()):
+            d = max(d, l.geometric_distance())
+            orphan_distance += l.orphan_count()
 
         return d + orphan_distance
 
-    def add_file_compare (self, f1, f2):
+    def add_file_compare(self, f1, f2):
         system_index = []
 
-        def note_system_index (m):
-            system_index.append (int (m.group (1)))
+        def note_system_index(m):
+            system_index.append(int(m.group(1)))
             return ''
 
-        base1 = re.sub ("-([0-9]+).signature", note_system_index, f1)
-        base2 = re.sub ("-([0-9]+).signature", note_system_index, f2)
+        base1 = re.sub("-([0-9]+).signature", note_system_index, f1)
+        base2 = re.sub("-([0-9]+).signature", note_system_index, f2)
 
-        self.base_names = (os.path.normpath (base1),
-                           os.path.normpath (base2))
+        self.base_names = (os.path.normpath(base1),
+                           os.path.normpath(base2))
 
-        s1 = read_signature_file (f1)
-        s2 = read_signature_file (f2)
+        s1 = read_signature_file(f1)
+        s2 = read_signature_file(f2)
 
-        link = SystemLink (s1, s2)
+        link = SystemLink(s1, s2)
 
-        self.add_system_link (link, system_index[0])
+        self.add_system_link(link, system_index[0])
 
-
-    def create_images (self, dest_dir):
+    def create_images(self, dest_dir):
         """Returns a (OLD-FILES, NEW-FILES) tuple."""
 
         files_created = [[], []]
@@ -728,25 +756,25 @@ class SignatureFileLink (FileLink):
             # provide an option to adjust the font lookup paths for
             # `.loadfont', we enter the directory so that the relative paths
             # are valid.
-            (dir, base) = os.path.split (pat)
+            (dir, base) = os.path.split(pat)
 
             out_dir = os.path.abspath(dest_dir + '/' + dir)
-            mkdir (out_dir)
+            mkdir(out_dir)
 
-            abs_dir = os.path.abspath (dir)
-            cur_dir = os.getcwd ()
+            abs_dir = os.path.abspath(dir)
+            cur_dir = os.getcwd()
 
-            log_verbose ('entering directory %s' % abs_dir)
-            os.chdir (dir)
+            log_verbose('entering directory %s' % abs_dir)
+            os.chdir(dir)
 
             data_option = ''
             if options.local_data_dir:
                 data_option = ('-slilypond-datadir=%s/share/lilypond/current '
-                                   % abs_dir)
+                               % abs_dir)
 
             driver = open('batch.ps', 'w')
-            for f in glob.glob (base):
-                outfile = (out_dir + '/' + f).replace ('.eps', '.png')
+            for f in glob.glob(base):
+                outfile = (out_dir + '/' + f).replace('.eps', '.png')
                 driver.write('''
                 mark /OutputFile (%s)
                 /GraphicsAlphaBits 4 /TextAlphaBits 4
@@ -754,7 +782,7 @@ class SignatureFileLink (FileLink):
                 (png16m) finddevice putdeviceprops setdevice
                 (%s) run
                 ''' % (outfile, f))
-                files_created[oldnew].append (outfile)
+                files_created[oldnew].append(outfile)
             driver.close()
             cmd = ('gs '
                    ' -dNOSAFER'
@@ -766,47 +794,46 @@ class SignatureFileLink (FileLink):
                    ' -dPrinted=false'
                    ' batch.ps'
                    ' -c quit')
-            system (cmd)
+            system(cmd)
 
-            log_verbose ('leaving directory %s' % abs_dir)
-            os.chdir (cur_dir)
+            log_verbose('leaving directory %s' % abs_dir)
+            os.chdir(cur_dir)
 
         return files_created
 
-    def link_files_for_html (self, dest_dir):
-        FileLink.link_files_for_html (self, dest_dir)
-        to_compare = self.create_images (dest_dir)
+    def link_files_for_html(self, dest_dir):
+        FileLink.link_files_for_html(self, dest_dir)
+        to_compare = self.create_images(dest_dir)
 
-        for (old, new) in zip (to_compare[0], to_compare[1]):
-            compare_png_images (old, new, dest_dir)
+        for (old, new) in zip(to_compare[0], to_compare[1]):
+            compare_png_images(old, new, dest_dir)
 
-
-    def get_cell (self, oldnew):
-        def empty_cell ():
+    def get_cell(self, oldnew):
+        def empty_cell():
             return '', ''
 
-        def static_img_cell (img):
+        def static_img_cell(img):
             return '', ('''
 <div><a href="%(img)s"><img src="%(img)s" alt=""/></a></div>
-''' % locals ())
+''' % locals())
 
-        def reactive_img_cell (oldimg, newimg):
+        def reactive_img_cell(oldimg, newimg):
             return 'reactive_img', ('''
 <div style="background-image: url(\'%(oldimg)s\')"><a href="%(newimg)s"><img src="%(newimg)s" alt=""/></a></div>
-''' % locals ())
+''' % locals())
 
-        def multi_img_cell (imgs):
-            imgs_str = '\n'.join (['''<a href="%s"><img src="%s" alt=""/></a>''' % (img, img)
+        def multi_img_cell(imgs):
+            imgs_str = '\n'.join(['''<a href="%s"><img src="%s" alt=""/></a>''' % (img, img)
                                   for img in imgs])
             return '', imgs_str
 
         # If we have systems, we expect that images have been or will
         # be created.
-        num_systems = (sum(1 for x in list(self.system_links.values ()) if x.system1),
-                       sum(1 for x in list(self.system_links.values ()) if x.system2))
+        num_systems = (sum(1 for x in list(self.system_links.values()) if x.system1),
+                       sum(1 for x in list(self.system_links.values()) if x.system2))
         expect_compare = num_systems[0] and oldnew
 
-        base = os.path.splitext (self.file_names[oldnew])[0]
+        base = os.path.splitext(self.file_names[oldnew])[0]
 
         if expect_compare:
             ext = '.compare.jpeg'
@@ -814,30 +841,30 @@ class SignatureFileLink (FileLink):
             ext = '.png'
 
         # TODO: this is broken; no regtest outputs a page[0-9].{eps,png} file
-        pages = glob.glob (base + '-page*' + ext)
+        pages = glob.glob(base + '-page*' + ext)
         if pages:
-            return multi_img_cell (sorted (pages))
+            return multi_img_cell(sorted(pages))
 
         img = base + ext
         if expect_compare:
-            oldimg = os.path.splitext (self.file_names[0])[0] + '.png'
-            return reactive_img_cell (oldimg, img)
+            oldimg = os.path.splitext(self.file_names[0])[0] + '.png'
+            return reactive_img_cell(oldimg, img)
         elif num_systems[oldnew]:
-            return static_img_cell (img)
+            return static_img_cell(img)
         else:
-            return empty_cell ()
+            return empty_cell()
 
-    def get_distance_details (self, dest_file):
-        systems = list(self.system_links.items ())
-        systems.sort ()
+    def get_distance_details(self, dest_file):
+        systems = list(self.system_links.items())
+        systems.sort()
 
-        rel_top = os.path.relpath (os.path.curdir, os.path.dirname (dest_file))
-        style_href = os.path.join (rel_top, 'style.css')
+        rel_top = os.path.relpath(os.path.curdir, os.path.dirname(dest_file))
+        style_href = os.path.join(rel_top, 'style.css')
 
         html = ""
         for (c, link) in systems:
             e = '<td>%d</td>' % c
-            for d in link.distance_tuple ():
+            for d in link.distance_tuple():
                 e += '<td>%f</td>' % d
 
             e = '<tr>%s</tr>' % e
@@ -845,15 +872,14 @@ class SignatureFileLink (FileLink):
             html += e
 
             e = '<td>%d</td>' % c
-            for s in (link.orphan_details_string (),
-                      link.geo_details_string ()):
+            for s in (link.orphan_details_string(),
+                      link.geo_details_string()):
                 e += "<td>%s</td>" % s
-
 
             e = '<tr>%s</tr>' % e
             html += e
 
-        original = self.name ()
+        original = self.name()
         html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -874,21 +900,21 @@ class SignatureFileLink (FileLink):
 
 </body>
 </html>
-''' % locals ()
+''' % locals()
         return html
 
 
 ################################################################
 # Files/directories
 
-def compare_signature_files (f1, f2):
-    s1 = read_signature_file (f1)
-    s2 = read_signature_file (f2)
+def compare_signature_files(f1, f2):
+    s1 = read_signature_file(f1)
+    s2 = read_signature_file(f2)
 
-    return SystemLink (s1, s2).distance_tuple ()
+    return SystemLink(s1, s2).distance_tuple()
 
 
-def paired_files (dir1, dir2, pattern):
+def paired_files(dir1, dir2, pattern):
     """
     Search DIR1 and DIR2 for PATTERN.
 
@@ -896,59 +922,61 @@ def paired_files (dir1, dir2, pattern):
     """
 
     files = []
-    for d in (dir1,dir2):
-        found = [os.path.split (f)[1] for f in glob.glob (d + '/' + pattern)]
-        found = dict ((f, 1) for f in found)
-        files.append (found)
+    for d in (dir1, dir2):
+        found = [os.path.split(f)[1] for f in glob.glob(d + '/' + pattern)]
+        found = dict((f, 1) for f in found)
+        files.append(found)
 
     pairs = []
     missing = []
     for f in files[0]:
         try:
-            files[1].pop (f)
-            pairs.append (f)
+            files[1].pop(f)
+            pairs.append(f)
         except KeyError:
-            missing.append (f)
+            missing.append(f)
 
-    return (pairs, list(files[1].keys ()), missing)
+    return (pairs, list(files[1].keys()), missing)
 
 
 class ComparisonData:
     """All the comparison data; may span several directories"""
 
-    def __init__ (self):
+    def __init__(self):
         self.result_dict = {}
         self.missing = []
         self.added = []
         self.file_links = {}
 
-    def read_sources (self):
+    def read_sources(self):
 
-        ## ugh: drop the .ly.txt
-        for (key, val) in list(self.file_links.items ()):
+        # ugh: drop the .ly.txt
+        for (key, val) in list(self.file_links.items()):
 
-            def note_original (match, ln=val):
-                key = ln.name ()
-                hash_to_original_name[key] = match.group (1)
+            def note_original(match, ln=val):
+                key = ln.name()
+                hash_to_original_name[key] = match.group(1)
                 return ''
 
-            sf = val.source_file ()
+            sf = val.source_file()
             if sf:
-                re.sub (r'\\sourcefilename "([^"]+)"',
-                        note_original, codecs.open (sf, 'r', 'utf-8').read ())
+                re.sub(r'\\sourcefilename "([^"]+)"',
+                       note_original, codecs.open(sf, 'r', 'utf-8').read())
             else:
                 print('no source for', val.file_names[1])
 
-    def compare_trees (self, dir1, dir2):
-        self.compare_directories (dir1, dir2)
+    def compare_trees(self, dir1, dir2):
+        self.compare_directories(dir1, dir2)
 
         try:
-            (root, dirs, files) = next(os.walk (dir1))
+            (root, dirs, files) = next(os.walk(dir1))
         except StopIteration:
             if dir1.endswith("-baseline"):
-                sys.stderr.write("Failed to walk through %s. This can be caused by forgetting to run make test-baseline.\n" % dir1)
+                sys.stderr.write(
+                    "Failed to walk through %s. This can be caused by forgetting to run make test-baseline.\n" % dir1)
             else:
-                sys.stderr.write("Failed to walk through %s; please check it exists.\n" % dir1)
+                sys.stderr.write(
+                    "Failed to walk through %s; please check it exists.\n" % dir1)
             sys.exit(1)
 
         for d in dirs:
@@ -956,18 +984,18 @@ class ComparisonData:
             if d.startswith("share"):
                 continue
 
-            d1 = os.path.join (dir1, d)
-            d2 = os.path.join (dir2, d)
+            d1 = os.path.join(dir1, d)
+            d2 = os.path.join(dir2, d)
 
-            if os.path.islink (d1) or os.path.islink (d2):
+            if os.path.islink(d1) or os.path.islink(d2):
                 continue
 
-            if os.path.isdir (d2):
-                self.compare_trees (d1, d2)
+            if os.path.isdir(d2):
+                self.compare_trees(d1, d2)
 
-    def compare_directories (self, dir1, dir2):
-        log_terse ('comparing %s' % dir1)
-        log_terse ('       to %s' % dir2)
+    def compare_directories(self, dir1, dir2):
+        log_terse('comparing %s' % dir1)
+        log_terse('       to %s' % dir2)
 
         total_compared = 0
         for ext in ['signature',
@@ -975,7 +1003,7 @@ class ComparisonData:
                     'log',
                     'profile',
                     'gittxt']:
-            (paired, missing1, missing2) = paired_files (dir1, dir2, '*.' + ext)
+            (paired, missing1, missing2) = paired_files(dir1, dir2, '*.' + ext)
 
             self.missing += [(dir2, m) for m in missing2]
             self.added += [(dir2, m) for m in missing1]
@@ -984,114 +1012,114 @@ class ComparisonData:
             to_compare = sorted(paired + missing1 + missing2)
             if to_compare:
                 total_compared += len(to_compare)
-                log_terse ('%6d %s' % (len(to_compare), ext))
+                log_terse('%6d %s' % (len(to_compare), ext))
 
             for p in to_compare:
                 if (options.max_count
-                    and len (self.file_links) > options.max_count):
+                        and len(self.file_links) > options.max_count):
                     continue
 
-                f2 = dir2 +  '/' + p
-                f1 = dir1 +  '/' + p
-                self.compare_files (f1, f2)
+                f2 = dir2 + '/' + p
+                f1 = dir1 + '/' + p
+                self.compare_files(f1, f2)
 
-        log_terse ('%6d total' % total_compared)
+        log_terse('%6d total' % total_compared)
 
-    def compare_files (self, f1, f2):
-        if f1.endswith ('signature'):
-            self.compare_signature_files (f1, f2)
+    def compare_files(self, f1, f2):
+        if f1.endswith('signature'):
+            self.compare_signature_files(f1, f2)
         else:
-            ext = os.path.splitext (f1)[1]
+            ext = os.path.splitext(f1)[1]
             klasses = {
                 '.midi': MidiFileLink,
-                '.log' : LogFileCompareLink,
+                '.log': LogFileCompareLink,
                 '.profile': ProfileFileLink,
                 '.gittxt': GitFileCompareLink,
-                }
+            }
 
             if ext in klasses:
-                self.compare_general_files (klasses[ext], f1, f2)
+                self.compare_general_files(klasses[ext], f1, f2)
 
-    def compare_general_files (self, klass, f1, f2):
-        prefix = os.path.commonprefix ([f1, f2])
-        name = os.path.split (f1)[1]
-        name = os.path.join (prefix, name)
+    def compare_general_files(self, klass, f1, f2):
+        prefix = os.path.commonprefix([f1, f2])
+        name = os.path.split(f1)[1]
+        name = os.path.join(prefix, name)
 
-        file_link = klass (f1, f2)
+        file_link = klass(f1, f2)
         self.file_links[name] = file_link
 
-    def compare_signature_files (self, f1, f2):
-        prefix = os.path.commonprefix ([f1, f2])
-        name = os.path.split (f1)[1]
-        name = re.sub ('-[0-9]+.signature', '', name)
-        name = os.path.join (prefix, name)
+    def compare_signature_files(self, f1, f2):
+        prefix = os.path.commonprefix([f1, f2])
+        name = os.path.split(f1)[1]
+        name = re.sub('-[0-9]+.signature', '', name)
+        name = os.path.join(prefix, name)
 
         file_link = None
         try:
             file_link = self.file_links[name]
         except KeyError:
-            generic_f1 = re.sub ('-[0-9]+.signature', '.ly', f1)
-            generic_f2 = re.sub ('-[0-9]+.signature', '.ly', f2)
-            file_link = SignatureFileLink (generic_f1, generic_f2)
+            generic_f1 = re.sub('-[0-9]+.signature', '.ly', f1)
+            generic_f2 = re.sub('-[0-9]+.signature', '.ly', f2)
+            file_link = SignatureFileLink(generic_f1, generic_f2)
             self.file_links[name] = file_link
 
-        file_link.add_file_compare (f1, f2)
+        file_link.add_file_compare(f1, f2)
 
-    def write_changed (self, dest_dir, threshold):
-        (changed, below, unchanged) = self.thresholded_results (threshold)
+    def write_changed(self, dest_dir, threshold):
+        (changed, below, unchanged) = self.thresholded_results(threshold)
 
-        non_ext = [os.path.splitext (link.file_names[1])[0] for link in changed]
-        str = '\n'.join (sorted (set (non_ext)))
+        non_ext = [os.path.splitext(link.file_names[1])[0] for link in changed]
+        str = '\n'.join(sorted(set(non_ext)))
         if str:
             str += '\n'
         fn = dest_dir + '/changed.txt'
 
-        open_write_file (fn).write (str)
+        open_write_file(fn).write(str)
 
-    def thresholded_results (self, threshold):
-        ## todo: support more scores.
+    def thresholded_results(self, threshold):
+        # todo: support more scores.
         results = [(link.distance(), link)
-                   for link in list(self.file_links.values ())]
+                   for link in list(self.file_links.values())]
         # Only compare distances.
-        results.sort (key=lambda x: -x[0])
+        results.sort(key=lambda x: -x[0])
 
-        unchanged = [r for (d,r) in results if d == 0.0]
-        below = [r for (d,r) in results if threshold >= d > 0.0]
-        changed = [r for (d,r) in results if d > threshold]
+        unchanged = [r for (d, r) in results if d == 0.0]
+        below = [r for (d, r) in results if threshold >= d > 0.0]
+        changed = [r for (d, r) in results if d > threshold]
         assert len(results) == len(unchanged) + len(below) + len(changed)
 
         return (changed, below, unchanged)
 
-    def write_text_result_page (self, filename, threshold):
+    def write_text_result_page(self, filename, threshold):
         out = None
         verbose = True
         if filename == '':
             out = sys.stdout
             verbose = options.verbose
         else:
-            out = open_write_file (filename)
+            out = open_write_file(filename)
 
-        (changed, below, unchanged) = self.thresholded_results (threshold)
+        (changed, below, unchanged) = self.thresholded_results(threshold)
 
         if verbose:
             for link in changed:
-                out.write (link.text_record_string ())
+                out.write(link.text_record_string())
             for m in self.missing:
-                out.write ('in baseline only: %s\n' % m[1])
-            out.write ('\n\n')
+                out.write('in baseline only: %s\n' % m[1])
+            out.write('\n\n')
         else:
-            out.write ('output-distance summary:\n')
-            out.write ('%6d changed\n' % len (changed))
+            out.write('output-distance summary:\n')
+            out.write('%6d changed\n' % len(changed))
 
-        out.write ('%6d in baseline only\n' % len (self.missing))
-        out.write ('%6d below threshold\n' % len (below))
-        out.write ('%6d unchanged\n' % len (unchanged))
+        out.write('%6d in baseline only\n' % len(self.missing))
+        out.write('%6d below threshold\n' % len(below))
+        out.write('%6d unchanged\n' % len(unchanged))
 
-    def create_text_result_page (self, dest_dir, threshold):
-        self.write_text_result_page (dest_dir + '/index.txt', threshold)
+    def create_text_result_page(self, dest_dir, threshold):
+        self.write_text_result_page(dest_dir + '/index.txt', threshold)
 
-    def create_html_result_page (self, dest_dir, threshold):
-        (changed, below, unchanged) = self.thresholded_results (threshold)
+    def create_html_result_page(self, dest_dir, threshold):
+        (changed, below, unchanged) = self.thresholded_results(threshold)
 
         table_rows = '''
 <tr>
@@ -1102,27 +1130,27 @@ class ComparisonData:
 '''
 
         for link in changed:
-            table_rows += link.html_record_string (dest_dir)
+            table_rows += link.html_record_string(dest_dir)
 
-        def make_row (label, value):
+        def make_row(label, value):
             return '<tr><td>%d</td><td>%s</td></tr>' % (value, label)
 
-        def make_nz_row (label, value):
+        def make_nz_row(label, value):
             if value:
-                return make_row (label, value)
+                return make_row(label, value)
             else:
                 return ''
 
         summary = '<table id="summary">'
-        summary += make_nz_row ('in baseline only', len (self.missing))
-        summary += make_nz_row ('newly added', len (self.added))
-        summary += make_nz_row ('below threshold', len (below))
-        summary += make_row ('unchanged', len (unchanged))
+        summary += make_nz_row('in baseline only', len(self.missing))
+        summary += make_nz_row('newly added', len(self.added))
+        summary += make_nz_row('below threshold', len(below))
+        summary += make_row('unchanged', len(unchanged))
         summary += '</table>'
 
         me = sys.argv[0]
 
-        open_write_file (dest_dir + '/style.css').write('''
+        open_write_file(dest_dir + '/style.css').write('''
 :root {
     background-color: white;
     color: black;
@@ -1271,46 +1299,46 @@ td:empty {
 </html>''' % locals()
 
         dest_file = dest_dir + '/index.html'
-        open_write_file (dest_file).write (html)
+        open_write_file(dest_file).write(html)
 
         for link in changed:
-            link.link_files_for_html (dest_dir)
+            link.link_files_for_html(dest_dir)
 
-    def print_results (self, threshold):
-        self.write_text_result_page ('', threshold)
+    def print_results(self, threshold):
+        self.write_text_result_page('', threshold)
 
 
-def compare_tree_pairs (tree_pairs, dest_dir, threshold):
+def compare_tree_pairs(tree_pairs, dest_dir, threshold):
     """Compare a list of directories."""
-    data = ComparisonData ()
+    data = ComparisonData()
     for dir1, dir2 in tree_pairs:
-        data.compare_trees (dir1, dir2)
+        data.compare_trees(dir1, dir2)
 
-    data.read_sources ()
+    data.read_sources()
 
-    if os.path.isdir (dest_dir):
-        system ('rm -rf %s '% dest_dir)
+    if os.path.isdir(dest_dir):
+        system('rm -rf %s ' % dest_dir)
 
-    data.write_changed (dest_dir, threshold)
-    data.create_html_result_page (dest_dir, threshold)
-    data.create_text_result_page (dest_dir, threshold)
-    data.print_results (threshold)
-
+    data.write_changed(dest_dir, threshold)
+    data.create_html_result_page(dest_dir, threshold)
+    data.create_text_result_page(dest_dir, threshold)
+    data.print_results(threshold)
 
 
 ################################################################
 # TESTING
 
-def mkdir (x):
-    if not os.path.isdir (x):
-        log_verbose ('mkdir %s' % x)
-        os.makedirs (x)
+def mkdir(x):
+    if not os.path.isdir(x):
+        log_verbose('mkdir %s' % x)
+        os.makedirs(x)
 
-def link_file (x, y):
-    mkdir (os.path.split (y)[0])
+
+def link_file(x, y):
+    mkdir(os.path.split(y)[0])
     try:
-        log_verbose ('%s -> %s' % (x, y))
-        os.link (x, y)
+        log_verbose('%s -> %s' % (x, y))
+        os.link(x, y)
     except OSError as z:
         if z.errno == errno.ENOENT:
             pass
@@ -1318,60 +1346,62 @@ def link_file (x, y):
             print('OSError', x, y, z)
             raise
 
-def open_write_file (x):
+
+def open_write_file(x):
     log_verbose('writing %s' % x)
-    d = os.path.split (x)[0]
-    mkdir (d)
-    return open (x, 'w', encoding='utf-8')
+    d = os.path.split(x)[0]
+    mkdir(d)
+    return open(x, 'w', encoding='utf-8')
 
 
-def test_paired_files ():
-    print(paired_files (os.environ["HOME"] + "/src/lilypond/scripts/",
-                        os.environ["HOME"] + "/src/lilypond-stable/scripts/build/", '*.py'))
+def test_paired_files():
+    print(paired_files(os.environ["HOME"] + "/src/lilypond/scripts/",
+                       os.environ["HOME"] + "/src/lilypond-stable/scripts/build/", '*.py'))
 
 
-def test_compare_tree_pairs ():
-    system ('rm -rf dir1 dir2')
-    system ('mkdir dir1 dir2')
-    system ('cp 19-1.signature 19.sub-1.signature')
-    system ('cp 19.ly 19.sub.ly')
-    system ('cp 19.profile 19.sub.profile')
-    system ('cp 19.log 19.sub.log')
-    system ('cp 19-1.eps 19.sub-1.eps')
+def test_compare_tree_pairs():
+    system('rm -rf dir1 dir2')
+    system('mkdir dir1 dir2')
+    system('cp 19-1.signature 19.sub-1.signature')
+    system('cp 19.ly 19.sub.ly')
+    system('cp 19.profile 19.sub.profile')
+    system('cp 19.log 19.sub.log')
+    system('cp 19-1.eps 19.sub-1.eps')
 
-    system ('cp 20multipage* dir1')
-    system ('cp 20multipage* dir2')
+    system('cp 20multipage* dir1')
+    system('cp 20multipage* dir2')
 
-    system ('mkdir -p dir1/subdir/ dir2/subdir/')
-    system ('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir1/subdir/')
-    system ('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir2/subdir/')
+    system('mkdir -p dir1/subdir/ dir2/subdir/')
+    system('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir1/subdir/')
+    system('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir2/subdir/')
 
     # Make sure we have unicode text in the HTML
-    system (u'echo HEAD is 人人的乐谱软件 > dir1/tree.gittxt')
-    system ('echo HEAD is 2 > dir2/tree.gittxt')
+    system(u'echo HEAD is 人人的乐谱软件 > dir1/tree.gittxt')
+    system('echo HEAD is 2 > dir2/tree.gittxt')
 
-    ## introduce differences
-    system ('cp 20-1.signature dir2/subdir/19.sub-1.signature')
-    system ("sed 's/: /: 1/g'  20.profile > dir2/subdir/19.sub.profile")
+    # introduce differences
+    system('cp 20-1.signature dir2/subdir/19.sub-1.signature')
+    system("sed 's/: /: 1/g'  20.profile > dir2/subdir/19.sub.profile")
 
-    ## radical diffs.
-    system ('cp 20grob{-*.signature,.ly,.eps,-?.eps,.log,.profile} dir1/')
-    system ('cp 19-1.signature dir2/20grob-1.signature')
-    system ('cp 19-1.signature dir2/20grob-2.signature')
-    system ('cp 19-1.eps dir2/20grob-1.eps')
-    system ('cp 19-1.eps dir2/20grob-2.eps')
-    system ('cp 19.eps dir2/20grob.eps')
-    system ('cp 19.log dir2/20grob.log')
-    system ('cp 20{.ly,.profile,.log} dir2/')
-    system ('cp 19multipage.midi dir1/midi-differ.midi')
-    system ('cp 20multipage.midi dir2/midi-differ.midi')
-    system ('cp 19multipage.log dir1/log-differ.log')
-    system ('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
+    # radical diffs.
+    system('cp 20grob{-*.signature,.ly,.eps,-?.eps,.log,.profile} dir1/')
+    system('cp 19-1.signature dir2/20grob-1.signature')
+    system('cp 19-1.signature dir2/20grob-2.signature')
+    system('cp 19-1.eps dir2/20grob-1.eps')
+    system('cp 19-1.eps dir2/20grob-2.eps')
+    system('cp 19.eps dir2/20grob.eps')
+    system('cp 19.log dir2/20grob.log')
+    system('cp 20{.ly,.profile,.log} dir2/')
+    system('cp 19multipage.midi dir1/midi-differ.midi')
+    system('cp 20multipage.midi dir2/midi-differ.midi')
+    system('cp 19multipage.log dir1/log-differ.log')
+    system('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
-    system ('echo "removed" > dir1/removed.log')
-    system ('echo "added" > dir2/added.log')
+    system('echo "removed" > dir1/removed.log')
+    system('echo "added" > dir2/added.log')
 
-    compare_tree_pairs ([('dir1', 'dir2')], 'compare-dir1dir2', options.threshold)
+    compare_tree_pairs([('dir1', 'dir2')],
+                       'compare-dir1dir2', options.threshold)
 
     for f in [
             "index.html",
@@ -1381,7 +1411,7 @@ def test_compare_tree_pairs ():
             "dir2/20grob.png",
             "dir1/20grob.png",
             "style.css",
-            ]:
+    ]:
         fn = os.path.join("compare-dir1dir2", f)
         assert os.path.exists(fn), fn
     html = open("compare-dir1dir2/index.html", encoding='utf-8').read()
@@ -1389,7 +1419,7 @@ def test_compare_tree_pairs ():
     assert "added.log" in html
 
 
-def test_basic_compare ():
+def test_basic_compare():
     ly_template = r"""
 
 \version "2.10.0"
@@ -1416,22 +1446,22 @@ def test_basic_compare ():
 
 """
 
-    dicts = [{ 'papermod' : '',
-               'name' : '20',
-               'extragrob': '',
-               'userstring': '20' },
-             { 'papermod' : '#(set-global-staff-size 19.5)',
-               'name' : '19',
-               'extragrob': '',
-               'userstring': '191919' },
-             { 'papermod' : '',
-               'name' : '20grob',
-               'extragrob': 'r2. \\break c1',
-               'userstring': 'test' },
+    dicts = [{'papermod': '',
+              'name': '20',
+              'extragrob': '',
+              'userstring': '20'},
+             {'papermod': '#(set-global-staff-size 19.5)',
+              'name': '19',
+              'extragrob': '',
+              'userstring': '191919'},
+             {'papermod': '',
+              'name': '20grob',
+              'extragrob': 'r2. \\break c1',
+              'userstring': 'test'},
              ]
 
     for d in dicts:
-        open (d['name'] + '.ly','w').write (ly_template % d)
+        open(d['name'] + '.ly', 'w').write(ly_template % d)
 
     simple_names = [d['name'] for d in dicts]
 
@@ -1447,51 +1477,52 @@ def test_basic_compare ():
     }
     '''
 
-    open ('20multipage.ly', 'w').write (multipage_str.replace ('c1', 'd1'))
-    open ('19multipage.ly', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
+    open('20multipage.ly', 'w').write(multipage_str.replace('c1', 'd1'))
+    open('19multipage.ly', 'w').write(
+        '#(set-global-staff-size 19.5)\n' + multipage_str)
 
-    names = simple_names + [ "20multipage", "19multipage" ]
-    binary = os.environ.get ("LILYPOND_BINARY", "lilypond")
-    system ('%s -dbackend=eps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I /home/hanwen/vc/lilypond/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join (names)))
-    test_compare_signatures (simple_names)
+    names = simple_names + ["20multipage", "19multipage"]
+    binary = os.environ.get("LILYPOND_BINARY", "lilypond")
+    system('%s -dbackend=eps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I /home/hanwen/vc/lilypond/Documentation/included/ -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
+    test_compare_signatures(simple_names)
 
 
-def test_compare_signatures (names, timing=False):
+def test_compare_signatures(names, timing=False):
     times = 1
     if timing:
         times = 100
 
-    t0 = time.time ()
+    t0 = time.time()
 
     count = 0
-    for t in range (0, times):
-        sigs = dict ((n, read_signature_file ('%s-1.signature' % n)) for n in names)
+    for t in range(0, times):
+        sigs = dict((n, read_signature_file('%s-1.signature' % n))
+                    for n in names)
         count += 1
 
     if timing:
         print('elapsed', (time.clock() - t0)/count)
 
-
-    t0 = time.time ()
+    t0 = time.time()
     count = 0
     combinations = {}
     links = {}
     for (n1, s1) in list(sigs.items()):
         for (n2, s2) in list(sigs.items()):
-            key ='%s-%s' % (n1, n2)
-            link = SystemLink (s1,s2)
+            key = '%s-%s' % (n1, n2)
+            link = SystemLink(s1, s2)
             links[key] = link
-            combinations[key] = link.distance_tuple ()
+            combinations[key] = link.distance_tuple()
             count += 1
 
     if timing:
         print('elapsed', (time.clock() - t0)/count)
 
-    results = list(combinations.items ())
-    results.sort ()
+    results = list(combinations.items())
+    results.sort()
 
     if options.verbose:
-        for k,v in results:
+        for k, v in results:
             print('%-20s' % k, v)
 
     assert links["20grob-20"].orphan_count() > 0
@@ -1501,79 +1532,82 @@ def test_compare_signatures (names, timing=False):
     assert combinations['20grob-20'][0] > 0
 
 
-def run_tests ():
+def run_tests():
     testdir = os.path.join(options.output_dir, 'test-output-distance')
     print('test results in ', testdir)
 
-    system ('rm -rf ' + testdir)
-    system ('mkdir ' + testdir)
-    os.chdir (testdir)
+    system('rm -rf ' + testdir)
+    system('mkdir ' + testdir)
+    os.chdir(testdir)
 
-    test_basic_compare ()
-    test_compare_tree_pairs ()
-    system ('rm -rf ' + testdir)
+    test_basic_compare()
+    test_compare_tree_pairs()
+    system('rm -rf ' + testdir)
 
 
-def main ():
-    p = optparse.OptionParser ("output-distance - compare LilyPond formatting runs")
+def main():
+    p = optparse.OptionParser(
+        "output-distance - compare LilyPond formatting runs")
     p.usage = 'output-distance.py [options] tree1 tree2 [tree3 tree4]...'
 
-    p.add_option ('', '--test-self',
-                  dest="run_test",
-                  action="store_true",
-                  help='run test method')
+    p.add_option('', '--test-self',
+                 dest="run_test",
+                 action="store_true",
+                 help='run test method')
 
-    p.add_option ('--max-count',
-                  dest="max_count",
-                  metavar="COUNT",
-                  type="int",
-                  default=0,
-                  action="store",
-                  help='only analyze COUNT signature pairs')
+    p.add_option('--max-count',
+                 dest="max_count",
+                 metavar="COUNT",
+                 type="int",
+                 default=0,
+                 action="store",
+                 help='only analyze COUNT signature pairs')
 
-    p.add_option ('', '--threshold',
-                  dest="threshold",
-                  default=0.3,
-                  action="store",
-                  type="float",
-                  help='threshold for geometric distance')
+    p.add_option('', '--threshold',
+                 dest="threshold",
+                 default=0.3,
+                 action="store",
+                 type="float",
+                 help='threshold for geometric distance')
 
-    p.add_option ('--local-datadir',
-                  dest="local_data_dir",
-                  default=False,
-                  action="store_true",
-                  help='whether to use the share/lilypond/ directory in the test directory')
+    p.add_option('--local-datadir',
+                 dest="local_data_dir",
+                 default=False,
+                 action="store_true",
+                 help='whether to use the share/lilypond/ directory in the test directory')
 
-    p.add_option ('-o', '--output-dir',
-                  dest="output_dir",
-                  default=None,
-                  action="store",
-                  type="string",
-                  help='where to put the test results [tree2/compare-tree1tree2]')
+    p.add_option('-o', '--output-dir',
+                 dest="output_dir",
+                 default=None,
+                 action="store",
+                 type="string",
+                 help='where to put the test results [tree2/compare-tree1tree2]')
 
-    p.add_option ('-v', '--verbose',
-                  dest="verbose",
-                  default=False,
-                  action="store_true",
-                  help='log progress verbosely')
+    p.add_option('-v', '--verbose',
+                 dest="verbose",
+                 default=False,
+                 action="store_true",
+                 help='log progress verbosely')
 
     global options
-    (options, args) = p.parse_args ()
+    (options, args) = p.parse_args()
 
     if options.run_test:
-        run_tests ()
-        sys.exit (0)
+        run_tests()
+        sys.exit(0)
 
-    if len (args) % 2 == 1:
-        p.print_usage ()
-        sys.exit (2)
+    if len(args) % 2 == 1:
+        p.print_usage()
+        sys.exit(2)
 
     out = options.output_dir
     if not out:
-        out = args[0].replace ('/', '')
-        out = os.path.join (args[1], 'compare-' + shorten_string (out))
+        out = args[0].replace('/', '')
+        out = os.path.join(args[1], 'compare-' + shorten_string(out))
 
-    compare_tree_pairs (list(zip(args[0::2], args[1::2])), out, options.threshold)
+    compare_tree_pairs(
+        list(zip(args[0::2], args[1::2])), out, options.threshold)
+
 
 if __name__ == '__main__':
-    main ()
+    main()

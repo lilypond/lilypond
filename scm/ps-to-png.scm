@@ -72,18 +72,36 @@
           (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
 
           (hw-resolution (* anti-alias-factor resolution))
-          (run-strings (filter
-                        string?
-                        (list
-
-                         (ly:format "mark /OutputFile (~a)" pngn-gs)
-                         "/GraphicsAlphaBits 4 /TextAlphaBits 4"
-                         (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution)
-                         (ly:format "/DownScaleFactor ~a" anti-alias-factor)
-                         (if (not is-eps)
-                             (ly:format "/PageSize [~a ~a]" page-width page-height))
-                         (ly:format "(~a) findprotodevice copydevice putdeviceprops setdevice" pixmap-format)
-                         (ly:format "(~a) run" tmp-name)))))
+          (run-strings
+           (filter
+            string?
+            (list
+             (ly:format "mark /OutputFile (~a)" pngn-gs)
+             "/GraphicsAlphaBits 4 /TextAlphaBits 4"
+             (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution)
+             (ly:format "/DownScaleFactor ~a" anti-alias-factor)
+             (if (not is-eps)
+                 (ly:format "/PageSize [~a ~a]" page-width page-height))
+             ;; We use `findprotodevice` because `finddevice` always returns
+             ;; the same device instance and we can't reset the page number of
+             ;; the device. `findprotodevice copydevice` creates a new device
+             ;; instance each time, which can reset the page number.
+             (ly:format "(~a) findprotodevice copydevice" pixmap-format)
+             "putdeviceprops setdevice"
+             ;; We want to use `selectdevice` instead of `setdevice` because
+             ;; `setdevice` doesn't set some defaults. But using `selectdevice`
+             ;; can't reset the page number because `selectdevice` uses
+             ;; `finddevice` internally. So, as a workaround, we use an
+             ;; undocumented `.setdefaultscreen` procedure which is used inside
+             ;; `selectdevice` to set the defaults. It works in Ghostscript
+             ;; 9.52 but may not work if the internal implementation of
+             ;; `selectdevice` is changed in the future.
+             "/.setdefaultscreen where {"
+             "pop .setdefaultscreen"
+             "} {"
+             "(Warning: .setdefaultscreen not available) print"
+             "} ifelse"
+             (ly:format "(~a) run" tmp-name)))))
 
      ((if (ly:get-option 'gs-api)
           ly:gs-api ly:gs-cli)
@@ -96,7 +114,7 @@
                   (if (or (not multi-page?) (and multi-page? rename-page-1))
                       (ly:format "~a.~a" base-name extension)
                       (ly:format "~a-page~a.~a" base-name (1+ n) extension))))
-              (rename-file src dst)
+              (ly:rename-file src dst)
               dst))
           (iota page-count))
      )))

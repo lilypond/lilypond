@@ -39,6 +39,9 @@ protected:
 void
 Context_specced_music_iterator::create_children ()
 {
+  // Change context in the wrapper before creating contexts for the wrapped
+  // iterators.
+
   SCM ct = get_property (get_music (), "context-type");
 
   string c_id;
@@ -53,7 +56,7 @@ Context_specced_music_iterator::create_children ()
 
   if (from_scm<bool> (get_property (get_music (), "create-new")))
     {
-      a = get_context ()->create_unique_context (dir, ct, c_id, ops);
+      a = get_own_context ()->create_unique_context (dir, ct, c_id, ops);
       if (!a)
         {
           warning (_f ("cannot create context: %s",
@@ -62,7 +65,7 @@ Context_specced_music_iterator::create_children ()
     }
   else
     {
-      a = get_context ()->find_create_context (dir, ct, c_id, ops);
+      a = get_own_context ()->find_create_context (dir, ct, c_id, ops);
       // Warnings in regression tests would be pretty common if we didn't
       // ignore them for DOWN.
       //
@@ -79,7 +82,7 @@ Context_specced_music_iterator::create_children ()
     }
 
   if (a)
-    set_context (a);
+    set_own_context (a);
 
   Music_wrapper_iterator::create_children ();
 }

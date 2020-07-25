@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c662a2cb50dcc4b98101bdd8228986646c4d1382
+    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.19.22"
 
-@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
 @node 出力を調整する
@@ -3299,10 +3299,10 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 なぜなら、その休符はボイス 2 の中にあるからです。@c
 @code{\voiceTwo} (すなわち、@code{<<@{@dots{}@} \\ @{@dots{}@}>>} 構造の
 2 番目のボイス) のデフォルト状態では、@c
-@code{MultiMeasureRest} の @code{staff-position} は @code{-4} に@c
+@code{MultiMeasureRest} の @code{staff-position} は @code{-6} に@c
 セットされています。@c
 そのため、そのプロパティを、例えば半譜スペース 4 つ分押し下げるには、@c
-@w{@code{-8}} に変更する必要があります。
+@w{@code{-10}} に変更する必要があります。
 
 @cindex MultiMeasureRest, example of overriding (MultiMeasureRest をオーバライドする例)
 @cindex staff-position property, example (staff-position プロパティの例)
@@ -3311,13 +3311,16 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-10
   { R1 }
 >>
 @end lilypond
 
 これは、例えば @code{extra-offset} を使うよりも良い解決方法です。@c
 なぜなら、その休符の上に加線が自動的に挿入されるからです。
+
+正確な値と不正確な値の違いについては、
+@ruser{タイを手動で譜刻する} を参照してください。
 
 
 @node extra-offset プロパティ

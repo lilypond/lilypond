@@ -745,8 +745,9 @@ mark {ly~a_stream} /CLOSE pdfmark
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
          (page-count (length page-stencils)))
-    (if (guile-v2)
-        (set-port-encoding! port "Latin1"))
+    (cond-expand
+      (guile-2 (set-port-encoding! port "Latin1"))
+      (else))
     (initialize-font-embedding)
     (if (ly:get-option 'clip-systems)
         (clip-system-EPSes basename book))
@@ -840,7 +841,7 @@ mark {ly~a_stream} /CLOSE pdfmark
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
-    (rename-file tmp-name dest-name)
+    (ly:rename-file tmp-name dest-name)
     ))
 
 (define (clip-systems-to-region basename paper systems region do-pdf do-png)
@@ -969,12 +970,6 @@ mark {ly~a_stream} /CLOSE pdfmark
          (h (if landscape paper-width paper-height)))
     (cons w h)))
 
-(define (output-resolution defs)
-  (let ((defs-resolution (ly:output-def-lookup defs 'pngresolution)))
-    (if (number? defs-resolution)
-        defs-resolution
-        (ly:get-option 'resolution))))
-
 (define-public (convert-to-pdf book base-name tmp-name is-eps)
   (let* ((defs (ly:paper-book-paper book))
          (width-height (output-width-height defs))
@@ -984,10 +979,10 @@ mark {ly~a_stream} /CLOSE pdfmark
 
 (define-public (convert-to-png book base-name tmp-name is-eps)
   (let* ((defs (ly:paper-book-paper book))
-         (resolution (output-resolution defs))
          (width-height (output-width-height defs))
          (width (car width-height))
-         (height (cdr width-height)))
+         (height (cdr width-height))
+         (resolution (ly:get-option 'resolution)))
     (postscript->png resolution width height base-name tmp-name is-eps)))
 
 (define-public (convert-to-ps book base-name tmp-name is-eps)

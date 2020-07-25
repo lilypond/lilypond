@@ -30,20 +30,27 @@
 ;; GUILE defaults to fixed seed.
 (define-public (randomize-rand-seed)
   (ly:randomize-rand-seed)
-  (set! *random-state* (seed->random-state (format #f "~a ~a" (gettimeofday) (getpid)))))
+  (let*
+      ((t (gettimeofday))
+       ;; GUILE's random initialization is clumsy (it converts the
+       ;; integer to decimal string, and then sums groups of 8 bytes
+       ;; as 64 bit integers.  Here we multiply to spread the entropy
+       ;; around a bit better.
+       (seed (*
+              (cdr t)
+              (car t)
+              (getpid))))
+  (set! *random-state* (seed->random-state seed))))
 
 (randomize-rand-seed)
 
-;;; Boolean thunk - are we integrating Guile V2.0 or higher with LilyPond?
-(define-public (guile-v2)
-  (string>? (version) "1.9.10"))
-
 (read-enable 'positions)
-(if (not (guile-v2))
-    (debug-enable 'debug)
+(cond-expand
+  (guile-2
     (begin
       (debug-enable 'backtrace)
       (debug-set! show-file-name #t)))
+  (else (debug-enable 'debug)))
 
 (define-public PLATFORM
   (string->symbol
@@ -63,6 +70,12 @@
   `(with-fluids ((,%location ,loc)) ,@body))
 
 (define-public _ gettext)
+
+;; Guile 1.8 doesn't have (and doesn't need) eval-when.
+(defmacro-public eval-early (expr)
+  `(cond-expand
+    (guile-2 (eval-when (expand load eval) ,expr))
+    (else ,expr)))
 
 ;; It would be nice to convert occurences of parser/location to
 ;; (*parser*)/(*location*) using the syncase module but it is utterly
@@ -462,8 +475,8 @@ messages into errors.")
 ;;  in Guile V2 this needs a module which is not present in Guile V1.8
 ;;
 
-(cond
- ((guile-v2)
+(cond-expand
+ (guile-2
   (ly:debug (_ "Using (ice-9 curried-definitions) module\n"))
   (use-modules (ice-9 curried-definitions)))
  (else
@@ -544,6 +557,16 @@ messages into errors.")
       (slashify (getcwd))
       (getcwd)))
 
+(define-public (ly:rename-file src dst)
+  "Rename file, overwriting DST if it exists"
+  ;; Atomic rename on windows needs to use MoveFileExW, which GUILE doesn't attempt to do.
+  ;; We fake it by not being atomic.
+  (if (and
+       (eq? PLATFORM 'windows)
+       (file-exists? dst))
+      (delete-file dst))
+  (rename-file src dst))
+
 (define-public (is-absolute? file-name)
   (let ((file-name-length (string-length file-name)))
     (if (= file-name-length 0)
@@ -558,18 +581,19 @@ messages into errors.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; If necessary, emulate Guile V2 module_export_all! for Guile V1.8.n
 (cond-expand
- ((not guile-v2)
-  (define (module-export-all! mod)
-    (define (fresh-interface!)
-      (let ((iface (make-module)))
-        (set-module-name! iface (module-name mod))
-        ;; for guile 2: (set-module-version! iface (module-version mod))
-        (set-module-kind! iface 'interface)
-        (set-module-public-interface! mod iface)
-        iface))
-    (let ((iface (or (module-public-interface mod)
-                     (fresh-interface!))))
-      (set-module-obarray! iface (module-obarray mod))))))
+  (guile-2 #f)
+  (else
+    (define (module-export-all! mod)
+      (define (fresh-interface!)
+        (let ((iface (make-module)))
+          (set-module-name! iface (module-name mod))
+          ;; for guile 2: (set-module-version! iface (module-version mod))
+          (set-module-kind! iface 'interface)
+          (set-module-public-interface! mod iface)
+          iface))
+      (let ((iface (or (module-public-interface mod)
+                       (fresh-interface!))))
+        (set-module-obarray! iface (module-obarray mod))))))
 
 
 (define-safe-public (lilypond-version)
@@ -982,9 +1006,9 @@ PIDs or the number of the process."
                     (append-map
                      (lambda (f)
                        (string-split
-                        (if (guile-v2)
-                            (string-delete #\cr (ly:gulp-file f))
-                            (string-delete (ly:gulp-file f) #\cr))
+                        (cond-expand
+                          (guile-2 (string-delete #\cr (ly:gulp-file f)))
+                          (else (string-delete (ly:gulp-file f) #\cr)))
                         #\nl))
                      files))))
   (if (and (number? (ly:get-option 'job-count))
@@ -1060,7 +1084,9 @@ PIDs or the number of the process."
          (do-measurements (ly:get-option 'dump-profile))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
-    (if (not (guile-v2)) (gc))
+    (cond-expand
+      (guile-2 #f)
+      (else (gc)))
     (for-each
      (lambda (x)
        (let* ((start-measurements (if do-measurements
@@ -1083,7 +1109,9 @@ PIDs or the number of the process."
 
          ;; check that we're not holding on to objects. Doesn't work
          ;; in GUILE 2.x
-         (if (not (guile-v2))
+         (cond-expand
+           (guile-2 #f)
+           (else
              (begin
                (ly:set-option 'debug-gc-assert-parsed-dead #t)
                (gc)
@@ -1094,7 +1122,7 @@ PIDs or the number of the process."
                     (begin
                       (ly:programming-error "Parsed object should be dead: ~a" x)
                       (hashq-set! gc-zombies x #t))))
-              (ly:parsed-undead-list!)))
+              (ly:parsed-undead-list!))))
 
          (if (ly:get-option 'debug-gc)
              (dump-gc-protects)

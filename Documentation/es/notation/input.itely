@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 557cc9934585a9083c9e4957068889b3f393873c
+    Translation of GIT committish: 9891c98f11b06bdfa26040ca42d3be2be0a9a4a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1859,6 +1859,9 @@ anotación.
 @subsection Referencia a números de página
 @translationof Reference to page numbers
 
+@cindex marcadores
+@cindex página, referenciar números de
+
 Un lugar determinado de una partitura puede señalizarse usando la
 instrucción @code{\label} (etiqueta), ya sea en el nivel superior
 o dentro de la música.  Podemos referirnos a esta etiqueta más
@@ -1912,6 +1915,10 @@ puede ser "00", es decir, un número de dos dígitos.
 @subsection Índice general
 @translationof Table of contents
 
+@cindex índice general
+@cindex tabla de contenidos
+@cindex marcadores
+
 Se puede insertar un índice general o tabla de contenidos
 utilizando la instrucción @code{\markuplist \table-of-contents}.
 Los elementos que deben aparecer en la tabla de contenidos se
@@ -1936,13 +1943,26 @@ expresión musical.
 \score {
   {
     e'4 % ...
+    \tocItem actI \markup "Act I"
+    f'4 % ...
+    \tocItem actI.sceneI \markup "Scene 1"
+    g'4 % ...
+    \tocItem actI.sceneI.recitativo \markup "Recit."
+    a'4 % ...
   }
 }
 @end verbatim
 
+De manera opcional se puede asociar una etiqueta con un elemento
+en particular o con una lista jerárquica de etiquetas existentes,
+terminando con la etiqueta de ese elemento.  Esta última
+posibilidad nos permite marcar el elemento como un @q{hijo} de los
+elementos etiquetados precedentes, haciendo así aparente la
+estructura de la partitura en el índice general.
+
 Los elementos de marcado que se usan para dar formato al índice
 general o tabla de contenidos se encuentran definidos dentro del
-bloque @code{\paper}.  Hay dos elementos de marcado
+bloque @code{\paper}.  Hay tres elementos de marcado
 @q{predefinidos} disponibles:
 
 @itemize
@@ -1972,13 +1992,37 @@ tocItemMarkup = \markup \fill-line {
 }
 @end verbatim
 
+@item
+@code{tocFormatMarkup}
+
+@noindent
+Cómo se formatean las entradas del nivel superior de la tabla (si
+existen varios niveles jerárquicos).  Esto es un procedimiento en
+realidad, como se explica en
+@rextend{Construcción de elementos de marcado en Scheme}.
+
+@verbatim
+tocFormatMarkup = #make-bold-markup
+@end verbatim
+@item
+@code{tocIndentMarkup}
+
+@noindent
+Usado para definir cómo la jerarquía del esquema general se hace
+aparente.  Este elemento de marcado se imprime ninguna, una o
+varias veces dependiendo del nivel de cada entrada.
+
+@verbatim
+tocIndentMarkup = \markup \hspace #4
+@end verbatim
+
 @end itemize
 
 @noindent
-Ambas variables pueden modificarse.
+Cualquiera de estas variables puede modificarse.
 
-He aquí un ejemplo que modifica el título del índice general para
-que aparezca en francés:
+He aquí un ejemplo que traduce el título del índice general al
+francés:
 
 @verbatim
 \paper {
@@ -1988,8 +2032,8 @@ que aparezca en francés:
   }
 @end verbatim
 
-A continuación aparece un ejemplo que modifica el tamaño de
-fuente tipográfica de los elementos del índice general:
+A continuación aparece un ejemplo que modifica el tamaño de fuente
+tipográfica de los elementos del índice general:
 
 @verbatim
 tocItemMarkup = \markup \large \fill-line {
@@ -2022,11 +2066,15 @@ correspondiente:
 }
 @end lilypond
 
-Las instrucciones predefinidas con sus propios marcados pueden
-definirse también para que construyan un índice general más
-complejo.  En el ejemplo siguiente se define un estilo nuevo para
-introducir los nombres de los actos de una ópera en el índice
-general:
+@funindex add-toc-item!
+@cindex índice general, funciones personalizadas
+
+Además del mecanismo incorporado de construcción del índice
+general, las instrucciones predefinidas pueden definirse también
+para que construyan un índice general más personalizado con
+diferentes elementos de marcado.  En el ejemplo siguiente se
+define un estilo nuevo para introducir los actos y escenas de una
+ópera en el índice general:
 
 @noindent
 Una nueva variable de marcado (llamada @code{tocActMarkup}) se
@@ -2045,57 +2093,63 @@ define en el bloque @code{\paper}:
 @noindent
 A continuación se crea una función musical personalizada
 (@code{tocAct}), que usa la nueva definición de marcado
-@code{tocActMarkup}.
+@code{tocActMarkup}, y permite especificar una etiqueta para cada
+acto.
 
 @verbatim
 tocAct =
-  #(define-music-function (text) (markup?)
-     (add-toc-item! 'tocActMarkup text))
+  #(define-music-function (label text) (symbol? markup?)
+     (add-toc-item! 'tocActMarkup label text))
 @end verbatim
 
 @noindent
-Un archivo de entrada de LilyPond que use estas definiciones
-personalizadas tendría el aspecto siguiente:
+Usando estas definiciones personalizadas y modificando algunas de
+las definiciones existentes, el archivo fuente se podría escribir
+entonces de la manera siguiente:
+
+@funindex \fill-with-pattern
 
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
+  tocFormatMarkup = #markup %% Cancelling the default bold setting.
   tocActMarkup = \markup \large \column {
     \hspace #1
     \fill-line { \null \italic \fromproperty #'toc:text \null }
     \hspace #1
   }
+  tocItemMarkup = \markup \fill-line {
+    \fill-with-pattern #1.5 #CENTER .
+    \line {
+      \hspace #-4 %% Cancelling the first level’s tocIndentMarkup
+      \fromproperty #'toc:indent \fromproperty #'toc:text
+      \hspace #2
+    }
+    \fromproperty #'toc:page
+  }
 }
 
 tocAct =
-#(define-music-function (text) (markup?)
-   (add-toc-item! 'tocActMarkup text))
+#(define-music-function (label text) (symbol-list-or-symbol? markup?)
+   (add-toc-item! 'tocActMarkup text label))
 
 \book {
   \markuplist \table-of-contents
-  \tocAct \markup { Atto Primo }
-  \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
-  \tocAct \markup { Atto Secondo }
-  \tocItem \markup { Sinfonia }
-  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \tocAct actI \markup { Atto Primo }
+  \tocItem actI.sceneI \markup { Coro. Viva il nostro Alcide }
+  \tocItem actI.sceneII \markup { Cesare. Presti omai l'Egizia terra }
+  \tocItem actI.sceneII.recitativo \markup { \italic Recit. Curio, Cesare venne, e vide, e vinse. }
+  \tocAct actII \markup { Atto Secondo }
+  \tocItem actII.sceneI \markup { Sinfonia }
+  \tocItem actII.sceneII \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
   \markup \null
 }
 @end lilypond
 
-
-He aquí un ejemplo de la instrucción @code{\fill-with-pattern}
-usada dentro del contexto de un índice general:
-
-@verbatim
-\paper {
-  tocItemMarkup = \markup { \fill-line {
-    \override #'(line-width . 70)
-    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
-    }
-  }
-}
-@end verbatim
+@noindent
+El ejemplo anterior muestra también cómo usar la instrucción de
+marcado @code{\fill-with-pattern} dentro del contexto de un índice
+general o tabla de contenidos.
 
 @morerefs
 Archivos de inicio:
@@ -2105,7 +2159,15 @@ Archivos de inicio:
 @funindex \table-of-contents
 @code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem}.
+@code{\tocItem},
+@funindex tocItemMarkup
+@code{tocItemMarkup},
+@funindex tocTitleMarkup
+@code{tocTitleMarkup},
+@funindex tocFormatMarkup
+@code{tocFormatMarkup},
+@funindex tocIndentMarkup
+@code{tocIndentMarkup}.
 @endpredefined
 
 
@@ -2174,65 +2236,50 @@ directorio actual, use
 @end example
 
 Los archivos de inclusión también pueden contener enunciados
-@code{\include} a su vez.  De forma predeterminada, estos
-enunciados @code{\include} de segundo nivel no se interpretan
-hasta que se incorporan al archivo principal, por lo que los
-nombres de archivo que especifican deben ser relativos al
-directorio que contiene el archivo principal, no al directorio
-que contiene el archivo incluido.  Sin embargo, este
-comportamiento se puede modificar globalmente pasando la opción
-@option{-drelative-includes} en la línea de órdenes (o mediante
-la adición de @code{#(ly:set-option 'relative-includes #t)} al
-principio del archivo principal de entrada).
-
-Cuando @code{relative-includes} está establecido al valor
-@code{#t}, la ruta de cada instrucción @code{\include} se
-considera relativa al archivo que contiene dicha instrucción.
-Este comportamiento es el recomendado y se convertirá en el
-comportamiento predeterminado en una versión futura de lilypond.
-
-Tanto los archivos relativos al directorio principal como los
-archivos relativos a algún otro directorio se pueden
-@code{\include}ar mediante el establecimiento de
-@code{relative-includes} al valor @code{#t} o a @code{#f} en los
-lugares apropiados dentro de los archivos.  Por ejemplo, si se ha
-creado una biblioteca genérica, libA, que a su vez utiliza
-sub-archivos que se @code{\include}an por medio del archivo de
-entrada de dicha biblioteca, esas instrucciones @code{\include}
-tendrán que venir precedidas por @code{#(ly:set-option
-'relative-includes #t)} de manera que se interpreten
-correctamente al construir el archivo de entrada @code{.ly}
-principal, de esta forma:
+@code{\include} a su vez.  Estos enunciados @code{\include} de
+segundo nivel se interpretan de manera relativa a la ruta del
+archivo que contiene dicha instrucción, lo que es conveniente para
+varios archivos ubicados dentro del mismo subdirectorio.  Por
+ejemplo, una biblioteca general, bibA, puede a su vez usar
+sub-archivos que son incluidos por el archivo principal de dicha
+biblioteca, así:
 
 @example
-libA/
-  libA.ly
+bibA/
+  bibA.ly
   A1.ly
   A2.ly
   @dots{}
 @end example
 
 @noindent
-entonces el archivo de entrada, @code{libA.ly}, contiene
+entonces el archivo de entrada, @code{bibA.ly}, contiene
 
 @example
-#(ly:set-option 'relative-includes #t)
 \include "A1.ly"
 \include "A2.ly"
 @dots{}
-% vuelta al ajuste predeterminado
-#(ly:set-option 'relative-includes #f)
 @end example
 
 Cualquier archivo @file{.ly} puede entonces incluir la biblioteca
 completa, simplemente con
 
 @example
-\include "~/libA/libA.ly"
+\include "~/bibA/bibA.ly"
 @end example
 
-Se pueden usar estructuras de archivo más complejas instando los
-cambios en los lugares adecuados.
+Sin embargo, este comportamiento se puede modificar de forma
+global pasando la opción @option{-drelative-includes=#f} en la
+línea de órdenes (o añadiendo @code{#(ly:set-option
+'relative-includes #f)} al principio del archivo principal de
+entrada).  En tal caso, cada archivo se incuirá relativamente a la
+ubicación del archivo principal, sin importar dónde está situado
+su instrucción @code{\include}.  Estructuras de archivo complejas
+que requieren realizar la inclusión tanto de archivos relativos al
+directorio principal como de archivos relativos a algún otro
+directorio, pueden incluso configurarse estableciendo
+@code{relative-includes} a los valores @code{#f} o @code{#t} en
+los lugares adecuados dentro de dichos archivos.
 
 También se pueden incluir archivos de un directorio que está en
 una ruta de búsqueda especificada como opción al invocar a
@@ -2955,12 +3002,15 @@ Manual de utilización:
 @funindex skipTypesetting
 @funindex showFirstLength
 @funindex showLastLength
+@cindex saltar el tipografiado
+@cindex tipografiado, saltar
 
 Al escribir o copiar música, normalmente sólo es interesante de
-ver y corregir la música cercana al final (donde estamos
-añadiendo las notas).  Para acelerar este proceso de corrección,
-es posible saltar la composición tipográfica de todos excepto
-unos pocos de los últimos compases.  Esto se consigue poniendo
+ver y corregir la música cercana al final (donde estamos añadiendo
+las notas).  Para acelerar este proceso de corrección, es posible
+saltar la composición tipográfica de todos excepto unos pocos de
+los últimos compases.  Esto se consigue definiendo una variable
+especial al principio del archivo fuente, como sigue:
 
 @example
 showLastLength = R1*5
@@ -2968,11 +3018,11 @@ showLastLength = R1*5
 @end example
 
 @noindent
-en nuestro archivo fuente.  Esto hará que se tracen sólo los
-últimos cinco compases (suponiendo un compás de 4/4) de cada una
-de las partituras @code{\score} del archivo de entrada.  Para
-piezas largas, el tipografiado de únicamente una parte pequeña es
-con frecuencia un orden de magnitud más rápido que el de la obra
+En este ejemplo no se dibujará nada excepto los últimos cinco
+compases (suponiendo un compás de 4/4) de cada una de las
+partituras @code{\score} del archivo de entrada.  Para piezas
+largas, el tipografiado de únicamente una parte pequeña es con
+frecuencia un orden de magnitud más rápido que el de la obra
 completa.  Si estamos trabajando sobre el principio de una
 partitura que ya hemos tipografiado (p.ej., para añadir una parte
 instrumental nueva), también puede ser útil la propiedad
@@ -2981,26 +3031,40 @@ instrumental nueva), también puede ser útil la propiedad
 Este mecanismo de pasar por alto partes de un partitura se puede
 controlar con un grano más fino mediante la propiedad
 @code{Score.skipTypesetting}.  Cuando su valor está establecido,
-no se lleva a cabo ningún tipografiado en absoluto.
+no se lleva a cabo ningún tipografiado en absoluto. Como propiedad
+del contexto @code{Score}, afecta a todas las voces y pentagramas;
+véase @ref{Score. El contexto maestro}.
 
 Esta propiedad se usa también para controlar la salida hacia el
-archivo MIDI.  Observe que pasa por alto todos los eventos,
-incluidos el tempo y los cambios de instrumento.  Está usted
-advertido.
+archivo MIDI. Si algún evento dentro de la sección que se salta
+altera alguna de sus propiedades de contexto, por ejemplo una
+indicación de tempo o un cambio de instrumento, entonces el ajuste
+tendrá efecto solamente en el punto temporal en que
+@code{skipTypesetting} se desactiva de nuevo:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
-  c1
-  \set Score.skipTypesetting = ##t
-  \tempo 4 = 80
   c4 c c c
-  \set Score.skipTypesetting = ##f
+  \set Score.skipTypesetting = ##t
   d4 d d d
+  \tempo 4 = 80
+  e4 e e e
+  \set Score.skipTypesetting = ##f
+  f4 f f f
 }
 @end lilypond
 
-En música polifónica, @code{Score.skipTypesetting} afecta a todas
-las voces y pentagramas, ahorrando más tiempo incluso.
+@predefined
+@code{showLastLength},
+@code{showFirstLength}.
+@endpredefined
+
+@morerefs
+Referencia de la notación:
+@ref{Contextos de interpretación},
+@ref{Score. El contexto maestro},
+@ref{Todas las propiedades de contexto}.
+
 
 @node Formatos de salida alternativos
 @subsection Formatos de salida alternativos

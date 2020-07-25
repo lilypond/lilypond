@@ -95,8 +95,9 @@
 (define out-port (open-output-file outname))
 
 ;; Don't output Latin1.
-(if (guile-v2)
-    (set-port-encoding! out-port "UTF-8"))
+(cond-expand
+  (guile-2 (set-port-encoding! out-port "UTF-8"))
+  (else))
 
 (writing-wip outname)
 

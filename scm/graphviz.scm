@@ -69,9 +69,9 @@
               es)
     (for-each (lambda (c)
                 (format out "subgraph cluster_~a {\nlabel= \"~a\"\ncolor=blue\n"
-                        (if (guile-v2)
-                            (string-filter char-alphabetic? (car c))
-                            (string-filter (car c) char-alphabetic?))
+                        (cond-expand
+                          (guile-2 (string-filter char-alphabetic? (car c)))
+                          (else (string-filter (car c) char-alphabetic?)))
                         (car c))
                 (for-each (lambda (n) (format out "~a\n" n)) (cdr c))
                 (display "}\n" out))

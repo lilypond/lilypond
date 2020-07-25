@@ -41,7 +41,8 @@
                     spacing-section-event layout-instruction-event
                     time-signature-event
                     completize-extender-event break-span-event alternative-event
-                    vowel-transition-event))
+                    vowel-transition-event
+                    duration-line-event))
 
     (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))

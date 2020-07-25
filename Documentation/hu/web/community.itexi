@@ -813,21 +813,21 @@ Archívum}
 @item
 Han-Wen Nienhuys: @emph{LilyPond, automatikus kottaformázás és a
 szoftvertermék kiadásának művészete}. A szabad szoftver nemzetközi fóruma 2006
-(FISL7.0) (@uref{https://lilypond.org/website/pdf/FISL7-slides.pdf,
+(FISL7.0) (@staticFile{media/FISL7-slides.pdf,
 PDF 1095k})
 
 @item
 Erik Sandberg: @emph{A bemeneti nyelv és a formázó szétválasztása a
 GNU LilyPondban}. Diplomaterv, Uppsalai Egyetem, Információtechnológiai
 Tanszék, 2006. március
-(@uref{https://lilypond.org/website/pdf/thesis-erik-sandberg.pdf,
+(@staticFile{media/thesis-erik-sandberg.pdf,
 PDF 750k})
 
 @item
 Han-Wen Nienhuys, Jan Nieuwenhuizen: @emph{LilyPond, egy automatizált
 kottaszedő rendszer}. Jegyzőkönyv a XIV. zenei informatikai kollokviumról
 (XIV CIM 2003), Firenze, Olaszország, 2003. május
-(@uref{https://lilypond.org/website/pdf/xivcim.pdf, PDF 95k})
+(@staticFile{media/xivcim.pdf, PDF 95k})
 
 @end itemize
 
@@ -893,7 +893,7 @@ A LilyPond 2.6-os verziójának kiadásáról megjelenik egy francia cikk a
 2004. október
 
 A @emph{Computer!Totaal} holland informatikai magazin szerkesztői
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg, azt írják a
+@staticFile{media/computer-totaal.jpeg, azt írják a
 LilyPondról} a 2004. októberi számban: @qq{A LilyPond egy csodálatos szabad
 (nyílt forrású) szoftver! [...] A LilyPonddal szedett kotta kivételesen szép.
 [...] Egy sokrétű rendszerrel állunk szemben, ami szinte mindenre képes!}

@@ -48,7 +48,7 @@ debug = ly.debug_output
 # See book_base.BookOutputFormat for  possible keys
 Latex_snippet_res = {
     'include':
-         r'''(?smx)
+    r'''(?smx)
           ^[^%\n]*?
           (?P<match>
           \\input\s*{
@@ -56,7 +56,7 @@ Latex_snippet_res = {
           })''',
 
     'lilypond':
-         r'''(?smx)
+    r'''(?smx)
           ^[^%\n]*?
           (?P<match>
           \\lilypond\s*(
@@ -67,7 +67,7 @@ Latex_snippet_res = {
           })''',
 
     'lilypond_block':
-         r'''(?smx)
+    r'''(?smx)
           ^[^%\n]*?
           (?P<match>
           \\begin\s*(?P<env>{lilypond}\s*)?(
@@ -79,7 +79,7 @@ Latex_snippet_res = {
           \\end\s*{lilypond})''',
 
     'lilypond_file':
-         r'''(?smx)
+    r'''(?smx)
           ^[^%\n]*?
           (?P<match>
           \\lilypondfile\s*(
@@ -90,7 +90,7 @@ Latex_snippet_res = {
           })''',
 
     'musicxml_file':
-         r'''(?smx)
+    r'''(?smx)
           ^[^%\n]*?
           (?P<match>
           \\musicxmlfile\s*(
@@ -101,14 +101,14 @@ Latex_snippet_res = {
           })''',
 
     'singleline_comment':
-         r'''(?mx)
+    r'''(?mx)
           ^.*?
           (?P<match>
            (?P<code>
            %.*$\n+))''',
 
     'verb':
-         r'''(?mx)
+    r'''(?mx)
           ^[^%\n]*?
           (?P<match>
            (?P<code>
@@ -117,7 +117,7 @@ Latex_snippet_res = {
            (?P=del)))''',
 
     'verbatim':
-         r'''(?msx)
+    r'''(?msx)
           ^[^%\n]*?
           (?P<match>
            (?P<code>
@@ -126,7 +126,7 @@ Latex_snippet_res = {
            \\end\s*{verbatim}))''',
 
     'lilypondversion':
-         r'''(?smx)
+    r'''(?smx)
           (?P<match>
           \\lilypondversion)[^a-zA-Z]''',
 }
@@ -167,9 +167,6 @@ Latex_output = {
 }
 
 
-
-
-
 ###
 # Retrieve dimensions from LaTeX
 LATEX_INSPECTION_DOCUMENT = r'''
@@ -183,49 +180,51 @@ LATEX_INSPECTION_DOCUMENT = r'''
 '''
 
 # Do we need anything else besides `textwidth'?
-def get_latex_textwidth (source, global_options):
+
+
+def get_latex_textwidth(source, global_options):
     # default value
     textwidth = 550.0
 
-    m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
+    m = re.search(r'''(?P<preamble>\\begin\s*{document})''', source)
     if m == None:
-        warning (_ ("cannot find \\begin{document} in LaTeX document"))
+        warning(_("cannot find \\begin{document} in LaTeX document"))
         return textwidth
 
-    preamble = source[:m.start (0)]
+    preamble = source[:m.start(0)]
     latex_document = LATEX_INSPECTION_DOCUMENT % {'preamble': preamble}
 
     (handle, tmpfile) = tempfile.mkstemp('.tex')
-    tmpfileroot = os.path.splitext (tmpfile)[0]
-    tmpfileroot = os.path.split (tmpfileroot)[1]
+    tmpfileroot = os.path.splitext(tmpfile)[0]
+    tmpfileroot = os.path.split(tmpfileroot)[1]
     auxfile = tmpfileroot + '.aux'
     logfile = tmpfileroot + '.log'
 
-    tmp_handle = os.fdopen (handle,'w')
-    tmp_handle.write (latex_document)
-    tmp_handle.close ()
+    tmp_handle = os.fdopen(handle, 'w')
+    tmp_handle.write(latex_document)
+    tmp_handle.close()
 
-    progress (_ ("Running `%s' on file `%s' to detect default page settings.\n")
-              % (global_options.latex_program, tmpfile))
+    progress(_("Running `%s' on file `%s' to detect default page settings.\n")
+             % (global_options.latex_program, tmpfile))
     cmd = '%s %s' % (global_options.latex_program, tmpfile)
-    debug ("Executing: %s\n" % cmd)
+    debug("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
     run_env['TEXINPUTS'] = '%s:%s' % \
-                           (global_options.input_dir, run_env.get('TEXINPUTS',""))
+                           (global_options.input_dir, run_env.get('TEXINPUTS', ""))
 
-    ### unknown why this is necessary
+    # unknown why this is necessary
     universal_newlines = True
     if sys.platform == 'mingw32':
         universal_newlines = False
-        ### use os.system to avoid weird sleep() problems on
-        ### GUB's python 2.4.2 on mingw
+        # use os.system to avoid weird sleep() problems on
+        # GUB's python 2.4.2 on mingw
         # make file to write to
         output_dir = tempfile.mkdtemp()
         output_filename = os.path.join(output_dir, 'output.txt')
         # call command
         cmd += " > %s" % output_filename
-        oldtexinputs = os.environ.get ('TEXINPUTS')
+        oldtexinputs = os.environ.get('TEXINPUTS')
         os.environ['TEXINPUTS'] = run_env['TEXINPUTS']
         returncode = os.system(cmd)
         if oldtexinputs:
@@ -234,71 +233,71 @@ def get_latex_textwidth (source, global_options):
             del os.environ['TEXINPUTS']
         parameter_string = open(output_filename).read()
         if returncode != 0:
-            warning (_ ("Unable to auto-detect default settings:\n"))
+            warning(_("Unable to auto-detect default settings:\n"))
         # clean up
         os.remove(output_filename)
         os.rmdir(output_dir)
     else:
-        proc = subprocess.Popen (cmd,
-            env=run_env,
-            universal_newlines=universal_newlines,
-            shell=True,
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        (parameter_string, error_string) = proc.communicate ()
+        proc = subprocess.Popen(cmd,
+                                env=run_env,
+                                universal_newlines=universal_newlines,
+                                shell=True,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (parameter_string, error_string) = proc.communicate()
         if proc.returncode != 0:
-            warning (_ ("Unable to auto-detect default settings:\n%s")
+            warning(_("Unable to auto-detect default settings:\n%s")
                     % error_string)
-    os.unlink (tmpfile)
-    if os.path.exists (auxfile):
-        os.unlink (auxfile)
-    if os.path.exists (logfile):
-        parameter_string = open (logfile).read()
-        os.unlink (logfile)
+    os.unlink(tmpfile)
+    if os.path.exists(auxfile):
+        os.unlink(auxfile)
+    if os.path.exists(logfile):
+        parameter_string = open(logfile).read()
+        os.unlink(logfile)
 
     columns = 0
-    m = re.search ('columns=([0-9.]+)', parameter_string)
+    m = re.search('columns=([0-9.]+)', parameter_string)
     if m:
-        columns = int (m.group (1))
+        columns = int(m.group(1))
 
     columnsep = 0
-    m = re.search ('columnsep=([0-9.]+)pt', parameter_string)
+    m = re.search('columnsep=([0-9.]+)pt', parameter_string)
     if m:
-        columnsep = float (m.group (1))
+        columnsep = float(m.group(1))
 
-    m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
+    m = re.search('textwidth=([0-9.]+)pt', parameter_string)
     if m:
-        textwidth = float (m.group (1))
+        textwidth = float(m.group(1))
     else:
-        warning (_ ("cannot detect textwidth from LaTeX"))
+        warning(_("cannot detect textwidth from LaTeX"))
         return textwidth
 
-    debug ('Detected values:')
-    debug ('  columns = %s' % columns)
-    debug ('  columnsep = %s' % columnsep)
-    debug ('  textwidth = %s' % textwidth)
+    debug('Detected values:')
+    debug('  columns = %s' % columns)
+    debug('  columnsep = %s' % columnsep)
+    debug('  textwidth = %s' % textwidth)
 
     if m and columns:
         textwidth = (textwidth - columnsep) / columns
-        debug ('Adjusted value:')
-        debug ('  textwidth = %s' % textwidth)
+        debug('Adjusted value:')
+        debug('  textwidth = %s' % textwidth)
 
     return textwidth
 
 
-def modify_preamble (chunk):
-    str = chunk.replacement_text ()
-    if (re.search (r"\\begin *{document}", str)
-      and not re.search ("{graphic[sx]", str)):
-        str = re.sub (r"\\begin{document}",
-               r"\\usepackage{graphics}" + '\n'
-               + r"\\begin{document}",
-               str)
+def modify_preamble(chunk):
+    str = chunk.replacement_text()
+    if (re.search(r"\\begin *{document}", str)
+            and not re.search("{graphic[sx]", str)):
+        str = re.sub(r"\\begin{document}",
+                     r"\\usepackage{graphics}" + '\n'
+                     + r"\\begin{document}",
+                     str)
         chunk.override_text = str
 
 
 class BookLatexOutputFormat (book_base.BookOutputFormat):
-    def __init__ (self):
-        book_base.BookOutputFormat.__init__ (self)
+    def __init__(self):
+        book_base.BookOutputFormat.__init__(self)
         self.format = "latex"
         self.default_extension = ".tex"
         self.snippet_res = Latex_snippet_res
@@ -307,51 +306,51 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
         self.image_formats = "ps"
         self.snippet_option_separator = '\s*,\s*'
 
-    def process_options (self, global_options):
-        self.process_options_pdfnotdefault (global_options)
+    def process_options(self, global_options):
+        self.process_options_pdfnotdefault(global_options)
 
-    def get_line_width (self, source):
-        textwidth = get_latex_textwidth (source, self.global_options)
+    def get_line_width(self, source):
+        textwidth = get_latex_textwidth(source, self.global_options)
         return '%.0f\\pt' % textwidth
 
-    def input_fullname (self, input_filename):
+    def input_fullname(self, input_filename):
         # Use kpsewhich if available, otherwise fall back to the default:
         try:
-            trial = subprocess.run (['kpsewhich', input_filename],
-                                    check=True, stdout=subprocess.PIPE).stdout
+            trial = subprocess.run(['kpsewhich', input_filename],
+                                   check=True, stdout=subprocess.PIPE).stdout
             if trial:
                 return trial
         except subprocess.CalledProcessError:
             pass
 
-        return book_base.BookOutputFormat.input_fullname (self, input_filename)
+        return book_base.BookOutputFormat.input_fullname(self, input_filename)
 
-    def process_chunks (self, chunks):
+    def process_chunks(self, chunks):
         for c in chunks:
-            if (c.is_plain () and
-              re.search (r"\\begin *{document}", c.replacement_text())):
-                modify_preamble (c)
+            if (c.is_plain() and
+                    re.search(r"\\begin *{document}", c.replacement_text())):
+                modify_preamble(c)
                 break
         return chunks
 
-    def snippet_output (self, basename, snippet):
+    def snippet_output(self, basename, snippet):
         str = ''
-        rep = snippet.get_replacements ();
-        rep['base'] = basename.replace ('\\', '/')
-        rep['filename'] = os.path.basename (snippet.filename).replace ('\\', '/')
+        rep = snippet.get_replacements()
+        rep['base'] = basename.replace('\\', '/')
+        rep['filename'] = os.path.basename(snippet.filename).replace('\\', '/')
         rep['ext'] = snippet.ext
         if book_snippets.PRINTFILENAME in snippet.option_dict:
             str += self.output[book_snippets.PRINTFILENAME] % rep
         if book_snippets.VERBATIM in snippet.option_dict:
-            rep['verb'] = snippet.verb_ly ()
+            rep['verb'] = snippet.verb_ly()
             str += self.output[book_snippets.VERBATIM] % rep
 
         str += self.output[book_snippets.OUTPUT] % rep
 
-        ## todo: maintain breaks
+        # todo: maintain breaks
         if 0:
-            breaks = snippet.ly ().count ("\n")
-            str += "".ljust (breaks, "\n").replace ("\n","%\n")
+            breaks = snippet.ly().count("\n")
+            str += "".ljust(breaks, "\n").replace("\n", "%\n")
 
         if book_snippets.QUOTE in snippet.option_dict:
             str = self.output[book_snippets.QUOTE] % {'str': str}
@@ -359,4 +358,4 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
         return str
 
 
-book_base.register_format (BookLatexOutputFormat ());
+book_base.register_format(BookLatexOutputFormat())

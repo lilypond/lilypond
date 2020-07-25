@@ -49,9 +49,6 @@
 @email{t.daniels@@treda.co.uk},
 Assistant documentation editor
 
-@item Colin Hall:
-Bug meister
-
 @item Phil Holmes:
 @email{mail@@philholmes.net}
 @uref{http://www.philholmes.net}
@@ -62,9 +59,12 @@ Build unentangler, Bug squad member
 hard core developer, user and programming interfaces, bug squashing and
 swamp drainage.
 
-@item Werner Lemberg,
+@item Werner Lemberg:
 @email{wl@@gnu.org},
 Fonts, bug squasher
+
+@item James Lowe:
+Patch meister
 
 @item Han-Wen Nienhuys:
 @email{hanwen@@xs4all.nl},
@@ -77,21 +77,14 @@ Main author
 @uref{http://AvatarAcademy.nl},
 Main author
 
-@item Mark Polesky:
-Documentation, Code cleanup
-
 @item Carl Sorensen:
 @email{c_sorensen@@byu.edu},
 Core developer
 
 @item Francisco Vila:
-Translation Meister
+Translation meister
 
 @item Valentin Villenave:
-Core developer
-
-@item Janek Warchoł:
-@email{janek.lilypond@@gmail.com},
 Core developer
 
 @end itemize
@@ -113,6 +106,9 @@ Support guru
 @item Bertrand Bordage:
 @email{bordage.bertrand@@gmail.com},
 Core developer, font designer
+
+@item Colin Hall:
+Bug meister
 
 @item Ian Hulin:
 Core developer
@@ -142,6 +138,9 @@ SVG guru, bug squad member, bug squasher, text handling
 @uref{http://percival-music.ca},
 Bug meister, Grand Documentation Project leader
 
+@item Mark Polesky:
+Documentation, Code cleanup
+
 @item Neil Puttock:
 Core developer
 
@@ -160,6 +159,10 @@ Bug meister
 @item Nicolas Sceaux:
 Core developer, Schemer extraordinaire
 
+@item Janek Warchoł:
+@email{janek.lilypond@@gmail.com},
+Core developer
+
 @end itemize
 @end macro
 
@@ -170,28 +173,38 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
-Guido Aulisi,
-Joe Austin,
-Federico Bruni,
-Nathan Chou,
+Don Armstrong,
+Kevin Barry,
+Robin Bannister,
+Étienne Beaulé,
+Davide Bonetti,
 Dan Eble,
-John Gourlay,
-Marc Hohl,
+Hassan Elfatihi,
+Frederic Gohier,
+Adam Good,
+David Stephen Grant,
+Torsten Hämmerle,
+Jonas Hahnfeld,
+Karlin High,
 Masamichi Hosoda,
-Mark Knoop,
-Tobias Kretschmar,
-Vincent Le Ligeour,
-James Lowe,
+Patrice Levesque,
+Urs Liska,
+John Mandereau,
+Malte Meyn,
 Thomas Morley,
-Paul Morris,
+Lukas-Fabian Moser,
+Alexander Myltsev,
 David Nalesnik,
-Keith OHara,
+Martin Neubauer,
+Antonio Ospite,
 Benkő Pál,
 Knut Petersen,
-Julien Rioux,
-Ben Rudiak-Gould,
-Devon Schudy,
-Heikki Tauriainen
+Matthew Peveler,
+Jean Abou Samra,
+Simon Tatham,
+Bernhard M. Wiedemann,
+Jaap de Wolff,
+Boris-Chengbiao Zhou
 
 @c no comma for last entry
 
@@ -203,10 +216,7 @@ Heikki Tauriainen
 
 @c use commas not colons
 
-Jay Anderson,
-Masamichi Hosoda,
-Abraham Lee
-
+Torsten Hämmerle
 
 @c no comma for last entry
 
@@ -219,17 +229,21 @@ Abraham Lee
 @c use commas not colons
 
 Simon Albrecht,
-Frédéric Bron,
+Kevin Barry,
+Bernhard Bloechl,
 Federico Bruni,
-Colin Campbell,
+Torsten Hämmerle,
+Karlin High,
+Masamichi Hosoda,
+Michael Käppler,
+Davide Liessi,
 Urs Liska,
-James Lowe,
+Malte Meyn,
 Thomas Morley,
-Jean-Charles Malahieude,
-Patrick Schmidt,
-Pierre Perol-Schneider,
-Greg Swinford,
-Martin Tarenskeen
+Paul Morris,
+Noam Postavsky,
+Andrej Shadura,
+Fr. Samuel Springuel
 
 @c no comma for last entry
 
@@ -278,25 +292,17 @@ Tao
 @end macro
 
 
-
 @macro translationsCurrent
 
 @c use commas not colons
 
+Caio Barros,
 Federico Bruni,
-Luca Rossetto Casel,
-Felipe Castro,
-Pavel Fric,
+Rafael Fontenelle,
 Walter Garcia-Fontes,
-Tommaso Gordini,
-Erika Griechisch,
-Denes Harmath,
-Masamichi Hosoda,
+Hiroshi Fukuhara,
 Jean-Charles Malahieude,
-Till Paala,
-Yoshiki Sawada,
-Tomohiro Tatejima,
-Paco Tomillo
+Tomohiro Tatejima
 
 @c no comma for last entry
 
@@ -313,21 +319,27 @@ Erlend Aasland,
 Maximilian Albert,
 Aleksandr Andreev,
 Guido Amoruso,
+Guido Aulisi,
+Joe Austin,
 Sven Axelsson,
 Kristof Bastiaensen,
 Pál Benkő,
 Frédéric Bron,
+Federico Bruni,
+Nathan Chou,
 Juliusz Chroboczek,
 Peter Chubb,
 Angelo Contardi,
 Vicente Solsona Della,
 Hajo Dezelski,
 Michael Welsh Duggan,
+Dan Eble,
 David Feuer,
 Bertalan Fodor,
 Richard Gay,
 Mathieu Giraud,
 Lisa Opus Goldstein,
+John Gourlay,
 Torsten Hämmerle,
 Yuval Harel,
 Andrew Hawryluk,
@@ -335,6 +347,7 @@ Christian Hitz,
 Karin Hoethker,
 Rutger Hofmann,
 Marc Hohl,
+Masamichi Hosoda,
 Bernard Hurley,
 Yoshinobu Ishizaki,
 Chris Jackson,
@@ -344,14 +357,20 @@ Heikki Junes,
 Michael Käppler,
 Thomas Klausner,
 Marek Klein,
+Mark Knoop,
 Michael Krause,
+Tobias Kretschmar,
 Jean-Baptiste Lamy,
+Vincent Le Ligeour,
 Jonatan Liljedahl,
+James Lowe,
 Peter Lutek,
 Andrew Main,
 Kieren MacMillan,
 Hendrik Maryns,
 Thomas Morgan,
+Thomas Morley,
+Paul Morris,
 David Nalesnik,
 Matthias Neeracher,
 Keith OHara,
@@ -359,16 +378,19 @@ Justin Ohmie,
 Tatsuya Ono,
 Benkő Pál,
 Benjamin Peterson,
+Knut Petersen,
 Guy Gascoigne-Piggford,
 Anders Pilegaard,
 Henning Hraban Ramm,
 Nathan Reed,
 Julien Rioux,
 Johannes Rohrer,
+Ben Rudiak-Gould,
 Stan Sanderson,
 Andreas Scherer,
 Johannes Schindelin,
 Patrick Schmidt,
+Devon Schudy,
 Boris Shingarov,
 Kim Shrier,
 Edward Sanford Sutton,
@@ -396,8 +418,10 @@ Rodolfo Zitellini
 
 @c use commas not colons
 
+Jay Anderson,
 Tom Cato Amundsen,
 Marc Hohl,
+Masamichi Hosoda,
 Chris Jackson,
 Alexander Kobel,
 Abraham Lee,
@@ -417,8 +441,11 @@ Rune Zedeler
 @c use commas not colons
 
 Erlend Aasland,
+Simon Albrecht,
 Trevor Bača,
 Alard de Boer,
+Frédéric Bron,
+Federico Bruni,
 Colin Campbell,
 Jay Hamilton,
 Joseph Harfouch,
@@ -427,13 +454,17 @@ Cameron Horsburgh,
 Geoff Horton,
 Heikki Junes,
 Kurtis Kroon,
+Urs Liska,
 James Lowe,
 Dave Luttinen,
 Kieren MacMillan,
+Jean-Charles Malahieude,
 Christian Mondrup,
 Mike Moral,
+Thomas Morley,
 Eyolf Østrem,
 Ralph Palmer,
+Pierre Perol-Schneider,
 François Pinard,
 David Pounder,
 Michael Rasmussen,
@@ -442,6 +473,8 @@ Pavel Roskin,
 Patrick Schmidt,
 Alberto Simoes,
 Guy Stalnaker,
+Greg Swinford,
+Martin Tarenskeen,
 Arnold Theresius,
 Anh Hai Trinh,
 Eduardo Vieira,
@@ -458,8 +491,10 @@ Rodolfo Zitellini
 
 @c use commas not colons
 
-Colin Campbell,
+Simon Albrecht,
 James E. Bailey,
+Federico Bruni,
+Colin Campbell,
 Eluze,
 Phil Holmes,
 Derek Klinge,
@@ -477,13 +512,28 @@ Dmytro O. Redchuk
 
 @c use commas not colons
 
+Simon Albrecht,
 Colin Campbell,
+Eluze,
 Anthony Fok,
 Christian Hitz,
+Marc Hohl,
 Phil Holmes,
 Chris Jackson,
 Heikki Junes,
-David Svoboda
+Marek Klein,
+Urs Liska,
+Alex Loomis,
+Kieren MacMillan,
+Tim McNamara,
+Thomas Morley,
+Paul Morris,
+David Nalesnik,
+Ralph Palmer,
+Pierre Perol-Schneider,
+Neil Puttock,
+David Svoboda,
+Tao
 
 @c no comma for last entry
 
@@ -497,14 +547,21 @@ David Svoboda
 
 Alard de Boer,
 Federico Bruni,
+Luca Rossetto Casel,
+Felipe Castro,
 Abel Cheung,
 Frédéric Chiasson,
 Simon Dahlbacka,
 Orm Finnendahl,
+Pavel Fric,
+Walter Garcia-Fontes,
 David González,
+Tommaso Gordini,
 Nicolas Grandclaude,
+Erika Griechisch,
 Dénes Harmath,
 Damien Heurtebise,
+Masamichi Hosoda,
 Bjoern Jacke,
 Matthieu Jacquot,
 Neil Jerram,
@@ -525,6 +582,8 @@ Thomas Scharkowski,
 Clytie Siddall,
 August S. Sigov,
 Roland Stigge,
+Tomohiro Tatejima,
+Paco Tomillo,
 Risto Vääräniemi,
 Andrea Valle,
 Ralf Wildenhues,

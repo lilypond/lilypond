@@ -120,12 +120,13 @@
 ;; markup macro since \markup { a b c } -> \markup \line { a b c }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-markup-command (line layout props args)
-  (markup-list?)
-  #:category align
-  #:properties ((word-space)
-                (text-direction RIGHT))
-  "Put @var{args} in a horizontal line.  The property @code{word-space}
+(eval-early
+  (define-markup-command (line layout props args)
+    (markup-list?)
+    #:category align
+    #:properties ((word-space)
+                  (text-direction RIGHT))
+    "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between markups in @var{args}.
 
 @lilypond[verbatim,quote]
@@ -135,10 +136,10 @@ determines the space between markups in @var{args}.
   }
 }
 @end lilypond"
-  (let ((stencils (interpret-markup-list layout props args)))
-    (if (= text-direction LEFT)
-        (set! stencils (reverse stencils)))
-    (stack-stencil-line word-space stencils)))
+    (let ((stencils (interpret-markup-list layout props args)))
+      (if (= text-direction LEFT)
+          (set! stencils (reverse stencils)))
+      (stack-stencil-line word-space stencils))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; geometric shapes

@@ -916,7 +916,7 @@ Um artigo francês sobre o lançamento do LilyPond 2.6 apareceu em
 Outubro de 2004
 
 Os editores da Computer!Totaal, uma revista de computador holandesa,
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg, descreve
+@staticFile{media/computer-totaal.jpeg, descreve
 o LilyPond} na edição de outubro de 2004 como: @qq{Software maravilhoso
 (de código aberto) livre [@dots{}] A partitura produzida por LilyPond
 é excepcionalmente bonita [@dots{}] um sistema muito poderoso que pode

@@ -1,9 +1,8 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 2eaeb5aaf92eb307dae3b36e742da7d8b680e373
   texidoces = "
 Es posible ejercer un mayor control sobre la colocación de las
 digitaciones de la mano derecha estableciendo el valor de una
-propiedad específica, como se muestra en el ejemplo siguiente.  Nota:
-se debe usar una construcción de acorde.
+propiedad específica, como se muestra en el ejemplo siguiente.
 
 "
   doctitlees = "Posicionamiento de digitaciones de mano derecha"

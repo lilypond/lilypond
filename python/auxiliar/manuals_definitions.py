@@ -31,4 +31,4 @@ references_dict = {
     'snippets': 'rlsr',
     'usage': 'rprogram',
     'internals': 'rinternals',
-    }
+}

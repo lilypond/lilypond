@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5f0cb967f1e52a15b32d5dc0a2cba98eb77bc2a3
+    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -871,23 +871,83 @@ darkcyan    darkmagenta    darkyellow
 @end example
 
 
+@subsubheading Nombre de los colores de CSS
+
+Los nombres de colores de CSS se pueden usar tal cual dentro de
+argumentos de cadena de caracteres.
+
+@example
+aliceblue       darkturquoise        lightsalmon        papayawhip
+antiquewhite    darkviolet           lightseagreen      peachpuff
+aqua            deeppink             lightskyblue       peru
+aquamarine      deepskyblue          lightslategray     pink
+azure           dimgray              lightslategrey     plum
+beige           dimgrey              lightsteelblue     powderblue
+bisque          dodgerblue           lightyellow        purple
+black           firebrick            lime               rebeccapurple
+blanchedalmond  floralwhite          limegreen          red
+blue            forestgreen          linen              rosybrown
+blueviolet      fuchsia              magenta            royalblue
+brown           gainsboro            maroon             saddlebrown
+burlywood       ghostwhite           mediumaquamarine   salmon
+cadetblue       gold                 mediumblue         sandybrown
+chartreuse      goldenrod            mediumorchid       seagreen
+chocolate       gray                 mediumpurple       seashell
+coral           green                mediumseagreen     sienna
+cornflowerblue  greenyellow          mediumslateblue    silver
+cornsilk        grey                 mediumspringgreen  skyblue
+crimson         honeydew             mediumturquoise    slateblue
+cyan            hotpink              mediumvioletred    slategray
+darkblue        indianred            midnightblue       slategrey
+darkcyan        indigo               mintcream          snow
+darkgoldenrod   ivory                mistyrose          springgreen
+darkgray        khaki                moccasin           steelblue
+darkgreen       lavender             navajowhite        tan
+darkgrey        lavenderblush        navy               teal
+darkkhaki       lawngreen            oldlace            thistle
+darkmagenta     lemonchiffon         olive              tomato
+darkolivegreen  lightblue            olivedrab          turquoise
+darkorange      lightcoral           orange             violet
+darkorchid      lightcyan            orangered          wheat
+darkred         lightgoldenrodyellow orchid             white
+darksalmon      lightgray            palegoldenrod      whitesmoke
+darkseagreen    lightgreen           palegreen          yellow
+darkslateblue   lightgrey            paleturquoise      yellowgreen
+darkslategray   lightpink            palevioletred
+darkslategrey
+@end example
+
+Las definiciones de colores de CSS difieren de los nombres de
+colores de X por los colres siguientes: @code{green}, @code{grey},
+@code{maroon}, @code{purple}.
+
 @subsubheading Nombres de los colores de X
 
-Los nombres de los colores de X admiten algunas variantes:
+Los @uref{https://en.wikipedia.org/wiki/X11_color_names, nombres
+de los colores de X11} ofrecen un abanico de opciones más amplio
+que los nombres de CSS. Admiten distintas variantes:
 
+@itemize @bullet
+@item
 Un nombre que se escribe como una palabra única con mayúsculas
 intercaladas (p.ej. @q{LightSlateBlue}) se puede escribir también
-como palabras separadas por espacios y sin mayúsculas
+como palabras separadas por espacios, con o sin mayúsculas
 (p.ej. @q{light slate blue}).
 
+@item
 La palabra @q{grey} siempre se puede escribir como @q{gray}
-(p.ej. @q{DarkSlateGray}).
+(p.ej. @q{DarkSlateGray}), sin ninguna diferencia en el resultado.
 
+@item
 Algunos nombres admiten un sufijo numérico
 (p.ej. @q{LightSalmon4}).
+@end itemize
 
+Las tablas siguientes presentan todos los nombres de colores que
+se pueden usar sin un sufijo numérico y después el subconjunto de
+ellos que se pueden usar con un sufijo.
 
-@subsubheading Nombres de los colores sin sufijo numérico:
+@subsubheading Nombres de los colores sin sufijo numérico
 
 @example
 AliceBlue       LawnGreen             OrangeRed      firebrick
@@ -929,7 +989,8 @@ LavenderBlush   OliveDrab             cyan           yellow
 
 @subsubheading Nombres de los colores con sufijo numérico
 
-En los nombres siguientes, el sufijo N puede ser un número del 1 al 4:
+En los nombres siguientes, el sufijo N debe ser un número entero
+entre 1 y@tie{}4, de más claro a más oscuro:
 
 @example
 AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN
@@ -1012,7 +1073,7 @@ Para ver más información, consulte @ref{Formatear el texto}.
 * Glifos de corchetes::
 * Glifos de puntillos::
 * Glifos de matices dinámicos::
-* Grifos de inscripciones::
+* Glifos de inscripciones::
 * Glifos de flechas::
 * Glifos de puntas de corchete::
 * Glifos de pedal::
@@ -1150,8 +1211,8 @@ Para ver más información, consulte @ref{Formatear el texto}.
 @end lilypond
 
 
-@node Grifos de inscripciones
-@unnumberedsubsec Grifos de inscripciones
+@node Glifos de inscripciones
+@unnumberedsubsec Glifos de inscripciones
 @translationof Script glyphs
 
 @lilypond[quote]
@@ -2207,12 +2268,32 @@ legibilidad.
 @appendixsec Lista de articulaciones
 @translationof List of articulations
 
+@cindex articulaciones
+@cindex post-eventos
+@cindex inscripciones textuales
 
-Las listas siguientes relacionan todos los símbolos de la
-tipografía Emmentaler que se pueden adjuntar a las notas
-(p. ej. @samp{f\accent} o @samp{f->}).  Cada ejemplo muestra el
-símbolo en las posiciones @emph{superior}, @emph{inferior} y
-@emph{neutra}, respectivamente.
+En la lógica interna de LilyPond, una @q{articulación} es
+cualquier objeto (que no sea una indicación de matiz dinámico) que
+puede ser adosado directamente después de un evento rítmico (o con
+una duración): notas, acordes; incluso silencios y saltos, o el
+artificio de acorde vacío @code{<>} (véase
+@rlearning{Estructura de un elemento de nota}).  Incluso las
+ligaduras de expresión, las digitaciones y las inscripciones
+textuales son técnicamente articulaciones, aunque estas no se
+muestran aquí.
+
+Por tanto, las listas que aparecen a continuación incluyen no solo
+las marcas de articulación, sino también todos los demás elementos
+textuales dentro de la tipografía Emmentaler que pueden ser
+adosados a notas (la forma en que se inserta un acento como
+@samp{c'\accent} o como @samp{c'->}).  Cada ejemplo muestra la
+inscripción en sus dos posibles posiciones verticales:
+respectivamente, @emph{superior} e @emph{inferior}, así como su
+posición por defecto (@emph{neutra}).  Consulte también
+@ref{Glifos de inscripciones} para ver una lista más completa de
+glifos, para su utilización con la instrucción de marcado
+@code{\musicglyph} tal y como se explica en
+@ref{Notación musical dentro de elementos de marcado}.
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -2220,8 +2301,8 @@ símbolo en las posiciones @emph{superior}, @emph{inferior} y
 @c   Bowing indications
 @c   Harmonics
 @c   Snap (Bartók) pizzicato
-@c Custom percussion staves (for "halfopen" -- not yet funindexed)
-@c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
+@c Custom percussion staves (for "halfopen" and "stopped")
+@c References for wind instruments (for "open"/"stopped")
 
 
 @menu
@@ -2254,7 +2335,20 @@ columns - JL
 @funindex -.
 @funindex \tenuto
 @funindex --
-@cindex thumb
+@cindex @q{acento}, articulación
+@cindex articulación, acento
+@cindex @q{espressivo}, articulación
+@cindex articulación, espressivo
+@cindex @q{marcato}, articulación
+@cindex articulación, marcato
+@cindex @q{portato}, articulación
+@cindex articulación, portato
+@cindex @q{staccatissimo}, articulación
+@cindex articulación, staccatissimo
+@cindex @q{staccato}, articulación
+@cindex articulación, staccato
+@cindex @q{tenuto}, articulación
+@cindex articulación, tenuto
 
 @node Indicaciones de articulación
 @unnumberedsubsec Indicaciones de articulación
@@ -2263,7 +2357,7 @@ columns - JL
 @multitable @columnfractions .22 .25 .25 .25
 
 @item
-@code{\accent} or @code{->}
+@code{\accent} o @code{->}
 @lilypond[notime,relative=2]
 f^\accent e,_\accent b'\accent
 @end lilypond
@@ -2273,28 +2367,32 @@ f^\accent e,_\accent b'\accent
 f^\espressivo e,_\espressivo b'\espressivo
 @end lilypond
 @tab
-@code{\marcato} or @code{-^}
+@code{\marcato} o @code{-^}
 @lilypond[notime,relative=2]
 f^\marcato e,_\marcato b'\marcato
 @end lilypond
 @tab
-@code{\portato} or @code{-_}
+@code{\portato} o @code{-_}
 @lilypond[notime,relative=2]
 f^\portato e,_\portato b'\portato
 @end lilypond
 
 @item
-@code{\staccatissimo} @* or @code{-!}
+@code{\staccatissimo}@tie{}o@tie{}@code{-!}
 @lilypond[notime,relative=2]
 f^\staccatissimo e,_\staccatissimo b'\staccatissimo
 @end lilypond
 @tab
-@code{\staccato} or @code{-.}
+
+@c These additional spaces improve the PDF version,
+@c without affecting the HTML rendering. -vv
+
+@code{    \staccato} o @code{-.}
 @lilypond[notime,relative=2]
 f^\staccato e,_\staccato b'\staccato
 @end lilypond
 @tab
-@code{\tenuto} or @code{--}
+@code{\tenuto} o @code{--}
 @lilypond[notime,relative=2]
 f^\tenuto e,_\tenuto b'\tenuto
 @end lilypond
@@ -2317,6 +2415,32 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \reverseturn
 @funindex \slashturn
 @funindex \haydnturn
+@cindex @q{grupeto circular barrado}, ornamento
+@cindex @q{grupeto circular de Haydn}, ornamento
+@cindex @q{grupeto circular invertido}, ornamento
+@cindex @q{grupeto circular}, ornamento
+@cindex @q{mordente descendente}, ornamento
+@cindex @q{mordente, ascendente}, ornamento
+@cindex @q{mordente, descendente}, ornamento
+@cindex @q{mordente}, ornamento
+@cindex @q{semitrino ascendente}, ornamento
+@cindex @q{semitrino descendente}, ornamento
+@cindex @q{semitrino, ascendente}, ornamento
+@cindex @q{semitrino, descendente}, ornamento
+@cindex @q{semitrino, largo}, ornamento
+@cindex @q{semitrino}, ornamento
+@cindex @q{trino}, ornamento
+@cindex ornamento, grupeto circular
+@cindex ornamento, grupeto circular de Haydn
+@cindex ornamento, grupeto circular invertido
+@cindex ornamento, mordente
+@cindex ornamento, mordente, descendente
+@cindex ornamento, mordente, ascendente
+@cindex ornamento, semitrino
+@cindex ornamento, semitrino, ascendente
+@cindex ornamento, semitrino, descendente
+@cindex ornamento, semitrino, largo
+@cindex ornamento, trino
 
 @node Indicaciones de adornos
 @unnumberedsubsec Indicaciones de adornos
@@ -2417,6 +2541,14 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @funindex \verylongfermata
 @funindex \henzeshortfermata
 @funindex \henzelongfermata
+@cindex Henze, calderón de
+@cindex calderón de Henze
+@cindex calderón o fermata
+@cindex calderón, corto
+@cindex calderón, largo
+@cindex corto, calderón
+@cindex fermata o calderón
+@cindex largo, calderón
 
 @node Indicaciones de calderón
 @unnumberedsubsec Indicaciones de calderón
@@ -2475,6 +2607,29 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @funindex \snappizzicato
 @funindex \stopped
 @funindex -+
+@cindex @q{abierta}, articulación
+@cindex @q{arco abajo}, indicación de arco
+@cindex @q{arco arriba}, indicación de arco
+@cindex @q{flageolet}, armónicos de
+@cindex @q{pulgar}, digitación
+@cindex @q{punta}, indicación de pedal
+@cindex @q{semiabierta}, articulación
+@cindex @q{snappizzicato}, signo de
+@cindex @q{talón}, indicación de pedal
+@cindex @q{tapada}, articulación
+@cindex arco abajo
+@cindex arco arriba
+@cindex armónicos de flageolet
+@cindex articulación, abierta
+@cindex articulación, semiabierta
+@cindex articulación, tapada
+@cindex digitación, pulgar
+@cindex pedal, indicación, punta
+@cindex pedal, indicación, talón
+@cindex pedal, indicación, órgano
+@cindex pie, marca de
+@cindex signo, snappizzicato
+@cindex órgano, indicación de pedal
 
 @node Indicaciones específicas de ciertos instrumentos
 @unnumberedsubsec Indicaciones específicas de ciertos instrumentos
@@ -2539,12 +2694,23 @@ f^\snappizzicato e,_\snappizzicato b'\snappizzicato
 @lilypond[notime,relative=2]
 f^\stopped e,_\stopped b'\stopped
 @end lilypond
+@tab
+@code{\thumb}
+@lilypond[notime,relative=2]
+f^\thumb e,_\thumb b'\thumb
+@end lilypond
 
 @end multitable
 
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
+@cindex @q{coda de variación}, signo
+@cindex @q{coda}, signo
+@cindex @q{segno}, signo
+@cindex signo, coda
+@cindex signo, coda de variación
+@cindex signo, segno
 
 @node Indicaciones de repetición
 @unnumberedsubsec Indicaciones de repetición
@@ -2575,6 +2741,20 @@ f^\varcoda e,_\varcoda b'\varcoda
 @funindex \ictus
 @funindex \semicirculus
 @funindex \signumcongruentiae
+@cindex @q{accentus}, articulación, gregoriana
+@cindex @q{circulus}, articulación, gregoriana
+@cindex @q{ictus}, articulación, gregoriana
+@cindex @q{semicirculus}, articulación, gregoriana
+@cindex @q{signum congruentiae}, notación mensural
+@cindex articulación, gregoriana, accentus
+@cindex articulación, gregoriana, circulus
+@cindex articulación, gregoriana, ictus
+@cindex articulación, gregoriana, semicirculus
+@cindex gregoriano, articulación, accentus
+@cindex gregoriano, articulación, circulus
+@cindex gregoriano, articulación, ictus
+@cindex gregoriano, articulación, semicirculus
+@cindex mensural, notación, signum congruentiae
 
 @node Indicaciones antiguas
 @unnumberedsubsec Indicaciones antiguas
@@ -2622,58 +2802,60 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
-@cindex percusión
-@cindex acoustic bass
-@cindex bass
-@cindex snare
-@cindex electric snare
-@cindex acoustic snare
-@cindex tom tom
-@cindex bongo
-@cindex conga
-@cindex timbale
-@cindex sidestick
-@cindex floor tom tom
-@cindex low tom tom
-@cindex high tom tom
-@cindex mid tom tom
-@cindex high hat
-@cindex pedal high hat
-@cindex open high hat
-@cindex half-open high hat
-@cindex cymbal, various
-@cindex crash cymbal
-@cindex ride cymbal
-@cindex chinese cymbal
-@cindex splash cymbal
-@cindex ride bell
-@cindex cowbell
-@cindex agogo
-@cindex high bongo
-@cindex low bongo
-@cindex mute bongo
-@cindex open bongo
-@cindex high conga
-@cindex low conga
-@cindex mute conga
-@cindex open conga
-@cindex high timbale
-@cindex low timbale
-@cindex mute timbale
-@cindex open timbale
-@cindex sidestick
-@cindex guiro
+@cindex abierto, high hat
+@cindex agogó
+@cindex bajo
+@cindex bajo acústico
+@cindex bongó
+@cindex bongó abierto
+@cindex bongó agudo
+@cindex bongó grave
+@cindex bongó tapado
 @cindex cabasa
-@cindex maracas
-@cindex whistle
-@cindex handclap
-@cindex tambourine
-@cindex vibraslap
-@cindex tam tam
+@cindex caja
+@cindex caja acústica
+@cindex caja china
+@cindex caja electrónica
+@cindex campana
+@cindex cencerro
 @cindex claves
-@cindex woodblock
+@cindex conga
+@cindex conga abierta
+@cindex conga aguda
+@cindex conga grave
+@cindex conga tapada
 @cindex cuica
-@cindex triangle
+@cindex guiro
+@cindex high hat
+@cindex high hat, de pedal
+@cindex high hat, abierto
+@cindex high hat, semiabierto
+@cindex maracas
+@cindex palmas
+@cindex pandereta
+@cindex pedal, high hat
+@cindex percusión
+@cindex platillo
+@cindex platillo, chino
+@cindex platillo, ride
+@cindex platillo, splash
+@cindex platillos, varios
+@cindex semiabierto, high hat
+@cindex sidestick
+@cindex silbato
+@cindex tam tam
+@cindex timbala
+@cindex timbala abierta
+@cindex timbala aguda
+@cindex timbala grave
+@cindex timbala tapada
+@cindex tom tom
+@cindex tom tom agudo
+@cindex tom tom de suelo
+@cindex tom tom grave
+@cindex tom tom medio
+@cindex triángulo
+@cindex vibraslap
 
 @node Notas de percusión
 @appendixsec Notas de percusión

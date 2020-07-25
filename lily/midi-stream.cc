@@ -33,18 +33,29 @@ using std::string;
 
 Midi_stream::Midi_stream (const string &file_name)
 {
-  tmp_file_name_ = String_convert::form_string ("%s.%06d", file_name.c_str (),
-                                                rand () % 1000000);
   dest_file_name_ = file_name;
-  out_file_ = fopen (tmp_file_name_.c_str (), "wbx");
-  if (!out_file_)
-    error (_f ("cannot open for write: %s: %s", tmp_file_name_.c_str (),
-               strerror (errno)));
+  int tries = 10;
+  while (tries--)
+    {
+      tmp_file_name_
+        = String_convert::form_string ("%s.%8x", file_name.c_str (), rand ());
+      out_file_ = fopen (tmp_file_name_.c_str (), "wbx");
+      if (out_file_)
+        return;
+    }
+
+  error (_f ("cannot create temp file: %s: %s", tmp_file_name_.c_str (),
+             strerror (errno)));
 }
 
 Midi_stream::~Midi_stream ()
 {
   fclose (out_file_);
+
+#ifdef __MINGW32__
+  // Windows rename will not overwrite existing destinations.
+  unlink (dest_file_name_.c_str ());
+#endif
   if (rename (tmp_file_name_.c_str (), dest_file_name_.c_str ()))
     {
       error (_f ("cannot rename `%s' to `%s'", tmp_file_name_.c_str (),

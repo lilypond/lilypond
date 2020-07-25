@@ -80,7 +80,10 @@
                    (ly:format "mark /OutputFile (~a)" output-file)
                    (if (not is-eps)
                        (ly:format "/PageSize [~$ ~$]" paper-width paper-height))
-                   "(pdfwrite) finddevice putdeviceprops setdevice"
+                   "(pdfwrite) finddevice putdeviceprops pop"
+                   ;; `setdevice` does not set some defaults. So we use
+                   ;; `selectdevide` instead.
+                   "(pdfwrite) selectdevice"
                    ;; from Resource/Init/gs_pdfwr.ps; needed here because we
                    ;; do not have the pdfwrite device initially (-dNODISPLAY).
                    "newpath fill"
@@ -99,13 +102,15 @@
                      (string-join
                       (list
                        (ly:format "mark /OutputFile (~a)" flush-name)
-                       "(pdfwrite) finddevice putdeviceprops setdevice"
+                       "(pdfwrite) finddevice putdeviceprops pop"
+                       ;; see above
+                       "(pdfwrite) selectdevice"
                        ;; see above
                        "newpath fill")
                        " "))
           (delete-file flush-name)))
 
-    (rename-file pdf-name dest)
+    (ly:rename-file pdf-name dest)
     ))
 
 (define-public (postscript->png resolution paper-width paper-height
@@ -171,7 +176,7 @@
 (define-public (close-port-rename port name)
   (let* ((tmp (port-filename port)))
     (close-port port)
-    (rename-file tmp name)))
+    (ly:rename-file tmp name)))
 
 (define-public (symlink-or-copy-if-not-exist oldpath newpath)
   (if (eq? PLATFORM 'windows)
@@ -223,6 +228,25 @@
 
 (define-public (make-tmpfile basename)
   "Returns a temp file as port. If basename is #f, a file under $TMPDIR is created."
+  (define max-try 10)
+  (define (inner basename tries)
+    (if (> tries 0)
+        (let*
+            ((name (ly:format "~a-tmp-~a" basename (random 10000000)))
+             (port (create-file-exclusive name #o666))
+             (bport #f))
+
+          (if port
+              (begin
+                (set! bport (open-file name "wb"))
+                (close-port port)
+                bport)
+
+              (make-tmpfile basename (1- tries))))
+
+        (ly:error "can't create temp file for ~a after ~a times" basename max-try)
+        ))
+
   (if (not basename)
       (set! basename (cond
                       ;; MINGW hack: TMP / TEMP may include
@@ -241,12 +265,7 @@
                                  "/tmp")
                              "/lilypond")))))
 
-  (let*
-      ((name (ly:format "~a-tmp-~a" basename (random 10000000)))
-       (port (create-file-exclusive name #o666))
-       (bport (open-file name "wb")))
-    (close-port port)
-    bport))
+  (inner basename max-try))
 
 
 (define-public (postprocess-output paper-book module formats
