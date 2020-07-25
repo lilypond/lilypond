@@ -31,11 +31,6 @@
 
 using std::string;
 
-Preinit_Global_context::Preinit_Global_context ()
-{
-  output_def_ = 0;
-}
-
 Global_context::Global_context (Output_def *o)
   : Context ()
 {
@@ -66,12 +61,6 @@ Global_context::derived_mark () const
 {
   if (output_def_)
     scm_gc_mark (output_def_->self_scm ());
-}
-
-Output_def *
-Global_context::get_output_def () const
-{
-  return output_def_;
 }
 
 void
@@ -113,12 +102,6 @@ Global_context::prepare (SCM sev)
   else
     prev_mom_ = now_mom_;
   now_mom_ = *mom;
-}
-
-Moment
-Global_context::now_mom () const
-{
-  return now_mom_;
 }
 
 Context *

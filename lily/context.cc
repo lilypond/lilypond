@@ -773,7 +773,8 @@ Context::diagnostic_id (SCM name, const string &id)
 Output_def *
 Context::get_output_def () const
 {
-  return parent_ ? parent_->get_output_def () : 0;
+  const auto *top = find_top_context (const_cast <Context *> (this));
+  return top->get_output_def ();
 }
 
 Context::~Context ()
@@ -783,11 +784,8 @@ Context::~Context ()
 Moment
 Context::now_mom () const
 {
-  Context const *p = this;
-  while (p->parent_)
-    p = p->parent_;
-
-  return p->now_mom ();
+  const auto *top = find_top_context (const_cast <Context *> (this));
+  return top->now_mom ();
 }
 
 int

@@ -25,8 +25,7 @@
 
 struct Preinit_Global_context
 {
-  Output_def *output_def_;
-  Preinit_Global_context ();
+  Output_def *output_def_ = nullptr;
 };
 
 class Global_context : Preinit_Global_context, public Context
@@ -52,8 +51,8 @@ public:
 
   void prepare (SCM);
   virtual SCM get_output ();
-  Output_def *get_output_def () const override;
-  Moment now_mom () const override;
+  Output_def *get_output_def () const override { return output_def_; }
+  Moment now_mom () const override { return now_mom_; }
 
   Moment previous_moment () const;
 protected:
