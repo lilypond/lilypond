@@ -27,7 +27,7 @@
 class Change_sequence_iterator : public Music_wrapper_iterator
 {
 public:
-  Change_sequence_iterator ();
+  Change_sequence_iterator () = default;
 
 protected:
   void create_children () override;
@@ -40,7 +40,7 @@ private:
 private:
   // There is no need to protect this in derived_mark() because it is protected
   // via Music_iterator::music_.
-  SCM change_list_;
+  SCM change_list_ = SCM_EOL;
 };
 
 #endif /* CHANGE_SEQUENCE_ITERATOR_HH */
