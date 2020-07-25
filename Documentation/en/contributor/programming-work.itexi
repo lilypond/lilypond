@@ -472,6 +472,15 @@ setlocal shiftwidth=2
 setlocal textwidth=66
 @end example
 
+@subsubheading Indenting Python files
+
+Use the following settings:
+
+@smallexample
+autopep8 -ia --ignore=E402 file.py
+@end smallexample
+
+
 @node Naming conventions
 @subsection Naming Conventions
 
