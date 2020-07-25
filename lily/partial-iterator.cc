@@ -17,14 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "simple-music-iterator.hh"
+
 #include "context.hh"
 #include "global-context.hh"
 #include "input.hh"
 #include "international.hh"
+#include "lily-guile-macros.hh"
 #include "moment.hh"
 #include "music.hh"
-#include "simple-music-iterator.hh"
-#include "lily-imports.hh"
 
 class Partial_iterator final : public Simple_music_iterator
 {
@@ -43,19 +44,10 @@ Partial_iterator::process (Moment m)
     {
       Moment length = Moment (dur->get_length ());
 
-      // Partial_iterator is an iterator rather than an engraver,
-      // so the active context it is getting called in does not
-      // depend on which context definition the engraver might be
-      // defined.
-      //
-      // Using where_defined to find the context where
-      // measurePosition should be overwritten does not actually
-      // work since the Timing_translator does not set
-      // measurePosition when initializing.
-
-      Context *timing = unsmob<Context>
-                        (Lily::ly_context_find (get_context ()->self_scm (),
-                                                ly_symbol2scm ("Timing")));
+      SCM mp_scm = SCM_EOL;
+      Context *timing
+        = get_context ()->where_defined (ly_symbol2scm ("measurePosition"),
+                                         &mp_scm);
 
       if (!timing)
         programming_error ("missing Timing in \\partial");
@@ -64,13 +56,12 @@ Partial_iterator::process (Moment m)
           set_property (timing, "partialBusy", ly_bool2scm (true));
           Global_context *g = find_global_context (get_context ());
           g->add_finalization (scm_list_3 (finalization_proc,
-                                           get_context ()->self_scm (),
+                                           timing->self_scm (),
                                            length.smobbed_copy ()));
         }
       else
         {
-          Moment mp = robust_scm2moment
-                      (get_property (timing, "measurePosition"), 0);
+          auto mp = robust_scm2moment (mp_scm, 0);
           mp.main_part_ = 0;
           set_property
           (timing, "measurePosition", (mp - length).smobbed_copy ());
@@ -86,21 +77,16 @@ IMPLEMENT_CTOR_CALLBACK (Partial_iterator);
 
 MAKE_SCHEME_CALLBACK (Partial_iterator, finalization, 2);
 SCM
-Partial_iterator::finalization (SCM ctx, SCM length)
+Partial_iterator::finalization (SCM timing_scm, SCM length_scm)
 {
-  LY_ASSERT_SMOB (Context, ctx, 1);
-  LY_ASSERT_SMOB (Moment, length, 2);
-  Context *timing = unsmob<Context>
-                    (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
-  if (!timing)
-    {
-      ::programming_error ("missing Timing in \\partial");
-      return SCM_UNSPECIFIED;
-    }
+  auto *timing = LY_ASSERT_SMOB (Context, timing_scm, 1);
+  auto *length = LY_ASSERT_SMOB (Moment, length_scm, 2);
+  if (!timing || !length)
+    return SCM_UNSPECIFIED;
+
   Moment mp = robust_scm2moment (get_property (timing, "measurePosition"), 0);
   mp.main_part_ = measure_length (timing);
-  set_property (timing, "measurePosition",
-                        (mp - *unsmob<Moment> (length)).smobbed_copy ());
+  set_property (timing, "measurePosition", (mp - *length).smobbed_copy ());
   timing->unset_property (ly_symbol2scm ("partialBusy"));
 
   return SCM_UNSPECIFIED;
