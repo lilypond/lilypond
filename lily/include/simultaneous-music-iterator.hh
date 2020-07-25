@@ -24,7 +24,7 @@
 
 #include "ly-smob-list.hh"
 
-class Simultaneous_music_iterator final : public Music_iterator
+class Simultaneous_music_iterator : public Music_iterator
 {
 public:
   Simultaneous_music_iterator ();
@@ -44,6 +44,9 @@ public:
 protected:
   void create_children () override;
   void process (Moment) override;
+
+  const ly_smob_list<Music_iterator>&
+  get_children () const { return children_list_; }
 
 private:
   ly_smob_list<Music_iterator> children_list_;
