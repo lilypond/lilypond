@@ -87,7 +87,6 @@ include_path = ['.', ]
 master_map_file = ''
 known_missing_files = []
 known_missing_files_file = ''
-docs_without_directories = ['changes', 'music-glossary']
 suppress_output = False
 suppress_language_detection = False
 initial_map = {}
@@ -99,13 +98,6 @@ for opt in options_list:
     if o == '-I' or o == '--include':
         if os.path.isdir(a):
             include_path.append(a)
-        else:
-            path_list = a.split('/')
-            file_name = path_list[len(path_list)-1]
-            if not (file_name in docs_without_directories):
-                print(a, 'is not a directory.')
-                print('Please consider adding it to the list of ')
-                print('known missing files in extract_texi_filename.py.')
     elif o == '--suppress-language-detection':
         suppress_language_detection = True
     elif o == '-o' or o == '--output':
