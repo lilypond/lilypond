@@ -774,7 +774,7 @@ the automated method with @command{lilypond-book}.
 As well as @code{lilypond-book} to integrate LilyPond output,
 there is an alternative program that can be used when using LuaTex
 called
-@uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}.
+@uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
 
 
 @node OpenOffice and LibreOffice
