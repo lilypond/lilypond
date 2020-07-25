@@ -31,10 +31,10 @@ Event_iterator::Event_iterator ()
 }
 
 void
-Event_iterator::create_children ()
+Event_iterator::create_contexts ()
 {
   descend_to_bottom_context ();
-  Simple_music_iterator::create_children ();
+  Simple_music_iterator::create_contexts ();
 }
 
 void

@@ -142,21 +142,32 @@ Sequential_iterator::create_children ()
       Music *m = unsmob<Music> (scm_car (cursor_));
       SCM it_scm = get_static_get_iterator (m);
       iter_ = unsmob<Music_iterator> (it_scm);
-      iter_->init_context (get_own_context ());
     }
 
+  // Why might a newly created iterator not be OK?  An example is a
+  // Sequential_iterator with no elements.
   while (iter_ && !iter_->ok ())
     next_element ();
 
   here_mom_ = get_music ()->start_mom ();
   la_.init (cursor_);
   la_.look_ahead ();
+}
 
-  /*
-    iter_->ok () is tautology, but what the heck.
-  */
-  if (iter_ && iter_->ok ())
-    descend_to_child (iter_->get_context ());
+void
+Sequential_iterator::create_contexts ()
+{
+  Music_iterator::create_contexts ();
+
+  if (iter_)
+    {
+      iter_->init_context (get_own_context ());
+      /*
+        iter_->ok () is tautology, but what the heck.
+      */
+      if (iter_->ok ())
+        descend_to_child (iter_->get_context ());
+    }
 }
 
 /*
@@ -204,7 +215,6 @@ Sequential_iterator::next_element ()
       Music *m = unsmob<Music> (scm_car (cursor_));
       SCM scm_it = get_static_get_iterator (m);
       iter_ = unsmob<Music_iterator> (scm_it);
-      iter_->init_context (get_own_context ());
     }
   else
     iter_ = 0;
@@ -242,6 +252,8 @@ Sequential_iterator::process (Moment until)
 
       descend_to_child (iter_->get_context ());
       next_element ();
+      if (iter_)
+        iter_->init_context (get_own_context ());
     }
 }
 

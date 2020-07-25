@@ -58,8 +58,15 @@ Music_wrapper_iterator::create_children ()
     {
       SCM it_scm = get_static_get_iterator (child);
       child_iter_ = unsmob<Music_iterator> (it_scm);
-      child_iter_->init_context (get_own_context ());
     }
+}
+
+void
+Music_wrapper_iterator::create_contexts ()
+{
+  Music_iterator::create_contexts ();
+  if (child_iter_)
+    child_iter_->init_context (get_own_context ());
 }
 
 void

@@ -44,6 +44,7 @@ public:
 
 protected:
   void create_children () override;
+  void create_contexts () override;
   void process (Moment) override;
 
   Music_iterator *get_child () { return child_iter_; }

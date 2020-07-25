@@ -50,7 +50,6 @@ Simultaneous_music_iterator::create_children ()
 {
   Music_iterator::create_children ();
 
-  int j = 0;
   children_list_.clear ();
   auto tail = children_list_.begin ();
   const ly_smob_list<Music> elements (get_property (get_music (), "elements"));
@@ -58,7 +57,20 @@ Simultaneous_music_iterator::create_children ()
     {
       SCM scm_iter = get_static_get_iterator (mus);
       Music_iterator *mi = unsmob<Music_iterator> (scm_iter);
+      tail = children_list_.insert_before (tail, mi);
+      ++tail;
+      scm_remember_upto_here_1 (scm_iter);
+    }
+}
 
+void
+Simultaneous_music_iterator::create_contexts ()
+{
+  Music_iterator::create_contexts ();
+
+  int j = 0;
+  for (auto *mi : children_list_)
+    {
       Context *c = get_context ();
       if (j && create_separate_contexts_)
         {
@@ -79,17 +91,15 @@ Simultaneous_music_iterator::create_children ()
 
       mi->init_context (c);
 
-      if (mi->ok ())
-        {
-          tail = children_list_.insert_before (tail, mi);
-          ++tail;
-        }
-      else
+      // Why might a newly created iterator not be OK?  An example is a
+      // Sequential_iterator with no elements.
+      if (!mi->ok ())
         mi->quit ();
 
-      scm_remember_upto_here_1 (scm_iter);
       ++j;
     }
+
+  children_list_.remove_if ([] (Music_iterator *mi) { return !mi->ok (); });
 }
 
 // If we have some iterators with definite next moment and no of them

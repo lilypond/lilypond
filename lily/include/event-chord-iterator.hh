@@ -39,7 +39,7 @@ public:
 
 protected:
   void process (Moment) override;
-  void create_children () override;
+  void create_contexts () override;
 };
 
 #endif // EVENT_CHORD_ITERATOR_HH

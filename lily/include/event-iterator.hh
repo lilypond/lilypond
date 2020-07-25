@@ -33,7 +33,7 @@ public:
   Event_iterator (Event_iterator const &);
 
 protected:
-  void create_children () override;
+  void create_contexts () override;
   void process (Moment) override;
 };
 

@@ -32,9 +32,9 @@ Rhythmic_music_iterator::Rhythmic_music_iterator ()
 }
 
 void
-Rhythmic_music_iterator::create_children ()
+Rhythmic_music_iterator::create_contexts ()
 {
-  Simple_music_iterator::create_children ();
+  Simple_music_iterator::create_contexts ();
   descend_to_bottom_context ();
 }
 

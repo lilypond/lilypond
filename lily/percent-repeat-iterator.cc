@@ -33,7 +33,7 @@ public:
   Percent_repeat_iterator ();
 protected:
   SCM get_music_list () const override;
-  void create_children () override;
+  void create_contexts () override;
 private:
   SCM music_tail () const;
   int starting_bar_;
@@ -47,9 +47,9 @@ Percent_repeat_iterator::Percent_repeat_iterator ()
 }
 
 void
-Percent_repeat_iterator::create_children ()
+Percent_repeat_iterator::create_contexts ()
 {
-  Sequential_iterator::create_children ();
+  Sequential_iterator::create_contexts ();
 
   descend_to_bottom_context ();
   if (!measure_position (get_context ()).main_part_)

@@ -44,6 +44,7 @@ public:
 
 protected:
   void create_children () override;
+  void create_contexts () override;
   void process (Moment) override;
   bool run_always () const override;
 

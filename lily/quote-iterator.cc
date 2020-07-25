@@ -50,6 +50,7 @@ public:
 protected:
   void derived_mark () const override;
   void create_children () override;
+  void create_contexts () override;
   Moment pending_moment () const override;
   void process (Moment) override;
   void do_quit () override;
@@ -116,6 +117,14 @@ Quote_iterator::create_children ()
 {
   Music_wrapper_iterator::create_children ();
 
+  event_vector_ = get_property (get_music (), "quoted-events");
+}
+
+void
+Quote_iterator::create_contexts ()
+{
+  Music_wrapper_iterator::create_contexts ();
+
   Context *cue_context = 0;
 
   SCM name = get_property (get_music (), "quoted-context-type");
@@ -135,8 +144,6 @@ Quote_iterator::create_children ()
   if (!cue_context)
     cue_context = get_context ()->get_default_interpreter ();
   quote_handle_.set_context (cue_context);
-
-  event_vector_ = get_property (get_music (), "quoted-events");
 }
 
 bool

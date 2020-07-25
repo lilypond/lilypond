@@ -40,7 +40,7 @@ public:
   Tuplet_iterator () = default;
 protected:
   void process (Moment m) override;
-  void create_children () override;
+  void create_contexts () override;
   void derived_mark () const override;
   Moment pending_moment () const override;
 
@@ -140,9 +140,9 @@ Tuplet_iterator::process (Moment m)
 }
 
 void
-Tuplet_iterator::create_children ()
+Tuplet_iterator::create_contexts ()
 {
-  Music_wrapper_iterator::create_children ();
+  Music_wrapper_iterator::create_contexts ();
 
   auto *child = get_child ();
   if (child && child->ok ())

@@ -50,6 +50,7 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   void create_children () override;
+  void create_contexts () override;
   void do_quit () override;
   void process (Moment) override;
   bool run_always () const override;
@@ -179,6 +180,13 @@ Lyric_combine_music_iterator::create_children ()
   Music *m = unsmob<Music> (get_property (get_music (), "element"));
   SCM it_scm = get_static_get_iterator (m);
   lyric_iter_ = unsmob<Music_iterator> (it_scm);
+}
+
+void
+Lyric_combine_music_iterator::create_contexts ()
+{
+  Music_iterator::create_contexts ();
+
   if (!lyric_iter_)
     return;
   lyric_iter_->init_context (get_context ());
@@ -187,6 +195,7 @@ Lyric_combine_music_iterator::create_children ()
 
   if (!lyrics_context_)
     {
+      Music *m = unsmob<Music> (get_property (get_music (), "element"));
       m->warning (_ ("argument of \\lyricsto should contain Lyrics context"));
     }
 

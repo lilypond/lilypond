@@ -33,11 +33,11 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
 
 protected:
-  void create_children () override;
+  void create_contexts () override;
 };
 
 void
-Context_specced_music_iterator::create_children ()
+Context_specced_music_iterator::create_contexts ()
 {
   // Change context in the wrapper before creating contexts for the wrapped
   // iterators.
@@ -84,7 +84,7 @@ Context_specced_music_iterator::create_children ()
   if (a)
     set_own_context (a);
 
-  Music_wrapper_iterator::create_children ();
+  Music_wrapper_iterator::create_contexts ();
 }
 
 IMPLEMENT_CTOR_CALLBACK (Context_specced_music_iterator);

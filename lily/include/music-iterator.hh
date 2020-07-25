@@ -118,7 +118,25 @@ public:
   Music *get_music () const;
 protected:
   Music_iterator ();
+
+  // During the staged initialization of this iterator, this method is called
+  // after the iterator has received its music, but before it receives its
+  // context.  This is the first chance to initialize state that depends on
+  // music properties, and the last chance to initialize state required for
+  // timing.  When this method is overridden, it is usually because the
+  // iterator manages child iterators, which must be created to contribute to
+  // timing calculations.
   virtual void create_children () {}
+
+  // During the staged initialization of this iterator, this method is called
+  // after the iterator's own context has been initialized.  It must initialize
+  // the contexts of any child iterators.
+  //
+  // Think twice before reading context properties here.  Other iterators'
+  // process () methods may run after this call and before this iterator's
+  // process () method runs (and may change the context properties).
+  virtual void create_contexts () {}
+
   virtual void do_quit ();
   void descend_to_child (Context *);
 

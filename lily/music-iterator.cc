@@ -80,6 +80,8 @@ Music_iterator::get_static_get_iterator (Music *m)
   p->music_length_ = m->get_length ();
   p->start_mom_ = m->start_mom ();
 
+  p->create_children ();
+
   return iter;
 }
 
@@ -89,7 +91,7 @@ Music_iterator::init_context (Context *report)
   if (!get_own_context ())
     {
       set_own_context (report);
-      create_children ();
+      create_contexts ();
     }
   else
     {
