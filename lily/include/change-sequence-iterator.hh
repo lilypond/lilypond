@@ -31,6 +31,7 @@ public:
 
 protected:
   void create_children () override;
+  Moment pending_moment () const override;
   void process (Moment) override;
 
 private:

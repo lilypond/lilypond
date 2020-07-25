@@ -31,6 +31,24 @@ Change_sequence_iterator::create_children ()
   change_list_ = get_property (get_music (), "context-change-list");
 }
 
+Moment
+Change_sequence_iterator::pending_moment () const
+{
+  auto m = Music_wrapper_iterator::pending_moment ();
+
+  if (scm_is_pair (change_list_))
+    {
+      if (auto *m2 = unsmob<Moment> (scm_caar (change_list_)))
+        {
+          // If m2 is not a moment, process () should issue a diagnostic later,
+          // so just ignore it here.
+          m = std::min(m, *m2);
+        }
+    }
+
+  return m;
+}
+
 void
 Change_sequence_iterator::process (Moment m)
 {
@@ -60,5 +78,6 @@ Change_sequence_iterator::process (Moment m)
   if (!scm_is_null (context_id))
     change_to (ly_symbol2string (context_id));
 
-  Music_wrapper_iterator::process (m);
+  if (Music_wrapper_iterator::pending_moment () <= m)
+    Music_wrapper_iterator::process (m);
 }
