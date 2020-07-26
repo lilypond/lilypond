@@ -333,14 +333,8 @@ test-baseline: test-baseline-pre
 	touch $(BASELINE_STAMP)
 
 local-check-pre:
-#       The condition involving X accepts a baseline created before we
-#       started marking completion with $(BASELINE_STAMP). (share is a
-#       symlink now.)  We should be able to remove this condition once
-#       developers have moved to newer baselines.
-	( export X=$(top-build-dir)/input/regression/out-test-baseline/share ; \
-	  ( [ -d $$X ] && [ ! -L $$X ] ) || \
-	  [ -f $(BASELINE_STAMP) ] || \
-	  ( echo "*** no baseline for comparison" 1>&2 && false ) )
+	[ -f $(BASELINE_STAMP) ] || \
+	  ( echo "*** no baseline for comparison" 1>&2 && false )
 	$(MAKE) test
 
 local-check: local-check-pre
