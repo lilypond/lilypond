@@ -48,12 +48,6 @@ Paper_outputter::Paper_outputter (SCM port, const string &format)
 
   string module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.c_str ());
-
-  /*
-    Enable errors for undefined stencil routines if
-     -dwarning-as-error is specified; else enable warnings.
-  */
-  Lily::backend_testing (output_module_);
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -122,11 +116,5 @@ Paper_outputter::close ()
   if (ly_is_port (file_))
     {
       scm_close_port (file_);
-      /*
-        Remove the "warning" definitions for missing stencil
-        expressions so that we start fresh with the next \book
-        block.  --pmccarty
-      */
-      Lily::remove_stencil_warnings (output_module_);
     }
 }

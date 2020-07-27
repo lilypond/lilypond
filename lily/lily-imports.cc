@@ -49,7 +49,6 @@ Scm_module module ("lily");
 
 Variable all_music_font_encodings ("all-music-font-encodings");
 Variable alterations_in_key ("alterations-in-key");
-Variable backend_testing ("backend-testing");
 Variable base_length ("base-length");
 Variable beam_exceptions ("beam-exceptions");
 Variable beat_structure ("beat-structure");
@@ -97,7 +96,6 @@ Variable f_parser ("%parser");
 Variable percussion_p ("percussion?");
 Variable pitchnames ("pitchnames");
 Variable pure_chain_offset_callback ("pure-chain-offset-callback");
-Variable remove_stencil_warnings ("remove-stencil-warnings");
 Variable scale_p ("scale?");
 Variable scale_to_factor ("scale->factor");
 Variable scale_layout ("scale-layout");

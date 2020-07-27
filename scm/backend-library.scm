@@ -364,29 +364,6 @@
      systems)
     to-dump-systems))
 
-(define missing-stencil-list '())
-
-(define-public (backend-testing output-module)
-  (define (missing-stencil-expression name)
-    (begin
-      (ly:warning (_ "missing stencil expression `~S'") name)
-      ""))
-
-  (for-each (lambda (x)
-              (if (not (module-defined? output-module x))
-                  (begin
-                    (module-define! output-module x
-                                    (lambda* (#:optional y . z)
-                                             (missing-stencil-expression x)))
-                    (set! missing-stencil-list (cons x missing-stencil-list)))))
-            (ly:all-stencil-commands)))
-
-(define-public (remove-stencil-warnings output-module)
-  (for-each
-   (lambda (x)
-     (module-remove! output-module x))
-   missing-stencil-list))
-
 (define-public (font-name-split font-name)
   "Return @code{(FONT-NAME . DESIGN-SIZE)} from @var{font-name} string
 or @code{#f}."
