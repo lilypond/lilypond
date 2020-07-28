@@ -399,7 +399,7 @@ except IndexError:
 
 # TODO: this might be useful for other scripts; can we make it available?
 manuals = [os.path.splitext(x)[0] for x in list(map(os.path.basename,
-                                                    glob.glob(os.path.join(topDir, 'Documentation', '*.te??'))))]
+                                                    glob.glob(os.path.join(topDir, 'Documentation', 'en', '*.te??'))))]
 #manuals = map(lambda x: 'glossary' if x=='music-glossary' else x, manuals)
 manuals.append('internals')
 

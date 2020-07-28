@@ -103,6 +103,8 @@ pages_dict = {}
 def build_pages_dict(filelist):
     """Build dictionary of available translations of each page"""
     global pages_dict
+
+    language_codes = set([l.webext for l in langdefs.LANGUAGES])
     for f in filelist:
         m = html_re.match(f)
         if m:
@@ -111,6 +113,10 @@ def build_pages_dict(filelist):
                 e = ''
             else:
                 e = g[1]
+
+            if e not in language_codes:
+                continue
+
             if not g[0] in pages_dict:
                 pages_dict[g[0]] = [e]
             else:

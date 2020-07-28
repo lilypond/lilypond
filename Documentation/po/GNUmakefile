@@ -10,8 +10,6 @@ DOC_PO_SOURCES = python/auxiliar/postprocess_html.py \
  scripts/auxiliar/tely-gettext.py scripts/auxiliar/translations-status.py
 TELY_FILES = $(shell ls $(depth)/Documentation/*.tely)
 TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/*.tely))
-LSR_LYS = $(shell ls $(depth)/Documentation/snippets/*.ly)
-TELY_FILES += $(LSR_LYS:%.ly=../%.ly)
 
 messages: $(outdir)/messages
 

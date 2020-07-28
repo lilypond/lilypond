@@ -25,8 +25,6 @@ MUSICXML2LY = $(script-dir)/musicxml2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 
-LILYPOND_BOOK_INCLUDES = -I $(src-dir) $(DOCUMENTATION_INCLUDES)
-
 ## override from cmd line to speed up.
 ANTI_ALIAS_FACTOR=2
 LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)

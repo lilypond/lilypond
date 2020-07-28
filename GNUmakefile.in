@@ -20,7 +20,7 @@ SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
 README_FILES = COPYING COPYING.FDL DEDICATION ROADMAP HACKING \
   LICENSE LICENSE.DOCUMENTATION
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
-TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/topdocs/$(outdir)/$(T).txt)
+TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/$(outdir)/topdocs/$(T).txt)
 
 RELEASE_FILES = RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
@@ -59,7 +59,7 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
 	rm -rf $(distdir)
 
 top-doc:
-	$(MAKE) -C Documentation/topdocs/ $(foreach T,$(TOPDOC_FILES),$(outdir)/$(T).txt)
+	$(MAKE) -C Documentation $(foreach T,$(TOPDOC_FILES),$(outdir)/topdocs/$(T).txt)
 
 ifneq ($(shell find $(top-src-dir) -name .git),)
 .gitfilelist: $(top-src-dir)/.git/index
@@ -140,15 +140,6 @@ WEB_TARGETS = offline
 
 WEB_ROOT_FILES = $(WEB_TARGETS:%=$(outdir)/%-root/index.html)
 
-WEB_TRACKED_FILES = $(filter-out $(outdir)/index.html, \
-                    $(shell bash -O nullglob -c "echo $(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")) \
-                    $(shell bash -O nullglob -c "echo input/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo input/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo input/*/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo input/regression/lilypond-book/$(outdir)/*.{info,tex}") \
-                    $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")
-
 WWW-post: $(top-build-dir)/.htaccess $(WEB_ROOT_FILES)
 
 # need UTF8 setting in case this is hosted on a website.
@@ -160,16 +151,24 @@ $(top-build-dir)/.htaccess:
 	  echo 'AddCharset utf-8 .nl' ; \
 	  echo 'AddCharset utf-8 .txt' ) > $@
 
-$(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
+$(outdir)/%-root/index.html: doc-build
 	$(call ly_progress,Making,$@,)
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
-	find $(outdir)/offline-root -type l | xargs rm -f
-	cd $(outdir)/offline-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
+	rm -rf $(dir $@)/
+	mkdir -p $(dir $@)/Documentation/
+	for d in . musicxml abc2ly lilypond-book ; do \
+		mkdir -p $(dir $@)/input/regression/$${d}; \
+		cp --link -a input/regression/$${d}/$(outdir)/*  $(dir $@)/input/regression/$${d}/ ; \
+	done
+	cp --link -a Documentation/$(outdir)/webdoc/* $(dir $@)/Documentation/
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$*"
+	find $(outdir)/$*-root -type l | xargs rm -f
+	cd $(outdir)/$*-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
+	perl -i -pe 's#(href)="\.\./Documentation/#\1="#g' $(dir $@)/Documentation/*html
+	perl -i -pe 's#(href)="\.\./\.\./Documentation/#\1="../#g' $(dir $@)/Documentation/*/*html
 
-$(outdir)/online-root/index.html: $(WEB_TRACKED_FILES)
-	$(call ly_progress,Making,$@,)
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) online
-	cd $(outdir)/online-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
+doc-build:
+	$(MAKE) out=www -C Documentation/ doc
+
 endif # ifeq ($(out),www)
 
 $(outdir)/website-root/index.html:

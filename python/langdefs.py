@@ -113,7 +113,7 @@ non_english_enabled_langs = [
 # wether it is run directly or imported.
 
 if __name__ == '__main__':
-    print(*[l.code for l in non_english_enabled_langs])
+    print(' '.join([l.code for l in LANGUAGES if l.enabled]))
 else:
     translation_fallback = {(l.code, lambda x: x) for l in LANGUAGES}
     if 'LYDOC_LOCALEDIR' in os.environ:
