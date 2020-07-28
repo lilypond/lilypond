@@ -35,14 +35,14 @@ import tempfile
 import warnings
 import zipfile
 
+"""
+@relocate-preamble@
+"""
+
 import musicexp
 import musicxml
 import musicxml2ly_conversion
 import utilities
-
-"""
-@relocate-preamble@
-"""
 
 # Load translation and install _() into Python's builtins namespace.
 gettext.install('lilypond', '@localedir@')

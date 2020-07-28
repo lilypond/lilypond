@@ -63,6 +63,10 @@ import subprocess
 import sys
 import tempfile
 
+"""
+@relocate-preamble@
+"""
+
 import book_base
 import book_docbook
 import book_html
@@ -71,11 +75,6 @@ import book_texinfo
 import book_snippets
 import fontextract
 import langdefs
-
-
-"""
-@relocate-preamble@
-"""
 
 # Load translation and install _() into Python's builtins namespace.
 gettext.install('lilypond', '@localedir@')
