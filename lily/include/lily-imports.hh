@@ -123,6 +123,14 @@ extern Variable volta_bracket_calc_hook_visibility;
 extern Variable write_performances_midis;
 }
 
+namespace Srfi_1
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable append_reverse;
+}
+
 namespace Syntax
 {
 extern Scm_module module;
