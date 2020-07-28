@@ -222,7 +222,7 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 		ln -s $(top-src-dir)/ly ly && \
 		ln -s ../../../../mf mf && \
 		ln -s $(top-src-dir)/ps && \
-		ln -s ../../../../python/$(outconfbase) python && \
+		ln -s $(top-src-dir)/python && \
 		ln -s $(top-src-dir)/scm && \
 		ln -s $(top-src-dir)/scripts scripts
 	cd $(tree-share-prefix)/tex && \

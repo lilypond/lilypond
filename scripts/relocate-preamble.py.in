@@ -27,20 +27,18 @@ might modify installed .pyc files.
 
 """
 
+# This is needed for installations with a non-default layout, ie where share/
+# is not next to bin/.
 sys.path.insert (0, os.path.join ('@lilypond_datadir@', 'python'))
 
-# dynamic relocation, for GUB binaries.
+# Dynamic relocation, for installations with a default layout including GUB,
+# but also for execution from the build directory.
 bindir = os.path.abspath (os.path.dirname (sys.argv[0]))
-datadir = os.path.abspath (bindir + '/../share/lilypond/current/python/')
-sys.path.insert (0, datadir)
-
-# Python scripts executed during 'make test' and 'make test-baseline'
-# must use their own versions of the scripts and the files loaded by
-# those scripts. Assume to be in such a situation if the path to the
-# script ends with 'scripts/out'.
+topdir = os.path.dirname (bindir)
 if bindir.endswith (r'/scripts/out'):
-    # only works for in-tree builds
-    sys.path.insert (0, bindir + r'/../../python')
-    # build in separate dir, but incorrect.
-    sys.path.insert (0, bindir + r'/../../python/out')
+    topdir = os.path.join (os.path.dirname (topdir), 'out')
+datadir = os.path.abspath (os.path.join (topdir, 'share', 'lilypond'))
+for v in [ 'current', '@TOPLEVEL_VERSION@' ]:
+    sys.path.insert (0, os.path.join (datadir, v, 'python'))
+
 """
