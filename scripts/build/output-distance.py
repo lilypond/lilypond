@@ -19,7 +19,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import midi
 import codecs
 import difflib
 import errno
@@ -38,7 +37,9 @@ import time
 # so we can call directly as scripts/build/output-distance.py
 me_path = os.path.abspath(os.path.split(sys.argv[0])[0])
 sys.path.insert(0, me_path + '/../../python/')
-sys.path.insert(0, me_path + '/../../python/out/')
+
+# Keep our includes after adapting sys.path above.
+import midi
 
 X_AXIS = 0
 Y_AXIS = 1

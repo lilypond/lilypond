@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.21.3\n"
+"Project-Id-Version: lilypond 2.21.4\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2020-07-12 12:50+0100\n"
+"POT-Creation-Date: 2020-07-15 14:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
