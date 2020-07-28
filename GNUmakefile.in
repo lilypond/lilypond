@@ -185,14 +185,12 @@ all-doc:
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
-tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
 
 # Don't put version numbers here. During development
 # they make no sense, and cause EPS files to become invalid.
 
 tree-share-prefix = $(tree-share)/lilypond/current
-tree-lib-prefix = $(tree-lib)/lilypond/current
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
@@ -207,10 +205,9 @@ link-tree: $(tree-share-prefix)/lilypond-force
 
 $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 	$(call ly_progress,Making,$@,)
-	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
+	cd $(top-build-dir)/$(outbase) && rm -rf bin share
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
-	mkdir -p $(tree-lib-prefix)
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
@@ -221,8 +218,6 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
 			do ln -sf ../../scripts/$(outconfbase)/$$i . ; done
-	cd $(tree-lib-prefix) && \
-		ln -s ../../../../python/$(outconfbase) python
 	cd $(tree-share-prefix) && \
 		ln -s $(top-src-dir)/ly ly && \
 		ln -s ../../../../mf mf && \

@@ -27,15 +27,12 @@ might modify installed .pyc files.
 
 """
 
-for d in ['@lilypond_datadir@',
-	  '@lilypond_libdir@']:
-    sys.path.insert (0, os.path.join (d, 'python'))
+sys.path.insert (0, os.path.join ('@lilypond_datadir@', 'python'))
 
 # dynamic relocation, for GUB binaries.
 bindir = os.path.abspath (os.path.dirname (sys.argv[0]))
-for p in ['share', 'lib']:
-    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
-    sys.path.insert (0, datadir)
+datadir = os.path.abspath (bindir + '/../share/lilypond/current/python/')
+sys.path.insert (0, datadir)
 
 # Python scripts executed during 'make test' and 'make test-baseline'
 # must use their own versions of the scripts and the files loaded by
