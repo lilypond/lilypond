@@ -49,6 +49,11 @@
 @email{t.daniels@@treda.co.uk},
 Assistant documentation editor
 
+@item Dan Eble:
+@email{dan@@faithful.be},
+@uref{http://faithful.be/sheet-music/},
+Core developer
+
 @item Phil Holmes:
 @email{mail@@philholmes.net}
 @uref{http://www.philholmes.net}
@@ -178,7 +183,6 @@ Kevin Barry,
 Robin Bannister,
 Étienne Beaulé,
 Davide Bonetti,
-Dan Eble,
 Hassan Elfatihi,
 Frederic Gohier,
 Adam Good,
@@ -333,7 +337,6 @@ Angelo Contardi,
 Vicente Solsona Della,
 Hajo Dezelski,
 Michael Welsh Duggan,
-Dan Eble,
 David Feuer,
 Bertalan Fodor,
 Richard Gay,
