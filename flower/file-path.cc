@@ -20,9 +20,6 @@
 
 #include "file-path.hh"
 
-#include <cstdio>
-#include <cerrno>
-
 #include "config.hh"
 #if HAVE_SYS_STAT_H
 #include <sys/stat.h>
@@ -44,6 +41,9 @@
 #endif
 
 #include <algorithm>
+#include <cstdio>
+#include <cerrno>
+#include <memory>
 
 using std::string;
 using std::vector;
@@ -87,14 +87,10 @@ workaround_wrapper_stat (const char *f, STRUCT_STAT *s)
       if (len == 0)
         return -1;
 
-      LPWSTR pw = new WCHAR[len];
-      MultiByteToWideChar (CP_UTF8, 0, f, -1, pw, len);
+      std::unique_ptr<WCHAR[]> pw (new WCHAR[len]);
+      MultiByteToWideChar (CP_UTF8, 0, f, -1, pw.get (), len);
 
-      int retval = _wstat (pw, s);
-
-      delete [] pw;
-
-      return retval;
+      return _wstat (pw.get (), s);
     }
 
   return FUNCTION_STAT (f, s);
