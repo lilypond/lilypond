@@ -121,6 +121,12 @@ TEXI2HTML_FLAGS += $(TEXI2HTML_ERROR_LIMIT) $(TEXI2HTML_INCLUDES) $(TEXI2HTML_IN
 	$(if $(VERBOSE),--verbose)
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 
+ifeq ($(WEB_VERSION),yes)
+TEXI2HTML_FLAGS += -D web_version
+TEXI2PDF_LOCAL_FLAGS += -D web_version
+WEB_ENV=ONLY_WEB_VERSION=v$(MAJOR_VERSION).$(MINOR_VERSION)
+endif
+
 SPLIT_HTML_MANUALS = $(TEXINFO_MANUALS)
 SPLIT_HTML_INDEX_FILES = $(SPLIT_HTML_MANUALS:%=$(outdir)/%/index.html)
 
@@ -195,7 +201,7 @@ $(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/webli
 	mkdir -p $(dir $@)
 	rm -f $(dir $@)/pictures && ln -s ../pictures $(dir $@)/pictures
 	rm -f $(dir $@)/css && ln -s ../../css $(dir $@)/css
-	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth)/../ $(TEXI2HTML)  --prefix=index --split=section $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
+	$(buildscript-dir)/run-and-check.sh "$(WEB_ENV) DEPTH=$(depth)/../ $(TEXI2HTML)  --prefix=index --split=section $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.xref-map
 	$(call ly_progress,Making,$@,< texi)
@@ -304,6 +310,11 @@ local-WWW-2: html $(OUT_BITMAP_IMAGES)
 	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "contributor changes essay extending internals learning music-glossary notation snippets usage web"
 
 endif
+
+website: $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-big-page.html) $(OUT_BITMAP_IMAGES) $(PICTURE_SYMLINKS) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
+	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh website "$(LANGS)" "" "web"
+	cp webserver/favicon.ico webserver/robots.txt webserver/tweets.xml $(outdir)/website/web/
+	cp webserver/website-dir.htaccess $(outdir)/website/web/.htaccess
 
 #########
 ### Rules
