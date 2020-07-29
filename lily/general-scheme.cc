@@ -82,6 +82,26 @@ LY_DEFINE (ly_find_file, "ly:find-file",
   return ly_string2scm (file_name);
 }
 
+LY_DEFINE (ly_rename_file, "ly:rename-file",
+           2, 0, 0, (SCM oldname, SCM newname),
+           "Rename @var{oldname} to @var{newname}. In contrast to Guile's"
+           " rename-file, this replaces the destination if it already exists.")
+{
+  LY_ASSERT_TYPE (scm_is_string, oldname, 1);
+  LY_ASSERT_TYPE (scm_is_string, newname, 1);
+
+  string oldname_s = ly_scm2string (oldname);
+  string newname_s = ly_scm2string (newname);
+
+  if (!rename_file (oldname_s.c_str (), newname_s.c_str ()))
+    {
+      error (_f ("cannot rename `%s' to `%s'", oldname_s.c_str (),
+                 newname_s.c_str ()));
+    }
+
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_randomize_rand_seed, "ly:randomize-rand-seed", 0, 0, 0, (),
            "Randomize C random generator.")
 {

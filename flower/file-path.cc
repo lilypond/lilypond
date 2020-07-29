@@ -141,6 +141,36 @@ is_dir (string file_name)
   return false;
 }
 
+bool
+rename_file (const char *oldname, const char *newname)
+{
+#if !defined (__MINGW32__)
+  return rename (oldname, newname) == 0;
+#else
+  // If the current code page is UTF-8, convert the filename to wide strings
+  // and use MoveFileExW().
+  if (GetACP () == CP_UTF8)
+    {
+      int old_len = MultiByteToWideChar (CP_UTF8, 0, oldname, -1, nullptr, 0);
+      int new_len = MultiByteToWideChar (CP_UTF8, 0, newname, -1, nullptr, 0);
+      if (old_len == 0 || new_len == 0)
+        return false;
+
+      std::unique_ptr<WCHAR[]> old_wide (new WCHAR[old_len]);
+      MultiByteToWideChar (CP_UTF8, 0, oldname, -1, old_wide.get (), old_len);
+      std::unique_ptr<WCHAR[]> new_wide (new WCHAR[new_len]);
+      MultiByteToWideChar (CP_UTF8, 0, newname, -1, new_wide.get (), new_len);
+
+      return MoveFileExW (old_wide.get (), new_wide.get (),
+                          MOVEFILE_REPLACE_EXISTING) != 0;
+    }
+
+  // Note the return value: MoveFileExA() returns 0 in case of failure, so the
+  // opposite of POSIX rename().
+  return MoveFileExA (oldname, newname, MOVEFILE_REPLACE_EXISTING) != 0;
+#endif
+}
+
 /** Find a file.
 
 Check absolute file name, search in the current dir (DUH! FIXME!),
