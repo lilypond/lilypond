@@ -3400,6 +3400,7 @@ def main():
         conversion_settings.convert_page_breaks = False
         conversion_settings.convert_page_margins = False
     conversion_settings.convert_stem_directions = options.convert_stem_directions
+    conversion_settings.convert_rest_positions = options.convert_rest_positions
 
     # Allow the user to leave out the .xml or xml on the filename
     basefilename = args[0]
