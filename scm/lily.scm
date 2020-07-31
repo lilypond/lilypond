@@ -248,7 +248,7 @@ EPS backend.")
     (backend
      ps
      "Select backend.  Possible values: 'eps, 'null,
-'ps, 'scm, 'socket, 'svg.")
+'ps, 'scm, 'svg.")
     (check-internal-types
      #f
      "Check every property assignment for types.")
