@@ -54,6 +54,11 @@ Assistant documentation editor
 @uref{http://faithful.be/sheet-music/},
 Core developer
 
+@item Jonas Hahnfeld:
+@email{hahnjo@@hahnjo.de}
+@uref{https://www.hahnjo.de/}
+Core developer, release unbreaker, GitLab manager
+
 @item Phil Holmes:
 @email{mail@@philholmes.net}
 @uref{http://www.philholmes.net}
@@ -188,7 +193,6 @@ Frederic Gohier,
 Adam Good,
 David Stephen Grant,
 Torsten Hämmerle,
-Jonas Hahnfeld,
 Karlin High,
 Masamichi Hosoda,
 Patrice Levesque,
