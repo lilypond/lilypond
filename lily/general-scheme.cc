@@ -85,7 +85,9 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 LY_DEFINE (ly_rename_file, "ly:rename-file",
            2, 0, 0, (SCM oldname, SCM newname),
            "Rename @var{oldname} to @var{newname}. In contrast to Guile's"
-           " rename-file, this replaces the destination if it already exists.")
+           " rename-file, this replaces the destination if it already exists."
+           " On Windows, fall back to copying the file contents if"
+           " @var{newname} cannot be deleted.")
 {
   LY_ASSERT_TYPE (scm_is_string, oldname, 1);
   LY_ASSERT_TYPE (scm_is_string, newname, 1);

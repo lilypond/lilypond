@@ -161,13 +161,37 @@ rename_file (const char *oldname, const char *newname)
       std::unique_ptr<WCHAR[]> new_wide (new WCHAR[new_len]);
       MultiByteToWideChar (CP_UTF8, 0, newname, -1, new_wide.get (), new_len);
 
-      return MoveFileExW (old_wide.get (), new_wide.get (),
-                          MOVEFILE_REPLACE_EXISTING) != 0;
+      // Note the return value: MoveFileExW() returns 0 in case of failure, so
+      // the opposite of POSIX rename().
+      if (MoveFileExW (old_wide.get (), new_wide.get (),
+                       MOVEFILE_REPLACE_EXISTING) != 0)
+        return true;
+
+      // Fall back to copying the file contents to the destination.
+      if (CopyFileW (old_wide.get (), new_wide.get (), FALSE) != 0)
+        {
+          // The copy succeeded, now delete the source file.
+          return DeleteFileW (old_wide.get ()) != 0;
+        }
+
+      // All failed, give up.
+      return false;
     }
 
   // Note the return value: MoveFileExA() returns 0 in case of failure, so the
   // opposite of POSIX rename().
-  return MoveFileExA (oldname, newname, MOVEFILE_REPLACE_EXISTING) != 0;
+  if (MoveFileExA (oldname, newname, MOVEFILE_REPLACE_EXISTING) != 0)
+    return true;
+
+  // Fall back to copying the file contents to the destination.
+  if (CopyFileA (oldname, newname, FALSE) != 0)
+    {
+      // The copy succeeded, now delete the source file.
+      return DeleteFileA (oldname) != 0;
+    }
+
+  // All failed, give up.
+  return false;
 #endif
 }
 
