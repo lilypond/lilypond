@@ -49,9 +49,11 @@ protected:
   Grob *first_command_column_;
   Moment command_moment_;
 
+  void initialize () override;
   void finalize () override;
   void listen_percent (Stream_event *);
 
+  void maybe_start ();
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
@@ -69,7 +71,30 @@ Percent_repeat_engraver::Percent_repeat_engraver (Context *c)
 }
 
 void
+Percent_repeat_engraver::initialize ()
+{
+  if (now_mom ().main_part_ >= 0)
+    {
+      // This is happening during a timestep, so we might (or always will?)
+      // miss the start announcement that our state machine requires.
+      //
+      // TODO: Investigate whether this could be solved more generally, with
+      // the translator framework guaranteeing that start_translation_timestep
+      // () is called exactly once per timestep in any case.
+      maybe_start ();
+    }
+}
+
+void
 Percent_repeat_engraver::start_translation_timestep ()
+{
+  maybe_start ();
+}
+
+// The "maybe" part of this is that the developers are not sure whether it is
+// possible for it to be called more than once in a given timestep.
+void
+Percent_repeat_engraver::maybe_start ()
 {
   if (now_mom ().main_part_ != command_moment_.main_part_)
     {
