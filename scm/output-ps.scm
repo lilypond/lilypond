@@ -40,20 +40,20 @@
 ;;;
 
 (define (char font i)
-  (ly:format "~a (\\~a) show"
+  (ly:format "~a (\\~a) show\n"
              (ps-font-command font)
              (ly:inexact->string i 8)))
 
 (define (circle radius thick fill)
   (ly:format
-   "~a ~4f ~4f draw_circle"
+   "~a ~4f ~4f draw_circle\n"
    (if fill
        "true"
        "false")
    radius thick))
 
 (define (dashed-line thick on off dx dy phase)
-  (ly:format "~4f ~4f ~4f [ ~4f ~4f ] ~4f draw_dashed_line"
+  (ly:format "~4f ~4f ~4f [ ~4f ~4f ] ~4f draw_dashed_line\n"
              dx
              dy
              thick
@@ -62,12 +62,12 @@
              phase))
 
 (define (draw-line thick x1 y1 x2 y2)
-  (ly:format "~4f ~4f ~4f ~4f ~4f draw_line"
+  (ly:format "~4f ~4f ~4f ~4f ~4f draw_line\n"
              (- x2 x1) (- y2 y1)
              x1 y1 thick))
 
 (define (partial-ellipse x-radius y-radius start-angle end-angle thick connect fill)
-  (ly:format "~a ~a ~4f ~4f ~4f ~4f ~4f draw_partial_ellipse"
+  (ly:format "~a ~a ~4f ~4f ~4f ~4f ~4f draw_partial_ellipse\n"
              (if fill "true" "false")
              (if connect "true" "false")
              x-radius
@@ -78,7 +78,7 @@
 
 (define (ellipse x-radius y-radius thick fill)
   (ly:format
-   "~a ~4f ~4f ~4f draw_ellipse"
+   "~a ~4f ~4f ~4f draw_ellipse\n"
    (if fill
        "true"
        "false")
@@ -101,17 +101,17 @@
         (ly:format "currentpoint ~4f ~4f rmoveto ~a moveto ~4f 0 rmoveto" x y g w)))
   (if cid?
       (ly:format
-       "/~a /CIDFont findresource ~a output-scale div scalefont setfont\n~a\n~a print_glyphs"
+       "/~a /CIDFont findresource ~a output-scale div scalefont setfont\n~a\n~a print_glyphs\n"
        postscript-font-name size
        (string-join (map (lambda (x) (apply glyph-spec x))
                          (reverse w-x-y-named-glyphs)) "\n")
        (length w-x-y-named-glyphs))
       (if (and (ly:get-option 'music-font-encodings) (string-startswith postscript-font-name "Emmentaler"))
-          (ly:format "/~a-O ~a output-scale div selectfont\n~a"
+          (ly:format "/~a-O ~a output-scale div selectfont\n~a\n"
                      postscript-font-name size
                      (string-join (map (lambda (x) (apply emglyph-spec x))
                                        w-x-y-named-glyphs) "\n"))
-          (ly:format "/~a ~a output-scale div selectfont\n~a\n~a print_glyphs"
+          (ly:format "/~a ~a output-scale div selectfont\n~a\n~a print_glyphs\n"
                      postscript-font-name size
                      (string-join (map (lambda (x)
                                          (apply glyph-spec x))
@@ -164,16 +164,16 @@
   (if (and (ly:get-option 'music-font-encodings) (string-startswith (ly:font-file-name font) "emmentaler"))
       (if (string-endswith (ly:font-file-name font)"-brace")
           (if (or (string-startswith glyph "brace1") (string-startswith glyph "brace2"))
-              (ly:format "~a ~a" (string-append (ps-font-command font) "-N" ) glyph)
+              (ly:format "~a ~a\n" (string-append (ps-font-command font) "-N" ) glyph)
               (if (or (string-startswith glyph "brace3") (string-startswith glyph "brace4"))
-                  (ly:format "~a ~a" (string-append (ps-font-command font) "-S" ) glyph)
-                  (ly:format "~a ~a" (string-append (ps-font-command font) "-O" ) glyph)))
+                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-S" ) glyph)
+                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-O" ) glyph)))
           (if (string-startswith glyph "noteheads")
-              (ly:format "~a ~a" (string-append (ps-font-command font) "-N" ) glyph)
+              (ly:format "~a ~a\n" (string-append (ps-font-command font) "-N" ) glyph)
               (if (or (string-startswith glyph "scripts") (string-startswith glyph "clefs"))
-                  (ly:format "~a ~a" (string-append (ps-font-command font) "-S" ) glyph)
-                  (ly:format "~a ~a" (string-append (ps-font-command font) "-O" ) glyph))))
-      (ly:format "~a /~a glyphshow" (ps-font-command font) glyph)))
+                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-S" ) glyph)
+                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-O" ) glyph))))
+      (ly:format "~a /~a glyphshow\n" (ps-font-command font) glyph)))
 
 (define (no-origin)
   "")
@@ -182,7 +182,7 @@
   (ly:format " ~4f ~4f moveto\n" x y))
 
 (define (polygon points blot-diameter filled?)
-  (ly:format "~a ~4l ~a ~4f draw_polygon"
+  (ly:format "~a ~4l ~a ~4f draw_polygon\n"
              (if filled? "true" "false")
              points
              (- (/ (length points) 2) 1)
@@ -194,7 +194,7 @@
          (width (- right (+ halfblot x)))
          (y (- halfblot bottom))
          (height (- top (+ halfblot y))))
-    (ly:format  "~4l draw_round_box"
+    (ly:format  "~4l draw_round_box\n"
                 (list width height x y blotdiam))))
 
 ;; save current color on stack and set new color
@@ -217,16 +217,16 @@
              (list (* -1 x) (* -1 y))))
 
 (define (resetrotation ang x y)
-  "grestore  ")
+  "grestore\n")
 
 (define (unknown)
-  "\n unknown\n")
+  "unknown\n")
 
 (define (nop . args)
   "")
 
 (define (url-link url x y)
-  (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add (~a) mark_URI"
+  (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add (~a) mark_URI\n"
              (car x)
              (car y)
              (cdr x)
@@ -235,7 +235,7 @@
 
 (define (page-link page-no x y)
   (if (number? page-no)
-      (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add ~a mark_page_link"
+      (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add ~a mark_page_link\n"
                  (car x)
                  (car y)
                  (cdr x)
@@ -279,7 +279,7 @@
     (ly:format
      "gsave currentpoint translate
 ~a setlinecap ~a setlinejoin ~a setlinewidth
-~l ~a grestore"
+~l ~a grestore\n"
      cap-numeric
      join-numeric
      thickness
@@ -289,7 +289,6 @@
      (cond ((not fill?) "stroke")
            ((positive? thickness) "gsave stroke grestore fill")
            (else "fill")))))
-
 
 (define (setscale x y)
   (ly:format "gsave ~4l scale\n"

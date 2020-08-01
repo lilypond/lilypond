@@ -132,17 +132,16 @@ src: url('~a');
          (page-height (* output-scale device-height)))
 
     (if (ly:get-option 'svg-woff)
-        (ly:outputter-output-scheme outputter `(set-paper ,paper)))
+        (eval-svg `(set-paper ,paper)))
     (dump (svg-begin page-width page-height
                      0 0 device-width device-height))
     (if (ly:get-option 'svg-woff)
-        (ly:outputter-output-scheme outputter `(set-paper #f)))
+        (eval-svg `(set-paper #f)))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
     (dump (style-defs-end))
     (dump (comment (format #f "Page: ~S/~S" page-number page-count)))
-    (ly:outputter-output-scheme outputter
-                                `(set-unit-length ,unit-length))
+    (eval-svg `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter page)
     (dump (svg-end))
     (ly:outputter-close outputter)))
@@ -167,16 +166,15 @@ src: url('~a');
          (svg-height (* output-scale device-height)))
 
     (if (ly:get-option 'svg-woff)
-        (ly:outputter-output-scheme outputter `(set-paper ,paper)))
+        (eval-svg `(set-paper ,paper)))
     (dump (svg-begin svg-width svg-height
                      left-x (- top-y) device-width device-height))
     (if (ly:get-option 'svg-woff)
-        (ly:outputter-output-scheme outputter `(set-paper #f)))
+        (eval-svg `(set-paper #f)))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
     (dump (style-defs-end))
-    (ly:outputter-output-scheme outputter
-                                `(set-unit-length ,unit-length))
+    (eval-svg `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter stencil)
     (dump (svg-end))
     (ly:outputter-close outputter)))
@@ -204,8 +202,7 @@ src: url('~a');
         (eval-svg `(set-paper #f)))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
-    (ly:outputter-output-scheme outputter
-                                `(set-unit-length ,unit-length))
+    (eval-svg `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter stencil)
     (dump (svg-end))
     (ly:outputter-close outputter)))
@@ -283,7 +280,7 @@ src: url('~a');
          (func (hashq-ref stencil-dispatch-table head)))
     (if (not func)
         (ly:error "no func for ~a, expr ~a" head expr))
-    (string-append " " (apply func (cdr expr)) " ")))
+    (string-append (apply func (cdr expr)))))
 
 (define (output-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))

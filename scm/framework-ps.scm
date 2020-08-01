@@ -740,7 +740,7 @@ mark {ly~a_stream} /CLOSE pdfmark
          (func (hashq-ref stencil-dispatch-table head)))
     (if (not func)
         (ly:error "unknown expression ~a" expr))
-    (string-append " " (apply func (cdr expr)) " ")))
+                   (apply func (cdr expr))))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((port (make-tmpfile basename))
