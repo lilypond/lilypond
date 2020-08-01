@@ -77,15 +77,16 @@
              (note-events vs))
         note<?))
 
-(define-method (rest-or-skip-events (vs <Voice-state>))
-  (define (filtered-events event-class)
-    (filter (lambda(x) (ly:in-event-class? x event-class))
-            (events vs)))
-  (let ((result (filtered-events 'rest-event)))
+(define-method (silence-events (vs <Voice-state>))
+  (let ((result (filter (lambda(x)
+                          (or (ly:in-event-class? x 'rest-event)
+                              (ly:in-event-class? x 'multi-measure-rest-event)))
+                        (events vs))))
     ;; There may be skips in the same part with rests for various
     ;; reasons.  Regard the skips only if there are no rests.
-    (if (and (not (pair? result)) (not (any-mmrest-events vs)))
-        (set! result (filtered-events 'skip-event)))
+    (if (not (pair? result))
+        (set! result (filter (lambda(x) (ly:in-event-class? x 'skip-event))
+                             (events vs))))
     result))
 
 (define-method (any-mmrest-events (vs <Voice-state>))
@@ -99,6 +100,13 @@
     (if (< 0 i)
         (vector-ref v (1- i))
         #f)))
+
+;; true if the part has ended
+(define-method (done? (vs <Voice-state>))
+  (let ((i (slot-ref vs 'vector-index))
+        (v (slot-ref vs 'state-vector)))
+    ;; the last entry represents the end of the part
+    (= (1+ i) (vector-length v))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -501,15 +509,9 @@ Only set if not set previously.
                  (vs2 (cdr (voice-states now-state))))
 
             (define (analyse-synced-silence)
-              (let ((rests1 (if vs1 (rest-or-skip-events vs1) '()))
-                    (rests2 (if vs2 (rest-or-skip-events vs2) '())))
+              (let ((rests1 (if vs1 (silence-events vs1) '()))
+                    (rests2 (if vs2 (silence-events vs2) '())))
                 (cond
-
-                 ;; multi-measure rests (probably), which the
-                 ;; part-combine iterator handles well
-                 ((and (= 0 (length rests1))
-                       (= 0 (length rests2)))
-                  (set! (configuration now-state) 'unisilence))
 
                  ;; equal rests or equal skips, but not one of each
                  ((and (= 1 (length rests1))
@@ -637,44 +639,74 @@ the mark when there are no spanners active.
 
       (define (analyse-apart-silence result-idx)
         "Analyse 'apart-silence starting at RESULT-IDX.  Return next index."
+
+        (define (analyse-synced-apart-silence vs1 vs2)
+          (let* ((rests1 (silence-events vs1))
+                 (rests2 (silence-events vs2)))
+            (cond
+             ;; multiple rests in the same part
+             ((and (or (not (= 1 (length rests1)))
+                       (not (= 1 (length rests2)))))
+              (put 'apart-silence))
+
+             ;; rest with multi-measure rest: choose the rest
+             ((and (ly:in-event-class? (car rests1) 'rest-event)
+                   (ly:in-event-class? (car rests2) 'multi-measure-rest-event))
+              (put 'silence1))
+
+             ;; as above with parts swapped
+             ((and (ly:in-event-class? (car rests1) 'multi-measure-rest-event)
+                   (ly:in-event-class? (car rests2) 'rest-event))
+              (put 'silence2))
+
+             ;; mmrest in both parts: choose the shorter one
+             ;; (equal mmrests are classified as unisilence earlier,
+             ;; so they shouldn't be seen here)
+             ((and (ly:in-event-class? (car rests1) 'multi-measure-rest-event)
+                   (ly:in-event-class? (car rests2) 'multi-measure-rest-event))
+              (if (ly:duration<? (ly:event-property (car rests1) 'duration)
+                                 (ly:event-property (car rests2) 'duration))
+                  (put 'silence1)
+                  (put 'silence2)))
+
+             (else
+              (put 'apart-silence)))))
+
+        (define (analyse-unsynced-apart-silence vs1 vs2)
+          (let* ((prev-state (if (> result-idx 0)
+                                 (vector-ref result (- result-idx 1))
+                                 #f))
+                 (prev-config (if prev-state
+                                  (configuration prev-state)
+                                  'apart-silence)))
+            (cond
+             ;; remain in the silence1/2 states until resync
+             ((equal? prev-config 'silence1)
+              (put 'silence1))
+
+             ((equal? prev-config 'silence2)
+              (put 'silence2))
+
+             (else
+              (put 'apart-silence)))))
+
         (let* ((now-state (vector-ref result result-idx))
                (vs1 (current-voice-state now-state 1))
-               (vs2 (current-voice-state now-state 2))
-               (rests1 (if vs1 (rest-or-skip-events vs1) '()))
-               (rests2 (if vs2 (rest-or-skip-events vs2) '()))
-               (prev-state (if (> result-idx 0)
-                               (vector-ref result (- result-idx 1))
-                               #f))
-               (prev-config (if prev-state
-                                (configuration prev-state)
-                                'apart-silence)))
+               (vs2 (current-voice-state now-state 2)))
           (cond
-           ;; rest with multi-measure rest: choose the rest
-           ((and (synced? now-state)
-                 (= 1 (length rests1))
-                 (ly:in-event-class? (car rests1) 'rest-event)
-                 (= 0 (length rests2))) ; probably mmrest
-            (put 'silence1))
-
-           ;; as above with parts swapped
-           ((and (synced? now-state)
-                 (= 1 (length rests2))
-                 (ly:in-event-class? (car rests2) 'rest-event)
-                 (= 0 (length rests1))) ; probably mmrest
+           ;; part 1 has ended
+           ((or (not vs1) (done? vs1))
             (put 'silence2))
+
+           ;; part 2 has ended
+           ((or (not vs2) (done? vs2))
+            (put 'silence1))
 
            ((synced? now-state)
-            (put 'apart-silence))
-
-           ;; remain in the silence1/2 states until resync
-           ((equal? prev-config 'silence1)
-            (put 'silence1))
-
-           ((equal? prev-config 'silence2)
-            (put 'silence2))
+            (analyse-synced-apart-silence vs1 vs2))
 
            (else
-            (put 'apart-silence)))
+            (analyse-unsynced-apart-silence vs1 vs2)))
 
           (1+ result-idx)))
 
