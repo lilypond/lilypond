@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fc06ef9cc92c4401bc27b985fe61d46caa9787d2
+   Translation of GIT committish: 529eb23f3ddb597ae0738685d194cb88b4733054
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -222,7 +222,7 @@ d'une oblique inverse.  La chaîne @code{\a dit "b"} se saisit donc
 Il existe bien d'autres types de données Scheme, dont nous ne parlerons
 pas ici.  Vous en trouverez une liste exhaustive dans le guide de
 référence de Guile, à la page
-@uref{http://www.gnu.org/software/guile/manual/html_node/Simple-Data-Types.html}.
+@uref{http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
 
 
 @node Types de données Scheme composites
@@ -297,7 +297,7 @@ guile>
 
 Note : @code{cdr} se prononce « couldeur », comme l'indiquent Sussman et
 Abelson -- voir
-@uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
+@uref{http://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
 
 
 @node Listes
