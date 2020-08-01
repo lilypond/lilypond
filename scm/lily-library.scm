@@ -768,12 +768,12 @@ as rectangular coordinates @code{(x-length . y-length)}."
 ;; string
 
 (define-public (string-endswith s suffix)
-  (equal? suffix (substring s
+  (equal? suffix (substring/shared s
                             (max 0 (- (string-length s) (string-length suffix)))
                             (string-length s))))
 
 (define-public (string-startswith s prefix)
-  (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
+  (equal? prefix (substring/shared s 0 (min (string-length s) (string-length prefix)))))
 
 (define-public (remove-whitespace strg)
   "Remove characters satisfying @code{char-whitespace?} from string @var{strg}"
