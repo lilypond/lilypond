@@ -37,11 +37,6 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 
   Paper_outputter *po = new Paper_outputter (port, f);
 
-#if GUILEV2
-  if (f == "ps")
-    scm_set_port_encoding_x (port, ly_string2scm ("ISO-8859-1"));
-#endif
-
   po->unprotect ();
   return po->self_scm ();
 }
