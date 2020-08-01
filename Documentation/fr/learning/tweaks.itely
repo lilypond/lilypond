@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dd5581b435f6e22b492269b69e61057f4f7343a6
+   Translation of GIT committish: 8b9b4a3ebe554037ebc9c52e96328cc0999712c3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -289,9 +289,9 @@ ci-dessous change la couleur des têtes de notes :
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a b c |
 }
 @end lilypond
@@ -328,9 +328,9 @@ des deux dernières notes à leur valeur par défaut :
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \override NoteHead.color = #green
+  \override NoteHead.color = "green"
   g4 a
   \revert NoteHead.color
   b4 c |
@@ -359,9 +359,9 @@ d'une seule note :
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   c'4 d
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   e4 f |
-  \once \override NoteHead.color = #green
+  \once \override NoteHead.color = "green"
   g4 a
   \once \revert NoteHead.color
   b c |
@@ -479,8 +479,8 @@ une série d'articulations, n'en modifier qu'une seule.  Ainsi :
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 a'4^"Black"
-  -\tweak color #red ^"Red"
-  -\tweak color #green _"Green"
+  -\tweak color "red" ^"Red"
+  -\tweak color "green" _"Green"
 @end lilypond
 
 @noindent
@@ -499,8 +499,8 @@ explicitement l'objet de rendu, si tant est que LilyPond puisse remonter
 jusqu'à l'événement originel :
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-<\tweak Accidental.color #red   cis''4
- \tweak Accidental.color #green es''
+<\tweak Accidental.color "red"   cis''4
+ \tweak Accidental.color "green" es''
  g''>
 @end lilypond
 
@@ -536,7 +536,7 @@ crochet de triolet court.
 \relative c'' {
   \tweak direction #up
   \tuplet 3/4 {
-    \tweak color #red
+    \tweak color "red"
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
@@ -586,7 +586,7 @@ avons réalisé un fonction à ce effet :
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -603,7 +603,7 @@ individuellement l'une des notes d'un accord.  Nous avons vu comment un
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
-  \override NoteHead.color = #red
+  \override NoteHead.color = "red"
   \override NoteHead.font-size = 2
 }
 \relative {
@@ -1415,16 +1415,18 @@ La @code{grob-interface} indique que la valeur de la propriété
 liste est une liste de valeurs en unités internes ; pour éviter
 d'avoir à chercher ce qu'il faut y mettre, il existe différents moyens
 d'indiquer la couleur.  Le premier moyen consiste à utiliser l'une des
-couleurs @emph{normales} de la première @ruser{Liste des couleurs}.
+couleurs @emph{CSS} de la première @ruser{Liste des couleurs}.
 Pour mettre les barres de mesure en blanc, on écrit :
 
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
+@cindex CSS, couleurs
+@cindex couleurs CSS
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #white
+  \override Staff.BarLine.color = "white"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1433,24 +1435,13 @@ Pour mettre les barres de mesure en blanc, on écrit :
 
 @noindent
 et nous constatons que les barres de mesure sont une fois de plus
-invisibles.  Attention : aucune apostrophe ne précède @code{white}
--- il ne s'agit pas d'un symbole mais d'une @strong{variable}.
-Quand on l'invoque, elle fournit une liste de valeurs internes
-requises pour changer la couleur en blanc.  Les autres couleurs
-aussi, dans la « liste normale », sont des variables.  Pour en
-être certain, vous pouvez faire l'essai en choisissant une autre
-variable de la liste en guise de couleur.
-
-@cindex couleur X11
-@cindex X11, couleurs
-
-@funindex x11-color
-
-Le deuxième moyen de changer la couleur consiste à utiliser la deuxième
-@ruser{Liste des couleurs}, dite noms de couleurs X11.  Ceux-ci doivent
-obligatoirement être précédés d'une fonction, @code{x11-color},
-qui convertit les noms symboliques de couleur X11 en une liste de
-valeurs internes comme ceci :
+invisibles. Attention : aucune apostrophe ne précède @code{white} -- il
+ne s'agit pas d'un symbole, mais d'une chaîne de caractères mappée dans
+une liste prédéfinie de valeurs internes. La syntaxe de Lilypond, à ce
+propos, ressemble en tout point au @uref{https://www.w3.org/Style/CSS/,
+langage CSS} couremment utilisé pour les pages internet. En plus des
+noms prédéfinis, il est possible de spécifier une couleur par un code
+hexadécimal :
 
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
@@ -1458,7 +1449,7 @@ valeurs internes comme ceci :
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \time 12/16
-  \override Staff.BarLine.color = #(x11-color 'white)
+  \override Staff.BarLine.color = "#FFFFFF"
   c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1466,22 +1457,19 @@ valeurs internes comme ceci :
 @end lilypond
 
 @noindent
-Vous noterez que, dans ce cas, la fonction @code{x11-color} admet un
-symbole comme argument ; il faut donc placer une apostrophe devant
-le symbole de telle sorte qu'il ne soit pas interprété comme une
-variable, et insérer l'appel à la fonction à l'intérieur de
-parenthèses.
 
 @cindex rgb, couleur
 @cindex couleurs rgb
 
 @funindex rgb-color
 
-Il existe une autre fonction, chargée elle de convertir les
-valeurs RVB en couleurs internes -- la fonction @code{rgb-color}.
-Elle comporte trois arguments, donnant respectivement l'intensité
-du rouge, du vert et du bleu.  Ces arguments prennent des valeurs
-comprises entre 0 et 1.  Ainsi, pour choisir la couleur rouge, la
+Un autre moyen d'ajouter des couleurs à une partition consiste à
+recourir à une fonction. Deux fonctions sont utiles à cet égard : la
+fonction @code{x11-colors} que nous verrons plus avant, et la fonction
+@code{rgb-colors} qui, quant à elle, illustre la logique interne de
+LilyPond. Cette fonction prend trois arguments, donnant respectivement
+l'intensité du rouge, du vert et du bleu. Ces arguments prennent des
+valeurs comprises entre 0 et 1. Ainsi, pour choisir la couleur rouge, la
 valeur serait @code{(rgb-color 1 0 0)} ; pour le blanc, ce serait
 @code{(rgb-color 1 1 1)} :
 
@@ -1498,8 +1486,20 @@ valeur serait @code{(rgb-color 1 0 0)} ; pour le blanc, ce serait
 }
 @end lilypond
 
-Enfin, il existe une échelle de gris parmi les possibilités de couleurs
-X11.  Elle va du noir (@code{'grey0}) au blanc (@code{'grey100}), avec
++@noindent
+Notez bien que, dans ce cas, l'intégralité de l'appel à cette fonction
+est borné par des parenthèses. Il en va de même pour la fonction
+@code{x11-colors} que nous avions laissée de côté.
+
+@cindex couleur X11
+@cindex X11, couleurs
+
+@funindex x11-color
+La fonction @code{x11-colors}, elle aussi, convertit les noms
+symboliques de couleur en une liste de valeurs internes, mais elle offre
+plus de choix que les couleurs CSS comme on peut le constater dans la
+@ruser{Liste des couleurs}. Par exemple, elle comporte une échelle de
+gris qui va du noir (@code{'grey0}) au blanc (@code{'grey100}), avec
 un pas de 1.  Essayons de l'utiliser en attribuant à tous les objets de
 notre exemple différentes nuances de gris :
 

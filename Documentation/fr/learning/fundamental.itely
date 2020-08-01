@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c6469b28e077ea12c7167af75ac1bd3a1f09a438
+   Translation of GIT committish: 8b9b4a3ebe554037ebc9c52e96328cc0999712c3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3030,20 +3030,21 @@ comportement.
 @cindex grobs
 
 La propension des portées à se dilater se contrôle à l'aide de la
-propriété @code{staff-staff-spacing}, attachée à @qq{l'objet graphique}
+propriété @code{staff-staff-spacing}, attachée à « l'objet graphique »
 @code{VerticalAxisGroup} -- la documentation de LilyPond utilise souvent
 l'abréviation @emph{grob} pour @emph{graphical object}.  Pas de
 panique ! Tout ceci sera expliqué plus tard -- pour les curieux,
 jetez un œil au chapitre
 @ruser{Vue d'ensemble de la modification des propriétés}.
 Revenons à notre propos : nous voulons modifier uniquement la
-sous-propriété @code{stretchability}.  Les impatients trouveront les
-valeurs par défaut de la propriété @code{staff-staff-spacing} dans le
-fichier @file{scm/define-grobs.scm}, en examinant la définition du
-@emph{grob} @code{VerticalAxisGroup}.  La valeur que nous affecterons à
-@code{stretchability} est celle que contient la définition du contexte
-@code{PianoStaff} telle qu'elle apparaît dans le fichier
-@file{ly/engraver-init.ly}).
+sous-propriété @code{stretchability}. Toutes les valeurs qui n'auront
+pas été modifiées garderont leur valeur par défaut. Les impatients
+trouveront les valeurs par défaut de la propriété
+@code{staff-staff-spacing} dans le fichier @file{scm/define-grobs.scm},
+en examinant la définition du @emph{grob} @code{VerticalAxisGroup}.  La
+valeur que nous affecterons à @code{stretchability} est celle que
+contient la définition du contexte @code{PianoStaff} telle qu'elle
+apparaît dans le fichier @file{ly/engraver-init.ly}).
 
 @example
 \score @{
