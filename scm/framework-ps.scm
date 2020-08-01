@@ -729,7 +729,7 @@ mark {ly~a_stream} /CLOSE pdfmark
               (format "mark /Page ~a /Title (~a) /Count ~a\
  /View [/XYZ null null 0] /Subtype /Link /OUT pdfmark\n"
                       page-number
-                      (ps-quote (assoc-get 'text alist))
+                      (ps-quote (markup->string (assoc-get 'text alist)))
                       (length (assoc-get 'children alist)))
               port))))
      sorted-page-numbers)))

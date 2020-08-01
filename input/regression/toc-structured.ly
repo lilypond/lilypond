@@ -15,15 +15,13 @@ to not `go back in time’."
   \markuplist \table-of-contents
   \pageBreak
 
-  \tocItem \markup "Introduction"
+  \tocItem \markup \underline "Introduction"
   \markup \bold \fill-line { "Hello World." }
   \pageBreak
   \tocItem parentI \markup "First-level I."
 
   \score {
     {
-      %% See Issue #5999.
-      % \tocItem \markup "BUG: infinite loop if uncommented."
       c'1 \pageBreak
       \tocItem parentI.pIchildI \markup "Second level I. a"
       d'
