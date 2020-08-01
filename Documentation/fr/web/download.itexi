@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 7fb51c5bef0605c4f189b126172d4ee3958d5cde
+   Translation of GIT committish: ba869f4d7c52c9726ebe6fb30120a4b4ef0c737f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -95,7 +95,6 @@ version instable la plus récente
 LilyPond est publié selon les termes de la
 @ref{GPL, GNU General Public License}.
 @divEnd
-
 
 
 @divClass{column-center-bottom}

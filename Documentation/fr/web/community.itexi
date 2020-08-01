@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 9df78f69ede3b5b9dcc056a89ea0a14bbe691bd0
+   Translation of GIT committish: ba869f4d7c52c9726ebe6fb30120a4b4ef0c737f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -189,20 +189,24 @@ intéresser d'autres utilisateurs.
 @subsubheading Autres langues
 
 @quotation
-@uref{https://lilypondforum.de/,
-Forum germanophone}
-
-@uref{http://www.lilypondforum.nl/,
-Forum hollandais}
-
 @uref{http://groups.google.com/group/lilypond-brasil,
 Groupe des utilisateurs brésiliens}
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Liste de diffusion francophone}
 
+@uref{https://lilypondforum.de/,
+Forum germanophone}
+
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
 Liste de diffusion hispanophone}
+
+@uref{http://www.lilypondforum.nl/,
+Forum hollandais}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+Liste de diffusion italophone}
+
 @end quotation
 
 @divEnd
