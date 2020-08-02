@@ -30,7 +30,7 @@ The linked objects are colored with a separate command.
           (let* (
              (x-ext (ly:stencil-extent stil X))
              (y-ext (ly:stencil-extent stil Y))
-             (url-expr (list 'url-link url-strg `(quote ,x-ext) `(quote ,y-ext)))
+             (url-expr `(url-link url-strg ,x-ext ,y-ext))
              (new-stil (ly:stencil-add
                  (ly:make-stencil url-expr x-ext y-ext) stil)))
           (ly:grob-set-property! grob 'stencil new-stil)))

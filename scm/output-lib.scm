@@ -1168,15 +1168,14 @@ If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
          (self-x (ly:grob-relative-coordinate spanner common X))
          (dx (- right-x left-x))
          (exp (list 'path thickness
-                    `(quote
-                      (rmoveto
+                    `(rmoveto
                        ,(- left-x self-x) 0
 
                        rcurveto
                        ,(/ dx 3)
                        0
                        ,dx ,(* 0.66 delta-y)
-                       ,dx ,delta-y)))))
+                       ,dx ,delta-y))))
 
     (ly:make-stencil
      exp

@@ -25,17 +25,15 @@
 
 using std::string;
 
-LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
-           2, 0, 0, (SCM port, SCM format),
+LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 0, 0,
+           (SCM port, SCM callback),
            "Create an outputter that evaluates within"
            " @code{output-}@var{format}, writing to @var{port}.")
 {
   LY_ASSERT_TYPE (ly_is_port, port, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, format, 2);
+  LY_ASSERT_TYPE (ly_is_procedure, callback, 2);
 
-  string f = ly_symbol2string (format);
-
-  Paper_outputter *po = new Paper_outputter (port, f);
+  Paper_outputter *po = new Paper_outputter (port, callback);
 
   po->unprotect ();
   return po->self_scm ();
@@ -89,9 +87,9 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
-           2, 0, 0, (SCM outputter, SCM expr),
-           "Eval @var{expr} in module of @var{outputter}.")
+LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme", 2, 0, 0,
+           (SCM outputter, SCM expr),
+           "Output @var{expr} to the paper outputter.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   Paper_outputter *po = unsmob<Paper_outputter> (outputter);
@@ -99,14 +97,4 @@ LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
   po->output_scheme (expr);
 
   return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE (ly_outputter_module, "ly:outputter-module",
-           1, 0, 0, (SCM outputter),
-           "Return output module of @var{outputter}.")
-{
-  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-
-  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
-  return po->module ();
 }

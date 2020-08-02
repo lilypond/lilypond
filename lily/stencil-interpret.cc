@@ -52,14 +52,12 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
       else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
         {
           SCM grob = scm_cadr (expr);
-          SCM link
-            = sink->output (scm_list_3 (head, ly_quote_scm (to_scm (o)), grob));
+          sink->output (scm_list_3 (head, to_scm (o), grob));
           interpret_stencil_expression (scm_caddr (expr), sink, o);
-          if (scm_is_true (link))
-            sink->output (scm_list_1 (ly_symbol2scm ("no-origin")));
+          sink->output (scm_list_1 (ly_symbol2scm ("no-origin")));
           return;
         }
-            else if (scm_is_eq (head, ly_symbol2scm ("color")))
+      else if (scm_is_eq (head, ly_symbol2scm ("color")))
         {
           SCM color = scm_cadr (expr);
           if (scm_is_string (color))
@@ -86,8 +84,8 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
         {
           SCM attributes = scm_cadr (expr);
 
-          sink->output (scm_list_2 (ly_symbol2scm ("start-group-node"),
-                                    ly_quote_scm (attributes)));
+          sink->output (
+            scm_list_2 (ly_symbol2scm ("start-group-node"), attributes));
           interpret_stencil_expression (scm_caddr (expr), sink, o);
           sink->output (scm_list_1 (ly_symbol2scm ("end-group-node")));
 
@@ -132,9 +130,11 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
         }
       else
         {
-          sink->output (scm_list_4 (ly_symbol2scm ("placebox"),
-                                    to_scm (o[X_AXIS]), to_scm (o[Y_AXIS]),
-                                    expr));
+          sink->output (scm_list_3 (ly_symbol2scm ("settranslation"),
+                                    to_scm (o[X_AXIS]),
+                                    to_scm (o[Y_AXIS])));
+          sink->output (expr);
+          sink->output (scm_list_1 (ly_symbol2scm ("resettranslation")));
           return;
         }
     }

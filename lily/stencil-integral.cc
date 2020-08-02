@@ -578,7 +578,7 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
   expr = scm_cdr (expr); // font-name
   expr = scm_cdr (expr); // size
   expr = scm_cdr (expr); // cid?
-  SCM whxy = scm_cadar (expr);
+  SCM whxy = scm_car (expr);
   vector<Real> widths;
   vector<Interval> heights;
   vector<Real> xos;
@@ -705,8 +705,7 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
     interpret_stencil_for_skyline (skyline, transform, scm_caddr (expr));
   else if (scm_is_eq (head, ly_symbol2scm ("utf-8-string")))
     {
-      // 4th element, strip the (quote ..)
-      SCM orig = scm_cadar (scm_cdddr (expr));
+      SCM orig = scm_car (scm_cdddr (expr));
       interpret_stencil_for_skyline (skyline, transform, orig);
     }
   else if (scm_is_eq (head, ly_symbol2scm ("with-outline")))

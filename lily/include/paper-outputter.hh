@@ -37,18 +37,17 @@ public:
   SCM mark_smob () const;
   virtual ~Paper_outputter ();
 private:
-  SCM output_module_;
   std::string file_name_;
   Cpu_timer timer_;
   SCM file_;
+  SCM callback_;
 
 public:
-  Paper_outputter (SCM port, const std::string &format);
+  Paper_outputter (SCM port, SCM callback);
 
   void close ();
   SCM dump_string (SCM);
   SCM file () const;
-  SCM module () const;
   SCM output_scheme (SCM scm);
   void output_stencil (Stencil);
   SCM scheme_to_string (SCM);

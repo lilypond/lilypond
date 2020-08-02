@@ -76,10 +76,8 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
                      scm_cons (to_scm (p[Y_AXIS]),
                                points));
 
-  SCM expr = scm_list_4 (ly_symbol2scm ("polygon"),
-                         ly_quote_scm (points),
-                         to_scm (blot),
-                         SCM_BOOL_T);
+  SCM expr
+    = scm_list_4 (ly_symbol2scm ("polygon"), points, to_scm (blot), SCM_BOOL_T);
 
   return Stencil (b, expr);
 }
@@ -374,7 +372,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
   shrunk_box.widen (0.5 * blotdiameter, 0.5 * blotdiameter);
   box.unite (shrunk_box);
   SCM polygon_scm = scm_list_4 (ly_symbol2scm ("polygon"),
-                                ly_quote_scm (shrunk_points_scm),
+                                shrunk_points_scm,
                                 to_scm (blotdiameter),
                                 SCM_BOOL_T);
 
@@ -528,9 +526,9 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve, Real thickness)
 
   SCM horizontal_bend = scm_list_n (ly_symbol2scm ("path"),
                                     to_scm (thickness),
-                                    ly_quote_scm (commands),
-                                    ly_quote_scm (ly_symbol2scm ("round")),
-                                    ly_quote_scm (ly_symbol2scm ("round")),
+                                    commands,
+                                    ly_symbol2scm ("round"),
+                                    ly_symbol2scm ("round"),
                                     SCM_BOOL_T,
                                     SCM_UNDEFINED);
 
@@ -568,9 +566,9 @@ Lookup::repeat_slash (Real w, Real s, Real t)
 
   SCM slashnodot = scm_list_n (ly_symbol2scm ("path"),
                                to_scm (0),
-                               ly_quote_scm (controls),
-                               ly_quote_scm (ly_symbol2scm ("round")),
-                               ly_quote_scm (ly_symbol2scm ("round")),
+                               controls,
+                               ly_symbol2scm ("round"),
+                               ly_symbol2scm ("round"),
                                SCM_BOOL_T,
                                SCM_UNDEFINED);
 

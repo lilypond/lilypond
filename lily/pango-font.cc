@@ -396,7 +396,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
                              ly_string2scm (ps_name),
                              to_scm (size),
                              scm_from_bool (cid_keyed),
-                             ly_quote_scm (glyph_exprs),
+                             glyph_exprs,
                              SCM_UNDEFINED);
 
       return Stencil (b, expr);
@@ -509,7 +509,7 @@ Pango_font::text_stencil (Output_def * /* state */,
       SCM exp = scm_list_4 (ly_symbol2scm ("utf-8-string"),
                             ly_string2scm (description_string ()),
                             ly_string2scm (str),
-                            scm_list_2 (ly_symbol2scm ("quote"), dest.expr ()));
+                            dest.expr ());
 
       Box b (Interval (0, 0), Interval (0, 0));
       b.unite (dest.extent_box ());

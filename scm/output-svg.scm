@@ -21,8 +21,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
 
-;;; set by framework-gnome.scm
+;;; set by framework-svg.scm
 (define paper #f)
+
+(define (set-paper p) (set! paper p))
 
 (use-modules
  (guile)
@@ -71,9 +73,6 @@
           attributes)))
   (string-append "<g" attributes-string ">\n"))
 
-(define (end-group-node)
-  "</g>\n")
-
 (define-public (comment s)
   (string-append "<!-- " s " -->\n"))
 
@@ -117,12 +116,6 @@
 (define (string->entities string)
   (string-concatenate
    (map char->entity (string->list string))))
-
-(define svg-element-regexp
-  (make-regexp "^(<[a-z]+) ?(.*>)"))
-
-(define scaled-element-regexp
-  (make-regexp "^(<[a-z]+ transform=\")(scale.[-0-9. ]+,[-0-9. ]+.\" .*>)"))
 
 (define pango-description-regexp-comma
   (make-regexp ",( Bold)?( Italic)?( Small-Caps)?[ -]([0-9.]+)$"))
@@ -479,8 +472,18 @@
 (define glyph-string
   (if (not (ly:get-option 'svg-woff)) embedded-glyph-string woff-glyph-string))
 
+(define have-grob-cause? #f)
+
+
+
 (define (grob-cause offset grob)
-  (and (ly:get-option 'point-and-click)
+  (define (to-string x)
+    (if (string? x)
+        x
+        ""))
+
+  (to-string
+   (if (ly:get-option 'point-and-click)
        (let* ((cause (ly:grob-property grob 'cause))
               (music-origin (if (ly:stream-event? cause)
                                 (ly:event-property cause 'origin)))
@@ -498,6 +501,7 @@
                                raw-file
                                (string-append (ly-getcwd) "/" raw-file))))
 
+                (set! have-grob-cause? #t)
                 (ly:format "<a style=\"color:inherit;\" xlink:href=\"textedit://~a:~a:~a:~a\">\n"
                            ;; Backslashes are not valid
                            ;; file URI path separators.
@@ -506,12 +510,19 @@
 
                            (cadr location)
                            (caddr location)
-                           (1+ (cadddr location))))))))
+                           (1+ (cadddr location))))))
+      "")))
+
+(define (no-origin)
+  (if have-grob-cause?
+      (begin
+        (set! have-grob-cause? #f)
+        "</a>\n")
+      ""))
 
 (define (named-glyph font name)
   (fontify font name))
 
-(define (no-origin) "</a>\n")
 
 (define* (path thick commands #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
@@ -561,27 +572,6 @@
             `(fill . ,(if fill? "currentColor" "none"))
             `(d . ,(string-concatenate (convert-path-exps commands))))))
 
-(define (placebox x y expr)
-  (if (string-null? expr)
-      ""
-      (let*
-          ((normal-element (regexp-exec svg-element-regexp expr))
-           (scaled-element (regexp-exec scaled-element-regexp expr))
-           (scaled? (if scaled-element #t #f))
-           (match (if scaled? scaled-element normal-element))
-           (string1 (match:substring match 1))
-           (string2 (match:substring match 2)))
-
-        (if scaled?
-            (string-append string1
-                           (ly:format "translate(~4f, ~4f) " x (- y))
-                           string2
-                           "\n")
-            (string-append string1
-                           (ly:format " transform=\"translate(~4f, ~4f)\" "
-                                      x (- y))
-                           string2
-                           "\n")))))
 
 (define (polygon coords blot-diameter is-filled)
   (entity
@@ -594,13 +584,7 @@
    `(points . ,(string-join
                 (map offset->point (ly:list->offsets '() coords))))))
 
-(define (resetcolor)
-  "</g>\n")
-
-(define (resetrotation ang x y)
-  "</g>\n")
-
-(define (resetscale)
+(define (end-group . args)
   "</g>\n")
 
 (define (round-filled-box breapth width depth height blot-diameter)
@@ -642,6 +626,9 @@
   (ly:format "<g transform=\"scale(~4f, ~4f)\">\n"
              x y))
 
+(define (settranslation x y)
+  (ly:format "<g transform=\"translate(~4f, ~4f)\">\n" x (- y)))
+
 (define (text font string)
   (fontify font (entity 'tspan (string->entities string) #f)))
 
@@ -664,3 +651,36 @@
                          (string-regexp-substitute "&" "&amp;" string))))
     (fontify pango-font-description
              (entity 'tspan escaped-string #f))))
+
+(define (set-unit-length len)
+  (set! lily-unit-length len)
+  "")
+
+(define-public stencil-dispatch-table
+  (alist->hash-table
+   `((char . ,char)
+     (circle . ,circle)
+     (start-group-node . ,start-group-node)
+     (end-group-node . ,end-group)
+     (dashed-line . ,dashed-line)
+     (draw-line . ,draw-line)
+     (partial-ellipse . ,partial-ellipse)
+     (ellipse . ,ellipse)
+     (glyph-string . ,glyph-string)
+     (grob-cause . ,grob-cause)
+     (named-glyph . ,named-glyph)
+     (no-origin . ,no-origin)
+     (settranslation . ,settranslation)
+     (resettranslation . ,end-group)
+     (polygon . ,polygon)
+     (round-filled-box . ,round-filled-box)
+     (setcolor . ,setcolor)
+     (resetcolor . ,end-group)
+     (setrotation . ,setrotation)
+     (resetrotation . ,end-group)
+     (url-link . ,url-link)
+     (utf-8-string . ,utf-8-string)
+     (path . ,path)
+     (setscale . ,setscale)
+     (set-unit-length . ,set-unit-length)
+     (resetscale . ,end-group))))

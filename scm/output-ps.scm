@@ -52,12 +52,6 @@
        "false")
    radius thick))
 
-(define (start-group-node attributes)
-  "")
-
-(define (end-group-node)
-  "")
-
 (define (dashed-line thick on off dx dy phase)
   (ly:format "~4f ~4f ~4f [ ~4f ~4f ] ~4f draw_dashed_line"
              dx
@@ -119,7 +113,8 @@
                                        w-x-y-named-glyphs) "\n"))
           (ly:format "/~a ~a output-scale div selectfont\n~a\n~a print_glyphs"
                      postscript-font-name size
-                     (string-join (map (lambda (x) (apply glyph-spec x))
+                     (string-join (map (lambda (x)
+                                         (apply glyph-spec x))
                                        (reverse w-x-y-named-glyphs)) "\n")
                      (length w-x-y-named-glyphs)))))
 
@@ -147,7 +142,7 @@
 
               (if (and (< 0 (interval-length x-ext))
                        (< 0 (interval-length y-ext)))
-                  (ly:format "~4f ~4f ~4f ~4f (textedit://~a:~a:~a:~a) mark_URI\n"
+                  (ly:format " ~4f ~4f ~4f ~4f (textedit://~a:~a:~a:~a) mark_URI\n"
                              (+ (car offset) (car x-ext))
                              (+ (cdr offset) (car y-ext))
                              (+ (car offset) (cdr x-ext))
@@ -183,10 +178,8 @@
 (define (no-origin)
   "")
 
-(define (placebox x y s)
-  (if (not (string-null? s))
-      (ly:format "~4f ~4f moveto ~a\n" x y s)
-      ""))
+(define (settranslation x y)
+  (ly:format " ~4f ~4f moveto\n" x y))
 
 (define (polygon points blot-diameter filled?)
   (ly:format "~a ~4l ~a ~4f draw_polygon"
@@ -228,6 +221,9 @@
 
 (define (unknown)
   "\n unknown\n")
+
+(define (nop . args)
+  "")
 
 (define (url-link url x y)
   (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add (~a) mark_URI"
@@ -273,7 +269,7 @@
   (let ((cap-numeric (case cap ((butt) 0) ((round) 1) ((square) 2)
                            (else (begin
                                    (ly:warning (_ "unknown line-cap-style: ~S")
-                                               (symbol->string cap))
+                                                cap)
                                    1))))
         (join-numeric (case join ((miter) 0) ((round) 1) ((bevel) 2)
                             (else (begin
@@ -301,3 +297,33 @@
 
 (define (resetscale)
   "grestore\n")
+
+(define-public stencil-dispatch-table (alist->hash-table
+                                       `((char . ,char)
+                                         (circle . ,circle)
+                                         (start-group-node . ,nop)
+                                         (end-group-node . ,nop)
+                                         (dashed-line . ,dashed-line)
+                                         (draw-line . ,draw-line)
+                                         (partial-ellipse . ,partial-ellipse)
+                                         (ellipse . ,ellipse)
+                                         (embedded-ps . ,embedded-ps)
+                                         (glyph-string . ,glyph-string)
+                                         (grob-cause . ,grob-cause)
+                                         (named-glyph . ,named-glyph)
+                                         (no-origin . ,no-origin)
+                                         (settranslation . ,settranslation)
+                                         (polygon . ,polygon)
+                                         (round-filled-box . ,round-filled-box)
+                                         (setcolor . ,setcolor)
+                                         (resetcolor . ,resetcolor)
+                                         (setrotation . ,setrotation)
+                                         (resetrotation . ,resetrotation)
+                                         (resettranslation . ,nop)
+                                         (reset-grob-cause . ,no-origin)
+                                         (unknown . ,unknown)
+                                         (url-link . ,url-link)
+                                         (page-link . ,page-link)
+                                         (path . ,path)
+                                         (setscale . ,setscale)
+                                         (resetscale . ,resetscale))))

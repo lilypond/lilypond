@@ -450,7 +450,7 @@ A triangle, either filled or empty.
 @end lilypond"
   (let ((ex (* (magstep font-size) 0.8 baseline-skip)))
     (ly:make-stencil
-     `(polygon '(0.0 0.0
+     `(polygon (0.0 0.0
                      ,ex 0.0
                      ,(* 0.5 ex)
                      ,(* 0.86 ex))
@@ -563,7 +563,7 @@ the PDF backend.
          (xextent (ly:stencil-extent stil X))
          (yextent (ly:stencil-extent stil Y))
          (old-expr (ly:stencil-expr stil))
-         (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
+         (url-expr `(url-link ,url ,xextent ,yextent)))
 
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
@@ -585,7 +585,7 @@ in the PDF backend.
          (xextent (ly:stencil-extent stil X))
          (yextent (ly:stencil-extent stil Y))
          (old-expr (ly:stencil-expr stil))
-         (link-expr (list 'page-link page-number `(quote ,xextent) `(quote ,yextent))))
+         (link-expr `(page-link ,page-number ,xextent ,yextent)))
 
     (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
 
@@ -631,8 +631,8 @@ only works in the PDF backend.
                         (if table-page-number
                             (1+ (- table-page-number first-page-number))
                             #f)))
-                  (list 'page-link current-page-number
-                        `(quote ,x-ext) `(quote ,y-ext)))))
+                  `(page-link ,current-page-number
+                         ,x-ext ,y-ext))))
       x-ext
       y-ext)
      arg-stencil)))
@@ -654,7 +654,7 @@ Create a beam with the specified parameters.
          (half (/ thickness 2)))
 
     (ly:make-stencil
-     `(polygon ',(list
+     `(polygon ,(list
                   0 (/ thickness -2)
                   width (+ (* width slope)  (/ thickness -2))
                   width (+ (* width slope)  (/ thickness 2))
@@ -1283,8 +1283,8 @@ samplePath =
     (set! Y-extent (interval-widen Y-extent half-thickness))
 
     (ly:make-stencil
-     `(path ,thickness `(,@',command-list)
-            ',line-cap-style ',line-join-style ,filled)
+     `(path ,thickness ,command-list
+            ,line-cap-style ,line-join-style ,filled)
      X-extent
      Y-extent)))
 

@@ -273,7 +273,7 @@ defined by @code{fill}."
                    ,(list 'closepath)))
        (command-list (fold-right append '() commands)))
     (ly:make-stencil
-     `(path ,thickness `(,@',command-list) 'round 'round ,fill)
+     `(path ,thickness ,command-list round round ,fill)
      (cons (- x-out-radius) x-out-radius)
      (cons (- y-out-radius) y-out-radius))))
 
@@ -557,9 +557,9 @@ coordinates for the previous point in the path."
                       (cdr path-headless))))
     (ly:make-stencil
      `(path ,thickness
-            `(,@',(concatenate path-final))
-            'round
-            'round
+            ,(concatenate path-final)
+            round
+            round
             ,(if fill #t #f))
      (coord-translate
       ((if (< x-scale 0) reverse-interval identity)
@@ -851,12 +851,12 @@ with optional arrows of @code{max-size} on start and end controlled by
          (null (cons 0 0))
          (arrow-1
           (ly:make-stencil
-           `(polygon (quote ,(append-map complex-to-offset p1s))
+           `(polygon  ,(append-map complex-to-offset p1s)
                      0.0
                      #t) null null))
          (arrow-2
           (ly:make-stencil
-           `(polygon (quote ,(append-map complex-to-offset p2s))
+           `(polygon ,(append-map complex-to-offset p2s)
                      0.0
                      #t) null null ) )
          (thickness (min (/ distance 12) 0.1))

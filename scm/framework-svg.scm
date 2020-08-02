@@ -117,11 +117,11 @@ src: url('~a');
   (define-fonts paper svg-define-font svg-define-font))
 
 (define (dump-page paper filename page page-number page-count)
-  (let* ((outputter (ly:make-paper-outputter
-                     (cond-expand
+  (let* ((outport (cond-expand
                        (guile-2 (open-output-file filename #:encoding "UTF-8"))
-                       (else (open-file filename "wb")))
-                     'svg))
+                       (else (open-file filename "wb"))))
+
+         (outputter (ly:make-paper-outputter outport eval-svg))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
@@ -132,18 +132,17 @@ src: url('~a');
          (page-height (* output-scale device-height)))
 
     (if (ly:get-option 'svg-woff)
-        (module-define! (ly:outputter-module outputter) 'paper paper))
+        (ly:outputter-output-scheme outputter `(set-paper ,paper)))
     (dump (svg-begin page-width page-height
                      0 0 device-width device-height))
     (if (ly:get-option 'svg-woff)
-        (module-remove! (ly:outputter-module outputter) 'paper))
+        (ly:outputter-output-scheme outputter `(set-paper #f)))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
     (dump (style-defs-end))
     (dump (comment (format #f "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
-                                `(begin (set! lily-unit-length ,unit-length)
-                                        ""))
+                                `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter page)
     (dump (svg-end))
     (ly:outputter-close outputter)))
@@ -153,7 +152,7 @@ src: url('~a');
                      (cond-expand
                        (guile-2 (open-output-file filename #:encoding "UTF-8"))
                        (else (open-file filename "wb")))
-                     'svg))
+                     eval-svg))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
@@ -168,23 +167,22 @@ src: url('~a');
          (svg-height (* output-scale device-height)))
 
     (if (ly:get-option 'svg-woff)
-        (module-define! (ly:outputter-module outputter) 'paper paper))
+        (ly:outputter-output-scheme outputter `(set-paper ,paper)))
     (dump (svg-begin svg-width svg-height
                      left-x (- top-y) device-width device-height))
     (if (ly:get-option 'svg-woff)
-        (module-remove! (ly:outputter-module outputter) 'paper))
+        (ly:outputter-output-scheme outputter `(set-paper #f)))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
     (dump (style-defs-end))
     (ly:outputter-output-scheme outputter
-                                `(begin (set! lily-unit-length ,unit-length)
-                                        ""))
+                                `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter stencil)
     (dump (svg-end))
     (ly:outputter-close outputter)))
 
 (define (dump-preview-bbox paper stencil filename bbox)
-  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
+  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") eval-svg))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
@@ -199,16 +197,15 @@ src: url('~a');
          )
 
     (if (ly:get-option 'svg-woff)
-        (module-define! (ly:outputter-module outputter) 'paper paper))
+        (eval-svg `(set-paper ,paper)))
     (dump (svg-begin "" ""
                      left-x (- top-y) device-width device-height))
     (if (ly:get-option 'svg-woff)
-        (module-remove! (ly:outputter-module outputter) 'paper))
+        (eval-svg `(set-paper #f)))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
     (ly:outputter-output-scheme outputter
-                                `(begin (set! lily-unit-length ,unit-length)
-                                        ""))
+                                `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter stencil)
     (dump (svg-end))
     (ly:outputter-close outputter)))
@@ -280,6 +277,13 @@ src: url('~a');
                          basename)
                      system-list)))
               score-system-list)))
+
+(define (eval-svg expr)
+  (let* ((head (car expr))
+         (func (hashq-ref stencil-dispatch-table head)))
+    (if (not func)
+        (ly:error "no func for ~a, expr ~a" head expr))
+    (string-append " " (apply func (cdr expr)) " ")))
 
 (define (output-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
