@@ -20,6 +20,7 @@
 #ifndef PAPER_OUTPUTTER_HH
 #define PAPER_OUTPUTTER_HH
 
+#include "cpu-timer.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
 #include "std-string.hh"
@@ -38,6 +39,7 @@ public:
 private:
   SCM output_module_;
   std::string file_name_;
+  Cpu_timer timer_;
   SCM file_;
 
 public:

@@ -24,6 +24,7 @@
 #include "file-name.hh"
 #include "font-metric.hh"
 #include "input.hh"
+#include "international.hh"
 #include "lily-imports.hh"
 #include "lily-version.hh"
 #include "main.hh"
@@ -117,4 +118,7 @@ Paper_outputter::close ()
     {
       scm_close_port (file_);
     }
+
+  debug_output (
+    _f ("Paper_outputter elapsed time: %.2f seconds", timer_.read ()));
 }
