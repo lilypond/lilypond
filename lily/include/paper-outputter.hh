@@ -40,10 +40,11 @@ private:
   std::string file_name_;
   Cpu_timer timer_;
   SCM file_;
-  SCM callback_;
+  SCM callback_tab_;
+  SCM default_callback_;
 
 public:
-  Paper_outputter (SCM port, SCM callback);
+  Paper_outputter (SCM port, SCM alist, SCM default_callback);
 
   void close ();
   SCM dump_string (SCM);

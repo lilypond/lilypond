@@ -41,13 +41,17 @@
 
 using std::string;
 
-Paper_outputter::Paper_outputter (SCM port, SCM callback)
+Paper_outputter::Paper_outputter (SCM port, SCM alist, SCM default_callback)
 {
   file_ = port;
-  callback_ = SCM_EOL;
+  callback_tab_ = SCM_EOL;
+  default_callback_ = SCM_EOL;
   smobify_self ();
 
-  callback_ = callback;
+  callback_tab_ = alist_to_hashq (alist);
+  default_callback_ = default_callback;
+  if (!ly_is_procedure (default_callback_))
+    default_callback_ = SCM_BOOL_F;
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -57,7 +61,8 @@ Paper_outputter::~Paper_outputter ()
 SCM
 Paper_outputter::mark_smob () const
 {
-  scm_gc_mark (callback_);
+  scm_gc_mark (callback_tab_);
+  scm_gc_mark (default_callback_);
   return file_;
 }
 
@@ -74,18 +79,25 @@ Paper_outputter::dump_string (SCM scm)
 }
 
 SCM
-Paper_outputter::scheme_to_string (SCM scm)
+Paper_outputter::output_scheme (SCM expr)
 {
-  return scm_call_1 (callback_, scm);
-}
+  SCM head = scm_car (expr);
+  SCM callback = scm_hashq_ref (callback_tab_, head, SCM_BOOL_F);
+  SCM result = SCM_BOOL_F;
+  if (callback != SCM_BOOL_F)
+    {
+      result = scm_apply_0 (callback, scm_cdr (expr));
+      if (scm_is_string (result))
+        dump_string (result);
+    }
+  else if (default_callback_ != SCM_BOOL_F)
+    {
+      result = scm_call_1 (default_callback_, expr);
+      if (scm_is_string (result))
+        dump_string (result);
+    }
 
-SCM
-Paper_outputter::output_scheme (SCM scm)
-{
-  SCM str = scheme_to_string (scm);
-  if (scm_is_string (str))
-    dump_string (str);
-  return str;
+  return result;
 }
 
 struct Scm_to_file : Stencil_sink

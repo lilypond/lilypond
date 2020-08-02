@@ -121,7 +121,7 @@ src: url('~a');
                        (guile-2 (open-output-file filename #:encoding "UTF-8"))
                        (else (open-file filename "wb"))))
 
-         (outputter (ly:make-paper-outputter outport eval-svg))
+         (outputter (ly:make-paper-outputter outport stencil-dispatch-alist))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
@@ -129,7 +129,9 @@ src: url('~a');
          (device-width (lookup 'paper-width))
          (device-height (lookup 'paper-height))
          (page-width (* output-scale device-width))
-         (page-height (* output-scale device-height)))
+         (page-height (* output-scale device-height))
+         (eval-svg (lambda (expr)
+                     (ly:outputter-output-scheme outputter expr))))
 
     (if (ly:get-option 'svg-woff)
         (eval-svg `(set-paper ,paper)))
@@ -151,7 +153,7 @@ src: url('~a');
                      (cond-expand
                        (guile-2 (open-output-file filename #:encoding "UTF-8"))
                        (else (open-file filename "wb")))
-                     eval-svg))
+                     stencil-dispatch-alist))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
@@ -163,7 +165,9 @@ src: url('~a');
          (device-height (interval-length y-extent))
          (output-scale (* lily-unit->mm-factor unit-length))
          (svg-width (* output-scale device-width))
-         (svg-height (* output-scale device-height)))
+         (svg-height (* output-scale device-height))
+         (eval-svg (lambda (expr)
+                     (ly:outputter-output-scheme outputter expr))))
 
     (if (ly:get-option 'svg-woff)
         (eval-svg `(set-paper ,paper)))
@@ -180,7 +184,7 @@ src: url('~a');
     (ly:outputter-close outputter)))
 
 (define (dump-preview-bbox paper stencil filename bbox)
-  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") eval-svg))
+  (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") stencil-dispatch-alist))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))
          (unit-length (lookup 'output-scale))
@@ -192,7 +196,8 @@ src: url('~a');
          ;; BUG: Height calculation is off - optional & disabled
          ;; (svg-width (* output-scale device-width))
          ;; (svg-height (* output-scale device-height))
-         )
+         (eval-svg (lambda (expr)
+                     (ly:outputter-output-scheme outputter expr))))
 
     (if (ly:get-option 'svg-woff)
         (eval-svg `(set-paper ,paper)))
@@ -274,13 +279,6 @@ src: url('~a');
                          basename)
                      system-list)))
               score-system-list)))
-
-(define (eval-svg expr)
-  (let* ((head (car expr))
-         (func (hashq-ref stencil-dispatch-table head)))
-    (if (not func)
-        (ly:error "no func for ~a, expr ~a" head expr))
-    (string-append (apply func (cdr expr)))))
 
 (define (output-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))

@@ -25,15 +25,23 @@
 
 using std::string;
 
-LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 0, 0,
-           (SCM port, SCM callback),
-           "Create an outputter that evaluates within"
-           " @code{output-}@var{format}, writing to @var{port}.")
+LY_DEFINE (
+  ly_make_paper_outputter, "ly:make-paper-outputter", 2, 1, 0,
+  (SCM port, SCM alist, SCM default_callback),
+  "Create an outputter dumping to @code{port}. @code{alist} should map "
+  "symbols to procedures. See @code{output-ps.scm} for an example. "
+  "If @code{default_callback} is given, it is called for unsupported "
+  "expressions")
 {
   LY_ASSERT_TYPE (ly_is_port, port, 1);
-  LY_ASSERT_TYPE (ly_is_procedure, callback, 2);
+  LY_ASSERT_TYPE (ly_cheap_is_list, alist, 2);
+  if (default_callback != SCM_UNDEFINED && !ly_is_procedure (default_callback))
+    {
+      scm_wrong_type_arg_msg (mangle_cxx_identifier (__FUNCTION__).c_str (), 3,
+                              default_callback, "procedure");
+    }
 
-  Paper_outputter *po = new Paper_outputter (port, callback);
+  Paper_outputter *po = new Paper_outputter (port, alist, default_callback);
 
   po->unprotect ();
   return po->self_scm ();

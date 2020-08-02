@@ -656,8 +656,7 @@
   (set! lily-unit-length len)
   "")
 
-(define-public stencil-dispatch-table
-  (alist->hash-table
+(define-public stencil-dispatch-alist
    `((char . ,char)
      (circle . ,circle)
      (start-group-node . ,start-group-node)
@@ -683,4 +682,4 @@
      (path . ,path)
      (setscale . ,setscale)
      (set-unit-length . ,set-unit-length)
-     (resetscale . ,end-group))))
+     (resetscale . ,end-group)))
