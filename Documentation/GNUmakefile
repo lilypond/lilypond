@@ -8,10 +8,9 @@ depth = ..
 ### Variables
 
 NAME = documentation
-SUBDIRS = logo pictures misc po css topdocs \
-  ly-examples $(LANGS)
-STEPMAKE_TEMPLATES = texinfo
-LOCALSTEPMAKE_TEMPLATES = lilypond ly
+
+SUBDIRS = po
+LOCALSTEPMAKE_TEMPLATES = lilypond ly lilypond-book
 
 ### Extra flags
 
@@ -20,54 +19,121 @@ TEXI2PDF_FLAGS = \
   -I $(outdir) \
   -I $(top-build-dir)/Documentation/$(outconfbase)
 
+### ly examples
+
+LY_EXAMPLES=$(call src-wildcard,ly-examples/*.ly)
+OUT_BITMAP_IMAGES += $(LY_EXAMPLES:%.ly=$(outdir)/%.png) $(LY_EXAMPLES:%.ly=$(outdir)/%-small.png)
+LILYPOND_PREVIEW = $(LILYPOND_BINARY) -dpreview -dresolution=150
+
+### Pictures
+
+BITMAP_IMAGES = $(call src-wildcard,pictures/*.png) $(call src-wildcard,pictures/*.jpg)
+EPS_ILLUSTRATIONS = $(call src-wildcard,pictures/*.eps)
+SVG_FILES = $(call src-wildcard,pictures/*.svg)
+PDF_DIR = $(call src-wildcard,pictures/pdf/*.pdf)
+
+OUT_PDF_IMAGES = $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.pdf)
+OUT_BITMAP_IMAGES += $(BITMAP_IMAGES:%=$(outdir)/%)
+OUT_BITMAP_IMAGES += $(EPS_ILLUSTRATIONS:%.eps=$(outdir)/%.png)
+
+MISC_FILES = ANNOUNCE-0.1 ANNOUNCE-1.0 ANNOUNCE-1.2 announce-v2.0.html \
+announce-v2.10.html announce-v2.12.ca.html announce-v2.12.de.html \
+announce-v2.12.es.html announce-v2.12.fr.html announce-v2.12.html \
+announce-v2.2.html announce-v2.4.html announce-v2.6.html \
+announce-v2.8.html browser-language.ca.html browser-language.de.html \
+browser-language.es.html browser-language.fr.html \
+browser-language.html browser-language.hu.html \
+browser-language.it.html browser-language.ja.html \
+browser-language.nl.html ChangeLog-1.5 ChangeLog-2.1 ChangeLog-2.10 \
+ChangeLog-2.3 CHANGES-0.0 CHANGES-0.1 CHANGES-1.0 CHANGES-1.1 \
+CHANGES-1.2 CHANGES-1.3 CHANGES-1.4 CHANGES-1.5 NEWS-1.2 NEWS-1.4 \
+THANKS-1.8 THANKS-2.0 THANKS-2.10 THANKS-2.12 THANKS-2.14 THANKS-2.16 \
+THANKS-2.18 THANKS-2.2 THANKS-2.4 THANKS-2.6 THANKS-2.8
+
+OUT_MISC_FILES = $(addprefix $(outdir)/misc/,$(MISC_FILES))
+OUT_CSS_FILES =  $(addprefix $(outdir)/,$(call src-wildcard,css/*.css))
+
 ### Extra source files
 
 README_TOP_FILES= DEDICATION
 
+
+## Snippets:
+# the base files (.ly with english doc) are synced in from the LSR
+# project. Each language adds translated titles under LANGUAGE/texidocs/
+# All translated titles are merged by makesnippets.py. lilypond-book
+# texi language support picks up the right header based on document
+# language.
+
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
-OUT_SNIPPET_LY_FILES = $(SNIPPET_LY_FILES:%.ly=out/%.ly)
+OUT_SNIPPET_LY_FILES = $(SNIPPET_LY_FILES:%.ly=$(outdir)/%.ly)
 
 ### Out files
 
-# Dependencies
-GENERATED_ITELY_FILES = $(IN_ITELY_FILES:snippets/%-intro.itely=$(outdir)/%.itely)
-
-XREF_MAPS_FILES += $(XREF_MAPS_DIR)/internals.xref-map
+DOC_TELY_FILES=$(foreach L,$(LANGS),$(call src-wildcard,$(L)/*.tely))
+DOC_TEXI_FILES=$(foreach L,$(LANGS),$(call src-wildcard,$(L)/*.texi))
 
 # Main manuals
-TEXINFO_MANUALS = internals\
- $(TELY_FILES:%.tely=%)\
- $(TEXI_FILES:%.texi=%)
-OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
+TEXINFO_MANUALS = en/internals \
+ $(DOC_TELY_FILES:%.tely=%)\
+ $(DOC_TEXI_FILES:%.texi=%)
 
-## CHAIN_RULE hack: keep the following line *before* including
-# stepmake.make, so the Internals Reference is built before the
-# Notation Reference, thus providing automatically generated sections
-# of the NR
-TEXI_FILES_FROM_TELY = $(outdir)/internals.texi
+# Some PDF files require extra packages to build
+#
+# Czech - needs xetex
+#
+# Chinese/Japanese - needs:
+#
+#   XeTeX 0.9998+ (TeX Live 2012+)
+#     The modern TeX engine used for LilyPond's PDF documents.
+#     It might be contained in texlive-xetex package.
+#
+#   IPAex fonts
+#     Japanese fonts.
+#     It might be contained in texlive-lang-japanese package.
+#
+#   zhspacing
+#     Spacing for mixed CJK-English documents in XeTeX.
+#     It might be contained in texlive-lang-chinese package.
+#     (This package is for Chinese, but can also be used for Japanese.)
+#
+# Note: Even if Japanese PDF documents have been built,
+# links from HTML documents to Japanese PDF will not be created.
+#
 
-NOT_WEBSITE_TEXINFO_MANUALS = $(filter-out web,$(TEXINFO_MANUALS))
-PDF_FILES = $(NOT_WEBSITE_TEXINFO_MANUALS:%=$(outdir)/%.pdf)
+ALL_PDF_FILES=$(TEXINFO_MANUALS:%=$(outdir)/%.pdf)
 
-TOPDIR_HTML_MANUALS =
-UNSPLIT_HTML_MANUALS =
-SPLIT_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
- $(if $(findstring $(manual), $(UNSPLIT_HTML_MANUALS)),,$(manual)))
-NOT_TOPDIR_HTML_MANUALS = $(foreach manual, $(SPLIT_HTML_MANUALS),\
- $(if $(findstring $(manual), $(TOPDIR_HTML_MANUALS)),,$(manual)))
+# uncomment below to build PDF in cs/ja/zh
+# PDF_FILES=$(ALL_PDF_FILES)
+PDF_FILES = $(filter-out $(outdir)/cs/% $(outdir)/zh/% $(outdir)/ja/%, $(ALL_PDF_FILES))
 
-OUT_HTML_FILES = $(UNSPLIT_HTML_MANUALS:%=$(outdir)/%.html)\
- $(SPLIT_HTML_MANUALS:%=$(outdir)/%-big-page.html)
-DEEP_HTML_FILES = $(NOT_TOPDIR_HTML_MANUALS:%=$(outdir)/%/index.html)
+target_language=$(word 2, $(subst /, ,$@))
 
-# Symlinks to refer to external source documents from split and non-split HTML
-source-links = $(outdir)/source\
- $(foreach manual, $(SPLIT_HTML_MANUALS), $(outdir)/$(manual)/source)
+TEXI2HTML_INIT = \
+  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html-lang.init \
+  --document-language=$(call target_language) \
+  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
+
+TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES)
+
+TEXI2HTML_FLAGS += $(TEXI2HTML_ERROR_LIMIT) $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) \
+	$(if $(VERBOSE),--verbose)
+TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
+
+ifeq ($(WEB_VERSION),yes)
+TEXI2HTML_FLAGS += -D web_version
+TEXI2PDF_LOCAL_FLAGS += -D web_version
+WEB_ENV=ONLY_WEB_VERSION=v$(MAJOR_VERSION).$(MINOR_VERSION)
+endif
+
+SPLIT_HTML_MANUALS = $(TEXINFO_MANUALS)
+SPLIT_HTML_INDEX_FILES = $(SPLIT_HTML_MANUALS:%=$(outdir)/%/index.html)
 
 # Other out files
 
 MAIN_INFO_DOC = lilypond-web
+
 INFO_DOCS = lilypond-usage lilypond-changes lilypond-contributor lilypond-internals \
  lilypond-essay lilypond-learning lilypond-notation music-glossary \
  lilypond-web lilypond-extending
@@ -83,43 +149,110 @@ endif
 
 include $(depth)/make/stepmake.make
 
-DOCUMENTATION_INCLUDES += -I $(outdir) \
-  -I $(top-build-dir)/Documentation/snippets/out \
-  -I $(top-src-dir)/Documentation/included \
-  -I $(top-src-dir)/Documentation/pictures \
-  -I $(top-src-dir)/Documentation \
-  -I $(top-src-dir)/input/regression
+# must be here, or overwritten by lilypond-book-var
+OUT_HTML_FILES = $(foreach m, $(SPLIT_HTML_MANUALS),$(outdir)/$(m)-big-page.html)
+EXTRACT_TEXI_FILENAMES_FLAGS+= $(if $(VERBOSE),,--quiet)
+
+# xref map maps section titles <> node names for translated split HTML docs.
+$(outdir)/%.xref-map: $(outdir)/%.texi
+	$(PYTHON) -tt $(buildscript-dir)/extract_texi_filenames.py \
+		$(EXTRACT_TEXI_FILENAMES_FLAGS) \
+		$(if $(call target_language), \
+			--master-map-file=$(subst $(call target_language)/,en/,$@)) \
+		--suppress-language-detection \
+		$(DOCUMENTATION_INCLUDES) -o $(dir $@) $<
+
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(OUT_PDF_IMAGES) $(OUT_BITMAP_IMAGES)
+	$(call ly_progress,Making,$@,< texi)
+	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+		$(buildscript-dir)/run-and-check.sh \
+"cd $(dir $@); \
+   texi2pdf --batch $(TEXI2PDF_LOCAL_FLAGS) \
+   -I ../ \
+   -I $(abs-src-dir)/$(call target_language) \
+   -I $(abs-src-dir) \
+   -I $(abs-src-dir)/en/ \
+   -o $(CURDIR)/$(outdir)/$*.tmp.pdf \
+   $(CURDIR)/$< \
+   < /dev/null" \
+		"$(outdir)/$*.texi2pdf.log"
+ifeq ($(USE_EXTRACTPDFMARK),yes)
+	$(EXTRACTPDFMARK) -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+	$(GS920) -dBATCH \
+                 -dNOSAFER \
+                 -dNOPAUSE \
+                 $(TEXINFO_GS_QUIET) \
+                 -sDEVICE=pdfwrite \
+                 -dAutoRotatePages=/None \
+                 -dPrinted=false \
+                 -sOutputFile=$@ \
+                 -c "30000000 setvmthreshold" \
+                 -I $(top-build-dir)/out-fonts \
+                 -I $(top-build-dir)/out-fonts/Font \
+                 $(outdir)/$*.pdfmark \
+                 $(outdir)/$*.tmp.pdf
+	rm $(outdir)/$*.tmp.pdf
+else
+	mv $(outdir)/$*.tmp.pdf $@
+endif
+
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(OUT_BITMAP_IMAGES) $(outdir)/%.xref-map $(OUT_CSS_FILES)
+	$(call ly_progress,Making,$@,< texi)
+	mkdir -p $(dir $@)
+	rm -f $(dir $@)/pictures && ln -s ../pictures $(dir $@)/pictures
+	rm -f $(dir $@)/css && ln -s ../../css $(dir $@)/css
+	$(buildscript-dir)/run-and-check.sh "$(WEB_ENV) DEPTH=$(depth)/../ $(TEXI2HTML)  --prefix=index --split=section $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
+
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.xref-map
+	$(call ly_progress,Making,$@,< texi)
+	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
+
+# The order of these directories is important, as many includes are
+# not fully-qualified.  For example there is an incipit.ly both in
+# snippets/ and in input/regression/.
+DOCUMENTATION_INCLUDE_DIRS = \
+  $(if $<, $(dir $<)) \
+  $(if $<, $(dir $<)/included) \
+  $(src-dir)/$(call target_language) \
+  $(src-dir)/pictures \
+  $(dir $@) \
+  $(outdir)/en \
+  $(src-dir)/en \
+  $(src-dir)/en/included \
+  $(outdir)/snippets \
+  $(top-src-dir)/input/regression \
+  $(outdir) \
+
+DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
+
+LILYPOND_BOOK_INCLUDES = $(DOCUMENTATION_INCLUDES)
 
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
-
-### Web site idiosyncrasies
-$(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
-
-
-
 ### bad hack for badly-integrated roadmap.
-$(outdir)/ROADMAP:
+# TODO: move into CG.
+$(outdir)/en/ROADMAP: $(top-src-dir)/ROADMAP
 	$(call ly_progress,Making,$@,(copy))
-	cp $(top-src-dir)/ROADMAP $(outdir)
-$(outdir)/contributor.texi: $(outdir)/ROADMAP
+	mkdir -p $(dir $@)
+	cp $(top-src-dir)/ROADMAP $@
+
+$(outdir)/en/contributor.texi: $(outdir)/en/ROADMAP
+
+$(outdir)/topdocs/NEWS.texi: $(outdir)/en/changes.texi
+	cp $< $@
 
 ### bad hack for badly-integrated bibliography
-$(outdir)/%.itexi: essay/%.bib
+$(outdir)/%.itexi: bib/%.bib
 	$(call ly_progress,Making,$@,< bib)
 	BSTINPUTS=$(src-dir)/essay $(PYTHON) $(buildscript-dir)/bib2texi.py \
 		-s $(top-src-dir)/Documentation/lily-bib -o $@ -q $<
 
-$(outdir)/essay.texi: \
-  $(outdir)/colorado.itexi \
-  $(outdir)/computer-notation.itexi \
-  $(outdir)/engravingbib.itexi
-
+$(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
 
 ###########
 ### Targets
 
-default: local-txt-doc
+default: $(OUT_TXT_FILES)
 
 local-help: extra-local-help
 
@@ -149,23 +282,76 @@ extra-local-help:
 
 info: $(INFO_FILES)
 
-local-clean:
+# TODO: depends on what?
+$(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep:
+	$(call ly_progress,Making,$@,(symlinks))
+ifneq ($(INFO_IMAGES_DIR),)
 	rm -f $(INFO_IMAGES_DIR)
+	ln -s $(outdir) $(INFO_IMAGES_DIR)
+	mkdir -p $(outdir)/$(INFO_IMAGES_DIR)
+	rm -f $(outdir)/$(INFO_IMAGES_DIR)/[a-f0-9][a-f0-9]
+	cd $(outdir)/$(INFO_IMAGES_DIR) && $(PYTHON) -tt $(top-src-dir)/scripts/build/mass-link.py symbolic .. . [a-f0-9][a-f0-9]
+endif
+	touch $@
 
 ### Web targets
 
+PICTURE_SYMLINKS=$(foreach L,$(LANGS),$(outdir)/$(L)/pictures)
+
+pdf: $(OUT_PDF_IMAGES) $(PDF_FILES)
+
+html:  txt-to-html $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES) $(OUT_JS_FILES) $(OUT_MISC_FILES)
+
 ifeq ($(out),www)
-local-WWW-1: $(OUT_TEXINFO_MANUALS) $(PDF_FILES) info
-local-WWW-2: txt-to-html $(OUT_HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
+local-WWW-1: pdf $(PICTURE_SYMLINKS)
+
+local-WWW-2: html $(OUT_BITMAP_IMAGES)
+	$(call ly_progress,Making,webdoc dir,)
+	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "contributor changes essay extending internals learning music-glossary notation snippets usage web"
+
 endif
 
+website: $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-big-page.html) $(OUT_BITMAP_IMAGES) $(PICTURE_SYMLINKS) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
+	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh website "$(LANGS)" "" "web"
+	cp webserver/favicon.ico webserver/robots.txt webserver/tweets.xml $(outdir)/website/web/
+	cp webserver/website-dir.htaccess $(outdir)/website/web/.htaccess
 
 #########
 ### Rules
 
-$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
+$(outdir)/misc/%: misc/%
+	mkdir -p $(dir $@)
+	cp -f $< $@
+
+# Copy files while tracking their dependencies.
+$(outdir)/%.texi: %.texi
+	$(call ly_progress,Making,$@,(copy))
+	mkdir -p $(dir $@)
+	cp -f $< $@
+
+$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES) --no-split --no-headers --output $@ $<"  "$(outdir)/$*.makeinfotxt.log"
+
+$(outdir)/version.itexi: $(top-src-dir)/VERSION
+	$(call ly_progress,Making,$@,)
+	$(PYTHON) -tt $(buildscript-dir)/create-version-itexi.py > $@
+
+$(outdir)/weblinks.itexi: $(top-src-dir)/VERSION
+	$(call ly_progress,Making,$@,)
+	$(PYTHON) -tt $(buildscript-dir)/create-weblinks-itexi.py > $@
+
+$(outdir)/lilypond-%.info: $(outdir)/en/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+	$(call ly_progress,Making,$@,< texi)
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES)  --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
+
+$(outdir)/lilypond-internals.info: $(outdir)/en/internals.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+	$(call ly_progress,Making,$@,< texi)
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES) -I$(outdir) --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
+
+$(outdir)/music-glossary.info: $(outdir)/en/music-glossary.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+	$(call ly_progress,Making,$@,< texi)
+	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES) --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
 
 txt-to-html: $(OUT_TXT_FILES) $(OUT_TXT_FILES:%.txt=%.html)
 
@@ -177,77 +363,62 @@ $(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
 	$(call ly_progress,Making,$@,< txt)
 	$(PYTHON) $(buildscript-dir)/text2html.py $<
 
-# Explicitly list the dependencies on generated content
-$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi $(outdir)/version.itexi
-
-ifeq ($(out),www)
-## Extra images dependencies
-$(OUT_TEXINFO_MANUALS): $(outdir)/pictures
-
-$(outdir)/pictures:
-	$(MAKE) -C pictures out=www WWW-1
-	ln -sf ../pictures/$(outdir) $@
-
-$(outdir)/web.texi: $(outdir)/css $(outdir)/ly-examples
-
-$(outdir)/css:
-	$(MAKE) -C css out=www WWW-1
-	ln -sf ../css/$(outdir) $@
-
-$(outdir)/ly-examples:
-	$(MAKE) -C ly-examples out=www WWW-1
-	ln -sf ../ly-examples/$(outdir) $@
-endif
-
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 
-$(outdir)/source:
-	@rm -f $(@)
-	ln -sf $(depth) $(@)
-
-$(outdir)/%/source:
-	@rm -f $(@)
-	mkdir -p $(dir $@)
-	ln -sf $(depth)/.. $(@)
-
-
-## Snippets rules idiosyncrasies
-$(outdir)/%.itely: snippets/%-intro.itely snippets/%.snippet-list
+## Snippets rules idiosyncrasies.
+# The snippets are generated by combining the .ly files in snippets (imported from LSR)
+# with the translations in ${LANG}/texidocs/
+$(outdir)/snippets/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	$(call ly_progress,Making,$@,)
+	mkdir -p $(dir $@)
 	xargs $(LYS_TO_TELY) -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
-$(TEXI_FILES_FROM_TELY): $(GENERATED_ITELY_FILES) $(OUT_SNIPPET_LY_FILES)
-
-$(OUT_SNIPPET_LY_FILES): out/ly-snippets.dep
-
-out/ly-snippets.dep: $(SNIPPET_LY_FILES)
+$(outdir)/snippets/dep: $(SNIPPET_LY_FILES)
 	$(call ly_progress,Making,$@,)
-	mkdir -p snippets/out
-	$(PYTHON) $(buildscript-dir)/makesnippets.py $(src-dir)/snippets snippets/out "$(LANGS)" $(src-dir)
+	mkdir -p $(dir $@)
+	$(PYTHON) $(buildscript-dir)/makesnippets.py $(src-dir)/snippets $(dir $@) "$(LANGS)" $(src-dir)
 	mkdir -p out
 	touch $@
 
-$(outdir)/%.bib: %.bib
-	$(call ly_progress,Making,$@,(copy))
-	cp $< $@
-
-## Rules for the automatically generated documentation
-$(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
-	$(call ly_progress,Making,$@,< yy)
-	cd $(outdir) && $(BISON) -v $<
-	$(PYTHON) $(buildscript-dir)/yyout2grammar.py $(outdir)/parser.output $@
-
-$(outdir)/internals.texi: $(LILYPOND_BINARY) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
+$(outdir)/en/internals.texi:
 	$(call ly_progress,Making,$@,)
-	cd $(outdir) && $(buildscript-dir)/run-and-check.sh "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "$(outdir)/generate-documentation.log"
+	mkdir -p $(dir $@)
+	cd $(dir $@) && $(buildscript-dir)/run-and-check.sh "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
 
-## Dependencies on the automatically generated documentation
-$(outdir)/contributor.texi: $(outdir)/ly-grammar.txt
+## Dependencies on the automatically generated content
+
+define per_lang_dep
+
+include $(wildcard $(outdir)/$(1)/*.dep)
+
+$(outdir)/$(1)/snippets.texi: $(IN_ITELY_FILES:snippets/%-intro.itely=$(outdir)/snippets/%.itely) $(outdir)/snippets/dep
+
+$(outdir)/$(1)/notation.texi: $(outdir)/snippets/dep
+
+$(outdir)/$(1)/usage.texi: $(outdir)/snippets/dep
+
+$(outdir)/$(1)/web.xref-map: EXTRACT_TEXI_FILENAMES_FLAGS += --split=node
+
+$(outdir)/$(1)/%.xref-map: $(outdir)/$(1)/%.texi $(outdir)/en/%.xref-map
+
+$(outdir)/$(1)/pictures:
+	rm -f $$@ && mkdir -p $$(dir $$@) && ln -s ../pictures $$@
+
+$(outdir)/$(1)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi $(outdir)/version.itexi
+
+$(outdir)/$(1)/essay.texi: \
+  $(outdir)/colorado.itexi \
+  $(outdir)/computer-notation.itexi \
+  $(outdir)/engravingbib.itexi
 
 # notation.tely includes, via notation/notation-appendices.itely, many
 # generated files (like markup-commands.tely). These are the result of
 # processing ly/generate-documentation.ly for internals.texi (see above).
-$(outdir)/notation.texi: $(outdir)/internals.texi
+$(outdir)/$(1)/notation.texi: $(outdir)/en/internals.texi
+
+endef
+
+$(foreach L, $(LANGS),$(eval $(call per_lang_dep,$(L))))
 
 ###############################################
 #  Documentation and translations maintenance #
@@ -278,44 +449,28 @@ new-lang:
 # Also for updating/adding missing files
 	mkdir -p $(ISOLANG)/included
 	if test -z "`ls $(ISOLANG)/included`"; then touch $(ISOLANG)/included/.gitignore; fi
-	cp fr/GNUmakefile $(ISOLANG)
-	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile
 	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	test -e po/$(ISOLANG).po || cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 TRANSLATION_DIRS = web texidocs
-TRANSLATION_FILES = $(shell git ls-files $(ISOLANG) | grep -v GNUmakefile)
+TRANSLATION_FILES = $(shell git ls-files $(ISOLANG))
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
 
 snippet-update:
 	$(PYTHON) $(auxscript-dir)/update-snippets.py user $(ISOLANG) '*.itely'
 
-DOCUMENTS_INCLUDES:=-I $(ISOLANG) \
--I $(top-build-dir)/Documentation/$(ISOLANG)/out-www \
--I $(top-src-dir)/Documentation/snippets \
--I $(top-build-dir)/Documentation/out-www \
--I $(top-build-dir)/Documentation/out
-
-else # ISOLANG is empty
-
-DOCUMENTS_INCLUDES:=-I . \
--I $(top-build-dir)/Documentation/out-www \
--I $(top-src-dir)/Documentation/snippets \
--I $(top-build-dir)/Documentation/snippets/out-www \
--I $(top-build-dir)/Documentation/out
-
 endif # ISOLANG
 
 check-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --batch \
-	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
+	$(DOCUMENTATION_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 fix-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --auto-fix \
-	$(DOCUMENTS_INCLUDES) $(auxpython-dir)/manuals_definitions.py
+	$(DOCUMENTATION_INCLUDES) $(auxpython-dir)/manuals_definitions.py
 
 check-translation:
 	ISOLANG=$(ISOLANG) $(PYTHON) $(auxscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
@@ -326,3 +481,88 @@ update-translation:
 # what's it gonna be, boy...tranlationS-/translation-
 translation-status:
 	PYTHONPATH=$(top-src-dir)/python:$(top-src-dir)/python/auxiliar $(PYTHON) $(top-src-dir)/scripts/auxiliar/translations-status.py
+
+
+#########
+### Image rules
+
+$(outdir)/%-flat-gray.png: %-flat-gray.png
+	$(call ly_progress,Making,$@,(convert))
+	mkdir -p $(dir $@)
+	convert -strip -depth 8 -geometry 50x50% $< $@
+
+$(outdir)/%-flat-bw.png: %-flat-bw.png
+	$(call ly_progress,Making,$@,(convert))
+	mkdir -p $(dir $@)
+	convert -strip -depth 8 -geometry 50x50% $< $@
+
+$(outdir)/%.png: %.png
+	$(call ly_progress,Making,$@,)
+	mkdir -p $(dir $@)
+	cp $< $@
+
+$(outdir)/%.jpg: %.jpg
+	$(call ly_progress,Making,$@,)
+	mkdir -p $(dir $@)
+	cp $< $@
+
+$(outdir)/%.png: %.eps
+	$(call ly_progress,Making,$@,< eps)
+	mkdir -p $(dir $@)
+	gs -dAutoRotatePages=/None \
+           -dPrinted=false \
+           -dTextAlphaBits=4 \
+           -dGraphicsAlphaBits=4 \
+           -q \
+           -sOutputFile=$@ \
+           -sDEVICE=png16m \
+           -dEPSCrop \
+           -dNOPAUSE \
+           -f $< \
+           -c quit
+
+$(outdir)/%.pdf: %.eps
+	$(call ly_progress,Making,$@,< eps)
+	mkdir -p $(dir $@)
+	gs -dAutoRotatePages=/None \
+           -dPrinted=false \
+           -q \
+           -sDEVICE=pdfwrite \
+           -dNOPAUSE \
+           -dBATCH \
+           -sOutputFile=$@ \
+           -dEPSCrop \
+           -f $<
+
+# ly-examples/
+$(outdir)/%.png: %.ly
+	$(call ly_progress,Making,$@,< ly)
+	mkdir -p $(dir $@)
+	$(buildscript-dir)/run-and-check.sh "$(LILYPOND_PREVIEW) -o $(dir $@) $<" "$*.preview.log"
+	mv $(outdir)/$*.preview.png $@
+
+# Must have ly-examples/ , to avoid conflicts with xxx-small.png from pictures/
+$(outdir)/ly-examples/%-small.png: $(outdir)/ly-examples/%.png
+	$(call ly_progress,Making,$@,)
+	pngtopnm $< | pnmscale -w=600 | pnmtopng > $@ 2> /dev/null
+
+## LOGO
+
+$(outdir)/%.png: %.xpm
+	$(call ly_progress,Making,$@,< xpm)
+	xpmtoppm $< | pnmtopng > $@
+
+ifeq ($(PLATFORM_WINDOWS),yes)
+
+$(outdir)/%.ico: %.xpm
+	$(call ly_progress,Making,$@,< xpm)
+	$(PYTHON) $(buildscript-dir)/genicon.py $< $@
+
+default: $(lilypond-icon) $(ly-icon)
+
+endif # PLATFORM_WINDOWS
+
+$(outdir)/%.css: %.css
+	$(call ly_progress,Making,$@,(hard link))
+	mkdir -p $(dir $@)
+	cp -f $< $@

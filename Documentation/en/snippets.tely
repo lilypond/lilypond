@@ -106,31 +106,31 @@ Other collections
 @c Please take care of naming every .itely
 @c with an existing tag name.
 
-@include pitches.itely
-@include rhythms.itely
-@include expressive-marks.itely
-@include repeats.itely
-@include simultaneous-notes.itely
-@include staff-notation.itely
-@include editorial-annotations.itely
-@include text.itely
+@include snippets/pitches.itely
+@include snippets/rhythms.itely
+@include snippets/expressive-marks.itely
+@include snippets/repeats.itely
+@include snippets/simultaneous-notes.itely
+@include snippets/staff-notation.itely
+@include snippets/editorial-annotations.itely
+@include snippets/text.itely
 
-@include vocal-music.itely
-@include chords.itely
-@include keyboards.itely
-@include percussion.itely
-@include fretted-strings.itely
-@include unfretted-strings.itely
-@include winds.itely
-@include ancient-notation.itely
-@include world-music.itely
+@include snippets/vocal-music.itely
+@include snippets/chords.itely
+@include snippets/keyboards.itely
+@include snippets/percussion.itely
+@include snippets/fretted-strings.itely
+@include snippets/unfretted-strings.itely
+@include snippets/winds.itely
+@include snippets/ancient-notation.itely
+@include snippets/world-music.itely
 
-@include contexts-and-engravers.itely
-@include tweaks-and-overrides.itely
-@include paper-and-layout.itely
-@include titles.itely
-@include spacing.itely
-@include midi.itely
-@include template.itely
+@include snippets/contexts-and-engravers.itely
+@include snippets/tweaks-and-overrides.itely
+@include snippets/paper-and-layout.itely
+@include snippets/titles.itely
+@include snippets/spacing.itely
+@include snippets/midi.itely
+@include snippets/template.itely
 
 @bye

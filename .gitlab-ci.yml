@@ -94,9 +94,7 @@ website:ubuntu-16.04:
   script:
     - cd build
     - sh -c "$TOUCH_BUILD" >/dev/null
-    - rm -rf out/website-root
-    - ls -l
-    - make VERBOSE=1 $MAKE_FLAGS out/website-root/index.html
+    - make $MAKE_FLAGS website
   artifacts:
     name: "website"
     when: always

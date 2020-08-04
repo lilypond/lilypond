@@ -40,12 +40,3 @@ $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCAL
 		$(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' \
 		--output=$(dir $@) --format=$(LILYPOND_BOOK_FORMAT) \
 		$(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
-
-
-$(outdir)/others-did.itexi $(outdir)/we-wrote.itexi: $(outdir)/%.itexi: $(top-src-dir)/Documentation/web/%.bib $(top-src-dir)/Documentation/lily-bib.bst
-	$(call ly_progress,Making,$@,)
-	BSTINPUTS=$(top-src-dir)/Documentation/web/ $(PYTHON) $(buildscript-dir)/bib2texi.py \
-		-s $(top-src-dir)/Documentation/lily-bib \
-		-o $(outdir)/$*.itexi \
-		-q \
-		$(top-src-dir)/Documentation/web/$*.bib
