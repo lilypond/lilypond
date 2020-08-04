@@ -313,8 +313,8 @@ endif
 
 website: $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-big-page.html) $(OUT_BITMAP_IMAGES) $(PICTURE_SYMLINKS) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
 	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh website "$(LANGS)" "" "web"
-	cp webserver/favicon.ico webserver/robots.txt webserver/tweets.xml $(outdir)/website/web/
-	cp webserver/website-dir.htaccess $(outdir)/website/web/.htaccess
+	cp $(foreach F, favicon.ico robots.txt tweets.xml, $(src-dir)/webserver/$(F)) $(outdir)/website/web/
+	cp $(src-dir)/webserver/website-dir.htaccess $(outdir)/website/web/.htaccess
 
 #########
 ### Rules
