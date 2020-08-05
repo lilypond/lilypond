@@ -252,7 +252,7 @@ $(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
 ###########
 ### Targets
 
-default: $(OUT_TXT_FILES)
+default: $(OUT_TXT_FILES) $(INFO_FILES)
 
 local-help: extra-local-help
 
