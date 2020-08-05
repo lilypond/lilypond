@@ -293,7 +293,6 @@ class SystemLink:
 
         self._geometric_distance = None
         self._expression_change_count = None
-        self._orphan_count = None
 
         # maps GrobSignature in system1 to its hopefully existing twin in system2.
         self.back_link_dict = {}
@@ -311,7 +310,21 @@ class SystemLink:
 
                 self.link_list_dict.setdefault(closest, [])
                 self.link_list_dict[closest].append(g)
-                self.back_link_dict[g] = closest
+                if closest is not None:
+                    self.back_link_dict[g] = closest
+                else:
+                    self.orphans.append((g, None))
+
+            # find grobs in system2 but not in system1
+            for g in system2.grobs():
+
+                if bbox_is_empty(g.bbox):
+                    continue
+
+                if g not in self.link_list_dict:
+                    closest = system1.closest(g.name, g.centroid)
+                    if closest is None:
+                        self.orphans.append((None, g))
 
     def calc_geometric_distance(self):
         if self.system1 and self.system2:
@@ -320,24 +333,13 @@ class SystemLink:
             total = 100.0 * (self.system1 != self.system2)
 
         for (g1, g2) in list(self.back_link_dict.items()):
-            if g2:
-                d = g1.bbox_distance(g2)
-                if d:
-                    self.geo_distances[(g1, g2)] = d
+            d = g1.bbox_distance(g2)
+            if d:
+                self.geo_distances[(g1, g2)] = d
 
-                total += d
+            total += d
 
         self._geometric_distance = total
-
-    def calc_orphan_count(self):
-        count = 0
-        for (g1, g2) in list(self.back_link_dict.items()):
-            if g2 is None:
-                self.orphans.append((g1, None))
-
-                count += 1
-
-        self._orphan_count = count
 
     def geo_details_string(self):
         results = [(d, g1, g2)
@@ -356,10 +358,7 @@ class SystemLink:
         return self._geometric_distance
 
     def orphan_count(self):
-        if self._orphan_count is None:
-            self.calc_orphan_count()
-
-        return self._orphan_count
+        return len(self.orphans)
 
     def distance_tuple(self):
         return (self.orphan_count(),
@@ -1524,7 +1523,11 @@ def test_compare_signatures(names, timing=False):
         for k, v in results:
             print('%-20s' % k, v)
 
-    assert links["20grob-20"].orphan_count() > 0
+    oc_forward = links["20grob-20"].orphan_count()
+    oc_reverse = links["20-20grob"].orphan_count()
+    assert oc_forward == oc_reverse
+    assert oc_forward > 0
+
     assert combinations['20-20'] == (0.0, 0.0)
     assert combinations['20-19'][1] < 10.0
     assert combinations['20-19'][1] > 0.0
