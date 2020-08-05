@@ -131,8 +131,8 @@ git checkout release/unstable
 git merge origin/master
 make -C $LILYPOND_BUILD_DIR po-replace
 mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
-gedit Documentation/web/news-new.itexi Documentation/web/news-old.itexi
-gedit Documentation/web/news-headlines.itexi
+gedit Documentation/en/web/news-new.itexi Documentation/en/web/news-old.itexi
+gedit Documentation/en/web/news-headlines.itexi
 gedit VERSION
 gedit ly/Wel*.ly
 @end example
@@ -162,7 +162,7 @@ Commit, push, switch back to master (or wherever else):
 @example
 git commit -m "Release: bump VERSION_DEVEL." VERSION
 git commit -m "PO: update template." po/lilypond.pot
-git commit -m "Release: update news." Documentation/web/
+git commit -m "Release: update news." Documentation/en/web/
 git commit -m "Release: bump Welcome versions." ly/Wel*.ly
 git push origin HEAD:release/unstable
 git checkout master
@@ -750,13 +750,12 @@ could wipe your disk completely.
 @subsubheading Updating the web site
 
 The @code{make lilypond-upload} command updates the documentation
-on the LilyPond web site.  However, it does @emph{not} update
-any part of the site that is not part of the documentation - for
-example, the front page (@code{index.html}).  The website is
-updated by 2 cron jobs running on the web server.  One of these
-pulls git master to the web server, and the other makes the
-website with the standard @code{make website} command.  They run
-hourly, 30 minutes apart.  So - to update the front page of the
-website, it's necessary to update @code{VERSION} and
-@code{news-headlines.itexi} in master and then wait for the cron
-jobs to run.
+on the LilyPond web site.
+
+The website (which is served on @code{lilypond.org}) is updated by
+executing a manual pipeline on Gitlab.  See @ref{Uploading
+website} for more details.
+
+So - to update the front page of the website, it's necessary to
+update @code{VERSION} and @code{news-headlines.itexi} in master,
+run the manual pipeline, and then wait for the cron jobs to run.
