@@ -199,7 +199,7 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(GS920) -dBATCH \
                  -dNOSAFER \
                  -dNOPAUSE \
-                 $(TEXINFO_GS_QUIET) \
+		 -q \
                  -sDEVICE=pdfwrite \
                  -dAutoRotatePages=/None \
                  -dPrinted=false \
