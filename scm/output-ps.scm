@@ -24,11 +24,9 @@
 ;;;;   * text setting, kerning.
 ;;;;   * document output-interface
 
-(define-module (scm output-ps)
-  #:re-export (quote))
+(define-module (scm output-ps))
 
 (use-modules (guile)
-             (ice-9 regex)
              (ice-9 optargs)
              (srfi srfi-1)
              (srfi srfi-13)
@@ -164,15 +162,15 @@
   (if (and (ly:get-option 'music-font-encodings) (string-startswith (ly:font-file-name font) "emmentaler"))
       (if (string-endswith (ly:font-file-name font)"-brace")
           (if (or (string-startswith glyph "brace1") (string-startswith glyph "brace2"))
-              (ly:format "~a ~a\n" (string-append (ps-font-command font) "-N" ) glyph)
+              (ly:format "~a-N ~a\n" (ps-font-command font) glyph)
               (if (or (string-startswith glyph "brace3") (string-startswith glyph "brace4"))
-                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-S" ) glyph)
-                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-O" ) glyph)))
+                  (ly:format "~a-S ~a\n" (ps-font-command font) glyph)
+                  (ly:format "~a-O ~a\n" (ps-font-command font) glyph)))
           (if (string-startswith glyph "noteheads")
-              (ly:format "~a ~a\n" (string-append (ps-font-command font) "-N" ) glyph)
+              (ly:format "~a-N ~a\n" (ps-font-command font) glyph)
               (if (or (string-startswith glyph "scripts") (string-startswith glyph "clefs"))
-                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-S" ) glyph)
-                  (ly:format "~a ~a\n" (string-append (ps-font-command font) "-O" ) glyph))))
+                  (ly:format "~a-S ~a\n" (ps-font-command font) glyph)
+                  (ly:format "~a-O ~a\n" (ps-font-command font) glyph))))
       (ly:format "~a /~a glyphshow\n" (ps-font-command font) glyph)))
 
 (define (no-origin)
