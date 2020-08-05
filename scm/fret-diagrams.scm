@@ -297,6 +297,7 @@ with magnification @var{mag} of the string @var{text}."
          ;; needed for draw-dots and draw-barre
          (dot-position
            (assoc-get 'dot-position details default-dot-position))
+         ;; default thickness
          ;; needed for draw-dots and draw-barre
          (th
            (* (ly:output-def-lookup layout 'line-thickness)
@@ -712,11 +713,16 @@ fret-diagram overall parameters."
         (apply ly:stencil-add empty-stencil dot-stils)))
 
     (define (draw-thick-zero-fret)
-      "Draw a thick zeroth fret for a fret diagram whose base fret is 1."
-      (let* ((half-thick (* 0.5 sth))
+      "Draw a thick zeroth fret for a fret diagram whose base fret is 1.
+Respect changes of @code{size} and
+@code{fret-diagram-details.string-thickness-factor}."
+      (let* ((half-lowest-string-thickness
+               (* 0.5 sth (string-thickness string-count thickness-factor)))
+             (half-thick (* 0.5 sth))
              (top-fret-thick
                (* sth (assoc-get 'top-fret-thickness details 3.0)))
-             (start-string-coordinate (- half-thick))
+             (start-string-coordinate
+               (- half-lowest-string-thickness))
              (end-string-coordinate
                (+ (* size string-distance (1- string-count)) half-thick))
              (start-fret-coordinate half-thick)
