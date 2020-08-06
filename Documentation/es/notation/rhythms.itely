@@ -705,7 +705,7 @@ las ligaduras de unión.
 @cindex ligadura, edición manual
 @cindex manual, edición de ligadura
 @funindex TieColumn
-@c @anchor{Engraving ties manually} @c this is problematic, many headings have this node name
+@anchor{engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
@@ -1783,7 +1783,7 @@ use la función @code{\scaleDurations} para escalar las duraciones
 de las notas en cada pauta a la indicación de compás común.
 
 @cindex barras, en música polimétrica
-@cindex polimétrico, metro, barras en 
+@cindex polimétrico, metro, barras en
 
 En el siguiente ejemplo, se usa en paralelo música con compases de
 3/4, 9/8 y 10/8.  En el segundo pentagrama, las duraciones

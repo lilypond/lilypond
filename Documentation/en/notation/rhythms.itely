@@ -664,7 +664,7 @@ that should cause a gap in ties.
 @cindex tie, manual engraving
 @cindex manual engraving of ties
 @funindex TieColumn
-@anchor{Engraving ties manually}
+@anchor{engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
