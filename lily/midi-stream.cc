@@ -29,6 +29,7 @@
 #include "warn.hh"
 
 #include <cerrno>
+#include <fcntl.h>
 
 using std::string;
 
@@ -36,12 +37,20 @@ Midi_stream::Midi_stream (const string &file_name)
 {
   dest_file_name_ = file_name;
   int tries = 10;
+
+  int flags = O_WRONLY | O_CREAT | O_EXCL;
+  // Need to open the file in binary mode for Windows to avoid translations, but
+  // flag doesn't exist for other systems.
+#ifdef O_BINARY
+  flags |= O_BINARY;
+#endif
+
   while (tries--)
     {
       tmp_file_name_
         = String_convert::form_string ("%s.%8x", file_name.c_str (), rand ());
-      out_file_ = fopen (tmp_file_name_.c_str (), "wbx");
-      if (out_file_)
+      out_file_ = ::open (tmp_file_name_.c_str (), flags, 0666);
+      if (out_file_ != -1)
         return;
     }
 
@@ -51,7 +60,7 @@ Midi_stream::Midi_stream (const string &file_name)
 
 Midi_stream::~Midi_stream ()
 {
-  fclose (out_file_);
+  close (out_file_);
 
   if (!rename_file (tmp_file_name_.c_str (), dest_file_name_.c_str ()))
     {
@@ -63,11 +72,10 @@ Midi_stream::~Midi_stream ()
 void
 Midi_stream::write (const string &str)
 {
-  size_t sz = sizeof (Byte);
-  size_t n = str.length ();
-  size_t written = fwrite (str.data (), sz, n, out_file_);
+  size_t count = str.length ();
+  size_t written = ::write (out_file_, str.data (), count);
 
-  if (written != sz * n)
+  if (written != count)
     warning (_f ("cannot write to file: `%s': %s", tmp_file_name_.c_str ()),
              strerror (errno));
 }

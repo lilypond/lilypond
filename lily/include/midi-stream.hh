@@ -36,7 +36,7 @@ public:
   void write (Midi_chunk const &);
 
 private:
-  FILE *out_file_;
+  int out_file_;
   std::string tmp_file_name_;
   std::string dest_file_name_;
 };
