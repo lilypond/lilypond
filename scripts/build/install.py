@@ -86,7 +86,7 @@ for f in args:
         if os.path.isdir(f):
             continue
 
-        os.makedirs(f, mode=mode)
+        os.makedirs(f, mode=mode, exist_ok=True)
         chown_me.append(f)
     else:
         if copy:
