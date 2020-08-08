@@ -556,6 +556,7 @@ ifeq ($(PLATFORM_WINDOWS),yes)
 
 $(outdir)/%.ico: %.xpm
 	$(call ly_progress,Making,$@,< xpm)
+	mkdir -p $(dir $@)
 	$(PYTHON) $(buildscript-dir)/genicon.py $< $@
 
 default: $(lilypond-icon) $(ly-icon)

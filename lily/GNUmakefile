@@ -59,17 +59,11 @@ $(outdir)/lilypond: $(outdir)/lilypond.rc.o
 
 $(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico \
 	$(src-dir)/lilypond.manifest
-$(top-build-dir)/Documentation/logo/$(outbase)/lilypond.ico:
-	$(MAKE) -C $(top-build-dir)/Documentation/logo
 
-$(outdir)/lilypond.ico: $(top-build-dir)/Documentation/logo/$(outbase)/lilypond.ico
-	$(call ly_progress,Making,$@,(copy))
-	cp $< $@
+$(top-build-dir)/Documentation/$(outbase)/logo/%.ico:
+	$(MAKE) -C $(top-build-dir)/Documentation $(outbase)/logo/$*.ico
 
-$(top-build-dir)/Documentation/logo/$(outbase)/ly.ico:
-	$(MAKE) -C $(top-build-dir)/Documentation/logo
-
-$(outdir)/ly.ico: $(top-build-dir)/Documentation/logo/$(outbase)/ly.ico
+$(outdir)/%.ico: $(top-build-dir)/Documentation/$(outbase)/logo/%.ico
 	$(call ly_progress,Making,$@,(copy))
 	cp $< $@
 endif
