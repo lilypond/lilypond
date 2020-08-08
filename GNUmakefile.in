@@ -177,7 +177,9 @@ $(outdir)/website-root/index.html: website-build
 	$(foreach d,css misc pictures ly-examples,\
 		cp -a Documentation/out-web/website/$(d) $(dir $@)/ &&) true
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "offline"
+	# fixup links to subdirectories.
 	perl -i -pe 's#(href|src)="\.\./(misc|pictures|ly-examples|css)#\1="\2#g' $(dir $@)/*html
+	# simplify links to self.
 	perl -i -pe 's#(href)="\.\./web/#\1="#g' $(dir $@)/*html
 
 website-build:
