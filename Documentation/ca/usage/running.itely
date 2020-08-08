@@ -496,15 +496,6 @@ f@tab Depuració de l'analitzador sintàctic bison.
 @tab Elimina els fitxers intermedis @code{.ps} inútils que es
 creen durant la compilació.
 
-@item @code{dump-cpu-profile}
-@tab @code{#f}
-@tab Bolcar informació de comptabilització del temps (dependent
-del sistema).
-
-@item @code{dump-profile}
-@tab @code{#f}
-@tab Bolca la informació de memòria i de temps de cada fitxer.
-
 @item @code{dump-signatures}
 @tab @code{#f}
 @tab Bolca les signatures de sortida de cada sistema.  Usat per a

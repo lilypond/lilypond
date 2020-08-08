@@ -126,15 +126,6 @@ The main thing to examine are any changes in page counts -- if a
 file used to fit on 1 page but now requires 4 or 5 pages,
 something is suspicious!
 
-@item
-Profile files: give information about
-TODO?  I don't know what they're for.
-Apparently they give some information about CPU usage.  If you got
-tons of changes in cell counts, this probably means that you compiled
-@code{make test-baseline} with a different amount of CPU threads than
-@code{make check}. Try redoing tests from scratch with the same
-number of threads each time -- see @ref{Saving time with the -j option}.
-
 @end itemize
 
 @warning{

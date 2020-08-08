@@ -615,63 +615,6 @@ class LogFileCompareLink (TextFileCompareLink):
         return c
 
 
-class ProfileFileLink (FileCompareLink):
-    HEADINGS = ('time', 'cells')
-
-    def __init__(self, f1, f2):
-        FileCompareLink.__init__(self, f1, f2)
-        self.results = [{}, {}]
-
-    def get_cell(self, oldnew):
-        str = ''
-        if self.results[oldnew]:
-            if oldnew and self.results[0]:
-                for k in self.HEADINGS:
-                    str += '%-8s: %8d (%5.3f)\n' % (
-                        k, int(self.results[oldnew][k]), self.get_ratio(k))
-            else:
-                for k in self.HEADINGS:
-                    str += '%-8s: %d\n' % (k, int(self.results[oldnew][k]))
-
-        if str:
-            str = '<pre>%s</pre>' % html.escape(str)
-        return '', str
-
-    def get_ratio(self, key):
-        (v1, v2) = (self.results[0].get(key, -1),
-                    self.results[1].get(key, -1))
-
-        if v1 <= 0 or v2 <= 0:
-            return 0.0
-
-        return (v1 - v2) / float(v1+v2)
-
-    def calc_distance(self):
-        for oldnew in (0, 1):
-            def note_info(m):
-                self.results[oldnew][m.group(1)] = float(m.group(2))
-
-            if self.contents[oldnew]:
-                re.sub('([a-z]+): ([-0-9.]+)\n',
-                       note_info, self.contents[oldnew])
-
-        if not self.contents[0] or not self.contents[1]:
-            return 100.0 * (self.contents[0] != self.contents[1])
-
-        dist = 0.0
-        factor = {
-            'time': 0.1,
-            'cells': 5.0,
-        }
-
-        for k in self.HEADINGS:
-            real_val = math.tan(self.get_ratio(k) * 0.5 * math.pi)
-            dist += math.exp(math.fabs(real_val) * factor[k]) - 1
-
-        dist = min(dist, 100)
-        return dist
-
-
 class MidiFileLink (TextFileCompareLink):
     def get_content(self, name):
         try:
@@ -1000,7 +943,6 @@ class ComparisonData:
         for ext in ['signature',
                     'midi',
                     'log',
-                    'profile',
                     'gittxt']:
             (paired, missing1, missing2) = paired_files(dir1, dir2, '*.' + ext)
 
@@ -1032,7 +974,6 @@ class ComparisonData:
             klasses = {
                 '.midi': MidiFileLink,
                 '.log': LogFileCompareLink,
-                '.profile': ProfileFileLink,
                 '.gittxt': GitFileCompareLink,
             }
 
@@ -1482,7 +1423,7 @@ def test_basic_compare():
 
     names = simple_names + ["20multipage", "19multipage"]
     binary = os.environ.get("LILYPOND_BINARY", "lilypond")
-    system('%s -dbackend=eps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
+    system('%s -dbackend=eps --formats=ps -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -dcheck-internal-types -ddump-signatures -danti-alias-factor=1 %s' % (binary, ' '.join(names)))
     test_compare_signatures(simple_names)
 
 

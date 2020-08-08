@@ -507,14 +507,6 @@ aus.
 @tab Entferne unbenutzbare, zwischenzeitliche @code{.ps}-Dateien, die während
 der Kompilations erstellt werden.
 
-@item @code{dump-cpu-profile}
-@tab @code{#f}
-@tab Gebe CPU-Zeitinformation aus (abhängig vom System).
-
-@item @code{dump-profile}
-@tab @code{#f}
-@tab Gebe Speicher- und CPU-Zeitbenutzung für jede Datei aus.
-
 @item @code{dump-signatures}
 @tab @code{#f}
 @tab Gebe Ausgabesignaturen für jedes System aus.  Wird für das Prüfen

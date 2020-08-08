@@ -639,16 +639,6 @@ Predefinito: @code{#f}.
 Se @var{bool} è @code{#t}, cancella i file @file{.ps} intermedi e
 inutilizzabili creati durante la compilazione.  Predefinito: @code{#t}.
 
-@item @code{dump-cpu-profile}
-@var{bool}
-Se @var{bool} è @code{#t}, scarica l'informazione sui tempi (dipendente dal
-sistema).  Predefinito: @code{#f}.
-
-@item @code{dump-profile}
-@var{bool}
-Se @var{bool} è @code{#t}, scarica l'informazione sulla memoria e il tempo
-per ogni file.  Predefinito: @code{#f}.
-
 @item @code{dump-signatures}
 @var{bool}
 Se @var{bool} è @code{#t}, scarica le firme dell'output di ogni sistema.  Usato

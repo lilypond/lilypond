@@ -677,16 +677,6 @@ Bison パーサをデバッグします。@c
 削除します。@c
 デフォルト: @code{#t}。
 
-@item @code{dump-cpu-profile} @var{bool}
-@var{bool} が @code{#t} なら、@c
-CPU 時間情報を吐き出します (システムに依存します)。@c
-デフォルト: @code{#f}。
-
-@item @code{dump-profile} @var{bool}
-@var{bool} が @code{#t} なら、@c
-各ファイルのメモリと CPU 時間情報を吐き出します。@c
-デフォルト: @code{#f}。
-
 @item @code{dump-signatures} @var{bool}
 @var{bool} が @code{#t} なら、@c
 システムごとに出力情報を吐き出します。回帰テストに用いられます。@c

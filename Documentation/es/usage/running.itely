@@ -696,14 +696,6 @@ Si @var{bool} es @code{#t}, eliminar los archivos intermedios
 @code{.ps} inútiles que se crean durante la compilación.
 Predeterminado: @code{#t}.
 
-@item @code{dump-cpu-profile} @var{bool}
-Si @var{bool} es @code{#t}, volcar información de cuenta de tiempo
-(dependiente del sistema).  Predeterminado: @code{#f}.
-
-@item @code{dump-profile} @var{bool}
-Si @var{bool} es @code{#t}, volcar la información de memoria y
-de tiempo para cada archivo.  Predeterminado: @code{#f}.
-
 @item @code{dump-signatures} @var{bool}
 Si @var{bool} es @code{#t}, volcar las firmas de salida de cada
 sistema.  Usado para las pruebas de regresión.  Predeterminado:

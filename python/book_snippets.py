@@ -705,8 +705,6 @@ printing diff against existing file." % filename)
         if not skip_lily:
             require_file(base + '-systems.count')
 
-        if 'ddump-profile' in self.global_options.process_cmd:
-            require_file(base + '.profile')
         if 'dseparate-log-file' in self.global_options.process_cmd:
             require_file(base + '.log')
 

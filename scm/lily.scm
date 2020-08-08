@@ -276,13 +276,8 @@ configurations.")
      "Debug skylines.")
     (delete-intermediate-files #t
      "Delete unusable, intermediate PostScript files.")
-    (dump-cpu-profile #f
-     "Dump timing information (system-dependent).")
-    (dump-profile #f
-     "Dump memory and time information for each file.")
     (dump-signatures #f
-     "Dump output signatures of each system.  Used
-for regression testing.")
+     "Dump output signatures of each system.")
     (embed-source-code #f
      "Embed the source files inside the generated PDF
 document.")
@@ -781,29 +776,6 @@ messages into errors.")
               lilypond-scheme-predicates
               lilypond-exported-predicates))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; timing
-
-(define (profile-measurements)
-  (let* ((t (times))
-         (stats (gc-stats)))
-    (list (- (+ (tms:cutime t)
-                (tms:utime t))
-             (assoc-get 'gc-time-taken stats))
-          (assoc-get 'total-cells-allocated  stats 0))))
-
-(define (dump-profile base last this)
-  (let* ((outname (format #f "~a.profile" (dir-basename base ".ly")))
-         (diff (map - this last)))
-    (ly:progress "\nWriting timing to ~a...\n" outname)
-    (format (open-file outname "w")
-            "time: ~a\ncells: ~a\n"
-            (if (ly:get-option 'dump-cpu-profile)
-                (car diff)
-                0)
-            (cadr diff))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; debug memory leaks
 
@@ -985,9 +957,6 @@ PIDs or the number of the process."
                        (ly:error "Children ~a exited with errors."
                                  (map car errors)))
                    ;; must overwrite individual entries
-                   (if (ly:get-option 'dump-profile)
-                       (dump-profile "lily-run-total"
-                                     '(0 0) (profile-measurements)))
                    (if (null? errors)
                        (ly:exit 0 #f)
                        (ly:exit 1 #f))))))
@@ -1011,7 +980,6 @@ PIDs or the number of the process."
                    (open-file (format #f "~a.log" (ly:get-option 'log-file))
                               "a")
                    (fdes->outport 2))))
-         (do-measurements (ly:get-option 'dump-profile))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
     (cond-expand
@@ -1019,10 +987,7 @@ PIDs or the number of the process."
       (else (gc)))
     (for-each
      (lambda (x)
-       (let* ((start-measurements (if do-measurements
-                                      (profile-measurements)
-                                      #f))
-              (base (dir-basename x ".ly"))
+       (let* ((base (dir-basename x ".ly"))
               (all-settings (ly:all-options)))
          (if separate-logs
              (ly:stderr-redirect (format #f "~a.log" base) "w"))
@@ -1031,8 +996,6 @@ PIDs or the number of the process."
          (lilypond-file handler x)
          (ly:check-expected-warnings)
          (session-terminate)
-         (if start-measurements
-             (dump-profile x start-measurements (profile-measurements)))
          (for-each (lambda (s)
                      (ly:set-option (car s) (cdr s)))
                    all-settings)
@@ -1063,8 +1026,6 @@ PIDs or the number of the process."
     ;; Ensure a notice re failed files is written to aggregate logfile.
     (if ping-log
         (format ping-log "Failed files: ~a\n" failed))
-    (if (ly:get-option 'dump-profile)
-        (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
     failed))
 
 (define (lilypond-file handler file-name)

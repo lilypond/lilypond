@@ -635,15 +635,6 @@ If @var{bool} is @code{#t}, delete the unusable, intermediate
 compilation.
 Default: @code{#t}.
 
-@item @code{dump-cpu-profile} @var{bool}
-If @var{bool} is @code{#t}, dump (system-dependent) timing information.
-Default: @code{#f}.
-
-@item @code{dump-profile} @var{bool}
-If @var{bool} is @code{#t}, dump memory and time information for each
-file.
-Default: @code{#f}.
-
 @item @code{dump-signatures} @var{bool}
 If @var{bool} is @code{#t}, dump output signatures of each system.
 Used for regression testing.
