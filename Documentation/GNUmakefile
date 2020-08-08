@@ -79,6 +79,9 @@ TEXINFO_MANUALS = en/internals \
  $(DOC_TELY_FILES:%.tely=%)\
  $(DOC_TEXI_FILES:%.texi=%)
 
+# In info, images will be loaded from this dir
+INFO_IMAGES_DIR = lilypond
+
 # Some PDF files require extra packages to build
 #
 # Czech - needs xetex
@@ -141,11 +144,6 @@ ifeq ($(out),www)
 INFO_DOCS += lilypond-snippets
 endif
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
-
-ifeq ($(out),www)
-INFO_IMAGES_DIR = lilypond
-DEST_INFO_IMAGES_SUBDIR = Documentation
-endif
 
 include $(depth)/make/stepmake.make
 
@@ -280,19 +278,82 @@ extra-local-help:
 	@echo "    (most often only the ISO 639 language code)."
 	@echo
 
+####
+## Info targets (optionally with images)
+
 info: $(INFO_FILES)
 
-# TODO: depends on what?
-$(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep:
-	$(call ly_progress,Making,$@,(symlinks))
-ifneq ($(INFO_IMAGES_DIR),)
-	rm -f $(INFO_IMAGES_DIR)
-	ln -s $(outdir) $(INFO_IMAGES_DIR)
-	mkdir -p $(outdir)/$(INFO_IMAGES_DIR)
-	rm -f $(outdir)/$(INFO_IMAGES_DIR)/[a-f0-9][a-f0-9]
-	cd $(outdir)/$(INFO_IMAGES_DIR) && $(PYTHON) -tt $(top-src-dir)/scripts/build/mass-link.py symbolic .. . [a-f0-9][a-f0-9]
+local-install: install-info
+
+install-info: $(INFO_FILES) install-info-images update-info-directory-file-install
+	$(INSTALLPY) -d $(DESTDIR)$(infodir) ; \
+	$(INSTALLPY) -c -m 644 $(addsuffix *, $(INFO_FILES)) $(DESTDIR)$(infodir)
+
+uninstall-info: uninstall-info-images update-info-directory-file-uninstall
+	rm -f $(addprefix $(DESTDIR)$(infodir)/,$(addsuffix *, $(INFO_DOCS)))
+
+ifeq ($(out),www)
+UPDATE_IMAGE_SYMLINKS=mkdir -p $(outdir)/$(INFO_IMAGES_DIR) && \
+  cd $(outdir)/$(INFO_IMAGES_DIR) && \
+  ln -sf ../en/[a-f0-9][a-f0-9] .
+else
+UPDATE_IMAGE_SYMLINKS=true
 endif
-	touch $@
+
+install-info-images: $(INFO_FILES)
+ifeq ($(out),www)
+# remove $(infodir)/$(INFO_IMAGES_DIR) in case it is a symlink
+	rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+ifneq ($(COPY_INFO_IMAGES),)
+	$(INSTALL) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+	rsync --copy-links -r  $(outdir)/lilypond/?? $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+# There is probably an rsync invocation to just copy the png files,
+# but I am too lazy to try harder to find it.
+	find $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR) -type f -not -name '*.png' -delete
+else # !COPY_INFO_IMAGES
+	$(INSTALL) -d $(DESTDIR)$(infodir)
+	cd $(DESTDIR)$(infodir) && \
+		ln -sf $$($(PYTHON) $(buildscript-dir)/relative.py \
+			$(DESTDIR)$(webdir)/Documentation ) \
+		$(INFO_IMAGES_DIR)
+endif #!COPY_INFO_IMAGES
+else
+	true
+endif #out=www
+
+uninstall-info-images:
+	rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+
+ifeq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
+
+# installing directly into standard /usr/...
+update-info-directory-file-install: $(INFO_FILES) update-info-directory-file-uninstall
+	-$(INSTALL) -d $(DESTDIR)$(infodir)
+	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
+
+update-info-directory-file-uninstall:
+	$(foreach f,$(INFO_DOCS),install-info --remove --info-dir=$(infodir) $(infodir)/$(f).info ; )true
+
+else
+## installing elsewhere; probably part of a packaging step.
+## install-info can't do all its job for binary packages' build systems.
+## Best we can do is to notify the builder or packager.
+update-info-directory-file-install: $(INFO_FILES)
+	-$(INSTALL) -d $(DESTDIR)$(infodir)
+	@echo
+	@echo "***************************************************************"
+	@echo "Please add or update the LilyPond direntries,"
+	@echo "do or add in the postinstall script"
+	@echo
+	@echo "    install-info --info-dir=$(infodir) $(DESTDIR)$(infodir)/$(MAIN_INFO_DOC).info"
+	@echo
+
+update-info-directory-file-uninstall:
+# nothing to be done: we can't remove the dir because it might have
+# other info files.
+	true
+
+endif
 
 ### Web targets
 
@@ -341,17 +402,20 @@ $(outdir)/weblinks.itexi: $(top-src-dir)/VERSION
 	$(call ly_progress,Making,$@,)
 	$(PYTHON) -tt $(buildscript-dir)/create-weblinks-itexi.py > $@
 
-$(outdir)/lilypond-%.info: $(outdir)/en/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/lilypond-%.info: $(outdir)/en/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES)  --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
+	$(UPDATE_IMAGE_SYMLINKS)
 
-$(outdir)/lilypond-internals.info: $(outdir)/en/internals.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/lilypond-internals.info: $(outdir)/en/internals.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES) -I$(outdir) --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
+	$(UPDATE_IMAGE_SYMLINKS)
 
-$(outdir)/music-glossary.info: $(outdir)/en/music-glossary.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/music-glossary.info: $(outdir)/en/music-glossary.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES) --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
+	$(UPDATE_IMAGE_SYMLINKS)
 
 txt-to-html: $(OUT_TXT_FILES) $(OUT_TXT_FILES:%.txt=%.html)
 

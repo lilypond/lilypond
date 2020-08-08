@@ -96,21 +96,21 @@ refresh-release-files:
 local-clean: local-clean-filelist
 
 info:
-	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true
+	$(MAKE) out=www -C Documentation info
 
-install-info: info
-	$(MAKE) out=www COPY_INFO_IMAGES=1 install-info-WWW
+install-info:
+	$(MAKE) out=www -C Documentation install-info
+
+uninstall-info:
+	$(MAKE) out=www -C Documentation uninstall-info
 
 install-help2man:
 	$(MAKE) -C scripts man install-help2man
 	$(MAKE) -C lily man install-help2man
 
-install-doc:
-	$(MAKE) out=www install-WWW
-	$(MAKE) out=www install-info-WWW
+install-doc: install-info install-WWW
 
-uninstall-doc:
-	$(MAKE) out=www uninstall-WWW
+uninstall-doc: uninstall-info uninstall-WWW
 
 local-install:
 	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
@@ -120,18 +120,13 @@ final-install:
 
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
-install-WWW:
+install-WWW: $(outdir)/offline-root/index.html
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	rsync -rl --exclude='*.signature' $(outdir)/offline-root/ $(DESTDIR)$(webdir)
-
-install-info-WWW:
-	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) install-info && ) true
+	rsync -rl --exclude='*.signature' $(dir $<) $(DESTDIR)$(webdir)
 
 uninstall-WWW:
-	rm -rf $(DESTDIR)$(webdir)
-	-rmdir $(package_docdir)
-	$(MAKE) -C Documentation uninstall
-
+	rm -rf $(DESTDIR)$(package_docdir)
+	$(MAKE) out=www -C Documentation uninstall
 
 # For online docs with content negotiation, issue `make doc WEB_TARGETS=online'
 # For both online and offline docs, issue `make doc WEB_TARGETS="offline online"'
