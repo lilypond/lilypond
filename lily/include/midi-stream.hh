@@ -34,8 +34,8 @@ public:
 
   void write (const std::string &);
   void write (Midi_chunk const &);
-  void open ();
 
+private:
   FILE *out_file_;
   std::string tmp_file_name_;
   std::string dest_file_name_;
