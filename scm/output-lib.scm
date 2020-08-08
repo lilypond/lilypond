@@ -741,7 +741,7 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Color
 
-(define-public (color? x)
+(define-safe-public (color? x)
   (or
    (string? x)
    (and (list? x)
@@ -802,28 +802,28 @@ may or may not use it."
                  (list r g b))))
       (css-color (string->symbol code))))
 
-(define*-public (rgb-color r g b #:optional (a #f))
+(define-safe-public (rgb-color r g b #:optional (a #f))
   (if a
       (list r g b a)
       (list r g b)))
 
 ;; predefined colors
-(define-public black       '(0.0 0.0 0.0))
-(define-public white       '(1.0 1.0 1.0))
-(define-public red         '(1.0 0.0 0.0))
-(define-public green       '(0.0 1.0 0.0))
-(define-public blue        '(0.0 0.0 1.0))
-(define-public cyan        '(0.0 1.0 1.0))
-(define-public magenta     '(1.0 0.0 1.0))
-(define-public yellow      '(1.0 1.0 0.0))
+(define-safe-public black       '(0.0 0.0 0.0))
+(define-safe-public white       '(1.0 1.0 1.0))
+(define-safe-public red         '(1.0 0.0 0.0))
+(define-safe-public green       '(0.0 1.0 0.0))
+(define-safe-public blue        '(0.0 0.0 1.0))
+(define-safe-public cyan        '(0.0 1.0 1.0))
+(define-safe-public magenta     '(1.0 0.0 1.0))
+(define-safe-public yellow      '(1.0 1.0 0.0))
 
-(define-public grey        '(0.5 0.5 0.5))
-(define-public darkred     '(0.5 0.0 0.0))
-(define-public darkgreen   '(0.0 0.5 0.0))
-(define-public darkblue    '(0.0 0.0 0.5))
-(define-public darkcyan    '(0.0 0.5 0.5))
-(define-public darkmagenta '(0.5 0.0 0.5))
-(define-public darkyellow  '(0.5 0.5 0.0))
+(define-safe-public grey        '(0.5 0.5 0.5))
+(define-safe-public darkred     '(0.5 0.0 0.0))
+(define-safe-public darkgreen   '(0.0 0.5 0.0))
+(define-safe-public darkblue    '(0.0 0.0 0.5))
+(define-safe-public darkcyan    '(0.0 0.5 0.5))
+(define-safe-public darkmagenta '(0.5 0.0 0.5))
+(define-safe-public darkyellow  '(0.5 0.5 0.0))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -47,7 +47,6 @@ be created below this bar line.")
      (alteration ,number? "Alteration numbers for accidental.")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
-     (annotation ,string? "Annotate a grob for debug purposes.")
      (annotation-balloon ,boolean? "Print the balloon around an annotation.")
      (annotation-line ,boolean? "Print the line from an annotation to the
 grob that it annotates.")
@@ -1252,6 +1251,7 @@ constructed from a whole number of squiggles.")
 dynamic spanners.")
      (all-elements ,ly:grob-array? "An array of all grobs in this line.  Its
 function is to protect objects from being garbage collected.")
+     (annotation ,string? "Annotate a grob for debug purposes.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 

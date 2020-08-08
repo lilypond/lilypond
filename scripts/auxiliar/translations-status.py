@@ -814,7 +814,7 @@ for l in enabled_languages:
                              for doc in master_docs
                              if l in doc.translations])
     lang_status_page = markup.texi(updated + texi_status)
-    open(os.path.join(l, 'translations.itexi'), 'w').write(lang_status_page)
+    open(os.path.join(l, 'en/translations.itexi'), 'w').write(lang_status_page)
 
 main_status_txt = '''Documentation translations status
 Generated %s
@@ -829,7 +829,7 @@ status_txt_file = 'out/translations-status.txt'
 progress("Writing %s..." % status_txt_file)
 open(status_txt_file, 'w').write(main_status_txt)
 
-translation_instructions_file = 'contributor/doc-translation-list.itexi'
+translation_instructions_file = 'en/contributor/doc-translation-list.itexi'
 progress("Updating %s..." % translation_instructions_file)
 translation_instructions = open(translation_instructions_file).read()
 

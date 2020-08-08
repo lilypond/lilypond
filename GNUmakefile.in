@@ -20,7 +20,7 @@ SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
 README_FILES = COPYING COPYING.FDL DEDICATION ROADMAP HACKING \
   LICENSE LICENSE.DOCUMENTATION
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
-TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/topdocs/$(outdir)/$(T).txt)
+TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/$(outdir)/topdocs/$(T).txt)
 
 RELEASE_FILES = RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
@@ -59,7 +59,7 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
 	rm -rf $(distdir)
 
 top-doc:
-	$(MAKE) -C Documentation/topdocs/ $(foreach T,$(TOPDOC_FILES),$(outdir)/$(T).txt)
+	$(MAKE) -C Documentation $(foreach T,$(TOPDOC_FILES),$(outdir)/topdocs/$(T).txt)
 
 ifneq ($(shell find $(top-src-dir) -name .git),)
 .gitfilelist: $(top-src-dir)/.git/index
@@ -118,7 +118,6 @@ local-install:
 final-install:
 	@true
 
-ifeq ($(out),www)
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
 install-WWW:
@@ -140,15 +139,6 @@ WEB_TARGETS = offline
 
 WEB_ROOT_FILES = $(WEB_TARGETS:%=$(outdir)/%-root/index.html)
 
-WEB_TRACKED_FILES = $(filter-out $(outdir)/index.html, \
-                    $(shell bash -O nullglob -c "echo $(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")) \
-                    $(shell bash -O nullglob -c "echo input/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo input/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo input/*/*/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo input/regression/lilypond-book/$(outdir)/*.{info,tex}") \
-                    $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}") \
-                    $(shell bash -O nullglob -c "echo Documentation/$(outdir)/*/*.{midi,html,pdf,png,jpg,jpeg,txt,ly,ily,signature,css,zip,js,idx,php}")
-
 WWW-post: $(top-build-dir)/.htaccess $(WEB_ROOT_FILES)
 
 # need UTF8 setting in case this is hosted on a website.
@@ -160,23 +150,39 @@ $(top-build-dir)/.htaccess:
 	  echo 'AddCharset utf-8 .nl' ; \
 	  echo 'AddCharset utf-8 .txt' ) > $@
 
-$(outdir)/offline-root/index.html: $(WEB_TRACKED_FILES)
+$(outdir)/%-root/index.html: doc-build
 	$(call ly_progress,Making,$@,)
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) offline
-	find $(outdir)/offline-root -type l | xargs rm -f
-	cd $(outdir)/offline-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
+	rm -rf $(dir $@)/
+	mkdir -p $(dir $@)/Documentation/
+	for d in . musicxml abc2ly lilypond-book ; do \
+		mkdir -p $(dir $@)/input/regression/$${d}; \
+		cp --link -a input/regression/$${d}/out-www/*  $(dir $@)/input/regression/$${d}/ ; \
+	done
+	cp --link -a Documentation/out-www/webdoc/* $(dir $@)/Documentation/
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
+	find $(outdir)/$*-root -type l | xargs rm -f
+	cd $(outdir)/$*-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
+	perl -i -pe 's#(href)="\.\./Documentation/#\1="#g' $(dir $@)/Documentation/*html
+	perl -i -pe 's#(href)="\.\./\.\./Documentation/#\1="../#g' $(dir $@)/Documentation/*/*html
 
-$(outdir)/online-root/index.html: $(WEB_TRACKED_FILES)
+doc-build:
+	$(MAKE) out=www -C Documentation/ doc
+
+website: $(outdir)/website-root/index.html
+
+$(outdir)/website-root/index.html: website-build
 	$(call ly_progress,Making,$@,)
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) online
-	cd $(outdir)/online-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
-endif # ifeq ($(out),www)
+	rm -rf $(dir $@)/
+	mkdir -p $(dir $@)/
+	cp -a Documentation/out-web/website/web/* $(dir $@)/
+	$(foreach d,css misc pictures ly-examples,\
+		cp -a Documentation/out-web/website/$(d) $(dir $@)/ &&) true
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "offline"
+	perl -i -pe 's#(href|src)="\.\./(misc|pictures|ly-examples|css)#\1="\2#g' $(dir $@)/*html
+	perl -i -pe 's#(href)="\.\./web/#\1="#g' $(dir $@)/*html
 
-$(outdir)/website-root/index.html:
-	mkdir -p $(dir $@)/pictures
-	echo '<html><body>hello,world</body></html>' > $@
-	date > $(dir $@)/stamp.txt
-	cp $@ $(dir $@)/pictures/subdir.html
+website-build:
+	$(MAKE) out=web WEB_VERSION=yes -C Documentation/ website
 
 # For those who cannot for the life in them remember to type
 # WEB_TARGETS=..., just bloody make all doc stuff, already.
@@ -185,14 +191,12 @@ all-doc:
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
-tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
 
 # Don't put version numbers here. During development
 # they make no sense, and cause EPS files to become invalid.
 
 tree-share-prefix = $(tree-share)/lilypond/current
-tree-lib-prefix = $(tree-lib)/lilypond/current
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
@@ -207,10 +211,9 @@ link-tree: $(tree-share-prefix)/lilypond-force
 
 $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 	$(call ly_progress,Making,$@,)
-	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
+	cd $(top-build-dir)/$(outbase) && rm -rf bin share
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
-	mkdir -p $(tree-lib-prefix)
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
@@ -221,13 +224,11 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
 			do ln -sf ../../scripts/$(outconfbase)/$$i . ; done
-	cd $(tree-lib-prefix) && \
-		ln -s ../../../../python/$(outconfbase) python
 	cd $(tree-share-prefix) && \
 		ln -s $(top-src-dir)/ly ly && \
 		ln -s ../../../../mf mf && \
 		ln -s $(top-src-dir)/ps && \
-		ln -s ../../../../python/$(outconfbase) python && \
+		ln -s $(top-src-dir)/python && \
 		ln -s $(top-src-dir)/scm && \
 		ln -s $(top-src-dir)/scripts scripts
 	cd $(tree-share-prefix)/tex && \
@@ -338,14 +339,8 @@ test-baseline: test-baseline-pre
 	touch $(BASELINE_STAMP)
 
 local-check-pre:
-#       The condition involving X accepts a baseline created before we
-#       started marking completion with $(BASELINE_STAMP). (share is a
-#       symlink now.)  We should be able to remove this condition once
-#       developers have moved to newer baselines.
-	( export X=$(top-build-dir)/input/regression/out-test-baseline/share ; \
-	  ( [ -d $$X ] && [ ! -L $$X ] ) || \
-	  [ -f $(BASELINE_STAMP) ] || \
-	  ( echo "*** no baseline for comparison" 1>&2 && false ) )
+	[ -f $(BASELINE_STAMP) ] || \
+	  ( echo "*** no baseline for comparison" 1>&2 && false )
 	$(MAKE) test
 
 local-check: local-check-pre
@@ -374,10 +369,3 @@ snippets-clean:
 
 test-snippets-clean:
 	rm -rf out/lybook-testdb
-
-# we want this separate for security; see CG 4.2.  -gp
-website:
-	$(MAKE) config_make=$(config_make) \
-		top-src-dir=$(top-src-dir) \
-		-f $(top-src-dir)/make/website.make \
-		website

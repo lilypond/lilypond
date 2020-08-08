@@ -11,6 +11,11 @@ parens are also not seen by accidentals.
 	
 }
 
+%% Silence a warning about missing font-property, if compiled with the
+%% check-internal-types option.
+#(if (ly:get-option 'check-internal-types)
+     (ly:expect-warning "Grob `Beam' has no interface for property"))
+
 #(define (parenthesize-callback callback)
    "Construct a function that will do CALLBACK and add parentheses.
 Example usage:

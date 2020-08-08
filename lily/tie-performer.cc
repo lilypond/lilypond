@@ -95,10 +95,9 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
       // Find a previous note that ties to the current note. If it exists,
       // remove it from the heads_to_tie vector and create the tie
       list<Head_audio_event_tuple>::iterator it;
-      bool found = false;
       Stream_event *right_mus = inf.event_;
       for (it = heads_to_tie_.begin ();
-           !found && (it != heads_to_tie_.end ());
+           it != heads_to_tie_.end ();
            it++)
         {
           Audio_element_info et = (*it).head_;
@@ -109,17 +108,15 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
               && ly_is_equal (get_property (right_mus, "pitch"),
                               get_property (left_mus, "pitch")))
             {
-              found = true;
               // (*it).moment_ already stores the end of the tied note!
               Moment skip = now_mom () - (*it).end_moment_;
               an->tie_to (th, skip);
-              it = heads_to_tie_.erase (it);
+              heads_to_tie_.erase (it);
+              return;
             }
         }
-      if (found)
-        return;
       for (it = heads_to_tie_.begin ();
-           !found && (it != heads_to_tie_.end ());
+           it != heads_to_tie_.end ();
            it++)
         {
           Audio_element_info et = (*it).head_;
@@ -134,11 +131,11 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
           if (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
               && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
             {
-              found = true;
               // (*it).moment_ already stores the end of the tied note!
               Moment skip = now_mom () - (*it).end_moment_;
               an->tie_to (th, skip);
-              it = heads_to_tie_.erase (it);
+              heads_to_tie_.erase (it);
+              return;
             }
         }
     }

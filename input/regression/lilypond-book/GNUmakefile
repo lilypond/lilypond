@@ -43,16 +43,18 @@ $(outdir)/%.html: %.xml
 
 $(outdir)/%.tex: %.lytex
 	$(call ly_progress,Making,$@,< lytex)
-	$(buildscript-dir)/run-and-check.sh "$(LILYPOND_BOOK_COMMAND) \
-		--pdf -o $(outdir) $<"  $(outdir)/"$*.lytex.log"
+	$(LILYPOND_BOOK_COMMAND) --pdf --latex-program $(PDFLATEX) \
+		-o $(outdir) $<
 
 $(outdir)/%.tex: %.tex
 	$(call ly_progress,Making,$@,< tex)
-	$(LILYPOND_BOOK_COMMAND) --pdf -o $(dir $@) $<
+	$(LILYPOND_BOOK_COMMAND) --pdf --latex-program $(PDFLATEX) \
+		-o $(dir $@) $<
 
 $(outdir)/%.tex: %.latex
 	$(call ly_progress,Making,$@,< latex)
-	$(LILYPOND_BOOK_COMMAND) --pdf -o $(dir $@) $<
+	$(LILYPOND_BOOK_COMMAND) --pdf --latex-program $(PDFLATEX) \
+		-o $(outdir) $<
 
 # Add the tex => pdf rule only if 'pdflatex' is set
 ifeq (,$(findstring pdflatex,$(MISSING_OPTIONAL)))
@@ -94,7 +96,8 @@ $(outdir)/%.html: $(outdir)/%.texi
 		--output=$@ $<"  "$(outdir)/$*.texilog.log"
 
 $(outdir)/%.pdf: $(outdir)/%.texi
-	$(buildscript-dir)/run-and-check.sh \
+	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
+		$(buildscript-dir)/run-and-check.sh \
 			"cd $(outdir); \
 				texi2pdf --batch $(TEXI2PDF_FLAGS) \
 					$(TEXI2PDF_QUIET) \

@@ -19,6 +19,7 @@
 
 #include "midi-stream.hh"
 
+#include "file-path.hh"
 #include "international.hh"
 #include "main.hh"
 #include "midi-chunk.hh"
@@ -52,11 +53,7 @@ Midi_stream::~Midi_stream ()
 {
   fclose (out_file_);
 
-#ifdef __MINGW32__
-  // Windows rename will not overwrite existing destinations.
-  unlink (dest_file_name_.c_str ());
-#endif
-  if (rename (tmp_file_name_.c_str (), dest_file_name_.c_str ()))
+  if (!rename_file (tmp_file_name_.c_str (), dest_file_name_.c_str ()))
     {
       error (_f ("cannot rename `%s' to `%s'", tmp_file_name_.c_str (),
                  dest_file_name_.c_str ()));

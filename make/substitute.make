@@ -24,9 +24,7 @@ ATVARIABLES = \
   date\
   lilypond_datadir\
   lilypond_docdir\
-  lilypond_libdir\
   local_lilypond_datadir\
-  local_lilypond_libdir\
   localedir\
   outdir\
   prefix\

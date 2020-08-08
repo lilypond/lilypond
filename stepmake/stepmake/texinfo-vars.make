@@ -29,17 +29,6 @@ TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 MAKEINFO_FLAGS += --enable-encoding --error-limit=0 $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG=C $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
-# texi2html xref map files
-XREF_MAPS_DIR = $(top-build-dir)/$(outdir)/xref-maps
-ifneq ($(ISOLANG),)
-XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map) \
- $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map)
-else
-XREF_MAPS_FILES += $(TEXI_FILES:%.texi=$(XREF_MAPS_DIR)/%.xref-map) \
- $(TELY_FILES:%.tely=$(XREF_MAPS_DIR)/%.xref-map)
-endif
-XREF_MAP_FLAGS += -I $(outdir) -I $(src-dir) $(DOCUMENTATION_INCLUDES)
-
 ###########
 ifneq ($(ISOLANG),)
 TEXI2HTML_LANG = --document-language=$(ISOLANG)
@@ -49,14 +38,8 @@ TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.ini
 
 TEXI2HTML_SPLIT = --prefix=index --split=section
 
-TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
-TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG)
-
-# texi2html v5 has fatal errors in the build, so only be strict about
-# errors in the version we officially support
-ifeq ($(TEXI2HTML_VERSION),1082000)
-TEXI2HTML_FLAGS+=--error-limit=0
-endif
+TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES)
+TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_INIT) $(TEXI2HTML_LANG) $(TEXI2HTML_ERROR_LIMIT)
 
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 ###########

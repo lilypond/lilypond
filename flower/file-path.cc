@@ -20,9 +20,6 @@
 
 #include "file-path.hh"
 
-#include <cstdio>
-#include <cerrno>
-
 #include "config.hh"
 #if HAVE_SYS_STAT_H
 #include <sys/stat.h>
@@ -44,6 +41,9 @@
 #endif
 
 #include <algorithm>
+#include <cstdio>
+#include <cerrno>
+#include <memory>
 
 using std::string;
 using std::vector;
@@ -87,14 +87,10 @@ workaround_wrapper_stat (const char *f, STRUCT_STAT *s)
       if (len == 0)
         return -1;
 
-      LPWSTR pw = new WCHAR[len];
-      MultiByteToWideChar (CP_UTF8, 0, f, -1, pw, len);
+      std::unique_ptr<WCHAR[]> pw (new WCHAR[len]);
+      MultiByteToWideChar (CP_UTF8, 0, f, -1, pw.get (), len);
 
-      int retval = _wstat (pw, s);
-
-      delete [] pw;
-
-      return retval;
+      return _wstat (pw.get (), s);
     }
 
   return FUNCTION_STAT (f, s);
@@ -143,6 +139,60 @@ is_dir (string file_name)
       return true;
     }
   return false;
+}
+
+bool
+rename_file (const char *oldname, const char *newname)
+{
+#if !defined (__MINGW32__)
+  return rename (oldname, newname) == 0;
+#else
+  // If the current code page is UTF-8, convert the filename to wide strings
+  // and use MoveFileExW().
+  if (GetACP () == CP_UTF8)
+    {
+      int old_len = MultiByteToWideChar (CP_UTF8, 0, oldname, -1, nullptr, 0);
+      int new_len = MultiByteToWideChar (CP_UTF8, 0, newname, -1, nullptr, 0);
+      if (old_len == 0 || new_len == 0)
+        return false;
+
+      std::unique_ptr<WCHAR[]> old_wide (new WCHAR[old_len]);
+      MultiByteToWideChar (CP_UTF8, 0, oldname, -1, old_wide.get (), old_len);
+      std::unique_ptr<WCHAR[]> new_wide (new WCHAR[new_len]);
+      MultiByteToWideChar (CP_UTF8, 0, newname, -1, new_wide.get (), new_len);
+
+      // Note the return value: MoveFileExW() returns 0 in case of failure, so
+      // the opposite of POSIX rename().
+      if (MoveFileExW (old_wide.get (), new_wide.get (),
+                       MOVEFILE_REPLACE_EXISTING) != 0)
+        return true;
+
+      // Fall back to copying the file contents to the destination.
+      if (CopyFileW (old_wide.get (), new_wide.get (), FALSE) != 0)
+        {
+          // The copy succeeded, now delete the source file.
+          return DeleteFileW (old_wide.get ()) != 0;
+        }
+
+      // All failed, give up.
+      return false;
+    }
+
+  // Note the return value: MoveFileExA() returns 0 in case of failure, so the
+  // opposite of POSIX rename().
+  if (MoveFileExA (oldname, newname, MOVEFILE_REPLACE_EXISTING) != 0)
+    return true;
+
+  // Fall back to copying the file contents to the destination.
+  if (CopyFileA (oldname, newname, FALSE) != 0)
+    {
+      // The copy succeeded, now delete the source file.
+      return DeleteFileA (oldname) != 0;
+    }
+
+  // All failed, give up.
+  return false;
+#endif
 }
 
 /** Find a file.

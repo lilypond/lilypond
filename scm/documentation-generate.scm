@@ -147,13 +147,13 @@ For LilyPond version @version{}
 @ifhtml
 @ifclear bigpage
 This document is also available as a
-@uref{source/Documentation/internals.pdf,PDF} and as
-@uref{source/Documentation/internals-big-page.html,one big page}.
+@uref{../internals.pdf,PDF} and as
+@uref{../internals-big-page.html,one big page}.
 @end ifclear
 @ifset bigpage
 This document is also available as a
-@uref{source/Documentation/internals.pdf,PDF} and as a
-@uref{source/Documentation/internals/index.html,HTML indexed multiple pages}.
+@uref{internals.pdf,PDF} and as a
+@uref{internals/index.html,HTML indexed multiple pages}.
 @end ifset
 @end ifhtml
 

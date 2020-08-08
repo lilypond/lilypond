@@ -27,15 +27,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
 
-(define-public X 0)
-(define-public Y 1)
+(define-safe-public X 0)
+(define-safe-public Y 1)
 (define-safe-public START -1)
 (define-safe-public STOP 1)
-(define-public LEFT -1)
-(define-public RIGHT 1)
-(define-public UP 1)
-(define-public DOWN -1)
-(define-public CENTER 0)
+(define-safe-public LEFT -1)
+(define-safe-public RIGHT 1)
+(define-safe-public UP 1)
+(define-safe-public DOWN -1)
+(define-safe-public CENTER 0)
 
 (define-safe-public DOUBLE-FLAT  -1)
 (define-safe-public THREE-Q-FLAT -3/4)

@@ -113,6 +113,13 @@ Variable volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibilit
 Variable write_performances_midis ("write-performances-midis");
 }
 
+namespace Srfi_1
+{
+Scm_module module ("srfi srfi-1");
+
+Variable append_reverse ("append-reverse");
+}
+
 namespace Syntax
 {
 Scm_module module ("scm ly-syntax-constructors");

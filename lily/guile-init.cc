@@ -78,6 +78,7 @@ ly_c_init_guile ()
 {
   Guile_user::module.import ();
   Lily::module.boot (ly_init_ly_module);
+  Srfi_1::module.import ();
   Syntax::module.import ();
   Display::module.import ();
   scm_c_use_module ("lily");

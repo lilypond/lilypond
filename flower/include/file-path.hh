@@ -43,5 +43,6 @@ public:
 
 bool is_file (const std::string &file_name);
 bool is_dir (std::string file_name);
+bool rename_file (const char *oldname, const char *newname);
 
 #endif /* FILE_PATH */

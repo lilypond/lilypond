@@ -49,7 +49,6 @@ TODO:
 # TODO: Better solve the global_options copying to the snippets...
 
 import codecs
-import fcntl
 from functools import reduce
 import gettext
 import glob
@@ -63,6 +62,14 @@ import subprocess
 import sys
 import tempfile
 
+# See lock_path and unlock_path; this module is not available at all on Windows.
+if os.name == 'posix':
+    import fcntl
+
+"""
+@relocate-preamble@
+"""
+
 import book_base
 import book_docbook
 import book_html
@@ -71,11 +78,6 @@ import book_texinfo
 import book_snippets
 import fontextract
 import langdefs
-
-
-"""
-@relocate-preamble@
-"""
 
 # Load translation and install _() into Python's builtins namespace.
 gettext.install('lilypond', '@localedir@')

@@ -43,6 +43,7 @@ ADD_INTERFACE (Semi_tie,
                "@end table\n",
 
                /* properties */
+               "annotation "
                "control-points "
                "direction "
                "details "

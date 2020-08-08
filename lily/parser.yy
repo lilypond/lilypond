@@ -4077,13 +4077,13 @@ markup_braced_list_body:
 		$$ = scm_cons ($2, $1);
 	}
 	| markup_braced_list_body markup_list {
-		$$ = scm_reverse_x ($2, $1);
+		$$ = Srfi_1::append_reverse ($2, $1);
 	}
 	;
 
 markup_command_list:
 	MARKUP_LIST_FUNCTION markup_command_list_arguments {
-	  $$ = scm_cons ($1, scm_reverse_x($2, SCM_EOL));
+	  $$ = scm_cons ($1, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
