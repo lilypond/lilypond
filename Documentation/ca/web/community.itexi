@@ -11,8 +11,8 @@
 @c Translation checkers:
 
 
-@include included/authors.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/helpus.itexi
 
 @node Comunitat
 @unnumbered Comunitat
@@ -1093,7 +1093,7 @@ que introduís més advertiments dels que hi ha actualment.
 @ref{Golfes}}
 @divEnd
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
 
 @node Golfes
@@ -1171,4 +1171,4 @@ Registres de canvis dels desenvolupadors, per versió:
 
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

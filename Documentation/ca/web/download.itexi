@@ -10,7 +10,7 @@
 @c Translation checkers:
 
 
-@include included/generating-output.itexi
+@include en/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{El LilyPond és un sistema de gravat musical @strong{basat en
@@ -586,6 +586,6 @@ motius per haver-la escollit, a @ref{Llibertat}.
 @divClass{column-center-bottom}
 @subheading Llicència General Pública de GNU
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

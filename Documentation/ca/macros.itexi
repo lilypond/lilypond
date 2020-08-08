@@ -14,7 +14,7 @@
 @documentencoding UTF-8
 
 @include version.itexi
-@include common-macros.itexi
+@include en/common-macros.itexi
 
 @ignore
 ****************************

@@ -534,7 +534,7 @@ documentació generada.
 @divClass{column-center-bottom}
 @subheading Estat de la traducció
 
-@include translations.itexi
+@include ca/translations.itexi
 
 @divEnd
 
@@ -626,6 +626,6 @@ llicència i a els nostres motius per haver-la escollit, a
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

@@ -32,13 +32,13 @@ d'un tipus específic o dins d'estils específics.
 * Músiques del món::
 @end menu
 
-@include notation/vocal.itely
-@include notation/keyboards.itely
-@include notation/unfretted-strings.itely
-@include notation/fretted-strings.itely
-@include notation/percussion.itely
-@include notation/wind.itely
-@include notation/chords.itely
-@include notation/contemporary.itely
-@include notation/ancient.itely
-@include notation/world.itely
+@include ca/notation/vocal.itely
+@include ca/notation/keyboards.itely
+@include ca/notation/unfretted-strings.itely
+@include ca/notation/fretted-strings.itely
+@include ca/notation/percussion.itely
+@include ca/notation/wind.itely
+@include ca/notation/chords.itely
+@include ca/notation/contemporary.itely
+@include ca/notation/ancient.itely
+@include ca/notation/world.itely

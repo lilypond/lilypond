@@ -28,7 +28,7 @@ Copyright @copyright{} 1999--2021 pels autors.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include ca/macros.itexi
 
 
 @c Translators: Walter Garcia-Fontes
@@ -64,13 +64,13 @@ Annexos
 
 @c INCLUDES
 
-@include learning/tutorial.itely
-@include learning/common-notation.itely
-@include learning/fundamental.itely
-@include learning/tweaks.itely
+@include ca/learning/tutorial.itely
+@include ca/learning/common-notation.itely
+@include ca/learning/fundamental.itely
+@include ca/learning/tweaks.itely
 
-@include learning/templates.itely
-@include fdl.itexi
+@include ca/learning/templates.itely
+@include en/fdl.itexi
 
 @node Índex del LilyPond
 @appendix Índex del LilyPond

@@ -30,11 +30,11 @@ Aquest capítol explica com crear notació musical.
 * Text::                    Addició de text a les partitures.
 @end menu
 
-@include notation/pitches.itely
-@include notation/rhythms.itely
-@include notation/expressive.itely
-@include notation/repeats.itely
-@include notation/simultaneous.itely
-@include notation/staff.itely
-@include notation/editorial.itely
-@include notation/text.itely
+@include ca/notation/pitches.itely
+@include ca/notation/rhythms.itely
+@include ca/notation/expressive.itely
+@include ca/notation/repeats.itely
+@include ca/notation/simultaneous.itely
+@include ca/notation/staff.itely
+@include ca/notation/editorial.itely
+@include ca/notation/text.itely

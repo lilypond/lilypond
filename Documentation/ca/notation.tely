@@ -36,7 +36,7 @@ Copyright @copyright{} 1999--2021 pels autors.
 
 
 @set FDL
-@include macros.itexi
+@include ca/macros.itexi
 
 
 @c Translators: Walter Garcia-Fontes
@@ -71,20 +71,20 @@ Annexos
 @allowcodebreaks false
 @end iftex
 
-@include notation/notation.itely
-@include notation/specialist.itely
+@include ca/notation/notation.itely
+@include ca/notation/specialist.itely
 
-@include notation/input.itely
-@include notation/spacing.itely
+@include ca/notation/input.itely
+@include ca/notation/spacing.itely
 
-@include notation/changing-defaults.itely
-
-
-@include notation/notation-appendices.itely
-@include notation/cheatsheet.itely
+@include ca/notation/changing-defaults.itely
 
 
-@include fdl.itexi
+@include ca/notation/notation-appendices.itely
+@include ca/notation/cheatsheet.itely
+
+
+@include en/fdl.itexi
 
 
 @node Índex d'ordres del LilyPond
