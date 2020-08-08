@@ -20,7 +20,7 @@ $(eval $(firstword $(TEXI_FILES_FROM_TELY)):\
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
-$(outdir)/%.texi: %.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET)
+$(outdir)/%.texi: %.tely $(DOCUMENTATION_LOCALE_TARGET)
 	$(call ly_progress,Making,$@,< tely)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
 		TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
@@ -31,7 +31,7 @@ $(outdir)/%.texi: %.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET)
 		$(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
 
 
-$(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET)
+$(outdir)/%.texi: $(outdir)/%.tely $(DOCUMENTATION_LOCALE_TARGET)
 	$(call ly_progress,Making,$@,< tely)
 	LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
 		TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
