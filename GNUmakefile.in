@@ -153,6 +153,9 @@ $(outdir)/%-root/index.html: doc-build
 		mkdir -p $(dir $@)/input/regression/$${d}; \
 		cp --link -a input/regression/$${d}/out-www/*  $(dir $@)/input/regression/$${d}/ ; \
 	done
+	find $(dir $@)/input/regression/ -type f -not -name '*.png' \
+		-not -name '*.ly' -not -name '*.html' -not -name 'collated-files.pdf' \
+		-delete
 	cp --link -a Documentation/out-www/webdoc/* $(dir $@)/Documentation/
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
 	find $(outdir)/$*-root -type l | xargs rm -f
@@ -162,6 +165,7 @@ $(outdir)/%-root/index.html: doc-build
 
 doc-build:
 	$(MAKE) out=www -C Documentation/ doc
+	$(MAKE) out=www -C input/regression/ doc
 
 website: $(outdir)/website-root/index.html
 
