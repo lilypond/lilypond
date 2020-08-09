@@ -395,6 +395,8 @@ $(outdir)/$(1)/snippets.texi: $(IN_ITELY_FILES:snippets/%-intro.itely=$(outdir)/
 
 $(outdir)/$(1)/notation.texi: $(outdir)/snippets/dep
 
+$(outdir)/$(1)/learning.texi: $(outdir)/snippets/dep
+
 $(outdir)/$(1)/usage.texi: $(outdir)/snippets/dep
 
 $(outdir)/$(1)/web.xref-map: EXTRACT_TEXI_FILENAMES_FLAGS += --split=node
