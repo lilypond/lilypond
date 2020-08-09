@@ -19,9 +19,12 @@
 
 
 '''
+Updates status texi files in the Documentation source tree
+
 USAGE: cd Documentation && translations-status.py
 
-  Write:
+  Writes:
+
     translations.itexi
     <LANG>/translations.itexi
     out/translations-status.txt
@@ -666,7 +669,7 @@ class MasterTelyDocument (TelyDocument):
             languages = [x for x in list(
                 parent_translations.keys()) if x != 'en']
             self.translations = dict([x for x in
-                                      [(lang, self.translated_factory(os.path.join(lang, self.filename),
+                                      [(lang, self.translated_factory(self.filename.replace("en/", lang +"/"),
                                                                       parent_translations.get(lang)))
                                        for lang in languages]
                                       if x[1]])
@@ -775,8 +778,11 @@ def update_category_word_counts_sub(m):
 
 progress("Reading documents...")
 
-master_files = sorted(buildlib.read_pipe(
-        "git ls-files | grep -E '[^/]*/?[^/]*[.](tely|texi)$'")[0].splitlines())
+master_files = []
+for l in buildlib.read_pipe("git ls-files en")[0].split('\n'):
+    if re.match(r"^en/[^./]*\.(texi|tely)$", l):
+        master_files.append(l)
+master_files.sort()
 
 master_docs = [MasterTelyDocument(os.path.normpath(filename))
                for filename in master_files]
@@ -804,7 +810,7 @@ main_status_body = markup.paragraph(
 main_status_body += '\n'.join([doc.texi_status(markup) for doc in master_docs])
 main_status_page = markup.texi(main_status_body)
 
-open('translations.itexi', 'w').write(main_status_page)
+open('en/translations.itexi', 'w').write(main_status_page)
 
 for l in enabled_languages:
     date_time = buildlib.read_pipe('LANG=%s date -u' % l)[0]
@@ -814,7 +820,7 @@ for l in enabled_languages:
                              for doc in master_docs
                              if l in doc.translations])
     lang_status_page = markup.texi(updated + texi_status)
-    open(os.path.join(l, 'en/translations.itexi'), 'w').write(lang_status_page)
+    open(os.path.join(l, 'translations.itexi'), 'w').write(lang_status_page)
 
 main_status_txt = '''Documentation translations status
 Generated %s
@@ -824,6 +830,9 @@ FT = fully translated
 ''' % date_time
 
 main_status_txt += '\n'.join([doc.text_status(markup) for doc in master_docs])
+
+# TODO: build system should inject $(out) here.
+os.makedirs("out", exist_ok=True)
 
 status_txt_file = 'out/translations-status.txt'
 progress("Writing %s..." % status_txt_file)
