@@ -42,6 +42,8 @@ def read_pipe(command):
 
 # Renamed files map to ensure continuity of file history
 # Map of new_name: old_name
+# This is for handling 69f0ec47 ("Docs: reorganize documentation
+# directory structure"), which removed the user/ dir and the topdocs/NEWS.tely file
 renames_map = {
     'usage.tely': 'user/lilypond-program.tely',
     'notation.tely': 'user/lilypond.tely',
@@ -55,7 +57,7 @@ manuals_subdirectories_re = \
         '(usage|automated-engraving|changes|essay|extending|web|learning|notation)/')
 
 
-def add_old_name(file_path):
+def get_old_name(file_path):
     for new_path in renames_map:
         if file_path.endswith(new_path):
             old_file_path = file_path.replace(new_path,
@@ -73,20 +75,31 @@ def add_old_name(file_path):
                                               '../input/lsr/')
         else:
             return file_path
-    return file_path + ' ' + old_file_path
+    return old_file_path
+
+
+def file_exists_at(revision, name):
+    cmd = "git show %s:Documentation/%s" % (revision, name)
+    if verbose:
+        sys.stderr.write('running: %s\n' % cmd)
+
+    child = subprocess.run(cmd,
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL,
+                           shell=True)
+    return not child.returncode
 
 
 revision_re = re.compile(r'GIT [Cc]ommittish:\s+([a-f0-9]+)')
-vc_diff_cmd = 'git diff -M %(color_flag)s %(revision)s \
-%(upper_revision)s -- %(original_with_old_name)s | cat'
+
 no_committish_fatal_error = """error: %s: no 'GIT committish: <hash>' found.
 Please check the whole file against the original in English, then
 fill in HEAD committish in the header.
 """
 
-
 def check_translated_doc(original, translated_file, translated_contents,
                          color=False, upper_revision='HEAD'):
+    """Returns the diff of the original relative to the last translation"""
     m = revision_re.search(translated_contents)
     if not m:
         sys.stderr.write(no_committish_fatal_error % translated_file)
@@ -99,8 +112,17 @@ def check_translated_doc(original, translated_file, translated_contents,
         color_flag = '--color --color-words'
     else:
         color_flag = '--no-color'
-    original_with_old_name = add_old_name(original)
-    c = vc_diff_cmd % vars()
+
+    current_name = original
+
+    if original.startswith("en/") and not file_exists_at(revision, original):
+        # this is to handle the rename in 82d72b7 ("Merge branch doc-build")
+        original = original[3:]
+    if not file_exists_at(revision, original):
+        original = get_old_name(original)
+
+    c = 'git diff -M %(color_flag)s %(revision)s:Documentation/%(original)s \
+%(upper_revision)s:Documentation/%(current_name)s' % vars()
     if verbose:
-        sys.stderr.write('running: ' + c)
+        sys.stderr.write('running: %s\n' % c)
     return read_pipe(c)

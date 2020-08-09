@@ -63,7 +63,7 @@ def do_file(file_name, lang_codes):
                 check_lang, 'texidocs'), 'snippets', 1)
             original = original.replace('.texidoc', '.ly', 1)
         else:
-            original = dir_lang(file_name, '', lang_dir_index)
+            original = dir_lang(file_name, 'en', lang_dir_index)
         translated_contents = open(file_name).read()
 
         # experimental feature
@@ -79,6 +79,7 @@ def do_file(file_name, lang_codes):
                                              translated_contents, 1)
                 f = open(file_name, 'w').write(translated_contents)
                 return
+
     (diff_string, error) \
         = buildlib.check_translated_doc(original,
                                         file_name,
