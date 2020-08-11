@@ -137,13 +137,33 @@ SPLIT_HTML_INDEX_FILES = $(SPLIT_HTML_MANUALS:%=$(outdir)/%/index.html)
 
 MAIN_INFO_DOC = lilypond-web
 
-INFO_DOCS = lilypond-usage lilypond-changes lilypond-contributor lilypond-internals \
- lilypond-essay lilypond-learning lilypond-notation music-glossary \
- lilypond-web lilypond-extending
+# This list must stay in sync with the corresponding @direntry block
+# in file `web.texi`.
+INFO_DOCS = \
+  lilypond-changes \
+  lilypond-contributor \
+  lilypond-essay \
+  lilypond-extending \
+  lilypond-internals \
+  lilypond-learning \
+  lilypond-notation \
+  lilypond-usage \
+  music-glossary
+# Some info files should only be processed if `$(out)` is equal to
+# `www`, but we generate them anyway.  Reason is that we use repeated
+# calls to `install-info` during installation to properly remove old
+# entries in info's `dir` file, and older LilyPond versions inserted
+# more entries that are no longer present.
+ALL_INFO_DOCS = \
+  $(INFO_DOCS) \
+  lilypond-snippets \
+  lilypond-web
 ifeq ($(out),www)
-INFO_DOCS += lilypond-snippets
+INFO_DOCS += lilypond-snippets \
+             lilypond-web
 endif
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
+ALL_INFO_FILES = $(ALL_INFO_DOCS:%=$(outdir)/%.info)
 
 include $(depth)/make/stepmake.make
 
@@ -250,7 +270,7 @@ $(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
 ###########
 ### Targets
 
-default: $(OUT_TXT_FILES) $(INFO_FILES)
+default: $(OUT_TXT_FILES) $(ALL_INFO_FILES)
 
 local-help: extra-local-help
 
@@ -281,7 +301,7 @@ extra-local-help:
 ####
 ## Info targets (optionally with images)
 
-info: $(INFO_FILES)
+info: $(ALL_INFO_FILES)
 
 local-install: install-info
 
@@ -327,12 +347,18 @@ uninstall-info-images:
 ifeq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 
 # installing directly into standard /usr/...
-update-info-directory-file-install: $(INFO_FILES) update-info-directory-file-uninstall
+update-info-directory-file-install: \
+  $(ALL_INFO_FILES) \
+  update-info-directory-file-uninstall
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
 
 update-info-directory-file-uninstall:
-	$(foreach f,$(INFO_DOCS),install-info --remove --info-dir=$(infodir) $(infodir)/$(f).info ; )true
+	$(foreach f, \
+                  $(ALL_INFO_FILES), \
+                  install-info --remove \
+                               --info-dir=$(infodir) \
+                               $(f) &> /dev/null ; )true
 
 else
 ## installing elsewhere; probably part of a packaging step.
@@ -470,7 +496,19 @@ $(outdir)/$(1)/%.xref-map: $(outdir)/$(1)/%.texi $(outdir)/en/%.xref-map
 $(outdir)/$(1)/pictures:
 	rm -f $$@ && mkdir -p $$(dir $$@) && ln -s ../pictures $$@
 
-$(outdir)/$(1)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi $(outdir)/version.itexi
+# Adjust the @direntry block to only list installed info files.
+$(outdir)/$(1)/web.texi: \
+  $(1)/web.texi \
+  $(outdir)/we-wrote.itexi \
+  $(outdir)/others-did.itexi \
+  $(outdir)/weblinks.itexi \
+  $(outdir)/version.itexi
+ifneq ($(out),www)
+	$(call ly_progress,Making,$$@,(sed))
+	sed -e '/^\*.*lilypond-snippets/d' \
+            -e '/^\*.*lilypond-web/d' \
+            < $$< > $$@
+endif
 
 $(outdir)/$(1)/essay.texi: \
   $(outdir)/colorado.itexi \
