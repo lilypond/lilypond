@@ -234,9 +234,19 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       // we just give it the parents' coordinate because its
       // skyline will likely be of infinite width anyway
       // and we don't want to prematurely trigger H spacing
-      Real xc = a == X_AXIS || (pure && dynamic_cast<Spanner *> (me))
-                ? me->parent_relative (common[X_AXIS], X_AXIS)
-                : me->relative_coordinate (common[X_AXIS], X_AXIS);
+      Real xc;
+      if (a == X_AXIS)
+        xc = me->parent_relative (common[X_AXIS], X_AXIS);
+      else // Y_AXIS
+        {
+          if (!pure)
+            xc = me->relative_coordinate (common[X_AXIS], X_AXIS);
+          else
+            // Not safe to call X-offset callbacks here as that may
+            // trigger stem and beam direction, so just set to 0
+            xc = 0;
+        }
+
       // same here, for X_AXIS spacing, if it's happening, it should only be
       // before line breaking.  because there is no thing as "pure" x spacing,
       // we assume that it is all pure
