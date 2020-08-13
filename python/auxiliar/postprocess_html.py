@@ -27,7 +27,6 @@ import re
 import os
 import sys
 import time
-import operator
 
 import langdefs
 from functools import reduce
@@ -97,12 +96,13 @@ LANGUAGES_TEMPLATE = '''
 
 
 html_re = re.compile('(.*?)(?:[.]([^/.]*))?[.]html$')
-pages_dict = {}
 
 
 def build_pages_dict(filelist):
-    """Build dictionary of available translations of each page"""
-    global pages_dict
+    """Build dictionary of available translations of each page.
+
+    Returns: basename => list of languages dict"""
+    pages_dict = {}
 
     language_codes = set([l.webext for l in langdefs.LANGUAGES])
     for f in filelist:
@@ -121,7 +121,7 @@ def build_pages_dict(filelist):
                 pages_dict[g[0]] = [e]
             else:
                 pages_dict[g[0]].append(e)
-
+    return pages_dict
 
 body_tag_re = re.compile('(?i)<body([^>]*)>')
 html_tag_re = re.compile('(?i)<html>')
@@ -182,7 +182,7 @@ def add_footer(s, footer_text):
     return s
 
 
-def find_translations(prefix, lang_ext):
+def find_translations(pages_dict, prefix, lang_ext):
     """find available translations of a page"""
     available = []
     missing = []
@@ -208,7 +208,7 @@ offline_links_re = re.compile('''href=['"]\
 big_page_name_re = re.compile('''(.+?)-big-page''')
 
 
-def process_i18n_big_page_links(match, prefix, lang_ext):
+def process_i18n_big_page_links(pages_dict, match, prefix, lang_ext):
     big_page_name = big_page_name_re.match(match.group(1))
     if big_page_name:
         destination_path = os.path.normpath(os.path.join(
@@ -221,14 +221,14 @@ def process_i18n_big_page_links(match, prefix, lang_ext):
             + match.group(2) + match.group(3) + '"')
 
 
-def process_links(s, prefix, lang_ext, file_name, missing, target):
+def process_links(pages_dict, content, prefix, lang_ext, file_name, missing, target):
     page_flavors = {}
     if target == 'online':
         # Strip .html, suffix for auto language selection (content
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
         page_flavors[file_name] = [lang_ext,
-                                   online_links_re.sub('\\1="\\2\\4"', s)]
+                                   online_links_re.sub('\\1="\\2\\4"', content)]
     elif target == 'offline':
         # in LANG doc index: don't rewrite .html suffixes
         # as not all .LANG.html pages exist;
@@ -236,7 +236,7 @@ def process_links(s, prefix, lang_ext, file_name, missing, target):
         # with the right suffixes
         # idem for NEWS
         if lang_ext == '':
-            page_flavors[file_name] = [lang_ext, s]
+            page_flavors[file_name] = [lang_ext, content]
         else:
             # For saving bandwidth and disk space, we don't duplicate big pages
             # in English, so we must process translated
@@ -246,13 +246,14 @@ def process_links(s, prefix, lang_ext, file_name, missing, target):
                                            offline_links_re.sub(
                                                lambda match:
                                                process_i18n_big_page_links(
+                                                   pages_dict,
                                                    match, prefix, lang_ext),
-                                               s)]
+                                               content)]
             else:
                 page_flavors[file_name] = [lang_ext,
                                            offline_links_re.sub(
                                                'href="\\1.' + lang_ext
-                                               + '\\2\\3"', s)]
+                                               + '\\2\\3"', content)]
     return page_flavors
 
 
@@ -287,12 +288,14 @@ def add_menu(page_flavors, prefix, available, target, translation):
     return page_flavors
 
 
-def process_html_files(package_name='',
+def process_html_files(pages_dict,
+                       package_name='',
                        package_version='',
                        target='offline'):
     """Add header, footer and tweak links to a number of HTML files
 
     Arguments:
+     pages_dict:               dict of filename => translations
      package_name=NAME         set package_name to NAME
      package_version=VERSION   set package version to VERSION
      targets=offline|online    set page processing depending on the target
@@ -300,53 +303,60 @@ def process_html_files(package_name='',
           online is for hosting the HTML pages on a website with content
             negotiation
     """
-    translation = langdefs.translation
-    localtime = time.strftime('%c %Z', time.localtime(time.time()))
-
     versiontup = package_version.split('.')
     branch_str = _doc('stable-branch')
     if int(versiontup[1]) % 2:
         branch_str = _doc('development-branch')
 
-    # Initialize dictionaries for string formatting
-    subst = {}
-    subst[''] = dict([i for i in list(globals().items())
-                      if isinstance(i[1], str)])
-    subst[''].update(dict([i for i in list(locals().items())
-                           if isinstance(i[1], str)]))
-    for l in translation:
+    en_dict = {
+        'package_name': package_name,
+        'package_version': package_version,
+        'branch_str': branch_str,
+        'help_us_url': 'https://lilypond.org/help-us.html',
+        'bug_lilypond_url': 'https://lists.gnu.org/mailman/listinfo/bug-lilypond',
+        'footer_name_version':  _doc ('This page is for %(package_name)s-'
+                                      '%(package_version)s (%(branch_str)s).'),
+        'footer_report_links': _doc ('We welcome your aid; please '
+                                     '<a href="%(help_us_url)s">help us</a> by '
+                                     'reporting errors to our '
+                                     '<a href="%(bug_lilypond_url)s">bug list</a>.'),
+    }
+
+    # language => (dict of str => str)
+    subst = {
+        '': en_dict,
+    }
+    for l in langdefs.translation:
         e = langdefs.LANGDICT[l].webext
         if e:
-            subst[e] = {}
-            for name in subst['']:
-                subst[e][name] = translation[l](subst[''][name])
+            subst[e] = {
+                name: langdefs.translation[l](en_dict[name])
+                for name in en_dict}
 
     # Do deeper string formatting as early as possible,
     # so only one '%' formatting pass is needed later
     for e in subst:
-        subst[e]['footer_name_version'] = (subst[e]['footer_name_version']
-                                           % subst[e])
-        subst[e]['footer_report_links'] = (subst[e]['footer_report_links']
-                                           % subst[e])
+        for k in ['footer_name_version', 'footer_report_links']:
+            subst[e][k] = subst[e][k] % subst[e]
 
     for prefix, ext_list in list(pages_dict.items()):
         for lang_ext in ext_list:
             file_name = langdefs.lang_file_name(prefix, lang_ext, '.html')
             dest_time = 0
 
-            s = codecs.open(file_name, 'r', 'utf-8').read()
-            s = s.replace('%', '%%')
-            s = add_header(s, prefix)
+            content = codecs.open(file_name, 'r', 'utf-8').read()
+            content = content.replace('%', '%%')
+            content = add_header(content, prefix)
 
             # add sidebar information
-            s = s.replace('<!-- Sidebar Version Tag  -->', sidebar_version)
+            content = content.replace('<!-- Sidebar Version Tag  -->', sidebar_version)
 
-            available, missing = find_translations(prefix, lang_ext)
-            page_flavors = process_links(
-                s, prefix, lang_ext, file_name, missing, target)
+            available, missing = find_translations(pages_dict, prefix, lang_ext)
+            page_flavors = process_links(pages_dict,
+                                         content, prefix, lang_ext, file_name, missing, target)
             # Add menu after stripping: must not have autoselection for language menu.
             page_flavors = add_menu(
-                page_flavors, prefix, available, target, translation)
+                page_flavors, prefix, available, target, langdefs.translation)
 
             for k in page_flavors:
                 page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]

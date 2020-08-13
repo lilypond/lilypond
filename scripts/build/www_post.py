@@ -64,9 +64,10 @@ for root, dirs, files in os.walk(target_dir):
         if f.endswith(".html"):
             html_files.append(os.path.join(root, f))
 
-postprocess_html.build_pages_dict(html_files)
+pages_dict = postprocess_html.build_pages_dict(html_files)
 sys.stderr.write("Processing HTML pages for %s target...\n" % target)
 postprocess_html.process_html_files(
+    pages_dict,
     package_name=package_name,
     package_version=package_version,
     target=target)
