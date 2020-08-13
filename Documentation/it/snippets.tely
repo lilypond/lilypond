@@ -6,9 +6,17 @@
 @documentlanguage it
 @afourpaper
 
-@macro manualIntro
+@ignore
+    Translation of GIT committish: 69f0ec479a6ade46d0a227755bb02562112c6743
 
-TRANSLATEME
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Han-Wen Nienhuys
+
+@macro manualIntro
 
 This document shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
