@@ -29,25 +29,6 @@ import sys
 import time
 
 import langdefs
-from functools import reduce
-
-# This is to try to make the docball not too big with almost duplicate files
-# see process_links()
-non_copied_pages = ['Documentation/out-www/notation-big-page',
-                    'Documentation/out-www/internals-big-page',
-                    'Documentation/out-www/learning-big-page',
-                    'Documentation/out-www/usage-big-page',
-                    'Documentation/out-www/music-glossary-big-page',
-                    'Documentation/out-www/contributor',
-                    'Documentation/out-www/changes-big-page',
-                    'Documentation/out-www/essay-big-page',
-                    'Documentation/out-www/extending-big-page',
-                    'Documentation/out-www/snippets',
-                    'out-www/examples',
-                    'Documentation/topdocs',
-                    'Documentation/bibliography',
-                    'Documentation/out-www/DEDICATION',
-                    'input/']
 
 
 def _doc(s):
@@ -185,18 +166,12 @@ def add_footer(s, footer_text):
 def find_translations(pages_dict, prefix, lang_ext):
     """find available translations of a page"""
     available = []
-    missing = []
     for l in langdefs.LANGUAGES:
         e = l.webext
         if lang_ext != e:
             if e in pages_dict[prefix]:
                 available.append(l)
-            elif (lang_ext == '' and l.enabled and
-                  reduce(operator.and_, [not prefix.startswith(s)
-                                         for s in non_copied_pages])):
-                # English version of missing translated pages will be written
-                missing.append(e)
-    return available, missing
+    return available
 
 
 online_links_re = re.compile('''(href|src)=['"]\
@@ -221,7 +196,7 @@ def process_i18n_big_page_links(pages_dict, match, prefix, lang_ext):
             + match.group(2) + match.group(3) + '"')
 
 
-def process_links(pages_dict, content, prefix, lang_ext, file_name, missing, target):
+def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
     page_flavors = {}
     if target == 'online':
         # Strip .html, suffix for auto language selection (content
@@ -351,9 +326,9 @@ def process_html_files(pages_dict,
             # add sidebar information
             content = content.replace('<!-- Sidebar Version Tag  -->', sidebar_version)
 
-            available, missing = find_translations(pages_dict, prefix, lang_ext)
+            available = find_translations(pages_dict, prefix, lang_ext)
             page_flavors = process_links(pages_dict,
-                                         content, prefix, lang_ext, file_name, missing, target)
+                                         content, prefix, lang_ext, file_name, target)
             # Add menu after stripping: must not have autoselection for language menu.
             page_flavors = add_menu(
                 page_flavors, prefix, available, target, langdefs.translation)
