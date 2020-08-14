@@ -256,6 +256,8 @@ EPS backend.")
 typeset image.")
     (datadir #f
              "LilyPond prefix for data files (read-only).")
+    (debug-eval ,(ly:verbose-output?)
+                "Use the debugging Scheme evaluator.")
     (debug-gc #f
               "Dump memory debugging statistics.")
     (debug-gc-assert-parsed-dead #f
@@ -477,7 +479,7 @@ messages into errors.")
 ;;; default.
 
 
-(if (or (ly:get-option 'verbose))
+(if (or (ly:get-option 'verbose) (ly:get-option 'debug-eval))
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'backtrace)

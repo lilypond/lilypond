@@ -598,6 +598,11 @@ margins, into a @q{single-page} output file.  Default: @code{#f}.
 Prefix for data files.  This is a read-only option; setting it has no
 effect.
 
+@item @code{debug-eval} @var{bool}
+If @var{bool} is @code{#t}, use the debugging Scheme evaluator,
+which prints backtraces with line numbers on errors.
+Default: @code{#f}, or @code{#t} when using @code{--verbose}.
+
 @item @code{debug-gc} @var{bool}
 If @var{bool} is @code{#t}, dump memory debugging statistics.
 Default: @code{#f}.
