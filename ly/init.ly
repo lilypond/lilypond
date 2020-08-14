@@ -17,10 +17,6 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-%% switch on debugging.
-#(if (and #t (defined? 'set-debug-cell-accesses!))
-  (set-debug-cell-accesses! 5000))
-
 \version "2.19.22"
 
 #(cond-expand

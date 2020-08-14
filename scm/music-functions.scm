@@ -1395,11 +1395,6 @@ set to the @code{location} parameter."
 ;;
 ;; automatic music transformations.
 
-(define (switch-on-debugging m)
-  (if (defined? 'set-debug-cell-accesses!)
-      (set-debug-cell-accesses! 15000))
-  m)
-
 (define (music-check-error music)
   (define found #f)
   (define (signal m)
@@ -1513,7 +1508,6 @@ then revert skipTypesetting."
    (lambda (music)
      (music-map (quote-substitute (ly:parser-lookup 'musicQuotes))  music))
 
-   ;; switch-on-debugging
    (lambda (x) (music-map cue-substitute x))
 
    skip-as-needed))

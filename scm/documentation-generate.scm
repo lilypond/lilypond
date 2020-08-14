@@ -19,8 +19,6 @@
 ;;; File entry point for generated documentation
 ;;; Running LilyPond on this file generates the documentation
 
-;;(set-debug-cell-accesses! 5000)
-
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TODO : make modules of these!
 ;;;;;;;;;;;;;;;;
