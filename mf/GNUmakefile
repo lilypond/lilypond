@@ -145,3 +145,7 @@ tree-regen: $(ALL_GEN_FILES)
 $(outdir)/fonts.conf:
 	$(call ly_progress,Making,$@,)
 	echo '<fontconfig><dir>'$(shell cd $(outdir); pwd)'</dir></fontconfig>' > $@
+
+$(outdir)/%.conf: %.conf
+	$(call ly_progress,Copying,$@,)
+	cp $< $@
