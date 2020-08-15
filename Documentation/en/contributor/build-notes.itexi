@@ -282,15 +282,8 @@ can comment on exactly what the rules mean/do.
 
 @file{install-rules.make} is @code{#empty}
 
-@file{generic-targets.make} contains 2 lines of comments.
-
-@file{lilypond-targets.make} contains only:
-
-@example
-## TODO: fail dist or web if no \version present.
-check-version:
-        grep -L version $(LY_FILES)
-@end example
+@file{lilypond-targets.make} and @file{generic-targets.make} are
+empty except for comments.
 
 @file{stepmake/generic-targets.make} contains lots of rules - too
 many to list here - it seems to be the main file for rules. (FWIW
