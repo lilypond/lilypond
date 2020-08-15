@@ -525,9 +525,6 @@ class FileCompareLink (FileLink):
                          self.get_content(self.file_names[1]))
 
     def calc_distance(self):
-        # todo: could use import MIDI to pinpoint
-        # what & where changed.
-
         if self.contents[0] == self.contents[1]:
             return 0.0
         else:
