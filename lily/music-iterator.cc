@@ -244,3 +244,20 @@ Music_iterator::descend_to_child (Context *child_report)
   if (is_child_context (me_report, child_report))
     set_context (child_report);
 }
+
+SCM
+Music_iterator::internal_get_property (SCM sym) const
+{
+  // TODO: Abstract Context property features into a reusable base class?
+  for (auto scope = this; scope; scope = scope->parent_)
+    {
+      if (auto m = scope->get_music ())
+        {
+          SCM val = get_property (m, sym);
+          if (!scm_is_null (val))
+            return val;
+        }
+    }
+
+  return SCM_EOL;
+}

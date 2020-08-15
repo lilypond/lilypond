@@ -152,6 +152,10 @@ protected:
 
   virtual void do_quit ();
 
+  // Scoped property access: look in this iterator's music, then search the
+  // ancestors up to the top.
+  SCM internal_get_property (SCM name_sym) const;
+
 private:
   static SCM create_iterator (Music_iterator *parent, Music *mus);
 
