@@ -1,5 +1,5 @@
 
-$(outdir)/%: %.pl $(config_make)  $(depth)/VERSION
+$(outdir)/%: %.pl $(config_make) $(depth)/VERSION
 	$(call ly_progress,Making,$@,(sed))
 	sed $(sed-atfiles) $(sed-atvariables) < $< > $@
 	chmod 755 $@
@@ -14,11 +14,6 @@ $(outdir)/%: %.scm $(config_make) $(depth)/VERSION
 	sed $(sed-atfiles) $(sed-atvariables) < $< > $@
 	chmod 755 $@
 
-$(outdir)/%: %.expect $(config_make) $(depth)/VERSION
-	$(call ly_progress,Making,$@,(sed))
-	sed $(sed-atfiles) $(sed-atvariables) < $< > $@
-	chmod 755 $@
-
 $(outdir)/%: %.sh $(config_make) $(depth)/VERSION
 	$(call ly_progress,Making,$@,(sed))
 	sed $(sed-atfiles) $(sed-atvariables) < $< > $@
@@ -28,4 +23,3 @@ $(outdir)/%: %.py $(config_make) $(depth)/VERSION
 	$(call ly_progress,Making,$@,(sed))
 	sed $(sed-atfiles) $(sed-atvariables) < $< > $@
 	chmod 755 $@
-
