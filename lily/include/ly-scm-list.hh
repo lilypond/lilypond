@@ -213,6 +213,11 @@ public:
   ly_scm_list_t () = default;
 
   explicit ly_scm_list_t (SCM &&s) : head_ (scm_is_pair (s) ? s : SCM_EOL) {}
+
+  // Like std::list, moving leaves the source list in an unspecified state.
+  // Unlike std::list, moving invalidates iterators referring to the beginning
+  // of the source list (which is also the end in the case of an empty list).
+  // Other iterators remain valid, following their elements into the new list.
   ly_scm_list_t (ly_scm_list_t &&) = default;
   ly_scm_list_t &operator = (ly_scm_list_t &&) = default;
 
