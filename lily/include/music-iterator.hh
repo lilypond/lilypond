@@ -143,7 +143,7 @@ protected:
 
 private:
   Context_handle handle_;
-  Music *music_;
+  Music *music_ = nullptr;
   Moment music_length_;
   Moment start_mom_;
 };

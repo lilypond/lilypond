@@ -34,13 +34,10 @@
 
 Music_iterator::Music_iterator ()
 {
-  music_ = 0;
   smobify_self ();
 }
 
-Music_iterator::~Music_iterator ()
-{
-}
+Music_iterator::~Music_iterator () = default;
 
 Moment
 Music_iterator::pending_moment () const
