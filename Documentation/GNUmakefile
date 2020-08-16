@@ -505,6 +505,7 @@ $(outdir)/$(1)/web.texi: \
   $(outdir)/version.itexi
 ifneq ($(out),www)
 	$(call ly_progress,Making,$$@,(sed))
+	mkdir -p $$(dir $$@)
 	sed -e '/^\*.*lilypond-snippets/d' \
             -e '/^\*.*lilypond-web/d' \
             < $$< > $$@
