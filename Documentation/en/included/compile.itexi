@@ -540,9 +540,6 @@ Everything listed in @ref{Requirements for compiling LilyPond}
 @uref{http://www.imagemagick.org/, ImageMagick}
 
 @item
-@uref{http://netpbm.sourceforge.net/, Netpbm}
-
-@item
 @uref{http://gzip.org/, gzip}
 
 @item
@@ -1197,30 +1194,6 @@ and issue
 @example
 make out=www WWW-post
 @end example
-
-@knownissues
-
-You may also need to create a script for @command{pngtopnm} and
-@code{pnmtopng}.  On GNU/Linux, I use this:
-
-@verbatim
-export LD_LIBRARY_PATH=/usr/lib
-exec /usr/bin/pngtopnm "$@"
-@end verbatim
-
-On MacOS X with fink, I use this:
-
-@verbatim
-export DYLD_LIBRARY_PATH=/sw/lib
-exec /sw/bin/pngtopnm "$@"
-@end verbatim
-
-On MacOS X with macports, you should use this:
-
-@verbatim
-export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
-exec /opt/local/bin/pngtopnm "$@"
-@end verbatim
 
 
 @node Testing LilyPond binary

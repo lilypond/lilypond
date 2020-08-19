@@ -62,7 +62,6 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         libltdl-dev \
         libpango1.0-dev \
         make \
-        netpbm \
         perl \
         pkg-config \
         python3 \

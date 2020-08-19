@@ -424,7 +424,6 @@ if test "$TEX_FIKPARM" = ""; then
 else
     AC_MSG_RESULT(yes)
 fi
-STEPMAKE_PROGS(NETPBM, pngtopnm, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(IMAGEMAGICK, convert, $DOCUMENTATION_REQUIRED)
 # this name avoids a conflict with ZIP in stepmake/aclocal.m4
 STEPMAKE_PROGS(ZIPDOC, zip, $DOCUMENTATION_REQUIRED)
