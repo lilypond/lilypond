@@ -238,9 +238,9 @@ variables to their value after the initial call of @var{thunk}."
     ;; be longer than 48 characters per line.
 
     (anti-alias-factor 1
-                       "Render at higher resolution (using given
-factor) and scale down result to prevent
-jaggies in PNG images.")
+     "Render at higher resolution (using given
+positive integer factor <=8) and scale down
+result to prevent jaggies in PNG images.")
     (aux-files #t
      "Create .tex, .texi, .count files in the
 EPS backend.")

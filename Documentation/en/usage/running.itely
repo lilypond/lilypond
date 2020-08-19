@@ -528,9 +528,9 @@ function @code{ly:get-option}.
 @table @asis
 
 @item @code{anti-alias-factor} @var{num}
-Render at a higher resolution (using factor @var{num}) and scale
-down the result to prevent @q{jaggies} in PNG images.  Default:
-@code{1.0}.
+Render at a higher resolution (using factor @var{num}, which must
+be a positive integer @leq{}8) and scale down the result to
+prevent @q{jaggies} in PNG images.  Default: @code{1}.
 
 @item @code{aux-files} @var{bool}
 If @var{bool} is @code{#t}, create @file{.tex}, @file{.texi}, and

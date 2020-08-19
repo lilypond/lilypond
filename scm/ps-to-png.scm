@@ -109,6 +109,11 @@
              "} if"
              (gs-safe-run tmp-name)))))
 
+     ;; This is a ghostscript constraint.
+     (if (not (and (integer? anti-alias-factor)
+                   (<= 1 anti-alias-factor 8)))
+         (ly:error "`anti-alias-factor' must be a positive integer <= 8"))
+
      ((if (ly:get-option 'gs-api)
           ly:gs-api ly:gs-cli)
       (gs-cmd-args is-eps) (string-join run-strings " "))
