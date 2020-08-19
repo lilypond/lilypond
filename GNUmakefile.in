@@ -134,16 +134,7 @@ WEB_TARGETS = offline
 
 WEB_ROOT_FILES = $(WEB_TARGETS:%=$(outdir)/%-root/index.html)
 
-WWW-post: $(top-build-dir)/.htaccess $(WEB_ROOT_FILES)
-
-# need UTF8 setting in case this is hosted on a website.
-$(top-build-dir)/.htaccess:
-	$(call ly_progress,Making,$@,)
-	( echo 'AddDefaultCharset utf-8' ; \
-	  echo 'AddCharset utf-8 .html' ; \
-	  echo 'AddCharset utf-8 .en' ; \
-	  echo 'AddCharset utf-8 .nl' ; \
-	  echo 'AddCharset utf-8 .txt' ) > $@
+WWW-post: $(WEB_ROOT_FILES)
 
 $(outdir)/%-root/index.html: doc-build
 	$(call ly_progress,Making,$@,)
