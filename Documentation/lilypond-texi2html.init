@@ -544,9 +544,7 @@ sub lilypond_element_target_name($$$)
 sub ly_map_filename ($)
 {
     my $map_name = shift;
-    my $map_filename = $map_name . '.' . ly_get_language () . '.xref-map';
-    $map_filename = main::locate_include_file ($map_filename)
-        || main::locate_include_file ($map_name . '.xref-map');
+    my $map_filename = main::locate_include_file ($map_name . '.xref-map');
     return $map_filename;
 }
 

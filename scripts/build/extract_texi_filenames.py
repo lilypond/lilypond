@@ -52,12 +52,10 @@ import re
 import os
 import getopt
 
-options_list, files = getopt.getopt(sys.argv[1:], 'o:s:hI:m:k:q',
+options_list, files = getopt.getopt(sys.argv[1:], 'o:s:hI:m:q',
                                     ['output=', 'split=',
                                      'help', 'include=',
                                      'master-map-file=',
-                                     'known-missing-files=',
-                                     'suppress-language-detection',
                                      'quiet'])
 
 help_text = r"""Usage: %(program_name)s [OPTIONS]... TEXIFILE...
@@ -70,8 +68,6 @@ Options:
  -o, --output=DIRECTORY         write .xref-map files to DIRECTORY
  -s, --split=MODE               split manual according to MODE. Possible values
                                 are section and custom (default)
- -k, --known-missing-files      a filename which has a list of files known
-                                to be missing for this make
  -q, --quiet                    suppress most messages
 """
 
@@ -85,10 +81,7 @@ outdir = '.'
 split = "custom"
 include_path = ['.', ]
 master_map_file = ''
-known_missing_files = []
-known_missing_files_file = ''
 suppress_output = False
-suppress_language_detection = False
 initial_map = {}
 for opt in options_list:
     o = opt[0]
@@ -98,8 +91,6 @@ for opt in options_list:
     if o == '-I' or o == '--include':
         if os.path.isdir(a):
             include_path.append(a)
-    elif o == '--suppress-language-detection':
-        suppress_language_detection = True
     elif o == '-o' or o == '--output':
         outdir = a
     elif o == '-s' or o == '--split':
@@ -107,20 +98,10 @@ for opt in options_list:
     elif o == '-m' or o == '--master-map-file':
         if os.path.isfile(a):
             master_map_file = a
-    elif o == '--known-missing-files':
-        if os.path.isfile(a):
-            known_missing_files_file = a
-        else:
-            print('Missing files list file not found: ', a)
     elif o == '-q' or o == '--quiet':
         suppress_output = True
     else:
         raise Exception('unknown option: ' + o)
-
-if known_missing_files_file:
-    missing_files = open(known_missing_files_file, 'r')
-    known_missing_files = missing_files.read().splitlines()
-    missing_files.close()
 
 if not os.path.isdir(outdir):
     if os.path.exists(outdir):
@@ -142,16 +123,14 @@ def expand_includes(m, filename):
     include_name = m.group(1)
     filepath = os.path.join(os.path.dirname(filename), include_name)
     if os.path.exists(filepath):
-        return extract_sections(filepath)[1]
+        return extract_sections(filepath)
     else:
         for directory in include_path:
             filepath = os.path.join(directory, include_name)
             if os.path.exists(filepath):
-                return extract_sections(filepath)[1]
-        if include_name not in known_missing_files:
-            # Not found
-            print('Warning: No such file: ' + include_name +
-                  ' (search path: ' + ':'.join(include_path)+')')
+                return extract_sections(filepath)
+        print('Warning: No such file: ' + include_name +
+              ' (search path: ' + ':'.join(include_path)+')')
         return ''
 
 
@@ -165,20 +144,13 @@ def extract_sections(filename):
     f = codecs.open(filename, 'r', 'utf-8')
     page = f.read()
     f.close()
-    # Search document language
-    lang_suffix = ''
-    m = lang_re.search(page)
-    if not suppress_language_detection and m and m.group(1) != 'en':
-        lang_suffix = '.' + m.group(1)
-    else:
-        lang_suffix = ''
 
     # Replace all includes by their list of sections and extract all sections
     page = include_re.sub(lambda m: expand_includes(m, filename), page)
     sections = section_translation_re.findall(page)
     for sec in sections:
         result += "@" + sec[0] + " " + sec[1] + "\n"
-    return (lang_suffix, result)
+    return result
 
 # Convert a given node name to its proper file name (normalization as
 # explained in the texinfo manual:
@@ -251,10 +223,10 @@ else:
     splitting_level = -1
 
 
-def process_sections(filename, lang_suffix, page):
+def process_sections(filename, page):
     sections = section_translation_re.findall(page)
     basename = os.path.splitext(os.path.basename(filename))[0]
-    p = os.path.join(outdir, basename) + lang_suffix + '.xref-map'
+    p = os.path.join(outdir, basename) + '.xref-map'
     if not suppress_output:
         print('writing:', p)
     f = codecs.open(p, 'w', 'utf-8')
@@ -346,5 +318,5 @@ if master_map_file:
 for filename in files:
     if not suppress_output:
         print("extract_texi_filenames.py: Processing %s" % filename)
-    (lang_suffix, sections) = extract_sections(filename)
-    process_sections(filename, lang_suffix, sections)
+    sections = extract_sections(filename)
+    process_sections(filename, sections)

@@ -177,7 +177,6 @@ $(outdir)/%.xref-map: $(outdir)/%.texi
 		$(EXTRACT_TEXI_FILENAMES_FLAGS) \
 		$(if $(call target_language), \
 			--master-map-file=$(subst $(call target_language)/,en/,$@)) \
-		--suppress-language-detection \
 		$(DOCUMENTATION_INCLUDES) -o $(dir $@) $<
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(OUT_PDF_IMAGES) $(OUT_BITMAP_IMAGES)

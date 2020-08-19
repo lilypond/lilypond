@@ -18,13 +18,6 @@ XML_FILES = $(filter-out include%,$(call src-wildcard,*.xml))
 local-test:
 	$(MAKE) LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb $(OUT_FILES)
 
-# Due to automatic language detection the standard rule using the script
-# extract_texi_filenames would create .es.xref-map for these files. The
-# following rule is to circumvent this for the purpose of the build. For
-# the regression tests the .xref-map files are empty and not used anyway.
-$(XREF_MAPS_DIR)/texinfo-include-language-detection.xref-map $(XREF_MAPS_DIR)/texinfo-language-detection.xref-map: %:
-	mkdir -p $(dir $@) ; touch $@
-
 ############## HTML #########################
 
 $(outdir)/%.html: %.html
