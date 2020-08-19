@@ -160,8 +160,8 @@ $(outdir)/%-root/index.html: doc-build
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
 	find $(outdir)/$*-root -type l | xargs rm -f
 	cd $(outdir)/$*-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
-	perl -i -pe 's#(href)="\.\./Documentation/#\1="#g' $(dir $@)/Documentation/*html
-	perl -i -pe 's#(href)="\.\./\.\./Documentation/#\1="../#g' $(dir $@)/Documentation/*/*html
+	$(PERL) -i -pe 's#(href)="\.\./Documentation/#\1="#g' $(dir $@)/Documentation/*html
+	$(PERL) -i -pe 's#(href)="\.\./\.\./Documentation/#\1="../#g' $(dir $@)/Documentation/*/*html
 
 doc-build:
 	$(MAKE) out=www -C Documentation/ doc
@@ -178,9 +178,9 @@ $(outdir)/website-root/index.html: website-build
 		cp -a Documentation/out-web/website/$(d) $(dir $@)/ &&) true
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "offline"
 	# fixup links to subdirectories.
-	perl -i -pe 's#(href|src)="\.\./(misc|pictures|ly-examples|css)#\1="\2#g' $(dir $@)/*html
+	$(PERL) -i -pe 's#(href|src)="\.\./(misc|pictures|ly-examples|css)#\1="\2#g' $(dir $@)/*html
 	# simplify links to self.
-	perl -i -pe 's#(href)="\.\./web/#\1="#g' $(dir $@)/*html
+	$(PERL) -i -pe 's#(href)="\.\./web/#\1="#g' $(dir $@)/*html
 
 website-build:
 	$(MAKE) out=web WEB_VERSION=yes -C Documentation/ website
