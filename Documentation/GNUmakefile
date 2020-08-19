@@ -630,8 +630,8 @@ $(outdir)/%.png: %.ly
 
 # Must have ly-examples/ , to avoid conflicts with xxx-small.png from pictures/
 $(outdir)/ly-examples/%-small.png: $(outdir)/ly-examples/%.png
-	$(call ly_progress,Making,$@,)
-	pngtopnm $< | pnmscale -w=600 | pnmtopng > $@ 2> /dev/null
+	$(call ly_progress,Making,$@,(convert))
+	convert -strip -resize 600 -posterize 8 $< png8:$@
 
 ## LOGO
 
