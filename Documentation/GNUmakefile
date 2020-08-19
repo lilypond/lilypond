@@ -53,10 +53,6 @@ THANKS-2.18 THANKS-2.2 THANKS-2.4 THANKS-2.6 THANKS-2.8
 OUT_MISC_FILES = $(addprefix $(outdir)/misc/,$(MISC_FILES))
 OUT_CSS_FILES =  $(addprefix $(outdir)/,$(call src-wildcard,css/*.css))
 
-### Extra source files
-
-README_TOP_FILES= DEDICATION
-
 
 ## Snippets:
 # the base files (.ly with english doc) are synced in from the LSR
@@ -244,8 +240,6 @@ DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
 LILYPOND_BOOK_INCLUDES = $(DOCUMENTATION_INCLUDES)
 
-OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
-
 ### bad hack for badly-integrated roadmap.
 # TODO: move into CG.
 $(outdir)/en/ROADMAP: $(top-src-dir)/ROADMAP
@@ -269,7 +263,7 @@ $(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
 ###########
 ### Targets
 
-default: $(OUT_TXT_FILES) $(ALL_INFO_FILES)
+default: $(ALL_INFO_FILES)
 
 local-help: extra-local-help
 
@@ -386,7 +380,7 @@ PICTURE_SYMLINKS=$(foreach L,$(LANGS),$(outdir)/$(L)/pictures)
 
 pdf: $(OUT_PDF_IMAGES) $(PDF_FILES)
 
-html:  txt-to-html $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES) $(OUT_JS_FILES) $(OUT_MISC_FILES)
+html: $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES) $(OUT_JS_FILES) $(OUT_MISC_FILES)
 
 ifeq ($(out),www)
 local-WWW-1: pdf $(PICTURE_SYMLINKS)
@@ -441,16 +435,6 @@ $(outdir)/music-glossary.info: $(outdir)/en/music-glossary.texi $(outdir)/versio
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "$(MAKEINFO) $(DOCUMENTATION_INCLUDES) --output=$@ $<"  "$(outdir)/$*.makeinfo.log"
 	$(UPDATE_IMAGE_SYMLINKS)
-
-txt-to-html: $(OUT_TXT_FILES) $(OUT_TXT_FILES:%.txt=%.html)
-
-$(OUT_TXT_FILES): $(outdir)/%.txt: $(top-src-dir)/%
-	$(call ly_progress,Making,$@,(copy))
-	cp -f $< $@
-
-$(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
-	$(call ly_progress,Making,$@,< txt)
-	$(PYTHON) $(buildscript-dir)/text2html.py $<
 
 $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 
