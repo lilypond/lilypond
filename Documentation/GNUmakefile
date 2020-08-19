@@ -625,7 +625,7 @@ $(outdir)/%.pdf: %.eps
 $(outdir)/%.png: %.ly
 	$(call ly_progress,Making,$@,< ly)
 	mkdir -p $(dir $@)
-	$(buildscript-dir)/run-and-check.sh "$(LILYPOND_PREVIEW) -o $(dir $@) $<" "$*.preview.log"
+	$(buildscript-dir)/run-and-check.sh "$(LILYPOND_PREVIEW) -o $(dir $@) $<" "$(outdir)/$*.preview.log"
 	mv $(outdir)/$*.preview.png $@
 
 # Must have ly-examples/ , to avoid conflicts with xxx-small.png from pictures/
