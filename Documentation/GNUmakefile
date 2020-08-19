@@ -635,18 +635,12 @@ $(outdir)/ly-examples/%-small.png: $(outdir)/ly-examples/%.png
 
 ## LOGO
 
-$(outdir)/%.png: %.xpm
-	$(call ly_progress,Making,$@,< xpm)
-	xpmtoppm $< | pnmtopng > $@
-
 ifeq ($(PLATFORM_WINDOWS),yes)
 
 $(outdir)/%.ico: %.xpm
 	$(call ly_progress,Making,$@,< xpm)
 	mkdir -p $(dir $@)
 	$(PYTHON) $(buildscript-dir)/genicon.py $< $@
-
-default: $(lilypond-icon) $(ly-icon)
 
 endif # PLATFORM_WINDOWS
 
