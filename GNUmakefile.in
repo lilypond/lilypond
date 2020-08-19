@@ -16,9 +16,8 @@ SUBDIRS = python scripts \
 ## value of DOCUMENTATION here.
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
-SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
 README_FILES = COPYING COPYING.FDL DEDICATION ROADMAP HACKING \
-  LICENSE LICENSE.DOCUMENTATION
+  LICENSE LICENSE.DOCUMENTATION LICENSE.OFL
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/$(outdir)/topdocs/$(T).txt)
 
@@ -148,13 +147,16 @@ $(outdir)/%-root/index.html: doc-build
 		-not -name '*.ly' -not -name '*.html' -not -name 'collated-files.pdf' \
 		-delete
 	cp --link -a Documentation/out-www/webdoc/* $(dir $@)/Documentation/
+	cp --link $(TOPDOC_TXT_FILES) $(dir $@)
+	# No link because the files come from the source directory.
+	cp $(addprefix $(src-dir)/,$(README_FILES)) $(dir $@)
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
 	find $(outdir)/$*-root -type l | xargs rm -f
 	cd $(outdir)/$*-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
 	$(PERL) -i -pe 's#(href)="\.\./Documentation/#\1="#g' $(dir $@)/Documentation/*html
 	$(PERL) -i -pe 's#(href)="\.\./\.\./Documentation/#\1="../#g' $(dir $@)/Documentation/*/*html
 
-doc-build:
+doc-build: top-doc
 	$(MAKE) out=www -C Documentation/ doc
 	$(MAKE) out=www -C input/regression/ doc
 
