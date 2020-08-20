@@ -21,16 +21,9 @@
 
 #include "context.hh"
 #include "input.hh"
-#include "international.hh"
 #include "music.hh"
-#include "warn.hh"
 
 using std::string;
-
-Simultaneous_music_iterator::Simultaneous_music_iterator ()
-{
-  create_separate_contexts_ = false;
-}
 
 void
 Simultaneous_music_iterator::derived_mark () const
@@ -68,38 +61,25 @@ Simultaneous_music_iterator::create_contexts ()
 {
   Music_iterator::create_contexts ();
 
-  int j = 0;
-  for (auto *mi : children_list_)
+  auto *my_context = get_context ();
+  for (auto proc = children_list_.begin ();
+       proc != children_list_.end (); /*in loop*/)
     {
-      Context *c = get_context ();
-      if (j && create_separate_contexts_)
-        {
-          // create a new context of the same kind with the number as ID
-          SCM name = ly_symbol2scm (c->context_name ().c_str ());
-          string id = std::to_string (j);
-          if (Context *other = c->find_create_context (CENTER, name, id,
-                                                       SCM_EOL))
-            {
-              c = other;
-            }
-          else
-            {
-              warning (_f ("cannot find or create context: %s",
-                           Context::diagnostic_id (name, id).c_str ()));
-            }
-        }
-
-      mi->init_context (c);
+      auto *child = *proc;
+      child->init_context (my_context);
 
       // Why might a newly created iterator not be OK?  An example is a
       // Sequential_iterator with no elements.
-      if (!mi->ok ())
-        mi->quit ();
-
-      ++j;
+      if (!child->ok ())
+        {
+          child->quit ();
+          proc = children_list_.erase (proc);
+        }
+      else
+        {
+          ++proc;
+        }
     }
-
-  children_list_.remove_if ([] (Music_iterator *mi) { return !mi->ok (); });
 }
 
 // If we have some iterators with definite next moment and no of them
