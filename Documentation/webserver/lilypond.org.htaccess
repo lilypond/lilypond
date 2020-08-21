@@ -1,17 +1,11 @@
 # htaccess for root dir of lilypond.org
 # ----------------------------------------------------
 #   The file comes from git master:
-#   Documentation/web/server/lilypond.org.htaccess
+#   Documentation/webserver/lilypond.org.htaccess
 #
 #   Please do not edit it directly (unless something
 #   is critically broken); instead, change it in git
-#   and then do the:
-#     update-git.sh
-#     check-git.sh
-#     copy-git.sh
-#     make-website.sh
-#  as discussed in:
-#    Contributor 5.2 Uploading and security
+#   and then copy from there.
 # ----------------------------------------------------
 
 RewriteEngine On
@@ -141,7 +135,13 @@ AddLanguage nl .nl
 AddLanguage pt .pt
 AddLanguage zh .zh
 
+# Make en the default language and serve *.html as a fallback if
+# *.en.html does not exist.
+DefaultLanguage en
 
-# FIXME: separate this from the main "root" .htaccess material
+# Setup rewrites in case the user requested the file explicitly.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+).en.html $1.html [QSA,L]
+
 DirectoryIndex index
 
