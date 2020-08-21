@@ -71,15 +71,3 @@ postprocess_html.process_html_files(
     package_name=package_name,
     package_version=package_version,
     target=target)
-
-codes = [l.code for l in langdefs.WEB_LANGUAGES]
-
-# Provide foo.en.html -> foo.html - the current .htaccess will
-# otherwise try to do language negotiation, not find English, and then
-# pick the first (?) language, which is Catalan.
-# So, as a hacky solution, symlink foo.en.html => foo.html
-for f in html_files:
-    if not re.search(r'(%s)\.html$' %'|'.join(codes), f):
-        en_file = re.sub('.html$', '.en.html', f)
-        if not os.path.exists(en_file):
-            os.symlink(os.path.basename(f), en_file)
