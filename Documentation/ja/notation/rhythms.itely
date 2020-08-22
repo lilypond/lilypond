@@ -16,7 +16,7 @@
 @section リズム
 @translationof Rhythms
 
-@lilypondfile[quote]{rhythms-headword.ly}
+@lilypondfile[quote]{snippets/rhythms-headword.ly}
 
 このセクションではリズム、休符、演奏時間、連桁、小節について議論します。
 
@@ -174,13 +174,13 @@
 @cindex breve note, alternative style (二全音符の別のスタイル)
 @cindex alternative style of breve notes (二全音符の別のスタイル)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{alternative-breve-notes.ly}
+{snippets/alternative-breve-notes.ly}
 
 @cindex augmentation dot, change number of (付点の数を変更する)
 @cindex change number of augmentation dots (付点の数を変更する)
 @cindex dotted note, change number of dots (付点の数を変更する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-number-of-augmentation-dots-per-note.ly}
+{snippets/changing-the-number-of-augmentation-dots-per-note.ly}
 
 @morerefs
 音楽用語集:
@@ -340,30 +340,30 @@
 @funindex \tupletSpan
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--tuplet-command.ly}
+{snippets/entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex tuplet number, changes (連符の数の変更)
 @cindex change tuplet number (連符の数の変更)
 @funindex TupletNumber
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-tuplet-number.ly}
+{snippets/changing-the-tuplet-number.ly}
 
 @cindex tuplet number, non-default (デフォルトではない連符の数)
 @cindex non-default tuplet numbers (デフォルトではない連符の数)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{non-default-tuplet-numbers.ly}
+{snippets/non-default-tuplet-numbers.ly}
 
 @cindex tuplet bracket, visibility (連符囲みの可視性)
 @cindex visibility of tuplet brackets (連符囲みの可視性)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-tuplet-bracket-visibility.ly}
+{snippets/controlling-tuplet-bracket-visibility.ly}
 
 @cindex beamed tuplet, line break within (連桁で繋がれた連符の途中で改行する)
 @cindex tuplet, beamed, line break within (連桁で繋がれた連符の途中で改行する)
 @funindex Forbid_line_break_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{permitting-line-breaks-within-beamed-tuplets.ly}
+{snippets/permitting-line-breaks-within-beamed-tuplets.ly}
 
 
 @morerefs
@@ -680,14 +680,14 @@ L.v. タイは以下のように入力します:
 @cindex arpeggio and ties (アルペジオとタイ)
 @funindex tieWaitForNote
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-ties-with-arpeggios.ly}
+{snippets/using-ties-with-arpeggios.ly}
 
 @cindex tie, manual engraving (タイを手動で譜刻する)
 @cindex manual engraving of ties (タイを手動で譜刻する)
 @funindex TieColumn
 @anchor{タイを手動で譜刻する}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{engraving-ties-manually.ly}
+{snippets/engraving-ties-manually.ly}
 
 @morerefs
 音楽用語集:
@@ -791,7 +791,7 @@ L.v. タイは以下のように入力します:
 @cindex style, rests (休符のスタイル)
 @cindex rest, style (休符のスタイル)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{rest-styles.ly}
+{snippets/rest-styles.ly}
 
 @morerefs
 音楽用語集:
@@ -1039,19 +1039,19 @@ R1\fermata
 @cindex multi-measure rest, length (複数小節にまたがる休符の長さ)
 @cindex length of multi-measure rest (複数小節にまたがる休符の長さ)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{multi-measure-rest-length-control.ly}
+{snippets/multi-measure-rest-length-control.ly}
 
 @cindex multi-measure rest, positioning (複数小節にまたがる休符の位置)
 @cindex position, multi-measure rest (複数小節にまたがる休符の位置)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{positioning-multi-measure-rests.ly}
+{snippets/positioning-multi-measure-rests.ly}
 
 @cindex multi-measure rest, markup (複数小節にまたがる休符のマークアップ)
 @cindex markup, multi-measure rest (複数小節にまたがる休符のマークアップ)
 @funindex \textLengthOn
 @funindex \textLengthOff
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{multi-measure-rest-markup.ly}
+{snippets/multi-measure-rest-markup.ly}
 
 
 @morerefs
@@ -1320,7 +1320,7 @@ R1\fermata
 
 @cindex time signature, printing only numerator (拍子記号の分子のみを表示する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
+{snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 @morerefs
 音楽用語集:
@@ -1441,19 +1441,19 @@ R1\fermata
 @cindex rehearsal mark, below staff (譜の下にあるリハーサル記号)
 @cindex mark, rehearsal, below staff (譜の下にあるリハーサル記号)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+{snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
 @c perhaps also an example of how to move it horizontally?
 
 @cindex tempo, change, without metronome mark (メトロノーム記号を表示しないテンポ変化)
 @cindex change tempo without metronome mark (メトロノーム記号を表示しないテンポ変化)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
+{snippets/changing-the-tempo-without-a-metronome-mark.ly}
 
 @cindex metronome mark, custom markup (メトロノーム記号のカスタム マークアップ)
 @cindex custom metronome mark markup (メトロノーム記号のカスタム マークアップ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
+{snippets/creating-metronome-marks-in-markup-mode.ly}
 
 詳細は @ref{Formatting text} を参照してください。
 
@@ -2089,7 +2089,7 @@ R1\fermata
 @cindex strumming rhythm, showing (つま弾き (ストラム) のリズムを示す)
 @cindex guitar, strumming rhythm, showing (ギターのつま弾き (ストラム) のリズムを示す)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{guitar-strum-rhythms.ly}
+{snippets/guitar-strum-rhythms.ly}
 
 @morerefs
 コード断片集:
@@ -2181,18 +2181,18 @@ R1\fermata
 @cindex beam, line breaks (連桁と改行)
 @cindex line break, beams (改行と連桁)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{beams-across-line-breaks.ly}
+{snippets/beams-across-line-breaks.ly}
 
 @cindex beam, with knee gap, changing (向きの変わる連桁を変更する)
 @cindex knee gap, with beams, changing (向きの変わる連桁を変更する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-beam-knee-gap.ly}
+{snippets/changing-beam-knee-gap.ly}
 
 @cindex beam, @code{\partCombine} with @code{\autoBeamOff} (連桁と @code{\autoBeamOff} を伴う @code{\partCombine})
 @cindex voice, @code{\partCombine} with @code{\autoBeamOff} (ボイスと @code{\autoBeamOff} を伴う @code{\partCombine})
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and-autobeamoff.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -2523,14 +2523,14 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @funindex baseMoment
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{subdividing-beams.ly}
+{snippets/subdividing-beams.ly}
 
 @cindex beaming, strict-beat (拍に厳密な連桁)
 @cindex strict-beat beaming (拍に厳密な連桁)
 @cindex beamlet, orientation (16 分音符以下の連桁の向き)
 @funindex strictBeatBeaming
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{strict-beat-beaming.ly}
+{snippets/strict-beat-beaming.ly}
 
 @cindex measure grouping (小節をグループ化する)
 @cindex beat, grouping (拍をグループ化する)
@@ -2540,13 +2540,13 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @cindex sign, conducting (指揮記号)
 @funindex Measure_grouping_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{conducting-signs,-measure-grouping-signs.ly}
+{snippets/conducting-signs,-measure-grouping-signs.ly}
 
 @cindex beam, endings, in a score (楽譜の終わりでの連桁)
 @cindex beam, endings, with multiple voices (複数のボイスの終わりでの連桁)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{beam-endings-in-score-context.ly}
+{snippets/beam-endings-in-score-context.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -2710,7 +2710,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{flat-flags-and-beam-nibs.ly}
+{snippets/flat-flags-and-beam-nibs.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -3234,14 +3234,14 @@ f'1 \bar "k"
 @snippets
 @cindex bar number, printed in first measure (最初の小節に小節番号を表示する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-the-bar-number-for-the-first-measure.ly}
+{snippets/printing-the-bar-number-for-the-first-measure.ly}
 
 @cindex bar number, printed at regular intervals (一定間隔で小節番号を表示する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-at-regular-intervals.ly}
+{snippets/printing-bar-numbers-at-regular-intervals.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-with-changing-regular-intervals.ly}
+{snippets/printing-bar-numbers-with-changing-regular-intervals.ly}
 
 @cindex measure number, style (小節番号のスタイル)
 @cindex bar number, style (小節番号のスタイル)
@@ -3249,21 +3249,21 @@ f'1 \bar "k"
 @cindex style, measure number (小節番号のスタイル)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-inside-boxes-or-circles.ly}
+{snippets/printing-bar-numbers-inside-boxes-or-circles.ly}
 
 @c XXX also included in `repeats.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @cindex bar number, alignment (小節番号を揃える)
 @cindex alignment, bar numbers (小節番号を揃える)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{aligning-bar-numbers.ly}
+{snippets/aligning-bar-numbers.ly}
 
 @cindex bar number, removal (小節番号を削除する)
 @cindex removing bar numbers (小節番号を削除する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{removing-bar-numbers-from-a-score.ly}
+{snippets/removing-bar-numbers-from-a-score.ly}
 
 @morerefs
 コード断片集:
@@ -3690,7 +3690,7 @@ afterGraceFraction = 3/4
 @cindex stem, with slash (スラッシュ付きの符幹)
 @cindex slashed stem (スラッシュ付きの符幹)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-grace-note-slashes-with-normal-heads.ly}
+{snippets/using-grace-note-slashes-with-normal-heads.ly}
 
 @cindex tweaking grace note (装飾小音符を調整する)
 @cindex grace note, tweaking (装飾小音符を調整する)
@@ -3698,7 +3698,7 @@ afterGraceFraction = 3/4
 @funindex add-grace-property
 @funindex remove-grace-property
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-grace-layout-within-music.ly}
+{snippets/tweaking-grace-layout-within-music.ly}
 
 @cindex empty chord (空の和音)
 @cindex chord, empty (空の和音)
@@ -3709,12 +3709,12 @@ afterGraceFraction = 3/4
 @funindex startAppoggiaturaMusic
 @funindex stopAppoggiaturaMusic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{redefining-grace-note-global-defaults.ly}
+{snippets/redefining-grace-note-global-defaults.ly}
 
 @cindex grace note, and strict spacing (装飾小音符と厳密なスペーシング)
 @cindex strict spacing and grace notes (厳密なスペーシングと装飾小音符)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-grace-notes-with-floating-space.ly}
+{snippets/positioning-grace-notes-with-floating-space.ly}
 
 @morerefs
 音楽用語集:

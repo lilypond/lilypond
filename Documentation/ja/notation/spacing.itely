@@ -1573,7 +1573,7 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 @cindex page break, managing with extra voice (改ページを追加のボイスで操作する)
 @cindex line break, managing with extra voice (改行を追加のボイスで操作する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-an-extra-voice-for-breaks.ly}
+{snippets/using-an-extra-voice-for-breaks.ly}
 
 @morerefs
 記譜法リファレンス:

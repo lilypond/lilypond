@@ -16,7 +16,7 @@
 @section ピッチ
 @translationof Pitches
 
-@lilypondfile[quote]{pitches-headword.ly}
+@lilypondfile[quote]{snippets/pitches-headword.ly}
 
 このセクションでは音符のピッチを指定する方法について議論します。@c
 このプロセスには 3 つのステップがあります: 入力、変更、出力です。
@@ -449,12 +449,12 @@ LilyPond では、音符名はピッチを指定します
 @cindex hiding accidentals, on tied notes at start of system (システムの先頭にあるタイで繋がれた音符の臨時記号を隠す)
 @cindex accidental, hiding, on tied notes at start of system (システムの先頭にあるタイで繋がれた音符の臨時記号を隠す)
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+{snippets/hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @cindex natural sign, extra, preventing (追加のナチュラル記号を表示しないようにする)
 @cindex extra natural sign, preventing (追加のナチュラル記号を表示しないようにする)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-extra-naturals-from-being-automatically-added.ly}
+{snippets/preventing-extra-naturals-from-being-automatically-added.ly}
 
 @morerefs
 音楽用語集:
@@ -879,7 +879,7 @@ musicInBflat = @{ e4 @dots{} @}
 @cindex transposition, pitches, @q{smart} (ピッチの@q{スマート} トランスポーズ)
 @cindex pitches, @q{smart} transposition (ピッチの@q{スマート} トランスポーズ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -1310,7 +1310,7 @@ c'2 c'
 
 @cindex clef, tweaking properties (音部記号のプロパティを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-clef-properties.ly}
+{snippets/tweaking-clef-properties.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -1452,11 +1452,11 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @cindex key signature, preventing natural signs (調号のナチュラル記号を表示しない)
 @cindex natural sign, preventing in key signatures (調号のナチュラル記号を表示しない)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+{snippets/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @cindex key signature, non-traditional (非伝統的な調号)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 @morerefs
 音楽用語集:
@@ -1515,17 +1515,17 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @cindex ottava text (オッターバのテキスト)
 @cindex text, ottavation (オッターバのテキスト)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-ottava-text.ly}
+{snippets/changing-ottava-text.ly}
 
 @cindex ottava, for single voice (単一声部に対するオッターバ)
 @cindex voice, with ottavation (単一声部に対するオッターバ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-an-ottava-marking-to-a-single-voice.ly}
+{snippets/adding-an-ottava-marking-to-a-single-voice.ly}
 
 @cindex ottava spanner, modify slope (オッターバのスパナの傾きを変更する)
 @cindex slope, ottava spanner, modification (オッターバのスパナの傾きを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-the-ottava-spanner-slope.ly}
+{snippets/modifying-the-ottava-spanner-slope.ly}
 
 
 @morerefs
@@ -3093,16 +3093,16 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex ambitus, per voice (ボイスごとの音域)
 @cindex voice, ambitus (ボイスと音域)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-ambitus-per-voice.ly}
+{snippets/adding-ambitus-per-voice.ly}
 
 @cindex ambitus, multiple voices (複数ボイスでの音域)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ambitus-with-multiple-voices.ly}
+{snippets/ambitus-with-multiple-voices.ly}
 
 @cindex ambitus, line gap (音域の線の隙間)
 @funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-ambitus-gap.ly}
+{snippets/changing-the-ambitus-gap.ly}
 
 
 @morerefs
@@ -3300,7 +3300,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 @cindex number, in easy notation (演奏を容易にする記譜法での数字)
 @funindex Ez_numbers_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{numbers-as-easy-note-heads.ly}
+{snippets/numbers-as-easy-note-heads.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -3421,10 +3421,10 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @cindex note head, Aiken, thin variant (細い Aiken の符頭)
 @cindex Aiken shape note head, thin variant (細い Aiken のシェイプ ノートの符頭)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{aiken-head-thin-variant-noteheads.ly}
+{snippets/aiken-head-thin-variant-noteheads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+{snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。
 

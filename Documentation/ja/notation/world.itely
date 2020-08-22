@@ -353,7 +353,7 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 
 @c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -407,7 +407,7 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @cindex Arabic improvisation (アラブ音楽の即興)
 @cindex improvisation, Arabic (アラブ音楽の即興)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{arabic-improvisation.ly}
+{snippets/arabic-improvisation.ly}
 
 
 @morerefs
@@ -623,7 +623,7 @@ LilyPond は 200 以上のマカームの調号の定義をサポートしてい
 @cindex makam, example (マカームの例)
 @cindex Turkish makam, example (トルコ音楽のマカームの例)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{turkish-makam-example.ly}
+{snippets/turkish-makam-example.ly}
 
 
 @node トルコ音楽のための更なる知識

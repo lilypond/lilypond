@@ -17,7 +17,7 @@
 @section 同時進行する音符
 @translationof Simultaneous notes
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
 楽譜の中で多声部は楽曲の 1 節の中にある複数のボイスを参照します。@c
 LilyPond の中で多声部は同じ譜にある複数のボイスを参照します。
@@ -891,17 +891,17 @@ etc.
 @cindex polyphony, additional voices (多声での追加のボイス)
 @funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{additional-voices-to-avoid-collisions.ly}
+{snippets/additional-voices-to-avoid-collisions.ly}
 
 @cindex dotted note, moving horizontally (付点付きの音符を水平方向に移動する)
 @cindex note, dotted, moving horizontally (付点付きの音符を水平方向に移動する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-dotted-notes-in-polyphony.ly}
+{snippets/moving-dotted-notes-in-polyphony.ly}
 
 @cindex note, horizontal shift (音符を水平方向に移動する)
 @cindex horizontal shift of notes (音符を水平方向に移動する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{forcing-horizontal-shift-of-notes.ly}
+{snippets/forcing-horizontal-shift-of-notes.ly}
 
 
 @morerefs
@@ -1172,12 +1172,12 @@ instrumentTwo = \relative {
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{combining-two-parts-on-the-same-staff.ly}
+{snippets/combining-two-parts-on-the-same-staff.ly}
 
 @cindex part combiner, changing text (パート結合のテキストを変更する)
 @cindex combining parts, changing text (パート結合のテキストを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-partcombine-texts.ly}
+{snippets/changing-partcombine-texts.ly}
 
 @morerefs
 音楽用語集:

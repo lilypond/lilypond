@@ -16,7 +16,7 @@
 @section 和音記譜法
 @translationof Chord notation
 
-@lilypondfile[quote]{chords-headword.ly}
+@lilypondfile[quote]{snippets/chords-headword.ly}
 
 和音を通常の音符として入力したり、和音モードで入力したりすることができ、@c
 様々な従来のヨーロッパの和音命名規則を用いて表示することができます。@c
@@ -547,14 +547,14 @@ chordmusic = \relative {
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{showing-chords-at-changes.ly}
+{snippets/showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-@c {adding-bar-lines-to-chordnames-context.ly}
+@c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex lead sheet (リード シート)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 音楽用語集:
@@ -781,7 +781,7 @@ chordmusic = \relative {
 @cindex chord names, exceptions (コード ネームの例外)
 @funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-exceptions.ly}
+{snippets/chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
 @cindex major 7 chord, layout (長七和音のレイアウト)
@@ -789,23 +789,23 @@ chordmusic = \relative {
 @cindex chord, major 7, layout (長七和音のレイアウト)
 @funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-major7.ly}
+{snippets/chord-name-major7.ly}
 
 @cindex @code{ChordNames}, with bar lines (@code{ChordNames} における小節線)
 @cindex bar line, in @code{ChordNames} (@code{ChordNames} における小節線)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-bar-lines-to-chordnames-context.ly}
+{snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex volta repeat, below chords (和音の下にある volta 繰り返し)
 @cindex chords, volta repeat, below (和音の下にある volta 繰り返し)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{volta-below-chords.ly}
+{snippets/volta-below-chords.ly}
 
 @cindex chord separator, changing (コード ネームの区切り記号を変更する)
 @cindex changing chord separator (コード ネームの区切り記号を変更する)
 @funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-chord-separator.ly}
+{snippets/changing-chord-separator.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -846,7 +846,7 @@ myChords = \relative c' {
 @translationof Figured bass
 
 @c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
 
 通奏低音を譜刻することができます。
 
@@ -1107,7 +1107,7 @@ example, the vertical spacing of the figures may be set with
 @funindex figuredBassAlterationDirection
 @funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-positions-of-figured-bass-alterations.ly}
+{snippets/changing-the-positions-of-figured-bass-alterations.ly}
 
 @morerefs
 コード断片集:

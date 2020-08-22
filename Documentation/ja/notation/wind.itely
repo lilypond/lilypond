@@ -16,7 +16,7 @@
 @section 管楽器
 @translationof Wind instruments
 
-@lilypondfile[quote]{wind-headword.ly}
+@lilypondfile[quote]{snippets/wind-headword.ly}
 
 このセクションでは管楽器の楽譜を記述する際に現れる記譜要素について説明します。
 
@@ -91,7 +91,7 @@
 @cindex changing flageolet size (フラジョレットのサイズを変更する)
 @funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing--flageolet-mark-size.ly}
+{snippets/changing--flageolet-mark-size.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -126,12 +126,12 @@
 @cindex fingering, symbols for wind instruments (管楽器の運指記号)
 @cindex wind instruments, fingering symbols (管楽器の運指記号)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingering-symbols-for-wind-instruments.ly}
+{snippets/fingering-symbols-for-wind-instruments.ly}
 
 @cindex fingering chart (運指表)
 @cindex chart, fingering (運指表)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{recorder-fingering-chart.ly}
+{snippets/recorder-fingering-chart.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -432,19 +432,19 @@ c''1^\markup {
 @cindex woodwind diagram, list (木管楽器のダイアグラムのリスト)
 @cindex list of woodwind diagrams (木管楽器のダイアグラムのリスト)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-listing.ly}
+{snippets/woodwind-diagrams-listing.ly}
 
 @cindex woodwind diagrams, modifying (木管楽器のダイアグラムを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{graphical-and-text-woodwind-diagrams.ly}
+{snippets/graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-size-of-woodwind-diagrams.ly}
+{snippets/changing-the-size-of-woodwind-diagrams.ly}
 
 @cindex woodwind diagram, key lists (木管楽器のダイアグラムの調リスト)
 @cindex list of keys in woodwind diagrams (木管楽器のダイアグラムの調リスト)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-key-lists.ly}
+{snippets/woodwind-diagrams-key-lists.ly}
 
 @morerefs
 インストールされているファイル:

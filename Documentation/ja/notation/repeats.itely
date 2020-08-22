@@ -18,7 +18,7 @@
 @section 繰り返し
 @translationof Repeats
 
-@lilypondfile[quote]{repeats-headword.ly}
+@lilypondfile[quote]{snippets/repeats-headword.ly}
 
 繰り返しは音楽の主要なコンセプトであり、@c
 繰り返しのために複数の記譜法が存在します。@c
@@ -338,25 +338,25 @@ c'4 e g
 @cindex volta bracket, shortened (短縮された繰り返し括弧)
 @cindex shortened volta brackets (短縮された繰り返し括弧)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{shortening-volta-brackets.ly}
+{snippets/shortening-volta-brackets.ly}
 
 @cindex volta bracket, in additional staves (他の譜における繰り返し括弧)
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-volta-brackets-to-additional-staves.ly}
+{snippets/adding-volta-brackets-to-additional-staves.ly}
 
 @cindex repeat, double, style for volta (二重繰り返しのスタイル)
 @cindex volta, double repeat style (二重繰り返しのスタイル)
 @cindex style, double repeat for volta (二重繰り返しのスタイル)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-double-repeat-default-for-volte.ly}
+{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex repeat, bar numbers with letters (繰り返しでの小節番号)
 @cindex bar number, with letter, in repeat (繰り返しでの小節番号)
 @cindex repeat, alternative bar numbers (繰り返しでの異なる小節番号)
 @cindex bar number, alternative, in repeat (繰り返しでの異なる小節番号)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @morerefs
 音楽用語集:
@@ -768,20 +768,20 @@ a'4 b c | a'4 b c
 @cindex repeat, percent counter (パーセント繰り返しのカウンタ)
 @funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-counter.ly}
+{snippets/percent-repeat-counter.ly}
 
 @cindex percent repeat, count visibility (パーセント繰り返しのカウンタの可視性)
 @cindex count visibility of percent repeats (パーセント繰り返しのカウンタの可視性)
 @cindex repeat, percent, count visibility (パーセント繰り返しのカウンタの可視性)
 @funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-count-visibility.ly}
+{snippets/percent-repeat-count-visibility.ly}
 
 @cindex percent repeat, isolated (独立したパーセント繰り返し)
 @cindex isolated percent repeat (独立したパーセント繰り返し)
 @cindex repeat, percent, isolated (独立したパーセント繰り返し)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{isolated-percent-repeats.ly}
+{snippets/isolated-percent-repeats.ly}
 
 
 @morerefs
@@ -898,7 +898,7 @@ a'4 b c | a'4 b c
 @cindex tremolo, cross-staff (譜を跨ぐトレモロ)
 @cindex cross-staff tremolo (譜を跨ぐトレモロ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-tremolos.ly}
+{snippets/cross-staff-tremolos.ly}
 
 @morerefs
 コード断片集:

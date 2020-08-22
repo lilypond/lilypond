@@ -17,7 +17,7 @@
 @section キーボードと他の複数譜の楽器
 @translationof Keyboard and other multi-staff instruments
 
-@lilypondfile[quote]{keyboard-headword.ly}
+@lilypondfile[quote]{snippets/keyboard-headword.ly}
 
 このセクションでは、キーボード楽器と複数の譜を用いる他の楽器
 -- ハープやビブラフォン等 --
@@ -477,7 +477,7 @@ music = {
 @funindex Span_stem_engraver
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-stems.ly}
+{snippets/cross-staff-stems.ly}
 
 現時点でこのエングラーバは、名前をダブル クォートで囲っても指定することができません。@c
 その代わり、名前の前にハッシュ記号 (@code{#}) を置くことで指定しなければなりません。
@@ -486,7 +486,7 @@ music = {
 @cindex arpeggio bracket, cross-staff (譜を跨ぐアルペジオのブラケット)
 @cindex bracket, cross-staff (譜を跨ぐブラケット)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @morerefs
 コード断片集:
@@ -641,7 +641,7 @@ music = {
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-register-symbols.ly}
+{snippets/accordion-register-symbols.ly}
 
 @morerefs
 コード断片集:
