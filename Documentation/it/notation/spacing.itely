@@ -1588,7 +1588,7 @@ ogni 4 misure, usare:
 @cindex interruzione, di pagina o linea, gestione con una voce apposita
 @cindex a capo, gestione con una voce apposita
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-an-extra-voice-for-breaks.ly}
+{snippets/using-an-extra-voice-for-breaks.ly}
 
 @morerefs
 Guida alla notazione:

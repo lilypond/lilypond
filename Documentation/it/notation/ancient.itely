@@ -17,7 +17,7 @@
 @section Notazione antica
 @translationof Ancient notation
 
-@lilypondfile[quote]{ancient-headword.ly}
+@lilypondfile[quote]{snippets/ancient-headword.ly}
 
 @cindex edizione vaticana
 @cindex edizione medicea
@@ -2670,7 +2670,7 @@ non dover interrompere note sincopate che si trovano al cambio di battuta,
 continuando a fornire la funzione di orientamento che le stanghette hanno.
 
 @lilypondfile[verbatim,quote,texidoc]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
 @node Trascrivere il canto gregoriano
@@ -2848,7 +2848,7 @@ spirLyr = \lyricmode {
 
 @cindex trascrizione, da mensurale a moderno
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
+{snippets/using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 
 @node Correzioni editoriali

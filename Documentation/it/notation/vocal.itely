@@ -16,7 +16,7 @@
 @section Musica vocale
 @translationof Vocal music
 
-@lilypondfile[quote]{vocal-headword.ly}
+@lilypondfile[quote]{snippets/vocal-headword.ly}
 
 Questa sezione spiega come scrivere la musica vocale e assicurarsi che
 il testo sia allineato con le note della melodia.
@@ -203,7 +203,7 @@ molte opzioni disponibili leggere @ref{Formattazione del testo}.
 @cindex testo vocale, e markup
 @cindex markup, nel testo
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{formatting-lyrics-syllables.ly}
+{snippets/formatting-lyrics-syllables.ly}
 
 
 @morerefs
@@ -1094,7 +1094,7 @@ Manuale di apprendimento, vedi @rlearning{Modelli per gruppi vocali}.
 
 @cindex testo vocale, spaziatura della versione 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @morerefs
 Manuale di apprendimento:
@@ -1156,7 +1156,7 @@ proprietà nel blocco @code{\layout}.
 @cindex allineamento orizzontale, testo vocale
 @cindex orizzontale, allineamento, testo vocale
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{lyrics-alignment.ly}
+{snippets/lyrics-alignment.ly}
 
 @knownissues
 
@@ -2263,7 +2263,7 @@ spiegata in @ref{Notazione per accordi}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Guida alla notazione:
@@ -2464,7 +2464,7 @@ Guida al funzionamento interno:
 @cindex parentesi dell'arpeggio, contrassegnare voci divise
 @cindex parentesi, verticale, contrassegnare voci divise
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 Guida alla notazione:
@@ -2781,7 +2781,7 @@ e rendere più chiare le note per pianoforte.
 @cindex suggerimento, nella partitura vocale
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{adding-orchestral-cues-to-a-vocal-score.ly}
+{snippets/adding-orchestral-cues-to-a-vocal-score.ly}
 
 @morerefs
 Glossario musicale:
@@ -3218,7 +3218,7 @@ dei seguenti frammenti.
 @cindex inno
 @cindex cantico
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{chant-or-psalms-notation.ly}
+{snippets/chant-or-psalms-notation.ly}
 
 @c XXX move this text into following snippet
 I cantici e altri testi liturgici possono essere impostati in modo
@@ -3231,7 +3231,7 @@ alle durate delle note.
 @cindex trascrizione moderna, della musica gregoriana
 @cindex gregoriana, musica, trascrizione moderna
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Manuale di apprendimento:
@@ -3423,7 +3423,7 @@ esattamente a un rigo di testo.  Per fare ciò è necessario un comando
 @cindex misura parziale, negli inni
 @cindex parziale, misura, negli inni
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 
 @node Musica vocale antica

@@ -18,7 +18,7 @@
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
 
 Questa sezione spiega come modificare l'aspetto del rigo, come stampare
 partiture multirigo e come aggiungere indicazioni di tempo e citazioni
@@ -241,12 +241,12 @@ spiegati in @ref{Definizione di nuovi contesti}.
 @cindex parentesi quadra, all'inizio di un gruppo di righi
 @cindex gruppo di righi, con parentesi quadra all'inizio
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{use-square-bracket-at-the-start-of-a-staff-group.ly}
+{snippets/use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @cindex parentesi, all'inizio di un rigo singolo
 @cindex rigo, singolo, con parentesi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{display-bracket-with-only-one-staff-in-a-system.ly}
+{snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex formattazione mensurale
 @cindex mensurale, formattazione
@@ -256,7 +256,7 @@ spiegati in @ref{Definizione di nuovi contesti}.
 @cindex musica mensurale, trascrizione di
 @cindex stanghetta, tra i righi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @morerefs
 Glossario musicale:
@@ -321,7 +321,7 @@ in @ref{Definizione di nuovi contesti}.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{nesting-staves.ly}
+{snippets/nesting-staves.ly}
 
 @morerefs
 Guida alla notazione:
@@ -566,7 +566,7 @@ effetto anche sulla spaziatura della linea.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-some-staff-lines-thicker-than-the-others.ly}
+{snippets/making-some-staff-lines-thicker-than-the-others.ly}
 
 @morerefs
 Glossario musicale:
@@ -717,7 +717,7 @@ su @code{\RemoveAllEmptyStaves} si trovano in @ref{Nascondere i righi}.
 @funindex alignBelowContext
 @funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligning-ossias-and-lyrics.ly}
+{snippets/vertically-aligning-ossias-and-lyrics.ly}
 
 @morerefs
 Glossario musicale:

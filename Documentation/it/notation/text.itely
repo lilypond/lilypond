@@ -16,7 +16,7 @@
 @section Testo
 @translationof Text
 
-@lilypondfile[quote]{text-headword.ly}
+@lilypondfile[quote]{snippets/text-headword.ly}
 
 Questa sezione spiega come includere del testo (con vari tipi di
 formattazione) nelle partiture musicali.
@@ -195,10 +195,10 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 @cindex dinamiche, estensore del testo, personalizzazione
 @cindex estensore del testo, dinamiche, personalizzazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-text-spanner-postfix.ly}
+{snippets/dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-custom-text-spanner-postfix.ly}
 
 @morerefs
 Guida alla notazione:
@@ -303,13 +303,13 @@ successiva.
 @cindex linea, fine, posizionamento segni
 @cindex segno, a fine linea
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line.ly}
+{snippets/printing-marks-at-the-end-of-a-line.ly}
 
 @cindex segno, su ogni rigo
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-on-every-staff.ly}
+{snippets/printing-marks-on-every-staff.ly}
 
 @morerefs
 Guida alla notazione:
@@ -385,7 +385,7 @@ in @ref{Testo formattato su più pagine}.
 @cindex testo a due colonne
 @cindex markup, due colonne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{stand-alone-two-column-markup.ly}
+{snippets/stand-alone-two-column-markup.ly}
 
 @morerefs
 Guida alla notazione:

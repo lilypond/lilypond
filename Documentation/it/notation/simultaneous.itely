@@ -16,7 +16,7 @@
 @section Note simultanee
 @translationof Simultaneous notes
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
 La polifonia in musica si riferisce alla coesistenza simultanea di più di una voce in un
 brano musicale. In LilyPond la polifonia si riferisce alla coesistenza di
@@ -890,17 +890,17 @@ impostati esplicitamente in direzioni opposte).
 @cindex polifonia, voci ulteriori
 @funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{additional-voices-to-avoid-collisions.ly}
+{snippets/additional-voices-to-avoid-collisions.ly}
 
 @cindex nota puntata, spostamento orizzontale
 @cindex puntata, nota, spostamento orizzontale
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-dotted-notes-in-polyphony.ly}
+{snippets/moving-dotted-notes-in-polyphony.ly}
 
 @cindex nota, spostamento orizzontale
 @cindex spostamento orizzontale di una nota
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{forcing-horizontal-shift-of-notes.ly}
+{snippets/forcing-horizontal-shift-of-notes.ly}
 
 @morerefs
 Glossario Musicale:
@@ -1170,12 +1170,12 @@ usando un contesto @code{NullVoice}.  Vedi @ref{Polifonia con testo in comune}.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{combining-two-parts-on-the-same-staff.ly}
+{snippets/combining-two-parts-on-the-same-staff.ly}
 
 @cindex combinatore delle parti, modifica del testo
 @cindex combinare le parti, modifica del testo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-partcombine-texts.ly}
+{snippets/changing-partcombine-texts.ly}
 
 @morerefs
 Glossario Musicale:

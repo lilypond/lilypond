@@ -83,7 +83,7 @@ Per trovare i file di inizializzazione come @file{arabic.ly} o
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{makam-example.ly}
+{snippets/makam-example.ly}
 
 @morerefs
 Glossario musicale:
@@ -329,7 +329,7 @@ più comuni maqam:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -379,7 +379,7 @@ automatica delle travature e/o usare indicazioni di tempo composto.
 @cindex improvvisazione araba
 @cindex araba, improvvisazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{arabic-improvisation.ly}
+{snippets/arabic-improvisation.ly}
 
 
 @morerefs

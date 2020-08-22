@@ -16,7 +16,7 @@
 @section Note editoriali
 @translationof Editorial annotations
 
-@lilypondfile[quote]{editorial-headword.ly}
+@lilypondfile[quote]{snippets/editorial-headword.ly}
 
 Questa sezione tratta dei vari modi con cui cambiare l'aspetto delle note e
 aggiungere un'analisi o un accento didattico.
@@ -383,11 +383,11 @@ rigo, come è spiegato in @ref{Direzione e posizionamento}.
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex diteggiatura, dentro al rigo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @morerefs
 Guida alla notazione:
@@ -667,12 +667,12 @@ I gambi si possono posizionare sopra o sotto, vedi
 @cindex gambo, direzione predefinita rispetto alla linea centrale
 @cindex direzione, predefinita, del gambo, rispetto alla linea centrale
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+{snippets/default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @cindex gambo, direzione automatica rispetto alla linea centrale
 @cindex direzione, automatica, del gambo, rispetto alla linea centrale
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+{snippets/automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
 @morerefs
 Guida alla notazione:
@@ -823,7 +823,7 @@ Le linee  si estendono a partire dalle linee centrali di ciascun rigo.
 
 @cindex linee della griglia, modificare aspetto
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{grid-lines--changing-their-appearance.ly}
+{snippets/grid-lines--changing-their-appearance.ly}
 
 @morerefs
 Frammenti:
@@ -890,13 +890,13 @@ Le parentesi analitiche si possono annidare.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-above-the-staff.ly}
+{snippets/analysis-brackets-above-the-staff.ly}
 
 @cindex parentesi di analisi, con etichetta
 @cindex analisi, parentesi, con etichetta
 @funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-with-labels.ly}
+{snippets/analysis-brackets-with-labels.ly}
 
 
 @morerefs

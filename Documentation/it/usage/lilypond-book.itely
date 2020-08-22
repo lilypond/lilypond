@@ -161,7 +161,7 @@ c'4 f16
 Se l'esempio è più grande, è possibile riportarlo in un file a parte e inserirlo
 con \verb+\lilypondfile+.
 
-@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
 Perché sia visibile la @code{tagline}, predefinita o personalizzata, l'intero
 frammento deve essere compreso in un costrutto @code{\book @{ @}}.

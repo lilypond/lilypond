@@ -1207,7 +1207,7 @@ Nell'esempio seguente, cominciamo con il plug-in per le teste delle
 note, il @code{Note_heads_engraver}.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1240,7 +1240,7 @@ note, il @code{Note_heads_engraver}.
 Poi il @code{Staff_symbol_engraver} aggiunge il rigo,
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1272,7 +1272,7 @@ Poi il @code{Staff_symbol_engraver} aggiunge il rigo,
 il @code{Clef_engraver} definisce un punto di riferimento per il rigo,
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1302,7 +1302,7 @@ il @code{Clef_engraver} definisce un punto di riferimento per il rigo,
 e lo @code{Stem_engraver} aggiunge i gambi.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1336,7 +1336,7 @@ accidenti, stanghette di battuta, indicazioni di tempo e armature di
 chiave, otteniamo la notazione completa.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score { \topVoice }
 @end lilypond
 
@@ -1349,7 +1349,7 @@ con la polifonia?  Nella notazione polifonica, voci diverse possono
 condividere lo stesso rigo:
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
@@ -1365,7 +1365,7 @@ contesto Score.  Il contesto Score rappresenta il contesto notazionale di
 livello massimo.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score {
    <<
       \new Staff << \topVoice \\ \botVoice >>

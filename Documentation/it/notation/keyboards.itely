@@ -16,7 +16,7 @@
 @section Tastiera e altri strumenti multirigo
 @translationof Keyboard and other multi-staff instruments
 
-@lilypondfile[quote]{keyboard-headword.ly}
+@lilypondfile[quote]{snippets/keyboard-headword.ly}
 
 Questa sezione tratta vari aspetti della notazione musicale che sono
 specifici degli strumenti a tastiera e di altri strumenti che vengono
@@ -482,7 +482,7 @@ Guida al funzionamento interno:
 @funindex Span_stem_engraver
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-stems.ly}
+{snippets/cross-staff-stems.ly}
 
 Per il momento, questo incisore non può essere specificato scrivendo il
 suo nome tra virgolette doppie.  A causa del modo in cui è implementato,
@@ -492,7 +492,7 @@ il suo nome deve essere preceduto dal simbolo di cancelletto @code{#}.
 @cindex trasversale ai righi, parentesi dell'arpeggio
 @cindex arpeggio, parentesi, trasversale ai righi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @morerefs
 Frammenti:
@@ -647,7 +647,7 @@ trova in @ref{Accordion Registers}.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-register-symbols.ly}
+{snippets/accordion-register-symbols.ly}
 
 @morerefs
 Frammenti:

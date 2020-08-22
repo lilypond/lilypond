@@ -16,7 +16,7 @@
 @section Notazione per accordi
 @translationof Chord notation
 
-@lilypondfile[quote]{chords-headword.ly}
+@lilypondfile[quote]{snippets/chords-headword.ly}
 
 Gli accordi possono essere inseriti come normali note opppure nella modalità
 per accordi, e visualizzati usando varie convenzioni della tradizione europea.
@@ -493,15 +493,15 @@ simbolo @code{noChordSymbol} (nessun accordo).
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{showing-chords-at-changes.ly}
+{snippets/showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-@c {adding-bar-lines-to-chordnames-context.ly}
+@c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex canzioniere
 @cindex lead sheet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Glossario musicale:
@@ -727,7 +727,7 @@ porre uno spazio tra la fondamentale e il modificatore impostando
 @cindex accordo, nomi, eccezioni
 @funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-exceptions.ly}
+{snippets/chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
 @cindex accordo di settima maggiore, formattazione
@@ -735,23 +735,23 @@ porre uno spazio tra la fondamentale e il modificatore impostando
 @cindex settima maggiore, accordo, formattazione
 @funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-major7.ly}
+{snippets/chord-name-major7.ly}
 
 @cindex @code{ChordNames}, con stanghette
 @cindex stanghetta, in @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-bar-lines-to-chordnames-context.ly}
+{snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex ripetizione con volte, sotto gli accordi
 @cindex accordi, ripetizioni con volte, sotto
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{volta-below-chords.ly}
+{snippets/volta-below-chords.ly}
 
 @cindex separatore dell'accordo, modifica
 @cindex cambiare il separatore dell'accordo
 @funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-chord-separator.ly}
+{snippets/changing-chord-separator.ly}
 
 @morerefs
 Guida alla notazione:
@@ -793,7 +793,7 @@ myChords = \relative c' {
 @translationof Figured bass
 
 @c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
 
 La notazione del basso continuo è supportata.
 
@@ -1047,7 +1047,7 @@ Fine della linea di continuazione
 @funindex figuredBassPlusDirection
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-positions-of-figured-bass-alterations.ly}
+{snippets/changing-the-positions-of-figured-bass-alterations.ly}
 
 @morerefs
 Frammenti:

@@ -1018,7 +1018,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Clef glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #clefs
 @end lilypond
@@ -1029,7 +1029,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Time Signature glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #timesig
 @end lilypond
@@ -1040,7 +1040,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Number glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
 @end lilypond
@@ -1051,7 +1051,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Accidental glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accidentals
 @end lilypond
@@ -1062,7 +1062,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Default Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #default-noteheads
 @end lilypond
@@ -1073,7 +1073,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Special Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #special-noteheads
 @end lilypond
@@ -1084,7 +1084,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #shape-note-noteheads
 @end lilypond
@@ -1095,7 +1095,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Rest glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #rests
 @end lilypond
@@ -1106,7 +1106,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Flag glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #flags
 @end lilypond
@@ -1117,7 +1117,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Dot glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dots
 @end lilypond
@@ -1128,7 +1128,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Dynamic glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dynamics
 @end lilypond
@@ -1139,7 +1139,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Script glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #scripts
 @end lilypond
@@ -1150,7 +1150,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Arrowhead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #arrowheads
 @end lilypond
@@ -1161,7 +1161,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Bracket-tip glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #brackettips
 @end lilypond
@@ -1172,7 +1172,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Pedal glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #pedal
 @end lilypond
@@ -1183,7 +1183,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Accordion glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accordion
 @end lilypond
@@ -1194,7 +1194,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Tie glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #ties
 @end lilypond
@@ -1205,7 +1205,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Vaticana glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #vaticana
 @end lilypond
@@ -1216,7 +1216,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Medicaea glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #medicaea
 @end lilypond
@@ -1227,7 +1227,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Hufnagel glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #hufnagel
 @end lilypond
@@ -1238,7 +1238,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Mensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #mensural
 @end lilypond
@@ -1249,7 +1249,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Neomensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #neomensural
 @end lilypond
@@ -1260,7 +1260,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Petrucci glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #petrucci
 @end lilypond
@@ -1271,7 +1271,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Solesmes glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #solesmes
 @end lilypond
@@ -1281,7 +1281,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 @translationof Kievan Notation glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
 @end lilypond
@@ -2142,7 +2142,7 @@ contenuto di questi file.
 
 Tutti i comandi seguenti possono essere usati all'interno di @code{\markup}.
 
-@include markup-commands.tely
+@include en/markup-commands.tely
 
 
 @node Comandi per una lista di markup
@@ -2151,7 +2151,7 @@ Tutti i comandi seguenti possono essere usati all'interno di @code{\markup}.
 
 Tutti i comandi seguenti possono essere usati all'interno di @code{\markuplist}:
 
-@include markup-list-commands.tely
+@include en/markup-list-commands.tely
 
 
 @node Elenco dei caratteri speciali
@@ -3363,21 +3363,21 @@ Guida al funzionamento interno:
 @appendixsec Tutte le proprietà di contesto
 @translationof All context properties
 
-@include context-properties.tely
+@include en/context-properties.tely
 
 
 @node Proprietà della formattazione
 @appendixsec Proprietà della formattazione
 @translationof Layout properties
 
-@include layout-properties.tely
+@include en/layout-properties.tely
 
 
 @node Funzioni musicali disponibili
 @appendixsec Funzioni musicali disponibili
 @translationof Available music functions
 
-@include identifiers.tely
+@include en/identifiers.tely
 
 @node Identificatori delle modifiche di contesto
 @appendixsec Identificatori delle modifiche di contesto
@@ -3386,17 +3386,17 @@ Guida al funzionamento interno:
 I seguenti comandi possono essere usati come modificatori di contesto
 all'interno di un blocco @code{\layout} o @code{\with}.
 
-@include context-mod-identifiers.tely
+@include en/context-mod-identifiers.tely
 
 @node Tipi di predicati predefiniti
 @appendixsec Tipi di predicati predefiniti
 @translationof Predefined type predicates
 
-@include type-predicates.tely
+@include en/type-predicates.tely
 
 
 @node Funzioni Scheme
 @appendixsec Funzioni Scheme
 @translationof Scheme functions
 
-@include scheme-functions.tely
+@include en/scheme-functions.tely

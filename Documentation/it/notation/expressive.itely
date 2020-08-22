@@ -16,7 +16,7 @@
 @section Segni di espressione
 @translationof Expressive marks
 
-@lilypondfile[quote]{expressive-headword.ly}
+@lilypondfile[quote]{snippets/expressive-headword.ly}
 
 Questa sezione elenca vari segni di espressione che si possono
 usare in una partitura.
@@ -206,19 +206,19 @@ collegati alle note si trovano in @rlearning{Posizionamento degli oggetti}.
 @funindex \dashPlus
 @funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-default-values-for-articulation-shorthand-notation.ly}
+{snippets/modifying-default-values-for-articulation-shorthand-notation.ly}
 
 @cindex ordine verticale degli script
 @cindex script, ordine verticale
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-vertical-ordering-of-scripts.ly}
+{snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @cindex ornamento, gruppo ritardato
 @cindex gruppo ritardato, ornamento
 @funindex suggestAccidentals
 @funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-a-delayed-turn.ly}
+{snippets/creating-a-delayed-turn.ly}
 
 @morerefs
 Glossario Musicale:
@@ -482,29 +482,29 @@ indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pi
 @cindex forcella, terminata sulle stanghette
 @cindex stanghetta, forcella, terminare a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-hairpin-behavior-at-bar-lines.ly}
+{snippets/setting-hairpin-behavior-at-bar-lines.ly}
 
 @cindex forcella, lunghezza minima
 @cindex lunghezza minima, forcella
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-minimum-length-of-hairpins.ly}
+{snippets/setting-the-minimum-length-of-hairpins.ly}
 
 @cindex forcella, spostarre le estremità della
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-the-ends-of-hairpins.ly}
+{snippets/moving-the-ends-of-hairpins.ly}
 
 @cindex al niente, forcella
 @cindex niente, al, forcella
 @cindex forcella, al niente
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-using-al-niente-notation.ly}
+{snippets/printing-hairpins-using-al-niente-notation.ly}
 
 @cindex forcella Ferneyhough
 @cindex Ferneyhough, forcella
 @cindex forcella allargata (flared-hairpins)
 @cindex forcella continua (constante-hairpins)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-in-various-styles.ly}
+{snippets/printing-hairpins-in-various-styles.ly}
 
 @cindex allineamento verticale, dinamiche
 @cindex dinamiche, allineamento verticale
@@ -513,13 +513,13 @@ indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pi
 @funindex DynamicLineSpanner
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligned-dynamics-and-textscripts.ly}
+{snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @cindex dinamiche, linea di estensione, nascondere
 @cindex nascondere la linea di estensione delle dinamiche
 @cindex linea di estensione, dinamiche, nascondere
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-the-extender-line-for-text-dynamics.ly}
+{snippets/hiding-the-extender-line-for-text-dynamics.ly}
 
 @cindex dinamiche, testo, stile
 @cindex dinamiche del testo, stile
@@ -529,7 +529,7 @@ indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pi
 @funindex decrescendoText
 @funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-text-and-spanner-styles-for-text-dynamics.ly}
+{snippets/changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 @morerefs
 Glossario Musicale:
@@ -835,18 +835,18 @@ portamento:
 @cindex doppie, legature di portamento, per accordi legati
 @findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-double-slurs-for-legato-chords.ly}
+{snippets/using-double-slurs-for-legato-chords.ly}
 
 @cindex testo, dentro le legature di portamento
 @cindex markup, testo, dentro le legature di portamento
 @cindex legatura di portamento, testo all'interno
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs.ly}
+{snippets/positioning-text-markups-inside-slurs.ly}
 
 @cindex legatura di portamento, definizione dei modelli di tratteggio
 @cindex tratteggio, modelli, legatura di portamento
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-slurs-with-complex-dash-structure.ly}
+{snippets/making-slurs-with-complex-dash-structure.ly}
 
 @morerefs
 Glossario Musicale:
@@ -1036,19 +1036,19 @@ antica.  Maggiori dettagli in @ref{Divisiones}.
 @cindex cambiare il simbolo di respiro
 @funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-breath-mark-symbol.ly}
+{snippets/changing-the-breath-mark-symbol.ly}
 
 @cindex segno di spunta
 @cindex spunta, segno di
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-a-tick-as-the-breath-mark-symbol.ly}
+{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex cesura
 @cindex binari ferroviari
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{inserting-a-caesura.ly}
+{snippets/inserting-a-caesura.ly}
 
 @morerefs
 Glossario Musicale:
@@ -1092,7 +1092,7 @@ l'intervallo per cui il portamento si estenderà @emph{oltre} la nota principale
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adjusting-the-shape-of-falls-and-doits.ly}
+{snippets/adjusting-the-shape-of-falls-and-doits.ly}
 
 @morerefs
 Glossario Musicale:
@@ -1185,22 +1185,22 @@ Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Stili
 @cindex glissando contemporaneo
 @cindex contemporaneo, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{contemporary-glissando.ly}
+{snippets/contemporary-glissando.ly}
 
 @cindex segni di tempo, per glissando
 @cindex glissando, segni di tempo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-timing-marks-to-long-glissandi.ly}
+{snippets/adding-timing-marks-to-long-glissandi.ly}
 
 @cindex glissando che vanno a capo
 @cindex a capo, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-glissandi-breakable.ly}
+{snippets/making-glissandi-breakable.ly}
 
 @cindex glissando, attraverso le ripetizioni
 @cindex ripetizione e glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{extending-glissandi-across-repeats.ly}
+{snippets/extending-glissandi-across-repeats.ly}
 
 @morerefs
 Glossario Musicale:
@@ -1305,14 +1305,14 @@ valore.  Per maggiori dettagli si veda @ref{Legature di valore}.
 
 @cindex arpeggio, attraverso i righi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-other-contexts.ly}
+{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @cindex arpeggio, attraverso le voci
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-arpeggios-across-notes-in-different-voices.ly}
+{snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
 Glossario Musicale:

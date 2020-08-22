@@ -3259,7 +3259,7 @@ frazioni associate si trova in @file{scm/midi.scm}.
 @cindex MIDI, dinamiche personalizzate
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{creating-custom-dynamics-in-midi-output.ly}
+{snippets/creating-custom-dynamics-in-midi-output.ly}
 
 File installati:
 @file{ly/script-init.ly}
@@ -3371,7 +3371,7 @@ Guida al funzionamento interno:
 @cindex equalizzazione, strumento, cambiare predefinita nel MIDI
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{replacing-default-midi-instrument-equalization.ly}
+{snippets/replacing-default-midi-instrument-equalization.ly}
 
 @knownissues
 Le modifiche al volume MIDI si verificano soltanto all'inizio di una nota, quindi
@@ -3656,7 +3656,7 @@ essere modificata per usare l'impostazione @code{'instrument}:
 @cindex MIDI, un canale per voce
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
+{snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 
 @node Proprietà di contesto per gli effetti MIDI
