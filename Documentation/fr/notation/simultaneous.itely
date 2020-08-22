@@ -18,7 +18,7 @@
 @section Notes simultanées
 @translationof Simultaneous notes
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
 La notion musicale de polyphonie fait référence au fait d'avoir plus
 d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
@@ -916,16 +916,16 @@ bien explicitement.
 @cindex voix, polyphonie, additionnelle
 @funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{additional-voices-to-avoid-collisions.ly}
+{snippets/additional-voices-to-avoid-collisions.ly}
 
 @cindex note pointée, déplacement horizontal
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-dotted-notes-in-polyphony.ly}
+{snippets/moving-dotted-notes-in-polyphony.ly}
 
 @cindex décallage, note
 @cindex note, décallage
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{forcing-horizontal-shift-of-notes.ly}
+{snippets/forcing-horizontal-shift-of-notes.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1199,12 +1199,12 @@ les effets escomptés -- voir @ref{Polyphonie et paroles communes}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{combining-two-parts-on-the-same-staff.ly}
+{snippets/combining-two-parts-on-the-same-staff.ly}
 
 @cindex parties combinées, texte
 @cindex @code{\partocombine}, texte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-partcombine-texts.ly}
+{snippets/changing-partcombine-texts.ly}
 
 @morerefs
 Glossaire musicologique :

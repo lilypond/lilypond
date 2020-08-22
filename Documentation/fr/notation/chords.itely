@@ -18,7 +18,7 @@
 @section Notation des accords
 @translationof Chord notation
 
-@lilypondfile[quote]{chords-headword.ly}
+@lilypondfile[quote]{snippets/chords-headword.ly}
 
 Les accords se saisissent soit comme des notes normales, soit à l'aide
 d'un mode dédié ; ils seront rendus selon l'une des diverses
@@ -543,15 +543,15 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{showing-chords-at-changes.ly}
+{snippets/showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-@c {adding-bar-lines-to-chordnames-context.ly}
+@c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex @emph{lead sheet}
 @cindex feuille de chant
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -770,27 +770,27 @@ réduit à néant si la fondamentale est altérée.
 @cindex chiffrage d'accord, exception
 @cindex accord chiffré, exception
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-exceptions.ly}
+{snippets/chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-major7.ly}
+{snippets/chord-name-major7.ly}
 
 @cindex @code{ChordNames} et barre de mesure
 @cindex barre de mesure et @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-bar-lines-to-chordnames-context.ly}
+{snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex accord et reprise
 @cindex reprise et accord
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{volta-below-chords.ly}
+{snippets/volta-below-chords.ly}
 
 @cindex accord, séparateur
 @cindex séparatuer d'accord
 @funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-chord-separator.ly}
+{snippets/changing-chord-separator.ly}
 
 @morerefs
 Manuel de notation :
@@ -833,7 +833,7 @@ myChords = \relative c' {
 
 @c Line width hack because of instrument names
 @lilypondfile[quote,staffsize=18,line-width=14.5\cm]
-{figured-bass-headword.ly}
+{snippets/figured-bass-headword.ly}
 
 LilyPond permet de générer des parties de continuo.
 
@@ -1113,7 +1113,7 @@ Terminaison d'une prolongation
 @funindex figuredBassAlterationDirection
 @funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-positions-of-figured-bass-alterations.ly}
+{snippets/changing-the-positions-of-figured-bass-alterations.ly}
 
 @morerefs
 Morceaux choisis :

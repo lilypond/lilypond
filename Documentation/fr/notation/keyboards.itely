@@ -18,7 +18,7 @@
 @section Instruments utilisant des portées multiples
 @translationof Keyboard and other multi-staff instruments
 
-@lilypondfile[quote]{keyboard-headword.ly}
+@lilypondfile[quote]{snippets/keyboard-headword.ly}
 
 Ce chapitre traite des différents aspects de la notation que l'on
 rencontre particulièrement avec les instruments qui ont recours à
@@ -504,7 +504,7 @@ Référence des propriétés internes :
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-stems.ly}
+{snippets/cross-staff-stems.ly}
 
 Il n'est pas possible, à l'heure actuelle et en raison de la manière
 dont il a été implémenté, de spécifier ce graveur en le mettant entre
@@ -515,7 +515,7 @@ symbole @emph{hash} (un @code{#}).
 @cindex arpeggio, crochet interportée
 @cindex crochet interportée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @morerefs
 Morceaux choisis :
@@ -668,7 +668,7 @@ Une liste des différents symboles est disponible à l'annexe
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-register-symbols.ly}
+{snippets/accordion-register-symbols.ly}
 
 @morerefs
 Morceaux choisis :

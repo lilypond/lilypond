@@ -1249,7 +1249,7 @@ Le module le plus basique, qu'on appelle @code{Note_heads_engraver},
 crée les têtes de notes :
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1283,7 +1283,7 @@ Puis le module @code{Staff_symbol_engraver} génère les objets
 représentant les lignes de portée :
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1316,7 +1316,7 @@ le module @code{Clef_engraver} fournit au @code{Note_heads_engraver}
 la hauteur à laquelle doit être placée chaque tête de note :
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1347,7 +1347,7 @@ et, enfin, les hampes et leurs crochets sont gérés par le
 @code{Stem_engraver} :
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1381,7 +1381,7 @@ accents, des barres de mesure, de la métrique et de l'armure, nous avons
 tout ce qui est nécessaire à une partition.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score { \topVoice }
 @end lilypond
 
@@ -1394,7 +1394,7 @@ monophonique, mais qu'en est-il de la polyphonie ?  Dans ce cas,
 plusieurs voix peuvent partager la même portée :
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
@@ -1410,7 +1410,7 @@ contextes de portée peuvent être assemblés dans un contexte de partition
 (@emph{Score context}) :
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score {
    <<
       \new Staff << \topVoice \\ \botVoice >>

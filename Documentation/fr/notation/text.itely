@@ -18,7 +18,7 @@
 @section Texte
 @translationof Text
 
-@lilypondfile[quote]{text-headword.ly}
+@lilypondfile[quote]{snippets/text-headword.ly}
 
 Nous allons voir ici comment insérer du texte dans une partition, ainsi
 que différentes manières de le mettre en forme.
@@ -356,10 +356,10 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @cindex nuance, extension, personnalisation
 @cindex extenseur, nuance, personnalisation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-text-spanner-postfix.ly}
+{snippets/dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-custom-text-spanner-postfix.ly}
 
 @morerefs
 Manuel de notation :
@@ -469,13 +469,13 @@ de la ligne suivante.
 @cindex fin de ligne, repère, positionnement
 @cindex repère, positionnement en fin de ligne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line.ly}
+{snippets/printing-marks-at-the-end-of-a-line.ly}
 
 @cindex repère, sur toutes les portées
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-on-every-staff.ly}
+{snippets/printing-marks-on-every-staff.ly}
 
 @morerefs
 Manuel de notation :
@@ -552,7 +552,7 @@ détail au chapitre @ref{Texte avec sauts de page}.
 @cindex texte en colonnes
 @cindex colonnes, texte
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{stand-alone-two-column-markup.ly}
+{snippets/stand-alone-two-column-markup.ly}
 
 @morerefs
 Manuel de notation :

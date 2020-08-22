@@ -18,7 +18,7 @@
 @section Répétitions et reprises
 @translationof Repeats
 
-@lilypondfile[quote]{repeats-headword.ly}
+@lilypondfile[quote]{snippets/repeats-headword.ly}
 
 @cindex reprise
 @cindex répétition
@@ -331,23 +331,23 @@ voir @ref{Barres de mesure}.
 @cindex reprise, crochet raccourci
 @cindex crochet de reprise raccourci
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{shortening-volta-brackets.ly}
+{snippets/shortening-volta-brackets.ly}
 
 @cindex crochet de reprise, plusieurs portées
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-volta-brackets-to-additional-staves.ly}
+{snippets/adding-volta-brackets-to-additional-staves.ly}
 
 @cindex reprises successives, barre de mesure
 @cindex barre de mesure, reprises successives
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-double-repeat-default-for-volte.ly}
+{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex reprise et numéro de mesure
 @cindex numéro de mesure et reprise
 @cindex mesure, numérotation et reprise
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -753,17 +753,17 @@ différentes sont remplacées par un double symbole de pourcentage.
 @cindex reprise, pourcent, compteur
 @funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-counter.ly}
+{snippets/percent-repeat-counter.ly}
 
 @cindex visibilité, compteur, pourcent
 @cindex compteur, pourcent, visibilité
 @funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-count-visibility.ly}
+{snippets/percent-repeat-count-visibility.ly}
 
 @cindex pourcent, reprise isolée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{isolated-percent-repeats.ly}
+{snippets/isolated-percent-repeats.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -884,7 +884,7 @@ utilisée.
 @cindex trémolo interportée
 @cindex interportée, trémolo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-tremolos.ly}
+{snippets/cross-staff-tremolos.ly}
 
 @morerefs
 Morceaux choisis :

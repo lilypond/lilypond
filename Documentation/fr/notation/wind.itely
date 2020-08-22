@@ -18,7 +18,7 @@
 @section Instruments à vent
 @translationof Wind instruments
 
-@lilypondfile[quote]{wind-headword.ly}
+@lilypondfile[quote]{snippets/wind-headword.ly}
 
 Ce chapitre traite de certains aspects particuliers en matière de
 notation pour instruments à vent.
@@ -113,7 +113,7 @@ Voir le chapitre @ref{Articulations et ornements}.
 @cindex taille, flageolet
 @funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing--flageolet-mark-size.ly}
+{snippets/changing--flageolet-mark-size.ly}
 
 @morerefs
 Manuel de notation :
@@ -148,12 +148,12 @@ plus en profondeur au chapitre @ref{Diagrammes pour bois}.
 @cindex vents, doigtés
 @cindex doigtés, symboles pour vents
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingering-symbols-for-wind-instruments.ly}
+{snippets/fingering-symbols-for-wind-instruments.ly}
 
 @cindex doigtés, table
 @cindex table de doigtés
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{recorder-fingering-chart.ly}
+{snippets/recorder-fingering-chart.ly}
 
 @morerefs
 Manuel de notation :
@@ -458,19 +458,19 @@ utilisateurs.  Des gabarits sont contenus dans les fichiers
 @cindex vents, doigtés, diagramme
 @cindex doigtés,diagrammes pour bois
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-listing.ly}
+{snippets/woodwind-diagrams-listing.ly}
 
 @cindex bois, diagramme, modification
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{graphical-and-text-woodwind-diagrams.ly}
+{snippets/graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-size-of-woodwind-diagrams.ly}
+{snippets/changing-the-size-of-woodwind-diagrams.ly}
 
 @cindex bois, clés, liste
 @cindex clés, bois, liste
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-key-lists.ly}
+{snippets/woodwind-diagrams-key-lists.ly}
 
 @morerefs
 Fichiers d'initialisation :

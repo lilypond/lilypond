@@ -18,7 +18,7 @@
 @section Musique vocale
 @translationof Vocal music
 
-@lilypondfile[quote]{vocal-headword.ly}
+@lilypondfile[quote]{snippets/vocal-headword.ly}
 
 Ce chapitre traite de la musique vocale : comment la saisir et comment
 s'assurer que les paroles s'alignent avec les notes de la mélodie
@@ -200,7 +200,7 @@ chapitre @ref{Mise en forme du texte}.
 @cindex paroles et @emph{markup}
 @cindex @emph{markup} et paroles
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{formatting-lyrics-syllables.ly}
+{snippets/formatting-lyrics-syllables.ly}
 
 @morerefs
 Manuel d'initiation :
@@ -1143,7 +1143,7 @@ de ces exemples, ou en examinant ce qui figure à la rubrique
 
 @cindex paroles, espacement version 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @morerefs
 Manuel d'initiation :
@@ -1205,7 +1205,7 @@ dans le bloc @code{\layout}.
 @cindex alignement horizontal, paroles
 @cindex horizontal, alignement des paroles
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{lyrics-alignment.ly}
+{snippets/lyrics-alignment.ly}
 
 @knownissues
 
@@ -2345,7 +2345,7 @@ chapitre @ref{Notation des accords}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Manuel de notation :
@@ -2556,7 +2556,7 @@ Référence des propriétés internes :
 @cindex voix, division
 @cindex division de voix
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 Manuel de notation :
@@ -2882,7 +2882,7 @@ la lisibilité des notes du piano.
 @cindex citation, partition chorale
 @cindex chorale, citation instrumentale
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{adding-orchestral-cues-to-a-vocal-score.ly}
+{snippets/adding-orchestral-cues-to-a-vocal-score.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -3331,7 +3331,7 @@ exemples qui suivent.
 @cindex psaume
 @cindex hymne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{chant-or-psalms-notation.ly}
+{snippets/chant-or-psalms-notation.ly}
 
 @c XXX move this text into following snippet
 Cantiques et autres textes liturgiques peuvent être mis en forme avec
@@ -3343,7 +3343,7 @@ syllabes et non leur durée.
 @cindex grégorien, transcription moderne
 @cindex transcription, grégorien
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Manuel d'initiation :
@@ -3537,7 +3537,7 @@ chaque ligne.
 @cindex cantique, mesure incomplète
 @cindex anacrouse, cantique
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 
 @node Musique vocale ancienne

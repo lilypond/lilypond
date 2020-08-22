@@ -3370,7 +3370,7 @@ dans le fichier @file{scm/midi.scm}.
 @cindex MIDI, nuance personnalisée
 @cindex nuance, MIDI, personnalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{creating-custom-dynamics-in-midi-output.ly}
+{snippets/creating-custom-dynamics-in-midi-output.ly}
 
 @morerefs
 Fichiers d'initialisation :
@@ -3480,7 +3480,7 @@ instruments -- voir @file{scm/midi.scm}.
 @cindex égalisation en MIDI, adaptation
 @cindex instrument MIDI, égalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{replacing-default-midi-instrument-equalization.ly}
+{snippets/replacing-default-midi-instrument-equalization.ly}
 
 @morerefs
 Fichiers d'initialisation :
@@ -3793,7 +3793,7 @@ peut être réglée sur @code{'instrument} comme ceci :
 
 @cindex MIDI, un canal par voix
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
+{snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 
 @node Propriétés de contextes et effets MIDI

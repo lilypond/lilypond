@@ -19,7 +19,7 @@
 @translationof Unfretted string instruments
 
 @lilypondfile[quote]
-{unfretted-headword.ly}
+{snippets/unfretted-headword.ly}
 
 @cindex cordes d'orchestre
 @cindex orchestre, cordes
