@@ -22,7 +22,7 @@
 
 @set FDL
 @set web
-@include macros.itexi
+@include cs/macros.itexi
 @include weblinks.itexi
 
 @afourpaper
@@ -132,7 +132,7 @@ Více se dočtete v @ref{Úvod,,úvodu}!
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-headlines.itexi
+@include en/web/news-headlines.itexi
 
 @divClass{float-right}
 (@ref{News,,,,Starší novinky})
@@ -290,10 +290,10 @@ please let us know by following the instructions on
 @end macro
 @end ifnothtml
 
-@include web/introduction.itexi
-@include web/download.itexi
-@include web/manuals.itexi
-@include web/community.itexi
+@include cs/web/introduction.itexi
+@include cs/web/download.itexi
+@include cs/web/manuals.itexi
+@include cs/web/community.itexi
 
 
 @bye

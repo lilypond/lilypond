@@ -512,7 +512,7 @@ dokumentu.  Každá část doporučení k notovému zápisu má také část
 @divClass{column-center-bottom}
 @subheading Stav překladů
 
-@include translations.itexi
+@include cs/translations.itexi
 
 @divEnd
 
@@ -600,6 +600,6 @@ povolení a důvody pro jeho používání najdete v části věnované @ref{Svo
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

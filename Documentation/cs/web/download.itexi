@@ -9,7 +9,7 @@
 
 @c Translators: Pavel Fric
 
-@include included/generating-output.itexi
+@include en/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond je @strong{textově založený} program pro notový zápis,
@@ -568,6 +568,6 @@ naleznete v @ref{Svoboda}.
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

@@ -9,7 +9,7 @@
 
 
 @include version.itexi
-@include common-macros.itexi
+@include en/common-macros.itexi
 
 
 @c   ***** Displaying text *****

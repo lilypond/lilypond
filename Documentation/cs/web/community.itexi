@@ -9,8 +9,8 @@
 
 @c Translators: Pavel Fric
 
-@include included/authors.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/helpus.itexi
 
 @node Společenství
 @unnumbered Společenství
@@ -791,6 +791,6 @@ příručky se nacházejí na @url{https://lilypond.org}.}
 @unnumberedsec Starší novinky
 @translationof News
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi
