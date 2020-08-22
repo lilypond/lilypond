@@ -50,7 +50,7 @@ nomi degli accordi, insieme alle altezze che li compongono.
 
 @c Il testo in texidoc="" non appare nell'output, dunque non è
 @c necessario tradurlo. - fb
-@lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
+@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
 @node Modificatori degli accordi comuni
 @appendixsec Modificatori degli accordi comuni
@@ -507,7 +507,7 @@ Quinta perfetta, @*ottava
 
 Il grafico seguente mostra le accordature predefinite degli strumenti a corda.
 
-@lilypondfile{display-predefined-string-tunings.ly}
+@lilypondfile{en/included/display-predefined-string-tunings.ly}
 
 @node Diagrammi degli accordi predefiniti
 @appendixsec Diagrammi degli accordi predefiniti
@@ -523,19 +523,19 @@ Il grafico seguente mostra le accordature predefinite degli strumenti a corda.
 @unnumberedsubsec Diagrammi per chitarra
 @translationof Diagrams for Guitar
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
 @node Diagrammi per ukulele
 @unnumberedsubsec Diagrammi per ukulele
 @translationof Diagrams for Ukulele
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
 
 @node Diagrammi per mandolino
 @unnumberedsubsec Diagrammi per mandolino
 @translationof Diagrams for Mandolin
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
 
 @node Formati carta predefiniti
@@ -1296,7 +1296,7 @@ Maggiori informazioni in @ref{Formattazione del testo}.
 
 Si possono usare i seguenti stili per le teste di nota.
 
-@lilypondfile[noindent]{note-head-style.ly}
+@lilypondfile[noindent]{en/included/note-head-style.ly}
 
 
 @node Stili della chiave

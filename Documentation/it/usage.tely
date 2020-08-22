@@ -28,7 +28,7 @@ Copyright @copyright{} 1999--2021 degli autori.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include it/macros.itexi
 
 
 @lilyTitlePage{Utilizzo}
@@ -62,13 +62,13 @@ Appendici
 @allowcodebreaks false
 @end iftex
 
-@include usage/running.itely
-@include usage/updating.itely
-@include usage/lilypond-book.itely
-@include usage/external.itely
-@include usage/suggestions.itely
+@include it/usage/running.itely
+@include it/usage/updating.itely
+@include it/usage/lilypond-book.itely
+@include it/usage/external.itely
+@include it/usage/suggestions.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node Indice di LilyPond
 @appendix Indice di LilyPond

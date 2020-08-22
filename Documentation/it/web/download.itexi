@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/generating-output.itexi
+@include it/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond è un compositore tipografico musicale @strong{basato su testo}; è
@@ -540,6 +540,6 @@ si trovano in @ref{Libertà}.
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

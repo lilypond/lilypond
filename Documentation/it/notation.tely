@@ -27,7 +27,7 @@ Copyright @copyright{} 1999--2021 degli autori.
 
 
 @set FDL
-@include macros.itexi
+@include it/macros.itexi
 
 
 @c Translators: Federico Bruni
@@ -63,21 +63,21 @@ Appendici
 @allowcodebreaks false
 @end iftex
 
-@include notation/notation.itely
-@include notation/specialist.itely
+@include it/notation/notation.itely
+@include it/notation/specialist.itely
 
-@include notation/input.itely
-@include notation/spacing.itely
+@include it/notation/input.itely
+@include it/notation/spacing.itely
 
-@include notation/changing-defaults.itely
-
-
-@include notation/notation-appendices.itely
-@include notation/cheatsheet.itely
+@include it/notation/changing-defaults.itely
 
 
+@include it/notation/notation-appendices.itely
+@include it/notation/cheatsheet.itely
 
-@include fdl.itexi
+
+
+@include en/fdl.itexi
 
 
 @node Indice dei comandi di LilyPond

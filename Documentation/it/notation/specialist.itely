@@ -29,13 +29,13 @@ tipi di strumento o per stili specifici.
 * World music::
 @end menu
 
-@include notation/vocal.itely
-@include notation/keyboards.itely
-@include notation/unfretted-strings.itely
-@include notation/fretted-strings.itely
-@include notation/percussion.itely
-@include notation/wind.itely
-@include notation/chords.itely
-@include notation/contemporary.itely
-@include notation/ancient.itely
-@include notation/world.itely
+@include it/notation/vocal.itely
+@include it/notation/keyboards.itely
+@include it/notation/unfretted-strings.itely
+@include it/notation/fretted-strings.itely
+@include it/notation/percussion.itely
+@include it/notation/wind.itely
+@include it/notation/chords.itely
+@include it/notation/contemporary.itely
+@include it/notation/ancient.itely
+@include it/notation/world.itely

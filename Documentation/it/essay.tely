@@ -32,7 +32,7 @@ Copyright @copyright{} 2002--2021 degli autori.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include it/macros.itexi
 
 
 @lilyTitlePage{Saggio sull'incisione musicale automatizzata}
@@ -57,10 +57,10 @@ Copyright @copyright{} 2002--2021 degli autori.
 @allowcodebreaks false
 @end iftex
 
-@include essay/engraving.itely
-@include essay/literature.itely
+@include it/essay/engraving.itely
+@include it/essay/literature.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node Indice di LilyPond
 @appendix Indice di LilyPond
