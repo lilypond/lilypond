@@ -51,7 +51,7 @@ $(outdir)/midi.diff: $(OUT_DIFF_FILES)
 
 ##local-test: $(outdir)/midi.diff
 
-check: $(outdir)/midi.diff local-WWW-1 local-WWW-2
+check: $(outdir)/midi.diff local-WWW
 
 test: check
 

@@ -1,5 +1,5 @@
 .PHONY : all clean bin-clean default dist exe help html lib man TAGS\
-	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
+	 po doc WWW WWW-post local-WWW local-WWW\
 	 local-all local-clean local-bin-clean local-doc
 
 all: default
@@ -42,7 +42,6 @@ help: generic-help local-help
 	@echo "  clean        remove all generated stuff in $(outdir)"
 	@echo "  bin-clean    same as clean, except that mf/out is preserved"
 	@echo "  doc          update documentation with images in directory \`out-www'"
-	@echo "  doc-stage-1  update only PDF and Info documentation in directory \`out-www'"
 	@echo "  doc-clean    clean \`out-www' directory"
 	@echo "  install      install programs and data (prefix=$(prefix))"
 	@echo "  uninstall    uninstall programs and data"
@@ -144,31 +143,24 @@ $(config_make): $(top-src-dir)/configure
 # see INSTALL for more information.
 
 ifeq ($(out),www)
-local-WWW-1:
-local-WWW-2:
+local-WWW:
 WWW-post:
 
-WWW-1: local-WWW-1
+WWW: local-WWW
 	$(LOOP)
 
-WWW-2: local-WWW-2
-	$(LOOP)
 endif
 
-doc: doc-stage-1
-	$(MAKE) out=www WWW-2
+doc: doc-messages
+	$(MAKE) out=www WWW
 	$(MAKE) out=www WWW-post
 
 local-doc:
-	$(MAKE) out=www local-WWW-1
-	$(MAKE) out=www local-WWW-2
+	$(MAKE) out=www local-WWW
 	$(MAKE) out=www WWW-post
 
 doc-messages:
 	$(MAKE) -C $(top-build-dir)/Documentation/po messages
-
-doc-stage-1: doc-messages
-	$(MAKE) out=www WWW-1
 
 doc-clean:
 	$(MAKE) out=www clean

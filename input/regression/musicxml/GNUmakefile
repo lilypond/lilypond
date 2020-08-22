@@ -31,7 +31,7 @@ $(outdir)/%.ly:  %.mxl
 	$(PYTHON) $(MUSICXML2LY) -z -o $@ $<
 
 ifeq ($(out),www)
-local-WWW-2: zip
+local-WWW: zip
 endif
 
 zip: $(outdir)/MusicXML-TestSuite-$(TEST_SUITE_VERSION).zip

@@ -393,9 +393,7 @@ html: $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES) $(OUT_JS_FILES) $(OUT_MISC_FIL
 
 
 ifeq ($(out),www)
-local-WWW-1: pdf $(PICTURE_SYMLINKS)
-
-local-WWW-2: html $(OUT_BITMAP_IMAGES)
+local-WWW: pdf $(PICTURE_SYMLINKS)  html $(OUT_BITMAP_IMAGES)
 	$(call ly_progress,Making,webdoc dir,)
 	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "$(DOC_BASENAMES)"
 

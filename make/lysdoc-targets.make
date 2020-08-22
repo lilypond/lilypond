@@ -1,7 +1,5 @@
 ifeq ($(out),www)
-local-WWW-1: $(outdir)/collated-files.texi $(outdir)/collated-files.pdf
-
-local-WWW-2: $(outdir)/collated-files.html
+local-WWW: $(outdir)/collated-files.texi $(outdir)/collated-files.pdf  $(outdir)/collated-files.html
 endif
 
 # Set the baseline by renaming the test output directory.

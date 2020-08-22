@@ -984,7 +984,7 @@ make doc
 or, to build only the PDF documentation and not the HTML,
 
 @example
-make doc-stage-1
+make -C Documentation out=www pdf
 @end example
 
 @warning{The first time you run @command{make@tie{}doc}, the
