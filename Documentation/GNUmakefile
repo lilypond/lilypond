@@ -177,6 +177,7 @@ EXTRACT_TEXI_FILENAMES_FLAGS+= $(if $(VERBOSE),,--quiet)
 
 # xref map maps section titles <> node names for translated split HTML docs.
 $(outdir)/%.xref-map: $(outdir)/%.texi
+	$(call ly_progress,Making,$@,< texi)
 	$(PYTHON) -tt $(buildscript-dir)/extract_texi_filenames.py \
 		$(EXTRACT_TEXI_FILENAMES_FLAGS) \
 		$(if $(call target_language), \
@@ -409,6 +410,7 @@ website: $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-b
 ### Rules
 
 $(outdir)/misc/%: misc/%
+	$(call ly_progress,Copying,$@,< source)
 	mkdir -p $(dir $@)
 	cp -f $< $@
 
