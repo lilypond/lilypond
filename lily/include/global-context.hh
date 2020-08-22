@@ -44,7 +44,6 @@ public:
   void run_iterator_on_me (Music_iterator *);
 
   bool is_accessible_to_user () const override { return false; }
-  Context *get_score_context () const;
 
   void apply_finalizations ();
   void add_finalization (SCM);
@@ -55,7 +54,11 @@ public:
   Moment now_mom () const override { return now_mom_; }
 
   Moment previous_moment () const;
-protected:
+
+private:
+  Context *get_score_context () const;
+
+private:
   Moment prev_mom_;
   Moment now_mom_;
 };
