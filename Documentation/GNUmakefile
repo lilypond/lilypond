@@ -67,8 +67,16 @@ OUT_SNIPPET_LY_FILES = $(SNIPPET_LY_FILES:%.ly=$(outdir)/%.ly)
 
 ### Out files
 
-DOC_TELY_FILES=$(foreach L,$(LANGS),$(call src-wildcard,$(L)/*.tely))
-DOC_TEXI_FILES=$(foreach L,$(LANGS),$(call src-wildcard,$(L)/*.texi))
+LANG_TELY_FILES=$(call src-wildcard,$(1)/*.tely)
+LANG_TEXI_FILES=$(call src-wildcard,$(1)/*.texi)
+
+DOC_TELY_FILES=$(foreach L,$(LANGS),$(call LANG_TELY_FILES,$(L)))
+DOC_TEXI_FILES=$(foreach L,$(LANGS),$(call LANG_TEXI_FILES,$(L)))
+
+# All .xref-map files for a single language
+LANG_XREF_FILES=$(addprefix $(outdir)/,$(patsubst %.tely,%.xref-map,$(patsubst %.texi,%.xref-map,$(call LANG_TEXI_FILES,$(1)) $(call LANG_TELY_FILES,$(1)))))
+
+DOC_BASENAMES=contributor changes essay extending internals learning music-glossary notation snippets usage web
 
 # Main manuals
 TEXINFO_MANUALS = en/internals \
@@ -209,14 +217,14 @@ else
 	mv $(outdir)/$*.tmp.pdf $@
 endif
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(OUT_BITMAP_IMAGES) $(outdir)/%.xref-map $(OUT_CSS_FILES)
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(OUT_BITMAP_IMAGES) $(OUT_CSS_FILES)
 	$(call ly_progress,Making,$@,< texi)
 	mkdir -p $(dir $@)
 	rm -f $(dir $@)/pictures && ln -s ../pictures $(dir $@)/pictures
 	rm -f $(dir $@)/css && ln -s ../../css $(dir $@)/css
 	$(buildscript-dir)/run-and-check.sh "$(WEB_ENV) DEPTH=$(depth)/../ $(TEXI2HTML)  --prefix=index --split=section $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.xref-map
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
 
@@ -382,12 +390,13 @@ pdf: $(OUT_PDF_IMAGES) $(PDF_FILES)
 
 html: $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES) $(OUT_JS_FILES) $(OUT_MISC_FILES)
 
+
 ifeq ($(out),www)
 local-WWW-1: pdf $(PICTURE_SYMLINKS)
 
 local-WWW-2: html $(OUT_BITMAP_IMAGES)
 	$(call ly_progress,Making,webdoc dir,)
-	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "contributor changes essay extending internals learning music-glossary notation snippets usage web"
+	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "$(DOC_BASENAMES)"
 
 endif
 
@@ -458,8 +467,19 @@ $(outdir)/en/internals.texi:
 	mkdir -p $(dir $@)
 	cd $(dir $@) && $(buildscript-dir)/run-and-check.sh "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
 
-## Dependencies on the automatically generated content
 
+## Different manuals within a language link to each other. This can only work if
+## the target document has an xref-map too
+define per_lang_per_doc_xref_deps
+
+$(outdir)/$(1)/$(2)/index.html: $(call LANG_XREF_FILES,$(1))
+
+$(outdir)/$(1)/$(2)-big-page.html: $(call LANG_XREF_FILES,$(1))
+
+endef
+
+
+## Dependencies on the automatically generated content
 define per_lang_dep
 
 include $(wildcard $(outdir)/$(1)/*.dep)
@@ -504,6 +524,7 @@ $(outdir)/$(1)/essay.texi: \
 # processing ly/generate-documentation.ly for internals.texi (see above).
 $(outdir)/$(1)/notation.texi: $(outdir)/en/internals.texi
 
+$(foreach D,$(DOC_BASENAMES),$(eval $(call per_lang_per_doc_xref_deps,$(1),$(D))))
 endef
 
 $(foreach L, $(LANGS),$(eval $(call per_lang_dep,$(L))))
