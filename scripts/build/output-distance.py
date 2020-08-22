@@ -546,10 +546,14 @@ class GitFileCompareLink (FileCompareLink):
         str = self.contents[oldnew]
 
         # truncate long lines
-        str = '\n'.join([l[:80] for l in str.split('\n')])
+        if str:
+            str = '\n'.join([l[:80] for l in str.split('\n')])
 
         if str:
             str = '<pre>%s</pre>' % html.escape(str)
+
+        if not str:
+            str = ''
         return '', str
 
     def calc_distance(self):
