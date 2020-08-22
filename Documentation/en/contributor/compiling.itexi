@@ -6,4 +6,4 @@
 This chapter describes the process of compiling the LilyPond
 program from source files.
 
-@include included/compile.itexi
+@include en/included/compile.itexi

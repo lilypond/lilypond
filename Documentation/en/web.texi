@@ -15,7 +15,7 @@
 
 @set FDL
 @set web
-@include macros.itexi
+@include en/macros.itexi
 @include weblinks.itexi
 
 
@@ -193,7 +193,7 @@ Browse our gallery of @ref{Examples} and be inspired!
 @subheading News
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-headlines.itexi
+@include en/web/news-headlines.itexi
 
 @ref{News, More news...}
 
@@ -381,10 +381,10 @@ please let us know by following the instructions on
 @end macro
 @end ifnothtml
 
-@include web/introduction.itexi
-@include web/download.itexi
-@include web/manuals.itexi
-@include web/community.itexi
+@include en/web/introduction.itexi
+@include en/web/download.itexi
+@include en/web/manuals.itexi
+@include en/web/community.itexi
 
 
 @bye

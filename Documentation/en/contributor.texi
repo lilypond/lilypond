@@ -34,7 +34,7 @@ Copyright @copyright{} 2007--2021 by the authors.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include en/macros.itexi
 
 
 @lilyTitlePage{Contributor's Guide}
@@ -72,20 +72,20 @@ Appendices
 @allowcodebreaks false
 @end iftex
 
-@include contributor/introduction.itexi
-@include contributor/quick-start.itexi
-@include contributor/source-code.itexi
-@include contributor/compiling.itexi
-@include contributor/doc-work.itexi
-@include contributor/website-work.itexi
-@include contributor/lsr-work.itexi
-@include contributor/issues.itexi
-@include contributor/regressions.itexi
-@include contributor/programming-work.itexi
-@include contributor/release-work.itexi
-@include contributor/emmentaler-font.itexi
-@include contributor/administration.itexi
+@include en/contributor/introduction.itexi
+@include en/contributor/quick-start.itexi
+@include en/contributor/source-code.itexi
+@include en/contributor/compiling.itexi
+@include en/contributor/doc-work.itexi
+@include en/contributor/website-work.itexi
+@include en/contributor/lsr-work.itexi
+@include en/contributor/issues.itexi
+@include en/contributor/regressions.itexi
+@include en/contributor/programming-work.itexi
+@include en/contributor/release-work.itexi
+@include en/contributor/emmentaler-font.itexi
+@include en/contributor/administration.itexi
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @bye

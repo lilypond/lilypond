@@ -20,7 +20,7 @@ Macro definitions that contain translatable text belong to file
 @set txiindexbackslashignore
 
 
-@include cyrillic.itexi
+@include en/cyrillic.itexi
 
 
 @c   ***** Displaying text *****

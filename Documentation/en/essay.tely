@@ -29,7 +29,7 @@ Copyright @copyright{} 2002--2021 by the authors.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include en/macros.itexi
 
 
 @lilyTitlePage{Essay on automated music engraving}
@@ -54,10 +54,10 @@ Copyright @copyright{} 2002--2021 by the authors.
 @allowcodebreaks false
 @end iftex
 
-@include essay/engraving.itely
-@include essay/literature.itely
+@include en/essay/engraving.itely
+@include en/essay/literature.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node LilyPond index
 @appendix LilyPond index

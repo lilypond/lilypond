@@ -7,9 +7,9 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/authors.itexi
-@include included/gsoc.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/gsoc.itexi
+@include en/included/helpus.itexi
 
 @node Community
 @unnumbered Community
@@ -904,7 +904,7 @@ manuals can be found at @url{https://lilypond.org}}
 @node News
 @unnumberedsec News
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading Old News
@@ -1005,4 +1005,4 @@ Older news items dating back to July 2003.  Newer news can be found on
 the @ref{News} page.
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

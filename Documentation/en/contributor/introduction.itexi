@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
-@include included/helpus.itexi
+@include en/included/helpus.itexi
 
 @node Introduction to contributing
 @chapter Introduction to contributing

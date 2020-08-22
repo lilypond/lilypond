@@ -1741,7 +1741,7 @@ All files should be encoded in UTF-8.
 @node Files to be translated
 @unnumberedsubsubsec Files to be translated
 
-@include contributor/doc-translation-list.itexi
+@include en/contributor/doc-translation-list.itexi
 
 In addition, not listed above, Snippets' titles and descriptions
 should be translated; they are a part of the Notation Reference and

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/generating-output.itexi
+@include en/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond is a @strong{text-based} music engraver; it is
@@ -544,6 +544,6 @@ is given in @ref{Freedom}.
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

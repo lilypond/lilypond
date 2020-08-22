@@ -23,7 +23,7 @@ Copyright @copyright{} 1999--2021 by the authors
 @end macro
 
 @set FDL
-@include macros.itexi
+@include en/macros.itexi
 
 
 @lilyTitlePage{Music Glossary}
@@ -9358,7 +9358,7 @@ Cambridge: Belknap Press (Harvard University Press), 1986.
 @end itemize
 
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 
 @bye

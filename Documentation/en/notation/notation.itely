@@ -25,12 +25,12 @@ This chapter explains how to create musical notation.
 * Text::               Adding text to scores.
 @end menu
 
-@include notation/pitches.itely
-@include notation/rhythms.itely
-@include notation/expressive.itely
-@include notation/repeats.itely
-@include notation/simultaneous.itely
-@include notation/staff.itely
-@include notation/editorial.itely
-@include notation/text.itely
+@include en/notation/pitches.itely
+@include en/notation/rhythms.itely
+@include en/notation/expressive.itely
+@include en/notation/repeats.itely
+@include en/notation/simultaneous.itely
+@include en/notation/staff.itely
+@include en/notation/editorial.itely
+@include en/notation/text.itely
 

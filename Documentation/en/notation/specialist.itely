@@ -32,14 +32,14 @@ found in @ref{References for opera and stage musicals}.
 * World music::
 @end menu
 
-@include notation/vocal.itely
-@include notation/keyboards.itely
-@include notation/unfretted-strings.itely
-@include notation/fretted-strings.itely
-@include notation/percussion.itely
-@include notation/wind.itely
-@include notation/chords.itely
-@include notation/contemporary.itely
-@include notation/ancient.itely
-@include notation/world.itely
+@include en/notation/vocal.itely
+@include en/notation/keyboards.itely
+@include en/notation/unfretted-strings.itely
+@include en/notation/fretted-strings.itely
+@include en/notation/percussion.itely
+@include en/notation/wind.itely
+@include en/notation/chords.itely
+@include en/notation/contemporary.itely
+@include en/notation/ancient.itely
+@include en/notation/world.itely
 

@@ -503,7 +503,7 @@ generated documentation.
 @divClass{column-center-bottom}
 @subheading Translations status
 
-@include translations.itexi
+@include en/translations.itexi
 
 @divEnd
 
@@ -597,6 +597,6 @@ reasons for choosing it, is given in @ref{Freedom}.
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd
