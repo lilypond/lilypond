@@ -12,12 +12,6 @@ local-test-baseline:
 	  rm -rf share && \
 	  ln -sf ../$(depth)/out-baseline/share )
 
-# This recipe creates the same content regardless of the subdir it
-# runs in, so it needs to be run in only one subdir to serve its
-# purpose.  Any more would be noise in the test output.
-lysdoc-gittxt:
-	$(buildscript-dir)/print-gittxt.sh $(top-src-dir) > $(outdir)/tree.gittxt
-
 lysdoc-test:
 #       Creating collated-files.texi also produces the tested output.
 #       Removing it works around incomplete dependencies.
