@@ -16,29 +16,7 @@ local-test-baseline:
 # runs in, so it needs to be run in only one subdir to serve its
 # purpose.  Any more would be noise in the test output.
 lysdoc-gittxt:
-	if test -d $(top-src-dir)/.git  ; then \
-		cd $(top-src-dir) ; \
-		BR=`LANG=c git branch | grep "^\*" | sed -e "s|^* *||"` ; \
-		HD=`git rev-parse --verify HEAD` ; \
-		FP=`git merge-base --octopus origin/master HEAD` ; \
-		echo "    BRANCH: $$BR" ; \
-		echo "      HEAD: $$HD" ; \
-		if [ ! -z $$FP ]; then  \
-			echo "MERGE_BASE: $$FP" ; \
-			echo ; \
-			echo "   HISTORY:" ; \
-			echo "   ========" ; \
-			git log --pretty=format:"      HASH: %H%n   SUBJECT: %s%n" $$FP~1..HEAD ; \
-		else \
-			echo "MERGE_BASE: unknown" ; \
-			echo ; \
-			echo "   HISTORY:" ; \
-			echo "   ========" ; \
-			git log --max-count=10 --pretty=format:"      HASH: %H%nSUBJECT: %s%n" ; \
-		fi ; \
-		echo "" ; \
-		date ; \
-	fi > $(outdir)/tree.gittxt
+	$(buildscript-dir)/print-gittxt.sh $(top-src-dir) > $(outdir)/tree.gittxt
 
 lysdoc-test:
 #       Creating collated-files.texi also produces the tested output.
