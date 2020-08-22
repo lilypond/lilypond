@@ -14,7 +14,7 @@
 @section Teclados y otros instrumentos de varios pentagramas
 @translationof Keyboard and other multi-staff instruments
 
-@lilypondfile[quote]{keyboard-headword.ly}
+@lilypondfile[quote]{snippets/keyboard-headword.ly}
 
 Esta sección se ocupa de varios aspectos de la notación musical
 que son exclusivos de los instrumentos de teclado y otros
@@ -506,7 +506,7 @@ Referencia de funcionamiento interno:
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-stems.ly}
+{snippets/cross-staff-stems.ly}
 
 Por el momento no se puede especificar este grabador por su nombre
 entre comillas, sino prefijando el nombre con un símbolo de
@@ -517,7 +517,7 @@ implementado.
 @cindex arpegio, corchete de pentagrama cruzado
 @cindex corchete, de pentagrama cruzado
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 
 @morerefs
@@ -685,7 +685,7 @@ disponibles en
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-register-symbols.ly}
+{snippets/accordion-register-symbols.ly}
 
 
 @morerefs

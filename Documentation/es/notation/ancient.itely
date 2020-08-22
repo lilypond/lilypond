@@ -15,7 +15,7 @@
 @section Notación antigua
 @translationof Ancient notation
 
-@lilypondfile[quote]{ancient-headword.ly}
+@lilypondfile[quote]{snippets/ancient-headword.ly}
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
@@ -2804,7 +2804,7 @@ compás.
 
 
 @lilypondfile[verbatim,quote,texidoc]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
 @c @morerefs
@@ -3001,7 +3001,7 @@ spirLyr = \lyricmode {
 
 @cindex transcripción de mensural a moderno
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
+{snippets/using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 @c @morerefs
 @c ... and reference to other sections ...

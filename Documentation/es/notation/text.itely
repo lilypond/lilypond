@@ -13,7 +13,7 @@
 @section Texto
 @translationof Text
 
-@lilypondfile[quote]{text-headword.ly}
+@lilypondfile[quote]{snippets/text-headword.ly}
 
 Esta sección explica cómo incluir texto (con diversos estilos de
 formateo) en las partituras.
@@ -359,10 +359,10 @@ cada voz.
 @cindex matiz, extensión de texto, personalizar
 @cindex texto, extensión de, matiz, personalizar
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-text-spanner-postfix.ly}
+{snippets/dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-custom-text-spanner-postfix.ly}
 
 
 @morerefs
@@ -470,13 +470,13 @@ siguiente.
 @cindex línea, final, posicionar marcas
 @cindex marca, al final de la línea
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line.ly}
+{snippets/printing-marks-at-the-end-of-a-line.ly}
 
 @cindex marca, en todos los pentagramas
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-on-every-staff.ly}
+{snippets/printing-marks-on-every-staff.ly}
 
 
 @morerefs
@@ -559,7 +559,7 @@ requiere se describen en
 @cindex columna, texto en
 @cindex marcado, dos columnas
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{stand-alone-two-column-markup.ly}
+{snippets/stand-alone-two-column-markup.ly}
 
 
 @morerefs

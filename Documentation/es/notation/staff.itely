@@ -15,7 +15,7 @@
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
 
 Esta sección explica cómo influir sobre la apariencia de los
 pentagramas, cómo imprimir partituras con más de un pentagrama y
@@ -250,13 +250,13 @@ ver más detalles, consulte @ref{Definir contextos nuevos}.
 @cindex cuadrado, corchete, al inicio de un grupo
 @cindex grupo de pentagramas, corchete cuadrado al inicio
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{use-square-bracket-at-the-start-of-a-staff-group.ly}
+{snippets/use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @cindex corchete, al comienzo de un pentagrama único
 @cindex llave, al comienzo de un pentagrama único
 @cindex pentagrama, único, con cochete o llave
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{display-bracket-with-only-one-staff-in-a-system.ly}
+{snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex diseño «mensurstriche»
 @cindex mensurstriche, diseño
@@ -265,7 +265,7 @@ ver más detalles, consulte @ref{Definir contextos nuevos}.
 @cindex mensural, música, transcripción de
 @cindex línea, de compás, entre pautas
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
 @morerefs
@@ -330,7 +330,7 @@ anidados.  Para ver más detalles, consulte
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{nesting-staves.ly}
+{snippets/nesting-staves.ly}
 
 @morerefs
 Referencia de la notación:
@@ -584,7 +584,7 @@ afecta también al espaciado de las líneas adicionales.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-some-staff-lines-thicker-than-the-others.ly}
+{snippets/making-some-staff-lines-thicker-than-the-others.ly}
 
 @morerefs
 Glosario musical:
@@ -739,7 +739,7 @@ información sobre @code{\RemoveAllEmptyStaves}, consulte
 @funindex alignBelowContext
 @funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligning-ossias-and-lyrics.ly}
+{snippets/vertically-aligning-ossias-and-lyrics.ly}
 
 @morerefs
 Glosario musical:
@@ -1940,14 +1940,14 @@ dentro del contexto de @code{Score} como se explica en
 @cindex multicompás, silencio, numerar
 @funindex restNumberThreshold
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{numbering-single-measure-rests.ly}
+{snippets/numbering-single-measure-rests.ly}
 
 @cindex silencio, eclesiástico
 @cindex kirchenpause
 @cindex multicompás, silencio, estilo
 @cindex estilo, silencios multicompás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi-measure-rests.ly}
+{snippets/changing-form-of-multi-measure-rests.ly}
 
 @morerefs
 Referencia de la notación:

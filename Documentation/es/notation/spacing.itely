@@ -1696,7 +1696,7 @@ compases, y sólo en dichos lugares:
 @cindex salto, de página, gestión con una voz adicional
 @cindex línea, salto, gestión con una voz adicional
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-an-extra-voice-for-breaks.ly}
+{snippets/using-an-extra-voice-for-breaks.ly}
 
 
 @morerefs

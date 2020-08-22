@@ -13,7 +13,7 @@
 @section Expresiones
 @translationof Expressive marks
 
-@lilypondfile[quote]{expressive-headword.ly}
+@lilypondfile[quote]{snippets/expressive-headword.ly}
 
 Esta sección relaciona diversas marcas de expresión que se pueden
 crear en un a partitura.
@@ -296,13 +296,13 @@ Script y TextScript que se adjuntan a las notas, consulte
 @funindex \dashPlus
 @funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-default-values-for-articulation-shorthand-notation.ly}
+{snippets/modifying-default-values-for-articulation-shorthand-notation.ly}
 
 @cindex vertical, orden de las inscripciones
 @cindex ordenación vertical de las inscripciones
 @cindex inscripción, ordenación vertical
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-vertical-ordering-of-scripts.ly}
+{snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @cindex grupeto de retardación, ornamento
 @cindex retardación, grupeto de, ornamento
@@ -310,7 +310,7 @@ Script y TextScript que se adjuntan a las notas, consulte
 @funindex suggestAccidentals
 @funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-a-delayed-turn.ly}
+{snippets/creating-a-delayed-turn.ly}
 
 @morerefs
 Glosario musical:
@@ -587,22 +587,22 @@ piano.
 @cindex reguladores sobre líneas divisorias
 @cindex línea divisoria, detener regulador
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-hairpin-behavior-at-bar-lines.ly}
+{snippets/setting-hairpin-behavior-at-bar-lines.ly}
 
 @cindex regulador, longitud mínima
 @cindex longitud mínima, regulador
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-minimum-length-of-hairpins.ly}
+{snippets/setting-the-minimum-length-of-hairpins.ly}
 
 @cindex regulador, desplazar extremos
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-the-ends-of-hairpins.ly}
+{snippets/moving-the-ends-of-hairpins.ly}
 
 @cindex al niente, regulador
 @cindex niente, al, regulador
 @cindex regulador, al niente
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-using-al-niente-notation.ly}
+{snippets/printing-hairpins-using-al-niente-notation.ly}
 
 @cindex Ferneyhough, regulador de
 @cindex regulador de Ferneyhough
@@ -612,7 +612,7 @@ piano.
 @cindex constante, regulador de tipo
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-in-various-styles.ly}
+{snippets/printing-hairpins-in-various-styles.ly}
 
 @cindex vertical, matices, alineación
 @cindex alineación vertical, matices
@@ -623,13 +623,13 @@ piano.
 @funindex DynamicLineSpanner
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligned-dynamics-and-textscripts.ly}
+{snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @cindex matiz, línea de extensión, ocultar
 @cindex ocultar, línea de extensión de matiz
 @cindex extensión, matiz, ocultar línea de
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-the-extender-line-for-text-dynamics.ly}
+{snippets/hiding-the-extender-line-for-text-dynamics.ly}
 
 @cindex matiz, estilo de texto
 @cindex texto, matiz de estilo de
@@ -639,7 +639,7 @@ piano.
 @funindex decrescendoText
 @funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-text-and-spanner-styles-for-text-dynamics.ly}
+{snippets/changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 @morerefs
 Glosario musical:
@@ -964,18 +964,18 @@ expresión:
 @cindex doble ligadura de expresión para acordes legato
 @findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-double-slurs-for-legato-chords.ly}
+{snippets/using-double-slurs-for-legato-chords.ly}
 
 @cindex marcado, texto, dentro de las ligaduras
 @cindex texto, marcado de, dentro de las ligaduras
 @cindex ligadura de expresión, marcado de texto por dentro
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs.ly}
+{snippets/positioning-text-markups-inside-slurs.ly}
 
 @cindex ligadura de expresión, definición del patrón de discontinuidad
 @cindex discontinuidad, definir patrón de, ligadura de expresión
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-slurs-with-complex-dash-structure.ly}
+{snippets/making-slurs-with-complex-dash-structure.ly}
 
 @morerefs
 Glosario musical:
@@ -1182,18 +1182,18 @@ detalles, consulte @ref{Divisiones}.
 @cindex símbolo, cambiar, marca de respiración
 @funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-breath-mark-symbol.ly}
+{snippets/changing-the-breath-mark-symbol.ly}
 
 @cindex marca de pulso
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-a-tick-as-the-breath-mark-symbol.ly}
+{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex caesura
 @cindex cesura
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{inserting-a-caesura.ly}
+{snippets/inserting-a-caesura.ly}
 
 @morerefs
 Glosario musical:
@@ -1242,7 +1242,7 @@ intervalo de alturas sobre el que se extiende la caída o elevación
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adjusting-the-shape-of-falls-and-doits.ly}
+{snippets/adjusting-the-shape-of-falls-and-doits.ly}
 
 @morerefs
 Glosario musical:
@@ -1338,22 +1338,22 @@ detalles, consulte @ref{Estilos de línea}.
 @cindex contemporáneo, glissando
 @cindex glissando contemporáneo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{contemporary-glissando.ly}
+{snippets/contemporary-glissando.ly}
 
 @cindex tiempo, marca de, para glissando
 @cindex glissando, marca de tiempo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-timing-marks-to-long-glissandi.ly}
+{snippets/adding-timing-marks-to-long-glissandi.ly}
 
 @cindex divisible, glissando
 @cindex glissando, divisible
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-glissandi-breakable.ly}
+{snippets/making-glissandi-breakable.ly}
 
 @cindex glissando, a través de repetición
 @cindex repetición, y glissandos
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{extending-glissandi-across-repeats.ly}
+{snippets/extending-glissandi-across-repeats.ly}
 
 @morerefs
 Glosario musical:
@@ -1473,15 +1473,15 @@ utilizando @notation{ligaduras de unión}.  Véase
 @cindex arpegio, entre pautas
 @cindex pautas, arpegio entre
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-other-contexts.ly}
+{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @cindex arpegio, entre voces
 @cindex voces, arpegio entre
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-arpeggios-across-notes-in-different-voices.ly}
+{snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
 Glosario musical:

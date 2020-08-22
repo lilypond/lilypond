@@ -14,7 +14,7 @@
 @section Música vocal
 @translationof Vocal music
 
-@lilypondfile[quote]{vocal-headword.ly}
+@lilypondfile[quote]{snippets/vocal-headword.ly}
 
 Esta sección explica cómo tipografiar música vocal, y cómo
 asegurarse de que la letra se alinea con las notas de su melodía
@@ -212,7 +212,7 @@ Para ver una explicación de muchas de las opciones, consulte
 @cindex letra, y marcado
 @cindex marcado, en letra
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{formatting-lyrics-syllables.ly}
+{snippets/formatting-lyrics-syllables.ly}
 
 
 @morerefs
@@ -1186,7 +1186,7 @@ plantillas del Manual de Aprendizaje, véase
 
 @cindex letra, espaciado versión 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 
 @morerefs
@@ -1249,7 +1249,7 @@ ajuste la propiedad dentro del bloque @code{\layout}.
 @cindex alineación, horizontal, letra
 @cindex horizontal, alineación, letra
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{lyrics-alignment.ly}
+{snippets/lyrics-alignment.ly}
 
 
 @knownissues
@@ -2390,7 +2390,7 @@ y el @q{modo de acordes}; esta sintaxis se explica en
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 
 @morerefs
@@ -2607,7 +2607,7 @@ Referencia de funcionamiento interno:
 @cindex arpegio, corchete, señalar voces divididas
 @cindex corchete, vertical, señalar voces divididas
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 
 @morerefs
@@ -2951,7 +2951,7 @@ claras.
 @cindex partitura, vocal, añadir guías
 @cindex guía, en partitura vocal
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{adding-orchestral-cues-to-a-vocal-score.ly}
+{snippets/adding-orchestral-cues-to-a-vocal-score.ly}
 
 
 @morerefs
@@ -3404,7 +3404,7 @@ el primero de los siguientes fragmentos de código.
 @cindex salmo
 @cindex himno
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{chant-or-psalms-notation.ly}
+{snippets/chant-or-psalms-notation.ly}
 
 @c XXX move this text into following snippet
 Los cánticos y otros textos litúrgicos pueden disponerse de una
@@ -3418,7 +3418,7 @@ con las duraciones de las notas.
 @cindex transcripción, moderna del canto gregoriano
 @cindex moderna, transcripción del canto gregoriano
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
 @morerefs
@@ -3615,7 +3615,7 @@ cada línea.
 @cindex parcial, compás, en himnos
 @cindex compás, parcial, en himnos
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 
 @node Música vocal antigua

@@ -3489,7 +3489,7 @@ matiz dinámico pueden verse en el archivo @file{scm/midi.scm}.
 @cindex dinámica personalizada en MIDI
 @cindex MIDI, dinámicas personalizadas
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{creating-custom-dynamics-in-midi-output.ly}
+{snippets/creating-custom-dynamics-in-midi-output.ly}
 
 Archivos instalados:
 @file{ly/script-init.ly}
@@ -3606,7 +3606,7 @@ Referencia de funcionamiento interno:
 @cindex instrumento MIDI, sustituir la ecualización predeterminada
 @cindex ecualización predeterminada, instrumento MIDI, sustitución de la
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{replacing-default-midi-instrument-equalization.ly}
+{snippets/replacing-default-midi-instrument-equalization.ly}
 
 @knownissues
 Los cambios en el volumen del MIDI solamente tienen lugar en el
@@ -3912,7 +3912,7 @@ muestra a continuación:
 
 @cindex MIDI, un canal por cada voz
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
+{snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 
 @node Propiedades de contexto para efectos MIDI
