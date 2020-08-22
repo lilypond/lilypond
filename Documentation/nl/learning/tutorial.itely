@@ -11,7 +11,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@include included/generating-output.itexi
+@include nl/included/generating-output.itexi
 
 @c \version "2.19.21"
 

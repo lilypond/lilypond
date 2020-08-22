@@ -21,7 +21,7 @@
 
 @set FDL
 @set web
-@include macros.itexi
+@include nl/macros.itexi
 @include weblinks.itexi
 
 
@@ -134,7 +134,7 @@ Lees meer in onze @ref{Inleiding}!
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-headlines.itexi
+@include en/web/news-headlines.itexi
 
 @divClass{float-right}
 (@ref{News}) @c (@ref{News,,,,Oud nieuws})
@@ -327,10 +327,10 @@ please let us know by following the instructions on
 @end macro
 @end ifnothtml
 
-@include web/introduction.itexi
-@include web/download.itexi
-@include web/manuals.itexi
-@include web/community.itexi
+@include nl/web/introduction.itexi
+@include nl/web/download.itexi
+@include nl/web/manuals.itexi
+@include en/web/community.itexi
 
 
 @bye

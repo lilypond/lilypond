@@ -521,7 +521,7 @@ dat verwijst naar deze gegenereerde documentatie.
 @divClass{column-center-bottom}
 @subheading Status van de vertaling
 
-@include translations.itexi
+@include nl/translations.itexi
 
 @divEnd
 
@@ -608,6 +608,6 @@ en onze redenen om hiervoor te kiezen, wordt gegeven in
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

@@ -11,7 +11,7 @@
 @c Translation checker: Tineke de Munnik
 @c Translation checker committish: abc1ebe
 
-@include included/generating-output.itexi
+@include nl/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond is een @strong{tekstgebaseerd}
@@ -603,6 +603,6 @@ gegeven in @ref{Vrijheid}.
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

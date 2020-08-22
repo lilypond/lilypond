@@ -30,7 +30,7 @@ Copyright @copyright{} 1999--2021 door de auteurs.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include nl/macros.itexi
 
 
 @lilyTitlePage{Beginnershandleiding}
@@ -66,13 +66,13 @@ Appendices
 
 @c INCLUDES
 
-@include learning/tutorial.itely
-@include learning/common-notation.itely
-@include learning/fundamental.itely
-@include learning/tweaks.itely
+@include nl/learning/tutorial.itely
+@include nl/learning/common-notation.itely
+@include nl/learning/fundamental.itely
+@include nl/learning/tweaks.itely
 
-@include learning/templates.itely
-@include fdl.itexi
+@include nl/learning/templates.itely
+@include en/fdl.itexi
 
 
 @node LilyPond register
