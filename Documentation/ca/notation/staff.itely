@@ -18,7 +18,7 @@
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
 
 Aquesta secció explica com infliur sobre l'aparença dels
 pentagrames, com imprimir partitures amb més d'un pentagrama i com
@@ -245,10 +245,10 @@ més detalls, consulteu @ref{Definició de contextos nous}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{use-square-bracket-at-the-start-of-a-staff-group.ly}
+{snippets/use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{display-bracket-with-only-one-staff-in-a-system.ly}
+{snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex disseny «mensurstriche»
 @cindex mensurstriche, disseny
@@ -257,7 +257,7 @@ més detalls, consulteu @ref{Definició de contextos nous}.
 @cindex mensural, música, transcripció de
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @morerefs
 Glossari musical:
@@ -321,7 +321,7 @@ Per veure més detalls, consulteu
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{nesting-staves.ly}
+{snippets/nesting-staves.ly}
 
 @morerefs
 Referència de la notació:
@@ -574,7 +574,7 @@ també l'espaiat de les línies addicionals.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-some-staff-lines-thicker-than-the-others.ly}
+{snippets/making-some-staff-lines-thicker-than-the-others.ly}
 
 @morerefs
 Glossari musical:
@@ -722,7 +722,7 @@ informació sobre @code{\RemoveAllEmptyStaves}, consulteu
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligning-ossias-and-lyrics.ly}
+{snippets/vertically-aligning-ossias-and-lyrics.ly}
 
 @morerefs
 Glossari musical:

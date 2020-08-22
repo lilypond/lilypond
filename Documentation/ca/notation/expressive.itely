@@ -17,7 +17,7 @@
 @section Expressions
 @translationof Expressive marks
 
-@lilypondfile[quote]{expressive-headword.ly}
+@lilypondfile[quote]{snippets/expressive-headword.ly}
 
 Aquesta secció relaciona diverses marques d'expressió que es poden
 crear a una partitura.
@@ -205,13 +205,13 @@ i TextScript que s'annexen a les notes, consulteu
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-default-values-for-articulation-shorthand-notation.ly}
+{snippets/modifying-default-values-for-articulation-shorthand-notation.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-vertical-ordering-of-scripts.ly}
+{snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-a-delayed-turn.ly}
+{snippets/creating-a-delayed-turn.ly}
 
 @morerefs
 Glossari musical:
@@ -479,16 +479,16 @@ piano.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-hairpin-behavior-at-bar-lines.ly}
+{snippets/setting-hairpin-behavior-at-bar-lines.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-minimum-length-of-hairpins.ly}
+{snippets/setting-the-minimum-length-of-hairpins.ly}
 
 @cindex al niente
 @cindex niente, al
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-using-al-niente-notation.ly}
+{snippets/printing-hairpins-using-al-niente-notation.ly}
 
 @cindex Ferneyhough, reguladors de
 @cindex reguladors de Ferneyhough
@@ -498,16 +498,16 @@ piano.
 @cindex constant, reguladors de tipus
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-in-various-styles.ly}
+{snippets/printing-hairpins-in-various-styles.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligned-dynamics-and-textscripts.ly}
+{snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-the-extender-line-for-text-dynamics.ly}
+{snippets/hiding-the-extender-line-for-text-dynamics.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-text-and-spanner-styles-for-text-dynamics.ly}
+{snippets/changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 @morerefs
 Glossari musical:
@@ -828,13 +828,13 @@ Es poden definir patrons de discontinuïtat per a les lligadures d'expressió:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-double-slurs-for-legato-chords.ly}
+{snippets/using-double-slurs-for-legato-chords.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs.ly}
+{snippets/positioning-text-markups-inside-slurs.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-slurs-with-complex-dash-structure.ly}
+{snippets/making-slurs-with-complex-dash-structure.ly}
 
 @morerefs
 Glossari musical:
@@ -1038,18 +1038,18 @@ consulteu @ref{Divisiones}.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-breath-mark-symbol.ly}
+{snippets/changing-the-breath-mark-symbol.ly}
 
 @cindex marca de pols
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-a-tick-as-the-breath-mark-symbol.ly}
+{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex caesura
 @cindex cesura
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{inserting-a-caesura.ly}
+{snippets/inserting-a-caesura.ly}
 
 @morerefs
 Glossari musical:
@@ -1098,7 +1098,7 @@ l'interval d'alçades sobre el qual s'estén la caiguda o elevació
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adjusting-the-shape-of-falls-and-doits.ly}
+{snippets/adjusting-the-shape-of-falls-and-doits.ly}
 
 @morerefs
 Glossari musical:
@@ -1189,16 +1189,16 @@ detalls, consulteu @ref{Estils de línia}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{contemporary-glissando.ly}
+{snippets/contemporary-glissando.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-timing-marks-to-long-glissandi.ly}
+{snippets/adding-timing-marks-to-long-glissandi.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-glissandi-breakable.ly}
+{snippets/making-glissandi-breakable.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{extending-glissandi-across-repeats.ly}
+{snippets/extending-glissandi-across-repeats.ly}
 
 @morerefs
 Glossari musical:
@@ -1305,13 +1305,13 @@ utilitzant @notation{lligadures d'unió}.  Vegeu
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-other-contexts.ly}
+{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-arpeggios-across-notes-in-different-voices.ly}
+{snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
 Glossari musical:

@@ -17,7 +17,7 @@
 @section Repeticions
 @translationof Repeats
 
-@lilypondfile[quote]{repeats-headword.ly}
+@lilypondfile[quote]{snippets/repeats-headword.ly}
 
 La repetició és un concepte fonamental a la música, i hi ha
 diversos tipus de notació per a les repeticions.  El LilyPond dóna
@@ -341,19 +341,19 @@ anteriorment amb la instrucció @code{\defineBarLine}
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{shortening-volta-brackets.ly}
+{snippets/shortening-volta-brackets.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-volta-brackets-to-additional-staves.ly}
+{snippets/adding-volta-brackets-to-additional-staves.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-double-repeat-default-for-volte.ly}
+{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex repeticions, lletres i números de compàs
 @cindex repeticions, números de compàs de primer i segona vegada
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @morerefs
 Glossari musical:
@@ -779,13 +779,13 @@ barrejades utilitzen un símbol de percentatge doble.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-counter.ly}
+{snippets/percent-repeat-counter.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-count-visibility.ly}
+{snippets/percent-repeat-count-visibility.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{isolated-percent-repeats.ly}
+{snippets/isolated-percent-repeats.ly}
 
 @morerefs
 Glossari musical:
@@ -900,7 +900,7 @@ s'afegeix una barra de corxera a la plica de la nota.  Si
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-tremolos.ly}
+{snippets/cross-staff-tremolos.ly}
 
 @morerefs
 Fragments de codi:

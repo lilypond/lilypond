@@ -52,7 +52,7 @@ La taula següent mostra dos sistemes estàndard per imprimir els
 noms dels acords, junt a les notes que representen.
 
 @c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
+@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
 @node Modificadors d'acord més usuals
 @appendixsec Modificadors d'acord més usuals
@@ -509,7 +509,7 @@ Quinta justa, @*octava
 
 La taula de sota mostra les afinacions predefinides de cordes.
 
-@lilypondfile{display-predefined-string-tunings.ly}
+@lilypondfile{en/included/display-predefined-string-tunings.ly}
 
 @node Diagrames predefinits de posicions
 @appendixsec Diagrames predefinits de posicions
@@ -525,19 +525,19 @@ La taula de sota mostra les afinacions predefinides de cordes.
 @unnumberedsubsec Diagrames per a guitarra
 @translationof Diagrams for Guitar
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
 @node Diagrames per a ukelele
 @unnumberedsubsec Diagrames per a ukelele
 @translationof Diagrams for Ukulele
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
 
 @node Diagrames per a mandolina
 @unnumberedsubsec Diagrames per a mandolina
 @translationof Diagrams for Mandolin
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
 
 @node Mides de pàgina predefinides
@@ -1021,7 +1021,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Clef glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #clefs
 @end lilypond
@@ -1032,7 +1032,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Time Signature glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #timesig
 @end lilypond
@@ -1043,7 +1043,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Number glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
 @end lilypond
@@ -1054,7 +1054,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Accidental glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accidentals
 @end lilypond
@@ -1065,7 +1065,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Default Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #default-noteheads
 @end lilypond
@@ -1076,7 +1076,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Special Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #special-noteheads
 @end lilypond
@@ -1087,7 +1087,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #shape-note-noteheads
 @end lilypond
@@ -1098,7 +1098,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Rest glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #rests
 @end lilypond
@@ -1109,7 +1109,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Flag glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #flags
 @end lilypond
@@ -1120,7 +1120,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Dot glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dots
 @end lilypond
@@ -1131,7 +1131,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Dynamic glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dynamics
 @end lilypond
@@ -1142,7 +1142,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Script glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #scripts
 @end lilypond
@@ -1153,7 +1153,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Arrowhead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #arrowheads
 @end lilypond
@@ -1164,7 +1164,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Bracket-tip glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #brackettips
 @end lilypond
@@ -1175,7 +1175,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Pedal glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #pedal
 @end lilypond
@@ -1186,7 +1186,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Accordion glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accordion
 @end lilypond
@@ -1197,7 +1197,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Tie glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #ties
 @end lilypond
@@ -1208,7 +1208,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Vaticana glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #vaticana
 @end lilypond
@@ -1219,7 +1219,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Medicaea glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #medicaea
 @end lilypond
@@ -1230,7 +1230,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Hufnagel glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #hufnagel
 @end lilypond
@@ -1241,7 +1241,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Mensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #mensural
 @end lilypond
@@ -1252,7 +1252,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Neomensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #neomensural
 @end lilypond
@@ -1263,7 +1263,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Petrucci glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #petrucci
 @end lilypond
@@ -1274,7 +1274,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Solesmes glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #solesmes
 @end lilypond
@@ -1285,7 +1285,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @translationof Kievan Notation glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
 @end lilypond
@@ -1297,7 +1297,7 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @cindex nota, estils de cap
 Es poden usar els següents estils per als caps de les notes.
 
-@lilypondfile[noindent]{note-head-style.ly}
+@lilypondfile[noindent]{en/included/note-head-style.ly}
 
 
 @node Estils de clau
@@ -2155,7 +2155,7 @@ generated from source files during the build.
 For translators: you cannot translate the content of these files.
 @end ignore
 
-@include markup-commands.tely
+@include en/markup-commands.tely
 
 
 @node Ordres de llistes de marcatge de text
@@ -2165,7 +2165,7 @@ For translators: you cannot translate the content of these files.
 Es pot usar qualssevol de les següents instruccions amb
 @code{\markuplist}:
 
-@include markup-list-commands.tely
+@include en/markup-list-commands.tely
 
 @node Llista de caràcters especials
 @appendixsec Llista de caràcters especials
@@ -3383,21 +3383,21 @@ Referència de funcionament intern:
 @appendixsec Totes les propietats de context
 @translationof All context properties
 
-@include context-properties.tely
+@include en/context-properties.tely
 
 
 @node Propietats de disposició
 @appendixsec Propietats de disposició
 @translationof Layout properties
 
-@include layout-properties.tely
+@include en/layout-properties.tely
 
 
 @node Funcions musicals disponibles
 @appendixsec Funcions musicals disponibles
 @translationof Available music functions
 
-@include identifiers.tely
+@include en/identifiers.tely
 
 
 @node Identificadors de modificació de contextos
@@ -3407,18 +3407,18 @@ Referència de funcionament intern:
 Es defineixen les ordres següents per al seu ús com modificacions
 de context dins d'un bloc @code{\layout} o @code{\with}.
 
-@include context-mod-identifiers.tely
+@include en/context-mod-identifiers.tely
 
 
 @node Predicats de tipus predefinits
 @appendixsec Predicats de tipus predefinits
 @translationof Predefined type predicates
 
-@include type-predicates.tely
+@include en/type-predicates.tely
 
 
 @node Funcions de l'Scheme
 @appendixsec Funcions de l'Scheme
 @translationof Scheme functions
 
-@include scheme-functions.tely
+@include en/scheme-functions.tely

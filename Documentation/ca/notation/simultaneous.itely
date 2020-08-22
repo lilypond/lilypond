@@ -17,7 +17,7 @@
 @section Notes simultànies
 @translationof Simultaneous notes
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
 La paraula @q{polifonia} en música fa referència a tenir més d'una
 veu en una peça qualsevol de música.  Al LilyPond la polifonia fa
@@ -878,10 +878,10 @@ direccions oposades).
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{additional-voices-to-avoid-collisions.ly}
+{snippets/additional-voices-to-avoid-collisions.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{forcing-horizontal-shift-of-notes.ly}
+{snippets/forcing-horizontal-shift-of-notes.ly}
 
 @morerefs
 Glossari musical:
@@ -1125,10 +1125,10 @@ context @code{NullVoice}.  Vegeu
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{combining-two-parts-on-the-same-staff.ly}
+{snippets/combining-two-parts-on-the-same-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-partcombine-texts.ly}
+{snippets/changing-partcombine-texts.ly}
 
 @morerefs
 Glossari musical:

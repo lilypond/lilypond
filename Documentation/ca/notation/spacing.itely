@@ -1666,7 +1666,7 @@ compassos, i sols en aquests llocs:
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-an-extra-voice-for-breaks.ly}
+{snippets/using-an-extra-voice-for-breaks.ly}
 
 @morerefs
 Referència de la notació:
