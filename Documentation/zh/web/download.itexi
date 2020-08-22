@@ -9,7 +9,7 @@
 
 @c Translators: Ben Luo, Anthony Fok
 
-@include included/generating-output.itexi
+@include en/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond 是一个 @strong{基于文本} 的音乐雕版印刷软件；和一般图形界面的打谱软件相比，LilyPond
@@ -584,6 +584,6 @@ GNU LilyPond 在 GNU 通用公共许可证 (GPL) 下发布。在
 @divClass{column-center-bottom}
 @subheading GNU 通用公共许可证
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

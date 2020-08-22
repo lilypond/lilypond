@@ -9,8 +9,8 @@
 
 @c Translators: Ben Luo, Anthony Fok
 
-@include included/authors.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/helpus.itexi
 
 @node 社区
 @unnumbered 社区
@@ -1066,7 +1066,7 @@ any patch which introduced extra warnings.
 the @ref{Attic}}
 @divEnd
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
 
 @node Attic
@@ -1124,4 +1124,4 @@ Developers' changelogs by version:
 
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

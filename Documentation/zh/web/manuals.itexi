@@ -476,7 +476,7 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divClass{column-center-bottom}
 @subheading 翻译状态
 
-@include translations.itexi
+@include zh/translations.itexi
 
 @divEnd
 
@@ -561,6 +561,6 @@ GNU LilyPond 的文档以 GNU 自由文档许可证 (GNU FDL)
 @divClass{column-center-bottom}
 @subheading GNU 自由文档许可证 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

@@ -22,7 +22,7 @@
 
 @set FDL
 @set web
-@include macros.itexi
+@include zh/macros.itexi
 @include weblinks.itexi
 
 
@@ -133,7 +133,7 @@ LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的�
 @divId{news}
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-headlines.itexi
+@include en/web/news-headlines.itexi
 
 @divClass{float-right}
 (@ref{旧闻})
@@ -322,10 +322,10 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 @end ifnothtml
 
-@include web/introduction.itexi
-@include web/download.itexi
-@include web/manuals.itexi
-@include web/community.itexi
+@include zh/web/introduction.itexi
+@include zh/web/download.itexi
+@include zh/web/manuals.itexi
+@include zh/web/community.itexi
 
 
 @bye
