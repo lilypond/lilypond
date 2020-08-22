@@ -526,7 +526,7 @@ também}, que se refere à documentação gerada.
 @divClass{column-center-bottom}
 @subheading Status de tradução
 
-@include translations.itexi
+@include pt/translations.itexi
 
 @divEnd
 
@@ -616,6 +616,6 @@ motivos para escolhê-la são dados em @ref{Liberdade}.
 @divClass{column-center-bottom}
 @subheading Licença de Documentação Livre GNU 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

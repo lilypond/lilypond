@@ -11,9 +11,9 @@
 @c Translators: Rafael Fontenelle
 @c Translators checkers:
 
-@include included/authors.itexi
-@include included/gsoc.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/gsoc.itexi
+@include en/included/helpus.itexi
 
 @node Comunidade
 @unnumbered Comunidade
@@ -924,7 +924,7 @@ mais recentes podem ser encontrados em @url{https://lilypond.org}}
 @unnumberedsec Notícias
 @translationof News
 
-@include web/news-new.itexi
+@include pt/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading Notícias antigas
@@ -1018,4 +1018,4 @@ Notícias mais antigas que datam até julho de 2003. Notícias
 mais recentes podem ser encontradas na página @ref{Notícias}.
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

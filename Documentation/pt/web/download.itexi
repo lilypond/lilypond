@@ -11,7 +11,7 @@
 @c Translators: Rafael Fontenelle
 @c Translators checkers:
 
-@include included/generating-output.itexi
+@include en/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond é um software gravador de músicas
@@ -560,6 +560,6 @@ são dados em @ref{Liberdade}.
 @divClass{column-center-bottom}
 @subheading Licença Pública Geral GNU
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd
