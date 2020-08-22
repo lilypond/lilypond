@@ -16,7 +16,7 @@
 @section Saiteninstrumente mit Bünden
 @translationof Fretted string instruments
 
-@lilypondfile[quote]{fretted-headword.ly}
+@lilypondfile[quote]{snippets/fretted-headword.ly}
 
 Dieser Abschnitt erklärt bestimmte Eigenheiten der Notation für
 Saiteninstrumente mit Bünden.
@@ -131,10 +131,10 @@ g-0\3
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 
 @morerefs
@@ -460,22 +460,22 @@ ratioHarmonics = {
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{stem-and-beam-behavior-in-tablature.ly}
+{snippets/stem-and-beam-behavior-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{polyphony-in-tablature.ly}
+{snippets/polyphony-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{open-string-harmonics-in-tablature.ly}
+{snippets/open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretted-string-harmonics-in-tablature.ly}
+{snippets/fretted-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{slides-in-tablature.ly}
+{snippets/slides-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-glissando-in-tablature.ly}
+{snippets/chord-glissando-in-tablature.ly}
 
 @morerefs
 Notationsreferenz:
@@ -1104,10 +1104,10 @@ Schnittstelle gehören dem @code{Voice.TextScript}-Kontext an.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-fret-orientations.ly}
+{snippets/changing-fret-orientations.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-markup-fret-diagrams.ly}
+{snippets/customizing-markup-fret-diagrams.ly}
 
 @morerefs
 Notationsreferenz:
@@ -1410,16 +1410,16 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-fretboard-fret-diagrams.ly}
+{snippets/customizing-fretboard-fret-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/defining-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chordchanges-for-fretboards.ly}
+{snippets/chordchanges-for-fretboards.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretboards-alternate-tables.ly}
+{snippets/fretboards-alternate-tables.ly}
 
 
 @morerefs
@@ -1643,10 +1643,10 @@ RH=#rightHandFinger
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{placement-of-right-hand-fingerings.ly}
+{snippets/placement-of-right-hand-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingerings,-string-indications,-and-right-hand-fingerings.ly}
+{snippets/fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @morerefs
 Schnipsel:

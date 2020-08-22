@@ -15,7 +15,7 @@
 @section Wiederholungszeichen
 @translationof Repeats
 
-@lilypondfile[quote]{repeats-headword.ly}
+@lilypondfile[quote]{snippets/repeats-headword.ly}
 
 Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine
 ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
@@ -296,19 +296,19 @@ Bindebögen können auch an eine zweite Klammer angefügt werden:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{shortening-volta-brackets.ly}
+{snippets/shortening-volta-brackets.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-volta-brackets-to-additional-staves.ly}
+{snippets/adding-volta-brackets-to-additional-staves.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-double-repeat-default-for-volte.ly}
+{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex Wiederholungen, Taktnummer mit Buchstaben
 @cindex Wiederholungen, alternative Taktnummerierung
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @morerefs
 Glossar:
@@ -712,13 +712,13 @@ benützten ein doppeltes Prozent-Symbol.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-counter.ly}
+{snippets/percent-repeat-counter.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-count-visibility.ly}
+{snippets/percent-repeat-count-visibility.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{isolated-percent-repeats.ly}
+{snippets/isolated-percent-repeats.ly}
 
 @morerefs
 Glossar:
@@ -814,7 +814,7 @@ benutzte Wert eingesetzt (gespeichert in @code{tremoloFlags}):
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-tremolos.ly}
+{snippets/cross-staff-tremolos.ly}
 
 @morerefs
 Schnipsel:

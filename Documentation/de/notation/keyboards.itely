@@ -16,7 +16,7 @@
 @section Tasteninstrumente und andere Instrumente mit mehreren Systemen
 @translationof Keyboard and other multi-staff instruments
 
-@lilypondfile[quote]{keyboard-headword.ly}
+@lilypondfile[quote]{snippets/keyboard-headword.ly}
 
 Dieser Abschnitt behandelt verschiedene Notationsaspekte, die
 typischerweise in Noten für Tasteninstrumente und andere
@@ -450,11 +450,11 @@ dass die automatische Bebalkung die Noten nicht auf dem einen System
 mit Balken versieht, wenn es auf dem anderen nicht nötig wäre.
 
 @lilypondfile[verbatim,quote]
-{cross-staff-stems.ly}
+{snippets/cross-staff-stems.ly}
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @morerefs
 Schnipsel:
@@ -598,7 +598,7 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-discant-symbols.ly}
+{snippets/accordion-discant-symbols.ly}
 
 @morerefs
 Schnipsel:

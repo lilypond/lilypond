@@ -15,7 +15,7 @@
 @section Ausdrucksbezeichnungen
 @translationof Expressive marks
 
-@lilypondfile[quote]{expressive-headword.ly}
+@lilypondfile[quote]{snippets/expressive-headword.ly}
 
 Dieser Abschnitt zeigt verschiedene Ausdrucksbezeichnungen,
 die zur Partitur hinzugefügt werden können.
@@ -189,13 +189,13 @@ TextScripten, die an Noten angehängt werden, siehe
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-default-values-for-articulation-shorthand-notation.ly}
+{snippets/modifying-default-values-for-articulation-shorthand-notation.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-vertical-ordering-of-scripts.ly}
+{snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-a-delayed-turn.ly}
+{snippets/creating-a-delayed-turn.ly}
 
 
 @morerefs
@@ -442,25 +442,25 @@ aufzunehmen.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-hairpin-behavior-at-bar-lines.ly}
+{snippets/setting-hairpin-behavior-at-bar-lines.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-minimum-length-of-hairpins.ly}
+{snippets/setting-the-minimum-length-of-hairpins.ly}
 
 @cindex al niente
 @cindex niente, al
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-using-al-niente-notation.ly}
+{snippets/printing-hairpins-using-al-niente-notation.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligned-dynamics-and-textscripts.ly}
+{snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-the-extender-line-for-text-dynamics.ly}
+{snippets/hiding-the-extender-line-for-text-dynamics.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-text-and-spanner-styles-for-text-dynamics.ly}
+{snippets/changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 
 @morerefs
@@ -751,13 +751,13 @@ Eigene Muster für die Strichelung können definiert werden:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-double-slurs-for-legato-chords.ly}
+{snippets/using-double-slurs-for-legato-chords.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs.ly}
+{snippets/positioning-text-markups-inside-slurs.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-slurs-with-complex-dash-structure.ly}
+{snippets/making-slurs-with-complex-dash-structure.ly}
 
 
 @morerefs
@@ -946,13 +946,13 @@ Divisiones genannt, sind unterstützt.  Für Einzelheiten siehe
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-breath-mark-symbol.ly}
+{snippets/changing-the-breath-mark-symbol.ly}
 
 @cindex caesura
 @cindex railroad tracks
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{inserting-a-caesura.ly}
+{snippets/inserting-a-caesura.ly}
 
 
 @morerefs
@@ -1004,7 +1004,7 @@ der Note erstreckt.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adjusting-the-shape-of-falls-and-doits.ly}
+{snippets/adjusting-the-shape-of-falls-and-doits.ly}
 
 @morerefs
 Glossar:
@@ -1050,10 +1050,10 @@ Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{glissandi-can-skip-grobs.ly}
+{snippets/glissandi-can-skip-grobs.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{contemporary-glissando.ly}
+{snippets/contemporary-glissando.ly}
 
 @morerefs
 Glossar:
@@ -1160,13 +1160,13 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-other-contexts.ly}
+{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-arpeggios-across-notes-in-different-voices.ly}
+{snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
 Glossar:

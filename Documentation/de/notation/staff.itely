@@ -17,7 +17,7 @@
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
 
 Dieser Abschnitt zeigt, wie die Erscheinung von Systemen beeinflusst
 wird, wie Partituren mit mehr als einem System gesetzt werden und wie
@@ -252,10 +252,10 @@ Neue Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{use-square-bracket-at-the-start-of-a-staff-group.ly}
+{snippets/use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{display-bracket-with-only-one-staff-in-a-system.ly}
+{snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex Mensurstriche
 @cindex Renaissancemusik
@@ -263,7 +263,7 @@ Neue Systemgruppen können definiert werden.  Zu Einzelheiten siehe
 @cindex Mensuralmusik, Transkription
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
 @morerefs
@@ -336,7 +336,7 @@ Neue geschachtelte Systemgruppen können definiert werden.  Zu Einzelheiten sieh
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{nesting-staves.ly}
+{snippets/nesting-staves.ly}
 
 
 @morerefs
@@ -587,7 +587,7 @@ Einstellung wirkt sich auch auf den Abstand der Hilfslinien aus.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-some-staff-lines-thicker-than-the-others.ly}
+{snippets/making-some-staff-lines-thicker-than-the-others.ly}
 
 @morerefs
 Glossar:
@@ -752,7 +752,7 @@ Mehr Information zu @code{\Staff \RemoveEmptyStaves} findet sich in
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligning-ossias-and-lyrics.ly}
+{snippets/vertically-aligning-ossias-and-lyrics.ly}
 
 
 @morerefs
@@ -861,7 +861,7 @@ leere Takte in einem
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{removing-the-first-empty-line.ly}
+{snippets/removing-the-first-empty-line.ly}
 
 @morerefs
 Glossar:

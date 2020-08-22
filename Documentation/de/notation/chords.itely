@@ -16,7 +16,7 @@
 @section Notation von Akkorden
 @translationof Chord notation
 
-@lilypondfile[quote]{chords-headword.ly}
+@lilypondfile[quote]{snippets/chords-headword.ly}
 
 Akkorde können entweder als normale Noten oder im Akkordmodus
 notiert werden; bei letztere Eingabemethode können unterschiedliche
@@ -550,13 +550,13 @@ mit der @code{noChordSymbol}-Beschriftung darstellt.
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{showing-chords-at-changes.ly}
+{snippets/showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-@c {adding-bar-lines-to-chordnames-context.ly}
+@c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 
 @morerefs
@@ -786,20 +786,20 @@ nicht verwendet, wenn der Grundton erhöht oder erniedrigt ist.
 
 @cindex Ausnahmen, Akkordsymbole
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-exceptions.ly}
+{snippets/chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-major7.ly}
+{snippets/chord-name-major7.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-bar-lines-to-chordnames-context.ly}
+{snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{volta-below-chords.ly}
+{snippets/volta-below-chords.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-chord-separator.ly}
+{snippets/changing-chord-separator.ly}
 
 
 @morerefs
@@ -844,7 +844,7 @@ myChords = \relative c' {
 @translationof Figured bass
 
 @c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
 
 Generalbassnotation kann dargestellt werden.
 
@@ -1077,7 +1077,7 @@ End of continuation line
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-positions-of-figured-bass-alterations.ly}
+{snippets/changing-the-positions-of-figured-bass-alterations.ly}
 
 
 @morerefs
