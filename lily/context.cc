@@ -528,6 +528,29 @@ Context::get_default_interpreter (const string &id)
   return this;
 }
 
+// Concretely: If the current context is Global, find or create a Score.  The
+// name and some of the internals are more general, but not completely general.
+Context *
+Context::get_user_accessible_interpreter ()
+{
+  if (is_accessible_to_user ())
+    return this;
+
+  // path_to_bottom_context () is a ready way to avoid hard-coding "Score".
+  const auto &path
+    = Context_def::path_to_bottom_context (get_output_def (),
+                                           acceptance_.get_default ());
+  auto c = this;
+  for (const auto &cdef : path)
+    {
+      c = c->find_create_context (DOWN, cdef->get_context_name (), "", SCM_EOL);
+      if (!c || c->is_accessible_to_user ())
+        return c;
+    }
+
+  return nullptr;
+}
+
 /*
   PROPERTIES
 */

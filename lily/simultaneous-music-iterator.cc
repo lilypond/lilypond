@@ -80,6 +80,12 @@ Simultaneous_music_iterator::create_contexts ()
           ++proc;
         }
     }
+
+  // Sequential_iterator follows its children into their contexts.  This
+  // iterator does not--which one would it follow?  (Maybe it could track the
+  // nearest common ancestor, but that would probably make its behavior even
+  // harder to understand.)  At least avoid squatting in Global context.
+  descend_to_user_accessible_context ();
 }
 
 // If we have some iterators with definite next moment and no of them
