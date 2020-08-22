@@ -11,7 +11,7 @@
 @c Translators: Jean-Charles Malahieude, John Mandereau
 @c Translation checkers: Jean-Charles Malahieude
 
-@include included/generating-output.itexi
+@include fr/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond travaille sur des @strong{fichiers textuels}.  Il
@@ -558,6 +558,6 @@ cette licence, et les raisons qui nous ont fait l'adopter, lisez
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

@@ -32,7 +32,7 @@ Copyright @copyright{} 2002--2021 par les auteurs.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include fr/macros.itexi
 
 
 @lilyTitlePage{Essai sur la gravure musicale automatisée}
@@ -57,10 +57,10 @@ Copyright @copyright{} 2002--2021 par les auteurs.
 @allowcodebreaks false
 @end iftex
 
-@include essay/engraving.itely
-@include essay/literature.itely
+@include fr/essay/engraving.itely
+@include fr/essay/literature.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node Index de LilyPond
 @appendix Index de LilyPond

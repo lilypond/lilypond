@@ -32,7 +32,7 @@ Copyright @copyright{} 1999--2021 par les auteurs.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include fr/macros.itexi
 
 
 @c urg, makeinfo 4.9.91 French translation is funky
@@ -70,13 +70,13 @@ Annexes
 @allowcodebreaks false
 @end iftex
 
-@include usage/running.itely
-@include usage/updating.itely
-@include usage/lilypond-book.itely
-@include usage/external.itely
-@include usage/suggestions.itely
+@include fr/usage/running.itely
+@include fr/usage/updating.itely
+@include fr/usage/lilypond-book.itely
+@include fr/usage/external.itely
+@include fr/usage/suggestions.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node Index de LilyPond
 @appendix Index de LilyPond

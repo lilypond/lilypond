@@ -13,7 +13,7 @@
 @setfilename lilypond-changes.info
 @settitle LilyPond Changes
 
-@include macros.itexi
+@include fr/macros.itexi
 
 @ifhtml
 @macro inputfileref{DIR,NAME}

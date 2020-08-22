@@ -30,7 +30,7 @@ Copyright @copyright{} 1998--2021 par les auteurs.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include fr/macros.itexi
 
 @c @direntry has not been added yet, as Emacs and standalone Info have
 @c no i18n support -JM
@@ -76,19 +76,19 @@ Annexes
 @allowcodebreaks false
 @end iftex
 
-@include notation/notation.itely
-@include notation/specialist.itely
+@include fr/notation/notation.itely
+@include fr/notation/specialist.itely
 
-@include notation/input.itely
-@include notation/spacing.itely
+@include fr/notation/input.itely
+@include fr/notation/spacing.itely
 
-@include notation/changing-defaults.itely
+@include fr/notation/changing-defaults.itely
 
 
-@include notation/notation-appendices.itely
-@include notation/cheatsheet.itely
+@include fr/notation/notation-appendices.itely
+@include fr/notation/cheatsheet.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node Index des commandes LilyPond
 @appendix Index des commandes LilyPond

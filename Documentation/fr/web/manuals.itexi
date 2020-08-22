@@ -545,7 +545,7 @@ renvoie à la documentation générée automatiquement.
 @divClass{column-center-bottom}
 @subheading État des traductions
 
-@include translations.itexi
+@include fr/translations.itexi
 
 @divEnd
 
@@ -641,6 +641,6 @@ la page @ref{Liberté}.
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

@@ -31,7 +31,7 @@ Copyright @copyright{} 2004--2021 by par les auteurs.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include fr/macros.itexi
 
 
 @lilyTitlePage{Extension des fonctionnalités}
@@ -61,10 +61,10 @@ Appendices
 @allowcodebreaks false
 @end iftex
 
-@include extending/scheme-tutorial.itely
-@include extending/programming-interface.itely
+@include fr/extending/scheme-tutorial.itely
+@include fr/extending/programming-interface.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node Index de LilyPond
 @appendix Index de LilyPond

@@ -27,11 +27,11 @@ Ce chapitre explique comment créer la notation musicale standard.
 * Texte::                   ajout de texte à la partition.
 @end menu
 
-@include notation/pitches.itely
-@include notation/rhythms.itely
-@include notation/expressive.itely
-@include notation/repeats.itely
-@include notation/simultaneous.itely
-@include notation/staff.itely
-@include notation/editorial.itely
-@include notation/text.itely
+@include fr/notation/pitches.itely
+@include fr/notation/rhythms.itely
+@include fr/notation/expressive.itely
+@include fr/notation/repeats.itely
+@include fr/notation/simultaneous.itely
+@include fr/notation/staff.itely
+@include fr/notation/editorial.itely
+@include fr/notation/text.itely

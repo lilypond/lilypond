@@ -12,9 +12,9 @@
 @c Translation checkers:
 
 
-@include included/authors.itexi
-@include included/gsoc.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/gsoc.itexi
+@include fr/included/helpus.itexi
 
 @node Communauté
 @unnumbered Communauté
@@ -978,7 +978,7 @@ paragraphes qui suivent.}
 @unnumberedsec Actualités
 @translationof News
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading Actualités passées
@@ -1091,4 +1091,4 @@ trouvent à la page @ref{Actualités}.
 
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

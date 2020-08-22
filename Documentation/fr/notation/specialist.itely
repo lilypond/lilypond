@@ -38,13 +38,13 @@ utilisées dans ces types de partitions est abordé dans
 * Musiques du monde::
 @end menu
 
-@include notation/vocal.itely
-@include notation/keyboards.itely
-@include notation/unfretted-strings.itely
-@include notation/fretted-strings.itely
-@include notation/percussion.itely
-@include notation/wind.itely
-@include notation/chords.itely
-@include notation/contemporary.itely
-@include notation/ancient.itely
-@include notation/world.itely
+@include fr/notation/vocal.itely
+@include fr/notation/keyboards.itely
+@include fr/notation/unfretted-strings.itely
+@include fr/notation/fretted-strings.itely
+@include fr/notation/percussion.itely
+@include fr/notation/wind.itely
+@include fr/notation/chords.itely
+@include fr/notation/contemporary.itely
+@include fr/notation/ancient.itely
+@include fr/notation/world.itely

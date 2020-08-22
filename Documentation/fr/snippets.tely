@@ -50,7 +50,7 @@ Copyright @copyright{} 1999--2021 par les auteurs.
 @c This disables @lydoctitle definition in common-macros.itexi
 @set snippets-sections
 
-@include macros.itexi
+@include fr/macros.itexi
 
 @ifnothtml
 @macro nodeprefix{PRE}
