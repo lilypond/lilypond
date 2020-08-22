@@ -27,7 +27,7 @@ Copyright @copyright{} 1999--2021 a szerzők.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include hu/macros.itexi
 
 
 @lilyTitlePage{Használat}
@@ -58,13 +58,13 @@ Függelék
 @contents
 
 
-@include usage/running.itely
-@include usage/updating.itely
-@include usage/lilypond-book.itely
-@include usage/external.itely
-@include usage/suggestions.itely
+@include hu/usage/running.itely
+@include hu/usage/updating.itely
+@include hu/usage/lilypond-book.itely
+@include en/usage/external.itely
+@include en/usage/suggestions.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node LilyPond index
 @appendix LilyPond index

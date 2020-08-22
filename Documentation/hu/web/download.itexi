@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/generating-output.itexi
+@include hu/included/generating-output.itexi
 
 @c Translators: Harmath Dénes
 
@@ -410,6 +410,6 @@ A licenc választásának főbb előnyeit a @ref{Szabadság} c. szakasz ismertet
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

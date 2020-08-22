@@ -30,7 +30,7 @@ Copyright @copyright{} 2002--2021 a szerzők.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include hu/macros.itexi
 
 
 @lilyTitlePage{Esszé}
@@ -55,10 +55,10 @@ Copyright @copyright{} 2002--2021 a szerzők.
 @allowcodebreaks false
 @end iftex
 
-@include essay/engraving.itely
-@include essay/literature.itely
+@include hu/essay/engraving.itely
+@include hu/essay/literature.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node LilyPond tárgymutató
 @appendix LilyPond tárgymutató

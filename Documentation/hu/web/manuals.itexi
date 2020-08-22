@@ -479,7 +479,7 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 @divClass{column-center-bottom}
 @subheading A honosítások állapota
 
-@include translations.itexi
+@include hu/translations.itexi
 
 @divEnd
 
@@ -566,6 +566,6 @@ A licenc választásának főbb előnyeit a @ref{Szabadság} c. szakasz ismertet
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

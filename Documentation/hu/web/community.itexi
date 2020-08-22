@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/authors.itexi
+@include en/included/authors.itexi
 
 @c Translators: Harmath Dénes
 
@@ -922,7 +922,7 @@ Computer Music Special} CMS06 száma)
 @unnumberedsec Hírek
 @translationof News
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
 
 @divClass{heading-center}
@@ -999,4 +999,4 @@ Lásd még @ref{Hírarchívum}
 
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

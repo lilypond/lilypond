@@ -24,7 +24,7 @@ Copyright @copyright{} 1999--2021 a szerzők.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include hu/macros.itexi
 
 
 @lilyTitlePage{Tankönyv}
@@ -55,13 +55,13 @@ Függelék
 
 @c INCLUDES
 
-@include learning/tutorial.itely
-@include learning/common-notation.itely
-@include learning/fundamental.itely
-@include learning/tweaks.itely
+@include hu/learning/tutorial.itely
+@include hu/learning/common-notation.itely
+@include hu/learning/fundamental.itely
+@include hu/learning/tweaks.itely
 
-@include learning/templates.itely
-@include fdl.itexi
+@include hu/learning/templates.itely
+@include en/fdl.itexi
 
 @node LilyPond tárgymutató
 @appendix LilyPond tárgymutató
