@@ -534,6 +534,11 @@ instead of a string:
 @item
 The default fonts are now those from the URW Core 35 set, version 2.0, replacing the TeX Gyre fonts.
 
+@item
+Using the new options @option{-dpng-width} and
+@option{-dpng-height} it is now possible to specify the pixel size
+of PNG output images.
+
 @end itemize
 
 @ifhtml

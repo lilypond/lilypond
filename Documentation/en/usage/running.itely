@@ -788,6 +788,23 @@ Default: @code{"\"a4\""}.
 Set Ghostscript's output format for pixel images to @var{symbol}.
 Default: @code{png16m}.
 
+@item @code{png-width} @var{width}
+@itemx @code{png-height} @var{height}
+For PNG output, set the width and height (in pixels) of the
+created image file.  If one of the options is missing, the other
+dimension is computed according to the EPS bounding box, retaining
+the aspect ratio.
+
+In addition to @option{--png}, either @option{--eps},
+@option{-dcrop}, or @option{-dpreview} should be used to get
+proper image scaling without clipping.
+
+Option @option{-dresolution} is ignored.
+
+Note that there is a bug in ghostscript versions up to 9.52 for
+these two options: It produces empty PNG images if the height is
+larger than the width.
+
 @item @code{point-and-click} @var{bool}
 If @var{bool} is @code{#t}, add @q{point & click} links to PDF and
 SVG output.  See @ref{Point and click}.
