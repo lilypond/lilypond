@@ -131,7 +131,7 @@ def expand_includes(m, filename):
                 return extract_sections(filepath)
         print('Warning: No such file: ' + include_name +
               ' (search path: ' + ':'.join(include_path)+')')
-        return ''
+        sys.exit(1)
 
 
 lang_re = re.compile(r'^@documentlanguage (.+)', re.M)
