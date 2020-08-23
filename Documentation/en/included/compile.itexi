@@ -82,11 +82,14 @@ Use version 9.03 or newer.
 
 @item
 @uref{http://www.gnu.org/software/guile/guile.html, Guile}
-Use version 1.8.8. Version 2.x of Guile is not currently supported.
+Use version 1.8.8.  It is possible to build LilyPond with
+version 2.@var{x} of Guile and most features will work, but this
+is not officially supported (yet).  In particular, performance and
+especially the startup time will be worse.
 
 @item
 @uref{http://www.pango.org/, Pango}
-User version 1.12 or newer.
+Use version 1.36 or newer.
 
 @item
 @uref{http://www.python.org, Python}
@@ -431,21 +434,26 @@ LilyPond.
 @item
 @uref{http://www.gnu.org/software/bison/, GNU Bison}
 
-Use version @code{2.0} or newer.
+Use version 2.4.1 or newer.
 
 @item
-@uref{http://gcc.gnu.org/, GNU Compiler Collection}
+Compiler with support for C++11
 
-Use version @code{3.4} or newer (@code{4.x} recommended).
+Version 4.8.5 or newer of the
+@uref{https://gcc.gnu.org/, GNU Compiler Collection}
+and version 3.5 or newer of @uref{https://clang.llvm.org/, Clang}
+should work.
 
 @item
-@uref{http://flex.sourceforge.net/, Flex}
+@uref{https://github.com/westes/flex, Flex}
+
+Use version 2.5.29 or newer.
 
 @item
-@uref{http://fontforge.sf.net/, FontForge}
+@uref{https://fontforge.org/, FontForge}
 
-Use version @code{20060125} or newer (we recommend using at least
-@code{20100501}); it must also be compiled with the
+Use version 20120731 or newer with enabled scripting
+using Python@tie{}3; it must also be compiled with the
 @option{--enable-double} switch, else this can lead to inaccurate
 intersection calculations which end up with poorly-rendered glyphs in
 the output.
@@ -453,12 +461,12 @@ the output.
 @item
 @uref{http://www.gnu.org/software/gettext/gettext.html, GNU gettext}
 
-Use version @code{0.17} or newer.
+Use version 0.17 or newer.
 
 @item
 @uref{http://www.gnu.org/software/make/, GNU Make}
 
-Use version @code{3.78} or newer.
+Use version 3.78 or newer.
 
 @item
 @uref{http://metafont.tutorial.free.fr/, MetaFont}
@@ -479,12 +487,12 @@ The @code{mpost} binary is also usually packaged with
 @item
 @uref{http://www.gnu.org/software/texinfo/, Texinfo}
 
-Use version @code{6.1} or newer.
+Use version 6.1 or newer.
 
 @item
 @uref{http://www.lcdf.org/~eddietwo/type/#t1utils, Type 1 utilities}
 
-Use version @code{1.33} or newer.
+Use version 1.33 or newer.
 
 @item
 @uref{https://www.ctan.org/pkg/cyrillic?lang=en, Cyrillic fonts}
@@ -492,7 +500,7 @@ Use version @code{1.33} or newer.
 Often packaged in repositories as @code{texlive-lang-cyrillic}.
 
 @item
-TeX Gyre @q{OTF} font packages.  As of LilyPond version @code{2.19.26},
+TeX Gyre @q{OTF} font packages.  As of LilyPond version 2.19.26,
 the previous default serif, san serif and monospace fonts now use Tex
 Gyre's @emph{Schola}, @emph{Heros} and @emph{Cursor} fonts respectively.
 Also See @ruser{Fonts}.
@@ -548,7 +556,7 @@ Everything listed in @ref{Requirements for compiling LilyPond}
 @item
 @uref{http://www.nongnu.org/texi2html/, Texi2HTML}
 
-Use version @code{1.82}.  Later versions will not work.
+Use version 1.82.  Later versions might work, but produce suboptimal results.
 
 Download @code{texi2html 1.82} directly from:
 @uref{http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz};
