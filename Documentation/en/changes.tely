@@ -166,9 +166,9 @@ g'8 \huge r4 a'16 f'
 
 
 @item
-SVG output is now available through the @code{--svg} command-line
-option (or its canonical form @code{--format=svg}, also shortened
-as @code{-fsvg}).  Due to its backend’s specificity, that option
+SVG output is now available through the @option{--svg} command-line
+option (or its canonical form @option{--format=svg}, also shortened
+as @option{-fsvg}).  Due to its backend’s specificity, that option
 is not yet compatible with other output formats; to get a file
 in both SVG and PDF, PNG or EPS, a second LilyPond run is required.
 
@@ -532,7 +532,8 @@ instead of a string:
 @end lilypond
 
 @item
-The default fonts are now those from the URW Core 35 set, version 2.0, replacing the TeX Gyre fonts.
+The default fonts are now those from the URW Core 35 set, version
+2.0, replacing the TeX Gyre fonts.
 
 @item
 Using the new options @option{-dpng-width} and

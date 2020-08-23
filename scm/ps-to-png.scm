@@ -65,7 +65,9 @@
                       (else
                        (ly:error "Unknown pixmap format ~a" pixmap-format))))
           (pngn (format #f "~a-page%d.~a" tmp-name extension))
-          (page-count (if is-eps 1 (ps-page-count tmp-name)))
+          (page-count (if is-eps
+                          1
+                          (ps-page-count tmp-name)))
           (multi-page? (> page-count 1))
 
           ;; Escape `%' (except `page%d') for ghostscript
@@ -144,7 +146,8 @@ currentpagedevice /HWResolution get 1 get ~a mul \
              ;; (When setting -sOutputFile from the command line, this happens
              ;; in gs_main_add_outputfile_control_path.)
              "/.addcontrolpath where { pop"
-             (ly:format "/PermitFileWriting (~a*) .addcontrolpath" base-name-gs)
+             (ly:format "/PermitFileWriting (~a*) .addcontrolpath"
+                        base-name-gs)
              "} if"
              (gs-safe-run tmp-name)))))
 
