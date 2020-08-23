@@ -55,7 +55,7 @@
     (delete-file tmp-name)
     ))
 
-(define-public (gs-cmd-args is-eps)
+(define-public (gs-cmd-args is-eps fit-page)
   (filter string?
           (list
            (search-executable '("gs"))
@@ -65,7 +65,8 @@
            "-dNOSAFER"
            "-dNOPAUSE"
            "-dBATCH"
-           (if is-eps "-dEPSCrop")
+           (if (and is-eps (not fit-page)) "-dEPSCrop")
+           (if fit-page "-dEPSFitPage")
            "-dAutoRotatePages=/None"
            "-dPrinted=false")))
 
@@ -116,13 +117,13 @@
 
     (ly:message (_ "Converting to `~a'...\n") dest)
     ((if (ly:get-option 'gs-api) ly:gs-api ly:gs-cli)
-      (gs-cmd-args is-eps) (string-join run-strings " "))
+      (gs-cmd-args is-eps #f) (string-join run-strings " "))
 
     ;; for pdfwrite, the output is only finalized once a new output
     ;; file is opened.
     (if (ly:get-option 'gs-api)
         (begin
-          (ly:gs-api (gs-cmd-args is-eps)
+          (ly:gs-api (gs-cmd-args is-eps #f)
                      (string-join
                       (list
                        (ly:format "mark /OutputFile (~a)" flush-name)
@@ -137,7 +138,7 @@
     (ly:rename-file pdf-name dest)
     ))
 
-(define-public (postscript->png resolution paper-width paper-height
+(define-public (postscript->png resolution paper-width paper-height bbox
                                 base-name tmp-name is-eps)
   (let* ((verbose (ly:get-option 'verbose))
          (rename-page-1 #f))
@@ -145,14 +146,19 @@
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
     (ly:message (_ "Converting to ~a...") "PNG")
+    ;; If option `png-width` and/or `png-height` is set, `resolution`
+    ;; is ignored.
     (make-ps-images base-name tmp-name is-eps
                     #:resolution resolution
                     #:page-width paper-width
                     #:page-height paper-height
+                    #:bbox bbox
                     #:rename-page-1 rename-page-1
                     #:be-verbose verbose
                     #:anti-alias-factor (ly:get-option 'anti-alias-factor)
-                    #:pixmap-format (ly:get-option 'pixmap-format))
+                    #:pixmap-format (ly:get-option 'pixmap-format)
+                    #:png-width (ly:get-option 'png-width)
+                    #:png-height (ly:get-option 'png-height))
     (ly:progress "\n")))
 
 (define-public (postscript->ps base-name tmp-name is-eps)

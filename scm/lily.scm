@@ -344,6 +344,10 @@ belong to a music font.")
     (pixmap-format "png16m"
      "Set GhostScript's output format for pixel
 images.")
+    (png-width 0
+     "Image width for PNG output (in pixels).")
+    (png-height 0
+     "Image height for PNG output (in pixels).")
     (point-and-click #t
      "Add point & click links to PDF and SVG output.")
     (preview #f

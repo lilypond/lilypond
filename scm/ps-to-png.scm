@@ -49,10 +49,13 @@
    ((resolution 90)
     (page-width  100)
     (page-height 100)
+    (bbox #f)
     (rename-page-1 #f)
     (be-verbose (ly:get-option 'verbose))
     (pixmap-format 'png16m)
-    (anti-alias-factor 1))
+    (anti-alias-factor 1)
+    (png-width 0)
+    (png-height 0))
 
    (let* ((format-str (format #f "~a" pixmap-format))
           (extension (cond
@@ -71,17 +74,53 @@
                          "%%"))
           (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
 
+          (fit-page (or (> png-width 0) (> png-height 0)))
+
+          (bbox-width (if is-eps
+                          (- (list-ref bbox 2) (list-ref bbox 0))
+                          1))
+          (bbox-height (if is-eps
+                           (- (list-ref bbox 3) (list-ref bbox 1))
+                           1))
+
+          ;; If either `png-width` or `png-height` is missing (i.e.,
+          ;; zero or negative), use the bbox aspect ratio to derive
+          ;; the value from the other dimension.
+          (png-width' (if (and fit-page (<= png-width 0))
+                          (* png-height (/ bbox-width bbox-height))
+                          png-width))
+          (png-height' (if (and fit-page (<= png-height 0))
+                           (* png-width (/ bbox-height bbox-width))
+                           png-height))
+
+          (width (if fit-page
+                     png-width'
+                     page-width))
+          (height (if fit-page
+                      png-height'
+                      page-height))
+
           (hw-resolution (* anti-alias-factor resolution))
+
           (run-strings
            (filter
             string?
             (list
              (ly:format "mark /OutputFile (~a)" pngn-gs)
              "/GraphicsAlphaBits 4 /TextAlphaBits 4"
-             (ly:format "/HWResolution [~a ~a]" hw-resolution hw-resolution)
+             (if fit-page
+                 ;; Get available resolution and magnify it according
+                 ;; to `anti-alias-factor`.
+                 (ly:format "/HWResolution [ \
+currentpagedevice /HWResolution get 0 get ~a mul \
+currentpagedevice /HWResolution get 1 get ~a mul \
+]"
+                            anti-alias-factor anti-alias-factor)
+                 (ly:format "/HWResolution [~a ~a]"
+                            hw-resolution hw-resolution))
              (ly:format "/DownScaleFactor ~a" anti-alias-factor)
-             (if (not is-eps)
-                 (ly:format "/PageSize [~a ~a]" page-width page-height))
+             (if (or (not is-eps) fit-page)
+                 (ly:format "/PageSize [~a ~a]" width height))
              ;; We use `findprotodevice` because `finddevice` always returns
              ;; the same device instance and we can't reset the page number of
              ;; the device. `findprotodevice copydevice` creates a new device
@@ -116,7 +155,7 @@
 
      ((if (ly:get-option 'gs-api)
           ly:gs-api ly:gs-cli)
-      (gs-cmd-args is-eps) (string-join run-strings " "))
+      (gs-cmd-args is-eps fit-page) (string-join run-strings " "))
 
      (map (lambda (n)
             (let*

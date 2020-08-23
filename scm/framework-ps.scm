@@ -875,7 +875,7 @@ mark {ly~a_stream} /CLOSE pdfmark
          (if do-pdf
              (postscript->pdf 0 0 filename (format #f "~a.eps" filename) #t))
          (if do-png
-             (postscript->png (ly:get-option 'resolution) 0 0
+             (postscript->png (ly:get-option 'resolution) 0 0 bbox
                               filename (format #f "~a.eps" filename) #t))))
      extents-system-pairs)))
 
@@ -983,8 +983,12 @@ mark {ly~a_stream} /CLOSE pdfmark
          (width-height (output-width-height defs))
          (width (car width-height))
          (height (cdr width-height))
-         (resolution (ly:get-option 'resolution)))
-    (postscript->png resolution width height base-name tmp-name is-eps)))
+         (resolution (ly:get-option 'resolution))
+         ;; We access the bbox from the EPS file by scanning the first
+         ;; 256 bytes.
+         (header (ly:gulp-file tmp-name 256))
+         (bbox (get-postscript-bbox (car (string-split header #\nul)))))
+    (postscript->png resolution width height bbox base-name tmp-name is-eps)))
 
 (define-public (convert-to-ps book base-name tmp-name is-eps)
   (postscript->ps base-name tmp-name is-eps))
