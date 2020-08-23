@@ -490,17 +490,9 @@ ifneq ($(1),en)
 $(outdir)/$(1)/$(2).xref-map: $(outdir)/en/$(2).xref-map
 endif
 
-# Make web only depend on its own xref-maps; it doesn't have cross-doc links
-# and adding the other manuals as dependencies slows down the website build.
-ifeq ($(2),web)
-$(outdir)/$(1)/$(2)/index.html: $(outdir)/$(1)/$(2).xref-map
-
-$(outdir)/$(1)/$(2)-big-page.html: $(outdir)/$(1)/$(2).xref-map
-else
 $(outdir)/$(1)/$(2)/index.html: $(call LANG_XREF_FILES,$(1))
 
 $(outdir)/$(1)/$(2)-big-page.html: $(call LANG_XREF_FILES,$(1))
-endif
 
 endef
 
