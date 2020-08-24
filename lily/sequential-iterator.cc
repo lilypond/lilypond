@@ -138,11 +138,6 @@ Sequential_iterator::create_children ()
       iter_ = unsmob<Music_iterator> (it_scm);
     }
 
-  // Why might a newly created iterator not be OK?  An example is a
-  // Sequential_iterator with no elements.
-  while (iter_ && !iter_->ok ())
-    next_element ();
-
   here_mom_ = get_music ()->start_mom ();
   la_.init (cursor_);
   la_.look_ahead ();
@@ -219,30 +214,33 @@ Sequential_iterator::process (Moment until)
 {
   while (iter_)
     {
-      const Grace_fixup *gf = la_.get_grace_fixup (here_mom_);
-      if (gf
-          && gf->start_ + gf->length_
-          + Moment (Rational (0), gf->grace_start_) == until)
-        {
-          /*
-            do the stuff/note/rest preceding a grace.
-          */
-          iter_->process (iter_->music_get_length ());
-        }
-      else
-        {
-          Moment w = until - here_mom_ + iter_->music_start_mom ();
-          iter_->process (w);
-        }
-
-      /*
-        if the iter is still OK, there must be events left that have
-
-        TIME > LEFT
-
-      */
       if (iter_->ok ())
-        return;
+        {
+          const Grace_fixup *gf = la_.get_grace_fixup (here_mom_);
+          if (gf
+              && gf->start_ + gf->length_
+              + Moment (Rational (0), gf->grace_start_) == until)
+            {
+              /*
+                do the stuff/note/rest preceding a grace.
+              */
+              iter_->process (iter_->music_get_length ());
+            }
+          else
+            {
+              Moment w = until - here_mom_ + iter_->music_start_mom ();
+              iter_->process (w);
+            }
+
+          /*
+            if the iter is still OK, there must be events left that have
+
+            TIME > LEFT
+
+          */
+          if (iter_->ok ())
+            return;
+        }
 
       descend_to_child (iter_->get_context ());
       next_element ();
@@ -257,7 +255,10 @@ Sequential_iterator::pending_moment () const
   if (!iter_)
     return Moment (Rational::infinity ());
 
-  Moment cp = iter_->pending_moment ();
+  // The only time iter_ might not be OK is before the first call to process().
+  // After that, process() skips over iterators that are not OK.
+  Moment cp
+    = iter_->ok () ? iter_->pending_moment () : iter_->music_start_mom ();
 
   /*
     Fix-up a grace note halfway in the music.

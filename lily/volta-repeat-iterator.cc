@@ -39,6 +39,8 @@ protected:
   void derived_mark () const override;
 
   bool first_time_ = true;
+  // It seems silly not to have a body, but we're trying to be robust.
+  bool have_body_ = false;
   int alt_count_ = 0;
   int rep_count_ = 0;
   int done_count_ = 0;
@@ -62,6 +64,11 @@ Volta_repeat_iterator::get_music_list ()const
 void
 Volta_repeat_iterator::create_children ()
 {
+  if (auto *body = unsmob<Music> (get_property (get_music (), "element")))
+    {
+      have_body_ = (body->get_length () > 0) || body->start_mom ().grace_part_;
+    }
+
   Sequential_iterator::create_children ();
 
   SCM alts = get_property (get_music (), "elements");
@@ -126,7 +133,8 @@ Volta_repeat_iterator::next_element ()
 
           if (done_count_ - 1 < alt_count_)
             {
-              add_repeat_command (ly_symbol2scm ("end-repeat"));
+              if (have_body_)
+                add_repeat_command (ly_symbol2scm ("end-repeat"));
 
               if (from_scm<bool> (get_property (get_context (), "timing")))
                 {
@@ -163,7 +171,10 @@ Volta_repeat_iterator::next_element ()
                                         ly_string2scm (repstr)));
     }
   else
-    add_repeat_command (ly_symbol2scm ("end-repeat"));
+    {
+      if (have_body_)
+        add_repeat_command (ly_symbol2scm ("end-repeat"));
+    }
 }
 
 void
@@ -171,7 +182,8 @@ Volta_repeat_iterator::process (Moment m)
 {
   if (first_time_)
     {
-      add_repeat_command (ly_symbol2scm ("start-repeat"));
+      if (have_body_)
+        add_repeat_command (ly_symbol2scm ("start-repeat"));
       first_time_ = false;
     }
   Sequential_iterator::process (m);
