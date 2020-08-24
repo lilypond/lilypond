@@ -28,7 +28,7 @@ class Volta_repeat_iterator final : public Sequential_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  Volta_repeat_iterator ();
+  Volta_repeat_iterator () = default;
 
   void add_repeat_command (SCM);
 protected:
@@ -38,19 +38,12 @@ protected:
   void process (Moment) override;
   void derived_mark () const override;
 
-  bool first_time_;
-  int alt_count_;
-  int rep_count_;
-  int done_count_;
-  SCM alt_restores_;
+  bool first_time_ = true;
+  int alt_count_ = 0;
+  int rep_count_ = 0;
+  int done_count_ = 0;
+  SCM alt_restores_ = SCM_EOL;
 };
-
-Volta_repeat_iterator::Volta_repeat_iterator ()
-{
-  done_count_ = alt_count_ = rep_count_ = 0;
-  first_time_ = true;
-  alt_restores_ = SCM_EOL;
-}
 
 void
 Volta_repeat_iterator::derived_mark () const

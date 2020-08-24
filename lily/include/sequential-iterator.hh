@@ -33,8 +33,12 @@ class Sequential_iterator : public Music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Sequential_iterator);
-  Sequential_iterator ();
-  Sequential_iterator (Sequential_iterator const &);
+
+  Sequential_iterator () = default;
+
+  Sequential_iterator (Sequential_iterator const &) = delete;
+  Sequential_iterator &operator = (Sequential_iterator const &) = delete;
+
   void derived_substitute (Context *f, Context *t) override;
 
   void derived_mark () const override;
@@ -78,9 +82,9 @@ private:
   };
 
 private:
-  Music_iterator *iter_;
+  Music_iterator *iter_ = nullptr;
   Moment here_mom_;
-  SCM cursor_;
+  SCM cursor_ = SCM_EOL;
   Lookahead la_;
 };
 

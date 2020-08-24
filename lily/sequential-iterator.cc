@@ -18,6 +18,7 @@
 */
 
 #include "sequential-iterator.hh"
+
 #include "music.hh"
 #include "translator-group.hh"
 #include "context.hh"
@@ -29,8 +30,7 @@
 */
 
 /*
-  Invariant for the data structure.
-
+  Invariant for Sequential_iterator.
 
   if (scm_is_pair (cursor_))
   iter_->music_ == unsmob<Music> (scm_car (cursor_))
@@ -42,12 +42,6 @@
 
   here_mom_  = sum (length (musiclist [start ... cursor>))  %)
 */
-Sequential_iterator::Sequential_iterator ()
-{
-  here_mom_ = Moment (0);
-  cursor_ = SCM_EOL;
-  iter_ = 0;
-}
 
 // Sequential music uses elements-callback to just read out the
 // elements property and return it.  Overriding get_music_list rather
