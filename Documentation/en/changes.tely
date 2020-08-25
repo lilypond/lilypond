@@ -532,8 +532,10 @@ instead of a string:
 @end lilypond
 
 @item
-The default fonts are now those from the URW Core 35 set, version
-2.0, replacing the TeX Gyre fonts.
+The default fonts are now those from the URW Core 35 set, version 2.0,
+replacing the TeX Gyre fonts.  Note that the fonts come with a ligature
+for @q{Nr.}; see @ruser{Fonts explained} for solutions to avoid it
+locally and globally.
 
 @item
 Using the new options @option{-dpng-width} and

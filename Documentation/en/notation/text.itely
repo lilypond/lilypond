@@ -1687,6 +1687,22 @@ DejaVu Sans Mono,
 ..., monospace
 @end multitable
 
+Note that the URW fonts distributed with LilyPond (@q{C059}, @q{Nimbus
+Mono PS}, and @q{Nimbus Sans}) have a peculiarity: By default, in
+addition to the standard ligatures like @q{fl} or @q{ffi}, they
+substitute the string @q{Nr.} with the Numero Sign (U+2116) if the
+@q{latn} script is selected.  To circumvent this locally, insert a
+zero-width non-joiner character (ZWNJ, U+200C) between the @q{N} and
+@q{r} characters.  To circumvent this globally, use the following code
+to make LilyPond always insert a ZWNJ character.
+
+@example
+\paper @{
+  #(add-text-replacements!
+      `(("Nr." . ,(format #f "N~ar." (ly:wide-char->utf-8 #x200C)))))
+@}
+@end example
+
 @code{LilyPond Serif}, @code{LilyPond Sans Serif},
 and @code{LilyPond Monospace} are font aliases defined
 in the LilyPond dedicated FontConfig configuration file
@@ -1746,24 +1762,32 @@ then the feature is simply ignored. These examples use TeX Gyre Schola.
 
 @lilypond[quote,verbatim]
 % True small caps
-\markup { \override #'(font-name . "TeX Gyre Schola") Normal Style: Hello HELLO }
-\markup { \override #'(font-name . "TeX Gyre Schola") \caps { Small Caps: Hello } }
-\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("smcp"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          Normal Style: Hello HELLO }
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \caps { Small Caps: Hello } }
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("smcp"))
           { True Small Caps: Hello } }
 
 % Number styles
-\markup { \override #'(font-name . "TeX Gyre Schola") Normal Number Style: 0123456789 }
-\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("onum"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          Normal Number Style: 0123456789 }
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("onum"))
           { Old Number Style: 0123456789 } }
 
 % Stylistic Alternates
-\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("salt 0"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("salt 0"))
           { Stylistic Alternates 0: εφπρθ } }
-\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("salt 1"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("salt 1"))
           { Stylistic Alternates 1: εφπρθ } }
 
 % Multiple features
-\markup { \override #'(font-name . "TeX Gyre Schola") \override #'(font-features . ("onum" "smcp" "salt 1"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("onum" "smcp" "salt 1"))
           { Multiple features: Hello 0123456789 εφπρθ } }
 @end lilypond
 
