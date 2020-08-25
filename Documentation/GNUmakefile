@@ -454,7 +454,7 @@ $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 $(outdir)/snippets/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	$(call ly_progress,Making,$@,)
 	mkdir -p $(dir $@)
-	xargs $(LYS_TO_TELY) -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
+	xargs $(LYS_TO_TELY) --prefix=snippets/ -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
 $(outdir)/snippets/dep: $(SNIPPET_LY_FILES)
 	$(call ly_progress,Making,$@,)
