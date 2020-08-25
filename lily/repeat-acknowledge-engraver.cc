@@ -43,8 +43,12 @@ public:
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
 protected:
   void start_translation_timestep ();
+  void stop_translation_timestep ();
   void process_music ();
   void initialize () override;
+
+private:
+  bool first_time_ = true;
 };
 
 void
@@ -75,7 +79,7 @@ Repeat_acknowledge_engraver::process_music ()
   /*
     At the start of a piece, we don't print any repeat bars.
   */
-  if (!now_mom ().main_part_)
+  if (first_time_)
     return;
 
   SCM cs = get_property (this, "repeatCommands");
@@ -136,6 +140,12 @@ Repeat_acknowledge_engraver::process_music ()
       if (s != "" || (volta_found && !scm_is_string (wb)))
         set_property (context (), "whichBar", ly_string2scm (s));
     }
+}
+
+void
+Repeat_acknowledge_engraver::stop_translation_timestep ()
+{
+  first_time_ = false;
 }
 
 void
