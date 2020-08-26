@@ -241,7 +241,6 @@ DOCUMENTATION_INCLUDE_DIRS = \
   $(outdir)/en \
   $(src-dir)/en \
   $(src-dir)/en/included \
-  $(outdir)/snippets \
   $(top-src-dir)/input/regression \
   $(outdir) \
   $(src-dir)
