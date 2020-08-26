@@ -45,7 +45,8 @@ remain referrable by their user-specified name."
       d' d'
       \once \override Score.RehearsalMark.break-visibility =
         #begin-of-line-invisible
-      \mark "C" \tocItem parent.markC "This shouldn’t be printed"
+      \mark "C" \label #'markC
+      \tocItem parent.markC "This shouldn’t be printed"
     }
     \header { piece = "First score" }
   }
