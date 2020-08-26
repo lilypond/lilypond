@@ -437,12 +437,7 @@ pro tuto chybu přihodí nějaká činnost.  K tomu potřebujete mít
 @translationof Development
 
 @divClass{heading-center}
-@ifclear web_version
-  @heading Vývoj pro LilyPond @version
-@end ifclear
-@ifset web_version
-  @heading Vývoj pro LilyPond @versionDevel
-@end ifset
+@heading Vývoj pro LilyPond @versionDevel
 
 
 @warning{Zde se jedná o nestálé vývojářské verze.
@@ -482,15 +477,7 @@ binární balíčky:
 
 @downloadDevelLinuxBig
 
-@downloadDevelLinuxPPC
-
-@downloadDevelFreeBSDNormal
-
-@downloadDevelFreeBSDBig
-
 @downloadDevelDarwinNormal
-
-@downloadDevelDarwinPPC
 
 @downloadDevelWindows
 

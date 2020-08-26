@@ -151,31 +151,12 @@ la versione corretta.  Vedi @ref{Editing facilitato}.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
+@downloadStableLinuxNormal
 Sistemi a 32bit.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-Sistemi a 64bit.
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-Sistemi a 32bit.
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 Sistemi a 64bit.
 
 @end itemize
@@ -253,19 +234,11 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 Per Mac OS X 10.4--10.5 con processore Intel e Mac OS X 10.6--10.14
 (per la versione 10.15 vedi sotto).
 
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Per Mac OS X 10.4--10.5, con processori G3 e G4 (vecchi computer Apple).
-
-
 @item
 @sourceimage{logo-macosx,,,}
 @c file name is unpredictable, linking to main page
 Dei bundle applicazione 64-bit (non ufficiali) per macOS 10.15 sono disponibili
 all'indirizzo @uref{https://bintray.com/marnen/lilypond-darwin-64}.
-
 
 @end itemize
 

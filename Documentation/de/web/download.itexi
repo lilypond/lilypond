@@ -153,31 +153,12 @@ daß ihr LilyPond Editor die korrekte Version verwendet.  Siehe auch @ref{Leicht
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
+@downloadStableLinuxNormal
 32bit Systeme.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-64bit Systeme.
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-32bit Systeme.
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 64bit Systeme.
 
 @end itemize
@@ -254,14 +235,6 @@ der Rechteinhaber verwendet.
 @downloadStableDarwinNormal
 Für MacOS X 10.4 oder höher auf Intel-Prozessoren (wenn Sie Zweifel haben,
 benutzen Sie diese Version).
-
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Für MacOS X 10.4 oder höher auf G3 und G4 Prozessoren (alte
-Apple-Computer).
-
 
 @end itemize
 

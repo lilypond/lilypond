@@ -137,18 +137,6 @@ Ehhez a disztribúció csomagkezelőjének dokumentációja nyújt segítséget.
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
 
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
-
 @end itemize
 
 
@@ -240,13 +228,6 @@ Minden logó és termékábrázolás szerzői joggal védett.
 Intel processzorokra (ha bizonytalan vagy afelől, hogy melyiket töltsd le, ezt válaszd)
 
 A grafikus felület nem működik Mac OS X 10.7 Lion alatt! Ha a grafikus felületet szeretnéd használni, töltsd le a legújabb @ref{Fejlesztés, fejlesztői verziót}!
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-PowerPC processzorokra (régi Apple gépekben találhatóak)
-
-Csak 2006 előtti Apple gépeken fut!
 
 @end itemize
 

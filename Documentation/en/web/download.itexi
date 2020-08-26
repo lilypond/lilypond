@@ -20,17 +20,12 @@ our @ref{Text input}.}
 @unnumbered Download
 
 @divClass{heading-center}
-@ifclear web_version
-  @c yes, we want versionDevel here, since the online links
-  @c for @version won't be up yet!
-  @heading Downloads for LilyPond @versionDevel
+@heading Downloads for LilyPond @versionStable
 
-@warning{Links for the stable version of LilyPond can be found at
-@uref{https://lilypond.org, lilypond.org}}
+@ifclear web_version
+@warning{Links for the unstable version of LilyPond can be found at
+@ref{Development}.}
 @end ifclear
-@ifset web_version
-  @heading Downloads for LilyPond @versionStable
-@end ifset
 
 @warningTextBased
 
@@ -45,9 +40,8 @@ our @ref{Text input}.}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (GNU/Linux and FreeBSD)}
+@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, Unix (generic packages for GNU/Linux)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -99,8 +93,6 @@ acknowledged.
 
 @logoLegalLinux
 
-@logoLegalFreeBSD
-
 @logoLegalMacOSX
 
 @logoLegalWindows
@@ -150,31 +142,12 @@ See @ref{Easier editing}.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
+@downloadStableLinuxNormal
 32bit Systems.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-64bit Systems.
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-32bit Systems.
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 64bit Systems.
 
 @end itemize
@@ -226,8 +199,6 @@ acknowledged.
 
 @logoLegalLinux
 
-@logoLegalFreeBSD
-
 @divEnd
 @divEnd
 
@@ -249,16 +220,7 @@ acknowledged.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-For Mac OS X 10.4--10.5 running on Intel CPUs and Mac OS X
-10.6--10.14 (for 10.15 see below).
-
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-For Mac OS X 10.4--10.5 running on G3 and G4 CPUs (old Apple
-computers).
-
+For Mac OS X 10.4--10.14 running on Intel CPUs (for 10.15 see below).
 
 @item
 @sourceimage{logo-macosx,,,}
@@ -266,7 +228,6 @@ computers).
 Unofficial 64-bit application bundles for macOS 10.15 are
 available at
 @uref{https://bintray.com/marnen/lilypond-darwin-64}.
-
 
 @end itemize
 

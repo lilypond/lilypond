@@ -550,12 +550,7 @@ questions should be resolved before any work begins.
 @translationof Development
 
 @divClass{heading-center}
-@ifclear web_version
-  @heading Development for LilyPond @version
-@end ifclear
-@ifset web_version
-  @heading Development for LilyPond @versionDevel
-@end ifset
+@heading Development for LilyPond @versionDevel
 
 
 @c we normally don't allow named references, but in this case
@@ -597,15 +592,7 @@ the latest binary:
 
 @downloadDevelLinuxBig
 
-@downloadDevelLinuxPPC
-
-@downloadDevelFreeBSDNormal
-
-@downloadDevelFreeBSDBig
-
 @downloadDevelDarwinNormal
-
-@downloadDevelDarwinPPC
 
 @downloadDevelWindows
 

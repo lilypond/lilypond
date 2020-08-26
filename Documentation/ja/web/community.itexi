@@ -544,12 +544,7 @@ LilyPond 開発者は時々、彼らが行ったサービスを lilypond email �
 @translationof Development
 
 @divClass{heading-center}
-@ifclear web_version
-  @heading LilyPond @version の開発
-@end ifclear
-@ifset web_version
-  @heading LilyPond @versionDevel の開発
-@end ifset
+@heading LilyPond @versionDevel の開発
 
 
 @c we normally don't allow named references, but in this case
@@ -592,15 +587,7 @@ git とコンパイルについての説明は貢献者向けガイドにあり�
 
 @downloadDevelLinuxBig
 
-@downloadDevelLinuxPPC
-
-@downloadDevelFreeBSDNormal
-
-@downloadDevelFreeBSDBig
-
 @downloadDevelDarwinNormal
-
-@downloadDevelDarwinPPC
 
 @uref{https://bintray.com/marnen/lilypond-darwin-64,
 Mac OS X x86 64-bit (unofficial)}

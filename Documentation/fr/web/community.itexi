@@ -589,12 +589,7 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 @translationof Development
 
 @divClass{heading-center}
-@ifclear web_version
-  @heading Développement pour LilyPond @version
-@end ifclear
-@ifset web_version
-  @heading Développement pour LilyPond @versionDevel
-@end ifset
+@heading Développement pour LilyPond @versionDevel
 
 
 @c we normally don't allow named references, but in this case
@@ -642,19 +637,11 @@ travailler à partir des binaires les plus à jour :
 
 @downloadDevelLinuxBig
 
-@downloadDevelLinuxPPC
+@downloadDevelDarwinNormal
 
 @c file name is unpredictable, linking to main page
 @uref{https://bintray.com/marnen/lilypond-darwin-64,
 Mac OS X x86 64-bit (non officiel)}
-
-@downloadDevelFreeBSDNormal
-
-@downloadDevelFreeBSDBig
-
-@downloadDevelDarwinNormal
-
-@downloadDevelDarwinPPC
 
 @downloadDevelWindows
 

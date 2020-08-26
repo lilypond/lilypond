@@ -544,12 +544,7 @@ su tali questioni prima che il lavoro inizi.
 @translationof Development
 
 @divClass{heading-center}
-@ifclear web_version
-  @heading Sviluppo di LilyPond @version
-@end ifclear
-@ifset web_version
-  @heading Sviluppo di LilyPond @versionDevel
-@end ifset
+@heading Sviluppo di LilyPond @versionDevel
 
 @c we normally don't allow named references, but in this case
 @c it's good to emphasize the "stable" part.  -gp
@@ -589,15 +584,7 @@ l'ultimo binario:
 
 @downloadDevelLinuxBig
 
-@downloadDevelLinuxPPC
-
-@downloadDevelFreeBSDNormal
-
-@downloadDevelFreeBSDBig
-
 @downloadDevelDarwinNormal
-
-@downloadDevelDarwinPPC
 
 @c file name is unpredictable, linking to main page
 @uref{https://bintray.com/marnen/lilypond-darwin-64,

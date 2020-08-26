@@ -150,30 +150,11 @@ package manager.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
-
-(if in doubt, use this)
+@downloadStableLinuxNormal
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 
 @end itemize
 
@@ -286,13 +267,6 @@ acknowledged.
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
 适用于 Mac OS X 10.4 或更高版本，在英特尔处理器 (Intel CPU) 上运行。（如果你不确定，请选择这个。）
-
-抱歉，目前尚未支持 Mac OS X 10.7 Lion。
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-适用于 Mac OS X 10.4 或更高版本，在 G3 和 G4 处理器（上一代的苹果电脑）上运行。
 
 抱歉，目前尚未支持 Mac OS X 10.7 Lion。
 

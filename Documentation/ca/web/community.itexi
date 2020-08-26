@@ -556,12 +556,7 @@ tipus de qüestions es resolguin abans que comenci qualsevol feina.
 @translationof Development
 
 @divClass{heading-center}
-@ifclear web_version
-  @heading Materials de desenvolupament per al LilyPond @version
-@end ifclear
-@ifset web_version
-  @heading Materials de desenvolupament per al LilyPond @versionDevel
-@end ifset
+@heading Materials de desenvolupament per al LilyPond @versionDevel
 
 
 @c we normally don't allow named references, but in this case
@@ -604,15 +599,7 @@ voldran descarregar l'últim fitxer binari:
 
 @downloadDevelLinuxBig
 
-@downloadDevelLinuxPPC
-
-@downloadDevelFreeBSDNormal
-
-@downloadDevelFreeBSDBig
-
 @downloadDevelDarwinNormal
-
-@downloadDevelDarwinPPC
 
 @downloadDevelWindows
 

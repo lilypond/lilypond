@@ -150,30 +150,11 @@ dokumentaci ke své distribuci věnovanou nastavení správce balíčků.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
-
-(Máte-li pochybnosti, potom)
+@downloadStableLinuxNormal
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 
 @end itemize
 
@@ -277,14 +258,6 @@ Všechna loga a vyobrazení výrobků ctí autorské právo a obchodní značku.
 @downloadStableDarwinNormal
 Pro MacOS X 10.4 nebo vyšší, běží na Intel CPU
 (pokud si nejste jisti, použijte tento).
-
-MacOS X 10.7 Lion zatím není podporováno.
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Pro MacOS X 10.4 nebo vyšší, běží na G3 a G4 CPU
-(staré počítače Apple).
 
 MacOS X 10.7 Lion zatím není podporováno.
 

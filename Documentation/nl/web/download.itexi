@@ -162,30 +162,11 @@ of softwarecentrum gebruikt.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
-
-(als je twijfelt, gebruik deze)
+@downloadStableLinuxNormal
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 
 @end itemize
 
@@ -297,14 +278,6 @@ acknowledged.
 @downloadStableDarwinNormal
 Voor MacOS 10.4 of nieuwer, met Intel-processors (als je
 twijfelt, gebruik deze).
-
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Voor MacOS 10.4 of nieuwer, met G3- en G4-processors (oudere
-Apple computers).
-
 
 @end itemize
 

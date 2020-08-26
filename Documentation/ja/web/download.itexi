@@ -162,31 +162,12 @@ LilyPond は @ref{GPL, GNU General Public License} に基づいて
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
+@downloadStableLinuxNormal
 32bit システム
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-64bit システム
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-32bit システム
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 64bit システム
 
 @end itemize
@@ -271,18 +252,10 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 Intel CPU の Mac OS X 10.4--10.5 および
 Mac OS X 10.6--10.14 用 (10.15 については下記を参照)
 
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-G3 と G4 CPU の MacOS X 10.4--10.5 用 (古い Apple コンピュータ)
-
-
 @item
 @sourceimage{logo-macosx,,,}
 macOS 10.15 用の非公式の 64 ビット アプリケーション バンドルは、
 @uref{https://bintray.com/marnen/lilypond-darwin-64} から入手できます。
-
 
 @end itemize
 

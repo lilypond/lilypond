@@ -487,18 +487,9 @@ def make_all_downloads(macroName, version):
                   "linux-x86.sh",    version, "1", "GNU/Linux x86")
     make_download("download"+macroName+"LinuxBig", "linux-64/",
                   "linux-64.sh", version, "1", "GNU/Linux 64")
-    make_download("download"+macroName+"LinuxPPC", "linux-ppc/",
-                  "linux-ppc.sh", version, "1", "GNU/Linux PPC")
-
-    make_download("download"+macroName+"FreeBSDNormal", "freebsd-x86/",
-                  "freebsd-x86.sh", version, "1", "FreeBSD i386")
-    make_download("download"+macroName+"FreeBSDBig", "freebsd-64/",
-                  "freebsd-64.sh", version, "1", "FreeBSD amd64")
 
     make_download("download"+macroName+"DarwinNormal", "darwin-x86/",
                   "darwin-x86.tar.bz2", version, "1", "Mac OS X x86 32-bit")
-    make_download("download"+macroName+"DarwinPPC", "darwin-ppc/",
-                  "darwin-ppc.tar.bz2", version, "1", "Mac OS X PPC")
 
     make_download("download"+macroName+"Windows", "mingw/",
                   "mingw.exe", version, "1", "Windows")

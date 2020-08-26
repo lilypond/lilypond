@@ -158,31 +158,12 @@ Veja @ref{Edição facilitada}.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
+@downloadStableLinuxNormal
 Sistemas 32 bits.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-Sistemas 64 bits.
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-Sistemas 32 bits.
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 Sistemas 64 bits.
 
 @end itemize
@@ -260,14 +241,6 @@ direitos autorais e marca registrada.
 @downloadStableDarwinNormal
 Para MacOS X 10.4 ou mais novo, rodando em CPUs Intel
 (no caso de dúvida, use esse).
-
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Para MacOS X 10.4 ou mais novo, rodando em CPUs G3 ou G4
-(computadores Apple antigos).
-
 
 @end itemize
 

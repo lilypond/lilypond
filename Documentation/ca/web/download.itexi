@@ -156,30 +156,11 @@ programa LilyPond. Vegeu @ref{Entorns millorats}.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
 @downloadStableLinuxNormal
-@end ifset
-
-(si no teniu seguretat, utilitzeu aquest paquet)
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 
 @end itemize
 
@@ -294,12 +275,6 @@ logotips i imatges de producte.
 @downloadStableDarwinNormal
 Per a MacOS X 10.4 o superior sobre
 CPU Intel (si no teniu seguretat, utilitzeu aquest paquet).
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Per a MacOS X 10.4 o superior sobre
-CPUs G3 i G4 (ordinadors Apple antics).
 
 @end itemize
 

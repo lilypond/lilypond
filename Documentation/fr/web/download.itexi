@@ -160,31 +160,12 @@ appel à la version correcte de lilypond -- voir
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
 @downloadStableLinuxNormal
-@end ifset
 pour système 32 bits.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-pour système 64 bits.
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-pour système 32 bits.
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 pour système 64 bits.
 
 @end itemize
@@ -263,21 +244,12 @@ protégés par le droit d’auteur.
 Pour Mac OS X 10.4 à 10.5 tournant sur un processeur Intel et Mac OS X
 de 10.6 à 10.14 (voir ci-dessous pour la version 10.15).
 
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Pour Mac OS X 10.4 à 10.15 tournant sur un processeur G3 ou G4
-(anciens ordinateurs Apple).
-
-
 @item
 @sourceimage{logo-macosx,,,}
 @c file name is unpredictable, linking to main page
 Des paquetages 64 bits non officiels pour pour Mac OS 10.15 sont
 disponibles sur
 @uref{https://bintray.com/marnen/lilypond-darwin-64}.
-
 
 @end itemize
 

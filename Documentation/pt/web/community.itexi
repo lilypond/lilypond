@@ -558,12 +558,7 @@ resolvida antes de qualquer trabalho começar.
 @translationof Development
 
 @divClass{heading-center}
-@ifclear web_version
-  @heading Desenvolvimento para LilyPond @version
-@end ifclear
-@ifset web_version
-  @heading Desenvolvimento para LilyPond @versionDevel
-@end ifset
+@heading Desenvolvimento para LilyPond @versionDevel
 
 
 @c we normally don't allow named references, but in this case
@@ -606,15 +601,7 @@ o binário mais recente:
 
 @downloadDevelLinuxBig
 
-@downloadDevelLinuxPPC
-
-@downloadDevelFreeBSDNormal
-
-@downloadDevelFreeBSDBig
-
 @downloadDevelDarwinNormal
-
-@downloadDevelDarwinPPC
 
 @downloadDevelWindows
 

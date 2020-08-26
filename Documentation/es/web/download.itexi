@@ -153,31 +153,12 @@ programa. Véase @ref{Entornos mejorados}.
 
 @item
 @sourceimage{logo-linux,,,}
-@ifclear web_version
-  @downloadDevelLinuxNormal
-@end ifclear
-@ifset web_version
-  @downloadStableLinuxNormal
-@end ifset
+@downloadStableLinuxNormal
 Sistemas de 32 bits.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
-Sistemas de 64 bits.
-
-@item
-@sourceimage{logo-linux,,,}
-@downloadStableLinuxPPC
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDNormal
-Sistemas de 32 bits.
-
-@item
-@sourceimage{logo-freebsd,,,}
-@downloadStableFreeBSDBig
 Sistemas de 64 bits.
 
 @end itemize
@@ -256,20 +237,12 @@ todos los logotipos e imágenes de producto.
 Para Mac OS X 10.4--10.5 sobre CPU Intel y Mac OS X 10.6--10.14
 (para 10.15 véase más abajo).
 
-
-@item
-@sourceimage{logo-macosx,,,}
-@downloadStableDarwinPPC
-Para Mac OS X 10.4--10.5 sobre CPUs G3 y G4 (ordenadores Apple
-antiguos).
-
 @item
 @sourceimage{logo-macosx,,,}
 @c file name is unpredictable, linking to main page
 Los paquetes de aplicación de 64 bits no oficiales para Mac OS
 10.15 están a su disposición en
 @uref{https://bintray.com/marnen/lilypond-darwin-64}.
-
 
 @end itemize
 
