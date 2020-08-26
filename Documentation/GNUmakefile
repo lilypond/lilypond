@@ -244,6 +244,7 @@ DOCUMENTATION_INCLUDE_DIRS = \
   $(outdir)/snippets \
   $(top-src-dir)/input/regression \
   $(outdir) \
+  $(src-dir)
 
 DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
