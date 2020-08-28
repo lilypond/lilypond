@@ -224,14 +224,13 @@ if there were one voice."
     (or (has-one-or-less? lst)
         (and (pred (car lst) (cadr lst)) (all-equal? (cdr lst) pred))))
 
-  (let ((curr-mmrests '())
-        (mmrests '())
+  (let ((mmrests '())
         (rests '())
         (dots '()))
     (make-engraver
      ((start-translation-timestep translator)
       (set! rests '())
-      (set! curr-mmrests '())
+      (set! mmrests '())
       (set! dots '()))
      (acknowledgers
       ((dot-column-interface engraver grob source-engraver)
@@ -245,7 +244,7 @@ if there were one voice."
         ((ly:context-property context 'suspendRestMerging #f)
          #f)
         ((grob::has-interface grob 'multi-measure-rest-interface)
-         (set! curr-mmrests (cons grob curr-mmrests)))
+         (set! mmrests (cons grob mmrests)))
         (else
          (set! rests (cons grob rests))))))
      ((stop-translation-timestep translator)
@@ -267,10 +266,8 @@ if there were one voice."
               (merge-rests rests)
               ;; ly:grob-suicide! works nicely for dots, as opposed to rests.
               (if (pair? dots) (for-each ly:grob-suicide! (cdr dots)))))
-        (if (has-at-least-two? curr-mmrests)
-            (set! mmrests (cons curr-mmrests mmrests)))))
-     ((finalize translator)
-      (for-each merge-mmrests mmrests)))))
+        (if (has-at-least-two? mmrests)
+            (merge-mmrests mmrests)))))))
 
 (ly:register-translator
  Merge_rests_engraver 'Merge_rests_engraver
