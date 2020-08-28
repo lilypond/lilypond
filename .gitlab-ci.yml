@@ -34,7 +34,7 @@ variables:
 
 build:ubuntu-16.04:
   stage: build
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200819
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
   interruptible: true
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
@@ -50,7 +50,7 @@ build:ubuntu-16.04:
 
 test:ubuntu-16.04:
   stage: test
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200819
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
   interruptible: true
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
@@ -68,7 +68,7 @@ test:ubuntu-16.04:
 
 doc:ubuntu-16.04:
   stage: documentation
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200819
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
   interruptible: true
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
@@ -86,7 +86,7 @@ doc:ubuntu-16.04:
 
 website:ubuntu-16.04:
   stage: website
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200819
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
   interruptible: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"

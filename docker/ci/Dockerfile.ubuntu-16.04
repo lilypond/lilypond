@@ -41,6 +41,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         g++ \
         gettext \
         ghostscript \
+        git \
         guile-1.8-dev \
         imagemagick \
         libfl-dev \
