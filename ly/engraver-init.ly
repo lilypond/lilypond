@@ -85,6 +85,7 @@
   \consists "Script_row_engraver"
   \consists "Cue_clef_engraver"
   \consists "Fingering_column_engraver"
+  \consists "Merge_mmrest_numbers_engraver"
 
   localAlterations = #'()
   createSpacing = ##t

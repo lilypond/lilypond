@@ -1657,6 +1657,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-interface
+                                multi-measure-rest-number-interface
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface

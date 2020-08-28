@@ -352,6 +352,15 @@ is deprecated.
 
 
 @item
+The new @code{Merge_mmrest_numbers_engraver} hides duplicate
+numbers on multi-measure rests.
+@lilypond[quote]
+\compressMMRests
+<< R1*7 \\ R1*7 >>
+@end lilypond
+
+
+@item
 Swing and irregular rhythmic patterns may now be applied to
 music expressions made of regular durations, which may be
 used to render inequal rhythmic interpretation in MIDI.

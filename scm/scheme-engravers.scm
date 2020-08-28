@@ -181,6 +181,49 @@ end measures in response to @code{\\startMeasureSpanner} and
    (properties-written . ())
    (description . "Connect cross-staff stems to the stems above in the system")))
 
+(define (has-one-or-less? lst) (or (null? lst) (null? (cdr lst))))
+(define (has-at-least-two? lst) (not (has-one-or-less? lst)))
+(define (all-equal? lst pred)
+  (or (has-one-or-less? lst)
+      (and (pred (car lst) (cadr lst)) (all-equal? (cdr lst) pred))))
+
+(define-public (Merge_mmrest_numbers_engraver context)
+  "Engraver to merge multi-measure rest numbers in multiple voices.
+
+This works by gathering all multi-measure rest numbers at a time step. If they
+all have the same text and there are at least two only the first one is retained
+and the others are hidden."
+
+  (define (text-equal? a b)
+    (equal?
+     (ly:grob-property a 'text)
+     (ly:grob-property b 'text)))
+
+  (let ((mmrest-numbers '()))
+    (make-engraver
+     ((start-translation-timestep translator)
+      (set! mmrest-numbers '()))
+     (acknowledgers
+      ((multi-measure-rest-number-interface engraver grob source-engraver)
+       (set! mmrest-numbers (cons grob mmrest-numbers))))
+     ((stop-translation-timestep translator)
+      (if (and (has-at-least-two? mmrest-numbers)
+               (all-equal? mmrest-numbers text-equal?))
+          (for-each ly:grob-suicide! (cdr (reverse mmrest-numbers))))))))
+
+(ly:register-translator
+ Merge_mmrest_numbers_engraver 'Merge_mmrest_numbers_engraver
+ '((grobs-created . ())
+   (events-accepted . ())
+   (properties-read . ())
+   (properties-written . ())
+   (description . "\
+Engraver to merge multi-measure rest numbers in multiple voices.
+
+This works by gathering all multi-measure rest numbers at a time step. If they
+all have the same text and there are at least two only the first one is retained
+and the others are hidden.")))
+
 (define-public (Merge_rests_engraver context)
   "Engraver to merge rests in multiple voices on the same staff.
 
@@ -217,12 +260,6 @@ if there were one voice."
     (for-each
      (lambda (rest) (ly:grob-set-property! rest 'transparent #t))
      (cdr rests)))
-
-  (define (has-one-or-less? lst) (or (null? lst) (null? (cdr lst))))
-  (define (has-at-least-two? lst) (not (has-one-or-less? lst)))
-  (define (all-equal? lst pred)
-    (or (has-one-or-less? lst)
-        (and (pred (car lst) (cadr lst)) (all-equal? (cdr lst) pred))))
 
   (let ((mmrests '())
         (rests '())

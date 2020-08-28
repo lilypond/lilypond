@@ -223,6 +223,11 @@ accidentals)."
  '(bound-padding))
 
 (ly:add-interface
+ 'multi-measure-rest-number-interface
+ "Multi measure rest number that is printed over a rest."
+ '())
+
+(ly:add-interface
  'note-name-interface
  "Note names."
  '())
