@@ -1012,7 +1012,8 @@ bounds (i.e., clefs, key signatures and time signatures) using the following
 override:
 
 @example
-\\override MultiMeasureRest.spacing-pair = #'(staff-bar . staff-bar)
+\\override MultiMeasureRest.spacing-pair =
+             #'(staff-bar . staff-bar)
 @end example")
      (spanner-id ,key? "An identifier to distinguish concurrent spanners.")
      (springs-and-rods ,boolean? "Dummy variable for triggering

@@ -313,7 +313,7 @@ neumeDemoLayout = \layout {
         \remove "Ligature_bracket_engraver"
         \consists "Vaticana_ligature_engraver"
         \override NoteHead.style = #'vaticana.punctum
-        \hide Stem
+        \remove "Stem_engraver"
     }
 }
 

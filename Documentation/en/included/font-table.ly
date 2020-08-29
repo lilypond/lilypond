@@ -142,12 +142,12 @@
 		(left (substring name 0 split-pos))
 		(right (substring name split-pos)))
 	   (markup
-	     #:pad-to-box '(0 . 36) '(-2 . 2) #:column (#:typewriter left
+	     #:pad-to-box '(0 . 35) '(-2 . 2) #:column (#:typewriter left
 							#:typewriter #:concat ("  " right))
-	     #:pad-to-box '(-2 . 4) '(-3.5 . 3.5) #:huge #:musicglyph name))
+	     #:pad-to-box '(-2 . 5) '(-3.5 . 3.5) #:huge #:musicglyph name))
 	 (markup
-	   #:pad-to-box '(0 . 36) '(-2 . 2) #:typewriter name
-	   #:pad-to-box '(-2 . 4) '(-3.5 . 3.5) #:huge #:musicglyph name)))))
+	   #:pad-to-box '(0 . 35) '(-2 . 2) #:typewriter name
+	   #:pad-to-box '(-2 . 5) '(-3.5 . 3.5) #:huge #:musicglyph name)))))
 
 #(define-markup-list-command (doc-chars layout props names) (list?)
    (define (min-length lst n)
