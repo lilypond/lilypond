@@ -1266,9 +1266,7 @@ this is achieved with some markup commands exhaustively described in
     \box \pad-to-box #'(-5 . 20) #'(0 . 5)
       \bold "Largo to Presto"
   }
-  \pad-around #3
-      "String quartet keeps very even time,
-Flute quartet keeps very uneven time."
+  \box \pad-around #3 "String quartet keeps very even time."
 }
 @end lilypond
 
@@ -1822,7 +1820,8 @@ FontConfig may be used in a score, using the following syntax:
 \time 3/4
 
 a'1_\markup {
-  \override #'(font-name . "Bitstream Vera Sans,sans-serif, Oblique Bold")
+  \override #'(font-name .
+               "Bitstream Vera Sans, sans-serif, Oblique Bold")
     { Vera Oblique Bold }
 }
 @end lilypond
@@ -1918,7 +1917,8 @@ If you don't change the staff size from the default of 20 pt,
      #:roman "Times New Roman"
      #:sans "Nimbus Sans,Nimbus Sans L"
      #:typewriter "Luxi Mono"
-     #:factor (/ staff-height pt 20) ; unnecessary if the staff size is default
+     ; unnecessary if the staff size is default
+     #:factor (/ staff-height pt 20)
     ))
 @}
 @end example
@@ -1937,7 +1937,8 @@ For more information, see @ref{Replacing the notation font}.
      #:roman "Times New Roman"
      #:sans "Nimbus Sans,Nimbus Sans L"
      #:typewriter "Luxi Mono"
-     #:factor (/ staff-height pt 20) ; unnecessary if the staff size is default
+     ; unnecessary if the staff size is default
+     #:factor (/ staff-height pt 20)
     ))
 @}
 @end example

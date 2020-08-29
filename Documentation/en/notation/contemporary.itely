@@ -243,7 +243,8 @@ lastEndStyle =
   \override DurationLine.after-line-breaking =
     #(lambda (grob)
       (let* ((orig (ly:grob-original grob))
-             (siblings (if (ly:grob? orig) (ly:spanner-broken-into orig) '()))
+             (siblings (if (ly:grob? orig)
+                           (ly:spanner-broken-into orig) '()))
              (last-grob (if (pair? siblings) (last siblings) #f)))
         (if last-grob
             (ly:grob-set-nested-property!

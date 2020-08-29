@@ -1006,8 +1006,9 @@ must be placed immediately after the @code{\new} @var{context-type}
 command:
 
 @example
-\new Staff \with @{ [context settings for this context instance only] @}
-@{
+\new Staff \with @{
+  [context settings for this context instance only]
+@} @{
   @dots{}
 @}
 @end example
@@ -1018,8 +1019,9 @@ input mode-specifying commands, e.g. @code{\chords} rather than
 after the mode-specifying command:
 
 @example
-\chords \with @{ [context settings for this (implicit) context instance only] @}
-@{
+\chords \with @{
+  [context settings for this (implicit) context instance only]
+@} @{
   @dots{}
 @}
 @end example
@@ -3439,7 +3441,8 @@ e' \glissando c''
 
 % effective only when both overrides are present
 \once \override Glissando.minimum-length = #20
-\once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Glissando.springs-and-rods =
+                  #ly:spanner::set-spacing-rods
 e' \glissando c''
 @end lilypond
 
@@ -3452,7 +3455,8 @@ e'8 e' e' e'
 
 % effective only when both overrides are present
 \once \override Beam.minimum-length = #20
-\once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Beam.springs-and-rods =
+                  #ly:spanner::set-spacing-rods
 e'8 e' e' e'
 @end lilypond
 
@@ -3577,8 +3581,10 @@ or @code{stencil-offset} will move the symbol at the edge vertically
 relative to the end point of the line:
 
 @lilypond[quote,fragment,verbatim]
-\override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
-\override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
+\override TextSpanner.bound-details
+          .left.stencil-align-dir-y = #-2
+\override TextSpanner.bound-details
+          .right.stencil-align-dir-y = #UP
 
 \override TextSpanner.bound-details.left.text = "ggg"
 \override TextSpanner.bound-details.right.text = "hhh"
@@ -4425,21 +4431,27 @@ Each type of object has its own default reference point, to which
 rehearsal marks are aligned:
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned to the right edge of the Clef
-\override Score.RehearsalMark.break-align-symbols = #'(clef)
+% The rehearsal mark will be aligned
+% to the right edge of the Clef
+\override Score.RehearsalMark.break-align-symbols =
+            #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e'1
-% The rehearsal mark will be aligned to the left edge of the Time Signature
-\override Score.RehearsalMark.break-align-symbols = #'(time-signature)
+% The rehearsal mark will be aligned
+% to the left edge of the Time Signature
+\override Score.RehearsalMark.break-align-symbols =
+            #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e'2.
-% The rehearsal mark will be centered above the Breath Mark
-\override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
+% The rehearsal mark will be centered
+% above the Breath Mark
+\override Score.RehearsalMark.break-align-symbols =
+            #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
@@ -4458,23 +4470,29 @@ line is invisible the object is aligned to the place where the bar
 line would be.
 
 @lilypond[verbatim,quote,fragment]
-% The rehearsal mark will be aligned to the right edge of the Key Signature
-\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
+% The rehearsal mark will be aligned
+% to the right edge of the Key Signature
+\override Score.RehearsalMark.break-align-symbols =
+            #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e'1
-% The rehearsal mark will be aligned to the right edge of the Clef
+% The rehearsal mark will be aligned
+% to the right edge of the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols =
+            #'(key-signature clef)
 \key a \major
 \clef bass
 \mark "↓"
 gis,1
-% The rehearsal mark will be centered above the Bar Line
+% The rehearsal mark will be centered
+% above the Bar Line
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols =
+            #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
@@ -4486,20 +4504,26 @@ can be changed, as shown in the following example.  In a score with
 multiple staves, this setting should be done for all the staves.
 
 @lilypond[verbatim,quote,fragment]
-% The RehearsalMark will be aligned with the right edge of the Key Signature
-\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
+% The RehearsalMark will be aligned
+% with the right edge of the Key Signature
+\override Score.RehearsalMark.break-align-symbols =
+            #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e'1
-% The RehearsalMark will be centered above the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
+% The RehearsalMark will be centered
+% above the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment =
+                  #CENTER
 \mark "↓"
 \key a \major
 e'1
-% The RehearsalMark will be aligned with the left edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
+% The RehearsalMark will be aligned
+% with the left edge of the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment =
+                  #LEFT
 \key a \major
 \mark "↓"
 e'1
@@ -4509,14 +4533,17 @@ The rehearsal mark can also be offset to the right or left of the left
 edge by an arbitrary amount.  The units are staff-spaces:
 
 @lilypond[verbatim,quote,fragment]
-% The RehearsalMark will be aligned with the left edge of the Key Signature
+% The RehearsalMark will be aligned
+% with the left edge of the Key Signature
 % and then shifted right by 3.5 staff-spaces
-\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
+\override Score.RehearsalMark.break-align-symbols =
+            #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
 \mark "↓"
 e'1
-% The RehearsalMark will be aligned with the left edge of the Key Signature
+% The RehearsalMark will be aligned
+% with the left edge of the Key Signature
 % and then shifted left by 2 staff-spaces
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
@@ -4773,7 +4800,8 @@ automatically.
 @lilypond[verbatim,quote]
 \relative c'' {
   c8( e b-> f d' a e-> g)
-  \shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+  \shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5))
+         PhrasingSlur
   c8\( e b-> f d' a e-> g\)
 }
 @end lilypond
@@ -4805,15 +4833,17 @@ sections of a volta repeat.
     { g2) d }
     {
       g2
-      % create a slur and move it to a new position
-      % the <> is just an empty chord to carry the slur termination
-      -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+        % create a slur and move it to a new position
+        % the <> is just an empty chord to carry the slur termination
+        -\tweak control-points
+                  #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
       f,
     }
     {
       e'2
-      % create a slur and move it to a new position
-      -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+        % create a slur and move it to a new position
+        -\tweak control-points
+                  #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
       f,
     }
   }
@@ -5014,7 +5044,8 @@ process.
 
 @lilypond[verbatim,quote,ragged-right]
 #(define (square-line-circle-space grob)
-(let* ((pitch (ly:event-property (ly:grob-property grob 'cause) 'pitch))
+(let* ((pitch (ly:event-property (ly:grob-property grob 'cause)
+                                 'pitch))
       (notename (ly:pitch-notename pitch)))
  (if (= 0 (modulo notename 2))
      (make-circle-stencil 0.5 0.0 #t)

@@ -372,11 +372,11 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 @end lilypond
 
 @item percussion-style
-To typeset all kinds of simple percussion on one line staves:
+To typeset all kinds of simple percussion on one-line staves:
 
 @lilypond[quote,ragged-right]
-nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
-mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+namI = \lyricmode { tri4 trio trim gui guis guil }
+musI = \drummode { tri4 trio trim gui guis guil s16 }
 
 <<
   \new DrumStaff \with{
@@ -386,10 +386,28 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
     \remove "Time_signature_engraver"
     \hide Stem
     \override Stem.Y-extent = ##f
-  } \mus
+  } \musI
   \new Lyrics {
     \override LyricText.font-family = #'typewriter
-    \nam
+    \namI
+  }
+>>
+
+namII = \lyricmode { cb4 cl tamb cab mar hc }
+musII = \drummode { cb4 cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove "Bar_engraver"
+    drumStyleTable = #percussion-style
+    \override StaffSymbol.line-count = #1
+    \remove "Time_signature_engraver"
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \musII
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \namII
   }
 >>
 @end lilypond

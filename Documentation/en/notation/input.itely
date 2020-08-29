@@ -669,7 +669,7 @@ composer with @code{\header} blocks in each @code{\score} block
 specifying the @code{piece} and/or @code{opus} would be most
 suitable, as here:
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \header {
   title = "SUITE I."
   composer = "J. S. Bach."
@@ -706,7 +706,7 @@ fields from the @code{\header} block in a book can be displayed in
 all Score Titles, with some fields over-ridden and some manually
 suppressed:
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     print-all-headers = ##t
@@ -758,30 +758,35 @@ Notation Reference:
 
 This example demonstrates all printed @code{\header} variables:
 
-@lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
+@lilypond[papersize=a6landscape,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \header {
-      % The following fields are centered
+    % The following fields are centered
     dedication = "Dedication"
     title = "Title"
     subtitle = "Subtitle"
     subsubtitle = "Subsubtitle"
-      % The following fields are evenly spread on one line
-      % the field "instrument" also appears on following pages
+
+    % The following fields are evenly spread on one line;
+    % the field "instrument" also appears on following pages
     instrument = \markup \with-color #green "Instrument"
     poet = "Poet"
     composer = "Composer"
-      % The following fields are placed at opposite ends of the same line
+
+    % The following fields are placed at opposite ends
+    %of the same line
     meter = "Meter"
     arranger = "Arranger"
-      % The following fields are centered at the bottom
+
+    % The following fields are centered at the bottom
     tagline = "The tagline goes at the bottom of the last page"
     copyright = "The copyright goes at the bottom of the first page"
   }
   \score {
     { s1 }
     \header {
-        % The following fields are placed at opposite ends of the same line
+      % The following fields are placed at opposite ends
+      % of the same line
       piece = "Piece 1"
       opus = "Opus 1"
     }
@@ -789,7 +794,8 @@ This example demonstrates all printed @code{\header} variables:
   \score {
     { s1 }
     \header {
-        % The following fields are placed at opposite ends of the same line
+      % The following fields are placed at opposite ends
+      % of the same line
       piece = "Piece 2 on the same page"
       opus = "Opus 2"
     }
@@ -798,7 +804,8 @@ This example demonstrates all printed @code{\header} variables:
   \score {
     { s1 }
     \header {
-        % The following fields are placed at opposite ends of the same line
+      % The following fields are placed at opposite ends
+      % of the same line
       piece = "Piece 3 on a new page"
       opus = "Opus 3"
     }
@@ -1017,7 +1024,7 @@ ends of the same line:
 This example redefines @code{scoreTitleMarkup} so that the @code{piece}
 text field is centered and in a large, bold font.
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     indent = 0\mm
@@ -1053,7 +1060,7 @@ definition.  In the following example, the @code{composer} text field
 @code{scoreTitleMarkup}, allowing each score to list a different
 composer:
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     indent = 0\mm
@@ -1086,7 +1093,7 @@ composer:
 It is also possible to create your own custom text fields, and refer to
 them in the markup definition.
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     indent = 0\mm
@@ -1567,8 +1574,8 @@ suppressed:
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" } a'4
-    b8
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" }
+    a'4 b8
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " The second note" } e
     c4

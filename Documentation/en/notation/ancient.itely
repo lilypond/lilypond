@@ -1339,7 +1339,8 @@ specifically designed for use with notation in
     a\circulus_"circulus " \bar "" \break
     a\semicirculus_"semicirculus " \bar "" \break
     a\accentus_"accentus " \bar "" \break
-    \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
+    \[ a_"episema" \episemInitium \pes b
+       \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond
@@ -1571,26 +1572,14 @@ shows the code fragment that produces this ligature, using
 
 @b{Single-note neums}
 
-@multitable @columnfractions .4 .2 .4
+@multitable @columnfractions .4 .12 .48
 
 @item
 @b{Basic} and @emph{Liquescent} forms
 @tab
 @b{Output}
 @tab
-@b{LilyPond@*
-code}
-
-@c TODO: \layout block is identical in all of the below examples.
-@c Therefore, it should somehow be included rather than duplicated all
-@c the time.  --jr
-
-@c why not make variables in ly/engraver-init.ly? --hwn
-
-@c Because it's just used to typeset plain notes without
-@c a staff for demonstration purposes rather than something
-@c special of Gregorian chant notation.  --jr
-
+@b{LilyPond code}
 
 @item
 @b{Punctum}
@@ -1729,7 +1718,7 @@ code}
 @noindent
 @b{Two-note ligatures}
 
-@multitable @columnfractions .4 .2 .4
+@multitable @columnfractions .4 .12 .48
 
 @item
 @b{Clivis vel Flexa}
@@ -1887,7 +1876,7 @@ code}
 @noindent
 @b{Multi-note ligatures}
 
-@multitable @columnfractions .4 .2 .4
+@multitable @columnfractions .4 .12 .48
 
 @item
 @b{Torculus}
@@ -2119,7 +2108,7 @@ code}
 @noindent
 @b{Special Signs}
 
-@multitable @columnfractions .4 .2 .4
+@multitable @columnfractions .4 .12 .48
 
 @item
 @b{Quilisma}

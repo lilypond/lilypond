@@ -1122,7 +1122,8 @@ instrumentOne = \relative c' {
   \partCombineAutomatic e2^"auto" e |
   \partCombineChords e'2^"chord" e |
   \partCombineAutomatic c2^"auto" c |
-  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
+  \partCombineApart c2^"apart"
+    \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {

@@ -250,7 +250,8 @@ which can then be used with @code{set-default-paper-size} or
 @code{set-paper-size} as appropriate,
 
 @example
-#(set! paper-alist (cons '("my size" . (cons (* 15 in) (* 3 in))) paper-alist))
+#(set! paper-alist
+  (cons '("my size" . (cons (* 15 in) (* 3 in))) paper-alist))
 
 \paper @{
   #(set-paper-size "my size")
@@ -2081,7 +2082,8 @@ individually, and the second completely re-defines the property:
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+  \override VerticalAxisGroup
+            .default-staff-staff-spacing.basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
@@ -2100,7 +2102,9 @@ To change any spacing settings globally, put them in the
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+    \override VerticalAxisGroup
+              .default-staff-staff-spacing
+              .basic-distance = #10
   @}
 @}
 @end example
@@ -2344,7 +2348,9 @@ The following example shows how properties of the
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #20
+    \override StaffGrouper
+              .staffgroup-staff-spacing
+              .basic-distance = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2403,14 +2409,17 @@ able to stretch much more than usual:
 \layout {
   \context {
     \Lyrics
-    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.stretchability = #1000
+    \override VerticalAxisGroup
+              .nonstaff-nonstaff-spacing
+              .stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 30))
+    \override VerticalAxisGroup.staff-staff-spacing =
+      #'((basic-distance . 30))
   } { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup.staff-affinity = #UP
@@ -2548,14 +2557,17 @@ of the @code{NonMusicalPaperColumn} grob:
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 0))
+          \overrideProperty
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 40))
+          \overrideProperty
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 60))
+          \overrideProperty
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details #'((Y-offset . 60))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2591,11 +2603,15 @@ Y-axis.
       \new Staff <<
         \new Voice {
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((extra-offset . (0 . 10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details #'((extra-offset . (0 . 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((extra-offset . (0 . 10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details #'((extra-offset . (0 . 10)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2621,17 +2637,26 @@ subproperty of @code{line-break-system-details}.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 20)
-               (alignment-distances . (10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 20)
+                 (alignment-distances . (10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 60)
-               (alignment-distances . (15)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 60)
+                 (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 85)
-             (alignment-distances . (20)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 85)
+                 (alignment-distances . (20)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2662,17 +2687,26 @@ specifies the vertical positioning of staves but not of staff groups.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 0)
-               (alignment-distances . (30 10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 0)
+                 (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 60)
-               (alignment-distances . (10 10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 60)
+                 (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 100)
-               (alignment-distances . (10 30)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 100)
+                 (alignment-distances . (10 30)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -3502,7 +3536,7 @@ To graphically display the dimensions of vertical layout variables
 that may be altered for page formatting, set
 @code{annotate-spacing} in the @code{\paper} block:
 
-@lilypond[verbatim,quote,papersize=a6landscape]
+@lilypond[verbatim,quote,papersize=a6landscape,staffsize=14,line-width=14.5\cm]
 \book {
   \score { { c4 } }
   \paper { annotate-spacing = ##t }
@@ -3517,7 +3551,7 @@ In the above example, @code{paper-height} has a value of 59.75
 @code{staff-spaces}, and the @code{staff-size} is 20 points (the
 default value).  Note that:
 
-@multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
+@multitable {1 staff-space} {= (@code{staff-size})/4 * (25.4/72.27) mm}
 
 @item 1 point
 @tab = (25.4/72.27) mm

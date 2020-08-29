@@ -824,8 +824,8 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Figured bass
 
-@c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+@c Indent hack because of instrument names
+@lilypondfile[quote,staffsize=18,indent=2\cm]{figured-bass-headword.ly}
 
 Figured bass notation can be displayed.
 
@@ -1202,7 +1202,8 @@ the bass line.
   }
   \figures {
     \bassFigureExtendersOn
-    % The extenders are correct here, with the same rhythm as the bass
+    % The extenders are correct here,
+    % with the same rhythm as the bass
     \repeat unfold 4 { <6 4->16. <6 4->32 }
     <5>8. r16 <6>8 <6\! 5->
   }
@@ -1214,7 +1215,8 @@ the bass line.
   }
   \figures {
     \bassFigureExtendersOn
-    % The extenders are incorrect here, even though the timing is the same
+    % The extenders are incorrect here,
+    % even though the timing is the same
     <6 4->4 <6 4->4
     <5>8. r16 <6>8 <6\! 5->
   }
