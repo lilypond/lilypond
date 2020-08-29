@@ -295,7 +295,6 @@ ligature = #(define-music-function
 % Gregorian ligatures, or for educational works.
 %
 neumeDemoLayout = \layout {
-    interscoreline = 1
     \context {
         \Score
         \remove "Bar_number_engraver"
