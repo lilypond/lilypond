@@ -2198,8 +2198,6 @@ def conv(s):
         stderr_write('\n')
         raise FatalConversionError()
 
-        return match.group(0)
-
     s = re.sub(r'\\encoding\s+"?([a-zA-Z0-9]+)"?(\s+)', func, s)
 
     import codecs
@@ -2351,7 +2349,6 @@ def conv(s):
             return "override %s #'callbacks #'%s" % (grob, newkey)
         else:
             raise RuntimeError('1st group should match revert or override')
-            return ''
 
     s = re.sub(r"(override|revert)\s*([a-zA-Z.]+)\s*#'(spacing-procedure|after-line-breaking-callback"
                  + r"|before-line-breaking-callback|print-function)",
