@@ -33,7 +33,7 @@ UPDATE_MANUALLY = _(
 FROM_TO = _("%s has been replaced by %s") + "\n"
 
 
-class FatalConversionError:
+class FatalConversionError(Exception):
     pass
 
 
