@@ -1543,10 +1543,10 @@ def conv(s):
         if b == 't':
             if c == 'Score':
                 return ''
-            else:
-                return r" \property %s.melismaBusyProperties \unset" % c
-        elif b == 'f':
-            return r"\property %s.melismaBusyProperties = #'(melismaBusy)" % c
+            return r" \property %s.melismaBusyProperties \unset" % c
+
+        assert b == 'f', "Value must be ##t or ##f and not ##%s" % b
+        return r"\property %s.melismaBusyProperties = #'(melismaBusy)" % c
 
     s = re.sub(
         r"\\property ([a-zA-Z]+)\s*\.\s*automaticMelismata\s*=\s*##([ft])", func, s)
@@ -1967,8 +1967,7 @@ textheight is no longer used.
                               'AncientRemoveEmptyStaffContext',
                               'EasyNotation']:
             return '\\' + m.group(1)
-        else:
-            return m.group(0)
+        return m.group(0)
 
     s = re.sub(r'\\([a-zA-Z]+)Context\b', func, s)
     s = re.sub('ly:paper-lookup', 'ly:output-def-lookup', s)
@@ -2345,10 +2344,9 @@ def conv(s):
 
         if what == 'revert':
             return "revert %s #'callbacks %% %s\n" % (grob, newkey)
-        elif what == 'override':
+        if what == 'override':
             return "override %s #'callbacks #'%s" % (grob, newkey)
-        else:
-            raise RuntimeError('1st group should match revert or override')
+        raise RuntimeError('1st group should match revert or override')
 
     s = re.sub(r"(override|revert)\s*([a-zA-Z.]+)\s*#'(spacing-procedure|after-line-breaking-callback"
                  + r"|before-line-breaking-callback|print-function)",
@@ -2915,9 +2913,9 @@ def conv(s):
         stderr_write(FROM_TO % ("InnerChoirStaff", "ChoirStaff"))
         stderr_write(UPDATE_MANUALLY)
         raise FatalConversionError()
-    else:
-        s = re.sub('InnerStaffGroup', 'StaffGroup', s)
-        s = re.sub('InnerChoirStaff', 'ChoirStaff', s)
+
+    s = re.sub('InnerStaffGroup', 'StaffGroup', s)
+    s = re.sub('InnerChoirStaff', 'ChoirStaff', s)
     return s
 
 
