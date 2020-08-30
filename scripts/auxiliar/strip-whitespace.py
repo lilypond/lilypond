@@ -14,7 +14,7 @@ import sys
 
 for pathname in sys.argv[1:]:
     if os.path.isfile(pathname):
-        fd = open(pathname, mode='U', encoding='utf8')  # open in universal newline mode
+        fd = open(pathname, encoding='utf8')
         lines = []
         for line in fd.readlines():
             lines.append(line.rstrip())
