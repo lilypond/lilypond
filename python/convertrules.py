@@ -518,7 +518,7 @@ def conv(s):
 def conv(s):
     s = re.sub('"?beamAutoEnd_([0-9]*)"? *= *(#\\([^)]*\\))',
                  'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', s)
-    s = re.sub('"?beamAutoBegin_([0-9]*)"? *= *(#\\([^)]*\))',
+    s = re.sub('"?beamAutoBegin_([0-9]*)"? *= *(#\\([^)]*\\))',
                  'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', s)
     s = re.sub('"?beamAutoEnd"? *= *(#\\([^)]*\\))',
                  'autoBeamSettings \\push #\'(end * * * *) = \\1', s)
@@ -788,12 +788,12 @@ def conv(s):
 
 @rule((1, 5, 72), 'set! point-and-click -> set-point-and-click!')
 def conv(s):
-    s = re.sub("""#\(set! +point-and-click +line-column-location\)""",
-                 """#(set-point-and-click! \'line-column)""", s)
-    s = re.sub("""#\(set![ \t]+point-and-click +line-location\)""",
-                 '#(set-point-and-click! \'line)', s)
-    s = re.sub('#\(set! +point-and-click +#f\)',
-                 '#(set-point-and-click! \'none)', s)
+    s = re.sub(r"#\(set! +point-and-click +line-column-location\)",
+                 "#(set-point-and-click! 'line-column)", s)
+    s = re.sub(r"#\(set![ \t]+point-and-click +line-location\)",
+                 "#(set-point-and-click! 'line)", s)
+    s = re.sub(r'#\(set! +point-and-click +#f\)',
+                 "#(set-point-and-click! 'none)", s)
     return s
 
 
@@ -1495,7 +1495,7 @@ as a substitution text.""") % (m.group(1), m.group(2)))
 to support quarter tone accidentals.  You must update the following constructs manually:
 
 * calls of ly:make-pitch and ly:pitch-alteration
-* keySignature settings made with \property
+* keySignature settings made with \\property
 """))
         raise FatalConversionError()
     return s
@@ -1718,7 +1718,7 @@ def conv(s):
 brew_molecule -> print
 brew-new-markup-molecule -> Text_item::print
 LyricsVoice -> Lyrics
-tupletInvisible -> TupletBracket \set #'transparent
+tupletInvisible -> TupletBracket \\set #'transparent
 %s.
 """ % (_("remove %s") % "Grob::preset_extent"))
 def conv(s):
@@ -1923,7 +1923,7 @@ def conv(s):
 def conv(s):
     s = re.sub(r"(\\set\s+)?(?P<context>(Score\.)?)breakAlignOrder\s*=\s*#'(?P<list>[^\)]+)",
                  r"\n\\override \g<context>BreakAlignment #'break-align-orders = "
-                 + "#(make-vector 3 '\g<list>)", s)
+                 + r"#(make-vector 3 '\g<list>)", s)
     return s
 
 
@@ -2318,7 +2318,7 @@ def conv(s):
 def conv(s):
     s = re.sub(r'\\applyoutput', r'\\applyOutput', s)
     s = re.sub(r'\\applycontext', r'\\applyContext', s)
-    s = re.sub(r'\\applymusic',  r'\\applyMusic', s)
+    s = re.sub(r'\\applymusic', r'\\applyMusic', s)
     s = re.sub(r'ly:grob-suicide', 'ly:grob-suicide!', s)
     return s
 
@@ -2414,7 +2414,7 @@ def conv(s):
         tags = ["\\tag #'%s" % s for s in syms]
         return ' '.join(tags)
 
-    s = re.sub(r"\\tag #'\(([^)]+)\)",  sub_syms, s)
+    s = re.sub(r"\\tag #'\(([^)]+)\)", sub_syms, s)
     return s
 
 
@@ -2588,7 +2588,7 @@ def conv(s):
         den = (1 << dots) * (1 << log2)
         num = ((1 << (dots+1)) - 1)
 
-        return """
+        return r"""
   \midi {
     \context {
       \Score
@@ -2631,13 +2631,13 @@ def conv(s):
 
 @rule((2, 11, 5), _("deprecate cautionary-style. Use AccidentalCautionary properties"))
 def conv(s):
-    s = re.sub("Accidental\s*#'cautionary-style\s*=\s*#'smaller",
+    s = re.sub(r"Accidental\s*#'cautionary-style\s*=\s*#'smaller",
                  "AccidentalCautionary #'font-size = #-2", s)
-    s = re.sub("Accidental\s*#'cautionary-style\s*=\s*#'parentheses",
+    s = re.sub(r"Accidental\s*#'cautionary-style\s*=\s*#'parentheses",
                  "AccidentalCautionary #'parenthesized = ##t", s)
-    s = re.sub("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'parentheses",
+    s = re.sub(r"([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'parentheses",
                  r"\1 #'parenthesized = ##t", s)
-    s = re.sub("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
+    s = re.sub(r"([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
                  r"\1 #'font-size = #-2", s)
     return s
 
@@ -3756,7 +3756,7 @@ def conv(s):
                       r"\g<0>\1\\defaultchild\2",
                       m.group(0), 1)
 
-    s = re.sub(r"\\context\s*@?\{(" + brace_matcher(20) + ")\}",
+    s = re.sub(r"\\context\s*@?\{(" + brace_matcher(20) + r")\}",
                  matchaccepts, s)
     return s
 
@@ -4004,7 +4004,7 @@ def conv(s):
     def subst(m):
         def subsub(m):
             s = (m.group(1)
-                   + re.sub('(?<=\s|["\\()])' + m.group(2) + r'(?=\s|["\\()])',
+                   + re.sub(r'(?<=\s|["\\()])' + m.group(2) + r'(?=\s|["\\()])',
                             r'(*location*)',
                             re.sub(r'(?<=\s|["\\()])parser(?=\s|["\\()])',
                                    r'(*parser*)', m.group(3))))
