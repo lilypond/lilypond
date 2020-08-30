@@ -65,54 +65,71 @@ music to have one of the types listed in @var{types}."
   (make-procedure-with-setter ly:context-property
                               ly:context-set-property!))
 
+(define-public (music-selective-map descend? function music)
+  "Apply @var{function} recursively to @var{music}, but refrain
+from mapping subexpressions of music that does not satisfy
+@var{descend?}."
+  (if (descend? music)
+      (let ((es (ly:music-property music 'elements))
+            (e (ly:music-property music 'element)))
+        (if (pair? es)
+            (set! (ly:music-property music 'elements)
+                  (map (lambda (y)
+                         (music-selective-map descend? function y)) es)))
+        (if (ly:music? e)
+            (set! (ly:music-property music 'element)
+                  (music-selective-map descend? function e)))))
+      (function music))
+
 (define-public (music-map function music)
   "Apply @var{function} to @var{music} and all of the music it contains.
 
 First it recurses over the children, then the function is applied to
 @var{music}."
-  (let ((es (ly:music-property music 'elements))
-        (e (ly:music-property music 'element)))
-    (if (pair? es)
-        (set! (ly:music-property music 'elements)
-              (map (lambda (y) (music-map function y)) es)))
-    (if (ly:music? e)
-        (set! (ly:music-property music 'element)
-              (music-map function  e)))
-    (function music)))
+  (music-selective-map ly:music? function music))
 
-(define-public (music-filter pred? music)
-  "Filter out music expressions that do not satisfy @var{pred?}."
+(define-public (music-selective-filter descend? pred? music)
+  "Recursively filter out music expressions that do not satisfy
+  @var{pred?}, but refrain from filtering the subexpressions of
+  music that does not satisfy @var{descend?}."
 
   (define (inner-music-filter music)
     "Recursive function."
-    (let* ((es (ly:music-property music 'elements))
-           (e (ly:music-property music 'element))
-           (as (ly:music-property music 'articulations))
-           (filtered-as (filter ly:music? (map inner-music-filter as)))
-           (filtered-e (if (ly:music? e)
-                           (inner-music-filter e)
-                           e))
-           (filtered-es (filter ly:music? (map inner-music-filter es))))
-      (if (not (null? e))
-          (set! (ly:music-property music 'element) filtered-e))
-      (if (not (null? es))
-          (set! (ly:music-property music 'elements) filtered-es))
-      (if (not (null? as))
-          (set! (ly:music-property music 'articulations) filtered-as))
-      ;; if filtering invalidated 'element, we remove the music unless
-      ;; there are remaining 'elements in which case we just hope and
-      ;; pray.
-      (if (or (not (pred? music))
-              (and (null? filtered-es)
-                   (not (ly:music? filtered-e))
-                   (ly:music? e)))
-          (set! music '()))
-      music))
+    (if (not (descend? music))
+        (if (not (pred? music))
+            (set! music '()))
+        (let* ((es (ly:music-property music 'elements))
+               (e (ly:music-property music 'element))
+               (as (ly:music-property music 'articulations))
+               (filtered-as (filter ly:music? (map inner-music-filter as)))
+               (filtered-e (if (ly:music? e)
+                               (inner-music-filter e)
+                               e))
+               (filtered-es (filter ly:music? (map inner-music-filter es))))
+          (if (not (null? e))
+              (set! (ly:music-property music 'element) filtered-e))
+          (if (not (null? es))
+              (set! (ly:music-property music 'elements) filtered-es))
+          (if (not (null? as))
+              (set! (ly:music-property music 'articulations) filtered-as))
+          ;; if filtering invalidated 'element, we remove the music unless
+          ;; there are remaining 'elements in which case we just hope and
+          ;; pray.
+          (if (or (not (pred? music))
+                  (and (null? filtered-es)
+                       (not (ly:music? filtered-e))
+                       (ly:music? e)))
+              (set! music '()))))
+    music)
 
   (set! music (inner-music-filter music))
   (if (ly:music? music)
       music
       (make-music 'Music)))       ;must return music.
+
+(define-public (music-filter pred? music)
+  "Filter out music expressions that do not satisfy @var{pred?}."
+  (music-selective-filter ly:music? pred? music))
 
 (define*-public (display-music music #:optional (port (current-output-port)))
   "Display music, not done with @code{music-map} for clarity of
