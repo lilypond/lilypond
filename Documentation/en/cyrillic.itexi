@@ -11,6 +11,7 @@
 @c as with the EC fonts except that the prefix is not `ec' but `la'.
 
 @tex
+
 \gdef\cyrfont{%
   % Use the EC size information.
   \edef\ecsize{\csname\curfontsize ecsize\endcsname}%
@@ -19,6 +20,12 @@
     \font\thiscyrfont = latt\ecsize \space at \nominalsize
   \else
     \ifx\curfontstyle\bfstylename
+      \let\usebf\keywordtrue
+    \fi
+    \ifrmisbold
+      \let\usebf\keywordtrue
+    \fi
+    \ifx\usebf\keywordtrue
       \font\thiscyrfont = lab\ifusingit{i}{x}\ecsize \space at \nominalsize
     \else
       \font\thiscyrfont = la\ifusingit{ti}{rm}\ecsize \space at \nominalsize
@@ -216,175 +223,195 @@
 % UTF-8 mappings, taken from LaTeX's t2aenc.dfu input encoding definition
 % file for T2A encoding (adapted to use the above composite glyph names).
 
-\DeclareUnicodeCharacter{0400}{\CYREGRAVE}
-\DeclareUnicodeCharacter{0401}{\CYRYO}
-\DeclareUnicodeCharacter{0402}{\CYRDJE}
-\DeclareUnicodeCharacter{0403}{\CYRGGRAVE}
-\DeclareUnicodeCharacter{0404}{\CYRIE}
-\DeclareUnicodeCharacter{0405}{\CYRDZE}
-\DeclareUnicodeCharacter{0406}{\CYRII}
-\DeclareUnicodeCharacter{0407}{\CYRYI}
-\DeclareUnicodeCharacter{0408}{\CYRJE}
-\DeclareUnicodeCharacter{0409}{\CYRLJE}
-\DeclareUnicodeCharacter{040A}{\CYRNJE}
-\DeclareUnicodeCharacter{040B}{\CYRTSHE}
-\DeclareUnicodeCharacter{040C}{\CYRKGRAVE}
-\DeclareUnicodeCharacter{040D}{\CYRIGRAVE}
-\DeclareUnicodeCharacter{040E}{\CYRUSHRT}
-\DeclareUnicodeCharacter{040F}{\CYRDZHE}
-\DeclareUnicodeCharacter{0410}{\CYRA}
-\DeclareUnicodeCharacter{0411}{\CYRB}
-\DeclareUnicodeCharacter{0412}{\CYRV}
-\DeclareUnicodeCharacter{0413}{\CYRG}
-\DeclareUnicodeCharacter{0414}{\CYRD}
-\DeclareUnicodeCharacter{0415}{\CYRE}
-\DeclareUnicodeCharacter{0416}{\CYRZH}
-\DeclareUnicodeCharacter{0417}{\CYRZ}
-\DeclareUnicodeCharacter{0418}{\CYRI}
-\DeclareUnicodeCharacter{0419}{\CYRISHRT}
-\DeclareUnicodeCharacter{041A}{\CYRK}
-\DeclareUnicodeCharacter{041B}{\CYRL}
-\DeclareUnicodeCharacter{041C}{\CYRM}
-\DeclareUnicodeCharacter{041D}{\CYRN}
-\DeclareUnicodeCharacter{041E}{\CYRO}
-\DeclareUnicodeCharacter{041F}{\CYRP}
-\DeclareUnicodeCharacter{0420}{\CYRR}
-\DeclareUnicodeCharacter{0421}{\CYRS}
-\DeclareUnicodeCharacter{0422}{\CYRT}
-\DeclareUnicodeCharacter{0423}{\CYRU}
-\DeclareUnicodeCharacter{0424}{\CYRF}
-\DeclareUnicodeCharacter{0425}{\CYRH}
-\DeclareUnicodeCharacter{0426}{\CYRC}
-\DeclareUnicodeCharacter{0427}{\CYRCH}
-\DeclareUnicodeCharacter{0428}{\CYRSH}
-\DeclareUnicodeCharacter{0429}{\CYRSHCH}
-\DeclareUnicodeCharacter{042A}{\CYRHRDSN}
-\DeclareUnicodeCharacter{042B}{\CYRERY}
-\DeclareUnicodeCharacter{042C}{\CYRSFTSN}
-\DeclareUnicodeCharacter{042D}{\CYREREV}
-\DeclareUnicodeCharacter{042E}{\CYRYU}
-\DeclareUnicodeCharacter{042F}{\CYRYA}
-\DeclareUnicodeCharacter{0430}{\cyra}
-\DeclareUnicodeCharacter{0431}{\cyrb}
-\DeclareUnicodeCharacter{0432}{\cyrv}
-\DeclareUnicodeCharacter{0433}{\cyrg}
-\DeclareUnicodeCharacter{0434}{\cyrd}
-\DeclareUnicodeCharacter{0435}{\cyre}
-\DeclareUnicodeCharacter{0436}{\cyrzh}
-\DeclareUnicodeCharacter{0437}{\cyrz}
-\DeclareUnicodeCharacter{0438}{\cyri}
-\DeclareUnicodeCharacter{0439}{\cyrishrt}
-\DeclareUnicodeCharacter{043A}{\cyrk}
-\DeclareUnicodeCharacter{043B}{\cyrl}
-\DeclareUnicodeCharacter{043C}{\cyrm}
-\DeclareUnicodeCharacter{043D}{\cyrn}
-\DeclareUnicodeCharacter{043E}{\cyro}
-\DeclareUnicodeCharacter{043F}{\cyrp}
-\DeclareUnicodeCharacter{0440}{\cyrr}
-\DeclareUnicodeCharacter{0441}{\cyrs}
-\DeclareUnicodeCharacter{0442}{\cyrt}
-\DeclareUnicodeCharacter{0443}{\cyru}
-\DeclareUnicodeCharacter{0444}{\cyrf}
-\DeclareUnicodeCharacter{0445}{\cyrh}
-\DeclareUnicodeCharacter{0446}{\cyrc}
-\DeclareUnicodeCharacter{0447}{\cyrch}
-\DeclareUnicodeCharacter{0448}{\cyrsh}
-\DeclareUnicodeCharacter{0449}{\cyrshch}
-\DeclareUnicodeCharacter{044A}{\cyrhrdsn}
-\DeclareUnicodeCharacter{044B}{\cyrery}
-\DeclareUnicodeCharacter{044C}{\cyrsftsn}
-\DeclareUnicodeCharacter{044D}{\cyrerev}
-\DeclareUnicodeCharacter{044E}{\cyryu}
-\DeclareUnicodeCharacter{044F}{\cyrya}
-\DeclareUnicodeCharacter{0450}{\cyregrave}
-\DeclareUnicodeCharacter{0451}{\cyryo}
-\DeclareUnicodeCharacter{0452}{\cyrdje}
-\DeclareUnicodeCharacter{0453}{\cyrggrave}
-\DeclareUnicodeCharacter{0454}{\cyrie}
-\DeclareUnicodeCharacter{0455}{\cyrdze}
-\DeclareUnicodeCharacter{0456}{\cyrii}
-\DeclareUnicodeCharacter{0457}{\cyryi}
-\DeclareUnicodeCharacter{0458}{\cyrje}
-\DeclareUnicodeCharacter{0459}{\cyrlje}
-\DeclareUnicodeCharacter{045A}{\cyrnje}
-\DeclareUnicodeCharacter{045B}{\cyrtshe}
-\DeclareUnicodeCharacter{045C}{\cyrkgrave}
-\DeclareUnicodeCharacter{045D}{\cyrigrave}
-\DeclareUnicodeCharacter{045E}{\cyrushrt}
-\DeclareUnicodeCharacter{045F}{\cyrdzhe}
-\DeclareUnicodeCharacter{0490}{\CYRGUP}
-\DeclareUnicodeCharacter{0491}{\cyrgup}
-\DeclareUnicodeCharacter{0492}{\CYRGHCRS}
-\DeclareUnicodeCharacter{0493}{\cyrghcrs}
-\DeclareUnicodeCharacter{0496}{\CYRZHDSC}
-\DeclareUnicodeCharacter{0497}{\cyrzhdsc}
-\DeclareUnicodeCharacter{0498}{\CYRZDSC}
-\DeclareUnicodeCharacter{0499}{\cyrzdsc}
-\DeclareUnicodeCharacter{049A}{\CYRKDSC}
-\DeclareUnicodeCharacter{049B}{\cyrkdsc}
-\DeclareUnicodeCharacter{049C}{\CYRKVCRS}
-\DeclareUnicodeCharacter{049D}{\cyrkvcrs}
-\DeclareUnicodeCharacter{04A0}{\CYRKBEAK}
-\DeclareUnicodeCharacter{04A1}{\cyrkbeak}
-\DeclareUnicodeCharacter{04A2}{\CYRNDSC}
-\DeclareUnicodeCharacter{04A3}{\cyrndsc}
-\DeclareUnicodeCharacter{04A4}{\CYRNG}
-\DeclareUnicodeCharacter{04A5}{\cyrng}
-\DeclareUnicodeCharacter{04AA}{\CYRSDSC}
-\DeclareUnicodeCharacter{04AB}{\cyrsdsc}
-\DeclareUnicodeCharacter{04AE}{\CYRY}
-\DeclareUnicodeCharacter{04AF}{\cyry}
-\DeclareUnicodeCharacter{04B0}{\CYRYHCRS}
-\DeclareUnicodeCharacter{04B1}{\cyryhcrs}
-\DeclareUnicodeCharacter{04B2}{\CYRHDSC}
-\DeclareUnicodeCharacter{04B3}{\cyrhdsc}
-\DeclareUnicodeCharacter{04B6}{\CYRCHRDSC}
-\DeclareUnicodeCharacter{04B7}{\cyrchrdsc}
-\DeclareUnicodeCharacter{04B8}{\CYRCHVCRS}
-\DeclareUnicodeCharacter{04B9}{\cyrchvcrs}
-\DeclareUnicodeCharacter{04BA}{\CYRSHHA}
-\DeclareUnicodeCharacter{04BB}{\cyrshha}
-\DeclareUnicodeCharacter{04C0}{\CYRpalochka}
-\DeclareUnicodeCharacter{04C1}{\CYRZHBREVE}
-\DeclareUnicodeCharacter{04C2}{\cyrzhbreve}
-\DeclareUnicodeCharacter{04D0}{\CYRABREVE}
-\DeclareUnicodeCharacter{04D1}{\cyrabreve}
-\DeclareUnicodeCharacter{04D2}{\CYRADIAERESIS}
-\DeclareUnicodeCharacter{04D3}{\cyradiaeresis}
-\DeclareUnicodeCharacter{04D4}{\CYRAE}
-\DeclareUnicodeCharacter{04D5}{\cyrae}
-\DeclareUnicodeCharacter{04D6}{\CYREBREVE}
-\DeclareUnicodeCharacter{04D7}{\cyrebreve}
-\DeclareUnicodeCharacter{04D8}{\CYRSCHWA}
-\DeclareUnicodeCharacter{04D9}{\cyrschwa}
-\DeclareUnicodeCharacter{04DA}{\CYRSCHWADIAERESIS}
-\DeclareUnicodeCharacter{04DB}{\cyrschwadiaeresis}
-\DeclareUnicodeCharacter{04DC}{\CYRZHDIAERESIS}
-\DeclareUnicodeCharacter{04DD}{\cyrzhdiaeresis}
-\DeclareUnicodeCharacter{04DE}{\CYRZDIAERESIS}
-\DeclareUnicodeCharacter{04DF}{\cyrzdiaeresis}
-\DeclareUnicodeCharacter{04E2}{\CYRIMACRON}
-\DeclareUnicodeCharacter{04E3}{\cyrimacron}
-\DeclareUnicodeCharacter{04E4}{\CYRIDIAERESIS}
-\DeclareUnicodeCharacter{04E5}{\cyridiaeresis}
-\DeclareUnicodeCharacter{04E6}{\CYRODIAERESIS}
-\DeclareUnicodeCharacter{04E7}{\cyrodiaeresis}
-\DeclareUnicodeCharacter{04E8}{\CYROTLD}
-\DeclareUnicodeCharacter{04E9}{\cyrotld}
-\DeclareUnicodeCharacter{04EC}{\CYREREVDIAERESIS}
-\DeclareUnicodeCharacter{04ED}{\cyrerevdiaeresis}
-\DeclareUnicodeCharacter{04EE}{\CYRUMACRON}
-\DeclareUnicodeCharacter{04EF}{\cyrumacron}
-\DeclareUnicodeCharacter{04F0}{\CYRUDIAERESIS}
-\DeclareUnicodeCharacter{04F1}{\cyrudiaeresis}
-\DeclareUnicodeCharacter{04F2}{\CYRUDOUBLEACUTE}
-\DeclareUnicodeCharacter{04F3}{\cyrudoubleacute}
-\DeclareUnicodeCharacter{04F4}{\CYRCHDIAERESIS}
-\DeclareUnicodeCharacter{04F5}{\cyrchdiaeresis}
-\DeclareUnicodeCharacter{04F8}{\CYRERYDIAERESIS}
-\DeclareUnicodeCharacter{04F9}{\cyrerydiaeresis}
+\gdef\cyrunicodechardefs{%
+  \DeclareUnicodeCharacter{0400}{\CYREGRAVE}%
+  \DeclareUnicodeCharacter{0401}{\CYRYO}%
+  \DeclareUnicodeCharacter{0402}{\CYRDJE}%
+  \DeclareUnicodeCharacter{0403}{\CYRGGRAVE}%
+  \DeclareUnicodeCharacter{0404}{\CYRIE}%
+  \DeclareUnicodeCharacter{0405}{\CYRDZE}%
+  \DeclareUnicodeCharacter{0406}{\CYRII}%
+  \DeclareUnicodeCharacter{0407}{\CYRYI}%
+  \DeclareUnicodeCharacter{0408}{\CYRJE}%
+  \DeclareUnicodeCharacter{0409}{\CYRLJE}%
+  \DeclareUnicodeCharacter{040A}{\CYRNJE}%
+  \DeclareUnicodeCharacter{040B}{\CYRTSHE}%
+  \DeclareUnicodeCharacter{040C}{\CYRKGRAVE}%
+  \DeclareUnicodeCharacter{040D}{\CYRIGRAVE}%
+  \DeclareUnicodeCharacter{040E}{\CYRUSHRT}%
+  \DeclareUnicodeCharacter{040F}{\CYRDZHE}%
+  \DeclareUnicodeCharacter{0410}{\CYRA}%
+  \DeclareUnicodeCharacter{0411}{\CYRB}%
+  \DeclareUnicodeCharacter{0412}{\CYRV}%
+  \DeclareUnicodeCharacter{0413}{\CYRG}%
+  \DeclareUnicodeCharacter{0414}{\CYRD}%
+  \DeclareUnicodeCharacter{0415}{\CYRE}%
+  \DeclareUnicodeCharacter{0416}{\CYRZH}%
+  \DeclareUnicodeCharacter{0417}{\CYRZ}%
+  \DeclareUnicodeCharacter{0418}{\CYRI}%
+  \DeclareUnicodeCharacter{0419}{\CYRISHRT}%
+  \DeclareUnicodeCharacter{041A}{\CYRK}%
+  \DeclareUnicodeCharacter{041B}{\CYRL}%
+  \DeclareUnicodeCharacter{041C}{\CYRM}%
+  \DeclareUnicodeCharacter{041D}{\CYRN}%
+  \DeclareUnicodeCharacter{041E}{\CYRO}%
+  \DeclareUnicodeCharacter{041F}{\CYRP}%
+  \DeclareUnicodeCharacter{0420}{\CYRR}%
+  \DeclareUnicodeCharacter{0421}{\CYRS}%
+  \DeclareUnicodeCharacter{0422}{\CYRT}%
+  \DeclareUnicodeCharacter{0423}{\CYRU}%
+  \DeclareUnicodeCharacter{0424}{\CYRF}%
+  \DeclareUnicodeCharacter{0425}{\CYRH}%
+  \DeclareUnicodeCharacter{0426}{\CYRC}%
+  \DeclareUnicodeCharacter{0427}{\CYRCH}%
+  \DeclareUnicodeCharacter{0428}{\CYRSH}%
+  \DeclareUnicodeCharacter{0429}{\CYRSHCH}%
+  \DeclareUnicodeCharacter{042A}{\CYRHRDSN}%
+  \DeclareUnicodeCharacter{042B}{\CYRERY}%
+  \DeclareUnicodeCharacter{042C}{\CYRSFTSN}%
+  \DeclareUnicodeCharacter{042D}{\CYREREV}%
+  \DeclareUnicodeCharacter{042E}{\CYRYU}%
+  \DeclareUnicodeCharacter{042F}{\CYRYA}%
+  \DeclareUnicodeCharacter{0430}{\cyra}%
+  \DeclareUnicodeCharacter{0431}{\cyrb}%
+  \DeclareUnicodeCharacter{0432}{\cyrv}%
+  \DeclareUnicodeCharacter{0433}{\cyrg}%
+  \DeclareUnicodeCharacter{0434}{\cyrd}%
+  \DeclareUnicodeCharacter{0435}{\cyre}%
+  \DeclareUnicodeCharacter{0436}{\cyrzh}%
+  \DeclareUnicodeCharacter{0437}{\cyrz}%
+  \DeclareUnicodeCharacter{0438}{\cyri}%
+  \DeclareUnicodeCharacter{0439}{\cyrishrt}%
+  \DeclareUnicodeCharacter{043A}{\cyrk}%
+  \DeclareUnicodeCharacter{043B}{\cyrl}%
+  \DeclareUnicodeCharacter{043C}{\cyrm}%
+  \DeclareUnicodeCharacter{043D}{\cyrn}%
+  \DeclareUnicodeCharacter{043E}{\cyro}%
+  \DeclareUnicodeCharacter{043F}{\cyrp}%
+  \DeclareUnicodeCharacter{0440}{\cyrr}%
+  \DeclareUnicodeCharacter{0441}{\cyrs}%
+  \DeclareUnicodeCharacter{0442}{\cyrt}%
+  \DeclareUnicodeCharacter{0443}{\cyru}%
+  \DeclareUnicodeCharacter{0444}{\cyrf}%
+  \DeclareUnicodeCharacter{0445}{\cyrh}%
+  \DeclareUnicodeCharacter{0446}{\cyrc}%
+  \DeclareUnicodeCharacter{0447}{\cyrch}%
+  \DeclareUnicodeCharacter{0448}{\cyrsh}%
+  \DeclareUnicodeCharacter{0449}{\cyrshch}%
+  \DeclareUnicodeCharacter{044A}{\cyrhrdsn}%
+  \DeclareUnicodeCharacter{044B}{\cyrery}%
+  \DeclareUnicodeCharacter{044C}{\cyrsftsn}%
+  \DeclareUnicodeCharacter{044D}{\cyrerev}%
+  \DeclareUnicodeCharacter{044E}{\cyryu}%
+  \DeclareUnicodeCharacter{044F}{\cyrya}%
+  \DeclareUnicodeCharacter{0450}{\cyregrave}%
+  \DeclareUnicodeCharacter{0451}{\cyryo}%
+  \DeclareUnicodeCharacter{0452}{\cyrdje}%
+  \DeclareUnicodeCharacter{0453}{\cyrggrave}%
+  \DeclareUnicodeCharacter{0454}{\cyrie}%
+  \DeclareUnicodeCharacter{0455}{\cyrdze}%
+  \DeclareUnicodeCharacter{0456}{\cyrii}%
+  \DeclareUnicodeCharacter{0457}{\cyryi}%
+  \DeclareUnicodeCharacter{0458}{\cyrje}%
+  \DeclareUnicodeCharacter{0459}{\cyrlje}%
+  \DeclareUnicodeCharacter{045A}{\cyrnje}%
+  \DeclareUnicodeCharacter{045B}{\cyrtshe}%
+  \DeclareUnicodeCharacter{045C}{\cyrkgrave}%
+  \DeclareUnicodeCharacter{045D}{\cyrigrave}%
+  \DeclareUnicodeCharacter{045E}{\cyrushrt}%
+  \DeclareUnicodeCharacter{045F}{\cyrdzhe}%
+  \DeclareUnicodeCharacter{0490}{\CYRGUP}%
+  \DeclareUnicodeCharacter{0491}{\cyrgup}%
+  \DeclareUnicodeCharacter{0492}{\CYRGHCRS}%
+  \DeclareUnicodeCharacter{0493}{\cyrghcrs}%
+  \DeclareUnicodeCharacter{0496}{\CYRZHDSC}%
+  \DeclareUnicodeCharacter{0497}{\cyrzhdsc}%
+  \DeclareUnicodeCharacter{0498}{\CYRZDSC}%
+  \DeclareUnicodeCharacter{0499}{\cyrzdsc}%
+  \DeclareUnicodeCharacter{049A}{\CYRKDSC}%
+  \DeclareUnicodeCharacter{049B}{\cyrkdsc}%
+  \DeclareUnicodeCharacter{049C}{\CYRKVCRS}%
+  \DeclareUnicodeCharacter{049D}{\cyrkvcrs}%
+  \DeclareUnicodeCharacter{04A0}{\CYRKBEAK}%
+  \DeclareUnicodeCharacter{04A1}{\cyrkbeak}%
+  \DeclareUnicodeCharacter{04A2}{\CYRNDSC}%
+  \DeclareUnicodeCharacter{04A3}{\cyrndsc}%
+  \DeclareUnicodeCharacter{04A4}{\CYRNG}%
+  \DeclareUnicodeCharacter{04A5}{\cyrng}%
+  \DeclareUnicodeCharacter{04AA}{\CYRSDSC}%
+  \DeclareUnicodeCharacter{04AB}{\cyrsdsc}%
+  \DeclareUnicodeCharacter{04AE}{\CYRY}%
+  \DeclareUnicodeCharacter{04AF}{\cyry}%
+  \DeclareUnicodeCharacter{04B0}{\CYRYHCRS}%
+  \DeclareUnicodeCharacter{04B1}{\cyryhcrs}%
+  \DeclareUnicodeCharacter{04B2}{\CYRHDSC}%
+  \DeclareUnicodeCharacter{04B3}{\cyrhdsc}%
+  \DeclareUnicodeCharacter{04B6}{\CYRCHRDSC}%
+  \DeclareUnicodeCharacter{04B7}{\cyrchrdsc}%
+  \DeclareUnicodeCharacter{04B8}{\CYRCHVCRS}%
+  \DeclareUnicodeCharacter{04B9}{\cyrchvcrs}%
+  \DeclareUnicodeCharacter{04BA}{\CYRSHHA}%
+  \DeclareUnicodeCharacter{04BB}{\cyrshha}%
+  \DeclareUnicodeCharacter{04C0}{\CYRpalochka}%
+  \DeclareUnicodeCharacter{04C1}{\CYRZHBREVE}%
+  \DeclareUnicodeCharacter{04C2}{\cyrzhbreve}%
+  \DeclareUnicodeCharacter{04D0}{\CYRABREVE}%
+  \DeclareUnicodeCharacter{04D1}{\cyrabreve}%
+  \DeclareUnicodeCharacter{04D2}{\CYRADIAERESIS}%
+  \DeclareUnicodeCharacter{04D3}{\cyradiaeresis}%
+  \DeclareUnicodeCharacter{04D4}{\CYRAE}%
+  \DeclareUnicodeCharacter{04D5}{\cyrae}%
+  \DeclareUnicodeCharacter{04D6}{\CYREBREVE}%
+  \DeclareUnicodeCharacter{04D7}{\cyrebreve}%
+  \DeclareUnicodeCharacter{04D8}{\CYRSCHWA}%
+  \DeclareUnicodeCharacter{04D9}{\cyrschwa}%
+  \DeclareUnicodeCharacter{04DA}{\CYRSCHWADIAERESIS}%
+  \DeclareUnicodeCharacter{04DB}{\cyrschwadiaeresis}%
+  \DeclareUnicodeCharacter{04DC}{\CYRZHDIAERESIS}%
+  \DeclareUnicodeCharacter{04DD}{\cyrzhdiaeresis}%
+  \DeclareUnicodeCharacter{04DE}{\CYRZDIAERESIS}%
+  \DeclareUnicodeCharacter{04DF}{\cyrzdiaeresis}%
+  \DeclareUnicodeCharacter{04E2}{\CYRIMACRON}%
+  \DeclareUnicodeCharacter{04E3}{\cyrimacron}%
+  \DeclareUnicodeCharacter{04E4}{\CYRIDIAERESIS}%
+  \DeclareUnicodeCharacter{04E5}{\cyridiaeresis}%
+  \DeclareUnicodeCharacter{04E6}{\CYRODIAERESIS}%
+  \DeclareUnicodeCharacter{04E7}{\cyrodiaeresis}%
+  \DeclareUnicodeCharacter{04E8}{\CYROTLD}%
+  \DeclareUnicodeCharacter{04E9}{\cyrotld}%
+  \DeclareUnicodeCharacter{04EC}{\CYREREVDIAERESIS}%
+  \DeclareUnicodeCharacter{04ED}{\cyrerevdiaeresis}%
+  \DeclareUnicodeCharacter{04EE}{\CYRUMACRON}%
+  \DeclareUnicodeCharacter{04EF}{\cyrumacron}%
+  \DeclareUnicodeCharacter{04F0}{\CYRUDIAERESIS}%
+  \DeclareUnicodeCharacter{04F1}{\cyrudiaeresis}%
+  \DeclareUnicodeCharacter{04F2}{\CYRUDOUBLEACUTE}%
+  \DeclareUnicodeCharacter{04F3}{\cyrudoubleacute}%
+  \DeclareUnicodeCharacter{04F4}{\CYRCHDIAERESIS}%
+  \DeclareUnicodeCharacter{04F5}{\cyrchdiaeresis}%
+  \DeclareUnicodeCharacter{04F8}{\CYRERYDIAERESIS}%
+  \DeclareUnicodeCharacter{04F9}{\cyrerydiaeresis}%
+%
+  \DeclareUnicodeCharacter{2116}{\textnumero}%
+}
 
-\DeclareUnicodeCharacter{2116}{\textnumero}
+\toks0 = \expandafter{\cyrunicodechardefs}
+\toks2 = \expandafter{\unicodechardefs}
+\xdef\unicodechardefs{\the\toks0 \the\toks2}
+
+% Register Unicode and UTF-8 encoding definitions.
+% This macro gets executed immediately after ending the `tex` environment.
+\gdef\cyrunicodesetup{%
+  \iftxinativeunicodecapable
+    \let\DeclareUnicodeCharacter\DeclareUnicodeCharacterNative
+    \cyrunicodechardefs
+    \let\DeclareUnicodeCharacter\DeclareUnicodeCharacterNativeAtU
+    \cyrunicodechardefs
+  \else
+    \let\DeclareUnicodeCharacter\DeclareUnicodeCharacterUTFviii
+    \cyrunicodechardefs
+  \fi}
+\aftergroup\cyrunicodesetup
 
 
 % Add all Cyrillic character names to \definedummies.
@@ -570,8 +597,9 @@
   \definedummyword\cyrudoubleacute
 }
 
-\toks0 = \expandafter{\definedummies\cyrdummies}
-\xdef\definedummies{\the\toks0}
+\toks0 = \expandafter{\cyrdummies}
+\toks2 = \expandafter{\definedummies}
+\xdef\definedummies{\the\toks0 \the\toks2}
 
 
 % Add all Cyrillic character names to \indexnofonts.
@@ -760,8 +788,9 @@
   \def\cyrudoubleacute{zzzzu}%
 }
 
-\toks0 = \expandafter{\indexnofonts\cyrindexnofonts}
-\xdef\indexnofonts{\the\toks0}
+\toks0 = \expandafter{\cyrindexnofonts}
+\toks2 = \expandafter{\indexnofonts}
+\xdef\indexnofonts{\the\toks0 \the\toks2}
 
 @end tex
 
