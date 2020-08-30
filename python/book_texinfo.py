@@ -222,7 +222,7 @@ def get_texinfo_width_indent(source, global_options):
     (handle, tmpfile) = tempfile.mkstemp('.texi')
     outfile = os.path.splitext(tmpfile)[0] + '.pdf'
 
-    tmp_handle = os.fdopen(handle, 'w')
+    tmp_handle = open(handle, 'w', encoding='utf8')
     tmp_handle.write(texinfo_document)
     tmp_handle.close()
 
@@ -251,7 +251,7 @@ def get_texinfo_width_indent(source, global_options):
         # call command
         cmd += " > %s" % output_filename
         returncode = os.system(cmd)
-        parameter_string = open(output_filename).read()
+        parameter_string = open(output_filename, encoding="utf8").read()
         if returncode != 0:
             ly.warning(_("Unable to auto-detect default settings:\n"))
         # clean up

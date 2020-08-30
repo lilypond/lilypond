@@ -80,7 +80,7 @@ tmpfile = tempfile.mkstemp('bib2texi')[1]
 # The .aux file contains the commands for bibtex
 # PEH changed the bibstyle to allow a single template file in the parent directory
 # The template filename is texi-*.bst, where * defaults to 'long' but can be a parameter
-open(tmpfile + '.aux', 'w').write(r'''
+open(tmpfile + '.aux', 'w', encoding='utf8').write(r'''
 \relax
 \citation{*}
 \bibstyle{%(style)s}

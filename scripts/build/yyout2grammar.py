@@ -150,8 +150,8 @@ if len(sys.argv) != 3:
 in_name = sys.argv[1]
 out_name = sys.argv[2]
 
-in_file = open(in_name, 'r')
-out_file = open(out_name, 'w')
+in_file = open(in_name, 'r', encoding='utf8')
+out_file = open(out_name, 'w', encoding='utf8')
 
 # skip preliminary material from file (e.g., unused `Terminals')
 inline = in_file.readline()

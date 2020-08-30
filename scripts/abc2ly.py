@@ -362,7 +362,7 @@ def set_default_len_from_time_sig(s):
 
 def gulp_file(f):
     try:
-        i = open(f)
+        i = open(f, encoding="utf8")
         i.seek(0, 2)
         n = i.tell()
         i.seek(0, 0)
@@ -1377,7 +1377,7 @@ happy_count = 100
 
 
 def parse_file(fn):
-    f = open(fn)
+    f = open(fn, encoding='utf8')
     ls = f.readlines()
     ls = [re.sub("\r$", '', x) for x in ls]
 
@@ -1500,7 +1500,7 @@ for f in files:
     if not global_options.quiet:
         sys.stderr.write('lilypond output to: `%s\'...' %
                          global_options.output)
-    outf = open(global_options.output, 'w')
+    outf = open(global_options.output, 'w', encoding='utf8')
 
 # don't substitute @VERSION@. We want this to reflect
 # the last version that was verified to work.

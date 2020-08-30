@@ -50,11 +50,11 @@ if os.path.isdir(os.path.join(target_dir, 'Documentation/')):
     ''',
         'VERSION': package_version + '\n',
     }.items():
-        open(os.path.join(target_dir, f), 'w').write(contents)
+        open(os.path.join(target_dir, f), 'w', encoding='utf8').write(contents)
 
     # need this for content negotiation with documentation index
     if target == 'online':
-        f = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w')
+        f = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w', encoding='utf8')
         f.write('#.htaccess\nDirectoryIndex index\n')
         f.close()
 

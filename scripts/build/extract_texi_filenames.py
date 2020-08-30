@@ -310,7 +310,7 @@ def process_sections(filename, page):
 
 xref_map_line_re = re.compile(r'(.*?)\t(.*?)\t(.*?)$')
 if master_map_file:
-    for line in open(master_map_file):
+    for line in open(master_map_file, encoding='utf8'):
         m = xref_map_line_re.match(line)
         if m:
             initial_map[m.group(1)] = (m.group(1), m.group(2), m.group(3))

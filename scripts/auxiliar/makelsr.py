@@ -264,7 +264,7 @@ def copy_ly(srcdir, name, tags):
     tags = ', '.join(tags)
     file_path = os.path.join(srcdir, name)
     sys.stderr.write("\nmakelsr.py: reading %s\n" % file_path)
-    s = open(file_path).read()
+    s = open(file_path, encoding="utf8").read()
 
     s = doctitle_re.sub(doctitle_sub, s)
     if "new" in srcdir:
@@ -279,7 +279,7 @@ def copy_ly(srcdir, name, tags):
     s = escape_backslashes_in_header(s)
     s = s.replace("\r\n", "\n")
     sys.stderr.write("makelsr.py: writing %s\n" % dest)
-    open(dest, 'w').write(s)
+    open(dest, 'w', encoding='utf8').write(s)
 
     e = os.system(convert_ly+(" -d -e '%s'" % dest))
     if e:
@@ -318,7 +318,7 @@ def read_source(src):
     tag_list = dict([(tag, set()) for tag in tags])
     for f in glob.glob(os.path.join(src, '*.ly')):
         basename = os.path.basename(f)
-        m = tags_re.search(open(f, 'r').read())
+        m = tags_re.search(open(f, 'r', encoding='utf8').read())
         if m:
             file_tags = [tag.strip() for tag in m.group(1). split(',')]
             snippet_list[basename] = (src, file_tags)
@@ -334,7 +334,7 @@ def read_source(src):
 
 def dump_file_list(file, file_list):
     new_list = file_list
-    f = open(file, 'w')
+    f = open(file, 'w', encoding='utf8')
     f.write('\n'.join(sorted(new_list)) + '\n')
 
 
@@ -347,7 +347,7 @@ if in_dir:
 else:
     list(map(os.remove, glob.glob(os.path.join(lys_from_lsr, '*.snippet-list'))))
     for f in glob.glob(os.path.join(lys_from_lsr, '*.ly')):
-        if new_lys_marker in open(f).read():
+        if new_lys_marker in open(f, encoding='utf8').read():
             os.remove(f)
 snippets = {}
 if in_dir:

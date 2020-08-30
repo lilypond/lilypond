@@ -728,7 +728,7 @@ printing diff against existing file." % filename)
 
         system_count = 0
         if not skip_lily and not missing:
-            system_count = int(open(full + '-systems.count').read())
+            system_count = int(open(full + '-systems.count', encoding="utf8").read())
 
         for number in range(1, system_count + 1):
             systemfile = '%s-%d' % (base, number)

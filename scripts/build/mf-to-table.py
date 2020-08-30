@@ -24,7 +24,7 @@ import time
 
 
 def read_log_file(fn):
-    str = open(fn).read()
+    str = open(fn, encoding='utf8').read()
     str = re.sub('[\n\r]', '', str)
     str = re.sub('[\t ]+', ' ', str)
 
@@ -165,5 +165,5 @@ for name in sys.argv[1:]:
     char_lisp_nm = root + '.lisp'
 
     g, m = parse_logfile(name)
-    open(char_lisp_nm, 'w').write(character_lisp_table(g, m))
-    open(global_lisp_nm, 'w').write(global_lisp_table(g))
+    open(char_lisp_nm, 'w', encoding='utf8').write(character_lisp_table(g, m))
+    open(global_lisp_nm, 'w', encoding='utf8').write(global_lisp_table(g))

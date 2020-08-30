@@ -122,7 +122,7 @@ for opt in options:
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
     elif o == '--template':
-        template = open(a, 'r').read()
+        template = open(a, 'r', encoding='utf8').read()
     else:
         raise Exception('unknown option: ' + o)
 
@@ -178,7 +178,7 @@ def name2line(n):
 if glob_input:
     files = glob.glob(glob_input)
 elif input_filename:
-    files = open(input_filename).read().split()
+    files = open(input_filename, encoding='utf8').read().split()
 
 if files:
     dir = os.path.dirname(name) or "."
@@ -189,7 +189,7 @@ if files:
     s = "\n".join(map(name2line, files))
     s = template.replace(include_snippets, s, 1)
     f = "%s/%s" % (dir, name)
-    h = open(f, "w")
+    h = open(f, "w", encoding="utf8")
     h.write(s)
     h.close()
 else:

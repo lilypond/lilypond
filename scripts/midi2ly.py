@@ -1071,7 +1071,7 @@ def convert_midi(in_file, out_file):
 
     for i in global_options.include_header:
         s += '\n%% included from %(i)s\n' % locals()
-        s += open(i).read()
+        s += open(i, encoding='utf8').read()
         if s[-1] != '\n':
             s += '\n'
         s += '% end\n'
@@ -1112,7 +1112,7 @@ def convert_midi(in_file, out_file):
     if out_file == '-':
         handle = sys.stdout
     else:
-        handle = open(out_file, 'w')
+        handle = open(out_file, 'w', encoding='utf8')
 
     handle.write(s)
     handle.close()

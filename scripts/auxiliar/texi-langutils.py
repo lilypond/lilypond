@@ -99,7 +99,7 @@ texinfo_verbatim_ly_re = re.compile(r'^@lilypond\[.*?verbatim')
 def process_texi(texifilename, i_blurb, n_blurb, write_skeleton, topfile,
                  output_file=None, scan_ly=False, inclusion_level=0):
     try:
-        f = open(texifilename, 'r')
+        f = open(texifilename, 'r', encoding='utf8')
         texifile = f.read()
         f.close()
         printedfilename = texifilename.replace('../', '')
@@ -135,7 +135,7 @@ def process_texi(texifilename, i_blurb, n_blurb, write_skeleton, topfile,
 
         # process Texinfo node names and section titles
         if write_skeleton:
-            g = open(os.path.basename(texifilename), 'w')
+            g = open(os.path.basename(texifilename), 'w', encoding='utf8')
             subst = globals()
             subst.update(locals())
             g.write(i_blurb % subst)
@@ -205,7 +205,7 @@ if node_blurb != '':
     node_blurb = '\n' + node_blurb + '\n\n'
 if make_gettext:
     node_list_filename = 'node_list'
-    node_list = open(node_list_filename, 'w')
+    node_list = open(node_list_filename, 'w', encoding='utf8')
     node_list.write('# -*- coding: utf-8 -*-\n')
     for texi_file in texi_files:
         # Urgly: scan ly comments and variable names only in English doco

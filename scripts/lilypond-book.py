@@ -323,7 +323,7 @@ def system_in_directory(cmd_str, directory, log_file):
 
     output_location = None
     if global_options.redirect_output:
-        output_location = open(log_file + '.log', 'w')
+        output_location = open(log_file + '.log', 'w', encoding='utf8')
 
     try:
         subprocess.run(cmd_str, stdout=output_location,
@@ -349,7 +349,7 @@ def process_snippets(input_name, cmd, basenames,
     snippet_map_path = os.path.join(lily_output_dir, snippet_map_file)
 
     # Write snippet map.
-    with open(snippet_map_path, 'w') as snippet_map:
+    with open(snippet_map_path, 'w', encoding='utf8') as snippet_map:
         snippet_map.write("""
 
 #(define version-seen #t)
@@ -365,7 +365,7 @@ def process_snippets(input_name, cmd, basenames,
     # Write list of snippet names.
     snippet_names_file = 'snippet-names-%s.ly' % checksum
     snippet_names_path = os.path.join(lily_output_dir, snippet_names_file)
-    with open(snippet_names_path, 'w') as snippet_names:
+    with open(snippet_names_path, 'w', encoding='utf8') as snippet_names:
         snippet_names.write('\n'.join(
             [snippet_map_file] + [name + '.ly' for name in basenames]))
 
@@ -385,7 +385,7 @@ def lock_path(name):
     if os.name != 'posix':
         return None
 
-    fp = open(name, 'w')
+    fp = open(name, 'w', encoding='utf8')
     fcntl.lockf(fp, fcntl.LOCK_EX)
     return fp
 
@@ -758,7 +758,7 @@ def main():
                                      base_file_name + global_options.formatter.default_extension)
 
     os.chdir(original_dir)
-    open(dep_file, 'w').write('%s: %s\n'
+    open(dep_file, 'w', encoding='utf8').write('%s: %s\n'
                               % (final_output_file, ' '.join(inputs)))
 
 

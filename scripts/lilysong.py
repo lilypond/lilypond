@@ -130,8 +130,8 @@ def process_xml_file(file_name, voice, speedup, play_program):
         if recodep:
             decode = codecs.getdecoder('utf-8')
             encode = codecs.getencoder(coding)
-        input = open(file_name)
-        output = open(xml_temp_file, 'w')
+        input = open(file_name, encoding='utf8')
+        output = open(xml_temp_file, 'w', encoding='utf8')
         while True:
             data = input.read()
             if not data:

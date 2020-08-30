@@ -376,7 +376,7 @@ def read_signature_file(name):
     log_verbose('reading %s' % name)
 
     try:
-        f = open(name)
+        f = open(name, encoding='utf8')
     except IOError as e:
         if e.errno == errno.ENOENT:
             return None
@@ -712,7 +712,7 @@ class SignatureFileLink (FileLink):
                 data_option = ('-slilypond-datadir=%s/share/lilypond/current '
                                % abs_dir)
 
-            driver = open('batch.ps', 'w')
+            driver = open('batch.ps', 'w', encoding='utf8')
             for f in glob.glob(base):
                 outfile = (out_dir + '/' + f).replace('.eps', '.png')
                 driver.write('''
@@ -1398,14 +1398,14 @@ def test_basic_compare():
              ]
 
     for d in dicts:
-        open(d['name'] + '.ly', 'w').write(ly_template % d)
+        open(d['name'] + '.ly', 'w', encoding='utf8').write(ly_template % d)
 
     simple_names = [d['name'] for d in dicts]
 
     multipage_str = r'''
     #(set-default-paper-size "a6")
     \book {
-    \score {
+\score {
       \relative c' { c1 \pageBreak c1 }
       \layout {}
       \midi {}
@@ -1414,8 +1414,8 @@ def test_basic_compare():
     }
     '''
 
-    open('20multipage.ly', 'w').write(multipage_str.replace('c1', 'd1'))
-    open('19multipage.ly', 'w').write(
+    open('20multipage.ly', 'w', encoding='utf8').write(multipage_str.replace('c1', 'd1'))
+    open('19multipage.ly', 'w', encoding='utf8').write(
         '#(set-global-staff-size 19.5)\n' + multipage_str)
 
     names = simple_names + ["20multipage", "19multipage"]
