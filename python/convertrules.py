@@ -4264,7 +4264,7 @@ def conv(s):
 
 @rule((2, 21, 2), r'''\tocItem "string" -> \tocItem \markup "string"''')
 def conv(s):
-    s = re.sub(r'\\tocItem\s+\"', r'\\tocItem \\markup \"', s)
+    s = re.sub(r'\\tocItem\s+\"', r'\\tocItem \\markup "', s)
     return s
 
 
