@@ -246,13 +246,13 @@ def conv(s):
 
 @rule((1, 1, 66), 'semi -> volta')
 def conv(s):
-    s = re.sub('\\\\repeat *\"?semi\"?', '\\\\repeat "volta"', s)
+    s = re.sub('\\\\repeat *"?semi"?', '\\\\repeat "volta"', s)
     return s
 
 
 @rule((1, 1, 67), 'beamAuto -> noAutoBeaming')
 def conv(s):
-    s = re.sub('\"?beamAuto\"? *= *\"?0?\"?', 'noAutoBeaming = "1"', s)
+    s = re.sub('"?beamAuto"? *= *"?0?"?', 'noAutoBeaming = "1"', s)
     return s
 
 
@@ -814,7 +814,7 @@ def subst_req_name(match):
 @rule((1, 7, 1), 'ly-make-music foo_bar_req -> make-music-by-name FooBarEvent')
 def conv(s):
     s = re.sub(
-        '\\(ly-make-music *\"([A-Z][a-z_]+)_req\"\\)', subst_req_name, s)
+        '\\(ly-make-music *"([A-Z][a-z_]+)_req"\\)', subst_req_name, s)
     s = re.sub('Request_chord', 'EventChord', s)
     return s
 
@@ -2302,7 +2302,7 @@ def conv(s):
 
 @rule((2, 7, 11), '"tabloid" -> "11x17"')
 def conv(s):
-    s = re.sub(r'\"tabloid\"', '"11x17"', s)
+    s = re.sub('"tabloid"', '"11x17"', s)
     return s
 
 
@@ -2511,7 +2511,7 @@ def conv(s):
 @rule((2, 9, 6), "\\context Foo \\applyOutput #bla -> \\applyOutput #'Foo #bla ")
 def conv(s):
     s = re.sub(
-        r'\\context\s+\"?([a-zA-Z]+)\"?\s*\\applyOutput', r"\\applyOutput #'\1", s)
+        r'\\context\s+"?([a-zA-Z]+)"?\s*\\applyOutput', r"\\applyOutput #'\1", s)
     return s
 
 
@@ -2997,7 +2997,7 @@ you must now specify the distances between staves rather than the offset of stav
     s = re.sub('ly:(system-start-text::print|note-head::brew-ez-stencil|ambitus::print)',
                  '\\1', s)
     s = re.sub('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', s)
-    s = re.sub(r'(\\context\s*\{{1}[^\}]+\\type\s+\"?Engraver_group\"?\s+\\name\s+"*Dynamics"*[^\}]*\}{1})',
+    s = re.sub(r'(\\context\s*\{{1}[^\}]+\\type\s+"?Engraver_group"?\s+\\name\s+"*Dynamics"*[^\}]*\}{1})',
                  '% [Convert-ly] The Dynamics context is now included by default.', s)
     return s
 
@@ -4239,7 +4239,7 @@ def conv(s):
 
 @rule((2, 21, 2), r'''\tocItem "string" -> \tocItem \markup "string"''')
 def conv(s):
-    s = re.sub(r'\\tocItem\s+\"', r'\\tocItem \\markup "', s)
+    s = re.sub(r'\\tocItem\s+"', r'\\tocItem \\markup "', s)
     return s
 
 
