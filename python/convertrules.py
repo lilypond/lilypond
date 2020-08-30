@@ -367,7 +367,7 @@ def conv(s):
 
 @rule((1, 3, 59), r'\key X ; -> \key X major; ')
 def conv(s):
-    s = re.sub(r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""", s)
+    s = re.sub(r"""\\key *([a-z]+) *;""", r"""\\key \1 \\major;""", s)
     return s
 
 
@@ -448,7 +448,7 @@ def conv(s):
     s = re.sub('([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?',
                  '\\1 \\\\override #\'direction = #1', s)
     s = re.sub('([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?',
-                 '\\1 \\override #\'direction = #-1', s)
+                 '\\1 \\\\override #\'direction = #-1', s)
     s = re.sub('([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?',
                  '\\1 \\\\override #\'direction = #0', s)
 
@@ -517,13 +517,13 @@ def conv(s):
 @rule((1, 3, 102), 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)')
 def conv(s):
     s = re.sub('"?beamAutoEnd_([0-9]*)"? *= *(#\\([^)]*\\))',
-                 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', s)
+                 'autoBeamSettings \\\\push #\'(end 1 \\1 * *) = \\2', s)
     s = re.sub('"?beamAutoBegin_([0-9]*)"? *= *(#\\([^)]*\\))',
-                 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', s)
+                 'autoBeamSettings \\\\push #\'(begin 1 \\1 * *) = \\2', s)
     s = re.sub('"?beamAutoEnd"? *= *(#\\([^)]*\\))',
-                 'autoBeamSettings \\push #\'(end * * * *) = \\1', s)
+                 'autoBeamSettings \\\\push #\'(end * * * *) = \\1', s)
     s = re.sub('"?beamAutoBegin"? *= *(#\\([^)]*\\))',
-                 'autoBeamSettings \\push #\'(begin * * * *) = \\1', s)
+                 'autoBeamSettings \\\\push #\'(begin * * * *) = \\1', s)
     return s
 
 
@@ -591,7 +591,7 @@ def conv(s):
 @rule((1, 3, 122), 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch')
 def conv(s):
     s = re.sub('drarnChords', 'chordChanges', s)
-    s = re.sub('\\musicalpitch', '\\pitch', s)
+    s = re.sub(r'\\musicalpitch', r'\\pitch', s)
     return s
 
 
@@ -647,8 +647,8 @@ def conv(s):
 
 @rule((1, 3, 146), _('semicolons removed'))
 def conv(s):
-    s = re.sub('\\\\key[ \t]*;', '\\key \\default;', s)
-    s = re.sub('\\\\mark[ \t]*;', '\\mark \\default;', s)
+    s = re.sub('\\\\key[ \t]*;', r'\\key \\default;', s)
+    s = re.sub('\\\\mark[ \t]*;', r'\\mark \\default;', s)
 
     # Make sure groups of more than one ; have space before
     # them, so that non of them gets removed by next rule
@@ -736,9 +736,9 @@ def conv(s):
 @rule((1, 5, 58), _('deprecate %s') % 'textNonEmpty')
 def conv(s):
     s = re.sub('textNonEmpty *= *##t',
-                 "TextScript \\set #'no-spacing-rods = ##f", s)
+                 "TextScript \\\\set #'no-spacing-rods = ##f", s)
     s = re.sub('textNonEmpty *= *##f',
-                 "TextScript \\set #'no-spacing-rods = ##t", s)
+                 "TextScript \\\\set #'no-spacing-rods = ##t", s)
     return s
 
 
@@ -1064,7 +1064,7 @@ def conv(s):
 @rule((1, 7, 28), _("new Pedal style syntax"))
 def conv(s):
     s = re.sub(r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\(override|set) *#'pedal-type *",
-                 r"\property Staff.pedal\1Style ", s)
+                 r"\\property Staff.pedal\1Style ", s)
     s = re.sub(
         r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\revert *#'pedal-type", '', s)
     return s
@@ -1446,7 +1446,7 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
         raise FatalConversionError()
 
-    if re.search("\\pitch *#", s):
+    if re.search(r"\\pitch *#", s):
         stderr_write(NOT_SMART % "\\pitch")
         stderr_write(_("Use Scheme code to construct arbitrary note events."))
         stderr_write('\n')
@@ -1678,14 +1678,14 @@ def conv(s):
     s = re.sub(r'\\pitchnames ', 'pitchnames = ', s)
     s = re.sub(r'\\chordmodifiers ', 'chordmodifiers = ', s)
     s = re.sub(r'\bdrums\b\s*=', 'drumContents = ', s)
-    s = re.sub(r'\\drums\b', '\\drumContents ', s)
+    s = re.sub(r'\\drums\b', r'\\drumContents ', s)
 
     if re.search('drums->paper', s):
         stderr_write(_("\n%s found. Check file manually!\n") %
                      _("Drum notation"))
 
     s = re.sub(r"""\\apply\s+#\(drums->paper\s+'([a-z]+)\)""",
-                 r"""\property DrumStaff.drumStyleTable = #\1-style""",
+                 r"""\\property DrumStaff.drumStyleTable = #\1-style""",
                  s)
 
     if re.search('Thread', s):
@@ -1695,7 +1695,7 @@ def conv(s):
                  + r"""\\(set|override)\s*#'style\s*=\s*#'harmonic"""
                  + r"""\s+([a-z]+[,'=]*)([0-9]*\.*)""", r"""<\3\\harmonic>\4""", s)
 
-    s = re.sub(r"""\\new Thread""", r"""\context Voice""", s)
+    s = re.sub(r"""\\new Thread""", r"""\\context Voice""", s)
     s = re.sub(r"""Thread""", """Voice""", s)
 
     if re.search('\bLyrics\b', s):
@@ -1885,8 +1885,8 @@ def conv(s):
 
 @rule((2, 1, 29), '\\center -> \\center-align, \\translator -> \\context')
 def conv(s):
-    s = re.sub(r'\\center([^-])', '\\center-align\\1', s)
-    s = re.sub(r'\\translator', '\\context', s)
+    s = re.sub(r'\\center([^-])', r'\\center-align\1', s)
+    s = re.sub(r'\\translator', r'\\context', s)
     return s
 
 
@@ -1960,7 +1960,7 @@ def conv(s):
             _("""Page layout has been changed, using paper size and margins.
 textheight is no longer used.
 """))
-    s = re.sub(r'\\OrchestralScoreContext', '\\Score', s)
+    s = re.sub(r'\\OrchestralScoreContext', r'\\Score', s)
 
     def func(m):
         if m.group(1) not in ['RemoveEmptyStaff',
@@ -1988,7 +1988,7 @@ def conv(s):
 
 @rule((2, 3, 8), 'remove \\consistsend, strip \\lyrics from \\lyricsto.')
 def conv(s):
-    s = re.sub(r'\\consistsend', '\\consists', s)
+    s = re.sub(r'\\consistsend', r'\\consists', s)
     s = re.sub(r'\\lyricsto\s+("?[a-zA-Z]+"?)(\s*\\new Lyrics\s*)?\\lyrics',
                  r'\\lyricsto \1 \2', s)
     return s
@@ -2037,7 +2037,7 @@ def conv(s):
 }""", s)
     s = re.sub('soloADue', 'printPartCombineTexts', s)
     s = re.sub(r'\\applymusic\s*#notes-to-clusters',
-                 '\\makeClusters', s)
+                 r'\\makeClusters', s)
 
     s = re.sub(r'pagenumber\s*=', 'firstpagenumber = ', s)
     return s
@@ -2126,7 +2126,7 @@ def conv(s):
 @rule((2, 5, 0), '\\quote -> \\quoteDuring')
 def conv(s):
     s = re.sub(r'\\quote\s+"?([a-zA-Z0-9]+)"?\s+([0-9.*/]+)',
-                 r'\\quoteDuring #"\1" { \skip \2 }',
+                 r'\\quoteDuring #"\1" { \\skip \2 }',
                  s)
     return s
 
@@ -2668,9 +2668,9 @@ addquote -> addQuote
 """)
 def conv(s):
     s = re.sub(r'(\\set\s+)?([A-Z][a-zA-Z]+\s*\.\s*)allowBeamBreak',
-                 r"\override \2Beam #'breakable", s)
+                 r"\\override \2Beam #'breakable", s)
     s = re.sub(r'(\\set\s+)?allowBeamBreak',
-                 r"\override Beam #'breakable", s)
+                 r"\\override Beam #'breakable", s)
     s = re.sub(r'addquote', 'addQuote', s)
     if re.search("Span_dynamic_performer", s):
         stderr_write(
