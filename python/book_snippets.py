@@ -805,17 +805,19 @@ printing diff against existing file." % filename)
         return self.formatter.snippet_output(base, self)
 
     def get_images(self):
-        rep = {'base': self.final_basename()}
+        base = self.final_basename()
 
-        single = '%(base)s.png' % rep
-        multiple = '%(base)s-page1.png' % rep
-        images = (single,)
+        outdir = self.global_options.lily_output_dir
+        single_base= '%s.png' % base
+        single = os.path.join(outdir, single_base)
+        multiple = os.path.join(outdir, '%s-page1.png' % base)
+        images = (single_base,)
         if (os.path.exists(multiple)
             and (not os.path.exists(single)
                  or (os.stat(multiple)[stat.ST_MTIME]
                      > os.stat(single)[stat.ST_MTIME]))):
-            count = ps_page_count('%(base)s.eps' % rep)
-            images = ['%s-page%d.png' % (rep['base'], page)
+            count = ps_page_count(os.path.join(outdir, '%s.eps' % base))
+            images = ['%s-page%d.png' % (base, page)
                       for page in range(1, count+1)]
             images = tuple(images)
 
