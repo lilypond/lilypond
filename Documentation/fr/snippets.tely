@@ -1,4 +1,12 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+   Translation of GIT committish: ae4f78734baad210d78ee328c612efefc08dbab4
+
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
 
 @setfilename lilypond-snippets.info
 @settitle LilyPond snippets
@@ -6,41 +14,37 @@
 @documentlanguage fr
 @afourpaper
 
-@ignore
-    Translation of GIT committish: 69f0ec479a6ade46d0a227755bb02562112c6743
-
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
-@end ignore
-
-@c Translators: Han-Wen Nienhuys
+@c Translators: Jean-Charles Malahieude
 
 @macro manualIntro
-This document shows a selected set of LilyPond snippets from the
+Ce document regroupe un certain nombre d'exemples, trucs et astuces pour
+LilyPond issus du
 @uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  It is in the public domain.
+(LSR).  Il est dans le domaine public.
 
-We would like to address many thanks to Sebastiano Vigna for maintaining
-LSR web site and database, and the University of Milano for hosting LSR.
+Nous profitons de ces lignes pour adresser tous nos remerciements à
+Sebastiano Vigna, qui assure la maintenance du site LSR et de la base de
+données qu'il contient, ainsi qu'à l'université de Milan qui l'héberge.
 
-Please note that this document is not an exact subset of LSR: some
-snippets come from @file{input/new} LilyPond sources directory, and
-snippets from LSR are converted through @command{convert-ly}, as LSR is
-based on a stable LilyPond version, and this document is for
-version @version{}.
+Notez bien que cet ouvrage n'est pas une simple copie du LSR.  D'une
+part, certains exemples proviennet directement des sources de LilyPond
+-- plus précisément le répertoire @file{input/new} -- et, d'autre part,
+ce qui provient du LSR est mis à jour à l'aide de @command{convert-ly}
+-- le LSR repose sur une version stable de LilyPond, alors que ce manuel
+correspond à la version @version{}.
 
-Snippets are grouped by tags; tags listed in the table of contents match
-a section of LilyPond notation manual.  Snippets may have several tags,
-and not all LSR tags may appear in this document.
+Les extraits sont regroupés par catégorie, correspondant au découpage du
+manuel de notation de LilyPond.  Un même extrait peut se voir attribuer
+plusieurs catégories, et toutes les catégories du LSR ne sont pas
+forcément reprises.
 
-In the HTML version of this document, you can click on the file name
-or figure for each example to see the corresponding input file.
+Si vous consultez la version HTML de cet ouvrage, un clic sur le nom du
+fichier ou sur l'image vous affichera le code sous-jacent.
 
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2020 by the authors.
+Copyright @copyright{} 1999--2020 par les auteurs.
 @end macro
 
 @c This disables @lydoctitle definition in common-macros.itexi
@@ -66,41 +70,44 @@ Copyright @copyright{} 1999--2020 by the authors.
 @end ifhtml
 
 
-@lilyTitlePage{Snippets}
+@lilyTitlePage{Morceaux choisis}
 
+@warning{La génération automatique de ce document ne permet
+malheureusement pas l'affichage des rubriques dans la langue de
+Molière ; veuillez nous en excuser.}
 
 @c maybe generate/update @menu and @includes automatically? --jm
 @ifnottex
 @menu
-Musical notation
-* Pitches::
-* Rhythms::
-* Expressive marks::
-* Repeats::
-* Simultaneous notes::
-* Staff notation::
-* Editorial annotations::
-* Text::
+Notation musicale
+* Pitches::               Hauteurs
+* Rhythms::               Rythme
+* Expressive marks::      Signes d'interprétation
+* Repeats::               Répétitions et reprises
+* Simultaneous notes::    Notes simultanées
+* Staff notation::        Notation sur la portée
+* Editorial annotations:: Annotations éditoriales
+* Text::                  Texte
 
-Specialist notation
-* Vocal music::
-* Chords::
-* Keyboards::
-* Percussion::
-* Fretted strings::
-* Unfretted strings::
-* Winds::
-* Ancient notation::
-* World music::
+Notation spécialisée
+* Vocal music::         Musique vocale
+* Chords::              Accords
+* Keyboards::           Claviers
+* Percussion::          Percussions
+* Fretted strings::     Cordes frettées
+* Unfretted strings::   Cordes non frettées
+* Winds::               Vents
+* Ancient notation::    Notations anciennes
+* World music::         Musiques du monde
 
-Other collections
-* Contexts and engravers::
-* Tweaks and overrides::
-* Paper and layout::
-* Titles::
-* Spacing::
-* MIDI::
-* Templates::
+Autres collections
+* Contexts and engravers:: Contextes et graveurs
+* Tweaks and overrides::   Affinages
+* Paper and layout::       Papier et mise en forme
+* Titles::                 Titrages
+* Spacing::                Espacements
+* MIDI::                   MIDI
+* Templates::              Canevas
 @end menu
 
 @docMain
