@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: ba869f4d7c52c9726ebe6fb30120a4b4ef0c737f
+   Translation of GIT committish: 670884bd1daf8393b45a4a8a5531301c49932561
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -25,17 +25,12 @@ lire @ref{Entrée sous forme de texte}.}
 @translationof Download
 
 @divClass{heading-center}
-@ifclear web_version
-  @c yes, we want verisonDevel here, since the online links
-  @c for @version won't be up yet!
-@heading Téléchargement de LilyPond @versionDevel
+@heading Télécharger LilyPond @versionStable
 
-@warning{Les versions stables de LilyPond sont disponibles chez
-@uref{https://lilypond.org, lilypond.org}}
+@ifclear web_version
+@warning{Les versions instables de LilyPond sont disponibles à partir de
+la page @ref{Développement}.}
 @end ifclear
-@ifset web_version
-  @heading Télécharger LilyPond @versionStable
-@end ifset
 
 @warningTextBased
 
@@ -50,9 +45,8 @@ lire @ref{Entrée sous forme de texte}.}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (GNU/Linux et FreeBSD)}
+@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, Unix (paquetages génériques pour GNU/Linux)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -105,8 +99,6 @@ Tous les logos et images des produits sont des marques déposées ou sont
 protégés par le droit d’auteur.
 
 @logoLegalLinux
-
-@logoLegalFreeBSD
 
 @logoLegalMacOSX
 
@@ -216,8 +208,6 @@ protégés par le droit d’auteur.
 
 @logoLegalLinux
 
-@logoLegalFreeBSD
-
 @divEnd
 @divEnd
 
@@ -241,8 +231,8 @@ protégés par le droit d’auteur.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Pour Mac OS X 10.4 à 10.5 tournant sur un processeur Intel et Mac OS X
-de 10.6 à 10.14 (voir ci-dessous pour la version 10.15).
+Pour Mac OS X 10.4 à 10.14 tournant sur un processeur Intel
+(voir ci-dessous pour la version 10.15).
 
 @item
 @sourceimage{logo-macosx,,,}
