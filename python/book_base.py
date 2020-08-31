@@ -21,6 +21,7 @@
 
 import os
 import re
+import sys
 
 import book_snippets as BookSnippet
 import book_snippets
@@ -35,8 +36,9 @@ error = ly.error
 ########################################################################
 
 
-def find_file(name, include_path, working_dir=None, raise_error=True):
-    current_path = working_dir or os.getcwd()
+def find_file(name, include_path, working_dir, raise_error=True):
+    assert working_dir
+    current_path = working_dir
     for i in [current_path] + include_path:
         full = os.path.join(i, name)
         full = os.path.normpath(os.path.join(current_path, full))
@@ -45,7 +47,7 @@ def find_file(name, include_path, working_dir=None, raise_error=True):
 
     if raise_error:
         error(_("file not found: %s") % name + '\n')
-        exit(1)
+        sys.exit(1)
     return ''
 
 
