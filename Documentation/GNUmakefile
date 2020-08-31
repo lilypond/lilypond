@@ -470,7 +470,10 @@ $(outdir)/en/internals.texi:
 
 ## Different manuals within a language link to each other. This can only work if
 ## the target document has an xref-map too
-define per_lang_per_doc_xref_deps
+define per_lang_per_doc_deps
+
+# lilypond-book automatically generates .dep files, but only for .itely files.
+$(outdir)/$(1)/$(2).texi: $(call src-wildcard,$(1)/$(2)/*.itexi) $(outdir)/version.itexi
 
 $(outdir)/$(1)/$(2)/index.html: $(call LANG_XREF_FILES,$(1))
 
@@ -524,7 +527,7 @@ $(outdir)/$(1)/essay.texi: \
 # processing ly/generate-documentation.ly for internals.texi (see above).
 $(outdir)/$(1)/notation.texi: $(outdir)/en/internals.texi
 
-$(foreach D,$(DOC_BASENAMES),$(eval $(call per_lang_per_doc_xref_deps,$(1),$(D))))
+$(foreach D,$(DOC_BASENAMES),$(eval $(call per_lang_per_doc_deps,$(1),$(D))))
 endef
 
 $(foreach L, $(LANGS),$(eval $(call per_lang_dep,$(L))))
