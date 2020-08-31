@@ -2174,12 +2174,9 @@ def conv(s):
 
 @rule((2, 5, 13), _('\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click'))
 def conv(s):
-    input_encoding = 'latin1'
-
     def func(match):
         encoding = match.group(1)
 
-        # FIXME: automatic recoding of other than latin1?
         if encoding == 'latin1':
             return match.group(2)
 
@@ -2198,23 +2195,6 @@ def conv(s):
         raise FatalConversionError()
 
     s = re.sub(r'\\encoding\s+"?([a-zA-Z0-9]+)"?(\s+)', func, s)
-
-    import codecs
-    de_ascii = codecs.getdecoder('ascii')
-    de_utf_8 = codecs.getdecoder('utf_8')
-    de_input = codecs.getdecoder(input_encoding)
-    en_utf_8 = codecs.getencoder('utf_8')
-    try:
-        de_ascii(s)
-    # only in python >= 2.3
-    # except UnicodeDecodeError:
-    except UnicodeError:
-        # do not re-recode UTF-8 input
-        try:
-            de_utf_8(s)
-        # except UnicodeDecodeError:
-        except UnicodeError:
-            s = en_utf_8(de_input(s)[0])[0]
 
     s = re.sub(r"#\(ly:set-point-and-click '[a-z-]+\)", '', s)
     return s

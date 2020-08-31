@@ -269,9 +269,17 @@ def do_one_file(infile_name):
     ly.progress(_("Processing `%s\'... ") % infile_name, True)
 
     if infile_name:
-        infile = open(infile_name, 'r', encoding='utf8')
-        input = infile.read()
+        infile = open(infile_name, 'rb')
+        original = infile.read()
         infile.close()
+
+        # Cope early with encoding change in 2.5.13: Try UTF-8 and attempt
+        # conversion from latin1 if that fails.
+        try:
+            input = original.decode('utf-8')
+        except UnicodeError:
+            ly.progress(_("Attempting conversion from `latin1'..."))
+            input = original.decode('latin1')
     else:
         input = sys.stdin.read()
 
