@@ -49,7 +49,6 @@ TODO:
 # TODO: Better solve the global_options copying to the snippets...
 
 import codecs
-from functools import reduce
 import gettext
 import glob
 import hashlib
@@ -581,10 +580,12 @@ def do_file(input_filename, included=False):
             progress(_("Processing include `%s'") % name)
             return do_file(name, included=True)
 
-        include_chunks = list(map(process_include,
-                                  [x for x in chunks if isinstance(x, book_snippets.IncludeSnippet)]))
+        include_chunks = []
+        for x in chunks:
+            if isinstance(x, book_snippets.IncludeSnippet):
+               include_chunks += process_include(x)
 
-        return chunks + reduce(lambda x, y: x + y, include_chunks, [])
+        return chunks + include_chunks
 
     except book_snippets.CompileError:
         os.chdir(original_dir)
