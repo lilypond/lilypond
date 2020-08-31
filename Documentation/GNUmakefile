@@ -387,22 +387,31 @@ endif
 
 PICTURE_SYMLINKS=$(foreach L,$(LANGS),$(outdir)/$(L)/pictures)
 
-pdf: $(OUT_PDF_IMAGES) $(PDF_FILES)
+PDF_TARGETS = $(OUT_PDF_IMAGES) $(PDF_FILES)
+pdf: $(PDF_TARGETS)
 
-html: $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES) $(OUT_JS_FILES) $(OUT_MISC_FILES)
+HTML_TARGETS = $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES)
+HTML_MISC_TARGETS = $(OUT_BITMAP_IMAGES) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
+html: $(HTML_TARGETS) $(HTML_MISC_TARGETS)
 
-
-ifeq ($(out),www)
-local-WWW: pdf $(PICTURE_SYMLINKS)  html $(OUT_BITMAP_IMAGES)
-	$(call ly_progress,Making,webdoc dir,)
+# Do not specify phony targets (pdf, html) as dependencies to avoid bulding the
+# webdoc tree every time.
+$(outdir)/webdoc/dep: $(PDF_TARGETS) $(PICTURE_SYMLINKS) $(HTML_TARGETS) $(HTML_MISC_TARGETS)
+	$(call ly_progress,Making,$(dir $@),)
 	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "$(DOC_BASENAMES)"
+	touch $@
 
-endif
+local-WWW: $(outdir)/webdoc/dep
 
-website: $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-big-page.html) $(OUT_BITMAP_IMAGES) $(PICTURE_SYMLINKS) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
+WEB_HTML_TARGETS = $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-big-page.html)
+$(outdir)/website/dep: $(WEB_HTML_TARGETS) $(HTML_MISC_TARGETS) $(PICTURE_SYMLINKS)
+	$(call ly_progress,Making,$(dir $@),)
 	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh website "$(LANGS)" "" "web"
 	cp $(foreach F, favicon.ico robots.txt tweets.xml, $(src-dir)/webserver/$(F)) $(outdir)/website/web/
 	cp $(src-dir)/webserver/website-dir.htaccess $(outdir)/website/web/.htaccess
+	touch $@
+
+website: $(outdir)/website/dep
 
 #########
 ### Rules
