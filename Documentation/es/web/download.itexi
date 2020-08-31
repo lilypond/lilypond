@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bf293e8909c10ea803f22c8d0f78c5f0424cdd63
+    Translation of GIT committish: 0286a40100bc611490b7ee91605c6dd422c54dfc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,17 +21,11 @@ infórmese sobre nuestra @ref{Entrada de texto}.}
 @translationof Download
 
 @divClass{heading-center}
-@ifclear web_version
-  @c yes, we want versionDevel here, since the online links
-  @c for @version won't be up yet!
-@heading Descargas para LilyPond @versionDevel
+@heading Descarga de LilyPond @versionStable
 
-@warning{Los enlaces para la versión estable de LilyPond están en
-@uref{https://lilypond.org, lilypond.org}}
+@ifclear web_version
+@warning{Los enlaces para la versión de desarrollo de LilyPond están en la sección @ref{Development}.}
 @end ifclear
-@ifset web_version
-  @heading Descargas para LilyPond @versionStable
-@end ifset
 
 @warningTextBased
 
@@ -99,8 +93,6 @@ Se reconoce el copyright y la marca registrada de todos los logotipos
 e imágenes de productos.
 
 @logoLegalLinux
-
-@logoLegalFreeBSD
 
 @logoLegalMacOSX
 
@@ -210,8 +202,6 @@ todos los logotipos e imágenes de producto.
 
 @logoLegalLinux
 
-@logoLegalFreeBSD
-
 @divEnd
 @divEnd
 
@@ -234,8 +224,7 @@ todos los logotipos e imágenes de producto.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Para Mac OS X 10.4--10.5 sobre CPU Intel y Mac OS X 10.6--10.14
-(para 10.15 véase más abajo).
+Para Mac OS X 10.4 a 10.14 sobre CPU Intel (para 10.15 véase más abajo).
 
 @item
 @sourceimage{logo-macosx,,,}
