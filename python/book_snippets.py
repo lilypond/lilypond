@@ -708,18 +708,20 @@ printing diff against existing file." % filename)
         if 'dseparate-log-file' in self.global_options.process_cmd:
             require_file(base + '.log')
 
-        list(map(consider_file, [base + '.tex',
-                                 base + '.eps',
-                                 base + '.pdf',
-                                 base + '.texidoc',
-                                 base + '.doctitle',
-                                 base + '-systems.texi',
-                                 base + '-systems.tex',
-                                 base + '-systems.pdftexi']))
+        for f in [base + '.tex',
+                  base + '.eps',
+                  base + '.pdf',
+                  base + '.texidoc',
+                  base + '.doctitle',
+                  base + '-systems.texi',
+                  base + '-systems.tex',
+                  base + '-systems.pdftexi']:
+            consider_file(f)
         if self.formatter.document_language:
-            list(map(consider_file,
-                     [base + '.texidoc' + self.formatter.document_language,
-                      base + '.doctitle' + self.formatter.document_language]))
+            for f in [base + '.texidoc' + self.formatter.document_language,
+                      base + '.doctitle' + self.formatter.document_language]:
+                consider_file(f)
+
 
         required_files = self.formatter.required_files(
             self, base, full, result)
@@ -740,8 +742,11 @@ printing diff against existing file." % filename)
             if 'ddump-signature' in self.global_options.process_cmd:
                 consider_file(systemfile + '.signature')
 
-        list(map(consider_file, self.additional_files_to_consider(base, full)))
-        list(map(require_file, self.additional_files_required(base, full)))
+        for f in  self.additional_files_to_consider(base, full):
+            consider_file(f)
+
+        for f in self.additional_files_required(base, full):
+            require_file(f)
 
         return (result, missing)
 
