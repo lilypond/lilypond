@@ -475,9 +475,17 @@ define per_lang_per_doc_deps
 # lilypond-book automatically generates .dep files, but only for .itely files.
 $(outdir)/$(1)/$(2).texi: $(call src-wildcard,$(1)/$(2)/*.itexi) $(outdir)/version.itexi
 
+# Make web only depend on its own xref-maps; it doesn't have cross-doc links
+# and adding the other manuals as dependencies slows down the website build.
+ifeq ($(2),web)
+$(outdir)/$(1)/$(2)/index.html: $(outdir)/$(1)/$(2).xref-map
+
+$(outdir)/$(1)/$(2)-big-page.html: $(outdir)/$(1)/$(2).xref-map
+else
 $(outdir)/$(1)/$(2)/index.html: $(call LANG_XREF_FILES,$(1))
 
 $(outdir)/$(1)/$(2)-big-page.html: $(call LANG_XREF_FILES,$(1))
+endif
 
 endef
 
