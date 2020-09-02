@@ -39,14 +39,17 @@ debug = ly.debug_output
 # Recognize special sequences in the input.
 #
 #   (?P<name>regex) -- Assign result of REGEX to NAME.
-#   *? -- Match non-greedily.
-#   (?!...) -- Match if `...' doesn't match next (without consuming
-#              the string).
+#   *?              -- Match non-greedily.
+#   (?!...)         -- Match if `...' doesn't match next (without
+#                      consuming the string).
+#   (?(name)yes|no) -- If group NAME exists, match YES pattern;
+#                      otherwise match NO pattern
 #
 #   (?m) -- Multiline regex: Make ^ and $ match at each line.
 #   (?s) -- Make the dot match all characters including newline.
 #   (?x) -- Ignore whitespace in patterns.
-# See book_base.BookOutputFormat for  possible keys
+#
+# See book_base.BookOutputFormat for possible keys.
 Latex_snippet_res = {
     'include':
     r'''(?smx)
@@ -58,48 +61,54 @@ Latex_snippet_res = {
 
     'lilypond':
     r'''(?smx)
-          ^[^%\n]*?
+          ^ [^%\n]*?
           (?P<match>
-          \\lilypond\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*{
-           (?P<code>.*?)
-          })''',
+            \\lilypond
+            \s*
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            \s*
+            { (?P<code>''' + book_base.brace_matcher(10) + r''') }
+          )''',
 
+    # Accept both
+    #   \begin[options]{lilypond}
+    # and
+    #   \begin{lilypond}[options]
     'lilypond_block':
     r'''(?smx)
-          ^[^%\n]*?
+          ^ [^%\n]*?
           (?P<match>
-          \\begin\s*(?P<env>{lilypond}\s*)?(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?(?(env)|\s*{lilypond})
-           (?P<code>.*?)
-          ^[^%\n]*?
-          \\end\s*{lilypond})''',
+            \\begin
+            \s*
+            (?P<env> {lilypond} \s* )?
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            (?(env) | \s* {lilypond} )
+            (?P<code> .*? )
+            ^ [^%\n]*?
+            \\end \s* {lilypond}
+          )''',
 
     'lilypond_file':
     r'''(?smx)
-          ^[^%\n]*?
+          ^ [^%\n]*?
           (?P<match>
-          \\lilypondfile\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*\{
-           (?P<filename>\S+?)
-          })''',
+            \\lilypondfile
+            \s*
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            \s*
+            { (?P<filename> \S+? ) }
+          )''',
 
     'musicxml_file':
     r'''(?smx)
-          ^[^%\n]*?
+          ^ [^%\n]*?
           (?P<match>
-          \\musicxmlfile\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*\{
-           (?P<filename>\S+?)
-          })''',
+            \\musicxmlfile
+            \s*
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            \s*
+            { (?P<filename> \S+? ) }
+          )''',
 
     'singleline_comment':
     r'''(?mx)
@@ -145,7 +154,7 @@ Latex_output = {
   \expandafter\preLilyPondExample
 \fi
 \def\lilypondbook{}%%
-\input{%(base)s-systems.tex}
+\input{%(base)s-systems.tex}%%
 \ifx\postLilyPondExample \undefined
 \else
   \expandafter\postLilyPondExample

@@ -57,6 +57,15 @@ def verbatim_html(s):
                          re.sub('&', '&amp;', s)))
 
 
+# Taken from `convertrules.py`.
+def brace_matcher(n):
+    # poor man's matched brace scanning, gives up
+    # after n+1 levels.  Matches any string with balanced
+    # braces inside; add the outer braces yourself if needed.
+    # Nongreedy.
+    return r"[^{}]*?(?:{"*n+r"[^{}]*?"+r"}[^{}]*?)*?"*n
+
+
 ########################################################################
 # Option handling
 ########################################################################

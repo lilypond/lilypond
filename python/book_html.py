@@ -26,36 +26,38 @@ import re
 import book_base
 import book_snippets
 
-# Recognize special sequences in the input.
-#
-#   (?P<name>regex) -- Assign result of REGEX to NAME.
-#   *? -- Match non-greedily.
-#   (?!...) -- Match if `...' doesn't match next (without consuming
-#              the string).
-#
-#   (?m) -- Multiline regex: Make ^ and $ match at each line.
-#   (?s) -- Make the dot match all characters including newline.
-#   (?x) -- Ignore whitespace in patterns.
-# See book_base.BookOutputFormat for  possible keys
+# See `book_latex.py` for some regex documentation.
+
 HTML_snippet_res = {
     'lilypond':
-    r'''(?mx)
+    r'''(?smx)
           (?P<match>
-          <lilypond(\s+(?P<options>.*?))?\s*:\s*(?P<code>.*?)\s*/>)''',
+            <lilypond
+            ( \s+ (?P<options> [^:<>]*? ) )?
+            \s* : \s*
+            (?P<code> .*? )
+            \s* />
+          )''',
 
     'lilypond_block':
-    r'''(?msx)
+    r'''(?smx)
           (?P<match>
-          <lilypond\s*(?P<options>.*?)\s*>
-          (?P<code>.*?)
-          </lilypond\s*>)''',
+            <lilypond \s*
+            (?P<options> [^:<>]*? )
+            \s* >
+            (?P<code> .*? )
+            </lilypond \s* >
+          )''',
 
     'lilypond_file':
-    r'''(?mx)
+    r'''(?smx)
           (?P<match>
-          <lilypondfile\s*(?P<options>.*?)\s*>
-          \s*(?P<filename>.*?)\s*
-          </lilypondfile\s*>)''',
+            <lilypondfile \s*
+            (?P<options> [^:<>]*? )
+            \s* >
+            \s* (?P<filename> .*? ) \s*
+            </lilypondfile \s* >
+          )''',
 
     'multiline_comment':
     r'''(?smx)(?P<match>\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s)''',

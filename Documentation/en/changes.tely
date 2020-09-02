@@ -66,6 +66,11 @@ which scares away people.
 @end ignore
 
 @item
+The @command{lilypond-book} script now allows braces in the argument of
+the commands @code{\lilypond} (for LaTeX) and @code{@@lilypond} (for
+Texinfo).
+
+@item
 With the new markup list command @code{string-lines} it is now possible to
 split a string at a given character.  The default is to split at line break.
 Surrounding white space gets dropped.  The resulting list of markups may be

@@ -230,6 +230,10 @@ In the input file, music is specified with any of the following commands:
   YOUR LILYPOND CODE
 \end@{lilypond@}
 
+\begin[options,go,here]@{lilypond@}
+  YOUR LILYPOND CODE
+\end@{lilypond@}
+
 \lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
 
 \lilypondfile[options,go,here]@{@var{filename}@}
@@ -270,11 +274,6 @@ The short version
 produces
 
 @lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
-
-@noindent
-Currently, you cannot include @code{@{} or @code{@}} within
-@code{\lilypond@{@}}, so this command is only useful with the
-@code{fragment} option.
 
 The default line width of the music will be adjusted by examining the
 commands in the document preamble, the part of the document before

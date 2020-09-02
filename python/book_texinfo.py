@@ -31,19 +31,8 @@ import book_base
 import book_snippets
 import lilylib as ly
 
-# Recognize special sequences in the input.
-#
-#   (?P<name>regex) -- Assign result of REGEX to NAME.
-#   *? -- Match non-greedily.
-#   (?!...) -- Match if `...' doesn't match next (without consuming
-#              the string).
-#
-#   (?m) -- Multiline regex: Make ^ and $ match at each line.
-#   (?s) -- Make the dot match all characters including newline.
-#   (?x) -- Ignore whitespace in patterns.
-# See book_base.BookOutputFormat for  possible keys
-#     'multiline_comment', 'verbatim', 'lilypond_block', 'singleline_comment',
-#     'lilypond_file', 'include', 'lilypond', 'lilypondversion'
+# See `book_latex.py` for some regex documentation.
+
 TexInfo_snippet_res = {
     'include': r'''(?mx)
           ^(?P<match>
@@ -51,32 +40,35 @@ TexInfo_snippet_res = {
            (?P<filename>\S+))''',
 
     'lilypond': r'''(?smx)
-          ^[^\n]*?(?!@c\s+)[^\n]*?
+          ^ [^\n]*? (?! @c \s+ ) [^\n]*?
           (?P<match>
-          @lilypond\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*{
-           (?P<code>.*?)
-          })''',
+            @lilypond
+            \s*
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            \s*
+            { (?P<code>''' + book_base.brace_matcher(10) + r''') }
+          )''',
 
-    'lilypond_block': r'''(?msx)
-          ^(?P<match>
-          @lilypond\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s+?
-          ^(?P<code>.*?)
-          ^@end\s+lilypond)\s''',
+    'lilypond_block': r'''(?smx)
+          ^
+          (?P<match>
+            @lilypond
+            \s*
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            \s+?
+            ^ (?P<code> .*? )
+            ^ @end \s+ lilypond
+          ) \s''',
 
     'lilypond_file': r'''(?mx)
-          ^(?P<match>
-          @lilypondfile\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*{
-           (?P<filename>\S+)
-          })''',
+          ^
+          (?P<match>
+            @lilypondfile
+            \s*
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            \s*
+            { (?P<filename> \S+ ) }
+          )''',
 
     'multiline_comment': r'''(?smx)
           ^(?P<match>
@@ -86,13 +78,14 @@ TexInfo_snippet_res = {
            @end\s+ignore))\s''',
 
     'musicxml_file': r'''(?mx)
-          ^(?P<match>
-          @musicxmlfile\s*(
-          \[
-           \s*(?P<options>.*?)\s*
-          \])?\s*{
-           (?P<filename>\S+)
-          })''',
+          ^
+          (?P<match>
+            @musicxmlfile
+            \s*
+            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            \s*
+            { (?P<filename> \S+ ) }
+          )''',
 
     'singleline_comment': r'''(?mx)
           ^.*
