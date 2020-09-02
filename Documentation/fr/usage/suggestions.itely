@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9ec5b7d295d8287f52da71d997a8277726cf8c00
+   Translation of GIT committish: 9b78f9a4ab0e076ffb03bfeb0cb959064072a72b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -396,8 +396,8 @@ contenus dans le répertoire @code{Notes} :
 
 @example
 %%% début du fichier "symphonie-cello.ly"
-\include ../symphonieDefs.ily
-\include ../Notes/cello.ily
+\include "../symphonieDefs.ily"
+\include "../Notes/cello.ily"
 @end example
 
 Le @emph{Makefile} répertorie des cibles correspondant à @code{score}
@@ -415,39 +415,48 @@ une tabulation, non pas par des espaces.}
 
 @example
 # Le préfixe au nom des fichiers résultants
-piece = symphonie
-# Détermination du nombre de processeurs
-CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+piece := symphonie
 # La commande d'appel à lilypond
-LILY_CMD = lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click -djob-count=$(CPU_CORES)
+LILY_CMD := lilypond -ddelete-intermediate-files \
+                     -dno-point-and-click
 
 # Les suffixes utilisés dans ce Makefile
 .SUFFIXES: .ly .ily .pdf .midi
 
-# Les fichiers sources et résultants sont recherchés dans les répertoires
-# listés dans la variable VPATH.  Ceux-ci sont tous des sous-répertoires
-# du répertoire courant (fourni par la variable de GNU make `CURDIR').
-VPATH = \
+.DEFAULT_GOAL := score
+
+PDFDIR := PDF
+MIDIDIR := MIDI
+
+# Les fichiers sources et résultants sont recherchés dans les
+# répertoires listés dans la variable VPATH.  Ceux-ci sont tous
+# des sous-répertoires du répertoire courant (fourni par la variable
+# de GNU make `CURDIR').
+VPATH := \
   $(CURDIR)/Partitions \
-  $(CURDIR)/PDF \
   $(CURDIR)/Pupitres \
-  $(CURDIR)/Notes
+  $(CURDIR)/Notes \
+  $(CURDIR)/$(PDFDIR) \
+  $(CURDIR)/$(MIDIDIR)
 
 # La règle type pour créer un PDF et un MIDI à partir d'un fichier
 # source LY.
-# Les .pdf résultants iront dans le sous-répertoire "PDF" et les fichiers
-# .midi dans le sous-répertoire "MIDI".
-%.pdf %.midi: %.ly
-        $(LILY_CMD) $<; \       # cette ligne commence par une tabulation
-        if test -f "$*.pdf"; then \
-            mv "$*.pdf" PDF/; \
-        fi; \
-        if test -f "$*.midi"; then \
-            mv "$*.midi" MIDI/; \
-        fi
+# Les .pdf résultants iront dans le sous-répertoire "PDF" et les
+# fichiers .midi dans le sous-répertoire "MIDI".
+%.pdf %.midi: %.ly | $(PDFDIR) $(MIDIDIR)
+        $(LILY_CMD) $<; \        # tabulation au début de la ligne
+        mv "$*.pdf" $(PDFDIR)/   # tabulation au début
+        mv "$*.midi" $(MIDIDIR)/ # tabulation au début
 
-notes = \
+$(PDFDIR):
+	mkdir $(PDFDIR)
+
+$(MIDIDIR):
+	mkdir $(MIDIDIR)
+
+commun := symphonieDefs.ily
+
+notes := \
   alto.ily \
   cello.ily \
   cor.ily \
@@ -456,21 +465,21 @@ notes = \
   violonDeux.ily
 
 # Les dépendances selon le mouvement.
-$(piece)I.pdf: $(piece)I.ly $(notes)
-$(piece)II.pdf: $(piece)II.ly $(notes)
-$(piece)III.pdf: $(piece)III.ly $(notes)
-$(piece)IV.pdf: $(piece)IV.ly $(notes)
+$(piece)I.pdf: $(piece)I.ly $(notes) $(commun)
+$(piece)II.pdf: $(piece)II.ly $(notes) $(commun)
+$(piece)III.pdf: $(piece)III.ly $(notes) $(commun)
+$(piece)IV.pdf: $(piece)IV.ly $(notes) $(commun)
 
 # Les dépendances pour la partition intégrale.
-$(piece).pdf: $(piece).ly $(notes)
+$(piece).pdf: $(piece).ly $(notes) $(commun)
 
 # Les dépendances pour les pupitres.
-$(piece)-alto.pdf: $(piece)-alto.ly alto.ily
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
-$(piece)-cor.pdf: $(piece)-cor.ly cor.ily
-$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily
-$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily
-$(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily
+$(piece)-alto.pdf: $(piece)-alto.ly alto.ily $(commun)
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(commun)
+$(piece)-cor.pdf: $(piece)-cor.ly cor.ily $(commun)
+$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily $(commun)
+$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily $(commun)
+$(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily $(commun)
 
 # Lancer `make score' pour générer l'intégrale des quatre mouvements
 # en un seul fichier.
@@ -478,7 +487,8 @@ $(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily
 score: $(piece).pdf
 
 # Lancer `make parties' pour obtenir tous les pupitres.
-# Lancer `make toto.pdf' pour obtenir la partie instrumentale de toto.
+# Lancer `make symphonie-toto.pdf' pour obtenir la partie
+# instrumentale de toto.
 # Par exemple : `make symphonie-cello.pdf'.
 .PHONY: parties
 parties: $(piece)-cello.pdf \
@@ -497,12 +507,6 @@ mouvements: $(piece)I.pdf \
             $(piece)IV.pdf
 
 all: score parties mouvements
-
-archive:
-        tar -cvvf symphonie.tar \    # cette ligne commence par une tabulation
-        --exclude=*pdf --exclude=*~ \
-        --exclude=*midi --exclude=*.tar \
-        ../Symphonie/*
 @end example
 
 
@@ -523,39 +527,48 @@ C:\Program Files\GnuWin32\bin
 
 Il va également falloir adapter le @emph{makefile} aux particularités de
 l'interpréteur de commandes et à la présence d'espaces dans le nom de
-certains répertoire de ce système.
-La cible @code{archive} est tout bonnement supprimée, puisque Windows ne
-dispose pas de la commande @code{tar}.  Enfin, les fichiers MIDI ont une
+certains répertoire de ce système. Enfin, les fichiers MIDI ont une
 extension par défaut propre à Windows.
 
 
 @example
 ## VERSION POUR WINDOWS
 ##
-piece = symphonie
-LILY_CMD = lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click \
-                    -djob-count=$(NUMBER_OF_PROCESSORS)
+piece := symphonie
+LILY_CMD := lilypond -ddelete-intermediate-files \
+                     -dno-point-and-click
 
 #Détermination du nom de CURDIR sous sa forme 8.3
 #(solution pour les espaces dans le PATH)
-workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
-          do @@echo %%~sb)
+workdir != $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+           do @@echo %%~sb)
 
 .SUFFIXES: .ly .ily .pdf .mid
 
-VPATH = \
+.DEFAULT_GOAL := score
+
+PDFDIR := PDF
+MIDIDIR := MIDI
+
+VPATH := \
   $(workdir)/Partitions \
-  $(workdir)/PDF \
-  $(workdir)/Pupitress \
-  $(workdir)/Notes
+  $(workdir)/Pupitres \
+  $(workdir)/Notes \
+  $(workdir)/$(PDFDIR) \
+  $(workdir)/$(MIDIDIR)
 
-%.pdf %.mid: %.ly
-        $(LILY_CMD) $<      # cette ligne commence par une tabulation
-        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # tabulation au début
-        if exist "$*.mid" move /Y "$*.mid" MIDI/  # tabulation au début
+%.pdf %.mid: %.ly | $(PDFDIR) $(MIDIDIR)
+        $(LILY_CMD) $<                 # tabulation au début de la ligne
+        move /Y "$*.pdf" $(PDFDIR)/    # tabulation au début
+        move /Y "$*.mid" $(MIDIDIR)/   # tabulation au début
 
-notes = \
+$(PDFDIR):
+    mkdir $(PDFDIR)/
+
+$(MIDIDIR):
+    mkdir $(MIDIDIR)/
+
+notes := \
   cello.ily \
   figures.ily \
   cor.ily \
@@ -565,22 +578,24 @@ notes = \
   violonUn.ily \
   violonDeux.ily
 
-$(piece)I.pdf: $(piece)I.ly $(notes)
-$(piece)II.pdf: $(piece)II.ly $(notes)
-$(piece)III.pdf: $(piece)III.ly $(notes)
-$(piece)IV.pdf: $(piece)IV.ly $(notes)
+commun := symphonieDefs.ily
 
-$(piece).pdf: $(piece).ly $(notes)
+$(piece)I.pdf: $(piece)I.ly $(notes) $(commun)
+$(piece)II.pdf: $(piece)II.ly $(notes) $(commun)
+$(piece)III.pdf: $(piece)III.ly $(notes) $(commun)
+$(piece)IV.pdf: $(piece)IV.ly $(notes) $(commun)
 
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily
-$(piece)-cor.pdf: $(piece)-cor.ly cor.ily
-$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily
-$(piece)-alto.pdf: $(piece)-alto.ly alto.ily
-$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily
-$(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily
+$(piece).pdf: $(piece).ly $(notes) $(commun)
+
+$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(commun)
+$(piece)-cor.pdf: $(piece)-cor.ly cor.ily $(commun)
+$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily $(commun)
+$(piece)-alto.pdf: $(piece)-alto.ly alto.ily $(commun)
+$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily $(commun)
+$(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily $(commun)
 
 .PHONY: score
-score: $(piece).pdf
+score: $(piece).pdf $(commun)
 
 .PHONY: parties
 parties: $(piece)-cello.pdf \
