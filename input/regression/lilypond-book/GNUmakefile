@@ -15,8 +15,15 @@ OUT_TELY_FILES += ${TELY_FILES:%.tely=$(outdir)/%.pdf}
 
 XML_FILES = $(filter-out include%,$(call src-wildcard,*.xml))
 
-local-test:
+local-test: $(outdir)/texinfo-filtered.texi
 	$(MAKE) LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb $(OUT_FILES)
+
+$(outdir)/texinfo-filtered.texi: texinfo-filter.tely
+	cp $< $(basename $@).tely
+	$(PYTHON) $(LILYPOND_BOOK) --filter='sed s/a.b.c/d4e4f4/' \
+		-o $(dir $@) $(basename $@).tely
+	sed 's/a.b.c/d4e4f4/' < $^ > $@.want
+	diff $@ $@.want
 
 ############## HTML #########################
 

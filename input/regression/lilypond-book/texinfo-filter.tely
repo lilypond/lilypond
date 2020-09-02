@@ -1,0 +1,14 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename texinfo-filter.info
+@settitle Filter test
+
+@node Top
+@top Filter test
+
+Lilypond files can be passed through a filter.
+
+@lilypond[fragment]
+a b c
+@end lilypond
+
+@bye

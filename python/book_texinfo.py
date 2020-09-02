@@ -124,8 +124,7 @@ TexInfo_output = {
 ''',
 
     book_snippets.FILTER: r'''@lilypond[%(options)s]
-%(code)s
-@lilypond''',
+%(code)s@end lilypond''',
 
     book_snippets.OUTPUT: r'''
 @iftex

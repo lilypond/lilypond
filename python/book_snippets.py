@@ -770,14 +770,22 @@ printing diff against existing file." % filename)
         found, missing = self.all_output_files(output_dir)
         return missing
 
-    def filter_pipe(self, input, cmd):
-        """Pass input through cmd, and return the result."""
+    def filter_pipe(self, input: bytes, cmd: str) -> bytes:
+        """Pass input through cmd, and return the result.
 
+        Args:
+          input: the input
+          cmd: a shell command
+
+        Returns:
+          the filtered result
+        """
         debug(_("Running through filter `%s'") % cmd, True)
 
         closefds = True
         if sys.platform == "mingw32":
             closefds = False
+
         p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=closefds)
         (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
@@ -788,7 +796,9 @@ printing diff against existing file." % filename)
             status = 0
             output = stdout.read()
             status = stdout.close()
-            err = stderr.read().decode('utf-8')
+
+        # assume stderr always is text
+        err = stderr.read().decode('utf-8')
 
         if not status:
             status = 0
@@ -798,26 +808,26 @@ printing diff against existing file." % filename)
             ly.error(_("`%s' failed (%d)") % (cmd, exit_status))
             ly.error(_("The error log is as follows:"))
             sys.stderr.write(err)
-            sys.stderr.write(stderr.read().decode('utf-8'))
             exit(status)
 
         debug('\n')
 
         return output
 
-    def get_snippet_code(self):
+    def get_snippet_code(self) -> str:
         return self.substring('code')
 
     def filter_text(self):
         """Run snippet bodies through a command (say: convert-ly).
-
-        This functionality is rarely used, and this code must have bitrot.
         """
-        code = self.get_snippet_code()
-        s = self.filter_pipe(code, self.global_options.filter_cmd)
+        code = self.get_snippet_code().encode('utf-8')
+        output = self.filter_pipe(code, self.global_options.filter_cmd)
+        options = self.match.group('options')
+        if options is None:
+            options = ''
         d = {
-            'code': s,
-            'options': self.match.group('options')
+            'code': output.decode('utf-8'),
+            'options': options,
         }
         return self.formatter.output_simple_replacements(FILTER, d)
 
@@ -856,13 +866,13 @@ class LilypondFileSnippet (LilypondSnippet):
         self.filename = self.substring('filename')
         self.contents = None
 
-    def get_contents(self):
+    def get_contents(self) -> bytes:
         if not self.contents:
             self.contents = open(book_base.find_file(self.filename,
                                                      self.global_options.include_path, self.global_options.original_dir), 'rb').read()
         return self.contents
 
-    def get_snippet_code(self):
+    def get_snippet_code(self) -> str:
         return self.get_contents().decode('utf-8')
 
     def verb_ly(self):
@@ -928,9 +938,8 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         opts = " ".join(xml2ly_option_list)
         progress(_("Converting MusicXML file `%s'...") % self.filename)
 
-        ly_code = self.filter_pipe(
-            self.get_contents(), 'musicxml2ly %s --out=- - ' % opts)
-        ly_code = ly_code.decode('utf-8')
+        cmd = 'musicxml2ly %s --out=- - ' % opts
+        ly_code = self.filter_pipe(self.get_contents(), cmd).decode('utf-8')
         return ly_code
 
     def ly(self):
