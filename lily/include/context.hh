@@ -170,6 +170,7 @@ public:
   virtual Moment now_mom () const;
 
   Context *get_default_interpreter (const std::string &context_id = "");
+  Context *get_user_accessible_interpreter ();
 
   bool is_alias (SCM) const;
   void add_alias (SCM);

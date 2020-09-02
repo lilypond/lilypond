@@ -100,7 +100,6 @@ public:
   void init_context (Context *);
   void quit ();
   void substitute_context (Context *from, Context *to);
-  void descend_to_bottom_context ();
   virtual void derived_substitute (Context *, Context *);
   virtual Moment pending_moment () const;
   bool ok () const
@@ -137,8 +136,11 @@ protected:
   // process () method runs (and may change the context properties).
   virtual void create_contexts () {}
 
-  virtual void do_quit ();
+  void descend_to_bottom_context ();
   void descend_to_child (Context *);
+  void descend_to_user_accessible_context ();
+
+  virtual void do_quit ();
 
 private:
   Context_handle handle_;

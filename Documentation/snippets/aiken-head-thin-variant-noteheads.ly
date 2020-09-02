@@ -25,7 +25,8 @@ appear as quarter notes.
     c''2 a' c' a
 
     % Switch to thin-variant noteheads
-    \set shapeNoteStyles = ##(doThin reThin miThin faThin sol laThin tiThin)
+    \set shapeNoteStyles = ##(doThin reThin miThin
+                              faThin sol laThin tiThin)
     c'' a' c' a
   }
 }

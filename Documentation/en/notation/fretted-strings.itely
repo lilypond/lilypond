@@ -1009,7 +1009,8 @@ Barre indicators can be included in the fret-diagram-terse markup string.
 >>
 @end lilypond
 
-Fingering indications can be included in the fret-diagram-terse markup string.
+Fingering indications can be included in the @code{\fret-diagram-terse}
+markup string.
 
 @c Need to use override to enable fingerings to show this -- can we do so?
 @lilypond[quote, verbatim]
@@ -1020,7 +1021,8 @@ Fingering indications can be included in the fret-diagram-terse markup string.
     }
   }
   \new Staff {
-    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    \override Voice.TextScript.fret-diagram-details.finger-code =
+      #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-terse "x;3-3;2-2;o;1-1;o;"
@@ -1447,7 +1449,8 @@ default octave are used for transposing fretboards.
 \storePredefinedDiagram #default-fret-table
                         \chordmode { c'' }
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'bes guitar-tuning))
+                        #(offset-fret 2
+                           (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode {
   c1 c''
@@ -1495,7 +1498,8 @@ marking lists.
 \storePredefinedDiagram #default-fret-table
                         \chordmode { g'' }
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
+                        #(offset-fret 2
+                           (chord-shape 'powerf guitar-tuning))
 
 mychords = \chordmode {
   f1 f'' g g''

@@ -599,7 +599,7 @@ for quarter-tone accidentals; here the prefixes @notation{semi-} and
 @notation{sesqui-} respectively mean @q{half} and @q{one and a half}.
 
 @quotation
-@multitable {@w{@code{português} or}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@multitable {@w{@code{português} or}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@code{esseh}/@code{eseh}}
 @headitem Language
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 @item @code{nederlands}

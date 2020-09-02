@@ -12,7 +12,6 @@ whole paper while \layout for each \score block.
 This file is best viewed outside the collated files document.
 "
 
-
     title = "Title"
     subtitle = "(and (the) subtitle)"
     subsubtitle = "Sub sub title"
@@ -24,6 +23,7 @@ This file is best viewed outside the collated files document.
     instrument = "Instrument"
   }
 
+
 \paper {
     %paper-width = 2\cm
     %paper-height = 2\cm
@@ -34,12 +34,8 @@ This file is best viewed outside the collated files document.
     left-margin = 3\cm
     line-width = 15\cm
     %rigthmargin = 3\cm
-    interscoreline = 3\cm
 
     annotate-spacing = ##t
-
-
-
   }
 
 

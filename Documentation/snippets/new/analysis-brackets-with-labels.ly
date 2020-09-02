@@ -23,16 +23,16 @@ Bracket text will be parenthesized after a line break.
 
 {
   \once\override HorizontalBracketText.text = "a"
-  c''\startGroup d''\stopGroup
-  \once\override HorizontalBracketText.text = "a'"
-  e''\startGroup d''\stopGroup
-  c''
-  -\tweak HorizontalBracketText.text \markup \bold \huge "b" \startGroup
-  -\tweak HorizontalBracketText.text "a" \startGroup
-  d''\stopGroup
-  e''-\tweak HorizontalBracketText.text "a'" \startGroup
-  d''\stopGroup\stopGroup
-  c''-\tweak HorizontalBracketText.text foo \startGroup d'' e'' f''
-  \break
+    c''\startGroup d''\stopGroup
+    \once\override HorizontalBracketText.text = "a'"
+    e''\startGroup d''\stopGroup |
+  c''-\tweak HorizontalBracketText.text
+        \markup \bold \huge "b" \startGroup
+     -\tweak HorizontalBracketText.text "a" \startGroup
+    d''\stopGroup
+    e''-\tweak HorizontalBracketText.text "a'" \startGroup
+    d''\stopGroup\stopGroup |
+  c''-\tweak HorizontalBracketText.text foo \startGroup
+    d'' e'' f'' | \break
   g'' a'' b'' c'''\stopGroup
 }

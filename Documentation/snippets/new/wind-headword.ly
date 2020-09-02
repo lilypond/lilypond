@@ -17,6 +17,9 @@ Wind headword
 % NR 2.whatever  Wind
 % Tchaikovsky
 % Nutcracker Suite, VII Dance of the Merlitons
+
+#(set-global-staff-size 16)
+
 \score {
   \new StaffGroup <<
     \new Staff \with { instrumentName = "Flauto I,II" }

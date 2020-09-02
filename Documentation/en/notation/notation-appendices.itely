@@ -59,7 +59,7 @@ releases (up to version 1.7).
 The following table shows chord modifiers that can be used to generate
 standard chord structures.
 
-@multitable @columnfractions .2 .25 .2 .15 .2
+@multitable @columnfractions .2 .25 .18 .17 .2
 
 @item
 @b{Type}
@@ -2290,7 +2290,7 @@ columns - JL
 @node Articulation scripts
 @unnumberedsubsec Articulation scripts
 
-@multitable @columnfractions .22 .25 .25 .25
+@multitable @columnfractions .25 .25 .25 .25
 
 @item
 @code{\accent} or @code{->}

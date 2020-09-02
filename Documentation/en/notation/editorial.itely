@@ -103,11 +103,17 @@ accidentals align properly:
   \new Voice \relative {
     \voiceOne
     \magnifyMusic 0.63 {
-      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
-      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
-      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
-      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
-      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+      \override Score.SpacingSpanner.spacing-increment =
+        #(* 1.2 0.63)
+
+      \once \normalsize cis'32( cis' gis b a fis
+        \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis
+        \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis
+        \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b
+        \once \normalsize gis gis')
     }
   }
   \new Voice \relative {

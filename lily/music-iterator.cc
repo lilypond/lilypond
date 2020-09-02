@@ -17,12 +17,15 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "music-iterator.hh"
+
 #include "warn.hh"
 #include "music.hh"
 #include "context.hh"
 #include "event-iterator.hh"
 #include "input.hh"
 #include "international.hh"
+#include "ly-smob-list.hh"
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
@@ -122,6 +125,22 @@ Music_iterator::descend_to_bottom_context ()
   assert (get_context ());
   if (!get_context ()->is_bottom_context ())
     set_context (get_context ()->get_default_interpreter ());
+}
+
+/* Concretely: If the current context is Global, descend to Score. */
+void
+Music_iterator::descend_to_user_accessible_context ()
+{
+  auto c = get_context ();
+  assert (c);
+  if (!c->is_accessible_to_user ())
+    {
+      c = c->get_user_accessible_interpreter ();
+      if (c)
+        set_context (c);
+      else
+        programming_error ("cannot find an accessible context");
+    }
 }
 
 void

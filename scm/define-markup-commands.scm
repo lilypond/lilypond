@@ -397,7 +397,7 @@ Its appearance may be customized by overrides for @code{thickness},
 
 Draws a line across a page, where the property @code{span-factor}
 controls what fraction of the page is taken up.
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\markup {
   \\column {
     \\draw-hline
@@ -611,7 +611,8 @@ only works in the PDF backend.
 @lilypond[verbatim,quote]
 \\markup {
   \\with-link #'label {
-    \\italic { This links to the page containing the label... }
+    \\italic { This links to the page
+               containing the label... }
   }
 }
 @end lilypond"
@@ -680,8 +681,8 @@ others.
 makes little sense, it would end up adding the provided value to the one of
 @code{offset}.
 
-@lilypond[verbatim,quote]
-\\markup \\fill-line {
+@lilypond[verbatim,quote,line-width=14.5\\cm]
+\\markup \\justify-line {
   \\underline \"underlined\"
   \\override #'(offset . 5)
   \\override #'(thickness . 1)
@@ -892,7 +893,7 @@ Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 thickness and padding around the markup; the @code{corner-radius} property
 makes it possible to define another shape for the corners (default is 1).
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c4^\\markup {
   \\rounded-box {
     Overtura
@@ -1210,9 +1211,11 @@ samplePath =
 \\markup {
   \\path #0.25 #samplePath
 
-  \\override #'(line-join-style . miter) \\path #0.25 #samplePath
+  \\override #'(line-join-style . miter)
+  \\path #0.25 #samplePath
 
-  \\override #'(filled . #t) \\path #0.25 #samplePath
+  \\override #'(filled . #t)
+  \\path #0.25 #samplePath
 }
 @end lilypond"
   (let* ((half-thickness (/ thickness 2))
@@ -1320,7 +1323,7 @@ Inline an image of music.  The reference point (usually the middle
 staff line) of the lowest staff in the top system is placed on the
 baseline.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm,staffsize=16]
 \\markup {
   \\score {
     \\new PianoStaff <<
@@ -1353,8 +1356,8 @@ baseline.
       }
       \\context {
         \\Staff
-        \\override TimeSignature.break-align-anchor-alignment =
-           #LEFT
+        \\override TimeSignature
+                   .break-align-anchor-alignment = #LEFT
       }
     }
   }
@@ -1556,7 +1559,7 @@ words varies according to their relative lengths."
 The markups are spaced or flushed to fill the entire line.
 If there are no arguments, return an empty stencil.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\markup {
   \\column {
     \\fill-line {
@@ -1591,10 +1594,10 @@ If there are no arguments, return an empty stencil.
 The markups are spread to fill the entire line and separated by equal
 space.  If there are no arguments, return an empty stencil.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\markup {
   \\justify-line {
-    Space between neighboring words is constant
+    Constant space between neighboring words
   }
 }
 @end lilypond"
@@ -1760,13 +1763,14 @@ Like @code{\\wordwrap}, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\markup {
   \\justify {
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua.  Ut enim ad minim veniam, quis nostrud
+    exercitation ullamco laboris nisi ut aliquip ex ea
+    commodo consequat.
   }
 }
 @end lilypond"
@@ -1781,13 +1785,14 @@ Use @code{\\override #'(line-width . @var{X})} to set the line width;
   "Simple wordwrap.  Use @code{\\override #'(line-width . @var{X})} to set
 the line width, where @var{X} is the number of staff spaces.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\markup {
   \\wordwrap {
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua.  Ut enim ad minim veniam, quis nostrud
+    exercitation ullamco laboris nisi ut aliquip ex ea
+    commodo consequat.
   }
 }
 @end lilypond"
@@ -1830,17 +1835,19 @@ the line width, where @var{X} is the number of staff spaces.
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(line-width . 40)
-  \\wordwrap-string #\"Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit, sed do eiusmod tempor incididunt ut labore
-      et dolore magna aliqua.
+  \\wordwrap-string #\"Lorem ipsum dolor sit amet,
+      consectetur adipisicing elit, sed do eiusmod tempor
+      incididunt ut labore et dolore magna aliqua.
 
 
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat.
+      Ut enim ad minim veniam, quis nostrud exercitation
+      ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.
 
 
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa
-      qui officia deserunt mollit anim id est laborum\"
+      Excepteur sint occaecat cupidatat non proident,
+      sunt in culpa qui officia deserunt mollit anim id
+      est laborum\"
 }
 @end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
@@ -1857,16 +1864,18 @@ the line width, where @var{X} is the number of staff spaces.
 \\markup {
   \\override #'(line-width . 40)
   \\justify-string #\"Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit, sed do eiusmod tempor incididunt ut labore
-      et dolore magna aliqua.
+      adipisicing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua.
 
 
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat.
+      Ut enim ad minim veniam, quis nostrud exercitation
+      ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.
 
 
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa
-      qui officia deserunt mollit anim id est laborum\"
+      Excepteur sint occaecat cupidatat non proident, sunt
+      in culpa qui officia deserunt mollit anim id est
+      laborum\"
 }
 @end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
@@ -1877,14 +1886,14 @@ the line width, where @var{X} is the number of staff spaces.
   #:category align
   "Wordwrap the data which has been assigned to @var{symbol}.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\header {
   title = \"My title\"
-  myText = \"Lorem ipsum dolor sit amet, consectetur adipisicing
-    elit, sed do eiusmod tempor incididunt ut labore et dolore
-    magna aliqua.  Ut enim ad minim veniam, quis nostrud
-    exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat.\"
+  myText = \"Lorem ipsum dolor sit amet, consectetur
+    adipisicing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua.  Ut enim ad minim
+    veniam, quis nostrud exercitation ullamco laboris nisi
+    ut aliquip ex ea commodo consequat.\"
 }
 
 \\paper {
@@ -1911,13 +1920,14 @@ the line width, where @var{X} is the number of staff spaces.
   #:category align
   "Justify the data which has been assigned to @var{symbol}.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\header {
   title = \"My title\"
-  myText = \"Lorem ipsum dolor sit amet, consectetur adipisicing
-    elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.\"
+  myText = \"Lorem ipsum dolor sit amet, consectetur
+    adipisicing elit, sed do eiusmod tempor incididunt
+    ut labore et dolore magna aliqua.  Ut enim ad minim
+    veniam, quis nostrud exercitation ullamco laboris
+    nisi ut aliquip ex ea commodo consequat.\"
 }
 
 \\paper {
@@ -2408,7 +2418,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   "Center @var{arg} horizontally within a box of extending
 @var{length}/2 to the left and right.
 
-@lilypond[quote,verbatim]
+@lilypond[verbatim,quote]
 \\new StaffGroup <<
   \\new Staff {
     \\set Staff.instrumentName = \\markup {
@@ -2452,7 +2462,7 @@ markup definition."
 from the markup contained within.  If @var{symbol} is not defined, it
 returns an empty markup.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\header {
   myTitle = \"myTitle\"
   title = \\markup {
@@ -2631,13 +2641,11 @@ of its own.
 @lilypond[verbatim,quote]
 \\markup {
   \\fontsize #3.5 {
-    some large text
+    large text
     \\hspace #2
-    \\smaller {
-      a bit smaller
-    }
+    \\smaller { smaller text }
     \\hspace #2
-    more large text
+    large text
   }
 }
 @end lilypond"
@@ -3325,9 +3333,12 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
 
 @lilypond[verbatim,quote]
 \\markup \\column {
-  \\tied-lyric #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
-  \\tied-lyric #\"Impetuosi venti I nostri~affetti sono\"
-  \\tied-lyric #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
+  \\tied-lyric
+    #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
+  \\tied-lyric
+    #\"Impetuosi venti I nostri~affetti sono\"
+  \\tied-lyric
+    #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
 }
 @end lilypond"
   (define (replace-ties tie str)
@@ -4666,7 +4677,7 @@ Patterns are spaced apart by @var{space} (defined as for
 @code{\\hspace} or @code{\\vspace}, respectively).
 Patterns are distributed on @var{axis}.
 
-@lilypond[verbatim, quote]
+@lilypond[verbatim,quote]
 \\markup \\column {
   \"Horizontally repeated :\"
   \\pattern #7 #X #2 \\flat
@@ -4691,7 +4702,7 @@ with a line of markups @var{pattern} in between.
 Patterns are spaced apart by @var{space}.
 Patterns are aligned to the @var{dir} markup.
 
-@lilypond[verbatim, quote]
+@lilypond[verbatim,quote,line-width=14.5\\cm]
 \\markup \\column {
   \"right-aligned :\"
   \\fill-with-pattern #1 #RIGHT . first right
@@ -4744,7 +4755,7 @@ Used to automatically replace a string by another in the markup @var{arg}.
 Each pair of the alist @var{replacements} specifies what should be replaced.
 The @code{key} is the string to be replaced by the @code{value} string.
 
-@lilypond[verbatim, quote]
+@lilypond[verbatim,quote]
 \\markup \\replace #'((\"thx\" . \"Thanks!\")) thx
 @end lilypond"
   (interpret-markup
@@ -4841,11 +4852,12 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
   \\table
     #'(0 1 0 -1)
     {
-      \\underline { center-aligned right-aligned center-aligned left-aligned }
-      one \\number 1 thousandth \\number 0.001
-      eleven \\number 11 hundredth \\number 0.01
-      twenty \\number 20 tenth \\number 0.1
-      thousand \\number 1000 one \\number 1.0
+      \\underline { center-aligned right-aligned
+                    center-aligned left-aligned }
+      one      \\number    1 thousandth \\number 0.001
+      eleven   \\number   11 hundredth  \\number 0.01
+      twenty   \\number   20 tenth      \\number 0.1
+      thousand \\number 1000 one        \\number 1.0
     }
 }
 @end lilypond

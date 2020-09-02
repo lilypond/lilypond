@@ -507,11 +507,6 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
         (types . (music-wrapper-music relative-octave-music))
         ))
 
-    (RepeatedMusic
-     . ((description . "Repeat music in different ways.")
-        (types . (repeated-music))
-        ))
-
     (RepeatSlashEvent
      . ((description . "Used internally to signal beat repeats.")
         (types . (event repeat-slash-event rhythmic-event))

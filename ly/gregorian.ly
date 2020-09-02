@@ -295,7 +295,6 @@ ligature = #(define-music-function
 % Gregorian ligatures, or for educational works.
 %
 neumeDemoLayout = \layout {
-    interscoreline = 1
     \context {
         \Score
         \remove "Bar_number_engraver"
@@ -314,7 +313,7 @@ neumeDemoLayout = \layout {
         \remove "Ligature_bracket_engraver"
         \consists "Vaticana_ligature_engraver"
         \override NoteHead.style = #'vaticana.punctum
-        \hide Stem
+        \remove "Stem_engraver"
     }
 }
 

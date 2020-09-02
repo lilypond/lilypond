@@ -351,12 +351,17 @@ a fresh copy of the list-head is made."
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    \\line { Single number: \\compound-meter #3 }
-    \\line { Conventional: \\compound-meter #'(4 . 4)
-                       or \\compound-meter #'(4 4) }
-    \\line { Compound: \\compound-meter #'(2 3 8) }
-    \\line { Single-number compound: \\compound-meter #'((2) (3)) }
-    \\line { Complex compound: \\compound-meter #'((2 3 8) (3 4)) }
+    \\line { Single number:
+               \\compound-meter #3 }
+    \\line { Conventional:
+               \\compound-meter #'(4 . 4) or
+               \\compound-meter #'(4 4) }
+    \\line { Compound:
+               \\compound-meter #'(2 3 8) }
+    \\line { Single-number compound:
+               \\compound-meter #'((2) (3)) }
+    \\line { Complex compound:
+               \\compound-meter #'((2 3 8) (3 4)) }
   }
 }
 @end lilypond
