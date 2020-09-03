@@ -50,10 +50,10 @@ protected:
   void process_music ();
 
   Moment started_mom_;
-  Spanner *volta_bracket_;
-  Spanner *end_volta_bracket_;
-  Spanner *volta_spanner_;
-  SCM start_string_;
+  Spanner *volta_bracket_ = nullptr;
+  Spanner *end_volta_bracket_ = nullptr;
+  Spanner *volta_spanner_ = nullptr;
+  SCM start_string_ = SCM_EOL;
 };
 
 void
@@ -65,10 +65,6 @@ Volta_engraver::derived_mark () const
 Volta_engraver::Volta_engraver (Context *c)
   : Engraver (c)
 {
-  start_string_ = SCM_EOL;
-  volta_bracket_ = 0;
-  end_volta_bracket_ = 0;
-  volta_spanner_ = 0;
 }
 
 void
