@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -158,13 +158,10 @@ g1\4
 
 @snippets
 
-@c XXX also included in `editorial.itely'
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
-
-@c XXX also included in `editorial.itely'
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+La plupart des comportements en matière d'indications de numéro de
+corde, à savoir l'objet @code{StringNumber}, et y compris leur
+positionnement, est comparable au traitement des doigtés -- voir
+@ref{Doigtés}.
 
 @predefined
 @code{\arabicStringNumbers},
@@ -1044,8 +1041,8 @@ Les indications de doigtés peuvent être incluses dans l'interface
     }
   }
   \new Staff {
-    \override Voice.TextScript
-      .fret-diagram-details.finger-code = #'below-string
+    \override Voice.TextScript.fret-diagram-details.finger-code =
+      #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-terse "x;3-3;2-2;o;1-1;o;"
@@ -1131,7 +1128,8 @@ Des @emph{markups} peuvent par ailleurs venir s'insérer dans les points.
     }
   \new Staff {
     \clef "treble_8"
-    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
+    \override Voice.TextScript.fret-diagram-details.finger-code =
+      #'below-string
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
@@ -1469,7 +1467,8 @@ de deux octaves, le premier servant à la transposition.
 \storePredefinedDiagram #default-fret-table
                         \chordmode { c'' }
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'bes guitar-tuning))
+                        #(offset-fret 2
+                           (chord-shape 'bes guitar-tuning))
 
 mychords = \chordmode {
   c1 c''
@@ -1518,7 +1517,8 @@ sont définies grâce aux interfaces @code{fret-diagram-terse} ou
 \storePredefinedDiagram #default-fret-table
                         \chordmode { g'' }
                         #guitar-tuning
-                        #(offset-fret 2 (chord-shape 'powerf guitar-tuning))
+                        #(offset-fret 2
+                           (chord-shape 'powerf guitar-tuning))
 
 mychords = \chordmode{
   f1 f'' g g''
@@ -1776,11 +1776,15 @@ c'\rightHandFinger #4
 
 Pour plus de clarté, vous pouvez traduire ou abréger la commande
 @code{\rightHandFinger}, par exemple en @code{doigtMainDroite} ou
-même @code{MD} :
+même @code{MD} en tête du fichier source :
 
 @example
-MD = #rightHandFinger
+MD = #rightHandFinger \etc
 @end example
+
+La plupart des comportements en matière de doigtés pour la main droite,
+à savoir l'objet @code{StrokeFinger}, est comparable aux doigtés
+ordinaires -- voir @ref{Doigtés}.
 
 @snippets
 

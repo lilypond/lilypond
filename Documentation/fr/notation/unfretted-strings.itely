@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -69,9 +69,13 @@ ajoutées comme du texte simple -- voir à ce sujet
 @item Les indications de doigtés, incluant les indications du pouce,
 sont décrites dans @ref{Doigtés}.
 
+@item Des numéros de corde peuvent être ajoutés (généralement en chiffre
+romain pour les instruments à archet) -- voir à ce sujet
+@ref{Indications du numéro de corde}.
+
 @item Les doubles notes sont généralement indiquées en écrivant un
-accord, voir @ref{Notes en accords}.  Les précisions pour jouer des accords
-peuvent être ajoutées, comme l'indique @ref{Arpèges}.
+accord, voir @ref{Notes en accords}. Les précisions pour jouer des
+accords peuvent être ajoutées, comme l'indique @ref{Arpèges}.
 
 @item Un squelette de partition est disponible à l'annexe
 @rlearning{Modèles pour quatuor à cordes}.  D'autres informations

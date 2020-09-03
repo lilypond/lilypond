@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -139,7 +139,7 @@ Les accords de septième sont aisément stipulables :
 @end lilypond
 
 @funindex aug
-@funindex @sortas{dimA} dim
+@funindex dim
 @funindex maj
 @funindex m
 
@@ -831,8 +831,8 @@ myChords = \relative c' {
 @subsection Basse chiffrée
 @translationof Figured bass
 
-@c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]
+@c Indent hack because of instrument names
+@lilypondfile[quote,staffsize=18,indent=2\cm]
 {figured-bass-headword.ly}
 
 LilyPond permet de générer des parties de continuo.
@@ -1230,7 +1230,8 @@ chiffrages adoptent des durées identiques.
   }
   \figures {
     \bassFigureExtendersOn
-    % The extenders are correct here, with the same rhythm as the bass
+    % The extenders are correct here,
+    % with the same rhythm as the bass
     \repeat unfold 4 { <6 4->16. <6 4->32 }
     <5>8. r16 <6>8 <6\! 5->
   }
@@ -1242,7 +1243,8 @@ chiffrages adoptent des durées identiques.
   }
   \figures {
     \bassFigureExtendersOn
-    % The extenders are incorrect here, even though the timing is the same
+    % The extenders are incorrect here,
+    % even though the timing is the same
     <6 4->4 <6 4->4
     <5>8. r16 <6>8 <6\! 5->
   }

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 3d5333d80d9637c03e46493ebb6bc069045553b0
+  Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -65,7 +65,7 @@ Banter (1982) utilisée par défaut dans LilyPond jusqu’à sa version 1.7.
 Le tableau suivant indique les différents modificateurs qui permettent
 d'obtenir les structures habituelles d'un certain nombre d'accords.
 
-@multitable @columnfractions .2 .25 .2 .15 .2
+@multitable @columnfractions .2 .25 .18 .17 .2
 
 @item
 @b{Type}
@@ -557,7 +557,7 @@ dispose.
 Les formats de page sont définis dans le fichier @file{scm/paper.scm}.
 
 @noindent
-@strong{La série A @qq{ISO 216}}
+@strong{La série A « ISO 216 »}
 @multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "a10"
 @tab (26 x 37 mm)
@@ -584,7 +584,7 @@ Les formats de page sont définis dans le fichier @file{scm/paper.scm}.
 @end multitable
 
 @noindent
-@strong{La série B @qq{ISO 216}}
+@strong{La série B « ISO 216 »}
 @multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "b10"
 @tab (31 x 44 mm)
@@ -611,7 +611,7 @@ Les formats de page sont définis dans le fichier @file{scm/paper.scm}.
 @end multitable
 
 @noindent
-@strong{Deux tailles étendues, définies par la @qq{DIN 476}}
+@strong{Deux tailles étendues, définies par la « DIN 476 »}
 @multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "4a0"
 @tab (1682 x 2378 mm)
@@ -620,7 +620,7 @@ Les formats de page sont définis dans le fichier @file{scm/paper.scm}.
 @end multitable
 
 @noindent
-@strong{La série C standard @qq{ISO 269}}
+@strong{La série C standard « ISO 269 »}
 @multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "c10"
 @tab (28 x 40 mm)
@@ -880,21 +880,82 @@ darkcyan    darkmagenta    darkyellow
 @end example
 
 
+@subsubheading Noms de couleur CSS
+
+Les noms de couleur CSS peuvent s'utiliser tels quels en argument
+textuel.
+
+@example
+aliceblue       darkturquoise        lightsalmon        papayawhip
+antiquewhite    darkviolet           lightseagreen      peachpuff
+aqua            deeppink             lightskyblue       peru
+aquamarine      deepskyblue          lightslategray     pink
+azure           dimgray              lightslategrey     plum
+beige           dimgrey              lightsteelblue     powderblue
+bisque          dodgerblue           lightyellow        purple
+black           firebrick            lime               rebeccapurple
+blanchedalmond  floralwhite          limegreen          red
+blue            forestgreen          linen              rosybrown
+blueviolet      fuchsia              magenta            royalblue
+brown           gainsboro            maroon             saddlebrown
+burlywood       ghostwhite           mediumaquamarine   salmon
+cadetblue       gold                 mediumblue         sandybrown
+chartreuse      goldenrod            mediumorchid       seagreen
+chocolate       gray                 mediumpurple       seashell
+coral           green                mediumseagreen     sienna
+cornflowerblue  greenyellow          mediumslateblue    silver
+cornsilk        grey                 mediumspringgreen  skyblue
+crimson         honeydew             mediumturquoise    slateblue
+cyan            hotpink              mediumvioletred    slategray
+darkblue        indianred            midnightblue       slategrey
+darkcyan        indigo               mintcream          snow
+darkgoldenrod   ivory                mistyrose          springgreen
+darkgray        khaki                moccasin           steelblue
+darkgreen       lavender             navajowhite        tan
+darkgrey        lavenderblush        navy               teal
+arkkhaki       lawngreen            oldlace            thistle
+darkmagenta     lemonchiffon         olive              tomato
+darkolivegreen  lightblue            olivedrab          turquoise
+darkorange      lightcoral           orange             violet
+darkorchid      lightcyan            orangered          wheat
+darkred         lightgoldenrodyellow orchid             white
+darksalmon      lightgray            palegoldenrod      whitesmoke
+darkseagreen    lightgreen           palegreen          yellow
+darkslateblue   lightgrey            paleturquoise      yellowgreen
+darkslategray   lightpink            palevioletred
+darkslategrey
+@end example
+
+La définition CSS diffère des noms de couleur X pour les couleurs
+suivantes : @code{green}, @code{grey}, @code{maroon}, @code{purple}.
+
+
 @subsubheading Noms de couleur X
 
-Les noms de couleur X peuvent s'employer de différentes manières.
+Les @uref{https://en.wikipedia.org/wiki/X11_color_names,
+noms de couleur X 11} offrent un choix plus large que les noms CSS. Ils
+peuvent s'employer de différentes manières.
 
+@itemize @bullet
+@item
 Un nom de couleur peut s'écrire sous la forme d'un mot composé et sans
-espace auquel chaque élément prend un initiale capitalisée (p. ex.
+espace auquel chaque élément prend une initiale capitalisée (par ex.
 @code{LightSlateBlue}).  Il peut aussi s'exprimer sous la forme d'une
 suite de mots, auquel cas les initiales ne sont pas capitalisées
 (par ex. @code{light slate blue}).
 
-Le @emph{gris} accepte aussi bien l'orthographe @qq{grey} que
-@qq{gray} (par ex. @code{DarkSlateGray}).
+@item
+Le @emph{gris} accepte aussi bien l'orthographe « grey » que
+« gray » (par ex. @code{DarkSlateGray}).
 
+@item
 Certains noms peuvent prendre un suffixe numérique, comme
 @code{LightSalmon4}.
+
+@end itemize
+
+Les listes suivantes présentent tous les noms de couleur disponibles,
+sans adjonction de suffixe numérique, puis celles acceptant un suffixe.
 
 
 @subsubheading Noms de couleur sans suffixe numérique
@@ -939,8 +1000,8 @@ LavenderBlush   OliveDrab             cyan           yellow
 
 @subsubheading Noms de couleur avec suffixe numérique
 
-Les couleurs suivantes acceptent un suffixe numérique @var{N} compris
-entre 1 et 4.
+Les couleurs suivantes acceptent un suffixe entier numérique @var{N}
+compris entre 1 et 4.
 
 @example
 AntiqueWhiteN    LightSkyBlueN    SteelBlueN   khakiN
@@ -1319,8 +1380,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @appendixsec Styles de tête de note
 @translationof Note head styles
 
-@cindex tête de note, styl
-e
+@cindex tête de note, style
+
 Voici les différents styles de tête de note disponibles.
 
 @lilypondfile[noindent]{note-head-style.ly}
@@ -1417,7 +1478,6 @@ Résultat
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
 \clef G c1
 @end lilypond
-
 @tab
 @code{\clef "G2"}
 @tab
@@ -1433,7 +1493,6 @@ c1
 \clef treble
 c1
 @end lilypond
-
 @tab
 @code{\clef violin}
 @tab
@@ -1464,7 +1523,6 @@ c1
 \clef tenorG
 c1
 @end lilypond
-
 @*
 
 @item
@@ -1511,7 +1569,6 @@ c1
 \clef baritone
 c1
 @end lilypond
-
 @*
 
 @item
@@ -1543,8 +1600,6 @@ c1
 \clef baritonevarC
 c1
 @end lilypond
-
-@*
 
 @item
 @code{\clef varbaritone}
@@ -1583,6 +1638,7 @@ c1
 \clef subbass
 c1
 @end lilypond
+@*
 
 @end multitable
 
@@ -1736,7 +1792,6 @@ Résultat
   \override NoteHead.style = #'vaticana.punctum
   c1
 @end lilypond
-
 @*
 
 @item
@@ -1791,7 +1846,6 @@ Résultat
   \override NoteHead.style = #'medicaea.punctum
   c1
 @end lilypond
-
 @*
 
 @item
@@ -1915,7 +1969,6 @@ Résultat
   \override NoteHead.style = #'mensural
   c1
 @end lilypond
-
 @*
 
 @item
@@ -1934,8 +1987,6 @@ Résultat
   \override NoteHead.style = #'mensural
   c1
 @end lilypond
-
-@*
 
 @item
 @code{\clef "blackmensural-c1"}
@@ -1979,7 +2030,6 @@ Résultat
   \override NoteHead.style = #'blackmensural
   c1
 @end lilypond
-
 @*
 
 @item
@@ -2024,7 +2074,6 @@ Résultat
   \override NoteHead.style = #'neomensural
   c1
 @end lilypond
-
 @*
 
 @item
@@ -2069,7 +2118,6 @@ Résultat
   \override NoteHead.style = #'petrucci
   c1
 @end lilypond
-
 @*
 
 @item
@@ -2114,7 +2162,6 @@ Résultat
   \override NoteHead.style = #'petrucci
   c1
 @end lilypond
-
 @*
 
 @item
@@ -2142,6 +2189,7 @@ Résultat
   \override NoteHead.style = #'petrucci
   c1
 @end lilypond
+@*
 
 @end multitable
 
@@ -2192,8 +2240,8 @@ Les commandes suivantes peuvent être utilisées dans un bloc
 @appendixsec Commandes pour liste de @emph{markups}
 @translationof Text markup list commands
 
-Les commandes suivantes peuvent être utilisées dans un
-bloc @code{\markuplist @{ @}}.
+Les commandes suivantes peuvent être utilisées dans un bloc
+@code{\markuplist @{ @}}.
 
 @include markup-list-commands.tely
 
@@ -2222,11 +2270,28 @@ décoller de l'encadrement.
 @appendixsec Liste des signes d'articulation
 @translationof List of articulations
 
-Les listes qui suivent recensent les symboles prédéfinis dans le
-glyphe Feta que vous pouvez attacher à une note (par ex. @code{f\accent}
-ou @code{f->}).  Chaque exemple illustre les trois positionnements : en
-surplomb (@emph{up}), en dessous (@emph{down}) et à l'appréciation de
-LilyPond (@emph{neutral}).
+@cindex articulations
+@cindex ornements
+@cindex script
+@cindex postévénement
+
+Dans la logique interne de LilyPond, une « articulation » est un objet,
+hormis les nuances, qui peut s'attacher directement après un événement
+rythmique, qu'il s'agisse d'une note ou d'un accord, y compris un
+silence, un saut ou bien une construction en accord vide @code{<>} (voir
+@rlearning{Structuration de la saisie des notes}). Même les liaisons,
+doigtés et scripts textuels sont techniquement des articulations, bien
+qu'ils ne soient pas indiqués ici.
+
+Les listes qui suivent recensent les articulations et autres symboles
+prédéfinis dans la fonte Emmentaler, que vous pouvez attacher à une note
+(par ex. @code{f\accent} ou @code{f->}). Chaque exemple illustre les
+trois positionnements : en surplomb (@emph{up}), en dessous
+(@emph{down}) et à l'appréciation de LilyPond (@emph{neutral}).
+Consultez aussi @ref{Glyphes de script} pour un recensement plus
+exhaustif des glyphes accessibles par la commande de @emph{markup}
+@code{\musicglyph} en suivant les préceptes énoncés dans
+@ref{Notation musicale dans du texte formaté}.
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -2234,8 +2299,8 @@ LilyPond (@emph{neutral}).
 @c   Bowing indications
 @c   Harmonics
 @c   Snap (Bartók) pizzicato
-@c Custom percussion staves (for "halfopen" -- not yet funindexed)
-@c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
+@c Custom percussion staves (for "halfopen" and "stopped")
+@c References for wind instruments (for "open"/"stopped")
 
 @menu
 * Scripts d'articulation::
@@ -2273,8 +2338,9 @@ columns - JL
 @funindex \tenuto
 @funindex --
 @cindex pouce @emph{(thumb)}
+@cindex articulation, script
 
-@multitable @columnfractions .22 .25 .25 .25
+@multitable @columnfractions .25 .25 .25 .25
 
 @item
 @code{\accent} ou @code{->}
@@ -2298,12 +2364,14 @@ f^\portato e,_\portato b'\portato
 @end lilypond
 
 @item
-@code{\staccatissimo} @* ou @code{-!}
+@code{\staccatissimo} ou @code{-!}
 @lilypond[notime,relative=2]
 f^\staccatissimo e,_\staccatissimo b'\staccatissimo
 @end lilypond
 @tab
-@code{\staccato} ou @code{-.}
+@c These additional spaces improve the PDF version,
+@c without affecting the HTML rendering. -vv
+@code{    \staccato} ou @code{-.}
 @lilypond[notime,relative=2]
 f^\staccato e,_\staccato b'\staccato
 @end lilypond
@@ -2320,6 +2388,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @unnumberedsubsec Scripts d'ornement
 @translationof Ornament scripts
 
+@cindex groupetto
+@cindex ornement, script
 @funindex \prall
 @funindex \prallup
 @funindex \pralldown
@@ -2333,7 +2403,6 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \downmordent
 @funindex \trill
 @funindex \turn
-@cindex groupetto
 @funindex \reverseturn
 @funindex \slashturn
 @funindex \haydnturn
@@ -2432,6 +2501,7 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @translationof Fermata scripts
 
 @cindex point d'orgue
+@cindex orgue, point d'
 @cindex point d'arrêt
 @funindex \fermata
 @funindex \veryshortfermata
@@ -2486,6 +2556,7 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @unnumberedsubsec Scripts spécifiques à certains instruments
 @translationof Instrument-specific scripts
 
+@cindex instrument, script spécifique
 @cindex flageolet
 @cindex tirer l'archet
 @cindex pousser l'archet
@@ -2567,6 +2638,11 @@ f^\snappizzicato e,_\snappizzicato b'\snappizzicato
 @lilypond[notime,relative=2]
 f^\stopped e,_\stopped b'\stopped
 @end lilypond
+@tab
+@code{\thumb}
+@lilypond[notime,relative=2]
+f^\thumb e,_\thumb b'\thumb
+@end lilypond
 
 @end multitable
 
@@ -2575,6 +2651,7 @@ f^\stopped e,_\stopped b'\stopped
 @unnumberedsubsec Scripts de reprise et de répétition
 @translationof Repeat sign scripts
 
+@cindex reprise, script
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -2604,6 +2681,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @unnumberedsubsec Scripts pour musique ancienne
 @translationof Ancient scripts
 
+@cindex ancien, script
 @funindex \accentus
 @funindex \circulus
 @funindex \ictus
@@ -2796,7 +2874,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 \drums { hhp4 hhp1 }
 @end lilypond
 
-
 @item
 @code{crashcymbal @* cymc @*}
 @lilypond[notime,ragged-right]
@@ -2880,7 +2957,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 @lilypond[notime,ragged-right]
 \drums { bolm4 bolm1 }
 @end lilypond
-
 
 @item
 @code{hiconga @* cgh @*}
@@ -3143,10 +3219,10 @@ sur les listes de diffusion et dans le code source.
 
 Une liste associative -- @strong{alist} pour @emph{association list} --
 est une paire Scheme qui associe une valeur à une clé :
-@code{(clé . valeur)}.  Le fichier @file{scm/lily.scm} contient par
+@code{(clé . valeur)}. Le fichier @file{scm/lily.scm} contient par
 exemple une @emph{alist} @w{@qq{type-p-name-alist}} qui associe certains
-types de prédicat (p. ex. @code{ly:music?}) à des noms (p. ex.
-@qq{music}) de telle sorte qu'une erreur lors d'un contrôle de typage
+types de prédicat (par ex. @code{ly:music?}) à des noms (par ex.
+« music ») de telle sorte qu'une erreur lors d'un contrôle de typage
 puisse être rapportée en console avec mention du type de prédicat
 attendu.
 

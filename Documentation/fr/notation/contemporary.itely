@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
+    Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -193,6 +193,100 @@ portées) sont abordées à la rubrique @ref{Regroupement de portées}.
 @node Notation graphique
 @subsection Notation graphique
 @translationof Graphical notation
+
+@cindex durée, ligne de
+@cindex note, prolongation
+@cindex ligne, indication de durée
+@cindex prologation de note
+
+@funindex \-
+
+Les éléments rythmiques peuvent se prolongar par une ligne de durée
+représentée par un objet graphique @code{DurationLine}. Cette ligne peut
+adopter différents styles : @code{'beam}, @code{'line},
+@code{'dashed-line}, @code{'dotted-line}, @code{'zigzag}, @code{'trill}
+ou @code{'none}. La ligne peut se terminer par un crochet (uniquement
+pour le style @code{'beam}) ou une flêche.
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+{
+  a'1\- s2 r
+  \once \override DurationLine.style = #'line
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dashed-line
+  \once \override DurationLine.dash-period = 2
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dotted-line
+  \once \override DurationLine.dash-period = 1
+  \once \override DurationLine.bound-details.right.padding = 1
+  a'1\- s2 r
+  \once \override DurationLine.thickness = 2
+  \once \override DurationLine.style = #'zigzag
+  a'1\- s2 r
+  \once \override DurationLine.style = #'trill
+  a'1\- s2 r
+  \once \override DurationLine.style = #'none
+  a'1\- s2 r
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  a'1\- s2 r
+  \override DurationLine.bound-details.right.end-style = #'hook
+  a'1\- s2 r
+  \override DurationLine.details.hook-direction = #DOWN
+  a'1\- s2 r
+  \bar "|."
+}
+@end lilypond
+
+@knownissues
+Lorsque l'objet @code{DurationLine} atteint la fin de la partition, son
+extrémité est absente, pour des raisons techniques. Une solution de
+contournement pourrait ressembler à :
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+lastEndStyle =
+#(define-music-function (end-style)(symbol?)
+#{
+  \override DurationLine.after-line-breaking =
+    #(lambda (grob)
+      (let* ((orig (ly:grob-original grob))
+             (siblings (if (ly:grob? orig)
+                           (ly:spanner-broken-into orig) '()))
+             (last-grob (if (pair? siblings) (last siblings) #f)))
+        (if last-grob
+            (ly:grob-set-nested-property!
+              last-grob
+              '(bound-details right-broken end-style) end-style))))
+#})
+
+{
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  \lastEndStyle #'arrow
+  a'1\-
+  \bar "|."
+}
+@end lilypond
 
 
 @node Techniques de partition contemporaine

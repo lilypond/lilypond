@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+    Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -404,8 +404,8 @@ Ce style permet de saisir toute sorte de percussions sur des portées
 d'une ligne.
 
 @lilypond[quote,ragged-right]
-nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
-mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+namI = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
+musI = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
 <<
   \new DrumStaff \with{
@@ -415,10 +415,28 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
     \remove "Time_signature_engraver"
     \hide Stem
     \override Stem.Y-extent = ##f
-  } \mus
+  } \musI
   \new Lyrics {
     \override LyricText.font-family = #'typewriter
-    \nam
+    \namI
+  }
+>>
+
+namII = \lyricmode { cb4 cl tamb cab mar hc }
+musII = \drummode { cb4 cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove "Bar_engraver"
+    drumStyleTable = #percussion-style
+    \override StaffSymbol.line-count = #1
+    \remove "Time_signature_engraver"
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \musII
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \namII
   }
 >>
 @end lilypond
@@ -446,6 +464,8 @@ Morceaux choisis :
 @translationof Custom percussion staves
 
 @cindex percussions, personnalisation
+@funindex \halfopen
+@funindex \stopped
 @funindex drumStyleTable
 
 LilyPond offre la possibilité de construire son propre style de

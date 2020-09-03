@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -226,8 +226,8 @@ moins deux notes distinctes.  Les ligatures ont commencé à apparaître
 dans les manuscrits de chant grégorien, pour indiquer des suites
 ascendantes ou descendantes de notes.
 
-@funindex @sortas{[B} \[
-@funindex @sortas{]B} \]
+@funindexpost \[
+@funindexpost \]
 
 Les ligatures s'indiquent par un bornage entre @code{\[} et @code{\]}.
 Certains styles de ligature peuvent demander un complément de syntaxe
@@ -1369,6 +1369,25 @@ En plus des signes d'articulation standards décrits à la section
 @ref{Articulations et ornements}, LilyPond fournit des articulations
 spécifiquement destinées au style des éditions vaticanes.
 
+@cindex @emph{accentus}, grégorien, articulation
+@cindex grégorien, articulation, @emph{accentus}
+@cindex articulation grégorienne, @emph{accentus}
+@cindex @emph{circulus}, grégorien, articulation
+@cindex grégorien, articulation, @emph{circulus}
+@cindex articulation grégorienne, @emph{circulus}
+@cindex @emph{episemInitium}, grégorien, articulation
+@cindex grégorien, articulation, @emph{episemInitium}
+@cindex articulation grégorienne, @emph{episemInitium}
+@cindex @emph{episemFinis}, grégorien, articulation
+@cindex grégorien, articulation, @emph{episemFinis}
+@cindex articulation grégorienne, @emph{episemFinis}
+@cindex @emph{ictus}, grégorien, articulation
+@cindex grégorien, articulation, @emph{ictus}
+@cindex articulation grégorienne, @emph{ictus}
+@cindex @emph{semicirculus}, grégorien, articulation
+@cindex grégorien, articulation, @emph{semicirculus}
+@cindex articulation grégorienne, @emph{semicirculus}
+
 @funindex \accentus
 @funindex \circulus
 @funindex \episemInitium
@@ -1387,7 +1406,8 @@ spécifiquement destinées au style des éditions vaticanes.
     a\circulus_"circulus " \bar "" \break
     a\semicirculus_"semicirculus " \bar "" \break
     a\accentus_"accentus " \bar "" \break
-    \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
+    \[ a_"episema" \episemInitium \pes b
+       \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond
@@ -1612,25 +1632,14 @@ code ayant permis de générer la ligature, se basant ici sur sol, la, si.
 
 @b{Neumes simples}
 
-@multitable @columnfractions .4 .2 .4
+@multitable @columnfractions .4 .12 .48
 
 @item
 Formes @b{Normale} et @emph{Liquescente}
 @tab
 @b{Rendu}
 @tab
-@b{Code@*
-LilyPond}
-
-@c TODO: \layout block is identical in all of the below examples.
-@c Therefore, it should somehow be included rather than duplicated all
-@c the time.  --jr
-
-@c why not make variables in ly/engraver-init.ly? --hwn
-
-@c Because it's just used to typeset plain notes without
-@c a staff for demonstration purposes rather than something
-@c special of Gregorian chant notation.  --jr
+@b{Code LilyPond}
 
 @item
 @b{Punctum}
@@ -1769,7 +1778,7 @@ LilyPond}
 @noindent
 @b{Ligatures sur deux notes}
 
-@multitable @columnfractions .4 .2 .4
+@multitable @columnfractions .4 .12 .48
 
 @item
 @b{Clivis vel Flexa}
@@ -1925,7 +1934,7 @@ LilyPond}
 @noindent
 @b{Ligatures sur plusieurs notes}
 
-@multitable @columnfractions .4 .2 .4
+@multitable @columnfractions .4 .12 .48
 
 @item
 @b{Torculus}

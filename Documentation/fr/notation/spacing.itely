@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: bbeb95d2fd4f75932022c96acff4541c5ce25991
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -282,7 +282,8 @@ appel à l'aide des fonctions @code{set-default-paper-size} et
 @code{set-paper-size} :
 
 @example
-#(set! paper-alist (cons '("mon format" . (cons (* 15 in) (* 3 in))) paper-alist))
+#(set! paper-alist
+  (cons '("mon format" . (cons (* 15 in) (* 3 in))) paper-alist))
 
 \paper @{
   #(set-paper-size "mon format")
@@ -859,7 +860,7 @@ Fichiers d'initialisation :
 @unnumberedsubsubsec Variables d'indentation et de décalage
 @translationof paper variables for shifts and indents
 
-@cindex indantation
+@cindex indentation
 
 Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
 @file{ly/paper-defaults-init.ly}.
@@ -2161,7 +2162,7 @@ alignToZero = \with {
   \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
   \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
   \override VerticalAxisGroup.staff-affinity = #DOWN
-  \remove Text_engraver % avoid having two
+  \remove Text_engraver % évite d'en avoir deux
   \consists Text_engraver
 }
 lowerCaseChords = \with {
@@ -2196,13 +2197,14 @@ labelContext =
   \new ChordNames { \chords { \labelContext "ChordNames"  g1:m } }
   \new NoteNames { s1 |\labelContext "NoteNames"  g1 | }
   \new Lyrics { \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 | } }
-  \new RhythmicStaff \with { instrumentName = "ligne de base (baseline) " } s1*3
+  \new RhythmicStaff \with { instrumentName =
+                               "ligne de base (baseline) " } s1*3
 >>
 
 %% Le point de référence de Dynamics est le milieu du « m » dans la fonte
 <<
   \new Dynamics { \labelContext "Dynamics" s1\mp s\fp }
-  \new RhythmicStaff \with { instrumentName = "mid-hauteur " } s1*3
+  \new RhythmicStaff \with { instrumentName = "mi-hauteur " } s1*3
 >>
 
 %% Le point de référence de FiguredBass est son point le plus haut
@@ -2237,7 +2239,8 @@ alors que la seconde redéfinit la propriété dans son intégralité.
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+  \override VerticalAxisGroup
+              .default-staff-staff-spacing.basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
@@ -2256,7 +2259,8 @@ bloc @code{\layout} :
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+    \override VerticalAxisGroup
+      .default-staff-staff-spacing.basic-distance = #10
   @}
 @}
 @end example
@@ -2291,7 +2295,10 @@ regroupement.  Les portées peuvent donc s'aligner différemment selon
 qu'elles sont ou non regroupées.  Pour obtenir le même espacement sans
 tenir compte des éventuels regroupements, cette fonction peut faire
 place à une complète redéfinition des espacements fluctuants à l'aide de
-règles dérogatoires comme vu précédemment.
+règles dérogatoires comme vu précédemment. Au cas où seulement certaines
++valeurs font l'objet d'une dérogation, les valeurs non mentionnées
++seront ajustées sur celles de @code{default-staff-staff-spacing} (si
++tant est qu'elles y soient définies).
 
 @item default-staff-staff-spacing
 Il s'agit de la distance qui s'appliquera par défaut aux portées
@@ -2510,7 +2517,9 @@ regroupées, à l'aide des propriétés de l'objet graphique
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #20
+    \override StaffGrouper
+                .staffgroup-staff-spacing
+                .basic-distance = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2572,14 +2581,17 @@ Vous noterez que la valeur élevée attribuée à la clé
 \layout {
   \context {
     \Lyrics
-    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.stretchability = #1000
+    \override VerticalAxisGroup
+                .nonstaff-nonstaff-spacing
+                .stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 30))
+    \override VerticalAxisGroup.staff-staff-spacing =
+      #'((basic-distance . 30))
   } { c'1 }
   \new Lyrics \with {
     \override VerticalAxisGroup.staff-affinity = #UP
@@ -2722,14 +2734,14 @@ de l'objet @code{NonMusicalPaperColumn} :
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 0))
+          \overrideProperty Score.NonMusicalPaperColumn
+            .line-break-system-details #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 40))
+          \overrideProperty Score.NonMusicalPaperColumn
+            .line-break-system-details #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 60))
+          \overrideProperty Score.NonMusicalPaperColumn
+            .line-break-system-details #'((Y-offset . 60))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2766,11 +2778,15 @@ vertical.
       \new Staff <<
         \new Voice {
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((extra-offset . (0 . 10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details #'((extra-offset . (0 . 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((extra-offset . (0 . 10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details #'((extra-offset . (0 . 10)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2796,17 +2812,26 @@ jouer sur la distance séparant les portées de chacun des systèmes, grâce
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 20)
-               (alignment-distances . (10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 20)
+                 (alignment-distances . (10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 60)
-               (alignment-distances . (15)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 60)
+                 (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 85)
-             (alignment-distances . (20)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 85)
+                 (alignment-distances . (20)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2837,17 +2862,26 @@ d'un regroupement de portées.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 0)
-               (alignment-distances . (30 10)))
+          \overrideProperty
+            Score
+              .NonMusicalPaperColumn
+              .line-break-system-details
+                #'((Y-offset . 0)
+                   (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 60)
-               (alignment-distances . (10 10)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 60)
+                 (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-            #'((Y-offset . 100)
-               (alignment-distances . (10 30)))
+          \overrideProperty
+            Score
+            .NonMusicalPaperColumn
+            .line-break-system-details
+              #'((Y-offset . 100)
+                 (alignment-distances . (10 30)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -3750,7 +3784,7 @@ dimensionnement vertical sur lesquelles vous pouvez jouer au niveau de
 la mise en page consiste à activer, au sein du bloc @code{\paper}, la
 fonction @code{annotate-spacing} :
 
-@lilypond[verbatim,quote,papersize=a6landscape]
+@lilypond[verbatim,quote,papersize=a6landscape,staffsize=14,line-width=14.5\cm]
 \book {
   \score { { c4 } }
   \paper { annotate-spacing = ##t }
@@ -3765,7 +3799,7 @@ feuille (@code{paper-height}) est de 59,75 espaces de portée
 (@code{staff-spaces}) et la taille de portée (@code{staff-size}) de
 20 points -- sa valeur par défaut.  Notez que :
 
-@multitable {1 staff-space} {(staff-size)/4 * (25,4/72,27) mm}
+@multitable {1 staff-space} {= (@code{staff-size})/4 * (25,4/72,27) mm}
 
 @item 1 point
 @tab = (25,4/72,27) mm
