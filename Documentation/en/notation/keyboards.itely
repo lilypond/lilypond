@@ -12,7 +12,7 @@
 @node Keyboard and other multi-staff instruments
 @section Keyboard and other multi-staff instruments
 
-@lilypondfile[quote]{keyboard-headword.ly}
+@lilypondfile[quote]{snippets/keyboard-headword.ly}
 
 This section discusses several aspects of music notation that are
 unique to keyboard instruments and other instruments notated on
@@ -470,7 +470,7 @@ Internals Reference:
 @funindex \autoBeamOff
 @funindex Span_stem_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-stems.ly}
+{snippets/cross-staff-stems.ly}
 
 For the time being, this engraver can not be specified by its name in
 double quotes.  Instead its name must be prefixed with a hash symbol
@@ -480,7 +480,7 @@ double quotes.  Instead its name must be prefixed with a hash symbol
 @cindex arpeggio bracket, cross-staff
 @cindex bracket, cross-staff
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 
 @morerefs
@@ -631,7 +631,7 @@ A complete list of all available accordion registers can be found in
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-register-symbols.ly}
+{snippets/accordion-register-symbols.ly}
 
 
 @morerefs

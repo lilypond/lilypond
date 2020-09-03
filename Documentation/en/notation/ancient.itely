@@ -14,7 +14,7 @@
 @node Ancient notation
 @section Ancient notation
 
-@lilypondfile[quote]{ancient-headword.ly}
+@lilypondfile[quote]{snippets/ancient-headword.ly}
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
@@ -2683,7 +2683,7 @@ orientation aids that bar lines give.
 
 
 @lilypondfile[verbatim,quote,texidoc]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @c This simple setup will take care of the
 @c TODO Add text about lyrics to the lowest line, to be placed
@@ -2878,7 +2878,7 @@ spirLyr = \lyricmode {
 
 @cindex transcription, mensural to modern
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
+{snippets/using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 @c @morerefs
 @c ... and reference to other sections ...

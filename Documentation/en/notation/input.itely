@@ -3272,7 +3272,7 @@ dynamic marks and their associated fractions can be found in
 @cindex dynamics in MIDI, custom
 @cindex MIDI, custom dynamics
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{creating-custom-dynamics-in-midi-output.ly}
+{snippets/creating-custom-dynamics-in-midi-output.ly}
 
 
 Installed Files:
@@ -3388,7 +3388,7 @@ Internals Reference:
 @cindex instrument equalization in MIDI, replacing default
 @cindex equalization, instrument, replacing MIDI default
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{replacing-default-midi-instrument-equalization.ly}
+{snippets/replacing-default-midi-instrument-equalization.ly}
 
 
 @knownissues
@@ -3672,7 +3672,7 @@ to the @code{'instrument} setting as shown:
 
 @cindex MIDI, one channel per voice
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
+{snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 
 @node Context properties for MIDI effects

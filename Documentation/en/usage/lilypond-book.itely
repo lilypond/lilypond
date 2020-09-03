@@ -158,7 +158,7 @@ c'4 f16
 Larger examples can be put into a separate file, and introduced with
 @code{\lilypondfile}.
 
-@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
 If a @code{tagline} is required, either default or custom, then the
 entire snippet must be enclosed in a @code{\book @{ @}} construct.

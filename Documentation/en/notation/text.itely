@@ -12,7 +12,7 @@
 @node Text
 @section Text
 
-@lilypondfile[quote]{text-headword.ly}
+@lilypondfile[quote]{snippets/text-headword.ly}
 
 This section explains how to include text (with various
 formatting) in music scores.
@@ -333,10 +333,10 @@ LilyPond is only able to handle one text spanner per voice.
 @cindex dynamics, text spanner, customize
 @cindex text spanner, dynamics, customize
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-text-spanner-postfix.ly}
+{snippets/dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-custom-text-spanner-postfix.ly}
 
 
 @morerefs
@@ -442,13 +442,13 @@ the next line.
 @cindex line, end of, positioning marks
 @cindex mark, at end of line
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line.ly}
+{snippets/printing-marks-at-the-end-of-a-line.ly}
 
 @cindex mark, on every staff
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-on-every-staff.ly}
+{snippets/printing-marks-on-every-staff.ly}
 
 
 @morerefs
@@ -528,7 +528,7 @@ requires, are described in @ref{Multi-page markup}.
 @cindex two-column text
 @cindex markup, two-column
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{stand-alone-two-column-markup.ly}
+{snippets/stand-alone-two-column-markup.ly}
 
 
 @morerefs

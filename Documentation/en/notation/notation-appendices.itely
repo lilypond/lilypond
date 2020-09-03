@@ -51,7 +51,7 @@ by Harald Banter (1982) that was used by default in early LilyPond
 releases (up to version 1.7).
 
 @c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
+@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
 @node Common chord modifiers
 @appendixsec Common chord modifiers
@@ -506,7 +506,7 @@ Perfect fifth, @*octave
 
 The chart below shows the predefined string tunings.
 
-@lilypondfile{display-predefined-string-tunings.ly}
+@lilypondfile{en/included/display-predefined-string-tunings.ly}
 
 @node Predefined fretboard diagrams
 @appendixsec Predefined fretboard diagrams
@@ -520,17 +520,17 @@ The chart below shows the predefined string tunings.
 @node Diagrams for Guitar
 @unnumberedsubsec Diagrams for Guitar
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
 @node Diagrams for Ukulele
 @unnumberedsubsec Diagrams for Ukulele
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
 
 @node Diagrams for Mandolin
 @unnumberedsubsec Diagrams for Mandolin
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
 
 @node Predefined paper sizes
@@ -1076,7 +1076,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Clef glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #clefs
 @end lilypond
@@ -1086,7 +1086,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Time Signature glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #timesig
 @end lilypond
@@ -1096,7 +1096,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Number glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
 @end lilypond
@@ -1106,7 +1106,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Accidental glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accidentals
 @end lilypond
@@ -1116,7 +1116,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Default Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #default-noteheads
 @end lilypond
@@ -1126,7 +1126,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Special Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #special-noteheads
 @end lilypond
@@ -1136,7 +1136,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Shape-note Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #shape-note-noteheads
 @end lilypond
@@ -1146,7 +1146,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Rest glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #rests
 @end lilypond
@@ -1156,7 +1156,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Flag glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #flags
 @end lilypond
@@ -1166,7 +1166,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Dot glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dots
 @end lilypond
@@ -1176,7 +1176,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Dynamic glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dynamics
 @end lilypond
@@ -1186,7 +1186,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Script glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #scripts
 @end lilypond
@@ -1196,7 +1196,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Arrowhead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #arrowheads
 @end lilypond
@@ -1206,7 +1206,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Bracket-tip glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #brackettips
 @end lilypond
@@ -1216,7 +1216,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Pedal glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #pedal
 @end lilypond
@@ -1226,7 +1226,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Accordion glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accordion
 @end lilypond
@@ -1236,7 +1236,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Tie glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #ties
 @end lilypond
@@ -1246,7 +1246,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Vaticana glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #vaticana
 @end lilypond
@@ -1256,7 +1256,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Medicaea glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #medicaea
 @end lilypond
@@ -1266,7 +1266,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Hufnagel glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #hufnagel
 @end lilypond
@@ -1276,7 +1276,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Mensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #mensural
 @end lilypond
@@ -1286,7 +1286,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Neomensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #neomensural
 @end lilypond
@@ -1296,7 +1296,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Petrucci glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #petrucci
 @end lilypond
@@ -1306,7 +1306,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Solesmes glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #solesmes
 @end lilypond
@@ -1315,7 +1315,7 @@ For more information see @ref{Formatting text}.
 @unnumberedsubsec Kievan Notation glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
 @end lilypond
@@ -1327,7 +1327,7 @@ For more information see @ref{Formatting text}.
 @cindex note head style
 The following styles may be used for note heads.
 
-@lilypondfile[noindent]{note-head-style.ly}
+@lilypondfile[noindent]{en/included/note-head-style.ly}
 
 
 @node Clef styles
@@ -2179,7 +2179,7 @@ generated from source files during the build.
 For translators: you cannot translate the content of these files.
 @end ignore
 
-@include markup-commands.tely
+@include en/markup-commands.tely
 
 
 @node Text markup list commands
@@ -2187,7 +2187,7 @@ For translators: you cannot translate the content of these files.
 
 The following commands can all be used with @code{\markuplist}:
 
-@include markup-list-commands.tely
+@include en/markup-list-commands.tely
 
 
 @node List of special characters
@@ -3523,19 +3523,19 @@ Internals Reference:
 @node All context properties
 @appendixsec All context properties
 
-@include context-properties.tely
+@include en/context-properties.tely
 
 
 @node Layout properties
 @appendixsec Layout properties
 
-@include layout-properties.tely
+@include en/layout-properties.tely
 
 
 @node Available music functions
 @appendixsec Available music functions
 
-@include identifiers.tely
+@include en/identifiers.tely
 
 @node Context modification identifiers
 @appendixsec Context modification identifiers
@@ -3543,15 +3543,15 @@ Internals Reference:
 The following commands are defined for use as context modifications
 within a @code{\layout} or @code{\with} block.
 
-@include context-mod-identifiers.tely
+@include en/context-mod-identifiers.tely
 
 @node Predefined type predicates
 @appendixsec Predefined type predicates
 
-@include type-predicates.tely
+@include en/type-predicates.tely
 
 
 @node Scheme functions
 @appendixsec Scheme functions
 
-@include scheme-functions.tely
+@include en/scheme-functions.tely

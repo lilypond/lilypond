@@ -12,7 +12,7 @@
 @node Editorial annotations
 @section Editorial annotations
 
-@lilypondfile[quote]{editorial-headword.ly}
+@lilypondfile[quote]{snippets/editorial-headword.ly}
 
 This section discusses the various ways to change the appearance of
 notes and add analysis or educational emphasis.
@@ -386,14 +386,14 @@ staff, see @ref{Direction and placement}.
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex fingering, inside of staff
 @cindex fingering, stem support
 @funindex staff-padding
 @funindex add-stem-support
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @morerefs
 Notation Reference:
@@ -714,12 +714,12 @@ Stems may be manually placed to point up or down; see
 @cindex stem, default direction on center line
 @cindex direction, default, of stem, on center line
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+{snippets/default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @cindex stem, automatic direction on center line
 @cindex direction, automatic, of stem, on center line
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+{snippets/automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
 @morerefs
 Notation Reference:
@@ -974,7 +974,7 @@ lines.
 
 @cindex grid lines, changing appearance
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{grid-lines--changing-their-appearance.ly}
+{snippets/grid-lines--changing-their-appearance.ly}
 
 @morerefs
 Snippets:
@@ -1042,13 +1042,13 @@ Analysis brackets may be nested.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-above-the-staff.ly}
+{snippets/analysis-brackets-above-the-staff.ly}
 
 @cindex analysis bracket, with label
 @cindex bracket, phrasing, with label
 @funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-with-labels.ly}
+{snippets/analysis-brackets-with-labels.ly}
 
 @morerefs
 Internals Reference:

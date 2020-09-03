@@ -13,7 +13,7 @@
 @section Unfretted string instruments
 
 @lilypondfile[quote]
-{unfretted-headword.ly}
+{snippets/unfretted-headword.ly}
 
 @cindex orchestral strings
 @cindex strings, orchestral

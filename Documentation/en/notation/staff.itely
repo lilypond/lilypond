@@ -14,7 +14,7 @@
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
 
 This section explains how to influence the appearance of staves,
 how to print scores with more than one staff, and how to add tempo
@@ -237,14 +237,14 @@ New staff group contexts may be defined.  For details, see
 @cindex bracket, square, at start of staff group
 @cindex staff group, with square bracket at start
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{use-square-bracket-at-the-start-of-a-staff-group.ly}
+{snippets/use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @cindex bracket, at start of single staff
 @cindex brace, at start of single staff
 @cindex staff, single, with bracket or brace
 @cindex single staff with bracket or brace
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{display-bracket-with-only-one-staff-in-a-system.ly}
+{snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex mensurstriche layout
 @cindex renaissance music
@@ -252,7 +252,7 @@ New staff group contexts may be defined.  For details, see
 @cindex mensural music, transcription of
 @cindex bar line, between staves
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
 @morerefs
@@ -317,7 +317,7 @@ New nested staff group contexts can be defined.  For details, see
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{nesting-staves.ly}
+{snippets/nesting-staves.ly}
 
 
 @morerefs
@@ -558,7 +558,7 @@ line spacing as well.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-some-staff-lines-thicker-than-the-others.ly}
+{snippets/making-some-staff-lines-thicker-than-the-others.ly}
 
 
 @morerefs
@@ -711,7 +711,7 @@ break.  For more information about
 @funindex alignBelowContext
 @funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligning-ossias-and-lyrics.ly}
+{snippets/vertically-aligning-ossias-and-lyrics.ly}
 
 
 @morerefs
@@ -1866,7 +1866,7 @@ set in the @code{Score} context as explained in
 @cindex multi-measure rest, numbering
 @funindex restNumberThreshold
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{numbering-single-measure-rests.ly}
+{snippets/numbering-single-measure-rests.ly}
 
 @cindex church rest
 @cindex rest, church
@@ -1874,7 +1874,7 @@ set in the @code{Score} context as explained in
 @cindex multi-measure rest, style
 @cindex style, multi-measure rests
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi-measure-rests.ly}
+{snippets/changing-form-of-multi-measure-rests.ly}
 
 @morerefs
 Notation Reference:
