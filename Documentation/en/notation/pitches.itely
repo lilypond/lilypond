@@ -3127,6 +3127,10 @@ printed if they are not part of the key signature.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-ambitus-gap.ly}
 
+@cindex ambitus, placement
+@funindex ambitusAfter
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/ambitus-after-key-signature.ly}
 
 @morerefs
 Music Glossary:
