@@ -568,8 +568,6 @@ def do_file(input_filename, included=False):
             write_if_updated(output_filename,
                              [c.filter_text() for c in chunks])
         elif global_options.process_cmd:
-            do_process_cmd(chunks, global_options)
-            progress(_("Compiling `%s'...") % output_filename)
             write_if_updated(output_filename,
                              [s.replacement_text()
                               for s in chunks])
@@ -744,6 +742,9 @@ def main():
     identify()
     try:
         chunks = do_file(files[0])
+        if global_options.process_cmd:
+            do_process_cmd(chunks, global_options)
+            progress(_("Compiling `%s'...") % files[0])
     except book_snippets.CompileError:
         exit(1)
 
