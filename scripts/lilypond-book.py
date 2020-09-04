@@ -60,6 +60,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import typing
 
 # See lock_path and unlock_path; this module is not available at all on Windows.
 if os.name == 'posix':
@@ -559,20 +560,10 @@ def do_file(input_filename, included=False):
         chunks = book_base.find_toplevel_snippets(
             source, global_options.formatter, global_options)
         for c in chunks:
-            c.set_input_fullpath(input_fullname)
+            c.set_document_fullpaths(input_fullname, output_filename)
 
         # Let the formatter modify the chunks before further processing
         chunks = global_options.formatter.process_chunks(chunks)
-
-        if global_options.filter_cmd:
-            write_if_updated(output_filename,
-                             [c.filter_text() for c in chunks])
-        elif global_options.process_cmd:
-            do_process_cmd(chunks, global_options)
-            progress(_("Compiling `%s'...") % output_filename)
-            write_if_updated(output_filename,
-                             [s.replacement_text()
-                              for s in chunks])
 
         def process_include(snippet):
             name = snippet.substring('filename')
@@ -680,6 +671,24 @@ def mkarg(x):
     return s
 
 
+def write_output_documents(chunks: typing.List[book_snippets.Chunk], is_filter: bool):
+    text_by_path = {}
+    for ch in chunks:
+        path = ch.output_fullpath()
+        if path not in text_by_path:
+            text_by_path[path] = []
+
+        if is_filter:
+            s = ch.filter_text()
+        else:
+            s = ch.replacement_text()
+
+        text_by_path[path].append(s)
+
+    for path in text_by_path:
+        write_if_updated(path, text_by_path[path])
+
+
 def main():
     if "LILYPOND_BOOK_LOGLEVEL" in os.environ:
         ly.set_loglevel(os.environ["LILYPOND_BOOK_LOGLEVEL"])
@@ -744,6 +753,12 @@ def main():
     identify()
     try:
         chunks = do_file(files[0])
+        if global_options.filter_cmd:
+            write_output_documents(chunks, is_filter=True)
+        elif global_options.process_cmd:
+            do_process_cmd(chunks, global_options)
+            progress(_("Compiling `%s'...") % files[0])
+            write_output_documents(chunks, is_filter=False)
     except book_snippets.CompileError:
         exit(1)
 

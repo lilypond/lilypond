@@ -279,13 +279,20 @@ class Chunk:
 
     def __init__(self):
         self._input_fullpath = ''
+        self._output_fullpath = ''
 
-    def set_input_fullpath(self, fp: str):
-        self._input_fullpath = fp
+    def set_document_fullpaths(self, in_fp: str, out_fp: str):
+        self._input_fullpath = in_fp
+        self._output_fullpath = out_fp
 
     def input_fullpath(self) -> str:
-        """The input file path where the snippet was defined."""
+        """The input file path where this chunk comes from."""
         return self._input_fullpath
+
+    def output_fullpath(self) -> str:
+        """The output file path that this chunk belongs to."""
+        return self._output_fullpath
+
 
 class Substring (Chunk):
     """A string that does not require extra memory."""
