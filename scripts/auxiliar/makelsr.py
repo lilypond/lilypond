@@ -202,7 +202,7 @@ unconverted = []
 notags_files = []
 
 # mark the section that will be printed verbatim by lilypond-book
-end_header_re = re.compile('(\\header {.+?doctitle = ".+?})\n', re.M | re.S)
+end_header_re = re.compile(r'(\\header {.+?doctitle = ".+?})\n', re.M | re.S)
 
 doctitle_re = re.compile(r'(doctitle[a-zA-Z_]{0,6}\s*=\s*")((?:\\"|[^"\n])*)"')
 texinfo_q_re = re.compile(r'@q{(.*?)}')
