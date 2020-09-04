@@ -277,6 +277,15 @@ class Chunk:
     def is_plain(self):
         return False
 
+    def __init__(self):
+        self._input_fullpath = ''
+
+    def set_input_fullpath(self, fp: str):
+        self._input_fullpath = fp
+
+    def input_fullpath(self) -> str:
+        """The input file path where the snippet was defined."""
+        return self._input_fullpath
 
 class Substring (Chunk):
     """A string that does not require extra memory."""

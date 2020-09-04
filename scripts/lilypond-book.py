@@ -334,9 +334,10 @@ def system_in_directory(cmd_str, directory, log_file):
         sys.exit(1)
 
 
-def process_snippets(input_name, cmd, basenames,
+def process_snippets(cmd, outdated_dict,
                      formatter, lily_output_dir):
     """Run cmd on all of the .ly files from snippets."""
+    basenames = sorted(outdated_dict.keys())
 
     # No need for a secure hash function, just need a digest.
     checksum = hashlib.md5()
@@ -359,7 +360,7 @@ def process_snippets(input_name, cmd, basenames,
         snippet_map.write("#(ly:add-file-name-alist '(\n")
         for name in basenames:
             snippet_map.write('("%s.ly" . "%s")\n' % (
-                name.replace('\\', '/'), input_name))
+                name.replace('\\', '/'), outdated_dict[name].input_fullpath()))
         snippet_map.write('))\n')
 
     # Write list of snippet names.
@@ -397,7 +398,7 @@ def unlock_path(lock):
     lock.close()
 
 
-def do_process_cmd(chunks, input_name, options):
+def do_process_cmd(chunks, options):
     """Wrap do_process_cmd_locked in a filesystem lock"""
     snippets = [c for c in chunks if isinstance(
         c, book_snippets.LilypondSnippet)]
@@ -411,13 +412,13 @@ def do_process_cmd(chunks, input_name, options):
     lock = None
     try:
         lock = lock_path(lock_file)
-        do_process_cmd_locked(snippets, input_name, options)
+        do_process_cmd_locked(snippets, options)
     finally:
         if lock:
             unlock_path(lock)
 
 
-def do_process_cmd_locked(snippets, input_name, options):
+def do_process_cmd_locked(snippets, options):
     """Look at all snippets, write the outdated ones, and compile them."""
     outdated = [c for c in snippets if c.is_outdated(options.lily_output_dir)]
 
@@ -433,10 +434,8 @@ def do_process_cmd_locked(snippets, input_name, options):
         for snippet in outdated_dict.values():
             snippet.write_ly()
 
-        # Sort the keys / basenames to get a stable order.
-        basenames = sorted(outdated_dict.keys())
         progress(_("Processing..."))
-        process_snippets(input_name, options.process_cmd, basenames,
+        process_snippets(options.process_cmd, outdated_dict,
                          options.formatter, options.lily_output_dir)
 
     else:
@@ -559,6 +558,8 @@ def do_file(input_filename, included=False):
         progress(_("Dissecting..."))
         chunks = book_base.find_toplevel_snippets(
             source, global_options.formatter, global_options)
+        for c in chunks:
+            c.set_input_fullpath(input_fullname)
 
         # Let the formatter modify the chunks before further processing
         chunks = global_options.formatter.process_chunks(chunks)
@@ -567,7 +568,7 @@ def do_file(input_filename, included=False):
             write_if_updated(output_filename,
                              [c.filter_text() for c in chunks])
         elif global_options.process_cmd:
-            do_process_cmd(chunks, input_fullname, global_options)
+            do_process_cmd(chunks, global_options)
             progress(_("Compiling `%s'...") % output_filename)
             write_if_updated(output_filename,
                              [s.replacement_text()
