@@ -45,7 +45,6 @@ protected:
 
   void acknowledge_bar_line (Grob_info);
 
-  void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
 
@@ -53,14 +52,7 @@ protected:
   Spanner *volta_bracket_ = nullptr;
   Spanner *end_volta_bracket_ = nullptr;
   Spanner *volta_spanner_ = nullptr;
-  SCM start_string_ = SCM_EOL;
 };
-
-void
-Volta_engraver::derived_mark () const
-{
-  scm_gc_mark (start_string_);
-}
 
 Volta_engraver::Volta_engraver (Context *c)
   : Engraver (c)
@@ -73,7 +65,7 @@ Volta_engraver::process_music ()
   SCM cs = get_property (this, "repeatCommands");
 
   bool end = false;
-  start_string_ = SCM_EOL;
+  SCM bracket_text = SCM_EOL;
   while (scm_is_pair (cs))
     {
       SCM c = scm_car (cs);
@@ -82,16 +74,17 @@ Volta_engraver::process_music ()
           && scm_is_eq (scm_car (c), ly_symbol2scm ("volta"))
           && scm_is_pair (scm_cdr (c)))
         {
-          if (scm_is_false (scm_cadr (c)))
+          SCM label = scm_cadr (c);
+          if (scm_is_false (label))
             end = true;
           else
-            start_string_ = scm_cadr (c);
+            bracket_text = label;
         }
 
       cs = scm_cdr (cs);
     }
 
-  if (volta_bracket_)
+  if (volta_bracket_ && !end)
     {
       SCM l (get_property (this, "voltaSpannerDuration"));
       Moment now = now_mom ();
@@ -112,7 +105,7 @@ Volta_engraver::process_music ()
     }
 
   if (volta_bracket_
-      && (scm_is_string (start_string_) || scm_is_pair (start_string_)))
+      && (scm_is_string (bracket_text) || scm_is_pair (bracket_text)))
     {
       warning (_ ("already have a volta spanner, ending that one prematurely"));
 
@@ -128,13 +121,13 @@ Volta_engraver::process_music ()
     }
 
   if (!volta_bracket_
-      && Text_interface::is_markup (start_string_))
+      && Text_interface::is_markup (bracket_text))
     {
       started_mom_ = now_mom ();
 
       volta_bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
 
-      set_property (volta_bracket_, "text", start_string_);
+      set_property (volta_bracket_, "text", bracket_text);
 
       if (!volta_spanner_)
         volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
