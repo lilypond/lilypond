@@ -539,7 +539,6 @@ def do_file(input_filename, included=False):
     else:
         global_options.output_dir = os.path.abspath(global_options.output_dir)
         os.makedirs(global_options.output_dir, 0o777, exist_ok=True)
-        os.chdir(global_options.output_dir)
 
     output_filename = os.path.join(global_options.output_dir,
                                    input_base + global_options.formatter.default_extension)
@@ -575,7 +574,6 @@ def do_file(input_filename, included=False):
                               for s in chunks])
 
         def process_include(snippet):
-            os.chdir(original_dir)
             name = snippet.substring('filename')
             progress(_("Processing include `%s'") % name)
             return do_file(name, included=True)
@@ -588,7 +586,6 @@ def do_file(input_filename, included=False):
         return chunks + include_chunks
 
     except book_snippets.CompileError:
-        os.chdir(original_dir)
         progress(_("Removing `%s'") % output_filename)
         raise book_snippets.CompileError
 
@@ -756,8 +753,6 @@ def main():
     dep_file = os.path.join(global_options.output_dir, base_file_name + '.dep')
     final_output_file = os.path.join(relative_output_dir,
                                      base_file_name + global_options.formatter.default_extension)
-
-    os.chdir(original_dir)
     open(dep_file, 'w', encoding='utf8').write('%s: %s\n'
                               % (final_output_file, ' '.join(inputs)))
 
