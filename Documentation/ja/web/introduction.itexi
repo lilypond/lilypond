@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
+    Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -491,6 +491,7 @@ Stockhausen の Klavierstück II からの短い抜粋です。
 @exampleImage{stockhausen-klavierstueckII}
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading Schenker Graphs
 
@@ -713,6 +714,7 @@ Aurélien も Richard Wagner の @emph{Der Ring des Nibelungen} を@c
 @emph{Pictures at an exhibition} があり、彼は 2011 年に
 @uref{https://junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
 を指揮し、2012 年にも再演されました。
+
 
 @item
 Joe Smeets は子どものための本 @emph{Zing Mee}
@@ -953,6 +955,7 @@ Andrew Hawryluk は Finale と LilyPond を総括的に比較し、@c
 
 @item
 2006年6月
+
 @uref{http://distrowatch.com,DistroWatch} は LilyPond に寄付金を授与しました。
 @uref{http://distrowatch.com/weekly.php?issue=20060605,記事では}
 @qq{皆様、読者のリクエストに応え、 DistroWatch の 2006年5月の寄付金を

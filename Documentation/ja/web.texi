@@ -1,6 +1,6 @@
 \input texinfo-ja @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
+    Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,22 +53,30 @@ GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー �
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond --- 楽譜譜刻プログラム
 @direntry
-* LilyPond 学習マニュアル: (lilypond-learning).                ここから始めてください。
-* 音楽用語集: (music-glossary).                                非英語圏のユーザ向け。
-* LilyPond: (lilypond-notation).                               LilyPond 記譜法リファレンス。
-* LilyPond コード断片集: (lilypond-snippets).                  ちょっとしたテクニック、@c
-TIPS、それに例。
-* LilyPond 内部リファレンス: (lilypond-internals).             調整するための定義。
-* LilyPond アプリケーション使用方法: (lilypond-usage).         アプリケーションを@c
-インスールして、実行する方法。
-* LilyPond Web サイト: (lilypond-web).                         新しい Web サイトのプレビュー。
-* lilypond: (lilypond-usage)lilypond を実行する.               LilyPond を呼び出す。
-* abc2ly: (lilypond-usage)abc2ly を呼び出す.                   ABC をインポートする。
-* convert-ly: (lilypond-usage)convert-ly でファイルを更新する. 古い LilyPond バージョン。
-* etf2ly: (lilypond-usage)etf2ly を呼び出す.                   Finale をインポートする。
+* 変更点: (lilypond-changes).               バージョン 2.20 以降の新機能。
+* 貢献者向けガイド: (lilypond-contributor). LilyPond への貢献方法。
+* エッセー: (lilypond-essay).               LilyPond の理念。
+* 拡張: (lilypond-extending).               LilyPond での Scheme の使い方。
+* 内部リファレンス: (lilypond-internals).   調整リファレンス。
+* 学習マニュアル: (lilypond-learning).      紹介。ここから始めてください。
+* 音楽用語集: (music-glossary).             非英語圏のユーザ向け。
+* 記譜法: (lilypond-notation).              記譜法リファレンス。
+* コード断片集: (lilypond-snippets).        ちょっとしたテクニック、TIPS、@c
+それに例。
+* 使用方法: (lilypond-usage).               アプリケーションをインスール@c
+して、実行する方法。
+* ウェブサイト: (lilypond-web).             Info バージョンの lilypond.org。
+@end direntry
+
+@dircategory LilyPond アプリケーション
+@direntry
+* abc2ly: (lilypond-usage)abc2ly を呼び出す.                   ABC のファイルをインポートする。
+* convert-ly: (lilypond-usage)convert-ly でファイルを更新する. 古い LilyPond 向けファイルを扱う。
+* etf2ly: (lilypond-usage)etf2ly を呼び出す.                   Finale のファイルをインポートする。
 * lilypond-book: (lilypond-usage)lilypond-book.                文章と楽譜を統合する。
-* midi2ly: (lilypond-usage)midi2ly を呼び出す.                 MIDI をインポートする。
-* musicxml2ly: (lilypond-usage)musicxml2ly を呼び出す.         MusicXML をインポートする。
+* lilypond: (lilypond-usage)lilypond を実行する.               LilyPond を呼び出す。
+* midi2ly: (lilypond-usage)midi2ly を呼び出す.                 MIDI ファイルをインポートする。
+* musicxml2ly: (lilypond-usage)musicxml2ly を呼び出す.         MusicXML ファイルをインポートする。
 @end direntry
 
 
@@ -356,7 +364,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @divClass{heading-center}
 @divClass{contactBox}
-
 ここにリストアップされていない他の\topic\についてご存知の場合、@c
 bug-lilypond メーリング リストにメッセージを送ってお知らせください。@c
 まだ購読していない場合は、リストの
@@ -374,6 +381,7 @@ bug-lilypond メーリング リストにメッセージを送ってお知らせ
 @cartouche
 ここにリストアップされていない他の\topic\についてご存知の場合、@c
 @ref{Bug reports} の手順に従ってお知らせください。
+
 @end cartouche
 
 @end macro

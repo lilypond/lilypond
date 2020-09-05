@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
+    Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,17 +22,13 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 @translationof Download
 
 @divClass{heading-center}
-@ifclear web_version
-  @c yes, we want versionDevel here, since the online links
-  @c for @version won't be up yet!
-  @heading Downloads for LilyPond @versionDevel
+@heading LilyPond @versionStable のダウンロード
+@c Downloads for LilyPond @versionStable
 
-@warning{LilyPond の安定バージョンへのリンクは
-@uref{https://lilypond.org, lilypond.org} にあります。}
+@ifclear web_version
+@warning{LilyPond の開発バージョンへのリンクは
+@ref{Development} にあります。}
 @end ifclear
-@ifset web_version
-  @heading LilyPond @versionStable のダウンロード
-@end ifset
 
 @warningTextBased
 
@@ -48,9 +44,8 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (GNU/Linux や FreeBSD)}
+@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, Unix (GNU/Linux 向け一般パッケージ)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -105,8 +100,6 @@ LilyPond は @ref{GPL, GNU General Public License} に基づいて
 すべてのロゴと製品イメージには著作権があり、商標登録されています。
 
 @logoLegalLinux
-
-@logoLegalFreeBSD
 
 @logoLegalMacOSX
 
@@ -223,8 +216,6 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 @logoLegalLinux
 
-@logoLegalFreeBSD
-
 @divEnd
 @divEnd
 
@@ -249,8 +240,7 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Intel CPU の Mac OS X 10.4--10.5 および
-Mac OS X 10.6--10.14 用 (10.15 については下記を参照)
+Intel CPU の Mac OS X 10.4--10.14 用 (10.15 については下記を参照)
 
 @item
 @sourceimage{logo-macosx,,,}

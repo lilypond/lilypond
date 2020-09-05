@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: f11513f36c131dab18338d6a3a729e24a927150d
+    Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -177,6 +177,9 @@ LSR から、@c
 
 @uref{https://lilypondforum.de/,
 ドイツ語のフォーラム}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+イタリア語のメーリングリスト}
 
 @uref{http://groups.google.com/group/lilypond-brasil,
 ポルトガル語のグループ}
@@ -470,7 +473,6 @@ LilyPond への理解不足である可能性が高いです！
 を自由に追加してください！
 
 @divEnd
-
 
 
 @node 援助が必要です
@@ -887,7 +889,6 @@ LilyPond の開発手法はかなり複雑です。@c
 
 @divEnd
 @divEnd
-
 
 @node 出版物
 @unnumberedsec 出版物
