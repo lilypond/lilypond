@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -937,9 +937,6 @@ Cette partie traite de la manière de positionner du texte en mode
 utilisant la syntaxe décrite au chapitre
 @rlearning{Déplacement d'objets}.
 
-@c Padding commands should be mentioned on this page, but
-@c most of these require \box to be more clearly illustrated. -vv
-
 @cindex texte, alignement horizontal
 @cindex alignement horizontal du texte
 
@@ -950,7 +947,8 @@ utilisant la syntaxe décrite au chapitre
 Les objets de type @emph{markup} peuvent s'aligner de différentes
 manières.  Une indication textuelle est par défaut alignée sur son
 extrémité gauche.  Dans l'exemple qui suit, il n'y a aucune différence
-entre les deux premiers @emph{markups}.
+entre les deux premiers @emph{markups}. Cet exemple indique aussi
+différentes syntaxes permettant pour les commandes d'alignement.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -960,7 +958,7 @@ entre les deux premiers @emph{markups}.
   f
   d-\markup { \center-align { poco } }
   f
-  d-\markup { \right-align poco }
+  d-\markup \right-align { poco }
 }
 @end lilypond
 
@@ -978,6 +976,29 @@ numérique :
   a,-\markup { \halign #0.5 poco }
   e'
   a,-\markup { \halign #2 poco }
+}
+@end lilypond
+
+@cindex décalage horizontal dans un @emph{markup}
+@cindex @emph{markup} et décalage horizontal
+@funindex \hspace
+
+Enfin, les mots et tout autre objet peuvent se déplacer en les faisant
+précéder d'un décalage. Un décalage négatif est possible, ce qui aura
+pour effet de déplacer les objets qui le suivent dans la direction
+opposée. Bien que le décalage soit normalement invisible, des commandes
+spécifiques permettent de le mettre en évidence dans l'exemple
+ci-dessous :
+
+@lilypond[quote,verbatim]
+\relative {
+  d''1-\markup { poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #4 poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #-4 poco }
+  f
+  d-\markup { \with-color #darkred \box \hspace #10 poco }
 }
 @end lilypond
 
@@ -1015,13 +1036,12 @@ déplacé.
   }
   a'
   g_\markup {
-    \null
     \lower #4 \bold { Très modéré }
   }
   a
-  d,^\markup {
-    \raise #4 \italic { Une forêt. }
-  }
+  d,^\markup \raise #4 \italic {
+    Une forêt.
+    }
   a'4 a g2 a
 }
 @end lilypond
@@ -1032,8 +1052,6 @@ déplacé.
 
 Certaines commandes permettent de régler l'alignement des objets
 textuels en mode @emph{markup}, tant au niveau horizontal que vertical.
-Tout objet soumis à ces commandes doit être précédé d'un point
-d'ancrage.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1043,13 +1061,41 @@ d'ancrage.
   }
   a'
   g_\markup {
-    \null
     \general-align #Y #3.2 \bold "Très modéré"
   }
   a
-  d,^\markup {
-    \null
-    \translate-scaled #'(-1 . 2) \teeny "Une forêt."
+  d,^\markup \translate-scaled #'(-1 . 2) \teeny {
+   "Une forêt."
+  }
+  a'4 a g2 a
+}
+@end lilypond
+
+@cindex décalage vertical dans un @emph{markup}
+@cindex @emph{markup} et décalage vertical
+@funindex \vspace
+
+Ici aussi, un décalage (positif ou négatif) constitue un moyen efficace
+de positionner verticalement des objets empilés dans un @emph{markup} :
+
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \column {
+      \with-color #darkred \box \vspace #-1
+      "Scène 1"
+    }
+  }
+  a'
+  g_\markup \column {
+    \with-color #darkred \box \vspace #1
+    "Très modéré"
+  }
+  a
+  d,^\markup \column {
+   "Une forêt."
+    \with-color #darkred \box \vspace #2
   }
   a'4 a g2 a
 }
@@ -1222,7 +1268,8 @@ graphiques à votre partition.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@funindex @sortas{bracketB} \bracket
+@c `@funindex \bracket' is auto-generated, too
+@funindex \bracket
 @funindex \hbracket
 
 Certaines commandes de @emph{markup} permettent d'ornementer des
@@ -1275,9 +1322,7 @@ commandes particulières au mode @emph{markup} ainsi que leur description.
     \box \pad-to-box #'(-5 . 20) #'(0 . 5)
       \bold "Largo to Presto"
   }
-  \pad-around #3
-      "String quartet keeps very even time,
-Flute quartet keeps very uneven time."
+  \box \pad-around #3 "String quartet keeps very even time."
 }
 @end lilypond
 
@@ -1697,24 +1742,43 @@ Pour les autres moteurs :
 @item @emph{roman}
 @tab @code{LilyPond Serif}
 @tab
-TeX Gyre Schola,
-C059, Century SchoolBook URW, Century Schoolbook L,
+C059,
+Century SchoolBook URW, Century Schoolbook L, TeX Gyre Schola,
 DejaVu Serif,
 ..., serif
 @item @emph{sans}
 @tab @code{LilyPond Sans Serif}
 @tab
-TeX Gyre Heros,
-Nimbus Sans, Nimbus Sans L, DejaVu Sans,
+Nimbus Sans,
+Nimbus Sans L, TeX Gyre Heros,
+DejaVu Sans,
 ..., sans-serif
 @item @emph{typewriter}
 @tab @code{LilyPond Monospace}
 @tab
-TeX Gyre Cursor,
-Nimbus Mono PS, Nimbus Mono, Nimbus Mono L,
+Nimbus Mono PS,
+Nimbus Mono, Nimbus Mono L, TeX Gyre Cursor,
 DejaVu Sans Mono,
 ..., monospace
 @end multitable
+
+Il est à noter que les fontes URW distribuées avec LilyPond (« C059 »,
+« Nimbus Mono PS » et « Nimbus Sans ») disposent d'une particularité :
+par défaut, et en complément des ligatures standard telles que « fl » ou
+« ffi », elles substituent la chaîne « Nr. » par le caractère « Numero
+Sign » (U+2116) dès lors que le  script « latn » est sélectionné. On
+peut toutefois s'en préserver temporairement par l'insertion d'un
+caractère de largeur nulle et non jointant (@emph{zero-width non-joiner}
+ZWNJ, U+200C) entre les caractères « N » et « r ». Les lignes ci-dessous
+auront pour conséquence que LilyPond insérera toujours un caractère
+@emph{ZWNJ}.
+
+@example
+\paper @{
+  #(add-text-replacements!
+      `(("Nr." . ,(format #f "N~ar." (ly:wide-char->utf-8 #x200C)))))
+@}
+@end example
 
 @code{LilyPond Serif}, @code{LilyPond Sans Serif} et @code{LilyPond
 Monospace} sont des alias de fonte définis dans le fichier de
@@ -1768,31 +1832,40 @@ dispose d'une syntaxe allégée comme nous l'avons vu dans
 
 @noindent
 Le recours aux fontes OpenType permet d'utiliser certaines
-fonctionnalités de ces fontes.  Toutefois, les fontes OpenType ne
-disposent pas toutes de l'intégralité de ces fonctions.  Dans le cas où
-la fonctionnalité demandée n'est pas disponible dans la fonte choisie,
-cette fonctionnalité est tout bonnement ignorée.
+fonctionnalités de ces fontes. Toutefois, les fontes OpenType ne
+disposent pas toutes de l'intégralité de ces fonctionnalités. Dans le
+cas où la fonctionnalité demandée n'est pas disponible dans la fonte
+choisie, cette fonctionnalité est tout bonnement ignorée. Les exemples
+ci-dessous utilisent TeX Gyre Schola.
 
 @lilypond[quote,verbatim]
 % Vraies petites capitales
-\markup { Style normal : Hello HELLO }
-\markup { \caps { Petites capitales : Hello } }
-\markup { \override #'(font-features . ("smcp"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          Style normal : Hello HELLO }
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \caps { Petites capitales : Hello } }
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("smcp"))
           { Vraies petites capitales : Hello } }
 
 % Styles numériques
-\markup { Style numérique normal : 0123456789 }
-\markup { \override #'(font-features . ("onum"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          Style numérique normal : 0123456789 }
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("onum"))
           { Style numérique ancien : 0123456789 } }
 
 % Alternatives stylistiques
-\markup { \override #'(font-features . ("salt 0"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("salt 0"))
           { Alternative stylistique 0 : εφπρθ } }
-\markup { \override #'(font-features . ("salt 1"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("salt 1"))
           { Alternative stylistique 1 : εφπρθ } }
 
 % Fonctionnalités multiples
-\markup { \override #'(font-features . ("onum" "smcp" "salt 1"))
+\markup { \override #'(font-name . "TeX Gyre Schola")
+          \override #'(font-features . ("onum" "smcp" "salt 1"))
           { Fonctionnalités multiples : Hello 0123456789 εφπρθ } }
 @end lilypond
 
@@ -1835,7 +1908,8 @@ respectez la syntaxe suivante :
 \time 3/4
 
 a'1_\markup {
-  \override #'(font-name . "Bitstream Vera Sans,sans-serif, Oblique Bold")
+  \override #'(font-name .
+               "Bitstream Vera Sans,sans-serif, Oblique Bold")
     { Vera Oblique Bold }
 }
 @end lilypond
@@ -1933,7 +2007,8 @@ fontes séparées par une virgule pour les catégories @code{roman},
      #:roman "Times New Roman"
      #:sans "Nimbus Sans,Nimbus Sans L"
      #:typewriter "Luxi Mono"
-     #:factor (/ staff-height pt 20) ; inutile si taille de portée par défaut
+     ; inutile si taille de portée par défaut
+     #:factor (/ staff-height pt 20)
     ))
 @}
 @end example
@@ -1953,7 +2028,8 @@ Pour de plus amples informations, voir
      #:roman "Times New Roman"
      #:sans "Nimbus Sans,Nimbus Sans L"
      #:typewriter "Luxi Mono"
-     #:factor (/ staff-height pt 20) ; inutile si taille de portée par défaut
+     ; inutile si taille de portée par défaut
+     #:factor (/ staff-height pt 20)
     ))
 @}
 @end example

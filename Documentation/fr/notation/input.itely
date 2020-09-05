@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -702,7 +702,7 @@ fichier définira le titre de l'ouvrage et le compositeur, que l'on
 complètera par un bloc @code{\header} dans chaque bloc @code{\score}
 pour définir les champs @code{piece} et @code{opus}, comme ici :
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \header {
   title = "SUITE I."
   composer = "J. S. Bach."
@@ -740,7 +740,7 @@ reporter dans chaque bloc @code{\score}, certains étant modifiés voire
 supprimés manuellement :
 
 @c KEEP LY
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     print-all-headers = ##t
@@ -795,30 +795,32 @@ Voici les différentes variables imprimables attachées au bloc
 @code{\header} :
 
 @c KEEP LY
-@lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
+@lilypond[papersize=a6landscape,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \header {
-      % Les champs suivants sont centrés
+    % Les champs suivants sont centrés
     dedication = "Dédicace"
     title = "Titre"
     subtitle = "Sous-titre"
     subsubtitle = "Sous-sous-titre"
-      % Les champs suivants sont répartis sur une même ligne, et
-      % le champ "instrument" apparaîtra sur les pages suivantes
+    % Les champs suivants sont répartis sur une même ligne, et
+    % le champ "instrument" apparaîtra sur les pages suivantes
     instrument = \markup \with-color #green "Instrument"
     poet = "Librettiste"
     composer = "Compositeur"
-      % Les champs suivants sont en opposition sur la même ligne
+
+    % Les champs suivants sont en opposition sur la même ligne
     meter = "Tempo"
     arranger = "Arrangeur"
-      % Les champs suivants sont centrés en bas de page
+
+    % Les champs suivants sont centrés en bas de page
     tagline = "Le « tagline » ou mention spéciale va en pied de dernière page"
     copyright = "Le copyright va en pied de première page"
   }
   \score {
     { s1 }
     \header {
-       % Les champs suivants sont en opposition sur la même ligne
+    % Les champs suivants sont en opposition sur la même ligne
       piece = "Pièce 1"
       opus = "Opus 1"
     }
@@ -826,7 +828,7 @@ Voici les différentes variables imprimables attachées au bloc
   \score {
     { s1 }
     \header {
-        % Les champs suivants sont en opposition sur la même ligne
+    % Les champs suivants sont en opposition sur la même ligne
       piece = "Pièce 2 sur la même page"
       opus = "Opus 2"
     }
@@ -835,7 +837,7 @@ Voici les différentes variables imprimables attachées au bloc
   \score {
     { s1 }
     \header {
-        % Les champs suivants sont en opposition sur la même ligne
+    % Les champs suivants sont en opposition sur la même ligne
       piece = "Pièce 3 sur une nouvelle page"
       opus = "Opus 3"
     }
@@ -1066,7 +1068,7 @@ Voici comment redéfinir le @code{scoreTitleMarkup} de telle sorte que le
 champ @code{piece}, dont nous modifions la taille et la graisse, se
 place au centre de cette ligne :
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     indent = 0\mm
@@ -1103,7 +1105,7 @@ dans l'exemple suivant, ajouter au @code{scoreTitleMarkup} le champ
 @code{composer}, normalement associé au @code{bookTitleMarkup} ;
 chaque @code{\score} pourra alors mentionner un compositeur différent.
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     indent = 0\mm
@@ -1136,7 +1138,7 @@ chaque @code{\score} pourra alors mentionner un compositeur différent.
 Rien ne vous empêche de créer votre propre champ personnalisé, puis d'y
 faire référence dans la définition du @emph{markup}.
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
+@lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
   \paper {
     indent = 0\mm
@@ -1428,7 +1430,7 @@ la note ou au silence qui précède.
 
 @item marque
 @funindex \default
-@funindex @sortas{defaultB} \default
+@funindexpost \default
 Un @emph{markup} ou une chaîne de caractères identifiant l'annotation
 tant au niveau de l'appel que de la note qui apparaîtra au bas de la
 page.  L'absence de cet élément -- ou une valeur de @code{\default} --
@@ -1841,6 +1843,10 @@ sont trop nombreuses sur une même page.
 @subsection Référencement des numéros de page
 @translationof Reference to page numbers
 
+@cindex page, référencement du numéro
+@cindex numéro de page, référencement
+@cindex signet
+
 LilyPond vous permet, à l'aide de la commande @code{\label}, d'insérer
 des points de référence dans un ouvrage, aussi bien en dehors qu'au fil
 de la musique.  Ce point de référence pourra être ensuite repris à
@@ -1898,6 +1904,8 @@ emporte-pièce sur deux caractères -- soit @code{"00"}.
 @subsection Table des matières
 @translationof Table of contents
 
+@cindex signets
+
 La commande @code{\markuplist \table-of-contents} vous permettra de
 générer une table des matières.  Les éléments qui la composeront sont
 créés par la commande @code{\tocItem}, insérée indépendamment ou au sein
@@ -1907,25 +1915,38 @@ d'une expression musicale.
 \markuplist \table-of-contents
 \pageBreak
 
-\tocItem \markup "Premier mouvement"
+\tocItem \markup "Première partie"
 \score {
   {
-    c'4  % @dots{}
-    \tocItem \markup "Passage spécifique du premier mouvement"
-    d'4  % @dots{}
+    c'4  % ...
+    \tocItem \markup "Passage spécifique de la première partie"
+    d'4  % ...
   }
 }
 
-\tocItem \markup "Second mouvement"
+\tocItem \markup "Seconde partie"
 \score {
   {
-    e'4 % @dots{}
+    e'4 % ...
+    \tocItem actI \markup "Acte I"
+    f'4 % ...
+    \tocItem actI.sceneI \markup "Scène 1"
+    g'4 % ...
+    \tocItem actI.sceneI.recitativo \markup "Récit."
+    a'4 % ...
   }
 }
 @end verbatim
 
+Un libellé peut, facultativement, être associé à un élément particulier
+ou de façon hiérarchique dans une liste de libellés existants, terminant
+alors par le libellé de cet élément. Ce dernier cas permet de marquer
+l'élément comme « enfant » d'éléments précédemment libellés et ainsi
+laisser transparaître la structure de la partition dans la table des
+matières.
+
 Les @emph{markups} dévolus à la mise en forme de la table des matières
-se définissent dans le bloc @code{\paper}. LilyPond dispose de deux
+se définissent dans le bloc @code{\paper}. LilyPond dispose de trois
 @emph{markups} prédéfinis :
 
 @itemize
@@ -1956,10 +1977,35 @@ tocItemMarkup = \markup \fill-line {
 }
 @end verbatim
 
+@item
+@code{tocFormatMarkup}
+
+@noindent
+Utilisé pour mettre en forme les entrées de premier niveau dans la table
+des matières si tant est qu'existent plusieurs niveaux hiérarchiques. Il
+s'agit ici d'une procédure, comme abordé dans
+@rextend{Construction d'un markup en Scheme}.
+
+@verbatim
+tocFormatMarkup = #make-bold-markup
+@end verbatim
+
+@item
+@code{tocIndentMarkup}
+
+@noindent
+Utilisé pour définir comment sera mise en évidence la hiérarchie. Ce
+@emph{markup} sera imprimé zéro, une ou plusieurs fois selon le niveau
+de chacune des entrées.
+
+@verbatim
+tocIndentMarkup = \markup \hspace #4
+@end verbatim
+
 @end itemize
 
 @noindent
-Ces variables sont adaptables.
+Toutes ces variables sont adaptables.
 
 Voici comment, par exemple, franciser le titre :
 
@@ -2002,10 +2048,14 @@ numéro de page peuvent se rejoindre par une ligne pointillée :
 }
 @end lilypond
 
-N'hésitez pas à définir vous-même d'autres commandes et @emph{markups}
-afin de construire une table plus élaborée.  Dans l'exemple qui suit,
-nous créons un nouveau style d'élément dans le but de mentionner les
-actes dans la table des matières d'un opéra :
+@funindex add-toc-item!
+@cindex table des matières, personnalisation
+
+Au-delà de ces mécanismes de mise en forme, il est posssible de définir
+d'autres commandes et @emph{markups} afin de construire une table plus
+élaborée. Dans l'exemple qui suit, nous créons un nouveau style
+d'élément dans le but de mentionner les actes et scènes dans la table
+des matières d'un opéra :
 
 @noindent
 Commençons par définir une nouvelle variable de type @code{markup} --
@@ -2023,60 +2073,75 @@ appelée @code{tocActMarkup} -- au sein du bloc @code{\paper}.
 
 @noindent
 Créons ensuite une fonction musicale (@code{tocAct}) utilisant la
-nouvelle définition de @emph{markup} @code{tocActMarkup}.
+nouvelle définition de @emph{markup} @code{tocActMarkup}, tout en lui
+autorisant de définir un libellé pour chaque acte.
 
 @verbatim
 tocAct =
-  #(define-music-function (text) (markup?)
-     (add-toc-item! 'tocActMarkup text))
+  #(define-music-function (label text) (symbol? markup?)
++     (add-toc-item! 'tocActMarkup label text))
 @end verbatim
 
 @noindent
 Dans un fichier LilyPond, l'utilisation de cette définition
-personnalisée pourrait ressembler à ceci :
+personnalisée, avec quelques adaptations aux réglages par défaut,
+pourrait ressembler à ceci :
+
+@funindex \fill-with-pattern
 
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
+  tocFormatMarkup = #markup %% Cancelling the default bold setting.
   tocActMarkup = \markup \large \column {
     \hspace #1
     \fill-line { \null \italic \fromproperty #'toc:text \null }
     \hspace #1
   }
+  tocItemMarkup = \markup \fill-line {
+    \fill-with-pattern #1.5 #CENTER .
+    \line {
+      \hspace #-4 %% Cancelling the first level’s tocIndentMarkup
+      \fromproperty #'toc:indent \fromproperty #'toc:text
+      \hspace #2
+    }
+    \fromproperty #'toc:page
+  }
 }
 
 tocAct =
-  #(define-music-function (text) (markup?)
-     (add-toc-item! 'tocActMarkup text))
+  #(define-music-function (label text) (symbol-list-or-symbol? markup?)
+     (add-toc-item! 'tocActMarkup text label))
 
 \book {
   \markuplist \table-of-contents
-  \tocAct \markup { Atto Primo }
-  \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
-  \tocAct \markup { Atto Secondo }
-  \tocItem \markup { Sinfonia }
-  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \tocAct actI \markup { Atto Primo }
+  \tocItem actI.sceneI \markup { Coro. Viva il nostro Alcide }
+  \tocItem actI.sceneII \markup { Cesare. Presti omai l'Egizia terra }
+  \tocItem actI.sceneII.recitativo \markup { \italic Recit. Curio, Cesare venne,e vide, e vinse. }
+  \tocAct actII \markup { Atto Secondo }
+  \tocItem actII.sceneI \markup { Sinfonia }
+  \tocItem actII.sceneII \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
   \markup \null
 }
 @end lilypond
 
-Voici comment utiliser la commande @code{\fill-with-pattern} dans le
-cadre d'une table des matières :
-
-@verbatim
-  tocItemMarkup = \markup { \fill-line {
-    \override #'(line-width . 70)
-    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
-    }
-  }
-@end verbatim
+Cet exemple illustre par ailleurs l'utilisation de la commande
+@code{\fill-with-pattern} dans le cadre d'une table des matières.
 
 @predefined
 @funindex \table-of-contents
 @code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem}.
+@code{\tocItem},
+@funindex tocItemMarkup
+@code{tocItemMarkup},
+@funindex tocTitleMarkup
+@code{tocTitleMarkup},
+@funindex tocFormatMarkup
+@code{tocFormatMarkup},
+@funindex tocIndentMarkup
+@code{tocIndentMarkup}.
 @endpredefined
 
 @morerefs
@@ -2899,6 +2964,8 @@ Manuel d'utilisation :
 @subsection Ignorer des passages de la partition
 @translationof Skipping corrected music
 
+@cindex saisie, ignorer des passages
+
 @funindex skipTypesetting
 @funindex showFirstLength
 @funindex showLastLength
@@ -2907,7 +2974,8 @@ Dans un travail de transcription ou de recopie de la musique, ce qui
 vous intéresse plus particulièrement se situe à la fin, là même où vous
 en êtes dans la notation.  Dans le but de gagner du temps dans le
 processus de correction, vous pouvez « escamoter » le reste et ne
-générer que les dernières mesures en insérant
+générer que les dernières mesures en définissant une variable
++particulière en début de fichier, comme ceci :
 
 @example
 showLastLength = R1*5
@@ -2915,36 +2983,47 @@ showLastLength = R1*5
 @end example
 
 @noindent
-dans votre fichier source.  Ceci aura pour effet de ne générer que les
-cinq dernières mesures -- si tant est que le morceau soit à 4/4 -- de
-tous les @code{\score} de votre fichier.  Dans le cas d'un œuvre
-conséquente, cette pratique s'avère fort utile puisqu'elle évite de tout
-générer.  Vous pourriez aussi être amené à retravailler le début d'une
-œuvre, pour y ajouter une partie par exemple, auquel cas c'est la
-propriété @code{showFirstLength} que vous utiliserez.
+Ceci aura pour effet de ne générer que les cinq dernières mesures -- si
+tant est que le morceau soit à 4/4 -- de tous les @code{\score} de votre
+fichier. Dans le cas d'un œuvre conséquente, cette pratique s'avère fort
+utile puisqu'elle évite de tout générer. Vous pourriez aussi être amené
+à retravailler le début d'une œuvre, pour y ajouter une partie par
+exemple, auquel cas c'est la propriété @code{showFirstLength} que vous
+utiliserez.
 
 Vous pouvez contrôler très finement les parties à escamoter, grâce au
 commutateur @code{Score.skipTypesetting} : lorsqu'il est activé,
-aucune gravure n'est réalisée.
+aucune gravure n'est réalisée. En tant que propriété du contexte
++@code{Score}, il affecte toutes les voix et portées -- voir
++@ref{Score -- le père de tous les contextes}.
 
 Ce commutateur agit aussi sur la sortie MIDI.  Notez bien que tous les
 événements seront escamotés, y compris les changements de tempo ou
-d'instrument -- vous voilà prévenu !
+d'instrument qui interviendraient avant que @code{skipTypesetting} ne
++soit désactivé.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
-  c1
-  \set Score.skipTypesetting = ##t
-  \tempo 4 = 80
   c4 c c c
-  \set Score.skipTypesetting = ##f
+  \set Score.skipTypesetting = ##t
   d4 d d d
+  \tempo 4 = 80
+  e4 e e e
+  \set Score.skipTypesetting = ##f
+  f4 f f f
 }
 @end lilypond
 
-Dans le cadre de musique polyphonique, @code{Score.skipTypesetting}
-s'applique à toutes les voix et portées.  Vous gagnerez donc encore plus
-de temps.
+@predefined
+@code{showLastLength},
+@code{showFirstLength}.
+@endpredefined
+
+@morerefs
+Manuel de notation :
+@ref{Contextes d'interprétation},
+@ref{Liste des propriétés de contexte},
+@ref{Score -- le père de tous les contextes}.
 
 
 @node Formats de sortie alternatifs

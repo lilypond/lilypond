@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish:  5b6ddab894b3065c35c72ef8048b8c6edbe684ac
+    Translation of GIT committish:  2b4eea90bd77e1a09b15ccc5d3493fbda1a199c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala, Michael Gerdau
+@c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
 @node Handbücher
 @unnumbered Handbücher
@@ -140,7 +140,7 @@ der Übersetzungsstatus für nicht Nicht-Englischsprachige.
 Beispiele, Tricks und Tipps, von LilyPond-Benutzern erstellt.
 
 @item
-@uref{https://benl.xyz/lilypond/operation-lilypond,Video Tutorials}:
+@uref{https://bit.ly/LearnLilyPond,Video Tutorials}:
 Der LilyPond Anwender Ben Lemon hat eine Reihe Video Tutorials in seinem
 Blog veröffentlicht.  Sie wenden sich an Neulinge.
 
@@ -569,6 +569,9 @@ erhältlich.
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{https://lilypond.org/doc/v2.18/Documentation/web/manuals.de.html,
+LilyPond 2.18 Dokumentation} (auf deutsch)
 
 @item @uref{https://lilypond.org/doc/v2.16/Documentation/web/manuals.de.html,
 LilyPond 2.16 Dokumentation} (auf deutsch)

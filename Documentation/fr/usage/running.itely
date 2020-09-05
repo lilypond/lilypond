@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: df4669744f3dbf4d33f24e273b869a2abfc1ccc9
+   Translation of GIT committish: 9b78f9a4ab0e076ffb03bfeb0cb959064072a72b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -240,13 +240,15 @@ options @code{--ps}, @code{-dbackend=eps} et @code{-daux-files='#f'}.
 @cindex sortie, format
 @cindex format de sortie
 @item @code{-f}, @code{--format=}@var{format}
-Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
-ou @code{png}.
+Détermine le format à produire.  Il peut s'agir de @code{ps},
+@code{pdf}, @code{png} ou @code{svg}.
 
 Exemple : @code{lilypond -fpng monfichier.ly}
 
-Les formats @code{svg} et @code{eps} s'obtiennent à l'aide de
-l'option @code{-dbackend} -- voir @ref{Options avancées de lilypond}.
+SVG utilisant en interne un moteur spécifique, il ne peut donc
+s'obtenir de la même manière que les autres formats ; l'utilisation de
+@w{@code{-fsvg}} ou @code{--svg} revient en fait à utiliser l'option
+@code{-dbackend=svg} -- voir @ref{Options avancées de lilypond}.
 
 @item @code{-h}, @code{--help}
 Affiche un résumé des commandes.
@@ -453,7 +455,7 @@ Génère du PostScript. Cette option est équivalente à @code{-fps}.
 @cindex PNG (Portable Network Graphics), output
 @item @code{--png}
 Génère une image par page, au format PNG. Cette option est équivalente à
-@code{-fpng}.
+@w{@code{-fpng}}.
 
 La résolution de l'image peut se régler à @var{N}@tie{}DPI en ajoutant
 @example
@@ -464,11 +466,20 @@ La résolution de l'image peut se régler à @var{N}@tie{}DPI en ajoutant
 @cindex PDF (Portable Document Format), output
 @item @code{--pdf}
 Génère du PDF.  Ceci est la valeur par défaut, et est équivalant à
-@code{-fpdf}.
+@w{@code{-fpdf}}.
 
 @item @code{-s}, @code{--silent}
 N'affiche rien de plus que les messages d'erreur. Ceci est équivalent à
 @code{-lERROR}.
+
+@cindex SVG (Scalable Vector Graphics), sortie
+@cindex sortie, SVG (Scalable Vector Graphics)
+@cindex HTML, partitions SVG empaquetables
+@cindex pages internet, partitions SVG empaquetables
+
+@item @code{--svg}
+Génère un fichier SVG par page.  Cette option est équivalente à
+@w{@code{-fsvg}}.
 
 @item @code{-v}, @code{--version}
 Affiche le numéro de version.
@@ -546,9 +557,10 @@ par la fonction @code{ly:get-option}.
 @table @asis
 
 @item @code{anti-alias-factor} @var{num}
-Adopte une résolution supérieure (selon le facteur @var{num} donné),puis
-réduit au niveau du résultat afin d'éviter les « distorsions » des
-images @code{PNG}. La valeur par défaut est de @code{1.0}.
+Adopte une résolution supérieure, selon le facteur @var{num} donné
+(entier positif inférieur ou égal à 8), puis réduit au niveau du
+résultat afin d'éviter les « distorsions » des images @code{PNG}. La
+valeur par défaut est de @code{1}.
 
 @item @code{aux-files} @var{bool}
 Si @var{bool} est fixé à @code{#t}, génère les fichiers @code{.tex},
@@ -818,6 +830,23 @@ valeur par des guillemets échappés (@code{\"}).La valeur par défaut est
 Détermine le format de sortie en images pixélisées pour Ghostscript à
 @var{symbole}. La valeur par défaut est @code{png16m}.
 
+@item @code{png-width} @var{largeur}
+@itemx @code{png-height} @var{hauteur}
+Dans le cas d'une sortie PNG, détermine la largeur et la hauteur, en
+pixels, des images créées. En l'absence de l'une de ces options, l'autre
+dimension sera calculée relativement à la boîte EPS englobante tout en
+maintenant le ration d'aspect.
+
+En comlément de l'option @option{--png}, les options @option{--eps},
+@option{-dcrop} ou @option{-dpreview} devraient permettre une mise à
+l'échelle correcte sans détourage.
+
+L'option @option{-dresolution} est ignorée.
+
+Notez la présence d'un bogue dans les versions de ghostscript
+inférieures à 9.52 avec ces deux options : l'image PNG produite sera
+vide dès lors que la hauteur est supérieure à la largeur.
+
 @item @code{point-and-click} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, ajoute les liens « point &
 click » à la sortie PDF ou SVG -- voir @ref{Pointer-cliquer}. La valeur
@@ -1030,6 +1059,16 @@ la machine.  Il s'agit en fait d'un pourcentage d'allocation de
 mémoire : lorsqu'il est élevé, le programme favorisera
 l'utilisation de la mémoire ; une faible valeur consommera plus de
 temps processeur.  Par défaut, cette valeur est fixée à @code{70}.
+
+@item TMPDIR
+Cette variable permet de déterminer, sur GNU/Linux et Mac, le répertoire
+temporaire. La valeur par défaut est @file{/tmp}. Il s'agit du
+répertoire dans lequel seront enregitrés, durant la compilation, les
+fichiers intermédiaires tels que les fichiers PostScript. Apporter une
+dérogation à cette variable peut s'avérer utile lorsque, par exemple,
+l'utilisateur qui lance @command{lilypond} n'a pas les droits en
+écriture sur le répertoire temporaire par défaut. Exemple :
+@code{TMPDIR=~/toto}.
 
 @end table
 

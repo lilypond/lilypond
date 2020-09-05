@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -815,17 +815,25 @@ lui aussi concerné dès lors que sera utilisée l'instruction
 >>
 @end lilypond
 
-Une portée est considérée comme vide dès lors qu'elle ne
-contient que des silences multimesures, des silences visibles ou
-invisibles (ou d'espacement -- les @emph{@bs{}skip}) ou bien une
-combinaison de ces éléments.
+@funindex keepAliveInterfaces
 
-@cindex ossia
+Une portée est considérée comme vide dès lors qu'elle ne contient que
+des silences multimesures, des silences visibles ou invisibles (ou
+d'espacement -- les @emph{@bs{}skip}) ou bien une combinaison de ces
+éléments. @b{Tous} les autres objets musicaux, ceux qui font qu'une
+portée ne sera pas considérée vide, sont répertoriés dans la propriété
+de contexte @code{keepAliveInterfaces} telle que définie dans le fichier
+@file{ly/engraver-init.ly}.
 
-@noindent
-@code{\RemoveAllEmptyStaves} permet aussi de gérer des fragments
-d'ossia attachés à une portée.  Pour plus de détails, voir
-@ref{Portées d'ossia}.
+@funindex remove-empty
+@funindex remove-first
+
+@code{\RemoveEmptyStaves} et @code{\RemoveAllEmptyStaves} sont tous deux
+des racourcis prédéfinis qui déterminent les propriétés telles que
+@code{remove-empty} et @code{remove-first}, attachées à l'objet
+@code{VerticalAxisGroup}, comme indiqué dans
+@ref{Identificateurs de modification de contexte}.
+
 
 Le @code{Keep_alive_together_engraver} permet de masquer l'intégralité
 d'un regroupement de portées plutôt que des portées individuelles. Il
@@ -964,20 +972,114 @@ continuent de jouer.
 >>
 @end lilypond
 
+@cindex division de portée
+@cindex portée, division
+@cindex @emph{divisi}, portées
+@funindex remove-layer
+
+En interne, le @code{Keep_alive_together_engraver} recourt à la
+propriété @code{remove-layer} du @code{VerticalAxisGroup} d'une portée
+pour décider de son impression lorsqu'elle est considérée vide. Cette
+propriété peut aussi se définir manuellement, auquel cas elle agit sous
+forme d'index de priorité : des valeurs proches de zéro seront
+prioritaires sur celles plus élevées, ce qui aura pour conséquence de
+masquer d'abord les portées dont le @code{remove-layer} est plus grand.
+
+Ceci se révèle tout particulièrement utile pour une « division » de
+portée, lorsque plusieurs parties indépendantes -- voir
+@ref{Écriture de parties séparées} -- doivent momentanément se répartir
+sur plusieurs portées. Dans l'exemple qui suit, deux parties sont
+réparties sur @emph{trois} portées ; ces trois portées n'apparaissent
+toutefois jamais simultanément :
+
+@itemize
+
+@item
+au premier système, une seule d'entre elles est affichée, dans la mesure
+où la propriété @code{keepAliveInterfaces} a été réglée sur une liste
+vide -- de fait, les deux autres portées sont considérées comme vides et
+donc masquées, en dépit de ce qu'elles pourraient contenir ;
+
+@item
+lorsque cette propriété est désactivée -- et retrouve donc ses réglages
+par défaut -- elle n'empêche plus les deux autres portées d'être
+affichées. Cependant, et parce que le réglage de leur
+@code{remove-layer} est inférieur à celui de la portée unique, ces deux
+portées seront alors imprimées à la place.
+
+@end itemize
+
+@noindent
+De telles substitutions ne s'appliquent pas seulement aux notes, accords
+ou autres éléments musicaux intervenant dès après le nouveau réglage,
+mais à l'intégralité du système où il est mentionné.
+
+@lilypond[verbatim,papersize=a6]
+\layout {
+  short-indent = 2\cm
+  indent = 3\cm
+  \context {
+    \Staff
+    keepAliveInterfaces = #'()
+  }
+}
+
+violI = {
+  \repeat unfold 24 { d'4 }
+  \once \unset Staff.keepAliveInterfaces
+  <d' g''>2
+  \repeat unfold 14 { d'4 }
+  \bar "|."
+}
+
+violII = {
+  \repeat unfold 24 { g4 }
+  <g d'>2
+  \repeat unfold 14 { g4 }
+  \bar "|."
+}
+
+\new StaffGroup \with { \consists "Keep_alive_together_engraver" } <<
+  \new Staff \with {
+    instrumentName = "Violins"
+    shortInstrumentName = "V I & II"
+    \override VerticalAxisGroup.remove-layer = 2
+  } <<  \violI \\ \violII  >>
+  \new Staff \with {
+    instrumentName = "Violin I"
+    shortInstrumentName = "V I"
+    \RemoveAllEmptyStaves
+    \override VerticalAxisGroup.remove-layer = 1
+  } \violI
+  \new Staff \with {
+    instrumentName = "Violin II"
+    shortInstrumentName = "V II"
+    \RemoveAllEmptyStaves
+    \override VerticalAxisGroup.remove-layer = 1
+  } \violII
+>>
+@end lilypond
+
+@cindex ossia
+
+@code{\RemoveAllEmptyStaves} permet aussi de gérer des fragments d'ossia
+attachés à une portée. Pour plus de détails, voir @ref{Portées d'ossia}.
+
 @predefined
 @code{\RemoveEmptyStaves},
 @code{\RemoveAllEmptyStaves},
 @endpredefined
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{Frenched staff}.
 
-Manuel d'initiation:
+Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets}.
 
 Manuel de notation :
 @ref{Dictée à trous},
+@ref{Identificateurs de modification de contexte},
 @ref{Modification des greffons de contexte},
 @ref{Modification des réglages par défaut d'un contexte},
 @ref{Portées d'ossia},
@@ -986,7 +1088,10 @@ Manuel de notation :
 @ref{Symbole de la portée},
 @ref{Visibilité des objets}.
 
-Morceaux choisis :
+Fichiers d'initialisation :
+@file{ly/engraver-init.ly}.
+
+Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 
 Référence des propriétés internes :
@@ -1019,12 +1124,20 @@ l'instruction @code{\RemoveEmptyStaves}, consultez
 @subsection Écriture de parties séparées
 @translationof Writing parts
 
+@cindex pupitre, partition de
+@cindex individuelle, partition
+@cindex orchestre, matériel d'
+@cindex matériel d'orchestre
+
 Nous allons voir, au fil des lignes qui suivent, comment préparer un
 « matériel » pour orchestre ou ensemble musical, ce qui requiert souvent
 d'insérer des noms d'instrument dans une partition.  Nous aborderons
 aussi la citation d'autres voix, et comment la mettre en forme, ainsi
 que le moyen de contracter une succession de mesures vides dans une
 partition de pupitre.
+
+Par ailleurs, une méthode pour gérer la division d'un pupitre est
+abordée à la rubrique @ref{Masquage de portées}.
 
 @menu
 * Noms d'instrument::
@@ -1717,7 +1830,7 @@ exemple, où les mesures sont expansées, retrouve en fait le comportement
 par défaut) :
 
 @lilypond[quote,verbatim,fragment]
-\override Score.BarNumber.break-visibility = #'#(#f #t #t)
+\override Score.BarNumber.break-visibility = ##(#f #t #t)
 \time 2/4
 \compressEmptyMeasures
 c'1 d'1. e'\breve

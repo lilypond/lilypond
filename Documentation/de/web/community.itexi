@@ -1,15 +1,16 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish:  5b6ddab894b3065c35c72ef8048b8c6edbe684ac
+    Translation of GIT committish:  2b4eea90bd77e1a09b15ccc5d3493fbda1a199c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala, Michael Gerdau
+@c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
 @include included/authors.itexi
+@include included/gsoc.itexi
 @include included/helpus.itexi
 
 @node Gemeinschaft
@@ -71,10 +72,11 @@ was es heute ist.
 uns geschrieben wurde.
 
 @item
-@ref{Ältere Neuigkeiten}: ein Archiv.
+@ref{Neuigkeiten}: Neuigkeiten vom LilyPond-Projekt.
 
 @item
-@ref{Abstellkammer}: Ankündigungen und Listen der Veränderungn von vorherigen Versionen.
+@ref{Abstellkammer}: Ankündigungen und Listen der Veränderungn von vorherigen
+Versionen, alte Neuigkeiten, etc.
 
 @end itemize
 @divEnd
@@ -92,7 +94,7 @@ uns geschrieben wurde.
 * Google Summer of Code::
 * Autoren::
 * Veröffentlichungen::
-* Ältere Neuigkeiten::
+* Neuigkeiten::
 * Abstellkammer::
 @end menu
 @divEnd
@@ -183,6 +185,9 @@ Deutsches LilyPond-Forum}
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Französische Mailingliste}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+Italienische Mailingliste}
 
 @uref{http://groups.google.com/group/lilypond-brasil,
 Portugiesischsprachige Gruppe}
@@ -458,16 +463,12 @@ Wenn Sie sichergestellt haben, dass der Fehler noch nicht
 bekannt ist und einen Fehlerbericht erstellt haben, senden sie
 ihn bitte an uns!
 
-@divClass{keep-bullets}
-@itemize
-
-@item
-Wenn Sie die Emailliste @uref{mailto:bug-lilypond@@gnu.org,
-+bug-lilypond@@gnu.org} bereits abonniert haben, können Sie
-ganz gewöhnlich eine E-Mail schicken.
-
-@end itemize
-@divEnd
+Leider gibt es kein Interface mehr, um ohne Abonnement auf die Liste
+bug-lilypond zu schreiben; siehe
+@example
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}
+@end example
+für weitere Informationen.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -480,10 +481,7 @@ wann der Bericht im Tracker hinzugefüt wird.  Warten Sie bitte vier Tage,
 da uns für diese Tätigkeit nur eine geringe Zahl an Helfern zur Verfügung stehen.
 
 Wenn ein Fehler dem Tracker hinzugefügt wurde, können Sie ihn kommentieren,
-um mehr Information hinzuzufügen.  Sie können den Fehler auch markieren,
-sodass Sie immer eine E-Mail
-erhalten, wenn Aktivität für diesen Fehler vorkommt.  Hierzu müssen
-Sie einen Google-Account haben.
+um mehr Information hinzuzufügen oder automatisch benachrichtigt zu werden.
 @divEnd
 
 
@@ -590,9 +588,9 @@ zu benutzen und die @ref{Handbücher, stabilen Handbücher} zu lesen.}
 
 Es gibt zwei Veröffentlichungsreihen für LilyPond: stabile Versionen
 und die instabilen Entwicklerversionen.  Stabile Versionen haben eine
-gerade zweite Versionsnummer (also etwa 2.8, 2.10, 2.12).
+gerade zweite Versionsnummer (also etwa 2.14, 2.16, 2.18).
 Entwicklerversionen haben eine ungerade zweite Versionsnummer
-(also 2.7, 2.9, 2.11).
+(also 2.15, 2.17, 2.19).
 
 @divEnd
 
@@ -616,6 +614,10 @@ Binärpakete herunterladen:
 @downloadDevelLinuxBig
 
 @downloadDevelDarwinNormal
+
+@c file name is unpredictable, linking to main page
+@uref{https://bintray.com/marnen/lilypond-darwin-64,
+Mac OS X x86 64-bit (inoffiziell)}
 
 @downloadDevelWindows
 
@@ -827,159 +829,7 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @unnumberedsec Google Summer of Code
 @translationof Google Summer of Code
 
-@divClass{column-center-top}
-@subheading Was ist Google Summer of Code?
-
-Google Summer of Code ist ein globales Programm, bei dem Google Studenten
-Stipendien offeriert, um in den Sommerferien an Open-Source-Projekten zu arbeiten.
-
-Es ist dies eine ausgezeichnete Gelegenheit neue Entwickler zu finden und diejenigen,
-die bereits an LilyPond mitwirken zu motivieren, ihr Engagement zu vertiefen.
-Einer unserer Entwickler wurde für den Sommer 2012 als Teil des @uref{http://www.gnu.org/, GNU-Projekts} angenommen;
-wir hoffen, dass auch in kommenden Jahren Entwickler für LilyPond an dem Programm teilnehmen können.
-
-@divEnd
-
-@divClass{column-center-bottom}
-@subheading Unsere Ideenliste
-
-Unten befindet sich eine Liste mit vorgeschlagenen Projekten für GSoC-Stundenten für
-den Sommer 2012.  Wir haben sie hier aufbewahrt, damit sie zukünftigen GSoC Interessenten
-als Anregung dienen mag.
-
-Natürlich gibt es noch sehr viele andere Aufgaben, um LilyPond weiter zu
-verbessern und das LilyPond Entwicklerteam wird jederzeit jede/n gern unterstützen,
-die/der Aufgaben wie jene unten aufgeführten angehen möchte.
-
-Eine vollständige Liste aller aktuell offenen Punkte findet sich
-@uref{https://gitlab.com/lilypond/lilypond/-/issues, hier}.
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Stichnoten
-
-Beseitigen Sie Probleme bei der Synchronisation von Vorschlagsnoten.  Vorschlagsnoten
-können das Zeitmaß von LilyPond durcheinander bringen und so unerwartete Effekte hervorrufen.
-Das tritt besonders dann auf, wenn viele Notensysteme verwendet werden und einige Vorschlagsnoten
-haben und andere nicht.
-
-@strong{Schwierigkeit:} mittel
-@strong{Erfordernisse:} C++, MIDI
-@strong{Empfohlen:} mit den Interna von LilyPond vertraut sein
-@strong{Mentoren:} Mike Solomon, Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading MusicXML
-
-Verbesserung der MusicXML Import- und Exportfunktionen:
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Der Export sollte ähnlich wie der MIDI Export wenigstens die Musik an sich exportieren können (d.h.
-die Benutzung eine dezidierter Exportklassen, abgeleitet von der translator class.)
-
-@item
-Der XML-Baum der Musik an sich muss erzeugt,
-Verbindungen zwischen den music events und den XML Tags hergestellt werden.
-
-@item
-Alle LilyPond-Engraver sollen ihre Arbeit verrichten.
-
-@item
-Alle Ausgabe-Objekte (also alle Stencil/Gruppen von Stencils) sollen der
-Musik zugeordnet werden (und damit auch dem XML-Tag im XML-Baum).
-
-@item
-Ein XML-Ausgabebackend soll hinzugefügt werden. Dieses fügt die Layoutinformationen
-für jedes Ausgabe-Objekt den XML-Tags hinzu.
-
-@end itemize
-@divEnd
-
-@strong{Schwierigkeit:} mittel
-@strong{Erfordernisse:} MusicXML, Python, grundlegende Kenntnisse in LilyPond
-@strong{Mentoren:} Reinhold Kainhofer, Mike Solomon
-
-Kenntnis anderer Notensatzprogramme (zum Testen) wäre hilfreich.
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Binde- und Legatobögen verbessern
-
-Die Standardform von Binde- und Legatobögen ist oft nicht zufriedenstellend.
-Durch Schlüssel- oder Systemwechsel unterbrochene Bögen werden nicht gut behandelt.
-Teil der Aufgabe wäre es, Beispiele von unschöner Ausgabe zu sammeln und zu gruppieren
-um dann zu entscheiden, welche Ausgabe stattdessen gewünscht wäre. Schließlich
-muß der dazu notwendige Programmcode geschrieben werden.
-
-@strong{Schwierigkeit:} schwer
-@strong{Erfordernisse:} C++, Erfahrung mit Heuristiken
-@strong{Empfohlene Kenntnisse:} LilyPond-Kenntnisse, Sinn für Ästhetik
-@strong{Mentor:} Mike Solomon
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Hinzufügen von Glyphenvarianten
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Hinzufügen von Glyphenvarianten zur Darstellen @q{auf} und @q{zwischen} Notenlinien.
-
-@item
-Kürzere und schmalere Varianten der gleichen Glyphe, z.B. Vorzeichen.
-Ein weiteres spezielles Beispiel wäre ein Breve Notenkopf für @q{Alte Musik}.
-Hier wäre zwei Varianten mit kleinem bzw. größerem @q{Loch} denkbar.
-
-@end itemize
-@divEnd
-
-@strong{Schwierigkeit:} leicht
-@strong{Erfordernisse:} MetaFont, C++, gutes Auge für Details
-@strong{Empfohlene Kenntnisse:} grundlegene LilyPond Kenntnis
-@strong{Mentor:} Werner Lemberg
-
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Balkenpositionierung verbessern
-
-Die Standardpositionierung von normalen Balken, Balken über Systeme hinweg,
-unterbrochene und Knie-Balken sollte verbessert werden.  Balken sollten
-sich am Kontext und benachbarten Noten orientieren (siehe
-@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
-Abschnitt 2.2}).  Wenn möglich, sollte die Rechenzeit für die Bebalkung
-verkürzt werden.
-
-@strong{Schwierigkeit:} mittel
-@strong{Erfordernisse:} C++, Erfahrung mit Heuristiken
-@strong{Empfohlene Kenntnisse:} Sinn für Ästhetik
-@strong{Mentoren:} Mike Solomon, Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Kompilationswarnungen aufräumen
-
-Werkzeuge zur automatisierten Codeanalyse wie @q{valgrind memory leak detection} oder
-@q{callgrind code profiler} liefern wertvolle Information über möglicher
-Defizite in unserem C++ code.  Eine Bereinigung der Warnungen würde uns erlauben
-automatisiert Patches, die zusätzliche Warnungen erzeugen, abzulehnen.
-
-@strong{Schwierigkeit:} mittel
-@strong{Erfordernisse:} C++
-@strong{Mentoren:} Joe Neeman, Reinhold Kainhofer
-
-@divEnd
+@gsocCurrent
 
 
 @node Autoren
@@ -1096,16 +946,17 @@ automatisiert Patches, die zusätzliche Warnungen erzeugen, abzulehnen.
 @contactUsAbout{wissenschaftliche Aufsätze}
 
 
-@node Ältere Neuigkeiten
-@unnumberedsec Ältere Neuigkeiten
+@node Neuigkeiten
+@unnumberedsec Neuigkeiten
 @translationof News
 
-@divClass{heading-center}
-@warning{Viele alte Ankündigungen und Listen der Änderungen finden sich in der
-@ref{Abstellkammer}}
-@divEnd
-
 @include web/news-new.itexi
+
+@divClass{column-center-bottom}
+@subheading Vergangene Neuigkeiten
+Ältere Neuigkeiten sind in der @ref{Abstellkammer} zu finden, zusammen mit alten
+Ankündigungen und Listen der Änderungen.
+@divEnd
 
 
 
@@ -1117,6 +968,7 @@ automatisiert Patches, die zusätzliche Warnungen erzeugen, abzulehnen.
 @subheading Ankündigungen
 
 Ankündigungen und Neuigkeiten nach Version:
+@uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013-1,v2.18},
 @uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
@@ -1147,10 +999,11 @@ Ausführliche Liste der Änderungn nach Version:
 
 @divEnd
 
-@divClass{column-center-bottom}
-@subheading Thanks
+@divClass{column-center-middle-color3}
+@subheading Danke
 
-Thanks to developers, contributors, bug hunters and suggestions for
+Dank an die Entwickler, Beitragenden, Bug-Jäger und Vorschläge für
+@miscLink{THANKS-2.18,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
 @miscLink{THANKS-2.12,v2.12},
@@ -1181,6 +1034,17 @@ Thanks to developers, contributors, bug hunters and suggestions for
 @miscLink{CHANGES-0.1,v0.1},
 @miscLink{CHANGES-0.0,v0.0}
 
+@divEnd
+
+@divClass{column-center-middle-color2 bigger-subsubheadings}
+@gsocInactive
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Vergangene Neuigkeiten
+
+Vergangene Neuigkeiten bis zum Juli 2003.  Aktuellere Neuigkeiten sind auf der
+Seite @ref{Neuigkeiten}.
 @divEnd
 
 @include web/news-old.itexi

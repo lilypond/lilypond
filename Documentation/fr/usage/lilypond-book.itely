@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5152be56d7489884711de31e371b0ee1baf405d6
+    Translation of GIT committish: 9b78f9a4ab0e076ffb03bfeb0cb959064072a72b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1024,7 +1024,14 @@ macrocommande @code{\betweenLilyPondSystem} dans le préambule.
 La génération d'un document Texinfo -- quel que soit le format final --
 s'obtient grâce aux commandes Texinfo habituelles, c'est à dire
 @command{texi2pdf}, @command{texi2dvi} ou @command{makeinfo} selon le
-résultat que vous désirez obtenir.
+résultat que vous désirez obtenir. Par défaut, @command{texi2pdf}
+recourt à @command{pdftex} pour son traitement, ce que l'on peut
+constater à l'affichage en console. En pareil cas, lancer
+@command{lilypond-book} avec l'option @option{--pdf} générera des bribes
+de @file{.pdf} plutôt que des fichiers @file{.eps}. @command{pdftex} est
+incapable d'inclure ces derniers et émettra un message d'erreur dans le
+cas contraire.
+
 @ifinfo
 @xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, et
 @ref{Creating an Info File, , , texinfo, GNU Texinfo}.
@@ -1266,8 +1273,11 @@ l'intégralité de ce manuel est rédigée en Texinfo.
 
 @example
 \input texinfo @c -*-texinfo-*-
+
+@@ifnottex
 @@node Top
 @@top
+@@end ifnottex
 
 Du verbiage à la mode Texinfo
 

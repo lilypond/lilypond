@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -114,11 +114,17 @@ de telle sorte que les hampes et altérations s'alignent correctement :
   \new Voice \relative {
     \voiceOne
     \magnifyMusic 0.63 {
-      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
-      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
-      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
-      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
-      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+      \override Score.SpacingSpanner.spacing-increment =
+        #(* 1.2 0.63)
+
+      \once \normalsize cis'32( cis' gis b a fis
+        \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis
+        \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis
+        \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b
+        \once \normalsize gis gis')
     }
   }
   \new Voice \relative {
@@ -392,6 +398,9 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 
 @cindex doigté, positionnement
 @cindex positionnement, doigté
+@cindex corde, numéro, positionnement
+@cindex positionnement, numéro de corde
+@cindex numéro de corde, positionnement
 @funindex fingeringOrientations
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
@@ -399,6 +408,10 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 {snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex doigté, dans la portée
+@cindex doigté et hampe
+@cindex hampe et doigté
+@funindex staff-padding
+@funindex add-stem-support
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
@@ -493,33 +506,64 @@ Référence des propriétés internes :
 @cindex coloration de note
 @cindex colorisation de note
 @cindex note en couleur
-@cindex x11, couleur
-@cindex couleur x11
 
 @funindex color
 @funindex \with-color
-@funindex x11-color
 
-Des objets peuvent être colorisés individuellement.  Une liste des
-noms des couleurs disponibles se trouve à l'annexe
-@ref{Liste des couleurs}.
+Des objets peuvent être colorisés individuellement. Une liste des noms
+des couleurs disponibles se trouve à l'annexe @ref{Liste des couleurs}.
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
 c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
 d''
-\override Stem.color = #blue
+\override Stem.color = "deepskyblue"
 e''
 @end lilypond
 
-L'intégralité de la palette des couleurs définies pour X11 est
-accessible par la fonction Scheme @code{x11-color}.  Cette fonction
+@cindex css, code couleur
+@cindex couleur, code css
+
+En plus du jeu limité de couleurs de base prédéfini sous forme de
+variable -- voir les « couleurs normales » dans @ref{Liste des couleurs}
+-- n'importe quelle couleur peut être spécifiée sous forme de chaîne,
+qu'il s'agisse d'un nom de couleur prédéfini dans le style
+@uref{https://www.w3.org/Style/CSS/, CSS} ou d'un code hexadécimal
+préfixé d'un @code{#} (le tout entre guillemets informatiques) :
+
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
+
+@cindex transparence, semi
+@cindex alpha, transparence
+@cindex semi-transparence et couleurs
+
+@noindent
+Lorsque ce code couleur comporte un canal alpha pour la transparence,
+spécifier un code sur huit caractères @var{"#RRGGBBAA"}, ou sa
+forme abrégée @var{"#RGBA"}, produira ses effets pour une sortie SVG,
+mais pas pour du PostScript ni du PDF. Dans l'exemple  précédent, on
+peut voir à travers le silence dès lors qu'il est compilé avec le moteur
+SVG, comme expliqué dans @ref{Formats de sortie alternatifs}.
+
+@cindex x11, couleur
+@funindex x11-color
+
+De manière différente, l'intégralité de la palette des couleurs
+@uref{https://en.wikipedia.org/wiki/X11_color_names, définies pour X11}
+est accessible par la fonction Scheme @code{x11-color}. Cette fonction
 prend en argument une expression symbolique de la forme
-@code{@var{'TaraTata}} ou bien une chaîne de caractères comme
-@code{@var{"TaraTata"}}.  La première formulation est à la fois plus
-rapide à écrire et aussi plus efficace.  Néanmoins, la deuxième forme
-permet d'accéder aux noms composés des couleurs de X11.
+@code{'DarkSeaGreen4} ou bien une chaîne de caractères comme
+@code{"DarkSeaGreen4"}. La première formulation est à la fois plus
+rapide à écrire et aussi plus efficace. Néanmoins, la deuxième forme
+permet d'accéder aux noms composés des couleurs de X11 comme ici
+@code{"dark sea green 4"}.
 
 Lorsque la fonction @code{x11-color} ne trouve pas le paramètre fourni,
 elle revient à la couleur par défaut, le noir.  Le problème ressort de
@@ -556,16 +600,20 @@ façon évidente au vu de la partition finale.
 
 Un autre moyen consiste à fournir à la fonction Scheme @code{rgb-color}
 les composantes de la couleur exacte au format rouge-vert-bleu
-(@emph{RGB}) -- chacune étant exprimée en en fraction de 256 (le 0.5 de
-l'exemple suivant correspond à 128).
+(@emph{RGB}) -- chacune étant exprimée en en fraction de 256 (le 0.5 de
+l'exemple suivant correspond à 128). ainsi qu'éventuellement un nombre
+définissant le niveau de transparence. Une fois de plus, cette
+transparence n'est effective que dans le cadre du format SVG, où la clef
+de l'extrait ci-dessous sera affectée.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
   instrumentName = \markup {
     \with-color #(x11-color 'red) "Clarinet"
     }
+  \override Clef.color = #(rgb-color 0 0 0 0.5)
   }
-  \relative c'' {
+\relative c'' {
   \override Stem.color = #(rgb-color 0 0 0)
   gis8 a
   \override Stem.color = #(rgb-color 1 1 1)
@@ -596,8 +644,7 @@ normale ayant un nom similaire.
 
 Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
 internet.  Aussi nous vous recommandons, dans le cadre d'une
-présentation multimédia, d'utiliser des couleurs de base @code{blue},
-@code{green}, @code{red} -- bleu, vert, rouge.
+présentation multimédia, d'utiliser des couleurs CSS.
 
 Vous ne pouvez pas coloriser individuellement des notes à l'intérieur
 d'un accord avec @code{\override}.  Si besoin est, utilisez

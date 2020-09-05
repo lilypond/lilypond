@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -699,6 +699,7 @@ permet d'obtenir une meilleure lisibilité.
 @cindex gravure manuelle, liaison de tenue
 @funindex TieColumn
 @anchor{dessin à main levée de liaisons de tenue}
+@anchor{engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/engraving-ties-manually.ly}
 
@@ -2654,8 +2655,8 @@ ligature automatiques est abordée au chapitre @ref{Métrique}.
 @cindex groupement de note manuel
 @cindex ligature manuelle
 
-@funindex @sortas{]A} ]
-@funindex @sortas{[A} [
+@funindex ]
+@funindex [
 
 Dans certaines situations, il peut s'avérer nécessaire de supplanter
 l'algorithme de regroupement automatique des notes, par exemple pour
@@ -3014,6 +3015,8 @@ nouvelle.
 }
 @end lilypond
 
+@cindex segno
+
 LilyPond dispose de six différents moyens de combiner une barre de
 reprise avec un @emph{segno} :
 
@@ -3053,6 +3056,7 @@ surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
 
 @cindex barre de mesure, personnalisation
 @cindex définition d'une barre de mesure
+@cindex interportées, barre de mesure
 @funindex \defineBarLine
 
 L'instruction @code{\defineBarLine} permet de définir ses propres
@@ -3062,10 +3066,21 @@ types de barre de mesure, en respectant la syntaxe :
 \defineBarLine @var{type_de_barre} #'(@var{fin} @var{début} @var{extension})
 @end example
 
-Les variables fournies à @code{\defineBarline} peuvent inclure la
-chaîne vide @code{""} qui correspond à une barre invisible, ou bien
-être valorisées à @code{#f} -- ce qui aura pour effet ne
-n'imprimer aucune barre.
+@noindent
+Au-delà de @var{type_de_barre} (la chaîne de caractères qui sera utilisée
+pour faire appel à cette nouvelle barre), cette instruction prend trois
+valeurs : les deux premières déterminent l'apparence de la barre
+lorsqu'elle intervient sur un saut de ligne, auquel cas les premier et
+second glyphes indiqués s'imprimeront respectivement à la @var{fin} du
+système et au @var{début} du suivant. Le troisième glyphe indiqué n'est
+utile que dans le cas d'un système à plusieurs portées (voir
+@ref{Regroupement de portées}) où il apparaîtra en tant
+qu'@var{extension} entre les portées.
+
+Les variables fournies à @code{\defineBarline} peuvent inclure la chaîne
+vide @code{""} qui correspond à une barre invisible, ou bien être
+valorisées à @code{#f} -- ce qui aura pour effet de n'imprimer aucune
+barre.
 
 Une fois la définition explicitée, la nouvelle barre s'utilise à
 l'aide de @code{\bar} @var{type_de_barre}.
@@ -3134,6 +3149,30 @@ d'une barre d'un seul tenant entre les portées d'un système :
     c1 \bar ":|.-wrong"
     c1 \bar ":|.-right"
     c1
+  }
+  \new Staff \relative c'' {
+    c1
+    c1
+    c1
+  }
+>>
+@end lilypond
+
+Un nouveau type de barre de mesure défini à l'aide de
+@code{\defineBarLine} peut même, à son tour, s'utiliser dans la
+définition d'un autre. Une telle définition « imbriquée » autorise le
+recours à des glyphes personnalisés là où ce ne serait en principe pas
+possible, comme en fin de système :
+
+@lilypond[quote,verbatim]
+\defineBarLine "||-dashEverywhere" #'("!!" "!!" "!!")
+\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" "" "!!")
+
+\new StaffGroup <<
+  \new Staff \relative c'' {
+    c1 \bar "||"
+    c1 \bar "||-advancedDashSpan"
+    c1 \bar "||-advancedDashSpan"
   }
   \new Staff \relative c'' {
     c1

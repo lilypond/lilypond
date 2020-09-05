@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ed0aeb578e82f057487be2883cb9d4d9121563bd
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -53,8 +53,8 @@ même voix.
 @cindex accord
 @cindex chevrons
 
-@funindex @sortas{<A} <
-@funindex @sortas{>A} >
+@funindex <
+@funindex >
 @funindex <...>
 
 Un accord est formé en mettant une série de hauteurs entre @code{<}
@@ -1165,7 +1165,8 @@ instrumentOne = \relative c' {
   \partCombineAutomatic e2^"auto" e |
   \partCombineChords e'2^"chord" e |
   \partCombineAutomatic c2^"auto" c |
-  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
+  \partCombineApart c2^"apart"
+    \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {

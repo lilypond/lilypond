@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -611,7 +611,8 @@ pour obtenir une liaison entre les syllabes.
   }
   \addlyrics
   {
-    \override LyricHyphen.minimum-distance = #1.0 % Ensure hyphens are visible
+    % Ensure hyphens are visible
+    \override LyricHyphen.minimum-distance = #1.0
     Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
   }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
@@ -865,6 +866,11 @@ imprimés.  Cet inconvénient peut être contrôlé par les propriétés
 @code{minimum-distance} pour gérer l'espace minimum entre deux syllabes,
 et @code{minimum-length}, seuil en deçà duquel il n'y a pas de trait
 d'union, toutes deux attachées à l'objet @code{LyricHyphen}.
+
+Un trait d'union ne sera pas, par défaut, imprimé après un saut de ligne
+lorsque le nouveau système débute sur une nouvelle syllabe. Basculer la
+propriété @code{after-line-breaking} à @code{#t} permet de répéter le
+trait d'union en pareille situation.
 
 @morerefs
 Référence des propriétés internes :
@@ -2212,8 +2218,9 @@ text = \lyricmode {
 
 \markup {
   \fill-line {
-    \hspace #0.1 % décalage par rapport à la marge de gauche
-     % peut être supprimé si l'espace sur la page est réduit
+    % décalage par rapport à la marge de gauche
+    % peut être supprimé si l'espace sur la page est réduit
+    \hspace #0.1
     \column {
       \line { \bold "2."
         \column {
@@ -2230,7 +2237,8 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1  % ajout d'espace horizontal entre les colonnes
+    % ajout d'espace horizontal entre les colonnes
+    \hspace #0.1
     \column {
       \line { \bold "4."
         \column {
@@ -2247,8 +2255,9 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1 % décalage par rapport à la marge de droite
-     % peut être supprimé si l'espace sur la page est réduit
+    % décalage par rapport à la marge de droite
+    % peut être supprimé si l'espace sur la page est réduit
+    \hspace #0.1
   }
 }
 @end lilypond
@@ -2567,6 +2576,11 @@ Manuel de notation :
 @subsection Opéras et musiques de scène
 @translationof Opera and stage musicals
 
+@cindex conducteur
+@cindex vocale, partition
+@cindex chorale, partition
+@cindex opérette
+
 Tout ce qui permet d'exécuter un opéra ou une œuvre scénique accompagnée
 de musique se présente généralement sous l'une ou plusieurs des formes
 suivantes :
@@ -2620,6 +2634,16 @@ opératique et scénique.
 @node Références en matière d'opéra et musique de scène
 @unnumberedsubsubsec Références en matière d'opéra et musique de scène
 @translationof References for opera and stage musicals
+
+@cindex orchestrale, musique
+@cindex ensemble, musique d'
+@cindex orchestre, notation pour
+@cindex conducteur
+@cindex opéra
+
+En plus des formations scéniques ou vocales, la plupart des notions
+qui suivent peuvent s'appliquer aux orchestres et autres musiques
+d'ensemble.
 
 @itemize
 
@@ -3178,22 +3202,26 @@ besoins :
 
 @lilypond[verbatim,quote]
 divisioMinima = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign.stencil =
+    #ly:breathing-sign::divisio-minima
   \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign.stencil =
+    #ly:breathing-sign::divisio-maior
   \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign.stencil =
+    #ly:breathing-sign::divisio-maxima
   \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 finalis = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign.stencil =
+    #ly:breathing-sign::finalis
   \once \override BreathingSign.Y-offset = #0
   \breathe
 }
@@ -3310,7 +3338,8 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+          \override SpacingSpanner.base-shortest-duration =
+            #(ly:make-moment 1/2)
         }
         \context {
           \Staff

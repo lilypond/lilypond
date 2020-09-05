@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 901f7ff2acbb996f1e726607f3f8e921c5e1ddd3
+    Translation of GIT committish: 2b4eea90bd77e1a09b15ccc5d3493fbda1a199c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala, Michael Gerdau
+@c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
 @node Einleitung
 @unnumbered Einleitung
@@ -305,7 +305,6 @@ LilyPond auszuprobieren, lesen Sie zuerst über unsere
 @translationof Examples
 
 @divClass{column-center-top}
-
 @subheading Beautiful examples
 
 LilyPond ist ein sehr mächtiges und flexibles Werkzeug, das Notensatz
@@ -313,6 +312,7 @@ unterschiedlichster Art handhaben kann.  Sehen Sie sich unsere
 Beispiele an und lassen Sie sich inspirieren!
 
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Klassische Musik
@@ -322,6 +322,7 @@ Notensatzprojekt mit LilyPond.
 
 @exampleImage{bach-bwv610}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Komplexe Notation
@@ -334,6 +335,7 @@ Stimmfolgestriche.
 @exampleImage{granados}
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading Alte Musik
 
@@ -343,6 +345,7 @@ Chorals.
 
 @exampleImage{ancient-headword}
 @divEnd
+
 
 @divClass{column-center-middle-color2}
 @subheading Moderne Musik
@@ -371,6 +374,7 @@ Nicolas Sceaux}, als Partitur, Klavierauszug und eine Geigenstimme.
 
 @divEnd
 
+
 @divClass{column-center-middle-color2}
 @subheading Tabulatur
 
@@ -382,24 +386,6 @@ die man für das fünflinige Notensystem notiert hat.
 @exampleImage{tab-example}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Schenker-Graphen
-
-Das Standardnotenbild kann sehr stark verändert werden.  Hier eine eindrucksvolle Schenker-Analyse, von Kris Schaffer mit LilyPond erstellt
-für einen Artikel im @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
-Die Farben wurden zur Verdeutlichung hinzugefügt.
-
-@exampleImage{bach-schenker}
-@divEnd
-
-@divClass{column-center-middle-color2}
-@subheading Individuelle Ausgabe
-
-Ein kurzer Auszug aus Stockhausen's Klavierstück II zeigt die
-Fähigkeiten von LilyPond eine individuelle Ausgabe zu erzeugen.
-
-@exampleImage{stockhausen-klavierstueckII}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Vokalmusik
@@ -417,15 +403,6 @@ plicierte Noten und Ligaturklammern über bestimmten Notengruppen.
 @exampleImage{aucun-snippet}
 @divEnd
 
-@divClass{column-center-middle-color2}
-@subheading Anwendung in der Musikerziehung
-
-LilyPond eignet sich perfekt für eine Anwendung in der
-Musikerziehung.  Hier ein Beispiel einer einfachen
-Kontrapunktaufgabe.
-
-@exampleImage{theory}
-@divEnd
 
 @divClass{column-center-middle-color2}
 @subheading Popmusik
@@ -438,6 +415,18 @@ angepasst werden, um fast jeder Situation gerecht zu werden.
 @exampleImage{chart}
 @divEnd
 
+
+@divClass{column-center-middle-color2}
+@subheading Anwendung in der Musikerziehung
+
+LilyPond eignet sich perfekt für eine Anwendung in der
+Musikerziehung.  Hier ein Beispiel einer einfachen
+Kontrapunktaufgabe.
+
+@exampleImage{theory}
+@divEnd
+
+
 @divClass{column-center-middle-color2}
 @subheading Große Projekte
 
@@ -447,6 +436,28 @@ Beispiel wurde von Hu Haipeng, einem blinden Komponisten, zur Verfügung gestell
 
 @exampleImage{orchestra}
 @divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Individuelle Ausgabe
+
+Ein kurzer Auszug aus Stockhausen's Klavierstück II zeigt die
+Fähigkeiten von LilyPond eine individuelle Ausgabe zu erzeugen.
+
+@exampleImage{stockhausen-klavierstueckII}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Schenker-Graphen
+
+Das Standardnotenbild kann sehr stark verändert werden.  Hier eine eindrucksvolle Schenker-Analyse, von Kris Schaffer mit LilyPond erstellt
+für einen Artikel im @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
+Die Farben wurden zur Verdeutlichung hinzugefügt.
+
+@exampleImage{bach-schenker}
+@divEnd
+
 
 @divClass{column-center-bottom}
 @subheading Was jetzt?
@@ -620,18 +631,26 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 
 Hier lesen Sie von Leuten, die LilyPond in ihren realen Produktionen
 einsetzen, sei es für Aufführungen ihrer Musik oder zur Erzeugung
-der druckreifen Veröffentlichungen.
+der druckreifen Veröffentlichungen. Die Liste ist beschränkt auf Arbeiten,
+die urheberrechtlich nicht geschützt oder unter offenen Lizenzen
+veröffentlicht sind.
 
 @divEnd
 
 @divClass{column-left-top}
-@subheading Konzerte
+@subheading Auftritte und Konzerte
 
 LilyPond-Notensatz wurde für verschiedene Aufführungen rund um die
 Welt eingesetzt.  Einige Highlights:
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+Marc Hohl hat musikalische Stücke für Kinder und Heranwachsende geschrieben.
+Gesetzt mit LilyPond (und LaTeX) und kostenfrei verfügbar von
+@uref{http://www.singspielschmiede.de/}, alle Stücke wurden an der Schule
+aufgeführt, an der Marc arbeitet.
 
 @item
 @uref{http://www.aurelienbello.com/,Aurélien Bello} hat Richard Strauss's @emph{Der Rosenkavalier}
@@ -651,6 +670,11 @@ neu orchestriert.  Geschrieben für ein Standard Sinfonie Orchester jedoch mit v
 wurde das Werk vom @emph{Radio-Sinfonieorchester Berlin} im April 2014 im Atze Musiktheater Berlin aufgeführt.
 Der Dirigent war Heiko Matthias Förster.
 
+Eine weitere Neu-Orchestrierung von Aurélien war Mussorgsky's
+@emph{Bilder einer Ausstellung} welche er auch dirigierte für die
+@uref{https://junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
+im Jahr 2011 und nochmals 2012.
+
 @item
 Joe Smeets hat die Noten für das Kinderbuch @emph{Zing Mee}
 (@emph{Sing' mit}) von Annie M.G., erschienen bei Querido -- ISBN
@@ -661,74 +685,68 @@ Chornoten für die Holländische Übersetzung von Benjamin Britten's
 2011;
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
 Er hat ebenfalls die Partitur und Einzelstimmen für ein Arrangement von
-Mussorgsk’s @emph{Boris Godunov} für Bläserquartett, Klavier und Schlagzeug verfasst.
+Mussorgsks @emph{Boris Godunov} für Bläserquartett, Klavier und Schlagzeug verfasst.
 Es wurde ebenfalls durch das @emph{Muziektheater Hollands Diep} in 2014 aufgeführt.
 
+Joe hat auch die Chorprobenpartituren für die niederländische Übersetzung von
+Benjamin Brittens @emph{Saint Nicolas} geschrieben, welche 2011 vom
+@emph{Muziektheater Hollands Diep} aufgeführt wurde, siehe
+@uref{https://muziektheaterhollandsdiep.nl/?s=sint+nicolaas+leeft,www.muziektheaterhollandsdiep.nl}.
+
 @item
-Eine kritische Fassung von Tommaso Traetta's @emph{Enea nel Lazio (1760)},
-Opernzyklus in vier Teilen, Libretto von Vittorio Amedeo Cigna-Santi:
+@uref{https://unito.academia.edu/LucaRossettoCasel,Luca Rossetto Casel},
+verfasste für seine Doktorarbeit eine kritische Fassung von Tommaso Traettas
+@emph{Enea nel Lazio (1760)}, Opernzyklus in vier Teilen, Libretto von Vittorio
+Amedeo Cigna-Santi:
 @uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Teil Eins}
 @uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Teil Zwei}
 @uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Teil Drei}
 @uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Teil Vier}
-Verfasst von
-@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
-für seine Doktorarbeit.
-
-@item
-Mussorgskis @emph{Bilder einer Ausstellung}, neu orchestriert und
-dirigiert von @uref{http://www.aurelienbello.com/,Aurélien Bello}
-mit der @uref{http://www.junge-philharmonie-brandenburg.de/,Jungen Philharmonie Brandenburg}
-am 10. Oktober 2011 und als Wiederholung am 15.-16. April 2012.
 
 @item
 @uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, Komponist und
-Dirigent.  Zu seinen vielen neueren Werken gehören: @emph{Go Thy Way},
-aufgeführt von den @uref{http://www.saltlakechoralartists.org/,
-Salt Lake Choral Artists} im März 2012, die
-@emph{Just Out of Reach Suite} aufgeführt vom
+Musikdirektor von vielen Werken; @emph{Go Thy Way}, aufgeführt von den
+@uref{https://www.saltlakechoralartists.org/, Salt Lake Choral Artists}
+im Jahr 2012; die @emph{Just Out of Reach Suite}, aufgeführt vom
 @uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
-Chrysalis Duo}, @emph{thrafsmata}aufgeführt im Juli 2011 vom
+Chrysalis Duo}; und @emph{thrafsmata} im Jahr 2011 aufgeführt vom
 @uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
 New Music Ensemble}.
 
 @item
-@emph{Anonymous Student Compliment or Complaint}, von
-@uref{http://www.mikesolomon.org, Mike Solomon}, Gewinner des
-@uref{http://leftcoastensemble.org, 2011 Left Coast Composition Contest},
-an dem 172 Kompositionen aus 22 Ländern teilgenommen haben.
-Andere Werke bspw.: Norman (age 1) für Soloklarinette, aufgeührt an auf dem
-Electroacoustic Music Festival (FEMF) der
-@uref{http://emu.music.ufl.edu/fems_concerts.html, University of Florida} im
-Oktober 2010.
+@uref{http://www.mikesolomon.org,Mike Solomon} war der Gewinner von 172
+Kompositionen aus 22 Ländern für den
+@uref{https://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
+mit seinem Werk @emph{Anonymous Student Compliment or Complaint}.
+
+Andere Werke von Mike beinhalten @emph{Norman (age 1)} für Soloklarinette,
+aufgeführt auf dem Electroacoustic Music Festival (FEMF) der
+@uref{https://arts.ufl.edu/academics/music/, University of Florida} im Oktober 2010.
 
 @item
-Eine moderne Edition der @emph{Serenata Erminia} von Alessandro Scarlatti,
-herausgegeben von Thomas Griffin, Musikwissenschaftler (Rom, Italien).  Aufgeführt
-am 22. Oktober 2010 in der Gallerie des Palazzo Zevallos Stigliano in Neapel.
-Siehe @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
-zur Feier des 350. Geburtstages des Komponisten.
+Thomas Griffin, Musikwissenschaftler (Rom, Italien), bearbeitete eine moderne
+Edition der @emph{Serenata Erminia} von Alessandro Scarlatti. Aufgeführt
+im Jahr 2010 in der Gallerie des Palazzo Zevallos Stigliano in Neapel, Italien,
+zur Feier des 350. Geburtstages des Komponisten. Siehe
+@uref{http://www.ascarlatti2010.net}.
 
 @item
-@uref{http://www.mercurybaroque.org, Mercury Baroque}s
-Aufführung von Lullys @emph{Armide} am 15.-16. Mai 2009 in Houston,
-Texas (Notensatz von @uref{http://nicolas.sceaux.free.fr/,
-Nicolas Sceaux}).
+@uref{http://nicolas.sceaux.free.fr/,Nicolas Sceaux} setzte das Werk
+von Lullys @emph{Armide}, aufgeführt im Jahr 2009 von
+@uref{https://www.mercuryhouston.org/, Mercury Baroque}.
+
+Nicolas setzte außerdem instrumentale Ausschnitte von Rameaus
+@emph{Hippolyte et Aricie}, aufgeführt von Frederick Renz und
+seinem Ensemble in der St. James Church in Manhattan im Jahr 2009. Siehe
+@uref{http://www.earlymusicny.org/, Early Music New York}
 
 @item
-Instrumentale Ausschnitte von Rameaus @emph{Hippolyte et Aricie} in
-der St. James Church in Manhattan am 8. Mai 2009  von Frederick
-Renz und seinem Ensemble @uref{http://www.earlymusicny.org/,
-Early Music New York} (Notensatz von
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
+@uref{http://valentin.villenave.net/,Valentin Villenave} setzte ein
+Libretto aus @emph{Affaire étrangère}, eine Oper von
+@uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
+uraufgeführt im Jahr 2009 in der
+@uref{http://www.orchestre-montpellier.com/, Opéra de Montpellier}.
 
-@item
-@emph{Affaire étrangère}, eine Oper von
-@uref{http://valentin.villenave.net/,Valentin Villenave} mit
-einem französischen Libretto von
-@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}, wurde am 1. Februar 2009 in der
-@uref{http://www.orchestre-montpellier.com/, L'Opéra de Montpellier}
-uraufgeführt.
 
 @end itemize
 @divEnd
@@ -739,40 +757,60 @@ uraufgeführt.
 @divClass{column-right-top}
 @subheading Publizierte Noten
 
+@subsubheading Notenbibliotheken
+
 @divClass{keep-bullets}
 @itemize
 
 @item
-@uref{http://www.mutopiaproject.org/index.html, Mutopia Project},
-über 1500 Stücke klassischer Musik zum freien Notendownload und
-die beste Werbung für LilyPond.
-
-@c don't make this "Mutopia" a link, since that looks silly.
-@item
-@uref{http://etudeapp.com, Etude}, @qq{Notensatz unter Drogen} ist
-eine iPhone-App, die Klaviermusik, gesetzt mit LilyPond, anzeigt.  Hinzu
-gehören viele Stücke von Mutopia.  Die App enthält auch eine virtuelle
-Klaviatur, die anzeigt, welche Tasten gedrückt werden müssen, um
-Anfängern beim Notenlesen zu helfen.
+@uref{https://www.mutopiaproject.org, Mutopia-Projekt}, mit über
+2000 Stücken klassischer Musik zum freien Download, ist die beste
+Werbung für LilyPond. Jedes Stück kommt mit Quelldateien für LilyPond,
+zum Lernen von anderen Setzern und für eigene Editionen.
 
 @item
-@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
-qualitativ hochwertige Partituren von Kirchenmusik, sowohl zum
-direkten Download als auch auf Papier erhältlich.
+@uref{https://www.baroquemusic.it/, baroquemusic.it}, gestartet in 2005,
+sammelt über 800 Stücke von Barockmusik. Das Archiv enthält Partituren,
+Einzelstimmen und MIDI-Dateien, bereitgestellt unter einer Creative Commons
+Lizenz und verfügbar nur für Abonnenten.
 
 @item
-@uref{http://shadylane.fr/, The Shady Lane Publishing},
-ein @qq{Mikro-Notenverlag}, der es sich zum Ziel gesetzt hat,
-eine neue Musikökonomie zu unterstützen, die den Musikern und
-Musikliebhabern näher steht.
+@uref{http://partitura.org/, Partitura Organum} ist eine wachsende Sammlung
+von Orgelstücken ohne Urheberschutz, gesetzt mit LilyPond und
+bereitgestellt unter einer Creative Commons Lizenz.
+
+@item
+@uref{https://clairnote.org/, Clairnote} bietet freie Musiknoten in
+Clairnote-Notation.  Clairnote ist ein alternatives Notationssystem mit dem
+Ziel, Lesen und Verständnis von Musik zu vereinfachen.  Die Partituren auf der
+Webseite sind aus Mutopia und anderen Onlinequellen entnommen und dann
+in Clairnotes eigene Notation umgewandelt worden.
 
 @end itemize
+@divEnd
 
+@subsubheading Quellen für Notensatz
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{https://github.com/MutopiaProject/MutopiaProject/, Mutopia-Projekt repository}:
+Quelldateien für alle Stücke in der Mutopia-Bibliothek.
+
+@item
+@uref{http://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond Webseiten-Beispiele}:
+Quelldateien für die Beispielgallerie in @ref{Beispiele}.
+
+@item
+@uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}: Noten für Barockmusik
+gesetzt mit LilyPond von einem der Entwickler.
+
+@end itemize
 @divEnd
 
 @divEnd
 
-@contactUsAbout{concerts or sheet music}
+@contactUsAbout{Konzerten oder Noten}
 
 @divClass{column-center-bottom}
 @subheading Was jetzt?
@@ -964,7 +1002,7 @@ Nummer CMS06.
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, Kompositionsprofessor, Musikhochschule Freiburg
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, Kompositionsprofessor, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
 
 @qq{Auch wenn ich [LilyPond] noch nicht sehr gut kenne, bin ich schon außerordentlich
   beeindruckt. Ich habe das Programm benutzt, um eine Motette von Josquin Desprez
@@ -1313,17 +1351,36 @@ Textansicht markiert, wenn man von dort aus druckt.
 @subheading Browserbasierte Editoren
 
 @subsubheading LilyBin
-@uref{http://lilybin.com}
+@uref{http://lilybin.com/}
 
 Ein webbasierter LilyPond Editor, in dem man die Noten direkt online
-setzen kann, ohne LilyPond vorher installieren zu müssen.
+setzen kann, ohne LilyPond vorher installieren zu müssen. Codeschnippsel bleiben
+unter einer eindeutigen URL verfügbar, wie auf so genannten @q{pastebin} Webseiten.
+Der Code ist frei verfügbar unter der MIT-Lizenz, zu finden unter der
+@uref{https://github.com/LilyBin/LilyBin,Entwicklungsseite}.
 
-@subsubheading Tunefl
-@uref{http://www.tunefl.com}
+@subsubheading Hacklily
+@uref{https://www.hacklily.org/}
 
-Mit tunefl können Sie kleine Partituren direkt online setzen, ohne
-LilyPond lokal installieren zu müssen.  Es unterstützt alle Fähigkeiten
-des Programms über ein bequemes Webinterface.
+Ein Onlineeditor und Werkzeug zur Veröffentlichung von Musiknoten angetrieben
+von LilyPond, mit zusätzlichen Features wie Autovervollständigung und
+kontextbasierter Hilfe. Der zugrundeliegende Code ist verfügbar unter der
+AGPL, auf seiner eigenen @uref{https://github.com/hacklily/hacklily,Entwicklungsseite}.
+
+@subsubheading www.omet.ca
+@uref{http://www.omet.ca/}
+
+Seit 2010 bietet Online Music Editing Tools (OMET) einen fertigen
+LilyPond-Service mit einem eigens ausgelegten Webinterface.
+Eine Registrierung ist erforderlich, aber kostenfrei.
+
+@subsubheading WebLily.net
+@uref{https://www.weblily.net/}
+
+Eingeführt im Jahr 2009 ist WebLily.net eine der ersten Webdienste basierend
+auf LilyPond und wurde seitdem regelmäßig aktualisiert.
+Der Dienst kann kostenfrei genutzt werden (Registrierung erforderlich) und
+beinhaltet eine klickbare Version von LilyPonds Dokumentation.
 
 @divEnd
 
@@ -1337,13 +1394,10 @@ des Programms über ein bequemes Webinterface.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-@uref{http://elysium.thsoft.hu}
+@uref{https://github.com/thSoft/elysium}
 
-Elysium ist eine LilyPond IDE für Eclipse mit integrierter paralleler
-Sicht auf Quelle und erzeugte Noten.  Ferner verfügt es über schnelles
-visuelle und akkustische Rückmeldung, ohne daß dazu der Kontext gewechselt
-werden müßte.  Schließlich verfügt es über eine ganze Reihe von Assistenten,
-die von vorgefertigten Templates getrieben werden.
+Eine vollständige Umgebung für die Bearbeitung von Noten mit LilyPond in Eclipse
+mit einem mächtigen Toolkit zur einfachen Verwaltung von LilyPond.
 
 @divEnd
 
@@ -1385,7 +1439,7 @@ Nähere Informationen zum Einrichten von Vim finden SIe unter
 
 @sourceimage{logo-macosx,,,}
 @subsubheading TeXShop
-@uref{http://www.uoregon.edu/~koch/texshop}
+@uref{http://pages.uoregon.edu/koch/texshop/}
 
 Der TeXShop-Editor für MacOS@tie{}X kann erweitert werden, sodass
 er LilyPond, @command{lilypond-book} und @command{convert-ly}
@@ -1467,8 +1521,7 @@ Portierung nach C++.
 
 @item
 @uref{http://strasheela.sourceforge.net, Strasheela} ist eine Umgebung
-auf Basis der @uref{http://www.mozart-oz.org/, Mozart/Oz}
-constraint basierten Programmiersprache.
+auf Basis des @uref{http://mozart.github.io/, Mozart Programming System}.
 
 @end itemize
 @divEnd
@@ -1502,7 +1555,7 @@ verfügbar.
 
 @item
 @uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, konnte
-@uref{http://www.makemusic.com/musicxml,MusicXML} importieren.
+@uref{http://www.musicxml.com/,MusicXML} importieren.
 Ableger existieren als
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 und @uref{http://canorus.org,Canorus}.
@@ -1516,6 +1569,12 @@ scheint aber noch mit Version 4 zu laufen.
 @item
 @uref{https://launchpad.net/rumor/,Rumor},
 ein monophoner Echtzeitkonverter von MIDI nach LilyPond.
+
+@item
+@uref{https://github.com/tiredpixel/tunefl,tunefl}
+Noten direkt online setzen ohne LilyPond lokal zu installieren.
+Es erlaubt, alle Feature des Programs mit einem praktischen Webinterface
+auszuprobieren.
 
 @item
 @uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}, ein Tabulator Editor

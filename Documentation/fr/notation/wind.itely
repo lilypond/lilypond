@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -147,6 +147,10 @@ plus en profondeur au chapitre @ref{Diagrammes pour bois}.
 
 @cindex vents, doigtés
 @cindex doigtés, symboles pour vents
+@cindex ouvert
+@cindex fermé
+@funindex \stopped
+@funindex \open
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/fingering-symbols-for-wind-instruments.ly}
 
