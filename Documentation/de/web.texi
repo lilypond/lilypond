@@ -1,13 +1,13 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 901f7ff2acbb996f1e726607f3f8e921c5e1ddd3
+    Translation of GIT committish: 2b4eea90bd77e1a09b15ccc5d3493fbda1a199c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala, Michael Gerdau
+@c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
 @setfilename web.info
 @settitle LilyPond -- Notation für Jedermann
@@ -50,22 +50,30 @@ License''.
 
 @c Info files are no longer installed in a subdirectory, images are
 @c expected to be found in lilypond/ subdirectory.
-@dircategory GNU LilyPond --- Das Notensatzsystem
+@dircategory LilyPond -- das Notensatzsystem
 @direntry
-* LilyPond Handbuch zum Lernen: (lilypond-learning).  Hier beginnen.
-* Glossar: (music-glossary).               Begriffsübersetzungen von Englisch in andere Sprachen.
-* LilyPond Notationshandbuch: (lilypond-notation).                           LilyPond Notationshandbuch.
-* LilyPond Schnipsel: (lilypond-snippets).         Viele Tricks, Tipps und Beispiele.
-* LilyPond Referenz der Interna: (lilypond-internals).  Definitionen zum Anpassen.
-* LilyPond Application Usage: (lilypond-usage). Programme installieren und benutzen.
-* LilyPond Webseite: (lilypond-web).    Vorschau der neuen Webseite.
-* lilypond: (lilypond-usage)LilyPond starten.  Das LilyPond-Programm aufrufen.
-* abc2ly: (lilypond-usage)abc2ly starten.      ABC-Notation importieren.
-* convert-ly: (lilypond-usage)Dateien mit convert-ly aktualisieren. Ältere LilyPond-Versionen
-* etf2ly: (lilypond-usage)etf2ly starten.      Finale-Dateien importieren.
-* lilypond-book: (lilypond-usage)LilyPond-book. Text und Musik integrieren.
-* midi2ly: (lilypond-usage)midi2ly starten.    MIDI importieren.
-* musicxml2ly: (lilypond-usage)musicxml2ly starten.  MusicXML-Dateien importieren.
+* Neuerungen: (lilypond-changes).       Neuerungen seit Version 2.20.
+* Beitragen: (lilypond-contributor).    Zu LilyPond beitragen.
+* Aufsatz: (lilypond-essay).            Die Philosophie hinter LilyPond.
+* Extending: (lilypond-extending).      Scheme in LilyPond benutzen.
+* Interna: (lilypond-internals).        Referenz für Anpassungen.
+* Lernen: (lilypond-learning).          Einführung.  Hier starten.
+* Glossar: (music-glossary).            Begriffsübersetzungen aus dem Englischen.
+* Notation: (lilypond-notation).        Notationshandbuch.
+* Schnipsel: (lilypond-snippets).       Tricks, Tipps und Beispiele.
+* Benutzung: (lilypond-usage).          LilyPond installieren und benutzen.
+* Webseite: (lilypond-web).             Info-Version von lilypond.org.
+@end direntry
+
+@dircategory LilyPond applications
+@direntry
+* abc2ly: (lilypond-usage)abc2ly starten.                           ABC-Dateien importieren.
+* convert-ly: (lilypond-usage)Dateien mit convert-ly aktualisieren. Ältere LilyPond-Dateien aktualisieren.
+* etf2ly: (lilypond-usage)etf2ly starten.                           Finale-Dateien importieren.
+* lilypond-book: (lilypond-usage)LilyPond-book.                     Text und Musik integrieren.
+* lilypond: (lilypond-usage)LilyPond starten.                       Das LilyPond-Programm aufrufen.
+* midi2ly: (lilypond-usage)midi2ly starten.                         MIDI-Dateien importieren.
+* musicxml2ly: (lilypond-usage)musicxml2ly starten.                 MusicXML-Dateien importieren.
 @end direntry
 
 
@@ -122,7 +130,7 @@ Notendruck in bestmöglicher Qualität zu erstellen.  Mit dem
 Programm wird es möglich, die Ästhetik handgestochenen
 traditionellen Notensatzes mit computergesetzten Noten zu
 erreichen.  LilyPond ist Freie Software und Teil des
-@uref{http://gnu.org,GNU-Projekts}.
+@uref{https://gnu.org,GNU-Projekts}.
 
 @divClass{align-right}
 Lesen Sie mehr in der @ref{Einleitung}!
