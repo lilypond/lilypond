@@ -65,10 +65,10 @@ def main():
     last_year = year - 1
     last_year_1d = last_year % 10
     for f in files:
-        pytt.pytt('(Copyright|\(c\)|\(C\)|@copyright\{\})\s*%(last_year)s(?=[^-]|$)' % locals(),
+        pytt.pytt(r'(Copyright|\(c\)|\(C\)|@copyright\{\})\s*%(last_year)s(?=[^-]|$)' % locals(),
                   r'\1 %(last_year)s--%(year)s' % locals(),
                   f)
-        pytt.pytt('(Copyright|\(c\)|\(C\)|@copyright\{\})\s*([^-]*)--(20[0-9][0-%(last_year_1d)s])' % locals(),
+        pytt.pytt(r'(Copyright|\(c\)|\(C\)|@copyright\{\})\s*([^-]*)--(20[0-9][0-%(last_year_1d)s])' % locals(),
                   r'\1 \2--%(year)s' % locals(),
                   f)
 
