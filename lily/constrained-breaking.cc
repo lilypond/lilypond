@@ -476,15 +476,15 @@ Constrained_breaking::initialize (Paper_score *ps,
 
   /* work out all the starting indices */
   start_.reserve (pagebreak_col_indices.size ());
-  for (vsize i = 0; i < pagebreak_col_indices.size (); i++)
+  for (vsize pb_col : pagebreak_col_indices)
     {
-      if (i)
-        {
-          assert (pagebreak_col_indices[i] > pagebreak_col_indices[i - 1]);
-        }
+      /* it would seem logical to require that pagebreak_col_indices
+         is strictly increasing, but repeated entries can happen,
+         eg. when starting a score with a \pageBreak
+       */
       vsize j;
       for (j = 0;
-           j + 1 < breaks_.size () && breaks_[j] < pagebreak_col_indices[i];
+           j + 1 < breaks_.size () && breaks_[j] < pb_col;
            j++)
         ;
       starting_breakpoints_.push_back (j);
