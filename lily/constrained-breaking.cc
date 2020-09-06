@@ -132,7 +132,7 @@ Constrained_breaking::space_line (vsize i, vsize j)
   // get_line_configuration().  What is the real cost?
   vector<Paper_column *> const line (all_.begin () + breaks_[i],
                                      all_.begin () + breaks_[j] + 1);
-  Interval line_dims = line_dimensions_int (pscore_->layout (), i);
+  Interval line_dims = line_dimension_interval (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
 
@@ -446,8 +446,8 @@ Constrained_breaking::initialize (Paper_score *ps,
                                           &score_markup_min_distance_,
                                           ly_symbol2scm ("minimum-distance"));
 
-  Interval first_line = line_dimensions_int (pscore_->layout (), 0);
-  Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
+  Interval first_line = line_dimension_interval (pscore_->layout (), 0);
+  Interval other_lines = line_dimension_interval (pscore_->layout (), 1);
   /* do all the rod/spring problems */
   breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();

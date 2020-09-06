@@ -77,7 +77,7 @@ SCM get_font_table (Output_def *def);
 void assign_context_def (Output_def *m, SCM transdef);
 SCM find_context_def (Output_def const *m, SCM name);
 
-Interval line_dimensions_int (Output_def *def, int);
+Interval line_dimension_interval (Output_def *def, vsize n);
 
 Font_metric *select_encoded_font (Output_def *layout, SCM chain);
 Font_metric *select_font (Output_def *layout, SCM chain);

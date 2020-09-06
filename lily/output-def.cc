@@ -245,7 +245,7 @@ Output_def::normalize ()
 /* FIXME.  This is broken until we have a generic way of
    putting lists inside the \layout block.  */
 Interval
-line_dimensions_int (Output_def *def, int n)
+line_dimension_interval (Output_def *def, vsize n)
 {
   Real lw = def->get_dimension (ly_symbol2scm ("line-width"));
   Real ind = n
