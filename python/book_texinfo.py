@@ -359,13 +359,14 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         return s
 
     def snippet_output(self, basename, snippet):
+        def find(fn):
+            p = os.path.join(self.global_options.output_dir, fn)
+            if os.path.exists(p):
+                return p
+            return ''
+
         s = ''
         base = basename
-        def find(fn):
-            return book_base.find_file(
-                fn, self.global_options.include_path, self.global_options.original_dir,
-                raise_error=False)
-
         if book_snippets.DOCTITLE in snippet.option_dict:
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + self.document_language
