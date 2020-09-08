@@ -1576,7 +1576,6 @@ corresponding default values as @code{doc-section.sh}.
 
 @menu
 * Stripping whitespace and generating menus::
-* Stripping whitespace only::
 * Updating doc with convert-ly::
 @end menu
 
@@ -1600,17 +1599,6 @@ you will need to add a blank @code{@@menu} section:
 @example
 @@menu
 @@end menu
-@end example
-
-@node Stripping whitespace only
-@unnumberedsubsubsec Stripping whitespace only
-
-@c TODO: should this be documented elsewhere?  It's useful for
-@c more than just docs.
-To remove extra whitespace from the ends of lines, run
-
-@example
-scripts/auxiliar/strip-whitespace.py @var{FILENAME}
 @end example
 
 
