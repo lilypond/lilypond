@@ -99,7 +99,7 @@ REFCHECK="$LILYPOND_GIT/scripts/auxiliar/ref_check.py"
 MANUAL="$1"
 SECTION="$2"
 OUTPUT_DIR="$DOC_DIR/$SECTION"
-MANUAL_PATH="$LILYPOND_GIT/Documentation/$MANUAL"
+MANUAL_PATH="$LILYPOND_GIT/Documentation/en/$MANUAL"
 SECTION_PATH="$MANUAL_PATH/$SECTION.itely"
 
 if test ! -d "$LILYPOND_BUILD_DIR"; then
@@ -118,18 +118,15 @@ if test ! -e "$SECTION_PATH"; then
 fi
 
 if test ! -d "$DOC_DIR"; then
-    mkdir "$DOC_DIR"
+    mkdir -p "$DOC_DIR"
     cp "$LILYPOND_BUILD_DIR/Documentation/out/version.itexi" "$DOC_DIR"
 fi
-if test ! -d "$OUTPUT_DIR"; then
-    mkdir "$OUTPUT_DIR"
-fi
 if test ! -d "$OUTPUT_DIR/out"; then
-    mkdir "$OUTPUT_DIR/out"
+    mkdir -p "$OUTPUT_DIR/out"
 fi
 
-cp "$LILYPOND_GIT/Documentation/common-macros.itexi" "$OUTPUT_DIR/common-macros.itexi"
-cp "$LILYPOND_GIT/Documentation/macros.itexi" "$DOC_DIR/macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/common-macros.itexi" "$OUTPUT_DIR/common-macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/macros.itexi" "$DOC_DIR/macros.itexi"
 cp "$DOC_DIR/version.itexi" "$OUTPUT_DIR/version.itexi"
 cp -r "$LILYPOND_GIT/Documentation/pictures/" "$OUTPUT_DIR/out/pictures"
 

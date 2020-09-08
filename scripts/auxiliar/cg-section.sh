@@ -76,24 +76,20 @@ TEXI2HTML="texi2html"
 REFCHECK="$LILYPOND_GIT/scripts/auxiliar/ref_check.py"
 
 SECTION="$1"
-DOCDIR="$HOME/lilypond/tempdocs"
 OUTPUT_DIR="$DOC_DIR/contributor"
-SECTION_PATH="$LILYPOND_GIT/Documentation/contributor/$SECTION.itexi"
+SECTION_PATH="$LILYPOND_GIT/Documentation/en/contributor/$SECTION.itexi"
 
 if test ! -e "$SECTION_PATH"; then
     echo "$SECTION_PATH did not exist; is $SECTION a valid section in the Contributor's Guide?" >&2
     exit 1
 fi
 
-if test ! -d "$OUTPUT_DIR"; then
-    mkdir "$OUTPUT_DIR"
-fi
 if test ! -d "$OUTPUT_DIR/out"; then
-    mkdir "$OUTPUT_DIR/out"
+    mkdir -p "$OUTPUT_DIR/out"
 fi
 
-cp "$LILYPOND_GIT/Documentation/common-macros.itexi" "$OUTPUT_DIR/common-macros.itexi"
-cp "$LILYPOND_GIT/Documentation/macros.itexi" "$DOC_DIR/macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/common-macros.itexi" "$OUTPUT_DIR/common-macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/macros.itexi" "$DOC_DIR/macros.itexi"
 cp "$LILYPOND_BUILD_DIR/Documentation/out/version.itexi" "$OUTPUT_DIR"
 
 if test -e "$OUTPUT_DIR/$SECTION.html"; then
