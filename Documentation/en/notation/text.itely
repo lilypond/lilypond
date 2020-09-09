@@ -1250,7 +1250,7 @@ Some commands may require an increase in the padding around the text;
 this is achieved with some markup commands exhaustively described in
 @ref{Align}.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,line-width=14\cm]
 \markup \fill-line {
   \center-column {
     \box "Charles Ives (1874 - 1954)"

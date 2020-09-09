@@ -397,7 +397,7 @@ Its appearance may be customized by overrides for @code{thickness},
 
 Draws a line across a page, where the property @code{span-factor}
 controls what fraction of the page is taken up.
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\column {
     \\draw-hline
@@ -681,7 +681,7 @@ others.
 makes little sense, it would end up adding the provided value to the one of
 @code{offset}.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\markup \\justify-line {
   \\underline \"underlined\"
   \\override #'(offset . 5)
@@ -1323,7 +1323,7 @@ Inline an image of music.  The reference point (usually the middle
 staff line) of the lowest staff in the top system is placed on the
 baseline.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm,staffsize=16]
+@lilypond[verbatim,quote,line-width=14\\cm,staffsize=16]
 \\markup {
   \\score {
     \\new PianoStaff <<
@@ -1559,7 +1559,7 @@ words varies according to their relative lengths."
 The markups are spaced or flushed to fill the entire line.
 If there are no arguments, return an empty stencil.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\column {
     \\fill-line {
@@ -1594,7 +1594,7 @@ If there are no arguments, return an empty stencil.
 The markups are spread to fill the entire line and separated by equal
 space.  If there are no arguments, return an empty stencil.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\justify-line {
     Constant space between neighboring words
@@ -1763,7 +1763,7 @@ Like @code{\\wordwrap}, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\justify {
     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -1785,7 +1785,7 @@ Use @code{\\override #'(line-width . @var{X})} to set the line width;
   "Simple wordwrap.  Use @code{\\override #'(line-width . @var{X})} to set
 the line width, where @var{X} is the number of staff spaces.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\wordwrap {
     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -1886,7 +1886,7 @@ the line width, where @var{X} is the number of staff spaces.
   #:category align
   "Wordwrap the data which has been assigned to @var{symbol}.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\header {
   title = \"My title\"
   myText = \"Lorem ipsum dolor sit amet, consectetur
@@ -1920,7 +1920,7 @@ the line width, where @var{X} is the number of staff spaces.
   #:category align
   "Justify the data which has been assigned to @var{symbol}.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\header {
   title = \"My title\"
   myText = \"Lorem ipsum dolor sit amet, consectetur
@@ -2462,7 +2462,7 @@ markup definition."
 from the markup contained within.  If @var{symbol} is not defined, it
 returns an empty markup.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\header {
   myTitle = \"myTitle\"
   title = \\markup {
@@ -4702,7 +4702,7 @@ with a line of markups @var{pattern} in between.
 Patterns are spaced apart by @var{space}.
 Patterns are aligned to the @var{dir} markup.
 
-@lilypond[verbatim,quote,line-width=14.5\\cm]
+@lilypond[verbatim,quote,line-width=14\\cm]
 \\markup \\column {
   \"right-aligned :\"
   \\fill-with-pattern #1 #RIGHT . first right
