@@ -227,6 +227,7 @@
 
   \name Score
 
+  associatedVoiceType = #'Voice
   melismaBusyProperties = #default-melisma-properties
   instrumentName = "bright acoustic"
   midiChannelMapping = #'staff
