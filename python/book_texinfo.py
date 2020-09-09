@@ -374,7 +374,7 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
                 fullpath = find(t)
                 if fullpath:
                     s += '\n@lydoctitle %s\n\n' % codecs.open(
-                        fullpath, 'r', 'utf-8').read()
+                        fullpath, 'r', 'utf-8').read().replace(",", "@comma{}")
                     break
 
         if book_snippets.TEXIDOC in snippet.option_dict:
