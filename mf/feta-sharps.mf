@@ -266,6 +266,36 @@ fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
 fet_endchar;
 
 
+fet_beginchar ("1/2 Sharp (1 beam)", "sharp.slash.stem");
+  save outer_space;
+  save half_height, interbeam_dist;
+
+  half_height# := 0.5 onestemmed_height#;
+  define_pixels (half_height);
+  interbeam_dist := default_interbeam_dist;
+
+  set_char_box (0, 0.7 staff_space#, half_height#, half_height#);
+  d := d - feta_space_shift;
+
+  outer_space := hround ((w - stem_thickness) / 2);
+
+  w := 2 outer_space + stem_thickness;
+
+  draw_sharp_beam (w, 0);
+
+  pickup pencircle scaled stem_thickness;
+
+  lft x5 = lft x6 = outer_space;
+  top y6 = half_height;
+  bot y5 = -top y6 + feta_space_shift;
+
+  draw_gridline (z5, z6, stem_thickness);
+
+  labels (5, 6);
+  draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
 fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
   save dist_between_stems;
   save outer_space;

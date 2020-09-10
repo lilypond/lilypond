@@ -67,6 +67,22 @@ which scares away people.
 
 
 @item
+An accidental glyph corresponding to SMuFL code
+U+E2E3 has been added (Extended Helmholtz-Ellis
+accidentals: Raise by one undecimal quartertone).
+
+@lilypond[quote]
+{
+  \override Accidental.glyph-name-alist =
+    #(assv-set!
+      (copy-tree standard-alteration-glyph-name-alist)
+        1/4 "accidentals.sharp.slash.stem")
+  c'2 cih'
+}
+@end lilypond
+
+
+@item
 A new grob @code{DurationLine} is now available.
 It continues a rhythmic grob with a line, ending at the next rhythmic grob.
 Possible styles are @code{'beam}, @code{'line}, @code{'dashed-line},
