@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms"
@@ -12,12 +12,13 @@
   texidoc = "
 Beat grouping within a measure is controlled by the context property
 @code{beatStructure}.  Values of @code{beatStructure} are established
-for many time signatures in @code{scm/time-signature-settings.scm}.
-Values of @code{beatStructure} can be changed or set with @code{\\set}.
-Alternatively, @code{\\time} can be used to both set the time signature
-and establish the beat structure. For this, you specify the internal
-grouping of beats in a measure as a list of numbers (in Scheme syntax)
-before the time signature.
+for many time signatures in
+@code{scm/time-signature-settings.scm}.  Values of @code{beatStructure}
+can be changed or set with @code{\\set}. Alternatively, @code{\\time}
+can be used to both set the time signature and establish the beat
+structure. For this, you specify the internal grouping of beats in a
+measure as a list of numbers (in Scheme syntax) before the time
+signature.
 
 @code{\\time} applies to the @code{Timing} context, so it will not
 reset values of @code{beatStructure} or @code{baseMoment} that are set
@@ -31,7 +32,7 @@ methods, while the 5/8 measure is grouped according to the default
 setting in @code{scm/time-signature-settings.scm}:
 
 "
-  doctitle = "Conducting signs measure grouping signs"
+  doctitle = "Conducting signs, measure grouping signs"
 } % begin verbatim
 
 \score {

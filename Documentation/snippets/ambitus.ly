@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches, vocal-music"
@@ -12,9 +12,8 @@
   texidoc = "
 Ambitus indicate pitch ranges for voices.
 
-
-Accidentals only show up if they are not part of the key signature.
-@code{AmbitusNoteHead} grobs also have ledger lines.
+Accidentals only show up if they are not part of the key
+signature.  @code{AmbitusNoteHead} grobs also have ledger lines.
 
 "
   doctitle = "Ambitus"

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms"
@@ -14,8 +14,8 @@ By default, only the numerator of the tuplet number is printed over the
 tuplet bracket, i.e., the numerator of the argument to the
 @code{\\tuplet} command.
 
-Alternatively, num:den of the tuplet number may be printed, or the
-tuplet number may be suppressed altogether.
+Alternatively, @emph{num}:@emph{den} of the tuplet number may be
+printed, or the tuplet number may be suppressed altogether.
 
 "
   doctitle = "Changing the tuplet number"

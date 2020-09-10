@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "connecting-notes, rhythms, tweaks-and-overrides"
@@ -12,9 +12,6 @@
   texidoc = "
 Beam positions may be controlled manually, by overriding the
 @code{positions} setting of the @code{Beam} grob.
-
-
-
 
 "
   doctitle = "Manually controlling beam positions"

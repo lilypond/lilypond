@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, tweaks-and-overrides"
@@ -20,7 +20,7 @@ snippet)
 2) you can add an invisible voice and attach the fret diagrams to the
 invisible notes in that voice (as shown in the second example).
 
- If you need to move the fret according with a rythmic position inside
+If you need to move the fret according with a rythmic position inside
 the bar (in the example, the third beat of the measure) the second
 example is better, because the fret is aligned with the third beat
 itself.

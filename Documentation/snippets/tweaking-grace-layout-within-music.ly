@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -12,9 +12,11 @@
   texidoc = "
 The layout of grace expressions can be changed throughout the music
 using the functions @code{add-grace-property} and
-@code{remove-grace-property}. The following example undefines the
-@code{Stem} direction for this grace, so that stems do not always point
-up, and changes the default note heads to crosses.
+@code{remove-grace-property}.
+
+The following example undefines the @code{Stem} direction for this
+grace, so that stems do not always point up, and changes the default
+note heads to crosses.
 
 "
   doctitle = "Tweaking grace layout within music"

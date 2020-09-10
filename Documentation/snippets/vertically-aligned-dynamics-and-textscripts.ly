@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "spacing, tweaks-and-overrides, workaround"
@@ -13,7 +13,8 @@
 All @code{DynamicLineSpanner} objects (hairpins and dynamic texts) are
 placed with their reference line at least @code{'staff-padding} from
 the staff, unless other notation forces them to be farther. Setting
-@code{'staff-padding} to a sufficiently large value aligns the dynamics.
+@code{'staff-padding} to a sufficiently large value aligns the
+dynamics.
 
 The same idea, together with @code{\\textLengthOn}, is used to align
 the text scripts along their baseline.

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, fretted-strings, spacing, specific-notation"
@@ -12,11 +12,11 @@
   texidoc = "
 By default, vertically oriented fingerings are positioned outside the
 staff; that behavior, however, may be disabled.   Attention needs to be
-paid to situations where fingerings and stems are in the same direction:
-by default, fingerings will avoid only beamed stems.  That setting can
-be changed to avoid no stems or all stems; the following example
-demonstrates these two options, as well as how to go back to the
-default behavior.
+paid to situations where fingerings and stems are in the same
+direction: by default, fingerings will avoid only beamed stems.  That
+setting can be changed to avoid no stems or all stems; the following
+example demonstrates these two options, as well as how to go back to
+the default behavior.
 
 "
   doctitle = "Allowing fingerings to be printed inside the staff"

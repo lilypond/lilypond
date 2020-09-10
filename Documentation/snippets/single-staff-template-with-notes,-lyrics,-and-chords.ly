@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords, really-simple, template, vocal-music"
@@ -14,7 +14,7 @@ This template allows the preparation of a song with melody, words, and
 chords.
 
 "
-  doctitle = "Single staff template with notes lyrics and chords"
+  doctitle = "Single staff template with notes, lyrics, and chords"
 } % begin verbatim
 
 melody = \relative c' {

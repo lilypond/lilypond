@@ -4,17 +4,18 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "contemporary-notation, scheme-language, staff-notation, tweaks-and-overrides"
 
   texidoc = "
 The function takes the default @code{Tie.stencil} as an argument,
-calculating the result relying on the extents of this default. Further
-tweaking is possible by overriding @code{Tie.details.height-limit} or
-with @code{\\shape}. It's also possible to change the custom-definition
-on the fly.
+calculating the result relying on the extents of this default.
+
+Further tweaking is possible by overriding
+@code{Tie.details.height-limit} or with @code{\\shape}. It's also
+possible to change the custom-definition on the fly.
 
 "
   doctitle = "Flat Ties"

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "automatic-notation, keyboards, template, vocal-music"
@@ -12,7 +12,7 @@
   texidoc = "
 This template adds an automatic piano reduction to the standard SATB
 vocal score demonstrated in @qq{Vocal ensemble template}. This
-demonstrates one of the strengths of LilyPond – you can use a music
+demonstrates one of the strengths of LilyPond -- you can use a music
 definition more than once. If any changes are made to the vocal notes
 (say, @code{tenorMusic}), then the changes will also apply to the piano
 reduction.

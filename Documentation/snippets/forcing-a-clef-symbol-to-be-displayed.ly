@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches"
@@ -13,8 +13,8 @@
 When a clef sign has already been displayed and it has not been changed
 to a different clef, then repeating the @code{\\clef} command will be
 ignored by LilyPond, since it is not a change of clef.  It is possible
-to force the clef to be redisplayed using the command @code{\\set
-Staff.forceClef = ##t}.
+to force the clef to be redisplayed using the command
+@code{\\set Staff.forceClef = ##t}.
 
 "
   doctitle = "Forcing a clef symbol to be displayed"

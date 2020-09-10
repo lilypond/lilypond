@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, stylesheet, version-specific"
@@ -12,17 +12,25 @@
   texidoc = "
 For flamenco guitar, special notation is used:
 
-
-* a golpe symbol to indicate a slap on the guitar body with the nail of
-the ring finger * an arrow to indicate (the direction of) strokes *
+@itemize
+@item
+a @emph{golpe} symbol to indicate a slap on the guitar body with the
+nail of the ring finger
+@item
+an arrow to indicate (the direction of) strokes
+@item
 different letters for fingering (@qq{p}: thumb, @qq{i}: index finger,
-@qq{m}: middle finger, @qq{a}: ring finger and @qq{x}: little finger) *
-3- and 4-finger rasgueados; stroke upwards with all fingers, ending
-with an up- and down using the index finger * abanicos: strokes (in
-tuples) with thumb (down), little and index finger (both up). There's
-also an abanico 2 where middle and ring finger are used instead of the
-little finger. * alza pua: fast playing with the thumb
-
+@qq{m}: middle finger, @qq{a}: ring finger and @qq{x}: little finger)
+@item
+3- and 4-finger @emph{rasgueados}; stroke upwards with all fingers,
+ending with an up- and down using the index finger
+@item
+@emph{abanicos}: strokes (in tuples) with thumb (down), little and
+index finger (both up). There's also an @emph{abanico 2} where middle
+and ring finger are used instead of the little finger.
+@item
+@emph{alza pua}: fast playing with the thumb
+@end itemize
 
 Most figures use arrows in combination with fingering; with abanicos
 and rasgueados, noteheads are printed only for the first chord.
@@ -33,6 +41,7 @@ This snippet contains some header-like code that can be copied as
 "
   doctitle = "Flamenco notation"
 } % begin verbatim
+
 
 %%%%%%%  Cut here ----- Start 'flamenco.ly'
 

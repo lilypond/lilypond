@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "breaks, repeats, symbols-and-glyphs, workaround"
 
   texidoc = "
-If you want to place an exiting segno sign and add text like @qq{D.S.
-al Coda} next to it where usually the staff lines are you can use this
+If you want to place an exiting segno sign and add text like @qq{D.S. al
+Coda} next to it where usually the staff lines are you can use this
 snippet. The coda will resume in a new line. There is a variation
 documented in this snippet, where the coda will remain on the same
 line.

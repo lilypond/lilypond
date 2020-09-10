@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
@@ -13,9 +13,9 @@
 Changing the Clef glyph, its position, or the ottavation does not
 change the position of subsequent notes on the staff.  To get key
 signatures on their correct staff lines @code{middleCClefPosition} must
-also be specified, with positive or negative values moving @code{middle
-C} up or down respectively, relative to the staff's center line.
-
+also be specified, with positive or negative values moving
+@code{middle C} up or down respectively, relative to the staff's center
+line.
 
 For example, @code{\\clef \"treble_8\"} is equivalent to setting the
 @code{clefGlyph}, @code{clefPosition} (the vertical position of the
@@ -23,7 +23,6 @@ clef itself on the staff), @code{middleCPosition} and
 @code{clefTransposition}. Note that when any of these properties
 (except @code{middleCPosition}) are changed a new clef symbol is
 printed.
-
 
 The following examples show the possibilities when setting these
 properties manually. On the first line, the manual changes preserve the

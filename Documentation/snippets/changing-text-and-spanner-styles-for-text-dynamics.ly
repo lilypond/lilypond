@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
   texidoc = "
-The text used for crescendos and decrescendos can be changed by
-modifying the context properties @code{crescendoText} and
+The text used for @emph{crescendos} and @emph{decrescendos} can be
+changed by modifying the context properties @code{crescendoText} and
 @code{decrescendoText}.
 
 The style of the spanner line can be changed by modifying the

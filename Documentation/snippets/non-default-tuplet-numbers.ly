@@ -27,20 +27,25 @@ to the tuplet number or tuplet fraction.
   \tuplet 3/2  { c4. c4. c4. c4. }
   \once \override TupletNumber.text =
     #(tuplet-number::append-note-wrapper
-      (tuplet-number::non-default-tuplet-fraction-text 12 7) (ly:make-duration 3 0))
+      (tuplet-number::non-default-tuplet-fraction-text 12 7)
+      (ly:make-duration 3 0))
   \tuplet 3/2  { c4. c4. c4. c4. }
   \once \override TupletNumber.text =
     #(tuplet-number::append-note-wrapper
-      tuplet-number::calc-denominator-text (ly:make-duration 2 0))
+      tuplet-number::calc-denominator-text
+      (ly:make-duration 2 0))
   \tuplet 3/2  { c8 c8 c8 c8 c8 c8 }
   \once \override TupletNumber.text =
     #(tuplet-number::append-note-wrapper
-      tuplet-number::calc-fraction-text (ly:make-duration 2 0))
+      tuplet-number::calc-fraction-text
+      (ly:make-duration 2 0))
   \tuplet 3/2  { c8 c8 c8 c8 c8 c8 }
   \once \override TupletNumber.text =
-    #(tuplet-number::fraction-with-notes (ly:make-duration 2 1) (ly:make-duration 3 0))
+    #(tuplet-number::fraction-with-notes
+      (ly:make-duration 2 1) (ly:make-duration 3 0))
   \tuplet 3/2  { c4. c4. c4. c4. }
   \once \override TupletNumber.text =
-    #(tuplet-number::non-default-fraction-with-notes 12 (ly:make-duration 3 0) 4 (ly:make-duration 2 0))
+    #(tuplet-number::non-default-fraction-with-notes 12
+      (ly:make-duration 3 0) 4 (ly:make-duration 2 0))
   \tuplet 3/2  { c4. c4. c4. c4. }
 }

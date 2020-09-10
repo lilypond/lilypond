@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings"
@@ -35,12 +35,12 @@ lower = \relative c {
     \new StaffGroup = "tab with traditional" <<
       \new Staff = "guitar traditional" <<
         \clef "treble_8"
-        \context Voice = "upper" \upper
-        \context Voice = "lower" \lower
+        \new Voice = "upper" \upper
+        \new Voice = "lower" \lower
       >>
       \new TabStaff = "guitar tab" <<
-        \context TabVoice = "upper" \upper
-        \context TabVoice = "lower" \lower
+        \new TabVoice = "upper" \upper
+        \new TabVoice = "lower" \lower
       >>
     >>
   >>

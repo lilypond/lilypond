@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings"
@@ -14,7 +14,7 @@ This example combines left-hand fingering, string indications, and
 right-hand fingering.
 
 "
-  doctitle = "Fingerings string indications and right-hand fingerings"
+  doctitle = "Fingerings, string indications, and right-hand fingerings"
 } % begin verbatim
 
 #(define RH rightHandFinger)

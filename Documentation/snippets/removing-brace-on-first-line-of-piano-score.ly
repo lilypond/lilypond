@@ -4,15 +4,17 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "keyboards, staff-notation, tweaks-and-overrides"
 
   texidoc = "
 This snippet removes the first brace from a @code{PianoStaff} or a
-@code{GrandStaff}. It may be useful when cutting and pasting the
-engraved image into existing music.
+@code{GrandStaff}.
+
+It may be useful when cutting and pasting the engraved image into
+existing music.
 
 It uses @code{\\alterBroken}.
 

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "keyboards, specific-notation, symbols-and-glyphs"
@@ -25,7 +25,9 @@ Reference.
 \new PianoStaff
 <<
   \new Staff \relative {
-    \clef treble \discant "10" r8 s32 f'[ bes f] s e[ a e] s d[ g d] s16 e32[ a]
+    \clef treble
+    \discant "10"
+    r8 s32 f'[ bes f] s e[ a e] s d[ g d] s16 e32[ a]
     <<
       { r16 <f bes> r <e a> r <d g> }
       \\
@@ -33,8 +35,11 @@ Reference.
     >> |
     <cis e a>1
   }
+
   \new Staff \relative {
-    \clef treble \freeBass "1" r8 d'32 s16. c32 s16. bes32 s16. a32[ cis] s16
+    \clef treble
+    \freeBass "1"
+    r8 d'32 s16. c32 s16. bes32 s16. a32[ cis] s16
     \clef bass \stdBass "Master"
     <<
       { r16 <f, bes d>^"b" r <e a c>^"am" r <d g bes>^"gm" |

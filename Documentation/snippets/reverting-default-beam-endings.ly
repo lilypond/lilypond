@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms, version-specific"
 
   texidoc = "
 To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary first
-to override the default beam endings  in 12/8, and then to set up the
+to override the default beam endings in 12/8, and then to set up the
 new beaming endings:
 
 "

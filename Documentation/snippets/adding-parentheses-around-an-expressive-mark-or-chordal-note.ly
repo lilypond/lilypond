@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, workaround"
@@ -12,7 +12,6 @@
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses
 objects in parentheses.  The associated grob is @code{ParenthesesItem}.
-
 
 "
   doctitle = "Adding parentheses around an expressive mark or chordal note"

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "headword"
@@ -17,7 +17,7 @@ Rhythms headword
 } % begin verbatim
 
 %% http://lsr.di.unimi.it/LSR/Item?id=822
-%% see also https://lilypond.org/doc/v2.18/Documentation/notation/rhythms
+%% see also http://lilypond.org/doc/v2.18/Documentation/notation/rhythms
 
 % Beethoven, Op. 81a
 % Piano sonata 26 - Das Lebewohl

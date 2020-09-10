@@ -4,16 +4,16 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, really-cool, scheme-language, text"
 
   texidoc = "
 This example provides a function to typeset a hairpin (de)crescendo
-with some additional text below it, such as @qq{molto} or @qq{poco}.
-The added text will change the direction according to the direction of
-the hairpin. The Hairpin is aligned to DynamicText.
+with some additional text below it, such as @qq{molto} or @qq{poco}. The
+added text will change the direction according to the direction of the
+hairpin. The Hairpin is aligned to DynamicText.
 
 The example also illustrates how to modify the way an object is
 normally printed, using some Scheme code.

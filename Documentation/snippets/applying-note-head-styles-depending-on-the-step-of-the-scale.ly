@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, pitches"
@@ -12,11 +12,12 @@
   texidoc = "
 The @code{shapeNoteStyles} property can be used to define various note
 head styles for each step of the scale (as set by the key signature or
-the @code{tonic} property). This property requires a set of symbols,
-which can be purely arbitrary (geometrical expressions such as
-@code{triangle}, @code{cross}, and @code{xcircle} are allowed) or based
-on old American engraving tradition (some latin note names are also
-allowed).
+the @code{tonic} property).
+
+This property requires a set of symbols, which can be purely arbitrary
+(geometrical expressions such as @code{triangle}, @code{cross}, and
+@code{xcircle} are allowed) or based on old American engraving
+tradition (some latin note names are also allowed).
 
 That said, to imitate old American song books, there are several
 predefined note head styles available through shortcut commands such as

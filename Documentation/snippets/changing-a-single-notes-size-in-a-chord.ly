@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, really-simple, simultaneous-notes, specific-notation, tweaks-and-overrides"
@@ -14,13 +14,10 @@ Individual note heads in a chord can be modified with the
 @code{\\tweak} command inside a chord, by altering the @code{font-size}
 property.
 
-
 Inside the chord (within the brackets @code{< >}), before the note to
 be altered, place the @code{\\tweak} command, followed by
 @code{font-size} and define the proper size like @code{#-2} (a tiny
 note head).
-
-
 
 "
   doctitle = "Changing a single note's size in a chord"

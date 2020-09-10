@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings"
@@ -25,13 +25,13 @@ in the following example.
 
   \set strokeFingerOrientations = #'(up down)
   <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >4
-  
+
   \set strokeFingerOrientations = #'(up right down)
   <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >4
-  
+
   \set strokeFingerOrientations = #'(left)
   <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >2
-  
+
   \set strokeFingerOrientations = #'(right)
   c\RH #1
 }

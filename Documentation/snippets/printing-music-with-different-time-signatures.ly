@@ -4,29 +4,29 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "contemporary-notation, percussion, real-music, really-cool, rhythms"
 
   texidoc = "
 In the following snippet, two parts have a completely different time
-signature, yet remain synchronized. The bar lines can no longer be
-printed at the @code{Score} level; to allow independent bar lines in
-each part, the @code{Default_barline_engraver} and
-@code{Timing_translator} are moved from the @code{Score} context to the
-@code{Staff} context.
+signature, yet remain synchronized.
+
+The bar lines can no longer be printed at the @code{Score} level; to
+allow independent bar lines in each part, the
+@code{Default_barline_engraver} and @code{Timing_translator} are moved
+from the @code{Score} context to the @code{Staff} context.
 
 If bar numbers are required, the @code{Bar_number_engraver} should also
 be moved, since it relies on properties set by the
 @code{Timing_translator}; a @code{\\with} block can be used to add bar
 numbers to the relevant staff.
 
-
-
 "
   doctitle = "Printing music with different time signatures"
 } % begin verbatim
+
 
 \paper {
   indent = #0

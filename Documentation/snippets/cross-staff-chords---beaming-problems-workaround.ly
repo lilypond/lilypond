@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords, keyboards, tweaks-and-overrides, workaround"
@@ -15,8 +15,8 @@ cross-staff chords, because no problems with automatic beam collision
 avoidance then arise.  If the stems from the lower staff were used in
 the following example, it would be necessary to change the automatic
 beam collision avoidance settings so that it doesn't detect collisions
-between staves using @code{\\override Staff.Beam.collision-voice-only =
-##t}
+between staves using
+@code{\\override Staff.Beam.collision-voice-only = ##t}
 
 "
   doctitle = "Cross-staff chords - beaming problems workaround"

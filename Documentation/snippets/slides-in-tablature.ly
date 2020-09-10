@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings"
@@ -16,6 +16,7 @@ contexts:
 "
   doctitle = "Slides in tablature"
 } % begin verbatim
+
 
 slides = {
   c'8\3(\glissando d'8\3)

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "headword"
@@ -17,7 +17,7 @@ Vocal headword
 } % begin verbatim
 
 %% http://lsr.di.unimi.it/LSR/Item?id=832
-%% see also https://lilypond.org/doc/v2.18/Documentation/notation/vocal-music
+%% see also http://lilypond.org/doc/v2.18/Documentation/notation/vocal-music
 
 % L. van Beethoven. Symphony No. 9 in D minor, op.125; Finale
 % mm. 216 -- 236
@@ -25,6 +25,7 @@ Vocal headword
 
 \score {
   \new Staff \relative c' {
+    \override Score.BarNumber.self-alignment-X = #LEFT
     \set Score.currentBarNumber = 216
     \bar ""  % make first bar number be shown
     \clef bass \key d \minor \time 3/4

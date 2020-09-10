@@ -4,35 +4,29 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "devel, scheme-language, tweaks-and-overrides"
 
   texidoc = "
-Some grobs can be accessed “laterally” from within another grob’s
+Some grobs can be accessed “laterally” from within another grob's
 callback. These are usually listed as “layout objects” in the “Internal
 properties” section of a grob-interface. The function ly:grob-object is
 used to access these grobs.
-
 
 Demonstrated below are some ways of accessing grobs from within a
 NoteHead callback, but the technique is not limited to NoteHeads.
 However, the NoteHead callback is particularly important, since it is
 the implicit callback used by the @code{\\tweak} command.
 
-
 The example function defined below (\"display-grobs\") is probably not
 that useful, but it demonstrates that the grobs are indeed being
 accessed.
 
-
 Example console output:
 
-
 @code{ #Grob Accidental () #Grob Stem}
-
-
 
 "
   doctitle = "Using ly:grob-object to access grobs with \\tweak"

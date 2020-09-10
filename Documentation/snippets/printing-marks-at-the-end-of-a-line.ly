@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "text"
@@ -21,8 +21,10 @@ to align the right end of the mark with the bar line.
 \relative c'' {
   g2 c
   d,2 a'
-  \once \override Score.RehearsalMark.break-visibility = #end-of-line-visible
-  \once \override Score.RehearsalMark.self-alignment-X = #RIGHT
+  \once \override Score.RehearsalMark.break-visibility =
+    #end-of-line-visible
+  \once \override Score.RehearsalMark.self-alignment-X =
+    #RIGHT
   \mark "D.C. al Fine"
   \break
   g2 b,

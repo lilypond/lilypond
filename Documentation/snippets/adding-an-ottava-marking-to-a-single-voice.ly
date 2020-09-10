@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches, tweaks-and-overrides"
@@ -15,7 +15,7 @@ voice will transpose the position of notes in all voices for the
 duration of the ottava bracket. If the ottavation is only intended to
 apply to one voice, the middleCPosition and ottava bracket may be set
 explicitly.  In this snippet, the bass clef usually has middleCPosition
-set to 6, six positions above the center  line, so in the 8va portion
+set to 6, six positions above the center line, so in the 8va portion
 middleCPosition is 7 positions (one octave) higher still.
 
 "

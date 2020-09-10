@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
@@ -26,7 +26,8 @@ It is possible to change the slope of the Ottava spanner.
        (right . ((Y . 5) ; Change the integer here
                  (padding . 0)
                  (attach-dir . ,RIGHT)
-                 (text . ,(make-draw-dashed-line-markup (cons 0 -1.2))))))
+                 (text . ,(make-draw-dashed-line-markup
+                           (cons 0 -1.2))))))
   \override Staff.OttavaBracket.left-bound-info =
      #ly:line-spanner::calc-left-bound-info-and-text
   \override Staff.OttavaBracket.right-bound-info =

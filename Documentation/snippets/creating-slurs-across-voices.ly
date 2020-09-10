@@ -4,17 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "connecting-notes, expressive-marks, keyboards, real-music, unfretted-strings"
 
   texidoc = "
 In some situations, it may be necessary to create slurs between notes
-from different voices.
-
-The solution is to add invisible notes to one of the voices, using
-@code{\\hideNotes}.
+from different voices. The solution is to add invisible notes to one of
+the voices, using @code{\\hideNotes}.
 
 This example is measure 235 of the Ciaconna from Bach's 2nd Partita for
 solo violin, BWV 1004.

@@ -4,15 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches"
 
   texidoc = "
 Easy notation note heads use the @code{note-names} property of the
-@code{NoteHead} object to determine what appears inside the note head.
-By overriding this property, it is possible to print numbers
+@code{NoteHead} object to determine what appears inside the note
+head.  By overriding this property, it is possible to print numbers
 representing the scale-degree.
 
 A simple engraver can be created to do this for every note head object

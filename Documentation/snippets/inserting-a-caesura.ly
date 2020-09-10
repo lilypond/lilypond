@@ -4,15 +4,16 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
   texidoc = "
 Caesura marks can be created by overriding the @code{'text} property of
-the @code{BreathingSign} object. A curved caesura mark is also
-available.
+the @code{BreathingSign} object.
+
+A curved caesura mark is also available.
 
 "
   doctitle = "Inserting a caesura"

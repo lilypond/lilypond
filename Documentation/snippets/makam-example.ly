@@ -4,15 +4,17 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches, version-specific, world-music"
 
   texidoc = "
 Makam is a type of melody from Turkey using 1/9th-tone microtonal
-alterations. Consult the initialization file @samp{ly/makam.ly} for
-details of pitch names and alterations.
+alterations.
+
+Consult the initialization file @samp{ly/makam.ly} for details of
+pitch names and alterations.
 
 "
   doctitle = "Makam example"

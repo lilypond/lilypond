@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords, specific-notation"
@@ -25,8 +25,8 @@ chExceptionMusic = {
 }
 
 % Convert music to list and prepend to existing exceptions.
-chExceptions = #( append
-  ( sequential-music-to-chord-exceptions chExceptionMusic #t)
+chExceptions = #(append
+  (sequential-music-to-chord-exceptions chExceptionMusic #t)
   ignatzekExceptions)
 
 theMusic = \chordmode {
@@ -39,6 +39,7 @@ theMusic = \chordmode {
   ragged-right = ##t
 }
 
-<< \context ChordNames \theMusic
-   \context Voice \theMusic
+<<
+   \new ChordNames \theMusic
+   \new Voice \theMusic
 >>

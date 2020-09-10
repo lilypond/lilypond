@@ -4,17 +4,17 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "text"
 
   texidoc = "
-By default the @code{\\mark} command centers objects over a bar line.
-This behavior can be modified to align at right or left.
+By default the @code{\\mark} command centers objects over a bar
+line.  This behavior can be modified to align at right or left.
 
 "
-  doctitle = "Aligning objects created with the \\mark command"
+  doctitle = "Aligning objects created with the @code{\\mark} command"
 } % begin verbatim
 
 \relative c' {

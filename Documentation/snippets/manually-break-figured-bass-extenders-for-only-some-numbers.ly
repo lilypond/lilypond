@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords"
@@ -13,7 +13,7 @@
 Figured bass often uses extenders to indicate continuation of the
 corresponding step. However, in this case lilypond is in greedy-mode
 and uses extenders whenever possible. To break individual extenders,
-one can simply use a modifier \\! to a number, which breaks any
+one can simply use a modifier @code{\\!} to a number, which breaks any
 extender attributed to that number right before the number.
 
 "

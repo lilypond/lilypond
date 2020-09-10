@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "staff-notation, syntax-and-expressions, tweaks-and-overrides"
@@ -12,8 +12,10 @@
   texidoc = "
 For @code{TrillSpanner}, the @code{minimum-length} property becomes
 effective only if the @code{set-spacing-rods} procedure is called
-explicitly.  To do this, the @code{springs-and-rods} property should be
-set to @code{ly:spanner::set-spacing-rods}.
+explicitly.
+
+To do this, the @code{springs-and-rods} property should be set to
+@code{ly:spanner::set-spacing-rods}.
 
 "
   doctitle = "Extending a TrillSpanner"

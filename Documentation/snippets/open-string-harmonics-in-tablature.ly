@@ -4,17 +4,18 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings"
 
   texidoc = "
-This snippet demonstrates open-string harmonics
+This snippet demonstrates open-string harmonics.
 
 "
   doctitle = "Open string harmonics in tablature"
 } % begin verbatim
+
 
 openStringHarmonics = {
   \textSpannerDown
@@ -23,12 +24,14 @@ openStringHarmonics = {
   \override TextSpanner.dash-period = #1
 
   %first harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "1st harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "1st harm. "
   \harmonicByFret #12 e,2\6\startTextSpan
   \harmonicByRatio #1/2 e,\6\stopTextSpan
 
   %second harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "2nd harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "2nd harm. "
   \harmonicByFret #7 e,\6\startTextSpan
   \harmonicByRatio #1/3 e,\6
   \harmonicByFret #19 e,\6
@@ -37,7 +40,8 @@ openStringHarmonics = {
   %\harmonicByRatio #2/3 < e,\6 a,\5 d\4 >
 
   %third harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "3rd harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "3rd harm. "
   \harmonicByFret #5 e,\6\startTextSpan
   \harmonicByRatio #1/4 e,\6
   \harmonicByFret #24 e,\6
@@ -45,7 +49,8 @@ openStringHarmonics = {
   \break
 
   %fourth harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "4th harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "4th harm. "
   \harmonicByFret #4 e,\6\startTextSpan
   \harmonicByRatio #1/5 e,\6
   \harmonicByFret #9 e,\6
@@ -54,23 +59,27 @@ openStringHarmonics = {
   \harmonicByRatio #3/5 e,\6\stopTextSpan
 
   %fifth harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "5th harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "5th harm. "
   \harmonicByFret #3 e,\6\startTextSpan
   \harmonicByRatio #1/6 e,\6\stopTextSpan
   \break
 
   %sixth harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "6th harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "6th harm. "
   \harmonicByFret #2.7 e,\6\startTextSpan
   \harmonicByRatio #1/7 e,\6\stopTextSpan
 
   %seventh harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "7th harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "7th harm. "
   \harmonicByFret #2.3 e,\6\startTextSpan
   \harmonicByRatio #1/8 e,\6\stopTextSpan
 
   %eighth harmonic
-  \override TextSpanner.bound-details.left.text = \markup\small "8th harm. "
+  \override TextSpanner.bound-details.left.text =
+    \markup\small "8th harm. "
   \harmonicByFret #2 e,\6\startTextSpan
   \harmonicByRatio #1/9 e,\6\stopTextSpan
 }

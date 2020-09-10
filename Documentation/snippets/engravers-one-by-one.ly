@@ -4,34 +4,27 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "contexts-and-engravers, specific-notation"
 
   texidoc = "
-The notation problem, creating a certain symbol, is handled by plugins.
- Each plugin is called an Engraver. In this example, engravers are
-switched on one by one, in the following order:
+The notation problem, creating a certain symbol, is handled by
+plugins.  Each plugin is called an Engraver. In this example, engravers
+are switched on one by one, in the following order:
 
 - note heads,
 
-
 - staff symbol,
-
 
 - clef,
 
-
 - stem,
-
 
 - beams, slurs, accents,
 
-
 - accidentals, bar lines, time signature and key signature.
-
-
 
 Engravers are grouped. For example, note heads, slurs, beams etc. form
 a @code{Voice} context. Engravers for key signature, accidentals, bar

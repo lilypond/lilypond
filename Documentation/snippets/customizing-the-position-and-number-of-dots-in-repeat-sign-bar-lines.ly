@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "scheme-language, symbols-and-glyphs"
@@ -12,7 +12,7 @@
   texidoc = "
 If you want to customize the position and/or number of dots in repeat
 sign bar lines, you can define new custom bar lines or redefine the way
- default repeat signs are drawn.  This snippet shows how.  This may be
+default repeat signs are drawn.  This snippet shows how.  This may be
 particularly helpful when using a staff with custom line-positions, as
 shown in this snippet.
 
@@ -20,7 +20,7 @@ shown in this snippet.
   doctitle = "Customizing the position and number of dots in repeat sign bar lines"
 } % begin verbatim
 
-% \version "2.18.0"
+% \version "2.21.2"
 
 #(define ((make-custom-dot-bar-line dot-positions) grob extent)
 

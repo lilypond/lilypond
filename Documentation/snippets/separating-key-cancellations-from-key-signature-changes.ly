@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "pitches, tweaks-and-overrides"
@@ -14,7 +14,6 @@ By default, the accidentals used for key cancellations are placed
 adjacent to those for key signature changes.  This behavior can be
 changed by overriding the @code{'break-align-orders} property of the
 @code{BreakAlignment} grob.
-
 
 The value of @code{'break-align-orders} is a vector of length 3, with
 quoted lists of breakable items as elements.  This example only
@@ -26,6 +25,7 @@ or the end.
 "
   doctitle = "Separating key cancellations from key signature changes"
 } % begin verbatim
+
 
 \new Staff {
   \override Score.BreakAlignment.break-align-orders =

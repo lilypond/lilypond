@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings"
@@ -13,12 +13,11 @@
 Predefined fret diagrams can be added for new instruments in addition
 to the standards used for guitar.  This file shows how this is done by
 defining a new string-tuning and a few predefined fretboards for the
-Venezuelan cuatro.
+Venezuelan @emph{cuatro}.
 
 This file also shows how fingerings can be included in the chords used
-as reference points for the chord lookup, and displayed in  the fret
+as reference points for the chord lookup, and displayed in the fret
 diagram and the @code{TabStaff}, but not the music.
-
 
 These fretboards are not transposable because they contain string
 information.  This is planned to be corrected in the future.
@@ -107,7 +106,8 @@ primeros = {
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration =
+        #(ly:make-moment 1 16)
     }
   }
   \midi { }

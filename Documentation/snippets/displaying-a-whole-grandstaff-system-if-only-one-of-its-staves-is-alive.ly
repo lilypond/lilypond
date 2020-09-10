@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "contexts-and-engravers"
@@ -14,12 +14,10 @@ In orchestral scores sometimes single or groups of instruments are
 silent for a while and their staves can be removed for that time (with
 @code{\\removeEmptyStaves}).
 
-
-When they play again it is often preferred to show the staves of all
-instruments of such a group. this can be done adding the
-@code{Keep_alive_together_engraver} in the grouper (e.g. a GrandStaff
-or a StaffGroup)
-
+When they play again it is often preferred to show the staves of
+@emph{all instruments of such a group}.  This can be done adding the
+@code{Keep_alive_together_engraver} in the grouper (e.g., a GrandStaff
+or a StaffGroup).
 
 In the example the violins are silent in the 2nd system and in the 3rd
 system. Only the first violin plays the last measure but the staff of

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "midi, scheme-language"
@@ -13,7 +13,6 @@
 The following example shows how to create a dynamic marking, not
 included in the default list, and assign it a specific value so that it
 can be used to affect MIDI output.
-
 
 The dynamic mark @code{\\rfz} is assigned a value of @code{0.9}.
 

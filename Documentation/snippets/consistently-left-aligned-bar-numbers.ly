@@ -4,15 +4,17 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms"
 
   texidoc = "
 When left aligning bar numbers, overlapping problems may occur with
-Staves brackets.  The snippet solves this by keeping right aligned the
-first bar number following line breaks.
+Staves brackets.
+
+The snippet solves this by keeping right aligned the first bar number
+following line breaks.
 
 "
   doctitle = "Consistently left aligned bar numbers"

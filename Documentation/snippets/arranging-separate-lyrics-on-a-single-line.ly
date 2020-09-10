@@ -4,16 +4,16 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "paper-and-layout, vocal-music"
 
   texidoc = "
 Sometimes you may want to put lyrics for different performers on a
-single line: where there is rapidly alternating text, for example.
-This snippet shows how this can be done with @code{\\override
-VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f}.
+single line: where there is rapidly alternating text, for
+example.  This snippet shows how this can be done with
+@code{\\override VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f}.
 
 "
   doctitle = "Arranging separate lyrics on a single line"

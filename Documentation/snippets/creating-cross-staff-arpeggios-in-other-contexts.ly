@@ -4,13 +4,13 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks"
 
   texidoc = "
-Cross-staff arpeggios can be created in contexts other than
+Cross-staff @emph{arpeggios} can be created in contexts other than
 @code{GrandStaff}, @code{PianoStaff} and @code{StaffGroup} if the
 @code{Span_arpeggio_engraver} is included in the @code{Score} context.
 

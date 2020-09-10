@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "midi, percussion, specific-notation"
@@ -15,9 +15,18 @@ example) may be used both in printed and MIDI output by defining such
 variables as @code{drumPitchNames}, @code{drumStyleTable} and
 @code{midiDrumPitches}, as demonstrated here. In short, this snippet:
 
-* defines some \"pitch\" names * defines how they will be rendered *
-tell LilyPond to use them for layout * assigns pitches to the names *
+@itemize
+@item
+defines some \"pitch\" names
+@item
+defines how they will be rendered
+@item
+tell LilyPond to use them for layout
+@item
+assigns pitches to the names
+@item
 tell LilyPond to use them for MIDI output
+@end itemize
 
 "
   doctitle = "Customized drum notation in printed and MIDI output"

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
@@ -16,8 +16,8 @@ specified, the error message @samp{warning: ignoring too many clashing
 note columns} will appear when compiling the LilyPond file.  This
 message can be suppressed by setting the @code{'ignore-collision}
 property of the @code{NoteColumn} object to @code{#t}. Please note that
-this does not just suppress warnings  but stops LilyPond trying to
-resolve collisions at all and so may have  unintended results unless
+this does not just suppress warnings but stops LilyPond trying to
+resolve collisions at all and so may have unintended results unless
 used with care.
 
 "

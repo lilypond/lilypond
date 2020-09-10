@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "keyboards, real-music"
@@ -16,8 +16,7 @@ to be played with the same hand. In order to do this, the
 arpeggios must be set to the bracket shape in the @code{PianoStaff}
 context.
 
-
-(Debussy, Les collines d’Anacapri, m. 65)
+(Debussy, @emph{Les collines d'Anacapri,} m. 65)
 
 "
   doctitle = "Indicating cross-staff chords with arpeggio bracket"
@@ -25,13 +24,14 @@ context.
 
 \new PianoStaff <<
   \set PianoStaff.connectArpeggios = ##t
-  \override PianoStaff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
+  \override PianoStaff.Arpeggio.stencil =
+    #ly:arpeggio::brew-chord-bracket
   \new Staff {
     \relative c' {
       \key b \major
       \time 6/8
-      b8-.(\arpeggio fis'-.\> cis-. e-. gis-. b-.)\!\fermata^\laissezVibrer
-      \bar "||"
+      b8-.(\arpeggio fis'-.\> cis-.
+        e-. gis-. b-.)\!\fermata^\laissezVibrer \bar "||"
     }
   }
   \new Staff {

@@ -4,15 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks"
 
   texidoc = "
-In a @code{PianoStaff}, it is possible to let an arpeggio cross between
-the staves by setting the property @code{PianoStaff.connectArpeggios}.
-
+In a @code{PianoStaff}, it is possible to let an @emph{arpeggio} cross
+between the staves by setting the property
+@code{PianoStaff.connectArpeggios}.
 
 "
   doctitle = "Creating cross-staff arpeggios in a piano staff"

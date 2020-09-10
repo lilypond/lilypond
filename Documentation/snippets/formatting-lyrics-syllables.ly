@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "text, vocal-music"
@@ -15,6 +15,7 @@ Markup mode may be used to format individual syllables in lyrics.
 "
   doctitle = "Formatting lyrics syllables"
 } % begin verbatim
+
 
 mel = \relative c'' { c4 c c c }
 lyr = \lyricmode {

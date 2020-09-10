@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords, really-simple"
@@ -13,9 +13,6 @@
 The english naming of chords (default) can be changed to german
 (@code{\\germanChords} replaces B and Bes with H and B) or semi-german
 (@code{\\semiGermanChords} replaces B and Bes with H and Bb).
-
-
-
 
 "
   doctitle = "Changing the chord names to German or semi-German notation"

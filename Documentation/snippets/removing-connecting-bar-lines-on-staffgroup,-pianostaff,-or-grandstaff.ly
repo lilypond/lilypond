@@ -4,18 +4,18 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 By default, bar lines in StaffGroup, PianoStaff, or GrandStaff groups
-are connected between the staves.  This behaviour can be overridden on
-a staff-by-staff basis.
+are connected between the staves, i.e. a SpanBar is printed.  This
+behaviour can be overridden on a staff-by-staff basis.
 
 "
-  doctitle = "Removing connecting bar lines on StaffGroup PianoStaff or GrandStaff"
+  doctitle = "Removing connecting bar lines on StaffGroup, PianoStaff, or GrandStaff"
 } % begin verbatim
 
 \relative c' {

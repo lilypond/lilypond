@@ -4,14 +4,16 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, fretted-strings, text, tweaks-and-overrides"
 
   texidoc = "
-By default markups does not show in a tablature. To make them appear,
-simply use the command @code{\\revert TabStaff.TextScript.stencil}
+By default markups does not show in a tablature.
+
+To make them appear, simply use the command
+@code{\\revert TabStaff.TextScript.stencil}
 
 "
   doctitle = "Adding markups in a tablature"

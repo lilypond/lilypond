@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "contexts-and-engravers, rhythms"
@@ -16,6 +16,7 @@ Bar numbers can be removed entirely by removing the
 "
   doctitle = "Removing bar numbers from a score"
 } % begin verbatim
+
 
 \layout {
   \context {

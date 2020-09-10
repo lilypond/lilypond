@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "real-music, specific-notation, template"
@@ -23,16 +23,13 @@ position of the buttons and not (as for every other instrument) the
 pitch of the notes; the keys on the melody-side of the accordion are
 placed in three columns and about 12 rows
 
-
 In the tabulator staff notation the outermost column is described with
 notes between lines, the innermost column is described with notes
 between lines and a cross as accidental, and the middle column is
 described with notes on a line, whereby the row in the middle is
 represented on the middle line in the staff.
 
-
 Some words to transpose piano notes to the diatonic accordion:
-
 
 1. Every diatonic accordion is built for some keys only (for example,
 for the keys of C major and F major), so it is important to transpose a
@@ -41,13 +38,11 @@ only the output because this code is required later on to translate it
 once more to the tabulator staff. This can be done with the command
 @code{displayLilyMusic}.
 
-
 2. You have to alternate the push- and pull-direction of the accordion
 regularly. If the player has a too long part to pull the accordion gets
 broken. On the other hand, some harmonies are only available in one
 direction. Considering this, decide which parts of the melody are the
 push-parts and which the pull-parts.
-
 
 3. For each pull- or push-part translate the piano notes to the
 according tabulature representation.

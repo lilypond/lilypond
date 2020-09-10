@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -15,9 +15,9 @@ variables @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashBang}, @code{dashLarger}, @code{dashDot}, and
 @code{dashUnderscore} are assigned default values.  The default values
 for the shorthands can be modified. For example, to associate the
-@code{-+} (@code{dashPlus}) shorthand with the trill symbol instead of
-the default + symbol, assign the value @code{trill} to the variable
-@code{dashPlus}:
+@code{-+} (@code{dashPlus}) shorthand with the @emph{trill} symbol
+instead of the default @emph{+} symbol, assign the value @code{trill}
+to the variable @code{dashPlus}:
 
 "
   doctitle = "Modifying default values for articulation shorthand notation"

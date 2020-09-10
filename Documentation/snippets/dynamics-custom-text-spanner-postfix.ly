@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -12,15 +12,15 @@
   texidoc = "
 Postfix functions for custom crescendo text spanners.  The spanners
 should start on the first note of the measure.  One has to use
--\\mycresc, otherwise the spanner start will rather be assigned to the
-next note.
+@code{-\\mycresc}, otherwise the spanner start will rather be assigned
+to the next note.
 
 "
   doctitle = "Dynamics custom text spanner postfix"
 } % begin verbatim
 
-% Two functions for (de)crescendo spanners where you can explicitly give the
-% spanner text.
+% Two functions for (de)crescendo spanners where you can explicitly
+% give the spanner text.
 mycresc =
 #(define-music-function (mymarkup) (markup?)
    (make-music 'CrescendoEvent

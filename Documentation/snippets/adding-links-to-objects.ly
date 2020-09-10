@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
@@ -12,7 +12,9 @@
   texidoc = "
 To add a link to a grob-stencil you could use @code{add-link} as
 defined here. Works with @code{\\override} and @code{\\tweak}.
-Drawback: @code{point-and-click} will be disturbed for the linked grobs.
+
+Drawback: @code{point-and-click} will be disturbed for the linked
+grobs.
 
 Limitation: Works for PDF only.
 

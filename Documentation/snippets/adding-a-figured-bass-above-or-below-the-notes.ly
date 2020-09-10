@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "ancient-notation, chords, contexts-and-engravers"
@@ -15,7 +15,6 @@ the bass notes, by defining the
 @code{BassFigureAlignmentPositioning.direction} property (exclusively
 in a @code{Staff} context). Choices are @code{#UP} (or @code{#1}),
 @code{#CENTER} (or @code{#0}) and @code{#DOWN} (or @code{#-1}).
-
 
 This property can be changed as many times as you wish. Use
 @code{\\once \\override} if you don't want the override to apply to the

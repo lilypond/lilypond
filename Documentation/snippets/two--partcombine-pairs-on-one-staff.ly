@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "simultaneous-notes, staff-notation"
@@ -12,16 +12,17 @@
   texidoc = "
 The @code{\\partCombine} function takes two music expressions each
 containing a part, and distributes them among four @code{Voice}s named
-@qq{two} @qq{one} @qq{solo} and @qq{chords} depending on when and how
-the parts merged into a common voice.   The voices output from
+@qq{two} @qq{one} @qq{solo} and @qq{chords} depending on when and how the
+parts merged into a common voice.   The voices output from
 @code{\\partCombine} can have their layout properties adjusted in the
 usual way.  Here we define extensions of @code{\\partCombine} to make
 it easier to put four voices on a staff.
 
-soprano = @{ d'4 | cis'  b  e'  d'8 cis' | cis'2 b @} alto = @{ fis4 |
-e8 fis gis ais b4 b | b ais fis2 @} tenor = @{ a8 b | cis' dis' e'4 b8
-cis' d'4 | gis cis' dis'2 @} bass = @{ fis8 gis | a4 gis g fis | eis
-fis b,2 @}
+@verbatim
+soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
+alto = { fis4 | e8 fis gis ais b4 b | b ais fis2 }
+tenor = { a8 b | cis' dis' e'4 b8 cis' d'4 | gis cis' dis'2 }
+bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
 
 \\new Staff <<
   \\key b\\minor
@@ -29,7 +30,9 @@ fis b,2 @}
   \\partial 4
   \\transpose b b'
   \\partCombineUp \\soprano \\alto
-  \\partCombineDown \\tenor \\bass >>
+  \\partCombineDown \\tenor \\bass
+>>
+@end verbatim
 
 "
   doctitle = "Two \\partCombine pairs on one staff"

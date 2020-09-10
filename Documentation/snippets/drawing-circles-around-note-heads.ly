@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -15,6 +15,7 @@ Here is how to circle a note.
 "
   doctitle = "Drawing circles around note heads"
 } % begin verbatim
+
 
 circle =
 \once \override NoteHead.stencil = #(lambda (grob)

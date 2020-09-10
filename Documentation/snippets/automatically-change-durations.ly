@@ -4,15 +4,17 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms"
 
   texidoc = "
 @code{shiftDurations} can be used to change the note lengths of a piece
-of music. It takes two arguments - the scaling factor as a power of
-two, and the number of dots to be added as a positive integer.
+of music.
+
+It takes two arguments - the scaling factor as a power of two, and the
+number of dots to be added as a positive integer.
 
 "
   doctitle = "Automatically change durations"

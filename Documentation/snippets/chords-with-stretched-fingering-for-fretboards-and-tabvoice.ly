@@ -4,16 +4,16 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords, fretted-strings, specific-notation"
 
   texidoc = "
-Sometimes chords with a stretched fingering are required.  If not
+Sometimes chords with a stretched fingering are required. If not
 otherwise specified the context-property @code{maximumFretStretch} is
 set to @code{4}, though. Resulting in a warning about \"No string for
-pitch ...\" and the note is omitted.  You may set
+pitch ...\" and the note is omitted. You may set
 @code{maximumFretStretch} to an approppriate value or explecitely
 assign string-numbers to all notes of a chord.
 

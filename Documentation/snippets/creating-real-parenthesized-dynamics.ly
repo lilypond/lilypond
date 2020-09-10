@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, text, workaround"
@@ -19,8 +19,6 @@ Scheme code (as described in the Notation Reference), combined with the
 @code{make-dynamic-script} function. This way, the markup will be
 regarded as a dynamic, and therefore will remain compatible with
 commands such as @code{\\dynamicUp} or @code{\\dynamicDown}.
-
-
 
 "
   doctitle = "Creating \"real\" parenthesized dynamics"

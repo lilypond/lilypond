@@ -18,7 +18,7 @@ Wind headword
 % Tchaikovsky
 % Nutcracker Suite, VII Dance of the Merlitons
 
-#(set-global-staff-size 16)
+#(set-global-staff-size 15)
 
 \score {
   \new StaffGroup <<

@@ -4,17 +4,18 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "world-music"
 
   texidoc = "
-For improvisations or taqasim which are temporarily free, the time
-signature can be omitted and @code{\\cadenzaOn} can be used.  Adjusting
-the accidental style might be required, since the absence of bar lines
-will cause the accidental to be marked only once.  Here is an example
-of what could be the start of a hijaz improvisation:
+For improvisations or @emph{taqasim} which are temporarily free, the
+time signature can be omitted and @code{\\cadenzaOn} can be
+used.  Adjusting the accidental style might be required, since the
+absence of bar lines will cause the accidental to be marked only
+once.  Here is an example of what could be the start of a @emph{hijaz}
+improvisation:
 
 "
   doctitle = "Arabic improvisation"

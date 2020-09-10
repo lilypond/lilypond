@@ -4,22 +4,25 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
 
   texidoc = "
 Unlike text scripts, rehearsal marks cannot be stacked at a particular
-point in a score: only one @code{RehearsalMark} object is created.
-Using an invisible measure and bar line, an extra rehearsal mark can be
-added, giving the appearance of two marks in the same column. This
-method may also prove useful for placing rehearsal marks at both the
-end of one system and the start of the following system.
+point in a score: only one @code{RehearsalMark} object is
+created.  Using an invisible measure and bar line, an extra rehearsal
+mark can be added, giving the appearance of two marks in the same
+column.
+
+This method may also prove useful for placing rehearsal marks at both
+the end of one system and the start of the following system.
 
 "
   doctitle = "Creating simultaneous rehearsal marks"
 } % begin verbatim
+
 
 {
   \key a \major

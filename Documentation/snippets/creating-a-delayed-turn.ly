@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, tweaks-and-overrides"
@@ -13,9 +13,9 @@
 Creating a delayed turn, where the lower note of the turn uses the
 accidental, requires several overrides.  The
 @code{outside-staff-priority} property must be set to @code{#f}, as
-otherwise this would take precedence over the @code{avoid-slur
-property}.  Changing the fractions @code{2/3} and @code{1/3} adjusts
-the horizontal position.
+otherwise this would take precedence over the
+@code{avoid-slur property}.  Changing the fractions @code{2/3} and
+@code{1/3} adjusts the horizontal position.
 
 "
   doctitle = "Creating a delayed turn"

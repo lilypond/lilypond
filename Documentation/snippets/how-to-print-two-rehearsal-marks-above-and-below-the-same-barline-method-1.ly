@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, staff-notation, tweaks-and-overrides"
@@ -21,8 +21,9 @@ Because nearly every type of glyph or string can be made to behave like
 a rehearsal mark it is possible to centre those above and below a bar
 line.
 
-Adding the appropriate 'break visibility' as shown in snippet 1 will
-allow you to position two marks at the end of a line as well.
+Adding the appropriate 'break visibility' as shown in snippet
+@uref{\%22http://lsr.di.unimi.it/LSR/Item?id=1\%22,1} will allow you to
+position two marks at the end of a line as well.
 
 Note: Method 1 is less complex than Method 2 but does not really allow
 for fine tuning of placement of one of the rehearsal marks without

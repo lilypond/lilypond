@@ -4,16 +4,17 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings"
 
   texidoc = "
 Slides for chords are indicated by default in both @code{Staff} and
-@code{TabStaff}. String numbers are necessary for @code{TabStaff}
-because automatic string calculations are different for chords and for
-single notes.
+@code{TabStaff}.
+
+String numbers are necessary for @code{TabStaff} because automatic
+string calculations are different for chords and for single notes.
 
 "
   doctitle = "Chord glissando in tablature"

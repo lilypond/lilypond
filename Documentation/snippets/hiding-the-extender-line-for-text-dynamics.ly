@@ -4,15 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks"
 
   texidoc = "
-Text style dynamic changes (such as cresc. and dim.) are printed with a
-dashed line showing their extent.  This line can be suppressed in the
-following way:
+Text style dynamic changes (such as @emph{cresc.} and @emph{dim.}) are
+printed with a dashed line showing their extent.  This line can be
+suppressed in the following way:
 
 "
   doctitle = "Hiding the extender line for text dynamics"

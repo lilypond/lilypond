@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, pitches, really-cool"
@@ -17,6 +17,7 @@ to distinguish enharmonics.
 "
   doctitle = "Coloring notes depending on their pitch"
 } % begin verbatim
+
 
 %Association list of pitches to colors.
 #(define color-mapping

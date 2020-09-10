@@ -4,15 +4,13 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "ancient-notation"
 
   texidoc = "
 Time signatures may also be engraved in an old style.
-
-
 
 "
   doctitle = "Ancient time signatures"

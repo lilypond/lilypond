@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
@@ -61,10 +61,10 @@ music =  \relative c' {
 \score {
   \new StaffGroup <<
     \new Staff <<
-      \context Voice { \clef "G_8" \music }
+      \new Voice { \clef "G_8" \music }
     >>
     \new TabStaff  <<
-      \context TabVoice { \clef "moderntab" \music }
+      \new TabVoice { \clef "moderntab" \music }
     >>
   >>
 }

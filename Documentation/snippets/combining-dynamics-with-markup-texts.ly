@@ -4,15 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks, really-simple, text"
 
   texidoc = "
 Some dynamics may involve text indications (such as @qq{più forte} or
-@qq{piano subito}). These can be produced using a @code{\\markup}
-block.
+@qq{piano subito}). These can be produced using a @code{\\markup} block.
 
 "
   doctitle = "Combining dynamics with markup texts"

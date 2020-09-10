@@ -4,17 +4,17 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "staff-notation, symbols-and-glyphs, vocal-music"
 
   texidoc = "
 This snippet defines the @code{\\splitStaffBarLine},
-@code{convUpStaffBarLine} and @code{convDownStaffBarLine} commands.
-These add arrows at a bar line, to denote that several voices sharing a
-staff will each continue on a staff of their own in the next system, or
-that voices split in this way recombine.
+@code{convUpStaffBarLine} and @code{convDownStaffBarLine}
+commands.  These add arrows at a bar line, to denote that several
+voices sharing a staff will each continue on a staff of their own in
+the next system, or that voices split in this way recombine.
 
 "
   doctitle = "Adding indicators to staves which get split after a break"

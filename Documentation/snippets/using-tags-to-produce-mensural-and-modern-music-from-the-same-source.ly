@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "ancient-notation, vocal-music"
@@ -16,8 +16,8 @@ is introduced, allowing mensural rests to be pitched as in the
 original, but with modern rests in the standard staff position.  Tags
 are used to produce different types of bar line at the end of the
 music, but tags can also be used where other differences are needed:
-for example using @qq{whole measure rests} (R1, R\\breve etc.) in
-modern music, but normal rests (r1, r\\breve, etc.) in the mensural
+for example using @qq{whole measure rests} (R1, R\\breve etc.) in modern
+music, but normal rests (r1, r\\breve, etc.) in the mensural
 version.  Note that converting mensural music to its modern equivalent
 is usually referred to as @code{transcription}.
 
@@ -65,7 +65,8 @@ ModLyr = \lyricmode { So far, dear life, dear life }
     <<
       \new MensuralStaff
       {
-        \new MensuralVoice = Cantus \clef "mensural-c1" \MensStyle \Music
+        \new MensuralVoice = Cantus
+          \clef "mensural-c1" \MensStyle \Music
       }
       \new Lyrics \lyricsto Cantus \MenLyr
     >>

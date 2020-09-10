@@ -4,15 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, really-cool, text"
 
   texidoc = "
-The @code{\\whiteout} command underlays a markup with a white box.
-Since staff lines are in a lower layer than most other grobs, this
-white box will not overlap any other grob.
+The @code{\\whiteout} command underlays a markup with a white
+box.  Since staff lines are in a lower layer than most other grobs,
+this white box will not overlap any other grob.
 
 "
   doctitle = "Blanking staff lines using the \\whiteout command"

@@ -4,15 +4,16 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "editorial-annotations, really-cool, scheme-language, tweaks-and-overrides"
 
   texidoc = "
 When a note head with a special shape cannot easily be generated with
-graphic markup, PostScript code can be used to generate the shape.
-This example shows how a parallelogram-shaped note head is generated.
+graphic markup, PostScript code can be used to generate the
+shape.  This example shows how a parallelogram-shaped note head is
+generated.
 
 "
   doctitle = "Using PostScript to generate special note head shapes"

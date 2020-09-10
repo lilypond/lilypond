@@ -4,20 +4,16 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords, fretted-strings"
 
   texidoc = "
 Here is how to print bar chords (or barre chords) or half-bar chords
-(just uncomment the appropriate line for to select either one). The
-syntax is : @code{\\bbarre #\"fret_number\" note(s)}
+(just uncomment the appropriate line for to select either one).
 
-
-
-
-
+The syntax is : @code{\\bbarre #\"fret_number\" note(s)}
 
 "
   doctitle = "Bar chords notation for Guitar (with Text Spanner)"

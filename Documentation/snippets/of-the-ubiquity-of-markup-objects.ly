@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "text"
@@ -16,20 +16,21 @@ formatting and graphical enhancements.
 
 As such, markup blocks may be used:
 
-* in any TextScript object (attached to notes with @code{-}, @code{^}
-or @code{_}),
-
-* any RehearsalMark introduced with the @code{\\mark} keyword, or other
+@itemize
+@item
+in any TextScript object (attached to notes with @code{-}, @code{^} or
+@code{_}),
+@item
+any RehearsalMark introduced with the @code{\\mark} keyword, or other
 similar objects such as MetronomeMark introduced with @code{\\tempo},
-
-* as standalone markup blocks, entered at the top level outside of any
+@item
+as standalone markup blocks, entered at the top level outside of any
 @code{\\score} block,
-
-* in any definition inside the @code{\\header} block (e.g. title,
+@item
+in any definition inside the @code{\\header} block (e.g. title,
 subtitle, composer) or in some variables defined inside the
 @code{\\paper} block such as @code{evenHeaderMarkup} for page numbers.
-
-
+@end itemize
 
 @code{\\markup} may additionally be used for lyrics, in chord names,
 and as dynamics.  In fact, it is possible to use @code{\\markup} to

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "chords, template, vocal-music"
@@ -14,7 +14,7 @@ Here is a simple lead sheet template with melody, lyrics, chords and
 fret diagrams.
 
 "
-  doctitle = "Single staff template with notes lyrics chords and frets"
+  doctitle = "Single staff template with notes, lyrics, chords and frets"
 } % begin verbatim
 
 verseI = \lyricmode {

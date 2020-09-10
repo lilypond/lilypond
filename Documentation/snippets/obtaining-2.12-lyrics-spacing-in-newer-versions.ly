@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "vocal-music"
@@ -15,7 +15,6 @@ lyrics to be spaced differently.
 
 It is possible to set properties for @code{Lyric} and @code{Staff}
 contexts to get the spacing engine to behave as it did in version 2.12.
-
 
 "
   doctitle = "Obtaining 2.12 lyrics spacing in newer versions"

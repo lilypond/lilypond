@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -14,13 +14,16 @@ In @qq{simple} lead-sheets, sometimes no actual notes are written,
 instead only @qq{rhythmic patterns} and chords above the measures are
 notated giving the structure of a song. Such a feature is for example
 useful while creating/transcribing the structure of a song and also
-when sharing lead sheets with guitarists or jazz musicians. The
-standard support for this using @code{\\repeat percent} is unsuitable
-here since the first beat has to be an ordinary note or rest. This
-example shows two solutions to this problem, by redefining ordinary
-rests to be printed as slashes. (If the duration of each beat is not a
-quarter note, replace the @code{r4} in the definitions with a rest of
-the appropriate duration).
+when sharing lead sheets with guitarists or jazz musicians.
+
+The standard support for this using @code{\\repeat percent} is
+unsuitable here since the first beat has to be an ordinary note or
+rest.
+
+This example shows two solutions to this problem, by redefining
+ordinary rests to be printed as slashes. (If the duration of each beat
+is not a quarter note, replace the @code{r4} in the definitions with a
+rest of the appropriate duration).
 
 "
   doctitle = "Rhythmic slashes"

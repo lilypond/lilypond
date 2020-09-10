@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "rhythms"
@@ -15,30 +15,23 @@ The function of @code{\\autoBeamOff} when used with
 
 It may be preferable to use
 
-
 @code{\\set Staff.autoBeaming = ##f}
-
 
 instead, to ensure that autobeaming will be turned off for the entire
 staff.
 
-
 @code{\\partCombine} apparently works with 3 voices -- stem up single,
 stem down single, stem up combined.
-
 
 An @code{\\autoBeamOff} call in the first argument to partcombine will
 apply to the voice that is active at the time the call is processed,
 either stem up single or stem up combined. An @code{\\autoBeamOff} call
-in the second argument will apply to the voice that is stem down single.
-
+in the second argument will apply to the voice that is stem down
+single.
 
 In order to use @code{\\autoBeamOff} to stop all autobeaming when used
-with @code{\\partCombine}, it will be necessary to use three calls to
-@code{\\autoBeamOff}.
-
-
-
+with @code{\\partCombine}, it will be necessary to use @emph{three}
+calls to @code{\\autoBeamOff}.
 
 "
   doctitle = "Partcombine and autoBeamOff"

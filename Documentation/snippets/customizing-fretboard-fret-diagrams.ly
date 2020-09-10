@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
@@ -24,6 +24,13 @@ can be omitted in property overrides.
 \storePredefinedDiagram #default-fret-table \chordmode { c' }
                         #guitar-tuning
                         #"x;1-1-(;3-2;3-3;3-4;1-1-);"
+
+% shorthand
+oo = #(define-music-function
+       (grob-path value)
+       (list? scheme?)
+       #{ \once \override $grob-path = #value #})
+
 <<
   \new ChordNames {
     \chordmode { c1 | c | c | d }
@@ -35,22 +42,22 @@ can be omitted in property overrides.
     \override FretBoard.fret-diagram-details.dot-color = #'white
     \chordmode {
       c
-      \once \override FretBoard.size = #'1.0
-      \once \override FretBoard.fret-diagram-details.barre-type = #'straight
-      \once \override FretBoard.fret-diagram-details.dot-color = #'black
-      \once \override FretBoard.fret-diagram-details.finger-code = #'below-string
+      \oo FretBoard.size #'1.0
+      \oo FretBoard.fret-diagram-details.barre-type #'straight
+      \oo FretBoard.fret-diagram-details.dot-color #'black
+      \oo FretBoard.fret-diagram-details.finger-code #'below-string
       c'
-      \once \override FretBoard.fret-diagram-details.barre-type = #'none
-      \once \override FretBoard.fret-diagram-details.number-type = #'arabic
-      \once \override FretBoard.fret-diagram-details.orientation = #'landscape
-      \once \override FretBoard.fret-diagram-details.mute-string = #"M"
-      \once \override FretBoard.fret-diagram-details.label-dir = #LEFT
-      \once \override FretBoard.fret-diagram-details.dot-color = #'black
+      \oo FretBoard.fret-diagram-details.barre-type #'none
+      \oo FretBoard.fret-diagram-details.number-type #'arabic
+      \oo FretBoard.fret-diagram-details.orientation #'landscape
+      \oo FretBoard.fret-diagram-details.mute-string #"M"
+      \oo FretBoard.fret-diagram-details.label-dir #LEFT
+      \oo FretBoard.fret-diagram-details.dot-color #'black
       c'
-      \once \override FretBoard.fret-diagram-details.finger-code = #'below-string
-      \once \override FretBoard.fret-diagram-details.dot-radius = #0.35
-      \once \override FretBoard.fret-diagram-details.dot-position = #0.5
-      \once \override FretBoard.fret-diagram-details.fret-count = #3
+      \oo FretBoard.fret-diagram-details.finger-code #'below-string
+      \oo FretBoard.fret-diagram-details.dot-radius #0.35
+      \oo FretBoard.fret-diagram-details.dot-position #0.5
+      \oo FretBoard.fret-diagram-details.fret-count #3
       d
     }
   }

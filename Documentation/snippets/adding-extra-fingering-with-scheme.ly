@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.20.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "scheme-language"
@@ -18,7 +18,7 @@ create, then write a function that will work on the appropriate parts
 of the music for you.
 
 "
-  doctitle = "Adding extra fingering with scheme"
+  doctitle = "Adding extra fingering with Scheme"
 } % begin verbatim
 
 addScript =

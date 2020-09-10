@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "repeats, staff-notation"
@@ -18,7 +18,7 @@ Default bar lines can be changed when re-defined in a score context.
 
 % http://lsr.di.unimi.it/LSR/Item?id=964
 %%=> http://lists.gnu.org/archive/html/lilypond-user/2014-03/msg00126.html
-%%=> https://lilypond.1069038.n5.nabble.com/Changing-the-default-end-repeat-bracket-tc169357.html
+%%=> http://lilypond.1069038.n5.nabble.com/Changing-the-default-end-repeat-bracket-tc169357.html
 
 \layout {
   \context {

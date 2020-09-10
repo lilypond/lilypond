@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "repeats, rhythms"
@@ -15,11 +15,9 @@ half-note, or between a half-note and a whole-note, it is normally
 typeset with all beams touching the stems.  Certain engraving styles
 typeset some of these beams as centered floating beams that do not
 touch the stems.  The number of floating beams in this type of tremolo
-is controlled with the @code{'gap-count } property of the @code{Beam}
+is controlled with the @code{'gap-count} property of the @code{Beam}
 object, and the size of the gaps between beams and stems is set with
 the @code{'gap} property.
-
-
 
 "
   doctitle = "Engraving tremolos with floating beams"

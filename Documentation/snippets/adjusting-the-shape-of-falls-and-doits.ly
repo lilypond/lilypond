@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.21.2"
 
 \header {
   lsrtags = "expressive-marks"
 
   texidoc = "
 The @code{shortest-duration-space} property may be tweaked to adjust
-the shape of falls and doits.
+the shape of @emph{falls} and @emph{doits}.
 
 "
   doctitle = "Adjusting the shape of falls and doits"
