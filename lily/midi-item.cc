@@ -222,12 +222,11 @@ Midi_note::to_string () const
 {
   Byte status_byte = (char) (0x90 + channel_);
   string str = "";
-  int finetune;
 
   // print warning if fine tuning was needed, HJJ
   if (get_fine_tuning () != 0)
     {
-      finetune = PITCH_WHEEL_CENTER + get_fine_tuning ();
+      int finetune = PITCH_WHEEL_CENTER + get_fine_tuning ();
 
       str += static_cast<char> (0xE0 + channel_);
       str += static_cast<char> (finetune & 0x7F);

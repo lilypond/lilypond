@@ -153,6 +153,7 @@ struct Head_data
   Interval accidental_extent_;
   Head_data ()
   {
+    position_ = 0;
     head_extent_.set_empty ();
     ledger_extent_.set_empty ();
     accidental_extent_.set_empty ();
