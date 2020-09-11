@@ -210,9 +210,6 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const std
 		 (scm_list_2 (scm_cdr (start),				\
 			      scm_list_n (__VA_ARGS__, SCM_UNDEFINED))))
 
-SCM get_next_unique_context_id ();
-SCM get_next_unique_lyrics_context_id ();
-
 #undef _
 #if !HAVE_GETTEXT
 #define _(x) x
@@ -4299,22 +4296,6 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		return LOOKUP_IDENTIFIER;
 	}
 	return -1;
-}
-
-SCM
-get_next_unique_context_id ()
-{
-	return scm_from_ascii_string ("$uniqueContextId");
-}
-
-
-SCM
-get_next_unique_lyrics_context_id ()
-{
-	static int new_context_count;
-	char s[128];
-	snprintf (s, sizeof (s)-1, "uniqueContext%d", new_context_count++);
-	return scm_from_ascii_string (s);
 }
 
 // check_scheme_arg checks one argument with a given predicate for use
