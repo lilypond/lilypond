@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 90f1e587efc2159450530da3eb8fb391d156a1dc
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
   texidocfr = "
 Certaines indications de nuance requièrent un complément textuel, comme
 « sempre pp ».  Dans la mesure où les nuances sont habituellement
@@ -43,4 +43,4 @@ ce « sempre pp » :
    bord droit du texte additionnel, non sur le milieu de @emph{pp}.
 
 "
-  doctitlefr = "Alignement de nuances personnalisées comme \"sempre pp\" \"più f\" \"subito p\""
+  doctitlefr = "Alignement de nuances personnalisées comme « sempre pp », « più f » ou « subito p »"

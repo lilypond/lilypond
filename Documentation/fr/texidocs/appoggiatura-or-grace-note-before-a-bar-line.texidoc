@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+  texidocfr = "
+Par défaut, appogiatures et autres notes d'ornement sur le premier
+temps d'une mesure s'impriment après la barre. Elles peuvent toutefois
+précéder la barre grâce à l'insertion d'une barre invisible puis d'une
+visible, comme indiqué ici.
+
+"
+  doctitlefr = "Appoggiature avant une barre de mesure"

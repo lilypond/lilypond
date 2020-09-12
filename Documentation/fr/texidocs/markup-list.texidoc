@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+  texidocfr = "
+Un texte susceptible de se répartir sur plusieurs page se saisit avec la
+commande @code{\\markuplist}.
+
+"
+  doctitlefr = "Liste de @emph{markups}"

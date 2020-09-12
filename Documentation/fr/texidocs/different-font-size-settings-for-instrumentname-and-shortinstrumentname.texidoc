@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+  texidocfr = "
+Une simple dérogation à un contexte particulier permet de différencier
+la taille des variables instrumentName et shortInstrumentName.
+
+"
+  doctitlefr = "Taille de police différente pour instrumentName et shortInstrumentName"

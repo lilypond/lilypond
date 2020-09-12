@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+  texidocfr = "
+Les partitions pour grands ensembles disposent souvent de la
+numérotation des mesures centrée en dessous du système. L'extrait
+ci-dessous indique comment le @code{Measure_counter_engraver} permet de
+répondre à cette pratique. Le graveur est ici ajouté à un contexte
+@code{Dynamics}.
+
+"
+  doctitlefr = "Numéros de mesure centrés"

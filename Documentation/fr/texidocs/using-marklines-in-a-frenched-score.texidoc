@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+  texidocfr = "
+Le recours à des contextes @code{MarkLine} (tel qu'indiqué dans le
+@uref{http://lsr.di.unimi.it/LSR/Item?id=1010, LSR1010}) dans une
+partition « à la française » peut s'avérer problématique lorsque toutes
+les portées entre deux contextes @code{Markline} sont absentes d'un
+système. La présence du @code{Keep_alive_together_engraver} au sein de
+chacun des @code{StaffGroup} permet de maintenir actif le
+@code{MarkLine} uniquement lorsque les autres portées du regroupement
+sont elles-mêmes actives.
+
+"
+  doctitlefr = "Utilisation de lignes de repères dans une partition « à la française »"

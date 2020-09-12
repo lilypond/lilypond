@@ -1,0 +1,32 @@
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+  texidocfr = "
+Les objets textuels se saisissent soit en tant que simples chaînes de
+caractères bornées par des guillemets informatiques, soit dans des blocs
+@code{\\markup} qui, eux, acceptent tout un panel de mise en forme
+avancée et améliorations graphiques.
+
+En tant que tels, les blocs @emph{markup} peuvent s'utiliser :
+
+– pour tout objet @code{TextScript} (attaché aux notes par @code{-},
+@code{^} ou @code{_}),
+
+– pour tout @code{RehearsalMark} introduit par le mot-clé @code{\\mark}
+ou tout autre objet similaire comme @code{MetronomeMark} introduit par
+@code{\\tempo},
+
+– comme bloc de @emph{markup} indépendant, placé au niveau supérieur en
+dehors de tout bloc @code{\\score},
+
+– pour toute définition au sein du bloc @code{\\header} (titre,
+sous-titre, compositeur…) ou dans certaines variables définies dans le
+bloc @code{\\paper} telle que @code{evenHeaderMarkup} pour les numéros
+de page.
+
+
+@code{\\markup} peut aussi servir pour les paroles, les noms d'accord et
+les nuances. En fait, @code{\\markup} peut servir à personnaliser
+l'apparence de pratiquement n'importe quel objet, comme l'illustre cet
+exemple qui recourt à différentes méthodes.
+
+"
+  doctitlefr = "De l'ubiquité des objets @emph{markup}"

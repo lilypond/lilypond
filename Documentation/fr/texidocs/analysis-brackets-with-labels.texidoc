@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 90f1e587efc2159450530da3eb8fb391d156a1dc
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
   texidocfr = "
 Du texte peut venir s'ajouter aux crochets d'analyse grâce à la
 propriété @code{texte} de l'objet graphique
-@code{HorizontalBracketText}.  Plusieurs crochets présents en un même
-moment requièrent d'utiliser la commande @code{\\tweak}.  Le texte
-ajouté sera répété, entre parenthèse, après un saut de ligne.
+@code{HorizontalBracketText}. Plusieurs crochets présents en un même
+moment requièrent d'utiliser la commande @code{\\tweak}. Le texte ajouté
+sera répété, entre parenthèse, après un saut de ligne.
 
 "
   doctitlefr = "Crochet d'analyse avec texte"

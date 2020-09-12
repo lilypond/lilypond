@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 2cc79b7f2ed1cdf881ad371cda4921ccb36b03f6
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
   texidocfr = "
 La fonction @code{add-link}, telle que définie ci-dessous, permet
 d'ajouter un lien au stencil d'un objet graphique.  Elle s'emploie

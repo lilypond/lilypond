@@ -1,0 +1,20 @@
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+  texidocfr = "
+Cet extrait illustre l'utilisation du @code{Measure_counter_engraver}
+aux fins de numéroter un groupe de mesures successives. La section à
+numéroter peut éventuellement comporter des reprises.
+
+Le graveur doit être ajouté au contexte approprié. Il est ici attaché au
+contexte @code{Staff}, mais pourrait l'être à un contexte
+@code{Dynamics}.
+
+Le compteur est lancé par @code{\\startMeasureCount} et arrêté par
+@code{\\stopMeasureCount}. La numérotation commence à @code{1} par
+défaut, comportement qui peut de modifier à l'aide de la propriété
+@code{count-from}.
+
+Lorsqu'une mesure s'étend après un saut de ligne, le numéro y est alors
+répété, entre parenthèses.
+
+"
+  doctitlefr = "Numérotation de groupes de mesures"

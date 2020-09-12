@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
   texidocfr = "
 Le texte par défaut des crescendos et decrescendos se change en
 modifiant les propriétés de contexte @code{crescendoText} et
@@ -8,4 +8,4 @@ par défaut est @code{'hairpin}, mais d'autres valeurs sont disponibles,
 comme @code{'line}, @code{'dashed-line} et @code{'dotted-line}.
 
 "
-  doctitlefr = "Modifidation du texte et de l'extension de nuances textuelles"
+  doctitlefr = "Modification du texte et de l'extension de nuances textuelles"
