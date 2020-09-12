@@ -17,7 +17,7 @@
 @section 声楽
 @translationof Vocal music
 
-@lilypondfile[quote]{vocal-headword.ly}
+@lilypondfile[quote]{snippets/vocal-headword.ly}
 
 このセクションでは声楽を譜刻し、歌詞を旋律の音符に揃える方法について説明します。
 
@@ -200,7 +200,7 @@
 @cindex lyrics, and markup (歌詞とマークアップ)
 @cindex markup, in lyrics (歌詞におけるマークアップ)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{formatting-lyrics-syllables.ly}
+{snippets/formatting-lyrics-syllables.ly}
 
 @morerefs
 学習マニュアル:
@@ -1136,7 +1136,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @cindex lyrics, version 2.12 spacing (バージョン 2.12 のスペーシングの歌詞)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @morerefs
 学習マニュアル:
@@ -1197,7 +1197,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @cindex horizontal alignment, lyrics (歌詞の水平揃え)
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{lyrics-alignment.ly}
+{snippets/lyrics-alignment.ly}
 
 @knownissues
 
@@ -2297,7 +2297,7 @@ text = \lyricmode {
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -2510,7 +2510,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @cindex bracket, vertical, marking divided voices (縦方向の囲みによってボイスの分割を示す)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -2825,7 +2825,7 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 @cindex cue, in vocal score (歌曲における合図)
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{adding-orchestral-cues-to-a-vocal-score.ly}
+{snippets/adding-orchestral-cues-to-a-vocal-score.ly}
 
 @morerefs
 音楽用語集:
@@ -3262,7 +3262,7 @@ global = {
 @cindex hymn (賛美歌)
 @cindex canticle (雅歌)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{chant-or-psalms-notation.ly}
+{snippets/chant-or-psalms-notation.ly}
 
 @c XXX move this text into following snippet
 雅歌や他の典礼書の設定はもっと自由度が高く、@c
@@ -3274,7 +3274,7 @@ global = {
 @cindex transcription, modern of Gregorian music (グレゴリオ聖歌の現代譜への転写)
 @cindex modern transcription of Gregorian music (グレゴリオ聖歌の現代譜への転写)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 学習マニュアル:
@@ -3464,7 +3464,7 @@ tick = \markup {
 @cindex partial measure, in hymns (賛美歌での部分小節)
 @cindex measure, partial, in hymns (賛美歌での部分小節)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 
 @node 古代の声楽

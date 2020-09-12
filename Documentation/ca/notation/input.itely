@@ -3291,7 +3291,7 @@ dinàmic poden veure's al fitxer @file{scm/midi.scm}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{creating-custom-dynamics-in-midi-output.ly}
+{snippets/creating-custom-dynamics-in-midi-output.ly}
 
 Fitxers instal·lats:
 @file{ly/script-init.ly}
@@ -3403,7 +3403,7 @@ Referència de funcionament intern:
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{replacing-default-midi-instrument-equalization.ly}
+{snippets/replacing-default-midi-instrument-equalization.ly}
 
 @knownissues
 Els canvis al volum del MIDI sols tenen lloc al començament d'una
@@ -3701,7 +3701,7 @@ mostra a continuació:
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
+{snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 @node Propietats de context per a efectes MIDI
 @subsection Propietats de context per a efectes MIDI

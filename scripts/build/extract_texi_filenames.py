@@ -266,7 +266,8 @@ def process_sections(filename, page):
             if not this_unnumbered:
                 this_filename = anchor
             elif original_node in initial_map:
-                this_filename = initial_map[original_node][2]
+                # Use the filename from the master map.
+                this_filename = initial_map[original_node][1]
         elif sec[0] == "nodeprefix":
             node_prefix_title = remove_texinfo(sec[1])
             node_prefix_anchor = create_texinfo_anchor(sec[1])
@@ -310,7 +311,7 @@ def process_sections(filename, page):
 
 xref_map_line_re = re.compile(r'(.*?)\t(.*?)\t(.*?)$')
 if master_map_file:
-    for line in open(master_map_file):
+    for line in open(master_map_file, encoding='utf8'):
         m = xref_map_line_re.match(line)
         if m:
             initial_map[m.group(1)] = (m.group(1), m.group(2), m.group(3))

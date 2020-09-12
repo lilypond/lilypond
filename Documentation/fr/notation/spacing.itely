@@ -1685,7 +1685,7 @@ ailleurs :
 @cindex saut, gestion sur voix dédiée
 @cindex voix dédiée aux sauts
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-an-extra-voice-for-breaks.ly}
+{snippets/using-an-extra-voice-for-breaks.ly}
 
 @morerefs
 Manuel de notation :

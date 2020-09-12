@@ -17,7 +17,7 @@
 @translationof Unfretted string instruments
 
 @lilypondfile[quote]
-{unfretted-headword.ly}
+{snippets/unfretted-headword.ly}
 
 @cindex Streicher
 @cindex Orchester, Streicher

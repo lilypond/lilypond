@@ -17,7 +17,7 @@
 @section Rythme
 @translationof Rhythms
 
-@lilypondfile[quote]{rhythms-headword.ly}
+@lilypondfile[quote]{snippets/rhythms-headword.ly}
 
 Cette section traite du rythme : durées, silences, barres de
 ligature et de mesure.
@@ -172,12 +172,12 @@ cette forme de notation, reportez vous à @ref{Notation proportionnelle}.
 
 @cindex brève, style alternatif
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{alternative-breve-notes.ly}
+{snippets/alternative-breve-notes.ly}
 
 @cindex point d'augmentation, modification du nombre
 @cindex note pointée, nombre de points
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-number-of-augmentation-dots-per-note.ly}
+{snippets/changing-the-number-of-augmentation-dots-per-note.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -345,29 +345,29 @@ des notes sans imprimer de crochet, comme indiqué au chapitre
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--tuplet-command.ly}
+{snippets/entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex n-olet, modification du chiffre
 @cindex chiffre de n-olet, modification
 @funindex TupletNumber
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-tuplet-number.ly}
+{snippets/changing-the-tuplet-number.ly}
 
 @cindex n-olet, chiffrage inhabituel
 @cindex chiffre de n-olet inhabituel
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{non-default-tuplet-numbers.ly}
+{snippets/non-default-tuplet-numbers.ly}
 
 @cindex n-olet, visibilité du crochet
 @cindex visibilité, crochet de n-olet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-tuplet-bracket-visibility.ly}
+{snippets/controlling-tuplet-bracket-visibility.ly}
 
 @cindex n-olet, ligature, saut de ligne
 @cindex ligature, n-olet, saut de ligne
 @funindex Forbid_line_break_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{permitting-line-breaks-within-beamed-tuplets.ly}
+{snippets/permitting-line-breaks-within-beamed-tuplets.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -693,7 +693,7 @@ permet d'obtenir une meilleure lisibilité.
 @cindex arpeggio et tenue
 @funindex tieWaitForNote
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-ties-with-arpeggios.ly}
+{snippets/using-ties-with-arpeggios.ly}
 
 @cindex tenue, gravure manuelle
 @cindex gravure manuelle, liaison de tenue
@@ -701,7 +701,7 @@ permet d'obtenir une meilleure lisibilité.
 @anchor{dessin à main levée de liaisons de tenue}
 @anchor{engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{engraving-ties-manually.ly}
+{snippets/engraving-ties-manually.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -804,7 +804,7 @@ collision des silences laissera ces silences tranquilles.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{rest-styles.ly}
+{snippets/rest-styles.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1055,19 +1055,19 @@ numéros de mesure.
 @cindex silence multimesure, longueur
 @cindex longueur d'un silence multimesure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{multi-measure-rest-length-control.ly}
+{snippets/multi-measure-rest-length-control.ly}
 
 @cindex silence multimesure, positionnement
 @cindex positionnement des silences multimesure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{positioning-multi-measure-rests.ly}
+{snippets/positioning-multi-measure-rests.ly}
 
 @cindex silence multimesure et @emph{markup}
 @cindex @emph{markup} et silence multimesure
 @funindex \textLengthOn
 @funindex \textLengthOff
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{multi-measure-rest-markup.ly}
+{snippets/multi-measure-rest-markup.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1346,7 +1346,7 @@ rubrique @ref{Définition des règles de ligature automatique}.
 
 @cindex métrique, numérateur seulement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
+{snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1469,18 +1469,18 @@ calculs d'espacement horizontal.
 @cindex tempo sous la portée
 @cindex repère, sous la portée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+{snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
 @c perhaps also an example of how to move it horizontally?
 
 @cindex tempo, changement masqué
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
+{snippets/changing-the-tempo-without-a-metronome-mark.ly}
 
 @cindex tempo en @emph{markup}
 @cindex @emph{markup}, tempo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
+{snippets/creating-metronome-marks-in-markup-mode.ly}
 
 Pour de plus amples détails, veuillez consulter
 @ref{Mise en forme du texte}.
@@ -2113,7 +2113,7 @@ l'aide de la fonction musicale @code{\reduceChords} :
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{guitar-strum-rhythms.ly}
+{snippets/guitar-strum-rhythms.ly}
 
 @morerefs
 Morceaux choisis :
@@ -2206,16 +2206,16 @@ possibles ; voir @ref{Définition des règles de ligature automatique}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{beams-across-line-breaks.ly}
+{snippets/beams-across-line-breaks.ly}
 
 @cindex ligature coudée, personnalisation
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-beam-knee-gap.ly}
+{snippets/changing-beam-knee-gap.ly}
 
 @cindex ligature, @code{\partCombine} et @code{\autoBeamOff}
 @cindex voix, @code{\autoBeamOff} et @code{\partCombine}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and-autobeamoff.ly}
 
 @morerefs
 Manuel de notation :
@@ -2556,13 +2556,13 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 @funindex baseMoment
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{subdividing-beams.ly}
+{snippets/subdividing-beams.ly}
 
 @cindex sous-ligature, orientation
 @funindex strictBeatBeaming
 @cindex ligature, indication des subdivisions
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{strict-beat-beaming.ly}
+{snippets/strict-beat-beaming.ly}
 
 @cindex groupement de mesures
 @cindex groupement de pulsations
@@ -2570,12 +2570,12 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 @cindex mesure, subdivision
 @funindex Measure_grouping_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{conducting-signs,-measure-grouping-signs.ly}
+{snippets/conducting-signs,-measure-grouping-signs.ly}
 
 @cindex ligature en fin de partition
 @cindex ligature en fin de voix polyphonique
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{beam-endings-in-score-context.ly}
+{snippets/beam-endings-in-score-context.ly}
 
 @morerefs
 Manuel de notation :
@@ -2740,7 +2740,7 @@ supplémentaire que sur sa gauche ; autrement dit, c'est la ligature
 @cindex crochet rectiligne
 @cindex rectiligne, crochet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{flat-flags-and-beam-nibs.ly}
+{snippets/flat-flags-and-beam-nibs.ly}
 
 @morerefs
 Manuel de notation :
@@ -3299,32 +3299,32 @@ numéros de mesure :
 
 @cindex barre de mesure, impression du premier numéro
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-the-bar-number-for-the-first-measure.ly}
+{snippets/printing-the-bar-number-for-the-first-measure.ly}
 
 @cindex barre de mesure, impression à intervalle régulier
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-at-regular-intervals.ly}
+{snippets/printing-bar-numbers-at-regular-intervals.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-with-changing-regular-intervals.ly}
+{snippets/printing-bar-numbers-with-changing-regular-intervals.ly}
 
 @cindex numéro de mesure, formatage
 @cindex formatage du numéro de mesure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-inside-boxes-or-circles.ly}
+{snippets/printing-bar-numbers-inside-boxes-or-circles.ly}
 
 @c XXX also included in `repeats.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @cindex alignement du numéro de mesure
 @cindex numéro de mesure, alignement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{aligning-bar-numbers.ly}
+{snippets/aligning-bar-numbers.ly}
 
 @cindex numéro de mesure, supression
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{removing-bar-numbers-from-a-score.ly}
+{snippets/removing-bar-numbers-from-a-score.ly}
 
 @morerefs
 Morceaux choisis :
@@ -3746,12 +3746,12 @@ désactivés dans cette même expression.
 
 @cindex hampe barrée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-grace-note-slashes-with-normal-heads.ly}
+{snippets/using-grace-note-slashes-with-normal-heads.ly}
 
 @funindex add-grace-property
 @funindex remove-grace-property
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-grace-layout-within-music.ly}
+{snippets/tweaking-grace-layout-within-music.ly}
 
 @cindex accord vide
 @cindex vide, accord
@@ -3762,12 +3762,12 @@ désactivés dans cette même expression.
 @funindex startAppoggiaturaMusic
 @funindex stopAppoggiaturaMusic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{redefining-grace-note-global-defaults.ly}
+{snippets/redefining-grace-note-global-defaults.ly}
 
 @cindex orenement, espacement
 @cindex espacement, ornement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-grace-notes-with-floating-space.ly}
+{snippets/positioning-grace-notes-with-floating-space.ly}
 
 @morerefs
 Glossaire musicologique :

@@ -35,7 +35,7 @@ Ez az esszé leírja, miért született a LilyPond, és hogyan képes ilyen gyö
 @section A LilyPond története
 @translationof The LilyPond story
 
-Mielőtt a LilyPondot koncerteken használt csodaszép kották szedésére kezdtük volna használni, mielőtt zenetudományi dokumentumok zenei idézeteit vagy akár egyszerű dallamokat le lehetett volna vele kottázni, mielőtt szerte a világon a felhasználók széles körben kezdték volna használni, vagy ez az esszé megszületett volna, a LilyPond története egy kérdéssel kezdődött: 
+Mielőtt a LilyPondot koncerteken használt csodaszép kották szedésére kezdtük volna használni, mielőtt zenetudományi dokumentumok zenei idézeteit vagy akár egyszerű dallamokat le lehetett volna vele kottázni, mielőtt szerte a világon a felhasználók széles körben kezdték volna használni, vagy ez az esszé megszületett volna, a LilyPond története egy kérdéssel kezdődött:
 
 @quotation
 Miért nem adják vissza a számítógép által szedett kották a kézzel szedett kották szépségét és kiegyensúlyozottságát?
@@ -1060,7 +1060,7 @@ In the following example, we start out with a plug-in for note
 heads, the @code{Note_heads_engraver}.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1093,7 +1093,7 @@ heads, the @code{Note_heads_engraver}.
 Then a @code{Staff_symbol_engraver} adds the staff,
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1125,7 +1125,7 @@ Then a @code{Staff_symbol_engraver} adds the staff,
 the @code{Clef_engraver} defines a reference point for the staff,
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1155,7 +1155,7 @@ the @code{Clef_engraver} defines a reference point for the staff,
 and the @code{Stem_engraver} adds stems.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1188,7 +1188,7 @@ engravers for beams, slurs, accents, accidentals, bar lines, time
 signature, and key signature, we get a complete piece of notation.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score { \topVoice }
 @end lilypond
 
@@ -1200,7 +1200,7 @@ This system works well for monophonic music, but what about
 polyphony?  In polyphonic notation, many voices can share a staff.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
@@ -1215,7 +1215,7 @@ Staff contexts can be put into a single Score context.  The Score
 context is the top level notation context.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score {
    <<
       \new Staff << \topVoice \\ \botVoice >>

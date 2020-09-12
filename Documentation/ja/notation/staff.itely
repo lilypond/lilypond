@@ -19,7 +19,7 @@
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
 
 このセクションでは、譜の見た目を変える方法、複数の譜を持つ楽譜を譜刻する方法、@c
 それに、テンポ指示と演奏指示楽節の音符を譜に付け加える方法について説明します。
@@ -244,14 +244,14 @@
 @cindex bracket, square, at start of staff group (譜グループの先頭の角括弧)
 @cindex staff group, with square bracket at start (譜グループの先頭の角括弧)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{use-square-bracket-at-the-start-of-a-staff-group.ly}
+{snippets/use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @cindex bracket, at start of single staff (1 つの譜の先頭にある括弧)
 @cindex brace, at start of single staff (1 つの譜の先頭にある括弧)
 @cindex staff, single, with bracket or brace (括弧が付いている 1 つの譜)
 @cindex single staff with bracket or brace (括弧が付いている 1 つの譜)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{display-bracket-with-only-one-staff-in-a-system.ly}
+{snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex mensurstriche layout (計量音楽風のレイアウト)
 @cindex renaissance music (ルネサンス音楽)
@@ -259,7 +259,7 @@
 @cindex mensural music, transcription of (計量音楽の転写)
 @cindex bar line, between staves (譜の間の小節線)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @morerefs
 音楽用語集:
@@ -324,7 +324,7 @@
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{nesting-staves.ly}
+{snippets/nesting-staves.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -562,7 +562,7 @@
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-some-staff-lines-thicker-than-the-others.ly}
+{snippets/making-some-staff-lines-thicker-than-the-others.ly}
 
 @morerefs
 音楽用語集:
@@ -716,7 +716,7 @@
 @funindex alignBelowContext
 @funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligning-ossias-and-lyrics.ly}
+{snippets/vertically-aligning-ossias-and-lyrics.ly}
 
 @morerefs
 音楽用語集:
@@ -1628,7 +1628,7 @@ R2.*2 |
 @cindex multi-measure rest, numbering (複数小節にまたがる休符の数字)
 @funindex restNumberThreshold
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{numbering-single-measure-rests.ly}
+{snippets/numbering-single-measure-rests.ly}
 
 @cindex church rest (教会音楽の休符)
 @cindex rest, church (教会音楽の休符)
@@ -1636,7 +1636,7 @@ R2.*2 |
 @cindex multi-measure rest, style (複数小節にまたがる休符のスタイル)
 @cindex style, multi-measure rests (複数小節にまたがる休符のスタイル)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi-measure-rests.ly}
+{snippets/changing-form-of-multi-measure-rests.ly}
 
 @seealso
 記譜法リファレンス:

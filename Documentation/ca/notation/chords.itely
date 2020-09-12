@@ -17,7 +17,7 @@
 @section Notació d'acords
 @translationof Chord notation
 
-@lilypondfile[quote]{chords-headword.ly}
+@lilypondfile[quote]{snippets/chords-headword.ly}
 
 Els acords es poden escriure al mode d'acords, que reconeix
 algunes convencions europees tradicionals de nomenclatura
@@ -509,13 +509,13 @@ N.C., Sense Acord).
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{showing-chords-at-changes.ly}
+{snippets/showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-@c {adding-bar-lines-to-chordnames-context.ly}
+@c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Glossari musical:
@@ -748,20 +748,20 @@ l'acord està alterat.
 
 @cindex excepcions, noms d'acord
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-exceptions.ly}
+{snippets/chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-major7.ly}
+{snippets/chord-name-major7.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-bar-lines-to-chordnames-context.ly}
+{snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{volta-below-chords.ly}
+{snippets/volta-below-chords.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-chord-separator.ly}
+{snippets/changing-chord-separator.ly}
 
 @morerefs
 Referència de la notació:
@@ -804,7 +804,7 @@ myChords = \relative c' {
 @translationof Figured bass
 
 @c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
 
 Es pot imprimir notació de baix xifrat.
 
@@ -1054,7 +1054,7 @@ Fin de línia de continuació
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-positions-of-figured-bass-alterations.ly}
+{snippets/changing-the-positions-of-figured-bass-alterations.ly}
 
 @morerefs
 Fragments de codi:

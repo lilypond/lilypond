@@ -14,7 +14,7 @@
 @section Instrumentos de viento
 @translationof Wind instruments
 
-@lilypondfile[quote]{wind-headword.ly}
+@lilypondfile[quote]{snippets/wind-headword.ly}
 
 Esta sección incluye elementos de notación musical que afloran al
 escribir para instrumentos de viento.
@@ -110,7 +110,7 @@ Las trompas tapadas se indican por medio de la articulación
 @cindex modificar, flageolet, tamaño
 @funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing--flageolet-mark-size.ly}
+{snippets/changing--flageolet-mark-size.ly}
 
 
 @morerefs
@@ -154,12 +154,12 @@ viento madera,como se describe en
 @cindex @q{abierta}, articulación
 @cindex articulación, abierta
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingering-symbols-for-wind-instruments.ly}
+{snippets/fingering-symbols-for-wind-instruments.ly}
 
 @cindex fingering chart
 @cindex chart, fingering
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{recorder-fingering-chart.ly}
+{snippets/recorder-fingering-chart.ly}
 
 
 @morerefs
@@ -465,19 +465,19 @@ patrones de los diagramas están en
 @cindex viento, instrumento, diagrama, lista
 @cindex list of woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-listing.ly}
+{snippets/woodwind-diagrams-listing.ly}
 
 @cindex viento, instrumento, diagrama, modificar
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{graphical-and-text-woodwind-diagrams.ly}
+{snippets/graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-size-of-woodwind-diagrams.ly}
+{snippets/changing-the-size-of-woodwind-diagrams.ly}
 
 @cindex viento, instrumento, diagrama, lista de claves
 @cindex list of keys in woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-key-lists.ly}
+{snippets/woodwind-diagrams-key-lists.ly}
 
 
 @morerefs

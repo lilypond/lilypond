@@ -1999,13 +1999,13 @@ revision of the translation.  To check a single file, cd into
 @file{Documentation/} and run
 
 @example
-make CHECKED_FILES=@var{MY_LANGUAGE}/@var{manual}/@var{foo}.itely check-translation
+make TRANSLATION_FILES=@var{MY_LANGUAGE}/@var{manual}/@var{foo}.itely check-translation
 @end example
 
 @noindent
 In case this file has been renamed since you last updated the
 translation, you should specify both old and new file names, e.g.
-@code{CHECKED_FILES=@var{MY_LANGUAGE}/@{@var{manual},user@}/@var{foo}.itely}.
+@code{TRANSLATION_FILES=@var{MY_LANGUAGE}/@{@var{manual},user@}/@var{foo}.itely}.
 
 To see only which files need to be updated, do
 
@@ -2058,7 +2058,7 @@ make ISOLANG=@var{MY_LANGUAGE} update-translation
 or to update a single file
 
 @example
-make CHECKED_FILES=@var{MY_LANGUAGE/@var{manual}/foo.itely} update-translation
+make TRANSLATION_FILES=@var{MY_LANGUAGE/@var{manual}/foo.itely} update-translation
 @end example
 
 For each file to be updated, @code{update-translation} will open your

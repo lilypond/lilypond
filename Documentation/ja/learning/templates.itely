@@ -348,28 +348,28 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @translationof Notes only
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-only-notes.ly}
+{snippets/single-staff-template-with-only-notes.ly}
 
 @node 音符と歌詞
 @appendixsubsec 音符と歌詞
 @translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes-and-lyrics.ly}
+{snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 @node 音符とコード
 @appendixsubsec 音符とコード
 @translationof Notes and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes-and-chords.ly}
+{snippets/single-staff-template-with-notes-and-chords.ly}
 
 @node 音符、歌詞それにコード
 @appendixsubsec 音符、歌詞それにコード
 @translationof Notes lyrics and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes,-lyrics,-and-chords.ly}
+{snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
 @node ピアノ テンプレート
@@ -387,21 +387,21 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @translationof Solo piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-simple.ly}
+{snippets/piano-template-simple.ly}
 
 @node ピアノと歌詞を持つ旋律
 @appendixsubsec ピアノと歌詞を持つ旋律
 @translationof Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-melody-and-lyrics.ly}
+{snippets/piano-template-with-melody-and-lyrics.ly}
 
 @node 歌詞が中央に配置されたピアノ譜
 @appendixsubsec 歌詞が中央に配置されたピアノ譜
 @translationof Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-lyrics.ly}
+{snippets/piano-template-with-centered-lyrics.ly}
 
 
 @node 弦楽四重奏テンプレート
@@ -418,14 +418,14 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @translationof String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{string-quartet-template-simple.ly}
+{snippets/string-quartet-template-simple.ly}
 
 @node 弦楽四重奏パート
 @appendixsubsec 弦楽四重奏パート
 @translationof String quartet parts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{string-quartet-template-with-separate-parts.ly}
+{snippets/string-quartet-template-with-separate-parts.ly}
 
 
 @node 合唱テンプレート
@@ -452,49 +452,49 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @translationof SATB vocal score
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template.ly}
+{snippets/vocal-ensemble-template.ly}
 
 @node SATB ボーカル譜と自動ピアノ譜
 @appendixsubsec SATB ボーカル譜と自動ピアノ譜
 @translationof SATB vocal score and automatic piano reduction
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-automatic-piano-reduction.ly}
+{snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 @node 整列されたコンテキストを持つ SATB
 @appendixsubsec 整列されたコンテキストを持つ SATB
 @translationof SATB with aligned contexts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+{snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 @node 4 つの譜に配置された SATB
 @appendixsubsec 4 つの譜に配置された SATB
 @translationof SATB on four staves
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{satb-choir-template---four-staves.ly}
+{snippets/satb-choir-template---four-staves.ly}
 
 @node ソロと 2 パートのリフレイン
 @appendixsubsec ソロと 2 パートのリフレイン
 @translationof Solo verse and two-part refrain
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-verse-and-refrain.ly}
+{snippets/vocal-ensemble-template-with-verse-and-refrain.ly}
 
 @node 賛美歌
 @appendixsubsec 賛美歌
 @translationof Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 @node 聖歌
 @appendixsubsec 聖歌
 @translationof Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{anglican-psalm-template.ly}
+{snippets/anglican-psalm-template.ly}
 
 
 @node オーケストラ テンプレート
@@ -510,7 +510,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @translationof Orchestra choir and piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{orchestra,-choir-and-piano-template.ly}
+{snippets/orchestra,-choir-and-piano-template.ly}
 
 
 @node 古代の記譜法テンプレート
@@ -527,14 +527,14 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @translationof Transcription of mensural music
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{incipit.ly}
+{snippets/incipit.ly}
 
 @node グレゴリア聖歌のテンプレート
 @appendixsubsec グレゴリア聖歌のテンプレート
 @translationof Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
 @node その他のテンプレート
@@ -550,7 +550,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @translationof Jazz combo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{jazz-combo-template.ly}
+{snippets/jazz-combo-template.ly}
 
 
 @ignore

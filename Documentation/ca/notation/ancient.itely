@@ -17,7 +17,7 @@
 @section Notació antiga
 @translationof Ancient notation
 
-@lilypondfile[quote]{ancient-headword.ly}
+@lilypondfile[quote]{snippets/ancient-headword.ly}
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
@@ -2774,7 +2774,7 @@ a les barres de compàs, i al mateix temps oferir l'ajuda
 orientativa que proporcionen les barres de compàs.
 
 @lilypondfile[verbatim,quote,texidoc]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 
 @c @morerefs
@@ -2970,7 +2970,7 @@ spirLyr = \lyricmode {
 @translationof Ancient and modern from one source
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
+{snippets/using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 @c @morerefs
 @c ... and reference to other sections ...

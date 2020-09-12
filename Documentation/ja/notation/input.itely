@@ -3306,7 +3306,7 @@ MIDI 出力において、指定された強弱記号に対応した最終的な
 @cindex dynamics in MIDI, custom (MIDI でのカスタム強弱記号)
 @cindex MIDI, custom dynamics (MIDI でのカスタム強弱記号)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{creating-custom-dynamics-in-midi-output.ly}
+{snippets/creating-custom-dynamics-in-midi-output.ly}
 
 インストールされているファイル:
 @file{ly/script-init.ly}
@@ -3416,7 +3416,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
 @cindex instrument equalization in MIDI, replacing default (MIDI のデフォルトの音量の均等化を置き換える)
 @cindex equalization, instrument, replacing MIDI default (MIDI のデフォルトの音量の均等化を置き換える)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{replacing-default-midi-instrument-equalization.ly}
+{snippets/replacing-default-midi-instrument-equalization.ly}
 
 @knownissues
 MIDI での音量変化は音符の開始時にのみ適用されます。そのため、クレッシェンドや@c
@@ -3689,7 +3689,7 @@ MIDI の歌詞は MIDI チャンネルを占有しませんが、@c
 @cindex MIDI, one channel per voice (MIDI におけるボイスごとのチャンネル)
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
+{snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 
 @node MIDI エフェクトのためのコンテキスト プロパティ

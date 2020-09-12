@@ -16,7 +16,7 @@
 @section Text
 @translationof Text
 
-@lilypondfile[quote]{text-headword.ly}
+@lilypondfile[quote]{snippets/text-headword.ly}
 
 Dieser Abschnitt erklärt, wie man Text (mit vielfältiger
 Formatierung) in Partituren einfügt.
@@ -214,10 +214,10 @@ Textstrecker sind Teil des @code{Dynamic}-Kontextes, siehe
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-text-spanner-postfix.ly}
+{snippets/dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-custom-text-spanner-postfix.ly}
 
 
 @morerefs
@@ -313,10 +313,10 @@ c  c
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line.ly}
+{snippets/printing-marks-at-the-end-of-a-line.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-on-every-staff.ly}
+{snippets/printing-marks-on-every-staff.ly}
 
 @morerefs
 Notationsreferenz:
@@ -401,7 +401,7 @@ sich in @ref{Textbeschriftung über mehrere Seiten}.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{stand-alone-two-column-markup.ly}
+{snippets/stand-alone-two-column-markup.ly}
 
 @morerefs
 Notationsreferenz:

@@ -170,7 +170,7 @@ c'4 f16
 Los ejemplos grandes se pueden grabar en archivos separados e
 introducirse con @code{\lilypondfile}.
 
-@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
 Si se requiere un campo @code{tagline}, ya sea predeterminado o
 personalizado, entonces el fragmento completo se debe incluir

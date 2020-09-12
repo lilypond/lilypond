@@ -17,7 +17,7 @@
 @section Instruments de vent
 @translationof Wind instruments
 
-@lilypondfile[quote]{wind-headword.ly}
+@lilypondfile[quote]{snippets/wind-headword.ly}
 
 Aquesta secció inclou elements de notació musical que es plantegen
 en escriure per a instruments de vent.
@@ -111,7 +111,7 @@ Las trompes tapades s'indiquen per mitjà de l'articulació
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing--flageolet-mark-size.ly}
+{snippets/changing--flageolet-mark-size.ly}
 
 @morerefs
 Referència de la notació:
@@ -145,10 +145,10 @@ fusta, com es descriu a
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingering-symbols-for-wind-instruments.ly}
+{snippets/fingering-symbols-for-wind-instruments.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{recorder-fingering-chart.ly}
+{snippets/recorder-fingering-chart.ly}
 
 @morerefs
 Referència de la notació:
@@ -449,16 +449,16 @@ patrons dels diagrames estan a
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-listing.ly}
+{snippets/woodwind-diagrams-listing.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{graphical-and-text-woodwind-diagrams.ly}
+{snippets/graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-size-of-woodwind-diagrams.ly}
+{snippets/changing-the-size-of-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-key-lists.ly}
+{snippets/woodwind-diagrams-key-lists.ly}
 
 @morerefs
 Fitxers d'inici:

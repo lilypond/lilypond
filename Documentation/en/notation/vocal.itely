@@ -12,7 +12,7 @@
 @node Vocal music
 @section Vocal music
 
-@lilypondfile[quote]{vocal-headword.ly}
+@lilypondfile[quote]{snippets/vocal-headword.ly}
 
 This section explains how to typeset vocal music, and make sure
 that the lyrics will be aligned with the notes of their melody.
@@ -191,7 +191,7 @@ options, see @ref{Formatting text}.
 @cindex lyrics, and markup
 @cindex markup, in lyrics
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{formatting-lyrics-syllables.ly}
+{snippets/formatting-lyrics-syllables.ly}
 
 
 @morerefs
@@ -1130,7 +1130,7 @@ Learning Manual, see @rlearning{Vocal ensembles templates}.
 
 @cindex lyrics, version 2.12 spacing
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 
 @morerefs
@@ -1192,7 +1192,7 @@ To make this change for all lyrics in the score, set the property in the
 @cindex alignment, horizontal, lyrics
 @cindex horizontal alignment, lyrics
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{lyrics-alignment.ly}
+{snippets/lyrics-alignment.ly}
 
 
 @knownissues
@@ -2292,7 +2292,7 @@ Lead sheets may be printed by combining vocal parts and
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 
 @morerefs
@@ -2494,7 +2494,7 @@ Internals Reference:
 @cindex arpeggio bracket, marking divided voices
 @cindex bracket, vertical, marking divided voices
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 
 @morerefs
@@ -2819,7 +2819,7 @@ and to make the piano notes clearer.
 @cindex score, vocal, adding cues
 @cindex cue, in vocal score
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{adding-orchestral-cues-to-a-vocal-score.ly}
+{snippets/adding-orchestral-cues-to-a-vocal-score.ly}
 
 
 @morerefs
@@ -3256,7 +3256,7 @@ of the following snippets.
 @cindex hymn
 @cindex canticle
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{chant-or-psalms-notation.ly}
+{snippets/chant-or-psalms-notation.ly}
 
 @c XXX move this text into following snippet
 Canticles and other liturgical texts may be set more freely, and
@@ -3269,7 +3269,7 @@ durations.
 @cindex transcription, modern of Gregorian music
 @cindex modern transcription of Gregorian music
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
 @morerefs
@@ -3459,7 +3459,7 @@ commands at the end of each line.
 @cindex partial measure, in hymns
 @cindex measure, partial, in hymns
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 
 @node Ancient vocal music

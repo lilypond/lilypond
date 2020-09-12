@@ -222,7 +222,7 @@ def get_texinfo_width_indent(source, global_options):
     (handle, tmpfile) = tempfile.mkstemp('.texi')
     outfile = os.path.splitext(tmpfile)[0] + '.pdf'
 
-    tmp_handle = os.fdopen(handle, 'w')
+    tmp_handle = open(handle, 'w', encoding='utf8')
     tmp_handle.write(texinfo_document)
     tmp_handle.close()
 
@@ -251,7 +251,7 @@ def get_texinfo_width_indent(source, global_options):
         # call command
         cmd += " > %s" % output_filename
         returncode = os.system(cmd)
-        parameter_string = open(output_filename).read()
+        parameter_string = open(output_filename, encoding="utf8").read()
         if returncode != 0:
             ly.warning(_("Unable to auto-detect default settings:\n"))
         # clean up
@@ -361,22 +361,30 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
     def snippet_output(self, basename, snippet):
         s = ''
         base = basename
+        def find(fn):
+            return book_base.find_file(
+                fn, self.global_options.include_path, self.global_options.original_dir,
+                raise_error=False)
+
         if book_snippets.DOCTITLE in snippet.option_dict:
             doctitle = base + '.doctitle'
             translated_doctitle = doctitle + self.document_language
-            if os.path.exists(translated_doctitle):
-                s += '\n@lydoctitle %s\n\n' % codecs.open(
-                    translated_doctitle, 'r', 'utf-8').read()
-            elif os.path.exists(doctitle):
-                s += '\n@lydoctitle %s\n\n' % codecs.open(
-                    doctitle, 'r', 'utf-8').read()
+            for t in [translated_doctitle,  doctitle]:
+                fullpath = find(t)
+                if fullpath:
+                    s += '\n@lydoctitle %s\n\n' % codecs.open(
+                        fullpath, 'r', 'utf-8').read()
+                    break
+
         if book_snippets.TEXIDOC in snippet.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + self.document_language
-            if os.path.exists(translated_texidoc):
-                s += '@include %(translated_texidoc)s\n\n' % vars()
-            elif os.path.exists(texidoc):
-                s += '@include %(texidoc)s\n\n' % vars()
+            for t in [translated_texidoc, texidoc]:
+                fullpath = find(t)
+                if fullpath:
+                    s += '@include %s\n\n' % t
+                    break
+
         s += self.output_print_filename(basename, snippet)
 
         substr = ''

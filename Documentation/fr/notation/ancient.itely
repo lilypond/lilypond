@@ -18,7 +18,7 @@
 @section Notations anciennes
 @translationof Ancient notation
 
-@lilypondfile[quote]{ancient-headword.ly}
+@lilypondfile[quote]{snippets/ancient-headword.ly}
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
@@ -2770,7 +2770,7 @@ l'apparition d'une barre -- tout en procurant l'aide que peuvent
 constituer les barres de mesure.
 
 @lilypondfile[verbatim,quote,texidoc]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @c This simple setup will take care of the
 @c TODO Add text about lyrics to the lowest line, to be placed
@@ -2970,7 +2970,7 @@ spirLyr = \lyricmode {
 @cindex transcription, musique ancienne
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
+{snippets/using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 @c @morerefs
 @c ... and reference to other sections ...

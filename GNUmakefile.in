@@ -155,6 +155,9 @@ $(outdir)/%-root/index.html: doc-build
 	cd $(outdir)/$*-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
 	$(PERL) -i -pe 's#(href)="\.\./Documentation/#\1="#g' $(dir $@)/Documentation/*html
 	$(PERL) -i -pe 's#(href)="\.\./\.\./Documentation/#\1="../#g' $(dir $@)/Documentation/*/*html
+	# Fixup links to CSS files.
+	$(PERL) -i -pe 's#(href)="css/#\1="../../Documentation/css/#g' $(dir $@)/input/regression/*html
+	$(PERL) -i -pe 's#(href)="css/#\1="../../../Documentation/css/#g' $(dir $@)/input/regression/*/*html
 
 doc-build: top-doc
 	$(MAKE) out=www -C Documentation/ doc
@@ -300,7 +303,8 @@ test: test-pre
 	@echo
 	@echo '    grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
 	@echo
-	$(MAKE) -C input/regression out=test lysdoc-gittxt lysdoc-test
+	$(MAKE) -C input/regression out=test lysdoc-test
+	$(buildscript-dir)/print-gittxt.sh $(top-src-dir) > input/regression/out-test/tree.gittxt
 	$(MAKE) -C input/regression/abc2ly out=test lysdoc-test
 	$(MAKE) -C input/regression/lilypond-book out=test local-test
 	$(MAKE) -C input/regression/midi out=test lysdoc-test

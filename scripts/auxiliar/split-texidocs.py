@@ -13,8 +13,8 @@ texidoc_chunk_re = re.compile(r'^(?:%+\s*' + s +
 
 for file_name in source_files:
     base_name = os.path.basename(file_name)
-    contents = open(file_name).read()
+    contents = open(file_name, encoding='utf8').read()
     for match in texidoc_chunk_re.finditer(contents):
         language_code = match.group(1)
         print(language_code)
-        open(dest_path % (language_code, base_name), 'w').write(match.group(0))
+        open(dest_path % (language_code, base_name), 'w', encoding='utf8').write(match.group(0))

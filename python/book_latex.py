@@ -232,7 +232,7 @@ def get_latex_textwidth(source, global_options):
             os.environ['TEXINPUTS'] = oldtexinputs
         else:
             del os.environ['TEXINPUTS']
-        parameter_string = open(output_filename).read()
+        parameter_string = open(output_filename, encoding="utf8").read()
         if returncode != 0:
             warning(_("Unable to auto-detect default settings:\n"))
         # clean up
@@ -252,7 +252,7 @@ def get_latex_textwidth(source, global_options):
     if os.path.exists(auxfile):
         os.unlink(auxfile)
     if os.path.exists(logfile):
-        parameter_string = open(logfile).read()
+        parameter_string = open(logfile, encoding="utf8").read()
         os.unlink(logfile)
 
     columns = 0

@@ -1548,7 +1548,7 @@ broken every 4 measures, and only there:
 @cindex page break, managing with extra voice
 @cindex line break, managing with extra voice
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-an-extra-voice-for-breaks.ly}
+{snippets/using-an-extra-voice-for-breaks.ly}
 
 
 @morerefs

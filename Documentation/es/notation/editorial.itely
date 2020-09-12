@@ -14,7 +14,7 @@
 @section Anotaciones editoriales
 @translationof Editorial annotations
 
-@lilypondfile[quote]{editorial-headword.ly}
+@lilypondfile[quote]{snippets/editorial-headword.ly}
 
 Esta sección trata de las diversas maneras de modificar el aspecto
 de las notas y de aplicar énfasis analítico o educativo.
@@ -399,14 +399,14 @@ o debajo del pentagrama, véase @ref{Dirección y posición}.
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex digitación, dentro del pentagrama
 @cindex digitación, y plicas
 @funindex staff-padding
 @funindex add-stem-support
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @morerefs
 Referencia de la notación:
@@ -741,12 +741,12 @@ hacia abajo; véase @ref{Dirección y posición}.
 @cindex plica, dirección predeterminada sobre la línea media
 @cindex dirección predeterminada de la plica sobre la línea media
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+{snippets/default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @cindex plica, dirección automática sobre la línea media
 @cindex dirección automática de la plica sobre la línea media
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+{snippets/automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
 @morerefs
 Referencia de la notación:
@@ -1008,7 +1008,7 @@ de rejilla.
 
 @cindex rejilla, líneas de, modificación
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{grid-lines--changing-their-appearance.ly}
+{snippets/grid-lines--changing-their-appearance.ly}
 
 @morerefs
 Fragmentos de código:
@@ -1077,13 +1077,13 @@ Los corchetes de análisis se pueden anidar.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-above-the-staff.ly}
+{snippets/analysis-brackets-above-the-staff.ly}
 
 @cindex análisis, corchete de, con etiqueta
 @cindex corchete de fraseo con etiqueta
 @funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-with-labels.ly}
+{snippets/analysis-brackets-with-labels.ly}
 
 @morerefs
 Referencia de funcionamiento interno:

@@ -55,7 +55,7 @@
 @rlsr{Chords} の @qq{Chord names alternative} スニペットで紹介します。
 
 @c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
+@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
 @node 一般的な和音修飾子
 @appendixsec 一般的な和音修飾子
@@ -511,7 +511,7 @@
 
 下の図は、予め定義された弦チューニングの一覧を示しています。
 
-@lilypondfile{display-predefined-string-tunings.ly}
+@lilypondfile{en/included/display-predefined-string-tunings.ly}
 
 @node 定義されたフレット図
 @appendixsec 定義されたフレット図
@@ -527,19 +527,19 @@
 @unnumberedsubsec ギターのフレット図
 @translationof Diagrams for Guitar
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
 @node ウクレレのフレット図
 @unnumberedsubsec ウクレレのフレット図
 @translationof Diagrams for Ukulele
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
 
 @node マンドリンのフレット図
 @unnumberedsubsec マンドリンのフレット図
 @translationof Diagrams for Mandolin
 
-@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
 
 @node 定義された用紙サイズ
@@ -1022,7 +1022,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Clef glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #clefs
 @end lilypond
@@ -1033,7 +1033,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Time Signature glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #timesig
 @end lilypond
@@ -1044,7 +1044,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Number glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
 @end lilypond
@@ -1055,7 +1055,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Accidental glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accidentals
 @end lilypond
@@ -1066,7 +1066,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Default Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #default-noteheads
 @end lilypond
@@ -1077,7 +1077,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Special Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #special-noteheads
 @end lilypond
@@ -1088,7 +1088,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #shape-note-noteheads
 @end lilypond
@@ -1099,7 +1099,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Rest glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #rests
 @end lilypond
@@ -1110,7 +1110,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Flag glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #flags
 @end lilypond
@@ -1121,7 +1121,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Dot glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dots
 @end lilypond
@@ -1132,7 +1132,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Dynamic glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dynamics
 @end lilypond
@@ -1143,7 +1143,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Script glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #scripts
 @end lilypond
@@ -1154,7 +1154,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Arrowhead glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #arrowheads
 @end lilypond
@@ -1165,7 +1165,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Bracket-tip glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #brackettips
 @end lilypond
@@ -1176,7 +1176,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Pedal glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #pedal
 @end lilypond
@@ -1187,7 +1187,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Accordion glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accordion
 @end lilypond
@@ -1198,7 +1198,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Tie glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #ties
 @end lilypond
@@ -1209,7 +1209,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Vaticana glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #vaticana
 @end lilypond
@@ -1220,7 +1220,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Medicaea glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #medicaea
 @end lilypond
@@ -1231,7 +1231,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Hufnagel glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #hufnagel
 @end lilypond
@@ -1242,7 +1242,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Mensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #mensural
 @end lilypond
@@ -1253,7 +1253,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Neomensural glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #neomensural
 @end lilypond
@@ -1264,7 +1264,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Petrucci glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #petrucci
 @end lilypond
@@ -1275,7 +1275,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Solesmes glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #solesmes
 @end lilypond
@@ -1285,7 +1285,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @translationof Kievan Notation glyphs
 
 @lilypond[quote]
-\include "font-table.ly"
+\include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
 @end lilypond
@@ -1298,7 +1298,7 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @cindex note head style (符頭のスタイル)
 以下は、符頭のスタイルの一覧です。
 
-@lilypondfile[noindent]{note-head-style.ly}
+@lilypondfile[noindent]{en/included/note-head-style.ly}
 
 
 @node 音部記号のスタイル
@@ -2160,7 +2160,7 @@ For translators: you cannot translate the content of these files.
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include markup-commands.tely
+@include en/markup-commands.tely
 
 
 @node \markuplist コマンドの一覧
@@ -2171,7 +2171,7 @@ For translators: you cannot translate the content of these files.
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include markup-list-commands.tely
+@include en/markup-list-commands.tely
 
 
 @node 特殊文字の一覧
@@ -3213,7 +3213,7 @@ LilyPond では、イミュータブル プロパティまたは共有プロパ�
 @funindex grob-interface
 @cindex graphical object interface (グラフィカル オブジェクト インターフェイス)
 
-複数の Grob で共通のアクションやプロパティは、@code{grob-interface} 
+複数の Grob で共通のアクションやプロパティは、@code{grob-interface}
 あるいは短く@q{インターフェイス} (@q{interface}) と@c
 呼ばれるオブジェクトにまとめられます。
 
@@ -3409,7 +3409,7 @@ grob とステンシルを繋ぐ役目を果たします。
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include context-properties.tely
+@include en/context-properties.tely
 
 
 @node レイアウト プロパティの一覧
@@ -3418,7 +3418,7 @@ grob とステンシルを繋ぐ役目を果たします。
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include layout-properties.tely
+@include en/layout-properties.tely
 
 
 @node 音楽関数の一覧
@@ -3427,7 +3427,7 @@ grob とステンシルを繋ぐ役目を果たします。
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include identifiers.tely
+@include en/identifiers.tely
 
 @node コンテキストを変更する識別子
 @appendixsec コンテキストを変更する識別子
@@ -3438,7 +3438,7 @@ grob とステンシルを繋ぐ役目を果たします。
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include context-mod-identifiers.tely
+@include en/context-mod-identifiers.tely
 
 @node 定義された型述語
 @appendixsec 定義された型述語
@@ -3446,7 +3446,7 @@ grob とステンシルを繋ぐ役目を果たします。
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include type-predicates.tely
+@include en/type-predicates.tely
 
 
 @node Scheme 関数
@@ -3455,4 +3455,4 @@ grob とステンシルを繋ぐ役目を果たします。
 
 システムの制約により、以下の一覧は英語での提供となります。
 
-@include scheme-functions.tely
+@include en/scheme-functions.tely

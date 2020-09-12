@@ -17,7 +17,7 @@
 @section Teclats i altres instruments de pentagrames múltiples
 @translationof Keyboard and other multi-staff instruments
 
-@lilypondfile[quote]{keyboard-headword.ly}
+@lilypondfile[quote]{snippets/keyboard-headword.ly}
 
 Aquesta secció s'ocupa de diversos aspectes de la notació musical
 que són exclusius dels instruments de teclat i d'altres
@@ -469,7 +469,7 @@ seguretat que les barres automàtiques no uneixen les notes d'una
 pauta quan no cal que estiguin unides a l'altra pauta.
 
 @lilypondfile[verbatim,quote]
-{cross-staff-stems.ly}
+{snippets/cross-staff-stems.ly}
 
 De moment no es pot especificar aquest gravador pel seu nom entre
 cometes, sinó prefixant el nom amb un símbol de coixinet @code{#},
@@ -477,7 +477,7 @@ a causa de com està implementat.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @morerefs
 Fragments de codi:
@@ -634,7 +634,7 @@ d'execució.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-register-symbols.ly}
+{snippets/accordion-register-symbols.ly}
 
 @morerefs
 Fragments de codi:

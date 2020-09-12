@@ -371,7 +371,7 @@ asigna los maqams más comunes a armaduras de tonalidad:
 
 @c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -425,7 +425,7 @@ barrado automático y/o utilizar indicaciones de compás compuestas.
 @cindex improvisación, árabe
 @cindex árabe, improvisación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{arabic-improvisation.ly}
+{snippets/arabic-improvisation.ly}
 
 
 @morerefs
@@ -650,7 +650,7 @@ imprimen automáticamente.
 @cindex makam, ejemplo
 @cindex makam, turco, ejemplo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{turkish-makam-example.ly}
+{snippets/turkish-makam-example.ly}
 
 
 @node Lecturas adicionales sobre música turca

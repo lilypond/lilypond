@@ -16,7 +16,7 @@
 @section Notation von alter Musik
 @translationof Ancient notation
 
-@lilypondfile[quote]{ancient-headword.ly}
+@lilypondfile[quote]{snippets/ancient-headword.ly}
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
@@ -2743,7 +2743,7 @@ werden müssen, während man sich dennoch an den Taktlinien
 rhythmisch orientieren kann.
 
 @lilypondfile[verbatim,quote,texidoc]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @c This simple setup will take care of the
 @c TODO Add text about lyrics to the lowest line, to be placed

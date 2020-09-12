@@ -2648,7 +2648,7 @@ der Liste entspricht, wird ein Piano-Klang benutzt (@code{"acoustic grand"}).
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
+{snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 @knownissues
 

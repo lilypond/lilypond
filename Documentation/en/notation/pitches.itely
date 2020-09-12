@@ -13,7 +13,7 @@
 @node Pitches
 @section Pitches
 
-@lilypondfile[quote]{pitches-headword.ly}
+@lilypondfile[quote]{snippets/pitches-headword.ly}
 
 This section discusses how to specify the pitch of notes.  There
 are three steps to this process: input, modification, and output.
@@ -440,12 +440,12 @@ new system:
 @cindex hiding accidentals, on tied notes at start of system
 @cindex accidental, hiding, on tied notes at start of system
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+{snippets/hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @cindex natural sign, extra, preventing
 @cindex extra natural sign, preventing
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-extra-naturals-from-being-automatically-added.ly}
+{snippets/preventing-extra-naturals-from-being-automatically-added.ly}
 
 @morerefs
 Music Glossary:
@@ -860,7 +860,7 @@ see @ref{Instrument transpositions}.
 @cindex transposition, pitches, @q{smart}
 @cindex pitches, @q{smart} transposition
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
 @morerefs
@@ -1300,7 +1300,7 @@ will be smaller than normal.  This behaviour can be overridden.
 
 @cindex clef, tweaking properties
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-clef-properties.ly}
+{snippets/tweaking-clef-properties.ly}
 
 
 @morerefs
@@ -1439,11 +1439,11 @@ position.
 @cindex key signature, preventing natural signs
 @cindex natural sign, preventing in key signatures
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+{snippets/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @cindex key signature, non-traditional
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -1548,18 +1548,18 @@ how to go back to the current default behavior:
 @cindex ottava text
 @cindex text, ottavation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-ottava-text.ly}
+{snippets/changing-ottava-text.ly}
 
 @funindex middleCPosition
 @cindex ottava, for single voice
 @cindex voice, with ottavation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-an-ottava-marking-to-a-single-voice.ly}
+{snippets/adding-an-ottava-marking-to-a-single-voice.ly}
 
 @cindex ottava spanner, modify slope
 @cindex slope, ottava spanner, modification
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-the-ottava-spanner-slope.ly}
+{snippets/modifying-the-ottava-spanner-slope.ly}
 
 
 @morerefs
@@ -3116,16 +3116,16 @@ printed if they are not part of the key signature.
 @cindex ambitus, per voice
 @cindex voice, ambitus
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-ambitus-per-voice.ly}
+{snippets/adding-ambitus-per-voice.ly}
 
 @cindex ambitus, multiple voices
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ambitus-with-multiple-voices.ly}
+{snippets/ambitus-with-multiple-voices.ly}
 
 @cindex ambitus, line gap
 @funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-ambitus-gap.ly}
+{snippets/changing-the-ambitus-gap.ly}
 
 
 @morerefs
@@ -3319,7 +3319,7 @@ font, see @ref{Setting the staff size}.
 @cindex number, in easy notation
 @funindex Ez_numbers_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{numbers-as-easy-note-heads.ly}
+{snippets/numbers-as-easy-note-heads.ly}
 
 
 @morerefs
@@ -3441,10 +3441,10 @@ major:
 @cindex note head, Aiken, thin variant
 @cindex Aiken shape note head, thin variant
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{aiken-head-thin-variant-noteheads.ly}
+{snippets/aiken-head-thin-variant-noteheads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+{snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 To see all note head styles, see @ref{Note head styles}.
 

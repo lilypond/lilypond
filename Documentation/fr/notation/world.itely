@@ -363,7 +363,7 @@ courants à leur armure :
 
 @c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -417,7 +417,7 @@ chiffres de mesure composés.
 @cindex arabe, improvisation
 @cindex improvisation arabe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{arabic-improvisation.ly}
+{snippets/arabic-improvisation.ly}
 
 
 @morerefs
@@ -648,7 +648,7 @@ affichés automatiquement.
 @cindex makam, exemple
 @cindex turque, exemple de makam
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{turkish-makam-example.ly}
+{snippets/turkish-makam-example.ly}
 
 
 @node Lectures complémentaires pour la musique turque

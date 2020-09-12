@@ -14,7 +14,7 @@
 @section Alturas
 @translationof Pitches
 
-@lilypondfile[quote]{pitches-headword.ly}
+@lilypondfile[quote]{snippets/pitches-headword.ly}
 
 En esta sección se discute cómo especificar la altura de las
 notas.  Este proceso se compone de tres fases: entrada,
@@ -457,12 +457,12 @@ al comienzo de un sistema:
 @cindex alteración, ocultar, en notas ligadas al principio de un sistema
 
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+{snippets/hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @cindex becuadro, adicional, evitar
 @cindex adicional, evitar becuadro
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-extra-naturals-from-being-automatically-added.ly}
+{snippets/preventing-extra-naturals-from-being-automatically-added.ly}
 
 @morerefs
 Glosario musical:
@@ -891,7 +891,7 @@ Para ver más información sobre instrumentos transpositores, consulte
 @cindex transposición, alturas, @q{inteligente}
 @cindex altura, transposición @q{inteligente}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
 @morerefs
@@ -1354,7 +1354,7 @@ este comportamiento.
 
 @cindex clave, trucaje de propiedades
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-clef-properties.ly}
+{snippets/tweaking-clef-properties.ly}
 
 
 @morerefs
@@ -1501,11 +1501,11 @@ de la octava que termina en dicha posición del pentagrama.
 @cindex armadura, evitar becuadros
 @cindex becuadro, evitar en armadura
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+{snippets/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @cindex armadura, no tradicional
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -1612,18 +1612,18 @@ de volver al comportamiento predeterminado actualmente:
 @cindex texto, de octava
 @cindex octavación, texto
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-ottava-text.ly}
+{snippets/changing-ottava-text.ly}
 
 @funindex middleCPosition
 @cindex octava, para una voz
 @cindex voz, con octavación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-an-ottava-marking-to-a-single-voice.ly}
+{snippets/adding-an-ottava-marking-to-a-single-voice.ly}
 
 @cindex octava, elemento de extensión, modificar inclinación
 @cindex inclinación, modificación, extensor de octava
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-the-ottava-spanner-slope.ly}
+{snippets/modifying-the-ottava-spanner-slope.ly}
 
 
 @morerefs
@@ -3199,16 +3199,16 @@ tonalidad.
 @cindex tesitura, por voz
 @cindex voz, tesitura
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-ambitus-per-voice.ly}
+{snippets/adding-ambitus-per-voice.ly}
 
 @cindex tesitura, varias voces
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ambitus-with-multiple-voices.ly}
+{snippets/ambitus-with-multiple-voices.ly}
 
 @cindex tesitura, línea de separación
 @funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-ambitus-gap.ly}
+{snippets/changing-the-ambitus-gap.ly}
 
 @morerefs
 Glosario musical:
@@ -3412,7 +3412,7 @@ pentagrama}.
 @cindex números, en notación simplificada
 @funindex Ez_numbers_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{numbers-as-easy-note-heads.ly}
+{snippets/numbers-as-easy-note-heads.ly}
 
 
 @morerefs
@@ -3538,10 +3538,10 @@ determinar a partir del relativo mayor:
 @cindex nota, cabeza, Aiken, variante fina
 @cindex Aiken, cabezas de nota, variante fina
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{aiken-head-thin-variant-noteheads.ly}
+{snippets/aiken-head-thin-variant-noteheads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+{snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Para ver todos los estilos de formas de cabeza de nota, consulte
 @ref{Estilos de cabezas de nota}.

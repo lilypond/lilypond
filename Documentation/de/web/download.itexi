@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 5b6ddab894b3065c35c72ef8048b8c6edbe684ac
+    Translation of GIT committish: 2b4eea90bd77e1a09b15ccc5d3493fbda1a199c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala, Michael Gerdau
+@c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
 @include included/generating-output.itexi
 
@@ -23,17 +23,11 @@ Sie bitte über unsere @ref{Texteingabe}.}
 @translationof Download
 
 @divClass{heading-center}
+@heading Downloads für LilyPond @versionStable
 @ifclear web_version
-  @c yes, we want verisonDevel here, since the online links
-  @c for @version won't be up yet!
-  @heading Downloads für LilyPond @versionDevel
-
-Links für die stabile Version von LilyPond finden sich auf
-@uref{https://lilypond.org, lilypond.org}
+@warning{Links für die unstabile Version von LilyPond finden sich unter
+@ref{Entwicklung}.}
 @end ifclear
-@ifset web_version
-  @heading Downloads für LilyPond @versionStable
-@end ifset
 
 @warningTextBased
 
@@ -47,9 +41,8 @@ Links für die stabile Version von LilyPond finden sich auf
 @itemize
 
 @item
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (GNU/Linux und FreeBSD)}
+@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, Unix (generische Pakete für GNU/Linux)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -100,8 +93,6 @@ Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Co
 der Rechteinhaber verwendet.
 
 @logoLegalLinux
-
-@logoLegalFreeBSD
 
 @logoLegalMacOSX
 
@@ -210,8 +201,6 @@ der Rechteinhaber verwendet.
 
 @logoLegalLinux
 
-@logoLegalFreeBSD
-
 @divEnd
 @divEnd
 
@@ -233,8 +222,12 @@ der Rechteinhaber verwendet.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Für MacOS X 10.4 oder höher auf Intel-Prozessoren (wenn Sie Zweifel haben,
-benutzen Sie diese Version).
+Für MacOS X 10.4--10.14 auf Intel-Prozessoren (for 10.15 siehe unten).
+
+@item
+@c file name is unpredictable, linking to main page
+Inoffizielle 64-bit Anwendung für macOS 10.15 verfügbar unter
+@uref{https://bintray.com/marnen/lilypond-darwin-64}.
 
 @end itemize
 
@@ -441,7 +434,8 @@ hinzu, ewta so:
 [@var{voreingestellter PATH}];@var{VERZ}\LilyPond\usr\bin
 @end example
 
-@warning{@var{VERZ} ist üblicherweise @code{C:@bs{}Program Files}.}
+@warning{@var{VERZ} ist üblicherweise @code{C:@bs{}Program Files (x86)}
+für 64-bit oder @code{C:@bs{}Program Files} für 32-bit Systeme.}
 
 @noindent
 und klicken Sie auf @qq{OK} um das Fenster zu schließen.

@@ -18,7 +18,7 @@
 
 
 @lilypondfile[quote]
-{unfretted-headword.ly}
+{snippets/unfretted-headword.ly}
 
 @cindex orchestral strings (オーケストラの弦楽器)
 @cindex strings, orchestral (オーケストラの弦楽器)

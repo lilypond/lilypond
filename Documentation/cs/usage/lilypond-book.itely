@@ -168,7 +168,7 @@ c'4 f16
 Größere Beispiele können auch in einer eigenständigen Datei gespeichert
 und dann mit @code{\lilypondfile} eingebunden werden.
 
-@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
 
 @page

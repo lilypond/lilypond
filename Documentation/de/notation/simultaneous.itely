@@ -15,7 +15,7 @@
 @section Gleichzeitig erscheinende Noten
 @translationof Simultaneous notes
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
 Polyphonie bedeutet in der musikalischen Terminologie das
 Vorhandensein von mehr als einer (eigenständigen) Stimme
@@ -887,10 +887,10 @@ Richtungen gedreht sind).
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{additional-voices-to-avoid-collisions.ly}
+{snippets/additional-voices-to-avoid-collisions.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{forcing-horizontal-shift-of-notes.ly}
+{snippets/forcing-horizontal-shift-of-notes.ly}
 
 @morerefs
 Musikglossar:
@@ -1087,10 +1087,10 @@ instrumentTwo = \relative {
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{combining-two-parts-on-the-same-staff.ly}
+{snippets/combining-two-parts-on-the-same-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-partcombine-texts.ly}
+{snippets/changing-partcombine-texts.ly}
 
 @morerefs
 Musikglossar:

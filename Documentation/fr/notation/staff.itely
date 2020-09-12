@@ -21,7 +21,7 @@
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
 @lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]
-{staff-headword.ly}
+{snippets/staff-headword.ly}
 
 Cette section aborde les détails de gravure de la portée, la
 réalisation de partitions comprenant plusieurs portées et l'ajout
@@ -254,12 +254,12 @@ l'explique @ref{Définition de nouveaux contextes}.
 @cindex système, rectangle en front
 @cindex regroupement, rectangle en front
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{use-square-bracket-at-the-start-of-a-staff-group.ly}
+{snippets/use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @cindex crochet de regroupement, portée unique
 @cindex portée unique avec crochet de regroupement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{display-bracket-with-only-one-staff-in-a-system.ly}
+{snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex présentation mensurale
 @cindex renaissance, musique
@@ -267,7 +267,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 @cindex musique ancienne, transcription
 @cindex barre de mesure, entre portées
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
+{snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -329,7 +329,7 @@ l'explique @ref{Définition de nouveaux contextes}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{nesting-staves.ly}
+{snippets/nesting-staves.ly}
 
 @morerefs
 Manuel de notation :
@@ -581,7 +581,7 @@ lignes supplémentaires.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-some-staff-lines-thicker-than-the-others.ly}
+{snippets/making-some-staff-lines-thicker-than-the-others.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -733,7 +733,7 @@ chapitre @ref{Masquage de portées}.
 @funindex alignBelowContext
 @funindex alignAboveContext
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligning-ossias-and-lyrics.ly}
+{snippets/vertically-aligning-ossias-and-lyrics.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1902,7 +1902,7 @@ la propriété interne @code{skipBars}, qui se définit au sein du contexte
 @cindex multimesure, silence, nombre
 @funindex restNumberThreshold
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{numbering-single-measure-rests.ly}
+{snippets/numbering-single-measure-rests.ly}
 
 @cindex silence d'église
 @cindex kirchenpause
@@ -1910,7 +1910,7 @@ la propriété interne @code{skipBars}, qui se définit au sein du contexte
 @cindex silence multimesure, style
 @cindex style, silence multimesure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-form-of-multi-measure-rests.ly}
+{snippets/changing-form-of-multi-measure-rests.ly}
 
 @morerefs
 Manuel de notation :

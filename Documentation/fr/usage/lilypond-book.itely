@@ -178,7 +178,7 @@ c'4 f16
 Des extraits plus conséquents peuvent faire l'objet d'un fichier
 indépendant, alors inclus avec @code{\lilypondfile}.
 
-@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
 Lorsque vous désirez y inclure un @code{tagline}, personnalisé ou non,
 l'intégralité de l'extrait devra apparaître dans une construction de

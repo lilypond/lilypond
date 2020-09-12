@@ -241,9 +241,9 @@ DOCUMENTATION_INCLUDE_DIRS = \
   $(outdir)/en \
   $(src-dir)/en \
   $(src-dir)/en/included \
-  $(outdir)/snippets \
   $(top-src-dir)/input/regression \
   $(outdir) \
+  $(src-dir)
 
 DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
@@ -387,22 +387,31 @@ endif
 
 PICTURE_SYMLINKS=$(foreach L,$(LANGS),$(outdir)/$(L)/pictures)
 
-pdf: $(OUT_PDF_IMAGES) $(PDF_FILES)
+PDF_TARGETS = $(OUT_PDF_IMAGES) $(PDF_FILES)
+pdf: $(PDF_TARGETS)
 
-html: $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES) $(OUT_JS_FILES) $(OUT_MISC_FILES)
+HTML_TARGETS = $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES)
+HTML_MISC_TARGETS = $(OUT_BITMAP_IMAGES) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
+html: $(HTML_TARGETS) $(HTML_MISC_TARGETS)
 
-
-ifeq ($(out),www)
-local-WWW: pdf $(PICTURE_SYMLINKS)  html $(OUT_BITMAP_IMAGES)
-	$(call ly_progress,Making,webdoc dir,)
+# Do not specify phony targets (pdf, html) as dependencies to avoid bulding the
+# webdoc tree every time.
+$(outdir)/webdoc/dep: $(PDF_TARGETS) $(PICTURE_SYMLINKS) $(HTML_TARGETS) $(HTML_MISC_TARGETS)
+	$(call ly_progress,Making,$(dir $@),)
 	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "$(DOC_BASENAMES)"
+	touch $@
 
-endif
+local-WWW: $(outdir)/webdoc/dep
 
-website: $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-big-page.html) $(OUT_BITMAP_IMAGES) $(PICTURE_SYMLINKS) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
+WEB_HTML_TARGETS = $(foreach L,$(LANGS),$(outdir)/$(L)/web/index.html $(outdir)/$(L)/web-big-page.html)
+$(outdir)/website/dep: $(WEB_HTML_TARGETS) $(HTML_MISC_TARGETS) $(PICTURE_SYMLINKS)
+	$(call ly_progress,Making,$(dir $@),)
 	cd $(outdir) && $(buildscript-dir)/build-doc-tree.sh website "$(LANGS)" "" "web"
 	cp $(foreach F, favicon.ico robots.txt tweets.xml, $(src-dir)/webserver/$(F)) $(outdir)/website/web/
 	cp $(src-dir)/webserver/website-dir.htaccess $(outdir)/website/web/.htaccess
+	touch $@
+
+website: $(outdir)/website/dep
 
 #########
 ### Rules
@@ -453,7 +462,7 @@ $(outdir)/learning.texi $(outdir)/notation.texi: $(OUT_PDF_IMAGES)
 $(outdir)/snippets/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	$(call ly_progress,Making,$@,)
 	mkdir -p $(dir $@)
-	xargs $(LYS_TO_TELY) -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
+	xargs $(LYS_TO_TELY) --prefix=snippets/ -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
 $(outdir)/snippets/dep: $(SNIPPET_LY_FILES)
 	$(call ly_progress,Making,$@,)
@@ -470,11 +479,28 @@ $(outdir)/en/internals.texi:
 
 ## Different manuals within a language link to each other. This can only work if
 ## the target document has an xref-map too
-define per_lang_per_doc_xref_deps
+define per_lang_per_doc_deps
 
+# lilypond-book automatically generates .dep files, but only for .itely files.
+$(outdir)/$(1)/$(2).texi: $(call src-wildcard,$(1)/$(2)/*.itexi) $(outdir)/version.itexi
+
+$(outdir)/$(1)/$(2).xref-map: $(outdir)/$(1)/$(2).texi
+
+ifneq ($(1),en)
+$(outdir)/$(1)/$(2).xref-map: $(outdir)/en/$(2).xref-map
+endif
+
+# Make web only depend on its own xref-maps; it doesn't have cross-doc links
+# and adding the other manuals as dependencies slows down the website build.
+ifeq ($(2),web)
+$(outdir)/$(1)/$(2)/index.html: $(outdir)/$(1)/$(2).xref-map
+
+$(outdir)/$(1)/$(2)-big-page.html: $(outdir)/$(1)/$(2).xref-map
+else
 $(outdir)/$(1)/$(2)/index.html: $(call LANG_XREF_FILES,$(1))
 
 $(outdir)/$(1)/$(2)-big-page.html: $(call LANG_XREF_FILES,$(1))
+endif
 
 endef
 
@@ -493,8 +519,6 @@ $(outdir)/$(1)/learning.texi: $(outdir)/snippets/dep
 $(outdir)/$(1)/usage.texi: $(outdir)/snippets/dep
 
 $(outdir)/$(1)/web.xref-map: EXTRACT_TEXI_FILENAMES_FLAGS += --split=node
-
-$(outdir)/$(1)/%.xref-map: $(outdir)/$(1)/%.texi $(outdir)/en/%.xref-map
 
 $(outdir)/$(1)/pictures:
 	rm -f $$@ && mkdir -p $$(dir $$@) && ln -s ../pictures $$@
@@ -524,7 +548,7 @@ $(outdir)/$(1)/essay.texi: \
 # processing ly/generate-documentation.ly for internals.texi (see above).
 $(outdir)/$(1)/notation.texi: $(outdir)/en/internals.texi
 
-$(foreach D,$(DOC_BASENAMES),$(eval $(call per_lang_per_doc_xref_deps,$(1),$(D))))
+$(foreach D,$(DOC_BASENAMES),$(eval $(call per_lang_per_doc_deps,$(1),$(D))))
 endef
 
 $(foreach L, $(LANGS),$(eval $(call per_lang_dep,$(L))))

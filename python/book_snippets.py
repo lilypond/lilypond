@@ -708,18 +708,20 @@ printing diff against existing file." % filename)
         if 'dseparate-log-file' in self.global_options.process_cmd:
             require_file(base + '.log')
 
-        list(map(consider_file, [base + '.tex',
-                                 base + '.eps',
-                                 base + '.pdf',
-                                 base + '.texidoc',
-                                 base + '.doctitle',
-                                 base + '-systems.texi',
-                                 base + '-systems.tex',
-                                 base + '-systems.pdftexi']))
+        for f in [base + '.tex',
+                  base + '.eps',
+                  base + '.pdf',
+                  base + '.texidoc',
+                  base + '.doctitle',
+                  base + '-systems.texi',
+                  base + '-systems.tex',
+                  base + '-systems.pdftexi']:
+            consider_file(f)
         if self.formatter.document_language:
-            list(map(consider_file,
-                     [base + '.texidoc' + self.formatter.document_language,
-                      base + '.doctitle' + self.formatter.document_language]))
+            for f in [base + '.texidoc' + self.formatter.document_language,
+                      base + '.doctitle' + self.formatter.document_language]:
+                consider_file(f)
+
 
         required_files = self.formatter.required_files(
             self, base, full, result)
@@ -728,7 +730,7 @@ printing diff against existing file." % filename)
 
         system_count = 0
         if not skip_lily and not missing:
-            system_count = int(open(full + '-systems.count').read())
+            system_count = int(open(full + '-systems.count', encoding="utf8").read())
 
         for number in range(1, system_count + 1):
             systemfile = '%s-%d' % (base, number)
@@ -740,8 +742,11 @@ printing diff against existing file." % filename)
             if 'ddump-signature' in self.global_options.process_cmd:
                 consider_file(systemfile + '.signature')
 
-        list(map(consider_file, self.additional_files_to_consider(base, full)))
-        list(map(require_file, self.additional_files_required(base, full)))
+        for f in  self.additional_files_to_consider(base, full):
+            consider_file(f)
+
+        for f in self.additional_files_required(base, full):
+            require_file(f)
 
         return (result, missing)
 
@@ -805,17 +810,19 @@ printing diff against existing file." % filename)
         return self.formatter.snippet_output(base, self)
 
     def get_images(self):
-        rep = {'base': self.final_basename()}
+        base = self.final_basename()
 
-        single = '%(base)s.png' % rep
-        multiple = '%(base)s-page1.png' % rep
-        images = (single,)
+        outdir = self.global_options.lily_output_dir
+        single_base= '%s.png' % base
+        single = os.path.join(outdir, single_base)
+        multiple = os.path.join(outdir, '%s-page1.png' % base)
+        images = (single_base,)
         if (os.path.exists(multiple)
             and (not os.path.exists(single)
                  or (os.stat(multiple)[stat.ST_MTIME]
                      > os.stat(single)[stat.ST_MTIME]))):
-            count = ps_page_count('%(base)s.eps' % rep)
-            images = ['%s-page%d.png' % (rep['base'], page)
+            count = ps_page_count(os.path.join(outdir, '%s.eps' % base))
+            images = ['%s-page%d.png' % (base, page)
                       for page in range(1, count+1)]
             images = tuple(images)
 

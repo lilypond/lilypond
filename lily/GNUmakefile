@@ -93,9 +93,11 @@ $(outdir)/lexer.cc: $(config_h)
 $(outdir)/parser.cc: $(config_h)
 
 ifneq ($(LILYPOND_EXTERNAL_BINARY),)
-$(outdir)/lilypond.1: $(LILYPOND_EXTERNAL_BINARY) $(buildscript-dir)/help2man.pl
-	$(call ly_progress,Making,$@,)
-	$(PERL) $(buildscript-dir)/help2man.pl $(LILYPOND_EXTERNAL_BINARY) > $@
+$(outdir)/lilypond.1: $(LILYPOND_EXTERNAL_BINARY) \
+                      $(buildscript-dir)/help2man.pl
+	$(call ly_progress,Making,$@,(help2man))
+	LANGUAGE= $(PERL) $(buildscript-dir)/help2man.pl \
+                            $(LILYPOND_EXTERNAL_BINARY) > $@
 endif
 
 $(outdir)/general-scheme.o: $(outdir)/version.hh

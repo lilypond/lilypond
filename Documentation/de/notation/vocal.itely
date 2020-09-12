@@ -15,7 +15,7 @@
 @section Notation von Gesang
 @translationof Vocal music
 
-@lilypondfile[quote]{vocal-headword.ly}
+@lilypondfile[quote]{snippets/vocal-headword.ly}
 
 Dieser Abschnitt erklärt, wie Vokalmusik gesetzt werden kann und
 die Silben von Gesangstext an den Noten ausgerichtet werden.
@@ -211,7 +211,7 @@ hierzu @ref{Text formatieren}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{formatting-lyrics-syllables.ly}
+{snippets/formatting-lyrics-syllables.ly}
 
 @morerefs
 Handbuch zum Lernen:
@@ -1106,7 +1106,7 @@ indem man die gegebenen Beispiele modifiziert oder auch die
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @morerefs
 Handbuch zum Lernen:
@@ -1167,7 +1167,7 @@ wirkt, muss sie im @code{layout}-Block vorgenommen werden.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{lyrics-alignment.ly}
+{snippets/lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
 
@@ -2180,7 +2180,7 @@ Akkorden im Akkord-Modus kombiniert; die Syntax ist erklärt in
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Notationsreferenz:
@@ -2376,7 +2376,7 @@ Referenz der Interna:
 @cindex geteilte Stimmen
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 Notationsreferenz:
@@ -2705,7 +2705,7 @@ die Tipparbeit erspart und die Klaviernoten klarer macht.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{adding-orchestral-cues-to-a-vocal-score.ly}
+{snippets/adding-orchestral-cues-to-a-vocal-score.ly}
 
 @morerefs
 Glossar:
@@ -3144,7 +3144,7 @@ im ersten der folgenden Schnipsel.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{chant-or-psalms-notation.ly}
+{snippets/chant-or-psalms-notation.ly}
 
 Cantica und andere liturgische Texte können freier gesetzt werdne,
 und können auch Elementer der Notation alter Musik benutzen.
@@ -3153,7 +3153,7 @@ gesetzt.  In diesem Fall werden die Noten entsprechend der
 Ausdehnung des Textes und nicht der Notenlänge gesetzt.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Handbuch zum Lernen:
@@ -3343,7 +3343,7 @@ Beginn der Musik ein und @code{\bar "|"} oder @code{\bar "||"},
 um die schließende Taktlinie am Ende der Zeile zu setzen.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 
 @node Alte Vokalmusik

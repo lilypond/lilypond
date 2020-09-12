@@ -18,7 +18,7 @@
 @section 発想記号
 @translationof Expressive marks
 
-@lilypondfile[quote]{expressive-headword.ly}
+@lilypondfile[quote]{snippets/expressive-headword.ly}
 
 このセクションでは楽譜の中で作成可能なさまざまな発想記号をリストアップします。
 
@@ -217,13 +217,13 @@ R1\fermata
 @funindex \dashPlus
 @funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-default-values-for-articulation-shorthand-notation.ly}
+{snippets/modifying-default-values-for-articulation-shorthand-notation.ly}
 
 @cindex vertical ordering, of scripts (スクリプトの縦方向の順序)
 @cindex ordering, vertical, of scripts (スクリプトの縦方向の順序)
 @cindex script, vertical ordering (スクリプトの縦方向の順序)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-vertical-ordering-of-scripts.ly}
+{snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @cindex delayed turn ornamentation (遅れターン装飾記号)
 @cindex turn ornamentation, delayed (遅れターン装飾記号)
@@ -231,7 +231,7 @@ R1\fermata
 @funindex suggestAccidentals
 @funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-a-delayed-turn.ly}
+{snippets/creating-a-delayed-turn.ly}
 
 @morerefs
 音楽用語集:
@@ -499,22 +499,22 @@ R1\fermata
 @cindex hairpin, stopping at bar lines (小節線で終わるヘアピン)
 @cindex bar line, hairpin, stopping at (小節線で終わるヘアピン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-hairpin-behavior-at-bar-lines.ly}
+{snippets/setting-hairpin-behavior-at-bar-lines.ly}
 
 @cindex hairpin, minimum length (ヘアピンの最小の長さ)
 @cindex minimum length, hairpin (ヘアピンの最小の長さ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-minimum-length-of-hairpins.ly}
+{snippets/setting-the-minimum-length-of-hairpins.ly}
 
 @cindex hairpin, moving ends of (ヘアピンの終点を移動する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-the-ends-of-hairpins.ly}
+{snippets/moving-the-ends-of-hairpins.ly}
 
 @cindex al niente, hairpin (アル ニエンテのヘアピン)
 @cindex niente, al, hairpin (アル ニエンテのヘアピン)
 @cindex hairpin, al niente (アル ニエンテのヘアピン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-using-al-niente-notation.ly}
+{snippets/printing-hairpins-using-al-niente-notation.ly}
 
 @cindex Ferneyhough hairpin (ファーニホウのヘアピン)
 @cindex hairpin, Ferneyhough (ファーニホウのヘアピン)
@@ -523,7 +523,7 @@ R1\fermata
 @cindex constante hairpin (広がらないヘアピン)
 @cindex hairpin, constante (広がらないヘアピン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-in-various-styles.ly}
+{snippets/printing-hairpins-in-various-styles.ly}
 
 @cindex vertical alignment, dynamics (強弱記号の縦方向の位置)
 @cindex alignment, vertical, dynamics (強弱記号の縦方向の位置)
@@ -534,13 +534,13 @@ R1\fermata
 @funindex DynamicLineSpanner
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligned-dynamics-and-textscripts.ly}
+{snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @cindex dynamics, extender line, hiding (強弱記号の線を隠す)
 @cindex hiding dynamics extender line (強弱記号の線を隠す)
 @cindex extender line, dynamics, hiding (強弱記号の線を隠す)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-the-extender-line-for-text-dynamics.ly}
+{snippets/hiding-the-extender-line-for-text-dynamics.ly}
 
 @cindex dynamics, text, style (強弱記号のテキストのスタイル)
 @cindex text dynamics, style (強弱記号のテキストのスタイル)
@@ -550,7 +550,7 @@ R1\fermata
 @funindex decrescendoText
 @funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-text-and-spanner-styles-for-text-dynamics.ly}
+{snippets/changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 @morerefs
 音楽用語集:
@@ -862,18 +862,18 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @cindex double slurs, for legato chords (和音のレガートに用いる 2 つのスラー)
 @findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-double-slurs-for-legato-chords.ly}
+{snippets/using-double-slurs-for-legato-chords.ly}
 
 @cindex markup, text, inside slurs (スラー内部のマークアップ テキスト)
 @cindex text markup, inside slurs (スラー内部のマークアップ テキスト)
 @cindex slur, text markup inside (スラー内部のマークアップ テキスト)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs.ly}
+{snippets/positioning-text-markups-inside-slurs.ly}
 
 @cindex slur, defining dash patterns (スラーの破線パターンを定義する)
 @cindex dash patterns, slur (スラーの破線パターン)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-slurs-with-complex-dash-structure.ly}
+{snippets/making-slurs-with-complex-dash-structure.ly}
 
 @morerefs
 音楽用語集:
@@ -1069,18 +1069,18 @@ divisio (ディビジオ: 区切り記号) がサポートされています。@
 @cindex symbol, breath mark, changing (ブレス記号を変更する)
 @funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-breath-mark-symbol.ly}
+{snippets/changing-the-breath-mark-symbol.ly}
 
 @cindex tick mark (チェック マーク)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-a-tick-as-the-breath-mark-symbol.ly}
+{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex caesura (カエスーラ)
 @cindex railroad tracks (線路記号、カエスーラ)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{inserting-a-caesura.ly}
+{snippets/inserting-a-caesura.ly}
 
 @morerefs
 音楽用語集:
@@ -1125,7 +1125,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adjusting-the-shape-of-falls-and-doits.ly}
+{snippets/adjusting-the-shape-of-falls-and-doits.ly}
 
 @morerefs
 音楽用語集:
@@ -1219,22 +1219,22 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @cindex contemporary glissando (現代のグリッサンド)
 @cindex glissando, contemporary (現代のグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{contemporary-glissando.ly}
+{snippets/contemporary-glissando.ly}
 
 @cindex timing mark, for glissando (グリッサンドのタイミング マーク)
 @cindex glissando, timing marks (グリッサンドのタイミング マーク)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-timing-marks-to-long-glissandi.ly}
+{snippets/adding-timing-marks-to-long-glissandi.ly}
 
 @cindex breakable glissando (改行可能なグリッサンド)
 @cindex glissando, breakable (改行可能なグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-glissandi-breakable.ly}
+{snippets/making-glissandi-breakable.ly}
 
 @cindex glissando, across repeats (繰り返しにまたがるグリッサンド)
 @cindex repeat, and glissandi (繰り返しとグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{extending-glissandi-across-repeats.ly}
+{snippets/extending-glissandi-across-repeats.ly}
 
 @morerefs
 音楽用語集:
@@ -1343,15 +1343,15 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @cindex arpeggio, cross-staff (譜をまたがるアルペジオ)
 @cindex cross-staff arpeggio (譜をまたがるアルペジオ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-other-contexts.ly}
+{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @cindex arpeggio, cross-staff (譜をまたがるアルペジオ)
 @cindex cross-staff arpeggio (譜をまたがるアルペジオ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-arpeggios-across-notes-in-different-voices.ly}
+{snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
 音楽用語集:

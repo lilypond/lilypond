@@ -18,7 +18,7 @@
 @translationof Unfretted string instruments
 
 @lilypondfile[quote]
-{unfretted-headword.ly}
+{snippets/unfretted-headword.ly}
 
 @cindex orquestrals, cordes
 @cindex cordes orquestrals

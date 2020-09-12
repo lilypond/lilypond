@@ -18,7 +18,7 @@
 @section Signes d'interprétation
 @translationof Expressive marks
 
-@lilypondfile[quote]{expressive-headword.ly}
+@lilypondfile[quote]{snippets/expressive-headword.ly}
 
 Ce chapitre traite des différentes indications d'interprétation que l'on
 peut trouver sur les partitions.
@@ -247,19 +247,19 @@ Pour plus d'information sur la manière d'ordonner @code{Scripts} et
 @funindex \dashPlus
 @funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-default-values-for-articulation-shorthand-notation.ly}
+{snippets/modifying-default-values-for-articulation-shorthand-notation.ly}
 
 @cindex scripts, ordre vertical
 @cindex vertical, ordre des scripts
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-vertical-ordering-of-scripts.ly}
+{snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @cindex grupetto décalé
 @cindex dacalé, grupetto
 @funindex suggestAccidentals
 @funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-a-delayed-turn.ly}
+{snippets/creating-a-delayed-turn.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -518,22 +518,22 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @cindex soufflet et barre de mesure
 @cindex barre de mesure et soufflet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-hairpin-behavior-at-bar-lines.ly}
+{snippets/setting-hairpin-behavior-at-bar-lines.ly}
 
 @cindex soufflet, longueur minimale
 @cindex longueur minimale, soufflet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-minimum-length-of-hairpins.ly}
+{snippets/setting-the-minimum-length-of-hairpins.ly}
 
 @cindex soufflet, déplacement de l'extrémité
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-the-ends-of-hairpins.ly}
+{snippets/moving-the-ends-of-hairpins.ly}
 
 @cindex al niente, soufflet
 @cindex niente, al, soufflet
 @cindex soufflet, al niente
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-using-al-niente-notation.ly}
+{snippets/printing-hairpins-using-al-niente-notation.ly}
 
 @cindex Ferneyhough, soufflet
 @cindex soufflet Ferneyhough
@@ -542,7 +542,7 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @cindex plat, soufflet
 @cindex soufflet plat
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-in-various-styles.ly}
+{snippets/printing-hairpins-in-various-styles.ly}
 
 @cindex vertical, alignement de nuance
 @cindex alignement vertical, nuance
@@ -553,13 +553,13 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @funindex DynamicLineSpanner
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligned-dynamics-and-textscripts.ly}
+{snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @cindex nuance, ligne de prolongation, masquage
 @cindex masquage, nuance, ligne de prolongation
 @cindex ligne de prolongation, nuance, masquage
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-the-extender-line-for-text-dynamics.ly}
+{snippets/hiding-the-extender-line-for-text-dynamics.ly}
 
 @cindex nuance textuelle, style
 @cindex texte, nuance, style
@@ -569,7 +569,7 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @funindex decrescendoText
 @funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-text-and-spanner-styles-for-text-dynamics.ly}
+{snippets/changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -894,19 +894,19 @@ liaison :
 @cindex doublée, legato d'accords
 @findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-double-slurs-for-legato-chords.ly}
+{snippets/using-double-slurs-for-legato-chords.ly}
 
 @cindex liaison et texte
 @cindex texte et liaison
 @cindex texte, inclusion dans une liaison
 @cindex liaison, inclusion de texte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs.ly}
+{snippets/positioning-text-markups-inside-slurs.ly}
 
 @cindex slur, defining dash patterns
 @cindex dash patterns, slur
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-slurs-with-complex-dash-structure.ly}
+{snippets/making-slurs-with-complex-dash-structure.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1108,15 +1108,15 @@ voir @ref{Divisions}.
 @cindex modification, respiration, signe
 @funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-breath-mark-symbol.ly}
+{snippets/changing-the-breath-mark-symbol.ly}
 
 @cindex coche
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-a-tick-as-the-breath-mark-symbol.ly}
+{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex césure
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{inserting-a-caesura.ly}
+{snippets/inserting-a-caesura.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1161,7 +1161,7 @@ l'intervalle avec la note de départ.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adjusting-the-shape-of-falls-and-doits.ly}
+{snippets/adjusting-the-shape-of-falls-and-doits.ly}
 
 @morerefs
 Glossaire musical :
@@ -1259,22 +1259,22 @@ vaguelettes -- voir @ref{Styles de ligne}.
 @cindex contemporain, glissando
 @cindex glissando contemporain
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{contemporary-glissando.ly}
+{snippets/contemporary-glissando.ly}
 
 @cindex glissando, marque temporelle
 @cindex marque temporelle, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-timing-marks-to-long-glissandi.ly}
+{snippets/adding-timing-marks-to-long-glissandi.ly}
 
 @cindex glissando tronqué
 @cindex tronqué, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-glissandi-breakable.ly}
+{snippets/making-glissandi-breakable.ly}
 
 @cindex glissando et reprise
 @cindex reprise et glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{extending-glissandi-across-repeats.ly}
+{snippets/extending-glissandi-across-repeats.ly}
 
 @morerefs
 Glossaire musicologique :
@@ -1392,15 +1392,15 @@ liaisons de tenue.  Pour plus d'information, voir
 @cindex portée, arpège, enjambement
 @cindex enjambement de portée, arpège
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-other-contexts.ly}
+{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @cindex arpège, voix, enjambement
 @cindex voix, arpège, enjambement
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-arpeggios-across-notes-in-different-voices.ly}
+{snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
 Glossaire musicologique :

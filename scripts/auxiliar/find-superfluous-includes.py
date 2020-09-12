@@ -32,7 +32,7 @@ def parse_file(fn):
     lst = []
 
     lc = 0
-    for l in open(fn).readlines():
+    for l in open(fn, encoding='utf8').readlines():
         lc += 1
         m = inc_re.search(l)
         if m:

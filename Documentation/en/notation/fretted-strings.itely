@@ -12,7 +12,7 @@
 @node Fretted string instruments
 @section Fretted string instruments
 
-@lilypondfile[quote]{fretted-headword.ly}
+@lilypondfile[quote]{snippets/fretted-headword.ly}
 
 This section discusses several aspects of music notation that are unique
 to fretted string instruments.
@@ -471,44 +471,44 @@ ratioHarmonics = {
 @cindex beam, horizontal
 @cindex horizontal beams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{stem-and-beam-behavior-in-tablature.ly}
+{snippets/stem-and-beam-behavior-in-tablature.ly}
 
 @cindex polyphony, in tablatures
 @cindex tablature, and polyphony
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{polyphony-in-tablature.ly}
+{snippets/polyphony-in-tablature.ly}
 
 @cindex tablature, and harmonics
 @cindex harmonic, in tablatures
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{open-string-harmonics-in-tablature.ly}
+{snippets/open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretted-string-harmonics-in-tablature.ly}
+{snippets/fretted-string-harmonics-in-tablature.ly}
 
 @cindex slide, in tablature notation
 @cindex tablature, and slides
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{slides-in-tablature.ly}
+{snippets/slides-in-tablature.ly}
 
 @cindex chord, glissando, in tablatures
 @cindex glissando, chords in tablatures
 @cindex tablature, chord glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-glissando-in-tablature.ly}
+{snippets/chord-glissando-in-tablature.ly}
 
 @cindex hammer on
 @cindex pull off
 @cindex tablature, hammer on
 @cindex tablature, pull off
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off.ly}
+{snippets/hammer-on-and-pull-off.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-voices.ly}
+{snippets/hammer-on-and-pull-off-using-voices.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-chords.ly}
+{snippets/hammer-on-and-pull-off-using-chords.ly}
 
 
 @morerefs
@@ -1222,12 +1222,12 @@ markup, the interface properties belong to @code{Voice.TextScript}.
 @cindex fret diagram, changing orientation
 @cindex orientation of fret diagram, changing
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-fret-orientations.ly}
+{snippets/changing-fret-orientations.ly}
 
 @cindex fret diagram, customized
 @cindex custom fret diagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-markup-fret-diagrams.ly}
+{snippets/customizing-markup-fret-diagrams.ly}
 
 @morerefs
 Notation Reference:
@@ -1527,26 +1527,26 @@ the interface properties belong to @code{FretBoards.FretBoard}.
 @cindex fretboard fret diagram, customized
 @cindex custom fretboard fret diagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-fretboard-fret-diagrams.ly}
+{snippets/customizing-fretboard-fret-diagrams.ly}
 
 @cindex fretboard, define predefined
 @cindex define predefined fretboard
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/defining-predefined-fretboards-for-other-instruments.ly}
 
 @cindex chord, suppressing repeated
 @cindex repeated chords, suppressing
 @cindex suppressing repeated chords
 @funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{chordchanges-for-fretboards.ly}
+{snippets/chordchanges-for-fretboards.ly}
 
 @cindex fretboard, alternate table
 @cindex alternate fretboard table
 @funindex predefinedDiagramTable
 @funindex \storePredefinedDiagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretboards-alternate-tables.ly}
+{snippets/fretboards-alternate-tables.ly}
 
 @morerefs
 Notation Reference:
@@ -1772,10 +1772,10 @@ object) may be set in the same way as ordinary fingerings: see
 @cindex fingering, right-hand, placement
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{placement-of-right-hand-fingerings.ly}
+{snippets/placement-of-right-hand-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingerings,-string-indications,-and-right-hand-fingerings.ly}
+{snippets/fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @morerefs
 Notation Reference:

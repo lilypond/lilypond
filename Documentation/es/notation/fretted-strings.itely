@@ -14,7 +14,7 @@
 @section Instrumentos de cuerda con trastes
 @translationof Fretted string instruments
 
-@lilypondfile[quote]{fretted-headword.ly}
+@lilypondfile[quote]{snippets/fretted-headword.ly}
 
 Esta sección trata varios aspectos de la notación musical que son
 exclusivos de los instrumentos de cuerda con trastes.
@@ -156,11 +156,11 @@ g1\4
 
 @c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 
 @predefined
@@ -501,45 +501,45 @@ ratioHarmonics = {
 @cindex barra horizontal
 @cindex horizontal, barra
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{stem-and-beam-behavior-in-tablature.ly}
+{snippets/stem-and-beam-behavior-in-tablature.ly}
 
 @cindex polifonía, en tablaturas
 @cindex tablatura, y polifonía
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{polyphony-in-tablature.ly}
+{snippets/polyphony-in-tablature.ly}
 
 @cindex tablatura, armónicos y
 @cindex armónico, en tablaturas
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{open-string-harmonics-in-tablature.ly}
+{snippets/open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretted-string-harmonics-in-tablature.ly}
+{snippets/fretted-string-harmonics-in-tablature.ly}
 
 @cindex deslizamiento en notación de tablatura
 @cindex tablatura y deslizamientos
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{slides-in-tablature.ly}
+{snippets/slides-in-tablature.ly}
 
 @cindex glissando, en acordes de tablatura
 @cindex acorde, glissando en tablatura
 @cindex tablatura, glisando en acorde de
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-glissando-in-tablature.ly}
+{snippets/chord-glissando-in-tablature.ly}
 
 @cindex hammer on
 @cindex pull off
 @cindex tablatura, hammer on
 @cindex tablatura, pull off
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off.ly}
+{snippets/hammer-on-and-pull-off.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-voices.ly}
+{snippets/hammer-on-and-pull-off-using-voices.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-chords.ly}
+{snippets/hammer-on-and-pull-off-using-chords.ly}
 
 
 @morerefs
@@ -1278,12 +1278,12 @@ de trastes, las propiedades del interface pertenecen a
 @cindex trastes, diagrama de, cambiar la orientación
 @cindex orientación, modificación de, diagrama de trastes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-fret-orientations.ly}
+{snippets/changing-fret-orientations.ly}
 
 @cindex trastes, diagrama de, personalizado
 @cindex personalizado, diagrama de trastes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-markup-fret-diagrams.ly}
+{snippets/customizing-markup-fret-diagrams.ly}
 
 @morerefs
 Referencia de la notación:
@@ -1592,26 +1592,26 @@ predefinido, las propiedades de interface pertenecen a
 @cindex traste, diagrama personalizado de
 @cindex personalizado, diagrama de traste
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-fretboard-fret-diagrams.ly}
+{snippets/customizing-fretboard-fret-diagrams.ly}
 
 @cindex traste, definir predeterminado
 @cindex definición, traste predefinido
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/defining-predefined-fretboards-for-other-instruments.ly}
 
 @cindex acorde, suprimir repetido
 @cindex repetido, acorde, suprimir
 @cindex supresión, acorde repetido
 @funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{chordchanges-for-fretboards.ly}
+{snippets/chordchanges-for-fretboards.ly}
 
 @cindex trastes, tabla alternativa
 @cindex alternativa, tabla de trastes
 @funindex predefinedDiagramTable
 @funindex \storePredefinedDiagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretboards-alternate-tables.ly}
+{snippets/fretboards-alternate-tables.ly}
 
 @morerefs
 Referencia de la notación:
@@ -1841,10 +1841,10 @@ RH=#rightHandFinger
 @cindex digitación, posicionamiento, mano derecha
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{placement-of-right-hand-fingerings.ly}
+{snippets/placement-of-right-hand-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingerings,-string-indications,-and-right-hand-fingerings.ly}
+{snippets/fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @morerefs
 Fragmentos de código:

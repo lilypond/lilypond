@@ -12,7 +12,7 @@
 @node Expressive marks
 @section Expressive marks
 
-@lilypondfile[quote]{expressive-headword.ly}
+@lilypondfile[quote]{snippets/expressive-headword.ly}
 
 This section lists various expressive marks that can be
 created in a score.
@@ -259,13 +259,13 @@ are attached to the notes, see @rlearning{Placement of objects}.
 @funindex \dashPlus
 @funindex \dashUnderscore
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-default-values-for-articulation-shorthand-notation.ly}
+{snippets/modifying-default-values-for-articulation-shorthand-notation.ly}
 
 @cindex vertical ordering, of scripts
 @cindex ordering, vertical, of scripts
 @cindex script, vertical ordering
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-vertical-ordering-of-scripts.ly}
+{snippets/controlling-the-vertical-ordering-of-scripts.ly}
 
 @cindex delayed turn ornamentation
 @cindex turn ornamentation, delayed
@@ -273,7 +273,7 @@ are attached to the notes, see @rlearning{Placement of objects}.
 @funindex suggestAccidentals
 @funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-a-delayed-turn.ly}
+{snippets/creating-a-delayed-turn.ly}
 
 @morerefs
 Music Glossary:
@@ -534,22 +534,22 @@ items such as text scripts, text spanners, and piano pedal marks.
 @cindex hairpin, stopping at bar lines
 @cindex bar line, hairpin, stopping at
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-hairpin-behavior-at-bar-lines.ly}
+{snippets/setting-hairpin-behavior-at-bar-lines.ly}
 
 @cindex hairpin, minimum length
 @cindex minimum length, hairpin
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-minimum-length-of-hairpins.ly}
+{snippets/setting-the-minimum-length-of-hairpins.ly}
 
 @cindex hairpin, moving ends of
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-the-ends-of-hairpins.ly}
+{snippets/moving-the-ends-of-hairpins.ly}
 
 @cindex al niente, hairpin
 @cindex niente, al, hairpin
 @cindex hairpin, al niente
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-using-al-niente-notation.ly}
+{snippets/printing-hairpins-using-al-niente-notation.ly}
 
 @cindex Ferneyhough hairpin
 @cindex hairpin, Ferneyhough
@@ -558,7 +558,7 @@ items such as text scripts, text spanners, and piano pedal marks.
 @cindex constante hairpin
 @cindex hairpin, constante
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-hairpins-in-various-styles.ly}
+{snippets/printing-hairpins-in-various-styles.ly}
 
 @cindex vertical alignment, dynamics
 @cindex alignment, vertical, dynamics
@@ -569,13 +569,13 @@ items such as text scripts, text spanners, and piano pedal marks.
 @funindex DynamicLineSpanner
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{vertically-aligned-dynamics-and-textscripts.ly}
+{snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @cindex dynamics, extender line, hiding
 @cindex hiding dynamics extender line
 @cindex extender line, dynamics, hiding
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-the-extender-line-for-text-dynamics.ly}
+{snippets/hiding-the-extender-line-for-text-dynamics.ly}
 
 @cindex dynamics, text, style
 @cindex text dynamics, style
@@ -585,7 +585,7 @@ items such as text scripts, text spanners, and piano pedal marks.
 @funindex decrescendoText
 @funindex decrescendoSpanner
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-text-and-spanner-styles-for-text-dynamics.ly}
+{snippets/changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 @morerefs
 Music Glossary:
@@ -894,18 +894,18 @@ Custom dash patterns for slurs can be defined:
 @cindex double slurs, for legato chords
 @findex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-double-slurs-for-legato-chords.ly}
+{snippets/using-double-slurs-for-legato-chords.ly}
 
 @cindex markup, text, inside slurs
 @cindex text markup, inside slurs
 @cindex slur, text markup inside
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-text-markups-inside-slurs.ly}
+{snippets/positioning-text-markups-inside-slurs.ly}
 
 @cindex slur, defining dash patterns
 @cindex dash patterns, slur
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-slurs-with-complex-dash-structure.ly}
+{snippets/making-slurs-with-complex-dash-structure.ly}
 
 
 @morerefs
@@ -1100,16 +1100,16 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 @cindex symbol, breath mark, changing
 @funindex BreathingSign
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-breath-mark-symbol.ly}
+{snippets/changing-the-breath-mark-symbol.ly}
 
 @cindex tick mark
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-a-tick-as-the-breath-mark-symbol.ly}
+{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
 
 @cindex caesura
 @cindex railroad tracks
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{inserting-a-caesura.ly}
+{snippets/inserting-a-caesura.ly}
 
 
 @morerefs
@@ -1156,7 +1156,7 @@ indicates the pitch interval that the fall or doit will extend
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adjusting-the-shape-of-falls-and-doits.ly}
+{snippets/adjusting-the-shape-of-falls-and-doits.ly}
 
 @morerefs
 Music Glossary:
@@ -1250,22 +1250,22 @@ Different styles of glissandi can be created.  For details, see
 @cindex contemporary glissando
 @cindex glissando, contemporary
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{contemporary-glissando.ly}
+{snippets/contemporary-glissando.ly}
 
 @cindex timing mark, for glissando
 @cindex glissando, timing marks
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-timing-marks-to-long-glissandi.ly}
+{snippets/adding-timing-marks-to-long-glissandi.ly}
 
 @cindex breakable glissando
 @cindex glissando, breakable
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{making-glissandi-breakable.ly}
+{snippets/making-glissandi-breakable.ly}
 
 @cindex glissando, across repeats
 @cindex repeat, and glissandi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{extending-glissandi-across-repeats.ly}
+{snippets/extending-glissandi-across-repeats.ly}
 
 @morerefs
 Music Glossary:
@@ -1383,15 +1383,15 @@ information, see @ref{Ties}.
 @cindex arpeggio, cross-staff
 @cindex cross-staff arpeggio
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-cross-staff-arpeggios-in-other-contexts.ly}
+{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @cindex arpeggio, cross-voice
 @cindex cross-voice arpeggio
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-arpeggios-across-notes-in-different-voices.ly}
+{snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
 Music Glossary:

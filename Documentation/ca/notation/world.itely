@@ -85,7 +85,7 @@ Per localitzar els fitxers d'inici com @file{arabic.ly} o
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{makam-example.ly}
+{snippets/makam-example.ly}
 
 @morerefs
 Glossari musical:
@@ -337,7 +337,7 @@ els maqams més comuns a armadures de tonalitat:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -385,7 +385,7 @@ barrat automàtic i/o utilitzar indicacions compostes de compàs.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{arabic-improvisation.ly}
+{snippets/arabic-improvisation.ly}
 
 
 @morerefs

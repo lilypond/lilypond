@@ -25,7 +25,7 @@ except IndexError:
     print("Error: need a filename")
     sys.exit(1)
 
-with open(infile) as file:
+with open(infile, encoding='utf8') as file:
     lines = file.readlines()
 
 nodes = []
@@ -84,7 +84,7 @@ def getMenuFor(node_name):
 
 
 # rewrite file with new menus from TOC
-outfile = open(infile, 'w')
+outfile = open(infile, 'w', encoding='utf8')
 
 lastNode = ''
 line_index = 0

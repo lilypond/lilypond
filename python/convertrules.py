@@ -33,7 +33,7 @@ UPDATE_MANUALLY = _(
 FROM_TO = _("%s has been replaced by %s") + "\n"
 
 
-class FatalConversionError:
+class FatalConversionError(Exception):
     pass
 
 
@@ -246,13 +246,13 @@ def conv(s):
 
 @rule((1, 1, 66), 'semi -> volta')
 def conv(s):
-    s = re.sub('\\\\repeat *\"?semi\"?', '\\\\repeat "volta"', s)
+    s = re.sub('\\\\repeat *"?semi"?', '\\\\repeat "volta"', s)
     return s
 
 
 @rule((1, 1, 67), 'beamAuto -> noAutoBeaming')
 def conv(s):
-    s = re.sub('\"?beamAuto\"? *= *\"?0?\"?', 'noAutoBeaming = "1"', s)
+    s = re.sub('"?beamAuto"? *= *"?0?"?', 'noAutoBeaming = "1"', s)
     return s
 
 
@@ -367,7 +367,7 @@ def conv(s):
 
 @rule((1, 3, 59), r'\key X ; -> \key X major; ')
 def conv(s):
-    s = re.sub(r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""", s)
+    s = re.sub(r"""\\key *([a-z]+) *;""", r"""\\key \1 \\major;""", s)
     return s
 
 
@@ -448,7 +448,7 @@ def conv(s):
     s = re.sub('([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?',
                  '\\1 \\\\override #\'direction = #1', s)
     s = re.sub('([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?',
-                 '\\1 \\override #\'direction = #-1', s)
+                 '\\1 \\\\override #\'direction = #-1', s)
     s = re.sub('([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?',
                  '\\1 \\\\override #\'direction = #0', s)
 
@@ -517,13 +517,13 @@ def conv(s):
 @rule((1, 3, 102), 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)')
 def conv(s):
     s = re.sub('"?beamAutoEnd_([0-9]*)"? *= *(#\\([^)]*\\))',
-                 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', s)
-    s = re.sub('"?beamAutoBegin_([0-9]*)"? *= *(#\\([^)]*\))',
-                 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', s)
+                 'autoBeamSettings \\\\push #\'(end 1 \\1 * *) = \\2', s)
+    s = re.sub('"?beamAutoBegin_([0-9]*)"? *= *(#\\([^)]*\\))',
+                 'autoBeamSettings \\\\push #\'(begin 1 \\1 * *) = \\2', s)
     s = re.sub('"?beamAutoEnd"? *= *(#\\([^)]*\\))',
-                 'autoBeamSettings \\push #\'(end * * * *) = \\1', s)
+                 'autoBeamSettings \\\\push #\'(end * * * *) = \\1', s)
     s = re.sub('"?beamAutoBegin"? *= *(#\\([^)]*\\))',
-                 'autoBeamSettings \\push #\'(begin * * * *) = \\1', s)
+                 'autoBeamSettings \\\\push #\'(begin * * * *) = \\1', s)
     return s
 
 
@@ -591,7 +591,7 @@ def conv(s):
 @rule((1, 3, 122), 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch')
 def conv(s):
     s = re.sub('drarnChords', 'chordChanges', s)
-    s = re.sub('\\musicalpitch', '\\pitch', s)
+    s = re.sub(r'\\musicalpitch', r'\\pitch', s)
     return s
 
 
@@ -647,8 +647,8 @@ def conv(s):
 
 @rule((1, 3, 146), _('semicolons removed'))
 def conv(s):
-    s = re.sub('\\\\key[ \t]*;', '\\key \\default;', s)
-    s = re.sub('\\\\mark[ \t]*;', '\\mark \\default;', s)
+    s = re.sub('\\\\key[ \t]*;', r'\\key \\default;', s)
+    s = re.sub('\\\\mark[ \t]*;', r'\\mark \\default;', s)
 
     # Make sure groups of more than one ; have space before
     # them, so that non of them gets removed by next rule
@@ -736,9 +736,9 @@ def conv(s):
 @rule((1, 5, 58), _('deprecate %s') % 'textNonEmpty')
 def conv(s):
     s = re.sub('textNonEmpty *= *##t',
-                 "TextScript \\set #'no-spacing-rods = ##f", s)
+                 "TextScript \\\\set #'no-spacing-rods = ##f", s)
     s = re.sub('textNonEmpty *= *##f',
-                 "TextScript \\set #'no-spacing-rods = ##t", s)
+                 "TextScript \\\\set #'no-spacing-rods = ##t", s)
     return s
 
 
@@ -788,12 +788,12 @@ def conv(s):
 
 @rule((1, 5, 72), 'set! point-and-click -> set-point-and-click!')
 def conv(s):
-    s = re.sub("""#\(set! +point-and-click +line-column-location\)""",
-                 """#(set-point-and-click! \'line-column)""", s)
-    s = re.sub("""#\(set![ \t]+point-and-click +line-location\)""",
-                 '#(set-point-and-click! \'line)', s)
-    s = re.sub('#\(set! +point-and-click +#f\)',
-                 '#(set-point-and-click! \'none)', s)
+    s = re.sub(r"#\(set! +point-and-click +line-column-location\)",
+                 "#(set-point-and-click! 'line-column)", s)
+    s = re.sub(r"#\(set![ \t]+point-and-click +line-location\)",
+                 "#(set-point-and-click! 'line)", s)
+    s = re.sub(r'#\(set! +point-and-click +#f\)',
+                 "#(set-point-and-click! 'none)", s)
     return s
 
 
@@ -814,7 +814,7 @@ def subst_req_name(match):
 @rule((1, 7, 1), 'ly-make-music foo_bar_req -> make-music-by-name FooBarEvent')
 def conv(s):
     s = re.sub(
-        '\\(ly-make-music *\"([A-Z][a-z_]+)_req\"\\)', subst_req_name, s)
+        '\\(ly-make-music *"([A-Z][a-z_]+)_req"\\)', subst_req_name, s)
     s = re.sub('Request_chord', 'EventChord', s)
     return s
 
@@ -1064,7 +1064,7 @@ def conv(s):
 @rule((1, 7, 28), _("new Pedal style syntax"))
 def conv(s):
     s = re.sub(r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\(override|set) *#'pedal-type *",
-                 r"\property Staff.pedal\1Style ", s)
+                 r"\\property Staff.pedal\1Style ", s)
     s = re.sub(
         r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\revert *#'pedal-type", '', s)
     return s
@@ -1446,7 +1446,7 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
         raise FatalConversionError()
 
-    if re.search("\\pitch *#", s):
+    if re.search(r"\\pitch *#", s):
         stderr_write(NOT_SMART % "\\pitch")
         stderr_write(_("Use Scheme code to construct arbitrary note events."))
         stderr_write('\n')
@@ -1495,7 +1495,7 @@ as a substitution text.""") % (m.group(1), m.group(2)))
 to support quarter tone accidentals.  You must update the following constructs manually:
 
 * calls of ly:make-pitch and ly:pitch-alteration
-* keySignature settings made with \property
+* keySignature settings made with \\property
 """))
         raise FatalConversionError()
     return s
@@ -1543,10 +1543,10 @@ def conv(s):
         if b == 't':
             if c == 'Score':
                 return ''
-            else:
-                return r" \property %s.melismaBusyProperties \unset" % c
-        elif b == 'f':
-            return r"\property %s.melismaBusyProperties = #'(melismaBusy)" % c
+            return r" \property %s.melismaBusyProperties \unset" % c
+
+        assert b == 'f', "Value must be ##t or ##f and not ##%s" % b
+        return r"\property %s.melismaBusyProperties = #'(melismaBusy)" % c
 
     s = re.sub(
         r"\\property ([a-zA-Z]+)\s*\.\s*automaticMelismata\s*=\s*##([ft])", func, s)
@@ -1678,14 +1678,14 @@ def conv(s):
     s = re.sub(r'\\pitchnames ', 'pitchnames = ', s)
     s = re.sub(r'\\chordmodifiers ', 'chordmodifiers = ', s)
     s = re.sub(r'\bdrums\b\s*=', 'drumContents = ', s)
-    s = re.sub(r'\\drums\b', '\\drumContents ', s)
+    s = re.sub(r'\\drums\b', r'\\drumContents ', s)
 
     if re.search('drums->paper', s):
         stderr_write(_("\n%s found. Check file manually!\n") %
                      _("Drum notation"))
 
     s = re.sub(r"""\\apply\s+#\(drums->paper\s+'([a-z]+)\)""",
-                 r"""\property DrumStaff.drumStyleTable = #\1-style""",
+                 r"""\\property DrumStaff.drumStyleTable = #\1-style""",
                  s)
 
     if re.search('Thread', s):
@@ -1695,7 +1695,7 @@ def conv(s):
                  + r"""\\(set|override)\s*#'style\s*=\s*#'harmonic"""
                  + r"""\s+([a-z]+[,'=]*)([0-9]*\.*)""", r"""<\3\\harmonic>\4""", s)
 
-    s = re.sub(r"""\\new Thread""", r"""\context Voice""", s)
+    s = re.sub(r"""\\new Thread""", r"""\\context Voice""", s)
     s = re.sub(r"""Thread""", """Voice""", s)
 
     if re.search('\bLyrics\b', s):
@@ -1718,7 +1718,7 @@ def conv(s):
 brew_molecule -> print
 brew-new-markup-molecule -> Text_item::print
 LyricsVoice -> Lyrics
-tupletInvisible -> TupletBracket \set #'transparent
+tupletInvisible -> TupletBracket \\set #'transparent
 %s.
 """ % (_("remove %s") % "Grob::preset_extent"))
 def conv(s):
@@ -1885,8 +1885,8 @@ def conv(s):
 
 @rule((2, 1, 29), '\\center -> \\center-align, \\translator -> \\context')
 def conv(s):
-    s = re.sub(r'\\center([^-])', '\\center-align\\1', s)
-    s = re.sub(r'\\translator', '\\context', s)
+    s = re.sub(r'\\center([^-])', r'\\center-align\1', s)
+    s = re.sub(r'\\translator', r'\\context', s)
     return s
 
 
@@ -1923,7 +1923,7 @@ def conv(s):
 def conv(s):
     s = re.sub(r"(\\set\s+)?(?P<context>(Score\.)?)breakAlignOrder\s*=\s*#'(?P<list>[^\)]+)",
                  r"\n\\override \g<context>BreakAlignment #'break-align-orders = "
-                 + "#(make-vector 3 '\g<list>)", s)
+                 + r"#(make-vector 3 '\g<list>)", s)
     return s
 
 
@@ -1960,15 +1960,14 @@ def conv(s):
             _("""Page layout has been changed, using paper size and margins.
 textheight is no longer used.
 """))
-    s = re.sub(r'\\OrchestralScoreContext', '\\Score', s)
+    s = re.sub(r'\\OrchestralScoreContext', r'\\Score', s)
 
     def func(m):
         if m.group(1) not in ['RemoveEmptyStaff',
                               'AncientRemoveEmptyStaffContext',
                               'EasyNotation']:
             return '\\' + m.group(1)
-        else:
-            return m.group(0)
+        return m.group(0)
 
     s = re.sub(r'\\([a-zA-Z]+)Context\b', func, s)
     s = re.sub('ly:paper-lookup', 'ly:output-def-lookup', s)
@@ -1989,7 +1988,7 @@ def conv(s):
 
 @rule((2, 3, 8), 'remove \\consistsend, strip \\lyrics from \\lyricsto.')
 def conv(s):
-    s = re.sub(r'\\consistsend', '\\consists', s)
+    s = re.sub(r'\\consistsend', r'\\consists', s)
     s = re.sub(r'\\lyricsto\s+("?[a-zA-Z]+"?)(\s*\\new Lyrics\s*)?\\lyrics',
                  r'\\lyricsto \1 \2', s)
     return s
@@ -2038,7 +2037,7 @@ def conv(s):
 }""", s)
     s = re.sub('soloADue', 'printPartCombineTexts', s)
     s = re.sub(r'\\applymusic\s*#notes-to-clusters',
-                 '\\makeClusters', s)
+                 r'\\makeClusters', s)
 
     s = re.sub(r'pagenumber\s*=', 'firstpagenumber = ', s)
     return s
@@ -2127,7 +2126,7 @@ def conv(s):
 @rule((2, 5, 0), '\\quote -> \\quoteDuring')
 def conv(s):
     s = re.sub(r'\\quote\s+"?([a-zA-Z0-9]+)"?\s+([0-9.*/]+)',
-                 r'\\quoteDuring #"\1" { \skip \2 }',
+                 r'\\quoteDuring #"\1" { \\skip \2 }',
                  s)
     return s
 
@@ -2175,12 +2174,9 @@ def conv(s):
 
 @rule((2, 5, 13), _('\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click'))
 def conv(s):
-    input_encoding = 'latin1'
-
     def func(match):
         encoding = match.group(1)
 
-        # FIXME: automatic recoding of other than latin1?
         if encoding == 'latin1':
             return match.group(2)
 
@@ -2198,26 +2194,7 @@ def conv(s):
         stderr_write('\n')
         raise FatalConversionError()
 
-        return match.group(0)
-
     s = re.sub(r'\\encoding\s+"?([a-zA-Z0-9]+)"?(\s+)', func, s)
-
-    import codecs
-    de_ascii = codecs.getdecoder('ascii')
-    de_utf_8 = codecs.getdecoder('utf_8')
-    de_input = codecs.getdecoder(input_encoding)
-    en_utf_8 = codecs.getencoder('utf_8')
-    try:
-        de_ascii(s)
-    # only in python >= 2.3
-    # except UnicodeDecodeError:
-    except UnicodeError:
-        # do not re-recode UTF-8 input
-        try:
-            de_utf_8(s)
-        # except UnicodeDecodeError:
-        except UnicodeError:
-            s = en_utf_8(de_input(s)[0])[0]
 
     s = re.sub(r"#\(ly:set-point-and-click '[a-z-]+\)", '', s)
     return s
@@ -2318,14 +2295,14 @@ def conv(s):
 def conv(s):
     s = re.sub(r'\\applyoutput', r'\\applyOutput', s)
     s = re.sub(r'\\applycontext', r'\\applyContext', s)
-    s = re.sub(r'\\applymusic',  r'\\applyMusic', s)
+    s = re.sub(r'\\applymusic', r'\\applyMusic', s)
     s = re.sub(r'ly:grob-suicide', 'ly:grob-suicide!', s)
     return s
 
 
 @rule((2, 7, 11), '"tabloid" -> "11x17"')
 def conv(s):
-    s = re.sub(r'\"tabloid\"', '"11x17"', s)
+    s = re.sub('"tabloid"', '"11x17"', s)
     return s
 
 
@@ -2347,11 +2324,9 @@ def conv(s):
 
         if what == 'revert':
             return "revert %s #'callbacks %% %s\n" % (grob, newkey)
-        elif what == 'override':
+        if what == 'override':
             return "override %s #'callbacks #'%s" % (grob, newkey)
-        else:
-            raise RuntimeError('1st group should match revert or override')
-            return ''
+        raise RuntimeError('1st group should match revert or override')
 
     s = re.sub(r"(override|revert)\s*([a-zA-Z.]+)\s*#'(spacing-procedure|after-line-breaking-callback"
                  + r"|before-line-breaking-callback|print-function)",
@@ -2414,7 +2389,7 @@ def conv(s):
         tags = ["\\tag #'%s" % s for s in syms]
         return ' '.join(tags)
 
-    s = re.sub(r"\\tag #'\(([^)]+)\)",  sub_syms, s)
+    s = re.sub(r"\\tag #'\(([^)]+)\)", sub_syms, s)
     return s
 
 
@@ -2536,7 +2511,7 @@ def conv(s):
 @rule((2, 9, 6), "\\context Foo \\applyOutput #bla -> \\applyOutput #'Foo #bla ")
 def conv(s):
     s = re.sub(
-        r'\\context\s+\"?([a-zA-Z]+)\"?\s*\\applyOutput', r"\\applyOutput #'\1", s)
+        r'\\context\s+"?([a-zA-Z]+)"?\s*\\applyOutput', r"\\applyOutput #'\1", s)
     return s
 
 
@@ -2588,7 +2563,7 @@ def conv(s):
         den = (1 << dots) * (1 << log2)
         num = ((1 << (dots+1)) - 1)
 
-        return """
+        return r"""
   \midi {
     \context {
       \Score
@@ -2631,13 +2606,13 @@ def conv(s):
 
 @rule((2, 11, 5), _("deprecate cautionary-style. Use AccidentalCautionary properties"))
 def conv(s):
-    s = re.sub("Accidental\s*#'cautionary-style\s*=\s*#'smaller",
+    s = re.sub(r"Accidental\s*#'cautionary-style\s*=\s*#'smaller",
                  "AccidentalCautionary #'font-size = #-2", s)
-    s = re.sub("Accidental\s*#'cautionary-style\s*=\s*#'parentheses",
+    s = re.sub(r"Accidental\s*#'cautionary-style\s*=\s*#'parentheses",
                  "AccidentalCautionary #'parenthesized = ##t", s)
-    s = re.sub("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'parentheses",
+    s = re.sub(r"([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'parentheses",
                  r"\1 #'parenthesized = ##t", s)
-    s = re.sub("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
+    s = re.sub(r"([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
                  r"\1 #'font-size = #-2", s)
     return s
 
@@ -2673,9 +2648,9 @@ addquote -> addQuote
 """)
 def conv(s):
     s = re.sub(r'(\\set\s+)?([A-Z][a-zA-Z]+\s*\.\s*)allowBeamBreak',
-                 r"\override \2Beam #'breakable", s)
+                 r"\\override \2Beam #'breakable", s)
     s = re.sub(r'(\\set\s+)?allowBeamBreak',
-                 r"\override Beam #'breakable", s)
+                 r"\\override Beam #'breakable", s)
     s = re.sub(r'addquote', 'addQuote', s)
     if re.search("Span_dynamic_performer", s):
         stderr_write(
@@ -2918,9 +2893,9 @@ def conv(s):
         stderr_write(FROM_TO % ("InnerChoirStaff", "ChoirStaff"))
         stderr_write(UPDATE_MANUALLY)
         raise FatalConversionError()
-    else:
-        s = re.sub('InnerStaffGroup', 'StaffGroup', s)
-        s = re.sub('InnerChoirStaff', 'ChoirStaff', s)
+
+    s = re.sub('InnerStaffGroup', 'StaffGroup', s)
+    s = re.sub('InnerChoirStaff', 'ChoirStaff', s)
     return s
 
 
@@ -3022,7 +2997,7 @@ you must now specify the distances between staves rather than the offset of stav
     s = re.sub('ly:(system-start-text::print|note-head::brew-ez-stencil|ambitus::print)',
                  '\\1', s)
     s = re.sub('(\\bBeam\\s+#\')(?=thickness\\b)', '\\1beam-', s)
-    s = re.sub(r'(\\context\s*\{{1}[^\}]+\\type\s+\"?Engraver_group\"?\s+\\name\s+"*Dynamics"*[^\}]*\}{1})',
+    s = re.sub(r'(\\context\s*\{{1}[^\}]+\\type\s+"?Engraver_group"?\s+\\name\s+"*Dynamics"*[^\}]*\}{1})',
                  '% [Convert-ly] The Dynamics context is now included by default.', s)
     return s
 
@@ -3756,7 +3731,7 @@ def conv(s):
                       r"\g<0>\1\\defaultchild\2",
                       m.group(0), 1)
 
-    s = re.sub(r"\\context\s*@?\{(" + brace_matcher(20) + ")\}",
+    s = re.sub(r"\\context\s*@?\{(" + brace_matcher(20) + r")\}",
                  matchaccepts, s)
     return s
 
@@ -4004,7 +3979,7 @@ def conv(s):
     def subst(m):
         def subsub(m):
             s = (m.group(1)
-                   + re.sub('(?<=\s|["\\()])' + m.group(2) + r'(?=\s|["\\()])',
+                   + re.sub(r'(?<=\s|["\\()])' + m.group(2) + r'(?=\s|["\\()])',
                             r'(*location*)',
                             re.sub(r'(?<=\s|["\\()])parser(?=\s|["\\()])',
                                    r'(*parser*)', m.group(3))))
@@ -4264,7 +4239,7 @@ def conv(s):
 
 @rule((2, 21, 2), r'''\tocItem "string" -> \tocItem \markup "string"''')
 def conv(s):
-    s = re.sub(r'\\tocItem\s+\"', r'\\tocItem \\markup \"', s)
+    s = re.sub(r'\\tocItem\s+"', r'\\tocItem \\markup "', s)
     return s
 
 

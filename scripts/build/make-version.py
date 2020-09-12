@@ -23,7 +23,7 @@ import sys
 PROGRAM = sys.argv[0]
 VERSION = sys.argv[1]
 defs = []
-for i in open(VERSION).readlines():
+for i in open(VERSION, encoding='utf8').readlines():
     i = re.sub('#.*', '', i)
     m = re.search('([^ =]*)[\t ]*=[ \t]*([^ \t]*)[ \t]*\n', i)
     if m:

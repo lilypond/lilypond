@@ -18,7 +18,7 @@
 @section 編集者の注釈
 @translationof Editorial annotations
 
-@lilypondfile[quote]{editorial-headword.ly}
+@lilypondfile[quote]{snippets/editorial-headword.ly}
 
 このセクションでは、音符の見た目を変える方法と、@c
 分析や教育的な強調を付け加える方法について議論します。
@@ -378,11 +378,11 @@ c''4-3
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex fingering, inside of staff (譜の内部の運指)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -673,12 +673,12 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @cindex stem, default direction on center line (中央の線上にある符幹のデフォルトの向き)
 @cindex direction, default, of stem, on center line (中央の線上にある符幹のデフォルトの向き)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+{snippets/default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @cindex stem, automatic direction on center line (中央の線上にある自動的な符幹の向き)
 @cindex direction, automatic, of stem, on center line (中央の線上にある自動的な符幹の向き)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+{snippets/automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -932,7 +932,7 @@ somechords = \relative c' {
 
 @cindex grid lines, changing appearance (グリッド ラインの見た目を変更する)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{grid-lines--changing-their-appearance.ly}
+{snippets/grid-lines--changing-their-appearance.ly}
 
 @morerefs
 コード断片集:
@@ -1000,13 +1000,13 @@ somechords = \relative c' {
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-above-the-staff.ly}
+{snippets/analysis-brackets-above-the-staff.ly}
 
 @cindex analysis bracket, with label (ラベル付きの分析の囲み)
 @cindex bracket, phrasing, with label (ラベル付きのフレーズの囲み)
 @funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-with-labels.ly}
+{snippets/analysis-brackets-with-labels.ly}
 
 @morerefs
 内部リファレンス:

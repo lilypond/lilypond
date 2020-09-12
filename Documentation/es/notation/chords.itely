@@ -14,7 +14,7 @@
 @section Notación de acordes
 @translationof Chord notation
 
-@lilypondfile[quote]{chords-headword.ly}
+@lilypondfile[quote]{snippets/chords-headword.ly}
 
 Los acordes se pueden escribir en el modo de acordes, que reconoce
 ciertas convenciones europeas tradicionales de nomenclatura de
@@ -559,16 +559,16 @@ N.C., Sin Acorde).
 @funindex chordChanges
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{showing-chords-at-changes.ly}
+{snippets/showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-@c {adding-bar-lines-to-chordnames-context.ly}
+@c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex lead sheet
 @cindex hoja guía de acordes
 @cindex acorde, hoja guía de
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Glosario musical:
@@ -805,7 +805,7 @@ se usa cuando el acorde está alterado.
 @cindex acorde, nombres de, excepciones
 @funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-exceptions.ly}
+{snippets/chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
 @cindex mayor 7, acorde, disposición
@@ -813,23 +813,23 @@ se usa cuando el acorde está alterado.
 @cindex acorde, mayor 7, disposición
 @funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-major7.ly}
+{snippets/chord-name-major7.ly}
 
 @cindex @code{ChordNames}, con líneas de compás
 @cindex compás, línea de, dentro de @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-bar-lines-to-chordnames-context.ly}
+{snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex volta, repetición de, debajo de los acordes
 @cindex acorde, repetición de volta, por debajo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{volta-below-chords.ly}
+{snippets/volta-below-chords.ly}
 
 @cindex acorde, separador, modificación
 @cindex modificación del separador de acordes
 @funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-chord-separator.ly}
+{snippets/changing-chord-separator.ly}
 
 @morerefs
 Referencia de la notación:
@@ -872,7 +872,7 @@ myChords = \relative c' {
 @translationof Figured bass
 
 @c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
 
 Se puede imprimir notación de bajo cifrado.
 
@@ -1139,7 +1139,7 @@ Fin de línea de continuación
 @funindex figuredBassAlterationDirection
 @funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-positions-of-figured-bass-alterations.ly}
+{snippets/changing-the-positions-of-figured-bass-alterations.ly}
 
 @morerefs
 Fragmentos de código:

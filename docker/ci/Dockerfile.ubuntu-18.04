@@ -52,6 +52,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         g++ \
         gettext \
         ghostscript \
+        git \
         imagemagick \
         libfl-dev \
         libfontconfig1-dev \

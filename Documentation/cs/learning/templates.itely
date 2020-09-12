@@ -16,9 +16,9 @@
 @appendix Předlohy
 @translationof Templates
 
-Tento úryvek příručky obsahuje předlohy, v nichž je notový zápis 
-LilyPondu již nastaven. Jen ještě musíte vložit své noty, 
-soubor přeložit LilyPondem a těšit se z krásného obrazu 
+Tento úryvek příručky obsahuje předlohy, v nichž je notový zápis
+LilyPondu již nastaven. Jen ještě musíte vložit své noty,
+soubor přeložit LilyPondem a těšit se z krásného obrazu
 not!
 
 @c bad node name for ancient notation to avoid conflict
@@ -40,25 +40,25 @@ not!
 @appendixsubsec Pouze noty
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
-{single-staff-template-with-only-notes.ly}
+{snippets/single-staff-template-with-only-notes.ly}
 
 
 @appendixsubsec Noty a text
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
-{single-staff-template-with-notes-and-lyrics.ly}
+{snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 
 @appendixsubsec Noty a názvy akordů
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes-and-chords.ly}
+{snippets/single-staff-template-with-notes-and-chords.ly}
 
 
 @appendixsubsec Noty, text a názvy akordů
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes,-lyrics,-and-chords.ly}
+{snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
 @node Klavírní předlohy
@@ -68,19 +68,19 @@ not!
 @appendixsubsec Klavírní sólo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-simple.ly}
+{snippets/piano-template-simple.ly}
 
 
 @appendixsubsec Klavír a hlas zpěvu
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-melody-and-lyrics.ly}
+{snippets/piano-template-with-melody-and-lyrics.ly}
 
 
 @appendixsubsec Klavír s vystředěným textem
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-lyrics.ly}
+{snippets/piano-template-with-centered-lyrics.ly}
 
 
 @node Smyčcový kvartet
@@ -90,13 +90,13 @@ not!
 @appendixsubsec Jednoduchá smyčcový kvartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{string-quartet-template-simple.ly}
+{snippets/string-quartet-template-simple.ly}
 
 
 @appendixsubsec Hlasy smyčcového kvartetu
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{string-quartet-template-with-separate-parts.ly}
+{snippets/string-quartet-template-with-separate-parts.ly}
 
 
 @node Vokální soubor
@@ -106,24 +106,24 @@ not!
 @appendixsubsec Notový zápis SATB
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template.ly}
+{snippets/vocal-ensemble-template.ly}
 
 
 @appendixsubsec Notový zápis SATB a automatický klavírní výtah
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-automatic-piano-reduction.ly}
+{snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 
 @appendixsubsec SATB s příslušnými prostředími
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+{snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 @appendixsubsec Sólový zpěv a dvojhlasný refrén
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-verse-and-refrain.ly}
+{snippets/vocal-ensemble-template-with-verse-and-refrain.ly}
 
 
 @node Orchestrální předloha
@@ -132,7 +132,7 @@ not!
 
 @appendixsubsec Orchestr, sbor a klavír
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{orchestra,-choir-and-piano-template.ly}
+{snippets/orchestra,-choir-and-piano-template.ly}
 
 
 @c bad node name to avoid node name conflict
@@ -143,13 +143,13 @@ not!
 @appendixsubsec Přepis menzurální hudby
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{incipit.ly}
+{snippets/incipit.ly}
 
 
 @appendixsubsec Předlohy pro přepis gregorianik
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @node Jiné předlohy
 @appendixsec Jiné předlohy
@@ -160,7 +160,7 @@ not!
 @translationof Jazz combo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{jazz-combo-template.ly}
+{snippets/jazz-combo-template.ly}
 
 
 @ignore

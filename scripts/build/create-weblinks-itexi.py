@@ -406,7 +406,7 @@ manuals.append('internals')
 
 version_file_path = os.path.join(topDir, "VERSION")
 
-version_contents = open(version_file_path).readlines()
+version_contents = open(version_file_path, encoding="utf8").readlines()
 major = 0
 minor = 0
 patch = 0

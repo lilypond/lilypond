@@ -13,7 +13,7 @@
 @node Chord notation
 @section Chord notation
 
-@lilypondfile[quote]{chords-headword.ly}
+@lilypondfile[quote]{snippets/chords-headword.ly}
 
 Chords can be entered either as normal notes or in chord mode and displayed
 using a variety of traditional European chord naming conventions.  Chord
@@ -529,14 +529,14 @@ Rests passed to a @code{ChordNames} context will cause the
 @cindex suppressing repeated chords
 @funindex chordChanges
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{showing-chords-at-changes.ly}
+{snippets/showing-chords-at-changes.ly}
 
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-@c {adding-bar-lines-to-chordnames-context.ly}
+@c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex lead sheet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Music Glossary:
@@ -760,7 +760,7 @@ used when the root is altered.
 @cindex chord names, exceptions
 @funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-exceptions.ly}
+{snippets/chord-name-exceptions.ly}
 
 @c TODO - tweak snippet to use \blackTriangleMarkup as well
 @cindex major 7 chord, layout
@@ -768,23 +768,23 @@ used when the root is altered.
 @cindex chord, major 7, layout
 @funindex majorSevenSymbol
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-name-major7.ly}
+{snippets/chord-name-major7.ly}
 
 @cindex @code{ChordNames}, with bar lines
 @cindex bar line, in @code{ChordNames}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-bar-lines-to-chordnames-context.ly}
+{snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex volta repeat, below chords
 @cindex chords, volta repeat, below
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{volta-below-chords.ly}
+{snippets/volta-below-chords.ly}
 
 @cindex chord separator, changing
 @cindex changing chord separator
 @funindex chordNameSeparator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-chord-separator.ly}
+{snippets/changing-chord-separator.ly}
 
 @morerefs
 Notation Reference:
@@ -825,7 +825,7 @@ myChords = \relative c' {
 @subsection Figured bass
 
 @c Indent hack because of instrument names
-@lilypondfile[quote,staffsize=18,indent=2\cm]{figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,indent=2\cm]{snippets/figured-bass-headword.ly}
 
 Figured bass notation can be displayed.
 
@@ -1084,7 +1084,7 @@ End of continuation line
 @funindex figuredBassAlterationDirection
 @funindex figuredBassPlusDirection
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-positions-of-figured-bass-alterations.ly}
+{snippets/changing-the-positions-of-figured-bass-alterations.ly}
 
 @morerefs
 Snippets:

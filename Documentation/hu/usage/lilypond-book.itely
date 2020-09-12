@@ -154,7 +154,7 @@ c'4 f16
 A nagyobb kottapéldákat ki lehet emelni külön fájlba, majd beilleszteni
 őket a @code{\lilypondfile} paranccsal:
 
-@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
 
 @page
@@ -1263,5 +1263,3 @@ where @code{\includescore} is defined as:
 Other means of mixing text and music (without
 @command{lilypond-book}) are discussed in
 @ref{LilyPond output in other programs}.
-
-

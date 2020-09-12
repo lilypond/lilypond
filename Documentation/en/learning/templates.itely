@@ -352,25 +352,25 @@ this simple built-in template.
 @appendixsubsec Notes only
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-only-notes.ly}
+{snippets/single-staff-template-with-only-notes.ly}
 
 @node Notes and lyrics
 @appendixsubsec Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes-and-lyrics.ly}
+{snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 @node Notes and chords
 @appendixsubsec Notes and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes-and-chords.ly}
+{snippets/single-staff-template-with-notes-and-chords.ly}
 
 @node Notes lyrics and chords
 @appendixsubsec Notes, lyrics, and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{single-staff-template-with-notes,-lyrics,-and-chords.ly}
+{snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
 @node Piano templates
@@ -386,19 +386,19 @@ this simple built-in template.
 @appendixsubsec Solo piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-simple.ly}
+{snippets/piano-template-simple.ly}
 
 @node Piano and melody with lyrics
 @appendixsubsec Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-melody-and-lyrics.ly}
+{snippets/piano-template-with-melody-and-lyrics.ly}
 
 @node Piano centered lyrics
 @appendixsubsec Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-lyrics.ly}
+{snippets/piano-template-with-centered-lyrics.ly}
 
 
 @node String quartet templates
@@ -413,13 +413,13 @@ this simple built-in template.
 @appendixsubsec String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{string-quartet-template-simple.ly}
+{snippets/string-quartet-template-simple.ly}
 
 @node String quartet parts
 @appendixsubsec String quartet parts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{string-quartet-template-with-separate-parts.ly}
+{snippets/string-quartet-template-with-separate-parts.ly}
 
 
 @node Vocal ensembles templates
@@ -444,43 +444,43 @@ use the built-in templates, which can simply be @code{\include}'d, see
 @appendixsubsec SATB vocal score
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template.ly}
+{snippets/vocal-ensemble-template.ly}
 
 @node SATB vocal score and automatic piano reduction
 @appendixsubsec SATB vocal score and automatic piano reduction
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-automatic-piano-reduction.ly}
+{snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 @node SATB with aligned contexts
 @appendixsubsec SATB with aligned contexts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+{snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 @node SATB on four staves
 @appendixsubsec SATB on four staves
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{satb-choir-template---four-staves.ly}
+{snippets/satb-choir-template---four-staves.ly}
 
 @node Solo verse and two-part refrain
 @appendixsubsec Solo verse and two-part refrain
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{vocal-ensemble-template-with-verse-and-refrain.ly}
+{snippets/vocal-ensemble-template-with-verse-and-refrain.ly}
 
 @node Hymn tunes
 @appendixsubsec Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 @node Psalms
 @appendixsubsec Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{anglican-psalm-template.ly}
+{snippets/anglican-psalm-template.ly}
 
 
 @node Orchestral templates
@@ -494,7 +494,7 @@ use the built-in templates, which can simply be @code{\include}'d, see
 @appendixsubsec Orchestra, choir and piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{orchestra,-choir-and-piano-template.ly}
+{snippets/orchestra,-choir-and-piano-template.ly}
 
 
 @node Ancient notation templates
@@ -509,13 +509,13 @@ use the built-in templates, which can simply be @code{\include}'d, see
 @appendixsubsec Transcription of mensural music
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{incipit.ly}
+{snippets/incipit.ly}
 
 @node Gregorian transcription template
 @appendixsubsec Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
 @node Other templates
@@ -529,9 +529,7 @@ use the built-in templates, which can simply be @code{\include}'d, see
 @appendixsubsec Jazz combo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{jazz-combo-template.ly}
-
-
+{snippets/jazz-combo-template.ly}
 
 
 @ignore
@@ -600,6 +598,3 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 }
 @end lilypond
 @end ignore
-
-
-

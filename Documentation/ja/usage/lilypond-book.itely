@@ -170,7 +170,7 @@ c'4 f16
 大きな楽譜例は別のファイルに配置して、@code{\lilypondfile} で
 インポートすることができます。
 
-@lilypondfile[quote,noindent]{screech-and-boink.ly}
+@lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
 デフォルトあるいはカスタムの @code{tagline} が必要であれば、
 楽譜コード断片全体を @code{\book @{ @}} 構造で囲んでください。

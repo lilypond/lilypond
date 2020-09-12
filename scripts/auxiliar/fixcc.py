@@ -309,7 +309,7 @@ def find_toplevel_snippets(s, types):
 
 
 def nitpick_file(outdir, file):
-    s = open(file).read()
+    s = open(file, encoding='utf8').read()
 
     t = s.expandtabs(8)
     for i in rules[GLOBAL_CXX]:
@@ -339,7 +339,7 @@ def nitpick_file(outdir, file):
         else:
             fixt = os.path.join(outdir,
                                 os.path.basename(file))
-        h = open(fixt, "w")
+        h = open(fixt, "w", encoding="utf8")
         h.write(t)
         h.close()
     if s != t or indent_p:
@@ -556,9 +556,9 @@ a = "foo() 2,2,4";
 
 def test():
     test_file = 'fixcc.cc'
-    open(test_file, 'w').write(TEST)
+    open(test_file, 'w', encoding='utf8').write(TEST)
     nitpick_file(outdir, test_file)
-    sys.stdout.write(open(test_file).read())
+    sys.stdout.write(open(test_file, encoding='utf8').read())
 
 
 if __name__ == '__main__':

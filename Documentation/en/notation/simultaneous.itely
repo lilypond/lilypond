@@ -13,7 +13,7 @@
 @node Simultaneous notes
 @section Simultaneous notes
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
 Polyphony in music refers to having more than one voice occurring
 in a piece of music.  Polyphony in LilyPond refers to having more
@@ -877,17 +877,17 @@ the stems are explicitly set in opposite directions).
 @cindex polyphony, additional voices
 @funindex context-spec-music
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{additional-voices-to-avoid-collisions.ly}
+{snippets/additional-voices-to-avoid-collisions.ly}
 
 @cindex dotted note, moving horizontally
 @cindex note, dotted, moving horizontally
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{moving-dotted-notes-in-polyphony.ly}
+{snippets/moving-dotted-notes-in-polyphony.ly}
 
 @cindex note, horizontal shift
 @cindex horizontal shift of notes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{forcing-horizontal-shift-of-notes.ly}
+{snippets/forcing-horizontal-shift-of-notes.ly}
 
 
 @morerefs
@@ -1157,12 +1157,12 @@ this effect can be achieved using a @code{NullVoice} context.  See
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{combining-two-parts-on-the-same-staff.ly}
+{snippets/combining-two-parts-on-the-same-staff.ly}
 
 @cindex part combiner, changing text
 @cindex combining parts, changing text
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-partcombine-texts.ly}
+{snippets/changing-partcombine-texts.ly}
 
 
 @morerefs

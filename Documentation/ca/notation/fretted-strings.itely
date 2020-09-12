@@ -17,7 +17,7 @@
 @section Instruments de corda amb trasts
 @translationof Fretted string instruments
 
-@lilypondfile[quote]{fretted-headword.ly}
+@lilypondfile[quote]{snippets/fretted-headword.ly}
 
 Aquesta secció tracta de diversos aspectes de la notació musical
 que són exclusius dels instruments de corda amb trasts.
@@ -154,10 +154,10 @@ g1\4
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @predefined
 @code{\arabicStringNumbers},
@@ -487,39 +487,39 @@ ratioHarmonics = {
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{stem-and-beam-behavior-in-tablature.ly}
+{snippets/stem-and-beam-behavior-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{polyphony-in-tablature.ly}
+{snippets/polyphony-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{open-string-harmonics-in-tablature.ly}
+{snippets/open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretted-string-harmonics-in-tablature.ly}
+{snippets/fretted-string-harmonics-in-tablature.ly}
 
 @cindex deslizamientos en notación de tablatura
 @cindex tablatura y deslizamientos
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{slides-in-tablature.ly}
+{snippets/slides-in-tablature.ly}
 
 @cindex glissandos en acords
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-glissando-in-tablature.ly}
+{snippets/chord-glissando-in-tablature.ly}
 
 @cindex martell activat
 @cindex aixecar desactivat
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off.ly}
+{snippets/hammer-on-and-pull-off.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-voices.ly}
+{snippets/hammer-on-and-pull-off-using-voices.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-chords.ly}
+{snippets/hammer-on-and-pull-off-using-chords.ly}
 
 @morerefs
 Referencia de la notació:
@@ -1240,10 +1240,10 @@ diagrama de trasts, les propietats de la interfície pertanyen a
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-fret-orientations.ly}
+{snippets/changing-fret-orientations.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-markup-fret-diagrams.ly}
+{snippets/customizing-markup-fret-diagrams.ly}
 
 @morerefs
 Referència de la notació:
@@ -1547,16 +1547,16 @@ predefinit, les propietats d'interfície pertanyen a
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-fretboard-fret-diagrams.ly}
+{snippets/customizing-fretboard-fret-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/defining-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{chordchanges-for-fretboards.ly}
+{snippets/chordchanges-for-fretboards.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretboards-alternate-tables.ly}
+{snippets/fretboards-alternate-tables.ly}
 
 @morerefs
 Referència de la notació:
@@ -1779,10 +1779,10 @@ RH=#rightHandFinger
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{placement-of-right-hand-fingerings.ly}
+{snippets/placement-of-right-hand-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingerings,-string-indications,-and-right-hand-fingerings.ly}
+{snippets/fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @morerefs
 Fragments de codi:

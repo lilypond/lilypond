@@ -1,8 +1,14 @@
-To build and push fresh containers:
-```
- $ docker build --pull -t registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:<date> -f Dockerfile.ubuntu-16.04 .
- $ docker push registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:<date>
+To update the CI containers:
 
- $ docker build --pull -t registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:<date> -f Dockerfile.ubuntu-18.04 .
- $ docker push registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:<date>
+* [Log in](https://docs.gitlab.com/ee/user/packages/container_registry/#authenticating-to-the-gitlab-container-registry) to Gitlab's container registry
+
+* Build and push the packages:
+
+```
+ $ DATE=$(date +'%Y%m%d')
+ $ docker build --pull -t registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:${DATE} -f Dockerfile.ubuntu-16.04 .
+ $ docker push registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:${DATE}
+
+ $ docker build --pull -t registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:${DATE} -f Dockerfile.ubuntu-18.04 .
+ $ docker push registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:${DATE}
 ```

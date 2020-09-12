@@ -14,13 +14,13 @@ import sys
 
 for pathname in sys.argv[1:]:
     if os.path.isfile(pathname):
-        fd = open(pathname, mode='U')  # open in universal newline mode
+        fd = open(pathname, encoding='utf8')
         lines = []
         for line in fd.readlines():
             lines.append(line.rstrip())
         fd.close()
 
-        fd = open(pathname, mode='w')
+        fd = open(pathname, mode='w', encoding='utf8')
         fd.seek(0)
         for line in lines:
             fd.write(line+'\n')

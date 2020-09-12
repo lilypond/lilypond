@@ -16,7 +16,7 @@
 @section フレットのある弦楽器
 @translationof Fretted string instruments
 
-@lilypondfile[quote]{fretted-headword.ly}
+@lilypondfile[quote]{snippets/fretted-headword.ly}
 
 このセクションでは、@c
 フレットのある弦楽器に特有の記譜法のいくつかの側面について説明します。
@@ -145,11 +145,11 @@ g1\4
 
 @c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @c XXX also included in `editorial.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @predefined
 @code{\arabicStringNumbers},
@@ -480,45 +480,45 @@ ratioHarmonics = {
 @cindex beam, horizontal (水平な連桁)
 @cindex horizontal beams (水平な連桁)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{stem-and-beam-behavior-in-tablature.ly}
+{snippets/stem-and-beam-behavior-in-tablature.ly}
 
 @cindex polyphony, in tablatures (タブ譜内の多声)
 @cindex tablature, and polyphony (タブ譜と多声)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{polyphony-in-tablature.ly}
+{snippets/polyphony-in-tablature.ly}
 
 @cindex tablature, and harmonics
 @cindex harmonic, in tablatures
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{open-string-harmonics-in-tablature.ly}
+{snippets/open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretted-string-harmonics-in-tablature.ly}
+{snippets/fretted-string-harmonics-in-tablature.ly}
 
 @cindex slide, in tablature notation (タブ譜の記譜法でのスライド)
 @cindex tablature, and slides (タブ譜とスライド)
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{slides-in-tablature.ly}
+{snippets/slides-in-tablature.ly}
 
 @cindex chord, glissando, in tablatures (タブ譜内の和音のグリッサンド)
 @cindex glissando, chords in tablatures (タブ譜内の和音のグリッサンド)
 @cindex tablature, chord glissando (タブ譜と和音のグリッサンド)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{chord-glissando-in-tablature.ly}
+{snippets/chord-glissando-in-tablature.ly}
 
 @cindex hammer on (ハンマリング オン)
 @cindex pull off (プリング オフ)
 @cindex tablature, hammer on (タブ譜とハンマリング オン)
 @cindex tablature, pull off (タブ譜とプリング オフ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off.ly}
+{snippets/hammer-on-and-pull-off.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-voices.ly}
+{snippets/hammer-on-and-pull-off-using-voices.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hammer-on-and-pull-off-using-chords.ly}
+{snippets/hammer-on-and-pull-off-using-chords.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -1237,12 +1237,12 @@ and color of dots.
 @cindex fret diagram, changing orientation (フレット ダイアグラムの向きを変更する)
 @cindex orientation of fret diagram, changing (フレット ダイアグラムの向きを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-fret-orientations.ly}
+{snippets/changing-fret-orientations.ly}
 
 @cindex fret diagram, customized (フレット ダイアグラムのカスタマイズ)
 @cindex custom fret diagram (カスタム フレット ダイアグラム)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-markup-fret-diagrams.ly}
+{snippets/customizing-markup-fret-diagrams.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -1557,26 +1557,26 @@ mychords = \chordmode {
 @cindex fretboard fret diagram, customized (フレットボードのフレット ダイアグラムをカスタマイズする)
 @cindex custom fretboard fret diagram (カスタム フレットボード フレット ダイアグラム)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{customizing-fretboard-fret-diagrams.ly}
+{snippets/customizing-fretboard-fret-diagrams.ly}
 
 @cindex fretboard, define predefined (既定のフレットボードを定義する)
 @cindex define predefined fretboard (フレットボードを定義する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/defining-predefined-fretboards-for-other-instruments.ly}
 
 @cindex chord, suppressing repeated (繰り返しの和音を抑制する)
 @cindex repeated chords, suppressing (繰り返しの和音を抑制する)
 @cindex suppressing repeated chords (繰り返しの和音を抑制する)
 @funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{chordchanges-for-fretboards.ly}
+{snippets/chordchanges-for-fretboards.ly}
 
 @cindex fretboard, alternate table (他のフレットボード テーブル)
 @cindex alternate fretboard table (他のフレットボード テーブル)
 @funindex predefinedDiagramTable
 @funindex \storePredefinedDiagram
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fretboards-alternate-tables.ly}
+{snippets/fretboards-alternate-tables.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -1799,10 +1799,10 @@ RH=#rightHandFinger
 @cindex fingering, right-hand, placement (右手の運指の配置)
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{placement-of-right-hand-fingerings.ly}
+{snippets/placement-of-right-hand-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingerings,-string-indications,-and-right-hand-fingerings.ly}
+{snippets/fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @morerefs
 コード断片集:

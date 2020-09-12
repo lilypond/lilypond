@@ -12,7 +12,7 @@
 @node Rhythms
 @section Rhythms
 
-@lilypondfile[quote]{rhythms-headword.ly}
+@lilypondfile[quote]{snippets/rhythms-headword.ly}
 
 This section discusses rhythms, rests, durations, beaming and bars.
 
@@ -161,13 +161,13 @@ Notes can also be spaced proportionately to their duration, see
 @cindex breve note, alternative style
 @cindex alternative style of breve notes
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{alternative-breve-notes.ly}
+{snippets/alternative-breve-notes.ly}
 
 @cindex augmentation dot, change number of
 @cindex change number of augmentation dots
 @cindex dotted note, change number of dots
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-number-of-augmentation-dots-per-note.ly}
+{snippets/changing-the-number-of-augmentation-dots-per-note.ly}
 
 
 @morerefs
@@ -323,29 +323,29 @@ bracket is also introduced in @ref{Scaling durations}.
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--tuplet-command.ly}
+{snippets/entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex tuplet number, change
 @cindex change tuplet number
 @funindex TupletNumber
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-the-tuplet-number.ly}
+{snippets/changing-the-tuplet-number.ly}
 
 @cindex tuplet number, non-default
 @cindex non-default tuplet numbers
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{non-default-tuplet-numbers.ly}
+{snippets/non-default-tuplet-numbers.ly}
 
 @cindex tuplet bracket, visibility
 @cindex visibility of tuplet brackets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-tuplet-bracket-visibility.ly}
+{snippets/controlling-tuplet-bracket-visibility.ly}
 
 @cindex beamed tuplet, line break within
 @cindex tuplet, beamed, line break within
 @funindex Forbid_line_break_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{permitting-line-breaks-within-beamed-tuplets.ly}
+{snippets/permitting-line-breaks-within-beamed-tuplets.ly}
 
 
 @morerefs
@@ -659,14 +659,14 @@ that should cause a gap in ties.
 @cindex arpeggio and ties
 @funindex tieWaitForNote
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-ties-with-arpeggios.ly}
+{snippets/using-ties-with-arpeggios.ly}
 
 @cindex tie, manual engraving
 @cindex manual engraving of ties
 @funindex TieColumn
 @anchor{engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{engraving-ties-manually.ly}
+{snippets/engraving-ties-manually.ly}
 
 
 @morerefs
@@ -768,7 +768,7 @@ automatic rest collision formatter will not move these rests.
 @cindex style, rests
 @cindex rest, style
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{rest-styles.ly}
+{snippets/rest-styles.ly}
 
 
 @morerefs
@@ -1007,19 +1007,19 @@ setting, resulting bar-check warnings may not be displayed.
 @cindex multi-measure rest, length
 @cindex length of multi-measure rest
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{multi-measure-rest-length-control.ly}
+{snippets/multi-measure-rest-length-control.ly}
 
 @cindex multi-measure rest, positioning
 @cindex position, multi-measure rest
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{positioning-multi-measure-rests.ly}
+{snippets/positioning-multi-measure-rests.ly}
 
 @cindex multi-measure rest, markup
 @cindex markup, multi-measure rest
 @funindex \textLengthOn
 @funindex \textLengthOff
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{multi-measure-rest-markup.ly}
+{snippets/multi-measure-rest-markup.ly}
 
 
 @morerefs
@@ -1296,7 +1296,7 @@ is shown in @ref{Setting automatic beam behavior}.
 
 @cindex time signature, printing only numerator
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
+{snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly}
 
 
 @morerefs
@@ -1420,19 +1420,19 @@ for horizontal spacing.
 @cindex rehearsal mark, below staff
 @cindex mark, rehearsal, below staff
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
+{snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
 @c perhaps also an example of how to move it horizontally?
 
 @cindex tempo, change, without metronome mark
 @cindex change tempo without metronome mark
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
+{snippets/changing-the-tempo-without-a-metronome-mark.ly}
 
 @cindex metronome mark, custom markup
 @cindex custom metronome mark markup
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
+{snippets/creating-metronome-marks-in-markup-mode.ly}
 
 For more details, see @ref{Formatting text}.
 
@@ -2057,7 +2057,7 @@ reduced to single notes with the @code{\reduceChords} music function:
 @cindex strumming rhythm, showing
 @cindex guitar, strumming rhythm, showing
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{guitar-strum-rhythms.ly}
+{snippets/guitar-strum-rhythms.ly}
 
 
 @morerefs
@@ -2144,17 +2144,17 @@ created; see @ref{Setting automatic beam behavior}.
 @cindex beam, line breaks
 @cindex line break, beams
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{beams-across-line-breaks.ly}
+{snippets/beams-across-line-breaks.ly}
 
 @cindex beam, with knee gap, changing
 @cindex knee gap, with beams, changing
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-beam-knee-gap.ly}
+{snippets/changing-beam-knee-gap.ly}
 
 @cindex beam, @code{\partCombine} with @code{\autoBeamOff}
 @cindex voice, @code{\partCombine} with @code{\autoBeamOff}
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and-autobeamoff.ly}
 
 
 @morerefs
@@ -2486,14 +2486,14 @@ The default beaming rules can be found in
 @funindex baseMoment
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{subdividing-beams.ly}
+{snippets/subdividing-beams.ly}
 
 @cindex beaming, strict-beat
 @cindex strict-beat beaming
 @cindex beamlet, orientation
 @funindex strictBeatBeaming
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{strict-beat-beaming.ly}
+{snippets/strict-beat-beaming.ly}
 
 @cindex measure grouping
 @cindex beat, grouping
@@ -2503,12 +2503,12 @@ The default beaming rules can be found in
 @cindex sign, conducting
 @funindex Measure_grouping_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{conducting-signs,-measure-grouping-signs.ly}
+{snippets/conducting-signs,-measure-grouping-signs.ly}
 
 @cindex beam, endings, in a score
 @cindex beam, endings, with multiple voices
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{beam-endings-in-score-context.ly}
+{snippets/beam-endings-in-score-context.ly}
 
 
 @morerefs
@@ -2675,7 +2675,7 @@ the group as a whole.
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{flat-flags-and-beam-nibs.ly}
+{snippets/flat-flags-and-beam-nibs.ly}
 
 
 @morerefs
@@ -3231,35 +3231,35 @@ are printed at all possible places:
 
 @cindex bar number, printed in first measure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-the-bar-number-for-the-first-measure.ly}
+{snippets/printing-the-bar-number-for-the-first-measure.ly}
 
 @cindex bar number, printed at regular intervals
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-at-regular-intervals.ly}
+{snippets/printing-bar-numbers-at-regular-intervals.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-with-changing-regular-intervals.ly}
+{snippets/printing-bar-numbers-with-changing-regular-intervals.ly}
 
 @cindex measure number, style
 @cindex bar number, style
 @cindex style, bar number
 @cindex style, measure number
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-bar-numbers-inside-boxes-or-circles.ly}
+{snippets/printing-bar-numbers-inside-boxes-or-circles.ly}
 
 @c XXX also included in `repeats.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @cindex bar number, alignment
 @cindex alignment, bar numbers
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{aligning-bar-numbers.ly}
+{snippets/aligning-bar-numbers.ly}
 
 @cindex bar number, removal
 @cindex removing bar numbers
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{removing-bar-numbers-from-a-score.ly}
+{snippets/removing-bar-numbers-from-a-score.ly}
 
 
 @morerefs
@@ -3693,7 +3693,7 @@ direction is overridden and then reverted.
 @cindex stem, with slash
 @cindex slashed stem
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{using-grace-note-slashes-with-normal-heads.ly}
+{snippets/using-grace-note-slashes-with-normal-heads.ly}
 
 @cindex tweaking grace note
 @cindex grace note, tweaking
@@ -3701,7 +3701,7 @@ direction is overridden and then reverted.
 @funindex add-grace-property
 @funindex remove-grace-property
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-grace-layout-within-music.ly}
+{snippets/tweaking-grace-layout-within-music.ly}
 
 @cindex empty chord
 @cindex chord, empty
@@ -3712,12 +3712,12 @@ direction is overridden and then reverted.
 @funindex startAppoggiaturaMusic
 @funindex stopAppoggiaturaMusic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{redefining-grace-note-global-defaults.ly}
+{snippets/redefining-grace-note-global-defaults.ly}
 
 @cindex grace note, and strict spacing
 @cindex strict spacing and grace notes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{positioning-grace-notes-with-floating-space.ly}
+{snippets/positioning-grace-notes-with-floating-space.ly}
 
 
 @morerefs

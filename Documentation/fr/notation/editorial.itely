@@ -17,7 +17,7 @@
 @section Annotations éditoriales
 @translationof Editorial annotations
 
-@lilypondfile[quote]{editorial-headword.ly}
+@lilypondfile[quote]{snippets/editorial-headword.ly}
 
 Ce chapitre traite de la manière de modifier l'apparence des notes dans
 un but pédagogique ou d'analyse.
@@ -405,7 +405,7 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @cindex doigté, dans la portée
 @cindex doigté et hampe
@@ -413,7 +413,7 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 @funindex staff-padding
 @funindex add-stem-support
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @morerefs
 Manuel de notation :
@@ -738,10 +738,10 @@ L'orientation des hampes peut être définie manuellement -- voir
 @cindex hampe,ligne médiane, direction
 @cindex ligne médiane, hampe, direction
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+{snippets/default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+{snippets/automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
 @morerefs
 Manuel de notation :
@@ -1004,7 +1004,7 @@ entre chaque ligne.
 
 @cindex quadrillage temporel, apparence
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{grid-lines--changing-their-appearance.ly}
+{snippets/grid-lines--changing-their-appearance.ly}
 
 @morerefs
 Morceaux choisis :
@@ -1069,13 +1069,13 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-above-the-staff.ly}
+{snippets/analysis-brackets-above-the-staff.ly}
 
 @cindex étiquette, crochet d'analyse
 @cindex analyse, crochet, étiquette
 @funindex HorizontalBracketText
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-with-labels.ly}
+{snippets/analysis-brackets-with-labels.ly}
 
 
 @morerefs

@@ -17,7 +17,7 @@
 @section Anotacions editorials
 @translationof Editorial annotations
 
-@lilypondfile[quote]{editorial-headword.ly}
+@lilypondfile[quote]{snippets/editorial-headword.ly}
 
 Aquesta secció tracta de les diverses maneres de modificar
 l'aspecte de les notes i d'aplicar èmfasi analític o educatiu.
@@ -401,10 +401,10 @@ a sota del pentagrama, vegeu
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @morerefs
 Referència de la notació:
@@ -694,10 +694,10 @@ avall; vegeu @ref{Direcció i posició}.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+{snippets/default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+{snippets/automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
 @morerefs
 Referència de la notació:
@@ -851,7 +851,7 @@ d'especificar la duració entre les línies de reixeta.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{grid-lines--changing-their-appearance.ly}
+{snippets/grid-lines--changing-their-appearance.ly}
 
 @morerefs
 Fragment de codi:
@@ -919,10 +919,10 @@ Les claus d'anàlisi es poden niuar.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-above-the-staff.ly}
+{snippets/analysis-brackets-above-the-staff.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{analysis-brackets-with-labels.ly}
+{snippets/analysis-brackets-with-labels.ly}
 
 @morerefs
 Referència de funcionament intern:

@@ -84,7 +84,7 @@ def lily_clef(fin):
 
 
 def gulp_file(f):
-    return open(f).read()
+    return open(f, encoding='utf8').read()
 
 
 # notename 0 == central C
@@ -887,7 +887,7 @@ def parse_etf_file(fn, tag_dict):
     """
 
     sys.stderr.write('parsing ... ')
-    f = open(fn)
+    f = open(fn, encoding='utf8')
 
     gulp = re.sub('[\n\r]+', '\n',  f.read())
     ls = gulp.split('\n^')
@@ -1278,7 +1278,7 @@ for f in files:
     sys.stderr.write('Writing `%s\'' % out_filename)
     ly = e.dump()
 
-    fo = open(out_filename, 'w')
+    fo = open(out_filename, 'w', encoding='utf8')
     fo.write('%% lily was here -- automatically converted by etf2ly from %s\n' % f)
     fo.write(ly)
     fo.close()

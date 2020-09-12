@@ -15,7 +15,7 @@
 @section Anmerkungen
 @translationof Editorial annotations
 
-@lilypondfile[quote]{editorial-headword.ly}
+@lilypondfile[quote]{snippets/editorial-headword.ly}
 
 Dieser Abschnitt zeigt die verschiedenen Möglichkeiten, die
 Erscheinung der Noten zu ändern und analytische bzw. pädagogische
@@ -200,10 +200,10 @@ Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
 @funindex stringNumberOrientations
 @funindex strokeFingerOrientations
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{controlling-the-placement-of-chord-fingerings.ly}
+{snippets/controlling-the-placement-of-chord-fingerings.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+{snippets/allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @morerefs
 Notationsreferenz:
@@ -492,7 +492,7 @@ zeigen, siehe @ref{Direction and placement}.
 @cindex Hals neutral
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+{snippets/default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @morerefs
 Notationsreferenz:
@@ -651,7 +651,7 @@ den Linien festgesetzt.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{grid-lines--changing-their-appearance.ly}
+{snippets/grid-lines--changing-their-appearance.ly}
 
 
 @morerefs

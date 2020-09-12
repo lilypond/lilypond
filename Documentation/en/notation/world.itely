@@ -349,7 +349,7 @@ key signatures:
 
 @c XXX also included in `pitches.itely'
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -402,7 +402,7 @@ the automatic beaming behaviour and/or use compound time signatures.
 @cindex Arabic improvisation
 @cindex improvisation, Arabic
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{arabic-improvisation.ly}
+{snippets/arabic-improvisation.ly}
 
 
 @morerefs
@@ -609,7 +609,7 @@ automatically.
 @cindex makam, example
 @cindex Turkish makam, example
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{turkish-makam-example.ly}
+{snippets/turkish-makam-example.ly}
 
 
 @node Further reading for Turkish music

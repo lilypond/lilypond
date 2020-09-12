@@ -1230,7 +1230,7 @@ En el ejemplo siguiente, comenzamos con un plug-in para la cabeza de
 las notas, el grabador @code{Note_heads_engraver}.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1264,7 +1264,7 @@ A continuación, un grabador del pentagrama, el
 @code{Staff_symbol_engraver}, añade la pauta:
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1297,7 +1297,7 @@ el grabador de la clave o @code{Clef_engraver} define un punto de
 referencia para el pentagrama:
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1327,7 +1327,7 @@ referencia para el pentagrama:
 y el grabador de las plicas @code{Stem_engraver} añade las plicas.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1362,7 +1362,7 @@ compás y la armadura, obtenemos un fragmento de notación musical
 completo.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score { \topVoice }
 @end lilypond
 
@@ -1375,7 +1375,7 @@ para la polifonía? En la notación polifónica, muchas voces pueden
 llegar a compartir el mismo pentagrama.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
@@ -1392,7 +1392,7 @@ similar, varios contextos de pentagrama se pueden reunir dentro de un
 de notación del nivel más alto que hay.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score {
    <<
       \new Staff << \topVoice \\ \botVoice >>

@@ -15,7 +15,7 @@
 @section Tonhöhen
 @translationof Pitches
 
-@lilypondfile[quote]{pitches-headword.ly}
+@lilypondfile[quote]{snippets/pitches-headword.ly}
 
 Dieser Abschnitt zeigt, wie man die Tonhöhe notieren kann.
 Es gibt drei Stufen in diesem Prozess: Eingabe, Veränderung und Ausgabe.
@@ -424,10 +424,10 @@ cis
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+{snippets/hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-extra-naturals-from-being-automatically-added.ly}
+{snippets/preventing-extra-naturals-from-being-automatically-added.ly}
 
 @morerefs
 Glossar:
@@ -841,7 +841,7 @@ siehe auch @ref{Transposition von Instrumenten}.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 @morerefs
 Notationsreferenz:
@@ -1224,7 +1224,7 @@ bei Stichnoten siehe die Funktionen @code{\cueClef} und
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-clef-properties.ly}
+{snippets/tweaking-clef-properties.ly}
 
 @morerefs
 Notationsreferenz:
@@ -1328,10 +1328,10 @@ Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian}
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+{snippets/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -1390,7 +1390,7 @@ Transposition von einer Oktave an:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-ottava-text.ly}
+{snippets/changing-ottava-text.ly}
 
 
 @morerefs
@@ -2727,13 +2727,13 @@ Tonart definiert werden.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-ambitus-per-voice.ly}
+{snippets/adding-ambitus-per-voice.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ambitus-with-multiple-voices.ly}
+{snippets/ambitus-with-multiple-voices.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-ambitus-gap.ly}
+{snippets/changing-the-ambitus-gap.ly}
 
 
 @morerefs
@@ -2920,7 +2920,7 @@ sich in @ref{Die Notensystemgröße einstellen}.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{numbers-as-easy-note-heads.ly}
+{snippets/numbers-as-easy-note-heads.ly}
 
 @morerefs
 Notationsreferenz:
@@ -3030,7 +3030,7 @@ a2 b c d \break
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+{snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 
 Alle Notenkopfstile finden sich in @ref{Notenkopfstile}.

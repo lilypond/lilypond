@@ -1233,7 +1233,7 @@ Im nächsten Beispiel wird gezeigt, wie mit dem Plugin für die Notenköpfe,
 dem @code{Note_heads_engraver} (@qq{Notenkopfstecher}) der Satz begonnen wird.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1266,7 +1266,7 @@ Dann fügt ein @code{Staff_symbol_engraver} (@qq{Notensystemstecher})
 die Notenlinien hinzu.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1298,7 +1298,7 @@ Der @code{Clef_engraver} (@qq{Notenschlüsselstecher}) definiert
 eine Referenzstelle für das System.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1328,7 +1328,7 @@ Der @code{Stem_engraver} (@qq{Halsstecher}) schließlich fügt
  Hälse hinzu.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 
 \score {
   \topVoice
@@ -1362,7 +1362,7 @@ hinzufügen, erhalten wir eine vollständige Notation.
 
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score { \topVoice }
 @end lilypond
 
@@ -1375,7 +1375,7 @@ Dieses System funktioniert gut für monophone Musik, aber wie geht
 es mit Polyphonie? Hier müssen sich mehrere Stimmen ein System teilen.
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
@@ -1393,7 +1393,7 @@ Der Score-Kontext ist auf der höchsten Ebene der Kontexte.
 
 
 @lilypond[quote,ragged-right]
-\include "engraver-example.ily"
+\include "en/included/engraver-example.ily"
 \score {
    <<
       \new Staff << \topVoice \\ \botVoice >>

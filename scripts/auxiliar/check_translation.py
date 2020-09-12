@@ -64,7 +64,7 @@ def do_file(file_name, lang_codes):
             original = original.replace('.texidoc', '.ly', 1)
         else:
             original = dir_lang(file_name, 'en', lang_dir_index)
-        translated_contents = open(file_name).read()
+        translated_contents = open(file_name, encoding='utf8').read()
 
         # experimental feature
         if not touch_committishes in (current_revision, 'HEAD'):
@@ -77,7 +77,7 @@ def do_file(file_name, lang_codes):
                 translated_contents = \
                     buildlib.revision_re.sub('GIT committish: ' + current_revision,
                                              translated_contents, 1)
-                f = open(file_name, 'w').write(translated_contents)
+                f = open(file_name, 'w', encoding='utf8').write(translated_contents)
                 return
 
     (diff_string, error) \
@@ -94,7 +94,7 @@ def do_file(file_name, lang_codes):
             buildlib.read_pipe(text_editor + ' ' + file_name + ' ' + original)
         elif diff_string:
             diff_file = original + '.diff'
-            f = open(diff_file, 'w')
+            f = open(diff_file, 'w', encoding='utf8')
             f.write(diff_string)
             f.close()
             buildlib.read_pipe(text_editor + ' ' + file_name + ' ' + diff_file)

@@ -18,7 +18,7 @@
 @section Altures
 @translationof Pitches
 
-@lilypondfile[quote]{pitches-headword.ly}
+@lilypondfile[quote]{snippets/pitches-headword.ly}
 
 A aquesta secció es discuteix com especificar l'altura de les
 notes. Aquest procés es composa de tres fases: entrada,
@@ -436,10 +436,10 @@ s'imprimeixen al començament d'un sistema:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+{snippets/hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-extra-naturals-from-being-automatically-added.ly}
+{snippets/preventing-extra-naturals-from-being-automatically-added.ly}
 
 @morerefs
 Glossari musical:
@@ -847,7 +847,7 @@ Per veure més informació sobre instruments transpositors, consulteu
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 @morerefs
 Referència de la notació:
@@ -1291,7 +1291,7 @@ Quan hi ha un canvi de clau manual, el glif de la clau modificada
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-clef-properties.ly}
+{snippets/tweaking-clef-properties.ly}
 
 @morerefs
 Referencia de la notación:
@@ -1432,10 +1432,10 @@ posició del pentagrama.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+{snippets/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 
 @morerefs
@@ -1492,13 +1492,13 @@ addicional d'una octava per al pentagrama.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-ottava-text.ly}
+{snippets/changing-ottava-text.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-an-ottava-marking-to-a-single-voice.ly}
+{snippets/adding-an-ottava-marking-to-a-single-voice.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-the-ottava-spanner-slope.ly}
+{snippets/modifying-the-ottava-spanner-slope.ly}
 
 @morerefs
 Glossari musical:
@@ -2948,13 +2948,13 @@ tonalitat.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-ambitus-per-voice.ly}
+{snippets/adding-ambitus-per-voice.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ambitus-with-multiple-voices.ly}
+{snippets/ambitus-with-multiple-voices.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-ambitus-gap.ly}
+{snippets/changing-the-ambitus-gap.ly}
 
 @morerefs
 Glossri musical:
@@ -3140,7 +3140,7 @@ un tipus de lletra més gran, vegeu
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{numbers-as-easy-note-heads.ly}
+{snippets/numbers-as-easy-note-heads.ly}
 
 @morerefs
 Referència de la notació:
@@ -3252,7 +3252,7 @@ relatiu major:
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+{snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Per veure tots els estils de formes de cap de nota, consulteu
 @ref{Estils de caps de nota}.

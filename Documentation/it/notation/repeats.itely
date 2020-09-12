@@ -16,7 +16,7 @@
 @section Ripetizioni
 @translationof Repeats
 
-@lilypondfile[quote]{repeats-headword.ly}
+@lilypondfile[quote]{snippets/repeats-headword.ly}
 
 La ripetizione è un concetto chiave in musica e può essere resa con
 varie forme di notazione.  LilyPond supporta i seguenti tipi di
@@ -336,25 +336,25 @@ comando @code{\defineBarLine} (vedi @ref{Stanghette}).
 @cindex parentesi della volta, accorciare
 @cindex volta, parentesi accorciate
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{shortening-volta-brackets.ly}
+{snippets/shortening-volta-brackets.ly}
 
 @cindex parentesi della volta, in altri righi
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-volta-brackets-to-additional-staves.ly}
+{snippets/adding-volta-brackets-to-additional-staves.ly}
 
 @cindex ripetizione, doppia, stile per la volta
 @cindex volta, stile della doppia ripetizione
 @cindex stile, doppia ripetizione per la volta
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-double-repeat-default-for-volte.ly}
+{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex ripetizione, numeri di battuta con lettere
 @cindex numeri di battuta, con lettere, nelle ripetizioni
 @cindex ripetizione, numeri di battuta alternativi
 @cindex numeri di battuta, alternativi, nelle ripetizioni
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @morerefs
 Glossario Musicale:
@@ -767,18 +767,18 @@ simbolo di doppia percentuale.
 @cindex ripetizione, contatore con segno percentuale
 @funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-counter.ly}
+{snippets/percent-repeat-counter.ly}
 
 @cindex conto della ripetizione con segno percentuale, visibilità
 @cindex ripetizione, percentuale, visibilità del conto
 @funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-count-visibility.ly}
+{snippets/percent-repeat-count-visibility.ly}
 
 @cindex ripetizioni con segni percentuali isolati
 @cindex isolati, segni percentuali, nelle ripetizioni
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{isolated-percent-repeats.ly}
+{snippets/isolated-percent-repeats.ly}
 
 @morerefs
 Glossario Musicale:
@@ -891,7 +891,7 @@ usato l'ultimo valore:
 
 @cindex tremolo tra due righi
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-tremolos.ly}
+{snippets/cross-staff-tremolos.ly}
 
 @morerefs
 Frammenti:

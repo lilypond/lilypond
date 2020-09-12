@@ -12,7 +12,7 @@
 @node Wind instruments
 @section Wind instruments
 
-@lilypondfile[quote]{wind-headword.ly}
+@lilypondfile[quote]{snippets/wind-headword.ly}
 
 This section includes elements of music notation that arise when
 writing specifically for wind instruments.
@@ -85,7 +85,7 @@ See @ref{Articulations and ornamentations}.
 @cindex changing flageolet size
 @funindex \flageolet
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing--flageolet-mark-size.ly}
+{snippets/changing--flageolet-mark-size.ly}
 
 
 @morerefs
@@ -127,12 +127,12 @@ Woodwind diagrams can be produced and are described in
 @cindex @q{open} articulation
 @cindex articulation, open
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{fingering-symbols-for-wind-instruments.ly}
+{snippets/fingering-symbols-for-wind-instruments.ly}
 
 @cindex fingering chart
 @cindex chart, fingering
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{recorder-fingering-chart.ly}
+{snippets/recorder-fingering-chart.ly}
 
 
 @morerefs
@@ -426,19 +426,19 @@ patterns for the diagrams are in
 @cindex woodwind diagram, list
 @cindex list of woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-listing.ly}
+{snippets/woodwind-diagrams-listing.ly}
 
 @cindex woodwind diagrams, modifying
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{graphical-and-text-woodwind-diagrams.ly}
+{snippets/graphical-and-text-woodwind-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-size-of-woodwind-diagrams.ly}
+{snippets/changing-the-size-of-woodwind-diagrams.ly}
 
 @cindex woodwind diagram, key lists
 @cindex list of keys in woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{woodwind-diagrams-key-lists.ly}
+{snippets/woodwind-diagrams-key-lists.ly}
 
 
 @morerefs

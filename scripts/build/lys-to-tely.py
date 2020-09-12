@@ -45,6 +45,7 @@ Options:
  -f, --fragment-options=OPTIONS use OPTIONS as lilypond-book fragment
    options
  -o, --output=NAME              write tely doc to NAME
+     --prefix=PREFIX            prefix filenames with PREFIX
  -i, --input-filenames=NAME     read list of files from a file instead of stdin
  -g, --glob-input=GLOB          a string which will be passed to glob.glob(GLOB)
  -t, --title=TITLE              set tely doc title TITLE
@@ -64,7 +65,8 @@ def help(text):
 (options, files) = getopt.getopt(sys.argv[1:], 'f:hn:t:',
                                  ['fragment-options=', 'help', 'name=',
                                   'title=', 'author=', 'template=',
-                                  'input-filenames=', 'glob-input='])
+                                  'input-filenames=', 'glob-input=',
+                                  'prefix='])
 
 name = "ly-doc"
 title = "Ly Doc"
@@ -101,6 +103,8 @@ template = '''\input texinfo
 @bye
 ''' % (", ".join(files), sys.argv[0], include_snippets)
 
+prefix = ''
+
 for opt in options:
     o = opt[0]
     a = opt[1]
@@ -121,8 +125,10 @@ for opt in options:
         glob_input = a
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
+    elif o == '--prefix':
+        prefix = a
     elif o == '--template':
-        template = open(a, 'r').read()
+        template = open(a, 'r', encoding='utf8').read()
     else:
         raise Exception('unknown option: ' + o)
 
@@ -159,7 +165,7 @@ def name2line(n):
 @end ifhtml
 
 @musicxmlfile[%s]{%s}
-""" % (os.path.basename(n), fragment_options, n)
+""" % (os.path.basename(n), fragment_options, prefix + n)
 
     else:
         # Assume it's a lilypond file -> create image etc.
@@ -171,14 +177,14 @@ def name2line(n):
 @end ifhtml
 
 @lilypondfile[%s]{%s}
-""" % (os.path.basename(n), fragment_options, n)
+""" % (os.path.basename(n), fragment_options, prefix + n)
     return s
 
 
 if glob_input:
     files = glob.glob(glob_input)
 elif input_filename:
-    files = open(input_filename).read().split()
+    files = open(input_filename, encoding='utf8').read().split()
 
 if files:
     dir = os.path.dirname(name) or "."
@@ -189,7 +195,7 @@ if files:
     s = "\n".join(map(name2line, files))
     s = template.replace(include_snippets, s, 1)
     f = "%s/%s" % (dir, name)
-    h = open(f, "w")
+    h = open(f, "w", encoding="utf8")
     h.write(s)
     h.close()
 else:

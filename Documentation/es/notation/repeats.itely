@@ -13,7 +13,7 @@
 @section Repeticiones
 @translationof Repeats
 
-@lilypondfile[quote]{repeats-headword.ly}
+@lilypondfile[quote]{snippets/repeats-headword.ly}
 
 La repetición es un concepto fundamental en música, y existen varios
 tipos de notación para las repeticiones.  LilyPond contempla los
@@ -341,25 +341,25 @@ definidos anteriormente con la instrucción @code{\defineBarLine}
 @cindex primera y segunda vez, acortar corchete
 @cindex acortar, corchete de primera y segunda vez
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{shortening-volta-brackets.ly}
+{snippets/shortening-volta-brackets.ly}
 
 @cindex primera y segunda vez, corchete en pautas adicionales
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-volta-brackets-to-additional-staves.ly}
+{snippets/adding-volta-brackets-to-additional-staves.ly}
 
 @cindex repetición, doble, estilo para primera y seguinda vez
 @cindex primera y seguinda vez, estilo de repetición doble
 @cindex estilo, repetición doble para primera y segunda vez
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{setting-the-double-repeat-default-for-volte.ly}
+{snippets/setting-the-double-repeat-default-for-volte.ly}
 
 @cindex repetición, letras y números de compás
 @cindex repetición, números de compás de primera y segunda vez
 @cindex repetición, números de compás alternativos
 @cindex número de compás, alternativo, en repetición
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{alternative-bar-numbering.ly}
+{snippets/alternative-bar-numbering.ly}
 
 @morerefs
 Glosario musical:
@@ -792,19 +792,19 @@ duraciones mezcladas utilizan un símbolo de porcentaje doble.
 @cindex repetición, contador, porcentaje
 @funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-counter.ly}
+{snippets/percent-repeat-counter.ly}
 
 @cindex porcentaje, repetición, visibilidad del contador
 @cindex contador, visibilidad de repetición de porcentaje
 @cindex repetición, porcentaje, visibilidad del contador
 @funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{percent-repeat-count-visibility.ly}
+{snippets/percent-repeat-count-visibility.ly}
 
 @cindex porcentaje, repetición, aislada
 @cindex repetición, porcentaje, aislada
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{isolated-percent-repeats.ly}
+{snippets/isolated-percent-repeats.ly}
 
 
 @morerefs
@@ -924,7 +924,7 @@ añade una barra de corchea a la plica de la nota.  Si
 @cindex trémolo, pentagrama cruzado
 @cindex pentagrama, cruzado, trémolo de
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{cross-staff-tremolos.ly}
+{snippets/cross-staff-tremolos.ly}
 
 
 @morerefs

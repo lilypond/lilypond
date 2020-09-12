@@ -34,7 +34,7 @@ def scan_files(files):
         if verbose:
             sys.stderr.write('Scanning %s\n' % f)
 
-        header = open(f, 'r').read()
+        header = open(f, 'r', encoding='utf8').read()
         idx = 0
 
         extract_from_this = []
@@ -68,7 +68,7 @@ def extract_fonts_from_file(extract_from_this, font_dict, filename):
         curr_font = []
         curr_font_name = []
         in_font = 0
-        for l in open(filename).readlines():
+        for l in open(filename, encoding='utf8').readlines():
             if not in_font and begin_font_regex.match(l):
                 in_font = 1
                 curr_font_name = begin_font_regex.match(l).group(1)
@@ -95,7 +95,7 @@ def extract_fonts_from_file(extract_from_this, font_dict, filename):
 def write_extracted_fonts(output_file_name, font_dict):
     if verbose:
         sys.stderr.write('Writing fonts to %s\n' % output_file_name)
-    output = open(output_file_name, 'w')
+    output = open(output_file_name, 'w', encoding='utf8')
     output.write('''%!PS-Adobe-3.0
 %%VMusage: 0 0
 %%Creator: lilypond-extract-fonts

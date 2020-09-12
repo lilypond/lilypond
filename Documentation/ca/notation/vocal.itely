@@ -17,7 +17,7 @@
 @section Música vocal
 @translationof Vocal music
 
-@lilypondfile[quote]{vocal-headword.ly}
+@lilypondfile[quote]{snippets/vocal-headword.ly}
 
 Aquesta secció explica com gravar música vocal, i com assegurar-se
 que la lletra s'alinea amb les notes de la seva melodia
@@ -215,7 +215,7 @@ veure una explicació de moltes de les opcions, vegeu
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{formatting-lyrics-syllables.ly}
+{snippets/formatting-lyrics-syllables.ly}
 
 @morerefs
 Manual d'aprenentatge;
@@ -1131,7 +1131,7 @@ plantilles del Manual d'Aprenentatge, vegeu
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
+{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @morerefs
 Manual d' aprenentatge:
@@ -1189,7 +1189,7 @@ ajusteu la propietat dins del bloc @code{\layout}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{lyrics-alignment.ly}
+{snippets/lyrics-alignment.ly}
 
 @c TODO: move to LSR -vv
 
@@ -2314,7 +2314,7 @@ Es poden imprimir fulls guia d'acords combinant parts vocals i el
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{simple-lead-sheet.ly}
+{snippets/simple-lead-sheet.ly}
 
 @morerefs
 Referència de la notació:
@@ -2528,7 +2528,7 @@ Referència de funcionament interno:
 @cindex veus dividides
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 Referència de la notació:
@@ -2852,7 +2852,7 @@ les notes del piano estiguin més clares.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{adding-orchestral-cues-to-a-vocal-score.ly}
+{snippets/adding-orchestral-cues-to-a-vocal-score.ly}
 
 @morerefs
 Glossari musical:
@@ -3297,7 +3297,7 @@ al primer dels següents fragments de codi.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{chant-or-psalms-notation.ly}
+{snippets/chant-or-psalms-notation.ly}
 
 Els càntics i altres textos litúrgics poden disposar-se d'una
 forma més lliure, i possiblement usin elements de notació agafats
@@ -3307,7 +3307,7 @@ espaiades d'acord amb les síl·labes en comptes de fer-lo amb les
 duracions de les notes.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Manual d'aprenentatge:
@@ -3494,7 +3494,7 @@ ordre @code{\partial} al principi de la música i ordres
 @code{\bar "|"} o @code{\bar "||"} al final de cada línia.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{hymn-template.ly}
+{snippets/hymn-template.ly}
 
 
 @node Música vocal antiga

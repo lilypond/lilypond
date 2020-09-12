@@ -19,7 +19,7 @@
 @section テキスト
 @translationof Text
 
-@lilypondfile[quote]{text-headword.ly}
+@lilypondfile[quote]{snippets/text-headword.ly}
 
 このセクションでは、@c
 楽譜に (さまざまなフォーマットの) テキストを含める方法について説明します。
@@ -347,10 +347,10 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @cindex dynamics, text spanner, customize (強弱記号のテキスト スパナをカスタマイズする)
 @cindex text spanner, dynamics, customize (強弱記号のテキスト スパナをカスタマイズする)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-text-spanner-postfix.ly}
+{snippets/dynamics-text-spanner-postfix.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-custom-text-spanner-postfix.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -457,13 +457,13 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @cindex line, end of, positioning marks (行末にリハーサル記号を配置する)
 @cindex mark, at end of line (行末のリハーサル記号)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-at-the-end-of-a-line.ly}
+{snippets/printing-marks-at-the-end-of-a-line.ly}
 
 @cindex mark, on every staff (全ての譜にリハーサル記号を表示する)
 @funindex Mark_engraver
 @funindex Staff_collecting_engraver
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{printing-marks-on-every-staff.ly}
+{snippets/printing-marks-on-every-staff.ly}
 
 @morerefs
 記譜法リファレンス:
@@ -545,7 +545,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @cindex two-column text (2 段のテキスト)
 @cindex markup, two-column (2 段のマークアップ)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{stand-alone-two-column-markup.ly}
+{snippets/stand-alone-two-column-markup.ly}
 
 @morerefs
 記譜法リファレンス:

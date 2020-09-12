@@ -16,7 +16,7 @@
 @section Altezze
 @translationof Pitches
 
-@lilypondfile[quote]{pitches-headword.ly}
+@lilypondfile[quote]{snippets/pitches-headword.ly}
 
 Questa sezione tratta il modo in cui si determina l'altezza delle note.  Occorre
 considerare tre aspetti: input, modifica e output.
@@ -448,12 +448,12 @@ viene ripetuta solo all'inizio di un nuovo sistema:
 @cindex nascondere alterazioni, su note legate all'inizio del sistema
 @cindex alterazioni, nascondere, su note legate all'inizio del sistema
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
+{snippets/hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
 @cindex segno di bequadro, supplementare, impedire
 @cindex bequadro, supplementare, impedire
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-extra-naturals-from-being-automatically-added.ly}
+{snippets/preventing-extra-naturals-from-being-automatically-added.ly}
 
 @morerefs
 Glossario musicale:
@@ -871,7 +871,7 @@ si veda @ref{Trasporto strumentale}.
 @cindex trasposizione, altezze, @qq{intelligente}
 @cindex altezze, trasposizione @qq{intelligente}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 @morerefs
 Guida alla notazione:
@@ -1314,7 +1314,7 @@ più piccolo del normale.  Tale comportamento può essere modificato.
 
 @cindex chiave, modifica delle proprietà
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{tweaking-clef-properties.ly}
+{snippets/tweaking-clef-properties.ly}
 
 @morerefs
 Guida alla notazione:
@@ -1453,11 +1453,11 @@ posizione del rigo.
 @cindex armatura di chiave, impedire i segni di bequadro
 @cindex bequadro, impedirne l'inserimento nelle armature di chiave
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+{snippets/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @cindex armatura di chiave, non tradizionale
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{non-traditional-key-signatures.ly}
+{snippets/non-traditional-key-signatures.ly}
 
 @morerefs
 Glossario musicale:
@@ -1517,17 +1517,17 @@ ottava nel rigo:
 @cindex testo dell'ottava
 @cindex ottava, testo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-ottava-text.ly}
+{snippets/changing-ottava-text.ly}
 
 @cindex ottava, per una sola voce
 @cindex voce, con ottavazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-an-ottava-marking-to-a-single-voice.ly}
+{snippets/adding-an-ottava-marking-to-a-single-voice.ly}
 
 @cindex inclinazione, estensore dell'ottava, modifica
 @cindex ottava, estensore, modifica dell'inclinazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{modifying-the-ottava-spanner-slope.ly}
+{snippets/modifying-the-ottava-spanner-slope.ly}
 
 @morerefs
 Glossario musicale:
@@ -3078,16 +3078,16 @@ di chiave.
 @cindex ambitus, per voce
 @cindex voce, ambitus
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{adding-ambitus-per-voice.ly}
+{snippets/adding-ambitus-per-voice.ly}
 
 @cindex ambitus, su più voci
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{ambitus-with-multiple-voices.ly}
+{snippets/ambitus-with-multiple-voices.ly}
 
 @cindex ambitus, distanza rispetto alla linea
 @funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-ambitus-gap.ly}
+{snippets/changing-the-ambitus-gap.ly}
 
 @morerefs
 Glossario musicale:
@@ -3281,7 +3281,7 @@ proposito si veda @ref{Impostare la dimensione del rigo}.
 @cindex numero, in notazione semplificata
 @funindex Ez_numbers_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{numbers-as-easy-note-heads.ly}
+{snippets/numbers-as-easy-note-heads.ly}
 
 @morerefs
 Guida alla notazione:
@@ -3393,7 +3393,7 @@ in base alla relativa maggiore:
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+{snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 La lista completa di tutti gli stili delle teste si trova in @ref{Stili delle teste di nota}.
 
