@@ -132,7 +132,7 @@ Constrained_breaking::space_line (vsize i, vsize j)
   // get_line_configuration().  What is the real cost?
   vector<Paper_column *> const line (all_.begin () + breaks_[i],
                                      all_.begin () + breaks_[j] + 1);
-  Interval line_dims = line_dimensions_int (pscore_->layout (), i);
+  Interval line_dims = line_dimension_interval (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
 
@@ -446,8 +446,8 @@ Constrained_breaking::initialize (Paper_score *ps,
                                           &score_markup_min_distance_,
                                           ly_symbol2scm ("minimum-distance"));
 
-  Interval first_line = line_dimensions_int (pscore_->layout (), 0);
-  Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
+  Interval first_line = line_dimension_interval (pscore_->layout (), 0);
+  Interval other_lines = line_dimension_interval (pscore_->layout (), 1);
   /* do all the rod/spring problems */
   breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();
@@ -476,15 +476,15 @@ Constrained_breaking::initialize (Paper_score *ps,
 
   /* work out all the starting indices */
   start_.reserve (pagebreak_col_indices.size ());
-  for (vsize i = 0; i < pagebreak_col_indices.size (); i++)
+  for (vsize pb_col : pagebreak_col_indices)
     {
-      if (i)
-        {
-          assert (pagebreak_col_indices[i] > pagebreak_col_indices[i - 1]);
-        }
+      /* it would seem logical to require that pagebreak_col_indices
+         is strictly increasing, but repeated entries can happen,
+         eg. when starting a score with a \pageBreak
+       */
       vsize j;
       for (j = 0;
-           j + 1 < breaks_.size () && breaks_[j] < pagebreak_col_indices[i];
+           j + 1 < breaks_.size () && breaks_[j] < pb_col;
            j++)
         ;
       starting_breakpoints_.push_back (j);

@@ -113,13 +113,11 @@ static Real
 knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
 {
   Real note_head_width = increment;
-  Grob *head = right_stem ? Stem::support_head (right_stem) : 0;
-  Grob *rcolumn = dynamic_cast<Item *> (head)->get_column ();
+  Item *head = right_stem ? dynamic_cast<Item*> (Stem::support_head (right_stem)) : 0;
 
-  Interval head_extent;
   if (head)
     {
-      head_extent = head->extent (rcolumn, X_AXIS);
+      Interval head_extent = head->extent (head->get_column (), X_AXIS);
 
       if (!head_extent.is_empty ())
         note_head_width = head_extent[RIGHT];
@@ -322,4 +320,3 @@ ADD_INTERFACE (Note_spacing,
                "stem-spacing-correction "
                "space-to-barline "
               );
-

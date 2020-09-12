@@ -60,8 +60,11 @@ do
             fi
             dst="${DEST}/${DOC}/$(basename $fn .html).${html_suffix}"
 
-            sed 's#\(href\|src\)="\([a-f0-9]*/lily-[a-f0-9]*\)\.\(ly\|png\)"#\1="../\2.\3"#g' < $fn |
-                sed 's#\(href\|src\)="\(pictures\|ly-examples\|css\)/#\1="../\2/#g' > $dst
+            sed -e 's#\(href\|src\)="\([a-f0-9]*/lily-[a-f0-9]*\)\.\(ly\|png\)"#\1="../\2.\3"#g' \
+		-e 's#\(href\|src\)="\(pictures\|ly-examples\|css\)/#\1="../\2/#g' \
+		-e 's#<!-- Created on .*by texi2html#<!-- Created by texi2html#g' \
+		< $fn \
+		> $dst
         done
     done &
 done

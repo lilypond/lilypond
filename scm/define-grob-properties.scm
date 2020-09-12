@@ -807,9 +807,9 @@ parentheses widen to include any child Grobs with type among
 'parenthesis-friends.")
      (parenthesized ,boolean? "Parenthesize this grob.")
      (positions ,number-pair? "Pair of staff coordinates
-@code{(@var{left} . @var{right})}, where both @var{left} and
-@var{right} are in @code{staff-space} units of the current staff.  For
-slurs, this value selects which slur candidate to use; if extreme
+@code{(@var{start} . @var{end})}, where @var{start} and
+@var{end} are vertical positions in @code{staff-space} units of the current
+staff.  For slurs, this value selects which slur candidate to use; if extreme
 positions are requested, the closest one is taken.")
      (prefer-dotted-right ,boolean? "For note collisions, prefer to
 shift dotted up-note to the right, rather than shifting just the

@@ -2523,7 +2523,7 @@ The next line contains a bug: The voices might not appear in numerical order! So
                     lyrics_id += 1
                     printer.newline()
                 if figuredbass:
-                    printer('\context FiguredBass = "%s" \%s' %
+                    printer(r'\context FiguredBass = "%s" \%s' %
                             (figuredbass, figuredbass))
             printer('>>')
             # printer.dump ("test") #prints test after each definition of a context.

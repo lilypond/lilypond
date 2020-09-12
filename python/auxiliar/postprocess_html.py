@@ -108,8 +108,8 @@ body_tag_re = re.compile('(?i)<body([^>]*)>')
 html_tag_re = re.compile('(?i)<html>')
 doctype_re = re.compile('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
-css_re = re.compile('(?i)<link ([^>]*)href="[^">]*?'
-                    '(lilypond.*\.css)"([^>]*)>')
+css_re = re.compile(r'(?i)<link ([^>]*)href="[^">]*?'
+                    r'(lilypond.*\.css)"([^>]*)>')
 end_head_tag_re = re.compile('(?i)</head>')
 css_link = ('    <link rel="stylesheet" type="text/css" title="Default design"'
             ' href="%(rel)sDocumentation/css/lilypond-manuals.css">\n'
@@ -140,8 +140,8 @@ def add_header(s, prefix):
     return s
 
 
-footer_insert_re = re.compile('<!--\s*FOOTER\s*-->')
-end_body_re = re.compile('(?i)</body>')
+footer_insert_re = re.compile(r'<!--\s*FOOTER\s*-->')
+end_body_re = re.compile(r'(?i)</body>')
 verifier_div = '<div id="verifier_texinfo">'
 verifier_re = re.compile(verifier_div)
 
