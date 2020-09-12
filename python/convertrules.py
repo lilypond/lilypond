@@ -3967,7 +3967,8 @@ def conv(s):
 
 @rule((2, 19, 22), """whiteout -> whiteout-box
 (define-xxx-function (parser location ...) -> (define-xxx-function (...)
-(xxx ... parser ...) -> (xxx ... ...)""")
+(xxx ... parser ...) -> (xxx ... ...)
+ChordNameVoice -> ChordNames""")
 def conv(s):
     # whiteout -> whiteout-box
     s = re.sub(r"\\whiteout(?![a-z_-])", r"\\whiteout-box", s)
@@ -4053,6 +4054,8 @@ def conv(s):
     s = re.sub(r'(\(\s*\(ly:music-function-extract\s+' + wordsyntax +
                  r'\s*\)\s+)\(\*parser\*\)\s*\(\*location\*\)', r'\1',
                  s)
+
+    s = re.sub(r'ChordNameVoice', r'ChordNames', s)
     return s
 
 
