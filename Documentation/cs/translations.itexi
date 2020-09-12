@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Sun May 24 17:38:33 UTC 2020
+@emph{Naposledy obnoveno Sat Sep 12 17:30:39 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ Příručka k učení se
 @item
 Nadpisy
 @*
-124
+127
 @tab Pavel Fric
 @tab 
 @tab 
@@ -138,7 +138,7 @@ ano
 @item
 3 Základní pojmy
 @*
-11576
+11590
 @tab Pavel Fric
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">částečně</span>
+<span style="background-color: #91ff2e">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ ano
 @item
 4 Ladění výstupu
 @*
-16582
+16603
 @tab Pavel Fric
 @tab 
 @tab 
@@ -182,7 +182,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">částečně</span>
+<span style="background-color: #dbff38">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -209,7 +209,7 @@ A Předlohy
 @ifhtml
 
 @html
-<span style="background-color: #ffaf4a">částečně</span>
+<span style="background-color: #ff9e4d">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -231,7 +231,7 @@ LilyPond -- Zápis not pro každého
 @item
 Nadpisy
 @*
-752
+790
 @tab Pavel Fric
 @tab 
 @tab 
@@ -248,7 +248,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #fffd3d">částečně</span>
+<span style="background-color: #ffd544">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -312,7 +312,7 @@ ano
 @item
 Stažení
 @*
-1174
+1099
 @tab Pavel Fric
 @tab 
 @tab 
@@ -329,7 +329,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #acff31">částečně</span>
+<span style="background-color: #d4ff37">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -366,24 +366,24 @@ ano
 @item
 Společenství
 @*
-2359
+2183
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (92 %)</span>
+<span style="background-color: #dfef77">částečně (91 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (92 %)
+částečně (91 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #fcff3c">částečně</span>
+<span style="background-color: #f6fe3b">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml

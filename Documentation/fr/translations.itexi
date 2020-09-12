@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sun May 24 17:38:33 UTC 2020
+@emph{Dernière mise à jour Sat Sep 12 17:30:39 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond Changes
 @item
 Titre des chapitres
 @*
-740
+1163
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -96,7 +96,7 @@ Essai sur la gravure musicale automatisée
 @item
 Titre des chapitres
 @*
-92
+95
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -222,7 +222,7 @@ GNU LilyPond -- Extension des fonctionnalités
 @item
 Titre des chapitres
 @*
-107
+110
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -344,7 +344,7 @@ GNU LilyPond -- Manuel d'initiation
 @item
 Titre des chapitres
 @*
-124
+127
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -472,7 +472,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11576
+11590
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -501,7 +501,7 @@ oui
 @item
 4 Retouche de partition
 @*
-16582
+16603
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -573,7 +573,7 @@ GNU LilyPond -- Manuel de notation
 @item
 Titre des chapitres
 @*
-361
+364
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -660,7 +660,7 @@ oui
 @item
 1.1 Hauteurs
 @*
-5513
+5594
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -691,7 +691,7 @@ oui
 @item
 1.2 Rythme
 @*
-7098
+7248
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -724,7 +724,7 @@ oui
 @item
 1.3 Signes d'interprétation
 @*
-1907
+1946
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -755,7 +755,7 @@ oui
 @item
 1.4 Répétitions et reprises
 @*
-1310
+1316
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -819,7 +819,7 @@ oui
 @item
 1.6 Notation sur la portée
 @*
-3017
+3361
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -848,7 +848,7 @@ oui
 @item
 1.7 Annotations éditoriales
 @*
-1700
+1917
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -875,7 +875,7 @@ oui
 @item
 1.8 Texte
 @*
-3572
+3718
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -904,10 +904,8 @@ oui
 @item
 2 Notation spécialisée
 @*
-81
-@tab John Mandereau
-@*
-Jean-Charles Malahieude
+109
+@tab Jean-Charles Malahieude
 @tab 
 @tab 
 @ifhtml
@@ -933,7 +931,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-5174
+5208
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -962,7 +960,7 @@ oui
 @item
 2.2 Instruments utilisant des portées multiples
 @*
-903
+902
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1024,7 +1022,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2930
+3153
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -1051,7 +1049,7 @@ oui
 @item
 2.5 Percussions
 @*
-1000
+1020
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1111,7 +1109,7 @@ oui
 @item
 2.7 Notation des accords
 @*
-2177
+2176
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1142,7 +1140,7 @@ oui
 @item
 2.8 Musique contemporaine
 @*
-475
+557
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1169,7 +1167,7 @@ oui
 @item
 2.9 Notations anciennes
 @*
-5468
+5540
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1225,7 +1223,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-13941
+14196
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1254,7 +1252,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-11050
+11076
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1312,7 +1310,7 @@ oui
 @item
 A Tables du manuel de notation
 @*
-3450
+3912
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1371,6 +1369,72 @@ oui
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
 @headitem
+LilyPond snippets
+@tab Traducteurs
+@tab Relecteurs
+@tab Traduit
+@tab À jour
+@tab Autres informations
+@item
+Titre des chapitres
+@*
+342
+@tab Jean-Charles Malahieude
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">partiellement (58 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+partiellement (58 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab pré-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Jean-Charles Malahieude
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">oui</span>
+@end html
+@end ifhtml
+@ifnothtml
+oui
+@end ifnothtml
+@tab pré-GDP
+@end multitable
+
+
+@multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
+
+@headitem
 GNU LilyPond -- Utilisation des programmes
 @tab Traducteurs
 @tab Relecteurs
@@ -1380,7 +1444,7 @@ GNU LilyPond -- Utilisation des programmes
 @item
 Titre des chapitres
 @*
-135
+138
 @tab John Mandereau
 @*
 Jean-Charles Malahieude
@@ -1438,7 +1502,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-6877
+7062
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1492,7 +1556,7 @@ oui
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
-4212
+4264
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1546,7 +1610,7 @@ oui
 @item
 5 Suggestions pour la saisie de fichiers LilyPond
 @*
-2793
+2797
 @tab Ludovic Sardain
 @*
 Jean-Charles Malahieude
@@ -1569,11 +1633,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">oui</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+oui
 @end ifnothtml
 @tab pré-GDP
 @end multitable
@@ -1591,7 +1655,7 @@ LilyPond -- la notation musicale pour tous
 @item
 Titre des chapitres
 @*
-752
+790
 @tab John Mandereau
 @tab 
 @tab 
@@ -1676,7 +1740,7 @@ oui
 @item
 Téléchargement
 @*
-1174
+1099
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1732,7 +1796,7 @@ oui
 @item
 Communauté
 @*
-2359
+2183
 @tab Jean-Charles Malahieude
 @*
 John Mandereau

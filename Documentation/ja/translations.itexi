@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Sun May 24 17:38:33 UTC 2020
+@emph{最終更新日 Sat Sep 12 17:30:39 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond 更新履歴
 @item
 セクション タイトル
 @*
-740
+1163
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
@@ -51,7 +51,7 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #b9ff33">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -104,7 +104,7 @@ GNU LilyPond 学習マニュアル
 @item
 セクション タイトル
 @*
-124
+127
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -123,7 +123,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -226,7 +226,7 @@ Hiroshi Fukuhara
 @item
 3 基礎となるコンセプト
 @*
-11576
+11590
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
@@ -247,22 +247,24 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 4 出力を調整する
 @*
-16582
+16603
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
 @*
 Yoshiki Sawada
+@*
+Hiroshi Fukuhara
 @tab 
 @tab 
 @ifhtml
@@ -278,11 +280,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -307,11 +309,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #40fe23">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @end multitable
@@ -329,7 +331,7 @@ LilyPond 記譜法リファレンス
 @item
 セクション タイトル
 @*
-361
+364
 @tab Yoshiki Sawada
 @*
 Tomohiro Tatejima
@@ -348,7 +350,7 @@ Tomohiro Tatejima
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -414,7 +416,7 @@ Tomohiro Tatejima
 @item
 1.1 ピッチ
 @*
-5513
+5594
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -435,7 +437,7 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -445,7 +447,7 @@ partially
 @item
 1.2 リズム
 @*
-7098
+7248
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -466,7 +468,7 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -476,7 +478,7 @@ partially
 @item
 1.3 発想記号
 @*
-1907
+1946
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -497,17 +499,17 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 1.4 繰り返し
 @*
-1310
+1316
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -526,11 +528,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -555,46 +557,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 1.6 譜の記譜法
 @*
-3017
-@tab Tomohiro Tatejima
-@*
-Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #d587ff">N/A</span>
-@end html
-@end ifhtml
-@ifnothtml
-N/A
-@end ifnothtml
-@tab post-GDP
-@item
-1.7 編集者の注釈
-@*
-1700
+3361
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -615,17 +588,48 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
+<span style="background-color: #5bff27">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab post-GDP
+@item
+1.7 編集者の注釈
+@*
+1917
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@*
+Hiroshi Fukuhara
+@tab 
+@tab 
+@ifhtml
+
+@html
 <span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
 はい
 @end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #62ff28">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
 @tab post-GDP
 @item
 1.8 テキスト
 @*
-3572
+3718
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -648,7 +652,7 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #47ff24">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -658,7 +662,7 @@ partially
 @item
 2 専門的な記譜法
 @*
-81
+109
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -677,20 +681,22 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 2.1 声楽
 @*
-5174
+5208
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
+@*
+Hiroshi Fukuhara
 @tab 
 @tab 
 @ifhtml
@@ -706,17 +712,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 2.2 キーボードと他の複数譜の楽器
 @*
-903
+902
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -735,11 +741,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -764,17 +770,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 2.4 フレットのある弦楽器
 @*
-2930
+3153
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -795,17 +801,17 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 2.5 打楽器
 @*
-1000
+1020
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -824,11 +830,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #39ff22">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -853,17 +859,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 2.7 和音記譜法
 @*
-2177
+2176
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -884,17 +890,17 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 2.8 現代音楽
 @*
-475
+557
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -913,17 +919,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+partially
 @end ifnothtml
 @tab post-GDP
 @item
 2.9 古代の記譜法
 @*
-5468
+5540
 @tab Tomohiro Tatejima
 @*
 Hiroshi Fukuhara
@@ -942,11 +948,11 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -983,7 +989,67 @@ Hiroshi Fukuhara
 @item
 3 入出力全般
 @*
-13941
+14196
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@*
+Hiroshi Fukuhara
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab post-GDP
+@item
+4 スペースの問題
+@*
+11076
+@tab Tomohiro Tatejima
+@*
+Yoshiki Sawada
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab post-GDP
+@item
+5 デフォルトを変更する
+@*
+17137
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1012,67 +1078,9 @@ partially
 @end ifnothtml
 @tab post-GDP
 @item
-4 スペースの問題
-@*
-11050
-@tab Tomohiro Tatejima
-@*
-Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab post-GDP
-@item
-5 デフォルトを変更する
-@*
-17137
-@tab Tomohiro Tatejima
-@*
-Yoshiki Sawada
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">はい</span>
-@end html
-@end ifhtml
-@ifnothtml
-はい
-@end ifnothtml
-@tab post-GDP
-@item
 A 付表
 @*
-3450
+3912
 @tab Tomohiro Tatejima
 @*
 Hiroshi Fukuhara
@@ -1091,11 +1099,11 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @item
@@ -1120,13 +1128,79 @@ Tomohiro Tatejima
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab post-GDP
+@end multitable
+
+
+@multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
+
+@headitem
+LilyPond snippets
+@tab 翻訳者
+@tab 翻訳点検者
+@tab 翻訳済み
+@tab 最新
+@tab その他の情報
+@item
+セクション タイトル
+@*
+342
+@tab Han-Wen Nienhuys
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ffc546">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Han-Wen Nienhuys
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">はい</span>
+@end html
+@end ifhtml
+@ifnothtml
+はい
+@end ifnothtml
+@tab pre-GDP
 @end multitable
 
 
@@ -1142,7 +1216,7 @@ GNU LilyPond -- アプリケーション使用方法
 @item
 セクション タイトル
 @*
-135
+138
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1161,7 +1235,7 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1200,7 +1274,7 @@ Yoshiki Sawada
 @item
 1 @command{lilypond} を実行する
 @*
-6877
+7062
 @tab Masamichi Hosoda
 @*
 Tomohiro Tatejima
@@ -1223,7 +1297,7 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1262,7 +1336,7 @@ Yoshiki Sawada
 @item
 3 @command{lilypond-book} を実行する
 @*
-4212
+4264
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1297,6 +1371,8 @@ Yoshiki Sawada
 Tomohiro Tatejima
 @*
 Yoshiki Sawada
+@*
+Hiroshi Fukuhara
 @tab 
 @tab 
 @ifhtml
@@ -1312,17 +1388,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab post-GDP
 @item
 5 LilyPond 入力ファイルの記述に対する提案
 @*
-2793
+2797
 @tab Tomohiro Tatejima
 @*
 Yoshiki Sawada
@@ -1341,11 +1417,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #76fe2a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab post-GDP
 @end multitable
@@ -1363,7 +1439,7 @@ LilyPond -- みんなの楽譜作成
 @item
 セクション タイトル
 @*
-752
+790
 @tab Tomohiro Tatejima
 @*
 Masamichi Hosoda
@@ -1386,11 +1462,11 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1462,10 +1538,12 @@ Yoshinobu Ishizaki
 @item
 ダウンロード
 @*
-1174
+1099
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
+@*
+Hiroshi Fukuhara
 @tab 
 @tab 
 @ifhtml
@@ -1481,11 +1559,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1510,17 +1588,17 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+はい
 @end ifnothtml
 @tab pre-GDP
 @item
 コミュニティ
 @*
-2359
+2183
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1539,11 +1617,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #1fff1f">はい</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+はい
 @end ifnothtml
 @tab pre-GDP
 @end multitable

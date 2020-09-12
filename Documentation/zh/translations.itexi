@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Sun May 24 17:38:33 UTC 2020
+@emph{最近更新 Sat Sep 12 17:30:39 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ LilyPond -- 人人的乐谱软件
 @item
 章节标题
 @*
-752
+790
 @tab Ben Luo
 @*
 Anthony Fok
@@ -49,7 +49,7 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">部分</span>
+<span style="background-color: #ffef3f">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -78,7 +78,7 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">部分</span>
+<span style="background-color: #47ff24">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -117,7 +117,7 @@ Anthony Fok
 @item
 下载
 @*
-1174
+1099
 @tab Ben Luo
 @*
 Anthony Fok
@@ -136,7 +136,7 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">部分</span>
+<span style="background-color: #acff31">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -173,7 +173,7 @@ Anthony Fok
 @item
 社区
 @*
-2359
+2183
 @tab Ben Luo
 @*
 Anthony Fok
@@ -182,17 +182,17 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">部分 (94 %)</span>
+<span style="background-color: #1fff1f">是</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分 (94 %)
+是
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">部分</span>
+<span style="background-color: #dbff38">部分</span>
 @end html
 @end ifhtml
 @ifnothtml

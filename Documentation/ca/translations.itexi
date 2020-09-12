@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sun May 24 17:38:33 UTC 2020
+@emph{Actualitzat el Sat Sep 12 17:30:39 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -30,7 +30,7 @@ Manual d'aprenentatge del GNU LilyPond
 @item
 Títols de secció
 @*
-124
+127
 @tab Walter Garcia-Fontes
 @*
 Walter Garcia-Fontes
@@ -76,7 +76,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -140,7 +140,7 @@ parcialment
 @item
 3 Conceptes fonamentals
 @*
-11576
+11590
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -157,7 +157,7 @@ parcialment (96 %)
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialment</span>
+<span style="background-color: #76fe2a">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -167,7 +167,7 @@ parcialment
 @item
 4 Ajustament de la sortida
 @*
-16582
+16603
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -184,11 +184,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #2cff20">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -211,11 +211,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #40fe23">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -233,7 +233,7 @@ Referència de la notació del GNU LilyPond
 @item
 Títols de secció
 @*
-361
+364
 @tab Walter Garcia-Fontes
 @*
 Walter Garcia-Fontes
@@ -252,7 +252,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #f6fe3b">parcialment</span>
+<span style="background-color: #fcff3c">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -279,7 +279,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -316,7 +316,7 @@ si
 @item
 1.1 Altures
 @*
-5513
+5594
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -333,7 +333,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">parcialment</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -343,7 +343,7 @@ parcialment
 @item
 1.2 Duracions
 @*
-7098
+7248
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -360,7 +360,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">parcialment</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -370,7 +370,7 @@ parcialment
 @item
 1.3 Expressions
 @*
-1907
+1946
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -387,7 +387,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialment</span>
+<span style="background-color: #a5ff31">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -397,7 +397,7 @@ parcialment
 @item
 1.4 Repeticions
 @*
-1310
+1316
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -414,7 +414,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialment</span>
+<span style="background-color: #5bff27">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -441,7 +441,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialment</span>
+<span style="background-color: #6fff29">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -451,61 +451,7 @@ parcialment
 @item
 1.6 Notació dels pentagrames
 @*
-3017
-@tab Walter Garcia-Fontes
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">si</span>
-@end html
-@end ifhtml
-@ifnothtml
-si
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #8aff2d">parcialment</span>
-@end html
-@end ifhtml
-@ifnothtml
-parcialment
-@end ifnothtml
-@tab pre-GDP
-@item
-1.7 Anotacions editorials
-@*
-1700
-@tab Walter Garcia-Fontes
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">si</span>
-@end html
-@end ifhtml
-@ifnothtml
-si
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #68ff28">parcialment</span>
-@end html
-@end ifhtml
-@ifnothtml
-parcialment
-@end ifnothtml
-@tab pre-GDP
-@item
-1.8 Text
-@*
-3572
+3361
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -530,9 +476,9 @@ parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
-2 Notació especialitzada
+1.7 Anotacions editorials
 @*
-81
+1917
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -549,17 +495,71 @@ si
 @ifhtml
 
 @html
+<span style="background-color: #acff31">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+1.8 Text
+@*
+3718
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
 <span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
 si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #c7ff35">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+2 Notació especialitzada
+@*
+109
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #4efe25">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
 2.1 Música vocal
 @*
-5174
+5208
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -576,7 +576,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialment</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -586,7 +586,7 @@ parcialment
 @item
 2.2 Teclats i altres instruments de pentagrames múltiples
 @*
-903
+902
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -603,7 +603,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">parcialment</span>
+<span style="background-color: #91ff2e">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -630,7 +630,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialment</span>
+<span style="background-color: #40fe23">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -640,7 +640,7 @@ parcialment
 @item
 2.4 Instruments de corda amb trasts
 @*
-2930
+3153
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -657,7 +657,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialment</span>
+<span style="background-color: #83fe2c">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -667,7 +667,7 @@ parcialment
 @item
 2.5 Percussió
 @*
-1000
+1020
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -684,7 +684,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">parcialment</span>
+<span style="background-color: #e8fe39">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -711,7 +711,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialment</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -721,7 +721,7 @@ parcialment
 @item
 2.7 Notació d'acords
 @*
-2177
+2176
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -738,7 +738,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialment</span>
+<span style="background-color: #7dff2b">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -748,7 +748,7 @@ parcialment
 @item
 2.8 Música contemporània
 @*
-475
+557
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -765,7 +765,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialment</span>
+<span style="background-color: #91ff2e">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -775,7 +775,7 @@ parcialment
 @item
 2.9 Notació antiga
 @*
-5468
+5540
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -792,7 +792,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialment</span>
+<span style="background-color: #54ff26">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -819,7 +819,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #ffdf42">parcialment</span>
+<span style="background-color: #ffdd42">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -829,7 +829,7 @@ parcialment
 @item
 3 Entrada i sortida generals
 @*
-13941
+14196
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -846,17 +846,17 @@ parcialment (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #62ff28">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
 4 Gestió de l'espai
 @*
-11050
+11076
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -873,7 +873,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialment</span>
+<span style="background-color: #33ff21">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -900,17 +900,17 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #33ff21">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
 A Taules del manual sobre notació
 @*
-3450
+3912
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -927,11 +927,11 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/D</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/D
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -976,7 +976,7 @@ LilyPond: manual d'utilització del programa
 @item
 Títols de secció
 @*
-135
+138
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -993,7 +993,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">parcialment</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1020,7 +1020,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1030,18 +1030,18 @@ parcialment
 @item
 1 Execució del LilyPond
 @*
-6877
+7062
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parcialment (92 %)</span>
+<span style="background-color: #dfef77">parcialment (93 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialment (92 %)
+parcialment (93 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1084,7 +1084,7 @@ parcialment
 @item
 3 Suggeriments per escriure fitxers d'entrada
 @*
-2793
+2797
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1101,7 +1101,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">parcialment</span>
+<span style="background-color: #cdfe36">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1123,7 +1123,7 @@ LilyPond: notació musical per a tots
 @item
 Títols de secció
 @*
-752
+790
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1140,7 +1140,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">parcialment</span>
+<span style="background-color: #a5ff31">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1167,7 +1167,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1204,7 +1204,7 @@ parcialment
 @item
 Descàrrega
 @*
-1174
+1099
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1221,7 +1221,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialment</span>
+<span style="background-color: #68ff28">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1258,7 +1258,7 @@ parcialment
 @item
 Comunitat
 @*
-2359
+2183
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1275,7 +1275,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">parcialment</span>
+<span style="background-color: #dbff38">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
