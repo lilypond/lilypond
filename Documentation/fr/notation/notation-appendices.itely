@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
+  Translation of GIT committish: e9e5be535bfffbd50f33dfce3a8ee47b39e42bb5
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -533,21 +533,24 @@ dispose.
 @unnumberedsubsec Diagrammes pour guitare
 @translationof Diagrams for Guitar
 
-@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]
+{en/included/display-predefined-fretboards.ly}
 
 
 @node Diagrammes pour ukulele
 @unnumberedsubsec Diagrammes pour ukulele
 @translationof Diagrams for Ukulele
 
-@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]
+{en/included/display-predefined-ukulele-fretboards.ly}
 
 
 @node Diagrammes pour mandoline
 @unnumberedsubsec Diagrammes pour mandoline
 @translationof Diagrams for Mandolin
 
-@lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]
+{en/included/display-predefined-mandolin-fretboards.ly}
 
 
 @node Formats de papier prédéfinis
@@ -1384,7 +1387,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 
 Voici les différents styles de tête de note disponibles.
 
-@lilypondfile[noindent]{en/included/note-head-style.ly}
+@lilypondfile[noindent]
+{en/included/note-head-style.ly}
 
 
 @node Styles de clef

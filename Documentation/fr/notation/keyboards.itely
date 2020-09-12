@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
+   Translation of GIT committish: e9e5be535bfffbd50f33dfce3a8ee47b39e42bb5
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -136,7 +136,7 @@ qui passent d'une voix à l'autre, comme le montre
 
 @c @snippets
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
-@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
+@c {snippets/forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
 @c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
 
