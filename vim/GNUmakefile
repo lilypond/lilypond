@@ -3,8 +3,6 @@ depth = ..
 INSTALLATION_OUT_DIR=$(vimdir)/syntax
 INSTALLATION_OUT_FILES=$(LILYPOND_WORDS)
 
-EXTRA_DIST_FILES=$(call src-wildcard,*.vim) vimrc
-
 LILYPOND_WORDS = $(outdir)/lilypond-words $(outdir)/lilypond-words.vim
 STEPMAKE_TEMPLATES=install-out
 

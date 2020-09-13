@@ -3,7 +3,6 @@
 
 depth = ..
 
-EXTRA_DIST_FILES = TODO README
 STEPMAKE_TEMPLATES=podir
 
 include $(depth)/make/stepmake.make
@@ -31,4 +30,3 @@ local-uninstall:
 	  rm -f $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/lilypond.mo; \
 	  rmdir $(DESTDIR)$(localedir)/$$i/LC_MESSAGES || true; \
 	done
-

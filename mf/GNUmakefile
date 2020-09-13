@@ -55,9 +55,6 @@ $(outdir)/emmentaler-brace.subfonts:
 	$(call ly_progress,Making,$@,)
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
-
-EXTRA_DIST_FILES += README mf2pt1.mp invoke-mf2pt.sh
-
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
 
