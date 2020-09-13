@@ -86,6 +86,7 @@ private:
   Moment here_mom_;
   SCM cursor_ = SCM_EOL;
   Lookahead la_;
+  bool first_time_ = true;
 };
 
 #endif /* SEQUENTIAL_ITERATOR_HH */

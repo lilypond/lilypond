@@ -212,6 +212,8 @@ Sequential_iterator::next_element ()
 void
 Sequential_iterator::process (Moment until)
 {
+  first_time_ = false;
+
   while (iter_)
     {
       if (iter_->ok ())
@@ -255,10 +257,12 @@ Sequential_iterator::pending_moment () const
   if (!iter_)
     return Moment (Rational::infinity ());
 
-  // The only time iter_ might not be OK is before the first call to process().
-  // After that, process() skips over iterators that are not OK.
-  Moment cp
-    = iter_->ok () ? iter_->pending_moment () : iter_->music_start_mom ();
+  // Before the first call to process (), we might be looking at an iterator
+  // that will be skipped during the first call to process ().
+  if (first_time_ && !iter_->ok ())
+    return here_mom_;
+
+  Moment cp = iter_->pending_moment ();
 
   /*
     Fix-up a grace note halfway in the music.
