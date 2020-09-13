@@ -26,8 +26,6 @@ import re
 import getopt
 import os
 
-import langdefs
-
 
 def read_pipe(command):
     print(command)

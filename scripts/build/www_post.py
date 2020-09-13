@@ -29,8 +29,6 @@ import sys
 import os
 import re
 
-import langdefs
-
 import postprocess_html
 
 package_name, package_version, target_dir, target = sys.argv[1:]
