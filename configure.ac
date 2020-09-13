@@ -437,7 +437,6 @@ STEPMAKE_END
 
 if make top-doc 1>/dev/null 2>&1; then
     rm -f INSTALL.txt && ln Documentation/out/topdocs/INSTALL.txt .
-    rm -f README.txt && ln Documentation/out/topdocs/README.txt .
 fi
 
 cat <<EOF
@@ -449,6 +448,6 @@ Type:
 
 Edit local.make for local Makefile overrides.
 
-See INSTALL.txt and README.txt for more information
+See INSTALL.txt and README.md for more information
 
 EOF
