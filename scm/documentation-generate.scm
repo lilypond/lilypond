@@ -105,7 +105,7 @@
                   "(lilypond-internals.info)")
   "
 
-@include macros.itexi
+@include en/macros.itexi
 
 @iftex
 @afourpaper

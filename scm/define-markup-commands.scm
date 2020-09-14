@@ -2621,7 +2621,7 @@ of its own.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\verbatim-file #\"simple.ly\"
+  \\verbatim-file #\"en/included/simple.ly\"
 }
 @end lilypond"
   (interpret-markup layout props
