@@ -16,7 +16,23 @@ in woodwind-diagrams.scm."
 \relative {
   c'1^\markup {
     \woodwind-diagram
+      #'flute-b-extension
+      #'()
+  }
+}
+
+\relative {
+  c'1^\markup {
+    \woodwind-diagram
       #'flute
+      #'()
+  }
+}
+
+\relative {
+  c'1^\markup {
+    \woodwind-diagram
+      #'tin-whistle
       #'()
   }
 }
@@ -40,6 +56,14 @@ in woodwind-diagrams.scm."
 \relative {
   c'1^\markup {
     \woodwind-diagram
+      #'low-bass-clarinet
+      #'()
+  }
+}
+
+\relative {
+  c'1^\markup {
+    \woodwind-diagram
       #'bass-clarinet
       #'()
   }
@@ -49,6 +73,38 @@ in woodwind-diagrams.scm."
   c'1^\markup {
     \woodwind-diagram
       #'saxophone
+      #'()
+  }
+}
+
+\relative {
+  c'1^\markup {
+    \woodwind-diagram
+      #'soprano-saxophone
+      #'()
+  }
+}
+
+\relative {
+  c'1^\markup {
+    \woodwind-diagram
+      #'alto-saxophone
+      #'()
+  }
+}
+
+\relative {
+  c'1^\markup {
+    \woodwind-diagram
+      #'tenor-saxophone
+      #'()
+  }
+}
+
+\relative {
+  c'1^\markup {
+    \woodwind-diagram
+      #'baritone-saxophone
       #'()
   }
 }
