@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+    Translation of GIT committish: 97db0bc6c59a7041a2edc6e8ba187b70fbdc9a3a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -921,9 +921,8 @@ Ottobre 2004
 
 Gli editor di Computer!Totaal, una rivista olandese di computer,
 nel numero di Ottobre 2004
-@uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
-descrivono LilyPond} come: @qq{Meraviglioso software
-libero [@dots{}] Gli spartiti prodotti da
+@staticFile{media/computer-totaal.jpeg,descrivono LilyPond} come:
+@qq{Meraviglioso software libero [@dots{}] Gli spartiti prodotti da
 LilyPond sono incredibilmente belli [@dots{}] un sistema molto potente che
 può fare praticamente qualsiasi cosa.}
 
