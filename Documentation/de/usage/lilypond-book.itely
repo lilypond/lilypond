@@ -824,11 +824,6 @@ auf einen Verzeichnispfad gesetzt werden.  Das Verzeichnis sollte
 einen Baum an @file{.mo}-Nachrichtenkatalogen beinhalten mit
 @code{lilypond-doc} als Domain.
 
-@item addversion
-(Nur innerhalb von Texinfo-Dateien.) Stellt @code{\version
-@@w@{"@@version@{@}"@}} an den Beginn des Fragments der Ausgabe mit
-@code{verbatim}.
-
 @item texidoc
 (Nur innerhalb von Texinfo-Dateien.) Wird @command{lilypond} mit der
 Kommandozeilenoption @option{--header=@/texidoc} für eine Datei

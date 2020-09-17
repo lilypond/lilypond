@@ -812,10 +812,6 @@ LilyPond コマンドの引数をそのまま出力ファイルにコピーし�
 -- セットしたディレクトリはドメインに @code{lilypond-doc} を指定した@c
 @file{.mo} メッセージ カタログのツリーを保持する必要があります。
 
-@item addversion
-(Texinfo 出力専用です) @code{verbatim} 出力の先頭に @code{\version
-@@w@{"@@version@{@}"@}} という行を追加します。
-
 @item texidoc
 (Texinfo 出力専用です) 入力ファイル @file{foo.ly} に対して
 @option{--header=@/texidoc} オプションを指定して @command{lilypond}

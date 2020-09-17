@@ -699,10 +699,6 @@ output but not in the sources, you may set the environment variable
 contain a tree of @file{.mo} message catalogs with @code{lilypond-doc}
 as a domain.
 
-@item addversion
-(Only for Texinfo output.)  Prepend line @code{\version
-@@w@{"@@version@{@}"@}} to @code{verbatim} output.
-
 @item texidoc
 (Only for Texinfo output.)  If @command{lilypond} is called with the
 @option{--header=@/texidoc} option, and the file to be processed is

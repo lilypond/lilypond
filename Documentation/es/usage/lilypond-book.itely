@@ -859,11 +859,6 @@ ruta de un directorio; este directorio debe contener un árbol de
 catálogos de mensajes @file{.mo} con @code{lilypond-doc} como
 dominio.
 
-@item addversion
-(Sólo para la salida de Texinfo.)  Anteponer la línea
-@code{\version @@w@{"@@version@{@}"@}} a la salida de
-@code{verbatim}.
-
 @item texidoc
 (Sólo para la salida de Texinfo.)  Si se llama a
 @command{lilypond} con la opción @option{--header=@/texidoc}, y el

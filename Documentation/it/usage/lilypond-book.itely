@@ -803,10 +803,6 @@ verbatim ma non nei sorgenti, si può impostare la variabile d'ambiente
 contenere un albero dei cataloghi di messaggio @file{.mo} che hanno
 @code{lilypond-doc} come dominio.
 
-@item addversion
-(Solo per l'output Texinfo.)  Aggiunge @code{\version
-@@w@{"@@version@{@}"@}} nella prima riga dell'output di @code{verbatim}.
-
 @item texidoc
 (Solo per l'output Texinfo.)  Se @command{lilypond} viene lanciato con
 l'opzione @option{--header=@/texidoc} e il file da elaborare si

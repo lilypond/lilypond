@@ -853,10 +853,6 @@ pointera vers un répertoire contenant l'arborescence des catalogues de
 messages -- fichiers d'extension @code{.mo} -- du domaine
 @code{lilypond-doc}.
 
-@item addversion
-Cette option, effective uniquement avec Texinfo, permet d'ajouter une
-ligne @code{\version @@w@{"@@version@{@}"@}} au @code{verbatim}.
-
 @item texidoc
 Option disponible uniquement avec Texinfo.@*
 Dès lors qu'un fichier @file{toto.ly} contient dans sa section
