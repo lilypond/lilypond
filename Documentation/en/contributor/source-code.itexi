@@ -1283,7 +1283,7 @@ in which any final reviews or complaints should be made.
 During the countdown, your patch may be set to
 @code{Patch::needs_work}, indicating that you should fix something
 (or at least discuss why the patch needs no modification).  If no
-problems are found, the patch will be set to @code{patch-push}.
+problems are found, the patch will be set to @code{Patch::push}.
 
 Once a patch has @code{Patch::push}, it should be sent to your
 mentor for uploading.  If you have git push ability, look at
@@ -1339,13 +1339,13 @@ present, batches are done on Tuesday, Thursday and Sunday evenings.
 On the scheduled countdown day, the Patch Meister reviews the
 previous list of patches on countdown, with the same procedure and
 criteria as before.  Patches with no controversy can be set to
-@qq{patch-push} with a courtesy message added to the comment block.
+@code{Patch::push} with a courtesy message added to the comment block.
 
 @item
 Roughly at six month intervals, the Patch Meister can list the
-patches which have been set to @qq{patch-needs-work} and send the
+patches which have been set to @code{Patch::needs-work} and send the
 results to the developer list for review.  In most cases, these
-patches should be marked @qq{patch-abandoned} but this should come
+patches should be marked @code{Patch::abandoned} but this should come
 from the developer if possible.
 
 @item
@@ -1379,7 +1379,7 @@ sent to @code{bug-lilypond}, @code{lilypond-users}, or
 @itemize
 @item
 Unless a patch is clearly in response to an existing issue, add a
-new issue with the @code{Patch-new} label and a link to the patch
+new issue with the @code{Patch::new} label and a link to the patch
 (either on the mailing list archives or the codereview url).
 
 Issue numbers are cheap; losing developers because they got fed up
@@ -1401,7 +1401,7 @@ message) on the webgit page:
 
 @item
 If the patch is clearly in response to an existing issue, then
-update that issue with the @code{Patch-new} label and a link to
+update that issue with the @code{Patch::new} label and a link to
 the patch (either on the mailing list archives or the codereview
 url).
 
@@ -1416,10 +1416,10 @@ issue you just added.
 
 @end itemize
 
-@subheading Helpers: @code{Patch-review} label
+@subheading Helpers: @code{Patch::review} label
 
 The secondary duty is to do make sure that every issue in the
-tracker with a @code{Patch-review} label has passed these
+tracker with a @code{Patch::review} label has passed these
 @qq{obvious} tests:
 
 @itemize
@@ -1465,12 +1465,12 @@ send general requests to review patches, or even nasty requests to
 review patches.
 
 @item
-downgrade patches from @code{Patch-review} to
-@code{Patch-needs_work} as appropriate.
+downgrade patches from @code{Patch::review} to
+@code{Patch::needs_work} as appropriate.
 
 @item
-downgrade patches from @code{Patch-needs_work} to
-@code{Patch-abandoned} if no actions have been taken in four
+downgrade patches from @code{Patch::needs_work} to
+@code{Patch::abandoned} if no actions have been taken in four
 weeks.
 
 @end itemize

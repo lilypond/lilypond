@@ -1,4 +1,4 @@
-Elu@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @node Issues
 @chapter Issues
 
@@ -309,13 +309,7 @@ Issues to verify: go to
 
 You should see a list of issues that have been marked as 'Status::Fixed'
 by a developer.  If the developer has done their job properly, the
-issue should have the @qq{Labels} field filled in with @qq{Fixed_x_y_z},
-where X is the major version, y the minor version and z the current
-release.
-
-@example
-Fixed_2_19_39
-@end example
+issue should have the milestone set to the corresponding version.
 
 This will help you work out which you can verify - do not verify any
 issues where the claimed fixed build is not yet released.  Work your
@@ -473,11 +467,11 @@ new issue for that info.
 @end itemize
 
 
-@subheading Owner (optional)
+@subheading Assignee (optional)
 
-Newly-added issues should have @emph{no owner}.  When a
+Newly-added issues should have @emph{no assignee}.  When a
 contributor indicates that he has Started or Fixed an item, he
-should become the owner.
+should become the assignee.
 
 
 @subheading Type (mandatory)
@@ -487,7 +481,7 @@ The issue's Type should be the first relevant item in this list.
 @itemize
 
 @item
-Type-Critical: normally a regression
+Critical: normally a regression
 against the current stable version or the previous stable version.
 Alternatively, a regression against a fix developed for the
 current version. This does not apply where the
@@ -497,92 +491,40 @@ deliberately - this is not a bug.
 Currently, only Critical items will block a stable release.
 
 @item
-Type-Maintainability: hinders future development.
+Maintainability: hinders future development.
 
 @item
-Type-Crash: any input which produces a crash.
+Crash: any input which produces a crash.
 
 @item
-Type-Ugly: overlapping or other ugly notation in graphical output.
+Ugly: overlapping or other ugly notation in graphical output.
 
 @item
-Type-Defect: a problem in the core program.  (the @code{lilypond}
+Defect: a problem in the core program.  (the @code{lilypond}
 binary, scm files, fonts, etc).
 
 @item
-Type-Documentation: inaccurate, missing, confusing, or desired
+Documentation: inaccurate, missing, confusing, or desired
 additional info.  Must be fixable by editing a texinfo, ly, or scm
 file.
 
 @item
-Type-Build: problem or desired features in the build system.  This
+Build: problem or desired features in the build system.  This
 includes the makefiles, stepmake, python scripts, and GUB.
 
 @item
-Type-Scripts: problem or desired feature in the non-build-system
+Scripts: problem or desired feature in the non-build-system
 scripts.  Mostly used for convert-ly, lilypond-book, etc.
 
 @item
-Type-Enhancement: a feature request for the core program.  The
+Enhancement: a feature request for the core program.  The
 distinction between enhancement and defect isn't extremely clear;
 when in doubt, mark it as enhancement.
 
 @item
-Type-Other: anything else.
+Other: anything else.
 
 @end itemize
-
-@ignore
-@subheading Priority (mandatory)
-
-Currently, only Critical items will block a stable release.
-
-@itemize
-
-@item
-Priority-Critical: LilyPond segfaults, a regression (see below)
-against a previous stable version or a regression against a fix
-developed for this version. This does not apply where the
-@qq{regression} occurred because a feature was removed
-deliberately - this is not a bug.
-
-@item
-Priority-High: An issue which produces output which does not
-accurately reflect the input (e.g. where the user would expect
-an accidental, but none is shown) or which produces aesthetically
-poor output in a situation which could be expected to crop up
-frequently in real-world music.  It should not be used where the
-problem can be avoided with a simple workaround.  It can also
-be used to flag where new code in a development version is not
-functioning as it should.  This level is also used for issues
-which produce no output and fail to give the user a clue about
-what's wrong.
-
-@item
-Priority-Medium: Normal priority - use this as the default.
-
-@item
-Priority-Low: A minor problem which produces slightly undesirable
-output, or which will only occur in contrived examples, or which
-is very easily worked around.
-
-@item
-Priority-Postponed: no fix planned.  Generally used for things
-which nobody wants to touch.
-
-@end itemize
-
-Note that these are initial classifications and can be subject
-to change by others in the development team.  For example, a
-regression against an old stable version which hasn't been
-noticed for a long time and which is unlikely to get fixed could
-be downgraded from Priority-Critical by one of the programmers.
-
-@end ignore
-
-@subheading Opsys (optional)
-
-Issues that only affect specific operating systems.
 
 @subheading Patch label (optional)
 
@@ -593,35 +535,35 @@ Patch Meister.
 @itemize
 
 @item
-Patch-new: the patch has not been checked for @qq{obvious}
+Patch::new: the patch has not been checked for @qq{obvious}
 mistakes.  When in doubt, use this tag.
 
 @item
-Patch-review: the patch has no @qq{obvious} mistakes (as checked
+Patch::review: the patch has no @qq{obvious} mistakes (as checked
 by the Patch Meister), and is ready for review from main
 developers.
 
 Developers with git push ability can use this category, skipping
-over @code{patch-new}.
+over @code{Patch::new}.
 
 @item
-Patch-needs_work: a developer has some concerns about the patch.
+Patch::needs_work: a developer has some concerns about the patch.
 This does not necessarily mean that the patch must be changed; in
 some cases, the developer's concerns can be resolved simply by
 discussion the situation or providing notation examples.
 
 If the patch is updated, the category should be changed to
-@code{patch-new} (for normal contributors) or @code{patch-review}
+@code{Patch::new} (for normal contributors) or @code{Patch::review}
 (for developers who are very confident about their patch).
 
 @item
-Patch-countdown: final call for any patch problems
+Patch::countdown: final call for any patch problems
 
 @item
-Patch-push: patch has passed the countdown and should be pushed.
+Patch::push: patch has passed the countdown and should be pushed.
 
 @item
-Patch-abandoned: the author has not responded to review comments
+Patch::abandoned: the author has not responded to review comments
 for a few months.
 
 @end itemize
@@ -678,18 +620,9 @@ to warnings when compiling the source code or generating
 documentation.
 
 @item
-Security: security risk.
-
-@item
 Performance: performance issue.
 
 @end itemize
-
-If you particularly want to add a label not in the list, go
-ahead, but this is not recommended, except when an issue is marked
-as fixed.  In this case it should be labeled Fixed_mm_MM_ss,
-where mm is major version, MM minor version and ss current
-release.
 
 
 @node Adding issues to the tracker
@@ -714,7 +647,7 @@ have been added.
 @item
 Add the issue and classify it according to the guidelines in
 @ref{Issue classification}.  In particular, the item should have
-@code{Status} and @code{Type-} labels.
+@code{Status} and type labels.
 
 Include output with the first applicable method:
 
