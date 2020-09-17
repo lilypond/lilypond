@@ -118,11 +118,6 @@ TexInfo_snippet_res = {
 
 
 TexInfo_output = {
-    book_snippets.ADDVERSION: r'''@example
-\version @w{"@version{}"}
-@end example
-''',
-
     book_snippets.FILTER: r'''@lilypond[%(options)s]
 %(code)s@end lilypond''',
 
@@ -164,7 +159,7 @@ TexInfo_output = {
 
     book_snippets.VERBATIM: r'''@format
 @exampleindent 0
-%(version)s@verbatim
+@verbatim
 %(verb)s@end verbatim
 @end format
 ''',
@@ -390,9 +385,6 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         substr = ''
         rep = snippet.get_replacements()
         if book_snippets.VERBATIM in snippet.option_dict:
-            rep['version'] = ''
-            if book_snippets.ADDVERSION in snippet.option_dict:
-                rep['version'] = self.output[book_snippets.ADDVERSION]
             rep['verb'] = snippet.verb_ly()
             substr = self.output[book_snippets.VERBATIM] % rep
         substr += self.output_info(basename, snippet)

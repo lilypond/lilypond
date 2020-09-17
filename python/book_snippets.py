@@ -46,7 +46,6 @@ debug = ly.debug_output
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
 #
 # Global definitions:
-ADDVERSION = 'addversion'
 AFTER = 'after'
 ALT = 'alt'
 BEFORE = 'before'
@@ -89,7 +88,7 @@ no_options = {
 # Options that have no impact on processing by lilypond (or --process
 # argument)
 PROCESSING_INDEPENDENT_OPTIONS = (
-    ALT, NOGETTEXT, VERBATIM, ADDVERSION,
+    ALT, NOGETTEXT, VERBATIM,
     TEXIDOC, DOCTITLE, VERSION, PRINTFILENAME)
 
 
@@ -105,8 +104,7 @@ simple_options = [
     TEXIDOC,
     VERBATIM,
     FILENAME,
-    ALT,
-    ADDVERSION
+    ALT
 ]
 
 
