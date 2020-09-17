@@ -2535,7 +2535,7 @@ Lo anterior parece un poco enrevesado; los márgenes están
 descuadrados.  Esto tiene fácil solución.  Presentamos aquí la
 plantilla completa para soprano y cello.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 sopranoMusic = \relative {
   \clef "treble"
   \key c \major
@@ -2845,7 +2845,7 @@ Los grupos ChoirStaff y PianoStaff se deben combinar utilizando
 Al combinar todo esto junto y escribir la música de los tres
 compases del ejemplo anterior, obtenemos:
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 global = { \key d \major \time 4/4 }
 sopranoMusic = \relative {
   \clef "treble"
@@ -3191,7 +3191,7 @@ tres pentagramas tendrá una estructura similar, aunque el número
 de voces puede variar.  Todo lo que nos queda es añadir la
 música, y combinar todas las partes.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

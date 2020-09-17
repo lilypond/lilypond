@@ -2378,7 +2378,7 @@ Això sembla una mica enrevessat; el marges estan desquadrats.  Això té
 fàcil solució.  Presentem aquí la plantilla completa per a
 soprano i violoncel.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 musicaSoprano = \relative {
   \clef "treble"
   \key c \major
@@ -2668,7 +2668,7 @@ angles dobles, atès que els volem apilar l'un sobre l'altre
 En combinar tot això junt i escriure la música dels tres compassos
 de l'exemple anterior, obtenim:
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 global = { \key d \major \time 4/4 }
 musicaSoprano = \relative {
   \clef "treble"
@@ -3001,7 +3001,7 @@ tres pentagrames tindrà una estructura semblant, tot i que el
 nombre de veus pot variar.  Tot el que ens queda és afegir la
 música, i combinar totes les parts.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

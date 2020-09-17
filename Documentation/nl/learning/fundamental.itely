@@ -2299,7 +2299,7 @@ at once.  The @code{\score} looks like this now:
 This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 sopranoMusic = \relative {
   \clef "treble"
   \key c \major
@@ -2586,7 +2586,7 @@ stacked one above the other:
 Combining all these together and adding the music
 for the three bars of the example above gives:
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 global = { \key d \major \time 4/4 }
 sopranoMusic = \relative {
   \clef "treble"
@@ -2913,7 +2913,7 @@ will have a similar structure, although the number of voices
 may vary.  All that remains now
 is to add the music, and combine all the parts together.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

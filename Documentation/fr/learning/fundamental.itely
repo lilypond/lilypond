@@ -2447,7 +2447,7 @@ C'est un peu le bazar dans tout ça ; mais il vous sera facile de
 mettre un peu d'ordre dans l'indentation.  Voici le modèle pour
 soprano et violoncelle au complet :
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 sopranoMusic = \relative {
   \clef "treble"
   \key c \major
@@ -2755,7 +2755,7 @@ doubles chevrons gauche/droite puisqu'ils doivent s'empiler :
 Une fois tout cela mis en place, et après avoir ajouté les notes et les
 paroles de ces trois mesures du Messie, nous obtenons :
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 global = { \key d \major \time 4/4 }
 sopranoMusic = \relative {
   \clef "treble"
@@ -3088,7 +3088,7 @@ auront cette structure, même si le nombre de voix peut changer.  Tout ce
 qui nous reste à faire maintenant consiste à saisir la musique et à
 regrouper toutes les parties.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

@@ -360,14 +360,14 @@ einfachen eingebauten Vorlage nicht möglich.
 @appendixsubsec Nur Noten
 @translationof Notes only
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-only-notes.ly}
 
 @node Noten und Text
 @appendixsubsec Noten und Text
 @translationof Notes and lyrics
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 @node Noten und Akkordbezeichnungen

@@ -2433,7 +2433,7 @@ celloMusic = \relative @{
 これは簡単に修正できます。@c
 ここで、完成したソプラノとチェロ用のテンプレートを挙げます。
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 sopranoMusic = \relative {
   \clef "treble"
   \key c \major
@@ -2739,7 +2739,7 @@ lower = \relative {
 
 これらすべてを組み合わせて、上の例の 3 小節分の音楽を付け加えます:
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 global = { \key d \major \time 4/4 }
 sopranoMusic = \relative {
   \clef "treble"
@@ -3071,7 +3071,7 @@ Voice はこれとは対照的に、あなたの音楽を連続して演奏す�
 ボイスの数はさまざまになるかもしれません。@c
 この後に行うべきことは、音楽を付け加え、各パートを一緒にすることです。
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

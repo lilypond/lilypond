@@ -372,14 +372,14 @@ complexos, amb aquesta senzilla plantilla incorporada.
 @appendixsubsec Sols notes
 @translationof Notes only
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-only-notes.ly}
 
 @node Notes i lletra
 @appendixsubsec Notes i lletra
 @translationof Notes and lyrics
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 @node Notes i acords

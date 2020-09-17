@@ -39,13 +39,13 @@ not!
 
 @appendixsubsec Pouze noty
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-only-notes.ly}
 
 
 @appendixsubsec Noty a text
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 

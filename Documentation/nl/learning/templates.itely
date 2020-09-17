@@ -41,13 +41,13 @@ beautiful printed scores!
 @node Notes only
 @appendixsubsec Notes only
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-only-notes.ly}
 
 @node Notes and lyrics
 @appendixsubsec Notes and lyrics
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 @node Notes and chords

@@ -2380,7 +2380,7 @@ L'aspetto è un po' confuso; l'indentazione non è pulita.  Ma si
 può correggere facilmente.  Ecco il modello completo per soprano
 e violoncello.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 musicaSoprano = \relative {
   \clef "treble"
   \key c \major
@@ -2687,7 +2687,7 @@ perché vogliamo che siano impilati uno sopra l'altro:
 Unendo tutto questo e aggiungendo la musica
 per le tre battute dell'esempio precedente, otteniamo:
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 global = { \key d \major \time 4/4 }
 sopranoMusic = \relative {
   \clef "treble"
@@ -3016,7 +3016,7 @@ avrà una struttura simile, sebbene il numero delle voci
 possa variare.  Tutto ciò che resta da fare ora
 è aggiungere la musica, e combinare tutte le parti insieme.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

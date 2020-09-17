@@ -2483,7 +2483,7 @@ Das sieht etwas unschön aus, vor allem die Einrückung stimmt
 nicht mehr.  Das können wir aber schnell in Ordnung bringen.
 Hier also die gesamte Vorlage für Sopran und Cello:
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 sopranoMusic = \relative {
   \clef "treble"
   \key c \major
@@ -2786,7 +2786,7 @@ spitzen Klammern kombiniert werden, damit beide
 Alles miteinander kombiniert und mit den Noten für drei
 Takte sieht unser Beispiel nun so aus:
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 global = { \key d \major \time 4/4 }
 sopranoMusic = \relative {
   \clef "treble"
@@ -3136,7 +3136,7 @@ in einem System sich ändern kann.  Jetzt müssen wir nur noch
 die Noten einfügen und alle Teile zusammenfügen, indem wir
 die Variablen mit einem Backslash in die Partitur einbauen.
 
-@lilypond[quote,verbatim,ragged-right,addversion]
+@lilypond[quote,verbatim,ragged-right]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"
