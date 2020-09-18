@@ -2925,7 +2925,8 @@ information.""") % 'lilypond')
                  action="store_true",
                  dest='compressed',
                  default=False,
-                 help=_("input file is a zip-compressed MusicXML file"))
+                 help=_("input file is a compressed MusicXML file "
+                        "(by default, activate if file extension is .mxl)"))
 
     p.add_option('-r', '--relative',
                  action="store_true",
