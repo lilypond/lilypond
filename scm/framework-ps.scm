@@ -726,13 +726,13 @@ mark {ly~a_stream} /CLOSE pdfmark
          (set! remaining (cdr remaining))
          (if (and (number? page-number) alist
                   (not (memq id remaining)))
-             (display
-              (format "mark /Page ~a /Title (~a) /Count ~a\
+            (format
+              port
+              "mark /Page ~a /Title (~a) /Count ~a\
  /View [/XYZ null null 0] /Subtype /Link /OUT pdfmark\n"
-                      page-number
-                      (ps-quote (markup->string (assoc-get 'text alist)))
-                      (length (assoc-get 'children alist)))
-              port))))
+              page-number
+              (ps-quote (markup->string (assoc-get 'text alist)))
+              (length (assoc-get 'children alist))))))
      sorted-page-numbers)))
 
 (define-public (output-framework basename book scopes fields)
