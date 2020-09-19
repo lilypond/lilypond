@@ -238,7 +238,7 @@ public:
 
   void clear () { head_ = SCM_EOL; }
 
-  bool empty () const { return head_ == SCM_EOL; }
+  bool empty () const { return !scm_is_pair (head_); }
 
   // erase the element at pos; return an iterator referring to the next
   // element; invalidate iterators referring to the deleted element
