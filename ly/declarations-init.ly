@@ -154,6 +154,7 @@ partCombineListener = \layout {
     \Score
     skipTypesetting = ##t
     ignoreBarChecks = ##t
+    measurePosition = #ZERO-MOMENT
     \alias "Timing"
   }
 }
