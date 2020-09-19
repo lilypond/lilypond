@@ -156,7 +156,7 @@ if [ "$BOOKRC" != 0 ]; then
 fi
 
 echo "Running RefCheck"
-python "$REFCHECK"
+python3 "$REFCHECK"
 
 cd "$DOC_DIR"
 if test -f "$OUTPUT_DIR/out/$SECTION.texi"; then
