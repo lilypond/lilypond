@@ -86,7 +86,7 @@ LilyPond wird unter der
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Legales
+@subheading Rechtliches
 
 @divClass{legal}
 Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
@@ -193,7 +193,7 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 @divClass{column-center-bottom}
-@subheading Legales
+@subheading Rechtliches
 
 @divClass{legal}
 Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
@@ -338,7 +338,7 @@ Das gilt auch für alle anderen Skripte in diesem Verzeichnis, wie
 
 
 @divClass{column-center-bottom}
-@subheading Legales
+@subheading Rechtliches
 
 @divClass{legal}
 Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
@@ -464,7 +464,7 @@ lilypond test.ly
 
 
 @divClass{column-center-bottom}
-@subheading Legales
+@subheading Rechtliches
 
 @divClass{legal}
 Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
