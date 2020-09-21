@@ -157,11 +157,8 @@ TexInfo_output = {
 %(str)s@end quotation
 ''',
 
-    book_snippets.VERBATIM: r'''@format
-@exampleindent 0
-@verbatim
+    book_snippets.VERBATIM: r'''@verbatim
 %(verb)s@end verbatim
-@end format
 ''',
 
     book_snippets.VERSION: r'''%(program_version)s''',
