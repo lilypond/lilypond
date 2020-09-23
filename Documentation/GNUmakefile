@@ -259,6 +259,7 @@ $(outdir)/en/ROADMAP: $(top-src-dir)/ROADMAP
 $(outdir)/en/contributor.texi: $(outdir)/en/ROADMAP
 
 $(outdir)/topdocs/NEWS.texi: $(outdir)/en/changes.texi
+	mkdir -p $(dir $@)
 	cp $< $@
 
 ### bad hack for badly-integrated bibliography
