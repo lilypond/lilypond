@@ -40,7 +40,7 @@ in @ref{Sviluppo}.}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
+@ref{Unix, @sourceimage{logo-linux,,,}}
 @ref{Unix, Unix (pacchetti generici per GNU/Linux)}
 
 @item
@@ -222,7 +222,7 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
 Per Mac OS X 10.4--10.14 con processore Intel (per la versione 10.15 vedi sotto).
-S
+
 @item
 @sourceimage{logo-macosx,,,}
 @c file name is unpredictable, linking to main page

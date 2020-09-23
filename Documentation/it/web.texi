@@ -289,30 +289,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
   * List all commands in direntry.
 
-@c  * lilypond: (lilypond-application)Running LilyPond.      Invoking the
-@c    LilyPond  program.
 @end ignore
-
-@c Info files are no longer installed in a subdirectory, images are
-@c expected to be found in lilypond/ subdirectory.
-@dircategory GNU LilyPond --- il compositore tipografico di musica
-@direntry
-* Manuale di Apprendimento di LilyPond: (lilypond-learning).    Comincia da qui.
-* Glossario Musicale: (music-glossary).                         Per gli utenti non di lingua inglese.
-* LilyPond: (lilypond-notation).                                Guida alla Notazione di LilyPond.
-* Frammenti di Codice di LilyPond: (lilypond-snippets).         Piccoli trucchi, consigli, e esempi.
-* Guida al Funzionamento Interno: (lilypond-internals).         Definizioni per le modifiche manuali.
-* Uso del Programma: (lilypond-application).                    Istallazione e esecuzione delle applicazioni.
-* Sito web: (lilypond-web).                                     Anteprima del nuovo sito.
-* lilypond: (lilypond-usage)Eseguire lilypond.                  Invocare il programma LilyPond.
-* abc2ly: (lilypond-usage)Invocare abc2ly.                      Importare ABC.
-* convert-ly: (lilypond-usage)Aggiornare i file con convert-ly. Versioni precedenti di LilyPond.
-* etf2ly: (lilypond-usage)Invocare etf2ly.                      Importare Finale.
-* lilypond-book: (lilypond-usage)lilypond-book.                 Integrare testo e musica.
-* midi2ly: (lilypond-usage)Invocare midi2ly.                    Importare MIDI.
-* musicxml2ly: (lilypond-usage)Invocare musicxml2ly.            Importare MusicXML.
-@end direntry
-
 
 @c FIXME: this still doesn't solve the broken links in pdf and big
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
