@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+    Translation of GIT committish: 0286a40100bc611490b7ee91605c6dd422c54dfc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,17 +20,12 @@ nostro @ref{Input testuale}.}
 @unnumbered Download
 
 @divClass{heading-center}
-@ifclear web_version
-  @c yes, we want versionDevel here, since the online links
-  @c for @version won't be up yet!
-  @heading Download per LilyPond @versionDevel
+@heading Download per LilyPond @versionStable
 
-@warning{I link alla versione stabile di LilyPond si possono trovare su
-@uref{https://lilypond.org, lilypond.org}}
+@ifclear web_version
+@warning{I collegamenti alla versione instabile di LilyPond si possono trovare
+in @ref{Sviluppo}.}
 @end ifclear
-@ifset web_version
-  @heading Download per LilyPond @versionStable
-@end ifset
 
 @warningTextBased
 
@@ -46,8 +41,7 @@ nostro @ref{Input testuale}.}
 @item
 @c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (GNU/Linux e FreeBSD)}
+@ref{Unix, Unix (pacchetti generici per GNU/Linux)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -99,8 +93,6 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le
 immagini dei prodotti.
 
 @logoLegalLinux
-
-@logoLegalFreeBSD
 
 @logoLegalMacOSX
 
@@ -208,8 +200,6 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 
 @logoLegalLinux
 
-@logoLegalFreeBSD
-
 @divEnd
 @divEnd
 
@@ -231,9 +221,8 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Per Mac OS X 10.4--10.5 con processore Intel e Mac OS X 10.6--10.14
-(per la versione 10.15 vedi sotto).
-
+Per Mac OS X 10.4--10.14 con processore Intel (per la versione 10.15 vedi sotto).
+S
 @item
 @sourceimage{logo-macosx,,,}
 @c file name is unpredictable, linking to main page

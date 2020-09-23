@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+    Translation of GIT committish: 0286a40100bc611490b7ee91605c6dd422c54dfc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -172,16 +172,19 @@ potrebbe essere utile per altri dovrebbe essere inviata a una delle mailing list
 @quotation
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-mailing list francese}
+Mailing list francese}
 
 @uref{http://groups.google.com/group/lilypond-brasil,
-gruppo portoghese}
+Gruppo portoghese}
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-mailing list spagnola}
+Mailing list spagnola}
 
 @uref{https://lilypondforum.de/,
-forum tedesco}
+Forum tedesco}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+Mailing list italiana}
 
 @end quotation
 
