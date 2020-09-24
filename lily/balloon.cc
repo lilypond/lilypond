@@ -105,9 +105,8 @@ Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   Real off = me->relative_coordinate (p, Y_AXIS);
 
-  return to_scm (
-    internal_balloon_print (me, Box (Interval (0, 0), y), Offset (0, off))
-      .extent (Y_AXIS));
+  return to_scm (internal_balloon_print (me, Box (Interval (0, 0), y), Offset (0, off))
+                 .extent (Y_AXIS));
 }
 
 Stencil

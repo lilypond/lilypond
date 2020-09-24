@@ -43,7 +43,7 @@ protected:
   void create_contexts () override;
   void process (Moment) override;
 
-  const ly_smob_list<Music_iterator>&
+  const ly_smob_list<Music_iterator> &
   get_children () const { return children_list_; }
 
 private:

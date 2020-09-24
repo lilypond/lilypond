@@ -79,8 +79,8 @@ Script_engraver::listen_articulation (Stream_event *ev)
 {
   /* Discard double articulations for part-combining.  */
   for (vsize i = 0; i < scripts_.size (); i++)
-    if (ly_is_equal (get_property (scripts_[i].event_
-                     , "articulation-type"),
+    if (ly_is_equal (get_property (scripts_[i].event_,
+                                   "articulation-type"),
                      get_property (ev, "articulation-type")))
       return;
 

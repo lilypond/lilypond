@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "warn.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"

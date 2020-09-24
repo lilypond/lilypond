@@ -312,7 +312,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
 
       Moment m = lyric_iter_->pending_moment ();
       set_property (lyrics_context_, ly_symbol2scm ("associatedVoiceContext"),
-                                     music_context_->self_scm ());
+                    music_context_->self_scm ());
       lyric_iter_->process (m);
 
       music_found_ = true;

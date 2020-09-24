@@ -119,7 +119,7 @@ select_encoded_font (Output_def *layout, SCM chain)
       SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
       Real req = from_scm<double> (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
-                                    0.0);
+                                   0.0);
 
       return get_font_by_mag_step (layout, req, vec,
                                    scm_to_double (base_size));

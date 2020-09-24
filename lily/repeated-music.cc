@@ -96,7 +96,7 @@ Repeated_music::unfolded_music_length (SCM m)
   // report 1x the body grace time (for just the first pass) as the grace time
   // of the unfolded music?
   Moment l = (Moment (repeat_count (me)) * body_get_length (me).main_part_)
-    + alternatives_get_length (me, false);
+             + alternatives_get_length (me, false);
   return l.smobbed_copy ();
 }
 

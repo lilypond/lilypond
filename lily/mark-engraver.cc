@@ -86,7 +86,7 @@ Mark_engraver::stop_translation_timestep ()
   if (text_)
     {
       set_object (text_, "side-support-elements",
-                         grob_list_to_grob_array (get_property (this, "stavesFound")));
+                  grob_list_to_grob_array (get_property (this, "stavesFound")));
       final_text_ = text_;
       text_ = 0;
     }
@@ -98,7 +98,7 @@ Mark_engraver::finalize ()
 {
   if (final_text_)
     set_property (final_text_, "break-visibility",
-                               scm_c_make_vector (3, SCM_BOOL_T));
+                  scm_c_make_vector (3, SCM_BOOL_T));
   final_text_ = 0;
 }
 

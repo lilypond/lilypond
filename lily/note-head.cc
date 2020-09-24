@@ -156,7 +156,7 @@ Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
   Offset off = from_scm (get_property (me, "stem-attachment"),
-                                  Offset (0, 0));
+                         Offset (0, 0));
 
   return off [a];
 }

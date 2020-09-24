@@ -120,8 +120,9 @@ public:
     Gets an orthogonal vector with same size to orig, pointing left
     (in the complex domain, a multiplication by i)
   */
-  Offset normal() const {
-    return Offset(-coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
+  Offset normal () const
+  {
+    return Offset (-coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
   }
 };
 

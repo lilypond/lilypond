@@ -81,7 +81,7 @@ Time_signature_engraver::process_music ()
 
       if (scm_is_false (last_time_fraction_))
         set_property (time_signature_, "break-visibility",
-                                       get_property (this, "initialTimeSignatureVisibility"));
+                      get_property (this, "initialTimeSignatureVisibility"));
 
       int den = scm_to_int (scm_cdr (fr));
       if (den != (1 << intlog2 (den)))

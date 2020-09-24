@@ -82,8 +82,8 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
   SCM listeners = SCM_EOL;
 
   must_be_last_ = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("must-be-last"),
-                                            definition,
-                                            SCM_BOOL_F));
+                                                definition,
+                                                SCM_BOOL_F));
 
   for (; scm_is_pair (p); p = scm_cdr (p))
     {

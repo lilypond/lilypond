@@ -42,7 +42,7 @@ Change_sequence_iterator::pending_moment () const
         {
           // If m2 is not a moment, process () should issue a diagnostic later,
           // so just ignore it here.
-          m = std::min(m, *m2);
+          m = std::min (m, *m2);
         }
     }
 

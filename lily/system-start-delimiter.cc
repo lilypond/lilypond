@@ -149,7 +149,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   /* We use the style sheet to look up the font file name.
      This is better than using 'find_font' directly.*/
   SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
-		      ly_symbol2scm ("fetaBraces"));
+                      ly_symbol2scm ("fetaBraces"));
 
   SCM alist = scm_list_n (fam, SCM_UNDEFINED);
   fm = select_font (me->layout (), scm_list_n (alist, SCM_UNDEFINED));

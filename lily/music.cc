@@ -148,8 +148,8 @@ Music::generic_to_relative_octave (Pitch last)
                               new_pit.get_notename (),
                               new_pit.get_alteration ());
           warning (_f ("octave check failed; expected \"%s\", found: \"%s\"",
-                                  expected_pit.to_string (),
-                                  new_pit.to_string ()));
+                       expected_pit.to_string (),
+                       new_pit.to_string ()));
           new_pit = expected_pit;
         }
 

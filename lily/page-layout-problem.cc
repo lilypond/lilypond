@@ -516,9 +516,9 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
         {
           SCM details = get_details (elements_.back ());
           bottom_padding = from_scm<double> (ly_assoc_get (ly_symbol2scm ("bottom-space"),
-                                                            details,
-                                                            SCM_BOOL_F),
-                                              0.0);
+                                                           details,
+                                                           SCM_BOOL_F),
+                                             0.0);
         }
       page_height_ -= bottom_padding;
     }
@@ -637,8 +637,8 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
                                               "default-staff-staff-spacing");
           if (scm_is_pair (default_spacing) && ly_is_list (spec))
             for (SCM s = default_spacing; scm_is_pair (s); s = scm_cdr (s))
-                if (!scm_is_pair (scm_assq (scm_caar (s), spec)))
-                    spec = scm_cons (scm_car (s), spec);
+              if (!scm_is_pair (scm_assq (scm_caar (s), spec)))
+                spec = scm_cons (scm_car (s), spec);
 
           alter_spring_from_spacing_spec (spec, &spring);
 

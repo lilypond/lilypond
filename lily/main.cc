@@ -655,7 +655,7 @@ parse_argv (int argc, char **argv)
           {
             vector<string> components
               = string_split (option_parser->optional_argument_str0_, ',');
-	    bool wants_svg = 0;
+            bool wants_svg = 0;
             for (vsize i = 0; i < components.size (); i++)
               {
                 string format = (components[i]);
@@ -664,8 +664,8 @@ parse_argv (int argc, char **argv)
                     wants_svg = 1;
                     init_scheme_variables_global += "(backend . svg)\n";
                   }
-		if ((i > 0) && (wants_svg))
-		  {
+                if ((i > 0) && (wants_svg))
+                  {
                     warning (_ ("SVG backend requested; other formats will be ignored."));
                     wants_svg = 0;
                   }
@@ -679,7 +679,7 @@ parse_argv (int argc, char **argv)
               || string (opt->longname_str0_) == "png"
               || string (opt->longname_str0_) == "ps")
             add_output_format (opt->longname_str0_);
-	  else if (string (opt->longname_str0_) == "svg")
+          else if (string (opt->longname_str0_) == "svg")
             init_scheme_variables_global += "(backend . svg)\n";
           else if (string (opt->longname_str0_) == "relocate")
             warning (_ ("The --relocate option is no longer relevant."));

@@ -106,7 +106,7 @@ Key_signature_interface::print (SCM smob)
             needed to prevent collisions.
           */
           Real padding = from_scm<double> (get_property (me, "padding"),
-                                            0.0);
+                                           0.0);
           SCM handle = ly_assoc (scm_cons (glyph_name_scm, last_glyph_name),
                                  padding_pairs);
           if (scm_is_pair (handle))

@@ -43,7 +43,7 @@ Lyric_hyphen::print (SCM smob)
   if (bounds[LEFT]->break_status_dir ()
       && (Paper_column::when_mom (bounds[LEFT])
           == Paper_column::when_mom (bounds[RIGHT]->get_column ())
-      && !from_scm<bool> (get_property (me, "after-line-breaking"))))
+          && !from_scm<bool> (get_property (me, "after-line-breaking"))))
     return SCM_EOL;
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
@@ -137,8 +137,7 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
   Drul_array<Item *> bounds (sp->get_bound (LEFT), sp->get_bound (RIGHT));
   if (!bounds[LEFT] || !bounds[RIGHT])
     return SCM_UNSPECIFIED;
-  std::vector<Item *> cols (root->broken_col_range (
-    bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
+  std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
 
   rod.distance_ = from_scm<double> (get_property (me, "minimum-distance"), 0);
   for (LEFT_and_RIGHT (d))

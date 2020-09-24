@@ -227,7 +227,7 @@ Figured_bass_engraver::center_continuations (vector<Spanner *> const &consecutiv
 
   for (vsize j = consecutive_lines.size (); j--;)
     set_object (consecutive_lines[j], "figures",
-                                      unsmob<Grob_array> (ga)->smobbed_copy ());
+                unsmob<Grob_array> (ga)->smobbed_copy ());
 }
 
 void

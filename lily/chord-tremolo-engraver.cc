@@ -146,7 +146,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
         Beam::add_stem (beam_, s);
       else
-          s->warning (_ ("stem must have Rhythmic structure"));
+        s->warning (_ ("stem must have Rhythmic structure"));
 
       // Store current grob, so we can possibly end the spanner here (and
       // reset the beam direction to RIGHT)

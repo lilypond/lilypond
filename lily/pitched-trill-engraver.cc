@@ -137,8 +137,8 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   int c0 = scm_is_number (c0scm) ? scm_to_int (c0scm) : 0;
 
   set_property (trill_head_, "staff-position",
-                             to_scm (unsmob<Pitch> (scm_pitch)->steps ()
-                                           + c0));
+                to_scm (unsmob<Pitch> (scm_pitch)->steps ()
+                        + c0));
 
   trill_group_ = make_item ("TrillPitchGroup", ev->self_scm ());
   trill_group_->set_y_parent (trill_head_);

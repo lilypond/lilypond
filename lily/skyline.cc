@@ -260,12 +260,10 @@ single_skyline (Building b, vector<Building> *const ret)
   assert (b.x_[RIGHT] >= b.x_[LEFT]);
 
   if (b.x_[LEFT] != -infinity_f)
-    ret->push_back (
-      Building (-infinity_f, -infinity_f, -infinity_f, b.x_[LEFT]));
+    ret->push_back (Building (-infinity_f, -infinity_f, -infinity_f, b.x_[LEFT]));
   ret->push_back (b);
   if (b.x_[RIGHT] != infinity_f)
-    ret->push_back (
-      Building (b.x_[RIGHT], -infinity_f, -infinity_f, infinity_f));
+    ret->push_back (Building (b.x_[RIGHT], -infinity_f, -infinity_f, infinity_f));
 }
 
 /* Partition BUILDINGS into a non-overlapping set of boxes and the rest */
@@ -307,8 +305,7 @@ non_overlapping_skyline (vector<Building> const &buildings,
     }
 
   if (last_end < infinity_f)
-    result->push_back (
-      Building (last_end, -infinity_f, -infinity_f, infinity_f));
+    result->push_back (Building (last_end, -infinity_f, -infinity_f, infinity_f));
 }
 
 class LessThanBuilding

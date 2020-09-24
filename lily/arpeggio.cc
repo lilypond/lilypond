@@ -118,7 +118,7 @@ Arpeggio::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   Interval heads = from_scm (get_property (me, "positions"),
-                                        Interval ())
+                             Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
   if (heads.is_empty () || heads.length () < 0.5)
@@ -186,7 +186,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
   Interval heads = from_scm (get_property (me, "positions"),
-                                        Interval ())
+                             Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
   Real th
@@ -208,7 +208,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   Grob *me = unsmob<Grob> (smob);
   SCM dash_definition = get_property (me, "dash-definition");
   Interval heads = from_scm (get_property (me, "positions"),
-                                        Interval ())
+                             Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
   Real lt

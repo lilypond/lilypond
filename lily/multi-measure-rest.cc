@@ -141,8 +141,8 @@ calc_measure_duration_log (Grob *me)
                 : Rational (1);
   auto duration = static_cast<double> (ml);
   bool round_up = from_scm<bool> (scm_list_p (scm_member (scm_cons (to_scm (ml.numerator ()),
-                                                      to_scm (ml.denominator ())),
-                                                      get_property (me, "round-up-exceptions"))))
+                                                          to_scm (ml.denominator ())),
+                                                          get_property (me, "round-up-exceptions"))))
                   || from_scm<bool> (get_property (me, "round-up-to-longer-rest"));
   int closest_usable_duration_log;
 
@@ -267,7 +267,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
 
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   // If there is no StaffSymbol, print MMrests on one (invisible) line.
-  bool oneline = (!staff) || Staff_symbol::line_positions (staff). size () < 2;
+  bool oneline = (!staff) || Staff_symbol::line_positions (staff).size () < 2;
 
   if (scm_is_null (sp))
     {

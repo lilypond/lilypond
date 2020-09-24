@@ -172,7 +172,7 @@ Script_column::order_grobs (vector<Grob *> grobs)
                        || (fabs (scm_to_double (initial_outside_staff)
                                  - from_scm<double> (last_initial_outside_staff, 0)) < 0.001))
                 set_property (g, "outside-staff-priority",
-                                 to_scm (scm_to_double (last_outside_staff) + 0.1));
+                              to_scm (scm_to_double (last_outside_staff) + 0.1));
             }
         }
     }

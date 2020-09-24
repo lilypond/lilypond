@@ -84,8 +84,7 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
         {
           SCM attributes = scm_cadr (expr);
 
-          sink->output (
-            scm_list_2 (ly_symbol2scm ("start-group-node"), attributes));
+          sink->output (scm_list_2 (ly_symbol2scm ("start-group-node"), attributes));
           interpret_stencil_expression (scm_caddr (expr), sink, o);
           sink->output (scm_list_1 (ly_symbol2scm ("end-group-node")));
 
@@ -101,11 +100,9 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           SCM x = scm_car (offset);
           SCM y = scm_cdr (offset);
 
-          sink->output (
-            scm_list_4 (ly_symbol2scm ("setrotation"), angle, x, y));
+          sink->output (scm_list_4 (ly_symbol2scm ("setrotation"), angle, x, y));
           interpret_stencil_expression (scm_caddr (expr), sink, o);
-          sink->output (
-            scm_list_4 (ly_symbol2scm ("resetrotation"), angle, x, y));
+          sink->output (scm_list_4 (ly_symbol2scm ("resetrotation"), angle, x, y));
 
           return;
         }
@@ -117,8 +114,7 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           Offset unscaled = o.scale (Offset (1 / scm_to_double (x_scale),
                                              1 / scm_to_double (y_scale)));
 
-          sink->output (
-            scm_list_3 (ly_symbol2scm ("setscale"), x_scale, y_scale));
+          sink->output (scm_list_3 (ly_symbol2scm ("setscale"), x_scale, y_scale));
           interpret_stencil_expression (scm_caddr (expr), sink, unscaled);
           sink->output (scm_list_1 (ly_symbol2scm ("resetscale")));
 

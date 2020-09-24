@@ -111,7 +111,7 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
 
   Drul_array<bool> connect_to_other
     = from_scm (get_property (me, "connect-to-neighbor"),
-                           Drul_array<bool> (false, false));
+                Drul_array<bool> (false, false));
 
   for (LEFT_and_RIGHT (d))
     {

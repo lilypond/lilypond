@@ -77,16 +77,16 @@ get_skylines (Grob *g,
   if (!pure)
     {
       Skyline_pair *skys = unsmob<Skyline_pair> (get_property (g, a == Y_AXIS
-                                                                  ? "vertical-skylines"
-                                                                  : "horizontal-skylines"));
+                                                               ? "vertical-skylines"
+                                                               : "horizontal-skylines"));
       Skyline_pair skylines;
       if (skys)
         {
           skylines = *skys;
 
           /* This skyline was calculated relative to the grob g. In order to compare it to
-         skylines belonging to other grobs, we need to shift it so that it is relative
-         to the common reference. */
+          skylines belonging to other grobs, we need to shift it so that it is relative
+          to the common reference. */
           Real offset = g->relative_coordinate (other_common, other_axis (a));
           skylines.shift (offset);
         }
@@ -119,8 +119,7 @@ get_skylines (Grob *g,
         = Axis_group_interface::begin_of_line_pure_height (g, start);
       if (!begin_of_line_extent.is_empty ())
         {
-          boxes.push_back (
-            Box (Interval (-infinity_f, -1), begin_of_line_extent));
+          boxes.push_back (Box (Interval (-infinity_f, -1), begin_of_line_extent));
         }
     }
 
@@ -194,7 +193,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
     include_fixed_spacing = false;
 
   Direction stacking_dir = from_scm (get_property (me, "stacking-dir"),
-                                           DOWN);
+                                     DOWN);
 
   Grob *other_common = common_refpoint_of_array (elems, me, other_axis (a));
 

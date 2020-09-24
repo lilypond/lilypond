@@ -304,7 +304,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
        * Save the head's final x-offset.
        */
       set_property (primitive, "x-offset",
-                               to_scm (x_offset));
+                    to_scm (x_offset));
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
@@ -323,7 +323,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
           else
             {
               set_property (prev_primitive, "add-join",
-                                            ly_bool2scm (true));
+                            ly_bool2scm (true));
 
               /*
                * Create a small overlap of adjacent heads so that the join
@@ -518,7 +518,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
         {
           context_info |= STACKED_HEAD;
           set_property (primitive, "context-info",
-                                   to_scm (context_info));
+                        to_scm (context_info));
         }
 
       /*
@@ -599,7 +599,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
                    * placed somewhere else.
                    */
                   set_property (prev_primitive, "add-cauda",
-                                                ly_bool2scm (false));
+                                ly_bool2scm (false));
                 }
               if (prev_delta_pitch < - 1)
                 glyph_name = "vaticana.reverse.plica";
@@ -654,16 +654,16 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
           check_for_prefix_loss (prev_primitive);
           prev_glyph_name = "flexa";
           set_property (prev_primitive, "flexa-height",
-                                        to_scm (prev_delta_pitch));
+                        to_scm (prev_delta_pitch));
           set_property (prev_primitive, "flexa-width",
-                                        to_scm (flexa_width));
+                        to_scm (flexa_width));
           bool add_cauda = !(prev_prefix_set & PES_OR_FLEXA);
           set_property (prev_primitive, "add-cauda",
-                                        ly_bool2scm (add_cauda));
+                        ly_bool2scm (add_cauda));
           check_for_prefix_loss (primitive);
           glyph_name = "";
           set_property (primitive, "flexa-width",
-                                   to_scm (flexa_width));
+                        to_scm (flexa_width));
         }
 
       /*
@@ -690,7 +690,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
       if (prev_primitive)
         set_property (prev_primitive, "glyph-name",
-                                      ly_string2scm (prev_glyph_name));
+                      ly_string2scm (prev_glyph_name));
 
       /*
        * In the backend, flexa shapes and joins need to know about line
@@ -708,7 +708,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     }
 
   set_property (prev_primitive, "glyph-name",
-                                ly_string2scm (prev_glyph_name));
+                ly_string2scm (prev_glyph_name));
 
   align_heads (primitives, flexa_width, thickness);
 

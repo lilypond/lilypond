@@ -318,7 +318,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 
   /* FIXME: slur property, script property?  */
   Real slur_padding = from_scm<double> (get_property (script, "slur-padding"),
-                                         0.0);
+                                        0.0);
   yext.widen (slur_padding);
 
   Interval exts[] = {xext, yext};

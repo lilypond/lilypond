@@ -22,9 +22,10 @@
 
 #include "lily-guile.hh"
 
-class Stencil_sink {
+class Stencil_sink
+{
 public:
-  virtual SCM output(SCM expr) = 0;
+  virtual SCM output (SCM expr) = 0;
 };
 
 void interpret_stencil_expression (SCM expr,

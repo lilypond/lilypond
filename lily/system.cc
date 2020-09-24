@@ -624,7 +624,7 @@ System::get_paper_system ()
         o[Axis (a)] = g->relative_coordinate (this, Axis (a));
 
       Offset extra = from_scm (get_property (g, "extra-offset"),
-                                        Offset (0, 0))
+                               Offset (0, 0))
                      * Staff_symbol_referencer::staff_space (g);
 
       /* Must copy the stencil, for we cannot change the stencil

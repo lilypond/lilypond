@@ -163,9 +163,9 @@ Separation_item::boxes (Grob *me, Grob *left)
       Interval x (il->extent (pc, X_AXIS));
 
       Interval extra_width = from_scm (get_property (elts[i], "extra-spacing-width"),
-                                                  Interval (-0.1, 0.1));
+                                       Interval (-0.1, 0.1));
       Interval extra_height = from_scm (get_property (elts[i], "extra-spacing-height"),
-                                                   Interval (0.0, 0.0));
+                                        Interval (0.0, 0.0));
 
       // The conventional empty extent is (+inf.0 . -inf.0)
       //  but (-inf.0 . +inf.0) is used as extra-spacing-height

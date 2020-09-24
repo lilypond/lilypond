@@ -211,7 +211,7 @@ Tuplet_bracket::calc_x_positions (SCM smob)
 
   Drul_array<bool> connect_to_other
     = from_scm (get_property (me, "connect-to-neighbor"),
-                           Drul_array<bool> (false, false));
+                Drul_array<bool> (false, false));
 
   Interval x_span;
   for (LEFT_and_RIGHT (d))
@@ -221,7 +221,7 @@ Tuplet_bracket::calc_x_positions (SCM smob)
       if (connect_to_other[d])
         {
           Interval overshoot (from_scm (get_property (me, "break-overshoot"),
-                                               Interval (-0.5, 0.0)));
+                                        Interval (-0.5, 0.0)));
 
           if (d == RIGHT)
             x_span[d] += d * overshoot[d];
@@ -416,7 +416,7 @@ Tuplet_bracket::print (SCM smob)
 
           Drul_array<bool> connect_to_other
             = from_scm (get_property (me, "connect-to-neighbor"),
-                                   Drul_array<bool> (false, false));
+                        Drul_array<bool> (false, false));
 
           for (LEFT_and_RIGHT (d))
             {

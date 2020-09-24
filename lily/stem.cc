@@ -142,7 +142,7 @@ Stem::set_stem_positions (Grob *me, Real se, Real fc)
   height[d] = se * half_space + beam_end_corrective (me);
 
   Real stemlet_length = from_scm<double> (get_property (me, "stemlet-length"),
-                                           0.0);
+                                          0.0);
   bool stemlet = stemlet_length > 0.0;
 
   Grob *lh = get_reference_head (me);
@@ -741,14 +741,14 @@ Stem::internal_height (Grob *me, bool calc_beam)
     return Interval ();
 
   Real y1 = from_scm<double> ((calc_beam
-                                ? get_property (me, "stem-begin-position")
-                                : get_pure_property (me, "stem-begin-position", 0, INT_MAX)),
-                               0.0);
+                               ? get_property (me, "stem-begin-position")
+                               : get_pure_property (me, "stem-begin-position", 0, INT_MAX)),
+                              0.0);
 
   Real y2 = dir * from_scm<double> ((calc_beam
-                                      ? get_property (me, "length")
-                                      : get_pure_property (me, "length", 0, INT_MAX)),
-                                     0.0)
+                                     ? get_property (me, "length")
+                                     : get_pure_property (me, "length", 0, INT_MAX)),
+                                    0.0)
             + y1;
 
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
@@ -892,7 +892,7 @@ Stem::print (SCM smob)
   Real stem_length = from_scm<double> (get_property (me, "length"), 0.0);
   Real fb_stem_adjustment
     = from_scm<double> (get_property (me, "french-beaming-stem-adjustment"),
-                         0.0);
+                        0.0);
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
   /* Shorten inner French Beams (for printing) */

@@ -124,6 +124,5 @@ Paper_outputter::close ()
       scm_close_port (file_);
     }
 
-  debug_output (
-    _f ("Paper_outputter elapsed time: %.2f seconds", timer_.read ()));
+  debug_output (_f ("Paper_outputter elapsed time: %.2f seconds", timer_.read ()));
 }

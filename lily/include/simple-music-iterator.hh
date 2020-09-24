@@ -42,7 +42,7 @@ public:
 
   void process (Moment m) override
   {
-    const auto& length = music_get_length ();
+    const auto &length = music_get_length ();
     pending_moment_ = (m < length) ? length : Moment (Rational::infinity ());
   }
 

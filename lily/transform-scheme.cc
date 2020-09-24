@@ -63,14 +63,14 @@ LY_DEFINE (ly_make_transform, "ly:make-transform",
       return Transform (from_scm<Real> (xx), from_scm<Real> (xy),
                         from_scm<Real> (yx), from_scm<Real> (yy),
                         0, 0)
-        .smobbed_copy ();
+             .smobbed_copy ();
     }
   LY_ASSERT_TYPE (scm_is_real, x0, 5);
   LY_ASSERT_TYPE (scm_is_real, y0, 6);
   return Transform (from_scm<Real> (xx), from_scm<Real> (xy),
                     from_scm<Real> (yx), from_scm<Real> (yy),
                     from_scm<Real> (x0), from_scm<Real> (y0))
-    .smobbed_copy ();
+         .smobbed_copy ();
 }
 
 LY_DEFINE (ly_make_scaling, "ly:make-scaling",
@@ -96,12 +96,12 @@ LY_DEFINE (ly_make_scaling, "ly:make-scaling",
       Real im = scm_c_imag_part (scale);
       // Constructor argument order follows that of Pango
       // 0.0-im avoids -0.0
-      return Transform (re, im, 0.0-im, re, 0.0, 0.0).smobbed_copy ();
+      return Transform (re, im, 0.0 - im, re, 0.0, 0.0).smobbed_copy ();
     }
   LY_ASSERT_TYPE (scm_is_real, scale, 1);
   LY_ASSERT_TYPE (scm_is_real, scaley, 2);
   return Transform (from_scm<Real> (scale), 0.0, 0.0, from_scm<Real> (scaley), 0.0, 0.0)
-    .smobbed_copy ();
+         .smobbed_copy ();
 }
 
 LY_DEFINE (ly_make_rotation, "ly:make-rotation",
@@ -115,7 +115,7 @@ LY_DEFINE (ly_make_rotation, "ly:make-rotation",
   if (!SCM_UNBNDP (center))
     LY_ASSERT_TYPE (is_scm<Offset>, center, 2);
   return Transform (from_scm<Real> (angle), from_scm (center, Offset (0, 0)))
-    .smobbed_copy ();
+         .smobbed_copy ();
 }
 
 LY_DEFINE (ly_make_translation, "ly:make-translation",
@@ -129,12 +129,12 @@ LY_DEFINE (ly_make_translation, "ly:make-translation",
       LY_ASSERT_TYPE (scm_is_real, x, 1);
       LY_ASSERT_TYPE (scm_is_real, y, 2);
       return Transform (Offset (from_scm<Real> (x), from_scm<Real> (y)))
-        .smobbed_copy ();
+             .smobbed_copy ();
     }
   if (scm_is_number (x))
     {
       return Transform (Offset (scm_c_real_part (x), scm_c_imag_part (x)))
-        .smobbed_copy ();
+             .smobbed_copy ();
     }
   LY_ASSERT_TYPE (is_scm<Offset>, x, 1);
   return Transform (from_scm<Offset> (x)).smobbed_copy ();

@@ -94,8 +94,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
       Direction attach = from_scm (ly_assoc_get (ly_symbol2scm ("attach-dir"),
-                                                       details, SCM_BOOL_F),
-                                         CENTER);
+                                                 details, SCM_BOOL_F),
+                                   CENTER);
 
       Item *bound_item = me->get_bound (dir);
       Grob *bound_grob = bound_item;
@@ -130,7 +130,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       Real y = 0.0;
 
       Real extra_dy = from_scm<double> (get_property (me, "extra-dy"),
-                                         0.0);
+                                        0.0);
 
       Grob *common_y = me->common_refpoint (me->get_bound (dir), Y_AXIS);
       if (me->get_bound (dir)->break_status_dir ())
@@ -277,9 +277,9 @@ Line_spanner::print (SCM smob)
   for (LEFT_and_RIGHT (d))
     {
       Offset z (from_scm<double> (ly_assoc_get (ly_symbol2scm ("X"),
-                                                 bounds[d], SCM_BOOL_F), 0.0),
+                                                bounds[d], SCM_BOOL_F), 0.0),
                 from_scm<double> (ly_assoc_get (ly_symbol2scm ("Y"),
-                                                 bounds[d], SCM_BOOL_F), 0.0));
+                                                bounds[d], SCM_BOOL_F), 0.0));
 
       span_points[d] = z;
     }
@@ -296,9 +296,9 @@ Line_spanner::print (SCM smob)
   for (LEFT_and_RIGHT (d))
     {
       gaps[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"),
-                                                 bounds[d], SCM_BOOL_F), 0.0);
+                                                bounds[d], SCM_BOOL_F), 0.0);
       arrows[d] = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("arrow"),
-                                            bounds[d], SCM_BOOL_F));
+                                                bounds[d], SCM_BOOL_F));
       stencils[d] = unsmob<Stencil> (ly_assoc_get (ly_symbol2scm ("stencil"),
                                                    bounds[d], SCM_BOOL_F));
       common_y[d] = unsmob<Grob> (ly_assoc_get (ly_symbol2scm ("common-Y"),
@@ -353,7 +353,7 @@ Line_spanner::print (SCM smob)
 
   for (LEFT_and_RIGHT (d))
     {
-      if (stencils[d] && ! stencils[d]->is_empty())
+      if (stencils[d] && ! stencils[d]->is_empty ())
         span_points[d] += dz_dir *
                           (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
     }

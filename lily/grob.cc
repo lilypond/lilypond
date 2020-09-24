@@ -369,9 +369,9 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
       dim_cache_[Y_AXIS].offset_ = 0;
       set_property (this, "pure-Y-offset-in-progress", SCM_BOOL_T);
       off = from_scm<double> (call_pure_function (proc,
-                                                   scm_list_1 (self_scm ()),
-                                                   start, end),
-                               0.0);
+                                                  scm_list_1 (self_scm ()),
+                                                  start, end),
+                              0.0);
       del_property (this, "pure-Y-offset-in-progress");
       dim_cache_[Y_AXIS].offset_.reset ();
     }

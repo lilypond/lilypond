@@ -100,7 +100,7 @@ Hairpin::broken_bound_padding (SCM smob)
     return to_scm (0.0);
 
   return to_scm (from_scm<double> (get_property (me, "bound-padding"), 0.5)
-                          / 2.0);
+                 / 2.0);
 }
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);

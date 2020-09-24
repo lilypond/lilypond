@@ -191,8 +191,8 @@ Flag::internal_calc_y_offset (SCM smob, bool pure)
                          : stem->extent (stem, Y_AXIS);
 
   return to_scm (stem_extent.is_empty ()
-                          ? 0.0
-                          : stem_extent[d] - d * blot / 2);
+                 ? 0.0
+                 : stem_extent[d] - d * blot / 2);
 }
 
 MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);

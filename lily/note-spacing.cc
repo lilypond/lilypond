@@ -113,7 +113,7 @@ static Real
 knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
 {
   Real note_head_width = increment;
-  Item *head = right_stem ? dynamic_cast<Item*> (Stem::support_head (right_stem)) : 0;
+  Item *head = right_stem ? dynamic_cast<Item *> (Stem::support_head (right_stem)) : 0;
 
   if (head)
     {

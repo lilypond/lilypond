@@ -393,7 +393,7 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
   if (scm_is_pair (achain))
     {
       SCM handle = scm_is_symbol (key) ? scm_assq (key, scm_car (achain))
-                                       : ly_assoc (key, scm_car (achain));
+                   : ly_assoc (key, scm_car (achain));
       if (scm_is_pair (handle))
         return scm_cdr (handle);
       else
@@ -749,12 +749,12 @@ LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
   vector<char *> argv;
 
   // Ensure that the string of arguments is never empty.
-  string new_args(" ");
+  string new_args (" ");
   for (SCM s = args; scm_is_pair (s); s = scm_cdr (s))
     {
       char *a = ly_scm2str0 (scm_car (s));
       argv.push_back (a);
-      new_args += string(a) + " ";
+      new_args += string (a) + " ";
     }
 
   if (gs_args.length () > 0)

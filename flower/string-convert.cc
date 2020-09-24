@@ -200,7 +200,7 @@ string
 String_convert::to_upper (string s)
 {
   // Implicit copy of argument, no reference.
-  std::transform(s.begin (), s.end (), s.begin (), ::toupper);
+  std::transform (s.begin (), s.end (), s.begin (), ::toupper);
   return s;
 }
 
@@ -208,7 +208,7 @@ string
 String_convert::to_lower (string s)
 {
   // Implicit copy of argument, no reference.
-  std::transform(s.begin (), s.end (), s.begin (), ::tolower);
+  std::transform (s.begin (), s.end (), s.begin (), ::tolower);
   return s;
 }
 

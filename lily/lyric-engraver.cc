@@ -76,7 +76,7 @@ Lyric_engraver::process_music ()
         {
           if (last_text_)
             set_property (last_text_, "self-alignment-X",
-                                      get_property (this, "lyricMelismaAlignment"));
+                          get_property (this, "lyricMelismaAlignment"));
         }
       else
         text_ = make_item ("LyricText", event_->self_scm ());
@@ -88,7 +88,7 @@ Lyric_engraver::process_music ()
       && from_scm<bool> (get_property (voice, "melismaBusy"))
       && !from_scm<bool> (get_property (context (), "ignoreMelismata")))
     set_property (last_text_, "self-alignment-X",
-                              get_property (this, "lyricMelismaAlignment"));
+                  get_property (this, "lyricMelismaAlignment"));
 }
 
 Context *
@@ -186,7 +186,7 @@ Lyric_engraver::stop_translation_timestep ()
               if (melisma_busy (voice)
                   && !from_scm<bool> (get_property (this, "ignoreMelismata")))
                 set_property (text_, "self-alignment-X",
-                                     get_property (this, "lyricMelismaAlignment"));
+                              get_property (this, "lyricMelismaAlignment"));
             }
         }
 

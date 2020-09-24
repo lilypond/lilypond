@@ -158,8 +158,8 @@ Dot_column::calc_positioning_done (SCM smob)
       // Sort dots by stem, then check for dots above the limit for each stem
       vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
-        if (Grob *stem = unsmob<Grob> (get_object (dots[i]->get_y_parent ()
-                                       , "stem")))
+        if (Grob *stem = unsmob<Grob> (get_object (dots[i]->get_y_parent (),
+                                                   "stem")))
           for (vsize j = 0; j < parent_stems.size (); j++)
             if (stem == parent_stems[j])
               {

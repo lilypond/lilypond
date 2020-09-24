@@ -26,9 +26,9 @@ get_detail (SCM alist, SCM sym)
 {
   SCM entry = scm_assq (sym, alist);
   return from_scm<double> (scm_is_pair (entry)
-                            ? scm_cdr (entry)
-                            : SCM_EOL,
-                            0.0);
+                           ? scm_cdr (entry)
+                           : SCM_EOL,
+                           0.0);
 }
 
 void

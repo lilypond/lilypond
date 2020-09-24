@@ -238,7 +238,7 @@ Completion_heads_engraver::process_music ()
         tie event should be processed.
       */
       set_property (event, "autosplit-end",
-                           ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
+                    ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
 
       Item *note = make_note_head (event);
       if (need_clone)
@@ -304,7 +304,7 @@ Completion_heads_engraver::start_translation_timestep ()
       prev_notes_.clear ();
     }
   set_property (context (), "completionBusy",
-                            ly_bool2scm (note_events_.size ()));
+                ly_bool2scm (note_events_.size ()));
 }
 
 Completion_heads_engraver::Completion_heads_engraver (Context *c)

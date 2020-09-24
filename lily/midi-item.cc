@@ -155,7 +155,8 @@ string
 Midi_key::to_string () const
 {
   uint8_t str[] = {0xff, 0x59, 0x02, uint8_t (audio_->accidentals_),
-                   uint8_t (audio_->major_ ? 0 : 1)};
+                   uint8_t (audio_->major_ ? 0 : 1)
+                  };
 
   return string ((char *) str, sizeof (str));
 }
@@ -184,7 +185,8 @@ Midi_time_signature::to_string () const
                    uint8_t (num),
                    uint8_t (intlog2 (den)),
                    uint8_t (clocks_per_1_),
-                   8};
+                   8
+                  };
   return string ((char *) out, sizeof (out));
 }
 

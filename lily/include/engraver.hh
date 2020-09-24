@@ -76,7 +76,6 @@ public:
 
 bool ly_is_grob_cause (SCM obj);
 
-
 // Acknowledger trampolines
 template <class T, void (T::*callback) (Grob_info)>
 SCM Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)

@@ -370,7 +370,7 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
            "Put @var{stc} in a different color."
            "Accepts either three values for @var{r},"
            "@var{g}, @var{b} and an optional value"
-	   "for @var{a}, or a single CSS-like string.")
+           "for @var{a}, or a single CSS-like string.")
 {
   LY_ASSERT_SMOB (Stencil, stc, 1);
   Stencil *stil = unsmob<Stencil> (stc);
@@ -378,7 +378,7 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
   if (SCM_UNBNDP (g) && scm_is_string (r))
     color = r;
   else
-  color = SCM_UNBNDP (a) ? scm_list_3 (r, g, b) : scm_list_4 (r, g, b, a);
+    color = SCM_UNBNDP (a) ? scm_list_3 (r, g, b) : scm_list_4 (r, g, b, a);
   return Stencil (stil->extent_box (),
                   scm_list_3 (ly_symbol2scm ("color"),
                               color,
@@ -407,7 +407,7 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 
   return Lookup::bracket ((Axis) scm_to_int (a), extent, scm_to_double (t),
                           scm_to_double (p), 0.95 * scm_to_double (t))
-    .smobbed_copy ();
+         .smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",

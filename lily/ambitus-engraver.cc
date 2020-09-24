@@ -78,7 +78,7 @@ Ambitus_engraver::create_ambitus ()
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
       accidentals_[d]->set_y_parent (heads_[d]);
       set_object (heads_[d], "accidental-grob",
-                             accidentals_[d]->self_scm ());
+                  accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
     }
@@ -191,7 +191,7 @@ Ambitus_engraver::finalize ()
 
           set_property (heads_[d], "cause", causes_[d]->self_scm ());
           set_property (heads_[d], "staff-position",
-                                   to_scm (start_c0_ + pos));
+                        to_scm (start_c0_ + pos));
 
           SCM handle = ly_assoc (scm_cons (to_scm (p.get_octave ()),
                                            to_scm (p.get_notename ())),

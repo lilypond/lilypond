@@ -458,9 +458,9 @@ LY_DEFINE (ly_extract_subfont_from_collection,
     }
   int numfonts
     = static_cast<unsigned char>(buff[0]) << 24
-    | static_cast<unsigned char>(buff[1]) << 16
-    | static_cast<unsigned char>(buff[2]) << 8
-    | static_cast<unsigned char>(buff[3]);
+      | static_cast<unsigned char>(buff[1]) << 16
+      | static_cast<unsigned char>(buff[2]) << 8
+      | static_cast<unsigned char>(buff[3]);
 
   if ( i > numfonts)
     {
@@ -481,9 +481,9 @@ LY_DEFINE (ly_extract_subfont_from_collection,
     }
   unsigned int offset
     = static_cast<unsigned char>(buff[0]) << 24
-    | static_cast<unsigned char>(buff[1]) << 16
-    | static_cast<unsigned char>(buff[2]) << 8
-    | static_cast<unsigned char>(buff[3]);
+      | static_cast<unsigned char>(buff[1]) << 16
+      | static_cast<unsigned char>(buff[2]) << 8
+      | static_cast<unsigned char>(buff[3]);
 
   // Seek to subfont
   fseek (fi, offset, SEEK_SET);
@@ -497,8 +497,8 @@ LY_DEFINE (ly_extract_subfont_from_collection,
       return SCM_BOOL_F;
     }
 
-  if (!(buff[0] == 0 && buff[1] == 1 && buff[2] == 0 && buff[3] == 0) &&
-      !(buff[0] == 'O' && buff[1] == 'T' && buff[2] == 'T' && buff[3] == 'O'))
+  if (!(buff[0] == 0 && buff[1] == 1 && buff[2] == 0 && buff[3] == 0)
+      && !(buff[0] == 'O' && buff[1] == 'T' && buff[2] == 'T' && buff[3] == 'O'))
     {
       fclose (fi);
       warning (_f ("font `%s': invalid field `sfntVersion' in subfont %d",
@@ -578,7 +578,7 @@ LY_DEFINE (ly_extract_subfont_from_collection,
   std::vector<struct tables> ttcotc_tables;
 
   unsigned int next_offset = static_cast<unsigned int> (ftell (fo))
-    + numtables * 16;
+                             + numtables * 16;
 
   // Copy and modify table records
   for (unsigned int t = 0; t < numtables; t++)
@@ -595,11 +595,11 @@ LY_DEFINE (ly_extract_subfont_from_collection,
                        collection.c_str (), "tableTag", t + 1, i));
           return SCM_BOOL_F;
         }
-      tbl.tag[0]=buff[0];
-      tbl.tag[1]=buff[1];
-      tbl.tag[2]=buff[2];
-      tbl.tag[3]=buff[3];
-      tbl.tag[4]=0;
+      tbl.tag[0] = buff[0];
+      tbl.tag[1] = buff[1];
+      tbl.tag[2] = buff[2];
+      tbl.tag[3] = buff[3];
+      tbl.tag[4] = 0;
       // Write `tableTag`
       if (fwrite (buff, 4, 1, fo) != 1)
         {
@@ -642,9 +642,9 @@ LY_DEFINE (ly_extract_subfont_from_collection,
         }
       tbl.offset
         = static_cast<unsigned char>(buff[0]) << 24
-        | static_cast<unsigned char>(buff[1]) << 16
-        | static_cast<unsigned char>(buff[2]) << 8
-        | static_cast<unsigned char>(buff[3]);
+          | static_cast<unsigned char>(buff[1]) << 16
+          | static_cast<unsigned char>(buff[2]) << 8
+          | static_cast<unsigned char>(buff[3]);
       tbl.new_offset = next_offset;
       buff[0] = static_cast<char> ((tbl.new_offset >> 24) & 0xff);
       buff[1] = static_cast<char> ((tbl.new_offset >> 16) & 0xff);
@@ -672,9 +672,9 @@ LY_DEFINE (ly_extract_subfont_from_collection,
         }
       tbl.length
         = static_cast<unsigned char>(buff[0]) << 24
-        | static_cast<unsigned char>(buff[1]) << 16
-        | static_cast<unsigned char>(buff[2]) << 8
-        | static_cast<unsigned char>(buff[3]);
+          | static_cast<unsigned char>(buff[1]) << 16
+          | static_cast<unsigned char>(buff[2]) << 8
+          | static_cast<unsigned char>(buff[3]);
       // Write `length`
       if (fwrite (buff, 4, 1, fo) != 1)
         {
@@ -695,7 +695,7 @@ LY_DEFINE (ly_extract_subfont_from_collection,
     }
 
   // Copy tables
-  for (const auto &tbl: ttcotc_tables)
+  for (const auto &tbl : ttcotc_tables)
     {
       auto table_buffer = std::vector<char> (tbl.length, 0);
       fseek (fi, tbl.offset, SEEK_SET);

@@ -60,8 +60,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
   if (!my_stencil)
     return Skyline_pair ().smobbed_copy ();
 
-  Skyline_pair sky (skylines_from_stencil (
-    my_stencil->smobbed_copy (), get_property (me, "rotation"), Y_AXIS));
+  Skyline_pair sky (skylines_from_stencil (my_stencil->smobbed_copy (), get_property (me, "rotation"), Y_AXIS));
 
   SCM alist = get_property (me, "glyph-name-alist");
   SCM alt = get_property (me, "alteration");
@@ -78,8 +77,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
       Real left = my_stencil->extent (X_AXIS)[LEFT];
       Real right = my_stencil->extent (X_AXIS)[RIGHT] * 0.375;
       vector<Box> boxes;
-      boxes.push_back (
-        Box (Interval (left, right), my_stencil->extent (Y_AXIS)));
+      boxes.push_back (Box (Interval (left, right), my_stencil->extent (Y_AXIS)));
       Skyline merge_with_me (boxes, Y_AXIS, RIGHT);
       sky[RIGHT].merge (merge_with_me);
     }

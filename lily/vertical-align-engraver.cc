@@ -130,7 +130,7 @@ bool
 Vertical_align_engraver::qualifies (Grob_info i) const
 {
   return has_interface<Axis_group_interface> (i.grob ())
-         && dynamic_cast<Spanner*> (i.grob ())
+         && dynamic_cast<Spanner *> (i.grob ())
          && !i.grob ()->get_y_parent ()
          && !from_scm<bool> (get_property (i.grob (), "no-alignment"))
          && Axis_group_interface::has_axis (i.grob (), Y_AXIS);

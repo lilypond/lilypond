@@ -123,10 +123,10 @@ Timing_translator::initialize ()
   set_property (context (), "beatStructure", beatStructure);
 
   set_property (context (), "beamHalfMeasure",
-                            get_property (timing, "beamHalfMeasure"));
+                get_property (timing, "beamHalfMeasure"));
 
   set_property (context (), "autoBeaming",
-                            get_property (timing, "autoBeaming"));
+                get_property (timing, "autoBeaming"));
 }
 
 Rational

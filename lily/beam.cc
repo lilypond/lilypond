@@ -447,7 +447,7 @@ Beam::calc_beam_segments (SCM smob)
 
   Drul_array<Real> break_overshoot
     = from_scm (get_property (me, "break-overshoot"),
-                       Drul_array<Real> (-0.5, 0.0));
+                Drul_array<Real> (-0.5, 0.0));
 
   vector<Beam_segment> segments;
   for (Position_stem_segments_map::const_iterator i (stem_segments.begin ());
@@ -598,9 +598,9 @@ Beam::calc_x_positions (SCM smob)
   x_positions.set_empty ();
   for (SCM s = segments; scm_is_pair (s); s = scm_cdr (s))
     x_positions.unite (from_scm (ly_assoc_get (ly_symbol2scm ("horizontal"),
-                                                          scm_car (s),
-                                                          SCM_EOL),
-                                            Interval (0.0, 0.0)));
+                                               scm_car (s),
+                                               SCM_EOL),
+                                 Interval (0.0, 0.0)));
 
   // Case for beams without segments (i.e. uniting two skips with a beam)
   // TODO: should issue a warning?  warning likely issued downstream, but couldn't hurt...
@@ -1264,7 +1264,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
 
   Drul_array<Real> pos (from_scm (get_property (beam, "positions"),
-                                         Drul_array<Real> (0, 0)));
+                                  Drul_array<Real> (0, 0)));
 
   for (LEFT_and_RIGHT (dir))
     pos[dir] += beam->relative_coordinate (common_y, Y_AXIS);
@@ -1279,7 +1279,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Grob *common = common_refpoint_of_array (stems, beam, X_AXIS);
 
   Interval x_span = from_scm (get_property (beam, "X-positions"),
-                                         Interval (0.0, 0.0));
+                              Interval (0.0, 0.0));
   Real x0 = x_span[LEFT];
   Real dx = x_span.length ();
   Real slope = dy && dx ? dy / dx : 0;

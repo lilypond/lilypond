@@ -394,19 +394,16 @@ set_labels (SCM sys, SCM labels)
       if (cols.size ())
         {
           Paper_column *col = cols[0];
-          set_property (
-            col, "labels",
-            scm_append (scm_list_2 (get_property (col, "labels"), labels)));
+          set_property (col, "labels",
+                        scm_append (scm_list_2 (get_property (col, "labels"), labels)));
           Paper_column *col_right = col->find_prebroken_piece (RIGHT);
           set_property (col_right, "labels",
-                        scm_append (scm_list_2 (
-                          get_property (col_right, "labels"), labels)));
+                        scm_append (scm_list_2 (get_property (col_right, "labels"), labels)));
         }
     }
   else if (Prob *pb = unsmob<Prob> (sys))
-    set_property (
-      pb, "labels",
-      scm_append (scm_list_2 (get_property (pb, "labels"), labels)));
+    set_property (pb, "labels",
+                  scm_append (scm_list_2 (get_property (pb, "labels"), labels)));
 }
 
 SCM
@@ -523,9 +520,9 @@ Paper_book::get_system_specs ()
               // TODO: init props
               Prob *ps = make_paper_system (SCM_EOL);
               set_property (ps, "page-break-permission",
-                                ly_symbol2scm ("allow"));
+                            ly_symbol2scm ("allow"));
               set_property (ps, "page-turn-permission",
-                                ly_symbol2scm ("allow"));
+                            ly_symbol2scm ("allow"));
               set_property (ps, "last-markup-line", SCM_BOOL_F);
               set_property (ps, "first-markup-line", SCM_BOOL_F);
 

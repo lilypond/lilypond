@@ -110,9 +110,8 @@ again:
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
       for (size_t i = 0; i < len; i++)
         {
-          scm_c_vector_set_x (
-            nv, i,
-            do_break_substitution (break_criterion, scm_c_vector_ref (src, i)));
+          scm_c_vector_set_x (nv, i,
+                              do_break_substitution (break_criterion, scm_c_vector_ref (src, i)));
         }
     }
   else if (scm_is_pair (src))

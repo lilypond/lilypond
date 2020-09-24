@@ -56,7 +56,7 @@ public:
   LY_DECLARE_STATIC_SMOB_PROC (call, sizeof ...(Args) + 1, 0, 0)
   static SCM call (SCM self, SCM target, Args ... args)
   {
-    return (Callback_wrapper::unchecked_unsmob (self)->trampoline_)(target, args ...);
+    return (Callback_wrapper::unchecked_unsmob (self)->trampoline_) (target, args ...);
   }
 
   // Callback wrappers are for an unchanging entity, so we do the Lisp
@@ -143,8 +143,8 @@ public:
 // don't want to pull in all of <type_traits> for a header as
 // frequently included as this one.
 template <typename U> struct ly_remove_pointer; // Template, no default
-template <typename U> struct ly_remove_pointer <U*> { using type = U; };
-template <typename U> struct ly_remove_pointer <const U*> { using type = U; };
+template <typename U> struct ly_remove_pointer <U *> { using type = U; };
+template <typename U> struct ly_remove_pointer <const U *> { using type = U; };
 
 // Tool class for member function pointer base class identification in
 // spirit akin to the <type_traits> include file classes.
@@ -157,12 +157,12 @@ class mfp_baseclass
 {
   // We cannot make the return type U since it can be an abstract base class
   template <typename U, typename V, typename ...W>
-  static U* strip_mfp (V (U::*) (W...));
+  static U *strip_mfp (V (U::*) (W...));
   template <typename U, typename V, typename ...W>
-  static U* strip_mfp (V (U::*) (W...) const);
+  static U *strip_mfp (V (U::*) (W...) const);
 public:
-  using type =
-    typename ly_remove_pointer<decltype(strip_mfp (static_cast<T> (nullptr)))>::type;
+  using type
+    = typename ly_remove_pointer<decltype (strip_mfp (static_cast<T> (nullptr)))>::type;
 };
 
 // Build a member function pointer given a pointer to the class and

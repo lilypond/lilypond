@@ -175,8 +175,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
             }
           // b. descendens longa or brevis
           else if (i < s - 1
-                   && (unsmob<Pitch> (get_property (primitives[i + 1].event_cause ()
-                                      , "pitch"))->steps () < pitch)
+                   && (unsmob<Pitch> (get_property (primitives[i + 1].event_cause (),
+                                                    "pitch"))->steps () < pitch)
                    && duration_log > -3)
             {
               int left_stem = duration_log == -1 ? MLP_DOWN : 0;
@@ -354,7 +354,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int output = scm_to_int (get_property (primitive, "primitive"));
       set_property (primitive, "thickness",
-                               to_scm (thickness));
+                    to_scm (thickness));
 
       switch (output & MLP_ANY)
         {
@@ -366,7 +366,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
         case MLP_MAXIMA:
           min_length += maxima_head_width;
           set_property (primitive, "head-width",
-                                   to_scm (maxima_head_width));
+                        to_scm (maxima_head_width));
           break;
         case MLP_FLEXA_BEGIN:
           /*

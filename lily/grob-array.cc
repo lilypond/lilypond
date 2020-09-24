@@ -83,7 +83,7 @@ Grob_array::filter_map (Grob * (*map_fun) (Grob *))
 }
 
 void
-Grob_array::filter_map2 (Grob *(*map_fun) (SCM, Grob *), SCM arg)
+Grob_array::filter_map2 (Grob * (*map_fun) (SCM, Grob *), SCM arg)
 {
   vsize new_size = 0;
   for (vsize i = 0; i < grobs_.size (); ++i)
@@ -112,7 +112,7 @@ Grob_array::filter_map_assign (const Grob_array &src,
 
 void
 Grob_array::filter_map_assign2 (const Grob_array &src,
-                                Grob *(*map_fun) (SCM, Grob *), SCM arg)
+                                Grob * (*map_fun) (SCM, Grob *), SCM arg)
 {
   if (&src != this)
     {

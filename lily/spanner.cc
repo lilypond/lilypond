@@ -254,7 +254,7 @@ Real
 Spanner::spanner_length () const
 {
   Interval lr = from_scm (get_property (this, "X-positions"),
-                                     Interval (1, -1));
+                          Interval (1, -1));
 
   if (lr.is_empty ())
     {
@@ -263,7 +263,7 @@ Spanner::spanner_length () const
 
       for (LEFT_and_RIGHT (d))
         lr[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("X"),
-                                                 bounds[d], SCM_BOOL_F), -d);
+                                                bounds[d], SCM_BOOL_F), -d);
     }
 
   if (lr.is_empty ())

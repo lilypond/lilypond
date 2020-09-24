@@ -146,8 +146,8 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
       SCM func = scm_eval (lp_function, scm_interaction_environment ());
       if (ly_is_procedure (func))
         return from_scm_list<std::vector<Real>> (scm_call_2 (func,
-                                               me->self_scm (),
-                                               to_scm (pos)));
+                                                             me->self_scm (),
+                                                             to_scm (pos)));
     }
 
   SCM ledger_positions = get_property (me, "ledger-positions");

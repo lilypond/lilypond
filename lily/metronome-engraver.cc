@@ -141,7 +141,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
             text_->set_x_parent (cc);
         }
       set_object (text_, "side-support-elements",
-                         grob_list_to_grob_array (get_property (this, "stavesFound")));
+                  grob_list_to_grob_array (get_property (this, "stavesFound")));
       text_ = 0;
       support_ = 0;
       bar_ = 0;

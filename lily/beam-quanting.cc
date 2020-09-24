@@ -270,7 +270,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
 
       // positions of the endpoints of this beam segment, including any overhangs
       const Interval x_pos = from_scm (get_property (beams[i], "X-positions"),
-                                                  Interval (0.0, 0.0));
+                                       Interval (0.0, 0.0));
 
       Drul_array<Grob *> edge_stems (Beam::first_normal_stem (beams[i]),
                                      Beam::last_normal_stem (beams[i]));
@@ -911,9 +911,9 @@ Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *s
             if ((unquanted_y_[d] + unshifted_quants[i]) * edge_dirs_[d] > 2.5)
               corr[d] = grid_shift * edge_dirs_[d];
         auto c = Beam_configuration::new_config
-          (unquanted_y_,
-           Drul_array<Real> (unshifted_quants[i] - corr[LEFT],
-                             unshifted_quants[j] - corr[RIGHT]));
+                 (unquanted_y_,
+                  Drul_array<Real> (unshifted_quants[i] - corr[LEFT],
+                                    unshifted_quants[j] - corr[RIGHT]));
 
         for (LEFT_and_RIGHT (d))
           {

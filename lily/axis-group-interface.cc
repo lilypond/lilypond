@@ -92,9 +92,9 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
         e->set_parent (me, a);
 
       set_object (e, (a == X_AXIS)
-                     ? ly_symbol2scm ("axis-group-parent-X")
-                     : ly_symbol2scm ("axis-group-parent-Y"),
-                     me->self_scm ());
+                  ? ly_symbol2scm ("axis-group-parent-X")
+                  : ly_symbol2scm ("axis-group-parent-Y"),
+                  me->self_scm ());
     }
 
   /* must be ordered, because Align_interface also uses
@@ -682,10 +682,8 @@ pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
         }
     }
 
-  Real priority_1 = from_scm<double> (
-    get_property (p[0], "outside-staff-priority"), -infinity_f);
-  Real priority_2 = from_scm<double> (
-    get_property (p[1], "outside-staff-priority"), -infinity_f);
+  Real priority_1 = from_scm<double> (get_property (p[0], "outside-staff-priority"), -infinity_f);
+  Real priority_2 = from_scm<double> (get_property (p[1], "outside-staff-priority"), -infinity_f);
 
   return priority_1 < priority_2;
 }
@@ -800,8 +798,8 @@ add_grobs_of_one_priority (Grob *me,
           Grob *elt = elements[i];
           Real padding
             = from_scm<double> (get_property (elt, "outside-staff-padding"),
-                                 Axis_group_interface
-                                 ::get_default_outside_staff_padding ());
+                                Axis_group_interface
+                                ::get_default_outside_staff_padding ());
           Real horizon_padding
             = from_scm<double> (get_property (elt, "outside-staff-horizontal-padding"), 0.0);
           Interval x_extent = elt->extent (x_common, X_AXIS);
@@ -893,12 +891,11 @@ Axis_group_interface::outside_staff_ancestor (Grob *me)
 Skyline_pair
 Axis_group_interface::skyline_spacing (Grob *me)
 {
-  extract_grob_set (
-    me,
-    unsmob<Grob_array> (get_object (me, "vertical-skyline-elements"))
-      ? "vertical-skyline-elements"
-      : "elements",
-    fakeelements);
+  extract_grob_set (me,
+                    unsmob<Grob_array> (get_object (me, "vertical-skyline-elements"))
+                    ? "vertical-skyline-elements"
+                    : "elements",
+                    fakeelements);
   vector<Grob *> elements (fakeelements);
   for (vsize i = 0; i < elements.size (); i++)
     /*
@@ -957,10 +954,8 @@ Axis_group_interface::skyline_spacing (Grob *me)
           if (maybe_pair->is_empty ())
             continue;
           inside_staff_skylines.push_back (*maybe_pair);
-          inside_staff_skylines.back ().shift (
-            elt->relative_coordinate (x_common, X_AXIS));
-          inside_staff_skylines.back ().raise (
-            elt->relative_coordinate (y_common, Y_AXIS));
+          inside_staff_skylines.back ().shift (elt->relative_coordinate (x_common, X_AXIS));
+          inside_staff_skylines.back ().raise (elt->relative_coordinate (y_common, Y_AXIS));
         }
     }
 

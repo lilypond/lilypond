@@ -1233,13 +1233,13 @@ Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
 {
 #if DEBUG_TIE_SCORING
   if (from_scm<bool> (x_refpoint_->layout ()
-                  ->lookup_variable (ly_symbol2scm ("debug-tie-scoring"))))
+                      ->lookup_variable (ly_symbol2scm ("debug-tie-scoring"))))
     {
       for (vsize i = 0; i < base.size (); i++)
         {
           string card = base.complete_tie_card (i);
           set_property (specifications_[i].tie_grob_, "annotation",
-                                                      ly_string2scm (card));
+                        ly_string2scm (card));
         }
     }
 #endif

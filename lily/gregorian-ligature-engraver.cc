@@ -243,7 +243,7 @@ provide_context_info (vector<Grob_info> const &primitives)
 
       if (prev_primitive)
         set_property (prev_primitive, "context-info",
-                                      to_scm (prev_context_info));
+                      to_scm (prev_context_info));
       prev_primitive = primitive;
       prev_prefix_set = prefix_set;
       prev_context_info = context_info;
@@ -251,7 +251,7 @@ provide_context_info (vector<Grob_info> const &primitives)
     }
   if (prev_primitive)
     set_property (prev_primitive, "context-info",
-                                  to_scm (prev_context_info));
+                  to_scm (prev_context_info));
 }
 
 void

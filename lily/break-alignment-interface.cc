@@ -317,8 +317,8 @@ Break_alignable_interface::self_align_callback (SCM grob)
   Real anchor = from_scm<double> (get_property (alignment_parent, "break-align-anchor"), 0);
 
   return to_scm (alignment_parent->relative_coordinate (common, X_AXIS)
-                          - me->relative_coordinate (common, X_AXIS)
-                          + anchor);
+                 - me->relative_coordinate (common, X_AXIS)
+                 + anchor);
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor, 1)

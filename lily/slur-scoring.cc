@@ -369,7 +369,7 @@ Slur::calc_control_points (SCM smob)
   SCM end_ys = get_property (me, "positions");
   SCM inspect_quants = get_property (me, "inspect-quants");
   bool debug_slurs = from_scm<bool> (me->layout ()
-                                 ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
+                                     ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
 
   if (is_number_pair (inspect_quants))
     {

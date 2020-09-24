@@ -73,7 +73,6 @@
   which amounts to a currying mechanism.  The curried function created
   in that manner, however, can be compared for equality based on its
   ingredients which allows the targeted removal of event listeners.
-
 */
 
 #include "callback.hh"
@@ -142,7 +141,7 @@ public:
   static Listener
   get (SCM instance)
   {
-    return Listener(MFP_WRAP (callback), instance);
+    return Listener (MFP_WRAP (callback), instance);
   }
 };
 

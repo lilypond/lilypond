@@ -129,7 +129,7 @@ Bend_engraver::process_music ()
     {
       fall_ = make_spanner ("BendAfter", fall_event_->self_scm ());
       set_property (fall_, "delta-position",
-                           to_scm (from_scm<double> (get_property (fall_event_, "delta-step"), 0)));
+                    to_scm (from_scm<double> (get_property (fall_event_, "delta-step"), 0)));
     }
 }
 

@@ -165,7 +165,7 @@ Bar_number_engraver::stop_translation_timestep ()
   if (text_)
     {
       set_object (text_, "side-support-elements",
-                         grob_list_to_grob_array (get_property (this, "stavesFound")));
+                  grob_list_to_grob_array (get_property (this, "stavesFound")));
       text_ = 0;
     }
 }

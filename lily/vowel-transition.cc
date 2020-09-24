@@ -43,29 +43,26 @@ Vowel_transition::set_spacing_rods (SCM smob)
       Drul_array<Item *> bounds (sp->get_bound (LEFT), sp->get_bound (RIGHT));
       if (!bounds[LEFT] || !bounds[RIGHT])
         return SCM_UNSPECIFIED;
-      std::vector<Item *> cols (root->broken_col_range (
-          bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
+      std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
       Drul_array<Real> padding = {0.0, 0.0};
       Drul_array<Real> padding_broken = {0.0, 0.0};
       for (LEFT_and_RIGHT (d))
         {
           SCM bounds = get_property (sp, "bound-details");
-          SCM details = ly_assoc_get (
-              (d == LEFT ? ly_symbol2scm ("left") : ly_symbol2scm ("right")),
-              bounds, SCM_BOOL_F);
+          SCM details = ly_assoc_get ((d == LEFT ? ly_symbol2scm ("left") : ly_symbol2scm ("right")),
+                                      bounds, SCM_BOOL_F);
           SCM details_broken
-              = ly_assoc_get ((d == LEFT ? ly_symbol2scm ("left-broken")
-                                         : ly_symbol2scm ("right-broken")),
-                              bounds, SCM_BOOL_F);
+            = ly_assoc_get ((d == LEFT ? ly_symbol2scm ("left-broken")
+                             : ly_symbol2scm ("right-broken")),
+                            bounds, SCM_BOOL_F);
           if (!scm_is_false (details))
-            padding[d] = from_scm<double> (
-                ly_assoc_get (ly_symbol2scm ("padding"), details, SCM_BOOL_F),
-                0.0);
+            padding[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"), details, SCM_BOOL_F),
+                                           0.0);
           if (!scm_is_false (details_broken))
             padding_broken[d]
-                = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"),
-                                                   details_broken, SCM_BOOL_F),
-                                     0.0);
+              = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"),
+                                                details_broken, SCM_BOOL_F),
+                                  0.0);
         }
 
       if (cols.size ())
@@ -84,8 +81,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
           Rod rod_after_break;
           rod_after_break.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
           rod_after_break.item_drul_[RIGHT] = sp->get_bound (RIGHT);
-          Interval_t<Moment> segment_time = spanned_time_interval (
-              rod_after_break.item_drul_[LEFT], rod_after_break.item_drul_[RIGHT]);
+          Interval_t<Moment> segment_time = spanned_time_interval (rod_after_break.item_drul_[LEFT], rod_after_break.item_drul_[RIGHT]);
           segment_time[LEFT].grace_part_ = 0;
           /*
             Calculate and add space only if the vowel transition is to be drawn.
@@ -96,8 +92,8 @@ Vowel_transition::set_spacing_rods (SCM smob)
               || from_scm<bool> (get_property (me, "after-line-breaking")))
             {
               rod_after_break.distance_ = (scm_is_number (broken_length)
-                                  ? from_scm<double> (broken_length, 0)
-                                  : from_scm<double> (minimum_length, 0));
+                                           ? from_scm<double> (broken_length, 0)
+                                           : from_scm<double> (minimum_length, 0));
               rod_after_break.distance_ += padding_broken[LEFT];
               rod_after_break.distance_ += padding[RIGHT];
               rod_after_break.distance_ += rod_after_break.bounds_protrusion ();

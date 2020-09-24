@@ -244,7 +244,7 @@ Cluster_beacon::height (SCM g)
 {
   Grob *me = unsmob<Grob> (g);
   Interval v = from_scm (get_property (me, "positions"),
-                                    Interval (0, 0));
+                         Interval (0, 0));
   return to_scm (Staff_symbol_referencer::staff_space (me) * 0.5 * v);
 }
 

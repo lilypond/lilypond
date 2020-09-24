@@ -77,7 +77,7 @@ Key_engraver::create_key (bool is_default)
        * Key signature, however, should still be printed at the original
        * position. */
       set_property (item_, "c0-position",
-                           get_property (this, "middleCClefPosition"));
+                    get_property (this, "middleCClefPosition"));
 
       SCM last = get_property (this, "lastKeyAlterations");
       SCM key = get_property (this, "keyAlterations");
@@ -107,7 +107,7 @@ Key_engraver::create_key (bool is_default)
 
               set_property (cancellation_, "alteration-alist", restore);
               set_property (cancellation_, "c0-position",
-                                           get_property (this, "middleCClefPosition"));
+                            get_property (this, "middleCClefPosition"));
             }
         }
 
@@ -201,7 +201,7 @@ Key_engraver::read_event (Stream_event const *r)
 
   set_property (context (), "keyAlterations", scm_reverse_x (accs, SCM_EOL));
   set_property (context (), "tonic",
-                            get_property (r, "tonic"));
+                get_property (r, "tonic"));
 }
 
 void

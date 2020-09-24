@@ -231,13 +231,14 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
       Real radius = (quantization ? diameter / 2 : 0.);
 
       /* draw straight lines */
-      Offset points[] = {
+      Offset points[] =
+      {
         Offset (-left, -bottom + radius), Offset (-left, top - radius),
-        Offset (-left + radius, top),     Offset (right - radius, top),
-        Offset (right, top - radius),     Offset (right, -bottom + radius),
+        Offset (-left + radius, top), Offset (right - radius, top),
+        Offset (right, top - radius), Offset (right, -bottom + radius),
         Offset (right - radius, -bottom), Offset (-left + radius, -bottom),
       };
-      for (vsize i = 0; i < sizeof(points) / sizeof(Offset); i += 2)
+      for (vsize i = 0; i < sizeof (points) / sizeof (Offset); i += 2)
         {
           skyline->add_contour_segment (transform, CW, points[i],
                                         points[i + 1]);
@@ -300,7 +301,8 @@ add_draw_bezier_segments_scm (Lazy_skyline_pair *skyline,
   expr = scm_cdr (expr);
   Real y3 = from_scm<double> (scm_car (expr), 0.0);
 
-  Offset ps[] = {
+  Offset ps[] =
+  {
     Offset (x0, y0),
     Offset (x1, y1),
     Offset (x2, y2),
@@ -498,10 +500,10 @@ internal_add_path_segments (Lazy_skyline_pair *skyline,
   for (SCM s = path; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_to_int (scm_length (scm_car (s))) == 4
-        ? add_draw_line_segments (skyline, transform,
-                                  scm_cons (blot, scm_car (s)))
-        : add_draw_bezier_segments_scm (skyline, transform,
-                                        scm_cons (blot, scm_car (s)));
+      ? add_draw_line_segments (skyline, transform,
+                                scm_cons (blot, scm_car (s)))
+      : add_draw_bezier_segments_scm (skyline, transform,
+                                      scm_cons (blot, scm_car (s)));
     }
 }
 
@@ -509,9 +511,8 @@ void
 add_path_segments (Lazy_skyline_pair *skyline, Transform const &transform,
                    SCM expr)
 {
-  return internal_add_path_segments (
-    skyline, transform,
-    scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))));
+  return internal_add_path_segments (skyline, transform,
+                                     scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))));
 }
 
 void
@@ -532,8 +533,7 @@ add_polygon_segments (Lazy_skyline_pair *skyline, Transform const &transform,
       first = false;
     }
   l = scm_cons (ly_symbol2scm ("closepath"), l);
-  internal_add_path_segments (
-    skyline, transform, scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)));
+  internal_add_path_segments (skyline, transform, scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)));
 }
 
 void
@@ -644,13 +644,11 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
           // FIXME: this looks extremely fishy.
           Transform transcopy = transform;
           transcopy
-            .translate (
-              Offset (kerned_bbox[X_AXIS][LEFT],
-                      kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
-            .translate (
-              Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
-            .scale (scale_factor, scale_factor)
-            .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]));
+          .translate (Offset (kerned_bbox[X_AXIS][LEFT],
+                              kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]))
+          .translate (Offset (real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]))
+          .scale (scale_factor, scale_factor)
+          .translate (-Offset (bbox[X_AXIS][LEFT], bbox[Y_AXIS][DOWN]));
           pango_fm->add_outline_to_skyline (skyline, transcopy, gidx);
         }
     }
@@ -723,10 +721,9 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
       expr = scm_cdr (expr);
       SCM x2 = scm_car (expr);
 
-      skyline->add_segment (
-        transform, Offset (0.0, 0.0),
-        Offset (from_scm<double> (x1, 0.0), from_scm<double> (x2, 0.0)),
-        from_scm<double> (th, 0.0));
+      skyline->add_segment (transform, Offset (0.0, 0.0),
+                            Offset (from_scm<double> (x1, 0.0), from_scm<double> (x2, 0.0)),
+                            from_scm<double> (th, 0.0));
     }
   else if (scm_is_eq (head, ly_symbol2scm ("circle")))
     {
@@ -868,10 +865,8 @@ SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Skyline_pair p (skylines_from_stencil (
-    get_property (me, "stencil"), get_property (me, "rotation"), X_AXIS));
-  p.pad (
-    from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0));
+  Skyline_pair p (skylines_from_stencil (get_property (me, "stencil"), get_property (me, "rotation"), X_AXIS));
+  p.pad (from_scm<double> (get_property (me, "skyline-horizontal-padding"), 0.0));
   return p.smobbed_copy ();
 }
 
@@ -880,8 +875,7 @@ SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Skyline_pair p = skylines_from_stencil (
-    get_property (me, "stencil"), get_property (me, "rotation"), Y_AXIS);
+  Skyline_pair p = skylines_from_stencil (get_property (me, "stencil"), get_property (me, "rotation"), Y_AXIS);
   p.pad (from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0));
   return p.smobbed_copy ();
 }

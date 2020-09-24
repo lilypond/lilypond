@@ -25,9 +25,10 @@
 
 #include <vector>
 
-enum Orientation {
-      CCW = DOWN,
-      CW  = UP,
+enum Orientation
+{
+  CCW = DOWN,
+  CW = UP,
 };
 
 class Lazy_skyline_pair
@@ -48,19 +49,23 @@ public:
   void add_contour_segment (Transform const &tr, Orientation orientation,
                             Offset p1, Offset p2)
   {
-    Drul_array<Offset> seg(tr (p1), tr (p2));
-    if ((seg[LEFT][a_] > seg[RIGHT][a_]) == (orientation==CCW)) {
-      per_dir_todo_[(a_ == X_AXIS) ? UP : LEFT].push_back (seg);
-    } else {
-      per_dir_todo_[(a_ == X_AXIS) ? DOWN : RIGHT].push_back (seg);
-    }
+    Drul_array<Offset> seg (tr (p1), tr (p2));
+    if ((seg[LEFT][a_] > seg[RIGHT][a_]) == (orientation == CCW))
+      {
+        per_dir_todo_[(a_ == X_AXIS) ? UP : LEFT].push_back (seg);
+      }
+    else
+      {
+        per_dir_todo_[(a_ == X_AXIS) ? DOWN : RIGHT].push_back (seg);
+      }
   }
   void add_segment (Transform const &tr, Offset p1, Offset p2, Real thickness)
   {
-    if (!thickness) {
-      add_segment(tr, p1, p2);
-      return;
-    }
+    if (!thickness)
+      {
+        add_segment (tr, p1, p2);
+        return;
+      }
     Real radius = (tr (Offset (thickness / 2, 0)) - tr (Offset (0, 0))).length ();
 
     Offset widen;
@@ -70,39 +75,45 @@ public:
 
     p1 = tr (p1);
     p2 = tr (p2);
-    if (p1[a_] > p2[a_]) {
-      std::swap(p1, p2);
-    }
+    if (p1[a_] > p2[a_])
+      {
+        std::swap (p1, p2);
+      }
     p1 -= widen;
     p2 += widen;
 
-    for (DOWN_and_UP(d)) {
-      per_dir_todo_[d].push_back (Drul_array<Offset> (p1 + d * pad, p2 + d * pad));
-    }
+    for (DOWN_and_UP (d))
+      {
+        per_dir_todo_[d].push_back (Drul_array<Offset> (p1 + d * pad, p2 + d * pad));
+      }
   }
 
   Axis axis () const { return a_; }
-  void add_box (Transform const &tr, Box b) {
-    Offset ps[] = {Offset(b[X_AXIS][LEFT],b[Y_AXIS][DOWN]),
-                   Offset(b[X_AXIS][LEFT],b[Y_AXIS][UP]),
-                   Offset(b[X_AXIS][RIGHT],b[Y_AXIS][UP]),
-                   Offset(b[X_AXIS][RIGHT],b[Y_AXIS][DOWN])};
-    for (int i = 0; i < 4; i++) {
-      add_contour_segment(tr, CW, ps[i], ps[(i+1)%4]);
-    }
+  void add_box (Transform const &tr, Box b)
+  {
+    Offset ps[] = {Offset (b[X_AXIS][LEFT], b[Y_AXIS][DOWN]),
+                   Offset (b[X_AXIS][LEFT], b[Y_AXIS][UP]),
+                   Offset (b[X_AXIS][RIGHT], b[Y_AXIS][UP]),
+                   Offset (b[X_AXIS][RIGHT], b[Y_AXIS][DOWN])
+                  };
+    for (int i = 0; i < 4; i++)
+      {
+        add_contour_segment (tr, CW, ps[i], ps[(i + 1) % 4]);
+      }
   }
 
   void merge ()
   {
-    for (DOWN_and_UP(d)) {
-      if (todo_.empty () && per_dir_todo_[d].empty())
-        continue;
+    for (DOWN_and_UP (d))
+      {
+        if (todo_.empty () && per_dir_todo_[d].empty ())
+          continue;
 
-      per_dir_todo_[d].insert(per_dir_todo_[d].end(), todo_.begin(), todo_.end());
-      skylines_[d].merge(Skyline(per_dir_todo_[d], a_, d));
-      per_dir_todo_[d].clear ();
-    }
-    todo_.clear();
+        per_dir_todo_[d].insert (per_dir_todo_[d].end (), todo_.begin (), todo_.end ());
+        skylines_[d].merge (Skyline (per_dir_todo_[d], a_, d));
+        per_dir_todo_[d].clear ();
+      }
+    todo_.clear ();
   }
 
   Skyline_pair to_pair ()

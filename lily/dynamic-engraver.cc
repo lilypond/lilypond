@@ -195,7 +195,7 @@ Dynamic_engraver::process_music ()
     {
       script_ = make_item ("DynamicText", script_event_->self_scm ());
       set_property (script_, "text",
-                             get_property (script_event_, "text"));
+                    get_property (script_event_, "text"));
 
       if (finished_spanner_)
         finished_spanner_->set_bound (RIGHT, script_);

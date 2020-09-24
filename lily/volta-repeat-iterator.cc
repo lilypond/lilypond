@@ -116,7 +116,7 @@ Volta_repeat_iterator::next_element ()
                 {
                   SCM res = SCM_EOL;
                   Context *t = get_context ()->where_defined (scm_car (lst),
-                                                             &res);
+                                                              &res);
                   if (t)
                     {
                       alt_restores_ = scm_cons

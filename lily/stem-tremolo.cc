@@ -63,8 +63,8 @@ Stem_tremolo::calc_slope (SCM smob)
     /* down stems with flags should have more sloped trems (helps avoid
        flag/stem collisions without making the stem very long) */
     return to_scm ((Stem::duration_log (stem) >= 3
-                             && get_grob_direction (me) == DOWN && !beam)
-                            ? 0.40 : 0.25);
+                    && get_grob_direction (me) == DOWN && !beam)
+                   ? 0.40 : 0.25);
 }
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_width, 1)
