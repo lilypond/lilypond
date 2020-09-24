@@ -345,8 +345,8 @@
                                    (ly:get-option 'datadir)
                                    "" file-name))
                   (format #f
-                    "lilypond-datadir (~a) concatstrings (r) file .loadfont\n"
-                    file-name))
+                          "lilypond-datadir (~a) concatstrings (r) file .loadfont\n"
+                          file-name))
                 (format #f "(~a) (r) file .loadfont\n" file-name)))
           (format #f "% cannot find font file: ~a\n" file-name)))
 
@@ -726,7 +726,7 @@ mark {ly~a_stream} /CLOSE pdfmark
          (set! remaining (cdr remaining))
          (if (and (number? page-number) alist
                   (not (memq id remaining)))
-            (format
+             (format
               port
               "mark /Page ~a /Title (~a) /Count ~a\
  /View [/XYZ null null 0] /Subtype /Link /OUT pdfmark\n"
@@ -747,8 +747,8 @@ mark {ly~a_stream} /CLOSE pdfmark
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
          (page-count (length page-stencils)))
     (cond-expand
-      (guile-2 (set-port-encoding! port "Latin1"))
-      (else))
+     (guile-2 (set-port-encoding! port "Latin1"))
+     (else))
     (initialize-font-embedding)
     (if (ly:get-option 'clip-systems)
         (clip-system-EPSes basename book))

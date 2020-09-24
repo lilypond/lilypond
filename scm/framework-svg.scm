@@ -118,8 +118,8 @@ src: url('~a');
 
 (define (dump-page paper filename page page-number page-count)
   (let* ((outport (cond-expand
-                       (guile-2 (open-output-file filename #:encoding "UTF-8"))
-                       (else (open-file filename "wb"))))
+                   (guile-2 (open-output-file filename #:encoding "UTF-8"))
+                   (else (open-file filename "wb"))))
 
          (outputter (ly:make-paper-outputter outport stencil-dispatch-alist))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
@@ -151,8 +151,8 @@ src: url('~a');
 (define (dump-preview paper stencil filename)
   (let* ((outputter (ly:make-paper-outputter
                      (cond-expand
-                       (guile-2 (open-output-file filename #:encoding "UTF-8"))
-                       (else (open-file filename "wb")))
+                      (guile-2 (open-output-file filename #:encoding "UTF-8"))
+                      (else (open-file filename "wb")))
                      stencil-dispatch-alist))
          (dump (lambda (str) (display str (ly:outputter-port outputter))))
          (lookup (lambda (x) (ly:output-def-lookup paper x)))

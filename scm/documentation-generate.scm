@@ -94,8 +94,8 @@
 
 ;; Don't output Latin1.
 (cond-expand
-  (guile-2 (set-port-encoding! out-port "UTF-8"))
-  (else))
+ (guile-2 (set-port-encoding! out-port "UTF-8"))
+ (else))
 
 (writing-wip outname)
 

@@ -117,7 +117,7 @@
 
     (ly:message (_ "Converting to `~a'...\n") dest)
     ((if (ly:get-option 'gs-api) ly:gs-api ly:gs-cli)
-      (gs-cmd-args is-eps #f) (string-join run-strings " "))
+     (gs-cmd-args is-eps #f) (string-join run-strings " "))
 
     ;; for pdfwrite, the output is only finalized once a new output
     ;; file is opened.
@@ -132,7 +132,7 @@
                        "(pdfwrite) selectdevice"
                        ;; see above
                        "newpath fill")
-                       " "))
+                      " "))
           (delete-file flush-name)))
 
     (ly:rename-file pdf-name dest)

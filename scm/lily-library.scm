@@ -769,8 +769,8 @@ as rectangular coordinates @code{(x-length . y-length)}."
 
 (define-public (string-endswith s suffix)
   (equal? suffix (substring/shared s
-                            (max 0 (- (string-length s) (string-length suffix)))
-                            (string-length s))))
+                                   (max 0 (- (string-length s) (string-length suffix)))
+                                   (string-length s))))
 
 (define-public (string-startswith s prefix)
   (equal? prefix (substring/shared s 0 (min (string-length s) (string-length prefix)))))
@@ -778,8 +778,8 @@ as rectangular coordinates @code{(x-length . y-length)}."
 (define-public (remove-whitespace strg)
   "Remove characters satisfying @code{char-whitespace?} from string @var{strg}"
   (cond-expand
-    (guile-2 (string-delete char-whitespace? strg))
-    (else (string-delete strg char-whitespace?))))
+   (guile-2 (string-delete char-whitespace? strg))
+   (else (string-delete strg char-whitespace?))))
 
 (define-public (string-encode-integer i)
   (cond
@@ -912,8 +912,8 @@ and will be applied to NUM."
 (define spanner-bounds-break-status
   (lambda (spanner)
     (cons
-      (ly:item-break-dir (ly:spanner-bound spanner LEFT))
-      (ly:item-break-dir (ly:spanner-bound spanner RIGHT)))))
+     (ly:item-break-dir (ly:spanner-bound spanner LEFT))
+     (ly:item-break-dir (ly:spanner-bound spanner RIGHT)))))
 
 (define-public unbroken-spanner?
   (lambda (spanner) (equal? '(0 . 0) (spanner-bounds-break-status spanner))))

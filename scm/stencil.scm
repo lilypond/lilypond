@@ -852,8 +852,8 @@ with optional arrows of @code{max-size} on start and end controlled by
          (arrow-1
           (ly:make-stencil
            `(polygon  ,(append-map complex-to-offset p1s)
-                     0.0
-                     #t) null null))
+                      0.0
+                      #t) null null))
          (arrow-2
           (ly:make-stencil
            `(polygon ,(append-map complex-to-offset p2s)

@@ -40,17 +40,17 @@
               (cdr t)
               (car t)
               (getpid))))
-  (set! *random-state* (seed->random-state seed))))
+    (set! *random-state* (seed->random-state seed))))
 
 (randomize-rand-seed)
 
 (read-enable 'positions)
 (cond-expand
-  (guile-2
-    (begin
-      (debug-enable 'backtrace)
-      (debug-set! show-file-name #t)))
-  (else (debug-enable 'debug)))
+ (guile-2
+  (begin
+    (debug-enable 'backtrace)
+    (debug-set! show-file-name #t)))
+ (else (debug-enable 'debug)))
 
 (define-public PLATFORM
   (string->symbol
@@ -238,165 +238,165 @@ variables to their value after the initial call of @var{thunk}."
     ;; be longer than 48 characters per line.
 
     (anti-alias-factor 1
-     "Render at higher resolution (using given
+                       "Render at higher resolution (using given
 positive integer factor <=8) and scale down
 result to prevent jaggies in PNG images.")
     (aux-files #t
-     "Create .tex, .texi, .count files in the
+               "Create .tex, .texi, .count files in the
 EPS backend.")
     (backend ps
-     "Select backend.  Possible values: 'eps, 'null,
+             "Select backend.  Possible values: 'eps, 'null,
 'ps, 'scm, 'svg.")
     (check-internal-types #f
-     "Check every property assignment for types.")
+                          "Check every property assignment for types.")
     (clip-systems #f
-     "Generate cut-out snippets of a score.")
+                  "Generate cut-out snippets of a score.")
     (crop #f
-     "Match the size of the normal output to the
+          "Match the size of the normal output to the
 typeset image.")
     (datadir #f
-     "LilyPond prefix for data files (read-only).")
+             "LilyPond prefix for data files (read-only).")
     (debug-gc #f
-     "Dump memory debugging statistics.")
+              "Dump memory debugging statistics.")
     (debug-gc-assert-parsed-dead #f
-     "For memory debugging: Ensure that all
+                                 "For memory debugging: Ensure that all
 references to parsed objects are dead.  This is
 an internal option, and is switched on
 automatically for `-ddebug-gc'.")
     (debug-lexer #f
-     "Debug the flex lexer.")
+                 "Debug the flex lexer.")
     (debug-page-breaking-scoring #f
-     "Dump scores for many different page breaking
+                                 "Dump scores for many different page breaking
 configurations.")
     (debug-parser #f
-     "Debug the bison parser.")
+                  "Debug the bison parser.")
     (debug-property-callbacks #f
-     "Debug cyclic callback chains.")
+                              "Debug cyclic callback chains.")
     (debug-skylines #f
-     "Debug skylines.")
+                    "Debug skylines.")
     (delete-intermediate-files #t
-     "Delete unusable, intermediate PostScript files.")
+                               "Delete unusable, intermediate PostScript files.")
     (dump-signatures #f
-     "Dump output signatures of each system.")
+                     "Dump output signatures of each system.")
     (embed-source-code #f
-     "Embed the source files inside the generated PDF
+                       "Embed the source files inside the generated PDF
 document.")
     (eps-box-padding #f
-     "Pad left edge of the output EPS bounding box by
+                     "Pad left edge of the output EPS bounding box by
 given amount (in mm).")
     (font-export-dir #f
-     "Directory for exporting fonts as PostScript
+                     "Directory for exporting fonts as PostScript
 files.")
     (font-ps-resdir #f
-     "Build a subset of PostScript resource directory
+                    "Build a subset of PostScript resource directory
 for embedding fonts.")
     (gs-api #t
-     "Whether to use the Ghostscript API (read-only
+            "Whether to use the Ghostscript API (read-only
 if not available).")
     (gs-load-fonts #f
-     "Load fonts via Ghostscript.")
+                   "Load fonts via Ghostscript.")
     (gs-load-lily-fonts #f
-     "Load only LilyPond fonts via Ghostscript.")
+                        "Load only LilyPond fonts via Ghostscript.")
     (gs-never-embed-fonts #f
-     "Make Ghostscript embed only TrueType fonts and
+                          "Make Ghostscript embed only TrueType fonts and
 no other font format.")
     (gui #f
-     "Run LilyPond from a GUI and redirect stderr to
+         "Run LilyPond from a GUI and redirect stderr to
 a log file.")
     (help #f
-     "Show this help.")
+          "Show this help.")
     (include-book-title-preview #t
-     "Include book titles in preview images.")
+                                "Include book titles in preview images.")
     (include-eps-fonts #t
-     "Include fonts in separate-system EPS files.")
+                       "Include fonts in separate-system EPS files.")
     (include-settings #f
-     "If string FOO is given as an argument, include
+                      "If string FOO is given as an argument, include
 file `FOO' (using LilyPond syntax) for global
 settings, included before the score is
 processed.")
     (job-count #f
-     "Process in parallel, using the given number of
+               "Process in parallel, using the given number of
 jobs.")
     (log-file #f
-     "If string FOO is given as an argument, redirect
+              "If string FOO is given as an argument, redirect
 output to log file `FOO.log'.")
     (max-markup-depth 1024
-     "Maximum depth for the markup tree.  If a markup
+                      "Maximum depth for the markup tree.  If a markup
 has more levels, assume it will not terminate
 on its own, print a warning and return a null
 markup instead.")
     (midi-extension ,(if (eq? PLATFORM 'windows)
                          "mid"
                          "midi")
-     "Set the default file extension for MIDI output
+                    "Set the default file extension for MIDI output
 file to given string.")
     (music-font-encodings #f
-     "Use font encodings and the PostScript `show'
+                          "Use font encodings and the PostScript `show'
 operator with music fonts.")
     (music-strings-to-paths #f
-     "Convert text strings to paths when glyphs
+                            "Convert text strings to paths when glyphs
 belong to a music font.")
     (outline-bookmarks #t
-     "Use bookmarks in table of contents metadata
+                       "Use bookmarks in table of contents metadata
 (e.g., for PDF viewers).")
     (paper-size "a4"
-     "Set default paper size.")
+                "Set default paper size.")
     (pixmap-format "png16m"
-     "Set GhostScript's output format for pixel
+                   "Set GhostScript's output format for pixel
 images.")
     (png-width 0
-     "Image width for PNG output (in pixels).")
+               "Image width for PNG output (in pixels).")
     (png-height 0
-     "Image height for PNG output (in pixels).")
+                "Image height for PNG output (in pixels).")
     (point-and-click #t
-     "Add point & click links to PDF and SVG output.")
+                     "Add point & click links to PDF and SVG output.")
     (preview #f
-     "Create preview images also.")
+             "Create preview images also.")
     (print-pages #t
-     "Print pages in the normal way.")
+                 "Print pages in the normal way.")
     (profile-property-accesses #f
-     "Keep statistics of get_property() calls.")
+                               "Keep statistics of get_property() calls.")
     (protected-scheme-parsing #t
-     "Continue when errors in inline Scheme are
+                              "Continue when errors in inline Scheme are
 caught in the parser.  If #f, halt on errors
 and print a stack trace.")
     (read-file-list #f
-     "Specify name of a file which contains a list of
+                    "Specify name of a file which contains a list of
 input files to be processed.")
     (relative-includes #t
-     "When processing an \\include command, look for
+                       "When processing an \\include command, look for
 the included file relative to the current file\
 \n(instead of the root file).")
     (resolution 101
-     "Set resolution for generating PNG pixmaps to
+                "Set resolution for generating PNG pixmaps to
 given value (in dpi).")
     (safe #f
-     "Run in safer mode.")
+          "Run in safer mode.")
     (separate-log-files #f
-     "For input files `FILE1.ly', `FILE2.ly', ...
+                        "For input files `FILE1.ly', `FILE2.ly', ...
 output log data to files `FILE1.log',
 `FILE2.log', ...")
     (show-available-fonts #f
-     "List available font names.")
+                          "List available font names.")
     (strict-infinity-checking #f
-     "Force a crash on encountering Inf and NaN
+                              "Force a crash on encountering Inf and NaN
 floating point exceptions.")
     (strip-output-dir #t
-     "Don't use directories from input files while
+                      "Don't use directories from input files while
 constructing output file names.")
     (strokeadjust #f
-     "Set the PostScript `strokeadjust' operator
+                  "Set the PostScript `strokeadjust' operator
 explicitly.  This employs different drawing
 primitives, resulting in large PDF file size
 increases but often markedly better PDF
 previews.")
     (svg-woff #f
-     "Use woff font files in SVG backend.")
+              "Use woff font files in SVG backend.")
     (verbose ,(ly:verbose-output?)
              "Verbose output, i.e., loglevel at least DEBUG
 (read-only).")
     (warning-as-error #f
-     "Change all warning and programming_error
+                      "Change all warning and programming_error
 messages into errors.")
     ))
 
@@ -532,19 +532,19 @@ messages into errors.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; If necessary, emulate Guile V2 module_export_all! for Guile V1.8.n
 (cond-expand
-  (guile-2 #f)
-  (else
-    (define (module-export-all! mod)
-      (define (fresh-interface!)
-        (let ((iface (make-module)))
-          (set-module-name! iface (module-name mod))
-          ;; for guile 2: (set-module-version! iface (module-version mod))
-          (set-module-kind! iface 'interface)
-          (set-module-public-interface! mod iface)
-          iface))
-      (let ((iface (or (module-public-interface mod)
-                       (fresh-interface!))))
-        (set-module-obarray! iface (module-obarray mod))))))
+ (guile-2 #f)
+ (else
+  (define (module-export-all! mod)
+    (define (fresh-interface!)
+      (let ((iface (make-module)))
+        (set-module-name! iface (module-name mod))
+        ;; for guile 2: (set-module-version! iface (module-version mod))
+        (set-module-kind! iface 'interface)
+        (set-module-public-interface! mod iface)
+        iface))
+    (let ((iface (or (module-public-interface mod)
+                     (fresh-interface!))))
+      (set-module-obarray! iface (module-obarray mod))))))
 
 
 (define-safe-public (lilypond-version)
@@ -913,8 +913,8 @@ PIDs or the number of the process."
                      (lambda (f)
                        (string-split
                         (cond-expand
-                          (guile-2 (string-delete #\cr (ly:gulp-file f)))
-                          (else (string-delete (ly:gulp-file f) #\cr)))
+                         (guile-2 (string-delete #\cr (ly:gulp-file f)))
+                         (else (string-delete (ly:gulp-file f) #\cr)))
                         #\nl))
                      files))))
   (if (and (number? (ly:get-option 'job-count))
@@ -987,8 +987,8 @@ PIDs or the number of the process."
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
     (cond-expand
-      (guile-2 #f)
-      (else (gc)))
+     (guile-2 #f)
+     (else (gc)))
     (for-each
      (lambda (x)
        (let* ((base (dir-basename x ".ly"))
@@ -1007,19 +1007,19 @@ PIDs or the number of the process."
          ;; check that we're not holding on to objects. Doesn't work
          ;; in GUILE 2.x
          (cond-expand
-           (guile-2 #f)
-           (else
-             (begin
-               (ly:set-option 'debug-gc-assert-parsed-dead #t)
-               (gc)
-               (ly:set-option 'debug-gc-assert-parsed-dead #f))
-             (for-each
-              (lambda (x)
-                (if (not (hashq-ref gc-zombies x))
-                    (begin
-                      (ly:programming-error "Parsed object should be dead: ~a" x)
-                      (hashq-set! gc-zombies x #t))))
-              (ly:parsed-undead-list!))))
+          (guile-2 #f)
+          (else
+           (begin
+             (ly:set-option 'debug-gc-assert-parsed-dead #t)
+             (gc)
+             (ly:set-option 'debug-gc-assert-parsed-dead #f))
+           (for-each
+            (lambda (x)
+              (if (not (hashq-ref gc-zombies x))
+                  (begin
+                    (ly:programming-error "Parsed object should be dead: ~a" x)
+                    (hashq-set! gc-zombies x #t))))
+            (ly:parsed-undead-list!))))
 
          (if (ly:get-option 'debug-gc)
              (dump-gc-protects)

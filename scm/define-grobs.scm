@@ -839,26 +839,26 @@
         (arrow-width . 1.5)
         (arrow-length . 2)
         (bound-details
-          .
-          ((right . ((end-on-accidental . #t)
-                     (end-on-arpeggio . #t)
-                     (padding . 0.4)
-                     ;; possible values for endstyle: arrow, hook
-                     (end-style . #f)))
-           (right-broken . ((padding . 0.4)
-                            (end-style . #f)))
-           (left-broken . ((padding . 0.4)))
-           (left . ((padding . -0.3)
-                    (start-at-dot . #f)))))
+         .
+         ((right . ((end-on-accidental . #t)
+                    (end-on-arpeggio . #t)
+                    (padding . 0.4)
+                    ;; possible values for endstyle: arrow, hook
+                    (end-style . #f)))
+          (right-broken . ((padding . 0.4)
+                           (end-style . #f)))
+          (left-broken . ((padding . 0.4)))
+          (left . ((padding . -0.3)
+                   (start-at-dot . #f)))))
         (breakable . #t)
         ;; TODO needed/wished?
         (cross-staff . ,ly:line-spanner::calc-cross-staff)
         (details
-          .
-          ((hook-height . 0.34)
-           ;; Unless set by the user, grob's thickness is taken as default
-           (hook-thickness . #f)
-           (hook-direction . ,UP)))
+         .
+         ((hook-height . 0.34)
+          ;; Unless set by the user, grob's thickness is taken as default
+          (hook-thickness . #f)
+          (hook-direction . ,UP)))
         (minimum-length . 2)
         (minimum-length-after-break . 6)
         (springs-and-rods . ,ly:spanner::set-spacing-rods)

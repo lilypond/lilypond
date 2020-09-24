@@ -1246,24 +1246,24 @@
                   . ,(append (assoc-get 'low-a-key-group change-points)
                              `(,(simple-stencil-alist '(hidden . midline)
                                                       '(0.0 . 3.75))
-                                ((stencils
-                                  . ,(make-central-column-hole-addresses
-                                      CENTRAL-COLUMN-HOLE-LIST))
-                                 (xy-scale-function . (,identity . ,identity))
-                                 (textual? . #f)
-                                 (offset . (0.0 . 0.0)))
-                                ,(simple-stencil-alist '(left-hand . T)
-                                                       '(-1.0 . 7.0))
-                                ((stencils
-                                  . ,(make-left-hand-key-addresses
-                                      '(ees d f front-f bes gis cis b low-bes)))
-                                 (textual? . ,lh-woodwind-text-stencil)
-                                 (offset . (1.5 . 3.75)))
-                                ((stencils
-                                  . ,(make-right-hand-key-addresses
-                                      '(e c bes high-fis fis ees low-c)))
-                                 (textual? . ,rh-woodwind-text-stencil)
-                                 (offset . (-1.25 . 0.0))))))
+                               ((stencils
+                                 . ,(make-central-column-hole-addresses
+                                     CENTRAL-COLUMN-HOLE-LIST))
+                                (xy-scale-function . (,identity . ,identity))
+                                (textual? . #f)
+                                (offset . (0.0 . 0.0)))
+                               ,(simple-stencil-alist '(left-hand . T)
+                                                      '(-1.0 . 7.0))
+                               ((stencils
+                                 . ,(make-left-hand-key-addresses
+                                     '(ees d f front-f bes gis cis b low-bes)))
+                                (textual? . ,lh-woodwind-text-stencil)
+                                (offset . (1.5 . 3.75)))
+                               ((stencils
+                                 . ,(make-right-hand-key-addresses
+                                     '(e c bes high-fis fis ees low-c)))
+                                (textual? . ,rh-woodwind-text-stencil)
+                                (offset . (-1.25 . 0.0))))))
                  (xy-scale-function . (,identity . ,identity))
                  (textual? . #f)
                  (offset . (0.0 . 0.0))))

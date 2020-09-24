@@ -36,13 +36,13 @@
   (memq type (ly:music-property mus 'types)))
 
 (eval-early
-  (define-safe-public (music-type-predicate types)
-    "Returns a predicate function that can be used for checking
+ (define-safe-public (music-type-predicate types)
+   "Returns a predicate function that can be used for checking
 music to have one of the types listed in @var{types}."
-    (if (cheap-list? types)
-        (lambda (m)
-          (any (lambda (t) (music-is-of-type? m t)) types))
-        (lambda (m) (music-is-of-type? m types)))))
+   (if (cheap-list? types)
+       (lambda (m)
+         (any (lambda (t) (music-is-of-type? m t)) types))
+       (lambda (m) (music-is-of-type? m types)))))
 
 ;; TODO move this
 (define-public ly:grob-property

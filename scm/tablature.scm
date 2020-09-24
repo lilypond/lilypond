@@ -63,7 +63,7 @@
                            `(baseline-skip . ,base-skip)
                            (make-left-align-markup
                             (make-center-column-markup
-                              '("T" "A" "B")))))))))))
+                             '("T" "A" "B")))))))))))
 
 ;; this function decides which clef to take
 (define-public (clef::print-modern-tab-if-set grob)

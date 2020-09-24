@@ -121,12 +121,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (eval-early
-  (define-markup-command (line layout props args)
-    (markup-list?)
-    #:category align
-    #:properties ((word-space)
-                  (text-direction RIGHT))
-    "Put @var{args} in a horizontal line.  The property @code{word-space}
+ (define-markup-command (line layout props args)
+   (markup-list?)
+   #:category align
+   #:properties ((word-space)
+                 (text-direction RIGHT))
+   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between markups in @var{args}.
 
 @lilypond[verbatim,quote]
@@ -136,10 +136,10 @@ determines the space between markups in @var{args}.
   }
 }
 @end lilypond"
-    (let ((stencils (interpret-markup-list layout props args)))
-      (if (= text-direction LEFT)
-          (set! stencils (reverse stencils)))
-      (stack-stencil-line word-space stencils))))
+   (let ((stencils (interpret-markup-list layout props args)))
+     (if (= text-direction LEFT)
+         (set! stencils (reverse stencils)))
+     (stack-stencil-line word-space stencils))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; geometric shapes
@@ -451,9 +451,9 @@ A triangle, either filled or empty.
   (let ((ex (* (magstep font-size) 0.8 baseline-skip)))
     (ly:make-stencil
      `(polygon (0.0 0.0
-                     ,ex 0.0
-                     ,(* 0.5 ex)
-                     ,(* 0.86 ex))
+                    ,ex 0.0
+                    ,(* 0.5 ex)
+                    ,(* 0.86 ex))
                ,thickness
                ,filled)
      (cons 0 ex)
@@ -633,7 +633,7 @@ only works in the PDF backend.
                             (1+ (- table-page-number first-page-number))
                             #f)))
                   `(page-link ,current-page-number
-                         ,x-ext ,y-ext))))
+                              ,x-ext ,y-ext))))
       x-ext
       y-ext)
      arg-stencil)))
@@ -656,10 +656,10 @@ Create a beam with the specified parameters.
 
     (ly:make-stencil
      `(polygon ,(list
-                  0 (/ thickness -2)
-                  width (+ (* width slope)  (/ thickness -2))
-                  width (+ (* width slope)  (/ thickness 2))
-                  0 (/ thickness 2))
+                 0 (/ thickness -2)
+                 width (+ (* width slope)  (/ thickness -2))
+                 width (+ (* width slope)  (/ thickness 2))
+                 0 (/ thickness 2))
                ,(ly:output-def-lookup layout 'blot-diameter)
                #t)
      (cons 0 width)
@@ -4599,7 +4599,7 @@ width may require additional tweaking.)"
          (assoc-name-get
           (lambda (name ls)
             (do ((ls ls (cdr ls)) (result '() result))
-              ((null? ls) result)
+                ((null? ls) result)
               (if (and (car ls) (eq? name (assoc-get 'name (cdar ls))))
                   (set! result (cons (car ls) result)))))))
 

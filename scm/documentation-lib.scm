@@ -21,8 +21,8 @@
              (srfi srfi-1))
 
 (cond-expand
-  (guile-2 (use-modules (ice-9 curried-definitions)))
-  (else))
+ (guile-2 (use-modules (ice-9 curried-definitions)))
+ (else))
 
 (define-class <texi-node> ()
   (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)

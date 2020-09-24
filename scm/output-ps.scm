@@ -264,7 +264,7 @@
   (let ((cap-numeric (case cap ((butt) 0) ((round) 1) ((square) 2)
                            (else (begin
                                    (ly:warning (_ "unknown line-cap-style: ~S")
-                                                cap)
+                                               cap)
                                    1))))
         (join-numeric (case join ((miter) 0) ((round) 1) ((bevel) 2)
                             (else (begin
