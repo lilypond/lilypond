@@ -73,7 +73,7 @@ Simultaneous_music_iterator::create_contexts ()
       if (!child->ok ())
         {
           child->quit ();
-          proc = children_list_.erase (proc);
+          proc = children_list_.erase_at (proc);
         }
       else
         {
@@ -106,7 +106,7 @@ Simultaneous_music_iterator::process (Moment until)
       if (!child->ok ())
         {
           child->quit ();
-          proc = children_list_.erase (proc);
+          proc = children_list_.erase_at (proc);
         }
       else
         {

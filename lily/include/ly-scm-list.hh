@@ -197,6 +197,13 @@ public:
 // The primary design goal is to fit the conventions of the STL as closely as
 // possible, and where it is not possible, to make the differences obvious
 // enough to avoid misleading.
+//
+// An important additional concept is a "tail iterator."  A tail iterator is a
+// past-the-end iterator similar to what is returned by end ().  The two
+// compare equal, but they are not interchangeable for every operation.  A tail
+// iterator is obtained by calling begin () and advancing until the iterator
+// compares equal to end ().
+//
 template <class T>
 class ly_scm_list_t
 {
@@ -240,9 +247,15 @@ public:
 
   bool empty () const { return !scm_is_pair (head_); }
 
-  // erase the element at pos; return an iterator referring to the next
-  // element; invalidate iterators referring to the deleted element
-  iterator erase (const_iterator pos)
+  // Erase the element at pos.
+  // Return an iterator referring to the next element.
+  //
+  // Iterators referring to the deleted element AND THE NEXT are invalidated.
+  // The latter is a difference from std::list::erase ().  It should pose no
+  // problem when filtering a list, but it could be annoying when using a list
+  // as a queue because it invalidates tail iterators when the last element is
+  // erased.
+  iterator erase_at (const_iterator pos)
   {
     return iterator (pos).erase_here ();
   }
@@ -255,13 +268,11 @@ public:
   // BEWARE the differences between this method and std::list::insert ().
   //
   // All iterators referring to the element that pos referred to (including
-  // pos) are invalidated.  The caller can recover by incrementing the returned
-  // iterator.
+  // pos) are invalidated; the same applies if pos is a tail iterator.  The
+  // caller can recover by incrementing the returned iterator.
   //
-  // This can not be used to insert before an iterator returned by end ();
-  // however, it can be used to insert before an iterator that compares equal
-  // to an iterator returned by end () which was obtained by calling begin ()
-  // and advancing.
+  // This can insert before a tail iterator, but not before an iterator
+  // returned by end ().
   iterator insert_before (const_iterator pos, const value_type &value)
   {
     return iterator (pos).insert_before_here (value);
@@ -282,7 +293,7 @@ public:
           }
         else
           {
-            tail = erase (tail);
+            tail = erase_at (tail);
             ++count;
           }
       }
