@@ -1,3 +1,7 @@
+% Needed because lilypond-book-preamble.ly sets version-seen
+% to #t in order not to require a \version statement for snippets.
+#(define version-seen #f)
+
 %% \version "2.21.0"
 
 \header {
