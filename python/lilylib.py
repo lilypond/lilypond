@@ -40,6 +40,8 @@ program_name = os.path.basename(sys.argv[0])
 #    progress
 #    debug
 
+# TODO: use the standard logging module
+
 loglevels = {"NONE": 0, "ERROR": 1, "WARN": 2,
              "BASIC": 3, "PROGRESS": 4, "INFO": 5, "DEBUG": 6}
 
@@ -75,11 +77,11 @@ def is_verbose():
 def print_logmessage(level, s, fullmessage=True, newline=True):
     if is_loglevel(level):
         if fullmessage:
-            sys.stderr.write(program_name + ": " + s + '\n')
+            s = program_name + ": " + s + "\n"
         elif newline:
-            sys.stderr.write(s + '\n')
-        else:
-            sys.stderr.write(s)
+            s += '\n'
+        sys.stderr.write(s)
+        sys.stderr.flush()
 
 
 def error(s):
