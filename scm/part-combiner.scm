@@ -944,11 +944,14 @@ the mark when there are no spanners active.
          (listener (ly:parser-lookup 'partCombineListener))
          (context-list (reverse (recording-group-emulate ctx-spec listener)))
          (raw-voice (assoc voicename context-list))
-         (quote-contents (if (pair? raw-voice) (cdr raw-voice) '())))
+         (quote-contents (and raw-voice (cdr raw-voice))))
 
     ;; If the context-specced quoted music does not contain anything, try to
     ;; use the first child, i.e. the next in context-list after voicename
     ;; That's the case e.g. for \addQuote "x" \relative c \new Voice {...}
+    ;;
+    ;; Note that if raw-voice is #f, so is quote-contents, in which
+    ;; case the following loop is skipped.
     (if (null? quote-contents)
         (let find-non-empty ((current-tail (member raw-voice context-list)))
           ;; if voice has contents, use them, otherwise check next ctx
@@ -958,6 +961,6 @@ the mark when there are no spanners active.
                  (set! quote-contents (cdar current-tail)))
                 (else (find-non-empty (cdr current-tail))))))
 
-    (if (not (null? quote-contents))
-        (hash-set! tab name (list->vector (reverse! quote-contents '())))
-        (ly:music-warning mus (ly:format (_ "quoted music `~a' is empty") name)))))
+    (if (pair? quote-contents)
+        (hash-set! tab name (list->vector (reverse! quote-contents)))
+        (ly:music-warning mus (_ "quoted music `~a' is empty") name))))
