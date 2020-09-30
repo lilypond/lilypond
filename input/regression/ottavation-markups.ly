@@ -1,5 +1,9 @@
 \version "2.21.0"
 
+#(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning "Could not find ottavation markup for ~a octaves up." 3)
+#(ly:expect-warning "Could not find ottavation markup for ~a octaves up." -3)
+
 \header {
   texidoc = "Ottavation markups can be changed by the user.
 LilyPond warns about missing markups (in this example for
