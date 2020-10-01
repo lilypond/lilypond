@@ -4750,6 +4750,7 @@ Patterns are aligned to the @var{dir} markup.
 (define-markup-command (replace layout props replacements arg)
   (list? markup?)
   #:category font
+  #:properties ((replacement-alist))
   "
 Used to automatically replace a string by another in the markup @var{arg}.
 Each pair of the alist @var{replacements} specifies what should be replaced.
@@ -4760,9 +4761,9 @@ The @code{key} is the string to be replaced by the @code{value} string.
 @end lilypond"
   (interpret-markup
    layout
-   (internal-add-text-replacements
-    props
-    replacements)
+   (prepend-alist-chain 'replacement-alist
+    (append replacement-alist replacements)
+    props)
    arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

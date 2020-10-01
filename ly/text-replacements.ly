@@ -20,8 +20,8 @@
 #(define (add-text-replacements! alist)
    (set! text-font-defaults
          (assoc-set! text-font-defaults 'replacement-alist
-                     (cdaar
-                      (internal-add-text-replacements (list text-font-defaults) alist)))))
+                     (append alist
+                      (assoc-get 'replacement-alist text-font-defaults '())))))
 
 #(define (include-special-characters)
    (add-text-replacements!

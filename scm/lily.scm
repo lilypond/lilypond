@@ -623,7 +623,6 @@ messages into errors.")
     "define-stencil-commands.scm"
     "scheme-engravers.scm"
     "titling.scm"
-    "text.scm"
 
     "paper.scm"
     "backend-library.scm"
