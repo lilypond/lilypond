@@ -17,9 +17,12 @@
 
 \version "2.16.0"
 
+#(use-modules ((srfi srfi-1)
+               #:select (alist-copy)))
+
 #(define (add-text-replacements! alist)
    (set! text-font-defaults
-         (assoc-set! text-font-defaults 'replacement-alist
+         (assoc-set! (alist-copy text-font-defaults) 'replacement-alist
                      (append alist
                       (assoc-get 'replacement-alist text-font-defaults '())))))
 

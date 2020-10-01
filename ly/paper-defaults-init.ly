@@ -164,7 +164,7 @@
     '((font-family . feta) (font-encoding . fetaMusic)))
 
   % `latin1' is a dummy value for Pango fonts
-  #(define text-font-defaults
+  #(set! text-font-defaults
      `((font-encoding . latin1)
        (baseline-skip . 3)
        (replacement-alist . ())

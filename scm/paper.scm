@@ -18,6 +18,9 @@
 ;; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs))
 
+;;; Variable declaration
+(define-session-public text-font-defaults '())
+
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
                   '(binding-offset
