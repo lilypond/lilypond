@@ -103,6 +103,13 @@
           (filter string?
                   (list
                    (ly:format "mark /OutputFile (~a)" output-file)
+                   ;; Ghostscript's default level may change with future
+                   ;; releases, the current being 1.7 since 9.24. This
+                   ;; results in a warning when embedding the produced PDF
+                   ;; with XeTeX, which currently defaults to PDF 1.5.
+                   ;; Set a fixed version of 1.4, which is also the basis
+                   ;; of the standard PDF/A and has all features we need.
+                   "/CompatibilityLevel 1.4"
                    (if (not is-eps)
                        (ly:format "/PageSize [~$ ~$]" paper-width paper-height))
                    "(pdfwrite) finddevice putdeviceprops pop"
