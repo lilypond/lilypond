@@ -24,18 +24,46 @@
 #(read-hash-extend #\[ parse-lily-and-compute-lily-string) %{ ] %}
 #(ly:set-option 'warning-as-error #t)
 
+%% option can be one of the following
+%%
+%% not provided    The expected output is the input.  This should be
+%%                 the norm.  Any difference will be logged and cause
+%%                 the test to fail.
+%%
+%% "NOT A BUG"     The expected output differs from the input in an
+%%                 unspecified way.  The difference will be logged
+%%                 but will not cause the test to fail.
+%%
+%% "BUG"           The expected output differs from the input in an
+%%                 unspecified way.  The difference will be logged
+%%                 but will not cause the test to fail.
+%%
+%% other           This is the exact expected output.  Any difference
+%%                 will be logged and cause the test to fail.
 test =
-#(define-void-function (harmless strings)
+#(define-void-function (option strings)
   ((string?) pair?)
-  (let ((input (car strings))
-	(output (cdr strings))
-	(result-info (or harmless "BUG")))
-   (if (not (equal? input output))
-    (if harmless
-     (ly:progress "Test unequal: ~a.\nin  = ~a\nout = ~a\n"
-      harmless input output)
-     (ly:input-warning (*location*) "Test unequal: BUG.\nin  = ~a\nout = ~a\n"
-      input output)))))
+  (let* ((input (car strings))
+         (actual-output (cdr strings))
+         (suppression (cond
+                       ((equal? option "BUG") option)
+                       ((equal? option "NOT A BUG") option)
+                       (else #f)))
+         (expected-output (if (or (not option) suppression)
+                           input
+                           option)))
+   (if (not (equal? expected-output actual-output))
+    (if suppression
+     (ly:progress "Test unequal: ~a.
+input    = ~a
+expected = ~a
+actual   = ~a"
+      suppression input expected-output actual-output)
+     (ly:input-warning (*location*) "Test unequal: BUG.
+input    = ~a
+expected = ~a
+actual   = ~a"
+      input expected-output actual-output)))))
 
 %%%
 %%% Tests
@@ -191,8 +219,10 @@ stderr of this run."
 \test ##[ { 4 4 8 \tuplet 3/2 { 8[ 16] } 16 } #]
 
 %% \relative and \transpose
-\test "NOT A BUG" ##[ \relative { c'4 b4 } #]	% RelativeOctaveMusic
-\test "NOT A BUG" ##[ \transpose c d { c4 d4 } #]	% TransposedMusic
+\test "\absolute { c'4 f'4 }"
+      ##[ \relative { c'4 f4 } #]			% RelativeOctaveMusic
+\test "{ d4 e4 }"
+      ##[ \transpose c d { c4 d4 } #]			% TransposedMusic
 
 %% Repeats
 \test ##[ \repeat volta 2 { c4 d4 } #]			% VoltaRepeatedMusic
