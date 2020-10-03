@@ -2745,6 +2745,8 @@ or locally:
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
 
+Aliases themselves are not further processed for replacements.
+
 @morerefs
 Notation Reference:
 @ref{List of special characters}.
