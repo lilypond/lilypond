@@ -3955,13 +3955,36 @@ before_id = r'(?:^|(?<!\\)(?:\\\\)+|(?<=[^-_\\a-zA-Z])|(?<=[^a-zA-Z][-_]))'
 after_id = r'(?![a-zA-Z]|[-_][a-zA-Z])'
 
 
-@rule((2, 19, 16), """implicitTimeSignatureVisibility -> initialTimeSignatureVisibility
-csharp -> c-sharp""")
+@rule((2, 19, 16), r"""implicitTimeSignatureVisibility -> initialTimeSignatureVisibility
+csharp -> c-sharp
+TimeSignature: style = #'() -> style = #'numbered""")
 def conv(s):
     s = re.sub(r'\bimplicitTimeSignatureVisibility\b',
                  'initialTimeSignatureVisibility', s)
     s = re.sub('(' + before_id + r'[a-g])((?:sharp){1,2}|(?:flat){1,2})'
                  + after_id, r'\1-\2', s)
+    s = re.sub(r"""\\override
+                   (\s+)
+                   ([a-zA-Z]+\.)?TimeSignature.style
+                   (\s*)
+                   =
+                   (\s*)
+                   \#'\(\)""",
+               r"\\override\1\2TimeSignature.style\3=\4#'numbered",
+               s,
+               flags=re.VERBOSE)
+
+    s = re.sub(r"""\\tweak
+                   (\s+)
+                   (TimeSignature\.)?style
+                   (\s*)
+                   \#'\(\)
+                   (\s+)
+                   \\time
+                   """,
+               r"\\tweak\1\2style\3#'numbered\4\\time",
+               s,
+               flags=re.VERBOSE)
     return s
 
 
