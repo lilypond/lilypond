@@ -1638,7 +1638,7 @@ R2.*2 |
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/changing-form-of-multi-measure-rests.ly}
 
-@seealso
+@morerefs
 記譜法リファレンス:
 @ref{Using break-visibility},
 @ref{Full measure rests},
