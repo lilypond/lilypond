@@ -231,24 +231,21 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
 
           if (Performance *perf = dynamic_cast<Performance *> (output))
             {
-              if (!perf->is_trivial ())
-                {
-                  output_paper_book->add_performance (perf->self_scm ());
+              output_paper_book->add_performance (perf->self_scm ());
 
-                  // Collect the \header blocks to make the metadata accessible
-                  // when outputting the performance.
-                  SCM h = output_paper_book->header_0_;
-                  if (ly_is_module (h))
-                    perf->push_header (h);
+              // Collect the \header blocks to make the metadata accessible
+              // when outputting the performance.
+              SCM h = output_paper_book->header_0_;
+              if (ly_is_module (h))
+                perf->push_header (h);
 
-                  h = output_paper_book->header_;
-                  if (ly_is_module (h))
-                    perf->push_header (h);
+              h = output_paper_book->header_;
+              if (ly_is_module (h))
+                perf->push_header (h);
 
-                  h = score->get_header ();
-                  if (ly_is_module (h))
-                    perf->push_header (h);
-                }
+              h = score->get_header ();
+              if (ly_is_module (h))
+                perf->push_header (h);
             }
           else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
             {

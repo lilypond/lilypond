@@ -33,11 +33,6 @@ public:
   ~Performance ();
   OVERRIDE_CLASS_NAME (Performance);
 
-  bool is_trivial () const
-  {
-    return start_mom_.main_part_.is_infinity ();
-  }
-
   // get list of headers (innermost is first)
   SCM get_headers () { return headers_; }
 
