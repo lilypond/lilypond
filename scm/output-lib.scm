@@ -2065,7 +2065,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
               empty-stencil)))
 
     (if (>  left-start right-end)
-        (ly:warning "Please consider to increase 'minimum-length"))
+        (ly:warning (_ "Please consider to increase 'minimum-length")))
 
     ;;;;;;;;;;;;;;;;;;;;
     ;;;; final alist

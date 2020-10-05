@@ -93,7 +93,7 @@ receive a count with @code{\\startMeasureCount} and
             (set! go? #f)
             (ly:grob-suicide! count-spanner)
             (set! count-spanner '())
-            (ly:warning "measure count left unfinished")))))))
+            (ly:warning (_ "measure count left unfinished"))))))))
 
 (define-public (Measure_spanner_engraver context)
   (let ((span '())
@@ -108,7 +108,7 @@ receive a count with @code{\\startMeasureCount} and
      ((process-music trans)
       (if (ly:stream-event? event-stop)
           (if (null? span)
-              (ly:warning "cannot find start of measure spanner")
+              (ly:warning (_ "cannot find start of measure spanner"))
               (begin
                 (set! finished span)
                 (ly:engraver-announce-end-grob trans finished event-start)
@@ -142,7 +142,7 @@ receive a count with @code{\\startMeasureCount} and
             (set! finished '())))
       (if (ly:spanner? span)
           (begin
-            (ly:warning "unterminated measure spanner")
+            (ly:warning (_ "unterminated measure spanner"))
             (ly:grob-suicide! span)
             (set! span '())))))))
 
@@ -538,7 +538,7 @@ one voice.")))
           (begin
             (for-each
              (lambda (dur-line)
-               (ly:warning "unterminated DurationLine")
+               (ly:warning (_ "unterminated DurationLine"))
                (ly:grob-suicide! dur-line))
              current-dur-grobs)
             (set! current-dur-grobs #f)

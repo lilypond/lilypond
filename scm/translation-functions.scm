@@ -592,7 +592,7 @@ chords.  Returns a placement-list."
   ;; TODO: Does it make sense to have additional bass strings in a fret-diagram?
   (if (and (not (null? rest))
            (not (null? (ly:context-property context 'additionalBassStrings))))
-      (ly:warning "additional bass strings are not supported by FretBoards"))
+      (ly:warning (_ "additional bass strings are not supported by FretBoards")))
 
   ;; body of determine-frets
   (let* ((predefined-fret-table

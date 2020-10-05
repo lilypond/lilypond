@@ -2988,7 +2988,7 @@
       (set! ifaces-entry (cons 'system-interface
                                (cons 'spanner-interface ifaces-entry))))
      (else
-      (ly:warning "Unknown class ~a" class)))
+      (ly:warning (_ "Unknown class ~a") class)))
 
     (set! ifaces-entry (uniq-list (sort ifaces-entry symbol<?)))
     (set! ifaces-entry (cons 'grob-interface ifaces-entry))

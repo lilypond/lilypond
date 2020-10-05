@@ -746,7 +746,7 @@ of the white stencil we make between 0 and 2*pi."
   (if (or (not (positive? angle-increments))
           (not (positive? radial-increments)))
       (begin
-        (ly:warning "Both angle-increments and radial-increments must be positive numbers.")
+        (ly:warning (_ "Both angle-increments and radial-increments must be positive numbers."))
         stil)
       (let* ((angle-inc (/ 360 angle-increments))
              (radial-inc (/ thickness radial-increments)))

@@ -84,7 +84,7 @@ to be used by the sequential-iterator"
                 (set! (ly:context-property context 'ottavation) ottavation-markup)
                 (if (and (not (zero? octavation))
                          (not (markup? ottavation-markup)))
-                    (ly:warning "Could not find ottavation markup for ~a octaves up." octavation))
+                    (ly:warning (_ "Could not find ottavation markup for ~a octaves up.") octavation))
                 (ly:set-middle-C! context))))
            'Staff))))
 

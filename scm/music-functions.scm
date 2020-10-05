@@ -417,7 +417,7 @@ If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
                (if (ly:music? e)
                    (set! (ly:music-property music 'element)
                          (unfold-repeats types e))))
-             (ly:warning "unknown repeat-type ~a, ignoring." type))))
+             (ly:warning (_ "unknown repeat-type ~a, ignoring.") type))))
      types-list)
     music))
 
@@ -2471,7 +2471,7 @@ Offsets are restricted to immutable properties and values of type @code{number},
           ;; confusing to a user unaware of the default value of the
           ;; property, so issue a warning.
           (if (equal? empty-interval vals)
-              (ly:warning "default '~a of ~a is ~a and can't be offset"
+              (ly:warning (_ "default '~a of ~a is ~a and can't be offset")
                           property grob vals)
               (let* ((orig (ly:grob-original grob))
                      (siblings
@@ -2502,7 +2502,7 @@ Offsets are restricted to immutable properties and values of type @code{number},
                     (offset-multiple-types vals (car offsets)))))
 
           (begin
-            (ly:warning "the property '~a of ~a cannot be offset" property grob)
+            (ly:warning (_ "the property '~a of ~a cannot be offset") property grob)
             vals))))
   (grob-transformer property offset-fun))
 

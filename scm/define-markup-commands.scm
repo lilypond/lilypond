@@ -262,7 +262,7 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
             (negative? on)
             (negative? off))
         (begin
-          (ly:warning "Can't print a line - setting on/off to default")
+          (ly:warning (_ "Can't print a line - setting on/off to default"))
           (set! on 1)
           (set! off 1)))
 
@@ -2452,7 +2452,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   #:category other
   "Print out a warning when a header field markup contains some recursive
 markup definition."
-  (ly:warning "Recursive definition of property ~a detected!" symbol)
+  (ly:warning (_ "Recursive definition of property ~a detected!") symbol)
   empty-stencil)
 
 (define-markup-command (fromproperty layout props symbol)
@@ -3550,7 +3550,7 @@ and continue with double letters.
           (set! slash-stencil (adjust-slash-stencil num forward slash-stencil mag))
           (set! number-stencil
                 (ly:stencil-add number-stencil slash-stencil)))
-        (ly:warning "Unable to create slashed digit ~a" num))
+        (ly:warning (_ "Unable to create slashed digit ~a") num))
     number-stencil))
 
 

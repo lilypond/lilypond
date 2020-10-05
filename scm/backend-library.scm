@@ -281,7 +281,7 @@
 
               (make-tmpfile basename (1- tries))))
 
-        (ly:error "can't create temp file for ~a after ~a times" basename max-try)
+        (ly:error (_ "can't create temp file for ~a after ~a times") basename max-try)
         ))
 
   (if (not basename)

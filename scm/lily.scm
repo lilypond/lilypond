@@ -957,7 +957,7 @@ PIDs or the number of the process."
                              logfile (status:exit-val state) tail))))
                     errors)
                    (if (pair? errors)
-                       (ly:error "Children ~a exited with errors."
+                       (ly:error (_ "Children ~a exited with errors.")
                                  (map car errors)))
                    ;; must overwrite individual entries
                    (if (null? errors)

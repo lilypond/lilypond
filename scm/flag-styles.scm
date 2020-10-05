@@ -166,7 +166,7 @@ flag stencil."
          (font-char (string-append "flags." flag-style dir dir-modifier (number->string log)))
          (flag (ly:font-get-glyph font font-char)))
     (if (ly:stencil-empty? flag)
-        (ly:warning "flag ~a not found" font-char))
+        (ly:warning (_ "flag ~a not found") font-char))
     flag))
 
 
