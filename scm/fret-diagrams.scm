@@ -30,7 +30,7 @@ fret-diagram-definition-string."
   (let* ((entries (string-split keystring #\:)))
     ;; print a warning if more than one ":"-sign was entered by accident
     (if (> (length (cdr entries)) 1)
-        (ly:warning "Possible typo in fret-diagram \"~a\"" keystring))
+        (ly:warning "Possible typo in fret-diagram '~a'" keystring))
     ;; throw an error, if `entry' can't be transformed into a number
     (or (string->number (last entries))
         (ly:error
