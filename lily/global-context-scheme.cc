@@ -17,11 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "cpu-timer.hh"
 #include "global-context.hh"
 #include "international.hh"
 #include "main.hh"
-#include "music-iterator.hh"
 #include "music-output.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -86,39 +84,9 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
            "Interpret the music expression @var{mus} in the global context"
            " @var{ctx}.  The context is returned in its final state.")
 {
-  LY_ASSERT_SMOB (Music, mus, 1);
-  LY_ASSERT_SMOB (Global_context, ctx, 2);
-
-  Music *music = unsmob<Music> (mus);
-  if (!music)
-    {
-      return SCM_BOOL_F;
-    }
-
-  Global_context *g = unsmob<Global_context> (ctx);
-
-  Cpu_timer timer;
-
-  message (_ ("Interpreting music..."));
-
-  SCM protected_iter = Music_iterator::get_static_get_iterator (music);
-  Music_iterator *iter = unsmob<Music_iterator> (protected_iter);
-
-  if (!iter->ok ())
-    {
-      /* todo: should throw exception. */
-      return SCM_BOOL_F;
-    }
-
-  g->run_iterator_on_me (iter);
-
-  iter->quit ();
-  scm_remember_upto_here_1 (protected_iter);
-
-  send_stream_event (g, "Finish", 0);
-
-  debug_output (_f ("elapsed time: %.2f seconds", timer.read ()));
-
+  auto *music = LY_ASSERT_SMOB (Music, mus, 1);
+  auto *g = LY_ASSERT_SMOB (Global_context, ctx, 2);
+  g->iterate (music, true);
   return ctx;
 }
 
@@ -132,14 +100,24 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
            "Optionally, this routine takes an object-key to"
            " to uniquely identify the score block containing it.")
 {
-  LY_ASSERT_SMOB (Music, mus, 1);
+  auto *music = LY_ASSERT_SMOB (Music, mus, 1);
   LY_ASSERT_SMOB (Output_def, output_def, 2);
 
   SCM glob = ly_make_global_context (output_def);
-  ly_make_global_translator (glob);
-  if (!scm_is_true (ly_interpret_music_expression (mus, glob)))
+  if (auto *g = unsmob<Global_context> (glob))
     {
-      warning (_ ("no music found in score"));
+      ly_make_global_translator (glob);
+      if (!g->iterate (music, false))
+        {
+          music->warning (_ ("skipping zero-duration score"));
+          music->warning (_ ("to suppress this, "
+                             "consider adding a spacer rest"));
+        }
     }
+  else
+    {
+      programming_error ("failed to create global context");
+    }
+
   return glob;
 }

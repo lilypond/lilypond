@@ -41,7 +41,7 @@ public:
   vsize get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
-  void run_iterator_on_me (Music_iterator *);
+  bool iterate (Music *, bool force_found_music);
 
   bool is_accessible_to_user () const override { return false; }
 

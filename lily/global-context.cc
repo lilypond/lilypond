@@ -20,6 +20,7 @@
 #include "global-context.hh"
 
 #include "context-def.hh"
+#include "cpu-timer.hh"
 #include "dispatcher.hh"
 #include "international.hh"
 #include "music-iterator.hh"
@@ -122,46 +123,77 @@ Global_context::get_output ()
     return SCM_EOL;
 }
 
-void
-Global_context::run_iterator_on_me (Music_iterator *iter)
+bool
+Global_context::iterate (Music *music, bool force_found_music)
 {
-  prev_mom_.main_part_ = -Rational::infinity ();
-  now_mom_.main_part_ = -Rational::infinity ();
-  Moment final_mom = iter->get_music ()->get_length ();
+  Cpu_timer timer;
+  message (_ ("Interpreting music..."));
 
-  bool first = true;
-  while (iter->ok () || get_moments_left ())
+  SCM protected_iter = Music_iterator::get_static_get_iterator (music);
+  auto iter = unsmob<Music_iterator> (protected_iter);
+
+  bool found_music = force_found_music;
+  if (!force_found_music)
     {
-      Moment w (Rational::infinity ());
-      if (iter->ok ())
-        w = iter->pending_moment ();
+      const auto &len = iter->music_get_length () - iter->music_start_mom ();
+      found_music = len.to_bool () && iter->ok ();
+    }
 
-      w = sneaky_insert_extra_moment (w);
-      if (w.main_part_.is_infinity () || w > final_mom)
-        break;
+  if (found_music)
+    {
+      prev_mom_.main_part_ = -Rational::infinity ();
+      now_mom_.main_part_ = -Rational::infinity ();
 
-      if (w == prev_mom_)
+      const auto &final_mom = iter->music_get_length ();
+      if (final_mom.main_part_.is_infinity ())
         {
-          programming_error ("Moment is not increasing."
-                             "  Aborting interpretation.");
-          break;
+          // We'll probably also reach "Moment is not increasing" below.
+          music->programming_error ("music has infinite length");
         }
 
-      send_stream_event (this, "Prepare", 0,
-                         ly_symbol2scm ("moment"), w.smobbed_copy ());
+      // This forces at least one full pass through the loop to initialize
+      // contexts even if the iterator has nothing to process.
+      add_moment_to_process (0);
 
-      if (first)
-        iter->init_context (this);
+      for (bool first = true; true; first = false)
+        {
+          Moment w = iter->pending_moment ();
+          // write out iter->ok () to save a call to pending_moment ()
+          const bool ok = (w < Moment (Rational::infinity ()))
+            || iter->run_always ();
 
-      if (iter->ok ())
-        iter->process (w);
+          w = sneaky_insert_extra_moment (w);
+          if (w > final_mom)
+            break;
 
-      send_stream_event (this, "OneTimeStep", 0);
-      apply_finalizations ();
-      check_removal ();
+          if (w == prev_mom_)
+            {
+              programming_error ("Moment is not increasing."
+                                 "  Aborting interpretation.");
+              break;
+            }
 
-      first = false;
+          send_stream_event (this, "Prepare", 0,
+                             ly_symbol2scm ("moment"), w.smobbed_copy ());
+
+          if (first)
+            iter->init_context (this);
+
+          if (ok)
+            iter->process (w);
+
+          send_stream_event (this, "OneTimeStep", 0);
+          apply_finalizations ();
+          check_removal ();
+        }
+
+      iter->quit ();
+      scm_remember_upto_here_1 (protected_iter);
+      send_stream_event (this, "Finish", 0);
     }
+
+  debug_output (_f ("elapsed time: %.2f seconds", timer.read ()));
+  return found_music;
 }
 
 void
