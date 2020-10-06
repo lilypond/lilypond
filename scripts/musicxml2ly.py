@@ -3126,8 +3126,14 @@ def update_score_setup(score_structure, part_list, voices, parts):
         part_id = part_definition.id
         nv_dict = voices.get(part_id)
         if not nv_dict:
-            ly.warning(_('unknown part in part-list: %s') % part_id)
-            continue
+            if len(part_list) == len(voices) == 1:
+                # If there is only one part, infer the ID.
+                # See input/regression/musicxml/41g-PartNoId.xml.
+                nv_dict = list(voices.values())[0]
+                voices[part_id] = nv_dict
+            else:
+                ly.warning(_('unknown part in part-list: %s') % part_id)
+                continue
 
         staves = reduce(lambda x, y: x + y,
                         [list(voice.voicedata._staves.keys())
