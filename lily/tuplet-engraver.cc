@@ -157,7 +157,7 @@ Tuplet_engraver::process_music ()
                 }
               else
                 {
-                  warning ("omitting tuplet bracket with neither left nor right bound");
+                  warning (_ ("omitting tuplet bracket with neither left nor right bound"));
                   continue;
                 }
             }

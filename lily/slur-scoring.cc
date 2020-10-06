@@ -361,7 +361,7 @@ Slur::calc_control_points (SCM smob)
     return SCM_EOL;
   if (state.configurations_.empty ())
     {
-      me->warning ("no viable slur configuration found");
+      me->warning (_ ("no viable slur configuration found"));
       return SCM_EOL;
     }
 
@@ -488,7 +488,7 @@ Slur_score_state::get_y_attachment_range () const
           Interval nc_extent = extremes_[d].note_column_
                                ->extent (common_[Y_AXIS], Y_AXIS);
           if (nc_extent.is_empty ())
-            slur_->warning ("slur trying to encompass an empty note column.");
+            slur_->warning (_ ("slur trying to encompass an empty note column."));
           else
             end_ys[d] = dir_
                         * std::max (std::max (dir_ * (base_attachments_[d][Y_AXIS]

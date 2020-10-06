@@ -37,7 +37,7 @@ init_freetype ()
 {
   FT_Error errorcode = FT_Init_FreeType (&freetype2_library);
   if (errorcode)
-    error ("cannot initialize FreeType");
+    error (_ ("cannot initialize FreeType"));
 }
 
 Box

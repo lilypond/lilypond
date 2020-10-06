@@ -66,7 +66,7 @@ Fingering_column_engraver::stop_translation_timestep ()
           if (d)
             scripts_[d].push_back (item);
           else
-            possibles_[i]->warning ("Cannot add a fingering without a direction.");
+            possibles_[i]->warning (_ ("Cannot add a fingering without a direction."));
         }
     }
 

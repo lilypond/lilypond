@@ -52,7 +52,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 
   if (!ly_is_procedure (val)
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
-    error ("typecheck failed");
+    error (_ ("typecheck failed"));
 
   set_property (sc, sym, val);
   return SCM_UNSPECIFIED;

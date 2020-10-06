@@ -68,7 +68,7 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
             }
           else
             {
-              info.grob ()->warning ("Don't know how to parenthesize spanners.");
+              info.grob ()->warning (_ ("Don't know how to parenthesize spanners."));
             }
         }
     }

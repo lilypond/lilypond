@@ -283,7 +283,7 @@ Stem_tremolo::calc_direction (SCM smob)
           stemdir = -stemdir;
           if (avoid_me[stemdir])
             {
-              me->warning ("Whole-note tremolo may collide with simultaneous notes.");
+              me->warning (_ ("Whole-note tremolo may collide with simultaneous notes."));
               stemdir = -stemdir;
             }
         }
@@ -337,7 +337,7 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
       vector<int> nhp = Stem::note_head_positions (stem);
       if (nhp.empty ())
         {
-          me->warning ("stem tremolo has no note heads");
+          me->warning (_ ("stem tremolo has no note heads"));
           end_y = 0.0;
         }
       else

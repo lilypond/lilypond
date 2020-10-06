@@ -540,7 +540,7 @@ Skyline
 Skyline::padded (Real horizon_padding) const
 {
   if (horizon_padding < 0.0)
-    warning ("Cannot have negative horizon padding.  Junking.");
+    warning (_ ("Cannot have negative horizon padding.  Junking."));
 
   if (horizon_padding <= 0.0)
     return *this;

@@ -259,7 +259,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       my_dim = copy[-dir];
     }
   else
-    me->warning ("cannot find skylines - strange alignment will follow");
+    me->warning (_ ("cannot find skylines - strange alignment will follow"));
 
   vector<Box> boxes;
   vector<Skyline_pair> skyps;

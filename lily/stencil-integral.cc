@@ -481,7 +481,7 @@ all_commands_to_absolute_and_group (SCM expr)
         }
       else
         {
-          warning ("Malformed path for path stencil.");
+          warning (_ ("Malformed path for path stencil."));
           return out;
         }
       first = false;

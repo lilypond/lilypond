@@ -906,7 +906,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
     if (scm_is_number (get_property (elements[i], "outside-staff-priority"))
         && outside_staff_ancestor (elements[i]))
       {
-        elements[i]->warning ("Cannot set outside-staff-priority for element and elements' Y parent.");
+        elements[i]->warning (_ ("Cannot set outside-staff-priority for element and elements' Y parent."));
         set_property (elements[i], "outside-staff-priority", SCM_BOOL_F);
       }
 
