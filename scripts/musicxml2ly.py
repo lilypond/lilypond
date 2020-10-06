@@ -2734,7 +2734,8 @@ def musicxml_voice_to_lily_voice(voice):
             is_tied = False
 
     # force trailing mm rests to be written out.
-    # voice_builder.add_music (musicexp.ChordEvent(), Fraction(0))
+    voice_builder.add_music (musicexp.ChordEvent(), Fraction(0))
+
     if hasattr(options, 'shift_meter') and options.shift_meter:
         for event in voice_builder.elements:
             if isinstance(event, musicexp.TimeSignatureChange):
