@@ -26,6 +26,7 @@
 #include "font-metric.hh"
 #include "freetype.hh"
 #include "grob.hh"
+#include "international.hh"
 #include "interval.hh"
 #include "lazy-skyline-pair.hh"
 #include "lily-guile.hh"

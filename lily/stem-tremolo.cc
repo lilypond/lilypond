@@ -22,6 +22,7 @@
 #include "spanner.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
+#include "international.hh"
 #include "item.hh"
 #include "lookup.hh"
 #include "note-collision.hh"

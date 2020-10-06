@@ -20,6 +20,7 @@
 
 #include "engraver.hh"
 
+#include "international.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "stream-event.hh"

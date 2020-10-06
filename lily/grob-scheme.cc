@@ -20,6 +20,7 @@
 
 #include "font-interface.hh"
 #include "grob-array.hh"
+#include "international.hh"
 #include "item.hh"
 #include "output-def.hh"
 #include "paper-score.hh"

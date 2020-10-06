@@ -20,6 +20,7 @@
 #include "freetype.hh"
 #include "bezier.hh"
 #include "lazy-skyline-pair.hh"
+#include "international.hh"
 #include "transform.hh"
 #include "warn.hh"
 

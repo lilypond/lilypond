@@ -19,6 +19,7 @@
 
 #include "skyline.hh"
 #include "skyline-pair.hh"
+#include "international.hh"
 
 #include <deque>
 #include <cstdio>

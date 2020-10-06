@@ -21,6 +21,7 @@
 #include "side-position-interface.hh"
 #include "pointer-group-interface.hh"
 #include "fingering-column.hh"
+#include "international.hh"
 #include "item.hh"
 
 #include "translator.icc"
