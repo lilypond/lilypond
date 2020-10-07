@@ -301,7 +301,7 @@ test: test-pre
 	$(MAKE) -C ly local-test
 	@echo 'To begin investigating regression-test crashes, use'
 	@echo
-	@echo '    grep sourcefilename `grep -L systems.texi out/lybook-testdb/*/*log|sed s/log/ly/g`'
+	@echo '    grep -L systems.texi out/lybook-testdb/*/*log | sed s/log/ly/g | xargs grep sourcefilename'
 	@echo
 	$(MAKE) -C input/regression out=test lysdoc-test
 	$(buildscript-dir)/print-gittxt.sh $(top-src-dir) > input/regression/out-test/tree.gittxt
