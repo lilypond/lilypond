@@ -1376,7 +1376,8 @@
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (semi-tie-interface))))))
+                 (interfaces . (semi-tie-interface
+                                tie-interface))))))
 
     (LaissezVibrerTieColumn
      . (
@@ -2003,7 +2004,8 @@
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (semi-tie-interface))))))
+                 (interfaces . (semi-tie-interface
+                                tie-interface))))))
 
     (RepeatTieColumn
      . (
