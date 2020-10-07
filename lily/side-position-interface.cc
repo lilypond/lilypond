@@ -463,9 +463,7 @@ MAKE_SCHEME_CALLBACK (Side_position_interface, move_to_extremal_staff, 1);
 SCM
 Side_position_interface::move_to_extremal_staff (SCM smob)
 {
-  Grob *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  if (!me)
-    return SCM_BOOL_F;
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   Direction dir = get_grob_direction (me);
   if (dir != DOWN)

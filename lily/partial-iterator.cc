@@ -81,8 +81,6 @@ Partial_iterator::finalization (SCM timing_scm, SCM length_scm)
 {
   auto *timing = LY_ASSERT_SMOB (Context, timing_scm, 1);
   auto *length = LY_ASSERT_SMOB (Moment, length_scm, 2);
-  if (!timing || !length)
-    return SCM_UNSPECIFIED;
 
   Moment mp = robust_scm2moment (get_property (timing, "measurePosition"), 0);
   mp.main_part_ = measure_length (timing);
