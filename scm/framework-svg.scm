@@ -207,6 +207,7 @@ src: url('~a');
         (eval-svg `(set-paper #f)))
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
+    (dump (style-defs-end))
     (eval-svg `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter stencil)
     (dump (svg-end))
