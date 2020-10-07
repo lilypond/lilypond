@@ -317,7 +317,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   return true;
 }
 
-void
+[[noreturn]] void
 ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
 {
   string type = predicate_to_typename ((void *) pred);

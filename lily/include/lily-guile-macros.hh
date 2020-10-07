@@ -235,7 +235,8 @@ void ly_check_name (const std::string &cxx, const std::string &fname);
 template <class T>
 T *unsmob (SCM var);
 
-void ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun);
+[[noreturn]] void
+ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun);
 
 // Do not call this directly.
 // Use LY_ASSERT_SMOB() which supplies the function name automatically.
@@ -247,7 +248,6 @@ inline T *ly_assert_smob (SCM var, int number, const char *fun)
     return smob;
 
   ly_wrong_smob_arg (T::is_smob, var, number, fun);
-  return 0;
 }
 
 // Could be just implemented using LY_ASSERT_TYPE, but this variant
