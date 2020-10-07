@@ -114,7 +114,7 @@ class key_signature_formatter (formatter):
     def format_vals(self, val1, val2):
         key_names = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
         key = (((ord(val2[0])+128) % 256)-128) + ord(val2[1])*3 + 1
-        return (key_names[key % 7] + (key/7) * "is" + (-(key/7)) * "es"
+        return (key_names[key % 7] + (key//7) * "is" + (-(key//7)) * "es"
                 + " " + ['major', 'minor'][ord(val2[1])])
 
 
