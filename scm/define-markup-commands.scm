@@ -2293,7 +2293,8 @@ alignment accordingly.
   "
 @cindex setting extent of text object
 
-Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
+Set the horizontal and vertical dimensions of @var{arg} to @var{x}
+and@tie{}@var{y}."
   (ly:stencil-outline
    (interpret-markup layout props arg)
    (make-filled-box-stencil x y)))
@@ -2303,7 +2304,8 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
   (markup? markup?)
   #:category other
   "
-Print @var{arg} with the outline and dimensions of @var{outline}."
+Print @var{arg} with the outline and dimensions of @var{outline}. The outline
+is used by skylines to resolve collisions (not for whiteout)."
   (ly:stencil-outline (interpret-markup layout props arg)
                       (interpret-markup layout props outline)))
 
@@ -2311,7 +2313,7 @@ Print @var{arg} with the outline and dimensions of @var{outline}."
   (markup? markup?)
   #:category other
   "
-Print @var{arg2} with the dimensions of @var{arg1}."
+Print @var{arg2} with the horizontal and vertical dimensions of @var{arg1}."
   (let* ((stil1 (interpret-markup layout props arg1))
          (x (ly:stencil-extent stil1 0))
          (y (ly:stencil-extent stil1 1)))
