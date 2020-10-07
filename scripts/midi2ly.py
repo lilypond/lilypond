@@ -51,7 +51,7 @@ clocks_per_1 = 1536
 clocks_per_4 = 0
 
 time = None
-reference_note = 0
+reference_note = 0 # a mess
 start_quant_clocks = 0
 
 duration_quant_clocks = 0
@@ -460,6 +460,15 @@ class Text:
     def __repr__(self):
         return 'Text(%d=%s)' % (self.type, self.text)
 
+class EndOfTrack:
+    def __init__(self):
+        self.clocks = 0
+
+    def __repr__(self):
+        return 'EndOfTrack()'
+
+    def dump(self):
+        return ''
 
 def get_voice(channel, music):
     debug('channel: ' + str(channel) + '\n')
@@ -486,6 +495,7 @@ class Channel:
         music = []
         last_lyric = 0
         last_time = 0
+        end_of_track_time = None
         for e in self.events:
             t = e[0]
 
@@ -516,6 +526,7 @@ class Channel:
                 if e[1][1] == midi.END_OF_TRACK:
                     for i in pitches:
                         end_note(pitches, notes, t, i)
+                    end_of_track_time = t
                     break
 
                 elif e[1][1] == midi.SET_TEMPO:
@@ -585,6 +596,10 @@ class Channel:
             else:
                 music.insert(i, notes[0])
                 del notes[0]
+
+        if end_of_track_time is not None:
+            music.append((end_of_track_time, EndOfTrack()))
+
         return music
 
 
@@ -679,7 +694,8 @@ def unthread_notes(channel):
             elif (e[1].__class__ == Time
                   or e[1].__class__ == Key
                   or e[1].__class__ == Text
-                  or e[1].__class__ == Tempo):
+                  or e[1].__class__ == Tempo
+                  or e[1].__class__ == EndOfTrack):
                 thread.append(e)
             else:
                 todo.append(e)
@@ -690,7 +706,14 @@ def unthread_notes(channel):
 
 
 def dump_skip(skip, clocks):
-    return skip + Duration(clocks).dump() + ' '
+    global reference_note
+    saved_duration = reference_note.duration
+    result = skip + Duration(clocks).dump() + ' '
+    # "\skip D" does not change the reference duration like "sD",
+    # so we restore it after Duration.dump changes it.
+    if skip[0] == '\\':
+        reference_note.duration = saved_duration
+    return result
 
 
 def dump(d):
@@ -1084,6 +1107,7 @@ def convert_midi(in_file, out_file):
 
     control_track = False
     i = 0
+    output_track_count = 0
     for i, staff in enumerate(staves):
         track_name = get_track_name(i)
         item = track_first_item(staff.voices)
@@ -1099,7 +1123,13 @@ def convert_midi(in_file, out_file):
         elif item and item.__class__ == Text:
             context = 'Lyrics'
         if context:
+            output_track_count += 1
             s += '    \\context %(context)s=%(staff_name)s \\%(track_name)s\n' % locals()
+
+        # If we found a control track but no other tracks with which
+        # to combine it, create a Staff for the control track alone.
+        if (output_track_count == 0) and control_track:
+            s += '    \\context Staff \\%(control_track)s\n' % locals()
 
     s = s + r'''  >>
   \layout {}
