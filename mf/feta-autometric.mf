@@ -86,6 +86,8 @@ def autometric_output_char =
           & "@:" & decimal charht
           & "@:" & decimal charwx
           & "@:" & decimal charwy
+          & "@:" & decimal chardwx
+          & "@:" & decimal chardwy
           & "@:" & idstr
           & "@}";
 enddef;
@@ -236,6 +238,7 @@ def fet_beginchar (expr name, id_lit) =
   save charbp;
   save w, b, h, d;
   save charwx, charwy;
+  save chardwx, chardwy;
 
   string idstr, charnamestr;
   charnamestr := name;
@@ -283,6 +286,13 @@ enddef;
 
 
 def fet_endchar =
+  % GSoC-2020 TODO: Document these guys where needed
+  if unknown chardwx:
+    chardwx := charwd - charbp - charwx;
+  fi;
+  if unknown chardwy:
+    chardwy := charht - chardp - charwy;
+  fi;
   autometric_output_char;
   breapth_endchar;
 enddef;

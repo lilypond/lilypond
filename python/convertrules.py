@@ -4269,6 +4269,13 @@ def conv(s):
     return s
 
 
+@rule((2, 21, 7), r'combine u/d variants of triangle, do, re, and ti noteheads')
+def conv(s):
+    s = re.sub(r'"noteheads\.[ud](1|2)(triangle|(?:do|re|ti)(?:Thin)?)"',
+               r'"noteheads.s\1\2"', s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
