@@ -139,7 +139,7 @@ class Duration:
             den = clocks_per_4
         return (dur, num, den)
 
-    def dump(self):
+    def __repr__(self):
         if self.den == 1:
             if self.num == 1:
                 s = '%d' % self.dur
@@ -149,11 +149,12 @@ class Duration:
                 s = '%d*%d' % (self.dur, self.num)
         else:
             s = '%d*%d/%d' % (self.dur, self.num, self.den)
+        return s
 
+    def dump(self):
         global reference_note
         reference_note.duration = self
-
-        return s
+        return repr(self)
 
     def compare(self, other):
         return self.clocks - other.clocks
@@ -273,7 +274,7 @@ class Note:
 
     def __repr__(self):
         s = chr((self.notename + 2) % 7 + ord('a'))
-        return 'Note(%s %s)' % (s, self.duration.dump())
+        return 'Note(%s %s)' % (s, repr(self.duration))
 
     def dump(self, dump_dur=True):
         global reference_note
