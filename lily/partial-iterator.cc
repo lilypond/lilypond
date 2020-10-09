@@ -23,7 +23,7 @@
 #include "global-context.hh"
 #include "input.hh"
 #include "international.hh"
-#include "lily-guile-macros.hh"
+#include "lily-guile.hh"
 #include "moment.hh"
 #include "music.hh"
 
