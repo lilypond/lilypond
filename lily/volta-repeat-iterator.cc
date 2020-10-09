@@ -32,7 +32,6 @@ public:
 
   void add_repeat_command (SCM);
 protected:
-  SCM get_music_list () const override;
   void next_element () override;
   void create_children () override;
   void process (Moment) override;
@@ -52,13 +51,6 @@ Volta_repeat_iterator::derived_mark () const
 {
   scm_gc_mark (alt_restores_);
   Sequential_iterator::derived_mark ();
-}
-
-SCM
-Volta_repeat_iterator::get_music_list ()const
-{
-  return scm_cons (get_property (get_music (), "element"),
-                   Sequential_iterator::get_music_list ());
 }
 
 void
