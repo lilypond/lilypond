@@ -705,7 +705,8 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
 
     (TremoloRepeatedMusic
      . ((description . "Repeated notes denoted by tremolo beams.")
-        (iterator-ctor . ,ly:chord-tremolo-iterator::constructor)
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
+        (elements-callback . ,make-tremolo-set)
         (start-callback .  ,ly:repeated-music::first-start)
         (length-callback . ,ly:repeated-music::unfolded-music-length)
         (types . (repeated-music tremolo-repeated-music))

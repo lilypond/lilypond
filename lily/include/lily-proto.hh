@@ -46,7 +46,6 @@ class Bezier;
 class Book;
 class Box;
 class Change_iterator;
-class Chord_tremolo_iterator;
 class Column_x_positions;
 class Context;
 class Context_def;

@@ -105,7 +105,6 @@ Variable score_markup ("score-markup");
 Variable scorify_music ("scorify-music");
 Variable stencil_whiteout ("stencil-whiteout");
 Variable symbol_list_p ("symbol-list?");
-Variable tremolo_get_music_list ("tremolo::get-music-list");
 Variable type_name ("type-name");
 Variable volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibility");
 Variable write_performances_midis ("write-performances-midis");

@@ -117,7 +117,6 @@ extern Variable scorify_music;
 extern Variable stencil_whiteout;
 extern Variable stencil_whiteout_box;
 extern Variable symbol_list_p;
-extern Variable tremolo_get_music_list;
 extern Variable type_name;
 extern Variable volta_bracket_calc_hook_visibility;
 extern Variable write_performances_midis;
