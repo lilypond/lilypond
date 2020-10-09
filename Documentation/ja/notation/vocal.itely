@@ -903,7 +903,7 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 }
 @end lilypond
 
-@seealso
+@morerefs
 音楽用語集:
 @rglos{vowel transition}
 
