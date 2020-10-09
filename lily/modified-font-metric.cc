@@ -81,9 +81,9 @@ Modified_font_metric::count () const
 }
 
 Offset
-Modified_font_metric::attachment_point (const string &s, Direction d) const
+Modified_font_metric::attachment_point (const string &s) const
 {
-  Offset o = orig_->attachment_point (s, d);
+  Offset o = orig_->attachment_point (s);
   return o * magnification_;
 }
 

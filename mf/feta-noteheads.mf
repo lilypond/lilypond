@@ -315,7 +315,7 @@ enddef;
 %
 % UGH: xs not declared as argument.
 %
-def define_triangle_shape =
+def define_triangle_shape (expr stemdir) =
   save triangle_a, triangle_b, triangle_c;
   save triangle_out_a, triangle_out_b, triangle_out_c;
   save triangle_in, triangle_out;
@@ -422,10 +422,13 @@ def define_triangle_shape =
   penlabels (1, 1', 2, 2', 3, 3', 12, 23, 31);
 
   % attachment Y
-  charwy := ypart exact_right_point;
-  charwx := xpart exact_right_point + .5 pen_thick# * xs;
-  chardwy := ypart exact_down_point;
-  chardwx := xpart exact_down_point - .5 pen_thick# * xs;
+  if stemdir = 1:
+    charwy := ypart exact_right_point;
+    charwx := xpart exact_right_point + .5 pen_thick# * xs;
+  else:
+    charwy := -ypart exact_down_point;
+    charwx := width# - (xpart exact_down_point - .5 pen_thick# * xs);
+  fi
 enddef;
 
 
@@ -439,7 +442,7 @@ def draw_whole_triangle_head =
 
   xs = 1.5;
   caveness := 0.1;
-  define_triangle_shape;
+  define_triangle_shape (1);
   fill triangle_out;
   unfill triangle_in;
 enddef;
@@ -452,7 +455,7 @@ fet_beginchar ("Whole trianglehead", "s0triangle");
 fet_endchar;
 
 
-def draw_small_triangle_head =
+def draw_small_triangle_head (expr dir) =
   save hei, xs;
   save llap;
   save tilt;
@@ -461,7 +464,7 @@ def draw_small_triangle_head =
   llap# = 2/3 noteheight#;
   xs = 1.2;
   caveness := 0.1;
-  define_triangle_shape;
+  define_triangle_shape (dir);
 
   pickup feta_fillpen;
 
@@ -470,14 +473,21 @@ def draw_small_triangle_head =
 enddef;
 
 
-fet_beginchar ("Half trianglehead", "s1triangle");
-  draw_small_triangle_head;
+fet_beginchar ("Half trianglehead (downstem)", "d1triangle");
+  draw_small_triangle_head (-1);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
-def draw_closed_triangle_head =
+fet_beginchar ("Half trianglehead (upstem)", "u1triangle");
+  draw_small_triangle_head (1);
+
+  draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+def draw_closed_triangle_head (expr dir) =
   save hei, xs;
   save llap;
   save tilt;
@@ -486,13 +496,20 @@ def draw_closed_triangle_head =
   llap# = 2/3 noteheight#;
   xs = 1.0;
   caveness := 0.1;
-  define_triangle_shape;
+  define_triangle_shape (dir);
   fill triangle_out;
 enddef;
 
 
-fet_beginchar ("Quarter trianglehead", "s2triangle");
-  draw_closed_triangle_head;
+fet_beginchar ("Quarter trianglehead (upstem)", "u2triangle");
+  draw_closed_triangle_head (1);
+
+  draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("Quarter trianglehead (downstem)", "d2triangle");
+  draw_closed_triangle_head (-1);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
@@ -816,7 +833,7 @@ solfa_quarter_width := 1.0;
 % Triangle with base parallel to staff lines.
 %
 
-def draw_do_head (expr width_factor, thickness_factor) =
+def draw_do_head (expr width_factor, dir, thickness_factor) =
   save p_in, p_out;
   save left_dist, right_dist, bottom_dist;
   path p_in, p_out;
@@ -886,7 +903,9 @@ def draw_do_head (expr width_factor, thickness_factor) =
 
   charwx := charwd;
   charwy := -chardp + 0.5 stafflinethickness#;
-  chardwy := charwy;
+  if dir = -1:
+    charwy := -charwy;
+  fi;
 enddef;
 
 save do_weight;
@@ -894,41 +913,67 @@ do_weight := 2;
 
 
 fet_beginchar ("Whole dohead", "s0do");
-  draw_do_head (solfa_whole_width, do_weight);
+  draw_do_head (solfa_whole_width, 1, do_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half dohead", "s1do");
-  draw_do_head (solfa_half_width, do_weight);
+fet_beginchar ("Half dohead", "d1do");
+  draw_do_head (solfa_half_width, -1, do_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter dohead", "s2do");
-  draw_do_head (solfa_quarter_width, do_weight);
+fet_beginchar ("Half dohead", "u1do");
+  draw_do_head (solfa_half_width, 1, do_weight);
+  fill p_out;
+  unfill p_in;
+fet_endchar;
+
+
+fet_beginchar ("Quarter dohead", "d2do");
+  draw_do_head (solfa_quarter_width, -1, do_weight);
+  fill p_out;
+fet_endchar;
+
+
+fet_beginchar ("Quarter dohead", "u2do");
+  draw_do_head (solfa_quarter_width, 1, do_weight);
   fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Whole thin dohead", "s0doThin");
-  draw_do_head (solfa_whole_width, 1);
+  draw_do_head (solfa_whole_width, 1, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin dohead", "s1doThin");
-  draw_do_head (solfa_half_width, 1);
+fet_beginchar ("Half thin dohead", "d1doThin");
+  draw_do_head (solfa_half_width, -1, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin dohead", "s2doThin");
-  draw_do_head (solfa_quarter_width, 1);
+fet_beginchar ("Half thin dohead", "u1doThin");
+  draw_do_head (solfa_half_width, 1, 1);
+  fill p_out;
+  unfill p_in;
+fet_endchar;
+
+
+fet_beginchar ("Quarter thin dohead", "d2doThin");
+  draw_do_head (solfa_quarter_width, -1, 1);
+  fill p_out;
+fet_endchar;
+
+
+fet_beginchar ("Quarter thin dohead", "u2doThin");
+  draw_do_head (solfa_quarter_width, 1, 1);
   fill p_out;
 fet_endchar;
 
@@ -950,7 +995,7 @@ fet_endchar;
 %
 % stem attachment: h/2
 %
-def draw_re_head (expr width_factor, thickness_factor) =
+def draw_re_head (expr width_factor, dir, thickness_factor) =
   save p_in, p_out;
   path p_in, p_out;
 
@@ -1001,7 +1046,10 @@ def draw_re_head (expr width_factor, thickness_factor) =
 
   charwx := charwd;
   charwy := curve_start [-chardp, charht];
-  chardwy := charwy
+
+  if dir = -1:
+    charwy := -charwy;
+  fi;
 enddef;
 
 
@@ -1009,41 +1057,67 @@ save re_weight;
 re_weight := 2;
 
 fet_beginchar ("Whole rehead", "s0re");
-  draw_re_head (solfa_whole_width, re_weight);
+  draw_re_head (solfa_whole_width, 1, re_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half rehead", "s1re");
-  draw_re_head (solfa_half_width, re_weight);
+fet_beginchar ("Half up rehead", "u1re");
+  draw_re_head (solfa_half_width, 1, re_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter rehead", "s2re");
-  draw_re_head (solfa_quarter_width, re_weight);
+fet_beginchar ("Half down rehead", "d1re");
+  draw_re_head (solfa_half_width, -1, re_weight);
+  fill p_out;
+  unfill p_in;
+fet_endchar;
+
+
+fet_beginchar ("Quarter up rehead", "u2re");
+  draw_re_head (solfa_quarter_width, 1, re_weight);
+  fill p_out;
+fet_endchar;
+
+
+fet_beginchar ("Quarter down rehead", "d2re");
+  draw_re_head (solfa_quarter_width, -1, re_weight);
   fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Whole thin rehead", "s0reThin");
-  draw_re_head (solfa_whole_width, 1);
+  draw_re_head (solfa_whole_width, 1, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin rehead", "s1reThin");
-  draw_re_head (solfa_half_width, 1);
+fet_beginchar ("Half up thin rehead", "u1reThin");
+  draw_re_head (solfa_half_width, 1, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin rehead", "s2reThin");
-  draw_re_head (solfa_quarter_width, 1);
+fet_beginchar ("Half down thin rehead", "d1reThin");
+  draw_re_head (solfa_half_width, -1, 1);
+  fill p_out;
+  unfill p_in;
+fet_endchar;
+
+
+fet_beginchar ("Quarter thin rehead", "u2reThin");
+  draw_re_head (solfa_quarter_width, 1, 1);
+  fill p_out;
+fet_endchar;
+
+
+fet_beginchar ("Quarter thin rehead", "d2reThin");
+  draw_re_head (solfa_quarter_width, -1, 1);
   fill p_out;
 fet_endchar;
 
@@ -1486,7 +1560,7 @@ fet_endchar;
 %
 %   `Snow-cone', V with rounded top.
 %
-def draw_ti_head (expr width_factor, thickness_factor) =
+def draw_ti_head (expr width_factor, dir, thickness_factor) =
   set_char_box (0, width_factor * solfa_base_notewidth#,
                 0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
   save p_in, p_out, p_top, p_top_in;
@@ -1563,49 +1637,77 @@ def draw_ti_head (expr width_factor, thickness_factor) =
 
   charwx := charwd;
   charwy := cone_height [-chardp, charht];
-  chardwy := charwy;
+  if dir = -1:
+    charwy := -charwy;
+  fi;
 enddef;
 
 
 save ti_weight;
 ti_weight := 2;
 
-fet_beginchar ("Whole tihead", "s0ti");
-  draw_ti_head (solfa_whole_width, ti_weight);
+fet_beginchar ("Whole up tihead", "s0ti");
+  draw_ti_head (solfa_whole_width, 1, ti_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half tihead", "s1ti");
-  draw_ti_head (solfa_half_width, ti_weight);
+fet_beginchar ("Half up tihead", "u1ti");
+  draw_ti_head (solfa_half_width, 1, ti_weight);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter tihead", "s2ti");
-  draw_ti_head (solfa_quarter_width, ti_weight);
+fet_beginchar ("Half down tihead", "d1ti");
+  draw_ti_head (solfa_half_width, -1, ti_weight);
+  fill p_out;
+  unfill p_in;
+ fet_endchar;
+
+
+fet_beginchar ("Quarter up tihead", "u2ti");
+  draw_ti_head (solfa_quarter_width, 1, ti_weight);
   fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Whole thin tihead", "s0tiThin");
-  draw_ti_head (solfa_whole_width, 1);
+fet_beginchar ("Quarter down tihead", "d2ti");
+  draw_ti_head (solfa_quarter_width, -1, ti_weight);
+  fill p_out;
+fet_endchar;
+
+
+fet_beginchar ("Whole thin up tihead", "s0tiThin");
+  draw_ti_head (solfa_whole_width, 1, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half thin tihead", "s1tiThin");
-  draw_ti_head (solfa_half_width, 1);
+fet_beginchar ("Half thin up tihead", "u1tiThin");
+  draw_ti_head (solfa_half_width, 1, 1);
   fill p_out;
   unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter thin tihead", "s2tiThin");
-  draw_ti_head (solfa_quarter_width, 1);
+fet_beginchar ("Half thin down tihead", "d1tiThin");
+  draw_ti_head (solfa_half_width, -1, 1);
+  fill p_out;
+  unfill p_in;
+fet_endchar;
+
+
+fet_beginchar ("Quarter thin up tihead", "u2tiThin");
+  draw_ti_head (solfa_quarter_width, 1, 1);
+  fill p_out;
+fet_endchar;
+
+
+fet_beginchar ("Quarter thin down tihead", "d2tiThin");
+  draw_ti_head (solfa_quarter_width, -1, 1);
   fill p_out;
 fet_endchar;
 

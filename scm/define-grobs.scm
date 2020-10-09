@@ -2497,7 +2497,7 @@
         (font-series . bold)
         (font-size . -2)
         (parenthesis-friends . (dot))
-        (stem-attachment . ,ly:note-head::calc-tab-stem-attachment)
+        (stem-attachment . (0.0 . 1.35))
         (stencil . ,tab-note-head::print)
         (whiteout . #t)
         (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)

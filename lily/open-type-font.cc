@@ -318,7 +318,7 @@ Open_type_font::derived_mark () const
 }
 
 Offset
-Open_type_font::attachment_point (const string &glyph_name, Direction d) const
+Open_type_font::attachment_point (const string &glyph_name) const
 {
   SCM sym = ly_symbol2scm (glyph_name.c_str ());
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
@@ -328,15 +328,7 @@ Open_type_font::attachment_point (const string &glyph_name, Direction d) const
     return o;
 
   SCM char_alist = entry;
-  SCM att_scm;
-  if (d == UP)
-    att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment"),
-                                     char_alist));
-  else if (d == DOWN)
-    att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment-down"),
-                                     char_alist));
-  else
-    return o;
+  SCM att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment"), char_alist));
 
   return point_constant * from_scm<Offset> (att_scm);
 }

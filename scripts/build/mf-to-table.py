@@ -63,10 +63,10 @@ def parse_logfile(fn):
             group = ''
         elif tags[0] == 'char':
             try:
-                name = tags[11]
+                name = tags[9]
             except IndexError:
                 print('Error in mf-to-table while processing file', fn)
-                print('Index 11 >', len(tags)-1, 'on line', i)
+                print('Index 9 >', len(tags)-1, 'on line', i)
                 print(l)
                 raise
 
@@ -82,8 +82,6 @@ def parse_logfile(fn):
                 'height': float(tags[6]),
                 'wx': float(tags[7]),
                 'wy': float(tags[8]),
-                'dwx': float(tags[9]),
-                'dwy': float(tags[10]),
             }
             charmetrics.append(m)
         elif tags[0] == 'font':
@@ -126,8 +124,7 @@ def character_lisp_table(global_info, charmetrics):
 ((bbox . (%f %f %f %f))
 (subfont . "%s")
 (subfont-index . %d)
-(attachment . (%f . %f))
-(attachment-down . (%f . %f))))
+(attachment . (%f . %f))))
 """ % (charmetric['name'],
             -charmetric['breapth'] * f,
             -charmetric['depth'] * f,
@@ -136,9 +133,7 @@ def character_lisp_table(global_info, charmetrics):
             global_info['filename'],
             charmetric['code'],
             charmetric['wx'],
-            charmetric['wy'],
-            charmetric['dwx'],
-            charmetric['dwy'])
+            charmetric['wy'])
 
         return s
 

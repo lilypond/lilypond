@@ -813,6 +813,7 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
       return from_scm<double> (get_property (me, "stem-begin-position"), 0.0);
     }
 
+  Direction d = get_grob_direction (me);
   Grob *lh = get_reference_head (me);
 
   if (!lh)
@@ -827,7 +828,7 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
 
       y_attach = head_height.linear_combination (y_attach);
       if (std::isfinite (y_attach)) // empty heads
-        pos += y_attach * 2 / ss;
+        pos += d * y_attach * 2 / ss;
     }
 
   return pos;
@@ -945,7 +946,8 @@ Stem::offset_callback (SCM smob)
       else
         attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
 
-      Real real_attach = head_wid.linear_combination (attach);
+      Direction d = get_grob_direction (me);
+      Real real_attach = head_wid.linear_combination (d * attach);
       Real r = std::isnan (real_attach) ? 0.0 : real_attach;
 
       /* If not centered: correct for stem thickness.  */
@@ -954,7 +956,6 @@ Stem::offset_callback (SCM smob)
           && style != "neomensural"
           && style != "petrucci")
         {
-          Direction d = get_grob_direction (me);
           Real rule_thick = thickness (me);
           r += -d * rule_thick * 0.5;
         }
