@@ -20,9 +20,9 @@ po-replace: po-update
 
 local-install: $(MO_FILES)
 	for i in $(CATALOGS); do \
-	  $(INSTALL) -d $(DESTDIR)$(localedir)/$$i/LC_MESSAGES; \
-	  $(INSTALL) -m 644 $(outdir)/$$i.mo \
-	  	     $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/lilypond.mo; \
+	  $(INSTALLPY) -d $(DESTDIR)$(localedir)/$$i/LC_MESSAGES; \
+	  $(INSTALLPY) -m 644 $(outdir)/$$i.mo \
+                       $(DESTDIR)$(localedir)/$$i/LC_MESSAGES/lilypond.mo; \
 	done
 
 local-uninstall:

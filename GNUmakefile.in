@@ -112,7 +112,7 @@ install-doc: install-info install-WWW
 uninstall-doc: uninstall-info uninstall-WWW
 
 local-install:
-	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
+	$(INSTALLPY) -d $(DESTDIR)$(local_lilypond_datadir)
 
 final-install:
 	@true
@@ -120,7 +120,7 @@ final-install:
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
 install-WWW: $(outdir)/offline-root/index.html
-	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
+	$(INSTALLPY) -m 755 -d $(DESTDIR)$(webdir)
 	rsync -rl --exclude='*.signature' $(dir $<) $(DESTDIR)$(webdir)
 
 uninstall-WWW:

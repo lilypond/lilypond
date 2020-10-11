@@ -328,13 +328,13 @@ ifeq ($(out),www)
 # remove $(infodir)/$(INFO_IMAGES_DIR) in case it is a symlink
 	rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 ifneq ($(COPY_INFO_IMAGES),)
-	$(INSTALL) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
+	$(INSTALLPY) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 	rsync --copy-links -r  $(outdir)/lilypond/?? $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 # There is probably an rsync invocation to just copy the png files,
 # but I am too lazy to try harder to find it.
 	find $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR) -type f -not -name '*.png' -delete
 else # !COPY_INFO_IMAGES
-	$(INSTALL) -d $(DESTDIR)$(infodir)
+	$(INSTALLPY) -d $(DESTDIR)$(infodir)
 	cd $(DESTDIR)$(infodir) && \
 		ln -sf $$($(PYTHON) $(buildscript-dir)/relative.py \
 			$(DESTDIR)$(webdir)/Documentation ) \
@@ -353,7 +353,7 @@ ifeq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 update-info-directory-file-install: \
   $(ALL_INFO_FILES) \
   update-info-directory-file-uninstall
-	-$(INSTALL) -d $(DESTDIR)$(infodir)
+	$(INSTALLPY) -d $(DESTDIR)$(infodir)
 	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
 
 update-info-directory-file-uninstall:
@@ -368,7 +368,7 @@ else
 ## install-info can't do all its job for binary packages' build systems.
 ## Best we can do is to notify the builder or packager.
 update-info-directory-file-install: $(INFO_FILES)
-	-$(INSTALL) -d $(DESTDIR)$(infodir)
+	$(INSTALLPY) -d $(DESTDIR)$(infodir)
 	@echo
 	@echo "***************************************************************"
 	@echo "Please add or update the LilyPond direntries,"
