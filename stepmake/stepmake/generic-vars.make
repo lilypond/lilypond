@@ -43,8 +43,7 @@ po-outdir = $(depth)/po/$(outdir)
 # stepmake package support.
 DEPTH = $(depth)/$(package-depth)
 
-INSTALLPY=$(PYTHON) $(buildscript-dir)/install.py -c
-INSTALL=$(INSTALLPY)
+INSTALLPY=$(PYTHON) $(buildscript-dir)/install.py $(INSTALLPY_QUIET) -c
 
 package-icon = $(outdir)/$(package)-icon.xpm
 
@@ -94,3 +93,9 @@ LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) -C $(i) $@ &&) true
 
 ETAGS_FLAGS =
 CTAGS_FLAGS =
+
+# In verbose mode, command lines are shown before execution.
+# It is thus not necessary to make `install.py` emit the same again.
+ifdef VERBOSE
+  INSTALLPY_QUIET = -q
+endif

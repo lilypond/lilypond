@@ -21,7 +21,9 @@ import getopt
 import sys
 import os
 import shutil
-(opts, args) = getopt.getopt(sys.argv[1:], 'b:cdg:m:o:st:', [])
+
+(opts, args) = getopt.getopt(sys.argv[1:], 'b:cdg:m:o:qst:', [])
+
 transform_base = None
 group = None
 owner = None
@@ -29,6 +31,7 @@ transform = None
 mode = None
 copy = False
 create_dir = False
+quiet = False
 
 for (o, a) in opts:
     if o == '-b':
@@ -43,6 +46,8 @@ for (o, a) in opts:
         mode = int(a, base=8)
     elif o == '-o':
         owner = a
+    elif o == '-q':
+        quiet = True
     elif o == '-s':
         strip = True
     elif o == '-t':
@@ -62,6 +67,7 @@ Options:
 -g GROUP   $chgrp installed files to GROUP.
 -m MODE    $chmod installed files to MODE.
 -o USER    $chown installed files to USER.
+-q         don't emit messages.
 -s         strip installed files (using $stripprog).
 -t=TRANSFORM
 --help     display this help and exit.
@@ -74,18 +80,21 @@ if not mode:
     else:
         mode = 0o644
 
-
 chown_me = []
 
 dest = None
 if not create_dir:
     dest = args.pop()
+    if not quiet:
+        sys.stdout.write("install.py: target directory `%s':\n" % dest)
 
 for f in args:
     if create_dir:
         if os.path.isdir(f):
             continue
 
+        if not quiet:
+            sys.stdout.write("install.py: creating directory `%s'\n" % f)
         os.makedirs(f, mode=mode, exist_ok=True)
         chown_me.append(f)
     else:
@@ -93,8 +102,12 @@ for f in args:
             if os.path.exists(dest) and not os.path.isdir(dest):
                 os.remove(dest)
             shutil.copy2(f, dest)
+            if not quiet:
+                sys.stdout.write("install.py:   copying file `%s'\n" % f)
         else:
             shutil.move(f, dest)
+            if not quiet:
+                sys.stdout.write("install.py:   moving file `%s'\n" % f)
 
         if os.path.isdir(dest):
             chown_me.append(os.path.join(dest, os.path.basename(f)))
