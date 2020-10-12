@@ -1659,15 +1659,24 @@ shape =
    (_i "Offset control-points of @var{item} by @var{offsets}.  The
 argument is a list of number pairs or list of such lists.  Each
 element of a pair represents an offset to one of the coordinates of a
-control-point.  If @var{item} is a string, the result is
-@code{\\once\\override} for the specified grob type.  If @var{item} is
-a music expression, the result is the same music expression with an
-appropriate tweak applied.")
+control-point.  The y-coordinate of each number pair is scaled by staff space.
+If @var{item} is a string, the result is @code{\\once\\override} for the
+specified grob type.  If @var{item} is a music expression, the result is the
+same music expression with an appropriate tweak applied.")
    (define (shape-curve grob coords)
      (let* ((orig (ly:grob-original grob))
             (siblings (if (ly:spanner? grob)
                           (ly:spanner-broken-into orig) '()))
-            (total-found (length siblings)))
+            (total-found (length siblings))
+            (staff-space (ly:staff-symbol-staff-space grob))
+            (scaled-offsets
+              (map
+                (lambda (offset)
+                  (if (number-pair? offset)
+                      (cons (car offset) (* (cdr offset) staff-space))
+                      offset))
+                offsets)))
+
        (define (offset-control-points offsets)
          (if (null? offsets)
              coords
@@ -1681,13 +1690,14 @@ appropriate tweak applied.")
              coords))
 
        ;; we work with lists of lists
-       (if (or (null? offsets)
-               (not (list? (car offsets))))
-           (set! offsets (list offsets)))
+       (if (or (null? scaled-offsets)
+               (not (list? (car scaled-offsets))))
+           (set! scaled-offsets (list scaled-offsets)))
 
        (if (>= total-found 2)
-           (helper siblings offsets)
-           (offset-control-points (car offsets)))))
+           (helper siblings scaled-offsets)
+           (offset-control-points (car scaled-offsets)))))
+
    (once (propertyTweak 'control-points
                         (grob-transformer 'control-points shape-curve)
                         item)))
