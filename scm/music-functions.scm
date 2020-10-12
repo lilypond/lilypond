@@ -2080,6 +2080,33 @@ Entries that conform with the current key signature are not invalidated."
 
     (make-event-chord (list (ly:music-compress skip (ly:music-length mus))))))
 
+(define-public (skip-of-moment-span start-moment end-moment)
+  "Make skip music fitting between @var{start-moment} and
+@var{end-moment}.  The grace part of @var{end-moment} matters only if
+@var{start-moment} and @var{end-mom} have the same main part."
+  (let ((delta-moment (ly:moment-sub end-moment start-moment)))
+    (if (zero? (ly:moment-main delta-moment))
+        ;; start and end have same main part
+        (if (zero? (ly:moment-grace delta-moment))
+            ;; neither main time nor grace time
+            (make-skip-music ZERO-DURATION)
+            ;; grace time only
+            (make-grace-music
+             (make-skip-music
+              (ly:make-duration 0 0 (ly:moment-grace delta-moment)))))
+        ;; start and end have different main parts
+        (if (zero? (ly:moment-grace start-moment))
+            ;; main time only
+            (make-skip-music (make-duration-of-length delta-moment))
+            ;; grace time and main time
+            (make-sequential-music
+             (list
+              (make-grace-music
+               (make-skip-music
+                (ly:make-duration 0 0 (- (ly:moment-grace start-moment)))))
+              (make-skip-music
+               (ly:make-duration 0 0 (ly:moment-main delta-moment)))))))))
+
 (define-public (mmrest-of-length mus)
   "Create a multi-measure rest of exactly the same length as @var{mus}."
 

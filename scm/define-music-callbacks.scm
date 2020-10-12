@@ -40,12 +40,16 @@ iterator will generate the actual percent events."
         ;; they begin with grace notes, we disregard them and place
         ;; the percent event at the start of the main notes.
         ;;
-        ;; TODO: It's possible to write ly code for a percent repeat
-        ;; with nothing but grace notes in the body.  The proper way
-        ;; to handle that here would be to create a grace-time skip.
-        ;; That wouldn't guarantee that everything else will handle
-        ;; the music sensibly, but the timekeeping would be correct.
-        (let ((placeholder (skip-of-length body)))
+        ;; It's possible to write ly code for a percent repeat with
+        ;; nothing but grace notes in the body; in that case, we
+        ;; create a grace-time skip.  That doesn't guarantee that
+        ;; everything else will handle the music sensibly, but the
+        ;; timekeeping will be correct.
+        (let* ((length (ly:music-length body))
+               (start (if (= 0 (ly:moment-main length))
+                          (ly:music-start body)
+                          ZERO-MOMENT))
+               (placeholder (skip-of-moment-span start length)))
           (cons body (make-list (- n 1) placeholder)))
         (list body))))
 

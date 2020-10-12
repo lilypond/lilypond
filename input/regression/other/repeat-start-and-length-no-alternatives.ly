@@ -57,7 +57,7 @@ reported on stderr."
 
 \testStartAndLength \repeat percent 3 { \grace c8 \grace d8 }
 %% The percent implementation doesn't expect pure grace notes, but ...
-#(ly:make-moment 0 -2/8) % TODO: -6/8 would make more sense
+#(ly:make-moment 0 -6/8) % this makes sense
 #ZERO-MOMENT % this makes sense
 
 \testStartAndLength \repeat tremolo 3 { \grace c8 \grace d8 }
