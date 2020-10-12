@@ -29,6 +29,26 @@ to be used by the sequential-iterator"
                         (make-music 'BarCheck))
                   music))
 
+(define (make-percent-set music)
+  "Compute the elements of percent-repeated music, consisting of the
+body followed by a placeholder element for each repetition.  The
+iterator will generate the actual percent events."
+  (let ((n (ly:music-property music 'repeat-count))
+        (body (ly:music-property music 'element)))
+    (if (> n 1)
+        ;; Percent repeats normally have a nonzero main length.  If
+        ;; they begin with grace notes, we disregard them and place
+        ;; the percent event at the start of the main notes.
+        ;;
+        ;; TODO: It's possible to write ly code for a percent repeat
+        ;; with nothing but grace notes in the body.  The proper way
+        ;; to handle that here would be to create a grace-time skip.
+        ;; That wouldn't guarantee that everything else will handle
+        ;; the music sensibly, but the timekeeping would be correct.
+        (let ((placeholder (skip-of-length body)))
+          (cons body (make-list (- n 1) placeholder)))
+        (list body))))
+
 (define (make-tremolo-set tremolo)
   "Given a tremolo repeat, return a list of music to engrave for it.
 This will be a stretched copy of its body, plus a TremoloEvent or

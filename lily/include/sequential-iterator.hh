@@ -53,7 +53,6 @@ protected:
   bool run_always () const override;
 
 protected:
-  virtual SCM get_music_list () const;
   virtual void next_element ();
 
 private:

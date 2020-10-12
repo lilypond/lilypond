@@ -441,6 +441,7 @@ as separate voices.")
     (PercentRepeatedMusic
      . ((description . "Repeats encoded by percents and slashes.")
         (iterator-ctor . ,ly:percent-repeat-iterator::constructor)
+        (elements-callback . ,make-percent-set)
         (start-callback .  ,ly:repeated-music::first-start)
         (length-callback . ,ly:repeated-music::unfolded-music-length)
         (types . (repeated-music percent-repeated-music))

@@ -43,28 +43,6 @@
   here_mom_  = sum (length (musiclist [start ... cursor>))  %)
 */
 
-// Sequential music uses elements-callback to just read out the
-// elements property and return it.  Overriding get_music_list rather
-// than having a different elements-callback default allows action
-// that is not exposed to music expression processing since it only
-// happens during iteration.
-//
-// One such action is the use of iterator callbacks: if a function is
-// found in the tail of the music list as it is being consumed (like
-// when the whole "list" is just a function), it is called with the
-// iterator as its argument as a means for getting the actual
-// remaining music list to process.
-SCM
-Sequential_iterator::get_music_list () const
-{
-  Music *m = get_music ();
-  SCM proc = get_property (m, "elements-callback");
-  if (ly_is_procedure (proc))
-    return scm_call_1 (proc, m->self_scm ());
-  else
-    return SCM_EOL;
-}
-
 void
 Sequential_iterator::do_quit ()
 {
@@ -126,11 +104,14 @@ Sequential_iterator::create_children ()
 {
   Music_iterator::create_children ();
 
-  cursor_ = get_music_list ();
+  {
+    auto *m = get_music ();
+    SCM proc = get_property (m, "elements-callback");
+    if (ly_is_procedure (proc))
+      cursor_ = scm_call_1 (proc, m->self_scm ());
+  }
 
   iter_ = 0;
-  if (ly_is_procedure (cursor_))
-    cursor_ = scm_call_1 (cursor_, self_scm ());
 
   if (scm_is_pair (cursor_))
     {
@@ -196,9 +177,6 @@ Sequential_iterator::next_element ()
   cursor_ = scm_cdr (cursor_);
 
   iter_->quit ();
-
-  if (ly_is_procedure (cursor_))
-    cursor_ = scm_call_1 (cursor_, self_scm ());
 
   if (scm_is_pair (cursor_))
     {

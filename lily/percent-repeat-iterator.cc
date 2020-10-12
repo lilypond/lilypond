@@ -30,25 +30,40 @@ class Percent_repeat_iterator final : public Sequential_iterator
 public:
   OVERRIDE_CLASS_NAME (Percent_repeat_iterator);
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  Percent_repeat_iterator ();
+  Percent_repeat_iterator () = default;
+
 protected:
-  SCM get_music_list () const override;
   void create_contexts () override;
+  void derived_mark () const override;
+  void next_element () override;
+
 private:
-  SCM music_tail () const;
-  int starting_bar_;
+  int done_count_ = 0;
+  int rep_count_ = 0;
+  int starting_bar_ = -1;
+  Moment body_length_;
+  SCM event_type_ = SCM_UNDEFINED;
+  SCM slash_count_ = SCM_UNDEFINED;
 };
 
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 
-Percent_repeat_iterator::Percent_repeat_iterator ()
-  : starting_bar_ (-1)
+void
+Percent_repeat_iterator::derived_mark () const
 {
+  scm_gc_mark (event_type_);
+  scm_gc_mark (slash_count_);
+  Sequential_iterator::derived_mark ();
 }
 
 void
 Percent_repeat_iterator::create_contexts ()
 {
+  auto *mus = get_music ();
+  if (auto *body = Repeated_music::body (mus))
+    body_length_ = body->get_length ();
+  rep_count_ = Repeated_music::repeat_count (mus);
+
   Sequential_iterator::create_contexts ();
 
   descend_to_bottom_context ();
@@ -57,62 +72,50 @@ Percent_repeat_iterator::create_contexts ()
       = from_scm (get_property (get_context (), "internalBarNumber"), 0);
 }
 
-// Todo: use elements-callback instead?  We don't expose iterator
-// member functions elsewhere, though.
-SCM
-Percent_repeat_iterator::get_music_list () const
+// Arrive here for the first time after the original percent expression is
+// completed, and then after each placeholder element.  At this point of time,
+// we can determine what kind of percent expression we are dealing with and
+// provide the respective music expressions for the remaining repeats.
+void
+Percent_repeat_iterator::next_element ()
 {
-  return scm_cons (Repeated_music::body (get_music ())->self_scm (),
-                   MFP_WRAP (&Percent_repeat_iterator::music_tail));
-}
+  Sequential_iterator::next_element ();
 
-// Arrive here when the original percent expression has been
-// completed.  At this point of time, we can determine what kind of
-// percent expression we are dealing with and provide the respective
-// music expressions for the remaining repeats.
-SCM
-Percent_repeat_iterator::music_tail () const
-{
-  Music *mus = get_music ();
-
-  Music *child = Repeated_music::body (mus);
-  SCM length = child->get_length ().smobbed_copy ();
-
-  int current_bar = -1;
-  if (!measure_position (get_context ()).main_part_)
-    current_bar
-      = from_scm (get_property (get_context (), "internalBarNumber"), 0);
-
-  SCM child_list = SCM_EOL;
-
-  SCM event_type = SCM_UNDEFINED;
-  SCM slash_count = SCM_UNDEFINED; // Only defined for RepeatSlashEvent
-
-  if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
-    event_type = ly_symbol2scm ("PercentEvent");
-  else if (starting_bar_ >= 0 && current_bar == starting_bar_ + 2)
-    event_type = ly_symbol2scm ("DoublePercentEvent");
-  else
+  ++done_count_;
+  if (done_count_ < rep_count_)
     {
-      slash_count = Lily::calc_repeat_slash_count (child->self_scm ());
-      event_type = ly_symbol2scm ("RepeatSlashEvent");
-    }
-
-  int repeats = scm_to_int (get_property (mus, "repeat-count"));
-  for (int i = repeats; i > 1; i--)
-    {
-      Music *percent = make_music_by_name (event_type);
-      percent->set_spot (*mus->origin ());
-      set_property (percent, "length", length);
-      if (repeats > 1)
+      Music *mus = get_music ();
+      if (done_count_ == 1)
         {
-          set_property (percent, "repeat-count", to_scm (i));
-          if (!SCM_UNBNDP (slash_count))
-            set_property (percent, "slash-count", slash_count);
+          int current_bar = -1;
+          if (!measure_position (get_context ()).main_part_)
+            {
+              current_bar = from_scm (get_property (get_context (),
+                                                    "internalBarNumber"), 0);
+            }
+
+          if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
+            event_type_ = ly_symbol2scm ("PercentEvent");
+          else if (starting_bar_ >= 0 && current_bar == starting_bar_ + 2)
+            event_type_ = ly_symbol2scm ("DoublePercentEvent");
+          else
+            {
+              if (auto *body = Repeated_music::body (mus))
+                {
+                  slash_count_
+                    = Lily::calc_repeat_slash_count (body->self_scm ());
+                }
+              event_type_ = ly_symbol2scm ("RepeatSlashEvent");
+            }
         }
 
-      child_list = scm_cons (percent->unprotect (), child_list);
+      Music *percent = make_music_by_name (event_type_);
+      percent->set_spot (*mus->origin ());
+      set_property (percent, "length", body_length_.smobbed_copy ());
+      set_property (percent, "repeat-count", to_scm (done_count_ + 1));
+      if (!SCM_UNBNDP (slash_count_))
+        set_property (percent, "slash-count", slash_count_);
+      report_event (percent);
+      percent->unprotect ();
     }
-
-  return child_list;
 }

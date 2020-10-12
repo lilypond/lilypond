@@ -19,6 +19,7 @@
 
 #include "music-sequence.hh"
 
+#include "ly-smob-list.hh"
 #include "warn.hh"
 #include "program-option.hh"
 #include "duration.hh"
@@ -29,8 +30,8 @@
 void
 transpose_music_list (SCM lst, Pitch rq)
 {
-  for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    if (Prob *p = unsmob<Prob> (scm_car (s)))
+  for (auto *p : as_ly_smob_list<Prob> (lst))
+    if (p)
       p->transpose (rq);
 }
 
@@ -40,13 +41,18 @@ Music_sequence::cumulative_length (SCM l)
   Moment cumulative;
   Moment last_len;
 
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
+  for (auto *mus : as_ly_smob_list<const Music> (l))
     {
-      Moment l = unsmob<Music> (scm_car (s))->get_length ();
-      if (last_len.grace_part_ && l.main_part_)
-        last_len.grace_part_ = Rational (0);
-      cumulative += last_len;
-      last_len = l;
+      if (!mus)
+        programming_error ("Music sequence should have music elements");
+      else
+        {
+          Moment l = mus->get_length ();
+          if (last_len.grace_part_ && l.main_part_)
+            last_len.grace_part_ = Rational (0);
+          cumulative += last_len;
+          last_len = l;
+        }
     }
 
   last_len.grace_part_ = Rational (0);
@@ -59,9 +65,8 @@ Moment
 Music_sequence::maximum_length (SCM l)
 {
   Moment dur = 0;
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
+  for (auto *m : as_ly_smob_list<const Music> (l))
     {
-      Music *m = unsmob<Music> (scm_car (s));
       if (!m)
         programming_error ("Music sequence should have music elements");
       else
@@ -128,9 +133,9 @@ music_list_to_relative (SCM l, Pitch p, bool ret_first)
   int count = 0;
 
   Pitch last = p;
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
+  for (auto *m : as_ly_smob_list<Music> (l))
     {
-      if (Music *m = unsmob<Music> (scm_car (s)))
+      if (m)
         {
           last = m->to_relative_octave (last);
           if (!count++)
@@ -144,8 +149,13 @@ music_list_to_relative (SCM l, Pitch p, bool ret_first)
 void
 compress_music_list (SCM l, Rational m)
 {
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    unsmob<Music> (scm_car (s))->compress (m);
+  for (auto *mus : as_ly_smob_list<Music> (l))
+    {
+      if (!mus)
+        programming_error ("Music sequence should have music elements");
+      else
+        mus->compress (m);
+    }
 }
 
 Moment
@@ -153,18 +163,27 @@ Music_sequence::minimum_start (SCM l)
 {
   Moment m;
 
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    m = std::min (m, unsmob<Music> (scm_car (s))->start_mom ());
+  for (auto *mus : as_ly_smob_list<const Music> (l))
+    {
+      if (!mus)
+        programming_error ("Music sequence should have music elements");
+      else
+        m = std::min (m, mus->start_mom ());
+    }
   return m;
 }
 
 Moment
 Music_sequence::first_start (SCM l)
 {
-
-  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
+  for (auto *mus : as_ly_smob_list<const Music> (l))
     {
-      Music *mus = unsmob<Music> (scm_car (s));
+      if (!mus)
+        {
+          programming_error ("Music sequence should have music elements");
+          break;
+        }
+
       Moment start = mus->start_mom ();
       if (mus->get_length ().to_bool () || start.to_bool ())
         return start;
