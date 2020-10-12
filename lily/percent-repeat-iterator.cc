@@ -21,7 +21,7 @@
 #include "callback.hh"
 #include "context.hh"
 #include "input.hh"
-#include "repeated-music.hh"
+#include "music.hh"
 #include "sequential-iterator.hh"
 #include "lily-imports.hh"
 
@@ -60,9 +60,9 @@ void
 Percent_repeat_iterator::create_contexts ()
 {
   auto *mus = get_music ();
-  if (auto *body = Repeated_music::body (mus))
+  if (auto *body = unsmob<Music> (get_property (mus, "element")))
     body_length_ = body->get_length ();
-  rep_count_ = Repeated_music::repeat_count (mus);
+  rep_count_ = from_scm<int> (get_property (mus, "repeat-count"));
 
   Sequential_iterator::create_contexts ();
 
@@ -100,7 +100,7 @@ Percent_repeat_iterator::next_element ()
             event_type_ = ly_symbol2scm ("DoublePercentEvent");
           else
             {
-              if (auto *body = Repeated_music::body (mus))
+              if (auto *body = unsmob<Music> (get_property (mus, "element")))
                 {
                   slash_count_
                     = Lily::calc_repeat_slash_count (body->self_scm ());

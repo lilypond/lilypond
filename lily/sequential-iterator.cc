@@ -19,6 +19,7 @@
 
 #include "sequential-iterator.hh"
 
+#include "calculated-sequential-music.hh"
 #include "music.hh"
 #include "translator-group.hh"
 #include "context.hh"
@@ -104,15 +105,9 @@ Sequential_iterator::create_children ()
 {
   Music_iterator::create_children ();
 
-  {
-    auto *m = get_music ();
-    SCM proc = get_property (m, "elements-callback");
-    if (ly_is_procedure (proc))
-      cursor_ = scm_call_1 (proc, m->self_scm ());
-  }
-
   iter_ = 0;
 
+  cursor_ = Calculated_sequential_music::calc_elements (get_music ());
   if (scm_is_pair (cursor_))
     {
       Music *m = unsmob<Music> (scm_car (cursor_));

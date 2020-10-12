@@ -20,7 +20,6 @@
 #include "engraver.hh"
 #include "translator-group.hh"
 #include "context.hh"
-#include "repeated-music.hh"
 
 #include "translator.icc"
 
