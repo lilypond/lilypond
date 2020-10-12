@@ -23,7 +23,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "misc.hh"
-#include "repeated-music.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "stem-tremolo.hh"

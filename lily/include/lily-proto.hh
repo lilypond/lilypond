@@ -130,7 +130,6 @@ class Pitch_squash_engraver;
 class Prob;
 class Property_iterator;
 class Relative_octave_music;
-class Repeated_music;
 class Rhythmic_music_iterator;
 class Scale;
 class Scheme_hash_table;
