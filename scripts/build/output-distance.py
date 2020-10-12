@@ -903,18 +903,27 @@ class ComparisonData:
     def compare_trees(self, dir1, dir2):
         self.compare_directories(dir1, dir2)
 
+        dir1_ok = False
         try:
-            (root, dirs, files) = next(os.walk(dir1))
+            (root1, dirs1, files1) = next(os.walk(dir1))
+            dir1_ok = True
         except StopIteration:
-            if dir1.endswith("-baseline"):
-                sys.stderr.write(
-                    "Failed to walk through %s. This can be caused by forgetting to run make test-baseline.\n" % dir1)
-            else:
-                sys.stderr.write(
-                    "Failed to walk through %s; please check it exists.\n" % dir1)
+            dirs1 = []
+            pass
+
+        dir2_ok = False
+        try:
+            (root2, dirs2, files2) = next(os.walk(dir2))
+            dir2_ok = True
+        except StopIteration:
+            dirs2 = []
+            pass
+
+        if not (dir1_ok or dir2_ok):
+            sys.stderr.write('Failed to walk through %s and %s; please check that they exist.\n' % (dir1, dir2))
             sys.exit(1)
 
-        for d in dirs:
+        for d in sorted(set(dirs1 + dirs2)):
             # don't walk the share folders
             if d.startswith("share"):
                 continue
@@ -925,8 +934,7 @@ class ComparisonData:
             if os.path.islink(d1) or os.path.islink(d2):
                 continue
 
-            if os.path.isdir(d2):
-                self.compare_trees(d1, d2)
+            self.compare_trees(d1, d2)
 
     def compare_directories(self, dir1, dir2):
         log_terse('comparing %s' % dir1)
