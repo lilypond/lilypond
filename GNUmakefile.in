@@ -305,6 +305,7 @@ test: test-pre
 	$(MAKE) -C input/regression/lilypond-book out=test local-test
 	$(MAKE) -C input/regression/midi out=test lysdoc-test
 	$(MAKE) -C input/regression/musicxml out=test lysdoc-test
+	$(MAKE) -C input/regression/other out=test lysdoc-test
 
 test-baseline-pre:
 	cd $(top-src-dir) && \
@@ -329,6 +330,7 @@ test-baseline: test-baseline-pre
 	$(MAKE) out=test -C input/regression/abc2ly local-test-baseline
 	$(MAKE) out=test -C input/regression/midi local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
+	$(MAKE) out=test -C input/regression/other local-test-baseline
 	$(MAKE) test-snippets-clean
 	touch $(BASELINE_STAMP)
 
@@ -345,7 +347,8 @@ local-check: local-check-pre
 		input/regression/out-test-baseline input/regression/out-test \
 		input/regression/abc2ly/out-test-baseline input/regression/abc2ly/out-test \
 		input/regression/midi/out-test-baseline input/regression/midi/out-test \
-		input/regression/musicxml/out-test-baseline input/regression/musicxml/out-test
+		input/regression/musicxml/out-test-baseline input/regression/musicxml/out-test \
+		input/regression/other/out-test-baseline input/regression/other/out-test
 ifneq ($(TIDY),false)
 	find $(RESULT_DIR) -name '*.html' | while read f ; do \
 		echo "Validating $$f" ; \
