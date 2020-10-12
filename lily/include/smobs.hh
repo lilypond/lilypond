@@ -23,7 +23,9 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "warn.hh"
+
 #include <string>
+#include <vector>
 
 /*
   Smobs are GUILEs mechanism of exporting C(++) objects to the Scheme
