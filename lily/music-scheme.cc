@@ -55,6 +55,15 @@ LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!",
   return ly_prob_set_property_x (mus, sym, val);
 }
 
+LY_DEFINE (ly_music_start, "ly:music-start",
+           1, 0, 0, (SCM mus),
+           "Get the start of music expression @var{mus} and return"
+           " it as a @code{Moment} object.")
+{
+  auto *sc = LY_ASSERT_SMOB (Music, mus, 1);
+  return sc->start_mom ().smobbed_copy ();
+}
+
 /* todo:  property args */
 LY_DEFINE (ly_make_music, "ly:make-music",
            1, 0, 0, (SCM props),
