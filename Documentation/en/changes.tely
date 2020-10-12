@@ -66,6 +66,39 @@ which scares away people.
 @end ignore
 
 
+@item
+A new grob @code{BendSpanner} is now available for @code{TabStaff}, indicating
+a bent string.
+Apart from the default three styles are possible: @code{'hold},
+@code{'pre-bend} and @code{'pre-bend-hold}.
+
+@lilypond[quote]
+mus = {
+  d4\5\^ e\5\^ d2\5
+  c'4\3\^ d'\3\bendHold \^ d'\3\^ c'\3
+  \grace c'4\3\preBendHold \^ d'\3\bendHold \^ d'\3\^ c'2\3
+  \grace c'4\3 \preBend \^ d'1\3
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff { \clef "G_8" \mus }
+    \new TabVoice \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
 @end itemize
 
 @ifhtml

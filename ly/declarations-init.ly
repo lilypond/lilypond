@@ -90,7 +90,7 @@ noBeam = #(make-music 'BeamForbidEvent)
 "\\~" = #(make-music 'PesOrFlexaEvent)
 "\\\\" = #(make-music 'VoiceSeparator)
 "\\-" = #(make-music 'DurationLineEvent)
-
+"\\^" = #(make-music 'BendSpanEvent)
 
 \include "scale-definitions-init.ly"
 

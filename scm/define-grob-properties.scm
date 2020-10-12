@@ -111,6 +111,7 @@ smaller.")
 beamlet, as a proportion of the distance between two adjacent stems.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger
 a callback function.")
+     (bend-me ,boolean? "Decide whether this grob is bent.")
      (between-cols ,pair? "Where to attach a loose column to.")
      (bound-details ,list? "An alist of properties for determining
 attachments of spanners to edges.")

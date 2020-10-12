@@ -113,6 +113,11 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
         (types . (post-event event beam-forbid-event))
         ))
 
+    (BendSpanEvent
+     . ((description . "Used to signal where a bend spanner starts and stops.")
+        (types . (bend-span-event post-event span-event event))
+        ))
+
     (BreakDynamicSpanEvent
      . ((description . "End an alignment spanner for dynamics here.")
         (types . (post-event break-span-event break-dynamic-span-event event))

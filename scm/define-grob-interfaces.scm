@@ -79,6 +79,59 @@ found in @file{scm/bar-line.scm}.
    thickness))
 
 (ly:add-interface
+  'bend-interface
+  "The (curved) line representing a bent string.\n
+Available for the @code{'style} property are @code{'hold}, @code{'pre-bend} and
+@code{'pre-bend-hold}.\n
+The following properties may be set in the details list.\n
+
+@table @code\n
+@item arrow-stencil\n
+The stencil procedure for the @code{BendSpanner} arrow head.\n
+@item curvature-factor\n
+Determines the horizontal part of a bend arrow as percentage of the total
+horizontal extent, usually between 0 and@tie{}1.\n
+@item bend-arrowhead-height\n
+The height of the arrow head.\n
+@item bend-arrowhead-width\n
+The width of the arrow head.\n
+@item bend-amount-strings\n
+An alist with entries for @code{'quarter}, @code{'half}, @code{'three-quarter}
+and @code{'full}, which are used to print how much a string is bent.\n
+@item curve-x-padding-line-end\n
+For a broken @code{BendSpanner}, set the padding at the line end to subsequent
+objects like changed @code{Clef}, etc.\n
+@item curve-y-padding-line-end\n
+For a broken @code{BendSpanner} started from a chord the curves don't match;
+there is a certain vertical gap specified by this value.\n
+@item dashed-line-settings\n
+List of three numeric values representing on, off and phase of a dashed line.\n
+@item head-text-break-visibility\n
+A vector of three booleans to set visibility of the arrow head and the text at
+a line break.  This is important for @code{'style} set to @code{'hold},
+@code{'pre-bend} or @code{'pre-bend-hold}.\n
+@item horizontal-left-padding\n
+The amount of horizontal free space between a @code{TabNoteHead} and the
+starting @code{BendSpanner}.\n
+@item successive-level\n
+An integer used as a factor determining the vertical coordinate of the starting
+@code{BendSpanner}.  If @code{successive-level} is@tie{}1, the
+@code{BendSpanner} starts at the @code{TabNoteHead}.  If consecutive
+@code{BendSpanner}s are set this value should be set to an appropriate value for
+the first one; later on, this value is maintained by the engraver.\n
+@item target-visibility\n
+A boolean to decide whether the target @code{TabNoteHead} should be visible.
+For up-pointing bends this is usually true.\n
+@item y-distance-from-tabstaff-to-arrow-tip\n
+This numeric value determines the distance between the @code{TabStaff} and the
+arrow head of the @code{BendSpanner}.\n
+@end table\n"
+  '(details
+    style
+    direction
+    bend-me))
+
+(ly:add-interface
  'clef-modifier-interface
  "The number describing transposition of the clef, placed below
 or above clef sign. Usually this is 8 (octave transposition)

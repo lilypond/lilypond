@@ -764,6 +764,9 @@ used by the @code{Script_engraver} for typesetting note-superscripts
 and subscripts.  See @file{scm/@/script.scm} for more information.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (stavesFound ,grob-list? "A list of all staff-symbols found.")
+     (stringFretFingerList ,list? "A list containg three entries.
+In @code{TabVoice} and @code{FretBoards} they determine the string, fret and
+finger to use")
 
 
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")

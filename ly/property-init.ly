@@ -159,6 +159,12 @@ bassFigureStaffAlignmentNeutral =
   \revert Staff.BassFigureAlignmentPositioning.direction
 
 
+%% bend-spanner
+skipNCs = \override NoteColumn.bend-me = ##f
+skipNC = \once \skipNCs
+endSkipNCs = \revert NoteColumn.bend-me
+
+
 %% cadenzas
 
 cadenzaOn  = \set Timing.timing = ##f

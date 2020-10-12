@@ -149,6 +149,8 @@ expression."
   " ~")
 (define-display-method DurationLineEvent (event)
   "\\-")
+(define-display-method BendSpanEvent (event)
+  "\\^")
 (define-display-method BeamForbidEvent (event)
   "\\noBeam")
 (define-display-method StringNumberEvent (event)

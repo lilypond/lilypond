@@ -461,6 +461,202 @@ ratioHarmonics = {
 }
 @end lilypond
 
+@cindex string bending, in tablature notation
+@cindex tablature, and string bending
+@cindex bending, string, in tablature notation
+@funindex \preBend
+@funindex \bendHold
+@funindex \preBendHold
+@funindex \bendStartLevel
+
+String bendings can be added to tablature notation.
+A bending is introduced by appending @code{\^} to the note or chord to be bent;
+it terminates automatically at the next note or chord.
+Available are the following styles: the default prints a curve with an arrow
+head up or down, @code{'hold} a dashed horizontal line, @code{'pre-bend} a
+vertical line with an arrow head, and @code{'pre-bend-hold} a vertical line with
+an arrow head continued by a dashed line.
+
+@lilypond[verbatim,quote]
+bend-styles = {
+  <>^"default"
+  f'4\^ g'4\^ f'2
+
+  <>^"'hold"
+  \grace f'4\^ g'1\bendHold \^ g'1
+
+  <>^"'pre-bend"
+  \grace f'4\preBend \^ g'1\bendHold \^ g'1
+
+  <>^"'pre-bend-hold"
+  \grace f'4\preBendHold \^ g'1\bendHold \^ g'1\^ f'
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \bend-styles
+    }
+    \new TabStaff \bend-styles
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabStaff
+      minimumFret = #5
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+Open strings are usually not bent.  To have them bent as well set the
+property @code{'bend-me} to @code{#t}.  To exclude other notes from being bent
+set it to @code{#f}.
+
+@lilypond[verbatim,quote]
+mus = {
+  <>^"default"
+  <a b f'>4\^
+  <ais b fis'>\^
+  <a b f'>2
+
+  <>^"bend open strings"
+  <a \tweak bend-me ##t b f'>4\^
+  <ais \tweak bend-me ##t bis fis'>\^
+  <a b f'>2
+
+  <>^"exclude other strings"
+  <g \tweak bend-me ##f b\3 d'>4\^
+  <a e'\2 >\^
+  <g \tweak bend-me ##f b\3 d'>2
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \mus
+    }
+    \new TabStaff \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+For consecutive bendings the starting bend may need to have an appropriate
+setting for @code{details.successive-level}.  For convenience there is the
+function @code{bendStartLevel}, taking an integer.
+
+@lilypond[verbatim,quote]
+printNext = -\tweak details.target-visibility ##t \etc
+
+mus = {
+  c'4\3\^ cis'\3 \^ d'2\3
+
+  \grace bes4\3\preBendHold \bendStartLevel 2 \printNext \^
+  d'4\3\bendHold \^ d'2\3\^ des'4\3 \^ c'1\3
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \mus
+    }
+    \new TabStaff \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+Per default the @code{BendSpanner} ends at the following note or chord even
+if it is tied to the starting note or chord.  A single @code{NoteColumn} may be
+skipped by using @code{\skipNC}.  A group of @code{NoteColumn}s can be skipped
+by using @code{\skipNCs} at the beginning and @code{\endSkipNCs} at the end.
+
+
+@lilypond[verbatim,quote]
+bends-with-ties-and-skips = {
+  a'4~\^ \skipNC a'4~ \skipNC a'4 b'4
+  a'4~ a'4~\^ \skipNC a'4 b'4
+  a'4~ a'4~ a'4\^ b'4
+  c'2\^ d'~ \bendHold \^ \skipNC d'~ d'\^ c'
+  \grace { c'8-\preBendHold \^ }
+  \skipNCs d'2~ d'2~ \endSkipNCs d'\^ c'2
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \clef "G_8"
+      \bends-with-ties-and-skips
+    }
+    \new TabVoice \bends-with-ties-and-skips
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabStaff
+      minimumFret = #3
+      restrainOpenStrings = ##t
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+@predefined
+@code{\skipNCs},
+@code{\skipNC},
+@code{\endSkipNCs}.
+@endpredefined
+
 
 @snippets
 

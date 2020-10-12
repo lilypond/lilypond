@@ -1707,6 +1707,772 @@ parentheses."
     bracket-dir))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; BendSpanner
+
+(define (quarterdiff->string alist quarterdiff)
+  "Takes the alist @var{alist}, stored in
+@code{BendSpanner.details.bend-amount-strings}.  Applied to @var{quarterdiff},
+which is supposed to be an integer representing the amount of quarter-steps
+between two pitches, it returns a fraction as a string like ¾, probably a mixed
+number string like 1½.
+The actual formatting relies on the settings in @var{alist}."
+  (let ((wholesteps (floor (/ quarterdiff 4))))
+    (format #f "~a~a"
+      (case wholesteps
+        ((0) "")
+        ((1) (if (and (zero? (modulo quarterdiff 4))
+                      (assoc-get 'full alist))
+                 (assoc-get 'full alist)
+                 wholesteps))
+        (else wholesteps))
+      (case (modulo quarterdiff 4)
+        ((1) (or (assoc-get 'quarter alist) "¼"))
+        ((2) (or (assoc-get 'half alist) "½"))
+        ((3) (or (assoc-get 'three-quarter alist)"¾"))
+        (else "")))))
+
+(define (get-quarter-diffs pitch-list-pair)
+  "Takes @var{pitch-list-pair}, which is expected to be a pair of lists, both
+containing pitches, and to be sorted with @code{ly:pitch<?} in advance.
+Returns a number representing the amount of quarter tones between the highest
+pitches from the two sub-lists."
+;; For event-chords, bendings to different amounts are very unlikely, so we take
+;; the highest pitch of every sublist for comparison.
+  (let* ((starting-pitch-list (car pitch-list-pair))
+         (target-pitch-list (cdr pitch-list-pair))
+         (top-starting-pitch (last starting-pitch-list))
+         (top-target-pitch (last target-pitch-list)))
+    (- (ly:pitch-quartertones top-target-pitch)
+       (ly:pitch-quartertones top-starting-pitch))))
+
+(define-public (get-bound-note-heads spanner)
+  "Takes a spanner grob and returns a pair containing all note heads of the
+intial starting and the final @code{NoteColumn}."
+  (let* ((orig (ly:grob-original spanner))
+         ;; get the bend-spanner's starting/ending NoteColumns
+         (left-bound (ly:spanner-bound orig LEFT))
+         (right-bound (ly:spanner-bound orig RIGHT))
+         ;; get their NoteHeads
+         (left-note-heads-array (ly:grob-object left-bound 'note-heads))
+         (right-note-heads-array (ly:grob-object right-bound 'note-heads)))
+    (if (and (ly:grob-array? left-note-heads-array)
+             (ly:grob-array? right-note-heads-array))
+        (cons
+          (ly:grob-array->list left-note-heads-array)
+          (ly:grob-array->list right-note-heads-array))
+        ;; TODO display proper location
+        ;;      sth at the lines of (*location*) ...
+        (ly:error
+          "~a needs NoteColumns with NoteHeads as bounds: ~a"
+          spanner
+          (list left-note-heads-array right-note-heads-array)))))
+
+(define (bend::remove-certain-tab-note-heads tab-note-heads)
+  "Takes the list @var{tab-note-heads} and removes all note heads, which
+are played on open strings, unless grob-property @code{bend-me} is set to
+@code{#t}.
+Other note heads with @code{bend-me} set to @code{#f} are removed as well."
+  (remove
+    (lambda (tnh) (not (ly:grob-property tnh 'bend-me)))
+    tab-note-heads))
+
+(define (bounding-note-heads-pitches spanner)
+  "Takes a spanner grob, gets the note heads from the starting and ending bound,
+applying @code{get-bound-note-heads}, removes not spanned ones, gets the pitches
+of the note heads of each bound, sorts them with @code{ly:pitch<?} and returns
+them as a pair."
+  (let* ((all-left-right-note-heads (get-bound-note-heads spanner))
+         (left-notes
+           (bend::remove-certain-tab-note-heads
+             (car all-left-right-note-heads)))
+         (right-notes
+           (bend::remove-certain-tab-note-heads
+             (cdr all-left-right-note-heads)))
+         (left-pitches
+           (map
+             (lambda (note-head)
+               (ly:event-property (event-cause note-head) 'pitch))
+             left-notes))
+         (sorted-left-pitches (sort left-pitches ly:pitch<?))
+         (right-pitches
+           (map
+             (lambda (note-head)
+               (ly:event-property (event-cause note-head) 'pitch))
+             right-notes))
+         (sorted-right-pitches (sort right-pitches ly:pitch<?)))
+    (cons sorted-left-pitches sorted-right-pitches)))
+
+(define (bend::target-cautionary spanner)
+  "Sets @code{'display-cautionary} of all relevant note heads of spanners right
+bound to true.  As a result they appear parenthesized.
+This procedure is the default value of @code{'before-line-breaking}."
+  (let* ((all-right-note-heads (cdr (get-bound-note-heads spanner)))
+         (right-note-heads
+           (bend::remove-certain-tab-note-heads all-right-note-heads)))
+    (for-each
+       (lambda (right-tab-nh)
+         (ly:grob-set-property! right-tab-nh 'display-cautionary #t))
+       right-note-heads)))
+
+(define (bend::text-string spanner)
+  "Takes a spanner-grob, calculates a list with the quarter tone diffs between
+the pitches of starting and ending bound.  Because bending to different amounts
+is very unlikely, only the first element of this list is returned as a string."
+  (let* ((sorted-left-right-pitches (bounding-note-heads-pitches spanner))
+         (quarter-diffs (get-quarter-diffs sorted-left-right-pitches))
+         (bend-amount-strings
+           (assoc-get
+             'bend-amount-strings
+             (ly:grob-property spanner 'details)
+             '())))
+    (quarterdiff->string bend-amount-strings quarter-diffs)))
+
+(define (get-top-most-tab-head tab-heads-list)
+  "Get the @code{TabNoteHead} with the highest value of @code{'staff-position}
+from @var{tab-heads-list}."
+;; TODO this may cause wrong results for unusual string-tunings
+  (car
+    (sort
+      tab-heads-list
+      (lambda (tnh1 tnh2)
+        (>
+           (ly:grob-property tnh1 'staff-position)
+           (ly:grob-property tnh2 'staff-position))))))
+
+(define (make-tab-heads-transparent tab-heads)
+  "Set @code{transparent} to @code{#t} in @code{TabVoice} for the bends target
+note head.  If @code{\\tabFullNotation} is set, the stem and flag will be
+transparent as well.
+Doesn't work for beams."
+;; TODO Needs design decision whether beams should be transparent or not.
+;; If yes, a different approach is needed.
+  (for-each
+    (lambda (tab-note-head)
+      (if (grob::has-interface tab-note-head 'tab-note-head-interface)
+          (let* ((stem (ly:grob-object tab-note-head 'stem))
+                 (flag (ly:grob-object stem 'flag))
+                 (dot (ly:grob-object tab-note-head 'dot)))
+            (if (ly:grob? stem) (ly:grob-set-property! stem 'transparent #t))
+            (if (ly:grob? flag) (ly:grob-set-property! flag 'transparent #t))
+            (if (ly:grob? dot) (ly:grob-set-property! dot 'transparent #t))
+            (ly:grob-set-property! tab-note-head 'transparent #t))))
+    tab-heads))
+
+(define (bend::calc-bend-x-end
+           bend-spanner top-left-tab-nhd top-right-tab-nhd)
+  "Calculates the ending X-coordinate of @var{bend-spanner}.  At the line end
+take the items of @code{BreakAlignGroup} into account and a little padding.
+Ends an unbroken spanner or the last of a broken one in the middle of the
+topmost note head of its bounding note column."
+  (let ((top-right-tab-nhd-x-ext
+          (ly:grob-extent top-right-tab-nhd top-right-tab-nhd X))
+        (curve-x-padding-line-end
+          (assoc-get
+            'curve-x-padding-line-end
+            (ly:grob-property bend-spanner 'details)
+            0))
+        (sys (ly:grob-system bend-spanner))
+        (right-bound
+          (ly:spanner-bound bend-spanner RIGHT)))
+
+    (if (middle-broken-spanner? bend-spanner)
+        (ly:warning
+            (_ "~a with two line-breaks is not yet supported")
+            bend-spanner))
+
+    (if (unbroken-or-first-broken-spanner? bend-spanner)
+        ;; For the first part of a broken bend-spanner ensure avoiding items of
+        ;; BreakAlignGroup by taking its most left item's coordinate into the
+        ;; calculation.
+        (let* ((right-bound-elts
+                 (list-copy
+                   (ly:grob-array->list
+                     (ly:grob-object right-bound 'elements))))
+               (right-break-align-grobs
+                 (if (grob::has-interface right-bound 'paper-column-interface)
+                     (filter
+                        (lambda (g)
+                          (grob::has-interface g 'break-aligned-interface))
+                        right-bound-elts)
+                     (list right-bound)))
+               (right-break-align-grobs-left-most
+                 (car
+                   (sort
+                     right-break-align-grobs
+                     (lambda (g1 g2)
+                       (<
+                          (ly:grob-relative-coordinate g1 sys X)
+                          (ly:grob-relative-coordinate g2 sys X))))))
+               (right-ref-grob-coord
+                 (ly:grob-relative-coordinate
+                   right-break-align-grobs-left-most sys X))
+               (left-bound
+                 (ly:spanner-bound bend-spanner LEFT))
+               (left-bound-x-coord
+                  (if (ly:grob? left-bound)
+                      (ly:grob-relative-coordinate
+                        left-bound
+                        (ly:grob-common-refpoint left-bound sys X)
+                        X)
+                      0)))
+          (+
+            (-
+               right-ref-grob-coord
+               left-bound-x-coord
+               (if (unbroken-spanner? bend-spanner) 0 curve-x-padding-line-end))
+            ;; ensure it ends in the middle of the topmost TabNoteHead of the
+            ;; right-bounding NoteColumn, if any.
+            (if (unbroken-spanner? bend-spanner)
+                (interval-center top-right-tab-nhd-x-ext)
+                0)))
+        ;; last of broken bend-spanner
+        ;; simply take the right-bound coordinate
+        (let* ((right-bound-x-coord
+                 (if (ly:grob? right-bound)
+                     (ly:grob-relative-coordinate right-bound sys X)
+                     0)))
+          (+ right-bound-x-coord (interval-center top-right-tab-nhd-x-ext))))))
+
+(define (bend::calc-bend-x-begin
+           bend-spanner bounding-noteheads factor quarter-tone-diffs)
+  "Calculates the starting values in X-direction of the bend.
+After a line break, the values from the right bound are taken minus 1.5
+staff-spaces.
+For bends-down or if grob-property @code{'style} equals to @code{'pre-bend},
+@code{'hold} or @code{'pre-bend-hold}, @code{interval-center} is applied the
+topmost note head of the starting note heads.
+In any other case the right edge of the starting note head is used.  The value
+of @code{BendSpanner.details.horizontal-left-padding} is added, which may be
+changed by an appropriate override.
+Returns a list of the same length as the amount of bend-starting note heads."
+  (let* ((staff-space (ly:staff-symbol-staff-space bend-spanner))
+         (left-note-heads-list-length (length (car bounding-noteheads)))
+         (style (ly:grob-property bend-spanner 'style))
+         (horizontal-left-padding
+           (assoc-get
+             'horizontal-left-padding
+             (ly:grob-property bend-spanner 'details 0)))
+         (top-left-tab-nhd (get-top-most-tab-head (car bounding-noteheads)))
+         (top-right-tab-nhd (get-top-most-tab-head (cdr bounding-noteheads)))
+         (top-left-tab-nhd-x-ext
+           (ly:grob-extent top-left-tab-nhd top-left-tab-nhd X)))
+    (cond ((end-broken-spanner? bend-spanner)
+           (make-list
+             left-note-heads-list-length
+             (- (bend::calc-bend-x-end
+                  bend-spanner top-left-tab-nhd top-right-tab-nhd)
+                ;; 1.5 is my choice, harm
+                (* 1.5 staff-space))))
+          ((or (negative? quarter-tone-diffs)
+               (eq? style 'pre-bend)
+               (eq? style 'pre-bend-hold)
+               (eq? style 'hold)
+               (> factor 1))
+           (make-list
+             left-note-heads-list-length
+             (interval-center top-left-tab-nhd-x-ext)))
+          (else
+            (map
+              (lambda (tnh)
+                (+ (cdr (ly:grob-extent tnh tnh X)) horizontal-left-padding))
+              (car bounding-noteheads))))))
+
+(define* (bend::calc-y-coordinates
+            bend-spanner staff-space tab-note-heads
+            #:optional quarter-tones-diffs)
+  "Calculates Y-coordinate of @var{bend-spanner}'s start/end in relation to the
+provided @var{tab-note-heads}.
+For style @code{'pre-bend} or @code{'pre-bend-hold} or if the bend does not 
+point up the resulting value is offset to the top of the topmost note head.
+Some vertical padding is added, taken from @var{bend-spanner}'s @code{'details}
+sub-property @code{'vertical-padding}."
+  (let* ((vertical-padding
+           (assoc-get
+             'vertical-padding
+             (ly:grob-property bend-spanner 'details)))
+         (style (ly:grob-property bend-spanner 'style))
+         (quarter-tones (if quarter-tones-diffs (list quarter-tones-diffs) '()))
+         (top-tab-note-head (get-top-most-tab-head tab-note-heads))
+         (relevant-tab-note-heads
+           (if (or (eq? style 'pre-bend)
+                   (eq? style 'pre-bend-hold)
+                   (and quarter-tones-diffs (negative? quarter-tones-diffs))
+                   (not quarter-tones-diffs))
+               (list top-tab-note-head)
+               tab-note-heads)))
+    (sort
+      (map
+        (lambda (tab-nh)
+          (+
+             (* (/ (ly:grob-property tab-nh 'staff-position) 2) staff-space)
+             (if (or (eq? style 'pre-bend)
+                     (eq? style 'pre-bend-hold)
+                     (and quarter-tones-diffs (negative? quarter-tones-diffs))
+                     (not quarter-tones-diffs))
+                 (+
+                    (cdr (ly:grob-extent top-tab-note-head top-tab-note-head Y))
+                    vertical-padding)
+                 (* vertical-padding staff-space))))
+        relevant-tab-note-heads)
+      <)))
+
+;; The final BendSpanner.stencil is calculated in several steps:
+;;  - the text stencil
+;;  - the arrow head stencil
+;;  - the lines and curves
+;;    - a basic printing procedure
+;;    - joining the results of the basic printing procedure into one stencil
+;;  - the final stencil putting together text, arrow head, lines and curves
+(define (bend::text-stencil x y text grob)
+  "Returns a stencil that prints the bends amount, translated to the end of
+the bends arrow head, given by @var{x} and@tie{}@var{y}.  A little vertical
+padding is added."
+  (let* ((layout (ly:grob-layout grob))
+         (props (ly:grob-alist-chain grob))
+         (staff-space (ly:staff-symbol-staff-space grob))
+         (font-size (ly:grob-property grob 'font-size 0.0))
+         (scale-factor (magstep font-size))
+         (vertical-padding
+           (assoc-get
+             'vertical-padding
+             (ly:grob-property grob 'details))))
+    (ly:stencil-translate
+      (ly:stencil-aligned-to
+        (interpret-markup layout props text)
+        X CENTER)
+      ;; double vertical-padding is my choice, harm
+      ;; TODO let it rely on a separate details-property?
+      (cons x (+ y (* scale-factor vertical-padding 2))))))
+
+(define (bend::arrow-head-stencil
+            thickness x-y-coords height width dir)
+  "Returns an arrow head stencil.  Calculated from the given dimensions
+@var{height} and @var{width}, translated to @var{x-y-coords}, the end of
+the bend-spanners (curved) line."
+  (let* ((pts-list
+           (list
+             ;; horizontal-left point, x and y coord
+             (/ width -2) 0
+             ;; horizontal-right point, x and y coord
+             (/ width 2) 0
+             ;; arrow-top point, x and y coord
+             0 (* height dir))))
+    (ly:stencil-translate
+      (ly:make-stencil
+        `(polygon ,pts-list ,thickness #t)
+        (interval-widen (cons (/ width -2) (/ width 2)) (/ thickness 2))
+        (interval-widen (ordered-cons 0 (* height dir)) (/ thickness 2)))
+      x-y-coords)))
+
+(define* (bend::make-line-curve-stencil
+            thickness points-list #:optional line-style)
+  "Prints a possibly curved line.  If the line is horizontal a dashed line is
+returned, relying on @var{line-style}.  By default this is
+@code{BendSpanner.details.dashed-line-settings}."
+  (let* ((pts-length (length points-list))
+         (command-list
+           (case pts-length
+            ((4)
+              `(moveto
+                  ,(list-ref points-list 0)
+                  ,(list-ref points-list 1)
+                lineto
+                  ,(list-ref points-list 2)
+                  ,(list-ref points-list 3)))
+            ((10)
+             `(moveto
+                 ,(list-ref points-list 0)
+                 ,(list-ref points-list 1)
+               lineto
+                 ,(list-ref points-list 2)
+                 ,(list-ref points-list 3)
+               curveto
+                 ,(list-ref points-list 4)
+                 ,(list-ref points-list 5)
+                 ,(list-ref points-list 6)
+                 ,(list-ref points-list 7)
+                 ,(list-ref points-list 8)
+                 ,(list-ref points-list 9)))
+            (else
+              (ly:error
+                "list-length ~a needs to have 4 or 10 elements" points-list)))))
+    ;; For a horizontal line and proper settings of line-style return a
+    ;; translated dashed-line-stencil.
+    (if (and (= (list-ref points-list 1) (list-ref points-list 3))
+             (= 4 pts-length)
+             (= 3 (length+ line-style)))
+        (let ((x-end (- (list-ref points-list 2) (car points-list))))
+          (ly:stencil-translate
+            (ly:make-stencil
+              (list
+                 'dashed-line
+                 thickness
+                 (car line-style) ;; on
+                 (cadr line-style) ; off
+                 x-end ;; x-end
+                 0 ;; y-end
+                 (last line-style)) ;; phase
+              ;; x-ext
+              (cons 0 x-end)
+              ;; y-ext
+              (cons (/ thickness -2) (/ thickness 2)))
+            (cons (car points-list) (cadr points-list))))
+        (make-path-stencil command-list thickness 1 1 #f))))
+
+(define (bend::draw-curves thickness begin-x middle-x end-x begin-y end-y grob)
+  "Returns the combined stencils created by @code{bend::curve-stencils-list}.
+All stencils let room to place an arrow head between them and the text
+indicating the amount string is bent.
+The descending y@tie{}value of the end point of the curves is taken from
+@code{details.curve-y-padding-line-end}."
+  ;; 'begin-x' will be provided by 'bend::calc-bend-x-begin', always
+  ;; returning a list.
+  ;; 'begin-y' is supposed to be a list, this should be ensured while calling
+  ;; 'bend::draw-curves'
+  (let* ((font-size (ly:grob-property grob 'font-size 0.0))
+         (scale-factor (magstep font-size))
+         (details (ly:grob-property grob 'details))
+         (bend-dir
+           (if (> end-y (apply max begin-y)) -1 1))
+         (bend-arrowhead-height
+           (* scale-factor (assoc-get 'bend-arrowhead-height details)))
+         (curve-line-end-y-padding
+           (if (not-last-broken-spanner? grob)
+               (assoc-get 'curve-y-padding-line-end details 0)
+               0))
+         ;; recalculate `end-y' to make room for the arrow head
+         (new-end-y
+           (make-list
+             (length begin-y)
+             (+ end-y (* bend-arrowhead-height bend-dir))))
+         (y-endings
+           (if (zero? curve-line-end-y-padding) ;; i.e. no line-break
+               new-end-y
+               ;; otherwise return a list with descending values
+               (reverse
+                 (map
+                   (lambda (y-end i) (- y-end (* i curve-line-end-y-padding)))
+                   new-end-y
+                   (iota (length begin-y))))))
+         (curve-stils
+           (map
+             (lambda (beg-x beg-y ending-y)
+               (let* ((lst
+                        (list
+                          ;; moveto
+                          beg-x beg-y
+                          ;; lineto
+                          middle-x beg-y
+                          ;; curveto
+                          middle-x beg-y end-x beg-y end-x ending-y)))
+                 (bend::make-line-curve-stencil thickness lst)))
+             begin-x
+             begin-y
+           y-endings)))
+    (apply ly:stencil-add curve-stils)))
+
+(define-public (bend-spanner::print grob)
+  "Returns the final stencil.  A line and curve, arrow head and a text
+representing the amount a string is bent."
+  (let* (;; We need to get _all_ bounding tab-note-heads to calculate the
+         ;; correct vertical position of the end of a down-spanner not only the
+         ;; ones which actually starts a bend.
+         ;; This is important, if the topmost string is not bent.
+         ;; But for creating the bend-stencil(s) we only need those which are
+         ;; actually bent.
+         ;; If after selecting no note-heads remain, print a warning and suicide
+         ;; the BendSpanner
+         (details (ly:grob-property grob 'details))
+         (all-left-right-note-heads (get-bound-note-heads grob))
+         (factor (assoc-get 'successive-level details))
+         (previous-dir (assoc-get 'previous-dir details))
+         (left-right-note-heads
+           (cons
+             (bend::remove-certain-tab-note-heads
+               (car all-left-right-note-heads))
+             (bend::remove-certain-tab-note-heads
+               (cdr all-left-right-note-heads)))))
+    (cond
+      ;; fool-proof, the user may have set a non-integer by accident
+      ((not (integer? factor))
+        (begin
+          (ly:warning (_ "Factor ~a needs to be an integer value." factor))
+          (ly:grob-suicide! grob)))
+      (else
+        (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
+               (line-count (ly:grob-property staff-symbol 'line-count))
+               (staff-space (ly:staff-symbol-staff-space grob))
+               (staff-symbol-line-thickness
+                 (ly:staff-symbol-line-thickness grob))
+               ;; style may be '(), 'hold, 'pre-bend or 'pre-bend-hold
+               (style (ly:grob-property grob 'style))
+               (details (ly:grob-property grob 'details))
+               (dashed-line-settings (assoc-get 'dashed-line-settings details))
+               (font-size (ly:grob-property grob 'font-size 0.0))
+               (scale-factor (magstep font-size))
+               ;; get the topmost TabNoteHeads
+               (top-right-tab-nh
+                 (get-top-most-tab-head (cdr all-left-right-note-heads)))
+               (top-left-tab-nh
+                 (get-top-most-tab-head (car all-left-right-note-heads)))
+               (sorted-left-right-pitches
+                 (bounding-note-heads-pitches grob))
+               (quarter-diffs
+                 (get-quarter-diffs sorted-left-right-pitches))
+               (bend-direction
+                 (if (negative? quarter-diffs) DOWN UP))
+               (bend-up? (positive? bend-direction))
+               (bend-down? (negative? bend-direction))
+               (begin-x-list
+                 (bend::calc-bend-x-begin
+                   grob
+                   left-right-note-heads
+                   factor
+                   quarter-diffs))
+               (begin-x (car begin-x-list))
+               (begin-y-list
+                 (bend::calc-y-coordinates
+                   grob staff-space
+                   ;; for pre-bend and pre-bend-hold we take
+                   ;; all note-heads into account to avoid collisions
+                   ;; with a probably not bent open string
+                   (if (or (eq? style 'pre-bend)
+                           (eq? style 'pre-bend-hold))
+                       (car all-left-right-note-heads)
+                       (car left-right-note-heads))
+                   quarter-diffs))
+               (curve-x-padding-line-end
+                  (if (and (first-broken-spanner? grob)
+                           (not (eq? style 'pre-bend-hold)))
+                      (assoc-get 'curve-x-padding-line-end details 0)
+                      0))
+               (end-x
+                 (bend::calc-bend-x-end
+                   grob top-left-tab-nh top-right-tab-nh))
+               (y-distance-from-tabstaff-to-arrow-tip
+                 (* scale-factor
+                    (assoc-get 'y-distance-from-tabstaff-to-arrow-tip details)))
+               (end-y
+                 (lambda (mult)
+                   (+
+                      (* (/ (1- line-count) 2) staff-space)
+                      (* mult y-distance-from-tabstaff-to-arrow-tip))))
+               (bend-arrowhead-width
+                 (* scale-factor
+                    (assoc-get 'bend-arrowhead-width details)))
+               (bend-arrowhead-height
+                 (* scale-factor
+                    (assoc-get 'bend-arrowhead-height details)))
+               (bend-line-thickness
+                 (* staff-symbol-line-thickness
+                    (ly:grob-property grob 'thickness)))
+               ;; curvature-factor, usually between 0 and 1,
+               ;; determines the horizontal part of a bend-spanner as percentage
+               ;; of the total horizontal extent
+               ;; 0.35 as fall-back is my choice, harm
+               (curvature-factor
+                 (assoc-get 'curvature-factor details 0.35))
+               (middle-x
+                 (+
+                   begin-x
+                   (* curvature-factor
+                      (- end-x begin-x))
+                   ;; if the curve gets some padding at line-break
+                   ;; do it here as well - warrants nicer output
+                   (- curve-x-padding-line-end)))
+               (arrow-stencil-proc (assoc-get 'arrow-stencil details))
+               (target-visibility (assoc-get 'target-visibility details #f))
+               ;; A vector of 3 booleans, #(end-of-line unbroken begin-of-line)
+               (head-text-break-visibility
+                 (assoc-get 'head-text-break-visibility details))
+               (head-text-print-condition
+                 (cond ((first-broken-spanner? grob)
+                         (vector-ref head-text-break-visibility 0))
+                       ((end-broken-spanner? grob)
+                         (vector-ref head-text-break-visibility 2))
+                       (else
+                         (vector-ref head-text-break-visibility 1))))
+               (bend-amount
+                 ;; Use 'text if set, fall back to 'bend::text-string'
+                 (or (ly:grob-property grob 'text #f)
+                     (bend::text-string grob))))
+
+          ;; For up-bends, make target note heads transparent.
+          ;; If details.target-visibility is set #t they will be parenthesized
+          ;;
+          ;; Down-bends will get their target note-heads parenthesized via
+          ;; 'display-cautionary.
+          ;;
+          ;; For tied notes all notes except the ones from the first
+          ;; note-column become transparent
+          (if (and (positive? quarter-diffs) (not target-visibility))
+              (make-tab-heads-transparent
+                (ly:grob-array->list
+                  (ly:grob-object
+                    (ly:spanner-bound (ly:grob-original grob) RIGHT)
+                    'note-heads))))
+
+          ;; the final stencil
+          (ly:stencil-add
+            point-stencil
+            ;; The text-stencil, indicating bend-amount
+            ;;   printed for up-bends only
+            ;;   in case of line-break it will be printed only at line-begin,
+            ;;   for 'pre-bend and 'prebend-hold, it is printed at line end
+            (if (and (> bend-direction -1) head-text-print-condition)
+                (let ((text-pos
+                       (if (or (eq? style 'pre-bend) (eq? style 'pre-bend-hold))
+                           begin-x
+                           end-x)))
+                  (bend::text-stencil
+                    text-pos
+                    (end-y factor)
+                    bend-amount
+                    grob))
+                empty-stencil)
+
+            (cond
+              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+              ;; hold
+              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+              ((eq? style 'hold)
+                (let ((line-end-x-padding
+                        (if (first-broken-spanner? grob)
+                            (assoc-get 'curve-x-padding-line-end details 0)
+                            0)))
+                  (bend::make-line-curve-stencil
+                    bend-line-thickness
+                    (list
+                      begin-x
+                      (end-y factor)
+                      (- end-x line-end-x-padding)
+                      (end-y factor))
+                    dashed-line-settings)))
+              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+              ;; pre-bend and pre-bend-hold
+              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+              ((or (eq? style 'pre-bend) (eq? style 'pre-bend-hold))
+                (let* ((vertical-line
+                         (if (unbroken-or-first-broken-spanner? grob)
+                             (bend::make-line-curve-stencil
+                               bend-line-thickness
+                               (list
+                                 begin-x
+                                 (last begin-y-list)
+                                 begin-x
+                                 (end-y factor)))
+                             empty-stencil))
+                       (horizontal-line
+                         (if (eq? style 'pre-bend-hold)
+                             (let ((line-end-x-padding
+                                     (if (first-broken-spanner? grob)
+                                         (assoc-get
+                                           'curve-x-padding-line-end details 0)
+                                         0)))
+                               (bend::make-line-curve-stencil
+                                 bend-line-thickness
+                                 (list
+                                   begin-x
+                                   (end-y factor)
+                                   (- end-x line-end-x-padding)
+                                   (end-y factor))
+                                 dashed-line-settings))
+                             empty-stencil))
+                        (arrow-head
+                         (if head-text-print-condition
+                             (arrow-stencil-proc
+                                bend-line-thickness
+                                ;;end-curve-coords:
+                                (cons
+                                  begin-x
+                                  (- (end-y factor)
+                                     bend-arrowhead-height))
+                                bend-arrowhead-height
+                                bend-arrowhead-width
+                                bend-direction)
+                             empty-stencil))
+                             )
+                  (ly:stencil-add
+                    arrow-head
+                    vertical-line
+                    horizontal-line)))
+              ;;;;;;;;;;;;;;;;;;;;;;
+              ;; consecutive bends
+              ;;;;;;;;;;;;;;;;;;;;;;
+              (else
+                (if (> factor 1)
+                    (let* ((val (if bend-down?
+                                    bend-direction
+                                    0))
+                           (arrow-head
+                             (if head-text-print-condition
+                                 (arrow-stencil-proc
+                                    bend-line-thickness
+                                    ;; end-curve-coords
+                                    (cons end-x
+                                          (+ (end-y (+ factor val))
+                                             (* -1
+                                                bend-direction
+                                                bend-arrowhead-height)))
+                                    bend-arrowhead-height
+                                    bend-arrowhead-width
+                                    bend-direction)
+                                 empty-stencil))
+                           (curves
+                             (bend::draw-curves
+                               bend-line-thickness
+                               begin-x-list middle-x
+                               end-x
+                               (list
+                                 (end-y
+                                   (+ factor val
+                                      (* -1 bend-direction))))
+                               (end-y (+ factor val))
+                               grob)))
+                      (ly:stencil-add arrow-head curves))
+                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                    ;;;; default bends, i.e. factor is 1
+                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                    (let* ((new-end-y
+                             (if bend-up?
+                                 (end-y factor)
+                                 (let* ((end-y-list
+                                          (bend::calc-y-coordinates
+                                            grob
+                                            staff-space
+                                            (cdr all-left-right-note-heads))))
+                                   (last end-y-list))))
+                           (new-begin-y
+                             (if bend-up?
+                                 begin-y-list
+                                 (list (end-y factor))))
+                           (arrow-head
+                             (if head-text-print-condition
+                                 (arrow-stencil-proc
+                                   bend-line-thickness
+                                   ;; end-curve-coords
+                                   (cons
+                                     end-x
+                                     (+ new-end-y
+                                        (* -1
+                                           bend-direction
+                                           bend-arrowhead-height)))
+                                   bend-arrowhead-height
+                                   bend-arrowhead-width
+                                   bend-direction)
+                                 empty-stencil))
+                           (curve
+                             (bend::draw-curves
+                               bend-line-thickness
+                               begin-x-list
+                               middle-x
+                               end-x
+                               new-begin-y
+                               new-end-y
+                               grob)))
+                       (ly:stencil-add arrow-head curve)))))))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DurationLine
 
 ;; helper

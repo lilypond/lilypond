@@ -259,6 +259,44 @@ bendAfter =
    (make-music 'BendAfterEvent
                'delta-step delta))
 
+%% BendSpanner convenience event functions
+bendStartLevel =
+#(define-event-function (idx mus)(index? ly:music?)
+   (_i "Sets the @code{details.successive-level} of a @code{BendSpanner} to
+@var{idx}.")
+#{
+  \tweak details.successive-level $idx
+  $mus
+#})
+
+bendHold =
+#(define-event-function (mus)(ly:music?)
+   (_i "Sets the @code{'style} of a @code{BendSpanner} to @code{'hold}.")
+#{
+  \tweak style #'hold
+  \tweak details.head-text-break-visibility ##(#t #t #f)
+  $mus
+#})
+
+preBend =
+#(define-event-function (mus)(ly:music?)
+   (_i "Sets the @code{'style} of a @code{BendSpanner} to @code{'pre-bend}.")
+#{
+  \tweak style #'pre-bend
+  \tweak details.head-text-break-visibility ##(#t #t #f)
+  $mus
+#})
+
+preBendHold =
+#(define-event-function (mus)(ly:music?)
+   (_i "Sets the @code{'style} of a @code{BendSpanner} to
+@code{'pre-bend-hold}.")
+#{
+  \tweak style #'pre-bend-hold
+  \tweak details.head-text-break-visibility ##(#t #t #f)
+  $mus
+#})
+
 bookOutputName =
 #(define-void-function (newfilename) (string?)
    (_i "Direct output for the current book block to @var{newfilename}.")

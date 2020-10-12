@@ -863,6 +863,7 @@ context."
   \alias "Voice"
   \consists "Tab_note_heads_engraver"
   \consists "Tab_tie_follow_engraver"
+  \consists "Bend_spanner_engraver"
 
   \remove "Note_heads_engraver"
   \remove "Fingering_engraver"

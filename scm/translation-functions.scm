@@ -256,7 +256,7 @@ way the transposition number is displayed."
     (set! (ly:grob-property grob 'dot-placement-list) placement-list)))
 
 (define-public
-  (determine-frets context notes specified-info . rest)
+  (determine-string-fret-finger context notes specified-info rest)
   "Determine string numbers and frets for playing @var{notes}
 as a chord, given specified information @var{specified-info}.
 @var{specified-info} is a list with two list elements,
@@ -647,7 +647,14 @@ chords.  Returns a placement-list."
             (placement-list->string-frets predefined-fretboard)
             (create-fretboard context grob predefined-fretboard)))))
 
-
+(define-public
+  (determine-frets context notes specified-info . rest)
+    (let ((string-fret-finger-list
+            (determine-string-fret-finger context notes specified-info rest)))
+      (if (list? string-fret-finger-list)
+          (ly:context-set-property!
+            context 'stringFretFingerList string-fret-finger-list))
+      string-fret-finger-list))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tablature

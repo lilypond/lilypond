@@ -458,6 +458,58 @@
                  (interfaces . (bend-after-interface
                                 spanner-interface))))))
 
+    (BendSpanner
+     . (
+        (avoid-slur . ignore)
+        (baseline-skip . 3)
+        (before-line-breaking . ,bend::target-cautionary)
+        (cross-staff . #f)
+        (details . ((arrow-stencil . ,bend::arrow-head-stencil)
+                    ;; bend-arrow-curvature-factor, usually between 0 and 1,
+                    ;; determines the horizontal part of a bend arrow as
+                    ;; a percentage of the total horizontal extent
+                    (curvature-factor . 0.35)
+                    (bend-arrowhead-height . 1.25)
+                    (bend-arrowhead-width . 0.8)
+                    (bend-amount-strings . ((quarter . "¼")
+                                            (half . "½")
+                                            (three-quarter . "¾")
+                                            (full . #f)))
+                    (curve-x-padding-line-end . 0.5)
+                    (curve-y-padding-line-end . 1)
+                    ;; (dashed-line-settings . (on off phase))
+                    (dashed-line-settings . (0.4 0.4 0))
+                    ;; A vector of 3 booleans:
+                    ;; #(end-of-line unbroken begin-of-line)
+                    (head-text-break-visibility . #(#f #t #t))
+                    (horizontal-left-padding . 0.1)
+                    (successive-level . 1)
+                    (target-visibility . #f)
+                    (vertical-padding . 0.2)
+                    (y-distance-from-tabstaff-to-arrow-tip . 2.75)))
+        (direction . ,UP)
+        (font-size . -2)
+        (font-shape . italic)
+        (font-encoding . latin1)
+        (padding . 0.15)
+        (side-axis . ,Y)
+        (spanner-id . "")
+        (stencil . ,bend-spanner::print)
+        (style . ()) ;; hold, pre-bend, pre-bend-hold
+        (text . #f)
+        (thickness . 1)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (word-space . 0.6)
+        (Y-offset . 0)
+        (meta . ((class . Spanner)
+                 (interfaces . (bend-interface
+                                font-interface
+                                line-spanner-interface
+                                outside-staff-interface
+                                spanner-interface
+                                text-interface
+                                text-script-interface))))))
+
     (BreakAlignGroup
      . (
         (axes . (,X))
@@ -1752,6 +1804,7 @@
 
     (NoteColumn
      . (
+        (bend-me . ())
         (axes . (,X ,Y))
         (bound-alignment-interfaces . (rhythmic-head-interface stem-interface))
         (horizontal-skylines . ,ly:separation-item::calc-skylines)
@@ -1763,11 +1816,13 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
+                                bend-interface
                                 note-column-interface
                                 separation-item-interface))))))
 
     (NoteHead
      . (
+        (bend-me . ())
         (flexa-width . 2.0)
         (duration-log . ,note-head::calc-duration-log)
         (extra-spacing-height . ,ly:note-head::include-ledger-line-height)
@@ -1780,7 +1835,8 @@
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (bend-interface
+                                font-interface
                                 gregorian-ligature-interface
                                 ledgered-interface
                                 ligature-head-interface
@@ -2479,6 +2535,7 @@
 
     (TabNoteHead
      . (
+        (bend-me . ())
         (details . ((cautionary-properties . ((angularity . 0.4)
                                               (half-thickness . 0.075)
                                               (padding . 0)
@@ -2506,7 +2563,8 @@
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces  . (font-interface
+                 (interfaces  . (bend-interface
+                                 font-interface
                                  note-head-interface
                                  rhythmic-grob-interface
                                  rhythmic-head-interface
