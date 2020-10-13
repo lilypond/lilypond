@@ -62,7 +62,7 @@ private:
   private:
     Moment here_;
     Moment last_ = -1;
-    SCM cursor_;
+    SCM cursor_ = SCM_EOL;
 
     Grace_fixup grace_fixup_;
     bool has_grace_fixup_ = false;
@@ -78,6 +78,11 @@ private:
     bool is_grace_fixup_sane (const Moment &m) const
     {
       return !has_grace_fixup_ || (grace_fixup_.start_ >= m);
+    }
+
+    void gc_mark () const
+    {
+      scm_gc_mark (cursor_);
     }
   };
 
