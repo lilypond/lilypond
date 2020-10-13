@@ -27,7 +27,6 @@
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
-#include "main.hh"  //  DEBUG_BEAM_SCORING
 #include "std-vector.hh"
 #include "stem-info.hh"
 
@@ -50,9 +49,7 @@ class Beam_configuration
 public:
   Drul_array<Real> y;
   Real demerits;
-#if DEBUG_BEAM_SCORING
   std::string score_card_;
-#endif
 
   int next_scorer_todo;
 

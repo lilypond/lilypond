@@ -127,10 +127,8 @@ void Beam_configuration::add (Real demerit, const string &reason)
 {
   demerits += demerit;
 
-#if DEBUG_BEAM_SCORING
   if (demerit)
     score_card_ += to_string (" %s %.2f", reason.c_str (), demerit);
-#endif
 }
 
 unique_ptr<Beam_configuration>
@@ -1051,7 +1049,6 @@ Beam_scoring_problem::solve () const
 
   Drul_array<Real> final_positions = best->y;
 
-#if DEBUG_BEAM_SCORING
   if (debug)
     {
       // debug quanting
@@ -1065,7 +1062,6 @@ Beam_scoring_problem::solve () const
       string card = best->score_card_ + to_string (" c%d/%zu", completed, configs.size ());
       set_property (beam_, "annotation", ly_string2scm (card));
     }
-#endif
 
   configs.clear ();
   if (align_broken_intos_)

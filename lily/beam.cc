@@ -60,10 +60,8 @@
 #include "stem.hh"
 #include "warn.hh"
 
-#if DEBUG_BEAM_SCORING
 #include "text-interface.hh" // debug output.
 #include "font-interface.hh" // debug output.
-#endif
 
 #include <algorithm>
 #include <map>
@@ -745,7 +743,6 @@ Beam::print (SCM grob)
 
     }
 
-#if (DEBUG_BEAM_SCORING)
   SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
@@ -774,7 +771,6 @@ Beam::print (SCM grob)
           the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0);
         }
     }
-#endif
 
   the_beam.translate_axis (-me->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return the_beam.smobbed_copy ();
