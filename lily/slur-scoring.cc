@@ -384,14 +384,12 @@ Slur::calc_control_points (SCM smob)
   else
     best = state.get_best_curve ();
 
-#if DEBUG_SLUR_SCORING
   if (debug_slurs)
     {
       string total = best->card ();
       total += to_string (" TOTAL=%.2f idx=%zu", best->score (), best->index_);
       set_property (me, "annotation", ly_string2scm (total));
     }
-#endif
 
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)

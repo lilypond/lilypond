@@ -30,7 +30,6 @@
 #include "pointer-group-interface.hh"
 #include "lookup.hh"
 #include "ly-scm-list.hh"
-#include "main.hh"              // DEBUG_SLUR_SCORING
 #include "note-column.hh"
 #include "output-def.hh"
 #include "skyline-pair.hh"
@@ -173,7 +172,6 @@ Slur::print (SCM smob)
                     line_thick,
                     dash_definition);
 
-#if DEBUG_SLUR_SCORING
   SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
@@ -189,7 +187,6 @@ Slur::print (SCM smob)
                                       annotation));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
-#endif
 
   return a.smobbed_copy ();
 }

@@ -23,13 +23,11 @@
 #include "direction.hh"
 #include "interval.hh"
 #include "std-vector.hh"
-#include "main.hh" // DEBUG_SLUR_SCORING
+#include "lily-proto.hh"
 
 class Tie_configuration
 {
-#if DEBUG_SLUR_SCORING
   std::string score_card_;
-#endif
   Real score_;
   bool scored_;
   friend class Tie_formatting_problem;
