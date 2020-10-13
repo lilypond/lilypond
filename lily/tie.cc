@@ -275,7 +275,6 @@ Tie::print (SCM smob)
                     line_thick,
                     dash_definition);
 
-#if DEBUG_TIE_SCORING
   SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
@@ -300,7 +299,6 @@ Tie::print (SCM smob)
       */
       a.add_stencil (tm);
     }
-#endif
 
   return a.smobbed_copy ();
 }

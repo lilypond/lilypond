@@ -1231,7 +1231,6 @@ Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
 void
 Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
 {
-#if DEBUG_TIE_SCORING
   if (from_scm<bool> (x_refpoint_->layout ()
                       ->lookup_variable (ly_symbol2scm ("debug-tie-scoring"))))
     {
@@ -1242,5 +1241,4 @@ Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
                         ly_string2scm (card));
         }
     }
-#endif
 }
