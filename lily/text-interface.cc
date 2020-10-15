@@ -72,7 +72,10 @@ populate_cache (SCM alist)
 
       if (replacement_cache.size () < orig.length ())
         replacement_cache.resize (orig.length ());
-      replacement_cache[orig.length () - 1][orig] = dest;
+
+      // If an alist has duplicate key entries, only the first must be
+      // considered.
+      replacement_cache[orig.length () - 1].insert({orig, dest});
     }
 }
 
