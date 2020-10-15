@@ -46,17 +46,17 @@ using std::vector;
 // the layout block so it'll be the same across invocations.
 
 // size S-1 => {orig of size S => replacement}
-std::vector<unordered_map<string, string>> replacement_cache_;
-Protected_scm replacement_cache_alist_key_;
+std::vector<unordered_map<string, string>> replacement_cache;
+Protected_scm replacement_cache_alist_key;
 
 static void
 populate_cache (SCM alist)
 {
-  if (scm_is_eq (alist, static_cast<SCM> (replacement_cache_alist_key_)))
+  if (scm_is_eq (alist, static_cast<SCM> (replacement_cache_alist_key)))
     return;
 
-  replacement_cache_.clear ();
-  replacement_cache_alist_key_ = alist;
+  replacement_cache.clear ();
+  replacement_cache_alist_key = alist;
   for (SCM h = alist; scm_is_pair (h); h = scm_cdr (h))
     {
       SCM k = scm_caar (h);
@@ -70,9 +70,9 @@ populate_cache (SCM alist)
 
       string dest = ly_scm2string (v);
 
-      if (replacement_cache_.size () < orig.length ())
-        replacement_cache_.resize (orig.length ());
-      replacement_cache_[orig.length () - 1][orig] = dest;
+      if (replacement_cache.size () < orig.length ())
+        replacement_cache.resize (orig.length ());
+      replacement_cache[orig.length () - 1][orig] = dest;
     }
 }
 
@@ -92,7 +92,7 @@ replace_special_characters (string &str, SCM props)
 
   populate_cache (replacement_alist);
 
-  vsize max_length = replacement_cache_.size ();
+  vsize max_length = replacement_cache.size ();
   for (vsize i = 0; i < str.size (); i++)
     {
       /* Don't match in mid-UTF-8 */
@@ -108,7 +108,7 @@ replace_special_characters (string &str, SCM props)
           // multiple glyphs) to get the glyph's length which is not trivial.
           // So for now just continue checking all substrings that could be
           // valid UTF-8 (see check for str[i] not in mid-UTF-8 above).
-          auto const &map = replacement_cache_[j - 1];
+          auto const &map = replacement_cache[j - 1];
           if (map.empty ())
             continue;
 
