@@ -148,7 +148,7 @@ void Smob_base<Super>::init ()
       std::string fundoc = std::string ("Is @var{x} a @code{") + smob_name_
                            + "} object?";
       ly_add_function_documentation (subr, Super::type_p_name_, "(SCM x)",
-                                     fundoc);
+                                     fundoc.c_str ());
       scm_c_export (Super::type_p_name_, NULL);
     }
   ly_add_type_predicate ((void *) is_smob, smob_name_.c_str ());

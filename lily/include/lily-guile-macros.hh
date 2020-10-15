@@ -86,9 +86,9 @@ scm_or_str2symbol (SCM s)
   static SCM NAME ARGS;                         \
   static SCM NAME ## _proc
 
-std::string mangle_cxx_identifier (std::string);
+std::string mangle_cxx_identifier (const char *);
 
-void ly_add_type_predicate (void *ptr, const std::string &name);
+void ly_add_type_predicate (void *ptr, const char *name);
 std::string predicate_to_typename (void *ptr);
 
 // ly_scm_func_of_arity<n>::ptr_type is a pointer to a function taking n SCM
@@ -157,8 +157,8 @@ struct ly_scm_func_of_arity<4>
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)                      \
   MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
 
-void ly_add_function_documentation (SCM proc, const std::string &fname, const std::string &varlist, const std::string &doc);
-void ly_check_name (const std::string &cxx, const std::string &fname);
+void ly_add_function_documentation (SCM proc, const char *fname, const char *varlist, const char *doc);
+void ly_check_name (const char *cxx, const char *fname);
 
 #define ADD_SCM_INIT_FUNC(name, func)           \
   class name ## _scm_initter                    \

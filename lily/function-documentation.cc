@@ -44,7 +44,7 @@ using std::string;
 static Protected_scm doc_hash_table;
 
 void
-ly_check_name (const string &cxx, const string &scm_name)
+ly_check_name (const char *cxx, const char *scm_name)
 {
   string mangle = mangle_cxx_identifier (cxx);
   if (mangle != scm_name)
@@ -55,11 +55,12 @@ ly_check_name (const string &cxx, const string &scm_name)
 
 void
 ly_add_function_documentation (SCM func,
-                               const string &fname,
-                               const string &varlist,
-                               const string &doc)
+                               const char *fname,
+                               const char *varlist,
+                               const char *doc)
 {
-  if (doc == "")
+  // doc is a null-terminated character string, so check if it is empty.
+  if (*doc == 0)
     return;
 
   if (!doc_hash_table.is_bound ())
@@ -71,7 +72,7 @@ ly_add_function_documentation (SCM func,
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
                                 ly_string2scm (s));
   SCM entry = scm_cons (ly_string2scm (varlist), ly_string2scm (doc));
-  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname.c_str ()), entry);
+  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
 }
 
 LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
@@ -85,9 +86,9 @@ map<void *, string> type_names;
 
 void
 ly_add_type_predicate (void *ptr,
-                       const string &name)
+                       const char *name)
 {
-  type_names[ptr] = name;
+  type_names[ptr] = std::string (name);
 }
 
 string

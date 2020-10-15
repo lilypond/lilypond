@@ -451,26 +451,27 @@ ly_hash2alist (SCM tab)
  */
 
 string
-mangle_cxx_identifier (string cxx_id)
+mangle_cxx_identifier (const char *cxx_id)
 {
-  if (cxx_id.substr (0, 3) == "ly_")
-    cxx_id = cxx_id.replace (0, 3, "ly:");
+  std::string mangled_id(cxx_id);
+  if (mangled_id.substr (0, 3) == "ly_")
+    mangled_id.replace (0, 3, "ly:");
   else
     {
-      cxx_id = String_convert::to_lower (cxx_id);
-      cxx_id = "ly:" + cxx_id;
+      mangled_id = String_convert::to_lower (mangled_id);
+      mangled_id = "ly:" + mangled_id;
     }
-  if (cxx_id.substr (cxx_id.length () - 2) == "_p")
-    cxx_id = cxx_id.replace (cxx_id.length () - 2, 2, "?");
-  else if (cxx_id.substr (cxx_id.length () - 2) == "_x")
-    cxx_id = cxx_id.replace (cxx_id.length () - 2, 2, "!");
+  if (mangled_id.substr (mangled_id.length () - 2) == "_p")
+    mangled_id.replace (mangled_id.length () - 2, 2, "?");
+  else if (mangled_id.substr (mangled_id.length () - 2) == "_x")
+    mangled_id.replace (mangled_id.length () - 2, 2, "!");
 
-  replace_all (&cxx_id, "_less?", "<?");
-  replace_all (&cxx_id, "_2_", "->");
-  replace_all (&cxx_id, "__", "::");
-  replace_all (&cxx_id, '_', '-');
+  replace_all (&mangled_id, "_less?", "<?");
+  replace_all (&mangled_id, "_2_", "->");
+  replace_all (&mangled_id, "__", "::");
+  replace_all (&mangled_id, '_', '-');
 
-  return cxx_id;
+  return mangled_id;
 }
 
 SCM
