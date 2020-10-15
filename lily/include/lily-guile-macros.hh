@@ -198,7 +198,6 @@ void ly_check_name (const std::string &cxx, const std::string &fname);
 
 #define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR, \
                                   ARGLIST, DOCSTRING)                   \
-  SCM FNAME ARGLIST;                                                    \
   LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, \
                           VAR, ARGLIST, DOCSTRING)
 
