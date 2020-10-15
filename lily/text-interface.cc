@@ -52,7 +52,7 @@ Protected_scm replacement_cache_alist_key_;
 static void
 populate_cache (SCM alist)
 {
-  if (alist == replacement_cache_alist_key_)
+  if (scm_is_eq (alist, static_cast<SCM> (replacement_cache_alist_key_)))
     return;
 
   replacement_cache_.clear ();
