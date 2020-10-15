@@ -137,8 +137,7 @@ struct ly_scm_func_of_arity<4>
   void                                                                  \
   TYPE ## _ ## FUNC ## _init_functions ()                               \
   {                                                                     \
-    std::string cxx = std::string (#TYPE) + "::" + std::string (#FUNC); \
-    std::string id = mangle_cxx_identifier (cxx); \
+    std::string id = mangle_cxx_identifier (#TYPE "::" #FUNC);          \
     /* assignment selects the SCM function even if it is overloaded */ \
     ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC; \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),                      \
