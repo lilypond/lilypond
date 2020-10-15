@@ -10,7 +10,7 @@ set of source files.
 
 To organize multiple authors working on the documentation, we use a
 Version Control System (VCS) called Git, previously discussed in
-@ref{Starting with Git}.
+@ref{Working with source code}.
 
 @menu
 * Introduction to documentation work::
@@ -1651,7 +1651,7 @@ take some time before your request or contribution is handled.
 @subsection Getting started with documentation translation
 
 First, get the sources of branch @code{translation} from the
-Git repository, see @ref{Starting with Git}.
+Git repository, see @ref{Working with source code}.
 
 @menu
 * Translation requirements::
@@ -1971,7 +1971,7 @@ completely updated, see @ref{Updating translation committishes}.}
 @node Check state of translation
 @unnumberedsubsubsec Check state of translation
 
-First pull from Git -- see @ref{Pulling and rebasing}, but DO NOT rebase
+First pull from Git -- see @ref{Git cheat sheet}, but DO NOT rebase
 unless you are sure to master the translation state checking and
 updating system -- then cd into @file{Documentation/} (or at top of the
 source tree, replace @command{make} with @command{make -C

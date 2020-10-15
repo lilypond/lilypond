@@ -217,7 +217,7 @@ it is recommended that you also need to install @code{git}.
 sudo dnf install git
 @end example
 
-Also see @rcontrib{Starting with Git}.
+Also see @rcontrib{Working with source code}.
 
 
 @end itemize
@@ -292,7 +292,7 @@ it is recommended that you also need to install @code{git}.
 sudo apt-get install git
 @end example
 
-Also see @rcontrib{Starting with Git}.
+Also see @rcontrib{Working with source code}.
 
 
 @end itemize
@@ -352,7 +352,7 @@ it is recommended that you also need to install @code{git}.
 sudo zypper install git
 @end example
 
-Also see @rcontrib{Starting with Git}.
+Also see @rcontrib{Working with source code}.
 
 @end itemize
 
@@ -402,7 +402,7 @@ it is recommended that you also need to install @code{git}.
 sudo apt-get install git
 @end example
 
-Also see @rcontrib{Starting with Git}.
+Also see @rcontrib{Working with source code}.
 
 @end itemize
 

@@ -165,8 +165,7 @@ The Patch Meister's responsibilities are:
 To keep track of all patches submitted for testing and review.  This
 includes scanning the bug and dev email lists looking for any patches
 submitted by @q{random} contributors and advising them on how to submit
-a patch for testing and review.  See @ref{Uploading a patch for review}
-and @ref{The patch review cycle}.
+a patch for testing and review.  See @ref{Lifecycle of a merge request}.
 
 @item
 Updates all Issue statuses for all patches that are currently in the

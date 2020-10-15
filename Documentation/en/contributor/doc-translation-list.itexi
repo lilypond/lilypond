@@ -20,8 +20,8 @@ Git at the same time and thus sent in a single patch.  Files
 marked with priority 3 or more may be submitted individually.  Word
 counts (excluding LilyPond snippets) are given for each file.  For
 knowing how to commit your work to Git, then make patches of your new
-translations as well as corrections and updates, see @ref{Basic Git
-procedures}.
+translations as well as corrections and updates, see
+@ref{Working with source code}.
 
 @example
 -1- Web site

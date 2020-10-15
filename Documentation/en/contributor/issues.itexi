@@ -720,7 +720,7 @@ email should contain a link to the issue you just added.
 separate person handling this task.}
 
 For contributors/developers: follow the steps in
-@ref{Patches}, and @ref{Merging to master}.
+@ref{Lifecycle of a merge request}.
 
 @ignore
 For people doing maintenance tasks: A bot is adding Patch::new, James
