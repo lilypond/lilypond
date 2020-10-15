@@ -58,15 +58,4 @@ extern int exit_status_global;
 extern File_path global_path;
 extern const char *LILYPOND_DATADIR;
 
-/*
-  Debugging options: switch on
-
-  Cannot switch on -DNDEBUG, because it causes weird errors if you mix
-  DNDEBUG and normal builds.
-*/
-
-#define DEBUG_SLUR_SCORING 1
-#define DEBUG_TIE_SCORING 1
-#define DEBUG_BEAM_SCORING 1
-
 #endif /* MAIN_HH */
