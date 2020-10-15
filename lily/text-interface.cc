@@ -35,18 +35,15 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-#include <unordered_map>
-#include <vector>
+#include <map>
 
 using std::string;
-using std::unordered_map;
-using std::vector;
 
 // This is a little bit ugly, but the replacement alist is setup in
 // the layout block so it'll be the same across invocations.
 
-// size S-1 => {orig of size S => replacement}
-std::vector<unordered_map<string, string>> replacement_cache;
+std::map<string, string> replacement_cache;
+vsize replacement_max;
 Protected_scm replacement_cache_alist_key;
 
 static void
@@ -56,6 +53,7 @@ populate_cache (SCM alist)
     return;
 
   replacement_cache.clear ();
+  replacement_max = 0;
   replacement_cache_alist_key = alist;
   for (SCM h = alist; scm_is_pair (h); h = scm_cdr (h))
     {
@@ -70,12 +68,10 @@ populate_cache (SCM alist)
 
       string dest = ly_scm2string (v);
 
-      if (replacement_cache.size () < orig.length ())
-        replacement_cache.resize (orig.length ());
-
       // If an alist has duplicate key entries, only the first must be
       // considered.
-      replacement_cache[orig.length () - 1].insert({orig, dest});
+      if (replacement_cache.insert ({orig, dest}).second)
+        replacement_max = std::max (replacement_max, orig.size ());
     }
 }
 
@@ -95,31 +91,46 @@ replace_special_characters (string &str, SCM props)
 
   populate_cache (replacement_alist);
 
-  vsize max_length = replacement_cache.size ();
   for (vsize i = 0; i < str.size (); i++)
     {
-      /* Don't match in mid-UTF-8 */
-      if ((str[i] & 0xc0) == 0x80)
-        continue;
-      for (vsize j = max_length; j > 0; j--)
+      do
         {
-          if (j > str.size () - i)
-            continue;
-          // TODO: It could make sense to skip if not at the end of a UTF-8
-          // glyph. However that requires finding the start of the last glyph
-          // (not necessarily at str[i] - the longest replacement could match
-          // multiple glyphs) to get the glyph's length which is not trivial.
-          // So for now just continue checking all substrings that could be
-          // valid UTF-8 (see check for str[i] not in mid-UTF-8 above).
-          auto const &map = replacement_cache[j - 1];
-          if (map.empty ())
-            continue;
+          // replacement loop while consecutive replacements happen
+          // We break out when this is not the case
 
-          string orig = str.substr (i, j);
-          auto it = map.find (orig);
-          if (it != map.end ())
-            str.replace (i, j, it->second);
+          /* Don't match in mid-UTF-8 */
+          if ((str[i] & 0xc0) == 0x80)
+            break;
+
+          // Using a C++17 string_view here instead of substr would
+          // obviate the need for maintaining replacement_max in order
+          // to keep complexity from becoming quadratic in string
+          // length.
+          auto it = replacement_cache.upper_bound (str.substr (i, replacement_max));
+          if (it == replacement_cache.begin ())
+            break;
+
+          --it;
+          // The iterator it now points to largest key smaller or equal
+          // to string tail.  In the case of several keys matching for
+          // their respective entire length, the longest matching key
+          // will be taken, being the lexicographically largest one.
+
+          const string &key = it->first;
+          vsize j = key.length ();
+          // Make sure that entire key is present in the source string
+          if (str.compare (i, j, key) != 0)
+            break;
+
+          const string &replacement = it->second;
+          str.replace (i, j, replacement);
+          // Stop doing replacements at this position and advance in the
+          // string up to just after the text we replaced with. This
+          // ensures that the result of a replacement is never processed
+          // itself for replacements.
+          i += replacement.length ();
         }
+      while (i < str.size ());
     }
 }
 
