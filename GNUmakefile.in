@@ -28,7 +28,7 @@ INSTALLATION_FILES=$(config_make) VERSION
 GENERATED_BUILD_FILES=configure aclocal.m4 autogen.sh
 # bootstrap stepmake:
 #
-STEPMAKE_TEMPLATES=po install
+STEPMAKE_TEMPLATES=install
 LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make
@@ -93,6 +93,25 @@ refresh-release-files:
 	$(MAKE) $(RELEASE_OUT_FILES)
 
 local-clean: local-clean-filelist
+
+# PO files
+
+po:
+	if test -r $(po-srcdir); then \
+	  rm -f $(po-outdir)/$(package).po; \
+	  mkdir -p $(po-outdir); \
+	  touch $(po-outdir)/$(package).po; \
+	fi
+	$(LOOP)
+
+po-update: po
+	$(MAKE) -C $(po-outdir)/.. po-update
+
+po-changes:
+	$(MAKE) -C $(po-outdir)/.. po-changes
+
+po-replace: po
+	$(MAKE) -C $(po-outdir)/.. po-replace
 
 info:
 	$(MAKE) out=www -C Documentation info
