@@ -1747,7 +1747,7 @@ trouver à des niveaux supérieurs, entre deux partitions ou
 
 Au sein même d'une pièce, les sauts de page automatiques sont inhibés
 dans la musique encadrée par les commandes @code{\autoPageBreaksOff} et
-@code{\autoPageeBreaksOn}.  Les sauts de page manuels ne sont pas
+@code{\autoPageBreaksOn}.  Les sauts de page manuels ne sont pas
 affectés par ces commandes.
 
 Tout comme @code{ragged-right} et @code{ragged-last} qui permettent de
