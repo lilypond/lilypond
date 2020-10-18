@@ -406,5 +406,5 @@ within the music like in the following example:
 }
 @end verbatim
 
-@strong{Note:} This function has been introduced in LilyPond 2.19.57, so
+@strong{Note:} This function has been introduced in LilyPond 2.21.80, so
 it is not possible to compare with versions earlier than that.
