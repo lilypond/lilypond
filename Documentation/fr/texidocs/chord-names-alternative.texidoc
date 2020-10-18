@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Les noms d'accord sont générés à partir d'une liste de hauteurs. Les
 fonctions qui construisent ces noms peuvent être personnalisées.
@@ -9,9 +9,10 @@ alternative jazz et à la notation d'Harald Banter (1987). Une police
 plus petite est utilisée pour cette dernière dans la mesure où elle tend
 à être plus verbeuse.
 
-Ceci est un reflet du mécanisme utiliséé à l'origine par LilyPond,
+Ceci est un reflet du mécanisme utilisé à l'origine par LilyPond,
 jusque dans les version 1.7. N'ayant pas fait l'objet d'une maintenance
 suivie, certaines fonctionnalités ont été perdues -- notamment au niveau
 des listes d'exception -- et des bogues ont fait leur apparition.
+
 "
   doctitlefr = "Noms d'accord alternatifs"

@@ -1,13 +1,14 @@
-%% Translation of GIT committish: 4860434b122611df632dfd9aaa21c430e4b67819
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Selon la tradition, les crochets indicateurs de n-olet sont toujours
 imprimés, sauf dans le cas où ils seraient de la même longueur qu'une
-ligature. LilyPond permet, au travers de la propriété
-@code{bracket-visibility}, de contôler précisément leur affichage :
-déterminée à @code{#t}, ils seront toujours imprimés ; @code{#f} permet
-de ne jamais les imprimer -- donc omettre l'objet @code{TupletBracket}
---, et @code{#'if-no-beam} les imprimera en l'absence de ligature
-(comportement par défaut).
+ligature.
+
+LilyPond permet, au travers de la propriété @code{bracket-visibility},
+de contôler précisément leur affichage : déterminée à @code{#t}, ils
+seront toujours imprimés ; @code{#f} permet de ne jamais les imprimer --
+donc omettre l'objet @code{TupletBracket} --, et @code{#'if-no-beam} les
+imprimera en l'absence de ligature (comportement par défaut).
 
 "
   doctitlefr = "Contrôle de l'impression des crochets de n-olet"
