@@ -107,9 +107,6 @@ po:
 po-update: po
 	$(MAKE) -C $(po-outdir)/.. po-update
 
-po-changes:
-	$(MAKE) -C $(po-outdir)/.. po-changes
-
 po-replace: po
 	$(MAKE) -C $(po-outdir)/.. po-replace
 
