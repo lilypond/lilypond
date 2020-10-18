@@ -14,7 +14,7 @@ sed-content = "Content-Type: text\/plain; charset=UTF-8\\n"
 
 po: local-po
 	$(LOOP)
-ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(PY_MODULES_IN) $(SCM_FILES)
+ALL_PO_SOURCES = $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(PY_MODULES_IN) $(SCM_FILES)
 local-po:
 ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
