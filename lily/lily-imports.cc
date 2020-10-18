@@ -24,6 +24,8 @@ namespace Guile_user
 Scm_module module ("guile-user");
 
 Variable apply ("apply");
+Variable equal ("=");
+Variable less ("<");
 Variable plus ("+");
 Variable make_module ("make-module");
 #if GUILEV2
@@ -115,6 +117,8 @@ namespace Srfi_1
 Scm_module module ("srfi srfi-1");
 
 Variable append_reverse ("append-reverse");
+Variable delete_duplicates ("delete-duplicates");
+Variable lset_union ("lset-union");
 }
 
 namespace Syntax

@@ -14,6 +14,9 @@
 ;;;
 ;;; Scheme forms
 ;;;
+(define (number-list->lily-string scm-arg)
+  (string-join (map number->string scm-arg) ","))
+
 (define (scheme-expr->lily-string scm-arg)
   (cond ((or (number? scm-arg)
              (string? scm-arg)
@@ -33,6 +36,7 @@
                  (with-output-to-string
                    (lambda ()
                      (display-scheme-music scm-arg)))))))
+
 ;;;
 ;;; Markups
 ;;;
@@ -705,6 +709,15 @@ expression."
 
 (define-display-method TremoloRepeatedMusic (expr)
   (repeat->lily-string expr "tremolo"))
+
+(define-display-method UnfoldedSpeccedMusic (m)
+  (format #f "\\unfolded ~a"
+          (music->lily-string (ly:music-property m 'element))))
+
+(define-display-method VoltaSpeccedMusic (m)
+  (format #f "\\volta ~a ~a"
+          (number-list->lily-string (ly:music-property m 'volta-numbers))
+          (music->lily-string (ly:music-property m 'element))))
 
 ;;;
 ;;; Contexts

@@ -749,6 +749,18 @@ played) out.")
         (types . (repeated-music unfolded-repeated-music))
         ))
 
+    (UnfoldedSpeccedMusic
+     . ((description . "Music that appears once repeated music is unfolded.")
+        ;; We do not construct a music-wrapper-iterator because we
+        ;; never want to iterate music that is thus wrapped.  If
+        ;; repeats are unfolded, this wrapper is removed and the
+        ;; unwrapped music is iterated according to its type.
+        (iterator-ctor . ,ly:music-iterator::constructor)
+        (length-callback . ,ly:music-wrapper::length-callback)
+        (start-callback . ,ly:music-wrapper::start-callback)
+        (types . (unfolded-specification music-wrapper-music))
+        ))
+
     (UnisonoEvent
      . ((description . "Print @q{a@tie{}2}.")
         (part-combine-status . unisono)
@@ -778,6 +790,20 @@ Syntax: @code{\\\\}")
         (start-callback .  ,ly:calculated-sequential-music::start)
         (length-callback . ,ly:calculated-sequential-music::length)
         (types . (repeated-music volta-repeated-music))
+        ))
+
+    (VoltaSpanEvent
+     . ((description . "Used internally to signal where volta
+brackets start and stop.")
+        (types . (volta-span-event span-event event post-event))
+        ))
+
+    (VoltaSpeccedMusic
+     . ((description . "Music for a specific volta within repeated music.")
+        (iterator-ctor . ,ly:volta-specced-music-iterator::constructor)
+        (length-callback . ,ly:music-wrapper::length-callback)
+        (start-callback . ,ly:music-wrapper::start-callback)
+        (types . (volta-specification music-wrapper-music))
         ))
     ))
 

@@ -17,10 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "music.hh"
 #include "sequential-iterator.hh"
+
 #include "context.hh"
 #include "lily-imports.hh"
+#include "ly-scm-list.hh"
+#include "music.hh"
 
 using std::string;
 
@@ -37,9 +39,11 @@ protected:
   void process (Moment) override;
   void derived_mark () const override;
 
+private:
   bool first_time_ = true;
   // It seems silly not to have a body, but we're trying to be robust.
   bool have_body_ = false;
+  bool final_alt_needs_end_repeat_ = false;
   int alt_count_ = 0;
   int rep_count_ = 0;
   int done_count_ = 0;
@@ -96,7 +100,6 @@ Volta_repeat_iterator::next_element ()
 
   if (alt_count_)
     {
-      string repstr = std::to_string (rep_count_ - alt_count_ + done_count_) + ".";
       if (done_count_ <= 1)
         {
           alt_restores_ = SCM_EOL;
@@ -120,10 +123,45 @@ Volta_repeat_iterator::next_element ()
         }
       else
         {
+          const bool ending_final_alt = (done_count_ == alt_count_ + 1);
+          const bool ending_earlier_alt = (done_count_ < alt_count_ + 1);
+          const bool starting_final_alt = (done_count_ == alt_count_);
 
-          add_repeat_command (scm_list_2 (ly_symbol2scm ("volta"), SCM_BOOL_F));
+          // The final alternative needs an end-repeat bar if it applies to any
+          // volta other than the final volta.
+          if (starting_final_alt && have_body_)
+            {
+              // Examining the child music is ugly but effective.
+              auto *child = get_child ();
+              auto *music = child ? child->get_music () : nullptr;
+              if (music)
+                {
+                  SCM nums = get_property (music, "volta-numbers");
+                  if (!scm_is_pair (nums))
+                    {
+                      // Not finding a label, we'll assume that the final
+                      // alternative is for the final volta only.
+                    }
+                  else if (scm_is_pair (scm_cdr (nums)))
+                    {
+                      // The final alternative is used in more than one volta.
+                      final_alt_needs_end_repeat_ = true;
+                    }
+                  else
+                    {
+                      final_alt_needs_end_repeat_
+                        = scm_is_false (scm_equal_p (scm_car (nums),
+                                                     to_scm (rep_count_)));
+                    }
+                }
+            }
 
-          if (done_count_ - 1 < alt_count_)
+          if (ending_final_alt)
+            {
+              if (final_alt_needs_end_repeat_)
+                add_repeat_command (ly_symbol2scm ("end-repeat"));
+            }
+          else if (ending_earlier_alt)
             {
               if (have_body_)
                 add_repeat_command (ly_symbol2scm ("end-repeat"));
@@ -154,13 +192,6 @@ Volta_repeat_iterator::next_element ()
                 }
             }
         }
-
-      if (done_count_ == 1 && alt_count_ < rep_count_)
-        repstr = "1.--" + std::to_string (rep_count_ - alt_count_ + done_count_) + ".";
-
-      if (done_count_ <= alt_count_)
-        add_repeat_command (scm_list_2 (ly_symbol2scm ("volta"),
-                                        ly_string2scm (repstr)));
     }
   else
     {

@@ -119,47 +119,106 @@ depth-first through MUSIC."
                           'origin (ly:music-property tremolo 'origin))))))
 
 (define (make-unfolded-set music)
-  (let ((n (ly:music-property music 'repeat-count))
-        (alts (ly:music-property music 'elements))
-        (body (ly:music-property music 'element)))
-    (cond ((<= n 0) '())
-          ((null? alts) (make-list n body))
-          (else
-           (concatenate
-            (zip (make-list n body)
-                 (append! (make-list (max 0 (- n (length alts)))
-                                     (car alts))
-                          alts)))))))
+  (let* ((n (ly:music-property music 'repeat-count))
+         (alts (ly:music-property music 'elements))
+         (body (ly:music-property music 'element))
+         (volte (list-tabulate
+                 n
+                 (lambda (i)
+                   (make-sequential-music
+                    (cons (ly:music-deep-copy body)
+                          (ly:music-deep-copy alts)))))))
+
+    (define (pass-over-repeated-music music)
+      (not (music-is-of-type? music 'repeated-music)))
+
+    (define (keep-for-volta music n)
+      ;; TODO: It might be helpful to warn about a volta specification
+      ;; that is outside [1, repeat_count], but there are things to
+      ;; consider.
+      ;;
+      ;; A check here would only notice as repeats are unfolded.  It
+      ;; would not notice when repeats are left in volta notation or
+      ;; when \volta is used outside of a repeat.  A consistent,
+      ;; general check might require making music iterators aware of
+      ;; scoped music properties. (As I am iterating, is there a
+      ;; repeat count in enclosing music; if so, what?)
+      ;;
+      ;; No warning should be issued for an empty set.  That is useful
+      ;; for removing the music unconditionally when unfolded.
+      (or (not (music-is-of-type? music 'volta-specification))
+          (pair? (member n (ly:music-property music 'volta-numbers '())))))
+
+    (define (unwrap-for-volta music n)
+      (cond ((music-is-of-type? music 'volta-specification)
+             (ly:music-property music 'element)) ; unwrap
+            ((music-is-of-type? music 'unfolded-specification)
+             (ly:music-property music 'element)) ; unwrap
+            (else
+             music)))
+
+    (for-each (lambda (volta-num volta-music)
+                ;; discard all music that is not for this volta
+                (set! volta-music
+                      (music-selective-filter
+                       pass-over-repeated-music
+                       (lambda (m) (keep-for-volta m volta-num))
+                       volta-music))
+                ;; discard the remaining VoltaSpeccedMusic wrappers
+                (set! volta-music
+                      (music-selective-map
+                       pass-over-repeated-music
+                       (lambda (m) (unwrap-for-volta m volta-num))
+                       volta-music)))
+
+              (iota n 1 1) volte)
+
+    volte))
 
 (define (make-volta-set music)
   (let* ((alts (ly:music-property music 'elements))
          (body (ly:music-property music 'element))
          (lalts (length alts))
          (times (ly:music-property music 'repeat-count)))
-    (cons body
-          (map (lambda (x y)
-                 (make-music
-                  'SequentialMusic
-                  'elements
-                  ;; set properties for proper bar numbering
-                  (append
-                   (list (make-music 'AlternativeEvent
-                                     'alternative-dir (if (= y 0)
-                                                          -1
-                                                          0)
-                                     'alternative-increment
-                                     (if (= 0 y)
-                                         (1+ (- times
-                                                lalts))
-                                         1)))
-                   (list x)
-                   (if (= y (1- lalts))
-                       (list (make-music 'AlternativeEvent
-                                         'alternative-dir 1
-                                         'alternative-increment 0))
-                       '()))))
-               alts
-               (iota lalts)))))
+    (cons
+     body
+     (map (lambda (x y)
+            (let* ((is-specced (music-is-of-type? x 'volta-specification))
+                   (bare-mus (if is-specced (ly:music-property x 'element) x))
+                   (new-mus (make-music 'SequentialMusic)))
+
+              ;; set properties for proper bar numbering
+              (set! (ly:music-property new-mus 'elements)
+                    (append
+                     (list (make-music 'AlternativeEvent
+                                       'alternative-dir (if (= y 0)
+                                                            -1
+                                                            0)
+                                       'alternative-increment
+                                       (if (= 0 y)
+                                           (1+ (- times
+                                                  lalts))
+                                           1)))
+                     ;; the alternative without its original
+                     ;; VoltaSpeccedMusic wrapper
+                     (list bare-mus)
+                     (if (= y (1- lalts))
+                         (list (make-music 'AlternativeEvent
+                                           'alternative-dir 1
+                                           'alternative-increment 0))
+                         '())))
+
+              (if is-specced
+                  ;; Create a new VoltaSpeccedMusic wrapper because
+                  ;; we're adding some music to the provided
+                  ;; alternative.
+                  (make-music
+                   'VoltaSpeccedMusic
+                   'volta-numbers (ly:music-property x 'volta-numbers)
+                   'element new-mus)
+                  new-mus)))
+          alts
+          (iota lalts)))))
 
 (define (make-ottava-set music)
   "Set context properties for an ottava bracket."

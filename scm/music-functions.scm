@@ -287,20 +287,44 @@ The number of dots in the shifted music may not be less than zero."
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
              music))
 
+(define-safe-public (volta-spec-music number-list music)
+  "Add \\volta @var{number-list} to @var{music}."
+  (make-music 'VoltaSpeccedMusic
+              'element music
+              'volta-numbers number-list))
+
 (define-public (make-repeat name times main alts)
   "Create a repeat music expression, with all properties initialized
 properly."
-  (let ((type (or (assoc-get name '(("volta" . VoltaRepeatedMusic)
-                                    ("unfold" . UnfoldedRepeatedMusic)
-                                    ("percent" . PercentRepeatedMusic)
-                                    ("tremolo" . TremoloRepeatedMusic)))
-                  (begin (ly:warning (_ "unknown repeat type `~S': must be volta, unfold, percent, or tremolo") name)
-                         'VoltaRepeatedMusic)))
-        (talts (if (< times (length alts))
-                   (begin
-                     (ly:warning (_ "More alternatives than repeats.  Junking excess alternatives"))
-                     (take alts times))
-                   alts)))
+  (let* ((type (or (assoc-get name '(("volta" . VoltaRepeatedMusic)
+                                     ("unfold" . UnfoldedRepeatedMusic)
+                                     ("percent" . PercentRepeatedMusic)
+                                     ("tremolo" . TremoloRepeatedMusic)))
+                   (begin (ly:warning (_ "unknown repeat type `~S': \
+must be volta, unfold, percent, or tremolo") name)
+                          'VoltaRepeatedMusic)))
+         (is-specced (lambda (m) (music-is-of-type? m 'volta-specification)))
+         (lalts (length alts))
+         (talts (if (< times lalts)
+                    (begin
+                      (ly:warning (_ "More alternatives than repeats.  \
+Junking excess alternatives"))
+                      (set! lalts times)
+                      (take alts times))
+                    alts))
+         (alt-1-count (1+ (- times lalts))))
+
+    ;; If the user did not specify volta numbers, wrap the
+    ;; alternatives for consistency with the legacy behavior.
+    (if (not (any is-specced alts))
+        (let * (;; volta numbers for each alternative (list of lists)
+                (volta-numbers (cons
+                                (map 1+ (iota alt-1-count))
+                                (map (lambda (i) (list (+ alt-1-count 1 i)))
+                                     (iota (- times 1))))))
+          ;; wrap the alternatives and set their volta numbers
+          (set! talts (map volta-spec-music volta-numbers talts))))
+
     (make-music type
                 'element main
                 'repeat-count (max times 1)

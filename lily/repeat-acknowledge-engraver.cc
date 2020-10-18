@@ -41,6 +41,7 @@ public:
 
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
 protected:
+  void listen_volta_span (Stream_event *);
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
@@ -48,6 +49,7 @@ protected:
 
 private:
   bool first_time_ = true;
+  bool heard_volta_span_ = false;
 };
 
 void
@@ -70,6 +72,14 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
     tr = context ();
 
   set_property (tr, "repeatCommands", SCM_EOL);
+
+  heard_volta_span_ = false;
+}
+
+void
+Repeat_acknowledge_engraver::listen_volta_span (Stream_event *)
+{
+  heard_volta_span_ = true;
 }
 
 void
@@ -87,7 +97,7 @@ Repeat_acknowledge_engraver::process_music ()
   bool start = false;
   bool end = false;
   bool segno = false;
-  bool volta_found = false;
+  bool volta_found = heard_volta_span_;
   while (scm_is_pair (cs))
     {
       SCM command = scm_car (cs);
@@ -150,7 +160,7 @@ Repeat_acknowledge_engraver::stop_translation_timestep ()
 void
 Repeat_acknowledge_engraver::boot ()
 {
-
+  ADD_LISTENER (Repeat_acknowledge_engraver, volta_span);
 }
 
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,

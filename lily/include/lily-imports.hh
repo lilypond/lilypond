@@ -28,9 +28,11 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable apply;
+extern Variable equal;
 #if GUILEV2
 extern Variable f_default_port_encoding;
 #endif
+extern Variable less;
 extern Variable plus;
 extern Variable make_module;
 #if GUILEV2
@@ -128,6 +130,8 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable append_reverse;
+extern Variable delete_duplicates;
+extern Variable lset_union;
 }
 
 namespace Syntax

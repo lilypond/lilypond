@@ -2041,6 +2041,14 @@ unsets already in @var{music} cause a warning.  Non-property-related music is ig
         ((null? (cdr lst)) (car lst))
         (else (make-sequential-music lst))))))
 
+unfolded =
+#(define-music-function (music)
+   (ly:music?)
+   (_i "Mask @var{music} until the innermost enclosing repeat is
+unfolded.")
+   (make-music 'UnfoldedSpeccedMusic
+               'element music))
+
 unfoldRepeats =
 #(define-music-function (types music)
    ((symbol-list-or-symbol? '()) ly:music?)
@@ -2080,6 +2088,14 @@ void =
    (_i "Accept a scheme argument, return a void expression.
 Use this if you want to have a scheme expression evaluated
 because of its side-effects, but its value ignored."))
+
+volta =
+#(define-music-function (volta-numbers music) (number-list? ly:music?)
+   (_i "Mark @var{music} as being limited to the volte given in
+@var{volta-numbers} when the innermost enclosing repeat is unfolded.
+Volta number begins at 1 and increases by 1 with each repetition.")
+   (volta-spec-music volta-numbers music))
+
 
 withMusicProperty =
 #(define-music-function (sym val music)

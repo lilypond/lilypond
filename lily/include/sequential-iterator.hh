@@ -50,6 +50,7 @@ protected:
   bool run_always () const override;
 
 protected:
+  const Music_iterator *get_child () const { return iter_; }
   virtual void next_element () {}
 
 private:

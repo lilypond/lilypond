@@ -69,8 +69,8 @@ actual   = ~a"
 %%% Tests
 %%%
 \header {
-  texidoc = "This is a test of the display-lily-music unit. Problems are reported on the
-stderr of this run." 
+  texidoc = "This is a test of the display-lily-music unit. Problems
+are reported on the stderr of this run."
 }
 
 %% Sequential music
@@ -232,7 +232,11 @@ stderr of this run."
 \test ##[ \repeat tremolo 4 { c16 d16 } #]		% TremoloRepeatedMusic
 \test ##[ \repeat tremolo 7 { c''32 b'32 } #]
 \test ##[ \repeat tremolo 15 { c''16 b'16 } #]
-\test ##[ \repeat volta 2 { c4 d4 } \alternative { { c4 d4 } { e4 f4 } } #]    % 
+\test "\repeat volta 2 c4 \alternative { \volta 1 d4 \volta 2 e4 }"
+      ##[ \repeat volta 2 c4 \alternative { d4 e4 } #]
+\test ##[ \unfolded R1 #]
+\test ##[ \volta 1 c'1 #]
+\test ##[ \volta 5,13,12 c'1 #]
 
 %% Context creation
 \test ##[ \new Staff { c4 d4 } #]			% ContextSpeccedMusic

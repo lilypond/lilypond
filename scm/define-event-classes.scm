@@ -56,7 +56,7 @@
                    phrasing-slur-event slur-event
                    staff-span-event text-span-event
                    trill-span-event tremolo-span-event
-                   tuplet-span-event))
+                   tuplet-span-event volta-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
     (break-span-event . (break-dynamic-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))
