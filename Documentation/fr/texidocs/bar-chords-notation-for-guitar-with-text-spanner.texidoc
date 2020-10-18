@@ -1,6 +1,8 @@
-%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
-Voici comment imprimer -- il suffit de dé-commenter la ligne appropriée.
+Voici comment imprimer un « accord barré » -- il suffit de dé-commenter
+la ligne appropriée.
+
 La syntaxe est la suivante : @code{\\bbarre #\"fret_number\" note(s)}
 
 La fonction Scheme ici présentée peut faire l'objet d'un fichier de

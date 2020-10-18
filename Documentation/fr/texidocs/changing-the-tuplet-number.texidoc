@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 LilyPond imprime par défaut le numérateur de la fraction fournie en
 argument à la commande @code{\tuplet} du côté du crochet de n-olet.

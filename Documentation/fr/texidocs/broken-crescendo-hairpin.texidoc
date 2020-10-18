@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Une portion d'un soufflet de crescendo peut être rendue invisible.
-Il suffit pour cela de dessiner un rectangle par dessus cette partie, ce
-qui aura pour effet de la rendre invisible.  Ce rectangle est défini au
+Il suffit pour cela de dessiner un rectangle par dessus ce tronçon, ce
+qui aura pour effet de le rendre invisible.  Ce rectangle est défini au
 sein d'un @emph{markup} par du code PostScript.
 
 La commande de @emph{markup} @code{with-dimensions} indique à LilyPond
