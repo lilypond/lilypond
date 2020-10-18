@@ -466,6 +466,10 @@ tratamos en esta sección.
 @lilypond[quote,verbatim]
 \include "arabic.ly"
 \score {
+  \header {
+    title = "Semai Muhayer"
+    composer = "Jamil Bek"
+  }
   \relative {
     \set Staff.extraNatural = ##f
     \set Staff.autoBeaming = ##f
@@ -476,10 +480,6 @@ tratamos en esta sección.
     re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb
     fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb
     do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8
-  }
-  \header {
-    title = "Semai Muhayer"
-    composer = "Jamil Bek"
   }
 }
 @end lilypond

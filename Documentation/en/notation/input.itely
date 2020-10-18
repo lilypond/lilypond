@@ -185,8 +185,8 @@ the top of the file is inserted.
   composer = "Igor Stravinsky"
 @}
 \score @{
-  @dots{}
   \header @{ piece = "Romanze" @}
+  @dots{}
 @}
 \markup @{
    @dots{}text of second verse@dots{}
@@ -195,8 +195,8 @@ the top of the file is inserted.
    @dots{}text of third verse@dots{}
 @}
 \score @{
-  @dots{}
   \header @{ piece = "Menuetto" @}
+  @dots{}
 @}
 @end example
 
@@ -676,27 +676,27 @@ suitable, as here:
 }
 
 \score {
+  \header {
+    piece = "Prélude."
+  }
   \new Staff \relative {
     \clef bass
     \key g \major
     \repeat unfold 2 { g,16( d' b') a b d, b' d, } |
     \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
   }
-  \header {
-    piece = "Prélude."
-  }
 }
 
 \score {
+  \header {
+    piece = "Allemande."
+  }
   \new Staff \relative {
     \clef bass
     \key g \major
     \partial 16 b16 |
     <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
     d16( b g fis) g( e d c) b(c d e) fis( g a b) |
-  }
-  \header {
-    piece = "Allemande."
   }
 }
 @end lilypond
@@ -719,22 +719,18 @@ suppressed:
   }
   \markup { \vspace #1 }
   \score {
-    \new PianoStaff <<
-      \new Staff { s1 }
-      \new Staff { \clef "bass" s1 }
-    >>
     \header {
       title = "PRAELUDIUM I"
       opus = "BWV 846"
       % Do not display the subtitle for this score
       subtitle = ##f
     }
-  }
-  \score {
     \new PianoStaff <<
       \new Staff { s1 }
       \new Staff { \clef "bass" s1 }
     >>
+  }
+  \score {
     \header {
       title = "FUGA I"
       subsubtitle = "A 4 VOCI"
@@ -742,6 +738,10 @@ suppressed:
       % Do not display the subtitle for this score
       subtitle = ##f
     }
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
   }
 }
 @end lilypond
@@ -783,32 +783,32 @@ This example demonstrates all printed @code{\header} variables:
     copyright = "The copyright goes at the bottom of the first page"
   }
   \score {
-    { s1 }
     \header {
       % The following fields are placed at opposite ends
       % of the same line
       piece = "Piece 1"
       opus = "Opus 1"
     }
+    { s1 }
   }
   \score {
-    { s1 }
     \header {
       % The following fields are placed at opposite ends
       % of the same line
       piece = "Piece 2 on the same page"
       opus = "Opus 2"
     }
+    { s1 }
   }
   \pageBreak
   \score {
-    { s1 }
     \header {
       % The following fields are placed at opposite ends
       % of the same line
       piece = "Piece 3 on a new page"
       opus = "Opus 3"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -857,11 +857,11 @@ the music (defined in the @code{\score} block) starting on the next.
     copyright = "This is the bottom of the first page"
   }
   \score {
-    \repeat unfold 4 { e'' e'' e'' e'' }
     \header {
       piece = "This is the Music"
       breakbefore = ##t
     }
+    \repeat unfold 4 { e'' e'' e'' e'' }
   }
 }
 @end lilypond
@@ -961,11 +961,11 @@ footer and title text within the @code{\header} block.
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
-  { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
     opus = \markup { \italic "BWV 846" }
   }
+  { s1 }
 }
 @end lilypond
 
@@ -1013,11 +1013,11 @@ ends of the same line:
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
-  { s1 }
   \header {
     piece = "PRAELUDIUM I"
     opus = "BWV 846"
   }
+  { s1 }
 }
 @end lilypond
 
@@ -1038,11 +1038,11 @@ text field is centered and in a large, bold font.
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "PRAELUDIUM I"
       opus = "BWV 846"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -1074,18 +1074,18 @@ composer:
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "MENUET"
       composer = "Christian Petzold"
     }
+    { s1 }
   }
   \score {
-    { s1 }
     \header {
       piece = "RONDEAU"
       composer = "François Couperin"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -1113,12 +1113,12 @@ them in the markup definition.
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "FUGA I"
       mycustomtext = "A 4 VOCI" %% User-defined field
       opus = "BWV 846"
     }
+    { s1 }
   }
 }
 @end lilypond
