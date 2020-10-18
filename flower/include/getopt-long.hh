@@ -60,9 +60,6 @@ public:
   /// argument. Set to 0 if not present
   char const *optional_argument_str0_;
 
-  /// current error status
-  Errorcod error_;
-
   /// arg_value_char_a_a_[array_index_] will be processed next.
   int array_index_;
 
@@ -72,29 +69,15 @@ public:
   /// the arg. count
   int argument_count_;
 
-  FILE *error_out_;
-
 public:
   /// get ready for processing next error.
   void next ();
   const Long_option_init *parselong ();
   const Long_option_init *parseshort ();
-  void OK () const;
   bool ok () const;
 
   /// report an error and abort
   void report (Errorcod c);
-
-  /// return an integer (with err. detect)
-  long get_argument_index ();
-
-  /**
-     What to do with  errors.
-     report messages on  #*os#, and abort.
-     if #os# is null, then do not report nor abort, just set #error#
-  */
-
-  void seterror (FILE *os);
 
   /// construct: pass arguments and option info.
   Getopt_long (int c, char **v, Long_option_init *lo);

@@ -38,17 +38,6 @@ gettext (char const *s)
 
 using std::string;
 
-long
-Getopt_long::get_argument_index ()
-{
-  long l;
-  if (!optional_argument_str0_
-      || sscanf (optional_argument_str0_, "%ld", &l) != 1)
-    report (E_ILLEGALARG);
-
-  return l;
-}
-
 const Long_option_init *
 Getopt_long::parselong ()
 {
@@ -146,10 +135,6 @@ Long_option_init::str_for_help () const
 void
 Getopt_long::report (Errorcod c)
 {
-  error_ = c;
-  if (!error_out_)
-    return;
-
   string str = arg_value_char_a_a_[0];
   str += ": ";
   switch (c)
@@ -175,7 +160,7 @@ Getopt_long::report (Errorcod c)
     default:
       assert (false);
     }
-  fprintf (error_out_, "%s\n", str.c_str ());
+  fprintf (stderr, "%s\n", str.c_str ());
   exit (2);
 }
 
@@ -261,7 +246,6 @@ Getopt_long::operator () ()
 Getopt_long::Getopt_long (int c, char **v, Long_option_init *lo)
 {
   option_a_ = lo;
-  error_out_ = stderr;
   arg_value_char_a_a_ = v;
   argument_count_ = c;
   array_index_ = 1;
@@ -282,7 +266,6 @@ Getopt_long::ok () const
 void
 Getopt_long::next ()
 {
-  error_ = E_NOERROR;
   while (array_index_ < argument_count_
          && !arg_value_char_a_a_[array_index_][argument_index_])
     {
