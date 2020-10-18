@@ -46,20 +46,7 @@ String_convert::bin2hex (Byte bin_char)
 {
   string str;
   str += nibble2hex_byte ((Byte) (bin_char >> 4));
-  str += nibble2hex_byte (bin_char++);
-  return str;
-}
-
-string
-String_convert::bin2hex (const string &bin_string)
-{
-  string str;
-  Byte const *byte = (Byte const *)bin_string.data ();
-  for (ssize i = 0; i < bin_string.length (); i++)
-    {
-      str += nibble2hex_byte ((Byte) (*byte >> 4));
-      str += nibble2hex_byte (*byte++);
-    }
+  str += nibble2hex_byte (bin_char);
   return str;
 }
 
