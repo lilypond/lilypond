@@ -29,8 +29,6 @@ public:
   static std::string vform_string (char const *format, va_list args);
   static std::string hex2bin (const std::string &str);
   static std::string int_string (int i, char const *fmt = 0);
-  static std::string int2hex (int i, size_t length_i, char ch);
-  static std::string unsigned2hex (unsigned u, size_t length, char ch);
   static std::string to_lower (std::string s);
   static std::string to_upper (std::string s);
 };

@@ -107,34 +107,6 @@ String_convert::hex2nibble (Byte byte)
   return -1;
 }
 
-// stupido.  Should use int_string ()
-string
-String_convert::unsigned2hex (unsigned u, size_t length, char fill_char)
-{
-  string str;
-  if (!u)
-    str = "0";
-
-  while (u)
-    {
-      str = string (1, (char) ((u % 16)["0123456789abcdef"])) + str;
-      u /= 16;
-    }
-
-  if (str.length () < length)
-    str = string (length - str.length (), fill_char) + str;
-  while ((str.length () > length) && (str[ 0 ] == 'f'))
-    str = str.substr (2);
-
-  return str;
-}
-
-string
-String_convert::int2hex (int i, size_t length_i, char fill_char)
-{
-  return unsigned2hex ((unsigned)i, length_i, fill_char);
-}
-
 Byte
 String_convert::nibble2hex_byte (Byte byte)
 {
