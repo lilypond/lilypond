@@ -38,25 +38,14 @@ struct Polynomial
   /// coefficients
   std::vector<Real> coefs_;
 
-  // leading coef
-  Real &lc ();
-
-  // leading coef
-  Real lc () const;
   void print () const;
   Real eval (Real) const;
-  Real minmax (Real, Real, bool) const;
-  void print_sols (std::vector<Real>) const;
-  void check_sols (std::vector<Real>) const;
-  void check_sol (Real x) const;
   static Polynomial multiply (const Polynomial &p1, const Polynomial &p2);
   static Polynomial power (int exponent, const Polynomial &src);
 
   /// chop low coefficients
   void clean ();
 
-  /// eliminate #x#  close to  zero
-  void real_clean ();
   void scalarmultiply (Real fact);
   void operator *= (Real f) { scalarmultiply (f); }
   void operator /= (Real f) { scalarmultiply (1 / f); }
@@ -65,12 +54,9 @@ struct Polynomial
   void operator -= (Polynomial const &p2);
   Polynomial (Real a, Real b = 0.0);
   Polynomial () {}
-  void set_negate (const Polynomial &src);
 
   /// take the derivative
   void differentiate ();
-
-  void debug_clean ();
 
   std::vector<Real> solve_quadric ()const;
   std::vector<Real> solve_cubic ()const;

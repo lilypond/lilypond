@@ -64,32 +64,6 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
   return dest;
 }
 
-Real
-Polynomial::minmax (Real l, Real r, bool ret_max) const
-{
-  vector<Real> sols;
-  if (l > r)
-    {
-      programming_error ("left bound greater than right bound for polynomial minmax.  flipping bounds.");
-      l = l + r;
-      r = l - r;
-      l = l - r;
-    }
-
-  sols.push_back (eval (l));
-  sols.push_back (eval (r));
-
-  Polynomial deriv (*this);
-  deriv.differentiate ();
-  vector<Real> maxmins = deriv.solve ();
-  for (vsize i = 0; i < maxmins.size (); i++)
-    if (maxmins[i] >= l && maxmins[i] <= r)
-      sols.push_back (eval (maxmins[i]));
-  vector_sort (sols, std::less<Real> ());
-
-  return ret_max ? sols.back () : sols[0];
-}
-
 void
 Polynomial::differentiate ()
 {
@@ -163,32 +137,6 @@ Polynomial::scalarmultiply (Real fact)
 {
   for (int i = 0; i <= degree (); i++)
     coefs_[i] *= fact;
-}
-
-void
-Polynomial::set_negate (const Polynomial &src)
-{
-  for (int i = 0; i <= src.degree (); i++)
-    coefs_[i] = -src.coefs_[i];
-}
-
-void
-Polynomial::check_sol (Real x) const
-{
-  Real f = eval (x);
-  Polynomial p (*this);
-  p.differentiate ();
-  Real d = p.eval (x);
-
-  if (abs (f) > abs (d) * FUDGE)
-    programming_error ("not a root of polynomial\n");
-}
-
-void
-Polynomial::check_sols (vector<Real> roots) const
-{
-  for (vsize i = 0; i < roots.size (); i++)
-    check_sol (roots[i]);
 }
 
 Polynomial::Polynomial (Real a, Real b)
@@ -286,18 +234,6 @@ Polynomial::solve_cubic ()const
     }
 
   return sol;
-}
-
-Real
-Polynomial::lc () const
-{
-  return coefs_.back ();
-}
-
-Real &
-Polynomial::lc ()
-{
-  return coefs_.back ();
 }
 
 ssize_t
