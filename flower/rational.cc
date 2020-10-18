@@ -22,8 +22,7 @@
 #include <cmath>
 #include <cassert>
 #include <cstdlib>
-
-#include "string-convert.hh"
+#include <utility>
 
 using std::string;
 
@@ -68,14 +67,14 @@ operator << (ostream &o, Rational r)
 Rational
 Rational::abs () const
 {
-  return Rational (num_, den_);
+  return Rational (::abs (sign_), num_, den_);
 }
 
 I64
 Rational::trunc_int () const
 {
-  I64 i = num_ / den_;
-  return i * sign_;
+  U64 i = num_ / den_;
+  return static_cast<I64> (i) * sign_;
 }
 
 Rational
@@ -90,15 +89,15 @@ Rational::Rational (I64 n, I64 d)
 {
   // use sign of n when d=0
   sign_ = ::sign (n) * (std::signbit (d) ? -1 : 1);
-  num_ = ::abs (n);
-  den_ = ::abs (d);
+  num_ = static_cast<U64> (::abs (n));
+  den_ = static_cast<U64> (::abs (d));
   normalize ();
 }
 
 Rational::Rational (long long n)
 {
   sign_ = ::sign (n);
-  num_ = ::abs (n);
+  num_ = static_cast<U64> (::abs (n));
   den_ = 1;
 }
 
@@ -258,8 +257,8 @@ Rational::operator += (Rational r)
       I64 n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
       I64 d = lcm;
       sign_ = ::sign (n) * ::sign (d);
-      num_ = ::abs (n);
-      den_ = ::abs (d);
+      num_ = static_cast<U64> (::abs (n));
+      den_ = static_cast<U64> (::abs (d));
       normalize ();
     }
   return *this;
@@ -315,9 +314,7 @@ Rational::Rational (double x)
 void
 Rational::invert ()
 {
-  I64 r (num_);
-  num_ = den_;
-  den_ = r;
+  std::swap (num_, den_);
 }
 
 Rational &

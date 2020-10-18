@@ -58,8 +58,8 @@ public:
   // in some cases, even though Rational doesn't properly represent NaN yet.
   bool is_infinity () const;
   void invert ();
-  I64 numerator () const { return sign_ * num_; }
-  I64 denominator () const { return den_; }
+  I64 numerator () const { return sign_ * static_cast<I64> (num_); }
+  I64 denominator () const { return static_cast<I64> (den_); }
   I64 num () const { return numerator (); }
   I64 den () const { return denominator (); }
 
