@@ -900,10 +900,10 @@ and will be applied to NUM."
             (loop (car a) (car b) (cdr a) (cdr b))
             axb)))))
 
-(define (ly:version? op ver)
-  "Using the operator @var{op} compare the currently executed LilyPond
-   version with a given version @var{ver} which is passed as a list of
-   numbers."
+(define-public (ly:version? op ver)
+  "Use operator @var{op} to compare the currently executed LilyPond
+version with a given version @var{ver}, which is passed as a list of
+numbers."
   (lexicographic-list-compare? op (ly:version) ver))
 
 ;;;;;;;;;;;;;;;;
