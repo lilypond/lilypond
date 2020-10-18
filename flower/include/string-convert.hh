@@ -17,7 +17,6 @@ class String_convert
 {
   static int hex2bin (std::string hex_string, std::string &bin_string_r);
   static int hex2nibble (Byte byte);
-  static Byte nibble2hex_byte (Byte byte);
 public:
   static std::string be_u32 (uint32_t u);
   static std::string be_u24 (uint32_t u);

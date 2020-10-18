@@ -41,12 +41,21 @@ using std::string;
 */
 static const int STRING_BUFFER_LEN = 1024;
 
+static char
+nibble2hex (Byte byte)
+{
+  if ((byte & 0x0f) <= 9)
+    return '0' + (byte & 0x0f);
+  else
+    return 'a' + ((byte & 0x0f) - 10);
+}
+
 string
 String_convert::bin2hex (Byte bin_char)
 {
   string str;
-  str += nibble2hex_byte ((Byte) (bin_char >> 4));
-  str += nibble2hex_byte (bin_char);
+  str += nibble2hex ((Byte) (bin_char >> 4));
+  str += nibble2hex (bin_char);
   return str;
 }
 
@@ -107,14 +116,6 @@ String_convert::hex2nibble (Byte byte)
   return -1;
 }
 
-Byte
-String_convert::nibble2hex_byte (Byte byte)
-{
-  if ((byte & 0x0f) <= 9)
-    return (Byte) ((byte & 0x0f) + '0');
-  else
-    return (Byte) ((byte & 0x0f) - 10 + 'a');
-}
 /**
    Convert an integer to a string
 
@@ -152,7 +153,10 @@ String_convert::vform_string (char const *format, va_list args)
 string
 String_convert::pad_to (const string &s, size_t n)
 {
-  return s + string (std::max (int (n - s.length ()), 0), ' ');
+  size_t length = s.length ();
+  if (n <= length)
+    return s;
+  return s + string (n - length, ' ');
 }
 
 string
@@ -174,29 +178,29 @@ String_convert::to_lower (string s)
 string
 String_convert::be_u16 (uint16_t u)
 {
-  char r[2];
+  uint8_t r[2];
   r[0] = uint8_t (u >> 8);
   r[1] = uint8_t (u);
-  return string (r, 2);
+  return string (reinterpret_cast<char*> (r), 2);
 }
 
 string
 String_convert::be_u32 (uint32_t u)
 {
-  char r[4];
+  uint8_t r[4];
   r[0] = uint8_t (u >> 24);
   r[1] = uint8_t (u >> 16);
   r[2] = uint8_t (u >> 8);
   r[3] = uint8_t (u);
-  return string (r, 4);
+  return string (reinterpret_cast<char*> (r), 4);
 }
 
 string
 String_convert::be_u24 (uint32_t u)
 {
-  char r[3];
+  uint8_t r[3];
   r[0] = uint8_t (u >> 16);
   r[1] = uint8_t (u >> 8);
   r[2] = uint8_t (u);
-  return string (r, 3);
+  return string (reinterpret_cast<char*> (r), 3);
 }
