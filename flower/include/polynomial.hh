@@ -33,7 +33,7 @@
 struct Polynomial
 {
   /// degree of polynomial
-  ssize_t degree ()const;
+  size_t degree () const;
 
   /// coefficients
   std::vector<Real> coefs_;

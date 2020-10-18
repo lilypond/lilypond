@@ -52,11 +52,11 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
 {
   Polynomial dest;
 
-  ssize_t deg = p1.degree () + p2.degree ();
-  for (ssize_t i = 0; i <= deg; i++)
+  size_t deg = p1.degree () + p2.degree ();
+  for (size_t i = 0; i <= deg; i++)
     {
       dest.coefs_.push_back (0);
-      for (ssize_t j = 0; j <= i; j++)
+      for (size_t j = 0; j <= i; j++)
         if (i - j <= p2.degree () && j <= p1.degree ())
           dest.coefs_.back () += p1.coefs_[j] * p2.coefs_[i - j];
     }
@@ -67,7 +67,7 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
 void
 Polynomial::differentiate ()
 {
-  for (int i = 1; i <= degree (); i++)
+  for (size_t i = 1; i <= degree (); i++)
     coefs_[i - 1] = coefs_[i] * i;
   coefs_.pop_back ();
 }
@@ -118,7 +118,7 @@ Polynomial::operator += (Polynomial const &p)
   while (degree () < p.degree ())
     coefs_.push_back (0.0);
 
-  for (int i = 0; i <= p.degree (); i++)
+  for (size_t i = 0; i <= p.degree (); i++)
     coefs_[i] += p.coefs_[i];
 }
 
@@ -128,14 +128,14 @@ Polynomial::operator -= (Polynomial const &p)
   while (degree () < p.degree ())
     coefs_.push_back (0.0);
 
-  for (int i = 0; i <= p.degree (); i++)
+  for (size_t i = 0; i <= p.degree (); i++)
     coefs_[i] -= p.coefs_[i];
 }
 
 void
 Polynomial::scalarmultiply (Real fact)
 {
-  for (int i = 0; i <= degree (); i++)
+  for (size_t i = 0; i <= degree (); i++)
     coefs_[i] *= fact;
 }
 
@@ -236,8 +236,8 @@ Polynomial::solve_cubic ()const
   return sol;
 }
 
-ssize_t
-Polynomial::degree ()const
+size_t
+Polynomial::degree () const
 {
   return coefs_.size () - 1;
 }
