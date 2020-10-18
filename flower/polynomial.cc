@@ -68,7 +68,7 @@ void
 Polynomial::differentiate ()
 {
   for (size_t i = 1; i <= degree (); i++)
-    coefs_[i - 1] = coefs_[i] * i;
+    coefs_[i - 1] = coefs_[i] * static_cast<double> (i);
   coefs_.pop_back ();
 }
 
@@ -108,7 +108,7 @@ Polynomial::clean ()
     degenerate cases.  */
   while (degree () > 0
          && (fabs (coefs_.back ()) < FUDGE * fabs (back (coefs_, 1))
-             || !coefs_.back ()))
+             || coefs_.back () == 0))
     coefs_.pop_back ();
 }
 
@@ -142,7 +142,7 @@ Polynomial::scalarmultiply (Real fact)
 Polynomial::Polynomial (Real a, Real b)
 {
   coefs_.push_back (a);
-  if (b)
+  if (b != 0)
     coefs_.push_back (b);
 }
 
@@ -154,12 +154,6 @@ inline Real cubic_root (Real x)
   else if (x < 0.0)
     return -pow (-x, 1.0 / 3.0);
   return 0.0;
-}
-
-static bool
-iszero (Real r)
-{
-  return !r;
 }
 
 vector<Real>
@@ -185,9 +179,9 @@ Polynomial::solve_cubic ()const
   Real cb = p * p * p;
   Real D = q * q + cb;
 
-  if (iszero (D))
+  if (D == 0)
     {
-      if (iszero (q))   /* one triple solution */
+      if (q == 0)   /* one triple solution */
         {
           sol.push_back (0);
           sol.push_back (0);
@@ -269,7 +263,7 @@ vector<Real>
 Polynomial::solve_linear ()const
 {
   vector<Real> s;
-  if (coefs_[1])
+  if (coefs_[1] != 0)
     s.push_back (-coefs_[0] / coefs_[1]);
   return s;
 }
