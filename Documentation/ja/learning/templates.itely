@@ -603,19 +603,19 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 }
 
 \score {
-  { c'4 }
   \header {
     piece = "piece1"
     opus = "opus1"
   }
+  { c'4 }
 }
 
 \score {
-  { c'4 }
   \header {
     piece = "piece2"
     opus = "opus2"
   }
+  { c'4 }
 }
 @end lilypond
 @end ignore

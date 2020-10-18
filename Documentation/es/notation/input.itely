@@ -199,8 +199,8 @@ pero si no está presente se inserta el encabezamiento
   composer = "Igor Stravinsky"
 @}
 \score @{
-  @dots{}
   \header @{ piece = "Romanze" @}
+  @dots{}
 @}
 \markup @{
    @dots{}texto de la segunda estrofa@dots{}
@@ -209,8 +209,8 @@ pero si no está presente se inserta el encabezamiento
    @dots{}texto de la tercera estrofa@dots{}
 @}
 \score @{
-  @dots{}
   \header @{ piece = "Menuetto" @}
+  @dots{}
 @}
 @end example
 
@@ -725,27 +725,27 @@ sería lo más adecuado, como aquí:
 }
 
 \score {
+  \header {
+    piece = "Prélude."
+  }
   \new Staff \relative {
     \clef bass
     \key g \major
     \repeat unfold 2 { g,16( d' b') a b d, b' d, } |
     \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
   }
-  \header {
-    piece = "Prélude."
-  }
 }
 
 \score {
+  \header {
+    piece = "Allemande."
+  }
   \new Staff \relative {
     \clef bass
     \key g \major
     \partial 16 b16 |
     <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
     d16( b g fis) g( e d c) b(c d e) fis( g a b) |
-  }
-  \header {
-    piece = "Allemande."
   }
 }
 @end lilypond
@@ -768,22 +768,18 @@ campos sobreescritos y otros suprimidos manualmente:
   }
   \markup { \vspace #1 }
   \score {
-    \new PianoStaff <<
-      \new Staff { s1 }
-      \new Staff { \clef "bass" s1 }
-    >>
     \header {
       title = "PRAELUDIUM I"
       opus = "BWV 846"
       % Do not display the subtitle for this score
       subtitle = ##f
     }
-  }
-  \score {
     \new PianoStaff <<
       \new Staff { s1 }
       \new Staff { \clef "bass" s1 }
     >>
+  }
+  \score {
     \header {
       title = "FUGA I"
       subsubtitle = "A 4 VOCI"
@@ -791,6 +787,10 @@ campos sobreescritos y otros suprimidos manualmente:
       % Do not display the subtitle for this score
       subtitle = ##f
     }
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
   }
 }
 @end lilypond
@@ -830,29 +830,29 @@ Este ejemplo muestra todas las variables impresas de @code{\header}:
     copyright = "El copyright va al final de la primera página"
   }
   \score {
-    { s1 }
     \header {
         % Los siguientes campos se colocan en los extremos de una línea
       piece = "Piece (pieza) 1"
       opus = "Opus 1"
     }
+    { s1 }
   }
   \score {
-    { s1 }
     \header {
         % Los siguientes campos se sitúan en los extremos de una línea
       piece = "Piece (pieza) 2 en la misma página"
       opus = "Opus 2"
     }
+    { s1 }
   }
   \pageBreak
   \score {
-    { s1 }
     \header {
         % Los siguientes campos se sitúan en los extremos de una línea
       piece = "Piece (pieza) 3 en una página nueva"
       opus = "Opus 3"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -910,11 +910,11 @@ primera página, empezando la música (definida en el bloque
     copyright = "Este es el final de la primera página"
   }
   \score {
-    \repeat unfold 4 { e'' e'' e'' e'' }
     \header {
       piece = "Esto es la música"
       breakbefore = ##t
     }
+    \repeat unfold 4 { e'' e'' e'' e'' }
   }
 }
 @end lilypond
@@ -1018,11 +1018,11 @@ del bloque @code{\header}.
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
-  { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
     opus = \markup { \italic "BWV 846" }
   }
+  { s1 }
 }
 @end lilypond
 
@@ -1073,11 +1073,11 @@ opuestos de la misma línea:
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
-  { s1 }
   \header {
     piece = "PRAELUDIUM I"
     opus = "BWV 846"
   }
+  { s1 }
 }
 @end lilypond
 
@@ -1099,11 +1099,11 @@ letra grande y en negrita.
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "PRAELUDIUM I"
       opus = "BWV 846"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -1138,18 +1138,18 @@ permitiendo que cada partitura muestre un compositor diferente:
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "MENUET"
       composer = "Christian Petzold"
     }
+    { s1 }
   }
   \score {
-    { s1 }
     \header {
       piece = "RONDEAU"
       composer = "François Couperin"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -1178,12 +1178,12 @@ elemento de marcado.
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "FUGA I"
       mycustomtext = "A 4 VOCI" %% User-defined field
       opus = "BWV 846"
     }
+    { s1 }
   }
 }
 @end lilypond

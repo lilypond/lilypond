@@ -197,8 +197,8 @@ bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
   composer = "Igor Stravinsky"
 @}
 \score @{
-  @dots{}
   \header @{ piece = "Romance" @}
+  @dots{}
 @}
 \markup @{
    @dots{}texte du second couplet@dots{}
@@ -207,8 +207,8 @@ bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
    @dots{}texte du troisième couplet@dots{}
 @}
 \score @{
-  @dots{}
   \header @{ piece = "Menuet" @}
+  @dots{}
 @}
 @end example
 
@@ -709,27 +709,27 @@ pour définir les champs @code{piece} et @code{opus}, comme ici :
 }
 
 \score {
+  \header {
+    piece = "Prélude."
+  }
   \new Staff \relative {
     \clef bass
     \key g \major
     \repeat unfold 2 { g,16( d' b') a b d, b' d, } |
     \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
   }
-  \header {
-    piece = "Prélude."
-  }
 }
 
 \score {
+  \header {
+    piece = "Allemande."
+  }
   \new Staff \relative {
     \clef bass
     \key g \major
     \partial 16 b16 |
     <g, d' b'~>4 b'16 a( g fis) g( d e fis) g( a b c) |
     d16( b g fis) g( e d c) b(c d e) fis( g a b) |
-  }
-  \header {
-    piece = "Allemande."
   }
 }
 @end lilypond
@@ -753,22 +753,18 @@ supprimés manuellement :
   }
   \markup { \vspace #1 }
   \score {
-    \new PianoStaff <<
-      \new Staff { s1 }
-      \new Staff { \clef "bass" s1 }
-    >>
     \header {
       title = "PRAELUDIUM I"
       opus = "BWV 846"
       % Pas de sous-titre pour ce morceau
       subtitle = ##f
     }
-  }
-  \score {
     \new PianoStaff <<
       \new Staff { s1 }
       \new Staff { \clef "bass" s1 }
     >>
+  }
+  \score {
     \header {
       title = "FUGA I"
       subsubtitle = "A 4 VOCI"
@@ -776,6 +772,10 @@ supprimés manuellement :
       % Pas de sous-titre pour ce morceau
       subtitle = ##f
     }
+    \new PianoStaff <<
+      \new Staff { s1 }
+      \new Staff { \clef "bass" s1 }
+    >>
   }
 }
 @end lilypond
@@ -826,21 +826,21 @@ Voici les différentes variables imprimables attachées au bloc
     }
   }
   \score {
-    { s1 }
     \header {
     % Les champs suivants sont en opposition sur la même ligne
       piece = "Pièce 2 sur la même page"
       opus = "Opus 2"
     }
+    { s1 }
   }
   \pageBreak
   \score {
-    { s1 }
     \header {
     % Les champs suivants sont en opposition sur la même ligne
       piece = "Pièce 3 sur une nouvelle page"
       opus = "Opus 3"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -892,11 +892,11 @@ principal de la musique.
     copyright = "This is the bottom of the first page"
   }
   \score {
-    \repeat unfold 4 { e'' e'' e'' e'' }
     \header {
       piece = "This is the Music"
       breakbefore = ##t
     }
+    \repeat unfold 4 { e'' e'' e'' e'' }
   }
 }
 @end lilypond
@@ -1002,11 +1002,11 @@ contenus dans un bloc @code{\header}.
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
-  { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
     opus = \markup { \italic "BWV 846" }
   }
+  { s1 }
 }
 @end lilypond
 
@@ -1056,11 +1056,11 @@ Ceci aura donc pour effet de positionner les champs @code{piece} et
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
-  { s1 }
   \header {
     piece = "PRAELUDIUM I"
     opus = "BWV 846"
   }
+  { s1 }
 }
 @end lilypond
 
@@ -1082,11 +1082,11 @@ place au centre de cette ligne :
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "PRAELUDIUM I"
       opus = "BWV 846"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -1119,18 +1119,18 @@ chaque @code{\score} pourra alors mentionner un compositeur différent.
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "MENUET"
       composer = "Christian Petzold"
     }
+    { s1 }
   }
   \score {
-    { s1 }
     \header {
       piece = "RONDEAU"
       composer = "François Couperin"
     }
+    { s1 }
   }
 }
 @end lilypond
@@ -1158,12 +1158,12 @@ faire référence dans la définition du @emph{markup}.
   }
   \header { tagline = ##f }
   \score {
-    { s1 }
     \header {
       piece = "FUGA I"
       mycustomtext = "A 4 VOCI" %% User-defined field
       opus = "BWV 846"
     }
+    { s1 }
   }
 }
 @end lilypond
