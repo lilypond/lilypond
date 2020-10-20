@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define HAVE_BOOST_LAMBDA 1
 #include "std-vector.hh"
 
 #include <iostream>
@@ -53,37 +52,14 @@ FUNC (vector_erase)
   EQUAL (v.back (), 1);
 }
 
-FUNC (vector_slice)
-{
-  vector<int> v;
-  v.push_back (0);
-  v.push_back (1);
-  v.push_back (2);
-  v.push_back (3);
-#if VECTOR_SLICE
-  EQUAL (v.slice (0, 0).size (), vsize (0));
-  EQUAL (v.slice (0, v.size ()).size (), v.size ());
-  EQUAL (v.slice (1, 2).size (), vsize (1));
-#else
-  EQUAL (vector<int> (v.begin (), v.begin ()).size (), vsize (0));
-  EQUAL (vector<int> (v.begin (), v.end ()).size (), v.size ());
-  EQUAL (vector<int> (v.begin () + 1, v.begin () + 2).size (),
-         vsize (1));
-#endif
-}
-
 FUNC (vector_sorting)
 {
   vector<int> v;
   v.push_back (2);
   v.push_back (1);
   v.push_back (0);
-#if VECTOR_SORT
-  v.sort (default_compare);
-#else
   //sort (v.begin (), v.end ());
   vector_sort (v, std::less<int> ());
-#endif
   EQUAL (v[0], 0);
   EQUAL (v[1], 1);
   EQUAL (v[2], 2);
@@ -93,17 +69,9 @@ FUNC (vector_insert)
 {
   vector<int> v;
   v.push_back (0);
-#if VECTOR_INSERT
-  v.insert (1, 0);
-#else
   v.insert (v.begin (), 1);
-#endif
   EQUAL (v[0], 1);
-#if VECTOR_INSERT
-  v.insert (2, v.size ());
-#else
   v.insert (v.end (), 2);
-#endif
   EQUAL (v.back (), 2);
   vector<int> u;
   u.insert (u.begin (), v.begin (), v.end ());

@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define HAVE_BOOST_LAMBDA 1
 #include "std-vector.hh"
 
 #include <iostream>
