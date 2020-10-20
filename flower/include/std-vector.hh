@@ -86,35 +86,22 @@ template<typename T, typename Compare>
 vsize
 lower_bound (std::vector<T> const &v,
              T const &key,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+             Compare less)
 {
-  if (e == VPOS)
-    e = v.size ();
-  typename std::vector<T>::const_iterator i = lower_bound (v.begin () + b,
-                                                           v.begin () + e,
-                                                           key,
-                                                           less);
+  auto it = std::lower_bound (v.begin (), v.end (), key, less);
 
-  return i - v.begin ();
+  return it - v.begin ();
 }
 
 template<typename T, typename Compare>
 vsize
 upper_bound (std::vector<T> const &v,
              T const &key,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+             Compare less)
 {
-  if (e == VPOS)
-    e = v.size ();
+  auto it = std::upper_bound (v.begin (), v.end (), key, less);
 
-  typename std::vector<T>::const_iterator i = upper_bound (v.begin () + b,
-                                                           v.begin () + e,
-                                                           key,
-                                                           less);
-
-  return i - v.begin ();
+  return it - v.begin ();
 }
 
 template<typename T, typename Compare>
@@ -122,37 +109,29 @@ vsize
 binary_search (std::vector<T> const &v,
                T const &key,
                Compare less,
-               vsize b = 0, vsize e = VPOS)
+               vsize b = 0)
 {
-  vsize lb = lower_bound (v, key, less, b, e);
+  auto it = std::lower_bound (v.begin () + b, v.end (), key, less);
 
-  if (lb == v.size () || less (key, v[lb]))
+  if (it == v.end () || less (key, *it))
     return VPOS;
-  return lb;
+  return it - v.begin ();
 }
 
 template<typename T, typename Compare>
 void
 vector_sort (std::vector<T> &v,
-             Compare less,
-             vsize b = 0, vsize e = VPOS)
+             Compare less)
 {
-  if (e == VPOS)
-    e = v.size ();
-
-  sort (v.begin () + b, v.begin () + e, less);
+  std::sort (v.begin (), v.end (), less);
 }
 
 template<typename T, typename Compare>
 void
 vector_stable_sort (std::vector<T> &v,
-                    Compare less,
-                    vsize b = 0, vsize e = VPOS)
+                    Compare less)
 {
-  if (e == VPOS)
-    e = v.size ();
-
-  stable_sort (v.begin () + b, v.begin () + e, less);
+  std::stable_sort (v.begin (), v.end (), less);
 }
 
 template<typename T>
