@@ -521,31 +521,6 @@ struct scm_conversions <Interval_t<T>>
   }
 };
 
-// Check for a particular scm list: note that this is _different_ from
-// from_scm_list and to_scm_list where the template argument is a
-// _container_ type while here the _element_ type is specified since
-// no container actually comes into play.
-//
-// We do the hare/tortoise algorithm in order to detect only proper
-// lists.
-template <class T> bool
-is_scm_list (SCM s)
-{
-  for (SCM tortoise = s; scm_is_pair (s); tortoise = scm_cdr (tortoise))
-    {
-      if (!is_scm<T> (scm_car (s)))
-        return false;
-      s = scm_cdr (s);
-      if (!scm_is_pair (s))
-        break;
-      if (!is_scm<T> (scm_car (s)))
-        return false;
-      s = scm_cdr (s);
-      if (scm_is_eq (s, tortoise))
-        return false;
-    }
-  return scm_is_null (s); // Don't admit dotted pairs
-}
 // Convert the given SCM list to a container.
 // The container must support the push_back method.
 template <class T> T
