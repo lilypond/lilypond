@@ -40,7 +40,6 @@ class Pango_font : Preinit_Pango_font, public Font_metric
   PangoAttrList *attribute_list_;
   Real scale_;
   Real output_scale_;
-  Direction text_direction_;
 
 public:
   SCM physical_font_tab () const;
