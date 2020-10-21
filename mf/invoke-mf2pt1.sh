@@ -20,16 +20,18 @@
 
 # mf2pt1 pollutes CWD, so run it in a tmp dir.
 
-# realpath doesn't exist on OSX
-realpath() {
-  python -c "import os; print(os.path.realpath('$1'))"
+abs_path() {
+  case $1 in
+    /*) echo $1;;
+    *) echo $PWD/$1;;
+  esac
 }
 
 set -eu
 mf2pt1="$1"
-src="$(realpath $2)"
+src="$(abs_path $2)"
 target="$3"
-target_path="$(realpath ${target})"
+target_path="$(abs_path ${target})"
 srcdir="$(dirname ${src})"
 name="$(basename ${src} .mf)"
 
