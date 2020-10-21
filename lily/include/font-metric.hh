@@ -26,9 +26,10 @@
 #include "smobs.hh"
 #include "virtual-methods.hh"
 
+#include <limits>
 #include <map>
 
-static const size_t GLYPH_INDEX_INVALID (-1);
+static const size_t GLYPH_INDEX_INVALID (std::numeric_limits<size_t>::max());
 
 typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
