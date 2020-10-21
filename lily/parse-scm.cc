@@ -80,7 +80,8 @@ internal_parse_embedded_scheme (Parse_start *ps)
   start.get_counts (&line_number, &line_char, &column, &line_byte_offset);
 
   ssize_t byte_offset = start.start () - start.get_source_file ()->c_str ();
-  Overlay_string_port overlay (start.start (), start.get_source_file ()->length () - byte_offset);
+  ssize_t length = static_cast<ssize_t> (start.get_source_file ()->length ());
+  Overlay_string_port overlay (start.start (), length - byte_offset);
 
   SCM port = overlay.as_port ();
   scm_set_port_line_x (port, scm_from_ssize_t (line_number - 1));

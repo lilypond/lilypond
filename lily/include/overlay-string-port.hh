@@ -42,7 +42,7 @@ class Overlay_string_port
 
   const char *data_;
   size_t pos_;
-  size_t len_;
+  ssize_t len_;
 
 #if GUILEV2
   size_t read (SCM dest, size_t dest_off, size_t n)
@@ -83,7 +83,7 @@ class Overlay_string_port
       }
 
     ssize_t newpos = base + off;
-    if (newpos >= 0 && newpos <= ssize_t (len_))
+    if (newpos >= 0 && newpos <= len_)
       pos_ = newpos;
     else
       scm_out_of_range ("Overlay_string_port::seek", scm_from_ssize_t (off));
@@ -129,6 +129,9 @@ public:
 public:
   SCM as_port ()
   {
+    // Avoid compiler-warning because of unused private field.
+    (void) pos_;
+
     // strports.c in GUILE 1.8 has ominous comments about locking to
     // protect the global port table. We assume LilyPond doesn't use
     // threads; we have no access to the lock anyway.
@@ -147,7 +150,7 @@ public:
 #endif
 
 public:
-  Overlay_string_port (const char *data, size_t len) : data_ (data),
+  Overlay_string_port (const char *data, ssize_t len) : data_ (data),
     pos_ (0), len_ (len)
   {
   }
