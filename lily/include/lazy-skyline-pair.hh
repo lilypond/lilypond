@@ -61,7 +61,7 @@ public:
   }
   void add_segment (Transform const &tr, Offset p1, Offset p2, Real thickness)
   {
-    if (!thickness)
+    if (thickness == 0)
       {
         add_segment (tr, p1, p2);
         return;
