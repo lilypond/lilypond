@@ -40,7 +40,7 @@ public:
   Source_file *get_source_file () const;
   char const *start () const { return start_; }
   char const *end () const { return end_; }
-  size_t size () const { return end_ - start_; }
+  size_t size () const { return static_cast<size_t> (end_ - start_); }
 
   void set (Source_file *, char const *, char const *);
   void error (const std::string &) const;
