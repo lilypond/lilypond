@@ -602,10 +602,6 @@ Wenn in dem @qq{book} nur eine einzelne Partitur vorkommt,
 kann die @code{\header}-Umgebung innheralb oder außerhalb der
 @code{\score}-Umgebung geschrieben werden.
 
-@warning{Denken Sie daran, dass zuerst ein musikalischer Ausdruck
-notiert werden muss, wenn Sie eine @bs{}@code{header}-Umgebung innheralb
-einer @bs{}@code{score}-Umgebung verwenden wollen.}
-
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \header {
   title = "SUITE I."
