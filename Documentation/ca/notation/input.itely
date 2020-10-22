@@ -663,10 +663,6 @@ partitura a no ser que la variable de @code{\paper},
 
 @end itemize
 
-@warning{Recordeu que al posar un bloc @bs{}@code{header} dins
-d'un bloc @bs{}@code{score}, l'expressió musical ha d'aparèixer
-abans del bloc @bs{}@code{header}.}
-
 No cal aportar blocs @code{\header} als quatre llocs: qualssevol
 d'ells o, fins i tot tots, poden ometre's.  De forma similar, els
 fitxers d'entrada senzills poden ometre els blocs @code{\book} i
