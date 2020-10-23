@@ -136,7 +136,7 @@ Global_context::iterate (Music *music, bool force_found_music)
   if (!force_found_music)
     {
       const auto &len = iter->music_get_length () - iter->music_start_mom ();
-      found_music = len.to_bool () && iter->ok ();
+      found_music = len && iter->ok ();
     }
 
   if (found_music)

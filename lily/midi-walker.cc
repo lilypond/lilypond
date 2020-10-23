@@ -191,7 +191,7 @@ Midi_walker::process ()
     {
       if (Midi_note *note = dynamic_cast<Midi_note *> (midi))
         {
-          if (note->audio_->length_mom_.to_bool ())
+          if (note->audio_->length_mom_)
             do_start_note (note);
         }
       else

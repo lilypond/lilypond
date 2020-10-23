@@ -185,7 +185,7 @@ Music_sequence::first_start (SCM l)
         }
 
       Moment start = mus->start_mom ();
-      if (mus->get_length ().to_bool () || start.to_bool ())
+      if (mus->get_length () || start)
         return start;
     }
   return Moment ();

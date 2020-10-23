@@ -268,7 +268,7 @@ Music::to_event () const
   (Lily::ly_make_event_class (class_name),
    mutable_property_alist_);
   Moment length = get_length ();
-  if (length.to_bool ())
+  if (length)
     set_property (e, "length", length.smobbed_copy ());
 
   // articulations as events.

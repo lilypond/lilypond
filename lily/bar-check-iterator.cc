@@ -45,7 +45,7 @@ void
 Bar_check_iterator::process (Moment m)
 {
   Simple_music_iterator::process (m);
-  if (!m.to_bool ())
+  if (!m)
     {
       Context *tr = get_context ();
 

@@ -162,7 +162,7 @@ Timing_translator::start_translation_timestep ()
       dt = 0;
     }
 
-  if (!dt.to_bool ())
+  if (!dt)
     return;
 
   Moment measposp;

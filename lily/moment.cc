@@ -136,12 +136,6 @@ Moment::num () const
   return main_part_.num ();
 }
 
-bool
-Moment::to_bool () const
-{
-  return main_part_ || grace_part_;
-}
-
 string
 Moment::to_string () const
 {

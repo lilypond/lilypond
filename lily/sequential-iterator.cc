@@ -92,7 +92,7 @@ void Sequential_iterator::Lookahead::look_ahead ()
           here_.grace_part_ = s.grace_part_;
         }
 
-      if (l.to_bool ())
+      if (l)
         {
           last_ = here_;
           here_ += l;

@@ -121,7 +121,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
 
           SCM st = get_property (cols[i], "shortest-starter-duration");
           Moment this_shortest = *unsmob<Moment> (st);
-          assert (this_shortest.to_bool ());
+          assert (this_shortest);
           shortest_in_measure = std::min (shortest_in_measure, this_shortest.main_part_);
         }
       else if (!shortest_in_measure.is_infinity ()

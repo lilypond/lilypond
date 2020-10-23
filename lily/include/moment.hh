@@ -39,6 +39,8 @@ public:
   Moment (Rational, Rational);
   explicit Moment (Rational m);
 
+  explicit operator bool () const { return main_part_ || grace_part_; }
+
   Moment operator - () const;
 
   Moment &operator += (Moment const &m);
@@ -62,7 +64,6 @@ public:
   Rational main_part_;
   Rational grace_part_;
 
-  bool to_bool () const;
   I64 den () const;
   I64 num () const;
 

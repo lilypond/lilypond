@@ -236,7 +236,7 @@ Spacing_engraver::stop_translation_timestep ()
   for (vsize i = 0; i < now_durations_.size (); i++)
     {
       Moment m = get_event_length (now_durations_[i].info_.event_cause ());
-      if (m.to_bool ())
+      if (m)
         {
           starter = std::min (starter, m);
           playing_durations_.insert (now_durations_[i]);
@@ -246,7 +246,7 @@ Spacing_engraver::stop_translation_timestep ()
 
   shortest_playing = std::min (shortest_playing, starter);
 
-  assert (starter.to_bool ());
+  assert (starter);
   SCM sh = shortest_playing.smobbed_copy ();
   SCM st = starter.smobbed_copy ();
 

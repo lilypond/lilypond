@@ -114,7 +114,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
   if (unsmob<Moment> (s))
     shortest_playing_len = *unsmob<Moment> (s);
 
-  if (! shortest_playing_len.to_bool ())
+  if (! shortest_playing_len)
     {
       programming_error ("cannot find a ruling note at: " + Paper_column::when_mom (lc).to_string ());
       shortest_playing_len = 1;

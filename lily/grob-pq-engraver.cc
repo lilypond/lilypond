@@ -86,7 +86,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
       Moment n = now_mom ();
       Moment l = get_event_length (ev, n);
 
-      if (!l.to_bool ())
+      if (!l)
         return;
 
       Moment end = n + l;

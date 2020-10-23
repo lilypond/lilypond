@@ -112,7 +112,7 @@ Tuplet_iterator::process (Moment m)
         }
     }
 
-  if (spanner_duration_.to_bool ()
+  if (spanner_duration_
       && Moment (m.main_part_) == next_split_mom_)
     {
       descend_to_bottom_context ();
