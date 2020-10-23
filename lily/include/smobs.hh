@@ -186,7 +186,7 @@ protected:
   // constructor, in contrast, may not be called at all in classes
   // like Smob1.
   static scm_t_bits smob_tag () { (void) scm_init_; return smob_tag_; }
-  Smob_base () { }
+  constexpr Smob_base () = default;
   static SCM register_ptr (Super *p);
   static Super *unregister_ptr (SCM obj);
 private:

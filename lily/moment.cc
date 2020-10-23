@@ -23,28 +23,6 @@
 
 using std::string;
 
-Moment::Moment ()
-{
-}
-
-Moment::Moment (int m)
-{
-  main_part_ = Rational (m);
-  grace_part_ = Rational (0);
-}
-
-Moment::Moment (Rational m, Rational g)
-{
-  main_part_ = m;
-  grace_part_ = g;
-}
-
-Moment::Moment (Rational m)
-{
-  main_part_ = m;
-  grace_part_ = Rational (0);
-}
-
 const char *const Moment::type_p_name_ = "ly:moment?";
 
 int

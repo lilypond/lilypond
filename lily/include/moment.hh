@@ -33,11 +33,21 @@ public:
   static SCM equal_p (SCM, SCM);
   int print_smob (SCM, scm_print_state *) const;
   static const char *const type_p_name_;
-  Moment ();
-  Moment (int m);
 
-  Moment (Rational, Rational);
-  explicit Moment (Rational m);
+  // default to zero
+  constexpr Moment () = default;
+
+  constexpr Moment (Rational const &main, Rational const &grace)
+    : main_part_ (main), grace_part_ (grace)
+  {
+  }
+
+  explicit constexpr Moment (Rational const &main)
+    : Moment (main, Rational ()) {}
+
+  // Allow implicit conversion from integer.
+  // TODO: Why "int" but not other fundamental types? (see rational.hh)
+  Moment (int m) : Moment (Rational (m)) {}
 
   explicit operator bool () const { return main_part_ || grace_part_; }
 
