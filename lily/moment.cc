@@ -123,19 +123,6 @@ Moment::operator %= (Rational const &r)
   return *this;
 }
 
-I64
-Moment::den () const
-{
-  /* TODO: ensure MSB == 0 here */
-  return main_part_.den ();
-}
-
-I64
-Moment::num () const
-{
-  return main_part_.num ();
-}
-
 string
 Moment::to_string () const
 {

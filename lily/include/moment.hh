@@ -64,9 +64,6 @@ public:
   Rational main_part_;
   Rational grace_part_;
 
-  I64 den () const;
-  I64 num () const;
-
   std::string to_string () const;
   static int compare (Moment const &, Moment const &);
 };
