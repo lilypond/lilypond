@@ -536,14 +536,6 @@ Fret-diagrams may now be printed left-handed, setting @code{handedness} to
 @end lilypond
 
 @item
-The @code{output-classic-framework} procedure and the @code{-dclip-systems}
-are now available with the @code{SVG} backend.
-
-@item
-An argument, @code{-dcrop}, has been added, formatting @code{SVG} and
-@code{PDF} output without margins or page-breaks.
-
-@item
 The @code{\note} markup command now takes as its first argument a duration
 instead of a string:
 @lilypond[verbatim,quote]
