@@ -187,7 +187,7 @@ Quote_iterator::process (Moment m)
   // process the wrapped music, if any remains
   {
     const auto &pm = Music_wrapper_iterator::pending_moment ();
-    if (pm < Moment (Rational::infinity ()))
+    if (pm < Moment::infinity ())
       Music_wrapper_iterator::process (m);
   }
 

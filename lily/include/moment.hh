@@ -45,6 +45,12 @@ public:
   explicit constexpr Moment (Rational const &main)
     : Moment (main, Rational ()) {}
 
+  // positive infinity
+  static constexpr Moment infinity ()
+  {
+    return Moment (Rational::infinity ());
+  }
+
   // Allow implicit conversion from integer.
   // TODO: Why "int" but not other fundamental types? (see rational.hh)
   Moment (int m) : Moment (Rational (m)) {}

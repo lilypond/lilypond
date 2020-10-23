@@ -104,7 +104,7 @@ public:
   virtual Moment pending_moment () const;
   bool ok () const
   {
-    return (pending_moment () < Moment (Rational::infinity ()))
+    return (pending_moment () < Moment::infinity ())
            || run_always ();
   }
   virtual bool run_always () const;

@@ -38,7 +38,7 @@ template<>
 Moment
 Interval_t<Moment>::infinity ()
 {
-  return Moment (Rational::infinity ());
+  return Moment::infinity ();
 }
 
 template INTERVAL__INSTANTIATE (Moment);

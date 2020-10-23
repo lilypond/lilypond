@@ -86,7 +86,7 @@ Moment
 Tuplet_iterator::pending_moment () const
 {
   Moment next_mom = Music_wrapper_iterator::pending_moment ();
-  if (next_mom < Moment (Rational::infinity ()))
+  if (next_mom < Moment::infinity ())
     {
       next_mom = std::min (next_mom, next_split_mom_);
     }
@@ -108,7 +108,7 @@ Tuplet_iterator::process (Moment m)
           if (auto *mp = unsmob<Moment> (d_scm))
             spanner_duration_ = Moment (mp->main_part_); // discard grace part
           else
-            spanner_duration_ = Moment (Rational::infinity ());
+            spanner_duration_ = Moment::infinity ();
         }
     }
 

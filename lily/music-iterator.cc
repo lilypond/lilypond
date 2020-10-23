@@ -45,7 +45,7 @@ Music_iterator::~Music_iterator ()
 Moment
 Music_iterator::pending_moment () const
 {
-  return Moment (Rational::infinity ());
+  return Moment::infinity ();
 }
 
 void

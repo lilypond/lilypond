@@ -159,8 +159,8 @@ Global_context::iterate (Music *music, bool force_found_music)
         {
           Moment w = iter->pending_moment ();
           // write out iter->ok () to save a call to pending_moment ()
-          const bool ok = (w < Moment (Rational::infinity ()))
-            || iter->run_always ();
+          const bool ok = (w < Moment::infinity ())
+                          || iter->run_always ();
 
           w = sneaky_insert_extra_moment (w);
           if (w > final_mom)

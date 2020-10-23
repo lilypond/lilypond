@@ -135,7 +135,7 @@ Simultaneous_music_iterator::process (Moment until)
 Moment
 Simultaneous_music_iterator::pending_moment () const
 {
-  Moment next (Rational::infinity ());
+  auto next = Moment::infinity ();
 
   for (const auto *child : children_list_)
     {

@@ -229,7 +229,7 @@ Moment
 Sequential_iterator::pending_moment () const
 {
   if (!iter_)
-    return Moment (Rational::infinity ());
+    return Moment::infinity ();
 
   // Before the first call to process (), we might be looking at an iterator
   // that will be skipped during the first call to process ().

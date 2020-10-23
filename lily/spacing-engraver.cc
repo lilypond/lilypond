@@ -221,7 +221,7 @@ Spacing_engraver::stop_translation_timestep ()
       return;
     }
 
-  Moment shortest_playing (Rational::infinity ());
+  auto shortest_playing = Moment::infinity ();
   for (vsize i = 0; i < playing_durations_.size (); i++)
     {
       Stream_event *ev = playing_durations_[i].info_.event_cause ();
@@ -231,7 +231,7 @@ Spacing_engraver::stop_translation_timestep ()
           shortest_playing = std::min (shortest_playing, m);
         }
     }
-  Moment starter (Rational::infinity ());
+  auto starter = Moment::infinity ();
 
   for (vsize i = 0; i < now_durations_.size (); i++)
     {
