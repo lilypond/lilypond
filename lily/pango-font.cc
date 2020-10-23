@@ -25,6 +25,7 @@
 #include <pango/pangofc-font.h>
 #include <pango/pangoft2.h>
 #include FT_XFREE86_H
+#include FT_CID_H
 
 #include "pango-font.hh"
 #include "dimensions.hh"
@@ -318,9 +319,26 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 
       if (glyph_name[0] == '\0')
         {
-          // CID entry
           cid_keyed = true;
-          char_id = scm_from_uint32 (pg);
+          // We extract the raw CFF from the SFNT and write it to the PS
+          // output.  If this font is CID-keyed we have to map the SFNT
+          // `char_id` to the raw CFF's glyph ID (which corresponds to the
+          // CID key).  Note that `FT_Get_CID_From_Glyph_Index` is a no-op
+          // otherwise.
+          FT_UInt cid_id;
+          FT_Error errorcode = FT_Get_CID_From_Glyph_Index (ftface, pg,
+                                                            &cid_id);
+          if (errorcode)
+            {
+              programming_error
+              (_f ("FT_Get_CID_From_Glyph_Index () error: %s\n"
+                   "Skipping glyph U+%04X, file %s",
+                   freetype_error_string (errorcode).c_str (),
+                   pg,
+                   file_name.c_str ()));
+              continue;
+            }
+          char_id = scm_from_uint32 (cid_id);
         }
       else
         char_id = scm_from_utf8_string (glyph_name);
