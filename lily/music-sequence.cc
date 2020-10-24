@@ -195,6 +195,9 @@ Music_sequence::minimum_start (SCM l)
 Moment
 Music_sequence::first_start (SCM l)
 {
+  Moment accum;
+
+  // Accumulate grace time until finding the first element with non-grace time.
   for (auto *mus : as_ly_smob_list<const Music> (l))
     {
       if (!mus)
@@ -203,11 +206,12 @@ Music_sequence::first_start (SCM l)
           break;
         }
 
-      Moment start = mus->start_mom ();
-      if (mus->get_length () || start)
-        return start;
+      accum.grace_part_ += mus->start_mom ().grace_part_;
+      if (mus->get_length ())
+        break;
     }
-  return Moment ();
+
+  return accum;
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, simultaneous_relative_callback, 2);

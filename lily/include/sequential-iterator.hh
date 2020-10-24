@@ -22,9 +22,6 @@
 
 #include "music-iterator.hh"
 
-#include "grace-fixup.hh"
-#include "protected-scm.hh"
-
 /** Sequential_music iteration: walk each element in turn, and
     construct an iterator for every element.
 */
@@ -53,44 +50,27 @@ protected:
   bool run_always () const override;
 
 protected:
-  virtual void next_element ();
+  virtual void next_element () {}
 
 private:
-  class Lookahead
-  {
-  private:
-    Moment here_;
-    Moment last_ = -1;
-    SCM cursor_ = SCM_EOL;
-
-    Grace_fixup grace_fixup_;
-    bool has_grace_fixup_ = false;
-
-  public:
-    Lookahead () = default;
-
-    void init (SCM cursor) { cursor_ = cursor; }
-    void look_ahead ();
-
-    const Grace_fixup *get_grace_fixup (const Moment &) const;
-
-    bool is_grace_fixup_sane (const Moment &m) const
-    {
-      return !has_grace_fixup_ || (grace_fixup_.start_ >= m);
-    }
-
-    void gc_mark () const
-    {
-      scm_gc_mark (cursor_);
-    }
-  };
+  void look_ahead ();
+  void pop_element ();
 
 private:
+  // all elements subsequent to the element that iter_ is iterating
+  SCM remaining_music_ = SCM_EOL;
+  // the first element of remaining_music_ that starts at a moment with a main
+  // part in the future
+  SCM ahead_music_ = SCM_EOL;
+  // iterator for the current music element
   Music_iterator *iter_ = nullptr;
-  Moment here_mom_;
-  SCM cursor_ = SCM_EOL;
-  Lookahead la_;
-  bool first_time_ = true;
+  // when iter_ is valid, this is its start moment relative to the zero point
+  // of the whole sequence (once iter_ is invalid, see the code)
+  Moment iter_start_mom_;
+  // the starting point of ahead_music_ within the whole sequence; if
+  // ahead_music_ is empty and remaining_music_ is not, this is the ending
+  // point of remaining_music_
+  Moment ahead_mom_ {Rational::infinity ()};
 };
 
 #endif /* SEQUENTIAL_ITERATOR_HH */

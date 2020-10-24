@@ -20,29 +20,13 @@
 #include "sequential-iterator.hh"
 
 #include "calculated-sequential-music.hh"
+#include "international.hh"
 #include "music.hh"
-#include "translator-group.hh"
+#include "music-sequence.hh"
 #include "context.hh"
-#include "grace-fixup.hh"
+#include "warn.hh"
 
-/*
-  TODO: handling of grace notes is exquisite pain.  This handling
-  should be formally specified and then the implementation verified.
-*/
-
-/*
-  Invariant for Sequential_iterator.
-
-  if (scm_is_pair (cursor_))
-  iter_->music_ == unsmob<Music> (scm_car (cursor_))
-  else
-  iter_ == 0;
-
-  The length of musiclist from start to up to cursor_ (cursor_ not
-  including), is summed
-
-  here_mom_  = sum (length (musiclist [start ... cursor>))  %)
-*/
+#include <algorithm>
 
 void
 Sequential_iterator::do_quit ()
@@ -56,8 +40,7 @@ Sequential_iterator::derived_mark () const
 {
   if (iter_)
     scm_gc_mark (iter_->self_scm ());
-  scm_gc_mark (cursor_);
-  la_.gc_mark ();
+  scm_gc_mark (remaining_music_);
 }
 
 void
@@ -67,57 +50,17 @@ Sequential_iterator::derived_substitute (Context *f, Context *t)
     iter_->substitute_context (f, t);
 }
 
-void Sequential_iterator::Lookahead::look_ahead ()
-{
-  has_grace_fixup_ = false;
-
-  for (; !has_grace_fixup_ && scm_is_pair (cursor_);
-       cursor_ = scm_cdr (cursor_))
-    {
-      Music *mus = unsmob<Music> (scm_car (cursor_));
-      Moment s = mus->start_mom ();
-      Moment l = mus->get_length () - s;
-
-      if (s.grace_part_)
-        {
-          if (last_ != Moment (-1))
-            {
-              grace_fixup_.start_ = last_;
-              grace_fixup_.length_ = here_ - last_;
-              grace_fixup_.grace_start_ = s.grace_part_;
-
-              has_grace_fixup_ = true;
-            }
-
-          here_.grace_part_ = s.grace_part_;
-        }
-
-      if (l)
-        {
-          last_ = here_;
-          here_ += l;
-        }
-    }
-}
-
 void
 Sequential_iterator::create_children ()
 {
   Music_iterator::create_children ();
 
-  iter_ = 0;
+  remaining_music_ = Calculated_sequential_music::calc_elements (get_music ());
+  ahead_music_ = remaining_music_;
+  iter_start_mom_ = music_start_mom ();
+  ahead_mom_ = iter_start_mom_;
 
-  cursor_ = Calculated_sequential_music::calc_elements (get_music ());
-  if (scm_is_pair (cursor_))
-    {
-      Music *m = unsmob<Music> (scm_car (cursor_));
-      SCM it_scm = get_static_get_iterator (m);
-      iter_ = unsmob<Music_iterator> (it_scm);
-    }
-
-  here_mom_ = get_music ()->start_mom ();
-  la_.init (cursor_);
-  la_.look_ahead ();
+  pop_element ();
 }
 
 void
@@ -128,128 +71,146 @@ Sequential_iterator::create_contexts ()
   if (iter_)
     {
       iter_->init_context (get_own_context ());
-      /*
-        iter_->ok () is tautology, but what the heck.
-      */
-      if (iter_->ok ())
-        descend_to_child (iter_->get_context ());
+      descend_to_child (iter_->get_context ());
     }
 }
 
-/*
-  maintain invariants: change cursor, iter and here_mom_ in one fell
-  swoop.
-*/
-void
-Sequential_iterator::next_element ()
+void Sequential_iterator::look_ahead ()
 {
-  Moment len = iter_->music_get_length () - iter_->music_start_mom ();
-  assert (la_.is_grace_fixup_sane (here_mom_));
-
-  if (auto gf = len.main_part_ ? la_.get_grace_fixup (here_mom_) : nullptr)
+  // Move past elements that have no main duration, then move past the first
+  // one with duration.
+  while (scm_is_pair (ahead_music_))
     {
-      here_mom_ += gf->length_;
-      here_mom_.grace_part_ += gf->grace_start_;
+      auto *mus = unsmob<Music> (scm_car (ahead_music_));
+      ahead_music_ = scm_cdr (ahead_music_);
 
-      la_.look_ahead ();
-    }
-  else if (len.grace_part_ && !len.main_part_)
-    {
-      here_mom_.grace_part_ = 0;
-    }
-  else
-    {
-      /*
-        !len.grace_part_ || len.main_part_
-
-        We skip over a big chunk (mainpart != 0). Any starting graces
-        in that chunk should be in len.grace_part_
-
-      */
-      here_mom_ += len;
+      if (mus) // paranoia; other things should have complained already
+        {
+          const auto &end_mom = mus->get_length ();
+          if (end_mom.main_part_ > 0)
+            {
+              ahead_mom_.main_part_ += end_mom.main_part_;
+              break;
+            }
+        }
     }
 
-  cursor_ = scm_cdr (cursor_);
+  // The current state is similar to the initial state of sequential music
+  // before it has called the start-callback, now with fewer elements.
+  const auto &start_mom = Music_sequence::first_start (ahead_music_);
+  ahead_mom_.grace_part_ = start_mom.grace_part_;
+  // we keep the accumulated main part
+}
 
-  iter_->quit ();
+// remove the next element to be processed and create an iterator for it
+void
+Sequential_iterator::pop_element ()
+{
+  iter_ = nullptr;
 
-  if (scm_is_pair (cursor_))
+  const auto have_ready_music = [this]
+  {
+    return !scm_is_eq (remaining_music_, ahead_music_);
+  };
+
+  if (have_ready_music () || (look_ahead (), have_ready_music ()))
     {
-      Music *m = unsmob<Music> (scm_car (cursor_));
-      SCM scm_it = get_static_get_iterator (m);
-      iter_ = unsmob<Music_iterator> (scm_it);
+      SCM mus_scm = scm_car (remaining_music_); // pop the next element
+      remaining_music_ = scm_cdr (remaining_music_);
+
+      if (!scm_is_pair (remaining_music_)) // that was the last one
+        ahead_mom_ = Moment::infinity ();
+
+      if (auto *mus = unsmob<Music> (mus_scm))
+        {
+          iter_ = unsmob<Music_iterator> (get_static_get_iterator (mus));
+          scm_remember_upto_here_1 (mus_scm);
+        }
     }
-  else
-    iter_ = 0;
+
+  if (!iter_) // end of sequence
+    {
+      if (iter_start_mom_ != music_get_length ())
+        {
+          // Maybe a callback provided music inconsistent with the
+          // precomputed length.
+          // TODO: It might be nice to log the actual music that was
+          // iterated in a debug message.
+          warning (_ ("total length of sequential music elements "
+                      "is different than anticipated"));
+        }
+    }
 }
 
 void
 Sequential_iterator::process (Moment until)
 {
-  first_time_ = false;
-
   while (iter_)
     {
+      // moments in the timeline of this sequence
+      const auto iter_zero = iter_start_mom_ - iter_->music_start_mom ();
+      const auto iter_end = iter_zero + iter_->music_get_length ();
+
       if (iter_->ok ())
         {
-          const Grace_fixup *gf = la_.get_grace_fixup (here_mom_);
-          if (gf
-              && gf->start_ + gf->length_
-              + Moment (Rational (0), gf->grace_start_) == until)
-            {
-              /*
-                do the stuff/note/rest preceding a grace.
-              */
-              iter_->process (iter_->music_get_length ());
-            }
-          else
-            {
-              Moment w = until - here_mom_ + iter_->music_start_mom ();
-              iter_->process (w);
-            }
-
-          /*
-            if the iter is still OK, there must be events left that have
-
-            TIME > LEFT
-
-          */
+          // When it is time to advance the main part, we try to finish all
+          // prior elements, even if it is before their time when grace notes
+          // are considered.
+          const bool fast_forward = (ahead_mom_ <= until);
+          const auto &proc_mom = fast_forward ? iter_end : until;
+          iter_->process (proc_mom - iter_zero);
           if (iter_->ok ())
             return;
         }
 
+      const auto &next_mom = std::min (iter_end, ahead_mom_);
+      if ((until < next_mom) && (next_mom < Moment::infinity ()))
+        {
+          // iter_ is !ok earlier than the length of its music predicts.
+          // Mitigate by waiting until the expected time so that the next
+          // element starts in sync.
+          iter_->warning (_ ("music is shorter than anticipated"));
+          return;
+        }
+
+      iter_start_mom_ = next_mom;
       descend_to_child (iter_->get_context ());
-      next_element ();
+      iter_->quit ();
+      iter_ = nullptr;
+
+      pop_element ();
       if (iter_)
         iter_->init_context (get_own_context ());
+
+      next_element (); // let subclasses do certain things
     }
+
+  iter_start_mom_ = until;
 }
 
 Moment
 Sequential_iterator::pending_moment () const
 {
   if (!iter_)
-    return Moment::infinity ();
+    {
+      // Defensive: If for any reason we haven't advanced the full length of
+      // the music, stay alive until the end to help keep things in sync.
+      // Normally, we'll skip to infinity here.
+      const auto &end = music_get_length ();
+      return (iter_start_mom_ < end) ? end : Moment::infinity ();
+    }
 
-  // Before the first call to process (), we might be looking at an iterator
-  // that will be skipped during the first call to process ().
-  if (first_time_ && !iter_->ok ())
-    return here_mom_;
+  // moments in the timeline of this sequence
+  const auto iter_zero = iter_start_mom_ - iter_->music_start_mom ();
+  const auto iter_end = iter_zero + iter_->music_get_length ();
+  const auto iter_pend = iter_zero + iter_->pending_moment ();
 
-  Moment cp = iter_->pending_moment ();
-
-  /*
-    Fix-up a grace note halfway in the music.
-  */
-  const Grace_fixup *gf = la_.get_grace_fixup (here_mom_);
-  if (gf
-      && gf->length_ + iter_->music_start_mom () == cp)
-    return here_mom_ + gf->length_ + Moment (0, gf->grace_start_);
-
-  /*
-    Fix-up a grace note at  the start of the music.
-  */
-  return cp + here_mom_ - iter_->music_start_mom ();
+  // Don't overshoot either of these.  The current element's ending time might
+  // fall within a span of grace notes that ahead_mom_ already looks beyond.
+  // ahead_mom_ might account for grace notes that need to borrow time from the
+  // current element.
+  const auto &next_mom = std::min (iter_end, ahead_mom_);
+  return std::min (iter_pend, next_mom);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Sequential_iterator);
@@ -258,13 +219,4 @@ bool
 Sequential_iterator::run_always () const
 {
   return iter_ ? iter_->run_always () : false;
-}
-
-const Grace_fixup *
-Sequential_iterator::Lookahead::get_grace_fixup (const Moment &m) const
-{
-  if (has_grace_fixup_ && grace_fixup_.start_ == m)
-    return &grace_fixup_;
-  else
-    return nullptr;
 }
