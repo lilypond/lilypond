@@ -103,5 +103,3 @@ endif
 $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
 $(outdir)/relocate.o: $(outdir)/version.hh
-
-local-po: $(outdir)/parser.cc
