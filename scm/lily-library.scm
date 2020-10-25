@@ -942,7 +942,7 @@ numbers."
 ;;;;;;;;;;;;;;;;
 ;; other
 
-(define (sign x)
+(define-public (sign x)
   (if (= x 0)
       0
       (if (< x 0) -1 1)))
