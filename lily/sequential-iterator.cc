@@ -78,6 +78,7 @@ Sequential_iterator::derived_mark () const
   if (iter_)
     scm_gc_mark (iter_->self_scm ());
   scm_gc_mark (cursor_);
+  la_.gc_mark ();
 }
 
 void

@@ -70,8 +70,6 @@ AC_ARG_ENABLE(static-gxx,
     [LINK_GXX_STATICALLY=$enableval])
 AC_SUBST(LINK_GXX_STATICALLY)
 
-AC_USE_SYSTEM_EXTENSIONS
-
 # must come before any header checks
 STEPMAKE_COMPILE
 
