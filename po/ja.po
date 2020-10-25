@@ -1,15 +1,15 @@
 # Japanese message for lilypond
-# Copyright (C) 2000, 2012, 2016-2017 Free Software Foundation, Inc.
+# Copyright (C) 2000, 2012, 2016-2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 # Daisuke Yamashita <yamad@mb.infoweb.ne.jp>, 2000.
 # Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>, 2012.
 # Masamichi Hosoda <trueroad@trueroad.jp>, 2016-2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.21.1\n"
+"Project-Id-Version: lilypond 2.21.7\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2020-04-26 10:40+0100\n"
-"PO-Revision-Date: 2020-05-02 19:50+0900\n"
+"POT-Creation-Date: 2020-10-11 11:02+0100\n"
+"PO-Revision-Date: 2020-10-13 20:40+0900\n"
 "Last-Translator: Masamichi Hosoda <trueroad@trueroad.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -19,76 +19,97 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: fontextract.py:25
+#: book_base.py:49
 #, python-format
-msgid "Scanning %s"
-msgstr "%s をスキャン中"
+msgid "file not found: %s"
+msgstr "ファイルがありません: %s"
 
-#: fontextract.py:70
+#: book_base.py:196
+msgid "Output function not implemented"
+msgstr "出力機能は実装されていません"
+
+#: book_latex.py:192
+#, python-brace-format
+msgid "cannot find \\begin{document} in LaTeX document"
+msgstr "LaTeX 文書の中に \\begin{document} がありません"
+
+#: book_latex.py:208
 #, python-format
-msgid "Extracted %s"
-msgstr "抽出された %s"
+msgid "Running `%s' on file `%s' to detect default page settings.\n"
+msgstr "デフォルトのページ設定を検出するために `%s' をファイル `%s' で実行しています.\n"
 
-#: fontextract.py:85
+#: book_latex.py:237 book_texinfo.py:247
+msgid "Unable to auto-detect default settings:\n"
+msgstr "既定の設定を自動検出できません:\n"
+
+#: book_latex.py:249 book_texinfo.py:259
 #, python-format
-msgid "Writing fonts to %s"
-msgstr "%s にフォントを書き込みます"
+msgid ""
+"Unable to auto-detect default settings:\n"
+"%s"
+msgstr ""
+"既定の設定を自動検出できません:\n"
+"%s"
 
-#: book_snippets.py:405
+#: book_latex.py:272
+msgid "cannot detect textwidth from LaTeX"
+msgstr "LaTeX から textwidth を検出できません"
+
+#: book_snippets.py:436
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "廃止された ly-option が使われました: %s=%s"
 
-#: book_snippets.py:407
+#: book_snippets.py:438
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr "互換モード変換: %s=%s"
 
-#: book_snippets.py:410
+#: book_snippets.py:441
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "非推奨の ly-option が使われました: %s"
 
-#: book_snippets.py:412
+#: book_snippets.py:443
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr "互換モード変換: %s"
 
-#: book_snippets.py:528
+#: book_snippets.py:559
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "未知の ly オプションを無視: %s"
 
-#: book_snippets.py:615
+#: book_snippets.py:646
 #, python-format
 msgid "Missing files: %s"
 msgstr "ファイルがありません: %s"
 
-#: book_snippets.py:654
+#: book_snippets.py:684
 #, python-format
 msgid "Could not overwrite file %s"
 msgstr "ファイルに上書きできません: %s"
 
-#: book_snippets.py:741
+#: book_snippets.py:781
 #, python-format
 msgid "Running through filter `%s'"
 msgstr "フィルタ `%s' で処理中です "
 
-#: book_snippets.py:762
+#: book_snippets.py:806
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "`%s' 失敗しました(%d)"
 
-#: book_snippets.py:763
+#: book_snippets.py:807
 msgid "The error log is as follows:"
 msgstr "エラーログは以下の通りです:"
 
-#: book_snippets.py:888
+#: book_snippets.py:937
 #, python-format
 msgid "Converting MusicXML file `%s'..."
 msgstr "MusicXML ファイル `%s' を変換中..."
 
-#: book_snippets.py:916
+#: book_snippets.py:965
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of original file,\n"
@@ -97,7 +118,7 @@ msgstr ""
 "%s: 重複するファイル名だが元のファイルとは異なる内容,\n"
 "既存ファイルに対する diff を出力します."
 
-#: book_snippets.py:931
+#: book_snippets.py:981
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
@@ -106,129 +127,134 @@ msgstr ""
 "%s: 重複するファイル名だが変換された lilypond ファイルとは異なる内容,\n"
 "既存ファイルに対する diff を出力します."
 
-#: convertrules.py:11
+#: book_texinfo.py:224
+#, python-format
+msgid "Running texi2pdf on file %s to detect default page settings.\n"
+msgstr "デフォルトのページ設定を検出するために texi2pdf をファイル %s で実行しています.\n"
+
+#: convertrules.py:30
 #, python-format
 msgid "Not smart enough to convert %s."
 msgstr "%s を変換できません."
 
-#: convertrules.py:12
+#: convertrules.py:32
 msgid "Please refer to the manual for details, and update manually."
 msgstr "詳細についてはマニュアルを参照して、手動で更新してください."
 
-#: convertrules.py:13
+#: convertrules.py:33
 #, python-format
 msgid "%s has been replaced by %s"
 msgstr "%s は %s で置き換えられました"
 
-#: convertrules.py:23 lilylib.py:85 warn.cc:224
+#: convertrules.py:45 lilylib.py:92 warn.cc:224
 #, c-format, python-format
 msgid "warning: %s"
 msgstr "警告: %s"
 
-#: convertrules.py:48 convertrules.py:93
+#: convertrules.py:72 convertrules.py:117
 msgid "\\header { key = concat + with + operator }"
 msgstr "\\header { key = concat + with + operator }"
 
-#: convertrules.py:55
+#: convertrules.py:79
 #, python-format
 msgid "deprecated %s"
 msgstr "非推奨です %s"
 
-#: convertrules.py:64
+#: convertrules.py:88
 msgid "deprecated \\textstyle, new \\key syntax"
 msgstr "非推奨の \\textstyle, 新しい \\key 構文"
 
-#: convertrules.py:80 convertrules.py:1849 convertrules.py:2025
-#: convertrules.py:2168 convertrules.py:2499 convertrules.py:2794
-#: convertrules.py:3144 convertrules.py:3381 convertrules.py:3696
+#: convertrules.py:104 convertrules.py:1944 convertrules.py:2121
+#: convertrules.py:2245 convertrules.py:2587 convertrules.py:2904
+#: convertrules.py:3291 convertrules.py:3564 convertrules.py:3912
 msgid "bump version for release"
 msgstr "リリースのためにバージョンを上げる"
 
-#: convertrules.py:96
+#: convertrules.py:120
 msgid "new \\header format"
 msgstr "新しい \\header の書式"
 
-#: convertrules.py:123
+#: convertrules.py:147
 msgid "\\translator syntax"
 msgstr "\\translator 構文"
 
-#: convertrules.py:174
+#: convertrules.py:198
 msgid "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
 msgstr "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
 
-#: convertrules.py:204 convertrules.py:677 convertrules.py:1349
-#: convertrules.py:2311
+#: convertrules.py:228 convertrules.py:736 convertrules.py:1439
+#: convertrules.py:2396
 #, python-format
 msgid "deprecate %s"
 msgstr "非推奨 %s"
 
-#: convertrules.py:278
+#: convertrules.py:302
 #, python-format
 msgid "deprecate %s "
 msgstr "非推奨 %s "
 
-#: convertrules.py:304
+#: convertrules.py:328
 msgid "new \\notenames format"
 msgstr "新しい \\notenames の書式"
 
-#: convertrules.py:320
+#: convertrules.py:344
 msgid "new tremolo format"
 msgstr "新しいトレモロの書式"
 
-#: convertrules.py:324
+#: convertrules.py:348
 msgid "Staff_margin_engraver deprecated, use Instrument_name_engraver"
 msgstr "Staff_margin_engraver は非推奨です, Instrument_name_engraver を使ってください"
 
-#: convertrules.py:375
+#: convertrules.py:399
 msgid "change property definition case (eg. onevoice -> oneVoice)"
 msgstr "プロパティ定義の大文字小文字を変更（例. onevoice → oneVoice）"
 
-#: convertrules.py:436
+#: convertrules.py:479
 msgid "new \\textscript markup text"
 msgstr "新しい \\textscript マークアップテキスト"
 
-#: convertrules.py:508
+#: convertrules.py:564
 #, python-format
 msgid "identifier names: %s"
 msgstr "識別子名: %s"
 
-#: convertrules.py:547
+#: convertrules.py:604
 msgid "point-and-click argument changed to procedure."
 msgstr "point-and-click 引数がプロシージャに変更."
 
-#: convertrules.py:589
+#: convertrules.py:648
 msgid "semicolons removed"
 msgstr "セミコロンを削除しました"
 
 #. 40 ?
-#: convertrules.py:632
+#: convertrules.py:691
 #, python-format
 msgid "%s property names"
 msgstr "%s プロパティ名"
 
-#: convertrules.py:702
+#: convertrules.py:763
 msgid "automaticMelismata turned on by default"
 msgstr "automaticMelismata はデフォルトでオンになりました"
 
-#: convertrules.py:707
+#: convertrules.py:769
 msgid "automaticMelismata is turned on by default since 1.5.67."
 msgstr "automaticMelismata は 1.5.67 からデフォルトでオンになりました"
 
-#: convertrules.py:941 convertrules.py:1634 convertrules.py:1883
-#: convertrules.py:2128
+#: convertrules.py:1019 convertrules.py:1723 convertrules.py:1977
+#: convertrules.py:2203
 #, python-format
 msgid "remove %s"
 msgstr "%s を削除"
 
-#: convertrules.py:976 convertrules.py:979
+#: convertrules.py:1054 convertrules.py:1057
 msgid "cluster syntax"
 msgstr "クラスタの文法"
 
-#: convertrules.py:986
+#: convertrules.py:1064
 msgid "new Pedal style syntax"
 msgstr "新しいペダルスタイル構文"
 
-#: convertrules.py:1245
+#: convertrules.py:1335
 msgid ""
 "New relative mode,\n"
 "Postfix articulations, new text markup syntax, new chord syntax."
@@ -236,28 +262,28 @@ msgstr ""
 "新しい相対モード,\n"
 "後置アーティキュレーション, 新しいテキストマークアップ構文, 新しいコード構文."
 
-#: convertrules.py:1258
+#: convertrules.py:1348
 msgid "Remove - before articulation"
 msgstr "削除 - アーティキュレーションの前"
 
-#: convertrules.py:1293
+#: convertrules.py:1383
 #, python-format
 msgid "%s misspelling"
 msgstr "%s スペルミスです"
 
-#: convertrules.py:1312
+#: convertrules.py:1402
 msgid "Swap < > and << >>"
 msgstr "< > と << >> を交換"
 
-#: convertrules.py:1315
+#: convertrules.py:1405
 msgid "attempting automatic \\figures conversion.  Check results!"
 msgstr "自動で \\figures 変換を試みます. 結果をチェックしてください!"
 
-#: convertrules.py:1361
+#: convertrules.py:1451
 msgid "Use Scheme code to construct arbitrary note events."
 msgstr "Scheme コードを用いて任意のノートイベントを構築します."
 
-#: convertrules.py:1368
+#: convertrules.py:1458
 msgid ""
 "use symbolic constants for alterations,\n"
 "remove \\outputproperty, move ly:verbose into ly:get-option"
@@ -265,7 +291,7 @@ msgstr ""
 "変更のためにシンボリック定数を使用し,\n"
 "\\outputproperty を削除, ly:verbose を ly:get-option へ移動してください."
 
-#: convertrules.py:1393
+#: convertrules.py:1482
 #, python-format
 msgid ""
 "\\outputproperty found,\n"
@@ -282,7 +308,7 @@ msgstr ""
 "\n"
 "のように編集してください."
 
-#: convertrules.py:1405
+#: convertrules.py:1494
 msgid ""
 "The alteration field of Scheme pitches was multiplied by 2\n"
 "to support quarter tone accidentals.  You must update the following constructs manually:\n"
@@ -296,15 +322,15 @@ msgstr ""
 "* ly:make-pitch と ly:pitch-alteration の呼び出し\n"
 "* keySignature 設定を \\property で行う\n"
 
-#: convertrules.py:1448
+#: convertrules.py:1537
 msgid "removal of automaticMelismata; use melismaBusyProperties instead."
 msgstr "automaticMelismata 削除; 代わりに melismaBusyProperties を使ってください."
 
-#: convertrules.py:1555
+#: convertrules.py:1645
 msgid "\\partcombine syntax change to \\newpartcombine"
 msgstr "\\partcombine 構文を \\newpartcombine へ変更"
 
-#: convertrules.py:1580
+#: convertrules.py:1670
 msgid ""
 "Drum notation changes, Removing \\chordmodifiers, \\notenames.\n"
 "Harmonic notes. Thread context removed. Lyrics context removed."
@@ -313,11 +339,11 @@ msgstr ""
 "ハーモニックノート. スレッドコンテキストが削除されました.\n"
 "歌詞コンテキストが削除されました."
 
-#: convertrules.py:1584
+#: convertrules.py:1674
 msgid "Drums found. Enclose drum notes in \\drummode"
 msgstr "ドラムが見つかりました. ドラムノートを \\drummode で囲みます"
 
-#: convertrules.py:1595 convertrules.py:1602 convertrules.py:1613
+#: convertrules.py:1684 convertrules.py:1692 convertrules.py:1702
 #, python-format
 msgid ""
 "\n"
@@ -326,33 +352,33 @@ msgstr ""
 "\n"
 "%s が見つかりました. ファイルを確認してください!\n"
 
-#: convertrules.py:1595
+#: convertrules.py:1685
 msgid "Drum notation"
 msgstr "ドラムノート"
 
-#: convertrules.py:1654
+#: convertrules.py:1743
 msgid "new syntax for property settings:"
 msgstr "プロパティ設定の新しい構文:"
 
-#: convertrules.py:1680
+#: convertrules.py:1769
 msgid "Property setting syntax in \\translator{ }"
 msgstr "\\translator{ } のプロパティ設定構文"
 
-#: convertrules.py:1719
+#: convertrules.py:1808
 msgid "Scheme grob function renaming"
 msgstr "Scheme grob 関数の名前変更"
 
-#: convertrules.py:1730 convertrules.py:2132 convertrules.py:2136
-#: convertrules.py:2702
+#: convertrules.py:1819 convertrules.py:2207 convertrules.py:2212
+#: convertrules.py:2798
 #, python-format
 msgid "Use %s\n"
 msgstr "%s を使用\n"
 
-#: convertrules.py:1746
+#: convertrules.py:1842
 msgid "More Scheme function renaming"
 msgstr "さらに Scheme 関数の名前変更"
 
-#: convertrules.py:1865
+#: convertrules.py:1960
 msgid ""
 "Page layout has been changed, using paper size and margins.\n"
 "textheight is no longer used.\n"
@@ -360,7 +386,7 @@ msgstr ""
 "用紙サイズとマージンを使ってページレイアウトが変更されました.\n"
 "textheight は使用されません.\n"
 
-#: convertrules.py:1951
+#: convertrules.py:2046
 msgid ""
 "\\foo -> \\foomode (for chords, notes, etc.)\n"
 "fold \\new FooContext \\foomode into \\foo."
@@ -368,7 +394,7 @@ msgstr ""
 "\\foo -> \\foomode (コード, 音符など.)\n"
 "\\new FooContext \\foomode を \\foo へ束ねました."
 
-#: convertrules.py:1989
+#: convertrules.py:2085
 msgid ""
 "staff size should be changed at top-level\n"
 "with\n"
@@ -381,40 +407,40 @@ msgstr ""
 "  #(set-global-staff-size <ポイント単位の譜の高さ>)\n"
 "\n"
 
-#: convertrules.py:2009
+#: convertrules.py:2105
 msgid "regularize other identifiers"
 msgstr "他の識別子を正規化"
 
-#: convertrules.py:2077
+#: convertrules.py:2175
 msgid "\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click"
 msgstr "\\encoding: スマートな再コード latin1..utf-8. ly:point-and-click 削除"
 
-#: convertrules.py:2088
+#: convertrules.py:2184
 msgid "LilyPond source must be UTF-8"
 msgstr "LilyPond のソースファイルは UTF-8 で記述してください"
 
-#: convertrules.py:2091
+#: convertrules.py:2187
 msgid "Try the texstrings backend"
 msgstr "texstrings バックエンドを試行"
 
-#: convertrules.py:2094
+#: convertrules.py:2190
 #, python-format
 msgid "Do something like: %s"
 msgstr "%s 風の動作"
 
-#: convertrules.py:2097
+#: convertrules.py:2193
 msgid "Or save as UTF-8 in your editor"
 msgstr "エディタで保存する際の文字コードには UTF-8 を指定してください"
 
-#: convertrules.py:2147
+#: convertrules.py:2224
 msgid "warn about auto beam settings"
 msgstr "自動連桁設定について警告"
 
-#: convertrules.py:2151
+#: convertrules.py:2228
 msgid "auto beam settings"
 msgstr "自動連桁設定"
 
-#: convertrules.py:2152
+#: convertrules.py:2229
 msgid ""
 "\n"
 "Auto beam settings must now specify each interesting moment in a measure\n"
@@ -424,39 +450,39 @@ msgstr ""
 "自動連桁設定では明示的に小節内の各モーメントを指定する必要があります。\n"
 "1/4 はモーメント 1/2 および 3/4 をカバーするために乗算されなくなりました。\n"
 
-#: convertrules.py:2265
+#: convertrules.py:2340
 msgid "verticalAlignmentChildCallback has been deprecated"
 msgstr "verticalAlignmentChildCallback は非推奨になりました"
 
-#: convertrules.py:2270
+#: convertrules.py:2345
 msgid "Remove callbacks property, deprecate XY-extent-callback."
 msgstr "コールバックプロパティを削除, XY-extent-callback 非推奨."
 
-#: convertrules.py:2291
+#: convertrules.py:2366
 msgid "Use grob closures iso. XY-offset-callbacks."
 msgstr "grob closures iso 使用. XY-offset-callbacks."
 
-#: convertrules.py:2353
+#: convertrules.py:2438
 msgid "foobar -> foo-bar for \\paper, \\layout"
 msgstr "foobar -> \\paper, \\layout 用の foo-bar"
 
-#: convertrules.py:2463
+#: convertrules.py:2550
 msgid "deprecate \\tempo in \\midi"
 msgstr "\\midi 中の \\tempo は非推奨"
 
-#: convertrules.py:2516
+#: convertrules.py:2607
 msgid "deprecate cautionary-style. Use AccidentalCautionary properties"
 msgstr "cautionary-style は非推奨. AccidentalCautionary properties を使用"
 
-#: convertrules.py:2529
+#: convertrules.py:2620
 msgid "Rename accidental glyphs, use glyph-name-alist."
 msgstr "臨時記号グリフの名前変更, glyph-name-alist を使用."
 
-#: convertrules.py:2584
+#: convertrules.py:2676
 msgid "edge-text settings for TextSpanner"
 msgstr "TextSpanner のための edge-text 設定"
 
-#: convertrules.py:2585
+#: convertrules.py:2677
 #, python-format
 msgid ""
 "Use\n"
@@ -467,35 +493,35 @@ msgstr ""
 "\n"
 "%s"
 
-#: convertrules.py:2618
+#: convertrules.py:2710
 msgid "Use the `alignment-offsets' sub-property of\n"
 msgstr "`alignment-offsets' サブプロパティを使用\n"
 
-#: convertrules.py:2619
+#: convertrules.py:2711
 msgid "NonMusicalPaperColumn #'line-break-system-details\n"
 msgstr "NonMusicalPaperColumn #'line-break-system-details\n"
 
-#: convertrules.py:2620
+#: convertrules.py:2712
 msgid "to set fixed distances between staves.\n"
 msgstr "譜表間の固定距離を設定\n"
 
-#: convertrules.py:2632
+#: convertrules.py:2724
 msgid "Use #'style not #'dash-fraction to select solid/dashed lines."
 msgstr "実線/破線の選択に #'dash-fraction ではなく #'style を使用."
 
-#: convertrules.py:2638
+#: convertrules.py:2730
 msgid "all settings related to dashed lines"
 msgstr "破線関連の全設定"
 
-#: convertrules.py:2639
+#: convertrules.py:2732
 msgid "Use \\override ... #'style = #'line for solid lines and\n"
 msgstr "実線に \\override ... #'style = #'line を使用し\n"
 
-#: convertrules.py:2640
+#: convertrules.py:2734
 msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
 msgstr "\t破線に \\override ... #'style = #'dashed-line を使用."
 
-#: convertrules.py:2676
+#: convertrules.py:2770
 msgid ""
 "metronomeMarkFormatter uses text markup as second argument,\n"
 "fret diagram properties moved to fret-diagram-details."
@@ -503,11 +529,11 @@ msgstr ""
 "metronomeMarkFormatter は第二引数としてテキストマークアップを使用し,\n"
 "フレットダイアグラムのプロパティを fret-diagram-details へ移動しました."
 
-#: convertrules.py:2682
+#: convertrules.py:2777
 msgid "metronomeMarkFormatter got an additional text argument.\n"
 msgstr "metronomeMarkFormatter に追加のテキスト引数があります.\n"
 
-#: convertrules.py:2683
+#: convertrules.py:2778
 #, python-format
 msgid ""
 "The function assigned to Score.metronomeMarkFunction now uses the signature\n"
@@ -516,48 +542,48 @@ msgstr ""
 "Score.metronomeMarkFunction に割り当てられた関数はシグネチャを使用するようになりました\n"
 "%s"
 
-#: convertrules.py:2701
+#: convertrules.py:2797
 #, python-format
 msgid "%s in fret-diagram properties"
 msgstr "fret-diagram properties 中の %s"
 
-#: convertrules.py:2745
+#: convertrules.py:2847
 msgid "\\put-adjacent argument order"
 msgstr "\\put-adjacent 引数の順序"
 
-#: convertrules.py:2746
+#: convertrules.py:2848
 msgid "Axis and direction now come before markups:\n"
 msgstr "軸と方向はマークアップの前に来ます:\n"
 
-#: convertrules.py:2747
+#: convertrules.py:2849
 msgid "\\put-adjacent axis dir markup markup."
 msgstr "\\put-adjacent 軸方向マークアップ markup."
 
-#: convertrules.py:2778
+#: convertrules.py:2887
 msgid "re-definition of InnerStaffGroup"
 msgstr "InnerStaffGroup の再定義"
 
-#: convertrules.py:2783
+#: convertrules.py:2892
 msgid "re-definition of InnerChoirStaff"
 msgstr "InnerChoirStaff の再定義"
 
-#: convertrules.py:2793
+#: convertrules.py:2903
 msgid "Syntax changes for \\addChordShape and \\chord-shape"
 msgstr "\\addChordShape と \\chord-shape の構文変更"
 
-#: convertrules.py:2798
+#: convertrules.py:2908
 msgid "stringTuning must be added to addChordShape call.\n"
 msgstr "stringTuning を addChordShape 呼び出しに追加する必要があります.\n"
 
-#: convertrules.py:2803
+#: convertrules.py:2913
 msgid "stringTuning must be added to chord-shape call.\n"
 msgstr "chord-shape 呼び出しに stringTuning を追加する必要があります.\n"
 
-#: convertrules.py:2809
+#: convertrules.py:2920
 msgid "Remove oldaddlyrics"
 msgstr "oldaddlyrics 削除"
 
-#: convertrules.py:2813
+#: convertrules.py:2924
 msgid ""
 "oldaddlyrics is no longer supported. \n"
 "         Use addlyrics or lyricsto instead.\n"
@@ -565,7 +591,7 @@ msgstr ""
 "oldaddlyrics はサポートされなくなりました. \n"
 "         代わりに addlyrics か lyricsto を使ってください.\n"
 
-#: convertrules.py:2819
+#: convertrules.py:2931
 msgid ""
 "keySignature property not reversed any more\n"
 "MIDI 47: orchestral strings -> orchestral harp"
@@ -573,11 +599,11 @@ msgstr ""
 "keySignature プロパティはもう反転しません\n"
 "MIDI 47: orchestral strings -> orchestral harp"
 
-#: convertrules.py:2824
+#: convertrules.py:2936
 msgid "The alist for Staff.keySignature is no longer in reversed order.\n"
 msgstr "Staff.keySignature の alist は逆順ではなくなりました.\n"
 
-#: convertrules.py:2830
+#: convertrules.py:2943
 msgid ""
 "\\bar \".\" now produces a thick barline\n"
 "ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n"
@@ -587,15 +613,15 @@ msgstr ""
 "ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n"
 "スラーとタイのダッシュパラメータは dash-definition になりました"
 
-#: convertrules.py:2836
+#: convertrules.py:2949
 msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr "\\bar \".\" は太い小節線を生成するようになりました\n"
 
-#: convertrules.py:2842
+#: convertrules.py:2957
 msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
 msgstr "スラーとタイのダッシュパラメータは dash-definition になりました.\n"
 
-#: convertrules.py:2847
+#: convertrules.py:2963
 msgid ""
 "Autobeaming rules have changed.  override-auto-beam-setting and\n"
 "revert-auto-beam-setting have been eliminated.\n"
@@ -621,15 +647,15 @@ msgstr ""
 "「強弱記号が中央に配置されたピアノ譜」テンプレートの明示的 dynamics\n"
 "コンテキスト定義は新しい `Dynamics' コンテキストに置き換えられました."
 
-#: convertrules.py:2861
+#: convertrules.py:2977
 msgid "    Autobeam settings are now overriden with \\overrideBeamSettings.\n"
 msgstr "    自動連衡設定は \\overrideBeamSettings でオーバーライドされるようになりました.\n"
 
-#: convertrules.py:2866
+#: convertrules.py:2982
 msgid "    Autobeam settings are now reverted with \\revertBeamSettings.\n"
 msgstr "    自動連衡設定は \\revertBeamSettings で元に戻ります.\n"
 
-#: convertrules.py:2872
+#: convertrules.py:2988
 msgid ""
 "    beatGrouping with a specified context must now be accomplished with\n"
 "   \\overrideBeamSettings.\n"
@@ -637,11 +663,11 @@ msgstr ""
 "    コンテキストを指定した beatGrouping は \\overrideBeamSettings\n"
 "   する必要があります.\n"
 
-#: convertrules.py:2878
+#: convertrules.py:2994
 msgid "alignment-offsets has been changed to alignment-distances: you must now specify the distances between staves rather than the offset of staves.\n"
 msgstr "alignment-offsets は alignment-distances へ変更されました: 譜表のオフセットではなく譜表間の距離を指定する必要があります.\n"
 
-#: convertrules.py:2889
+#: convertrules.py:3006
 msgid ""
 "Remove obsolete engravers/translators: Note_swallow_translator,\n"
 "Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,\n"
@@ -653,23 +679,23 @@ msgstr ""
 "Swallow_performer and String_number_engraver.\n"
 "新しい垂直スペーシング変数."
 
-#: convertrules.py:2920
+#: convertrules.py:3038
 msgid "Vertical spacing no longer depends on the Y-extent of a VerticalAxisGroup.\n"
 msgstr "垂直スペーシングは VerticalAxisGroup の Y-extent に依存しなくなりました.\n"
 
-#: convertrules.py:2926
+#: convertrules.py:3045
 msgid "Unify fetaNumber and fetaDynamic encodings"
 msgstr "fetaNumber と fetaDynamic のエンコードを統一"
 
-#: convertrules.py:2931
+#: convertrules.py:3051
 msgid "\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"
 msgstr "\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"
 
-#: convertrules.py:2942
+#: convertrules.py:3063
 msgid "\\cresc etc. are now postfix operators"
 msgstr "\\cresc 等は後置オペレータになりました"
 
-#: convertrules.py:2954
+#: convertrules.py:3077
 msgid ""
 "Eliminate beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings and \\revertBeamSettings.\n"
 "\"accordion.accEtcbase\" -> \"accordion.etcbass\""
@@ -677,23 +703,23 @@ msgstr ""
 "beamSettings, beatLength, \\setBeatGrouping, \\overrideBeamSettings と \\revertBeamSettings を削除.\n"
 "\"accordion.accEtcbase\" -> \"accordion.etcbass\""
 
-#: convertrules.py:2972
+#: convertrules.py:3096
 msgid "Use \\set beamExceptions or \\overrideTimeSignatureSettings.\n"
 msgstr "\\set beamExceptions または \\overrideTimeSignatureSettings を使用.\n"
 
-#: convertrules.py:2976
+#: convertrules.py:3101
 msgid "Use \\set beamExceptions or \\revertTimeSignatureSettings.\n"
 msgstr "\\set beamExceptions または \\revertTimeSignatureSettings を使用.\n"
 
-#: convertrules.py:2980
+#: convertrules.py:3105
 msgid "Use baseMoment, beatStructure, and beamExceptions.\n"
 msgstr "baseMoment, beatStructure, と beamExceptions を使用.\n"
 
-#: convertrules.py:2984 convertrules.py:2988
+#: convertrules.py:3109 convertrules.py:3113
 msgid "Use baseMoment and beatStructure.\n"
 msgstr "baseMoment と beatStructure を使用.\n"
 
-#: convertrules.py:2993
+#: convertrules.py:3119
 msgid ""
 "Woodwind diagrams: Move size, thickness, and graphic from argument list to properties.\n"
 "Deprecate negative dash-period for hidden lines: use #'style = #'none instead."
@@ -701,11 +727,11 @@ msgstr ""
 "木管楽器のダイアグラム: サイズ、太さ、グラフィックを引数リストからプロパティへ移動します.\n"
 "隠れた線のためのネガティブ dash-period は非推奨: 代わりに #'style = #'none を使ってください."
 
-#: convertrules.py:2998
+#: convertrules.py:3125
 msgid "Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"
 msgstr "サイズ、太さ、グラフィックをプロパティへ移動.  引数はキーリストだけにする必要があります.\n"
 
-#: convertrules.py:3006
+#: convertrules.py:3134
 msgid ""
 "Rename vertical spacing variables.\n"
 "Add fretboard-table argument to savePredefinedFretboard."
@@ -713,23 +739,23 @@ msgstr ""
 "垂直スペーシング変数の名前を変更.\n"
 "savePredefinedFretboard へ fretboard-table 引数を追加."
 
-#: convertrules.py:3024
+#: convertrules.py:3153
 msgid "Rename vertical spacing grob properties."
 msgstr "垂直スペーシング grob プロパティの名前を変更."
 
-#: convertrules.py:3040
+#: convertrules.py:3176
 msgid "Remove \\paper variables head-separation and foot-separation."
 msgstr "\\paper 変数 head-separation と foot-separation を削除."
 
-#: convertrules.py:3044
+#: convertrules.py:3180
 msgid "Adjust settings for top-system-spacing instead.\n"
 msgstr "代わりに top-system-spacing の設定を調整.\n"
 
-#: convertrules.py:3048
+#: convertrules.py:3184
 msgid "Adjust settings for last-bottom-spacing instead.\n"
 msgstr "代わりに last-bottom-spacing の設定を調整.\n"
 
-#: convertrules.py:3054
+#: convertrules.py:3191
 msgid ""
 "Rename space to basic-distance in various spacing alists.\n"
 "Remove HarmonicParenthesesItem grob."
@@ -737,19 +763,19 @@ msgstr ""
 "各種のスペーシング alist で space を basic-distance へ名前変更.\n"
 "HarmonicParenthesesItem grob を削除."
 
-#: convertrules.py:3061
+#: convertrules.py:3200
 msgid "HarmonicParenthesesItem has been eliminated.\n"
 msgstr "HarmonicParenthesesItem は削除されました.\n"
 
-#: convertrules.py:3062
+#: convertrules.py:3202
 msgid "Harmonic parentheses are part of the TabNoteHead grob.\n"
 msgstr "Harmonic parentheses は TabNoteHead grob の一部です.\n"
 
-#: convertrules.py:3067
+#: convertrules.py:3208
 msgid "Remove context from overrideTimeSignatureSettings and revertTimeSignatureSettings.\n"
 msgstr "overrideTimeSignatureSettings と revertTimeSignatureSettings からコンテキストを削除.\n"
 
-#: convertrules.py:3074
+#: convertrules.py:3216
 msgid ""
 "Change stringTunings from a list of semitones to a list of pitches.\n"
 "Change tenor and baritone ukulele names in string tunings.\n"
@@ -759,303 +785,737 @@ msgstr ""
 "弦のチューニングでテナーとバリトンのウクレレ名を変更します.\n"
 "必要ならば垂直間隔を手動変換するためのメッセージを生成します."
 
-#: convertrules.py:3117
+#: convertrules.py:3261
 msgid "Vertical spacing changes might affect user-defined contexts."
 msgstr "垂直間隔の変更はユーザ定義コンテキストに影響する場合があります."
 
-#: convertrules.py:3123
+#: convertrules.py:3268
 msgid "Replace bar-size with bar-extent."
 msgstr "bar-size を bar-extent に置き換えます."
 
-#: convertrules.py:3135
+#: convertrules.py:3280
 msgid "Woodwind diagrams: Changes to the clarinet diagram."
 msgstr "木管楽器ダイアグラム: クラリネットダイアグラムの変更."
 
-#: convertrules.py:3139
+#: convertrules.py:3285
 msgid "Clarinet fingering changed to reflect actual anatomy of instrument.\n"
 msgstr "クラリネットの運指は楽器の実際の構造を反映するように変更されました.\n"
 
-#: convertrules.py:3149
+#: convertrules.py:3297
 msgid "Handling of non-automatic footnotes."
 msgstr "非自動脚注の処理."
 
-#: convertrules.py:3153
+#: convertrules.py:3302
 msgid "If you are using non-automatic footnotes, make sure to set footnote-auto-numbering = ##f in the paper block.\n"
 msgstr "非自動脚注を使用している場合は、peper ブロックに footnote-auto-numbering = ##f を設定してください.\n"
 
-#: convertrules.py:3158
+#: convertrules.py:3308
 msgid "Change in internal property for MultiMeasureRest"
 msgstr "MultiMeasureRest の内部プロパティの変更"
 
-#: convertrules.py:3162
+#: convertrules.py:3313
 msgid "This internal property has been replaced by round-up-to-longer-rest, round-up-exceptions and usable-duration-logs.\n"
 msgstr "この内部プロパティは round-up-to-longer-rest, round-up-exceptions と usable-duration-logs に置き換えられました.\n"
 
-#: convertrules.py:3167
+#: convertrules.py:3319
 msgid "Creation of a Flag grob and moving of certain Stem properties to this grob"
 msgstr "Flag grob の作成と、この grob への特定の Stem プロパティの移動"
 
-#: convertrules.py:3203
+#: convertrules.py:3362
 msgid "consistent-broken-slope is now handled through the positions callback.\n"
 msgstr "consistent-broken-slope は位置コールバックを通じて処理されるようになりました.\n"
 
-#: convertrules.py:3204
+#: convertrules.py:3364
 msgid "input/regression/beam-broken-classic.ly shows how broken beams are now handled.\n"
 msgstr "input/regression/beam-broken-classic.ly は破損した連桁がどのように処理されるかを示します.\n"
 
-#: convertrules.py:3365
+#: convertrules.py:3543
 msgid "beamExceptions controls whole-measure beaming."
 msgstr "beamExceptions は全小節の連桁を制御します."
 
-#: convertrules.py:3605
+#: convertrules.py:3812
 msgid "Flag.transparent and Flag.color inherit from Stem"
 msgstr "Flag.transparent と Flag.color は Stem を継承します"
 
-#: convertrules.py:3671
+#: convertrules.py:3884
 msgid "Staff-padding now controls the distance to the baseline, not the nearest point."
 msgstr "Staff-padding は最も近い点ではなく、ベースラインまでの距離を制御するようになりました."
 
-#: convertrules.py:3919
+#: convertrules.py:4181
 msgid "Previously the \"id\" grob property (string) was used for SVG output."
 msgstr "以前は \"id\" grob プロパティ（文字列）が SVG 出力に使われていました."
 
-#: convertrules.py:3920
+#: convertrules.py:4183
 msgid "Now \"output-attributes\" (association list) is used instead."
 msgstr "現在では代わりに \"output-attributes\" （関連付けリスト）が使用されます."
 
-#: book_base.py:26
-#, python-format
-msgid "file not found: %s"
-msgstr "ファイルがありません: %s"
-
-#: book_base.py:171
-msgid "Output function not implemented"
-msgstr "出力機能は実装されていません"
-
-#: lilylib.py:50
+#: lilylib.py:55
 #, python-format
 msgid "Setting loglevel to %s"
 msgstr "ログレベルを`%s'へ設定しました"
 
-#: lilylib.py:53
+#: lilylib.py:58
 #, python-format
 msgid "Unknown or invalid loglevel '%s'"
 msgstr "不明または不正なログレベル '%s'"
 
-#: lilylib.py:82 warn.cc:212
+#: lilylib.py:88 warn.cc:212
 #, c-format, python-format
 msgid "error: %s"
 msgstr " エラー: %s"
 
-#: lilylib.py:131
-#, python-format
-msgid "Processing %s.ly"
-msgstr "%s.ly を処理中です"
-
-#: lilylib.py:135 lilylib.py:196
-#, python-format
-msgid "Invoking `%s'"
-msgstr "`%s' 起動中"
-
-#: lilylib.py:137 lilylib.py:198
-#, python-format
-msgid "Running %s..."
-msgstr "%s 実行中..."
-
-#: lilylib.py:274
+#: lilylib.py:143
 #, python-format
 msgid "Usage: %s"
 msgstr "利用法: %s"
 
-#: musicexp.py:307 musicexp.py:312
+#: musicexp.py:346 musicexp.py:353
 msgid "Language does not support microtones contained in the piece"
 msgstr "Language は作品に含まれるマイクロトーンをサポートしません"
 
-#: musicexp.py:622
+#: musicexp.py:698
 msgid "Tuplet brackets of curved shape are not correctly implemented"
 msgstr "曲線形状の連符のカギが正しく実装されていません"
 
-#: musicexp.py:805
+#: musicexp.py:885
 #, python-format
 msgid "unable to set the music %(music)s for the repeat %(repeat)s"
 msgstr "音楽 %(music)s を繰り返し %(repeat)s へセットできません"
 
-#: musicexp.py:814
+#: musicexp.py:896
 msgid "encountered repeat without body"
 msgstr "中身のない繰り返しに行き当たりました"
 
 #. no self.elements!
-#: musicexp.py:1027
+#: musicexp.py:1120
 #, python-format
 msgid "Grace note with no following music: %s"
 msgstr "続きの音符がない装飾音符: %s"
 
-#: musicexp.py:1222
+#: musicexp.py:1338
 #, python-format
 msgid "Invalid octave shift size found: %s. Using no shift."
 msgstr "無効なオクターブシフトサイズが見つかりました: %s. シフトを使用しません."
 
-#: musicexp.py:1811
+#: musicexp.py:1997
 #, python-format
 msgid "Unable to convert alteration %s to a lilypond expression"
 msgstr "変化 %s を lilypond 表現に変換できません"
 
-#: musicxml2ly_conversion.py:22
+#: musicxml.py:115
 #, python-format
-msgid "Encountered rational duration with denominator %s, unable to convert to lilypond duration"
-msgstr "分母 %s の分数長さがあり、lilypond の長さに変換できません"
+msgid "more than one child of class %s, all butthe first will be ignored"
+msgstr "クラス %s の子が 2 つ以上ある場合, 最初の子以外は無視されます"
 
-#: musicxml2ly_conversion.py:41
-#, python-format
-msgid "Encountered unprocessed marker %s\n"
-msgstr "処理されていないマーカ %s に遭遇しました\n"
-
-#. TODO: Handle pieces without a time signature!
-#: musicxml.py:511
+#: musicxml.py:536
 msgid "Senza-misura time signatures are not yet supported!"
 msgstr "Senza-misura 拍子記号はまだサポートされていません!"
 
-#: musicxml.py:529
+#: musicxml.py:555
 msgid "Unable to interpret time signature! Falling back to 4/4."
 msgstr "拍子を解釈できません! 4/4 へフォールバックします."
 
-#: musicxml.py:585
+#: musicxml.py:612
 #, python-format
 msgid "Key alteration octave given for a non-existing alteration nr. %s, available numbers: %s!"
 msgstr "存在しない変更 nr に対して指定されたキー変更オクターブ. %s, 利用可能な数字: %s!"
 
-#: musicxml.py:812
+#: musicxml.py:839
 #, python-format
 msgid "Encountered note at %s without type and duration(=%s)"
 msgstr "%s でタイプと長さ (=%s) のない音符がありました"
 
-#: musicxml.py:861
+#: musicxml.py:888
 msgid "cannot find suitable event"
 msgstr "適切なイベントを見つけることができません"
 
-#: musicxml.py:900
+#: musicxml.py:927
 #, python-format
 msgid "Unable to find instrument for ID=%s\n"
 msgstr "ID=%s の楽器を見つけることができません\n"
 
-#. Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
-#. used to detect relative/absolute paths, so the absolute path is not
-#. detected as such and this command fails:
-#: book_texinfo.py:212
+#: musicxml2ly_conversion.py:44
 #, python-format
-msgid "Running texi2pdf on file %s to detect default page settings.\n"
-msgstr "デフォルトのページ設定を検出するために texi2pdf をファイル %s で実行しています.\n"
+msgid "Encountered rational duration with denominator %s, unable to convert to lilypond duration"
+msgstr "分母 %s の分数長さがあり、lilypond の長さに変換できません"
 
-#: book_texinfo.py:234 book_latex.py:216
-msgid "Unable to auto-detect default settings:\n"
-msgstr "既定の設定を自動検出できません:\n"
+#: musicxml2ly_conversion.py:66
+#, python-format
+msgid "Encountered unprocessed marker %s\n"
+msgstr "処理されていないマーカ %s に遭遇しました\n"
 
-#: book_texinfo.py:246 book_latex.py:228
+#: abc2ly.py:1450 convert-ly.py:88 lilypond-book.py:142 midi2ly.py:1122
+#, python-format
+msgid "%s [OPTION]... FILE"
+msgstr "%s [オプション]... FILE"
+
+#: abc2ly.py:1451
 #, python-format
 msgid ""
-"Unable to auto-detect default settings:\n"
-"%s"
+"abc2ly converts ABC music files (see\n"
+"%s) to LilyPond input.\n"
 msgstr ""
-"既定の設定を自動検出できません:\n"
-"%s"
+"abc2ly は ABC 音楽ファイル (%s 参照)\n"
+"から LilyPond 入力へ変換します.\n"
 
-#: book_latex.py:171
-#, python-brace-format
-msgid "cannot find \\begin{document} in LaTeX document"
-msgstr "LaTeX 文書の中に \\begin{document} がありません"
+#: abc2ly.py:1459 convert-ly.py:95 etf2ly.py:1233 lilypond-book.py:250
+#: midi2ly.py:1174 musicxml2ly.py:2910 main.cc:210
+msgid "show version number and exit"
+msgstr "バージョン情報を表示して終了します"
 
-#: book_latex.py:187
+#: abc2ly.py:1462 convert-ly.py:99 etf2ly.py:1229 lilypond-book.py:162
+#: midi2ly.py:1141 musicxml2ly.py:2891 main.cc:165
+msgid "show this help and exit"
+msgstr "このヘルプを表示して終了します"
+
+#: abc2ly.py:1465 etf2ly.py:1234 midi2ly.py:1150
+msgid "write output to FILE"
+msgstr "FILE へ出力"
+
+#: abc2ly.py:1468
+msgid "be strict about success"
+msgstr "成功について厳格にします"
+
+#: abc2ly.py:1471
+msgid "preserve ABC's notion of beams"
+msgstr "ABC の連桁の概念を保ちます"
+
+#: abc2ly.py:1474
+msgid "suppress progress messages"
+msgstr "進行メッセージを抑制"
+
+#: abc2ly.py:1477 convert-ly.py:161 etf2ly.py:1243 lilypond-book.py:277
+#: midi2ly.py:1186 musicxml2ly.py:3054
 #, python-format
-msgid "Running `%s' on file `%s' to detect default page settings.\n"
-msgstr "デフォルトのページ設定を検出するために `%s' をファイル `%s' で実行しています.\n"
+msgid "Report bugs via %s"
+msgstr "バグレポートは英語で %s まで"
 
-#: book_latex.py:251
-msgid "cannot detect textwidth from LaTeX"
-msgstr "LaTeX から textwidth を検出できません"
+#: convert-ly.py:47
+msgid ""
+"Update LilyPond input to newer version.  By default, update from the\n"
+"version taken from the \\version command, to the current LilyPond version."
+msgstr ""
+"LilyPond 入力を新しいバージョンに更新します. デフォルトでは、 \\versio\n"
+"コマンドから取得したバージョンから現在の LilyPond バージョンに更新します."
 
-#: musicxml2ly.py:263
+#: convert-ly.py:50
+msgid "If FILE is `-', read from standard input."
+msgstr "FILE が `-' ならば、標準入力から読み取ります."
+
+#: convert-ly.py:52 lilypond-book.py:92
+msgid "Examples:"
+msgstr "例:"
+
+#: convert-ly.py:81 etf2ly.py:1215 lilypond-book.py:135 midi2ly.py:87
+#, python-format
+msgid "Copyright (c) %s by"
+msgstr "Copyright (c) %s by"
+
+#: convert-ly.py:83 etf2ly.py:1217 lilypond-book.py:137 midi2ly.py:89
+msgid "Distributed under terms of the GNU General Public License."
+msgstr "GNU General Public ライセンスの条件下で配布されます."
+
+#: convert-ly.py:84 etf2ly.py:1218 lilypond-book.py:138 midi2ly.py:90
+msgid "It comes with NO WARRANTY."
+msgstr "無保証です."
+
+#: convert-ly.py:103 convert-ly.py:145
+msgid "VERSION"
+msgstr "VERSION"
+
+#: convert-ly.py:106
+msgid "start from VERSION [default: \\version found in file]"
+msgstr "VERSION から開始 [デフォルト: ファイルに \\version がある]"
+
+#: convert-ly.py:109
+msgid "edit in place"
+msgstr "その場で編集"
+
+#: convert-ly.py:113 lilypond-book.py:197 musicxml2ly.py:2948
+msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"
+msgstr "LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (デフォルト), DEBUG) に従ってログメッセージを出力します"
+
+#: convert-ly.py:115 lilypond-book.py:186 lilypond-book.py:199
+#: musicxml2ly.py:2950 main.cc:188
+msgid "LOGLEVEL"
+msgstr "LOGLEVEL"
+
+#: convert-ly.py:121
+msgid "do not add \\version command if missing"
+msgstr "欠落している場合、\\version コマンドを追加しないでください"
+
+#: convert-ly.py:127
+#, python-format
+msgid "force updating \\version number to %s"
+msgstr "\\version を強制的に %s へ更新"
+
+#: convert-ly.py:133
+msgid "only update \\version number if file is modified"
+msgstr "ファイルが更新された場合にのみ \\version 番号を更新します"
+
+#: convert-ly.py:139
+#, python-format
+msgid "show rules [default: -f 0, -t %s]"
+msgstr "ルールの表示 [デフォルト: -f 0, -t %s]"
+
+#: convert-ly.py:144
+#, python-format
+msgid "convert to VERSION [default: %s]"
+msgstr "VERSION へ変換 [デフォルト: %s]"
+
+#: convert-ly.py:151
+msgid "make a numbered backup [default: filename.ext~]"
+msgstr "番号付きバックアップを作成 [デフォルト: filename.ext~]"
+
+#: convert-ly.py:156 etf2ly.py:1237 lilypond-book.py:253 midi2ly.py:1175
+#: main.cc:218
+msgid "show warranty and copyright"
+msgstr "保証と著作権について表示します"
+
+#: convert-ly.py:203
+msgid "Applying conversion: "
+msgstr "変換の適用: "
+
+#: convert-ly.py:222
+msgid "Error while converting"
+msgstr "変換中エラー"
+
+#: convert-ly.py:224
+msgid "Stopping at last successful rule"
+msgstr "最後に成功したルールで停止"
+
+#: convert-ly.py:269
+#, python-format
+msgid "Processing `%s'... "
+msgstr "`%s' を処理しています..."
+
+#: convert-ly.py:281
+msgid "Attempting conversion from `latin1'..."
+msgstr "`latin1' からの変換を試みています..."
+
+#: convert-ly.py:388
+#, python-format
+msgid "%s: Unable to open file"
+msgstr "'%s: ファイルをオープンできません"
+
+#: convert-ly.py:394
+#, python-format
+msgid "%s: Unable to determine version.  Skipping"
+msgstr "%s: バージョンを確認できません. スキップします"
+
+#: convert-ly.py:397
+#, python-format
+msgid ""
+"%s: Invalid version string `%s' \n"
+"Valid version strings consist of three numbers, separated by dots, e.g. `2.8.12'"
+msgstr ""
+"%s: 無効なバージョン文字列 `%s' \n"
+"有効なバージョン文字列は 3 つの数字をピリオドで区切ったものです. 例 `2.8.12'"
+
+#: convert-ly.py:403
+#, python-format
+msgid "There was %d error."
+msgid_plural "There were %d errors."
+msgstr[0] "%d 個のエラーがありました."
+
+#: etf2ly.py:1222
+#, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr "%s [オプション]... ETF-FILE"
+
+#: etf2ly.py:1223
+msgid ""
+"Enigma Transport Format is a format used by Coda Music Technology's\n"
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file.\n"
+msgstr ""
+"Enigma Transport Format は Coda Music Technology の Finale 製品で使用される\n"
+"フォーマットです. etf2ly は ETF のサブセットからすぐに使用できる\n"
+"LilyPond ファイルに変換します.\n"
+
+#: etf2ly.py:1235 midi2ly.py:1146 midi2ly.py:1151 musicxml2ly.py:3004
+#: main.cc:177 main.cc:194
+msgid "FILE"
+msgstr "FILE"
+
+#: lilypond-book.py:90
+msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgstr "ハイブリッド HTML, LaTeX, texinfo または DocBook ドキュメントの LilyPond スニペットを処理します."
+
+#: lilypond-book.py:97
+msgid "BOOK"
+msgstr "BOOK"
+
+#: lilypond-book.py:107
+#, python-format
+msgid "Exiting (%d)..."
+msgstr "終了します (%d)..."
+
+#: lilypond-book.py:147
+msgid "FILTER"
+msgstr "FILTER"
+
+#: lilypond-book.py:151
+msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
+msgstr "FILTER を介した pipe スニペット [デフォルト: `convert-ly -n -']"
+
+#: lilypond-book.py:156
+msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+msgstr "出力フォーマット FORMAT を使う (texi [デフォルト], texi-html, latex, html, docbook)"
+
+#: lilypond-book.py:157
+msgid "FORMAT"
+msgstr "FORMAT"
+
+#: lilypond-book.py:164
+msgid "add DIR to include path"
+msgstr "DIR を検索パスに追加"
+
+#: lilypond-book.py:165 lilypond-book.py:172 lilypond-book.py:192
+#: lilypond-book.py:205 lilypond-book.py:226 lilypond-book.py:232 main.cc:173
+msgid "DIR"
+msgstr "DIR"
+
+#: lilypond-book.py:170
+msgid "format Texinfo output so that Info will look for images of music in DIR"
+msgstr "Info が DIR で音楽の画像を探すように Texinfo 出力をフォーマットします"
+
+#: lilypond-book.py:177
+msgid "PAD"
+msgstr "PAD"
+
+#: lilypond-book.py:180
+msgid "pad left side of music to align music in spite of uneven bar numbers (in mm)"
+msgstr "音楽の左側をパッドして、小節数が不均一であっても揃える（単位 mm）"
+
+#: lilypond-book.py:185
+msgid "Print lilypond log messages according to LOGLEVEL"
+msgstr "LOGLEVEL に従って lilypond ログメッセージを出力する"
+
+#: lilypond-book.py:191
+msgid "write lily-XXX files to DIR, link into --output dir"
+msgstr "lily-XXX ファイルを DIR に書き込み、--output dir にリンクする"
+
+#: lilypond-book.py:204
+msgid "write output to DIR"
+msgstr "DIR に出力を書き込む"
+
+#: lilypond-book.py:209
+msgid "COMMAND"
+msgstr "COMMAND"
+
+#: lilypond-book.py:210
+msgid "process ly_files using COMMAND FILE..."
+msgstr "COMMAND FILE を使って ly_files を処理"
+
+#: lilypond-book.py:215
+msgid "Redirect the lilypond output"
+msgstr "lilypond 出力をリダイレクト"
+
+#: lilypond-book.py:219
+msgid "Compile snippets in safe mode"
+msgstr "スニペットをセーフモードでコンパイルする"
+
+#: lilypond-book.py:225
+msgid "do not fail if no lilypond output is found"
+msgstr "lilypond 出力が見つからなくても失敗させない"
+
+#: lilypond-book.py:231
+msgid "do not fail if no PNG images are found for EPS files"
+msgstr "EPS ファイルのための PNG 画像がみつからなくても失敗させない"
+
+#: lilypond-book.py:238
+msgid "write snippet output files with the same base name as their source file"
+msgstr "ソースファイルと同じベース名を持つスニペットファイルを出力する"
+
+#: lilypond-book.py:242 midi2ly.py:1169 musicxml2ly.py:2916
+msgid "be verbose"
+msgstr "詳細な情報を表示します"
+
+#: lilypond-book.py:258
+msgid ""
+"run executable PROG instead of latex, or in\n"
+"case --pdf option is set instead of pdflatex"
+msgstr ""
+"latex の代わりに、あるいは --pdf オプションが指定されたときは\n"
+"pdflatex の代わりに PROG を実行する"
+
+#: lilypond-book.py:260 lilypond-book.py:265
+msgid "PROG"
+msgstr "PROG"
+
+#: lilypond-book.py:264
+msgid "run executable PROG instead of texi2pdf"
+msgstr "texi2pdf の代わりに PROG を実行する"
+
+#: lilypond-book.py:271
+msgid "create PDF files for use with PDFTeX"
+msgstr "PDFTeX を使って PDF ファイルを作成する"
+
+#: lilypond-book.py:316
+#, python-format
+msgid "Processing %s.ly"
+msgstr "%s.ly を処理中です"
+
+#: lilypond-book.py:319
+#, python-format
+msgid "Invoking `%s'"
+msgstr "`%s' 起動中"
+
+#: lilypond-book.py:322
+#, python-format
+msgid "Running %s..."
+msgstr "%s 実行中..."
+
+#. Next call write_ly() for each snippet once.
+#: lilypond-book.py:433
+msgid "Writing snippets..."
+msgstr "スニペットを書き込み中です..."
+
+#: lilypond-book.py:437
+msgid "Processing..."
+msgstr "処理中..."
+
+#: lilypond-book.py:442
+msgid "All snippets are up to date..."
+msgstr "すべてのスニペットは更新済みです..."
+
+#: lilypond-book.py:444
+msgid "Linking files..."
+msgstr "ファイルをリンクしています..."
+
+#: lilypond-book.py:463
+#, python-format
+msgid "cannot determine format for: %s"
+msgstr "フォーマットを判別できません: %s"
+
+#: lilypond-book.py:475
+#, python-format
+msgid "%s is up to date."
+msgstr "%s は更新済みです."
+
+#: lilypond-book.py:485
+#, python-format
+msgid "Writing `%s'..."
+msgstr "`%s' 書き込み中..."
+
+#: lilypond-book.py:548
+msgid "Output would overwrite input file; use --output."
+msgstr "出力は入力ファイルを上書きします; --output を使ってください."
+
+#: lilypond-book.py:552
+#, python-format
+msgid "Reading `%s'"
+msgstr "`%s' 読み出し中..."
+
+#: lilypond-book.py:558
+msgid "Dissecting..."
+msgstr "分割しています..."
+
+#: lilypond-book.py:569
+#, python-format
+msgid "Processing include `%s'"
+msgstr "処理中 include: `%s'"
+
+#: lilypond-book.py:580
+#, python-format
+msgid "Removing `%s'"
+msgstr "'%s' を削除しています"
+
+#: lilypond-book.py:724
+#, python-format
+msgid "Setting LilyPond's loglevel to %s"
+msgstr "LilyPond のログレベルを %s へ設定"
+
+#: lilypond-book.py:729
+#, python-format
+msgid "Setting LilyPond's loglevel to %s (from environment variable LILYPOND_LOGLEVEL)"
+msgstr "LilyPond のログレベルを %s へ設定（環境変数 LILYPOND_LOGLEVEL より）"
+
+#: lilypond-book.py:735
+msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
+msgstr "LilyPond の出力を lilypond-book により --verbose に設定する"
+
+#: lilypond-book.py:759
+#, python-format
+msgid "Compiling `%s'..."
+msgstr "`%s' をコンパイル中..."
+
+#: midi2ly.py:98
+msgid "warning: "
+msgstr "警告: "
+
+#: midi2ly.py:102 midi2ly.py:1201
+msgid "error: "
+msgstr "エラー: "
+
+#: midi2ly.py:103
+msgid "Exiting... "
+msgstr "終了します..."
+
+#: midi2ly.py:902
+msgid "found more than 5 voices on a staff, expect bad output"
+msgstr "譜に 5 つ以上の voice を見つけました. 悪い出力が予想されます"
+
+#: midi2ly.py:1110
+#, python-format
+msgid "%s output to `%s'..."
+msgstr "%s から `%s' へ出力中..."
+
+#: midi2ly.py:1124
+#, python-format
+msgid "Convert %s to LilyPond input.\n"
+msgstr "%s を LilyPond 入力へ変換.\n"
+
+#: midi2ly.py:1129
+msgid "print absolute pitches"
+msgstr "絶対音程を出力"
+
+#: midi2ly.py:1131 midi2ly.py:1159
+msgid "DUR"
+msgstr "DUR"
+
+#: midi2ly.py:1132
+msgid "quantise note durations on DUR"
+msgstr "DUR で音長をクォンタイズする"
+
+#: midi2ly.py:1135
+msgid "debug printing"
+msgstr "デバッグ出力"
+
+#: midi2ly.py:1138
+msgid "print explicit durations"
+msgstr "明示的なデュレーションを出力"
+
+#: midi2ly.py:1143
+msgid "prepend FILE to output"
+msgstr "FILE を出力の前に追加"
+
+#: midi2ly.py:1147
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "set key: ALT=+sharps|-flats; MINOR=1"
+
+#: midi2ly.py:1148
+msgid "ALT[:MINOR]"
+msgstr "ALT[:MINOR]"
+
+#: midi2ly.py:1153
+msgid "preview of first 4 bars"
+msgstr "最初の 4 小節をプレビュー"
+
+#: midi2ly.py:1157
+msgid "suppress progress messages and warnings about excess voices"
+msgstr "進捗メッセージと過剰 voice 警告を抑制"
+
+#: midi2ly.py:1158
+msgid "quantise note starts on DUR"
+msgstr "DUR で音符の開始をクォンタイズする"
+
+#: midi2ly.py:1162
+msgid "use s instead of r for rests"
+msgstr "休符に r の代わりに s を使う"
+
+#: midi2ly.py:1164
+msgid "DUR*NUM/DEN"
+msgstr "DUR*NUM/DEN"
+
+#: midi2ly.py:1167
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "連符の長さ DUR*NUM/DEN を許可する"
+
+#: midi2ly.py:1177
+msgid "treat every text as a lyric"
+msgstr "すべてのテキストを歌詞として扱う"
+
+#: midi2ly.py:1180
+msgid "Examples"
+msgstr "例"
+
+#: midi2ly.py:1202
+msgid "no files specified on command line."
+msgstr "コマンドラインでファイルが指定されていません"
+
+#: musicxml2ly.py:292
 #, python-format
 msgid "Encountered file created by %s, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"
 msgstr "%s によって作成された間違った連桁情報を含むファイルが見つかりました. MusicXML ファイルのすべての連桁情報は無視されます"
 
-#: musicxml2ly.py:305 musicxml2ly.py:307
+#: musicxml2ly.py:338 musicxml2ly.py:341
 #, python-format
 msgid "Unprocessed PartGroupInfo %s encountered"
 msgstr "未処理の PartGroupInfo %s に遭遇しました"
 
-#: musicxml2ly.py:797
+#: musicxml2ly.py:845
 msgid "Unable to extract key signature!"
 msgstr "調を抽出できませんでした!"
 
-#: musicxml2ly.py:824
+#: musicxml2ly.py:872
 #, python-format
 msgid "unknown mode %s, expecting 'major' or 'minor' or a church mode!"
 msgstr "未知のモード %s, 'major' または 'minor' または教会旋法が必要です!"
 
-#: musicxml2ly.py:993
+#: musicxml2ly.py:1043
 #, python-format
 msgid "unknown span event %s"
 msgstr "未知の span イベント %s"
 
-#: musicxml2ly.py:1005
+#: musicxml2ly.py:1055
 #, python-format
 msgid "unknown span type %s for %s"
 msgstr "未知の span タイプ %s for %s"
 
-#: musicxml2ly.py:1505
+#: musicxml2ly.py:1605
 msgid "Unknown metronome mark, ignoring"
 msgstr "未知のメトロノームマーク, 無視します"
 
-#. TODO: Implement the other (more complex) way for tempo marks!
-#: musicxml2ly.py:1510
+#: musicxml2ly.py:1611
 msgid "Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."
 msgstr "複雑なメトロノームマーク（MusicXML の <metroneome-note>）はまだ実装されていません."
 
-#: musicxml2ly.py:1676
+#: musicxml2ly.py:1784
 #, python-format
 msgid "Unable to convert chord type %s to lilypond."
 msgstr "コードタイプ %s を lilypond へ変換できません."
 
-#: musicxml2ly.py:2021
+#: musicxml2ly.py:2140
 #, python-format
 msgid "Negative skip %s (from position %s to %s)"
 msgstr "負のスキップ %s （位置 %s から %s）"
 
-#: musicxml2ly.py:2258
+#: musicxml2ly.py:2389
 #, python-format
 msgid "Negative skip found: from %s to %s, difference is %s"
 msgstr "負のスキップが見つかりました: %s から %s, 差 %s"
 
-#: musicxml2ly.py:2359
+#: musicxml2ly.py:2493
 #, python-format
 msgid "unexpected %s; expected %s or %s or %s"
 msgstr "予期しない %s; %s または %s または %s が予期されます"
 
-#: musicxml2ly.py:2485
+#: musicxml2ly.py:2622
 msgid "Encountered closing slur, but no slur is open"
 msgstr "スラー終了に遭遇しましたが, スラーが開始されていません"
 
-#: musicxml2ly.py:2488
+#: musicxml2ly.py:2626
 msgid "Cannot have two simultaneous (closing) slurs"
 msgstr "スラーを二つ同時（接近して）に指定することはできません"
 
-#: musicxml2ly.py:2497
+#: musicxml2ly.py:2636
 msgid "Cannot have a slur inside another slur"
 msgstr "スラーの中に別のスラーを含むことはできません"
 
-#: musicxml2ly.py:2500
+#: musicxml2ly.py:2640
 msgid "Cannot have two simultaneous slurs"
 msgstr "スラーを二つ同時に指定することはできません"
 
-#: musicxml2ly.py:2732
+#: musicxml2ly.py:2872
 msgid "Converting to LilyPond expressions..."
 msgstr "LilyPond 表現へ変換中..."
 
-#: musicxml2ly.py:2744
+#: musicxml2ly.py:2884
 msgid "musicxml2ly [OPTION]... FILE.xml"
 msgstr "musicxml2ly [オプション]... FILE.xml"
 
-#: musicxml2ly.py:2746
+#: musicxml2ly.py:2885
 msgid ""
 "Convert MusicXML from FILE.xml to LilyPond input.\n"
 "If the given filename is -, musicxml2ly reads from the command line.\n"
@@ -1063,12 +1523,7 @@ msgstr ""
 "MuxicXML ファイル FILE.xml から LilyPond の入力へ変換します.\n"
 "与えられたファイル名が - の場合, musicxml2ly はコマンドラインから読み込みます.\n"
 
-#: musicxml2ly.py:2752 midi2ly.py:1081 abc2ly.py:1406 lilypond-book.py:149
-#: convert-ly.py:96 etf2ly.py:1206 main.cc:157
-msgid "show this help and exit"
-msgstr "このヘルプを表示して終了します"
-
-#: musicxml2ly.py:2756
+#: musicxml2ly.py:2895
 #, python-format
 msgid ""
 "Copyright (c) 2005--2020 by\n"
@@ -1092,609 +1547,163 @@ msgstr ""
 "されており, 定められたの条件下で改変したり再配布したりできます. 詳細は\n"
 "`%s --warranty' として起動してください."
 
-#: musicxml2ly.py:2771 midi2ly.py:1114 abc2ly.py:1403 lilypond-book.py:235
-#: convert-ly.py:92 etf2ly.py:1210 main.cc:202
-msgid "show version number and exit"
-msgstr "バージョン情報を表示して終了します"
-
-#: musicxml2ly.py:2777 midi2ly.py:1109 lilypond-book.py:227
-msgid "be verbose"
-msgstr "詳細な情報を表示します"
-
-#: musicxml2ly.py:2783
+#: musicxml2ly.py:2922
 msgid "use lxml.etree; uses less memory and cpu time"
 msgstr "lxml.etree を使用; より少ないメモリと CPU 時間を使用"
 
-#: musicxml2ly.py:2789
-msgid "input file is a zip-compressed MusicXML file"
-msgstr "入力ファイルは zip 圧縮された MusicXML ファイル"
+#: musicxml2ly.py:2928
+msgid "input file is a compressed MusicXML file (by default, activate if file extension is .mxl)"
+msgstr "入力ファイルは圧縮された MusicXML ファイル（デフォルトでは拡張子が .mxl の場合）"
 
-#: musicxml2ly.py:2795
+#: musicxml2ly.py:2935
 msgid "convert pitches in relative mode (default)"
 msgstr "ピッチを相対モードへ変換（デフォルト）"
 
-#: musicxml2ly.py:2800
+#: musicxml2ly.py:2940
 msgid "convert pitches in absolute mode"
 msgstr "ピッチを絶対モードへ変換"
 
-#: musicxml2ly.py:2803
+#: musicxml2ly.py:2943
 msgid "LANG"
 msgstr "LANG"
 
-#: musicxml2ly.py:2805
+#: musicxml2ly.py:2945
 msgid "use LANG for pitch names, e.g. 'deutsch' for note names in German"
 msgstr "ピッチ名に LANG を使用, 例 'deutsch' はドイツ語音符名"
 
-#: musicxml2ly.py:2808 lilypond-book.py:183 convert-ly.py:109
-msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"
-msgstr "LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (デフォルト), DEBUG) に従ってログメッセージを出力します"
-
-#: musicxml2ly.py:2810 lilypond-book.py:172 lilypond-book.py:185
-#: convert-ly.py:111 main.cc:180
-msgid "LOGLEVEL"
-msgstr "LOGLEVEL"
-
-#: musicxml2ly.py:2819
+#: musicxml2ly.py:2959
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
 msgstr "アーティキュレーションや強弱記号等の方向 (^, _, -) を変換しません"
 
-#: musicxml2ly.py:2825
+#: musicxml2ly.py:2965
 msgid "do not convert exact vertical positions of rests"
 msgstr "休符の垂直位置を変換しません"
 
-#: musicxml2ly.py:2831
+#: musicxml2ly.py:2971
 msgid "ignore system breaks"
 msgstr "システムの改行を無視"
 
-#: musicxml2ly.py:2837
+#: musicxml2ly.py:2977
 msgid "ignore page breaks"
 msgstr "改ページを無視"
 
-#: musicxml2ly.py:2843
+#: musicxml2ly.py:2983
 msgid "ignore page margins"
 msgstr "ページマージンを無視"
 
-#: musicxml2ly.py:2849
+#: musicxml2ly.py:2989
 msgid "do not convert the exact page layout and breaks (shortcut for \"--nsb --npb --npm\" options)"
 msgstr "ページレイアウトや改行、改ページを変換しません（\"--nsb --npb --npm\" オプション指定と同じ）"
 
-#: musicxml2ly.py:2855
+#: musicxml2ly.py:2995
 msgid "ignore stem directions from MusicXML, use lilypond's automatic stemming instead"
 msgstr "MusicXML の符幹方向を無視し, 代わりに lilypond の自動符幹を使用"
 
-#: musicxml2ly.py:2861
+#: musicxml2ly.py:3001
 msgid "do not convert beaming information, use lilypond's automatic beaming instead"
 msgstr "連桁情報を変換せず, 代わりに lilypond の自動連桁を使用"
 
-#: musicxml2ly.py:2864 midi2ly.py:1086 midi2ly.py:1091 etf2ly.py:1212
-#: main.cc:169 main.cc:186
-msgid "FILE"
-msgstr "FILE"
-
-#: musicxml2ly.py:2869
+#: musicxml2ly.py:3009
 msgid "set output filename to FILE, stdout if -"
 msgstr "出力ファイル名を FILE に設定, - の場合は標準出力"
 
-#: musicxml2ly.py:2875
+#: musicxml2ly.py:3015
 msgid "activate midi-block in .ly file"
 msgstr ".ly ファイルで midi-block を有効化"
 
-#: musicxml2ly.py:2879
+#: musicxml2ly.py:3019
 msgid "TOPITCH"
 msgstr "TOPITCH"
 
-#: musicxml2ly.py:2882
+#: musicxml2ly.py:3022
 msgid "set pitch to transpose by the interval between pitch 'c' and TOPITCH"
 msgstr "ピッチ 'c' と TOPITCH 間の度数でトランスポーズする"
 
-#: musicxml2ly.py:2886
+#: musicxml2ly.py:3026
 msgid "BEATS/BEATTYPE"
 msgstr "BEATS/BEATTYPE"
 
-#: musicxml2ly.py:2889
+#: musicxml2ly.py:3029
 msgid "change the length|duration of notes as a function of a given time signature to make the score look faster or slower, (eg. '4/4' or '2/2')"
 msgstr "音符の長さを与えられた拍子として変更し、スコアを速くまたは遅く見えるようにします（例 '4/4' または '2/2'）"
 
-#: musicxml2ly.py:2893
+#: musicxml2ly.py:3033
 msgid "TABCLEFNAME"
 msgstr "TABCLEFNAME"
 
-#: musicxml2ly.py:2896
+#: musicxml2ly.py:3036
 msgid "switch between two versions of tab clefs (\"tab\" and \"moderntab\")"
 msgstr "タブ音部記号の 2 つのバージョン (\"tab\" と \"moderntab\") を切り替える"
 
-#: musicxml2ly.py:2900
+#: musicxml2ly.py:3040
 msgid "t[rue]/f[alse]"
 msgstr "t[rue]/f[alse]"
 
-#: musicxml2ly.py:2903
+#: musicxml2ly.py:3043
 msgid "deactivate string number stencil with --string-numbers f[alse]. Default is t[rue]"
 msgstr "--string-numbers f[alse] で文字列番号ステンシルを無効にします. デフォルトは t[rue]"
 
-#: musicxml2ly.py:2910
+#: musicxml2ly.py:3050
 msgid "converts '<frame>' events to a separate FretBoards voice instead of markups"
 msgstr "'<frame>' イベントをマークアップではなく分離した FretBoards ボイスに変換します"
 
-#: musicxml2ly.py:2914 midi2ly.py:1126 abc2ly.py:1421 lilypond-book.py:262
-#: convert-ly.py:157 etf2ly.py:1220
-#, python-format
-msgid "Report bugs via %s"
-msgstr "バグレポートは英語で %s まで"
-
-#: musicxml2ly.py:2983
+#: musicxml2ly.py:3129
 #, python-format
 msgid "unknown part in part-list: %s"
 msgstr "パートリストの不明なパート: %s"
 
-#: musicxml2ly.py:3073
+#: musicxml2ly.py:3228
 msgid "Input is compressed, extracting raw MusicXML data from stdin"
 msgstr "入力は圧縮されています, 標準入力から MusicXML データを抽出しています"
 
-#: musicxml2ly.py:3085
+#: musicxml2ly.py:3242
 #, python-format
 msgid "Input file %s is compressed, extracting raw MusicXML data"
 msgstr "入力ファイル %s は圧縮されています, 標準入力から MusicXML データを抽出しています"
 
-#: musicxml2ly.py:3115
+#: musicxml2ly.py:3272
 msgid "Reading MusicXML from Standard input ..."
 msgstr "標準入力から MusicXML を読み込み中..."
 
-#: musicxml2ly.py:3117
+#: musicxml2ly.py:3274
 #, python-format
 msgid "Reading MusicXML from %s ..."
 msgstr "%s から MusicXML を読み込み中..."
 
-#: musicxml2ly.py:3149
+#: musicxml2ly.py:3305
 #, python-format
 msgid "Output to `%s'"
 msgstr "%s へ出力"
 
-#: musicxml2ly.py:3175
+#: musicxml2ly.py:3333
 #, python-format
 msgid "Converting to current version (%s) notations ..."
 msgstr "現行バージョン (%s) の表記法に変換しています..."
 
-#: musicxml2ly.py:3260
+#: musicxml2ly.py:3422
 #, python-format
 msgid "Unable to find input file %s"
 msgstr "入力ファイル %s が見つかりません"
 
-#: midi2ly.py:82 lilypond-book.py:124 convert-ly.py:79 etf2ly.py:1193
-#, python-format
-msgid "Copyright (c) %s by"
-msgstr "Copyright (c) %s by"
-
-#: midi2ly.py:84 lilypond-book.py:126 convert-ly.py:81 etf2ly.py:1195
-msgid "Distributed under terms of the GNU General Public License."
-msgstr "GNU General Public ライセンスの条件下で配布されます."
-
-#: midi2ly.py:85 lilypond-book.py:127 convert-ly.py:82 etf2ly.py:1196
-msgid "It comes with NO WARRANTY."
-msgstr "無保証です."
-
-#: midi2ly.py:91
-msgid "warning: "
-msgstr "警告: "
-
-#: midi2ly.py:94 midi2ly.py:1142
-msgid "error: "
-msgstr "エラー: "
-
-#: midi2ly.py:95
-msgid "Exiting... "
-msgstr "終了します..."
-
-#: midi2ly.py:851
-msgid "found more than 5 voices on a staff, expect bad output"
-msgstr "譜に 5 つ以上の voice を見つけました. 悪い出力が予想されます"
-
-#: midi2ly.py:1051
-#, python-format
-msgid "%s output to `%s'..."
-msgstr "%s から `%s' へ出力中..."
-
-#: midi2ly.py:1063 abc2ly.py:1394 lilypond-book.py:131 convert-ly.py:85
-#, python-format
-msgid "%s [OPTION]... FILE"
-msgstr "%s [オプション]... FILE"
-
-#: midi2ly.py:1064
-#, python-format
-msgid "Convert %s to LilyPond input.\n"
-msgstr "%s を LilyPond 入力へ変換.\n"
-
-#: midi2ly.py:1069
-msgid "print absolute pitches"
-msgstr "絶対音程を出力"
-
-#: midi2ly.py:1071 midi2ly.py:1099
-msgid "DUR"
-msgstr "DUR"
-
-#: midi2ly.py:1072
-msgid "quantise note durations on DUR"
-msgstr "DUR で音長をクォンタイズする"
-
-#: midi2ly.py:1075
-msgid "debug printing"
-msgstr "デバッグ出力"
-
-#: midi2ly.py:1078
-msgid "print explicit durations"
-msgstr "明示的なデュレーションを出力"
-
-#: midi2ly.py:1083
-msgid "prepend FILE to output"
-msgstr "FILE を出力の前に追加"
-
-#: midi2ly.py:1087
-msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr "set key: ALT=+sharps|-flats; MINOR=1"
-
-#: midi2ly.py:1088
-msgid "ALT[:MINOR]"
-msgstr "ALT[:MINOR]"
-
-#: midi2ly.py:1090 abc2ly.py:1409 etf2ly.py:1211
-msgid "write output to FILE"
-msgstr "FILE へ出力"
-
-#: midi2ly.py:1093
-msgid "preview of first 4 bars"
-msgstr "最初の 4 小節をプレビュー"
-
-#: midi2ly.py:1097
-msgid "suppress progress messages and warnings about excess voices"
-msgstr "進捗メッセージと過剰 voice 警告を抑制"
-
-#: midi2ly.py:1098
-msgid "quantise note starts on DUR"
-msgstr "DUR で音符の開始をクォンタイズする"
-
-#: midi2ly.py:1102
-msgid "use s instead of r for rests"
-msgstr "休符に r の代わりに s を使う"
-
-#: midi2ly.py:1104
-msgid "DUR*NUM/DEN"
-msgstr "DUR*NUM/DEN"
-
-#: midi2ly.py:1107
-msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr "連符の長さ DUR*NUM/DEN を許可する"
-
-#: midi2ly.py:1115 lilypond-book.py:238 convert-ly.py:152 etf2ly.py:1214
-#: main.cc:210
-msgid "show warranty and copyright"
-msgstr "保証と著作権について表示します"
-
-#: midi2ly.py:1117
-msgid "treat every text as a lyric"
-msgstr "すべてのテキストを歌詞として扱う"
-
-#: midi2ly.py:1120
-msgid "Examples"
-msgstr "例"
-
-#: midi2ly.py:1143
-msgid "no files specified on command line."
-msgstr "コマンドラインでファイルが指定されていません"
-
-#: abc2ly.py:1395
-#, python-format
-msgid ""
-"abc2ly converts ABC music files (see\n"
-"%s) to LilyPond input.\n"
-msgstr ""
-"abc2ly は ABC 音楽ファイル (%s 参照)\n"
-"から LilyPond 入力へ変換します.\n"
-
-#: abc2ly.py:1412
-msgid "be strict about success"
-msgstr "成功について厳格にします"
-
-#: abc2ly.py:1415
-msgid "preserve ABC's notion of beams"
-msgstr "ABC の連桁の概念を保ちます"
-
-#: abc2ly.py:1418
-msgid "suppress progress messages"
-msgstr "進行メッセージを抑制"
-
-#: lilypond-book.py:84
-msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
-msgstr "ハイブリッド HTML, LaTeX, texinfo または DocBook ドキュメントの LilyPond スニペットを処理します."
-
-#: lilypond-book.py:86 convert-ly.py:52
-msgid "Examples:"
-msgstr "例:"
-
-#: lilypond-book.py:91
-msgid "BOOK"
-msgstr "BOOK"
-
-#: lilypond-book.py:99
-#, python-format
-msgid "Exiting (%d)..."
-msgstr "終了します (%d)..."
-
-#: lilypond-book.py:136
-msgid "FILTER"
-msgstr "FILTER"
-
-#: lilypond-book.py:139
-msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
-msgstr "FILTER を介した pipe スニペット [デフォルト: `convert-ly -n -']"
-
-#: lilypond-book.py:143
-msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
-msgstr "出力フォーマット FORMAT を使う (texi [デフォルト], texi-html, latex, html, docbook)"
-
-#: lilypond-book.py:144
-msgid "FORMAT"
-msgstr "FORMAT"
-
-#: lilypond-book.py:151
-msgid "add DIR to include path"
-msgstr "DIR を検索パスに追加"
-
-#: lilypond-book.py:152 lilypond-book.py:159 lilypond-book.py:178
-#: lilypond-book.py:191 lilypond-book.py:212 lilypond-book.py:218 main.cc:165
-msgid "DIR"
-msgstr "DIR"
-
-#: lilypond-book.py:157
-msgid "format Texinfo output so that Info will look for images of music in DIR"
-msgstr "Info が DIR で音楽の画像を探すように Texinfo 出力をフォーマットします"
-
-#: lilypond-book.py:164
-msgid "PAD"
-msgstr "PAD"
-
-#: lilypond-book.py:166
-msgid "pad left side of music to align music in spite of uneven bar numbers (in mm)"
-msgstr "音楽の左側をパッドして、小節数が不均一であっても揃える（単位 mm）"
-
-#: lilypond-book.py:171
-msgid "Print lilypond log messages according to LOGLEVEL"
-msgstr "LOGLEVEL に従って lilypond ログメッセージを出力する"
-
-#: lilypond-book.py:177
-msgid "write lily-XXX files to DIR, link into --output dir"
-msgstr "lily-XXX ファイルを DIR に書き込み、--output dir にリンクする"
-
-#: lilypond-book.py:190
-msgid "write output to DIR"
-msgstr "DIR に出力を書き込む"
-
-#: lilypond-book.py:195
-msgid "COMMAND"
-msgstr "COMMAND"
-
-#: lilypond-book.py:196
-msgid "process ly_files using COMMAND FILE..."
-msgstr "COMMAND FILE を使って ly_files を処理"
-
-#: lilypond-book.py:201
-msgid "Redirect the lilypond output"
-msgstr "lilypond 出力をリダイレクト"
-
-#: lilypond-book.py:205
-msgid "Compile snippets in safe mode"
-msgstr "スニペットをセーフモードでコンパイルする"
-
-#: lilypond-book.py:211
-msgid "do not fail if no lilypond output is found"
-msgstr "lilypond 出力が見つからなくても失敗させない"
-
-#: lilypond-book.py:217
-msgid "do not fail if no PNG images are found for EPS files"
-msgstr "EPS ファイルのための PNG 画像がみつからなくても失敗させない"
-
-#: lilypond-book.py:223
-msgid "write snippet output files with the same base name as their source file"
-msgstr "ソースファイルと同じベース名を持つスニペットファイルを出力する"
-
-#: lilypond-book.py:243
-msgid ""
-"run executable PROG instead of latex, or in\n"
-"case --pdf option is set instead of pdflatex"
-msgstr ""
-"latex の代わりに、あるいは --pdf オプションが指定されたときは\n"
-"pdflatex の代わりに PROG を実行する"
-
-#: lilypond-book.py:245 lilypond-book.py:250
-msgid "PROG"
-msgstr "PROG"
-
-#: lilypond-book.py:249
-msgid "run executable PROG instead of texi2pdf"
-msgstr "texi2pdf の代わりに PROG を実行する"
-
-#: lilypond-book.py:256
-msgid "create PDF files for use with PDFTeX"
-msgstr "PDFTeX を使って PDF ファイルを作成する"
-
-#. Next call write_ly() for each snippet once.
-#: lilypond-book.py:425
-msgid "Writing snippets..."
-msgstr "スニペットを書き込み中です..."
-
-#: lilypond-book.py:431
-msgid "Processing..."
-msgstr "処理中..."
-
-#: lilypond-book.py:436
-msgid "All snippets are up to date..."
-msgstr "すべてのスニペットは更新済みです..."
-
-#: lilypond-book.py:438
-msgid "Linking files..."
-msgstr "ファイルをリンクしています..."
-
-#: lilypond-book.py:458
-#, python-format
-msgid "cannot determine format for: %s"
-msgstr "フォーマットを判別できません: %s"
-
-#: lilypond-book.py:467
-#, python-format
-msgid "%s is up to date."
-msgstr "%s は更新済みです."
-
-#: lilypond-book.py:480
-#, python-format
-msgid "Writing `%s'..."
-msgstr "`%s' 書き込み中..."
-
-#: lilypond-book.py:543
-msgid "Output would overwrite input file; use --output."
-msgstr "出力は入力ファイルを上書きします; --output を使ってください."
-
-#: lilypond-book.py:547
-#, python-format
-msgid "Reading %s..."
-msgstr "%s 読み出し中..."
-
-#: lilypond-book.py:554
-msgid "Dissecting..."
-msgstr "分割しています..."
-
-#: lilypond-book.py:565
-#, python-format
-msgid "Compiling %s..."
-msgstr "%s をコンパイル中..."
-
-#: lilypond-book.py:573
-#, python-format
-msgid "Processing include: %s"
-msgstr "処理中 include: %s"
-
-#: lilypond-book.py:583
-#, python-format
-msgid "Removing `%s'"
-msgstr "'%s' を削除しています"
-
-#: lilypond-book.py:681
-#, python-format
-msgid "Setting LilyPond's loglevel to %s"
-msgstr "LilyPond のログレベルを %s へ設定"
-
-#: lilypond-book.py:685
-#, python-format
-msgid "Setting LilyPond's loglevel to %s (from environment variable LILYPOND_LOGLEVEL)"
-msgstr "LilyPond のログレベルを %s へ設定（環境変数 LILYPOND_LOGLEVEL より）"
-
-#: lilypond-book.py:688
-msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
-msgstr "LilyPond の出力を lilypond-book により --verbose に設定する"
-
-#: convert-ly.py:47
-msgid ""
-"Update LilyPond input to newer version.  By default, update from the\n"
-"version taken from the \\version command, to the current LilyPond version."
-msgstr ""
-"LilyPond 入力を新しいバージョンに更新します. デフォルトでは、 \\versio\n"
-"コマンドから取得したバージョンから現在の LilyPond バージョンに更新します."
-
-#: convert-ly.py:50
-msgid "If FILE is `-', read from standard input."
-msgstr "FILE が `-' ならば、標準入力から読み取ります."
-
-#: convert-ly.py:100 convert-ly.py:141
-msgid "VERSION"
-msgstr "VERSION"
-
-#: convert-ly.py:102
-msgid "start from VERSION [default: \\version found in file]"
-msgstr "VERSION から開始 [デフォルト: ファイルに \\version がある]"
-
-#: convert-ly.py:105
-msgid "edit in place"
-msgstr "その場で編集"
-
-#: convert-ly.py:117
-msgid "do not add \\version command if missing"
-msgstr "欠落している場合、\\version コマンドを追加しないでください"
-
-#: convert-ly.py:123
-#, python-format
-msgid "force updating \\version number to %s"
-msgstr "\\version を強制的に %s へ更新"
-
-#: convert-ly.py:129
-msgid "only update \\version number if file is modified"
-msgstr "ファイルが更新された場合にのみ \\version 番号を更新します"
-
-#: convert-ly.py:135
-#, python-format
-msgid "show rules [default: -f 0, -t %s]"
-msgstr "ルールの表示 [デフォルト: -f 0, -t %s]"
-
-#: convert-ly.py:140
-#, python-format
-msgid "convert to VERSION [default: %s]"
-msgstr "VERSION へ変換 [デフォルト: %s]"
-
-#: convert-ly.py:147
-msgid "make a numbered backup [default: filename.ext~]"
-msgstr "番号付きバックアップを作成 [デフォルト: filename.ext~]"
-
-#: convert-ly.py:195
-msgid "Applying conversion: "
-msgstr "変換の適用: "
-
-#: convert-ly.py:214
-msgid "Error while converting"
-msgstr "変換中エラー"
-
-#: convert-ly.py:216
-msgid "Stopping at last successful rule"
-msgstr "最後に成功したルールで停止"
-
-#: convert-ly.py:255
-#, python-format
-msgid "Processing `%s'... "
-msgstr "`%s' を処理しています..."
-
-#: convert-ly.py:364
-#, python-format
-msgid "%s: Unable to open file"
-msgstr "'%s: ファイルをオープンできません"
-
-#: convert-ly.py:370
-#, python-format
-msgid "%s: Unable to determine version.  Skipping"
-msgstr "%s: バージョンを確認できません. スキップします"
-
-#: convert-ly.py:373
-#, python-format
-msgid ""
-"%s: Invalid version string `%s' \n"
-"Valid version strings consist of three numbers, separated by dots, e.g. `2.8.12'"
-msgstr ""
-"%s: 無効なバージョン文字列 `%s' \n"
-"有効なバージョン文字列は 3 つの数字をピリオドで区切ったものです. 例 `2.8.12'"
-
-#: convert-ly.py:379
-#, python-format
-msgid "There was %d error."
-msgid_plural "There were %d errors."
-msgstr[0] "%d 個のエラーがありました."
-
-#: etf2ly.py:1199
-#, python-format
-msgid "%s [OPTION]... ETF-FILE"
-msgstr "%s [オプション]... ETF-FILE"
-
-#: etf2ly.py:1200
-msgid ""
-"Enigma Transport Format is a format used by Coda Music Technology's\n"
-"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file.\n"
-msgstr ""
-"Enigma Transport Format は Coda Music Technology の Finale 製品で使用される\n"
-"フォーマットです. etf2ly は ETF のサブセットからすぐに使用できる\n"
-"LilyPond ファイルに変換します.\n"
+#: getopt-long.cc:158
+#, c-format
+msgid "option `%s' requires an argument"
+msgstr "オプション `%s' には引数が必要です"
+
+#: getopt-long.cc:162
+#, c-format
+msgid "option `%s' does not allow an argument"
+msgstr "オプション `%s' には引数が不要です"
+
+#: getopt-long.cc:166
+#, c-format
+msgid "unrecognized option: `%s'"
+msgstr "認識できないオプション: `%s'"
+
+#: getopt-long.cc:172
+#, c-format
+msgid "invalid argument `%s' to option `%s'"
+msgstr "オプション `%2$s' に対する無効な引数 `%1$s'"
 
 #: warn.cc:57
 #, c-format
@@ -1741,95 +1750,62 @@ msgstr "抑制されたエラー: %s"
 msgid "suppressed warning: %s"
 msgstr "抑制された警告: %s"
 
-#: getopt-long.cc:158
+#: accidental-engraver.cc:185
 #, c-format
-msgid "option `%s' requires an argument"
-msgstr "オプション `%s' には引数が必要です"
+msgid "accidental typesetting list must begin with context-name: %s"
+msgstr "臨時記号組版リストは context-name で始まる必要があります: %s"
 
-#: getopt-long.cc:162
+#: accidental-engraver.cc:212
 #, c-format
-msgid "option `%s' does not allow an argument"
-msgstr "オプション `%s' には引数が不要です"
+msgid "procedure or context-name expected for accidental rule, found %s"
+msgstr "臨時記号ルールに必要なプロシージャか context-name, %s が見つかりました"
 
-#: getopt-long.cc:166
+#: accidental.cc:133
 #, c-format
-msgid "unrecognized option: `%s'"
-msgstr "認識できないオプション: `%s'"
+msgid "Could not find glyph-name for alteration %s"
+msgstr "変化音 %s のグリフ名が見つかりませんでした"
 
-#: getopt-long.cc:172
+#: accidental.cc:149
+msgid "natural alteration glyph not found"
+msgstr "ナチュラルのグリフが見つかりません"
+
+#: all-font-metrics.cc:149
 #, c-format
-msgid "invalid argument `%s' to option `%s'"
-msgstr "オプション `%2$s' に対する無効な引数 `%1$s'"
+msgid "cannot find font: `%s'"
+msgstr "フォントが見つかりません: `%s'"
 
-#: grob.cc:489
+#: apply-context-iterator.cc:42
+msgid "\\applycontext argument is not a procedure"
+msgstr "\\applycontext 引数がプロシージャではありません"
+
+#: arpeggio.cc:138
+msgid "no heads for arpeggio found?"
+msgstr "アルペジオの先頭が見つかりませんか?"
+
+#: audio-item.cc:141
 #, c-format
-msgid "ignored infinite %s-offset"
-msgstr "無限の %s-offset を無視"
+msgid "end moment (%s) < start moment (%s)"
+msgstr "モーメント終了 (%s) < モーメント開始 (%s)"
 
-#: slur.cc:443
+#: audio-item.cc:155
 #, c-format
-msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
-msgstr "スラーの grob を無視: %s. avoid-slur 無設定?"
+msgid "invalid start volume: %f"
+msgstr "無効な開始ボリューム: %f"
 
-#: slur-engraver.cc:122
+#: audio-item.cc:161
 #, c-format
-msgid "direction of %s invalid: %d"
-msgstr "%s の方向は無効です: %d"
+msgid "invalid target volume: %f"
+msgstr "無効なターゲットボリューム: %f"
 
-#: slur-engraver.cc:185 dynamic-engraver.cc:234
+#: audio-item.cc:176
 #, c-format
-msgid "unterminated %s"
-msgstr "終端のない %s"
+msgid "asked to compute volume at %f for dynamic span of duration %f starting at %s"
+msgstr "%fで音長 %f 開始 %s の動的 span のボリューム計算を求められました"
 
-#. We already have an old slur, so give a warning
-#. and completely ignore the new slur.
-#: slur-engraver.cc:238
+#: audio-item.cc:184
 #, c-format
-msgid "already have %s"
-msgstr "既に %s があります"
-
-#: slur-engraver.cc:255
-#, c-format
-msgid "%s without a cause"
-msgstr "原因のない %s"
-
-#: slur-engraver.cc:320
-#, c-format
-msgid "cannot end %s"
-msgstr "%s を終了できません"
-
-#. LINE BREAKING
-#: paper-score.cc:118 minimal-page-breaking.cc:40 one-page-breaking.cc:74
-msgid "Calculating line breaks..."
-msgstr "改行を計算中..."
-
-#: paper-score.cc:130
-#, c-format
-msgid "Element count %zu (spanners %zu) "
-msgstr "エレメント数 %zu （スパナ %zu）"
-
-#: paper-score.cc:134
-msgid "Preprocessing graphical objects..."
-msgstr "グラフィカルオブジェクトの前処理中..."
-
-#: paper-score.cc:158 optimal-page-breaking.cc:216
-#: page-turn-page-breaking.cc:260
-msgid "Drawing systems..."
-msgstr "描画しています..."
-
-#: piano-pedal-performer.cc:108 piano-pedal-engraver.cc:284
-#: piano-pedal-engraver.cc:295
-#, c-format
-msgid "cannot find start of piano pedal: `%s'"
-msgstr "ピアノペダルの始点が見つかりません: `%s'"
-
-#: vertical-align-engraver.cc:106
-msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
-msgstr "VerticalAxisGroup の Vertical_align_engraver を無視します"
-
-#: context-property.cc:46
-msgid "need symbol argument for \\override and \\revert"
-msgstr "\\override と \\revert のシンボル引数が必要です"
+msgid "asked to compute volume at +%f for dynamic span of duration %f starting at %s"
+msgstr "+%fで音長 %f 開始 %s の動的 span のボリューム計算を求められました"
 
 #: axis-group-engraver.cc:155
 msgid "Axis_group_engraver: vertical group already has a parent"
@@ -1843,40 +1819,138 @@ msgstr "Axis_group_engravers が 2 つりありますか?"
 msgid "removing this vertical group"
 msgstr "この垂直グループを削除します"
 
-#: hyphen-engraver.cc:111
-msgid "removing unterminated hyphen"
-msgstr "終端の無いハイフンを削除"
-
-#: hyphen-engraver.cc:125
-msgid "unterminated hyphen; removing"
-msgstr "終端の無いハイフン; 削除中"
-
-#: note-heads-engraver.cc:77
-msgid "NoteEvent without pitch"
-msgstr "ピッチのない NoteEvent"
-
-#: skyline-pair.cc:136
-msgid "direction must not be CENTER in ly:skyline-pair::skyline"
-msgstr "ly:skyline-pair::skyline の方向は CENTER であってはなりません"
-
-#: lyric-combine-music-iterator.cc:206
-msgid "argument of \\lyricsto should contain Lyrics context"
-msgstr "\\lyricsto の引数には Lyrics コンテキストを含める必要があります"
-
-#: lyric-combine-music-iterator.cc:351
+#: axis-group-interface.cc:739
 #, c-format
-msgid "cannot find context: %s"
-msgstr "コンテキストが見つかりません: %s"
+msgid "\"%s\" is not a valid outside-staff-placement-directive"
+msgstr "\"%s\" は有効な outside-staff-placement-directive ではありません"
+
+#: axis-group-interface.cc:811
+msgid "an outside-staff object should have a direction, defaulting to up"
+msgstr "outside-staff オブジェクトには方向があり、デフォルトは上です"
+
+#: axis-group-interface.cc:909
+msgid "Cannot set outside-staff-priority for element and elements' Y parent."
+msgstr "要素と要素の Y 親に outside-staff-priority を設定できません."
+
+#: bar-check-iterator.cc:84
+#, c-format
+msgid "barcheck failed at: %s"
+msgstr "小節チェックが失敗: %s"
+
+#: beam-engraver.cc:148
+msgid "already have a beam"
+msgstr "既に連桁があります"
+
+#: beam-engraver.cc:235
+msgid "unterminated beam"
+msgstr "終端のない連桁"
+
+#: beam-engraver.cc:282 chord-tremolo-engraver.cc:149
+msgid "stem must have Rhythmic structure"
+msgstr "符尾はリズム構造を持たねばなりません"
+
+#: beam-engraver.cc:293
+msgid "stem does not fit in beam"
+msgstr "符尾が連桁の中におさまりません"
+
+#: beam-engraver.cc:294
+msgid "beam was started here"
+msgstr "連桁はここから開始されました"
+
+#. We are completely screwed.
+#: beam-quanting.cc:861
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr "可能な初期設定が見つかりません: 良い連桁スロープが見つからない"
+
+#: beam.cc:203
+msgid "removing beam with no stems"
+msgstr "符尾のない連桁を削除"
+
+#: change-iterator.cc:36
+#, c-format
+msgid "cannot change `%s' to `%s'"
+msgstr "`%s' を `%s' へ変更できません"
+
+#: change-iterator.cc:69
+#, c-format
+msgid "cannot find context to change to: %s"
+msgstr "切り替えるコンテキストが見つかりません: %s"
+
+#. No enclosing context of the right kind was found
+#. and the iterator's immediate context is the kind that was sought.
+#: change-iterator.cc:78
+#, c-format
+msgid "not changing to same context type: %s"
+msgstr "同じコンテキストタイプに変更していません: %s"
+
+#. FIXME: incomprehensible message
+#: change-iterator.cc:82
+msgid "none of these in my family"
+msgstr "ファミリの中にありません"
+
+#: chord-tremolo-engraver.cc:89
+msgid "No tremolo to end"
+msgstr "終了するトレモロがありません"
+
+#: chord-tremolo-engraver.cc:110
+msgid "unterminated chord tremolo"
+msgstr "終端のないコードトレモロ"
+
+#: clef.cc:67
+#, c-format
+msgid "clef `%s' not found"
+msgstr "音部記号 '%s' が見つかりません"
+
+#: cluster.cc:128
+#, c-format
+msgid "unknown cluster style `%s'"
+msgstr "不明なクラスタスタイル `%s'"
+
+#: cluster.cc:165
+msgid "junking empty cluster"
+msgstr "空のクラスタを捨てます"
+
+#: coherent-ligature-engraver.cc:112
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
+msgstr "Coherent_ligature_engraver: 設定します `spacing-increment=0.01': ptr=%ul"
+
+#: constrained-breaking.cc:191 constrained-breaking.cc:211
+msgid "cannot find line breaking that satisfies constraints"
+msgstr "制約を満たす改行を見つけることができません"
+
+#: context-def.cc:283
+#, c-format
+msgid "cannot create default child context: %s"
+msgstr "デフォルト子コンテキストが作成できません: %s"
+
+#: context-def.cc:290
+#, c-format
+msgid "default child context begins a cycle: %s"
+msgstr "デフォルト子コンテキストはサイクルを開始: %s"
+
+#: context-property.cc:46
+msgid "need symbol argument for \\override and \\revert"
+msgstr "\\override と \\revert のシンボル引数が必要です"
+
+#: context-specced-music-iterator.cc:62
+#, c-format
+msgid "cannot create context: %s"
+msgstr "コンテキストが作れません: %s"
 
 #. TODO: Avoiding a null return means the caller does not detect this
 #. failure, so we have to log here if we want to log at all.  It would be
 #. more flexible to return null and let the caller decide whether to warn in
 #. its situation.  The caller might know a useful source location too.
-#: context.cc:527 quote-iterator.cc:140 context-specced-music-iterator.cc:76
-#: simultaneous-music-iterator.cc:79
+#: context-specced-music-iterator.cc:79 context.cc:526 quote-iterator.cc:139
 #, c-format
 msgid "cannot find or create context: %s"
 msgstr "コンテキストが見つからないか作れません: %s"
+
+#: custos.cc:88
+#, c-format
+msgid "custos `%s' not found"
+msgstr "custos `%s' が見つかりません"
 
 #: dispatcher.cc:80
 msgid "Event class should be a list"
@@ -1890,199 +1964,284 @@ msgstr "存在しない listener を削除しようとしています."
 msgid "Already listening to dispatcher, ignoring request"
 msgstr "既に dispatcher は listening されています, 要求を無視します"
 
-#: grob-property.cc:32
+#: dots.cc:50
 #, c-format
-msgid "%d: %s"
-msgstr "%d: %s"
+msgid "dot `%s' not found"
+msgstr "点 `%s' が見つかりません"
 
-#: grob-property.cc:253
+#: dynamic-engraver.cc:169
 #, c-format
-msgid "%s.%s changed from inside callback"
-msgstr "%s.%s 内部コールバックから変更されました"
+msgid ""
+"unknown crescendo style: %s\n"
+"defaulting to hairpin."
+msgstr ""
+"未知のクレッシェンドスタイル: %s\n"
+"デフォルトのヘアピン記号を使います."
 
-#: general-scheme.cc:397
+#: dynamic-engraver.cc:235 slur-engraver.cc:184
+#, c-format
+msgid "unterminated %s"
+msgstr "終端のない %s"
+
+#: episema-engraver.cc:77
+msgid "already have an episema"
+msgstr "すでに episema があります"
+
+#: episema-engraver.cc:89
+msgid "cannot find start of episema"
+msgstr "episema の開始を見つけることができません"
+
+#: episema-engraver.cc:138
+msgid "unterminated episema"
+msgstr "未終了の episema"
+
+#: extender-engraver.cc:168 extender-engraver.cc:177
+msgid "unterminated extender"
+msgstr "終端のないエクステンダ"
+
+#: fingering-column-engraver.cc:69
+msgid "Cannot add a fingering without a direction."
+msgstr "方向が無い運指を加えることができません."
+
+#: flag.cc:134
+#, c-format
+msgid "flag `%s' not found"
+msgstr "フラグ `%s' が見つかりません"
+
+#: flag.cc:154
+#, c-format
+msgid "flag stroke `%s' not found"
+msgstr "フラグストローク `%s' が見つかりません"
+
+#: font-config-scheme.cc:153 font-config.cc:85
+#, c-format
+msgid "failed adding font directory: %s"
+msgstr "フォントディレクトリの追加に失敗しました: %s"
+
+#: font-config-scheme.cc:155 font-config.cc:87
+#, c-format
+msgid "Adding font directory: %s"
+msgstr "フォントディレクトリを追加しています: %s"
+
+#: font-config-scheme.cc:169
+#, c-format
+msgid "failed adding font file: %s"
+msgstr "フォントファイルの追加に失敗しました: %s"
+
+#: font-config-scheme.cc:171
+#, c-format
+msgid "Adding font file: %s"
+msgstr "フォントファイルを追加しています: %s"
+
+#: font-config.cc:41
+msgid "Initializing FontConfig..."
+msgstr "FontConfig 初期化中..."
+
+#: font-config.cc:73
+#, c-format
+msgid "failed to add fontconfig configuration file `%s'"
+msgstr "fontconfig 設定ファイルの追加に失敗しました: %s"
+
+#: font-config.cc:76
+#, c-format
+msgid "Adding fontconfig configuration file: %s"
+msgstr "fontconfig 設定ファイルを追加しています: %s"
+
+#: font-config.cc:89
+msgid "Building font database..."
+msgstr "フォントデータベースを構築しています..."
+
+#: footnote-engraver.cc:92
+msgid "Must be footnote-event."
+msgstr "footnote-event でなければなりません."
+
+#: freetype.cc:40
+msgid "cannot initialize FreeType"
+msgstr "FreeType を初期化できません"
+
+#: general-scheme.cc:100 midi-stream.cc:67
+#, c-format
+msgid "cannot rename `%s' to `%s'"
+msgstr "`%s' を `%s' へリネームできません"
+
+#: general-scheme.cc:435
 #, c-format
 msgid "failed redirecting stderr to `%s'"
 msgstr "標準エラー出力を `%s' へリダイレクト失敗しました"
 
-#: general-scheme.cc:476
+#: general-scheme.cc:514
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr "出力に無限または非数が見つかりました. 0.0 で代替します"
 
-#: general-scheme.cc:619
+#: general-scheme.cc:657
 #, c-format
 msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr "g_spawn_sync 失敗 (%d): %s: %s"
 
-#: tie-engraver.cc:123
-msgid "unterminated tie"
-msgstr "終端のないタイ"
+#: general-scheme.cc:728
+msgid "Exiting current GhostScript instance...\n"
+msgstr "現在の Ghostscript インスタンスを終了しています...\n"
 
-#: tie-engraver.cc:377
-msgid "lonely tie"
-msgstr "一つだけのタイ"
+#: general-scheme.cc:765
+msgid "Mismatch of GhostScript arguments!\n"
+msgstr "Ghostscript 引数の不一致!\n"
 
-#: vaticana-ligature.cc:96
-msgid "flexa-height undefined; assuming 0"
-msgstr "flexa-height 未定義; 0 とみなします"
-
-#: vaticana-ligature.cc:101
-msgid "ascending vaticana style flexa"
-msgstr "上行 vaticana style flexa"
-
-#: lookup.cc:178
+#: general-scheme.cc:772
 #, c-format
-msgid "Not drawing a box with negative dimension, %.2f by %.2f."
-msgstr "負の次元 %.2f by %.2f のボックスを描画していません."
+msgid "Starting GhostScript instance with arguments: %s\n"
+msgstr "この引数で Ghostscript インスタンスを起動します: %s\n"
 
-#: program-option-scheme.cc:224
+#: general-scheme.cc:788
+msgid "Could not start GhostScript instance!"
+msgstr "Ghostscript インスタンスを開始できません!"
+
+#: general-scheme.cc:801
 #, c-format
-msgid "no such internal option: %s"
-msgstr "そのような内部オプションはありません: %s"
+msgid "Running GhostScript command: %s\n"
+msgstr "Ghostscript コマンド実行中: %s\n"
 
-#: mensural-ligature-engraver.cc:97
-msgid "ligature with less than 2 heads -> skipping"
-msgstr "2 ヘッド未満のリガチャ -> スキップ"
+#: general-scheme.cc:810
+msgid "Error when running GhostScript command!"
+msgstr "Ghostscript コマンド実行時エラー!"
 
-#: mensural-ligature-engraver.cc:124
-msgid "cannot determine pitch of ligature primitive -> skipping"
-msgstr "リガチャプリミティブのピッチを決定できません -> スキップ"
+#: glissando-engraver.cc:161
+msgid "unterminated glissando"
+msgstr "終端の無いグリッサンド"
 
-#: mensural-ligature-engraver.cc:138
-msgid "single note ligature - skipping"
-msgstr "単一音符のリガチャ - スキップ"
+#: global-context-scheme.cc:102
+msgid "Interpreting music..."
+msgstr "楽曲を解釈中..."
 
-#: mensural-ligature-engraver.cc:149
-msgid "prime interval within ligature -> skipping"
-msgstr "リガチャ内の主要な間隔 -> スキップ"
-
-#: mensural-ligature-engraver.cc:160
-msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
-msgstr "固定長リガチャ: 音長 Mx, L, B, S なし -> スキップ"
-
-#: mensural-ligature-engraver.cc:203
-msgid "semibrevis must be followed by another one -> skipping"
-msgstr "semibrevis の後に別のものが必要 -> スキップ"
-
-#: mensural-ligature-engraver.cc:213
-msgid ""
-"semibreves can only appear at the beginning of a ligature,\n"
-"and there may be only zero or two of them"
-msgstr ""
-"semibreves はリガチャの先頭にのみ現れ、\n"
-"ゼロまたは 2 つのみ存在する場合があります"
-
-#: mensural-ligature-engraver.cc:233
-msgid ""
-"invalid ligatura ending:\n"
-"when the last note is a descending brevis,\n"
-"the penultimate note must be another one,\n"
-"or the ligatura must be LB or SSB"
-msgstr ""
-"無効な ligatura 終了:\n"
-"最後の音符が下行 brevis の場合,\n"
-"最後から 2 番目の音符は別のものであるか,\n"
-"ligatura が LB か SSB である必要があります"
-
-#: mensural-ligature-engraver.cc:393
-msgid "unexpected case fall-through"
-msgstr "予期しない case fall-through"
-
-#: piano-pedal-engraver.cc:269
+#: global-context-scheme.cc:120
 #, c-format
-msgid "expect 3 strings for piano pedals, found: %ld"
-msgstr "ピアノペダルに 3 strings が必要です, 発見: %ld"
+msgid "elapsed time: %.2f seconds"
+msgstr "経過時間: %.2f 秒"
 
-#: piano-pedal-engraver.cc:329
+#: global-context-scheme.cc:142
+msgid "no music found in score"
+msgstr "スコアに音楽がありません"
+
+#: gregorian-ligature-engraver.cc:73
 #, c-format
-msgid "cannot find start of piano pedal bracket: `%s'"
-msgstr "ピアノペダルブラケットの開始位置が見つかりません: `%s'"
+msgid "\\%s ignored"
+msgstr "\\%s を無視しました"
+
+#: gregorian-ligature-engraver.cc:78
+#, c-format
+msgid "implied \\%s added"
+msgstr "暗黙の \\%s を追加"
+
+#. ligature may not start with 2nd head of pes or flexa
+#: gregorian-ligature-engraver.cc:227
+msgid "cannot apply `\\~' on first head of ligature"
+msgstr "リガチャの先頭に `\\~' を適用できません"
+
+#. (pitch == prev_pitch)
+#: gregorian-ligature-engraver.cc:239
+msgid "cannot apply `\\~' on heads with identical pitch"
+msgstr "同じピッチの先頭に `\\~' を適用できません"
+
+#: grob-interface.cc:72
+#, c-format
+msgid "Unknown interface `%s'"
+msgstr "`%s' は未知のインタフェースです"
+
+#: grob-interface.cc:82
+#, c-format
+msgid "Grob `%s' has no interface for property `%s'"
+msgstr "Grob `%s' はプロパティ `%s' のインターフェースがありません"
+
+#: grob-property.cc:51
+#, c-format
+msgid "%d: %s"
+msgstr "%d: %s"
+
+#: grob-property.cc:272
+#, c-format
+msgid "%s.%s changed from inside callback"
+msgstr "%s.%s 内部コールバックから変更されました"
+
+#: grob-scheme.cc:55
+msgid "typecheck failed"
+msgstr "型チェック失敗"
+
+#: grob.cc:486
+#, c-format
+msgid "ignored infinite %s-offset"
+msgstr "無限の %s-offset を無視"
 
 #: guile-init.cc:73
 #, c-format
 msgid "Load lily.scm: %.2f seconds"
 msgstr "ロード lily.scm: %.2f 秒"
 
-#: tuplet-engraver.cc:111
-msgid "No tuplet to end"
-msgstr "終了する連符がありません"
+#: hairpin.cc:60
+msgid "Asking for broken bound padding at a non-broken bound."
+msgstr "壊れていない境界で壊れた境界のパディングを要求"
 
-#: custos.cc:88
+#: hairpin.cc:264
+msgid "decrescendo too small"
+msgstr "デクレッシェンドが小さすぎます"
+
+#: horizontal-bracket-engraver.cc:65
+msgid "do not have that many brackets"
+msgstr "多くのブラケットが無い"
+
+#: horizontal-bracket-engraver.cc:74
+msgid "conflicting note group events"
+msgstr "競合する音符グループイベント"
+
+#: hyphen-engraver.cc:111
+msgid "removing unterminated hyphen"
+msgstr "終端の無いハイフンを削除"
+
+#: hyphen-engraver.cc:125
+msgid "unterminated hyphen; removing"
+msgstr "終端の無いハイフン; 削除中"
+
+#: includable-lexer.cc:59 lily-guile.cc:87 lily-parser-scheme.cc:111
 #, c-format
-msgid "custos `%s' not found"
-msgstr "custos `%s' が見つかりません"
+msgid "cannot find file: `%s'"
+msgstr "ファイルが見つかりません: `%s'"
 
-#: lily-lexer.cc:246
-msgid "include files are not allowed in safe mode"
-msgstr "インクルードファイルはセーフモードでは使えません"
-
-#: lily-lexer.cc:273
+#: includable-lexer.cc:61 lily-parser-scheme.cc:103
 #, c-format
-msgid "identifier name is a keyword: `%s'"
-msgstr "識別子名はキーワードです: `%s'"
+msgid "(search path: `%s')"
+msgstr "(検索パス: `%s')"
 
-#: lily-lexer.cc:296 lily-lexer.cc:309
+#: input.cc:125 source-file.cc:152 source-file.cc:167
+msgid "position unknown"
+msgstr "位置が判りません"
+
+#: keep-alive-together-engraver.cc:95
 #, c-format
-msgid "%s:EOF"
-msgstr "%s:EOF"
+msgid "unknown remove-layer value `%s'"
+msgstr "不明な remove-layer 値 `%s'"
 
-#: clef.cc:67
+#: key-engraver.cc:199
+msgid "Incomplete keyAlterationOrder for key signature"
+msgstr "調号に不完全な keyAlterationOrder"
+
+#: key-signature-interface.cc:79
 #, c-format
-msgid "clef `%s' not found"
-msgstr "音部記号 '%s' が見つかりません"
+msgid "No glyph found for alteration: %s"
+msgstr "変化音グリフが見つかりません: %s"
 
-#: stem-engraver.cc:103
-msgid "tremolo duration is too long"
-msgstr "トレモロが長すぎます"
+#: key-signature-interface.cc:89
+msgid "alteration not found"
+msgstr "変化が見つかりません"
 
-#: stem-engraver.cc:155
-#, c-format
-msgid "adding note head to incompatible stem (type = %d/%d)"
-msgstr "矛盾した符尾へ符頭を追加します (タイプ = %d/%d)"
-
-#: stem-engraver.cc:158
-msgid "maybe input should specify polyphonic voices"
-msgstr "恐らく入力にポリフォニックボイスを指定する必要があります"
-
-#: music.cc:150
-#, c-format
-msgid "octave check failed; expected \"%s\", found: \"%s\""
-msgstr "オクターブチェックに失敗; 期待 \"%s\", 発見: \"%s\""
-
-#: translator-ctors.cc:118
-#, c-format
-msgid "unknown translator: `%s'"
-msgstr "判らないトランスレータ: `%s'"
-
-#: score-engraver.cc:79
-#, c-format
-msgid "cannot find `%s'"
-msgstr "`%s' が見つかりません"
-
-#: score-engraver.cc:81
-msgid "Music font has not been installed properly."
-msgstr "音楽フォントが正しくインストールされていません."
-
-#: score-engraver.cc:83
-#, c-format
-msgid "Search path `%s'"
-msgstr "検索パス `%s'"
-
-#: score-engraver.cc:85
-msgid "Aborting"
-msgstr "終了します"
-
-#: ligature-engraver.cc:110 ligature-bracket-engraver.cc:72
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:110
 msgid "cannot find start of ligature"
 msgstr "リガチャの開始が見つかりません"
+
+#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:137
+msgid "already have a ligature"
+msgstr "すでにリガチャがあります"
 
 #: ligature-engraver.cc:115
 msgid "no right bound"
 msgstr "右境界なし"
-
-#: ligature-engraver.cc:137 ligature-bracket-engraver.cc:85
-msgid "already have a ligature"
-msgstr "すでにリガチャがあります"
 
 #: ligature-engraver.cc:146
 msgid "no left bound"
@@ -2100,225 +2259,484 @@ msgstr "休符を無視: リガチャに休符を含めることはできませ�
 msgid "ligature was started here"
 msgstr "ここでリガチャが始まりました"
 
+#: lily-guile.cc:91
+#, c-format
+msgid "(load path: `%s', cwd: `%s')"
+msgstr "(読込パス: `%s', カレントディレクトリ: '%s')"
+
+#: lily-guile.cc:281
+#, c-format
+msgid "cannot find property type-check for `%s' (%s)."
+msgstr "`%s' (%s) のプロパティ type-check が見つかりません"
+
+#: lily-guile.cc:284
+msgid "perhaps a typing error?"
+msgstr "おそらくタイプミス?"
+
+#: lily-guile.cc:291
+msgid "skipping assignment"
+msgstr "割り当てをスキップ"
+
+#: lily-guile.cc:310
+#, c-format
+msgid "type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr "`%s' の型チェックに失敗; 値 `%s' は型 `%s' でなければなりません"
+
+#. Uh oh.  unsmob<T> delivered 0, yet
+#. unsmob<T> delivers true.  This means that unsmob<T> is a
+#. matching check from a base class of T, but var is of an
+#. incompatible derived type.
+#: lily-guile.cc:330
+msgid "Wrong kind of "
+msgstr "間違った種類の"
+
+#: lily-lexer.cc:244
+msgid "include files are not allowed in safe mode"
+msgstr "インクルードファイルはセーフモードでは使えません"
+
+#: lily-lexer.cc:271
+#, c-format
+msgid "identifier name is a keyword: `%s'"
+msgstr "識別子名はキーワードです: `%s'"
+
+#: lily-lexer.cc:294 lily-lexer.cc:307
+#, c-format
+msgid "%s:EOF"
+msgstr "%s:EOF"
+
+#: lily-modules.cc:82
+#, c-format
+msgid "Uninitialized variable `%s' in module (%s)"
+msgstr "未初期化変数 `%s' がモジュールにあります (%s)"
+
+#: lily-parser-scheme.cc:83
+#, c-format
+msgid "Changing working directory to: `%s'"
+msgstr "作業ディレクトリを変更します: `%s'"
+
+#: lily-parser-scheme.cc:87
+#, c-format
+msgid "unable to change directory to: `%s'"
+msgstr "ディレクトリーを変更できません: `%s'"
+
+#: lily-parser-scheme.cc:102
+#, c-format
+msgid "cannot find init file: `%s'"
+msgstr "init ファイルを見つけることができません: `%s'"
+
+#: lily-parser-scheme.cc:120
+#, c-format
+msgid "Processing `%s'"
+msgstr "`%s' を処理しています"
+
+#: lily-parser-scheme.cc:213
+msgid "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-include-string instead."
+msgstr "ly:parser-parse-string は新しいパーサでのみ有効です. 代わりに ly:parser-include-string を使ってください."
+
+#: lily-parser-scheme.cc:244
+msgid "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-include-string instead."
+msgstr "ly:parse-string-expression は新しいパーサでのみ有効です. 代わりに ly:parser-include-string を使ってください."
+
+#: lily-parser.cc:106
+msgid "Parsing..."
+msgstr "構文解析中..."
+
+#: lookup.cc:176
+#, c-format
+msgid "Not drawing a box with negative dimension, %.2f by %.2f."
+msgstr "負の次元 %.2f by %.2f のボックスを描画していません."
+
+#: lyric-combine-music-iterator.cc:199
+msgid "argument of \\lyricsto should contain Lyrics context"
+msgstr "\\lyricsto の引数には Lyrics コンテキストを含める必要があります"
+
+#: lyric-combine-music-iterator.cc:344
+#, c-format
+msgid "cannot find context: %s"
+msgstr "コンテキストが見つかりません: %s"
+
+#: main.cc:85
+#, c-format
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information.\n"
+msgstr ""
+"このプログラムはフリーソフトウェアです. GNU 一般公衆利用許諾契約書で保護\n"
+"されており, 定められたの条件下で改変したり再配布したりできます. 詳細は\n"
+"`%s --warranty' として起動してください.\n"
+
+#: main.cc:91
+msgid ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License as \n"
+"published by the Free Software Foundation, either version 3 of\n"
+"the License, or (at your option) any later version.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+"Boston, MA 02111-1307, USA.\n"
+msgstr ""
+"    このプログラムはフリーソフトウェアです. あなたはこれを,\n"
+"フリーソフトウェア財団によって発行されたGNU 一般公衆利用許諾書\n"
+"(バージョン3か, それ以降のバージョンのうちどれか)が定める条件\n"
+"の下で再頒布または改変することができます.\n"
+"\n"
+"    このプログラムは有用であることを願って頒布されますが, *全くの無保証*\n"
+"です. 商業可能性の保証や特定目的への適合性は, 言外に示されたものも含め,\n"
+"全く存在しません.詳しくはGNU 一般公衆利用許諾書をご覧ください.\n"
+"\n"
+"    あなたはこのプログラムと共に, GNU 一般公衆利用許諾書のコピーを一部\n"
+"受け取っているはずです。もし受け取っていなければ, フリーソフトウェア財団\n"
+"まで請求してください\n"
+"(宛先は the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+"Boston, MA 02111-1307, USA.)\n"
+
+#: main.cc:124
+msgid "FORMATs"
+msgstr "FORMATs"
+
+#: main.cc:125
+msgid "dump FORMAT,...  Also as separate options:"
+msgstr ""
+"FORMAT,... を吐き出します.\n"
+"また個別のオプションとして:"
+
+#: main.cc:129
+msgid "generate PDF files (default)"
+msgstr "PDF ファイルを生成します（デフォルト）"
+
+#: main.cc:133
+msgid "generate SVG files "
+msgstr "SVG ファイルを生成します"
+
+#: main.cc:137
+msgid "generate PNG files "
+msgstr "PNG ファイルを生成します"
+
+#: main.cc:141
+msgid "generate PostScript files"
+msgstr "PostScript ファイルを生成します"
+
+#: main.cc:145
+msgid "generate Encapsulated PostScript files"
+msgstr "Encapsulated PostScript ファイルを生成します"
+
+#: main.cc:148
+msgid "KEY"
+msgstr "KEY"
+
+#: main.cc:149
+msgid ""
+"set ps/pdf optimization to KEY, which is either\n"
+"'size' (default), 'TeX', or 'TeX-GS'"
+msgstr "ps/pdf 最適化を KEY に設定します。これは 'size' (デフォルト), 'TeX', または 'TeX-GS' のいずれかです"
+
+#: main.cc:153
+msgid "SYM[=VAL]"
+msgstr "SYM[=VAL]"
+
+#: main.cc:154
+msgid ""
+"set Scheme option SYM to VAL (default: #t);\n"
+"use -dhelp for help"
+msgstr ""
+"Scheme オプション SYM を VAL （デフォルト: #t）にセットします.\n"
+"-dhelp でヘルプを表示します."
+
+#: main.cc:158
+msgid "EXPR"
+msgstr "EXPR"
+
+#: main.cc:159
+msgid "evaluate scheme code"
+msgstr "Scheme コードを評価します"
+
+#: main.cc:168
+msgid "FIELD"
+msgstr "FIELD"
+
+#: main.cc:169
+msgid ""
+"dump \\header field FIELD to file\n"
+"named BASENAME.FIELD"
+msgstr ""
+"\\header フィールド FIELD を\n"
+"ファイル名 BASENAME.FIELD に吐き出します"
+
+#: main.cc:174
+msgid "append DIR to search path"
+msgstr "DIR を検索パスに追加します"
+
+#: main.cc:178
+msgid "use FILE as init file"
+msgstr "FILE を初期化ファイルとして使用します"
+
+#: main.cc:182
+msgid "USER,GROUP,JAIL,DIR"
+msgstr "USER,GROUP,JAIL,DIR"
+
+#: main.cc:183
+msgid ""
+"chroot to JAIL, become USER:GROUP\n"
+"and cd into DIR"
+msgstr ""
+"JAIL に chroot, USER:GROUP になり\n"
+"DIR に cd します"
+
+#: main.cc:189
+msgid ""
+"print log messages according to LOGLEVEL,\n"
+"which is either NONE, ERROR, WARNING,\n"
+"BASIC, PROGRESS, INFO (default), or DEBUG"
+msgstr ""
+"LOGLEVEL に応じたログメッセージを\n"
+"出力します. 取り得る値は:\n"
+"NONE, ERROR, WARNING, BASIC, PROGRESS, INFO （デフォルト） および DEBUG."
+
+#: main.cc:195
+msgid ""
+"write output to FILE (suffix will be added)\n"
+"or to FOLDER, in which case the file name\n"
+"will be taken from the input file."
+msgstr ""
+"出力を FILE （拡張子が追加される）または\n"
+"FOLDER に入力から取ったファイル名で書き込みます."
+
+#: main.cc:201
+msgid "(ignored)"
+msgstr "（無視しました）"
+
+#: main.cc:205
+msgid ""
+"no progress, only error messages\n"
+"(equivalent to --loglevel=ERROR)"
+msgstr ""
+"進捗メッセージを表示せず\n"
+"エラーメッセージのみ表示します\n"
+"（loglevel=ERROR と同じ）"
+
+#: main.cc:214
+msgid "be verbose (equivalent to --loglevel=DEBUG)"
+msgstr ""
+"メッセージを冗長にします\n"
+"（--loglevel=DEBUG と同じ）"
+
+#: main.cc:251
+#, c-format
+msgid ""
+"\n"
+"Effective prefix: '%s'\n"
+msgstr ""
+"\n"
+"有効なプレフィックス: '%s'\n"
+
+#. Do not update the copyright years here, run `make grand-replace'
+#: main.cc:273
+#, c-format
+msgid ""
+"Copyright (c) %s by\n"
+"%s  and others."
+msgstr ""
+"Copyright (c) %s by\n"
+"%s  and others."
+
+#. No version number or newline here.  It confuses help2man.
+#: main.cc:311
+#, c-format
+msgid "Usage: %s [OPTION]... FILE..."
+msgstr "使用法: %s [オプション]... FILE..."
+
+#: main.cc:313
+msgid "Typeset music and/or produce MIDI from FILE."
+msgstr "FILE から楽譜を組版したり MIDI を生成したりします."
+
+#: main.cc:315
+msgid "LilyPond produces beautiful music notation."
+msgstr "LilyPond は美しい楽譜を生成します."
+
+#: main.cc:317
+#, c-format
+msgid "For more information, see %s"
+msgstr "より詳しい情報は, %s を参照してください"
+
+#: main.cc:319
+msgid "Options:"
+msgstr "オプション:"
+
+#. Translators, please translate this string as
+#. "Report bugs in English via %s",
+#. or if there is a LilyPond users list or forum in your language
+#. "Report bugs in English via %s or in YOUR_LANG via URI"
+#: main.cc:327
+#, c-format
+msgid "You found a bug? Please read %s"
+msgstr "%s へ英語でバグ報告してください"
+
+#: main.cc:349
+msgid "linked against Ghostscript:"
+msgstr "Ghostscript とのリンク:"
+
+#: main.cc:406
+#, c-format
+msgid "expected %d arguments with jail, found: %u"
+msgstr "jail で期待される %d 個の引数, 見つかりました: %u"
+
+#: main.cc:420
+#, c-format
+msgid "no such user: %s"
+msgstr "そのようなユーザは存在しません: %s"
+
+#: main.cc:422
+#, c-format
+msgid "cannot get user id from user name: %s: %s"
+msgstr "ユーザ名からユーザ ID を得ることができませんでした: %s: %s"
+
+#: main.cc:437
+#, c-format
+msgid "no such group: %s"
+msgstr "そのようなグループは存在しません: %s"
+
+#: main.cc:439
+#, c-format
+msgid "cannot get group id from group name: %s: %s"
+msgstr "グループ名からグループ ID を得ることができませんでした: %s: %s"
+
+#: main.cc:447
+#, c-format
+msgid "cannot chroot to: %s: %s"
+msgstr "chroot できません: %s: %s"
+
+#: main.cc:454
+#, c-format
+msgid "cannot change group id to: %d: %s"
+msgstr "グループ ID を変更できません: %d: %s"
+
+#: main.cc:460
+#, c-format
+msgid "cannot change user id to: %d: %s"
+msgstr "ユーザ ID を変更できません: %d: %s"
+
+#: main.cc:466
+#, c-format
+msgid "cannot change working directory to: %s: %s"
+msgstr "作業ディレクトリを変更できません: %s: %s"
+
+#: main.cc:669
+msgid "SVG backend requested; other formats will be ignored."
+msgstr "SVG バックエンドが要求されました; 他のフォーマットは無視されます."
+
+#: main.cc:685
+msgid "The --relocate option is no longer relevant."
+msgstr "--relocate オプションはもう関係ありません."
+
+#. Score.rehearsalMark is initialized to #1 so we
+#. never should see this case without user error
+#: mark-engraver.cc:150
+msgid "rehearsalMark must have integer value"
+msgstr "reharsalMark は整数でなければなりません"
+
+#: mark-engraver.cc:156
+msgid "mark label must be a markup object"
+msgstr "mark ラベルは markup オブジェクトである必要があります"
+
+#: mensural-ligature-engraver.cc:95
+msgid "ligature with less than 2 heads -> skipping"
+msgstr "2 ヘッド未満のリガチャ -> スキップ"
+
+#: mensural-ligature-engraver.cc:122
+msgid "cannot determine pitch of ligature primitive -> skipping"
+msgstr "リガチャプリミティブのピッチを決定できません -> スキップ"
+
+#. we can get here after invalid input
+#: mensural-ligature-engraver.cc:135
+msgid "single note ligature - skipping"
+msgstr "単一音符のリガチャ - スキップ"
+
+#: mensural-ligature-engraver.cc:145
+msgid "prime interval within ligature -> skipping"
+msgstr "リガチャ内の主要な間隔 -> スキップ"
+
+#: mensural-ligature-engraver.cc:156
+msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
+msgstr "固定長リガチャ: 音長 Mx, L, B, S なし -> スキップ"
+
+#: mensural-ligature-engraver.cc:199
+msgid "semibrevis must be followed by another one -> skipping"
+msgstr "semibrevis の後に別のものが必要 -> スキップ"
+
+#: mensural-ligature-engraver.cc:209
+msgid ""
+"semibreves can only appear at the beginning of a ligature,\n"
+"and there may be only zero or two of them"
+msgstr ""
+"semibreves はリガチャの先頭にのみ現れ、\n"
+"ゼロまたは 2 つのみ存在する場合があります"
+
+#: mensural-ligature-engraver.cc:228
+msgid ""
+"invalid ligatura ending:\n"
+"when the last note is a descending brevis,\n"
+"the penultimate note must be another one,\n"
+"or the ligatura must be LB or SSB"
+msgstr ""
+"無効な ligatura 終了:\n"
+"最後の音符が下行 brevis の場合,\n"
+"最後から 2 番目の音符は別のものであるか,\n"
+"ligatura が LB か SSB である必要があります"
+
+#: mensural-ligature-engraver.cc:388
+msgid "unexpected case fall-through"
+msgstr "予期しない case fall-through"
+
+#: midi-cc-announcer.cc:105
+#, c-format
+msgid "ignoring out-of-range value change for MIDI property `%s'"
+msgstr "MIDI プロパティ `%s' 範囲外への変更を無視"
+
 #: midi-item.cc:92
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr "そのような MIDI 楽器はありません: `%s'"
 
-#: midi-item.cc:175
+#: midi-item.cc:176
 msgid "Time signature with more than 255 beats.  Truncating"
-msgstr "255 箔以上の拍子があります. 切り詰めます"
+msgstr "255 拍以上の拍子があります. 切り詰めます"
 
-#: flag.cc:134
+#: midi-stream.cc:57
 #, c-format
-msgid "flag `%s' not found"
-msgstr "フラグ `%s' が見つかりません"
+msgid "cannot create temp file: %s: %s"
+msgstr "テンポラリファイルを作成できません: %s: %s"
 
-#: flag.cc:154
+#: midi-stream.cc:79
 #, c-format
-msgid "flag stroke `%s' not found"
-msgstr "フラグストローク `%s' が見つかりません"
+msgid "cannot write to file: `%s': %s"
+msgstr "ファイルに書き込めません: `%s': %s"
 
-#: pfb.cc:47
-msgid "Segment header of the Type 1 (PFB) font is broken."
-msgstr "Type 1 (PFB) フォントのセグメントヘッダが壊れています."
-
-#: pfb.cc:61
-msgid "Segment length of the Type 1 (PFB) font is too long."
-msgstr "Type 1 (PFB) フォントのセグメント長が長すぎます."
-
-#: pfb.cc:88
-msgid "Segment type of the Type 1 (PFB) font is unknown."
-msgstr "Type 1 (PFB) フォントのセグメントタイプが不明です."
-
-#: paper-outputter-scheme.cc:43
-#, c-format
-msgid "Layout output to `%s'..."
-msgstr "レイアウトを `%s' へ出力しています..."
-
-#: multi-measure-rest.cc:159
-msgid "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
-msgstr "usable-duration-logs は空でないリストでなければなりません. 全休符にフォールバック."
+#. LINE BREAKING
+#: minimal-page-breaking.cc:40 one-page-breaking.cc:74 paper-score.cc:118
+msgid "Calculating line breaks..."
+msgstr "改行を計算中..."
 
 #: minimal-page-breaking.cc:44
 msgid "Calculating page breaks..."
 msgstr "改ページを計算中..."
 
-#: vaticana-ligature-engraver.cc:389
+#: multi-measure-rest.cc:161
+msgid "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
+msgstr "usable-duration-logs は空でないリストでなければなりません. 全休符にフォールバック."
+
+#: music.cc:150
 #, c-format
-msgid "ignored prefix(es) `%s' of this head according to restrictions of the selected ligature style"
-msgstr "選択したリガチャの制限に従ってこの頭のプレフィックス `%s' を無視しました"
-
-#: vaticana-ligature-engraver.cc:455
-msgid "Ambiguous use of dots in ligature: there are multiple dotted notes with the same pitch.  The ligature should be split."
-msgstr "リガチャでのドットのあいまいな使用: 同じピッチの付点音符が複数あります. リガチャを分割する必要があります."
-
-#: vaticana-ligature-engraver.cc:513
-msgid "This ligature has a dotted head followed by a non-dotted head.  The ligature should be split after the last dotted head before this head."
-msgstr "このリガチャには付点のない符頭に続いて付点のある符頭があります.リガチャは最後の付点のある符頭の後、この符頭の前に分割する必要があります."
-
-#: vaticana-ligature-engraver.cc:725
-#, c-format
-msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
-msgstr "Vaticana_ligature_engraver: 設定 `spacing-increment = %f': ptr =%ul"
-
-#: keep-alive-together-engraver.cc:96
-#, c-format
-msgid "unknown remove-layer value `%s'"
-msgstr "不明な remove-layer 値 `%s'"
-
-#: output-def.cc:229
-msgid "margins do not fit with line-width, setting default values"
-msgstr "余白は line-width に適合せず, デフォルト値を設定します"
-
-#: output-def.cc:236
-msgid "systems run off the page due to improper paper settings, setting default values"
-msgstr "不適切な用紙設定によりシステムがページから外れるため, デフォルト値を設定します"
-
-#: note-collision.cc:514
-msgid "this Voice needs a \\voiceXx or \\shiftXx setting"
-msgstr "このボイスには \\voiceXx または \\shiftXx 設定が必要です"
-
-#: system.cc:197
-#, c-format
-msgid "Element count %zu"
-msgstr "エレメント数 %zu"
-
-#: system.cc:531
-#, c-format
-msgid "Grob count %zu"
-msgstr "Grob 数 %zu"
-
-#. fixme: be more verbose.
-#: volta-engraver.cc:111
-msgid "cannot end volta spanner"
-msgstr "volta スパナを終了できません"
-
-#: volta-engraver.cc:121
-msgid "already have a volta spanner, ending that one prematurely"
-msgstr "すでに volta スパナがあるので、それが途中で終了します"
-
-#: volta-engraver.cc:125
-msgid "also already have an ended spanner"
-msgstr "また、すでに終了したスパナがあります"
-
-#: volta-engraver.cc:126
-msgid "giving up"
-msgstr "ギブアップ"
-
-#: paper-column-engraver.cc:276
-msgid "forced break was overridden by some other event, should you be using bar checks?"
-msgstr "強制ブレークは他のイベントによって上書きされました, 小節チェックを使う必要がありますか?"
-
-#: apply-context-iterator.cc:42
-msgid "\\applycontext argument is not a procedure"
-msgstr "\\applycontext 引数がプロシージャではありません"
-
-#: text-spanner-engraver.cc:72
-msgid "cannot find start of text spanner"
-msgstr "テキストスパナーの開始をみつけることができません"
-
-#: text-spanner-engraver.cc:85
-msgid "already have a text spanner"
-msgstr "既にテキストスパナーがあります"
-
-#: text-spanner-engraver.cc:132
-msgid "unterminated text spanner"
-msgstr "終端のないテキストスパナー"
-
-#: input.cc:125 source-file.cc:157 source-file.cc:172
-msgid "position unknown"
-msgstr "位置が判りません"
-
-#: beam.cc:202
-msgid "removing beam with no stems"
-msgstr "符尾のない連桁を削除"
-
-#: source-file.cc:64
-#, c-format
-msgid "cannot open file: `%s'"
-msgstr " ファイルを開けません: `%s'"
-
-#: source-file.cc:72
-#, c-format
-msgid "failed to get file size: `%s'"
-msgstr "ファイルサイズの取得に失敗しました: `%s'"
-
-#: source-file.cc:87
-#, c-format
-msgid "expected to read %zu characters, got %zu"
-msgstr "%zu 文字を読み取ることを期待, %zu を取得"
-
-#: font-config.cc:41
-msgid "Initializing FontConfig..."
-msgstr "FontConfig 初期化中..."
-
-#: font-config.cc:73
-#, c-format
-msgid "failed to add fontconfig configuration file `%s'"
-msgstr "fontconfig 設定ファイルの追加に失敗しました: %s"
-
-#: font-config.cc:76
-#, c-format
-msgid "Adding fontconfig configuration file: %s"
-msgstr "fontconfig 設定ファイルを追加しています: %s"
-
-#: font-config.cc:85 font-config-scheme.cc:153
-#, c-format
-msgid "failed adding font directory: %s"
-msgstr "フォントディレクトリの追加に失敗しました: %s"
-
-#: font-config.cc:87 font-config-scheme.cc:155
-#, c-format
-msgid "Adding font directory: %s"
-msgstr "フォントディレクトリを追加しています: %s"
-
-#: font-config.cc:89
-msgid "Building font database..."
-msgstr "フォントデータベースを構築しています..."
-
-#. find out the ideal number of pages
-#: optimal-page-breaking.cc:62
-msgid "Finding the ideal number of pages..."
-msgstr "理想的なページ数を見つけています..."
-
-#: optimal-page-breaking.cc:94
-msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
-msgstr "systems-per-page を無視して systems-per-page と page-count を満たすことができませんでした"
-
-#. PAGE BREAKING
-#: optimal-page-breaking.cc:114 one-page-breaking.cc:80
-msgid "Fitting music on 1 page..."
-msgstr "楽譜を 1 ページにしています..."
-
-#: optimal-page-breaking.cc:116
-#, c-format
-msgid "Fitting music on %d pages..."
-msgstr "楽譜を %d ページにしています..."
-
-#: optimal-page-breaking.cc:118
-#, c-format
-msgid "Fitting music on %d or %d pages..."
-msgstr "楽譜を %d または %d ページにしています..."
-
-#: optimal-page-breaking.cc:128 optimal-page-breaking.cc:181
-#, c-format
-msgid "trying %d systems"
-msgstr "%d 個のシステムを試します"
-
-#: optimal-page-breaking.cc:147 optimal-page-breaking.cc:209
-#, c-format
-msgid "best score for this sys-count: %f"
-msgstr "この sys-count の最高スコア: %f"
-
-#: accidental.cc:145
-#, c-format
-msgid "Could not find glyph-name for alteration %s"
-msgstr "変化音 %s のグリフ名が見つかりませんでした"
-
-#: accidental.cc:161
-msgid "natural alteration glyph not found"
-msgstr "ナチュラルのグリフが見つかりません"
+msgid "octave check failed; expected \"%s\", found: \"%s\""
+msgstr "オクターブチェックに失敗; 期待 \"%s\", 発見: \"%s\""
 
 #: new-fingering-engraver.cc:116
 msgid "cannot add text scripts to individual note heads"
@@ -2332,51 +2750,136 @@ msgstr "運指の配置が見つかりません"
 msgid "placing below"
 msgstr "下に配置"
 
-#: font-config-scheme.cc:169
-#, c-format
-msgid "failed adding font file: %s"
-msgstr "フォントファイルの追加に失敗しました: %s"
+#: note-collision.cc:514
+msgid "this Voice needs a \\voiceXx or \\shiftXx setting"
+msgstr "このボイスには \\voiceXx または \\shiftXx 設定が必要です"
 
-#: font-config-scheme.cc:171
-#, c-format
-msgid "Adding font file: %s"
-msgstr "フォントファイルを追加しています: %s"
+#: note-column.cc:149
+msgid "cannot have note heads and rests together on a stem"
+msgstr "符幹は符頭と休符の双方を持つことはできません"
 
-#: open-type-font-scheme.cc:151 open-type-font-scheme.cc:197
-#: open-type-font-scheme.cc:243 ttf.cc:494 ttf.cc:543 pfb-scheme.cc:62
+#: note-head.cc:95
+#, c-format
+msgid "none of note heads `%s' or `%s' found"
+msgstr "符頭 `%s' または `%s' がない"
+
+#: note-heads-engraver.cc:77
+msgid "NoteEvent without pitch"
+msgstr "ピッチのない NoteEvent"
+
+#. PAGE BREAKING
+#: one-page-breaking.cc:80 optimal-page-breaking.cc:114
+msgid "Fitting music on 1 page..."
+msgstr "楽譜を 1 ページにしています..."
+
+#: open-type-font-scheme.cc:152 open-type-font-scheme.cc:198
+#: open-type-font-scheme.cc:244 open-type-font-scheme.cc:399 pfb-scheme.cc:80
+#: ttf.cc:494 ttf.cc:543
 msgid "font index must be non-negative, using index 0"
 msgstr "フォントインデックスは非負でなければなりません, 0 を使います"
 
-#: open-type-font-scheme.cc:165 open-type-font-scheme.cc:211
-#: open-type-font-scheme.cc:291 ttf.cc:462 ttf.cc:510 pfb-scheme.cc:77
+#: open-type-font-scheme.cc:166 open-type-font-scheme.cc:212
+#: open-type-font-scheme.cc:292 pfb-scheme.cc:95 ttf.cc:462 ttf.cc:510
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr "フォントインデックス %d はフォント `%s' には大きすぎます, 0 を使います"
 
-#: open-type-font-scheme.cc:253
+#: open-type-font-scheme.cc:254
 #, c-format
 msgid "cannot open font filename `%s'"
 msgstr "フォントファイル名 '%s' を開けません"
 
-#: open-type-font-scheme.cc:263 open-type-font-scheme.cc:279
-#: open-type-font-scheme.cc:302 open-type-font-scheme.cc:322
-#: open-type-font-scheme.cc:340 open-type-font-scheme.cc:356
+#: open-type-font-scheme.cc:264 open-type-font-scheme.cc:280
+#: open-type-font-scheme.cc:303 open-type-font-scheme.cc:323
+#: open-type-font-scheme.cc:341 open-type-font-scheme.cc:357
 #, c-format
 msgid "cannot read %s of `%s'"
 msgstr "`%2$s' の %1$s を読めません"
 
-#: open-type-font-scheme.cc:378
+#: open-type-font-scheme.cc:379
 #, c-format
 msgid "font `%s' index %d does not have `CFF' table"
 msgstr "フォント `%s' インデックス %d には `CFF' テーブルがありません"
 
-#: hairpin.cc:60
-msgid "Asking for broken bound padding at a non-broken bound."
-msgstr "壊れていない境界で壊れた境界のパディングを要求"
+#: open-type-font-scheme.cc:409
+#, c-format
+msgid "font `%s': cannot open for reading"
+msgstr "フォント `%s': 読み込み用に開けません"
 
-#: hairpin.cc:264
-msgid "decrescendo too small"
-msgstr "デクレッシェンドが小さすぎます"
+#: open-type-font-scheme.cc:420 open-type-font-scheme.cc:437
+#: open-type-font-scheme.cc:455
+#, c-format
+msgid "font `%s': cannot read field `%s'"
+msgstr "フォント `%s': フィールド `%s' を読み込めません"
+
+#: open-type-font-scheme.cc:428
+#, c-format
+msgid "font `%s': not a font collection"
+msgstr "フォント `%s': フォントコレクションではありません"
+
+#: open-type-font-scheme.cc:446
+#, c-format
+msgid "font `%s': invalid TTC header version"
+msgstr "フォント `%s': 無効な TTC ヘッダバージョン"
+
+#: open-type-font-scheme.cc:467
+#, c-format
+msgid "font `%s': index %d is too large, using index 0"
+msgstr "フォント `%s': インデックス %d は大きすぎます, 0 を使います"
+
+#: open-type-font-scheme.cc:478
+#, c-format
+msgid "font `%s': cannot read offset of subfont %d"
+msgstr "フォント `%s': サブフォント %d のオフセットを読み込めません"
+
+#: open-type-font-scheme.cc:495 open-type-font-scheme.cc:533
+#: open-type-font-scheme.cc:556
+#, c-format
+msgid "font `%s': cannot read field `%s' of subfont %d"
+msgstr "フォント `%1$s': サブフォント %3$d のフィールド `%2$s' が読み込めません"
+
+#: open-type-font-scheme.cc:504
+#, c-format
+msgid "font `%s': invalid field `sfntVersion' in subfont %d"
+msgstr "フォント `%s': サブフォント %d のフィールド `sfntVersion' が無効です"
+
+#: open-type-font-scheme.cc:513
+#, c-format
+msgid "subfont `%s': cannot open for writing"
+msgstr "サブフォント `%s': 書き込み用に開けません"
+
+#: open-type-font-scheme.cc:523 open-type-font-scheme.cc:546
+#: open-type-font-scheme.cc:566
+#, c-format
+msgid "subfont `%s': cannot write field `%s'"
+msgstr "サブフォント `%s': フィールド `%s' に書き込めません"
+
+#: open-type-font-scheme.cc:593
+#, c-format
+msgid "font `%s': cannot read field `%s' for table %u of subfont %d"
+msgstr "フォント `%1$s': サブフォント %4$d テーブル %3$u フィールド `%2$s' が読み込めません"
+
+#: open-type-font-scheme.cc:608 open-type-font-scheme.cc:628
+#: open-type-font-scheme.cc:658 open-type-font-scheme.cc:683
+#, c-format
+msgid "subfont `%s': cannot write field `%s' for table `%s'"
+msgstr "サブフォント `%1$s': テーブル `%3$s' フィールド `%2$s' が書き込めません"
+
+#: open-type-font-scheme.cc:618 open-type-font-scheme.cc:638
+#: open-type-font-scheme.cc:668
+#, c-format
+msgid "font `%s': cannot read field `%s' for table `%s' of subfont %d"
+msgstr "フォント `%1$s': サブフォント %4$d テーブル `%3$s' フィールド `%2$s' が読み込めません"
+
+#: open-type-font-scheme.cc:709
+#, c-format
+msgid "font `%s': cannot read table `%s' of subfont %d"
+msgstr "フォント `%1$s': サブフォント %3$d テーブル `%2$s' が読み込めません"
+
+#: open-type-font-scheme.cc:718
+#, c-format
+msgid "subfont `%s': cannot write table `%s'"
+msgstr "サブフォント `%s': テーブル `%s' に書き込めません"
 
 #: open-type-font.cc:55
 #, c-format
@@ -2412,428 +2915,186 @@ msgstr "postscript 名が得られません"
 msgid "cannot get font %s format"
 msgstr "フォント %s のフォーマットが得られません"
 
-#: open-type-font.cc:177
+#: open-type-font.cc:170
 #, c-format
-msgid "cannot read CFF %s: %s"
-msgstr "CFF %s が読み込めません: %s"
+msgid "cannot get CFF name from font %s"
+msgstr "フォント %s から CFF 名を取得できません"
+
+#: open-type-font.cc:176
+#, c-format
+msgid "Subsitute font name: %s => %s"
+msgstr "代替フォント名: %s => %s"
+
+#: open-type-font.cc:182
+#, c-format
+msgid "CFF name for font %s is the same."
+msgstr "フォント %s の CFF 名は同じです."
+
+#: open-type-font.cc:216
+#, c-format
+msgid "cannot read CFF: %s"
+msgstr "CFF が読み込めません: %s"
 
 #. FreeType 2.6 and 2.6.1 cannot get PS name from pure-CFF.
 #. (FreeType 2.5.5 and earlier does not have this issue.
 #. FreeType 2.6.2+ has this bug fixed.)
 #. So we need direct parsing of the 'CFF' table, in this case.
-#: open-type-font.cc:194
-#, c-format
-msgid "Directly parsing 'CFF' table of font %s."
-msgstr "フォント %s の 'CFF' テーブルを直接パースします."
+#: open-type-font.cc:232
+msgid "Directly parsing 'CFF' table of font."
+msgstr "フォントの 'CFF' テーブルを直接パースします."
 
-#: open-type-font.cc:233
-#, c-format
-msgid "cannot get font %s CFF name"
-msgstr "フォント %s CFF 名が得られません"
+#: open-type-font.cc:270
+msgid "cannot get CFF name"
+msgstr "CFF 名が得られません"
 
-#: open-type-font.cc:240
-#, c-format
-msgid "Subsitute font name: %s => %s"
-msgstr "代替フォント名: %s => %s"
-
-#: open-type-font.cc:323
+#: open-type-font.cc:355
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr "FT_Get_Glyph_Name () Freetype エラー: %s"
 
-#: open-type-font.cc:469 pango-font.cc:288
+#: open-type-font.cc:511 pango-font.cc:290
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr "FT_Get_Glyph_Name () エラー: %s"
 
-#: extender-engraver.cc:168 extender-engraver.cc:177
-msgid "unterminated extender"
-msgstr "終端のないエクステンダ"
+#. find out the ideal number of pages
+#: optimal-page-breaking.cc:62
+msgid "Finding the ideal number of pages..."
+msgstr "理想的なページ数を見つけています..."
 
-#: lily-guile.cc:87 lily-parser-scheme.cc:111 includable-lexer.cc:59
+#: optimal-page-breaking.cc:94
+msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
+msgstr "systems-per-page を無視して systems-per-page と page-count を満たすことができませんでした"
+
+#: optimal-page-breaking.cc:116
 #, c-format
-msgid "cannot find file: `%s'"
-msgstr "ファイルが見つかりません: `%s'"
+msgid "Fitting music on %d pages..."
+msgstr "楽譜を %d ページにしています..."
 
-#: lily-guile.cc:89
+#: optimal-page-breaking.cc:118
 #, c-format
-msgid "(load path: `%s')"
-msgstr "(読込パス: `%s')"
+msgid "Fitting music on %d or %d pages..."
+msgstr "楽譜を %d または %d ページにしています..."
 
-#: lily-guile.cc:407
+#: optimal-page-breaking.cc:128 optimal-page-breaking.cc:181
 #, c-format
-msgid "cannot find property type-check for `%s' (%s)."
-msgstr "`%s' (%s) のプロパティ type-check が見つかりません"
+msgid "trying %d systems"
+msgstr "%d 個のシステムを試します"
 
-#: lily-guile.cc:410
-msgid "perhaps a typing error?"
-msgstr "おそらくタイプミス?"
-
-#: lily-guile.cc:417
-msgid "skipping assignment"
-msgstr "割り当てをスキップ"
-
-#: lily-guile.cc:436
+#: optimal-page-breaking.cc:147 optimal-page-breaking.cc:209
 #, c-format
-msgid "type check for `%s' failed; value `%s' must be of type `%s'"
-msgstr "`%s' の型チェックに失敗; 値 `%s' は型 `%s' でなければなりません"
+msgid "best score for this sys-count: %f"
+msgstr "この sys-count の最高スコア: %f"
 
-#. Uh oh.  unsmob<T> delivered 0, yet
-#. unsmob<T> delivers true.  This means that unsmob<T> is a
-#. matching check from a base class of T, but var is of an
-#. incompatible derived type.
-#: lily-guile.cc:456
-msgid "Wrong kind of "
-msgstr "間違った種類の"
+#: optimal-page-breaking.cc:216 page-turn-page-breaking.cc:260
+#: paper-score.cc:158
+msgid "Drawing systems..."
+msgstr "描画しています..."
 
-#: main.cc:81
+#: output-def.cc:229
+msgid "margins do not fit with line-width, setting default values"
+msgstr "余白は line-width に適合せず, デフォルト値を設定します"
+
+#: output-def.cc:236
+msgid "systems run off the page due to improper paper settings, setting default values"
+msgstr "不適切な用紙設定によりシステムがページから外れるため, デフォルト値を設定します"
+
+#: page-breaking.cc:280
+msgid "ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"
+msgstr "systems-per-page が設定されているため min-systems-per-page と max-systems-per-page を無視します"
+
+#: page-breaking.cc:285
+msgid "min-systems-per-page is larger than max-systems-per-page, ignoring both values"
+msgstr "min-systems-per-page が max-systems-per-page より大きいため, 両方を無視します"
+
+#: page-breaking.cc:656
 #, c-format
-msgid ""
-"This program is free software.  It is covered by the GNU General Public\n"
-"License and you are welcome to change it and/or distribute copies of it\n"
-"under certain conditions.  Invoke as `%s --warranty' for more\n"
-"information.\n"
-msgstr ""
-"このプログラムはフリーソフトウェアです. GNU 一般公衆利用許諾契約書で保護\n"
-"されており, 定められたの条件下で改変したり再配布したりできます. 詳細は\n"
-"`%s --warranty' として起動してください.\n"
+msgid "page %d has been compressed"
+msgstr "ページ %d が圧縮されました"
 
-#: main.cc:87
-msgid ""
-"    This program is free software; you can redistribute it and/or\n"
-"modify it under the terms of the GNU General Public License as \n"
-"published by the Free Software Foundation, either version 3 of\n"
-"the License, or (at your option) any later version.\n"
-"\n"
-"    This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-"General Public License for more details.\n"
-"\n"
-"    You should have received a copy of the\n"
-"GNU General Public License along with this program; if not, write to\n"
-"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-"Boston, MA 02111-1307, USA.\n"
-msgstr ""
-"    このプログラムはフリーソフトウェアです. あなたはこれを,\n"
-"フリーソフトウェア財団によって発行されたGNU 一般公衆利用許諾書\n"
-"(バージョン3か, それ以降のバージョンのうちどれか)が定める条件\n"
-"の下で再頒布または改変することができます.\n"
-"\n"
-"    このプログラムは有用であることを願って頒布されますが, *全くの無保証*\n"
-"です. 商業可能性の保証や特定目的への適合性は, 言外に示されたものも含め,\n"
-"全く存在しません.詳しくはGNU 一般公衆利用許諾書をご覧ください.\n"
-"\n"
-"    あなたはこのプログラムと共に, GNU 一般公衆利用許諾書のコピーを一部\n"
-"受け取っているはずです。もし受け取っていなければ, フリーソフトウェア財団\n"
-"まで請求してください\n"
-"(宛先は the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-"Boston, MA 02111-1307, USA.)\n"
+#: page-layout-problem.cc:402
+msgid "A page layout problem has been initiated that cannot accommodate footnotes."
+msgstr "脚注に入れることができないページレイアウトの問題が発生しました."
 
-#: main.cc:120
-msgid "FORMATs"
-msgstr "FORMATs"
+#: page-layout-problem.cc:747
+msgid "ragged-bottom was specified, but page must be compressed"
+msgstr "ragged-bottom が指定されましたが、ページは圧縮する必要があります"
 
-#: main.cc:121
-msgid "dump FORMAT,...  Also as separate options:"
-msgstr ""
-"FORMAT,... を吐き出します.\n"
-"また個別のオプションとして:"
+#: page-layout-problem.cc:750
+#, c-format
+msgid "compressing over-full page by %.1f staff-spaces"
+msgstr "%.1f staff-spaces による over-full ページの圧縮"
 
-#: main.cc:125
-msgid "generate PDF files (default)"
-msgstr "PDF ファイルを生成します（デフォルト）"
+#: page-layout-problem.cc:1219
+msgid "staff-affinities should only decrease"
+msgstr "staff-affinities は減少するだけです"
 
-#: main.cc:129
-msgid "generate PNG files "
-msgstr "大きい PDF ファイルを生成します"
+#: page-turn-page-breaking.cc:179
+#, c-format
+msgid "page-turn-page-breaking: breaking from %d to %d"
+msgstr "page-turn-page-breaking: %d から %d へ改ページ"
 
-#: main.cc:133
-msgid "generate PostScript files"
-msgstr "PostScript ファイルを生成します"
+#: page-turn-page-breaking.cc:229
+msgid "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."
+msgstr "最初のページを 1 ページに収めることができません. first-page-number を偶数に設定することを検討してください"
 
-#: main.cc:137
-msgid "generate Encapsulated PostScript files"
-msgstr "Encapsulated PostScript ファイルを生成します"
+#: page-turn-page-breaking.cc:242
+#, c-format
+msgid "Calculating page and line breaks (%d possible page breaks)..."
+msgstr "改ページと改行の計算中（%d 可能な改ページ）..."
 
-#: main.cc:140
-msgid "KEY"
-msgstr "KEY"
+#: page-turn-page-breaking.cc:312
+#, c-format
+msgid "break starting at page %d"
+msgstr "%d ページから始まる改ページ"
 
-#: main.cc:141
-msgid ""
-"set ps/pdf optimization to KEY, which is either\n"
-"'size' (default), 'TeX', or 'TeX-GS'"
-msgstr "ps/pdf 最適化を KEY に設定します。これは 'size' (デフォルト), 'TeX', または 'TeX-GS' のいずれかです"
+#: page-turn-page-breaking.cc:313
+#, c-format
+msgid "\tdemerits: %f"
+msgstr "\tデメリット: %f"
 
-#: main.cc:145
-msgid "SYM[=VAL]"
-msgstr "SYM[=VAL]"
+#: page-turn-page-breaking.cc:314
+#, c-format
+msgid "\tsystem count: %zu"
+msgstr "\tシステム数: %zu"
 
-#: main.cc:146
-msgid ""
-"set Scheme option SYM to VAL (default: #t);\n"
-"use -dhelp for help"
-msgstr ""
-"Scheme オプション SYM を VAL （デフォルト: #t）にセットします.\n"
-"-dhelp でヘルプを表示します."
+#: page-turn-page-breaking.cc:315
+#, c-format
+msgid "\tpage count: %d"
+msgstr "\tページ数: %d"
 
-#: main.cc:150
-msgid "EXPR"
-msgstr "EXPR"
+#: page-turn-page-breaking.cc:316
+#, c-format
+msgid "\tprevious break: %d"
+msgstr "\t前の改ページ: %d"
 
-#: main.cc:151
-msgid "evaluate scheme code"
-msgstr "Scheme コードを評価します"
+#: pango-font.cc:279
+#, c-format
+msgid "no glyph for character U+%04X in font `%s'"
+msgstr "文字 U+%04X のグリフがフォント `%s' にありません"
 
-#: main.cc:160
-msgid "FIELD"
-msgstr "FIELD"
-
-#: main.cc:161
-msgid ""
-"dump \\header field FIELD to file\n"
-"named BASENAME.FIELD"
-msgstr ""
-"\\header フィールド FIELD を\n"
-"ファイル名 BASENAME.FIELD に吐き出します"
-
-#: main.cc:166
-msgid "append DIR to search path"
-msgstr "DIR を検索パスに追加します"
-
-#: main.cc:170
-msgid "use FILE as init file"
-msgstr "FILE を初期化ファイルとして使用します"
-
-#: main.cc:174
-msgid "USER,GROUP,JAIL,DIR"
-msgstr "USER,GROUP,JAIL,DIR"
-
-#: main.cc:175
-msgid ""
-"chroot to JAIL, become USER:GROUP\n"
-"and cd into DIR"
-msgstr ""
-"JAIL に chroot, USER:GROUP になり\n"
-"DIR に cd します"
-
-#: main.cc:181
-msgid ""
-"print log messages according to LOGLEVEL,\n"
-"which is either NONE, ERROR, WARNING,\n"
-"BASIC, PROGRESS, INFO (default), or DEBUG"
-msgstr ""
-"LOGLEVEL に応じたログメッセージを\n"
-"出力します. 取り得る値は:\n"
-"NONE, ERROR, WARNING, BASIC, PROGRESS, INFO （デフォルト） および DEBUG."
-
-#: main.cc:187
-msgid ""
-"write output to FILE (suffix will be added)\n"
-"or to FOLDER, in which case the file name\n"
-"will be taken from the input file."
-msgstr ""
-"出力を FILE （拡張子が追加される）または\n"
-"FOLDER に入力から取ったファイル名で書き込みます."
-
-#: main.cc:193
-msgid "(ignored)"
-msgstr "（無視しました）"
-
-#: main.cc:197
-msgid ""
-"no progress, only error messages\n"
-"(equivalent to --loglevel=ERROR)"
-msgstr ""
-"進捗メッセージを表示せず\n"
-"エラーメッセージのみ表示します\n"
-"（loglevel=ERROR と同じ）"
-
-#: main.cc:206
-msgid "be verbose (equivalent to --loglevel=DEBUG)"
-msgstr ""
-"メッセージを冗長にします\n"
-"（--loglevel=DEBUG と同じ）"
-
-#: main.cc:243
+#: pango-font.cc:306
 #, c-format
 msgid ""
-"\n"
-"Effective prefix: '%s'\n"
+"Glyph has no name, but font supports glyph naming.\n"
+"Skipping glyph U+%04X, file %s"
 msgstr ""
-"\n"
-"有効なプレフィックス: '%s'\n"
+"フォントはグリフ名をサポートしていますがグリフに名前がありません.\n"
+"グリフ U+%04X, ファイル %s をスキップします"
 
-#. Do not update the copyright years here, run `make grand-replace'
-#: main.cc:265
+#: pango-font.cc:355
 #, c-format
-msgid ""
-"Copyright (c) %s by\n"
-"%s  and others."
-msgstr ""
-"Copyright (c) %s by\n"
-"%s  and others."
+msgid "no PostScript font name for font `%s'"
+msgstr "フォント `%s' に PostScript フォント名がありません"
 
-#. No version number or newline here.  It confuses help2man.
-#: main.cc:303
+#: pango-font.cc:405
+msgid "FreeType face has no PostScript font name"
+msgstr "FreeType face に PostScript フォント名がありません"
+
+#: pango-font.cc:439
 #, c-format
-msgid "Usage: %s [OPTION]... FILE..."
-msgstr "使用法: %s [オプション]... FILE..."
-
-#: main.cc:305
-msgid "Typeset music and/or produce MIDI from FILE."
-msgstr "FILE から楽譜を組版したり MIDI を生成したりします."
-
-#: main.cc:307
-msgid "LilyPond produces beautiful music notation."
-msgstr "LilyPond は美しい楽譜を生成します."
-
-#: main.cc:309
-#, c-format
-msgid "For more information, see %s"
-msgstr "より詳しい情報は, %s を参照してください"
-
-#: main.cc:311
-msgid "Options:"
-msgstr "オプション:"
-
-#. Translators, please translate this string as
-#. "Report bugs in English via %s",
-#. or if there is a LilyPond users list or forum in your language
-#. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: main.cc:319
-#, c-format
-msgid "You found a bug? Please read %s"
-msgstr "%s へ英語でバグ報告してください"
-
-#: main.cc:378
-#, c-format
-msgid "expected %d arguments with jail, found: %u"
-msgstr "jail で期待される %d 個の引数, 見つかりました: %u"
-
-#: main.cc:392
-#, c-format
-msgid "no such user: %s"
-msgstr "そのようなユーザは存在しません: %s"
-
-#: main.cc:394
-#, c-format
-msgid "cannot get user id from user name: %s: %s"
-msgstr "ユーザ名からユーザ ID を得ることができませんでした: %s: %s"
-
-#: main.cc:409
-#, c-format
-msgid "no such group: %s"
-msgstr "そのようなグループは存在しません: %s"
-
-#: main.cc:411
-#, c-format
-msgid "cannot get group id from group name: %s: %s"
-msgstr "グループ名からグループ ID を得ることができませんでした: %s: %s"
-
-#: main.cc:419
-#, c-format
-msgid "cannot chroot to: %s: %s"
-msgstr "chroot できません: %s: %s"
-
-#: main.cc:426
-#, c-format
-msgid "cannot change group id to: %d: %s"
-msgstr "グループ ID を変更できません: %d: %s"
-
-#: main.cc:432
-#, c-format
-msgid "cannot change user id to: %d: %s"
-msgstr "ユーザ ID を変更できません: %d: %s"
-
-#: main.cc:438
-#, c-format
-msgid "cannot change working directory to: %s: %s"
-msgstr "作業ディレクトリを変更できません: %s: %s"
-
-#: main.cc:641
-msgid "The --relocate option is no longer relevant."
-msgstr "--relocate オプションはもう関係ありません."
-
-#: score.cc:158
-msgid "already have music in score"
-msgstr "すでに score に music がある"
-
-#: score.cc:160
-msgid "this is the previous music"
-msgstr "これは以前の music です"
-
-#: score.cc:166
-msgid "errors found, ignoring music expression"
-msgstr "エラーを発見, 音楽表現を無視します"
-
-#: parse-scm.cc:61
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE はここから始まる式のエラーを通知しました"
-
-#: dots.cc:50
-#, c-format
-msgid "dot `%s' not found"
-msgstr "点 `%s' が見つかりません"
-
-#: glissando-engraver.cc:161
-msgid "unterminated glissando"
-msgstr "終端の無いグリッサンド"
-
-#: beam-engraver.cc:148
-msgid "already have a beam"
-msgstr "既に連桁があります"
-
-#: beam-engraver.cc:235
-msgid "unterminated beam"
-msgstr "終端のない連桁"
-
-#: beam-engraver.cc:282 chord-tremolo-engraver.cc:150
-msgid "stem must have Rhythmic structure"
-msgstr "符尾はリズム構造を持たねばなりません"
-
-#: beam-engraver.cc:293
-msgid "stem does not fit in beam"
-msgstr "符尾が連桁の中におさまりません"
-
-#: beam-engraver.cc:294
-msgid "beam was started here"
-msgstr "連桁はここから開始されました"
-
-#: dynamic-engraver.cc:169
-#, c-format
-msgid ""
-"unknown crescendo style: %s\n"
-"defaulting to hairpin."
-msgstr ""
-"未知のクレッシェンドスタイル: %s\n"
-"デフォルトのヘアピン記号を使います."
-
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#: time-signature-engraver.cc:94
-#, c-format
-msgid "strange time signature found: %d/%d"
-msgstr "おかしな拍子記号をみつけました: %d/%d"
-
-#: midi-cc-announcer.cc:105
-#, c-format
-msgid "ignoring out-of-range value change for MIDI property `%s'"
-msgstr "MIDI プロパティ `%s' 範囲外への変更を無視"
-
-#: accidental-engraver.cc:185
-#, c-format
-msgid "accidental typesetting list must begin with context-name: %s"
-msgstr "臨時記号組版リストは context-name で始まる必要があります: %s"
-
-#: accidental-engraver.cc:212
-#, c-format
-msgid "procedure or context-name expected for accidental rule, found %s"
-msgstr "臨時記号ルールに必要なプロシージャか context-name, %s が見つかりました"
+msgid "OpenType font feature `%s' cannot be used since this binary is configured without feature support."
+msgstr "OpenType フォントフューチャー `%s' は, このバイナリがフューチャー非サポートに設定されているため使われません."
 
 #: paper-book.cc:202
 #, c-format
@@ -2850,34 +3111,91 @@ msgstr "オプション -dpreview はバックエンド `%s' でサポートさ�
 msgid "program option -dcrop not supported by backend `%s'"
 msgstr "オプション -dcrop はバックエンド `%s' でサポートされていません"
 
-#: rest-collision.cc:155
-msgid "cannot resolve rest collision: rest direction not set"
-msgstr "休符の衝突を解決できません: 休符方向が設定されていません"
+#: paper-column-engraver.cc:276
+msgid "forced break was overridden by some other event, should you be using bar checks?"
+msgstr "強制ブレークは他のイベントによって上書きされました, 小節チェックを使う必要がありますか?"
 
-#: rest-collision.cc:166 rest-collision.cc:275
-msgid "too many colliding rests"
-msgstr "休符の衝突が多すぎます"
-
-#: note-column.cc:149
-msgid "cannot have note heads and rests together on a stem"
-msgstr "符幹は符頭と休符の双方を持つことはできません"
-
-#: episema-engraver.cc:77
-msgid "already have an episema"
-msgstr "すでに episema があります"
-
-#: episema-engraver.cc:90
-msgid "cannot find start of episema"
-msgstr "episema の開始を見つけることができません"
-
-#: episema-engraver.cc:139
-msgid "unterminated episema"
-msgstr "未終了の episema"
-
-#: rest.cc:244
+#: paper-outputter.cc:127
 #, c-format
-msgid "rest `%s' not found"
-msgstr "休符 '%s' が見つかりません"
+msgid "Paper_outputter elapsed time: %.2f seconds"
+msgstr "Paper_outputter 経過時間: %.2f 秒"
+
+#: paper-score.cc:130
+#, c-format
+msgid "Element count %zu (spanners %zu) "
+msgstr "エレメント数 %zu （スパナ %zu）"
+
+#: paper-score.cc:134
+msgid "Preprocessing graphical objects..."
+msgstr "グラフィカルオブジェクトの前処理中..."
+
+#: parenthesis-engraver.cc:71
+msgid "Don't know how to parenthesize spanners."
+msgstr "スパナにパーレンを付ける方法が不明."
+
+#: parse-scm.cc:61
+msgid "GUILE signaled an error for the expression beginning here"
+msgstr "GUILE はここから始まる式のエラーを通知しました"
+
+#: pdf-scheme.cc:64
+#, c-format
+msgid "Conversion of string `%s' to UTF-16be failed: %s"
+msgstr "文字列 `%s' を UTF-16be へ変換失敗しました: %s"
+
+#: percent-repeat-engraver.cc:173
+msgid "unterminated percent repeat"
+msgstr "終端の無いパーセント繰り返し"
+
+#: performance.cc:73
+msgid "Track..."
+msgstr "トラック..."
+
+#: performance.cc:116
+#, c-format
+msgid "MIDI output to `%s'..."
+msgstr "MIDI 出力 `%s'..."
+
+#: pfb.cc:47
+msgid "Segment header of the Type 1 (PFB) font is broken."
+msgstr "Type 1 (PFB) フォントのセグメントヘッダが壊れています."
+
+#: pfb.cc:61
+msgid "Segment length of the Type 1 (PFB) font is too long."
+msgstr "Type 1 (PFB) フォントのセグメント長が長すぎます."
+
+#: pfb.cc:88
+msgid "Segment type of the Type 1 (PFB) font is unknown."
+msgstr "Type 1 (PFB) フォントのセグメントタイプが不明です."
+
+#: piano-pedal-engraver.cc:269
+#, c-format
+msgid "expect 3 strings for piano pedals, found: %ld"
+msgstr "ピアノペダルに 3 strings が必要です, 発見: %ld"
+
+#: piano-pedal-engraver.cc:284 piano-pedal-engraver.cc:295
+#: piano-pedal-performer.cc:108
+#, c-format
+msgid "cannot find start of piano pedal: `%s'"
+msgstr "ピアノペダルの始点が見つかりません: `%s'"
+
+#: piano-pedal-engraver.cc:329
+#, c-format
+msgid "cannot find start of piano pedal bracket: `%s'"
+msgstr "ピアノペダルブラケットの開始位置が見つかりません: `%s'"
+
+#: program-option-scheme.cc:224
+#, c-format
+msgid "no such internal option: %s"
+msgstr "そのような内部オプションはありません: %s"
+
+#: property-iterator.cc:66
+#, c-format
+msgid "not a grob name, `%s'"
+msgstr "grob 名ではありません, `%s'"
+
+#: relative-octave-check.cc:51
+msgid "Failed octave check, got: "
+msgstr "オクターブチェックに失敗: "
 
 #: relocate.cc:64
 #, c-format
@@ -2948,7 +3266,7 @@ msgstr ""
 "  LilyPond バイナリの絶対ファイル名:\n"
 "    %s\n"
 
-#: relocate.cc:182
+#: relocate.cc:181
 #, c-format
 msgid ""
 "  LilyPond binary has relative file name:\n"
@@ -2957,7 +3275,7 @@ msgstr ""
 "  LilyPond バイナリの相対ファイル名:\n"
 "    %s\n"
 
-#: relocate.cc:202
+#: relocate.cc:201
 #, c-format
 msgid ""
 "  Absolute file name of LilyPond binary computed from PATH:\n"
@@ -2968,26 +3286,26 @@ msgstr ""
 "    PATH=%s\n"
 "    argv0=%s\n"
 
-#: relocate.cc:219
+#: relocate.cc:218
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr "LILYPONDPREFIX は廃止されました, LILYPOND_DATADIR を使ってください"
 
-#: relocate.cc:342
+#: relocate.cc:341
 #, c-format
 msgid "  Relocation file '%s'\n"
 msgstr "  再配置ファイル '%s'\n"
 
-#: relocate.cc:346
+#: relocate.cc:345
 #, c-format
 msgid "cannot open file '%s', ignored"
 msgstr "ファイルを開けません '%s', 無視しました"
 
-#: relocate.cc:378
+#: relocate.cc:377
 #, c-format
 msgid "Unknown relocation command '%s'"
 msgstr "不明な再配置コマンド '%s'"
 
-#: relocate.cc:390
+#: relocate.cc:389
 #, c-format
 msgid ""
 "\n"
@@ -2996,175 +3314,53 @@ msgstr ""
 "\n"
 "  再配置設定ディレクトリ '%s' を使用\n"
 
-#: relocate.cc:401
+#: relocate.cc:400
 #, c-format
 msgid "No relocation config directory '%s'"
 msgstr "再配置設定ディレクトリ '%s' がありません"
 
-#: pango-font.cc:277
+#: rest-collision.cc:155
+msgid "cannot resolve rest collision: rest direction not set"
+msgstr "休符の衝突を解決できません: 休符方向が設定されていません"
+
+#: rest-collision.cc:166 rest-collision.cc:275
+msgid "too many colliding rests"
+msgstr "休符の衝突が多すぎます"
+
+#: rest.cc:244
 #, c-format
-msgid "no glyph for character U+%04X in font `%s'"
-msgstr "文字 U+%04X のグリフがフォント `%s' にありません"
+msgid "rest `%s' not found"
+msgstr "休符 '%s' が見つかりません"
 
-#: pango-font.cc:304
+#: score-engraver.cc:79
 #, c-format
-msgid ""
-"Glyph has no name, but font supports glyph naming.\n"
-"Skipping glyph U+%04X, file %s"
-msgstr ""
-"フォントはグリフ名をサポートしていますがグリフに名前がありません.\n"
-"グリフ U+%04X, ファイル %s をスキップします"
+msgid "cannot find `%s'"
+msgstr "`%s' が見つかりません"
 
-#: pango-font.cc:353
+#: score-engraver.cc:81
+msgid "Music font has not been installed properly."
+msgstr "音楽フォントが正しくインストールされていません."
+
+#: score-engraver.cc:83
 #, c-format
-msgid "no PostScript font name for font `%s'"
-msgstr "フォント `%s' に PostScript フォント名がありません"
+msgid "Search path `%s'"
+msgstr "検索パス `%s'"
 
-#: pango-font.cc:403
-msgid "FreeType face has no PostScript font name"
-msgstr "FreeType face に PostScript フォント名がありません"
+#: score-engraver.cc:85
+msgid "Aborting"
+msgstr "終了します"
 
-#: pango-font.cc:437
-#, c-format
-msgid "OpenType font feature `%s' cannot be used since this binary is configured without feature support."
-msgstr "OpenType フォントフューチャー `%s' は, このバイナリがフューチャー非サポートに設定されているため使われません."
+#: score.cc:157
+msgid "already have music in score"
+msgstr "すでに score に music がある"
 
-#: stem.cc:133
-msgid "weird stem size, check for narrow beams"
-msgstr "変な符尾のサイズ, 細い連桁をチェックして下さい"
+#: score.cc:158
+msgid "this is the previous music"
+msgstr "これは以前の music です"
 
-#: gregorian-ligature-engraver.cc:73
-#, c-format
-msgid "\\%s ignored"
-msgstr "\\%s を無視しました"
-
-#: gregorian-ligature-engraver.cc:78
-#, c-format
-msgid "implied \\%s added"
-msgstr "暗黙の \\%s を追加"
-
-#. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:227
-msgid "cannot apply `\\~' on first head of ligature"
-msgstr "リガチャの先頭に `\\~' を適用できません"
-
-#. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:239
-msgid "cannot apply `\\~' on heads with identical pitch"
-msgstr "同じピッチの先頭に `\\~' を適用できません"
-
-#: context-specced-music-iterator.cc:58
-#, c-format
-msgid "cannot create context: %s"
-msgstr "コンテキストが作れません: %s"
-
-#: note-head.cc:96
-#, c-format
-msgid "none of note heads `%s' or `%s' found"
-msgstr "符頭 `%s' または `%s' がない"
-
-#: stream-event.cc:129
-#, c-format
-msgid "conflict with event: `%s'"
-msgstr "競合するイベント: `%s'"
-
-#: stream-event.cc:132
-#, c-format
-msgid "discarding event: `%s'"
-msgstr "破棄イベント: `%s'"
-
-#: page-breaking.cc:280
-msgid "ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"
-msgstr "systems-per-page が設定されているため min-systems-per-page と max-systems-per-page を無視します"
-
-#: page-breaking.cc:285
-msgid "min-systems-per-page is larger than max-systems-per-page, ignoring both values"
-msgstr "min-systems-per-page が max-systems-per-page より大きいため, 両方を無視します"
-
-#: page-breaking.cc:656
-#, c-format
-msgid "page %d has been compressed"
-msgstr "ページ %d が圧縮されました"
-
-#: audio-item.cc:141
-#, c-format
-msgid "end moment (%s) < start moment (%s)"
-msgstr "モーメント終了 (%s) < モーメント開始 (%s)"
-
-#: audio-item.cc:155
-#, c-format
-msgid "invalid start volume: %f"
-msgstr "無効な開始ボリューム: %f"
-
-#: audio-item.cc:161
-#, c-format
-msgid "invalid target volume: %f"
-msgstr "無効なターゲットボリューム: %f"
-
-#: audio-item.cc:176
-#, c-format
-msgid "asked to compute volume at %f for dynamic span of duration %f starting at %s"
-msgstr "%fで音長 %f 開始 %s の動的 span のボリューム計算を求められました"
-
-#: audio-item.cc:184
-#, c-format
-msgid "asked to compute volume at +%f for dynamic span of duration %f starting at %s"
-msgstr "+%fで音長 %f 開始 %s の動的 span のボリューム計算を求められました"
-
-#: performance.cc:72
-msgid "Track..."
-msgstr "トラック..."
-
-#: performance.cc:122
-#, c-format
-msgid "MIDI output to `%s'..."
-msgstr "MIDI 出力 `%s'..."
-
-#: context-def.cc:283
-#, c-format
-msgid "cannot create default child context: %s"
-msgstr "デフォルト子コンテキストが作成できません: %s"
-
-#: context-def.cc:290
-#, c-format
-msgid "default child context begins a cycle: %s"
-msgstr "デフォルト子コンテキストはサイクルを開始: %s"
-
-#: key-signature-interface.cc:79
-#, c-format
-msgid "No glyph found for alteration: %s"
-msgstr "変化音グリフが見つかりません: %s"
-
-#: key-signature-interface.cc:89
-msgid "alteration not found"
-msgstr "変化が見つかりません"
-
-#: cluster.cc:128
-#, c-format
-msgid "unknown cluster style `%s'"
-msgstr "不明なクラスタスタイル `%s'"
-
-#: cluster.cc:165
-msgid "junking empty cluster"
-msgstr "空のクラスタを捨てます"
-
-#: coherent-ligature-engraver.cc:112
-#, c-format
-msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
-msgstr "Coherent_ligature_engraver: 設定します `spacing-increment=0.01': ptr=%ul"
-
-#. We are completely screwed.
-#: beam-quanting.cc:861
-msgid "no viable initial configuration found: may not find good beam slope"
-msgstr "可能な初期設定が見つかりません: 良い連桁スロープが見つからない"
-
-#: percent-repeat-engraver.cc:148
-msgid "unterminated percent repeat"
-msgstr "終端の無いパーセント繰り返し"
-
-#: relative-octave-check.cc:51
-msgid "Failed octave check, got: "
-msgstr "オクターブチェックに失敗: "
+#: score.cc:163
+msgid "errors found, ignoring music expression"
+msgstr "エラーを発見, 音楽表現を無視します"
 
 #. FIXME:
 #: script-engraver.cc:116
@@ -3175,70 +3371,80 @@ msgstr "アーティキュレーションの解釈方法が判りません:"
 msgid " scheme encoding: "
 msgstr " scheme エンコーディング: "
 
-#: lily-parser-scheme.cc:83
+#. Should we even warn?  Previously this caused an assertion
+#. failure, so this might not be well-supported behavior.  But
+#. possibly this could be useful?
+#: side-position-interface.cc:193
 #, c-format
-msgid "Changing working directory to: `%s'"
-msgstr "作業ディレクトリを変更します: `%s'"
+msgid "%s needs a direction for side alignment"
+msgstr "%s には横方向の位置合わせが必要です"
 
-#: lily-parser-scheme.cc:87
+#: side-position-interface.cc:262
+msgid "cannot find skylines - strange alignment will follow"
+msgstr "skyline が見つからない - 未知の配置が続く"
+
+#: side-position-interface.cc:457
 #, c-format
-msgid "unable to change directory to: `%s'"
-msgstr "ディレクトリーを変更できません: `%s'"
+msgid "no side-axis setting found for grob %s."
+msgstr "grob %s の side-axis 設定がありません."
 
-#: lily-parser-scheme.cc:102
+#: skyline-pair.cc:140
+msgid "direction must not be CENTER in ly:skyline-pair::skyline"
+msgstr "ly:skyline-pair::skyline の方向は CENTER であってはなりません"
+
+#: skyline.cc:543
+msgid "Cannot have negative horizon padding.  Junking."
+msgstr "負の水平パディングはできません. 無視します."
+
+#: slur-engraver.cc:123
 #, c-format
-msgid "cannot find init file: `%s'"
-msgstr "init ファイルを見つけることができません: `%s'"
+msgid "direction of %s invalid: %d"
+msgstr "%s の方向は無効です: %d"
 
-#: lily-parser-scheme.cc:103 includable-lexer.cc:61
+#. We already have an old slur, so give a warning
+#. and completely ignore the new slur.
+#: slur-engraver.cc:237
 #, c-format
-msgid "(search path: `%s')"
-msgstr "(検索パス: `%s')"
+msgid "already have %s"
+msgstr "既に %s があります"
 
-#: lily-parser-scheme.cc:120
+#: slur-engraver.cc:254
 #, c-format
-msgid "Processing `%s'"
-msgstr "`%s' を処理しています"
+msgid "%s without a cause"
+msgstr "原因のない %s"
 
-#: lily-parser-scheme.cc:213
-msgid "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-include-string instead."
-msgstr "ly:parser-parse-string は新しいパーサでのみ有効です. 代わりに ly:parser-include-string を使ってください."
-
-#: lily-parser-scheme.cc:244
-msgid "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-include-string instead."
-msgstr "ly:parse-string-expression は新しいパーサでのみ有効です. 代わりに ly:parser-include-string を使ってください."
-
-#: all-font-metrics.cc:149
+#: slur-engraver.cc:319
 #, c-format
-msgid "cannot find font: `%s'"
-msgstr "フォントが見つかりません: `%s'"
+msgid "cannot end %s"
+msgstr "%s を終了できません"
 
-#: page-layout-problem.cc:402
-msgid "A page layout problem has been initiated that cannot accommodate footnotes."
-msgstr "脚注に入れることができないページレイアウトの問題が発生しました."
+#: slur-scoring.cc:364
+msgid "no viable slur configuration found"
+msgstr "可能なスラー設定が見つかりません"
 
-#: page-layout-problem.cc:731
-msgid "ragged-bottom was specified, but page must be compressed"
-msgstr "ragged-bottom が指定されましたが、ページは圧縮する必要があります"
+#: slur-scoring.cc:491
+msgid "slur trying to encompass an empty note column."
+msgstr "空の音符を囲もうとしているスラー."
 
-#: page-layout-problem.cc:734
+#: slur.cc:436
 #, c-format
-msgid "compressing over-full page by %.1f staff-spaces"
-msgstr "%.1f staff-spaces による over-full ページの圧縮"
+msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
+msgstr "スラーの grob を無視: %s. avoid-slur 無設定?"
 
-#: page-layout-problem.cc:1203
-msgid "staff-affinities should only decrease"
-msgstr "staff-affinities は減少するだけです"
-
-#: property-iterator.cc:66
+#: source-file.cc:59
 #, c-format
-msgid "not a grob name, `%s'"
-msgstr "grob 名ではありません, `%s'"
+msgid "cannot open file: `%s'"
+msgstr " ファイルを開けません: `%s'"
 
-#: pdf-scheme.cc:64
+#: source-file.cc:67
 #, c-format
-msgid "Conversion of string `%s' to UTF-16be failed: %s"
-msgstr "文字列 `%s' を UTF-16be へ変換失敗しました: %s"
+msgid "failed to get file size: `%s'"
+msgstr "ファイルサイズの取得に失敗しました: `%s'"
+
+#: source-file.cc:82
+#, c-format
+msgid "expected to read %zu characters, got %zu"
+msgstr "%zu 文字を読み取ることを期待, %zu を取得"
 
 #: staff-performer.cc:295
 msgid "MIDI channel wrapped around"
@@ -3248,414 +3454,1286 @@ msgstr "MIDI チャンネルがラップアラウンドした"
 msgid "remapping modulo 16"
 msgstr "再マップ modulo 16"
 
-#: bar-check-iterator.cc:84
+#: stem-engraver.cc:103
+msgid "tremolo duration is too long"
+msgstr "トレモロが長すぎます"
+
+#: stem-engraver.cc:155
 #, c-format
-msgid "barcheck failed at: %s"
-msgstr "小節チェックが失敗: %s"
+msgid "adding note head to incompatible stem (type = %d/%d)"
+msgstr "矛盾した符尾へ符頭を追加します (タイプ = %d/%d)"
 
-#: change-iterator.cc:36
+#: stem-engraver.cc:158
+msgid "maybe input should specify polyphonic voices"
+msgstr "恐らく入力にポリフォニックボイスを指定する必要があります"
+
+#: stem-tremolo.cc:286
+msgid "Whole-note tremolo may collide with simultaneous notes."
+msgstr "全音符のトレモロは同時進行する音符と衝突することがあります."
+
+#: stem-tremolo.cc:340
+msgid "stem tremolo has no note heads"
+msgstr "符幹トレモロに符頭がありません"
+
+#: stem.cc:133
+msgid "weird stem size, check for narrow beams"
+msgstr "変な符尾のサイズ, 細い連桁をチェックして下さい"
+
+#: stencil-integral.cc:484
+msgid "Malformed path for path stencil."
+msgstr "パスステンシルのパスが正しくありません."
+
+#: stream-event.cc:130
 #, c-format
-msgid "cannot change `%s' to `%s'"
-msgstr "`%s' を `%s' へ変更できません"
+msgid "conflict with event: `%s'"
+msgstr "競合するイベント: `%s'"
 
-#: change-iterator.cc:70
+#: stream-event.cc:133
 #, c-format
-msgid "cannot find context to change to: %s"
-msgstr "切り替えるコンテキストが見つかりません: %s"
+msgid "discarding event: `%s'"
+msgstr "破棄イベント: `%s'"
 
-#. No enclosing context of the right kind was found
-#. and the iterator's immediate context is the kind that was sought.
-#: change-iterator.cc:79
+#: system.cc:197
 #, c-format
-msgid "not changing to same context type: %s"
-msgstr "同じコンテキストタイプに変更していません: %s"
+msgid "Element count %zu"
+msgstr "エレメント数 %zu"
 
-#. FIXME: incomprehensible message
-#: change-iterator.cc:83
-msgid "none of these in my family"
-msgstr "ファミリの中にありません"
-
-#: global-context-scheme.cc:95 global-context-scheme.cc:113
-msgid "no music found in score"
-msgstr "スコアに音楽がありません"
-
-#: global-context-scheme.cc:103
-msgid "Interpreting music..."
-msgstr "楽曲を解釈中..."
-
-#: global-context-scheme.cc:125
+#: system.cc:531
 #, c-format
-msgid "elapsed time: %.2f seconds"
-msgstr "経過時間: %.2f 秒"
+msgid "Grob count %zu"
+msgstr "Grob 数 %zu"
+
+#. TODO: Also print the arguments of the markup!
+#: text-interface.cc:239
+#, c-format
+msgid "Markup depth exceeds maximal value of %zu; Markup: %s"
+msgstr "マークアップの深さが最大値 %zu を超えました; マークアップ: %s"
+
+#: text-spanner-engraver.cc:72
+msgid "cannot find start of text spanner"
+msgstr "テキストスパナーの開始をみつけることができません"
+
+#: text-spanner-engraver.cc:85
+msgid "already have a text spanner"
+msgstr "既にテキストスパナーがあります"
+
+#: text-spanner-engraver.cc:132
+msgid "unterminated text spanner"
+msgstr "終端のないテキストスパナー"
+
+#: tie-engraver.cc:123
+msgid "unterminated tie"
+msgstr "終端のないタイ"
+
+#: tie-engraver.cc:377
+msgid "lonely tie"
+msgstr "一つだけのタイ"
+
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:94
+#, c-format
+msgid "strange time signature found: %d/%d"
+msgstr "おかしな拍子記号をみつけました: %d/%d"
+
+#: time-signature-engraver.cc:111
+msgid "mid-measure time signature without \\partial"
+msgstr "\\partial が無い中間の拍子記号"
+
+#: translator-ctors.cc:119
+#, c-format
+msgid "unknown translator: `%s'"
+msgstr "判らないトランスレータ: `%s'"
 
 #: translator-group-ctors.cc:40
 #, c-format
 msgid "fatal error.  Couldn't find type: %s"
 msgstr "致命的エラー. タイプが見つかりません: %s"
 
-#: lily-modules.cc:82
-#, c-format
-msgid "Uninitialized variable `%s' in module (%s)"
-msgstr "未初期化変数 `%s' がモジュールにあります (%s)"
-
-#: page-turn-page-breaking.cc:179
-#, c-format
-msgid "page-turn-page-breaking: breaking from %d to %d"
-msgstr "page-turn-page-breaking: %d から %d へ改ページ"
-
-#: page-turn-page-breaking.cc:229
-msgid "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."
-msgstr "最初のページを 1 ページに収めることができません. first-page-number を偶数に設定することを検討してください"
-
-#: page-turn-page-breaking.cc:242
-#, c-format
-msgid "Calculating page and line breaks (%d possible page breaks)..."
-msgstr "改ページと改行の計算中（%d 可能な改ページ）..."
-
-#: page-turn-page-breaking.cc:312
-#, c-format
-msgid "break starting at page %d"
-msgstr "%d ページから始まる改ページ"
-
-#: page-turn-page-breaking.cc:313
-#, c-format
-msgid "\tdemerits: %f"
-msgstr "\tデメリット: %f"
-
-#: page-turn-page-breaking.cc:314
-#, c-format
-msgid "\tsystem count: %zu"
-msgstr "\tシステム数: %zu"
-
-#: page-turn-page-breaking.cc:315
-#, c-format
-msgid "\tpage count: %d"
-msgstr "\tページ数: %d"
-
-#: page-turn-page-breaking.cc:316
-#, c-format
-msgid "\tprevious break: %d"
-msgstr "\t前の改ページ: %d"
-
-#: lily-parser.cc:106
-msgid "Parsing..."
-msgstr "構文解析中..."
-
-#: constrained-breaking.cc:191 constrained-breaking.cc:211
-msgid "cannot find line breaking that satisfies constraints"
-msgstr "制約を満たす改行を見つけることができません"
-
-#: mark-engraver.cc:151
-msgid "rehearsalMark must have integer value"
-msgstr "reharsalMark は整数でなければなりません"
-
-#: mark-engraver.cc:157
-msgid "mark label must be a markup object"
-msgstr "mark ラベルは markup オブジェクトである必要があります"
-
-#: axis-group-interface.cc:726
-#, c-format
-msgid "\"%s\" is not a valid outside-staff-placement-directive"
-msgstr "\"%s\" は有効な outside-staff-placement-directive ではありません"
-
-#: axis-group-interface.cc:798
-msgid "an outside-staff object should have a direction, defaulting to up"
-msgstr "outside-staff オブジェクトには方向があり、デフォルトは上です"
-
-#: translator-group.cc:178
+#: translator-group.cc:140
 #, c-format
 msgid "cannot find: `%s'"
 msgstr "見つかりません: `%s'"
 
-#: chord-tremolo-engraver.cc:89
-msgid "No tremolo to end"
-msgstr "終了するトレモロがありません"
+#: tuplet-engraver.cc:111
+msgid "No tuplet to end"
+msgstr "終了する連符がありません"
 
-#: chord-tremolo-engraver.cc:110
-msgid "unterminated chord tremolo"
-msgstr "終端のないコードトレモロ"
+#: tuplet-engraver.cc:160
+msgid "omitting tuplet bracket with neither left nor right bound"
+msgstr "左右の連符のカギを省略します"
 
-#: grob-interface.cc:70
+#: vaticana-ligature-engraver.cc:387
 #, c-format
-msgid "Unknown interface `%s'"
-msgstr "`%s' は未知のインタフェースです"
+msgid "ignored prefix(es) `%s' of this head according to restrictions of the selected ligature style"
+msgstr "選択したリガチャの制限に従ってこの頭のプレフィックス `%s' を無視しました"
 
-#: grob-interface.cc:80
+#: vaticana-ligature-engraver.cc:453
+msgid "Ambiguous use of dots in ligature: there are multiple dotted notes with the same pitch.  The ligature should be split."
+msgstr "リガチャでのドットのあいまいな使用: 同じピッチの付点音符が複数あります. リガチャを分割する必要があります."
+
+#: vaticana-ligature-engraver.cc:511
+msgid "This ligature has a dotted head followed by a non-dotted head.  The ligature should be split after the last dotted head before this head."
+msgstr "このリガチャには付点のない符頭に続いて付点のある符頭があります.リガチャは最後の付点のある符頭の後、この符頭の前に分割する必要があります."
+
+#: vaticana-ligature-engraver.cc:723
 #, c-format
-msgid "Grob `%s' has no interface for property `%s'"
-msgstr "Grob `%s' はプロパティ `%s' のインターフェースがありません"
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
+msgstr "Vaticana_ligature_engraver: 設定 `spacing-increment = %f': ptr =%ul"
 
-#: midi-stream.cc:39
-#, c-format
-msgid "cannot open for write: %s: %s"
-msgstr "書き込み用に開けません: %s: %s"
+#: vaticana-ligature.cc:96
+msgid "flexa-height undefined; assuming 0"
+msgstr "flexa-height 未定義; 0 とみなします"
 
-#: midi-stream.cc:55
-#, c-format
-msgid "cannot write to file: `%s'"
-msgstr "ファイルに書き込めません: `%s'"
+#: vaticana-ligature.cc:101
+msgid "ascending vaticana style flexa"
+msgstr "上行 vaticana style flexa"
 
-#. TODO: Also print the arguments of the markup!
-#: text-interface.cc:183
-#, c-format
-msgid "Markup depth exceeds maximal value of %zu; Markup: %s"
-msgstr "マークアップの深さが最大値 %zu を超えました; マークアップ: %s"
+#: vertical-align-engraver.cc:106
+msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
+msgstr "VerticalAxisGroup の Vertical_align_engraver を無視します"
 
-#: arpeggio.cc:138
-msgid "no heads for arpeggio found?"
-msgstr "アルペジオの先頭が見つかりませんか?"
+#. fixme: be more verbose.
+#: volta-engraver.cc:100
+msgid "cannot end volta spanner"
+msgstr "volta スパナを終了できません"
 
-#. Should we even warn?  Previously this caused an assertion
-#. failure, so this might not be well-supported behavior.  But
-#. possibly this could be useful?
-#: side-position-interface.cc:193
-#, c-format
-msgid "%s needs a direction for side alignment"
-msgstr "%s には横方向の位置合わせが必要です"
+#: volta-engraver.cc:110
+msgid "already have a volta spanner, ending that one prematurely"
+msgstr "すでに volta スパナがあるので、それが途中で終了します"
 
-#: footnote-engraver.cc:90
-msgid "Must be footnote-event."
-msgstr "footnote-event でなければなりません."
+#: volta-engraver.cc:114
+msgid "also already have an ended spanner"
+msgstr "また、すでに終了したスパナがあります"
 
-#: key-engraver.cc:199
-msgid "Incomplete keyAlterationOrder for key signature"
-msgstr "調号に不完全な keyAlterationOrder"
+#: volta-engraver.cc:115
+msgid "giving up"
+msgstr "ギブアップ"
 
-#: horizontal-bracket-engraver.cc:65
-msgid "do not have that many brackets"
-msgstr "多くのブラケットが無い"
-
-#: horizontal-bracket-engraver.cc:74
-msgid "conflicting note group events"
-msgstr "競合する音符グループイベント"
-
-#: parser.yy:487 parser.yy:658 parser.yy:1029 parser.yy:1110 parser.yy:1346
+#: parser.yy:483 parser.yy:654 parser.yy:1025 parser.yy:1106 parser.yy:1342
 msgid "bad expression type"
 msgstr "悪い表現タイプ"
 
-#: parser.yy:704
+#: parser.yy:700
 msgid "Not a markup function"
 msgstr "マークアップ機能ではない"
 
-#: parser.yy:942 parser.yy:1540 parser.yy:1602
+#: parser.yy:938 parser.yy:1536 parser.yy:1598
 msgid "not a context mod"
 msgstr "コンテキスト mod ではない"
 
-#: parser.yy:1023 parser.yy:1102 parser.yy:1254
+#: parser.yy:1019 parser.yy:1098 parser.yy:1250
 msgid "need \\paper for paper block"
 msgstr "paper ブロックに \\paper が必要"
 
-#: parser.yy:1136
+#: parser.yy:1132
 msgid "Missing music in \\score"
 msgstr "\\score に music が無い"
 
-#: parser.yy:1173
+#: parser.yy:1169
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper は \\score の中で使用できません, 代わりに \\layout を使用してください"
 
-#: parser.yy:1224
+#: parser.yy:1220
 msgid "Spurious expression in \\score"
 msgstr "\\score の疑似表現"
 
-#: parser.yy:1428
+#: parser.yy:1424
 msgid "music expected"
 msgstr "music が期待される"
 
-#: parser.yy:1469
+#: parser.yy:1465
 msgid "Ignoring non-music expression"
 msgstr "music 以外の表現を無視する"
 
-#: parser.yy:1782 parser.yy:1803
+#: parser.yy:1778 parser.yy:1799
 msgid "not a key"
 msgstr "key ではない"
 
-#: parser.yy:2713 parser.yy:2834 parser.yy:2847 parser.yy:2856
+#: parser.yy:2710 parser.yy:2831 parser.yy:2844 parser.yy:2853
 msgid "bad grob property path"
 msgstr "不正な grob プロパティ path"
 
-#: parser.yy:2814
+#: parser.yy:2811
 msgid "only \\consists and \\remove take non-string argument."
 msgstr "\\consists と \\remove のみが非文字列引数を取ります."
 
-#: parser.yy:2875
+#: parser.yy:2872
 msgid "bad context property path"
 msgstr "不正なコンテキストプロパティ path"
 
-#: parser.yy:2962
+#: parser.yy:2959
 msgid "markup expected"
 msgstr "マークアップが期待される"
 
-#: parser.yy:2975
+#: parser.yy:2972
 msgid "simple string expected"
 msgstr "単純な文字列が期待される"
 
-#: parser.yy:2988 parser.yy:2998
+#: parser.yy:2985 parser.yy:2995
 msgid "symbol expected"
 msgstr "シンボルが期待される"
 
-#: parser.yy:3141
+#: parser.yy:3138
 msgid "not a rhythmic event"
 msgstr "リズミカルなイベントではありません"
 
-#: parser.yy:3178
+#: parser.yy:3175
 msgid "post-event expected"
 msgstr "post-event が期待される"
 
-#: parser.yy:3189 parser.yy:3194
+#: parser.yy:3186 parser.yy:3191
 msgid "have to be in Lyric mode for lyrics"
 msgstr "歌詞のためには Lyric モードにする必要があります"
 
-#: parser.yy:3276
+#: parser.yy:3273
 msgid "expecting string or post-event as script definition"
 msgstr "スクリプト定義として文字列または post-event が期待される"
 
-#: parser.yy:3454 parser.yy:3521
+#: parser.yy:3451 parser.yy:3518
 msgid "not a duration"
 msgstr "長さではない"
 
-#: parser.yy:3507
+#: parser.yy:3504
 msgid "not a multiplier"
 msgstr "乗数ではありません"
 
-#: parser.yy:3543
+#: parser.yy:3540
 msgid "bass number expected"
 msgstr "ベース番号が期待される"
 
-#: parser.yy:3639
+#: parser.yy:3636
 msgid "have to be in Note mode for notes"
 msgstr "音符には Note モードにする必要があります"
 
-#: parser.yy:3648
+#: parser.yy:3645
 msgid "octave marks must precede duration"
 msgstr "オクターブ記号は継続時間の前になければなりません"
 
-#: parser.yy:3650
+#: parser.yy:3647
 msgid "badly placed octave marks"
 msgstr "オクターブ記号の位置が不適切"
 
-#: parser.yy:3698
+#: parser.yy:3695
 msgid "have to be in Chord mode for chords"
 msgstr "コードには Chord モードにする必要があります"
 
-#: parser.yy:3741
+#: parser.yy:3738
 msgid "markup outside of text script or \\lyricmode"
 msgstr "テキストスクリプトまたは \\lyricmode 以外のマークアップ"
 
-#: parser.yy:3746
+#: parser.yy:3743
 #, c-format
 msgid "not a note name: %s"
 msgstr "音符の名前ではない: %s"
 
-#: parser.yy:3751
+#: parser.yy:3748
 msgid "string outside of text script or \\lyricmode"
 msgstr "テキストスクリプトまたは \\lyricmode 以外の文字列"
 
-#: parser.yy:3903 parser.yy:3912
+#: parser.yy:3900 parser.yy:3909
 msgid "not an unsigned integer"
 msgstr "符号なし整数ではありません"
 
-#: parser.yy:4021
+#: parser.yy:4018
 msgid "not a markup"
 msgstr "マークアップではありません"
 
-#: parser.yy:4731
+#: parser.yy:4711
 #, c-format
 msgid "Unattached %s"
 msgstr "添付されていない %s"
 
-#: parser.yy:4734
+#: parser.yy:4713
 #, c-format
 msgid "Dropping unattachable %s"
 msgstr "接続できない %s を削除します"
 
-#: lexer.ll:199
+#: lexer.ll:206
 msgid "stray UTF-8 BOM encountered"
 msgstr "外れた UTF-8 BOM を見つけました"
 
-#: lexer.ll:202
+#: lexer.ll:209
 msgid "Skipping UTF-8 BOM"
 msgstr "UTF-8 の BOM をスキップします"
 
-#: lexer.ll:256
+#: lexer.ll:263
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "入力の名前を `%s' に変更します"
 
-#: lexer.ll:273
+#: lexer.ll:280
 msgid "quoted string expected after \\version"
 msgstr "\\version の後には引用符で囲まれた文字列が必要です"
 
-#: lexer.ll:277
+#: lexer.ll:284
 msgid "quoted string expected after \\sourcefilename"
 msgstr "\\sourcefilename の後には引用符で囲まれた文字列が必要です"
 
-#: lexer.ll:281
+#: lexer.ll:288
 msgid "integer expected after \\sourcefileline"
 msgstr "\\sourcefileline の後には整数が必要です"
 
-#: lexer.ll:308
+#: lexer.ll:315
 msgid "\\maininput not allowed outside init files"
 msgstr "\\maininput は init ファイル以外では許可されません"
 
-#: lexer.ll:332
+#: lexer.ll:339
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "間違ったまたは未定義の識別子: `%s'"
 
-#: lexer.ll:353
+#: lexer.ll:360
 msgid "string expected after \\include"
 msgstr "\\include の後には文字列が必要です"
 
-#: lexer.ll:363
+#: lexer.ll:370
 msgid "end quote missing"
 msgstr "終端の引用符がありません"
 
-#: lexer.ll:711
+#: lexer.ll:718
 msgid "EOF found inside a comment"
 msgstr "コメント内に EOF が見つかりました"
 
-#: lexer.ll:716
+#: lexer.ll:723
 msgid "EOF found inside string"
 msgstr "文字列中に EOF が見つかりました"
 
-#: lexer.ll:731
+#: lexer.ll:738
 msgid "Unfinished main input"
 msgstr "未終了のメイン入力"
 
-#: lexer.ll:810
+#: lexer.ll:817
 #, c-format
 msgid "invalid character: `%s'"
 msgstr "無効な文字: `%s'"
 
-#: lexer.ll:947
+#: lexer.ll:952
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "未知のエスケープ文字列: `\\%s'"
 
-#: lexer.ll:967
+#: lexer.ll:972
 #, c-format
 msgid "undefined character or shorthand: %s"
 msgstr "未定義の文字または省略形: %s"
 
-#: lexer.ll:1281
+#: lexer.ll:1286
 msgid "non-UTF-8 input"
 msgstr "非 UTF-8 入力"
 
-#: lexer.ll:1325
+#: lexer.ll:1330
 #, c-format
 msgid "Invalid version string \"%s\""
 msgstr "無効なバージョン文字列 \"%s\""
 
-#: lexer.ll:1330
+#: lexer.ll:1335
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr "ファイルが古すぎる: %s （サポートされる最も古いもの: %s）"
 
-#: lexer.ll:1331
+#: lexer.ll:1336
 msgid "consider updating the input with the convert-ly script"
 msgstr "convert-ly スクリプトで入力を更新することを検討してください"
 
-#: lexer.ll:1337
+#: lexer.ll:1342
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr "プログラムが古すぎる: %s （ファイルは %s を要求）"
+
+#: auto-beam.scm:147
+msgid "Beam end fits no pattern"
+msgstr "連桁の終わりに合うパターンがありません"
+
+#: backend-library.scm:27
+#, scheme-format
+msgid "Invoking `~a'..."
+msgstr "`~a' 起動中..."
+
+#: backend-library.scm:31
+#, scheme-format
+msgid "`~a' failed (~a)\n"
+msgstr "`~a' 失敗しました (~a)\n"
+
+#: backend-library.scm:49
+#, scheme-format
+msgid "Preparing Ghostscript command to `~a': ~a"
+msgstr "`~a' への Ghostscript コマンドを準備しています: ~a"
+
+#: backend-library.scm:125
+#, scheme-format
+msgid "Converting to `~a'...\n"
+msgstr "`~a' へ変換中...\n"
+
+#. Do not try to guess the name of the png file,
+#. GS produces PNG files like BASE-page%d.png.
+#: backend-library.scm:155
+#, scheme-format
+msgid "Converting to ~a..."
+msgstr "~a へ変換中..."
+
+#: backend-library.scm:176
+#, scheme-format
+msgid "Copying to `~a'...\n"
+msgstr "`~a' へコピーしています...\n"
+
+#: backend-library.scm:284
+#, scheme-format
+msgid "can't create temp file for ~a after ~a times"
+msgstr "~a のテンポラリファイルが ~a 回後も作成できません"
+
+#: backend-library.scm:336
+#, scheme-format
+msgid "Writing header field `~a' to `~a'..."
+msgstr "ヘッダフィールド `~a' を `~a' に書き込んでいます..."
+
+#: bar-line.scm:142
+#, scheme-format
+msgid "Bar glyph ~a not known. Ignoring."
+msgstr "小節線グリフ ~a は不明. 無視します."
+
+#: bar-line.scm:170
+#, scheme-format
+msgid "Annotation '~a' is allowed in the first argument of a bar line definition only."
+msgstr "アノテーション '~a' は小節線定義の第一引数のみで許可されます."
+
+#: bar-line.scm:178
+#, scheme-format
+msgid "Replacement '~a' is allowed in the last argument of a bar line definition only."
+msgstr "置き換え '~a' は小節線定義の最終引数のみで許可されます."
+
+#: bar-line.scm:216
+#, scheme-format
+msgid "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
+msgstr "add-bar-glyph-print-procedure: グリフ '~a' は一つの ASCII 文字でなければなりません."
+
+#: bar-line.scm:784
+#, scheme-format
+msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
+msgstr "小節線グリフ '~a' のスパンバーグリフが定義されていません; 無視します."
+
+#: chord-entry.scm:57
+#, scheme-format
+msgid "Spurious garbage following chord: ~A"
+msgstr "コードに続く偽の不要データ: ~A"
+
+#: color.scm:733
+#, scheme-format
+msgid "Requested color '~a' is not defined!"
+msgstr "要求された色 '~a' は定義されていません!"
+
+#: define-context-properties.scm:31 define-grob-properties.scm:21
+#: define-music-properties.scm:21 lily.scm:124
+#, scheme-format
+msgid "symbol ~S redefined"
+msgstr "シンボル ~S 再定義"
+
+#: define-event-classes.scm:78
+#, scheme-format
+msgid "unknown parent class `~a'"
+msgstr "未知の親クラス `~a'"
+
+#: define-event-classes.scm:112
+#, scheme-format
+msgid "Cannot redefine event class `~S'"
+msgstr "イベントクラス `~S' を再定義できません"
+
+#: define-event-classes.scm:114
+#, scheme-format
+msgid "Undefined parent event class `~S'"
+msgstr "未定義の親イベントクラス `~S'"
+
+#: define-grobs.scm:2991
+#, scheme-format
+msgid "Unknown class ~a"
+msgstr "不明なクラス ~a"
+
+#: define-markup-commands.scm:265
+msgid "Can't print a line - setting on/off to default"
+msgstr "行をプリントできません - オン/オフをデフォルトに設定"
+
+#: define-markup-commands.scm:1312
+msgid "no systems found in \\score markup, does it have a \\layout block?"
+msgstr "\\score マークアップに譜表が見つかりません, \\layout ブロックにある?"
+
+#: define-markup-commands.scm:2455
+#, scheme-format
+msgid "Recursive definition of property ~a detected!"
+msgstr "プロパティの再帰的定義 ~a が検出されました!"
+
+#: define-markup-commands.scm:3170
+#, scheme-format
+msgid "Cannot find glyph ~a"
+msgstr "グリフ ~a が見つかりません"
+
+#: define-markup-commands.scm:3553
+#, scheme-format
+msgid "Unable to create slashed digit ~a"
+msgstr "スラッシュされた数字 ~a を作成できません"
+
+#: define-markup-commands.scm:3666
+#, scheme-format
+msgid "no brace found for point size ~S "
+msgstr "ポイントサイズ ~S のブレースが見つかりません"
+
+#: define-markup-commands.scm:3667
+#, scheme-format
+msgid "defaulting to ~S pt"
+msgstr "デフォルトは ~S pt"
+
+#: define-markup-commands.scm:3945
+#, scheme-format
+msgid "not a valid duration string: ~a"
+msgstr "無効なデュレーション文字列: ~a"
+
+#: define-markup-commands.scm:4161
+#, scheme-format
+msgid "not a valid duration string: ~a - ignoring"
+msgstr "有効なデュレーション文字列ではありません: ~a - 無視します"
+
+#: define-music-callbacks.scm:87
+#, scheme-format
+msgid "Could not find ottavation markup for ~a octaves up."
+msgstr "~a オクターブ上の ottavation マークアップが見つかりませんでした."
+
+#: define-music-types.scm:815
+#, scheme-format
+msgid "symbol expected: ~S"
+msgstr "シンボルが期待される: ~S"
+
+#: define-music-types.scm:818
+#, scheme-format
+msgid "cannot find music object: ~S"
+msgstr "音楽オブジェクトが見つかりません: ~S"
+
+#: define-music-types.scm:838
+#, scheme-format
+msgid "bad make-music argument: ~S"
+msgstr "間違った make-music 引数: ~S"
+
+#: define-note-names.scm:1419
+msgid "Select note names language."
+msgstr "音符の名前の言語を選択します."
+
+#: define-note-names.scm:1425
+#, scheme-format
+msgid "Using `~a' note names..."
+msgstr "音符の名前 `~a' を使います..."
+
+#: define-note-names.scm:1428
+#, scheme-format
+msgid "Could not find language `~a'.  Ignoring."
+msgstr "言語 `~a' が見つかりませんでした. 無視します."
+
+#: display-woodwind-diagrams.scm:1666
+msgid "woodwind markup error - invalid key or hole requested"
+msgstr "木管楽器マークアップエラー - 無効な調または音孔が選択されました"
+
+#: display-woodwind-diagrams.scm:1946
+#, scheme-format
+msgid "~a is not a valid woodwind instrument."
+msgstr "~a は有効な木管楽器ではありません."
+
+#: document-backend.scm:135
+#, scheme-format
+msgid "pair expected in doc ~s"
+msgstr "doc ~s で期待されるペア"
+
+#: document-backend.scm:202
+#, scheme-format
+msgid "cannot find interface for property: ~S"
+msgstr "プロパティのインターフェースが見つかりません: ~S"
+
+#: document-backend.scm:212
+#, scheme-format
+msgid "unknown Grob interface: ~S"
+msgstr "未知の Grob インタフェース: ~S"
+
+#: document-context-mods.scm:78
+#, scheme-format
+msgid "context modification `~a' not documented."
+msgstr "コンテキストの変更k `~a' はドキュメント化されていません."
+
+#: document-identifiers.scm:56
+#, scheme-format
+msgid "music function `~a' not documented."
+msgstr "音楽機能 `~a' はドキュメント化されていません."
+
+#: documentation-lib.scm:62
+#, scheme-format
+msgid "Processing ~S..."
+msgstr "処理中 ~S..."
+
+#: documentation-lib.scm:178
+#, scheme-format
+msgid "Writing ~S..."
+msgstr "~S 書き込み中..."
+
+#: documentation-lib.scm:190
+#, scheme-format
+msgid "cannot find description for property `~S' (~S)"
+msgstr "プロパティ `~S' (~S) の説明が見つかりません"
+
+#: documentation-lib.scm:211
+#, scheme-format
+msgid "cannot find description for property ~S (~S)"
+msgstr "プロパティ ~S (~S) の説明が見つかりません"
+
+#: flag-styles.scm:156
+#, scheme-format
+msgid "flag stroke `~a' or `~a' not found"
+msgstr "フラグストローク `~a' または `~a' が見つかりません"
+
+#: flag-styles.scm:169
+#, scheme-format
+msgid "flag ~a not found"
+msgstr "フラグ ~a が見つかりません"
+
+#: framework-eps.scm:111
+#, scheme-format
+msgid "Writing ~a..."
+msgstr "~a 書き込み中..."
+
+#: framework-ps.scm:250
+#, scheme-format
+msgid "CFF font `~a' already embedded, skipping."
+msgstr "CFF フォント `~a' は既に埋め込まれています, スキップします"
+
+#: framework-ps.scm:253
+#, scheme-format
+msgid "Different CFF fonts which have the same name `~a' has been detected. The font cannot be embedded."
+msgstr "同じ名前 `~a' の異なる CFF フォントが検出されました. フォントを埋め込むことはできません."
+
+#: framework-ps.scm:257
+#, scheme-format
+msgid "Embedding CFF font `~a'."
+msgstr "CFF フォント `~a' を埋め込んでいます."
+
+#: framework-ps.scm:262
+msgid "Initializing embedded CFF font list."
+msgstr "埋め込み CFF フォントリスト 初期化中..."
+
+#: framework-ps.scm:284
+#, scheme-format
+msgid "Preparing font ~a in PostScript resource directory for subfont ~a of file `~a'..."
+msgstr "PostScript リソースディレクトリにフォント ~a サブフォント ~a ファイル `~a' を準備しています..."
+
+#: framework-ps.scm:300 framework-ps.scm:314 framework-ps.scm:320
+#, scheme-format
+msgid "File `~a' already exists, skipping..."
+msgstr "ファイル `~a' は既に存在します, スキップします..."
+
+#. TrueType fonts (TTF) and TrueType Collection (TTC)
+#: framework-ps.scm:306
+#, scheme-format
+msgid "Font ~a is TrueType font, skipping..."
+msgstr "フォント ~a は TrueType フォントです, スキップします..."
+
+#: framework-ps.scm:322
+#, scheme-format
+msgid "Font ~a cannot be used in PostScript resource directory because it is unknown format."
+msgstr "フォント ~a は不明なフォーマットなので PostScript リソースディレクトリで使用できません."
+
+#: framework-ps.scm:361
+#, scheme-format
+msgid "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero."
+msgstr "フォント ~a はインデックス (~a) が 0 ではないため Ghostscript 経由でロードできません."
+
+#: framework-ps.scm:367
+#, scheme-format
+msgid "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF Collection (OTC) font."
+msgstr "フォント ~a は OpenType/CFF Collection (OTC) なので Ghostscript 経由でロードできません."
+
+#: framework-ps.scm:373
+#, scheme-format
+msgid "Font ~a cannot be used via Ghostscript because it is a TrueType font that does not have glyph names."
+msgstr "フォント ~a はグリフ名を持たない TrueType フォントなので Ghostscript 経由で使用できません."
+
+#: framework-ps.scm:395
+#, scheme-format
+msgid "cannot embed ~S=~S"
+msgstr "~S=~S を埋め込むことができません"
+
+#: framework-ps.scm:438
+#, scheme-format
+msgid "cannot extract file matching ~a from ~a"
+msgstr "~a にマッチするファイルを ~a から抽出できません"
+
+#: framework-ps.scm:459
+#, scheme-format
+msgid "do not know how to embed ~S=~S"
+msgstr "~S=~S を埋め込む方法が判りません"
+
+#: framework-ps.scm:491
+#, scheme-format
+msgid "do not know how to embed font ~s ~s ~s"
+msgstr "フォント ~s ~s ~s を埋め込む方法が判りません"
+
+#: framework-ps.scm:545
+#, scheme-format
+msgid "Font file `~a' already exists, skipping..."
+msgstr "フォントファイル `~a' は既に存在します, スキップします..."
+
+#: framework-ps.scm:551
+#, scheme-format
+msgid "Exporting font file `~a'."
+msgstr "フォントファイル `~a' をエクスポートしています."
+
+#: framework-ps.scm:580
+#, scheme-format
+msgid "Making PostScript resource directory `~a'."
+msgstr "PostScript リソースディレクトリ `~a' を作成しています."
+
+#: framework-ps.scm:583
+#, scheme-format
+msgid "PostScript resource directory `~a' already exists."
+msgstr "PostScript リソースディレクトリ `~a' は既に存在します."
+
+#: framework-ps.scm:585
+#, scheme-format
+msgid "Making CIDFont directory `~a'."
+msgstr "CIDFont ディレクトリ `~a' を作成しています."
+
+#: framework-ps.scm:588
+#, scheme-format
+msgid "CIDFont directory `~a' already exists."
+msgstr "CIDFont ディレクトリ `~a' は既に存在します."
+
+#: framework-ps.scm:590
+#, scheme-format
+msgid "Making Font directory `~a'."
+msgstr "Font ディレクトリ `~a' を作成しています."
+
+#: framework-ps.scm:593
+#, scheme-format
+msgid "Font directory `~a' already exists."
+msgstr "Font ディレクトリ `~a' は既に存在します."
+
+#: framework-ps.scm:597
+#, scheme-format
+msgid "Making font export directory `~a'."
+msgstr "フォントエクスポートディレクトリ `~a' を作成しています."
+
+#: framework-ps.scm:600
+#, scheme-format
+msgid "Font export directory `~a' already exists."
+msgstr "フォントエクスポートディレクトリ `~a' は既に存在します."
+
+#: framework-ps.scm:829
+#, scheme-format
+msgid "Layout output to `~a'..."
+msgstr "レイアウトを `~a' へ出力しています..."
+
+#: framework-ps.scm:997
+msgid ""
+"\n"
+"The PostScript backend does not support the\n"
+"system-by-system output.  For that, use the EPS backend instead,\n"
+"\n"
+"  lilypond -dbackend=eps FILE\n"
+"\n"
+"If you have cut & pasted a lilypond fragment from a webpage, be sure\n"
+"to only remove anything before\n"
+"\n"
+"  %% ****************************************************************\n"
+"  %% Start cut-&-pastable-section\n"
+"  %% ****************************************************************\n"
+msgstr ""
+"\n"
+"PostScript バックエンドは system-by-system 出力をサポートしません.\n"
+"以下のように EPS バックエンドを使ってください.\n"
+"\n"
+"  lilypond -dbackend=eps FILE\n"
+"\n"
+"もし lilypond 断片を webpage からコピー＆ペーストしてきた場合,\n"
+"以下より前のものだけを削除してください.\n"
+"\n"
+"  %% ****************************************************************\n"
+"  %% Start cut-&-pastable-section\n"
+"  %% ****************************************************************\n"
+
+#: framework-svg.scm:90
+#, scheme-format
+msgid "Updating font into: ~a"
+msgstr "フォントをアップデートしています: ~a"
+
+#: fret-diagrams.scm:33
+#, scheme-format
+msgid "Possible typo in fret-diagram '~a'"
+msgstr "fret-diagram '~a' の typo の可能性"
+
+#: fret-diagrams.scm:958
+#, scheme-format
+msgid "String ~a out of range 1-~a, ignoring"
+msgstr "ストリング ~a はレンジ 1-~a の範囲外, 無視します"
+
+#: graphviz.scm:64
+#, scheme-format
+msgid "Writing graph `~a'..."
+msgstr "グラフ `~a' を書き込み中..."
+
+#: harp-pedals.scm:119
+#, scheme-format
+msgid "Unhandled entry in harp-pedal: ~a"
+msgstr "harp-pedal の未処理エントリ: ~a"
+
+#: harp-pedals.scm:167
+#, scheme-format
+msgid "Harp pedal diagram contains ~a pedals rather than the usual 7."
+msgstr "ハープペダルダイアグラムに通常の 7 ではなく ~a ペダルが含まれています."
+
+#: harp-pedals.scm:170
+msgid "Harp pedal diagram does not contain a divider (usually after third pedal)."
+msgstr "ハープペダルダイアグラムにディバイダーが含まれていません（通常はサードペダルの後）."
+
+#: harp-pedals.scm:172
+#, scheme-format
+msgid "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal."
+msgstr "ハープペダルダイアグラムのポジション ~a にディバイダーがあります. 通常はサードペダルの後に一つだけあります."
+
+#: layout-beam.scm:40
+#, scheme-format
+msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
+msgstr "連桁量子化エラー. 期待値 (~S,~S) 発見 ~S."
+
+#: layout-beam.scm:54
+#, scheme-format
+msgid "Error in beam quanting.  Expected ~S 0, found ~S."
+msgstr "連桁量子化エラー. 期待値 ~S 0, 発見 ~S."
+
+#: lily-library.scm:337
+msgid "Music unsuitable for context-mod"
+msgstr "context-mod に適さない music"
+
+#: lily-library.scm:345
+msgid "Cannot determine contexts to modify"
+msgstr "変更するコンテキストをを判別できません"
+
+#: lily-library.scm:396
+#, scheme-format
+msgid "Cannot find context-def \\~a"
+msgstr "context-def \\~a　が見つかりません"
+
+#: lily-library.scm:412
+msgid "Music unsuitable for output-def"
+msgstr "output-def に適さない music"
+
+#: lily-library.scm:951
+msgid ""
+"Find the index between @var{start} and @var{end} (an integer)\n"
+"which produces the closest match to @var{target-val} if\n"
+"applied to function @var{getter}."
+msgstr ""
+"関数 @var{getter} に適用した場合に, @var{target-val} に最も近い\n"
+"一致を生成する @var{start} と @var{end} の間のインデックス（整数）\n"
+"を求めます."
+
+#: lily-library.scm:1045
+#, scheme-format
+msgid "unknown unit: ~S"
+msgstr "判らない単位: ~S"
+
+#: lily-library.scm:1070
+#, scheme-format
+msgid "no \\version statement found, please add~afor future compatibility"
+msgstr "\\version ステートメントがみつかりません, 将来の互換性のため~aを追加してください"
+
+#: lily.scm:116
+msgid "call-after-session used after session start"
+msgstr "セッション開始後に call-after-session が使われました"
+
+#: lily.scm:121
+msgid "define-session used after session start"
+msgstr "セッション開始後に define-session が使われました"
+
+#: lily.scm:441
+msgid "Using (ice-9 curried-definitions) module\n"
+msgstr "(ice-9 curried-definitions) モジュールの使用\n"
+
+#: lily.scm:444
+msgid "Guile 1.8\n"
+msgstr "Guile 1.8\n"
+
+#: lily.scm:496
+#, scheme-format
+msgid "cannot find: ~A"
+msgstr "見つかりません: ~A"
+
+#: lily.scm:887
+msgid "Success: compilation successfully completed"
+msgstr "成功: コンパイルが成功しました"
+
+#: lily.scm:888
+msgid "Compilation completed with warnings or errors"
+msgstr "警告やエラーでコンパイルが完了しました"
+
+#: lily.scm:953
+#, scheme-format
+msgid "job ~a terminated with signal: ~a"
+msgstr "ジョブ ~a がシグナルで terminate されました: ~a"
+
+#: lily.scm:956
+#, scheme-format
+msgid ""
+"logfile ~a (exit ~a):\n"
+"~a"
+msgstr ""
+"ログファイル ~a （終了 ~a）:\n"
+"~a"
+
+#: lily.scm:960
+#, scheme-format
+msgid "Children ~a exited with errors."
+msgstr "子 ~a がエラーで終了しました."
+
+#: lily.scm:971 lily.scm:1057
+#, scheme-format
+msgid "failed files: ~S"
+msgstr "失敗したファイル: ~S"
+
+#: lily.scm:1048
+#, scheme-format
+msgid "Redirecting output to ~a..."
+msgstr "出力を ~a へリダイレクト..."
+
+#: lily.scm:1067
+#, scheme-format
+msgid "Invoking `~a'...\n"
+msgstr "`~a' 起動中...\n"
+
+#: ly-syntax-constructors.scm:27
+#, scheme-format
+msgid "~a function cannot return ~a"
+msgstr "~a 関数は ~a を返すことができません"
+
+#: ly-syntax-constructors.scm:60
+#, scheme-format
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
+msgstr "引数 ~a の型が間違っています. ~a を期待していますが, ~s が見つかりました"
+
+#: ly-syntax-constructors.scm:114
+msgid "not an articulation"
+msgstr "アーティキュレーションではない"
+
+#: markup-macros.scm:297
+#, scheme-format
+msgid "~A: Not a markup (list) function: ~S"
+msgstr "~A: マークアップ（リスト）機能ではない: ~S"
+
+#: markup-macros.scm:304
+#, scheme-format
+msgid "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S"
+msgstr "~A: 引数の数が間違っています. 期待: ~A, 発見 ~A: ~S"
+
+#: markup-macros.scm:308
+#, scheme-format
+msgid "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S."
+msgstr "~A: 位置 ~A に無効な引数があります. 期待: ~A, 発見: ~S."
+
+#: markup-macros.scm:344
+#, scheme-format
+msgid "Not a markup command: ~A"
+msgstr "マークアップコマンドではない: ~A"
+
+#: modal-transforms.scm:38
+msgid "'from' pitch not in scale; ignoring"
+msgstr "'from' ピッチはスケールにありません; 無視します"
+
+#: modal-transforms.scm:42 modal-transforms.scm:75
+msgid "'to' pitch not in scale; ignoring"
+msgstr "'to' ピッチはスケールにありません; 無視します"
+
+#: modal-transforms.scm:46
+msgid "pitch to be transposed not in scale; ignoring"
+msgstr "トランスポーズされるピッチはスケールにありません; 無視します"
+
+#: modal-transforms.scm:71
+msgid "'around' pitch not in scale; ignoring"
+msgstr "'around' ピッチはスケールにありません; 無視します"
+
+#: modal-transforms.scm:79
+msgid "pitch to be inverted not in scale; ignoring"
+msgstr "反転されるピッチはスケールにありません; 無視します"
+
+#: modal-transforms.scm:95
+msgid "negative replication count; ignoring"
+msgstr "負の複製カウント; 無視します"
+
+#: modal-transforms.scm:287
+msgid "Dangling tie in \\retrograde"
+msgstr "\\retrograde のぶら下がりタイ"
+
+#: modal-transforms.scm:292
+msgid ""
+"If @var{music} is a single pitch, inverts it about @var{around}\n"
+"and transposes from @var{around} to @var{to}."
+msgstr ""
+"@var{music} が単音の場合, @var{around} を中心に反転し,\n"
+"@var{around} から @var{to} にトランスポーズします."
+
+#: modal-transforms.scm:302
+msgid "Applies pitch-invert to all pitches in @var{music}."
+msgstr "@var{music} のすべてのピッチに pitch-invert を適用します."
+
+#: modal-transforms.scm:309
+msgid ""
+"Transpose a note (numbered as @var{n}) in @var{direction}.\n"
+"@var{n} is zero-based and can be negative to count from the end."
+msgstr ""
+"音符（@var{n} として番号が振られたもの）を\n"
+"@var{direction} にトランスポーズします.\n"
+"@var{n} はゼロベースで最後から数えて負にすることもできます."
+
+#: music-functions.scm:321
+#, scheme-format
+msgid "invalid tremolo repeat count: ~a"
+msgstr "無効なトレモロの繰り返し回数: ~a"
+
+#: music-functions.scm:350
+#, scheme-format
+msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
+msgstr "不明な繰り返しタイプ `~S': volta, unfold, percent, tremolo のいずれかでなければなりません"
+
+#: music-functions.scm:354
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr "繰り返しよりも多い alternative. 超過した alternative を捨てます"
+
+#: music-functions.scm:420
+#, scheme-format
+msgid "unknown repeat-type ~a, ignoring."
+msgstr "未知の繰り返しタイプ ~a, 無視します"
+
+#: music-functions.scm:511
+#, scheme-format
+msgid "bad grob property path ~a"
+msgstr "不正な grob プロパティ path ~a"
+
+#: music-functions.scm:535
+#, scheme-format
+msgid "bad context property ~a"
+msgstr "不正なコンテキストプロパティ ~a"
+
+#: music-functions.scm:566
+#, scheme-format
+msgid "bad music property ~a"
+msgstr "不正な音楽プロパティ ~a"
+
+#: music-functions.scm:885
+msgid "Bad chord repetition"
+msgstr "不正なコードの繰り返し"
+
+#: music-functions.scm:992
+#, scheme-format
+msgid "Bad voice id: ~a"
+msgstr "不正なボイス id: ~a"
+
+#: music-functions.scm:1003
+msgid "\\voices needs more ids"
+msgstr "\\voices はより多くの id が必要です"
+
+#: music-functions.scm:1022
+#, scheme-format
+msgid "music expected: ~S"
+msgstr "music が期待される: ~S"
+
+#: music-functions.scm:1388
+#, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr "クォートされた music が見つかりません: `~S'"
+
+#: music-functions.scm:1519
+msgid "Add @var{octave-shift} to the octave of @var{pitch}."
+msgstr "@var{pitch} のオクターブに @var{octave-shift} を追加します."
+
+#: music-functions.scm:1582
+#, scheme-format
+msgid "Unknown octaveness type: ~S "
+msgstr "不明な octaveness タイプ: ~S "
+
+#: music-functions.scm:1583
+msgid "Defaulting to 'any-octave."
+msgstr "デフォルトは 'any-octave."
+
+#: music-functions.scm:1982
+#, scheme-format
+msgid "unknown accidental style: ~S"
+msgstr "不明な臨時記号スタイル: ~S"
+
+#: music-functions.scm:2411
+msgid "giving up on cloned grob transform"
+msgstr "クローンされた grob 変換をあきらめます"
+
+#: music-functions.scm:2474
+#, scheme-format
+msgid "default '~a of ~a is ~a and can't be offset"
+msgstr "デフォルト '~a ~a は ~a でオフセットできません"
+
+#: music-functions.scm:2505
+#, scheme-format
+msgid "the property '~a of ~a cannot be offset"
+msgstr "プロパティ '~a ~a はオフセットできません"
+
+#: music-functions.scm:2731
+#, scheme-format
+msgid "not a symbol list: ~a"
+msgstr "シンボルリストではありません: ~a"
+
+#: music-functions.scm:2734
+#, scheme-format
+msgid "conflicting tag group ~a"
+msgstr "競合する tag グループイベント ~a"
+
+#: output-lib.scm:2068
+msgid "Please consider to increase 'minimum-length"
+msgstr "'minimum-length を増やすことを検討してください"
+
+#: output-ps.scm:266 output-svg.scm:557
+#, scheme-format
+msgid "unknown line-cap-style: ~S"
+msgstr "不明な line-cap-style: ~S"
+
+#: output-ps.scm:271 output-svg.scm:563
+#, scheme-format
+msgid "unknown line-join-style: ~S"
+msgstr "不明な line-join-style: ~S"
+
+#: output-svg.scm:148
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
+msgstr "Pango description を解読できません: ~a"
+
+#: output-svg.scm:228
+msgid "Glyph must have a unicode value"
+msgstr "グリフは Unicode 値を持つ必要があります"
+
+#: output-svg.scm:280 output-svg.scm:290
+#, scheme-format
+msgid "cannot find SVG font ~S"
+msgstr "SVG フォントが見つかりません: ~S"
+
+#: paper.scm:124
+msgid "set-global-staff-size: not in toplevel scope"
+msgstr "set-global-staff-size: トップレベルスコープにありません"
+
+#: paper.scm:325
+#, scheme-format
+msgid "This is not a \\layout {} object, ~S"
+msgstr "これは \\layout {} オブジェクトではありません, ~S"
+
+#: paper.scm:333
+#, scheme-format
+msgid "Unknown paper size: ~a"
+msgstr "不明な用紙サイズ: ~a"
+
+#. TODO: should raise (generic) exception with throw, and catch
+#. that in parse-scm.cc
+#: paper.scm:352
+msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
+msgstr "\\paper { ... } 内で #(set-paper-size .. ) を使う必要があります"
+
+#: parser-clef.scm:163
+#, scheme-format
+msgid "unknown clef type `~a'"
+msgstr "不明な音部記号タイプ `~a'"
+
+#: parser-clef.scm:164
+#, scheme-format
+msgid "supported clefs: ~a"
+msgstr "サポートしている音部記号: ~a"
+
+#: parser-ly-from-scheme.scm:26
+msgid "error in #{ ... #}"
+msgstr "#{ ... #} でエラー"
+
+#: part-combiner.scm:966
+#, scheme-format
+msgid "quoted music `~a' is empty"
+msgstr "クォートされた music `~a' は空です"
+
+#: ps-to-png.scm:66
+#, scheme-format
+msgid "Unknown pixmap format ~a"
+msgstr "不明な pixmap フォーマット ~a"
+
+#: ps-to-png.scm:157
+msgid "`anti-alias-factor' must be a positive integer <= 8"
+msgstr "`anti-alias-factor' は 8 以上の正の整数でなければなりません"
+
+#: scheme-engravers.scm:96
+msgid "measure count left unfinished"
+msgstr "小節数左が終わりません"
+
+#: scheme-engravers.scm:111
+msgid "cannot find start of measure spanner"
+msgstr "小節スパナーの開始をみつけることができません"
+
+#: scheme-engravers.scm:145
+msgid "unterminated measure spanner"
+msgstr "終端のない小節スパナー"
+
+#: scheme-engravers.scm:541
+msgid "unterminated DurationLine"
+msgstr "終端のない DurationLine"
+
+#: stencil.scm:749
+msgid "Both angle-increments and radial-increments must be positive numbers."
+msgstr "angle-increments と radial-increments は両方とも正の数でなければなりません."
+
+#: to-xml.scm:190
+#, scheme-format
+msgid "assertion failed: ~S"
+msgstr "アサーション失敗: ~S"
+
+#: translation-functions.scm:440
+#, scheme-format
+msgid "Negative fret for pitch ~a on string ~a"
+msgstr "負のフレット, ピッチ ~a ストリング ~a"
+
+#: translation-functions.scm:445
+#, scheme-format
+msgid "Missing fret for pitch ~a on string ~a"
+msgstr "フレットのミス, ピッチ ~a ストリング ~a"
+
+#: translation-functions.scm:450
+#, scheme-format
+msgid "Open fret on string ~a has finger of ~a"
+msgstr "ストリング ~a のオープンフレットがフィンガー ~a を持っています"
+
+#: translation-functions.scm:493
+#, scheme-format
+msgid "No open string for pitch ~a"
+msgstr "ピッチ ~a にオープンストリングがありません"
+
+#: translation-functions.scm:516 translation-functions.scm:528
+#, scheme-format
+msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
+msgstr "ピッチのために要求されたストリングは負のフレットが必要です: ストリング ~a ピッチ ~a"
+
+#: translation-functions.scm:519
+msgid "Ignoring string request and recalculating."
+msgstr "ストリングの要求を無視して再計算しています."
+
+#: translation-functions.scm:531
+msgid "Ignoring note in tablature."
+msgstr "タブ譜で音符を無視しています."
+
+#: translation-functions.scm:556
+#, scheme-format
+msgid "No string for pitch ~a (given frets ~a)"
+msgstr "ピッチ ~a にストリングがありません（与えられたフレット ~a）"
+
+#: translation-functions.scm:595
+msgid "additional bass strings are not supported by FretBoards"
+msgstr "追加のベースストリングは FretBoards でサポートされません"
+
+#: translation-functions.scm:672
+#, scheme-format
+msgid ""
+"No label for fret ~a (on string ~a);\n"
+"only ~a fret labels provided"
+msgstr ""
+"フレット ~a （ストリング ~a） のラベルがありません;\n"
+"~a フレットラベルだけが提供されます"
