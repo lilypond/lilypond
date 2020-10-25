@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 LilyPond n'imprimera de tiret entre deux syllabes que s'il juge qu'il y
-a suffisamment d'espace.  Ce comportement peut être modifié grâce à la
+a suffisamment d'espace. Ce comportement peut être modifié grâce à la
 propriété @code{minimum-distance} de @code{LyricHyphen}.
 
 "

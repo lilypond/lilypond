@@ -1,9 +1,10 @@
-%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 La propriété @code{minimum-length} d'une extension de trille -- objet
 @code{TrillSpanner} -- n'est effective qu'après un appel explicite à la
-procédure @code{set-spacing-rods}. Pour ce faire, la propriété
-@code{set-spacing-rods} doit être définie à
+procédure @code{set-spacing-rods}.
+
+Pour ce faire, la propriété @code{set-spacing-rods} doit être définie à
 @code{ly:spanner::set-spacing-rods}.
 
 "
