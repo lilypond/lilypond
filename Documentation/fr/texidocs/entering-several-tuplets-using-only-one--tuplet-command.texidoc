@@ -1,14 +1,14 @@
-%% Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 La propriété @code{tupletSpannerDuration} spécifie la longueur voulue de
-chaque crochet.  Avec elle, vous pouvez faire plusieurs n-olets en ne
+chaque crochet. Avec elle, vous pouvez faire plusieurs n-olets en ne
 tapant @code{\\tuplet} qu'une fois, ce qui évite une longue saisie.
 
-Il existe différents moyens de définir @code{tupletSpannerDuration}.
-La commande @code{\\tupletSpan} lui affecte une durée arbitraire qui
-sera réinitialisée dès l'intervention d'une durée à @code{\\default}.
-Vous pouvez aussi opter pour fournir un argument supplémentaire à la
-commande @code{\\tuplet}.
+Il existe différents moyens de définir @code{tupletSpannerDuration}. La
+commande @code{\\tupletSpan} lui affecte une durée arbitraire qui sera
+réinitialisée dès l'intervention d'une durée à @code{\\default}. Vous
+pouvez aussi opter pour fournir un argument supplémentaire à la commande
+@code{\\tuplet}.
 
 "
-  doctitlefr = "Plusieurs triolets avec une seule commande \\tuplet"
+  doctitlefr = "Plusieurs triolets avec une seule commande @code{\\tuplet}"

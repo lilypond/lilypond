@@ -1,19 +1,24 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 Une partition LilyPond, de manière interne, n'est rien d'autre qu'une
-expression Scheme générée par l'analyseur syntaxique de LilyPond.  Il
-est donc possible, à l'aide de Scheme, de générer automatiquement une
-partition sans fichier source.  Une expression musicale en Scheme sera
-transformée en partition par un appel à @code{(scorify-music music)}.
+expression Scheme générée par l'analyseur syntaxique de LilyPond. Il est
+donc possible, à l'aide de Scheme, de générer automatiquement une
+partition sans fichier source. Une expression musicale en Scheme sera
+transformée en partition par un appel à
+
+@verbatim
+(scorify-music music)
+@end verbatim
+
 Ceci aura pour effet de générer un objet @code{score} auquel sera
 appliqué un bloc @code{layout} comportant la fonction
 
-@example
+@verbatim
 (let* ((layout (ly:output-def-clone $defaultlayout)))
    ; modification de la mise en forme, puis assignation :
    (ly:score-add-output-def! score layout)
   )
-@end example
+@end verbatim
 
 Il suffit alors de transmettre ce @code{score} à lilypond pour qu'il le
 grave.  Les trois fonctions -- @code{(add-score score)},
@@ -23,12 +28,13 @@ graver, une partition complète, un @emph{markup} ou simplement de la
 musique.
 
 Cet exemple permet aussi de graver les pièces contenues dans un bloc
-@code{\\book@{@dots{}@}} ainsi que des partitions de niveau supérieur.
-Chaque partition destinée à être gravée est alors ajoutée à la liste des
-partitions de niveau supérieur ; le @code{toplevel-book-handler} --
-fonction Scheme appelée pour traiter un @emph{book} dès que le bloc
-@code{\\book@{@dots{}@}} est clôturé -- s'adapte pour prendre en charge
-tous les éléments @code{score} jusque là collectés dans l'ouvrage.
+@code{\\book @{ @dots{} @}} ainsi que des partitions de niveau
+supérieur. Chaque partition destinée à être gravée est alors ajoutée à
+la liste des partitions de niveau supérieur ; le
+@code{toplevel-book-handler} -- fonction Scheme appelée pour traiter un
+@emph{book} dès que le bloc @code{\\book @{ @dots{} @}} est clôturé --
+s'adapte pour prendre en charge tous les éléments @code{score} jusque là
+collectés dans l'ouvrage.
 
 "
   doctitlefr = "Génération en Scheme de partitions complètes (y compris des parties d'ouvrage) sans utiliser l'analyseur"
