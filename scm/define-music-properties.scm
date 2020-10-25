@@ -108,7 +108,10 @@ property, e.g., @code{(beamed-lengths details)}.")
 
      (label ,integer-or-markup? "Label of a mark.")
      (last-pitch ,ly:pitch? "The last pitch after relativization.")
-     (length ,ly:moment? "The duration of this music.")
+     (length ,ly:moment? "The endpoint of this music.  This property
+is unhappily named in that it does not account for any initial grace
+notes: the full length of the music is @code{length} minus the start
+time.  A value of @code{INF-MOMENT} indicates indefinite length.")
      (length-callback ,procedure? "How to compute the duration of this music.
 This property can only be defined as initializer in
 @file{scm/@/define-music-types.scm}.")

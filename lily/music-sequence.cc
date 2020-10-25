@@ -65,18 +65,37 @@ Moment
 Music_sequence::maximum_length (SCM l)
 {
   Moment dur = 0;
+  bool definite = false;
+  bool indefinite = false;
+
   for (auto *m : as_ly_smob_list<const Music> (l))
     {
       if (!m)
-        programming_error ("Music sequence should have music elements");
+        {
+          programming_error ("Music sequence should have music elements");
+          definite = true; // damage control, hopefully
+        }
       else
         {
-          Moment l = m->get_length ();
-          dur = std::max (dur, l);
+          const auto &len = m->get_length ();
+          if (len < Moment::infinity ())
+            {
+              definite = true;
+              dur = std::max (dur, len);
+            }
+          else
+            {
+              indefinite = true;
+            }
         }
     }
 
-  return dur;
+  // An empty set has zero length.  In a set with mixed definite- and
+  // indefinite-length music, we expect that the indefinite-length music is
+  // dependent on the definite-length music, so we ignore the indefinite-length
+  // music.  Therefore, we only propagate an indefinite length for a non-empty
+  // set where the length of every element is indefinite.
+  return (definite || !indefinite) ? dur : Moment::infinity ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, maximum_length_callback, 1);

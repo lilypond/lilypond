@@ -294,7 +294,7 @@ Syntax: @var{note}@code{\\laissezVibrer}")
      . ((description . "Align lyrics to the start of notes.
 
 Syntax: @code{\\lyricsto} @var{voicename} @var{lyrics}")
-        (length . ,ZERO-MOMENT)
+        (length . ,INF-MOMENT)
         (types . (lyric-combine-music))
         (iterator-ctor . ,ly:lyric-combine-music-iterator::constructor)
         ))

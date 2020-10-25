@@ -57,6 +57,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; moments
 
+(define-public INF-MOMENT (ly:make-moment +inf.0))
 (define-public ZERO-MOMENT (ly:make-moment 0 1))
 
 (define-public (moment-min a b)
