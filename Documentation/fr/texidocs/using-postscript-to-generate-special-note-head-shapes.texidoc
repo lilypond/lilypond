@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Lorsqu'il est impossible d'obtenir facilement une allure particulière
 pour les têtes de note en recourant à la technique du @code{\\markup},
-un code PostScript peut vous tirer d'embarras.  Voici comment générer
+un code PostScript peut vous tirer d'embarras. Voici comment générer
 des têtes ressemblant à des parallélogrammes.
 
 "

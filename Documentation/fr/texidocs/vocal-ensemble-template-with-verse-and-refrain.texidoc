@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Ce canevas illustre la manière d'agencer une œuvre vocale où le couplet
-est chanté en solo et le refrain à deux voix.  Vous noterez le recours
-aux silences invisibles dans la variable @code{\\global} ; ils
+est chanté en solo et le refrain à deux voix. Vous noterez le recours
+aux silences invisibles dans la variable @code{\\global} : ils
 permettent de positionner les changements de métrique et autres éléments
 communs à toutes les parties, ce pour l'intégralité du morceau.
 

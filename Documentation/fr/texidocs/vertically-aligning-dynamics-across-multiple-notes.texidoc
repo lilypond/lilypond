@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Des nuances qui commencent, finissent ou se produisent sur une même note
-auront le même alignement vertical.  L'augmentation de la propriété
+auront le même alignement vertical. L'augmentation de la propriété
 @code{staff-padding} de l'objet @code{DynamicLineSpanner} permet
 d'aligner différentes nuances affectées à différentes notes.
 

@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
-Certains auteurs utilisent deux liaisons lorsqu'ils veulent lier des
-accords.  Dans LilyPond, il faut pour cela activer la propriété
+Certains compositeurs utilisent deux liaisons lorsqu'ils veulent lier
+des accords. Dans LilyPond, il faut pour cela activer la propriété
 @code{doubleSlurs}.
 
 "
