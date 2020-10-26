@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 L'affectation de la valeur @code{#t} à la propriété @code{breakable},
 combinée à @code{after-line-breaking}, permet la rupture d'une

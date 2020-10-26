@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 En accord avec les règles traditionnelles de l'écriture musicale, on
 grave un bécarre avant un dièse ou un bémol si la note était auparavant
-affublée d'un double-dièse ou double-bémol.  Pour adopter un
+affublée d'un double-dièse ou double-bémol. Pour adopter un
 comportement plus contemporain, la propriété @code{extraNatural} du
 contexte @code{Staff} doit se voir attribuer la valeur @code{##f}
 (faux).

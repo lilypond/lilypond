@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 La représentation graphique des instruments à percussion n'est pas prise
-en charge nativement.  De tels symboles peuvent cependant être inclus,
+en charge nativement. De tels symboles peuvent cependant être inclus,
 soit à l'aide de fichiers EPS indépendants, soit à l'aide d'un
 @emph{markup} contenant le code PostScript correspondant comme dans cet
 exemple.

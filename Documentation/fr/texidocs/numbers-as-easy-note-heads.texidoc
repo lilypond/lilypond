@@ -1,8 +1,8 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 En mode « easy play », les têtes de note utilisent la propriété
 @code{note-names} attachée à l'objet @code{NoteHead} pour déterminer ce
-qui apparaîtra dans la tête.  Intervenir sur cette propriété permet
+qui apparaîtra dans la tête. Intervenir sur cette propriété permet
 d'imprimer un chiffre correspondant au degré dans la gamme.
 
 La création d'un graveur dédié permet de traiter toutes les notes.

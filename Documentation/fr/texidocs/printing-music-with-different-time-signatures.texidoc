@@ -1,15 +1,17 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 Bien qu'ayant des métriques bien différentes, les deux parties
-ci-dessous présentées restent synchrones.  Les barres de mesure ne
-peuvent plus être gérées au niveau du contexte @code{Score} ; les
-@code{Default_barline_engraver} et @code{Timing_translator} doivent être
-déplacés du contexte @code{Score} au contexte @code{Staff} afin de
-permettre des barres de mesure individualisées.
+ci-dessous présentées restent synchrones.
+
+Les barres de mesure ne peuvent plus être gérées au niveau du contexte
+@code{Score} ; les @code{Default_barline_engraver} et
+@code{Timing_translator} doivent être déplacés du contexte @code{Score}
+au contexte @code{Staff} afin de permettre des barres de mesure
+individualisées.
 
 Le @code{Bar_number_engraver} devra lui aussi être déplacé, puisqu'il
 dépend de propriétés attachées au @code{Timing_translator}, afin de
-numéroter les mesures.  L'utilisation d'un bloc @code{\\with} dans la
+numéroter les mesures. L'utilisation d'un bloc @code{\\with} dans la
 portée concernée permettra un affichage des numéros de mesure.
 
 "

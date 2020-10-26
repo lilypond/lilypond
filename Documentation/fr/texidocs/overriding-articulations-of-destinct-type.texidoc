@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 On peut parfois vouloir modifier un seul type d'articulation. Bien que
-ce soit tout à fait faisable avec un @code{\tweak}, cela devient vite
+ce soit tout à fait faisable avec un @code{\\tweak}, cela devient vite
 fastidieux d'affiner chaque occurrence d'un même signe dans toute une
 partition. Le code ci-dessous illustre la manière de modifier des
 articulations grâce à une liste de réglages personnalisés. Ceci peut

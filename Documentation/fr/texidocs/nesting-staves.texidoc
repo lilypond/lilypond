@@ -1,13 +1,13 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 La propriété @code{systemStartDelimiterHierarchy} permet de créer des
-regroupements imbriqués complexes.  La commande
+regroupements imbriqués complexes. La commande
 @w{@code{\\set StaffGroup.systemStartDelimiterHierarchy}} prend en
-argument la liste alphabétique des sous-groupes à hiérarchiser.  Chaque
-sous-groupe peut être affublé d'un délimiteur particulier.  Chacun des
-regroupements intermédiaires doit être borné par des parenthèses.  Bien
+argument la liste alphabétique des sous-groupes à hiérarchiser. Chaque
+sous-groupe peut être affublé d'un délimiteur particulier. Chacun des
+regroupements intermédiaires doit être borné par des parenthèses. Bien
 que des éléments de la liste puissent être omis, le premier délimiteur
-embrassera toujours l'intégralité des portées.  Vous disposez des quatre
+embrassera toujours l'intégralité des portées. Vous disposez des quatre
 délimiteurs @code{SystemStartBar}, @code{SystemStartBracket},
 @code{SystemStartBrace} et @code{SystemStartSquare}.
 
