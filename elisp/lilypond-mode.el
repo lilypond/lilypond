@@ -859,7 +859,7 @@ command."
 (defun LilyPond-info ()
   "Launch Info for lilypond."
   (interactive)
-  (info "lilypond"))
+  (info "lilypond-notation"))
   
 (defun LilyPond-music-glossary-info ()
   "Launch Info for music-glossary."
