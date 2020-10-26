@@ -11,6 +11,7 @@ default: $(MO_FILES)
 
 po-update:
 	$(foreach i,$(PO_FILES), \
+	  $(call ly_progress, Merging, $(i),); \
 	  rm -f $(po-outdir)/$(i); \
 	  msgmerge $(po-srcdir)/$(i) $(po-outdir)/lilypond.po \
 	    -o $(po-outdir)/$(i) && ) true

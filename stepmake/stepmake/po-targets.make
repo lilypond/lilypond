@@ -22,7 +22,7 @@ po: local-po
 	$(LOOP)
 
 local-po:
-	@echo $(ALL_PO_SOURCES)
+	$(call ly_progress,Making po files for,*,)
 	xgettext $(XGETTEXT_OPTIONS) --output-dir=$(po-outdir) \
 	  --keyword=_ --keyword=_f --keyword=_i \
 	  $(XGETTEXT_FLAGS) $(ALL_PO_SOURCES)
