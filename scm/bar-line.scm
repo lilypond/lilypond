@@ -656,8 +656,10 @@ the correct placement of bar numbers etc."
 
     (and (> (interval-length x-extent) 0)
          (if (or (= (length bar-glyph-list) 1)
-                 (string=? bar-glyph span-glyph)
-                 (string=? span-glyph ""))
+                 ;; 'span-glyph' may be #f, thus use equal? and not string=? for
+                 ;; comparing equality
+                 (equal? bar-glyph span-glyph)
+                 (equal? span-glyph ""))
              ;; We use the x-extent of the stencil if either
              ;; - we have a single bar-glyph
              ;; - bar-glyph and span-glyph are identical
