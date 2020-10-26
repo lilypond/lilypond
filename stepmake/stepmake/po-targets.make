@@ -11,7 +11,7 @@ XGETTEXT_OPTIONS = \
   --from-code=UTF-8 \
   --join \
   --add-comments \
-  --msgid-bugs-address="http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs" \
+  --msgid-bugs-address="https://mail.gnu.org/mailman/listinfo/bug-lilypond" \
   --package-name=$(package) \
   --package-version=$(VERSION)
 
