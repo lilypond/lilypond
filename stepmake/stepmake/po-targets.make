@@ -22,12 +22,10 @@ po: local-po
 	$(LOOP)
 
 local-po:
-ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
 	xgettext $(XGETTEXT_OPTIONS) --output-dir=$(po-outdir) \
 	  --keyword=_ --keyword=_f --keyword=_i \
 	  $(XGETTEXT_FLAGS) $(ALL_PO_SOURCES)
-endif
 	sed -i '1,2d' $(po-outdir)/$(package).po
 	sed -i -e 's/^\# This file is distributed.*/$(sed-header)/' $(po-outdir)/$(package).po
 	sed -i -e 's/^\"Content-Type: text\/plain.*/$(sed-content)/' $(po-outdir)/$(package).po
