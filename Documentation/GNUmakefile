@@ -229,19 +229,13 @@ $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/we
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
 
-# The order of these directories is important, as many includes are
-# not fully-qualified.  For example there is an incipit.ly both in
-# snippets/ and in input/regression/.
 DOCUMENTATION_INCLUDE_DIRS = \
-  $(if $<, $(dir $<)) \
-  $(if $<, $(dir $<)/included) \
   $(src-dir)/$(call target_language) \
   $(src-dir)/pictures \
   $(dir $@) \
   $(outdir)/en \
   $(src-dir)/en \
   $(src-dir)/en/included \
-  $(top-src-dir)/input/regression \
   $(outdir) \
   $(src-dir)
 
