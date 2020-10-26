@@ -241,7 +241,17 @@ DOCUMENTATION_INCLUDE_DIRS = \
 
 DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
-LILYPOND_BOOK_INCLUDES = $(DOCUMENTATION_INCLUDES)
+# Before calling lilypond-book, we change directory to $(outdir) which is
+# thereby prependend to the list of include directories. This also means
+# all other directories listed below must be absolute.
+LILYPOND_BOOK_INCLUDE_DIRS = \
+  $(src-dir)/$(call target_language) \
+  $(src-dir)/pictures \
+  $(src-dir)/en \
+  $(src-dir)/en/included \
+  $(src-dir)
+
+LILYPOND_BOOK_INCLUDES = $(addprefix -I ,$(LILYPOND_BOOK_INCLUDE_DIRS))
 
 ### bad hack for badly-integrated roadmap.
 # TODO: move into CG.
