@@ -1,14 +1,13 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 Le positionnement vertical d'une liaison se contrôle par la propriété
-@code{positions} de l'objet @code{Slur}.  Cette propriété dispose de
-deux paramètres : le premier affecte l'extrémité gauche de la
-liaison, le second son extrémité droite.  La valeur des paramètres
-n'aura aucune influence sur le galbe de la liaison.  LilyPond ne
-s'en servira que pour adapter le positionnement de la courbe.  Des
-valeurs positives décalent la liaison vers le haut et s'utilisent
-pour des hampes descendantes.  Des valeurs négatives entraînent un
-décalage vers le bas.
+@code{positions} de l'objet @code{Slur}. Cette propriété dispose de deux
+paramètres : le premier affecte l'extrémité gauche de la liaison, le
+second son extrémité droite. La valeur des paramètres n'aura aucune
+influence sur le galbe de la liaison. LilyPond ne s'en servira que pour
+adapter le positionnement de la courbe. Des valeurs positives décalent
+la liaison vers le haut et s'utilisent pour des hampes descendantes. Des
+valeurs négatives entraînent un décalage vers le bas.
 
 "
   doctitlefr = "Déplacement vertical des liaisons d'articulation"

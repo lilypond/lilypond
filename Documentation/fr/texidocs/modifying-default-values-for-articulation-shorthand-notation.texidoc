@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 2cc79b7f2ed1cdf881ad371cda4921ccb36b03f6
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 Les raccourcis sont répertoriés dans le fichier
 @samp{ly/script-init.ly}, dans lequel on retrouve les variables
 @code{dashHat}, @code{dashPlus}, @code{dashDash}, @code{dashBang},
 @code{dashLarger}, @code{dashDot} et @code{dashUnderscore} ainsi que
-leur valeur par défaut.  Ces valeurs peuvent être modifiées selon vos
-besoins.  Il suffit par exemple, pour affecter au raccourci @w{@code{-+}}
+leur valeur par défaut. Ces valeurs peuvent être modifiées selon vos
+besoins. Il suffit par exemple, pour affecter au raccourci @w{@code{-+}}
 (@code{dashPlus}) le symbole du trille en lieu et place du @code{+}
 (caractère plus), d'assigner la valeur @code{trill} à la variable
 @code{dashPlus} :

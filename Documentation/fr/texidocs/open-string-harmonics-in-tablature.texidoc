@@ -1,6 +1,7 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
-Table des harmoniques sur corde à vide (harmoniques naturelles) :
+Voici comment obtenir des harmoniques sur corde à vide (harmoniques
+naturelles) dans une tablature.
 
 "
-  doctitlefr = "Table des harmoniques sur corde à vide"
+  doctitlefr = "Harmoniques sur corde à vide en tablature"
