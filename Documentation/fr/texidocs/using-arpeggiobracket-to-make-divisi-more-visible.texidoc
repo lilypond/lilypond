@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Un crochet d'arpège (@code{arpeggioBracket}) permet de mettre en
 évidence les divisions d'un pupitre en l'absence de hampe, comme on le
 voit régulièrement dans les partitions pour chœur.
 
 "
-  doctitlefr = "Utilisation d'un arpeggioBracket pour rendre les divisions plus évidentes"
+  doctitlefr = "Utilisation d'un @code{arpeggioBracket} pour rendre les divisions plus évidentes"

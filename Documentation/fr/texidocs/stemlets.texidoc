@@ -1,13 +1,13 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Certaines conventions en matière de notation autorisent les ligatures à
-enjamber des silences.  Dans certains cas, des moignons de hampe
+enjamber des silences. Dans certains cas, des moignons de hampe
 accrochés à la ligature offrent une meilleure visibilité du rythme ;
 certaines éditions modernes vont même alors jusqu'à omettre le silence.
 
 Cet exemple illustre la progression : notation traditionnelle, ligature
 enjambant le silence, silence surplombé d'un moignon et enfin seule une
-hampe tronquée.  Les moignons s'obtiennent par amendement de la
+hampe tronquée. Les moignons s'obtiennent par amendement de la
 propriété @code{stemlet-length} de l'objet @code{Stem}, alors que les
 silences sont masqués par activation de la propriété de transparence.
 

@@ -1,15 +1,15 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Les altérations supprimées lors d'un changement de tonalité sont par
-défaut accolées à la nouvelle armure.  Ce comportement peut s'adapter
+défaut accolées à la nouvelle armure. Ce comportement peut s'adapter
 grâce à la propriété @code{break-align-orders} de l'objet
 @code{BreakAlignment}.
 
 La valeur de @code{break-align-orders} est constituée d'un vecteur à
 trois composantes listant l'ordre des éléments à l'occasion d'une
 rupture. Seule la deuxième liste est ici modifiée,
-@code{key-cancellation} étant déplacé avant @code{staff-bar}.
-En ne modifiant que la deuxième liste, cette modification dans l'ordre
+@code{key-cancellation} étant déplacé avant @code{staff-bar}. En ne
+modifiant que la deuxième liste, cette modification dans l'ordre
 d'apparition des éléments sera effective seulement en cours de système,
 et non en début ou fin de ligne.
 
