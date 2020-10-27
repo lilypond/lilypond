@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e9e5be535bfffbd50f33dfce3a8ee47b39e42bb5
+   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1306,7 +1306,7 @@ Certaines directives peuvent nécessiter d'accroître l'espacement autour
 du texte -- voir l'annexe @ref{Align} pour une liste des différentes
 commandes particulières au mode @emph{markup} ainsi que leur description.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,line-width=14\cm]
 \markup \fill-line {
   \center-column {
     \box "Charles Ives (1874 - 1954)"
