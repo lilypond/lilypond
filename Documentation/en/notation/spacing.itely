@@ -1053,7 +1053,8 @@ of the cover page so that page 1 is on the right hand side.
 
 If set to true, this will print all headers for each @code{\score}
 in the output.  Normally only the @code{piece} and @code{opus}
-header variables are printed.  Default: @code{#f}.
+header variables are printed.  For use cases see @ref{Titles and
+headers}.  Default: @code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
