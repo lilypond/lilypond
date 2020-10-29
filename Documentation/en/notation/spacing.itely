@@ -836,7 +836,7 @@ Snippets:
 * paper variables for line breaking::
 * paper variables for page breaking::
 * paper variables for page numbering::
-* Miscellaneous paper variables::
+* paper variables concerning headers and markups::
 @end menu
 
 
@@ -1043,8 +1043,8 @@ music to start on page 1 there must be a blank page on the back
 of the cover page so that page 1 is on the right hand side.
 
 
-@node Miscellaneous paper variables
-@unnumberedsubsubsec Miscellaneous @code{@bs{}paper} variables
+@node paper variables concerning headers and markups
+@unnumberedsubsubsec @code{@bs{}paper} variables concerning headers and markups
 
 @table @code
 

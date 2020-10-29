@@ -1299,8 +1299,8 @@ a @q{footnote mark} is placed as a reference in text or music, and
 the corresponding @q{footnote text} appears at the bottom of the
 same page, separated from the music by a horizontal line.
 The appearance of this separator can be changed by setting the paper
-variable @code{footnote-separator-markup}, see @ref{Miscellaneous
-paper variables}.
+variable @code{footnote-separator-markup}, see
+@ref{paper variables concerning headers and markups}.
 
 Footnotes within music expressions and footnotes in stand-alone text
 outside music expressions are created in different ways.
