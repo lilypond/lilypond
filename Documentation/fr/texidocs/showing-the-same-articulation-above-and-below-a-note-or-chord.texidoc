@@ -1,20 +1,23 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 LilyPond ne permet pas, par défaut, qu'une même articulation (accent,
 flageolet, point d'orgue, etc.) se retrouve à la fois au-dessus et
-au-dessous d'une note.  Par exemple, @code{c4_\\fermata^\\fermata} ne
+au-dessous d'une note. Par exemple, @code{c4_\\fermata^\\fermata} ne
 donnera qu'un seul point d'orgue en dessous du do ; celui du dessus sera
-tout bonnement ignoré.  On peut néanmoins accoler des scripts, tels des
-doigtés, à l'intérieur d'un accord ; il peut donc y avoir autant
-d'articulations que de besoin, ce qui, par voie de conséquence, permet
-de s'affranchir de la présence des hampes et de positionner
-l'articulation relativement à la tête de note comme dans le cas du
-flageolet ci-dessous.  L'imitation du traitement d'un script
-externe à un accord requérant un @code{add-stem-support} demande
-de libeller la note comme étant un accord et d'ajouter les
-articulations au sein de la construction @code{<@dots{}>}.  Un simple
-amendement permettra de rectifier le positionnement habituel en
-surplomb : @code{<c-\\tweak direction #DOWN-\\fermata^\\fermata>}
+tout bonnement ignoré.
+
+On peut néanmoins accoler des scripts, tels des doigtés, à l'intérieur
+d'un accord ; il peut donc y avoir autant d'articulations que de besoin,
+ce qui, par voie de conséquence, permet de s'affranchir de la présence
+des hampes et de positionner l'articulation relativement à la tête de
+note comme dans le cas du flageolet ci-dessous. L'imitation du
+traitement d'un script externe à un accord requérant un
+@code{add-stem-support} demande de libeller la note comme étant un
+accord et d'ajouter les articulations au sein de la construction
+@code{<@dots{}>}.
+
+Un simple amendement permettra de rectifier le positionnement habituel
+en surplomb : @code{<c-\\tweak direction #DOWN-\\fermata^\\fermata>}
 
 "
   doctitlefr = "Impression d'une même articulation des deux côtés d'une note ou d'un accord"

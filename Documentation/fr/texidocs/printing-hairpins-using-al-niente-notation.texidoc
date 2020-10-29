@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
 manière graphique, en assignant @emph{vrai} (@code{#t}) à la

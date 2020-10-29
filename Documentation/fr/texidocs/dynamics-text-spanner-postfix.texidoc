@@ -1,11 +1,11 @@
-%% Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 Les lignes d'extension des commandes @code{\\cresc}, @code{\\dim} et
 @code{\\decresc} peuvent désormais être personnalisées facilement sous
-forme d'opérateurs postfix.  Soufflets et (de)crescendos peuvent
-cohabiter.  @code{\\<} et @code{\\>} produiront par défaut des
-soufflets, alors que @code{\\cresc}, etc. produiront une indication
-textuelle avec extension.
+forme d'opérateurs postfix. Soufflets et (de)crescendos peuvent
+cohabiter. @code{\\<} et @code{\\>} produiront par défaut des soufflets,
+alors que @code{\\cresc}, etc. produiront une indication textuelle avec
+extension.
 
 "
   doctitlefr = "Extensions de nuance postfix"

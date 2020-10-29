@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Les crochets indiquant les fins alternatives s'étalent tout au long de
-celles-ci.  On peut les raccourcir en jouant sur la propriété
-@code{voltaSpannerDuration}.  Dans l'exemple suivant, le crochet ne se
+celles-ci. On peut les raccourcir en jouant sur la propriété
+@code{voltaSpannerDuration}. Dans l'exemple suivant, le crochet ne se
 prolonge que sur une mesure à 3/4.
 
 "

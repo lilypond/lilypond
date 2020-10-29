@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 2cc79b7f2ed1cdf881ad371cda4921ccb36b03f6
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 La commande @code{\\tweak} permet de modifier la propriété
 @code{font-size} d'une note particulière d'un accord.

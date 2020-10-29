@@ -1,6 +1,6 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
-Des paroles peuvent venir s'inscrire dans la portée même.  Ces paroles
+Des paroles peuvent venir s'inscrire dans la portée même. Ces paroles
 sont décalées par la dérogation
 @w{@code{\\override LyricText.extra-offset = #'(0 . dimension)}} ; des
 commandes similaires s'occuperont des extenseurs et des tirets.

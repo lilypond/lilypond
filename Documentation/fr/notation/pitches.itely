@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e9e5be535bfffbd50f33dfce3a8ee47b39e42bb5
+   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3156,6 +3156,11 @@ de note représentant la hauteur la plus basse et la plus haute.  Les
 @funindex AmbitusLine
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-ambitus-gap.ly}
+
+@cindex ambitus, placement
+@funindex ambitusAfter
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/ambitus-after-key-signature.ly}
 
 @morerefs
 Glossaire musicologique :

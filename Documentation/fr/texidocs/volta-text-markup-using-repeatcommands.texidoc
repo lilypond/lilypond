@@ -1,16 +1,16 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 La commande @code{\\repeat volta} permet d'indiquer facilement des
-reprises.  Il est certains cas où l'adjonction d'un texte sous forme de
+reprises. Il est certains cas où l'adjonction d'un texte sous forme de
 @code{\markup} nécessite cependant de recourir à la propriété de
 contexte @code{repeatCommands}.
 
 Dans la mesure où l'argument de @code{repeatCommands} est constitué
 d'une liste, le plus simple est de définir le texte dans une variable
-qui sera ensuite incorporée dans la liste en respectant la syntaxe Scheme
-@code{#(list (list 'volta texteIdentificateur))}.  Les commandes de
-début et de fin de reprise peuvent s'ajouter séparément à la liste des
-éléments.
+qui sera ensuite incorporée dans la liste en respectant la syntaxe
+Scheme @code{#(list (list 'volta texteIdentificateur))}. Les commandes
+de début et de fin de reprise peuvent s'ajouter séparément à la liste
+des éléments.
 
 "
   doctitlefr = "Indication de reprise avec texte grâce à repeatCommands"

@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Modifier le glyphe, la position de la clef ou son octaviation ne
 changeront pas la position des notes ; il faut pour y parvenir modifier
-aussi la position du do médium.  La redéfinition préalable de
+aussi la position du do médium. La redéfinition préalable de
 @code{middleCClefPosition} permet de placer l'armure sur les bonnes
-lignes.  Le positionnement est relatif à la ligne médiane, un nombre
+lignes. Le positionnement est relatif à la ligne médiane, un nombre
 positif faisant monter, un nombre négatif abaissant.
 
 Par exemple, la commande @code{\\clef \"treble_8\"} équivaut à définir
@@ -14,9 +14,9 @@ Une nouvelle clef apparaîtra dès lors que l'une de ces propriétés, à
 l'exception de @code{middleCPosition}, aura été modifiée.
 
 Les exemples qui suivent illustrent les différentes possibilités de
-définir ces propriétés manuellement.  Sur la première ligne, la
-position relative des notes par rapport aux clefs est préservée, ce
-qui n'est pas le cas pour la deuxième ligne.
+définir ces propriétés manuellement. Sur la première ligne, la position
+relative des notes par rapport aux clefs est préservée, ce qui n'est pas
+le cas pour la deuxième ligne.
 
 "
   doctitlefr = "Affinage des propriétés d'une clef"

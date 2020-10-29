@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 2cc79b7f2ed1cdf881ad371cda4921ccb36b03f6
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 L'ajout d'une marque-repère en fin de pièce peut entraîner la perte de
-la dernière indication de n-olet.  La désactivation de
+la dernière indication de n-olet. La désactivation de
 @code{TupletBracket.full-length-to-extent} pallie ce problème.
 
 "

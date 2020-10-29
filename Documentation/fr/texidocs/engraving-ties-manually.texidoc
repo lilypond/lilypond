@@ -1,17 +1,17 @@
-%% Translation of GIT committish: 2cc79b7f2ed1cdf881ad371cda4921ccb36b03f6
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 Il est possible de graver manuellement les liaisons de tenue, en
-modifiant la propriété @code{tie-configuration}.  Pour chaque paire, le
+modifiant la propriété @code{tie-configuration}. Pour chaque paire, le
 premier nombre indique la distance à la portée, en espaces de portée, et
 le second la direction (1 pour haut, @minus{}1 pour bas).
 
 Notez bien que LilyPond fait la distinction, au niveau du premier
-nombre,  entre valeur exacte et valeur inexacte. Dans le cas d'une
-valeur exacte -- autrement dit un entier ou une fraction comme
-@code{(/ 4 5)} -- celle-ci servira de position verticale brute, ensuite
-afinée par LilyPond de sorte à éviter les lignes de la portée. Dans le
-cas d'une valeur inexacte, tel un nombre à virgule flottante, c'est elle
-qui servira à positionner verticalement, sans ajustement.
+nombre, entre valeur exacte et valeur inexacte. Dans le cas d'une valeur
+exacte -- autrement dit un entier ou une fraction comme @code{(/ 4 5)}
+-- celle-ci servira de position verticale brute, ensuite afinée par
+LilyPond de sorte à éviter les lignes de la portée. Dans le cas d'une
+valeur inexacte, tel un nombre à virgule flottante, c'est elle qui
+servira à positionner verticalement, sans ajustement.
 
 "
   doctitlefr = "Dessin à main levée de liaisons de tenue"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Bien que le moyen le plus simple pour ajouter des parenthèses à une
 indication de nuance consiste à utiliser un bloc @code{\\markup}, cette

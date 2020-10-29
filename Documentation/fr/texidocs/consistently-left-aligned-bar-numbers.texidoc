@@ -1,9 +1,11 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 L'alignement des numéros de mesure par la gauche peut générer des
 problèmes de chevauchement, notamment avec les crochets de regroupement
-de portées.  L'exemple ci-dessous offre une solution en alignant par la
-droite le numéro de la mesure suivant un saut de ligne.
+de portées.
+
+L'exemple ci-dessous offre une solution en alignant par la droite le
+numéro de la mesure suivant un saut de ligne.
 
 "
   doctitlefr = "Adaptation de l'alignement des numéros de mesure"

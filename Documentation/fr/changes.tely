@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: d75b86de1363084c28cebde4eea5fe56a657975a
+    Translation of GIT committish: 7f15e250266c3d43d73749ffcb3da002b2df72e0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -62,7 +62,7 @@ HINTS
 * only show verbatim input for syntax/input changes
 * try to be as brief possible in those cases
 * don't try to provide real-world examples, they often get too big,
-which scares away people.
+  which scares away people.
 * Write complete sentences.
 * only show user-visible changes.
 
@@ -72,26 +72,32 @@ which scares away people.
 @subheading Nouveautés en matière de notation musicale
 @c VO New for musical notation
 
-@strong{Améliorations de la représentation des hauteurs}
-
+@subsubheading Améliorations de la représentation des hauteurs
+@c VO Displaying pitch improvements
 @itemize
 
 @item
-le noms des notes en quart de ton est désormais disponible dans toutes
+Un glyphe d'altération correspondant au code SMuFL U+E2E3 a été ajouté.
+Il s'agit d'une accidentelle étendue d'Helmhotz-Ellis qui hausse d'un
+quart de ton non décimal.
+
+@lilypond[quote]
+{
+  \override Accidental.glyph-name-alist =
+    #(assv-set!
+      (copy-tree standard-alteration-glyph-name-alist)
+        1/4 "accidentals.sharp.slash.stem")
+  c'2 cih'
+}
+@end lilypond
+
+@item
+Le nom des notes en quart de ton est désormais disponible dans toutes
 les langues de saisie.
 @lilypond[verbatim,quote]
 \language "català"
 \relative { do'4 sol' miqb re do1 }
 @end lilypond
-
-
-@item
-Toutes les langues de saisie (instruction @code{\language}) peuvent se
-mentionner avec leur propre orthographe UTF-8 -- autrement dit y compris
-avec des caractères spéciaux. Les dénominations @code{català} et
-@code{português} s'ajoutent désormais aux appellations originelles
-@code{catalan} et @code{portugues}.
-
 
 @item
 Définir @code{suggestAccidentals} à @code{'cautionary} a pour effet
@@ -106,7 +112,6 @@ accidentelles @emph{facsimile} de celles à vocation éditoriale.
   d4 cis8 b? cis2
   \set suggestAccidentals = #'cautionary
   d4 cis8 b? cis2
-
 }
 @end lilypond
 
@@ -122,15 +127,6 @@ l'ambitus à un endroit particulier.
   es'8 g bes cis d2
 }
 @end lilypond
-
-
-@item
-La commande @code{\partcombine}, ainsi que les commandes, sous-routines
-et noms de propriété préfixées de @code{partCombine}, s'écrivent
-désormais avec un C majuscule, comme @code{\partCombine},
-@code{\partCombineApart}, etc. La commande @code{\autochange} suit le
-même principe et se libelle désormais @code{\autoChange}.
-
 
 @item
 Les crochets d'octaviation (par ex. « 8 » ou « 15 ») s'indiquent
@@ -158,12 +154,11 @@ par défaut, à l'aide d'une liste déterminée de @emph{markups} :
 }
 @end lilypond
 
-
 @end itemize
 
 
-@strong{Améliorations en matière de rythme}
-
+@subsubheading Améliorations en matière de rythme
+@c VO Rhythm improvements
 @itemize
 
 @item
@@ -179,7 +174,6 @@ lieu et place d'un crochet :
   } c1
 }
 @end lilypond
-
 
 @item
 Les ligatures à la française (@code{\override Stem.french-beaming =
@@ -214,7 +208,6 @@ testmusic = \relative {
 }
 @end lilypond
 
-
 @item
 Le swing et les motifs rythmiques irréguliers peuvent désormais
 s'appliquer à des expressions musicales composées de durées régulières
@@ -233,7 +226,6 @@ qui peuvent s'utiliser pour rendre une interprétation inégale en MIDI.
   } \tuplet 3/2 4 \repeat unfold 12 c'8
 >>
 @end lilypond
-
 
 @item
 Plusieurs glyphes, correspondant aux
@@ -267,9 +259,17 @@ duplication du nombre surplombant les silences multimesures.
 @end itemize
 
 
-@strong{Améliorations en matière d'expressivité}
-
+@subsubheading Améliorations en matière d'expressivité
+@c VO Expressive mark improvements
 @itemize
+
+@item
+Ajout de la commande de nuance @code{\n} pour @emph{niente}.
+@lilypond[quote]
+{
+  d'1~\mp\> 2 r\n
+}
+@end lilypond
 
 @item
 Ajout de deux nouveaux ornements.
@@ -280,33 +280,6 @@ Ajout de deux nouveaux ornements.
 @end lilypond
 
 @item
-Ajout de la commande de nuance @code{\n} pour @emph{niente}.
-@lilypond[quote]
-{
-  d'1~\mp\> 2 r\n
-}
-@end lilypond
-
-
-@end itemize
-
-@ignore
-@strong{Améliorations en matière de reprises}
-
-@itemize
-
-@item
-Un
-
-@end itemize
-@end ignore
-
-
-@strong{Améliorations en matière de notation sur la portée}
-
-@itemize
-
-@item
 Ajout d'un point d'arrêt ultracourt et de variantes à la Henze pour les
 points d'orgue plus ou moins longs.
 @lilypond[verbatim,quote]
@@ -315,7 +288,6 @@ points d'orgue plus ou moins longs.
   c'2\henzeshortfermata c'\henzelongfermata
 }
 @end lilypond
-
 
 @item
 Point d'orgue et autres articulations peuvent désormais s'ajouter
@@ -329,19 +301,11 @@ la commande @code{\fermataMarkup} est désapprouvée.
 }
 @end lilypond
 
-
-@item
-@code{\compressFullBarRests} a été renommé en
-@code{\compressEmptyMeasures} afin d'éviter toute confusion avec
-@code{\compressMMRests}. Dans le même esprit, @code{\expandFullBarRests}
-devient @code{\expandEmptyMeasures}.
-
-
 @end itemize
 
 
-@strong{Améliorations en matière d'annotations éditoriales}
-
+@subsubheading Améliorations en matière d'annotations éditoriales
+@c VO Editorial annotation improvements
 @itemize
 
 @item
@@ -365,31 +329,19 @@ sur les têtes de note, du côté adéquat de la hampe :
 }
 @end lilypond
 
-
-@item
-Les couleurs style CSS peuvent désormais s'utiliser directement sous
-forme de chaîne textuelle, soit par leur nom de couleur prédifini comme
-avec la fonction existante @code{css-color}, soit par leur code
-hexadécimal préfixé d'un @code{#}. Tous les stencils disposant de la
-propriété @code{color} acceptent maintenant une liste ou une chaîne.
-Dans le cas d'une chaîne, celle-ci sera directement utilisée pour une
-sortie SVG, ce qui autorisera le recours à la transparence alpha (saisie
-"#RRGGBBAA" ou "#RGBA").
-
-@lilypond[verbatim,quote,fragment]
-\override NoteHead.color = "lightsalmon"
-\override Flag.color = "#E30074"
-\override Beam.color = "#5e45ad"
-\override Rest.color = "#3058"
-g'8 \huge r4 a'16 f'
-@end lilypond
-
-
 @end itemize
 
-@strong{Améliorations en matière de mise en forme du texte}
 
+@subsubheading Améliorations en matière de mise en forme du texte
+@c VO Text formatting improvements
 @itemize
+
+@item
+Les fontes par défaut sont désormais celles du jeu URW Core 35 dans sa
+version 2.0, en lieu et place des fontes TeX Gyre. Ces fontes disposent
+d'une ligature pour @code{Nr.} -- voir
+@ruser{Tout savoir sur les fontes} pour s'en affranchir temporairement
+ou de façon globale.
 
 @item
 La commande de @emph{markup} @code{\note} prend désormais une durée en
@@ -404,13 +356,6 @@ tant que premier argument, au lieu d'une chaîne :
 }
 @end lilypond
 
-@item
-Les fontes par défaut sont désormais celles du jeu URW Core 35 dans sa
-version 2.0, en lieu et place des fontes TeX Gyre. Ces fontes disposent
-d'une ligature pour @code{Nr.} -- voir
-@ruser{Tout savoir sur les fontes} pour s'en affranchir temporairement
-ou de façon globale.
-
 @end itemize
 
 
@@ -418,23 +363,14 @@ ou de façon globale.
 @c VO New for specialist notation
 
 
-@strong{Améliorations pour la musique vocale}
-
+@subsubheading Améliorations pour la musique vocale
+@c VO Vocal music improvements
 @itemize
-
-@item
-Un changement graduel de voyelle (ou une consonne maintenue) peut
-s'indiquer en ajoutant un signe de transition entre les syllabes à
-l'aide de la commande @code{\vowelTransition}.
-@lilypond[verbatim,quote]
-{ g'2 g' }
-\addlyrics { Ah \vowelTransition oh. }
-@end lilypond
 
 @item
 Un trait d'union peut désormais être redoublé après un saut de ligne,
 avant la première syllabe du nouveau système :
-@lilypond[quote]
+@lilypond[verbatim,quote]
 \relative {
   d'8^( e f e f4) \bar "" \break
   e4
@@ -445,12 +381,35 @@ avant la première syllabe du nouveau système :
 }
 @end lilypond
 
+@item
+Un changement graduel de voyelle (ou une consonne maintenue) peut
+s'indiquer en ajoutant un signe de transition entre les syllabes à
+l'aide de la commande @code{\vowelTransition}.
+@lilypond[verbatim,quote]
+{ g'2 g' }
+\addlyrics { Ah \vowelTransition oh. }
+@end lilypond
+
 @end itemize
 
 
-@strong{Améliorations pour les cordes frettées ou non}
-
+@subsubheading Améliorations pour les cordes frettées ou non
+@c VO Unfretted and fretted string instrument improvements
 @itemize
+
+@item
+Les diagrammes de fret peuvent désormais s'imprimer en version
+« gaucher » dès lors que @code{handedness} (sous-propriété de
+@code{fret-diagram-details}) aura été définie à @code{LEFT}.
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(gaucher)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
+@end lilypond
 
 @item
 Quelques diagrammes de fret pour ukulele ont été corrigés, et d'autres
@@ -459,8 +418,8 @@ ont été ajoutés.
 @end itemize
 
 
-@strong{Améliorations pour la notation des accords}
-
+@subsubheading Améliorations pour la notation des accords
+@c VO Chord notation improvements
 @itemize
 
 @item
@@ -487,27 +446,11 @@ accords) sans avoir besoin de bricolage -- la commande prédéfinie
 historiques peuvent en trouver une copie (plus ou moins fonctionnelle)
 dans le morceau choisi @file{chord-names-alternative.ly}.
 
-
-@item
-Les diagrammes de fret peuvent désormais s'imprimer en version
-« gaucher » dès lors que @code{handedness} (sous-propriété de
-@code{fret-diagram-details}) aura été définie à @code{LEFT}.
-@lilypond[verbatim,quote]
-\markup
-  \center-column {
-    "C"
-    "(gaucher)"
-     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
-     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
-  }
-@end lilypond
-
-
 @end itemize
 
 
-@strong{Améliorations pour la notation contemporaine}
-
+@subsubheading Améliorations pour la notation contemporaine
+@c VO Contemporary music improvements
 @itemize
 
 @item
@@ -517,7 +460,6 @@ rythmique suivant. Cette ligne peut adopter différents styles :
 @code{'beam}, @code{'line}, @code{'dashed-line}, @code{'dotted-line},
 @code{'zigzag}, @code{'trill} ou @code{'none}. La ligne peut se terminer
 par un crochet (uniquement pour le style @code{'beam}) ou une flêche.
-
 @lilypond[quote]
 \layout {
   \context {
@@ -529,7 +471,6 @@ par un crochet (uniquement pour le style @code{'beam}) ou une flêche.
     \override NoteHead.duration-log = 2
   }
 }
-
 {
   a'1\- s2 r
   \once \override DurationLine.style = #'line
@@ -564,43 +505,49 @@ par un crochet (uniquement pour le style @code{'beam}) ou une flêche.
 @subheading Nouveautés en matière d'entrée et sortie
 @c VO New for input and output
 
-@ignore
-@strong{Améliorations pour la structure}
-
+@subsubheading Améliorations pour les fichiers sources
+@c VO Input file improvements
 @itemize
 
 @item
-Un
-
-@end itemize
-@end ignore
-
-
-@ignore
-@strong{Améliorations pour les titrages et entêtes}
-
-@itemize
+Comme il avait été annoncé lors de la diffusion de la version 2.17.3,
+l'option @code{'relative-includes} est désormais activée par défaut.
+Lorsqu'un fichier faisant l'objet d'une inclusion comporte lui-même une
+instruction @code{\include}, le chemin alors recherché sera relatif à ce
+fichier, non par rapport au répertoire du fichier principal. Il est
+possible de contrevenir à ce comportement en affectant @code{#f} à la
+directive @code{'relative-includes}, que ce soit en ligne de commande ou
+par l'utilisation d'un @code{ly:set-option} dans le fichier source.
 
 @item
-Un
-@end itemize
-@end ignore
-
-
-@ignore
-@strong{Améliorations pour les fichiers sources}
-
-@itemize
+@code{\compressFullBarRests} a été renommé en
+@code{\compressEmptyMeasures} afin d'éviter toute confusion avec
+@code{\compressMMRests}. Dans le même esprit, @code{\expandFullBarRests}
+devient @code{\expandEmptyMeasures}.
 
 @item
-Un
+La commande @code{\partcombine}, ainsi que les commandes, sous-routines
+et noms de propriété préfixées de @code{partCombine}, s'écrivent
+désormais avec un C majuscule, comme @code{\partCombine},
+@code{\partCombineApart}, etc. La commande @code{\autochange} suit le
+même principe et se libelle désormais @code{\autoChange}.
+
+@item
+Toutes les langues de saisie (instruction @code{\language}) peuvent se
+mentionner avec leur propre orthographe UTF-8 -- autrement dit y compris
+avec des caractères spéciaux. Les dénominations @code{català} et
+@code{português} s'ajoutent désormais aux appellations originelles
+@code{catalan} et @code{portugues}.
+
+@item
+LilyPond pour Windows (MinGW) gère les noms de fichier Unicode à compter
+de Windows 10-1903.
 
 @end itemize
-@end ignore
 
 
-@strong{Améliorations pour les fichiers résultants}
-
+@subsubheading Améliorations pour les fichiers résultants
+@c VO Output improvements
 @itemize
 
 @item
@@ -630,7 +577,7 @@ d'horizon et donc aidera à améliorer l'espacement.
 @item
 Un léger décalage a été ajouté au glyphe de bécarre dont les extrémités
 se touchaient à l'occasion d'un changement d'armure.
-@lilypond[verbatim,quote]
+@lilypond[quote]
 {
   \omit Staff.TimeSignature
   \key ces \major s1 \key c \major s
@@ -650,6 +597,22 @@ la boîte, y compris les bords arrondis et la rotation.
 }
 @end lilypond
 
+@item
+Les couleurs style CSS peuvent désormais s'utiliser directement sous
+forme de chaîne textuelle, soit par leur nom de couleur prédifini comme
+avec la fonction existante @code{css-color}, soit par leur code
+hexadécimal préfixé d'un @code{#}. Tous les stencils disposant de la
+propriété @code{color} acceptent maintenant une liste ou une chaîne.
+Dans le cas d'une chaîne, celle-ci sera directement utilisée pour une
+sortie SVG, ce qui autorisera le recours à la transparence alpha (saisie
+"#RRGGBBAA" ou "#RGBA").
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
 
 @item
 Les marque-pages sont désormais pris en charge, ce qui permet aux
@@ -664,11 +627,15 @@ d'indiquer leur position dans la partition. Cette fonctionnalité a pour
 effet qu'il n'est plus possible de donner une simple chaîne en argument
 à @code{\tocItem} ; il faut utiliser une commande @code{\markup}.
 @example
-\tocItem \markup "Top-level entry"
-\tocItem symbol "Named top-level entry"
-\tocItem symbol.list "Second-level (child) entry"
+\tocItem \markup "Entrée de tête"
+\tocItem symbol "Nom de l'entrée de tête"
+\tocItem symbol.list "Entrée de niveau inférieur (enfant)"
 @end example
 
+@item
+Grâce aux nouvelles options @option{-dpng-width} et
+@option{-dpng-height}, il est désormais possible de spécifier la taille,
+en pixels, des images PNG générées.
 
 @item
 La sortie SVG est désormais disponible avec l'option en ligne de
@@ -678,98 +645,14 @@ rendu, cette option est à ce jour incompatible avec les autres formats
 de sortie ; pour obtenir, en plus du SVG, un fichier PDF, PNG ou EPS,
 sera requis un traitement supplémentaire par LilyPond.
 
-@item
-Grâce aux nouvelles options @option{-dpng-width} et
-@option{-dpng-height}, il est désormais possible de spécifier la taille,
-en pixels, des images PNG générées.
-
-
 @end itemize
 
-@ignore
-@strong{Améliorations pour le MIDI}
-
-@itemize
-
-@item
-Un
-
-@end itemize
-@end ignore
-
-@strong{Améliorations en matière d'extraction de la musique}
-
-@itemize
-
-@item
-La procédure @code{output-classic-framework} et l'option
-@code{-dclip-systems} sont désormais disponibles avec le moteur
-@code{SVG}.
-
-@item
-L'argument @code{-dcrop} a été ajouté, permettant de formater les
-sorties @code{SVG} et @code{PDF} sans marge ni saut de page.
-
-
-@end itemize
-
-
-@ignore
-@subheading Nouveautés en matière d'espacements
-@c VO New for spacing issues
-
-
-@strong{Améliorations pour les sauts de page}
-
-@itemize
-
-@item
-Un
-
-@end itemize
-@end ignore
-
-@ignore
-@subheading Nouveautés en matière de modification des réglages par défaut
-@c VO New for changing defaults
-
-@itemize
-
-@item
-Un
-
-@end itemize
-@end ignore
-
-
-@subheading Nouveautés en matière d'interfaces et fonctions internes
-@c VO New for Internal interfaces and functions
-
-@itemize
-
-@item
-Comme il avait été annoncé lors de la diffusion de la version 2.17.3,
-l'option @code{'relative-include} est désormais activée par défaut.
-Lorsqu'un fichier faisant l'objet d'une inclusion comporte lui-même une
-instruction @code{\include}, le chemin alors recherché sera relatif à ce
-fichier, non par rapport au répertoire du fichier principal. Il est
-possible de contrevenir à ce comportement en affectant @code{#f} à la
-directive @code{'relative-includes}, que ce soit en ligne de commande ou
-par l'utilisation d'un @code{ly:set-option} dans le fichier source.
-
-@item
-LilyPond pour Windows (MinGW) gère les noms de fichier Unicode à compter
-de Windows 10-1903.
-
-
-@end itemize
 
 @ifhtml
 Pour des annonces plus anciennes, rendez-vouz aux pages
 @uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
 @uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
 ou @uref{../,remontez} à l'index de la documentation.
-
 
 @end ifhtml
 

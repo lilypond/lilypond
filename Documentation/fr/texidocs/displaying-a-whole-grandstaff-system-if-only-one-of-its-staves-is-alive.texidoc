@@ -1,16 +1,16 @@
-%% Translation of GIT committish: 08c1ead90d9f49e66ce54208639fb9ef48ca52a6
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 Il arrive, dans les partitions d'orchestre, qu'un instrument ou un
 groupe d'instruments ne joue pas pendant un moment et que leurs portées
 disparaisse pendant ce temps -- à l'aide de @code{\\removeEmptStaves}.
 
-Il est préférable, lorsque l'un d'entre eux reprend, d'imprimer toutes
-les portées du groupe en question grâce au
+Il est préférable, lorsque l'un d'entre eux reprend, d'imprimer @b{toutes
+les portées du groupe en question} grâce au
 @code{Keep_alive_together_engraver} placé au niveau du regroupement,
 qu'il s'agisse d'un @code{GrandStaff} ou d'un @code{StaffGroup}.
 
 Dans l'exemple suivant, les violons ne jouent pas lors des deuxième et
-troisième systèmes.  Bien que seul le premier violon redémarre à la
+troisième systèmes. Bien que seul le premier violon redémarre à la
 dernière mesure, la portée de second violon apparaît elle aussi.
 
 "

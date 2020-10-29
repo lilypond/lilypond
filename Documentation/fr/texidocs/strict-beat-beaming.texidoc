@@ -1,7 +1,7 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Une sous-ligature tronquée peut pointer en direction de la pulsation à
-laquelle elle se rattache.  Dans l'exemple suivant, la première ligature
+laquelle elle se rattache. Dans l'exemple suivant, la première ligature
 évite toute troncature (comportement par défaut), alors que la deuxième
 respecte rigoureusement la pulsation.
 

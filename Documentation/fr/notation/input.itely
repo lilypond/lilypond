@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e9e5be535bfffbd50f33dfce3a8ee47b39e42bb5
+   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -679,10 +679,6 @@ morceau.  Notez toutefois que, pour un morceau, seuls les champs
 @code{\paper}.
 
 @end itemize
-
-@warning{N'oubliez pas que lorsqu'il est placé à l'intérieur d'un bloc
-@code{@bs{}score}, le bloc @code{@bs{}header} doit impérativement se
-trouver @strong{à la suite} de l'expression musicale.}
 
 Nul n'est besoin de fournir un bloc @code{\header} à chacun des quatre
 niveaux ; on peut se passer aussi bien de l'un d'eux que de tous.  Dans
@@ -2890,6 +2886,8 @@ qu'en un point particulier de votre source :
 \markup \replace #'(("100" . "hundred")
                     ("dpi" . "dots per inch")) "A 100 dpi."
 @end lilypond
+
+Ces alias ne pourront plus, quant à eux, faire l'objet d'un remplacement.
 
 @morerefs
 Manuel de notation :

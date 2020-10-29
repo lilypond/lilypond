@@ -1,25 +1,23 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété de
-contexte @code{beatStructure}.  Ses valeurs par défaut sont
-répertoriées, par métrique, dans le fichier
-@code{scm/time-signature-settings.scm}.  Elles sont modifiables
-grâce à la commande @code{\\set}.
+contexte @code{beatStructure}. Ses valeurs par défaut sont répertoriées,
+par métrique, dans le fichier @code{scm/time-signature-settings.scm}.
+Elles sont modifiables grâce à la commande @code{\\set}.
 
 La fonction Scheme @code{set-time-signature} permet quant à elle de
-définir à la fois la métrique et la pulsation.  Celle-ci prend trois
+définir à la fois la métrique et la pulsation. Celle-ci prend trois
 arguments : le nombre de pulsations, la durée de la pulsation et le
-regroupement des pulsations dans la mesure.   @code{\\time} et
+regroupement des pulsations dans la mesure. @code{\\time} et
 @code{set-time-signature} s'appliquent tous deux au contexte
 @code{Timing} ; ils ne redéfiniront donc pas les valeurs de
-@code{beatStructure} ou @code{baseMoment} lorsqu'elles sont
-modifiées dans un contexte de niveau inférieur comme @code{Voice} par
-exemple.
+@code{beatStructure} ou @code{baseMoment} lorsqu'elles sont modifiées
+dans un contexte de niveau inférieur comme @code{Voice} par exemple.
 
 Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{set-time-signature} créera aussi des symboles
-@code{MeasureGrouping}.  Ces symboles aident à la lecture des œuvres
-modernes à la rythmique complexe.  Dans l'exemple qui suit, la mesure à
+@code{MeasureGrouping}. Ces symboles aident à la lecture des œuvres
+modernes à la rythmique complexe. Dans l'exemple qui suit, la mesure à
 9/8 est divisée en 2, 2, 2 et 3, alors que la mesure à 5/8 répond aux
 règles par défaut contenues dans le fichier
 @code{scm/time-signature-settings.scm}.

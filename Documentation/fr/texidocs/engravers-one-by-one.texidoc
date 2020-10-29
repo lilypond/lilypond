@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 Pour appréhender la notation, nous l'avons disséquée en éléments
 simples : chaque type de symbole est géré par un module différent.
-Chaque module est appelé « graveur ».  Dans cet exemple, chaque graveur
+Chaque module est appelé « graveur ». Dans cet exemple, chaque graveur
 est appelé à son tour, dans l'ordre suivant :
 
 -- têtes de note,
@@ -17,10 +17,10 @@ est appelé à son tour, dans l'ordre suivant :
 
 -- altérations, barres de mesure, métrique et armure.
 
-Les graveurs se regroupent.  Par exemple, têtes de note, liaisons,
-ligature, etc. forment un contexte de voix (@code{Voice}).  Les
-graveurs chargés de la métrique, des altérations, des barres de
-mesure, etc. forment un contexte de portée (@code{Staff}).
+Les graveurs se regroupent. Par exemple, têtes de note, liaisons,
+ligature, etc. forment un contexte de voix (@code{Voice}). Les graveurs
+chargés de la métrique, des altérations, des barres de mesure, etc.
+forment un contexte de portée (@code{Staff}).
 
 "
   doctitlefr = "Les graveurs un par un"
