@@ -837,6 +837,7 @@ Snippets:
 * paper variables for page breaking::
 * paper variables for page numbering::
 * paper variables concerning headers and markups::
+* paper variables for debugging::
 @end menu
 
 
@@ -1102,6 +1103,19 @@ Snippets:
 @knownissues
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
+
+
+@node paper variables for debugging
+@unnumberedsubsubsec @code{@bs{}paper} variables for debugging
+
+@funindex debug-beam-scoring
+@funindex debug-slur-scoring
+@funindex debug-tie-scoring
+
+The variables @code{debug-beam-scoring}, @code{debug-slur-scoring}
+and @code{debug-tie-scoring} allow to print debugging output for
+beam, slur and tie scoring.  See @rcontrib{Debugging scoring algorithms}
+for a detailed explanation, what these variables do.
 
 
 @node Score layout

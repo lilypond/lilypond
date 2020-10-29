@@ -934,6 +934,7 @@ describes how to use both gdb and the Guile Debugger.
 * Debugging overview::
 * Debugging C++ code::
 * Debugging Scheme code::
+* Debugging scoring algorithms::
 @end menu
 
 @node Debugging overview
@@ -1217,6 +1218,107 @@ output to show when the procedure is called and when it exits.
 
 @code{set-trace-subtree!} traces every step the Scheme evaluator
 performs in evaluating the procedure.
+
+
+@node Debugging scoring algorithms
+@subsection Debugging scoring algorithms
+
+Formatting of beams, slurs and ties is based on scoring.
+A large number of configurations is generated and each aesthetic
+aspect gets demerits.  The best configuration (with least demerits) wins.
+By setting the following variables in a @code{@bs{}paper} or
+@code{@bs{}layout} block it is possible to gain some
+insight about the criteria that lead LilyPond to choose a particular
+configuration.  The information is showed adjacent to the
+object in question.
+
+@table @code
+
+@item debug-beam-scoring
+
+If set to true, print demerits together with their cause,
+followed by the number of configurations that have been scored
+before concluding.  Default: unset.
+
+@indentedblock
+Example: 'L 18.95 C 655.12 c19/625' @arrow{} demerits for
+stem lengths (@samp{L}) and collisions (@samp{C}), scored 19 out
+of 625 initially considered configurations.
+@end indentedblock
+
+Possible demerit causes: collision (@samp{C}), inappropriate stem
+length (@samp{L}), beam direction different from damping direction
+(@samp{Sd}), difference between beam slope and musical slope (@samp{Sm}),
+deviation from ideal slope (@samp{Si}), horizontal inter-quants
+(@samp{H}), forbidden quants (@samp{Fl}/@samp{Fs}).
+
+@c TODO: What are 'horizontal inter-quants' and 'forbidden quants'?
+
+Demerits are configurable, see @rinternals{beam-interface}
+for a list of tunable parameters.
+
+@item debug-slur-scoring
+
+If set to true, print demerits together with their cause,
+followed by the sum of all demerits and the index of the slur
+configuration finally chosen.  Default: unset.
+
+@indentedblock
+Example: 'slope=2.00, R edge=10.51, variance=0.03 TOTAL=12.54 idx=4'
+@arrow{} demerits for slope, distance of the right edge to the
+attachment point, variance of distance between note heads and
+slur.  Total demerits: 12.54, index of the chosen configuration: 4.
+@end indentedblock
+
+Possible demerit causes: distance of the left/right slur edge to the
+attachment points (@samp{L edge}/@samp{R edge}),
+inappropriate slope (@samp{slope}), distance variations between note heads
+and slur (@samp{variance}), distances for heads that are between the slur
+and an imaginary line between the attachment points (@samp{encompass}),
+too small distance between slur and tie extrema (@samp{extra}).
+
+Demerits are configurable, see @rinternals{slur-interface} for a
+list of tunable parameters.
+
+@item debug-tie-scoring
+
+If set to true, print the basic configuration of ties, followed by
+demerits and their corresponding causes and the total sum of demerits.
+Default: unset.
+
+@indentedblock
+Example: '0 (0.23) u: vdist=1.08 lhdist=1.79 tie/stem dir=8.00 TOTAL=10.87'
+@arrow{} offset from the center of the staff according tie
+specification: 0 staff-spaces, vertical distance of the tie's center
+in y-direction to the bottom (or top) of the tie: 0.23,
+direction: up.  Demerits for vertical and horizontal distance
+to note head, same direction of stem and tie.  Total demerits: 10.87.
+@end indentedblock
+
+@c TODO: Which unit does the vertical distance have? staff-spaces?
+
+Possible demerit causes: wrong tie direction (@samp{wrong dir}),
+vertical distance to note heads (@samp{vdist}), horizontal
+distance to left or right note head (@samp{lhdist}/@samp{rhdist}),
+same direction of stem and tie (@samp{tie/stem dir}), position and
+direction of tie not matching, e.g., tie is in the upper half of
+the staff but has direction @code{DOWN} (@samp{tie/pos dir}), tie is
+too short (@samp{minlength}), tip of tie collides with staff line
+(@samp{tipline}), collision with dot (@samp{dot collision}),
+center of tie is too close to a staff line (@samp{line center}),
+y-position (edge or center) of currently considered tie is less
+than the y-position of the previous tie (@samp{monoton edge}/
+@samp{monoton cent}), edge or center of tie is too close to the
+one considered previously (@samp{tietie center}/@samp{tietie edge}),
+unsymmetrical horizontal positioning with respect to the note heads
+(@samp{length symm}), unsymmetrical vertical positioning with respect
+to the note heads (@samp{pos symmetry}).
+
+Demerits are configurable, see @rinternals{tie-interface} for a
+list of tunable parameters.
+
+@end table
+
 
 @node Tracing object relationships
 @section Tracing object relationships
