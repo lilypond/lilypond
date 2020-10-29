@@ -912,6 +912,16 @@ page-breaker will put fewer systems on each page.  Default: unset.
 
 The number of pages to be used for a score.  Default: unset.
 
+@item page-spacing-weight
+@funindex page-spacing-weight
+
+When using the @code{ly:optimal-breaking} algorithm for page breaking,
+LilyPond has to make trade-offs between horizontal and vertical
+stretching so that the overall spacing is more acceptable.
+This parameter controls the relative importance of page (vertical)
+spacing and line (horizontal) spacing.  High values will make page
+spacing more important.  Default: @code{10}.
+
 @end table
 
 The following variables are effective only when @code{page-breaking}
@@ -1037,13 +1047,6 @@ of the cover page so that page 1 is on the right hand side.
 @unnumberedsubsubsec Miscellaneous @code{@bs{}paper} variables
 
 @table @code
-
-@item page-spacing-weight
-@funindex page-spacing-weight
-
-The relative importance of page (vertical) spacing and line
-(horizontal) spacing.  High values will make page spacing more
-important.  Default: @code{10}.
 
 @item print-all-headers
 @funindex print-all-headers
