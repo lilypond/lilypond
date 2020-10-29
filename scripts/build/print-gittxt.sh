@@ -9,8 +9,8 @@ then
     cd ${src}
     BR=`git rev-parse --symbolic-full-name HEAD | sed s#^refs/heads/##`
     HD=`git rev-parse --verify HEAD`
-    if git rev-parse -q origin/master ; then
-	FP=`git merge-base --octopus origin/master HEAD`
+    if git rev-parse -q origin/stable/2.22 ; then
+	FP=`git merge-base --octopus origin/stable/2.22 HEAD`
     else
 	FP=""
     fi
