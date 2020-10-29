@@ -16,13 +16,12 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated sam. 12 sept. 2020 17:30:39 UTC
+@emph{Last updated Thu Oct 29 13:18:14 UTC 2020
 }
-@multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
+@multitable @columnfractions  0.2 0.2 0.2 0.2 0.2
 
 @headitem
 LilyPond Changes
-@tab de
 @tab es
 @tab fr
 @tab it
@@ -30,52 +29,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(1163)
-@tab David Kastrup
-@*
-Lukas-Fabian Moser
-@*
-
-@ifhtml
-
-@html
-<small>Michael Gerdau</small>
-@end html
-@end ifhtml
-@ifnothtml
-Michael Gerdau
-@end ifnothtml
-@*
-
-@ifhtml
-
-@html
-<small></small>
-@end html
-@end ifhtml
-@ifnothtml
-
-@end ifnothtml
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">translated</span>
-@end html
-@end ifhtml
-@ifnothtml
-translated
-@end ifnothtml
-@*
-
-@ifhtml
-
-@html
-<span style="background-color: #ff7257">partially up to date</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially up to date
-@end ifnothtml
+(1244)
 @tab Francisco Vila
 @*
 
@@ -93,7 +47,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially up to date</span>
+<span style="background-color: #ffba48">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -159,7 +113,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially up to date</span>
+<span style="background-color: #ffbd48">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -186,7 +140,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">partially up to date</span>
+<span style="background-color: #ffbd48">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -196,51 +150,6 @@ partially up to date
 LilyPond --- \TITLE\
 @*
 (1139)
-@tab David Kastrup
-@*
-Lukas-Fabian Moser
-@*
-
-@ifhtml
-
-@html
-<small>Michael Gerdau</small>
-@end html
-@end ifhtml
-@ifnothtml
-Michael Gerdau
-@end ifnothtml
-@*
-
-@ifhtml
-
-@html
-<small></small>
-@end html
-@end ifhtml
-@ifnothtml
-
-@end ifnothtml
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">translated</span>
-@end html
-@end ifhtml
-@ifnothtml
-translated
-@end ifnothtml
-@*
-
-@ifhtml
-
-@html
-<span style="background-color: #47ff24">partially up to date</span>
-@end html
-@end ifhtml
-@ifnothtml
-partially up to date
-@end ifnothtml
 @tab Francisco Vila
 @*
 
@@ -3525,7 +3434,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially up to date</span>
+<span style="background-color: #47ff24">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -8387,11 +8296,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Jean-Jacques Gerbaud
 @*
@@ -8475,7 +8384,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #ffe241">partially up to date</span>
+<span style="background-color: #ffdf42">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -8502,16 +8411,16 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 3 General input and output
 @*
-(14196)
+(14204)
 @tab Walter Garcia-Fontes
 @*
 
@@ -8572,7 +8481,7 @@ partially translated (87 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffca45">partially up to date</span>
+<span style="background-color: #ffc746">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -8690,7 +8599,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -10773,7 +10682,7 @@ up to date
 @item
 3 Running @command{lilypond-book}
 @*
-(4264)
+(4251)
 @tab Walter Garcia-Fontes
 @*
 
@@ -11911,11 +11820,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Tomohiro Tatejima
 @*
@@ -12944,11 +12853,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Masamichi Hosoda
 @*
@@ -14019,11 +13928,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Masamichi Hosoda
 @*
