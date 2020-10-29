@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 90f1e587efc2159450530da3eb8fb391d156a1dc
+%% Translation of GIT committish: 600367eb76cd3f1e69afd9e595dd9f018f654bac
   texidocfr = "
 Une modification de la propriété @code{transparent} permet d'imprimer un
 objet « à l'encre sympathique » : l'objet n'est pas affiché bien que tous
@@ -14,4 +14,4 @@ transparente dans cette même voix, la liaison semble passer d'une voix à
 l'autre.
 
 "
-  doctitlefr = "Recours à la propriété 'transparent pour rendre des objets invisibles"
+  doctitlefr = "Recours à la propriété @code{'transparent} pour rendre des objets invisibles"

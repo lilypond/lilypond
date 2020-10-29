@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 90f1e587efc2159450530da3eb8fb391d156a1dc
+%% Translation of GIT committish: 600367eb76cd3f1e69afd9e595dd9f018f654bac
   texidocfr = "
 Par défaut, les indications métronomiques n'influencent en rien
 l'espacement horizontal.  Une simple dérogation, comme dans la deuxième
 partie de cet exemple, fournit la solution.
 
 "
-  doctitlefr = "Adaptation de la largeur de mesure selon le MetronomeMark"
+  doctitlefr = "Adaptation de la largeur de mesure selon le @code{MetronomeMark}"
