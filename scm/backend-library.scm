@@ -279,7 +279,7 @@
                 (close-port port)
                 bport)
 
-              (make-tmpfile basename (1- tries))))
+              (inner basename (1- tries))))
 
         (ly:error (_ "can't create temp file for ~a after ~a times") basename max-try)
         ))
