@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
 graveur @code{Ambitus_engraver} au contexte @code{Staff} afin d'obtenir
-l'ambitus de toutes les voix cumulées, non d'une seule des voix actives.
+l'ambitus sur toutes les voix cumulées, non d'une seule des voix actives.
 
 "
   doctitlefr = "Ambitus sur plusieurs voix"

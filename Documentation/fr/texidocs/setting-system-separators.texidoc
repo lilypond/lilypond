@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 08c1ead90d9f49e66ce54208639fb9ef48ca52a6
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 La séparation entre deux systèmes consécutifs peut être mise en
-évidence par n'importe quel @emph{markup}.  LilyPond dispose à cet effet
+évidence par n'importe quel @emph{markup}. LilyPond dispose à cet effet
 d'une double oblique inversée : @code{\\slashSeparator}.
 
 "

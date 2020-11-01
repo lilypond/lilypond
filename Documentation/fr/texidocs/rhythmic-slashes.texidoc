@@ -1,14 +1,16 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Il arrive, dans une feuille de chant « simple », que les notes soient
 remplacées par une « pulsation » et que la structure de la chanson soit
-indiquée par les accords au-dessus des mesures.  Ceci peut être utile
+indiquée par les accords au-dessus des mesures. Ceci peut être utile
 lorsque l'on crée ou retranscrit la structure d'une chanson, ainsi que
-pour donner au guitariste et musiciens de jazz une pseudo partition.  Le
-fonctionnement standard d'un @code{\\repeat percent} n'est pas ici
+pour donner au guitariste et musiciens de jazz une pseudo partition.
+
+Le fonctionnement standard d'un @code{\\repeat percent} n'est pas ici
 applicable puisque le premier temps doit être une note ou un silence.
+
 Le code ci-dessous propose deux alternatives à ce problème en
-redéfinissant l'aspect d'un silence.  Si la durée d'un temps ne
+redéfinissant l'aspect d'un silence. Si la durée d'un temps ne
 correspond pas à la noire, le @code{r4} inclus dans la définition devra
 être remplacé par un silence de durée appropriée.
 

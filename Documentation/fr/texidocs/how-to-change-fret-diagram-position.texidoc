@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 Différents moyens permettent de repositionner un diagramme de fret pour
 éviter des collisions ou le placer entre deux notes :
@@ -11,7 +11,7 @@ Différents moyens permettent de repositionner un diagramme de fret pour
 
 Lorsque le diagramme doit correspondre à une position rythmique dans la
 mesure,  comme au troisième temps de la deuxième mesure, la seconde
-méthode est plus appropriée, puisque le diagramme sera aligné sur le
+méthode est plus appropriée puisque le diagramme sera aligné sur le
 temps.
 
 "

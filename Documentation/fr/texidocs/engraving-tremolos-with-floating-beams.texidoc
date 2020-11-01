@@ -1,13 +1,13 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
-Lorsque la durée totale d'un trémolo est inférieure à la noire,
-égale une blanche, ou bien entre une blanche et une ronde, il est
-d'usage que toutes les ligatures soient en contact avec les
-hampes.  Certains styles de gravure font cependant apparaître des
-ligatures détachées, centrées entre les hampes.  Pour ce type de
-trémolo, le nombre de hampes flottantes se gère au travers de la
-propriété @code{gap-count} de l'objet @code{Beam}, et l'écart
-entre ligature et hampe se définit par la propriété @code{gap}.
+Lorsque la durée totale d'un trémolo est inférieure à la noire, égale
+une blanche, ou bien entre une blanche et une ronde, il est d'usage que
+toutes les ligatures soient en contact avec les hampes. Certains styles
+de gravure font cependant apparaître des ligatures détachées, centrées
+entre les hampes. Pour ce type de trémolo, le nombre de hampes
+flottantes se gère au travers de la propriété @code{gap-count} de
+l'objet @code{Beam}, et l'écart entre ligature et hampe se définit par
+la propriété @code{gap}.
 
 "
   doctitlefr = "Impression de trémolo avec ligature flottante"

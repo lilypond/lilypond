@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 La commande de @emph{markup} @code{\\circle} permet de dessiner un
 cercle autour de différents objets comme des indications de doigté.

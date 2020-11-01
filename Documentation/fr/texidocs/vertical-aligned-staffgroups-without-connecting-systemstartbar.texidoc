@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Cet extrait indique comment obtenir des regroupements @code{StaffGroup}
 alignés verticalement, disposant chacun de leur indication de groupe
 @code{SystemStartBar}, sans qu'il ne soient connectés entre eux.
 
 "
-  doctitlefr = "Alignement Vertical de StaffGroups sans SystemStartBar"
+  doctitlefr = "Alignement vertical de @code{StaffGroup}s sans @code{SystemStartBar}"

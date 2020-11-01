@@ -1,10 +1,9 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Dans certaines situations, il peut être nécessaire de lier des notes
-appartenant à des voix différentes.
-
-La solution consiste à ajouter une note invisible dans l'une des voix, à
-l'aide de la commande @code{\\hideNotes}.
+appartenant à des voix différentes. La solution consiste à ajouter une
+note invisible dans l'une des voix, à l'aide de la commande
+@code{\\hideNotes}.
 
 Voici par exemple la mesure 235 de la chaconne de la seconde partita
 pour violon solo, BWV 1004, de Bach.

@@ -1,18 +1,18 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Certains objets graphiques ne sont accessibles que par le biais d'un
-@emph{callback} à partir d'un autre @code{grob}.  Ils sont normalement
+@emph{callback} à partir d'un autre @code{grob}. Ils sont normalement
 listés dans les « @emph{layout objects} » au sein de la section
-« Propriétés internes » d'une @emph{grob-interface}.  La fonction
+« Propriétés internes » d'une @emph{grob-interface}. La fonction
 @code{ly:grob-object} permet d'accéder à ces objets.
 
 Voici plusieurs moyens d'accéder aux objets par un @emph{callback} sur
-@code{NoteHead}.  D'autres biais sont naturellement possibles ;
+@code{NoteHead}. D'autres biais sont naturellement possibles ;
 @code{NoteHead} a cependant l'avantage incontestable d'être utilisé
 implicitement par la commande @code{\\tweak}.
 
 La fonction @code{display-grobs} définie ci-dessous n'est probablement
-pas très utile.  Elle indique toutefois qu'il est tout à fait possible
+pas très utile. Elle indique toutefois qu'il est tout à fait possible
 d'accéder aux objets.
 
 Voici par exemple ce qui sera émis dans la console :

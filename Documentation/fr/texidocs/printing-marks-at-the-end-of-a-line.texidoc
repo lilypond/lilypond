@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
-Les indications de repère peuvent être imprimées à la fin d'une ligne
-plutôt qu'en tête de la suivante.  L'alignement sur la barre de mesure
+Les indications de repère peuvent s'imprimer à la fin d'une ligne
+plutôt qu'en tête de la suivante. L'alignement sur la barre de mesure
 devra alors s'effectuer par l'extrémité droite de l'indication.
 
 "

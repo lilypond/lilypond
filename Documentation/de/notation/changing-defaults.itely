@@ -4273,7 +4273,7 @@ Im ersten Takt weiß die Layoutmaschine ohne den unsauberen-sauberen
 Container nicht die Breite des Notenkopfes und lässt ihn deshalb mit
 den Versetzungszeichen zusammenstoßen.  Im zweiten Takt, mit
 unreinen-reinen Containern, weiß die Layoutmaschine die Breite
-des Notenkopfes und vermeidet den Zusammenstoßf, indem die Zeile
+des Notenkopfes und vermeidet den Zusammenstoß, indem die Zeile
 entsprechend verlängert wird.
 
 Normalerweise können für eine einfache Berechnungen fast identische

@@ -1,9 +1,9 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Les barres de mesure des regroupements @code{StaffGroup},
 @code{PianoStaff} et @code{GrandStaff} sont par défaut d'un seul tenant.
-La portion entre les portées peut néanmoins être supprimée, portée par
-portée.
+La portion entre les portées -- l'objet @code{SpanBar} -- peut néanmoins
+être supprimée, portée par portée.
 
 "
-  doctitlefr = "Suppression de la partie interportée des barres de mesure d'un regroupement autre que ChoirStaff"
+  doctitlefr = "Suppression de la partie interportée des barres de mesure d'un regroupement autre que @code{ChoirStaff}"

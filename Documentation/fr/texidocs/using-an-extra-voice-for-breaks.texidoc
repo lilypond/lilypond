@@ -1,8 +1,8 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Il est souvent plus pratique de séparer ce qui est purement musical et
-les informations concernant les sauts de ligne ou de page en créant une
-voix supplémentaire dédiée.  Cette voix spécifique ne contiendra que des
+les informations concernant les sauts de ligne ou de page, en créant une
+voix supplémentaire dédiée. Cette voix spécifique ne contiendra que des
 blancs -- des silences invisibles @code{\\skip} --, des @code{\\break},
 des @code{\\pageBreak} et autres informations concernant les ruptures.
 

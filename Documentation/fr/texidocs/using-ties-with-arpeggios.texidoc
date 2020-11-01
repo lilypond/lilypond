@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Les liaisons de tenue servent parfois à rendre un accord arpégé.  Dans
 ce cas, les notes liées ne sont pas toutes consécutives. Il faut alors
 assigner à la propriété @code{tieWaitForNote} la valeur @code{#t}
-(@emph{true} pour « vrai »).  Cette même méthode peut servir, par
+(@emph{true} pour « vrai »). Cette même méthode peut servir, par
 exemple, à lier un trémolo à un accord.
 
 "

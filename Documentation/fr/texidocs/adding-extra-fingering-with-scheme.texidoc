@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Il est possible, à l'aide de la fonction @code{map-some-music},
 d'ajouter divers éléments à des notes. Voici comment attacher un script
@@ -9,4 +9,4 @@ de la musique que vous souhaitez créer vous aidera à écrire la fonction
 chargée de structurer votre musique.
 
 "
-  doctitlefr = "Ajout d'un doigté supplémentaire avec scheme"
+  doctitlefr = "Ajout d'un doigté supplémentaire avec Scheme"

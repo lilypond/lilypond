@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 7a89226d5472a2548ec19228d8bccee1bd2480b4
   texidocfr = "
 Les propriétés d'un diagramme de fret sont définies par les
-@code{fret-diagram-details}.  En matière de diagramme de fret, les
-adaptations s'appliquent à l'objet @code{FretBoards.FretBoard}.  Un
-@code{FretBoards} est comparable à un @code{Voice} : il s'agit
-d'un contexte du plus bas niveau, et il n'est donc pas primordial de
+@code{fret-diagram-details}. En matière de diagramme de fret, les
+adaptations s'appliquent à l'objet @code{FretBoards.FretBoard}. Un
+@code{FretBoards} est comparable à un @code{Voice} : il s'agit d'un
+contexte du plus bas niveau, et il n'est donc pas primordial de
 l'instancier de manière explicite pour adapter ses propriétés.
 
 "

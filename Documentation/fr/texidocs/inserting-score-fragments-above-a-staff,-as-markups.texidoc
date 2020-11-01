@@ -1,7 +1,7 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
-La commande @code{\\markup} est polyvalente.  Dans cet exemple, elle
+La commande @code{\\markup} est polyvalente. Dans cet exemple, elle
 contient un bloc @code{\\score} plutôt que du texte ou une marque.
 
 "
-  doctitlefr = "Insertion d'un fragment au-dessus de la portée"
+  doctitlefr = "Insertion d'un fragment dans un @emph{markup} au-dessus de la portée"

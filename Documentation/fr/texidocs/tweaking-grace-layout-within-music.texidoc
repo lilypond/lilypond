@@ -1,12 +1,13 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Il est possible de changer globalement la mise en forme des notes
 d'ornement dans un morceau, au moyen des fonctions
-@code{add-grace-property} et @code{remove-grace-property}.  Ici,
-par exemple, on ôte la définition de l'orientation des objets
-@code{Stem} pour toutes les petites notes, afin que les hampes ne
-soient pas toujours orientées vers le haut, et on leur préfère des
-têtes en forme de croix.
+@code{add-grace-property} et @code{remove-grace-property}.
+
+Ici, par exemple, on ôte la définition de l'orientation des objets
+@code{Stem} pour toutes les petites notes, afin que les hampes ne soient
+pas toujours orientées vers le haut, et on leur préfère des têtes en
+forme de croix.
 
 "
   doctitlefr = "Mise en forme des notes d'ornement"

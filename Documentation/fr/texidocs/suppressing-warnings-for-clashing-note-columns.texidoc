@@ -1,15 +1,15 @@
-%% Translation of GIT committish: 2cc79b7f2ed1cdf881ad371cda4921ccb36b03f6
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidoc = "
 Lorsque des notes simultanées appartenant à des voix différentes ont la
-même orientation de hampe et qu'aucun décalage relatif à une voix n'a été
-appliqué, LilyPond émettra l'avertissement « @emph{ignoring too many
+même orientation de hampe et qu'aucun décalage relatif à une voix n'a
+été appliqué, LilyPond émettra l'avertissement « @emph{ignoring too many
 clashing note columns} » (trop d'empilements de notes se chevauchent. On
-fera au mieux).  On peut s'exonérer de cet avertissement en activant la
-propriété @code{ignore-collision} de l'objet @code{NoteColumn}.  Notez
+fera au mieux). On peut s'exonérer de cet avertissement en activant la
+propriété @code{ignore-collision} de l'objet @code{NoteColumn}. Notez
 bien que ceci n'aura pas pour seul effet de supprimer les
 avertissements ; les routines de résolution de collision sont par la
-même occasion désactivées, ce qui peut engendrer certains
-désagréments si vous en abusez.
+même occasion désactivées, ce qui peut engendrer certains désagréments
+si vous en abusez.
 
 "
   doctitlefr = "Suppression des avertissements de chevauchement"

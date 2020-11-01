@@ -1,9 +1,9 @@
-%% Translation of GIT committish: d9e4325c3cabe23862b341f9991c48da5a85fdc0
+%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
   texidocfr = "
 Cette méthode permet d'imprimer deux marques-repères l'une au-dessus de
-l'autre.  Le repère inférieur est décalé sous la portée, puis s'insère
-au-dessus de lui un espace pour positionner le repère supérieur
-en surplomb de la portée.
+l'autre. Le repère inférieur est décalé sous la portée, puis s'insère
+au-dessus de lui un espace pour positionner le repère supérieur en
+surplomb de la portée.
 
 L'ajustement des valeurs de @code{extra-offset} et @code{baseline-skip}
 permet d'accroître ou réduire globalement l'espace entre le repère et la
@@ -13,14 +13,15 @@ La capacité de pratiquement tout type de glyphe ou chaîne de caractères
 à faire l'objet d'un repère les rend capables de venir se centrer
 au-dessus ou en dessous d'une barre de mesure.
 
-L'adjonction de la propriété @code{break-visibility}, comme dans le
-troisième cas, permet de placer un double repère en fin de ligne.
+L'adjonction de la propriété @code{break-visibility}, comme dans cet
+@uref{\%22http://lsr.di.unimi.it/LSR/Item?id=1\%22, autre cas}, permet
+de placer un double repère en fin de ligne.
 
 Cette première méthode, bien que moins compliquée que la seconde, ne
 permet pas d'ajuster le positionnement d'un repère indépendamment de
-l'autre.  Elle peut aussi générer quelques problèmes quant à
-l'espacement vertical, puisque le recours à @code{extra-offset} ne
-modifie en rien la valeur originelle de la boîte englobant le repère.
+l'autre. Elle peut aussi générer quelques problèmes quant à l'espacement
+vertical, puisque le recours à @code{extra-offset} ne modifie en rien la
+valeur originelle de la boîte englobant le repère.
 
 "
   doctitlefr = "Impression d'un double repère sur une même barre (méthode 1)"

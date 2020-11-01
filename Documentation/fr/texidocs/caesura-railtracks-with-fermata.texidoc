@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 5ddf11eaab081d157230ebe382f79d718b2b9e57
+%% Translation of GIT committish: dc2e76db3526705b1f18ddde2ee21e05bb6ac9fd
   texidocfr = "
 Une césure peut parfois s'indiquer par une double respiration surmontée
-d'un point d'orgue.  Le code ci-dessous permet d'obtenir la combinaison
+d'un point d'orgue. Le code ci-dessous permet d'obtenir la combinaison
 répondant à cette esthétique.
 
 "

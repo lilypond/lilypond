@@ -1,10 +1,10 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: 207d558daf542af3b09157662deb8a68731d4f41
   texidocfr = "
 Le code suivant permet d'obtenir une liste de toutes les possibilités en
 matière de doigtés pour bois, tels qu'ils sont définis dans le fichier
-@file{scm/define-woodwind-diagrams.scm}.  Cette liste sera produite
-dans le fichier de journalisation, mais pas sous forme de musique.  Pour
-un affichage en console, supprimez la partie @code{(current-error-port)}
+@file{scm/define-woodwind-diagrams.scm}. Cette liste sera produite dans
+le fichier de journalisation, mais pas sous forme de musique. Pour un
+affichage en console, supprimez la partie @code{(current-error-port)}
 des commandes.
 
 "

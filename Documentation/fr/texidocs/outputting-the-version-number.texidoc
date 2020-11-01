@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 L'insertion du résultat de @code{lilypond-version} dans des paroles
 permet d'ajouter à la partition ou au document généré par
-@code{lilypond-book} le numéro de la version de LilyPond utilisée.  Une
+@code{lilypond-book} le numéro de la version de LilyPond utilisée. Une
 autre possibilité consiste à l'ajouter à une chaîne textuelle comme
 ci-dessous.
 

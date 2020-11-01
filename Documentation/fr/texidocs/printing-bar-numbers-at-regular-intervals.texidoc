@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
   texidocfr = "
 Vous pouvez imprimer un numéro de mesure à intervalle régulier plutôt
 qu'en tête de chaque ligne seulement, en recourant à la propriété
-@code{barNumberVisibility}.  Voici comment afficher le numéro toutes les
+@code{barNumberVisibility}. Voici comment afficher le numéro toutes les
 deux mesures sauf en fin de ligne.
 
 "

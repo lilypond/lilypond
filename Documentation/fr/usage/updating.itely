@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 5152be56d7489884711de31e371b0ee1baf405d6
+   Translation of GIT committish: 66dcf0462e19cd5e817357c1a9253975a4d453d6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -426,5 +426,5 @@ peut aussi apparaître au sein même de la musique comme ici :
 @end verbatim
 
 @strong{Note :} Cette fonction ayant été introduite avec LilyPond
-2.19.57, il n'est pas possible d'établir des comparaisons avec des
+2.21.80, il n'est pas possible d'établir des comparaisons avec des
 versions qui lui sont antérieures.
