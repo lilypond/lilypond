@@ -21,12 +21,31 @@ stages:
   - documentation
   - website
 
+default:
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
+  interruptible: true
+
+.if-mr-to-default: &if-mr-to-default
+  if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+
+.if-schedule-or-web: &if-schedule-or-web
+  if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"
+
 # Source files are checked out freshly for each job. This leads to the situation
 # that make considers the artifacts outdated and rebuilds LilyPond from scratch.
-# $TOUCH_BUILD contains the command needed to touch the downloaded build files.
+# .touch-build contains the command needed to touch the downloaded build files,
+# grouped into a pre-collapsed custom section.
+.touch-build: &touch-build
+  - echo -e "section_start:`date +%s`:touch_build[collapsed=true]\r\e[0KTouch build artifacts"
+  - make -C python --touch all
+  - make -C scripts --touch all
+  - make -C flower --touch all
+  - make -C lily --touch all
+  - make -C mf --touch all
+  - echo -e "section_end:`date +%s`:touch_build\r\e[0K"
+
 variables:
   CONFIGURE_FLAGS: "--ci"
-  TOUCH_BUILD: "for d in python scripts flower lily mf; do make -C $$d --touch all; done"
 
 # An additional variable not set here but used below is $MAKE_FLAGS. This can
 # be set per runner and allows to enable parallel builds. For example, set its
@@ -34,30 +53,28 @@ variables:
 
 build:ubuntu-16.04:
   stage: build
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
-  interruptible: true
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
-    - if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"
+    - <<: *if-mr-to-default
+    - <<: *if-schedule-or-web
   script:
     - mkdir build && cd build
     - ../autogen.sh $CONFIGURE_FLAGS
     - make $MAKE_FLAGS
-    - rm -rf Documentation/out out/lybook-db
   artifacts:
     untracked: true
+    exclude:
+      - "build/Documentation/out/**"
+      - "build/out/lybook-db/**"
     expire_in: 1 week
 
 test:ubuntu-16.04:
   stage: test
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
-  interruptible: true
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+    - <<: *if-mr-to-default
   dependencies: [ "build:ubuntu-16.04" ]
   script:
     - cd build
-    - sh -c "$TOUCH_BUILD" >/dev/null
+    - *touch-build
     - make $MAKE_FLAGS test
   artifacts:
     name: "logs"
@@ -68,14 +85,12 @@ test:ubuntu-16.04:
 
 doc:ubuntu-16.04:
   stage: documentation
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
-  interruptible: true
   rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+    - <<: *if-mr-to-default
   dependencies: [ "build:ubuntu-16.04" ]
   script:
     - cd build
-    - sh -c "$TOUCH_BUILD" >/dev/null
+    - *touch-build
     - make $MAKE_FLAGS doc
   artifacts:
     name: "logs"
@@ -86,14 +101,12 @@ doc:ubuntu-16.04:
 
 website:ubuntu-16.04:
   stage: website
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
-  interruptible: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"
+    - <<: *if-schedule-or-web
   dependencies: [ "build:ubuntu-16.04" ]
   script:
     - cd build
-    - sh -c "$TOUCH_BUILD" >/dev/null
+    - *touch-build
     - make $MAKE_FLAGS website
   artifacts:
     name: "website"
