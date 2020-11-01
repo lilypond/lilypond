@@ -1051,8 +1051,6 @@ PIDs or the number of the process."
       (let ((failed (lilypond-all files)))
         (if (pair? failed)
             (begin
-              ;; ugh
-              (ly:stderr-redirect "foo" "r")
               (system (get-editor-command log-name 0 0 0))
               (ly:error (_ "failed files: ~S") (string-join failed))
               ;; not reached?
