@@ -362,78 +362,16 @@ same (broken) output as the initial report, then simply post a
 @node Issue classification
 @section Issue classification
 
-@c The following section needs updating after discussion about a
-@c changed policy for GitLab.
-
-The Bug Squad should classify issues according to the guidelines
-given by developers.  Every issue should have a Status and Type;
-the other fields are optional.
-
-@subheading Status (mandatory)
-
-Open issues:
+We have several labels:
 
 @itemize
 
 @item
-New: the item was added by a non-member, despite numerous warnings
-not to do this.  Should be reviewed by a member of the Bug Squad.
-
-@item
-Accepted: the Bug Squad added it, or reviewed the item.
-
-@item
-Started: a contributor is working on a fix.  Owner should change
-to be this contributor.
-
-@end itemize
-
-
-Closed issues:
-
-@itemize
-
-@item
-Invalid: issue should not have been added in the current state.
-
-@item
-Duplicate: issue already exists in the tracker.
-
-@item
-Fixed: a contributor claims to have fixed the bug.  The Bug
-Squad should check the fix with the next official binary release
-(not by compiling the source from git).  Owner should be set to
-that contributor.
-
-@item
-Verified: Bug Squad has confirmed that the issue is closed.  This
-means that nobody should ever need look at the report again -- if
-there is any information in the issue that should be kept, open a
-new issue for that info.
-
-@end itemize
-
-
-@subheading Assignee (optional)
-
-Newly-added issues should have @emph{no assignee}.  When a
-contributor indicates that he has Started or Fixed an item, he
-should become the assignee.
-
-
-@subheading Type (mandatory)
-
-The issue's Type should be the first relevant item in this list.
-
-@itemize
-
-@item
-Critical: normally a regression
-against the current stable version or the previous stable version.
-Alternatively, a regression against a fix developed for the
-current version. This does not apply where the
-@qq{regression} occurred because a feature was removed
-deliberately - this is not a bug.
+Critical: normally a regression against the current stable version or
+the previous stable version.  Alternatively, a regression against a
+fix developed for the current version.  This does not apply where the
+@qq{regression} occurred because a feature was removed deliberately
+-- this is not a bug.
 
 Currently, only Critical items will block a stable release.
 
@@ -470,56 +408,6 @@ when in doubt, mark it as enhancement.
 
 @item
 Other: anything else.
-
-@end itemize
-
-@subheading Patch label (optional)
-
-Normal Bug Squad members should not add or modify Patch issues
-except to verify them; for all other Patch work, leave them to the
-Patch Meister.
-
-@itemize
-
-@item
-Patch::new: the patch has not been checked for @qq{obvious}
-mistakes.  When in doubt, use this tag.
-
-@item
-Patch::review: the patch has no @qq{obvious} mistakes (as checked
-by the Patch Meister), and is ready for review from main
-developers.
-
-Developers with git push ability can use this category, skipping
-over @code{Patch::new}.
-
-@item
-Patch::needs_work: a developer has some concerns about the patch.
-This does not necessarily mean that the patch must be changed; in
-some cases, the developer's concerns can be resolved simply by
-discussion the situation or providing notation examples.
-
-If the patch is updated, the category should be changed to
-@code{Patch::new} (for normal contributors) or @code{Patch::review}
-(for developers who are very confident about their patch).
-
-@item
-Patch::countdown: final call for any patch problems
-
-@item
-Patch::push: patch has passed the countdown and should be pushed.
-
-@item
-Patch::abandoned: the author has not responded to review comments
-for a few months.
-
-@end itemize
-
-@subheading Other items (optional)
-
-Other labels:
-
-@itemize
 
 @item
 Regression: it used to work intentionally in the current
@@ -571,6 +459,26 @@ Performance: performance issue.
 
 @end itemize
 
+In addition, the following labels may be used when closing an issue:
+
+@itemize
+
+@item
+Invalid: issue should not have been added in the current state.
+
+@item
+Duplicate: issue already exists in the tracker.
+
+@item
+Shelved: issue won't fix and was abandoned.
+
+@end itemize
+
+Assign an issue to yourself to indicate that you are currently
+working on it.
+
+
+
 
 @node Adding issues to the tracker
 @section Adding issues to the tracker
@@ -579,8 +487,6 @@ Performance: performance issue.
 developers.  Normal users should not do this; instead, they should
 follow the guidelines for @rweb{Bug reports}.}
 
-In order to assign labels to issues, Bug Squad members should log
-in to their google account before adding an item.
 
 @enumerate
 
