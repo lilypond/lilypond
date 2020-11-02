@@ -165,16 +165,6 @@ Beam_scoring_problem::y_at (Real x, Beam_configuration const *p) const
   entirely
 */
 
-// This is a temporary hack to see how much we can gain by using a
-// priority queue on the beams to score.
-static int score_count = 0;
-LY_DEFINE (ly_beam_score_count, "ly:beam-score-count", 0, 0, 0,
-           (),
-           "count number of beam scores.")
-{
-  return to_scm (score_count);
-}
-
 void Beam_scoring_problem::add_collision (Real x, Interval y,
                                           Real score_factor)
 {
@@ -929,7 +919,6 @@ Beam_scoring_problem::generate_quants (vector<unique_ptr<Beam_configuration>> *s
 
 void Beam_scoring_problem::one_scorer (Beam_configuration *config) const
 {
-  score_count++;
   switch (config->next_scorer_todo)
     {
     case SLOPE_IDEAL:
