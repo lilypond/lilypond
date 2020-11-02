@@ -518,16 +518,6 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
   add_score (demerit, "slope");
 }
 
-// This is a temporary hack to see how much we can gain by using a
-// priority queue on the beams to score.
-static int score_count = 0;
-LY_DEFINE (ly_slur_score_count, "ly:slur-score-count", 0, 0, 0,
-           (),
-           "count number of slur scores.")
-{
-  return to_scm (score_count);
-}
-
 void
 Slur_configuration::run_next_scorer (Slur_score_state const &state)
 {
@@ -549,7 +539,6 @@ Slur_configuration::run_next_scorer (Slur_score_state const &state)
       assert (false);
     }
   next_scorer_todo++;
-  score_count++;
 }
 
 bool
