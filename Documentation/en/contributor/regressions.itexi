@@ -22,11 +22,7 @@ These regression tests comprise small LilyPond snippets that test
 the functionality of each part of LilyPond.
 
 Regression tests are added when new functionality is added to
-LilyPond.
-We do not yet have a policy on when it is appropriate to add or
-modify a regtest when bugs are fixed.  Individual developers
-should use their best judgement until this is clarified during the
-@ref{Grand Organization Project (GOP)}.
+LilyPond or when bugs are fixed.
 
 The regression tests are compiled using special @code{make}
 targets.  There are three primary uses for the regression
