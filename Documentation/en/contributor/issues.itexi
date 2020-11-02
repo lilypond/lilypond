@@ -301,59 +301,6 @@ After @strong{every release} (both stable and unstable):
 @itemize
 
 @item
-Issues to verify: go to
-
-@smallexample
-@uref{https://gitlab.com/lilypond/lilypond/-/issues?state=closed&label_name[]=Status%3A%3AFixed}
-@end smallexample
-
-You should see a list of issues that have been marked as 'Status::Fixed'
-by a developer.  If the developer has done their job properly, the
-issue should have the milestone set to the corresponding version.
-
-This will help you work out which you can verify - do not verify any
-issues where the claimed fixed build is not yet released.  Work your
-way through these as follows:
-
-If the issue refers to a bug, try to reproduce the bug with the latest
-officially released version (not one you've built yourself from
-source); if the bug is no longer there, mark the
-issue @qq{Status::Verified} (i.e., @qq{the fix has been verified to work}).
-
-@c Patches are not tracked by issues anymore, we use merge requests.
-@c The following needs updating once we have discussed whether we
-@c want to verify merge requests or if we trust the UI to show that
-@c a set of changes was merged to master.
-
-Quite a few of these will be issues tracking patches.  @strong{You
-do not have to prove these patches work - simply that they have
-been pushed into the code base.}  The developer should have put
-information similar to @qq{Pushed as as
-d8fce1e1ea2aca1a82e25e47805aef0f70f511b9} in the tracker.  The
-long list of letters and numbers is called the @qq{committish}.
-Providing you can find this at the git tracker:
-
-@example
-@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
-@end example
-
-then you should mark the issue as verified.  A quick way of
-finding these is to enter the committish at the following address:
-
-@example
-@uref{http://philholmes.net/lilypond/git/}
-@end example
-
-The Issue tracker also requires that any issues labelled as
-@qq{Duplicate} are also verified.  Check that the linked issue is
-a duplicate and verify the issue.
-
-A few (approximately 10%) of the fixed issues relate to the
-build system or fundamental architecture changes; there is no way
-for you to verify these.  Leave those issues alone; somebody else
-will handle them.
-
-@item
 The official regression test comparison is online at:
 
 @c NOTE: leave this here.  In this case, it's worth duplicating
