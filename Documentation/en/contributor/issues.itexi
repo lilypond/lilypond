@@ -35,6 +35,9 @@ other general code @q{TODOs} that need to be kept track of.
 * Bug Squad checklists::
 @end menu
 
+TODO: This section needs updating since we no longer have a formal bug
+squad at the moment.
+
 To help keep track and organize all issues are a group of tireless
 volunteers collectively known as the @emph{Bug Squad}.  Composed mainly
 of non-programmers, the Bug Squad's responsibilities include:
