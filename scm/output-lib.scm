@@ -1745,7 +1745,7 @@ suspended noteheads), or extent of the rest (if there are no heads)."
 ;;;; he wants to.
 (define-public (arrow-stencil x y thick staff-space grob)
   "Returns a right-pointing, filled arrow-head, where @var{x} determines the basic
-horizontal position and @var{y) determines the basic vertical position.
+horizontal position and @var{y} determines the basic vertical position.
 Both values are adjusted using @var{staff-space}, which is @code{StaffSymbol}'s
 staff space.  @var{thick} is the used line thickness."
   (let* ((arrow-length (ly:grob-property grob 'arrow-length))
