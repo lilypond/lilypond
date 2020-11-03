@@ -979,12 +979,7 @@ PIDs or the number of the process."
 (define-public (lilypond-all files)
   (let* ((failed '())
          (separate-logs (ly:get-option 'separate-log-files))
-         (ping-log
-          (and separate-logs
-               (if (string-or-symbol? (ly:get-option 'log-file))
-                   (open-file (format #f "~a.log" (ly:get-option 'log-file))
-                              "a")
-                   (fdes->outport 2))))
+         (ping-log (and separate-logs (dup 2)))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
     (cond-expand
@@ -994,10 +989,12 @@ PIDs or the number of the process."
      (lambda (x)
        (let* ((base (dir-basename x ".ly"))
               (all-settings (ly:all-options)))
+         (if ping-log
+             (begin
+               (ly:stderr-redirect ping-log)
+               (ly:message (_ "Processing `~a'\n") x)))
          (if separate-logs
              (ly:stderr-redirect (format #f "~a.log" base) "w"))
-         (if ping-log
-             (format ping-log "Processing ~a\n" base))
          (lilypond-file handler x)
          (ly:check-expected-warnings)
          (session-terminate)
