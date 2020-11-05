@@ -966,7 +966,9 @@ PIDs or the number of the process."
 
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format #f "~a.log" (ly:get-option 'log-file)) "w"))
-  (let ((failed (lilypond-all files)))
+  (let ((log-file (and (ly:get-option 'separate-log-files) (dup 2)))
+        (failed (lilypond-all files)))
+    (if log-file (ly:stderr-redirect log-file))
     (if (pair? failed)
         (begin (ly:error (_ "failed files: ~S") (string-join failed))
                (ly:exit 1 #f))
@@ -1025,10 +1027,6 @@ PIDs or the number of the process."
              (ly:reset-all-fonts))
          (flush-all-ports)))
      files)
-
-    ;; Ensure a notice re failed files is written to aggregate logfile.
-    (if ping-log
-        (format ping-log "Failed files: ~a\n" failed))
     failed))
 
 (define (lilypond-file handler file-name)

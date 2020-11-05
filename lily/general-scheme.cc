@@ -417,19 +417,28 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 }
 
 LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
-           1, 1, 0, (SCM file_name, SCM mode),
-           "Redirect stderr to @var{file-name}, opened with @var{mode}.")
+           1, 1, 0, (SCM fd_or_file_name, SCM mode),
+           "Redirect stderr to @var{fd} if the first parameter is an integer,"
+           " or to @var{file-name}, opened with @var{mode}.")
 {
-  LY_ASSERT_TYPE (scm_is_string, file_name, 1);
+  fflush (stderr);
+
+  if (scm_is_integer (fd_or_file_name)) {
+    // If passed a file descriptor, just replace the error stream (fd 2) by
+    // calling dup2.
+    int fd = scm_to_int (fd_or_file_name);
+    if (dup2 (fd, 2) == -1)
+      error (_ ("failed redirecting stderr"));
+    return SCM_UNSPECIFIED;
+  }
+
+  LY_ASSERT_TYPE (scm_is_string, fd_or_file_name, 1);
 
   string m = "w";
-  string f = ly_scm2string (file_name);
+  string f = ly_scm2string (fd_or_file_name);
   FILE *stderrfile;
   if (scm_is_string (mode))
     m = ly_scm2string (mode);
-  /* dup2 and (fileno (current-error-port)) do not work with mingw'c
-     gcc -mwindows.  */
-  fflush (stderr);
   stderrfile = freopen (f.c_str (), m.c_str (), stderr);
   if (!stderrfile)
     error (_f ("failed redirecting stderr to `%s'", f.c_str ()));
