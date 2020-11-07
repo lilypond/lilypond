@@ -33,7 +33,9 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
+#include <cstdint>
 #include <ctime>
+#include <limits>
 
 using std::string;
 
@@ -67,12 +69,14 @@ void
 Performance::output (Midi_stream &midi_stream,
                      const string &performance_name) const
 {
-  int tracks_ = audio_staffs_.size ();
+  if (audio_staffs_.size () > std::numeric_limits<uint16_t>::max ())
+    programming_error (_f ("too many MIDI tracks: %zu", audio_staffs_.size ()));
+  const auto num_tracks = static_cast<uint16_t> (audio_staffs_.size ());
 
-  midi_stream.write (Midi_header (1, tracks_, 384));
+  midi_stream.write (Midi_header (1, num_tracks, 384));
   debug_output (_ ("Track...") + " ", false);
 
-  for (vsize i = 0; i < audio_staffs_.size (); i++)
+  for (uint16_t i = 0; i < num_tracks; ++i)
     {
       Audio_staff *s = audio_staffs_[i];
       if (Audio_control_track_staff * c
