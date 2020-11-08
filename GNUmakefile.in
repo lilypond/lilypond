@@ -224,36 +224,18 @@ link-tree: $(tree-share-prefix)/lilypond-force
 
 $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 	$(call ly_progress,Making,$@,)
-	cd $(top-build-dir)/$(outbase) && rm -rf bin share
+	rm -rf $(tree-bin) $(tree-share)
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
-	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
 	mkdir -p $(tree-share-prefix)/fonts/svg
-	mkdir -p $(tree-share-prefix)/fonts/enc
-	mkdir -p $(tree-share-prefix)/tex
 	cd $(tree-bin) && \
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
 			do ln -sf ../../scripts/$(outconfbase)/$$i . ; done
-	cd $(tree-share-prefix) && \
-		ln -s $(top-src-dir)/ly ly && \
-		ln -s ../../../../mf mf && \
-		ln -s $(top-src-dir)/ps && \
-		ln -s $(top-src-dir)/python && \
-		ln -s $(top-src-dir)/scm && \
-		ln -s $(top-src-dir)/scripts scripts
-	cd $(tree-share-prefix)/tex && \
-		ln -s $(top-src-dir)/tex source && \
-		ln -s ../../../../../tex/$(outconfbase) tex-out && \
-		true
-	cd $(tree-share-prefix)/fonts && \
-		ln -s $(top-src-dir)/mf source && \
-		true
-	-cd $(tree-share-prefix)/elisp && \
-		ln -sf ../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
-		ln -s $(top-src-dir)/elisp/*.el .
+	cd $(tree-share-prefix) && for i in ly ps python scm; do \
+		ln -s $(top-src-dir)/$$i; done
 	touch $(tree-share-prefix)/lilypond-force
 
 link-mf-tree: $(tree-share-prefix)/mf-link-tree
