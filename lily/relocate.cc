@@ -245,7 +245,6 @@ setup_paths (char const *argv0_ptr)
   // add some datadir subdirectories to LilyPond's global path;
   // in this list, the last item comes first in the path
   global_path.prepend (lilypond_datadir + "/fonts/svg/");
-  global_path.prepend (lilypond_datadir + "/fonts/type1/");
   global_path.prepend (lilypond_datadir + "/fonts/otf/");
   global_path.prepend (lilypond_datadir + "/scm");
   global_path.prepend (lilypond_datadir + "/ps");
