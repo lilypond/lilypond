@@ -45,6 +45,7 @@ COPY --from=build /install-guile1.8/ /
 RUN apt-get update && apt-get --no-install-recommends install -y \
         autoconf \
         bison \
+        ca-certificates \
         flex \
         fontconfig \
         fontforge \
@@ -74,6 +75,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         texlive-lang-cyrillic \
         texlive-metapost \
         texlive-plain-generic \
+        wget \
         zip \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/share/doc /usr/share/man
