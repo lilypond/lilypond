@@ -244,7 +244,6 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 	$(call ly_progress,Making,$@,)
 	-rm -f $(tree-share-prefix)/fonts/otf/* &&  \
 	rm -f $(tree-share-prefix)/fonts/svg/* &&  \
-	rm -f $(tree-share-prefix)/fonts/fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/00-lilypond-fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/99-lilypond-fonts.conf &&  \
 	cd $(tree-share-prefix)/fonts/otf && \
@@ -254,7 +253,6 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 		$(foreach i,$(addprefix $(URWOTF_DIR)/,$(URWOTF_FILES)), \
 			ln -s $i . && ) true
 	-cd $(tree-share-prefix)/fonts && \
-		ln -s ../../../../../mf/$(outconfbase)/fonts.conf . && \
 		ln -s ../../../../../mf/$(outconfbase)/00-lilypond-fonts.conf . && \
 		ln -s ../../../../../mf/$(outconfbase)/99-lilypond-fonts.conf .
 	-cd $(tree-share-prefix)/fonts/svg && \

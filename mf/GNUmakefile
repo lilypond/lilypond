@@ -132,16 +132,12 @@ $(outdir)/emmentaler-brace.otf: gen-emmentaler-brace.fontforge.py \
 $(outdir)/emmentaler-brace.woff $(outdir)/emmentaler-brace.svg: $(outdir)/emmentaler-brace.otf
 	@true
 
-default: tree-regen $(outdir)/fonts.conf
+default: tree-regen
 
 .PHONY: tree-regen
 
 tree-regen: $(ALL_GEN_FILES)
 	${MAKE} -C $(top-build-dir) link-mf-tree
-
-$(outdir)/fonts.conf:
-	$(call ly_progress,Making,$@,)
-	echo '<fontconfig><dir>'$(shell cd $(outdir); pwd)'</dir></fontconfig>' > $@
 
 $(outdir)/%.conf: %.conf
 	$(call ly_progress,Copying,$@,)
