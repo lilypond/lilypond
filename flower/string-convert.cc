@@ -44,10 +44,11 @@ static const int STRING_BUFFER_LEN = 1024;
 static char
 nibble2hex (Byte byte)
 {
-  if ((byte & 0x0f) <= 9)
-    return '0' + (byte & 0x0f);
+  const auto nibble = byte & 0x0f;
+  if (nibble <= 9)
+    return static_cast<char> ('0' + nibble);
   else
-    return 'a' + ((byte & 0x0f) - 10);
+    return static_cast<char> ('a' + (nibble - 10));
 }
 
 string
