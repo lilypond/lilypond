@@ -251,7 +251,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
   /* remove consecutive duplicate points */
   for (vsize i = 0; i < points.size (); i++)
     {
-      int next = (i + 1) % points.size ();
+      const auto next = (i + 1) % points.size ();
       Real d = (points[i] - points[next]).length ();
       if (d < epsilon)
         programming_error ("Polygon should not have duplicate points");
