@@ -1221,7 +1221,6 @@ td:empty {
 <p>
   click to filter rows by type:
   <a href="#" onClick="showOnlyMatchingRows('.ly')">ly</a> /
-  <a href="#" onClick="showOnlyMatchingRows('.profile')">profiling</a> /
   <a href="#" onClick="showOnlyMatchingRows('.signature')">signature</a> /
   <a href="#" onClick="showOnlyMatchingRows('.midi')">midi</a> /
   <a href="#" onClick="showOnlyMatchingRows('.log')">log</a> /
@@ -1305,7 +1304,6 @@ def test_compare_tree_pairs():
     system('mkdir dir1 dir2')
     system('cp 19-1.signature 19.sub-1.signature')
     system('cp 19.ly 19.sub.ly')
-    system('cp 19.profile 19.sub.profile')
     system('cp 19.log 19.sub.log')
     system('cp 19-1.eps 19.sub-1.eps')
 
@@ -1313,8 +1311,8 @@ def test_compare_tree_pairs():
     system('cp 20multipage* dir2')
 
     system('mkdir -p dir1/subdir/ dir2/subdir/')
-    system('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir1/subdir/')
-    system('cp 19.sub{-*.signature,.ly,-1.eps,.log,.profile} dir2/subdir/')
+    system('cp 19.sub{-*.signature,.ly,-1.eps,.log} dir1/subdir/')
+    system('cp 19.sub{-*.signature,.ly,-1.eps,.log} dir2/subdir/')
 
     # Make sure we have unicode text in the HTML
     system(u'echo HEAD is 人人的乐谱软件 > dir1/tree.gittxt')
@@ -1322,17 +1320,16 @@ def test_compare_tree_pairs():
 
     # introduce differences
     system('cp 20-1.signature dir2/subdir/19.sub-1.signature')
-    system("sed 's/: /: 1/g'  20.profile > dir2/subdir/19.sub.profile")
 
     # radical diffs.
-    system('cp 20grob{-*.signature,.ly,.eps,-?.eps,.log,.profile} dir1/')
+    system('cp 20grob{-*.signature,.ly,.eps,-?.eps,.log} dir1/')
     system('cp 19-1.signature dir2/20grob-1.signature')
     system('cp 19-1.signature dir2/20grob-2.signature')
     system('cp 19-1.eps dir2/20grob-1.eps')
     system('cp 19-1.eps dir2/20grob-2.eps')
     system('cp 19.eps dir2/20grob.eps')
     system('cp 19.log dir2/20grob.log')
-    system('cp 20{.ly,.profile,.log} dir2/')
+    system('cp 20{.ly,.log} dir2/')
     system('cp 19multipage.midi dir1/midi-differ.midi')
     system('cp 20multipage.midi dir2/midi-differ.midi')
     system('cp 19multipage.log dir1/log-differ.log')
