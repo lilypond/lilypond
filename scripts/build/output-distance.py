@@ -92,7 +92,7 @@ def read_pipe(c):
 def system(c):
     log_verbose('system %s' % c)
     # explicitly use bash, so we don't get dash on Ubuntu.
-    subprocess.run(["/bin/bash", "-c", c.encode('utf-8')])
+    subprocess.run(["/bin/bash", "-c", c.encode('utf-8')], check=True)
 
 
 def system_allow_exit1(x):
