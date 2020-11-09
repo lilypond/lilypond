@@ -119,9 +119,8 @@ def max_distance(x1, x2):
 
 def compare_png_images(old, new, dest_dir):
     def png_dims(f):
-        m = re.search('([0-9]+) x ([0-9]+)', read_pipe('file %s' % f))
-
-        return tuple(map(int, m.groups()))
+        dims = read_pipe("identify -ping -format '%w %h' " + f).split(' ')
+        return tuple(map(int, dims))
 
     dest = os.path.join(dest_dir, new.replace('.png', '.compare.jpeg'))
     try:
