@@ -116,20 +116,33 @@ void t42_write_table (std::ostream &stream, FT_Face face,
                       FT_ULong head_length, FT_ULong loca_length)
 {
   vector<FT_UShort> chunks;
+  bool long_offsets = false;
+  FT_Error error;
 
   if (is_glyf)
     {
-      /* compute chunk sizes */
+      // check whether long offsets are used in the `loca` table
       unsigned char *head_buf = new unsigned char[head_length];
-      FT_Error error = FT_Load_Sfnt_Table (face, head_tag, 0, head_buf, NULL);
+      error = FT_Load_Sfnt_Table (face, head_tag, 0, head_buf, NULL);
       if (error)
         programming_error ("FT_Load_Sfnt_Table (): error.");
 
       /* we access the lower byte of indexToLocFormat */
-      bool long_offsets = head_buf[4 * 4 + 2 * 2 + 2 * 8 + 4 * 2 + 3 * 2 + 1] == 1;
+      long_offsets = head_buf[4*4 + 2*2 + 2*8 + 4*2 + 3*2 + 1] == 1;
 
       delete[] head_buf;
+    }
 
+  // We split the `glyf` table into chunks aligned on glyph boundaries only
+  // if there are short offsets.  The Type 42 specification expects that
+  // offsets (and thus chunk lengths) are always even; this cannot be
+  // guaranteed for long offsets, as counterexamples like the Korean Baekmuk
+  // fonts demonstrate.  Note that this splitting is done only for
+  // compatibility with PS interpreters earlier than version 2013, which was
+  // released in 1993...
+  if (is_glyf && !long_offsets)
+    {
+      /* compute chunk sizes */
       unsigned char *loca_buf = new unsigned char[loca_length];
       error = FT_Load_Sfnt_Table (face, loca_tag, 0, loca_buf, NULL);
       if (error)
@@ -141,16 +154,9 @@ void t42_write_table (std::ostream &stream, FT_Face face,
       FT_ULong offset = 0, last_offset = 0, last_chunk = 0;
       while (p < endp)
         {
-          if (long_offsets)
-            {
-              offset = (p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3];
-              p += 4;
-            }
-          else
-            {
-              offset = ((p[0] << 8) | p[1]) << 1;
-              p += 2;
-            }
+          offset = ((p[0] << 8) | p[1]) << 1;
+          p += 2;
+
           if (offset > last_offset + CHUNKSIZE)
             {
               if (last_chunk != last_offset)
