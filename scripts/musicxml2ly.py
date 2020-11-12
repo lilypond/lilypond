@@ -23,6 +23,7 @@
 
 
 import codecs
+from collections import OrderedDict
 from fractions import Fraction
 from functools import reduce
 import gettext
@@ -2868,7 +2869,7 @@ def get_all_voices(parts):
     all_ly_staffinfo = {}
     for p, (name_voice, staff_info) in list(all_voices.items()):
 
-        part_ly_voices = {}
+        part_ly_voices = OrderedDict()
         for n, v in list(name_voice.items()):
             ly.progress(_("Converting to LilyPond expressions..."), True)
             # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
