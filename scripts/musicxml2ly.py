@@ -946,14 +946,14 @@ def musicxml_staff_details_to_lily(attributes):
 
 def musicxml_attributes_to_lily(attrs):
     elts = []
-    attr_dispatch = {
-        'clef': musicxml_clef_to_lily,
-        'time': musicxml_time_to_lily,
-        'key': musicxml_key_to_lily,
-        'transpose': musicxml_transpose_to_lily,
-        'staff-details': musicxml_staff_details_to_lily,
-    }
-    for (k, func) in list(attr_dispatch.items()):
+    attr_dispatch = [
+        ('clef', musicxml_clef_to_lily),
+        ('time', musicxml_time_to_lily),
+        ('key', musicxml_key_to_lily),
+        ('transpose', musicxml_transpose_to_lily),
+        ('staff-details', musicxml_staff_details_to_lily),
+    ]
+    for (k, func) in attr_dispatch:
         children = attrs.get_named_children(k)
         if children:
             ev = func(attrs)
