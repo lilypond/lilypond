@@ -20,6 +20,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+from collections import OrderedDict
 import copy
 from fractions import Fraction
 import re
@@ -1468,7 +1469,7 @@ class Part(Music_xml_node):
         # The last indentified voice
         last_voice = None
 
-        voices = {}
+        voices = OrderedDict()
         measures = part.get_typed_children(Measure)
         elements = []
         for m in measures:
