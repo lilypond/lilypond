@@ -1422,7 +1422,7 @@ list of these symbols and their names can be found in
 @end lilypond
 
 Another way of printing non-text glyphs is described in
-@ref{Fonts explained}.  This is useful for printing braces of various
+@ref{Music fonts}.  This is useful for printing braces of various
 sizes.
 
 The markup mode also supports diagrams for specific
@@ -1476,7 +1476,7 @@ An exhaustive list of music notation related commands can be found in
 Notation Reference:
 @ref{Music},
 @ref{The Emmentaler font},
-@ref{Fonts explained}.
+@ref{Music fonts}.
 
 Installed Files:
 @file{scm/define-markup-commands.scm},
@@ -1563,136 +1563,133 @@ Internals Reference:
 @node Fonts
 @subsection Fonts
 
-This section presents the way fonts are handled, and how they may be
-changed in scores.
+@cindex Pango
+@cindex FontConfig
+
+Fonts in LilyPond are handled by several libraries; two of them
+are of relevance to the user: @uref{https://fontconfig.org,
+@emph{FontConfig}} is used to detect available fonts, and selected
+fonts are then rendered by @uref{https://pango.org, @emph{Pango}}
+to display text strings.
+
+This section shows how to access fonts in LilyPond, and how to
+change them in scores.
 
 @menu
-* Fonts explained::
+* Finding fonts::
+* Font families::
+* Font features::
 * Single entry fonts::
 * Entire document fonts::
+* Music fonts::
 @end menu
 
-@node Fonts explained
-@unnumberedsubsubsec Fonts explained
+@node Finding fonts
+@unnumberedsubsubsec Finding fonts
 
-@cindex Pango
-@cindex font, explained
-@cindex brace, various sizes
-@cindex font, non-text in markup
-@cindex non-text font, in markup
-
-@funindex font-interface
-
-Fonts are handled through several libraries.  FontConfig is used to
-detect available fonts; the selected fonts are rendered using Pango.
-
+@cindex font, finding
 @cindex font, external files
 
 In addition to any font already installed on the operating system,
-additional fonts may be added to the set detected by FontConfig
-(and thus available in LilyPond scores) through the following commands:
+more fonts may be added to the ones detected by FontConfig (and
+thus available in LilyPond scores) by the following commands:
 
 @example
-#(ly:font-config-add-font "@var{path/to/font-file.otf}")
-
+#(ly:font-config-add-font "@var{path/to/font-file}")
 #(ly:font-config-add-directory "@var{path/to/directory/}")
 @end example
 
 @noindent
-Both of these commands accept either absolute or relative paths,
-which makes it possible to compile a score on any system by
-simply copying the relevant font files alongside the source code.
+Both commands accept either absolute or relative paths, which
+makes it possible to compile a score on any system by simply
+distributing the relevant font files together with the LilyPond
+input files.
 
-Having been detected, fonts must then be selected using the
-methods described in @ref{Single entry fonts} and
-@ref{Entire document fonts}.  As it prints the complete
-list of available fonts in the console log, the command
-@code{#(ly:font-config-display-fonts)} may be of use
-to verify which fonts are indeed detected, and under which
-names (as these may differ from the file names themselves).
+To verify that the desired fonts are found by FontConfig, use the
+command @code{#(ly:font-config-display-fonts)}, which prints the
+complete list of available fonts to the console log.  It also
+shows the actual font names to be used with LilyPond; these may
+differ from the file names themselves.
 
-@cindex font, music notation
-@funindex font-encoding
+@xref{Single entry fonts}, and @ref{Entire document fonts}, how to
+access fonts in general.
 
-Music notation fonts can be described as a set of specific glyphs,
-ordered in several families.  The following syntax allows LilyPond's
-various @emph{Feta} glyphs to be used directly in markup mode:
 
-@lilypond[quote,verbatim,fragment]
-a'1^\markup {
-  \vcenter {
-    \override #'(font-encoding . fetaBraces)
-    \lookup "brace120"
-    \override #'(font-encoding . fetaText)
-    \column { 1 3 sf }
-    \override #'(font-encoding . fetaMusic)
-    \lookup "noteheads.s0petrucci"
-  }
-}
-@end lilypond
+@node Font families
+@unnumberedsubsubsec Font families
+
+Three generic aliases for text font families@footnote{In its
+simplest form, a @emph{font family} usually contains fonts in
+roman, italic, bold, and bold italic styles.} are available:
+@q{roman} (serif), @q{sans}, and @q{typewriter}.  Depending on the
+backend, these families get mapped to different font family
+aliases.
+
+For the @code{svg} backend:
+
+@indentedblock
+@multitable @columnfractions .15 .30
+@headitem generic family @tab SVG font family
+@item roman @tab serif
+@item sans @tab sans-serif
+@item typewriter @tab monospace
+@end multitable
+@end indentedblock
 
 @noindent
-However, all these glyphs except the braces of various sizes contained
-in @code{fetaBraces} are available using the simpler syntax described
-in @ref{Music notation inside markup}.
-
-When using the glyphs contained in @code{fetaBraces}, the size of the
-brace is specified by the numerical part of the glyph name, in
-arbitrary units.  Any integer from @code{0} to @code{575} inclusive
-may be specified, @code{0} giving the smallest brace.  The optimum
-value must be determined by trial and error.  These glyphs are all
-left braces; right braces may be obtained by rotation, see
-@ref{Rotating objects}.
-
-Three families of text fonts are made available:
-the @emph{roman} (serif) font,
-the @emph{sans} font, and the @emph{typewriter} font.
-
-For @code{svg} backend:
-@multitable @columnfractions .15 .30
-@headitem Family @tab Default font
-@item @emph{roman} @tab @code{serif}
-@item @emph{sans} @tab @code{sans-serif}
-@item @emph{typewriter} @tab @code{monospace}
-@end multitable
-
-@code{serif}, @code{sans-serif}, and @code{monospace} are
-@code{generic-family} in SVG and CSS specifications.
+@q{serif}, @q{sans-serif}, and @q{monospace} are
+@q{generic-family} in SVG and CSS specifications.
 
 For other backends:
-@multitable @columnfractions .15 .30 .55
-@headitem Family @tab Default font (alias) @tab Alias definition lists
-@item @emph{roman}
-@tab @code{LilyPond Serif}
-@tab
-C059,
-Century SchoolBook URW, Century Schoolbook L, TeX Gyre Schola,
-DejaVu Serif,
-..., serif
-@item @emph{sans}
-@tab @code{LilyPond Sans Serif}
-@tab
-Nimbus Sans,
-Nimbus Sans L, TeX Gyre Heros,
-DejaVu Sans,
-..., sans-serif
-@item @emph{typewriter}
-@tab @code{LilyPond Monospace}
-@tab
-Nimbus Mono PS,
-Nimbus Mono, Nimbus Mono L, TeX Gyre Cursor,
-DejaVu Sans Mono,
-..., monospace
-@end multitable
 
-Note that the URW fonts distributed with LilyPond (@q{C059}, @q{Nimbus
-Mono PS}, and @q{Nimbus Sans}) have a peculiarity: By default, in
-addition to the standard ligatures like @q{fl} or @q{ffi}, they
-substitute the string @q{Nr.} with the Numero Sign (U+2116) if the
-@q{latn} script is selected.  To circumvent this locally, insert a
-zero-width non-joiner character (ZWNJ, U+200C) between the @q{N} and
-@q{r} characters.  To circumvent this globally, use the following code
-to make LilyPond always insert a ZWNJ character.
+@indentedblock
+@multitable @columnfractions .15 .30 .45
+@headitem generic family
+          @tab default font family alias
+                    @tab font families contained in alias
+@item roman
+@tab LilyPond Serif
+@tab C059,
+     Century SchoolBook URW,
+     Century Schoolbook@tie{}L,
+     TeX Gyre Schola,
+     DejaVu Serif,
+     @dots{},
+     serif
+@item sans
+@tab LilyPond Sans Serif
+@tab Nimbus Sans,
+     Nimbus Sans@tie{}L,
+     TeX Gyre Heros,
+     DejaVu Sans,
+     @dots{},
+     sans-serif
+@item typewriter
+@tab LilyPond Monospace
+@tab Nimbus Mono PS,
+     Nimbus Mono,
+     Nimbus Mono@tie{}L,
+     TeX Gyre Cursor,
+     DejaVu Sans Mono,
+     @dots{},
+     monospace
+@end multitable
+@end indentedblock
+
+@noindent
+If a character does not exist in the appropriate font of the first
+listed family, the appropriate font of the next listed family gets
+used instead for that character.
+
+Note that the URW font families distributed with LilyPond
+(@q{C059}, @q{Nimbus Sans}, and @q{Nimbus Mono PS}) have a
+peculiarity: By default, in addition to the standard ligatures
+like @q{fl} or @q{ffi}, they substitute the string @q{Nr.} with
+the Numero Sign (U+2116) if the @q{latn} script is selected.  To
+circumvent this locally, insert a @emph{zero-width non-joiner
+character} (ZWNJ, U+200C) between the @q{N} and @q{r} characters.
+To circumvent this globally, use the following code to make
+LilyPond always insert a ZWNJ character.
 
 @example
 \paper @{
@@ -1701,19 +1698,17 @@ to make LilyPond always insert a ZWNJ character.
 @}
 @end example
 
-@code{LilyPond Serif}, @code{LilyPond Sans Serif},
-and @code{LilyPond Monospace} are font aliases defined
-in the LilyPond dedicated FontConfig configuration file
-@code{00-lilypond-fonts.conf}.
-Where a character doesn't exist in the first font listed,
-the next font listed will be used instead for that character.
-For details of alias definitions, please see
-to @code{00-lilypond-fonts.conf} under the installed directory.
+@q{LilyPond Serif}, @q{LilyPond Sans Serif}, and @q{LilyPond
+Monospace} are font family aliases defined in the additional
+FontConfig configuration file @file{00-lilypond-fonts.conf}, which
+can be usually found in directory
+@file{/usr/local/share/lilypond/@version{}/fonts}, and which is
+used exclusively by LilyPond.
 
-Each family may include different shapes and series.  The following
-example demonstrates the ability to select alternate families, shapes,
-series and sizes.  The value supplied to @code{font-size} is the
-required change from the default size.
+Each font family may include different shapes and series.  The
+following example demonstrates that, including code to also change
+the size.  The value supplied to @code{font-size} is taken
+relative to the default font size.
 
 @lilypond[quote,verbatim,fragment]
 \override Score.RehearsalMark.font-family = #'typewriter
@@ -1722,12 +1717,12 @@ required change from the default size.
 \override Voice.TextScript.font-series = #'bold
 d''2.^\markup "Allegro"
 \override Voice.TextScript.font-size = #-3
-c''4^smaller
+c''4^"smaller"
 @end lilypond
 
 @noindent
-A similar syntax may be used in markup mode; however in this case it
-is preferable to use the simpler syntax explained in
+A similar syntax may be used in markup mode; however, in most
+cases it is preferable to use the simpler syntax explained in
 @ref{Selecting font and font size}:
 
 @lilypond[quote,verbatim]
@@ -1738,66 +1733,63 @@ is preferable to use the simpler syntax explained in
       Idomeneo,
     }
     \line {
-      \override #'(font-family . typewriter)
-      {
-        \override #'(font-series . bold)
-        re
+      \override #'(font-family . typewriter) {
+        \override #'(font-series . bold) re
         di
       }
-      \override #'(font-family . sans)
-      Creta
+      \override #'(font-family . sans) Creta
     }
   }
 }
 @end lilypond
 
-@noindent
-When using OpenType fonts, font features can be used.
-OpenType font scripts and languages can not be specified.
-Note: Not all OpenType fonts have all features.
-If you request a feature that doesn't exist in the chosen font,
-then the feature is simply ignored. These examples use TeX Gyre Schola.
+
+@node Font features
+@unnumberedsubsubsec Font features
+
+When using OpenType fonts, font features can be
+used.@footnote{Selecting OpenType font scripts and languages is
+not supported yet.}  Note that not all OpenType fonts have all
+features.  If you request a feature that does not exist in the
+chosen font, the feature is simply ignored.  The example below
+uses the font @q{TeX Gyre Schola} (this is, the roman style of the
+family).
 
 @lilypond[quote,verbatim]
-% True small caps
 \markup { \override #'(font-name . "TeX Gyre Schola")
-          Normal Style: Hello HELLO }
+          normal style: Hello HELLO }
 \markup { \override #'(font-name . "TeX Gyre Schola")
-          \caps { Small Caps: Hello } }
+          \caps { small caps: Hello } }
 \markup { \override #'(font-name . "TeX Gyre Schola")
           \override #'(font-features . ("smcp"))
-          { True Small Caps: Hello } }
+          { true small caps: Hello } }
 
-% Number styles
 \markup { \override #'(font-name . "TeX Gyre Schola")
-          Normal Number Style: 0123456789 }
+          normal number style: 0123456789 }
 \markup { \override #'(font-name . "TeX Gyre Schola")
           \override #'(font-features . ("onum"))
-          { Old Number Style: 0123456789 } }
+          { old number style: 0123456789 } }
 
-% Stylistic Alternates
 \markup { \override #'(font-name . "TeX Gyre Schola")
           \override #'(font-features . ("salt 0"))
-          { Stylistic Alternates 0: εφπρθ } }
+          { stylistic alternate 0: εφπρθ } }
 \markup { \override #'(font-name . "TeX Gyre Schola")
           \override #'(font-features . ("salt 1"))
-          { Stylistic Alternates 1: εφπρθ } }
+          { stylistic alternate 1: εφπρθ } }
 
-% Multiple features
 \markup { \override #'(font-name . "TeX Gyre Schola")
           \override #'(font-features . ("onum" "smcp" "salt 1"))
-          { Multiple features: Hello 0123456789 εφπρθ } }
+          { multiple features: Hello 0123456789 εφπρθ } }
 @end lilypond
 
-@noindent For the full OpenType font feature list please see:
-@uref{https://www.microsoft.com/typography/otspec/featurelist.htm}
+For the full OpenType font feature list see
+@uref{https://www.microsoft.com/typography/otspec/featurelist.htm};
+for identifying features of OpenType fonts see
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}.
 
-@noindent For identifying features of OpenType fonts please see:
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}
-
-Although it is easy to switch between preconfigured fonts, it is also
-possible to use other fonts, as explained in the following sections:
-@ref{Single entry fonts} and @ref{Entire document fonts}.
+Although it is easy to switch between preconfigured fonts, it is
+also possible to use other fonts.  For more information,
+@pxref{Single entry fonts}, and @ref{Entire document fonts}.
 
 @morerefs
 Notation Reference:
@@ -1868,8 +1860,8 @@ FontConfig uses default values as specified above.  For the markup
 string, the list of font families is set to @q{Bitstream Vera
 Sans} and @q{sans-serif}, which tells FontConfig to try
 @q{Bitstream Vera Sans} first; if it is not available, it tries
-the generic font family @q{sans-serif} as described in @ref{Fonts
-explained}.  The style for the markup is set to @q{Oblique Bold},
+the generic font family @q{sans-serif} as described in @ref{Font
+families}.  The style for the markup is set to @q{Oblique Bold},
 which makes FontConfig try to find a font that is both oblique and
 bold.  If that fails, it tries to find an oblique or bold font.
 If that fails again, it tries to match a font with default style
@@ -1896,7 +1888,7 @@ a'1_\markup {
 
 @warning{If any of the above style options is part of the font
 (family) name you @emph{must} use a trailing comma after the name
-even if you don't select a style option.  A typical example is
+even if you do not select a style option.  A typical example is
 @q{Times New Roman}: If specified as @code{"Times New Roman"},
 FontConfig searches for a font @q{Times New} in roman style.  Only
 if you say @code{"Times New Roman,"} this font is really
@@ -1918,7 +1910,8 @@ lilypond -dshow-available-fonts
 
 @morerefs
 Notation Reference:
-@ref{Fonts explained},
+@ref{Finding fonts},
+@ref{Font families},
 @ref{Entire document fonts}.
 
 Snippets:
@@ -1932,25 +1925,32 @@ Snippets:
 @node Entire document fonts
 @unnumberedsubsubsec Entire document fonts
 
-It is possible to change the fonts to be used as the default fonts in
-the @emph{roman}, @emph{sans} and @emph{typewriter} font families by
-specifying them, in that order, as shown in the example below, which
-automatically scales the fonts with the value set for the global staff
-size. Similar to @ref{Single entry fonts}, it can be described using a
-comma-separated list of @q{fonts}. However, font @q{styles} can not be
-described. For an explanation of fonts, see @ref{Fonts explained}.
+It is possible to change the fonts used in LilyPond's default font
+families by calling the function @code{make-pango-font-tree}.  The
+arguments are substitutions for the @q{roman}, @q{sans} and
+@q{typewriter} font families (in that order), followed by a
+scaling factor.  Similar to single fonts (@pxref{Single entry
+fonts}), font families are set up by using comma-separated lists
+of font family names, but without style options.@footnote{This
+implies that, contrary to single fonts, a trailing comma is never
+necessary.}
+
+Note that @code{make-pango-font-tree} resets the notation fonts to
+@q{emmentaler} as the default.
+
+The example below adjusts the font size in relation to the global
+staff size.
 
 @cindex font family, setting
 @cindex font, changing for entire document
-
 @funindex make-pango-font-tree
 
 @lilypond[verbatim,quote]
-\paper  {
+\paper {
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
+    (make-pango-font-tree "Linux Libertine O"
+                          "Nimbus Sans, Nimbus Sans L"
+                          "DejaVu Sans Mono"
                           (/ staff-height pt 20)))
 }
 
@@ -1962,21 +1962,14 @@ described. For an explanation of fonts, see @ref{Fonts explained}.
 }
 @end lilypond
 
-Note: @code{make-pango-font-tree} resets the notation fonts to default of
-Emmentaler.
-
-@c we don't do Helvetica / Courier, since GS incorrectly loads
-@c Apple TTF fonts
-
-The following syntax allows you to change the specific fonts,
-leaving others to the default values.
-The following example has the same effect
-as the above @code{make-pango-font-tree} example.
-The same as  @code{make-pango-font-tree},
-you can specify a comma-separated list of @q{fonts} for @code{roman},
-@code{sans}, and @code{typewriter} categories.
-If you don't change the staff size from the default of 20 pt,
-@code{#:factor (/ staff-height pt 20)} is unnecessary.
+LilyPond provides an alternative, more flexible interface to set
+global font families.  It allows you to change only specific font
+family names, leaving others set to default values.  The following
+example has the same effect as the above
+@code{make-pango-font-tree} example; the syntax for font family
+names is identical.  If you do not change the staff size from the
+default of 20@dmn{pt}, the line containing the @code{#:factor}
+keyword is unnecessary.
 
 @funindex set-global-fonts
 
@@ -1984,18 +1977,18 @@ If you don't change the staff size from the default of 20 pt,
 \paper @{
   #(define fonts
     (set-global-fonts
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      ; unnecessary if the staff size is default
      #:factor (/ staff-height pt 20)
     ))
 @}
 @end example
 
-It also can specify the notation fonts.
-The following example also has the same effect as the above examples,
-because it sets the notation fonts as the default.
+Additionally, @code{set-global-fonts} can also set the music
+notation fonts.  The following example has the same effect as the
+previous examples, because it uses the default notation fonts.
 For more information, see @ref{Replacing the notation font}.
 
 @example
@@ -2004,22 +1997,34 @@ For more information, see @ref{Replacing the notation font}.
     (set-global-fonts
      #:music "emmentaler"            ; default
      #:brace "emmentaler"            ; default
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      ; unnecessary if the staff size is default
      #:factor (/ staff-height pt 20)
     ))
 @}
 @end example
 
-Note: Each call to @code{set-global-fonts} completely resets both the main
-notation and text fonts. If any category is left unspecified, then the default
-font will be used for that category.
-Each call of @code{set-global-fonts} affects each @code{\book} blocks that
-follow it.
-If there are multiple @code{\book} blocks and you want to use different fonts
-for each, simply call @code{set-global-fonts} again, like this:
+Note that each call to @code{set-global-fonts} completely resets
+both the main notation and text fonts.@footnote{To be more
+precise, @q{emmentaler} (with a lowercase @q{e}, which is
+mandatory in the argument to @code{#:music} and @code{#:brace}) is
+a set of fonts (but not a font family in the FontConfig sense)
+that LilyPond accesses and manages directly.  Instead of various
+styles, however, it comes with different design sizes,
+@pxref{Music fonts}, and @ref{Replacing the notation font}.  The
+corresponding FontConfig font names are @q{Emmentaler-@var{size}},
+where @var{size} is one of the numbers 11, 13, 14, 16, 18, 20, 23,
+and@tie{}26.
+
+For braces, the FontConfig font name is @q{Emmentaler-Brace}.}  If
+any font category is left unspecified, the respective default font
+(family) gets used for that category.  Each call of
+@code{set-global-fonts} affects all @code{\book} blocks that
+follow it.  If there are multiple @code{\book} blocks and you want
+to use different fonts for each, simply call
+@code{set-global-fonts} again, like this:
 
 @example
 \paper @{
@@ -2045,9 +2050,60 @@ for each, simply call @code{set-global-fonts} again, like this:
 
 @morerefs
 Notation Reference:
-@ref{Fonts explained},
+@ref{Finding fonts},
+@ref{Font families},
 @ref{Single entry fonts},
 @ref{Selecting font and font size},
 @ref{Font},
 @ref{Replacing the notation font}.
 
+
+@node Music fonts
+@unnumberedsubsubsec Music fonts
+
+@cindex font, music notation
+@funindex font-encoding
+@funindex font-interface
+
+LilyPond neither uses FontConfig nor Pango for accessing music
+notation fonts but handles them by itself.  As a consequence, the
+interface is different.  This section describes how to insert
+music symbols into markup strings.
+
+@cindex brace, various sizes
+@cindex font, non-text in markup
+@cindex non-text font, in markup
+
+Music notation fonts are a collection of specific glyphs that can
+be accessed with several @emph{encodings}.  The following syntax
+allows LilyPond's various Emmentaler glyphs@footnote{LilyPond's
+Emmentaler fonts contain three glyph sets: @emph{Feta} (for modern
+notation), @emph{Parmesan} (for ancient notation), and braces.
+Both Feta and Parmesan are accessed with the @q{fetaMusic}
+encoding.} to be used directly in markup mode:
+
+@lilypond[quote,verbatim,fragment]
+a'1^\markup {
+  \vcenter {
+    \override #'(font-encoding . fetaBraces)
+    \lookup "brace120"
+    \override #'(font-encoding . fetaText)
+    \column { 1 3 sf }
+    \override #'(font-encoding . fetaMusic)
+    \lookup "noteheads.s0petrucci"
+  }
+}
+@end lilypond
+
+@noindent
+However, all these glyphs except the braces of various sizes are
+available using the simpler syntax described in @ref{Music
+notation inside markup}.
+
+When accessing braces with the @q{fetaBraces} encoding, the size
+of the brace is specified by the numerical part of the glyph name,
+in arbitrary units.  Any integer from 0 to 575 inclusive may be
+specified, with 0 giving the smallest brace.  The optimum value
+must be determined by trial and error.  These glyphs are all left
+braces; right braces may be obtained by rotation, @pxref{Rotating
+objects}.
