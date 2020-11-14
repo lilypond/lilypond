@@ -13,39 +13,28 @@ Depending on the fonts installed, this fragment will render Bulgarian
   doctitle = "UTF-8"
 }
 
-% end verbatim - this comment is a hack to prevent texinfo.tex
-% from choking on non-European UTF-8 subsets
-
-%% Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs
-
 %{
-
 You may have to install additional fonts.
 
 Red Hat Fedora
 
-	linux-libertine-fonts (Latin, Cyrillic, Hebrew)
-	ipa-mincho-fonts ipa-gothic-fonts (Japanese)
+  linux-libertine-fonts (Latin, Cyrillic, Hebrew)
+  google-noto-serif-jp-fonts (Japanese)
 
 Debian GNU/Linux, Ubuntu
 
-	fonts-linuxlibertine (Latin, Cyrillic, Hebrew)
-	fonts-ipafont (Japanese)
-
+  fonts-linuxlibertine (Latin, Cyrillic, Hebrew)
+  fonts-noto-cjk (Japanese)
 %}
 
-% Font settings for Cyrillic and Hebrew
-% Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
+% 'Linux Libertine' fonts also contain Cyrillic and Hebrew glyphs.
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-     #:sans "Linux Biolinum O,sans-serif"
-     #:typewriter "Linux Libertine Mono O,monospace"
+     #:roman "Linux Libertine O, Noto Serif JP"
    ))
 }
 
-% Cyrillic font
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
 }
@@ -61,16 +50,16 @@ japanese = \lyricmode {
   あさきゆめみじ ゑひもせず
 }
 
-% "a legal song to you"
+% "a nice song for you"
 portuguese = \lyricmode {
-  à vo -- cê uma can -- ção legal
+  à vo -- cê uma can -- ção le -- gal
 }
 
 \relative c' {
   c2 d
   e2 f
   g2 f
-  e1
+  e2 d
 }
 \addlyrics { \bulgarian }
 \addlyrics { \hebrew }
