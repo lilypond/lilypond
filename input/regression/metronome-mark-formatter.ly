@@ -2,47 +2,58 @@
 
 \header {
   texidoc = "@code{metronomeMarkFormatter} supports
-all note head styles and flags styles. Setting @code{font-name} for
+all note head styles and flags styles.  Setting @code{font-name} for
 @code{MetronomeMark} does not disturb the glyphs for note-head and flag.
 "
 }
 
 \paper {
-        ragged-right = ##f
-        indent = 30
+  ragged-right = ##f
+  indent = 30
 }
+
+%{
+You may have to install additional fonts.
+
+Red Hat Fedora
+
+  dejavu-fonts-all
+
+Debian GNU/Linux, Ubuntu
+
+  fonts-dejavu-core
+%}
 
 mus =
 \relative c'' {
-        \tempo "Allegro" 8=120-140
-        a8 b c d a b c d
+  \tempo "Allegro" 8=120-140
+  a8 b c d a b c d
 
-        % A comma is required
-        % for font name "Times New Roman"'s explicit termination.
-        % If there is no comma, Pango interpret "Times New Roman" as
-        % "Times New" family with "Roman" style.
-        \override Score.MetronomeMark.font-name = "Times New Roman,"
-        \tempo "Allegro" 8=140
-        a b c d a b c d
+  \override Score.MetronomeMark.font-name = "DejaVu Sans Mono"
+  \tempo "Allegro" 8=140
+  a b c d a b c d
 }
 
 %% Some Examples:
 \score {
   \new Staff
   \with {
-          instrumentName = "default"
+    instrumentName = "default"
   }
   \mus
+
   \layout {}
 }
 
 \score {
   \new Staff
   \with {
-          instrumentName =
-            \markup \column { "default-note-head" "old-straight-flag" }
+    instrumentName =
+      \markup \column { "default-note-head"
+                        "old-straight-flag" }
   }
   \mus
+
   \layout {
     \context {
       \Score
@@ -54,10 +65,12 @@ mus =
 \score {
   \new Staff
   \with {
-          instrumentName =
-            \markup \column { "default-note-head" "modern-straight-flag" }
+    instrumentName =
+      \markup \column { "default-note-head"
+                        "modern-straight-flag" }
   }
   \mus
+
   \layout {
     \context {
       \Score
@@ -69,10 +82,12 @@ mus =
 \score {
   \new Staff
   \with {
-          instrumentName =
-            \markup \column { "default-note-head" "flat-flag" }
+    instrumentName =
+      \markup \column { "default-note-head"
+                        "flat-flag" }
   }
   \mus
+
   \layout {
     \context {
       \Score
@@ -84,10 +99,12 @@ mus =
 \score {
   \new Staff
   \with {
-          instrumentName =
-            \markup \column { "diamond-note-head" "modern-straight-flag" }
+    instrumentName =
+      \markup \column { "diamond-note-head"
+                        "modern-straight-flag" }
   }
   \mus
+
   \layout {
     \context {
       \Score
@@ -100,10 +117,12 @@ mus =
 \score {
   \new MensuralStaff
   \with {
-          instrumentName =
-            \markup \column { "mensural-note-head" "mensural-flag" }
+    instrumentName =
+      \markup \column { "mensural-note-head"
+                        "mensural-flag" }
   }
   \mus
+
   \layout {
     \context {
       \Score

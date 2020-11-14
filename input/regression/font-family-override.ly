@@ -1,62 +1,52 @@
 \header {
-
   texidoc = "The default font families for text can be
-  overridden with @code{make-pango-font-tree}"
-
+  overridden with @code{make-pango-font-tree}."
 }
 
-\version "2.19.21"
+\version "2.21.2"
+
+%{
+You may have to install additional fonts.
+
+Red Hat Fedora
+
+  dejavu-fonts-all
+
+Debian GNU/Linux, Ubuntu
+
+  fonts-dejavu-core
+  fonts-dejavu-extra
+%}
 
 \paper {
   % change for other default global staff size.
   myStaffSize = #20
 
-
-  %{
-
-  run
-
-      lilypond -dshow-available-fonts
-
-  to show all fonts available in the process log.
-
-  %}
-
-
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
-
-;;     "Helvetica"
-;;     "Courier"
-
+    (make-pango-font-tree "DejaVu Serif"
+                          "DejaVu Sans"
+                          "DejaVu Sans Mono"
      (/ myStaffSize 20)))
 }
 
-\score {
-  \relative {
-
-    c''^\markup { roman: foo \bold bla \italic bar \italic \bold baz }
-    c'_\markup {
-      \override #'(font-family . sans)
-      {
-        sans: foo \bold bla \italic bar \italic \bold baz
-      }
-    }
-    c'^\markup {
-      \override #'(font-family . typewriter)
-      {
-        mono: foo \bold bla \italic bar \italic \bold baz
-      }
+{
+  g'''4^\markup {
+    DejaVu Serif: \bold bold
+                  \italic italic
+                  \italic \bold { bold italic }
+  }
+  g4_\markup {
+    \override #'(font-family . sans) {
+      DejaVu Sans: \bold bold
+                   \italic italic
+                   \italic \bold { bold italic }
     }
   }
-
-  \layout {
-    \context {
-      \Score
-      \override PaperColumn.keep-inside-line = ##f
+  g''2^\markup {
+    \override #'(font-family . typewriter) {
+      DejaVu Sans Mono: \bold bold
+                        \italic italic
+                        \italic \bold { bold italic }
     }
   }
-
 }

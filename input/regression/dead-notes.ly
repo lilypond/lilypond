@@ -5,6 +5,18 @@
                     correctly, even if another font for TabNoteHead is used. "
        }
 
+%{
+You may have to install additional fonts.
+
+Red Hat Fedora
+
+  dejavu-fonts-all
+
+Debian GNU/Linux, Ubuntu
+
+  fonts-dejavu-core
+%}
+
 mynotes = \relative c,, {
    \deadNotesOn
    e8. e16
@@ -40,9 +52,10 @@ mynotes = \relative c,, {
     }
     \new TabStaff
       \with {
-        \override TabNoteHead.font-name = "Luxi Mono"
+        \override TabNoteHead.font-name = "DejaVu Sans Mono"
         instrumentName =
-          \markup \tiny \center-column { "TabNoteHead-" "font:" "Luxi Mono" }
+          \markup \tiny \center-column
+            { "TabNoteHead-" "font: DejaVu" "Sans Mono" }
       }{
       \new TabVoice {  % Warning:  explicit voice instantiation is
                        %   required to have deadNotesOff work properly

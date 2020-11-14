@@ -12,6 +12,26 @@ left.
 "
 }
 
+%{
+You may have to install additional fonts.
+
+Red Hat Fedora
+
+  linux-libertine-fonts (Hebrew)
+
+Debian GNU/Linux, Ubuntu
+
+  fonts-linuxlibertine (Hebrew)
+%}
+
+% Linux Libertine fonts contain Hebrew glyphs.
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O, serif"
+   ))
+}
+
 \markup {
   \column {
     כַ וּ וֹ
