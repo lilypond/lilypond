@@ -38,7 +38,7 @@ documentation, incorporating any changes you may have made.
 However, a successful compile is not a requirement for generating
 the documentation.  The documentation can be built using a Git
 repository in conjunction with a locally installed copy of the
-program.  For more information, see @ref{Building documentation
+program.  For more information, @pxref{Building documentation
 without compiling}.
 
 Attempts to compile LilyPond natively on Windows have been
@@ -60,67 +60,43 @@ unsuccessful, though a workaround is available (see
 @node Requirements for running LilyPond
 @subsection Requirements for running LilyPond
 
-This section contains the list of separate software packages that are
-required to run LilyPond.
+This section contains the list of software packages that are
+required to run LilyPond (this is, to successfully execute the
+@command{lilypond} binary and its subprograms to output a PDF, and
+to execute other programs like @command{lilypond-book} that are
+installed, too).
+
+Additional software packages are necessary to compile LilyPond
+from its sources; this gets handled in a later section.
 
 @itemize
 
 @item
-@uref{http://www.fontconfig.org/, FontConfig}
+@uref{https://www.fontconfig.org, FontConfig}@*
 Use version 2.4.0 or newer.
 
 @item
-@uref{http://www.freetype.org/, Freetype}
+@uref{https://www.freetype.org, FreeType}@*
 Use version 2.3.9 or newer.
 
 @item
-@uref{http://www.ghostscript.com, Ghostscript}
+@uref{https://www.ghostscript.com, Ghostscript}@*
 Use version 9.03 or newer.
 
 @item
-@uref{http://www.gnu.org/software/guile/guile.html, Guile}
+@uref{https://www.gnu.org/software/guile/guile.html, Guile}@*
 Use version 1.8.8.  It is possible to build LilyPond with
 version 2.@var{x} of Guile and most features will work, but this
 is not officially supported (yet).  In particular, performance and
 especially the startup time will be worse.
 
 @item
-@uref{http://www.pango.org/, Pango}
-Use version 1.36 or newer.
+@uref{https://www.pango.org, Pango}@*
+Use version 1.36 or newer; version 1.38 or newer is recommended.
 
 @item
-@uref{http://www.python.org, Python}
+@uref{https://www.python.org, Python}@*
 Use version 3.5 or newer.
-
-@item
-International fonts.  For example:
-
-Fedora:
-
-@example
-fonts-arabic
-fonts-hebrew
-fonts-ja
-fonts-xorg-truetype
-taipeifonts
-ttfonts-ja
-ttfonts-zh_CN
-@end example
-
-Debian based distributions:
-
-@example
-emacs-intl-fonts
-fonts-ipafont-gothic
-fonts-ipafont-mincho
-xfonts-bolkhov-75dpi
-xfonts-cronyx-75dpi
-xfonts-cronyx-100dpi
-xfonts-intl-.*
-@end example
-
-These are normally installed by default and are required only to create
-music with international text or lyrics.
 
 @end itemize
 
@@ -136,6 +112,10 @@ commands to download all the software needed.  For others, there is an
 explicit list of all the individual packages (as well as where to get
 them from) for those that are not already included in your
 distributions' own repositories.
+
+Additional software packages are necessary to compile LilyPond's
+documentation from its sources; this gets handled in a later
+section.
 
 @ignore
 I have tested all of the following four Linux Distributions listed here
@@ -304,7 +284,7 @@ sudo apt-get install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 
@@ -363,7 +343,7 @@ sudo zypper install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 @node Ubuntu
@@ -413,110 +393,115 @@ sudo apt-get install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 
 @node Other
 @unnumberedsubsubsec Other
 
-The following individual software packages are required just to compile
-LilyPond.
+The following software packages are required to compile LilyPond,
+in addition to the run-time packages (@pxref{Requirements for
+running LilyPond}).
 
 @itemize
 
 @item
-@uref{http://www.gnu.org/software/autoconf, GNU Autoconf}
+@uref{https://www.gnu.org/software/autoconf, GNU Autoconf}
 
 @item
-@uref{http://www.gnu.org/software/bison/, GNU Bison}
+@uref{https://www.freedesktop.org/wiki/Software/pkg-config,
+pkg-config}
 
+@item
+@uref{https://www.gnu.org/software/bison, GNU Bison}@*
 Use version 2.4.1 or newer.
 
 @item
-Compiler with support for C++11
-
-Version 4.8.5 or newer of the
-@uref{https://gcc.gnu.org/, GNU Compiler Collection}
-and version 3.5 or newer of @uref{https://clang.llvm.org/, Clang}
-should work.
+Compiler with support for C++11@*
+Version 4.8.5 or newer of the @uref{https://gcc.gnu.org, GNU
+Compiler Collection} and version 3.5 or newer of
+@uref{https://clang.llvm.org, Clang} should work.
 
 @item
-@uref{https://github.com/westes/flex, Flex}
-
+@uref{https://github.com/westes/flex, Flex}@*
 Use version 2.5.29 or newer.
 
 @item
-@uref{https://fontforge.org/, FontForge}
-
-Use version 20120731 or newer with enabled scripting
-using Python@tie{}3; it must also be compiled with the
+@uref{https://fontforge.org, FontForge}@*
+Use version 20120731 or newer with enabled Python@tie{}3
+scripting; it must also be compiled with the
 @option{--enable-double} switch, else this can lead to inaccurate
-intersection calculations which end up with poorly-rendered glyphs in
-the output.
+intersection calculations, which in turn cause poorly-rendered
+glyphs in the output.
 
 @item
-@uref{http://www.gnu.org/software/gettext/gettext.html, GNU gettext}
-
+@uref{https://www.gnu.org/software/gettext/gettext.html, GNU
+gettext}@*
 Use version 0.17 or newer.
 
 @item
-@uref{http://www.gnu.org/software/make/, GNU Make}
-
+@uref{https://www.gnu.org/software/make, GNU Make}@*
 Use version 3.78 or newer.
 
+@c no https link
 @item
-@uref{http://metafont.tutorial.free.fr/, MetaFont}
-
-The @code{mf-nowin}, @code{mf}, @code{mfw} or @code{mfont} binaries are
-usually packaged along with
-@uref{http://www.latex-project.org/ftp.html, @TeX{}}.
-
-@item
-@uref{http://cm.bell-labs.com/who/hobby/MetaPost.html, MetaPost}
-
-The @code{mpost} binary is also usually packaged with
-@uref{http://www.latex-project.org/ftp.html, @TeX{}}.
+@uref{http://metafont.tutorial.free.fr, MetaFont}@*
+The MetaFont binary (usually called @command{mf-nowin},
+@command{mf}, @command{mfw}, or @command{mfont}) and its support
+files are normally packaged along with @TeX{}.  Most GNU/Linux and
+other free software distributions already provide packages for
+@uref{https://tug.org/texlive, TeXLive}, see above.  TeXLive can
+can also be installed separately; it contains stand-alone binaries
+for most platforms.
 
 @item
-@uref{http://www.perl.org/, Perl}
+@uref{https://www.tug.org/metapost.html, MetaPost}@*
+The @command{mpost} binary is also usually packaged with
+@uref{https://tug.org/texlive, @TeX{}}.
 
 @item
-@uref{http://www.gnu.org/software/texinfo/, Texinfo}
+@uref{https://www.perl.org, Perl}@*
+Use version 5.6.1 or newer.
 
+@item
+@uref{https://www.gnu.org/software/texinfo, Texinfo}@*
 Use version 6.1 or newer.
 
 @item
-@uref{http://www.lcdf.org/~eddietwo/type/#t1utils, Type 1 utilities}
-
-Use version 1.33 or newer.
-
-@item
-@uref{https://www.ctan.org/pkg/cyrillic?lang=en, Cyrillic fonts}
-
-Often packaged in repositories as @code{texlive-lang-cyrillic}.
+@uref{https://www.lcdf.org/~eddietwo/type/#t1utils, Type@tie{}1
+utilities}@*
+We need @command{t1asm}.  Use version 1.33 or newer.
 
 @item
-TeX Gyre @q{OTF} font packages.  As of LilyPond version 2.19.26,
-the previous default serif, san serif and monospace fonts now use Tex
-Gyre's @emph{Schola}, @emph{Heros} and @emph{Cursor} fonts respectively.
-Also See @ruser{Fonts}.
+TeX Gyre font packages in OTF format.  Also see @ruser{Fonts}.
 
-Some distributions do not always provide @q{OTF} font files in the Tex
-Gyre packages from their repositories.  Use the command
-@code{fc-list | grep texgyre} to list the fonts available to your system
-and check that the appropriate @code{*.otf} files are reported.  If they
-are not then download and manually extract the @q{OTF} files to either
-your local  @code{~/.fonts/} directory or use the
-@code{configure} command and the
-@code{--with-texgyre-dir=/path_to_otf_files/} option.
+Some distributions do not provide OTF files in its TeX Gyre
+packages.  Use the command
+@example
+fc-list | grep texgyre
+@end example
+to list the fonts available to your system and check whether the
+appropriate @file{*.otf} files are reported.  If they are missing,
+download and manually extract the OTF files to either your local
+@file{~/.fonts/} directory or use LilyPond's @command{configure}
+command and the @option{--with-texgyre-dir=@//path/to/otf-files}
+option.
 
 The following font families are required:
 
-@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/schola, Schola},
-@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/heros, Heros}
-and
-@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/cursor, Cursor}.
+@c no https links
+@itemize @w{}
+@item
+@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/schola,
+Schola}
+@item
+@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/heros,
+Heros}
+@item
+@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/cursor,
+Cursor}
+@end itemize
 
 @end itemize
 
@@ -525,41 +510,40 @@ and
 @node Requirements for building documentation
 @subsection Requirements for building documentation
 
-The entire set of documentation for the most current build of LilyPond
-is available online at
-@uref{https://lilypond.org/doc/v2.19/Documentation/web/development}, but
-you can also build them locally from the source code.  This process
-requires some additional tools and packages.
+The entire set of documentation for the most current build of
+LilyPond is available online at
+@uref{https://lilypond.org/doc/v2.21/Documentation/web/development},
+but you can also build them locally from the source code.  This
+process requires the following tools and packages, in addition to
+the build and run-time packages (@pxref{Requirements for compiling
+LilyPond}, and @ref{Requirements for compiling LilyPond}).
 
-@warning{If the instructions for one of the previously listed Linux
-in the previous section (@rcontrib{Requirements for compiling LilyPond})
-have been used, then the following can be ignored as the software should
-already be installed.}
+@warning{If the instructions for one of the GNU/Linux
+distributions listed earlier (@pxref{Requirements for compiling
+LilyPond}) have been used, the following can be ignored, as the
+necessary software packages should already be installed.}
 
 @itemize
 
 @item
-Everything listed in @ref{Requirements for compiling LilyPond}
+@uref{https://www.imagemagick.org, ImageMagick}@*
+We need the @command{convert} tool.
 
 @item
-@uref{http://www.imagemagick.org/, ImageMagick}
+@uref{https://gzip.org, gzip}
 
 @item
-@uref{http://gzip.org/, gzip}
+@uref{https://rsync.samba.org, rsync}
 
 @item
-@uref{http://rsync.samba.org/, rsync}
+@uref{https://www.nongnu.org/texi2html, Texi2HTML}@*
+Use version 1.82.  Later versions might work, but produce
+suboptimal results.
 
-@item
-@uref{http://www.nongnu.org/texi2html/, Texi2HTML}
-
-Use version 1.82.  Later versions might work, but produce suboptimal results.
-
-Download @code{texi2html 1.82} directly from:
+It is probably easiest to download @code{texi2html} directly from
 @uref{http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz};
-
-Extract the files into an appropriate location and then run the
-commands;
+then extract the files into an appropriate location and run the
+commands
 
 @example
 ./configure
@@ -567,12 +551,13 @@ make
 sudo make install
 @end example
 
-Now verify that your operating system is able to see the correct version
-of @code{texi2html}.
-
+Now verify that your operating system is able to see the correct
+version of @code{texi2html} by entering
 @example
 texi2html --version
 @end example
+@noindent
+on the command line.
 
 @item
 The following URW++ font families (consisting of Roman, Bold,
@@ -606,6 +591,15 @@ It is recommended to install the standard Roman (or Regular),
 Italic, Bold, and Bold Italic styles for all listed families; for
 the large Japanese fonts of the @q{Noto Serif JP} family, Regular
 and Bold styles are sufficient.
+
+@item
+@uref{https://github.com/trueroad/extractpdfmark,
+extractpdfmark}@*
+This is an optional component.  However, it is highly recommended
+due to the large number of included PDF snippets.  While making
+the compilation process much slower, it helps reduce the PDF
+output size by large amounts: for example, the size of the
+Notation Reference shrinks from approx.@: 30@dmn{MB} to 7@dmn{MB}.
 
 @item
 Finally, to convert LilyPond's documentation (in texinfo format)
