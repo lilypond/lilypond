@@ -86,10 +86,10 @@ ifdef SILENT
 endif
 
 ifdef SILENT
-  .SILENT:
+  MAKEFLAGS += --silent
 else
   ifndef VERBOSE
-    .SILENT:
+    MAKEFLAGS += --silent
     # print the terse message for a target
     define ly_info
       echo '$(1)'
