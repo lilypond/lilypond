@@ -1968,10 +1968,10 @@ d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
 @lilypond[verbatim,quote]
 \paper  {
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
-                           (/ staff-height pt 20)))
+    (make-pango-font-tree "Linux Libertine O"
+                          "Nimbus Sans, Nimbus Sans L"
+                          "DejaVu Sans Mono"
+                          (/ staff-height pt 20)))
 }
 
 \relative c'{
@@ -2004,9 +2004,9 @@ fontes séparées par une virgule pour les catégories @code{roman},
 \paper @{
   #(define fonts
     (set-global-fonts
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      ; inutile si taille de portée par défaut
      #:factor (/ staff-height pt 20)
     ))
@@ -2025,9 +2025,9 @@ Pour de plus amples informations, voir
     (set-global-fonts
      #:music "emmentaler"            ; défaut
      #:brace "emmentaler"            ; défaut
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      ; inutile si taille de portée par défaut
      #:factor (/ staff-height pt 20)
     ))

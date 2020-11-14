@@ -1953,9 +1953,9 @@ leer más explicaciones sobre las fuentes tipográficas, consulte
 @lilypond[verbatim,quote]
 \paper  {
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
+    (make-pango-font-tree "Linux Libertine O"
+                          "Nimbus Sans, Nimbus Sans L"
+                          "DejaVu Sans Mono"
                           (/ staff-height pt 20)))
 }
 
@@ -1990,9 +1990,9 @@ necesaria la parte @code{#:factor (/ staff-height pt 20)}.
 \paper @{
   #(define fonts
     (set-global-fonts
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      #:factor (/ staff-height pt 20) ; innecesario si el tamaño del pentagrama es el predeterminado
     ))
 @}
@@ -2010,9 +2010,9 @@ predeterminadas.  Para más información, véase
     (set-global-fonts
      #:music "emmentaler"            ; predeterminado
      #:brace "emmentaler"            ; predeterminado
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      #:factor (/ staff-height pt 20) ; innecesario si el tamaño del pentagrama es el predeterminado
     ))
 @}

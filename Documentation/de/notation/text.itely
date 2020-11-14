@@ -1628,10 +1628,10 @@ Schriftarten in @ref{Was sind Schriftarten}.
 \paper  {
   myStaffSize = #20
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
-                           (/ myStaffSize 20)))
+    (make-pango-font-tree "Linux Libertine O"
+                          "Nimbus Sans, Nimbus Sans L"
+                          "DejaVu Sans Mono"
+                          (/ myStaffSize 20)))
 }
 
 \relative c'{

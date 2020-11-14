@@ -1879,9 +1879,9 @@ lilypond -dshow-available-fonts
 @lilypond[verbatim,quote]
 \paper  {
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
+    (make-pango-font-tree "Linux Libertine O"
+                          "Nimbus Sans, Nimbus Sans L"
+                          "DejaVu Sans Mono"
                           (/ staff-height pt 20)))
 }
 
@@ -1912,9 +1912,9 @@ lilypond -dshow-available-fonts
 \paper @{
   #(define fonts
     (set-global-fonts
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      #:factor (/ staff-height pt 20) ; 譜サイズを変更しない場合は不要
     ))
 @}
@@ -1931,9 +1931,9 @@ lilypond -dshow-available-fonts
     (set-global-fonts
      #:music "emmentaler"            ; デフォルト
      #:brace "emmentaler"            ; デフォルト
-     #:roman "Times New Roman"
-     #:sans "Nimbus Sans,Nimbus Sans L"
-     #:typewriter "Luxi Mono"
+     #:roman "Linux Libertine O"
+     #:sans "Nimbus Sans, Nimbus Sans L"
+     #:typewriter "DejaVu Sans Mono"
      #:factor (/ staff-height pt 20) ; 譜サイズを変更しない場合は不要
     ))
 @}

@@ -1596,9 +1596,9 @@ més explicacions sobre els tipus de lletra, consulteu
 @lilypond[verbatim,quote]
 \paper  {
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
+    (make-pango-font-tree "Linux Libertine O"
+                          "Nimbus Sans, Nimbus Sans L"
+                          "DejaVu Sans Mono"
                           (/ staff-height pt 20)))
 }
 
