@@ -2743,7 +2743,7 @@ lletra i com text independent sota la partitura:
 @lilypond[quote,verbatim]
 \score {
   \relative {
-    c''1 \mark \markup { \char ##x03EE }
+    c''1 \mark \markup { \char ##x03A8 }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
