@@ -25,6 +25,9 @@ default:
   image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20200829
   interruptible: true
 
+.if-default-branch: &if-default-branch
+  if: $CI_PROJECT_PATH == "lilypond/lilypond" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
 .if-mr-to-default: &if-mr-to-default
   if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
 
@@ -46,6 +49,9 @@ default:
 
 variables:
   CONFIGURE_FLAGS: "--ci"
+  # Always clone and build in the same directory to avoid problems with
+  # 'make test-baseline' and 'make check'.
+  GIT_CLONE_PATH: "/builds/lilypond/lilypond"
 
 # An additional variable not set here but used below is $MAKE_FLAGS. This can
 # be set per runner and allows to enable parallel builds. For example, set its
@@ -54,6 +60,7 @@ variables:
 build:ubuntu-16.04:
   stage: build
   rules:
+    - <<: *if-default-branch
     - <<: *if-mr-to-default
     - <<: *if-schedule-or-web
   script:
@@ -66,6 +73,23 @@ build:ubuntu-16.04:
       - "build/Documentation/out/**"
       - "build/out/lybook-db/**"
     expire_in: 1 week
+
+test-baseline:ubuntu-16.04:
+  stage: test
+  rules:
+    - <<: *if-default-branch
+  dependencies: [ "build:ubuntu-16.04" ]
+  script:
+    - cd build
+    - *touch-build
+    - make $MAKE_FLAGS test-baseline
+    - tar czf ../test-baseline.tar.gz input/regression/out-test-baseline input/regression/*/out-test-baseline out-baseline
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - "test-baseline.tar.gz"
+      - "**/*.fail.log"
 
 test:ubuntu-16.04:
   stage: test
