@@ -27,8 +27,6 @@
 
 using std::vector;
 
-#define EPS 1e-5
-
 struct Fingering_and_offset
 {
   Grob *fingering_;
@@ -140,6 +138,7 @@ Fingering_column::do_x_positioning (Grob *me)
     reverse (fos);
 
   Real prev = infinity_f * dir;
+  Real EPS = 1.0e-5;
   for (vsize i = 0; i < fos.size (); i++)
     {
       if ((fabs (fos[i].offset_ - prev) < snap)
