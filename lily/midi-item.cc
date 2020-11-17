@@ -25,6 +25,7 @@
 #include "main.hh"
 #include "midi-stream.hh"
 #include "misc.hh"
+#include "piano-pedal.hh"
 #include "program-option.hh"
 #include "string-convert.hh"
 #include "warn.hh"
@@ -286,11 +287,11 @@ Midi_piano_pedal::to_string () const
   Byte status_byte = (char) (0xB0 + channel_);
   string str (1, status_byte);
 
-  if (audio_->type_string_ == "Sostenuto")
+  if (audio_->type_ == SOSTENUTO)
     str += static_cast<char> (0x42);
-  else if (audio_->type_string_ == "Sustain")
+  else if (audio_->type_ == SUSTAIN)
     str += static_cast<char> (0x40);
-  else if (audio_->type_string_ == "UnaCorda")
+  else if (audio_->type_ == UNA_CORDA)
     str += static_cast<char> (0x43);
 
   int pedal = ((1 - audio_->dir_) / 2) * 0x7f;

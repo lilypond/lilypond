@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "piano-pedal.hh"
 #include "performer.hh"
 
 #include "audio-item.hh"
@@ -28,8 +29,6 @@
 
 using std::string;
 using std::vector;
-
-enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
 
 /**
    perform Piano pedals
@@ -47,7 +46,6 @@ public:
 
 protected:
   void initialize () override;
-  static const char *pedal_type_str (int t);
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -62,23 +60,6 @@ private:
 Piano_pedal_performer::Piano_pedal_performer (Context *c)
   : Performer (c)
 {
-}
-
-const char *
-Piano_pedal_performer::pedal_type_str (int t)
-{
-  switch (t)
-    {
-    case SOSTENUTO:
-      return "Sostenuto";
-    case SUSTAIN:
-      return "Sustain";
-    case UNA_CORDA:
-      return "UnaCorda";
-    default:
-      programming_error ("Unknown pedal type");
-      return 0;
-    }
 }
 
 void
@@ -101,15 +82,14 @@ Piano_pedal_performer::process_music ()
 
   for (int i = 0; i < NUM_PEDAL_TYPES; i++, p++)
     {
-      string pedal_type = pedal_type_str (i);
       if (p->event_drul_[STOP])
         {
           if (!p->start_event_)
-            p->event_drul_[STOP]->warning (_f ("cannot find start of piano pedal: `%s'", pedal_type));
+            p->event_drul_[STOP]->warning (_ ("cannot find start of piano pedal"));
           else
             {
               Audio_piano_pedal *a = new Audio_piano_pedal;
-              a->type_string_ = pedal_type;
+              a->type_ = static_cast<Pedal_type> (i);
               a->dir_ = STOP;
               audios_.push_back (a);
               Audio_element_info info (a, p->event_drul_[STOP]);
@@ -122,7 +102,7 @@ Piano_pedal_performer::process_music ()
         {
           p->start_event_ = p->event_drul_[START];
           Audio_piano_pedal *a = new Audio_piano_pedal;
-          a->type_string_ = pedal_type;
+          a->type_ = static_cast<Pedal_type> (i);
           a->dir_ = START;
           audios_.push_back (a);
           Audio_element_info info (a, p->event_drul_[START]);

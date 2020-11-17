@@ -21,6 +21,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "piano-pedal.hh"
 #include "engraver.hh"
 
 #include "axis-group-interface.hh"
@@ -49,15 +50,6 @@ using std::string;
 
   * Try to use same engraver for dynamics.
 */
-
-/* Ugh: This declaration is duplicated in piano-pedal-performer */
-enum Pedal_type
-{
-  SOSTENUTO,
-  SUSTAIN,
-  UNA_CORDA,
-  NUM_PEDAL_TYPES
-};
 
 /*
   Static precalculated data (symbols and strings) for the different
@@ -129,30 +121,47 @@ private:
   void typeset_all (Pedal_info *p);
 };
 
+const char * pedal_type_name (int t)
+{
+  switch (t)
+    {
+    case SOSTENUTO:
+      return "Sostenuto";
+    case SUSTAIN:
+      return "Sustain";
+    case UNA_CORDA:
+      return "UnaCorda";
+    default:
+      programming_error ("Unknown pedal type");
+      return 0;
+    }
+}
+
+const char * pedal_type_ident (int t)
+{
+  switch (t)
+    {
+    case SOSTENUTO:
+      return "sostenuto";
+    case SUSTAIN:
+      return "sustain";
+    case UNA_CORDA:
+      return "una-corda";
+    default:
+      programming_error ("Unknown pedal type");
+      return 0;
+    }
+}
+
 static void
 init_pedal_types ()
 {
-  const char *names [NUM_PEDAL_TYPES];
-  names[SOSTENUTO] = "Sostenuto";
-  names[SUSTAIN] = "Sustain";
-  names[UNA_CORDA] = "UnaCorda";
-
   for (int i = 0; i < NUM_PEDAL_TYPES; i++)
     {
-      const char *name = names[i];
       /* FooBar */
-      string base_name = name;
+      string base_name = pedal_type_name (i);
       /* foo-bar */
-      string base_ident = "";
-      int prev_pos = 0;
-      int cur_pos;
-      for (cur_pos = 1; name[cur_pos]; cur_pos++)
-        if (isupper (name[cur_pos]))
-          {
-            base_ident = base_ident + String_convert::to_lower (string (name, prev_pos, cur_pos - prev_pos)) + "-";
-            prev_pos = cur_pos;
-          }
-      base_ident += String_convert::to_lower (string (name, prev_pos, cur_pos - prev_pos));
+      string base_ident = pedal_type_ident (i);
 
       /*
         be careful, as we don't want to loose references to the _sym_ members.
@@ -162,7 +171,7 @@ init_pedal_types ()
       info.style_sym_ = scm_from_ascii_symbol (("pedal" + base_name + "Style").c_str ());
       info.strings_sym_ = scm_from_ascii_symbol (("pedal" + base_name + "Strings").c_str ());
 
-      info.base_name_ = name;
+      info.base_name_ = base_name;
       info.pedal_str_ = base_name + "Pedal";
 
       info.protect ();

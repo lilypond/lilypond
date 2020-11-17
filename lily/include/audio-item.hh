@@ -22,6 +22,7 @@
 
 #include "audio-element.hh"
 #include "moment.hh"
+#include "piano-pedal.hh"
 #include "pitch.hh"
 
 class Audio_item : public Audio_element
@@ -108,7 +109,7 @@ public:
 class Audio_piano_pedal : public Audio_item
 {
 public:
-  std::string type_string_;
+  Pedal_type type_;
   Direction dir_;
 };
 
