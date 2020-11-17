@@ -17,6 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef OVERLAY_STRING_PORT_HH
+#define OVERLAY_STRING_PORT_HH
+
 #include "lily-guile.hh"
 
 /*
@@ -167,3 +170,5 @@ public:
     scm_set_port_seek (type_, &seek_scm);
   }
 };
+
+#endif /* OVERLAY_STRING_PORT_HH */
