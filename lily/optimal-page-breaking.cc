@@ -172,6 +172,7 @@ Optimal_page_breaking::solve ()
   /* try a larger number of systems than the ideal line breaking number. This
      is more or less C&P. */
   bound = ideal_line_division;
+  vsize prev_actual_sys_count = 0;
   for (vsize sys_count = ideal_sys_count + 1; sys_count <= max_sys_count; sys_count++)
     {
       Real best_demerits_for_this_sys_count = infinity_f;
@@ -208,9 +209,20 @@ Optimal_page_breaking::solve ()
       if (debug_page_breaking_scoring)
         message (_f ("best score for this sys-count: %f", best_demerits_for_this_sys_count));
 
+      vsize actual_sys_count = 0;
+      for (const auto &v : best.systems_per_page_)
+        actual_sys_count += v;
+      // If results are infinitely bad, break if either:
+      // - we don't have too few systems (i.e. we have a previous good result
+      //   and there is no point trying more and more systems at this point)
+      // - we have too few systems, but we also can't increase the system count
+      //   (i.e. increasing sys_count isn't actually resulting in there being
+      //   more systems for some reason)
       if (best_demerits_for_this_sys_count >= BAD_SPACING_PENALTY
-          && !(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW))
+          && (!(best.system_count_status_ & SYSTEM_COUNT_TOO_FEW)
+              || actual_sys_count == prev_actual_sys_count))
         break;
+      prev_actual_sys_count = actual_sys_count;
     }
 
   message (_ ("Drawing systems..."));
