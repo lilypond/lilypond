@@ -184,7 +184,12 @@ $(outdir)/%.xref-map: $(outdir)/%.texi
 			--master-map-file=$(subst $(call target_language)/,en/,$@)) \
 		$(DOCUMENTATION_INCLUDES) -o $(dir $@) $<
 
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(OUT_PDF_IMAGES) $(OUT_BITMAP_IMAGES)
+$(outdir)/%.pdf: $(outdir)/%.texi \
+                 $(outdir)/version.itexi \
+                 $(outdir)/weblinks.itexi \
+                 $(OUT_PDF_IMAGES) \
+                 $(OUT_BITMAP_IMAGES) \
+                 | pre-pdf
 	$(call ly_progress,Making,$@,< texi)
 	TEX=$(PDFTEX) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) \
 		$(buildscript-dir)/run-and-check.sh \
@@ -217,6 +222,18 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
 else
 	mv $(outdir)/$*.tmp.pdf $@
 endif
+
+# LilyPond uses Cyrillic in its documentation; the used fonts are from the
+# LH family.  By default, its metrics files are generated on the fly, which
+# might cause problems in parallel make jobs.  For this reason we make
+# TeXLive generate the needed TFM files in advance.
+pre-pdf:
+	$(call ly_info,Making latt1095.tfm in TeXLive (mktextfm))
+	$(buildscript-dir)/run-and-check.sh \
+          "mktextfm latt1095" "$(outdir)/latt1095.mktextfm.log"
+	$(call ly_info,Making larm1095.tfm in TeXLive (mktextfm))
+	$(buildscript-dir)/run-and-check.sh \
+          "mktextfm larm1095" "$(outdir)/larm1095.mktextfm.log"
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi $(OUT_BITMAP_IMAGES) $(OUT_CSS_FILES)
 	$(call ly_progress,Making,$@,< texi)
