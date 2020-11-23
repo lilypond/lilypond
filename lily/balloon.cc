@@ -124,7 +124,9 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
   SCM chain = Font_interface::text_font_alist_chain (me);
   SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                   chain, bt);
-  Stencil *text_stil = unsmob<Stencil> (stencil);
+
+  // Copy the stencil to avoid modifying the data shared with Scheme.
+  Stencil text_stil = *unsmob<Stencil> (stencil);
 
   Offset z1;
 
@@ -132,7 +134,7 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
     {
       Axis a ((Axis)i);
       z1[a] = b[a].linear_combination (sign (off[a]));
-      text_stil->align_to (a, -sign (off[a]));
+      text_stil.align_to (a, -sign (off[a]));
     }
 
   Offset z2 = z1 + off;
@@ -140,8 +142,8 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
   if (from_scm<bool> (get_property (me, "annotation-line")))
     fr.add_stencil (Line_interface::line (me, z1, z2));
 
-  text_stil->translate (z2);
-  fr.add_stencil (*text_stil);
+  text_stil.translate (z2);
+  fr.add_stencil (text_stil);
 
   fr.translate (-off);
   return fr;
