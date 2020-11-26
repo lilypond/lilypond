@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 90f1e587efc2159450530da3eb8fb391d156a1dc
+%% Translation of GIT committish: 600367eb76cd3f1e69afd9e595dd9f018f654bac
   texidocfr = "
 Tout objet graphique peut s'imprimer sur un fond blanc afin de masquer
 une partie des objets qu'il recouvre.  Ceci trouve toute son utilité
@@ -17,4 +17,4 @@ qui traverse la métrique est masquée par l'affectation de la propriété
 @code{TimeSignature} pour ne pas être masqué.
 
 "
-  doctitlefr = "Utilisation de la propriété whiteout"
+  doctitlefr = "Utilisation de la propriété @code{whiteout}"

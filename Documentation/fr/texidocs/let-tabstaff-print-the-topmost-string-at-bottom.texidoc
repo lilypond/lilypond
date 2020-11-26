@@ -1,4 +1,4 @@
-%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
+%% Translation of GIT committish: 600367eb76cd3f1e69afd9e595dd9f018f654bac
   texidocfr = "
 Il est d'usage, en matière de tablature, d'imprimer la première corde en
 haut. Il est toutefois possible de la positionner en bas grâce à une
@@ -7,4 +7,4 @@ Définir ce réglage au sein d'un bloc @code{\layout} l'appliquera à
 l'intégralité du contexte.
 
 "
-  doctitlefr = "Impression de la corde aiguë d'un TabStaff en bas"
+  doctitlefr = "Impression de la corde aiguë d'un @code{TabStaff} en bas"
