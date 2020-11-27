@@ -42,14 +42,21 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 
   Real overlap = 0.1 * thickness;
 
-  Box box (Interval (0, thickness),
-           Interval (-1, 1)
-           * (height / 2 + overlap));
+  Box bracket_line_extents (Interval (0, thickness),
+                            Interval (-1, 1) * (height / 2 + overlap));
 
-  Stencil bracket = Lookup::filled_box (box);
+  Stencil bracket = Lookup::filled_box (bracket_line_extents);
   for (DOWN_and_UP (d))
     bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap);
-  bracket = Stencil (box, bracket.expr ());
+
+  // The reference for positioning the delimiter in X-direction should
+  // be the bracket line, not the right bound of the bracket tips.
+  // In Y-direction we have to take the tips into account, however,
+  // to ensure correct bounding boxes with the EPS backend.
+  // Therefore we take the X-dimensions only from the bracket line
+  // and the Y-dimensions from the whole bracket.
+  Box bracket_extents (bracket_line_extents[X_AXIS], bracket.extent (Y_AXIS));
+  bracket = Stencil (bracket_extents, bracket.expr ());
 
   bracket.translate_axis (-0.8, X_AXIS);
 
