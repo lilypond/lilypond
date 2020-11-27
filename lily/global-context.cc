@@ -129,7 +129,7 @@ Global_context::iterate (Music *music, bool force_found_music)
   Cpu_timer timer;
   message (_ ("Interpreting music..."));
 
-  SCM protected_iter = Music_iterator::get_static_get_iterator (music);
+  SCM protected_iter = Music_iterator::create_top_iterator (music);
   auto iter = unsmob<Music_iterator> (protected_iter);
 
   bool found_music = force_found_music;

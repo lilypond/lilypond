@@ -48,7 +48,7 @@ Simultaneous_music_iterator::create_children ()
   const ly_smob_list<Music> elements (get_property (get_music (), "elements"));
   for (auto *mus : elements)
     {
-      SCM scm_iter = get_static_get_iterator (mus);
+      SCM scm_iter = create_child (mus);
       Music_iterator *mi = unsmob<Music_iterator> (scm_iter);
       tail = children_list_.insert_before (tail, mi);
       ++tail;

@@ -123,7 +123,7 @@ Sequential_iterator::pop_element ()
 
       if (auto *mus = unsmob<Music> (mus_scm))
         {
-          iter_ = unsmob<Music_iterator> (get_static_get_iterator (mus));
+          iter_ = unsmob<Music_iterator> (create_child (mus));
           scm_remember_upto_here_1 (mus_scm);
         }
     }

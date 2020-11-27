@@ -51,7 +51,7 @@ Music_iterator::process (Moment)
 }
 
 SCM
-Music_iterator::get_static_get_iterator (Music *m)
+Music_iterator::create_iterator (Music_iterator *parent, Music *m)
 {
   Music_iterator *p = 0;
 
@@ -75,6 +75,7 @@ Music_iterator::get_static_get_iterator (Music *m)
       p->unprotect ();
     }
 
+  p->parent_ = parent;
   p->music_ = m;
   assert (m);
   p->music_length_ = m->get_length ();

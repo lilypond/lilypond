@@ -178,7 +178,7 @@ Lyric_combine_music_iterator::create_children ()
   Music_iterator::create_children ();
 
   Music *m = unsmob<Music> (get_property (get_music (), "element"));
-  SCM it_scm = get_static_get_iterator (m);
+  SCM it_scm = create_child (m);
   lyric_iter_ = unsmob<Music_iterator> (it_scm);
 }
 
