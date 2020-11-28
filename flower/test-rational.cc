@@ -19,6 +19,7 @@
 
 #include "rational.hh"
 
+#define YAFFUT_MAIN
 #include "yaffut.hh"
 
 #include <cmath>
