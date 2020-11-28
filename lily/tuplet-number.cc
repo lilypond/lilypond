@@ -225,12 +225,12 @@ Tuplet_number::print (SCM smob)
     }
 
   SCM stc_scm = Text_interface::print (smob);
-  Stencil *stc = unsmob<Stencil> (stc_scm);
+  auto stc = *unsmob<Stencil> (stc_scm);
 
-  stc->align_to (X_AXIS, CENTER);
-  stc->align_to (Y_AXIS, CENTER);
+  stc.align_to (X_AXIS, CENTER);
+  stc.align_to (Y_AXIS, CENTER);
 
-  return stc->smobbed_copy ();
+  return stc.smobbed_copy ();
 }
 
 /*

@@ -195,20 +195,26 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
     }
 
   in_text_numbers = scm_reverse_x (in_text_numbers, SCM_EOL);
-  numbers = scm_reverse_x (numbers, SCM_EOL);
 
-  /*
-    translate each stencil such that it attains the correct maximum length and bundle the
-    footnotes into a scheme object.
-  */
-
-  for (SCM p = numbers; scm_is_pair (p); p = scm_cdr (p))
-    {
-      Stencil *st = unsmob<Stencil> (scm_car (p));
-      if (!st->extent (X_AXIS).is_empty ())
-        st->translate_axis ((max_length - st->extent (X_AXIS)[RIGHT]),
-                            X_AXIS);
-    }
+  // Reverse the list and translate each stencil such that it attains the
+  // correct maximum length and bundle footnotes into a scheme object.
+  {
+    SCM reverse_numbers = numbers;
+    numbers = SCM_EOL;
+    for (SCM p = reverse_numbers; scm_is_pair (p); p = scm_cdr (p))
+      {
+        SCM st_scm = scm_car (p);
+        auto *orig = unsmob<Stencil> (st_scm);
+        if (!orig->extent (X_AXIS).is_empty ())
+          {
+            auto trans = *orig;
+            trans.translate_axis ((max_length - orig->extent (X_AXIS)[RIGHT]),
+                                  X_AXIS);
+            st_scm = trans.smobbed_copy ();
+          }
+        numbers = scm_cons (st_scm, numbers);
+      }
+  }
 
   // build the footnotes
 

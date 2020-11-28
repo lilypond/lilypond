@@ -313,11 +313,11 @@ Paper_column::print (SCM p)
       SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
-      Stencil *number_stc = unsmob<Stencil> (stil);
-      number_stc->scale (1, 1.1);
-      Real num_height = number_stc->extent (Y_AXIS).length ();
-      Real num_len = number_stc->extent (X_AXIS).length ();
-      number_stc->align_to (Y_AXIS, DOWN);
+      auto number_stc = *unsmob<Stencil> (stil);
+      number_stc.scale (1, 1.1);
+      Real num_height = number_stc.extent (Y_AXIS).length ();
+      Real num_len = number_stc.extent (X_AXIS).length ();
+      number_stc.align_to (Y_AXIS, DOWN);
 
       // arrow's y-coord relative to the top of l stencil:
       Real y = -2.5;
@@ -334,7 +334,7 @@ Paper_column::print (SCM p)
 
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
       id_stencil.add_stencil (arrowhead.translated (p2));
-      id_stencil.add_stencil (number_stc->translated (num_off));
+      id_stencil.add_stencil (number_stc.translated (num_off));
       // use a lighter shade of blue so it will remain legible on black background.
       id_stencil = id_stencil.in_color (0.2, 0.4, 1.0);
       l.add_stencil (id_stencil);
@@ -358,11 +358,11 @@ Paper_column::print (SCM p)
       SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (String_convert::form_string ("%5.2lf", dist)));
-      Stencil *number_stc = unsmob<Stencil> (stil);
-      number_stc->scale (1, 1.1);
-      Real num_height = number_stc->extent (Y_AXIS).length ();
-      Real num_len = number_stc->extent (X_AXIS).length ();
-      number_stc->align_to (Y_AXIS, UP);
+      auto number_stc = *unsmob<Stencil> (stil);
+      number_stc.scale (1, 1.1);
+      Real num_height = number_stc.extent (Y_AXIS).length ();
+      Real num_len = number_stc.extent (X_AXIS).length ();
+      number_stc.align_to (Y_AXIS, UP);
 
       // arrow's y-coord relative to the top of l stencil:
       Real y = -3;
@@ -379,7 +379,7 @@ Paper_column::print (SCM p)
 
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
       id_stencil.add_stencil (arrowhead.translated (p2));
-      id_stencil.add_stencil (number_stc->translated (num_off));
+      id_stencil.add_stencil (number_stc.translated (num_off));
       // use a lighter shade of red so it will remain legible on black background.
       id_stencil = id_stencil.in_color (1.0, 0.25, 0.25);
       l.add_stencil (id_stencil);

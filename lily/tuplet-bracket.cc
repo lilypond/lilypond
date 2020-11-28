@@ -434,14 +434,12 @@ Tuplet_bracket::print (SCM smob)
                       SCM text = index_get_cell (edge_text, d);
                       if (Text_interface::is_markup (text))
                         {
+                          auto &es = edge_stencils[d];
                           SCM t
                             = Text_interface::interpret_markup (pap->self_scm (),
                                                                 properties, text);
-
-                          Stencil *edge_text = unsmob<Stencil> (t);
-                          edge_text->translate_axis (x_span[d] - x_span[LEFT],
-                                                     X_AXIS);
-                          edge_stencils[d] = *edge_text;
+                          es = *unsmob<Stencil> (t);
+                          es.translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
                         }
                     }
                 }

@@ -284,7 +284,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     {
       Finger_tuple ft = horiz[i];
       Grob *f = ft.script_;
-      if (scm_is_true (get_property (f, "stencil")))
+      if (auto *f_stil = f->get_stencil ())
         {
           f->set_x_parent (ft.head_);
           f->set_y_parent (ft.head_);
@@ -300,8 +300,9 @@ New_fingering_engraver::position_scripts (SCM orientations,
 
           if (horiz.size () > 1)  /* -> FingeringColumn */
             {
-              Stencil *fs = f->get_stencil ();
-              fs->align_to (Y_AXIS, CENTER);
+              auto aligned = *f_stil;
+              aligned.align_to (Y_AXIS, CENTER);
+              set_property (f, "stencil", aligned.smobbed_copy ());
             }
           else
             {
