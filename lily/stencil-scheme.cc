@@ -111,20 +111,15 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
            "Return a copy of @var{stil} but translated by @var{amount}"
            " in @var{axis} direction.")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, amount, 2);
 
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   Real real_amount = scm_to_double (amount);
 
-  SCM new_s = s->smobbed_copy ();
-  scm_remember_upto_here_1 (stil);
-
-  Stencil *q = unsmob<Stencil> (new_s);
-  q->translate_axis (real_amount, Axis (scm_to_int (axis)));
-  return new_s;
+  s.translate_axis (real_amount, Axis (scm_to_int (axis)));
+  return s.smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
@@ -132,17 +127,12 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
            "Return a @var{stil}, but translated by @var{offset}"
            " (a pair of numbers).")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (is_number_pair, offset, 2);
   Offset o = from_scm<Offset> (offset);
 
-  SCM new_s = s->smobbed_copy ();
-  scm_remember_upto_here_1 (stil);
-
-  Stencil *q = unsmob<Stencil> (new_s);
-  q->translate (o);
-  return new_s;
+  s.translate (o);
+  return s.smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
@@ -416,8 +406,7 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
            " the relative offset (@var{x}, @var{y}).  E.g., an offset of"
            " (-1, 1) will rotate the stencil around the left upper corner.")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
   LY_ASSERT_TYPE (scm_is_number, y, 4);
@@ -425,10 +414,8 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
   Real x_off = scm_to_double (x);
   Real y_off = scm_to_double (y);
 
-  SCM new_s = s->smobbed_copy ();
-  Stencil *q = unsmob<Stencil> (new_s);
-  q->rotate_degrees (a, Offset (x_off, y_off));
-  return new_s;
+  s.rotate_degrees (a, Offset (x_off, y_off));
+  return s.smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
@@ -436,8 +423,7 @@ LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
            "Return a stencil @var{stil} rotated @var{angle} degrees around"
            " point (@var{x}, @var{y}), given in absolute coordinates.")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
   LY_ASSERT_TYPE (scm_is_number, y, 4);
@@ -445,10 +431,8 @@ LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
   Real x_off = scm_to_double (x);
   Real y_off = scm_to_double (y);
 
-  SCM new_s = s->smobbed_copy ();
-  Stencil *q = unsmob<Stencil> (new_s);
-  q->rotate_degrees_absolute (a, Offset (x_off, y_off));
-  return new_s;
+  s.rotate_degrees_absolute (a, Offset (x_off, y_off));
+  return s.smobbed_copy ();
 }
 
 LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
@@ -524,16 +508,12 @@ LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
            " flip or mirror @var{stil} without changing its origin;"
            " this may result in collisions unless it is repositioned.")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, x, 2);
   LY_ASSERT_TYPE (scm_is_number, y, 3);
 
-  SCM new_s = s->smobbed_copy ();
-  Stencil *q = unsmob<Stencil> (new_s);
-
-  q->scale (scm_to_double (x), scm_to_double (y));
-  return new_s;
+  s.scale (scm_to_double (x), scm_to_double (y));
+  return s.smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_outline, "ly:stencil-outline",
