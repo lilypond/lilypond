@@ -46,20 +46,6 @@ typedef size_t vsize;
 #include <vector>
 
 template<typename T>
-T const &
-back (std::vector<T> const &v, vsize i)
-{
-  return v[v.size () - i - 1];
-}
-
-template<typename T>
-T &
-back (std::vector<T> &v, vsize i)
-{
-  return v[v.size () - i - 1];
-}
-
-template<typename T>
 void
 concat (std::vector<T> &v, std::vector<T> const &w)
 {
