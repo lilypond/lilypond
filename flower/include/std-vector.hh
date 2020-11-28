@@ -45,13 +45,6 @@ typedef size_t vsize;
 
 #include <vector>
 
-template<typename T>
-void
-concat (std::vector<T> &v, std::vector<T> const &w)
-{
-  v.insert (v.end (), w.begin (), w.end ());
-}
-
 template<typename T, typename Compare>
 vsize
 lower_bound (std::vector<T> const &v,

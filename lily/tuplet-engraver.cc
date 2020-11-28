@@ -169,7 +169,7 @@ Tuplet_engraver::process_music ()
     }
   stopped_tuplets_.clear ();
 
-  concat (tuplets_, new_tuplets_);
+  tuplets_.insert (tuplets_.end (), new_tuplets_.begin (), new_tuplets_.end ());
   new_tuplets_.clear ();
   for (vsize j = tuplets_.size (); j > 0; j--)
     {

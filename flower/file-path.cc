@@ -57,7 +57,7 @@ File_path::directories () const
 void
 File_path::parse_path (const string &p)
 {
-  concat (dirs_, string_split (p, PATHSEP));
+  dirs_ = string_split (p, PATHSEP);
 }
 
 #ifdef __MINGW32__

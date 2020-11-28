@@ -337,13 +337,16 @@ extract_heads_and_stems (vector<unique_ptr<Accidental_placement_entry>> const &a
       if (has_interface<Note_collision_interface> (c))
         {
           extract_grob_set (c, "elements", columns);
-          concat (note_cols, columns);
+          note_cols.insert (note_cols.end (), columns.begin (), columns.end ());
         }
     }
 
   /* Now that we have all of the columns, grab all of the note-heads */
   for (vsize i = note_cols.size (); i--;)
-    concat (ret, extract_grob_array (note_cols[i], "note-heads"));
+    {
+      const auto &note_heads = extract_grob_array (note_cols[i], "note-heads");
+      ret.insert (ret.end (), note_heads.begin (), note_heads.end ());
+    }
 
   /* Now that we have all of the heads, grab all of the stems */
   for (vsize i = ret.size (); i--;)
