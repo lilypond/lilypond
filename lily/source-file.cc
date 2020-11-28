@@ -28,13 +28,13 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#include <algorithm>
 #include <cstdio>
 #include <sstream>
 
 using std::istream;
 using std::istringstream;
 using std::string;
-using std::vector;
 
 void
 Source_file::load_stdin ()
@@ -291,12 +291,11 @@ Source_file::get_line (char const *pos_str0) const
     return 1 + line_offset_;
 
   /* this will find the '\n' character at the end of our line */
-  vsize lo = lower_bound (newline_locations_,
-                          pos_str0,
-                          std::less<char const *> ());
+  auto lo = std::lower_bound (newline_locations_.begin (),
+                              newline_locations_.end (), pos_str0);
 
   /* the return value will be indexed from 1 */
-  return lo + 1 + line_offset_;
+  return (lo - newline_locations_.begin ()) + 1 + line_offset_;
 }
 
 void

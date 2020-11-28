@@ -29,7 +29,9 @@
 #include "spring.hh"
 #include "warn.hh"
 
+#include <algorithm>
 #include <cstdio>
+#include <vector>
 
 using std::vector;
 
@@ -429,18 +431,20 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index, boo
     {
       if (Paper_column *other = unsmob<Paper_column> (scm_caar (s)))
         {
-          vsize j = binary_search (cols, other,
-                                   Paper_column::rank_less, col_index);
-          if (j != VPOS)
+          auto j = std::lower_bound (cols.begin () + col_index,
+                                     cols.end (), other,
+                                     Paper_column::rank_less);
+          if (j != cols.end () && (*j)->get_rank () == other->get_rank ())
             {
               Real dist = scm_to_double (scm_cdar (s));
-              if (cols[j] == other)
-                description.rods_.push_back (Rod_description (j, dist));
+              vsize idx = j - cols.begin ();
+              if (*j == other)
+                description.rods_.push_back (Rod_description (idx, dist));
               else /* it must end at the LEFT prebroken_piece */
                 /* see Spanner::set_spacing_rods for more comments on how
                    to deal with situations where  we don't know if we're
                    ending yet on the left prebroken piece */
-                description.end_rods_.push_back (Rod_description (j, dist));
+                description.end_rods_.push_back (Rod_description (idx, dist));
             }
         }
       else

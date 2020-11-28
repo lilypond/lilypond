@@ -29,6 +29,9 @@
 
 #include "translator.icc"
 
+#include <algorithm>
+#include <vector>
+
 using std::string;
 using std::vector;
 
@@ -122,20 +125,24 @@ Page_turn_engraver::Page_turn_engraver (Context *c)
 Grob *
 Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 {
-  vsize start = lower_bound (breakable_moments_, brk.duration_[LEFT], std::less<Rational> ());
-  vsize end = upper_bound (breakable_moments_, brk.duration_[RIGHT], std::less<Rational> ());
+  auto start = std::lower_bound (breakable_moments_.begin (), breakable_moments_.end (),
+                                 brk.duration_[LEFT]);
+  auto end = std::upper_bound (breakable_moments_.begin (), breakable_moments_.end (),
+                               brk.duration_[RIGHT]);
 
-  if (start == breakable_moments_.size ())
+  if (start == breakable_moments_.end ())
     return NULL;
-  if (end == 0)
+  if (end == breakable_moments_.begin ())
     return NULL;
-  end--;
+  // Use (signed) long to avoid problems in the loop below when start_idx = 0.
+  long start_idx = start - breakable_moments_.begin ();
+  long end_idx = end - breakable_moments_.begin () - 1;
 
-  for (vsize i = end + 1; i-- > start;)
+  for (long i = end_idx; i >= start_idx; i--)
     if (special_barlines_[i])
       return breakable_columns_[i];
 
-  return breakable_columns_[end];
+  return breakable_columns_[end_idx];
 }
 
 Real

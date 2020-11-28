@@ -38,6 +38,7 @@
 #include "warn.hh"
 #include "unpure-pure-container.hh"
 
+#include <algorithm>
 #include <map>
 
 using std::multimap;
@@ -224,7 +225,7 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents,
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
   vector<vsize> const &break_ranks = ps->get_break_ranks ();
-  auto it = lower_bound (break_ranks.begin (), break_ranks.end (), start);
+  auto it = std::lower_bound (break_ranks.begin (), break_ranks.end (), start);
   vsize break_idx = it - break_ranks.begin ();
   vector<vsize> const &breaks = ps->get_break_indices ();
   vector<Paper_column *> const &cols = ps->get_columns ();
@@ -303,12 +304,12 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       d = (d == CENTER) ? UP : d;
 
       Interval_t<vsize> rank_span (g->spanned_rank_interval ());
-      vsize first_break
-        = lower_bound (ranks, rank_span[LEFT], std::less<vsize> ());
-      if (first_break > 0 && ranks[first_break] >= rank_span[LEFT])
+      auto first_break
+        = std::lower_bound (ranks.begin (), ranks.end (), rank_span[LEFT]);
+      if (first_break != ranks.begin ())
         first_break--;
 
-      for (vsize j = first_break;
+      for (vsize j = first_break - ranks.begin ();
            j + 1 < ranks.size () && ranks[j] <= rank_span[RIGHT]; ++j)
         {
           vsize start = ranks[j];

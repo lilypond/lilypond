@@ -25,6 +25,9 @@
 #include "system.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 void
@@ -291,9 +294,11 @@ Spanner::get_system () const
 Spanner *
 Spanner::find_broken_piece (System *l) const
 {
-  vsize idx = binary_search (broken_intos_, (Spanner *) l, Spanner::less);
-  if (idx != VPOS)
-    return broken_intos_ [idx];
+  auto candidate = std::lower_bound (broken_intos_.begin (),
+                                     broken_intos_.end (), (Spanner *) l,
+                                     Spanner::less);
+  if (candidate != broken_intos_.end () && !Spanner::less (*candidate, l))
+    return *candidate;
   return 0;
 }
 

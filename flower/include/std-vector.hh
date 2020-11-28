@@ -46,42 +46,6 @@ typedef size_t vsize;
 #include <vector>
 
 template<typename T, typename Compare>
-vsize
-lower_bound (std::vector<T> const &v,
-             T const &key,
-             Compare less)
-{
-  auto it = std::lower_bound (v.begin (), v.end (), key, less);
-
-  return it - v.begin ();
-}
-
-template<typename T, typename Compare>
-vsize
-upper_bound (std::vector<T> const &v,
-             T const &key,
-             Compare less)
-{
-  auto it = std::upper_bound (v.begin (), v.end (), key, less);
-
-  return it - v.begin ();
-}
-
-template<typename T, typename Compare>
-vsize
-binary_search (std::vector<T> const &v,
-               T const &key,
-               Compare less,
-               vsize b = 0)
-{
-  auto it = std::lower_bound (v.begin () + b, v.end (), key, less);
-
-  if (it == v.end () || less (key, *it))
-    return VPOS;
-  return it - v.begin ();
-}
-
-template<typename T, typename Compare>
 void
 vector_sort (std::vector<T> &v,
              Compare less)
