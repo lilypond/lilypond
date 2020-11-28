@@ -140,7 +140,7 @@ Slur::height (SCM smob)
   Grob *me = unsmob<Grob> (smob);
 
   // FIXME uncached
-  Stencil *m = me->get_stencil ();
+  auto *m = me->get_stencil ();
   return m ? to_scm (m->extent (Y_AXIS))
          : to_scm (Interval ());
 }

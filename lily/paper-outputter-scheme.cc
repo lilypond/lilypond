@@ -52,7 +52,7 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
 {
 
   auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  auto *const st = LY_ASSERT_SMOB (Stencil, stencil, 2);
+  auto *const st = LY_ASSERT_SMOB (const Stencil, stencil, 2);
 
   po->output_stencil (*st);
   return SCM_UNSPECIFIED;

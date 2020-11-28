@@ -582,7 +582,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   if (scm_is_pair (footnotes))
     for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
       {
-        Stencil *sten = unsmob<Stencil> (scm_caddar (s));
+        auto *sten = unsmob<const Stencil> (scm_caddar (s));
         if (!sten)
           {
             programming_error ("expecting stencil, got empty pointer");
@@ -593,7 +593,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
 
   last_column_ = 0;
   force_ = 0;
-  Stencil *st = unsmob<Stencil> (get_property (pb, "stencil"));
+  auto *st = unsmob<const Stencil> (get_property (pb, "stencil"));
   Interval stencil_extent = st->is_empty (Y_AXIS) ? Interval (0, 0)
                             : st->extent (Y_AXIS);
   shape_ = Line_shape (stencil_extent, stencil_extent); // pretend it goes all the way across

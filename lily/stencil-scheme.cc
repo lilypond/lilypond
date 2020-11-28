@@ -111,7 +111,7 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
            "Return a copy of @var{stil} but translated by @var{amount}"
            " in @var{axis} direction.")
 {
-  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, amount, 2);
 
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
@@ -127,7 +127,7 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
            "Return a @var{stil}, but translated by @var{offset}"
            " (a pair of numbers).")
 {
-  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (is_number_pair, offset, 2);
   Offset o = from_scm<Offset> (offset);
 
@@ -139,7 +139,7 @@ LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
            1, 0, 0, (SCM stil),
            "Return the expression of @var{stil}.")
 {
-  auto *const s = LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto *const s = LY_ASSERT_SMOB (const Stencil, stil, 1);
   return s->expr ();
 }
 
@@ -149,7 +149,7 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
            " @var{axis} direction (@code{0} or @code{1} for x and"
            " y@tie{}axis, respectively).")
 {
-  auto *const s = LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto *const s = LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
 
   return to_scm (s->extent (Axis (scm_to_int (axis))));
@@ -161,7 +161,7 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
            " @var{axis} is supplied, the emptiness check is"
            " restricted to that axis.")
 {
-  auto *const s = LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto *const s = LY_ASSERT_SMOB (const Stencil, stil, 1);
   if (SCM_UNBNDP (axis))
     return scm_from_bool (s->is_empty ());
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -179,8 +179,8 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
            " space.  @var{first} and @var{second} may also be @code{'()} or"
            " @code{#f}.")
 {
-  Stencil *s1 = unsmob<Stencil> (first);
-  Stencil *s2 = unsmob<Stencil> (second);
+  auto *const s1 = unsmob<const Stencil> (first);
+  auto *const s2 = unsmob<const Stencil> (second);
   Stencil result;
 
   SCM_ASSERT_TYPE (s1 || scm_is_false (first) || scm_is_null (first),
@@ -226,8 +226,8 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
            " apart at least by this distance.  If either of the stencils"
            " is spacing, @var{padding} and @var{mindist} do not apply.")
 {
-  Stencil *s1 = unsmob<Stencil> (first);
-  Stencil *s2 = unsmob<Stencil> (second);
+  auto *const s1 = unsmob<const Stencil> (first);
+  auto *const s2 = unsmob<const Stencil> (second);
   Stencil result;
 
   SCM_ASSERT_TYPE (s1 || scm_is_false (first) || scm_is_null (first),
@@ -277,7 +277,7 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
 
   for (SCM scm_s : as_ly_scm_list (args))
     {
-      Stencil *s = unsmob<Stencil> (scm_s);
+      auto *const s = unsmob<const Stencil> (scm_s);
       if (!s)
         SCM_ASSERT_TYPE (s, scm_s, SCM_ARGn, __FUNCTION__, "Stencil");
 
@@ -341,7 +341,7 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
            "  @w{@code{-1}} and @code{1} are left and right, respectively."
            "  Other values are interpolated (so @code{0} means the center).")
 {
-  auto target = *LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto target = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   LY_ASSERT_TYPE (scm_is_number, dir, 3);
 
@@ -357,7 +357,7 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
            "@var{g}, @var{b} and an optional value"
            "for @var{a}, or a single CSS-like string.")
 {
-  auto *const stil = LY_ASSERT_SMOB (Stencil, stc, 1);
+  auto *const stil = LY_ASSERT_SMOB (const Stencil, stc, 1);
   SCM color;
   if (SCM_UNBNDP (g) && scm_is_string (r))
     color = r;
@@ -400,7 +400,7 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
            " the relative offset (@var{x}, @var{y}).  E.g., an offset of"
            " (-1, 1) will rotate the stencil around the left upper corner.")
 {
-  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
   LY_ASSERT_TYPE (scm_is_number, y, 4);
@@ -417,7 +417,7 @@ LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
            "Return a stencil @var{stil} rotated @var{angle} degrees around"
            " point (@var{x}, @var{y}), given in absolute coordinates.")
 {
-  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
   LY_ASSERT_TYPE (scm_is_number, y, 4);
@@ -502,7 +502,7 @@ LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
            " flip or mirror @var{stil} without changing its origin;"
            " this may result in collisions unless it is repositioned.")
 {
-  auto s = *LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, x, 2);
   LY_ASSERT_TYPE (scm_is_number, y, 3);
 
@@ -516,7 +516,7 @@ LY_DEFINE (ly_stencil_outline, "ly:stencil-outline",
            " of stencil @var{stil} but with outline and dimensions"
            " from stencil @var{outline}.")
 {
-  Stencil s = *LY_ASSERT_SMOB (Stencil, stil, 1);
-  Stencil o = *LY_ASSERT_SMOB (Stencil, outline, 2);
-  return s.with_outline (o).smobbed_copy ();
+  auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
+  auto *const o = LY_ASSERT_SMOB (const Stencil, outline, 2);
+  return s.with_outline (*o).smobbed_copy ();
 }

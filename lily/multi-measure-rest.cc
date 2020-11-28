@@ -425,7 +425,7 @@ SCM
 Multi_measure_rest::set_text_rods (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Stencil *stil = me->get_stencil ();
+  auto *stil = me->get_stencil ();
 
   /* FIXME uncached */
   Real len = (stil && !stil->extent (X_AXIS).is_empty ())

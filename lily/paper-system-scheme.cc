@@ -46,8 +46,8 @@ LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
     ret = (*sky1)[DOWN].distance ((*sky2)[UP]);
   else
     {
-      Stencil *s1 = unsmob<Stencil> (get_property (p1, "stencil"));
-      Stencil *s2 = unsmob<Stencil> (get_property (p2, "stencil"));
+      auto *s1 = unsmob<const Stencil> (get_property (p1, "stencil"));
+      auto *s2 = unsmob<const Stencil> (get_property (p2, "stencil"));
       Interval iv1 = s1->extent (Y_AXIS);
       Interval iv2 = s2->extent (Y_AXIS);
       ret = iv2[UP] - iv1[DOWN];

@@ -62,7 +62,7 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
         return to_scm (- ext.linear_combination (scm_to_double (align)));
       else
         {
-          Stencil *st = me->get_stencil ();
+          auto *st = me->get_stencil ();
           if (st && !st->is_empty ())
             warning (me->name () + " has empty extent and non-empty stencil.");
         }
@@ -148,7 +148,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
         x -= ext.linear_combination (scm_to_double (self_align));
       else
         {
-          Stencil *st = me->get_stencil ();
+          auto *st = me->get_stencil ();
           if (st && !st->is_empty ())
             warning (me->name () + " has empty extent and non-empty stencil.");
         }
@@ -161,7 +161,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
         x += he.linear_combination (scm_to_double (par_align));
       else
         {
-          Stencil *st = him->get_stencil ();
+          auto *st = him->get_stencil ();
           if (st && !st->is_empty ())
             warning (him->name () + " has empty extent and non-empty stencil.");
         }

@@ -45,9 +45,9 @@
     * Because of the way that Stencil is implemented, it is the most
     efficient to add "fresh" stencils to what you're going to build.
 
-    * Do not create Stencil objects on the heap. That includes passing
-    around Stencil* which are produced by unsmob<Stencil>(). Either
-    copy Stencil objects, or use SCM references.
+    * Do not create Stencil objects on the heap or attempt to share
+    or transfer ownership by pointer.  Either copy Stencil objects
+    or use SCM references.
 
     * Empty stencils have empty dimensions.  If add_at_edge is used to
     init the stencil, we assume that
@@ -95,5 +95,9 @@ public:
 void register_stencil_head (SCM symbol);
 bool is_stencil_head (SCM symbol);
 SCM all_stencil_heads ();
+
+// C++ code must not modify Stencil objects shared with Scheme.
+// Requiring unsmob<const Stencil> helps to enforce this.
+template <> inline Stencil *unsmob<Stencil> (SCM) = delete;
 
 #endif /* STENCIL_HH */

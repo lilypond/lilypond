@@ -139,7 +139,7 @@ public:
   virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction) { return false; }
 
   /* printing */
-  Stencil *get_stencil () const;
+  const Stencil *get_stencil () const;
   Stencil get_print_stencil () const;
 
   /* interfaces */

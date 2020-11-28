@@ -306,7 +306,7 @@ Rest::generic_extent_callback (Grob *me, Axis a)
     with ledgered rests.
   */
   SCM m = brew_internal_stencil (me, a != X_AXIS);
-  return to_scm (unsmob<Stencil> (m)->extent (a));
+  return to_scm (unsmob<const Stencil> (m)->extent (a));
 }
 
 MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
@@ -317,7 +317,7 @@ Rest::pure_height (SCM smob,
 {
   Grob *me = unsmob<Grob> (smob);
   SCM m = brew_internal_stencil (me, false);
-  return to_scm (unsmob<Stencil> (m)->extent (Y_AXIS));
+  return to_scm (unsmob<const Stencil> (m)->extent (Y_AXIS));
 }
 
 ADD_INTERFACE (Rest,

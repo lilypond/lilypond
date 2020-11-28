@@ -118,14 +118,14 @@ Grob::~Grob ()
   STENCILS
 ****************************************************************/
 
-Stencil *
+const Stencil *
 Grob::get_stencil () const
 {
   if (!is_live ())
     return 0;
 
   SCM stil = get_property (this, "stencil");
-  return unsmob<Stencil> (stil);
+  return unsmob<const Stencil> (stil);
 }
 
 Stencil
@@ -134,7 +134,7 @@ Grob::get_print_stencil () const
   SCM stil = get_property (this, "stencil");
 
   Stencil retval;
-  if (Stencil *m = unsmob<Stencil> (stil))
+  if (auto *m = unsmob<const Stencil> (stil))
     {
       retval = *m;
       bool transparent = from_scm<bool> (get_property (this, "transparent"));
@@ -147,7 +147,7 @@ Grob::get_print_stencil () const
                            || from_scm<bool> (get_property (this, "whiteout"))))
         {
           Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-          retval = *unsmob<Stencil>
+          retval = *unsmob<const Stencil>
                    (Lily::stencil_whiteout (retval.smobbed_copy (),
                                             get_property (this, "whiteout-style"),
                                             get_property (this, "whiteout"),
@@ -817,9 +817,8 @@ ADD_INTERFACE (Grob,
 static SCM
 grob_stencil_extent (Grob *me, Axis a)
 {
-  Stencil *m = me->get_stencil ();
   Interval e;
-  if (m)
+  if (auto *m = me->get_stencil ())
     e = m->extent (a);
   return to_scm (e);
 }
@@ -837,7 +836,7 @@ SCM
 Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 {
   Grob *me = unsmob<Grob> (smob);
-  if (unsmob<Stencil> (get_property_data (me, "stencil")))
+  if (unsmob<const Stencil> (get_property_data (me, "stencil")))
     return grob_stencil_extent (me, Y_AXIS);
 
   return to_scm (Interval ());

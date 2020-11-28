@@ -303,8 +303,8 @@ Paper_book::book_title ()
                       paper_->self_scm (),
                       scopes);
 
-  if (unsmob<Stencil> (tit))
-    title = *unsmob<Stencil> (tit);
+  if (auto *st = unsmob<const Stencil> (tit))
+    title = *st;
 
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
@@ -332,8 +332,8 @@ Paper_book::score_title (SCM header)
                       paper_->self_scm (),
                       scopes);
 
-  if (unsmob<Stencil> (tit))
-    title = *unsmob<Stencil> (tit);
+  if (auto *st = unsmob<const Stencil> (tit))
+    title = *st;
 
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
@@ -516,7 +516,7 @@ Paper_book::get_system_specs ()
           Prob *last = 0;
           for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))
             {
-              SCM t = scm_car (list);
+              auto *t = unsmob<const Stencil> (scm_car (list));
               // TODO: init props
               Prob *ps = make_paper_system (SCM_EOL);
               set_property (ps, "page-break-permission",
@@ -526,9 +526,9 @@ Paper_book::get_system_specs ()
               set_property (ps, "last-markup-line", SCM_BOOL_F);
               set_property (ps, "first-markup-line", SCM_BOOL_F);
 
-              paper_system_set_stencil (ps, *unsmob<Stencil> (t));
+              paper_system_set_stencil (ps, *t);
 
-              SCM footnotes = get_footnotes (unsmob<Stencil> (t)->expr ());
+              SCM footnotes = get_footnotes (t->expr ());
               set_property (ps, "footnotes", footnotes);
               set_property (ps, "is-title", SCM_BOOL_T);
               if (scm_is_eq (list, texts))

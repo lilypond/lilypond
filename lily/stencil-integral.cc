@@ -838,7 +838,7 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 Skyline_pair
 skylines_from_stencil (SCM sten, SCM rot, Axis a)
 {
-  Stencil *s = unsmob<Stencil> (sten);
+  auto *s = unsmob<const Stencil> (sten);
 
   Lazy_skyline_pair lazy (a);
   if (!s)

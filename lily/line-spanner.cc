@@ -286,7 +286,7 @@ Line_spanner::print (SCM smob)
 
   Drul_array<Real> gaps (0, 0);
   Drul_array<bool> arrows (0, 0);
-  Drul_array<Stencil *> stencils (0, 0);
+  Drul_array<const Stencil *> stencils (0, 0);
   Drul_array<Grob *> common_y (0, 0);
 
   // For scaling of 'padding and 'stencil-offset
@@ -299,8 +299,8 @@ Line_spanner::print (SCM smob)
                                                 bounds[d], SCM_BOOL_F), 0.0);
       arrows[d] = from_scm<bool> (ly_assoc_get (ly_symbol2scm ("arrow"),
                                                 bounds[d], SCM_BOOL_F));
-      stencils[d] = unsmob<Stencil> (ly_assoc_get (ly_symbol2scm ("stencil"),
-                                                   bounds[d], SCM_BOOL_F));
+      stencils[d] = unsmob<const Stencil> (ly_assoc_get (ly_symbol2scm ("stencil"),
+                                                         bounds[d], SCM_BOOL_F));
       common_y[d] = unsmob<Grob> (ly_assoc_get (ly_symbol2scm ("common-Y"),
                                                 bounds[d], SCM_BOOL_F));
       if (!common_y[d])

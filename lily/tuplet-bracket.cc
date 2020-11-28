@@ -80,7 +80,7 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
     {
       Item *s = Note_column::get_stem (g);
       if (!Stem::is_invisible (s)
-          && unsmob<Stencil> (get_property (s, "stencil")))
+          && unsmob<const Stencil> (get_property (s, "stencil")))
         g = s;
     }
 

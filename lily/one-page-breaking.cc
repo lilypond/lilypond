@@ -117,7 +117,7 @@ One_page_breaking::solve ()
       else if (Prob *pb = system_specs_[i].prob_)
         {
           // top-level markups
-          Stencil *stil = unsmob<Stencil> (get_property (pb, "stencil"));
+          auto *stil = unsmob<const Stencil> (get_property (pb, "stencil"));
           line_heights.push_back (stil->extent (Y_AXIS).length ());
         }
     }
@@ -158,7 +158,7 @@ One_page_breaking::solve ()
     lowest_bound = last_bottom_bound;
 
   // SET FINAL PAPER HEIGHT
-  Stencil *foot_stil = unsmob<Stencil> (get_property (page_pb, "foot-stencil"));
+  auto *foot_stil = unsmob<const Stencil> (get_property (page_pb, "foot-stencil"));
   Real foot_height = foot_stil->extent (Y_AXIS).length ();
 
   SCM top_margin = book_->paper_->c_variable ("top-margin");

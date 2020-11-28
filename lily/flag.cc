@@ -49,7 +49,7 @@ SCM
 Flag::width (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-  Stencil *sten = unsmob<Stencil> (get_property (me, "stencil"));
+  auto *sten = unsmob<const Stencil> (get_property (me, "stencil"));
   if (!sten)
     return to_scm (Interval (0.0, 0.0));
 

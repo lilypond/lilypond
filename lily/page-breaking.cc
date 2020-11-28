@@ -581,7 +581,7 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   set_property (p, "lines", paper_systems);
   set_property (p, "configuration", configuration);
 
-  Stencil *foot_p = unsmob<Stencil> (get_property (p, "foot-stencil"));
+  auto *foot_p = unsmob<const Stencil> (get_property (p, "foot-stencil"));
   Stencil foot = foot_p ? *foot_p : Stencil ();
 
   SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems);

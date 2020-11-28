@@ -633,7 +633,7 @@ System::get_paper_system ()
       tail = SCM_CDRLOC (*tail);
     }
 
-  if (Stencil *me = get_stencil ())
+  if (auto *me = get_stencil ())
     exprs = scm_cons (me->expr (), exprs);
 
   Interval x (extent (this, X_AXIS));

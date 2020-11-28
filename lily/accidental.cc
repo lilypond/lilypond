@@ -56,7 +56,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
   if (!me->is_live ())
     return Skyline_pair ().smobbed_copy ();
 
-  Stencil *my_stencil = unsmob<Stencil> (get_property (me, "stencil"));
+  auto *my_stencil = unsmob<const Stencil> (get_property (me, "stencil"));
   if (!my_stencil)
     return Skyline_pair ().smobbed_copy ();
 
