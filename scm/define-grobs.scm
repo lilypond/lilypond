@@ -1105,6 +1105,36 @@
         (meta . ((class . Item)
                  (interfaces . (fingering-column-interface))))))
 
+    (FingerGlideSpanner
+     . ((bound-details . ((right . ((attach-dir .  ,LEFT)
+                                    (right-stub-length . 1)
+                                    (padding . 0.2)
+                                    ))
+                          (left . ((attach-dir .  ,RIGHT)
+                                   (left-stub-length . 1)
+                                   (padding . 0.2)
+                                   ))
+                          ))
+        (dash-fraction . 0.4)
+        (dash-period . 1)
+        (details . ((bow-direction . #f)))
+        (left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+        (normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
+        (right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+        (minimum-length . 2.5)
+        (minimum-length-after-break . 2.5)
+        (springs-and-rods . ,ly:spanner::set-spacing-rods)
+        (stencil . ,finger-glide::print)
+        (style . line)
+        (thickness . 1.4)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (zigzag-length . 1)
+        (zigzag-width . 1)
+        (meta . ((class . Spanner)
+                 (interfaces . (finger-glide-interface
+                                line-spanner-interface
+                                spanner-interface))))))
+
     (Flag
      . (
         (glyph-name . ,ly:flag::glyph-name)

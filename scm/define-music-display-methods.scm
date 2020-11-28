@@ -211,6 +211,7 @@ expression."
 (define-post-event-display-method BendAfterEvent (event) #f
   (format #f "\\bendAfter #~a " (ly:music-property event 'delta-step)))
 
+(define-post-event-display-method FingerGlideEvent (event) #f "\\glide")
 (define-post-event-display-method HarmonicEvent (event) #f "\\harmonic")
 (define-post-event-display-method GlissandoEvent (event) #f "\\glissando")
 (define-post-event-display-method ArpeggioEvent (event) #f "\\arpeggio")

@@ -67,6 +67,42 @@ which scares away people.
 
 
 @item
+A new grob @code{FingerGlideSpanner} is now available, indicating a finger
+gliding on a string from one to another position.
+Several appearances are possible, depending on the setting of @code{style}.
+Shown in the image are @code{line}, @code{stub-left}, @code{stub-right} and
+@code{stub-both}.
+
+@lilypond[quote]
+mus = {
+  \set fingeringOrientations = #'(right)
+  <a'\glide-1>2.
+  \set fingeringOrientations = #'(left)
+  <d'-1>4
+}
+
+\score {
+  {
+    <>^"line"
+    \mus
+    <>^"stub-left"
+    \override FingerGlideSpanner.style = #'stub-left
+    \mus
+    <>^"stub-right"
+    \override FingerGlideSpanner.style = #'stub-right
+    \mus
+    <>^"stub-both"
+    \override FingerGlideSpanner.style = #'stub-both
+    \mus
+  }
+}
+@end lilypond
+
+Also possible is @code{dashed-line}, @code{dotted-line}, @code{zigzag},
+@code{trill}, @code{bow} and @code{none}.
+
+
+@item
 A new grob @code{BendSpanner} is now available for @code{TabStaff}, indicating
 a bent string.
 Apart from the default three styles are possible: @code{'hold},

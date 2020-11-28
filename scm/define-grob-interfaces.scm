@@ -169,6 +169,48 @@ or 15 (two octaves), but LilyPond allows any integer here."
  '())
 
 (ly:add-interface
+ 'finger-glide-interface
+ "The line between @code{Fingering} grobs indicating a glide with that finger.
+
+The property @code{style} may take the following symbols.
+
+@table @code
+@item line
+A simple connecting line.
+@item dashed-line
+Print a dashed line.  Customizable with settings for @code{dash-fraction} and
+@code{dash-period}.
+@item dotted-line
+Print a dotted line.
+@item stub-right
+The printed line is limited to a certain amount right before its right bound.
+This amount is configurable by a suitable setting for
+@code{bound-details.right.right-stub-length}.
+@item stub-left
+The printed line is limited to a certain amount right after its left bound.
+The amount is configurable by a suitable setting for
+@code{bound-details.right.left-stub-length}.
+@item stub-both
+The printed line combines the settings of @code{stub-left} and
+@code{stub-right}.
+@item zigzag
+A zigzag line, configurable with suitable settings for @code{zigzag-width} and
+@code{zigzag-length}.
+@item trill
+A trill style line.
+@item bow
+A bow style line.  The orientation of the bow may be tweaked with a suitable
+setting of @code{details.bow-direction}.
+@end table"
+
+ '(dash-fraction
+   dash-period
+   details
+   style
+   zigzag-length
+   zigzag-width))
+
+(ly:add-interface
  'finger-interface
  "A fingering instruction."
  '())

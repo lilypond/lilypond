@@ -237,6 +237,14 @@ duration stored in @code{duration}.")
         (types . (post-event fingering-event event))
         ))
 
+    (FingerGlideEvent
+     . ((description . "Initiate a line connecting two equal fingerings.
+This line represents a finger gliding on a string.
+
+Syntax: @var{note}@code{\\glide}@code{-}@var{finger}")
+        (types . (finger-glide-event post-event event))
+        ))
+
     (FootnoteEvent
      . ((description . "Footnote a grob.")
         (types . (event footnote-event))

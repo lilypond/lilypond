@@ -740,3 +740,125 @@ ignoring. If you want to bend an open string, consider to override/tweak the
                           supportNonIntegerFret))
    (description . "\
 Engraver to print a BendSpanner.")))
+
+(define-public Finger_glide_engraver
+  (lambda (context)
+    (let ((digit-glide-event '())
+          (glide-grobs '())
+          (glide-tweaks '()))
+      (make-engraver
+        (listeners
+          ((note-event this-engraver event)
+            (let* ((music-cause (ly:event-property event 'music-cause))
+                   (arts (ly:prob-property music-cause 'articulations))
+                   (digit #f)
+                   (tweaks #f)
+                   (glide #f))
+              ;; Find 'FingeringEvent and catch its 'digit.
+              ;; Find 'FingerGlideEvent and catch its 'tweaks.
+              (for-each
+                (lambda (art)
+                  (let* ((name (ly:prob-property art 'name)))
+                    (cond ((eq? name 'FingeringEvent)
+                           (set! digit (ly:prob-property art 'digit #f)))
+                          ((eq? name 'FingerGlideEvent)
+                           (set! tweaks (ly:prob-property art 'tweaks))
+                           (set! glide #t)))))
+                arts)
+              ;; Store found tweaks in local `glide-tweaks` with digit as key.
+              ;; This is needed in order not to confuse grobs and their tweaks,
+              ;; if this engraver is consisted in Staff context.
+              (if (pair? tweaks)
+                  (set! glide-tweaks (cons (cons digit tweaks) glide-tweaks)))
+              ;; Update local `digit-glide-event`, creating an alist with digit
+              ;; being the key
+              ;; - if glide is true, create a new entry in `digit-glide-event`
+              ;;   as (list digit glide event)
+              ;; - if glide is false, set the value for the key to ##f
+              (cond ((and digit glide)
+                      (set! digit-glide-event
+                            (cons (list digit glide event) digit-glide-event)))
+                    ((and glide (not digit))
+                      (ly:warning
+                        "No finger found to start a glide, ignoring."))
+                    ((and digit (not glide))
+                      (set! digit-glide-event
+                            (assoc-set! digit-glide-event digit glide)))))))
+        (acknowledgers
+          ((finger-interface this-engraver grob source-engraver)
+            (let* ((cause (ly:grob-property grob 'cause))
+                   (digit (ly:prob-property cause 'digit))
+                   (digit-glide-evt (assoc-get digit digit-glide-event))
+                   (new-glide-grob
+                     (if digit-glide-evt
+                         (ly:engraver-make-grob
+                           this-engraver
+                           'FingerGlideSpanner
+                           (last digit-glide-evt))
+                         #f))
+                   (tweaks (assoc-get digit glide-tweaks '())))
+              ;; Respect user tweaks
+              (if (ly:grob? new-glide-grob)
+                  (for-each
+                    (lambda (tweak)
+                      (if (pair? (car tweak))
+                          (let* ((key (cdar tweak)))
+                            (ly:grob-set-nested-property!
+                              new-glide-grob key (cdr tweak)))
+                          (ly:grob-set-property!
+                            new-glide-grob (car tweak) (cdr tweak))))
+                    tweaks))
+              ;; Update local `glide-tweaks`, setting the already done tweaks
+              ;; to an empty list for current digit
+              (set! glide-tweaks
+                    (assoc-set! glide-tweaks digit '()))
+              ;; Set right bound, select the grob via its digit from
+              ;; `glide-grobs`
+              (let* ((relevant-grob (assoc-get digit glide-grobs)))
+                (cond ((and digit-glide-evt relevant-grob)
+                        (ly:spanner-set-bound! relevant-grob RIGHT grob))
+                      ((and (not digit-glide-evt) relevant-grob)
+                        (begin
+                          (ly:spanner-set-bound! relevant-grob RIGHT grob)
+                          (ly:engraver-announce-end-grob
+                            this-engraver
+                            relevant-grob
+                            grob)
+                          (set! glide-grobs
+                                (assoc-set! glide-grobs digit #f))))))
+              ;; Set left bound and store the digit with the created grob as a
+              ;; pair in local `glide-grobs`
+              (if new-glide-grob
+                  (begin
+                    (set! glide-grobs
+                          (cons
+                            (cons digit new-glide-grob)
+                            glide-grobs))
+                    (ly:spanner-set-bound! new-glide-grob LEFT grob))))))
+        ((finalize this-engraver)
+           ;; Warn for a created grob without right bound, suicide the grob.
+           (for-each
+             (lambda (grob-entry)
+               (if (and
+                     (ly:grob? (cdr grob-entry))
+                     (not (ly:grob? (ly:spanner-bound (cdr grob-entry) RIGHT))))
+                   (begin
+                     (ly:warning
+                       "Missing target for ~a starting with finger ~a"
+                       (cdr grob-entry)
+                       (car grob-entry))
+                     (ly:grob-suicide! (cdr grob-entry)))))
+               glide-grobs)
+           ;; House keeping
+           (set! glide-grobs '())
+           (set! glide-tweaks '())
+           (set! digit-glide-event '()))))))
+
+(ly:register-translator
+ Finger_glide_engraver 'Finger_glide_engraver
+ '((grobs-created . (FingerGlideSpanner))
+   (events-accepted . (note-event))
+   (properties-read . ())
+   (properties-written . ())
+   (description . "\
+Engraver to print a line between two @code{Fingering} grobs.")))

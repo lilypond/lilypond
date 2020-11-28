@@ -1982,7 +1982,7 @@ Returns a list of the same length as the amount of bend-starting note heads."
             #:optional quarter-tones-diffs)
   "Calculates Y-coordinate of @var{bend-spanner}'s start/end in relation to the
 provided @var{tab-note-heads}.
-For style @code{'pre-bend} or @code{'pre-bend-hold} or if the bend does not 
+For style @code{'pre-bend} or @code{'pre-bend-hold} or if the bend does not
 point up the resulting value is offset to the top of the topmost note head.
 Some vertical padding is added, taken from @var{bend-spanner}'s @code{'details}
 sub-property @code{'vertical-padding}."
@@ -2879,6 +2879,142 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
           right-end
           left-Y)
          arrow-stil))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; finger glide spanner
+
+(define finger-glide::print
+  (lambda (grob)
+  "The stencil printing procedure for grob @code{FingerGlideSpanner}.
+Depending on the grob property @code{style} several forms of appearance are
+printed.
+Possible settings for grob property @code{style} are @code{zigzag},
+@code{trill}, @code{dashed-line}, @code{dotted-line}, @code{stub-left},
+@code{stub-right}, @code{stub-both}, @code{bow}, @code{none} and @code{line},
+which is the default."
+   (let* ((style (ly:grob-property grob 'style 'line)))
+     (if (eq? style 'line)
+         (ly:line-spanner::print grob)
+         (let* ((thick (ly:grob-property grob 'thickness 1))
+                (line-thick (ly:staff-symbol-line-thickness grob))
+                (left-bound-info
+                  (ly:grob-property grob 'left-bound-info))
+                (right-bound-info
+                  (ly:grob-property grob 'right-bound-info))
+                (left-padding (assoc-get 'padding left-bound-info 0.5))
+                (right-padding (assoc-get 'padding right-bound-info 0.5))
+                (left-bound (ly:spanner-bound grob LEFT))
+                (right-bound (ly:spanner-bound grob RIGHT))
+                (sys (ly:grob-system grob))
+                (left-coord
+                  (ly:grob-relative-coordinate left-bound sys X))
+                (X-left (assoc-get 'X left-bound-info))
+                (x-start (- X-left left-coord (- left-padding)))
+                (X-right (assoc-get 'X right-bound-info))
+                (x-end (- X-right left-coord (+ right-padding)))
+                (y-end (assoc-get 'Y right-bound-info))
+                (y-start
+                  (cond (;; TODO sufficient?
+                         (and (end-broken-spanner? grob) (eq? style 'bow))
+                           y-end)
+                         (else
+                           (assoc-get 'Y left-bound-info))))
+                (x-length (- x-end x-start))
+                (y-height (- y-end y-start))
+                (gradient-pair
+                  ;; We special case the last part of a broken
+                  ;; FingerGlideSpanner, because after a line break we want to
+                  ;; continue it at the height of its ending in the previous
+                  ;; line.
+                  ;; As it is very unlikely it crosses over three lines (and if
+                  ;; so, an error is issued anyway) we disregard this case.
+                  (if (end-broken-spanner? grob)
+                      ;; Thus we need to look at the extent ot the first part
+                      ;; of the broken spanner.
+                      ;; TODO find better method!
+                      (let* ((grob-layout (ly:grob-layout grob))
+                             (line-width
+                               (ly:output-def-lookup grob-layout 'line-width))
+                             ;; Get first sibling, its system and its x-extent
+                             (orig (ly:grob-original grob))
+                             (first-part (car (ly:spanner-broken-into orig)))
+                             (first-sys (ly:grob-system first-part))
+                             (first-part-x-ext
+                               (ly:grob-extent first-part first-sys X))
+                             ;; Calculate the width of first-part
+                             (first-x-length
+                               (-
+                                 line-width
+                                 (car first-part-x-ext)
+                                 left-padding
+                                 right-padding)))
+                        ;; return the gradient-x-y-pair of the first part of
+                        ;; the broken spanner
+                        (cons first-x-length y-height))
+                      ;; return the gradient-x-y-pair of the unbroken spanner
+                      (cons x-length y-height)))
+                ;; We calculate the length of the stubs in X-axis direction and
+                ;; use this value to draw the stub-lines below.
+                ;; This ensures a constant printed magnitude for all gradients
+                (left-info-stub-length
+                  (assoc-get 'left-stub-length left-bound-info 1))
+                (left-stub-x-y
+                  (ly:directed gradient-pair left-info-stub-length))
+                (right-info-stub-length
+                  (assoc-get 'right-stub-length right-bound-info 1))
+                (right-stub-x-y
+                  (ly:directed gradient-pair right-info-stub-length))
+                (left-stub-stil
+                  (if (and (grob::has-interface left-bound 'finger-interface)
+                           (member style '(stub-left stub-both)))
+                      (make-line-stencil
+                        (* line-thick thick)
+                        x-start
+                        y-start
+                        (+ x-start (car left-stub-x-y))
+                        (+ y-start (cdr left-stub-x-y)))
+                      empty-stencil))
+                (right-stub-stil
+                  (if (and (grob::has-interface right-bound 'finger-interface)
+                           (member style '(stub-right stub-both)))
+                      (make-line-stencil
+                        (* line-thick thick)
+                        (- x-end (car right-stub-x-y))
+                        (- y-end (cdr right-stub-x-y))
+                        x-end
+                        y-end)
+                      empty-stencil)))
+
+           (case style
+             ((stub-both)
+               (ly:stencil-add left-stub-stil right-stub-stil))
+             ((stub-left) left-stub-stil)
+             ((stub-right) right-stub-stil)
+             ((bow)
+                 (let* ((details (ly:grob-property grob 'details))
+                        ;; TODO find a more sufficient fall back
+                        (fall-back (if (negative? y-start) DOWN UP))
+                        ;; Go for direction modifiers, if used
+                        (cause (ly:grob-property grob 'cause))
+                        (dirs
+                          (filter-map
+                            (lambda (art)
+                              (ly:prob-property art 'direction #f))
+                            (ly:prob-property cause 'articulations)))
+                        (dir
+                          (if (and (pair? dirs) (ly:dir? (car dirs)))
+                              (car dirs)
+                              #f))
+                        (bow-direction
+                          (or (assoc-get 'bow-direction details)
+                              dir
+                              fall-back)))
+                 (make-tie-stencil
+                   (cons x-start y-start)
+                   (cons x-end y-end)
+                   (* line-thick thick)
+                   bow-direction)))
+             (else (ly:line-spanner::print grob))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro

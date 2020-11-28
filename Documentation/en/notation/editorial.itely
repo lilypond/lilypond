@@ -32,6 +32,7 @@ inside the staff.
 @menu
 * Selecting notation font size::
 * Fingering instructions::
+* Gliding fingers::
 * Hidden notes::
 * Coloring objects::
 * Parentheses::
@@ -408,6 +409,146 @@ Internals Reference:
 @rinternals{Fingering_engraver},
 @rinternals{New_fingering_engraver},
 @rinternals{Fingering}.
+
+
+@node Gliding fingers
+@unnumberedsubsubsec Gliding fingers
+
+@cindex fingering, glide
+@cindex gliding fingering
+@funindex glide
+@funindex \glide
+
+For stringed instruments a gliding finger is often indicated by a line
+connecting the same finger to be used for notes played at different positions on
+the same string.
+This line is initiated with @code{\\glide} entered before a @code{Fingering} and
+ends with the next occurence of the same finger.
+The line may be printed in various styles.
+
+@lilypond[verbatim,quote]
+mus = {
+  \set fingeringOrientations = #'(right)
+  <a'\glide-1>2.
+  \set fingeringOrientations = #'(left)
+  <d'-1>4
+}
+
+{
+  <>^"line"
+  \mus
+  <>^"stub-left"
+  \override FingerGlideSpanner.style = #'stub-left
+  \mus
+  <>^"stub-right"
+  \override FingerGlideSpanner.style = #'stub-right
+  \mus
+  <>^"stub-both"
+  \override FingerGlideSpanner.style = #'stub-both
+  \mus
+  <>^"dashed-line"
+  \override  FingerGlideSpanner.style = #'dashed-line
+  \mus
+  \break
+  <>^"dotted-line"
+  \override FingerGlideSpanner.style = #'dotted-line
+  \mus
+  <>^"bow"
+  \override FingerGlideSpanner.style = #'bow
+  \mus
+  <>^"trill"
+  \override FingerGlideSpanner.style = #'trill
+  \mus
+  <>^"zigzag"
+  \override FingerGlideSpanner.style = #'zigzag
+  \mus
+}
+@end lilypond
+
+If @code{style} is set to @code{'bow} the direction of the bow may be adjusted
+using direction modifiers.
+
+@lilypond[verbatim,quote]
+{
+  \override FingerGlideSpanner.style = #'bow
+  \set fingeringOrientations = #'(down)
+  <b\glide-1>4 <d'-1>
+  \set fingeringOrientations = #'(up)
+  <e''\glide-2> <c''-2>
+
+  \set fingeringOrientations = #'(down)
+  <b^\glide-1>4 <d'-1>
+  \set fingeringOrientations = #'(up)
+  <e''^\glide-2> <c''-2>
+
+  \set fingeringOrientations = #'(down)
+  <b_\glide-1>4 <d'-1>
+  \set fingeringOrientations = #'(up)
+  <e''_\glide-2> <c''-2>
+}
+@end lilypond
+
+If the @code{Finger_glide_engraver} is moved to @code{Staff} context
+@code{Fingering} grobs from different @code{Voice} contexts may be connected.
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff <<
+    \new Voice {
+      \voiceOne
+      \set fingeringOrientations = #'(right)
+      <e''-3>2
+      \set fingeringOrientations = #'(left)
+      <d''-\tweak bound-details.left.padding #2.5 \glide-2>
+      <c''-2>
+      \bar "||"
+    }
+    \new Voice {
+      \voiceTwo
+      \set fingeringOrientations = #'(right)
+      <c''\glide-2>
+      \set fingeringOrientations = #'(left)
+      <b'-\tweak bound-details.left.padding #2.5 \glide-4>
+      <a'-4>
+    }
+  >>
+  \layout {
+    ragged-right = ##f
+    \context {
+      \Voice
+      \remove "Finger_glide_engraver"
+    }
+    \context {
+      \Staff
+      \consists "Finger_glide_engraver"
+    }
+  }
+}
+@end lilypond
+
+@morerefs
+Notation Reference:
+@ref{Direction and placement}.
+
+Internals Reference:
+@rinternals{FingeringGlideEvent},
+@rinternals{fingering-glide-event},
+@rinternals{Finger_glide_engraver},
+@rinternals{finger-glide-interface},
+@rinternals{FingerGlideSpanner}.
+
+@knownissues
+Multiple glides with the same finger are not supported and lead to
+unexpected results.
+A workaround is to use different fingers and to use @code{\tweak text}.
+@lilypond[verbatim,quote]
+{
+    \clef "G_8"
+    <a\glide-1 cis'\glide-1>2 <bes-1 d'-1>
+    <a\glide-1 cis'\glide-\tweak text "1"-2>2
+    <bes-1 d'-\tweak text "1"-2>
+}
+@end lilypond
 
 
 @node Hidden notes

@@ -49,11 +49,13 @@
     (part-combine-event . (solo-one-event solo-two-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))
     (dynamic-event . (absolute-dynamic-event))
-    (span-event . (span-dynamic-event bend-span-event
-                   beam-event episema-event ligature-event
+    (span-event . (bend-span-event
+                   beam-event episema-event finger-glide-event
+                   ligature-event
                    measure-spanner-event
                    measure-counter-event pedal-event
                    phrasing-slur-event slur-event
+                   span-dynamic-event
                    staff-span-event text-span-event
                    trill-span-event tremolo-span-event
                    tuplet-span-event volta-span-event))

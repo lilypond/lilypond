@@ -262,6 +262,7 @@ multiple voices on the same staff."
   \consists "Dynamic_align_engraver"
   \consists "Fingering_engraver"
   \consists "Bend_engraver"
+  \consists "Finger_glide_engraver"
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
