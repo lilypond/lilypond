@@ -50,6 +50,14 @@ using std::set;
 using std::string;
 using std::vector;
 
+template<typename T>
+T const &
+boundary (std::vector<T> const &v, int dir, vsize i)
+{
+  assert (dir);
+  return v[dir == -1 ? i : v.size () - 1 - i];
+}
+
 void
 Tie_formatting_problem::print_ties_configuration (Ties_configuration const *ties)
 {

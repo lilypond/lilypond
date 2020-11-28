@@ -47,22 +47,6 @@ typedef size_t vsize;
 
 template<typename T>
 T const &
-boundary (std::vector<T> const &v, int dir, vsize i)
-{
-  assert (dir);
-  return v[dir == -1 ? i : v.size () - 1 - i];
-}
-
-template<typename T>
-T &
-boundary (std::vector<T> &v, int dir, vsize i)
-{
-  assert (dir);
-  return v[dir == -1 ? i : v.size () - 1 - i];
-}
-
-template<typename T>
-T const &
 back (std::vector<T> const &v, vsize i)
 {
   return v[v.size () - i - 1];
