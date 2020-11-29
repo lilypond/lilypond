@@ -599,7 +599,7 @@ sind, finden sich in @file{ly/paper-defaults-init.ly}.
 @item paper-width
 @funindex paper-width
 
-Die Breide der Seite, standardmäßig nicht definiert.  Während
+Die Breite der Seite, standardmäßig nicht definiert.  Während
 @code{paper-width} keine Auswirkungen auf die automatische
 Skalierung einiger horizontaler Dimensionen hat, beeinflusst es
 dennoch die @code{line-width}-Variable.  Wenn sowohl @code{paper-width}
@@ -610,9 +610,9 @@ als auch @code{line-width} definiert sind, dann werden auch
 @item line-width
 @funindex line-width
 
-Die horizontale Ausdehnung der Notenlinien in nicht-eingerückten,
-Systemen mit Ausgleich zum rechten Rand, entspricht
-@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
+Die horizontale Ausdehnung der Notenlinien in nicht eingerückten
+Systemen mit Ausgleich zum rechten Rand entspricht
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)},
 wenn nicht definiert.  Wenn @code{line-width} definiert ist und sowohl
 @code{left-margin} als auch @code{right-margin} nicht definiert sind, dann
 werden die Ränder aktualisiert, sodass die Systeme mittig auf der Seite

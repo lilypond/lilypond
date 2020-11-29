@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 40c8c21afe3d623ddd4b6a131dce9fe8409dc9e9
+%% Translation of GIT committish: 600367eb76cd3f1e69afd9e595dd9f018f654bac
   texidocfr = "
 En mode tablature, un @emph{hammer}, ou lié ascendant, peut se simuler à
 l'aide d'une liaison.
 
 "
-  doctitlefr = "Simulation d'un hammer en tablature"
+  doctitlefr = "Simulation d'un @emph{hammer} en tablature"
