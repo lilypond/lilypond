@@ -19,7 +19,6 @@
 
 #include "performer.hh"
 #include "audio-item.hh"
-#include "std-vector.hh"
 #include "stream-event.hh"
 #include "international.hh"
 

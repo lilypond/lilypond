@@ -23,6 +23,8 @@
 
 #include "engraver.hh"
 
+#include <vector>
+
 class Laissez_vibrer_engraver : public Engraver
 {
   Stream_event *event_;

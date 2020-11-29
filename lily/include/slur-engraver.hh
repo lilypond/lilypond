@@ -22,7 +22,9 @@
 #define SLUR_ENGRAVER_HH
 
 #include "engraver.hh"
+
 #include <map>
+#include <vector>
 
 class Slur_engraver : public Engraver
 {

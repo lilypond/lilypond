@@ -23,6 +23,8 @@
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 
+#include <vector>
+
 /**
    TODO: add linethickness as parameter.
 */

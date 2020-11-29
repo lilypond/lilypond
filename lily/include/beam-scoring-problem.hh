@@ -21,14 +21,14 @@
 #ifndef BEAM_SCORING_PROBLEM_HH
 #define BEAM_SCORING_PROBLEM_HH
 
-#include <memory>
-
 #include "beam.hh"
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
-#include "std-vector.hh"
 #include "stem-info.hh"
+
+#include <memory>
+#include <vector>
 
 enum Scorers
 {

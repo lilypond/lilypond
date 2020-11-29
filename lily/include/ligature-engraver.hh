@@ -23,6 +23,8 @@
 #include "engraver.hh"
 #include "moment.hh"
 
+#include <vector>
+
 class Ligature_engraver : public Engraver
 {
 protected:

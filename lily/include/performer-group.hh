@@ -24,6 +24,8 @@
 #include "performer.hh"
 #include "translator-group.hh"
 
+#include <vector>
+
 typedef void (Performer:: *Performer_method) (void);
 
 class Performer_group : public Translator_group

@@ -20,9 +20,10 @@
 #ifndef COLLISION_HH
 #define COLLISION_HH
 
-#include "std-vector.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
+
+#include <vector>
 
 /**
    Resolve conflicts between various Note_columns (chords).

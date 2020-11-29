@@ -20,7 +20,9 @@
 #ifndef MATRIX_HH
 #define MATRIX_HH
 
-#include "std-vector.hh"
+#include "flower-proto.hh"
+
+#include <vector>
 
 template<class T, class A = std::allocator<T> >
 class Matrix

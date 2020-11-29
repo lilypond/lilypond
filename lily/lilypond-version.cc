@@ -18,6 +18,7 @@
 */
 
 #include "lilypond-version.hh"
+#include "std-vector.hh"
 #include "string-convert.hh"
 #include "misc.hh"
 

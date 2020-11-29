@@ -22,9 +22,10 @@
 
 #include "lily-proto.hh"
 #include "rational.hh"
-#include "std-vector.hh"
 #include "grob-interface.hh"
 #include "spring.hh"
+
+#include <vector>
 
 class Spacing_spanner
 {

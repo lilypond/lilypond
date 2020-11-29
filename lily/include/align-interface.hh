@@ -21,8 +21,9 @@
 #define ALIGN_INTERFACE_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
 #include "grob-interface.hh"
+
+#include <vector>
 
 class Align_interface
 {

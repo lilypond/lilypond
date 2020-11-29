@@ -23,6 +23,8 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
+#include <vector>
+
 class Spring : public Simple_smob<Spring>
 {
 public:

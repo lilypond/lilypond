@@ -34,6 +34,7 @@
 #endif
 
 #include "file-name.hh"
+#include "std-vector.hh"
 #include "warn.hh"
 
 #ifndef PATHSEP

@@ -23,6 +23,8 @@
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
+#include <vector>
+
 class Accidental_placement
 {
 public:

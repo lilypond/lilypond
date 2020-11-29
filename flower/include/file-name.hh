@@ -20,7 +20,6 @@
 #ifndef FILE_NAME_HH
 #define FILE_NAME_HH
 
-#include "std-vector.hh"
 #include "std-string.hh"
 
 std::string dir_name (const std::string &file_name);

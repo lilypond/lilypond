@@ -19,7 +19,7 @@
 
 #include "global-ctor.hh"
 
-#include "std-vector.hh"
+#include <vector>
 
 using std::vector;
 
@@ -36,6 +36,6 @@ add_constructor (Global_ctor c)
 void
 call_constructors ()
 {
-  for (vsize i = 0; i < ctor_global_statics_->size (); i++)
-    (ctor_global_statics_->at (i)) ();
+  for (auto &ctor : *ctor_global_statics_)
+    ctor ();
 }

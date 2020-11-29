@@ -23,6 +23,8 @@
 #include "column-x-positions.hh"
 #include "music-output.hh"
 
+#include <vector>
+
 /* LAYOUT output */
 class Paper_score : public Music_output
 {

@@ -22,7 +22,8 @@
 
 #include "smobs.hh"
 #include "rational.hh"
-#include "std-vector.hh"
+
+#include <vector>
 
 class Scale : public Smob<Scale>
 {

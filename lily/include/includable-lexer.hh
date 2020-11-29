@@ -25,8 +25,9 @@
 #endif
 
 #include "std-string.hh"
-#include "std-vector.hh"
 #include "lily-proto.hh"
+
+#include <vector>
 
 /**
    an yyFlexLexer child with provisions for inclusion.

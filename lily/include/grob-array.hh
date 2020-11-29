@@ -22,7 +22,8 @@
 
 #include "lily-proto.hh"
 #include "smobs.hh"
-#include "std-vector.hh"
+
+#include <vector>
 
 class Grob_array : public Simple_smob<Grob_array>
 {

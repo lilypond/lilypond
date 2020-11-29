@@ -23,6 +23,8 @@
 #include "callback.hh"
 #include "translator.hh"
 
+#include <vector>
+
 class Translator_group : public Smob<Translator_group>
 {
 public:

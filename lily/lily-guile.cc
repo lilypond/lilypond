@@ -28,6 +28,7 @@
 #include "misc.hh"
 #include "offset.hh"
 #include "pitch.hh"
+#include "std-vector.hh"
 #include "string-convert.hh"
 #include "source-file.hh"
 #include "warn.hh"

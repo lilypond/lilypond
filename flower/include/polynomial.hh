@@ -24,10 +24,10 @@
 #ifndef POLY_H
 #define POLY_H
 
-#include <sys/types.h>
-#include "std-vector.hh"
 #include "arithmetic-operator.hh"
 #include "real.hh"
+
+#include <vector>
 
 /// structure for a polynomial in one var.
 struct Polynomial

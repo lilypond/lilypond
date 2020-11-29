@@ -22,6 +22,8 @@
 
 #include "page-breaking.hh"
 
+#include <vector>
+
 /*
   A dynamic programming solution to breaking pages
  */

@@ -28,6 +28,7 @@
 #include "lily-proto.hh"
 
 #include <set>
+#include <vector>
 
 class Grob : public Smob<Grob>, public Diagnostics
 {

@@ -22,6 +22,8 @@
 
 #include "skyline.hh"
 
+#include <vector>
+
 class Skyline_pair : public Simple_smob<Skyline_pair>
 {
 public:

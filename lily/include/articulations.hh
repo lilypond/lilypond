@@ -23,6 +23,8 @@
 #include "lily-guile.hh"
 #include "stream-event.hh"
 
+#include <vector>
+
 SCM articulation_list (std::vector<Stream_event *> notes,
                        std::vector<Stream_event *> articulations,
                        char const *articulation_name);

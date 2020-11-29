@@ -135,6 +135,7 @@ FIXME:
 #include "paper-book.hh"
 #include "scm-hash.hh"
 #include "score.hh"
+#include "std-vector.hh"
 #include "text-interface.hh"
 #include "warn.hh"
 #include "lily-imports.hh"

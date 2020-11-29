@@ -29,6 +29,7 @@
 #include <array>
 #include <map>
 #include <set>
+#include <vector>
 
 typedef std::map<std::array<int, 4>, Tie_configuration *> Tie_configuration_map;
 

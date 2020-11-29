@@ -27,7 +27,6 @@
 #include "input.hh"             // for error reporting
 #include "smobs.hh"
 #include "stream-event.hh"
-#include "std-vector.hh"
 #include "protected-scm.hh"
 
 // The Translator_creator class is only for translators defined in C.

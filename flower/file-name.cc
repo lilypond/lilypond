@@ -19,6 +19,7 @@
 */
 
 #include "file-name.hh"
+#include "std-vector.hh"
 
 #include <cstdio>
 #include <cerrno>

@@ -22,8 +22,9 @@
 
 #include "direction.hh"
 #include "interval.hh"
-#include "std-vector.hh"
 #include "lily-proto.hh"
+
+#include <vector>
 
 class Tie_configuration
 {

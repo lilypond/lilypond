@@ -20,8 +20,9 @@
 #ifndef PAGE_SPACING_RESULT_HH
 #define PAGE_SPACING_RESULT_HH
 
-#include "std-vector.hh"
 #include "lily-proto.hh"
+
+#include <vector>
 
 // This enum is a bitfield: since we use one System_count_status
 // to represent the system count of several pages simultaneously,

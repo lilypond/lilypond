@@ -29,6 +29,7 @@
 #include "misc.hh"
 #include "program-option.hh"
 #include "relocate.hh"
+#include "std-vector.hh"
 #include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"

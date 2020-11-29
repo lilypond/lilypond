@@ -22,6 +22,8 @@
 
 #include "engraver-group.hh"
 
+#include <vector>
+
 class Score_engraver : public Engraver_group
 {
   System *system_;

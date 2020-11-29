@@ -22,7 +22,8 @@
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
-#include "std-vector.hh"
+
+#include <vector>
 
 struct Bracket
 {

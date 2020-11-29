@@ -20,8 +20,9 @@
 #ifndef COLUMN_X_POSITIONS_HH
 #define COLUMN_X_POSITIONS_HH
 
-#include "std-vector.hh"
 #include "lily-proto.hh"
+
+#include <vector>
 
 class Paper_column;
 

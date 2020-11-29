@@ -22,7 +22,9 @@
 
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
-#include "std-vector.hh"
+
+#include <string>
+#include <vector>
 
 /**
    timed MIDI event

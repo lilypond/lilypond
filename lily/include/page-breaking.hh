@@ -23,6 +23,8 @@
 #include "constrained-breaking.hh"
 #include "page-spacing.hh"
 
+#include <vector>
+
 /* Either a paper-score, markup or header.
  */
 struct System_spec

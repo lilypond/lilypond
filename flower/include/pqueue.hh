@@ -19,7 +19,11 @@
 
 #ifndef PQUEUE_HH
 #define PQUEUE_HH
-#include "std-vector.hh"
+
+#include "flower-proto.hh"
+
+#include <cassert>
+#include <vector>
 
 template<class K, class T>
 struct PQueue_ent

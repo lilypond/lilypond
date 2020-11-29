@@ -23,6 +23,8 @@
 #include "constrained-breaking.hh"
 #include "page-spacing-result.hh"
 
+#include <vector>
+
 /* This is a penalty that we add whenever a page breaking solution
    is not bad enough to completely discard, but bad enough that
    it is worse than any "proper" solution. For example, if we didn't

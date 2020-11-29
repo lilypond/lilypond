@@ -20,7 +20,6 @@
 #ifndef MUSIC_ITERATOR_HH
 #define MUSIC_ITERATOR_HH
 
-#include "std-vector.hh"
 #include "diagnostics.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"

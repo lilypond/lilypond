@@ -19,11 +19,12 @@
 
 #include "warn.hh"
 
+#include "international.hh"
+
 #include <cstdlib>
 #include <cstdio>
-
-#include "std-vector.hh"
-#include "international.hh"
+#include <string>
+#include <vector>
 
 using std::string;
 using std::vector;

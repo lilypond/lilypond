@@ -22,6 +22,8 @@
 #include "offset.hh"
 #include "warn.hh"
 
+#include <vector>
+
 using std::string;
 using std::vector;
 

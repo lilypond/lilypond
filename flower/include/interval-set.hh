@@ -20,8 +20,9 @@
 #ifndef INTERVAL_SET_HH
 #define INTERVAL_SET_HH
 
-#include "std-vector.hh"
 #include "interval.hh"
+
+#include <vector>
 
 class Interval_set
 {

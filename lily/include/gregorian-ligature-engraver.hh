@@ -21,6 +21,8 @@
 
 #include "coherent-ligature-engraver.hh"
 
+#include <vector>
+
 class Gregorian_ligature_engraver : public Coherent_ligature_engraver
 {
   Stream_event *pes_or_flexa_req_;

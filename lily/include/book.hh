@@ -21,7 +21,6 @@
 #define BOOK_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
 #include "std-string.hh"
 #include "virtual-methods.hh"
 #include "smobs.hh"

@@ -21,7 +21,6 @@
 #define MEASURE_SPANNER_HH
 
 #include "lily-proto.hh"
-//#include "std-vector.hh"
 #include "grob-interface.hh"
 
 struct Measure_spanner

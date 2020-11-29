@@ -20,13 +20,14 @@
 #ifndef SYSTEM_HH
 #define SYSTEM_HH
 
-#include <cstdint>
-#include <limits>
-
 #include "column-x-positions.hh"
 #include "paper-column.hh"
 #include "spanner.hh"
 #include "skyline.hh"
+
+#include <cstdint>
+#include <limits>
+#include <vector>
 
 /*
   If you keep following offset reference points, you will always end

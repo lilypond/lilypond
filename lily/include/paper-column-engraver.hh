@@ -24,6 +24,8 @@
 #include "moment.hh"
 #include "stream-event.hh"
 
+#include <vector>
+
 class Paper_column_engraver : public Engraver
 {
   void make_columns ();

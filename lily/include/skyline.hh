@@ -25,7 +25,6 @@
 #include "box.hh"
 #include "interval.hh"
 #include "direction.hh"
-#include "std-vector.hh"
 #include "smobs.hh"
 
 #include <vector>

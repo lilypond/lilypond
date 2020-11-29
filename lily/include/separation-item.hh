@@ -25,6 +25,8 @@
 #include "grob-interface.hh"
 #include "skyline.hh"
 
+#include <vector>
+
 struct Separation_item
 {
   DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM));

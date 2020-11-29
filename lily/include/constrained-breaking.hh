@@ -24,6 +24,8 @@
 #include "matrix.hh"
 #include "prob.hh"
 
+#include <vector>
+
 class Paper_column;
 
 /*

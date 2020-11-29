@@ -20,9 +20,10 @@
 #ifndef BEAMING_PATTERN_HH
 #define BEAMING_PATTERN_HH
 
-#include "std-vector.hh"
 #include "moment.hh"
 #include "lily-proto.hh"
+
+#include <vector>
 
 struct Beaming_options
 {

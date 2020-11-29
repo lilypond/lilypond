@@ -20,29 +20,7 @@
 #ifndef STD_VECTOR_HH
 #define STD_VECTOR_HH
 
-#if 0
-
-/*
-  leads to dubious crashes - libstdc++  bug?
-*/
-#ifdef DEBUG
-#define _GLIBCXX_DEBUG 1
-#endif
-#endif
-
-#include <algorithm>   /* find, reverse, sort */
-#include <functional>  /* unary_function */
-#include <cassert>
 #include <string>
-
-#include "compare.hh"
-
-#ifndef VSIZE
-#define VSIZE
-typedef size_t vsize;
-#define VPOS ((vsize) -1)
-#endif
-
 #include <vector>
 
 std::vector<std::string> string_split (std::string str, char c);

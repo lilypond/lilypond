@@ -21,7 +21,8 @@
 #define DOT_FORMATTING_PROBLEM_HH
 
 #include "skyline.hh"
-#include "std-vector.hh"
+
+#include <vector>
 
 class Dot_formatting_problem
 {

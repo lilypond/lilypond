@@ -20,11 +20,11 @@
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
 
-#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
 
 #include <iostream>
+#include <vector>
 
 // Keeps an input file in memory. All locations (for error reporting)
 // directly point into the data kept here.

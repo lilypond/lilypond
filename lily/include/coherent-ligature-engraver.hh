@@ -21,6 +21,8 @@
 
 #include "ligature-engraver.hh"
 
+#include <vector>
+
 class Coherent_ligature_engraver : public Ligature_engraver
 {
 public:

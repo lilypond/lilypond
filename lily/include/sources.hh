@@ -21,7 +21,9 @@
 #define SOURCES_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
+
+#include <string>
+#include <vector>
 
 /** holds a list of Source_files, which are assumed to be protected
     objects. On destruction, unprotect the objects.

@@ -25,6 +25,8 @@
 #include "offset.hh"
 #include "polynomial.hh"
 
+#include <vector>
+
 /**
    Simple bezier curve
 */

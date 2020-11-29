@@ -21,12 +21,13 @@
 #define CONTEXT_DEF_HH
 
 #include "acceptance-set.hh"
-#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
 #include "input.hh"
 #include "virtual-methods.hh"
+
 #include <set>
+#include <vector>
 
 /*
   The definition of an interpretation context as given in the

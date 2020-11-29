@@ -20,8 +20,10 @@
 #ifndef FILE_PATH_HH
 #define FILE_PATH_HH
 
-#include "std-vector.hh"
 #include "std-string.hh"
+
+#include <string>
+#include <vector>
 
 /**
    A list of directories to look for files, analogous to $PATH.

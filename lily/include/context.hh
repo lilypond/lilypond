@@ -27,8 +27,9 @@
 #include "lily-proto.hh"
 #include "moment.hh"
 #include "scm-hash.hh"
-#include "std-vector.hh"
 #include "virtual-methods.hh"
+
+#include <vector>
 
 class Context : public Smob<Context>
 {

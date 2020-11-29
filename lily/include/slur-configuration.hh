@@ -20,11 +20,11 @@
 #ifndef SLUR_CONFIGURATION_HH
 #define SLUR_CONFIGURATION_HH
 
-#include <memory>
-
 #include "bezier.hh"
 #include "lily-proto.hh"
-#include "std-vector.hh"
+
+#include <memory>
+#include <vector>
 
 /* A candidate position for a slur. */
 class Slur_configuration

@@ -22,9 +22,10 @@
 
 #include "lily-proto.hh"
 #include "callback.hh"
-#include "std-vector.hh"
 #include "smobs.hh"
 #include "translator.hh"
+
+#include <vector>
 
 class Engraver_dispatch_list : public Simple_smob<Engraver_dispatch_list>
 {

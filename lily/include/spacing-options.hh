@@ -22,7 +22,6 @@
 
 #include "lily-proto.hh"
 #include "rational.hh"
-#include "std-vector.hh"
 
 /*
   Various options for spacing. Usually inited from SpacingSpanner, but sometimes

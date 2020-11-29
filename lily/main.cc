@@ -48,6 +48,7 @@
 #include "output-def.hh"
 #include "program-option.hh"
 #include "relocate.hh"
+#include "std-vector.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"

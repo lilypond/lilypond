@@ -23,6 +23,8 @@
 #include "engraver.hh"
 #include "translator-group.hh"
 
+#include <vector>
+
 class Announce_grob_info : public Grob_info
 {
   Direction start_end_;

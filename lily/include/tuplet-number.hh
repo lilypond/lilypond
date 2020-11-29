@@ -21,8 +21,9 @@
 #define Tuplet_number_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
 #include "grob-interface.hh"
+
+#include <vector>
 
 struct Tuplet_number
 {

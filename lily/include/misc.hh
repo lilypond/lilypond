@@ -22,7 +22,6 @@
 
 #include <cstdlib>
 
-#include "std-vector.hh"
 #include "interval.hh"
 
 double log_2 (double x);

@@ -16,11 +16,14 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "grob-interface.hh"
-#include "lily-proto.hh"
 
 #ifndef SPACING_INTERFACE_HH
 #define SPACING_INTERFACE_HH
+
+#include "grob-interface.hh"
+#include "lily-proto.hh"
+
+#include <vector>
 
 struct Spacing_interface
 {

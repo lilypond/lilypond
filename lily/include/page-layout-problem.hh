@@ -24,6 +24,8 @@
 #include "skyline.hh"
 #include "stencil.hh"
 
+#include <vector>
+
 class Page_layout_problem
 {
 public:

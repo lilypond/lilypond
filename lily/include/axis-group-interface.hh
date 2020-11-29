@@ -20,10 +20,11 @@
 #ifndef AXIS_GROUP_INTERFACE_HH
 #define AXIS_GROUP_INTERFACE_HH
 
-#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 #include "skyline.hh"
+
+#include <vector>
 
 class Axis_group_interface
 {

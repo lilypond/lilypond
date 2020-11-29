@@ -19,8 +19,10 @@
 
 #ifndef LEASTSQUARE_HH
 #define LEASTSQUARE_HH
-#include "std-vector.hh"
+
 #include "offset.hh"
+
+#include <vector>
 
 /**
    Least squares minimisation in 2 variables.

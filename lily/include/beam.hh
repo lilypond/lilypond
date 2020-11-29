@@ -22,9 +22,10 @@
 #define BEAM_HH
 
 #include "grob-interface.hh"
-#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "stem-info.hh"
+
+#include <vector>
 
 struct Beam_segment
 {

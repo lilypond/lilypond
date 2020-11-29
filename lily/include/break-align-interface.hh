@@ -23,6 +23,8 @@
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
+#include <vector>
+
 class Break_alignment_interface
 {
 public:

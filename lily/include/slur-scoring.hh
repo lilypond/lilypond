@@ -20,12 +20,12 @@
 #ifndef SLUR_SCORING_HH
 #define SLUR_SCORING_HH
 
-#include <memory>
-
 #include "box.hh"
-#include "std-vector.hh"
 #include "lily-guile.hh"
 #include "slur-score-parameters.hh"
+
+#include <memory>
+#include <vector>
 
 /* potential collisions with non-notes.
  */
