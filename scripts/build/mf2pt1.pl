@@ -5,7 +5,7 @@
 
 ########################################################################
 # mf2pt1                                                               #
-# Copyright (C) 2012 Scott Pakin                                       #
+# Copyright (C) 2005-2020 Scott Pakin                                  #
 #                                                                      #
 # This program may be distributed and/or modified under the conditions #
 # of the LaTeX Project Public License, either version 1.3c of this     #
@@ -19,7 +19,7 @@
 # version 2006/05/20 or later.                                         #
 ########################################################################
 
-our $VERSION = "2.5";     # mf2pt1 version number
+our $VERSION = "2.6";     # mf2pt1 version number
 require 5.6.1;            # I haven't tested mf2pt1 with older Perl versions
 
 use File::Basename;
@@ -158,7 +158,7 @@ my $filedir;
 my $filenoext;
 my $versionmsg = "mf2pt1 version $VERSION
 
-Copyright (C) 2012 Scott Pakin
+Copyright (C) 2005-2020 Scott Pakin
 
 This program may be distributed and/or modified under the conditions
 of the LaTeX Project Public License, either version 1.3c of this
@@ -402,11 +402,11 @@ ENDHEADER
     }
 
     # Show the final boilerplate.
+    print OUTFILE "/UniqueID $uniqueID def\n" if defined $uniqueID;
     print OUTFILE <<"ENDHEADER";
 /PaintType 0 def
 /FontType 1 def
 /FontMatrix [0.001 0 0 0.001 0 0] readonly def
-/UniqueID $uniqueID def
 /FontBBox{@fontbbox}readonly def
 currentdict end
 currentfile eexec
@@ -792,13 +792,14 @@ if ($rounding<=0.0 || $rounding>1.0) {
     die sprintf "%s: Invalid rounding amount \"%g\"; value must be a positive number no greater than 1.0\n", $progname, $rounding;
 }
 
-# Ensure that every user-definable parameter is assigned a value.
+# Ensure that every user-definable parameter is assigned a value.  The only
+# exception is the unique ID, as Adobe no longer recommends specifying one.
 assign_default $fontversion, $opthash{fontversion}, "001.000";
 assign_default $creationdate, scalar localtime;
 assign_default $comment, $opthash{comment}, "Font converted to Type 1 by mf2pt1, written by Scott Pakin.";
 assign_default $weight, $opthash{weight}, "Medium";
 assign_default $fixedpitch, $opthash{fixedpitch}, 0;
-assign_default $uniqueID, $opthash{uniqueid}, int(rand(1000000)) + 4000000;
+assign_default $uniqueID, $opthash{uniqueid};
 assign_default $designsize, $opthash{designsize};
 die "${progname}: a design size must be specified in $mffile or on the command line\n" if !defined $designsize;
 die "${progname}: the design size must be a positive number\n" if $designsize<=0.0;
@@ -856,11 +857,11 @@ mf2pt1 is using the following font parameters:
     font_underline_position:   $underlinepos
     font_underline_thickness:  $underlinethick
     font_name:                 $fontname
-    font_unique_id:            $uniqueID
     font_size:                 $designsize (bp)
     font_coding_scheme:        $encoding_name
 PARAMVALUES
     ;
+print "    font_unique_id:            $uniqueID\n" if defined $uniqueID;
 print "\n";
 
 # Scale by a factor of 1000/design size.

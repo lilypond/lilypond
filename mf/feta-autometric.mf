@@ -180,7 +180,6 @@ def set_char_box (expr b_sharp, w_sharp, d_sharp, h_sharp) =
                "font_comment",
                "font_family",
                "font_weight",
-               "font_unique_id",
                "font_name":
       if known scantokens (fvar & "_"):
         special "% MF2PT1: "

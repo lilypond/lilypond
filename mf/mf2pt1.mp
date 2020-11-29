@@ -10,7 +10,7 @@
 
 %%%% ==================================================================== %%%%
 %%%% mf2pt1                                                               %%%%
-%%%% Copyright (C) 2012 Scott Pakin                                       %%%%
+%%%% Copyright (C) 2005-2020 Scott Pakin                                  %%%%
 %%%%                                                                      %%%%
 %%%% This program may be distributed and/or modified under the conditions %%%%
 %%%% of the LaTeX Project Public License, either version 1.3c of this     %%%%
