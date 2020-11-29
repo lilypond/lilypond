@@ -79,7 +79,7 @@ from mapping subexpressions of music that does not satisfy
         (if (ly:music? e)
             (set! (ly:music-property music 'element)
                   (music-selective-map descend? function e)))))
-      (function music))
+  (recompute-music-length (function music)))
 
 (define-public (music-map function music)
   "Apply @var{function} to @var{music} and all of the music it contains.
@@ -119,7 +119,9 @@ First it recurses over the children, then the function is applied to
                   (and (null? filtered-es)
                        (not (ly:music? filtered-e))
                        (ly:music? e)))
-              (set! music '()))))
+              (set! music '()))
+          (if (ly:music? music)
+              (recompute-music-length music))))
     music)
 
   (set! music (inner-music-filter music))
@@ -1383,6 +1385,13 @@ set to the @code{location} parameter."
 (define (precompute-music-length music)
   (set! (ly:music-property music 'length)
         (ly:music-length music))
+  music)
+
+(define (recompute-music-length music)
+  (let ((length-callback (ly:music-property music 'length-callback)))
+    (if (procedure? length-callback)
+        (set! (ly:music-property music 'length)
+              (length-callback music))))
   music)
 
 (define-public (make-duration-of-length moment)

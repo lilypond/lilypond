@@ -751,13 +751,11 @@ played) out.")
 
     (UnfoldedSpeccedMusic
      . ((description . "Music that appears once repeated music is unfolded.")
-        ;; We do not construct a music-wrapper-iterator because we
-        ;; never want to iterate music that is thus wrapped.  If
+        ;; We never want to iterate music that is thus wrapped.  If
         ;; repeats are unfolded, this wrapper is removed and the
         ;; unwrapped music is iterated according to its type.
         (iterator-ctor . ,ly:music-iterator::constructor)
-        (length-callback . ,ly:music-wrapper::length-callback)
-        (start-callback . ,ly:music-wrapper::start-callback)
+        (length . ,ZERO-MOMENT)
         (types . (unfolded-specification music-wrapper-music))
         ))
 
