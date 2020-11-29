@@ -141,7 +141,8 @@ Midi_track::data_string () const
 
 Midi_track::~Midi_track ()
 {
-  junk_pointers (events_);
+  for (auto *event : events_)
+    delete event;
 }
 
 /****************************************************************

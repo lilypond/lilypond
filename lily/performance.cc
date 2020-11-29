@@ -49,7 +49,8 @@ Performance::Performance (bool ports)
 
 Performance::~Performance ()
 {
-  junk_pointers (audio_elements_);
+  for (auto *element : audio_elements_)
+    delete element;
 }
 
 void

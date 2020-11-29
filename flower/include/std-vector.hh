@@ -45,24 +45,6 @@ typedef size_t vsize;
 
 #include <vector>
 
-template<typename T> struct del : public std::unary_function<T, void>
-{
-  void operator () (T x)
-  {
-    delete x;
-    x = 0;
-  }
-};
-
-template<typename T>
-void
-junk_pointers (std::vector<T> &v)
-{
-  // Hmm.
-  for_each (v.begin (), v.end (), del<T> ());
-  v.clear ();
-}
-
 std::vector<std::string> string_split (std::string str, char c);
 std::string string_join (std::vector<std::string> const &strs, const std::string &infix);
 

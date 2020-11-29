@@ -69,7 +69,8 @@ Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track, int start
 
 Midi_walker::~Midi_walker ()
 {
-  junk_pointers (midi_events_);
+  for (auto *event : midi_events_)
+    delete event;
 }
 
 void
