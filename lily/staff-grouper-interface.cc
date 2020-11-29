@@ -23,7 +23,7 @@
 #include "page-layout-problem.hh"
 #include "pointer-group-interface.hh"
 
-using std::vector;
+#include <algorithm>
 
 // Find the furthest staff in the given direction whose x-extent overlaps with
 // the given interval.
@@ -63,8 +63,7 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pu
 {
   extract_grob_set (me, "elements", elts);
 
-  vector<Grob *>::const_iterator i = find (elts, child);
-
+  auto i = std::find (elts.begin (), elts.end (), child);
   if (i == elts.end ())
     return false;
 

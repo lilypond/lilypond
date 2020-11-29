@@ -47,25 +47,9 @@ typedef size_t vsize;
 
 template<typename T>
 void
-reverse (std::vector<T> &v)
-{
-  // CHECKME: for a simple vector, like std::vector<int>, this should
-  // expand to memrev.
-  reverse (v.begin (), v.end ());
-}
-
-template<typename T>
-void
 uniq (std::vector<T> &v)
 {
   v.erase (unique (v.begin (), v.end ()), v.end ());
-}
-
-template<typename T>
-typename std::vector<T>::const_iterator
-find (std::vector<T> const &v, T const &key)
-{
-  return find (v.begin (), v.end (), key);
 }
 
 template<typename T> struct del : public std::unary_function<T, void>

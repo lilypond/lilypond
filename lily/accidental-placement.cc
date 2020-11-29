@@ -233,7 +233,7 @@ stagger_apes (vector<unique_ptr<Accidental_placement_entry>> *apes)
         }
     }
 
-  reverse (*apes);
+  std::reverse (apes->begin (), apes->end ());
 }
 
 static vector<unique_ptr<Accidental_placement_entry>>

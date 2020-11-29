@@ -29,6 +29,9 @@
 #include "system.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::string;
 using std::vector;
 
@@ -255,7 +258,7 @@ Page_turn_page_breaking::solve ()
       breaking.push_back (state_[i]);
       i = static_cast<int> (state_[i].prev_);
     }
-  reverse (breaking);
+  std::reverse (breaking.begin (), breaking.end ());
 
   message (_ ("Drawing systems..."));
   SCM systems = make_lines (&breaking);

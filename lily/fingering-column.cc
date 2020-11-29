@@ -138,7 +138,7 @@ Fingering_column::do_x_positioning (Grob *me)
   std::sort (fos.begin (), fos.end (), fingering_and_offset_less);
   Direction dir = get_grob_direction (fingerings[0]);
   if (dir == RIGHT)
-    reverse (fos);
+    std::reverse (fos.begin (), fos.end ());
 
   Real prev = infinity_f * dir;
   Real EPS = 1.0e-5;

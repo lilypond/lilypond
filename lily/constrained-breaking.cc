@@ -29,6 +29,9 @@
 #include "system.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 /*
@@ -200,7 +203,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
                   ret.push_back (space_line (prev_brk + start_brk, brk + start_brk));
                   brk = prev_brk;
                 }
-              reverse (ret);
+              std::reverse (ret.begin (), ret.end ());
               return ret;
             }
         }
@@ -291,7 +294,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
                   ret.push_back (st.at (brk, cur_sys).details_);
                   brk = prev_brk;
                 }
-              reverse (ret);
+              std::reverse (ret.begin (), ret.end ());
               return ret;
             }
         }

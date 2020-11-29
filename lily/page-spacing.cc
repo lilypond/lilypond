@@ -24,6 +24,9 @@
 #include "page-breaking.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 void
@@ -175,8 +178,8 @@ Page_spacer::solve ()
       system = cur.prev_;
     }
 
-  reverse (ret.force_);
-  reverse (ret.systems_per_page_);
+  std::reverse (ret.force_.begin (), ret.force_.end ());
+  std::reverse (ret.systems_per_page_.begin (), ret.systems_per_page_.end ());
   return ret;
 }
 

@@ -415,8 +415,8 @@ Note_collision_interface::calc_positioning_done (SCM smob)
       Grob *s = unsmob<Grob> (scm_caar (autos));
       Real amount = scm_to_double (scm_cdar (autos)) * wid;
 
-      vsize x = find (done, s) - done.begin ();
-      if (x == VPOS || x >= done.size ())
+      auto it = std::find (done.begin (), done.end (), s);
+      if (it == done.end ())
         {
           done.push_back (s);
           amounts.push_back (amount);
