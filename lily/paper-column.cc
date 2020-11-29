@@ -272,15 +272,14 @@ Paper_column::print (SCM p)
 
   Font_metric *musfont = Font_interface::get_default_font (me);
   SCM properties = Font_interface::text_font_alist_chain (me);
-  SCM scm_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                  properties,
-                                                  ly_string2scm (r));
-  SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                   properties,
-                                                   ly_string2scm (when));
-  Stencil t = *unsmob<Stencil> (scm_mol);
+  auto t = Text_interface::interpret_markup (me->layout (),
+                                             properties,
+                                             ly_string2scm (r));
+  auto when_mol = Text_interface::interpret_markup (me->layout (),
+                                                    properties,
+                                                    ly_string2scm (when));
   t.scale (1.2, 1.4);
-  t.add_at_edge (Y_AXIS, DOWN, *unsmob<Stencil> (when_mol), 0.1);
+  t.add_at_edge (Y_AXIS, DOWN, when_mol, 0.1);
   t.align_to (X_AXIS, LEFT);
   // compensate for font serifs and half letter-distance
   t.translate (Offset (-0.1, 0));
@@ -310,10 +309,12 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                   properties,
-                                                   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
-      auto number_stc = *unsmob<Stencil> (stil);
+      SCM number_markup
+        = ly_string2scm (String_convert::form_string ("%5.2lf",
+                                                      sp->distance ()));
+      auto number_stc = Text_interface::interpret_markup (me->layout (),
+                                                          properties,
+                                                          number_markup);
       number_stc.scale (1, 1.1);
       Real num_height = number_stc.extent (Y_AXIS).length ();
       Real num_len = number_stc.extent (X_AXIS).length ();
@@ -355,10 +356,11 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                   properties,
-                                                   ly_string2scm (String_convert::form_string ("%5.2lf", dist)));
-      auto number_stc = *unsmob<Stencil> (stil);
+      SCM number_markup
+        = ly_string2scm (String_convert::form_string ("%5.2lf", dist));
+      auto number_stc = Text_interface::interpret_markup (me->layout (),
+                                                          properties,
+                                                          number_markup);
       number_stc.scale (1, 1.1);
       Real num_height = number_stc.extent (Y_AXIS).length ();
       Real num_len = number_stc.extent (X_AXIS).length ();

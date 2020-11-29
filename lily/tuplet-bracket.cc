@@ -435,10 +435,9 @@ Tuplet_bracket::print (SCM smob)
                       if (Text_interface::is_markup (text))
                         {
                           auto &es = edge_stencils[d];
-                          SCM t
-                            = Text_interface::interpret_markup (pap->self_scm (),
-                                                                properties, text);
-                          es = *unsmob<Stencil> (t);
+                          es = Text_interface::interpret_markup (pap,
+                                                                 properties,
+                                                                 text);
                           es.translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
                         }
                     }

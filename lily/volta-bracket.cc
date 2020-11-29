@@ -102,9 +102,7 @@ Volta_bracket_interface::print (SCM smob)
     {
       SCM text = get_property (me, "text");
       SCM properties = me->get_property_alist_chain (SCM_EOL);
-      SCM snum = Text_interface::interpret_markup (layout->self_scm (),
-                                                   properties, text);
-      Stencil num = *unsmob<Stencil> (snum);
+      auto num = Text_interface::interpret_markup (layout, properties, text);
       num.align_to (Y_AXIS, UP);
       num.translate_axis (-0.5, Y_AXIS);
       total.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()

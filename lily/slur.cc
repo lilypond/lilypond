@@ -182,9 +182,9 @@ Slur::print (SCM smob)
         properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), to_scm (-6), SCM_EOL),
                                properties);
 
-      Stencil tm = *unsmob<Stencil> (Text_interface::interpret_markup
-                                     (me->layout ()->self_scm (), properties,
-                                      annotation));
+      auto tm = Text_interface::interpret_markup (me->layout (),
+                                                  properties,
+                                                  annotation);
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
 

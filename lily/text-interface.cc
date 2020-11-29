@@ -216,6 +216,25 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,
 SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
+  auto *layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
+
+  return internal_interpret_markup (layout, props, markup);
+}
+
+Stencil
+Text_interface::interpret_markup (Output_def *layout, SCM props, SCM markup)
+{
+  Stencil result;
+  SCM st_scm = internal_interpret_markup (layout, props, markup);
+  if (auto *st = unsmob<const Stencil> (st_scm))
+    result = *st;
+  return result;
+}
+
+SCM
+Text_interface::internal_interpret_markup (Output_def *layout,
+                                           SCM props, SCM markup)
+{
   if (scm_is_string (markup))
     {
       /*
@@ -226,7 +245,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       if (scm_is_true (scm_string_null_p (markup)))
         return Stencil ().smobbed_copy ();
       else
-        return interpret_string (layout_smob, props, markup);
+        return interpret_string (to_scm (layout), props, markup);
     }
   else if (is_markup (markup))
     {
@@ -255,7 +274,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
           return Stencil ().smobbed_copy ();
         }
 
-      SCM retval = scm_apply_2 (func, layout_smob, props, args);
+      SCM retval = scm_apply_2 (func, to_scm (layout), props, args);
       scm_dynwind_end ();
       return retval;
     }
@@ -274,8 +293,24 @@ MAKE_SCHEME_CALLBACK (Text_interface, print, 1);
 SCM
 Text_interface::print (SCM grob)
 {
-  Grob *me = unsmob<Grob> (grob);
+  auto *me = LY_ASSERT_SMOB (Grob, grob, 1);
 
+  return internal_print (me);
+}
+
+Stencil
+Text_interface::print (Grob *me)
+{
+  Stencil result;
+  SCM st_scm = internal_print (me);
+  if (auto *st = unsmob<const Stencil> (st_scm))
+    result = *st;
+  return result;
+}
+
+SCM
+Text_interface::internal_print (Grob *me)
+{
   SCM t = get_property (me, "text");
   SCM chain = Font_interface::text_font_alist_chain (me);
   return interpret_markup (me->layout ()->self_scm (), chain, t);

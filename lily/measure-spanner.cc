@@ -94,9 +94,7 @@ Measure_spanner::print (SCM smob)
     {
       Output_def *pap = me->layout ();
       SCM properties = Font_interface::text_font_alist_chain (me);
-      SCM t = Text_interface::interpret_markup (pap->self_scm (),
-                                                properties, txt);
-      bracket_text = *unsmob<Stencil> (t);
+      bracket_text = Text_interface::interpret_markup (pap, properties, txt);
       bracket_text.align_to (X_AXIS, CENTER);
       Interval stil_Y_ext = bracket_text.extent (Y_AXIS);
       bracket_text.translate_axis ((x_points[RIGHT] - x_points[LEFT]) / 2.0, X_AXIS);

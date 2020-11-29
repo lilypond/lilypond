@@ -762,8 +762,8 @@ Beam::print (SCM grob)
 
       Direction stem_dir = stems.size () ? from_scm<Direction> (get_property (stems[0], "direction")) : UP;
 
-      Stencil score = *unsmob<Stencil> (Text_interface::interpret_markup
-                                        (me->layout ()->self_scm (), properties, annotation));
+      auto score = Text_interface::interpret_markup (me->layout (),
+                                                     properties, annotation);
 
       if (!score.is_empty ())
         {

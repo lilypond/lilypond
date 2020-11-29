@@ -122,11 +122,7 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
 
   SCM bt = get_property (me, "text");
   SCM chain = Font_interface::text_font_alist_chain (me);
-  SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                  chain, bt);
-
-  // Copy the stencil to avoid modifying the data shared with Scheme.
-  Stencil text_stil = *unsmob<Stencil> (stencil);
+  auto text_stil = Text_interface::interpret_markup (me->layout (), chain, bt);
 
   Offset z1;
 

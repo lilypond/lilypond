@@ -28,10 +28,19 @@ class Text_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  static Stencil print (Grob *);
+
   DECLARE_SCHEME_CALLBACK (interpret_markup, (SCM, SCM, SCM));
+  static Stencil interpret_markup (Output_def *layout, SCM props, SCM markup);
+
   DECLARE_SCHEME_CALLBACK (interpret_string, (SCM, SCM, SCM));
+
   static bool is_markup (SCM);
   static bool is_markup_list (SCM);
+
+private:
+  static SCM internal_interpret_markup (Output_def *, SCM, SCM);
+  static SCM internal_print (Grob *);
 };
 
 #endif /* TEXT_ITEM */

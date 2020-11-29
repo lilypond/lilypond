@@ -242,10 +242,9 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
 
               SCM props = Lily::layout_extract_page_properties (paper->self_scm ());
 
-              SCM footnote_stl = Text_interface::interpret_markup (paper->self_scm (),
-                                                                   props, footnote_markup);
-
-              Stencil footnote_stencil = *unsmob<Stencil> (footnote_stl);
+              auto footnote_stencil
+                = Text_interface::interpret_markup (paper, props,
+                                                    footnote_markup);
               bool do_numbering = from_scm<bool> (get_property (footnote, "automatically-numbered"));
               if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                 {
@@ -296,7 +295,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
             {
               Stencil footnote_stencil = *unsmob<Stencil> (scm_caddar (st));
               bool do_numbering = from_scm<bool> (scm_cadar (st));
-              SCM in_text_stencil = Stencil ().smobbed_copy ();
+              SCM in_text_stencil = SCM_EOL;
               if (do_numbering)
                 {
                   Stencil annotation = *unsmob<Stencil> (scm_car (numbers));
@@ -313,6 +312,10 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
                   footnote_stencil.add_at_edge (X_AXIS, LEFT, annotation, 0.0);
                   numbers = scm_cdr (numbers);
                   in_text_numbers = scm_cdr (in_text_numbers);
+                }
+              else
+                {
+                  in_text_stencil = Stencil ().smobbed_copy ();
                 }
               number_footnote_table = scm_cons (scm_cons (scm_caar (st),
                                                           in_text_stencil),
@@ -338,12 +341,7 @@ Page_layout_problem::get_footnote_separator_stencil (Output_def *paper)
   if (!Text_interface::is_markup (markup))
     return Stencil ();
 
-  SCM footnote_stencil = Text_interface::interpret_markup (paper->self_scm (),
-                                                           props, markup);
-
-  Stencil *footnote_separator = unsmob<Stencil> (footnote_stencil);
-
-  return footnote_separator ? *footnote_separator : Stencil ();
+  return Text_interface::interpret_markup (paper, props, markup);
 }
 
 Stencil

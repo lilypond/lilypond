@@ -224,8 +224,7 @@ Tuplet_number::print (SCM smob)
       return SCM_EOL;
     }
 
-  SCM stc_scm = Text_interface::print (smob);
-  auto stc = *unsmob<Stencil> (stc_scm);
+  auto stc = Text_interface::print (me);
 
   stc.align_to (X_AXIS, CENTER);
   stc.align_to (Y_AXIS, CENTER);

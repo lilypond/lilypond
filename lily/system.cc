@@ -336,11 +336,9 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
       SCM props
         = Lily::layout_extract_page_properties (pscore_->layout ()->self_scm ());
 
-      SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
-                                                           props, footnote_markup);
-
-      Stencil *footnote_stencil = unsmob<Stencil> (footnote_stl);
-      out.push_back (footnote_stencil->extent (Y_AXIS).length ());
+      auto stencil = Text_interface::interpret_markup (pscore_->layout (),
+                                                       props, footnote_markup);
+      out.push_back (stencil.extent (Y_AXIS).length ());
     }
 
   return out;
