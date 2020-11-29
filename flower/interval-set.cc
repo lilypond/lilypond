@@ -19,6 +19,9 @@
 
 #include "interval-set.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 /*
@@ -39,7 +42,7 @@ Interval_set::Interval_set ()
 Interval_set
 Interval_set::interval_union (vector<Interval> ivs)
 {
-  vector_sort (ivs, Interval::left_less);
+  std::sort (ivs.begin (), ivs.end (), Interval::left_less);
 
   Interval_set ret;
 

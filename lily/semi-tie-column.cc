@@ -29,6 +29,9 @@
 #include "item.hh"
 #include "tie-formatting-problem.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 ADD_INTERFACE (Semi_tie_column,
@@ -55,7 +58,7 @@ Semi_tie_column::calc_positioning_done (SCM smob)
   extract_grob_set (me, "ties", lv_ro_ties);
   vector<Grob *> lv_ties (lv_ro_ties);
 
-  vector_sort (lv_ties, Semi_tie::less);
+  std::sort (lv_ties.begin (), lv_ties.end (), Semi_tie::less);
 
   Ties_configuration ties_config;
 

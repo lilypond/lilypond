@@ -35,7 +35,9 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#include <algorithm>
 #include <cmath> // ceil.
+#include <vector>
 
 using std::vector;
 
@@ -156,7 +158,8 @@ Rest_collision::calc_positioning_done (SCM smob)
         }
 
       for (LEFT_and_RIGHT (d))
-        vector_sort (ordered_rests[d], rest_shift_less);
+        std::sort (ordered_rests[d].begin (), ordered_rests[d].end (),
+                   rest_shift_less);
 
       for (LEFT_and_RIGHT (d))
         {

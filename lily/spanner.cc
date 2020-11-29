@@ -132,7 +132,7 @@ Spanner::do_break_processing ()
             }
         }
     }
-  vector_sort (broken_intos_, Spanner::less);
+  std::sort (broken_intos_.begin (), broken_intos_.end (), Spanner::less);
   for (vsize i = broken_intos_.size (); i--;)
     broken_intos_[i]->break_index_ = i;
 }

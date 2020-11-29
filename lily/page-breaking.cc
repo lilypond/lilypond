@@ -143,6 +143,10 @@
 #include "system.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <utility>
+#include <vector>
+
 using std::pair;
 using std::vector;
 
@@ -947,7 +951,7 @@ Page_breaking::set_current_breakpoints (vsize start,
 
           dems_and_indices.push_back (pair<Real, vsize> (dem, i));
         }
-      vector_sort (dems_and_indices, std::less<pair<Real, vsize> > ());
+      std::sort (dems_and_indices.begin (), dems_and_indices.end ());
 
       vector<Line_division> best_5_configurations;
       for (vsize i = 0; i < 5; i++)

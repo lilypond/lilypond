@@ -32,10 +32,12 @@
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <map>
 #include <set>
+#include <vector>
 
 using std::set;
 using std::vector;
@@ -150,7 +152,7 @@ Dot_column::calc_positioning_done (SCM smob)
     beams (dots are attached to rests, which are shifted to avoid beams),
     we instead must use their pure Y positions.
   */
-  vector_sort (dots, pure_position_less);
+  std::sort (dots.begin (), dots.end (), pure_position_less);
 
   SCM chord_dots_limit = get_property (me, "chord-dots-limit");
   if (scm_is_number (chord_dots_limit))

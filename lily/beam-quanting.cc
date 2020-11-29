@@ -49,6 +49,7 @@
 #include <memory>
 #include <queue>
 #include <set>
+#include <vector>
 
 using std::set;
 using std::string;
@@ -333,7 +334,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
         }
 
       segments_ = Beam::get_beam_segments (beams[i]);
-      vector_sort (segments_, beam_segment_less);
+      std::sort (segments_.begin (), segments_.end (), beam_segment_less);
       for (vsize j = 0; j < segments_.size (); j++)
         segments_[j].horizontal_ += (x_span_ - x_pos[LEFT]);
 
@@ -811,7 +812,8 @@ Beam_scoring_problem::shift_region_to_valid ()
         }
     }
 
-  vector_sort (forbidden_intervals, Interval::left_less);
+  std::sort (forbidden_intervals.begin (), forbidden_intervals.end (),
+             Interval::left_less);
   Real beam_left_y = unquanted_y_[LEFT];
   Interval feasible_beam_placements (beam_left_y, beam_left_y);
 

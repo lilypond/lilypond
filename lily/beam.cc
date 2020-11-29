@@ -65,6 +65,7 @@
 
 #include <algorithm>
 #include <map>
+#include <vector>
 
 using std::map;
 using std::string;
@@ -452,7 +453,7 @@ Beam::calc_beam_segments (SCM smob)
        i != stem_segments.end (); i++)
     {
       vector<Beam_stem_segment> segs = (*i).second;
-      vector_sort (segs, std::less<Beam_stem_segment> ());
+      std::sort (segs.begin (), segs.end ());
 
       Beam_segment current;
 

@@ -24,6 +24,9 @@
 #include "pointer-group-interface.hh"
 #include "stem.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 class Beam_collision_engraver : public Engraver
@@ -75,8 +78,8 @@ Beam_collision_engraver::finalize ()
   if (!covered_grobs_.size ())
     return;
 
-  vector_sort (covered_grobs_, Grob_info::less);
-  vector_sort (beams_, Grob_info::less);
+  std::sort (covered_grobs_.begin (), covered_grobs_.end (), Grob_info::less);
+  std::sort (beams_.begin (), beams_.end (), Grob_info::less);
   vsize start = 0;
 
   for (vsize i = 0; i < beams_.size (); i++)

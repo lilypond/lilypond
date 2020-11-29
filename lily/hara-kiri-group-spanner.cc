@@ -26,6 +26,9 @@
 #include "spanner.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 1);
@@ -123,7 +126,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end
           for (int j = iv[LEFT]; j <= iv[RIGHT]; j++)
             ranks.push_back (j);
         }
-      vector_sort (ranks, std::less<int> ());
+      std::sort (ranks.begin (), ranks.end ());
       uniq (ranks);
 
       SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);

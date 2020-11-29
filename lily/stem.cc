@@ -58,7 +58,9 @@
 #include "stem-tremolo.hh"
 #include "warn.hh"
 
+#include <algorithm>
 #include <cmath> // rint
+#include <vector>
 
 using std::string;
 using std::vector;
@@ -268,7 +270,7 @@ Stem::note_head_positions (Grob *me, bool filter)
       ps.push_back (p);
     }
 
-  vector_sort (ps, std::less<int> ());
+  std::sort (ps.begin (), ps.end ());
   return ps;
 }
 
@@ -525,7 +527,7 @@ Stem::calc_positioning_done (SCM smob)
 
   extract_grob_set (me, "note-heads", ro_heads);
   vector<Grob *> heads (ro_heads);
-  vector_sort (heads, position_less);
+  std::sort (heads.begin (), heads.end (), position_less);
   Direction dir = get_grob_direction (me);
 
   if (dir < 0)

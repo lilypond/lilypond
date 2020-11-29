@@ -45,22 +45,6 @@ typedef size_t vsize;
 
 #include <vector>
 
-template<typename T, typename Compare>
-void
-vector_sort (std::vector<T> &v,
-             Compare less)
-{
-  std::sort (v.begin (), v.end (), less);
-}
-
-template<typename T, typename Compare>
-void
-vector_stable_sort (std::vector<T> &v,
-                    Compare less)
-{
-  std::stable_sort (v.begin (), v.end (), less);
-}
-
 template<typename T>
 void
 reverse (std::vector<T> &v)

@@ -28,8 +28,10 @@
 #include "lily-imports.hh"
 #include "protected-scm.hh"
 
+#include <algorithm>
 #include <cstdio>
 #include <cstring>
+#include <vector>
 
 using std::string;
 using std::vector;
@@ -170,7 +172,7 @@ get_help_string ()
     }
 
   string help ("Options supported by `ly:set-option':\n\n");
-  vector_sort (opts, std::less<string> ());
+  std::sort (opts.begin (), opts.end ());
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
   return help;

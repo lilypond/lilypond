@@ -30,7 +30,9 @@
 #include "tie-formatting-problem.hh"
 #include "tie-configuration.hh"
 
+#include <algorithm>
 #include <cmath>
+#include <vector>
 
 using std::vector;
 
@@ -88,7 +90,7 @@ Tie_column::calc_positioning_done (SCM smob)
     return SCM_BOOL_T;
 
   set_property (me, "positioning-done", SCM_BOOL_T);
-  vector_sort (ties, Tie::less);
+  std::sort (ties.begin (), ties.end (), Tie::less);
 
   Tie_formatting_problem problem;
   problem.from_ties (ties);

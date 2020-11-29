@@ -44,6 +44,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <vector>
 
 using std::vector;
 
@@ -402,7 +403,7 @@ System::footnotes_after_line_breaking (SCM smob)
   System *sys = dynamic_cast<System *> (sys_span);
   Interval_t<int> sri = sys->spanned_rank_interval ();
   vector<Grob *> footnote_grobs = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
-  vector_sort (footnote_grobs, grob_2D_less);
+  std::sort (footnote_grobs.begin (), footnote_grobs.end (), grob_2D_less);
 
   SCM grobs_scm = Grob_array::make_array ();
   unsmob<Grob_array> (grobs_scm)->set_array (footnote_grobs);
@@ -608,7 +609,7 @@ System::get_paper_system ()
       entries.push_back (e);
     }
 
-  vector_sort (entries, std::less<Layer_entry> ());
+  std::sort (entries.begin (), entries.end ());
   for (vsize j = 0; j < entries.size (); j++)
     {
       Grob *g = entries[j].grob_;

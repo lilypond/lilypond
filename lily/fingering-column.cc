@@ -25,6 +25,9 @@
 #include "item.hh"
 #include "paper-column.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 struct Fingering_and_offset
@@ -83,7 +86,7 @@ Fingering_column::do_y_positioning (Grob *me)
   Real padding = from_scm<double> (get_property (me, "padding"), 0.2);
 
   // order the fingerings from bottom to top
-  vector_sort (fingerings, pure_position_less);
+  std::sort (fingerings.begin (), fingerings.end (), pure_position_less);
 
   vector<Real> shift (fingerings.size ());
 
@@ -132,7 +135,7 @@ Fingering_column::do_x_positioning (Grob *me)
   for (vsize i = 0; i < fingerings.size (); i++)
     fos.push_back (Fingering_and_offset (fingerings[i], fingerings[i]->relative_coordinate (common_x, X_AXIS)));
 
-  vector_sort (fos, fingering_and_offset_less);
+  std::sort (fos.begin (), fos.end (), fingering_and_offset_less);
   Direction dir = get_grob_direction (fingerings[0]);
   if (dir == RIGHT)
     reverse (fos);

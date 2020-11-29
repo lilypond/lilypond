@@ -27,6 +27,7 @@
 
 #include <algorithm>
 #include <map>
+#include <vector>
 
 using std::vector;
 
@@ -82,8 +83,9 @@ Pure_from_neighbor_engraver::finalize ()
   if (!need_pure_heights_from_neighbors_.size ())
     return;
 
-  vector_sort (need_pure_heights_from_neighbors_, Grob::less);
-  vector_sort (pure_relevants_, Grob::less);
+  std::sort (need_pure_heights_from_neighbors_.begin (),
+             need_pure_heights_from_neighbors_.end (), Grob::less);
+  std::sort (pure_relevants_.begin (), pure_relevants_.end (), Grob::less);
 
   /*
     first, clump need_pure_heights_from_neighbors into

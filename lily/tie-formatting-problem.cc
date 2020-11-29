@@ -38,6 +38,7 @@
 #include "pointer-group-interface.hh"
 #include "output-def.hh"
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <cstdio>
@@ -298,7 +299,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item *> bounds,
   for (vsize i = 0; i < bounds.size (); i++)
     ranks.push_back (bounds[i]->get_column ()->get_rank ());
 
-  vector_sort (ranks, std::less<int> ());
+  std::sort (ranks.begin (), ranks.end ());
   uniq (ranks);
 
   for (vsize i = 0; i < ranks.size (); i++)

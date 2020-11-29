@@ -27,6 +27,8 @@
 #include "midi-stream.hh"
 #include "warn.hh"
 
+#include <algorithm>
+
 Midi_note_event::Midi_note_event ()
 {
   ignore_ = false;
@@ -57,7 +59,7 @@ Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track, int start
   track_ = track;
   index_ = 0;
   items_ = audio_staff->audio_items_;
-  vector_stable_sort (items_, audio_item_less);
+  std::stable_sort (items_.begin (), items_.end (), audio_item_less);
   //Scores that begin with grace notes start at negative times. This
   //is OK - MIDI output doesn't use absolute ticks, only differences.
   last_tick_ = start_tick;

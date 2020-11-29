@@ -33,6 +33,9 @@
 #include "stem.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 Real
@@ -449,7 +452,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
   for (UP_and_DOWN (d))
     {
       vector<Grob *> &clashes (clash_groups[d]);
-      vector_sort (clashes, Note_column::shift_less);
+      std::sort (clashes.begin (), clashes.end (), Note_column::shift_less);
     }
 
   return clash_groups;
@@ -597,7 +600,7 @@ Note_collision_interface::note_head_positions (Grob *me)
         out.insert (out.end (), nhp.begin (), nhp.end ());
       }
 
-  vector_sort (out, std::less<int> ());
+  std::sort (out.begin (), out.end ());
   return out;
 }
 

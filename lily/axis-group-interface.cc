@@ -40,6 +40,7 @@
 
 #include <algorithm>
 #include <map>
+#include <vector>
 
 using std::multimap;
 using std::pair;
@@ -548,7 +549,8 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string 
       relevant_grobs.push_back (elts[i]);
     }
 
-  vector_sort (relevant_grobs, pure_staff_priority_less);
+  std::sort (relevant_grobs.begin (), relevant_grobs.end (),
+             pure_staff_priority_less);
   SCM grobs_scm = Grob_array::make_array ();
   unsmob<Grob_array> (grobs_scm)->set_array (relevant_grobs);
 
@@ -920,7 +922,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
     if (scm_is_number (get_property (elements[i], "outside-staff-priority")))
       elements[i]->extent (elements[i], X_AXIS);
 
-  vector_stable_sort (elements, staff_priority_less);
+  std::stable_sort (elements.begin (), elements.end (), staff_priority_less);
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
 

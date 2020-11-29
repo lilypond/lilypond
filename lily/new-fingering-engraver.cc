@@ -31,6 +31,9 @@
 
 #include "translator.icc"
 
+#include <algorithm>
+#include <vector>
+
 using std::vector;
 
 struct Finger_tuple
@@ -235,7 +238,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
         }
     }
 
-  vector_sort (*scripts, std::less<Finger_tuple> ());
+  std::sort (scripts->begin (), scripts->end ());
 
   bool up_p = scm_is_true (scm_c_memq (ly_symbol2scm ("up"), orientations));
   bool down_p = scm_is_true (scm_c_memq (ly_symbol2scm ("down"), orientations));

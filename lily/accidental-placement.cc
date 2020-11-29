@@ -31,8 +31,10 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
+#include <algorithm>
 #include <functional>
 #include <memory>
+#include <vector>
 
 using std::unique_ptr;
 using std::vector;
@@ -191,7 +193,7 @@ acc_less (Grob *const &a, Grob *const &b)
 void
 stagger_apes (vector<unique_ptr<Accidental_placement_entry>> *apes)
 {
-  vector_sort (*apes, &ape_less);
+  std::sort (apes->begin (), apes->end (), &ape_less);
   // we do the staggering below based on size
   // this ensures that if a placement has 4 entries, it will
   // always be closer to the NoteColumn than a placement with 1
@@ -257,7 +259,7 @@ set_ape_skylines (Accidental_placement_entry *ape,
                   Grob **common, Real padding)
 {
   vector<Grob *> accs (ape->grobs_);
-  vector_sort (accs, &acc_less);
+  std::sort (accs.begin (), accs.end (), &acc_less);
 
   /* We know that each accidental has the same note name and we assume that
      accidentals in different octaves won't collide. If two or more
