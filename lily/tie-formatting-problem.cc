@@ -300,18 +300,18 @@ Tie_formatting_problem::set_chord_outline (vector<Item *> bounds,
     ranks.push_back (bounds[i]->get_column ()->get_rank ());
 
   std::sort (ranks.begin (), ranks.end ());
-  uniq (ranks);
+  auto last = std::unique (ranks.begin (), ranks.end ());
 
-  for (vsize i = 0; i < ranks.size (); i++)
+  for (auto it = ranks.begin (); it != last; ++it)
     {
       vector<Item *> col_items;
       for (vsize j = 0; j < bounds.size (); j++)
         {
-          if (bounds[j]->get_column ()->get_rank () == ranks[i])
+          if (bounds[j]->get_column ()->get_rank () == *it)
             col_items.push_back (bounds[j]);
         }
 
-      set_column_chord_outline (col_items, dir, ranks[i]);
+      set_column_chord_outline (col_items, dir, *it);
     }
 }
 

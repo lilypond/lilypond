@@ -127,10 +127,11 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start, vsize end
             ranks.push_back (j);
         }
       std::sort (ranks.begin (), ranks.end ());
-      uniq (ranks);
+      auto last = std::unique (ranks.begin (), ranks.end ());
+      vsize vector_size = last - ranks.begin ();
 
-      SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);
-      for (vsize i = 0; i < ranks.size (); i++)
+      SCM scm_vec = scm_c_make_vector (vector_size, SCM_EOL);
+      for (vsize i = 0; i < vector_size; i++)
         scm_c_vector_set_x (scm_vec, i, to_scm (ranks[i]));
       set_property (me, "important-column-ranks", scm_vec);
 

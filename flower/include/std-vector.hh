@@ -45,13 +45,6 @@ typedef size_t vsize;
 
 #include <vector>
 
-template<typename T>
-void
-uniq (std::vector<T> &v)
-{
-  v.erase (unique (v.begin (), v.end ()), v.end ());
-}
-
 template<typename T> struct del : public std::unary_function<T, void>
 {
   void operator () (T x)
