@@ -4,7 +4,7 @@ set -eu
 
 src="$1"
 
-if test -d ${src}/.git
+if test -e ${src}/.git
 then
     cd ${src}
     BR=`git rev-parse --symbolic-full-name HEAD | sed s#^refs/heads/##`
