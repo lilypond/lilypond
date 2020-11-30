@@ -22,7 +22,7 @@ then
         echo
         echo "   HISTORY:"
         echo "   ========"
-        git --no-pager log --pretty=format:"      HASH: %H%n   SUBJECT: %s%n" $FP~1..HEAD
+        git --no-pager log --pretty=format:"      HASH: %H%n   SUBJECT: %s%n" HEAD $FP^!
     else
         echo "MERGE_BASE: unknown"
         echo
