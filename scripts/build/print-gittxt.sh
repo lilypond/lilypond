@@ -9,7 +9,10 @@ then
     cd ${src}
     BR=`git rev-parse --abbrev-ref HEAD`
     HD=`git rev-parse --verify HEAD`
-    if git rev-parse origin/master >/dev/null; then
+    if [ -n "${CI_MERGE_REQUEST_DIFF_BASE_SHA+set}" ]; then
+        # Use the data provided by CI, origin/master may not exist.
+        FP="$CI_MERGE_REQUEST_DIFF_BASE_SHA"
+    elif git rev-parse origin/master >/dev/null; then
         FP=`git merge-base --octopus origin/master HEAD`
     else
         FP=""
