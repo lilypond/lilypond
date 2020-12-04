@@ -30,7 +30,7 @@ cWithSlash = \markup {
 %% Syntax: \bbarre #"text" { notes } - text = any number of box
 bbarre =
 #(define-music-function (barre location str music) (string? ly:music?)
-   (let ((elts (extract-named-music music '(NoteEvent EventChord))))
+   (let ((elts (extract-named-music music 'rhythmic-event)))
      (if (pair? elts)
          (let ((first-element (first elts))
                (last-element (last elts)))

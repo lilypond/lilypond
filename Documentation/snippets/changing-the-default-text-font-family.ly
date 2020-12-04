@@ -17,6 +17,19 @@ The default font families for text can be overridden with
   doctitle = "Changing the default text font family"
 } % begin verbatim
 
+%{
+You may have to install additional fonts.
+
+Red Hat Fedora
+
+  dejavu-fonts-all
+
+Debian GNU/Linux, Ubuntu
+
+  fonts-dejavu-core
+  fonts-dejavu-extra
+%}
+
 \paper {
   % change for other default global staff size.
   myStaffSize = #20
@@ -27,28 +40,30 @@ The default font families for text can be overridden with
   %}
 
   #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans,Nimbus Sans L"
-                          "Luxi Mono"
-;;                        "Helvetica"
-;;                        "Courier"
+    (make-pango-font-tree "DejaVu Serif"
+                          "DejaVu Sans"
+                          "DejaVu Sans Mono"
      (/ myStaffSize 20)))
 }
 
-\relative c'' {
-  c4^\markup {
-    roman: foo \bold bla \italic bar \italic \bold baz
+{
+  g'''4^\markup {
+    DejaVu Serif: \bold bold
+                  \italic italic
+                  \italic \bold { bold italic }
   }
-  c'4_\markup {
-    \override #'(font-family . sans)
-    {
-      sans: foo \bold bla \italic bar \italic \bold baz
+  g4_\markup {
+    \override #'(font-family . sans) {
+      DejaVu Sans: \bold bold
+                   \italic italic
+                   \italic \bold { bold italic }
     }
   }
-  c'2^\markup {
-    \override #'(font-family . typewriter)
-    {
-      mono: foo \bold bla \italic bar \italic \bold baz
+  g''2^\markup {
+    \override #'(font-family . typewriter) {
+      DejaVu Sans Mono: \bold bold
+                        \italic italic
+                        \italic \bold { bold italic }
     }
   }
 }
