@@ -160,6 +160,21 @@ Hairpin::print (SCM smob)
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
                                        Drul_array<Real> (0.0, 0.0));
 
+  auto endpoint_alignments = from_scm (get_property (me, "endpoint-alignments"),
+                                       Drul_array<Real> (-1, 1));
+
+  for (LEFT_and_RIGHT (d))
+    {
+      const auto sanitized_alignment = sign (endpoint_alignments[d]);
+      if (endpoint_alignments[d] != sanitized_alignment)
+        {
+          me->warning (_f ("hairpin: '%f' is not a valid direction for property"
+                           " 'endpoint-alignments', setting to '%d'",
+                           endpoint_alignments[d], sanitized_alignment));
+          endpoint_alignments[d] = sanitized_alignment;
+        }
+    }
+
   for (LEFT_and_RIGHT (d))
     {
       Item *b = bounds[d];
@@ -246,7 +261,15 @@ Hairpin::print (SCM smob)
                       && Note_column::has_rests (b))
                     x_points[d] = e[-d];
                   else
-                    x_points[d] = e[d];
+                    {
+                      // Endpoint alignment relative to NoteColumn
+                      if (endpoint_alignments[d] == CENTER)
+                        x_points[d] = e.center ();
+                      else if (endpoint_alignments[d] != d)
+                        x_points[d] = e[-d];
+                      else
+                        x_points[d] = e[d];
+                    }
 
                   if (Item::is_non_musical (b))
                     x_points[d] -= d * padding;
@@ -341,6 +364,7 @@ ADD_INTERFACE (Hairpin,
                "concurrent-hairpins "
                "broken-bound-padding "
                "bound-padding "
+               "endpoint-alignments "
                "grow-direction "
                "height "
                "shorten-pair "

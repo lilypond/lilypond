@@ -541,6 +541,10 @@ items such as text scripts, text spanners, and piano pedal marks.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/setting-the-minimum-length-of-hairpins.ly}
 
+@cindex hairpin, aligning ends to @code{NoteColumn} directions
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/aligning-the-ends-of-hairpins-to-notecolumn-directions.ly}
+
 @cindex hairpin, moving ends of
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/moving-the-ends-of-hairpins.ly}

@@ -66,6 +66,21 @@ which scares away people.
 @end ignore
 
 @item
+The ends of hairpins may now be aligned to the @code{LEFT}, @code{CENTER}
+or @code{RIGHT} of @code{NoteColumn} grobs by overriding the property
+@code{endpoint-alignments}.
+
+@lilypond[quote]
+{
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,RIGHT . ,LEFT)
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,CENTER . ,CENTER)
+  c'2\< <c' d'>\! |
+}
+@end lilypond
+
+@item
 The @command{lilypond-book} script now allows braces in the argument of
 the commands @code{\lilypond} (for LaTeX) and @code{@@lilypond} (for
 Texinfo).
@@ -88,7 +103,6 @@ This is a very convenient way of entering additional stanzas for songs.
      Twinkle, twinkle, little star,
      How I wonder what you are!"
 @end lilypond
-
 
 @item
 Color transparency is supported when generating Postscript and
