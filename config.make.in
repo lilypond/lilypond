@@ -70,7 +70,6 @@ URWOTF_DIR = @URWOTF_DIR@
 URWOTF_FILES = @URWOTF_FILES@
 USE_EXTRACTPDFMARK=@USE_EXTRACTPDFMARK@
 WINDRES = @WINDRES@
-YACC = @YACC@
 ZIP = @ZIP@
 bindir = @bindir@
 build_lilypond_datadir = @build_package_datadir@

@@ -159,9 +159,6 @@ AC_DEFUN(STEPMAKE_BIBTEX2HTML, [
 
 
 AC_DEFUN(STEPMAKE_BISON, [
-    # ugh, automake: we want (and check for) bison
-    AC_PROG_YACC
-
     STEPMAKE_PROGS(BISON, bison, $1)
 
     # urg.  should test functionality rather than version.
@@ -436,11 +433,6 @@ EOF
 
 
 AC_DEFUN(STEPMAKE_FLEX, [
-    # ugh, automake: we want (and check for) flex
-    # AC_PROG_LEX
-    # urg: automake 1.3: hope this doesn't break 1.2 ac_cv_pro_lex_root hack...
-
-    # AC_PROG_LEX()
     # ugh, ugh
     ac_cv_prog_lex_root=lex.yy
     STEPMAKE_PROGS(FLEX, flex, $1)
