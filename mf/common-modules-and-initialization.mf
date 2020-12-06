@@ -1,5 +1,12 @@
 
 staffsize# := design_size * pt#;
+
+% `mf2pt1.mp`, which gets used to generate the outline fonts, contains calls
+% to `uniformdeviate`, which is a MetaPost random number generator.  Due to
+% a yet unidentified bug this causes random outline differences, which can
+% be circumvented by seeding the generator.
+randomseed := 1.234;
+
 input debugging-settings;
 input feta-autometric;
 input feta-macros;
