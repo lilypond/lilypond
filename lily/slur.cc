@@ -374,7 +374,7 @@ Slur::vertical_skylines (SCM smob)
 
   Offset last;
   vector<Drul_array<Offset>> segments;
-  for (vsize i = 0; i < box_count; i++)
+  for (vsize i = 0; i <= box_count; i++)
     {
       // TODO: This doesn't take into account the slur thickness or
       // the line thickness.
