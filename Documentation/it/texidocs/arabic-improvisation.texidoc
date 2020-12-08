@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+%% Translation of GIT committish: 6b35abe942bf1b4e709f215d3657a7cec1f4aa52
   texidocit = "
-Per improvvisazioni o taqasim a tempo libero, si può omettere l'indicazione
+Per improvvisazioni o @emph{taqasim} a tempo libero, si può omettere l'indicazione
 di tempo e usare @code{\\cadenzaOn}.  Può essere necessaria la modifica
 dello stile delle alterazioni, perché l'assenza delle stanghette farà
 sì che l'alterazione sia contrassegnata una volta sola.  Ecco un esempio
-di quello che potrebbe essere l'inizio di un'improvvisazione hijaz:
+di quello che potrebbe essere l'inizio di un'improvvisazione @emph{hijaz}:
 
 "
   doctitleit = "Improvvisazione araba"
