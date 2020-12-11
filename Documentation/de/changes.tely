@@ -1,0 +1,658 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@ignore
+    Translation of GIT committish: 7c0e114f6971304a4f503e9a592840d8a78cb9a7
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Jonas Hahnfeld
+@c Translation checkers:
+
+@setfilename lilypond-changes.info
+@settitle LilyPond Changes
+
+@include macros.itexi
+
+@ifhtml
+@macro inputfileref{DIR,NAME}
+@uref{../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
+@macro usermanref{NAME}
+@inforef{\NAME\,,../user/lilypond/lilypond}@c
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/\NAME\}@c
+@end macro
+@macro usermanref{NAME}
+Siehe Benutzerhandbuch, \NAME\
+@end macro
+@end ifnothtml
+
+@macro textanchor{NAME}
+@html
+<a name="\NAME\"></a>
+@end html
+@end macro
+
+
+@documentencoding UTF-8
+@documentlanguage de
+@afourpaper
+
+@macro manualIntro
+Dieses Dokument listet die Änderungen und neuen Funktionen
+in LilyPond für die Version @version{} seit 2.20.
+@end macro
+
+@lilyTitlePage{Neuerungen}
+
+@iftex
+@allowcodebreaks false
+@end iftex
+
+@ignore
+
+HINTS
+* add new items at the top
+* only show verbatim input for syntax/input changes
+* try to be as brief possible in those cases
+* don't try to provide real-world examples, they often get too big,
+  which scares away people.
+* Write complete sentences.
+* only show user-visible changes.
+
+@end ignore
+
+
+@subheading Neuerungen in der musikalischen Notation
+@c New for musical notation
+
+@subsubheading Verbesserungen bei der Anzeige von Tonhöhen
+@c Displaying pitch improvements
+
+@itemize
+
+@item
+Ein Versetzungszeichen entsprechend des SMuFL-Codes
+U+E2E3 wurde hinzugefügt (Extended Helmholtz-Ellis
+Versetzungszeichen: Erhöhung um eine undezimale Quarte).
+
+@lilypond[quote]
+{
+  \override Accidental.glyph-name-alist =
+    #(assv-set!
+      (copy-tree standard-alteration-glyph-name-alist)
+        1/4 "accidentals.sharp.slash.stem")
+  c'2 cih'
+}
+@end lilypond
+
+@item
+Notennamen der Vierteltöne sind jetzt in allen Eingabesprachen verfügbar.
+@lilypond[verbatim,quote]
+\language "català"
+\relative { do'4 sol' miqb re do1 }
+@end lilypond
+
+@item
+Das Setzen von @code{suggestAccidentals} auf @code{'cautionary} wandelt nur
+warnende Versetzungszeichen in @code{AccidentalSuggestion} um.  Dies kann
+zur Unterscheidung zwischen originalen und redaktionellen Versetzungszeichen
+benutzt werden.
+@lilypond[verbatim,quote]
+\relative {
+  \key d \minor
+  d''4 cis8 b? cis2
+  \set suggestAccidentals = ##t
+  d4 cis8 b? cis2
+  \set suggestAccidentals = #'cautionary
+  d4 cis8 b? cis2
+}
+@end lilypond
+
+@item
+Der Befehl @code{\ambitusAfter} wurde hinzugefügt, um den Ambitus
+an eine andere Position zu verschieben.
+@lilypond[verbatim,quote]
+\new Staff \with {
+  \consists Ambitus_engraver
+} \relative {
+  \ambitusAfter key-signature
+  \key d \major
+  es'8 g bes cis d2
+}
+@end lilypond
+
+@item
+Oktavierungszeichen werden jetzt standardmäßig mit einer einzelnen Nummer
+versehen (beispielsweise @q{8} oder @q{15}) und fett gedruckt. Eine neue
+Eigenschaft @code{ottavationMarkups} wurde eingeführt, um dieses Verhalten
+zu verändern, wofür mehrere vordefinierte Werte verfügbar sind:
+@lilypond[verbatim,quote]
+\relative c'' {
+  \ottava #1
+  a'2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+  \bar "||"
+  \set Staff.ottavationMarkups = #ottavation-simple-ordinals
+  \ottava #1
+  a,2 b
+  \ottava #2
+  a'2 b
+}
+@end lilypond
+
+@end itemize
+
+
+@subsubheading Verbesserungen bei Rhythmen
+@c Rhythm improvements
+
+@itemize
+
+@item
+N-tolen können jetzt mit Bögen statt Klammern gedruckt werden:
+@lilypond[quote, verbatim]
+\relative {
+  \tuplet 3/2 4 {
+    \override TupletBracket.tuplet-slur = ##t
+    c'4 e8 d4 f8
+    \override TupletBracket.bracket-visibility = ##t
+    e f g f e d
+  } c1
+}
+@end lilypond
+
+@item
+Französische Bebalkung (@code{\override Stem.french-beaming = ##t})
+verhält sich jetzt in allen Belangen @emph{genauso} wie Standardbebalkung
+(Positionierung der Balken und Platzierung der Artikulationen, Fingersätze,
+etc.).  Der einzige verbleibende Unterschied ist, dass innere Hälse nicht
+durch die Balken gehen.
+@lilypond[quote]
+testmusic = \relative {
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  c''8[ a16 a_^ e']
+  f32[_5 c_3 a64_> g]_>]
+  a,32[ b^( c a16]
+  e'32[ g) a16 r] |
+  \override Beam.auto-knee-gap = #1
+  a,64[ 64 f''64 64]
+  \tuplet 3/2 { c32[ 32 32] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { d,32[^1 e^2 f^3 g^4 a^5] } s64
+}
+\score {
+  <<
+    \new Staff \with { \override Stem.french-beaming = ##t }
+         { <>^"French" \testmusic }
+    \new Staff
+         { <>^"Default" \testmusic }
+  >>
+  \layout { indent = 0 }
+}
+@end lilypond
+
+@item
+Swing und unregelmäßige rhythmische Muster können jetzt auf
+Musikausdrücke aus regulären Dauern angewandt werden, wodurch
+ungleiche rhythmische Interpretationen in MIDI erzeugt werden können.
+@lilypond[verbatim,quote]
+\include "swing.ly"
+<<
+  \new Staff \with {
+    instrumentName = "ordinary"
+  } \repeat unfold 8 c'8
+  \new Staff \with {
+    instrumentName = "with swing"
+  } \repeat unfold 4 \tripletFeel 8 { c'8 c' }
+  \new Staff \with {
+    instrumentName = "triplets"
+  } \tuplet 3/2 4 \repeat unfold 12 c'8
+>>
+@end lilypond
+
+@item
+Schriftzeichen für 256-, 512- und 1024-Fahnen und -Pausen wurden hinzugefügt.
+@lilypond[quote]
+{
+  \omit Staff.TimeSignature
+  \cadenzaOn
+  b4 8 16 32 64 128 256 512 1024 \bar "|"
+  b''4 8 16 32 64 128 256 512 1024 \bar "|"
+  r4 r8 r16 r32 r64 r128 r256 r512 r1024 \bar "|"
+}
+@end lilypond
+
+@item
+Der neue @code{Merge_mmrest_numbers_engraver} versteckt doppelte
+Nummern auf mehrtaktigen Pausen.
+@lilypond[quote]
+\compressMMRests
+<< R1*7 \\ R1*7 >>
+@end lilypond
+
+@end itemize
+
+
+@subsubheading Verbesserungen bei Ausdrucksbezeichnungen
+@c Expressive mark improvements
+
+@itemize
+
+@item
+Ein Dynamikbefehl @code{\n} für @emph{niente} wurde hinzugefügt.
+@lilypond[quote]
+{
+  d'1~\mp\> 2 r\n
+}
+@end lilypond
+
+@item
+Zwei neue Ornamente wurden hinzugefügt.
+@lilypond[verbatim,quote]
+{
+  c''2\slashturn c''\haydnturn
+}
+@end lilypond
+
+@item
+Eine sehr kurze Fermate und Henze-Variationen der langen und kurzen
+Fermaten wurden hinzugefügt.
+@lilypond[verbatim,quote]
+{
+  c'1\veryshortfermata
+  c'2\henzeshortfermata c'\henzelongfermata
+}
+@end lilypond
+
+@item
+Fermaten und andere Artikulationen können jetzt direkt bei mehrtaktigen
+Pausen hinzugefügt werden.  Der Befehl @code{\fermataMarkup} ist daher
+veraltet.
+@lilypond[verbatim,quote]
+{
+  R1\fermata
+  R->
+  R\coda
+}
+@end lilypond
+
+@end itemize
+
+
+@subsubheading Verbesserungen bei Anmerkungen
+@c Editorial annotation improvements
+
+@itemize
+
+@item
+Der @code{New_fingering_engraver} berücksichtigt jetzt die Eigenschaft
+@code{X-align-on-main-noteheads} des @code{self-alignment-interface}.
+Falls gesetzt (@code{##t}) werden alle Fingersätze mit Orientierung
+@code{up} oder @code{down} in einer Spalte angeordnet und an den
+Notenköpfen auf der richtigen Seite der Hälse ausgerichtet:
+@lilypond[verbatim,quote]
+{
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5>4 <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
+  \bar "."
+  \override Fingering.X-align-on-main-noteheads = ##t
+  \set fingeringOrientations = #'(up)
+  <e'-1 d''-4 e''-5> <a'-1 b'-2 fis''-5>
+  \set fingeringOrientations = #'(down)
+  <e'-1 d''-4 e''-5> <eis'-1 e''-4 fis''-5>
+}
+@end lilypond
+
+@end itemize
+
+
+@subsubheading Verbesserungen bei der Textformattierung
+@c Text formatting improvements
+
+@itemize
+
+@item
+Die Standardschriftarten sind jetzt jene aus der Sammlung URW Core 35,
+Version 2.0, statt der TeX Gyre Schriftarten.  Es ist zu beachten, dass
+die neuen Schriftarten eine Ligatur für @q{Nr.} enthalten; die englische
+Dokumentation enthält im Abschnitt @q{Fonts explained} Lösungen, um die
+Ersetzung lokal und global zu vermeiden.
+
+@item
+Der Befehl @code{\note} erwartet jetzt als erstes Argument eine Dauer statt
+einer Zeichenkette:
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(style . cross) {
+    \note {4..} #UP
+  }
+  \hspace #2
+  \note {\breve} #0
+}
+@end lilypond
+
+@end itemize
+
+
+
+@subheading Neuerungen für spezielle Notation
+@c New for specialist notation
+
+@subsubheading Verbesserungen für die Notation von Gesang
+@c Vocal music improvements
+
+@itemize
+
+@item
+Ein Bindestrich kann jetzt am Anfang eines Systems
+wiederholt werden, das mit einer neuen Silbe beginnt:
+@lilypond[quote]
+\relative {
+  d'8^( e f e f4) \bar "" \break
+  e4
+}
+\addlyrics {
+  \override LyricHyphen.after-line-breaking = ##t
+  A -- men.
+}
+@end lilypond
+
+@item
+Ein sanfter Wechsel von Vokalen (oder anhaltender Konsonanten)
+kann durch einen Vokalübergang zwischen Silben durch den Befehl
+@code{\vowelTransition} angezeigt werden:
+@lilypond[verbatim,quote]
+{ g'2 g' }
+\addlyrics { Ah \vowelTransition oh. }
+@end lilypond
+
+@end itemize
+
+
+@subsubheading Verbesserungen für Saitenunstrument mit und ohne Bünden
+@c Unfretted and fretted string instrument improvements
+
+@itemize
+
+@item
+Bund-Diagramme können jetzt linkshändig dargestellt werden, indem die
+Einstellung @code{handedness} auf den Wert @code{LEFT} gesetzt wird
+(als Untereigenschaft von @code{fret-diagram-details}).
+@lilypond[verbatim,quote]
+\markup
+  \center-column {
+    "C"
+    "(left-handed)"
+     \override #`(fret-diagram-details . ((handedness . ,LEFT)))
+     \fret-diagram "6-x;5-3-3;4-2-2;3-o;2-1;1-o;"
+  }
+@end lilypond
+
+@item
+Einige Bund-Diagramme für Ukulelen wurden korrigiert und neue
+Diagramme hinzugefügt.
+
+@end itemize
+
+
+@subsubheading Verbesserungen für die Notation von Akkorden
+@c Chord notation improvements
+
+@itemize
+
+@item
+Akkorde können jetzt automatisch invertiert oder Noten ausgelassen werden.
+@lilypond[verbatim,quote]
+\chordmode {
+  \dropNote 2 {
+    c2:maj7 d:m7
+  }
+  \invertChords 1 d1:maj7
+}
+@end lilypond
+
+@item
+Die alten Funktionen @code{banter-chord-names} und @code{jazz-chord-names}
+für die Benennung von Akkorden wurden aus dem Hauptcode entfernt, ebenso wie
+die Eigenschaften @code{chordNamesExceptionsFull} und @code{chordNamesExceptionsPartial}.
+Im Zuge dieser Überarbeitung sind Powerakkorde jetzt Teil der normalen Ausnahmen
+und werden ohne Anpassungen richtig dargestellt (mit hochgestellten Zeichen wie
+alle anderen Akkorde), ohne den Befehl @code{\powerChords}.  Bei Interesse an
+den ehemaligen Funktionen wird auf deren (teilweise funktionierende) Kopie in
+dem Schnipsel @file{chord-names-alternative.ly} verwiesen.
+
+@end itemize
+
+
+@subsubheading Verbesserungen für zeitgenössische Musik
+@c Contemporary music improvements
+
+@itemize
+
+@item
+Ein neues Grob @code{DurationLine} ist jetzt verfügbar.  Es setzt ein
+rhythmisches Grob mit einer Linie fort, die am nächsten rhythmischen
+Grob endet.  Mögliche Aussehen sind @code{'beam}, @code{'line},
+@code{'dashed-line}, @code{'dotted-line}, @code{'zigzag}, @code{'trill}
+und @code{'none}.  Die Haltelinie kann mit einem Haken (nur in der Art
+eines Balkens) oder einem Pfeil abgeschlossen werden.
+
+@lilypond[quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+    \omit Stem
+    \omit Flag
+    \omit Beam
+    \override NoteHead.duration-log = 2
+  }
+}
+
+{
+  a'1\- s2 r
+  \once \override DurationLine.style = #'line
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dashed-line
+  \once \override DurationLine.dash-period = 2
+  a'1\- s2 r
+  \once \override DurationLine.style = #'dotted-line
+  \once \override DurationLine.dash-period = 1
+  \once \override DurationLine.bound-details.right.padding = 1
+  a'1\- s2 r
+  \once \override DurationLine.thickness = 2
+  \once \override DurationLine.style = #'zigzag
+  a'1\- s2 r
+  \once \override DurationLine.style = #'trill
+  a'1\- s2 r
+  \once \override DurationLine.style = #'none
+  a'1\- s2 r
+  \once \override DurationLine.bound-details.right.end-style = #'arrow
+  a'1\- s2 r
+  \override DurationLine.bound-details.right.end-style = #'hook
+  a'1\- s2 r
+  \override DurationLine.details.hook-direction = #DOWN
+  a'1\- s2 r
+  \bar "|."
+}
+@end lilypond
+
+@end itemize
+
+
+@subheading Neuerungen in der Ein- und Ausgabe
+@c New for input and output
+
+@subsubheading Verbesserungen bei der Eingabedatei
+@c Input file improvements
+
+@itemize
+
+@item
+Wie bei der Version 2.17.3 vor nahezu acht Jahren angekündigt
+ist die Option @code{'relative-includes} jetzt standardmäßig
+aktiviert: Eingebundene Dateien, die selbst einen @code{\include}
+Befehl enthalten, müssen von ihrem eigenen Pfad ausgehen statt
+vom Verzeichnis der Hauptdatei.  Dieses Verhalten kann durch
+Setzen der Einstellung @code{'relative-includes} auf @code{#f}
+ausgeschaltet werden, entweder als Option von die Kommandozeile
+oder durch Benutzung von @code{ly:set-option} in der Quelldatei.
+
+@item
+@code{\compressFullBarRests} wurde in @code{\compressEmptyMeasures}
+umbenannt, um mögliche Verwirrung mit @code{\compressMMRests} zu
+vermeiden.  Gleichfalls heißt @code{\expandFullBarRests} ab dieser
+Version @code{\expandEmptyMeasures}.
+
+@item
+Der Befehl @code{\partcombine} ebenso wie alle Befehle, Unterroutinen und
+Eigenschaften mit dem Präfix @code{partCombine} werden jetzt mit einem
+großen C geschrieben, also @code{\partCombine}, @code{\partCombineApart} etc.
+Der Befehl @code{\autochange} wurde zu @code{\autoChange}.
+
+@item
+Alle Eingabesprachen des Befehls @code{\language} können jetzt mit ihrer
+richtigen UTF-8-Schreibweise mit Sonderzeichen eingegeben werden. Die
+fehlenden Namen @code{català} und @code{português} sind zusätzlich auch
+mit den ursprünglichen Namen @code{catalan} @code{portugues} verfügbar.
+
+@item
+LilyPond für Windows (MinGW) kann jetzt Dateinamen mit Unicode-Zeichen
+ab Windows 10 1903 behandeln.
+
+@end itemize
+
+
+@subsubheading Verbesserungen bei der Ausgabe
+@c Output improvements
+
+@itemize
+
+@item
+Skylines berücksichtigen jetzt die Eigenschaft @code{rotation} von
+Layout-Objekten.  Das Drehen einer Crescendo-Klammer über das Setzen
+von @code{\override Hairpin.rotation = #'(15 0 0)} hat jetzt
+beispielsweise einen Einfluss auf die Skylines und hilft so beim
+Verbessern der Abstände.
+@lilypond[quote]
+#(ly:set-option 'debug-skylines #t)
+\new PianoStaff <<
+  \new Staff \relative {
+    \override TextScript.rotation = #'(30 0 0)
+    g4\<^\markup \ellipse "rot. ellipse" e' d'^\markup \box "rotated box" f\!
+    \override Hairpin.rotation = #'(15 -1 0)
+    g,,4\<^\markup \rounded-box "rounded box" e' d'^"no box" f\!
+  }
+  \new Staff \relative {
+    \override Staff.Clef.rotation = #'(180 0 -0.036)
+    <cis' ais'>4 c' g c
+    \override Accidental.rotation = #'(30 0 0)
+    <cis, ais'>2 e'4 e'
+  }
+>>
+@end lilypond
+
+@item
+Es wurden geringe Abstände zwischen Auflösungszeichen hinzugefügt, die sich
+bei Aufhebung der Tonart nur an den Ecken berühren.
+@lilypond[verbatim,quote]
+{
+  \omit Staff.TimeSignature
+  \key ces \major s1 \key c \major s
+}
+@end lilypond
+
+@item
+Skylines von Boxen berücksichten jetzt den echten Umriss mit
+abgerundeten Ecken und Drehungen.
+@lilypond[verbatim,quote]
+#(ly:set-option 'debug-skylines #t)
+{
+  b'1^\markup \scale #'(2 . 1)
+              \rotate #30
+              \override #'(corner-radius . 3)
+              \rounded-box \center-column { box skyline }
+}
+@end lilypond
+
+@item
+CSS-Farben können jetzt direkt verwendet werden, entweder mit ihren
+vordefinierten Namen (wie bei der bereits verfügbaren Funktion
+@code{css-color}) oder mit ihren hexadezimalen Farbcodes nach Angabe
+des Präfix @code{#}.  Alle Zeichenroutinen, die die Eigenschaft
+@code{color} unterstützen, akzeptieren jetzt entweder eine Liste oder
+eine Zeichenkette; im letzteren Fall wird diese Zeichenkette direkt
+in der SVG-Ausgabe genutzt.  Das ermöglicht die Verwendung von
+alpha-Transparenz in SVG (eingegeben als "#RRGGBBAA" oder "#RGBA").
+
+@lilypond[verbatim,quote,fragment]
+\override NoteHead.color = "lightsalmon"
+\override Flag.color = "#E30074"
+\override Beam.color = "#5e45ad"
+\override Rest.color = "#3058"
+g'8 \huge r4 a'16 f'
+@end lilypond
+
+@item
+PDF-Lesezeichen werden jetzt unterstützt und ermöglichen es, dass Einträge
+mit @code{\tocItem} im @q{Inhaltsverzeichnis} eines PDF-Betrachters
+erscheinen, der dies unterstützt.
+
+@item
+@code{\table-of-contents} akzeptiert jetzt hierarchische Strukturen;
+ein Eintrag mit @code{\tocItem} kann zusätzlich ein Symbol (wie
+@code{\label}) oder eine durch Punkte getrennte Liste von Symbolen
+annehmen, die die Position in der Partiturstruktur anzeigt.  Ein
+Nebeneffekt dieser Änderung ist, dass @code{\tocItem} nicht länger
+eine einfache Zeichenkette annimmt, sondern der Befehl @code{\markup}
+genutzt werden muss.
+@example
+\tocItem \markup "Top-level entry"
+\tocItem symbol "Named top-level entry"
+\tocItem symbol.list "Second-level (child) entry"
+@end example
+
+@item
+Mit den neuen Optionen @option{-dpng-width} und @option{-dpng-height}
+ist es jetzt möglich, die Größe der PNG-Ausgabe in Pixeln anzugeben.
+
+@item
+Die Ausgabe als SVG kann jetzt durch die Option @option{--svg} aktiviert
+werden (oder durch die kanonische Form @option{--format=svg}, kurz auch
+als @option{-fsvg}).  Wegen der Festlegung des Backends ist diese Option
+noch nicht mit anderen Ausgabeformaten kompatibel; um eine Datei sowohl
+in SVG und PDF, PNG oder EPS zu übersetzen, ist ein zweiter Aufruf von
+LilyPond nötig.
+
+@end itemize
+
+
+@ifhtml
+For older news, go to
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/},
+or @uref{../,go back} to the Documentation index.
+
+
+@end ifhtml
+
+@bye
