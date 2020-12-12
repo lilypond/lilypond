@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
-  texidocit = "
-Internamente, @code{\\ottava} imposta le proprietà @code{ottavation} (ad
-esempio, su @code{8va} o @code{8vb}) e @code{middleCPosition}.  Per
-sovrascrivere il testo della parentesi, occorre specificare @code{ottavation}
-dopo il comando @code{\\ottava}.
-
-"
-  doctitleit = "Testo dell'ottava"

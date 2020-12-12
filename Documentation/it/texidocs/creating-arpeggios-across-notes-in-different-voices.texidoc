@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+%% Translation of GIT committish: 6b35abe942bf1b4e709f215d3657a7cec1f4aa52
   texidocit = "
-Si può disegnare un arpeggio che attraversa delle note in voci diverse dello
-stesso rigo se si aggiunge l'incisore @code{Span_arpeggio_engraver} nel
+Si può disegnare un @emph{arpeggio} che attraversa delle note in voci diverse
+dello stesso rigo se si aggiunge l'incisore @code{Span_arpeggio_engraver} nel
 contesto @code{Staff}:
 
 "

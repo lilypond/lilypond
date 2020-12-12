@@ -165,7 +165,6 @@ testmusic = \relative {
   d4 cis8 b? cis2
   \set suggestAccidentals = #'cautionary
   d4 cis8 b? cis2
-
 }
 @end lilypond
 
