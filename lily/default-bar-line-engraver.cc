@@ -18,16 +18,13 @@
 */
 
 #include "engraver.hh"
+
 #include "context.hh"
 #include "grob.hh"
-#include "warn.hh"
 
 class Default_bar_line_engraver : public Engraver
 {
 protected:
-  /* Need to know whether we're advancing in grace notes, or not. */
-  Moment last_moment_;
-
   void start_translation_timestep ();
   void stop_translation_timestep ();
 
@@ -56,55 +53,35 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
                 "automaticBars "
                 "barAlways "
                 "defaultBarType "
-                "measureLength "
-                "whichBar "
-                "measurePosition "
-                "timing ",
+                "measureStartNow "
+                "whichBar ",
 
                 /* write */
-                ""
+                "whichBar "
                );
 
 Default_bar_line_engraver::Default_bar_line_engraver (Context *c)
   : Engraver (c)
 {
-  last_moment_.main_part_ = Rational (-1);
 }
 
 void
 Default_bar_line_engraver::start_translation_timestep ()
 {
-  SCM automatic_bars = get_property (this, "automaticBars");
-  Moment now = now_mom ();
-  SCM which = get_property (this, "whichBar");
-
-  /* Set the first bar of the score? */
-  if (!scm_is_string (which))
-    which = SCM_EOL;
-
-  Moment mp = measure_position (context ());
-  bool start_of_measure = (last_moment_.main_part_ != now.main_part_
-                           && !mp.main_part_
-                           && from_scm<bool> (get_property (this, "timing")));
-
-  if (!scm_is_string (which) && from_scm<bool> (automatic_bars))
+  if (from_scm<bool> (get_property (this, "measureStartNow"))
+      || from_scm<bool> (get_property (this, "barAlways")))
     {
-      SCM always = get_property (this, "barAlways");
-
-      if ((start_of_measure && last_moment_.main_part_ >= 0)
-          || from_scm<bool> (always))
+      if (from_scm<bool> (get_property (this, "automaticBars")))
         {
           /* should this work, or be junked?  See input/bugs/no-bars.ly */
-          which = get_property (this, "defaultBarType");
+          SCM which = get_property (this, "defaultBarType");
+          set_property (context (), "whichBar", which);
         }
     }
-
-  set_property (context (), "whichBar", which);
 }
 
 void
 Default_bar_line_engraver::stop_translation_timestep ()
 {
   set_property (context (), "whichBar", SCM_EOL);
-  last_moment_ = now_mom ();
 }

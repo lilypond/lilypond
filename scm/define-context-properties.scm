@@ -412,6 +412,7 @@ this from specified frets.")
 time signature.")
      (measurePosition ,ly:moment? "How much of the current measure have
 we had.  This can be set manually to create incomplete measures.")
+     (measureStartNow ,boolean? "True at the beginning of a measure.")
      (melismaBusyProperties ,list? "A list of properties (symbols) to
 determine whether a melisma is playing.  Setting this property will
 influence how lyrics are aligned to notes.  For example, if set to

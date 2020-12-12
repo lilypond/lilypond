@@ -228,12 +228,7 @@ Multi_measure_rest_engraver::set_measure_count (int n)
 void
 Multi_measure_rest_engraver::process_music ()
 {
-  const bool measure_end
-    = scm_is_string (get_property (this, "whichBar"))
-      && (robust_scm2moment (get_property (this, "measurePosition"),
-                             Moment (0)).main_part_ == Rational (0));
-
-  if (measure_end || first_time_)
+  if (from_scm<bool> (get_property (this, "measureStartNow")) || first_time_)
     {
       last_command_item_ = unsmob<Item> (get_property (this, "currentCommandColumn"));
 
@@ -287,7 +282,7 @@ Multi_measure_rest_engraver::boot ()
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 /* doc */
                 "Engrave multi-measure rests that are produced with"
-                " @samp{R}.  It reads @code{measurePosition} and"
+                " @samp{R}.  It reads @code{measureStartNow} and"
                 " @code{internalBarNumber} to determine what number to print"
                 " over the @ref{MultiMeasureRest}.",
 
@@ -301,8 +296,7 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 "internalBarNumber "
                 "restNumberThreshold "
                 "currentCommandColumn "
-                "measurePosition "
-                "whichBar ",
+                "measureStartNow ",
 
                 /* write */
                 ""

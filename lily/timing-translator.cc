@@ -41,6 +41,8 @@ Timing_translator::stop_translation_timestep ()
           find_global_context ()->add_moment_to_process (nextmom);
         }
     }
+
+  set_property (context (), "measureStartNow", SCM_EOL);
 }
 
 void
@@ -171,10 +173,7 @@ Timing_translator::start_translation_timestep ()
   int current_barnumber = from_scm (get_property (this, "currentBarNumber"), 0);
   int internal_barnumber = from_scm (get_property (this, "internalBarNumber"), 0);
 
-  SCM cad = get_property (this, "timing");
-  bool c = from_scm<bool> (cad);
-
-  if (c)
+  if (from_scm<bool> (get_property (this, "timing")))
     {
       Rational len = measure_length ();
 
@@ -185,6 +184,12 @@ Timing_translator::start_translation_timestep ()
           measposp.main_part_ -= len;
           current_barnumber++;
           internal_barnumber++;
+        }
+
+      if (!measposp.main_part_ && dt.main_part_)
+        {
+          // We have arrived at zero (as opposed to revisiting it).
+          set_property (context (), "measureStartNow", SCM_BOOL_T);
         }
     }
 
@@ -240,5 +245,6 @@ ADD_TRANSLATOR (Timing_translator,
                 "internalBarNumber "
                 "measureLength "
                 "measurePosition "
+                "measureStartNow "
                 "timeSignatureFraction "
                );
