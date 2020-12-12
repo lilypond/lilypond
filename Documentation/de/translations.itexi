@@ -16,8 +16,74 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Thu Oct 29 13:18:14 UTC 2020
+@emph{Zuletzt aktualisiert am Sat Dec 12 16:53:08 UTC 2020
 }
+@multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
+
+@headitem
+LilyPond Changes
+@tab Übersetzer
+@tab Übersetzungsüberprüfer
+@tab Übersetzt
+@tab Aktuell
+@tab Mehr Information
+@item
+Überschriften
+@*
+1244
+@tab Jonas Hahnfeld
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
+LilyPond -- \TITLE\
+@*
+1139
+@tab Jonas Hahnfeld
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #47ff24">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@end multitable
+
+
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
 @headitem

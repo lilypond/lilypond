@@ -16,12 +16,13 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Thu Oct 29 13:18:14 UTC 2020
+@emph{Last updated Sat Dec 12 16:53:08 UTC 2020
 }
-@multitable @columnfractions  0.2 0.2 0.2 0.2 0.2
+@multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
 @headitem
 LilyPond Changes
+@tab de
 @tab es
 @tab fr
 @tab it
@@ -30,6 +31,49 @@ LilyPond Changes
 Section titles
 @*
 (1244)
+@tab Jonas Hahnfeld
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+up to date
+@end ifnothtml
 @tab Francisco Vila
 @*
 
@@ -113,11 +157,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #ffbd48">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Masamichi Hosoda
 @*
@@ -140,7 +184,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #ffbd48">partially up to date</span>
+<span style="background-color: #ffba48">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -150,6 +194,49 @@ partially up to date
 LilyPond --- \TITLE\
 @*
 (1139)
+@tab Jonas Hahnfeld
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<span style="background-color: #47ff24">partially up to date</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially up to date
+@end ifnothtml
 @tab Francisco Vila
 @*
 
@@ -9602,7 +9689,7 @@ partially translated (58 %)
 @ifnothtml
 up to date
 @end ifnothtml
-@tab Han-Wen Nienhuys
+@tab Federico Bruni
 @*
 
 @ifhtml
@@ -9619,11 +9706,11 @@ partially translated (58 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffc546">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Han-Wen Nienhuys
 @*
@@ -9721,7 +9808,7 @@ translated
 @ifnothtml
 up to date
 @end ifnothtml
-@tab Han-Wen Nienhuys
+@tab Federico Bruni
 @*
 
 @ifhtml

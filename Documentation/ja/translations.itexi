@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Thu Oct 29 13:18:14 UTC 2020
+@emph{最終更新日 Sat Dec 12 16:53:08 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -51,7 +51,7 @@ Hiroshi Fukuhara
 @ifhtml
 
 @html
-<span style="background-color: #ffbd48">partially</span>
+<span style="background-color: #ffba48">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

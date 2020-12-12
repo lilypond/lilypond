@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Thu Oct 29 13:18:14 UTC 2020
+@emph{Ultimo aggiornamento Sat Dec 12 16:53:08 UTC 2020
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -47,11 +47,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #ffbd48">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1149,7 +1149,7 @@ sì
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
 @headitem
-LilyPond snippets
+Frammenti LilyPond
 @tab Traduttori
 @tab Revisori
 @tab Tradotto
@@ -1159,7 +1159,7 @@ LilyPond snippets
 Section titles
 @*
 342
-@tab Han-Wen Nienhuys
+@tab Federico Bruni
 @tab 
 @tab 
 @ifhtml
@@ -1175,18 +1175,18 @@ parzialmente (58 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffc546">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
 1139
-@tab Han-Wen Nienhuys
+@tab Federico Bruni
 @tab 
 @tab 
 @ifhtml
