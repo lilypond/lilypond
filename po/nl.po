@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.21.7\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2020-10-11 11:02+0100\n"
-"PO-Revision-Date: 2020-10-25 22:34+0100\n"
+"PO-Revision-Date: 2020-12-10 21:30+0100\n"
 "Last-Translator: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -917,7 +917,7 @@ msgstr "Kan alteratie %s niet naar een Lilypond-expressie converteren"
 #: musicxml.py:115
 #, python-format
 msgid "more than one child of class %s, all butthe first will be ignored"
-msgstr "meer dan één dochter van klasse %s, alle behalve het eerste zullen genegeerd worden"
+msgstr "meer dan één dochter van klasse %s; alle behalve het eerste zullen genegeerd worden"
 
 #: musicxml.py:536
 msgid "Senza-misura time signatures are not yet supported!"
@@ -1108,7 +1108,7 @@ msgstr "Verwerken van '%s'... "
 
 #: convert-ly.py:281
 msgid "Attempting conversion from `latin1'..."
-msgstr "Er wordt geprobeerd te converteren vanuit `latin1'..."
+msgstr "Er wordt geprobeerd te converteren vanuit 'latin1'..."
 
 #: convert-ly.py:388
 #, python-format
@@ -1324,7 +1324,7 @@ msgstr "Uitvoer zou invoerbestand overschrijven;  gebruik '--output'."
 #: lilypond-book.py:552
 #, python-format
 msgid "Reading `%s'"
-msgstr "Lezen van `%s'"
+msgstr "Lezen van '%s'"
 
 #: lilypond-book.py:558
 msgid "Dissecting..."
@@ -1333,7 +1333,7 @@ msgstr "Ontleden..."
 #: lilypond-book.py:569
 #, python-format
 msgid "Processing include `%s'"
-msgstr "Verwerken van invoegsel `%s'"
+msgstr "Verwerken van invoegsel '%s'"
 
 #: lilypond-book.py:580
 #, python-format
@@ -1357,7 +1357,7 @@ msgstr "Instellen van uitvoer van Lilypond op '--verbose', als gevolg van de ins
 #: lilypond-book.py:759
 #, python-format
 msgid "Compiling `%s'..."
-msgstr "Samenstellen van `%s'..."
+msgstr "Samenstellen van '%s'..."
 
 #: midi2ly.py:98
 msgid "warning: "
@@ -2109,7 +2109,7 @@ msgstr "Afsluiten van huidig GhostScript-exemplaar...\n"
 
 #: general-scheme.cc:765
 msgid "Mismatch of GhostScript arguments!\n"
-msgstr "Onaangepaste GhostScript-argumenten!\n"
+msgstr "Botsende GhostScript-argumenten!\n"
 
 #: general-scheme.cc:772
 #, c-format
@@ -3424,7 +3424,7 @@ msgstr "richting mag niet CENTER zijn in ly:skyline-pair::skyline"
 
 #: skyline.cc:543
 msgid "Cannot have negative horizon padding.  Junking."
-msgstr "Kan geen negatieve horizonvulling hebben. Produceren van rommel."
+msgstr "Kan geen negatieve horizonvulling hebben. Wordt weggegooid."
 
 #: slur-engraver.cc:123
 #, c-format
@@ -3516,7 +3516,7 @@ msgstr "Misvormd pad voor padsjabloon."
 #: stream-event.cc:130
 #, c-format
 msgid "conflict with event: `%s'"
-msgstr "conflict met gebeurtenis: `%s'"
+msgstr "conflict met gebeurtenis: '%s'"
 
 #: stream-event.cc:133
 #, c-format
@@ -3590,7 +3590,7 @@ msgstr "kan '%s' niet vinden"
 
 #: tuplet-engraver.cc:111
 msgid "No tuplet to end"
-msgstr "Geen antimetrische figuur om te eindigen"
+msgstr "Geen antimetrische figuur om te beëindigen"
 
 #: tuplet-engraver.cc:160
 msgid "omitting tuplet bracket with neither left nor right bound"
@@ -4089,12 +4089,12 @@ msgstr "onbekende Grob-interface: ~S"
 #: document-context-mods.scm:78
 #, scheme-format
 msgid "context modification `~a' not documented."
-msgstr "contextwijziging '~a 'niet gedocumenteerd."
+msgstr "contextwijziging '~a' is niet gedocumenteerd."
 
 #: document-identifiers.scm:56
 #, scheme-format
 msgid "music function `~a' not documented."
-msgstr "muziekfunctie '~a 'niet gedocumenteerd."
+msgstr "muziekfunctie '~a' is niet gedocumenteerd."
 
 #: documentation-lib.scm:62
 #, scheme-format
@@ -4153,7 +4153,7 @@ msgstr "Lijst van ingebedde CFF-lettertypes wordt geïnitialiseerd."
 #: framework-ps.scm:284
 #, scheme-format
 msgid "Preparing font ~a in PostScript resource directory for subfont ~a of file `~a'..."
-msgstr "Bezig lettertype ~a voor te bereiden in de Postscriptbronnenmap  voor sublettertype ~a van bestand '~a'... "
+msgstr "Voorbereiden van lettertype ~a in de Postscriptbronnenmap  voor sublettertype ~a van bestand '~a'... "
 
 #: framework-ps.scm:300 framework-ps.scm:314 framework-ps.scm:320
 #, scheme-format
@@ -4169,7 +4169,7 @@ msgstr "Lettertype ~a is een TrueType-lettertype; wordt overgeslagen..."
 #: framework-ps.scm:322
 #, scheme-format
 msgid "Font ~a cannot be used in PostScript resource directory because it is unknown format."
-msgstr "Lettertype ~a kan niet gebruikt worden in de Postscriptbronnenmap omdat het een onbekende indeling is."
+msgstr "Lettertype ~a kan niet gebruikt worden in de Postscriptbronnenmap omdat het een onbekende indeling heeft."
 
 #: framework-ps.scm:361
 #, scheme-format
@@ -4302,7 +4302,7 @@ msgstr "Mogelijke typefout in fretdiagram '~a'"
 #: fret-diagrams.scm:958
 #, scheme-format
 msgid "String ~a out of range 1-~a, ignoring"
-msgstr "Tekenreeks ~a buiten bereik 1-~a; wordt genegeerd"
+msgstr "Tekenreeks ~a valt buiten bereik 1-~a; wordt genegeerd"
 
 #: graphviz.scm:64
 #, scheme-format
@@ -4321,12 +4321,12 @@ msgstr "Harppedaaldiagram bevat ~a pedalen in plaats van de gebruikelijke 7."
 
 #: harp-pedals.scm:170
 msgid "Harp pedal diagram does not contain a divider (usually after third pedal)."
-msgstr "Harppedaaldiagram bevat geen scheiding (meestal na de derde pedaal)."
+msgstr "Harppedaaldiagram bevat geen scheiding (meestal na het derde pedaal)."
 
 #: harp-pedals.scm:172
 #, scheme-format
 msgid "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal."
-msgstr "Harppedaaldiagram bevat scheidingen op posities ~a.  Normaal is er slechts één scheiding na de derde pedaal."
+msgstr "Harppedaaldiagram bevat scheidingen op posities ~a.  Normaal is er slechts één scheiding na het derde pedaal."
 
 #: layout-beam.scm:40
 #, scheme-format
@@ -4506,8 +4506,8 @@ msgid ""
 "If @var{music} is a single pitch, inverts it about @var{around}\n"
 "and transposes from @var{around} to @var{to}."
 msgstr ""
-"Als @var{music} één enkele toonhoogte is, wordt deze omgekeerd\n"
-" rond @var{around} en wordt deze omgezet van @var{around} naar @var{to}."
+"Als @var{music} één enkele toonhoogte is, dan wordt deze omgekeerd\n"
+"rond @var{around} en omgezet van @var{around} naar @var{to}."
 
 #: modal-transforms.scm:302
 msgid "Applies pitch-invert to all pitches in @var{music}."
@@ -4518,7 +4518,7 @@ msgid ""
 "Transpose a note (numbered as @var{n}) in @var{direction}.\n"
 "@var{n} is zero-based and can be negative to count from the end."
 msgstr ""
-"Een noot (genummerd als @var{n}) omzetten naar in @var{direction}.\n"
+"Een noot (genummerd als @var{n}) omzetten naar @var{direction}.\n"
 "@var{n} heeft nul als basis en kan negatief zijn om vanaf het einde te tellen."
 
 #: music-functions.scm:321
@@ -4702,7 +4702,7 @@ msgstr "'anti-alias-factor' moet een positief geheel getal zijn <= 8"
 
 #: scheme-engravers.scm:96
 msgid "measure count left unfinished"
-msgstr "maatberekening onvoltooid gelaten"
+msgstr "maatberekening is onvoltooid gelaten"
 
 #: scheme-engravers.scm:111
 msgid "cannot find start of measure spanner"
@@ -4765,7 +4765,7 @@ msgstr "Geen snaar voor toonhoogte ~a (gezien de frets ~a)"
 
 #: translation-functions.scm:595
 msgid "additional bass strings are not supported by FretBoards"
-msgstr "extra bass-snaren worden niet ondersteund door FretBoards"
+msgstr "extra bas-snaren worden niet ondersteund door FretBoards"
 
 #: translation-functions.scm:672
 #, scheme-format
