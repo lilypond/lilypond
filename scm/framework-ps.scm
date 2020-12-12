@@ -109,6 +109,14 @@
    (string-append
     (format #f "%%Page: ~a ~a\n" page-number page-number)
     "%%BeginPageSetup\n"
+    "<< /PageUsesTransparency true\n"
+    "   /CompatibilityLevel 1.4\n"
+    "   /PageSpotColors 0\n"
+    ">> setpagedevice\n"
+    "0 .pushpdf14devicefilter\n"
+    "<< >> clippath pathbbox newpath .begintransparencygroup\n"
+    "1.0 .setfillconstantalpha\n"
+    "1.0 .setstrokeconstantalpha\n"
     (if landscape?
         "page-width output-scale lily-output-units mul mul 0 translate 90 rotate\n"
         "")
@@ -116,6 +124,7 @@
     "\n"
     "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"))
   (ly:outputter-dump-stencil outputter page-stencil)
+  (ly:outputter-dump-string outputter ".endtransparencygroup\n.poppdf14devicefilter\n")
   (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))
 
 (define (supplies-or-needs paper load-fonts?)
@@ -625,6 +634,18 @@
   (display (setup-variables paper) port)
 
   ;; adobe note 5002: should initialize variables before loading routines.
+  (display "systemdict /.setalphaisshape known not
+{
+  /PageUsesTransparency        false def
+  /.currentstrokeconstantalpha 1.0 def
+  /.currentfillconstantalpha   1.0 def
+  /.pushpdf14devicefilter      {pop} bind def
+  /.poppdf14devicefilter       {} bind def
+  /.begintransparencygroup     {pop pop pop pop pop} bind def
+  /.endtransparencygroup       {} bind def
+  /.setfillconstantalpha       {pop} bind def
+  /.setstrokeconstantalpha     {pop} bind def
+} if\n" port)
   (display (procset "music-drawing-routines.ps") port)
   (display (procset "lilyponddefs.ps") port)
   (display "%%EndProlog\n" port)

@@ -115,6 +115,37 @@ bind def
 
 /draw_round_box % width height x y blot
 {
+  .currentstrokeconstantalpha 1.0 lt
+  .currentfillconstantalpha 1.0 lt
+  or
+  { % If transparency is enabled, we have to use this
+    % code. It works well with transparency, and is much
+    % easier to read and maintain, but it is significantly
+    % slower and the resulting pdfs are bigger.
+    dup 2 div /r exch def  % blot radius
+    /b exch def            % blot diameter
+    r sub /y exch def      % real y
+    r sub /x exch def      % real x
+    b add /h exch def      % real height
+    b add /w exch def      % real width
+    matrix currentmatrix
+    currentpoint newpath translate x y translate
+    0 0 moveto
+    b 0 eq { % straight corners
+      0 h lineto
+      w h lineto
+      w 0 lineto
+      0 0 lineto
+    } { % rounded corners
+      0 h w h r arct
+      w h w 0 r arct
+      w 0 0 0 r arct
+      0 0 0 h r arct
+    } ifelse
+    closepath
+    fill
+    setmatrix
+  } { % Transparency is not enabled. Use this old and proven code.
     dup 0 lt { pop 0 } if setlinewidth
     matrix currentmatrix 5 1 roll
     currentpoint translate newpath translate
@@ -122,115 +153,221 @@ bind def
     abs exch abs exch
     currentlinewidth 0 eq
     { % straight corners
-	2 copy 2 mul gt
-	{ % horizontal
-	    0 1 index 2 div moveto
-	    setlinewidth
-	    0 rlineto
-	    0 setlinecap
-	    stroke
-	}
-	{
-	    2 copy exch 2 mul gt
-	    { % vertical
-		1 index 2 div 0 moveto
-		exch setlinewidth
-		0 exch rlineto
-		0 setlinecap
-		stroke
-	    }
-	    {
-		0 0 4 2 roll rectfill
-	    }
-	    ifelse
-	}
-	ifelse
-    }
-    { % rounded corners
-	2 copy 0 eq exch 0 eq or
-	{ % line shape
-	    0 0 moveto
-	    rlineto
-	    1 setlinecap
-	    stroke
-	    0 setlinecap
-	}
-	{ % full shape
-	    currentstrokeadjust {
-		currentlinewidth 2 div
-		0 0 2 index 180 270 arc
-		2 index 0 2 index 270 360 arc
-		3 copy 0 90 arc
-		0 2 index 3 -1 roll 90 180 arc
-		closepath
-		2 copy 2 mul gt
-		{ % horizontal
-		    2 copy add currentlinewidth add 10 add % large enough
-		    0 1 index neg moveto
-		    2 index 1 index neg lineto
-		    2 index 1 index lineto
-		    0 exch lineto closepath
-		    gsave clip newpath
-		    0 1 index 2 div moveto
-		    currentlinewidth add setlinewidth
-		    0 rlineto
-		    2 setlinecap
-		    stroke
-		    grestore
-		}
-		{
-		    2 copy exch 2 mul gt
-		    { % vertical
-			2 copy add currentlinewidth add 10 add % large enough
-			dup neg 0 moveto
-			dup 0 lineto
-			dup 2 index lineto
-			neg 1 index lineto closepath
-			gsave clip newpath
-			1 index 2 div 0 moveto
-			exch currentlinewidth add setlinewidth
-			0 exch rlineto
-			2 setlinecap
-			stroke
-			grestore
-		    }
-		    {
-			pop pop
-			fill
-		    }
-		    ifelse
-		}
-		ifelse
-		newpath
-	    }
-	    {
-		1 setlinejoin
-		0 0 4 2 roll 4 copy rectstroke rectfill
-	    }
-	    ifelse
-	}
-	ifelse
-    }
-    ifelse
+      2 copy 2 mul gt
+      { % horizontal
+        0 1 index 2 div moveto
+        setlinewidth
+        0 rlineto
+        0 setlinecap
+        stroke
+      } {
+        2 copy exch 2 mul gt
+        { % vertical
+          1 index 2 div 0 moveto
+          exch setlinewidth
+          0 exch rlineto
+          0 setlinecap
+          stroke
+        } {
+          0 0 4 2 roll rectfill
+        } ifelse
+      } ifelse
+    } { % rounded corners
+      2 copy 0 eq exch 0 eq or
+      { % line shape
+        0 0 moveto
+        rlineto
+        1 setlinecap
+        stroke
+        0 setlinecap
+      } { % full shape
+        currentstrokeadjust
+        {
+          currentlinewidth 2 div
+          0 0 2 index 180 270 arc
+          2 index 0 2 index 270 360 arc
+          3 copy 0 90 arc
+          0 2 index 3 -1 roll 90 180 arc
+          closepath
+          2 copy 2 mul gt
+          { % horizontal
+            2 copy add currentlinewidth add 10 add % large enough
+            0 1 index neg moveto
+            2 index 1 index neg lineto
+            2 index 1 index lineto
+            0 exch lineto closepath
+            gsave clip newpath
+            0 1 index 2 div moveto
+            currentlinewidth add setlinewidth
+            0 rlineto
+            2 setlinecap
+            stroke
+            grestore
+          } {
+            2 copy exch 2 mul gt
+            { % vertical
+              2 copy add currentlinewidth add 10 add % large enough
+              dup neg 0 moveto
+              dup 0 lineto
+              dup 2 index lineto
+              neg 1 index lineto closepath
+              gsave clip newpath
+              1 index 2 div 0 moveto
+              exch currentlinewidth add setlinewidth
+              0 exch rlineto
+              2 setlinecap
+              stroke
+              grestore
+            } {
+              pop pop
+              fill
+            } ifelse
+          } ifelse
+          newpath
+        } {
+          1 setlinejoin
+          0 0 4 2 roll 4 copy rectstroke rectfill
+        } ifelse
+      } ifelse
+    } ifelse
     setmatrix
+  } ifelse
 } bind def
 
 /draw_polygon % fill? x(n) y(n) x(n-1) y(n-1) ... x(0) y(0) n blot
 {
-	setlinewidth %set to blot
-
-	0 setlinecap
-	1 setlinejoin
-
-	3 1 roll
-	/polygon_x
-	currentpoint
-	/polygon_y exch def
-	def
-	rmoveto % x(0) y(0)
-	{ polygon_x polygon_y vector_add lineto } repeat % n times
-	closepath
-	stroke_and_fill?
+  gsave
+  currentpoint translate
+  /b exch def
+  /r b 2 div def
+  1 add /n exch def % n is number of points
+  /filled n 2 mul 2 add -1 roll def
+  % check arguments
+  % if two adjacent points are identical, throw away one of them
+  n {
+    4 copy exch 4 1 roll
+    eq 3 1 roll eq and
+    {
+       pop pop
+       /n n 1 sub def
+    } {
+      n 2 mul 2 roll
+    } ifelse
+  } repeat
+  %
+  b setlinewidth
+  1 setlinecap
+  n 1 eq
+  { % n is 1
+      2 copy
+      moveto lineto stroke
+  } { n 2 eq
+    { % n is 2 (e.g. single chor clusters)
+      moveto lineto stroke
+    } { % n is 3 or above
+      filled
+      .currentstrokeconstantalpha 1.0 lt
+      .currentfillconstantalpha 1.0 lt
+      or and
+      { % we have to use code optimized for transparency
+        4 copy n 2 mul 4 add 4 roll % x1 y1 xn yn ... x1 y1
+        n { % for every point on the original path do ...
+          % calculate end points of a line segment parallel to the line
+          % segment AB, distance r.
+          % length of segment AB: lena = ((xb-xa)^2 + (yb-ya)^2)^0.5
+          % endpoint (txb,tyb)    txb = xb + (yb-ya) * r / lena
+          %                       tyb = yb - (xb-xa) * r / lena
+          % simile for (txa,tya), (txc,tyc), txd,tyd)
+          /ya exch def /xa exch def /yb exch def /xb exch def
+          /lena xb xa sub 2 exp yb ya sub 2 exp add sqrt def
+          /txb xb yb ya sub r lena div mul add def
+          /tyb yb xb xa sub r lena div mul sub def
+          /txa xa ya yb sub r lena div mul sub def
+          /tya ya xa xb sub r lena div mul add def
+          % calculate line segment on the outer border of the line segment BC
+          /yc yb def /xc xb def /yd exch def /xd exch def
+          /lenc xd xc sub 2 exp yd yc sub 2 exp add sqrt def
+          /txd xd yd yc sub r lenc div mul add def
+          /tyd yd xd xc sub r lenc div mul sub def
+          /txc xc yc yd sub r lenc div mul sub def
+          /tyc yc xc xd sub r lenc div mul add def
+          % calculate the intersection point (spx,spy)
+          %   of the line through (txa,tya) and (txb,tyb)
+          %   and the line through (txd,tyd) and (txc,tyc)
+          % We have to be a bit careful not to divide by 0
+          txb txc eq tyb tyc eq and
+          { % all points on a straight line
+            /spx txb def
+            /spy tyb def
+          } { % not all points on a straight line
+            txa txb eq
+            {% txa = txb (first line perpendicular to linea abscissa)
+              /spx txa def
+              % spy = tyc + (tyc-tyd) / (txc-txd) * (txb-txc)
+              /spy tyc tyc tyd sub txc txd sub div txb txc sub mul add def
+            } { % txa != txb (first line not perpendicular to linea abscissa)
+              txc txd eq
+              { % txc = txd (2nd line parallel to linea abscissa)
+                /spx txc def
+                % spy = tyb + (tya-tyb) / (txa-txb) * (txc-txb)
+                /spy tyb tya tyb sub txa txb sub div txc txb sub mul add def
+              } { % txa != txb && txc != txd
+                % sta = (tyb - tys) / ( txb - txa)
+                % coa = tya - sta * txa
+                /sta tyb tya sub txb txa sub div def
+                /coa tya sta txa mul sub def
+                % stc = (tyd - tyc) / (txd - txc)
+                % coc = tyc - stc * txc
+                /stc tyd tyc sub txd txc sub div def
+                /coc tyc stc txc mul sub def
+                sta stc eq
+                {
+                  /spx coc def
+                } {
+                   % spx = (coc-coa) / (sta-stc)
+                  /spx coc coa sub sta stc sub div def
+                } ifelse
+                % spy = sta * spx + coa
+                /spy sta spx mul coa add def
+              } ifelse
+            } ifelse
+          } ifelse
+          % prepare stack for next point
+          % and save calculated intersection point
+          xd yd xc yc
+          spx spy
+          n 2 mul 4 add 2 roll
+        } repeat % continue with next point
+        % throw away garbage
+        4 {pop} repeat
+        % construct path
+        n 2 mul 1 sub index
+        n 2 mul 1 sub index
+        n 2 mul 1 sub index
+        n 2 mul 1 sub index
+        moveto
+        n { 4 2 roll 2 copy 6 2 roll r arct } repeat
+        % and finally fill the polygon
+        fill
+      } { % this is the old, fast and efficient code to be used
+          % whenever we do not optimize for transparency
+        0 setlinecap
+        1 setlinejoin
+        currentpoint
+        /polygon_y exch def
+        /polygon_x exch def
+        rmoveto % x0 y0
+        n 1 sub
+        {
+          polygon_x polygon_y vector_add lineto
+        } repeat
+        closepath
+        filled
+        stroke_and_fill?
+      } ifelse
+    } ifelse
+  } ifelse
+  grestore
 } bind def
 
 /draw_circle % filled? radius thickness draw_circle
@@ -326,4 +463,14 @@ bind def
 		0 rmoveto
 	}repeat
 }bind def
+
+/setrgbacolor % r g b a
+{
+  4 1 roll
+  setrgbcolor
+  dup
+  .setfillconstantalpha
+  .setstrokeconstantalpha
+} bind def
+
 %end music-drawing-routines.ps

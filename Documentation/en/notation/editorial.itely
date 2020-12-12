@@ -666,13 +666,9 @@ g'8 \huge r4 a'16 f'
 @cindex semi-transparent colors
 
 @noindent
-If that color code includes an alpha channel for semi-transparency,
+The color code might include an alpha channel for semi-transparency,
 by using an eight-character code @var{"#RRGGBBAA"} or its
-shorthand form @var{"#RGBA"}, it will be used in SVG output
-but not in PostScript/PDF output.  In the previous example,
-the rest can be seen through only if the code is compiled with
-the SVG backend, as explained in
-@ref{Alternative output formats}.
+shorthand form @var{"#RGBA"}.
 
 @cindex x11 color
 @funindex x11-color
@@ -720,9 +716,10 @@ Exact RGB colors can be specified using the Scheme function
 respectively for the @var{red}, @var{green} and @var{blue}
 channels, and an optional @var{alpha} number for
 semi-transparency.  (All values must be numbers from 0 to@tie{}1.)
-Again, transparency is only supported in SVG output;
-for example, in the following fragment the staff’s clef
-can be seen through when rendered in SVG.
+Semi-transparency is supported in SVG output, for PS and PDF output
+it is only supported if Ghostscript 9.53+ is used.  In the
+following fragment the staff’s clef can be seen through if
+rendered under the conditions mentioned above.
 
 @lilypond[verbatim,quote]
 \new Staff \with {

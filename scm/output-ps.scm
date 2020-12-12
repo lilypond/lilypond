@@ -197,12 +197,15 @@
 
 ;; save current color on stack and set new color
 (define* (setcolor r #:optional (g #f) (b #f) (a #f))
-  ;; TODO: figure out a way to support alpha transparency
-  ;; using /SetTransparency pdfmark
-  (ly:format "gsave ~4l setrgbcolor\n"
-             (if (string? r)
-                 (list-head (css->colorlist r) 3)
-                 (list r g b))))
+  (let* ((colorlist
+           (if (string? r)
+               (css->colorlist r)
+               (if a (list r g b a)
+                     (list r g b))))
+         (colors (length colorlist)))
+    (if (= colors 3)
+        (ly:format "gsave ~4l setrgbcolor\n" colorlist)
+        (ly:format "gsave ~4l setrgbacolor\n" colorlist))))
 
 ;; restore color from stack
 (define (resetcolor) "grestore\n")
