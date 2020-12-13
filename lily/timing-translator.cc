@@ -165,15 +165,8 @@ Timing_translator::start_translation_timestep ()
   if (!dt)
     return;
 
-  Moment measposp;
-
-  SCM s = get_property (this, "measurePosition");
-  if (unsmob<Moment> (s))
-    measposp = *unsmob<Moment> (s);
-  else
-    {
-      measposp = now;
-    }
+  auto measposp = robust_scm2moment (get_property (this, "measurePosition"),
+                                     now);
 
   int current_barnumber = from_scm (get_property (this, "currentBarNumber"), 0);
   int internal_barnumber = from_scm (get_property (this, "internalBarNumber"), 0);

@@ -873,29 +873,22 @@ const char *const Context::type_p_name_ = "ly:context?";
 Rational
 measure_length (Context const *context)
 {
-  SCM l = get_property (context, "measureLength");
-  Rational length (1);
-  if (unsmob<Moment> (l))
-    length = unsmob<Moment> (l)->main_part_;
-  return length;
+  return robust_scm2moment (get_property (context, "measureLength"),
+                            Moment (1)).main_part_;
 }
 
 Moment
 measure_position (Context const *context)
 {
-  SCM sm = get_property (context, "measurePosition");
+  auto m = robust_scm2moment (get_property (context, "measurePosition"),
+                              Moment ());
 
-  Moment m = 0;
-  if (unsmob<Moment> (sm))
+  if (m.main_part_ < 0)
     {
-      m = *unsmob<Moment> (sm);
-
-      if (m.main_part_ < Rational (0))
-        {
-          Rational length (measure_length (context));
-          while (m.main_part_ < Rational (0))
-            m.main_part_ += length;
-        }
+      const auto length (measure_length (context));
+      do
+        m.main_part_ += length;
+      while (m.main_part_ < 0);
     }
 
   return m;

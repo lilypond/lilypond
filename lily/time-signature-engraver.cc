@@ -105,6 +105,8 @@ Time_signature_engraver::stop_translation_timestep ()
 {
   if (time_signature_ && !scm_is_null (time_cause_))
     {
+      // Avoid measure_position (context ()) here because its result is
+      // normalized to be >= 0 always.
       Moment *mp = unsmob<Moment> (get_property (this, "measurePosition"));
       if (mp && (mp->main_part_ > Rational (0))
           && !from_scm<bool> (get_property (this, "partialBusy")))
