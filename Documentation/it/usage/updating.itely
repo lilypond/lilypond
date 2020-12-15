@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 094be7d770e887169f70249804e1e96e04a44ca5
+    Translation of GIT committish: 13d16834810d3223aa7793df89c0560b76938ffa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -414,5 +414,5 @@ confronto direttamente nell'input musicale, come nell'esempio seguente:
 }
 @end verbatim
 
-@strong{Nota:} Questa funzione è stata introdotta in LilyPond 2.19.57, dunque
+@strong{Nota:} Questa funzione è stata introdotta in LilyPond 2.21.80, dunque
 non è possibile fare confronti usando versioni precedenti.

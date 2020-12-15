@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 422791b7c393a0168a99ff2cbfe70ba92fb55228
+    Translation of GIT committish: 90f806cf32b0c4a1cff204d343e1f0ff6aaeedd4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,6 +59,7 @@ questo argomento se non si conosce la linea di comando.
 * Opzioni di base della linea di comando per LilyPond::
 * Opzioni avanzate della linea di comando per LilyPond::
 * Variabili d'ambiente::
+* Riposizionamento::
 * LilyPond in una gabbia chroot::
 @end menu
 
@@ -228,11 +229,13 @@ Questa opzione equivale a impostare le opzioni a linea di comando di LilyPond
 
 @item @code{-f}, @code{--format=}@var{formato}
 Formato del (principale) file di output.  I valori possibili di @var{formato}
-sono @code{ps}, @code{pdf} o @code{png}.
+sono @code{ps}, @code{pdf}, @code{png} o @code{svg}.
 
 Esempio: @code{lilypond -fpng file.ly}
 
-Per i formati @code{svg} e @code{eps} usare l'opzione @code{-dbackend}.
+Internamente SVG utilizza un backend specifico e dunque non si può ottenere
+nella stessa esecuzione usata per altri formati; @w{@code{-fsvg}} o
+@code{--svg} sono in realtà equivalenti all'opzione @code{-dbackend=svg}.
 Vedi @ref{Opzioni avanzate della linea di comando per LilyPond}.
 
 @item @code{-h}, @code{--help}
@@ -433,7 +436,7 @@ Questa opzione è equivalente a @code{-fps}.
 
 @item @code{--png}
 Genera immagini di ogni pagina in formato PNG.  Questa opzione è equivalente
-a @code{-fpng}.
+a @w{@code{-fpng}}.
 
 La risoluzione dell'immagine può essere impostata in @var{N}@tie{}DPI con
 @example
@@ -444,11 +447,19 @@ La risoluzione dell'immagine può essere impostata in @var{N}@tie{}DPI con
 @cindex output, PDF (Portable Document Format)
 
 @item @code{--pdf}
-Genera PDF.  Questa è l'opzione predefinita ed è equivalente a @code{-fpdf}.
+Genera PDF.  Questa è l'opzione predefinita ed è equivalente a @w{@code{-fpdf}}.
 
 @code{-s}, @code{--silent}
 Non mostra il progresso, ma solo i messaggi di errore.  È equivalente a
 @code{-lERROR}.
+
+@cindex SVG (Scalable Vector Graphics), output
+@cindex output, SVG (Scalable Vector Graphics)
+@cindex HTML, partiture SVG incorporabili
+@cindex web, pagine, partiture SVG incorporabili
+
+@item @code{--svg}
+Genera file SVG per ciascuna pagina.  Questa opzione è equivalente a @w{@code{-fsvg}}.
 
 @item @code{-v}, @code{--version}
 Mostra informazioni sulla versione.
@@ -523,9 +534,9 @@ opzioni possono essere letti usando la funzione @code{ly:get-option}.
 
 @item @code{anti-alias-factor}
 @var{num}
-Elabora a una risoluzione più alta (usando il fattore @var{num}) e
-ridimensiona il risultato per evitare gli @qq{artefatti} nelle
-immagini PNG.  Predefinito: @code{1.0}.
+Elabora a una risoluzione più alta (usando il fattore @var{num}, che deve
+essere un numero intero positivo @leq{}8) e ridimensiona il risultato per
+evitare gli @qq{artefatti} nelle immagini PNG.  Predefinito: @code{1}.
 
 @item @code{aux-files}
 @var{bool}
@@ -657,7 +668,62 @@ millimetri.  Predefinito: @code{f} (ovvero nessuna cornice).
 @item @code{font-export-dir}
 @var{stringa}
 Imposta la directory per esportare i font come file PostScript su @var{stringa}.
-Predefinito: @code{#f} (ovvero directory corrente).
+È utile quando si desidera creare prima un PDF senza font incorporati e poi
+incorporarli con Ghostscript come mostrato sotto.
+
+@example
+$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
+@end example
+
+@noindent
+Nota: Diversamente da @code{font-ps-resdir}, questo metodo non permette
+di incorporare i font CID con Ghostscript 9.26 e versioni successive.
+
+@noindent
+Nota: Come con @code{font-ps-resdir}, questa opzione non agisce sui
+font TrueType, perché incorporare i font TrueType successivamente produce
+caratteri confusi.  Per evitare che i caratteri siano confusi, usare
+@code{gs-never-embed-fonts}, che a dispetto del nome incorpora i font
+TrueType.
+
+@noindent
+Predefinito: @code{#f} (ovvero non esportare).
+
+@item @code{font-ps-resdir} @var{stringa}
+Imposta la directory (come @var{stringa}) per generare un sottoinsieme della
+directory delle risorse PostScript da usare successivamente per incorporare
+i font.
+È utile quando si desidera creare prima un PDF senza font incorporati e poi
+incorporarli con Ghostscript come mostrato sotto.
+
+@example
+$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+     -I resdir -I resdir/Font \
+     -sOutputFile=foo.embedded.pdf foo.pdf
+@end example
+
+@noindent
+Nota: È meglio che la directory specificata non contenga il nome
+@file{Resource} perché ha un significato speciale quando utilizzata
+con l'opzione @code{-I} di Ghostscript.
+
+@noindent
+Nota: Diversamente da @code{font-export-dir},
+questo metodo permette di incorporare i font CID con Ghostscript 9.26 e
+versioni successive.
+
+@noindent
+Note: Come con @code{font-export-dir}, questa opzione non agisce sui
+font TrueType, perché incorporare i font TrueType successivamente produce
+caratteri confusi.  Per evitare che i caratteri siano confusi, usare
+@code{gs-never-embed-fonts}, che a dispetto del nome incorpora i font
+TrueType.
+
+@noindent
+Predefinito: @code{#f} (ovvero non generare niente).
 
 @item @code{gs-load-fonts}
 @var{bool}
@@ -752,6 +818,23 @@ di escape.  Predefinito: @code{"\"a4\""}.
 Imposta il formato di output di Ghostscript per le immagini raster su
 @var{simbolo}.  Predefinito: @code{png16m}.
 
+@item @code{png-width} @var{larghezza}
+@itemx @code{png-height} @var{altezza}
+Per l'output PNG, imposta la larghezza e l'altezza (in pixel) del file
+immagine creato.  Se manca una delle opzioni, l'altra dimensione viene
+calcolata in base al riquadro di delimitazione EPS, mantenendo le
+proporzioni.
+
+Oltre a @option{--png}, per ottenere una scala corretta dell'immagine
+senza tagli, si deve usare @option{--eps}, @option{-dcrop} o
+@option{-dpreview}.
+
+L'opzione @option{-dresolution} viene ignorata.
+
+Attenzione, c'è un bug nelle versioni di ghostscript fino alla 9.52 che
+riguarda queste due opzioni: produce immagini PNG vuote se l'altezza è
+più grande della larghezza.
+
 @item @code{point-and-click}
 @var{bool}
 Se @var{bool} è @code{#t}, aggiunge i collegamenti @qq{punta e clicca}
@@ -806,7 +889,7 @@ Quando elabora un comando @code{\include}, cerca il file incluso in posizione
 relativa al file corrente se @var{bool} è @code{#t}.  Se impostato su
 @c Non capisco cosa intenda con "root file". - fb
 @code{#f}, cerca il file relativo al file root.
-Predefinito: @code{#f}.
+Predefinito: @code{#t}.
 
 @item @code{resolution}
 @var{num}
@@ -902,19 +985,6 @@ per rendere in modo adeguato il testo.  Si raccomanda di non usare gli
 in grado di gestirli.
 Predefinito: @code{#f}.
 
-@item @code{trace-memory-frequency}
-@var{bool}
-Se @var{bool} è @code{#t}, registra molte volte al secondo l'uso delle celle
-da parte di Scheme.  Per il file di input @file{pippo.ly}, salva i risultati
-in @file{pippo.stacks} e @file{pippo.graph}.
-Predefinito: @code{#f}.
-
-@item @code{trace-scheme-coverage}
-@var{bool}
-Se @var{bool} è @code{#t}, registra la copertura dei file Scheme.  Per il file
-di input @file{pippo.ly}, fa ciò nel file @file{pippo.cov}.
-Predefinito: @code{#f}.
-
 @item @code{verbose}
 Livello di verbosità.  Questa è un'opzione di sola lettura; la sua impostazione
 non ha effetto.
@@ -934,16 +1004,32 @@ Predefinito: @code{#f}.
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
+@cindex LILYPOND_LOCALEDIR
+@cindex LILYPOND_RELOCDIR
+@cindex LILYPOND_LOGLEVEL
 
 @command{lilypond} riconosce le seguenti variabili d'ambiente:
 @table @code
 @item LILYPOND_DATADIR
-Specifica la directory predefinita in cui saranno cercati i messaggi della
-localizzazione e i file di dati.  Questa directory deve contenere
-sottodirectory chiamate @file{ly/}, @file{ps/}, @file{tex/}, etc.
+Specifica la directory predefinita in cui vengono cercati i messaggi della
+localizzazione e i file di dati, scavalcando le posizioni definite al momento
+della compilazione o quelle calcolate dinamicamente all'esecuzione (vedi
+@ref{Riposizionamento}).  Questa directory deve contenere sottodirectory
+chiamate @file{ly}, @file{ps}, @file{tex}, etc.
+
+@item LILYPOND_LOCALEDIR
+Specifica la directory dove si trovano file relativi alla localizzazione.
+Scavalca il valore derivato da @code{LILYPOND_DATADIR}.
+
+@item LILYPOND_RELOCDIR
+Specifica la directory dove si trovano i file di @qq{riposizionamento}
+(@emph{relocation}).  Scavalca il valore derivato dalla posizione del
+binario @command{lilypond}.
 
 @item LANG
-Determina la lingua per i messaggi di avviso.
+La lingua per i dati LilyPond inviati a @code{stdout} e @code{stderr}, per
+esempio relazioni sullo stato di avanzamento, messaggi di avviso o informazioni
+di debug.  Esempio: @code{LANG=de}.
 
 @item LILYPOND_LOGLEVEL
 Il livello di log (loglevel) predefinito. Se LilyPond viene chiamato senza un
@@ -955,7 +1041,161 @@ Una variabile, in forma di percentuale, che regola il modo in cui viene gestita
 la memoria.  Con valori più alti il programma usa più memoria, con valori
 più bassi usa più tempo della CPU.  Il valore predefinito è @code{70}.
 
+@item TMPDIR
+Specifica la directory temporanea in GNU/Linux e Mac.
+Quella predefinita è @file{/tmp}.  È la directory in cui vengono salvati i
+file intermedi (come i file PostScript) durante la compilazione.  Sovrascrivere
+questa variabile può essere utile, per esempio, se l'utente che esegue
+lilypond non ha permesso di scrittura alla directory temporanea predefinita.
+Esempio: @code{TMPDIR=~/foo}.
 @end table
+
+
+@node Riposizionamento
+@unnumberedsubsec Riposizionamento
+@translationof Relocation
+
+@cindex relocation
+@cindex riposizionamento
+
+La maggior parte dei programmi del mondo Unix usa directory predefinite
+per i dati determinati al momento della configurazione che precede
+la compilazione.
+LilyPond non fa eccezione.  Per esempio, un'installazione tipica mette
+il binario @file{lilypond} in @file{/usr/@/bin} e tutti i file specifici
+di LilyPond in sottodirectory di @file{/usr/@/share/@/lilypond/@/2.21.0/}
+(assumendo che la versione corrente sia 2.21.0).
+
+Questo approccio, sebbene funzioni bene in caso di compilazione manuale e
+di piattaforme che dispongono di gestori di pacchetti standardizzati, può
+causare problemi laddove tali gestori di pacchetti non siano abituali o
+non siano attivi per impostazione predefinita.  Esempi tipici di tali
+piattaforme sono Windows e MacOS, i cui utenti si aspettano che le
+applicazioni @emph{bundle} possano essere installate ovunque.
+
+L'abituale soluzione a questo problema è il supporto per il riposizionamento
+(in inglese @emph{relocation}): invece di usare percorsi prestabiliti ai file
+di dati, le posizioni dei necessari file di supporto vengono calcolate al
+momento dell'esecuzione (@emph{runtime}) del programma in
+modo @emph{relativo al binario eseguito}.
+
+@menu
+* File di riposizionamento::
+* Algoritmo di riposizionamento::
+@end menu
+
+@node File di riposizionamento
+@unnumberedsubsubsec File di riposizionamento
+@translationof Relocation files
+
+Esiste in realtà un secondo meccanismo per la configurazione runtime:
+LilyPond fa ampio ricorso a programmi e librerie esterne, in particolare
+le librerie @q{FontConfig} e @q{GUILE} per trovare i font di sistema e
+gestire i file Scheme, e al programma @command{gs} per convertire i dati
+PS in file PDF.  Tutti questi devono anche essere configurati per individuare
+i propri file di dati.  Per far ciò, il programma @command{lilypond} analizza
+tutti i file presenti in una directory chiamata @file{relocate} (se esiste;
+vedi sotto dove si cerca questa directory) per manipolare le variabili
+d'ambiente, che a loro volta controllano queste librerie e programmi
+esterni.  Il formato di tali file di riposizionamento è semplice; ogni
+riga ha la sintassi
+
+@example
+@var{comando} @var{chiave}=@var{valore}
+@end example
+
+@noindent
+e le righe vuote vengono ignorate.
+
+La direttiva @var{comando} è una delle seguenti.
+
+@table @code
+
+@item set
+Imposta incondizionatamente la variabile d'ambiente @var{chiave} su @var{valore}.
+Sovrascrive un valore impostato precedentemente.
+
+@item set?
+Imposta la variabile d'ambiente @var{chiave} su @var{valore} solo se
+@var{chiave} non è ancora stata definita.  In altre parole, non sovrascrive
+un valore impostato precedentemente.
+
+@item setdir
+Se @var{valore} è una directory, imposta incondizionaramente la variabile
+d'ambiente @var{chiave} su @var{valore}.  Altrimenti, emette un avviso.
+
+@item setfile
+Se @var{valore} è un file, imposta incondizionaramente la variabile
+d'ambiente @var{chiave} su @var{valore}.  Altrimenti, emette un avviso.
+
+@item prependdir
+Antepone il @var{valore} della directory all'elenco delle directory della
+variabile d'ambiente @var{chiave}.  Se @var{chiave} non esiste viene
+creata.
+
+@end table
+
+Le variabili d'ambiente (precedute dal segno del dollaro) sono permesse
+dentro il @var{valore} e vengono espanse prima che la direttiva sia
+eseguita.
+
+Ecco due esempi di comandi di riposizionamento dei file, presi da GUB
+(vedi @rcontrib{Grand Unified Builder (GUB)}).
+
+@example
+set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf
+prependdir GUILE_LOAD_PATH=$INSTALLER_PREFIX/share/guile/1.8
+@end example
+
+Nei file di riposizionamento si dovrebbe evitare di inserire molteplici
+righe che impostano la stessa variabile d'ambiente, perché l'ordine
+di analisi dei file nella directory @file{relocate} è arbitrario.
+
+
+@node Algoritmo di riposizionamento
+@unnumberedsubsubsec Algoritmo di riposizionamento
+@translationof Relocation algorithm
+
+LilyPond usa il seguente algoritmo per trovare i suoi file di dati.
+
+@enumerate
+
+@item
+Calcola la directory in cui si trova il binaio @command{lilypond}
+attualmente eseguito.  Chiamiamola @code{bindir}.  Imposta la
+variabile d'ambiente (interna) @code{INSTALLER_PREFIX} su
+@file{@var{bindir}/..} (ovvero la directory genitore di @code{bindir}).
+
+@item
+Controlla la variabile d'ambiente @code{LILYPOND_DATADIR}.  Se impostata,
+usa il suo valore per la directory dei dati di LilyPond, @code{datadir}.
+Altrimenti usa
+@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/@var{versione}} (dove
+@var{versione} è la versione corrente di LilyPond) o
+@file{$INSTALLER_PREFIX/@/share/@/lilypond/@/current}.
+
+@item
+Controlla la variabile d'ambiente @code{LILYPOND_LOCALEDIR}.  Se  impostata,
+usa il suo valore per la directory dei dati di localizzazione di LilyPond,
+@code{localedir}.  Altrimenti usa
+@file{$INSTALLER_PREFIX/@/share/@/locale}.
+
+@item
+Controlla la variabile d'ambiente @code{LILYPOND_RELOCDIR}.  Se impostata,
+usa il suo valore per la directory di riposizionamento dei file di LilyPond,
+@code{relocdir}.  Altrimenti usa
+@file{$INSTALLER_PREFIX/@/etc/@/relocate}.
+
+@item
+Se @code{datadir} non esiste, usa un valore determinato al momento della
+compilazione.  Idem per @code{localedir} (ma non per @code{relocdir}, dato
+che non ha senso averlo).
+
+@item
+Se @code{relocdir} esiste, elabora tutti i file in questa directory come
+descritto in @ref{File di riposizionamento}.
+
+@end enumerate
 
 
 @node LilyPond in una gabbia chroot
@@ -1366,10 +1606,7 @@ naturale (quando le note di @code{\voiceThree} sono più alte di quelle di
 @code{\voiceOne}, etc.)
 
 @morerefs
-Manuale di apprendimento:
 @rlearning{Definire esplicitamente le voci},
-@rlearning{Esempio musicale}.
-
-Guida alla notazione:
+@rlearning{Esempio musicale},
 @ruser{Polifonia su un solo rigo},
 @ruser{Risoluzione delle collisioni}.
