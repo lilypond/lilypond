@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 140a50e2ae2a3db4a41fab15816f00cc1f114e2b
+    Translation of GIT committish: 256cf3e4639cdb2be3f00e67254376f77cd26456
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -102,41 +102,4 @@ Correzioni di bug o nuove funzionalità: leggere @rcontribnamed{Programming work
 @end itemize
 
 @end macro
-
-@ignore
-@macro helpusProjects
-@subheading Progetti
-
-
-@subsubheading Grand LilyPond Input Syntax Standardization
-
-Sito web:
-@rcontrib{Grand LilyPond Input Syntax Standardization (GLISS)}.
-
-GLISS renderà stabile la sintassi di input (esclusi i tweak) per il futuro
-LilyPond 3.0.  Dopo l'aggiornamento alla versione 3.0, la sintassi di input per
-la musica senza tweak rimarrà stabile nell'immediato futuro.
-
-Ci sarà un ampio periodo di discussione per determinare la specifica finale
-per l'input.
-
-@warning{GLISS inizierà poco dopo il rilascio della versione 2.16.}
-
-@subsubheading Grand Organizing Project
-
-Sito web: @rcontrib{Grand Organization Project (GOP)}.
-
-GOP sarà la nostra grande iniziativa di reclutamento di nuovi collaboratori.  Abbiamo
-un disperato bisogno di distribuire tra più persone i compiti di sviluppo (inclusi
-i @qq{compiti semplici} che non richiedono di dover programmare o avere a che
-fare col codice sorgente!).  Abbiamo anche bisogno di documentare la conoscenza
-degli attuali sviluppatori in modo che non vada persa.
-
-Diversamente dalla maggior parte dei @qq{Grand Projects}, GOP non aggiungerà
-nuove funzionalità né riprogetterà completamente le cose.  Il suo scopo è darci
-delle fondamenta più stabili in modo da poter andare avanti con compiti più
-grandi in futuro.
-
-@end macro
-@end ignore
 

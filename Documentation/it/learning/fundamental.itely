@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 41a35ee2dda003efc36f281de7160660fafd410b
+    Translation of GIT committish: a9e674ad821d3f9d3fa61ee792661e30a65fd32b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -465,6 +465,8 @@ e @ruser{Righi ossia}.
 @node Struttura dell'inserimento note
 @subsection Struttura dell'inserimento note
 @translationof Structure of a note entry
+
+@cindex post-eventi
 
 L'inserimento di una nota in LilyPond consiste in un'altezza, seguita da
 una durata, seguita facoltativamente da uno o più @q{post-eventi}.  I post-eventi
@@ -2945,6 +2947,7 @@ attraverso la nostra variabile predefinita, @code{\keyTime}.
 
 @cindex allungabilità dei righi
 @cindex righi, allungabilità
+@cindex stretchability
 
 L'aspetto dei righi dell'organo mostrati sopra è quasi perfetto; tuttavia
 c'è un piccolo difetto che non è visibile se si guarda un sistema
@@ -2964,15 +2967,17 @@ pedaliera dovrebbe comportarsi allo stesso modo.
 L'allungabilità dei righi può essere controllata con la proprietà
 @code{staff-staff-spacing} dell' @q{oggetto grafico} @code{VerticalAxisGroup}
 (gli oggetti grafici vengono comunemente chiamati @q{grob} nella documentazione
-di lilypond)    -- non preoccuparti dei dettagli in questo momento; in seguito
+di LilyPond)    -- non preoccuparti dei dettagli in questo momento; in seguito
 verrà fornita una spiegazione approfondita.  I curiosi possono dare
 un'occhiata a @ruser{Panoramica sulla modifica delle proprietà}.
 In questo caso, vogliamo modificare soltanto la sottoproprietà
-@code{allungabilità}.  Di nuovo, chi è curioso può trovare i valori predefiniti
-per la proprietà staff-staff-spacing nel file @file{scm/define-grobs.scm}
-guardando la definizione del grob @code{VerticalAxisGroup}.  Il valore dell'
-@code{allungabilità} viene preso dalla definizione del contesto @code{PianoStaff}
-(nel file @file{ly/engraver-init.ly}) così che i valori siano identici.
+@code{stretchability}.  Se i valori non vengono cambiati si useranno quelli
+predefiniti.  Di nuovo, chi è curioso può trovare i valori predefiniti
+per la proprietà @code{staff-staff-spacing} nel file @file{scm/define-grobs.scm}
+guardando la definizione della proprietà @code{default-staff-staff-spacing} del
+grob @code{VerticalAxisGroup}.  Il valore di @code{stretchability} nel prossimo
+esempio viene preso dalla definizione del grob @code{StaffGrouper}
+(nel file @file{scm/define-grobs.scm}) così che i valori siano identici.
 
 @example
 \score @{
@@ -3084,6 +3089,7 @@ Glossario musicale:
 @translationof Saving typing with variables and functions
 
 @cindex variabili
+@cindex variabili contenenti modifiche
 
 Finora hai visto questo tipo di cose:
 
@@ -3096,7 +3102,7 @@ hornNotes = \relative { c''4 b dis c }
 }
 @end lilypond
 
-Potresti anche essere accorto che questo può essere utile nella musica minimalista:
+Potresti anche esserti accorto che questo può essere utile nella musica minimalista:
 
 @lilypond[quote,verbatim,ragged-right]
 fragmentA = \relative { a'4 a8. b16 }
@@ -3161,6 +3167,37 @@ violin = \relative @{
   @}
 @}
 @end example
+
+@cindex post-eventi, nelle variabili
+@cindex variabili contenenti post-eventi
+
+Ricordi i @q{post-eventi}?  Articolazioni, diteggiature, qualsiasi cosa
+che deve essere aggiunta @emph{dopo} una nota (vedi
+@ref{Struttura dell'inserimento note}), spesso preceduta da un trattino o
+da un modificatore della direzione.  In realtà anche questi eventi possono
+essere salvati in una variabile -- e in questo caso non c'è bisogno delle
+abituali parentesi graffe, dato che non si usano tra una nota e le sue
+articolazioni.
+
+@noindent
+Se tale definizione comprende un prefisso, allora la variabile può essere
+usata subito dopo la nota -- a meno che non si voglia cambiare la
+direzione, nel qual caso si può inserire un modificatore che avrà
+la precedenza:
+
+@lilypond[verbatim,quote,ragged-right]
+articulationVar = -^-!
+
+artEsprVar = \articulationVar ^\espressivo
+
+\relative c' {
+  c\articulationVar d e2^\articulationVar
+  d2\artEsprVar c_\artEsprVar
+}
+@end lilypond
+
+@cindex funzioni musicali
+@cindex variabili contenenti funzioni
 
 Finora abbiamo visto la sostituzione statica -- quando LilyPond
 vede @code{\centreText}, lo sostituisce con quel che noi abbiamo
