@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+%% Translation of GIT committish: 6b35abe942bf1b4e709f215d3657a7cec1f4aa52
   texidocit = "
 Di norma compare sulla parentesi del gruppo irregolare solo il
 numeratore del numero del gruppo irregolare, ovvero il numeratore
 dell'argomento del comando @code{\\tuplet}. Ma è possibile
-mostrare la frazione num:den del numero del gruppo irregolare
+mostrare la frazione @emph{num}:@emph{den} del numero del gruppo irregolare
 oppure nascondere del tutto il numero.
 
 "

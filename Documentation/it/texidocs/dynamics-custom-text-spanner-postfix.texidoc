@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+%% Translation of GIT committish: 6b35abe942bf1b4e709f215d3657a7cec1f4aa52
   texidocit = "
 Funzioni postfix per estensori testuali personalizzati del crescendo.  Gli
 estensori devono iniziare sulla prima nota della misura; e bisogna usare
--\\mycresc, altrimenti l'inizio dell'estensore viene assegnato alla
+@code{-\\mycresc}, altrimenti l'inizio dell'estensore viene assegnato alla
 nota successiva.
 "
   doctitleit = "Estensore testuale della dinamica personalizzato"

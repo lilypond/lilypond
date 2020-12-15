@@ -1,47 +1,48 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-
-@setfilename lilypond-snippets.info
-@settitle LilyPond snippets
-@documentencoding UTF-8
-@documentlanguage it
-@afourpaper
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 69f0ec479a6ade46d0a227755bb02562112c6743
+    Translation of GIT committish: c478396f48debfd58c0b9b7821905f0662f4df90
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Han-Wen Nienhuys
+@c Translators: Federico Bruni
+
+@setfilename lilypond-snippets.info
+@settitle Frammenti LilyPond
+@documentencoding UTF-8
+@documentlanguage it
+@afourpaper
 
 @macro manualIntro
 
-This document shows a selected set of LilyPond snippets from the
+Questo documento contiene una selezione di frammenti LilyPond tratti dal
 @uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  It is in the public domain.
+(LSR).  I frammenti sono nel pubblico dominio.
 
-We would like to address many thanks to Sebastiano Vigna for maintaining
-LSR web site and database, and the University of Milano for hosting LSR.
+Desideriamo ringraziare Sebastiano Vigna per la gestione del sito web e
+del database dell'LSR, e l'università  di Milano per l'hosting.
 
-Please note that this document is not an exact subset of LSR: some
-snippets come from @file{input/new} LilyPond sources directory, and
-snippets from LSR are converted through @command{convert-ly}, as LSR is
-based on a stable LilyPond version, and this document is for
-version @version{}.
+Questo documento non è un sottoinsieme esatto dell'LSR: alcuni frammenti
+vengono dalla directory @file{input/new} dei sorgenti di LilyPond; i
+frammenti tratti dall'LSR vengono convertiti con @command{convert-ly},
+perché l'LSR usa una versione stabile di LilyPond, mentre questo manuale
+è valido per la versione @version{}.
 
-Snippets are grouped by tags; tags listed in the table of contents match
-a section of LilyPond notation manual.  Snippets may have several tags,
-and not all LSR tags may appear in this document.
+I frammenti sono raggruppati per categorie; le categorie elencate nell'indice
+corrispondono a una sezione del manuale di notazione di LilyPond.  Un frammento
+potrebbe avere più di una categoria, e non tutte le categorie dell'LSR saranno
+presenti in questo documento.
 
-In the HTML version of this document, you can click on the file name
-or figure for each example to see the corresponding input file.
+Nella versione HTML di questo manuale, si può fare clic sul nome del file o
+sull'immagine di ciascun esempio per vedere il corrispondente file di input.
 
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2020 by the authors.
+Copyright @copyright{} 1999--2020 degli autori.
 @end macro
 
 @c This disables @lydoctitle definition in common-macros.itexi
@@ -67,41 +68,41 @@ Copyright @copyright{} 1999--2020 by the authors.
 @end ifhtml
 
 
-@lilyTitlePage{Snippets}
+@lilyTitlePage{Frammenti}
 
 
 @c maybe generate/update @menu and @includes automatically? --jm
 @ifnottex
 @menu
-Musical notation
-* Pitches::
-* Rhythms::
-* Expressive marks::
-* Repeats::
-* Simultaneous notes::
-* Staff notation::
-* Editorial annotations::
-* Text::
+Notazione musicale
+* Pitches::                Altezze
+* Rhythms::                Ritmi
+* Expressive marks::       Segni di espressione
+* Repeats::                Ripetizioni
+* Simultaneous notes::     Note simultanee
+* Staff notation::         Notazione del rigo
+* Editorial annotations::  Note editoriali
+* Text::                   Testo
 
-Specialist notation
-* Vocal music::
-* Chords::
-* Keyboards::
-* Percussion::
-* Fretted strings::
-* Unfretted strings::
-* Winds::
-* Ancient notation::
-* World music::
+Notazione specialistica
+* Vocal music::            Musica vocale
+* Chords::                 Accordi
+* Keyboards::              Tastiere
+* Percussion::             Percussioni
+* Fretted strings::        Strumenti a corde con tasti
+* Unfretted strings::      Strumenti a corde senza tasti
+* Winds::                  Strumenti aerofoni
+* Ancient notation::       Notazione antica
+* World music::            World music
 
-Other collections
-* Contexts and engravers::
-* Tweaks and overrides::
-* Paper and layout::
-* Titles::
-* Spacing::
-* MIDI::
-* Templates::
+Altre raccolte
+* Contexts and engravers:: Contesti e incisori
+* Tweaks and overrides::   Modifiche e sovrascritture
+* Paper and layout::       Foglio e formattazione
+* Titles::                 Titoli
+* Spacing::                Spaziatura
+* MIDI::                   MIDI
+* Templates::              Modelli
 @end menu
 
 @docMain

@@ -1,9 +1,12 @@
-%% Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+%% Translation of GIT committish: 6b35abe942bf1b4e709f215d3657a7cec1f4aa52
   texidocit = "
 Per impostazione predefinita, le diteggiature orientate verticalmente sono
-poste fuori dal rigo.   Tuttavia, questo comportamento può essere annullato.
-Attenzione: bisogna usare il costrutto per gli accordi <>, anche se si
-riferisce a una singola nota.
+poste fuori dal rigo; questo comportamento tuttavia può essere disabilitato.
+Occorre fare attenzione alle situazioni in cui le diteggiature e i gambi
+sono rivolti nella stessa direzione: normalmente le diteggiature evitano
+soltanto i gambi con travature. Questa impostazione predefinita può essere
+cambiata in modo da evitare tutti i gambi oppure nessuno. L'esempio seguente
+mostra queste due opzioni, così come tornare al comportamento predefinito.
 
 "
   doctitleit = "Far sì che la diteggiatura appaia dentro il rigo"
