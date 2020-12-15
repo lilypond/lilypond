@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.21.81\n"
+"Project-Id-Version: lilypond 2.21.82\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2020-11-29 10:51+0000\n"
+"POT-Creation-Date: 2020-12-15 11:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2894,17 +2894,17 @@ msgstr ""
 msgid "Fitting music on %d or %d pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:128 optimal-page-breaking.cc:181
+#: optimal-page-breaking.cc:128 optimal-page-breaking.cc:182
 #, c-format
 msgid "trying %d systems"
 msgstr ""
 
-#: optimal-page-breaking.cc:147 optimal-page-breaking.cc:209
+#: optimal-page-breaking.cc:147 optimal-page-breaking.cc:210
 #, c-format
 msgid "best score for this sys-count: %f"
 msgstr ""
 
-#: optimal-page-breaking.cc:216 page-turn-page-breaking.cc:260
+#: optimal-page-breaking.cc:228 page-turn-page-breaking.cc:260
 #: paper-score.cc:158
 msgid "Drawing systems..."
 msgstr ""
