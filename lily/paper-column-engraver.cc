@@ -39,7 +39,6 @@ using std::string;
 Paper_column_engraver::Paper_column_engraver (Context *c)
   : Engraver (c)
 {
-  last_moment_.main_part_ = Rational (-1, 1);
   command_column_ = 0;
   musical_column_ = 0;
   breaks_ = 0;
@@ -204,14 +203,11 @@ Paper_column_engraver::process_music ()
       set_property (command_column_, "labels", scm_cons (label, labels));
     }
 
-  bool start_of_measure = (last_moment_.main_part_ != now_mom ().main_part_
-                           && !measure_position (context ()).main_part_);
-
   /*
     We can't do this in start_translation_timestep (), since time sig
     changes won't have happened by then.
   */
-  if (start_of_measure)
+  if (!measure_position (context ()).main_part_)
     {
       Moment mlen = Moment (measure_length (context ()));
       Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));

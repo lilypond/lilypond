@@ -59,7 +59,6 @@ protected:
   std::vector<Item *> items_;
   bool first_;
   bool made_columns_;
-  Moment last_moment_;
 
 public:
 };
