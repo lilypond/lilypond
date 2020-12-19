@@ -130,7 +130,8 @@ doc:ubuntu-16.04:
 website:ubuntu-16.04:
   stage: website
   rules:
-    - <<: *if-schedule-or-web
+    - <<: *if-default-branch
+      when: manual
   dependencies: [ "build:ubuntu-16.04" ]
   script:
     - cd build
