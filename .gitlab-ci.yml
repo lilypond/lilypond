@@ -31,6 +31,9 @@ default:
 .if-mr-to-default: &if-mr-to-default
   if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
 
+.if-stable-branch: &if-stable-branch
+  if: $CI_PROJECT_PATH == "lilypond/lilypond" && $CI_COMMIT_BRANCH =~ /stable\/.*/
+
 .if-schedule-or-web: &if-schedule-or-web
   if: $CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web"
 
@@ -62,6 +65,7 @@ build:ubuntu-16.04:
   rules:
     - <<: *if-default-branch
     - <<: *if-mr-to-default
+    - <<: *if-stable-branch
     - <<: *if-schedule-or-web
   script:
     - mkdir build && cd build
@@ -73,6 +77,24 @@ build:ubuntu-16.04:
       - "build/Documentation/out/**"
       - "build/out/lybook-db/**"
     expire_in: 1 week
+
+test:ubuntu-16.04:
+  stage: test
+  rules:
+    - <<: *if-default-branch
+      when: never
+    - <<: *if-stable-branch
+    - <<: *if-schedule-or-web
+  dependencies: [ "build:ubuntu-16.04" ]
+  script:
+    - cd build
+    - *touch-build
+    - make $MAKE_FLAGS test
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - "**/*.fail.log"
 
 test-baseline:ubuntu-16.04:
   stage: test
@@ -114,7 +136,11 @@ check:ubuntu-16.04:
 doc:ubuntu-16.04:
   stage: documentation
   rules:
+    - <<: *if-default-branch
+      when: never
     - <<: *if-mr-to-default
+    - <<: *if-stable-branch
+    - <<: *if-schedule-or-web
   dependencies: [ "build:ubuntu-16.04" ]
   script:
     - cd build
