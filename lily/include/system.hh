@@ -41,11 +41,11 @@ public:
   typedef int16_t rank_type;
 
 private:
-  rank_type rank_;
-  Grob_array *all_elements_;
+  rank_type rank_ = 0;
+  Grob_array *all_elements_ = nullptr;
   void init_elements ();
   friend class Paper_score;     // ugh.
-  Paper_score *pscore_; // ugh.
+  Paper_score *pscore_ = nullptr; // ugh.
 
 public:
   Paper_score *paper_score () const;
