@@ -50,17 +50,12 @@ using std::vector;
 System::System (System const &src)
   : Spanner (src)
 {
-  all_elements_ = 0;
-  pscore_ = 0;
-  rank_ = 0;
   init_elements ();
 }
 
 System::System (SCM s)
   : Spanner (s)
 {
-  all_elements_ = 0;
-  rank_ = 0;
   init_elements ();
 }
 
