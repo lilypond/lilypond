@@ -59,11 +59,6 @@ Bend_engraver::finalize ()
 void
 Bend_engraver::stop_fall ()
 {
-  bool bar = scm_is_string (get_property (this, "whichBar"));
-
-  fall_->set_bound (RIGHT, unsmob<Grob> (bar
-                                         ? get_property (this, "currentCommandColumn")
-                                         : get_property (this, "currentMusicalColumn")));
   last_fall_ = fall_;
   fall_ = 0;
   note_head_ = 0;
@@ -73,6 +68,18 @@ Bend_engraver::stop_fall ()
 void
 Bend_engraver::stop_translation_timestep ()
 {
+  if (last_fall_)
+    {
+      // don't cross a barline
+      SCM col_scm = scm_is_string (get_property (this, "whichBar"))
+        ? get_property (this, "currentCommandColumn")
+        : get_property (this, "currentMusicalColumn");
+      if (auto *col = unsmob<Grob> (col_scm))
+        {
+          last_fall_->set_bound (RIGHT, col);
+        }
+    }
+
   if (fall_ && !fall_->get_bound (LEFT))
     {
       fall_->set_bound (LEFT, note_head_);
