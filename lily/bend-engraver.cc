@@ -41,10 +41,10 @@ protected:
 
 private:
   Moment stop_moment_;
-  Stream_event *fall_event_;
-  Spanner *fall_;
-  Spanner *last_fall_;
-  Grob *note_head_;
+  Stream_event *fall_event_ = nullptr;
+  Spanner *fall_ = nullptr;
+  Spanner *last_fall_ = nullptr;
+  Grob *note_head_ = nullptr;
 };
 
 void
@@ -110,10 +110,6 @@ Bend_engraver::acknowledge_note_head (Grob_info info)
 Bend_engraver::Bend_engraver (Context *c)
   : Engraver (c)
 {
-  fall_ = 0;
-  last_fall_ = 0;
-  note_head_ = 0;
-  fall_event_ = 0;
 }
 
 void
