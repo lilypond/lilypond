@@ -67,20 +67,20 @@ private:
   void typeset_beam ();
   vector<Item *> *remove_end_stems (vsize);
 
-  Stream_event *forbid_;
+  Stream_event *forbid_ = nullptr;
   /*
     shortest_mom_ is the shortest note in the beam.
   */
-  Moment shortest_mom_;
-  Spanner *finished_beam_;
-  vector<Item *> *stems_;
+  Moment shortest_mom_ {Rational (1, 4)};
+  Spanner *finished_beam_ = nullptr;
+  vector<Item *> *stems_ = nullptr;
 
-  int process_acknowledged_count_;
+  int process_acknowledged_count_ = 0;
   Moment last_add_mom_;
   /*
     Projected ending of the  beam we're working on.
   */
-  Moment extend_mom_;
+  Moment extend_mom_ {-1};
   Moment beam_start_moment_;
   Moment beam_start_location_;
   /*
@@ -89,10 +89,10 @@ private:
   Context_handle beam_start_context_;
 
   // We act as if beam were created, and start a grouping anyway.
-  Beaming_pattern *grouping_;
-  SCM beam_settings_;
+  Beaming_pattern *grouping_ = nullptr;
+  SCM beam_settings_ = SCM_EOL;
 
-  Beaming_pattern *finished_grouping_;
+  Beaming_pattern *finished_grouping_ = nullptr;
 
   Beaming_options beaming_options_;
   Beaming_options finished_beaming_options_;
@@ -152,15 +152,6 @@ Auto_beam_engraver::process_music ()
 Auto_beam_engraver::Auto_beam_engraver (Context *c)
   : Engraver (c)
 {
-  forbid_ = 0;
-  process_acknowledged_count_ = 0;
-  stems_ = 0;
-  shortest_mom_ = Moment (Rational (1, 4));
-  extend_mom_ = Moment (-1);
-  finished_beam_ = 0;
-  finished_grouping_ = 0;
-  grouping_ = 0;
-  beam_settings_ = SCM_EOL;
 }
 
 void
