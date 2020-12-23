@@ -49,7 +49,7 @@ public:
 
 private:
   Item *create_custos ();
-  bool custos_permitted_;
+  bool custos_permitted_ = false;
   vector<Grob *> custodes_;
   vector<Pitch> pitches_;
 };
@@ -57,7 +57,6 @@ private:
 Custos_engraver::Custos_engraver (Context *c)
   : Engraver (c)
 {
-  custos_permitted_ = false;
 }
 
 void
