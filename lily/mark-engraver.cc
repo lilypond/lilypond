@@ -54,7 +54,6 @@ protected:
   void finalize () override;
 
   void listen_mark (Stream_event *);
-  void acknowledge_break_alignment (Grob_info);
 };
 
 Mark_engraver::Mark_engraver (Context *c)
@@ -63,15 +62,6 @@ Mark_engraver::Mark_engraver (Context *c)
   text_ = 0;
   final_text_ = 0;
   mark_ev_ = 0;
-}
-
-void
-Mark_engraver::acknowledge_break_alignment (Grob_info inf)
-{
-  Grob *s = inf.grob ();
-  if (text_
-      && dynamic_cast<Item *> (s))
-    text_->set_x_parent (s);
 }
 
 void
@@ -161,7 +151,6 @@ void
 Mark_engraver::boot ()
 {
   ADD_LISTENER (Mark_engraver, mark);
-  ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);
 }
 
 ADD_TRANSLATOR (Mark_engraver,

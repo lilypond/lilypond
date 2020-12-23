@@ -48,7 +48,6 @@ protected:
 protected:
   void stop_translation_timestep ();
   void listen_alternative (Stream_event *);
-  void acknowledge_break_alignment (Grob_info);
   void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
@@ -148,17 +147,6 @@ Bar_number_engraver::Bar_number_engraver (Context *c)
 }
 
 void
-Bar_number_engraver::acknowledge_break_alignment (Grob_info inf)
-{
-  Grob *s = inf.grob ();
-  if (text_
-      && dynamic_cast<Item *> (s))
-    {
-      text_->set_x_parent (s);
-    }
-}
-
-void
 Bar_number_engraver::stop_translation_timestep ()
 {
   alternative_event_ = 0;
@@ -183,7 +171,6 @@ void
 Bar_number_engraver::boot ()
 {
   ADD_LISTENER (Bar_number_engraver, alternative);
-  ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
 }
 
 ADD_TRANSLATOR (Bar_number_engraver,

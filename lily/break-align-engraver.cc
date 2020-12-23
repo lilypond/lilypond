@@ -70,20 +70,22 @@ Break_align_engraver::derived_mark () const
 void
 Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
 {
-  /*
-    Special case for MetronomeMark: filter out items which will be aligned
-    on note heads rather than prefatory material
-  */
-  if (!Item::is_non_musical (dynamic_cast<Item *> (inf.grob ())))
-    return;
+  if (auto *item = dynamic_cast<Item *> (inf.grob ()))
+    {
+      if (item->get_x_parent ())
+        return;
 
-  if (!align_)
-    create_alignment (inf);
+      // Handling musical items is more involved because they might need to be
+      // aligned with notation (note heads, etc.).  We currently leave that to
+      // other engravers, but maybe it could be done here.
+      if (!Item::is_non_musical (item))
+        return;
 
-  Grob *g = inf.grob ();
+      if (!align_)
+        create_alignment (inf);
 
-  if (!g->get_x_parent ())
-    g->set_x_parent (align_);
+      item->set_x_parent (align_);
+    }
 }
 
 void
