@@ -56,6 +56,7 @@ protected:
 
 private:
   virtual bool test_moment (Direction, Moment, Moment);
+  bool busy () const { return beam_start_moment_ < Moment::infinity (); }
   void consider_begin (Moment, Moment);
   void consider_end (Moment, Moment);
   Spanner *create_beam ();
@@ -65,7 +66,6 @@ private:
   virtual bool is_same_grace_state (Moment, Moment);
   void recheck_beam ();
   void typeset_beam ();
-  vector<Item *> *remove_end_stems (vsize);
 
   Stream_event *forbid_ = nullptr;
   /*
@@ -73,7 +73,7 @@ private:
   */
   Moment shortest_mom_ {Rational (1, 4)};
   Spanner *finished_beam_ = nullptr;
-  vector<Item *> *stems_ = nullptr;
+  vector<Item *> stems_;
 
   int process_acknowledged_count_ = 0;
   Moment last_add_mom_;
@@ -81,7 +81,7 @@ private:
     Projected ending of the  beam we're working on.
   */
   Moment extend_mom_ {-1};
-  Moment beam_start_moment_;
+  Moment beam_start_moment_ = Moment::infinity ();
   Moment beam_start_location_;
   /*
     Handle on the starting staff keeps it alive until beam is comlete
@@ -112,9 +112,8 @@ Auto_beam_engraver::check_bar_property ()
   /* Duplicated from process_music (), since
      Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
 
-  Moment now = now_mom ();
-  if (scm_is_string (get_property (this, "whichBar"))
-      && beam_start_moment_ < now)
+  if ((beam_start_moment_ < now_mom ())
+      && scm_is_string (get_property (this, "whichBar")))
     {
       consider_end (measure_position (context ()), shortest_mom_);
       junk_beam ();
@@ -128,7 +127,7 @@ Auto_beam_engraver::process_music ()
   /*
     don't beam over skips
   */
-  if (stems_)
+  if (busy ())
     {
       if (extend_mom_ < now)
         end_beam ();
@@ -142,7 +141,7 @@ Auto_beam_engraver::process_music ()
 
   if (forbid_)
     {
-      if (stems_)
+      if (busy ())
         end_beam ();
       else
         junk_beam ();
@@ -174,8 +173,7 @@ void
 Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
 {
   bool on = from_scm<bool> (get_property (this, "autoBeaming"));
-  if (!stems_ && on
-      && !forbid_)
+  if (!busy () && on && !forbid_)
     {
       bool b = test_moment (START, test_mom, dur);
       if (b)
@@ -186,7 +184,7 @@ Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
 void
 Auto_beam_engraver::consider_end (Moment test_mom, Moment dur)
 {
-  if (stems_)
+  if (busy ())
     {
       /* Allow already started autobeam to end:
          don't check for autoBeaming */
@@ -202,8 +200,8 @@ Auto_beam_engraver::create_beam ()
   if (from_scm<bool> (get_property (this, "skipTypesetting")))
     return 0;
 
-  for (vsize i = 0; i < stems_->size (); i++)
-    if (Stem::get_beam ((*stems_)[i]))
+  for (const auto &stem : stems_)
+    if (Stem::get_beam (stem))
       return 0;
 
   /*
@@ -212,10 +210,10 @@ Auto_beam_engraver::create_beam ()
   */
   Spanner *beam = new Spanner (beam_settings_);
 
-  for (vsize i = 0; i < stems_->size (); i++)
-    Beam::add_stem (beam, (*stems_)[i]);
+  for (const auto &stem : stems_)
+    Beam::add_stem (beam, stem);
 
-  Grob_info i = make_grob_info (beam, (*stems_)[0]->self_scm ());
+  Grob_info i = make_grob_info (beam, stems_[0]->self_scm ());
   announce_grob (i, beam_start_context_.get_context ());
 
   return beam;
@@ -224,31 +222,31 @@ Auto_beam_engraver::create_beam ()
 void
 Auto_beam_engraver::begin_beam ()
 {
-  if (stems_ || grouping_)
+  if (busy () || grouping_)
     {
       programming_error ("already have autobeam");
       return;
     }
 
-  stems_ = new vector<Item *>;
+  stems_.clear ();
   grouping_ = new Beaming_pattern ();
   beaming_options_.from_context (context ());
   beam_settings_ = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
 
   beam_start_context_.set_context (context ()->get_parent ());
-  beam_start_moment_ = now_mom ();
   beam_start_location_
     = robust_scm2moment (get_property (this, "measurePosition"), Moment (0));
+  beam_start_moment_ = now_mom ();
 }
 
 void
 Auto_beam_engraver::junk_beam ()
 {
-  if (!stems_)
+  if (!busy ())
     return;
 
-  delete stems_;
-  stems_ = 0;
+  beam_start_moment_ = Moment::infinity ();
+  stems_.clear ();
   delete grouping_;
   grouping_ = 0;
   beam_settings_ = SCM_EOL;
@@ -265,7 +263,7 @@ Auto_beam_engraver::is_same_grace_state (Moment start, Moment now)
 void
 Auto_beam_engraver::end_beam ()
 {
-  if (stems_->size () < 2)
+  if (stems_.size () < 2)
     junk_beam ();
   else
     {
@@ -279,8 +277,8 @@ Auto_beam_engraver::end_beam ()
           finished_grouping_ = grouping_;
           finished_beaming_options_ = beaming_options_;
         }
-      delete stems_;
-      stems_ = 0;
+      beam_start_moment_ = Moment::infinity ();
+      stems_.clear ();
       grouping_ = 0;
       beam_settings_ = SCM_EOL;
     }
@@ -320,7 +318,7 @@ Auto_beam_engraver::finalize ()
   /* finished beams may be typeset */
   typeset_beam ();
   /* but unfinished may need another announce/acknowledge pass */
-  if (stems_)
+  if (busy ())
     junk_beam ();
 }
 
@@ -328,7 +326,7 @@ void
 Auto_beam_engraver::acknowledge_beam (Grob_info /* info */)
 {
   check_bar_property ();
-  if (stems_)
+  if (busy ())
     end_beam ();
 }
 
@@ -336,7 +334,7 @@ void
 Auto_beam_engraver::acknowledge_bar_line (Grob_info /* info */)
 {
   check_bar_property ();
-  if (stems_)
+  if (busy ())
     end_beam ();
 }
 
@@ -344,7 +342,7 @@ void
 Auto_beam_engraver::acknowledge_breathing_sign (Grob_info /* info */)
 {
   check_bar_property ();
-  if (stems_)
+  if (busy ())
     end_beam ();
 }
 
@@ -352,7 +350,7 @@ void
 Auto_beam_engraver::acknowledge_rest (Grob_info /* info */)
 {
   check_bar_property ();
-  if (stems_)
+  if (busy ())
     end_beam ();
 }
 
@@ -373,14 +371,14 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   */
   if (!Stem::head_count (stem))
     {
-      if (stems_)
+      if (busy ())
         end_beam ();
       return;
     }
 
   if (Stem::get_beam (stem))
     {
-      if (stems_)
+      if (busy ())
         junk_beam ();
       return;
     }
@@ -389,7 +387,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
 
   if (durlog <= 2)
     {
-      if (stems_)
+      if (busy ())
         end_beam ();
       return;
     }
@@ -420,7 +418,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   consider_end (measure_now, shortest_mom_);
   consider_begin (measure_now, dur);
 
-  if (!stems_)
+  if (!busy ())
     return;
 
   grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
@@ -428,7 +426,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
                        Stem::is_invisible (stem),
                        stem_duration->factor (),
                        (from_scm<bool> (get_property (stem, "tuplet-start"))));
-  stems_->push_back (stem);
+  stems_.push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = std::max (extend_mom_, now) + get_event_length (ev, now);
   if (recheck_needed)
@@ -445,13 +443,13 @@ Auto_beam_engraver::recheck_beam ()
     the last part of the beam
   */
   Beaming_pattern *new_grouping_ = 0;
-  vector<Item *> *new_stems_ = 0;
+  vector<Item *> new_stems;
   Moment temporary_shortest_mom;
   SCM temporary_beam_settings;
 
   bool found_end;
 
-  for (vsize i = 0; i < stems_->size () - 1;)
+  for (vsize i = 0; (i + 1) < stems_.size (); /*in body*/)
     {
       found_end = test_moment (STOP,
                                grouping_->end_moment (i),
@@ -470,40 +468,27 @@ Auto_beam_engraver::recheck_beam ()
           /* Eliminate (and save) the items no longer part of the first beam */
 
           new_grouping_ = grouping_->split_pattern (i);
-          new_stems_ = remove_end_stems (i);
+          new_stems.insert (new_stems.end (),
+                            std::next (stems_.begin (), i + 1),
+                            stems_.end ());
+          stems_.resize (i + 1);
 
           end_beam ();
           typeset_beam ();
 
           /* now recreate the unbeamed data structures */
-          stems_ = new_stems_;
+          stems_ = std::move (new_stems);
+          new_stems.clear ();
           grouping_ = new_grouping_;
           shortest_mom_ = temporary_shortest_mom;
           beam_settings_ = temporary_beam_settings;
+          beam_start_moment_ = now_mom ();
 
           i = 0;
         }
 
     }
 
-}
-
-/*
-  Remove all stems with an index greater than split_index
-  from stems_, and return a vector containing all of the
-  removed stems
-*/
-vector <Item *> *
-Auto_beam_engraver::remove_end_stems (vsize split_index)
-{
-  vector <Item *> *removed_stems = 0;
-  removed_stems = new vector <Item *>;
-
-  for (vsize j = split_index + 1; j < stems_->size (); j++)
-    removed_stems->push_back ((*stems_).at (j));
-  for (vsize j = split_index + 1; j < stems_->size ();)
-    stems_->pop_back ();
-  return removed_stems;
 }
 
 void
@@ -520,12 +505,12 @@ Auto_beam_engraver::process_acknowledged ()
     }
   else if (process_acknowledged_count_ > 1)
     {
-      if (stems_)
+      if (busy ())
         {
           if ((extend_mom_ < now)
               || ((extend_mom_ == now) && (last_add_mom_ != now)))
             end_beam ();
-          else if (!stems_->size ())
+          else if (stems_.empty ())
             junk_beam ();
         }
     }
