@@ -141,8 +141,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
 
   if (scm_is_true (s))
     {
-      Grob *e = unsmob<Grob> (scm_cdr (s));
-      group = dynamic_cast<Item *> (e);
+      group = unsmob<Item> (scm_cdr (s));
     }
   else
     {

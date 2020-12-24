@@ -324,8 +324,7 @@ Volta_engraver::start_translation_timestep ()
 void
 Volta_engraver::stop_translation_timestep ()
 {
-  Grob *cc = unsmob<Grob> (get_property (this, "currentCommandColumn"));
-  Item *ci = dynamic_cast<Item *> (cc);
+  auto *const ci = unsmob<Item> (get_property (this, "currentCommandColumn"));
 
   if (end_volta_bracket_ && !end_volta_bracket_->get_bound (RIGHT))
     end_volta_bracket_->set_bound (RIGHT, ci);
