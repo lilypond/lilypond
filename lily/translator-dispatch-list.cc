@@ -23,7 +23,7 @@
 void
 Engraver_dispatch_list::apply (Grob_info gi)
 {
-  SCM origin = gi.origin_translator ()->self_scm ();
+  SCM origin = gi.origin_engraver ()->self_scm ();
   SCM grob = gi.grob ()->self_scm ();
   for (vsize i = 0; i < dispatch_entries_.size (); i++)
     {

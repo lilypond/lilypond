@@ -36,14 +36,8 @@ struct Rhythmic_tuple
   Grob_info info_;
   Moment end_;
 
-  Rhythmic_tuple ()
-  {
-  }
-  Rhythmic_tuple (Grob_info i, Moment m)
-  {
-    info_ = i;
-    end_ = m;
-  }
+  Rhythmic_tuple (Grob_info i, Moment m) : info_ (i), end_ (m) {}
+
   static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);
 };
 

@@ -478,7 +478,7 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
     {
       Accidental_entry entry;
       entry.head_ = info.grob ();
-      entry.origin_engraver_ = dynamic_cast<Engraver *> (info.origin_translator ());
+      entry.origin_engraver_ = info.origin_engraver ();
       entry.origin_ = entry.origin_engraver_->context ();
       entry.melodic_ = note;
 

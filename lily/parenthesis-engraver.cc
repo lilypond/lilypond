@@ -50,7 +50,7 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
         {
           if (Item *victim = dynamic_cast<Item *> (info.grob ()))
             {
-              Engraver *eng = dynamic_cast<Engraver *> (info.origin_translator ());
+              auto *const eng = info.origin_engraver ();
               Item *paren = eng->make_item ("ParenthesesItem", victim->self_scm ());
               Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
 

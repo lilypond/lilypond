@@ -17,52 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "context.hh"
 #include "grob-info.hh"
-#include "grob.hh"
-#include "music.hh"
-#include "stream-event.hh"
-#include "translator-group.hh"
 
-using std::vector;
-
-Grob_info::Grob_info (Translator *t, Grob *g)
-{
-  origin_trans_ = t;
-  grob_ = g;
-
-  /*
-    assert here, because this is easier to debug.
-  */
-  assert (g);
-}
-
-Grob_info::Grob_info ()
-{
-  grob_ = 0;
-  origin_trans_ = 0;
-}
-
-Stream_event *
-Grob_info::event_cause () const
-{
-  return grob_->event_cause ();
-}
+#include "engraver.hh"
 
 Context *
 Grob_info::context () const
 {
-  return origin_trans_->context ();
-}
-
-Stream_event *
-Grob_info::ultimate_event_cause () const
-{
-  return grob_->ultimate_event_cause ();
-}
-
-bool
-Grob_info::less (Grob_info i, Grob_info j)
-{
-  return Grob::less (i.grob (), j.grob ());
+  return origin_engraver_->context ();
 }

@@ -20,28 +20,42 @@
 #ifndef GROB_INFO_HH
 #define GROB_INFO_HH
 
-#include "lily-guile.hh"
-#include "lily-proto.hh"
+#include "grob.hh"
+
+class Engraver;
+class Stream_event;
 
 /*
   Data container for broadcasts.
 */
 class Grob_info
 {
-  Translator *origin_trans_;
+  Engraver *origin_engraver_;
   Grob *grob_;
 
 public:
+  // both the Engraver and the Grob are required
+  Grob_info (Engraver *e, Grob *g) : origin_engraver_ (e), grob_ (g) { }
+
   Grob *grob () const { return grob_; }
-  Translator *origin_translator () const { return origin_trans_; }
+  Engraver *origin_engraver () const { return origin_engraver_; }
 
   Context *context () const;
-  Stream_event *event_cause () const;
-  Stream_event *ultimate_event_cause () const;
-  Grob_info (Translator *, Grob *);
-  Grob_info ();
 
-  static bool less (Grob_info i, Grob_info j);
+  Stream_event *event_cause () const
+  {
+    return grob_->event_cause ();
+  }
+
+  Stream_event *ultimate_event_cause () const
+  {
+    return grob_->ultimate_event_cause ();
+  }
+
+  static bool less (const Grob_info &a, const Grob_info &b)
+  {
+    return Grob::less (a.grob (), b.grob ());
+  }
 };
 
 #endif // GROB_INFO_HH
