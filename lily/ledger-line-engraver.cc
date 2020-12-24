@@ -39,7 +39,7 @@ protected:
   void process_music ();
 
   void acknowledge_ledgered (Grob_info);
-  void acknowledge_staff_symbol (Grob_info);
+  void acknowledge_staff_symbol (Grob_info_t<Spanner>);
 
   void start_spanner ();
   void stop_spanner ();
@@ -107,12 +107,9 @@ Ledger_line_engraver::stop_spanner ()
 }
 
 void
-Ledger_line_engraver::acknowledge_staff_symbol (Grob_info s)
+Ledger_line_engraver::acknowledge_staff_symbol (Grob_info_t<Spanner> s)
 {
-  Spanner *sym = dynamic_cast<Spanner *> (s.grob ());
-
-  if (!span_
-      || (span_->get_bound (LEFT) != sym->get_bound (LEFT)))
+  if (!span_ || (span_->get_bound (LEFT) != s.grob ()->get_bound (LEFT)))
     {
       stop_spanner ();
       start_spanner ();

@@ -25,11 +25,11 @@ class Tab_staff_symbol_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);
 protected:
-  void acknowledge_staff_symbol (Grob_info);
+  void acknowledge_staff_symbol (Grob_info_t<Spanner>);
 };
 
 void
-Tab_staff_symbol_engraver::acknowledge_staff_symbol (Grob_info gi)
+Tab_staff_symbol_engraver::acknowledge_staff_symbol (Grob_info_t<Spanner> gi)
 {
   long k = scm_ilength (get_property (this, "stringTunings"));
   if (k >= 0)

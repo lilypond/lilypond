@@ -19,15 +19,15 @@
 
 #include "staff-symbol.hh"
 #include "engraver.hh"
-#include "grob.hh"
 #include "context.hh"
+#include "spanner.hh"
 
 class Staff_collecting_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_collecting_engraver);
-  void acknowledge_staff_symbol (Grob_info);
-  void acknowledge_end_staff_symbol (Grob_info);
+  void acknowledge_staff_symbol (Grob_info_t<Spanner>);
+  void acknowledge_end_staff_symbol (Grob_info_t<Spanner>);
 };
 
 Staff_collecting_engraver::Staff_collecting_engraver (Context *c)
@@ -36,7 +36,7 @@ Staff_collecting_engraver::Staff_collecting_engraver (Context *c)
 }
 
 void
-Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info gi)
+Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info_t<Spanner> gi)
 {
   SCM staffs = get_property (this, "stavesFound");
   staffs = scm_cons (gi.grob ()->self_scm (), staffs);
@@ -45,7 +45,8 @@ Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info gi)
 }
 
 void
-Staff_collecting_engraver::acknowledge_end_staff_symbol (Grob_info gi)
+Staff_collecting_engraver::acknowledge_end_staff_symbol
+(Grob_info_t<Spanner> gi)
 {
   SCM staffs = get_property (this, "stavesFound");
   staffs = scm_delq (gi.grob ()->self_scm (), staffs);

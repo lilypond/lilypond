@@ -177,7 +177,7 @@ protected:
   Bracket_nesting_group *nesting_;
 
   void acknowledge_system_start_delimiter (Grob_info);
-  void acknowledge_staff_symbol (Grob_info);
+  void acknowledge_staff_symbol (Grob_info_t<Spanner>);
 
   void process_music ();
   void finalize () override;
@@ -219,9 +219,10 @@ System_start_delimiter_engraver::finalize ()
 }
 
 void
-System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
+System_start_delimiter_engraver::acknowledge_staff_symbol
+(Grob_info_t<Spanner> inf)
 {
-  Grob *staff = inf.grob ();
+  auto *const staff = inf.grob ();
   bool succ = nesting_->add_staff (staff);
 
   if (!succ)
