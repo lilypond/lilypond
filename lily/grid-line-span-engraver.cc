@@ -33,7 +33,7 @@ class Grid_line_span_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
 protected:
-  void acknowledge_grid_point (Grob_info);
+  void acknowledge_grid_point (Grob_info_t<Item>);
   void stop_translation_timestep ();
 };
 
@@ -44,10 +44,9 @@ Grid_line_span_engraver::Grid_line_span_engraver (Context *c)
 }
 
 void
-Grid_line_span_engraver::acknowledge_grid_point (Grob_info i)
+Grid_line_span_engraver::acknowledge_grid_point (Grob_info_t<Item> info)
 {
-  Item *it = dynamic_cast<Item *> (i.grob ());
-  lines_.push_back (it);
+  lines_.push_back (info.grob ());
 
   if (lines_.size () >= 2 && !spanline_)
     {
