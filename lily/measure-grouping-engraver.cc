@@ -20,6 +20,7 @@
 #include "warn.hh"
 #include "side-position-interface.hh"
 #include "global-context.hh"
+#include "item.hh"
 #include "engraver.hh"
 #include "spanner.hh"
 
@@ -36,7 +37,7 @@ protected:
 
   void process_music ();
   void finalize () override;
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 };
 
 void
@@ -52,7 +53,7 @@ Measure_grouping_engraver::finalize ()
 }
 
 void
-Measure_grouping_engraver::acknowledge_note_column (Grob_info gi)
+Measure_grouping_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
 {
   if (grouping_)
     Side_position_interface::add_support (grouping_, gi.grob ());

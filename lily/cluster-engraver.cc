@@ -37,7 +37,7 @@ class Cluster_spanner_engraver : public Engraver
 protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
   void listen_cluster_note (Stream_event *);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void stop_translation_timestep ();
   virtual void process_music (); // TODO: Why virtual?  Look for others too.
   void finalize () override;
@@ -135,9 +135,9 @@ Cluster_spanner_engraver::stop_translation_timestep ()
 }
 
 void
-Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
+Cluster_spanner_engraver::acknowledge_note_column (Grob_info_t<Item>)
 {
-  if (!beacon_ && has_interface<Note_column> (info.grob ()))
+  if (!beacon_)
     {
       finished_spanner_ = spanner_;
       spanner_ = 0;

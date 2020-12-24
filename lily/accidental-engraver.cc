@@ -81,7 +81,7 @@ protected:
   void acknowledge_arpeggio (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_finger (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 
   void stop_translation_timestep ();
   void process_acknowledged ();
@@ -99,7 +99,7 @@ public:
 
   vector<Accidental_entry> accidentals_;
   vector<Spanner *> ties_;
-  vector<Grob *> note_columns_;
+  vector<Item *> note_columns_;
 };
 
 /*
@@ -494,7 +494,7 @@ Accidental_engraver::acknowledge_end_tie (Grob_info info)
 }
 
 void
-Accidental_engraver::acknowledge_note_column (Grob_info info)
+Accidental_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   note_columns_.push_back (info.grob ());
 }

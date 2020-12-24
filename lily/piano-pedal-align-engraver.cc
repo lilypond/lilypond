@@ -80,7 +80,7 @@ protected:
 
   void acknowledge_piano_pedal_script (Grob_info);
   void acknowledge_piano_pedal_bracket (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 
   void acknowledge_end_piano_pedal_bracket (Grob_info);
 
@@ -96,7 +96,7 @@ private:
     NUM_PEDAL_TYPES
   };
   Pedal_align_info pedal_info_[NUM_PEDAL_TYPES];
-  vector<Grob *> supports_;
+  vector<Item *> supports_;
 
   Pedal_type get_grob_pedal_type (Grob_info g);
   Spanner *make_line_spanner (Pedal_type t, SCM);
@@ -200,7 +200,7 @@ Piano_pedal_align_engraver::make_line_spanner (Pedal_type t, SCM cause)
 }
 
 void
-Piano_pedal_align_engraver::acknowledge_note_column (Grob_info gi)
+Piano_pedal_align_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
 {
   supports_.push_back (gi.grob ());
 }

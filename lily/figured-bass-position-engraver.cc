@@ -38,7 +38,7 @@ class Figured_bass_position_engraver : public Engraver
   vector<Grob *> support_;
   vector<Grob *> span_support_;
 protected:
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_slur (Grob_info);
   void acknowledge_stem (Grob_info);
   void acknowledge_end_slur (Grob_info);
@@ -88,7 +88,7 @@ Figured_bass_position_engraver::finalize ()
 }
 
 void
-Figured_bass_position_engraver::acknowledge_note_column (Grob_info info)
+Figured_bass_position_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   support_.push_back (info.grob ());
 }

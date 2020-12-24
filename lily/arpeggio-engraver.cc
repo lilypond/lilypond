@@ -38,7 +38,7 @@ public:
 
   void acknowledge_stem (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 
 protected:
   void process_music ();
@@ -87,7 +87,7 @@ Arpeggio_engraver::acknowledge_rhythmic_head (Grob_info info)
 }
 
 void
-Arpeggio_engraver::acknowledge_note_column (Grob_info info)
+Arpeggio_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   if (arpeggio_)
     Separation_item::add_conditional_item (info.grob (), arpeggio_);

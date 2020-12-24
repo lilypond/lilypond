@@ -35,7 +35,7 @@ using std::string;
 class Dynamic_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void listen_absolute_dynamic (Stream_event *);
   void listen_span_dynamic (Stream_event *);
   void listen_break_span (Stream_event *);
@@ -256,7 +256,7 @@ Dynamic_engraver::get_spanner_type (Stream_event *ev)
 }
 
 void
-Dynamic_engraver::acknowledge_note_column (Grob_info info)
+Dynamic_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   if (script_ && !script_->get_x_parent ())
     {

@@ -30,10 +30,10 @@ using std::vector;
 class Collision_engraver : public Engraver
 {
   Item *col_;
-  vector<Grob *> note_columns_;
+  vector<Item *> note_columns_;
 
 protected:
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void process_acknowledged ();
   void stop_translation_timestep ();
 public:
@@ -53,19 +53,18 @@ Collision_engraver::process_acknowledged ()
 }
 
 void
-Collision_engraver::acknowledge_note_column (Grob_info i)
+Collision_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
-  if (has_interface<Note_column> (i.grob ()))
-    {
-      /*should check Y axis? */
-      if (Note_column::has_rests (i.grob ()) || i.grob ()->get_x_parent ())
-        return;
+  auto *const item = info.grob ();
 
-      if (from_scm<bool> (get_property (i.grob (), "ignore-collision")))
-        return;
+  /*should check Y axis? */
+  if (Note_column::has_rests (item) || item->get_x_parent ())
+    return;
 
-      note_columns_.push_back (i.grob ());
-    }
+  if (from_scm<bool> (get_property (item, "ignore-collision")))
+    return;
+
+  note_columns_.push_back (item);
 }
 
 void

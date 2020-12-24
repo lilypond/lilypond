@@ -26,6 +26,8 @@
 #include <map>
 #include <vector>
 
+class Item;
+
 class Slur_engraver : public Engraver
 {
 protected:
@@ -53,7 +55,7 @@ protected:
   virtual SCM grob_symbol () const;
   virtual const char *object_name () const;
 
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_script (Grob_info);
 
   void listen_note (Stream_event *ev);

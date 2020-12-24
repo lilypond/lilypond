@@ -19,6 +19,8 @@
 
 #include "slur-engraver.hh"
 
+#include "item.hh"
+
 #include "translator.icc"
 
 class Phrasing_slur_engraver : public Slur_engraver

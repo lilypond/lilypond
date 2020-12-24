@@ -42,7 +42,7 @@ public:
 
   void stop_translation_timestep ();
   void process_music ();
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void listen_note_grouping (Stream_event *);
 };
 
@@ -75,7 +75,7 @@ Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
 }
 
 void
-Horizontal_bracket_engraver::acknowledge_note_column (Grob_info gi)
+Horizontal_bracket_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
 {
   for (vsize i = 0; i < bracket_stack_.size (); i++)
     {

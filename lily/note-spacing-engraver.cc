@@ -43,7 +43,7 @@ class Note_spacing_engraver : public Engraver
 protected:
 
   void acknowledge_rhythmic_grob (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void stop_translation_timestep ();
   void finalize () override;
   void derived_mark () const override;
@@ -86,7 +86,7 @@ Note_spacing_engraver::add_spacing_item (Grob *g)
 }
 
 void
-Note_spacing_engraver::acknowledge_note_column (Grob_info gi)
+Note_spacing_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
 {
   add_spacing_item (gi.grob ());
 }

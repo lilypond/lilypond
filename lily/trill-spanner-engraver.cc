@@ -27,6 +27,7 @@
 #include "engraver.hh"
 
 #include "international.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
@@ -42,7 +43,7 @@ public:
 protected:
   void finalize () override;
   void listen_trill_span (Stream_event *);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 
   void stop_translation_timestep ();
   void process_music ();
@@ -72,7 +73,7 @@ Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
 }
 
 void
-Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
+Trill_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   if (span_)
     {

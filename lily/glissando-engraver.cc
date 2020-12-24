@@ -39,7 +39,7 @@ public:
 
 protected:
   void listen_glissando (Stream_event *);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void finalize () override;
 
   void stop_translation_timestep ();
@@ -78,9 +78,9 @@ Glissando_engraver::process_music ()
 }
 
 void
-Glissando_engraver::acknowledge_note_column (Grob_info info)
+Glissando_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
-  Grob *g = info.grob ();
+  auto *const g = info.grob ();
   if (from_scm<bool> (get_property (g, "glissando-skip")))
     return;
 

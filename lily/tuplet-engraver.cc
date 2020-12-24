@@ -65,7 +65,7 @@ protected:
   vector<Tuplet_description> stopped_tuplets_;
   vector<Spanner *> last_tuplets_;
 
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_script (Grob_info);
   void acknowledge_finger (Grob_info);
   void acknowledge_string_number (Grob_info);
@@ -202,12 +202,12 @@ Tuplet_engraver::process_music ()
 }
 
 void
-Tuplet_engraver::acknowledge_note_column (Grob_info inf)
+Tuplet_engraver::acknowledge_note_column (Grob_info_t<Item> inf)
 {
   for (vsize j = 0; j < tuplets_.size (); j++)
     if (tuplets_[j].bracket_)
       {
-        Item *i = dynamic_cast<Item *> (inf.grob ());
+        auto *const i = inf.grob ();
         Tuplet_bracket::add_column (tuplets_[j].bracket_, i);
         add_bound_item (tuplets_[j].number_, i);
       }

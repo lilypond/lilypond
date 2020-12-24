@@ -70,7 +70,7 @@ class New_fingering_engraver : public Engraver
   vector<Grob *> heads_;
   vector<Grob *> accidentals_;
   Grob *stem_;
-  Grob *note_column_;
+  Item *note_column_;
 
   void position_all ();
 public:
@@ -80,7 +80,7 @@ protected:
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_inline_accidental (Grob_info);
   void acknowledge_stem (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void add_fingering (Grob *, SCM,
                       vector<Finger_tuple> *,
                       Stream_event *, Stream_event *);
@@ -154,7 +154,7 @@ New_fingering_engraver::acknowledge_stem (Grob_info inf)
 }
 
 void
-New_fingering_engraver::acknowledge_note_column (Grob_info inf)
+New_fingering_engraver::acknowledge_note_column (Grob_info_t<Item> inf)
 {
   note_column_ = inf.grob ();
 }

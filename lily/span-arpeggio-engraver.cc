@@ -40,7 +40,7 @@ class Span_arpeggio_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
   void acknowledge_arpeggio (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 
 protected:
   void process_acknowledged ();
@@ -65,7 +65,7 @@ Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
 }
 
 void
-Span_arpeggio_engraver::acknowledge_note_column (Grob_info info)
+Span_arpeggio_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   note_columns_.push_back (info.grob ());
 }

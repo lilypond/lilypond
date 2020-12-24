@@ -43,7 +43,7 @@ protected:
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_stem (Grob_info);
   void acknowledge_flag (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 
 private:
   void make_script (Direction, Stream_event *, size_t);
@@ -77,7 +77,7 @@ Fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 }
 
 void
-Fingering_engraver::acknowledge_note_column (Grob_info inf)
+Fingering_engraver::acknowledge_note_column (Grob_info_t<Item> inf)
 {
   /* set NoteColumn as parent */
   /* and X-align on main noteheads */

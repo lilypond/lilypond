@@ -44,7 +44,7 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void listen_text_script (Stream_event *);
 };
 
@@ -82,7 +82,7 @@ Text_engraver::process_music ()
 }
 
 void
-Text_engraver::acknowledge_note_column (Grob_info info)
+Text_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   // Make note column (or rest, if there are no heads) the parent of the script.
   extract_grob_set (info.grob (), "note-heads", heads);

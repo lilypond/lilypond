@@ -47,7 +47,7 @@ public:
 protected:
   void process_music ();
   void acknowledge_stem (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void listen_note (Stream_event *);
   void stop_translation_timestep ();
 };
@@ -128,7 +128,7 @@ Drum_notes_engraver::acknowledge_stem (Grob_info inf)
 }
 
 void
-Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
+Drum_notes_engraver::acknowledge_note_column (Grob_info_t<Item> inf)
 {
   for (vsize i = 0; i < scripts_.size (); i++)
     {

@@ -20,6 +20,7 @@
 #include "context.hh"
 #include "directional-element-interface.hh"
 #include "international.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "slur-engraver.hh"
@@ -136,9 +137,9 @@ Slur_engraver::listen_note (Stream_event *ev)
 }
 
 void
-Slur_engraver::acknowledge_note_column (Grob_info info)
+Slur_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
-  Grob *e = info.grob ();
+  auto *const e = info.grob ();
   for (vsize i = slurs_.size (); i--;)
     Slur::add_column (slurs_[i], e);
   for (vsize i = end_slurs_.size (); i--;)

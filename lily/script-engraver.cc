@@ -22,6 +22,7 @@
 #include "context.hh"
 #include "directional-element-interface.hh"
 #include "international.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "rhythmic-head.hh"
@@ -62,7 +63,7 @@ protected:
   void acknowledge_stem_tremolo (Grob_info);
   void acknowledge_tie (Grob_info);
   void acknowledge_end_tie (Grob_info);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_inline_accidental (Grob_info);
 
 public:
@@ -248,7 +249,7 @@ Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 }
 
 void
-Script_engraver::acknowledge_note_column (Grob_info info)
+Script_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   /* Make note column the parent of the script.  That is not
      correct, but due to seconds in a chord, noteheads may be

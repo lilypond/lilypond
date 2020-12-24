@@ -20,6 +20,7 @@
 #include "engraver.hh"
 
 #include "international.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
@@ -35,7 +36,7 @@ public:
 protected:
   void finalize () override;
   void listen_text_span (Stream_event *);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void stop_translation_timestep ();
   void process_music ();
 
@@ -136,7 +137,7 @@ Text_spanner_engraver::finalize ()
 }
 
 void
-Text_spanner_engraver::acknowledge_note_column (Grob_info info)
+Text_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   if (span_)
     {

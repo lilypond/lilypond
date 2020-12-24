@@ -19,6 +19,7 @@
 
 #include "engraver.hh"
 #include "international.hh"
+#include "item.hh"
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
@@ -36,7 +37,7 @@ public:
 protected:
   void finalize () override;
   void listen_episema (Stream_event *);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_note_head (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
@@ -46,7 +47,7 @@ private:
   Spanner *finished_;
   Stream_event *current_event_;
   Drul_array<Stream_event *> event_drul_;
-  vector<Grob *> note_columns_;
+  vector<Item *> note_columns_;
   void typeset_all ();
 };
 
@@ -105,9 +106,10 @@ Episema_engraver::typeset_all ()
     {
       if (!finished_->get_bound (RIGHT))
         {
-          Grob *col = (note_columns_.size ()
+          auto *col = (!note_columns_.empty ()
                        ? note_columns_.back ()
-                       : unsmob<Grob> (get_property (this, "currentMusicalColumn")));
+                       : unsmob<Item> (get_property (this,
+                                                     "currentMusicalColumn")));
           finished_->set_bound (RIGHT, col);
         }
       finished_ = 0;
@@ -119,9 +121,10 @@ Episema_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      Grob *col = (note_columns_.size ()
+      auto *col = (!note_columns_.empty ()
                    ? note_columns_.front ()
-                   : unsmob<Grob> (get_property (this, "currentMusicalColumn")));
+                   : unsmob<Item> (get_property (this,
+                                                 "currentMusicalColumn")));
       span_->set_bound (LEFT, col);
     }
 
@@ -142,7 +145,7 @@ Episema_engraver::finalize ()
 }
 
 void
-Episema_engraver::acknowledge_note_column (Grob_info info)
+Episema_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   note_columns_.push_back (info.grob ());
 }

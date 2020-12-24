@@ -37,7 +37,7 @@ protected:
   void start_translation_timestep ();
 
   void listen_ottava (Stream_event *);
-  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_column (Grob_info_t<Item>);
 
   void create_spanner ();
   void process_music ();
@@ -128,18 +128,16 @@ Ottava_spanner_engraver::process_music ()
 }
 
 void
-Ottava_spanner_engraver::acknowledge_note_column (Grob_info info)
+Ottava_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 {
   if (span_)
     {
-      if (Item *it = dynamic_cast<Item *> (info.grob ()))
-        {
-          Side_position_interface::add_support (span_, it);
+      auto *const it = info.grob ();
+      Side_position_interface::add_support (span_, it);
 
-          if (!span_->get_bound (LEFT))
-            span_->set_bound (LEFT, it);
-          span_->set_bound (RIGHT, it);
-        }
+      if (!span_->get_bound (LEFT))
+        span_->set_bound (LEFT, it);
+      span_->set_bound (RIGHT, it);
     }
 }
 

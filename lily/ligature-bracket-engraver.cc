@@ -96,6 +96,9 @@ Ligature_bracket_engraver::acknowledge_note_column (Grob_info info)
 {
   if (ligature_)
     {
+      // TODO: We might see a MultiMeasureRest here, which is a Spanner, when
+      // called from acknowledge_rest ().  What then?  Is passing a null
+      // pointer to these functions OK?
       Item *item = dynamic_cast<Item *> (info.grob ());
       Tuplet_bracket::add_column (ligature_, item);
       add_bound_item (ligature_, item);
