@@ -33,8 +33,8 @@ class Spanner_break_forbid_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Spanner_break_forbid_engraver);
   vector<Spanner *> running_spanners_;
 protected:
-  void acknowledge_unbreakable_spanner (Grob_info);
-  void acknowledge_end_unbreakable_spanner (Grob_info);
+  void acknowledge_unbreakable_spanner (Grob_info_t<Spanner>);
+  void acknowledge_end_unbreakable_spanner (Grob_info_t<Spanner>);
 
   void process_music ();
 };
@@ -47,19 +47,21 @@ Spanner_break_forbid_engraver::process_music ()
 }
 
 void
-Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner (Grob_info gi)
+Spanner_break_forbid_engraver::acknowledge_end_unbreakable_spanner
+(Grob_info_t<Spanner> gi)
 {
-  vector<Spanner *>::iterator i = find (running_spanners_.begin (), running_spanners_.end (),
-                                        dynamic_cast<Spanner *> (gi.grob ()));
+  auto i = find (running_spanners_.begin (), running_spanners_.end (),
+                 gi.grob ());
   if (i != running_spanners_.end ())
     running_spanners_.erase (i);
 }
 
 void
-Spanner_break_forbid_engraver::acknowledge_unbreakable_spanner (Grob_info gi)
+Spanner_break_forbid_engraver::acknowledge_unbreakable_spanner
+(Grob_info_t<Spanner> gi)
 {
   if (!from_scm<bool> (get_property (gi.grob (), "breakable")))
-    running_spanners_.push_back (dynamic_cast<Spanner *> (gi.grob ()));
+    running_spanners_.push_back (gi.grob ());
 }
 
 Spanner_break_forbid_engraver::Spanner_break_forbid_engraver (Context *c)
