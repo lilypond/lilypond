@@ -40,8 +40,8 @@ protected:
   void derived_mark () const override;
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
-  void acknowledge_break_aligned (Grob_info);
-  void acknowledge_break_alignable (Grob_info);
+  void acknowledge_break_aligned (Grob_info_t<Item>);
+  void acknowledge_break_alignable (Grob_info_t<Item>);
 };
 
 void
@@ -65,68 +65,67 @@ Break_align_engraver::derived_mark () const
 }
 
 void
-Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
+Break_align_engraver::acknowledge_break_alignable (Grob_info_t<Item> inf)
 {
-  if (auto *item = dynamic_cast<Item *> (inf.grob ()))
-    {
-      if (item->get_x_parent ())
-        return;
+  auto *const item = inf.grob ();
 
-      // Handling musical items is more involved because they might need to be
-      // aligned with notation (note heads, etc.).  We currently leave that to
-      // other engravers, but maybe it could be done here.
-      if (!Item::is_non_musical (item))
-        return;
+  if (item->get_x_parent ())
+    return;
 
-      create_alignment ();
+  // Handling musical items is more involved because they might need to be
+  // aligned with notation (note heads, etc.).  We currently leave that to
+  // other engravers, but maybe it could be done here.
+  if (!Item::is_non_musical (item))
+    return;
 
-      item->set_x_parent (align_);
-    }
+  if (!align_)
+    create_alignment ();
+
+  item->set_x_parent (align_);
 }
 
 // Clef, BarLine, etc. are break-aligned grobs
 void
-Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
+Break_align_engraver::acknowledge_break_aligned (Grob_info_t<Item> inf)
 {
-  if (Item *item = dynamic_cast<Item *> (inf.grob ()))
+  auto *const item = inf.grob ();
+
+  /*
+    Removed check for item->empty (X_AXIS). --hwn 20/1/04
+  */
+  if (item->get_x_parent ())
+    return;
+
+  if (!Item::is_non_musical (item))
+    return;
+
+  SCM align_name = get_property (item, "break-align-symbol");
+  if (!scm_is_symbol (align_name))
+    return;
+
+  create_alignment ();
+
+  // Create a single LeftEdge that appears to come from the same engraver
+  // as the first staff-resident, break-aligned grob that we see.  This is
+  // questionable and may contribute to problems discussed in issue #5385.
+  // Practically, this is probably fine for single-staff scores.
+  //
+  // Break-aligned grobs can originate outside of a Staff context, but we
+  // don't want to create a LeftEdge then (issue #6134).  The createSpacing
+  // property tells us whether the grob originated within a Staff or
+  // similar context.
+  if (!left_edge_)
     {
-      /*
-        Removed check for item->empty (X_AXIS). --hwn 20/1/04
-      */
-      if (item->get_x_parent ())
-        return;
-
-      if (!Item::is_non_musical (item))
-        return;
-
-      SCM align_name = get_property (item, "break-align-symbol");
-      if (!scm_is_symbol (align_name))
-        return;
-
-      create_alignment ();
-
-      // Create a single LeftEdge that appears to come from the same engraver
-      // as the first staff-resident, break-aligned grob that we see.  This is
-      // questionable and may contribute to problems discussed in issue #5385.
-      // Practically, this is probably fine for single-staff scores.
-      //
-      // Break-aligned grobs can originate outside of a Staff context, but we
-      // don't want to create a LeftEdge then (issue #6134).  The createSpacing
-      // property tells us whether the grob originated within a Staff or
-      // similar context.
-      if (!left_edge_)
+      auto *const eng = inf.origin_engraver ();
+      if (from_scm<bool> (get_property (eng, "createSpacing")))
         {
-          auto *const eng = inf.origin_engraver ();
-          if (from_scm<bool> (get_property (eng, "createSpacing")))
-            {
-              left_edge_ = eng->make_item ("LeftEdge", SCM_EOL);
-              add_to_group (get_property (left_edge_, "break-align-symbol"),
-                            left_edge_);
-            }
+          left_edge_ = eng->make_item ("LeftEdge", SCM_EOL);
+          add_to_group (get_property (left_edge_, "break-align-symbol"),
+                        left_edge_);
         }
-
-      add_to_group (align_name, item);
     }
+
+  add_to_group (align_name, item);
 }
 
 void

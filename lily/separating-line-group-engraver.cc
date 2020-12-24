@@ -28,6 +28,7 @@
 #include "context.hh"
 #include "spanner.hh"
 #include "grob-array.hh"
+#include "item.hh"
 #include "pointer-group-interface.hh"
 
 #include "translator.icc"
@@ -62,11 +63,11 @@ protected:
   Spacings last_spacings_;
 
   void acknowledge_item (Grob_info_t<Item>);
-  void acknowledge_break_aligned (Grob_info);
+  void acknowledge_break_aligned (Grob_info_t<Item>);
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
-  vector<Grob *> break_aligned_;
+  vector<Item *> break_aligned_;
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
@@ -119,7 +120,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info_t<Item> info)
 }
 
 void
-Separating_line_group_engraver::acknowledge_break_aligned (Grob_info gi)
+Separating_line_group_engraver::acknowledge_break_aligned (Grob_info_t<Item> gi)
 {
   break_aligned_.push_back (gi.grob ());
 }

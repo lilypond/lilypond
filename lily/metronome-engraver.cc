@@ -45,8 +45,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  void acknowledge_break_aligned (Grob_info);
-  void acknowledge_break_alignment (Grob_info);
+  void acknowledge_break_aligned (Grob_info_t<Item>);
+  void acknowledge_break_alignment (Grob_info_t<Item>);
   void acknowledge_grob (Grob_info) override;
 
   void listen_tempo_change (Stream_event *);
@@ -74,7 +74,7 @@ safe_is_member (SCM scm, SCM lst)
 }
 
 void
-Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
+Metronome_mark_engraver::acknowledge_break_aligned (Grob_info_t<Item> info)
 {
   Grob *g = info.grob ();
 
@@ -94,14 +94,10 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
 }
 
 void
-Metronome_mark_engraver::acknowledge_break_alignment (Grob_info info)
+Metronome_mark_engraver::acknowledge_break_alignment (Grob_info_t<Item> info)
 {
-  Grob *g = info.grob ();
-
-  if (text_
-      && support_
-      && dynamic_cast<Item *> (g))
-    text_->set_x_parent (g);
+  if (text_ && support_)
+    text_->set_x_parent (info.grob ());
 }
 
 void
