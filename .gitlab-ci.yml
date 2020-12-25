@@ -158,6 +158,7 @@ website:ubuntu-16.04:
   rules:
     - <<: *if-default-branch
       when: manual
+      allow_failure: true
   dependencies: [ "build:ubuntu-16.04" ]
   script:
     - cd build
