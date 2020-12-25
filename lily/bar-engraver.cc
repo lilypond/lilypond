@@ -43,27 +43,14 @@ protected:
   void acknowledge_end_spanner (Grob_info);
 
 private:
-  void create_bar ();
-
   Item *bar_ = nullptr;
   vector<Spanner *> spanners_;
+  bool considered_bar_ = false;
 };
 
 Bar_engraver::Bar_engraver (Context *c)
   : Engraver (c)
 {
-}
-
-void
-Bar_engraver::create_bar ()
-{
-  if (!bar_)
-    {
-      bar_ = make_item ("BarLine", SCM_EOL);
-      SCM gl = get_property (this, "whichBar");
-      if (!ly_is_equal (gl, get_property (bar_, "glyph")))
-        set_property (bar_, "glyph", gl);
-    }
 }
 
 /*
@@ -80,12 +67,28 @@ Bar_engraver::create_bar ()
 void
 Bar_engraver::process_acknowledged ()
 {
-  if (!bar_ && scm_is_string (get_property (this, "whichBar")))
-    create_bar ();
+  // process_acknowledged () can be called more than once.  Whether or not we
+  // create a BarLine the first time, we don't want to reconsider it.
+  if (!considered_bar_)
+    {
+      considered_bar_ = true;
+
+      SCM gl = get_property (this, "whichBar");
+      if (scm_is_string (gl))
+        {
+          bar_ = make_item ("BarLine", SCM_EOL);
+          if (!ly_is_equal (gl, get_property (bar_, "glyph")))
+            set_property (bar_, "glyph", gl);
+        }
+    }
 
   if (bar_)
-    for (vsize i = 0; i < spanners_.size (); i++)
-      spanners_[i]->set_bound (RIGHT, bar_);
+    {
+      for (const auto &sp : spanners_)
+        sp->set_bound (RIGHT, bar_);
+    }
+
+  spanners_.clear ();
 }
 
 /*
@@ -98,16 +101,21 @@ Bar_engraver::stop_translation_timestep ()
     set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
 
   bar_ = nullptr;
-  spanners_.clear ();
+  considered_bar_ = false;
 }
 
 void
 Bar_engraver::acknowledge_end_spanner (Grob_info gi)
 {
-  Grob *g = gi.grob ();
-
-  if (from_scm<bool> (get_property (g, "to-barline")))
-    spanners_.push_back (dynamic_cast<Spanner *> (g));
+  const bool might_have_bar = !considered_bar_ || bar_;
+  if (might_have_bar) // otherwise avoid a little work
+    {
+      if (auto *sp = dynamic_cast<Spanner *> (gi.grob ()))
+        {
+          if (from_scm<bool> (get_property (sp, "to-barline")))
+            spanners_.push_back (sp);
+        }
+    }
 }
 
 void
