@@ -565,12 +565,10 @@ fret-diagram overall parameters."
                              (and (eq? default-dot-color 'white) (not inverted))))
                         (what-color
                          (cond
-                           ;; If no colors are set and the dot is not inverted,
-                           ;; return #f
+                           ;; If no colors are set return #f
                            ;; This makes a general override of Grob.color affect
                            ;; dot-color as well
-                           ((and (not inverted)
-                                 (not (dot-has-color dot-sublist))
+                           ((and (not (dot-has-color dot-sublist))
                                  (not (assoc-get default-dot-color x11-color-list)))
                              #f)
                            ((and inverted
@@ -611,9 +609,13 @@ fret-diagram overall parameters."
                         (final-dot-stencil
                          (if parenthesized
                              (let ((paren-color
+                                    ;; If 'default-paren-color is in dot-sublist
+                                    ;; and dots are not white use the overall
+                                    ;; color, i.e. return #f
+                                    ;; Otherwise use `what-color`
                                     (if (and parenthesis-color
                                              (not (eq? default-dot-color 'white)))
-                                        (x11-color (or default-dot-color 'black))
+                                        #f
                                         what-color)))
                                (stencil-with-color
                                 (parenthesize-stencil
