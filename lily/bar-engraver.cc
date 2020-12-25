@@ -45,14 +45,13 @@ protected:
 private:
   void create_bar ();
 
-  Item *bar_;
+  Item *bar_ = nullptr;
   vector<Spanner *> spanners_;
 };
 
 Bar_engraver::Bar_engraver (Context *c)
   : Engraver (c)
 {
-  bar_ = 0;
 }
 
 void
@@ -98,7 +97,7 @@ Bar_engraver::stop_translation_timestep ()
   if (!bar_)
     set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
 
-  bar_ = 0;
+  bar_ = nullptr;
   spanners_.clear ();
 }
 
