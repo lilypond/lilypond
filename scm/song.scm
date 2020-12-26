@@ -60,6 +60,9 @@
       (debug-enable 'backtrace))
   (ly:message "Writing Festival XML file ~a..." filename)
   (let ((port (open-output-file filename)))
+    (cond-expand
+     (guile-2 (set-port-encoding! port "UTF-8"))
+     (else))
     (write-header port tempo)
     (write-lyrics port music)
     (write-footer port)
