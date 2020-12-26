@@ -25,8 +25,8 @@
 
 class Melody_engraver : public Engraver
 {
-  Grob *melody_item_;
-  Grob *stem_;
+  Grob *melody_item_ = nullptr;
+  Grob *stem_ = nullptr;
 protected:
 
   void acknowledge_stem (Grob_info);
@@ -40,15 +40,13 @@ protected:
 Melody_engraver::Melody_engraver (Context *c)
   : Engraver (c)
 {
-  stem_ = 0;
-  melody_item_ = 0;
 }
 
 void
 Melody_engraver::process_music ()
 {
   if (scm_is_string (get_property (this, "whichBar")))
-    melody_item_ = 0;
+    melody_item_ = nullptr;
 }
 
 /*
@@ -63,7 +61,7 @@ Melody_engraver::process_acknowledged ()
     {
       extract_grob_set (stem_, "rests", rests);
       if (rests.size ())
-        melody_item_ = 0;
+        melody_item_ = nullptr;
       else
         {
           if (!melody_item_)
@@ -77,13 +75,13 @@ Melody_engraver::process_acknowledged ()
 void
 Melody_engraver::stop_translation_timestep ()
 {
-  stem_ = 0;
+  stem_ = nullptr;
 }
 
 void
 Melody_engraver::acknowledge_slur (Grob_info /* info */)
 {
-  melody_item_ = 0;
+  melody_item_ = nullptr;
 }
 
 void
