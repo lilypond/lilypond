@@ -340,6 +340,9 @@
   (if (equal? file-name "-")
       (display value)
       (let ((port (open-file file-name "w")))
+        (cond-expand
+         (guile-2 (set-port-encoding! port "UTF-8"))
+         (else))
         (display value port)
         (close-port port)))
 
