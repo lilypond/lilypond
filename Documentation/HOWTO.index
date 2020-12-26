@@ -35,11 +35,14 @@ How index entries should look like
 * Don't insert @funindex{\foo} and @cindex{\foo} simultaneously.
 
 * If both `foo' and `\foo' need to be indexed with @funindex you have to
-  insert `@sortas' commands with different keys (omitting the backslash).
+  insert `@funindexpre' or `@fundexpost' commands with different keys:
+  `@funindexpre foo' gets sorted before `@funindex \foo', and
+  `@funindexpost \foo' gets sorted after `@funindex foo'.
+
   Example:
 
-    @funindex @sortas{[A} [
-    @funindex @sortas{[B} \[
+    @funindex [
+    @funindexpost \[
 
 * If you mention entities in a `@cindex' entry that would normally be
   entered with `@funindex', use `@code' to mark them.  Example:
