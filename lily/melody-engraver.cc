@@ -26,15 +26,17 @@
 class Melody_engraver : public Engraver
 {
   Grob *melody_item_ = nullptr;
+  Grob *next_melody_item_ = nullptr;
+  // This engraver is designed to operate in Voice context, so we expect only
+  // one stem.
   Grob *stem_ = nullptr;
-protected:
+  bool break_melody_ = true;
 
+protected:
   void acknowledge_stem (Grob_info);
   void acknowledge_slur (Grob_info);
   TRANSLATOR_DECLARATIONS (Melody_engraver);
   void stop_translation_timestep ();
-  void process_acknowledged ();
-  void process_music ();
 };
 
 Melody_engraver::Melody_engraver (Context *c)
@@ -43,51 +45,56 @@ Melody_engraver::Melody_engraver (Context *c)
 }
 
 void
-Melody_engraver::process_music ()
-{
-  if (scm_is_string (get_property (this, "whichBar")))
-    melody_item_ = nullptr;
-}
-
-/*
-  Used to be in stop_translation_timestep, but grobs can't
-  be created here.
-*/
-void
-Melody_engraver::process_acknowledged ()
-{
-  if (stem_
-      && !is_scm<Direction> (get_property_data (stem_, "neutral-direction")))
-    {
-      extract_grob_set (stem_, "rests", rests);
-      if (rests.size ())
-        melody_item_ = nullptr;
-      else
-        {
-          if (!melody_item_)
-            melody_item_ = make_item ("MelodyItem", stem_->self_scm ());
-
-          Melody_spanner::add_stem (melody_item_, stem_);
-        }
-    }
-}
-
-void
 Melody_engraver::stop_translation_timestep ()
 {
-  stem_ = nullptr;
+  if (stem_)
+    {
+      // If we don't already know a reason to start a new melody span, check
+      // whether there is a bar line.  We can't use acknowledge_bar_line () for
+      // this because the Bar_engraver operates in Staff context, so this
+      // engraver can't observe its grobs.
+      if (!break_melody_)
+        break_melody_ = scm_is_string (get_property (this, "whichBar"));
+
+      if (break_melody_)
+        {
+          break_melody_ = false;
+
+          melody_item_ = next_melody_item_;
+          next_melody_item_ = nullptr;
+        }
+
+      Melody_spanner::add_stem (melody_item_, stem_);
+      stem_ = nullptr;
+    }
 }
 
 void
 Melody_engraver::acknowledge_slur (Grob_info /* info */)
 {
-  melody_item_ = nullptr;
+  break_melody_ = true;
 }
 
 void
 Melody_engraver::acknowledge_stem (Grob_info info)
 {
-  stem_ = info.grob ();
+  auto *const stem = info.grob ();
+  if (!is_scm<Direction> (get_property_data (stem, "neutral-direction")))
+    {
+      extract_grob_set (stem, "rests", rests);
+      if (rests.empty ())
+        {
+          stem_ = stem;
+
+          // We don't necessarily know yet whether we will need to place this
+          // stem in a new melody span.  Create a next MelodyItem now because
+          // creating grobs in stop_translation_timestep () isn't allowed.
+          if (!next_melody_item_)
+            next_melody_item_ = make_item ("MelodyItem", stem->self_scm ());
+        }
+      else
+        break_melody_ = true;
+    }
 }
 
 #include "translator.icc"
