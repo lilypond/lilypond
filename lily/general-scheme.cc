@@ -138,6 +138,25 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
   return scm_from_latin1_stringn (contents.c_str (), contents.length ());
 }
 
+LY_DEFINE (ly_gulp_file_utf8, "ly:gulp-file-utf8",
+           1, 1, 0, (SCM name, SCM size),
+           "Read @var{size} characters from the file @var{name},"
+           " and return its contents in a string decoded from UTF-8."
+           "  If @var{size} is undefined, the entire file is read."
+           "  The file is looked up using the search path.")
+{
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
+  int sz = INT_MAX;
+  if (!SCM_UNBNDP (size))
+    {
+      LY_ASSERT_TYPE (scm_is_number, size, 2);
+      sz = scm_to_int (size);
+    }
+
+  string contents = gulp_file_to_string (ly_scm2string (name), true, sz);
+  return scm_from_utf8_stringn (contents.c_str (), contents.length ());
+}
+
 LY_DEFINE (ly_dir_p, "ly:dir?",
            1, 0, 0, (SCM s),
            "Is @var{s} a direction?  Valid directions are @w{@code{-1}},"

@@ -12,4 +12,4 @@ non-english syllabels.
 \addlyrics { ov -- čá -- ci }
 }
 #(ly:progress "song-basic-nonenglish")
-#(ly:progress "~a" (ly:gulp-file "song-basic-nonenglish.xml"))
+#(ly:progress "~a" (ly:gulp-file-utf8 "song-basic-nonenglish.xml"))
