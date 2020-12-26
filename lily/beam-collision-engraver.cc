@@ -94,7 +94,7 @@ Beam_collision_engraver::finalize ()
           if (vag >= 0)
             vertical_span.add_point (vag);
         }
-      Context *beam_context = beams_[i].context ();
+      auto *const beam_context = beams_[i].origin_engraver ()->context ();
 
       Interval_t<int> beam_spanned_rank_ = beam_grob->spanned_rank_interval ();
       // Start considering grobs at the first grob whose end falls at or after the beam's beginning.
@@ -108,7 +108,8 @@ Beam_collision_engraver::finalize ()
           int vag = Grob::get_vertical_axis_group_index (covered_grob);
           if (!vertical_span.contains (vag))
             continue;
-          Context *covered_grob_context = covered_grobs_[j].context ();
+          auto *const covered_grob_context
+            = covered_grobs_[j].origin_engraver ()->context ();
 
           Interval_t<int> covered_grob_spanned_rank = covered_grob->spanned_rank_interval ();
           if (covered_grob_spanned_rank[LEFT] > beam_spanned_rank_[RIGHT])

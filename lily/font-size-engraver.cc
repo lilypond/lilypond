@@ -52,7 +52,7 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
   if (!size)
     return;
 
-  if (gi.context () != context ())
+  if (gi.origin_engraver ()->context () != context ())
     return;
 
   Real font_size = size

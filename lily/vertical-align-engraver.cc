@@ -144,13 +144,14 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 
   if (top_level_ && qualifies (i))
     {
-      string id = i.context ()->id_string ();
+      auto *const origin_ctx = i.origin_engraver ()->context ();
+      const auto &id = origin_ctx->id_string ();
 
       scm_hash_set_x (id_to_group_hashtab_, ly_string2scm (id),
                       i.grob ()->self_scm ());
 
-      SCM before_id = get_property (i.context (), "alignAboveContext");
-      SCM after_id = get_property (i.context (), "alignBelowContext");
+      SCM before_id = get_property (origin_ctx, "alignAboveContext");
+      SCM after_id = get_property (origin_ctx, "alignBelowContext");
 
       SCM before = scm_hash_ref (id_to_group_hashtab_, before_id, SCM_BOOL_F);
       SCM after = scm_hash_ref (id_to_group_hashtab_, after_id, SCM_BOOL_F);
@@ -206,7 +207,7 @@ Vertical_align_engraver::acknowledge_outside_staff (Grob_info i)
         {
           // Claim outside-staff grobs created by engravers in this immediate
           // context.
-          if (i.context () == context ())
+          if (i.origin_engraver ()->context () == context ())
             i.grob ()->set_y_parent (valign_);
         }
       else

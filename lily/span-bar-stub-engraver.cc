@@ -85,7 +85,9 @@ Span_bar_stub_engraver::acknowledge_span_bar (Grob_info i)
 void
 Span_bar_stub_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
 {
-  axis_groups_ = scm_cons (scm_cons (i.grob ()->self_scm (), i.context ()->self_scm ()), axis_groups_);
+  SCM s = scm_cons (i.grob ()->self_scm (),
+                    i.origin_engraver ()->context ()->self_scm ());
+  axis_groups_ = scm_cons (s, axis_groups_);
 }
 
 void

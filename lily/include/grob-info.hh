@@ -40,8 +40,6 @@ public:
   Grob *grob () const { return grob_; }
   Engraver *origin_engraver () const { return origin_engraver_; }
 
-  Context *context () const;
-
   Stream_event *event_cause () const
   {
     return grob_->event_cause ();

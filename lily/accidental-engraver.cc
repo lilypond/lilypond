@@ -474,7 +474,8 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
           || !scm_is_eq (get_property (info.grob (), "style"),
                          ly_symbol2scm ("harmonic")))
       // ignore accidentals in non-printing voices like NullVoice
-      && !from_scm<bool> (get_property (info.context (), "nullAccidentals")))
+      && !from_scm<bool> (get_property (info.origin_engraver ()->context (),
+                                        "nullAccidentals")))
     {
       Accidental_entry entry;
       entry.head_ = info.grob ();
