@@ -172,12 +172,11 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 void
 Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
 {
-  bool on = from_scm<bool> (get_property (this, "autoBeaming"));
-  if (!busy () && on && !forbid_)
+  if (!busy () && !forbid_
+      && from_scm<bool> (get_property (this, "autoBeaming"))
+      && test_moment (START, test_mom, dur))
     {
-      bool b = test_moment (START, test_mom, dur);
-      if (b)
-        begin_beam ();
+      begin_beam ();
     }
 }
 
@@ -383,7 +382,8 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
       return;
     }
 
-  int durlog = unsmob<Duration> (get_property (ev, "duration"))->duration_log ();
+  auto *const stem_duration = unsmob<Duration> (get_property (ev, "duration"));
+  const auto durlog = stem_duration->duration_log ();
 
   if (durlog <= 2)
     {
@@ -399,10 +399,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   if (!is_same_grace_state (beam_start_location_, now))
     return;
 
-  Duration *stem_duration = unsmob<Duration> (get_property (ev, "duration"));
   Moment dur (stem_duration->get_length ());
-
-  //Moment dur = unsmob<Duration> (get_property (ev, "duration"))->get_length ();
   Moment measure_now = measure_position (context ());
   bool recheck_needed = false;
 
@@ -498,14 +495,13 @@ Auto_beam_engraver::process_acknowledged ()
   if (extend_mom_ > now)
     return;
 
-  if (!process_acknowledged_count_)
+  if (busy ())
     {
-      Moment measure_now = measure_position (context ());
-      consider_end (measure_now, shortest_mom_);
-    }
-  else if (process_acknowledged_count_ > 1)
-    {
-      if (busy ())
+      if (!process_acknowledged_count_)
+        {
+          consider_end (measure_position (context ()), shortest_mom_);
+        }
+      else if (process_acknowledged_count_ > 1)
         {
           if ((extend_mom_ < now)
               || ((extend_mom_ == now) && (last_add_mom_ != now)))
