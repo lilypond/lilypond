@@ -41,6 +41,4 @@ protected:
   virtual void acknowledge_audio_elements ();
 };
 
-void performer_each (SCM list, Performer_method method);
-
 #endif /* PERFORMER_GROUP_HH */

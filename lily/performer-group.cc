@@ -67,17 +67,6 @@ Performer_group::acknowledge_audio_elements ()
 }
 
 void
-performer_each (SCM list, Performer_method method)
-{
-  for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
-    {
-      Performer *e = unsmob<Performer> (scm_car (p));
-      if (e)
-        (e->*method) ();
-    }
-}
-
-void
 Performer_group::do_announces ()
 {
   for (SCM s = context ()->children_contexts ();
@@ -92,9 +81,6 @@ Performer_group::do_announces ()
 
   while (1)
     {
-      performer_each (get_simple_trans_list (),
-                      &Performer::create_audio_elements);
-
       if (!announce_infos_.size ())
         break;
 

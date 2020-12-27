@@ -36,11 +36,6 @@ Performer::acknowledge_audio_element (Audio_element_info)
 }
 
 void
-Performer::create_audio_elements ()
-{
-}
-
-void
 Performer::announce_element (Audio_element_info i)
 {
   if (!i.origin_trans_)
