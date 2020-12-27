@@ -41,7 +41,7 @@ class Custos_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
   void start_translation_timestep ();
-  void acknowledge_bar (Grob_info);
+  void acknowledge_bar_line (Grob_info);
   void acknowledge_note_head (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
@@ -77,8 +77,11 @@ Custos_engraver::start_translation_timestep ()
 }
 
 void
-Custos_engraver::acknowledge_bar (Grob_info /* info */)
+Custos_engraver::acknowledge_bar_line (Grob_info /* info */)
 {
+  // Custos is visible only at the end of a line, so we save work by creating
+  // it only where a break is allowed.  Observing a BarLine tells us indirectly
+  // that a break is allowed: Bar_engraver suppresses breaks elsewhere.
   custos_permitted_ = true;
 }
 
@@ -104,9 +107,6 @@ Custos_engraver::acknowledge_note_head (Grob_info info)
 void
 Custos_engraver::process_acknowledged ()
 {
-  if (scm_is_string (get_property (this, "whichBar")))
-    custos_permitted_ = true;
-
   if (custos_permitted_)
     {
       for (vsize i = pitches_.size (); i--;)
@@ -147,7 +147,7 @@ Custos_engraver::finalize ()
 void
 Custos_engraver::boot ()
 {
-  ADD_ACKNOWLEDGER (Custos_engraver, bar);
+  ADD_ACKNOWLEDGER (Custos_engraver, bar_line);
   ADD_ACKNOWLEDGER (Custos_engraver, note_head);
 }
 
