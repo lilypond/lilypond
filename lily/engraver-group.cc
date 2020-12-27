@@ -117,6 +117,7 @@ Engraver_group::acknowledge_grobs ()
 
   SCM name_sym = ly_symbol2scm ("name");
 
+  // N.B. announce_infos_ can grow during this loop.
   for (vsize j = 0; j < announce_infos_.size (); j++)
     {
       Announce_grob_info info = announce_infos_[j];
