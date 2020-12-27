@@ -49,7 +49,6 @@ protected:
 
   void acknowledge_rest (Grob_info);
   void acknowledge_beam (Grob_info);
-  void acknowledge_bar_line (Grob_info);
   void acknowledge_breathing_sign (Grob_info);
   void acknowledge_stem (Grob_info);
   void listen_beam_forbid (Stream_event *);
@@ -330,14 +329,6 @@ Auto_beam_engraver::acknowledge_beam (Grob_info /* info */)
 }
 
 void
-Auto_beam_engraver::acknowledge_bar_line (Grob_info /* info */)
-{
-  check_bar_property ();
-  if (busy ())
-    end_beam ();
-}
-
-void
 Auto_beam_engraver::acknowledge_breathing_sign (Grob_info /* info */)
 {
   check_bar_property ();
@@ -519,7 +510,6 @@ Auto_beam_engraver::boot ()
 {
   ADD_LISTENER (Auto_beam_engraver, beam_forbid);
   ADD_ACKNOWLEDGER (Auto_beam_engraver, stem);
-  ADD_ACKNOWLEDGER (Auto_beam_engraver, bar_line);
   ADD_ACKNOWLEDGER (Auto_beam_engraver, beam);
   ADD_ACKNOWLEDGER (Auto_beam_engraver, breathing_sign);
   ADD_ACKNOWLEDGER (Auto_beam_engraver, rest);
@@ -613,7 +603,6 @@ Grace_auto_beam_engraver::boot ()
 {
   ADD_LISTENER (Grace_auto_beam_engraver, beam_forbid);
   ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, stem);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, bar_line);
   ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, beam);
   ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, breathing_sign);
   ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, rest);
