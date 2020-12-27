@@ -61,17 +61,23 @@ private:
   Spanner *create_beam ();
   void begin_beam ();
   void end_beam ();
+  void handle_current_stem (Item *stem);
   void junk_beam ();
   virtual bool is_same_grace_state (Moment, Moment);
   void recheck_beam ();
   void typeset_beam ();
 
   Stream_event *forbid_ = nullptr;
+  bool force_end_ = false;
+  bool considered_bar_ = false;
   /*
     shortest_mom_ is the shortest note in the beam.
   */
   Moment shortest_mom_ {Rational (1, 4)};
   Spanner *finished_beam_ = nullptr;
+  // This engraver is designed to operate in Voice context, so we expect only
+  // one stem per timestep.
+  Item *current_stem_ = nullptr;
   vector<Item *> stems_;
 
   int process_acknowledged_count_ = 0;
@@ -95,28 +101,12 @@ private:
 
   Beaming_options beaming_options_;
   Beaming_options finished_beaming_options_;
-
-  void check_bar_property ();
 };
 
 void
 Auto_beam_engraver::derived_mark () const
 {
   scm_gc_mark (beam_settings_);
-}
-
-void
-Auto_beam_engraver::check_bar_property ()
-{
-  /* Duplicated from process_music (), since
-     Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
-
-  if ((beam_start_moment_ < now_mom ())
-      && scm_is_string (get_property (this, "whichBar")))
-    {
-      consider_end (measure_position (context ()), shortest_mom_);
-      junk_beam ();
-    }
 }
 
 void
@@ -131,20 +121,6 @@ Auto_beam_engraver::process_music ()
       if (extend_mom_ < now)
         end_beam ();
     }
-
-  if (scm_is_string (get_property (this, "whichBar")))
-    {
-      consider_end (measure_position (context ()), shortest_mom_);
-      junk_beam ();
-    }
-
-  if (forbid_)
-    {
-      if (busy ())
-        end_beam ();
-      else
-        junk_beam ();
-    }
 }
 
 Auto_beam_engraver::Auto_beam_engraver (Context *c)
@@ -156,6 +132,7 @@ void
 Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (forbid_, ev);
+  force_end_ = true;
 }
 
 bool
@@ -308,6 +285,7 @@ Auto_beam_engraver::stop_translation_timestep ()
   typeset_beam ();
   process_acknowledged_count_ = 0;
   forbid_ = 0;
+  considered_bar_ = false;
 }
 
 void
@@ -323,33 +301,31 @@ Auto_beam_engraver::finalize ()
 void
 Auto_beam_engraver::acknowledge_beam (Grob_info /* info */)
 {
-  check_bar_property ();
-  if (busy ())
-    end_beam ();
+  force_end_ = true;
 }
 
 void
 Auto_beam_engraver::acknowledge_breathing_sign (Grob_info /* info */)
 {
-  check_bar_property ();
-  if (busy ())
-    end_beam ();
+  force_end_ = true;
 }
 
 void
 Auto_beam_engraver::acknowledge_rest (Grob_info /* info */)
 {
-  check_bar_property ();
-  if (busy ())
-    end_beam ();
+  force_end_ = true;
 }
 
 void
 Auto_beam_engraver::acknowledge_stem (Grob_info info)
 {
-  check_bar_property ();
-  Item *stem = dynamic_cast<Item *> (info.grob ());
-  Stream_event *ev = info.ultimate_event_cause ();
+  current_stem_ = dynamic_cast<Item *> (info.grob ());
+}
+
+void
+Auto_beam_engraver::handle_current_stem (Item *stem)
+{
+  auto *const ev = stem->ultimate_event_cause ();
   if (!ev->in_event_class ("rhythmic-event"))
     {
       programming_error ("stem must have rhythmic structure");
@@ -482,6 +458,36 @@ Auto_beam_engraver::recheck_beam ()
 void
 Auto_beam_engraver::process_acknowledged ()
 {
+  if (force_end_)
+    {
+      force_end_ = false;
+
+      if (busy ())
+        end_beam ();
+    }
+
+  // This engraver can't observe bar lines with acknowledge_bar_line () because
+  // the Bar_engraver operates in Staff context.  Instead, we check the
+  // whichBar property, which also controls the Bar_engraver.
+  // process_acknowledged () can be called more than once, but whichBar won't
+  // change.
+  if (!considered_bar_)
+    {
+      considered_bar_ = true;
+
+      if (busy () && scm_is_string (get_property (this, "whichBar")))
+        {
+          consider_end (measure_position (context ()), shortest_mom_);
+          junk_beam ();
+        }
+    }
+
+  if (current_stem_)
+    {
+      handle_current_stem (current_stem_);
+      current_stem_ = nullptr;
+    }
+
   Moment now = now_mom ();
   if (extend_mom_ > now)
     return;
