@@ -312,7 +312,15 @@ because you used GitLab to rebase your branch, which modifies the commit
 data and changes the hash.  If you are sure that the branch is not needed
 anymore, replace the @code{-d} on the final line with a @code{-D} instead.
 
+Over time, remote branches of accepted merge requests may accumulate in your
+local repository. If you want to delete these and get back to the state of the
+official repository, run
 
+@example
+git fetch -p origin
+@end example
+
+(short for @code{--prune}) once in a while.
 
 
 @node Lifecycle of a merge request
