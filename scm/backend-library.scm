@@ -440,6 +440,9 @@ definition."
             (display (list pango-font font-name)))
         (define-pango-pf pango-pf font-name scaling)))
 
+    ;; sort entries (which come from a hash) for reproducibility
     (string-append
-     (string-concatenate (map font-load-command other-fonts))
-     (string-concatenate (map pango-font-load-command pango-only-fonts)))))
+     (string-concatenate
+      (sort (map font-load-command other-fonts) string<?))
+     (string-concatenate
+      (sort (map pango-font-load-command pango-only-fonts) string<?)))))
