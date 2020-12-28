@@ -251,7 +251,7 @@ setup_paths (char const *argv0_ptr)
   global_path.prepend (lilypond_datadir + "/ly");
 }
 
-string
+static string
 expand_environment_variables (const string &orig)
 {
   char const *start_ptr = orig.c_str ();

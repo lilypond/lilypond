@@ -24,7 +24,6 @@
 
 void read_relocation_dir (const std::string &dirname);
 void read_relocation_file (const std::string &filename);
-std::string expand_environment_variables (const std::string &orig);
 
 int sane_putenv (char const *key,
                  const std::string &value,

@@ -480,15 +480,6 @@ LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
   return ly_symbol2scm (result.c_str ());
 }
 
-LY_DEFINE (ly_expand_environment, "ly:expand-environment",
-           1, 0, 0, (SCM str),
-           "Expand @code{$VAR} and @code{$@{VAR@}} in @var{str}.")
-{
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-
-  return ly_string2scm (expand_environment_variables (ly_scm2string (str)));
-}
-
 LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
            2, 0, 0, (SCM lst, SCM i),
            "Take at most the first @var{i} of list @var{lst}.")

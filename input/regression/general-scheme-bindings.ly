@@ -7,9 +7,6 @@
 
 \version "2.19.22"
 
-%% todo : use macro, to show the statement tested. 
-#(ly:progress "~a\n" (ly:expand-environment "${HOME} $HOME $$ "))
-
 
 %% very platform dependent.
 %% #(ly:font-config-display-fonts)
