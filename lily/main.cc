@@ -889,23 +889,15 @@ setup_guile_env ()
 #endif
 }
 
-//vector<string> start_environment_global;
-
 int
-main (int argc, char **argv, char **envp)
+main (int argc, char **argv)
 /*
  * Main entry-point for LilyPond executable image
  * Parameters:
  * argc:   Count of arguments on the command line
  * argv:   Vector of string arguments on command line
- * envp:   Point to vector of OS environment variables
  */
 {
-  /*
-    Process environment variables
-  */
-  for (char **p = envp; *p; p++)
-    start_environment_global.push_back (*p);
   /*
     Handle old-style environment equivalent to
     old-style -V or --verbose command arguments.

@@ -37,7 +37,6 @@ extern std::string init_name_global;
 
 /* options */
 extern std::vector<std::string> dump_header_fieldnames_global;
-extern std::vector<std::string> start_environment_global;
 extern std::string output_backend_global;
 extern std::string output_name_global;
 extern bool be_safe_global;

@@ -56,5 +56,3 @@ File_path global_path;
    LILYPOND_DATADIR = /usr/share/lilypond
 */
 string lilypond_datadir;
-
-vector<string> start_environment_global;
