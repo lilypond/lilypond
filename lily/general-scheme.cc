@@ -480,28 +480,6 @@ LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
   return ly_symbol2scm (result.c_str ());
 }
 
-LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
-           2, 0, 0, (SCM lst, SCM i),
-           "Take at most the first @var{i} of list @var{lst}.")
-{
-  LY_ASSERT_TYPE (scm_is_integer, i, 1);
-
-  int k = scm_to_int (i);
-  if (k == 0)
-    lst = SCM_EOL;
-  else
-    {
-      SCM s = lst;
-      k--;
-      for (; scm_is_pair (s) && k--; s = scm_cdr (s))
-        ;
-
-      if (scm_is_pair (s))
-        scm_set_cdr_x (s, SCM_EOL);
-    }
-  return lst;
-}
-
 string
 format_single_argument (SCM arg, int precision, bool escape = false)
 {

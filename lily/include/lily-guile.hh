@@ -51,7 +51,6 @@
 SCM ly_last (SCM list);
 std::string ly_scm_write_string (SCM s);
 SCM ly_deep_copy (SCM);
-SCM ly_truncate_list (int k, SCM lst);
 
 std::string gulp_file_to_string (const std::string &fn, bool must_exist, int size);
 
