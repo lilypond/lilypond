@@ -1737,10 +1737,10 @@ Edición Bach-Gesellschaft (Leipzig, 1866), disponible a través de la
 Biblioteca Musical Petrucci (IMSPL #02221):
 
 @iftex
-@sourceimage{bwv861-gessellschaft,16cm,,}
+@sourceimage{bwv861-gesellschaft,16cm,,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-gessellschaft-small,,,png}
+@sourceimage{bwv861-gesellschaft-small,,,png}
 @end ifnottex
 
 @noindent
