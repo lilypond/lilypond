@@ -44,11 +44,16 @@ protected:
   int alternative_number_;
   int alternative_number_increment_;
   Stream_event *alternative_event_;
+  bool considered_numbering_;
+  bool must_consider_numbering_;
 
 protected:
   void stop_translation_timestep ();
   void listen_alternative (Stream_event *);
+  void acknowledge_bar_line (Grob_info);
+  void process_acknowledged ();
   void process_music ();
+  void consider_numbering ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };
@@ -89,10 +94,30 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
 void
 Bar_number_engraver::process_music ()
 {
-  SCM wb = get_property (this, "whichBar");
+  // TODO: whichBar doesn't necessarily have its final value until
+  // Repeat_acknowledge_engraver::process_music () has run.  Ideally, this
+  // engraver would rely on acknowledge_bar_line () to learn when there are bar
+  // lines in enclosed contexts, but removing this early check led to
+  // differences in horizontal and vertical spacing in a few regression tests.
+  // Some things might be sensitive to the order in which grobs are created.
+  if (scm_is_string (get_property (this, "whichBar")))
+    consider_numbering ();
+}
 
-  if (scm_is_string (wb))
+void
+Bar_number_engraver::process_acknowledged ()
+{
+  if (must_consider_numbering_)
+    consider_numbering ();
+}
+
+void
+Bar_number_engraver::consider_numbering ()
+{
+  if (!considered_numbering_)
     {
+      considered_numbering_ = true;
+
       Moment mp (robust_scm2moment (get_property (this, "measurePosition"), Moment (0)));
       SCM bn = get_property (this, "currentBarNumber");
       SCM proc = get_property (this, "barNumberVisibility");
@@ -144,12 +169,22 @@ Bar_number_engraver::Bar_number_engraver (Context *c)
   alternative_number_increment_ = 0;
   alternative_number_ = INT_MIN;
   alternative_event_ = 0;
+  considered_numbering_ = false;
+  must_consider_numbering_ = false;
+}
+
+void
+Bar_number_engraver::acknowledge_bar_line (Grob_info)
+{
+  must_consider_numbering_ = true;
 }
 
 void
 Bar_number_engraver::stop_translation_timestep ()
 {
   alternative_event_ = 0;
+  considered_numbering_ = false;
+  must_consider_numbering_ = false;
   if (text_)
     {
       set_object (text_, "side-support-elements",
@@ -171,6 +206,7 @@ void
 Bar_number_engraver::boot ()
 {
   ADD_LISTENER (Bar_number_engraver, alternative);
+  ADD_ACKNOWLEDGER (Bar_number_engraver, bar_line);
 }
 
 ADD_TRANSLATOR (Bar_number_engraver,
