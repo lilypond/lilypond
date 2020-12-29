@@ -179,16 +179,22 @@ Timing_translator::start_translation_timestep ()
 
       measposp += dt;
 
-      while (measposp.main_part_ >= len)
+      if (measposp.main_part_ >= len)
         {
-          measposp.main_part_ -= len;
-          current_barnumber++;
-          internal_barnumber++;
+          do
+            {
+              measposp.main_part_ -= len;
+              current_barnumber++;
+              internal_barnumber++;
+            }
+          while (measposp.main_part_ >= len);
+          measure_started_ = false;
         }
 
-      if (!measposp.main_part_ && dt.main_part_)
+      if (!measure_started_ && !measposp.main_part_ && dt.main_part_)
         {
           // We have arrived at zero (as opposed to revisiting it).
+          measure_started_ = true;
           set_property (context (), "measureStartNow", SCM_BOOL_T);
         }
     }

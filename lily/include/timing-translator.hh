@@ -35,6 +35,9 @@ protected:
 
 public:
   Rational measure_length () const;
+
+private:
+  bool measure_started_ = false;
 };
 
 #endif // TIMING_TRANSLATOR_HH
