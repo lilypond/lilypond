@@ -60,9 +60,6 @@ sidebar_version = _doc(' v%(package_version)s (%(branch_str)s).')
 bug_lilypond_url = 'https://lists.gnu.org/mailman/listinfo/bug-lilypond'
 help_us_url = 'https://lilypond.org/help-us.html'
 
-header_tag = '<!-- header_tag -->'
-header_tag_re = re.compile(header_tag)
-
 lang_available = _doc("Other languages: %s.")
 browser_lang = _doc('About <a href="%s">automatic language selection</a>.')
 browser_language_url = "http://www.lilypond.org/website/misc/browser-language"
@@ -103,41 +100,6 @@ def build_pages_dict(filelist):
             else:
                 pages_dict[g[0]].append(e)
     return pages_dict
-
-body_tag_re = re.compile('(?i)<body([^>]*)>')
-html_tag_re = re.compile('(?i)<html>')
-doctype_re = re.compile('(?i)<!DOCTYPE')
-doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
-css_re = re.compile(r'(?i)<link ([^>]*)href="[^">]*?'
-                    r'(lilypond.*\.css)"([^>]*)>')
-end_head_tag_re = re.compile('(?i)</head>')
-css_link = ('    <link rel="stylesheet" type="text/css" title="Default design"'
-            ' href="%(rel)sDocumentation/css/lilypond-manuals.css">\n'
-            '    <!--[if lte IE 7]>\n'
-            '    <link href="%(rel)sDocumentation/css/lilypond-ie-fixes.css"'
-            ' rel="stylesheet" type="text/css">\n'
-            '    <![endif]-->\n')
-
-
-def add_header(s, prefix):
-    """Add header (<body>, doctype and CSS)"""
-    header = ""
-    if header_tag_re.search(s) == None:
-        body = '<body\\1>'
-        (s, n) = body_tag_re.subn(body + header, s, 1)
-        if not n:
-            (s, n) = html_tag_re.subn('<html>' + header, s, 1)
-            if not n:
-                s = header + s
-
-        if doctype_re.search(s) is None:
-            s = doctype + header_tag + '\n' + s
-
-        if css_re.search(s) is None:
-            depth = (prefix.count('/') - 1) * '../'
-            s = end_head_tag_re.sub((css_link % {'rel': depth})
-                                    + '</head>', s)
-    return s
 
 
 footer_insert_re = re.compile(r'<!--\s*FOOTER\s*-->')
@@ -321,7 +283,6 @@ def process_html_files(pages_dict,
 
             content = codecs.open(file_name, 'r', 'utf-8').read()
             content = content.replace('%', '%%')
-            content = add_header(content, prefix)
 
             # add sidebar information
             content = content.replace('<!-- Sidebar Version Tag  -->', sidebar_version)
