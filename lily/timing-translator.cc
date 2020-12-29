@@ -167,31 +167,37 @@ Timing_translator::start_translation_timestep ()
   if (!dt)
     return;
 
-  auto measposp = robust_scm2moment (get_property (this, "measurePosition"),
-                                     now);
-
-  int current_barnumber = from_scm (get_property (this, "currentBarNumber"), 0);
-  int internal_barnumber = from_scm (get_property (this, "internalBarNumber"), 0);
+  Rational mp;
+  {
+    auto mom = robust_scm2moment (get_property (this, "measurePosition"), now);
+    mp = mom.main_part_;
+  }
 
   if (from_scm<bool> (get_property (this, "timing")))
     {
       Rational len = measure_length ();
 
-      measposp += dt;
+      mp += dt.main_part_;
 
-      if (measposp.main_part_ >= len)
+      if (mp >= len)
         {
+          auto cbn = from_scm (get_property (this, "currentBarNumber"), 0);
+          auto ibn = from_scm (get_property (this, "internalBarNumber"), 0);
+
           do
             {
-              measposp.main_part_ -= len;
-              current_barnumber++;
-              internal_barnumber++;
+              mp -= len;
+              cbn++;
+              ibn++;
             }
-          while (measposp.main_part_ >= len);
+          while (mp >= len);
+
+          set_property (context (), "currentBarNumber", to_scm (cbn));
+          set_property (context (), "internalBarNumber", to_scm (ibn));
           measure_started_ = false;
         }
 
-      if (!measure_started_ && !measposp.main_part_ && dt.main_part_)
+      if (!measure_started_ && !mp && dt.main_part_)
         {
           // We have arrived at zero (as opposed to revisiting it).
           measure_started_ = true;
@@ -211,11 +217,8 @@ Timing_translator::start_translation_timestep ()
   // still of.  Maybe we should keep measurePosition.grace_part_
   // constantly at zero anyway?
 
-  measposp.grace_part_ = now.grace_part_;
-
-  set_property (context (), "currentBarNumber", to_scm (current_barnumber));
-  set_property (context (), "internalBarNumber", to_scm (internal_barnumber));
-  set_property (context (), "measurePosition", measposp.smobbed_copy ());
+  set_property (context (), "measurePosition",
+                Moment (mp, now.grace_part_).smobbed_copy ());
 }
 
 #include "translator.icc"
