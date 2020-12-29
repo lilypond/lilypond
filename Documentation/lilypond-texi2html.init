@@ -352,15 +352,6 @@ sub lilypond_css_lines ($$)
     $Texi2HTML::THISDOC{'CSS_LINES'} .=
 	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"css/$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
   }
-
-  # Add a conditionally included CSS file for IE, for either the docs or the website
-  if ($web_manual) {
-    $Texi2HTML::THISDOC{'CSS_LINES'} .=
-	"<!--[if lte IE 9]>\n<link href=\"css/lilypond-website-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
-  } else {
-    $Texi2HTML::THISDOC{'CSS_LINES'} .=
-	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-manuals-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
-  }
 }
 
 
