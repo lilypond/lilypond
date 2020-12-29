@@ -47,6 +47,7 @@ public:
               PangoFontDescription const *,
               Real);
   ~Pango_font ();
+  OVERRIDE_CLASS_NAME(Pango_font);
 
   std::string description_string () const;
   SCM font_file_name () const override;
