@@ -154,6 +154,8 @@ This supports historic use of @code{Completion_heads_engraver} to split
                      (cons score (ly:parser-lookup 'toplevel-scores))))
 
 (define-public (collect-music-aux score-handler music)
+  "Pass @var{music} to @var{score-handler}, with preprocessing
+for page layout instructions. "
   (define (music-property symbol)
     (ly:music-property music symbol #f))
   (cond ((music-property 'page-marker)
