@@ -77,6 +77,7 @@ Includable_lexer::new_input (const string &name, string data, Sources *sources)
 void
 Includable_lexer::new_input (const string &name, Source_file *file)
 {
+  debug_output ("[" + name, false);
   file_name_strings_.push_back (name);
 
   char_count_stack_.push_back (0);
