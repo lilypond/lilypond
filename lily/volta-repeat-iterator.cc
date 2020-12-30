@@ -99,94 +99,96 @@ Volta_repeat_iterator::next_element ()
 
   if (alt_count_)
     {
-      if (done_count_ <= 1)
+      const bool starting_first_alt = (done_count_ <= 1);
+      const bool starting_final_alt = (done_count_ == alt_count_);
+      const bool ending_final_alt = (done_count_ == alt_count_ + 1);
+      const bool ending_earlier_alt = !starting_first_alt
+        && (done_count_ < alt_count_ + 1);
+
+      if (starting_first_alt)
         {
           alt_restores_ = SCM_EOL;
-          if (from_scm<bool> (get_property (get_context (), "timing")))
+          if (alt_count_ > 1)
             {
-              for (SCM lst = get_property (get_context (), "alternativeRestores");
-                   scm_is_pair (lst);
-                   lst = scm_cdr (lst))
+              if (from_scm<bool> (get_property (get_context (), "timing")))
                 {
-                  SCM res = SCM_EOL;
-                  Context *t = get_context ()->where_defined (scm_car (lst),
-                                                              &res);
-                  if (t)
+                  for (SCM lst = get_property (get_context (), "alternativeRestores");
+                       scm_is_pair (lst);
+                       lst = scm_cdr (lst))
                     {
-                      alt_restores_ = scm_cons
-                                      (scm_list_3 (t->self_scm (), scm_car (lst), res),
-                                       alt_restores_);
+                      SCM res = SCM_EOL;
+                      Context *t = get_context ()->where_defined (scm_car (lst),
+                                                                  &res);
+                      if (t)
+                        {
+                          alt_restores_ = scm_cons
+                            (scm_list_3 (t->self_scm (), scm_car (lst), res),
+                             alt_restores_);
+                        }
                     }
                 }
             }
         }
-      else
-        {
-          const bool ending_final_alt = (done_count_ == alt_count_ + 1);
-          const bool ending_earlier_alt = (done_count_ < alt_count_ + 1);
-          const bool starting_final_alt = (done_count_ == alt_count_);
 
-          // The final alternative needs an end-repeat bar if it applies to any
-          // volta other than the final volta.
-          if (starting_final_alt)
+      // The final alternative will need an end-repeat bar if it applies to any
+      // volta other than the final volta.
+      if (starting_final_alt)
+        {
+          // Examining the child music is ugly but effective.
+          auto *child = get_child ();
+          auto *music = child ? child->get_music () : nullptr;
+          if (music)
             {
-              // Examining the child music is ugly but effective.
-              auto *child = get_child ();
-              auto *music = child ? child->get_music () : nullptr;
-              if (music)
+              SCM nums = get_property (music, "volta-numbers");
+              if (!scm_is_pair (nums))
                 {
-                  SCM nums = get_property (music, "volta-numbers");
-                  if (!scm_is_pair (nums))
-                    {
-                      // Not finding a label, we'll assume that the final
-                      // alternative is for the final volta only.
-                    }
-                  else if (scm_is_pair (scm_cdr (nums)))
-                    {
-                      // The final alternative is used in more than one volta.
-                      final_alt_needs_end_repeat_ = true;
-                    }
-                  else
-                    {
-                      final_alt_needs_end_repeat_
-                        = scm_is_false (scm_equal_p (scm_car (nums),
-                                                     to_scm (rep_count_)));
-                    }
+                  // Not finding a label, we'll assume that the final
+                  // alternative is for the final volta only.
+                }
+              else if (scm_is_pair (scm_cdr (nums)))
+                {
+                  final_alt_needs_end_repeat_ = true;
+                }
+              else // a single, specified volta
+                {
+                  final_alt_needs_end_repeat_
+                    = scm_is_false (scm_equal_p (scm_car (nums),
+                                                 to_scm (rep_count_)));
                 }
             }
+        }
 
-          if (ending_final_alt)
-            {
-              if (final_alt_needs_end_repeat_)
-                add_repeat_command (ly_symbol2scm ("end-repeat"));
-            }
-          else if (ending_earlier_alt)
-            {
-              add_repeat_command (ly_symbol2scm ("end-repeat"));
+      if (ending_final_alt)
+        {
+          if (final_alt_needs_end_repeat_)
+            add_repeat_command (ly_symbol2scm ("end-repeat"));
+        }
+      else if (ending_earlier_alt)
+        {
+          add_repeat_command (ly_symbol2scm ("end-repeat"));
 
-              if (from_scm<bool> (get_property (get_context (), "timing")))
+          if (from_scm<bool> (get_property (get_context (), "timing")))
+            {
+              SCM mps = ly_symbol2scm ("measurePosition");
+              for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
                 {
-                  SCM mps = ly_symbol2scm ("measurePosition");
-                  for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
+                  SCM ls = scm_car (p);
+                  if (scm_is_eq (scm_cadr (ls), mps))
+                    // Repeats may have different grace timing, so
+                    // we need to adjust the measurePosition grace
+                    // timing to that of the current alternative
+                    // rather than that of the first.  The
+                    // Timing_translator does this already but is
+                    // too late to avoid bad side-effects
                     {
-                      SCM ls = scm_car (p);
-                      if (scm_is_eq (scm_cadr (ls), mps))
-                        // Repeats may have different grace timing, so
-                        // we need to adjust the measurePosition grace
-                        // timing to that of the current alternative
-                        // rather than that of the first.  The
-                        // Timing_translator does this already but is
-                        // too late to avoid bad side-effects
-                        {
-                          Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
-                                     get_context ()->now_mom ().grace_part_);
-                          Lily::ly_context_set_property_x (scm_car (ls),
-                                                           mps,
-                                                           mp.smobbed_copy ());
-                        }
-                      else
-                        scm_apply_0 (Lily::ly_context_set_property_x, ls);
+                      Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
+                                 get_context ()->now_mom ().grace_part_);
+                      Lily::ly_context_set_property_x (scm_car (ls),
+                                                       mps,
+                                                       mp.smobbed_copy ());
                     }
+                  else
+                    scm_apply_0 (Lily::ly_context_set_property_x, ls);
                 }
             }
         }
