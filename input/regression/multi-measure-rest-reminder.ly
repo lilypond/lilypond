@@ -45,13 +45,13 @@ multiMeasureReminderEngraver =
 
       ;; only print the reminder at the top of the page (ie rank-on-page == 0)
       (text . ,(lambda (grob)
-		(let*
-		 ((r (ly:grob-property (ly:grob-system grob) 'rank-on-page)))
-		 (if (< 0 r)
-		  (begin
-		   (ly:grob-suicide! grob)
-		   "")
-		  (ly:format "(~a)"  (ly:grob-property grob 'measure-count))))))
+                (let*
+                 ((r (ly:grob-property (ly:grob-system grob) 'rank-on-page)))
+                 (if (< 0 r)
+                  (begin
+                   (ly:grob-suicide! grob)
+                   "")
+                  (ly:format "(~a)"  (ly:grob-property grob 'measure-count))))))
       (non-musical . #t)
       (horizon-padding . 0.05)
       (outside-staff-priority . 100)
@@ -65,14 +65,14 @@ multiMeasureReminderEngraver =
       (X-extent . (0 . 0))
       (meta .
        ((class . Item)
-	;; This is clumsy, but we have to repeat the name
-	(name . MultiMeasureRestReminder)
-	(interfaces . (break-alignable-interface
-		       font-interface
-		       outside-staff-interface
-		       self-alignment-interface
-		       side-position-interface
-		       text-interface))))))
+        ;; This is clumsy, but we have to repeat the name
+        (name . MultiMeasureRestReminder)
+        (interfaces . (break-alignable-interface
+                       font-interface
+                       outside-staff-interface
+                       self-alignment-interface
+                       side-position-interface
+                       text-interface))))))
 
   }
 }
