@@ -140,16 +140,6 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
-           0, 1, 0, (SCM parser),
-           "Return the lexer for @var{parser}, defaulting to current parser")
-{
-  if (SCM_UNBNDP (parser))
-    parser = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  return p->lexer_->self_scm ();
-}
-
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
            0, 2, 0, (SCM closures, SCM location),
            "Return a clone of current parser.  An association list"
