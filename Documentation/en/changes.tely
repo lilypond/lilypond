@@ -66,6 +66,26 @@ which scares away people.
 @end ignore
 
 @item
+With the new markup list command @code{string-lines} it is now possible to
+split a string at a given character.  The default is to split at line break.
+Surrounding white space gets dropped.  The resulting list of markups may be
+further formatted.
+This is a very convenient way of entering additional stanzas for songs.
+
+@lilypond[quote]
+\markup
+  \column
+  \string-lines
+    "Twinkle, twinkle, little star,
+     How I wonder what you are!
+     Up above the world so high,
+     Like a diamond in the sky.
+     Twinkle, twinkle, little star,
+     How I wonder what you are!"
+@end lilypond
+
+
+@item
 Color transparency is supported when generating Postscript and
 PDF files.  To use this new feature, it is necessary to use
 Ghostscript version 9.53 or later.

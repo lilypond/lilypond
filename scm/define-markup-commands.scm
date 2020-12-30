@@ -4981,6 +4981,27 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
            stils)))
     (space-lines baseline-skip rows)))
 
+(define-markup-list-command (string-lines layout props strg)(string?)
+  #:properties ((split-char #\newline))
+  "
+Takes the string @var{strg} and splits it at the character provided by the
+property @code{split-char}, defaulting to @code{#\\newline}.
+Surrounding whitespace is removed from every resulting string.
+The returned list of markups is ready to be formatted by other markup or markup
+list commands like @code{\\column}, @code{\\line}, etc.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column
+    \\string-lines
+     \"foo, foo,
+     bar, bar,
+     buzz, buzz!\"
+}
+@end lilypond"
+  (interpret-markup-list layout props
+    (map string-trim-both (string-split strg split-char))))
+
 (define-markup-list-command (map-markup-commands layout props compose args)
   (procedure? markup-list?)
   "This applies the function @var{compose} to every markup in

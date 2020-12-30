@@ -2094,9 +2094,14 @@ Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
 the end of the piece.  This can be accomplished by adding
 the extra verses into a @code{\markup} section outside
-of the main score block.  Notice that there are two
+of the main score block.  Notice that there are several
 different ways to force linebreaks when using
-@code{\markup}.
+@code{\markup}.  For inputting a whole string you may use
+@code{\string-lines} with manually inserted @code{\n}
+or automatic line breaks as entered or
+@code{\wordwrap-string}.  If inner fomatting code is used
+a combination of @code{\line} and @code{\column} is recommended.
+
 
 @lilypond[ragged-right,verbatim,quote]
 melody = \relative {
@@ -2118,14 +2123,28 @@ its fleece was white as snow.
 }
 \markup {
   \column {
-    \line { Verse 2. }
-    \line { All the children laughed and played }
-    \line { To see a lamb at school. }
+    \string-lines
+      "Verse 2. \n Everywhere that Mary went \n The lamb was sure to go."
+  }
+}
+\markup {
+  \column {
+    \string-lines
+      "Verse 3.
+       All the children laughed and played,
+       To see a lamb at school."
+  }
+}
+\markup {
+  \column {
+    \line \italic { Verse 4. }
+    \line { And so the teacher turned it out, }
+    \line { But still it lingered near. }
   }
 }
 \markup {
   \wordwrap-string "
-  Verse 3.
+  Verse 5.
 
   Mary took it home again,
 
