@@ -104,8 +104,7 @@ repeatTie = #(make-music 'RepeatTieEvent)
 \include "dynamic-scripts-init.ly"
 \include "spanners-init.ly"
 
-%% MAKE-HASH-TABLE in GUILE 1.6 takes mandatory size parameter.
-#(define musicQuotes (make-hash-table 29))
+#(define musicQuotes (make-hash-table))
 #(call-after-session
   (lambda ()
    (hash-clear! musicQuotes)))
