@@ -21,6 +21,10 @@ multiMeasureReminderEngraver =
        (ly:grob-property reminder 'measure-count)
        (ly:grob-property grob 'measure-count))))))
 
+#(ly:add-interface
+  'multi-measure-rest-reminder-interface
+  "A multi measure rest reminder at the top of the page."
+  '(measure-count))
 
 % Set the type of MultiMeasureRestReminder so we can assign to it.
 #(set-object-property!  'MultiMeasureRestReminder 'translation-type? ly:grob-properties?)
@@ -69,6 +73,9 @@ multiMeasureReminderEngraver =
         (name . MultiMeasureRestReminder)
         (interfaces . (break-alignable-interface
                        font-interface
+                       grob-interface
+                       item-interface
+                       multi-measure-rest-reminder-interface
                        outside-staff-interface
                        self-alignment-interface
                        side-position-interface
