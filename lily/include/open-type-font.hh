@@ -33,7 +33,6 @@ struct Preinit_Open_type_font
   SCM lily_subfonts_;
   SCM lily_character_table_;
   SCM lily_global_table_;
-  SCM lily_index_to_bbox_table_;
   Preinit_Open_type_font ();
 };
 
@@ -45,6 +44,7 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   mutable std::unordered_map<std::string, size_t> name_to_index_map_;
 
   Index_to_charcode_map index_to_charcode_map_;
+  mutable std::unordered_map<size_t, Box> lily_index_to_bbox_table_;
   Open_type_font (FT_Face);
 
   OVERRIDE_CLASS_NAME (Open_type_font);

@@ -28,7 +28,7 @@
 #include "offset.hh"
 #include "smobs.hh"
 
-class Box : public Simple_smob<Box>
+class Box
 {
 public:
   static const char *const type_p_name_;

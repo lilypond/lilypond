@@ -291,7 +291,6 @@ Preinit_Open_type_font::Preinit_Open_type_font ()
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
   lily_subfonts_ = SCM_EOL;
-  lily_index_to_bbox_table_ = SCM_EOL;
 }
 
 Open_type_font::Open_type_font (FT_Face face)
@@ -303,8 +302,6 @@ Open_type_font::Open_type_font (FT_Face face)
   lily_subfonts_ = load_scheme_table ("LILF", face_);
   index_to_charcode_map_ = make_index_to_charcode_map (face_);
 
-  lily_index_to_bbox_table_ = scm_c_make_hash_table (257);
-
   postscript_name_ = get_postscript_name (face_);
 }
 
@@ -314,7 +311,6 @@ Open_type_font::derived_mark () const
   scm_gc_mark (lily_character_table_);
   scm_gc_mark (lily_global_table_);
   scm_gc_mark (lily_subfonts_);
-  scm_gc_mark (lily_index_to_bbox_table_);
 }
 
 Offset
@@ -336,49 +332,41 @@ Open_type_font::attachment_point (const string &glyph_name) const
 Box
 Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
 {
-  if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
+  auto const &bbox_it = lily_index_to_bbox_table_.find(signed_idx);
+  if (bbox_it != lily_index_to_bbox_table_.end())
     {
-      SCM box = scm_hashq_ref (lily_index_to_bbox_table_,
-                               to_scm (signed_idx), SCM_BOOL_F);
-      Box *box_ptr = unsmob<Box> (box);
-      if (box_ptr)
-        return *box_ptr;
+      return bbox_it->second;
     }
 
-  if (SCM_HASHTABLE_P (lily_character_table_))
+  const size_t len = 256;
+  char name[len];
+  FT_Error code = FT_Get_Glyph_Name (face_, FT_UInt (signed_idx),
+                                     name, FT_UInt (len));
+  if (code)
+    warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
+                 freetype_error_string (code)));
+
+  SCM sym = ly_symbol2scm (name);
+  SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
+
+  if (scm_is_true (alist))
     {
-      const size_t len = 256;
-      char name[len];
-      FT_Error code = FT_Get_Glyph_Name (face_, FT_UInt (signed_idx),
-                                         name, FT_UInt (len));
-      if (code)
-        warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
-                     freetype_error_string (code)));
+      SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
 
-      SCM sym = ly_symbol2scm (name);
-      SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
+      Box b;
+      b[X_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+      bbox = scm_cdr (bbox);
+      b[Y_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+      bbox = scm_cdr (bbox);
+      b[X_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+      bbox = scm_cdr (bbox);
+      b[Y_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+      bbox = scm_cdr (bbox);
 
-      if (scm_is_true (alist))
-        {
-          SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
+      b.scale (point_constant);
 
-          Box b;
-          b[X_AXIS][LEFT] = scm_to_double (scm_car (bbox));
-          bbox = scm_cdr (bbox);
-          b[Y_AXIS][LEFT] = scm_to_double (scm_car (bbox));
-          bbox = scm_cdr (bbox);
-          b[X_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
-          bbox = scm_cdr (bbox);
-          b[Y_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
-          bbox = scm_cdr (bbox);
-
-          b.scale (point_constant);
-
-          scm_hashq_set_x (lily_index_to_bbox_table_,
-                           to_scm (signed_idx),
-                           b.smobbed_copy ());
-          return b;
-        }
+      lily_index_to_bbox_table_[signed_idx] = b;
+      return b;
     }
 
   Box b = get_unscaled_indexed_char_dimensions (signed_idx);
