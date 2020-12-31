@@ -40,9 +40,13 @@ protected:
   void derived_mark () const override;
 
 private:
+  bool empty () const
+  {
+    return !music_get_length () && !music_start_mom ().grace_part_;
+  }
+
+private:
   bool first_time_ = true;
-  // It seems silly not to have a body, but we're trying to be robust.
-  bool have_body_ = false;
   bool final_alt_needs_end_repeat_ = false;
   int alt_count_ = 0;
   int rep_count_ = 0;
@@ -60,11 +64,6 @@ Volta_repeat_iterator::derived_mark () const
 void
 Volta_repeat_iterator::create_children ()
 {
-  if (auto *body = unsmob<Music> (get_property (get_music (), "element")))
-    {
-      have_body_ = (body->get_length () > 0) || body->start_mom ().grace_part_;
-    }
-
   Sequential_iterator::create_children ();
 
   SCM alts = get_property (get_music (), "elements");
@@ -129,7 +128,7 @@ Volta_repeat_iterator::next_element ()
 
           // The final alternative needs an end-repeat bar if it applies to any
           // volta other than the final volta.
-          if (starting_final_alt && have_body_)
+          if (starting_final_alt)
             {
               // Examining the child music is ugly but effective.
               auto *child = get_child ();
@@ -163,8 +162,7 @@ Volta_repeat_iterator::next_element ()
             }
           else if (ending_earlier_alt)
             {
-              if (have_body_)
-                add_repeat_command (ly_symbol2scm ("end-repeat"));
+              add_repeat_command (ly_symbol2scm ("end-repeat"));
 
               if (from_scm<bool> (get_property (get_context (), "timing")))
                 {
@@ -195,7 +193,7 @@ Volta_repeat_iterator::next_element ()
     }
   else
     {
-      if (have_body_)
+      if (!empty ())
         add_repeat_command (ly_symbol2scm ("end-repeat"));
     }
 }
@@ -205,7 +203,9 @@ Volta_repeat_iterator::process (Moment m)
 {
   if (first_time_)
     {
-      if (have_body_)
+      // Robustness: Avoid printing a misleading bar line for a zero-duration
+      // repeated section.
+      if (!empty ())
         add_repeat_command (ly_symbol2scm ("start-repeat"));
       first_time_ = false;
     }
