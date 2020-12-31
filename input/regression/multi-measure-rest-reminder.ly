@@ -42,7 +42,13 @@ multiMeasureReminderEngraver =
       (font-family . roman)
       (font-series . bold)
       (font-size . -2)
-
+      (horizon-padding . 0.05)
+      (non-musical . #t)
+      (outside-staff-priority . 100)
+      (padding . 1.0)
+      (self-alignment-X . ,RIGHT)
+      (side-axis . ,Y)
+      (stencil . ,ly:text-interface::print)
       ;; only print the reminder at the top of the page (ie rank-on-page == 0)
       (text . ,(lambda (grob)
                 (let*
@@ -52,17 +58,11 @@ multiMeasureReminderEngraver =
                    (ly:grob-suicide! grob)
                    "")
                   (ly:format "(~a)"  (ly:grob-property grob 'measure-count))))))
-      (non-musical . #t)
-      (horizon-padding . 0.05)
-      (outside-staff-priority . 100)
-      (padding . 1.0)
-      (self-alignment-X . ,RIGHT)
-      (side-axis . ,Y)
-      (stencil . ,ly:text-interface::print)
-      (X-offset . 4)
-      (Y-offset . ,side-position-interface::y-aligned-side)
       (Y-extent . (0 . 0))
+      (X-offset . 4)
       (X-extent . (0 . 0))
+      (Y-offset . ,side-position-interface::y-aligned-side)
+
       (meta .
        ((class . Item)
         ;; This is clumsy, but we have to repeat the name
