@@ -23,16 +23,12 @@
     (for-each (lambda (prop-spec)
                 (set! prop-strings
                       (if (list? prop-spec)
-                          ;; either (prop value) or (prop)
+                          ;; either (prop) or (prop value)
                           (cons (if (null? (cdr prop-spec))
                                     (format #f "@item @code{~a}\n" (car prop-spec))
-                                    (format #f "@item @code{~a} (~a)\n"
+                                    (format #f "@item @code{~a} (~s)\n"
                                             (car prop-spec)
-                                            (let ((default (cadr prop-spec)))
-                                              (if (and (list? default)
-                                                       (null? default))
-                                                  "'()"
-                                                  default))))
+                                            (cadr prop-spec)))
                                 prop-strings)
                           ;; a markup command: get its properties
                           ;; FIXME: avoid cyclical references
