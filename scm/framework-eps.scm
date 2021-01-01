@@ -150,6 +150,10 @@ alignment."
   (output-scopes scopes fields basename)
   (if (ly:get-option 'clip-systems)
       (clip-system-EPSes basename book))
+  (if (ly:get-option 'dump-signatures)
+      ;; Room for improvement: These signatures don't describe
+      ;; material outside of systems (e.g. titles).
+      (write-system-signatures basename (ly:paper-book-systems book) 1))
   (dump-stencils-as-EPSes (map page-stencil
                                (ly:paper-book-pages book))
                           book

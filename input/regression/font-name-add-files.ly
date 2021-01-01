@@ -12,10 +12,15 @@ rather than a letter glyph."
 %% Create dummy font files in tmp dir (and subdir).
 
 %% Temporarily disable font-export.
-
-#(define previous-export-dir (ly:get-option 'font-export-dir))
-
+%% TODO: This option already seems to be #f at this point when the
+%% regression test suite is run, so further explanation would help.
 #(ly:set-option 'font-export-dir #f)
+
+%% output-distance.py can't deal with the unusual things done with
+%% fonts in this test.  Disabling .signature files for this case
+%% should prevent output-distance.py from noticing it as a case
+%% deserving a visual diff.
+#(ly:set-option 'dump-signatures #f)
 
 
 %% tmpnam is deprecated.  We could get away with using mkstemp! only,
@@ -261,5 +266,3 @@ DQAAAAEAAAAA2m42gAAAAADapnDnAAAAANqnrLQFlwAyBZcARQ==
     \line {- #dummyfontdir }
   }
 }
-
-#(ly:set-option 'font-export-dir previous-export-dir)
