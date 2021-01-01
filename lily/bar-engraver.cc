@@ -40,7 +40,7 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
-  void acknowledge_end_spanner (Grob_info);
+  void acknowledge_end_spanner (Grob_info_t<Spanner>);
 
 private:
   Item *bar_ = nullptr;
@@ -105,16 +105,14 @@ Bar_engraver::stop_translation_timestep ()
 }
 
 void
-Bar_engraver::acknowledge_end_spanner (Grob_info gi)
+Bar_engraver::acknowledge_end_spanner (Grob_info_t<Spanner> gi)
 {
   const bool might_have_bar = !considered_bar_ || bar_;
   if (might_have_bar) // otherwise avoid a little work
     {
-      if (auto *sp = dynamic_cast<Spanner *> (gi.grob ()))
-        {
-          if (from_scm<bool> (get_property (sp, "to-barline")))
-            spanners_.push_back (sp);
-        }
+      auto *const sp = gi.grob ();
+      if (from_scm<bool> (get_property (sp, "to-barline")))
+        spanners_.push_back (sp);
     }
 }
 

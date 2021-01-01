@@ -28,16 +28,17 @@ class Stream_event;
 /*
   Data container for broadcasts.
 */
-class Grob_info
+template <class T>
+class Grob_info_t
 {
   Engraver *origin_engraver_;
-  Grob *grob_;
+  T *grob_;
 
 public:
   // both the Engraver and the Grob are required
-  Grob_info (Engraver *e, Grob *g) : origin_engraver_ (e), grob_ (g) { }
+  Grob_info_t (Engraver *e, T *g) : origin_engraver_ (e), grob_ (g) { }
 
-  Grob *grob () const { return grob_; }
+  T *grob () const { return grob_; }
   Engraver *origin_engraver () const { return origin_engraver_; }
 
   Stream_event *event_cause () const
@@ -50,10 +51,12 @@ public:
     return grob_->ultimate_event_cause ();
   }
 
-  static bool less (const Grob_info &a, const Grob_info &b)
+  static bool less (const Grob_info_t &a, const Grob_info_t &b)
   {
     return Grob::less (a.grob (), b.grob ());
   }
 };
+
+using Grob_info = Grob_info_t<Grob>;
 
 #endif // GROB_INFO_HH

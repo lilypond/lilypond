@@ -134,8 +134,14 @@ public:
   static SCM trampoline (SCM target, SCM ev);
 
   // Acknowledger trampolines
-  template <class T, void (T::*callback) (Grob_info)>
+  template <class T, void (T::*callback) (Grob_info_t<Grob>)>
   static SCM trampoline (SCM target, SCM grob, SCM source_engraver);
+
+  template <class T, void (T::*callback) (Grob_info_t<Item>)>
+  static SCM trampoline (SCM target, SCM item, SCM source_engraver);
+
+  template <class T, void (T::*callback) (Grob_info_t<Spanner>)>
+  static SCM trampoline (SCM target, SCM spanner, SCM source_engraver);
 };
 
 // This duplicates std::remove_pointer (apart from erroring out if

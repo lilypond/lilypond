@@ -69,7 +69,6 @@ class Grace_iterator;
 class Grace_music;
 class Grob;
 class Grob_array;
-class Grob_info;
 class Grob_properties;
 class Includable_lexer;
 class Input;
@@ -167,5 +166,8 @@ class Transform;
 class Translator;
 class Translator_creator;
 class Translator_group;
+
+template <class> class Grob_info_t;
+using Grob_info = Grob_info_t<Grob>;
 
 #endif /* LILY_PROTO_HH */

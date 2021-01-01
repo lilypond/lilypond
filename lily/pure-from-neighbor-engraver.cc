@@ -39,7 +39,7 @@ class Pure_from_neighbor_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Pure_from_neighbor_engraver);
 protected:
-  void acknowledge_item (Grob_info);
+  void acknowledge_item (Grob_info_t<Item>);
   void finalize () override;
 };
 
@@ -49,15 +49,13 @@ Pure_from_neighbor_engraver::Pure_from_neighbor_engraver (Context *c)
 }
 
 void
-Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
+Pure_from_neighbor_engraver::acknowledge_item (Grob_info_t<Item> info)
 {
-  if (auto *item = dynamic_cast<Item *> (i.grob ()))
-    {
-      if (has_interface<Pure_from_neighbor_interface> (item))
-        need_pure_heights_from_neighbors_.push_back (item);
-      else
-        pure_relevants_.push_back (item);
-    }
+  auto *const item = info.grob ();
+  if (has_interface<Pure_from_neighbor_interface> (item))
+    need_pure_heights_from_neighbors_.push_back (item);
+  else
+    pure_relevants_.push_back (item);
 }
 
 bool

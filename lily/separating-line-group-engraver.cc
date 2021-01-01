@@ -61,7 +61,7 @@ protected:
   Spacings current_spacings_;
   Spacings last_spacings_;
 
-  void acknowledge_item (Grob_info);
+  void acknowledge_item (Grob_info_t<Item>);
   void acknowledge_break_aligned (Grob_info);
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -77,9 +77,9 @@ Separating_line_group_engraver::Separating_line_group_engraver (Context *c)
 }
 
 void
-Separating_line_group_engraver::acknowledge_item (Grob_info i)
+Separating_line_group_engraver::acknowledge_item (Grob_info_t<Item> info)
 {
-  Item *it = dynamic_cast<Item *> (i.grob ());
+  auto *const it = info.grob ();
 
   if (has_interface<Note_spacing> (it))
     {
