@@ -33,13 +33,12 @@ using std::vector;
 
 class Pure_from_neighbor_engraver : public Engraver
 {
-  vector<Grob *> pure_relevants_;
-  vector<Grob *> need_pure_heights_from_neighbors_;
+  vector<Item *> pure_relevants_;
+  vector<Item *> need_pure_heights_from_neighbors_;
 
 public:
   TRANSLATOR_DECLARATIONS (Pure_from_neighbor_engraver);
 protected:
-  void acknowledge_pure_from_neighbor (Grob_info);
   void acknowledge_item (Grob_info);
   void finalize () override;
 };
@@ -52,9 +51,11 @@ Pure_from_neighbor_engraver::Pure_from_neighbor_engraver (Context *c)
 void
 Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
 {
-  if (Item *item = dynamic_cast<Item *> (i.grob ()))
+  if (auto *item = dynamic_cast<Item *> (i.grob ()))
     {
-      if (!has_interface<Pure_from_neighbor_interface> (item))
+      if (has_interface<Pure_from_neighbor_interface> (item))
+        need_pure_heights_from_neighbors_.push_back (item);
+      else
         pure_relevants_.push_back (item);
     }
 }
@@ -68,13 +69,6 @@ in_same_column (Grob *g1, Grob *g2)
              == g2->spanned_rank_interval ()[RIGHT])
          && (g1->spanned_rank_interval ()[LEFT]
              == g1->spanned_rank_interval ()[RIGHT]);
-}
-
-void
-Pure_from_neighbor_engraver::acknowledge_pure_from_neighbor (Grob_info i)
-{
-  Item *item = dynamic_cast<Item *> (i.grob ());
-  need_pure_heights_from_neighbors_.push_back (item);
 }
 
 void
@@ -149,7 +143,6 @@ void
 Pure_from_neighbor_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, item);
-  ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, pure_from_neighbor);
 }
 
 ADD_TRANSLATOR (Pure_from_neighbor_engraver,
