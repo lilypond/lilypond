@@ -5,10 +5,6 @@
 "
 }
 
-%% This regtest compiles without errors.
-#(define orig-setting (ly:get-option 'warning-as-error))
-#(ly:set-option 'warning-as-error #t)
-
 \markup {
   \score {
     {
@@ -32,5 +28,3 @@
     }
   }
 }
-
-#(ly:set-option 'warning-as-error orig-setting)
