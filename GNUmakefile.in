@@ -295,9 +295,17 @@ test: test-pre
 	$(MAKE) -C python local-test
 	$(MAKE) -C scripts/build local-test
 	$(MAKE) -C ly local-test
-	@echo 'To begin investigating regression-test crashes, use'
+	@echo 'To begin investigating regression-test crashes, try this:'
 	@echo
-	@echo '    grep -L systems.texi out/lybook-testdb/*/*log | sed s/log/ly/g | xargs grep sourcefilename'
+	@echo '    grep -L systems.texi out/lybook-testdb/*/*log | sed s/log/ly/g | xargs grep -H sourcefilename'
+	@echo
+	@echo 'Matching lines may provide original test source file names.'
+	@echo 'The .ly files in which they appear are preprocessed test input.'
+	@echo 'The corresponding .log files may have errors or warnings.'
+	@echo
+	@echo 'If the above is not helpful, try sifting through this:'
+	@echo
+	@echo '    find out/lybook-testdb -name "*.log" | xargs grep -H "\(error\|warning\)"'
 	@echo
 	$(MAKE) -C input/regression out=test lysdoc-test
 	$(buildscript-dir)/print-gittxt.sh $(top-src-dir) > input/regression/out-test/tree.gittxt
