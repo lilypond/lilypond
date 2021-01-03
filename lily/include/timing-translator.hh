@@ -23,13 +23,18 @@
 #include "moment.hh"
 #include "translator.hh"
 
+class Stream_event;
+
 class Timing_translator : public Translator
 {
 public:
   TRANSLATOR_DECLARATIONS (Timing_translator);
 
 protected:
+  void derived_mark () const override;
   void initialize () override;
+  void listen_alternative (Stream_event *);
+  void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
@@ -38,6 +43,13 @@ public:
 
 private:
   bool measure_started_ = false;
+
+  // alt_... members pertain to bar numbering for repeat alternatives
+  Stream_event *alt_event_ = nullptr;
+  int alt_starting_bar_number_ = 0;
+  int alt_number_ = 0;
+  int alt_number_increment_ = 0;
+  bool alt_reset_enabled_ = false;
 };
 
 #endif // TIMING_TRANSLATOR_HH

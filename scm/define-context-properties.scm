@@ -57,10 +57,16 @@ additional pitches within a chord name.")
 vertical alignment.")
      (alignBelowContext ,string? "Where to insert newly created context in
 vertical alignment.")
-     (alternativeNumberingStyle ,symbol? "The style of an alternative's bar
-numbers.  Can be @code{numbers} for going back to the same number or
-@code{numbers-with-letters} for going back to the same number with letter
-suffixes.  No setting will not go back in measure-number time.")
+     (alternativeNumber ,integer? "When set, the index of the current
+@code{\\alternative} element, starting from one.  Not set outside of
+alternatives.  Note the distinction from volta number: an alternative
+may pertain to multiple volte.")
+     (alternativeNumberingStyle ,symbol? "The scheme and style for
+numbering bars in repeat alternatives.  If not set (the default), bar
+numbers continue through alternatives.  Can be set to @code{numbers}
+to reset the bar number at each alternative, or set to
+@code{numbers-with-letters} to reset and also include letter
+suffixes.")
      (alternativeRestores ,symbol-list? "Timing variables that are
 restored to their value at the start of the first alternative in
 subsequent alternatives.")

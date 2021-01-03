@@ -26,6 +26,88 @@
 #include "lily-imports.hh"
 
 void
+Timing_translator::derived_mark () const
+{
+  if (alt_event_)
+    scm_gc_mark (alt_event_->self_scm ());
+}
+
+void
+Timing_translator::listen_alternative (Stream_event *ev)
+{
+  // It is common to have the same repeat structure in multiple voices, so we
+  // ignore simultaneous events; but it might not be a bad thing to add some
+  // consistency checks here if they could catch some kinds of user error.
+  if (alt_event_)
+    return;
+
+  alt_event_ = ev;
+}
+
+void
+Timing_translator::process_music ()
+{
+  if (alt_event_)
+    {
+      // Which alternative is this?
+      // LEFT: starting the first alternative
+      // CENTER: starting a latter alternative
+      // RIGHT: ending the last alternative
+      const auto alt_dir
+        = from_scm (get_property (alt_event_, "alternative-dir"), CENTER);
+
+      switch (alt_dir)
+        {
+        case LEFT:
+          {
+            // Use a consistent numbering algorithm for the full set of
+            // alternatives by changing it only on the first alternative.
+            alt_reset_enabled_
+              = !scm_is_null (get_property (this, "alternativeNumberingStyle"));
+            if (alt_reset_enabled_)
+              {
+                alt_starting_bar_number_
+                  = from_scm (get_property (this, "currentBarNumber"), 0);
+              }
+
+            alt_number_ = 1;
+            break;
+          }
+
+        case CENTER:
+          if (alt_reset_enabled_)
+            {
+              set_property (context (), "currentBarNumber",
+                            to_scm (alt_starting_bar_number_));
+            }
+          alt_number_ += alt_number_increment_;
+          break;
+
+        default:
+          assert (false);
+        // fallthrough
+
+        case RIGHT:
+          alt_number_ = 0;
+          break;
+        }
+
+      if (alt_dir < RIGHT)
+        {
+          set_property (context (), "alternativeNumber", to_scm (alt_number_));
+          // will need to add this on the next alternative
+          alt_number_increment_
+            = from_scm (get_property (alt_event_, "alternative-increment"), 1);
+        }
+      else
+        {
+          set_property (context (), "alternativeNumber", SCM_EOL);
+        }
+
+    }
+}
+
+void
 Timing_translator::stop_translation_timestep ()
 {
   if (from_scm<bool> (get_property (this, "timing"))
@@ -43,6 +125,8 @@ Timing_translator::stop_translation_timestep ()
     }
 
   set_property (context (), "measureStartNow", SCM_EOL);
+
+  alt_event_ = nullptr;
 }
 
 void
@@ -226,7 +310,7 @@ Timing_translator::start_translation_timestep ()
 void
 Timing_translator::boot ()
 {
-
+  ADD_LISTENER (Timing_translator, alternative);
 }
 
 ADD_TRANSLATOR (Timing_translator,
@@ -241,6 +325,7 @@ ADD_TRANSLATOR (Timing_translator,
                 "",
 
                 /* read */
+                "alternativeNumberingStyle "
                 "baseMoment "
                 "currentBarNumber "
                 "internalBarNumber "
@@ -249,6 +334,7 @@ ADD_TRANSLATOR (Timing_translator,
                 "timeSignatureFraction ",
 
                 /* write */
+                "alternativeNumber "
                 "baseMoment "
                 "currentBarNumber "
                 "internalBarNumber "
