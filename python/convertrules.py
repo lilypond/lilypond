@@ -4269,6 +4269,11 @@ def conv(s):
     return s
 
 
+@rule((2, 22, 0), _("bump version for release"))
+def conv(s):
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
