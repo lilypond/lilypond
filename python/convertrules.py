@@ -4282,6 +4282,11 @@ def conv(s):
     return s
 
 
+@rule((2, 22, 0), _("bump version for release"))
+def conv(s):
+    return s
+
+
 @rule((2, 23, 1), r"""
 combine u/d variants of triangle, do, re, and ti noteheads
 rename bar line "S" to "S-||"
