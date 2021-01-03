@@ -34,7 +34,8 @@ module_define_closure_func (void *closure,
                             SCM /* result */)
 {
   SCM module = *static_cast<SCM *> (closure);
-  if (from_scm<bool> (scm_variable_bound_p (val)))
+  if (from_scm<bool> (scm_variable_bound_p (val))
+      && !is_module_internal_symbol (key))
     scm_module_define (module, key, scm_variable_ref (val));
   return SCM_EOL;
 }
