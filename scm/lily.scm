@@ -219,7 +219,7 @@ variables to their value after the initial call of @var{thunk}."
           (module-for-each
            (lambda (s v)
              (let ((val (variable-ref v)))
-               (if (not (ly:lily-parser? val))
+               (if (and (not (eq? s '%module-public-interface)) (not (ly:lily-parser? val)))
                    (set! decl
                          (cons
                           (cons* s v val)
