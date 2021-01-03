@@ -82,7 +82,6 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
   pango_context_set_font_map (context_, PANGO_FONT_MAP (fontmap));
 
   pango_description_ = pango_font_description_copy (description);
-  attribute_list_ = pango_attr_list_new ();
 
   // urgh. I don't understand this. Why isn't this 1/(scale *
   // resolution * output_scale)
@@ -103,7 +102,6 @@ Pango_font::~Pango_font ()
 {
   pango_font_description_free (pango_description_);
   g_object_unref (context_);
-  pango_attr_list_unref (attribute_list_);
 }
 
 void
