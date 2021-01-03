@@ -37,7 +37,6 @@ class Pango_font : Preinit_Pango_font, public Font_metric
 {
   PangoContext *context_;
   PangoFontDescription *pango_description_;
-  PangoAttrList *attribute_list_;
   Real scale_;
   Real output_scale_;
   Direction text_direction_;
