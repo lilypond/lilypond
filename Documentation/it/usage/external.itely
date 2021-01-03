@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 7d4316025c10a8ac153c765b0238523950d3ffbe
+    Translation of GIT committish: 97db0bc6c59a7041a2edc6e8ba187b70fbdc9a3a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -789,7 +789,7 @@ dal metodo automatizzato di @command{lilypond-book}.
 Per integrare l'output di LilyPond in un documento, oltre a
 @code{lilypond-book}, esiste un programma alternativo che può
 essere usato con LuaTex:
-@uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}.
+@uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
 
 
 @node OpenOffice e LibreOffice
@@ -800,11 +800,12 @@ essere usato con LuaTex:
 @cindex LibreOffice.org
 @cindex OOoLilyPond
 
-La notazione di LilyPond può essere aggiunta a OpenOffice e LibreOffice
+La notazione di LilyPond può essere aggiunta a OpenOffice.org e LibreOffice
 con @uref{https://github.com/openlilylib/LO-ly,OOoLilyPond},
 un'estensione di OpenOffice.org che converte i file di LilyPond in immagini
-incluse nei documenti di OpenOffice.org.  Sebbene non sia più sviluppato,
-sembra che funzioni ancora nella versione 4.
+incluse nei documenti di OpenOffice.org.  OoLilyPond funziona con le versioni
+recenti di LibreOffice e OpenOffice, ma dovrebbe funzionare anche con versioni
+più vecchie. È stato testato con OpenOffice 2.4 e non sono emersi problemi.
 
 
 @node Altri programmi
