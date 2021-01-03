@@ -44,6 +44,27 @@
 
 using std::string;
 
+// RAII for loading a PangoFont from PangoContext and casting to PangoFcFont.
+class PangoFont_accessor
+{
+  PangoFont *pango_font_;
+
+public:
+  PangoFont_accessor (PangoContext *context,
+                        PangoFontDescription *pango_description)
+  {
+    pango_font_ = pango_context_load_font (context, pango_description);
+  }
+
+  ~PangoFont_accessor ()
+  {
+    g_object_unref (pango_font_);
+  }
+
+  operator PangoFont *() { return pango_font_; }
+  operator PangoFcFont *() { return PANGO_FC_FONT (pango_font_); }
+};
+
 // RAII for extracting FT_Face from PangoFcFont
 class FTFace_accessor
 {
@@ -118,7 +139,7 @@ Pango_font::register_font_file (const string &filename,
 size_t
 Pango_font::name_to_index (string nm) const
 {
-  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  PangoFont_accessor fcfont (context_, pango_description_);
   FTFace_accessor face (fcfont);
   char *nm_str = (char *) nm.c_str ();
   FT_UInt idx = FT_Get_Name_Index (face, nm_str);
@@ -166,7 +187,7 @@ get_unicode_name (char *s,
 Box
 Pango_font::get_unscaled_indexed_char_dimensions (size_t signed_idx) const
 {
-  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  PangoFont_accessor fcfont (context_, pango_description_);
   FTFace_accessor face (fcfont);
   Box b = ly_FT_get_unscaled_indexed_char_dimensions (face, signed_idx);
   return b;
@@ -175,7 +196,7 @@ Pango_font::get_unscaled_indexed_char_dimensions (size_t signed_idx) const
 Box
 Pango_font::get_scaled_indexed_char_dimensions (size_t signed_idx) const
 {
-  PangoFont *font = pango_context_load_font (context_, pango_description_);
+  PangoFont_accessor font (context_, pango_description_);
   PangoRectangle logical_rect;
   PangoRectangle ink_rect;
   PangoGlyph glyph = glyph_index_to_pango (signed_idx);
@@ -191,7 +212,7 @@ Pango_font::get_scaled_indexed_char_dimensions (size_t signed_idx) const
 Box
 Pango_font::get_glyph_outline_bbox (size_t signed_idx) const
 {
-  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  PangoFont_accessor fcfont (context_, pango_description_);
   FTFace_accessor face (fcfont);
   Box b = ly_FT_get_glyph_outline_bbox (face, signed_idx);
   return b;
@@ -202,8 +223,7 @@ Pango_font::add_outline_to_skyline (Lazy_skyline_pair *lazy,
                                     Transform const &transform,
                                     size_t signed_idx) const
 {
-  PangoFcFont *fcfont
-    = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  PangoFont_accessor fcfont (context_, pango_description_);
   FTFace_accessor face (fcfont);
   ly_FT_add_outline_to_skyline (lazy, transform, face, signed_idx);
 }
