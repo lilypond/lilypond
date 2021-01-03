@@ -17,19 +17,14 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "paper-column.hh"
-#include "output-def.hh"
-#include "side-position-interface.hh"
 #include "engraver.hh"
+
 #include "context.hh"
 #include "grob-array.hh"
+#include "item.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"
-
-#include <algorithm> // for reverse
-
-using std::string;
 
 /*
   TODO: detect the top staff (stavesFound), and acknowledge staff-group
@@ -39,13 +34,13 @@ using std::string;
 class Bar_number_engraver : public Engraver
 {
 protected:
-  Item *text_;
-  int alternative_starting_bar_number_;
-  int alternative_number_;
-  int alternative_number_increment_;
-  Stream_event *alternative_event_;
-  bool considered_numbering_;
-  bool must_consider_numbering_;
+  Item *text_ = nullptr;
+  int alternative_starting_bar_number_ = 0;
+  int alternative_number_ = INT_MIN;
+  int alternative_number_increment_ = 0;
+  Stream_event *alternative_event_ = nullptr;
+  bool considered_numbering_ = false;
+  bool must_consider_numbering_ = false;
 
 protected:
   void stop_translation_timestep ();
@@ -126,7 +121,6 @@ Bar_number_engraver::consider_numbering ()
         {
           create_items ();
           SCM alternative_style = get_property (this, "alternativeNumberingStyle");
-          string text_tag = "";
           if (scm_is_eq (alternative_style, ly_symbol2scm ("numbers-with-letters")))
             {
               if (alternative_event_)
@@ -164,13 +158,6 @@ Bar_number_engraver::consider_numbering ()
 Bar_number_engraver::Bar_number_engraver (Context *c)
   : Engraver (c)
 {
-  text_ = 0;
-  alternative_starting_bar_number_ = 0;
-  alternative_number_increment_ = 0;
-  alternative_number_ = INT_MIN;
-  alternative_event_ = 0;
-  considered_numbering_ = false;
-  must_consider_numbering_ = false;
 }
 
 void
@@ -182,14 +169,14 @@ Bar_number_engraver::acknowledge_bar_line (Grob_info)
 void
 Bar_number_engraver::stop_translation_timestep ()
 {
-  alternative_event_ = 0;
+  alternative_event_ = nullptr;
   considered_numbering_ = false;
   must_consider_numbering_ = false;
   if (text_)
     {
       set_object (text_, "side-support-elements",
                   grob_list_to_grob_array (get_property (this, "stavesFound")));
-      text_ = 0;
+      text_ = nullptr;
     }
 }
 
