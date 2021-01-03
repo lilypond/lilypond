@@ -385,6 +385,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
               / (static_cast<Real> (PANGO_SCALE));
+  pango_font_description_free (descr);
 
   if (ps_name_str0.empty ())
     warning (_f ("no PostScript font name for font `%s'", file_name));
