@@ -119,8 +119,6 @@ Lily_parser::parse_file (const string &init, const string &name, const string &o
     }
   while (!lexer_->is_clean ());
 
-  ly_reexport_module (scm_current_module ());
-
   scm_set_current_module (mod);
 
   error_level_ = error_level_ | lexer_->error_level_;
