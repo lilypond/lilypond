@@ -491,6 +491,8 @@ Pango_font::text_stencil (Output_def * /* state */,
         }
     }
 
+  g_object_unref (layout);
+
   string name = get_output_backend_name ();
   string output_mod = "scm output-" + name;
   SCM mod = scm_c_resolve_module (output_mod.c_str ());
