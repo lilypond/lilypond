@@ -361,8 +361,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
                         SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
-  pango_glyph_string_free (pgs);
-  pgs = 0;
+
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
               / (static_cast<Real> (PANGO_SCALE));
