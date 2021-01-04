@@ -584,13 +584,13 @@ platform), the following font families should be installed.
 @item DejaVu Serif
 @item DejaVu Sans Mono
 @item Linux Libertine O
-@item Noto Serif JP
+@item Noto Serif CJK JP/Noto Serif JP
 @end itemize
 
 It is recommended to install the standard Roman (or Regular),
 Italic, Bold, and Bold Italic styles for all listed families; for
-the large Japanese fonts of the @q{Noto Serif JP} family, Regular
-and Bold styles are sufficient.
+the large Japanese fonts of the @q{Noto Serif CJK JP} or
+@q{Noto Serif JP} family, Regular and Bold styles are sufficient.
 
 @item
 @uref{https://github.com/trueroad/extractpdfmark,

@@ -27,7 +27,7 @@ Debian GNU/Linux, Ubuntu
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O, Noto Serif JP"
+     #:roman "Linux Libertine O, Noto Serif CJK JP, Noto Serif JP, serif"
    ))
 }
 
