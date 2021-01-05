@@ -157,9 +157,10 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
 void
 Lily_lexer::add_scope (SCM module)
 {
-  ly_reexport_module (scm_current_module ());
   if (!scm_is_pair (scopes_))
     start_module_ = scm_current_module ();
+  else
+    ly_reexport_module (scm_current_module ());
 
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
     ly_use_module (module, scm_car (s));
