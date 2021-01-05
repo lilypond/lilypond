@@ -4000,18 +4000,20 @@ def conv(s):
     s = re.sub(r"\bstencil-whiteout\b", r"stencil-whiteout-box", s)
 
     # (define-xxx-function (parser location ...) -> (define-xxx-function (...)
-    def subst(m):
-        def subsub(m):
-            s = (m.group(1)
-                   + re.sub(r'(?<=\s|["\\()])' + m.group(2) + r'(?=\s|["\\()])',
-                            r'(*location*)',
-                            re.sub(r'(?<=\s|["\\()])parser(?=\s|["\\()])',
-                                   r'(*parser*)', m.group(3))))
-            return s
-        return re.sub(r'(\([-a-z]+\s*\(+)parser\s+([-a-z]+)\s*((?:.|\n)*)$',
+    def topsubst(s):
+        def subst(m):
+            def subsub(m):
+                s = (m.group(1)
+                     + re.sub(r'(?<=\s|["\\()])' + m.group(2) + r'(?=\s|["\\()])',
+                              r'(*location*)',
+                              re.sub(r'(?<=\s|["\\()])parser(?=\s|["\\()])',
+                                     r'(*parser*)', topsubst(m.group(3)))))
+                return s
+            return re.sub(r'(\([-a-z]+\s*\(+)parser\s+([-a-z]+)\s*((?:.|\n)*)$',
                       subsub, m.group(0))
-    s = re.sub(r'\(define-(?:music|event|scheme|void)-function(?=\s|["(])'
-                 + paren_matcher(20) + r'\)', subst, s)
+        return re.sub(r'\(define-(?:music|event|scheme|void)-function(?=\s|["(])'
+                      + paren_matcher(20) + r'\)', subst, s)
+    s = topsubst(s)
 
     # (xxx ... parser ...) -> (xxx ... ...)
     def repl(m):
