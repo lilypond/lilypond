@@ -2,16 +2,16 @@
 # Copyright (C) 1998--2015 Han-Wen Nienhuys, Jan Nieuwenhuizen.
 # This file is distributed under the same license as the LilyPond package.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2001, 2002, 2003.
-# Josef Andersson <l10nl18nsweja@gmail.com>, 2017, 2020.
+# Josef Andersson <l10nl18nsweja@gmail.com>, 2017, 2020, 2021
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.21.1\n"
+"Project-Id-Version: lilypond 2.21.7\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2020-10-11 11:02+0100\n"
-"PO-Revision-Date: 2020-06-09 22:39+0200\n"
+"PO-Revision-Date: 2021-01-05 16:45+0100\n"
 "Last-Translator: Josef Andersson <l10nl18nsweja@gmail.com>\n"
-"Language-Team: Swedish <tp-sv-list@lists.sourceforge.net>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -909,7 +909,7 @@ msgstr "Kunde inte konvertera alteration %s till ett lilypond-uttryck"
 #: musicxml.py:115
 #, python-format
 msgid "more than one child of class %s, all butthe first will be ignored"
-msgstr ""
+msgstr "fler än en underordnad för klass %s, alla utom första ignoreras"
 
 #: musicxml.py:536
 msgid "Senza-misura time signatures are not yet supported!"
@@ -1097,7 +1097,7 @@ msgstr "Behandlar ”%s”… "
 
 #: convert-ly.py:281
 msgid "Attempting conversion from `latin1'..."
-msgstr ""
+msgstr "Försöker konvertera från ”latin1”..."
 
 #: convert-ly.py:388
 #, python-format
@@ -1308,10 +1308,11 @@ msgstr "Skriver ”%s”…"
 msgid "Output would overwrite input file; use --output."
 msgstr "Utdata skulle skriva över indatafil; använd --output."
 
+# här är det fråga om rensning av en temporärkatalog
 #: lilypond-book.py:552
 #, python-format
 msgid "Reading `%s'"
-msgstr ""
+msgstr "Läser ”%s”"
 
 #: lilypond-book.py:558
 msgid "Dissecting..."
@@ -1320,7 +1321,7 @@ msgstr "Analyserar…"
 #: lilypond-book.py:569
 #, python-format
 msgid "Processing include `%s'"
-msgstr ""
+msgstr "Behandlar include: ”%s”"
 
 #: lilypond-book.py:580
 #, python-format
@@ -1341,10 +1342,11 @@ msgstr "Ställer in LilyPonds loggnivå till %s (från miljövariablen LILYPOND_
 msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr "Ställer in LilyPonds utdata till --verbose, implicerat av lilypond-books inställning"
 
+# här är det fråga om rensning av en temporärkatalog
 #: lilypond-book.py:759
 #, python-format
 msgid "Compiling `%s'..."
-msgstr ""
+msgstr "Kompilerar ”%s”…"
 
 #: midi2ly.py:98
 msgid "warning: "
@@ -1564,7 +1566,7 @@ msgstr "använd lxml.etree; använder mindre minne och cpu-tid"
 
 #: musicxml2ly.py:2928
 msgid "input file is a compressed MusicXML file (by default, activate if file extension is .mxl)"
-msgstr ""
+msgstr "infil är en zip-komprimerad MusicXML-fil (som standard, aktivera om filändelse är .mxl)"
 
 #: musicxml2ly.py:2935
 msgid "convert pitches in relative mode (default)"
@@ -1844,7 +1846,7 @@ msgstr "ett objekt utanför notsystemet ska ha en riktning, standard är upp"
 
 #: axis-group-interface.cc:909
 msgid "Cannot set outside-staff-priority for element and elements' Y parent."
-msgstr ""
+msgstr "Det går inte att sätta outside-staff-priority för element och deras överordnade Y-element."
 
 #: bar-check-iterator.cc:84
 #, c-format
@@ -2015,7 +2017,7 @@ msgstr "oavslutad utökare"
 
 #: fingering-column-engraver.cc:69
 msgid "Cannot add a fingering without a direction."
-msgstr ""
+msgstr "Det går inte att lägga till en hållning utan en riktning."
 
 #: flag.cc:134
 #, c-format
@@ -2071,12 +2073,12 @@ msgstr "Måste vara en footnote-händelse."
 
 #: freetype.cc:40
 msgid "cannot initialize FreeType"
-msgstr ""
+msgstr "det går inte att initiera FreeType"
 
 #: general-scheme.cc:100 midi-stream.cc:67
 #, c-format
 msgid "cannot rename `%s' to `%s'"
-msgstr ""
+msgstr "det går inte byta namn på ”%s” till ”%s”"
 
 #: general-scheme.cc:435
 #, c-format
@@ -2094,29 +2096,29 @@ msgstr "misslyckades med g_spawn_sync (%d): %s: %s"
 
 #: general-scheme.cc:728
 msgid "Exiting current GhostScript instance...\n"
-msgstr ""
+msgstr "Avslutar aktuell GhostScript-instans...\n"
 
 #: general-scheme.cc:765
 msgid "Mismatch of GhostScript arguments!\n"
-msgstr ""
+msgstr "Problem med GhostScript-argument!\n"
 
 #: general-scheme.cc:772
 #, c-format
 msgid "Starting GhostScript instance with arguments: %s\n"
-msgstr ""
+msgstr "Startar GhostScript-instans med argument: %s\n"
 
 #: general-scheme.cc:788
 msgid "Could not start GhostScript instance!"
-msgstr ""
+msgstr "Det gick inte att starta GhostScript-instansen!"
 
 #: general-scheme.cc:801
 #, c-format
 msgid "Running GhostScript command: %s\n"
-msgstr ""
+msgstr "Kör GhostScript-kommando: %s\n"
 
 #: general-scheme.cc:810
 msgid "Error when running GhostScript command!"
-msgstr ""
+msgstr "Fel vid körning av GhostScript-kommando!"
 
 #: glissando-engraver.cc:161
 msgid "unterminated glissando"
@@ -2177,7 +2179,7 @@ msgstr "%s.%s ändrad inifrån återanrop"
 
 #: grob-scheme.cc:55
 msgid "typecheck failed"
-msgstr ""
+msgstr "typkontroll misslyckades"
 
 #: grob.cc:486
 #, c-format
@@ -2276,7 +2278,7 @@ msgstr "fraseringsbågen startade här"
 #: lily-guile.cc:91
 #, c-format
 msgid "(load path: `%s', cwd: `%s')"
-msgstr ""
+msgstr "(inläsningssökväg: ”%s”, cwd: ”%s”)"
 
 #: lily-guile.cc:281
 #, c-format
@@ -2426,7 +2428,7 @@ msgstr "skapa PDF-filer (standard)"
 
 #: main.cc:133
 msgid "generate SVG files "
-msgstr ""
+msgstr "skapa SVG-filer "
 
 #: main.cc:137
 msgid "generate PNG files "
@@ -2593,7 +2595,7 @@ msgstr "Har du hittat ett programfel? Läs %s"
 
 #: main.cc:349
 msgid "linked against Ghostscript:"
-msgstr ""
+msgstr "länkad till GhostScript:"
 
 #: main.cc:406
 #, c-format
@@ -2642,7 +2644,7 @@ msgstr "kan inte ändra arbetskatalog till: %s: %s"
 
 #: main.cc:669
 msgid "SVG backend requested; other formats will be ignored."
-msgstr ""
+msgstr "SVG-bakände begärd; övriga format kommer att ignoreras."
 
 #: main.cc:685
 msgid "The --relocate option is no longer relevant."
@@ -2724,12 +2726,12 @@ msgstr "Taktart med mer än 255 takter. Trunkerar"
 #: midi-stream.cc:57
 #, c-format
 msgid "cannot create temp file: %s: %s"
-msgstr ""
+msgstr "det går inte att skapa temporära filen: %s: %s"
 
 #: midi-stream.cc:79
 #, c-format
 msgid "cannot write to file: `%s': %s"
-msgstr ""
+msgstr "det går inte att skriva till filen: %s: %s"
 
 #. LINE BREAKING
 #: minimal-page-breaking.cc:40 one-page-breaking.cc:74 paper-score.cc:118
@@ -2815,82 +2817,82 @@ msgstr "typsnitt ”%s” index ”%d” har inte en ”CFF”-tabell"
 #: open-type-font-scheme.cc:409
 #, c-format
 msgid "font `%s': cannot open for reading"
-msgstr ""
+msgstr "typsnitt ”%s”: det går inte att öppna för läsning"
 
 #: open-type-font-scheme.cc:420 open-type-font-scheme.cc:437
 #: open-type-font-scheme.cc:455
 #, c-format
 msgid "font `%s': cannot read field `%s'"
-msgstr ""
+msgstr "typsnitt ”%s”: det går inte att läsa fältet ”%s”"
 
 #: open-type-font-scheme.cc:428
 #, c-format
 msgid "font `%s': not a font collection"
-msgstr ""
+msgstr "typsnitt ”%s”: ej en typsnittssamling"
 
 #: open-type-font-scheme.cc:446
 #, c-format
 msgid "font `%s': invalid TTC header version"
-msgstr ""
+msgstr "typsnitt ”%s”: ogiltig version på TTC-huvud"
 
 #: open-type-font-scheme.cc:467
 #, c-format
 msgid "font `%s': index %d is too large, using index 0"
-msgstr ""
+msgstr "typsnitt ”%s”: index %d för stort, använder index 0"
 
 #: open-type-font-scheme.cc:478
 #, c-format
 msgid "font `%s': cannot read offset of subfont %d"
-msgstr ""
+msgstr "typsnitt ”%s”: det går inte att läsa förskjutning för subtypsnitt %d"
 
 #: open-type-font-scheme.cc:495 open-type-font-scheme.cc:533
 #: open-type-font-scheme.cc:556
 #, c-format
 msgid "font `%s': cannot read field `%s' of subfont %d"
-msgstr ""
+msgstr "typsnitt ”%s”: det går inte att läsa fältet ”%s” för subtypsnitt %d"
 
 #: open-type-font-scheme.cc:504
 #, c-format
 msgid "font `%s': invalid field `sfntVersion' in subfont %d"
-msgstr ""
+msgstr "typsnitt ”%s”: ogiltigt fält ”sfntVersion” i subtypsnitt %d"
 
 #: open-type-font-scheme.cc:513
 #, c-format
 msgid "subfont `%s': cannot open for writing"
-msgstr ""
+msgstr "subtypsnitt ”%s”: går ej att öppna för skrivning"
 
 #: open-type-font-scheme.cc:523 open-type-font-scheme.cc:546
 #: open-type-font-scheme.cc:566
 #, c-format
 msgid "subfont `%s': cannot write field `%s'"
-msgstr ""
+msgstr "subtypsnitt ”%s”: det går inte att skriva fältet ”%s”"
 
 #: open-type-font-scheme.cc:593
 #, c-format
 msgid "font `%s': cannot read field `%s' for table %u of subfont %d"
-msgstr ""
+msgstr "typsnitt ”%s”: det går inte att läsa fältet ”%s” för tabellen %u i subtypsnitt %d"
 
 #: open-type-font-scheme.cc:608 open-type-font-scheme.cc:628
 #: open-type-font-scheme.cc:658 open-type-font-scheme.cc:683
 #, c-format
 msgid "subfont `%s': cannot write field `%s' for table `%s'"
-msgstr ""
+msgstr "subtypsnitt ”%s”: det går inte att skriva fältet ”%s” för tabellen ”%s”"
 
 #: open-type-font-scheme.cc:618 open-type-font-scheme.cc:638
 #: open-type-font-scheme.cc:668
 #, c-format
 msgid "font `%s': cannot read field `%s' for table `%s' of subfont %d"
-msgstr ""
+msgstr "typsnitt ”%s”: det går inte att läsa fältet ”%s” för tabellen %s i subtypsnitt %d"
 
 #: open-type-font-scheme.cc:709
 #, c-format
 msgid "font `%s': cannot read table `%s' of subfont %d"
-msgstr ""
+msgstr "typsnitt ”%s”: det går inte att läsa tabellen ”%s” för subtypsnitt %d"
 
 #: open-type-font-scheme.cc:718
 #, c-format
 msgid "subfont `%s': cannot write table `%s'"
-msgstr ""
+msgstr "subtypsnitt ”%s”: det går inte att skriva tabellen ”%s”"
 
 #: open-type-font.cc:55
 #, c-format
@@ -2929,7 +2931,7 @@ msgstr "det går inte att hämta format för typsnitt %s"
 #: open-type-font.cc:170
 #, c-format
 msgid "cannot get CFF name from font %s"
-msgstr ""
+msgstr "det går inte att hämta CFF-namn från typsnitt %s"
 
 #: open-type-font.cc:176
 #, c-format
@@ -2939,12 +2941,12 @@ msgstr "Ersätt typsnittsnamn: %s => %s"
 #: open-type-font.cc:182
 #, c-format
 msgid "CFF name for font %s is the same."
-msgstr ""
+msgstr "CFF-namnet för typsnittet %s är detsamma."
 
 #: open-type-font.cc:216
 #, c-format
 msgid "cannot read CFF: %s"
-msgstr ""
+msgstr "det går inte att läsa CFF: %s"
 
 #. FreeType 2.6 and 2.6.1 cannot get PS name from pure-CFF.
 #. (FreeType 2.5.5 and earlier does not have this issue.
@@ -2952,11 +2954,11 @@ msgstr ""
 #. So we need direct parsing of the 'CFF' table, in this case.
 #: open-type-font.cc:232
 msgid "Directly parsing 'CFF' table of font."
-msgstr ""
+msgstr "Direkttolkar ”CFF”-tabell för typsnitt"
 
 #: open-type-font.cc:270
 msgid "cannot get CFF name"
-msgstr ""
+msgstr "det går inte att hämta CFF-namn"
 
 #: open-type-font.cc:355
 #, c-format
@@ -3129,7 +3131,7 @@ msgstr "tvingat avbrott överlagrades av något annan händelse, bör du använd
 #: paper-outputter.cc:127
 #, c-format
 msgid "Paper_outputter elapsed time: %.2f seconds"
-msgstr ""
+msgstr "Paper_outputter tidsåtgång: %.2f sekunder"
 
 #: paper-score.cc:130
 #, c-format
@@ -3142,7 +3144,7 @@ msgstr "Förbehandlar grafiska objekt…"
 
 #: parenthesis-engraver.cc:71
 msgid "Don't know how to parenthesize spanners."
-msgstr ""
+msgstr "Vet inte hur man ska göra parenteser runt bryggare."
 
 #: parse-scm.cc:61
 msgid "GUILE signaled an error for the expression beginning here"
@@ -3392,12 +3394,12 @@ msgstr "%s behöver en riktning för sidojustering"
 
 #: side-position-interface.cc:262
 msgid "cannot find skylines - strange alignment will follow"
-msgstr ""
+msgstr "det går inte hitta skylines - konstig justering följer"
 
 #: side-position-interface.cc:457
 #, c-format
 msgid "no side-axis setting found for grob %s."
-msgstr ""
+msgstr "fann ingen inställning för sidoaxel gällande grob %s"
 
 #: skyline-pair.cc:140
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
@@ -3405,7 +3407,7 @@ msgstr "riktning måste inte vara CENTER i ly:skyline-pair::skyline"
 
 #: skyline.cc:543
 msgid "Cannot have negative horizon padding.  Junking."
-msgstr ""
+msgstr "Det går inte att ange negativ horisontell utfyllnad.  Kastar."
 
 #: slur-engraver.cc:123
 #, c-format
@@ -3431,11 +3433,11 @@ msgstr "det går inte att avsluta %s"
 
 #: slur-scoring.cc:364
 msgid "no viable slur configuration found"
-msgstr ""
+msgstr "ingen vettig konfiguration för bindebåge hittades"
 
 #: slur-scoring.cc:491
 msgid "slur trying to encompass an empty note column."
-msgstr ""
+msgstr "en bindebåge försöker omge en tom kolumn."
 
 #: slur.cc:436
 #, c-format
@@ -3480,11 +3482,11 @@ msgstr "kanske bör indata specificera polyfoniska röster"
 
 #: stem-tremolo.cc:286
 msgid "Whole-note tremolo may collide with simultaneous notes."
-msgstr ""
+msgstr "Helnotstremolo kan kollidera med samtidiga noter."
 
 #: stem-tremolo.cc:340
 msgid "stem tremolo has no note heads"
-msgstr ""
+msgstr "notskaftstremolo har inga nothuvuden"
 
 #: stem.cc:133
 msgid "weird stem size, check for narrow beams"
@@ -3492,7 +3494,7 @@ msgstr "Konstig notskaftstorlek, kolla efter smala balkar"
 
 #: stencil-integral.cc:484
 msgid "Malformed path for path stencil."
-msgstr ""
+msgstr "Ogiltigt sökväg för stencilsökväg."
 
 #: stream-event.cc:130
 #, c-format
@@ -3552,7 +3554,7 @@ msgstr "Hittade underlig taktart: %d/%d"
 
 #: time-signature-engraver.cc:111
 msgid "mid-measure time signature without \\partial"
-msgstr ""
+msgstr "tidssignatur i mittentakt utan \\partial"
 
 #: translator-ctors.cc:119
 #, c-format
@@ -3575,7 +3577,7 @@ msgstr "Inga oregelbundna notvärden att avsluta"
 
 #: tuplet-engraver.cc:160
 msgid "omitting tuplet bracket with neither left nor right bound"
-msgstr ""
+msgstr "förkastar tupletklamrar utan vänster- eller högergräns."
 
 #: vaticana-ligature-engraver.cc:387
 #, c-format
@@ -3872,7 +3874,7 @@ msgstr "”~a” misslyckades (~a)\n"
 #: backend-library.scm:49
 #, scheme-format
 msgid "Preparing Ghostscript command to `~a': ~a"
-msgstr ""
+msgstr "Förbereder GhostScript-kommando för ”~a”: ~a"
 
 #: backend-library.scm:125
 #, scheme-format
@@ -3894,7 +3896,7 @@ msgstr "Kopierar till ”~a” …\n"
 #: backend-library.scm:284
 #, scheme-format
 msgid "can't create temp file for ~a after ~a times"
-msgstr ""
+msgstr "det går inte att skapa temporär fil för ~a efter~a gånger"
 
 #: backend-library.scm:336
 #, scheme-format
@@ -3934,7 +3936,7 @@ msgstr "Diskutabelt skräp efter ackord: ~A"
 #: color.scm:733
 #, scheme-format
 msgid "Requested color '~a' is not defined!"
-msgstr ""
+msgstr "Begärd färg ”~a” är inte definierad!"
 
 #: define-context-properties.scm:31 define-grob-properties.scm:21
 #: define-music-properties.scm:21 lily.scm:124
@@ -3960,11 +3962,11 @@ msgstr "Odefinierad överordnad händelseklass ”~S”"
 #: define-grobs.scm:2991
 #, scheme-format
 msgid "Unknown class ~a"
-msgstr ""
+msgstr "Okänd klass: ~a"
 
 #: define-markup-commands.scm:265
 msgid "Can't print a line - setting on/off to default"
-msgstr ""
+msgstr "Det går inte att skriva ut rad - sätter on/off till standardvärde."
 
 #: define-markup-commands.scm:1312
 msgid "no systems found in \\score markup, does it have a \\layout block?"
@@ -3973,7 +3975,7 @@ msgstr "inga system hittade i \\score-markup, har \\layout-block?"
 #: define-markup-commands.scm:2455
 #, scheme-format
 msgid "Recursive definition of property ~a detected!"
-msgstr ""
+msgstr "Identifierade en rekursiv definition av egenskapen ~a!"
 
 #: define-markup-commands.scm:3170
 #, scheme-format
@@ -3983,7 +3985,7 @@ msgstr "Det går inte att hitta tecken ~a"
 #: define-markup-commands.scm:3553
 #, scheme-format
 msgid "Unable to create slashed digit ~a"
-msgstr ""
+msgstr "Kunde inte skapa snedstreckssiffra ~a"
 
 #: define-markup-commands.scm:3666
 #, scheme-format
@@ -4008,7 +4010,7 @@ msgstr "inte en giltig längdsträng: ~a - ignorerar"
 #: define-music-callbacks.scm:87
 #, scheme-format
 msgid "Could not find ottavation markup for ~a octaves up."
-msgstr ""
+msgstr "Det gick inte att hitta ottavation-markering för ~a oktaver upp."
 
 #: define-music-types.scm:815
 #, scheme-format
@@ -4041,12 +4043,12 @@ msgstr "Det gick inte att hitta språk ”~a”. Ignorerar."
 
 #: display-woodwind-diagrams.scm:1666
 msgid "woodwind markup error - invalid key or hole requested"
-msgstr ""
+msgstr "Fel i markering för träblåsinstrument - ogiltig tonart eller ogiltigt hål begärt."
 
 #: display-woodwind-diagrams.scm:1946
 #, scheme-format
 msgid "~a is not a valid woodwind instrument."
-msgstr ""
+msgstr "~a är inte ett giltigt träblåsinstrument."
 
 #: document-backend.scm:135
 #, scheme-format
@@ -4066,12 +4068,12 @@ msgstr "okänt Grob-gränssnitt: ~S"
 #: document-context-mods.scm:78
 #, scheme-format
 msgid "context modification `~a' not documented."
-msgstr ""
+msgstr "kontextändring ”~a” är inte dokumenterad."
 
 #: document-identifiers.scm:56
 #, scheme-format
 msgid "music function `~a' not documented."
-msgstr ""
+msgstr "Musikfunktionen ”~a” är ej dokumenterad."
 
 #: documentation-lib.scm:62
 #, scheme-format
@@ -4101,7 +4103,7 @@ msgstr "flaggstrecket ”~a” eller ”~a” hittades inte"
 #: flag-styles.scm:169
 #, scheme-format
 msgid "flag ~a not found"
-msgstr ""
+msgstr "flaggan ~a hittades ej"
 
 #: framework-eps.scm:111
 #, scheme-format
@@ -4130,23 +4132,23 @@ msgstr "Initerar inbäddad CFF-typsnittslista."
 #: framework-ps.scm:284
 #, scheme-format
 msgid "Preparing font ~a in PostScript resource directory for subfont ~a of file `~a'..."
-msgstr ""
+msgstr "Förbereder typsnitt ~a i en PostScript-resurskatalog för subtypsnitt ~a för fil ”~a”..."
 
 #: framework-ps.scm:300 framework-ps.scm:314 framework-ps.scm:320
 #, scheme-format
 msgid "File `~a' already exists, skipping..."
-msgstr ""
+msgstr "Filen ”~a” finns redan, hoppar över..."
 
 #. TrueType fonts (TTF) and TrueType Collection (TTC)
 #: framework-ps.scm:306
 #, scheme-format
 msgid "Font ~a is TrueType font, skipping..."
-msgstr ""
+msgstr "Typsnitt ~a är ett TrueType-typsnitt, hoppar över."
 
 #: framework-ps.scm:322
 #, scheme-format
 msgid "Font ~a cannot be used in PostScript resource directory because it is unknown format."
-msgstr ""
+msgstr "Typsnittet ~a går inte att läsa in via PostScript-resurskatalog eftersom den är av okänt format."
 
 #: framework-ps.scm:361
 #, scheme-format
@@ -4186,7 +4188,7 @@ msgstr "vet inte hur man bäddar in typsnitt ~s ~s ~s"
 #: framework-ps.scm:545
 #, scheme-format
 msgid "Font file `~a' already exists, skipping..."
-msgstr ""
+msgstr "Typsnittsfilen ”~a” finns redan, hoppar över..."
 
 #: framework-ps.scm:551
 #, scheme-format
@@ -4196,32 +4198,32 @@ msgstr "Exporterar typsnittsfilen ”~a”."
 #: framework-ps.scm:580
 #, scheme-format
 msgid "Making PostScript resource directory `~a'."
-msgstr ""
+msgstr "Skapar PostScript-resurskatalog: ”~a”."
 
 #: framework-ps.scm:583
 #, scheme-format
 msgid "PostScript resource directory `~a' already exists."
-msgstr ""
+msgstr "PostScript-resurskatalog ”~a” existerar redan."
 
 #: framework-ps.scm:585
 #, scheme-format
 msgid "Making CIDFont directory `~a'."
-msgstr ""
+msgstr "Skapar CIDFont-katalog ”~a”."
 
 #: framework-ps.scm:588
 #, scheme-format
 msgid "CIDFont directory `~a' already exists."
-msgstr ""
+msgstr "CIDFont-katalogen ”~a” existerar redan."
 
 #: framework-ps.scm:590
 #, scheme-format
 msgid "Making Font directory `~a'."
-msgstr ""
+msgstr "Skapar typsnittskatalog ”~a”."
 
 #: framework-ps.scm:593
 #, scheme-format
 msgid "Font directory `~a' already exists."
-msgstr ""
+msgstr "Typsnittskatalogen ”~a” existerar redan."
 
 #: framework-ps.scm:597
 #, scheme-format
@@ -4236,7 +4238,7 @@ msgstr "Exportkatalogen ”~a” för typsnitt existerar redan."
 #: framework-ps.scm:829
 #, scheme-format
 msgid "Layout output to `~a'..."
-msgstr ""
+msgstr "Layout-utdata till ”~a”…"
 
 #: framework-ps.scm:997
 msgid ""
@@ -4274,12 +4276,12 @@ msgstr "Uppdaterar typsnitt till: ~a"
 #: fret-diagrams.scm:33
 #, scheme-format
 msgid "Possible typo in fret-diagram '~a'"
-msgstr ""
+msgstr "Eventuellt stavfel i fret-diagram ”~a”"
 
 #: fret-diagrams.scm:958
 #, scheme-format
 msgid "String ~a out of range 1-~a, ignoring"
-msgstr ""
+msgstr "Sträng ~a utanför intervallet 1-~a, ignorerar"
 
 #: graphviz.scm:64
 #, scheme-format
@@ -4289,21 +4291,21 @@ msgstr "Skriver diagram ”~a”…"
 #: harp-pedals.scm:119
 #, scheme-format
 msgid "Unhandled entry in harp-pedal: ~a"
-msgstr ""
+msgstr "Ohanterad post i harp-pedal: ~a"
 
 #: harp-pedals.scm:167
 #, scheme-format
 msgid "Harp pedal diagram contains ~a pedals rather than the usual 7."
-msgstr ""
+msgstr "Pedalharpadiagrammet innehåller ~a pedaler istället för de vanliga 7."
 
 #: harp-pedals.scm:170
 msgid "Harp pedal diagram does not contain a divider (usually after third pedal)."
-msgstr ""
+msgstr "Pedalharpadiagrammet innehåller inte en avdelare (vanligen efter tredje pedalen)."
 
 #: harp-pedals.scm:172
 #, scheme-format
 msgid "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal."
-msgstr ""
+msgstr "Pedalharpadiagrammet innehåller avdelare vid position ~a. Normalt finns det bara en avdelare, efter tredje pedalen."
 
 # TO-DO quanting...
 #: layout-beam.scm:40
@@ -4323,7 +4325,7 @@ msgstr "Musik opassande för context-mod"
 
 #: lily-library.scm:345
 msgid "Cannot determine contexts to modify"
-msgstr ""
+msgstr "Det går inte att avgöra kontext att ändra"
 
 #: lily-library.scm:396
 #, scheme-format
@@ -4400,7 +4402,7 @@ msgstr ""
 #: lily.scm:960
 #, scheme-format
 msgid "Children ~a exited with errors."
-msgstr ""
+msgstr "Underordnad ~a avslutades med fel."
 
 #: lily.scm:971 lily.scm:1057
 #, scheme-format
@@ -4435,17 +4437,17 @@ msgstr "inte en artikualtion"
 #: markup-macros.scm:297
 #, scheme-format
 msgid "~A: Not a markup (list) function: ~S"
-msgstr ""
+msgstr "~A: Inte en markup-funktion (list-): ~S"
 
 #: markup-macros.scm:304
 #, scheme-format
 msgid "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S"
-msgstr ""
+msgstr "~A: Fel antal argument. Förväntade: ~A, fann ~A: ~S"
 
 #: markup-macros.scm:308
 #, scheme-format
 msgid "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S."
-msgstr ""
+msgstr "~A: Ogiltigt antal argument i position ~A. Förväntade sig ~A, fick: ~S."
 
 #: markup-macros.scm:344
 #, scheme-format
@@ -4485,16 +4487,20 @@ msgid ""
 "If @var{music} is a single pitch, inverts it about @var{around}\n"
 "and transposes from @var{around} to @var{to}."
 msgstr ""
+"Om @var{music} är en enstaka ton, inverteras den @var{around}\n"
+"och transponeras från @var{around} till @var{to}."
 
 #: modal-transforms.scm:302
 msgid "Applies pitch-invert to all pitches in @var{music}."
-msgstr ""
+msgstr "Tillämpar pitch-invert till alla toner i @var{music}."
 
 #: modal-transforms.scm:309
 msgid ""
 "Transpose a note (numbered as @var{n}) in @var{direction}.\n"
 "@var{n} is zero-based and can be negative to count from the end."
 msgstr ""
+"Transponera en not (numrerad som @var{n} i @var{direction}.\n"
+"@var{n} är nollbaserad och kan vara negativ för räkning från slutet."
 
 #: music-functions.scm:321
 #, scheme-format
@@ -4513,7 +4519,7 @@ msgstr "Fler alternativ än repriser.  Slänger överblivna alternativ"
 #: music-functions.scm:420
 #, scheme-format
 msgid "unknown repeat-type ~a, ignoring."
-msgstr ""
+msgstr "okänd repeat-type ~a, ignorerar."
 
 #: music-functions.scm:511
 #, scheme-format
@@ -4573,17 +4579,17 @@ msgstr "okänd förteckenstil: ~S"
 
 #: music-functions.scm:2411
 msgid "giving up on cloned grob transform"
-msgstr ""
+msgstr "ger upp klonad grob-transformering"
 
 #: music-functions.scm:2474
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
-msgstr ""
+msgstr "standardvärdet ~a för ~a är ~a och kan inte förskjutas"
 
 #: music-functions.scm:2505
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
-msgstr ""
+msgstr "egenskapen ”~a för ~a kan inte förskjutas"
 
 #: music-functions.scm:2731
 #, scheme-format
@@ -4597,7 +4603,7 @@ msgstr "motsägande taggrupphändelser ~a"
 
 #: output-lib.scm:2068
 msgid "Please consider to increase 'minimum-length"
-msgstr ""
+msgstr "Överväg att utöka ”minimum-length"
 
 #: output-ps.scm:266 output-svg.scm:557
 #, scheme-format
@@ -4665,31 +4671,31 @@ msgstr "kvoterad musik ”~a” är tom"
 #: ps-to-png.scm:66
 #, scheme-format
 msgid "Unknown pixmap format ~a"
-msgstr ""
+msgstr "Okänt pixmap-format: ~a"
 
 #: ps-to-png.scm:157
 msgid "`anti-alias-factor' must be a positive integer <= 8"
-msgstr ""
+msgstr "”anti-alias-factor” måste vara ett positivt heltal <= 8"
 
 #: scheme-engravers.scm:96
 msgid "measure count left unfinished"
-msgstr ""
+msgstr "Taktantal lämnades ofärdig"
 
 #: scheme-engravers.scm:111
 msgid "cannot find start of measure spanner"
-msgstr ""
+msgstr "det går inte att hitta början på taktbryggare"
 
 #: scheme-engravers.scm:145
 msgid "unterminated measure spanner"
-msgstr ""
+msgstr "oavslutad taktbryggare"
 
 #: scheme-engravers.scm:541
 msgid "unterminated DurationLine"
-msgstr ""
+msgstr "oavslutad DurationLine"
 
 #: stencil.scm:749
 msgid "Both angle-increments and radial-increments must be positive numbers."
-msgstr ""
+msgstr "Både angle-increments och radial-increments måste vara positiva tal."
 
 #: to-xml.scm:190
 #, scheme-format
@@ -4709,7 +4715,7 @@ msgstr "Saknar band för ton ~a på sträng ~a"
 #: translation-functions.scm:450
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
-msgstr ""
+msgstr "Öppet band på sträng ~a har finger ~a"
 
 #: translation-functions.scm:493
 #, scheme-format
@@ -4736,7 +4742,7 @@ msgstr "Ingen sträng för ton ~a (givet band ~a)"
 
 #: translation-functions.scm:595
 msgid "additional bass strings are not supported by FretBoards"
-msgstr ""
+msgstr "ytterligare bassträngar stöds ej av FretBoards."
 
 #: translation-functions.scm:672
 #, scheme-format
@@ -4747,62 +4753,14 @@ msgstr ""
 "Ingen etikett för band ~a (på sträng ~a);\n"
 "endast bandetikett ~a givet"
 
-#, python-format
 #~ msgid "Scanning %s"
 #~ msgstr "Söker %s"
 
-#, python-format
 #~ msgid "Extracted %s"
 #~ msgstr "Extraherade %s"
 
-#, python-format
 #~ msgid "Writing fonts to %s"
 #~ msgstr "Skriver typsnitt till %s"
-
-#~ msgid "input file is a zip-compressed MusicXML file"
-#~ msgstr "infil är en zip-komprimerad MusicXML-fil"
-
-# här är det fråga om rensning av en temporärkatalog
-#, python-format
-#~ msgid "Reading %s..."
-#~ msgstr "Läser %s…"
-
-# här är det fråga om rensning av en temporärkatalog
-#, python-format
-#~ msgid "Compiling %s..."
-#~ msgstr "Kompilerar %s…"
-
-#, python-format
-#~ msgid "Processing include: %s"
-#~ msgstr "Behandlar include: %s"
-
-#, c-format
-#~ msgid "Layout output to `%s'..."
-#~ msgstr "Layout-utdata till ”%s”…"
-
-#, c-format
-#~ msgid "cannot read CFF %s: %s"
-#~ msgstr "det går inte att läsa CFF %s: %s"
-
-#, c-format
-#~ msgid "Directly parsing 'CFF' table of font %s."
-#~ msgstr "Direkttolkar ”CFF”-tabell för typsnitt %s."
-
-#, c-format
-#~ msgid "cannot get font %s CFF name"
-#~ msgstr "det går inte att hämta typsnitt %s CFF-namn"
-
-#, c-format
-#~ msgid "(load path: `%s')"
-#~ msgstr "(inläsningssökväg: ”%s”"
-
-#, c-format
-#~ msgid "cannot open for write: %s: %s"
-#~ msgstr "det går inte att öppna för skrivning: %s: %s"
-
-#, c-format
-#~ msgid "cannot write to file: `%s'"
-#~ msgstr "det går inte att skriva till filen: ”%s”"
 
 #~ msgid "drum %s type unknown, please add to instrument_drumtype_dict"
 #~ msgstr "trum %s-typ okänd, lägg till i instrument_drumtype_dict"
@@ -4892,18 +4850,6 @@ msgstr ""
 #~ msgid "missing stencil expression `~S'"
 #~ msgstr "saknar stenciluttryck ”~S”"
 
-#~ msgid "Font file `~a' already exists, skipping."
-#~ msgstr "Typsnittsfilen ”~a” finns redan, hoppar över."
-
-#~ msgid "~S: Not a markup (list) function: ~S"
-#~ msgstr "~S: Inte en markup-funktion (list-): ~S"
-
-#~ msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
-#~ msgstr "Fel antal argument. Förväntade: ~A, fann ~A: ~S"
-
-#~ msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
-#~ msgstr "Ogiltigt antal argument i position ~A. Förväntade sig ~A, fick: ~S."
-
 #~ msgid "Copying `~a' to `~a'..."
 #~ msgstr "Kopierar ”~a” till ”~a”…"
 
@@ -4989,9 +4935,6 @@ msgstr ""
 # Förklaring till --verbose (borde vara längre)
 #~ msgid "verbose"
 #~ msgstr "utförlig utdata"
-
-#~ msgid "print version information"
-#~ msgstr "visa versionsinformation"
 
 #~ msgid "LaTeX failed."
 #~ msgstr "LaTeX misslyckades."
