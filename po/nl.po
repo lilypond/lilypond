@@ -917,7 +917,7 @@ msgstr "Kan alteratie %s niet naar een Lilypond-expressie converteren"
 #: musicxml.py:115
 #, python-format
 msgid "more than one child of class %s, all butthe first will be ignored"
-msgstr "meer dan één dochter van klasse %s; alle behalve het eerste zullen genegeerd worden"
+msgstr "meer dan één dochter van klasse %s; alle behalve de eerste zullen genegeerd worden"
 
 #: musicxml.py:536
 msgid "Senza-misura time signatures are not yet supported!"
@@ -4153,7 +4153,7 @@ msgstr "Lijst van ingebedde CFF-lettertypes wordt geïnitialiseerd."
 #: framework-ps.scm:284
 #, scheme-format
 msgid "Preparing font ~a in PostScript resource directory for subfont ~a of file `~a'..."
-msgstr "Voorbereiden van lettertype ~a in de Postscriptbronnenmap  voor sublettertype ~a van bestand '~a'... "
+msgstr "Voorbereiden van lettertype ~a in de Postscriptbronnenmap voor sublettertype ~a van bestand '~a'... "
 
 #: framework-ps.scm:300 framework-ps.scm:314 framework-ps.scm:320
 #, scheme-format
