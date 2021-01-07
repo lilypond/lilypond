@@ -40,9 +40,8 @@ LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
            "Given the font metric @var{font} of an OpenType font, return the"
            " names of the subfonts within @var{font}.")
 {
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob<Font_metric> (font);
   return fm->sub_fonts ();
 }
 

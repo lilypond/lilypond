@@ -215,11 +215,11 @@ LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-wid
            " single @code{break-align-symbol} or a list of such"
            " symbols.")
 {
-  LY_ASSERT_SMOB (Grob, col, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob, col, 1);
   SCM_ASSERT_TYPE (scm_is_symbol (align_syms) || ly_is_list (align_syms),
                    align_syms, SCM_ARG2, __FUNCTION__, "symbol or list");
 
-  Interval ext = Paper_column::break_align_width (unsmob<Grob> (col), align_syms);
+  Interval ext = Paper_column::break_align_width (me, align_syms);
   return to_scm (ext);
 }
 

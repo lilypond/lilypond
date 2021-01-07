@@ -264,7 +264,7 @@ MAKE_SCHEME_CALLBACK (Break_alignable_interface, find_parent, 1)
 SCM
 Break_alignable_interface::find_parent (SCM grob)
 {
-  Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *alignment_parent = find_parent (me);
   return alignment_parent ? alignment_parent->self_scm () : SCM_BOOL_F;
 }
@@ -308,7 +308,7 @@ MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback, 1)
 SCM
 Break_alignable_interface::self_align_callback (SCM grob)
 {
-  Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *alignment_parent = find_parent (me);
   if (!alignment_parent)
     return to_scm (0);
@@ -348,7 +348,7 @@ MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment, 1)
 SCM
 Break_aligned_interface::calc_joint_anchor_alignment (SCM grob)
 {
-  Grob *me = LY_ASSERT_SMOB (Grob, grob, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   return to_scm (calc_joint_anchor_alignment (me));
 }
 

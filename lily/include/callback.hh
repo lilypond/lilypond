@@ -95,7 +95,7 @@ public:
   template <class T, SCM (T::*p) ()>
   static SCM trampoline (SCM target)
   {
-    T *t = LY_ASSERT_SMOB (T, target, 1);
+    auto *const t = LY_ASSERT_SMOB (T, target, 1);
     return (t->*p) ();
   }
 
@@ -103,14 +103,14 @@ public:
   template <class T, SCM (T::*p) () const>
   static SCM trampoline (SCM target)
   {
-    T *t = LY_ASSERT_SMOB (T, target, 1);
+    auto *const t = LY_ASSERT_SMOB (T, target, 1);
     return (t->*p) ();
   }
 
   template <class T, void (T::*p) ()>
   static SCM trampoline (SCM target)
   {
-    T *t = LY_ASSERT_SMOB (T, target, 1);
+    auto *const t = LY_ASSERT_SMOB (T, target, 1);
     (t->*p) ();
     return SCM_UNSPECIFIED;
   }
@@ -119,8 +119,7 @@ public:
   template <class T, void (T::*callback) (SCM)>
   static SCM trampoline (SCM target, SCM ev)
   {
-    T *t = unsmob<T> (target);
-    LY_ASSERT_SMOB (T, target, 1);
+    auto *const t = LY_ASSERT_SMOB (T, target, 1);
 
     (t->*callback) (ev);
     return SCM_UNSPECIFIED;

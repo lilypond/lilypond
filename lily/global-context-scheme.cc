@@ -32,9 +32,7 @@ LY_DEFINE (ly_format_output, "ly:format-output",
            " process it and return the @code{Music_output} object"
            " in its final state.")
 {
-  Global_context *g = unsmob<Global_context> (context);
-
-  LY_ASSERT_SMOB (Global_context, context, 1);
+  auto *const g = LY_ASSERT_SMOB (Global_context, context, 1);
 
   SCM output = g->get_output ();
   progress_indication ("\n");
@@ -50,8 +48,7 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
            "Create a translator group and connect it to the global context"
            " @var{global}.  The translator group is returned.")
 {
-  Global_context *g = unsmob<Global_context> (global);
-  LY_ASSERT_SMOB (Global_context, global, 1);
+  auto *const g = LY_ASSERT_SMOB (Global_context, global, 1);
 
   Translator_group *tg = new Translator_group ();
   tg->connect_to_context (g);
@@ -65,8 +62,7 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
            "Set up a global interpretation context, using the output"
            " block @var{output-def}.  The context is returned.")
 {
-  LY_ASSERT_SMOB (Output_def, output_def, 1);
-  Output_def *odef = unsmob<Output_def> (output_def);
+  auto *const odef = LY_ASSERT_SMOB (Output_def, output_def, 1);
 
   Global_context *glob = new Global_context (odef);
 
@@ -84,8 +80,8 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
            "Interpret the music expression @var{mus} in the global context"
            " @var{ctx}.  The context is returned in its final state.")
 {
-  auto *music = LY_ASSERT_SMOB (Music, mus, 1);
-  auto *g = LY_ASSERT_SMOB (Global_context, ctx, 2);
+  auto *const music = LY_ASSERT_SMOB (Music, mus, 1);
+  auto *const g = LY_ASSERT_SMOB (Global_context, ctx, 2);
   g->iterate (music, true);
   return ctx;
 }
@@ -100,7 +96,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
            "Optionally, this routine takes an object-key to"
            " to uniquely identify the score block containing it.")
 {
-  auto *music = LY_ASSERT_SMOB (Music, mus, 1);
+  auto *const music = LY_ASSERT_SMOB (Music, mus, 1);
   LY_ASSERT_SMOB (Output_def, output_def, 2);
 
   SCM glob = ly_make_global_context (output_def);

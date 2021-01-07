@@ -149,7 +149,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
            " it becomes the source of all music expressions inside.")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   if (SCM_UNBNDP (closures))
     closures = SCM_EOL;
@@ -165,7 +165,7 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
            "Bind @var{symbol} to @var{val} in current parser's module.")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
 
@@ -179,7 +179,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
            "  Return @code{'()} if not defined.")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
 
@@ -195,8 +195,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
            "Parse the string @var{ly-code} with @var{parser-smob}."
            "  Upon failure, throw @code{ly-file-failed} key.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob<Lily_parser> (parser_smob);
+  auto *const parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
 
   if (!parser->lexer_->is_clean ())
@@ -215,8 +214,7 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
            " Return the contained music expression."
            " @var{filename} and @var{line} are optional source indicators.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob<Lily_parser> (parser_smob);
+  auto *const parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
   string fn;
   if (SCM_UNBNDP (filename) || !scm_is_string (filename))
@@ -247,7 +245,7 @@ LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            " Scheme expressions (@code{$} instead of @code{#}).")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   LY_ASSERT_TYPE (scm_is_string, ly_code, 1);
 
@@ -263,7 +261,7 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
            " if the current mode is notes.")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   if (p->lexer_->is_note_state ())
     {
@@ -281,7 +279,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);
 
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
   return ly_string2scm (p->output_basename_);
 }
@@ -323,7 +321,7 @@ LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);
 
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
   p->error_level_ = 0;
   p->lexer_->error_level_ = 0;
@@ -337,7 +335,7 @@ LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
 {
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
   return scm_from_bool (p->error_level_ || p->lexer_->error_level_);
 }

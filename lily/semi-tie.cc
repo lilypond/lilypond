@@ -57,7 +57,7 @@ MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM
 Semi_tie::calc_control_points (SCM smob)
 {
-  Item *me = LY_ASSERT_SMOB (Item, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Item, smob, 1);
 
   (void) get_property (me, "direction");
 

@@ -115,7 +115,7 @@ LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
 {
   if (SCM_UNBNDP (parser_smob))
     parser_smob = scm_fluid_ref (Lily::f_parser);
-  Lily_parser *parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
+  auto *const parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Includable_lexer *lex = parser->lexer_;
 
   SCM lst = SCM_EOL;

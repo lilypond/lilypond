@@ -145,7 +145,7 @@ LY_DEFINE (ly_transform_2_list, "ly:transform->list",
            "Convert a transform matrix to a list of six values.\n"
            "Values are @var{xx}, @var{yx}, @var{xy}, @var{yy}, @var{x0}, @var{y0}.")
 {
-  Transform *tr = LY_ASSERT_SMOB (Transform, transform, 1);
+  auto *const tr = LY_ASSERT_SMOB (Transform, transform, 1);
   SCM res = scm_list_n (to_scm (tr->get_xx ()), to_scm (tr->get_yx ()),
                         to_scm (tr->get_xy ()), to_scm (tr->get_yy ()),
                         to_scm (tr->get_x0 ()), to_scm (tr->get_y0 ()), SCM_UNDEFINED);

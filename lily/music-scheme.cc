@@ -30,8 +30,7 @@ LY_DEFINE (ly_music_length, "ly:music-length",
            "Get the length of music expression @var{mus} and return"
            " it as a @code{Moment} object.")
 {
-  LY_ASSERT_SMOB (Music, mus, 1);
-  Music *sc = unsmob<Music> (mus);
+  auto *const sc = LY_ASSERT_SMOB (Music, mus, 1);
   return sc->get_length ().smobbed_copy ();
 }
 
@@ -60,7 +59,7 @@ LY_DEFINE (ly_music_start, "ly:music-start",
            "Get the start of music expression @var{mus} and return"
            " it as a @code{Moment} object.")
 {
-  auto *sc = LY_ASSERT_SMOB (Music, mus, 1);
+  auto *const sc = LY_ASSERT_SMOB (Music, mus, 1);
   return sc->start_mom ().smobbed_copy ();
 }
 
@@ -103,8 +102,7 @@ LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
            "  The immutable properties are not available, since they are"
            " constant and initialized by the @code{make-music} function.")
 {
-  LY_ASSERT_SMOB (Music, mus, 1);
-  Music *m = unsmob<Music> (mus);
+  auto *const m = LY_ASSERT_SMOB (Music, mus, 1);
   return m->get_property_alist (true);
 }
 
@@ -183,11 +181,8 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
            "Transpose @var{m} such that central@tie{}C is mapped"
            " to@tie{}@var{p}.  Return@tie{}@var{m}.")
 {
-  LY_ASSERT_SMOB (Music, m, 1);
-  LY_ASSERT_SMOB (Pitch, p, 2);
-
-  Music *sc = unsmob<Music> (m);
-  Pitch *sp = unsmob<Pitch> (p);
+  auto *const sc = LY_ASSERT_SMOB (Music, m, 1);
+  auto *const sp = LY_ASSERT_SMOB (Pitch, p, 2);
 
   sc->transpose (*sp);
   // SCM_UNDEFINED ?
@@ -198,7 +193,7 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
            2, 0, 0, (SCM m, SCM factor),
            "Compress music object@tie{}@var{m} by scale @var{factor}.")
 {
-  Music *sc = LY_ASSERT_SMOB (Music, m, 1);
+  auto *const sc = LY_ASSERT_SMOB (Music, m, 1);
   SCM_ASSERT_TYPE (scm_is_true (Lily::scale_p (factor)),
                    factor, SCM_ARG2, __FUNCTION__,
                    "non-negative rational, fraction, or moment");
@@ -212,11 +207,9 @@ LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",
            "Make @var{music} relative to @var{pitch},"
            " return final pitch.")
 {
-  LY_ASSERT_SMOB (Music, music, 1);
-  LY_ASSERT_SMOB (Pitch, pitch, 2);
+  auto *const m = LY_ASSERT_SMOB (Music, music, 1);
+  auto start = *LY_ASSERT_SMOB (Pitch, pitch, 2);
 
-  Pitch start = *unsmob<Pitch> (pitch);
-  Music *m = unsmob<Music> (music);
   Pitch last = m->to_relative_octave (start);
 
   return last.smobbed_copy ();
@@ -227,8 +220,7 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
            "Extract the duration field from @var{mus} and return the"
            " length.")
 {
-  LY_ASSERT_SMOB (Music, mus, 1);
-  Music *m = unsmob<Music> (mus);
+  auto *const m = LY_ASSERT_SMOB (Music, mus, 1);
 
   Duration *d = unsmob<Duration> (get_property (m, "duration"));
   Moment len;
@@ -245,11 +237,8 @@ LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
            "Compress @var{mus} by factor @var{fact}, which is a"
            " @code{Moment}.")
 {
-  LY_ASSERT_SMOB (Music, mus, 1);
-  LY_ASSERT_SMOB (Moment, fact, 2);
-
-  Music *m = unsmob<Music> (mus);
-  Moment *f = unsmob<Moment> (fact);
+  auto *const m = LY_ASSERT_SMOB (Music, mus, 1);
+  auto *const f = LY_ASSERT_SMOB (Moment, fact, 2);
 
   Duration *d = unsmob<Duration> (get_property (m, "duration"));
   if (d)

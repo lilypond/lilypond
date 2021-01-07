@@ -85,10 +85,10 @@ LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
            " number of scale steps that make up an octave.  Usually the"
            " 7-note major scale.")
 {
-  LY_ASSERT_SMOB (Scale, scale, 1);
+  auto *const s = LY_ASSERT_SMOB (Scale, scale, 1);
 
   default_global_scale_scm = scale;
-  default_global_scale = unsmob<Scale> (scale);
+  default_global_scale = s;
 
   return SCM_UNSPECIFIED;
 }

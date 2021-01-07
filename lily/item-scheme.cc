@@ -25,9 +25,7 @@ LY_DEFINE (ly_item_p, "ly:item?",
            1, 0, 0, (SCM g),
            "Is @var{g} an @code{Item} object?")
 {
-  Grob *me = unsmob<Grob> (g);
-  bool b = dynamic_cast<Item *> (me);
-  return ly_bool2scm (b);
+  return ly_bool2scm (unsmob<Item> (g));
 }
 
 LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
@@ -36,8 +34,7 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
            " end of line, @code{0}@tie{}unbroken, and"
            " @code{1}@tie{}beginning of line.")
 {
-  LY_ASSERT_SMOB (Item, it, 1);
-  Item *me = unsmob<Item> (it);
+  auto *const me = LY_ASSERT_SMOB (Item, it, 1);
   return to_scm (me->break_status_dir ());
 }
 
@@ -46,8 +43,7 @@ LY_DEFINE (ly_item_get_column, "ly:item-get-column",
            "Return the @code{PaperColumn} or @code{NonMusicalPaperColumn}"
            " associated with this @code{Item}.")
 {
-  LY_ASSERT_SMOB (Item, it, 1);
-  Item *me = unsmob<Item> (it);
+  auto *const me = LY_ASSERT_SMOB (Item, it, 1);
 
   if (Paper_column *col = me->get_column ())
     return col->self_scm ();

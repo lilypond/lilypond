@@ -25,8 +25,7 @@ LY_DEFINE (ly_paper_score_paper_systems, "ly:paper-score-paper-systems",
            "Return vector of @code{paper_system} objects from"
            " @var{paper-score}.")
 {
-  LY_ASSERT_SMOB (Paper_score, paper_score, 1);
+  auto *const pscore = LY_ASSERT_SMOB (Paper_score, paper_score, 1);
 
-  Paper_score *pscore = unsmob<Paper_score> (paper_score);
   return pscore->get_paper_systems ();
 }

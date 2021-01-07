@@ -28,9 +28,7 @@ LY_DEFINE (ly_context_current_moment,
            1, 0, 0, (SCM context),
            "Return the current moment of @var{context}.")
 {
-  Context *tr = unsmob<Context> (context);
-
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
 
   return tr->now_mom ().smobbed_copy ();
 }
@@ -41,9 +39,7 @@ LY_DEFINE (ly_context_id, "ly:context-id",
            " i.e., for @code{\\context Voice = \"one\" @dots{}}"
            " return the string @code{one}.")
 {
-  Context *tr = unsmob<Context> (context);
-
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
 
   return ly_string2scm (tr->id_string ());
 }
@@ -54,9 +50,7 @@ LY_DEFINE (ly_context_name, "ly:context-name",
            " i.e., for @code{\\context Voice = \"one\" @dots{}}"
            " return the symbol @code{Voice}.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
-
-  Context *tr = unsmob<Context> (context);
+  auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
 
   return ly_symbol2scm (tr->context_name ().c_str ());
 }
@@ -66,9 +60,7 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
            "Return the definition of @var{name} (a symbol) within"
            " @var{context} as an alist.")
 {
-  Context *tr = unsmob<Context> (context);
-
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
   return Grob_property_info (tr, name).updated ();
@@ -81,9 +73,7 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
            " with @var{eltprop} (if @var{val} is specified) or reverted"
            " (if unspecified).")
 {
-  Context *tg = unsmob<Context> (context);
-
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const tg = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, grob, 2);
   LY_ASSERT_TYPE (ly_is_symbol, eltprop, 3);
 
@@ -98,7 +88,7 @@ LY_DEFINE (ly_context_matched_pop_property, "ly:context-matched-pop-property",
            " @code{\\once \\override} or @code{\\once \\revert}"
            " when given the specific alist pair to undo.")
 {
-  Context *tg = LY_ASSERT_SMOB (Context, context, 1);
+  auto *const tg = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, grob, 2);
   Grob_property_info (tg, grob).matched_pop (cell);
   return SCM_UNSPECIFIED;
@@ -110,10 +100,9 @@ LY_DEFINE (ly_context_property, "ly:context-property",
            " If @var{def} is given, and property value is @code{'()},"
            " return @var{def}.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const t = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  Context *t = unsmob<Context> (context);
   SCM result = get_property (t, sym);
   return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
@@ -123,10 +112,8 @@ LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
            "Set value of property @var{name} in context @var{context}"
            " to @var{val}.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
-
-  Context *tr = unsmob<Context> (context);
 
   set_property (tr, name, val);
 
@@ -138,10 +125,8 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
            "Return the context above @var{context}"
            " where @var{name} is defined.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
-
-  Context *tr = unsmob<Context> (context);
 
   SCM val;
   tr = tr->where_defined (name, &val);
@@ -155,9 +140,8 @@ LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
            (SCM context, SCM name),
            "Unset value of property @var{name} in context @var{context}.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
-  Context *tr = unsmob<Context> (context);
 
   tr->unset_property (name);
   return SCM_UNSPECIFIED;
@@ -167,8 +151,7 @@ LY_DEFINE (ly_context_parent, "ly:context-parent",
            1, 0, 0, (SCM context),
            "Return the parent of @var{context}, @code{#f} if none.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
-  Context *tr = unsmob<Context> (context);
+  auto *tr = LY_ASSERT_SMOB (Context, context, 1);
 
   tr = tr->get_parent ();
   if (tr)
@@ -183,9 +166,9 @@ LY_DEFINE (ly_context_find, "ly:context-find",
            "Find a parent of @var{context} that has name or alias @var{name}."
            "  Return @code{#f} if not found.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
-  Context *tr = unsmob<Context> (context);
+
   tr = find_context_above (tr, name);
   return tr ? tr->self_scm () : SCM_BOOL_F;
 }
@@ -194,8 +177,7 @@ LY_DEFINE (ly_context_now, "ly:context-now",
            1, 0, 0, (SCM context),
            "Return @code{now-moment} of context @var{context}.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
-  Context *ctx = unsmob<Context> (context);
+  auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
   return ctx->now_mom ().smobbed_copy ();
 }
 
@@ -203,8 +185,7 @@ LY_DEFINE (ly_context_event_source, "ly:context-event-source",
            1, 0, 0, (SCM context),
            "Return @code{event-source} of context @var{context}.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
-  Context *ctx = unsmob<Context> (context);
+  auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
   return ctx->event_source ()->self_scm ();
 }
 
@@ -213,7 +194,6 @@ LY_DEFINE (ly_context_events_below, "ly:context-events-below",
            "Return a @code{stream-distributor} that distributes all events"
            " from @var{context} and all its subcontexts.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
-  Context *ctx = unsmob<Context> (context);
+  auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
   return ctx->events_below ()->self_scm ();
 }

@@ -32,7 +32,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   Grob_array *ga = unsmob<Grob_array> (elements);
 
   SCM_ASSERT_TYPE (ga || scm_is_pair (elements), elements, SCM_ARG1, __FUNCTION__, "list or Grob_array");
-  LY_ASSERT_SMOB (Grob, common, 2);
+  auto *const com = LY_ASSERT_SMOB (Grob, common, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
   vector<Grob *> elts;
@@ -43,7 +43,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
     }
 
   Interval ext = Axis_group_interface::relative_group_extent (ga ? ga->array () : elts,
-                                                              unsmob<Grob> (common),
+                                                              com,
                                                               (Axis) scm_to_int (axis));
   return to_scm (ext);
 }
@@ -55,10 +55,10 @@ LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
            " @code{bound-alignment-interfaces} property list set and"
            " otherwise the full extent.")
 {
-  LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB (Grob, common, 2);
+  auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
+  auto *const com = LY_ASSERT_SMOB (Grob, common, 2);
 
-  Interval ext = Axis_group_interface::generic_bound_extent (unsmob<Grob> (grob), unsmob<Grob> (common), X_AXIS);
+  Interval ext = Axis_group_interface::generic_bound_extent (g, com, X_AXIS);
   return to_scm (ext);
 }
 
@@ -67,8 +67,8 @@ LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-e
            "Set @var{grob} the parent of @var{grob-element} on all axes of"
            " @var{grob}.")
 {
-  LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB (Grob, grob_element, 2);
-  Axis_group_interface::add_element (unsmob<Grob> (grob), unsmob<Grob> (grob_element));
+  auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
+  auto *const elem = LY_ASSERT_SMOB (Grob, grob_element, 2);
+  Axis_group_interface::add_element (g, elem);
   return SCM_UNSPECIFIED;
 }

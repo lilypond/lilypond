@@ -26,11 +26,8 @@ LY_DEFINE (ly_get_spacing_spec, "ly:get-spacing-spec", 2, 0, 0,
            "Return the spacing spec going between the two given grobs,"
            " @var{from_scm} and @var{to_scm}.")
 {
-  LY_ASSERT_SMOB (Grob, from_scm, 1);
-  LY_ASSERT_SMOB (Grob, to_scm, 2);
-
-  Grob *from = unsmob<Grob> (from_scm);
-  Grob *to = unsmob<Grob> (to_scm);
+  auto *const from = LY_ASSERT_SMOB (Grob, from_scm, 1);
+  auto *const to = LY_ASSERT_SMOB (Grob, to_scm, 2);
 
   return Page_layout_problem::get_spacing_spec (from, to, false, 0, 0);
 }

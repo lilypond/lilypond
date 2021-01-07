@@ -23,8 +23,7 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
            2, 1, 0, (SCM obj, SCM sym, SCM value),
            "Set property @var{sym} of @var{obj} to @var{value}.")
 {
-  LY_ASSERT_SMOB (Prob, obj, 1);
-  Prob *ps = unsmob<Prob> (obj);
+  auto *const ps = LY_ASSERT_SMOB (Prob, obj, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   set_property (ps, sym, value);
@@ -47,8 +46,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
            " @var{prob}.  If no value is found, return @var{val} or"
            " @code{'()} if @var{val} is not specified.")
 {
-  LY_ASSERT_SMOB (Prob, prob, 1);
-  Prob *ps = unsmob<Prob> (prob);
+  auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   if (SCM_UNBNDP (val))
@@ -66,7 +64,7 @@ LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
            (SCM obj, SCM type),
            "Is @var{obj} the specified prob-type?")
 {
-  Prob *prob = unsmob<Prob> (obj);
+  auto *prob = unsmob<Prob> (obj);
   return scm_from_bool (prob && scm_is_eq (prob->type (), type));
 }
 
@@ -94,8 +92,7 @@ LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
            (SCM prob),
            "Retrieve an alist of mutable properties.")
 {
-  LY_ASSERT_SMOB (Prob, prob, 1);
-  Prob *ps = unsmob<Prob> (prob);
+  auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   return ps->get_property_alist (true);
 }
 
@@ -104,8 +101,7 @@ LY_DEFINE (ly_prob_immutable_properties, "ly:prob-immutable-properties",
            (SCM prob),
            "Retrieve an alist of immutable properties.")
 {
-  LY_ASSERT_SMOB (Prob, prob, 1);
-  Prob *ps = unsmob<Prob> (prob);
+  auto *const ps = LY_ASSERT_SMOB (Prob, prob, 1);
   return ps->get_property_alist (false);
 }
 

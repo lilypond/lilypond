@@ -749,7 +749,7 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_touching_point, 3, 1, "")
 SCM
 Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_padding_scm)
 {
-  LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
+  auto *const other_skyline = LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
 
   Real horizon_padding = 0;
   if (!SCM_UNBNDP (horizon_padding_scm))
@@ -759,7 +759,6 @@ Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon
     }
 
   Skyline *skyline = unsmob<Skyline> (skyline_scm);
-  Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
   return to_scm (skyline->touching_point (*other_skyline, horizon_padding));
 }
 
@@ -767,7 +766,7 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_distance, 3, 1, "")
 SCM
 Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_padding_scm)
 {
-  LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
+  auto *const other_skyline = LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
 
   Real horizon_padding = 0;
   if (!SCM_UNBNDP (horizon_padding_scm))
@@ -777,7 +776,6 @@ Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_paddi
     }
 
   Skyline *skyline = unsmob<Skyline> (skyline_scm);
-  Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
   return to_scm (skyline->distance (*other_skyline, horizon_padding));
 }
 
@@ -807,8 +805,6 @@ LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
            1, 0, 0, (SCM sky),
            "Return whether @var{sky} is empty.")
 {
-  Skyline *s = unsmob<Skyline> (sky);
-
-  LY_ASSERT_SMOB (Skyline, sky, 1);
+  auto *const s = LY_ASSERT_SMOB (Skyline, sky, 1);
   return scm_from_bool (s->is_empty ());
 }

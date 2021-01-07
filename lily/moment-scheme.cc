@@ -75,11 +75,8 @@ LY_DEFINE (ly_moment_sub, "ly:moment-sub",
            2, 0, 0, (SCM a, SCM b),
            "Subtract two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2);
-
-  Moment *ma = unsmob<Moment> (a);
-  Moment *mb = unsmob<Moment> (b);
+  auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
+  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
   return (*ma - *mb).smobbed_copy ();
 }
@@ -88,11 +85,8 @@ LY_DEFINE (ly_moment_add, "ly:moment-add",
            2, 0, 0, (SCM a, SCM b),
            "Add two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2);
-
-  Moment *ma = unsmob<Moment> (a);
-  Moment *mb = unsmob<Moment> (b);
+  auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
+  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
   return (*ma + *mb).smobbed_copy ();
 }
@@ -101,11 +95,9 @@ LY_DEFINE (ly_moment_mul, "ly:moment-mul",
            2, 0, 0, (SCM a, SCM b),
            "Multiply two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
+  auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
+  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
-  Moment *ma = unsmob<Moment> (a);
-  Moment *mb = unsmob<Moment> (b);
   return (*ma * mb->main_part_).smobbed_copy ();
 }
 
@@ -113,11 +105,8 @@ LY_DEFINE (ly_moment_div, "ly:moment-div",
            2, 0, 0, (SCM a, SCM b),
            "Divide two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
-
-  Moment *ma = unsmob<Moment> (a);
-  Moment *mb = unsmob<Moment> (b);
+  auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
+  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
   return (*ma / mb->main_part_).smobbed_copy ();
 }
@@ -126,11 +115,9 @@ LY_DEFINE (ly_moment_mod, "ly:moment-mod",
            2, 0, 0, (SCM a, SCM b),
            "Modulo of two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
+  auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
+  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
-  Moment *ma = unsmob<Moment> (a);
-  Moment *mb = unsmob<Moment> (b);
   return (*ma % mb->main_part_).smobbed_copy ();
 }
 
@@ -138,18 +125,16 @@ LY_DEFINE (ly_moment_grace, "ly:moment-grace",
            1, 0, 0, (SCM mom),
            "Extract grace timing as a rational number from @var{mom}.")
 {
-  LY_ASSERT_SMOB (Moment, mom, 1);
+  auto *const ma = LY_ASSERT_SMOB (Moment, mom, 1);
 
-  return to_scm (unsmob<Moment> (mom)->grace_part_);
+  return to_scm (ma->grace_part_);
 }
 
 LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
            1, 0, 0, (SCM mom),
            "Extract numerator from grace timing.")
 {
-  LY_ASSERT_SMOB (Moment, mom, 1);
-
-  Moment *ma = unsmob<Moment> (mom);
+  auto *const ma = LY_ASSERT_SMOB (Moment, mom, 1);
 
   return to_scm (ma->grace_part_.numerator ());
 }
@@ -158,8 +143,7 @@ LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
            1, 0, 0, (SCM mom),
            "Extract denominator from grace timing.")
 {
-  LY_ASSERT_SMOB (Moment, mom, 1);
-  Moment *ma = unsmob<Moment> (mom);
+  auto *const ma = LY_ASSERT_SMOB (Moment, mom, 1);
 
   return to_scm (ma->grace_part_.denominator ());
 }
@@ -168,17 +152,16 @@ LY_DEFINE (ly_moment_main, "ly:moment-main",
            1, 0, 0, (SCM mom),
            "Extract main timing as a rational number from @var{mom}.")
 {
-  LY_ASSERT_SMOB (Moment, mom, 1);
+  auto *const ma = LY_ASSERT_SMOB (Moment, mom, 1);
 
-  return to_scm (unsmob<Moment> (mom)->main_part_);
+  return to_scm (ma->main_part_);
 }
 
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
            1, 0, 0, (SCM mom),
            "Extract numerator from main timing.")
 {
-  LY_ASSERT_SMOB (Moment, mom, 1);
-  Moment *ma = unsmob<Moment> (mom);
+  auto *const ma = LY_ASSERT_SMOB (Moment, mom, 1);
 
   return to_scm (ma->main_part_.numerator ());
 }
@@ -187,8 +170,7 @@ LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
            1, 0, 0, (SCM mom),
            "Extract denominator from main timing.")
 {
-  LY_ASSERT_SMOB (Moment, mom, 1);
-  Moment *ma = unsmob<Moment> (mom);
+  auto *const ma = LY_ASSERT_SMOB (Moment, mom, 1);
 
   return to_scm (ma->main_part_.denominator ());
 }
@@ -197,11 +179,8 @@ LY_DEFINE (ly_moment_less_p, "ly:moment<?",
            2, 0, 0, (SCM a, SCM b),
            "Compare two moments.")
 {
-  LY_ASSERT_SMOB (Moment, a, 1);
-  LY_ASSERT_SMOB (Moment, b, 2);
-
-  Moment *ma = unsmob<Moment> (a);
-  Moment *mb = unsmob<Moment> (b);
+  auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
+  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
   return ly_bool2scm (*ma < *mb);
 }

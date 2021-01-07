@@ -139,8 +139,7 @@ LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
            1, 0, 0, (SCM stil),
            "Return the expression of @var{stil}.")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto *const s = LY_ASSERT_SMOB (Stencil, stil, 1);
   return s->expr ();
 }
 
@@ -150,8 +149,7 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
            " @var{axis} direction (@code{0} or @code{1} for x and"
            " y@tie{}axis, respectively).")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto *const s = LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
 
   return to_scm (s->extent (Axis (scm_to_int (axis))));
@@ -163,8 +161,7 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
            " @var{axis} is supplied, the emptiness check is"
            " restricted to that axis.")
 {
-  Stencil *s = unsmob<Stencil> (stil);
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto *const s = LY_ASSERT_SMOB (Stencil, stil, 1);
   if (SCM_UNBNDP (axis))
     return scm_from_bool (s->is_empty ());
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -344,11 +341,9 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
            "  @w{@code{-1}} and @code{1} are left and right, respectively."
            "  Other values are interpolated (so @code{0} means the center).")
 {
-  LY_ASSERT_SMOB (Stencil, stil, 1);
+  auto target = *LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   LY_ASSERT_TYPE (scm_is_number, dir, 3);
-
-  Stencil target = *unsmob<Stencil> (stil);
 
   target.align_to ((Axis)scm_to_int (axis),
                    scm_to_double (dir));
@@ -362,8 +357,7 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
            "@var{g}, @var{b} and an optional value"
            "for @var{a}, or a single CSS-like string.")
 {
-  LY_ASSERT_SMOB (Stencil, stc, 1);
-  Stencil *stil = unsmob<Stencil> (stc);
+  auto *const stil = LY_ASSERT_SMOB (Stencil, stc, 1);
   SCM color;
   if (SCM_UNBNDP (g) && scm_is_string (r))
     color = r;

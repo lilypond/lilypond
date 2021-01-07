@@ -23,18 +23,18 @@ LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
            (SCM x),
            "Return the Scheme function inside@tie{}@var{x}.")
 {
-  LY_ASSERT_SMOB (Music_function, x, 1);
+  auto *const fn = LY_ASSERT_SMOB (Music_function, x, 1);
 
-  return unsmob<Music_function> (x)->get_function ();
+  return fn->get_function ();
 }
 
 LY_DEFINE (ly_music_function_signature, "ly:music-function-signature", 1, 0, 0,
            (SCM x),
            "Return the function signature inside@tie{}@var{x}.")
 {
-  LY_ASSERT_SMOB (Music_function, x, 1);
+  auto *const fn = LY_ASSERT_SMOB (Music_function, x, 1);
 
-  return unsmob<Music_function> (x)->get_signature ();
+  return fn->get_signature ();
 }
 
 LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,

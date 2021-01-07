@@ -26,9 +26,8 @@ LY_DEFINE (ly_grob_array_length, "ly:grob-array-length",
            (SCM grob_arr),
            "Return the length of @var{grob-arr}.")
 {
-  LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
 
-  Grob_array *me = unsmob<Grob_array> (grob_arr);
   return to_scm (me->size ());
 }
 
@@ -37,8 +36,7 @@ LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
            (SCM grob_arr, SCM index),
            "Retrieve the @var{index}th element of @var{grob-arr}.")
 {
-  Grob_array *me = unsmob<Grob_array> (grob_arr);
-  LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
   LY_ASSERT_TYPE (scm_is_integer, index, 2);
 
   vsize i = scm_to_uint (index);
@@ -53,8 +51,7 @@ LY_DEFINE (ly_grob_array_2_list, "ly:grob-array->list",
            (SCM grob_arr),
            "Return the elements of @var{grob-arr} as a Scheme list.")
 {
-  Grob_array *me = unsmob<Grob_array> (grob_arr);
-  LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
 
   return grob_array_to_list (me);
 }

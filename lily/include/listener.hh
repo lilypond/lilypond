@@ -130,8 +130,7 @@ public:
   template <class T, void (T::*callback) (SCM)>
   static SCM trampoline (SCM target, SCM ev)
   {
-    T *t = unsmob<T> (target);
-    LY_ASSERT_SMOB (T, target, 1);
+    auto *const t = LY_ASSERT_SMOB (T, target, 1);
 
     (t->*callback) (ev);
     return SCM_UNSPECIFIED;

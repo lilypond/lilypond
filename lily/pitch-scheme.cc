@@ -24,11 +24,9 @@ LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
            "Transpose @var{p} by the amount @var{delta},"
            " where @var{delta} is relative to middle@tie{}C.")
 {
-  LY_ASSERT_SMOB (Pitch, p, 1);
-  LY_ASSERT_SMOB (Pitch, delta, 2);
+  auto *const t = LY_ASSERT_SMOB (Pitch, p, 1);
+  auto *const d = LY_ASSERT_SMOB (Pitch, delta, 2);
 
-  Pitch *t = unsmob<Pitch> (p);
-  Pitch *d = unsmob<Pitch> (delta);
   return t->transposed (*d).smobbed_copy ();
 }
 
@@ -58,8 +56,7 @@ LY_DEFINE (ly_pitch_negate, "ly:pitch-negate", 1, 0, 0,
            (SCM p),
            "Negate @var{p}.")
 {
-  LY_ASSERT_SMOB (Pitch, p, 1);
-  Pitch *pp = unsmob<Pitch> (p);
+  auto *const pp = LY_ASSERT_SMOB (Pitch, p, 1);
   return pp->negated ().smobbed_copy ();
 }
 
@@ -68,8 +65,7 @@ LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0,
            "Number of steps counted from middle@tie{}C of the"
            " pitch@tie{}@var{p}.")
 {
-  LY_ASSERT_SMOB (Pitch, p, 1);
-  Pitch *pp = unsmob<Pitch> (p);
+  auto *const pp = LY_ASSERT_SMOB (Pitch, p, 1);
   return to_scm (pp->steps ());
 }
 
@@ -77,8 +73,7 @@ LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
            1, 0, 0, (SCM pp),
            "Extract the octave from pitch@tie{}@var{pp}.")
 {
-  LY_ASSERT_SMOB (Pitch, pp, 1);
-  Pitch *p = unsmob<Pitch> (pp);
+  auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
   int q = p->get_octave ();
   return to_scm (q);
 }
@@ -87,8 +82,7 @@ LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
            1, 0, 0, (SCM pp),
            "Extract the alteration from pitch@tie{}@var{pp}.")
 {
-  LY_ASSERT_SMOB (Pitch, pp, 1);
-  Pitch *p = unsmob<Pitch> (pp);
+  auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
   Rational q = p->get_alteration ();
 
   return to_scm (q);
@@ -98,8 +92,7 @@ LY_DEFINE (ly_pitch_notename, "ly:pitch-notename",
            1, 0, 0, (SCM pp),
            "Extract the note name from pitch @var{pp}.")
 {
-  LY_ASSERT_SMOB (Pitch, pp, 1);
-  Pitch *p = unsmob<Pitch> (pp);
+  auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
   int q = p->get_notename ();
   return to_scm (q);
 }
@@ -109,8 +102,8 @@ LY_DEFINE (ly_pitch_tones, "ly:pitch-tones",
            "Calculate the number of tones of@tie{}@var{pp} from"
            " middle@tie{}C as a rational number.")
 {
-  LY_ASSERT_SMOB (Pitch, pp, 1);
-  return to_scm (unsmob<Pitch> (pp)->tone_pitch ());
+  auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
+  return to_scm (p->tone_pitch ());
 }
 
 LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
@@ -118,8 +111,7 @@ LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
            "Calculate the number of quarter tones of@tie{}@var{pp} from"
            " middle@tie{}C.")
 {
-  LY_ASSERT_SMOB (Pitch, pp, 1);
-  Pitch *p = unsmob<Pitch> (pp);
+  auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
   int q = p->rounded_quartertone_pitch ();
   return to_scm (q);
 }
@@ -129,8 +121,7 @@ LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
            "Calculate the number of semitones of@tie{}@var{pp} from"
            " middle@tie{}C.")
 {
-  LY_ASSERT_SMOB (Pitch, pp, 1);
-  Pitch *p = unsmob<Pitch> (pp);
+  auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
   int q = p->rounded_semitone_pitch ();
   return to_scm (q);
 }
@@ -139,11 +130,8 @@ LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",
            2, 0, 0, (SCM p1, SCM p2),
            "Is @var{p1} lexicographically smaller than @var{p2}?")
 {
-  LY_ASSERT_SMOB (Pitch, p1, 1);
-  LY_ASSERT_SMOB (Pitch, p2, 2);
-
-  Pitch *a = unsmob<Pitch> (p1);
-  Pitch *b = unsmob<Pitch> (p2);
+  auto *const a = LY_ASSERT_SMOB (Pitch, p1, 1);
+  auto *const b = LY_ASSERT_SMOB (Pitch, p2, 2);
 
   if (Pitch::compare (*a, *b) < 0)
     return SCM_BOOL_T;
@@ -157,11 +145,8 @@ LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
            " @var{delta} equals @var{pitch}.")
 {
 
-  LY_ASSERT_SMOB (Pitch, pitch, 1);
-  LY_ASSERT_SMOB (Pitch, root, 2);
-
-  Pitch *p = unsmob<Pitch> (pitch);
-  Pitch *r = unsmob<Pitch> (root);
+  auto *const p = LY_ASSERT_SMOB (Pitch, pitch, 1);
+  auto *const r = LY_ASSERT_SMOB (Pitch, root, 2);
 
   return pitch_interval (*r, *p).smobbed_copy ();
 }
@@ -174,9 +159,8 @@ LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!",
            " based on the variables @code{middleCClefPosition} and"
            " @code{middleCOffset}.")
 {
-  LY_ASSERT_SMOB (Context, context, 1);
+  auto *const c = LY_ASSERT_SMOB (Context, context, 1);
 
-  Context *c = unsmob<Context> (context);
   int clef_pos = from_scm (get_property (c, "middleCClefPosition"), 0);
   int offset = from_scm (get_property (c, "middleCOffset"), 0);
   /* middleCCuePosition overrides the clef! */

@@ -79,8 +79,8 @@ MAKE_SCHEME_CALLBACK (Partial_iterator, finalization, 2);
 SCM
 Partial_iterator::finalization (SCM timing_scm, SCM length_scm)
 {
-  auto *timing = LY_ASSERT_SMOB (Context, timing_scm, 1);
-  auto *length = LY_ASSERT_SMOB (Moment, length_scm, 2);
+  auto *const timing = LY_ASSERT_SMOB (Context, timing_scm, 1);
+  auto *const length = LY_ASSERT_SMOB (Moment, length_scm, 2);
 
   Moment mp = robust_scm2moment (get_property (timing, "measurePosition"), 0);
   mp.main_part_ = measure_length (timing);

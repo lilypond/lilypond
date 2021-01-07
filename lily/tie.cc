@@ -215,7 +215,7 @@ MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
 SCM
 Tie::calc_control_points (SCM smob)
 {
-  Spanner *me = LY_ASSERT_SMOB (Spanner, smob, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
   Grob *yparent = me->get_y_parent ();
   if ((has_interface<Tie_column> (yparent)

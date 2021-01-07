@@ -36,8 +36,7 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob<Font_metric> (font);
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
   Stencil m = fm->find_by_name (ly_scm2string (name));
@@ -57,8 +56,7 @@ LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob<Font_metric> (font);
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
   size_t glyph_index = fm->name_to_index (ly_scm2string (name));
@@ -79,8 +77,7 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob<Font_metric> (font);
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_integer, index, 2);
 
   int i = scm_to_int (index);
@@ -100,8 +97,7 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob<Font_metric> (font);
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
   return to_scm (fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
@@ -116,9 +112,8 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
            "Given the font metric @var{font},"
            " return the corresponding file name.")
 {
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob<Font_metric> (font);
   SCM name = fm->font_file_name ();
 
   return name;
@@ -130,8 +125,7 @@ LY_DEFINE (ly_font_name, "ly:font-name",
            "Given the font metric @var{font},"
            " return the corresponding name.")
 {
-  LY_ASSERT_SMOB (Font_metric, font, 1);
-  Font_metric *fm = unsmob<Font_metric> (font);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
   return ly_string2scm (fm->font_name ());
 }
@@ -141,9 +135,8 @@ LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
            "Given the font metric @var{font}, return the"
            " magnification, relative to the current output-scale.")
 {
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob<Font_metric> (font);
   return scm_cdr (fm->description_);
 }
 
@@ -152,9 +145,8 @@ LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
            "Given the font metric @var{font}, return the"
            " design size, relative to the current output-scale.")
 {
-  LY_ASSERT_SMOB (Font_metric, font, 1);
+  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob<Font_metric> (font);
   return to_scm (fm->design_size ());
 }
 

@@ -26,9 +26,9 @@ LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
            "Get one of the bounds of @var{spanner}.  @var{dir} is @w{@code{-1}}"
            " for left, and @code{1} for right.")
 {
-  LY_ASSERT_SMOB (Spanner, spanner, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, spanner, 1);
   LY_ASSERT_TYPE (is_scm<Direction>, dir, 2);
-  Item *bound = unsmob<Spanner> (spanner)->get_bound (from_scm<Direction> (dir));
+  Item *bound = me->get_bound (from_scm<Direction> (dir));
   return bound ? bound->self_scm () : SCM_EOL;
 }
 
@@ -37,11 +37,11 @@ LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
            "Set grob @var{item} as bound in direction @var{dir} for"
            " @var{spanner}.")
 {
-  LY_ASSERT_SMOB (Spanner, spanner, 1);
+  auto *const me = LY_ASSERT_SMOB (Spanner, spanner, 1);
   LY_ASSERT_TYPE (is_scm<Direction>, dir, 2);
-  LY_ASSERT_SMOB (Item, item, 3);
+  auto *const it = LY_ASSERT_SMOB (Item, item, 3);
 
-  unsmob<Spanner> (spanner)->set_bound (from_scm<Direction> (dir), unsmob<Item> (item));
+  me->set_bound (from_scm<Direction> (dir), it);
   return SCM_UNSPECIFIED;
 }
 

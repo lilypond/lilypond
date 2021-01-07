@@ -51,11 +51,8 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
            "Dump stencil @var{expr} onto @var{outputter}.")
 {
 
-  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  LY_ASSERT_SMOB (Stencil, stencil, 2);
-
-  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
-  Stencil *st = unsmob<Stencil> (stencil);
+  auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
+  auto *const st = LY_ASSERT_SMOB (Stencil, stencil, 2);
 
   po->output_stencil (*st);
   return SCM_UNSPECIFIED;
@@ -65,10 +62,8 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
            2, 0, 0, (SCM outputter, SCM str),
            "Dump @var{str} onto @var{outputter}.")
 {
-  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
+  auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);
-
-  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
 
   return po->dump_string (str);
 }
@@ -77,8 +72,7 @@ LY_DEFINE (ly_outputter_port, "ly:outputter-port",
            1, 0, 0, (SCM outputter),
            "Return output port for @var{outputter}.")
 {
-  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
+  auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
 
   return po->file ();
 }
@@ -87,8 +81,7 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
            1, 0, 0, (SCM outputter),
            "Close port of @var{outputter}.")
 {
-  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
+  auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
 
   po->close ();
   return SCM_UNSPECIFIED;
@@ -98,8 +91,7 @@ LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme", 2, 0, 0,
            (SCM outputter, SCM expr),
            "Output @var{expr} to the paper outputter.")
 {
-  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
+  auto *const po = LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
 
   po->output_scheme (expr);
 

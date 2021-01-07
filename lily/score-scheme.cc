@@ -43,8 +43,7 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
            1, 0, 0, (SCM score),
            "All output definitions in a score.")
 {
-  LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob<Score> (score);
+  auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
 
   SCM l = SCM_EOL;
   for (vsize i = 0; i < sc->defs_.size (); i++)
@@ -56,10 +55,8 @@ LY_DEFINE (ly_score_add_output_def_x, "ly:score-add-output-def!",
            2, 0, 0, (SCM score, SCM def),
            "Add an output definition @var{def} to @var{score}.")
 {
-  LY_ASSERT_SMOB (Score, score, 1);
-  LY_ASSERT_SMOB (Output_def, def, 2);
-  Score *sc = unsmob<Score> (score);
-  Output_def *output_def = unsmob<Output_def> (def);
+  auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
+  auto *const output_def = LY_ASSERT_SMOB (Output_def, def, 2);
   sc->add_output_def (output_def);
   return SCM_UNSPECIFIED;
 }
@@ -68,8 +65,7 @@ LY_DEFINE (ly_score_header, "ly:score-header",
            1, 0, 0, (SCM score),
            "Return score header.")
 {
-  LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob<Score> (score);
+  auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
   return sc->get_header ();
 }
 
@@ -77,11 +73,10 @@ LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
            2, 0, 0, (SCM score, SCM module),
            "Set the score header.")
 {
-  LY_ASSERT_SMOB (Score, score, 1);
+  auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
   SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
                    "module");
 
-  Score *sc = unsmob<Score> (score);
   sc->set_header (module);
   return SCM_UNSPECIFIED;
 }
@@ -90,8 +85,7 @@ LY_DEFINE (ly_score_music, "ly:score-music",
            1, 0, 0, (SCM score),
            "Return score music.")
 {
-  LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob<Score> (score);
+  auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
   return sc->get_music ();
 }
 
@@ -99,8 +93,7 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
            1, 0, 0, (SCM score),
            "Was there an error in the score?")
 {
-  LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob<Score> (score);
+  auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
   return scm_from_bool (sc->error_found_);
 }
 
@@ -110,11 +103,8 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
            " scaled to correct output-scale already, returning a list of"
            " layout-lines.")
 {
-  LY_ASSERT_SMOB (Score, score, 1);
-  LY_ASSERT_SMOB (Output_def, layout, 2);
-
-  Score *sc = unsmob<Score> (score);
-  Output_def *od = unsmob<Output_def> (layout);
+  auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
+  auto *const od = LY_ASSERT_SMOB (Output_def, layout, 2);
 
   if (sc->error_found_)
     return SCM_EOL;

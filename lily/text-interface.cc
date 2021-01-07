@@ -140,11 +140,10 @@ Text_interface::interpret_string (SCM layout_smob,
                                   SCM props,
                                   SCM markup)
 {
-  LY_ASSERT_SMOB (Output_def, layout_smob, 1);
+  auto *const layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
 
   string str = ly_scm2string (markup);
-  Output_def *layout = unsmob<Output_def> (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
 
   replace_special_characters (str, props);
@@ -216,7 +215,7 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,
 SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
-  auto *layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
+  auto *const layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
 
   return internal_interpret_markup (layout, props, markup);
 }
@@ -293,7 +292,7 @@ MAKE_SCHEME_CALLBACK (Text_interface, print, 1);
 SCM
 Text_interface::print (SCM grob)
 {
-  auto *me = LY_ASSERT_SMOB (Grob, grob, 1);
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
 
   return internal_print (me);
 }

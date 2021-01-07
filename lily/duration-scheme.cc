@@ -38,11 +38,8 @@ LY_DEFINE (ly_duration_less_p, "ly:duration<?",
            2, 0, 0, (SCM p1, SCM p2),
            "Is @var{p1} shorter than @var{p2}?")
 {
-  LY_ASSERT_SMOB (Duration, p1, 1);
-  LY_ASSERT_SMOB (Duration, p2, 2);
-
-  Duration *a = unsmob<Duration> (p1);
-  Duration *b = unsmob<Duration> (p2);
+  auto *const a = LY_ASSERT_SMOB (Duration, p1, 1);
+  auto *const b = LY_ASSERT_SMOB (Duration, p2, 2);
 
   if (Duration::compare (*a, *b) < 0)
     return SCM_BOOL_T;
@@ -101,16 +98,16 @@ LY_DEFINE (ly_duration_log, "ly:duration-log",
            1, 0, 0, (SCM dur),
            "Extract the duration log from @var{dur}.")
 {
-  LY_ASSERT_SMOB (Duration, dur, 1);
-  return to_scm (unsmob<Duration> (dur)->duration_log ());
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  return to_scm (a->duration_log ());
 }
 
 LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
            1, 0, 0, (SCM dur),
            "Extract the dot count from @var{dur}.")
 {
-  LY_ASSERT_SMOB (Duration, dur, 1);
-  return to_scm (unsmob<Duration> (dur)->dot_count ());
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  return to_scm (a->dot_count ());
 }
 
 LY_DEFINE (ly_intlog2, "ly:intlog2",
@@ -126,16 +123,16 @@ LY_DEFINE (ly_duration_length, "ly:duration-length",
            1, 0, 0, (SCM dur),
            "The length of the duration as a @code{moment}.")
 {
-  LY_ASSERT_SMOB (Duration, dur, 1);
-  return Moment (unsmob<Duration> (dur)->get_length ()).smobbed_copy ();
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  return Moment (a->get_length ()).smobbed_copy ();
 }
 
 LY_DEFINE (ly_duration_2_string, "ly:duration->string",
            1, 0, 0, (SCM dur),
            "Convert @var{dur} to a string.")
 {
-  LY_ASSERT_SMOB (Duration, dur, 1);
-  return ly_string2scm (unsmob<Duration> (dur)->to_string ());
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  return ly_string2scm (a->to_string ());
 }
 
 LY_DEFINE (ly_duration_factor, "ly:duration-factor",
@@ -143,8 +140,8 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
            "Extract the compression factor from @var{dur}."
            "  Return it as a pair.")
 {
-  LY_ASSERT_SMOB (Duration, dur, 1);
-  Rational r = unsmob<Duration> (dur)->factor ();
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  Rational r = a->factor ();
   return scm_cons (to_scm (r.num ()), to_scm (r.den ()));
 }
 
@@ -155,8 +152,8 @@ LY_DEFINE (ly_duration_scale, "ly:duration-scale",
            "Extract the compression factor from @var{dur}."
            "  Return it as a rational.")
 {
-  LY_ASSERT_SMOB (Duration, dur, 1);
-  Rational r = unsmob<Duration> (dur)->factor ();
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  Rational r = a->factor ();
 
   return to_scm (r);
 }

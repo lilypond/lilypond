@@ -183,8 +183,8 @@ protected:
 template <class T, void (T::*callback) (Stream_event *)>
 SCM Callbacks::trampoline (SCM target, SCM event)
 {
-  T *t = LY_ASSERT_SMOB (T, target, 1);
-  Stream_event *ev = LY_ASSERT_SMOB (Stream_event, event, 2);
+  auto *const t = LY_ASSERT_SMOB (T, target, 1);
+  auto *const ev = LY_ASSERT_SMOB (Stream_event, event, 2);
 
   t->protect_event (event);
   (t->*callback) (ev);

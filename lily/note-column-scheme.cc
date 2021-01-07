@@ -26,8 +26,7 @@ LY_DEFINE (ly_note_column_accidentals, "ly:note-column-accidentals",
            "Return the @code{AccidentalPlacement} grob from @var{note-column}"
            " if any, or @code{SCM_EOL} otherwise.")
 {
-  Grob *grob = unsmob<Grob> (note_column);
-  LY_ASSERT_SMOB (Grob, note_column, 1);
+  auto *const grob = LY_ASSERT_SMOB (Grob, note_column, 1);
   Grob *acc = Note_column::accidentals (grob);
   if (acc)
     return acc->self_scm ();
@@ -39,8 +38,7 @@ LY_DEFINE (ly_note_column_dot_column, "ly:note-column-dot-column",
            "Return the @code{DotColumn} grob from @var{note-column}"
            " if any, or @code{SCM_EOL} otherwise.")
 {
-  Grob *grob = unsmob<Grob> (note_column);
-  LY_ASSERT_SMOB (Grob, note_column, 1);
+  auto *const grob = LY_ASSERT_SMOB (Grob, note_column, 1);
   Grob *dot_column = Note_column::dot_column (grob);
   if (dot_column)
     return dot_column->self_scm ();

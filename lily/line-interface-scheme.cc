@@ -26,10 +26,7 @@ LY_DEFINE (ly_line_interface__line, "ly:line-interface::line",
            5, 0, 0, (SCM grob, SCM startx, SCM starty, SCM endx, SCM endy),
            "Make a line using layout information from grob @var{grob}.")
 {
-  LY_ASSERT_SMOB (Grob, grob, 1);
-
-  Grob *me = unsmob<Grob> (grob);
-
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (scm_is_number, startx, 2);
   LY_ASSERT_TYPE (scm_is_number, starty, 3);
   LY_ASSERT_TYPE (scm_is_number, endx, 4);

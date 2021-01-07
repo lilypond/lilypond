@@ -70,8 +70,8 @@ LY_DEFINE (ly_get_undead, "ly:get-undead",
            1, 0, 0, (SCM undead),
            "Get back object from @var{undead}.")
 {
-  LY_ASSERT_SMOB (Undead, undead, 1);
-  return unsmob<Undead> (undead)->object ();
+  auto *const u = LY_ASSERT_SMOB (Undead, undead, 1);
+  return u->object ();
 }
 
 // '
