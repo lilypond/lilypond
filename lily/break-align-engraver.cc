@@ -34,7 +34,7 @@ class Break_align_engraver : public Engraver
   Item *left_edge_ = nullptr;
 
   void add_to_group (SCM, Item *);
-  void create_alignment (Grob_info);
+  void create_alignment ();
 protected:
   void stop_translation_timestep ();
   void derived_mark () const override;
@@ -78,8 +78,7 @@ Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
       if (!Item::is_non_musical (item))
         return;
 
-      if (!align_)
-        create_alignment (inf);
+      create_alignment ();
 
       item->set_x_parent (align_);
     }
@@ -103,24 +102,31 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
       if (!scm_is_symbol (align_name))
         return;
 
-      if (!align_)
-        create_alignment (inf);
+      create_alignment ();
+
+      // Create a single LeftEdge that appears to come from the same engraver
+      // as the first Clef/BarLine/etc. that we see.  This is questionable and
+      // may contribute to problems discussed in issue #5385.  Practically,
+      // this is probably fine for single-staff scores, but even in a
+      // single-staff score, break-aligned grobs might originate in different
+      // contexts; for example, by default, Clef_engraver is in Staff and
+      // Breathing_sign_engraver is in Voice.
+      if (!left_edge_)
+        {
+          left_edge_ = inf.origin_engraver ()->make_item ("LeftEdge", SCM_EOL);
+          add_to_group (get_property (left_edge_, "break-align-symbol"),
+                        left_edge_);
+        }
 
       add_to_group (align_name, item);
     }
 }
 
 void
-Break_align_engraver::create_alignment (Grob_info inf)
+Break_align_engraver::create_alignment ()
 {
-  align_ = make_item ("BreakAlignment", SCM_EOL);
-
-  /*
-    Make left edge appear to come from same engraver as clef/bar-line etc.
-  */
-  left_edge_ = inf.origin_engraver ()->make_item ("LeftEdge", SCM_EOL);
-  add_to_group (get_property (left_edge_, "break-align-symbol"),
-                left_edge_);
+  if (!align_)
+    align_ = make_item ("BreakAlignment", SCM_EOL);
 }
 
 void
