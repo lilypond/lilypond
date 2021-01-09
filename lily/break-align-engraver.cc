@@ -29,9 +29,9 @@
 
 class Break_align_engraver : public Engraver
 {
-  Item *align_;
-  SCM column_alist_;
-  Item *left_edge_;
+  Item *align_ = nullptr;
+  SCM column_alist_ = SCM_EOL;
+  Item *left_edge_ = nullptr;
 
   void add_to_group (SCM, Item *);
   void create_alignment (Grob_info);
@@ -49,16 +49,13 @@ Break_align_engraver::stop_translation_timestep ()
 {
   column_alist_ = SCM_EOL;
 
-  align_ = 0;
-  left_edge_ = 0;
+  align_ = nullptr;
+  left_edge_ = nullptr;
 }
 
 Break_align_engraver::Break_align_engraver (Context *c)
   : Engraver (c)
 {
-  column_alist_ = SCM_EOL;
-  left_edge_ = 0;
-  align_ = 0;
 }
 
 void
@@ -130,7 +127,7 @@ void
 Break_align_engraver::add_to_group (SCM align_name, Item *item)
 {
   SCM s = ly_assoc (align_name, column_alist_);
-  Item *group = 0;
+  Item *group = nullptr;
 
   if (scm_is_true (s))
     {
