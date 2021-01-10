@@ -21,6 +21,7 @@
 
 #include "context.hh"
 #include "international.hh"
+#include "item.hh"
 #include "note-head.hh"
 #include "rest.hh"
 #include "spanner.hh"
@@ -199,7 +200,7 @@ Ligature_engraver::current_ligature ()
 }
 
 void
-Ligature_engraver::acknowledge_ligature_head (Grob_info info)
+Ligature_engraver::acknowledge_ligature_head (Grob_info_t<Item> info)
 {
   if (ligature_)
     {

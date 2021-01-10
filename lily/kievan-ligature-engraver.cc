@@ -37,13 +37,14 @@ class Kievan_ligature_engraver : public Coherent_ligature_engraver
 protected:
   Spanner *create_ligature_spanner () override;
   void build_ligature (Spanner *ligature,
-                       vector<Grob_info> const &primitives) override;
+                       vector<Grob_info_t<Item>> const &primitives) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Kievan_ligature_engraver);
 
 private:
-  void fold_up_primitives (vector<Grob_info> const &primitives, Real padding, Real &min_length);
+  void fold_up_primitives (vector<Grob_info_t<Item>> const &primitives,
+                           Real padding, Real &min_length);
 };
 
 Kievan_ligature_engraver::Kievan_ligature_engraver (Context *c)
@@ -59,8 +60,9 @@ Kievan_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitives,
-                                              Real padding, Real &min_length)
+Kievan_ligature_engraver::fold_up_primitives
+(vector<Grob_info_t<Item>> const &primitives,
+ Real padding, Real &min_length)
 {
   Item *first = 0;
   Real accumul_acc_space = 0.0;
@@ -69,7 +71,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
 
   for (vsize i = 0; i < primitives.size (); i++)
     {
-      Item *current = dynamic_cast<Item *> (primitives[i].grob ());
+      auto *const current = primitives[i].grob ();
       Interval my_ext = current->extent (current, X_AXIS);
       Real head_width = my_ext.length ();
       if (i == 0)
@@ -101,7 +103,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
       // add more padding if we have an accidental coming up
       if (i < primitives.size () - 1)
         {
-          Item *next = dynamic_cast<Item *> (primitives[i + 1].grob ());
+          auto *const next = primitives[i + 1].grob ();
           Grob *acc_gr = unsmob<Grob> (get_object (next, "accidental-grob"));
           if (acc_gr)
             {
@@ -113,12 +115,12 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
       min_length += head_width + padding - accumul_acc_space;
 
     }
-
 }
 
 void
-Kievan_ligature_engraver::build_ligature (Spanner *ligature,
-                                          vector<Grob_info> const &primitives)
+Kievan_ligature_engraver::build_ligature
+(Spanner *ligature,
+ vector<Grob_info_t<Item>> const &primitives)
 {
   Real min_length;
 

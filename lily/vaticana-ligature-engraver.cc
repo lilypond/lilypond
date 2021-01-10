@@ -70,20 +70,20 @@ private:
                                int context_info, int delta_pitch);
   bool is_stacked_head (int prefix_set,
                         int context_info);
-  Real align_heads (vector<Grob_info> const &primitives,
+  Real align_heads (vector<Grob_info_t<Item>> const &primitives,
                     Real flexa_width,
                     Real thickness);
   void check_for_prefix_loss (Item *primitive);
-  void check_for_ambiguous_dot_pitch (Grob_info primitive);
+  void check_for_ambiguous_dot_pitch (Grob_info_t<Item> primitive);
   void add_mora_column (Paper_column *column);
-  vector<Grob_info> augmented_primitives_;
+  vector<Grob_info_t<Item>> augmented_primitives_;
 
 public:
   TRANSLATOR_DECLARATIONS (Vaticana_ligature_engraver);
 protected:
   Spanner *create_ligature_spanner () override;
   void transform_heads (Spanner *ligature,
-                        vector<Grob_info> const &primitives) override;
+                        vector<Grob_info_t<Item>> const &primitives) override;
 };
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver (Context *c)
@@ -186,9 +186,10 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, in
 }
 
 Real
-Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
-                                         Real flexa_width,
-                                         Real thickness)
+Vaticana_ligature_engraver::align_heads
+(vector<Grob_info_t<Item>> const &primitives,
+ Real flexa_width,
+ Real thickness)
 {
   if (!primitives.size ())
     {
@@ -200,8 +201,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
   /*
    * The paper column where we put the whole ligature into.
    */
-  Paper_column *column
-    = dynamic_cast<Item *> (primitives[0].grob ())->get_column ();
+  auto *const column = primitives[0].grob ()->get_column ();
 
   Real join_thickness
     = thickness * column->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -221,9 +221,9 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
 
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;
-  for (vsize i = 0; i < primitives.size (); i++)
+  for (const auto &info : primitives)
     {
-      Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
+      auto *const primitive = info.grob ();
       int prefix_set
         = scm_to_int (get_property (primitive, "prefix-set"));
       int context_info
@@ -404,10 +404,9 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
     }
   Item *dotcol = make_item ("DotColumn", SCM_EOL);
   dotcol->set_x_parent (column);
-  for (vsize i = 0; i < augmented_primitives_.size (); i++)
+  for (const auto &info : augmented_primitives_)
     {
-      Item *primitive
-        = dynamic_cast<Item *> (augmented_primitives_[i].grob ());
+      auto *const primitive = info.grob ();
       Item *dot = make_item ("Dots", primitive->self_scm ());
       set_property (dot, "dot-count", to_scm (1));
       dot->set_y_parent (primitive);
@@ -434,7 +433,8 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
  * unambiguous.
  */
 void
-Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
+Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch
+(Grob_info_t<Item> primitive)
 {
   // TODO: Fix performance, which is currently O (n^2) (since this
   // method is called O (n) times and takes O (n) steps in the for
@@ -459,8 +459,9 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
 }
 
 void
-Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
-                                             vector<Grob_info> const &primitives)
+Vaticana_ligature_engraver::transform_heads
+(Spanner *ligature,
+ vector<Grob_info_t<Item>> const &primitives)
 {
   Real flexa_width = from_scm<double> (get_property (ligature, "flexa-width"), 2);
 
@@ -474,7 +475,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   augmented_primitives_.clear ();
   for (vsize i = 0; i < primitives.size (); i++)
     {
-      Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
+      auto *const primitive = primitives[i].grob ();
 
       int delta_pitch;
       SCM delta_pitch_scm = get_property (primitive, "delta-position");
@@ -714,17 +715,6 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
   // append all dots to paper column of ligature's last head
   add_mora_column (prev_primitive->get_column ());
-
-#if 0 // experimental code to collapse spacing after ligature
-  /* TODO: set to std::max (old/new spacing-increment), since other
-     voices/staves also may want to set this property. */
-  Item *first_primitive = dynamic_cast<Item *> (primitives[0].grob ());
-  Paper_column *paper_column = first_primitive->get_column ();
-  paper_column->warning (_f ("Vaticana_ligature_engraver:"
-                             " setting `spacing-increment = %f': ptr =%ul",
-                             ligature_width, paper_column));
-  set_property (paper_column, "forced-spacing", to_scm (ligature_width));
-#endif
 }
 
 void

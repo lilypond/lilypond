@@ -33,13 +33,18 @@ protected:
   void finalize () override;
 
   void acknowledge_rest (Grob_info);
-  void acknowledge_ligature_head (Grob_info);
+  void acknowledge_ligature_head (Grob_info_t<Item>);
   void listen_ligature (Stream_event *ev);
   void process_music ();
+
   virtual Spanner *create_ligature_spanner () = 0;
-  virtual void typeset_ligature (Spanner *ligature,
-                                 std::vector<Grob_info> const &primitives) = 0;
+
+  virtual void
+  typeset_ligature (Spanner *ligature,
+                    std::vector<Grob_info_t<Item>> const &primitives) = 0;
+
   virtual Spanner *current_ligature ();
+
   SCM brew_ligature_primitive_proc;
 
 public:
@@ -50,10 +55,10 @@ private:
   Drul_array<Stream_event *> events_drul_;
 
   Spanner *ligature_;
-  std::vector<Grob_info> primitives_;
+  std::vector<Grob_info_t<Item>> primitives_;
 
   Spanner *finished_ligature_;
-  std::vector<Grob_info> finished_primitives_;
+  std::vector<Grob_info_t<Item>> finished_primitives_;
 
   Stream_event *prev_start_event_;
 

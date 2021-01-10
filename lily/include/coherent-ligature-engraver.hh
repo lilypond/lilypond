@@ -33,13 +33,19 @@ public:
   // since this class is abstract
 
 protected:
-  virtual void build_ligature (Spanner *ligature,
-                               std::vector<Grob_info> const &primitives) = 0;
-  void typeset_ligature (Spanner *ligature,
-                         std::vector<Grob_info> const &primitives) override;
+
+  virtual void
+  build_ligature (Spanner *ligature,
+                  std::vector<Grob_info_t<Item>> const &primitives) = 0;
+
+  void
+  typeset_ligature (Spanner *ligature,
+                    std::vector<Grob_info_t<Item>> const &primitives) override;
+
   virtual void move_related_items_to_column (Item *, Paper_column *, Real);
+
 private:
-  void collect_accidentals (Spanner *, std::vector<Grob_info> const &);
+  void collect_accidentals (Spanner *, std::vector<Grob_info_t<Item>> const &);
 };
 
 #endif // COHERENT_LIGATURE_ENGRAVER_HH

@@ -60,17 +60,17 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 protected:
   Spanner *create_ligature_spanner () override;
   void build_ligature (Spanner *ligature,
-                       vector<Grob_info> const &primitives) override;
+                       vector<Grob_info_t<Item>> const &primitives) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
 private:
-  void transform_heads (vector<Grob_info> const &primitives);
+  void transform_heads (vector<Grob_info_t<Item>> const &primitives);
   void propagate_properties (Spanner *ligature,
-                             vector<Grob_info> const &primitives,
+                             vector<Grob_info_t<Item>> const &primitives,
                              Real &min_length);
-  void fold_up_primitives (vector<Grob_info> const &primitives,
+  void fold_up_primitives (vector<Grob_info_t<Item>> const &primitives,
                            Real &min_length);
 };
 
@@ -88,7 +88,8 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives)
+Mensural_ligature_engraver::transform_heads
+(vector<Grob_info_t<Item>> const &primitives)
 {
   if (primitives.size () < 2)
     {
@@ -107,8 +108,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
 
   for (vsize i = 0, s = primitives.size (); i < s; i++)
     {
-      Grob_info info = primitives[i];
-      Item *primitive = dynamic_cast<Item *> (info.grob ());
+      const auto &info = primitives[i];
+      auto *const primitive = info.grob ();
       int duration_log = Rhythmic_head::duration_log (primitive);
 
       Stream_event *nr = info.event_cause ();
@@ -260,8 +261,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
               /*
                 check last condition: look ahead to next note
               */
-              Grob_info next_info = primitives[i + 1];
-              Item *next_primitive = dynamic_cast<Item *> (next_info.grob ());
+              const auto &next_info = primitives[i + 1];
+              auto *const next_primitive = next_info.grob ();
               if (Rhythmic_head::duration_log (next_primitive) == -1)
                 {
                   /*
@@ -331,9 +332,10 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
  * propagate_properties () does.
  */
 void
-Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
-                                                  vector<Grob_info> const &primitives,
-                                                  Real &min_length)
+Mensural_ligature_engraver::propagate_properties
+(Spanner *ligature,
+ vector<Grob_info_t<Item>> const &primitives,
+ Real &min_length)
 {
   Real thickness
     = from_scm<double> (get_property (ligature, "thickness"), 1.3);
@@ -349,9 +351,9 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 
   min_length = 0.0;
   Item *prev_primitive = NULL;
-  for (vsize i = 0; i < primitives.size (); i++)
+  for (const auto &info : primitives)
     {
-      Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
+      auto *const primitive = info.grob ();
       int output = scm_to_int (get_property (primitive, "primitive"));
       set_property (primitive, "thickness",
                     to_scm (thickness));
@@ -394,8 +396,9 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 }
 
 void
-Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitives,
-                                                Real &min_length)
+Mensural_ligature_engraver::fold_up_primitives
+(vector<Grob_info_t<Item>> const &primitives,
+ Real &min_length)
 {
   Item *first = 0;
   Real distance = 0.0;
@@ -404,7 +407,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
 
   for (vsize i = 0; i < primitives.size (); i++)
     {
-      Item *current = dynamic_cast<Item *> (primitives[i].grob ());
+      auto *const current = primitives[i].grob ();
       if (i == 0)
         {
           first = current;
@@ -469,8 +472,9 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primiti
 }
 
 void
-Mensural_ligature_engraver::build_ligature (Spanner *ligature,
-                                            vector<Grob_info> const &primitives)
+Mensural_ligature_engraver::build_ligature
+(Spanner *ligature,
+ vector<Grob_info_t<Item>> const &primitives)
 {
   /*
     the X extent of the actual graphics representing the ligature;

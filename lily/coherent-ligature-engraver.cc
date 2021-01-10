@@ -48,8 +48,8 @@ using std::vector;
  *
  * - collapse superflous space after each ligature (TODO).
  *
- * Concrete subclasses must implement function build_ligature (Spanner
- * *, vector<Grob_info>).  This function is responsible for actually
+ * Concrete subclasses must implement function build_ligature (Spanner *,
+ * vector<Grob_info_t<Item>>).  This function is responsible for actually
  * building the ligature by transforming the array of noteheads.
  *
  * Currently, there are two subclasses: Gregorian_ligature_engraver
@@ -133,8 +133,9 @@ Coherent_ligature_engraver::move_related_items_to_column
  * occurs within the broken ligatures any more.
  */
 void
-Coherent_ligature_engraver::collect_accidentals (Spanner *,
-                                                 vector<Grob_info> const &)
+Coherent_ligature_engraver::collect_accidentals
+(Spanner *,
+ vector<Grob_info_t<Item>> const &)
 {
   /* TODO */
   /* NOTE: if implementing such a function, note that in Kievan notation,
@@ -143,32 +144,31 @@ Coherent_ligature_engraver::collect_accidentals (Spanner *,
 }
 
 void
-calc_delta_pitches (vector<Grob_info> const &primitives)
+calc_delta_pitches (vector<Grob_info_t<Item>> const &primitives)
 {
-  int prev_pitch = 0;
-  int delta_pitch = 0;
-  Item *prev_primitive = 0, *primitive = 0;
-  for (vsize i = 0; i < primitives.size (); i++)
+  if (primitives.empty ())
+    return;
+
+  auto prev_pitch = unsmob<Pitch> (get_property (primitives[0].event_cause (),
+                                                 "pitch"))->steps ();
+  for (vsize i = 1; i < primitives.size (); ++i)
     {
-      primitive = dynamic_cast<Item *> (primitives[i].grob ());
-      Stream_event *cause = primitives[i].event_cause ();
-      int pitch
-        = unsmob<Pitch> (get_property (cause, "pitch"))->steps ();
-      if (prev_primitive)
-        {
-          delta_pitch = pitch - prev_pitch;
-          set_property (prev_primitive, "delta-position",
-                        to_scm (delta_pitch));
-        }
+      auto *const cause = primitives[i].event_cause ();
+      auto pitch = unsmob<Pitch> (get_property (cause, "pitch"))->steps ();
+
+      auto *const prev_item = primitives[i - 1].grob ();
+      set_property (prev_item, "delta-position", to_scm (pitch - prev_pitch));
+
       prev_pitch = pitch;
-      prev_primitive = primitive;
     }
-  set_property (primitive, "delta-position", to_scm (0));
+
+  set_property (primitives.back ().grob (), "delta-position", to_scm (0));
 }
 
 void
-Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-                                              vector<Grob_info> const &primitives)
+Coherent_ligature_engraver::typeset_ligature
+(Spanner *ligature,
+ vector<Grob_info_t<Item>> const &primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties
