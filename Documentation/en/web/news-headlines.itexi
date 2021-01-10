@@ -11,24 +11,18 @@
 @ifclear web_version
   @c no anchor links, just link to News page
 
-@c Please keep this news here for some months for visibility
-@ref{News, New Italian mailing list - @emph{June 22, 2020}}
+@ref{News, LilyPond 2.22.0 released - @emph{January 10, 2021}}
 
 @ref{News, LilyPond 2.21.82 released - @emph{December 15, 2020}}
-
-@ref{News, LilyPond 2.20.0 released - @emph{March 1, 2020}}
 
 @end ifclear
 @ifset web_version
   @c anchor links, link to individual news items by their <a> tag
 
-@uref{news.html#New-italian-mailing-list,
-  New Italian mailing list - @emph{June 22, 2020}}
+@uref{news.html#LilyPond-2_002e22_002e0-released-January-10_002c-2021,
+  LilyPond 2.22.0 released - @emph{January 10, 2021}}
 
 @uref{news.html#LilyPond-2_002e21_005e82-released-December-15_002c-2020,
   LilyPond 2.21.82 released - @emph{December 15, 2020}}
-
-@uref{news.html#LilyPond-2_002e20_002e0-released-March-1_002c-2020,
-  LilyPond 2.20.0 released - @emph{March 1, 2020}}
 
 @end ifset
