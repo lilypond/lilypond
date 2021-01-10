@@ -69,6 +69,7 @@ protected:
   void acknowledge_script (Grob_info);
   void acknowledge_finger (Grob_info);
   void acknowledge_string_number (Grob_info);
+  void add_script_to_all_tuplets (Item *);
   void listen_tuplet_span (Stream_event *);
   void finalize () override;
   void start_translation_timestep ();
@@ -217,35 +218,41 @@ Tuplet_engraver::acknowledge_note_column (Grob_info inf)
 void
 Tuplet_engraver::acknowledge_script (Grob_info inf)
 {
-  for (vsize j = 0; j < tuplets_.size (); j++)
-    if (tuplets_[j].bracket_)
-      {
-        Item *i = dynamic_cast<Item *> (inf.grob ());
-        if (!i->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
-          Tuplet_bracket::add_script (tuplets_[j].bracket_, i);
-      }
+  // TODO: MultiMeasureRestScript is a Spanner.  Putting one inside a tuplet is
+  // contrived, but is ignoring it really the most appropriate solution?  In
+  // the future, will there be other Spanners with script-interface that we
+  // can't so easily justify ignoring?  Should/could it be an Item instead?
+  if (auto *item = dynamic_cast<Item *> (inf.grob ()))
+    {
+      // TODO: This is not the only place that dynamic-interface is excluded
+      // from script-interface processing.  Is refactoring called for?
+      if (!item->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+        add_script_to_all_tuplets (item);
+    }
 }
 
 void
 Tuplet_engraver::acknowledge_finger (Grob_info inf)
 {
-  for (vsize j = 0; j < tuplets_.size (); j++)
-    if (tuplets_[j].bracket_)
-      {
-        Item *i = dynamic_cast<Item *> (inf.grob ());
-        Tuplet_bracket::add_script (tuplets_[j].bracket_, i);
-      }
+  if (auto *item = dynamic_cast<Item *> (inf.grob ()))
+    add_script_to_all_tuplets (item);
 }
 
 void
 Tuplet_engraver::acknowledge_string_number (Grob_info inf)
 {
-  for (vsize j = 0; j < tuplets_.size (); j++)
-    if (tuplets_[j].bracket_)
-      {
-        Item *i = dynamic_cast<Item *> (inf.grob ());
-        Tuplet_bracket::add_script (tuplets_[j].bracket_, i);
-      }
+  if (auto *item = dynamic_cast<Item *> (inf.grob ()))
+    add_script_to_all_tuplets (item);
+}
+
+void
+Tuplet_engraver::add_script_to_all_tuplets (Item *script)
+{
+  for (auto &tuplet : tuplets_)
+    {
+      if (tuplet.bracket_)
+        Tuplet_bracket::add_script (tuplet.bracket_, script);
+    }
 }
 
 void
