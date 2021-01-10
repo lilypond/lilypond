@@ -19,7 +19,7 @@ printouts.
 This version includes improvements and fixes since the branching of the 
 previous stable release in August 2017 (even though the final 2.20.0 was 
 only released in March 2020). A list of added features and other user-visible 
-changes can be found at http://lilypond.org/doc/v2.22/Documentation/changes/ 
+changes can be found at @uref{https://lilypond.org/doc/v2.22/Documentation/changes/}
 Behind the scenes, this release switches to Python 3 and includes a number of 
 performance improvements that should be noticeable for larger scores.
 
