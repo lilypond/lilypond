@@ -591,8 +591,19 @@ music}.  No fragments are extracted though if used with the
 @option{-dno-print-pages} option.  Default: @code{#f}.
 
 @item @code{crop} @var{bool}
-If @var{bool} is @code{#t}, fit all the music and headers, without
-margins, into a @q{single-page} output file.  Default: @code{#f}.
+
+If @var{bool} is @code{#t}, a second PDF file gets created (with
+extension @file{.cropped.pdf}), together with a rendered image of it
+(with extension @file{.cropped.png}).  This output file fits all the
+music and headers, without margins, into a single, possibly tall page.
+If option @option{--svg} is set, an additional SVG file (with extension
+@file{.cropped.svg}) is produced instead.  If option @option{--eps} or
+@option{--ps} is set, a cropped EPS file (with extension
+@file{.cropped.eps}) is produced instead of a cropped PDF.  Default:
+@code{#f}.
+
+Note that currently this option is not well suited for multi-system
+output since vertical space between systems gets removed.
 
 @item @code{datadir}
 Prefix for data files.  This is a read-only option; setting it has no

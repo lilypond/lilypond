@@ -252,8 +252,8 @@ EPS backend.")
     (clip-systems #f
                   "Generate cut-out snippets of a score.")
     (crop #f
-          "Match the size of the normal output to the
-typeset image.")
+          "Generate additional, possibly tall
+single-page output file(s) with cropped margins.")
     (datadir #f
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
