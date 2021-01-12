@@ -110,7 +110,7 @@ Instrument_name_engraver::start_spanner ()
 {
   text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
 
-  Grob *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+  auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
   text_spanner_->set_bound (LEFT, col);
   set_property (text_spanner_, "text", short_text_);
   set_property (text_spanner_, "long-text", long_text_);
@@ -166,8 +166,8 @@ Instrument_name_engraver::stop_spanner ()
                                        ly_symbol2scm ("elements"),
                                        axis_groups_[i]);
 
-  text_spanner_->set_bound (RIGHT,
-                            unsmob<Grob> (get_property (this, "currentCommandColumn")));
+  auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+  text_spanner_->set_bound (RIGHT, col);
 
   Pointer_group_interface::set_ordered (text_spanner_,
                                         ly_symbol2scm ("elements"),

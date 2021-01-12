@@ -57,7 +57,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 {
   Spanner *me = unsmob<Spanner> (smob);
 
-  Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  auto *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
+                                                         X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
 
   SCM bound_details = get_property (me, "bound-details");
@@ -212,12 +213,16 @@ Line_spanner::calc_cross_staff (SCM smob)
   if (!me)
     return SCM_BOOL_F;
 
-  if (from_scm<bool> (get_property (me->get_bound (LEFT), "non-musical"))
-      || from_scm<bool> (get_property (me->get_bound (RIGHT), "non-musical")))
+  auto *const lb = me->get_bound (LEFT);
+  if (from_scm<bool> (get_property (lb, "non-musical")))
+    return SCM_BOOL_F;
+  
+  auto *const rb = me->get_bound (RIGHT);
+  if (from_scm<bool> (get_property (rb, "non-musical")))
     return SCM_BOOL_F;
 
-  return scm_from_bool (Staff_symbol_referencer::get_staff_symbol (me->get_bound (LEFT))
-                        != Staff_symbol_referencer::get_staff_symbol (me->get_bound (RIGHT)));
+  return to_scm<bool> (Staff_symbol_referencer::get_staff_symbol (lb)
+                       != Staff_symbol_referencer::get_staff_symbol (rb));
 }
 
 MAKE_SCHEME_CALLBACK (Line_spanner, calc_right_bound_info, 1);
@@ -269,7 +274,8 @@ Line_spanner::print (SCM smob)
   Drul_array<SCM> bounds (get_property (me, "left-bound-info"),
                           get_property (me, "right-bound-info"));
 
-  Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  auto *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
+                                                         X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
 
   Drul_array<Offset> span_points;

@@ -442,7 +442,8 @@ Piano_pedal_engraver::stop_translation_timestep ()
       typeset_all (p);
       if (p->bracket_ && !p->bracket_->get_bound (LEFT))
         {
-          Grob *cmc = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
+          auto *cmc
+            = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
           p->bracket_->set_bound (LEFT, cmc);
         }
     }
@@ -469,9 +470,12 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 
   if (p->finished_bracket_)
     {
-      Grob *r = p->finished_bracket_->get_bound (RIGHT);
-      if (!r)
-        p->finished_bracket_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentMusicalColumn")));
+      if (!p->finished_bracket_->get_bound (RIGHT))
+        {
+          auto *cmc
+            = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
+          p->finished_bracket_->set_bound (RIGHT, cmc);
+        }
 
       p->finished_bracket_ = 0;
     }

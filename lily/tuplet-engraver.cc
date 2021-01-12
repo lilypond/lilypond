@@ -131,16 +131,16 @@ Tuplet_engraver::process_music ()
         }
     }
 
-  for (vsize i = 0; i < stopped_tuplets_.size (); i++)
+  for (auto &tuplet : stopped_tuplets_)
     {
-      Spanner *bracket = stopped_tuplets_[i].bracket_;
-      Spanner *number = stopped_tuplets_[i].number_;
+      auto *bracket = tuplet.bracket_;
+      auto *number = tuplet.number_;
       if (bracket)
         {
-          if (stopped_tuplets_[i].full_length_)
+          if (tuplet.full_length_)
             {
-              Item *col
-                = unsmob<Item> (stopped_tuplets_[i].full_length_note_
+              auto *col
+                = unsmob<Item> (tuplet.full_length_note_
                                 ? get_property (this, "currentMusicalColumn")
                                 : get_property (this, "currentCommandColumn"));
 
@@ -149,12 +149,10 @@ Tuplet_engraver::process_music ()
             }
           else if (!bracket->get_bound (RIGHT))
             {
-              if (bracket->get_bound (LEFT))
+              if (auto *bound = bracket->get_bound (LEFT))
                 {
-                  bracket->set_bound (RIGHT,
-                                      bracket->get_bound (LEFT));
-                  number->set_bound (RIGHT,
-                                     stopped_tuplets_[i].bracket_->get_bound (LEFT));
+                  bracket->set_bound (RIGHT, bound);
+                  number->set_bound (RIGHT, bound);
                 }
               else
                 {

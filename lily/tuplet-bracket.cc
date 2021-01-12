@@ -350,10 +350,15 @@ Tuplet_bracket::print (SCM smob)
       the bracket, but still let the number be displayed.
       Only do this if the user has not explicitly specified bracket-visibility = #t.
   */
-  if (!from_scm<bool> (bracket_vis_prop)
-      && (robust_scm2moment (get_property (me->get_bound (LEFT)->get_column (), "when"), Moment (0))
-          == robust_scm2moment (get_property (me->get_bound (RIGHT)->get_column (), "when"), Moment (0))))
-    bracket_visibility = false;
+  if (!from_scm<bool> (bracket_vis_prop))
+    {
+      auto *const start_col = me->get_bound (LEFT)->get_column ();
+      auto *const end_col = me->get_bound (RIGHT)->get_column ();
+      auto start_mom = robust_scm2moment (get_property (start_col, "when"), 0);
+      auto end_mom = robust_scm2moment (get_property (end_col, "when"), 0);
+      if (start_mom == end_mom)
+        bracket_visibility = false;
+    }
 
   Interval x_span = from_scm (scm_x_span, Interval (0.0, 0.0));
   Interval positions = from_scm (scm_positions, Interval (0.0, 0.0));

@@ -119,8 +119,8 @@ Spacing_engraver::start_spanner ()
   assert (!spacing_);
 
   spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
-  spacing_->set_bound (LEFT,
-                       unsmob<Grob> (get_property (this, "currentCommandColumn")));
+  auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+  spacing_->set_bound (LEFT, col);
 }
 
 void

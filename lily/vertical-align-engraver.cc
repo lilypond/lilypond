@@ -111,7 +111,8 @@ Vertical_align_engraver::process_music ()
       top_level_ = from_scm<bool> (get_property (this, "topLevelAlignment"));
 
       valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
-      valign_->set_bound (LEFT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      valign_->set_bound (LEFT, col);
       Align_interface::set_ordered (valign_);
     }
 }
@@ -121,7 +122,8 @@ Vertical_align_engraver::finalize ()
 {
   if (valign_)
     {
-      valign_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      valign_->set_bound (RIGHT, col);
       valign_ = 0;
     }
 }

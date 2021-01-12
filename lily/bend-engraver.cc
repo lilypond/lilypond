@@ -53,7 +53,10 @@ Bend_engraver::finalize ()
   // We shouldn't end a spanner on the last musical column of a piece because then
   // it would extend past the last breakable column of the piece.
   if (last_fall_)
-    last_fall_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+    {
+      auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      last_fall_->set_bound (RIGHT, col);
+    }
 }
 
 void

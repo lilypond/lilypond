@@ -51,7 +51,8 @@ Ottava_bracket::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Interval span_points;
 
-  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  auto *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
+                                                        X_AXIS);
   Output_def *layout = me->layout ();
 
   Drul_array<bool> broken;

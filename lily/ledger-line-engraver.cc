@@ -58,7 +58,8 @@ Ledger_line_engraver::start_spanner ()
   assert (!span_);
 
   span_ = make_spanner ("LedgerLineSpanner", SCM_EOL);
-  span_->set_bound (LEFT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+  auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+  span_->set_bound (LEFT, col);
 }
 
 void
@@ -99,7 +100,8 @@ Ledger_line_engraver::stop_spanner ()
 {
   if (span_)
     {
-      span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      span_->set_bound (RIGHT, col);
       span_ = 0;
     }
 }

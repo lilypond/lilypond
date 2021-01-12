@@ -350,7 +350,11 @@ Slur_engraver::stop_translation_timestep ()
     {
       Spanner *s = dynamic_cast<Spanner *> (end_slurs_[i]);
       if (!s->get_bound (RIGHT))
-        s->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentMusicalColumn")));
+        {
+          auto *col
+            = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
+          s->set_bound (RIGHT, col);
+        }
       announce_end_grob (s, SCM_EOL);
     }
 

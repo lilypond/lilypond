@@ -234,22 +234,26 @@ void
 Figured_bass_engraver::center_repeated_continuations ()
 {
   vector<Spanner *> consecutive_lines;
-  for (vsize i = 0; i <= groups_.size (); i++)
+  for (auto &group : groups_)
     {
-      if (i < groups_.size ()
-          && groups_[i].continuation_line_
+      auto *const cont_line = group.continuation_line_;
+      if (cont_line
           && (consecutive_lines.empty ()
               || (consecutive_lines[0]->get_bound (LEFT)->get_column ()
-                  == groups_[i].continuation_line_->get_bound (LEFT)->get_column ()
+                  == cont_line->get_bound (LEFT)->get_column ()
                   && consecutive_lines[0]->get_bound (RIGHT)->get_column ()
-                  == groups_[i].continuation_line_->get_bound (RIGHT)->get_column ())))
-        consecutive_lines.push_back (groups_[i].continuation_line_);
+                  == cont_line->get_bound (RIGHT)->get_column ())))
+        {
+          consecutive_lines.push_back (cont_line);
+        }
       else
         {
           center_continuations (consecutive_lines);
           consecutive_lines.clear ();
         }
     }
+
+  center_continuations (consecutive_lines);
 }
 
 void

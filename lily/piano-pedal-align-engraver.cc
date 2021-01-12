@@ -116,47 +116,44 @@ Piano_pedal_align_engraver::start_translation_timestep ()
 void
 Piano_pedal_align_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < NUM_PEDAL_TYPES; i++)
+  for (auto &pi : pedal_info_)
     {
-      if (pedal_info_[i].line_spanner_)
+      if (pi.line_spanner_)
         {
-
-          if (pedal_info_[i].carrying_item_)
+          if (pi.carrying_item_)
             {
-              if (!pedal_info_[i].line_spanner_->get_bound (LEFT))
-                pedal_info_[i].line_spanner_->set_bound (LEFT,
-                                                         pedal_info_[i].carrying_item_);
+              if (!pi.line_spanner_->get_bound (LEFT))
+                pi.line_spanner_->set_bound (LEFT, pi.carrying_item_);
 
-              pedal_info_[i].line_spanner_->set_bound (RIGHT,
-                                                       pedal_info_[i].carrying_item_);
+              pi.line_spanner_->set_bound (RIGHT, pi.carrying_item_);
             }
-          else if (pedal_info_[i].carrying_spanner_
-                   || pedal_info_[i].finished_carrying_spanner_
-                  )
+          else if (pi.carrying_spanner_ || pi.finished_carrying_spanner_)
             {
-              if (!pedal_info_[i].line_spanner_->get_bound (LEFT)
-                  && pedal_info_[i].carrying_spanner_->get_bound (LEFT))
-                pedal_info_[i].line_spanner_->set_bound (LEFT,
-                                                         pedal_info_[i].carrying_spanner_->get_bound (LEFT));
+              if (!pi.line_spanner_->get_bound (LEFT))
+                {
+                  if (auto *bound = pi.carrying_spanner_->get_bound (LEFT))
+                    pi.line_spanner_->set_bound (LEFT, bound);
+                }
 
-              if (pedal_info_[i].finished_carrying_spanner_)
-                pedal_info_[i].line_spanner_->set_bound (RIGHT,
-                                                         pedal_info_[i].finished_carrying_spanner_->get_bound (RIGHT));
-            }
-
-          for (vsize j = 0; j < supports_.size (); j++)
-            {
-              Side_position_interface::add_support (pedal_info_[i].line_spanner_, supports_[j]);
+              if (pi.finished_carrying_spanner_)
+                {
+                  auto *bound
+                    = pi.finished_carrying_spanner_->get_bound (RIGHT);
+                  pi.line_spanner_->set_bound (RIGHT, bound);
+                }
             }
 
-          if (pedal_info_[i].is_finished ())
+          for (auto &support : supports_)
+            Side_position_interface::add_support (pi.line_spanner_, support);
+
+          if (pi.is_finished ())
             {
-              announce_end_grob (pedal_info_[i].line_spanner_, SCM_EOL);
-              pedal_info_[i].clear ();
+              announce_end_grob (pi.line_spanner_, SCM_EOL);
+              pi.clear ();
             }
         }
 
-      pedal_info_[i].carrying_item_ = 0;
+      pi.carrying_item_ = 0;
     }
 }
 

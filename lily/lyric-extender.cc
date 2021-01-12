@@ -67,24 +67,44 @@ Lyric_extender::print (SCM smob)
   /* It seems that short extenders are even lengthened to go past the
      note head, but haven't found a pattern in it yet. --hwn 1/1/04  */
   SCM minlen = get_property (me, "minimum-length");
-  Real right_point
-    = left_point + (from_scm<double> (minlen, 0));
+  Real right_point = left_point + (from_scm<double> (minlen, 0));
 
-  right_point = std::min (right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+  {
+    auto *const rb = me->get_system ()->get_bound (RIGHT);
+    auto limit = rb->relative_coordinate (common, X_AXIS);
+    right_point = std::min (right_point, limit);
+  }
 
-  if (heads.size ())
-    right_point = std::max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
+  if (!heads.empty ())
+    {
+      auto limit = heads.back ()->extent (common, X_AXIS)[RIGHT];
+      right_point = std::max (right_point, limit);
+    }
 
   Real h = sl * from_scm<double> (get_property (me, "thickness"), 0);
-  Drul_array<Real> paddings (from_scm<double> (get_property (me, "left-padding"), h),
-                             from_scm<double> (get_property (me, "right-padding"), h));
+  Drul_array<Real> paddings
+  {
+    from_scm<double> (get_property (me, "left-padding"), h),
+    from_scm<double> (get_property (me, "right-padding"), h)
+  };
 
   if (right_text)
-    right_point = std::min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));
+    {
+      auto limit = robust_relative_extent (right_text, common, X_AXIS)[LEFT]
+                   - paddings[RIGHT];
+      right_point = std::min (right_point, limit);
+    }
 
   /* run to end of line. */
-  if (me->get_bound (RIGHT)->break_status_dir ())
-    right_point = std::max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - paddings[RIGHT]));
+  {
+    auto *const rb = me->get_bound (RIGHT);
+    if (rb->break_status_dir ())
+      {
+        auto limit = robust_relative_extent (rb, common, X_AXIS)[LEFT]
+                     - paddings[RIGHT];
+        right_point = std::max (right_point, limit);
+      }
+  }
 
   left_point += paddings[LEFT];
   Real w = right_point - left_point;

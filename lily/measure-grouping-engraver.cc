@@ -44,7 +44,8 @@ Measure_grouping_engraver::finalize ()
 {
   if (grouping_)
     {
-      grouping_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      grouping_->set_bound (RIGHT, col);
       grouping_->suicide ();
       grouping_ = 0;
     }
@@ -63,9 +64,8 @@ Measure_grouping_engraver::process_music ()
   Moment now = now_mom ();
   if (grouping_ && now.main_part_ >= stop_grouping_mom_ && !now.grace_part_)
     {
-      grouping_->set_bound (RIGHT,
-                            unsmob<Grob> (get_property (this, "currentMusicalColumn")));
-
+      auto *col = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
+      grouping_->set_bound (RIGHT, col);
       grouping_ = 0;
     }
 
@@ -97,7 +97,10 @@ Measure_grouping_engraver::process_music ()
               if (grouplen > 1)
                 {
                   grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
-                  grouping_->set_bound (LEFT, unsmob<Grob> (get_property (this, "currentMusicalColumn")));
+                  auto *col
+                    = unsmob<Grob> (get_property (this,
+                                                  "currentMusicalColumn"));
+                  grouping_->set_bound (LEFT, col);
 
                   stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * base_moment;
                   find_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));

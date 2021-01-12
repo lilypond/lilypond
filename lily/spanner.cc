@@ -482,12 +482,13 @@ MAKE_SCHEME_CALLBACK (Spanner, bounds_width, 1);
 SCM
 Spanner::bounds_width (SCM grob)
 {
-  Spanner *me = unsmob<Spanner> (grob);
+  auto *const me = unsmob<Spanner> (grob);
+  auto *const lb = me->get_bound (LEFT);
+  auto *const rb = me->get_bound (RIGHT);
+  auto *const common = lb->common_refpoint (rb, X_AXIS);
 
-  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-
-  Interval w (me->get_bound (LEFT)->relative_coordinate (common, X_AXIS),
-              me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+  Interval w (lb->relative_coordinate (common, X_AXIS),
+              rb->relative_coordinate (common, X_AXIS));
 
   w -= me->relative_coordinate (common, X_AXIS);
 

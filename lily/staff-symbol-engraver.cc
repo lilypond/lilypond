@@ -109,8 +109,8 @@ Staff_symbol_engraver::start_spanner ()
   if (!span_)
     {
       span_ = make_spanner ("StaffSymbol", SCM_EOL);
-      span_->set_bound (LEFT,
-                        unsmob<Grob> (get_property (this, "currentCommandColumn")));
+      auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      span_->set_bound (LEFT, col);
     }
 }
 
@@ -121,7 +121,10 @@ Staff_symbol_engraver::stop_spanner ()
     return;
 
   if (!finished_span_->get_bound (RIGHT))
-    finished_span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+    {
+      auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      finished_span_->set_bound (RIGHT, col);
+    }
 
   announce_end_grob (finished_span_,
                      span_events_[STOP]
