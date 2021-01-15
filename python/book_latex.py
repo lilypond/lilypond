@@ -211,8 +211,9 @@ def get_latex_textwidth(source, global_options):
     debug("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
-    run_env['TEXINPUTS'] = '%s:%s' % \
-                           (global_options.input_dir, run_env.get('TEXINPUTS', ""))
+    run_env['TEXINPUTS'] = os.path.pathsep.join(
+                             (global_options.input_dir,
+                              run_env.get('TEXINPUTS', '')))
 
     # unknown why this is necessary
     universal_newlines = True
