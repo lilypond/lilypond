@@ -39,12 +39,6 @@ using std::string;
 Paper_column_engraver::Paper_column_engraver (Context *c)
   : Engraver (c)
 {
-  command_column_ = 0;
-  musical_column_ = 0;
-  breaks_ = 0;
-  system_ = 0;
-  first_ = true;
-  made_columns_ = false;
 }
 
 void
@@ -159,10 +153,10 @@ Paper_column_engraver::listen_label (Stream_event *ev)
 void
 Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 {
-  for (vsize i = 0; i < break_events_.size (); i++)
+  for (auto *const break_event : break_events_)
     {
       string prefix;
-      SCM name_sym = scm_car (get_property (break_events_[i], "class"));
+      SCM name_sym = scm_car (get_property (break_event, "class"));
       string name = ly_symbol2string (name_sym);
       size_t end = name.rfind ("-event");
       if (end)
@@ -177,8 +171,8 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
       string pen_str = prefix + "-penalty";
 
       SCM cur_pen = get_property (command_column_, pen_str.c_str ());
-      SCM pen = get_property (break_events_[i], "break-penalty");
-      SCM perm = get_property (break_events_[i], "break-permission");
+      SCM pen = get_property (break_event, "break-penalty");
+      SCM perm = get_property (break_event, "break-permission");
 
       if (!only_do_permissions && scm_is_number (pen))
         {
@@ -196,9 +190,9 @@ Paper_column_engraver::process_music ()
 {
   handle_manual_breaks (false);
 
-  for (vsize i = 0; i < label_events_.size (); i++)
+  for (auto *const label_event : label_events_)
     {
-      SCM label = get_property (label_events_[i], "page-label");
+      SCM label = get_property (label_event, "page-label");
       SCM labels = get_property (command_column_, "labels");
       set_property (command_column_, "labels", scm_cons (label, labels));
     }
@@ -240,9 +234,8 @@ Paper_column_engraver::stop_translation_timestep ()
       set_property (musical_column_, "rhythmic-location", where);
     }
 
-  for (vsize i = 0; i < items_.size (); i++)
+  for (auto *const elem : items_)
     {
-      Item *elem = items_[i];
       Grob *col = Item::is_non_musical (elem) ? command_column_ : musical_column_;
 
       if (!elem->get_x_parent ())
@@ -264,9 +257,9 @@ Paper_column_engraver::stop_translation_timestep ()
       set_property (command_column_, "page-turn-permission", SCM_EOL);
       set_property (command_column_, "page-break-permission", SCM_EOL);
       set_property (command_column_, "line-break-permission", SCM_EOL);
-      for (vsize i = 0; i < break_events_.size (); i++)
+      for (auto *const break_event : break_events_)
         {
-          SCM perm = get_property (break_events_[i], "break-permission");
+          SCM perm = get_property (break_event, "break-permission");
           if (scm_is_eq (perm, ly_symbol2scm ("force"))
               || scm_is_eq (perm, ly_symbol2scm ("allow")))
             warning (_ ("forced break was overridden by some other event, "

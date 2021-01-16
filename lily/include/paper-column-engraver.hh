@@ -50,17 +50,16 @@ protected:
   void acknowledge_note_spacing (Grob_info);
   void acknowledge_staff_spacing (Grob_info);
 
-  System *system_;
+private:
+  System *system_ = nullptr;
   std::vector<Stream_event *> break_events_;
   std::vector<Stream_event *> label_events_;
-  int breaks_;                  // used for stat printing
-  Paper_column *command_column_;
-  Paper_column *musical_column_;
+  int breaks_ = 0; // used for stat printing
+  Paper_column *command_column_ = nullptr;
+  Paper_column *musical_column_ = nullptr;
   std::vector<Item *> items_;
-  bool first_;
-  bool made_columns_;
-
-public:
+  bool first_ = true;
+  bool made_columns_ = false;
 };
 
 #endif /* PAPER_COLUMN_ENGRAVER_HH */
