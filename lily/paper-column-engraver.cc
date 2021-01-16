@@ -47,46 +47,31 @@ Paper_column_engraver::finalize ()
   if (! (breaks_ % 8))
     progress_indication ("[" + std::to_string (breaks_) + "]");
 
-  if (!made_columns_)
+  // At the end of the score, allow page breaks and turns by default, but...
+  set_property (command_column_,
+                "page-break-permission", ly_symbol2scm ("allow"));
+  set_property (command_column_,
+                "page-turn-permission", ly_symbol2scm ("allow"));
+
+  // ...allow the user to override them.
+  handle_manual_breaks (true);
+
+  // On the other hand, line breaks are always allowed at the end of a score,
+  // even if they try to stop us.
+  if (!scm_is_symbol (get_property (command_column_, "line-break-permission")))
     {
-      make_columns ();
-      SCM m = now_mom ().smobbed_copy ();
-      set_property (command_column_, "when", m);
-      set_property (musical_column_, "when", m);
+      set_property (command_column_,
+                    "line-break-permission", ly_symbol2scm ("allow"));
     }
 
-  if (command_column_)
-    {
-      // At the end of the score, allow page breaks and turns by default, but...
-      set_property (command_column_, "page-break-permission", ly_symbol2scm ("allow"));
-      set_property (command_column_, "page-turn-permission", ly_symbol2scm ("allow"));
-
-      // ...allow the user to override them.
-      handle_manual_breaks (true);
-
-      // On the other hand, line breaks are always allowed at the end of a score,
-      // even if they try to stop us.
-      if (!scm_is_symbol (get_property (command_column_, "line-break-permission")))
-        set_property (command_column_, "line-break-permission", ly_symbol2scm ("allow"));
-
-      system_->set_bound (RIGHT, command_column_);
-    }
+  system_->set_bound (RIGHT, command_column_);
 }
 
 void
 Paper_column_engraver::make_columns ()
 {
-  /*
-    ugh.
-  */
   Paper_column *p1 = make_paper_column ("NonMusicalPaperColumn");
   Paper_column *p2 = make_paper_column ("PaperColumn");
-  /*
-     The columns are timestamped with now_mom () in
-     stop_translation_timestep. Cannot happen now, because the
-     first column is sometimes created before now_mom is initialised.
-  */
-
   set_columns (p1, p2);
 }
 
@@ -218,6 +203,7 @@ Paper_column_engraver::stop_translation_timestep ()
   if (from_scm<bool> (get_property (this, "skipTypesetting")))
     return;
 
+  // It would be safe to set "when" earlier, but there is no obvious need.
   SCM m = now_mom ().smobbed_copy ();
   set_property (command_column_, "when", m);
   set_property (musical_column_, "when", m);
@@ -276,7 +262,6 @@ Paper_column_engraver::stop_translation_timestep ()
 
   find_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
 
-  first_ = false;
   label_events_.clear ();
 }
 
@@ -284,11 +269,8 @@ void
 Paper_column_engraver::start_translation_timestep ()
 {
   break_events_.clear ();
-  if (!first_ && !from_scm<bool> (get_property (this, "skipTypesetting")))
-    {
-      make_columns ();
-      made_columns_ = true;
-    }
+  if (!from_scm<bool> (get_property (this, "skipTypesetting")))
+    make_columns ();
 }
 
 void

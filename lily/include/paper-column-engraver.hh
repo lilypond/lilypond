@@ -58,8 +58,6 @@ private:
   Paper_column *command_column_ = nullptr;
   Paper_column *musical_column_ = nullptr;
   std::vector<Item *> items_;
-  bool first_ = true;
-  bool made_columns_ = false;
 };
 
 #endif /* PAPER_COLUMN_ENGRAVER_HH */
