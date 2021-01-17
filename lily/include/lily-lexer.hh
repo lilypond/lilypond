@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MY_LILY_LEXER_HH
-#define MY_LILY_LEXER_HH
+#ifndef LILY_LEXER_HH
+#define LILY_LEXER_HH
 
 #include "includable-lexer.hh"
 
@@ -26,10 +26,6 @@
 #include "duration.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"
-
-bool busy_parsing ();
-void kill_lexer ();
-void set_lexer ();
 
 class Lily_lexer : public Smob<Lily_lexer>, public Includable_lexer
 {
@@ -117,8 +113,7 @@ public:
   bool is_note_state () const;
   bool is_chord_state () const;
   bool is_lyric_state () const;
-  bool is_figure_state () const;
   bool is_clean () const;
 };
 
-#endif /* MY_LILY_LEXER_HH */
+#endif /* LILY_LEXER_HH */

@@ -1092,12 +1092,6 @@ Lily_lexer::is_lyric_state () const
 	return get_state () == lyrics;
 }
 
-bool
-Lily_lexer::is_figure_state () const
-{
-	return get_state () == figures;
-}
-
 // The extra_token parameter specifies how to convert multiple values
 // into additional tokens.  For '#', additional values get pushed as
 // SCM_IDENTIFIER.  For '$', they get checked for their type and get
