@@ -18,7 +18,6 @@
 */
 
 #include "file-path.hh"
-#include "main.hh"
 
 using std::string;
 using std::vector;

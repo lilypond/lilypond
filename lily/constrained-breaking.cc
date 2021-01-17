@@ -20,7 +20,6 @@
 #include "constrained-breaking.hh"
 
 #include "international.hh"
-#include "main.hh"
 #include "output-def.hh"
 #include "page-layout-problem.hh"
 #include "paper-column.hh"

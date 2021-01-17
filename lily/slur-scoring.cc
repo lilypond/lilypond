@@ -30,7 +30,6 @@
 #include "dots.hh"
 #include "libc-extension.hh"
 #include "international.hh"
-#include "main.hh"
 #include "misc.hh"
 #include "note-column.hh"
 #include "note-head.hh"

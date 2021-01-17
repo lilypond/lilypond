@@ -28,7 +28,6 @@
 #include "international.hh"
 #include "listener.hh"
 #include "ly-smob-list.hh"
-#include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "performer.hh"

@@ -22,7 +22,6 @@
 #include "international.hh"
 #include "lily-guile.hh"
 #include "lily-imports.hh"
-#include "main.hh"
 #include "smobs.hh"
 #include "warn.hh"
 

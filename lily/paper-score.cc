@@ -22,7 +22,6 @@
 #include "all-font-metrics.hh"
 #include "book.hh"
 #include "international.hh"
-#include "main.hh"
 #include "misc.hh"
 #include "output-def.hh"
 #include "paper-book.hh"

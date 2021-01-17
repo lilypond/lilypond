@@ -19,7 +19,6 @@
 
 #include "global-context.hh"
 #include "international.hh"
-#include "main.hh"
 #include "music-output.hh"
 #include "music.hh"
 #include "output-def.hh"

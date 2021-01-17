@@ -21,7 +21,6 @@
 
 #include "string-convert.hh"
 #include "international.hh"
-#include "main.hh"
 #include "open-type-font.hh"
 #include "pango-font.hh"
 #include "scm-hash.hh"

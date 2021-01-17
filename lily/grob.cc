@@ -24,7 +24,6 @@
 #include "input.hh"
 #include "international.hh"
 #include "item.hh"
-#include "main.hh"
 #include "misc.hh"
 #include "music.hh"
 #include "output-def.hh"

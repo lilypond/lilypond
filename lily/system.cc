@@ -27,7 +27,6 @@
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
 #include "lookup.hh"
-#include "main.hh"
 #include "output-def.hh"
 #include "page-layout-problem.hh"
 #include "paper-column.hh"

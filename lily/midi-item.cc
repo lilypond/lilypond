@@ -22,7 +22,6 @@
 #include "audio-column.hh"
 #include "duration.hh"
 #include "international.hh"
-#include "main.hh"
 #include "midi-stream.hh"
 #include "misc.hh"
 #include "piano-pedal.hh"

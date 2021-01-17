@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "main.hh"
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "pango-font.hh"

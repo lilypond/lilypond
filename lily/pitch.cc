@@ -19,7 +19,6 @@
 
 #include "pitch.hh"
 
-#include "main.hh"
 #include "scale.hh"
 #include "string-convert.hh"
 #include "warn.hh"

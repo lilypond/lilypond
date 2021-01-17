@@ -27,7 +27,6 @@
 #include "international.hh"
 #include "lily-parser.hh"
 #include "ly-module.hh"
-#include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "paper-book.hh"

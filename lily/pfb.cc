@@ -21,7 +21,6 @@
 #include "program-option.hh"
 #include "source-file.hh"
 #include "open-type-font.hh"
-#include "main.hh"
 #include "warn.hh"
 
 #include <cstdio>

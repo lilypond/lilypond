@@ -24,7 +24,6 @@
 #include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
-#include "main.hh"
 #include "source-file.hh"
 #include "sources.hh"
 #include "warn.hh"

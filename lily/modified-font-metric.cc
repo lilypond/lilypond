@@ -21,7 +21,6 @@
 #include "pango-font.hh"
 #include "warn.hh"
 #include "stencil.hh"
-#include "main.hh"
 #include "program-option.hh"
 
 #include <cctype>

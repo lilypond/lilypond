@@ -21,7 +21,6 @@
 
 #include "spacing-options.hh"
 #include "international.hh"
-#include "main.hh"
 #include "moment.hh"
 #include "note-spacing.hh"
 #include "output-def.hh"

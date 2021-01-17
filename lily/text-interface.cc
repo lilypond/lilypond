@@ -25,7 +25,6 @@
 #include "config.hh"
 #include "font-interface.hh"
 #include "grob.hh"
-#include "main.hh"
 #include "misc.hh"
 #include "modified-font-metric.hh"
 #include "output-def.hh"

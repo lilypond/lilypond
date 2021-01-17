@@ -19,7 +19,6 @@
 
 #include "tie.hh"
 
-#include "main.hh"
 #include "bezier.hh"
 #include "directional-element-interface.hh"
 #include "font-interface.hh"

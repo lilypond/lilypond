@@ -19,7 +19,6 @@
 
 #include "lily-guile.hh"
 #include "international.hh"
-#include "main.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 

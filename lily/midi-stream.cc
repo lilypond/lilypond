@@ -21,7 +21,6 @@
 
 #include "file-path.hh"
 #include "international.hh"
-#include "main.hh"
 #include "midi-chunk.hh"
 #include "misc.hh"
 #include "program-option.hh"

@@ -128,7 +128,6 @@ FIXME:
 #include "lily-parser.hh"
 #include "ly-module.hh"
 #include "ly-scm-list.hh"
-#include "main.hh"
 #include "misc.hh"
 #include "music.hh"
 #include "output-def.hh"

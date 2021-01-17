@@ -27,7 +27,6 @@
 #include "international.hh"
 #include "lily-imports.hh"
 #include "lily-version.hh"
-#include "main.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "paper-system.hh"

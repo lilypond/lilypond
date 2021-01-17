@@ -20,7 +20,6 @@
 #include "book.hh"
 
 #include "ly-smob-list.hh"
-#include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "paper-book.hh"

@@ -48,7 +48,6 @@
 #include "item.hh"
 #include "lookup.hh"
 #include "ly-scm-list.hh"
-#include "main.hh"
 #include "misc.hh"
 #include "note-head.hh"
 #include "output-def.hh"

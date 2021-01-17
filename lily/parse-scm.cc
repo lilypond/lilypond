@@ -23,7 +23,6 @@
 #include "lily-imports.hh"
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
-#include "main.hh"
 #include "overlay-string-port.hh"
 #include "paper-book.hh"
 #include "source-file.hh"

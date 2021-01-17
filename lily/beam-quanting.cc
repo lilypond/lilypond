@@ -33,7 +33,6 @@
 #include "interval-minefield.hh"
 #include "least-squares.hh"
 #include "libc-extension.hh"
-#include "main.hh"
 #include "note-head.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"

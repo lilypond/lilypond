@@ -25,7 +25,6 @@
 #include "file-name.hh"
 #include "international.hh"
 #include "lily-version.hh"
-#include "main.hh"
 #include "midi-chunk.hh"
 #include "midi-stream.hh"
 #include "output-def.hh"

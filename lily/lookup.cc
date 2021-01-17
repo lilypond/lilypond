@@ -27,7 +27,6 @@
 #include "dimensions.hh"
 #include "bezier.hh"
 #include "file-path.hh"
-#include "main.hh"
 #include "lily-guile.hh"
 
 #include <cctype>

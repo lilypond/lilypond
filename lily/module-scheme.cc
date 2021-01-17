@@ -19,7 +19,6 @@
 
 #include "ly-module.hh" // pulls in lily-guile.hh and guile-compatibility.hh
 #include "warn.hh"
-#include "main.hh"
 #include "std-string.hh"
 
 /*

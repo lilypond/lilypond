@@ -24,7 +24,6 @@
 #include "international.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
-#include "main.hh"
 #include "open-type-font.hh"
 
 #include <cstdio>
