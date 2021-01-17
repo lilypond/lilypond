@@ -98,7 +98,7 @@ Global_context::prepare (SCM sev)
 
   assert (mom);
 
-  if (prev_mom_.main_part_.is_infinity () && prev_mom_ < 0)
+  if (isinf (prev_mom_.main_part_) && prev_mom_ < 0)
     prev_mom_ = *mom;
   else
     prev_mom_ = now_mom_;
@@ -145,7 +145,7 @@ Global_context::iterate (Music *music, bool force_found_music)
       now_mom_.main_part_ = -Rational::infinity ();
 
       const auto &final_mom = iter->music_get_length ();
-      if (final_mom.main_part_.is_infinity ())
+      if (isinf (final_mom.main_part_))
         {
           // We'll probably also reach "Moment is not increasing" below.
           music->programming_error ("music has infinite length");

@@ -386,7 +386,7 @@ robust_scm2string (SCM k, const string &s)
 template <>
 SCM to_scm<Rational> (const Rational &r)
 {
-  if (r.is_infinity ())
+  if (isinf (r))
     {
       if (r > Rational (0))
         return scm_inf ();

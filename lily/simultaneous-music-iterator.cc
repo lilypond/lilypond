@@ -96,7 +96,7 @@ Simultaneous_music_iterator::create_contexts ()
 void
 Simultaneous_music_iterator::process (Moment until)
 {
-  bool finite = !pending_moment ().main_part_.is_infinity ();
+  bool finite = !isinf (pending_moment ().main_part_);
   for (auto proc = children_list_.begin ();
        proc != children_list_.end (); /*in loop*/)
     {
@@ -124,7 +124,7 @@ Simultaneous_music_iterator::process (Moment until)
   // }
   // cannot wait for the death of context blah before ending the
   // simultaneous iterator.
-  if (finite && pending_moment ().main_part_.is_infinity ())
+  if (finite && isinf (pending_moment ().main_part_))
     {
       for (auto *child : children_list_)
         child->quit ();

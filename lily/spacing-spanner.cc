@@ -124,7 +124,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
           assert (this_shortest);
           shortest_in_measure = std::min (shortest_in_measure, this_shortest.main_part_);
         }
-      else if (!shortest_in_measure.is_infinity ()
+      else if (!isinf (shortest_in_measure)
                && Paper_column::is_breakable (cols[i]))
         {
           vsize j = 0;

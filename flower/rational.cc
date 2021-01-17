@@ -80,7 +80,7 @@ Rational::trunc_int () const
 Rational
 Rational::trunc_rat () const
 {
-  if (is_infinity ())
+  if (isinf (*this))
     return *this;
   return Rational ((num_ - (num_ % den_)) * sign_, den_);
 }
@@ -208,7 +208,7 @@ Rational::compare (Rational const &r, Rational const &s)
     return -1;
   else if (r.sign_ > s.sign_)
     return 1;
-  else if (r.is_infinity ()) // here s is also infinite with the same sign
+  else if (isinf (r)) // here s is also infinite with the same sign
     return 0;
   else if (r.sign_ == 0) // here s.sign_ is also zero
     return 0;
@@ -247,9 +247,9 @@ Rational::operator += (Rational r)
     ;
   else if (sign_ == 0)
     *this = r;
-  else if (is_infinity ())
+  else if (isinf (*this))
     ;
-  else if (r.is_infinity ())
+  else if (isinf (r))
     *this = r;
   else
     {
@@ -321,7 +321,7 @@ Rational &
 Rational::operator *= (Rational r)
 {
   sign_ *= ::sign (r.sign_);
-  if (r.is_infinity ())
+  if (isinf (r))
     {
       sign_ = sign () * 2;
       goto exit_func;
@@ -358,7 +358,7 @@ Rational::operator -= (Rational r)
 string
 Rational::to_string () const
 {
-  if (is_infinity ())
+  if (isinf (*this))
     {
       return string (sign_ > 0 ? "" : "-") + "infinity";
     }
@@ -373,10 +373,4 @@ int
 sign (Rational r)
 {
   return r.sign ();
-}
-
-bool
-Rational::is_infinity () const
-{
-  return sign_ == 2 || sign_ == -2;
 }

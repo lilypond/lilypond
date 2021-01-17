@@ -242,7 +242,7 @@ Timing_translator::start_translation_timestep ()
       programming_error ("moving backwards in time");
       dt = 0;
     }
-  else if (dt.main_part_.is_infinity ())
+  else if (isinf (dt.main_part_))
     {
       programming_error ("moving infinitely to future");
       dt = 0;

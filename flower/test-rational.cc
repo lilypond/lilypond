@@ -51,6 +51,7 @@ protected:
       EQUAL (0, r.sign ());
       EQUAL (0, r.num ());
       EQUAL (1, r.den ());
+      CHECK (!isinf (r));
     }
 
     // lowest value, implicit construction
@@ -64,6 +65,7 @@ protected:
       EQUAL (static_cast<decltype (r.num ())> (L), r.num ());
       EQUAL (1, r.den ());
 
+      CHECK (!isinf (r));
       CHECK (-Rational::infinity () < r);
       CHECK (r < Rational::infinity ());
     }
@@ -76,6 +78,7 @@ protected:
       EQUAL (static_cast<decltype (r.num ())> (H), r.num ());
       EQUAL (1, r.den ());
 
+      CHECK (!isinf (r));
       CHECK (-Rational::infinity () < r);
       CHECK (r < Rational::infinity ());
     }
@@ -126,7 +129,7 @@ TEST (Rational_test, init_zero_over_zero)
 {
   const Rational r (0, 0);
   EQUAL (0, r.sign ());
-  CHECK (!r.is_infinity ());
+  CHECK (!isinf (r));
   if (false) // TODO: Rational (0, 0) -> NaN
     {
       CHECK (std::isnan (static_cast<double> (r))); // TODO: etc.
@@ -137,7 +140,7 @@ TEST (Rational_test, init_pos_over_zero)
 {
   const Rational r (123, 0);
   EQUAL (1, r.sign ());
-  CHECK (r.is_infinity ());
+  CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
   CHECK (std::isinf (d));
@@ -148,7 +151,7 @@ TEST (Rational_test, init_neg_over_zero)
 {
   const Rational r (-123, 0);
   EQUAL (-1, r.sign ());
-  CHECK (r.is_infinity ());
+  CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
   CHECK (std::isinf (d));
@@ -167,7 +170,7 @@ TEST (Rational_test, init_float_pos_inf)
 {
   const Rational r (INFINITY);
   EQUAL (1, r.sign ());
-  CHECK (r.is_infinity ());
+  CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
   CHECK (std::isinf (d));
@@ -178,7 +181,7 @@ TEST (Rational_test, init_float_neg_inf)
 {
   const Rational r (-INFINITY);
   EQUAL (-1, r.sign ());
-  CHECK (r.is_infinity ());
+  CHECK (isinf (r));
 
   const auto d = static_cast<double> (r);
   CHECK (std::isinf (d));
@@ -189,7 +192,7 @@ TEST (Rational_test, neg_infinity)
 {
   constexpr auto r = -Rational::infinity ();
   EQUAL (-1, r.sign ());
-  CHECK (r.is_infinity ());
+  CHECK (isinf (r));
   CHECK (r == Rational (-INFINITY));
 }
 
@@ -197,7 +200,7 @@ TEST (Rational_test, infinity)
 {
   constexpr auto r = Rational::infinity ();
   EQUAL (1, r.sign ());
-  CHECK (r.is_infinity ());
+  CHECK (isinf (r));
   CHECK (r == Rational (INFINITY));
 }
 

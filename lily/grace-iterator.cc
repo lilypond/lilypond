@@ -51,7 +51,7 @@ Moment
 Grace_iterator::pending_moment () const
 {
   Moment cp = Music_wrapper_iterator::pending_moment ();
-  if (!cp.main_part_.is_infinity ())
+  if (!isinf (cp.main_part_))
     {
       cp = Moment (0, music_start_mom ().grace_part_ + cp.main_part_);
     }

@@ -51,12 +51,6 @@ private:
   void normalize ();
 
 public:
-  // true for positive or negative infinity
-  //
-  // TODO: Replace this with ::isinf(const Rational&), paralleling std::isinf,
-  // and consider that ::isfinite(const Rational&) would likely make more sense
-  // in some cases, even though Rational doesn't properly represent NaN yet.
-  bool is_infinity () const;
   void invert ();
   I64 numerator () const { return sign_ * static_cast<I64> (num_); }
   I64 denominator () const { return static_cast<I64> (den_); }
@@ -71,6 +65,8 @@ public:
   Rational abs () const;
   void negate ();
 
+  // TODO: Returning true for 0/0 would be analogous to floating-point types,
+  // but changing it might have significant side effects.
   explicit operator bool () const { return sign_ != 0; }
   explicit operator double () const;
 
@@ -105,6 +101,11 @@ public:
   static int compare (Rational const &, Rational const &);
   int sign () const;
   std::string to_string () const;
+
+  // true for positive or negative infinity
+  // TODO: Consider isfinite(const Rational&) would likely make more sense in
+  // some cases, even though Rational doesn't properly represent NaN yet.
+  friend bool isinf (Rational const &r) { return r.sign_ / 2; }
 };
 
 #include "arithmetic-operator.hh"
