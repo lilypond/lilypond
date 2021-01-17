@@ -1568,24 +1568,11 @@ Internal Reference:
 @funindex \cadenzaOn
 @funindex \cadenzaOff
 
-In metered music bar lines are inserted and bar numbers are calculated
-automatically. In unmetered music (i.e., cadenzas), this is not
-desirable and can be @q{switched off} using the command
-@code{\cadenzaOn}, then @q{switched back on} at the appropriate place
-using @code{\cadenzaOff}.
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  c4 d e d
-  \cadenzaOn
-  c4 c d8[ d d] f4 g4.
-  \cadenzaOff
-  \bar "|"
-  d4 e d c
-}
-@end lilypond
-
-Bar numbering is resumed at the end of the cadenza.
+In music such as cadenzas, it may be desirable to disable
+automatic measure demarcation and all that it entails: numbering
+bars, resetting accidentals, etc.  Music between @code{\cadenzaOn}
+and @code{\cadenzaOff} does not count toward the length of a
+measure.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1593,31 +1580,33 @@ Bar numbering is resumed at the end of the cadenza.
   \override Score.BarNumber.break-visibility = #all-visible
   c4 d e d
   \cadenzaOn
-  c4 c d8[ d d] f4 g4.
+  c4 cis d8[ d d] f4 g4.
   \cadenzaOff
-  \bar "|"
   d4 e d c
 }
 @end lilypond
 
-Inserting a @code{\bar} command within a cadenza does not start a new
-measure, even if a bar line is printed.  So any accidentals -- which
-are usually assumed to remain in force until the end of the measure --
-will still be valid after the bar line printed by @code{\bar}.  If
-subsequent accidentals should be printed, forced accidentals or
-reminder accidentals need to be inserted manually, see
-@ref{Accidentals}.
+To divide an unmetered passage into irregular measures,
+temporarily re-enable timing and use @code{\partial} to create a
+tiny measure.  The @code{\bar} command alone does not start a new
+measure.
 
 @lilypond[verbatim,quote]
+cadenzaMeasure = {
+  \cadenzaOff
+  \partial 1024 s1024
+  \cadenzaOn
+}
+
 \relative c'' {
+  % Show all bar numbers
+  \override Score.BarNumber.break-visibility = #all-visible
   c4 d e d
   \cadenzaOn
-  cis4 d cis d
-  \bar "|"
-  % First cis is printed without alteration even if it's after a \bar
-  cis4 d cis! d
+  c4 cis \bar "!" d8[ d d] \cadenzaMeasure f4 g4.
+  \cadenzaMeasure
   \cadenzaOff
-  \bar "|"
+  d4 e d c
 }
 @end lilypond
 
