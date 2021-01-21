@@ -46,6 +46,9 @@
   (let*
       ((tmp (make-tmpfile #f))
        (tmp-name (port-filename tmp)))
+    (cond-expand
+     (guile-2 (set-port-encoding! tmp "UTF-8"))
+     (else))
     (ly:debug (_ "Preparing Ghostscript command to `~a': ~a")
               tmp-name run-str)
     (display run-str tmp)

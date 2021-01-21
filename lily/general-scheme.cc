@@ -644,15 +644,6 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
   return exit_status;
 }
 
-static char *
-ly_scm2utf8 (SCM str)
-{
-  char *p = ly_scm2str0 (str);
-  char *g = g_locale_to_utf8 (p, -1, 0, 0, 0);
-  free (p);
-  return g;
-}
-
 LY_DEFINE (ly_spawn, "ly:spawn",
            1, 0, 1, (SCM command, SCM rest),
            "Simple interface to g_spawn_sync"
@@ -666,9 +657,9 @@ LY_DEFINE (ly_spawn, "ly:spawn",
   char **argv = new char *[argc + 2];
 
   int n = 0;
-  argv[n++] = ly_scm2utf8 (command);
+  argv[n++] = ly_scm2str0 (command);
   for (SCM s = rest; scm_is_pair (s); s = scm_cdr (s))
-    argv[n++] = ly_scm2utf8 (scm_car (s));
+    argv[n++] = ly_scm2str0 (scm_car (s));
   argv[n] = 0;
 
   char *standard_output = 0;
