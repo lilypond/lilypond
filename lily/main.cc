@@ -602,20 +602,6 @@ setup_localisation ()
      Disable localisation of float values. */
   setlocale (LC_NUMERIC, "C");
 
-#if GUILEV2
-  // In order not to have this porting aid backfire to GUILE1 usage,
-  // this is only compiled in the GUILEV2 version.  It should
-  // eventually be replaced with proper multibyte communication with
-  // GUILE2, but in the mean time it seems that this is the least
-  // invasive path to get comparable results between the
-  // not-really-multibyte-supporting GUILE1 and GUILE2
-
-  /* Disable character sets */
-  setlocale (LC_CTYPE, "C");
-  /* But our text domain is in UTF-8 */
-  bind_textdomain_codeset ("lilypond", "UTF-8");
-#endif
-
   // we temporarily use the compile-time value for the locale
   // until we get the final directory location
   bindtextdomain ("lilypond", LOCALEDIR);
