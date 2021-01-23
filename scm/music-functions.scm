@@ -298,39 +298,83 @@ The number of dots in the shifted music may not be less than zero."
 (define-public (make-repeat name times main alts)
   "Create a repeat music expression, with all properties initialized
 properly."
-  (let* ((type (or (assoc-get name '(("volta" . VoltaRepeatedMusic)
+  (let* ((sane-times (max times 1)) ; TODO: Warn?
+         (type (or (assoc-get name '(("volta" . VoltaRepeatedMusic)
                                      ("unfold" . UnfoldedRepeatedMusic)
                                      ("percent" . PercentRepeatedMusic)
                                      ("tremolo" . TremoloRepeatedMusic)))
                    (begin (ly:warning (_ "unknown repeat type `~S': \
 must be volta, unfold, percent, or tremolo") name)
                           'VoltaRepeatedMusic)))
-         (is-specced (lambda (m) (music-is-of-type? m 'volta-specification)))
-         (lalts (length alts))
-         (talts (if (< times lalts)
-                    (begin
-                      (ly:warning (_ "More alternatives than repeats.  \
-Junking excess alternatives"))
-                      (set! lalts times)
-                      (take alts times))
-                    alts))
-         (alt-1-count (1+ (- times lalts))))
+         (alt-music
+          (if (ly:music? alts)
+              (begin
+                ;; TODO: Consider accepting plain sequential-music,
+                ;; which would allow this:
+                ;;
+                ;;     alts = { a b } % note no \alternative here
+                ;;     \repeat volta 2 {} \alternative \alts
+                ;;
+                (if (not (music-is-of-type? alts 'sequential-alternative-music))
+                    (ly:music-warning alts (_ "alternative music expected")))
+                alts)
+              ;; Accept a bare element list for backward compatibility.
+              (make-music 'SequentialAlternativeMusic
+                          'elements alts
+                          'origin (ly:music-property main 'origin)))))
 
     ;; If the user did not specify volta numbers, wrap the
     ;; alternatives for consistency with the legacy behavior.
-    (if (not (any is-specced alts))
-        (let * (;; volta numbers for each alternative (list of lists)
-                (volta-numbers (cons
-                                (map 1+ (iota alt-1-count))
-                                (map (lambda (i) (list (+ alt-1-count 1 i)))
-                                     (iota (- times 1))))))
-          ;; wrap the alternatives and set their volta numbers
-          (set! talts (map volta-spec-music volta-numbers talts))))
+    (define (elaborate-alternative-music alt-music times)
+      (let* ((alts (ly:music-property alt-music 'elements))
+             (lalts (length alts))
+             (talts (if (< times lalts)
+                        (let ((message (_ "More alternatives than repeats.  \
+Junking excess alternatives")))
+                          ;; The \repeat and \the alternative are not
+                          ;; necessarily close together in the source.
+                          ;; Warn twice to point to both.
+                          (ly:music-warning main message)
+                          (ly:music-warning alt-music message)
+                          (set! lalts times)
+                          (take alts times))
+                        alts)))
+
+        (define (is-specced music)
+          (music-is-of-type? music 'volta-specification))
+
+        (if (not (any is-specced alts))
+            (let* ((alt-1-count (1+ (- times lalts)))
+                   ;; volta numbers for each alternative (list of lists)
+                   (volta-numbers (cons
+                                   (map 1+ (iota alt-1-count))
+                                   (map (lambda (i) (list (+ alt-1-count 1 i)))
+                                        (iota (- times 1))))))
+              ;; wrap the alternatives and set their volta numbers
+              (set! talts (map volta-spec-music volta-numbers talts))))
+        (make-music 'SequentialAlternativeMusic
+                    'elements talts
+                    ;; setting repeat-count is ugly (see iterator)
+                    'repeat-count times)))
+
+    (define (pass-over-repeated-music music)
+      (not (music-is-of-type? music 'repeated-music)))
+
+    (define (map-alternatives m)
+      (if (music-is-of-type? m 'sequential-alternative-music)
+          (elaborate-alternative-music m sane-times)
+          m))
 
     (make-music type
-                'element main
-                'repeat-count (max times 1)
-                'elements talts)))
+                'element (music-selective-map
+                          pass-over-repeated-music
+                          map-alternatives
+                          main)
+                'repeat-count sane-times
+                'elements
+                (ly:music-property
+                 (elaborate-alternative-music alt-music sane-times)
+                 'elements))))
 
 (define (calc-repeat-slash-count music)
   "Given the child-list @var{music} in @code{PercentRepeatMusic},

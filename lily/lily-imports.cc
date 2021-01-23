@@ -148,6 +148,7 @@ Variable property_set ("property-set");
 Variable property_unset ("property-unset");
 Variable repeat ("repeat");
 Variable repetition_chord ("repetition-chord");
+Variable sequential_alternative_music ("sequential-alternative-music");
 Variable sequential_music ("sequential-music");
 Variable simultaneous_music ("simultaneous-music");
 Variable tempo ("tempo");

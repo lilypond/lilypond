@@ -655,6 +655,8 @@ automatically when an output definition (a @code{\\score} or
   doubleRepeatType = ":..:"
   startRepeatType = ".|:"
   endRepeatType = ":|."
+  %% TODO: Add 'measureStartNow to alternativeRestores?
+  %% TODO: Add 'timing to alternativeRestores?
   alternativeRestores = #'(measurePosition measureLength lastChord)
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function

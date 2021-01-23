@@ -699,6 +699,12 @@ expression."
                                           (music->lily-string music))
                                         alternatives)))))))
 
+(define-display-method SequentialAlternativeMusic (expr)
+  (format #f "\\alternative { ~{~a ~}}"
+          (map-in-order (lambda (music)
+                          (music->lily-string music))
+                        (ly:music-property expr 'elements))))
+
 (define-display-method VoltaRepeatedMusic (expr)
   (repeat->lily-string expr "volta"))
 

@@ -162,6 +162,7 @@ extern Variable property_set;
 extern Variable property_unset;
 extern Variable repeat;
 extern Variable repetition_chord;
+extern Variable sequential_alternative_music;
 extern Variable sequential_music;
 extern Variable simultaneous_music;
 extern Variable tempo;

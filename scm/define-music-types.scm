@@ -551,6 +551,17 @@ previously added property from a graphical object definition.")
         (types . (event))
         ))
 
+    (SequentialAlternativeMusic
+     . ((description . "Repeat alternatives in sequence.
+
+Syntax: @code{\\alternative @{ @var{alternatives} @}}")
+        (elements-callback . ,(lambda (m) (ly:music-property m 'elements)))
+        (iterator-ctor . ,ly:alternative-sequence-iterator::constructor)
+        (length-callback . ,ly:music-sequence::cumulative-length-callback)
+        (start-callback . ,ly:music-sequence::first-start-callback)
+        (types . (sequential-music sequential-alternative-music))
+        ))
+
     (SequentialMusic
      . ((description . "Music expressions concatenated.
 

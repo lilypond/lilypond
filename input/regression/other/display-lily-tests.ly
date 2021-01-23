@@ -235,6 +235,11 @@ are reported on the stderr of this run."
 \test ##[ \repeat tremolo 15 { c''16 b'16 } #]
 \test "\repeat volta 2 c4 \alternative { \volta 1 d4 \volta 2 e4 }"
       ##[ \repeat volta 2 c4 \alternative { d4 e4 } #]
+\test "\repeat volta 2 { a1 \alternative { \volta 1 b1 \volta 2 c1 } d1 }"
+      ##[ \repeat volta 2 { a1 \alternative { b1 c1 } d1 } #]
+\test "\repeat unfold 2 { a1 \alternative { \volta 1 b1 \volta 2 c1 } d1 }"
+      ##[ \repeat unfold 2 { a1 \alternative { b1 c1 } d1 } #]
+\test ##[ \alternative { b1 c1 } #] % not really expected outside of \repeat
 \test ##[ \unfolded R1 #]
 \test ##[ \volta 1 c'1 #]
 \test ##[ \volta 5,13,12 c'1 #]

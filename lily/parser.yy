@@ -1480,14 +1480,25 @@ repeated_music:
 	{
 		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4, SCM_EOL);
 	}
-	| REPEAT simple_string unsigned_number music ALTERNATIVE braced_music_list
+	| REPEAT simple_string unsigned_number music sequential_alternative_music
 	{
-		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4, $6);
+		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4, $5);
 	}
 	;
 
+sequential_alternative_music:
+	ALTERNATIVE braced_music_list {
+		$$ = MAKE_SYNTAX (sequential_alternative_music, @$, $2);
+	}
+	|
+	ALTERNATIVE MUSIC_IDENTIFIER { $$ = $2; }
+	;
+
 sequential_music:
-	SEQUENTIAL braced_music_list {
+	sequential_alternative_music {
+		$$ = $1;
+	}
+	| SEQUENTIAL braced_music_list {
 		$$ = MAKE_SYNTAX (sequential_music, @$, $2);
 	}
 	| braced_music_list {

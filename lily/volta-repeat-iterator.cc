@@ -21,7 +21,6 @@
 
 #include "context.hh"
 #include "lily-imports.hh"
-#include "ly-scm-list.hh"
 #include "music.hh"
 
 using std::string;
@@ -34,10 +33,7 @@ public:
 
   void add_repeat_command (SCM);
 protected:
-  void next_element () override;
-  void create_children () override;
   void process (Moment) override;
-  void derived_mark () const override;
 
 private:
   bool empty () const
@@ -46,32 +42,9 @@ private:
   }
 
 private:
-  bool first_time_ = true;
-  bool final_alt_needs_end_repeat_ = false;
-  int alt_count_ = 0;
-  int rep_count_ = 0;
-  int done_count_ = 0;
-  SCM alt_restores_ = SCM_EOL;
+  bool started_ = false;
+  bool stopped_ = false;
 };
-
-void
-Volta_repeat_iterator::derived_mark () const
-{
-  scm_gc_mark (alt_restores_);
-  Sequential_iterator::derived_mark ();
-}
-
-void
-Volta_repeat_iterator::create_children ()
-{
-  Sequential_iterator::create_children ();
-
-  SCM alts = get_property (get_music (), "elements");
-
-  alt_count_ = int (scm_ilength (alts));
-  rep_count_ = scm_to_int (get_property (get_music (), "repeat-count"));
-  done_count_ = 0;
-}
 
 /*
   TODO: add source information for debugging
@@ -91,127 +64,40 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
 }
 
 void
-Volta_repeat_iterator::next_element ()
-{
-  done_count_++;
-
-  Sequential_iterator::next_element ();
-
-  if (alt_count_)
-    {
-      const bool starting_first_alt = (done_count_ <= 1);
-      const bool starting_final_alt = (done_count_ == alt_count_);
-      const bool ending_final_alt = (done_count_ == alt_count_ + 1);
-      const bool ending_earlier_alt = !starting_first_alt
-        && (done_count_ < alt_count_ + 1);
-
-      if (starting_first_alt)
-        {
-          alt_restores_ = SCM_EOL;
-          if (alt_count_ > 1)
-            {
-              if (from_scm<bool> (get_property (get_context (), "timing")))
-                {
-                  for (SCM lst = get_property (get_context (), "alternativeRestores");
-                       scm_is_pair (lst);
-                       lst = scm_cdr (lst))
-                    {
-                      SCM res = SCM_EOL;
-                      Context *t = get_context ()->where_defined (scm_car (lst),
-                                                                  &res);
-                      if (t)
-                        {
-                          alt_restores_ = scm_cons
-                            (scm_list_3 (t->self_scm (), scm_car (lst), res),
-                             alt_restores_);
-                        }
-                    }
-                }
-            }
-        }
-
-      // The final alternative will need an end-repeat bar if it applies to any
-      // volta other than the final volta.
-      if (starting_final_alt)
-        {
-          // Examining the child music is ugly but effective.
-          auto *child = get_child ();
-          auto *music = child ? child->get_music () : nullptr;
-          if (music)
-            {
-              SCM nums = get_property (music, "volta-numbers");
-              if (!scm_is_pair (nums))
-                {
-                  // Not finding a label, we'll assume that the final
-                  // alternative is for the final volta only.
-                }
-              else if (scm_is_pair (scm_cdr (nums)))
-                {
-                  final_alt_needs_end_repeat_ = true;
-                }
-              else // a single, specified volta
-                {
-                  final_alt_needs_end_repeat_
-                    = scm_is_false (scm_equal_p (scm_car (nums),
-                                                 to_scm (rep_count_)));
-                }
-            }
-        }
-
-      if (ending_final_alt)
-        {
-          if (final_alt_needs_end_repeat_)
-            add_repeat_command (ly_symbol2scm ("end-repeat"));
-        }
-      else if (ending_earlier_alt)
-        {
-          add_repeat_command (ly_symbol2scm ("end-repeat"));
-
-          if (from_scm<bool> (get_property (get_context (), "timing")))
-            {
-              SCM mps = ly_symbol2scm ("measurePosition");
-              for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
-                {
-                  SCM ls = scm_car (p);
-                  if (scm_is_eq (scm_cadr (ls), mps))
-                    // Repeats may have different grace timing, so
-                    // we need to adjust the measurePosition grace
-                    // timing to that of the current alternative
-                    // rather than that of the first.  The
-                    // Timing_translator does this already but is
-                    // too late to avoid bad side-effects
-                    {
-                      Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
-                                 get_context ()->now_mom ().grace_part_);
-                      Lily::ly_context_set_property_x (scm_car (ls),
-                                                       mps,
-                                                       mp.smobbed_copy ());
-                    }
-                  else
-                    scm_apply_0 (Lily::ly_context_set_property_x, ls);
-                }
-            }
-        }
-    }
-  else
-    {
-      if (!empty ())
-        add_repeat_command (ly_symbol2scm ("end-repeat"));
-    }
-}
-
-void
 Volta_repeat_iterator::process (Moment m)
 {
-  if (first_time_)
+  if (!started_)
     {
       // Robustness: Avoid printing a misleading bar line for a zero-duration
       // repeated section.
       if (!empty ())
         add_repeat_command (ly_symbol2scm ("start-repeat"));
-      first_time_ = false;
+      started_ = true;
     }
+
   Sequential_iterator::process (m);
+
+  if (started_ && !stopped_ && (m == music_get_length ()))
+    {
+      if (!empty ())
+        {
+          // When there are tail alternatives, Alternative_sequence_iterator
+          // issues end-repeat commands.
+          //
+          // TODO: The 'elements property informs us of this:
+          //
+          //     \repeat { ... } \alternative { ... }
+          //
+          // but not this:
+          //
+          //     \repeat { ... \alternative { ... } }
+          //
+          bool has_alts = scm_is_pair (get_property (get_music (), "elements"));
+          if (!has_alts)
+            add_repeat_command (ly_symbol2scm ("end-repeat"));
+        }
+      stopped_ = true;
+    }
 }
 
 IMPLEMENT_CTOR_CALLBACK (Volta_repeat_iterator);

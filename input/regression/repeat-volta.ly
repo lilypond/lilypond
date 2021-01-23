@@ -1,6 +1,4 @@
 \version "2.19.21"
-#(ly:set-option 'warning-as-error #f)
-#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
 
 \header{
   texidoc="
@@ -9,7 +7,10 @@ If they don't barlines should still be shown.
 "
 }
 
-%%  no alts.
+#(ly:set-option 'warning-as-error #t)
+%% One warning for the \repeat and one for the \alternative.
+#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
+#(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
 
 \context Voice \relative {
   %% repeat non aligning with barlines.
@@ -19,5 +20,3 @@ If they don't barlines should still be shown.
   %% more alts than body
   \repeat volta 2 { c^"2x 3alt" d } \alternative { e f g }
 }
-
-

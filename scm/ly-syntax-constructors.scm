@@ -138,6 +138,11 @@
 (define-public (void-music)
   (ly:set-origin! (make-music 'Music)))
 
+(define-public (sequential-alternative-music mlist)
+  (ly:set-origin! (make-music
+                   'SequentialAlternativeMusic
+                   'elements mlist)))
+
 (define-public (sequential-music mlist)
   (ly:set-origin! (make-sequential-music mlist)))
 

@@ -149,11 +149,13 @@ depth-first through MUSIC."
       (or (not (music-is-of-type? music 'volta-specification))
           (pair? (member n (ly:music-property music 'volta-numbers '())))))
 
-    (define (unwrap-for-volta music n)
-      (cond ((music-is-of-type? music 'volta-specification)
-             (ly:music-property music 'element)) ; unwrap
+    (define (unwrap-for-volta music)
+      (cond ((music-is-of-type? music 'sequential-alternative-music)
+             (make-sequential-music (ly:music-property music 'elements)))
+            ((music-is-of-type? music 'volta-specification)
+             (ly:music-property music 'element))
             ((music-is-of-type? music 'unfolded-specification)
-             (ly:music-property music 'element)) ; unwrap
+             (ly:music-property music 'element))
             (else
              music)))
 
@@ -164,11 +166,12 @@ depth-first through MUSIC."
                        pass-over-repeated-music
                        (lambda (m) (keep-for-volta m volta-num))
                        volta-music))
-                ;; discard the remaining VoltaSpeccedMusic wrappers
+                ;; discard the remaining VoltaSpeccedMusic and
+                ;; SequentialAlternativeMusic wrappers
                 (set! volta-music
                       (music-selective-map
                        pass-over-repeated-music
-                       (lambda (m) (unwrap-for-volta m volta-num))
+                       unwrap-for-volta
                        volta-music)))
 
               (iota n 1 1) volte)
@@ -177,48 +180,15 @@ depth-first through MUSIC."
 
 (define (make-volta-set music)
   (let* ((alts (ly:music-property music 'elements))
-         (body (ly:music-property music 'element))
-         (lalts (length alts))
-         (times (ly:music-property music 'repeat-count)))
+         (body (ly:music-property music 'element)))
     (cons
      body
-     (map (lambda (x y)
-            (let* ((is-specced (music-is-of-type? x 'volta-specification))
-                   (bare-mus (if is-specced (ly:music-property x 'element) x))
-                   (new-mus (make-music 'SequentialMusic)))
-
-              ;; set properties for proper bar numbering
-              (set! (ly:music-property new-mus 'elements)
-                    (append
-                     (list (make-music 'AlternativeEvent
-                                       'alternative-dir (if (= y 0)
-                                                            -1
-                                                            0)
-                                       'alternative-increment
-                                       (if (= 0 y)
-                                           (1+ (- times
-                                                  lalts))
-                                           1)))
-                     ;; the alternative without its original
-                     ;; VoltaSpeccedMusic wrapper
-                     (list bare-mus)
-                     (if (= y (1- lalts))
-                         (list (make-music 'AlternativeEvent
-                                           'alternative-dir 1
-                                           'alternative-increment 0))
-                         '())))
-
-              (if is-specced
-                  ;; Create a new VoltaSpeccedMusic wrapper because
-                  ;; we're adding some music to the provided
-                  ;; alternative.
-                  (make-music
-                   'VoltaSpeccedMusic
-                   'volta-numbers (ly:music-property x 'volta-numbers)
-                   'element new-mus)
-                  new-mus)))
-          alts
-          (iota lalts)))))
+     (list (make-music
+            'SequentialAlternativeMusic
+            'alternative-dir STOP ; ugly (see iterator)
+            'elements alts
+            ;; setting repeat-count is ugly (see iterator)
+            'repeat-count (ly:music-property music 'repeat-count))))))
 
 (define (make-ottava-set music)
   "Set context properties for an ottava bracket."
