@@ -1,8 +1,7 @@
 \version "2.21.0"
 
 \header {
-  texidoc = "@code{\\rest-by-number} and @code{\\rest} support
-all rest styles."
+  texidoc = "The markup function @code{\\rest} supports all rest styles."
 }
 
 showRestStyles =
@@ -23,10 +22,12 @@ showRestStyles =
                    (cons 'style style)
                    (make-fill-line-markup
                      (map
-                       (lambda (dur-log)
-                         (make-rest-by-number-markup
-                          dur-log 0))
-                       '(-3 -2 -1 0 1 2 3 4 5 6 7 8 9 10))))))))
+                       (lambda (duration) (make-rest-markup duration))
+                       (map
+                         (lambda (i) (ly:make-duration i 0))
+                         (iota 14 -3 1)))))))))
+         ;; `z' is not an established style, we've added it to the list of
+         ;; styles, in order to get the "rest.2z" glyph printed as well.
          '(default
            mensural
            neomensural
@@ -36,6 +37,7 @@ showRestStyles =
            petrucci
            blackpetrucci
            semipetrucci
-           kievan)))))
+           kievan
+           z)))))
 
 \showRestStyles
