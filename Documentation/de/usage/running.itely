@@ -471,12 +471,6 @@ oder -Editoren kompatibel sein.  Es gibt auch die Option @code{svg-woff}
 @tab
 @tab Präfix für Datendateien (read-only).
 
-@item @code{debug-gc-assert-parsed-dead}
-@tab @code{#f}
-@tab Für Speicher-Debugging: Gehe sicher, dass alle Referenzen zu geparsten
-Objekten tot sind.  Das ist eine interne Option und sie wird automatisch
-für @code{`-ddebug-gc'} angestellt.
-
 @item @code{debug-lexer}
 @tab @code{#f}
 @tab Debugging des Flex-lexer.

@@ -270,8 +270,9 @@ single-page output file(s) with cropped margins.")
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
                 "Use the debugging Scheme evaluator.")
+    (debug-gc-object-lifetimes #t "Sanity check for garbage collector decisions in between @file{.ly} files.") 
     (debug-gc-assert-parsed-dead #f
-                                 "For internal use")
+                                 "For internal use.")
     (debug-lexer #f
                  "Debug the flex lexer.")
     (debug-page-breaking-scoring #f
@@ -791,6 +792,19 @@ messages into errors.")
 (define gc-zombies
   (make-weak-key-hash-table 0))
 
+(define (dump-zombies) 
+  "check that we're not holding on to objects. Doesn't work in GUILE 2.x"
+  (ly:set-option 'debug-gc-assert-parsed-dead #t)
+  (gc)
+  (ly:set-option 'debug-gc-assert-parsed-dead #f)
+  (for-each
+   (lambda (x)
+              (if (not (hashq-ref gc-zombies x))
+                  (begin
+                    (ly:programming-error "Parsed object should be dead: ~a" x)
+                    (hashq-set! gc-zombies x #t))))
+   (ly:parsed-undead-list!)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (multi-fork count)
@@ -909,14 +923,21 @@ PIDs or the number of the process."
 
 
 (define-public (lilypond-all files)
+  (cond-expand
+   (guile-2
+    (if (ly:get-option 'debug-gc-object-lifetimes)
+        (begin (ly:set-option 'debug-gc-object-lifetimes #f)
+               (ly:warn "option 'debug-gc-object-lifetimes not supported on GUILE 2"))))
+   (else #t))
+  
   (let* ((failed '())
+         (debug-lifetimes (ly:get-option 'debug-gc-object-lifetimes))
          (separate-logs (ly:get-option 'separate-log-files))
          (ping-log (and separate-logs (dup 2)))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
-    (cond-expand
-     (guile-2 #f)
-     (else (gc)))
+    (if debug-lifetimes
+        (gc))
     (for-each
      (lambda (x)
        (let* ((base (dir-basename x ".ly"))
@@ -942,23 +963,9 @@ PIDs or the number of the process."
           (else))
          (ly:reset-all-fonts)
 
-         ;; check that we're not holding on to objects. Doesn't work
-         ;; in GUILE 2.x
-         (cond-expand
-          (guile-2 #f)
-          (else
-           (begin
-             (ly:set-option 'debug-gc-assert-parsed-dead #t)
-             (gc)
-             (ly:set-option 'debug-gc-assert-parsed-dead #f))
-           (for-each
-            (lambda (x)
-              (if (not (hashq-ref gc-zombies x))
-                  (begin
-                    (ly:programming-error "Parsed object should be dead: ~a" x)
-                    (hashq-set! gc-zombies x #t))))
-            (ly:parsed-undead-list!))))
-
+         (ly:reset-all-fonts)
+         (if debug-lifetimes
+             (dump-zombies))
          (flush-all-ports)))
      files)
     failed))

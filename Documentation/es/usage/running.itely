@@ -660,12 +660,6 @@ de @q{una sola página}. Predeterminado: @code{#f}.
 Prefijo de los archivos de datos.  Esta opción es de solo lectura;
 su establecimiento no tiene ningún efecto.
 
-@item @code{debug-gc-assert-parsed-dead} @var{bool}
-Para la depuración de memoria: si @var{bool} es @code{#t},
-asegurarse de que todas las referencias a objetos analizados están
-muertas.  Es una opción interna, y se activa automáticamente para
-@code{-ddebug-gc}.  Predeterminado: @code{#f}.
-
 @item @code{debug-lexer} @var{bool}
 Si @var{bool} es @code{#t}, efectuar una depuración del analizador
 léxico flex.  Predeterminado: @code{#f}.

@@ -608,13 +608,6 @@ margini, in file di output di una sola pagina.  Predefinito: @code{#f}.
 Prefisso per i file di dati.  Questa è un'opzione di sola lettura; la sua
 impostazione non ha effetto.
 
-@item @code{debug-gc-assert-parsed-dead}
-@var{bool}
-Per il debug della memoria: se @var{bool} è @code{#t}, assicura che tutti i
-riferimenti agli oggetti analizzati siano eliminati. Questa è un'opzione
-interna e viene abilitata automaticamente da @code{`-ddebug-gc'}.
-Predefinito: @code{#f}.
-
 @item @code{debug-lexer}
 @var{bool}
 Se @var{bool} è @code{#t}, fa il debug dell'analizzatore lessicale flex.

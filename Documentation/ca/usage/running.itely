@@ -460,12 +460,6 @@ n@tab @code{#f}
 @tab
 @tab Prefix dels fitxers de dades (sols lectura).
 
-@item @code{debug-gc-assert-parsed-dead}
-@tab @code{#f}
-@tab Per a la depuració de memòria: assegura't que totes les
-referències a objectes analitzats estiguin mortes.  És una opció
-interna, i s'activa automàticament per a @code{`-ddebug-gc'}.
-
 @item @code{debug-lexer}
 @tab @code{#f}
 @tab Depuració de l'analitzador lèxic flex.

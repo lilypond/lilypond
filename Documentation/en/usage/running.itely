@@ -614,10 +614,9 @@ If @var{bool} is @code{#t}, use the debugging Scheme evaluator,
 which prints backtraces with line numbers on errors.
 Default: @code{#f}, or @code{#t} when using @code{--verbose}.
 
-@item @code{debug-gc-assert-parsed-dead} @var{bool}
-For memory debugging: If @var{bool} is @code{#t}, ensure that all
-references to parsed objects are dead.  Default:
-@code{#f}.
+@item @code{debug-gc-object-lifetimes} @var{bool}
+If @var{bool} is @code{#t}, ensure that all references to parsed
+objects are dead after finishing a file.  Default: @code{#t}.
 
 @item @code{debug-lexer} @var{bool}
 If @var{bool} is @code{#t}, debug the flex lexer.
