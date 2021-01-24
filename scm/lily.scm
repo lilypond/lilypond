@@ -171,6 +171,12 @@ session has started."
         (run-hook after-session-hook))))
 
 (define lilypond-interfaces #f)
+(cond-expand
+ (guile-2
+  (define root-module (resolve-module '() #f))
+  (define global-modules (module-submodules root-module))
+  (define session-modules #f))
+ (else))
 
 (define-public (session-initialize thunk)
   "Initialize this session.  The first session in a LilyPond run is
@@ -213,6 +219,12 @@ variables to their value after the initial call of @var{thunk}."
         (set! lilypond-interfaces
               (filter (lambda (m) (eq? 'interface (module-kind m)))
                       (module-uses (current-module))))
+        ;; Create a copy of the hash-table as an alist. We construct a new
+        ;; hash-table after processing each file.
+        (cond-expand
+         (guile-2
+          (set! session-modules (hash-map->list cons global-modules)))
+         (else))
         (let ((decl (map! (lambda (v)
                             (cons* #f v (variable-ref v)))
                           lilypond-declarations)))
@@ -1002,6 +1014,13 @@ PIDs or the number of the process."
          (for-each (lambda (s)
                      (ly:set-option (car s) (cdr s)))
                    all-settings)
+         ;; For GUILE 2.x, restore the modules recorded during (session-init)
+         ;; and remove any additional modules so that they can be collected.
+         (cond-expand
+          (guile-2
+           (set-module-submodules! root-module
+                                   (alist->hash-table session-modules)))
+          (else))
 
          ;; check that we're not holding on to objects. Doesn't work
          ;; in GUILE 2.x
