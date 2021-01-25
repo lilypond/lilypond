@@ -2679,18 +2679,18 @@ f^\varcoda e,_\varcoda b'\varcoda
 @funindex \ictus
 @funindex \semicirculus
 @funindex \signumcongruentiae
-@cindex @q{accentus} gregorian articulation
-@cindex gregorian articulation, accentus
-@cindex articulation, gregorian, accentus
-@cindex @q{circulus} gregorian articulation
-@cindex gregorian articulation, circulus
-@cindex articulation, gregorian, circulus
-@cindex @q{ictus} gregorian articulation
-@cindex gregorian articulation, ictus
-@cindex articulation, gregorian, ictus
-@cindex @q{semicirculus} gregorian articulation
-@cindex gregorian articulation, semicirculus
-@cindex articulation, gregorian, semicirculus
+@cindex @q{accentus} Gregorian articulation
+@cindex Gregorian articulation, accentus
+@cindex articulation, Gregorian, accentus
+@cindex @q{circulus} Gregorian articulation
+@cindex Gregorian articulation, circulus
+@cindex articulation, Gregorian, circulus
+@cindex @q{ictus} Gregorian articulation
+@cindex Gregorian articulation, ictus
+@cindex articulation, Gregorian, ictus
+@cindex @q{semicirculus} Gregorian articulation
+@cindex Gregorian articulation, semicirculus
+@cindex articulation, Gregorian, semicirculus
 @cindex @q{signum congruentiae} mensural notation
 @cindex mensural notation, signum congruentiae
 

@@ -1309,24 +1309,24 @@ specifically designed for use with notation in
 @funindex \episemFinis
 @funindex \ictus
 @funindex \semicirculus
-@cindex @q{accentus} gregorian articulation
-@cindex gregorian articulation, accentus
-@cindex articulation, gregorian, accentus
-@cindex @q{circulus} gregorian articulation
-@cindex gregorian articulation, circulus
-@cindex articulation, gregorian, circulus
-@cindex @q{episemInitium} gregorian articulation
-@cindex gregorian articulation, episemInitium
-@cindex articulation, gregorian, episemInitium
-@cindex @q{episemFinis} gregorian articulation
-@cindex gregorian articulation, episemFinis
-@cindex articulation, gregorian, episemFinis
-@cindex @q{ictus} gregorian articulation
-@cindex gregorian articulation, ictus
-@cindex articulation, gregorian, ictus
-@cindex @q{semicirculus} gregorian articulation
-@cindex gregorian articulation, semicirculus
-@cindex articulation, gregorian, semicirculus
+@cindex @q{accentus} Gregorian articulation
+@cindex Gregorian articulation, accentus
+@cindex articulation, Gregorian, accentus
+@cindex @q{circulus} Gregorian articulation
+@cindex Gregorian articulation, circulus
+@cindex articulation, Gregorian, circulus
+@cindex @q{episem initium} Gregorian articulation
+@cindex Gregorian articulation, episem initium
+@cindex articulation, Gregorian, episem initium
+@cindex @q{episem finis} Gregorian articulation
+@cindex Gregorian articulation, episem finis
+@cindex articulation, Gregorian, episem finis
+@cindex @q{ictus} Gregorian articulation
+@cindex Gregorian articulation, ictus
+@cindex articulation, Gregorian, ictus
+@cindex @q{semicirculus} Gregorian articulation
+@cindex Gregorian articulation, semicirculus
+@cindex articulation, Gregorian, semicirculus
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
