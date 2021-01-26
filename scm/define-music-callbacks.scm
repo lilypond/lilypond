@@ -186,9 +186,7 @@ depth-first through MUSIC."
      (list (make-music
             'SequentialAlternativeMusic
             'alternative-dir STOP ; ugly (see iterator)
-            'elements alts
-            ;; setting repeat-count is ugly (see iterator)
-            'repeat-count (ly:music-property music 'repeat-count))))))
+            'elements alts)))))
 
 (define (make-ottava-set music)
   "Set context properties for an ottava bracket."

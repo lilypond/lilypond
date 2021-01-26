@@ -353,9 +353,7 @@ Junking excess alternatives")))
               ;; wrap the alternatives and set their volta numbers
               (set! talts (map volta-spec-music volta-numbers talts))))
         (make-music 'SequentialAlternativeMusic
-                    'elements talts
-                    ;; setting repeat-count is ugly (see iterator)
-                    'repeat-count times)))
+                    'elements talts)))
 
     (define (pass-over-repeated-music music)
       (not (music-is-of-type? music 'repeated-music)))
