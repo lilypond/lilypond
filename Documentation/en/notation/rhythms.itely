@@ -623,6 +623,10 @@ Dash pattern definitions for ties have the same structure as dash
 pattern definitions for slurs. For more information about complex dash
 patterns, see @ref{Slurs}.
 
+@cindex whiteout
+@cindex grob, and whiteout
+@cindex overwriting grob
+@cindex grob, overwriting
 Override @var{whiteout} and @var{layer} layout properties of objects
 that should cause a gap in ties.
 

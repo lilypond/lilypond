@@ -3731,6 +3731,8 @@ a' a'
 @cindex overwriting object
 @cindex object, overwriting
 @cindex grob, overwriting
+@cindex whiteout
+@cindex grob, and whiteout
 
 Every layout object has a color property which by default is set
 to @code{black}.  If this is overridden to @code{white} the object
@@ -3766,6 +3768,10 @@ the @code{Clef} object must be given in a lower value of
 \override Staff.Clef.layer = #-1
 a'1
 @end lilypond
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/using-the-whiteout-property.ly}
 
 @node Using break-visibility
 @unnumberedsubsubsec Using break-visibility
