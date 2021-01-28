@@ -717,14 +717,6 @@ příručky se nacházejí na @url{https://lilypond.org}.}
 
 @docCurrent
 
-@subsubheading Odklízeči chyb
-
-@bugsquadCurrent
-
-@subsubheading Podpora
-
-@supportCurrent
-
 @subsubheading Překlad
 
 @translationsCurrent
@@ -749,10 +741,9 @@ příručky se nacházejí na @url{https://lilypond.org}.}
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading Odklízeči chyb
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Podpora
 

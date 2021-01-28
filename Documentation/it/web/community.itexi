@@ -839,14 +839,6 @@ manuali sono reperibili su @url{https://lilypond.org}}
 
 @docCurrent
 
-@subsubheading Bug squad
-
-@bugsquadCurrent
-
-@subsubheading Supporto
-
-@supportCurrent
-
 @subsubheading Traduzione
 
 @translationsCurrent
@@ -871,10 +863,9 @@ manuali sono reperibili su @url{https://lilypond.org}}
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading Bug squad
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Supporto
 

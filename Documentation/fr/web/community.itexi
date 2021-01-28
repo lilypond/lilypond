@@ -906,14 +906,6 @@ paragraphes qui suivent.}
 
 @docCurrent
 
-@subsubheading Résolution de bogue
-
-@bugsquadCurrent
-
-@subsubheading Support
-
-@supportCurrent
-
 @subsubheading Traduction
 
 @translationsCurrent
@@ -938,10 +930,9 @@ paragraphes qui suivent.}
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Résolution de bogue
+@subsubheading Résolution de bogue
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Support
 

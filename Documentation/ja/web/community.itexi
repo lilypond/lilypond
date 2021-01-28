@@ -842,14 +842,6 @@ LilyPond の開発手法はかなり複雑です。@c
 
 @docCurrent
 
-@subsubheading バグ チーム
-
-@bugsquadCurrent
-
-@subsubheading サポート
-
-@supportCurrent
-
 @subsubheading 翻訳
 
 @translationsCurrent
@@ -874,10 +866,9 @@ LilyPond の開発手法はかなり複雑です。@c
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading バグ チーム
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading サポート
 

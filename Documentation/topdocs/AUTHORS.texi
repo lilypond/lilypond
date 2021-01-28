@@ -42,14 +42,6 @@ contributed over 100 lines of code or the equivalent.
 
 @docCurrent
 
-@subsubheading Bug squad
-
-@bugsquadCurrent
-
-@subsubheading Support
-
-@supportCurrent
-
 @subsubheading Translation
 
 @translationsCurrent
@@ -69,10 +61,9 @@ contributed over 100 lines of code or the equivalent.
 
 @docPrevious
 
-@c    uncomment when we have somebody here.  -gp
-@c @subsubheading Bug squad
+@subsubheading Bug squad
 
-@c @bugsquadPrevious
+@bugsquadPrevious
 
 @subsubheading Support
 

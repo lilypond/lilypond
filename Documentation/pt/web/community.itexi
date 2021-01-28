@@ -853,14 +853,6 @@ mais recentes podem ser encontrados em @url{https://lilypond.org}}
 
 @docCurrent
 
-@subsubheading Esquadrão de erros
-
-@bugsquadCurrent
-
-@subsubheading Suporte
-
-@supportCurrent
-
 @subsubheading Tradução
 
 @translationsCurrent
@@ -885,10 +877,9 @@ mais recentes podem ser encontrados em @url{https://lilypond.org}}
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading Esquadrão de erros
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Suporte
 

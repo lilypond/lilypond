@@ -869,14 +869,6 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 
 @docCurrent
 
-@subsubheading Fehler Bereinigung
-
-@bugsquadCurrent
-
-@subsubheading Support
-
-@supportCurrent
-
 @subsubheading Übersetzung
 
 @translationsCurrent
@@ -901,10 +893,9 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading Fehler Bereinigung
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Support
 

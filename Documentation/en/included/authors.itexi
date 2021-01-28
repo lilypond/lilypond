@@ -183,40 +183,13 @@ Core developer
 
 @c use commas not colons
 
-Don Armstrong,
 Kevin Barry,
-Robin Bannister,
-Étienne Beaulé,
-Davide Bonetti,
-Hassan Elfatihi,
-Frederic Gohier,
-Adam Good,
-David Stephen Grant,
-Torsten Hämmerle,
-Karlin High,
 Masamichi Hosoda,
+Martin Joerg,
 Michael Käppler,
-John Lemcke,
-Patrice Levesque,
-Urs Liska,
-John Mandereau,
-Malte Meyn,
 Thomas Morley,
-Lukas-Fabian Moser,
-Alexander Myltsev,
-David Nalesnik,
-Martin Neubauer,
-Joram Noeck,
-Antonio Ospite,
-Benkő Pál,
 Knut Petersen,
-Matthew Peveler,
-Jean Abou Samra,
-Tim Starling,
-Simon Tatham,
-Bernhard M. Wiedemann,
-Jaap de Wolff,
-Boris-Chengbiao Zhou
+Jean Abou Samra
 
 @c no comma for last entry
 
@@ -228,8 +201,6 @@ Boris-Chengbiao Zhou
 
 @c use commas not colons
 
-Torsten Hämmerle,
-Daniel Benjamin Miller
 
 @c no comma for last entry
 
@@ -241,85 +212,26 @@ Daniel Benjamin Miller
 
 @c use commas not colons
 
-Simon Albrecht,
-Kevin Barry,
-Bernhard Bloechl,
-Federico Bruni,
-Torsten Hämmerle,
-Karlin High,
-Masamichi Hosoda,
 Michael Käppler,
-Davide Liessi,
-Urs Liska,
-Malte Meyn,
-Thomas Morley,
-Paul Morris,
-Noam Postavsky,
-Andrej Shadura,
-Fr. Samuel Springuel
+Jean Abou Samra
 
 @c no comma for last entry
 
 @end macro
 
-
-@macro bugsquadCurrent
-
-@c use commas not colons
-
-Simon Albrecht,
-Federico Bruni,
-Colin Campbell,
-Phil Holmes,
-Ralph Palmer
-
-@c no comma for last entry
-
-@end macro
-
-
-@macro supportCurrent
-
-@c use commas not colons
-
-Simon Albrecht,
-Colin Campbell,
-Eluze,
-Marc Hohl,
-Phil Holmes,
-Marek Klein,
-Alex Loomis,
-Kieren MacMillan,
-Thomas Morley,
-Tim McNamara,
-Paul Morris,
-David Nalesnik,
-Urs Liska,
-Ralph Palmer,
-Pierre Perol-Schneider,
-Neil Puttock,
-Tao
-
-@c no comma for last entry
-
-@end macro
 
 
 @macro translationsCurrent
 
 @c use commas not colons
 
-Caio Barros,
 Federico Bruni,
-Rafael Fontenelle,
-Walter Garcia-Fontes,
-Hiroshi Fukuhara,
-Jean-Charles Malahieude,
-Tomohiro Tatejima
+Jean-Charles Malahieude
 
 @c no comma for last entry
 
 @end macro
+
 
 
 @c  *****************  previous contributors
@@ -332,11 +244,15 @@ Erlend Aasland,
 Maximilian Albert,
 Aleksandr Andreev,
 Guido Amoruso,
+Don Armstrong,
 Guido Aulisi,
 Joe Austin,
 Sven Axelsson,
+Kevin Barry,
+Robin Bannister,
 Kristof Bastiaensen,
-Pál Benkő,
+Étienne Beaulé,
+Davide Bonetti,
 Frédéric Bron,
 Federico Bruni,
 Nathan Chou,
@@ -346,15 +262,20 @@ Angelo Contardi,
 Vicente Solsona Della,
 Hajo Dezelski,
 Michael Welsh Duggan,
+Hassan Elfatihi,
 David Feuer,
 Bertalan Fodor,
 Richard Gay,
 Mathieu Giraud,
+Frederic Gohier,
 Lisa Opus Goldstein,
+Adam Good,
 John Gourlay,
+David Stephen Grant,
 Torsten Hämmerle,
 Yuval Harel,
 Andrew Hawryluk,
+Karlin High,
 Christian Hitz,
 Karin Hoethker,
 Rutger Hofmann,
@@ -373,24 +294,35 @@ Mark Knoop,
 Michael Krause,
 Tobias Kretschmar,
 Jean-Baptiste Lamy,
+John Lemcke,
+Patrice Levesque,
 Vincent Le Ligeour,
 Jonatan Liljedahl,
+Urs Liska,
 James Lowe,
 Peter Lutek,
-Andrew Main,
 Kieren MacMillan,
+Andrew Main,
+John Mandereau,
 Hendrik Maryns,
+Malte Meyn,
 Thomas Morgan,
 Thomas Morley,
 Paul Morris,
+Lukas-Fabian Moser,
+Alexander Myltsev,
 David Nalesnik,
 Matthias Neeracher,
+Martin Neubauer,
+Joram Noeck,
 Keith OHara,
 Justin Ohmie,
 Tatsuya Ono,
+Antonio Ospite,
 Benkő Pál,
 Benjamin Peterson,
 Knut Petersen,
+Matthew Peveler,
 Guy Gascoigne-Piggford,
 Anders Pilegaard,
 Henning Hraban Ramm,
@@ -398,6 +330,7 @@ Nathan Reed,
 Julien Rioux,
 Johannes Rohrer,
 Ben Rudiak-Gould,
+Jean Abou Samra,
 Stan Sanderson,
 Andreas Scherer,
 Johannes Schindelin,
@@ -407,17 +340,22 @@ Boris Shingarov,
 Kim Shrier,
 Edward Sanford Sutton,
 Adam Spiers,
+Tim Starling,
 David Svoboda,
+Simon Tatham,
 Heikki Taurainen,
 Piers Titus van der Torren,
 Owen Tuz,
 Sebastiano Vigna,
 Jan-Peter Voigt,
 Arno Waschk,
+Bernhard M. Wiedemann,
 John Williams,
 Andrew Wilson,
+Jaap de Wolff,
 Milan Zamazal,
 Rune Zedeler,
+Boris-Chengbiao Zhou,
 Rodolfo Zitellini
 
 @c no comma for last entry
@@ -432,10 +370,12 @@ Rodolfo Zitellini
 
 Jay Anderson,
 Tom Cato Amundsen,
+Torsten Hämmerle,
 Marc Hohl,
 Masamichi Hosoda,
 Chris Jackson,
 Alexander Kobel,
+Daniel Benjamin Miller,
 Abraham Lee,
 Keith OHara,
 Carsten Steger,
@@ -455,35 +395,47 @@ Rune Zedeler
 Erlend Aasland,
 Simon Albrecht,
 Trevor Bača,
+Kevin Barry,
+Bernhard Bloechl,
 Alard de Boer,
 Frédéric Bron,
 Federico Bruni,
 Colin Campbell,
+Torsten Hämmerle,
 Jay Hamilton,
 Joseph Harfouch,
 Andrew Hawryluk,
+Karlin High,
 Cameron Horsburgh,
 Geoff Horton,
+Masamichi Hosoda,
 Heikki Junes,
+Michael Käppler,
 Kurtis Kroon,
+Davide Liessi,
 Urs Liska,
 James Lowe,
 Dave Luttinen,
 Kieren MacMillan,
 Jean-Charles Malahieude,
+Malte Meyn,
 Christian Mondrup,
 Mike Moral,
 Thomas Morley,
+Paul Morris,
 Eyolf Østrem,
 Ralph Palmer,
 Pierre Perol-Schneider,
 François Pinard,
+Noam Postavsky,
 David Pounder,
 Michael Rasmussen,
 Till Rettig,
 Pavel Roskin,
 Patrick Schmidt,
+Andrej Shadura,
 Alberto Simoes,
+Fr. Samuel Springuel,
 Guy Stalnaker,
 Greg Swinford,
 Martin Tarenskeen,
@@ -557,6 +509,7 @@ Tao
 
 @c use commas not colons
 
+Caio Barros,
 Alard de Boer,
 Federico Bruni,
 Luca Rossetto Casel,
@@ -565,7 +518,9 @@ Abel Cheung,
 Frédéric Chiasson,
 Simon Dahlbacka,
 Orm Finnendahl,
+Rafael Fontenelle,
 Pavel Fric,
+Hiroshi Fukuhara,
 Walter Garcia-Fontes,
 David González,
 Tommaso Gordini,

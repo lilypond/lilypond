@@ -836,14 +836,6 @@ manuals can be found at @url{https://lilypond.org}}
 
 @docCurrent
 
-@subsubheading Bug squad
-
-@bugsquadCurrent
-
-@subsubheading Support
-
-@supportCurrent
-
 @subsubheading Translation
 
 @translationsCurrent
@@ -868,10 +860,9 @@ manuals can be found at @url{https://lilypond.org}}
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading Bug squad
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Support
 

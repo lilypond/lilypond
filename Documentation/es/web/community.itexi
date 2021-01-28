@@ -856,14 +856,6 @@ más recientes están en @url{https://lilypond.org}}
 
 @docCurrent
 
-@subsubheading Escuadrón de fallos (Bug squad)
-
-@bugsquadCurrent
-
-@subsubheading Soporte
-
-@supportCurrent
-
 @subsubheading Traducción
 
 @translationsCurrent
@@ -888,10 +880,9 @@ más recientes están en @url{https://lilypond.org}}
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading Escuadrón de fallos (Bug squad)
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Soporte
 

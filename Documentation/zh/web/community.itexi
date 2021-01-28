@@ -989,14 +989,6 @@ any patch which introduced extra warnings.
 
 @docCurrent
 
-@subsubheading 错误组 (Bug squad)
-
-@bugsquadCurrent
-
-@subsubheading 支持
-
-@supportCurrent
-
 @subsubheading 翻译
 
 @translationsCurrent
@@ -1021,10 +1013,9 @@ any patch which introduced extra warnings.
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading 错误组 (Bug squad)
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading 支持
 

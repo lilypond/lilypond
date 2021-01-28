@@ -1018,14 +1018,6 @@ que introduís més advertiments dels que hi ha actualment.
 
 @docCurrent
 
-@subsubheading Esquadró de fallades
-
-@bugsquadCurrent
-
-@subsubheading Suport
-
-@supportCurrent
-
 @subsubheading Traducció
 
 @translationsCurrent
@@ -1050,10 +1042,9 @@ que introduís més advertiments dels que hi ha actualment.
 
 @docPrevious
 
-@c    uncomment when we have any previous members -gp
-@c @subsubheading Bug squad
+@subsubheading Esquadró de fallades
 
-@c @bugsquadCurrent
+@bugsquadPrevious
 
 @subsubheading Suport
 
