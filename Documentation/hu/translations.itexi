@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Sep 12 17:30:39 UTC 2020
+@emph{Last updated Thu Jan 28 20:53:10 UTC 2021
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -107,7 +107,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #33ff21">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -415,18 +415,18 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-7062
+7167
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (86 %)</span>
+<span style="background-color: #dfef77">partially (87 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (86 %)
+partially (87 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -469,7 +469,7 @@ partially
 @item
 3 A @command{lilypond-book} használata
 @*
-4264
+4253
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -616,7 +616,7 @@ partially
 @item
 Dokumentáció
 @*
-1279
+1284
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -633,7 +633,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -643,7 +643,7 @@ partially
 @item
 Közösség
 @*
-2183
+2186
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -660,7 +660,7 @@ partially (93 %)
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">partially</span>
+<span style="background-color: #efff3a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

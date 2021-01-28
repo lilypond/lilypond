@@ -16,74 +16,8 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sat Sep 12 17:30:39 UTC 2020
+@emph{Dernière mise à jour Thu Jan 28 20:53:10 UTC 2021
 }
-@multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
-
-@headitem
-LilyPond Changes
-@tab Traducteurs
-@tab Relecteurs
-@tab Traduit
-@tab À jour
-@tab Autres informations
-@item
-Titre des chapitres
-@*
-1163
-@tab Jean-Charles Malahieude
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">oui</span>
-@end html
-@end ifhtml
-@ifnothtml
-oui
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">oui</span>
-@end html
-@end ifhtml
-@ifnothtml
-oui
-@end ifnothtml
-@tab pré-GDP
-@item
-LilyPond --- \TITLE\
-@*
-1139
-@tab Jean-Charles Malahieude
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">oui</span>
-@end html
-@end ifhtml
-@ifnothtml
-oui
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">oui</span>
-@end html
-@end ifhtml
-@ifnothtml
-oui
-@end ifnothtml
-@tab pré-GDP
-@end multitable
-
-
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
 @headitem
@@ -691,7 +625,7 @@ oui
 @item
 1.2 Rythme
 @*
-7248
+7196
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -848,7 +782,7 @@ oui
 @item
 1.7 Annotations éditoriales
 @*
-1917
+2008
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -865,17 +799,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #47ff24">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
 1.8 Texte
 @*
-3718
+4432
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -894,11 +828,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #acff31">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -931,7 +865,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-5208
+5243
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1022,7 +956,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-3153
+3362
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -1039,11 +973,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #33ff21">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1167,7 +1101,7 @@ oui
 @item
 2.9 Notations anciennes
 @*
-5540
+5546
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1184,11 +1118,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
@@ -1223,7 +1157,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-14196
+14207
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1252,7 +1186,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-11076
+11164
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1502,7 +1436,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-7062
+7167
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1556,7 +1490,7 @@ oui
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
-4264
+4253
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1769,7 +1703,7 @@ oui
 @item
 Manuels
 @*
-1279
+1284
 @tab John Mandereau
 @tab Jean-Charles Malahieude
 @tab 
@@ -1796,7 +1730,7 @@ oui
 @item
 Communauté
 @*
-2183
+2186
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1815,11 +1749,11 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #33ff21">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @end multitable

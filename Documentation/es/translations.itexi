@@ -16,74 +16,8 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Sat Sep 12 17:30:39 UTC 2020
+@emph{Actualizado en Thu Jan 28 20:53:10 UTC 2021
 }
-@multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
-
-@headitem
-Registro de cambios de LilyPond
-@tab Traductores
-@tab Revisores
-@tab Traducido
-@tab Actualizado
-@tab Más inf.
-@item
-Títulos de sección
-@*
-1163
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #54ff26">parcialmente</span>
-@end html
-@end ifhtml
-@ifnothtml
-parcialmente
-@end ifnothtml
-@tab pre-GDP
-@item
-LilyPond --- \TITLE\
-@*
-1139
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab pre-GDP
-@end multitable
-
-
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
 @headitem
@@ -645,7 +579,7 @@ parcialmente
 @item
 1.2 Duraciones
 @*
-7248
+7196
 @tab Francisco Vila
 @tab 
 @tab 
@@ -662,7 +596,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -780,7 +714,7 @@ parcialmente
 @item
 1.7 Anotaciones editoriales
 @*
-1917
+2008
 @tab Francisco Vila
 @tab 
 @tab 
@@ -797,7 +731,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialmente</span>
+<span style="background-color: #62ff28">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -807,7 +741,7 @@ parcialmente
 @item
 1.8 Texto
 @*
-3718
+4432
 @tab Francisco Vila
 @tab 
 @tab 
@@ -824,7 +758,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #b9ff33">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -861,7 +795,7 @@ sí
 @item
 2.1 Música vocal
 @*
-5208
+5243
 @tab Francisco Vila
 @tab 
 @tab 
@@ -878,7 +812,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -942,7 +876,7 @@ sí
 @item
 2.4 Instrumentos de cuerda con trastes
 @*
-3153
+3362
 @tab Francisco Vila
 @tab 
 @tab 
@@ -959,7 +893,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #40fe23">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1077,7 +1011,7 @@ parcialmente
 @item
 2.9 Notación antigua
 @*
-5540
+5546
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1094,7 +1028,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1121,17 +1055,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 3 Entrada y salida generales
 @*
-14196
+14207
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1158,7 +1092,7 @@ parcialmente
 @item
 4 Problemas de espaciado
 @*
-11076
+11164
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1175,7 +1109,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #33ff21">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1398,7 +1332,7 @@ sí
 @item
 1 Ejecutar LilyPond
 @*
-7062
+7167
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1415,7 +1349,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1452,7 +1386,7 @@ sí
 @item
 3 Ejecución de @command{lilypond-book}
 @*
-4264
+4253
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1469,11 +1403,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1653,7 +1587,7 @@ sí
 @item
 Manuales
 @*
-1279
+1284
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1680,7 +1614,7 @@ sí
 @item
 Comunidad
 @*
-2183
+2186
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1697,7 +1631,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialmente</span>
+<span style="background-color: #47ff24">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml

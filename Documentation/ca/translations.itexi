@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat Sep 12 17:30:39 UTC 2020
+@emph{Actualitzat el Thu Jan 28 20:53:10 UTC 2021
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -343,7 +343,7 @@ parcialment
 @item
 1.2 Duracions
 @*
-7248
+7196
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -360,7 +360,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">parcialment</span>
+<span style="background-color: #91ff2e">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -478,34 +478,7 @@ parcialment
 @item
 1.7 Anotacions editorials
 @*
-1917
-@tab Walter Garcia-Fontes
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">si</span>
-@end html
-@end ifhtml
-@ifnothtml
-si
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #acff31">parcialment</span>
-@end html
-@end ifhtml
-@ifnothtml
-parcialment
-@end ifnothtml
-@tab pre-GDP
-@item
-1.8 Text
-@*
-3718
+2008
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -523,6 +496,33 @@ si
 
 @html
 <span style="background-color: #c7ff35">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+1.8 Text
+@*
+4432
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #fff73e">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -559,7 +559,7 @@ parcialment
 @item
 2.1 Música vocal
 @*
-5208
+5243
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -576,7 +576,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialment</span>
+<span style="background-color: #4efe25">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -640,7 +640,7 @@ parcialment
 @item
 2.4 Instruments de corda amb trasts
 @*
-3153
+3362
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -657,7 +657,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">parcialment</span>
+<span style="background-color: #97ff2f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -775,7 +775,7 @@ parcialment
 @item
 2.9 Notació antiga
 @*
-5540
+5546
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -829,7 +829,7 @@ parcialment
 @item
 3 Entrada i sortida generals
 @*
-14196
+14207
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -856,7 +856,7 @@ parcialment
 @item
 4 Gestió de l'espai
 @*
-11076
+11164
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -873,7 +873,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialment</span>
+<span style="background-color: #39ff22">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1030,7 +1030,7 @@ parcialment
 @item
 1 Execució del LilyPond
 @*
-7062
+7167
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1047,7 +1047,7 @@ parcialment (93 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffcf44">parcialment</span>
+<span style="background-color: #ffcd45">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1231,7 +1231,7 @@ parcialment
 @item
 Manuals
 @*
-1279
+1284
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1248,7 +1248,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialment</span>
+<span style="background-color: #6fff29">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1258,7 +1258,7 @@ parcialment
 @item
 Comunitat
 @*
-2183
+2186
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -1275,7 +1275,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #dbff38">parcialment</span>
+<span style="background-color: #e1ff39">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Última atualização em Sat Sep 12 17:30:39 UTC 2020
+@emph{Última atualização em Thu Jan 28 20:53:10 UTC 2021
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -138,7 +138,7 @@ parcialmente
 @item
 Manuais
 @*
-1279
+1284
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -155,7 +155,7 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">parcialmente</span>
+<span style="background-color: #68ff28">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ parcialmente
 @item
 Comunidade
 @*
-2183
+2186
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -182,7 +182,7 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialmente</span>
+<span style="background-color: #76fe2a">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
