@@ -370,13 +370,17 @@ Make directories on lilypond.org:
 ~/download/sources/v2.@var{NEW-DEVELOPMENT}
 @end example
 
+@end itemize
+
+Shortly after the release:
+
+@itemize
 @item
-Shortly after the release, move all current contributors to
-previous contributors in
-@file{Documentation/included/authors.itexi}.
+Move all current contributors to previous contributors in
+@file{Documentation/en/included/authors.itexi}.
 
 @item
-Delete old material in @file{Documentation/changes.tely}, but
+Delete old material in @file{Documentation/en/changes.tely}, but
 don't forget to check it still compiles!  Also update the version
 numbers:
 
@@ -386,48 +390,33 @@ numbers:
 @end example
 
 @item
-Website:
-
-@itemize
-@item
-make a link from the old unstable to the next stable in
-lilypond.org's @file{/doc/} dir.  Keep all previous unstable->stable
-doc symlinks.
-
-@c FIXME -- is this still relevant? -vv
-
-Also, make the old docs self-contained -- if there's a redirect in
-@file{/doc/v2.@var{OLD-STABLE}/Documentation/index.html} , replace it with the
-@file{index.html.old-2.@var{OLD-STABLE}} files.
-
-The post-2.13 docs will need another way of handling the
-self-containment.  It won't be hard to whip up a python script
-that changes the link to @file{../../../../manuals.html} to
-@file{../website/manuals.html}, but it's still a 30-minute task that
-needs to be done before 2.16.
+Update the version in @file{Documentation/en/search-box.ihtml} and all
+of its translations to 2.@var{NEW-DEVELOPMENT}.
 
 @item
-doc auto redirects to @code{v2.@var{NEW-STABLE}}
-
-@item
-add these two lines to @file{Documentation/web/server/robots.txt}:
+Prevent crawlers from indexing the old documentation by adding lines
+to @file{Documentation/webserver/robots.txt} until:
 
 @example
 Disallow: /doc/v2.@var{OLD-STABLE}/
-Disallow: /doc/v2.@var{NEW-DEVELOPMENT}/
 @end example
 
-@item
-if needed, update the htaccess redirections
-(@code{/latest/}, @code{/stable/} etc.) in
-@file{Documentation/web/server/lilypond.org.htaccess}.
+Do @emph{not} yet add a line for 2.@var{OLD-DEVELOPMENT} because the
+search for the documentation of 2.@var{NEW-STABLE} relies on it!
 
 @item
-if needed, add a link to the previous stable version’s
+Update the htaccess redirections (@code{/latest/}, @code{/stable/} etc.)
+in @file{Documentation/webserver/lilypond.org.htaccess}.
+
+@item
+Add a link to the previous stable version’s
 announcement, list of changes and contributors
 acknowledgements to the @q{Attic} page, in
-@file{Documentation/web/community.itexi}.
-@end itemize
+@file{Documentation/en/web/community.itexi}.
+
+@item
+Add a link to the previous stable version’s documentation
+to @file{Documentation/en/web/manuals.itexi}.
 
 @end itemize
 
@@ -438,13 +427,6 @@ acknowledgements to the @q{Attic} page, in
 submit po template for translation: send url of tarball to
 @email{coordinator@@translationproject.org}, mentioning
 lilypond-VERSION.pot
-
-@item
-update links to distros providing lilypond packages?  link in:
-@file{Documentation/web/download.itexi}
-
-This has nothing to do with the release, but it's a @qq{periodic
-maintenance} task that might make sense to include with releases.
 
 @item
 Send announcements to...
