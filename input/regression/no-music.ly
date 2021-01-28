@@ -1,4 +1,4 @@
-\version "2.21.8"
+\version "2.21.80"
 
 \header {
   texidoc = "LilyPond does not render zero-duration scores.  This test
