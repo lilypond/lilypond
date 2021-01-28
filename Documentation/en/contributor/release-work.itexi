@@ -6,7 +6,6 @@
 * Development phases::
 * Minor release checklist::
 * Major release checklist::
-* Release extra notes::
 * Notes on builds with GUB::
 @end menu
 
@@ -495,98 +494,6 @@ in French: linuxfr.org; framalibre.org
 
 @end itemize
 
-
-@node Release extra notes
-@section Release extra notes
-
-@subsubheading Regenerating regression tests
-
-Regenerating regtests (if the lilypond-book naming has changed):
-
-@itemize
-
-@item
-git checkout release/lilypond-X.Y.Z-A
-
-@item
-take lilypond-book and any related makefile updates from the
-latest git.
-
-@item
-configure; make; make test
-
-@item
-tar -cjf lilypond-X.Y.Z-A.test-output.tar.bz2 input/regression/out-test/
-
-@item
-mv lilypond-X.Y.Z-A.test-output.tar.bz2 ../gub/regtests/
-
-@item
-cd ../gub/regtests/
-
-@item
-make lilypond
-
-@end itemize
-
-@c FIXME -- is this still relevant? -vv
-
-@subsubheading stable/2.12
-
-If releasing stable/2.12, then:
-
-@itemize
-
-@item
-apply doc patch: patches/rsync-lily.patch  (or something like
-that)
-
-@item
-change infodir in gub/specs/lilypond-doc.py from "lilypond.info"
-to "lilypond-web.info"
-@end itemize
-
-@subsubheading Updating a release (changing a in x.y.z-a)
-
-Really tentative instructions, almost certainly can be done
-better.
-
-@enumerate
-
-@item
-change the VERSION back to release you want.  push change.
-(hopefully you'll have forgotten to update it when you made your
-last release)
-
-@item
-make sure that there aren't any lilypond files floating around in
-target/  (like usr/bin/lilypond).
-
-@item
-build the specific package(s) you want, i.e.
-
-@example
-bin/gub mingw::lilypond-installer
-make LILYPOND_BRANCH=stable/2.12 -f lilypond.make doc
-bin/gub --platform=darwin-x86 \
-  'git://git.sv.gnu.org/lilypond-doc.git?branch=stable/2.12'
-@end example
-
-or
-
-build everything with the normal "make lilypond", then (maybe)
-manually delete stuff you don't want to upload.
-
-@item
-manually upload them.  good luck figuring out the rsync
-command(s).  Hints are in test-lily/
-
-or
-
-run the normal lilypond-upload command, and (maybe) manually
-delete stuff you didn't want to upload from the server.
-
-@end enumerate
 
 @node Notes on builds with GUB
 @section Notes on builds with GUB
