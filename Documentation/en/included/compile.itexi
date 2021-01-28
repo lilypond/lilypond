@@ -512,7 +512,7 @@ Cursor}
 
 The entire set of documentation for the most current build of
 LilyPond is available online at
-@uref{https://lilypond.org/doc/v2.21/Documentation/web/development},
+@uref{https://lilypond.org/doc/latest/Documentation/web/development},
 but you can also build them locally from the source code.  This
 process requires the following tools and packages, in addition to
 the build and run-time packages (@pxref{Requirements for compiling
