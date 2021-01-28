@@ -286,7 +286,7 @@ git push origin HEAD:release/unstable
 Create a merge request from @code{release/unstable} to merge the changes
 into @code{master}.
 
-@item Wait a few hours for the website to update.
+@item Update the website as described in @ref{Uploading website}.
 
 @item Email release notice to @code{info-lilypond}
 
@@ -642,9 +642,9 @@ The @code{make lilypond-upload} command updates the documentation
 on the LilyPond web site.
 
 The website (which is served on @code{lilypond.org}) is updated by
-executing a manual pipeline on Gitlab.  See @ref{Uploading
-website} for more details.
+running a manual job on Gitlab.  See @ref{Uploading website} for
+more details.
 
 So - to update the front page of the website, it's necessary to
 update @code{VERSION} and @code{news-headlines.itexi} in master,
-run the manual pipeline, and then wait for the cron jobs to run.
+play the manual job, and then wait for the cron jobs to run.

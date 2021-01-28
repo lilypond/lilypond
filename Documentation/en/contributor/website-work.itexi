@@ -90,9 +90,10 @@ The website is deployed onto @code{lilypond.org} in the following
 steps:
 
 @itemize
-@item Kick off a manual pipeline on
-@url{https://gitlab.com/lilypond/lilypond/-/pipelines}, clicking
-the @qq{Run Pipeline} button, and confirming defaults.
+@item Run the manual job to build the website, either for the merge
+request you want to deploy or for the latest pipeline on @code{master}
+at @url{https://gitlab.com/lilypond/lilypond/-/pipelines}, by clicking
+the play button.
 
 @item This runs @code{make website} and stores the result in a
 @file{website.zip} artifact.
