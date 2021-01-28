@@ -290,6 +290,37 @@ into @code{master}.
 
 @item Email release notice to @code{info-lilypond}
 
+@item Create a release at GitLab:
+@enumerate
+@item
+Open the
+@uref{https://gitlab.com/lilypond/lilypond/-/tags,list of all tags}.
+
+@item
+Edit the release notes for the most recent tag.  Make it non-empty and
+click @qq{Save changes} to create a release associated with the tag.
+
+@item
+Navigate to the
+@uref{https://gitlab.com/lilypond/lilypond/-/releases,list of releases}
+and edit the new release:  Give it an approriate name, select the right
+milestone, and delete the release notes (except for a major release).
+Finally click @qq{Save changes}.
+
+@end enumerate
+
+@item Update the milestones at GitLab:
+@enumerate
+@item
+Make sure all merge requests and issues are added to the milestone
+of the released version.  Fill in the due date and close it.
+
+@item
+Create a new milestone for the next release (unless no more bugfix
+release is planned) and set the start date.
+
+@end enumerate
+
 @end enumerate
 
 
