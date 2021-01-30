@@ -421,6 +421,12 @@ messages into errors.")
             (ly:add-option (car x) (cadr x) (caddr x)))
           scheme-options-definitions)
 
+;; 'debug-gc-object-lifetimes not supported on GUILE 2
+(cond-expand
+ (guile-2
+  (ly:set-option 'debug-gc-object-lifetimes #f))
+ (else))
+
 (for-each (lambda (x)
             (ly:set-option (car x) (cdr x)))
           (with-input-from-string (ly:command-line-options) read))
@@ -940,7 +946,7 @@ PIDs or the number of the process."
    (guile-2
     (if (ly:get-option 'debug-gc-object-lifetimes)
         (begin (ly:set-option 'debug-gc-object-lifetimes #f)
-               (ly:warn "option 'debug-gc-object-lifetimes not supported on GUILE 2"))))
+               (ly:warning (_ "option 'debug-gc-object-lifetimes not supported on GUILE 2")))))
    (else #t))
   
   (let* ((failed '())
