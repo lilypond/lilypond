@@ -37,11 +37,6 @@
 (define-session-public default-language "")
 (define-session-public previous-pitchnames #f)
 
-;;; A bit out of place, but we don't have a good place elsewhere in
-;;; scm since it is only filled in ly/drumpitch-init.ly and we need it
-;;; in (scm lily) in order to access it in ly/parser.yy.
-(define-session-public drumPitchNames '())
-
 (define-session-public language-pitch-names
   `(
     ;; Language: Nederlands --------------------------------------------;

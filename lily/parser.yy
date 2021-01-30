@@ -2651,8 +2651,8 @@ mode_changing_head:
 	}
 	| DRUMMODE
 		{
-		parser->lexer_->push_note_state (Lily::drum_pitch_names);
-
+		SCM alist = parser->lexer_->lookup_identifier ("drumPitchNames");
+		parser->lexer_->push_note_state (alist);
 		$$ = ly_symbol2scm ("drums");
 	}
 	| FIGUREMODE {
@@ -2675,7 +2675,8 @@ mode_changing_head:
 
 mode_changing_head_with_context:
 	DRUMS {
-		parser->lexer_->push_note_state (Lily::drum_pitch_names);
+		SCM alist = parser->lexer_->lookup_identifier ("drumPitchNames");
+		parser->lexer_->push_note_state (alist);
 
 		$$ = ly_symbol2scm ("DrumStaff");
 	}

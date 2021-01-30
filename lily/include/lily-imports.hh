@@ -70,7 +70,6 @@ extern Variable chordmodifiers;
 extern Variable construct_chord_elements;
 extern Variable default_time_signature_settings;
 extern Variable define_markup_command_internal;
-extern Variable drum_pitch_names;
 extern Variable grob_compose_function;
 extern Variable grob_offset_function;
 extern Variable hash_table_to_alist;
