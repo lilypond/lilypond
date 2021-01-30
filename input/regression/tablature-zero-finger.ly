@@ -1,5 +1,5 @@
 \version "2.19.21"
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "No open string for pitch ~a") "#<Pitch f >")
 
 \header {

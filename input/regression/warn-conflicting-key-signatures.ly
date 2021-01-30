@@ -1,5 +1,5 @@
 \version "2.16.0"
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "conflict with event: `%s'") "key-change-event")
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "discarding event: `%s'") "key-change-event")
 

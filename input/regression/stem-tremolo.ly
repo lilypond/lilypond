@@ -1,6 +1,6 @@
 \version "2.17.6"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "tremolo duration is too long"))
 #(ly:expect-warning (_ "tremolo duration is too long"))
 

@@ -1,6 +1,6 @@
 \version "2.21.0"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "Cannot find glyph ~a") "UNKNOWN-GLYPH")
 
 \header {

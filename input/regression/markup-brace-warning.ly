@@ -1,6 +1,6 @@
 \version "2.16.0"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "no brace found for point size ~S ") 10)
 #(ly:expect-warning (_ "defaulting to ~S pt") 10.5)
 

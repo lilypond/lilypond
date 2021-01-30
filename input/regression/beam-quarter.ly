@@ -1,6 +1,6 @@
 \version "2.19.21"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "stem does not fit in beam"))
 #(ly:expect-warning (_ "beam was started here"))
 

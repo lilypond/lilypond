@@ -1,5 +1,5 @@
 \version "2.19.21"
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "barcheck failed at: %s") "3/4")
 
 \header {

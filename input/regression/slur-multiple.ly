@@ -1,6 +1,6 @@
 \version "2.19.29"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "already have slur"))
 #(ly:expect-warning (_ "cannot end slur"))
 #(ly:expect-warning (_ "unterminated slur"))

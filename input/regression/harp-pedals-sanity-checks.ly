@@ -1,6 +1,6 @@
 \version "2.21.0"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal.") '(1 3 5))
 #(ly:expect-warning (_ "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal.") '(4))
 #(ly:expect-warning (_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") 5)

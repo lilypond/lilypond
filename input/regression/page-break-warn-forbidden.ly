@@ -1,6 +1,6 @@
 \version "2.16.0"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "forced break was overridden by some other event, should you be using bar checks?"))
 #(ly:expect-warning (_ "forced break was overridden by some other event, should you be using bar checks?"))
 

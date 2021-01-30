@@ -1,6 +1,6 @@
 \version "2.16.0"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "unterminated %s") "crescendo")
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "unterminated %s") "decrescendo")
 

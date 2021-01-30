@@ -12,7 +12,7 @@ case for the last four of the examples pitches.
 Micro-tones assigned to strings work nicely."
 }
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(for-each
   (lambda (pitch)
     (ly:expect-warning (_ "No string for pitch "))

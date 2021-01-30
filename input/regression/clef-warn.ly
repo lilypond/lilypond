@@ -1,6 +1,6 @@
 \version "2.16.0"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (_ "unknown clef type `~a'") "foo")
 % We don't need to match the whole list of clefs, the beginning will suffice
 #(ly:expect-warning (_ "supported clefs: ~a") "C F G G2")
