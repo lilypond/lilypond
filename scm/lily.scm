@@ -112,12 +112,12 @@
 (define after-session-hook (make-hook))
 
 (define-public (call-after-session thunk)
-  (if (ly:undead? lilypond-declarations)
+  (if first-session-done?
       (ly:error (_ "call-after-session used after session start")))
   (add-hook! after-session-hook thunk #t))
 
 (define (make-session-variable name value)
-  (if (ly:undead? lilypond-declarations)
+  (if first-session-done?
       (ly:error (_ "define-session used after session start")))
   (let ((var (module-make-local-var! (current-module) name)))
     (if (variable-bound? var)
@@ -163,11 +163,11 @@ session has started."
      (export ,name)))
 
 (define (session-terminate)
-  (if (ly:undead? lilypond-declarations)
+  (if first-session-done?
       (begin
         (for-each
          (lambda (p) (variable-set! (cadr p) (cddr p)))
-         (ly:get-undead lilypond-declarations))
+         lilypond-declarations)
         (run-hook after-session-hook))))
 
 (define lilypond-interfaces #f)
@@ -177,6 +177,7 @@ session has started."
   (define global-modules (module-submodules root-module))
   (define session-modules #f))
  (else))
+(define first-session-done? #f)
 
 (define-public (session-initialize thunk)
   "Initialize this session.  The first session in a LilyPond run is
@@ -193,8 +194,7 @@ variables to their value after the initial call of @var{thunk}."
   ;; The entries in lilypond-declarations consist of a cons* consisting
   ;; of symbol, variable, and value.  Variables defined with
   ;; define-session have the symbol set to #f.
-
-  (if (ly:undead? lilypond-declarations)
+  (if first-session-done?
       (begin
         (module-use-interfaces! (current-module) (reverse lilypond-interfaces))
         (for-each
@@ -204,7 +204,7 @@ variables to their value after the initial call of @var{thunk}."
              (variable-set! var val)
              (if (car p)
                  (module-add! (current-module) (car p) var))))
-         (ly:get-undead lilypond-declarations)))
+         lilypond-declarations))
       (begin
         ;; import all public session variables natively into parser
         ;; module.  That makes them behave identically under define/set!
@@ -237,7 +237,11 @@ variables to their value after the initial call of @var{thunk}."
                           (cons* s v val)
                           decl)))))
            (current-module))
-          (set! lilypond-declarations (ly:make-undead decl))))))
+          (set! first-session-done? #t)
+          (set! lilypond-declarations decl))
+
+        (dump-zombies 0)
+        )))
 
 (define scheme-options-definitions
   `(
@@ -270,7 +274,7 @@ single-page output file(s) with cropped margins.")
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
                 "Use the debugging Scheme evaluator.")
-    (debug-gc-object-lifetimes #t "Sanity check for garbage collector decisions in between @file{.ly} files.") 
+    (debug-gc-object-lifetimes 5 "Sanity check object lifetimes") 
     (debug-gc-assert-parsed-dead #f
                                  "For internal use.")
     (debug-lexer #f
@@ -776,7 +780,6 @@ messages into errors.")
     (,ly:transform? . "coordinate transform")
     (,ly:translator? . "translator")
     (,ly:translator-group? . "translator group")
-    (,ly:undead? . "undead container")
     (,ly:unpure-pure-container? . "unpure/pure container")
     ))
 
@@ -790,20 +793,31 @@ messages into errors.")
 
 ;; Undead objects that should be ignored after the first time round
 (define gc-zombies
-  (make-weak-key-hash-table 0))
+  (make-weak-key-hash-table))
 
-(define (dump-zombies) 
-  "check that we're not holding on to objects. Doesn't work in GUILE 2.x"
+;; For testing the debug-gc-object-lifetimes feature.
+(define-public debug-gc-object-lifetimes-test-object #f)
+
+(define (dump-zombies limit)
+  "Check for new objects that should have been dead. Print `limit`
+instances of them (#t for no limit). Doesn't work on GUILE 2"
   (ly:set-option 'debug-gc-assert-parsed-dead #t)
   (gc)
   (ly:set-option 'debug-gc-assert-parsed-dead #f)
+  ;; We must read out ly:parsed-undead-list! in this function: if we
+  ;; waited, another (gc) might come along, freeing the zombies, and
+  ;; we'd read freed cells later on.
   (for-each
    (lambda (x)
-              (if (not (hashq-ref gc-zombies x))
-                  (begin
-                    (ly:programming-error "Parsed object should be dead: ~a" x)
-                    (hashq-set! gc-zombies x #t))))
-   (ly:parsed-undead-list!)))
+     (if (not (hashq-ref gc-zombies x))
+         (begin
+           (if (or (eq? limit #t) (< 0 limit))
+               (begin
+                 (ly:programming-error "Parsed object should be dead ~a" x)
+                 (if (number? limit) (set! limit (1- limit)))))
+           (hashq-set! gc-zombies x #t))))
+   (ly:parsed-undead-list!))
+  (set! debug-gc-object-lifetimes-test-object #f))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -921,7 +935,6 @@ PIDs or the number of the process."
         (begin
           (ly:exit 0 #f)))))
 
-
 (define-public (lilypond-all files)
   (cond-expand
    (guile-2
@@ -931,12 +944,12 @@ PIDs or the number of the process."
    (else #t))
   
   (let* ((failed '())
-         (debug-lifetimes (ly:get-option 'debug-gc-object-lifetimes))
+         (debug-lifetimes-limit (ly:get-option 'debug-gc-object-lifetimes))
          (separate-logs (ly:get-option 'separate-log-files))
          (ping-log (and separate-logs (dup 2)))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
-    (if debug-lifetimes
+    (if debug-lifetimes-limit
         (gc))
     (for-each
      (lambda (x)
@@ -963,9 +976,8 @@ PIDs or the number of the process."
           (else))
          (ly:reset-all-fonts)
 
-         (ly:reset-all-fonts)
-         (if debug-lifetimes
-             (dump-zombies))
+         (if debug-lifetimes-limit
+             (dump-zombies debug-lifetimes-limit))
          (flush-all-ports)))
      files)
     failed))

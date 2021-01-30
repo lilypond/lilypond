@@ -361,27 +361,33 @@ extern bool parsed_objects_should_be_dead;
 class parsed_dead
 {
   static std::vector<parsed_dead *> elements;
-  SCM data;
+  std::vector<SCM> data;
   SCM readout_one ()
   {
-    SCM res = data;
-    data = SCM_UNDEFINED;
-    return res;
+    if (data.empty ())
+      return SCM_UNDEFINED;
+
+    SCM v = data.back ();
+    data.pop_back ();
+    return v;
   }
+
 public:
-  parsed_dead () : data (SCM_UNDEFINED)
+  parsed_dead ()
   {
     elements.push_back (this);
   }
-  void checkin (SCM arg) { data = arg; }
+  void checkin (SCM arg) { data.push_back (arg); }
   static SCM readout ();
 };
 
-// This does not appear to work with GUILEv2's garbage collector:
-// Objects are found in the GC phase but printing them will crash at
-// least some, so they are apparently not protected in spite of being
-// included in the GC scans.  So it would appear that scanning smobs
-// is not equivalent to marking them.  Ugh.
+// This does not work with GUILEv2's garbage collector; it prints out
+// #<finalized smob> as objects, which corresponds to the first
+// (zeroth) smob tag. ie. the mark function is called for objects to be 
+// freed too.  Perhaps the topological ordering of finalizers is 
+// enforced through mark callbacks? In practice, we also need multiple
+// (gc) calls at the end of each file for the lexer and parsers to
+// really die.
 #if defined (DEBUG) && !GUILEV2
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
   do {                                                                  \

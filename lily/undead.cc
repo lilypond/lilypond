@@ -23,58 +23,6 @@ using std::vector;
 
 bool parsed_objects_should_be_dead = false;
 
-class Undead : public Simple_smob<Undead>
-{
-public:
-  int print_smob (SCM, scm_print_state *) const;
-  SCM mark_smob () const;
-  static const char *const type_p_name_;
-private:
-  SCM object_;
-public:
-  SCM object () const { return object_; }
-  Undead (SCM object = SCM_UNDEFINED) : object_ (object) { };
-};
-
-SCM
-Undead::mark_smob () const
-{
-  bool saved = parsed_objects_should_be_dead;
-  parsed_objects_should_be_dead = false;
-  scm_gc_mark (object ());
-  parsed_objects_should_be_dead = saved;
-  return SCM_UNDEFINED;
-}
-
-int
-Undead::print_smob (SCM port, scm_print_state *) const
-{
-  scm_puts ("#<Undead ", port);
-  scm_display (object (), port);
-  scm_puts (" >", port);
-  return 1;
-}
-
-const char *const Undead::type_p_name_ = "ly:undead?";
-
-LY_DEFINE (ly_make_undead, "ly:make-undead",
-           1, 0, 0, (SCM object),
-           "This packages @var{object} in a manner that keeps it from"
-           " triggering \"Parsed object should be dead\" messages.")
-{
-  Undead undead (object);
-  return undead.smobbed_copy ();
-}
-
-LY_DEFINE (ly_get_undead, "ly:get-undead",
-           1, 0, 0, (SCM undead),
-           "Get back object from @var{undead}.")
-{
-  auto *const u = LY_ASSERT_SMOB (Undead, undead, 1);
-  return u->object ();
-}
-
-// '
 // These are not protected since the means of protecting them would be
 // problematic to trigger during the mark pass where the array element
 // references get set.  However, they get set only when in the mark
@@ -91,9 +39,13 @@ parsed_dead::readout ()
   SCM result = SCM_EOL;
   for (vsize i = 0; i < elements.size (); i++)
     {
-      SCM elt = elements[i]->readout_one ();
-      if (!SCM_UNBNDP (elt))
-        result = scm_cons (elt, result);
+      while (1)
+        {
+          SCM elt = elements[i]->readout_one ();
+          if (SCM_UNBNDP (elt))
+            break;
+          result = scm_cons (elt, result);
+        }
     }
   return result;
 }
