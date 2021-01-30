@@ -460,10 +460,6 @@ n@tab @code{#f}
 @tab
 @tab Prefix dels fitxers de dades (sols lectura).
 
-@item @code{debug-gc}
-@tab @code{#f}
-@tab Bolca estadístiques de depuració de memòria.
-
 @item @code{debug-gc-assert-parsed-dead}
 @tab @code{#f}
 @tab Per a la depuració de memòria: assegura't que totes les

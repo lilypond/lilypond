@@ -471,10 +471,6 @@ oder -Editoren kompatibel sein.  Es gibt auch die Option @code{svg-woff}
 @tab
 @tab Präfix für Datendateien (read-only).
 
-@item @code{debug-gc}
-@tab @code{#f}
-@tab Gebe Debugging-Statistik für Speicher aus.
-
 @item @code{debug-gc-assert-parsed-dead}
 @tab @code{#f}
 @tab Für Speicher-Debugging: Gehe sicher, dass alle Referenzen zu geparsten

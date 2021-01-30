@@ -633,10 +633,6 @@ SVG ビュアーが対応していないことがあるので、@c
 @item @code{datadir}
 データファイル パスの接頭辞です。読み取り専用で、設定しても効果がありません。
 
-@item @code{debug-gc} @var{bool}
-@var{bool} が @code{#t} なら、@c
-メモリに関するデバッグ用の統計を吐き出します。
-
 @item @code{debug-gc-assert-parsed-dead} @var{bool}
 メモリに関するデバッグ用:
 @var{bool} が @code{#t} なら、@c

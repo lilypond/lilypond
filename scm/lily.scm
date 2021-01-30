@@ -270,13 +270,8 @@ single-page output file(s) with cropped margins.")
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
                 "Use the debugging Scheme evaluator.")
-    (debug-gc #f
-              "Dump memory debugging statistics.")
     (debug-gc-assert-parsed-dead #f
-                                 "For memory debugging: Ensure that all
-references to parsed objects are dead.  This is
-an internal option, and is switched on
-automatically for `-ddebug-gc'.")
+                                 "For internal use")
     (debug-lexer #f
                  "Debug the flex lexer.")
     (debug-page-breaking-scoring #f
@@ -792,85 +787,9 @@ messages into errors.")
               lilypond-scheme-predicates
               lilypond-exported-predicates))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; debug memory leaks
-
-(define gc-dumping
-  #f)
-
-(define gc-protect-stat-count
-  0)
-
 ;; Undead objects that should be ignored after the first time round
 (define gc-zombies
   (make-weak-key-hash-table 0))
-
-(define-public (dump-live-object-stats outfile)
-  (for-each (lambda (x)
-              (format outfile "~a: ~a\n" (car x) (cdr x)))
-            (sort (gc-live-object-stats)
-                  (lambda (x y)
-                    (string<? (car x) (car y))))))
-
-(define-public (dump-gc-protects)
-  (set! gc-protect-stat-count (1+ gc-protect-stat-count))
-  (let* ((protects (sort (hash-table->alist (ly:protects))
-                         (lambda (a b)
-                           (< (object-address (car a))
-                              (object-address (car b))))))
-         (out-file-name (string-append
-                         "gcstat-" (number->string gc-protect-stat-count)
-                         ".scm"))
-         (outfile (open-file out-file-name "w")))
-    (set! gc-dumping #t)
-    (ly:progress "Dumping GC statistics ~a...\n" out-file-name)
-    (for-each (lambda (y)
-                (let ((x (car y))
-                      (c (cdr y)))
-                  (format outfile "~a (~a) = ~a\n" (object-address x) c x)))
-              (filter
-               (lambda (x)
-                 (not (symbol? (car x))))
-               protects))
-    (format outfile "\nprotected symbols: ~a\n"
-            (apply + (map (lambda (obj-count)
-                            (if (symbol? (car obj-count))
-                                (cdr obj-count)
-                                0))
-                          protects)))
-
-    ;; (display (ly:smob-protects))
-    (newline outfile)
-    (if (defined? 'gc-live-object-stats)
-        (let* ((stats #f))
-          (ly:progress "Live object statistics: GC'ing\n")
-          (ly:reset-all-fonts)
-          (gc)
-          (gc)
-          (ly:progress "Asserting dead objects\n")
-          (ly:set-option 'debug-gc-assert-parsed-dead #t)
-          (gc)
-          (ly:set-option 'debug-gc-assert-parsed-dead #f)
-          (for-each
-           (lambda (x)
-             (if (not (hashq-ref gc-zombies x))
-                 (begin
-                   (ly:programming-error "Parsed object should be dead: ~a" x)
-                   (hashq-set! gc-zombies x #t))))
-           (ly:parsed-undead-list!))
-          (set! stats (gc-live-object-stats))
-          (ly:progress "Dumping live object statistics.\n")
-          (dump-live-object-stats outfile)))
-    (newline outfile)
-    (let* ((stats (gc-stats)))
-      (for-each (lambda (sym)
-                  (format outfile "~a ~a ~a\n"
-                          gc-protect-stat-count
-                          sym
-                          (assoc-get sym stats "?")))
-                '(protected-objects bytes-malloced cell-heap-size)))
-    (set! gc-dumping #f)
-    (close-port outfile)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1021,6 +940,7 @@ PIDs or the number of the process."
            (set-module-submodules! root-module
                                    (alist->hash-table session-modules)))
           (else))
+         (ly:reset-all-fonts)
 
          ;; check that we're not holding on to objects. Doesn't work
          ;; in GUILE 2.x
@@ -1039,9 +959,6 @@ PIDs or the number of the process."
                     (hashq-set! gc-zombies x #t))))
             (ly:parsed-undead-list!))))
 
-         (if (ly:get-option 'debug-gc)
-             (dump-gc-protects)
-             (ly:reset-all-fonts))
          (flush-all-ports)))
      files)
     failed))

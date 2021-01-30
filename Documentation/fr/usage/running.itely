@@ -632,10 +632,6 @@ par défaut est @code{#f}.
 @item @code{datadir}
 Détermine le préfixe des fichiers de données (lecture seule).
 
-@item @code{debug-gc} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, génère une copie brute de la
-mémoire, aux fins de débogage. La valeur par défaut est @code{#f}.
-
 @item @code{debug-gc-assert-parsed-dead} @var{bool}
 Pour débogage de la mémoire : si @var{bool} est déterminé à @code{#t},
 s'assure que toute référence à des objets analysés est effacée. Il

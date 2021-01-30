@@ -660,10 +660,6 @@ de @q{una sola página}. Predeterminado: @code{#f}.
 Prefijo de los archivos de datos.  Esta opción es de solo lectura;
 su establecimiento no tiene ningún efecto.
 
-@item @code{debug-gc} @var{bool}
-Si @var{bool} es @code{#t}, volcar las estadísticas de depuración
-de memoria.  Predeterminado: @code{#f}.
-
 @item @code{debug-gc-assert-parsed-dead} @var{bool}
 Para la depuración de memoria: si @var{bool} es @code{#t},
 asegurarse de que todas las referencias a objetos analizados están
