@@ -107,7 +107,11 @@
 ;;  relevant .scm and .ly files only once.
 ;;
 
-(define lilypond-declarations '())
+(define lilypond-declarations
+  ;; a (cons* SYMBOL VAR VALUE) tuple. For symbols defined in .scm
+  ;; files, SYMBOL is #f. On reinitializing a session, we assign VALUE
+  ;; to VAR, and use the VAR to define SYMBOL in the parser module.
+  '())
 (define lilypond-exports '())
 (define after-session-hook (make-hook))
 
@@ -128,8 +132,7 @@
 (define (define-session-internal name value)
   ;; work function for define-session
   (set! lilypond-declarations
-        (cons (make-session-variable name value) lilypond-declarations)))
-
+        (cons (cons* #f (make-session-variable name value) value) lilypond-declarations)))
 
 (defmacro define-session (name value)
   "This defines a variable @var{name} with the starting value
@@ -225,23 +228,24 @@ variables to their value after the initial call of @var{thunk}."
          (guile-2
           (set! session-modules (hash-map->list cons global-modules)))
          (else))
-        (let ((decl (map! (lambda (v)
-                            (cons* #f v (variable-ref v)))
-                          lilypond-declarations)))
-          (module-for-each
-           (lambda (s v)
-             (let ((val (variable-ref v)))
-               (if (and (not (eq? s '%module-public-interface)) (not (ly:lily-parser? val)))
-                   (set! decl
-                         (cons
-                          (cons* s v val)
-                          decl)))))
-           (current-module))
-          (set! first-session-done? #t)
-          (set! lilypond-declarations decl))
 
-        (dump-zombies 0)
-        )))
+        ;; Extract changes made to variables after defining them
+        (set! lilypond-declarations
+              (map (lambda (v) (cons* #f (cadr v) (variable-ref (cadr v))))
+                   lilypond-declarations))
+        
+        (module-for-each
+         (lambda (s v)
+           (let ((val (variable-ref v)))
+             (if (and (not (eq? s '%module-public-interface)) (not (ly:lily-parser? val)))
+                 (set! lilypond-declarations
+                       (cons
+                        (cons* s v val)
+                        lilypond-declarations)))))
+         (current-module))
+        (set! first-session-done? #t)
+        (dump-zombies 0))
+      ))
 
 (define scheme-options-definitions
   `(
