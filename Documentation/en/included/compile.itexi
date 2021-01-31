@@ -1220,19 +1220,6 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 @end example
 
-Now you must edit the generated @file{config.make} file.  Change
-
-@example
-FLEXLEXER_FILE = /usr/include/FlexLexer.h
-@end example
-
-@noindent
-to:
-
-@example
-FLEXLEXER_FILE = /opt/local/include/FlexLexer.h
-@end example
-
 At this point, you should verify that you have the appropriate
 fonts installed with your ghostscript installation.  Check @code{ls
 /opt/local/share/ghostscript/fonts} for: 'c0590*' files (.pfb,

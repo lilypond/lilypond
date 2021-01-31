@@ -484,42 +484,6 @@ class yy_flex_lexer: public yyFlexLexer
 ])
 
 
-AC_DEFUN(STEPMAKE_FLEXLEXER_LOCATION, [
-    AC_MSG_CHECKING([FlexLexer.h location])
-
-    save_CPPFLAGS="$CPPFLAGS"
-    if test -n "$FLEXLEXER_DIR"; then
-        CPPFLAGS="-I$FLEXLEXER_DIR $CPPFLAGS"
-    fi
-
-    # ugh.
-    cat <<EOF > conftest.cc
-using namespace std;
-#include <FlexLexer.h>
-EOF
-    FLEXLEXER_FILE=`eval $ac_cpp conftest.cc | \
-      sed 's!# 1 "\(.*FlexLexer.h\)"!@FLEXLEXER@\1@@!g' | grep '@@' | \
-      sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` 1> /dev/null 2> /dev/null
-    rm conftest.cc
-    AC_SUBST(FLEXLEXER_FILE)
-    AC_MSG_RESULT($FLEXLEXER_FILE)
-    if test -n "$FLEXLEXER_DIR"; then
-        case $FLEXLEXER_FILE in
-        */*)
-            dir=${FLEXLEXER_FILE%/*}
-            ;;
-        *)
-            dir=.
-            ;;
-        esac
-        if test "x$dir" != "x$FLEXLEXER_DIR"; then
-            AC_MSG_ERROR([FlexLexer.h not located in directory given by --with-flexlexer-dir])
-        fi
-    fi
-    CPPFLAGS=$save_CPPFLAGS
-])
-
-
 AC_DEFUN(STEPMAKE_GETTEXT, [
     presome=${prefix}
     if test "$prefix" = "NONE"; then
