@@ -2921,49 +2921,17 @@ which is the default."
                            (assoc-get 'Y left-bound-info))))
                 (x-length (- x-end x-start))
                 (y-height (- y-end y-start))
-                (gradient-pair
-                  ;; We special case the last part of a broken
-                  ;; FingerGlideSpanner, because after a line break we want to
-                  ;; continue it at the height of its ending in the previous
-                  ;; line.
-                  ;; As it is very unlikely it crosses over three lines (and if
-                  ;; so, an error is issued anyway) we disregard this case.
-                  (if (end-broken-spanner? grob)
-                      ;; Thus we need to look at the extent ot the first part
-                      ;; of the broken spanner.
-                      ;; TODO find better method!
-                      (let* ((grob-layout (ly:grob-layout grob))
-                             (line-width
-                               (ly:output-def-lookup grob-layout 'line-width))
-                             ;; Get first sibling, its system and its x-extent
-                             (orig (ly:grob-original grob))
-                             (first-part (car (ly:spanner-broken-into orig)))
-                             (first-sys (ly:grob-system first-part))
-                             (first-part-x-ext
-                               (ly:grob-extent first-part first-sys X))
-                             ;; Calculate the width of first-part
-                             (first-x-length
-                               (-
-                                 line-width
-                                 (car first-part-x-ext)
-                                 left-padding
-                                 right-padding)))
-                        ;; return the gradient-x-y-pair of the first part of
-                        ;; the broken spanner
-                        (cons first-x-length y-height))
-                      ;; return the gradient-x-y-pair of the unbroken spanner
-                      (cons x-length y-height)))
                 ;; We calculate the length of the stubs in X-axis direction and
                 ;; use this value to draw the stub-lines below.
                 ;; This ensures a constant printed magnitude for all gradients
                 (left-info-stub-length
                   (assoc-get 'left-stub-length left-bound-info 1))
                 (left-stub-x-y
-                  (ly:directed gradient-pair left-info-stub-length))
+                  (ly:directed (cons x-length y-height) left-info-stub-length))
                 (right-info-stub-length
                   (assoc-get 'right-stub-length right-bound-info 1))
                 (right-stub-x-y
-                  (ly:directed gradient-pair right-info-stub-length))
+                  (ly:directed (cons x-length y-height) right-info-stub-length))
                 (left-stub-stil
                   (if (and (grob::has-interface left-bound 'finger-interface)
                            (member style '(stub-left stub-both)))
