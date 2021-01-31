@@ -82,7 +82,7 @@ endif
 
 # force these: Make can't know these have to be generated in advance
 $(outdir)/lily-parser.o $(outdir)/parser.o: $(outdir)/parser.hh
-$(outdir)/lily-lexer.o: $(outdir)/parser.hh $(FLEXLEXER_FILE) $(config_h)
+$(outdir)/lily-lexer.o: $(outdir)/parser.hh $(config_h)
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
 $(outdir)/lily-lexer-scheme.o \
   $(outdir)/lily-parser-scheme.o \
