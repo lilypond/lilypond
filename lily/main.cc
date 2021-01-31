@@ -18,6 +18,7 @@
 */
 
 #include "main.hh"
+#include "lily-guile.hh"
 
 #include <unistd.h>
 #include <sys/types.h>
