@@ -63,13 +63,15 @@ ly_init_ly_module ()
   if (is_loglevel (LOG_DEBUG))
     {
       debug_output ("[", true);
+      // FIXME: scm_primitive_load_path may load a compiled version of the code;
+      //        can this be detected and printed? If not, remove this output.
       scm_display (scm_c_eval_string ("(%search-load-path \"lily.scm\")"),
                    scm_current_error_port ());
       debug_output ("]\n", false);
     }
 
-  scm_primitive_load_path (scm_from_ascii_string ("lily.scm"));
-  debug_output (_f ("Load lily.scm: %.2f seconds", timer.read ()));
+  scm_primitive_load_path (scm_from_ascii_string ("lily"));
+  debug_output (_f ("(primitive-load-path lily): %.2f seconds", timer.read ()));
 }
 
 void

@@ -27,16 +27,16 @@
 
 (use-modules (scm accreg))
 
-(for-each ly:load '("documentation-lib.scm"
-                    "lily-sort.scm"
-                    "document-functions.scm"
-                    "document-translation.scm"
-                    "document-music.scm"
-                    "document-type-predicates.scm"
-                    "document-identifiers.scm"
-                    "document-context-mods.scm"
-                    "document-backend.scm"
-                    "document-markup.scm"))
+(for-each ly:load '("documentation-lib"
+                    "lily-sort"
+                    "document-functions"
+                    "document-translation"
+                    "document-music"
+                    "document-type-predicates"
+                    "document-identifiers"
+                    "document-context-mods"
+                    "document-backend"
+                    "document-markup"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

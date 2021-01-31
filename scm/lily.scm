@@ -515,7 +515,10 @@ messages into errors.")
     (ly:debug "[~A" file-name)
     (if (not file-name)
         (ly:error (_ "cannot find: ~A") x))
-    (primitive-load-path file-name)  ;; to support Guile V2 autocompile
+    ;; FIXME: primitive-load-path may load a compiled version of the code;
+    ;;        can this be detected and printed? If not, ly:load can be replaced
+    ;;        by primitive-load-path right away.
+    (primitive-load-path x)  ;; to support Guile V2 autocompile
     ;; TODO: Any chance to use ly:debug here? Need to extend it to prevent
     ;;       a newline in this case
     (if (ly:get-option 'verbose)
@@ -589,69 +592,69 @@ messages into errors.")
 ;;
 ;;  - Library definitions, need to be at the head of the list
 (define init-scheme-files-lib
-  '("lily-library.scm"
-    "output-lib.scm"))
+  '("lily-library"
+    "output-lib"))
 ;;  - Files containing definitions used later by other files later in load
 (define init-scheme-files-used
-  '("markup-macros.scm"
-    "parser-ly-from-scheme.scm"))
+  '("markup-macros"
+    "parser-ly-from-scheme"))
 ;;  - Main body of files to be loaded
 (define init-scheme-files-body
-  '("file-cache.scm"
-    "define-event-classes.scm"
-    "define-music-callbacks.scm"
-    "define-music-types.scm"
-    "define-note-names.scm"
-    "c++.scm"
-    "chord-entry.scm"
-    "skyline.scm"
-    "markup.scm"
-    "define-markup-commands.scm"
-    "stencil.scm"
-    "modal-transforms.scm"
-    "chord-ignatzek-names.scm"
-    "music-functions.scm"
-    "part-combiner.scm"
-    "autochange.scm"
-    "define-music-properties.scm"
-    "time-signature.scm"
-    "time-signature-settings.scm"
-    "auto-beam.scm"
-    "chord-name.scm"
-    "bezier-tools.scm"
+  '("file-cache"
+    "define-event-classes"
+    "define-music-callbacks"
+    "define-music-types"
+    "define-note-names"
+    "c++"
+    "chord-entry"
+    "skyline"
+    "markup"
+    "define-markup-commands"
+    "stencil"
+    "modal-transforms"
+    "chord-ignatzek-names"
+    "music-functions"
+    "part-combiner"
+    "autochange"
+    "define-music-properties"
+    "time-signature"
+    "time-signature-settings"
+    "auto-beam"
+    "chord-name"
+    "bezier-tools"
 
-    "define-context-properties.scm"
-    "translation-functions.scm"
-    "script.scm"
-    "midi.scm"
-    "layout-beam.scm"
-    "parser-clef.scm"
-    "layout-slur.scm"
-    "font.scm"
-    "encoding.scm"
+    "define-context-properties"
+    "translation-functions"
+    "script"
+    "midi"
+    "layout-beam"
+    "parser-clef"
+    "layout-slur"
+    "font"
+    "encoding"
 
-    "bar-line.scm"
-    "flag-styles.scm"
-    "fret-diagrams.scm"
-    "tablature.scm"
-    "harp-pedals.scm"
-    "define-woodwind-diagrams.scm"
-    "display-woodwind-diagrams.scm"
-    "predefined-fretboards.scm"
-    "define-grob-properties.scm"
-    "define-grobs.scm"
-    "define-grob-interfaces.scm"
-    "define-stencil-commands.scm"
-    "scheme-engravers.scm"
-    "titling.scm"
+    "bar-line"
+    "flag-styles"
+    "fret-diagrams"
+    "tablature"
+    "harp-pedals"
+    "define-woodwind-diagrams"
+    "display-woodwind-diagrams"
+    "predefined-fretboards"
+    "define-grob-properties"
+    "define-grobs"
+    "define-grob-interfaces"
+    "define-stencil-commands"
+    "scheme-engravers"
+    "titling"
 
-    "paper.scm"
-    "backend-library.scm"
-    "color.scm"))
+    "paper"
+    "backend-library"
+    "color"))
 ;;  - Files to be loaded last
 (define init-scheme-files-tail
   ;;  - must be after everything has been defined
-  '("safe-lily.scm"))
+  '("safe-lily"))
 ;;
 ;; Now construct the load list
 ;;

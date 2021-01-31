@@ -310,4 +310,4 @@ inside body."
                 ((make-music-type-predicate-aux (cdr mtypes)) expr))))))
   (make-music-type-predicate-aux music-types))
 
-(ly:load "define-music-display-methods.scm")
+(ly:load "define-music-display-methods")
