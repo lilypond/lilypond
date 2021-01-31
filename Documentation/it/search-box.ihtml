@@ -8,11 +8,11 @@
 <form action="https://www.google.com/search"
       method="get"
       name="search"
-      onSubmit="search.q.value='site:lilypond.org/doc/v2.21 '
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.22 '
 		+ search.brute_query.value"
-      onMouseMove="search.q.value='site:lilypond.org/doc/v2.21 '
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.22 '
 		   + search.brute_query.value"
-      onKeyUp="search.q.value='site:lilypond.org/doc/v2.21 '
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.22 '
 	       + search.brute_query.value">
   <input type="hidden" name="btnG" value="Cerca con Google">
   <input type="text" name="brute_query" onfocus="this.value=''" value="Cerca">
