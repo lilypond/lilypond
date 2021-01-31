@@ -10,9 +10,8 @@ Here is a simple explanation of the directory layout for
 LilyPond's source files.
 
 
-.                        Toplevel READMEs, ChangeLog,
-|                          build bootstrapping, patches
-|                          for third party programs
+.                        Toplevel READMEs, files for
+|                          configuration and building, etc.
 |
 |-- Documentation/       Top sources for most of the manuals
 |   |
@@ -22,19 +21,20 @@ LilyPond's source files.
 |   |     auto-generated during the Documentation Build process.
 |   |
 |   |
-|   |-- contributor/     Contributor's Guide
-|   |-- essay/           Essay on automated music engraving
-|   |-- extending/       Extending the functionality of LilyPond
-|   |-- learning/        Learning Manual
-|   |-- notation/        Notation Reference
-|   |-- usage/           Runnning the programs that come with LilyPond
-|   |-- web/             The website
+|   |-- en/contributor/  Contributor's Guide
+|   |-- en/essay/        Essay on automated music engraving
+|   |-- en/extending/    Extending the functionality of LilyPond
+|   |-- en/included/     Doc files that are used more than once
+|   |-- en/learning/     Learning Manual
+|   |-- en/notation/     Notation Reference
+|   |-- en/usage/        How to run the programs that come with LilyPond
+|   |-- en/web/          Website files
 |   |
 |   |
 |   |   TRANSLATED MANUALS:
 |   |     Each language's directory can contain...
 |   |       1) translated versions of:
-|   |          * top sources for manuals
+|   |          * "en/*" sources for manuals
 |   |          * individual chapters for each manual
 |   |       2) a texidocs/ directory for snippet translations
 |   |
@@ -53,8 +53,8 @@ LilyPond's source files.
 |   |
 |   |   MISCELLANEOUS DOC STUFF:
 |   |
+|   |-- bib/             Bibliography files for documentation
 |   |-- css/             CSS files for HTML docs
-|   |-- included/        .ly files used in the manuals
 |   |-- logo/            Web logo and "note" icon
 |   |-- ly-examples/     .ly files for the "Examples" webpage
 |   |-- misc/            Old announcements, ChangeLogs and NEWS
@@ -63,13 +63,15 @@ LilyPond's source files.
 |   |-- po/              Translated build/maintenance scripts
 |   |-- snippets/        Auto-generated from the LSR and from ./new/
 |   |   `-- new/         Snippets too new for the LSR
-|   `-- topdocs/         AUTHORS, INSTALL, README
+|   `-- topdocs/         AUTHORS, INSTALL
 |
 |
 |   C++ SOURCES:
 |
 |-- flower/              A simple C++ library
+|   `-- include/         C++ header files for basic LilyPond structures
 |-- lily/                C++ sources for the LilyPond binary
+|   `-- include/         C++ header files for higher-level stuff
 |
 |
 |   LIBRARIES:
@@ -103,13 +105,17 @@ LilyPond's source files.
 |-- input/
 |   `-- regression/      .ly regression tests
 |       |-- abc2ly/      .abc regression tests
-|       |-- lilypond-book/  lilypond-book regression tests
+|       |-- lilypond-book/
+|       |                lilypond-book regression tests
 |       |-- midi/        midi2ly regression tests
-|       `-- musicxml/    .xml and .itexi regression tests
+|       |-- musicxml/    .xml and .itexi regression tests
+|       `-- other/       regression tests without graphical output
 |
 |
 |   MISCELLANEOUS:
 |
 |-- elisp/               Emacs LilyPond mode and syntax coloring
 |-- vim/                 Vi(M) LilyPond mode and syntax coloring
-`-- po/                  Translations for binaries and end-user scripts
+|-- po/                  Translations for binaries and end-user scripts
+`-- docker/
+    `-- ci/              Support for continuous integration (CI) on gitlab
