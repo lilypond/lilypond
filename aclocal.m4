@@ -953,20 +953,28 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
 
 
 AC_DEFUN(STEPMAKE_WINDOWS, [
-    AC_CYGWIN
-    AC_MINGW32
-
-    if test "$CYGWIN" = "yes"; then
+    AC_MSG_CHECKING([for some flavor of Windows])
+    AC_CANONICAL_HOST
+    case $host_os in
+      *cygwin* )
         LN_S='cp -r' # Cygwin symbolic links do not work for native apps.
         program_suffix=.exe
         INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
-    elif test "$MINGW32" = "yes"; then
+        PLATFORM_WINDOWS=yes
+        ;;
+      *mingw32* )
         LN='cp -r'
         LN_S='cp -r'
         program_suffix=.exe
         INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
         PATHSEP=';'
-    fi
+        PLATFORM_WINDOWS=yes
+        ;;
+      * )
+        PLATFORM_WINDOWS=no
+        ;;
+    esac
+    AC_MSG_RESULT([$PLATFORM_WINDOWS])
 
     AC_SUBST(LN)
     AC_SUBST(LN_S)
@@ -976,13 +984,6 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     AC_SUBST(PATHSEP)
     AC_SUBST(program_suffix)
 
-    AC_MSG_CHECKING([for some flavor of Windows])
-    if test "$CYGWIN$MINGW32" = "nono"; then
-        PLATFORM_WINDOWS=no
-    else
-        PLATFORM_WINDOWS=yes
-    fi
-    AC_MSG_RESULT([$PLATFORM_WINDOWS])
     AC_SUBST(PLATFORM_WINDOWS)
     STEPMAKE_PROGS(WINDRES, $target-windres $host-windres windres, x)
     AC_SUBST(WINDRES)
