@@ -1359,9 +1359,7 @@ with
 ./configure --enable-checking
 @end example
 
-@item Rebuilding LilyPond
-
-The executable code of LilyPond must be rebuilt from scratch:
+The executable code of LilyPond must then be rebuilt from scratch:
 
 @example
 make clean && make
