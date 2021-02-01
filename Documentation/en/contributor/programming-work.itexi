@@ -1349,15 +1349,11 @@ number of different platforms:
 @uref{https://www.graphviz.org/download/}
 @end example
 
-@item Modifying config.make
+@item Compiling LilyPond with debugging functionality
 
-In order for the Graphviz tool to work, config.make must be modified.
-It is probably a good idea to first save a copy of config.make under
-a different name.
-
-In order to have the required functionality available, LilyPond
-needs to be compiled with the option @option{-DDEBUG}.  You can
-achieve this by configuring with
+In order for the Graphviz tool to work, LilyPond needs to be compiled
+with the option @option{-DDEBUG}.  You can achieve this by configuring
+with
 
 @example
 ./configure --enable-checking
