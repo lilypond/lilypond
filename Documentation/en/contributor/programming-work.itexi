@@ -1334,12 +1334,12 @@ and modified.  Although it can be complex to get set up, once set up
 it easily provides detailed information about the life of grobs
 in the form of a network graph.
 
-Each of the steps necessary to use the graphviz utility
+Each of the steps necessary to use the Graphviz utility
 is described below.
 
 @enumerate
 
-@item Installing graphviz
+@item Installing Graphviz
 
 In order to create the graph of the object relationships, it is
 first necessary to install Graphviz.  Graphviz is available for a
@@ -1367,9 +1367,9 @@ The executable code of LilyPond must be rebuilt from scratch:
 make clean && make
 @end example
 
-@item Create a graphviz-compatible @file{.ly} file
+@item Create a Graphviz-compatible @file{.ly} file
 
-In order to use the graphviz utility, the @file{.ly} file must include
+In order to use the Graphviz utility, the @file{.ly} file must include
 @file{ly/graphviz-init.ly}, and should then specify the
 grobs and symbols that should be tracked.  An example of this
 is found in @file{input/regression/graphviz.ly}.
