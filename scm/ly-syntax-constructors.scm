@@ -323,17 +323,19 @@ into a @code{MultiMeasureTextEvent}."
 (define-public (lyric-event text duration)
   (ly:set-origin! (make-lyric-event text duration)))
 
-(define-public (lyric-combine sync sync-type music)
+(define (make-lyric-combine sync sync-type music)
   ;; CompletizeExtenderEvent is added following the last lyric in MUSIC
   ;; to signal to the Extender_engraver that any pending extender should
   ;; be completed if the lyrics end before the associated voice.
   (append! (ly:music-property music 'elements)
            (list (make-music 'CompletizeExtenderEvent)))
-  (ly:set-origin!
-   (make-music 'LyricCombineMusic
-               'element music
-               'associated-context sync
-               'associated-context-type sync-type)))
+  (make-music 'LyricCombineMusic
+              'element music
+              'associated-context sync
+              'associated-context-type sync-type))
+
+(define-public (lyric-combine sync sync-type music)
+  (ly:set-origin! (make-lyric-combine sync sync-type music)))
 
 (define-public (add-lyrics music addlyrics-list)
   (let* ((existing-voice-name (get-first-context-id! music))
@@ -350,15 +352,17 @@ into a @code{MultiMeasureTextEvent}."
          (voice-type (ly:music-property voice 'context-type))
          (lyricstos (map
                      (lambda (mus+mods)
-                       (with-location
-                        (ly:music-property (car mus+mods) 'origin)
+                       (let* ((mus (car mus+mods))
+                              (mods (cdr mus+mods))
+                              (loc (ly:music-property mus 'origin))
+                              (el (make-lyric-combine voice-name voice-type mus)))
+                        (ly:set-origin! el loc)
                         (ly:set-origin! (make-music 'ContextSpeccedMusic
                                                     'create-new #t
                                                     'context-type 'Lyrics
-                                                    'property-operations (cdr mus+mods)
-                                                    'element
-                                                    (lyric-combine
-                                                     voice-name voice-type
-                                                     (car mus+mods))))))
+                                                    'property-operations mods
+                                                    'element el)
+                                        loc)
+                        ))
                      addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))

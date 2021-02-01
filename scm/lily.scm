@@ -65,9 +65,6 @@
 ;; No public setters: should not get overwritten in action
 (define-public (*parser*) (fluid-ref %parser))
 (define-public (*location*) (fluid-ref %location))
-;; but properly scoped location should be fine
-(defmacro-public with-location (loc . body)
-  `(with-fluids ((,%location ,loc)) ,@body))
 
 (define-public _ gettext)
 
