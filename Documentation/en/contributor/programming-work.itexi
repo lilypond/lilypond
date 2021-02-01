@@ -1346,7 +1346,7 @@ first necessary to install Graphviz.  Graphviz is available for a
 number of different platforms:
 
 @example
-@uref{http://www.graphviz.org/Download..php}
+@uref{https://www.graphviz.org/download/}
 @end example
 
 @item Modifying config.make
