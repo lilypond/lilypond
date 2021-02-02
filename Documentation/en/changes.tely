@@ -66,6 +66,28 @@ which scares away people.
 @end ignore
 
 @item
+Repeat alternatives may appear in places other than the end of the
+repeated section.
+
+@lilypond[verbatim,quote]
+\repeat volta 3 { c'1 \alternative { d' e' } f' }
+@end lilypond
+
+@item
+The volta numbers for repeat alternatives may be set with the
+@code{\volta} command.
+
+@lilypond[verbatim,quote]
+\repeat volta 3 c'1 \alternative { \volta 1 d' \volta 2,3 e' }
+@end lilypond
+
+@item
+The @code{\volta} command removes music when a repeat is unfolded.
+
+@item
+The @code{\unfolded} command adds music when a repeat is unfolded.
+
+@item
 The ends of hairpins may now be aligned to the @code{LEFT}, @code{CENTER}
 or @code{RIGHT} of @code{NoteColumn} grobs by overriding the property
 @code{endpoint-alignments}.
