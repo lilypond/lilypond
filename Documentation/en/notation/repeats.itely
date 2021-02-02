@@ -234,6 +234,50 @@ before the first note.
 }
 @end lilypond
 
+@cindex repeat, with upbeat
+@cindex upbeat, in a repeat
+@cindex anacrusis, in a repeat
+@cindex repeat, with anacrusis
+@cindex repeat, with pickup
+@cindex pickup, in a repeat
+@funindex \partial
+@cindex bar check, with repeats
+@cindex repeat, with bar checks
+
+If a repeat that has no alternate endings starts in the middle of a
+measure, it will usually end at a corresponding place in the middle of a
+later measure (so that the two ends add up to one complete measure).  In
+this case the repeat signs are not @q{true} bar lines so neither bar
+checks nor @code{\partial} commands should be placed there:
+
+@lilypond[verbatim,quote,relative=1]
+c'4 e g
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  g4 g g
+}
+  g4 |
+  a2 a |
+  g1 |
+@end lilypond
+
+If a repeat that has no alternate endings starts with a partial measure,
+then the same principles apply, except that a @code{\partial} command is
+required at the start of the measure:
+
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 4 {
+  e'4 |
+  c2 e |
+  g4 g g
+}
+  g4 |
+  a2 a |
+  g1 |
+@end lilypond
+
 Alternative endings can be produced using @code{\alternative}.  Each
 group of alternatives must be themselves, enclosed in a set of braces.
 
@@ -299,50 +343,6 @@ expected number of endings.}
 @code{@bs{}repeat} without explicitly instantiating the
 @code{Voice} context, extra (unwanted) staves will appear.  See
 @rprogram{An extra staff appears}.}
-
-@cindex repeat, with upbeat
-@cindex upbeat, in a repeat
-@cindex anacrusis, in a repeat
-@cindex repeat, with anacrusis
-@cindex repeat, with pickup
-@cindex pickup, in a repeat
-@funindex \partial
-@cindex bar check, with repeats
-@cindex repeat, with bar checks
-
-If a repeat that has no alternate endings starts in the middle of a
-measure, it will usually end at a corresponding place in the middle of a
-later measure (so that the two ends add up to one complete measure).  In
-this case the repeat signs are not @q{true} bar lines so neither bar
-checks nor @code{\partial} commands should be placed there:
-
-@lilypond[verbatim,quote,relative=1]
-c'4 e g
-\repeat volta 4 {
-  e4 |
-  c2 e |
-  g4 g g
-}
-  g4 |
-  a2 a |
-  g1 |
-@end lilypond
-
-If a repeat that has no alternate endings starts with a partial measure,
-then the same principles apply, except that a @code{\partial} command is
-required at the start of the measure:
-
-@lilypond[verbatim,quote,relative=1]
-\partial 4
-\repeat volta 4 {
-  e'4 |
-  c2 e |
-  g4 g g
-}
-  g4 |
-  a2 a |
-  g1 |
-@end lilypond
 
 @cindex repeat, with ties
 @cindex alternative ending, with ties
