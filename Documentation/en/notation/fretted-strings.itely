@@ -321,8 +321,8 @@ ties = \relative {
     2 g2~
   }
   \alternative {
-     { g4 f2. }
-     { g4\repeatTie c,2. }
+     \volta 1 { g4 f2. }
+     \volta 2 { g4\repeatTie c,2. }
   }
   b1~
   \break
@@ -360,8 +360,8 @@ ties = \relative {
     e'2. f4~
     2 g2~ }
   \alternative {
-    { g4 f2. }
-    { g4\repeatTie c,2. }
+    \volta 1 { g4 f2. }
+    \volta 2 { g4\repeatTie c,2. }
   }
   b1~
   \break

@@ -1443,7 +1443,10 @@ lyrics correctly.
         \relative {
           a'4 a a a
           \repeat volta 2 { b4 b }
-          \alternative { { b b } { b c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b c }
+          }
         }
       }
     }
@@ -1451,7 +1454,10 @@ lyrics correctly.
       \lyricsto "melody" {
         Not re -- peat -- ed.
         \repeat volta 2 { Re -- peat -- }
-        \alternative { { ed twice. } { ed twice. } }
+        \alternative {
+          \volta 1 { ed twice. }
+          \volta 2 { ed twice. }
+        }
       }
     }
   >>
@@ -1486,7 +1492,10 @@ value, irrespective of the value of the following number.}
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b }
-          \alternative { { b b } { b c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b c }
+          }
           c4 c
         }
       }
@@ -1534,7 +1543,10 @@ melismata over the volta section and insert manual skips.
         \relative {
           \set melismaBusyProperties = #'()
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           \unset melismaBusyProperties
           c4 c
         }
@@ -1544,8 +1556,8 @@ melismata over the volta section and insert manual skips.
       \lyricsto "melody" {
         \repeat volta 2 { Here's a __ }
         \alternative {
-          { \skip 1 verse }
-          { \skip 1 sec }
+          \volta 1 { \skip 1 verse }
+          \volta 2 { \skip 1 sec }
         }
         ond one.
       }
@@ -1570,7 +1582,10 @@ be inserted manually, as before.
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           c4 c
         }
       }
@@ -1603,7 +1618,10 @@ alternative sections these must be inserted manually.
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           c4 c
         }
       }

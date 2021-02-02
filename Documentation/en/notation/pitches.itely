@@ -3048,8 +3048,8 @@ sign:
     c'2
   }
   \alternative {
-     cis'
-     c'
+     \volta 1 { cis' }
+     \volta 2 { c' }
   }
 }
 @end lilypond
@@ -3070,8 +3070,8 @@ forget = #(define-music-function (music) (ly:music?) #{
     c'2
   }
   \alternative {
-     cis'
-     \forget c'
+     \volta 1 { cis' }
+     \volta 2 { \forget c' }
   }
 }
 @end lilypond

@@ -3540,8 +3540,8 @@ Repeats can be represented in the MIDI output by applying the
     \repeat percent 2 @{ c''8 d'' @}
     \repeat volta 2 @{ c'4 d' e' f' @}
     \alternative @{
-      @{ g' a' a' g' @}
-      @{ f' e' d' c' @}
+      \volta 1 @{ g' a' a' g' @}
+      \volta 2 @{ f' e' d' c' @}
     @}
   @}
   \midi @{ @}
