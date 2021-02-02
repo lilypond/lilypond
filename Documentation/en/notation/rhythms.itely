@@ -529,24 +529,28 @@ the chord.
 }
 @end lilypond
 
+@anchor{Repeat tie}
+@cindex alternative ending, with ties
+@cindex repeat, with ties
 @cindex repeating tie
+@cindex tie, alternative endings
+@cindex tie, in repeats
 @cindex tie, repeating
 @cindex volta bracket, and tie
 @cindex tie, and volta bracket
-
 @funindex \repeatTie
 
-When a second alternative of a repeat starts with a tied note, you
-have to specify the repeated tie as follows:
+When a tie continues into alternative endings, you have to specify
+the repeated tie as follows:
 
 @lilypond[quote,verbatim]
 \relative {
   \repeat volta 2 { c'' g <c e>2~ }
   \alternative {
-    % First alternative: following note is tied normally
-    { <c e>2. r4 }
-    % Second alternative: following note has a repeated tie
-    { <c e>2\repeatTie d4 c }
+    % the following note is tied normally
+    \volta 1 { <c e>2. r4 }
+    % the following note has a repeated tie
+    \volta 2 { <c e>2\repeatTie d4 c }
   }
 }
 @end lilypond
@@ -2981,7 +2985,7 @@ variations:
 Additionally there is an @code{\inStaffSegno} command which creates
 a segno bar line in conjunction with an appropriate repeat bar line
 when used with a @code{\repeat volta} command, see
-@ref{Normal repeats}.
+@ref{In-staff segno}.
 
 @funindex \defineBarLine
 @cindex bar line, defining

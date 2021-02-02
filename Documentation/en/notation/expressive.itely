@@ -1266,6 +1266,7 @@ Different styles of glissandi can be created.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/making-glissandi-breakable.ly}
 
+@anchor{Extending glissandi across repeats}
 @cindex glissando, across repeats
 @cindex repeat, and glissandi
 @lilypondfile[verbatim,quote,texidoc,doctitle]

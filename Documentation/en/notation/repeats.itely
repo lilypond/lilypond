@@ -9,6 +9,7 @@
 
 @c \version "2.19.21"
 
+
 @node Repeats
 @section Repeats
 
@@ -21,16 +22,16 @@ repeats:
 
 @table @code
 @item volta
-The repeated music is not written out but enclosed between repeat bar
-lines.  If the repeat is at the beginning of a piece, a repeat bar
-line is only printed at the end of the repeat.  Alternative endings
-(volte) are printed left to right with brackets.  This is the standard
-notation for repeats with alternatives.
+This is the standard notation for repeats with or without
+alternative endings.  The repeated section is framed between
+repeat bar lines, but the starting bar line is omitted when the
+repeated section begins the piece.  Alternative endings are
+printed in sequence, bracketed, and numbered with the volte to
+which they apply.
 
 @item unfold
-The repeated music is fully written out, as many times as
-specified by @code{@var{repeatcount}}.  This is useful when
-entering repetitious music.
+The repeated music is written out in full a specified number of
+times.
 
 @item percent
 These are beat or measure repeats.  They look like single slashes or
@@ -41,145 +42,80 @@ This is used to write tremolo beams.
 
 @end table
 
+Chord constructs can be repeated using the chord repetition
+symbol, @code{q}.  See @ref{Chord repetition}.
 
 @menu
 * Long repeats::
 * Short repeats::
 @end menu
 
+
 @node Long repeats
 @subsection Long repeats
 
 This section discusses how to input long (usually multi-measure)
-repeats.  The repeats can take two forms: repeats enclosed between
-repeat signs; or written-out repeats, used to input repetitious music.
-Repeat signs can also be controlled manually.
+repeats.
 
 @menu
 * Written-out repeats::
-* Normal repeats::
+* Simple repeats::
+* Alternative endings::
+* Other variation in repeated sections::
+* In-staff segno::
 * Manual repeat marks::
 @end menu
+
+@cindex written-out repeat
+@cindex repeat, written-out
+@cindex repeat, unfold
+@cindex unfold repeat
+@funindex \repeat
+@funindex \repeat unfold
+@funindex unfold
 
 
 @node Written-out repeats
 @unnumberedsubsubsec Written-out repeats
 
-@cindex written-out repeat
-@cindex repeat, written-out
-@cindex repeat, unfold
-@cindex repeat, alternative
-@cindex unfold repeat
-@cindex unfold repeat, alternate endings
-@cindex alternate repeat
-@cindex alternate ending, repeats
-@funindex unfold
+The @code{\repeat unfold} command repeats music by writing it out
+a number of times.  The syntax is the same as the @code{\repeat
+volta} command, which is documented in following sections.
 
-By using the @code{unfold} command, repeats can be used to simplify the
-writing out of repetitious music.  The syntax is
+To avoid redundancy, unfolding is not demonstrated in detail here;
+however, some of the examples in following sections illustrate
+features in both @code{volta} and @code{unfold} forms using the
+@code{\unfoldRepeats} command to convert the @code{volta} form to
+the @code{unfold} form.  For another important use of the
+@code{\unfoldRepeats} command, see @ref{Using repeats with MIDI}.
+
+There are some points of interest specific to the @code{\repeat
+unfold} command.
+
+In some cases, especially in a @code{\relative} context, the
+outcome of unfolding is not the same as of writing the input music
+expression multiple times, e.g.,
 
 @example
-\repeat unfold @var{repeatcount} @var{musicexpr}
+\repeat unfold 2 @{ a'4 b c d | @}
 @end example
 
 @noindent
-where @code{@var{musicexpr}} is a music expression and
-@code{@var{repeatcount}} is the number of times
-@code{@var{musicexpr}} is repeated.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  c1
-}
-@end lilypond
-
-In some cases, especially in a @code{\relative} context, the
-@code{\repeat unfold} function is not the same as writing out the
-music expression multiple times. E.g,
+differs from the following by an octave change:
 
 @example
-\repeat unfold 2 @{ a'4 b c @}
+a'4 b c d |
+a'4 b c d |
 @end example
 
-is not equivalent to
-
-@example
-a'4 b c | a'4 b c
-@end example
-
-Unfold repeats can be made with alternate endings.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-  }
-  c1
-}
-@end lilypond
-
-If there are more repeats than there are alternate endings, the first
-alternative is applied multiple times until the remaining alternatives
-make up the total number of repeats.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 4 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-    { e2 d }
-   }
-  c1
-}
-@end lilypond
-
-If there are more alternate endings than repeats then only the first
-alternatives are applied.  The remaining alternatives will be ignored
-and not printed.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-    { e2 d }
-  }
-  c1
-}
-@end lilypond
-
-It is also possible to nest multiple @code{unfold} functions (with or
-without alternate endings).
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 {
-    \repeat unfold 2 { c''4 d e f }
-    \alternative {
-      { c2 g' }
-      { c,2 b }
-    }
-  }
-  c1
-}
-@end lilypond
-
-Chord constructs can be repeated by the chord repetition symbol
-@code{q}.  See @ref{Chord repetition}.
+Also, nesting @code{\repeat unfold} can be practical in ways that
+nesting @code{\repeat volta} would not be.
 
 @warning{If you include @code{@bs{}relative} inside a @code{@bs{}repeat}
 without explicitly instantiating the @code{Voice} context, extra
 (unwanted) staves will appear.  See @rprogram{An extra staff appears}.}
 
 @morerefs
-Notation Reference:
-@ref{Chord repetition}.
-
 Snippets:
 @rlsr{Repeats}.
 
@@ -187,50 +123,43 @@ Internals Reference:
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
+
 @cindex volta
-@cindex prima volta
-@cindex seconda volta
-@cindex volta, prima
-@cindex volta, seconda
-@cindex repeat, normal
-@cindex normal repeat
-@cindex repeat, with alternate endings
-@cindex alternate ending
+@cindex repeat, simple
+@cindex simple repeat
 @funindex \repeat
-@funindex \alternative
-@funindex \partial
+@funindex \repeat volta
+@funindex volta
 
-@node Normal repeats
-@unnumberedsubsubsec Normal repeats
 
-The syntax for a normal repeat is
+@node Simple repeats
+@unnumberedsubsubsec Simple repeats
+
+This is the syntax for a repeat without variation:
 
 @example
 \repeat volta @var{repeatcount} @var{musicexpr}
 @end example
 
 @noindent
-where @code{@var{musicexpr}} is a music expression.
-
-A single repeat without an alternate ending:
+where @code{@var{musicexpr}} is the music expression to be
+repeated.
 
 @lilypond[verbatim,quote]
-\relative {
-  \repeat volta 2 { c''4 d e f }
-  c2 d
-  \repeat volta 2 { d4 e f g }
+\fixed c'' {
+  \repeat volta 2 { c2 f }
+  R1
+  \repeat volta 2 { g2 c }
 }
 @end lilypond
 
-An @q{opening} repeat mark is not, by default, printed in the first full
-measure.  However it is possible to add one by using @code{\bar ".|:"}
-before the first note.
+A starting bar line is not automatically printed at the beginning
+of a piece; however, it is possible to add one with
+@code{\bar ".|:"}.
 
 @lilypond[verbatim,fragment,quote]
-\relative {
-  \repeat volta 2 { \bar ".|:" c''4 d e f }
-  c2 d
-  \repeat volta 2 { d4 e f g }
+\fixed c'' {
+  \repeat volta 2 { \bar ".|:" c2 f }
 }
 @end lilypond
 
@@ -244,124 +173,186 @@ before the first note.
 @cindex bar check, with repeats
 @cindex repeat, with bar checks
 
-If a repeat that has no alternate endings starts in the middle of a
-measure, it will usually end at a corresponding place in the middle of a
-later measure (so that the two ends add up to one complete measure).  In
-this case the repeat signs are not @q{true} bar lines so neither bar
-checks nor @code{\partial} commands should be placed there:
+A repeated section that starts in the middle of a measure usually
+ends at the same position in a later measure so that the two ends
+make a complete measure.  The repeat bar lines are not measure
+boundaries in such cases, so no bar checks should be placed there.
+Likewise, no @code{\partial} command should be placed within the
+repeated music, because the measures are complete; however, a
+@code{\partial} command should be placed before the repeat when
+there is a truly incomplete measure the first time through.
 
-@lilypond[verbatim,quote,relative=1]
-c'4 e g
-\repeat volta 4 {
-  e4 |
-  c2 e |
-  g4 g g
+@lilypond[verbatim,fragment,quote]
+\fixed c'' {
+  \partial 4
+  \repeat volta 2 {
+    c4
+    c2 d
+    g4 g g
+  }
+  \repeat volta 2 {
+    e4
+    f2 g
+    c2.
+  }
 }
-  g4 |
-  a2 a |
-  g1 |
 @end lilypond
 
-If a repeat that has no alternate endings starts with a partial measure,
-then the same principles apply, except that a @code{\partial} command is
-required at the start of the measure:
 
-@lilypond[verbatim,quote,relative=1]
-\partial 4
-\repeat volta 4 {
-  e'4 |
-  c2 e |
-  g4 g g
-}
-  g4 |
-  a2 a |
-  g1 |
-@end lilypond
+@node Alternative endings
+@unnumberedsubsubsec Alternative endings
 
-Alternative endings can be produced using @code{\alternative}.  Each
-group of alternatives must be themselves, enclosed in a set of braces.
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+@cindex ultima volta
+@cindex volta, prima
+@cindex volta, seconda
+@cindex volta, ultima
+@cindex repeat, with alternative endings
+@cindex alternative ending
+@funindex \alternative
+@funindex \repeat
+@funindex \repeat volta
+@funindex \volta
+@funindex volta
+
+This is the syntax for a repeat with alternative endings:
 
 @example
 \repeat volta @var{repeatcount} @var{musicexpr}
 \alternative @{
-  @{ @var{musicexpr} @}
+  \volta @var{numberlist} @var{musicexpr}
+  \volta @var{numberlist} @var{musicexpr}
+  @dots{}
 @}
 @end example
 
 @noindent
-where @code{@var{musicexpr}} is a music expression.
-
-If there are more repeats than there are alternate endings, the earliest
-repeats are given the first alternative.
-
-A single repeat with one alternate ending:
+where @code{@var{musicexpr}} is a music expression and
+@code{@var{numberlist}} is a comma-separated list of volta numbers
+chosen from the range 1 to @code{@var{repeatcount}}.
 
 @lilypond[verbatim,quote]
-\relative {
-  \repeat volta 2 { c''4 d e f | }
+\fixed c'' {
+  \repeat volta 6 { c4 d e f }
   \alternative {
-    { c2 e | }
-    { f2 g | }
+    \volta 1,2,3 { c2 e }
+    \volta 4,5 { f2 d }
+    \volta 6 { e2 f }
   }
   c1
 }
 @end lilypond
 
-Multiple repeats with one alternate ending:
+@code{\volta} specifications within an @code{\alternative} block
+are optional on an all-or-none basis.  If they are omitted,
+alternatives are used once each, but the first is repeated as
+needed to satisfy the repeat count.
 
 @lilypond[verbatim,quote]
-\relative {
-  \repeat volta 4 { c''4 d e f | }
+\fixed c'' {
+  \repeat volta 6 { c4 d e f }
   \alternative {
-    { c2 e | }
-    { f2 g | }
+    { c2 e }
+    { f2 d }
+    { e2 f }
   }
   c1
 }
 @end lilypond
 
-Multiple repeats with more than one alternate ending:
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat volta 3 { c''4 d e f | }
-  \alternative {
-    { c2 e | }
-    { f2 g | }
-    { a2 g | }
-  }
-  c1
-}
-@end lilypond
-
-@warning{If there are two or more alternatives, nothing should appear
-between the closing brace of one and the opening brace of the next
-in an @code{@bs{}alternative} block, otherwise you will not get the
-expected number of endings.}
+@warning{Every element in an @code{@bs{}alternative} block is
+treated as an alternative ending.  Something as simple as a bar
+check on the wrong side of a bracket can produce unexpected
+results.}
 
 @warning{If you include @code{@bs{}relative} inside a
 @code{@bs{}repeat} without explicitly instantiating the
 @code{Voice} context, extra (unwanted) staves will appear.  See
 @rprogram{An extra staff appears}.}
 
-@cindex repeat, with ties
-@cindex alternative ending, with ties
-@cindex tie, in repeats
-@cindex tie, alternative endings
-@funindex \repeatTie
+@funindex \alternative
+@funindex \unfolded
+@funindex \unfoldRepeats
+@funindex \volta
 
-Ties may be added to a second ending:
+
+@node Other variation in repeated sections
+@unnumberedsubsubsec Other variation in repeated sections
+
+An @code{\alternative} block can be used within a @code{\repeat}
+block to produce notation similar to alternative endings; however,
+it can not be used in this manner for alternative endings
+themselves (see @ref{Alternative endings}).
 
 @lilypond[verbatim,quote]
-\relative {
-  c''1
-  \repeat volta 2 { c4 d e f~ }
-  \alternative {
-    { f2 d }
-    { f2\repeatTie f, }
+\fixed c'' {
+  \repeat volta 2 {
+    R1
+    \alternative {
+      \volta 1 { c1 }
+      \volta 2 { d1 }
+    }
+    R1
   }
 }
 @end lilypond
+
+The @code{\volta} command is not limited to use within
+@code{\alternative} blocks.  It can be used anywhere within a
+@code{\repeat} to designate music that applies to particular
+volte.  If the volta-specific music has a duration, it is by
+default printed under a bracket as if it were in an
+@code{\alternative} block; the bracket may need to be hidden (see
+@ref{Visibility of objects}) or customized to suit other purposes.
+
+When a @code{\repeat} is unfolded, volta-specific music is omitted
+from every volta to which it does not apply.  Providing an empty
+Scheme list in place of volta numbers removes the music entirely.
+
+@lilypond[verbatim,quote]
+music = \repeat volta 3 {
+  \volta 1 { s1*0_\markup { \italic dolce } }
+  a''1
+  \volta #'() { \mark "3×" }
+}
+
+\new Score { \music }
+\new Score { \unfoldRepeats \music }
+@end lilypond
+
+When a @code{\repeat} is unfolded, it may be desirable not only to
+filter out volta-specific music, but also to add music that was
+not present in the @code{volta} form.  The @code{\unfolded}
+command designates music to be ignored until the enclosing
+@code{\repeat} is unfolded.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat volta 2 {
+    c1
+    \once \override Score.VoltaBracket.text = "1st time only"
+    \once \override Score.VoltaBracket.font-name = "TeX Gyre Schola"
+    <<
+      \volta 1 { g4 g g g }
+      \volta 2 { \unfolded { R1 } }
+    >>
+    c'1
+    \volta 2 { \unfolded { \bar "|." } }
+  }
+}
+
+\new Score { \music }
+\new Score { \unfoldRepeats \music }
+@end lilypond
+
+@warning{The @code{@bs{}volta} and @code{@bs{}unfolded} commands
+function with respect to the innermost repeat enclosing them.}
+
+
+@node In-staff segno
+@unnumberedsubsubsec In-staff segno
 
 @funindex \inStaffSegno
 @cindex repeat, with segno
@@ -514,26 +505,23 @@ Internals Reference:
 @cindex glissando, and repeats
 @cindex repeat, and glissandi
 
-Slurs that span from a @code{\repeat} block into an
-@code{\alternative} block will only work for the first alternative
-ending.  The visual appearance of a continuing slur in other
-alternative blocks may be simulated with @code{\repeatTie} if the
-slur extends into only one note in the alternative block, although
-this method does not work in @code{TabStaff}.  Other methods which
-may be tailored to indicate continuing slurs over several notes in
-alternative blocks, and which also work in @code{TabStaff} contexts,
-are shown in @ref{Modifying ties and slurs}.
+For repeats in @code{volta} form, spanners (slurs, etc.) that
+cross into alternatives work for the first alternative only.  They
+likewise cannot wrap around from the end of an alternative back to
+the beginning of the repeated section.
 
-Also, slurs cannot wrap around from the end of one
-alternative back to the beginning of the repeat.
+The visual appearance of a continuing slur or tie in subsequent
+alternatives can be achieved with @code{\repeatTie} if the slur
+extends into only one note in the alternative block, although this
+method does not work in @code{TabStaff}; @pxref{Repeat tie}.
+Other methods which may be tailored to indicate continuing slurs
+over several notes in alternative blocks, and which also work in
+@code{TabStaff} contexts, are shown in @ref{Modifying ties and
+slurs}.
 
-Glissandi that span from a @code{\repeat} block into an
-@code{\alternative} block will only work for the first alternative
-ending.  The visual appearance of a continuing glissando in other
-alternative blocks may be indicated by coding a glissando starting
-on a hidden grace note.  For an example, see
-@qq{Extending glissandi across repeats} under Selected Snippets
-in @ref{Glissando}.
+The visual appearance of a continuing glissando in subsequent
+alternatives can be achieved by coding a glissando starting on a
+hidden grace note.  @xref{Extending glissandi across repeats}.
 
 If a repeat that begins with an incomplete measure has an
 @code{\alternative} block that contains modifications to the
@@ -553,6 +541,10 @@ is ambiguous, since it is not clear to which @code{\repeat} the
 @code{\alternative} belongs.  This ambiguity is resolved by always
 having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
+
+An @code{\alternative} block end-justified within the body of a
+@code{\repeat} block (as opposed to following it) does not print
+the repeat bar lines that are expected of alternative endings.
 
 
 @node Manual repeat marks
@@ -685,14 +677,19 @@ single note, a single measure or two measures, and tremolos otherwise.
 * Tremolo repeats::
 @end menu
 
+
 @node Percent repeats
 @unnumberedsubsubsec Percent repeats
 
+@cindex beat repeat
 @cindex percent repeat
 @cindex measure repeat
+@cindex slash repeat
+@cindex repeat, beat
 @cindex repeat, percent
 @cindex repeat, measure
 @cindex repeat, short
+@cindex repeat, slash
 @funindex \repeat percent
 @funindex percent
 
