@@ -3034,12 +3034,11 @@ signature are considered.  Forcing accidentals with@tie{}@code{!}
 or@tie{}@code{?} may be required when the same note name occurs
 simultaneously with different alterations, as in @samp{<f! fis!>}.
 
-Cautionary cancellation of accidentals is done by looking at previous measure.
-However, in the @code{\alternative} block following a @code{\repeat volta N}
-section, one would expect the cancellation being calculated using the previous
-@emph{played} measure, not previous @emph{printed} measure.
-In the following example, the natural @code{c} in the second alternative does
-not need a natural sign:
+In alternative endings, cautionary cancellation should be based on
+the previous @emph{played} measure, but it is based on the
+previous @emph{printed} measure.  In the following example, the
+natural @code{c} in the second alternative does not need a natural
+sign:
 
 @lilypond[quote]
 {
