@@ -1339,7 +1339,7 @@ is described below.
 
 @enumerate
 
-@item Installing Graphviz
+@item Install Graphviz
 
 In order to create the graph of the object relationships, it is
 first necessary to install Graphviz.  Graphviz is available for a
@@ -1349,7 +1349,7 @@ number of different platforms:
 @uref{https://www.graphviz.org/download/}
 @end example
 
-@item Compiling LilyPond with debugging functionality
+@item Compile LilyPond with debugging functionality
 
 In order for the Graphviz tool to work, LilyPond needs to be compiled
 with the option @option{-DDEBUG}.  You can achieve this by configuring
