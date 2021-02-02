@@ -56,10 +56,136 @@ repeat signs; or written-out repeats, used to input repetitious music.
 Repeat signs can also be controlled manually.
 
 @menu
+* Written-out repeats::
 * Normal repeats::
 * Manual repeat marks::
-* Written-out repeats::
 @end menu
+
+
+@node Written-out repeats
+@unnumberedsubsubsec Written-out repeats
+
+@cindex written-out repeat
+@cindex repeat, written-out
+@cindex repeat, unfold
+@cindex repeat, alternative
+@cindex unfold repeat
+@cindex unfold repeat, alternate endings
+@cindex alternate repeat
+@cindex alternate ending, repeats
+@funindex unfold
+
+By using the @code{unfold} command, repeats can be used to simplify the
+writing out of repetitious music.  The syntax is
+
+@example
+\repeat unfold @var{repeatcount} @var{musicexpr}
+@end example
+
+@noindent
+where @code{@var{musicexpr}} is a music expression and
+@code{@var{repeatcount}} is the number of times
+@code{@var{musicexpr}} is repeated.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  c1
+}
+@end lilypond
+
+In some cases, especially in a @code{\relative} context, the
+@code{\repeat unfold} function is not the same as writing out the
+music expression multiple times. E.g,
+
+@example
+\repeat unfold 2 @{ a'4 b c @}
+@end example
+
+is not equivalent to
+
+@example
+a'4 b c | a'4 b c
+@end example
+
+Unfold repeats can be made with alternate endings.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+  }
+  c1
+}
+@end lilypond
+
+If there are more repeats than there are alternate endings, the first
+alternative is applied multiple times until the remaining alternatives
+make up the total number of repeats.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 4 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+    { e2 d }
+   }
+  c1
+}
+@end lilypond
+
+If there are more alternate endings than repeats then only the first
+alternatives are applied.  The remaining alternatives will be ignored
+and not printed.
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+    { e2 d }
+  }
+  c1
+}
+@end lilypond
+
+It is also possible to nest multiple @code{unfold} functions (with or
+without alternate endings).
+
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 {
+    \repeat unfold 2 { c''4 d e f }
+    \alternative {
+      { c2 g' }
+      { c,2 b }
+    }
+  }
+  c1
+}
+@end lilypond
+
+Chord constructs can be repeated by the chord repetition symbol
+@code{q}.  See @ref{Chord repetition}.
+
+@warning{If you include @code{@bs{}relative} inside a @code{@bs{}repeat}
+without explicitly instantiating the @code{Voice} context, extra
+(unwanted) staves will appear.  See @rprogram{An extra staff appears}.}
+
+@morerefs
+Notation Reference:
+@ref{Chord repetition}.
+
+Snippets:
+@rlsr{Repeats}.
+
+Internals Reference:
+@rinternals{RepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
 
 @cindex volta
 @cindex prima volta
@@ -545,132 +671,6 @@ Internals Reference:
 @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
-
-
-@node Written-out repeats
-@unnumberedsubsubsec Written-out repeats
-
-@cindex written-out repeat
-@cindex repeat, written-out
-@cindex repeat, unfold
-@cindex repeat, alternative
-@cindex unfold repeat
-@cindex unfold repeat, alternate endings
-@cindex alternate repeat
-@cindex alternate ending, repeats
-@funindex unfold
-
-By using the @code{unfold} command, repeats can be used to simplify the
-writing out of repetitious music.  The syntax is
-
-@example
-\repeat unfold @var{repeatcount} @var{musicexpr}
-@end example
-
-@noindent
-where @code{@var{musicexpr}} is a music expression and
-@code{@var{repeatcount}} is the number of times
-@code{@var{musicexpr}} is repeated.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  c1
-}
-@end lilypond
-
-In some cases, especially in a @code{\relative} context, the
-@code{\repeat unfold} function is not the same as writing out the
-music expression multiple times. E.g,
-
-@example
-\repeat unfold 2 @{ a'4 b c @}
-@end example
-
-is not equivalent to
-
-@example
-a'4 b c | a'4 b c
-@end example
-
-Unfold repeats can be made with alternate endings.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-  }
-  c1
-}
-@end lilypond
-
-If there are more repeats than there are alternate endings, the first
-alternative is applied multiple times until the remaining alternatives
-make up the total number of repeats.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 4 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-    { e2 d }
-   }
-  c1
-}
-@end lilypond
-
-If there are more alternate endings than repeats then only the first
-alternatives are applied.  The remaining alternatives will be ignored
-and not printed.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-    { e2 d }
-  }
-  c1
-}
-@end lilypond
-
-It is also possible to nest multiple @code{unfold} functions (with or
-without alternate endings).
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 {
-    \repeat unfold 2 { c''4 d e f }
-    \alternative {
-      { c2 g' }
-      { c,2 b }
-    }
-  }
-  c1
-}
-@end lilypond
-
-Chord constructs can be repeated by the chord repetition symbol
-@code{q}.  See @ref{Chord repetition}.
-
-@warning{If you include @code{@bs{}relative} inside a @code{@bs{}repeat}
-without explicitly instantiating the @code{Voice} context, extra
-(unwanted) staves will appear.  See @rprogram{An extra staff appears}.}
-
-@morerefs
-Notation Reference:
-@ref{Chord repetition}.
-
-Snippets:
-@rlsr{Repeats}.
-
-Internals Reference:
-@rinternals{RepeatedMusic},
-@rinternals{UnfoldedRepeatedMusic}.
 
 
 @node Short repeats
