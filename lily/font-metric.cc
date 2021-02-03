@@ -134,7 +134,7 @@ Font_metric::index_to_charcode (size_t i) const
 }
 
 Offset
-Font_metric::attachment_point (const string &) const
+Font_metric::attachment_point (const string &, Direction) const
 {
   return Offset (0, 0);
 }

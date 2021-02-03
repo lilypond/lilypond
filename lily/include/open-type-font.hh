@@ -61,7 +61,7 @@ public:
   static SCM make_otf (const std::string &);
   std::string font_name () const override;
   ~Open_type_font ();
-  Offset attachment_point (const std::string &) const override;
+  Offset attachment_point (const std::string &, Direction) const override;
   size_t count () const override;
   Box get_indexed_char_dimensions (size_t) const override;
   Box get_unscaled_indexed_char_dimensions (size_t) const;

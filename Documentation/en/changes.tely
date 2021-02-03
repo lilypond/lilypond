@@ -66,6 +66,17 @@ which scares away people.
 @end ignore
 
 @item
+In the Emmentaler font, identical-looking noteheads whose only difference was
+stem direction have been consolidated into a single glyph.  For instance,
+the glyphs @code{noteheads.u2triangle} and @code{noteheads.d2triangle} have
+been replaced by a single glyph, @code{noteheads.s2triangle}.  Notehead pairs
+that look visually different depending on the direction remain distinct.
+
+In addition, the @code{stem-attachment} property of @code{NoteHead} grobs now
+returns its actual, direction-dependent stem attachment point instead of a
+hypothetical upwards-stem attachment point.
+
+@item
 Repeat alternatives may appear in places other than the end of the
 repeated section.
 

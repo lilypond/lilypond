@@ -161,8 +161,14 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   return off [a];
 }
 
+/*
+  Stem attachment position for a given stem direction. Each component
+  is measured in a -1 to 1 scale, so that -1 is the left/bottom edge of
+  the note's bounding box and 1 is the right/top edge.
+*/
 Offset
-Note_head::get_stem_attachment (Font_metric *fm, const string &key)
+Note_head::get_stem_attachment (Font_metric *fm, const string &key,
+                                Direction dir)
 {
   Offset att;
 
@@ -170,7 +176,7 @@ Note_head::get_stem_attachment (Font_metric *fm, const string &key)
   if (k != GLYPH_INDEX_INVALID)
     {
       Box b = fm->get_indexed_char_dimensions (k);
-      Offset wxwy = fm->attachment_point (key);
+      Offset wxwy = fm->attachment_point (key, dir);
       for (int i = X_AXIS; i < NO_AXES; i++)
         {
           Axis a = Axis (i);
@@ -191,11 +197,35 @@ SCM
 Note_head::calc_stem_attachment (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Font_metric *fm = Font_interface::get_default_font (me);
   string key;
   internal_print (me, &key);
 
-  return to_scm (get_stem_attachment (fm, key));
+  Direction dir = get_grob_direction (stem);
+  if (!dir)
+    dir = UP;
+
+  return to_scm (get_stem_attachment (fm, key, dir));
+}
+
+/*
+  Calculate the default stem attachment for tablature noteheads.
+  Hard-coded to (0.0, 1.35) for upward stems and (0.0, -1.35) for
+  downward stems.
+*/
+MAKE_SCHEME_CALLBACK (Note_head, calc_tab_stem_attachment, 1);
+SCM
+Note_head::calc_tab_stem_attachment (SCM smob)
+{
+  Grob *me = unsmob<Grob> (smob);
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
+
+  Direction dir = get_grob_direction (stem);
+  if (!dir)
+    dir = UP;
+
+  return to_scm (Offset (0.0, dir * 1.35));
 }
 
 ADD_INTERFACE (Note_head,

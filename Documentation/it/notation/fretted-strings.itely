@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.1"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -1899,7 +1899,7 @@ una forma triangolare.
   \relative c, {
     \clef "G_8"
     \palmMuteOn
-    e8^\markup { \musicglyph "noteheads.u2do"  = palm mute }
+    e8^\markup { \musicglyph "noteheads.s2do"  = palm mute }
     < e b' e > e
     \palmMuteOff
     e e  \palmMute e e e |

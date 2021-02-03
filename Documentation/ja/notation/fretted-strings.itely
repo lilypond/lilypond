@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.1"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -1920,7 +1920,7 @@ LilyPond は、符頭を三角形に変更することで、@c
   \relative c, {
     \clef "G_8"
     \palmMuteOn
-    e8^\markup { \musicglyph "noteheads.u2do"  = palm mute }
+    e8^\markup { \musicglyph "noteheads.s2do"  = palm mute }
     < e b' e > e
     \palmMuteOff
     e e  \palmMute e e e |
