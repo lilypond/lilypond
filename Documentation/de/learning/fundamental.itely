@@ -1501,7 +1501,7 @@ und ein @code{Score}-Kontext kann viele
 @code{Staff}-Kontexte beinhalten.
 
 @quotation
-@sourceimage{context-example,5cm,,}
+@sourceimage{context-example,5cm,}
 @end quotation
 
 Jeder Kontext hat die Aufgabe, bestimmte Notationsregeln

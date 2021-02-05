@@ -1576,7 +1576,7 @@ contexto de @code{Staff} contener muchos contextos de
 contextos de @code{Staff}.
 
 @quotation
-@sourceimage{context-example,5cm,,}
+@sourceimage{context-example,5cm,}
 @end quotation
 
 Cada contexto asume la responsabilidad de imponer algunas reglas

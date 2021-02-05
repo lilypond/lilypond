@@ -1447,7 +1447,7 @@ pot contenir molts contextos de @code{Voice}, i un context de
 @code{Score} pot contenir molts contextos de @code{Staff}.
 
 @quotation
-@sourceimage{context-example,5cm,,}
+@sourceimage{context-example,5cm,}
 @end quotation
 
 Cada context assumeix la responsabilitat d'imposar algunes regles

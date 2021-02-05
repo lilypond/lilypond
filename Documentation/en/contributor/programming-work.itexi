@@ -65,7 +65,7 @@ and @file{*-performer.cc}.
 Much of the work of translating is handled by Scheme functions,
 which is one of the keys to LilyPond's exceptional flexibility.
 
-@sourceimage{architecture-diagram,,,png}
+@sourceimage{architecture-diagram,,}
 
 
 @node LilyPond programming languages

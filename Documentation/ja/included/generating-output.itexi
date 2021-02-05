@@ -27,26 +27,26 @@
 
 @command{LilyPond.app} をダブルクリックして、見本のファイルを開きます。
 
-@sourceimage{Learning_Macos_welcome,,,}
+@sourceimage{Learning_Macos_welcome,,}
 
 画面の左上に表示されているメニューから @w{@code{File > Save}} を選択します。
 
-@sourceimage{Learning_Macos_Save_menu,,,}
+@sourceimage{Learning_Macos_Save_menu,,}
 
 ファイル名を決めます。例えば @file{test.ly} とします。
 
-@sourceimage{Learning_Macos_Save_file_with_name,,,}
+@sourceimage{Learning_Macos_Save_file_with_name,,}
 
 
 @subsubheading ステップ 2. コンパイルする (LilyPad を使用します)
 
 同じメニューから @w{@code{Compile > Typeset}} を選択します。
 
-@sourceimage{Learning_Macos_Typeset_menu,,,}
+@sourceimage{Learning_Macos_Typeset_menu,,}
 
 新たにウィンドウが開き、先ほど保存したファイルのコンパイル進捗ログを表示します。
 
-@sourceimage{Learning_Macos_Compiling_log,,,}
+@sourceimage{Learning_Macos_Compiling_log,,}
 
 
 @subsubheading ステップ 3. 出力を閲覧する
@@ -54,7 +54,7 @@
 コンパイルが終了すると、元のファイルと同じ名前の PDF ファイルが作成され、@c
 自動的にデフォルトの PDF ビューアで表示されます。
 
-@sourceimage{Learning_Macos_pdf_output,,,}
+@sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading その他のコマンド
@@ -62,11 +62,11 @@
 LilyPond 用に新しくファイルを作成するには、@w{@code{File > New}}
 を選択します。
 
-@sourceimage{Learning_Macos_New_menu,,,}
+@sourceimage{Learning_Macos_New_menu,,}
 
 あるいは、@w{@code{File > Open}} を選択し、既存のファイルを開いて編集します。
 
-@sourceimage{Learning_Macos_Open_menu,,,}
+@sourceimage{Learning_Macos_Open_menu,,}
 
 @w{@code{Compile > Typeset}} を行う前にあなたが新たに行った編集を保存する@c
 必要があります。@c
@@ -94,7 +94,7 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 
 デスクトップ上の LilyPond アイコンをクリックして、見本のファイルを開きます。
 
-@sourceimage{LilyPad,,,}
+@sourceimage{LilyPad,,}
 
 見本ファイルの上端に表示されるメニューから
 @w{@code{ファイル > 名前を付けて保存}} を選択します。@c
@@ -102,11 +102,11 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 なぜならファイルに有効な LilyPond ファイル名を付けるまで、@c
 上書き保存は機能しないからです。
 
-@sourceimage{FileSave,,,}
+@sourceimage{FileSave,,}
 
 ファイル名を決めます。例えば @file{test.ly} とします。
 
-@sourceimage{SaveAs,,,}
+@sourceimage{SaveAs,,}
 
 
 @subsubheading ステップ 2. コンパイルする
@@ -119,7 +119,7 @@ LilyPond ファイルを楽譜にするためには、コンパイルする必�
 
 1. ファイルを LilyPond アイコンに直接ドラッグ＆ドロップします。
 
-@sourceimage{DragDrop,,,}
+@sourceimage{DragDrop,,}
 
 何も起こらないように見えますが、しばらくすると、@c
 デスクトップに 2 つの新しいファイル
@@ -129,7 +129,7 @@ LilyPond ファイルを楽譜にするためには、コンパイルする必�
 2. ファイルを右クリックして、ポップアップ メニューから
 @w{@code{Generate PDF}} を選択します。
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 3. あるいは、ただ単に @file{test.ly} をダブルクリックします。
 
@@ -139,7 +139,7 @@ LilyPond ファイルを楽譜にするためには、コンパイルする必�
 @file{test.pdf} は @file{test.ly} ファイルの譜刻結果を保持しています。@c
 ダブルクリックすると、PDF ビュアーで開かれます。
 
-@sourceimage{PDFRead,,,}
+@sourceimage{PDFRead,,}
 
 
 @subsubheading その他のコマンド
@@ -151,13 +151,13 @@ LilyPond ファイルを楽譜にするためには、コンパイルする必�
 または、ファイルを右クリックして @w{@code{Edit Source}} を選択しても、@c
 編集することができます。
 
-@sourceimage{EditFile,,,}
+@sourceimage{EditFile,,}
 
 コンパイルを行う前にあなたが新たに行った編集を保存する必要があります。@c
 PDF ファイルが作成されない場合は、コンパイルの過程で作成されるログ ファイルで@c
 エラーをチェックしてください。
 
-@sourceimage{BadLog,,,}
+@sourceimage{BadLog,,}
 
 このログ ファイルは、LilyPond ファイルをコンパイルする度に上書きされます。
 
@@ -165,7 +165,7 @@ PDF ファイルを PDF ビュアーで閲覧している場合、
 新たにコンパイルを行う前に閉じる必要があります。@c
 なぜなら、閲覧されている間は新たに PDF ファイルを作成するのに失敗する可能性があるからです。
 
-@sourceimage{BadLog2,,,}
+@sourceimage{BadLog2,,}
 
 @end macro
 

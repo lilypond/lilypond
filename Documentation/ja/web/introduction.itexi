@@ -1353,9 +1353,9 @@ In particular, don't link to:
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (クリックすると拡大します),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1374,9 +1374,9 @@ Frescobaldi は Python と、@c
 @imageClickable{screenshot-denemo-small,png,
   (クリックすると拡大),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1442,10 +1442,10 @@ LilyPond に基づく最初の Web サービスの一つであり、@c
 
 @subsubheading Elysium
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://github.com/thSoft/elysium}
 
@@ -1458,10 +1458,10 @@ LilyPondを便利に扱うための豊富なツールキットを提供します
 @subheading テキスト エディタ
 @c Text editors
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
@@ -1492,7 +1492,7 @@ Vi に慣れていない場合、LilyPond 入力ファイルを書くために�
 Vim をセットアップするための更なる情報が
 @rprogram{テキスト エディタ サポート} にあります。
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @subsubheading TeXShop
 @uref{http://pages.uoregon.edu/koch/texshop/}
 

@@ -45,15 +45,15 @@ la page @ref{Développement}.}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}}
 @ref{Unix, Unix (paquetages génériques pour GNU/Linux)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -151,12 +151,12 @@ appel à la version correcte de lilypond -- voir
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 pour système 32 bits.
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 pour système 64 bits.
 
@@ -229,13 +229,13 @@ protégés par le droit d’auteur.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Pour Mac OS X 10.4 à 10.14 tournant sur un processeur Intel
 (voir ci-dessous pour la version 10.15).
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @c file name is unpredictable, linking to main page
 Des paquetages 64 bits non officiels pour pour Mac OS 10.15 sont
 disponibles sur
@@ -375,7 +375,7 @@ protégés par le droit d’auteur.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Pour Windows 2000, XP, Vista, Windows 7, 8 et 10.
 

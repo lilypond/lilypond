@@ -100,18 +100,18 @@ and the program(s) you use.
 @itemize
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X} (graphical)
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows} (graphical)
 
 @item
-@ref{Command-line, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@ref{Command-line, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 }
 @ref{Command-line, All operating systems} (command-line)
 

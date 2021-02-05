@@ -40,15 +40,15 @@ our @ref{Text input}.}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}}
 @ref{Unix, Unix (generic packages for GNU/Linux)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -141,12 +141,12 @@ See @ref{Easier editing}.
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 32bit Systems.
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 64bit Systems.
 
@@ -218,12 +218,12 @@ acknowledged.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 For Mac OS X 10.4--10.14 running on Intel CPUs (for 10.15 see below).
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @c file name is unpredictable, linking to main page
 Unofficial 64-bit application bundles for macOS 10.15 are
 available at
@@ -365,7 +365,7 @@ acknowledged.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 For Windows 2000, XP, Vista, Windows 7, 8, and 10.
 

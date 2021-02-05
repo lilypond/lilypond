@@ -124,18 +124,18 @@ und welche Programme Sie benutzen.
 @itemize
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X} (graphisch)
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows} (graphisch)
 
 @item
-@ref{Kommandozeile, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@ref{Kommandozeile, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 }
 @ref{Kommandozeile, Alle Betriebssysteme} (Kommandozeile)
 

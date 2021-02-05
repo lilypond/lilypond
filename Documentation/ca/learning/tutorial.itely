@@ -111,18 +111,18 @@ operatiu i del programa o programes que utilitzem.
 @itemize
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X} (gràfic)
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows} (gràfic)
 
 @item
-@ref{Línia d'ordres, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@ref{Línia d'ordres, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 }
 @ref{Línia d'ordres, Tots els sistemes operatius} (consola)
 

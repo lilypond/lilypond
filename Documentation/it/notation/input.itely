@@ -2923,11 +2923,11 @@ Emmentaler, e può essere usato in LilyPond.  Può essere scaricato da:
 
 Ecco alcune battute di musica che usa Gonville:
 
-@sourceimage{Gonville_after,15cm,,}
+@sourceimage{Gonville_after,15cm,}
 
 E alcune battute di musica che usa i glifi Feta di LilyPond:
 
-@sourceimage{Gonville_before,15cm,,}
+@sourceimage{Gonville_before,15cm,}
 
 @subsubheading Instruzioni di installazione
 

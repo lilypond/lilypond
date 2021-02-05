@@ -24,16 +24,16 @@ di quei programmi.}
 
 Clicca due volte su @command{LilyPond.app}, si aprirà un file di esempio.
 
-@sourceimage{Learning_Macos_welcome,,,}
+@sourceimage{Learning_Macos_welcome,,}
 
 Dai menu in cima a sinistra dello schermo seleziona
 @w{@code{File > Salva}}.
 
-@sourceimage{Learning_Macos_Save_menu,,,}
+@sourceimage{Learning_Macos_Save_menu,,}
 
 Scegli un nome per il tuo file, ad esempio @file{test.ly}.
 
-@sourceimage{Learning_Macos_Save_file_with_name,,,}
+@sourceimage{Learning_Macos_Save_file_with_name,,}
 
 
 @subsubheading Passo 2. Compila (con LilyPad)
@@ -41,12 +41,12 @@ Scegli un nome per il tuo file, ad esempio @file{test.ly}.
 Dagli stessi menu seleziona
 @w{@code{Compile > Typeset}}.
 
-@sourceimage{Learning_Macos_Typeset_menu,,,}
+@sourceimage{Learning_Macos_Typeset_menu,,}
 
 Si aprirà una nuova finestra che mostra i messaggi di log della compilazione
 del file che hai appena salvato.
 
-@sourceimage{Learning_Macos_Compiling_log,,,}
+@sourceimage{Learning_Macos_Compiling_log,,}
 
 
 @subsubheading Passo 3. Visualizza l'output
@@ -55,7 +55,7 @@ Quando la compilazione è finita, un file PDF con lo stesso nome del file
 originale viene creato e automaticamente aperto nel visualizzatore
 PDF predefinito, che lo mostrerà sullo schermo.
 
-@sourceimage{Learning_Macos_pdf_output,,,}
+@sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading Altri comandi
@@ -63,12 +63,12 @@ PDF predefinito, che lo mostrerà sullo schermo.
 Per creare nuovi file per LilyPond, comincia col selezionare
 @w{@code{File > New}}
 
-@sourceimage{Learning_Macos_New_menu,,,}
+@sourceimage{Learning_Macos_New_menu,,}
 
 oppure @w{@code{File > Open}} per aprire e modificare file esistenti che
 hai salvato precedentemente.
 
-@sourceimage{Learning_Macos_Open_menu,,,}
+@sourceimage{Learning_Macos_Open_menu,,}
 
 Devi salvare qualsiasi nuova modifica fatta al file prima di cliccare
 @w{@code{Compile > Typeset}} e se il file PDF non compare controlla se
@@ -96,18 +96,18 @@ la documentazione di quei programmi.}
 Clicca due volte sull'icona di LilyPond sulla scrivania e si aprirà
 un file di esempio.
 
-@sourceimage{LilyPad,,,}
+@sourceimage{LilyPad,,}
 
 Dai menu che appaiono in cima al file di esempio seleziona
 @w{@code{File > Salva come}}.  Non usare @w{@code{File > Salva}}
 per il file di esempio perché non funzionerà finché non gli darai
 un nome di file valido per LilyPond.
 
-@sourceimage{FileSave,,,}
+@sourceimage{FileSave,,}
 
 Scegli un nome per il tuo file, ad esempio @file{test.ly}.
 
-@sourceimage{SaveAs,,,}
+@sourceimage{SaveAs,,}
 
 
 @subsubheading Passo 2. Compila
@@ -119,7 +119,7 @@ intanto i primi tre.
 
 1. Trascinare e rilasciare il file sull'icona LilyPond che si trova nel desktop.
 
-@sourceimage{DragDrop,,,}
+@sourceimage{DragDrop,,}
 
 Sembrerà che non stia accadendo niente, ma dopo pochi secondi dovresti
 vedere due nuovi file sul desktop: @file{test.log} e @file{test.pdf}.
@@ -127,7 +127,7 @@ vedere due nuovi file sul desktop: @file{test.log} e @file{test.pdf}.
 2. Cliccare col tasto destro sul file e dal menu contestuale a comparsa scegliere
 @w{@code{Generate PDF}}.
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 
 3. O semplicemente cliccare due volte su @file{test.ly}.
@@ -138,7 +138,7 @@ vedere due nuovi file sul desktop: @file{test.log} e @file{test.pdf}.
 @file{test.pdf} contiene il file @file{test.ly} compilato.  Cliccalo due
 volte e si dovrebbe aprire in un visualizzatore PDF:
 
-@sourceimage{PDFRead,,,}
+@sourceimage{PDFRead,,}
 
 
 @subsubheading Altri comandi
@@ -148,14 +148,14 @@ hai aperto un file creato in precedenza oppure @w{@code{File > Apri}}
 per aprire e modificare i file che hai salvato prima.  Puoi modificare
 un file anche facendo un clic destro e selezionando @w{@code{Edit Source}}.
 
-@sourceimage{EditFile,,,}
+@sourceimage{EditFile,,}
 
 Devi salvare qualsiasi nuova modifica prima di compilare.  Se il file
 PDF non viene creato o l'output non è quello che ti aspetti, controlla
 se ci sono degli errori nel file di log che sarà stato creato durante
 il tentativo di compilazione.
 
-@sourceimage{BadLog,,,}
+@sourceimage{BadLog,,}
 
 Questo file di log viene sovrascritto ogni volta che compili il file LilyPond.
 
@@ -163,7 +163,7 @@ Se visualizzi il file in un lettore PDF, devi chiudere il PDF se desideri
 provare una nuova compilazione, perché potrebbe non riuscire a creare il
 nuovo file PDF mentre è ancora aperto per la visualizzazione.
 
-@sourceimage{BadLog2,,,}
+@sourceimage{BadLog2,,}
 
 @end macro
 

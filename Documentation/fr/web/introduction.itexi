@@ -1382,9 +1382,9 @@ C'est le cas, en particulier, pour :
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (cliquez pour agrandir),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1401,9 +1401,9 @@ d'exploitation (GNU/Linux, MacOS X et Windows).
 @imageClickable{screenshot-denemo-small,png,
   (cliquez pour agrandir),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1467,10 +1467,10 @@ version cliquable de la documentation de LilyPond y est disponible.
 
 @subsubheading Elysium
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://github.com/thSoft/elysium}
 
@@ -1484,10 +1484,10 @@ commodément LilyPond.
 @divClass{column-center-top}
 @subheading Éditeurs de texte
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
@@ -1518,7 +1518,7 @@ Vous trouverez plus d'information quant au paramétrage de Vim au
 chapitre @rprogram{LilyPond et les éditeurs de texte}.
 
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @subsubheading TeXShop
 @uref{http://pages.uoregon.edu/koch/texshop/}
 

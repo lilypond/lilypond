@@ -2479,11 +2479,11 @@ heruntergeladen werden.  Hier einige Takte Noten mit der Gonville-Schriftart:
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,,,}
+@sourceimage{Gonville_after,,}
 
 Und hier einige Beispieltakte in der Feta-Glyphe:
 
-@sourceimage{Gonville_before,,,}
+@sourceimage{Gonville_before,,}
 
 @subsubheading Installationsanweisungen für MacOS
 

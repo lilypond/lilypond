@@ -1481,7 +1481,7 @@ contexts, and a @code{Score} context can contain many @code{Staff}
 contexts.
 
 @quotation
-@sourceimage{context-example,5cm,,}
+@sourceimage{context-example,5cm,}
 @end quotation
 
 Each context has the responsibility for enforcing some notation rules,

@@ -1475,7 +1475,7 @@ Ad esempio: un contesto @code{Staff} può contenere molti contesti @code{Voice},
 e un contesto @code{Score} può contenere molti contesti @code{Staff}.
 
 @quotation
-@sourceimage{context-example,5cm,,}
+@sourceimage{context-example,5cm,}
 @end quotation
 
 Ogni contesto è responsabile di far rispettare alcune regole di notazione,

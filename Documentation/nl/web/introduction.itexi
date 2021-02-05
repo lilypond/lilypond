@@ -1096,10 +1096,10 @@ In particular, don't link to:
 @divClass{column-center-top}
 @subheading Tunefl
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.tunefl.com}
 
@@ -1143,10 +1143,10 @@ Lees over @ref{Eenvoudiger bewerken}.
 @imageClickable{lilypondtool-2.12-screenshot-400wide,png,
   (klik om te vergroten),lilypondtool-2.12-screenshot,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://lilypondtool.organum.hu}
 
@@ -1167,9 +1167,9 @@ point-and-click ondersteuning.
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (klik om te vergroten),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1186,8 +1186,8 @@ PDF viewer.  Het draait op alle belangrijke platformen
 @imageClickable{screenshot-denemo-small,png,
   (klik om te vergroten),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1209,10 +1209,10 @@ gehighlight in het tekstvenster.
 @divClass{column-center-top}
 @subheading Tekst omgeving
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://elysium.thsoft.hu}
 
@@ -1248,7 +1248,7 @@ LilyPond-invoerbestanden.
 Meer informatie over instellingen voor Emacs en Vim is te
 vinden in @rprogram{Text editor support}.
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 De TexShop-editor voor MacOS@tie{}X kan uitgebreid worden

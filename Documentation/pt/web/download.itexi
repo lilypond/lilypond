@@ -51,16 +51,16 @@ ser encontradas em @uref{https://lilypond.org, lilypond.org}}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}}
 @ref{Unix, Unix (GNU/Linux e FreeBSD)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -157,12 +157,12 @@ Veja @ref{Edição facilitada}.
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 Sistemas 32 bits.
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 Sistemas 64 bits.
 
@@ -237,7 +237,7 @@ direitos autorais e marca registrada.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Para MacOS X 10.4 ou mais novo, rodando em CPUs Intel
 (no caso de dúvida, use esse).
@@ -378,7 +378,7 @@ direitos autorais e marca registrada.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Para Windows 2000, XP, Vista, Windows 7 e 8.
 

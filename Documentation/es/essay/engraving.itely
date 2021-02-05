@@ -63,14 +63,14 @@ segunda es una edición moderna hecha con ordenador.
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
-@sourceimage{baer-suite1-fullpage,,,png}
+@sourceimage{baer-suite1-fullpage,,}
 @end quotation
 
 @quotation
 @noindent
 Henle núm. 666, @copyright{}2000:
 
-@sourceimage{henle-suite1-fullpage,,,png}
+@sourceimage{henle-suite1-fullpage,,}
 @end quotation
 @end ifnottex
 
@@ -106,10 +106,10 @@ izquierda) y la generada por ordenador (a la derecha):
 
 @quotation
 @iftex
-@sourceimage{pdf/page-layout-comparison,,,}
+@sourceimage{pdf/page-layout-comparison,,}
 @end iftex
 @ifnottex
-@sourceimage{page-layout-comparison,,,png}
+@sourceimage{page-layout-comparison,,}
 @end ifnottex
 @end quotation
 @noindent
@@ -137,12 +137,12 @@ las mejores partituras trazadas a mano.
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
-@sourceimage{baer-suite1-fullpage-hires,16cm,,}
+@sourceimage{baer-suite1-fullpage-hires,16cm,}
 @page
 @noindent
 Henle núm. 666, @copyright{}2000:
 @sp 3
-@sourceimage{henle-suite1-fullpage-hires,16cm,,}
+@sourceimage{henle-suite1-fullpage-hires,16cm,}
 @page
 @end iftex
 
@@ -183,10 +183,10 @@ adquirir una verdadera habilidad en el oficio.
 
 @quotation
 @iftex
-@sourceimage{hader-slaan,,7cm,}
+@sourceimage{hader-slaan,,7cm}
 @end iftex
 @ifnottex
-@sourceimage{hader-slaan,,,jpg}
+@sourceimage{hader-slaan,,}
 @end ifnottex
 @end quotation
 
@@ -234,25 +234,25 @@ una disposición simple con esquinas afiladas.
 @item @tab
 @ifnotinfo
 @iftex
-@sourceimage{baer-flat-gray,,4cm,}
+@sourceimage{baer-flat-gray,,4cm}
 @end iftex
 @ifnottex
-@sourceimage{baer-flat-gray,,,png}
+@sourceimage{baer-flat-gray,,}
 @end ifnottex
 
 @tab
 @iftex
-@sourceimage{henle-flat-gray,,4cm,}
+@sourceimage{henle-flat-gray,,4cm}
 @end iftex
 @ifnottex
-@sourceimage{henle-flat-gray,,,png}
+@sourceimage{henle-flat-gray,,}
 @end ifnottex
 
 @end ifnotinfo
 @ifinfo
-@sourceimage{henle-flat-bw,,,png}
-@sourceimage{baer-flat-bw,,,png}
-@sourceimage{lily-flat-bw,,,png}
+@sourceimage{henle-flat-bw,,}
+@sourceimage{baer-flat-bw,,}
+@sourceimage{lily-flat-bw,,}
 @end ifinfo
 
 
@@ -285,10 +285,10 @@ propia fuente de LilyPond.
 
 @quotation
 @iftex
-@sourceimage{pdf/OpusAndFeta,,,}
+@sourceimage{pdf/OpusAndFeta,,}
 @end iftex
 @ifnottex
-@sourceimage{OpusAndFeta,,,png}
+@sourceimage{OpusAndFeta,,}
 @end ifnottex
 @end quotation
 
@@ -420,19 +420,19 @@ posibilidad en el grabado que hace LilyPond.
 @item @tab
 
 @iftex
-@sourceimage{baer-ledger,3cm,,}
+@sourceimage{baer-ledger,3cm,}
 @end iftex
 @ifnottex
-@sourceimage{baer-ledger,,,png}
+@sourceimage{baer-ledger,,}
 @end ifnottex
 
 @tab
 
 @iftex
-@sourceimage{lily-ledger,3cm,,}
+@sourceimage{lily-ledger,3cm,}
 @end iftex
 @ifnottex
-@sourceimage{lily-ledger,,,png}
+@sourceimage{lily-ledger,,}
 @end ifnottex
 
 @end multitable
@@ -458,10 +458,10 @@ de pentagrama de 26:
 
 @quotation
 @iftex
-@sourceimage{pdf/size26,,23mm,}
+@sourceimage{pdf/size26,,23mm}
 @end iftex
 @ifnottex
-@sourceimage{size26,,,png}
+@sourceimage{size26,,}
 @end ifnottex
 @end quotation
 
@@ -472,10 +472,10 @@ ejemplo anterior:
 
 @quotation
 @iftex
-@sourceimage{pdf/size11,,23mm,}
+@sourceimage{pdf/size11,,23mm}
 @end iftex
 @ifnottex
-@sourceimage{size11,,,png}
+@sourceimage{size11,,}
 @end ifnottex
 @end quotation
 
@@ -622,10 +622,10 @@ están cubiertos completamente:
 
 @quotation
 @iftex
-@sourceimage{ross-beam-scan,7cm,,}
+@sourceimage{ross-beam-scan,7cm,}
 @end iftex
 @ifnottex
-@sourceimage{ross-beam-scan,,,.jpg}
+@sourceimage{ross-beam-scan,,}
 @end ifnottex
 @end quotation
 
@@ -694,10 +694,10 @@ pruebas procedente de una edición realizada a mano (Bärenreiter
 BA320):
 
 @iftex
-@sourceimage{baer-sarabande-hires,16cm,,}
+@sourceimage{baer-sarabande-hires,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{baer-sarabande,,,png}
+@sourceimage{baer-sarabande,,}
 @end ifnottex
 
 @noindent
@@ -705,10 +705,10 @@ y el mismo fragmento grabado tal y como lo hacía una versión muy
 antigua de LilyPond (versión 1.4, mayo de 2001):
 
 @iftex
-@sourceimage{pdf/lily14-sarabande,16cm,,}
+@sourceimage{pdf/lily14-sarabande,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{lily14-sarabande,,,png}
+@sourceimage{lily14-sarabande,,}
 @end ifnottex
 
 @noindent
@@ -717,10 +717,10 @@ detenida con la partitura hecha a mano mostraba numerosos errores en
 los detalles de formateo:
 
 @iftex
-@sourceimage{lily14-sarabande-annotated-hires,16cm,,}
+@sourceimage{lily14-sarabande-annotated-hires,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{lily14-sarabande-annotated,,,png}
+@sourceimage{lily14-sarabande-annotated,,}
 @end ifnottex
 
 @itemize @bullet
@@ -742,10 +742,10 @@ Compare la misma partitura de referencia y la salida de la versión
 actual de LilyPond (@version{}):
 
 @iftex
-@sourceimage{baer-sarabande-hires,16cm,,}
+@sourceimage{baer-sarabande-hires,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{baer-sarabande,,,png}
+@sourceimage{baer-sarabande,,}
 @end ifnottex
 
 @lilypond[staffsize=17.5,line-width=15.9\cm]
@@ -822,10 +822,10 @@ compases 28 al 29, como se muestra aquí con Finale en primer lugar y
 LilyPond en segundo:
 
 @iftex
-@sourceimage{pdf/bwv861mm28-29,14cm,,}
+@sourceimage{pdf/bwv861mm28-29,14cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861mm28-29,,,png}
+@sourceimage{bwv861mm28-29,,}
 @end ifnottex
 
 @lilypond[staffsize=19.5,line-width=14\cm]
@@ -945,10 +945,10 @@ de Finale es un bemol en el compás 33:
 
 @quotation
 @iftex
-@sourceimage{pdf/bwv861mm33-34-annotate,7.93cm,,}
+@sourceimage{pdf/bwv861mm33-34-annotate,7.93cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861mm33-34-annotate,,,png}
+@sourceimage{bwv861mm33-34-annotate,,}
 @end ifnottex
 @end quotation
 
@@ -1125,10 +1125,10 @@ estructura ordenada de cajas anidadas unas dentro de otras:
 
 @quotation
 @iftex
-@sourceimage{pdf/nestedboxes,,4cm,}
+@sourceimage{pdf/nestedboxes,,4cm}
 @end iftex
 @ifnottex
-@sourceimage{nestedboxes,,,png}
+@sourceimage{nestedboxes,,}
 @end ifnottex
 @end quotation
 
@@ -1699,10 +1699,10 @@ Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
 1989):
 
 @iftex
-@sourceimage{bwv861-baer,16cm,,}
+@sourceimage{bwv861-baer,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-baer-small,,,png}
+@sourceimage{bwv861-baer-small,,}
 @end ifnottex
 
 @noindent
@@ -1712,10 +1712,10 @@ textuales, esto presenta ligeras variaciones en las decisiones de
 grabado, incluso de la misma editorial y edición:
 
 @iftex
-@sourceimage{bwv861-baer-alt,16cm,,}
+@sourceimage{bwv861-baer-alt,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-baer-alt-small,,,png}
+@sourceimage{bwv861-baer-alt-small,,}
 @end ifnottex
 
 @noindent
@@ -1726,10 +1726,10 @@ etc.)  se han suprimido para una comparación más clara con las otras
 ediciones que presentamos aquí:
 
 @iftex
-@sourceimage{bwv861-breitkopf,16cm,,}
+@sourceimage{bwv861-breitkopf,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-breitkopf-small,,,png}
+@sourceimage{bwv861-breitkopf-small,,}
 @end ifnottex
 
 @noindent
@@ -1737,20 +1737,20 @@ Edición Bach-Gesellschaft (Leipzig, 1866), disponible a través de la
 Biblioteca Musical Petrucci (IMSPL #02221):
 
 @iftex
-@sourceimage{bwv861-gesellschaft,16cm,,}
+@sourceimage{bwv861-gesellschaft,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-gesellschaft-small,,,png}
+@sourceimage{bwv861-gesellschaft-small,,}
 @end ifnottex
 
 @noindent
 Finale 2008:
 
 @iftex
-@sourceimage{pdf/bwv861-finale2008a,,,}
+@sourceimage{pdf/bwv861-finale2008a,,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-finale2008a,,,png}
+@sourceimage{bwv861-finale2008a,,}
 @end ifnottex
 
 @sp 4

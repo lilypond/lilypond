@@ -40,16 +40,16 @@ infórmese sobre nuestra @ref{Entrada de texto}.}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}}
 @ref{Unix, Unix (GNU/Linux y FreeBSD)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -144,12 +144,12 @@ programa. Véase @ref{Entornos mejorados}.
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 Sistemas de 32 bits.
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 Sistemas de 64 bits.
 
@@ -222,12 +222,12 @@ todos los logotipos e imágenes de producto.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Para Mac OS X 10.4 a 10.14 sobre CPU Intel (para 10.15 véase más abajo).
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @c file name is unpredictable, linking to main page
 Los paquetes de aplicación de 64 bits no oficiales para Mac OS
 10.15 están a su disposición en
@@ -370,7 +370,7 @@ e imágenes de productos.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Para Windows 2000, XP, Vista, Windows 7, 8 y 10.
 

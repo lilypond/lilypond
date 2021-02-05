@@ -62,19 +62,21 @@ Macro definitions that contain translatable text belong to file
 @c expected to be found in the `lilypond/' subdirectory.  `lilypond-book'
 @c already generates proper @image commands for images of music; these
 @c macro definitions do the same for other images.
+@c
+@c We use the file name as the `alt' attribute.
 
 @ifnotinfo
 
-@macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
-@image{pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
+@macro sourceimage{FILENAME,WIDTH,HEIGHT}
+@image{pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\FILENAME\}
 @end macro
 
 @end ifnotinfo
 
 @ifinfo
 
-@macro sourceimage{FILENAME,WIDTH,HEIGHT,ALTTEXT}
-@image{lilypond/pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\ALTTEXT\}
+@macro sourceimage{FILENAME,WIDTH,HEIGHT}
+@image{lilypond/pictures/\FILENAME\,\WIDTH\,\HEIGHT\,\FILENAME\}
 @end macro
 
 @end ifinfo

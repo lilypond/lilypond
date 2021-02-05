@@ -25,16 +25,16 @@ documentation respective en cas de problème.}
 Lorsque vous faites un double clic sur @command{LilyPond.app}, un
 fichier exemple s'ouvre.
 
-@sourceimage{Learning_Macos_welcome,,,}
+@sourceimage{Learning_Macos_welcome,,}
 
 Dans le menu, en haut et à gauche de la fenêtre, sélectionnez
 @w{@code{Fichier > Enregistrer}}.
 
-@sourceimage{Learning_Macos_Save_menu,,,}
+@sourceimage{Learning_Macos_Save_menu,,}
 
 Attribuez un nom à votre fichier, par exemple @file{test.ly}.
 
-@sourceimage{Learning_Macos_Save_file_with_name,,,}
+@sourceimage{Learning_Macos_Save_file_with_name,,}
 
 
 @subsubheading Étape 2. Compilation (avec LilyPad)
@@ -42,12 +42,12 @@ Attribuez un nom à votre fichier, par exemple @file{test.ly}.
 Dans le menu, sélectionnez
 @w{@code{Compiler > Typeset}}.
 
-@sourceimage{Learning_Macos_Typeset_menu,,,}
+@sourceimage{Learning_Macos_Typeset_menu,,}
 
 Une nouvelle fenêtre s'ouvre dans laquelle s'affiche le journal de
 compilation du fichier que vous venez de sauvegarder.
 
-@sourceimage{Learning_Macos_Compiling_log,,,}
+@sourceimage{Learning_Macos_Compiling_log,,}
 
 
 @subsubheading Étape 3. Visualisation du résultat
@@ -56,7 +56,7 @@ La compilation s'achève par la création d'un fichier PDF portant le même
 nom que le fichier source ; ce nouveau fichier sera automatiquement
 ouvert par votre lecteur PDF par défaut et affiché à l'écran.
 
-@sourceimage{Learning_Macos_pdf_output,,,}
+@sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading Autres commandes
@@ -64,12 +64,12 @@ ouvert par votre lecteur PDF par défaut et affiché à l'écran.
 Pour créer de nouveaux fichiers pour LilyPond, sélectionnez
 @w{@code{Fichier > Nouveau}}
 
-@sourceimage{Learning_Macos_New_menu,,,}
+@sourceimage{Learning_Macos_New_menu,,}
 
 ou @w{@code{Fichier > Ouvrir}} pour reprendre un fichier précédemment
 enregistré.
 
-@sourceimage{Learning_Macos_Open_menu,,,}
+@sourceimage{Learning_Macos_Open_menu,,}
 
 Pensez à toujours enregistrer votre travail avant de lancer l'option
 @w{@code{Compile > Tyepset}} du menu.  Si le PDF n'apparaît pas,
@@ -96,7 +96,7 @@ documentation respective en cas de problème.}
 Double-cliquez sur l'icone LilyPond qui se trouve sur le bureau.
 S'ouvre alors un fichier d'exemple.
 
-@sourceimage{LilyPad,,,}
+@sourceimage{LilyPad,,}
 
 Dans le menu, sélectionnez @w{@code{Fichier > Enregistrer sous}}
 (@emph{Save as@dots{}}).  Ne prenez pas l'option @w{@code{Fichier >
@@ -104,11 +104,11 @@ Enregistrer}} (@emph{Save}) pour ce fichier exemple : LilyPond attend un
 nom de fichier valide.
 
 
-@sourceimage{FileSave,,,}
+@sourceimage{FileSave,,}
 
 Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
 
-@sourceimage{SaveAs,,,}
+@sourceimage{SaveAs,,}
 
 
 @subsubheading Étape 2. Compilation
@@ -121,7 +121,7 @@ Nous examinerons ici les trois premières options.
 
 1. Faire glisser puis déposer le fichier sur l'icone LilyPond
 
-@sourceimage{DragDrop,,,}
+@sourceimage{DragDrop,,}
 
 
 Bien qu'il ne semble pas se passer grand chose, deux fichiers --
@@ -131,7 +131,7 @@ quelques instants sur votre bureau.
 2. Ouvrir le menu contextuel par un clic-droit, puis en prendre
 l'option @w{@code{Generate PDF @dots{} }} (@emph{Générer le PDF}).
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 3. Faire un double-clic sur le fichier @file{test.ly}.
 
@@ -141,7 +141,7 @@ l'option @w{@code{Generate PDF @dots{} }} (@emph{Générer le PDF}).
 @file{test.pdf} contient la gravure de votre fichier @file{test.ly}.  Un
 double-clic sur son icône devrait l'ouvrir dans votre lecteur PDF :
 
-@sourceimage{PDFRead,,,}
+@sourceimage{PDFRead,,}
 
 
 @subsubheading Autres commandes
@@ -153,7 +153,7 @@ modification d'un fichier existant est aussi accessible à partir de
 l'option @w{@code{Edit source}} (@emph{Éditer la source}) du menu
 contextuel.
 
-@sourceimage{EditFile,,,}
+@sourceimage{EditFile,,}
 
 Pensez à toujours enregistrer votre travail avant de compiler votre
 fichier.  Si LilyPond ne crée pas de PDF ou que le résultat ne
@@ -161,7 +161,7 @@ correspond pas à vos attentes, consultez le fichier de journalisation --
 généré au fil du processus de compilation -- et vérifiez qu'il ne
 comporte pas d'erreur.
 
-@sourceimage{BadLog,,,}
+@sourceimage{BadLog,,}
 
 Ce fichier journal est remplacé à chaque compilation de votre fichier
 LilyPond.

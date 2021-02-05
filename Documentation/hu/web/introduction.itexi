@@ -766,10 +766,10 @@ szerkesztőprogramokkal!
 @imageClickable{lilypondtool-2.12-screenshot-400wide,png,
   (Kattints a képre a nagyításhoz),lilypondtool-2.12-screenshot,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://lilypondtool@/.organum@/.hu}
 
@@ -788,9 +788,9 @@ gyors begépeléséhez.
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (Kattints a képre a nagyításhoz),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -807,8 +807,8 @@ rendszeren fut.
 @imageClickable{screenshot-denemo-small,png,
   (Kattints a képre a nagyításhoz),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -828,10 +828,10 @@ Export: LilyPond, MIDI, ABC, CSound Score File, PDF
 @divClass{column-center-top}
 @subheading Emacs és Vim
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.geoffhorton.com/lilymacs.html}
 
@@ -857,8 +857,8 @@ szerkesztéséhez.
 @imageClickable{lilykde-screenshot-small,png,
   (Kattints a képre a nagyításhoz),lilykde-screenshot,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
 
 @uref{https://lilykde.googlecode.com/}
 
@@ -873,7 +873,7 @@ lehet fordítani egyszerre a segítségével.
 
 @subsubheading TexShop
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop}
 
@@ -887,7 +887,7 @@ TODO: ask somebody to sponsor/check these.  -gp
 
 @subsubheading TextMate
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 
 A TextMate szövegszerkesztőhöz is létezik LilyPond csomag. A következő
 parancsok futtatásával telepíthető:

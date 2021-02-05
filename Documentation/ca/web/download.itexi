@@ -49,16 +49,16 @@ LilyPond informeu-vos sobre la nostra @ref{Entrada de text}.}
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}}
 @ref{Unix, Unix (GNU/Linux i FreeBSD)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -155,11 +155,11 @@ programa LilyPond. Vegeu @ref{Entorns millorats}.
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 
 @end itemize
@@ -203,27 +203,27 @@ instal·lar o actualitzar a aquestes versions.
 @itemize
 
 @item
-@sourceimage{logo-fedora,,,}
+@sourceimage{logo-fedora,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
 Fedora: LilyPond 2.14.2}
 
 @item
-@sourceimage{logo-ubuntu,,,}
+@sourceimage{logo-ubuntu,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
 Ubuntu: LilyPond 2.14.2}
 
 @item
-@sourceimage{logo-slackware,,,}
+@sourceimage{logo-slackware,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
 Slackware: LilyPond 2.14.2}
 
 @item
-@sourceimage{logo-debian,,,}
+@sourceimage{logo-debian,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
 Debian: LilyPond 2.12.3}
 
 @item
-@sourceimage{logo-suse,,,}
+@sourceimage{logo-suse,,}
 @uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
 openSUSE: LilyPond 2.12.3}
 
@@ -271,7 +271,7 @@ logotips i imatges de producte.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Per a MacOS X 10.4 o superior sobre
 CPU Intel (si no teniu seguretat, utilitzeu aquest paquet).
@@ -413,7 +413,7 @@ logotips i imatges de productes.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Per a Windows 2000, XP, Vista, Windows 7, 8 i 10.
 

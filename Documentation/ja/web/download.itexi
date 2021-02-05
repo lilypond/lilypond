@@ -44,15 +44,15 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}}
 @ref{Unix, Unix (GNU/Linux 向け一般パッケージ)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -154,12 +154,12 @@ LilyPond は @ref{GPL, GNU General Public License} に基づいて
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 32bit システム
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 64bit システム
 
@@ -238,12 +238,12 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Intel CPU の Mac OS X 10.4--10.14 用 (10.15 については下記を参照)
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 macOS 10.15 用の非公式の 64 ビット アプリケーション バンドルは、
 @uref{https://bintray.com/marnen/lilypond-darwin-64} から入手できます。
 
@@ -393,7 +393,7 @@ export PATH=$PATH:~/bin
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Windows 2000, XP, Vista, Windows 7, 8 それに 10 用
 

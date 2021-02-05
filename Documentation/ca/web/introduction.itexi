@@ -1303,9 +1303,9 @@ In particular, don't link to:
 @imageClickable{frescobaldi-lilypond-editor-small,png, (cliqueu
 per veure una imatge més gran),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 El Frescobaldi és un editor de música i text lleuger tot i que
@@ -1324,8 +1324,8 @@ Windows).
 @imageClickable{screenshot-denemo-small,png,
   (cliqueu per veure una imatge més gran),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1368,10 +1368,10 @@ una interfície web còmoda.
 
 @subsubheading Elysium
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://elysium.thsoft.hu}
 
@@ -1412,7 +1412,7 @@ diferent per escriure fitxers d'entrada del LilyPond.
 Hi ha més informació sobre la configuració de l'Emacs i del Vim a
 @rprogramnamed{Text editor support,Suport per als editors de text}.
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @subsubheading TeXShop
 @uref{http://www.uoregon.edu/~koch/texshop}
 

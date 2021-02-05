@@ -2975,11 +2975,11 @@ Gonville のサンプル小節です:
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,15cm,,}
+@sourceimage{Gonville_after,15cm,}
 
 LilyPond の Feta グリフのサンプル小節です:
 
-@sourceimage{Gonville_before,15cm,,}
+@sourceimage{Gonville_before,15cm,}
 
 @subsubheading インストール手順
 フォント ファイルをダウンロードし、展開します。@c

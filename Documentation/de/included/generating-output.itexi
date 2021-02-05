@@ -26,29 +26,29 @@ eine Datei zu kompilieren.}
 Wenn Sie das @command{LilyPond.app}-Symbol doppelt klicken, öffnet
 sich eine Beispiel-Datei.
 
-@sourceimage{Learning_Macos_welcome,,,}
+@sourceimage{Learning_Macos_welcome,,}
 
 Wählen Sie aus den Menüs oben links auf Ihrem Bildschirm
 @w{@code{File > Save}}.
 
-@sourceimage{Learning_Macos_Save_menu,,,}
+@sourceimage{Learning_Macos_Save_menu,,}
 
 Wählen Sie einen Namen für die Datei, etwa @file{test.ly}.
 
-@sourceimage{Learning_Macos_Save_file_with_name,,,}
+@sourceimage{Learning_Macos_Save_file_with_name,,}
 
 
 @subsubheading 2. Schritt: Kompilieren (mit LilyPad)
 
 Aus den selben Menüs wählen Sie jetzt @w{@code{Compile > Typeset}}.
 
-@sourceimage{Learning_Macos_Typeset_menu,,,}
+@sourceimage{Learning_Macos_Typeset_menu,,}
 
 Ein neues Fenster öffnet sich, in dem ein Fortschrittslog der
 Kompilation der von ihnen gerade gespeicherten Datei gezeigt
 wird.
 
-@sourceimage{Learning_Macos_Compiling_log,,,}
+@sourceimage{Learning_Macos_Compiling_log,,}
 
 
 @subsubheading 3. Schritt: Ausgabe anschauen
@@ -57,7 +57,7 @@ Wenn die Kompilation fertig ist, wird ein PDF mit dem gleichen
 Namen wie das Original erstellt und automatisch mit dem
 Standard-PDF-Programm geöffnet und angezeigt.
 
-@sourceimage{Learning_Macos_pdf_output,,,}
+@sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading Andere Befehle
@@ -65,13 +65,13 @@ Standard-PDF-Programm geöffnet und angezeigt.
 Um neue LilyPond-Dateien zu erstellen beginnen sie mit
 @w{@code{File > New}}
 
-@sourceimage{Learning_Macos_New_menu,,,}
+@sourceimage{Learning_Macos_New_menu,,}
 
 @noindent
 oder @w{@code{File > Open}} um eine schon existierende Datei zu
 öffnen und zu editieren.
 
-@sourceimage{Learning_Macos_Open_menu,,,}
+@sourceimage{Learning_Macos_Open_menu,,}
 
 Sie müssen alle Änderungen an der Datei zuerst speichern, bevor Sie
 wieder @w{@code{Compile > Tyepset}} wählen.  Wenn das PDF nicht
@@ -100,18 +100,18 @@ eine Datei zu kompilieren.}
 Wenn sie auf das LilyPond-Symbol auf dem Desktop doppelklicken,
 öffnet sich ein einfacher Texteditor mit einer Beispieldatei.
 
-@sourceimage{LilyPad,,,}
+@sourceimage{LilyPad,,}
 
 Aus dem Menü über der Beispieldatei wählen Sie @w{@code{File > Save as}}.
 Benutzen Sie nicht @w{@code{File > Save}} für die Beispieldatei,
 weil die Datei nicht funktioniert, bis Sie sie mit einem eigenen
 Namen gespeichert haben.
 
-@sourceimage{FileSave,,,}
+@sourceimage{FileSave,,}
 
 Wählen Sie einen Namen für Ihre Datei, etwa @file{test.ly}.
 
-@sourceimage{SaveAs,,,}
+@sourceimage{SaveAs,,}
 
 
 @subsubheading Schritt 2a: Kompilieren (mit drag-and-drop)
@@ -121,12 +121,12 @@ entweder:
 
 Die Datei auf das LilyPond-Symbol ziehen.
 
-@sourceimage{DragDrop,,,}
+@sourceimage{DragDrop,,}
 
 Oder Sie klicken mit der rechten Maustaste auf die Datei und wählen
 Sie aus dem Menü @w{@code{Open with > LilyPond}}.
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 
 @subsubheading Schritt 2b: Kompilieren (mit Doppelklick)
@@ -142,7 +142,7 @@ zusätzliche Dateien werden in diesem Schritt erstellt.
 
 Das PDF enthält den Notensatz aus der Datei @file{test.ly}.
 
-@sourceimage{PDFRead,,,}
+@sourceimage{PDFRead,,}
 
 
 @subsubheading Andere Befehle
@@ -152,13 +152,13 @@ aus irgendeiner schon erstellten Datei oder @w{@code{File > Open}},
 um eine Datei zu öffnen und zu bearbeiten, die Sie schon vorher
 gespeichert hatten.
 
-@sourceimage{EditFile,,,}
+@sourceimage{EditFile,,}
 
 Sie müssen jede neue Änderung erst speichern, bevor Sie die Datei
 kompilieren.  Wenn kein PDF erstellt wird, öffnen Sie die Log-Datei
 und schauen Sie nach Fehlern.
 
-@sourceimage{BadLog,,,}
+@sourceimage{BadLog,,}
 
 Die Log-Datei wird jedes Mal überschrieben, wenn Sie Ihre
 LilyPond-Datei kompilieren.

@@ -57,13 +57,13 @@ Beispiel eine moderne, computergesetzte Edition.
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
-@sourceimage{baer-suite1-fullpage,,,png}
+@sourceimage{baer-suite1-fullpage,,}
 @end quotation
 
 @quotation
 @noindent
 Henle Nr. 666, @copyright{}2000:
-@sourceimage{henle-suite1-fullpage,,,png}
+@sourceimage{henle-suite1-fullpage,,}
 @end quotation
 @end ifnottex
 
@@ -98,10 +98,10 @@ Computersatz (rechts):
 
 @quotation
 @iftex
-@sourceimage{pdf/page-layout-comparison,,,}
+@sourceimage{pdf/page-layout-comparison,,}
 @end iftex
 @ifnottex
-@sourceimage{page-layout-comparison,,,png}
+@sourceimage{page-layout-comparison,,}
 @end ifnottex
 @end quotation
 @noindent
@@ -128,12 +128,12 @@ schaffen, die die besten handgestochenen Partituren imitieren.
 @noindent
 Bärenreiter BA 320, @copyright{}1950:
 
-@sourceimage{baer-suite1-fullpage-hires,16cm,,}
+@sourceimage{baer-suite1-fullpage-hires,16cm,}
 @page
 @noindent
 Henle no. 666, @copyright{}2000:
 @sp 3
-@sourceimage{henle-suite1-fullpage-hires,16cm,,}
+@sourceimage{henle-suite1-fullpage-hires,16cm,}
 @page
 @end iftex
 
@@ -175,10 +175,10 @@ beherrschen.
 
 @quotation
 @iftex
-@sourceimage{hader-slaan,,7cm,}
+@sourceimage{hader-slaan,,7cm}
 @end iftex
 @ifnottex
-@sourceimage{hader-slaan,,,jpg}
+@sourceimage{hader-slaan,,}
 @end ifnottex
 @end quotation
 
@@ -226,25 +226,25 @@ dünnere Linien und eine gerade Form mit scharfen Ecken und Kanten.
 @item @tab
 @ifnotinfo
 @iftex
-@sourceimage{baer-flat-gray,,4cm,}
+@sourceimage{baer-flat-gray,,4cm}
 @end iftex
 @ifnottex
-@sourceimage{baer-flat-gray,,,png}
+@sourceimage{baer-flat-gray,,}
 @end ifnottex
 
 @tab
 @iftex
-@sourceimage{henle-flat-gray,,4cm,}
+@sourceimage{henle-flat-gray,,4cm}
 @end iftex
 @ifnottex
-@sourceimage{henle-flat-gray,,,png}
+@sourceimage{henle-flat-gray,,}
 @end ifnottex
 
 @end ifnotinfo
 @ifinfo
-@sourceimage{henle-flat-bw,,,png}
-@sourceimage{baer-flat-bw,,,png}
-@sourceimage{lily-flat-bw,,,png}
+@sourceimage{henle-flat-bw,,}
+@sourceimage{baer-flat-bw,,}
+@sourceimage{lily-flat-bw,,}
 @end ifinfo
 
 
@@ -276,10 +276,10 @@ untere unsere eigene LilyPond-Schriftart.
 
 @quotation
 @iftex
-@sourceimage{pdf/OpusAndFeta,,,}
+@sourceimage{pdf/OpusAndFeta,,}
 @end iftex
 @ifnottex
-@sourceimage{OpusAndFeta,,,png}
+@sourceimage{OpusAndFeta,,}
 @end ifnottex
 @end quotation
 
@@ -412,19 +412,19 @@ Eigenschaft in den Notensatz von LilyPond eingebaut.
 @item @tab
 
 @iftex
-@sourceimage{baer-ledger,3cm,,}
+@sourceimage{baer-ledger,3cm,}
 @end iftex
 @ifnottex
-@sourceimage{baer-ledger,,,png}
+@sourceimage{baer-ledger,,}
 @end ifnottex
 
 @tab
 
 @iftex
-@sourceimage{lily-ledger,3cm,,}
+@sourceimage{lily-ledger,3cm,}
 @end iftex
 @ifnottex
-@sourceimage{lily-ledger,,,png}
+@sourceimage{lily-ledger,,}
 @end ifnottex
 
 @end multitable
@@ -448,10 +448,10 @@ LilyPond-Notensatz mit der Systemgröße 26:
 
 @quotation
 @iftex
-@sourceimage{pdf/size26,,23mm,}
+@sourceimage{pdf/size26,,23mm}
 @end iftex
 @ifnottex
-@sourceimage{size26,,,png}
+@sourceimage{size26,,}
 @end ifnottex
 @end quotation
 
@@ -462,10 +462,10 @@ vorige erscheint:
 
 @quotation
 @iftex
-@sourceimage{pdf/size11,,23mm,}
+@sourceimage{pdf/size11,,23mm}
 @end iftex
 @ifnottex
-@sourceimage{size11,,,png}
+@sourceimage{size11,,}
 @end ifnottex
 @end quotation
 
@@ -622,10 +622,10 @@ werden dennoch nicht alle Fälle vollständig abgedeckt:
 
 @quotation
 @iftex
-@sourceimage{ross-beam-scan,7cm,,}
+@sourceimage{ross-beam-scan,7cm,}
 @end iftex
 @ifnottex
-@sourceimage{ross-beam-scan,,,.jpg}
+@sourceimage{ross-beam-scan,,}
 @end ifnottex
 @end quotation
 
@@ -695,10 +695,10 @@ Hier als Beispiel eine Zeile eines Benchmark-Stückes aus einer
 handgestochenen Notenedition (Bärenreiter BA320):
 
 @iftex
-@sourceimage{baer-sarabande-hires,16cm,,}
+@sourceimage{baer-sarabande-hires,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{baer-sarabande,,,png}
+@sourceimage{baer-sarabande,,}
 @end ifnottex
 
 @noindent
@@ -706,10 +706,10 @@ und die gleiche Zeile als Satz einer sehr alten LilyPond-Version
 (Version 1.4, Mai 2001):
 
 @iftex
-@sourceimage{pdf/lily14-sarabande,16cm,,}
+@sourceimage{pdf/lily14-sarabande,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{lily14-sarabande,,,png}
+@sourceimage{lily14-sarabande,,}
 @end ifnottex
 
 @noindent
@@ -718,10 +718,10 @@ ein ausführlicher Vergleich mit der Vorlage zeigt viele Fehler in
 den Formatierungsdetails:
 
 @iftex
-@sourceimage{lily14-sarabande-annotated-hires,16cm,,}
+@sourceimage{lily14-sarabande-annotated-hires,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{lily14-sarabande-annotated,,,png}
+@sourceimage{lily14-sarabande-annotated,,}
 @end ifnottex
 
 @itemize @bullet
@@ -743,10 +743,10 @@ Sie das gleiche Referenzbeispiel und die Ausgabe der aktuellen
 LilyPond-Version (@version{}):
 
 @iftex
-@sourceimage{baer-sarabande-hires,16cm,,}
+@sourceimage{baer-sarabande-hires,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{baer-sarabande,,,png}
+@sourceimage{baer-sarabande,,}
 @end ifnottex
 
 @lilypond[staffsize=17.5,line-width=15.9\cm]
@@ -824,10 +824,10 @@ in den Takten 28--29, hier zuerst in Finales Version, dann in der
 Version von LilyPond:
 
 @iftex
-@sourceimage{pdf/bwv861mm28-29,14cm,,}
+@sourceimage{pdf/bwv861mm28-29,14cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861mm28-29,,,png}
+@sourceimage{bwv861mm28-29,,}
 @end ifnottex
 
 @lilypond[staffsize=19.5,line-width=14\cm]
@@ -950,10 +950,10 @@ ist ein fehlendes b-Vorzeichen in Takt 33:
 
 @quotation
 @iftex
-@sourceimage{pdf/bwv861mm33-34-annotate,7.93cm,,}
+@sourceimage{pdf/bwv861mm33-34-annotate,7.93cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861mm33-34-annotate,,,png}
+@sourceimage{bwv861mm33-34-annotate,,}
 @end ifnottex
 @end quotation
 
@@ -1124,10 +1124,10 @@ die saubere Struktur von geschachtelten Kästen:
 
 @quotation
 @iftex
-@sourceimage{pdf/nestedboxes,,4cm,}
+@sourceimage{pdf/nestedboxes,,4cm}
 @end iftex
 @ifnottex
-@sourceimage{nestedboxes,,,png}
+@sourceimage{nestedboxes,,}
 @end ifnottex
 @end quotation
 
@@ -1689,10 +1689,10 @@ Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
 1989):
 
 @iftex
-@sourceimage{bwv861-baer,16cm,,}
+@sourceimage{bwv861-baer,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-baer-small,,,png}
+@sourceimage{bwv861-baer-small,,}
 @end ifnottex
 
 @noindent
@@ -1703,10 +1703,10 @@ Notensatzentscheidungen getroffen worden, sogar vom selben Herausgeber
 in der selben Edition:
 
 @iftex
-@sourceimage{bwv861-baer-alt,16cm,,}
+@sourceimage{bwv861-baer-alt,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-baer-alt-small,,,png}
+@sourceimage{bwv861-baer-alt-small,,}
 @end ifnottex
 
 @noindent
@@ -1717,10 +1717,10 @@ wurde entfernt, um bessere Vergleichbarkeit mit den anderen
 Editionen zu bieten:
 
 @iftex
-@sourceimage{bwv861-breitkopf,16cm,,}
+@sourceimage{bwv861-breitkopf,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-breitkopf-small,,,png}
+@sourceimage{bwv861-breitkopf-small,,}
 @end ifnottex
 
 @noindent
@@ -1728,20 +1728,20 @@ Bach-Gesellschaft Edition (Leipzig, 1866), erhältlich in der Petrucci
 Music Library (IMSPL #02221):
 
 @iftex
-@sourceimage{bwv861-gesellschaft,16cm,,}
+@sourceimage{bwv861-gesellschaft,16cm,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-gesellschaft-small,,,png}
+@sourceimage{bwv861-gesellschaft-small,,}
 @end ifnottex
 
 @noindent
 Finale 2008:
 
 @iftex
-@sourceimage{pdf/bwv861-finale2008a,,,}
+@sourceimage{pdf/bwv861-finale2008a,,}
 @end iftex
 @ifnottex
-@sourceimage{bwv861-finale2008a,,,png}
+@sourceimage{bwv861-finale2008a,,}
 @end ifnottex
 
 @sp 4

@@ -1018,10 +1018,10 @@ Ještě stále nejste přesvědčeni?  Přečtěte si o @ref{Snadnější
 @imageClickable{lilypondtool-2.12-screenshot-400wide,png,
   (Klepněte kvůli zvětšení),lilypondtool-2.12-screenshot,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://lilypondtool.organum.hu}
 
@@ -1041,9 +1041,9 @@ ukázat a klepnout.
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (Klepněte kvůli zvětšení),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1063,8 +1063,8 @@ UNIXových operačních systémech.
 @imageClickable{screenshot-denemo-small,png,
   (Klepněte kvůli zvětšení),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1084,10 +1084,10 @@ textovém pohledu, když se z něj tiskne.
 @divClass{column-center-top}
 @subheading Textové editory
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.gnu.org/software/emacs/}
 
@@ -1113,7 +1113,7 @@ Další informace k nastavení Emacsu a Vimu se nacházejí pod
 @rprogram{Text editor support}.
 
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 Editor TexShop pro MacOS@tie{}X lze rozšířit, tudíž
@@ -1126,7 +1126,7 @@ které je dostupné zde:
 @end example
 
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 Je také balíček s LilyPondem pro TeXMate, obchodovaný editor pro
 MacOS.  Dá se nainstalovat provedením následujícího
 příkazu v příkazovém řádku:

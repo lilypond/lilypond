@@ -31,16 +31,16 @@ voor dat programma als je problemen hebt.}
 Dubbelklik de @command{LilyPond.app}, een voorbeeldbestand
 wordt geopend.
 
-@sourceimage{Learning_Macos_welcome,,,}
+@sourceimage{Learning_Macos_welcome,,}
 
 Uit de menu's links bovenaan je scherm, kies
 @w{@code{Bestand > Opslaan}}.
 
-@sourceimage{Learning_Macos_Save_menu,,,}
+@sourceimage{Learning_Macos_Save_menu,,}
 
 Kies een naam voor je bestand, bijvoorbeeld @file{test.ly}.
 
-@sourceimage{Learning_Macos_Save_file_with_name,,,}
+@sourceimage{Learning_Macos_Save_file_with_name,,}
 
 
 @subsubheading Stapp 2. Compileer (met LilyPad)
@@ -48,12 +48,12 @@ Kies een naam voor je bestand, bijvoorbeeld @file{test.ly}.
 Uit dezelfde menu's, kies
 @w{@code{Compile > Tyepset}}.
 
-@sourceimage{Learning_Macos_Typeset_menu,,,}
+@sourceimage{Learning_Macos_Typeset_menu,,}
 
 Een nieuw venster opent en toont een voortgangslog van de
 compilatie van het bestand dat je zojuist hebt opgeslagen.
 
-@sourceimage{Learning_Macos_Compiling_log,,,}
+@sourceimage{Learning_Macos_Compiling_log,,}
 
 
 @subsubheading Stap 3. Bekijk de uitvoer
@@ -63,7 +63,7 @@ met dezelfde naam als het originele bestand en dat wordt
 automatisch geopend in de standaard PDF-viewer en op je
 scherm getoond.
 
-@sourceimage{Learning_Macos_pdf_output,,,}
+@sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading Andere commando's
@@ -72,14 +72,14 @@ scherm getoond.
 Een nieuw LilyPond bestand maken, doe je door het kiezen van
 @w{@code{Bestand > Nieuw}}
 
-@sourceimage{Learning_Macos_New_menu,,,}
+@sourceimage{Learning_Macos_New_menu,,}
 
 @c FIXME: is lilypad vertaald in het nederlands, of is dit
 @c File > Open?
 of je opent met @w{@code{Bestand > Openen}} een bestaand bestand
 om te bewerken.
 
-@sourceimage{Learning_Macos_Open_menu,,,}
+@sourceimage{Learning_Macos_Open_menu,,}
 
 @c FIXME: is lilypad vertaald in het nederlands, hoe heet Compile > Typeset?
 Als je een bestand bewerkt hebt, moet je het eerst opslaan
@@ -112,18 +112,18 @@ van een bestand.}
 Dubbelklik het LilyPond ikoon op je Bureaublad, een
 voorbeeldbestand wordt geopend.
 
-@sourceimage{LilyPad,,,}
+@sourceimage{LilyPad,,}
 
 Kies uit de menu's bovenaan het voorbeeldbestand
 @w{@code{Bestand > Opslaan als}}.  De optie @w{@code{Bestand
 > Opslaan}} kun je voor dit voorbeeldbestand niet gebruiken
 als je het nog geen geldige LilyPond-naam hebt gegeven.
 
-@sourceimage{FileSave,,,}
+@sourceimage{FileSave,,}
 
 Kies een naam voor je bestand, bijvoorbeeld @file{test.ly}.
 
-@sourceimage{SaveAs,,,}
+@sourceimage{SaveAs,,}
 
 
 @subsubheading Stap 2a. Compileer (door slepen en neerzetten - drag and drop)
@@ -134,12 +134,12 @@ bestand door ofwel:
 te slepen en neer te zetten bovenop het LilyPond ikoon,
 ofwel
 
-@sourceimage{DragDrop,,,}
+@sourceimage{DragDrop,,}
 
 met de tweede muisknop op het bestand te klikken en uit het
 popup-contextmenu @w{@code{Open met > LilyPond}} te kiezen.
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 @c FIXME: why present/advise the best/simplest for last?
 @subsubheading Stap 2b. Compileer (door te dubbelklikken)
@@ -156,7 +156,7 @@ aangemaakt.
 
 Het PDF-bestand bevat het gegraveerde @file{test.ly} bestand.
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 
 @subsubheading Andere commando's
@@ -170,7 +170,7 @@ voordat je het compileert en als het PDF-bestand niet wordt
 aangemaakt, controleer dan het venster met de voortgangslog
 op foutmeldingen.
 
-@sourceimage{BadLog,,,}
+@sourceimage{BadLog,,}
 
 Dit logbestand wordt elke keer overschreven als je je
 LilyPond-bestand compileert.

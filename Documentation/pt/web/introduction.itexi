@@ -1278,9 +1278,9 @@ In particular, don't link to:
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (clique para ampliar),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1299,9 +1299,9 @@ e vai funcionar em todos os principais sistemas operacionais
 @imageClickable{screenshot-denemo-small,png,
   (clique para ampliar),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1336,10 +1336,10 @@ partituras diretamente online sem precisar instalar o LilyPond.
 
 @subsubheading Elysium
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://github.com/thSoft/elysium}
 
@@ -1352,10 +1352,10 @@ convenientemente o LilyPond.
 @divClass{column-center-top}
 @subheading Editores de texto
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
@@ -1387,7 +1387,7 @@ entrada do LilyPond.
 Mais informações sobre configuração do Vim podem ser
 localizadas em @rprogram{Text editor support,suporte a editor de texto}.
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @subsubheading TeXShop
 @uref{http://pages.uoregon.edu/koch/texshop/}
 

@@ -1056,10 +1056,10 @@ graphical score.  For more information, see @ref{Easier editing}.
 @imageClickable{lilypondtool-2.12-screenshot-400wide,png,
   (click to enlarge),lilypondtool-2.12-screenshot,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://lilypondtool.organum.hu}
 
@@ -1078,9 +1078,9 @@ viewer with advanced point-and-click support.
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (click to enlarge),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1096,8 +1096,8 @@ operating systems (Linux, Mac OS X and Windows).
 @imageClickable{screenshot-denemo-small,png,
   (click to enlarge),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1116,10 +1116,10 @@ the text view when printed from there.
 @divClass{column-center-top}
 @subheading 文本编辑器
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.gnu.org/software/emacs/}
 
@@ -1144,7 +1144,7 @@ writing LilyPond input files.
 More information on setting up Emacs and Vim can be found in
 @rprogram{Text editor support}.
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 The TexShop editor for Mac OS@tie{}X can be extended to run LilyPond,
@@ -1155,7 +1155,7 @@ using the extensions available at:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 There is a LilyPond bundle for TextMate, a commercial editor for MacOS.
 It may be installed by running:
 

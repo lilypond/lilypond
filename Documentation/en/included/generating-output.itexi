@@ -17,16 +17,16 @@ programs should you have any problems.}
 
 Double click the @command{LilyPond.app}, an example file will open.
 
-@sourceimage{Learning_Macos_welcome,,,}
+@sourceimage{Learning_Macos_welcome,,}
 
 From the menus along the top left of your screen, select
 @w{@code{File > Save}}.
 
-@sourceimage{Learning_Macos_Save_menu,,,}
+@sourceimage{Learning_Macos_Save_menu,,}
 
 Choose a name for your file, for example @file{test.ly}.
 
-@sourceimage{Learning_Macos_Save_file_with_name,,,}
+@sourceimage{Learning_Macos_Save_file_with_name,,}
 
 
 @subsubheading Step 2. Compile (with LilyPad)
@@ -34,12 +34,12 @@ Choose a name for your file, for example @file{test.ly}.
 From the same menus, select
 @w{@code{Compile > Typeset}}.
 
-@sourceimage{Learning_Macos_Typeset_menu,,,}
+@sourceimage{Learning_Macos_Typeset_menu,,}
 
 A new window will open showing a progress log of the compilation
 of the file you have just saved.
 
-@sourceimage{Learning_Macos_Compiling_log,,,}
+@sourceimage{Learning_Macos_Compiling_log,,}
 
 
 @subsubheading Step 3. View output
@@ -48,7 +48,7 @@ Once the compilation has finished, a PDF file will be created with
 the same name as the original file and will be automatically
 opened in the default PDF viewer and displayed on your screen.
 
-@sourceimage{Learning_Macos_pdf_output,,,}
+@sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading Other commands
@@ -56,12 +56,12 @@ opened in the default PDF viewer and displayed on your screen.
 To create new files for LilyPond, begin by selecting
 @w{@code{File > New}}
 
-@sourceimage{Learning_Macos_New_menu,,,}
+@sourceimage{Learning_Macos_New_menu,,}
 
 or @w{@code{File > Open}} to open and edit existing files you have
 saved previously.
 
-@sourceimage{Learning_Macos_Open_menu,,,}
+@sourceimage{Learning_Macos_Open_menu,,}
 
 You must save any new edits you make to your file before you
 @w{@code{Compile > Typeset}} and if the PDF file is not displayed
@@ -88,18 +88,18 @@ should you have any problems.}
 
 Double-click the LilyPond icon on your desktop and an example file will open.
 
-@sourceimage{LilyPad,,,}
+@sourceimage{LilyPad,,}
 
 From the menus that appear along the top of the example file,
 select @w{@code{File > Save as}}.  Do not use the @w{@code{File > Save}}
 for the example file as this will not work until you have given it a
 valid LilyPond file name.
 
-@sourceimage{FileSave,,,}
+@sourceimage{FileSave,,}
 
 Choose a name for your file, for example @file{test.ly}.
 
-@sourceimage{SaveAs,,,}
+@sourceimage{SaveAs,,}
 
 
 @subsubheading Step 2. Compile
@@ -111,7 +111,7 @@ first three to start with.
 
 1. Drag-and-drop the file directly onto the LilyPond icon on the desktop.
 
-@sourceimage{DragDrop,,,}
+@sourceimage{DragDrop,,}
 
 Not much will seem to happen, but after a short while, you should
 see two new files on your desktop -- @file{test.log} and
@@ -120,7 +120,7 @@ see two new files on your desktop -- @file{test.log} and
 2. Right-click on the file and from the pop-up context menu and
 choose @w{@code{Generate PDF}}.
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 3. Or simply double-click the @file{test.ly}.
 
@@ -130,7 +130,7 @@ choose @w{@code{Generate PDF}}.
 @file{test.pdf} contains the engraved @file{test.ly}
 file. Double-click it and it should open in your PDF viewer:
 
-@sourceimage{PDFRead,,,}
+@sourceimage{PDFRead,,}
 
 
 @subsubheading Other commands
@@ -140,14 +140,14 @@ within any previously created file or @w{@code{File > Open}} to open and
 edit any files you have saved before.  You can also edit a file by
 right-clicking it and selecting @w{@code{Edit source}}.
 
-@sourceimage{EditFile,,,}
+@sourceimage{EditFile,,}
 
 You must save any edits you make before you try to compile your
 file.  If the PDF file is not created or the output is not what you
 expected, check the log file that will have been created during the
 compilation attempt for any errors.
 
-@sourceimage{BadLog,,,}
+@sourceimage{BadLog,,}
 
 This log file is overwritten each time you compile your LilyPond file.
 
@@ -155,7 +155,7 @@ If you are viewing your file in a PDF viewer, then you must close the PDF
 if you wish to try a new compilation as it may fail to create the new PDF
 while it is still being viewed.
 
-@sourceimage{BadLog2,,,}
+@sourceimage{BadLog2,,}
 
 @end macro
 

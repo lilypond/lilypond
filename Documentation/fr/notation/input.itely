@@ -3103,11 +3103,11 @@ Voici quelques mesures utilisant la police Gonville :
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,15cm,,}
+@sourceimage{Gonville_after,15cm,}
 
 Et ces même mesures avec les glyphes @emph{Feta} de LilyPond :
 
-@sourceimage{Gonville_before,15cm,,}
+@sourceimage{Gonville_before,15cm,}
 
 
 @subsubheading Instructions d'installation

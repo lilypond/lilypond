@@ -1308,9 +1308,9 @@ In particular, don't link to:
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (Klick zum Vergrößern),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1328,9 +1328,9 @@ verwendet PyQt4 für das GUI und ist auf allen gängigen Betriebssystemen verfü
 @imageClickable{screenshot-denemo-small,png,
   (Klick zum Vergrößern),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1389,10 +1389,10 @@ beinhaltet eine klickbare Version von LilyPonds Dokumentation.
 
 @subsubheading Elysium
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://github.com/thSoft/elysium}
 
@@ -1404,10 +1404,10 @@ mit einem mächtigen Toolkit zur einfachen Verwaltung von LilyPond.
 @divClass{column-center-top}
 @subheading Texteditoren
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
@@ -1437,7 +1437,7 @@ sie möglicherweise einen anderen Editor um LilyPond Dateien zu schreiben.
 Nähere Informationen zum Einrichten von Vim finden SIe unter
 @rprogram{Unterstützung von Texteditoren}.
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @subsubheading TeXShop
 @uref{http://pages.uoregon.edu/koch/texshop/}
 

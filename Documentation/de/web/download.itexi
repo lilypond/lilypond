@@ -41,15 +41,15 @@ Sie bitte über unsere @ref{Texteingabe}.}
 @itemize
 
 @item
-@ref{Unix, @sourceimage{logo-linux,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}}
 @ref{Unix, Unix (generische Pakete für GNU/Linux)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -143,12 +143,12 @@ daß ihr LilyPond Editor die korrekte Version verwendet.  Siehe auch @ref{Leicht
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 32bit Systeme.
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 64bit Systeme.
 
@@ -220,7 +220,7 @@ der Rechteinhaber verwendet.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Für MacOS X 10.4--10.14 auf Intel-Prozessoren (for 10.15 siehe unten).
 
@@ -366,7 +366,7 @@ der Rechteinhaber verwendet.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Für Windows 2000, XP, Vista, Windows 7, 8 und 10.
 

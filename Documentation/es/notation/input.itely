@@ -3144,12 +3144,12 @@ fuente Gonville:
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,15cm,,}
+@sourceimage{Gonville_after,15cm,}
 
 Aquí hay unos compases de muestra tipografiados con los glifos Feta
 de LilyPond:
 
-@sourceimage{Gonville_before,15cm,,}
+@sourceimage{Gonville_before,15cm,}
 
 @subsubheading Instrucciones de instalación
 

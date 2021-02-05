@@ -1522,7 +1522,7 @@ plusieurs contextes @code{Voice}, et un contexte @code{Score} peut
 contenir plusieurs contextes @code{Staff}.
 
 @quotation
-@sourceimage{context-example,5cm,,}
+@sourceimage{context-example,5cm,}
 @end quotation
 
 Chaque contexte est chargé de faire appliquer certaines règles de

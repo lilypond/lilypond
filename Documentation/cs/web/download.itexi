@@ -46,16 +46,16 @@ Odkazy na stálou verzi LilyPondu se nacházejí na
 
 @item
 @c TODO: duplicate to avoid underlined refs in HTML?  icky.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}}
 @ref{Unix, Unix (Linux a FreeBSD)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, MacOS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -149,11 +149,11 @@ dokumentaci ke své distribuci věnovanou nastavení správce balíčků.
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 
 @end itemize
@@ -195,27 +195,27 @@ nainstalování nebo aktualizaci této verze.
 @itemize
 
 @item
-@sourceimage{logo-fedora,,,}
+@sourceimage{logo-fedora,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
 Fedora: LilyPond 2.12.2}
 
 @item
-@sourceimage{logo-ubuntu,,,}
+@sourceimage{logo-ubuntu,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
 Ubuntu: LilyPond 2.12.2}
 
 @item
-@sourceimage{logo-slackware,,,}
+@sourceimage{logo-slackware,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
 Slackware: LilyPond 2.12.2}
 
 @item
-@sourceimage{logo-debian,,,}
+@sourceimage{logo-debian,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
 Debian: LilyPond 2.12.2}
 
 @item
-@sourceimage{logo-suse,,,}
+@sourceimage{logo-suse,,}
 @uref{http://download.opensuse.org/repositories/openSUSE:/Factory:/Contrib/standard/,
 openSUSE: LilyPond 2.12.2}
 
@@ -254,7 +254,7 @@ Všechna loga a vyobrazení výrobků ctí autorské právo a obchodní značku.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Pro MacOS X 10.4 nebo vyšší, běží na Intel CPU
 (pokud si nejste jisti, použijte tento).
@@ -395,7 +395,7 @@ Všechna loga a vyobrazení výrobků ctí autorské právo a obchodní značku.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Pro Windows 2000, XP, Vista, Windows 7, 8 a 10.
 

@@ -26,16 +26,16 @@ documentación de estos programas en caso de encontrarse con algún problema.}
 Haga doble clic sobre @command{LilyPond.app}, se abrirá un archivo de
 ejemplo.
 
-@sourceimage{Learning_Macos_welcome,,,}
+@sourceimage{Learning_Macos_welcome,,}
 
 Del menú de la parte superior izquierda de la pantalla, elija
 @w{@code{Archivo > Guardar}}.
 
-@sourceimage{Learning_Macos_Save_menu,,,}
+@sourceimage{Learning_Macos_Save_menu,,}
 
 ELija un nombre para su archivo, por ejemplo @file{prueba.ly}.
 
-@sourceimage{Learning_Macos_Save_file_with_name,,,}
+@sourceimage{Learning_Macos_Save_file_with_name,,}
 
 
 @subsubheading Paso 2. Compilamos (con LilyPad)
@@ -43,12 +43,12 @@ ELija un nombre para su archivo, por ejemplo @file{prueba.ly}.
 Del mismo menú, elija
 @w{@code{Compilar > Procesar}}.
 
-@sourceimage{Learning_Macos_Typeset_menu,,,}
+@sourceimage{Learning_Macos_Typeset_menu,,}
 
 Se abrirá una ventana que muestra un registro del progreso de la
 compilación del archivo que acaba de guardar.
 
-@sourceimage{Learning_Macos_Compiling_log,,,}
+@sourceimage{Learning_Macos_Compiling_log,,}
 
 
 @subsubheading Paso 3. Examinar el resultado
@@ -58,7 +58,7 @@ el mismo nombre que el archivo original y se abrirá
 automáticamente en el visor de documentos PDF predeterminado,
 mostrándose en la pantalla.
 
-@sourceimage{Learning_Macos_pdf_output,,,}
+@sourceimage{Learning_Macos_pdf_output,,}
 
 
 @subsubheading Otras instrucciones
@@ -66,12 +66,12 @@ mostrándose en la pantalla.
 Para crear archivos de LilyPond nuevos, comience seleccionando
 @w{@code{Archivo > Nuevo}}
 
-@sourceimage{Learning_Macos_New_menu,,,}
+@sourceimage{Learning_Macos_New_menu,,}
 
 o bien @w{@code{Archivo > Abrir}} para abrir y editar archivos existentes
 que haya guardado previamente.
 
-@sourceimage{Learning_Macos_Open_menu,,,}
+@sourceimage{Learning_Macos_Open_menu,,}
 
 Debe guardar cualquier e modificación que haya realizado sobre el
 archivo, antes de @w{@code{Compilar > Procesar}} y siempre que el PDF
@@ -99,18 +99,18 @@ documentación de estos programas cuando encuentre algún problema.}
 Haga doble clic sobre el icono de LilyPond del escritorio
 y se abrirá un archivo de ejemplo.
 
-@sourceimage{LilyPad,,,}
+@sourceimage{LilyPad,,}
 
 Del menú de la ventana que contiene el archivo de ejemplo, elija
 @w{@code{Archivo > Guardar como}}. No use @w{@code{Archivo > Guardar}}
 para este archivo de ejemplo porque no funcionará hasta que le aplique
 un nombre de LilyPond válido.
 
-@sourceimage{FileSave,,,}
+@sourceimage{FileSave,,}
 
 Escoja un nombre para el archivo, por ejemplo @file{prueba.ly}.
 
-@sourceimage{SaveAs,,,}
+@sourceimage{SaveAs,,}
 
 
 @subsubheading Step 2. Compilación
@@ -124,7 +124,7 @@ consola de MS-DOS).  Comenzaremos examinando las tres primeras.
 1. Arrastre el archivo y suéltelo directamente encima del icono de
 LilyPond del escritorio.
 
-@sourceimage{DragDrop,,,}
+@sourceimage{DragDrop,,}
 
 No parece que haya ocurrido gran cosa, pero después de unos
 instantes, debe observar que hay dos archivos nuevos en el
@@ -133,7 +133,7 @@ escritorio: @file{prueba.log} y @file{prueba.pdf}.
 2. Pulse sobre el archivo con el botón derecho del ratón y elija
 del menú contextual la opción @w{@code{Generar PDF}}.
 
-@sourceimage{GenPDF,,,}
+@sourceimage{GenPDF,,}
 
 3. O bien, sencillamente haga doble clic sobre el archivo
 @file{prueba.ly}.
@@ -145,7 +145,7 @@ El archivo @file{prueba.pdf} contiene, compuesta tipográficamente,
 la partitura del archivo @file{prueba.ly}.  Haga doble clic sobre
 ella y se debería abrir en el visor de documentos PDF:
 
-@sourceimage{PDFRead,,,}
+@sourceimage{PDFRead,,}
 
 
 @subsubheading Otras instrucciones
@@ -157,14 +157,14 @@ archivo que haya guardado antes.  También puede editar un archivo
 pulsando con el botón derecho y eligiendo la opción
 @w{@code{Editar la fuente}}.
 
-@sourceimage{EditFile,,,}
+@sourceimage{EditFile,,}
 
 Debe guardar cualquier edición que haya realizado sobre el archivo
 antes de compilarlo, y si no se ha creado un PDF, deberá comprobar el
 archivo @command{log} de registro que se ha creado durante el intento
 de compilación, en busca de algún error.
 
-@sourceimage{BadLog,,,}
+@sourceimage{BadLog,,}
 
 Este archivo de registro se sobreescribe cada vez que compilamos un
 archivo de LilyPond.
@@ -174,7 +174,7 @@ cerrar el PDF cuando quiera intentar una compilación nueva, porque
 podría fallar la creación del PDF nuevo mientras se está viendo con
 algún programa.
 
-@sourceimage{BadLog2,,,}
+@sourceimage{BadLog2,,}
 
 @end macro
 

@@ -1265,10 +1265,10 @@ ancora convinto?  Leggi a proposito dell' @ref{Editing facilitato}.
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (clicca per ingrandire),frescobaldi-lilypond-editor,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-windows,,,}
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-windows,,}
+@sourceimage{logo-macosx,,}
 
 @uref{http://www.frescobaldi.org}
 
@@ -1289,9 +1289,9 @@ sistemi operativi (Linux, Mac OS X e Windows).
 @imageClickable{screenshot-denemo-small,png,
   (clicca per ingrandire),screenshot-denemo,png,right}
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{http://denemo.org}
 
@@ -1355,10 +1355,10 @@ cliccabile della documentazione di LilyPond.
 @subheading Plugin IDE
 @subsubheading Elysium
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @uref{https://github.com/thSoft/elysium}
 
@@ -1372,10 +1372,10 @@ facilmente LilyPond.
 @divClass{column-center-top}
 @subheading Editor testuali
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
 
 @subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
@@ -1409,7 +1409,7 @@ LilyPond.
 Puoi trovare maggiori informazioni sulla configurazione di Emacs e Vim in
 @rprogram{LilyPond e gli editor di testo}.
 
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 
 @subsubheading TeXShop
 @uref{http://pages.uoregon.edu/koch/texshop/}

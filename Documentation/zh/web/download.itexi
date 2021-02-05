@@ -46,16 +46,16 @@
 
 @item
 @c ref is duplicated to avoid underlining ref as image.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}}
 @ref{Unix, Unix (Linux 和 FreeBSD)}
 
 @item
-@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
 @ref{MacOS X, Mac OS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, 微软 Windows}
 
 @end itemize
@@ -149,11 +149,11 @@ package manager.
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 
 @end itemize
@@ -204,27 +204,27 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @itemize
 
 @item
-@sourceimage{logo-fedora,,,}
+@sourceimage{logo-fedora,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
 Fedora: LilyPond 2.14.2}
 
 @item
-@sourceimage{logo-ubuntu,,,}
+@sourceimage{logo-ubuntu,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
 Ubuntu: LilyPond 2.14.2}
 
 @item
-@sourceimage{logo-slackware,,,}
+@sourceimage{logo-slackware,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
 Slackware: LilyPond 2.14.2}
 
 @item
-@sourceimage{logo-debian,,,}
+@sourceimage{logo-debian,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
 Debian: LilyPond 2.12.3}
 
 @item
-@sourceimage{logo-suse,,,}
+@sourceimage{logo-suse,,}
 @uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
 openSUSE: LilyPond 2.12.3}
 
@@ -264,7 +264,7 @@ acknowledged.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 适用于 Mac OS X 10.4 或更高版本，在英特尔处理器 (Intel CPU) 上运行。（如果你不确定，请选择这个。）
 
@@ -404,7 +404,7 @@ acknowledged.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 For Windows 2000, XP, Vista, Windows 7, 8, and 10.
 

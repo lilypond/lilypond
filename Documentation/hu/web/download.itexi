@@ -31,16 +31,16 @@ olvasd el a tudnivalókat a @ref{Szöveges bevitel}ről.}
 
 @item
 @c TODO: duplicate to avoid underlined refs in HTML?  icky.
-@ref{Unix, @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}}
+@ref{Unix, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}}
 @ref{Unix, Unix (Linux és FreeBSD)}
 
 @item
-@ref{Mac OS X, @sourceimage{logo-macosx,,,}}
+@ref{Mac OS X, @sourceimage{logo-macosx,,}}
 @ref{Mac OS X, Mac OS X}
 
 @item
-@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, @sourceimage{logo-windows,,}}
 @ref{Windows, Microsoft Windows}
 
 @end itemize
@@ -129,12 +129,12 @@ Ehhez a disztribúció csomagkezelőjének dokumentációja nyújt segítséget.
 @itemize
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxNormal
 (ha bizonytalan vagy afelől, hogy melyiket töltsd le, ezt válaszd)
 
 @item
-@sourceimage{logo-linux,,,}
+@sourceimage{logo-linux,,}
 @downloadStableLinuxBig
 
 @end itemize
@@ -168,27 +168,27 @@ Ezeket a csomagokat a disztribúciód csomagkezelőjével tudod telepíteni.
 @itemize
 
 @item
-@sourceimage{logo-fedora,,,}
+@sourceimage{logo-fedora,,}
 @uref{https://admin.fedoraproject.org/pkgdb/packages/name/lilypond,
 Fedora: LilyPond 2.12.0}
 
 @item
-@sourceimage{logo-ubuntu,,,}
+@sourceimage{logo-ubuntu,,}
 @uref{https://launchpad.net/ubuntu/+source/lilypond,
 Ubuntu: LilyPond 2.12.1}
 
 @item
-@sourceimage{logo-slackware,,,}
+@sourceimage{logo-slackware,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
 Slackware: LilyPond 2.12.1}
 
 @item
-@sourceimage{logo-debian,,,}
+@sourceimage{logo-debian,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
 Debian: LilyPond 2.10.33}
 
 @item
-@sourceimage{logo-suse,,,}
+@sourceimage{logo-suse,,}
 @uref{http://opensuse.org/?fixme=urg-no-lilypond-package-page,
 openSUSE: LilyPond 2.10.33}
 
@@ -223,7 +223,7 @@ Minden logó és termékábrázolás szerzői joggal védett.
 @itemize
 
 @item
-@sourceimage{logo-macosx,,,}
+@sourceimage{logo-macosx,,}
 @downloadStableDarwinNormal
 Intel processzorokra (ha bizonytalan vagy afelől, hogy melyiket töltsd le, ezt válaszd)
 
@@ -283,7 +283,7 @@ Minden logó és termékábrázolás szerzői joggal védett.
 @itemize
 
 @item
-@sourceimage{logo-windows,,,}
+@sourceimage{logo-windows,,}
 @downloadStableWindows
 Támogatott verziók: Windows 2000, XP, Vista, Windows 7, 8 és 10.
 
