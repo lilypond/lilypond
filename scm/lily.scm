@@ -168,6 +168,13 @@ session has started."
         (for-each
          (lambda (p) (variable-set! (cadr p) (cddr p)))
          lilypond-declarations)
+        ;; For GUILE 2.x, restore the modules recorded during (session-init)
+        ;; and remove any additional modules so that they can be collected.
+        (cond-expand
+         (guile-2
+          (set-module-submodules! root-module
+                                  (alist->hash-table session-modules)))
+         (else))
         (run-hook after-session-hook))))
 
 (define lilypond-interfaces #f)
@@ -977,13 +984,6 @@ PIDs or the number of the process."
          (for-each (lambda (s)
                      (ly:set-option (car s) (cdr s)))
                    all-settings)
-         ;; For GUILE 2.x, restore the modules recorded during (session-init)
-         ;; and remove any additional modules so that they can be collected.
-         (cond-expand
-          (guile-2
-           (set-module-submodules! root-module
-                                   (alist->hash-table session-modules)))
-          (else))
          (ly:reset-all-fonts)
 
          (if debug-lifetimes-limit
