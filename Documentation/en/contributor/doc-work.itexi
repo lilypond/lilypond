@@ -349,10 +349,7 @@ this out of the node name and menu.
 @@subsection Foo: Bar
 @end example
 
-Backslashes must not be used in node names or section headings.
-If the heading text should include a backslash simply leave this
-out of the node name and menu and replace it with @code{@@bs@{@}}
-in the heading text.
+Backslashes must not be used in node names.
 
 @example
 @@menu
@@ -360,14 +357,7 @@ in the heading text.
 @@end menu
 
 @@node The set command
-@@subsection The @@code@{@@bs@{@}set@} command
-@end example
-
-References to such a node may use the third argument of the
-@code{@@ref} command to display the texually correct heading.
-
-@example
-@@ref@{The set command,,The @@code@{@@bs@{@}set command@}
+@@subsection The @@code@{\set@} command
 @end example
 
 With the exception of @code{@@} commands, @code{\} commands and
@@ -795,10 +785,7 @@ Consequently, if you want to use a @code{@@samp@{@dots{}@}} block
 which contains backticks or apostrophes, you should instead use
 @q{@code{@@q@{@@code@{@dots{}@}@}}} (or
 @q{@code{@@q@{@@w@{@@code@{@dots{}@}@}@}}} if the block also
-contains spaces).  Note that backslashes within
-@code{@@q@{@dots{}@}} blocks must be entered as @samp{@@bs@{@}},
-so the example above would be coded as
-@q{@code{@@q@{@@w@{@@code@{@@bs@{@}relative c''@}@}@}}}.
+contains spaces).
 
 @item
 @code{@@command@{@dots{}@}} --- Use when referring to command-line
@@ -951,13 +938,6 @@ row, wrap one of them in a @code{@@w@{@dots{}@}} (eg.
 a left curly bracket (@{), or a right curly bracket (@}).
 
 @item
-@code{@@bs@{@}} --- Create a backslash within a
-@code{@@q@{@dots{}@}}, @code{@@qq@{@dots{}@}}, or
-@code{@@warning@{@dots{}@}} block.  This is a custom LilyPond
-macro, not a builtin @@-command in Texinfo.  Texinfo would also
-allow @samp{\\}, but this breaks the PDF output.
-
-@item
 @code{@@tie@{@}} --- Create a @emph{variable-width} non-breaking
 space in the text (use @w{@samp{@@w@{ @}}} for a single
 @emph{fixed-width} non-breaking space).  Variables or numbers
@@ -980,13 +960,11 @@ Only use once per subsection per term.
 
 @item
 @code{@@q@{@dots{}@}} --- Single quotes.  Used for
-@quoteleft{}vague@quoteright{} terms.  To get a backslash
-(\), you must use @samp{@@bs@{@}}.
+@quoteleft{}vague@quoteright{} terms.
 
 @item
 @code{@@qq@{@dots{}@}} --- Double quotes.  Used for actual quotes
-(@qq{he said}) or for introducing special input modes.  To get a
-backslash (\), you must use @samp{@@bs@{@}}.
+(@qq{he said}) or for introducing special input modes.
 
 @item
 @code{@@var@{@dots{}@}} --- Use for metasyntactic variables (such
@@ -1012,8 +990,7 @@ line (to prevent an ugly line break in PDF); use
 
 @item
 @code{@@warning@{@dots{}@}} --- produces a @qq{Note:@tie{}} box.
-Use for important messages.  To get a backslash (\), you must use
-@samp{@@bs@{@}}.
+Use for important messages.
 @end itemize
 
 
