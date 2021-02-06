@@ -154,7 +154,7 @@ y títulos se estudian en
 Casi todas las variables de @code{\paper} funcionan solamente
 dentro de un bloque @code{\paper}.  Las pocas que funcionan
 también en un bloque @code{\layout} están relacionadas en @ref{El
-bloque layout,,El bloque @code{\layout}}.
+bloque layout}.
 
 Excepto cuando se especifica lo contrario, todas las variables de
 @code{\paper} que corresponden a distancias sobre la página se
@@ -197,7 +197,7 @@ Scheme.  El equivalente de Scheme del ejemplo anterior es:
 Referencia de la notación:
 @ref{Tamaño del papel y escalado automático},
 @ref{Títulos encabezamientos y pies de página personalizados},
-@ref{El bloque layout,,El bloque @code{\layout}}.
+@ref{El bloque layout}.
 
 Archivos instalados:
 @file{ly/paper-defaults-init.ly}.
@@ -342,13 +342,11 @@ en @ref{Fijar el tamaño del papel}.
 
 Las dimensiones verticales afectadas por el escalado automático
 son @code{top-margin} y @code{bottom-margin} (véase @ref{Variables
-de espaciado de paper verticales fijas,,Variables de espaciado de
-@code{\paper} verticales fijas}).  Las dimensiones
+de espaciado de paper verticales fijas}).  Las dimensiones
 horizontales afectadas por el escalado automático son
 @code{left-margin}, @code{right-margin}, @code{inner-margin},
 @code{outer-margin}, @code{binding-offset}, @code{indent} y
 @code{short-indent} (véase @ref{Variables de espaciado de paper
-horizontales,,Variables de espaciado de @code{\paper}
 horizontales}).
 
 Los valores predeterminados para estas dimensiones están fijados
@@ -1264,16 +1262,15 @@ del bloque @code{paper}, son:
 
 @item
 @code{line-width}, @code{ragged-right} y @code{ragged-last} (véase
-@ref{Variables de paper para la anchura y los márgenes,,Variables
-de @code{\paper} para la anchura y los márgenes})
+@ref{Variables de paper para la anchura y los márgenes})
 
 @item
 @code{indent} y @code{short-indent}
-(véase @ref{Variables de paper para desplazamientos y sangrados,,Variables de @code{\paper} para desplazamientos y sangrados})
+(véase @ref{Variables de paper para desplazamientos y sangrados})
 
 @item
 @code{system-count}
-(véase @ref{Variables de paper para los saltos de línea,,Variables de @code{\paper} para los saltos de línea})
+(véase @ref{Variables de paper para los saltos de línea})
 
 @end itemize
 
@@ -1773,7 +1770,7 @@ justifican verticalmente.  Cuando el valor de
 forma predeterminada, se permite una separación al final de la
 última página (o la última página de cada uno de las partes de
 libro @code{\bookpart}).  Véase
-@ref{Variables de espaciado de paper verticales fijas,,Variables de espaciado de @code{\paper} verticales fijas}.
+@ref{Variables de espaciado de paper verticales fijas}.
 
 Los saltos de página se calculan por medio de la función
 @code{page-breaking}.  LilyPond ofrece varios algoritmos para el
@@ -2128,7 +2125,7 @@ que no son pautas dentro de los sistemas individuales.  El
 espaciado vertical entre distintos sistemas, partituras, marcados
 y márgenes se controla mediante variables de @code{\paper} que se
 estudian en
-@ref{Variables de espaciado de paper verticales flexibles,,Variables de espaciado de @code{\paper} verticales flexibles}.
+@ref{Variables de espaciado de paper verticales flexibles}.
 
 @menu
 * Propiedades de espaciado dentro de los sistemas::
@@ -2264,7 +2261,7 @@ Cada una de las propiedades de grob del espaciado vertical
 (excepto @code{staff-affinity}) usa la misma estructura de lista-A
 que las variables de espaciado del bloque @code{\paper} que se han
 estudiado en
-@ref{Variables de espaciado de paper verticales flexibles,,Variables de espaciado de @code{\paper} verticales flexibles}.
+@ref{Variables de espaciado de paper verticales flexibles}.
 En @ref{Modificación de las listas-A} se estudian métodos
 específicos para la modificación de las listas-A.  Las propiedades
 de los grobs deben ajustarse con un @code{\override} dentro de un
@@ -2423,7 +2420,7 @@ de espaciado para dicha pauta.
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de espaciado de paper verticales flexibles,,Variables de espaciado de @code{\paper} verticales flexibles},
+@ref{Variables de espaciado de paper verticales flexibles},
 @ref{Modificación de las listas-A}.
 
 Archivos de inicio:

@@ -137,7 +137,7 @@ footers, and titles are discussed in
 
 Most @code{\paper} variables will only work in a @code{\paper}
 block.  The few that will also work in a @code{\layout} block are
-listed in @ref{The layout block,,The @code{\layout} block}.
+listed in @ref{The layout block}.
 
 Except when specified otherwise, all @code{\paper} variables that
 correspond to distances on the page are measured in millimeters,
@@ -179,7 +179,7 @@ The Scheme equivalent of the above example is:
 Notation Reference:
 @ref{Paper size and automatic scaling},
 @ref{Custom titles headers and footers},
-@ref{The layout block,,The @code{\layout} block}.
+@ref{The layout block}.
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
@@ -312,12 +312,12 @@ are described in @ref{Setting the paper size}.
 
 The vertical dimensions affected by automatic scaling are
 @code{top-margin} and @code{bottom-margin} (see
-@ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{\paper} variables}).
+@ref{Fixed vertical spacing paper variables}).
 The horizontal
 dimensions affected by automatic scaling are @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent}, and @code{short-indent} (see
-@ref{Horizontal spacing paper variables,,Horizontal spacing @code{\paper} variables}).
+@ref{Horizontal spacing paper variables}).
 
 The default values for these dimensions are set in
 @file{ly/paper-defaults-init.ly}, using internal variables named
@@ -329,8 +329,8 @@ These are the values that result at the default paper size
 
 @morerefs
 Notation Reference:
-@ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{\paper} variables},
-@ref{Horizontal spacing paper variables,,Horizontal spacing @code{\paper} variables}.
+@ref{Fixed vertical spacing paper variables},
+@ref{Horizontal spacing paper variables}.
 
 Installed Files:
 @file{ly/paper-defaults-init.ly},
@@ -1163,15 +1163,15 @@ block, with default values taken from the @code{\paper} block are:
 
 @item
 @code{line-width}, @code{ragged-right} and @code{ragged-last}
-(see @ref{paper variables for widths and margins,,@code{\paper} variables for widths and margins})
+(see @ref{paper variables for widths and margins})
 
 @item
 @code{indent} and @code{short-indent}
-(see @ref{paper variables for shifts and indents,,@code{\paper} variables for shifts and indents})
+(see @ref{paper variables for shifts and indents})
 
 @item
 @code{system-count}
-(see @ref{paper variables for line breaking,,@code{\paper} variables for line breaking})
+(see @ref{paper variables for line breaking})
 
 @end itemize
 
@@ -1634,7 +1634,7 @@ be justified vertically.  When @code{ragged-last-bottom} is set
 to @code{#t}, as it is by default, empty space is allowed at the
 bottom of the final page (or the final page in each
 @code{\bookpart}).  See
-@ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{\paper} variables}.
+@ref{Fixed vertical spacing paper variables}.
 
 Page breaks are computed by the @code{page-breaking} function.
 LilyPond provides several algorithms for computing page breaks,
@@ -1957,7 +1957,7 @@ control the vertical spacing of staves and non-staff lines within
 individual systems.  The vertical spacing between separate
 systems, scores, markups, and margins is controlled by
 @code{\paper} variables, which are discussed in
-@ref{Flexible vertical spacing paper variables,,Flexible vertical spacing @code{\paper} variables}.
+@ref{Flexible vertical spacing paper variables}.
 
 @menu
 * Within-system spacing properties::
@@ -2087,7 +2087,7 @@ labelContext =
 Each of the vertical spacing grob properties (except
 @code{staff-affinity}) uses the same alist structure as the
 @code{\paper} spacing variables discussed in
-@ref{Flexible vertical spacing paper variables,,Flexible vertical spacing @code{\paper} variables}.
+@ref{Flexible vertical spacing paper variables}.
 Specific methods
 for modifying alists are discussed in @ref{Modifying alists}.
 Grob properties should be adjusted with an @code{\override} inside
@@ -2235,7 +2235,7 @@ spacing settings for that staff.
 
 @morerefs
 Notation Reference:
-@ref{Flexible vertical spacing paper variables,,Flexible vertical spacing @code{\paper} variables},
+@ref{Flexible vertical spacing paper variables},
 @ref{Modifying alists}.
 
 Installed Files:

@@ -1236,7 +1236,7 @@ no se centran para un grupo de pentagramas a no ser que se
 aumenten los valores del sangrado, @code{indent}, y del sangrado
 corto, @code{short-indent}.  Para ver más detalles sobre estos
 ajustes, consulte
-@ref{Variables de paper para desplazamientos y sangrados,,Variables de @code{\paper} para desplazamientos y sangrados}.
+@ref{Variables de paper para desplazamientos y sangrados}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1316,7 +1316,7 @@ setFlute = {
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de paper para desplazamientos y sangrados,,Variables de @code{\paper} para desplazamientos y sangrados},
+@ref{Variables de paper para desplazamientos y sangrados},
 @ref{Modificar los complementos (plug-ins) de contexto}.
 
 Fragmentos de código:

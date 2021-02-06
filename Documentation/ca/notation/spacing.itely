@@ -153,7 +153,7 @@ s'estudien a
 Gairebé totes les variables de @code{\paper} funcionen sols dins
 d'un bloc @code{\paper}.  Les poques que funcionen també a un bloc
 @code{\layout} s'indiquen a
-@ref{El bloc layout,,El bloc @code{\layout}}.
+@ref{El bloc layout}.
 
 Excepte quan s'especifica el contrari, totes les variables de
 @code{\paper} que corresponen a distàncies sobre la pàgina es
@@ -196,7 +196,7 @@ l'Scheme.  L'equivalent de l'Scheme de l'exemple anterior és:
 Referència de la notació:
 @ref{Mida del paper i escalat automàtic},
 @ref{Títols encapçalaments i peus de pàgina personalitzats},
-@ref{El bloc layout,,El bloc @code{\layout}}.
+@ref{El bloc layout}.
 
 Fitxers instal·lats:
 @file{ly/paper-defaults-init.ly}.
@@ -340,13 +340,11 @@ a @ref{Establiment de la mida del paper}.
 
 Les dimensions verticals afectades per l'escalat automàtic són
 @code{top-margin} i @code{bottom-margin} (vegeu @ref{Variables fixes
-d'espaiat vertical de paper,,Variables fixes d'espaiat vertical de
-@code{\paper}}).  Les dimensions horitzontals
+d'espaiat vertical de paper}).  Les dimensions horitzontals
 afectades per l'escalat automàtic són @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent} i @code{short-indent} (vegeu
-@ref{Variables d'espaiat horitzontal de paper,,Variables
-d'espaiat horitzontal de @code{\paper}}).
+@ref{Variables d'espaiat horitzontal de paper}).
 
 Els valors predeterminats per a aquestes dimensions estan fixats
 al fitxer @file{ly/paper-defaults-init.ly}, usant variables
@@ -1242,16 +1240,15 @@ del bloc @code{paper}, són:
 
 @item
 @code{line-width}, @code{ragged-right} i @code{ragged-last} (vegeu
-f@ref{Variables de paper per a l'amplada i els marges,,Variables
-de @code{\paper} per a l'amplada i els marges})
+@ref{Variables de paper per a l'amplada i els marges})
 
 @item
 @code{indent} i @code{short-indent}
-(vegeu @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{\paper} per a desplaçaments i sagnats})
+(vegeu @ref{Variables de paper per a desplaçaments i sagnats})
 
 @item
 @code{system-count}
-(vegeu @ref{Variables de paper per als salts de línia,,Variables de @code{\paper} per als salts de línia})
+(vegeu @ref{Variables de paper per als salts de línia})
 
 @end itemize
 
@@ -1739,7 +1736,7 @@ sistemes no es justifiquen verticalment.  Quan el valor de
 forma predeterminada, es permet una separació al final de l'última
 pàgina (o l'última pàgina de cada una de les parts de llibre
 @code{\bookpart}).  Vegeu
-@ref{Variables fixes d'espaiat vertical de paper,,Variables fixes d'espaiat vertical de @code{\paper}}.
+@ref{Variables fixes d'espaiat vertical de paper}.
 
 Els salts de pàgina es calculen per mitjà de la funció
 @code{page-breaking}.  El LilyPond ofereix algoritmes per al
@@ -2086,7 +2083,7 @@ sols controlen l'espaiat vertical de les pautes i les línies que
 no són pautes dins dels sistemes individuals.  L'espaiat vertical
 entre diferents sistemes, partitures, marcatges i marges es
 controla mitjançant variables de @code{\paper} que s'estudien a
-@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{\paper}}.
+@ref{Variables flexibles d'espaiat vertical de paper}.
 
 @menu
 * Propietats d'espaiat dins dels sistemes::
@@ -2220,7 +2217,7 @@ labelContext =
 Cada una de les propietats de grob de l'espaiat vertical (excepte
 @code{staff-affinity}) usa la mateixa estructura de llita-A que
 les variables d'espaiat del bloc @code{\paper} que s'han estudiat a
-@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{\paper}}.
+@ref{Variables flexibles d'espaiat vertical de paper}.
 A @ref{Modificació de les llistes-A} s'estudien mètodes específics
 per a la modificació de les llistes-A.  Les propietats dels grobs
 s'han d'ajustar amb un @code{\override} dins d'un bloc
@@ -2374,7 +2371,7 @@ d'espaiat per a aquesta pauta.
 
 @morerefs
 Referencia de la notació:
-@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{\paper}}.
+@ref{Variables flexibles d'espaiat vertical de paper}.
 @ref{Modificació de les llistes-A}.
 
 Fitxers d'inici:

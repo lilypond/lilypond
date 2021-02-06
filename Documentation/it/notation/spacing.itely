@@ -329,11 +329,11 @@ descritte in @ref{Impostare il formato carta}.
 
 Le dimensioni verticali interessate dal ridimensionamento automatico
 sono @code{top-margin} e @code{bottom-margin} (vedi
-@ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{\paper}}).
+@ref{Fixed vertical spacing paper variables}).
 Le dimensioni orizzontali interessate dal ridimensionamento automatico
 sono @code{left-margin}, @code{right-margin}, @code{inner-margin},
 @code{outer-margin}, @code{binding-offset}, @code{indent} e @code{short-indent} (vedi
-@ref{Horizontal spacing paper variables,,Variabili della spaziatura orizzontale di @code{\paper}}).
+@ref{Horizontal spacing paper variables}).
 
 I valori predefiniti di queste dimensioni sono impostati in
 @file{ly/paper-defaults-init.ly} e salvati in variabili interne
@@ -344,8 +344,8 @@ Per riferimento, nel formato @code{a4} il valore di @code{paper-height} è
 
 @morerefs
 Guida alla notazione:
-@ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{\paper}},
-@ref{Horizontal spacing paper variables,,Variabili della spaziatura orizzontale di @code{\paper}}.
+@ref{Fixed vertical spacing paper variables},
+@ref{Horizontal spacing paper variables}.
 
 File installati:
 @file{ly/paper-defaults-init.ly},
@@ -1181,15 +1181,15 @@ con valori predefiniti presi dal blocco @code{\paper}, sono:
 
 @item
 @code{line-width}, @code{ragged-right} e @code{ragged-last}
-(vedi @ref{Variabili paper per larghezze e margini,,variabili @code{\paper} per larghezze e margini})
+(vedi @ref{Variabili paper per larghezze e margini})
 
 @item
 @code{indent} e @code{short-indent}
-(vedi @ref{Variabili paper per spostamenti e indentazioni,,Variabili @code{\paper} per spostamenti e indentazioni})
+(vedi @ref{Variabili paper per spostamenti e indentazioni})
 
 @item
 @code{system-count}
-(vedi @ref{Variabili di paper per l'interruzione di linea,,variabili di @code{\paper} per l'interruzione di linea})
+(vedi @ref{Variabili di paper per l'interruzione di linea})
 
 @end itemize
 
@@ -1660,7 +1660,7 @@ sistemi non saranno giustificati verticalmente.  Quando
 predefinito), è permesso dello spazio vuoto in fondo all'ultima
 pagina (o in fondo all'ultima pagina di ciascun
 @code{\bookpart}).  Vedi
-@ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{\paper}}.
+@ref{Fixed vertical spacing paper variables}.
 
 Le interruzioni di pagina sono calcolate dalla funzione @code{page-breaking}.
 LilyPond fornisce vari algoritmi per calcolare le interruzioni di pagina, tra
@@ -1992,7 +1992,7 @@ soltanto la spaziatura verticale dei righi e delle linee (che non sono
 righi) all'interno di singoli sistemi.  La spaziatura verticale tra
 sistemi, partiture, testi e margini separati è regolata dalle variabili
 @code{\paper} trattate in
-@ref{Flexible vertical spacing paper variables,,Variabili @code{\paper} della spaziatura verticale flessibile}.
+@ref{Flexible vertical spacing paper variables}.
 
 @menu
 * Proprietà della spaziatura dentro un sistema::
@@ -2125,7 +2125,7 @@ Tutte le proprietà di spaziatura verticale del grob (eccetto
 @code{staff-affinity}) usano la stessa struttura della lista
 associativa usata dalle variabili di spaziatura di @code{\paper}
 trattate in
-@ref{Flexible vertical spacing paper variables,,Variabili @code{\paper} della spaziatura verticale flessibile}.
+@ref{Flexible vertical spacing paper variables}.
 Metodi specifici per modificare queste liste sono spiegati in
 @ref{Modifica delle liste associative}.  Le proprietà dei grob devono essere
 modificate con un comando @code{\override} dentro un blocco
@@ -2272,7 +2272,7 @@ spaziatura per quel rigo.
 
 @morerefs
 Guida alla notazione:
-@ref{Flexible vertical spacing paper variables,,Variabili @code{\paper} della spaziatura verticale flessibile},
+@ref{Flexible vertical spacing paper variables},
 @ref{Modifica delle liste associative}.
 
 File installati:

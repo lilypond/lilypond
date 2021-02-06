@@ -955,7 +955,7 @@ valors del sagnat, @code{indent}, i del sagnat curt,
 ajustaments, consulteu
 @ref{Variables de paper per a desplaçaments i sagnats}.
 @c Quan es tradueixi fer servir
-@c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{\paper} per a desplaçaments i sagnats}.
+@c @ref{Variables de paper per a desplaçaments i sagnats}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1040,7 +1040,7 @@ Referència de la notació:
 @ref{Variables de paper per a desplaçaments i sagnats},
 @ref{Modificació dels connectors (plug-ins) de context}.
 @c Quan es tradueixi fer servir
-@c @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{\paper} per a desplaçaments i sagnats}.
+@c @ref{Variables de paper per a desplaçaments i sagnats}.
 
 Fragments de codi:
 @rlsr{Staff notation}.

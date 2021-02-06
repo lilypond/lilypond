@@ -387,7 +387,7 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 最上位に同じタイプの出力定義が複数ある場合は組み合わされますが、@c
 衝突した場合は後ろの方にある出力定義が優先されます。@c
 出力定義が @code{\layout} ブロックにどのような影響を与えるかの詳細は
-@ref{layout ブロック,,@code{\layout} ブロック} を参照してください。
+@ref{layout ブロック} を参照してください。
 
 
 @item
@@ -571,7 +571,7 @@ foo = @{ c4 d e d @}
 
 記譜法リファレンス:
 @ref{Titles explained},
-@ref{layout ブロック,,@code{\layout} ブロック}
+@ref{layout ブロック}
 
 
 @node タイトルとヘッダ
@@ -2846,7 +2846,7 @@ Unicode U+03BE の文字を入力します
 
 @morerefs
 記譜法リファレンス:
-@ref{layout ブロック,,@code{\layout} ブロック}
+@ref{layout ブロック}
 
 アプリケーション使用方法:
 @rprogram{Command-line usage}

@@ -1146,7 +1146,7 @@ Notation Reference:
 @ref{Bottom-level contexts - voices},
 @ref{The set command},
 @ref{The override command},
-@ref{The layout block,,The @code{\layout} block}.
+@ref{The layout block}.
 
 
 @node Defining new contexts

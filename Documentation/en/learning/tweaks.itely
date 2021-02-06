@@ -560,7 +560,7 @@ The @code{\once} prefix works fine to emphasize single notes or
 complete chords, but it cannot be used to emphasize a single note
 @emph{within} a chord.  Earlier we have seen how @code{\tweak} can
 be used to do this, see
-@ref{The tweak command,,The @code{\tweak} command}.  But
+@ref{The tweak command}.  But
 @code{\tweak} cannot be used with a function; that's where
 @code{\single} comes in:
 
@@ -587,7 +587,7 @@ chord.  However, @code{\single} does not convert @code{\revert},
 
 @morerefs
 Learning Manual:
-@ref{The tweak command,,The @code{\tweak} command},
+@ref{The tweak command},
 @ref{Using variables for layout adjustments}.
 
 
@@ -3986,7 +3986,7 @@ appears to cross voices:
 
 @morerefs
 Learning Manual:
-@ref{The once prefix,,The @code{\once} prefix},
+@ref{The once prefix},
 @ref{The stencil property}.
 
 

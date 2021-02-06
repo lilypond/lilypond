@@ -941,7 +941,7 @@ usare @code{\center-column}:
 Tuttavia, se i nomi degli strumenti sono lunghi, potranno essere centrati
 solo aumentando i valori di @code{indent} e @code{short-indent}.
 Ulteriori dettagli su queste impostazioni si trovano in
-@ref{Variabili paper per spostamenti e indentazioni,,Variabili @code{\paper} per spostamenti e indentazioni}.
+@ref{Variabili paper per spostamenti e indentazioni}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1017,7 +1017,7 @@ setFlute = {
 
 @morerefs
 Guida alla notazione:
-@ref{Variabili paper per spostamenti e indentazioni,,Variabili @code{\paper} per spostamenti e indentazioni},
+@ref{Variabili paper per spostamenti e indentazioni},
 @ref{Modifica dei componenti aggiuntivi di un contesto}.
 
 Frammenti:

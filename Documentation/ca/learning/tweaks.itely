@@ -598,7 +598,7 @@ El @code{\once} previ funciona perfectament per emfatitzar notes
 úniques o acords complets, però no es pot usar per emfatitzar una
 sola nota @emph{dins} d'un acord.  Anteriorment vam veure com es
 pot usar l'ordre @code{\tweak} per fer-lo, vegeu
-@ref{L'ordre tweak,,L'ordre @code{\tweak}}.  Però
+@ref{L'ordre tweak}.  Però
 @code{\tweak} no es pot fer servir amb una funció; aquí és on
 entra l'ordre @code{\single}:
 
@@ -628,7 +628,7 @@ individuals d'un acord. Malgrat això, @code{\single} no converteix
 
 @morerefs
 Manual de aprenentatge:
-@ref{L'ordre tweak,,L'ordre @code{\tweak}},
+@ref{L'ordre tweak},
 @ref{Ús de variables per als ajustaments de disposició}.
 
 @node Manual de referència de funcionament intern
@@ -4177,7 +4177,7 @@ les veus:
 
 @morerefs
 Manual de aprenentatge:
-@ref{El prefix once,,El prefix @code{\once}},
+@ref{El prefix once},
 @ref{La propietat stencil (segell)}.
 
 

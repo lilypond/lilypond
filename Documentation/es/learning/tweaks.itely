@@ -602,8 +602,7 @@ El prefijo @code{\once} funciona perfectamente para enfatizar
 notas únicas o acordes completos, pero no se puede usar para
 enfatizar una sola nota @emph{dentro} de un acorde.  Anteriormente
 vimos cómo se puede usar la instrucción @code{\tweak} para
-hacerlo, véase @ref{La instrucción tweak,,La instrucción
-@code{\tweak}}.  Pero @code{\tweak} no se puede usar con una
+hacerlo, véase @ref{La instrucción tweak}.  Pero @code{\tweak} no se puede usar con una
 función; ahí es donde entra la instrucción @code{\single}:
 
 @lilypond[quote,verbatim]
@@ -632,7 +631,7 @@ de @code{\tweak}.
 
 @morerefs
 Manual de aprendizaje:
-@ref{La instrucción tweak,,La instrucción @code{\tweak}},
+@ref{La instrucción tweak},
 @ref{Uso de variables para los ajustes de disposición}.
 
 
@@ -4248,7 +4247,7 @@ voz, da la impresión de que la ligadura se cruza entre las voces:
 
 @morerefs
 Manual de aprendizaje
-@ref{El prefijo once,,El prefijo @code{\once}},
+@ref{El prefijo once},
 @ref{La propiedad stencil (sello)}.
 
 

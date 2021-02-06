@@ -149,7 +149,7 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 
 たいていの @code{\paper} 変数は @code{\paper} ブロック内でのみ機能します。@c
 @code{\layout} ブロック内でも機能するいくつかの @code{\paper} 変数を@c
-@ref{layout ブロック,,@code{\layout} ブロック} でリスト アップしています。
+@ref{layout ブロック} でリスト アップしています。
 
 ページの長さに関係する @code{\paper} 変数の単位は、@c
 ユーザによって他の単位が指定されていなければ、@c
@@ -191,7 +191,7 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 記譜法リファレンス:
 @ref{紙面サイズと自動拡縮},
 @ref{カスタム タイトル、ヘッダ、フッタ},
-@ref{layout ブロック,,@code{\layout} ブロック}
+@ref{layout ブロック}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
@@ -326,11 +326,11 @@ Scheme 関数
 
 自動拡縮によって影響を受ける垂直方向の長さは
 @code{top-margin} と @code{bottom-margin} です
-(@ref{固定された垂直方向の paper スペース変数,,固定された垂直方向の @code{\paper} スペース変数} を参照してください)。@c
+(@ref{固定された垂直方向の paper スペース変数} を参照してください)。@c
 自動拡縮によって影響を受ける水平方向の長さは
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent}, それに @code{short-indent} です
-(@ref{水平方向の paper スペース変数,,水平方向の @code{\paper} スペース変数} を参照してください)。
+(@ref{水平方向の paper スペース変数} を参照してください)。
 
 これらの長さに対するデフォルト値は
 @code{top-margin-default}, @code{bottom-margin-default} 等の内部変数を@c
@@ -342,8 +342,8 @@ Scheme 関数
 
 @morerefs
 記譜法リファレンス:
-@ref{固定された垂直方向の paper スペース変数,,固定された垂直方向の @code{\paper} スペース変数},
-@ref{水平方向の paper スペース変数,,水平方向の @code{\paper} スペース変数}
+@ref{固定された垂直方向の paper スペース変数},
+@ref{水平方向の paper スペース変数}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly},
@@ -1170,15 +1170,15 @@ score で使用すべきページ数です。@c
 
 @item
 @code{line-width}, @code{ragged-right} それに @code{ragged-last}
-(@ref{幅とマージンの paper 変数,,幅とマージンの @code{\paper} 変数} を参照してください)
+(@ref{幅とマージンの paper 変数} を参照してください)
 
 @item
 @code{indent} と @code{short-indent}
-(@ref{シフトとインデントのための paper 変数,,シフトとインデントのための @code{\paper} 変数} を参照してください)
+(@ref{シフトとインデントのための paper 変数} を参照してください)
 
 @item
 @code{system-count}
-(@ref{改行のための paper 変数,,改行のための @code{\paper} 変数} を参照してください)
+(@ref{改行のための paper 変数} を参照してください)
 
 @end itemize
 
@@ -1577,7 +1577,7 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 
 @morerefs
 記譜法リファレンス:
-@ref{改行のための paper 変数,,改行のための @code{\paper} 変数},
+@ref{改行のための paper 変数},
 @ref{The layout block}
 
 コード断片集:
@@ -1646,7 +1646,7 @@ score や最上位レベルのマークアップの間に挿入することが�
 (これがデフォルトです)、@c
 最後のページ (あるいは各 @code{\bookpart} の最後のページ) の下部に@c
 空きスペースが挿入することが許可されます。@c
-@ref{固定された垂直方向の paper スペース変数,,固定された垂直方向の @code{\paper} スペース変数} を参照してください。
+@ref{固定された垂直方向の paper スペース変数} を参照してください。
 
 改ページは @code{page-breaking} 関数によって算出されます。@c
 LilyPond は改ページを算出するためにいくつかのアルゴリズムを提供します:
@@ -1706,7 +1706,7 @@ LilyPond は改ページを算出するためにいくつかのアルゴリズ�
 
 @morerefs
 記譜法リファレンス:
-@ref{改行のための paper 変数,,改行のための @code{\paper} 変数}
+@ref{改行のための paper 変数}
 
 コード断片集:
 @rlsr{Spacing}
@@ -1986,7 +1986,7 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 仕組みだけを説明しているということに注意してください。@c
 システム、score、マークアップ、それにマージン間の垂直方向のスペースは、@c
 @code{\paper} 変数によって制御されます
--- @ref{可変な垂直方向の paper スペース変数,,可変な垂直方向の @code{\paper} スペース変数} で説明しています。
+-- @ref{可変な垂直方向の paper スペース変数} で説明しています。
 
 @menu
 * システム内部のスペース プロパティ::
@@ -2119,7 +2119,7 @@ labelContext =
 
 垂直方向のスペースのグラフィカル オブジェクト プロパティは
 (@code{staff-affinity} を除いて)、@c
-@ref{可変な垂直方向の paper スペース変数,,可変な垂直方向の @code{\paper} スペース変数} で説明した
+@ref{可変な垂直方向の paper スペース変数} で説明した
 @code{\paper} スペース変数と同じ連想配列構造を使用します。
 連想配列を変更する方法は、@ref{Modifying alists} で説明します。@c
 グラフィカル オブジェクト プロパティの調節は、@c
@@ -2270,7 +2270,7 @@ labelContext =
 
 @morerefs
 記譜法リファレンス:
-@ref{可変な垂直方向の paper スペース変数,,可変な垂直方向の @code{\paper} スペース変数},
+@ref{可変な垂直方向の paper スペース変数},
 @ref{Modifying alists}
 
 インストールされているファイル:

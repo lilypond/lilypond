@@ -1210,7 +1210,7 @@ StaffDefaults = \with {
 @ref{Bottom-level contexts - voices},
 @ref{The set command},
 @ref{The override command},
-@ref{layout ブロック,,@code{\layout} ブロック}
+@ref{layout ブロック}
 
 
 @node 新しいコンテキストを定義する

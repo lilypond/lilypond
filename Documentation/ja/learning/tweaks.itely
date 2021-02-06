@@ -578,7 +578,7 @@ emphNoteHead = {
 @code{\once} 接頭辞は単音や和音全体には動作しますが、和音@emph{内}の@c
 一つの音符に対しては使うことができません。さっき、@code{\tweak} は@c
 このような場面で使うということを学びました。
-@ref{tweak コマンド,,@code{\tweak} コマンド} を参照してください。@c
+@ref{tweak コマンド} を参照してください。@c
 しかし、@code{\tweak} は関数と一緒に使うことができません。そこで
 @code{\single} の登場です:
 
@@ -604,7 +604,7 @@ emphNoteHead = {
 
 @morerefs
 学習マニュアル:
-@ref{tweak コマンド,,@code{\tweak} コマンド},
+@ref{tweak コマンド},
 @ref{レイアウトの調整のために変数を使用する}
 
 
@@ -4117,7 +4117,7 @@ lhMusic = \relative {
 
 @morerefs
 Learning Manual:
-@ref{once 接頭辞,,@code{\once} 接頭辞},
+@ref{once 接頭辞},
 @ref{stencil プロパティ}.
 
 

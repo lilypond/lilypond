@@ -1180,7 +1180,7 @@ Referencia de la notación:
 @ref{Contextos del nivel más bajo. Voces},
 @ref{La instrucción set},
 @ref{La instrucción override},
-@ref{El bloque layout,,El bloque @code{\layout}}.
+@ref{El bloque layout}.
 
 
 @node Definir contextos nuevos

@@ -364,7 +364,7 @@ book-wide settings.  If more than one such definition of the same type
 is entered at the top level the definitions are combined, but in
 conflicting situations the later definitions take precedence.  For
 details of how this affects the @code{\layout} block see
-@ref{The layout block,,The @code{\layout} block}.
+@ref{The layout block}.
 
 @item
 A direct scheme expression, such as
@@ -547,7 +547,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Titles explained},
-@ref{The layout block,,The @code{\layout} block}.
+@ref{The layout block}.
 
 
 @node Titles and headers
