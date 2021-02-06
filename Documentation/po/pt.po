@@ -2990,17 +2990,13 @@ msgstr "Ajustando a Grid"
 msgid "The override command"
 msgstr "Sobrescrever"
 
-#. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
-msgid "The @code{@bs{}override} command"
-msgstr ""
-
 #. @node in Documentation/learning/tweaks.itely
 #, fuzzy
 msgid "The revert command"
 msgstr "_Reverter…"
 
 #. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
-msgid "The @code{@bs{}revert} command"
+msgid "The @code{\\\\revert} command"
 msgstr ""
 
 #. @node in Documentation/learning/tweaks.itely
@@ -3009,7 +3005,7 @@ msgid "The once prefix"
 msgstr "Prefixo"
 
 #. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
-msgid "The @code{@bs{}once} prefix"
+msgid "The @code{\\\\once} prefix"
 msgstr ""
 
 #. @node in Documentation/learning/tweaks.itely
@@ -3018,7 +3014,7 @@ msgid "The overrideProperty command"
 msgstr "command \"$command\" stopped"
 
 #. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
-msgid "The @code{@bs{}overrideProperty} command"
+msgid "The @code{\\\\overrideProperty} command"
 msgstr ""
 
 #. @node in Documentation/learning/tweaks.itely
@@ -3027,7 +3023,8 @@ msgid "The tweak command"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
-msgid "The @code{@bs{}tweak} command"
+#. @subsection in Documentation/notation/changing-defaults.itely
+msgid "The @code{\\\\tweak} command"
 msgstr ""
 
 #. @node in Documentation/learning/tweaks.itely
@@ -3037,7 +3034,7 @@ msgstr "Define um prefixo simples"
 
 #. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
 #, fuzzy
-msgid "The @code{@bs{}single} prefix"
+msgid "The @code{\\\\single} prefix"
 msgstr "Define um prefixo simples"
 
 #. @node in Documentation/learning/tweaks.itely
@@ -3184,7 +3181,7 @@ msgid "The textLengthOn command"
 msgstr "command \"$command\" stopped"
 
 #. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
-msgid "The @code{@bs{}textLengthOn} command"
+msgid "The @code{\\\\textLengthOn} command"
 msgstr ""
 
 #. @node in Documentation/learning/tweaks.itely
@@ -5939,7 +5936,7 @@ msgstr "_Bloquear"
 
 #. @subsection in Documentation/notation/spacing.itely
 #, fuzzy
-msgid "The @code{@bs{}paper} block"
+msgid "The @code{\\\\paper} block"
 msgstr "Comente ou descomente um bloco de código."
 
 #. @node in Documentation/notation/spacing.itely
@@ -5965,7 +5962,7 @@ msgid "Fixed vertical spacing paper variables"
 msgstr ""
 
 #. @subsection in Documentation/notation/spacing.itely
-msgid "Fixed vertical spacing @code{@bs{}paper} variables"
+msgid "Fixed vertical spacing @code{\\\\paper} variables"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -5973,7 +5970,7 @@ msgid "Flexible vertical spacing paper variables"
 msgstr ""
 
 #. @subsection in Documentation/notation/spacing.itely
-msgid "Flexible vertical spacing @code{@bs{}paper} variables"
+msgid "Flexible vertical spacing @code{\\\\paper} variables"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -5986,7 +5983,7 @@ msgid "List of flexible vertical spacing paper variables"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "List of flexible vertical spacing @code{@bs{}paper} variables"
+msgid "List of flexible vertical spacing @code{\\\\paper} variables"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -5995,7 +5992,7 @@ msgid "Horizontal spacing paper variables"
 msgstr "Espaçamento horizontal das linhas da grade."
 
 #. @subsection in Documentation/notation/spacing.itely
-msgid "Horizontal spacing @code{@bs{}paper} variables"
+msgid "Horizontal spacing @code{\\\\paper} variables"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6004,7 +6001,7 @@ msgid "paper variables for widths and margins"
 msgstr "Margens do papel"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "@code{@bs{}paper} variables for widths and margins"
+msgid "@code{\\\\paper} variables for widths and margins"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6012,7 +6009,7 @@ msgid "paper variables for two-sided mode"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "@code{@bs{}paper} variables for two-sided mode"
+msgid "@code{\\\\paper} variables for two-sided mode"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6020,7 +6017,7 @@ msgid "paper variables for shifts and indents"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "@code{@bs{}paper} variables for shifts and indents"
+msgid "@code{\\\\paper} variables for shifts and indents"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6029,7 +6026,7 @@ msgid "Other paper variables"
 msgstr "As Variáveis são:"
 
 #. @subsection in Documentation/notation/spacing.itely
-msgid "Other @code{@bs{}paper} variables"
+msgid "Other @code{\\\\paper} variables"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6037,7 +6034,7 @@ msgid "paper variables for line breaking"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "@code{@bs{}paper} variables for line breaking"
+msgid "@code{\\\\paper} variables for line breaking"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6045,7 +6042,7 @@ msgid "paper variables for page breaking"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "@code{@bs{}paper} variables for page breaking"
+msgid "@code{\\\\paper} variables for page breaking"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6053,7 +6050,7 @@ msgid "paper variables for page numbering"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "@code{@bs{}paper} variables for page numbering"
+msgid "@code{\\\\paper} variables for page numbering"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6062,7 +6059,7 @@ msgid "Miscellaneous paper variables"
 msgstr "_Papel:"
 
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
-msgid "Miscellaneous @code{@bs{}paper} variables"
+msgid "Miscellaneous @code{\\\\paper} variables"
 msgstr ""
 
 #. @node in Documentation/notation/spacing.itely
@@ -6078,7 +6075,7 @@ msgstr "sem disposição"
 
 #. @subsection in Documentation/notation/spacing.itely
 #, fuzzy
-msgid "The @code{@bs{}layout} block"
+msgid "The @code{\\\\layout} block"
 msgstr "lista modelos de partições em todos os dispositivos de bloco"
 
 #. @node in Documentation/notation/spacing.itely
@@ -6675,18 +6672,14 @@ msgstr "Define o prompt de comando"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
 #, fuzzy
-msgid "The @code{@bs{}set} command"
+msgid "The @code{\\\\set} command"
 msgstr "Comando para definir"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
+#. @unnumberedsubsubsec in Documentation/learning/tweaks.itely
 #, fuzzy
 msgid "The @code{\\\\override} command"
 msgstr "Sobrescrever"
-
-#. @subsection in Documentation/notation/changing-defaults.itely
-#, fuzzy
-msgid "The @code{\\\\tweak} command"
-msgstr "Ajuste configurações avançadas do GNOME 3"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #, fuzzy
@@ -7562,7 +7555,7 @@ msgid "Error message unexpected new"
 msgstr "erro inesperado"
 
 #. @unnumberedsubsec in Documentation/usage/running.itely
-msgid "Error message unexpected @code{@bs{}new}"
+msgid "Error message unexpected @code{\\\\new}"
 msgstr ""
 
 #. @node in Documentation/usage/running.itely
@@ -7571,7 +7564,7 @@ msgstr ""
 
 #. @unnumberedsubsec in Documentation/usage/running.itely
 msgid ""
-"Warning this voice needs a @code{@bs{}voiceXx} or @code{@bs{}shiftXx} setting"
+"Warning this voice needs a @code{\\\\voiceXx} or @code{\\\\shiftXx} setting"
 msgstr ""
 
 #. @node in Documentation/usage/updating.itely
@@ -9124,7 +9117,7 @@ msgid "L'ordre override"
 msgstr "Sobrescrever"
 
 #. @unnumberedsubsubsec in Documentation/ca/learning/tweaks.itely
-msgid "L'ordre @code{@bs{}override}"
+msgid "L'ordre @code{\\\\override}"
 msgstr ""
 
 #. @node in Documentation/ca/learning/tweaks.itely
@@ -9133,7 +9126,7 @@ msgid "L'ordre revert"
 msgstr "_Reverter…"
 
 #. @unnumberedsubsubsec in Documentation/ca/learning/tweaks.itely
-msgid "L'ordre @code{@bs{}revert}"
+msgid "L'ordre @code{\\\\revert}"
 msgstr ""
 
 #. @node in Documentation/ca/learning/tweaks.itely
@@ -9142,7 +9135,7 @@ msgid "El prefix once"
 msgstr "El Matorral"
 
 #. @unnumberedsubsubsec in Documentation/ca/learning/tweaks.itely
-msgid "El prefix @code{@bs{}once}"
+msgid "El prefix @code{\\\\once}"
 msgstr ""
 
 #. @node in Documentation/ca/learning/tweaks.itely
@@ -9150,7 +9143,7 @@ msgid "L'ordre overrideProperty"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/ca/learning/tweaks.itely
-msgid "L'ordre @code{@bs{}overrideProperty}"
+msgid "L'ordre @code{\\\\overrideProperty}"
 msgstr ""
 
 #. @node in Documentation/ca/learning/tweaks.itely
@@ -9158,7 +9151,7 @@ msgid "L'ordre tweak"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/ca/learning/tweaks.itely
-msgid "L'ordre @code{@bs{}tweak}"
+msgid "L'ordre @code{\\\\tweak}"
 msgstr ""
 
 #. @node in Documentation/ca/learning/tweaks.itely
@@ -9167,7 +9160,7 @@ msgid "El prefix single"
 msgstr "Define um prefixo simples"
 
 #. @unnumberedsubsubsec in Documentation/ca/learning/tweaks.itely
-msgid "El prefix @code{@bs{}single}"
+msgid "El prefix @code{\\\\single}"
 msgstr ""
 
 #. @node in Documentation/ca/learning/tweaks.itely
@@ -9296,7 +9289,7 @@ msgid "L'ordre textLengthOn"
 msgstr ""
 
 #. @unnumberedsubsubsec in Documentation/ca/learning/tweaks.itely
-msgid "L'ordre @code{@bs{}textLengthOn}"
+msgid "L'ordre @code{\\\\textLengthOn}"
 msgstr ""
 
 #. @node in Documentation/ca/learning/tweaks.itely
@@ -10068,7 +10061,7 @@ msgid "Missatge d'error Unexpected new"
 msgstr ""
 
 #. @unnumberedsubsec in Documentation/ca/usage/running.itely
-msgid "Missatge d'error Unexpected new @code{@bs{}new}"
+msgid "Missatge d'error Unexpected new @code{\\\\new}"
 msgstr ""
 
 #. @node in Documentation/ca/usage/updating.itely

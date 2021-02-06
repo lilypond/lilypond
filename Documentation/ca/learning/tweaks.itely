@@ -219,7 +219,7 @@ Referencia de la notació:
 @end menu
 
 @node L'ordre override
-@unnumberedsubsubsec L'ordre @code{@bs{}override}
+@unnumberedsubsubsec L'ordre @code{\override}
 @translationof The override command
 
 @cindex override, instrucció
@@ -298,7 +298,7 @@ per canviar el color d'un cap:
 
 
 @node L'ordre revert
-@unnumberedsubsubsec L'ordre @code{@bs{}revert}
+@unnumberedsubsubsec L'ordre @code{\revert}
 @translationof The revert command
 
 @cindex revert, instrucción
@@ -338,7 +338,7 @@ dues notes:
 
 
 @node El prefix once
-@unnumberedsubsubsec El prefix @code{@bs{}once}
+@unnumberedsubsubsec El prefix @code{\once}
 @translationof The once prefix
 
 @funindex \once
@@ -384,7 +384,7 @@ predefinides per limitar el seu efecte a un sol moment musical:
 @end lilypond
 
 @node L'ordre overrideProperty
-@unnumberedsubsubsec L'ordre @code{@bs{}overrideProperty}
+@unnumberedsubsubsec L'ordre @code{\overrideProperty}
 @translationof The overrideProperty command
 
 @cindex overrideProperty, ordre
@@ -399,7 +399,7 @@ detalls consulteu @rextendnamed{Difficult tweaks,Ajustaments difícils}.
 
 
 @node L'ordre tweak
-@unnumberedsubsubsec L'ordre @code{@bs{}tweak}
+@unnumberedsubsubsec L'ordre @code{\tweak}
 @translationof The tweak command
 
 @cindex tweak, ordre
@@ -574,7 +574,7 @@ Referència de la notació:
 @ruser{L'ordre tweak}.
 
 @node El prefix single
-@unnumberedsubsubsec El prefix @code{@bs{}single}
+@unnumberedsubsubsec El prefix @code{\single}
 @translationof The single prefix
 
 @funindex \single
@@ -598,7 +598,7 @@ El @code{\once} previ funciona perfectament per emfatitzar notes
 úniques o acords complets, però no es pot usar per emfatitzar una
 sola nota @emph{dins} d'un acord.  Anteriorment vam veure com es
 pot usar l'ordre @code{\tweak} per fer-lo, vegeu
-@ref{L'ordre tweak,,L'ordre @code{@bs{}tweak}}.  Però
+@ref{L'ordre tweak,,L'ordre @code{\tweak}}.  Però
 @code{\tweak} no es pot fer servir amb una funció; aquí és on
 entra l'ordre @code{\single}:
 
@@ -628,7 +628,7 @@ individuals d'un acord. Malgrat això, @code{\single} no converteix
 
 @morerefs
 Manual de aprenentatge:
-@ref{L'ordre tweak,,L'ordre @code{@bs{}tweak}},
+@ref{L'ordre tweak,,L'ordre @code{\tweak}},
 @ref{Ús de variables per als ajustaments de disposició}.
 
 @node Manual de referència de funcionament intern
@@ -2504,7 +2504,7 @@ les notes en sentit horitzontal per fer lloc per al text  Això es
 fa usant l'ordre @code{textLengthOn}.
 
 @node L'ordre textLengthOn
-@unnumberedsubsubsec L'ordre @code{@bs{}textLengthOn}
+@unnumberedsubsubsec L'ordre @code{\textLengthOn}
 @translationof The textLengthOn command
 
 @cindex notes, espaiar amb el text
@@ -4177,7 +4177,7 @@ les veus:
 
 @morerefs
 Manual de aprenentatge:
-@ref{El prefix once,,El prefix @code{@bs{}once}},
+@ref{El prefix once,,El prefix @code{\once}},
 @ref{La propietat stencil (segell)}.
 
 

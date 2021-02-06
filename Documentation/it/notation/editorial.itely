@@ -133,7 +133,7 @@ come nei passaggi di tipo cadenza o in casi simili agli esempi
 precedenti.  Impostando il valore di @code{\magnifyMusic} su 0.63
 si duplicano le dimensioni del contesto @code{CueVoice}.
 
-@warning{Il comando @code{@bs{}magnifyMusic} @i{non} deve essere
+@warning{Il comando @code{\magnifyMusic} @i{non} deve essere
 usato quando si ridimensiona anche il rigo.  Maggiori informazioni
  in @ref{Impostare la dimensione del rigo}.}
 

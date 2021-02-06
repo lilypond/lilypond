@@ -785,8 +785,8 @@ in @code{@var{altezza_di_arrivo}}, e qualsiasi altra nota viene
 trasposta dello stesso intervallo.  Entrambe le altezze sono inserite
 in modalità assoluta.
 
-@warning{La musica all'interno di un blocco @code{@bs{}transpose} è assoluta
-a meno che il blocco non includa un @code{@bs{}relative}.}
+@warning{La musica all'interno di un blocco @code{\transpose} è assoluta
+a meno che il blocco non includa un @code{\relative}.}
 
 Prendiamo come esempio un brano scritto in Re maggiore.  Possiamo
 trasportarlo in Mi maggiore; si noti come anche l'armatura di chiave

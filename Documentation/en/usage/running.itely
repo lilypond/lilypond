@@ -1482,7 +1482,7 @@ at its start.  For details, see @qq{Spacing of non-staff lines} in
 
 
 @node Error message unexpected new
-@unnumberedsubsec Error message unexpected @code{@bs{}new}
+@unnumberedsubsec Error message unexpected @code{\new}
 
 A @code{\score} block must contain a @emph{single} music expression.
 If instead it contains several @code{\new Staff},
@@ -1531,7 +1531,7 @@ staves are introduced in parallel, i.e. simultaneously:
 @end lilypond
 
 @node Warning this voice needs a voiceXx or shiftXx setting
-@unnumberedsubsec Warning this voice needs a @code{@bs{}voiceXx} or @code{@bs{}shiftXx} setting
+@unnumberedsubsec Warning this voice needs a @code{\voiceXx} or @code{\shiftXx} setting
 
 If notes from two different voices with stems in the same direction
 occur at the same musical moment, but the voices have no

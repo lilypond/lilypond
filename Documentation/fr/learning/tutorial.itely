@@ -644,7 +644,7 @@ tout comme les parenthèses @code{()} en mathématiques.  Pour éviter
 toute ambiguïté, il est préférable d'entourer ces accolades d'espaces ou
 de retours à la ligne.
 
-Un appel de fonction -- @w{@code{@bs{}relative @{ @dots{} @}}} par
+Un appel de fonction -- @w{@code{\relative @{ @dots{} @}}} par
 exemple -- compte également comme une seule expression musicale.
 
 @item

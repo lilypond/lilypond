@@ -1803,7 +1803,7 @@ causare attese o crash, o entrambi.
 
 
 @node Il comando set
-@subsection Il comando @code{@bs{}set}
+@subsection Il comando @code{\set}
 @translationof The set command
 
 @cindex proprietà
@@ -2373,7 +2373,7 @@ non sono supportate le @q{proprietà annidate}.
 
 @end itemize
 
-@subsubsubheading{@bs{}offset come override}
+@subsubsubheading{\offset come override}
 
 Se @var{elemento} è un nome di grob come @code{Arpeggio} o
 @code{Staff.OttavaBracket}, il risultato è un @code{\override} del tipo
@@ -2468,7 +2468,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset come tweak}
+@subsubsubheading{\offset come tweak}
 
 Se @var{elemento} è un'espressione musicale come @code{(} o
 @code{\arpeggio}, il risultato è la stessa espressione musicale
@@ -2527,7 +2527,7 @@ a entrambi i membri di una coppia di numeri.)
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset con estensori spezzati}
+@subsubsubheading{\offset con estensori spezzati}
 
 È anche possibile modificare in modo indipendente i segmenti di un estensore
 che va oltre una o più interruzioni di linea.  In questo caso, @var{offset}

@@ -2076,8 +2076,8 @@ Si no cal el barrat automàtic, es pot desactivar amb
 
 @warning{Si s'usen barres per indicar els melismes de les cançons,
 aleshores s'ha de desactivar el barrat automàtic amb
-@code{@bs{}autoBeamOff} i indicar les barres manualment.  La
-utilització de @code{@bs{}partCombine} amb @code{@bs{}autoBeamOff}
+@code{\autoBeamOff} i indicar les barres manualment.  La
+utilització de @code{\partCombine} amb @code{\autoBeamOff}
 pot produir resultats no desitjats.  Vegeu els fragments de codi
 per a més informació.}
 

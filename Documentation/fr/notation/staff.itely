@@ -819,7 +819,7 @@ lui aussi concerné dès lors que sera utilisée l'instruction
 
 Une portée est considérée comme vide dès lors qu'elle ne contient que
 des silences multimesures, des silences visibles ou invisibles (ou
-d'espacement -- les @emph{@bs{}skip}) ou bien une combinaison de ces
+d'espacement -- les @emph{\skip}) ou bien une combinaison de ces
 éléments. @b{Tous} les autres objets musicaux, ceux qui font qu'une
 portée ne sera pas considérée vide, sont répertoriés dans la propriété
 de contexte @code{keepAliveInterfaces} telle que définie dans le fichier

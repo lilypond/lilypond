@@ -387,7 +387,7 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 最上位に同じタイプの出力定義が複数ある場合は組み合わされますが、@c
 衝突した場合は後ろの方にある出力定義が優先されます。@c
 出力定義が @code{\layout} ブロックにどのような影響を与えるかの詳細は
-@ref{layout ブロック,,@code{@bs{}layout} ブロック} を参照してください。
+@ref{layout ブロック,,@code{\layout} ブロック} を参照してください。
 
 
 @item
@@ -571,7 +571,7 @@ foo = @{ c4 d e d @}
 
 記譜法リファレンス:
 @ref{Titles explained},
-@ref{layout ブロック,,@code{@bs{}layout} ブロック}
+@ref{layout ブロック,,@code{\layout} ブロック}
 
 
 @node タイトルとヘッダ
@@ -2846,7 +2846,7 @@ Unicode U+03BE の文字を入力します
 
 @morerefs
 記譜法リファレンス:
-@ref{layout ブロック,,@code{@bs{}layout} ブロック}
+@ref{layout ブロック,,@code{\layout} ブロック}
 
 アプリケーション使用方法:
 @rprogram{Command-line usage}
@@ -3210,8 +3210,8 @@ LilyPond 入力ファイルから MIDI 出力ファイルを作り出す場合�
 @}
 @end example
 
-@warning{@code{@bs{}score} ブロックが音楽と、@code{@bs{}midi} ブロックしか@c
-含まない場合 (つまり、@code{@bs{}layout} ブロックを@emph{持たない}場合)、@c
+@warning{@code{\score} ブロックが音楽と、@code{\midi} ブロックしか@c
+含まない場合 (つまり、@code{\layout} ブロックを@emph{持たない}場合)、@c
 MIDI 出力ファイルのみを作り出します。楽譜は出力されません。}
 
 デフォルトの出力ファイルの拡張子 (@code{.midi}) は @code{lilypond} コマンドに@c
@@ -3942,7 +3942,7 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 @warning{@file{articulate} スクリプトで用いる場合は、すべての@c
 スウィング コマンドは譜の出力にも表示され、音符のスペーシングが@c
 不規則になります。これは、音楽を譜刻する代わりに MIDI 出力だけに@c
-専念する @code{@bs{}score} ブロックのみに用いることで@c
+専念する @code{\score} ブロックのみに用いることで@c
 避けることができます。}
 
 追加のヘルプや情報はスクリプトファイルにあります:

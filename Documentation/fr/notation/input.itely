@@ -63,7 +63,7 @@ musicale délimitée par des accolades :
 @end example
 
 @warning{Il ne doit y avoir qu'@strong{une seule} expression musicale
-globale dans un bloc @code{@bs{}score}, et elle @strong{doit} être
+globale dans un bloc @code{\score}, et elle @strong{doit} être
 bornée par une paire d'accolades.}
 
 Cette unique expression musicale peut être de n'importe quelle taille et
@@ -3350,8 +3350,8 @@ LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
 @}
 @end example
 
-@warning{Lorsque le bloc @code{@bs{}score} contient uniquement un bloc
-@code{@bs{}midi} (autrement dit pas de bloc @code{@bs{}layout}),
+@warning{Lorsque le bloc @code{\score} contient uniquement un bloc
+@code{\midi} (autrement dit pas de bloc @code{\layout}),
 LilyPond produira uniquement la sortie MIDI -- aucun support visuel ne
 sera généré.}
 
@@ -4054,7 +4054,7 @@ Fichiers d'initialisation :
 les accords, certaines musiques, notamment pour l'orgue, paraîtront de
 moins bonne qualité.  Les notes dépourvues d'articulation peuvent aussi
 se voir raccourcies ; pour pallier cet inconvénient, le recours à la
-fonction @code{@bs{}articulate} devrait ne concerner que de courts
+fonction @code{\articulate} devrait ne concerner que de courts
 fragments, sauf à modifier les valeurs des variables contenues dans le
 script @file{articulate}.}
 
@@ -4126,7 +4126,7 @@ contre temps, avec une portion de cycle.
 @warning{Tout comme avec le script @file{articulate}, toutes les
 commandes seront rendues dans la partition imprimable, ce qui résulte en
 un espacement irrégulier. Ceci peut s'éviter en utilisant le script dans
-un bloc @code{@bs{}score} dédié à la sortie MIDI.}
+un bloc @code{\score} dédié à la sortie MIDI.}
 
 Une aide et des informations supplémentaires sont directement incluses
 dans le script -- voir @file{ly/swing.ly}.

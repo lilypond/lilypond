@@ -476,7 +476,7 @@ executables del LilyPond de la manera següent:
 [@var{ruta preestablecida}];@var{CARPETA}\LilyPond\usr\bin
 @end example
 
-@warning{@var{CARPETA} serà en general @code{C:@bs{}Fitxers de programa}.}
+@warning{@var{CARPETA} serà en general @code{C:\Fitxers de programa}.}
 
 @noindent
 i cliqueu el botó @qq{Accepta} per tancar la finestra.

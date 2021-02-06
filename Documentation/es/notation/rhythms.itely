@@ -2209,8 +2209,8 @@ Si no se necesita el barrado automático, se puede desactivar con
 
 @warning{Si se usan barras para indicar los melismas de las
 canciones, entonces se debe desactivar el barrado automático con
-@code{@bs{}autoBeamOff} e indicar las barras manualmente.  La
-utilización de @code{@bs{}partCombine} con @code{@bs{}autoBeamOff}
+@code{\autoBeamOff} e indicar las barras manualmente.  La
+utilización de @code{\partCombine} con @code{\autoBeamOff}
 puede producir resultados no deseados.  Véanse los fragmentos de
 código para mayor información.}
 

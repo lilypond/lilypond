@@ -434,8 +434,8 @@ hinzu, ewta so:
 [@var{voreingestellter PATH}];@var{VERZ}\LilyPond\usr\bin
 @end example
 
-@warning{@var{VERZ} ist üblicherweise @code{C:@bs{}Program Files (x86)}
-für 64-bit oder @code{C:@bs{}Program Files} für 32-bit Systeme.}
+@warning{@var{VERZ} ist üblicherweise @code{C:\Program Files (x86)}
+für 64-bit oder @code{C:\Program Files} für 32-bit Systeme.}
 
 @noindent
 und klicken Sie auf @qq{OK} um das Fenster zu schließen.

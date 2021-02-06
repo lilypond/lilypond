@@ -788,7 +788,7 @@ LilyPond code like this makes it much easier for humans to read.
 
 @warning{each note is relative to the previous note in the input,
 only the first is relative to the @code{c''} in the initial
-@code{@bs{}relative} command.}
+@code{\relative} command.}
 
 
 @node Simultaneous music expressions single staff

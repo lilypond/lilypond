@@ -256,7 +256,7 @@ voorbeeld is de eerste noot -- de @code{d} -- de
 dichtstbijzijnde D bij de centrale C.
 
 Door het toevoegen (of weghalen) van apostrofs @code{'} of
-komma's @code{,} van het @q{@w{@code{@bs{}\relative
+komma's @code{,} van het @q{@w{@code{\\relative
 c'}}}-commando, kunnen we het beginoctaaf veranderen:
 
 @lilypond[verbatim,quote]
@@ -591,7 +591,7 @@ staan, d.w.z. omgeven zijn door witruimte, of aan het begin
 of einde van een regel staan om ambiguïteiten te voorkomen.
 
 Een LilyPond-commando gevolgd door een enkele uitdrukking
-tussen accolades (zoals @q{@w{@code{@bs{}relative c' @{
+tussen accolades (zoals @q{@w{@code{\relative c' @{
 @dots{} @}}}}) telt ook als een enkele muziekuitdrukking.
 
 @cindex commentaren
@@ -708,12 +708,12 @@ functies die beschikbaar zijn in de online-versie.
 @cindex bestanden, tips om te maken
 
 LilyPond-invoer moet tussen @code{@{ @}}-tekens of
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} staan, zoals
+@q{@w{@code{\relative c'' @{ @dots{} @}}}} staan, zoals
 we gezien hebben in @ref{Werken met invoerbestanden}.  Vanaf
 nu zullen we dit weglaten uit de meeste voorbeelden in de
 handleiding.  Als je die voorbeelden wilt gebruiken, kun je
 you de getoonde invoer kopiëren en plakken, maar je
-@strong{moet} zelf wel @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+@strong{moet} zelf wel @q{@w{@code{\relative c'' @{ @dots{} @}}}}
 toevoegen, dus:
 
 @example
@@ -725,9 +725,9 @@ toevoegen, dus:
 Waarom laten we die accolades weg?  De meeste voorbeelden in
 deze handleiding kunnen midden in een langer stuk muziek
 worden ingevoegd.  Bij zulke voorbeelden is het onzinnig om
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} toe te voegen
+@q{@w{@code{\relative c'' @{ @dots{} @}}}} toe te voegen
 -- je moet een @code{\relative} niet binnen een ander
-@code{\relative} zetten!  Als we @q{@w{@code{@bs{}relative
+@code{\relative} zetten!  Als we @q{@w{@code{\relative
 c'' @{ @dots{} @}}}} om elk voorbeeld heen zouden zetten,
 zou je een klein documentatievoorbeeld niet zomaar kunnen
 kopiëren en in een langer stuk kunnen plakken.  De meeste

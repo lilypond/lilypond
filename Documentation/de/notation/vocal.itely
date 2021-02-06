@@ -1449,11 +1449,11 @@ Noten zu überspringen, weil das ein Melisma anzeigen würde und
 die vorhergehende Silbe dazu veranlasst, links ausgerichtet zu
 werden.
 
-@warning{Der @code{@bs{}skip}-Befehl muss von einer Zahl gefolgt
+@warning{Der @code{\skip}-Befehl muss von einer Zahl gefolgt
 werden, aber diese Zahl wird ignoriert, wenn der Gesangstext
 seine Dauern von einer assoziierten Melodie ableitet, die mit
 @code{\addlyrics} oder @code{\lyricsto} angefügt wird.  Jeder
-@code{@bs{}skip}-Befehl überspringt eine einzelne Note beliebiger
+@code{\skip}-Befehl überspringt eine einzelne Note beliebiger
 Dauer, unabhängig vom Wert der auf den Befehl folgenden Zahl.}
 
 @lilypond[verbatim,quote,ragged-right]

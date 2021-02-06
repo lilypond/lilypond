@@ -202,7 +202,7 @@ Guida alla notazione:
 @end menu
 
 @node Il comando override
-@unnumberedsubsubsec Il comando @code{@bs{}override}
+@unnumberedsubsubsec Il comando @code{\override}
 @translationof The override command
 
 @cindex override, comando
@@ -272,7 +272,7 @@ il colore della testa di nota:
 @end lilypond
 
 @node Il comando revert
-@unnumberedsubsubsec Il comando @code{@bs{}revert}
+@unnumberedsubsubsec Il comando @code{\revert}
 @translationof The revert command
 
 @cindex revert, comando
@@ -312,7 +312,7 @@ note al valore predefinito:
 @end lilypond
 
 @node Il prefisso once
-@unnumberedsubsubsec Il prefisso @code{@bs{}once}
+@unnumberedsubsubsec Il prefisso @code{\once}
 @translationof The once prefix
 
 @funindex \once
@@ -356,7 +356,7 @@ comandi predefiniti per limitare il loro effetto a un momento musicale:
 
 
 @node Il comando overrideProperty
-@unnumberedsubsubsec Il comando @code{@bs{}overrideProperty}
+@unnumberedsubsubsec Il comando @code{\overrideProperty}
 @translationof The overrideProperty command
 
 @cindex overrideProperty, comando
@@ -373,7 +373,7 @@ si veda @rextend{Difficult tweaks}.
 @c Duplicate node names across LM and NR causes problems to translated manuals (see issue 2266).
 @c As a workaround, I'll slightly change the node name.
 @node Il comando di ritocco tweak
-@unnumberedsubsubsec Il comando di ritocco @code{@bs{}tweak}
+@unnumberedsubsubsec Il comando di ritocco @code{\tweak}
 @translationof The tweak command
 
 @cindex tweak, comando
@@ -550,7 +550,7 @@ Guida alla Notazione:
 
 
 @node Il prefisso single
-@unnumberedsubsubsec Il prefisso @code{@bs{}single}
+@unnumberedsubsubsec Il prefisso @code{\single}
 @translationof The single prefix
 
 @funindex \single
@@ -2455,7 +2455,7 @@ far posto al testo.  Lo si può ottenere con il comando
 @code{textLengthOn}.
 
 @node Il comando textLengthOn
-@unnumberedsubsubsec Il comando @code{@bs{}textLengthOn}
+@unnumberedsubsubsec Il comando @code{\textLengthOn}
 @translationof The textLengthOn command
 
 @cindex note, distanziarle insieme al testo
@@ -4088,7 +4088,7 @@ attraversare le voci:
 
 @morerefs
 Manuale di apprendimento:
-@ref{Il prefisso once,,Il prefisso @code{@bs{}once}},
+@ref{Il prefisso once,,Il prefisso @code{\once}},
 @ref{La proprietà stencil}.
 
 

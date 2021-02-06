@@ -5537,8 +5537,8 @@ msgid "The set command"
 msgstr "La instrucción set"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-msgid "The @code{@bs{}set} command"
-msgstr "La instrucción @code{@bs{}set}"
+msgid "The @code{\\\\set} command"
+msgstr "La instrucción @code{\\\\set}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "The override command"

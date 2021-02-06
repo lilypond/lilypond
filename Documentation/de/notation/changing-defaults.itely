@@ -1785,7 +1785,7 @@ oder einen Absturz des Programms hervorrufen.
 
 
 @node Der set-Befehl
-@subsection Der @code{@bs{}set}-Befehl
+@subsection Der @code{\set}-Befehl
 @translationof The set command
 
 @cindex Eigenschaften

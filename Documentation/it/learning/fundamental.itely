@@ -1251,7 +1251,7 @@ giù.  Se note di due voci che hanno i gambi nella stessa direzione
 sono poste nella stessa posizione ed entrambe le voci non hanno uno
 spostamento specificato oppure ne hanno uno dello stesso tipo, si
 produrrà il messaggio di errore
-@qq{questa voce ha bisogno di un'impostazione @code{@bs{}\voiceXx} o @code{@bs{}\shiftXx}}.
+@qq{questa voce ha bisogno di un'impostazione @code{\\voiceXx} o @code{\\shiftXx}}.
 
 
 @morerefs
@@ -1558,11 +1558,11 @@ usare i blocchi @code{\with} si trovano sotto il titolo
 @qq{Impostare le proprietà di contesto con @code{\\with}} in
 @ref{Modificare le proprietà di contesto}.)
 
-@warning{@bs{}@code{new Score} non dovrebbe essere usato perché il fondamentale
+@warning{\@code{new Score} non dovrebbe essere usato perché il fondamentale
 contesto di livello superiore @code{Score} viene creato automaticamente quando
-l'espressione musicale all'interno del blocco @bs{}@code{score} viene
+l'espressione musicale all'interno del blocco \@code{score} viene
 interpretata.  I valori predefiniti delle proprietà di contesto validi per tutta
-la partitura possono essere modificati nel blocco @bs{}@code{layout}.  Vedi
+la partitura possono essere modificati nel blocco \@code{layout}.  Vedi
 @ref{Modificare le proprietà di contesto}}
 
 Nelle sezioni precedenti hai già visto molti esempi pratici della creazione

@@ -453,8 +453,8 @@ este:
 [@var{caminhos predefinidos}];@var{DIR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{DIR} geralmente será @code{C:@bs{}Program Files (x86)}
-para sistemas 64 bits ou @code{C:@bs{}Program Files} para sistemas 32 bits.}
+@warning{@var{DIR} geralmente será @code{C:\Program Files (x86)}
+para sistemas 64 bits ou @code{C:\Program Files} para sistemas 32 bits.}
 
 @noindent
 e clique no botão @qq{OK} para fechar a janela.

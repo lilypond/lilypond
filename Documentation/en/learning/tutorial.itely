@@ -581,7 +581,7 @@ The braces should be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.
 
 A LilyPond command followed by a simple expression in braces (such
-as @q{@w{@code{@bs{}relative @{ @dots{} @}}}}) also counts as a
+as @q{@w{@code{\relative @{ @dots{} @}}}}) also counts as a
 single music expression.
 
 @cindex comments
@@ -691,7 +691,7 @@ online version.
 @cindex files, tips for constructing
 
 LilyPond input must be surrounded by @code{@{ @}} marks or a
-@q{@w{@code{@bs{}relative @{ @dots{} @}}}}, as we saw in
+@q{@w{@code{\relative @{ @dots{} @}}}}, as we saw in
 @ref{Working on input files}.  For the rest of this manual,
 some short examples will omit this.  To replicate these examples,
 you can copy displayed input, but paste it between @code{@{}

@@ -5202,8 +5202,8 @@ msgid "The set command"
 msgstr "La commande de fixation (set)"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-msgid "The @code{@bs{}set} command"
-msgstr "La commande de fixation @code{@bs{}set}"
+msgid "The @code{\\\\set} command"
+msgstr "La commande de fixation @code{\\\\set}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "The override command"
@@ -5211,7 +5211,7 @@ msgstr "La commande de dérogation (override)"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
 msgid "The @code{\\\\override} command"
-msgstr "La commande de dérogation @code{@bs{}override}"
+msgstr "La commande de dérogation @code{\\\\override}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "The tweak command"
@@ -5219,7 +5219,7 @@ msgstr "La commande d'affinage (tweak)"
 
 #. @subsection in Documentation/notation/changing-defaults.itely
 msgid "The @code{\\\\tweak} command"
-msgstr "La commande d'affinage @code{@bs{}tweak}"
+msgstr "La commande d'affinage @code{\\\\tweak}"
 
 #. @node in Documentation/notation/changing-defaults.itely
 msgid "set versus override"

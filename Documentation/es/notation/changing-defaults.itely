@@ -1180,7 +1180,7 @@ Referencia de la notación:
 @ref{Contextos del nivel más bajo. Voces},
 @ref{La instrucción set},
 @ref{La instrucción override},
-@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
+@ref{El bloque layout,,El bloque @code{\layout}}.
 
 
 @node Definir contextos nuevos
@@ -2007,7 +2007,7 @@ producir cuelgues o salidas abruptas, o las dos cosas.
 
 
 @node La instrucción set
-@subsection La instrucción @code{@bs{}set}
+@subsection La instrucción @code{\set}
 @translationof The set command
 
 @cindex propiedad
@@ -2713,7 +2713,7 @@ momento no se contemplan las @q{propiedades anidadas}.
 
 @end itemize
 
-@subsubsubheading{@bs{}offset como sobreescritura}
+@subsubsubheading{\offset como sobreescritura}
 
 Si @var{elemento} es un nombre de grob como @code{Arpeggio} o
 @code{Staff.OttavaBracket}, el resultado es un @code{\override} o
@@ -2811,7 +2811,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset como trucaje}
+@subsubsubheading{\offset como trucaje}
 
 Si @var{elemento} es una expresión musical como @code{(} o
 @code{\arpeggio}, el resultado es la misma expresión musical con
@@ -2876,7 +2876,7 @@ una pareja).
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset con objetos extensos divididos}
+@subsubsubheading{\offset con objetos extensos divididos}
 
 También es posible modificar segmentos de un objeto que se
 extiende sobre un salto o saltos de línea.  En este caso,

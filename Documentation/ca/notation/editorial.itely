@@ -144,7 +144,7 @@ com els dels exemples anteriors. Establir el valor de
 @code{\magnifyMusic} a 0.63 duplica les dimensions del context
 @code{CueVoice}.
 
-@warning{L'ordre @code{@bs{}magnifyMusic} @i{no} ha d'utilitzar-se
+@warning{L'ordre @code{\magnifyMusic} @i{no} ha d'utilitzar-se
 si s'està canviant la mida del pentagrama al mateix temps.  Consulteu
 @ref{Establiment de la mida del pentagrama}.}
 

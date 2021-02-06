@@ -1250,8 +1250,8 @@ Noten von zwei Stimmen mit den Hälsen in die gleiche Richtung
 an der selben Stelle auftreten und in beiden Stimmen ist
 keine Verschiebung oder die gleiche Verschiebungsebene
 definiert, wird die Fehlermeldung
-@qq{diese Stimme benötigt einen @code{@bs{}voiceXx} oder
-@code{@bs{}shiftXx} Befehl}
+@qq{diese Stimme benötigt einen @code{\voiceXx} oder
+@code{\shiftXx} Befehl}
 ausgegeben.
 
 
@@ -1583,12 +1583,12 @@ wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
 beginnt, den @var{muskalischen Ausdruck} innerhalb dieses
 Kontexts auszuwerten.
 
-@warning{Der @bs{}@code{new Score}-Befehl sollte nicht benutzt werden,
+@warning{Der \@code{new Score}-Befehl sollte nicht benutzt werden,
 weil der Partitur-(Score)-Kontext der obersten Ebene
 normalerweise automatisch erstellt wird, wenn der musikalische Ausdruck
 innerhalb der @code{\score}-Umgebung interpretiert wird.  Standard-Werte
 von Kontexteigenschaften, die für einen bestimmten @code{Score} gelten
-sollen, können innerhalb der @bs{}@code{layout}-Umgebung definiert werden.
+sollen, können innerhalb der \@code{layout}-Umgebung definiert werden.
 Siehe @ref{Kontexteigenschaften verändern}.}
 
 Wir haben schon viele explizite Beispiel gesehen, in denen

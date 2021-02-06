@@ -621,7 +621,7 @@ LilyPond 入力の各部分は @strong{@{ 波括弧 @}} で囲まれている必
 囲まれているべきです。
 
 波括弧で囲まれた表記が後に続く LilyPond コマンド
-(@q{@w{@code{@bs{}relative c' @{ @dots{} @}}}} など)
+(@q{@w{@code{\relative c' @{ @dots{} @}}}} など)
 もまた単一の音楽表記としてカウントされます。
 
 @cindex comments (コメント)
@@ -738,7 +738,7 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 
 @c @ref{Working on input files}
 @ref{入力ファイルに取り組む} で見てきたように、LilyPond 入力は @{ @} マークか
-@q{@w{@code{@bs{}relative @{ @dots{} @}}}}
+@q{@w{@code{\relative @{ @dots{} @}}}}
 で囲まれていなければなりません。@c
 このマニュアルの残りの部分では、いくつかの短い例はこのことを省略しています。@c
 このような例を複製するためにあなたは表示されている入力を@c

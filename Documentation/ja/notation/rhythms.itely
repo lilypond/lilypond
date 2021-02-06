@@ -2156,8 +2156,8 @@ R1\fermata
 @cindex beam, with melisma (メリスマの連桁)
 
 @warning{歌曲の中でメリスマを表すために連桁を使用する場合、@c
-@code{@bs{}autoBeamOff} で自動連桁を off にして、手動で連桁を示すべきです。@c
-@code{@bs{}partCombine} を @code{@bs{}autoBeamOff} と一緒に@c
+@code{\autoBeamOff} で自動連桁を off にして、手動で連桁を示すべきです。@c
+@code{\partCombine} を @code{\autoBeamOff} と一緒に@c
 用いると予期しない結果になる可能性があります。@c
 詳細はコード断片集を参照してください。}
 

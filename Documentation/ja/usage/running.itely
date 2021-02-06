@@ -1532,7 +1532,7 @@ UTF-8 エンコードで保存されていない場合、@c
 
 
 @node エラー メッセージ unexpected new
-@unnumberedsubsec エラー メッセージ unexpected @code{@bs{}new}
+@unnumberedsubsec エラー メッセージ unexpected @code{\new}
 @translationof Error message unexpected new
 
 @code{\score} ブロックは @emph{1 つの} 音楽表記を含む必要があります。
@@ -1577,7 +1577,7 @@ UTF-8 エンコードで保存されていない場合、@c
 @end lilypond
 
 @node 警告 this voice needs a voiceXx or shiftXx setting
-@unnumberedsubsec 警告 this voice needs a @code{@bs{}voiceXx} or @code{@bs{}shiftXx} setting
+@unnumberedsubsec 警告 this voice needs a @code{\voiceXx} or @code{\shiftXx} setting
 @translationof Warning this voice needs a voiceXx or shiftXx setting
 
 2 つの異なるボイスが同じ向きの符幹を持ち、それらが同じタイミングで出現する@c

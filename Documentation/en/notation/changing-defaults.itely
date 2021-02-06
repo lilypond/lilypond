@@ -1146,7 +1146,7 @@ Notation Reference:
 @ref{Bottom-level contexts - voices},
 @ref{The set command},
 @ref{The override command},
-@ref{The layout block,,The @code{@bs{}layout} block}.
+@ref{The layout block,,The @code{\layout} block}.
 
 
 @node Defining new contexts
@@ -1963,7 +1963,7 @@ or crashes, or both.
 
 
 @node The set command
-@subsection The @code{@bs{}set} command
+@subsection The @code{\set} command
 
 @cindex property
 @funindex \set
@@ -2626,7 +2626,7 @@ support for @q{nested properties}.
 
 @end itemize
 
-@subsubsubheading{@bs{}offset as an override}
+@subsubsubheading{\offset as an override}
 
 If @var{item} is a grob name like @code{Arpeggio} or
 @code{Staff.OttavaBracket}, the result is an @code{\override} of the
@@ -2721,7 +2721,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset as a tweak}
+@subsubsubheading{\offset as a tweak}
 
 If @var{item} is a music expression such as @code{(} or
 @code{\arpeggio}, the result is the same music expression with a tweak
@@ -2783,7 +2783,7 @@ to both members of a @code{number-pair}.)
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset with broken spanners}
+@subsubsubheading{\offset with broken spanners}
 
 Independently modifying segments of a spanner extending over a line
 break or breaks is also possible.  In this case, @var{offsets}

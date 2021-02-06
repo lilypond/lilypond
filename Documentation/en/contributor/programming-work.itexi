@@ -1226,8 +1226,8 @@ performs in evaluating the procedure.
 Formatting of beams, slurs and ties is based on scoring.
 A large number of configurations is generated and each aesthetic
 aspect gets demerits.  The best configuration (with least demerits) wins.
-By setting the following variables in a @code{@bs{}paper} or
-@code{@bs{}layout} block it is possible to gain some
+By setting the following variables in a @code{\paper} or
+@code{\layout} block it is possible to gain some
 insight about the criteria that lead LilyPond to choose a particular
 configuration.  The information is showed adjacent to the
 object in question.

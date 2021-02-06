@@ -2097,7 +2097,7 @@ deux.
 
 
 @node La commande de fixation (set)
-@subsection La commande de fixation @code{@bs{}set}
+@subsection La commande de fixation @code{\set}
 @translationof The set command
 
 @cindex propriétés
@@ -2248,7 +2248,7 @@ Référence des propriétés internes :
 
 
 @node La commande de dérogation (override)
-@subsection La commande de dérogation @code{@bs{}override}
+@subsection La commande de dérogation @code{\override}
 @translationof The override command
 
 @cindex grob, propriétés
@@ -2418,7 +2418,7 @@ Référence des propriétés internes :
 
 
 @node La commande d'affinage (tweak)
-@subsection La commande d'affinage @code{@bs{}tweak}
+@subsection La commande d'affinage @code{\tweak}
 @translationof The tweak command
 
 @cindex retouche (@emph{tweak})
@@ -5202,7 +5202,7 @@ Référence des propriétés internes :
 @end menu
 
 @node Utilisation de alterBroken
-@unnumberedsubsubsec Utilisation de @code{@bs{}alterBroken}
+@unnumberedsubsubsec Utilisation de @code{\alterBroken}
 @translationof Using alterBroken
 
 @cindex extenseur, modification

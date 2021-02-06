@@ -634,7 +634,7 @@ Zweideutigkeiten auszuschließen, es sei denn, sie
 befinden sich am Anfang oder Ende einer Zeile.
 
 Ein LilyPond-Befehl gefolgt von einem einfachen Ausdruck
-in Klammern (wie etwa @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}})
+in Klammern (wie etwa @q{@w{@code{\relative c' @{ @dots{} @}}}})
 wird auch als ein einzelner Musikausdruck gewertet.
 
 @cindex Kommentare
@@ -757,7 +757,7 @@ der Online-Version.
 @cindex Hinweise zur Konstruktion von Dateien
 
 LilyPond-Code muss immer von @code{@{ @}} Zeichen oder einem
-@q{@w{@code{@bs{}relative @{ @dots{} @}}}} umgeben sein, wie
+@q{@w{@code{\relative @{ @dots{} @}}}} umgeben sein, wie
 in @ref{Arbeiten an Eingabe-Dateien} gezeigt.
 Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
 verzichten. Um sie zu reproduzieren, können Sie den entsprechenden

@@ -2027,7 +2027,7 @@ eingeschaltet werden.
 @warning{Wenn Balken eingesetzt werden, um Melismen in Gesang zu notieren,
 sollte die automatische Bebalkung mit @code{\autoBeamOff} ausgeschaltet
 werden und die Balken manuell notiert werden.  Die Benutzung von
-@code{@bs{}partCombine} zusammen mit @code{@bs{}autoBeamOff} kann zu
+@code{\partCombine} zusammen mit @code{\autoBeamOff} kann zu
 unbeabsichtigten Ergebnissen führen.  Siehe die Schnipsel für mehr
 Information.}
 

@@ -644,7 +644,7 @@ rodeadas de un espacio a no ser que se encuentren al comienzo o al
 final de una línea, para evitar cualquier ambigüedad.
 
 Una instrucción de LilyPond seguida de una expresión simple entre
-llaves (como por ejemplo @q{@w{@code{@bs{}relative @{ @dots{}
+llaves (como por ejemplo @q{@w{@code{\relative @{ @dots{}
 @}}}}) también es una expresión musical unitaria.
 
 @cindex comentarios
@@ -762,7 +762,7 @@ interactivas de la versión en línea.
 
 Como ya vimos en @ref{Trabajar sobre los archivos de entrada}, el
 código de entrada de LilyPond debe estar rodeado de llaves
-@code{@{ @}} o de @q{@w{@code{@bs{}relative @{ @dots{} @}}}}.
+@code{@{ @}} o de @q{@w{@code{\relative @{ @dots{} @}}}}.
 Durante el resto del presente manual, ciertos ejemplos breves
 omitirán las llaves.  Para reproducir estos ejemplos puede copiar
 la entrada que se muestra, pero debe pegarla entre @code{@{} y

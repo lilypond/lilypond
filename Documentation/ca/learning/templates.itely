@@ -44,7 +44,7 @@ sense acompanyament de piano, en dos, quatre o buit pentagrames.
 A diferència d'altres plantilles, aquestes plantilles estan
 @q{incorporades}, cosa que significa que no s'han de copiar o
 editar: en comptes d'això, senzillament s'inclouen amb l'ordre
-@code{@bs{}include} dins del fitxer d'entrada.
+@code{\include} dins del fitxer d'entrada.
 
 @warning{A diferència de la major part dels fitxers d'inclusió,
 aquestes plantilles incorporades s'han d'incloure @emph{al final}
@@ -52,7 +52,7 @@ del fitxer d'entrada.}
 
 Les expressions musicals necessàries s'introdueixen definint
 valors per a variables específiques.  Aquestes definicions han
-d'anar abans del fitxer inclòs amb l'ordre @code{@bs{}include}.
+d'anar abans del fitxer inclòs amb l'ordre @code{\include}.
 
 @menu
 * Plantilla coral SATB ::

@@ -69,7 +69,7 @@ Dieser Abschnitt behandelt Seitenlayout-Optionen innerhalb der @code{\paper}-Umg
 
 
 @node Die paper-Umgebung
-@subsection Die @code{@bs{}paper}-Umgebung
+@subsection Die @code{\paper}-Umgebung
 @translationof The paper block
 
 @cindex Papiergröße
@@ -145,7 +145,7 @@ der obigen Definition ist:
 Notationsreferenz
 @ref{Papierformat und automatische Skalierung},
 @ref{Eigene Kopf und Fußzeilen sowie Titel},
-@ref{Die layout-Umgebung,,Die @code{@bs{}layout}-Umgebung}.
+@ref{Die layout-Umgebung,,Die @code{\layout}-Umgebung}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -274,11 +274,11 @@ in @ref{Das Papierformat einstellen}.
 
 Die vertikalen Dimensionen, die durch die automatische Skalierung verändert
 werden sind: @code{top-margin} und @code{bottom-margin} (siehe
-@ref{Vertikale paper-Variablen mit festen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit festen Abständen}).  Die horizontalen
+@ref{Vertikale paper-Variablen mit festen Abständen,,Vertikale @code{\paper}-Variablen mit festen Abständen}).  Die horizontalen
 Dimensionen, die durch die automatische Skalierung verändert werden, sind
 @code{left-margin}, @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent} und @code{short-indent} (siehe
-@ref{paper-Variablen für horizontale Abstände,,@code{@bs{}paper}-Variablen für horizontale Abstände}).
+@ref{paper-Variablen für horizontale Abstände,,@code{\paper}-Variablen für horizontale Abstände}).
 
 Die Standardwerte für diese Dimensionen sind in
 @file{ly/paper-defaults-init.ly} definiert, wobei interne Variablen mit den
@@ -289,8 +289,8 @@ benutzt werden.  Das sind die Werte für die Standardpapiergröße
 
 @morerefs
 Notationsreferenz:
-@ref{Vertikale paper-Variablen mit festen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit festen Abständen},
-@ref{paper-Variablen für horizontale Abstände,,@code{@bs{}paper}-Variablen für horizontale Abstände}.
+@ref{Vertikale paper-Variablen mit festen Abständen,,Vertikale @code{\paper}-Variablen mit festen Abständen},
+@ref{paper-Variablen für horizontale Abstände,,@code{\paper}-Variablen für horizontale Abstände}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly},
@@ -299,10 +299,10 @@ Installierte Dateien:
 
 
 @node Vertikale paper-Variablen mit festen Abständen
-@subsection Vertikale @code{@bs{}paper}-Variablen mit festen Abständen
+@subsection Vertikale @code{\paper}-Variablen mit festen Abständen
 @translationof Fixed vertical spacing paper variables
 
-@warning{Einige @code{@bs{}paper}-Dimensionen werden automatisch nach
+@warning{Einige @code{\paper}-Dimensionen werden automatisch nach
 Papierformat skaliert, was zu ungewolltem Verhalten führen kann.  Siehe
 @ref{Automatische Skalierung auf ein Papierformat}.}
 
@@ -369,7 +369,7 @@ Randeinstellung für die Ränder oben und unten.
 
 
 @node Vertikale paper-Variablen mit flexiblen Abständen
-@subsection Vertikale @code{@bs{}paper}-Variablen mit flexiblen Abständen
+@subsection Vertikale @code{\paper}-Variablen mit flexiblen Abständen
 @translationof Flexible vertical spacing paper variables
 
 In den meisten Fällen bietet es sich an, dass die vertikalen
@@ -489,7 +489,7 @@ vollständig neu definiert:
 
 
 @node Liste der flexiblen vertikalen Abstandsvariablen in paper
-@unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariablen in @code{@bs{}paper}
+@unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariablen in @code{\paper}
 @translationof List of flexible vertical spacing paper variables
 
 Die Bezeichnungen dieser Variablen entsprechen dem Format
@@ -572,10 +572,10 @@ Schnipsel:
 
 
 @node paper-Variablen für horizontale Abstände
-@subsection @code{@bs{}paper}-Variablen für horizontale Abstände
+@subsection @code{\paper}-Variablen für horizontale Abstände
 @translationof Horizontal spacing paper variables
 
-@warning{Einige @code{@bs{}paper}-Dimensionen werden automatische
+@warning{Einige @code{\paper}-Dimensionen werden automatische
 entsprechend dem Papierformat skaliert und können deshalb ungewollte
 Resultate haben.  Siehe @ref{Automatische Skalierung auf ein Papierformat}.}
 
@@ -587,7 +587,7 @@ Resultate haben.  Siehe @ref{Automatische Skalierung auf ein Papierformat}.}
 
 
 @node paper-Variablen für Breite und Ränder
-@unnumberedsubsubsec @code{@bs{}paper}-Variablen für Breite und Ränder
+@unnumberedsubsubsec @code{\paper}-Variablen für Breite und Ränder
 @translationof paper variables for widths and margins
 
 Standardwerte (vor der Skalierung), die hier nicht aufgelistet
@@ -693,7 +693,7 @@ Randeinstellung für die Ränder oben und unten.
 
 
 @node paper-Variablen für zweiseitigen Satz
-@unnumberedsubsubsec @code{@bs{}paper}-Variablen für zweiseitigen Satz
+@unnumberedsubsubsec @code{\paper}-Variablen für zweiseitigen Satz
 @translationof paper variables for two-sided mode
 
 Standardwerte (vor der Skalierung) sind definiert in
@@ -748,7 +748,7 @@ Installierte Dateien:
 
 
 @node paper-Variablen für Verschiebungen und Einrückungen
-@unnumberedsubsubsec @code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen
+@unnumberedsubsubsec @code{\paper}-Variablen für Verschiebungen und Einrückungen
 @translationof paper variables for shifts and indents
 
 
@@ -794,7 +794,7 @@ Schnipsel:
 
 
 @node Andere paper-Variablen
-@subsection Andere @code{@bs{}paper}-Variablen
+@subsection Andere @code{\paper}-Variablen
 @translationof Other paper variables
 
 @menu
@@ -806,7 +806,7 @@ Schnipsel:
 
 
 @node paper-Variablen für den Zeilenumbruch
-@unnumberedsubsubsec @code{@bs{}paper}-Variablen für den Zeilenumbruch
+@unnumberedsubsubsec @code{\paper}-Variablen für den Zeilenumbruch
 @translationof paper variables for line breaking
 @c TODO: Mention that ly:optimal-breaking is on by default? -mp
 
@@ -849,7 +849,7 @@ Notationsreferenz:
 
 
 @node paper-Variablen für den Seitenumbruch
-@unnumberedsubsubsec @code{@bs{}paper}-Variablen für den Seitenumbruch
+@unnumberedsubsubsec @code{\paper}-Variablen für den Seitenumbruch
 @translationof paper variables for page breaking
 
 Standardwerte, die hier nicht aufgelistet sind, finden sich in
@@ -919,7 +919,7 @@ Installierte Dateien:
 
 
 @node paper-Variablen für Seitenzahlen
-@unnumberedsubsubsec @code{@bs{}paper}-Variablen für Seitenzahlen
+@unnumberedsubsubsec @code{\paper}-Variablen für Seitenzahlen
 @translationof paper variables for page numbering
 
 Standardwerte, die hier nicht aufgelistet sind, finden sich in
@@ -970,7 +970,7 @@ auf der rechten Seite mit Seite 1 beginnen.
 
 
 @node Verschiedene paper-Variablen
-@unnumberedsubsubsec Verschiedene @code{@bs{}paper}-Variablen
+@unnumberedsubsubsec Verschiedene @code{\paper}-Variablen
 @translationof Miscellaneous paper variables
 @table @code
 
@@ -1044,7 +1044,7 @@ Zeile.
 
 
 @node Die layout-Umgebung
-@subsection Die @code{@bs{}layout}-Umgebung
+@subsection Die @code{\layout}-Umgebung
 @translationof The layout block
 
 @cindex Partitur, Layout
@@ -1077,15 +1077,15 @@ die innerhalb der @code{\layout}-Umgebungen erlaubt sind, sind:
 
 @item
 @code{line-width}, @code{ragged-right} und @code{ragged-last}
-(siehe @ref{paper-Variablen für Breite und Ränder,,@code{@bs{}paper}-Variablen für Breite und Ränder})
+(siehe @ref{paper-Variablen für Breite und Ränder,,@code{\paper}-Variablen für Breite und Ränder})
 
 @item
 @code{indent} und @code{short-indent}
-(siehe @ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen})
+(siehe @ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{\paper}-Variablen für Verschiebungen und Einrückungen})
 
 @item
 @code{system-count}
-(siehe @ref{paper-Variablen für den Zeilenumbruch,,@code{@bs{}paper}-Variablen für den Zeilenumbruch})
+(siehe @ref{paper-Variablen für den Zeilenumbruch,,@code{\paper}-Variablen für den Zeilenumbruch})
 
 @end itemize
 
@@ -1481,7 +1481,7 @@ kompliziert.  Mehr Einzelheiten finden sich in
 
 @morerefs
 Notationsreferenz:
-@ref{paper-Variablen für den Zeilenumbruch,,@code{@bs{}paper}-Variablen für den Zeilenumbruch}.
+@ref{paper-Variablen für den Zeilenumbruch,,@code{\paper}-Variablen für den Zeilenumbruch}.
 
 Schnipsel:
 @rlsr{Spacing}.
@@ -1516,7 +1516,7 @@ Variablen auf @code{#t} (wahr) gesetzt werden, werden im ersten
 Fall die Notensysteme auf allen Seiten eng nach oben orientiert
 gesetzt werden.  Im zweiten Fall bezieht sich dies nur auf die
 letzte Seite.
-Zu Einzelheiten siehe @ref{Vertikale paper-Variablen mit festen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit festen Abständen}.
+Zu Einzelheiten siehe @ref{Vertikale paper-Variablen mit festen Abständen,,Vertikale @code{\paper}-Variablen mit festen Abständen}.
 
 Seitenumbrüche werden von der @code{page-breaking}-Funktion errechnet.
 LilyPond kennt drei Algorithmen um Seitenumbrüche zu errechnen:
@@ -1576,7 +1576,7 @@ Buchteilen benutzt werden.
 
 @morerefs
 Notationsreferenz:
-@ref{paper-Variablen für den Seitenumbruch,,@code{@bs{}paper}-Variablen für den Seitenumbruch}.
+@ref{paper-Variablen für den Seitenumbruch,,@code{\paper}-Variablen für den Seitenumbruch}.
 
 Schnipsel:
 @rlsr{Spacing}.
@@ -1943,7 +1943,7 @@ Abschnitt behandelt wird, nur die vertikale Platzierung von Systemen und
 nicht-Systemzeilen in einzelnen Systemgruppen behandelt.  Die vertikale
 Platzierung zwischen einzelnen Systemgruppen, Partituren, Beschriftungen
 usw. und den Rändern wird durch @code{\paper}-Variablen kontrolliert, die
-@ref{Vertikale paper-Variablen mit flexiblen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit flexiblen Abständen}.
+@ref{Vertikale paper-Variablen mit flexiblen Abständen,,Vertikale @code{\paper}-Variablen mit flexiblen Abständen}.
 
 @menu
 * Eigenschaften für Abstände innerhalb von Systemgruppen::
@@ -2095,7 +2095,7 @@ labelContext =
 Jeder der vertikalen Platzierungs-Grobeigenschaften (außer
 @code{staff-affinity}) benutzt die gleiche Alistenstruktur
 wie die @code{\paper}-Variablen, behandelt in
-@ref{Vertikale paper-Variablen mit flexiblen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit flexiblen Abständen}.  Besondere
+@ref{Vertikale paper-Variablen mit flexiblen Abständen,,Vertikale @code{\paper}-Variablen mit flexiblen Abständen}.  Besondere
 Methoden um Alisten zu verändern finden sich in
 @ref{Alisten verändern}.  Grob-Eigenschaften sollten mit
 dem @code{\override}-Befehle innerhalb einer @code{\score}-
@@ -2260,7 +2260,7 @@ für dieses Notensystem geändert werden.
 
 @morerefs
 Notationsreferenz:
-@ref{Vertikale paper-Variablen mit flexiblen Abständen,,Vertikale @code{@bs{}paper}-Variablen mit flexiblen Abständen},
+@ref{Vertikale paper-Variablen mit flexiblen Abständen,,Vertikale @code{\paper}-Variablen mit flexiblen Abständen},
 @ref{Alisten verändern}.
 
 Installierte Dateien:

@@ -992,7 +992,7 @@ Wenn die Instrumentenbezeichnung zu lang ist, kann es vorkommen,
 dass die Bezeichnungen in einer Gruppe nicht zentriert werden.
 Um dennoch eine Zentrierung zu erhalten, müssen die Werte des
 Einzugs (@code{indent} und @code{short-indent}) vergrößert werden.
-Zu Einzelheiten siehe @ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen}.
+Zu Einzelheiten siehe @ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{\paper}-Variablen für Verschiebungen und Einrückungen}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1094,7 +1094,7 @@ wird dann benutzt, um den Wechsel vorzunehmen:
 
 @morerefs
 Notationsreferenz:
-@ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen},
+@ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{\paper}-Variablen für Verschiebungen und Einrückungen},
 @ref{Umgebungs-Plugins verändern}.
 
 Schnipsel:

@@ -1961,7 +1961,7 @@ referències cícliques en valors Scheme de propietats poden produir
 aturades o sortides abruptes, o les dues coses.
 
 @node L'ordre set
-@subsection L'ordre @code{@bs{}set}
+@subsection L'ordre @code{\set}
 @translationof The set command
 
 @cindex propietats
@@ -2656,7 +2656,7 @@ suport.
 
 @end itemize
 
-@subsubsubheading{@bs{}offset como sobreescriptura}
+@subsubsubheading{\offset como sobreescriptura}
 
 Si @var{element} és un nom de grob com @code{Arpeggio} o
 @code{Staff.OttavaBracket}, el resultat es un @code{\override} o
@@ -2746,7 +2746,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset com ajustament}
+@subsubsubheading{\offset com ajustament}
 
 Si @var{element} és una expressió musical com @code{\arpeggio}, el
 resultat és la mateixa expressió musical amb l'ajustament aplicat.
@@ -2806,7 +2806,7 @@ sol nombre s'aplica als dos membres d'una parella).
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset amb objectes extensos dividits}
+@subsubsubheading{\offset amb objectes extensos dividits}
 
 També es poden modificar segments d'un objecte que s'estén sobre
 un salt o salts de línia.  En aquest cas, @var{offsets} admet una

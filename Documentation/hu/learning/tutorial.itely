@@ -594,7 +594,7 @@ szóközt tenni, hacsak nem a sor elején vagy végén szerepelnek.
 
 Egy @code{\} karakterrel kezdődő LilyPond parancs az azt követő kapcsos
 zárójelpár tartalmával együtt ugyancsak egy zenei kifejezésnek számít (mint
-például a @q{@w{@code{@bs{}relative @{ @dots{} @}}}}).
+például a @q{@w{@code{\relative @{ @dots{} @}}}}).
 
 @cindex megjegyzések
 @cindex egysoros megjegyzés
@@ -693,7 +693,7 @@ described in @rprogram{Common errors}.
 @cindex tippek
 
 A LilyPond bemenete vagy @code{@{ @}} jelek között, vagy pedig egy
-@q{@w{@code{@bs{}relative @{ @dots{} @}}}} blokkban kell, hogy álljon, ahogy azt a
+@q{@w{@code{\relative @{ @dots{} @}}}} blokkban kell, hogy álljon, ahogy azt a
 @ref{A bemeneti fájlok jellemzői} c. fejezetben láttuk.
 A tankönyv további részében a legtöbb példában ezt elhagyjuk. A példák
 kipróbálásához a kimenet kimásolható és beilleszthető, de mindig köré

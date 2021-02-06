@@ -755,8 +755,8 @@ Tonhöhe @var{vonTonhöhe} hat, wird in die Tonhöhe @var{nachTonhöhe} umgewand
 Noten um das gleiche Intervall.  Beide Tonhöhen
 werden im absoluten Modus eingegeben.
 
-@warning{Tonhöhen innerhalb einer @code{@bs{}transpose}-Umgebung
-sind absolut, es sei denn, ein @code{@bs{}relative} wird
+@warning{Tonhöhen innerhalb einer @code{\transpose}-Umgebung
+sind absolut, es sei denn, ein @code{\relative} wird
 eingefügt.}
 
 So kann z. B. ein Stück in D-Dur, wenn es für den Sänger etwas zu

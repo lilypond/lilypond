@@ -591,7 +591,7 @@ matematica.  Per evitare ambiguità, le parentesi dovrebbero essere
 racchiuse tra spazi, a meno che non si trovino all'inizio o alla fine di una linea.
 
 Anche un comando di LilyPond seguito da un'espressione semplice in
-parentesi (come @qq{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) conta come
+parentesi (come @qq{@w{@code{\relative c' @{ @dots{} @}}}}) conta come
 un'espressione musicale singola.
 
 @cindex commenti
@@ -702,7 +702,7 @@ nella versione online della documentazione.
 @cindex file, consigli per costruirli
 
 L'input di LilyPond deve essere compreso dai segni @code{@{ @}} o da
-@w{@code{@bs{}relative @{ @dots{} @}}}, come abbiamo visto in
+@w{@code{\relative @{ @dots{} @}}}, come abbiamo visto in
 @ref{Lavorare sui file di input}.  Nel resto di questo manuale alcuni
 esempi brevi ometteranno questi segni.  Per replicare questi esempi, puoi
 copiare l'input mostrato e incollarlo tra @code{@{} e @code{@}} nel tuo

@@ -800,8 +800,8 @@ cualquier otra nota se transporta el mismo intervalo.  Las dos
 notas se introducen en modo absoluto.
 
 @warning{La música que está dentro de un bloque
-@code{@bs{}transpose} es absoluta, a no ser que se incluya una
-instrucción @code{@bs{}relative} dentro del bloque.}
+@code{\transpose} es absoluta, a no ser que se incluya una
+instrucción @code{\relative} dentro del bloque.}
 
 Por ejemplo, tomemos una pieza escrita en la tonalidad de Re
 mayor.  Se puede transportar hacia arriba a Mi mayor; observe que

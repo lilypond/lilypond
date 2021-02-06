@@ -1582,7 +1582,7 @@ dentro de los sistemas}.
 
 
 @node Mensaje de error Unexpected new
-@unnumberedsubsec Mensaje de error Unexpected @code{@bs{}new}
+@unnumberedsubsec Mensaje de error Unexpected @code{\new}
 @translationof Error message unexpected new
 
 Un bloque @code{\score} debe contener una @emph{única} expresión
@@ -1633,7 +1633,7 @@ simultáneamente:
 @end lilypond
 
 @node Advertencia de que una voz requiere ajustes voiceXx o shiftXx
-@unnumberedsubsec Advertencia de que una voz requiere ajustes @code{@bs{}voiceXx} o @code{@bs{}shiftXx}
+@unnumberedsubsec Advertencia de que una voz requiere ajustes @code{\voiceXx} o @code{\shiftXx}
 @translationof Warning this voice needs a voiceXx or shiftXx setting
 
 Si acontecen dos notas de distintas voces son plicas en la misma

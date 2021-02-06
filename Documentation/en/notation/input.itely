@@ -364,7 +364,7 @@ book-wide settings.  If more than one such definition of the same type
 is entered at the top level the definitions are combined, but in
 conflicting situations the later definitions take precedence.  For
 details of how this affects the @code{\layout} block see
-@ref{The layout block,,The @code{@bs{}layout} block}.
+@ref{The layout block,,The @code{\layout} block}.
 
 @item
 A direct scheme expression, such as
@@ -547,7 +547,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Titles explained},
-@ref{The layout block,,The @code{@bs{}layout} block}.
+@ref{The layout block,,The @code{\layout} block}.
 
 
 @node Titles and headers
@@ -3177,9 +3177,9 @@ To create a MIDI output file from a LilyPond input file, insert a
 @}
 @end example
 
-@warning{A @code{@bs{}score} block that, as well as the music, contains
-only a @code{@bs{}midi} block (i.e., @emph{without} the
-@code{@bs{}layout} block), will only produce MIDI output files.  No
+@warning{A @code{\score} block that, as well as the music, contains
+only a @code{\midi} block (i.e., @emph{without} the
+@code{\layout} block), will only produce MIDI output files.  No
 notation will be printed.}
 
 The default output file extension (@code{.midi}) can be changed by using
@@ -3928,7 +3928,7 @@ the music expression has to start off-beat, with a partial swing cycle.
 
 @warning{As with the @file{articulate} script, all swing commands are also
 rendered in the engraved output, which results in irregular note spacing.
-This can be avoided by using them only in a @code{@bs{}score} block dedicated
+This can be avoided by using them only in a @code{\score} block dedicated
 to MIDI output, rather than to printed music.}
 
 Additional help and information is included in the script file:

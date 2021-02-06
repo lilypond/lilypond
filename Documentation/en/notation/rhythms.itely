@@ -2116,9 +2116,9 @@ If automatic beaming is not required, it may be turned off with
 @cindex beam, with melisma
 
 @warning{If beams are used to indicate melismata in songs, then
-automatic beaming should be switched off with @code{@bs{}autoBeamOff}
-and the beams indicated manually.  Using @code{@bs{}partCombine} with
-@code{@bs{}autoBeamOff} can produce unintended results.  See the
+automatic beaming should be switched off with @code{\autoBeamOff}
+and the beams indicated manually.  Using @code{\partCombine} with
+@code{\autoBeamOff} can produce unintended results.  See the
 snippets for more information.}
 
 Beaming patterns that differ from the automatic defaults can be

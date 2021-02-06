@@ -210,7 +210,7 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 @end menu
 
 @node override コマンド
-@unnumberedsubsubsec @code{@bs{}override} コマンド
+@unnumberedsubsubsec @code{\override} コマンド
 @translationof The override command
 
 @cindex override command (override コマンド)
@@ -283,7 +283,7 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 
 
 @node revert コマンド
-@unnumberedsubsubsec @code{@bs{}revert} コマンド
+@unnumberedsubsubsec @code{\revert} コマンド
 @translationof The revert command
 
 @cindex revert command (revert コマンド)
@@ -323,7 +323,7 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 
 
 @node once 接頭辞
-@unnumberedsubsubsec @code{@bs{}once} 接頭辞
+@unnumberedsubsubsec @code{\once} 接頭辞
 @translationof The once prefix
 
 @funindex \once
@@ -366,7 +366,7 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @end lilypond
 
 @node overrideProperty コマンド
-@unnumberedsubsubsec @code{@bs{}overrideProperty} コマンド
+@unnumberedsubsubsec @code{\overrideProperty} コマンド
 @translationof The overrideProperty command
 
 @cindex overrideProperty command (overrideProperty コマンド)
@@ -380,7 +380,7 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @c Maybe explain in a later iteration  -td
 
 @node tweak コマンド
-@unnumberedsubsubsec @code{@bs{}tweak} コマンド
+@unnumberedsubsubsec @code{\tweak} コマンド
 @translationof The tweak command
 
 @cindex tweak command (tweak コマンド)
@@ -556,7 +556,7 @@ a'4^"Black"
 @ruser{The tweak command}
 
 @node single 接頭辞
-@unnumberedsubsubsec @code{@bs{}single} 接頭辞
+@unnumberedsubsubsec @code{\single} 接頭辞
 @translationof The single prefix
 
 @funindex \single
@@ -578,7 +578,7 @@ emphNoteHead = {
 @code{\once} 接頭辞は単音や和音全体には動作しますが、和音@emph{内}の@c
 一つの音符に対しては使うことができません。さっき、@code{\tweak} は@c
 このような場面で使うということを学びました。
-@ref{tweak コマンド,,@code{@bs{}tweak} コマンド} を参照してください。@c
+@ref{tweak コマンド,,@code{\tweak} コマンド} を参照してください。@c
 しかし、@code{\tweak} は関数と一緒に使うことができません。そこで
 @code{\single} の登場です:
 
@@ -604,7 +604,7 @@ emphNoteHead = {
 
 @morerefs
 学習マニュアル:
-@ref{tweak コマンド,,@code{@bs{}tweak} コマンド},
+@ref{tweak コマンド,,@code{\tweak} コマンド},
 @ref{レイアウトの調整のために変数を使用する}
 
 
@@ -2464,7 +2464,7 @@ c''2^"Text4" |
 これは @code{\textLengthOn} コマンドを用いることで達成できます。
 
 @node textLengthOn コマンド
-@unnumberedsubsubsec @code{@bs{}textLengthOn} コマンド
+@unnumberedsubsubsec @code{\textLengthOn} コマンド
 @translationof The textLengthOn command
 
 @cindex notes, spreading out with text (テキストに合わせて音符の間隔を広げる)
@@ -4117,7 +4117,7 @@ lhMusic = \relative {
 
 @morerefs
 Learning Manual:
-@ref{once 接頭辞,,@code{@bs{}once} 接頭辞},
+@ref{once 接頭辞,,@code{\once} 接頭辞},
 @ref{stencil プロパティ}.
 
 

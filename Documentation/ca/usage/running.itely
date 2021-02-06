@@ -1123,7 +1123,7 @@ les línies que no són pautes} a
 @ruser{Espaiat vertical flexible dins dels sistemes}.
 
 @node Missatge d'error Unexpected new
-@unnumberedsubsec Missatge d'error Unexpected new @code{@bs{}new}
+@unnumberedsubsec Missatge d'error Unexpected new @code{\new}
 @translationof Error message unexpected new
 
 Un bloc @code{\score} ha de contenir una @emph{única} expressió

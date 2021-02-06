@@ -466,9 +466,9 @@ LilyPond 実行可能のファイルを保持しているフォルダを、@c
 @end example
 
 @warning{@var{DIR} は、一般的に 64 bit システムでは
-@code{C:@bs{}Program Files (x86)}
+@code{C:\Program Files (x86)}
 、32 bit システムでは
-@code{C:@bs{}Program Files} です。}
+@code{C:\Program Files} です。}
 
 @noindent
 @qq{OK} ボタンをクリックしてウィンドウを閉じます。

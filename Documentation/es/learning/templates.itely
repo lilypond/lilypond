@@ -41,7 +41,7 @@ o sin acompañamiento de piano, en dos, cuatro u ocho pentagramas.
 A diferencia de otras plantillas, éstas están @q{incorporadas}, lo
 que significa que no tienen que copiarse o editarse: en lugar de
 ello, sencillamente se incluyen con la instrucción
-@code{@bs{}include} dentro del archivo de entrada.
+@code{\include} dentro del archivo de entrada.
 
 @warning {A diferencia de la mayoría de los archivos de inclusión,
 estas plantillas incorporadas se deben incluir @emph{al final} del
@@ -49,7 +49,7 @@ archivo de entrada.}
 
 Las expresiones musicales necesarias se introducen definiendo
 valores para variables específicas.  Estas definiciones deben ir
-antes del archivo incluido con la instrucción @code{@bs{}include}.
+antes del archivo incluido con la instrucción @code{\include}.
 
 @menu
 * Plantilla coral SATB ::

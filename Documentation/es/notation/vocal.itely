@@ -1538,10 +1538,10 @@ Nota: no utilice un guión bajo, @code{_}, para saltar notas: el
 guión bajo indica un melisma, y hace que la sílaba anterior
 resulte alineada por la izquierda.
 
-@warning{La instrucción @code{@bs{}skip} debe ir seguida por un
+@warning{La instrucción @code{\skip} debe ir seguida por un
 número, pero este número se ignora dentro de la letra, que deriva
 las duraciones de las notas de una melodía asociada a través de
-@code{\addlyrics} o @code{\lyricsto}.  Cada @code{@bs{}skip} salta
+@code{\addlyrics} o @code{\lyricsto}.  Cada @code{\skip} salta
 una sola nota de cualquier valor, independientemente del valor del
 número que se escribe a continuación.}
 

@@ -201,7 +201,7 @@ Notation Reference:
 @end menu
 
 @node The override command
-@unnumberedsubsubsec The @code{@bs{}override} command
+@unnumberedsubsubsec The @code{\override} command
 
 @cindex override command
 @cindex override syntax
@@ -271,7 +271,7 @@ color of the note head:
 
 
 @node The revert command
-@unnumberedsubsubsec The @code{@bs{}revert} command
+@unnumberedsubsubsec The @code{\revert} command
 
 @cindex revert command
 
@@ -310,7 +310,7 @@ of the note head to the default value for the final two notes:
 
 
 @node The once prefix
-@unnumberedsubsubsec The @code{@bs{}once} prefix
+@unnumberedsubsubsec The @code{\once} prefix
 
 @funindex \once
 
@@ -354,7 +354,7 @@ predefined commands to limit their effect to one musical moment:
 @end lilypond
 
 @node The overrideProperty command
-@unnumberedsubsubsec The @code{@bs{}overrideProperty} command
+@unnumberedsubsubsec The @code{\overrideProperty} command
 
 @cindex overrideProperty command
 
@@ -368,7 +368,7 @@ We mention it here for completeness, but for details see
 
 
 @node The tweak command
-@unnumberedsubsubsec The @code{@bs{}tweak} command
+@unnumberedsubsubsec The @code{\tweak} command
 
 @cindex tweak command
 
@@ -537,7 +537,7 @@ Notation Reference:
 @ruser{The tweak command}.
 
 @node The single prefix
-@unnumberedsubsubsec The @code{@bs{}single} prefix
+@unnumberedsubsubsec The @code{\single} prefix
 
 @funindex \single
 @cindex tweak, generated from override
@@ -560,7 +560,7 @@ The @code{\once} prefix works fine to emphasize single notes or
 complete chords, but it cannot be used to emphasize a single note
 @emph{within} a chord.  Earlier we have seen how @code{\tweak} can
 be used to do this, see
-@ref{The tweak command,,The @code{@bs{}tweak} command}.  But
+@ref{The tweak command,,The @code{\tweak} command}.  But
 @code{\tweak} cannot be used with a function; that's where
 @code{\single} comes in:
 
@@ -587,7 +587,7 @@ chord.  However, @code{\single} does not convert @code{\revert},
 
 @morerefs
 Learning Manual:
-@ref{The tweak command,,The @code{@bs{}tweak} command},
+@ref{The tweak command,,The @code{\tweak} command},
 @ref{Using variables for layout adjustments}.
 
 
@@ -2398,7 +2398,7 @@ room for the text.  This is done using the @code{textLengthOn}
 command.
 
 @node The textLengthOn command
-@unnumberedsubsubsec The @code{@bs{}textLengthOn} command
+@unnumberedsubsubsec The @code{\textLengthOn} command
 
 @cindex notes, spreading out with text
 
@@ -3986,7 +3986,7 @@ appears to cross voices:
 
 @morerefs
 Learning Manual:
-@ref{The once prefix,,The @code{@bs{}once} prefix},
+@ref{The once prefix,,The @code{\once} prefix},
 @ref{The stencil property}.
 
 

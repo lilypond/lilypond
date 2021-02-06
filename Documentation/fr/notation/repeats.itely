@@ -168,8 +168,8 @@ qu'aucun caractère n'apparaisse entre l'accolade fermant une alternative
 et l'accolade ouvrant la suivante, au risque de ne pas obtenir le nombre
 voulu d'alternatives.}
 
-@warning{Une clause @code{@bs{}relative} ne doit jamais se trouver à
-l'intérieur d'une section @code{@bs{}repeat} : vous aurez
+@warning{Une clause @code{\relative} ne doit jamais se trouver à
+l'intérieur d'une section @code{\repeat} : vous aurez
 immanquablement des portées parasites.  Voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 
@@ -438,7 +438,7 @@ de clarté.
 @warning{Les méthodes présentées dans les lignes qui suivent ne
 devraient servir à indiquer que des constructions de répétition
 inhabituelles.  En règle générale, il vaut mieux recourir à la fonction
-@code{@bs{}repeat} pour créer une reprise ou bien insérer la barre de
+@code{\repeat} pour créer une reprise ou bien insérer la barre de
 mesure adéquate.   Pour plus d'information, voir le chapitre
 @ref{Barres de mesure}.}
 
@@ -649,8 +649,8 @@ comportent ou non des fins alternatives :
 Une construction en accord peut se répéter à l'aide du symbole @code{q}
 -- voir @ref{Répétition d'accords}.
 
-@warning{L'insertion d'un @code{@bs{}relative} dans une section
-@code{@bs{}repeat} sans déclaration explicite du contexte @code{Voice}
+@warning{L'insertion d'un @code{\relative} dans une section
+@code{\repeat} sans déclaration explicite du contexte @code{Voice}
 génèrera une portée supplémentaire -- voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 

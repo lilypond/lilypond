@@ -1288,7 +1288,7 @@ aux hampes vers le bas.  Dans le cas où des notes, issues de deux voix
 ayant toutes deux des hampes dans la même direction, se retrouvent au
 même moment et qu'aucun décalage n'a été spécifié ou qu'ils sont
 identiques, LilyPond vous le signalera par le message « Cette voix
-requiert un @code{@bs{}voiceXx} ou un réglage @code{@bs{}shiftXx}  ».
+requiert un @code{\voiceXx} ou un réglage @code{\shiftXx}  ».
 
 @morerefs
 Manuel d'initiation :
@@ -1598,13 +1598,13 @@ où @var{type} correspond au nom du contexte (tels @code{Staff} ou
 interprète l'@var{expression-musicale} contenue dans ledit
 contexte.
 
-@warning{La commande @bs{}@code{new Score} ne devrait jamais servir en
+@warning{La commande \@code{new Score} ne devrait jamais servir en
 début de partition, puisque le contexte premier que constitue
 @code{Score} est créé automatiquement par l'interprétation de
 l'@var{expression-musicale} contenue dans le bloc @code{\score}.  Les
 adaptations affectant les propriétés des différents contextes et qui
 s'appliqueront à l'ensemble de la partition trouvent leur place au sein
-d'un bloc @bs{}@code{layout}, en suivant les préceptes énoncés au
+d'un bloc \@code{layout}, en suivant les préceptes énoncés au
 chapitre @ref{Modification des propriétés d'un contexte}.}
 
 Nous avons déjà vu au cours des chapitres précédents de nombreux

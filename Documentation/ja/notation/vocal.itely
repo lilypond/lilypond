@@ -1475,10 +1475,10 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 -- アンダースコアはメリスマを意味するため、前の音節が左揃えされてしまいます。
 
 @warning{
-@code{@bs{}skip} コマンドの後に数字を記述する必要があります。@c
+@code{\skip} コマンドの後に数字を記述する必要があります。@c
 しかしながら、歌詞は @code{\addlyrics} や @code{\lyricsto} で関連付けた@c
 旋律の音符から演奏時間を引き出すため、この数字は無視されます。@c
-各 @code{@bs{}skip} は後に続く数字の値に関係なく、@c
+各 @code{\skip} は後に続く数字の値に関係なく、@c
 任意の音価の音符を 1 つスキップします。
 }
 

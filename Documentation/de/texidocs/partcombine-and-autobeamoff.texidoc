@@ -1,8 +1,8 @@
 %%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
   texidocde = "
-Die Funktionsweise von @code{@bs{}autoBeamOff}, wenn es zusammen mit
-@code{@bs{}partCombine} eingesetzt wird, kann schwer zu verstehen sein.
+Die Funktionsweise von @code{\autoBeamOff}, wenn es zusammen mit
+@code{\partCombine} eingesetzt wird, kann schwer zu verstehen sein.
 Es kann besser sein, anstatt dessen
 
 @example

@@ -26,14 +26,6 @@ Macro definitions that contain translatable text belong to file
 
 @c   ***** Displaying text *****
 
-@c We need this since @q{\} doesn't work with makeinfo 4.11 --
-@c say @q{@bs{}} instead.
-
-@macro bs
-\\
-@end macro
-
-
 @ifnotinfo
 
 @macro notation{TEXT}

@@ -90,7 +90,7 @@ al bloc @code{\paper}.
 
 
 @node El bloc paper
-@subsection El bloc @code{@bs{}paper}
+@subsection El bloc @code{\paper}
 @translationof The paper block
 
 Els blocs @code{\paper} poden aparèixer en tres llocs diferents
@@ -153,7 +153,7 @@ s'estudien a
 Gairebé totes les variables de @code{\paper} funcionen sols dins
 d'un bloc @code{\paper}.  Les poques que funcionen també a un bloc
 @code{\layout} s'indiquen a
-@ref{El bloc layout,,El bloc @code{@bs{}layout}}.
+@ref{El bloc layout,,El bloc @code{\layout}}.
 
 Excepte quan s'especifica el contrari, totes les variables de
 @code{\paper} que corresponen a distàncies sobre la pàgina es
@@ -196,7 +196,7 @@ l'Scheme.  L'equivalent de l'Scheme de l'exemple anterior és:
 Referència de la notació:
 @ref{Mida del paper i escalat automàtic},
 @ref{Títols encapçalaments i peus de pàgina personalitzats},
-@ref{El bloc layout,,El bloc @code{@bs{}layout}}.
+@ref{El bloc layout,,El bloc @code{\layout}}.
 
 Fitxers instal·lats:
 @file{ly/paper-defaults-init.ly}.
@@ -341,12 +341,12 @@ a @ref{Establiment de la mida del paper}.
 Les dimensions verticals afectades per l'escalat automàtic són
 @code{top-margin} i @code{bottom-margin} (vegeu @ref{Variables fixes
 d'espaiat vertical de paper,,Variables fixes d'espaiat vertical de
-@code{@bs{}paper}}).  Les dimensions horitzontals
+@code{\paper}}).  Les dimensions horitzontals
 afectades per l'escalat automàtic són @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent} i @code{short-indent} (vegeu
 @ref{Variables d'espaiat horitzontal de paper,,Variables
-d'espaiat horitzontal de @code{@bs{}paper}}).
+d'espaiat horitzontal de @code{\paper}}).
 
 Els valors predeterminats per a aquestes dimensions estan fixats
 al fitxer @file{ly/paper-defaults-init.ly}, usant variables
@@ -367,10 +367,10 @@ Fitxers d'inici:
 
 
 @node Variables fixes d'espaiat vertical de paper
-@subsection Variables fixes d'espaiat vertical de @code{@bs{}paper}
+@subsection Variables fixes d'espaiat vertical de @code{\paper}
 @translationof Fixed vertical spacing paper variables
 
-@warning{Algunes dimensions de @code{@bs{}paper} s'escalen
+@warning{Algunes dimensions de @code{\paper} s'escalen
 automàticament a la mida del paper cosa que pot portar a un
 comportament no esperat.  Vegeu
 @ref{Escalat automàtic de la mida del paper}.}
@@ -436,7 +436,7 @@ Les mides de paper definits explícitament sobreescriuen qualsevol
 ajustament dels marges superior i inferior definits per l'usuari.
 
 @node Variables flexibles d'espaiat vertical de paper
-@subsection Variables flexibles d'espaiat vertical de @code{@bs{}paper}
+@subsection Variables flexibles d'espaiat vertical de @code{\paper}
 @translationof Flexible vertical spacing paper variables
 
 En quasi totes els casos és preferible que les distàncies
@@ -564,7 +564,7 @@ completament:
 
 
 @node Llista de variables d'espaiat de paper verticals flexibles
-@unnumberedsubsubsec Llista de variables d'espaiat de @code{@bs{}paper} verticals flexibles
+@unnumberedsubsubsec Llista de variables d'espaiat de @code{\paper} verticals flexibles
 @translationof List of flexible vertical spacing paper variables
 
 Els noms d'aquestes variables segueixen el format
@@ -651,10 +651,10 @@ Fragments de codi:
 
 
 @node Variables d'espaiat horitzontal de paper
-@subsection Variables d'espaiat horitzontal de @code{@bs{}paper}
+@subsection Variables d'espaiat horitzontal de @code{\paper}
 @translationof Horizontal spacing paper variables
 
-@warning{Algunes dimensions de @code{@bs{}paper} s'escalen
+@warning{Algunes dimensions de @code{\paper} s'escalen
 automàticament a la mida del paper, cosa que pot causar un
 comportament diferent a l'esperat. Vegeu
 @ref{Escalat automàtic de la mida del paper}.}
@@ -667,7 +667,7 @@ comportament diferent a l'esperat. Vegeu
 
 
 @node Variables de paper per a l'amplada i els marges
-@unnumberedsubsubsec Variables de @code{@bs{}paper} per a l'amplada i els marges
+@unnumberedsubsubsec Variables de @code{\paper} per a l'amplada i els marges
 @translationof paper variables for widths and margins
 
 Els valors predeterminats (abans de l'escalat) que no es llisten
@@ -798,7 +798,7 @@ ajustament dels marges esquerre o dret per l'usuari.
 
 
 @node Variables de paper per al mode de doble cara
-@unnumberedsubsubsec Variables de @code{@bs{}paper} per al mode de doble cara
+@unnumberedsubsubsec Variables de @code{\paper} per al mode de doble cara
 @translationof paper variables for two-sided mode
 
 Els valors predeterminats (abans de l'escalat) es defineixen a
@@ -854,7 +854,7 @@ Fitxer d'inici:
 
 
 @node Variables de paper per a desplaçaments i sagnats
-@unnumberedsubsubsec Variables de @code{@bs{}paper} per a desplaçaments i sagnats
+@unnumberedsubsubsec Variables de @code{\paper} per a desplaçaments i sagnats
 @translationof paper variables for shifts and indents
 
 Els valors predeterminats (abans de l'escalat) que no s'expliquen
@@ -909,7 +909,7 @@ Fragments de codi:
 
 
 @node Altres variables de paper
-@subsection Altres variables de @code{@bs{}paper}
+@subsection Altres variables de @code{\paper}
 @translationof Other paper variables
 
 @menu
@@ -921,7 +921,7 @@ Fragments de codi:
 
 
 @node Variables de paper per als salts de línia
-@unnumberedsubsubsec Variables de @code{@bs{}paper} per als salts de línia
+@unnumberedsubsubsec Variables de @code{\paper} per als salts de línia
 @translationof paper variables for line breaking
 
 @table @code
@@ -963,7 +963,7 @@ Referència de la notació:
 
 
 @node Variables de paper per als salts de pàgina
-@unnumberedsubsubsec Variables de @code{@bs{}paper} per als salts de pàgina
+@unnumberedsubsubsec Variables de @code{\paper} per als salts de pàgina
 @translationof paper variables for page breaking
 
 Els valors predeterminats que no estan relacionats aquí, es
@@ -1073,7 +1073,7 @@ Fitxers d'inici:
 
 
 @node Variables de paper per a la numeració de les pàgines
-@unnumberedsubsubsec Variables de @code{@bs{}paper} per a la numeració de les pàgines
+@unnumberedsubsubsec Variables de @code{\paper} per a la numeració de les pàgines
 @translationof paper variables for page numbering
 
 Els valors predeterminats que no es relacionen aquí estan definits
@@ -1132,7 +1132,7 @@ blanc al revers de la pàgina de coberta de manera que la pàgina 1
 estigui al costat dret.
 
 @node Variables de paper diverses
-@unnumberedsubsubsec Variables de @code{@bs{}paper} diverses
+@unnumberedsubsubsec Variables de @code{\paper} diverses
 @translationof Miscellaneous paper variables
 
 @table @code
@@ -1206,7 +1206,7 @@ per al bloc @code{\layout}.
 
 
 @node El bloc layout
-@subsection El bloc @code{@bs{}layout}
+@subsection El bloc @code{\layout}
 @translationof  The layout block
 
 @funindex \layout
@@ -1243,15 +1243,15 @@ del bloc @code{paper}, són:
 @item
 @code{line-width}, @code{ragged-right} i @code{ragged-last} (vegeu
 f@ref{Variables de paper per a l'amplada i els marges,,Variables
-de @code{@bs{}paper} per a l'amplada i els marges})
+de @code{\paper} per a l'amplada i els marges})
 
 @item
 @code{indent} i @code{short-indent}
-(vegeu @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{@bs{}paper} per a desplaçaments i sagnats})
+(vegeu @ref{Variables de paper per a desplaçaments i sagnats,,Variables de @code{\paper} per a desplaçaments i sagnats})
 
 @item
 @code{system-count}
-(vegeu @ref{Variables de paper per als salts de línia,,Variables de @code{@bs{}paper} per als salts de línia})
+(vegeu @ref{Variables de paper per als salts de línia,,Variables de @code{\paper} per als salts de línia})
 
 @end itemize
 
@@ -1739,7 +1739,7 @@ sistemes no es justifiquen verticalment.  Quan el valor de
 forma predeterminada, es permet una separació al final de l'última
 pàgina (o l'última pàgina de cada una de les parts de llibre
 @code{\bookpart}).  Vegeu
-@ref{Variables fixes d'espaiat vertical de paper,,Variables fixes d'espaiat vertical de @code{@bs{}paper}}.
+@ref{Variables fixes d'espaiat vertical de paper,,Variables fixes d'espaiat vertical de @code{\paper}}.
 
 Els salts de pàgina es calculen per mitjà de la funció
 @code{page-breaking}.  El LilyPond ofereix algoritmes per al
@@ -2086,7 +2086,7 @@ sols controlen l'espaiat vertical de les pautes i les línies que
 no són pautes dins dels sistemes individuals.  L'espaiat vertical
 entre diferents sistemes, partitures, marcatges i marges es
 controla mitjançant variables de @code{\paper} que s'estudien a
-@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{@bs{}paper}}.
+@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{\paper}}.
 
 @menu
 * Propietats d'espaiat dins dels sistemes::
@@ -2220,7 +2220,7 @@ labelContext =
 Cada una de les propietats de grob de l'espaiat vertical (excepte
 @code{staff-affinity}) usa la mateixa estructura de llita-A que
 les variables d'espaiat del bloc @code{\paper} que s'han estudiat a
-@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{@bs{}paper}}.
+@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{\paper}}.
 A @ref{Modificació de les llistes-A} s'estudien mètodes específics
 per a la modificació de les llistes-A.  Les propietats dels grobs
 s'han d'ajustar amb un @code{\override} dins d'un bloc
@@ -2374,7 +2374,7 @@ d'espaiat per a aquesta pauta.
 
 @morerefs
 Referencia de la notació:
-@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{@bs{}paper}}.
+@ref{Variables flexibles d'espaiat vertical de paper,,Variables flexibles d'espaiat vertical de @code{\paper}}.
 @ref{Modificació de les llistes-A}.
 
 Fitxers d'inici:

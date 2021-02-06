@@ -1514,7 +1514,7 @@ all'inizio del contesto.  Per dettagli si veda @qq{Spacing of non-staff lines} i
 @ruser{Spaziatura verticale flessibile all'interno dei sistemi}.
 
 @node Messaggio di errore new inaspettato
-@unnumberedsubsec Messaggio di errore @code{@bs{}new} inaspettato
+@unnumberedsubsec Messaggio di errore @code{\new} inaspettato
 @translationof Error message unexpected new
 
 Un blocco @code{\score} deve contenere una @emph{singola} espressione musicale.
@@ -1563,7 +1563,7 @@ che i nuovi righi siano avviati in parallelo, ovvero contemporaneamente:
 @end lilypond
 
 @node Avviso questa voce ha bisogno di un'impostazione voiceXx o shiftXx
-@unnumberedsubsec Avviso questa voce ha bisogno di un'impostazione @bs{}voiceXx o @bs{}shiftXx
+@unnumberedsubsec Avviso questa voce ha bisogno di un'impostazione \voiceXx o \shiftXx
 @translationof Warning this voice needs a voiceXx or shiftXx setting
 
 Se note appartenenti a due voci diverse con gambi nella stessa

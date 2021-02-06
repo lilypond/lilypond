@@ -187,9 +187,9 @@ leicht aufgesetzten Fingers anzeigt.
 }
 @end lilypond
 
-@warning{@code{@bs{}harmonic} @strong{muss} innerhalb einer Akkordkonstruktion
+@warning{@code{\harmonic} @strong{muss} innerhalb einer Akkordkonstruktion
 gesetzt werden, auch wenn nur eine Note gesetzt wird.  Normalerweise würde
-@code{@bs{}harmonicsOn} in dieser Situation benutzt.}
+@code{\harmonicsOn} in dieser Situation benutzt.}
 
 @morerefs
 Glossar:

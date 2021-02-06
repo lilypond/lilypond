@@ -836,7 +836,7 @@ Teile des Quelltextes zusammen gehören.
 
 @warning{Jede Note ist relativ zu der vorhergehenden in der Datei,
 und nur die erste Note ist relativ zu dem zweigestrichenen C (@code{c''}),
-das im @code{@bs{}relative}-Befehl angegeben ist.}
+das im @code{\relative}-Befehl angegeben ist.}
 
 
 @node Gleichzeitige musikalische Ausdrücke ein Notensystem

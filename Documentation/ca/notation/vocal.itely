@@ -1472,10 +1472,10 @@ Nota: no utilitzeu un guió baix, @code{_}, per saltar notes: el
 guió baix indica un melisma, i fa que la síl·laba anterior quedi
 alineada per l'esquerra.
 
-@warning{L'ordre @code{@bs{}skip} ha d'anar seguida per un número,
+@warning{L'ordre @code{\skip} ha d'anar seguida per un número,
 però aquest número s'ignora dins de la lletra, que deriva les
 duracions de les notes d'una melodia associada a través de
-@code{\addlyrics} o @code{\lyricsto}.  Cada @code{@bs{}skip} salta
+@code{\addlyrics} o @code{\lyricsto}.  Cada @code{\skip} salta
 una sola nota de qualsevol valor, independentment del valor del
 nombre que s'escriu a continuació.}
 

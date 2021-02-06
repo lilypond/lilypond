@@ -219,7 +219,7 @@ Referencia de la notación:
 @end menu
 
 @node La instrucción override
-@unnumberedsubsubsec La instrucción @code{@bs{}override}
+@unnumberedsubsubsec La instrucción @code{\override}
 @translationof The override command
 
 @cindex override, instrucción
@@ -296,7 +296,7 @@ ejemplo sencillo para cambiar el color de una cabeza:
 
 
 @node La instrucción revert
-@unnumberedsubsubsec La instrucción @code{@bs{}revert}
+@unnumberedsubsubsec La instrucción @code{\revert}
 @translationof The revert command
 
 @cindex revert, instrucción
@@ -337,7 +337,7 @@ las dos últimas notas:
 
 
 @node El prefijo once
-@unnumberedsubsubsec El prefijo @code{@bs{}once}
+@unnumberedsubsubsec El prefijo @code{\once}
 @translationof The once prefix
 
 @funindex \once
@@ -384,7 +384,7 @@ momento musical:
 @end lilypond
 
 @node La instrucción overrideProperty
-@unnumberedsubsubsec La instrucción @code{@bs{}overrideProperty}
+@unnumberedsubsubsec La instrucción @code{\overrideProperty}
 @translationof The overrideProperty command
 
 @cindex overrideProperty, instrucción
@@ -399,7 +399,7 @@ más detalles consulte @rextend{Trucos difíciles}.
 
 
 @node La instrucción tweak
-@unnumberedsubsubsec La instrucción @code{@bs{}tweak}
+@unnumberedsubsubsec La instrucción @code{\tweak}
 @translationof The tweak command
 
 @cindex tweak, instrucción
@@ -577,7 +577,7 @@ Referencia de la notación:
 @ruser{La instrucción tweak}.
 
 @node El prefijo single
-@unnumberedsubsubsec El prefijo @code{@bs{}single}
+@unnumberedsubsubsec El prefijo @code{\single}
 @translationof The single prefix
 
 @funindex \single
@@ -603,7 +603,7 @@ notas únicas o acordes completos, pero no se puede usar para
 enfatizar una sola nota @emph{dentro} de un acorde.  Anteriormente
 vimos cómo se puede usar la instrucción @code{\tweak} para
 hacerlo, véase @ref{La instrucción tweak,,La instrucción
-@code{@bs{}tweak}}.  Pero @code{\tweak} no se puede usar con una
+@code{\tweak}}.  Pero @code{\tweak} no se puede usar con una
 función; ahí es donde entra la instrucción @code{\single}:
 
 @lilypond[quote,verbatim]
@@ -632,7 +632,7 @@ de @code{\tweak}.
 
 @morerefs
 Manual de aprendizaje:
-@ref{La instrucción tweak,,La instrucción @code{@bs{}tweak}},
+@ref{La instrucción tweak,,La instrucción @code{\tweak}},
 @ref{Uso de variables para los ajustes de disposición}.
 
 
@@ -2551,7 +2551,7 @@ para hacer sitio para el texto.  Esto se hace empleando la
 instrucción @code{textLengthOn}.
 
 @node La instrucción textLengthOn
-@unnumberedsubsubsec La instrucción @code{@bs{}textLengthOn}
+@unnumberedsubsubsec La instrucción @code{\textLengthOn}
 @translationof The textLengthOn command
 
 @cindex notas, espaciar junto al texto
@@ -4248,7 +4248,7 @@ voz, da la impresión de que la ligadura se cruza entre las voces:
 
 @morerefs
 Manual de aprendizaje
-@ref{El prefijo once,,El prefijo @code{@bs{}once}},
+@ref{El prefijo once,,El prefijo @code{\once}},
 @ref{La propiedad stencil (sello)}.
 
 

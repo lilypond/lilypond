@@ -5516,7 +5516,7 @@ msgid "The set command"
 msgstr ""
 
 #. @subsection in Documentation/notation/changing-defaults.itely
-msgid "The @code{@bs{}set} command"
+msgid "The @code{\\\\set} command"
 msgstr ""
 
 #. @node in Documentation/notation/changing-defaults.itely

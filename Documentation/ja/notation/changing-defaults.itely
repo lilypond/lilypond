@@ -1210,7 +1210,7 @@ StaffDefaults = \with {
 @ref{Bottom-level contexts - voices},
 @ref{The set command},
 @ref{The override command},
-@ref{layout ブロック,,@code{@bs{}layout} ブロック}
+@ref{layout ブロック,,@code{\layout} ブロック}
 
 
 @node 新しいコンテキストを定義する
@@ -2769,7 +2769,7 @@ Grob の説明に@q{デフォルト設定}が記述されているプロパテ�
 
 @end itemize
 
-@subsubsubheading{@bs{}offset を override として使う}
+@subsubsubheading{\offset を override として使う}
 
 @var{item} が Grob の名前 (例えば @code{Arpeggio} や @code{Staff.OttavaBracket})
 である場合、@code{\offset} の結果は指定された Grob の @code{\override}
@@ -2861,7 +2861,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading{@bs{}offset を tweak として使う}
+@subsubsubheading{\offset を tweak として使う}
 
 @var{item} が音楽表記 (@code{(} や @code{\arpeggio} など) である場合、@c
 @q{tweak} が適用された音楽表記が出力されます。
@@ -2917,7 +2917,7 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 }
 @end lilypond
 
-@subsubsubheading{改行するスパナを @bs{}offset する}
+@subsubsubheading{改行するスパナを \offset する}
 
 改行や改ページにまたがるスパナの一部分を個別に変更することもできます。@c
 このような場合、@var{offsets} はプロパティが要求する型のリストを取ります。

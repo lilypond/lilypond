@@ -3161,9 +3161,9 @@ Per creare un file MIDI da un file di input LilyPond, inserire un blocco
 @}
 @end example
 
-@warning{ Un blocco @code{@bs{}score} che, oltre alla musica, contenga
-soltanto un blocco @code{@bs{}midi} (ovvero @emph{sia privo} del blocco
-@code{@bs{}layout}), produrrà come output soltanto file MIDI e nessun
+@warning{ Un blocco @code{\score} che, oltre alla musica, contenga
+soltanto un blocco @code{\midi} (ovvero @emph{sia privo} del blocco
+@code{\layout}), produrrà come output soltanto file MIDI e nessun
 file visuale.}
 
 L'estensione predefinita del file di output (@code{.midi}) può essere

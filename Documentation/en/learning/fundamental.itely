@@ -1254,7 +1254,7 @@ with stems up and one note (or chord) from a voice with stems
 down.  If notes from two voices which have their stems in the
 same direction are placed at the same position and both voices
 have no shift or the same shift specified, the error message
-@qq{This voice needs a @code{@bs{}voiceXx} or @code{@bs{}shiftXx} setting}
+@qq{This voice needs a @code{\voiceXx} or @code{\shiftXx} setting}
 will be produced.
 
 
@@ -1552,11 +1552,11 @@ where @var{type} is a context name (like @code{Staff} or
 @code{Voice}).  This command creates a new context, and starts
 interpreting the @var{music-expression} within that context.
 
-@warning{@bs{}@code{new Score} should not be used as the essential
+@warning{\@code{new Score} should not be used as the essential
 top-level @code{Score} context is created automatically when the music
-expression within the @bs{}@code{score} block is interpreted.  Score-wide
+expression within the \@code{score} block is interpreted.  Score-wide
 default values of context properties can be changed within the
-@bs{}@code{layout} block.  See @ref{Modifying context properties}}
+\@code{layout} block.  See @ref{Modifying context properties}}
 
 You have seen many practical examples which created new
 @code{Staff} and @code{Voice} contexts in earlier sections, but

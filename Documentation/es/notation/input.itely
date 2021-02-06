@@ -391,7 +391,7 @@ de una de estas definiciones del mismo tipo en el nivel más alto,
 las definiciones se combinan, pero en situaciones de conflicto
 las definiciones más tardías tienen preferencia.  Para ver los
 detalles sobre cómo afecta al bloque @code{\layout}, consulte
-@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
+@ref{El bloque layout,,El bloque @code{\layout}}.
 
 @item
 Una expresión directa de Scheme, como
@@ -577,7 +577,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Explicación de los títulos},
-@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
+@ref{El bloque layout,,El bloque @code{\layout}}.
 
 
 @node Títulos y encabezamientos
@@ -3384,9 +3384,9 @@ estar vacío, dentro del bloque @code{\score}:
 @}
 @end example
 
-@warning{Un bloque @code{@bs{}score} que, además de la música,
-contiene solamente un bloque @code{@bs{}midi} (o sea, @emph{sin}
-el bloque @code{@bs{}layout}), solo produce archivos de salida
+@warning{Un bloque @code{\score} que, además de la música,
+contiene solamente un bloque @code{\midi} (o sea, @emph{sin}
+el bloque @code{\layout}), solo produce archivos de salida
 MIDI; no se imprime ninguna notación musical.}
 
 La extensión predeterminada para los archivos de salida

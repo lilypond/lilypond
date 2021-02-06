@@ -590,7 +590,7 @@ dvojznačnostem. Má to pak ještě být tak, aby se nacházely
 na začátku nebo na konci řádku.
 
 Příkaz pro LilyPond následovaný jednoduchým výrazem
-v závorkách (jako například @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}})
+v závorkách (jako například @q{@w{@code{\relative c' @{ @dots{} @}}}})
 je též hodnocen jako jednotlivý hudební výraz.
 
 @cindex Poznámky
@@ -712,13 +712,13 @@ verze.
 @cindex Odkazy pro sestavení souborů
 
 LilyPondovský kód musí být vždy obklopen znaky složených závorek @code{@{ @}} nebo
-kódem @w{@code{@bs{}relative c'' @{ @dots{} @}}}, jak je to ukázáno
+kódem @w{@code{\relative c'' @{ @dots{} @}}}, jak je to ukázáno
 v části @ref{Práce na vstupních souborech,,práci na vstupních souborech}.
 Ve zbytku této příručky se toho ovšem většina příkladů vzdá.
 Abyste tyto příklady napodobil, můžete zkopírovat odpovídající zdrojový
 kód a vložit jej do textového souboru, ale přitom
 @strong{musíte} vložit
-@w{@code{@bs{}relative c'' @{ @dots{} @}}}, jak je to ukázáno zde:
+@w{@code{\relative c'' @{ @dots{} @}}}, jak je to ukázáno zde:
 
 @example
 \relative c'' @{
@@ -729,11 +729,11 @@ kód a vložit jej do textového souboru, ale přitom
 Proč se zde většinou vynechávají závorky?  Většina příkladů
 může být nakopírována do delšího hudebního díla, a potom přirozeně
 není smysluplné, když se k tomu nachomýtne
-@w{@code{@bs{}relative c'' @{ @dots{} @}}}; @code{\relative} nesmí
+@w{@code{\relative c'' @{ @dots{} @}}}; @code{\relative} nesmí
 být zapsán uvnitř jiného @code{\relative},
 proto je zde vynechán, aby příklady pracovaly i v jiném
 prostředí.  Kdyby byla u každého příkladu zapsána
-@w{@code{@bs{}relative c'' @{ @dots{} @}}},
+@w{@code{\relative c'' @{ @dots{} @}}},
 nemohly by se malé příklady z dokumentace jednoduše přidat
 do vašeho vlastního notového textu. Většina uživatelů chce noty
 přidat do již jsoucího souboru někde vprostřed, a z toho důvodu

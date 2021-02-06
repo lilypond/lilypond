@@ -223,7 +223,7 @@ Manuel de notation :
 
 
 @node La commande override
-@unnumberedsubsubsec La commande @code{@bs{}override}
+@unnumberedsubsubsec La commande @code{\override}
 @translationof The override command
 
 @cindex override, commande
@@ -298,7 +298,7 @@ ci-dessous change la couleur des têtes de notes :
 
 
 @node La commande revert
-@unnumberedsubsubsec La commande @code{@bs{}revert}
+@unnumberedsubsubsec La commande @code{\revert}
 @translationof The revert command
 
 @cindex revert, commande
@@ -339,7 +339,7 @@ des deux dernières notes à leur valeur par défaut :
 
 
 @node Le préfixe once
-@unnumberedsubsubsec Le préfixe @code{@bs{}once}
+@unnumberedsubsubsec Le préfixe @code{\once}
 @translationof The once prefix
 
 @funindex \once
@@ -387,7 +387,7 @@ musical :
 
 
 @node La commande overrideProperty
-@unnumberedsubsubsec La commande @code{@bs{}overrideProperty}
+@unnumberedsubsubsec La commande @code{\overrideProperty}
 @translationof The overrideProperty command
 
 @cindex overrideProperty, commande
@@ -403,7 +403,7 @@ ici par souci d'exhaustivité ; pour le détail, voir
 
 
 @node La commande tweak
-@unnumberedsubsubsec La commande @code{@bs{}tweak}
+@unnumberedsubsubsec La commande @code{\tweak}
 @translationof The tweak command
 
 @cindex tweak, commande
@@ -573,7 +573,7 @@ Manuel de notation :
 
 
 @node Le préfixe single
-@unnumberedsubsubsec Le préfixe @code{@bs{}single}
+@unnumberedsubsubsec Le préfixe @code{\single}
 @translationof The single prefix
 
 @funindex \single
@@ -2494,7 +2494,7 @@ commande @code{textLengthOn}.
 
 
 @node La commande textLengthOn
-@unnumberedsubsubsec La commande @code{@bs{}textLengthOn}
+@unnumberedsubsubsec La commande @code{\textLengthOn}
 @translationof The textLengthOn command
 
 @cindex notes, répartition selon le texte

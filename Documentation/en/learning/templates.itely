@@ -37,14 +37,14 @@ LilyPond.  These may be used to create simple choral music, with or
 without piano accompaniment, in two, four or eight staves.  Unlike
 other templates, these templates are @q{built-in}, which means they do
 not need to be copied and edited:  instead they are simply
-@code{@bs{}include}'d in the input file.
+@code{\include}'d in the input file.
 
 @warning {Unlike most included files, these built-in templates must be
-@code{@bs{}include}'d at the @emph{end} of the input file.}
+@code{\include}'d at the @emph{end} of the input file.}
 
 The required music expressions are entered by defining values for
 specific variables.  These definitions must come before the
-@code{@bs{}include}'d file.
+@code{\include}'d file.
 
 @menu
 * SATB template::

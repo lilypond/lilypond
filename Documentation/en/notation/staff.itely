@@ -1189,7 +1189,7 @@ multi-line instrument names, @code{\center-column} must be used:
 However, if the instrument names are longer, the instrument names in a
 staff group may not be centered unless the @code{indent} and
 @code{short-indent} settings are increased.  For details about these
-settings, see @ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents}.
+settings, see @ref{paper variables for shifts and indents,,@code{\paper} variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1266,7 +1266,7 @@ setFlute = {
 
 @morerefs
 Notation Reference:
-@ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents},
+@ref{paper variables for shifts and indents,,@code{\paper} variables for shifts and indents},
 @ref{Modifying context plug-ins}.
 
 Snippets:

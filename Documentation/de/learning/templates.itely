@@ -42,13 +42,13 @@ Reihe unterschiedlicher Ausprägungen.  Die Palette umfasst Chormusik mit und
 ohne Klavierbegleitung, in zwei, vier oder acht Systemen.  Im Gegensatz zu
 anderen Vorlagen sind diese Vorlagen in LilyPond @q{eingebaut}, d.h. sie
 werden nicht kopiert und dann angepasst.  Vielmehr werden sie einfach in der
-Eingabedatei @code{@bs{}include}'d (eingefügt).
+Eingabedatei @code{\include}'d (eingefügt).
 
 @warning {Anders als die meisten anderen eingefügten Dateien werden diese
-eingebauten Vorlagen am @emph{Ende} der Eingabedatei @code{@bs{}include}'d.}
+eingebauten Vorlagen am @emph{Ende} der Eingabedatei @code{\include}'d.}
 
 Die benötigten musikalischen Ausdrücke werden speziellen Variablen (oder Makros)
-zugewiesen und müssen definiert sein, bevor die Vorlage @code{@bs{}include}'d wird.
+zugewiesen und müssen definiert sein, bevor die Vorlage @code{\include}'d wird.
 
 @menu
 * SATB Vorlage::

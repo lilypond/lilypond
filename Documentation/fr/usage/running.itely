@@ -1569,7 +1569,7 @@ reportez-vous à la rubrique
 
 
 @node Message d'erreur unexpected new
-@unnumberedsubsec Message d'erreur @code{unexpected @bs{}new}
+@unnumberedsubsec Message d'erreur @code{unexpected \new}
 @translationof Error message unexpected new
 
 Un bloc @code{\score} ne peut contenir qu'@strong{une seule} expression
@@ -1620,7 +1620,7 @@ dit, LilyPond les traitera simultanément :
 
 
 @node Cette voix requiert un voiceXx ou un réglage shiftXx
-@unnumberedsubsec Cette voix requiert un @code{@bs{}voiceXx} ou un réglage @code{@bs{}shiftXx}
+@unnumberedsubsec Cette voix requiert un @code{\voiceXx} ou un réglage @code{\shiftXx}
 @translationof Warning this voice needs a voiceXx or shiftXx setting
 
 Lorsque des notes affectées à des voix différentes et ayant la même

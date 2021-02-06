@@ -785,12 +785,12 @@ blocks of @code{@@code}, @code{@@example}, or @code{@@verbatim}
 are not converted to left- and right-angled quotes
 (@code{@quoteleft{} @quoteright{}}) as they normally are within
 the text, so the apostrophes in
-@q{@w{@code{@@w@{@@code@{@bs{}relative c''@}@}}}} will display
+@q{@w{@code{@@w@{@@code@{\relative c''@}@}}}} will display
 correctly.  However, these settings do not affect the PDF output
 for anything within a @code{@@samp} block (even if it includes a
 nested @code{@@code} block), so entering
-@q{@code{@@w@{@@samp@{@bs{}relative c''@}@}}} wrongly produces
-@q{@w{@code{@bs{}relative c@quoteright{}@quoteright{}}}} in PDF.
+@q{@code{@@w@{@@samp@{\relative c''@}@}}} wrongly produces
+@q{@w{@code{\relative c@quoteright{}@quoteright{}}}} in PDF.
 Consequently, if you want to use a @code{@@samp@{@dots{}@}} block
 which contains backticks or apostrophes, you should instead use
 @q{@code{@@q@{@@code@{@dots{}@}@}}} (or
@@ -928,13 +928,13 @@ the same format as @code{@@enumerate}.  Do not use
 
 @warning{In Texinfo, the backslash is an ordinary character, and
 is entered without escaping (e.g.
-@samp{The@tie{}@@code@{@bs{}foo@}@tie{}command}).  However, within
+@samp{The@tie{}@@code@{\foo@}@tie{}command}).  However, within
 double-quoted Scheme and/or LilyPond strings, backslashes
 (including those ending up in Texinfo markup) need to be escaped
 by doubling them:
 @example
 (define (foo x)
-  "The @@code@{@bs{}@bs{}foo@} command..."
+  "The @@code@{\\foo@} command..."
   ...)
 @end example
 }

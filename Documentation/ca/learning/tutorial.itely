@@ -271,7 +271,7 @@ exactament a la nota que especifica l'altura d'inici.  A l'exemple
 anterior, la primera nota (@code{d}) és el Re més proper al Do central.
 
 Afegint (o eliminant) cometes simples @code{'} o comes @code{,} a
-l'ordre @q{@w{@code{@bs{}\relative c'}}}, podem canviar l'octava d'inici:
+l'ordre @q{@w{@code{\\relative c'}}}, podem canviar l'octava d'inici:
 
 @c KEEP LY
 @lilypond[verbatim,quote]
@@ -623,7 +623,7 @@ al final d'una línia, per evitar qualsevol ambigüitat.
 
 Una instrucció del LilyPond seguida d'una expressió simple entre
 claus (com per exemple
-@q{@w{@code{@bs{}relative c' @{@dots{} @}}}})
+@q{@w{@code{\relative c' @{@dots{} @}}}})
 també és una expressió musical unitària.
 
 @cindex comentaris
@@ -738,11 +738,11 @@ versió en línia.
 Com ja hem vist a @ref{Treball sobre els fitxers d'entrada}
 codi d'entrada del LilyPond ha d'estar rodejat de claus
 @code{@{ @}} o de
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}.  Durant la resta
+@q{@w{@code{\relative c'' @{ @dots{} @}}}}.  Durant la resta
 del manual actual, la major part dels exemple ometran les
 claus. Per a reproduir els exemples, haureu de copiar i
 enganxar l'entrada que es mostra, però @strong{haureu} d'escriure
-el @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, de la forma següent:
+el @q{@w{@code{\relative c'' @{ @dots{} @}}}}, de la forma següent:
 
 @example
 \relative c'' @{
@@ -753,10 +753,10 @@ el @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, de la forma següent:
 Perquè ometre les claus? Gairebé tots els exemples del manual
 actual es poden inserir al mig d'un fragment més gran de
 música. Per a aquests exemple no té cap sentit afegir
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+@q{@w{@code{\relative c'' @{ @dots{} @}}}}
 (no hauríeu de posar un @code{\relative} dins d'altre
 @code{\relative}!); si haguéssim inclòs
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+@q{@w{@code{\relative c'' @{ @dots{} @}}}}
 envoltant a cadascú dels exemples, no podríeu copiar un exemple
 petit procedent de la documentació i enganxar-lo dins de la seva
 pròpia partitura.  La major part de la gent voldrà inserir el codi

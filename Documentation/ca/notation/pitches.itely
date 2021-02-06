@@ -765,8 +765,8 @@ qualsevol altra nota es transporta el mateix interval.  Les dues
 notes s'introdueixen en mode absolut.
 
 @warning{La música que està dins d'un bloc
-@code{@bs{}transpose} és absoluta, a no ser que s'inclogui una introducció
-@code{@bs{}relative} dins del bloc.}
+@code{\transpose} és absoluta, a no ser que s'inclogui una introducció
+@code{\relative} dins del bloc.}
 
 Per exemple, agafem una peça escrita en la tonalitat de Re major.
 Es pot transposar cap amunt a Mi major; observeu que també

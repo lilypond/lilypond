@@ -1572,12 +1572,12 @@ wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
 beginnt, den @var{muskalischen Ausdruck} innerhalb dieses
 Kontexts auszuwerten.
 
-@warning{Der @bs{}@code{new Score}-Befehl sollte nicht benutzt werden,
+@warning{Der \@code{new Score}-Befehl sollte nicht benutzt werden,
 weil der Partitur-(Score)-Kontext der obersten Ebene
 normalerweise automatisch erstellt wird, wenn der musikalische Ausdruck
 innerhalb der @code{\score}-Umgebung interpretiert wird.  Standard-Werte
 von Kontexteigenschaften, die für einen bestimmten @code{Score} gelten
-sollen, können innerhalb der @bs{}@code{layout}-Umgebung definiert werden.
+sollen, können innerhalb der \@code{layout}-Umgebung definiert werden.
 Siehe @ref{Změna vlastností prostředí,,změnu vlastností prostředí}.}
 
 Wir haben schon viele explizite Beispiel gesehen, in denen

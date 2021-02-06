@@ -143,7 +143,7 @@ comme pour une pseudo-cadence ou les exemples ci-dessus.  L'attribution
 d'une valeur de 0,63 à @code{\magnifyMusic} duplique les dimensions d'un
 contexte @code{CueVoice}.
 
-@warning{La commande @code{@bs{}magnifyMusic} n'est pas censée
+@warning{La commande @code{\magnifyMusic} n'est pas censée
 intervenir en complément d'une modification de la taille de portée --
 voir @ref{Définition de la taille de portée}.}
 

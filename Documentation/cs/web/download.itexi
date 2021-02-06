@@ -471,7 +471,7 @@ nějak tak:
 [@var{přednastavená cesta - PATH}];@var{ADR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{ADR} je obvykle @code{C:@bs{}Program Files}.}
+@warning{@var{ADR} je obvykle @code{C:\Program Files}.}
 
 @noindent
 a klepněte na @qq{OK} pro uzavření okna.

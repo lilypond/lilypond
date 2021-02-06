@@ -793,8 +793,8 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @code{@var{frompitch}} と @code{@var{topitch}} のピッチはどちらも@c
 絶対モードで指定されます。
 
-@warning{@code{@bs{}transpose} ブロックの中にある音符は、@c
-そのブロックの中に @code{@bs{}relative} が無い限り、絶対モードになります。}
+@warning{@code{\transpose} ブロックの中にある音符は、@c
+そのブロックの中に @code{\relative} が無い限り、絶対モードになります。}
 
 D-メジャーの調で書かれた楽曲を思い浮かべてください。@c
 この楽曲を E-メジャーに移調することができます。@c

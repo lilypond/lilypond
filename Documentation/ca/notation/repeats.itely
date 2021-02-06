@@ -179,11 +179,11 @@ Més d'una repetició amb més d'un final alternatiu:
 
 @warning{Si hi ha dos o més alternatives, no ha d'aparèixer res
 entre la clau de tancament d'una i la d'obertura de l'altra
-dins d'un bloc @code{@bs{}alternative}, atès que en cas contrari
+dins d'un bloc @code{\alternative}, atès que en cas contrari
 no obtindrem el nombre de finals esperat.}
 
-@warning{Si incloem @code{@bs{}relative} dins d'un
-@code{@bs{}repeat} sense instancia el context @code{Voice}
+@warning{Si incloem @code{\relative} dins d'un
+@code{\repeat} sense instancia el context @code{Voice}
 explícitament, apareixeran pentagrames addicionals no desitjats.
 Vegeu @rprogram{Apareix un pentagrama de més}.}
 
@@ -459,7 +459,7 @@ situacions.
 @warning{Aquests mètodes sols s'utilitzen per realitzar
 construccions de repetició poc usuals.  A gairebé totes les
 situacions s'han de crear les repeticions utilitzant l'ordre
-estàndard @code{@bs{}repeat} o imprimint les barres de compàs
+estàndard @code{\repeat} o imprimint les barres de compàs
 corresponents.  Per veure més informació, consulteu
 @ref{Barres de compàs}.}
 
@@ -679,8 +679,8 @@ Les construccions d'acord es poden repetir mitjançant el símbol de
 repetició d'acords @code{q}.  Vegeu
 @ref{Repetició d'acords}.
 
-@warning{Si poseu @code{@bs{}relative} dins d'un bloc
-@code{@bs{}repeat} sense instanciar explícitament el context
+@warning{Si poseu @code{\relative} dins d'un bloc
+@code{\repeat} sense instanciar explícitament el context
 @code{Voice}, apareixeran pentagrames no desitjats.  Vegeu
 @rprogram{Apareix un pentagrama de més}.}
 

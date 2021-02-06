@@ -132,7 +132,7 @@ tipo cadencial o en casos como los de los ejemplos anteriores.
 Establecer el valor de @code{\magnifyMusic} a 0.63 duplica las
 dimensiones del contexto @code{CueVoice}.
 
-@warning{La instrucción @code{@bs{}magnifyMusic} @i{no} debe
+@warning{La instrucción @code{\magnifyMusic} @i{no} debe
 utilizarse si se está cambiando el tamaño del pentagrama al mismo
 tiempo.  Consulte @ref{Establecer el tamaño del pentagrama}.}
 

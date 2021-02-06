@@ -163,7 +163,7 @@ der schließenden Klammer der einen und der öffnenden Klammer der anderen
 Wiederholung stehen, weil sonst nicht die erwartete Anzahl von Endungen
 produziert wird.}
 
-@warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
+@warning{Wenn man @code{\relative} innerhalb von @code{\repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
 zusätzliche (ungewollte) Systeme.
 Siehe auch @rprogram{Ein zusätzliches System erscheint}.}
@@ -390,7 +390,7 @@ Situationen Klammern zu benutzen.
 @warning{Diese Methoden werden nur verwendet, um ungewöhnliche
 Wiederholungskonstruktionen darzustellen und können sich unerwünscht
 verhalten.  In den meisten Fällen sollten Wiederholungen mit dem
-Befehl @code{@bs{}repeat} erstellt werden oder indem die entsprechenden
+Befehl @code{\repeat} erstellt werden oder indem die entsprechenden
 Taktstriche eingegeben werden.  Mehr Information in @ref{Taktstriche}.}
 
 Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das
@@ -609,7 +609,7 @@ ohne Alternativen) ineinander zu verschachteln:
 Akkordkonstruktionen können mit dem Akkordwiederholungssymbol @code{q}
 wiederholt werden.  Siehe @ref{Akkord-Wiederholungen}.
 
-@warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
+@warning{Wenn man @code{\relative} innerhalb von @code{\repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
 zusätzliche (ungewollte) Systeme.
 Siehe auch @rprogram{Ein zusätzliches System erscheint}.}

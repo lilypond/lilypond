@@ -128,7 +128,7 @@ copie de l'original : @file{monfichier.ly~}.
 
 @warning{@command{convert-ly} effectuera les conversions jusqu'aux
 modifications de syntaxe les plus récentes qu'il contient.  C'est la
-raison pour laquelle le numéro de @code{@bs{}version} modifié est la
+raison pour laquelle le numéro de @code{\version} modifié est la
 plupart du temps inférieur au propre numéro de version de
 @command{convert-ly}.}
 

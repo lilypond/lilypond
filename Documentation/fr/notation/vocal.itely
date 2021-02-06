@@ -1490,10 +1490,10 @@ N'utilisez pas de simple caractère souligné pour sauter une note.
 N'oubliez pas qu'un caractère souligné indique un mélisme ; la
 syllabe précédente sera donc alignée à gauche.
 
-@warning{La commande @code{@bs{}skip} doit comporter une durée quelle
+@warning{La commande @code{\skip} doit comporter une durée quelle
 qu'elle soit -- elle sera toujours ignorée lorsque les paroles sont
-associées à une mélodie à l'aide de @code{@bs{}addlyrics} ou
-@code{@bs{}lyricsto}. Chaque @code{@bs{}skip} correspond à une seule
+associées à une mélodie à l'aide de @code{\addlyrics} ou
+@code{\lyricsto}. Chaque @code{\skip} correspond à une seule
 note quelle qu'en soit la durée.}
 
 @lilypond[verbatim,quote,ragged-right]
@@ -2131,7 +2131,7 @@ le triolet.
 Notez bien où apparaît la commande @code{\set associatedVoice} --
 une syllabe en avance, ce qui est tout à fait correct.
 
-@warning{La commande @code{@bs{}set associatedVoice} @strong{doit}
+@warning{La commande @code{\set associatedVoice} @strong{doit}
 intervenir une syllabe @i{avant} celle qui sera suivie par la bascule.
 Autrement dit, une modification de la voix associée sera effective une
 syllabe plus tard que prévu.  Il ne s'agit en aucun cas d'une bogue, la

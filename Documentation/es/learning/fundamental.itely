@@ -1335,8 +1335,8 @@ voz con las plicas hacia abajo.  Si las notas de dos voces que
 tienen las plicas en la misma dirección se sitúan en la misma
 posición y las dos voces no tienen ningún desplazamiento o llevan
 especificado el mismo desplazamiento, se producirá el mensaje de
-error @qq{Esta voz requiere un ajuste de @code{@bs{}voiceXx} o
-@code{@bs{}shiftXx}}.
+error @qq{Esta voz requiere un ajuste de @code{\voiceXx} o
+@code{\shiftXx}}.
 
 
 @morerefs
@@ -1658,12 +1658,12 @@ donde @var{tipo} es el nombre de un contexto (como @code{Staff} o
 comienza a interpretar la @var{expresión_musical} que está dentro
 de ese contexto.
 
-@warning{No se debe usar @bs{}@code{new Score} porque el contexto
+@warning{No se debe usar \@code{new Score} porque el contexto
 @code{Score} esencial del nivel superior ya se crea
 automáticamente al interpretarse la expresión musical que está
-dentro del bloque @bs{}@code{score}.  Los valores predeterminados
+dentro del bloque \@code{score}.  Los valores predeterminados
 de propiedades de contexto válidos para toda la partitura se
-pueden cambiar dentro del bloque @bs{}@code{layout}.  Véase
+pueden cambiar dentro del bloque \@code{layout}.  Véase
 @ref{Modificar las propiedades de los contextos}.}
 
 En las secciones anteriores ha podido ver muchos ejemplos

@@ -440,8 +440,8 @@ ejecutables de LilyPond de la siguiente manera:
 [@var{ruta preestablecida}];@var{CARPETA}\LilyPond\usr\bin
 @end example
 
-@warning{@var{CARPETA} será por lo general @code{C:@bs{}Archivos de programa (x86)}
-para los sistemas de 64 bits o @code{C:@bs{}Archivos de programa} para los de 32 bits.}
+@warning{@var{CARPETA} será por lo general @code{C:\Archivos de programa (x86)}
+para los sistemas de 64 bits o @code{C:\Archivos de programa} para los de 32 bits.}
 
 @noindent
 y pulse el botón @qq{Aceptar} para cerrar la ventana.

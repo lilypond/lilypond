@@ -792,7 +792,7 @@ all'inizio di una linea, tuttavia indentare il codice di LilyPond in
 questo modo lo rende molto più semplice da leggere per l'essere umano.
 
 @warning{ogni nota  è relativa alla nota precedente nell'input, e solo la
-prima è relativa al @code{c''} nel comando @code{@bs{}relative} iniziale.}
+prima è relativa al @code{c''} nel comando @code{\relative} iniziale.}
 
 
 @node Espressioni musicali simultanee rigo singolo

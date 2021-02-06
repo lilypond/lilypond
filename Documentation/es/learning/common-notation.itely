@@ -863,7 +863,7 @@ nosotros los seres humanos.
 
 @warning{Cada nota se entiende relativa a la nota anterior de la
 entrada, solamente la primera es relativa a la @code{c''} dentro
-de la instrucción inicial @code{@bs{}\relative}.}
+de la instrucción inicial @code{\\relative}.}
 
 
 @node Expresiones musicales simultáneas un solo pentagrama

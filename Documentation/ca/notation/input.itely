@@ -3205,9 +3205,9 @@ dins del bloc @code{\score}:
 @}
 @end example
 
-@warning{Un bloc @code{@bs{}score} que, a més de la música, conté
-sols un bloc @code{@bs{}midi} (o sigui, @emph{sense} el bloc
-@code{@bs{}layout}), sols produeix fitxers de sortida MIDI; no
+@warning{Un bloc @code{\score} que, a més de la música, conté
+sols un bloc @code{\midi} (o sigui, @emph{sense} el bloc
+@code{\layout}), sols produeix fitxers de sortida MIDI; no
 s'imprimeix cap notació musical.}
 
 L'extensió predeterminada per als fitxers de sortida

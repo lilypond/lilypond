@@ -99,7 +99,7 @@ pages attachées au bloc @code{\paper}.
 
 
 @node Le bloc paper
-@subsection Le bloc @code{@bs{}paper}
+@subsection Le bloc @code{\paper}
 @translationof The paper block
 
 Des blocs @code{\paper} peuvent apparaître à trois différents endroits
@@ -377,7 +377,7 @@ Fichiers d'initialisation :
 @subsection Variables d'espacement vertical fixe
 @translationof Fixed vertical spacing paper variables
 
-@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
+@warning{Certains dimensionnements attachés au bloc @code{\paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu --
 voir @ref{Adaptation automatique au format}.}
@@ -660,7 +660,7 @@ Morceaux choisis :
 @subsection Variables d'espacement horizontal
 @translationof Horizontal spacing paper variables
 
-@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
+@warning{Certains dimensionnements attachés au bloc @code{\paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu --
 voir @ref{Adaptation automatique au format}.}
@@ -909,7 +909,7 @@ Morceaux choisis :
 
 
 @node Autres variables du bloc paper
-@subsection Autres variables du bloc @code{@bs{}paper}
+@subsection Autres variables du bloc @code{\paper}
 @translationof Other paper variables
 
 @menu
@@ -1218,7 +1218,7 @@ partition.
 
 
 @node Le bloc layout
-@subsection Le bloc @code{@bs{}layout}
+@subsection Le bloc @code{\layout}
 @translationof The layout block
 
 @cindex mise en forme

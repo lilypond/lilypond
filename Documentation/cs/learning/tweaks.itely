@@ -4472,7 +4472,7 @@ ragt, wird durch diese Tests die Zeile gerade so weit komprimiert,
 dass sie sich innerhalb der Ränder befindet.
 
 Damit diese Tests immer funktionieren, müssen sie aktiviert werden,
-indem die @bs{}@code{override}-Befehle in einer @code{context}-Umgebung
+indem die \@code{override}-Befehle in einer @code{context}-Umgebung
 innerhalb der @code{layout}-Umgebung notiert werden und nicht innerhalb
 der Noten:
 
