@@ -102,14 +102,15 @@
       #:name name
       #:text (string-append
               (interface-doc-string (cdr interface) '())
-              "\n\n"
+              "\n\n@raggedRight\n"
               "This grob interface "
               (if (equal? interface-list "none")
                   "is not used in any graphical object"
                   (string-append
                    "is used in the following graphical object(s): "
                    interface-list))
-              "."))))
+              "."
+              "\n@endRaggedRight"))))
 
 (define (grob-alist->texi alist)
   (let* ((uprops (filter (lambda (x) (not (object-property x 'backend-internal)))
@@ -151,19 +152,24 @@ node."
       #:name namestr
       #:text
       (string-append
-       namestr " objects "
+       "@raggedRight\n"
+       "@code{"
+       namestr "} objects "
        (if (equal? engraver-list "none")
            "are not created by any engraver"
            (string-append
             "are created by: "
             engraver-list))
        "."
+       "\n@endRaggedRight"
 
        "\n\nStandard settings:\n"
        (grob-alist->texi description)
-       "\n\nThis object supports the following interface(s):\n"
+       "\n\n@raggedRight\n"
+       "This object supports the following interface(s):\n"
        (human-listify ifacedoc)
-       "."))))
+       "."
+       "\n@endRaggedRight"))))
 
 (define (all-grobs-doc)
   (make <texi-node>

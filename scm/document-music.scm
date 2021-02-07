@@ -60,6 +60,7 @@
       #:name (symbol->string (car entry))
       #:text
       (string-append
+       "\n@raggedRight"
        "\nMusic event type @code{"
        (symbol->string (car entry))
        "} is in music objects of type "
@@ -74,7 +75,8 @@
            (string-append
             "Accepted by: "
             accept-list))
-       "."))))
+       "."
+       "\n@endRaggedRight"))))
 
 (define (music-types-doc)
   (make <texi-node>
@@ -101,7 +103,8 @@
                           ""))
          (event-texi (if classes
                          (string-append
-                          "\n\nEvent classes:\n"
+                          "\n\n@raggedRight\n"
+                          "Event classes:\n"
                           (human-listify
                            (map ref-ify (sort (map symbol->string classes)
                                               ly:string-ci<?)))
@@ -113,7 +116,8 @@
                               (string-append
                                "Accepted by: "
                                accept-list))
-                          ".")
+                          "."
+                          "\n@endRaggedRight")
                          "")))
 
     (string-append

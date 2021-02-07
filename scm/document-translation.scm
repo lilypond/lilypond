@@ -41,9 +41,10 @@
     (string-append
      desc
      "\n\n"
+     "@raggedRight\n"
      (if (pair? accepted)
          (string-append
-          "Music types accepted:\n\n"
+          "Music types accepted:\n"
           (human-listify
            (map ref-ify (sort (map symbol->string accepted) ly:string-ci<?))))
          "")
@@ -68,7 +69,7 @@
      (if  (null? grobs)
           ""
           (string-append
-           "\n\nThis engraver creates the following layout object(s):\n\n"
+           "\n\nThis engraver creates the following layout object(s):\n"
            (human-listify (map ref-ify (uniq-list (sort grobs ly:string-ci<?))))
            "."))
 
@@ -103,7 +104,9 @@
                  "is part of the following context(s): "
                  context-list))
             "."))
-         ""))))
+         "")
+
+     "\n@endRaggedRight")))
 
 ;; First level Engraver description
 (define (engraver-doc grav)
@@ -128,7 +131,7 @@
 
   (let* ((eg (find-engraver-by-name name)))
 
-    (cons (string-append "@code{" (ref-ify (symbol->string name)) "}")
+    (cons (ref-ify (symbol->string name))
           (engraver-doc-string eg #f))))
 
 (define (document-property-operation op)
@@ -144,7 +147,7 @@
            (path (cdr args)))
 
         (string-append
-         (format #f "@item Set grob-property @code{~{~a~^.~}} " path)
+         (format #f "@item Set grob property @code{~{~a~^.~}} " path)
          (format #f "in @ref{~a} to" context-sym)
          (if (pretty-printable? value)
              (format #f ":~a\n" (scm->texi value))
@@ -178,12 +181,13 @@
        desc
        (if (pair? aliases)
            (string-append
-            "\n\nThis context also accepts commands for the following context(s):\n\n"
-            (human-listify (sort aliases ly:string-ci<?))
+            "\n\nThis context also accepts commands for the following context(s):\n"
+            (human-listify (map ref-ify (sort aliases ly:string-ci<?)))
             ".")
            "")
 
-       "\n\nThis context creates the following layout object(s):\n\n"
+       "\n\n@raggedRight"
+       "\nThis context creates the following layout object(s):\n"
        (human-listify (uniq-list grob-refs))
        "."
 
@@ -200,6 +204,8 @@
                   "@end itemize\n")))
            "")
 
+       "\n@endRaggedRight"
+
        (if defaultchild
            (format #f "\n\nThis is not a `Bottom' context; search for such a one will commence after creating an implicit context of type @ref{~a}."
                    defaultchild)
@@ -208,12 +214,14 @@
        (if (null? accepts)
            "\n\nThis context cannot contain other contexts."
            (string-append
-            "\n\nContext "
+            "\n\n@raggedRight"
+            "\nContext @code{"
             name
-            " can contain\n"
+            "} can contain\n"
             (human-listify (map ref-ify (sort (map symbol->string accepts)
                                               ly:string-ci<?)))
-            "."))
+            "."
+            "\n@endRaggedRight"))
 
        (if (null? consists)
            ""
