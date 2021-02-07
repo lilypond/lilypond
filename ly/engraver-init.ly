@@ -569,20 +569,22 @@ aligned across staves.
 You cannot explicitly instantiate a @code{Score} context (since it
 is not contained in any other context).  It is instantiated
 automatically when an output definition (a @code{\\score} or
-@code{\\layout} block) is processed."
+@code{\\layout} block) is processed.
+
+@anchor{Timing}
+An alias for @code{Timing} is established by the
+@code{Timing_translator} in whatever context it is initialized, and
+the timing variables are then copied from wherever @code{Timing}
+had been previously established.  The alias at @code{Score} level
+provides a target for initializing @code{Timing} variables in
+layout definitions before any @code{Timing_translator} has been
+run."
 
   \consists "Paper_column_engraver"
   \consists "Repeat_acknowledge_engraver"
   \consists "Staff_collecting_engraver"
 
   \alias "Timing"
-
-  %% An alias for Timing is established by the Timing_translator in
-  %% whatever context it is initialized, and the timing variables are
-  %% then copied from wherever Timing had been previously established.
-  %% The alias at Score level provides a target for initializing
-  %% Timing variables in layout definitions before any
-  %% Timing_translator has been run.
 
   %% timing translator must come BEFORE bar number engraver
   \consists "Timing_translator"
