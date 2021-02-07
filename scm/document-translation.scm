@@ -108,6 +108,7 @@
 ;; First level Engraver description
 (define (engraver-doc grav)
   (make <texi-node>
+    #:code-tag #t
     #:name (symbol->string (ly:translator-name grav))
     #:text (engraver-doc-string grav #t)))
 
@@ -170,6 +171,7 @@
          (grob-refs (map ref-ify (sort grobs ly:string-ci<?))))
 
     (make <texi-node>
+      #:code-tag #t
       #:name name
       #:text
       (string-append

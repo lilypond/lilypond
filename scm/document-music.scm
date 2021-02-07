@@ -56,6 +56,7 @@
                                          (engraver-accepts-music-type? (car entry) x))
                                        all-engravers-list)))))))
     (make <texi-node>
+      #:code-tag #t
       #:name (symbol->string (car entry))
       #:text
       (string-append
@@ -127,6 +128,7 @@
 
 (define (music-object-doc obj)
   (make <texi-node>
+    #:code-tag #t
     #:name (symbol->string (car obj))
     #:text (music-doc-str obj)))
 

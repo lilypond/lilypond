@@ -26,6 +26,7 @@
 
 (define-class <texi-node> ()
   (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)
+  (code-tag #:init-value #f #:accessor code-tag? #:init-keyword #:code-tag)
   (children #:init-value '() #:accessor node-children #:init-keyword #:children)
   (text #:init-value "" #:accessor node-text #:init-keyword #:text)
   (name #:init-value "" #:accessor node-name #:init-keyword #:name)
@@ -46,7 +47,9 @@
         (texi-appendix-section-command level)
         (texi-section-command level))
     " "
+    (if (code-tag? node) "@code{" "")
     (node-name node)
+    (if (code-tag? node) "}" "")
     "\n\n"
     (node-text node)
     "\n\n"

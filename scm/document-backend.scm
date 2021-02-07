@@ -98,6 +98,7 @@
                                                 '()))
                                 ly:string-ci<?)))))
     (make <texi-node>
+      #:code-tag #t
       #:name name
       #:text (string-append
               (interface-doc-string (cdr interface) '())
@@ -146,6 +147,7 @@ node."
                               (map engraver-name engraver-names)))))
 
     (make <texi-node>
+      #:code-tag #t
       #:name namestr
       #:text
       (string-append
