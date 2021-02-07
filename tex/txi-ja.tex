@@ -1,7 +1,6 @@
-% $Id$
 % txi-ja.tex -- Japanese translations and font definitions for texinfo.tex.
 %
-% Copyright 1999, 2007, 2008, 2016 Free Software Foundation, Inc.
+% Copyright 1999, 2007, 2008, 2016, 2020 Free Software Foundation, Inc.
 % 
 % This program is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -16,7 +15,7 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 %
-% Written by Masamichi Hosoda, 5 May 2016, <trueroad@trueroad.jp>
+% Written by Masamichi Hosoda, 22 Apr 2020, <trueroad@trueroad.jp>
 
 \txisetlanguage{USenglish}{2}{3}
 
@@ -91,41 +90,85 @@
     % Japanese font size is muliplied by 0.962216.
     \let\definealphabetictextfontsizexi\definetextfontsizexi
     \gdef\definetextfontsizexi{%
-      % Text fonts (11.2pt, magstep1).
-      \jfont\textmc{file:ipaexm.ttf:jfm=ujis} at 10.78pt
-      \jfont\textgt{file:ipaexg.ttf:jfm=ujis} at 10.78pt
+      % Search Japanese Mincho (serif) font
+      \ifx\txijamcfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (11.2pt, magstep1).
+        \jfont\textmc{file:HaranoAjiMincho-Regular.otf:jfm=ujis} at 10.78pt
+        \suppressfontnotfounderror=0 % workaround for LuaTeX < 1.10
+        \ifx\textmc\nullfont
+          \suppressfontnotfounderror=1
+          % Text font (11.2pt, magstep1).
+          \jfont\textmc{file:ipaexm.ttf:jfm=ujis} at 10.78pt
+          \suppressfontnotfounderror=0
+          \ifx\textmc\nullfont
+            \errmessage{Could not find Japanese Mincho (serif) font}
+          \else
+            \gdef\txijamcfont{file:ipaexm.ttf:jfm=ujis}
+          \fi
+        \else
+          \gdef\txijamcfont{file:HaranoAjiMincho-Regular.otf:jfm=ujis}
+        \fi
+      \else
+        % Text font (11.2pt, magstep1).
+        \jfont\textmc{\txijamcfont} at 10.78pt
+      \fi
+
+      % Search Japanese Gothic (sans-serif) font
+      \ifx\txijagtfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (11.2pt, magstep1).
+        \jfont\textgt{file:HaranoAjiGothic-Medium.otf:jfm=ujis} at 10.78pt
+        \suppressfontnotfounderror=0 % workaround for LuaTeX < 1.10
+        \ifx\textgt\nullfont
+          \suppressfontnotfounderror=1
+          % Text font (11.2pt, magstep1).
+          \jfont\textgt{file:ipaexg.ttf:jfm=ujis} at 10.78pt
+          \suppressfontnotfounderror=0
+          \ifx\textgt\nullfont
+            \errmessage{Could not find Japanese Gothic (sans-serif) font}
+          \else
+            \gdef\txijagtfont{file:ipaexg.ttf:jfm=ujis}
+          \fi
+        \else
+          \gdef\txijagtfont{file:HaranoAjiGothic-Medium.otf:jfm=ujis}
+        \fi
+      \else
+        % Text font (11.2pt, magstep1).
+        \jfont\textgt{\txijagtfont} at 10.78pt
+      \fi
 
       % Fonts for indices, footnotes, small examples (9pt).
-      \jfont\smallmc{file:ipaexm.ttf:jfm=ujis} at 8.66pt
-      \jfont\smallgt{file:ipaexg.ttf:jfm=ujis} at 8.66pt
+      \jfont\smallmc{\txijamcfont} at 8.66pt
+      \jfont\smallgt{\txijagtfont} at 8.66pt
 
       % Fonts for small examples (8pt).
-      \jfont\smallermc{file:ipaexm.ttf:jfm=ujis} at 7.70pt
-      \jfont\smallergt{file:ipaexg.ttf:jfm=ujis} at 7.70pt
+      \jfont\smallermc{\txijamcfont} at 7.70pt
+      \jfont\smallergt{\txijagtfont} at 7.70pt
 
       % Fonts for title page (20.4pt):
-      \jfont\titlemc{file:ipaexm.ttf:jfm=ujis} at 19.63pt
-      \jfont\titlegt{file:ipaexg.ttf:jfm=ujis} at 19.63pt
+      \jfont\titlemc{\txijamcfont} at 19.63pt
+      \jfont\titlegt{\txijagtfont} at 19.63pt
 
       % Chapter (and unnumbered) fonts (17.28pt).
-      \jfont\chapmc{file:ipaexm.ttf:jfm=ujis} at 16.63pt
-      \jfont\chapgt{file:ipaexg.ttf:jfm=ujis} at 16.63pt
+      \jfont\chapmc{\txijamcfont} at 16.63pt
+      \jfont\chapgt{\txijagtfont} at 16.63pt
 
       % Section fonts (14.4pt).
-      \jfont\secmc{file:ipaexm.ttf:jfm=ujis} at 13.86pt
-      \jfont\secgt{file:ipaexg.ttf:jfm=ujis} at 13.86pt
+      \jfont\secmc{\txijamcfont} at 13.86pt
+      \jfont\secgt{\txijagtfont} at 13.86pt
 
       % Subsection fonts (13.15pt).
-      \jfont\ssecmc{file:ipaexm.ttf:jfm=ujis} at 12.65pt
-      \jfont\ssecgt{file:ipaexg.ttf:jfm=ujis} at 12.65pt
+      \jfont\ssecmc{\txijamcfont} at 12.65pt
+      \jfont\ssecgt{\txijagtfont} at 12.65pt
 
-      % Reduced fonts for @acro in text (10pt).
-      \jfont\reducedmc{file:ipaexm.ttf:jfm=ujis} at 9.62pt
-      \jfont\reducedgt{file:ipaexg.ttf:jfm=ujis} at 9.62pt
+      % Reduced fonts for @acronym in text (10pt).
+      \jfont\reducedmc{\txijamcfont} at 9.62pt
+      \jfont\reducedgt{\txijagtfont} at 9.62pt
 
       % Fonts for short table of contents.
-      \jfont\shortcontmc{file:ipaexm.ttf:jfm=ujis} at 11.55pt
-      \jfont\shortcontgt{file:ipaexg.ttf:jfm=ujis} at 11.55pt
+      \jfont\shortcontmc{\txijamcfont} at 11.55pt
+      \jfont\shortcontgt{\txijagtfont} at 11.55pt
 
       \definealphabetictextfontsizexi
     }
@@ -134,41 +177,85 @@
     % Japanese font size is muliplied by 0.962216.
     \let\definealphabetictextfontsizex\definetextfontsizex
     \gdef\definetextfontsizex{%
-      % Text fonts (10pt).
-      \jfont\textmc{file:ipaexm.ttf:jfm=ujis} at 9.62pt
-      \jfont\textgt{file:ipaexg.ttf:jfm=ujis} at 9.62pt
+      % Search Japanese Mincho (serif) font
+      \ifx\txijamcfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (10pt).
+        \jfont\textmc{file:HaranoAjiMincho-Regular.otf:jfm=ujis} at 9.62pt
+        \suppressfontnotfounderror=0 % workaround for LuaTeX < 1.10
+        \ifx\textmc\nullfont
+          \suppressfontnotfounderror=1
+          % Text font (10pt).
+          \jfont\textmc{file:ipaexm.ttf:jfm=ujis} at 9.62pt
+          \suppressfontnotfounderror=0
+          \ifx\textmc\nullfont
+            \errmessage{Could not find Japanese Mincho (serif) font}
+          \else
+            \gdef\txijamcfont{file:ipaexm.ttf:jfm=ujis}
+          \fi
+        \else
+          \gdef\txijamcfont{file:HaranoAjiMincho-Regular.otf:jfm=ujis}
+        \fi
+      \else
+        % Text font (10pt).
+        \jfont\textmc{\txijamcfont} at 9.62pt
+      \fi
+
+      % Search Japanese Gothic (sans-serif) font
+      \ifx\txijagtfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (10pt).
+        \jfont\textgt{file:HaranoAjiGothic-Medium.otf:jfm=ujis} at 9.62pt
+        \suppressfontnotfounderror=0 % workaround for LuaTeX < 1.10
+        \ifx\textgt\nullfont
+          \suppressfontnotfounderror=1
+          % Text font (10pt).
+          \jfont\textgt{file:ipaexg.ttf:jfm=ujis} at 9.62pt
+          \suppressfontnotfounderror=0
+          \ifx\textgt\nullfont
+            \errmessage{Could not find Japanese Gothic (sans-serif) font}
+          \else
+            \gdef\txijagtfont{file:ipaexg.ttf:jfm=ujis}
+          \fi
+        \else
+          \gdef\txijagtfont{file:HaranoAjiGothic-Medium.otf:jfm=ujis}
+        \fi
+      \else
+        % Text font (10pt).
+        \jfont\textgt{\txijagtfont} at 9.62pt
+      \fi
 
       % Fonts for indices, footnotes, small examples (9pt).
-      \jfont\smallmc{file:ipaexm.ttf:jfm=ujis} at 8.66pt
-      \jfont\smallgt{file:ipaexg.ttf:jfm=ujis} at 8.66pt
+      \jfont\smallmc{\txijamcfont} at 8.66pt
+      \jfont\smallgt{\txijagtfont} at 8.66pt
 
       % Fonts for small examples (8pt).
-      \jfont\smallermc{file:ipaexm.ttf:jfm=ujis} at 7.70pt
-      \jfont\smallergt{file:ipaexg.ttf:jfm=ujis} at 7.70pt
+      \jfont\smallermc{\txijamcfont} at 7.70pt
+      \jfont\smallergt{\txijagtfont} at 7.70pt
 
       % Fonts for title page (20.4pt):
-      \jfont\titlemc{file:ipaexm.ttf:jfm=ujis} at 19.63pt
-      \jfont\titlegt{file:ipaexg.ttf:jfm=ujis} at 19.63pt
+      \jfont\titlemc{\txijamcfont} at 19.63pt
+      \jfont\titlegt{\txijagtfont} at 19.63pt
 
       % Chapter fonts (14.4pt).
-      \jfont\chapmc{file:ipaexm.ttf:jfm=ujis} at 13.86pt
-      \jfont\chapgt{file:ipaexg.ttf:jfm=ujis} at 13.86pt
+      \jfont\chapmc{\txijamcfont} at 13.86pt
+      \jfont\chapgt{\txijagtfont} at 13.86pt
 
       % Section fonts (12pt).
-      \jfont\secmc{file:ipaexm.ttf:jfm=ujis} at 11.55pt
-      \jfont\secgt{file:ipaexg.ttf:jfm=ujis} at 11.55pt
+      \jfont\secmc{\txijamcfont} at 11.55pt
+      \jfont\secgt{\txijagtfont} at 11.55pt
 
       % Subsection fonts (10pt).
-      \jfont\ssecmc{file:ipaexm.ttf:jfm=ujis} at 9.62pt
-      \jfont\ssecgt{file:ipaexg.ttf:jfm=ujis} at 9.62pt
+      \jfont\ssecmc{\txijamcfont} at 9.62pt
+      \jfont\ssecgt{\txijagtfont} at 9.62pt
 
-      % Reduced fonts for @acro in text (9pt).
-      \jfont\reducedmc{file:ipaexm.ttf:jfm=ujis} at 8.66pt
-      \jfont\reducedgt{file:ipaexg.ttf:jfm=ujis} at 8.66pt
+      % Reduced fonts for @acronym in text (9pt).
+      \jfont\reducedmc{\txijamcfont} at 8.66pt
+      \jfont\reducedgt{\txijagtfont} at 8.66pt
 
       % Fonts for short table of contents.
-      \jfont\shortcontmc{file:ipaexm.ttf:jfm=ujis} at 11.55pt
-      \jfont\shortcontgt{file:ipaexg.ttf:jfm=ujis} at 11.55pt
+      \jfont\shortcontmc{\txijamcfont} at 11.55pt
+      \jfont\shortcontgt{\txijagtfont} at 11.55pt
 
       \definealphabetictextfontsizex
     }
@@ -192,21 +279,6 @@
         #1%
         \parseargline\empty% Insert the \empty token, see \finishparsearg below.
     }
-    % Re-define texinfo.tex's \comment
-    \def\comment{\begingroup \catcode`\^^M=\active%
-      \ifx\ltjlineendcomment\thisisundefined
-        % Ignore U+FFFFF for LuaTeX-ja <= 20160208.0
-        \catcode"FFFFF=9%
-      \else
-        % Ignore the character \ltjlineendcomment for LuaTeX-ja > 20160208.0
-        \catcode\ltjlineendcomment=9%
-      \fi
-    \catcode`\@=\other \catcode`\{=\other \catcode`\}=\other\commentxxx}%
-    % Re-let \comment related macros
-    \let\setfilename=\comment
-    \let\dircategory=\comment
-    \let\definfoenclose=\comment
-    \let\footnotestyle=\comment
     % Re-define texinfo.tex's \c
     \def\c{\begingroup \catcode`\^^M=\active%
       \ifx\ltjlineendcomment\thisisundefined
@@ -219,7 +291,12 @@
     \catcode`\@=\other \catcode`\{=\other \catcode`\}=\other%
     \cxxx}
     % Re-let \c related macro
-    \let\texinfoc=\c
+    \let\comment=\c
+    % Re-let \comment related macros
+    \let\setfilename=\comment
+    \let\dircategory=\comment
+    \let\definfoenclose=\comment
+    \let\footnotestyle=\comment
   \fi % LuaTeX
 
   %
@@ -265,57 +342,101 @@
     % Japanese font size is muliplied by 0.962216.
     \let\definealphabetictextfontsizexi\definetextfontsizexi
     \gdef\definetextfontsizexi{%
+      % Search Japanese Mincho (serif) font
+      \ifx\txijamcfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (11.2pt, magstep1).
+        \font\textmczzz"[HaranoAjiMincho-Regular.otf]:mapping=tex-text"
+          at 10.78pt
+        \ifx\textmczzz\nullfont
+          % Text font (11.2pt, magstep1).
+          \font\textmczzz"[ipaexm.ttf]:mapping=tex-text" at 10.78pt
+          \ifx\textmczzz\nullfont
+            \errmessage{Could not find Japanese Mincho (serif) font}
+          \else
+            \gdef\txijamcfont{[ipaexm.ttf]:mapping=tex-text}
+          \fi
+        \else
+          \gdef\txijamcfont{[HaranoAjiMincho-Regular.otf]:mapping=tex-text}
+        \fi
+        \suppressfontnotfounderror=0
+      \else
+        % Text font (11.2pt, magstep1).
+        \font\textmczzz"\txijamcfont" at 10.78pt
+      \fi
+
+      % Search Japanese Gothic (sans-serif) font
+      \ifx\txijagtfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (11.2pt, magstep1).
+        \font\textgtzzz"[HaranoAjiGothic-Medium.otf]:mapping=tex-text"
+          at 10.78pt
+        \ifx\textgtzzz\nullfont
+          % Text font (11.2pt, magstep1).
+          \font\textgtzzz"[ipaexg.ttf]:mapping=tex-text" at 10.78pt
+          \ifx\textgtzzz\nullfont
+            \errmessage{Could not find Japanese Gothic (sans-serif) font}
+          \else
+            \gdef\txijagtfont{[ipaexg.ttf]:mapping=tex-text}
+          \fi
+        \else
+          \gdef\txijagtfont{[HaranoAjiGothic-Medium.otf]:mapping=tex-text}
+        \fi
+        \suppressfontnotfounderror=0
+      \else
+        % Text font (11.2pt, magstep1).
+        \font\textgtzzz"\txijagtfont" at 10.78pt
+      \fi
+
       % Text fonts (11.2pt, magstep1).
-      \font\textmczzz"[ipaexm.ttf]:mapping=tex-text" at 10.78pt
-      \font\textgtzzz"[ipaexg.ttf]:mapping=tex-text" at 10.78pt
       \def\textmc{\setjafont\textmczzz}
       \def\textgt{\setjafont\textgtzzz}
 
       % Fonts for indices, footnotes, small examples (9pt).
-      \font\smallmczzz"[ipaexm.ttf]:mapping=tex-text" at 8.66pt
-      \font\smallgtzzz"[ipaexg.ttf]:mapping=tex-text" at 8.66pt
+      \font\smallmczzz"\txijamcfont" at 8.66pt
+      \font\smallgtzzz"\txijagtfont" at 8.66pt
       \def\smallmc{\setjafont\smallmczzz}
       \def\smallgt{\setjafont\smallgtzzz}
 
       % Fonts for small examples (8pt).
-      \font\smallermczzz"[ipaexm.ttf]:mapping=tex-text" at 7.70pt
-      \font\smallergtzzz"[ipaexg.ttf]:mapping=tex-text" at 7.70pt
+      \font\smallermczzz"\txijamcfont" at 7.70pt
+      \font\smallergtzzz"\txijagtfont" at 7.70pt
       \def\smallermc{\setjafont\smallermczzz}
       \def\smallergt{\setjafont\smallergtzzz}
 
       % Fonts for title page (20.4pt):
-      \font\titlemczzz"[ipaexm.ttf]:mapping=tex-text" at 19.63pt
-      \font\titlegtzzz"[ipaexg.ttf]:mapping=tex-text" at 19.63pt
+      \font\titlemczzz"\txijamcfont" at 19.63pt
+      \font\titlegtzzz"\txijagtfont" at 19.63pt
       \def\titlemc{\setjafont\titlemczzz}
       \def\titlegt{\setjafont\titlegtzzz}
 
       % Chapter (and unnumbered) fonts (17.28pt).
-      \font\chapmczzz"[ipaexm.ttf]:mapping=tex-text" at 16.63pt
-      \font\chapgtzzz"[ipaexg.ttf]:mapping=tex-text" at 16.63pt
+      \font\chapmczzz"\txijamcfont" at 16.63pt
+      \font\chapgtzzz"\txijagtfont" at 16.63pt
       \def\chapmc{\setjafont\chapmczzz}
       \def\chapgt{\setjafont\chapgtzzz}
 
       % Section fonts (14.4pt).
-      \font\secmczzz"[ipaexm.ttf]:mapping=tex-text" at 13.86pt
-      \font\secgtzzz"[ipaexg.ttf]:mapping=tex-text" at 13.86pt
+      \font\secmczzz"\txijamcfont" at 13.86pt
+      \font\secgtzzz"\txijagtfont" at 13.86pt
       \def\secmc{\setjafont\secmczzz}
       \def\secgt{\setjafont\secgtzzz}
 
       % Subsection fonts (13.15pt).
-      \font\ssecmczzz"[ipaexm.ttf]:mapping=tex-text" at 12.65pt
-      \font\ssecgtzzz"[ipaexg.ttf]:mapping=tex-text" at 12.65pt
+      \font\ssecmczzz"\txijamcfont" at 12.65pt
+      \font\ssecgtzzz"\txijagtfont" at 12.65pt
       \def\ssecmc{\setjafont\ssecmczzz}
       \def\ssecgt{\setjafont\ssecgtzzz}
 
-      % Reduced fonts for @acro in text (10pt).
-      \font\reducedmczzz"[ipaexm.ttf]:mapping=tex-text" at 9.62pt
-      \font\reducedgtzzz"[ipaexg.ttf]:mapping=tex-text" at 9.62pt
+      % Reduced fonts for @acronym in text (10pt).
+      \font\reducedmczzz"\txijamcfont" at 9.62pt
+      \font\reducedgtzzz"\txijagtfont" at 9.62pt
       \def\reducedmc{\setjafont\reducedmczzz}
       \def\reducedgt{\setjafont\reducedgtzzz}
 
       % Fonts for short table of contents.
-      \font\shortcontmczzz"[ipaexm.ttf]:mapping=tex-text" at 11.55pt
-      \font\shortcontgtzzz"[ipaexg.ttf]:mapping=tex-text" at 11.55pt
+      \font\shortcontmczzz"\txijamcfont" at 11.55pt
+      \font\shortcontgtzzz"\txijagtfont" at 11.55pt
       \def\shortcontmc{\setjafont\shortcontmczzz}
       \def\shortcontgt{\setjafont\shortcontgtzzz}
 
@@ -326,57 +447,101 @@
     % Japanese font size is muliplied by 0.962216.
     \let\definealphabetictextfontsizex\definetextfontsizex
     \gdef\definetextfontsizex{%
+      % Search Japanese Mincho (serif) font
+      \ifx\txijamcfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (10pt).
+        \font\textmczzz"[HaranoAjiMincho-Regular.otf]:mapping=tex-text"
+          at 9.62pt
+        \ifx\textmczzz\nullfont
+          % Text font (10pt).
+          \font\textmczzz"[ipaexm.ttf]:mapping=tex-text" at 9.62pt
+          \ifx\textmczzz\nullfont
+            \errmessage{Could not find Japanese Mincho (serif) font}
+          \else
+            \gdef\txijamcffont{[ipaexm.ttf]:mapping=tex-text}
+          \fi
+        \else
+          \gdef\txijamcfont{[HaranoAjiMincho-Regular.otf]:mapping=tex-text}
+        \fi
+        \suppressfontnotfounderror=0
+      \else
+        % Text font (10pt).
+        \font\textmczzz"\txijamcfont" at 9.62pt
+      \fi
+
+      % Search Japanese Gothic (sans-serif) font
+      \ifx\txijagtfont\thisisundefined
+        \suppressfontnotfounderror=1
+        % Text font (10pt).
+        \font\textgtzzz"[HaranoAjiGothic-Medium.otf]:mapping=tex-text"
+          at 9.62pt
+        \ifx\textgtzzz\nullfont
+          % Text font (10pt).
+          \font\textgtzzz"[ipaexg.ttf]:mapping=tex-text" at 9.62pt
+          \ifx\textgtzzz\nullfont
+            \errmessage{Could not find Japanese Gothic (sans-serif) font}
+          \else
+            \gdef\txijagtffont{[ipaexg.ttf]:mapping=tex-text}
+          \fi
+        \else
+          \gdef\txijagtfont{[HaranoAjiGothic-Medium.otf]:mapping=tex-text}
+        \fi
+        \suppressfontnotfounderror=0
+      \else
+        % Text font (10pt).
+        \font\textgtzzz"\txijagtfont" at 9.62pt
+      \fi
+
       % Text fonts (10pt).
-      \font\textmczzz"[ipaexm.ttf]:mapping=tex-text" at 9.62pt
-      \font\textgtzzz"[ipaexg.ttf]:mapping=tex-text" at 9.62pt
       \def\textmc{\setjafont\textmczzz}
       \def\textgt{\setjafont\textgtzzz}
 
       % Fonts for indices, footnotes, small examples (9pt).
-      \font\smallmczzz"[ipaexm.ttf]:mapping=tex-text" at 8.66pt
-      \font\smallgtzzz"[ipaexg.ttf]:mapping=tex-text" at 8.66pt
+      \font\smallmczzz"\txijamcfont" at 8.66pt
+      \font\smallgtzzz"\txijagtfont" at 8.66pt
       \def\smallmc{\setjafont\smallmczzz}
       \def\smallgt{\setjafont\smallgtzzz}
 
       % Fonts for small examples (8pt).
-      \font\smallermczzz"[ipaexm.ttf]:mapping=tex-text" at 7.70pt
-      \font\smallergtzzz"[ipaexg.ttf]:mapping=tex-text" at 7.70pt
+      \font\smallermczzz"\txijamcfont" at 7.70pt
+      \font\smallergtzzz"\txijagtfont" at 7.70pt
       \def\smallermc{\setjafont\smallermczzz}
       \def\smallergt{\setjafont\smallergtzzz}
 
       % Fonts for title page (20.4pt):
-      \font\titlemczzz"[ipaexm.ttf]:mapping=tex-text" at 19.63pt
-      \font\titlegtzzz"[ipaexg.ttf]:mapping=tex-text" at 19.63pt
+      \font\titlemczzz"\txijamcfont" at 19.63pt
+      \font\titlegtzzz"\txijagtfont" at 19.63pt
       \def\titlemc{\setjafont\titlemczzz}
       \def\titlegt{\setjafont\titlegtzzz}
 
       % Chapter fonts (14.4pt).
-      \font\chapmczzz"[ipaexm.ttf]:mapping=tex-text" at 13.86pt
-      \font\chapgtzzz"[ipaexg.ttf]:mapping=tex-text" at 13.86pt
+      \font\chapmczzz"\txijamcfont" at 13.86pt
+      \font\chapgtzzz"\txijagtfont" at 13.86pt
       \def\chapmc{\setjafont\chapmczzz}
       \def\chapgt{\setjafont\chapgtzzz}
 
       % Section fonts (12pt).
-      \font\secmczzz"[ipaexm.ttf]:mapping=tex-text" at 11.55pt
-      \font\secgtzzz"[ipaexg.ttf]:mapping=tex-text" at 11.55pt
+      \font\secmczzz"\txijamcfont" at 11.55pt
+      \font\secgtzzz"\txijagtfont" at 11.55pt
       \def\secmc{\setjafont\secmczzz}
       \def\secgt{\setjafont\secgtzzz}
 
       % Subsection fonts (10pt).
-      \font\ssecmczzz"[ipaexm.ttf]:mapping=tex-text" at 9.62pt
-      \font\ssecgtzzz"[ipaexg.ttf]:mapping=tex-text" at 9.62pt
+      \font\ssecmczzz"\txijamcfont" at 9.62pt
+      \font\ssecgtzzz"\txijagtfont" at 9.62pt
       \def\ssecmc{\setjafont\ssecmczzz}
       \def\ssecgt{\setjafont\ssecgtzzz}
 
-      % Reduced fonts for @acro in text (9pt).
-      \font\reducedmczzz"[ipaexm.ttf]:mapping=tex-text" at 8.66pt
-      \font\reducedgtzzz"[ipaexg.ttf]:mapping=tex-text" at 8.66pt
+      % Reduced fonts for @acronym in text (9pt).
+      \font\reducedmczzz"\txijamcfont" at 8.66pt
+      \font\reducedgtzzz"\txijagtfont" at 8.66pt
       \def\reducedmc{\setjafont\reducedmczzz}
       \def\reducedgt{\setjafont\reducedgtzzz}
 
       % Fonts for short table of contents.
-      \font\shortcontmczzz"[ipaexm.ttf]:mapping=tex-text" at 11.55pt
-      \font\shortcontgtzzz"[ipaexg.ttf]:mapping=tex-text" at 11.55pt
+      \font\shortcontmczzz"\txijamcfont" at 11.55pt
+      \font\shortcontgtzzz"\txijagtfont" at 11.55pt
       \def\shortcontmc{\setjafont\shortcontmczzz}
       \def\shortcontgt{\setjafont\shortcontgtzzz}
 
@@ -388,10 +553,13 @@
     \XeTeXlinebreakskip=0em plus 0.1em minus 0.01em
     \XeTeXlinebreakpenalty=0
 
-    % For copy & paste Unicode characters (XeTeX 0.99995+)
+    % For copy & paste Unicode characters (XeTeX 0.99995 - 0.99998)
     \ifx\XeTeXgenerateactualtext\thisisundefined
     \else
-      \XeTeXgenerateactualtext=1
+      % XeTeX 0.99999+ doesn't need this workaround.
+      \ifnum\strcmp{\the\XeTeXversion\XeTeXrevision}{0.99999}<0
+        \XeTeXgenerateactualtext=1
+      \fi
     \fi
 
   \fi % XeTeX
