@@ -13,6 +13,11 @@ Macro definitions that contain translatable text belong to file
 `macros.itexi'.
 @end ignore
 
+@c Especially for the Internals Reference it helps if section names
+@c (which can use `@code` and the like) are displayed in references.
+
+@xrefautomaticsectiontitle on
+
 
 @c Don't replace quotes with directed quotes.
 
