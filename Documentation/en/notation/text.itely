@@ -1627,14 +1627,14 @@ aliases.
 
 For the @code{svg} backend:
 
-@indentedblock
+@indentedBlock
 @multitable @columnfractions .15 .30
 @headitem generic family @tab SVG font family
 @item roman @tab serif
 @item sans @tab sans-serif
 @item typewriter @tab monospace
 @end multitable
-@end indentedblock
+@endIndentedBlock
 
 @noindent
 @q{serif}, @q{sans-serif}, and @q{monospace} are
@@ -1642,7 +1642,7 @@ For the @code{svg} backend:
 
 For other backends:
 
-@indentedblock
+@indentedBlock
 @multitable @columnfractions .15 .30 .45
 @headitem generic family
           @tab default font family alias
@@ -1674,7 +1674,7 @@ For other backends:
      @dots{},
      monospace
 @end multitable
-@end indentedblock
+@endIndentedBlock
 
 @noindent
 If a character does not exist in the appropriate font of the first
