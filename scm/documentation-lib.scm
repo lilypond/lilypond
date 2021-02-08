@@ -99,17 +99,18 @@
       (string-append "\n\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))))
 
 
-(define (description-list->texi items-alist quote?)
+(define (description-list->texi items-alist indented?)
   "Document ITEMS-ALIST in a table; entries contain (item-label .
-string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
+string-to-use).  If INDENTED? is #t, embed table in a @indentedblock
+environment."
   (string-append
    "\n"
-   (if quote? "@quotation\n" "")
+   (if indented? "@indentedBlock\n" "")
    "@table @asis"
    (string-concatenate (map one-item->texi items-alist))
    "\n\n"
    "@end table\n"
-   (if quote? "@end quotation\n" "")))
+   (if indented? "@endIndentedBlock\n" "")))
 
 (define (texi-menu items-alist)
   "Generate what is between @menu and @end menu."
