@@ -40,9 +40,9 @@ class Mark_engraver : public Engraver
 {
 
   void create_items (Stream_event *);
-  Item *text_;
-  Item *final_text_;
-  Stream_event *mark_ev_;
+  Item *text_ = nullptr;
+  Item *final_text_ = nullptr;
+  Stream_event *mark_ev_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Mark_engraver);
@@ -59,15 +59,12 @@ protected:
 Mark_engraver::Mark_engraver (Context *c)
   : Engraver (c)
 {
-  text_ = 0;
-  final_text_ = 0;
-  mark_ev_ = 0;
 }
 
 void
 Mark_engraver::start_translation_timestep ()
 {
-  final_text_ = 0;
+  final_text_ = nullptr;
 }
 
 void
@@ -78,9 +75,9 @@ Mark_engraver::stop_translation_timestep ()
       set_object (text_, "side-support-elements",
                   grob_list_to_grob_array (get_property (this, "stavesFound")));
       final_text_ = text_;
-      text_ = 0;
+      text_ = nullptr;
     }
-  mark_ev_ = 0;
+  mark_ev_ = nullptr;
 }
 
 void
@@ -89,7 +86,7 @@ Mark_engraver::finalize ()
   if (final_text_)
     set_property (final_text_, "break-visibility",
                   scm_c_make_vector (3, SCM_BOOL_T));
-  final_text_ = 0;
+  final_text_ = nullptr;
 }
 
 void
