@@ -2,8 +2,7 @@
   texidocfr = "
 Afin de suivre la ligne mélodique, LilyPond peut inverser l'orientation
 de hampe de la note médiane, dès lors qu'aura été ajouté au contexte de
-voix le graveur @code{Melody_engraver} et adaptée la propriété
-@code{neutral-direction} de l'objet @code{Stem}.
+voix le graveur @code{Melody_engraver}.
 
 "
 
