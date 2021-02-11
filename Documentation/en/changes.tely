@@ -66,6 +66,27 @@ which scares away people.
 @end ignore
 
 @item
+Adding the @code{Melody_engraver} to the @code{Voice} context now works
+out of the box to change the stem direction of the middle note according
+to the melody.  Previously, this required an additional override to
+@code{Stem.neutral-direction}.
+
+@lilypond[verbatim]
+\new Voice \with {
+  \consists Melody_engraver
+}
+\relative c'' {
+  \autoBeamOff
+  g8 b a e g b a g |
+  c b d c b e d c |
+}
+@end lilypond
+
+The @code{suspendMelodyDecisions} context property may be used
+to turn off this behavior temporarily, as
+@code{\override Stem.neutral-direction = #DOWN} used to do.
+
+@item
 In the Emmentaler font, identical-looking noteheads whose only difference was
 stem direction have been consolidated into a single glyph.  For instance,
 the glyphs @code{noteheads.u2triangle} and @code{noteheads.d2triangle} have
