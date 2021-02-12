@@ -742,6 +742,9 @@ spanners, etc.).")
 
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
 current breakable (clef, key signature, etc.) items.")
+     (currentMarkEvent ,ly:stream-event? "The event selected by
+@code{Mark_@/tracking_@/translator} for engraving by
+@code{Mark_@/engraver}.")
      (currentMusicalColumn ,ly:grob? "Grob that is X-parent to all
 non-breakable items (note heads, lyrics, etc.).")
 

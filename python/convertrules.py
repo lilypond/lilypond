@@ -4415,6 +4415,17 @@ def conv(s):
         s = re.sub(complete_pattern, replacement, s)
     return s
 
+@rule((2, 23, 5), r"""
+Mark_tracking_translator
+""")
+def conv(s):
+    if re.search(r'\\consists\s+"?Mark_engraver"?', s):
+        stderr_write(NOT_SMART % "\\consists Mark_engraver")
+        stderr_write(_("If independent mark sequences are desired, use multiple Mark_tracking_translators."))
+        stderr_write('\n')
+        stderr_write(UPDATE_MANUALLY)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

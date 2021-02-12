@@ -558,6 +558,7 @@ provides a target for initializing @code{Timing} variables in
 layout definitions before any @code{Timing_translator} has been
 run."
 
+  \consists "Mark_tracking_translator"
   \consists "Paper_column_engraver"
   \consists "Repeat_acknowledge_engraver"
   \consists "Staff_collecting_engraver"

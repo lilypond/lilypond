@@ -66,6 +66,16 @@ which scares away people.
 @end ignore
 
 @item
+The new @code{Mark_tracking_translator} takes over from
+@code{Mark_engraver} the decision of when to create a mark.
+@code{Mark_engraver} continues to control formatting and vertical
+placement.
+
+By default, @code{Mark_engravers} in multiple contexts create a
+common sequence of marks.  If independent sequences are desired,
+multiple @code{Mark_tracking_translators} must be used.
+
+@item
 The default of the @code{aux-files} program option changed to
 @code{#f}. If you are calling LilyPond with the
 @code{-dbackend=eps} argument and need the auxiliary @file{.tex}

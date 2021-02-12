@@ -24,6 +24,7 @@
 #include "grob-array.hh"
 #include "international.hh"
 #include "item.hh"
+#include "mark-tracking-translator.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
 #include "warn.hh"
@@ -38,11 +39,8 @@
 */
 class Mark_engraver : public Engraver
 {
-
-  void create_items (Stream_event *);
   Item *text_ = nullptr;
   Item *final_text_ = nullptr;
-  Stream_event *mark_ev_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Mark_engraver);
@@ -52,8 +50,6 @@ protected:
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void finalize () override;
-
-  void listen_mark (Stream_event *);
 };
 
 Mark_engraver::Mark_engraver (Context *c)
@@ -77,7 +73,6 @@ Mark_engraver::stop_translation_timestep ()
       final_text_ = text_;
       text_ = nullptr;
     }
-  mark_ev_ = nullptr;
 }
 
 void
@@ -90,83 +85,74 @@ Mark_engraver::finalize ()
 }
 
 void
-Mark_engraver::create_items (Stream_event *ev)
+Mark_engraver::process_music ()
 {
   if (text_)
     return;
 
-  text_ = make_item ("RehearsalMark", ev->self_scm ());
-}
+  // Get the event chosen by Mark_tracking_translator.
+  SCM ev_scm = get_property (this, "currentMarkEvent");
+  auto *const ev = unsmob<Stream_event> (ev_scm);
+  if (!ev)
+    return;
 
-void
-Mark_engraver::listen_mark (Stream_event *ev)
-{
-  ASSIGN_EVENT_ONCE (mark_ev_, ev);
-}
-
-/*
-  TODO: make the increment function in Scheme.
-*/
-void
-Mark_engraver::process_music ()
-{
-  if (mark_ev_)
+  SCM text = SCM_EOL;
+  if (ev->in_event_class ("rehearsal-mark-event"))
     {
-      create_items (mark_ev_);
-
-      /*
-        automatic marks.
-      */
-
-      SCM m = get_property (mark_ev_, "text");
-      SCM proc = get_property (this, "markFormatter");
-      if (scm_is_null (m)
-          && ly_is_procedure (proc))
+      const auto label
+        = Mark_tracking_translator::get_rehearsal_mark_label (context (), ev);
+      if (label > 0)
         {
-          m = get_property (mark_ev_, "label");
-          if (!scm_is_number (m))
-            m = get_property (this, "rehearsalMark");
-
-          if (scm_is_number (m))
-            {
-              set_property (context (), "rehearsalMark", scm_oneplus (m));
-              m = scm_call_2 (proc, m, context ()->self_scm ());
-            }
-          else
-            /* Score.rehearsalMark is initialized to #1 so we
-               never should see this case without user error */
-            mark_ev_->warning (_ ("rehearsalMark must have integer value"));
+          SCM proc = get_property (this, "markFormatter");
+          if (ly_is_procedure (proc))
+            text = scm_call_2 (proc, to_scm (label), context ()->self_scm ());
         }
-
-      if (Text_interface::is_markup (m))
-        set_property (text_, "text", m);
-      else
-        mark_ev_->warning (_ ("mark label must be a markup object"));
     }
+  else // ad-hoc-mark-event
+    {
+      text = get_property (ev, "text");
+    }
+
+  text_ = make_item ("RehearsalMark", ev->self_scm ());
+  if (Text_interface::is_markup (text))
+    set_property (text_, "text", text);
+  else
+    ev->warning (_ ("mark label must be a markup object"));
 }
 
 void
 Mark_engraver::boot ()
 {
-  ADD_LISTENER (Mark_engraver, mark);
 }
 
 ADD_TRANSLATOR (Mark_engraver,
-                /* doc */
-                "Create @code{RehearsalMark} objects.  It puts them on top of"
-                " all staves (which is taken from the property"
-                " @code{stavesFound}).  If moving this engraver to a different"
-                " context, @ref{Staff_collecting_engraver} must move along,"
-                " otherwise all marks end up on the same Y@tie{}location.",
+                /* doc */ R"(
+
+This engraver creates rehearsal marks.
+
+@code{Mark_@/engraver} creates marks formatted according to the
+@code{markFormatter} context property and places them vertically outside the
+set of staves given in the @code{stavesFound} context property.
+
+If @code{Mark_@/engraver} is added or moved to another context,
+@iref{Staff_collecting_engraver} also needs to be there so that marks appear at
+the intended Y@tie{}location.
+
+By default, @code{Mark_@/engravers} in multiple contexts create a common
+sequence of marks chosen by the @code{Score}-level
+@iref{Mark_tracking_translator}.  If independent sequences are desired,
+multiple @code{Mark_tracking_translators} must be used.
+
+)",
 
                 /* create */
                 "RehearsalMark ",
 
                 /* read */
+                "currentMarkEvent "
                 "markFormatter "
-                "rehearsalMark "
                 "stavesFound ",
 
                 /* write */
                 ""
-               );
+);
