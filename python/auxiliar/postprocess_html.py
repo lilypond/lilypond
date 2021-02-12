@@ -22,7 +22,6 @@
 Postprocess HTML files:
 add footer, tweak links, add language selection menu.
 """
-import codecs
 import re
 import os
 import sys
@@ -281,7 +280,7 @@ def process_html_files(pages_dict,
             file_name = langdefs.lang_file_name(prefix, lang_ext, '.html')
             dest_time = 0
 
-            content = codecs.open(file_name, 'r', 'utf-8').read()
+            content = open(file_name, 'r', encoding='utf-8').read()
             content = content.replace('%', '%%')
 
             # add sidebar information
@@ -298,7 +297,7 @@ def process_html_files(pages_dict,
                 page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
 
                 # Must write to tmp file to avoid touching hardlinked files.
-                out_f = codecs.open(k + ".tmp", 'w', 'utf-8')
+                out_f = open(k + ".tmp", 'w', encoding='utf-8')
                 out_f.write(page_flavors[k][1])
                 out_f.close()
                 os.rename(k + ".tmp", k)

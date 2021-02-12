@@ -24,7 +24,6 @@
 # USAGE: www_post PACKAGE_NAME TOPLEVEL_VERSION OUTDIR TARGETS
 # please call me from top of the source directory
 
-import codecs
 import sys
 import os
 import re

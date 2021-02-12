@@ -19,7 +19,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import codecs
 import copy
 import os
 import re
@@ -357,8 +356,9 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
             for t in [translated_doctitle,  doctitle]:
                 fullpath = find(t)
                 if fullpath:
-                    s += '\n@lydoctitle %s\n\n' % codecs.open(
-                        fullpath, 'r', 'utf-8').read().replace(",", "@comma{}")
+                    doctitle = open(fullpath, 'r', encoding='utf-8').read()
+                    doctitle = doctitle.replace(",", "@comma{}")
+                    s += '\n@lydoctitle %s\n\n' % doctitle
                     break
 
         if book_snippets.TEXIDOC in snippet.option_dict:

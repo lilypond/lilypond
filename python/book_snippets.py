@@ -19,7 +19,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import codecs
 import copy
 import hashlib
 import os
@@ -624,7 +623,7 @@ class LilypondSnippet (Snippet):
         os.makedirs(directory, exist_ok=True)
         filename = path + '.ly'
         if os.path.exists(filename):
-            existing = codecs.open(filename, 'r', 'utf-8').read()
+            existing = open(filename, 'r', encoding='utf-8').read()
 
             if self.relevant_contents(existing) != self.relevant_contents(self.full_ly()):
                 warning("%s: duplicate filename but different contents of original file,\n\
@@ -634,7 +633,7 @@ printing diff against existing file." % filename)
                 sys.stderr.write(self.filter_pipe(
                     encoded, cmd).decode('utf-8'))
         else:
-            out = codecs.open(filename, 'w', 'utf-8')
+            out = open(filename, 'w', encoding='utf-8')
             out.write(self.full_ly())
 
     def relevant_contents(self, ly):
@@ -982,7 +981,7 @@ printing diff against existing file.") % xmlfilename)
 printing diff against existing file.") % filename)
                 sys.stderr.write(diff_against_existing.decode('utf-8'))
         else:
-            out = codecs.open(filename, 'w', 'utf-8')
+            out = open(filename, 'w', encoding='utf-8')
             out.write(self.full_ly())
             out.close()
 

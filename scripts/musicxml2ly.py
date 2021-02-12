@@ -22,7 +22,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import codecs
 from collections import OrderedDict
 from fractions import Fraction
 from functools import reduce
@@ -3316,7 +3315,7 @@ def convert(filename, options):
     if options.output_name == "-":
         printer.set_file(sys.stdout)
     else:
-        printer.set_file(codecs.open(output_ly_name, 'w', encoding='utf-8'))
+        printer.set_file(open(output_ly_name, 'w', encoding='utf-8'))
     print_ly_preamble(printer, filename)
     print_ly_additional_definitions(printer, filename)
     if score_information:
