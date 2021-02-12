@@ -1030,10 +1030,12 @@ of Editio Vaticana."
   \remove "Time_signature_engraver"
   \consists "Custos_engraver"
 
-  %% We can not remove Bar_engraver; otherwise clefs and custodes will
-  %% not show up any more among other line breaking issues.
-  %% Instead, we make the grob transparent.
-  \override BarLine.transparent = ##t
+  %% Eliminate measure bar lines.
+  defaultBarType = ""
+
+  %% Make both \bar "||" and \bar "|." look like the finalis sign.
+  \override BarLine.hair-thickness = #0.6
+  \override BarLine.thick-thickness = #0.6
 
   \override StaffSymbol.line-count = #4
   \override StaffSymbol.thickness = #0.6
@@ -1085,10 +1087,12 @@ of Editio Vaticana."
   \accepts "GregorianTranscriptionVoice"
   \defaultchild "GregorianTranscriptionVoice"
 
-  %% We can not remove Bar_engraver; otherwise clefs and custodes will
-  %% not show up any more among other line breaking issues.
-  %% Instead, we make the grob transparent.
-  \override BarLine.transparent = ##t
+  %% Eliminate measure bar lines.
+  defaultBarType = ""
+
+  %% Make both \bar "||" and \bar "|." look like the finalis sign.
+  \override BarLine.hair-thickness = #1.9
+  \override BarLine.thick-thickness = #1.9
 }
 
 \context {
@@ -1123,10 +1127,12 @@ accommodated for typesetting a piece in mensural style."
 
   \consists "Custos_engraver"
 
-  %% We can not remove Bar_engraver; otherwise clefs and custodes will
-  %% not show up any more among other line breaking issues.
-  %% Instead, we make the grob transparent.
-  \override BarLine.transparent = ##t
+  %% Eliminate measure bar lines.
+  defaultBarType = ""
+
+  %% Make both \bar "||" and \bar "|." look like the finalis sign.
+  \override BarLine.hair-thickness = #0.6
+  \override BarLine.thick-thickness = #0.6
 
   \override StaffSymbol.thickness = #0.6
 
