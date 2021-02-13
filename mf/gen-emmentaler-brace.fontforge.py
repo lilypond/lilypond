@@ -72,6 +72,7 @@ for c in "abcdefghi":
 
 font.fontname = "Emmentaler-Brace"
 font.familyname = "Emmentaler-Brace"
+font.fullname = "Emmentaler-Brace"
 font.weight = "Regular"
 font.copyright = "GNU GPL"
 font.version = version
