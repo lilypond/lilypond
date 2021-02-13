@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9b78f9a4ab0e076ffb03bfeb0cb959064072a72b
+   Translation of GIT committish: e05800ca6450b5bf2e0e8a5ec0eeb22bce238202
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -625,12 +625,34 @@ ne sera extrait si l'on utilise l'option @option{-dno-print-pages}. La
 valeur par défaut est  @code{#f}.
 
 @item @code{crop} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, fait correspondre le fichier
-résultant (musique et entêtes) à la taille de l'image générée. La valeur
-par défaut est @code{#f}.
+Si @var{bool} est déterminé à @code{#t}, un second fichier PDF sera créé
+(avec l'extension @file{.cropped.pdf}) ainsi que son rendu sous forme
+d'image (avec l'extension @file{.cropped.png}). Ce fichier résultant
+(musique et entêtes) sera à la taille de l'image générée, sans marge.
+Dans le cas où est utilisée l'option @option{--svg} sera alors produit
+un fichier SVG (avec l'extension @file{.cropped.svg}). Dès lors que sont
+utilisées les options @option{--eps} ou @option{--ps}, un fichier réduit
+PS (avec l'extension @file{.cropped.eps}) sera généré en lieu et place
+d'un PDF réduit. La valeur par défaut est @code{#f}.
+
+Notez bien que cette option n'est, à ce jour, pas très adaptée dans le
+cadre d'une sortie comportant plusieurs systèmes puisque l'espace les
+séparant est supprimé.
 
 @item @code{datadir}
 Détermine le préfixe des fichiers de données (lecture seule).
+
+@item @code{debug-eval} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, LilyPond utilisera le
+l'évaluateur de déboguage Scheme qui affichera les traçage et les
+numéros de ligne en cas d'erreur. La valeur par défaut est @code{#f}, mais
+@code{#t} lorsque @code{--verbose} est utilisé.
+
+@item @code{debug-gc-object-lifetimes} @var{limite}
+Cette option permet de s'assurer que toutes les références aux objets
+analysés sont éliminées après la fin d'un fichier, affichant un maximum
+d'avertissments fixé à @var{limite}, ou sans maximum si déterminé
+à @code{#t}. La valeur par défaut est de @code{5}.
 
 @item @code{debug-lexer} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, permet le débogage de
