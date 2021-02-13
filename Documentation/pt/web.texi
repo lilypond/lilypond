@@ -29,11 +29,11 @@
 @c commit: d189a2119004c2f75da2020ea2ed36d817582fc5
 
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2003--2015 pelos autores.
+@c Copyright @copyright{} 2003--2020 pelos autores.
 @c @end macro
 
 @copying
-Copyright @copyright{} 2003--2015 pelos autores.
+Copyright @copyright{} 2003--2020 pelos autores.
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially

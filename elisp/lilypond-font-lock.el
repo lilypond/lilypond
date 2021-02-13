@@ -2,8 +2,8 @@
 ;;;;
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1997-2001 Han-Wen Nienhuys <hanwen@xs4all.nl>,
-;;;;               2001-2006  Heikki Junes <hjunes@cc.hut.fi>
+;;;; Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>,
+;;;;               2001--2006 Heikki Junes <hjunes@cc.hut.fi>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
