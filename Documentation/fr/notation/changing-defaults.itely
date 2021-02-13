@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
+   Translation of GIT committish: 40c930114dd9be868f0b3c3e46c96b2c41bb638f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4005,6 +4005,7 @@ a' a'
 @cindex surimpression d'objet
 @cindex objet, surimpression
 @cindex grobs, superposition
+@cindex @emph{whiteout} (blanchiment)
 
 Tout objet de rendu dispose d'une propriété couleur, par défaut définie
 à @code{black} (noir).  Le fait de la forcer à @code{white} (blanc)
@@ -4040,6 +4041,10 @@ pouvoir être dessiné avant.
 \override Staff.Clef.layer = #-1
 a'1
 @end lilypond
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/using-the-whiteout-property.ly}
 
 
 @node Utilisation de break-visibility
@@ -5161,8 +5166,8 @@ répétition.
   c''1
   \repeat volta 3 { c4 d( e f }
   \alternative {
-    { g2) d }
-    {
+    \volta 1 { g2) d }
+    \volta 2 {
       g2
         % create a slur and move it to a new position
         % the <> is just an empty chord to carry the slur termination
@@ -5170,7 +5175,7 @@ répétition.
                   #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
       f,
     }
-    {
+    \volta 3 {
       e'2
         % create a slur and move it to a new position
         -\tweak control-points
