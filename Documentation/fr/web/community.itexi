@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 670884bd1daf8393b45a4a8a5531301c49932561
+   Translation of GIT committish: 155b5640079e559e7379f0ff9aef158aec975dcc
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -997,8 +997,10 @@ Les vieilles annonces et informations de version sont rangées au
 @subheading Annonces
 
 Annonces et nouvelles, par version :
-@uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013-1,v2.18},
-@uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
+@uref{https://lilypond.org/doc/v2.22/Documentation/web/news,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/news,v2.20},
+@uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013,v2.18},
+@uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
@@ -1012,10 +1014,11 @@ Annonces et nouvelles, par version :
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Liste descriptive des évolutions, par version :
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/index.fr.html,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/changes/index.fr.html,v2.20},
-@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html,v2.18},
-@uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
-@uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/,v2.18},
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/,v2.16},
+@uref{https://lilypond.org/doc/v2.14/Documentation/changes/,v2.14},
 @uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
 @uref{https://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
 @uref{https://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
@@ -1035,7 +1038,8 @@ Liste descriptive des évolutions, par version :
 
 Tous nos remerciements aux développeurs, contributeurs, chasseurs
 de bogue et à ceux qui nous ont fait part de leurs suggestions pour
-@miscLink{THANKS-2.18,v2.20},
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.20},
 @miscLink{THANKS-2.16,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
