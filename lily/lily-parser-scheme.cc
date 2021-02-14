@@ -121,6 +121,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
       Lily_parser *parser = new Lily_parser (&sources);
 
+      message (_ ("Parsing..."));
       parser->parse_file (init, file_name, out_file);
 
       error = parser->error_level_;
@@ -134,6 +135,35 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   */
   if (error)
     /* TODO: pass renamed input file too.  */
+    scm_throw (ly_symbol2scm ("ly-file-failed"),
+               scm_list_1 (ly_string2scm (file_name)));
+
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parse_init, "ly:parse-init", 1, 0, 0, (SCM name),
+           "Parse the init file @code{name}.")
+{
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
+  string file = ly_scm2string (name);
+
+  string file_name = global_path.find (file);
+
+  bool error = false;
+
+  Sources sources;
+  sources.set_path (&global_path);
+
+  Lily_parser *parser = new Lily_parser (&sources);
+
+  parser->parse_file (file_name, "<impossible>", "");
+
+  error = parser->error_level_;
+
+  parser->clear ();
+  parser->unprotect ();
+
+  if (error)
     scm_throw (ly_symbol2scm ("ly-file-failed"),
                scm_list_1 (ly_string2scm (file_name)));
 

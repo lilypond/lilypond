@@ -27,17 +27,7 @@
      (setlocale LC_NUMERIC "C")))
   (else))
 
-#(session-initialize
-  (lambda ()
-   ;; we can't use ly:parser-include-string here since that does not
-   ;; actually do any parsing but merely switches inputs, so the
-   ;; session saved by the session initializer after calling this
-   ;; function has not actually started.  A parser clone, in contrast,
-   ;; can run and complete synchronously and shares the module with
-   ;; the current parser.
-   (ly:parser-parse-string (ly:parser-clone)
-    "\\include \"declarations-init.ly\"")))
-
+#(session-replay)
 #(note-names-language default-language)
 
 #(define toplevel-scores (list))

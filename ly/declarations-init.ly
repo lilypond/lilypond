@@ -18,6 +18,16 @@
 
 \version "2.21.0"
 
+#(cond-expand
+  (guile-2
+    (begin
+     (use-modules (ice-9 curried-definitions))
+     (setlocale LC_ALL "")
+     (setlocale LC_NUMERIC "C")))
+  (else))
+
+#(session-start-record)
+
 %% named durations
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0)
@@ -160,3 +170,5 @@ partCombineListener = \layout {
 }
 
 setDefaultDurationToQuarter = { c4 }
+
+#(session-save)

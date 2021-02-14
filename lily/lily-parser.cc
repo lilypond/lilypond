@@ -103,8 +103,6 @@ Lily_parser::parse_file (const string &init, const string &name, const string &o
 
   lexer_->main_input_name_ = name;
 
-  message (_ ("Parsing..."));
-
   set_yydebug (0);
 
   lexer_->new_input (init, sources_);
