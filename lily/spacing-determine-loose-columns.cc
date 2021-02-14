@@ -131,8 +131,10 @@ is_loose_column (Paper_column *l, Paper_column *col, Paper_column *r,
                 {
                   extract_grob_set (h, "elements", helts);
                   for (auto *const bar : helts)
-                    if ("" != robust_scm2string (get_property (bar, "glyph-name"), ""))
-                      return false;
+                    {
+                      if (bar->extent (bar, X_AXIS).length () > 0)
+                        return false;
+                    }
                 }
             }
         }
