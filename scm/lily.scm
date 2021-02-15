@@ -419,7 +419,7 @@ messages into errors.")
             (ly:add-option (car x) (cadr x) (caddr x)))
           scheme-options-definitions)
 
-;; 'debug-gc-object-lifetimes not supported on GUILE 2
+;; 'debug-gc-object-lifetimes off by default on Guile 2
 (cond-expand
  (guile-2
   (ly:set-option 'debug-gc-object-lifetimes #f))
@@ -781,7 +781,7 @@ messages into errors.")
 
 (define (dump-zombies limit)
   "Check for new objects that should have been dead. Print `limit`
-instances of them (#t for no limit). Doesn't work on GUILE 2"
+instances of them (#t for no limit)."
   (ly:set-option 'debug-gc-assert-parsed-dead #t)
   (gc)
   (ly:set-option 'debug-gc-assert-parsed-dead #f)
@@ -924,13 +924,6 @@ PIDs or the number of the process."
   lilypond-exports))
 
 (define-public (lilypond-all files)
-  (cond-expand
-   (guile-2
-    (if (ly:get-option 'debug-gc-object-lifetimes)
-        (begin (ly:set-option 'debug-gc-object-lifetimes #f)
-               (ly:warning (_ "option 'debug-gc-object-lifetimes not supported on GUILE 2")))))
-   (else #t))
-
   ;; Do this relatively late (after forking for multiple jobs), so Pango
   ;; can spawn threads (since version 1.48.3) without leading to hangs.
   (ly:reset-all-fonts)

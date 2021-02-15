@@ -382,14 +382,7 @@ public:
   static SCM readout ();
 };
 
-// This does not work with GUILEv2's garbage collector; it prints out
-// #<finalized smob> as objects, which corresponds to the first
-// (zeroth) smob tag. ie. the mark function is called for objects to be 
-// freed too.  Perhaps the topological ordering of finalizers is 
-// enforced through mark callbacks? In practice, we also need multiple
-// (gc) calls at the end of each file for the lexer and parsers to
-// really die.
-#if defined (DEBUG) && !GUILEV2
+#ifdef DEBUG
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
   do {                                                                  \
     static parsed_dead pass_here;                                       \
