@@ -77,17 +77,15 @@ voiceC =  {
 }
 
 voiceD =  {
-  \repeat volta 2
+  \repeat volta 3
   {
     f f 
     \break
   }
   \alternative
   {
-    {	f
-      }
-    {	f f \break f 
-      }
+    \volta 1 { f }
+    \volta 2,3 { f f \break f }
   }
 }
 voiceE =  {
