@@ -46,7 +46,7 @@ protected:
   std::vector<Grob *> end_slurs_;
 
   // objects that we need for formatting, eg. scripts and ties.
-  std::vector<Grob_info> objects_to_acknowledge_;
+  std::vector<Grob *> objects_to_acknowledge_;
 
   virtual SCM event_symbol () const;
   virtual bool double_property () const;

@@ -166,7 +166,7 @@ Slur_engraver::acknowledge_note_column (Grob_info info)
 void
 Slur_engraver::acknowledge_extra_object (Grob_info info)
 {
-  objects_to_acknowledge_.push_back (info);
+  objects_to_acknowledge_.push_back (info.grob ());
 }
 
 void

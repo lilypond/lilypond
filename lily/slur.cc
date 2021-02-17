@@ -391,14 +391,13 @@ Slur::vertical_skylines (SCM smob)
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */
 void
-Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
+Slur::auxiliary_acknowledge_extra_object (Grob *e,
                                           vector<Grob *> &slurs,
                                           vector<Grob *> &end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())
     return;
 
-  Grob *e = info.grob ();
   SCM avoid = get_property (e, "avoid-slur");
   Grob *slur;
   if (end_slurs.size () && !slurs.size ())
