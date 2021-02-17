@@ -22,7 +22,7 @@ LilyPond Version @version{} erweitern kann.
 
 @c `Extending' was born 2003-04-23 with git commit c08f6e8...
 @macro copyrightDeclare
-Copyright @copyright{} 2003--2020 bei den Autoren.
+Copyright @copyright{} 2003--2021 bei den Autoren.
 @end macro
 
 @set FDL

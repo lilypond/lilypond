@@ -2,7 +2,7 @@
 /*
   extender-spanner.hh -- part of GNU LilyPond
 
-  Copyright (C) 1998--2020 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1998--2021 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef EXTENDER_SPANNER_HH

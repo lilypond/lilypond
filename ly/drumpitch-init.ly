@@ -1,7 +1,7 @@
 %%%% Drum pitch names.
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2001--2020 Rune Zedeler <rune@zedeler.dk>,
+%%%% Copyright (C) 2001--2021 Rune Zedeler <rune@zedeler.dk>,
 %%%%                          Han-Wen Nienhuys <hanwen@xs4all.nl>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify

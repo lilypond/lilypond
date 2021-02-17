@@ -28,7 +28,7 @@ par ordinateur à l'aide de LilyPond version @version{}.
 @c   file: Documentation/user/introduction.itely
 
 @macro copyrightDeclare
-Copyright @copyright{} 2002--2020 par les auteurs.
+Copyright @copyright{} 2002--2021 par les auteurs.
 @end macro
 
 @set FDL

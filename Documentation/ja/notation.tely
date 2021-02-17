@@ -27,7 +27,7 @@
 @c   file: Documentation/tex/refman.yo
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2020 by 著作者一同
+Copyright @copyright{} 1999--2021 by 著作者一同
 @end macro
 
 
