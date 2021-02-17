@@ -41,7 +41,7 @@ protected:
 
   virtual void
   typeset_ligature (Spanner *ligature,
-                    std::vector<Grob_info_t<Item>> const &primitives) = 0;
+                    std::vector<Item *> const &primitives) = 0;
 
   virtual Spanner *current_ligature ();
 
@@ -55,10 +55,10 @@ private:
   Drul_array<Stream_event *> events_drul_;
 
   Spanner *ligature_;
-  std::vector<Grob_info_t<Item>> primitives_;
+  std::vector<Item *> primitives_;
 
   Spanner *finished_ligature_;
-  std::vector<Grob_info_t<Item>> finished_primitives_;
+  std::vector<Item *> finished_primitives_;
 
   Stream_event *prev_start_event_;
 

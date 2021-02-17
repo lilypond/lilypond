@@ -204,7 +204,7 @@ Ligature_engraver::acknowledge_ligature_head (Grob_info_t<Item> info)
 {
   if (ligature_)
     {
-      primitives_.push_back (info);
+      primitives_.push_back (info.grob ());
       if (info.grob () && !scm_is_null (brew_ligature_primitive_proc))
         set_property (info.grob (), "stencil", brew_ligature_primitive_proc);
     }

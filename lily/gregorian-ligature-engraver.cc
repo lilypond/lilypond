@@ -96,13 +96,11 @@ void fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive
   fix_prefix ("pes_or_flexa", LINEA, current_set, min_set, max_set, primitive);
 }
 
-void check_and_fix_all_prefixes (vector<Grob_info_t<Item>> const &primitives)
+void check_and_fix_all_prefixes (vector<Item *> const &primitives)
 {
   /* Check for invalid head modifier combinations */
-  for (const auto &info : primitives)
+  for (const auto &primitive : primitives)
     {
-      auto *const primitive = info.grob ();
-
       /* compute head prefix set by inspecting primitive grob properties */
       int prefix_set
         = (VIRGA * from_scm<bool> (get_property (primitive, "virga")))
@@ -207,7 +205,7 @@ void check_and_fix_all_prefixes (vector<Grob_info_t<Item>> const &primitives)
  * Marks those heads that participate in a pes or flexa.
  */
 void
-provide_context_info (vector<Grob_info_t<Item>> const &primitives)
+provide_context_info (vector<Item *> const &primitives)
 {
   Grob *prev_primitive = 0;
   int prev_prefix_set = 0;
@@ -215,8 +213,8 @@ provide_context_info (vector<Grob_info_t<Item>> const &primitives)
   int prev_pitch = 0;
   for (vsize i = 0; i < primitives.size (); i++)
     {
-      Grob *primitive = primitives[i].grob ();
-      Stream_event *event_cause = primitives[i].event_cause ();
+      Grob *primitive = primitives[i];
+      Stream_event *event_cause = primitive->event_cause ();
       int context_info = 0;
       int pitch = unsmob<Pitch> (get_property (event_cause, "pitch"))->steps ();
       int prefix_set = scm_to_int (get_property (primitive, "prefix-set"));
@@ -255,9 +253,8 @@ provide_context_info (vector<Grob_info_t<Item>> const &primitives)
 }
 
 void
-Gregorian_ligature_engraver::build_ligature
-(Spanner *ligature,
- vector<Grob_info_t<Item>> const &primitives)
+Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
+                                             vector<Item *> const &primitives)
 {
   // apply style-independent checking and transformation
   check_and_fix_all_prefixes (primitives);

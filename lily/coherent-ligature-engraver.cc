@@ -133,9 +133,8 @@ Coherent_ligature_engraver::move_related_items_to_column
  * occurs within the broken ligatures any more.
  */
 void
-Coherent_ligature_engraver::collect_accidentals
-(Spanner *,
- vector<Grob_info_t<Item>> const &)
+Coherent_ligature_engraver::collect_accidentals (Spanner *,
+                                                 vector<Item *> const &)
 {
   /* TODO */
   /* NOTE: if implementing such a function, note that in Kievan notation,
@@ -144,31 +143,30 @@ Coherent_ligature_engraver::collect_accidentals
 }
 
 void
-calc_delta_pitches (vector<Grob_info_t<Item>> const &primitives)
+calc_delta_pitches (vector<Item *> const &primitives)
 {
   if (primitives.empty ())
     return;
 
-  auto prev_pitch = unsmob<Pitch> (get_property (primitives[0].event_cause (),
+  auto prev_pitch = unsmob<Pitch> (get_property (primitives[0]->event_cause (),
                                                  "pitch"))->steps ();
   for (vsize i = 1; i < primitives.size (); ++i)
     {
-      auto *const cause = primitives[i].event_cause ();
+      auto *const cause = primitives[i]->event_cause ();
       auto pitch = unsmob<Pitch> (get_property (cause, "pitch"))->steps ();
 
-      auto *const prev_item = primitives[i - 1].grob ();
+      auto *const prev_item = primitives[i - 1];
       set_property (prev_item, "delta-position", to_scm (pitch - prev_pitch));
 
       prev_pitch = pitch;
     }
 
-  set_property (primitives.back ().grob (), "delta-position", to_scm (0));
+  set_property (primitives.back (), "delta-position", to_scm (0));
 }
 
 void
-Coherent_ligature_engraver::typeset_ligature
-(Spanner *ligature,
- vector<Grob_info_t<Item>> const &primitives)
+Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
+                                              vector<Item *> const &primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

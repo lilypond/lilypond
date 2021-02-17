@@ -38,11 +38,11 @@ protected:
 
   void
   build_ligature (Spanner *ligature,
-                  std::vector<Grob_info_t<Item>> const &primitives) override;
+                  std::vector<Item *> const &primitives) override;
 
   virtual void
   transform_heads (Spanner *ligature,
-                   std::vector<Grob_info_t<Item>> const &primitives) = 0;
+                   std::vector<Item *> const &primitives) = 0;
 
   void stop_translation_timestep ();
 };
