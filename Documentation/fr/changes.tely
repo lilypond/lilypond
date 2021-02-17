@@ -1,0 +1,440 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@ignore
+    Translation of GIT committish: d75b86de1363084c28cebde4eea5fe56a657975a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Jean-Charles Malahieude
+@c Translation checkers:
+
+@setfilename lilypond-changes.info
+@settitle LilyPond Changes
+
+@include macros.itexi
+
+@ifhtml
+@macro inputfileref{DIR,NAME}
+@uref{../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
+@macro usermanref{NAME}
+@inforef{\NAME\,,../user/lilypond/lilypond}@c
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/\NAME\}@c
+@end macro
+@macro usermanref{NAME}
+Voir le manuel d'utilisation, \NAME\
+@end macro
+@end ifnothtml
+
+@macro textanchor{NAME}
+@html
+<a name="\NAME\"></a>
+@end html
+@end macro
+
+
+@documentencoding UTF-8
+@documentlanguage fr
+@afourpaper
+
+@macro manualIntro
+Ce document recense les modifications et les nouvelles fonctionnalités
+de LilyPond pour la version @version{} (depuis la 2.22).
+@end macro
+
+@lilyTitlePage{Nouveautés}
+
+@iftex
+@allowcodebreaks false
+@end iftex
+
+@ignore
+
+HINTS
+* add new items at the top
+* only show verbatim input for syntax/input changes
+* try to be as brief possible in those cases
+* don't try to provide real-world examples, they often get too big,
+which scares away people.
+* Write complete sentences.
+* only show user-visible changes.
+
+@end ignore
+
+
+@subheading Nouveautés en matière de notation musicale
+@c VO New for musical notation
+
+@subsubheading Améliorations de la représentation des hauteurs
+
+@itemize
+
+@item
+Dans le cadre de la fonte Emmentaler, les têtes de notes dont l'aspect
+est identique et pour lesquelles la seule différence réside dans
+l'orientation de leur hampe ont été consolidées en un glyphe unique. Par
+exemple, les glyphes @code{noteheads.u2triangle} et
+@code{noteheads.d2triangle} ont été remplacés par le seul glyphe
+@code{noteheads.s2triangle}. Les paires de tête de note ayant un aspect
+différent selon l'orientation de la hampe conservent leur dictinction.
+@*
+@*
+Par ailleurs, la propriété @code{stem-attachment} des objets graphiques
+@code{NoteHead} renvoie le point d'attachement réel selon l'orientation
+de hampe en lieu et place d'un hypothétique point d'attachement d'une
+hampe ascendante.
+
+@end itemize
+
+@ignore
+@subsubheading Améliorations en matière de rythme
+
+@itemize
+
+@item
+un
+
+@end itemize
+@end ignore
+
+@subsubheading Améliorations en matière d'expressivité
+
+@itemize
+
+@item
+Les terminaisons des soufflets peuvent désormais s'aligner sur la
+gauche, au centre ou sur la droite des @emph{grobs} @code{NoteColumn} à
+l'aide d'une dérogation à la propriété @code{endpoint-alignments}.
+
+@lilypond[quote]
+{
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,RIGHT . ,LEFT)
+  c'2\< <c' d'>\! |
+  \override Hairpin.endpoint-alignments = #`(,CENTER . ,CENTER)
+  c'2\< <c' d'>\! |
+}
+@end lilypond
+
+@end itemize
+
+
+@subsubheading Améliorations en matière de reprises
+
+@itemize
+
+@item
+Les alternatives peuvent se placer ailleurs qu'après la fin du fragment
+répété.
+
+@lilypond[verbatim,quote]
+\repeat volta 3 { c'1 \alternative { d' e' } f' }
+@end lilypond
+
+@item
+Les numéros d'alternative peuvent se définir à l'aide de la commande
+@code{\volta}.
+
+@lilypond[verbatim,quote]
+\repeat volta 3 c'1 \alternative { \volta 1 d' \volta 2,3 e' }
+@end lilypond
+
+@item
+La commande @code{\volta} suprime la musique lorsque la répétition est
+expansée.
+
+@item
+La commande @code{\unfolded} ajoute la musique lorsque la répétition est
+expansée.
+
+@end itemize
+
+@ignore
+@subsubheading Améliorations en matière de notation sur la portée
+
+@itemize
+
+@item
+Ajout
+
+@end itemize
+
+
+@subsubheading Améliorations en matière d'annotations éditoriales
+
+@itemize
+
+@item
+Le
+
+@end itemize
+@end ignore
+
+@subsubheading Améliorations en matière de mise en forme du texte
+
+@itemize
+
+@item
+La nouvelle commande de @emph{markup} @code{string-lines} permet de
+couper une chaîne à un caractère donné. La coupure intervient par défaut
+au saut de ligne, et les éventuels espaces sont ignorés. La liste
+résultante de @emph{markups} peut faire l'objet d'une mise en forme
+particulière. Cette fonctionnalité constitue un moyen tout à fait adapté
+pour ajouter des couplets à une chanson.
+
+@lilypond[quote]
+\markup
+  \column
+  \string-lines
+    "Twinkle, twinkle, little star,
+     How I wonder what you are!
+     Up above the world so high,
+     Like a diamond in the sky.
+     Twinkle, twinkle, little star,
+     How I wonder what you are!"
+@end lilypond
+
+@end itemize
+
+
+@subheading Nouveautés en matière de notation spécialisée
+@c VO New for specialist notation
+
+
+@ignore
+@subsubheading Améliorations pour la musique vocale
+
+@itemize
+
+@item
+Un
+
+@end itemize
+@end ignore
+
+@subsubheading Améliorations pour les cordes frettées ou non
+
+@itemize
+
+@item
+Le nouvel objet graphique @code{FingerGlideSpanner} permet d'indiquer le
+glissé d'un doigt sur une corde passant d'une position à une autre. Il
+peut se présenter sous différentes formes selon le style adopté ; l'image
+ci-dessous affiche les styles @code{line}, @code{stub-left},
+@code{stub-right} et @code{stub-both}.
+
+@lilypond[quote]
+mus = {
+  \set fingeringOrientations = #'(right)
+  <a'\glide-1>2.
+  \set fingeringOrientations = #'(left)
+  <d'-1>4
+}
+
+\score {
+  {
+    <>^"line"
+    \mus
+    <>^"stub-left"
+    \override FingerGlideSpanner.style = #'stub-left
+    \mus
+    <>^"stub-right"
+    \override FingerGlideSpanner.style = #'stub-right
+    \mus
+    <>^"stub-both"
+    \override FingerGlideSpanner.style = #'stub-both
+    \mus
+  }
+}
+@end lilypond
+@noindent
+D'autres styles sont disponibles : @code{dashed-line},
+@code{dotted-line}, @code{zigzag}, @code{trill}, @code{bow} et
+@code{none}.
+
+
+@item
+Le nouvel objet graphique @code{BendSpanner} permet, dans le cadre d'un
+@code{TabStaff}, d'indiquer une désinance. En plus de l'apparence par
+défaut sont disponibles les styles @code{'hold}, @code{'pre-bend} et
+@code{'pre-bend-hold}.
+
+@lilypond[quote]
+mus = {
+  d4\5\^ e\5\^ d2\5
+  c'4\3\^ d'\3\bendHold \^ d'\3\^ c'\3
+  \grace c'4\3\preBendHold \^ d'\3\bendHold \^ d'\3\^ c'2\3
+  \grace c'4\3 \preBend \^ d'1\3
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff { \clef "G_8" \mus }
+    \new TabVoice \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+
+@ignore
+@subsubheading Améliorations pour la notation des accords
+
+@itemize
+
+@item
+Les
+
+@end itemize
+
+
+@subsubheading Améliorations pour la notation contemporaine
+
+@itemize
+
+@item
+Un
+
+@end itemize
+@end ignore
+
+
+@subheading Nouveautés en matière d'entrée et sortie
+@c VO New for input and output
+
+@ignore
+@subsubheading Améliorations pour la structure
+
+@itemize
+
+@item
+Un
+
+@end itemize
+@end ignore
+
+
+@ignore
+@subsubheading Améliorations pour les titrages et entêtes
+
+@itemize
+
+@item
+Un
+@end itemize
+@end ignore
+
+
+@ignore
+@subsubheading Améliorations pour les fichiers sources
+
+@itemize
+
+@item
+Un
+
+@end itemize
+@end ignore
+
+
+@subsubheading Améliorations pour les fichiers résultants
+
+@itemize
+
+@item
+La transparence des couleurs est prise en charge lors de la génération
+de PostScript et de PDF. L'utilisation de cette fonctionnalité requiert
+une version de Ghostscript égale ou supérieure à la 9.53.
+
+@end itemize
+
+@ignore
+@subsubheading Améliorations pour le MIDI
+
+@itemize
+
+@item
+Un
+
+@end itemize
+
+@subsubheading Améliorations en matière d'extraction de la musique
+
+@itemize
+
+@item
+La
+
+
+@end itemize
+@end ignore
+
+
+@ignore
+@subheading Nouveautés en matière d'espacements
+@c VO New for spacing issues
+
+
+@subsubheading Améliorations pour les sauts de page
+
+@itemize
+
+@item
+Un
+
+@end itemize
+@end ignore
+
+@ignore
+@subheading Nouveautés en matière de modification des réglages par défaut
+@c VO New for changing defaults
+
+@itemize
+
+@item
+Un
+
+@end itemize
+@end ignore
+
+
+@subheading Nouveautés en matière d'interfaces et fonctions internes
+@c VO New for Internal interfaces and functions
+
+@itemize
+
+@item
+Le script @command{lilypond-book} autorise désormais l'utilisation
+d'accolades dans les arguments des commandes @code{\lilypond} (pour
+LaTeX) et @code{@@lilypond} (pour Texinfo).
+
+@end itemize
+
+@ifhtml
+Pour des annonces plus anciennes, rendez-vouz aux pages
+@uref{https://lilypond.org/doc/v2.22/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/},
+ou @uref{../,remontez} à l'index de la documentation.
+
+
+@end ifhtml
+
+@bye
