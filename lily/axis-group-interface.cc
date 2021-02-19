@@ -47,9 +47,6 @@ using std::pair;
 using std::string;
 using std::vector;
 
-static bool
-pure_staff_priority_less (Grob *const &g1, Grob *const &g2);
-
 /* gets the relevant version of `g` in the context of a line running
    from `start` to `end` */
 Grob *
@@ -530,29 +527,48 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
   return internal_calc_pure_relevant_grobs (me, "elements");
 }
 
+struct Grob_with_priority
+{
+  Grob_with_priority (Grob *grob, double priority)
+    : grob_ (grob), priority_ (priority) { }
+
+  Grob *grob_;
+  double priority_;
+};
+
+bool operator < (const Grob_with_priority &g1, const Grob_with_priority &g2)
+{
+  return g1.priority_ < g2.priority_;
+}
+
 SCM
 Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string &grob_set_name)
 {
   extract_grob_set (me, grob_set_name.c_str (), elts);
 
-  vector<Grob *> relevant_grobs;
+  // It is cheaper to cache the outside-staff-priority than saving the one copy
+  // to assemble the final Grob_array.
+  vector<Grob_with_priority> relevant_grobs;
 
-  for (vsize i = 0; i < elts.size (); i++)
+  for (Grob *g : elts)
     {
-      if (Item *it = dynamic_cast<Item *> (elts[i]))
+      if (Item *it = dynamic_cast<Item *> (g))
         {
           if (it->original ())
             continue;
         }
+      Real priority = from_scm<double> (get_property (g, "outside-staff-priority"), -infinity_f);
       /* This might include potentially suicided items. Callers should
          look at the relevant prebroken clone where necesary */
-      relevant_grobs.push_back (elts[i]);
+      relevant_grobs.emplace_back (g, priority);
     }
 
-  std::sort (relevant_grobs.begin (), relevant_grobs.end (),
-             pure_staff_priority_less);
+  std::sort (relevant_grobs.begin (), relevant_grobs.end ());
+
   SCM grobs_scm = Grob_array::make_array ();
-  unsmob<Grob_array> (grobs_scm)->set_array (relevant_grobs);
+  Grob_array *grobs = unsmob<Grob_array> (grobs_scm);
+  for (auto const& g : relevant_grobs)
+    grobs->add (g.grob_);
 
   return grobs_scm;
 }
@@ -662,15 +678,6 @@ staff_priority_less (Grob *const &g1, Grob *const &g2)
   Real start_1 = g1->extent (common, X_AXIS)[LEFT];
   Real start_2 = g2->extent (common, X_AXIS)[LEFT];
   return start_1 < start_2;
-}
-
-static bool
-pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
-{
-  Real priority_1 = from_scm<double> (get_property (g1, "outside-staff-priority"), -infinity_f);
-  Real priority_2 = from_scm<double> (get_property (g2, "outside-staff-priority"), -infinity_f);
-
-  return priority_1 < priority_2;
 }
 
 // Raises the grob elt (whose skylines are given by h_skyline
