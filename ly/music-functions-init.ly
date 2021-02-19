@@ -705,6 +705,7 @@ label =
                'elements (list (make-music 'LabelEvent
                                            'page-label label))))
 
+previous-pitchnames = #'()
 
 language =
 #(define-void-function (language) (string?)

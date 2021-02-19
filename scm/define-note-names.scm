@@ -35,7 +35,6 @@
 ;;; Variable declaration
 (define-session-public pitchnames '())
 (define-session-public default-language "")
-(define-session-public previous-pitchnames #f)
 
 (define-session-public language-pitch-names
   `(
