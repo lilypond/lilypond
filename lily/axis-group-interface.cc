@@ -667,26 +667,8 @@ staff_priority_less (Grob *const &g1, Grob *const &g2)
 static bool
 pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
 {
-  Grob *p[2] = {g1, g2};
-  for (int i = 0; i < 2; i++)
-    {
-      Item *it = dynamic_cast<Item *> (p[i]);
-      if (it && !it->is_live ())
-        {
-          for (LEFT_and_RIGHT (d))
-            {
-              Item *b = it->find_prebroken_piece (d);
-              if (b && b->is_live ())
-                {
-                  p[i] = b;
-                  break;
-                }
-            }
-        }
-    }
-
-  Real priority_1 = from_scm<double> (get_property (p[0], "outside-staff-priority"), -infinity_f);
-  Real priority_2 = from_scm<double> (get_property (p[1], "outside-staff-priority"), -infinity_f);
+  Real priority_1 = from_scm<double> (get_property (g1, "outside-staff-priority"), -infinity_f);
+  Real priority_2 = from_scm<double> (get_property (g2, "outside-staff-priority"), -infinity_f);
 
   return priority_1 < priority_2;
 }
