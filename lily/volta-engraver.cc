@@ -342,6 +342,31 @@ Volta_engraver::stop_translation_timestep ()
 
   if (end_volta_bracket_)
     {
+      bool open = true;
+
+      // Call out to Scheme to figure out whether the right end of this bracket
+      // should be closed.  (If anything else ever needs to do this, consider
+      // moving this call into Repeat_acknowledge_engraver and having it
+      // communicate the result to other translators via context properties.)
+      SCM glyph = get_property (this, "whichBar");
+      if (scm_is_string (glyph))
+        {
+          glyph = Lily::bar_line_calc_glyph_name_for_direction (glyph,
+                                                                to_scm (LEFT));
+          if (scm_is_string (glyph))
+            {
+              open = from_scm<bool>
+                     (Lily::volta_bracket_calc_hook_visibility (glyph));
+            }
+        }
+
+      if (open)
+        {
+          SCM eh = get_property (end_volta_bracket_, "edge-height");
+          eh = scm_cons (scm_car (eh), to_scm (0));
+          set_property (end_volta_bracket_, "edge-height", eh);
+        }
+
       announce_end_grob (end_volta_bracket_, SCM_EOL);
       end_volta_bracket_ = 0;
     }

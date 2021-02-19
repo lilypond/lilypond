@@ -123,19 +123,6 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
 
-  extract_grob_set (me, "bars", bars);
-  Grob *endbar = bars.size () ? bars.back () : 0;
-  SCM glyph = endbar ? get_property (endbar, "glyph-name") : SCM_EOL;
-
-  string str;
-  if (scm_is_string (glyph))
-    str = ly_scm2string (glyph);
-  else
-    str = "|";
-
-  no_vertical_end |= ly_scm2bool (Lily::volta_bracket_calc_hook_visibility
-                                  (ly_string2scm (str)));
-
   if (no_vertical_end || no_vertical_start)
     {
       Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
