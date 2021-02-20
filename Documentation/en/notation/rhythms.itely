@@ -3032,7 +3032,7 @@ There are currently ten bar line elements available:
   s1 \bar ";"
   s1 \bar ":"
   s1 \bar "k"
-  s1 \bar "S-||"
+  s1 \bar "S"
   s1 \bar "="
   s1 \bar "["
   s1 \bar "]"
