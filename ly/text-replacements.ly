@@ -21,10 +21,17 @@
                #:select (alist-copy)))
 
 #(define (add-text-replacements! alist)
-   (set! text-font-defaults
-         (assoc-set! (alist-copy text-font-defaults) 'replacement-alist
+  "Add replacements in ALIST for text. Must be called from within a \\paper block"
+  (let*
+   ((mod (current-module))
+    ;; we can't use text-font-defaults directly here; it is bound in the shared module
+    ;; from declarations-init.
+    (cur (alist-copy (ly:modules-lookup (list mod) 'text-font-defaults)))
+    )
+   (module-set! mod 'text-font-defaults
+    (assoc-set! cur 'replacement-alist
                      (append alist
-                      (assoc-get 'replacement-alist text-font-defaults '())))))
+                      (assoc-get 'replacement-alist cur '()))))))
 
 #(define (include-special-characters)
    (add-text-replacements!
