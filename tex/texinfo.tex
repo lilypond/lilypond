@@ -3,9 +3,9 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2020-11-25.18}
+\def\texinfoversion{2021-02-20.11}
 %
-% Copyright 1985, 1986, 1988, 1990-2020 Free Software Foundation, Inc.
+% Copyright 1985, 1986, 1988, 1990-2021 Free Software Foundation, Inc.
 %
 % This texinfo.tex file is free software: you can redistribute it and/or
 % modify it under the terms of the GNU General Public License as
@@ -8931,7 +8931,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
       \else
         \ifhavexrefs
           % We (should) know the real title if we have the xref values.
-          \def\printedrefname{\refx{#1-title}{}}%
+          \def\printedrefname{\refx{#1-title}}%
         \else
           % Otherwise just copy the Info node name.
           \def\printedrefname{\ignorespaces #1}%
@@ -9025,7 +9025,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     % If the user specified the print name (third arg) to the ref,
     % print it instead of our usual "Figure 1.2".
     \ifdim\wd\printedrefnamebox = 0pt
-      \refx{#1-snt}{}%
+      \refx{#1-snt}%
     \else
       \printedrefname
     \fi
@@ -9060,9 +9060,9 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     \else
       % Reference within this manual.
       %
-      % Only output a following space if the -snt ref is nonempty; for
-      % @unnumbered and @anchor, it won't be.
-      \setbox2 = \hbox{\ignorespaces \refx{#1-snt}{}}%
+      % Only output a following space if the -snt ref is nonempty, as the ref
+      % will be empty for @unnumbered and @anchor.
+      \setbox2 = \hbox{\ignorespaces \refx{#1-snt}}%
       \ifdim \wd2 > 0pt \refx{#1-snt}\space\fi
       %
       % output the `[mynode]' via the macro below so it can be overridden.
@@ -9073,7 +9073,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
         ,\space
         %
         % output the `page 3'.
-        \turnoffactive \putwordpage\tie\refx{#1-pg}{}%
+        \turnoffactive \putwordpage\tie\refx{#1-pg}%
         % Add a , if xref followed by a space
         \if\space\noexpand\tokenafterxref ,%
         \else\ifx\	\tokenafterxref ,% @TAB
@@ -9150,9 +9150,8 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \fi\fi\fi
 }
 
-% \refx{NAME}{SUFFIX} - reference a cross-reference string named NAME.  SUFFIX 
-% is output afterwards if non-empty.
-\def\refx#1#2{%
+% \refx{NAME} - reference a cross-reference string named NAME.
+\def\refx#1{%
   \requireauxfile
   {%
     \indexnofonts
@@ -9179,7 +9178,6 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     % It's defined, so just use it.
     \thisrefX
   \fi
-  #2% Output the suffix in any case.
 }
 
 % This is the macro invoked by entries in the aux file.  Define a control 
@@ -9289,10 +9287,10 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \catcode`\[=\other
   \catcode`\]=\other
   \catcode`\"=\other
-  \catcode`\_=\other
-  \catcode`\|=\other
-  \catcode`\<=\other
-  \catcode`\>=\other
+  \catcode`\_=\active
+  \catcode`\|=\active
+  \catcode`\<=\active
+  \catcode`\>=\active
   \catcode`\$=\other
   \catcode`\#=\other
   \catcode`\&=\other
