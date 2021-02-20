@@ -165,9 +165,9 @@ environment."
   name)
 
 (define (ref-ify x)
-  "Return @ref{X}.  If mapping ref-ify to a list that needs to be sorted,
+  "Return @iref{X}.  If mapping ref-ify to a list that needs to be sorted,
    sort the list first."
-  (string-append "@ref{" x "}"))
+  (string-append "@iref{" x "}"))
 
 (define (human-listify lst)
   "Produce a textual enumeration from LST, a list of strings"

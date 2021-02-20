@@ -13,12 +13,6 @@ Macro definitions that contain translatable text belong to file
 `macros.itexi'.
 @end ignore
 
-@c Especially for the Internals Reference it helps if section names
-@c (which can use `@code` and the like) are displayed in references.
-
-@xrefautomaticsectiontitle on
-
-
 @c Don't replace quotes with directed quotes.
 
 @set txicodequoteundirected
@@ -145,6 +139,116 @@ Macro definitions that contain translatable text belong to file
 @end macro
 @end ifclear
 
+
+@c   ***** References *****
+
+@c References look better if section names (which can use `@code`
+@c and the like) are used instead of plain-text node names.
+
+@xrefautomaticsectiontitle on
+
+@c We introduce an additional cross-reference command `@iref`
+@c specifically taylored for the PDF version of the Internals
+@c Reference, making
+@c
+@c   @iref{foo}
+@c
+@c print
+@c
+@c   foo (page Y).
+
+@iftex
+
+@tex
+% All special argument handling has been removed since the `@iref`
+% calls are auto-generated for the Internals Reference and thus always
+% well-defined.
+%
+% See the implementation of `\xrefX` in `texinfo.tex` for more comments
+% and explanations.
+%
+% Not that we bypass `@xrefautomaticsectiontitle on` to get proper
+% formatting of references to `@anchor`.
+%
+% This code needs `texinfo.tex` version 2021-02-20.11 or newer.
+
+\gdef\iref{\irefXX}
+\gdef\irefXX#1{\def\irefXXarg{#1}\futurelet\tokenafteriref\irefXXX}
+\gdef\irefXXX{\expandafter\irefX\expandafter[\irefXXarg]}
+
+\gdef\irefX[#1]{\begingroup
+  \unsepspaces
+  \def\printedrefname{\ignorespaces #1}%
+  %
+  % Make link in pdf output.
+  \ifpdf
+    % For pdfTeX and LuaTeX.
+    {\indexnofonts
+     \makevalueexpandable
+     \turnoffactive
+     \setpdfdestname{#1}%
+     \leavevmode
+     \startlink attr{/Border [0 0 0]} goto name{\pdfmkpgn{\pdfdestname}}%
+    }%
+    \setcolor{\linkcolor}%
+  \else
+    \ifx\XeTeXrevision\thisisundefined
+    \else
+      % For XeTeX.
+      {\indexnofonts
+       \makevalueexpandable
+       \turnoffactive
+       \setpdfdestname{#1}%
+       \leavevmode
+       \special{pdf:bann << /Border [0 0 0] /Type /Annot /Subtype /Link /A
+         << /S /GoTo /D (\pdfdestname) >> >>}%
+      }%
+      \setcolor{\linkcolor}%
+    \fi
+  \fi
+  %
+  {%
+    % Have to otherify everything special to allow `\csname` to
+    % include `_` in the xref name, etc.
+    \indexnofonts
+    \turnoffactive
+    \def\value##1{##1}%
+    \expandafter\global\expandafter\let\expandafter\Xthisreftitle
+      \csname XR#1-title\endcsname
+  }%
+  %
+  % Start reference with node name.
+  \code{\printedrefname}\space
+  % Output page reference.
+  \turnoffactive (\putwordpage\tie\refx{#1-pg})%
+  %
+  % Add a `,` if `@iref` is followed by a space.
+  \if\space\noexpand\tokenafteriref ,%
+  \else\ifx\	\tokenafteriref ,%  @TAB
+  \else\ifx\*\tokenafteriref ,%     @*
+  \else\ifx\ \tokenafteriref ,%     @SPACE
+  \else\ifx\
+            \tokenafteriref ,%      @NL
+  \else\ifx\tie\tokenafteriref ,%   @tie
+  \fi\fi\fi\fi\fi\fi
+  \endlink
+\endgroup}
+@end tex
+
+@end iftex
+
+@ifnottex
+
+@c Let `@xrefautomaticsectiontitle on` take care of improved
+@c formatting.
+
+@macro iref {TEXT}
+@ref{\TEXT\}
+@end macro
+
+@end ifnottex
+
+
 @c   ***** Indexing *****
 
 @c Don't remove the `@c' within the macro definition!  See section 19.3,
@@ -261,7 +365,6 @@ Macro definitions that contain translatable text belong to file
 @macro sortas {TEXT}
 @end macro
 @end ifhtml
-
 
 
 @c   ***** Macros specific to translated docs *****

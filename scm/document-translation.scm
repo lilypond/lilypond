@@ -148,7 +148,7 @@
 
         (string-append
          (format #f "@item Set grob property @code{~{~a~^.~}} " path)
-         (format #f "in @ref{~a} to" context-sym)
+         (format #f "in @iref{~a} to" context-sym)
          (if (pretty-printable? value)
              (format #f ":~a\n" (scm->texi value))
              (format #f " ~a.\n" (scm->texi value))))))
@@ -207,7 +207,7 @@
        "\n@endRaggedRight"
 
        (if defaultchild
-           (format #f "\n\nThis is not a `Bottom' context; search for such a one will commence after creating an implicit context of type @ref{~a}."
+           (format #f "\n\nThis is not a `Bottom' context; search for such a one will commence after creating an implicit context of type @iref{~a}."
                    defaultchild)
            "\n\nThis is a `Bottom' context; no contexts will be created implicitly from it.")
 
