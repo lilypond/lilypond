@@ -218,12 +218,6 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
   return SCM_UNDEFINED;
 }
 
-SCM
-Lily_lexer::lookup_identifier (const string &name)
-{
-  return lookup_identifier_symbol (ly_symbol2scm (name.c_str ()));
-}
-
 void
 Lily_lexer::start_main_input ()
 {

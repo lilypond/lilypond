@@ -331,7 +331,7 @@ BOM_UTF8	\357\273\277
 	if (s.length () && (s[s.length () - 1] == ';'))
 	  s = s.substr (0, s.length () - 1);
 
-	SCM sid = lookup_identifier (s);
+	SCM sid = lookup_identifier_symbol (ly_symbol2scm (s.c_str ()));
 	if (scm_is_string (sid)) {
 		new_input (ly_scm2string (sid), sources_);
 		yy_pop_state ();
@@ -960,7 +960,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 int
 Lily_lexer::scan_shorthand (const string &str)
 {
-	SCM sid = lookup_identifier (str);
+	SCM sid = lookup_identifier_symbol (ly_symbol2scm (str.c_str ()));
 	if (Music *m = unsmob<Music> (sid))
 	{
 		m->set_spot (override_input (here_input ()));

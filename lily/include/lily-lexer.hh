@@ -94,7 +94,6 @@ public:
   using Includable_lexer::new_input;
 
   bool top_input () { return include_stack_.size () < 2; }
-  SCM lookup_identifier (const std::string &s);
   SCM lookup_identifier_symbol (SCM s);
   void push_extra_token (Input const &where,
                          int token_type, SCM scm = SCM_UNSPECIFIED);

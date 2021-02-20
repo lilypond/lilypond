@@ -213,7 +213,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
 
-  SCM val = p->lexer_->lookup_identifier (ly_symbol2string (symbol));
+  SCM val = p->lexer_->lookup_identifier_symbol (symbol);
   if (!SCM_UNBNDP (val))
     return val;
   else

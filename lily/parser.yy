@@ -50,6 +50,9 @@
 		free (p);						\
 	} while (0)
 
+
+#define lookup_identifier(x) lookup_identifier_symbol (ly_symbol2scm (x))
+
 %}
 
 %parse-param {Lily_parser *parser}
@@ -421,10 +424,11 @@ toplevel_expression:
 		scm_call_1 (proc, $1);
 	}
 	| BOOK_IDENTIFIER {
-		SCM proc = parser->lexer_->lookup_identifier
-			(unsmob<Book>($1)->paper_
-			 ? "toplevel-book-handler"
-			 : "toplevel-bookpart-handler");
+		SCM sym = unsmob<Book>($1)->paper_
+			? ly_symbol2scm ("toplevel-book-handler")
+			: ly_symbol2scm ("toplevel-bookpart-handler");
+
+		SCM proc = parser->lexer_->lookup_identifier_symbol (sym);
 		scm_call_1 (proc, $1);
 	}
 	| score_block {
@@ -1335,8 +1339,7 @@ output_def_body:
 		// Seems unlikely, but let's be complete:
 		else if (unsmob<Music> ($2))
 		{
-			SCM proc = parser->lexer_->lookup_identifier
-				("output-def-music-handler");
+			SCM proc = parser->lexer_->lookup_identifier ("output-def-music-handler");
 			scm_call_2 (proc, $1, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
@@ -1360,8 +1363,7 @@ output_def_body:
 			assign_context_def (unsmob<Output_def> ($1), $3);
 		else {
 
-			SCM proc = parser->lexer_->lookup_identifier
-				     ("output-def-music-handler");
+			SCM proc = parser->lexer_->lookup_identifier ("output-def-music-handler");
 			scm_call_2 (proc, $1, $3);
 		}
 		$$ = $1;
@@ -3270,7 +3272,8 @@ direction_reqd_event:
 		$$ = $1;
 	}
 	| script_abbreviation {
-		SCM s = parser->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
+		SCM sym = ly_symbol2scm (("dash" + ly_scm2string ($1)).c_str());
+		SCM s = parser->lexer_->lookup_identifier_symbol (sym);
 		if (scm_is_string (s)) {
 			Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
 			set_property (a, "articulation-type", s);
