@@ -125,7 +125,11 @@ Repeat_acknowledge_engraver::process_music ()
     else if (end) // { segno, end }
       s = robust_scm2string (get_property (this, "endRepeatSegnoType"), ":|.S");
     else // { segno }
-      s = robust_scm2string (get_property (this, "segnoType"), "S");
+      {
+        // TODO: For consistency, this should possibly be changed to "S",
+        // yielding a normal bar line at end-of-line.
+        s = robust_scm2string (get_property (this, "segnoType"), "S-||");
+      }
   else if (start)
     if (end) // { start, end }
       s = robust_scm2string (get_property (this, "doubleRepeatType"), ":..:");

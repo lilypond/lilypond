@@ -4271,10 +4271,18 @@ def conv(s):
     return s
 
 
-@rule((2, 23, 1), r'combine u/d variants of triangle, do, re, and ti noteheads')
+@rule((2, 23, 1), r"""
+combine u/d variants of triangle, do, re, and ti noteheads
+rename bar line "S" to "S-||"
+rename bar line "S-|" to "S"
+""")
 def conv(s):
     s = re.sub(r'"noteheads\.[ud](1|2)(triangle|(?:do|re|ti)(?:Thin)?)"',
                r'"noteheads.s\1\2"', s)
+    s = re.sub(r'\\bar(\s+)"S"', r'\\bar\1"S-||"', s)
+    s = re.sub(r'\\bar(\s+)"S-\|"', r'\\bar\1"S"', s)
+    s = re.sub(r'segnoType(\s+=\s+)#?"S"', r'segnoType\1"S-||"', s)
+    s = re.sub(r'segnoType(\s+=\s+)#?"S-\|"', r'segnoType\1"S"', s)
     return s
 
 
