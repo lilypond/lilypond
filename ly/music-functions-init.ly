@@ -605,14 +605,12 @@ inStaffSegno =
 #(define-music-function () ()
    (_i "Put the segno variant 'varsegno' at this position into the staff,
 compatible with the repeat command.")
-   (make-music 'ApplyContext
-               'procedure
-               (lambda (ctx)
-                 (let ((score-ctx (ly:context-find ctx 'Score)))
-                   (if (ly:context? score-ctx)
-                     (let ((old-rc (ly:context-property score-ctx 'repeatCommands '())))
-                       (if (eq? (memq 'segno-display old-rc) #f)
-                         (ly:context-set-property! score-ctx 'repeatCommands (cons 'segno-display old-rc)))))))))
+   #{
+     {
+       %% TODO: \once \set Score.segnoStyle = #'bar-line
+       #(make-music 'SegnoEvent)
+     }
+   #})
 
 instrumentSwitch =
 #(define-music-function

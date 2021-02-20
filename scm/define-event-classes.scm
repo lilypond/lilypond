@@ -39,6 +39,7 @@
                     multi-measure-articulation-event
                     note-grouping-event pes-or-flexa-event repeat-tie-event
                     section-event
+                    segno-event
                     spacing-section-event layout-instruction-event
                     time-signature-event
                     completize-extender-event break-span-event alternative-event

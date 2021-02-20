@@ -53,6 +53,7 @@ public:
 protected:
   void listen_fine (Stream_event *);
   void listen_section (Stream_event *);
+  void listen_segno (Stream_event *);
   void listen_volta_span (Stream_event *);
   void start_translation_timestep ();
   void stop_translation_timestep ();
@@ -63,6 +64,7 @@ private:
   bool first_time_ = true;
   bool heard_fine_ = false;
   bool heard_section_ = false;
+  bool heard_segno_ = false;
   bool heard_volta_span_ = false;
 };
 
@@ -89,6 +91,7 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
 
   heard_fine_ = false;
   heard_section_ = false;
+  heard_segno_ = false;
   heard_volta_span_ = false;
 }
 
@@ -102,6 +105,12 @@ void
 Repeat_acknowledge_engraver::listen_section (Stream_event *)
 {
   heard_section_ = true;
+}
+
+void
+Repeat_acknowledge_engraver::listen_segno (Stream_event *)
+{
+  heard_segno_ = true;
 }
 
 void
@@ -123,7 +132,6 @@ Repeat_acknowledge_engraver::process_music ()
 
   bool start = false;
   bool end = false;
-  bool segno = false;
   bool volta_found = heard_volta_span_;
   while (scm_is_pair (cs))
     {
@@ -132,13 +140,17 @@ Repeat_acknowledge_engraver::process_music ()
         start = true;
       else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
         end = true;
-      else if (scm_is_eq (command, ly_symbol2scm ("segno-display")))
-        segno = true;
       else if (scm_is_pair (command)
                && scm_is_eq (scm_car (command), ly_symbol2scm ("volta")))
         volta_found = true;
       cs = scm_cdr (cs);
     }
+
+  // TODO: Implement a mark style of segno with (probably) the Mark_engraver
+  // creating the grob.  In that case, the Repeat_acknowledge_engraver would
+  // not add a segno to the bar line, but would still use underlyingBarType.
+  // Until then, we add the segno to the bar line whenever we hear the event.
+  const bool segno = heard_segno_;
 
   auto forced_bar_type = BarType::NONE;
   SCM wb = get_property (this, "whichBar");
@@ -248,7 +260,8 @@ Repeat_acknowledge_engraver::process_music ()
           ub = robust_scm2string (get_property (this, "sectionBarType"), "||");
           has_underlying_bar = true;
         }
-      else if (has_repeat_bar && (forced_bar_type < BarType::DEFAULT))
+      else if ((heard_segno_ || has_repeat_bar)
+               && (forced_bar_type < BarType::DEFAULT))
         {
           // At points of repetition or departure where there wouldn't
           // otherwise be a bar line, print a thin double bar line (Behind
@@ -316,6 +329,7 @@ Repeat_acknowledge_engraver::boot ()
 {
   ADD_LISTENER (Repeat_acknowledge_engraver, fine);
   ADD_LISTENER (Repeat_acknowledge_engraver, section);
+  ADD_LISTENER (Repeat_acknowledge_engraver, segno);
   ADD_LISTENER (Repeat_acknowledge_engraver, volta_span);
 }
 
