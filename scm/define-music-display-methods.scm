@@ -10,6 +10,9 @@
 ;;;
 
 (define-module (scm display-lily))
+(use-modules ((ice-9 list)
+              #:select (rassoc)))
+
 
 ;;;
 ;;; Scheme forms
