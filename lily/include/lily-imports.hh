@@ -68,7 +68,6 @@ extern Variable beam_exceptions;
 extern Variable beat_structure;
 extern Variable calc_repeat_slash_count;
 extern Variable car_less;
-extern Variable chordmodifiers;
 extern Variable construct_chord_elements;
 extern Variable default_time_signature_settings;
 extern Variable define_markup_command_internal;

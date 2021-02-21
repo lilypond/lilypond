@@ -18,8 +18,6 @@
 ;; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs) (ice-9 receive))
 
-(define-session-public chordmodifiers '())
-
 (define-public (construct-chord-elements root duration modifications)
   "Build a chord on root using modifiers in @var{modifications}.
 @code{NoteEvents} have duration @var{duration}.

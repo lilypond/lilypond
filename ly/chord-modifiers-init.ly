@@ -20,7 +20,6 @@
 
 chordmodifiers = #default-chord-modifier-list
 
-
 whiteTriangleMarkup = \markup {
   \fontsize #-3 \triangle ##f
   %%  394 capital delta

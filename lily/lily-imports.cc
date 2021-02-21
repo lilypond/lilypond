@@ -59,7 +59,6 @@ Variable beam_exceptions ("beam-exceptions");
 Variable beat_structure ("beat-structure");
 Variable calc_repeat_slash_count ("calc-repeat-slash-count");
 Variable car_less ("car<");
-Variable chordmodifiers ("chordmodifiers");
 Variable construct_chord_elements ("construct-chord-elements");
 Variable default_time_signature_settings ("default-time-signature-settings");
 Variable define_markup_command_internal ("define-markup-command-internal");
