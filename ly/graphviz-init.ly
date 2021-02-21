@@ -73,26 +73,90 @@
   (let ((val-str (format #f "~a" val)))
    (string-take val-str (min 50 (string-length val-str)))))
 
-#(define (grob-mod grob file line func prop val)
-  (let* ((val-str (truncate-value val))
-         (label (format #f "~a\\n~a:~a\\n~a <- ~a" (grob::name grob) file line prop val-str))
-         ;; to keep escaped "\"" we need to transform it to "\\\""
-         ;; otherwise the final pdf-creation will break
-         (escaped-label
-           (regexp-substitute/global #f "\"" label 'pre "\\\"" 'post)))
-   (if (relevant? grob file line prop)
-       (grob-event-node grob escaped-label file))))
+#(define (escape-label label)
+  ;; to keep escaped "\"" we need to transform it to "\\\""
+  ;; otherwise the final pdf-creation will break
+  (regexp-substitute/global #f "\"" label 'pre "\\\"" 'post))
 
-#(define (grob-cache grob prop callback value)
-  (let* ((val-str (truncate-value value))
-         (label (format #f "caching ~a.~a\\n~a -> ~a" (grob::name grob) prop callback value)))
-   (if (relevant? grob #f #f prop)
-       (grob-event-node grob label #f))))
+#(define (discard arg) '())
 
-#(define (grob-create grob file line func)
-  (let ((label (format #f "~a\\n~a:~a" (grob::name grob) file line)))
-   (grob-event-node grob label file)))
+#(define default-label-formatting
+  ;; Store all settings needed for label formatting.
+  ;; The alist keys correspond to the callback type,
+  ;; the values are lists of the following structure
+  ;; (string-template (prepone preptwo prepthree) postp))
+  ;; where `prep...` are functions that preprocess the
+  ;; arguments before passing them to the `format` function.
+  ;; `postp` is a postprocessing function that is applied afterwards.
+  ;; Use the `identity` function to leave arguments unprocessed.
+  ;; If the final callback function must (for the sake of compatibility
+  ;; with the C++ code) accept more arguments than wanted for
+  ;; label formatting, the superfluous arguments may be discarded with
+  ;; a function that returns the empty list for every input.
+  `((mod . ("~a\\n~a:~a\\n~a <- ~a"
+            (,grob::name ,identity ,identity ,discard ,identity ,truncate-value)
+            ,escape-label))
+    (cache . ("caching ~a.~a\\n~a -> ~a"
+              (,grob::name ,identity ,identity ,identity)
+              ,identity))
+    (create . ("~a\\n~a:~a"
+               (,grob::name ,identity ,identity ,discard)
+               ,identity))))
 
-#(ly:set-grob-modification-callback grob-mod)
-#(ly:set-property-cache-callback grob-cache)
-%#(ly:set-grob-creation-callback grob-create)
+#(define (make-label-formatter template-string preprocessors postprocessor)
+  (lambda args
+    (let* ((preprocessed-args
+             (remove null? (map
+               ;; Call every function in `preprocessors` with the corresponding
+               ;; argument in the argument list
+               (lambda (proc arg) (proc arg))
+               preprocessors args)))
+           (formatted-string
+             (apply format #f template-string preprocessed-args))
+           (postprocessed-string (postprocessor formatted-string)))
+      postprocessed-string)))
+
+#(define (make-all-label-formatters label-formatting)
+  (map (lambda (format-spec)
+         (let* ((callback-type (car format-spec))
+                (callback-spec (cdr format-spec))
+                (template-string (first callback-spec))
+                (preprocessors (second callback-spec))
+                (postprocessor (third callback-spec))
+                (formatter (make-label-formatter
+                            template-string preprocessors postprocessor)))
+           (cons callback-type formatter)))
+    label-formatting))
+
+#(define default-label-formatters
+   (make-all-label-formatters default-label-formatting))
+
+#(define (make-grob-mod-callback formatter)
+   (lambda (grob file line func prop value)
+     (if (relevant? grob file line prop)
+       (let ((formatted-label (formatter grob file line func prop value)))
+         (grob-event-node grob formatted-label file)))))
+
+#(define (make-grob-cache-callback formatter)
+   (lambda (grob prop callback value)
+     (if (relevant? grob #f #f prop)
+       (let ((formatted-label (formatter grob prop callback value)))
+         (grob-event-node grob formatted-label #f)))))
+
+#(define (make-grob-create-callback formatter)
+   (lambda (grob file line func)
+     (let ((formatted-label (formatter grob file line func)))
+       (grob-event-node grob formatted-label file))))
+
+#(ly:set-grob-modification-callback (make-grob-mod-callback
+                                      (assoc-get
+                                        'mod
+                                         default-label-formatters)))
+#(ly:set-property-cache-callback (make-grob-cache-callback
+                                   (assoc-get
+                                     'cache
+                                      default-label-formatters)))
+%#(ly:set-grob-creation-callback (make-grob-create-callback
+%                                  (assoc-get
+%                                    'create
+%                                     default-label-formatters)))
