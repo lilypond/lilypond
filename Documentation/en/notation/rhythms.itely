@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.1"
 
 @node Rhythms
 @section Rhythms
@@ -2911,13 +2911,13 @@ differ in their behavior at line breaks:
 @lilypond[quote,verbatim]
 \relative c'' {
   c4 c c c
-  \bar "S"
+  \bar "S-||"
   c4 c c c \break
-  \bar "S"
+  \bar "S-||"
   c4 c c c
-  \bar "S-|"
+  \bar "S"
   c4 c c c \break
-  \bar "S-|"
+  \bar "S"
   c4 c c c
   \bar "S-S"
   c4 c c c \break
@@ -3032,7 +3032,7 @@ There are currently ten bar line elements available:
   s1 \bar ";"
   s1 \bar ":"
   s1 \bar "k"
-  s1 \bar "S"
+  s1 \bar "S-||"
   s1 \bar "="
   s1 \bar "["
   s1 \bar "]"

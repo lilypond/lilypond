@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.1"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -2886,13 +2886,13 @@ salts de línia:
 @lilypond[quote,verbatim]
 \relative c'' {
   c4 c c c
-  \bar "S"
+  \bar "S-||"
   c4 c c c \break
-  \bar "S"
+  \bar "S-||"
   c4 c c c
-  \bar "S-|"
+  \bar "S"
   c4 c c c \break
-  \bar "S-|"
+  \bar "S"
   c4 c c c
   \bar "S-S"
   c4 c c c \break
@@ -2997,7 +2997,7 @@ Actualment hi ha disponibles deu elements de barra de compàs:
   s1 \bar ";"
   s1 \bar ":"
   s1 \bar "k"
-  s1 \bar "S"
+  s1 \bar "S-||"
   s1 \bar "="
   s1 \bar "["
   s1 \bar "]"
