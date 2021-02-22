@@ -126,7 +126,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
     keytable_ = make_keytable ();
 
   add_scope (ly_make_module (false));
-  push_note_state (SCM_EOL);
+  push_note_state ();
   chordmodifier_tab_ = scm_make_vector (to_scm (1), SCM_EOL);
 }
 
@@ -151,7 +151,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
 
   smobify_self ();
 
-  push_note_state (SCM_EOL);
+  push_note_state ();
 }
 
 void
@@ -168,6 +168,7 @@ Lily_lexer::add_scope (SCM module)
 
   set_current_scope ();
 }
+
 bool
 Lily_lexer::has_scope () const
 {
@@ -385,4 +386,14 @@ bool
 Lily_lexer::is_clean () const
 {
   return include_stack_.empty ();
+}
+
+void
+Lily_lexer::push_pitch_names (SCM alist)
+{
+  SCM p = scm_assq (alist, pitchname_tab_stack_);
+
+  if (scm_is_false (p))
+    p = scm_cons (alist, alist_to_hashq (alist));
+  pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 }

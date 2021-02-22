@@ -64,6 +64,9 @@ public:
 #endif
     return *SCM_VARIABLE_LOC (var_);
   }
+  void operator =(SCM const &k) {
+    *SCM_VARIABLE_LOC(var_) = k;
+  }
   SCM operator () ()
   {
     return scm_call_0 (*this);
@@ -94,6 +97,9 @@ public:
   Module_variable (const char *name, SCM value = SCM_UNDEFINED)
     : Scm_variable (m, name, value)
   { }
+  void operator =(SCM const &k) {
+    Scm_variable::operator=(k);
+  }
 };
 
 #endif

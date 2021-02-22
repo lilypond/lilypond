@@ -390,7 +390,7 @@ prec levels in different prods */
 start_symbol:
 	lilypond
 	| EMBEDDED_LILY {
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 	} embedded_lilypond {
 		parser->lexer_->pop_state ();
                 *retval = $3;
@@ -884,7 +884,7 @@ context_mod_arg:
 	embedded_scm
 	|
 	{
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 	}
 	composite_music
 	{
@@ -1355,7 +1355,7 @@ output_def_body:
 	{
 		if (scm_is_pair ($1))
 			$1 = scm_car ($1);
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 	} music_or_context_def
 	{
 		parser->lexer_->pop_state ();
@@ -1528,7 +1528,7 @@ simple_music:
 context_modification:
         WITH
 	{
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 	} '{' context_mod_list '}'
         {
                 parser->lexer_->pop_state ();
@@ -2647,14 +2647,13 @@ mode_changed_music:
 
 mode_changing_head:
 	NOTEMODE {
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 
 		$$ = ly_symbol2scm ("notes");
 	}
 	| DRUMMODE
 		{
-		SCM alist = parser->lexer_->lookup_identifier ("drumPitchNames");
-		parser->lexer_->push_note_state (alist);
+		parser->lexer_->push_drum_state ();
 		$$ = ly_symbol2scm ("drums");
 	}
 	| FIGUREMODE {
@@ -2663,9 +2662,9 @@ mode_changing_head:
 		$$ = ly_symbol2scm ("figures");
 	}
 	| CHORDMODE {
-		parser->lexer_->chordmodifier_tab_ =
-			alist_to_hashq (Lily::chordmodifiers);
-		parser->lexer_->push_chord_state (Lily::pitchnames);
+		SCM mods = Lily::chordmodifiers;
+		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (mods);
+		parser->lexer_->push_chord_state ();
 		$$ = ly_symbol2scm ("chords");
 
 	}
@@ -2677,9 +2676,7 @@ mode_changing_head:
 
 mode_changing_head_with_context:
 	DRUMS {
-		SCM alist = parser->lexer_->lookup_identifier ("drumPitchNames");
-		parser->lexer_->push_note_state (alist);
-
+		parser->lexer_->push_drum_state();
 		$$ = ly_symbol2scm ("DrumStaff");
 	}
 	| FIGURES {
@@ -2688,9 +2685,9 @@ mode_changing_head_with_context:
 		$$ = ly_symbol2scm ("FiguredBass");
 	}
 	| CHORDS {
-		parser->lexer_->chordmodifier_tab_ =
-			alist_to_hashq (Lily::chordmodifiers);
-		parser->lexer_->push_chord_state (Lily::pitchnames);
+		SCM mods = Lily::chordmodifiers;
+		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (mods);
+		parser->lexer_->push_chord_state ();
 		$$ = ly_symbol2scm ("ChordNames");
 	}
 	| LYRICS
@@ -4056,7 +4053,7 @@ markup_uncomposed_list:
 		$$ = $2;
 	}
 	| SCORELINES {
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 	} '{' score_body '}' {
 		Score *sc = unsmob<Score> ($4);
 		sc->origin ()->set_spot (@$);
@@ -4101,7 +4098,7 @@ markup_command_list:
 
 markup_command_embedded_lilypond:
 	'{' {
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 	} embedded_lilypond '}' {
 		parser->lexer_->pop_state ();
                 $$ = $3;
@@ -4202,7 +4199,7 @@ simple_markup:
 
 simple_markup_noword:
 	SCORE {
-		parser->lexer_->push_note_state (Lily::pitchnames);
+		parser->lexer_->push_note_state ();
 	} '{' score_body '}' {
 		Score *sc = unsmob<Score> ($4);
 		sc->origin ()->set_spot (@$);

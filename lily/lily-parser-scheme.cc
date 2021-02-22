@@ -296,7 +296,8 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
   if (p->lexer_->is_note_state ())
     {
       p->lexer_->pop_state ();
-      p->lexer_->push_note_state (names);
+      Lily::pitchnames = names;
+      p->lexer_->push_note_state ();
     }
 
   return SCM_UNSPECIFIED;

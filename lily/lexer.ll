@@ -847,13 +847,10 @@ Lily_lexer::pop_extra_token ()
 }
 
 void
-Lily_lexer::push_chord_state (SCM alist)
+Lily_lexer::push_chord_state ()
 {
-	SCM p = scm_assq (alist, pitchname_tab_stack_);
-
-	if (scm_is_false (p))
-		p = scm_cons (alist, alist_to_hashq (alist));
-	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
+	SCM alist = Lily::pitchnames;
+	push_pitch_names (alist);
 	yy_push_state (chords);
 }
 
@@ -882,13 +879,18 @@ Lily_lexer::push_markup_state ()
 }
 
 void
-Lily_lexer::push_note_state (SCM alist)
+Lily_lexer::push_note_state ()
 {
-	SCM p = scm_assq (alist, pitchname_tab_stack_);
+ 	SCM alist = Lily::pitchnames;
+	push_pitch_names (alist);
+	yy_push_state (notes);
+}
 
-	if (scm_is_false (p))
-		p = scm_cons (alist, alist_to_hashq (alist));
-	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
+void
+Lily_lexer::push_drum_state ()
+{
+	SCM alist = lookup_identifier_symbol (ly_symbol2scm ("drumPitchNames"));
+	push_pitch_names (alist);
 	yy_push_state (notes);
 }
 

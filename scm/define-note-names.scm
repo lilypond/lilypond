@@ -1418,6 +1418,5 @@
     (if (pair? alist)
         (begin
           (ly:debug (_ "Using `~a' note names...") str)
-          (set! pitchnames alist)
           (ly:parser-set-note-names alist))
         (ly:warning (_ "Could not find language `~a'.  Ignoring.") str))))

@@ -98,12 +98,14 @@ public:
   void push_extra_token (Input const &where,
                          int token_type, SCM scm = SCM_UNSPECIFIED);
   int pop_extra_token ();
-  void push_chord_state (SCM alist);
+  void push_chord_state ();
   void push_figuredbass_state ();
   void push_lyric_state ();
   void push_initial_state ();
   void push_markup_state ();
-  void push_note_state (SCM alist);
+  void push_drum_state ();
+  void push_note_state ();
+  void push_pitch_names (SCM alist);
   void pop_state ();
   void LexerError (char const *) override;
   void LexerWarning (char const *);
