@@ -1047,16 +1047,21 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ":|]" ":|]" #f " | ")
 (define-bar-line ":|][|:" ":|]" "[|:" " |  |")
 (define-bar-line ".|:-||" "||" ".|:" ".|")
+(define-bar-line "[|:-||" "||" "[|:" " |")
 
 ;; segno bar lines
 (define-bar-line "S" "|" "S" "=")
 (define-bar-line "S-||" "||" "S" "=")
 (define-bar-line "S-S" "S" #f "=")
+(define-bar-line "|.S" "|." "S" "|.")
+(define-bar-line "|.S-S" "|.S" #f "|.")
 (define-bar-line ":|.S" ":|." "S" " |.")
 (define-bar-line ":|.S-S" ":|.S" "" " |.")
 (define-bar-line "S.|:" "|" "S.|:" " .|")
-;; TODO: Define "S.|:-||" too?
+(define-bar-line "S.|:-||" "||" "S.|:" " .|")
 (define-bar-line "S.|:-S" "S" ".|:" " .|")
+(define-bar-line "|.S.|:" "|." "S.|:" "|. .|")
+(define-bar-line "|.S.|:-S" "|.S" ".|:" "|. .|")
 (define-bar-line ":|.S.|:" ":|." "S.|:" " |. .|")
 (define-bar-line ":|.S.|:-S" ":|.S" ".|:" " |. .|")
 
@@ -1084,3 +1089,4 @@ of the volta brackets relative to the bar lines."
 ;; end of piece
 (allow-volta-hook "k")
 (allow-volta-hook "|.")
+(allow-volta-hook "|.S")
