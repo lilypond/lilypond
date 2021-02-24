@@ -38,6 +38,7 @@
                     laissez-vibrer-event mark-event multi-measure-text-event
                     multi-measure-articulation-event
                     note-grouping-event pes-or-flexa-event repeat-tie-event
+                    section-event
                     spacing-section-event layout-instruction-event
                     time-signature-event
                     completize-extender-event break-span-event alternative-event

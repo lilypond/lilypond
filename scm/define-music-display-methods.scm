@@ -1009,6 +1009,9 @@ Otherwise, return #f."
                                                 symbol 'whichBar)))
                     (format #f "\\bar \"~a\"~a" ?bar-type (new-line->lily-string))))
 
+(define-display-method SectionEvent (expr)
+  "\\section")
+
 ;;; \partial
 (define-extra-display-method ContextSpeccedMusic (expr)
   "If `expr' is a partial measure, return \"\\partial ...\".

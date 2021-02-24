@@ -552,6 +552,8 @@ automatic fret calculator.")
      (searchForVoice ,boolean? "Signal whether a search should be made
 of all contexts in the context hierarchy for a voice to provide rhythms
 for the lyrics.")
+     (sectionBarType ,string? "The bar line for @code{\\section}.  See
+@code{whichBar} for information on available bar types.")
      (segnoType ,string? "Set the default bar line for a requested segno.
 Default is @samp{S}.")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for

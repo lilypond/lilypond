@@ -51,6 +51,7 @@ public:
 
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
 protected:
+  void listen_section (Stream_event *);
   void listen_volta_span (Stream_event *);
   void start_translation_timestep ();
   void stop_translation_timestep ();
@@ -59,6 +60,7 @@ protected:
 
 private:
   bool first_time_ = true;
+  bool heard_section_ = false;
   bool heard_volta_span_ = false;
 };
 
@@ -83,7 +85,14 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
 
   set_property (tr, "repeatCommands", SCM_EOL);
 
+  heard_section_ = false;
   heard_volta_span_ = false;
+}
+
+void
+Repeat_acknowledge_engraver::listen_section (Stream_event *)
+{
+  heard_section_ = true;
 }
 
 void
@@ -196,9 +205,12 @@ Repeat_acknowledge_engraver::process_music ()
 
       bool has_underlying_bar = false;
       std::string ub;
-      // TODO: Implement \fine and \section commands, which should cover
-      // underlyingRepeatType but be covered by any of the repeat bars above.
-      if (has_repeat_bar && (forced_bar_type < BarType::DEFAULT))
+      if (heard_section_)
+        {
+          ub = robust_scm2string (get_property (this, "sectionBarType"), "||");
+          has_underlying_bar = true;
+        }
+      else if (has_repeat_bar && (forced_bar_type < BarType::DEFAULT))
         {
           // At points of repetition or departure where there wouldn't
           // otherwise be a bar line, print a thin double bar line (Behind
@@ -264,6 +276,7 @@ Repeat_acknowledge_engraver::stop_translation_timestep ()
 void
 Repeat_acknowledge_engraver::boot ()
 {
+  ADD_LISTENER (Repeat_acknowledge_engraver, section);
   ADD_LISTENER (Repeat_acknowledge_engraver, volta_span);
 }
 
@@ -283,6 +296,7 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
                 "endRepeatSegnoType "
                 "endRepeatType "
                 "repeatCommands "
+                "sectionBarType "
                 "segnoType "
                 "startRepeatSegnoType "
                 "startRepeatType "

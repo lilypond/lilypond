@@ -653,7 +653,10 @@ run."
   crescendoSpanner = #'hairpin
   decrescendoSpanner = #'hairpin
 
+  %% TODO: The inconsistency between ...Type and ...BarType drives
+  %% people like Dan Eble crazy.  All of these are bar types.
   defaultBarType = "|"
+  sectionBarType = "||"
   doubleRepeatType = ":..:"
   startRepeatType = ".|:"
   endRepeatType = ":|."

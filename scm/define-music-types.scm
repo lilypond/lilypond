@@ -551,6 +551,12 @@ previously added property from a graphical object definition.")
         (types . (event))
         ))
 
+    (SectionEvent
+     . ((description . "Add a section division, which is typically written
+as a thin double bar line.")
+        (types . (section-event event))
+        ))
+
     (SequentialAlternativeMusic
      . ((description . "Repeat alternatives in sequence.
 

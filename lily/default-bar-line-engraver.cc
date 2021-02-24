@@ -66,6 +66,12 @@ Default_bar_line_engraver::Default_bar_line_engraver (Context *c)
 void
 Default_bar_line_engraver::start_translation_timestep ()
 {
+  // Gould writes that "[a] thin double barline ...  marks the written end of
+  // the music when this is not the end of the piece" (Behind Bars, p.240).
+  // Although it would be fairly easy to implement that as a default, we avoid
+  // it on the grounds that the input is possibly not a finished work, and it
+  // is easy for the user to add a \bar command at the end when it is.
+
   SCM wb = SCM_EOL;
 
   if (from_scm<bool> (get_property (this, "measureStartNow"))
