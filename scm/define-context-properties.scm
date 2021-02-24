@@ -667,6 +667,10 @@ setting this property, you can make brackets last shorter.
 @end example")
 
 
+     (underlyingRepeatType ,string? "Set the bar line to use at points
+of repetition or departure where no bar line would normally appear,
+for example at the end of a system broken in mid measure where the
+next system begins with a segno.")
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures.")
 

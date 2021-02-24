@@ -17,13 +17,23 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "engraver.hh"
-#include "translator-group.hh"
 #include "context.hh"
+#include "engraver.hh"
+#include "lily-imports.hh"
+#include "translator-group.hh"
 
 #include "translator.icc"
 
-using std::string;
+#include <string>
+#include <utility>
+
+enum class BarType
+{
+  // from low to high priority
+  NONE = 0,
+  DEFAULT,
+  OTHER
+};
 
 /*
   Objective:
@@ -93,7 +103,6 @@ Repeat_acknowledge_engraver::process_music ()
 
   SCM cs = get_property (this, "repeatCommands");
 
-  string s = "";
   bool start = false;
   bool end = false;
   bool segno = false;
@@ -113,45 +122,136 @@ Repeat_acknowledge_engraver::process_music ()
       cs = scm_cdr (cs);
     }
 
-  /*
-    Select which bar type to set
-  */
-  if (segno)
-    if (start)
-      if (end) // { segno, start, end }
-        s = robust_scm2string (get_property (this, "doubleRepeatSegnoType"), ":|.S.|:");
-      else // { segno, start }
-        s = robust_scm2string (get_property (this, "startRepeatSegnoType"), "S.|:");
-    else if (end) // { segno, end }
-      s = robust_scm2string (get_property (this, "endRepeatSegnoType"), ":|.S");
-    else // { segno }
-      {
-        // TODO: For consistency, this should possibly be changed to "S",
-        // yielding a normal bar line at end-of-line.
-        s = robust_scm2string (get_property (this, "segnoType"), "S-||");
-      }
-  else if (start)
-    if (end) // { start, end }
-      s = robust_scm2string (get_property (this, "doubleRepeatType"), ":..:");
-    else // { start }
-      s = robust_scm2string (get_property (this, "startRepeatType"), ".|:");
-  else if (end) // { end }
-    s = robust_scm2string (get_property (this, "endRepeatType"), ":|.");
-
-  /*
-    TODO: line breaks might be allowed if we set whichBar to "".
-  */
+  auto forced_bar_type = BarType::NONE;
+  SCM wb = get_property (this, "whichBar");
+  if (scm_is_string (wb))
+    {
+      // Note that we don't distinguish between a default bar set by the
+      // Default_bar_line_engraver and a default bar set by the user.
+      forced_bar_type = ly_is_equal (wb, get_property (this, "defaultBarType"))
+                        ? BarType::DEFAULT
+                        : BarType::OTHER;
+    }
 
   /*
     We only set the barline if we wouldn't overwrite a previously set
     barline.
   */
-  SCM wb = get_property (this, "whichBar");
-  SCM db = get_property (this, "defaultBarType");
-  if (!scm_is_string (wb) || ly_is_equal (db, wb))
+  if (forced_bar_type <= BarType::DEFAULT)
     {
-      if (s != "" || (volta_found && !scm_is_string (wb)))
-        set_property (context (), "whichBar", ly_string2scm (s));
+      bool has_repeat_bar = false;
+      std::string rb;
+
+      if (segno)
+        {
+          if (start)
+            {
+              if (end) // { segno, start, end }
+                {
+                  SCM s = get_property (this, "doubleRepeatSegnoType");
+                  rb = robust_scm2string (s, ":|.S.|:");
+                  has_repeat_bar = true;
+                }
+              else // { segno, start }
+                {
+                  SCM s = get_property (this, "startRepeatSegnoType");
+                  rb = robust_scm2string (s, "S.|:");
+                  has_repeat_bar = true;
+                }
+            }
+          else if (end) // { segno, end }
+            {
+              SCM s = get_property (this, "endRepeatSegnoType");
+              rb = robust_scm2string (s, ":|.S");
+              has_repeat_bar = true;
+            }
+          else // { segno }
+            {
+              SCM s = get_property (this, "segnoType");
+              rb = robust_scm2string (s, "S");
+              has_repeat_bar = true;
+            }
+        }
+      else if (start)
+        {
+          if (end) // { start, end }
+            {
+              SCM s = get_property (this, "doubleRepeatType");
+              rb = robust_scm2string (s, ":..:");
+              has_repeat_bar = true;
+            }
+          else // { start }
+            {
+              SCM s = get_property (this, "startRepeatType");
+              rb = robust_scm2string (s, ".|:");
+              has_repeat_bar = true;
+            }
+        }
+      else if (end) // { end }
+        {
+          SCM s = get_property (this, "endRepeatType");
+          rb = robust_scm2string (s, ":|.");
+          has_repeat_bar = true;
+        }
+
+      bool has_underlying_bar = false;
+      std::string ub;
+      // TODO: Implement \fine and \section commands, which should cover
+      // underlyingRepeatType but be covered by any of the repeat bars above.
+      if (has_repeat_bar && (forced_bar_type < BarType::DEFAULT))
+        {
+          // At points of repetition or departure where there wouldn't
+          // otherwise be a bar line, print a thin double bar line (Behind
+          // Bars, p.240).
+          SCM s = get_property (this, "underlyingRepeatType");
+          ub = robust_scm2string (s, "||");
+          has_underlying_bar = true;
+        }
+
+      if (has_repeat_bar)
+        {
+          if (has_underlying_bar)
+            {
+              // The repeat bar has priority, but we append the underlying bar
+              // as an annotation so that it can be made to appear at the end
+              // of the previous line if the line is later broken here.  (This
+              // can support other cases too, but that is the motivating case.)
+              constexpr auto annotation_char = '-';
+              auto annotated_rb = rb + annotation_char + ub;
+
+              // Try to keep out of the way when a user overrides the default
+              // repeat bar types.  For example, if the user set
+              // startRepeatType to ".|:-||", appending the default value of
+              // underlyingRepeatType would make it ".|:-||-||", which isn't in
+              // the built-in set of bar lines.  Rather than setting whichBar
+              // to a useless value, discard the annotation.
+              if (!scm_is_null (ly_assoc_get (ly_string2scm (annotated_rb),
+                                              Lily::bar_glyph_alist,
+                                              SCM_EOL)))
+                {
+                  rb = std::move (annotated_rb);
+                }
+            }
+        }
+      else if (has_underlying_bar) // visible because there is no repeat bar
+        {
+          rb = ub;
+          has_repeat_bar = true;
+        }
+      else if (volta_found && (forced_bar_type == BarType::NONE))
+        {
+          // Volta brackets align on bar lines, so create an empty bar line
+          // where there isn't already a bar line.
+          //
+          // TODO: This is possibly out of order: adding a bar line allows a
+          // line break, which might be unwanted.  Consider enhancing the
+          // Volta_engraver and bracket to align to something else
+          // (Paper_column?) when there is no bar line.
+          has_repeat_bar = true;
+        }
+
+      if (has_repeat_bar)
+        set_property (context (), "whichBar", ly_string2scm (rb));
     }
 }
 
@@ -177,16 +277,18 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
                 "",
 
                 /* read */
-                "doubleRepeatType "
-                "startRepeatType "
-                "endRepeatType "
+                "defaultBarType "
                 "doubleRepeatSegnoType "
-                "startRepeatSegnoType "
+                "doubleRepeatType "
                 "endRepeatSegnoType "
-                "segnoType "
+                "endRepeatType "
                 "repeatCommands "
-                "whichBar ",
+                "segnoType "
+                "startRepeatSegnoType "
+                "startRepeatType "
+                "underlyingRepeatType "
+                "whichBar",
 
                 /* write */
-                ""
+                "whichBar"
                );

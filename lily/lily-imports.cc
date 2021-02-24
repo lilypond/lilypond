@@ -51,6 +51,7 @@ Scm_module module ("lily");
 
 Variable all_music_font_encodings ("all-music-font-encodings");
 Variable alterations_in_key ("alterations-in-key");
+Variable bar_glyph_alist ("bar-glyph-alist");
 Variable bar_line_calc_glyph_name_for_direction
 ("bar-line::calc-glyph-name-for-direction");
 Variable base_length ("base-length");
