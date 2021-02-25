@@ -232,6 +232,13 @@ duration stored in @code{duration}.")
         (types . (post-event extender-event event))
         ))
 
+    (FineEvent
+     . ((description . "End the performance, not necessarily at the
+written end of the music.")
+        (iterator-ctor . ,ly:fine-iterator::constructor)
+        (types . (fine-event event))
+        ))
+
     (FingeringEvent
      . ((description . "Specify what finger to use for this note.")
         (types . (post-event fingering-event event))
@@ -810,6 +817,7 @@ Syntax: @code{\\\\}")
      . ((description . "Repeats with alternatives placed sequentially.")
         (iterator-ctor . ,ly:volta-repeat-iterator::constructor)
         (elements-callback . ,make-volta-set)
+        (folded-repeat-type . ,'volta)
         (start-callback .  ,ly:calculated-sequential-music::start)
         (length-callback . ,ly:calculated-sequential-music::length)
         (types . (repeated-music volta-repeated-music))

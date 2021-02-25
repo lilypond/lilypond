@@ -206,6 +206,7 @@ are reported on the stderr of this run."
 \test ##[ \time 2/4 #]
 \test ##[ \time 3,2 5/8 #]
 \test ##[ \bar "|." #]
+\test ##[ \fine #]
 \test ##[ \section #]
 
 %% staff switches

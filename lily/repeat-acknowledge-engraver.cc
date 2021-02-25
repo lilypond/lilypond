@@ -51,6 +51,7 @@ public:
 
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
 protected:
+  void listen_fine (Stream_event *);
   void listen_section (Stream_event *);
   void listen_volta_span (Stream_event *);
   void start_translation_timestep ();
@@ -60,6 +61,7 @@ protected:
 
 private:
   bool first_time_ = true;
+  bool heard_fine_ = false;
   bool heard_section_ = false;
   bool heard_volta_span_ = false;
 };
@@ -85,8 +87,15 @@ Repeat_acknowledge_engraver::start_translation_timestep ()
 
   set_property (tr, "repeatCommands", SCM_EOL);
 
+  heard_fine_ = false;
   heard_section_ = false;
   heard_volta_span_ = false;
+}
+
+void
+Repeat_acknowledge_engraver::listen_fine (Stream_event *)
+{
+  heard_fine_ = true;
 }
 
 void
@@ -151,6 +160,12 @@ Repeat_acknowledge_engraver::process_music ()
       bool has_repeat_bar = false;
       std::string rb;
 
+      // TODO: Move this jenga tower into a Scheme callback if further
+      // customizability is desired.  The number of dimensions makes it a
+      // hassle to maintain a built-in context property for every combination.
+      // Don't pass the state as parameters: set context properties before
+      // calling.  (Well, some of these already came from repeatCommands, for
+      // what that's worth.)
       if (segno)
         {
           if (start)
@@ -163,9 +178,18 @@ Repeat_acknowledge_engraver::process_music ()
                 }
               else // { segno, start }
                 {
-                  SCM s = get_property (this, "startRepeatSegnoType");
-                  rb = robust_scm2string (s, "S.|:");
-                  has_repeat_bar = true;
+                  if (heard_fine_)
+                    {
+                      SCM s = get_property (this, "fineStartRepeatSegnoType");
+                      rb = robust_scm2string (s, "|.S.|:");
+                      has_repeat_bar = true;
+                    }
+                  else
+                    {
+                      SCM s = get_property (this, "startRepeatSegnoType");
+                      rb = robust_scm2string (s, "S.|:");
+                      has_repeat_bar = true;
+                    }
                 }
             }
           else if (end) // { segno, end }
@@ -176,9 +200,18 @@ Repeat_acknowledge_engraver::process_music ()
             }
           else // { segno }
             {
-              SCM s = get_property (this, "segnoType");
-              rb = robust_scm2string (s, "S");
-              has_repeat_bar = true;
+              if (heard_fine_)
+                {
+                  SCM s = get_property (this, "fineSegnoType");
+                  rb = robust_scm2string (s, "|.S");
+                  has_repeat_bar = true;
+                }
+              else
+                {
+                  SCM s = get_property (this, "segnoType");
+                  rb = robust_scm2string (s, "S");
+                  has_repeat_bar = true;
+                }
             }
         }
       else if (start)
@@ -205,7 +238,12 @@ Repeat_acknowledge_engraver::process_music ()
 
       bool has_underlying_bar = false;
       std::string ub;
-      if (heard_section_)
+      if (heard_fine_)
+        {
+          ub = robust_scm2string (get_property (this, "fineBarType"), "|.");
+          has_underlying_bar = true;
+        }
+      else if (heard_section_)
         {
           ub = robust_scm2string (get_property (this, "sectionBarType"), "||");
           has_underlying_bar = true;
@@ -276,6 +314,7 @@ Repeat_acknowledge_engraver::stop_translation_timestep ()
 void
 Repeat_acknowledge_engraver::boot ()
 {
+  ADD_LISTENER (Repeat_acknowledge_engraver, fine);
   ADD_LISTENER (Repeat_acknowledge_engraver, section);
   ADD_LISTENER (Repeat_acknowledge_engraver, volta_span);
 }
@@ -295,6 +334,9 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
                 "doubleRepeatType "
                 "endRepeatSegnoType "
                 "endRepeatType "
+                "fineBarType "
+                "fineSegnoType "
+                "fineStartRepeatSegnoType "
                 "repeatCommands "
                 "sectionBarType "
                 "segnoType "

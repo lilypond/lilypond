@@ -316,6 +316,13 @@ lines.")
 for a bass figure.")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs
 relative to the main figure.")
+     (fineBarType ,string? "The bar line for @code{\\fine}.  See
+@code{whichBar} for information on available bar types.")
+     (fineSegnoType ,string? "Set the default bar line for a requested
+segno with fine.  Default is @samp{|.S}.")
+     (fineStartRepeatSegnoType ,string? "Set the default bar line for
+the combinations beginning of repeat with segno and fine.  Default is
+@samp{|.S.|:}.")
      (fingeringOrientations ,list? "A list of symbols, containing
 @samp{left}, @samp{right}, @samp{up} and/@/or @samp{down}.  This list
 determines where fingerings are put relative to the chord being

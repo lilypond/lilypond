@@ -143,9 +143,8 @@ Global_context::iterate (Music *music, bool force_found_music)
     {
       prev_mom_.main_part_ = -Rational::infinity ();
       now_mom_.main_part_ = -Rational::infinity ();
-
-      const auto &final_mom = iter->music_get_length ();
-      if (isinf (final_mom.main_part_))
+      final_mom_ = iter->music_get_length ();
+      if (isinf (final_mom_.main_part_))
         {
           // We'll probably also reach "Moment is not increasing" below.
           music->programming_error ("music has infinite length");
@@ -163,7 +162,7 @@ Global_context::iterate (Music *music, bool force_found_music)
                           || iter->run_always ();
 
           w = sneaky_insert_extra_moment (w);
-          if (w > final_mom)
+          if (w > final_mom_)
             break;
 
           if (w == prev_mom_)

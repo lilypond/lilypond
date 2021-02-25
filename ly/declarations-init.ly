@@ -76,6 +76,7 @@ noBreak = #(make-music 'LineBreakEvent 'break-permission '())
 %% \pageBreak, \noPageBreak, \pageTurn, \noPageTurn, \allowPageTurn are defined
 %% as music functions
 
+fine = #(make-music 'FineEvent)
 section = #(make-music 'SectionEvent)
 
 stopStaff = #(make-span-event 'StaffSpanEvent STOP)

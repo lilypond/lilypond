@@ -1009,6 +1009,9 @@ Otherwise, return #f."
                                                 symbol 'whichBar)))
                     (format #f "\\bar \"~a\"~a" ?bar-type (new-line->lily-string))))
 
+(define-display-method FineEvent (expr)
+  "\\fine")
+
 (define-display-method SectionEvent (expr)
   "\\section")
 

@@ -657,6 +657,8 @@ run."
   %% people like Dan Eble crazy.  All of these are bar types.
   defaultBarType = "|"
   sectionBarType = "||"
+  fineBarType = "|."
+
   doubleRepeatType = ":..:"
   startRepeatType = ".|:"
   endRepeatType = ":|."

@@ -1043,11 +1043,13 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ":.|.:" ":|." ".|:" " .|.")
 (define-bar-line ":|." ":|." #f " |.")
 (define-bar-line ".|:" "|" ".|:" ".|")
+(define-bar-line ".|:-||" "||" ".|:" ".|")
+(define-bar-line ".|:-|." "|." ".|:" ".|")
 (define-bar-line "[|:" "|" "[|:" " |")
+(define-bar-line "[|:-||" "||" "[|:" " |")
+(define-bar-line "[|:-|." "|." "[|:" " |")
 (define-bar-line ":|]" ":|]" #f " | ")
 (define-bar-line ":|][|:" ":|]" "[|:" " |  |")
-(define-bar-line ".|:-||" "||" ".|:" ".|")
-(define-bar-line "[|:-||" "||" "[|:" " |")
 
 ;; segno bar lines
 (define-bar-line "S" "|" "S" "=")

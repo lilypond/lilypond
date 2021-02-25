@@ -1,8 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
-           Erik Sandberg <mandolaerik@gmail.com>
+  Copyright (C) 2021 Daniel Eble <dan@faithful.be>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -18,23 +17,34 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef EVENT_ITERATOR_HH
-#define EVENT_ITERATOR_HH
+#include "event-iterator.hh"
 
-#include "simple-music-iterator.hh"
+#include "context.hh"
+#include "global-context.hh"
+#include "lily-guile.hh"
+#include "moment.hh"
+#include "music.hh"
 
-class Event_iterator : public Simple_music_iterator
+class Fine_iterator final : public Event_iterator
 {
-  OVERRIDE_CLASS_NAME (Event_iterator);
-
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  Event_iterator ();
-  Event_iterator (Event_iterator const &);
-
 protected:
-  void create_contexts () override;
   void process (Moment) override;
 };
 
-#endif // EVENT_ITERATOR_HH
+void
+Fine_iterator::process (Moment m)
+{
+  if (!has_started ())
+    {
+      // Outside a folded repeat, stop iterating.
+      if (scm_is_null (get_property (this, "folded-repeat-type")))
+        find_global_context (get_context ())->set_final_moment ();
+    }
+
+  // In any case, report the Fine event.
+  Event_iterator::process (m);
+}
+
+IMPLEMENT_CTOR_CALLBACK (Fine_iterator);

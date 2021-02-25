@@ -42,6 +42,7 @@ public:
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   bool iterate (Music *, bool force_found_music);
+  void set_final_moment () { final_mom_ = now_mom_; }
 
   bool is_accessible_to_user () const override { return false; }
 
@@ -61,6 +62,7 @@ private:
 private:
   Moment prev_mom_;
   Moment now_mom_;
+  Moment final_mom_;
 };
 
 // If the given context is null, return null.  Otherwise, starting from the

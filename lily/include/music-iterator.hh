@@ -152,6 +152,9 @@ protected:
 
   virtual void do_quit ();
 
+  // (const until we have a need to change it)
+  const Music_iterator *get_parent () const { return parent_; }
+
   // Scoped property access: look in this iterator's music, then search the
   // ancestors up to the top.
   SCM internal_get_property (SCM name_sym) const;
