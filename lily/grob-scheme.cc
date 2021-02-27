@@ -163,7 +163,7 @@ LY_DEFINE (ly_grob_set_object_x, "ly:grob-set-object!",
   return SCM_UNSPECIFIED;
 }
 
-/* TODO: make difference between scaled and unscalead variable in
+/* TODO: make difference between scaled and unscaled variable in
    calling (i.e different funcs.) */
 LY_DEFINE (ly_grob_layout, "ly:grob-layout",
            1, 0, 0, (SCM grob),
