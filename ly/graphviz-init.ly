@@ -24,14 +24,8 @@
 
 #(define last-grob-action '())
 
-#(define symbol-blacklist '())
-#(define symbol-whitelist '())
-
-#(define file-line-blacklist '())
-#(define file-line-whitelist '())
-
-#(define grob-blacklist '())
-#(define grob-whitelist '())
+#(define whitelists '())
+#(define blacklists '())
 
 #(define graph '())
 
@@ -44,14 +38,14 @@
   (let ((file-line `(,file . ,line)))
    (and
     (or
-     (= 0 (length file-line-whitelist) (length symbol-whitelist) (length grob-whitelist))
-     (memq prop symbol-whitelist)
-     (memq (grob::name grob) grob-whitelist)
-     (member file-line file-line-whitelist))
+     (null? whitelists)
+     (memq prop (assoc-get 'symbol whitelists '()))
+     (memq (grob::name grob) (assoc-get 'grob whitelists '()))
+     (member file-line (assoc-get 'file-line whitelists '())))
     (and
-     (not (memq prop symbol-blacklist))
-     (not (memq (grob::name grob) grob-blacklist))
-     (not (member file-line file-line-blacklist))))))
+     (not (memq prop (assoc-get 'symbol blacklists '())))
+     (not (memq (grob::name grob) (assoc-get 'grob blacklists '())))
+     (not (member file-line (assoc-get 'file-line blacklists '())))))))
 
 #(define (grob-event-node grob label cluster)
   (let ((node-id (add-node graph label cluster))
@@ -140,7 +134,7 @@
        (grob-event-node grob formatted-label file))))
 
 graphvizSetupCallbacks =
-#(define-void-function (callbacks formatting whitelists blacklists)
+#(define-void-function (callbacks formatting whitelst blacklst)
                        (list? list? list? list?)
    (let* ((fmtrs (if (null? formatting)
                   default-label-formatters
@@ -164,12 +158,8 @@ graphvizSetupCallbacks =
                                                      'create
                                                       fmtrs))))))))
      (set! graph (make-empty-graph (ly:parser-output-name)))
-     (set! symbol-whitelist (assoc-get 'symbol whitelists '()))
-     (set! symbol-blacklist (assoc-get 'symbol blacklists '()))
-     (set! grob-whitelist (assoc-get 'grob whitelists '()))
-     (set! grob-blacklist (assoc-get 'grob blacklists '()))
-     (set! file-line-whitelist (assoc-get 'file-line whitelists '()))
-     (set! file-line-blacklist (assoc-get 'file-line blacklists '()))
+     (set! whitelists whitelst)
+     (set! blacklists blacklst)
      (for-each set-callback! callbacks)))
 
 graphvizWriteGraph =
