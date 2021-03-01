@@ -225,11 +225,19 @@ it is positioned at the beginning, the middle, or the end of a line.
       \Score
       barNumberVisibility = #all-bar-numbers-visible
       \override BarNumber.break-visibility = #'#(#t #t #t)
-      \override BarNumber.self-alignment-X = #(break-alignment-list CENTER LEFT CENTER)
+      \override BarNumber.self-alignment-X =
+        #(break-alignment-list CENTER LEFT CENTER)
     }
   }
 }
 @end lilypond
+
+@item
+The alignment of bar numbers appearing in the middle or end of a system
+has been changed to align them on their left edge.  This is in keeping with the
+advice of Elaine Gould (@cite{Behind Bars}, p.@tie{}237), and was mostly the
+consensus reached in a discussion of the issue by developers.  The alignment of
+bars at the beginning of a system remains unchanged.
 
 @end itemize
 

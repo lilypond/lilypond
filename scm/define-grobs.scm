@@ -284,7 +284,7 @@
         (horizon-padding . 0.05)
         (outside-staff-priority . 100)
         (padding . 1.0)
-        (self-alignment-X . ,RIGHT)
+        (self-alignment-X . ,(break-alignment-list LEFT LEFT RIGHT))
         (side-axis . ,Y)
         (stencil . ,ly:text-interface::print)
         (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
