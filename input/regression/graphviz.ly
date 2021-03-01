@@ -11,7 +11,13 @@ whitelists = #'((grob . (NoteHead Stem Flag))
 
 blacklists = #'()
 
-\graphvizSetupCallbacks #'(mod cache) #'() #whitelists #blacklists
+label-formatting = #default-label-formatting
+label-formatting.mod =
+  #`("~a\\n~a\\n~a <- ~a"
+     (,grob::name ,identity ,discard ,discard ,identity ,truncate-value)
+     ,escape-label)
+
+\graphvizSetupCallbacks #'(mod cache) #label-formatting #whitelists #blacklists
 
 \book {
   \score {
