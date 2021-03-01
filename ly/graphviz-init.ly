@@ -19,7 +19,6 @@
 \version "2.19.22"
 
 #(use-modules (scm graphviz))
-
 #(use-modules (ice-9 regex))
 
 #(define last-grob-action '())
@@ -29,10 +28,8 @@
 
 #(define graph '())
 
-% an event is relevant if
-% (it is on some whitelist or all whitelists are empty)
-% and
-% (it isn't on any blacklist)
+% an event is relevant if it is on some whitelist
+% or all whitelists are empty and it isn't on any blacklist
 
 #(define (relevant? grob file line prop)
   (let ((file-line `(,file . ,line)))
