@@ -359,6 +359,18 @@ If @code{'elements} is empty return @code{'(0 . 0)}"
   (+ (ly:break-alignable-interface::self-align-callback grob)
      (ly:self-alignment-interface::x-aligned-on-self grob)))
 
+(define-public (break-alignment-list end-of-line middle begin-of-line)
+  "Return a callback that calculates a value based on a grob's break
+  direction."
+  (lambda (grob)
+    (let ((rval (case (ly:item-break-dir grob)
+                  ((1) begin-of-line)
+                  ((0) middle)
+                  ((-1) end-of-line))))
+      (if (procedure? rval)
+	  (rval grob)
+	  rval))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff symbol
 

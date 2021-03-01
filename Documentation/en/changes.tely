@@ -211,6 +211,26 @@ mus = {
 }
 @end lilypond
 
+@item
+A new grob callback function @code{break-alignment-list} is now available for
+returning different values depending on a grob's break direction.  As an
+example, use it to provide different alignments of a grob depending on whether
+it is positioned at the beginning, the middle, or the end of a line.
+
+@lilypond[quote]
+\score {
+  { \bar "" \repeat unfold 8 c' }
+  \layout {
+    \context {
+      \Score
+      barNumberVisibility = #all-bar-numbers-visible
+      \override BarNumber.break-visibility = #'#(#t #t #t)
+      \override BarNumber.self-alignment-X = #(break-alignment-list CENTER LEFT CENTER)
+    }
+  }
+}
+@end lilypond
+
 @end itemize
 
 @ifhtml
