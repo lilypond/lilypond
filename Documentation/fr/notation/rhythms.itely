@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
+   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -564,24 +564,26 @@ accords.
 }
 @end lilypond
 
+@anchor{Tenue et reprise}
 @cindex liaison de tenue et répétition
 @cindex répétition et liaison de tenue
 @cindex reprise avec alternative et liaison de prolongation
 @cindex liaison de prolongation et reprise avec alternative
+@cindex alternative et liaison
 
 @funindex \repeatTie
 
-Lorsqu'une mesure « de seconde fois » après une reprise commence sur
-une note liée, la liaison doit être répétée, comme ici :
+Lorsqu'une mesure d'alternative après une reprise commence sur une note
+liée, la liaison doit être répétée, comme ici :
 
 @lilypond[quote,verbatim]
 \relative {
   \repeat volta 2 { c'' g <c e>2~ }
   \alternative {
-    % First alternative: following note is tied normally
-    { <c e>2. r4 }
-    % Second alternative: following note has a repeated tie
-    { <c e>2\repeatTie d4 c }
+    % La note tenue est liée normalement
+    \volta 1 { <c e>2. r4 }
+    % la note qui suit est pourvue d'une liaison de reprise
+    \volta 2 { <c e>2\repeatTie d4 c }
   }
 }
 @end lilypond
@@ -656,6 +658,11 @@ Que ce soit pour une tenue ou un phrasé, le motif d'une ligne
 discontinue formant une liaison se définit de la même manière.  Pour de
 plus amples détails à ce sujet, reportez vous au chapitre
 @ref{Liaisons d'articulation}.
+
+@cindex blanchiment (@emph{whiteout})
+@cindex @emph{grob}, blanchiment
+@cindex surimpression de @emph{grob}
+@cindex @emph{grob}, surimpression
 
 Dans le cas où une liaison est recouverte par d'autres éléments de la
 portée, une adaptation des propriétés @var{whiteout} et @var{layer}
@@ -1593,6 +1600,7 @@ Références des propriétés internes :
 @unnumberedsubsubsec Musique sans métrique
 @translationof Unmetered music
 
+@cindex cadence
 @cindex barre de mesure, suppression
 @cindex numérotation des mesures, suppression
 @cindex cadence et ligatures
@@ -1608,58 +1616,45 @@ Références des propriétés internes :
 @funindex \cadenzaOn
 @funindex \cadenzaOff
 
-En matière de musique mesurée, le positionnement des barres et la
-numérotation sont calculés automatiquement.  Ceci n'est pas souhaitable
-dans le cas d'une musique non mesurée -- les cadences par exemple -- et
-peut être désactivé à l'aide de la commande @code{\cadenzaOn}, puis
-réactivé par un @code{\cadenzaOff} à l'endroit approprié.
+Dans un passage tel qu'une cadence, il peut être souhaitable de
+désactiver la temporisation et tout ce qu'elle entraîne : positionnement
+des barres et numérotation des mesures, réinitialisation des altérations
+accidentelles, etc. La musique placée entre @code{\cadenzaOn} et
+@code{\cadenzaOff} ne tient pas compte de la longueur de la mesure.
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  c4 d e d
-  \cadenzaOn
-  c4 c d8[ d d] f4 g4.
-  \cadenzaOff
-  \bar "|"
-  d4 e d c
-}
-@end lilypond
-
-La numérotation reprend dès la fin d'une cadence.
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  % Show all bar numbers
+  % Affiche tous les numéros de mesure
   \override Score.BarNumber.break-visibility = #all-visible
   c4 d e d
   \cadenzaOn
-  c4 c d8[ d d] f4 g4.
+  c4 cis d8[ d d] f4 g4.
   \cadenzaOff
-  \bar "|"
   d4 e d c
 }
 @end lilypond
 
-Une cadence représente un fragment détaché de la notion de mesure, en
-dépit des différentes commandes @code{\bar} qu'il pourra comporter.
-L'insertion d'une commande @code{\bar} dans une cadence n'entame
-pas de nouvelle mesure, même si une barre est imprimée.  Ceci a
-pour conséquence que toute altération supplémentaire par rapport à
-l'armure -- normalement en vigueur jusqu'à la fin de la mesure --
-sera valide même après une barre insérée grâce à une instruction
-@code{\bar}.  Toute altération ultérieure devra donc être rappelée
-manuellement -- voir @ref{Altérations}.
+Afin de diviser un passage non mesuré, il suffit de réactiver
+temporairement la temorisation grâce à l'utilisation de @code{\partial}
+pour créer une mesure réduite. La commande @code{\bar} n'entame pas de
+nouvelle mesure, même si une barre est imprimée.
 
 @lilypond[verbatim,quote]
+cadenzaMeasure = {
+  \cadenzaOff
+  \partial 1024 s1024
+  \cadenzaOn
+}
+
 \relative c'' {
+  % Affiche tous les numéros de mesure
+  \override Score.BarNumber.break-visibility = #all-visible
   c4 d e d
   \cadenzaOn
-  cis4 d cis d
-  \bar "|"
-  % First cis is printed without alteration even if it's after a \bar
-  cis4 d cis! d
+  c4 cis \bar "!" d8[ d d] \cadenzaMeasure f4 g4.
+  \cadenzaMeasure
   \cadenzaOff
-  \bar "|"
+  d4 e d c
 }
 @end lilypond
 
@@ -1682,7 +1677,7 @@ de la cadence -- voir @ref{Barres de ligature manuelles}).
 
 Ces commandes prédéfinies affecteront toutes les portées de la
 partition, même si vous ne les placez que dans un simple contexte
-@code{Voice}.  Pour éviter ce désagrément, transférez le
+@code{Voice}. Pour éviter ce désagrément, transférez le
 @code{Timing_translator} du contexte @code{Score} au contexte
 @code{Staff}, comme indiqué au chapitre @ref{Notation polymétrique}.
 
@@ -3052,7 +3047,7 @@ reprise avec un @emph{segno} :
 
 Par ailleurs, la commande @code{\inStaffSegno} crée une barre de mesure
 surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
-@code{\repeat volta} -- voir @ref{Répétitions courantes}.
+@code{\repeat volta} -- voir @ref{Barre de segno}.
 
 @cindex barre de mesure, personnalisation
 @cindex définition d'une barre de mesure

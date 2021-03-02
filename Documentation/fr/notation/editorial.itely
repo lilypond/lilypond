@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
+   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -38,6 +38,7 @@ l'intérieur même de la portée.
 @menu
 * Indication de la taille de fonte musicale::
 * Doigtés::
+* Glissement de doigt::
 * Dictée à trous::
 * Coloration d'objets::
 * Parenthèses::
@@ -428,6 +429,149 @@ Référence des propriétés internes :
 @rinternals{fingering-event},
 @rinternals{FingeringEvent},
 @rinternals{New_fingering_engraver}.
+
+
+@node Glissement de doigt
+@unnumberedsubsubsec Glissement de doigt
+@translationof Gliding fingers
+
+@cindex doigte, glissé
+@cindex glissé, doigté
+@funindex glide
+@funindex \glide
+
+En matière d'instrument à cordes, un doigt que l'on fait glisser
+s'indique souvent à l'aide d'un trait reliant le même doigt utilisé pour
+plusieurs notes jouées à des positions différentes sur une même corde.
+Cette ligne s'entame par un @code{\glide} placé avant l'instruction de
+doigté et se terminera à l'occurrence suivante du même doigt. Cette
+ligne peut adopter différents aspects.
+
+@lilypond[verbatim,quote]
+mus = {
+  \set fingeringOrientations = #'(right)
+  <a'\glide-1>2.
+  \set fingeringOrientations = #'(left)
+  <d'-1>4
+}
+
+{
+  <>^"line"
+  \mus
+  <>^"stub-left"
+  \override FingerGlideSpanner.style = #'stub-left
+  \mus
+  <>^"stub-right"
+  \override FingerGlideSpanner.style = #'stub-right
+  \mus
+  <>^"stub-both"
+  \override FingerGlideSpanner.style = #'stub-both
+  \mus
+  <>^"dashed-line"
+  \override  FingerGlideSpanner.style = #'dashed-line
+  \mus
+  \break
+  <>^"dotted-line"
+  \override FingerGlideSpanner.style = #'dotted-line
+  \mus
+  <>^"bow"
+  \override FingerGlideSpanner.style = #'bow
+  \mus
+  <>^"trill"
+  \override FingerGlideSpanner.style = #'trill
+  \mus
+  <>^"zigzag"
+  \override FingerGlideSpanner.style = #'zigzag
+  \mus
+}
+@end lilypond
+
+Dès lors que le @code{style} est défini à @code{'bow}, le positionnement
+de l'arc s'ajuste à l'aide des modificateurs d'orientation.
+
+@lilypond[verbatim,quote]
+{
+  \override FingerGlideSpanner.style = #'bow
+  \set fingeringOrientations = #'(down)
+  <b\glide-1>4 <d'-1>
+  \set fingeringOrientations = #'(up)
+  <e''\glide-2> <c''-2>
+
+  \set fingeringOrientations = #'(down)
+  <b^\glide-1>4 <d'-1>
+  \set fingeringOrientations = #'(up)
+  <e''^\glide-2> <c''-2>
+
+  \set fingeringOrientations = #'(down)
+  <b_\glide-1>4 <d'-1>
+  \set fingeringOrientations = #'(up)
+  <e''_\glide-2> <c''-2>
+}
+@end lilypond
+
+Dès lors que le @code{Finger_glide_engraver} est déplacé dans le
+contexte @code{Staff}, les objets @code{Fingering} de différents
+contextes @code{Voice} pourront être reliés.
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff <<
+    \new Voice {
+      \voiceOne
+      \set fingeringOrientations = #'(right)
+      <e''-3>2
+      \set fingeringOrientations = #'(left)
+      <d''-\tweak bound-details.left.padding #2.5 \glide-2>
+      <c''-2>
+      \bar "||"
+    }
+    \new Voice {
+      \voiceTwo
+      \set fingeringOrientations = #'(right)
+      <c''\glide-2>
+      \set fingeringOrientations = #'(left)
+      <b'-\tweak bound-details.left.padding #2.5 \glide-4>
+      <a'-4>
+    }
+  >>
+  \layout {
+    ragged-right = ##f
+    \context {
+      \Voice
+      \remove "Finger_glide_engraver"
+    }
+    \context {
+      \Staff
+      \consists "Finger_glide_engraver"
+    }
+  }
+}
+@end lilypond
+
+@morerefs
+Manuel de notation :
+@ref{Direction et positionnement}.
+
+Manuel des références internes :
+@rinternals{FingeringGlideEvent},
+@rinternals{fingering-glide-event},
+@rinternals{Finger_glide_engraver},
+@rinternals{finger-glide-interface},
+@rinternals{FingerGlideSpanner}.
+
+@knownissues
+Un glissé mutiple sur un même doigt n'est pas autorisé et peut entraîner
+un résultat inattendu. Une méthode de contournement consiste à utiliser
+des doigts différents alliés à l'instruction @code{\tweak text}.
+
+@lilypond[verbatim,quote]
+{
+    \clef "G_8"
+    <a\glide-1 cis'\glide-1>2 <bes-1 d'-1>
+    <a\glide-1 cis'\glide-\tweak text "1"-2>2
+    <bes-1 d'-\tweak text "1"-2>
+}
+@end lilypond
 
 
 @node Dictée à trous

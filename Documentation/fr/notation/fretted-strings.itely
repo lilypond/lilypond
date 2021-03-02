@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
+   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -341,8 +341,8 @@ ties = \relative {
     2 g2~
   }
   \alternative {
-     { g4 f2. }
-     { g4\repeatTie c,2. }
+     \volta 1 { g4 f2. }
+     \volta 2 { g4\repeatTie c,2. }
   }
   b1~
   \break
@@ -481,6 +481,207 @@ ratioHarmonics = {
   >>
 }
 @end lilypond
+
+@cindex désinence et tablature
+@cindex tablature et désinence
+@cindex corde, saut, tablature
+@funindex \preBend
+@funindex \bendHold
+@funindex \preBendHold
+@funindex \bendStartLevel
+
+Des désinences peuvent s'ajouter en notation de tablature. Elles
+s'indiquent par adjonction d'un @code{\^} à la note ou à l'accord de
+départ, et se terminent à la note ou l'accord suivant. Différents styles
+sont disponibles : le style par défaut imprime une courbe terminée par
+une flèche vers le haut ou le bas, le style @code{'hold} une ligne
+horizontale discontinue, @code{'pre-bend} une ligne verticale terminée
+en flèche, et @code{'pre-bend-hold} une ligne verticale terminée en
+flèche suivie d'une horizontale discontinue.
+
+@lilypond[verbatim,quote]
+bend-styles = {
+  <>^"default"
+  f'4\^ g'4\^ f'2
+
+  <>^"'hold"
+  \grace f'4\^ g'1\bendHold \^ g'1
+
+  <>^"'pre-bend"
+  \grace f'4\preBend \^ g'1\bendHold \^ g'1
+
+  <>^"'pre-bend-hold"
+  \grace f'4\preBendHold \^ g'1\bendHold \^ g'1\^ f'
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \bend-styles
+    }
+    \new TabStaff \bend-styles
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabStaff
+      minimumFret = #5
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+Les cordes à vide ne font habituellement pas l'objet d'une chute ou d'un
+saut. Il faut, pour qu'une corde soit concernée, basculer sa propriété
+@code{bend-me} à @code{#t}, et à @code{#f} pour exclure les autres notes
+de la désinence.
+
+@lilypond[verbatim,quote]
+mus = {
+  <>^"default"
+  <a b f'>4\^
+  <ais b fis'>\^
+  <a b f'>2
+
+  <>^"bend open strings"
+  <a \tweak bend-me ##t b f'>4\^
+  <ais \tweak bend-me ##t bis fis'>\^
+  <a b f'>2
+
+  <>^"exclude other strings"
+  <g \tweak bend-me ##f b\3 d'>4\^
+  <a e'\2 >\^
+  <g \tweak bend-me ##f b\3 d'>2
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \mus
+    }
+    \new TabStaff \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+Dans une succession de chutes ou sauts, la désinence de départ pourra
+nécessiter un réglage particulier de @code{details.successive-level}. La
+fonction @code{bendStartLevel}, qui prend en argument un entier, est là
+pour le gérer.
+
+@lilypond[verbatim,quote]
+printNext = -\tweak details.target-visibility ##t \etc
+
+mus = {
+  c'4\3\^ cis'\3 \^ d'2\3
+
+  \grace bes4\3\preBendHold \bendStartLevel 2 \printNext \^
+  d'4\3\bendHold \^ d'2\3\^ des'4\3 \^ c'1\3
+
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \override TextScript.font-size = -2
+      \clef "G_8"
+      \mus
+    }
+    \new TabStaff \mus
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+L'extension du @code{BendSpanner} se termine par défaut sur la note ou
+l'accord qui suit, même en présence d'une liaison de prolongation. Un
+élément @code{NoteColumn} particulier peut être sauté à l'aide d'un
+@code{\skipNC}. Un groupe de @code{NoteColumn}s peut se sauter en
+le faisant précéder d'un @code{\skipNCs} et suivre d'un
+@code{\endSkipNCs}.
+
+@lilypond[verbatim,quote]
+bends-with-ties-and-skips = {
+  a'4~\^ \skipNC a'4~ \skipNC a'4 b'4
+  a'4~ a'4~\^ \skipNC a'4 b'4
+  a'4~ a'4~ a'4\^ b'4
+  c'2\^ d'~ \bendHold \^ \skipNC d'~ d'\^ c'
+  \grace { c'8-\preBendHold \^ }
+  \skipNCs d'2~ d'2~ \endSkipNCs d'\^ c'2
+  \bar "|."
+}
+
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \clef "G_8"
+      \bends-with-ties-and-skips
+    }
+    \new TabVoice \bends-with-ties-and-skips
+  >>
+  \layout {
+    \context {
+      \Voice
+      \omit StringNumber
+    }
+    \context {
+      \TabStaff
+      minimumFret = #3
+      restrainOpenStrings = ##t
+    }
+    \context {
+      \TabVoice
+      \consists "Bend_spanner_engraver"
+    }
+  }
+}
+@end lilypond
+
+@predefined
+@code{\skipNCs},
+@code{\skipNC},
+@code{\endSkipNCs}.
+@endpredefined
+
 
 @snippets
 

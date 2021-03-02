@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
+   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -916,7 +916,8 @@ Morceaux choisis :
 * Variables de gestion des sauts de ligne::
 * Variables de gestion des sauts de page::
 * Variables de gestion des numéros de page::
-* Variables supplémentaires::
+* Variables supplémentaires d'entête et markup::
+* Variables de débogage::
 @end menu
 
 
@@ -977,8 +978,8 @@ Les valeurs par défaut sont définies dans le fichier
 L'algorithme de calcul des sauts de page à utiliser.  Vous avez le choix
 entre @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
 @code{ly:one-page-breaking}, @code{ly:one-line-breaking},
-@code{ly:one-line-auto-height-breaking}, et @code{ly:optimal-breaking}
-(activé par défaut).
+@code{ly:one-line-auto-height-breaking}, et @code{ly:optimal-breaking}.
+La valeur par défaut est @code{ly:optimal-breaking}.
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -995,6 +996,17 @@ une même page.  Cette variable est par défaut non définie.
 
 Le nombre de pages que devra comporter la partition.  Cette variable est
 par défaut non définie.
+
+@item page-spacing-weight
+@funindex page-spacing-weight
+
+Lorsqu'il utilise l'algorithme @code{ly:optimal-breaking} pour gérer les
+sauts de page, LilyPond doit faire des compromis entre étirement
+horizontal et vertical afin de présenter un espacement acceptable. Cette
+variable définit l'importance relative des espacements entre la page
+(verticalité) et la ligne (horizontalité). Une valeur élevée
+privilégiera l'espacement au niveau de la page. La valeur par défaut est
+de @code{10}.
 
 @end table
 
@@ -1131,19 +1143,11 @@ commence en page 1, le dos de la page de garde doit être vide de telle
 sorte que la page une se retrouve à droite.
 
 
-@node Variables supplémentaires
-@unnumberedsubsubsec Variables supplémentaires
-@translationof Miscellaneous paper variables
+@node Variables supplémentaires d'entête et markup
+@unnumberedsubsubsec Variables supplémentaires d'entête et @emph{markup}
+@translationof paper variables concerning headers and markups
 
 @table @code
-
-@item page-spacing-weight
-@funindex page-spacing-weight
-
-Cette variable définit l'importance relative des espacements entre la
-page (verticalité) et la ligne (horizontalité).  Une valeur élevée
-privilégiera l'espacement au niveau de la page.  La valeur par défaut
-est de @code{10}.
 
 @item print-all-headers
 @cindex entête, impression
@@ -1151,8 +1155,8 @@ est de @code{10}.
 
 Lorsque cette variable est activée, l'intégralité des champs d'entête
 sera imprimée pour chaque bloc @code{\score}, plutôt que les seuls
-champs @code{piece} et @code{opus}.  La valeur par défaut
-est @code{#f}.
+champs @code{piece} et @code{opus}. Voir @ref{Titres et entêtes} pour
+les cas d'usage.  La valeur par défaut est @code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
@@ -1201,6 +1205,22 @@ Morceaux choisis :
 @knownissues
 L'entête par défaut, formé d'une seule ligne, est constitué du numéro de
 page et du champ @code{instrument} contenu dans le bloc @code{\header}.
+
+
+@node Variables de débogage
+@unnumberedsubsubsec Variables de débogage
+@translationof paper variables for debugging
+
+@funindex debug-beam-scoring
+@funindex debug-slur-scoring
+@funindex debug-tie-scoring
+
+Les variables @code{debug-beam-scoring}, @code{debug-slur-scoring} et
+@code{debug-tie-scoring} permettent d'afficher des informations de
+débogage en matière de ligature et liaisons de phrasé ou de tenue. Voir
+@rcontribnamed{Debugging scoring algorithms,
+Débogage des algorithmes d'évaluation}, en anglais, pour des
+informations détaillées sur l'utilité de ces variables.
 
 
 @node Mise en forme de la partition

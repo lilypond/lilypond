@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
+   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -24,22 +24,20 @@
 @cindex répétition
 
 La répétition est une notion essentielle en musique, et il existe de
-nombreuses façons de mettre en œuvre et noter ce concept.  LilyPond
-prend en charge les types de répétition suivants :
+nombreuses façons de mettre en œuvre et noter ce concept. LilyPond prend
+en charge les types de répétition suivants :
 
 @table @code
 @item volta
-Le passage répété n'est pas développé, mais il est encadré par des
-barres de reprise et peut se terminer par plusieurs fins
-alternatives -- ou @emph{volte} -- imprimées de gauche à droite sous
-des crochets.  Lorsque la répétition commence au début de la pièce,
-aucune barre de reprise n'est gravée au début de la partition.  Il
-s'agit de la notation courante des reprises avec fins alternatives.
+Il s'agit ici de la notation courante des reprises avec ou sans fins
+alternatives. Le passage répété est encadré par des barres de reprise.
+Lorsque la répétition commence au début de la pièce, aucune barre de
+reprise n'est gravée en début de partition. Les fins alternatives
+s'impriment en séquence, avec un crochet et un numéro de @emph{volta}.
 
 @item unfold
 La musique répétée est développée dans la partition autant de fois
-qu'indiqué.  Ceci est particulièrement utile pour de la musique
-répétitive.
+qu'indiqué.
 
 @item percent
 Des barres obliques ou signes de pourcentage indiquent la répétition
@@ -49,6 +47,9 @@ de temps ou de mesures.
 Ce type permet de réaliser des trémolos sous forme de liens de croches.
 
 @end table
+
+Les constructions d'accord peuvent se répéter à l'aide du symbole
+spécifique @code{q} -- voir @ref{Répétition d'accords}.
 
 @menu
 * Répétition d'un long passage::
@@ -60,37 +61,97 @@ Ce type permet de réaliser des trémolos sous forme de liens de croches.
 @subsection Répétition d'un long passage
 @translationof Long repeats
 
-Cette section présente la syntaxe des répétitions longues --
-c'est-à-dire plusieurs mesures.  Ces répétitions peuvent prendre deux
-formes : encadrées par des barres de reprises, ou bien développées dans
-la partition.  Les barres et autres signes de reprise peuvent être
-contrôlés manuellement.
+Cette section présente la syntaxe des répétitions longues.
 
 @menu
-* Répétitions courantes::
-* Indications de reprise manuelles::
 * Répétitions explicites::
+* Répétitions simples::
+* Fins alternatives::
+* Autres aspects des fragments répétés::
+* Barre de segno::
+* Indications de reprise manuelles::
 @end menu
 
-@cindex volta
-@cindex fois, première
-@cindex première fois
-@cindex seconde fois
-@cindex reprise courante
 @cindex reprise avec alternative
 @cindex fin alternative
 @cindex alternative, reprise
 
 @funindex \repeat
 @funindex \alternative
-@funindex \partial
 
 
-@node Répétitions courantes
-@unnumberedsubsubsec Répétitions courantes
-@translationof Normal repeats
+@node Répétitions explicites
+@unnumberedsubsubsec Répétitions explicites
+@translationof Written-out repeats
 
-On peut indiquer une répétition de la façon suivante :
+@cindex musique répétitive
+@cindex reprise, expansion
+@cindex expansion de reprise
+
+@funindex \repeat unfold
+@funindex unfold
+
+Adjoindre à la commande @code{\repeat} l'opion @code{unfold} permet de
+s'affranchir de ressaisir de la musique répétitive. La syntaxe est
+identique à celle de la commande @code{\repeat volta} abordée plus
+avant.
+
+Aux fins d'éviter les redites, l'expansion n'est ici pas abordée en
+détail. Certains exemples des paragraphes qui suivent illustrent
+cependant des fonctionnalités à la fois des formes @code{volta} et
+@code{unfold} ainsi que de la commande @code{\unfoldRepeats} qui permet
+de convertir la forme @code{volta} en une forme @code{unfold}. Un autre
+sujet d'intérêt de la commande @code{unfoldRepeats} est abordé dans
+@ref{Gestion des répétitions en MIDI}.
+
+Dans certains cas, et tout particulièrement dans un contexte
+@code{\relative}, la fonction @code{\repeat unfold} ne revient pas à
+écrire littéralement la même expression musicale plusieurs fois.
+Ainsi :
+
+@example
+\repeat unfold 2 @{ a'4 b c @}
+@end example
+
+@noindent
+introduit un saut d'octave, contrairement à
+
+@example
+a'4 b c |
+a'4 b c |
+@end example
+
+Vous pouvez facilement imbriquer plusieurs fonctions @code{\repeat
+unfold}, ce qui n'est pas aussi simple avec @code{\repeat volta}.
+
+@warning{L'insertion d'un @code{\relative} dans une section
+@code{\repeat} sans déclaration explicite du contexte @code{Voice}
+génèrera une portée supplémentaire -- voir
+@rprogram{Apparition d'une portée supplémentaire}.}
+
+@morerefs
+Morceaux choisis :
+@rlsrnamed{Repeats,Répétitions}.
+
+Référence des propriétés internes :
+@rinternals{RepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
+
+
+@node Répétitions simples
+@unnumberedsubsubsec Répétitions simples
+@translationof Simple repeats
+
+@cindex volta
+@cindex fois, première
+@cindex première fois
+@cindex seconde fois
+@cindex reprise courante
+@funindex \repeat
+@funindex \repeat volta
+@funindex volta
+
+Les reprises courantes, sans alternative, s'indiquent comme ceci :
 
 @example
 \repeat volta @var{nombre_de_fois} @var{expression_musicale}
@@ -99,79 +160,23 @@ On peut indiquer une répétition de la façon suivante :
 @noindent
 où @code{@var{expression_musicale}} représente ce qui doît être répété.
 
-Les reprises courantes, sans alternative, s'indiquent comme ceci :
-
 @lilypond[verbatim,quote]
-\relative {
-  \repeat volta 2 { c''4 d e f }
-  c2 d
-  \repeat volta 2 { d4 e f g }
+\fixed c'' {
+  \repeat volta 2 { c2 f }
+  R1
+  \repeat volta 2 { g2 c }
 }
 @end lilypond
 
 Aucun « début » de reprise n'est indiqué par défaut pour la première
-mesure d'un morceau.  Vous pouvez cependant ajouter une barre de reprise
+mesure d'un morceau. Vous pouvez cependant ajouter une barre de reprise
 avec un @code{\bar ".|:"} avant la première note.
 
 @lilypond[verbatim,fragment,quote]
-\relative {
-  \repeat volta 2 { \bar ".|:" c''4 d e f }
-  c2 d
-  \repeat volta 2 { d4 e f g }
+\fixed c'' {
+  \repeat volta 2 { \bar ".|:" c2 f }
 }
 @end lilypond
-
-On peut ajouter une fin alternative à l'aide de la commande
-@code{\alternative}.  Chaque @code{@var{alternative}} est une expression
-musicale en elle-même ; il faudra donc les regrouper par des accolades.
-
-@example
-\repeat volta @var{nombre_de_fois} @var{expression_musicale}
-\alternative @{
-  @{ @var{expression_musicale} @}
-@}
-@end example
-
-Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
-passage doit être rejoué, la première alternative sera jouée plusieurs
-fois.
-
-Voici une simple reprise avec une fin alternative :
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat volta 2 { c''4 d e f | }
-  \alternative {
-    { c2 e | }
-    { f2 g | }
-  }
-  c1
-}
-@end lilypond
-
-Et une répétition avec plusieurs alternatives :
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat volta 3 { c''4 d e f | }
-  \alternative {
-    { c2 e | }
-    { f2 g | }
-    { a2 g | }
-  }
-  c1
-}
-@end lilypond
-
-@warning{Lorsqu'il y a plus d'une alternative, prenez garde à ce
-qu'aucun caractère n'apparaisse entre l'accolade fermant une alternative
-et l'accolade ouvrant la suivante, au risque de ne pas obtenir le nombre
-voulu d'alternatives.}
-
-@warning{Une clause @code{\relative} ne doit jamais se trouver à
-l'intérieur d'une section @code{\repeat} : vous aurez
-immanquablement des portées parasites.  Voir
-@rprogram{Apparition d'une portée supplémentaire}.}
 
 @cindex reprise avec levée
 @cindex levée dans une reprise
@@ -179,74 +184,185 @@ immanquablement des portées parasites.  Voir
 @cindex reprise et anacrouse
 @cindex reprise et contrôle de barre de mesure
 @cindex contrôle de barre de mesure et reprise
-
 @funindex \partial
 
 Lorsqu'une reprise sans fin alternative débute au milieu d'une mesure,
 elle devrait se terminer aussi au milieu d'une mesure, de telle sorte
-que les mesures soient complètes.  En pareil cas, les indications de
+que les mesures soient complètes. En pareil cas, les indications de
 reprise ne constituent pas des barres de mesure à proprement parler ; il
 n'est donc pas nécessaire de faire appel à la commande @code{\partial}
-ou à des contrôles d'intégrité de mesure.
+ou à des contrôles d'intégrité de mesure. Le recours à l'instruction
+@code{\partial} est toutefois nécessaire lorsque la reprise est au début
+d'une pièce commençant par une levée afin de respecter cette entame.
 
 @lilypond[verbatim,quote,relative=1]
-c'4 e g
-\repeat volta 4 {
-  e4 |
-  c2 e |
-  g4 g g
-}
-g4 |
-a2 a |
-g1 |
-@end lilypond
-
-Il est possible de créer des reprises en début de morceau avec une
-levée.  Le cas est similaire à ce que nous venons de voir.  Toutefois,
-l'utilisation d'un @code{\partial} est ici nécessaire pour respecter
-cette entame.
-
-@lilypond[verbatim,quote,relative=1]
-\partial 4
-\repeat volta 4 {
-  e'4 |
-  c2 e |
-  g4 g g
-}
-g4 |
-a2 a |
-g1 |
-@end lilypond
-
-@cindex reprise et liaison de prolongation
-@cindex alternative et liaison de prolongation
-@cindex liaison de prolongation et reprise
-@cindex liaison de prolongation et alternative
-
-@funindex \repeatTie
-
-Des liaisons de tenue peuvent être ajoutées à toute alternative :
-
-@lilypond[verbatim,quote]
-\relative {
-  c''1
-  \repeat volta 2 { c4 d e f~ }
-  \alternative {
-    { f2 d }
-    { f2\repeatTie f, }
+\fixed c'' {
+  \partial 4
+  \repeat volta 2 {
+    c4
+    c2 d
+    g4 g g
+  }
+  \repeat volta 2 {
+    e4
+    f2 g
+    c2.
   }
 }
 @end lilypond
 
-@cindex reprise et segno
-@cindex segno et reprise
+
+@node Fins alternatives
+@unnumberedsubsubsec Fins alternatives
+@translationof Alternative endings
+
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+@cindex ultima volta
+@cindex volta, prima
+@cindex volta, seconda
+@cindex volta, ultima
+@cindex reprise, fin alternative
+@cindex alternative, reprise
+@funindex \alternative
+@funindex \repeat
+@funindex \repeat volta
+@funindex \volta
+@funindex volta
+
+Une répétition avec fins alternatives s'indique ainsi :
+
+@example
+\repeat volta @var{nombre_de_fois} @var{expression_musicale}
+\alternative @{
+  \volta @var{liste_de_nombres} @var{expression_musicale}
+  \volta @var{liste_de_nombres} @var{expression_musicale}
+  @dots{}
+@}
+@end example
+
+@noindent
+où @var{liste_de_nombres} est une liste de nombres, séparés par des
+virgules, indiquant les occurrences à répéter, de 1 à
+@var{nombre_de_fois}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \repeat volta 6 { c4 d e f }
+  \alternative {
+    \volta 1,2,3 { c2 e }
+    \volta 4,5 { f2 d }
+    \volta 6 { e2 f }
+  }
+  c1
+}
+@end lilypond
+
+Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
+passage doit être rejoué, la première alternative sera jouée plusieurs
+fois.
+
+@warning{Tout élément inclus dans un bloc @code{\alternative} sera
+traîté en tant qu'alternative. Quelque chose d'aussi simple qu'un
+contrôle de mesure placé du mauvais côté d'une accolade peut générer des
+résultats inattendus.}
+
+@warning{Une clause @code{\relative} ne doit jamais se trouver à
+l'intérieur d'une section @code{\repeat} : vous aurez
+immanquablement des portées parasites.  Voir
+@rprogram{Apparition d'une portée supplémentaire}.}
+
+
+@node Autres aspects des fragments répétés
+@unnumberedsubsubsec Autres aspects des fragments répétés
+@translationof Other variation in repeated sections
+
+Un bloc @code{\alternative} peut prendre place à l'intérieur d'un bloc
+@code{\repeat} afin de produire une notation comparable à des
+alternatives. Il ne saurait toutefois s'utiliser ainsi pour signifier
+les alternatives réelles -- voir @ref{Fins alternatives}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \repeat volta 2 {
+    R1
+    \alternative {
+      \volta 1 { c1 }
+      \volta 2 { d1 }
+    }
+    R1
+  }
+}
+@end lilypond
+
+La présence d'une commande @code{\volta} n'est pas réservée aux blocs
+@code{\alternative}. Elle peut s'utiliser n'importe où dans un bloc
+@code{\repeat} pour désigner un fragment qui concerne des reprises
+particulières. Si le fragment spécifique à une reprise a une durée,
+celle-ci sera par défaut imprimée sous un crochet comme s'il s'agissait
+d'un bloc @code{\alternative} ; ce crochet peut être effacé -- voir
+@ref{Visibilité des objets} -- ou personnalisé pour répondre au besoin.
+
+Lorsqu'un bloc @code{\repeat} est expansé, le fragment spécifique à une
+occurrence sera omis pour toutes celles auxquelles il ne s'applique pas.
+Fournir une liste Scheme vide au lieu du nombre de fois supprime
+carrément la musique.
+
+@lilypond[verbatim,quote]
+music = \repeat volta 3 {
+  \volta 1 { s1*0_\markup { \italic dolce } }
+  a''1
+  \volta #'() { \mark "3×" }
+}
+
+\new Score { \music }
+\new Score { \unfoldRepeats \music }
+@end lilypond
+
+Lorsqu'un bloc @code{\repeat} est expansé, il peut être souhaitable de
+non seulement filtrer les fragments spécifiques, mais aussi d'ajouter de
+la musique qui serait absente de la forme @code{\volta}. La commande
+@code{\unfolded} permet de désigner la musique qui sera ignorée jusqu'à
+l'expansion du bloc @code{\repeat} qui la contient.
+
+@lilypond[verbatim,quote]
+music = \fixed c' {
+  \repeat volta 2 {
+    c1
+    \once \override Score.VoltaBracket.text = "1st time only"
+    \once \override Score.VoltaBracket.font-name = "TeX Gyre Schola"
+    <<
+      \volta 1 { g4 g g g }
+      \volta 2 { \unfolded { R1 } }
+    >>
+    c'1
+    \volta 2 { \unfolded { \bar "|." } }
+  }
+}
+
+\new Score { \music }
+\new Score { \unfoldRepeats \music }
+@end lilypond
+
+@warning{Les commandes @code{\volta} et @code{\unfolded} fontionnent en
+respectant la répétition la plus imbriquée qui les entoure.}
+
+
+@node Barre de segno
+@unnumberedsubsubsec Barre de @emph{segno}
+@translationof In-staff segno
+
+
+@cindex reprise et @emph{segno}
+@cindex @emph{segno} et reprise
 @funindex \inStaffSegno
 
 La commande @code{\inStaffSegno} permet de générer une barre de mesure
 composite par l'adjonction d'un symbole de @emph{segno} à une barre de
-reprise créée par une commande @code{\repeat volta}.  Qu'il s'agisse
-d'un début, d'une fin ou d'une double reprise, le type de barre est
-automatiquement sélectionné.  L'indication « D.S. » devra cependant être
+reprise créée par une commande @code{\repeat volta}. Qu'il s'agisse d'un
+début, d'une fin ou d'une double reprise, le type de barre est
+automatiquement sélectionné. L'indication « D.S. » devra cependant être
 ajouté manuellement.
 
 En dehors de toute reprise :
@@ -306,7 +422,7 @@ Entre deux reprises :
 Des symboles alternatifs de barre de mesure sont aussi accessibles, dans
 un contexte @code{Score}, à l'aide des propriétés @code{segnoType},
 @code{startRepeatSegnoType}, @code{endRepeatSegnoType} ou
-@code{doubleRepeatSegnoType} selon les besoins.  Ces types de barre
+@code{doubleRepeatSegnoType} selon les besoins. Ces types de barre
 alternative doivent être choisis parmi les types prédéfinis ou
 préalablement créés à l'aide d'une commande @code{\defineBarLine} --
 voir @ref{Barres de mesure}.
@@ -373,7 +489,7 @@ Référence des propriétés internes :
 @rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
-@cindex reprise ambigüe
+@cindex reprise ambiguë
 @cindex reprises imbriquées
 @cindex imbrication de reprise
 @cindex numéro de mesure et reprise
@@ -382,26 +498,23 @@ Référence des propriétés internes :
 @cindex glissando et reprise
 @cindex reprise et glissando
 
-L'extension d'une liaison à partir d'un bloc @code{\repeat} sur un bloc
-@code{\alternative} n'est possible que pour la première alternative.
+L'extension d'une liaison, dans la forme @code{\volta}, n'est possible
+que pour la première alternative. Selon le même principe, une liaison ne
+saurait partir de la fin d'une alternative pour se terminer au début de
+la reprise.
+
 L'aspect visuel d'une liaison se continuant dans les autres
-alternatives, peut être simulé à l'aide de la commande
-@code{\repeatTie} lorsqu'elle s'arrête sur sa première note --
-méthode qui cependant ne fonctionne pas pour un @code{TabStaff}.
-D'autres moyens existent pour indiquer la prolongation d'une
-liaison sur des alternatives, y compris dans un @code{TabStaff},
-en suivant les préceptes donnés à la rubrique
-@ref{Modification des liaisons}.
+alternatives, peut être simulé à l'aide de la commande @code{\repeatTie}
+lorsqu'elle s'arrête sur sa première note -- méthode qui cependant ne
+fonctionne pas pour un @code{TabStaff} ; @pxref{Tenue et reprise}.
+D'autres moyens existent pour indiquer la prolongation d'une liaison sur
+des alternatives, y compris dans un @code{TabStaff}, en suivant les
+préceptes donnés à la rubrique @ref{Modification des liaisons}.
 
-Selon le même principe, une liaison ne saurait partir de la fin d'une
-alternative pour se terminer au début de la reprise.
-
-L'extension d'un glissando à partir d'un bloc @code{\repeat} sur
-un bloc @code{\alternative} n'est possible que pour la première
-alternative.  L'aspect visuel d'un glissando se continuant dans
-les autres alternatives peut être simulé à l'aide d'un glissando
-partant d'une note d'ornement supplémentaire et masquée.  Un
-exemple se trouve à la rubrique @ref{Glissando}.
+L'aspect visuel d'un glissando se continuant dans les autres
+alternatives peut être simulé à l'aide d'un glissando partant d'une note
+d'ornement supplémentaire et masquée. Un exemple se trouve à la rubrique
+@xref{Rappel du glissando à l’occasion d’une alternative}.
 
 Le développement, à l'aide de la commande @code{\unfoldRepeats}, d'une
 répétition qui commence sur une mesure incomplète et contient un bloc
@@ -419,12 +532,15 @@ Des reprises imbriquées telles que
 
 @noindent
 présentent une ambiguïté, dans la mesure où l'on ne sait à quelle
-section @code{\repeat} attribuer la section @code{\alternative}.  Pour
+section @code{\repeat} attribuer la section @code{\alternative}. Pour
 résoudre cette ambiguïté, il convient de toujours insérer la commande
-@code{\alternative} à l'intérieur de la section @code{\repeat}.  Il est
+@code{\alternative} à l'intérieur de la section @code{\repeat}. Il est
 préférable, dans une telle situation, d'utiliser des accolades pour plus
 de clarté.
 
+Un bloc @code{\alternative} clôturé à l'intérieur même du bloc
+@code{\repeat} -- plutôt que venant après -- ne produira pas les barres
+de reprise attendues à la fin des alternatives.
 
 @node Indications de reprise manuelles
 @unnumberedsubsubsec Indications de reprise manuelles
@@ -437,13 +553,13 @@ de clarté.
 
 @warning{Les méthodes présentées dans les lignes qui suivent ne
 devraient servir à indiquer que des constructions de répétition
-inhabituelles.  En règle générale, il vaut mieux recourir à la fonction
-@code{\repeat} pour créer une reprise ou bien insérer la barre de
-mesure adéquate.   Pour plus d'information, voir le chapitre
+inhabituelles. En règle générale, il vaut mieux recourir à la fonction
+@code{\repeat} pour créer une reprise ou bien insérer la barre de mesure
+adéquate. Pour plus d'information, voir le chapitre
 @ref{Barres de mesure}.}
 
 La propriété @code{repeatCommands} sert à contrôler la mise en forme des
-reprises.  On la définit par une suite de commandes de reprise Scheme.
+reprises. On la définit par une suite de commandes de reprise Scheme.
 
 @table @code
 @item start-repeat
@@ -474,7 +590,7 @@ Pour imprimer une barre de reprise @code{:|.}
 @end lilypond
 
 @item (volta @var{nombre}) @dots{} (volta #f)
-Pour obtenir un crochet indiquant le numéro de l'alternative.  Pour que
+Pour obtenir un crochet indiquant le numéro de l'alternative. Pour que
 le crochet s'imprime effectivement, il faut spécifier explicitement
 l'endroit où il doit se terminer.
 
@@ -507,9 +623,9 @@ Plusieurs commandes de reprise peuvent intervenir au même moment :
 @cindex alternative et texte
 @cindex texte et alternative
 
-Le crochet indiquant une alternative peut contenir aussi du texte.  Il
+Le crochet indiquant une alternative peut contenir aussi du texte. Il
 peut s'agir d'un ou plusieurs nombres ou bien d'une indication textuelle
-(@emph{markup}) -- voir @ref{Mise en forme du texte}.  Le plus simple,
+(@emph{markup}) -- voir @ref{Mise en forme du texte}. Le plus simple,
 dans le cas d'une indication textuelle, est de tout d'abord définir ce
 @emph{markup}, puis de l'inclure dans une liste Scheme.
 
@@ -540,137 +656,11 @@ Référence des propriétés internes :
 @rinternals{VoltaRepeatedMusic}.
 
 
-@node Répétitions explicites
-@unnumberedsubsubsec Répétitions explicites
-@translationof Written-out repeats
-
-@cindex musique répétitive
-@cindex reprise, expansion
-@cindex expansion de reprise
-
-@funindex \repeat unfold
-@funindex unfold
-
-Adjoindre à la commande @code{\repeat} l'opion @code{unfold} permet de
-s'affranchir de ressaisir de la musique répétitive.  En voici la
-syntaxe :
-
-@example
-\repeat unfold @var{nombre_de_fois} @var{expression_musicale}
-@end example
-
-@noindent
-Le contenu de @var{expression_musicale} sera donc expansé autant de fois
-que stipulé par @var{nombre_de_fois}.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  c1
-}
-@end lilypond
-
-Dans certains cas, et tout particulièrement dans un contexte
-@code{\relative}, la fonction @code{\repeat unfold} ne revient pas à
-écrire littéralement la même expression musicale plusieurs fois.
-Ainsi :
-
-@example
-\repeat unfold 2 @{ a'4 b c @}
-@end example
-
-n'est pas équivalent à
-
-@example
-a'4 b c | a'4 b c
-@end example
-
-Une répétition expansée peut aussi avoir une fin alternative :
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-  }
-  c1
-}
-@end lilypond
-
-Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
-passage doit être rejoué, la première alternative sera jouée plusieurs
-fois.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 4 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-    { e2 d }
-   }
-  c1
-}
-@end lilypond
-
-S'il y a par contre plus d'alternatives que de répétitions, les
-alternatives superflues seront tout simplement ignorées et ne seront pas
-imprimées.
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 { c''4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
-    { e2 d }
-  }
-  c1
-}
-@end lilypond
-
-Vous pouvez imbriquer plusieurs fonctions @code{unfold}, qu'elles
-comportent ou non des fins alternatives :
-
-@lilypond[verbatim,quote]
-\relative {
-  \repeat unfold 2 {
-    \repeat unfold 2 { c''4 d e f }
-    \alternative {
-      { c2 g' }
-      { c,2 b }
-    }
-  }
-  c1
-}
-@end lilypond
-
-Une construction en accord peut se répéter à l'aide du symbole @code{q}
--- voir @ref{Répétition d'accords}.
-
-@warning{L'insertion d'un @code{\relative} dans une section
-@code{\repeat} sans déclaration explicite du contexte @code{Voice}
-génèrera une portée supplémentaire -- voir
-@rprogram{Apparition d'une portée supplémentaire}.}
-
-@morerefs
-Manuel de notation :
-@ref{Répétition d'accords}.
-
-Morceaux choisis :
-@rlsrnamed{Repeats,Répétitions}.
-
-Référence des propriétés internes :
-@rinternals{RepeatedMusic},
-@rinternals{UnfoldedRepeatedMusic}.
-
-
 @node Autres types de répétition
 @subsection Autres types de répétition
 @translationof Short repeats
 
-Nous abordons ici les reprises de courte durée.  Il en existe deux
+Nous abordons ici les reprises de courte durée. Il en existe deux
 formes, à savoir la répétition d'une même note sur quelques mesures --
 représentée par une barre oblique ou le signe pourcent -- et les
 trémolos.

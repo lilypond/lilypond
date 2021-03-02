@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
+   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1465,7 +1465,10 @@ correcte à la fois de la musique et des paroles lors de l'utilisation de
         \relative {
           a'4 a a a
           \repeat volta 2 { b4 b }
-          \alternative { { b b } { b c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b c }
+          }
         }
       }
     }
@@ -1473,7 +1476,10 @@ correcte à la fois de la musique et des paroles lors de l'utilisation de
       \lyricsto "melody" {
         Not re -- peat -- ed.
         \repeat volta 2 { Re -- peat -- }
-        \alternative { { ed twice. } { ed twice. } }
+        \alternative {
+          \volta 1 { ed twice. }
+          \volta 2 { ed twice. }
+        }
       }
     }
   >>
@@ -1504,7 +1510,10 @@ note quelle qu'en soit la durée.}
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b }
-          \alternative { { b b } { b c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b c }
+          }
           c4 c
         }
       }
@@ -1551,7 +1560,10 @@ temporairement la détection automatique de mélismes et insérer des
         \relative {
           \set melismaBusyProperties = #'()
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           \unset melismaBusyProperties
           c4 c
         }
@@ -1561,8 +1573,8 @@ temporairement la détection automatique de mélismes et insérer des
       \lyricsto "melody" {
         \repeat volta 2 { Here's a __ }
         \alternative {
-          { \skip 1 verse }
-          { \skip 1 sec }
+          \volta 1 { \skip 1 verse }
+          \volta 2 { \skip 1 sec }
         }
         ond one.
       }
@@ -1587,7 +1599,10 @@ insérer des blancs :
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           c4 c
         }
       }
@@ -1620,7 +1635,10 @@ doivent être insérées manuellement :
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           c4 c
         }
       }
@@ -2145,10 +2163,14 @@ raison en est purement technique.}
 Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
 mélodie et de présenter tous les autres en bloc à la fin du morceau.
 Ces couplets additionnels peuvent être inclus dans une section
-@code{\markup} en dehors du bloc @code{\score} principal.
-Vous en trouverez un exemple ci-dessous ; notez également les deux
-méthodes différentes employées pour indiquer les sauts de ligne,
-entre les couplets (@emph{verses} en anglais) 2 et 3.
+@code{\markup} en dehors du bloc @code{\score} principal. Vous pourrez
+noter qu'il existe différentes méthodes pour indiquer les
+sauts de ligne en mode @emph{markup}. On peut saisir du texte en continu
+avec @code{string-lines} et y insérer des @code{\n} ou couper
+automatiquement selon la saisie, ou bien utiliser
+@code{\wordwrap-string}. Dans le cas de formatages différent au sein du
+bloc, il vaut mieux utiliser une combinaison de @code{\line} et
+@code{\column}.
 
 @c KEEP LY
 @lilypond[ragged-right,verbatim,quote]
@@ -2170,19 +2192,33 @@ M'en al- lant pro- me- ner...
   \layout { }
 }
 \markup {
-  \column{
-    \line{ Couplet 2. }
-    \line{ Sous les feuilles d'un chêne }
-    \line{ Je me suis fait sécher... }
+  \column {
+    \string-lines
+      "Couplet 2. \n Sous les feuilles d'un chêne \n Je me suis fait sécher..."
   }
 }
 \markup{
+  \column {
+    \string-lines
+      "Couplet 3.
+       Chante, rossignol, chante,
+       Toi qui as le cœur gai..."
+  }
+}
+\markup {
+  \column {
+    \line \italic { Couplet 4. }
+    \line { J'ai perdu mon ami}
+    \line { Sans l'avoir mérité... }
+  }
+}
+\markup {
   \wordwrap-string "
-  Couplet 3.
+    Couplet 5.
 
-  Chante, rossignol, chante,
+    Je voudrais que la rose
 
-  Toi qui as le cœur gai..."
+    Fût encore au rosier..."
 }
 @end lilypond
 

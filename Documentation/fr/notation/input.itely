@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8c163f2f197eeb545c19c72505e53aec7c713e09
+   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1356,7 +1356,8 @@ tous les cas, un « appel de note » vient se placer en référence dans le
 texte ou la musique, et le « texte de la note » est reporté au bas de la
 page, isolé de la musique par un trait horizontal. L'apparence de ce
 séparateur peut se modifier à l'aide de la variable de papier
-@code{footnote-separator-markup} -- voir @ref{Variables supplémentaires}.
+@code{footnote-separator-markup} -- voir
+@ref{Variables supplémentaires d'entête et markup}.
 
 Selon qu'elle est référencée dans une expression musicale ou dans du
 texte indépendant, une note de bas de page sera créée suivant une
@@ -3735,8 +3736,8 @@ développe toutes les reprises.
     \repeat percent 2 @{ c''8 d'' @}
     \repeat volta 2 @{ c'4 d' e' f' @}
     \alternative @{
-      @{ g' a' a' g' @}
-      @{ f' e' d' c' @}
+      \volta 1 @{ g' a' a' g' @}
+      \volta 2 @{ f' e' d' c' @}
     @}
   @}
   \midi @{ @}
