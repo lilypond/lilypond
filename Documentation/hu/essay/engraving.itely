@@ -14,7 +14,8 @@
 @chapter A kottaszedés
 @translationof Music engraving
 
-Ez az esszé leírja, miért született a LilyPond, és hogyan képes ilyen gyönyörű kottákat előállítani.
+Ez az esszé leírja, miért született a LilyPond, és hogyan képes ilyen gyönyörű
+kottákat előállítani.
 
 
 @c TODO:
@@ -25,7 +26,7 @@ Ez az esszé leírja, miért született a LilyPond, és hogyan képes ilyen gyö
 @menu
 * A LilyPond története::
 * A kottaszedés fortélyai::
-* Automated engraving::
+* Az automatizált kottaszedés::
 * Building software::
 * Putting LilyPond to work::
 * Engraved examples (BWV 861)::
@@ -35,14 +36,21 @@ Ez az esszé leírja, miért született a LilyPond, és hogyan képes ilyen gyö
 @section A LilyPond története
 @translationof The LilyPond story
 
-Mielőtt a LilyPondot koncerteken használt csodaszép kották szedésére kezdtük volna használni, mielőtt zenetudományi dokumentumok zenei idézeteit vagy akár egyszerű dallamokat le lehetett volna vele kottázni, mielőtt szerte a világon a felhasználók széles körben kezdték volna használni, vagy ez az esszé megszületett volna, a LilyPond története egy kérdéssel kezdődött:
+Mielőtt a LilyPondot koncerteken használt csodaszép kották szedésére kezdtük
+volna használni, mielőtt zenetudományi dokumentumok zenei idézeteit vagy akár
+egyszerű dallamokat le lehetett volna vele kottázni, mielőtt szerte a világon a
+felhasználók széles körben kezdték volna használni, vagy ez az esszé
+megszületett volna, a LilyPond története egy kérdéssel kezdődött:
 
 @quotation
-Miért nem adják vissza a számítógép által szedett kották a kézzel szedett kották szépségét és kiegyensúlyozottságát?
+Miért nem adják vissza a számítógép által szedett kották a kézzel szedett kották
+szépségét és kiegyensúlyozottságát?
 @end quotation
 
 @noindent
-Erre többnyire választ kaphatunk, ha górcső alá vesszük a következő két kottát. Az első példa egy gondosan kézzel szedett kotta 1950-ből, a második egy modern, számítógéppel szedett kiadás.
+Erre többnyire választ kaphatunk, ha górcső alá vesszük a következő két kottát.
+Az első példa egy gondosan kézzel szedett kotta 1950-ből, a második egy modern,
+számítógéppel szedett kiadás.
 
 @ifnottex
 @quotation
@@ -60,11 +68,26 @@ Henle no. 666, @copyright{}2000:
 @end quotation
 @end ifnottex
 
-J. S. Bach első, csellóra írt szólószvitjének két kiadása hangról hangra megegyezik, mégis megjelenésükben merőben különbözőek, különösen, ha kinyomtatjuk és megszokott távolságból szemléljük őket. Próbáljuk meg mindkét kottapéldát elolvasni, illetve játszani belőlük, és meg fogjuk állapítani, hogy a kézzel szedett kotta használata kellemesebb. Folyékonysága és dinamikája egy élő, lélegző zenemű érzetét kelti, miközben az újabb kiadás hidegnek és mechanikusnak hat.
+J. S. Bach első, csellóra írt szólószvitjének két kiadása hangról hangra
+megegyezik, mégis megjelenésükben merőben különbözőek, különösen, ha
+kinyomtatjuk és megszokott távolságból szemléljük őket. Próbáljuk meg mindkét
+kottapéldát elolvasni, illetve játszani belőlük, és meg fogjuk állapítani, hogy
+a kézzel szedett kotta használata kellemesebb. Folyékonysága és dinamikája egy
+élő, lélegző zenemű érzetét kelti, miközben az újabb kiadás hidegnek és
+mechanikusnak hat.
 
-Nehéz egyből észrevenni, miben rejlik a különbség a kották között. Az új kotta első ránézésre rendezett és pontos, talán még „jobb” is, mivel számítógéphez illőbb és egységes a megjelenése. Ez gondolkodóba ejtett minket egy időre. Javítani akartunk a számítógép által szedett kottaképen, de ehhez előbb rá kellett jönnünk, mi volt a gond vele.
+Nehéz egyből észrevenni, miben rejlik a különbség a kották között. Az új kotta
+első ránézésre rendezett és pontos, talán még „jobb” is, mivel számítógéphez
+illőbb és egységes a megjelenése. Ez gondolkodóba ejtett minket egy időre.
+Javítani akartunk a számítógép által szedett kottaképen, de ehhez előbb rá
+kellett jönnünk, mi volt a gond vele.
 
-A válasz az új kotta precíz, matematikai pontosságú egyformaságában rejlik. Keressük csak meg minden sor közepén az ütemvonalakat: a kézzel szedett változatban az ütemvonalak elhelyezkedése természetes módon változik, míg a számítógép szinte pontosan egymás alá, középre szedte őket. Ezt mutatja be a következő egyszerűsített ábra, melyen a kézzel (balra), ill. a komputerrel szedett változat (jobbra) elrendezése látható:
+A válasz az új kotta precíz, matematikai pontosságú egyformaságában rejlik.
+Keressük csak meg minden sor közepén az ütemvonalakat: a kézzel szedett
+változatban az ütemvonalak elhelyezkedése természetes módon változik, míg a
+számítógép szinte pontosan egymás alá, középre szedte őket. Ezt mutatja be a
+következő egyszerűsített ábra, melyen a kézzel (balra), ill. a komputerrel
+szedett változat (jobbra) elrendezése látható:
 
 @quotation
 @iftex
@@ -76,11 +99,21 @@ A válasz az új kotta precíz, matematikai pontosságú egyformaságában rejli
 @end quotation
 @noindent
 
-A számítógép által előállított szedésben még az egyes kottafejek is függőlegesen egymáshoz lettek igazítva, ami azt az érzetet kelti, mintha a dallamvonal eltűnne egy szimbólumokból álló merev rács mögött.
+A számítógép által előállított szedésben még az egyes kottafejek is függőlegesen
+egymáshoz lettek igazítva, ami azt az érzetet kelti, mintha a dallamvonal
+eltűnne egy szimbólumokból álló merev rács mögött.
 
-További különbségek is vannak: a kézzel szedett változat függőleges vonalai erősebbek, a kötőívek szorosabban tapadnak a kottafejekhez, és a gerendák szögeiben is nagyobb változatosság figyelhető meg. Noha az ilyen részletes elemzés szőrszálhasogatásnak tűnhet, végeredménye egy olyan kotta, ami egyszerűbben olvasható. A számítógépes kottában minden sor szinte egyforma, és ha a zenész egy pillanatra máshová tekint, hamar elveszítheti a tájékozódást az oldalon.
+További különbségek is vannak: a kézzel szedett változat függőleges vonalai
+erősebbek, a kötőívek szorosabban tapadnak a kottafejekhez, és a gerendák
+szögeiben is nagyobb változatosság figyelhető meg. Noha az ilyen részletes
+elemzés szőrszálhasogatásnak tűnhet, végeredménye egy olyan kotta, ami
+egyszerűbben olvasható. A számítógépes kottában minden sor szinte egyforma, és
+ha a zenész egy pillanatra máshová tekint, hamar elveszítheti a tájékozódást az
+oldalon.
 
-A LilyPond megalkotásának célja az volt, hogy kiküszöböljük a többi kottaszedő szoftver szépséghibáit, és segítségével olyan kottákat lehessen előállítani, melyek szépsége a legigényesebb kézzel szedett kottákéval vetélkedik.
+A LilyPond megalkotásának célja az volt, hogy kiküszöböljük a többi kottaszedő
+szoftver szépséghibáit, és segítségével olyan kottákat lehessen előállítani,
+melyek szépsége a legigényesebb kézzel szedett kottákéval vetélkedik.
 
 @iftex
 @page
@@ -106,7 +139,26 @@ Henle no. 666, @copyright{}2000:
 @cindex plate engraving
 @cindex music engraving
 
-A zeneművek nyomdai előkészítését @emph{kottaszedésnek} nevezik. Ez a kifejezés a kották nyomtatásának  hagyományos, kézi módszerére utal.@footnote{A régi idők nyomdászai különböző technikákat próbáltak ki, mint például a kézzel metszett fa nyomóformák (nyomódúc), a mozgatható betű- és nyomóelemek, illetve a gravírozott vékony fémlemezek. A mozgatható betű- és nyomóelemekkel való szedésnek megvolt az az előnye, hogy gyorsan bele lehetett javítani és egyszerűen lehetett szöveget is beleilleszteni. De csak a fémlemezre végzett hangjegymetszés tette lehetővé a hibátlan elrendezést és az új kottaelemek gyors bevezetését. Végül ez utóbbi technika lett a szabvány, és még a 20. század elején is ez volt a helyzet, pár korálkönyv és daloskönyv kivételével, ahol a sablonelemek használatát annak gazdaságossága és gyorsasága indokolta.} Ez a folyamat még a 20. században első felében is úgy nézett ki, hogy a kotta elemeit kivágták, majd tükrözve belemélyesztették egy cink- vagy ónlemezbe. A lemezre ezután festéket hordtak fel, és a festék a bemélyedésekben maradt. A lemez a papírra rányomva a kotta képét adta. A metszést teljesen kézzel végezték, és bárminemű javítás nagyon körülményes volt, így a kottakép elsőre tökéletes kellett, hogy legyen. A kottaszedés tudománya nagyon különleges szakma, ahol a kézművesnek körülbelül öt éves képzést kellett elvégeznie, mielőtt a mester címet kérvényezhette. További öt év volt szükséges ahhoz, hogy a szakma minden csínját-bínját valóban magáénak tudhassa.
+A zeneművek nyomdai előkészítését @emph{kottaszedésnek} nevezik. Ez a kifejezés
+a kották nyomtatásának  hagyományos, kézi módszerére utal.@footnote{A régi idők
+nyomdászai különböző technikákat próbáltak ki, mint például a kézzel metszett fa
+nyomóformák (nyomódúc), a mozgatható betű- és nyomóelemek, illetve a gravírozott
+vékony fémlemezek. A mozgatható betű- és nyomóelemekkel való szedésnek megvolt
+az az előnye, hogy gyorsan bele lehetett javítani és egyszerűen lehetett
+szöveget is beleilleszteni. De csak a fémlemezre végzett hangjegymetszés tette
+lehetővé a hibátlan elrendezést és az új kottaelemek gyors bevezetését. Végül ez
+utóbbi technika lett a szabvány, és még a 20. század elején is ez volt a
+helyzet, pár korálkönyv és daloskönyv kivételével, ahol a sablonelemek
+használatát annak gazdaságossága és gyorsasága indokolta.} Ez a folyamat még a
+20. században első felében is úgy nézett ki, hogy a kotta elemeit kivágták, majd
+tükrözve belemélyesztették egy cink- vagy ónlemezbe. A lemezre ezután festéket
+hordtak fel, és a festék a bemélyedésekben maradt. A lemez a papírra rányomva a
+kotta képét adta. A metszést teljesen kézzel végezték, és bárminemű javítás
+nagyon körülményes volt, így a kottakép elsőre tökéletes kellett, hogy legyen. A
+kottaszedés tudománya nagyon különleges szakma, ahol a kézművesnek körülbelül öt
+éves képzést kellett elvégeznie, mielőtt a mester címet kérvényezhette. További
+öt év volt szükséges ahhoz, hogy a szakma minden csínját-bínját valóban magáénak
+tudhassa.
 
 @quotation
 @iftex
@@ -117,7 +169,12 @@ A zeneművek nyomdai előkészítését @emph{kottaszedésnek} nevezik. Ez a kif
 @end ifnottex
 @end quotation
 
-A LilyPond megalkotását azok a kézzel szedett kották inspirálták, amelyeket a 20. század közepe felé az európai kottakiadók (többek között Bärenreiter, Duhem, Durand, Hofmeister, Peters és Schott) hoztak forgalomba. Munkásságukat bizonyos szempontból a hagyományos kottaszedés csúcsának lehet tekinteni. Kiadványaik tanulmányozásával rengeteget tanultunk arról, mik az ismertetőjelei egy szép tipográfiájú kottának, és milyen szempontokat szeretnénk a LilyPonddal utánozni.
+A LilyPond megalkotását azok a kézzel szedett kották inspirálták, amelyeket a
+20. század közepe felé az európai kottakiadók (többek között Bärenreiter, Duhem,
+Durand, Hofmeister, Peters és Schott) hoztak forgalomba. Munkásságukat bizonyos
+szempontból a hagyományos kottaszedés csúcsának lehet tekinteni. Kiadványaik
+tanulmányozásával rengeteget tanultunk arról, mik az ismertetőjelei egy szép
+tipográfiájú kottának, és milyen szempontokat szeretnénk a LilyPonddal utánozni.
 
 @c Now all newly printed music is produced with computers.  This has
 @c obvious advantages: prints are cheaper to make, editorial work can be
@@ -128,17 +185,24 @@ A LilyPond megalkotását azok a kézzel szedett kották inspirálták, amelyeke
 
 @menu
 * A kottában használt betűtípusok::
-* Optical spacing::
-* Ledger lines::
-* Optical sizing::
-* Why work so hard?::
+* Optikai kiegyenlítettség::
+* Pótvonalak::
+* Optikai nagyság::
+* Miért szükséges ez a nagy felhajtás?::
 @end menu
 
 @node A kottában használt betűtípusok
 @unnumberedsubsec A kottában használt betűtípusok
 @translationof Music fonts
 
-A lenti ábra jól mutatja a különbséget egy hagyományosan és egy számítógép által szedett kottaelem közt. A bal oldali képen egy beszkennelt b módosítójel látható egy kézi Bärenreiter kiadásból, míg a jobb oldali ugyanennek a zeneműnek 2000-ben kiadott változatából származik. Noha mindkét képet ugyanolyan árnyalatú tintával nyomtatták, a régebbi verzió sötétebb: a kottasorok vonalai vastagabbak, és a Bärenreiter b-je gömbölyded, majdhogynem érzékien kerek. A jobb oldali kép vonalai ezzel szemben vékonyabbak, elrendezése szögletes, sarkai élesek.
+A lenti ábra jól mutatja a különbséget egy hagyományosan és egy számítógép által
+szedett kottaelem közt. A bal oldali képen egy beszkennelt b módosítójel látható
+egy kézi Bärenreiter kiadásból, míg a jobb oldali ugyanennek a zeneműnek
+2000-ben kiadott változatából származik. Noha mindkét képet ugyanolyan árnyalatú
+tintával nyomtatták, a régebbi verzió sötétebb: a kottasorok vonalai
+vastagabbak, és a Bärenreiter b-je gömbölyded, majdhogynem érzékien kerek. A
+jobb oldali kép vonalai ezzel szemben vékonyabbak, elrendezése szögletes, sarkai
+élesek.
 
 @multitable @columnfractions .25 .25 .25 .25
 @item @tab
@@ -178,9 +242,16 @@ Henle (2000)
 @cindex blackness
 @cindex balance
 
-Amikor úgy döntöttük, hogy írunk egy kottaszedő programot, nem volt olyan, szabad felhasználású zenei betűtípus, ami jól passzolt volna kedvenc kottáink elegáns kottaképéhez. Ezen felbuzdulva megalkottunk egy zenei szimbólumokból álló betűtípust, amely a kézzel szedett kották szemrevaló kinézetét veszi alapul. A betűtípus megtervezése során szerzett tapasztalatok nélkül soha nem ismertük volna fel, milyen csúnyák is azok a betűtípusok, amiket eleinte csodáltunk.
+Amikor úgy döntöttük, hogy írunk egy kottaszedő programot, nem volt olyan,
+szabad felhasználású zenei betűtípus, ami jól passzolt volna kedvenc kottáink
+elegáns kottaképéhez. Ezen felbuzdulva megalkottunk egy zenei szimbólumokból
+álló betűtípust, amely a kézzel szedett kották szemrevaló kinézetét veszi
+alapul. A betűtípus megtervezése során szerzett tapasztalatok nélkül soha nem
+ismertük volna fel, milyen csúnyák is azok a betűtípusok, amiket eleinte
+csodáltunk.
 
-Lent két zenei betűkészletre láthatunk példát: a felső a Sibelius alapbeállítású készlete (@emph{Opus}), az alsó a LilyPondé.
+Lent két zenei betűkészletre láthatunk példát: a felső a Sibelius alapbeállítású
+készlete (@emph{Opus}), az alsó a LilyPondé.
 
 @quotation
 @iftex
@@ -191,19 +262,30 @@ Lent két zenei betűkészletre láthatunk példát: a felső a Sibelius alapbe�
 @end ifnottex
 @end quotation
 
-A LilyPond kottaelemei vastagabbak, valamint vastagságuk konzisztensebb, ami miatt jóval egyszerűbb az olvasásuk. A vonalaknak, mint például a negyed szünet szárnyai, nem hegyes végük van, hanem finoman legömbölyített. Ennek oka, hogy a hegyes végek a hagyományos nyomóformán nagyon törékenyek, és a használat közben gyorsan elkopnak. Összefoglalva, a jelkészlet teltségét gondosan össze kell hangolni a vonalak (gerendák, ívek) vastagságával, hogy erős, mégis kiegyensúlyozott összképet kapjunk.
+A LilyPond kottaelemei vastagabbak, valamint vastagságuk konzisztensebb, ami
+miatt jóval egyszerűbb az olvasásuk. A vonalaknak, mint például a negyed szünet
+szárnyai, nem hegyes végük van, hanem finoman legömbölyített. Ennek oka, hogy a
+hegyes végek a hagyományos nyomóformán nagyon törékenyek, és a használat közben
+gyorsan elkopnak. Összefoglalva, a jelkészlet teltségét gondosan össze kell
+hangolni a vonalak (gerendák, ívek) vastagságával, hogy erős, mégis
+kiegyensúlyozott összképet kapjunk.
 
-Vegyük észre továbbá, hogy a félkotta feje nem ellipszis, hanem enyhén rombusz alakú. A b módosítójel függőleges szára felfelé némileg kiszélesedik. A keresztet és a feloldójelet egyszerűbb távolról megkülönböztetni, mert ferde vonalaiknak eltérő a dőlésszöge, illetve függőleges vonalaik különböző vastagságúak.
+Vegyük észre továbbá, hogy a félkotta feje nem ellipszis, hanem enyhén rombusz
+alakú. A b módosítójel függőleges szára felfelé némileg kiszélesedik. A
+keresztet és a feloldójelet egyszerűbb távolról megkülönböztetni, mert ferde
+vonalaiknak eltérő a dőlésszöge, illetve függőleges vonalaik különböző
+vastagságúak.
 
-@node Optical spacing
-@unnumberedsubsec Optical spacing
+@node Optikai kiegyenlítettség
+@unnumberedsubsec Optikai kiegyenlítettség
+@translationof Optical spacing
 
-In spacing, the distribution of space should reflect the durations
-between notes.  However, as we saw in the Bach Suite above, many modern
-scores adhere to the durations with mathematical precision, which leads
-to poor results.  In the next example a motif is printed twice: the
-first time using exact mathematical spacing, and the second with
-corrections.  Which do you prefer?
+A kották vízszintes elrendezésénél a mindenkori hangjegy hosszúságának kell
+visszatükröződnie.  Amint a fenti Bach-szvit példáján már megfigyelhettük, sok
+modern kottánál a hangjegyek hosszának ábrázolása a matematikai precizitás felé
+törekszik, ami nem túl szép eredményhez vezet.  A következő példában bemutatjuk
+Önöknek ugyanazt a motívumot kétszer: először matematikai pontossággal, másodszor
+ugyanezt kijavítva. Melyik példa tetszik Önnek jobban?
 
 @cindex optical spacing
 
@@ -264,35 +346,40 @@ music = {
 @cindex regular spacing
 @cindex spacing, regular
 
-Each bar in the fragment only uses notes that are played in a constant
-rhythm.  The spacing should reflect that.  Unfortunately, the eye deceives
-us a little; not only does it notice the distance between note heads, it
-also takes into account the distance between consecutive stems.  As a
-result, the notes of an up-stem/@/down-stem combination should be put
-farther apart, and the notes of a down-stem/@/up-stem combination should
-be put closer together, all depending on the combined vertical positions
-of the notes.  The lower two measures are printed with this correction,
-the upper two measures, however, form down-stem/@/up-stem clumps of
-notes.  A master engraver would adjust the spacing as needed to please
-the eye.
+Ezen kottarészlet egyforma hosszúságú hangjegyeket használ.
+A hangjegyek közti távolságnak tükröznie kellene ezt.
+Sajnos a szemünk becsap: nem csak az egymást követő kottafejek
+távolságát kell figyelembe kell venni, hanem a szárukat is.
+Tehát egymás után következő fölfelé-lefelé szárú hangjegyeket
+kicsit távolabb kell helyezni egymástól, míg a lefelé-fölfelé
+kombináció szűkebb távolságot kíván, és az egész még függ a
+hangjegyek függőleges pozíciójától.
+Az alsó példa ezeket a korrektúraelveket tükrözi.
+Ellenben a felső példán a hangjegyek alsó-felső irányba váltakozása
+olyan érzetet kelt, mintha összegubancolódtak volna. 
+Az alsó példa ezeket a szabályokat tükrözi. Ellenben a felső példa az olvasó
+szemében olyan érzetett kelt, mintha alul-fölül a kottafejek egy csomóban
+lennének. Egy kottaszedő mester ezt a beosztást úgy igazítaná el, hogy annak az
+olvasása kellemes legyen.
 
-The spacing algorithms in LilyPond even take the barlines into account,
-which is why the final up-stem in the properly spaced example has been
-given a little more space before the barline to keep it from looking
-crowded.  A down-stem would not need this adjustment.
+A Lilypond beosztásért felelős algoritmusa úgy kalkulál, hogy az ütemvonalat is
+figyelembe veszi, ami miatt az utolsó hangjegy a fenti példában több helyet kap,
+ezért nem kelti a zsúfoltság hatását. Egy szár lent nem szorulna erre a
+beosztásra.
 
-@node Ledger lines
-@unnumberedsubsec Ledger lines
+@node Pótvonalak
+@unnumberedsubsec Pótvonalak
+@translationof Ledger lines
 
 @cindex ledger lines
 @cindex collisions
 
-Ledger lines present a typographical challenge: they make it more
-difficult to space musical symbols close together and they must be clear
-enough to identify the pitch at a glance.  In the example below, we see
-that ledger lines should be thicker than normal staff lines and that an
-expert engraver will shorten a ledger line to allow closer spacing with
-accidentals.  We have included this feature in LilyPond's engraving.
+A pót- (esetleg: segéd-) vonalak mindig kihívás elé állítják a tipográfiát:
+miattuk nehezebb a hangjegyeket sűrűn elrendezni és a hangmagasságot egy gyors
+pillantással meg kell tudni állapítani. A lentebb található példában láthatjuk,
+hogy a pótvonalnak vastagabbnak kell lennie mint egy normál kottavonalnak és egy
+tanult kottaszedő a pótvonalat lerövidíti azért, hogy a módosító jeleknek
+maradjon hely. Ezt a tulajdonságot mi beleépítettük a Lilypondba.
 
 @multitable @columnfractions .25 .25 .25 .25
 @item @tab
@@ -316,19 +403,20 @@ accidentals.  We have included this feature in LilyPond's engraving.
 @end multitable
 
 
-@node Optical sizing
-@unnumberedsubsec Optical sizing
+@node Optikai nagyság
+@unnumberedsubsec Optikai nagyság
+@translationof Optical sizing
 
-Music may need to be printed in a range of sizes.  Originally, this was
-accomplished by creating punching dies in each of the required sizes,
-which meant that each die was designed to look its best at that size.
-With the advent of digital fonts, a single outline can be mathematically
-scaled to any size, which is very convenient, but at the smaller sizes
-the glyphs will appear very light.
+A kottákat különböző méretben nyomják. Eredetileg ehhez különböző méretű
+kliséket  gyártottak, ami egyben azt jelenti, hogy minden klisé olyan minőségű
+volt, hogy a saját méretében a legideálisabb képet adja. A digitális fonttal
+tudjuk a hangjegyek kontúrját matematikusan felnagyítani illetve kicsinyíteni
+azért, hogy a tetszés szerinti méretben elő tudjuk állítani, aminek sok előnye
+van. Azonban kis méretben a szimbólumok túl vékonynak hatnak.
 
-In LilyPond, we have created fonts in a range of weights, corresponding
-to a range of music sizes.  This is a LilyPond engraving at staff size
-26:
+A Lilypond számára különböző vastagságú szedéstípusokat készítettünk, melyek egy
+bizonyos kottaméretnek felelnek meg. Az itt látható Lilypond kottaszedés 26-os
+méretű:
 
 @quotation
 @iftex
@@ -340,8 +428,8 @@ to a range of music sizes.  This is a LilyPond engraving at staff size
 @end quotation
 
 @noindent
-and this is the same engraving set at staff size 11, then
-magnified by 236% to print at the same size as the previous example:
+Itt ugyanazok a kották 11-es méretben, utána 236%-al nagyítva. hogy a kép
+pontosan abban a méretben jelenjen meg, mint az előbbi.
 
 @quotation
 @iftex
@@ -353,11 +441,11 @@ magnified by 236% to print at the same size as the previous example:
 @end quotation
 
 @noindent
-At smaller sizes, LilyPond uses proportionally heavier lines so the
-music will still read well.
+Kisebb méretnél a Lilypond arányosan vastagított kottavonalakat használ a kitűnő
+olvashatóság érdekében.
 
-This also allows staves of different sizes to coexist peacefully when
-used together on the same page:
+Ez teszi lehetővé különböző méretű kottasorok békés egymás mellett élését
+egy oldalon:
 
 @c Grieg's Violin Sonata Op. 45
 @lilypond[indent=1.5\cm]
@@ -408,8 +496,9 @@ global = {
 @end lilypond
 
 
-@node Why work so hard?
-@unnumberedsubsec Why work so hard?
+@node Miért szükséges ez a nagy felhajtás?
+@unnumberedsubsec Miért szükséges ez a nagy felhajtás?
+@translationof Why work so hard?
 
 Musicians are usually more absorbed with performing than with studying
 the looks of a piece of music, so nitpicking typographical details may
@@ -441,27 +530,30 @@ produce prints that match the quality of the old editions we love
 to see and love to play from.
 
 
-@node Automated engraving
-@section Automated engraving
+@node Az automatizált kottaszedés
+@section Az automatizált kottaszedés
+@translationof Automated engraving
 
 @cindex engraving, automated
 @cindex automated engraving
 
-Here we describe what is required to create software that can mimic the
-layout of engraved scores: a method of describing good layouts to the
-computer and a lot of detailed comparisons with real engravings.
+Ebben a szakaszban arról lesz szó, mi szükséges egy program megírásánál, ami az
+elkészült kotta szedéstükrét meghatározza. Egy módszer ami elmagyarázza a
+számítógépnek a szép  szedéstükör  ismérveit és részletesen összehasonlítja a
+hagyományos módon előállított kottával.
 
 @menu
-* Beauty contests::
-* Improvement by benchmarking::
-* Getting things right::
+* Szépségverseny::
+* A minőség javítása a kottaképek összehasonlításával::
+* Mindent szépen elrendezünk::
 @end menu
 
-@node Beauty contests
-@unnumberedsubsec Beauty contests
+@node Szépségverseny
+@unnumberedsubsec Szépségverseny
+@translationof Beauty contests
 
-How do we actually make formatting decisions?  In other words, which
-of the three configurations should we choose for the following slur?
+Hogyan kell hát a tipográfiát felhasználnunk? Másképpen mondva: A három egymást
+követő kötőívből melyiket válasszuk ki?
 
 @lilypond
 \relative {
@@ -474,13 +566,13 @@ of the three configurations should we choose for the following slur?
 }
 @end lilypond
 
-There are a few books on the art of music engraving
-available.  Unfortunately, they contain simple rules of thumb and some
-examples.  Such rules can be instructive, but they are a far cry from
-an algorithm that we could readily implement in a computer.  Following
-the instructions from literature leads to algorithms with lots of
-hand-coded exceptions.  Doing all this case analysis is a lot of work,
-and often not all cases are covered completely:
+Sajnos kevés könyv állt rendelkezésünkre a kottaszedés művészetéről. Így csak
+ökölszabályokat állíthattunk fel és egyes példákat tudunk bemutatni. Ezek a
+szabályok ugyan informatívak lehetnek de túl messze távolodnak attól az
+algoritmustól, amit a programba beépítünk. Ahol a felhasznált irodalom által
+kívánt szabályokat felhasználtuk, az algoritmust nagyon sok manuális beállítás
+befolyásolja. Minden lehetséges esetet kielemezni nagy munka lenne és
+legtöbbször nem meríti ki az összes lehetőséget:
 
 @quotation
 @iftex
@@ -491,17 +583,16 @@ and often not all cases are covered completely:
 @end ifnottex
 @end quotation
 
-(Image source: Ted Ross, @emph{The Art of Music Engraving})
+(Kép forrása: Ted Ross, @emph{The Art of Music Engraving})
 
-Rather than trying to write detailed layout rules for every possible
-scenario, we only have to describe the objectives well enough that
-LilyPond can judge the attractiveness of several alternatives.  Then,
-for each possible configuration we compute an ugliness score and we
-choose the least ugly configuration.
+Ahelyett, hogy megpróbálkoznánk azzal, hogy minden lehetséges esethez egy hozzá
+pontosan felvázolni, hogy a legtetszetősebbet ki tudja választani a szoftver.
+Utána felállítunk a lehetséges változatokból egy „csúnyasági ranglistát” és
+kiválasztjuk a legkevésbé csúnyát.
 
-For example, here are three possible slur configurations, and LilyPond
-has given each one a score in @q{ugly points}.  The first example gets
-15.39 points for grazing one of the noteheads:
+Például itt a legátó ívet 3 lehetséges pályán rajzolta fel és mindegyik változat
+rondaságát pontozta a program. Az első példa 15,39 pontot kapott mert az ív
+félbevágott egy kottafejet.
 
 @lilypond
 \relative {
@@ -511,11 +602,10 @@ has given each one a score in @q{ugly points}.  The first example gets
 }
 @end lilypond
 
-The
-second one is nicer, but the slur doesn't start or end on the note heads.
-It gets 1.71 points for the left side and 9.37 points for the right
-side, plus another 2 points because the slur ascends while the melody
-descends for a total of 13.08 ugly points:
+A második példa már szebb, de az ív végei nem érintik sem a kezdő sem a befejező
+hang bogyóját. Ebben az esetben 1,71 pontot kap a bal 9,37 pontot a jobb oldal
+és további két pontot mivel az ív felfelé tart miközben a dallam ereszkedik.
+Összesen 13,08 pont:
 
 @lilypond
 \relative {
@@ -525,10 +615,8 @@ descends for a total of 13.08 ugly points:
 }
 @end lilypond
 
-The final slur gets 10.04
-points for the gap on the right and 2 points for the upward slope, but
-it is the most attractive of the three configurations, so LilyPond
-selects this one:
+Az utolsó ív 10,04 pontot kap mivel jobb oldalon hagyott egy rést és 2 pontot a
+fent található lejtésért/emelkedésért tehát a három közül ez a legszebb.
 
 @lilypond
 \relative {
@@ -537,19 +625,20 @@ selects this one:
 }
 @end lilypond
 
-This technique is quite general, and is used to make optimal decisions
-for beam configurations, ties and dots in chords, line breaks, and page
-breaks.  The results of these decisions can be judged by comparison to
-real engravings.
+Ez a technika teljesen általános és felhasználja a program az optikai kinézet
+javításáért különböző ívek összekombinálásánál kötőíveknél, pontok
+elhelyezésénél, akkordoknál illetve sor és oldaltöréseknél. Ezeknek a
+döntéseknek az eredményeit össze tudjuk vetni a kézzel szedett kották
+kinézetével.
 
-@node Improvement by benchmarking
-@unnumberedsubsec Improvement by benchmarking
+@node A minőség javítása a kottaképek összehasonlításával
+@unnumberedsubsec A minőség javítása a kottaképek összehasonlításával
+@translationof Improvement by benchmarking
 
-LilyPond's output has improved gradually over time, and it continues to
-improve by comparing its output to hand-engraved scores.
+A Lilypond újabb verziói lépésről-lépésre jobbak lettek miközben folyamatosan a
+kézzel szedett kottákkal lettek összehasonlítva.
 
-For example, here is one line of a benchmark piece from a
-hand-engraved edition (Bärenreiter BA320):
+Itt látható egy kézzel szedett referenciapélda:
 
 @iftex
 @sourceimage{baer-sarabande-hires,16cm,}
@@ -559,8 +648,8 @@ hand-engraved edition (Bärenreiter BA320):
 @end ifnottex
 
 @noindent
-and the same quotation as engraved by a very old version of LilyPond
-(version 1.4, May 2001):
+és ugyanez a sor így néz ki a Lilypond egyik régi verziójával (1.4-es verzió
+2001 május):
 
 @iftex
 @sourceimage{pdf/lily14-sarabande,16cm,}
@@ -569,9 +658,8 @@ and the same quotation as engraved by a very old version of LilyPond
 @sourceimage{lily14-sarabande,,}
 @end ifnottex
 
-@noindent The LilyPond 1.4 output is certainly readable, but close
-comparison with the hand-engraved score showed a lot of errors in the
-formatting details:
+@noindent A Lilypond 1.4-es kiadása minden esetre olvashatóbb de egy részletes
+összevetés az eredetivel a formázás sok apró hibájára mutat rá:
 
 @iftex
 @sourceimage{lily14-sarabande-annotated-hires,16cm,}
@@ -581,21 +669,22 @@ formatting details:
 @end ifnottex
 
 @itemize @bullet
-@item there is too much space before the time signature
-@item the stems of the beamed notes are too long
-@item the second and fourth measures are too narrow
-@item the slur is awkward-looking
-@item the trill marks are too big
-@item the stems are too thin
+@item Az ütemmutató előtt nincs elég hely
+@item A gerendás hangjegyek szárai túl hosszúak
+@item A második és negyedik ütem túl keskeny
+@item A kötőívek idétlenek
+@item A trillajel túl nagy
+@item A szárak vékonyak
 @end itemize
 
 @noindent
-(There were also two missing note heads, several missing editorial
-annotations, and an incorrect pitch!)
+(Ezenkivül van még két hiányzó kottafej, több hiányzó
+közreadói megjegyzés és egy fals hangmagasság!)
 
-By adjusting the layout rules and font design, the output has improved
-considerably.  Compare the same reference score and the output
-from the current version of LilyPond (@version{}):
+Igazítva az oldalkinézeti szabályokon és a betűtípusdizájnon
+az újabb kiadások rendkívül sokat javultak.
+Hasonlítsa össze ugyanazt a referenciapéldát
+az aktuális Lilypond verzióval (@version{}):
 
 @iftex
 @sourceimage{baer-sarabande-hires,16cm,}
@@ -630,21 +719,21 @@ from the current version of LilyPond (@version{}):
 @end lilypond
 
 @noindent
-The current output is not a clone of the reference edition, but it is
-much closer to publication quality that the earlier output.
+Az aktuális kiadás ugyan még nem a referencia klónja, de jobban megközelíti már a
+nyomdai minőséget.
 
-@node Getting things right
-@unnumberedsubsec Getting things right
+@node Mindent szépen elrendezünk
+@unnumberedsubsec Mindent szépen elrendezünk
+@translationof Getting things right
 
-We can also measure LilyPond's ability to make music engraving decisions
-automatically by comparing LilyPond's output to the output of a
-commercial software product.  In this case we have chosen Finale 2008,
-which is one of the most popular commercial score writers, particularly
-in North America.  Sibelius is its major rival and appears to be
-especially strong in the European market.
+A Lilypond képességeit mérhetjük avval is, hogy
+összehasonlítjuk a kereskedelemben kapható programokkal.
+Ebben az esetben a Finale 2008-at vettük, egyike a legismertebb
+kottaszedő programoknak különösen Észak-Amerikában.
+A Sibelius a Finale fő vetélytársa, legfőképp Európában ismert.
 
-For our comparison we selected Bach's Fugue in G minor from the
-Well-Tempered Clavier, Book I, BWV 861, whose opening subject is
+Összehasonlításunkhoz a Wohltemperiertes Clavier I. kötetének
+g-moll fúgáját (BWV 861) választottuk, melynek nyitótémája:
 
 @lilypond
 \relative {
@@ -657,20 +746,21 @@ Well-Tempered Clavier, Book I, BWV 861, whose opening subject is
 
 @noindent
 
-We made our comparison by engraving the last seven measures of the piece
-(28--34) in Finale and LilyPond.  This is the point in the piece where
-the subject returns in a three-part stretto and leads into the closing
-section.  In the Finale version, we have resisted the temptation to make
-any adjustments to the default output because we are trying to show the
-things that each software package gets right without assistance.  The
-only major edits that we made were adjusting the page size to match this
-essay and forcing the music onto two systems to make the comparison
-easier.  By default Finale would have engraved two systems of three
-measures each and a final, full-width system containing a single
-measure.
+Összehasonlításunkban a darab utolsó 7 ütemét írtuk meg Finale
+és a Lilypond segítségével.  Ez az a pont, ahol a téma háromszólamú
+szűkmenetben tér vissza és megy át a zárószakaszba.
+A Finale verziónál ellenálltunk a kísértésnek, hogy a normáltól
+eltérő dolgokat korrigáljuk, mivel meg akarjuk mutatni azokat a
+dolgokat, amit ezek a programok külön beavatkozás nélkül rendesen
+csinálnak meg.  Az egyetlen változtatás csak a méretnél volt,
+hiszen hozzáigazítottuk ennek az esszének az oldalméretéhez,
+valamint két sorra korlátoztuk a kottát annak érdekében, hogy az
+összehasonlítás egyszerűbb legyen.  Alapértelmezett beállításoknál
+a Finale két háromütemes sort és egy záró teljes szélességű,
+csak egy ütemet tartalmazó sort állítana elő.
 
-Many of the differences between the two engravings are visible in
-measures 28--29, as shown here with Finale first and LilyPond second:
+Rengeteg különbség van a két kotta között: először a Finale, majd a Lilypondé
+látható:
 
 @iftex
 @sourceimage{pdf/bwv861mm28-29,14cm,}
@@ -739,17 +829,17 @@ partIV = \relative {
 }
 @end lilypond
 
-Some shortcomings in the unedited Finale output include:
+Pár hiba a teljesség igénye nélkül, amit a külön nem szerkesztett Finale szedés
+tartalmaz:
 @itemize @bullet
-@item Most of the beams extend too far off the staff.  A beam that points
-towards the center of the staff should have a length of about one
-octave, but engravers shorten this when the beam points away from the
-staff in multi-voice music.  The Finale beaming can easily be improved
-with their Patterson Beams plug-in, but we elected to skip that step for
-this example.
-@item Finale doesn't adjust the positions of interlocking note heads,
-which makes the music extremely difficult to read when the upper and
-lower voices exchange positions temporarily:
+@item A legtöbb gerenda túl messzire távolodik a kottasortól.  A gerenda, ami a
+a rendszer közepére mutat, általában oktáv hosszúságú kellene legyen, de a
+kottaszedő lekurtítja azt, ha a gerendák polifónia esetén kilógnak.  A Finale
+gerendázásért felelős egységét a  programban található Patterson Beams Plugin
+tudja feljavítani, de ezt a lépést ennél a példánál elhagytuk.
+@item A Finale nem találja meg a szorosan egymáshoz illeszkedő hangjegyek
+helyét, ezért a kotta nehezen olvasható, főleg ha az alsó és felső szólam
+időlegesen helyet cserél.
 
 @lilypond
 collide = \once \override NoteColumn.force-hshift = #0
@@ -767,14 +857,12 @@ collide = \once \override NoteColumn.force-hshift = #0
   >>
 }
 @end lilypond
-
-@item Finale has placed all of the rests at fixed heights on the staff.
-The user is free to adjust them as needed, but the software makes no
-attempt to consider the content of the other voice.  As luck would have
-it, there are no true collisions between notes and rests in this example,
-but that has more to do with the positions of the notes than the rest.
-In other words, Bach deserves more credit for avoiding a complete
-collision than Finale does.
+@item A Finale minden szünetjelet pontosan ugyanabba az állásba pozicionál.
+Kézzel állíthatók ugyan szükség esetén, de a program nem figyel a másik
+szólamra.  Most ugyan nem esik egyik szólambeli hang másik szólambeli
+szünetre, de ez tisztán véletlen: a megírt hangmagasságokból adódik,
+nem a szünetek elhelyezéséből.
+Mondhatni, az ütközések elkerülése Bach érdeme, nem a Finalé-é.
 
 @end itemize
 
