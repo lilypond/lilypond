@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 40c930114dd9be868f0b3c3e46c96b2c41bb638f
+   Translation of GIT committish: c47715d189e3f415009d11a0ce5b10f3fb6bd39a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3339,6 +3339,21 @@ toujours en dessous (nuances ou points d'orgue) -- alors que d'autres
 alterneront selon l'orientation des hampes (liaisons ou accents).
 
 @c TODO Add table showing these
+
+@cindex positionnement vertical des @emph{grobs}
+@cindex vertical, positionnement forcé des @emph{grobs}
+@cindex position, vertical, @emph{grobs}
+@cindex @emph{grob}, positionnement vertical
+@cindex direction, haut (@code{^})
+@cindex direction, bas (@code{_})
+@cindex direction, défaut (@code{-})
+@cindex dessus, direction (@code{^})
+@cindex bas, direction (@code{_})
+@cindex défaut, vertical, positionnement (@code{-})
+
+@funindex -
+@funindex ^
+@funindex _
 
 Le positionnement par défaut peut être outrepassé à l'aide d'un
 @emph{indicateur de positionnement}, qui vient s'insérer juste avant
