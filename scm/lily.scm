@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2020 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 1998--2021 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -105,10 +105,11 @@
 ;;
 
 (define lilypond-declarations
-  ;; a (cons* SYMBOL VAR VALUE) tuple. For symbols defined in .scm
-  ;; files, SYMBOL is #f. On reinitializing a session, we assign VALUE
-  ;; to VAR, and use the VAR to define SYMBOL in the parser module.
+  ;; a (cons* SYMBOL IS-PARSER? VAR VALUE) tuple.  On reinitializing a session,
+  ;; we assign VALUE to VAR, and use the VAR to define SYMBOL in the
+  ;; parser module if IS-PARSER? is true
   '())
+
 (define lilypond-exports '())
 (define after-session-hook (make-hook))
 
@@ -129,7 +130,9 @@
 (define (define-session-internal name value)
   ;; work function for define-session
   (set! lilypond-declarations
-        (cons (cons* #f (make-session-variable name value) value) lilypond-declarations)))
+        (cons (cons* name #f (make-session-variable name value) value)
+              lilypond-declarations)))
+
 
 (defmacro define-session (name value)
   "This defines a variable @var{name} with the starting value
@@ -163,19 +166,17 @@ session has started."
      (export ,name)))
 
 (define (session-terminate)
-  (if first-session-done?
-      (begin
-        (for-each
-         (lambda (p) (variable-set! (cadr p) (cddr p)))
-         lilypond-declarations)
-        ;; For GUILE 2.x, restore the modules recorded during (session-init)
-        ;; and remove any additional modules so that they can be collected.
-        (cond-expand
-         (guile-2
-          (set-module-submodules! root-module
-                                  (alist->hash-table session-modules)))
-         (else))
-        (run-hook after-session-hook))))
+  ;; For GUILE 2.x, restore the modules recorded during (session-init)
+  ;; and remove any additional modules so that they can be collected.
+  (cond-expand
+   (guile-2
+    (set-module-submodules! root-module
+                            (alist->hash-table session-modules)))
+   (else))
+  (for-each
+   (lambda (p) (variable-set! (caddr p) (cdddr p)))
+   lilypond-declarations)
+  (run-hook after-session-hook))
 
 (define lilypond-interfaces #f)
 (cond-expand
@@ -186,70 +187,54 @@ session has started."
  (else))
 (define first-session-done? #f)
 
-(define-public (session-initialize thunk)
-  "Initialize this session.  The first session in a LilyPond run is
-initialized by calling @var{thunk}, then recording the values of all
-variables in the current module as well as those defined with
-@code{define-session}.  Subsequent calls of @code{session-initialize}
-ignore @var{thunk} and instead just reinitialize all recorded
-variables to their value after the initial call of @var{thunk}."
+(define-public (session-replay)
+  (module-use-interfaces! (current-module) (reverse lilypond-interfaces))
+  (for-each
+   (lambda (p)
+     (let ((sym (car p))
+           (is-parser? (cadr p))
+           (var (caddr p))
+           (val (cdddr p)))
+       
+       (variable-set! var val)
+       (if is-parser?
+           (module-add! (current-module) sym var)
+           )))
+   lilypond-declarations))
 
-  ;; We need to save the variables of the current module along with
-  ;; their values: functions defined in the module might refer to the
-  ;; variables.
+(define-public (session-save)
+  "Save identifiers for use with session-replay."
+  
+  ;; lilypond-exports is no longer needed since we will grab its
+  ;; values from (current-module).
+  (set! lilypond-exports #f)
+  (set! lilypond-interfaces
+        (filter (lambda (m) (eq? 'interface (module-kind m)))
+                (module-uses (current-module))))
+  ;; Create a copy of the hash-table as an alist. We construct a new
+  ;; hash-table after processing each file.
+  (cond-expand
+   (guile-2
+    (set! session-modules (hash-map->list cons global-modules)))
+   (else))
 
-  ;; The entries in lilypond-declarations consist of a cons* consisting
-  ;; of symbol, variable, and value.  Variables defined with
-  ;; define-session have the symbol set to #f.
-  (if first-session-done?
-      (begin
-        (module-use-interfaces! (current-module) (reverse lilypond-interfaces))
-        (for-each
-         (lambda (p)
-           (let ((var (cadr p))
-                 (val (cddr p)))
-             (variable-set! var val)
-             (if (car p)
-                 (module-add! (current-module) (car p) var))))
-         lilypond-declarations))
-      (begin
-        ;; import all public session variables natively into parser
-        ;; module.  That makes them behave identically under define/set!
-        (for-each (lambda (v)
-                    (module-add! (current-module) (car v) (cdr v)))
-                  lilypond-exports)
-        ;; Initialize first session
-        (thunk)
-        ;; lilypond-exports is no longer needed since we will grab its
-        ;; values from (current-module).
-        (set! lilypond-exports #f)
-        (set! lilypond-interfaces
-              (filter (lambda (m) (eq? 'interface (module-kind m)))
-                      (module-uses (current-module))))
-        ;; Create a copy of the hash-table as an alist. We construct a new
-        ;; hash-table after processing each file.
-        (cond-expand
-         (guile-2
-          (set! session-modules (hash-map->list cons global-modules)))
-         (else))
+  ;; Extract changes made to variables after defining them
+  (set! lilypond-declarations
+        (map (lambda (v)
+               (cons* (car v) #f (caddr v) (variable-ref (caddr v))))
+             lilypond-declarations))
+  (module-for-each
+   (lambda (sym var)
+     (let ((val (variable-ref var)))
+       (if (and (not (eq? sym '%module-public-interface)) (not (ly:lily-parser? val)))
+           (set! lilypond-declarations
+                 (cons
+                  (cons* sym #t var val)
+                  lilypond-declarations)))))
+   (current-module))
 
-        ;; Extract changes made to variables after defining them
-        (set! lilypond-declarations
-              (map (lambda (v) (cons* #f (cadr v) (variable-ref (cadr v))))
-                   lilypond-declarations))
-        
-        (module-for-each
-         (lambda (s v)
-           (let ((val (variable-ref v)))
-             (if (and (not (eq? s '%module-public-interface)) (not (ly:lily-parser? val)))
-                 (set! lilypond-declarations
-                       (cons
-                        (cons* s v val)
-                        lilypond-declarations)))))
-         (current-module))
-        (set! first-session-done? #t)
-        (dump-zombies 0))
-      ))
+  (dump-zombies 0)
+  (set! first-session-done? #t))
 
 (define scheme-options-definitions
   `(
@@ -952,6 +937,13 @@ PIDs or the number of the process."
         (begin
           (ly:exit 0 #f)))))
 
+(define-public (session-start-record)
+  (for-each (lambda (v)
+	    ;; import all public session variables natively into parser
+	    ;; module.  That makes them behave identically under define/set!
+	    (module-add! (current-module) (car v) (cdr v)))
+  lilypond-exports))
+
 (define-public (lilypond-all files)
   (cond-expand
    (guile-2
@@ -959,7 +951,9 @@ PIDs or the number of the process."
         (begin (ly:set-option 'debug-gc-object-lifetimes #f)
                (ly:warning (_ "option 'debug-gc-object-lifetimes not supported on GUILE 2")))))
    (else #t))
-  
+
+  (ly:parse-init "declarations-init.ly")
+
   (let* ((failed '())
          (debug-lifetimes-limit (ly:get-option 'debug-gc-object-lifetimes))
          (separate-logs (ly:get-option 'separate-log-files))

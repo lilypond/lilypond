@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ class Default_bar_line_engraver : public Engraver
 {
 protected:
   void start_translation_timestep ();
-  void stop_translation_timestep ();
 
 public:
   TRANSLATOR_DECLARATIONS (Default_bar_line_engraver);
@@ -53,8 +52,7 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
                 "automaticBars "
                 "barAlways "
                 "defaultBarType "
-                "measureStartNow "
-                "whichBar ",
+                "measureStartNow ",
 
                 /* write */
                 "whichBar "
@@ -68,20 +66,25 @@ Default_bar_line_engraver::Default_bar_line_engraver (Context *c)
 void
 Default_bar_line_engraver::start_translation_timestep ()
 {
+  SCM wb = SCM_EOL;
+
   if (from_scm<bool> (get_property (this, "measureStartNow"))
       || from_scm<bool> (get_property (this, "barAlways")))
     {
       if (from_scm<bool> (get_property (this, "automaticBars")))
         {
-          /* should this work, or be junked?  See input/bugs/no-bars.ly */
-          SCM which = get_property (this, "defaultBarType");
-          set_property (context (), "whichBar", which);
+          wb = get_property (this, "defaultBarType");
         }
     }
-}
 
-void
-Default_bar_line_engraver::stop_translation_timestep ()
-{
-  set_property (context (), "whichBar", SCM_EOL);
+  // We set whichBar at each timestep because the user manuals suggest using
+  // \set Timing.whichBar = ... rather than \once \set Timing.whichBar = ...,
+  // so we might need to erase the user's value from the previous timestep.  We
+  // don't do this in stop_translation_timestep() because other translators
+  // might still want to read whichBar during stop_translation_timestep().
+  //
+  // It might be nice to set up a convert-ly rule to change user code to use
+  // \once \set ... and then change this to the internal equivalent of \once
+  // \set too.
+  set_property (context (), "whichBar", wb);
 }

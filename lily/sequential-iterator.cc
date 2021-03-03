@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -123,7 +123,7 @@ Sequential_iterator::pop_element ()
 
       if (auto *mus = unsmob<Music> (mus_scm))
         {
-          iter_ = unsmob<Music_iterator> (get_static_get_iterator (mus));
+          iter_ = unsmob<Music_iterator> (create_child (mus));
           scm_remember_upto_here_1 (mus_scm);
         }
     }

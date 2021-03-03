@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -73,12 +73,27 @@ Bar_engraver::process_acknowledged ()
     {
       considered_bar_ = true;
 
-      SCM gl = get_property (this, "whichBar");
-      if (scm_is_string (gl))
+      SCM wb = SCM_EOL;
+      auto *wbc = context ()->where_defined (ly_symbol2scm ("whichBar"), &wb);
+      if (scm_is_string (wb))
         {
-          bar_ = make_item ("BarLine", SCM_EOL);
-          if (!ly_is_equal (gl, get_property (bar_, "glyph")))
-            set_property (bar_, "glyph", gl);
+          // Map the default bar type from its value in the same context in
+          // which "whichBar" is defined to the value visible in this
+          // engraver's context.  This allows removing default bar lines in
+          // Staff contexts designed for ancient notation.  \omit and \hide
+          // have side effects that make them unsuitable for this purpose.
+          if ((wbc != context ()) && wbc)
+            {
+              if (ly_is_equal (wb, get_property (wbc, "defaultBarType")))
+                wb = get_property (this, "defaultBarType");
+            }
+
+          if (scm_is_string (wb))
+            {
+              bar_ = make_item ("BarLine", SCM_EOL);
+              if (!ly_is_equal (wb, get_property (bar_, "glyph")))
+                set_property (bar_, "glyph", wb);
+            }
         }
     }
 

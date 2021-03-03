@@ -1,8 +1,8 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2013--2020 Mike Solomon <mike@mikesolomon.org>
-  Copyright (C) 2016 David Kastrup <dak@gnu.org>
+  Copyright (C) 2013--2021 Mike Solomon <mike@mikesolomon.org>,
+                2016 David Kastrup <dak@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ protected:
   std::vector<Grob *> end_slurs_;
 
   // objects that we need for formatting, eg. scripts and ties.
-  std::vector<Grob_info> objects_to_acknowledge_;
+  std::vector<Grob *> objects_to_acknowledge_;
 
   virtual SCM event_symbol () const;
   virtual bool double_property () const;

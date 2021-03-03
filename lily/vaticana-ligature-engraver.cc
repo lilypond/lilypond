@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2003--2020 Juergen Reuter <reuter@ipd.uka.de>
+  Copyright (C) 2003--2021 Juergen Reuter <reuter@ipd.uka.de>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -70,20 +70,19 @@ private:
                                int context_info, int delta_pitch);
   bool is_stacked_head (int prefix_set,
                         int context_info);
-  Real align_heads (vector<Grob_info_t<Item>> const &primitives,
-                    Real flexa_width,
-                    Real thickness);
+  Real align_heads (vector<Item *> const &primitives,
+                    Real flexa_width, Real thickness);
   void check_for_prefix_loss (Item *primitive);
-  void check_for_ambiguous_dot_pitch (Grob_info_t<Item> primitive);
+  void check_for_ambiguous_dot_pitch (Item *primitive);
   void add_mora_column (Paper_column *column);
-  vector<Grob_info_t<Item>> augmented_primitives_;
+  vector<Item *> augmented_primitives_;
 
 public:
   TRANSLATOR_DECLARATIONS (Vaticana_ligature_engraver);
 protected:
   Spanner *create_ligature_spanner () override;
   void transform_heads (Spanner *ligature,
-                        vector<Grob_info_t<Item>> const &primitives) override;
+                        vector<Item *> const &primitives) override;
 };
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver (Context *c)
@@ -186,10 +185,8 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, in
 }
 
 Real
-Vaticana_ligature_engraver::align_heads
-(vector<Grob_info_t<Item>> const &primitives,
- Real flexa_width,
- Real thickness)
+Vaticana_ligature_engraver::align_heads (vector<Item *> const &primitives,
+                                         Real flexa_width, Real thickness)
 {
   if (!primitives.size ())
     {
@@ -201,7 +198,7 @@ Vaticana_ligature_engraver::align_heads
   /*
    * The paper column where we put the whole ligature into.
    */
-  auto *const column = primitives[0].grob ()->get_column ();
+  auto *const column = primitives[0]->get_column ();
 
   Real join_thickness
     = thickness * column->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -221,9 +218,8 @@ Vaticana_ligature_engraver::align_heads
 
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;
-  for (const auto &info : primitives)
+  for (const auto &primitive : primitives)
     {
-      auto *const primitive = info.grob ();
       int prefix_set
         = scm_to_int (get_property (primitive, "prefix-set"));
       int context_info
@@ -398,15 +394,13 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
     return;
   if (!column) // empty ligature???
     {
-      augmented_primitives_[0].grob ()->
-      programming_error ("no paper column to add dot");
+      augmented_primitives_[0]->programming_error ("no paper column to add dot");
       return;
     }
   Item *dotcol = make_item ("DotColumn", SCM_EOL);
   dotcol->set_x_parent (column);
-  for (const auto &info : augmented_primitives_)
+  for (const auto &primitive : augmented_primitives_)
     {
-      auto *const primitive = info.grob ();
       Item *dot = make_item ("Dots", primitive->self_scm ());
       set_property (dot, "dot-count", to_scm (1));
       dot->set_y_parent (primitive);
@@ -433,23 +427,22 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
  * unambiguous.
  */
 void
-Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch
-(Grob_info_t<Item> primitive)
+Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Item *primitive)
 {
   // TODO: Fix performance, which is currently O (n^2) (since this
   // method is called O (n) times and takes O (n) steps in the for
   // loop), but could be O (n) (by replacing the for loop by e.g. a
   // bitmask based O (1) test); where n=<number of primitives in the
   // ligature> (which is typically small (n<10), though).
-  Stream_event *new_cause = primitive.event_cause ();
+  Stream_event *new_cause = primitive->event_cause ();
   int new_pitch = unsmob<Pitch> (get_property (new_cause, "pitch"))->steps ();
   for (vsize i = 0; i < augmented_primitives_.size (); i++)
     {
-      Stream_event *cause = augmented_primitives_[i].event_cause ();
+      Stream_event *cause = augmented_primitives_[i]->event_cause ();
       int pitch = unsmob<Pitch> (get_property (cause, "pitch"))->steps ();
       if (pitch == new_pitch)
         {
-          primitive.grob ()->
+          primitive->
           warning (_ ("Ambiguous use of dots in ligature: there are"
                       " multiple dotted notes with the same pitch."
                       "  The ligature should be split."));
@@ -459,9 +452,8 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch
 }
 
 void
-Vaticana_ligature_engraver::transform_heads
-(Spanner *ligature,
- vector<Grob_info_t<Item>> const &primitives)
+Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
+                                             vector<Item *> const &primitives)
 {
   Real flexa_width = from_scm<double> (get_property (ligature, "flexa-width"), 2);
 
@@ -475,7 +467,7 @@ Vaticana_ligature_engraver::transform_heads
   augmented_primitives_.clear ();
   for (vsize i = 0; i < primitives.size (); i++)
     {
-      auto *const primitive = primitives[i].grob ();
+      auto *const primitive = primitives[i];
 
       int delta_pitch;
       SCM delta_pitch_scm = get_property (primitive, "delta-position");

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2002--2020 Juergen Reuter <reuter@ipd.uka.de>,
+  Copyright (C) 2002--2021 Juergen Reuter <reuter@ipd.uka.de>,
   Pal Benko <benkop@freestart.hu>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -60,17 +60,17 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 protected:
   Spanner *create_ligature_spanner () override;
   void build_ligature (Spanner *ligature,
-                       vector<Grob_info_t<Item>> const &primitives) override;
+                       vector<Item *> const &primitives) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
 private:
-  void transform_heads (vector<Grob_info_t<Item>> const &primitives);
+  void transform_heads (vector<Item *> const &primitives);
   void propagate_properties (Spanner *ligature,
-                             vector<Grob_info_t<Item>> const &primitives,
+                             vector<Item *> const &primitives,
                              Real &min_length);
-  void fold_up_primitives (vector<Grob_info_t<Item>> const &primitives,
+  void fold_up_primitives (vector<Item *> const &primitives,
                            Real &min_length);
 };
 
@@ -88,8 +88,7 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads
-(vector<Grob_info_t<Item>> const &primitives)
+Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
 {
   if (primitives.size () < 2)
     {
@@ -108,11 +107,10 @@ Mensural_ligature_engraver::transform_heads
 
   for (vsize i = 0, s = primitives.size (); i < s; i++)
     {
-      const auto &info = primitives[i];
-      auto *const primitive = info.grob ();
+      auto *const primitive = primitives[i];
       int duration_log = Rhythmic_head::duration_log (primitive);
 
-      Stream_event *nr = info.event_cause ();
+      Stream_event *nr = primitive->event_cause ();
 
       /*
         ugh. why not simply check for pitch?
@@ -176,7 +174,7 @@ Mensural_ligature_engraver::transform_heads
             }
           // b. descendens longa or brevis
           else if (i < s - 1
-                   && (unsmob<Pitch> (get_property (primitives[i + 1].event_cause (),
+                   && (unsmob<Pitch> (get_property (primitives[i + 1]->event_cause (),
                                                     "pitch"))->steps () < pitch)
                    && duration_log > -3)
             {
@@ -261,15 +259,14 @@ Mensural_ligature_engraver::transform_heads
               /*
                 check last condition: look ahead to next note
               */
-              const auto &next_info = primitives[i + 1];
-              auto *const next_primitive = next_info.grob ();
+              auto *const next_primitive = primitives[i + 1];
               if (Rhythmic_head::duration_log (next_primitive) == -1)
                 {
                   /*
                     breve: check whether descending
                   */
                   int const next_pitch = unsmob<Pitch>
-                                         (get_property (next_info.event_cause (), "pitch"))->steps ();
+                                         (get_property (next_primitive->event_cause (), "pitch"))->steps ();
                   if (next_pitch < pitch)
                     /*
                       sorry, forbidden
@@ -332,10 +329,9 @@ Mensural_ligature_engraver::transform_heads
  * propagate_properties () does.
  */
 void
-Mensural_ligature_engraver::propagate_properties
-(Spanner *ligature,
- vector<Grob_info_t<Item>> const &primitives,
- Real &min_length)
+Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
+                                                  vector<Item *> const &primitives,
+                                                  Real &min_length)
 {
   Real thickness
     = from_scm<double> (get_property (ligature, "thickness"), 1.3);
@@ -351,9 +347,8 @@ Mensural_ligature_engraver::propagate_properties
 
   min_length = 0.0;
   Item *prev_primitive = NULL;
-  for (const auto &info : primitives)
+  for (const auto &primitive : primitives)
     {
-      auto *const primitive = info.grob ();
       int output = scm_to_int (get_property (primitive, "primitive"));
       set_property (primitive, "thickness",
                     to_scm (thickness));
@@ -396,9 +391,7 @@ Mensural_ligature_engraver::propagate_properties
 }
 
 void
-Mensural_ligature_engraver::fold_up_primitives
-(vector<Grob_info_t<Item>> const &primitives,
- Real &min_length)
+Mensural_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives, Real &min_length)
 {
   Item *first = 0;
   Real distance = 0.0;
@@ -407,7 +400,7 @@ Mensural_ligature_engraver::fold_up_primitives
 
   for (vsize i = 0; i < primitives.size (); i++)
     {
-      auto *const current = primitives[i].grob ();
+      auto *const current = primitives[i];
       if (i == 0)
         {
           first = current;
@@ -472,9 +465,8 @@ Mensural_ligature_engraver::fold_up_primitives
 }
 
 void
-Mensural_ligature_engraver::build_ligature
-(Spanner *ligature,
- vector<Grob_info_t<Item>> const &primitives)
+Mensural_ligature_engraver::build_ligature (Spanner *ligature,
+                                            vector<Item *> const &primitives)
 {
   /*
     the X extent of the actual graphics representing the ligature;

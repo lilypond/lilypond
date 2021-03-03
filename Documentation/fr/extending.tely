@@ -27,7 +27,7 @@ fonctionnalités de LilyPond@tie{}version @version{}.
 @c   file: Documentation/user/programming-interface.itely
 
 @macro copyrightDeclare
-Copyright @copyright{} 2004--2020 by par les auteurs.
+Copyright @copyright{} 2004--2021 by par les auteurs.
 @end macro
 
 @set FDL

@@ -3,7 +3,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 1998--2020  Han-Wen Nienhuys <hanwen@xs4all.nl>
+# Copyright (C) 1998--2021  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                           Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
@@ -48,7 +48,6 @@ TODO:
 
 # TODO: Better solve the global_options copying to the snippets...
 
-import codecs
 import gettext
 import glob
 import hashlib
@@ -132,7 +131,7 @@ def warranty():
 
 %s
 %s
-''' % (_('Copyright (c) %s by') % '2001--2020',
+''' % (_('Copyright (c) %s by') % '2001--2021',
         '\n  '.join(authors),
         _("Distributed under terms of the GNU General Public License."),
         _("It comes with NO WARRANTY.")))
@@ -483,7 +482,7 @@ def write_if_updated(file_name, lines):
     os.makedirs(output_dir, exist_ok=True)
 
     progress(_("Writing `%s'...") % file_name)
-    codecs.open(file_name, 'w', 'utf-8').writelines(lines)
+    open(file_name, 'w', encoding='utf-8').writelines(lines)
 
 
 def note_input_file(name, inputs=[]):
@@ -520,7 +519,7 @@ def do_file(input_filename, included=False):
         input_absname = os.path.abspath(input_fullname)
 
         note_input_file(input_fullname)
-        in_handle = codecs.open(input_fullname, 'r', 'utf-8')
+        in_handle = open(input_fullname, 'r', encoding='utf-8')
 
     if input_filename == '-':
         global_options.input_dir = os.getcwd()

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ Simultaneous_music_iterator::create_children ()
   const ly_smob_list<Music> elements (get_property (get_music (), "elements"));
   for (auto *mus : elements)
     {
-      SCM scm_iter = get_static_get_iterator (mus);
+      SCM scm_iter = create_child (mus);
       Music_iterator *mi = unsmob<Music_iterator> (scm_iter);
       tail = children_list_.insert_before (tail, mi);
       ++tail;

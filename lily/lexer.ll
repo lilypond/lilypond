@@ -2,7 +2,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
                  Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -331,7 +331,7 @@ BOM_UTF8	\357\273\277
 	if (s.length () && (s[s.length () - 1] == ';'))
 	  s = s.substr (0, s.length () - 1);
 
-	SCM sid = lookup_identifier (s);
+	SCM sid = lookup_identifier_symbol (ly_symbol2scm (s.c_str ()));
 	if (scm_is_string (sid)) {
 		new_input (ly_scm2string (sid), sources_);
 		yy_pop_state ();
@@ -847,13 +847,10 @@ Lily_lexer::pop_extra_token ()
 }
 
 void
-Lily_lexer::push_chord_state (SCM alist)
+Lily_lexer::push_chord_state ()
 {
-	SCM p = scm_assq (alist, pitchname_tab_stack_);
-
-	if (scm_is_false (p))
-		p = scm_cons (alist, alist_to_hashq (alist));
-	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
+	SCM alist = Lily::pitchnames;
+	push_pitch_names (alist);
 	yy_push_state (chords);
 }
 
@@ -882,13 +879,18 @@ Lily_lexer::push_markup_state ()
 }
 
 void
-Lily_lexer::push_note_state (SCM alist)
+Lily_lexer::push_note_state ()
 {
-	SCM p = scm_assq (alist, pitchname_tab_stack_);
+ 	SCM alist = Lily::pitchnames;
+	push_pitch_names (alist);
+	yy_push_state (notes);
+}
 
-	if (scm_is_false (p))
-		p = scm_cons (alist, alist_to_hashq (alist));
-	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
+void
+Lily_lexer::push_drum_state ()
+{
+	SCM alist = lookup_identifier_symbol (ly_symbol2scm ("drumPitchNames"));
+	push_pitch_names (alist);
 	yy_push_state (notes);
 }
 
@@ -960,7 +962,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 int
 Lily_lexer::scan_shorthand (const string &str)
 {
-	SCM sid = lookup_identifier (str);
+	SCM sid = lookup_identifier_symbol (ly_symbol2scm (str.c_str ()));
 	if (Music *m = unsmob<Music> (sid))
 	{
 		m->set_spot (override_input (here_input ()));

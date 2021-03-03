@@ -27,7 +27,7 @@ lector está familiarizado con el material que hay en
 @c   file: Documentation/tex/refman.yo
 
 @macro copyrightDeclare
-Copyright @copyright{} 1998--2020 por los autores.
+Copyright @copyright{} 1998--2021 por los autores.
 @end macro
 
 

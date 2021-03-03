@@ -27,7 +27,7 @@ dentro de LilyPond version @version{}.
 @c   file: Documentation/user/introduction.itely
 
 @macro copyrightDeclare
-Copyright @copyright{} 2002--2020 por los autores.
+Copyright @copyright{} 2002--2021 por los autores.
 @end macro
 
 @set FDL

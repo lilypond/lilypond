@@ -2,8 +2,8 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2003 Heikki Junes <heikki.junes@hut.fi>,
-#               2008-2020 John Mandereau <john.mandereau@gmail.com>
+# Copyright (C) 2008--2021 John Mandereau <john.mandereau@gmail.com>,
+#               2003 Heikki Junes <heikki.junes@hut.fi>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
 
 # Generates lilypond-words.el for (X)Emacs and lilypond-words[.vim] for Vim.
 
-import codecs
 import re
 import sys
 import os
@@ -37,7 +36,7 @@ note_names = []
 keywords += ['include', 'maininput', 'version']
 
 # the main keywords
-s = codecs.open('lily/lily-lexer.cc', 'r', 'utf-8').read()
+s = open('lily/lily-lexer.cc', 'r', encoding='utf-8').read()
 keywords += [w for w in re.findall(r"\s*{\"(.+)\",\s*.*},\s*\n", s)]
 
 # markup commands
@@ -45,7 +44,7 @@ for name in ['ly/toc-init.ly',
              'scm/define-markup-commands.scm',
              'scm/fret-diagrams.scm',
              'scm/harp-pedals.scm']:
-    s = codecs.open(name, 'r', 'utf-8').read()
+    s = open(name, 'r', encoding='utf-8').read()
     keywords += [w for w in re.findall(
         r"\(define-markup[a-z-]+\s+\(([a-zA-Z-]+)", s)]
 
@@ -63,18 +62,18 @@ for name in ['ly/chord-modifiers-init.ly',
              'ly/spanners-init.ly',
              'ly/toc-init.ly',
              'ly/declarations-init.ly']:
-    s = codecs.open(name, 'r', 'utf-8').read()
+    s = open(name, 'r', encoding='utf-8').read()
     keywords += [w for w in re.findall(r"(?m)^\s*\"?([a-zA-Z]+)\"?\s*=", s)]
 
 # note names
-s = codecs.open('scm/define-note-names.scm', 'r', 'utf-8').read()
+s = open('scm/define-note-names.scm', 'r', encoding='utf-8').read()
 note_names += [n for n in re.findall(
     r"(?m)^\s*\(([a-z]+)\s+\.\s+,\(ly:make-pitch", s)]
 
 # reserved words
 for name in ['ly/engraver-init.ly',
              'ly/performer-init.ly']:
-    s = codecs.open(name, 'r', 'utf-8').read()
+    s = open(name, 'r', encoding='utf-8').read()
     for pattern in [r"(?m)^\s*.consists\s+\"([a-zA-Z_]+)\"",
                     r"[\\]name\s+[\"]?([a-zA-Z_]+)[\"]?",
                     r"\s+([a-zA-Z_]+)\s*\\(?:set|override)"]:

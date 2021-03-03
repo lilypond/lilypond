@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -94,17 +94,18 @@ public:
   using Includable_lexer::new_input;
 
   bool top_input () { return include_stack_.size () < 2; }
-  SCM lookup_identifier (const std::string &s);
   SCM lookup_identifier_symbol (SCM s);
   void push_extra_token (Input const &where,
                          int token_type, SCM scm = SCM_UNSPECIFIED);
   int pop_extra_token ();
-  void push_chord_state (SCM alist);
+  void push_chord_state ();
   void push_figuredbass_state ();
   void push_lyric_state ();
   void push_initial_state ();
   void push_markup_state ();
-  void push_note_state (SCM alist);
+  void push_drum_state ();
+  void push_note_state ();
+  void push_pitch_names (SCM alist);
   void pop_state ();
   void LexerError (char const *) override;
   void LexerWarning (char const *);

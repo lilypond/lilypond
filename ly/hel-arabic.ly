@@ -3,7 +3,7 @@
 %%  instead of do re mi fa sol la si
 %
 %
-%%  Copyright (C) 2014--2020 Hassan EL FATIHI <hassan.elfatihi@free.fr>
+%%  Copyright (C) 2014--2021 Hassan EL FATIHI <hassan.elfatihi@free.fr>
 %%
 %%  LilyPond is free software: you can redistribute it and/or modify
 %%  it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 ;;; define-music-display-methods.scm -- data for displaying music
 ;;; expressions using LilyPond notation.
 ;;;
-;;; Copyright (C) 2005--2020 Nicolas Sceaux  <nicolas.sceaux@free.fr>
+;;; Copyright (C) 2005--2021 Nicolas Sceaux  <nicolas.sceaux@free.fr>
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -10,6 +10,9 @@
 ;;;
 
 (define-module (scm display-lily))
+(use-modules ((ice-9 list)
+              #:select (rassoc)))
+
 
 ;;;
 ;;; Scheme forms

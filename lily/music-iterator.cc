@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -34,13 +34,10 @@
 
 Music_iterator::Music_iterator ()
 {
-  music_ = 0;
   smobify_self ();
 }
 
-Music_iterator::~Music_iterator ()
-{
-}
+Music_iterator::~Music_iterator () = default;
 
 Moment
 Music_iterator::pending_moment () const
@@ -54,7 +51,7 @@ Music_iterator::process (Moment)
 }
 
 SCM
-Music_iterator::get_static_get_iterator (Music *m)
+Music_iterator::create_iterator (Music_iterator *parent, Music *m)
 {
   Music_iterator *p = 0;
 
@@ -78,6 +75,7 @@ Music_iterator::get_static_get_iterator (Music *m)
       p->unprotect ();
     }
 
+  p->parent_ = parent;
   p->music_ = m;
   assert (m);
   p->music_length_ = m->get_length ();
@@ -245,4 +243,21 @@ Music_iterator::descend_to_child (Context *child_report)
   Context *me_report = get_context ();
   if (is_child_context (me_report, child_report))
     set_context (child_report);
+}
+
+SCM
+Music_iterator::internal_get_property (SCM sym) const
+{
+  // TODO: Abstract Context property features into a reusable base class?
+  for (auto scope = this; scope; scope = scope->parent_)
+    {
+      if (auto m = scope->get_music ())
+        {
+          SCM val = get_property (m, sym);
+          if (!scm_is_null (val))
+            return val;
+        }
+    }
+
+  return SCM_EOL;
 }

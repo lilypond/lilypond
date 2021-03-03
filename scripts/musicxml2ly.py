@@ -3,7 +3,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2005--2020  Han-Wen Nienhuys <hanwen@xs4all.nl>,
+# Copyright (C) 2005--2021  Han-Wen Nienhuys <hanwen@xs4all.nl>,
 #                           Jan Nieuwenhuizen <janneke@gnu.org>,
 #                           Reinhold Kainhofer <reinhold@kainhofer.com>,
 #                           Patrick L. Schmidt <pls@philomelos.net>
@@ -22,7 +22,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import codecs
 from collections import OrderedDict
 from fractions import Fraction
 from functools import reduce
@@ -2894,7 +2893,7 @@ If the given filename is -, musicxml2ly reads from the command line.
 
     p.version = ('%prog (LilyPond) ' + lilypond_version + '\n\n'
                  +
-                 _("""Copyright (c) 2005--2020 by
+                 _("""Copyright (c) 2005--2021 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>
@@ -3316,7 +3315,7 @@ def convert(filename, options):
     if options.output_name == "-":
         printer.set_file(sys.stdout)
     else:
-        printer.set_file(codecs.open(output_ly_name, 'w', encoding='utf-8'))
+        printer.set_file(open(output_ly_name, 'w', encoding='utf-8'))
     print_ly_preamble(printer, filename)
     print_ly_additional_definitions(printer, filename)
     if score_information:

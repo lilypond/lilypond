@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -121,6 +121,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
       Lily_parser *parser = new Lily_parser (&sources);
 
+      message (_ ("Parsing..."));
       parser->parse_file (init, file_name, out_file);
 
       error = parser->error_level_;
@@ -134,6 +135,35 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   */
   if (error)
     /* TODO: pass renamed input file too.  */
+    scm_throw (ly_symbol2scm ("ly-file-failed"),
+               scm_list_1 (ly_string2scm (file_name)));
+
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parse_init, "ly:parse-init", 1, 0, 0, (SCM name),
+           "Parse the init file @code{name}.")
+{
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
+  string file = ly_scm2string (name);
+
+  string file_name = global_path.find (file);
+
+  bool error = false;
+
+  Sources sources;
+  sources.set_path (&global_path);
+
+  Lily_parser *parser = new Lily_parser (&sources);
+
+  parser->parse_file (file_name, "<impossible>", "");
+
+  error = parser->error_level_;
+
+  parser->clear ();
+  parser->unprotect ();
+
+  if (error)
     scm_throw (ly_symbol2scm ("ly-file-failed"),
                scm_list_1 (ly_string2scm (file_name)));
 
@@ -183,7 +213,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
 
-  SCM val = p->lexer_->lookup_identifier (ly_symbol2string (symbol));
+  SCM val = p->lexer_->lookup_identifier_symbol (symbol);
   if (!SCM_UNBNDP (val))
     return val;
   else
@@ -266,7 +296,8 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
   if (p->lexer_->is_note_state ())
     {
       p->lexer_->pop_state ();
-      p->lexer_->push_note_state (names);
+      Lily::pitchnames = names;
+      p->lexer_->push_note_state ();
     }
 
   return SCM_UNSPECIFIED;

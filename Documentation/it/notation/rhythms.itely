@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.1"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -2913,13 +2913,13 @@ differiscono nel comportamento quando incontrano un'interruzione di linea:
 @lilypond[quote,verbatim]
 \relative c'' {
   c4 c c c
-  \bar "S"
+  \bar "S-||"
   c4 c c c \break
-  \bar "S"
+  \bar "S-||"
   c4 c c c
-  \bar "S-|"
+  \bar "S"
   c4 c c c \break
-  \bar "S-|"
+  \bar "S"
   c4 c c c
   \bar "S-S"
   c4 c c c \break

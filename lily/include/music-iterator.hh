@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -95,7 +95,18 @@ public:
   Context *get_own_context () const { return handle_.get_context (); }
   void set_own_context (Context *c) { handle_.set_context (c); }
 
-  static SCM get_static_get_iterator (Music *mus);
+  // Create an iterator that has no parent.
+  static SCM create_top_iterator (Music *mus)
+  {
+    return create_iterator (nullptr, mus);
+  }
+
+  // Create an iterator that has this iterator as its parent.
+  SCM create_child (Music *mus)
+  {
+    return create_iterator (this, mus);
+  }
+
   void init_context (Context *);
   void quit ();
   void substitute_context (Context *from, Context *to);
@@ -141,9 +152,17 @@ protected:
 
   virtual void do_quit ();
 
+  // Scoped property access: look in this iterator's music, then search the
+  // ancestors up to the top.
+  SCM internal_get_property (SCM name_sym) const;
+
 private:
+  static SCM create_iterator (Music_iterator *parent, Music *mus);
+
+private:
+  Music_iterator *parent_ = nullptr;
   Context_handle handle_;
-  Music *music_;
+  Music *music_ = nullptr;
   Moment music_length_;
   Moment start_mom_;
 };

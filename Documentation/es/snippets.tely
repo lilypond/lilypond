@@ -41,7 +41,7 @@ or figure for each example to see the corresponding input file.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2020 by the authors.
+Copyright @copyright{} 1999--2021 by the authors.
 @end macro
 
 @c This disables @lydoctitle definition in common-macros.itexi

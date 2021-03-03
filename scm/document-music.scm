@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -56,9 +56,11 @@
                                          (engraver-accepts-music-type? (car entry) x))
                                        all-engravers-list)))))))
     (make <texi-node>
+      #:code-tag #t
       #:name (symbol->string (car entry))
       #:text
       (string-append
+       "\n@raggedRight"
        "\nMusic event type @code{"
        (symbol->string (car entry))
        "} is in music objects of type "
@@ -73,7 +75,8 @@
            (string-append
             "Accepted by: "
             accept-list))
-       "."))))
+       "."
+       "\n@endRaggedRight"))))
 
 (define (music-types-doc)
   (make <texi-node>
@@ -100,7 +103,8 @@
                           ""))
          (event-texi (if classes
                          (string-append
-                          "\n\nEvent classes:\n"
+                          "\n\n@raggedRight\n"
+                          "Event classes:\n"
                           (human-listify
                            (map ref-ify (sort (map symbol->string classes)
                                               ly:string-ci<?)))
@@ -112,7 +116,8 @@
                               (string-append
                                "Accepted by: "
                                accept-list))
-                          ".")
+                          "."
+                          "\n@endRaggedRight")
                          "")))
 
     (string-append
@@ -127,6 +132,7 @@
 
 (define (music-object-doc obj)
   (make <texi-node>
+    #:code-tag #t
     #:name (symbol->string (car obj))
     #:text (music-doc-str obj)))
 

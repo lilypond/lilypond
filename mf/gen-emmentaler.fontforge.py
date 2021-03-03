@@ -2,7 +2,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2020--2020  Han-Wen Nienhuys <hanwen@lilypond.org>
+# Copyright (C) 2020--2021  Han-Wen Nienhuys <hanwen@lilypond.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,6 +54,7 @@ design_size = int(m.group(1))
 font = fontforge.font()
 font.familyname = "Emmentaler-%d" % design_size
 font.fontname = font.familyname
+font.fullname = "Emmentaler-%d" % design_size
 font.copyright = """This font is distributed under the GNU General Public License.
 As a special exception, if you create a document which uses
 this font, and embed this font or unaltered portions of this

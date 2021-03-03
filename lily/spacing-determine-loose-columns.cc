@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -45,7 +45,8 @@ using std::vector;
   (Otherwise, we might risk core dumps, and other weird stuff.)
 */
 static bool
-is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
+is_loose_column (Paper_column *l, Paper_column *col, Paper_column *r,
+                 Spacing_options const *options)
 {
   if (!from_scm<bool> (get_property (col, "allow-loose-spacing")))
     return false;
@@ -79,51 +80,61 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
     the column containing the clef is really loose, and should be
     attached right to the first column, but that is a lot of work for
     such a borderline case.)
-
   */
 
-  Item *r_neighbor = unsmob<Item> (get_object (col, "right-neighbor"));
-  Item *l_neighbor = unsmob<Item> (get_object (col, "left-neighbor"));
+  auto *const r_neighbor
+    = unsmob<Paper_column> (get_object (col, "right-neighbor"));
+  if (!r_neighbor)
+    return false;
 
-  if (!l_neighbor || !r_neighbor)
+  auto *const l_neighbor
+    = unsmob<Paper_column> (get_object (col, "left-neighbor"));
+  if (!l_neighbor)
     return false;
 
   /* If a non-empty column (ie. not \bar "") is placed nicely in series with
      its neighbor (ie. no funny polyphonic stuff), don't make it loose.
   */
-  if (l == l_neighbor && r == r_neighbor && col->extent (col, X_AXIS).length () > 0)
-    return false;
+  if ((l == l_neighbor) && (r == r_neighbor)
+      && (col->extent (col, X_AXIS).length () > 0))
+    {
+      return false;
+    }
 
   /*
     Only declare loose if the bounds make a little sense.  This means
     some cases (two isolated, consecutive clef changes) won't be
     nicely folded, but hey, then don't do that.
   */
-  if (! ((Paper_column::is_musical (l_neighbor) || Paper_column::is_breakable (l_neighbor))
-         && (Paper_column::is_musical (r_neighbor) || Paper_column::is_breakable (r_neighbor))))
+  auto is_sensible = [] (Paper_column * neighbor)
+  {
+    return Paper_column::is_musical (neighbor)
+           || Paper_column::is_breakable (neighbor);
+  };
+
+  if (!is_sensible (l_neighbor) || !is_sensible (r_neighbor))
     return false;
 
   /*
     in any case, we don't want to move bar lines.
   */
   extract_grob_set (col, "elements", elts);
-  for (vsize i = elts.size (); i--;)
+  for (auto *const g : elts)
     {
-      Grob *g = elts[i];
       if (has_interface<Break_alignment_interface> (g))
         {
           extract_grob_set (g, "elements", gelts);
-          for (vsize j = gelts.size (); j--;)
+          for (auto *const h : gelts)
             {
-              Grob *h = gelts[j];
-
               if (h && scm_is_eq (get_property (h, "break-align-symbol"),
                                   ly_symbol2scm ("staff-bar")))
                 {
                   extract_grob_set (h, "elements", helts);
-                  for (vsize k = helts.size (); k--;)
-                    if ("" != robust_scm2string (get_property (helts[k], "glyph-name"), ""))
-                      return false;
+                  for (auto *const bar : helts)
+                    {
+                      if (bar->extent (bar, X_AXIS).length () > 0)
+                        return false;
+                    }
                 }
             }
         }

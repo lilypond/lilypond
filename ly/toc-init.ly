@@ -1,8 +1,8 @@
 %%%% Table of contents functions.
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2007 Nicolas Sceaux <nicolas.sceaux@free.fr>,
-%%%%               2020--2020 Valentin Villenave <valentin@villenave.net>
+%%%% Copyright (C) 2007--2021 Nicolas Sceaux <nicolas.sceaux@free.fr>
+%%%% Copyright (C) 2020--2021 Valentin Villenave <valentin@villenave.net>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by

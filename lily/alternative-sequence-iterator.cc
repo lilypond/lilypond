@@ -223,13 +223,7 @@ Alternative_sequence_iterator::start_alternative ()
         }
       else // a single, specified volta
         {
-          // TODO: If there were a way to look up the properties of enclosing
-          // music (via parent iterators), we wouldn't have to copy the repeat
-          // count into SimultaneousAlternativeMusic for use here.  It would
-          // not amount to much of a simplification, though, because we would
-          // still go to the trouble of setting implied volta specificiations
-          // inside SimultaneousAlternativeMusic.
-          SCM rep_count = get_property (get_music (), "repeat-count");
+          SCM rep_count = get_property (this, "repeat-count");
           final_alt_needs_end_repeat_
             = scm_is_false (scm_equal_p (scm_car (volta_nums), rep_count));
         }

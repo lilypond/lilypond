@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -178,7 +178,7 @@ Lyric_combine_music_iterator::create_children ()
   Music_iterator::create_children ();
 
   Music *m = unsmob<Music> (get_property (get_music (), "element"));
-  SCM it_scm = get_static_get_iterator (m);
+  SCM it_scm = create_child (m);
   lyric_iter_ = unsmob<Music_iterator> (it_scm);
 }
 

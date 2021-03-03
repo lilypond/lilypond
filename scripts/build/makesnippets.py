@@ -2,7 +2,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2012--2020  John Mandereau <john.mandereau@gmail.com>
+# Copyright (C) 2012--2021  John Mandereau <john.mandereau@gmail.com>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 Read all .ly files from INPUT_DIR, insert translations from .texidoc
 files found in DOC_DIR/LANG/texdiocs, and write ther result to OUTPUT_DIR.'''
 
-import codecs
 import glob
 import sys
 import os.path
@@ -39,17 +38,17 @@ begin_header_re = re.compile(r'\\header\s*{', re.M)
 
 for f in glob.glob(os.path.join(input_dir, '*.ly')):
     name = os.path.basename(f)
-    s = codecs.open(f, 'r', 'utf-8').read()
+    s = open(f, 'r', encoding='utf-8').read()
     for path in texidoc_dirs:
         texidoc_translation_path = \
             os.path.join(path, os.path.splitext(name)[0] + '.texidoc')
         if os.path.exists(texidoc_translation_path):
-            texidoc_translation = codecs.open(
-                texidoc_translation_path, 'r', 'utf-8').read()
+            texidoc_translation = open(
+                texidoc_translation_path, 'r', encoding='utf-8').read()
             # Since we want to insert the translations verbatim using a
             # regexp, \\ is understood as ONE escaped backslash. So we have
             # to escape those backslashes once more...
             texidoc_translation = texidoc_translation.replace('\\', '\\\\')
             s = begin_header_re.sub('\\g<0>\n' + texidoc_translation, s, 1)
     dest = os.path.join(output_dir, name)
-    codecs.open(dest, 'w', 'utf-8').write(s)
+    open(dest, 'w', encoding='utf-8').write(s)

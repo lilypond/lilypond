@@ -22,7 +22,7 @@ presuppone che il lettore conosca il materiale esposto nel
 
 @c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2020 degli autori.
+Copyright @copyright{} 1999--2021 degli autori.
 @end macro
 
 

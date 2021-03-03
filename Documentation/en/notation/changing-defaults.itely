@@ -3107,6 +3107,22 @@ up or down based on the stem direction (like slurs or accents).
 
 @c TODO Add table showing these
 
+@cindex forced vertical direction of grobs
+@cindex vertical direction, forced, of grobs
+@cindex vertical direction, default, of grobs
+@cindex position, vertical, of grobs
+@cindex grob, vertical position
+@cindex direction, up (@code{^})
+@cindex direction, down (@code{_})
+@cindex direction, default (@code{-})
+@cindex up direction (@code{^})
+@cindex down direction (@code{_})
+@cindex default vertical direction (@code{-})
+
+@funindex -
+@funindex ^
+@funindex _
+
 The default action may be overridden by prefixing the articulation
 by a @emph{direction indicator}.  Three direction indicators are
 available: @code{^} (meaning @qq{up}), @code{_} (meaning @qq{down})

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2003--2020 Juergen Reuter <reuter@ipd.uka.de>
+  Copyright (C) 2003--2021 Juergen Reuter <reuter@ipd.uka.de>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -38,11 +38,11 @@ protected:
 
   void
   build_ligature (Spanner *ligature,
-                  std::vector<Grob_info_t<Item>> const &primitives) override;
+                  std::vector<Item *> const &primitives) override;
 
   virtual void
   transform_heads (Spanner *ligature,
-                   std::vector<Grob_info_t<Item>> const &primitives) = 0;
+                   std::vector<Item *> const &primitives) = 0;
 
   void stop_translation_timestep ();
 };

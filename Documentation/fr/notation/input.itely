@@ -2826,7 +2826,7 @@ dans des paroles et dans du texte indépendant.
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2020" \char ##x00A9 }
+\markup { "Copyright 2008--2021" \char ##x00A9 }
 @end lilypond
 
 @cindex copyright

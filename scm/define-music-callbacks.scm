@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Neil Puttock <n.puttock@gmail.com>
 ;;;;                 Carl Sorensen <c_sorensen@byu.edu>
@@ -186,9 +186,7 @@ depth-first through MUSIC."
      (list (make-music
             'SequentialAlternativeMusic
             'alternative-dir STOP ; ugly (see iterator)
-            'elements alts
-            ;; setting repeat-count is ugly (see iterator)
-            'repeat-count (ly:music-property music 'repeat-count))))))
+            'elements alts)))))
 
 (define (make-ottava-set music)
   "Set context properties for an ottava bracket."

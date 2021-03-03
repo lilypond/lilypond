@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2009--2020 Marc Hohl <marc@hohlart.de>
+;;;; Copyright (C) 2009--2021 Marc Hohl <marc@hohlart.de>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -673,12 +673,10 @@ the correct placement of bar numbers etc."
                             X)))))
     anchor))
 
-(define-public (bar-line::calc-glyph-name grob)
+(define-public (bar-line::calc-glyph-name-for-direction glyph dir)
   "Determine the @code{glyph-name} of the bar line depending on the
 line break status."
-  (let* ((glyph (ly:grob-property grob 'glyph))
-         (dir (ly:item-break-dir grob))
-         (result (assoc-get glyph bar-glyph-alist))
+  (let* ((result (assoc-get glyph bar-glyph-alist))
          (glyph-name (if (= dir CENTER)
                          glyph
                          (if (and result
@@ -686,6 +684,13 @@ line break status."
                              (index-cell result dir)
                              #f))))
     glyph-name))
+
+(define-public (bar-line::calc-glyph-name grob)
+  "Determine the @code{glyph-name} of the bar line depending on the
+line break status."
+  (let* ((glyph (ly:grob-property grob 'glyph))
+         (dir (ly:item-break-dir grob)))
+    (bar-line::calc-glyph-name-for-direction glyph dir)))
 
 (define-public (bar-line::calc-break-visibility grob)
   "Calculate the visibility of a bar line at line breaks."
@@ -888,9 +893,8 @@ no elements."
 (define-session volta-bracket-allow-volta-hook-list '())
 
 (define-public (volta-bracket::calc-hook-visibility bar-glyph)
-  "Determine the visibility of the volta bracket hook. It is called in
-@code{lily/volta-bracket.cc} and returns @code{#t} if @emph{no} hook
-should be drawn."
+  "Determine the visibility of the volta bracket end hook, returning
+@code{#t} if @emph{no} hook should be drawn."
   (not (member bar-glyph volta-bracket-allow-volta-hook-list)))
 
 (define-public (ly:volta-bracket::calc-shorten-pair grob)
@@ -1014,7 +1018,7 @@ of the volta brackets relative to the bar lines."
 ;;
 ;; or
 ;;
-;; (define-bar-line "S-|" "|" "S" "=")
+;; (define-bar-line "S" "|" "S" "=")
 ;; (define-bar-line "S-S" "S" "" "=")
 
 ;; common bar lines
@@ -1043,32 +1047,46 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ":|]" ":|]" #f " | ")
 (define-bar-line ":|][|:" ":|]" "[|:" " |  |")
 (define-bar-line ".|:-||" "||" ".|:" ".|")
+(define-bar-line "[|:-||" "||" "[|:" " |")
 
 ;; segno bar lines
-(define-bar-line "S" "||" "S" "=")
-(define-bar-line "S-|" "|" "S" "=")
+(define-bar-line "S" "|" "S" "=")
+(define-bar-line "S-||" "||" "S" "=")
 (define-bar-line "S-S" "S" #f "=")
+(define-bar-line "|.S" "|." "S" "|.")
+(define-bar-line "|.S-S" "|.S" #f "|.")
 (define-bar-line ":|.S" ":|." "S" " |.")
 (define-bar-line ":|.S-S" ":|.S" "" " |.")
 (define-bar-line "S.|:" "|" "S.|:" " .|")
+(define-bar-line "S.|:-||" "||" "S.|:" " .|")
 (define-bar-line "S.|:-S" "S" ".|:" " .|")
+(define-bar-line "|.S.|:" "|." "S.|:" "|. .|")
+(define-bar-line "|.S.|:-S" "|.S" ".|:" "|. .|")
 (define-bar-line ":|.S.|:" ":|." "S.|:" " |. .|")
 (define-bar-line ":|.S.|:-S" ":|.S" ".|:" " |. .|")
 
 ;; ancient bar lines
 (define-bar-line "k" "k" #f #f) ;; kievan style
 
-;; volta hook settings
+;; The right side of a volta bracket is closed when the corresponding
+;; end-of-line bar line glyph would be one of the following.  Whether
+;; it is actually at a line break does not matter for this purpose.
+;;
+;; These signify either the end of a repeated section or the end of
+;; the piece.  Built-in end-of-line bar glyphs with either meaning
+;; should be listed here even if they are not normally used with volta
+;; brackets.
+;;
+;; This complication is disappointing because this information is
+;; readily available when it comes from commands such as \repeat;
+;; however, we want to be able to derive meaning from manual \bar
+;; commands also.
+;;
+;; end of repeated section
 (allow-volta-hook ":|.")
-(allow-volta-hook ".|:")
-(allow-volta-hook "|.")
-(allow-volta-hook ":..:")
-(allow-volta-hook ":|.|:")
-(allow-volta-hook ":|.:")
-(allow-volta-hook ".|")
 (allow-volta-hook ":|.S")
-(allow-volta-hook ":|.S-S")
-(allow-volta-hook ":|.S.|:")
-(allow-volta-hook ":|.S.|:-S")
 (allow-volta-hook ":|]")
-(allow-volta-hook ":|][|:")
+;; end of piece
+(allow-volta-hook "k")
+(allow-volta-hook "|.")
+(allow-volta-hook "|.S")

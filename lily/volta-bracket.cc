@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1997--2021 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -122,19 +122,6 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   bool broken_last_bracket = orig_span && (orig_span->broken_intos_.back () == me);
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
-
-  extract_grob_set (me, "bars", bars);
-  Grob *endbar = bars.size () ? bars.back () : 0;
-  SCM glyph = endbar ? get_property (endbar, "glyph-name") : SCM_EOL;
-
-  string str;
-  if (scm_is_string (glyph))
-    str = ly_scm2string (glyph);
-  else
-    str = "|";
-
-  no_vertical_end |= ly_scm2bool (Lily::volta_bracket_calc_hook_visibility
-                                  (ly_string2scm (str)));
 
   if (no_vertical_end || no_vertical_start)
     {

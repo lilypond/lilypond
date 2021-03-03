@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2000--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@
 
 (define-class <texi-node> ()
   (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)
+  (code-tag #:init-value #f #:accessor code-tag? #:init-keyword #:code-tag)
   (children #:init-value '() #:accessor node-children #:init-keyword #:children)
   (text #:init-value "" #:accessor node-text #:init-keyword #:text)
   (name #:init-value "" #:accessor node-name #:init-keyword #:name)
@@ -46,7 +47,9 @@
         (texi-appendix-section-command level)
         (texi-section-command level))
     " "
+    (if (code-tag? node) "@code{" "")
     (node-name node)
+    (if (code-tag? node) "}" "")
     "\n\n"
     (node-text node)
     "\n\n"
@@ -96,17 +99,18 @@
       (string-append "\n\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))))
 
 
-(define (description-list->texi items-alist quote?)
+(define (description-list->texi items-alist indented?)
   "Document ITEMS-ALIST in a table; entries contain (item-label .
-string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
+string-to-use).  If INDENTED? is #t, embed table in a @indentedblock
+environment."
   (string-append
    "\n"
-   (if quote? "@quotation\n" "")
+   (if indented? "@indentedBlock\n" "")
    "@table @asis"
    (string-concatenate (map one-item->texi items-alist))
    "\n\n"
    "@end table\n"
-   (if quote? "@end quotation\n" "")))
+   (if indented? "@endIndentedBlock\n" "")))
 
 (define (texi-menu items-alist)
   "Generate what is between @menu and @end menu."
@@ -161,9 +165,9 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
   name)
 
 (define (ref-ify x)
-  "Return @ref{X}.  If mapping ref-ify to a list that needs to be sorted,
+  "Return @iref{X}.  If mapping ref-ify to a list that needs to be sorted,
    sort the list first."
-  (string-append "@ref{" x "}"))
+  (string-append "@iref{" x "}"))
 
 (define (human-listify lst)
   "Produce a textual enumeration from LST, a list of strings"

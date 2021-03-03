@@ -1,6 +1,6 @@
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1996--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%%%% Copyright (C) 1996--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %%%%                          Jan Nieuwenhuizen <janneke@gnu.org>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
@@ -17,6 +17,16 @@
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 \version "2.21.0"
+
+#(cond-expand
+  (guile-2
+    (begin
+     (use-modules (ice-9 curried-definitions))
+     (setlocale LC_ALL "")
+     (setlocale LC_NUMERIC "C")))
+  (else))
+
+#(session-start-record)
 
 %% named durations
 breve = #(ly:make-duration -1 0)
@@ -160,3 +170,5 @@ partCombineListener = \layout {
 }
 
 setDefaultDurationToQuarter = { c4 }
+
+#(session-save)

@@ -25,7 +25,7 @@ Ce document constitue le manuel d'initiation à GNU LilyPond
 @c   file: Documentation/tex/tutorial.yo
 
 @macro copyrightDeclare
-Copyright @copyright{} 1998--2020 par les auteurs.
+Copyright @copyright{} 1998--2021 par les auteurs.
 @end macro
 
 @set FDL

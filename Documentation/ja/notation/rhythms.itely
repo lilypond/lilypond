@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.1"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -2952,13 +2952,13 @@ f'1 \bar "k"
 @lilypond[quote,verbatim]
 \relative c'' {
   c4 c c c
-  \bar "S"
+  \bar "S-||"
   c4 c c c \break
-  \bar "S"
+  \bar "S-||"
   c4 c c c
-  \bar "S-|"
+  \bar "S"
   c4 c c c \break
-  \bar "S-|"
+  \bar "S"
   c4 c c c
   \bar "S-S"
   c4 c c c \break

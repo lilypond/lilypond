@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -126,7 +126,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
     keytable_ = make_keytable ();
 
   add_scope (ly_make_module (false));
-  push_note_state (SCM_EOL);
+  push_note_state ();
   chordmodifier_tab_ = scm_make_vector (to_scm (1), SCM_EOL);
 }
 
@@ -151,7 +151,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
 
   smobify_self ();
 
-  push_note_state (SCM_EOL);
+  push_note_state ();
 }
 
 void
@@ -168,6 +168,7 @@ Lily_lexer::add_scope (SCM module)
 
   set_current_scope ();
 }
+
 bool
 Lily_lexer::has_scope () const
 {
@@ -216,12 +217,6 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
     }
 
   return SCM_UNDEFINED;
-}
-
-SCM
-Lily_lexer::lookup_identifier (const string &name)
-{
-  return lookup_identifier_symbol (ly_symbol2scm (name.c_str ()));
 }
 
 void
@@ -391,4 +386,14 @@ bool
 Lily_lexer::is_clean () const
 {
   return include_stack_.empty ();
+}
+
+void
+Lily_lexer::push_pitch_names (SCM alist)
+{
+  SCM p = scm_assq (alist, pitchname_tab_stack_);
+
+  if (scm_is_false (p))
+    p = scm_cons (alist, alist_to_hashq (alist));
+  pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 }

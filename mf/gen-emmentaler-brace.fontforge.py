@@ -2,7 +2,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2020--2020  Han-Wen Nienhuys <hanwen@lilypond.org>
+# Copyright (C) 2020--2021  Han-Wen Nienhuys <hanwen@lilypond.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -72,6 +72,7 @@ for c in "abcdefghi":
 
 font.fontname = "Emmentaler-Brace"
 font.familyname = "Emmentaler-Brace"
+font.fullname = "Emmentaler-Brace"
 font.weight = "Regular"
 font.copyright = "GNU GPL"
 font.version = version

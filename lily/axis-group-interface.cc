@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2000--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -46,9 +46,6 @@ using std::multimap;
 using std::pair;
 using std::string;
 using std::vector;
-
-static bool
-pure_staff_priority_less (Grob *const &g1, Grob *const &g2);
 
 /* gets the relevant version of `g` in the context of a line running
    from `start` to `end` */
@@ -530,29 +527,48 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
   return internal_calc_pure_relevant_grobs (me, "elements");
 }
 
+struct Grob_with_priority
+{
+  Grob_with_priority (Grob *grob, double priority)
+    : grob_ (grob), priority_ (priority) { }
+
+  Grob *grob_;
+  double priority_;
+};
+
+bool operator < (const Grob_with_priority &g1, const Grob_with_priority &g2)
+{
+  return g1.priority_ < g2.priority_;
+}
+
 SCM
 Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string &grob_set_name)
 {
   extract_grob_set (me, grob_set_name.c_str (), elts);
 
-  vector<Grob *> relevant_grobs;
+  // It is cheaper to cache the outside-staff-priority than saving the one copy
+  // to assemble the final Grob_array.
+  vector<Grob_with_priority> relevant_grobs;
 
-  for (vsize i = 0; i < elts.size (); i++)
+  for (Grob *g : elts)
     {
-      if (Item *it = dynamic_cast<Item *> (elts[i]))
+      if (Item *it = dynamic_cast<Item *> (g))
         {
           if (it->original ())
             continue;
         }
+      Real priority = from_scm<double> (get_property (g, "outside-staff-priority"), -infinity_f);
       /* This might include potentially suicided items. Callers should
          look at the relevant prebroken clone where necesary */
-      relevant_grobs.push_back (elts[i]);
+      relevant_grobs.emplace_back (g, priority);
     }
 
-  std::sort (relevant_grobs.begin (), relevant_grobs.end (),
-             pure_staff_priority_less);
+  std::sort (relevant_grobs.begin (), relevant_grobs.end ());
+
   SCM grobs_scm = Grob_array::make_array ();
-  unsmob<Grob_array> (grobs_scm)->set_array (relevant_grobs);
+  Grob_array *grobs = unsmob<Grob_array> (grobs_scm);
+  for (auto const& g : relevant_grobs)
+    grobs->add (g.grob_);
 
   return grobs_scm;
 }
@@ -638,57 +654,6 @@ Axis_group_interface::get_children (Grob *me, vector<Grob *> *found)
       Grob *e = elements[i];
       Axis_group_interface::get_children (e, found);
     }
-}
-
-static bool
-staff_priority_less (Grob *const &g1, Grob *const &g2)
-{
-  Real priority_1 = from_scm<double> (get_property (g1, "outside-staff-priority"), -infinity_f);
-  Real priority_2 = from_scm<double> (get_property (g2, "outside-staff-priority"), -infinity_f);
-
-  if (priority_1 < priority_2)
-    return true;
-  else if (priority_1 > priority_2)
-    return false;
-
-  /* if neither grob has an outside-staff priority, the ordering will have no
-     effect and we assume the two grobs to be equal (none of the two is less).
-     We do this to avoid the side-effect of calculating extents. */
-  if (std::isinf (priority_1) && std::isinf (priority_2))
-    return false;
-
-  /* if there is no preference in staff priority, choose the left-most one */
-  Grob *common = g1->common_refpoint (g2, X_AXIS);
-  Real start_1 = g1->extent (common, X_AXIS)[LEFT];
-  Real start_2 = g2->extent (common, X_AXIS)[LEFT];
-  return start_1 < start_2;
-}
-
-static bool
-pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
-{
-  Grob *p[2] = {g1, g2};
-  for (int i = 0; i < 2; i++)
-    {
-      Item *it = dynamic_cast<Item *> (p[i]);
-      if (it && !it->is_live ())
-        {
-          for (LEFT_and_RIGHT (d))
-            {
-              Item *b = it->find_prebroken_piece (d);
-              if (b && b->is_live ())
-                {
-                  p[i] = b;
-                  break;
-                }
-            }
-        }
-    }
-
-  Real priority_1 = from_scm<double> (get_property (p[0], "outside-staff-priority"), -infinity_f);
-  Real priority_2 = from_scm<double> (get_property (p[1], "outside-staff-priority"), -infinity_f);
-
-  return priority_1 < priority_2;
 }
 
 // Raises the grob elt (whose skylines are given by h_skyline
@@ -882,6 +847,24 @@ Axis_group_interface::outside_staff_ancestor (Grob *me)
   return outside_staff_ancestor (parent);
 }
 
+struct Skyline_key
+{
+  Skyline_key (Grob *grob, double priority, double left_extent)
+    : grob_ (grob), priority_ (priority), left_extent_ (left_extent) { }
+
+  Grob *grob_;
+  double priority_;
+  double left_extent_;
+};
+
+bool operator < (const Skyline_key &k1, const Skyline_key &k2)
+{
+  if (k1.priority_ != k2.priority_)
+    return k1.priority_ < k2.priority_;
+
+  return k1.left_extent_ < k2.left_extent_;
+}
+
 // It is tricky to correctly handle skyline placement of cross-staff grobs.
 // For example, cross-staff beams cannot be formatted until the distance between
 // staves is known and therefore any grobs that depend on the beam cannot be placed
@@ -898,33 +881,9 @@ Axis_group_interface::skyline_spacing (Grob *me)
                     unsmob<Grob_array> (get_object (me, "vertical-skyline-elements"))
                     ? "vertical-skyline-elements"
                     : "elements",
-                    fakeelements);
-  vector<Grob *> elements (fakeelements);
-  for (vsize i = 0; i < elements.size (); i++)
-    /*
-      As a sanity check, we make sure that no grob with an outside staff priority
-      has a Y-parent that also has an outside staff priority, which would result
-      in two movings.
-    */
-    if (scm_is_number (get_property (elements[i], "outside-staff-priority"))
-        && outside_staff_ancestor (elements[i]))
-      {
-        elements[i]->warning (_ ("Cannot set outside-staff-priority for element and elements' Y parent."));
-        set_property (elements[i], "outside-staff-priority", SCM_BOOL_F);
-      }
-
-  /* For grobs with an outside-staff-priority, the sorting function might
-     call extent and cause suicide. This breaks the contract that is required
-     for the STL sort function. To avoid this, we make sure that any suicides
-     are triggered beforehand.
-  */
-  for (vsize i = 0; i < elements.size (); i++)
-    if (scm_is_number (get_property (elements[i], "outside-staff-priority")))
-      elements[i]->extent (elements[i], X_AXIS);
-
-  std::stable_sort (elements.begin (), elements.end (), staff_priority_less);
-  Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
-  Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
+                    orig_elements);
+  Grob *x_common = common_refpoint_of_array (orig_elements, me, X_AXIS);
+  Grob *y_common = common_refpoint_of_array (orig_elements, me, Y_AXIS);
 
   if (y_common != me)
     {
@@ -933,6 +892,35 @@ Axis_group_interface::skyline_spacing (Grob *me)
       y_common = me;
     }
 
+  vector<Skyline_key> elements;
+  elements.reserve (orig_elements.size ());
+  for (Grob *g : orig_elements)
+    {
+      /*
+        As a sanity check, we make sure that no grob with an outside staff priority
+        has a Y-parent that also has an outside staff priority, which would result
+        in two movings.
+      */
+      double priority = from_scm<double> (get_property (g, "outside-staff-priority"), -infinity_f);
+      double left_extent = 0;
+      if (!std::isinf (priority))
+        {
+          if (outside_staff_ancestor (g))
+            {
+              g->warning (_ ("Cannot set outside-staff-priority for element and elements' Y parent."));
+              set_property (g, "outside-staff-priority", SCM_BOOL_F);
+              priority = -infinity_f;
+            }
+          else
+            {
+              left_extent = g->extent (x_common, X_AXIS)[LEFT];
+            }
+          }
+      elements.emplace_back (g, priority, left_extent);
+    }
+
+  std::stable_sort (elements.begin (), elements.end ());
+
   // A rider is a grob that is not outside-staff, but has an outside-staff
   // ancestor.  In that case, the rider gets moved along with its ancestor.
   multimap<Grob *, Grob *> riders;
@@ -940,12 +928,9 @@ Axis_group_interface::skyline_spacing (Grob *me)
   vsize i = 0;
   vector<Skyline_pair> inside_staff_skylines;
 
-  for (i = 0;
-       i < elements.size ()
-       && !scm_is_number (get_property (elements[i], "outside-staff-priority"));
-       i++)
+  for (i = 0; i < elements.size () && std::isinf (elements[i].priority_); i++)
     {
-      Grob *elt = elements[i];
+      Grob *elt = elements[i].grob_;
       if (Grob *ancestor = outside_staff_ancestor (elt))
         riders.insert (pair<Grob *, Grob *> (ancestor, elt));
       else if (!from_scm<bool> (get_property (elt, "cross-staff")))
@@ -979,18 +964,16 @@ Axis_group_interface::skyline_spacing (Grob *me)
 
   for (; i < elements.size (); i++)
     {
-      if (from_scm<bool> (get_property (elements[i], "cross-staff")))
+      if (from_scm<bool> (get_property (elements[i].grob_, "cross-staff")))
         continue;
 
       // Collect all the outside-staff grobs that have a particular priority.
-      SCM priority = get_property (elements[i], "outside-staff-priority");
       vector<Grob *> current_elts;
-      current_elts.push_back (elements[i]);
-      while (i + 1 < elements.size ()
-             && ly_is_equal (get_property (elements[i + 1], "outside-staff-priority"), priority))
+      current_elts.push_back (elements[i].grob_);
+      while (i + 1 < elements.size () && elements[i].priority_ == elements[i + 1].priority_)
         {
-          if (!from_scm<bool> (get_property (elements[i + 1], "cross-staff")))
-            current_elts.push_back (elements[i + 1]);
+          if (!from_scm<bool> (get_property (elements[i + 1].grob_, "cross-staff")))
+            current_elts.push_back (elements[i + 1].grob_);
           ++i;
         }
 

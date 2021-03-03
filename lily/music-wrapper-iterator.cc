@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1998--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -52,11 +52,9 @@ Music_wrapper_iterator::create_children ()
 {
   Music_iterator::create_children ();
 
-  Music *my_music = get_music ();
-  Music *child = unsmob<Music> (get_property (my_music, "element"));
-  if (child)
+  if (auto m = unsmob<Music> (get_property (get_music (), "element")))
     {
-      SCM it_scm = get_static_get_iterator (child);
+      SCM it_scm = create_child (m);
       child_iter_ = unsmob<Music_iterator> (it_scm);
     }
 }

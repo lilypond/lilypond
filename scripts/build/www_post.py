@@ -2,7 +2,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2006--2020 John Mandereau <john.mandereau@gmail.com>
+# Copyright (C) 2006--2021 John Mandereau <john.mandereau@gmail.com>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 # USAGE: www_post PACKAGE_NAME TOPLEVEL_VERSION OUTDIR TARGETS
 # please call me from top of the source directory
 
-import codecs
 import sys
 import os
 import re

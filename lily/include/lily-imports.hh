@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2015--2020 by David Kastrup <dak@gnu.org>
+  Copyright (C) 2015--2021 by David Kastrup <dak@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -61,6 +61,7 @@ typedef Module_variable<module> Variable;
 extern Variable all_music_font_encodings;
 extern Variable alterations_in_key;
 extern Variable backend_testing;
+extern Variable bar_line_calc_glyph_name_for_direction;
 extern Variable base_length;
 extern Variable beam_exceptions;
 extern Variable beat_structure;

@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2020 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 2000--2021 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -16,14 +16,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-
-;; It is a pity that there is no rassoc in Scheme.
-(define*-public (rassoc item alist #:optional (test equal?))
-  (do ((alist alist (cdr alist))
-       (result #f result))
-      ((or result (null? alist)) result)
-    (if (and (car alist) (test item (cdar alist)))
-        (set! result (car alist)))))
+(use-modules ((ice-9 list)
+              #:select (rassoc)))
 
 (define (natural-chord-alteration p)
   "Return the natural alteration for step P."

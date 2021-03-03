@@ -3,7 +3,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2008--2020  Reinhold Kainhofer <reinhold@kainhofer.com>
+# Copyright (C) 2008--2021  Reinhold Kainhofer <reinhold@kainhofer.com>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,7 +46,6 @@
 # are added to the map for the translated manual.
 
 
-import codecs
 import sys
 import re
 import os
@@ -141,7 +140,7 @@ def extract_sections(filename):
     if not suppress_output:
         print('reading: %s' % filename)
     result = ''
-    f = codecs.open(filename, 'r', 'utf-8')
+    f = open(filename, 'r', encoding='utf-8')
     page = f.read()
     f.close()
 
@@ -229,7 +228,7 @@ def process_sections(filename, page):
     p = os.path.join(outdir, basename) + '.xref-map'
     if not suppress_output:
         print('writing:', p)
-    f = codecs.open(p, 'w', 'utf-8')
+    f = open(p, 'w', encoding='utf-8')
 
     node_prefix_title = ''
     this_title = ''

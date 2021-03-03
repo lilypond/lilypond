@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2020 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2021 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -129,7 +129,7 @@ Global_context::iterate (Music *music, bool force_found_music)
   Cpu_timer timer;
   message (_ ("Interpreting music..."));
 
-  SCM protected_iter = Music_iterator::get_static_get_iterator (music);
+  SCM protected_iter = Music_iterator::create_top_iterator (music);
   auto iter = unsmob<Music_iterator> (protected_iter);
 
   bool found_music = force_found_music;

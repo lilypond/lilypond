@@ -3,7 +3,7 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2006--2020  Han-Wen Nienhuys <hanwen@xs4all.nl>
+# Copyright (C) 2006--2021  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import codecs
 import difflib
 import errno
 import functools
@@ -532,7 +531,7 @@ class FileCompareLink (FileLink):
     def get_content(self, name):
         log_verbose('reading %s' % name)
         try:
-            return codecs.open(name, 'r', 'utf-8').read()
+            return open(name, 'r', encoding='utf-8').read()
         except IOError as e:
             if e.errno == errno.ENOENT:
                 return None
@@ -895,7 +894,7 @@ class ComparisonData:
             sf = val.source_file()
             if sf:
                 re.sub(r'\\sourcefilename "([^"]+)"',
-                       note_original, codecs.open(sf, 'r', 'utf-8').read())
+                       note_original, open(sf, 'r', encoding='utf-8').read())
             else:
                 print('no source for', val.file_names[1])
 
