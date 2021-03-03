@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5a886a7c8348e53e52ce65f4d8e9e197db3d5103
+%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
   texidocfr = "
 Les terminaisons des soufflets peuvent être décalées en jouant sur la
 propriété @code{shorten-pair} de l'objet@code{Hairpin}. Les valeurs

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 90f1e587efc2159450530da3eb8fb391d156a1dc
+%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
   texidocfr = "
 L'égaliseur basique peut être modifié par la définition d'une nouvelle
 procédure Scheme @code{instrumentEqualizer} au sein du contexte

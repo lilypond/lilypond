@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 600367eb76cd3f1e69afd9e595dd9f018f654bac
+%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
   texidocfr = "
 La propriété @code{minimum-length} d'une extension de trille -- objet
 @code{TrillSpanner} -- n'est effective qu'après un appel explicite à la

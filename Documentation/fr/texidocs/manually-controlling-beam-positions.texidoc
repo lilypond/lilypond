@@ -1,4 +1,4 @@
-%% Translation of GIT committish: fc57157ac8148a900fde059f045a1e287f1493e6
+%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
   texidocfr = "
 Le positionnement et la pente des ligatures peuvent être contrôlés
 manuellement à l'aide d'une adaptation de la propriété @code{positions}
