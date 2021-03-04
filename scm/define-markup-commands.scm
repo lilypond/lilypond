@@ -434,8 +434,7 @@ optionally filled.
   (boolean?)
   #:category graphic
   #:properties ((thickness 0.1)
-                (font-size 0)
-                (baseline-skip 2))
+                (font-size 0))
   "
 @cindex drawing triangle, within text
 
@@ -448,7 +447,10 @@ A triangle, either filled or empty.
   \\triangle ##f
 }
 @end lilypond"
-  (let ((ex (* (magstep font-size) 0.8 baseline-skip)))
+  ;; The value 1.8 was found by trial and error (previously, it was 0.8 *
+  ;; baseline-skip, which was only effective if the values for baseline-skip
+  ;; and font-size were both close to their default values)
+  (let ((ex (* (magstep font-size) 1.8)))
     (ly:make-stencil
      `(polygon (0.0 0.0
                     ,ex 0.0
