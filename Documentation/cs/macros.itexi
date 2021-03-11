@@ -155,23 +155,14 @@ Pro LilyPond ve verzi @version{}
 
 @c   ***** Headings in a doc subsection *****
 
-@c Don't insert an empty line after @predefined!  Right now
-@c it doesn't matter, but a future implementation will probably
-@c add some code which needs this restriction.
-
 @macro predefined
 @noindent
 @subsubheading Předem stanovené příkazy
+@raggedRight
 @end macro
 
-@c The next macro is a dummy currently since texinfo doesn't
-@c provide a real ragged-right environment yet.
-@c
-@c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
-@c the macro must not be empty.
-
 @macro endpredefined
-@c
+@endRaggedRight
 @end macro
 
 
