@@ -816,11 +816,11 @@ angegeben werden:
 
 
 @predefined
-
 @code{\autoBeamOff},
 @code{\autoBeamOn},
 @code{\melisma},
 @code{\melismaEnd}.
+@endpredefined
 
 @morerefs
 Glossar:
