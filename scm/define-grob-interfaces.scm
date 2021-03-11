@@ -266,6 +266,11 @@ accidentals)."
  '(fret-diagram-details graphical harp-pedal-details size thickness))
 
 (ly:add-interface
+ 'jump-script-interface
+ "A jump instruction, e.g. D.S."
+ '())
+
+(ly:add-interface
  'key-cancellation-interface
  "A key cancellation."
  '())

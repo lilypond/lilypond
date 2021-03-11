@@ -593,6 +593,7 @@ run."
   \consists "Tweak_engraver"
   \consists "System_start_delimiter_engraver"
   \consists "Mark_engraver"
+  \consists "Jump_engraver"
   \consists "Volta_engraver"
   \consists "Metronome_mark_engraver"
   \consists "Break_align_engraver"
@@ -721,6 +722,8 @@ run."
   extraNatural = ##t
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0))
   autoCautionaries = #'()
+
+  fineText = "Fine"
 
   printKeyCancellation = ##t
   keyAlterationOrder = #`(

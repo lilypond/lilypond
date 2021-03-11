@@ -323,6 +323,7 @@ segno with fine.  Default is @samp{|.S}.")
      (fineStartRepeatSegnoType ,string? "Set the default bar line for
 the combinations beginning of repeat with segno and fine.  Default is
 @samp{|.S.|:}.")
+     (fineText ,markup? "The text to print at @code{\\fine}.")
      (fingeringOrientations ,list? "A list of symbols, containing
 @samp{left}, @samp{right}, @samp{up} and/@/or @samp{down}.  This list
 determines where fingerings are put relative to the chord being

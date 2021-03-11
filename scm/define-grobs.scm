@@ -1371,6 +1371,38 @@
                                 text-interface))))))
 
 
+    ;; This is similar to a rehearsal mark, but is intended for a
+    ;; "point of departure" such as D.C.  See Behind Bars, pp. 238-240
+    ;; for style advice.
+    (JumpScript
+     . (
+        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (baseline-skip . 2)
+        (break-align-symbols . (staff-bar key-signature clef))
+        (break-visibility . ,begin-of-line-invisible)
+        (direction . ,DOWN) ; expect users to override to UP in vocal scores
+        (extra-spacing-width . (+inf.0 . -inf.0))
+        (font-shape . italic)
+        (non-musical . #t)
+        (outside-staff-horizontal-padding . 0.2)
+        (outside-staff-priority . 1500)
+        (padding . 0.8)
+        (self-alignment-X . ,RIGHT)
+        (stencil . ,ly:text-interface::print)
+        (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (interfaces . (break-alignable-interface
+                                font-interface
+                                jump-script-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface))))))
+
+
     (KeyCancellation
      . (
         (break-align-symbol . key-cancellation)
