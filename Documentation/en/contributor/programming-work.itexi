@@ -1374,21 +1374,29 @@ is found in @file{input/regression/graphviz.ly}.
 
 @item Run LilyPond with output sent to a log file
 
-The Graphviz data is sent to stderr by LilyPond, so it is
-necessary to redirect stderr to a logfile:
+The Graphviz data can be sent to an arbitrary output port,
+including files, standard output or standard error.
+In the example given in @file{input/regression/graphviz.ly},
+the graph is sent to stderr, like normal progress messages.
+You can redirect it to a logfile:
 
 @example
 lilypond graphviz.ly 2> graphviz.log
 @end example
 
-@item Edit the logfile
-
-The logfile has standard LilyPond output, as well as the Graphviz
-output data.  Delete everything from the beginning of the file
+@noindent
+In this case, you have to delete everything from the beginning of the file
 up to but not including the first occurrence of @code{digraph}.
-
 Also, delete the final LilyPond message about success from the end
 of the file.
+
+Alternatively, you can change the output port to stdout.
+See @file{input/regression/graphviz.ly} for a commented example.
+Then you get only the graph with the following invocation:
+
+@example
+lilypond graphviz.ly 1> graphviz.dot
+@end example
 
 @item Process the logfile with @code{dot}
 
@@ -1396,12 +1404,26 @@ The directed graph is created from the log file with the program
 @code{dot}:
 
 @example
-dot -Tpdf graphviz.log > graphviz.pdf
+dot -Tpdf graphviz.dot > graphviz.pdf
 @end example
 
-@end enumerate
-
 The pdf file can then be viewed with any pdf viewer.
+
+@item Interpret the created graph
+
+Depending on the callbacks that were specified to be tracked within
+the Graphviz framework, the graph does contain varying information.
+It is possible to track grob creation, modification of grob properties
+and caching of grob properties.  Generally, all tracked events
+happening to a particular grob are presented as a directed graph,
+with arrows connecting the events.  All property modifications that
+occur within a specific file in the source code are grouped by
+a blue border.  Caching a grob property means to calculate the result
+of a callback function once and store the result afterwards for further
+use.  The node labels can be configured freely.  To understand which
+information is showed by default, see @file{ly/graphviz-init.ly}.
+
+@end enumerate
 
 When compiled with @option{-DDEBUG}, LilyPond may run slower
 than normal.  The original configuration can be restored by rerunning
