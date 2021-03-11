@@ -198,7 +198,6 @@ Para LilyPond versão @version{}
 @c   ***** Headings in a doc subsection *****
 
 @macro predefined
-@noindent
 @subsubheading Comandos predefinidos
 @raggedRight
 @end macro
@@ -209,7 +208,6 @@ Para LilyPond versão @version{}
 
 
 @macro snippets
-@noindent
 @subsubheading Trechos selecionados
 @end macro
 
@@ -218,14 +216,12 @@ Para LilyPond versão @version{}
 @c unwanted extra vertical space in the PDF output.
 
 @macro morerefs
-@noindent
 @subsubheading Veja também
 @indent
 @end macro
 
 
 @macro knownissues
-@noindent
 @subsubheading Problemas conhecidos e avisos
 @end macro
 

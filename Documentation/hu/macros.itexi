@@ -148,7 +148,6 @@ A LilyPond @version{} verziójához
 @c   ***** Headings in a doc subsection *****
 
 @macro predefined
-@noindent
 @subsubheading Előre definiált parancsok
 @raggedRight
 @end macro
@@ -159,7 +158,6 @@ A LilyPond @version{} verziójához
 
 
 @macro snippets
-@noindent
 @subsubheading Válogatott kódrészletek
 @end macro
 
@@ -168,14 +166,12 @@ A LilyPond @version{} verziójához
 @c unwanted extra vertical space in the PDF output.
 
 @macro morerefs
-@noindent
 @subsubheading Lásd még
 @indent
 @end macro
 
 
 @macro knownissues
-@noindent
 @subsubheading Ismert problémák és figyelmeztetések
 @end macro
 

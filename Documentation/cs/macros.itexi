@@ -156,7 +156,6 @@ Pro LilyPond ve verzi @version{}
 @c   ***** Headings in a doc subsection *****
 
 @macro predefined
-@noindent
 @subsubheading Předem stanovené příkazy
 @raggedRight
 @end macro
@@ -167,7 +166,6 @@ Pro LilyPond ve verzi @version{}
 
 
 @macro snippets
-@noindent
 @subsubheading Vybrané úryvky
 @end macro
 
@@ -177,14 +175,12 @@ Pro LilyPond ve verzi @version{}
 @c unwanted extra vertical space in the PDF output.
 
 @macro morerefs
-@noindent
 @subsubheading Podívejte se také na
 @indent
 @end macro
 
 
 @macro knownissues
-@noindent
 @subsubheading Známé potíže a upozornění
 @end macro
 

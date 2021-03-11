@@ -199,7 +199,6 @@ Voor LilyPond versie @version{}
 @c   ***** Headings in a doc subsection *****
 
 @macro predefined
-@noindent
 @subsubheading Voorgedefiniëerde commando's
 @raggedRight
 @end macro
@@ -210,7 +209,6 @@ Voor LilyPond versie @version{}
 
 
 @macro snippets
-@noindent
 @subsubheading Uitgezochte snippers
 @end macro
 
@@ -219,14 +217,12 @@ Voor LilyPond versie @version{}
 @c unwanted extra vertical space in the PDF output.
 
 @macro morerefs
-@noindent
 @subsubheading Zie ook
 @indent
 @end macro
 
 
 @macro knownissues
-@noindent
 @subsubheading Bekende problemen en waarschuwingen
 @end macro
 
