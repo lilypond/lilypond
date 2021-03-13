@@ -24,8 +24,8 @@
 
 #(define last-grob-action '())
 
-#(define sym-blacklist '())
-#(define sym-whitelist '())
+#(define symbol-blacklist '())
+#(define symbol-whitelist '())
 
 #(define file-line-blacklist '())
 #(define file-line-whitelist '())
@@ -33,16 +33,7 @@
 #(define grob-blacklist '())
 #(define grob-whitelist '())
 
-#(define (blacklist-symbol sym)
-  (set! sym-blacklist (cons sym sym-blacklist)))
-
-#(define (whitelist-symbol sym)
-  (set! sym-whitelist (cons sym sym-whitelist)))
-
-#(define (whitelist-grob sym)
-  (set! grob-whitelist (cons sym grob-whitelist)))
-
-#(define graph (make-empty-graph (ly:parser-output-name)))
+#(define graph '())
 
 % an event is relevant if
 % (it is on some whitelist or all whitelists are empty)
@@ -53,12 +44,12 @@
   (let ((file-line `(,file . ,line)))
    (and
     (or
-     (= 0 (length file-line-whitelist) (length sym-whitelist) (length grob-whitelist))
-     (memq prop sym-whitelist)
+     (= 0 (length file-line-whitelist) (length symbol-whitelist) (length grob-whitelist))
+     (memq prop symbol-whitelist)
      (memq (grob::name grob) grob-whitelist)
      (member file-line file-line-whitelist))
     (and
-     (not (memq prop sym-blacklist))
+     (not (memq prop symbol-blacklist))
      (not (memq (grob::name grob) grob-blacklist))
      (not (member file-line file-line-blacklist))))))
 
@@ -148,15 +139,46 @@
      (let ((formatted-label (formatter grob file line func)))
        (grob-event-node grob formatted-label file))))
 
-#(ly:set-grob-modification-callback (make-grob-mod-callback
-                                      (assoc-get
-                                        'mod
-                                         default-label-formatters)))
-#(ly:set-property-cache-callback (make-grob-cache-callback
-                                   (assoc-get
-                                     'cache
-                                      default-label-formatters)))
-%#(ly:set-grob-creation-callback (make-grob-create-callback
-%                                  (assoc-get
-%                                    'create
-%                                     default-label-formatters)))
+graphvizSetupCallbacks =
+#(define-void-function (callbacks formatting whitelists blacklists)
+                       (list? list? list? list?)
+   (let* ((fmtrs (if (null? formatting)
+                  default-label-formatters
+                  (make-all-label-formatters formatting)))
+          (set-callback!
+            (lambda (callback)
+              (case callback
+                ((mod)
+                  (ly:set-grob-modification-callback (make-grob-mod-callback
+                                                       (assoc-get
+                                                         'mod
+                                                         fmtrs))))
+                ((cache)
+                  (ly:set-property-cache-callback (make-grob-cache-callback
+                                                    (assoc-get
+                                                      'cache
+                                                       fmtrs))))
+                ((create)
+                  (ly:set-grob-creation-callback (make-grob-create-callback
+                                                   (assoc-get
+                                                     'create
+                                                      fmtrs))))))))
+     (set! graph (make-empty-graph (ly:parser-output-name)))
+     (set! symbol-whitelist (assoc-get 'symbol whitelists '()))
+     (set! symbol-blacklist (assoc-get 'symbol blacklists '()))
+     (set! grob-whitelist (assoc-get 'grob whitelists '()))
+     (set! grob-blacklist (assoc-get 'grob blacklists '()))
+     (set! file-line-whitelist (assoc-get 'file-line whitelists '()))
+     (set! file-line-blacklist (assoc-get 'file-line blacklists '()))
+     (for-each set-callback! callbacks)))
+
+graphvizWriteGraph =
+#(define-void-function (output-port)
+                       (port?)
+  (graph-write graph output-port))
+
+graphvizReleaseCallbacks =
+#(define-void-function () ()
+  (ly:set-grob-modification-callback #f)
+  (ly:set-property-cache-callback #f)
+  (ly:set-grob-creation-callback #f))

@@ -5,14 +5,13 @@
   texidoc = "The graphviz feature draws dependency graphs for grob properties."
 }
 
-#(whitelist-grob 'NoteHead)
-#(whitelist-grob 'Stem)
-#(whitelist-grob 'Flag)
+whitelists = #'((grob . (NoteHead Stem Flag))
+                (symbol . (stencil style duration-log stem-attachment
+                           end-position staff-position glyph-name direction)))
 
-#(for-each whitelist-symbol
-   '(stencil style duration-log stem-attachment end-position staff-position
-     glyph-name direction))
+blacklists = #'()
 
+\graphvizSetupCallbacks #'(mod cache) #'() #whitelists #blacklists
 
 \book {
   \score {
@@ -20,7 +19,10 @@
   }
 }
 
-#(ly:progress (call-with-output-string
-  (lambda (port) (graph-write graph port))))
-#(ly:set-grob-modification-callback #f)
-#(ly:set-property-cache-callback #f)
+\graphvizWriteGraph #(current-error-port)
+% The graph is written to stderr and therefore becomes part
+% of the normal program output. This is done here to get coverage
+% in the regression tests. To split normal progress messages and
+% graphviz output, set the output port to stdout instead:
+% \graphvizWriteGraph #(current-output-port)
+\graphvizReleaseCallbacks
