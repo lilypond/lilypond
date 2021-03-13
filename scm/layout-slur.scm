@@ -16,7 +16,7 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 ;; this is put into the slur-details property of Slur and PhrasingSlur
-(define default-slur-details
+(define-public default-slur-details
   '((region-size . 4)
     (head-encompass-penalty . 1000.0)
     (stem-encompass-penalty . 30.0)

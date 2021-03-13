@@ -374,7 +374,7 @@ If @code{'elements} is empty return @code{'(0 . 0)}"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff symbol
 
-(define staff-symbol-referencer::callback
+(define-public staff-symbol-referencer::callback
   (ly:make-unpure-pure-container ly:staff-symbol-referencer::callback))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1024,7 +1024,7 @@ may or may not use it."
 
 (define-public (parentheses-item::y-extent grob) (ly:grob::stencil-height grob))
 
-(define (parenthesize-elements grob . rest)
+(define-public (parenthesize-elements grob . rest)
   (let* ((refp (if (null? rest)
                    grob
                    (car rest)))
@@ -1814,7 +1814,7 @@ them as a pair."
          (sorted-right-pitches (sort right-pitches ly:pitch<?)))
     (cons sorted-left-pitches sorted-right-pitches)))
 
-(define (bend::target-cautionary spanner)
+(define-public (bend::target-cautionary spanner)
   "Sets @code{'display-cautionary} of all relevant note heads of spanners right
 bound to true.  As a result they appear parenthesized.
 This procedure is the default value of @code{'before-line-breaking}."
@@ -1826,7 +1826,7 @@ This procedure is the default value of @code{'before-line-breaking}."
          (ly:grob-set-property! right-tab-nh 'display-cautionary #t))
        right-note-heads)))
 
-(define (bend::text-string spanner)
+(define-public (bend::text-string spanner)
   "Takes a spanner-grob, calculates a list with the quarter tone diffs between
 the pitches of starting and ending bound.  Because bending to different amounts
 is very unlikely, only the first element of this list is returned as a string."
@@ -1870,7 +1870,7 @@ Doesn't work for beams."
             (ly:grob-set-property! tab-note-head 'transparent #t))))
     tab-heads))
 
-(define (bend::calc-bend-x-end
+(define-public (bend::calc-bend-x-end
            bend-spanner top-left-tab-nhd top-right-tab-nhd)
   "Calculates the ending X-coordinate of @var{bend-spanner}.  At the line end
 take the items of @code{BreakAlignGroup} into account and a little padding.
@@ -1945,7 +1945,7 @@ topmost note head of its bounding note column."
                      0)))
           (+ right-bound-x-coord (interval-center top-right-tab-nhd-x-ext))))))
 
-(define (bend::calc-bend-x-begin
+(define-public (bend::calc-bend-x-begin
            bend-spanner bounding-noteheads factor quarter-tone-diffs)
   "Calculates the starting values in X-direction of the bend.
 After a line break, the values from the right bound are taken minus 1.5
@@ -2056,7 +2056,7 @@ padding is added."
       ;; TODO let it rely on a separate details-property?
       (cons x (+ y (* scale-factor vertical-padding 2))))))
 
-(define (bend::arrow-head-stencil
+(define-public (bend::arrow-head-stencil
             thickness x-y-coords height width dir)
   "Returns an arrow head stencil.  Calculated from the given dimensions
 @var{height} and @var{width}, translated to @var{x-y-coords}, the end of
@@ -2895,7 +2895,7 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; finger glide spanner
 
-(define finger-glide::print
+(define-public finger-glide::print
   (lambda (grob)
   "The stencil printing procedure for grob @code{FingerGlideSpanner}.
 Depending on the grob property @code{style} several forms of appearance are
