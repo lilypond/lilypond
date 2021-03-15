@@ -59,6 +59,16 @@ static Protected_scm cache_callback (SCM_EOL);
 FIXME: this should use ly:set-option interface instead.
 */
 
+SCM
+check_debug_callback (SCM cb)
+{
+  if (scm_is_false (cb))
+    return SCM_EOL;
+
+  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
+  return cb;
+}
+
 LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
            1, 0, 0, (SCM cb),
            "Specify a procedure that will be called every time LilyPond"
@@ -68,9 +78,10 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
            " number in the C++ file in which the modification was requested,"
            " the name of the function in which the modification was"
            " requested, the property to be changed, and the new value for"
-           " the property.")
+           " the property.  Call with @code{#f} as argument to unset the"
+           " callback.")
 {
-  modification_callback = (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
+  modification_callback = check_debug_callback (cb);
   return SCM_UNSPECIFIED;
 }
 
@@ -81,9 +92,10 @@ LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
            " callback will receive as arguments the grob whose property it"
            " is, the name of the property, the name of the callback that"
            " calculated the property, and the new (cached) value of the"
-           " property.")
+           " property.  Call with @code{#f} as argument to unset the"
+           " callback.")
 {
-  cache_callback = (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
+  cache_callback = check_debug_callback (cb);
   return SCM_UNSPECIFIED;
 }
 

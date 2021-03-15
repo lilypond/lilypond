@@ -21,6 +21,7 @@
 
 #include "context.hh"
 #include "grob-properties.hh"
+#include "grob.hh"
 #include "international.hh"
 #include "music.hh"
 #include "paper-column.hh"
@@ -95,12 +96,10 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
            " is created.  The callback will receive as arguments the grob"
            " that was created, the name of the C++ source file that caused"
            " the grob to be created, and the corresponding line number in"
-           " the C++ source file.")
+           " the C++ source file.  Call with @code{#f} as argument to unset"
+           " the callback.")
 {
-  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
-
-  creation_callback = cb;
-
+  creation_callback = check_debug_callback(cb);
   return SCM_UNSPECIFIED;
 }
 
