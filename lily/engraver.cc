@@ -87,8 +87,8 @@ Engraver::Engraver (Context *c)
 {
 }
 
-#ifdef DEBUG
 static SCM creation_callback = SCM_EOL;
+
 LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
            1, 0, 0, (SCM cb),
            "Specify a procedure that will be called every time a new grob"
@@ -103,7 +103,6 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
 
   return SCM_UNSPECIFIED;
 }
-#endif
 
 Grob *
 Engraver::internal_make_grob (SCM symbol,
