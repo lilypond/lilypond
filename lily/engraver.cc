@@ -87,7 +87,7 @@ Engraver::Engraver (Context *c)
 {
 }
 
-static SCM creation_callback = SCM_EOL;
+static Protected_scm creation_callback (SCM_EOL);
 
 LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
            1, 0, 0, (SCM cb),
