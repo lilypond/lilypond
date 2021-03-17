@@ -255,7 +255,7 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
 */
 MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, 1,
                                  "Optional stencil for @code{PaperColumn} or"
-                                 "@code{NonMusicalPaperColumn}.\n"
+                                 " @code{NonMusicalPaperColumn}.\n"
                                  "Draws the @code{rank number} of each column,"
                                  " its moment in time, a blue arrow showing the"
                                  " ideal distance, and a red arrow showing the"

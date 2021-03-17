@@ -10,8 +10,10 @@ signatures, set this property directly.
 
 The format of this command is a list:
 
-@code{\\set Staff.keyAlterations = #`(((octave . step) . alter) ((octave
-. step) . alter) ...)}
+@verbatim
+\\set Staff.keyAlterations =
+  #`(((octave . step) . alter) ((octave . step) . alter) ...)
+@end verbatim
 
 where, for each element in the list @code{octave} specifies the octave
 (0 being the octave from middle c to the b above), @code{step} specifies

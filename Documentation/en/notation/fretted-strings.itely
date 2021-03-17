@@ -802,10 +802,10 @@ written.
 @end lilypond
 
 The default string tuning is @code{guitar-tuning}, which
-is the standard EADGBE tuning.  Some other predefined tunings are
-@code{guitar-open-g-tuning}, @code{mandolin-tuning} and
-@code{banjo-open-g-tuning}.  The predefined string tunings
-are found in @file{ly/string-tunings-init.ly}.
+is the standard @w{EADGBE} tuning.  Some other predefined tunings are
+@code{guitar-@/open-g-@/tuning}, @code{mandolin-@/tuning} and
+@code{banjo-@/open-g-@/tuning}.  The predefined string tunings
+are found in @file{ly/string-@/tunings-@/init.ly}.
 
 @funindex \stringTuning
 @cindex tablature, custom string tunings
@@ -1461,17 +1461,17 @@ are stored in a lookup table:
 @end lilypond
 
 The default predefined fret diagrams are contained in the file
-@file{predefined-guitar-fretboards.ly}.  Fret diagrams are
+@file{predefined-@/guitar-@/fretboards.ly}.  Fret diagrams are
 stored based on the pitches of a chord and the value of
 @code{stringTunings} that is currently in use.
-@file{predefined-guitar-fretboards.ly} contains predefined
-fret diagrams only for @code{guitar-tuning}.  Predefined fret
+@file{predefined-@/guitar-@/fretboards.ly} contains predefined
+fret diagrams only for @code{guitar-@/tuning}.  Predefined fret
 diagrams can be added for other instruments or other tunings
 by following the examples found in
-@file{predefined-guitar-fretboards.ly}.
+@file{predefined-@/guitar-@/fretboards.ly}.
 
-Fret diagrams for the ukulele are contained in the file @*
-@file{predefined-ukulele-fretboards.ly}.
+Fret diagrams for the ukulele are contained in the file
+@file{predefined-@/ukulele-@/fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
@@ -2209,9 +2209,9 @@ music = {
 @funindex four-string-banjo
 
 A number of common tunings for the five-string banjo are predefined:
-@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
-@code{banjo-open-d-tuning} (aDF#AD) and @code{banjo-open-dm-tuning}
-(aDFAD).
+@code{banjo-@/c-tuning} @w{(gCGBD)}, @code{banjo-@/modal-@/tuning} @w{(gDGCD)},
+@code{banjo-@/open-d-@/tuning} @w{(aDF#AD)}, and @code{banjo-@/open-dm-@/tuning}
+@w{(aDFAD)}.
 
 These may be converted to four-string tunings using the
 @code{four-string-banjo} function:

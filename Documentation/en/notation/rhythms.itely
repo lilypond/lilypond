@@ -2368,8 +2368,8 @@ it means that the current beaming settings need not be known in order
 to specify a new beaming pattern.}
 
 When the time signature is changed, default values of
-@code{Timing.baseMoment}, @code{Timing.beatStructure},
-and @code{Timing.beamExceptions} are set.  Setting the time signature
+@code{Timing@/.baseMoment}, @code{Timing@/.beatStructure},
+and @code{Timing@/.beamExceptions} are set.  Setting the time signature
 will reset the automatic beaming settings for the @code{Timing}
 context to the default behavior.
 
@@ -3460,14 +3460,14 @@ produces a boxed number.
 @end lilypond
 
 The file @file{scm/translation-functions.scm} contains the
-definitions of @code{format-mark-letters} (the default format),
-@code{format-mark-box-letters}, @code{format-mark-numbers} and
-@code{format-mark-box-numbers}.  These can be used as inspiration
+definitions of @code{format-@/mark-@/letters} (the default format),
+@code{format-@/mark-@/box-@/letters}, @code{format-@/mark-@/numbers}, and
+@code{format-@/mark-@/box-@/numbers}.  These can be used as inspiration
 for other formatting functions.
 
-You may use @code{format-mark-barnumbers},
-@code{format-mark-box-barnumbers}, and
-@code{format-mark-circle-barnumbers} to get bar numbers instead of
+You may use @code{format-@/mark-@/barnumbers},
+@code{format-@/mark-@/box-@/barnumbers}, and
+@code{format-@/mark-@/circle-@/barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
 Other styles of rehearsal mark can be specified manually:

@@ -783,7 +783,7 @@ Installed Files:
 @unnumberedsubsubsec @code{\paper} variables for shifts and indents
 
 Default values (before scaling) that are not listed here are
-defined in @file{ly/paper-defaults-init.ly}.
+defined in @file{ly/@/paper-@/defaults-@/init.ly}.
 
 @table @code
 
@@ -893,10 +893,10 @@ Default values not listed here are defined in
 @funindex page-breaking
 
 The page-breaking algorithm to use.  Choices are
-@code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
-@code{ly:one-line-auto-height-breaking}, and @code{ly:optimal-breaking}.
-Default: @code{ly:optimal-breaking}.
+@code{ly:@/minimal-@/breaking}, @code{ly:@/page-@/turn-@/breaking},
+@code{ly:@/one-@/page-@/breaking}, @code{ly:@/one-@/line-@/breaking},
+@code{ly:@/one-@/line-@/auto-@/height-@/breaking}, and @code{ly:@/optimal-@/breaking}.
+Default: @code{ly:@/optimal-@/breaking}.
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -904,8 +904,8 @@ Default: @code{ly:optimal-breaking}.
 Tricks the page breaker into thinking that
 @code{system-system-spacing} is set to something different than
 it really is.  For example, if
-@code{page-breaking-system-system-spacing.padding} is set to something
-substantially larger than @code{system-system-spacing.padding}, then the
+@code{page-@/breaking-@/system-@/system-@/spacing.padding} is set to something
+substantially larger than @code{system-@/system-@/spacing.padding}, then the
 page-breaker will put fewer systems on each page.  Default: unset.
 
 @item page-count
@@ -926,7 +926,7 @@ spacing more important.  Default: @code{10}.
 @end table
 
 The following variables are effective only when @code{page-breaking}
-is set to @code{ly:page-turn-breaking}.  Page breaks are then chosen
+is set to @code{ly:@/page-@/turn-@/breaking}.  Page breaks are then chosen
 to minimize the number of page turns.  Since page turns are required
 on moving from an odd-numbered page to an even-numbered one, a
 layout in which the last page is odd-numbered will usually be
@@ -949,7 +949,7 @@ will be the associated action relative to other choices.
 @funindex blank-page-penalty
 
 The penalty for having a blank page in the middle of a score.  If
-@code{blank-page-penalty} is large and @code{ly:page-turn-breaking} is
+@code{blank-@/page-@/penalty} is large and @code{ly:page-turn-breaking} is
 selected, then LilyPond will be less likely to insert a page in the
 middle of a score.  Instead, it will space out the music further to
 fill the blank page and the following one.  Default: 5.
@@ -958,7 +958,7 @@ fill the blank page and the following one.  Default: 5.
 @funindex blank-last-page-penalty
 
 The penalty for ending the score on an even-numbered page.  If
-@code{blank-last-page-penalty} is large and
+@code{blank-@/last-@/page-@/penalty} is large and
 @code{ly:page-turn-breaking} is selected, then LilyPond will be less
 likely to produce a score in which the last page is even-numbered.
 Instead, it will adjust the spacing in order to use one page more or
@@ -2006,7 +2006,8 @@ center of its @code{StaffSymbol} (i.e., the middle line if
 even).  The reference points for individual non-staff lines are
 given in the following table:
 
-@multitable {Non-staff line} {Reference point}
+@quotation
+@multitable {@b{Non-staff line}} {mid-height of @q{m}}
 @headitem Non-staff line @tab Reference point
 @item @code{ChordNames}  @tab baseline
 @item @code{NoteNames}   @tab baseline
@@ -2015,6 +2016,7 @@ given in the following table:
 @item @code{FiguredBass} @tab highest point
 @item @code{FretBoards}  @tab top line
 @end multitable
+@end quotation
 
 In the following image, horizontal lines indicate the positions
 of these reference points:

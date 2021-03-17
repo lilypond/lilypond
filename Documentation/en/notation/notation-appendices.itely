@@ -186,7 +186,7 @@ Minor triad, @*minor seventh
 @end lilypond
 
 @item
-Diminished seventh
+Diminished @*seventh
 @tab
 Diminished triad, @*diminished seventh
 @tab
@@ -202,7 +202,7 @@ Diminished triad, @*diminished seventh
 @end lilypond
 
 @item
-Augmented seventh
+Augmented @*seventh
 @tab
 Augmented triad, @*minor seventh
 @tab
@@ -218,7 +218,7 @@ Augmented triad, @*minor seventh
 @end lilypond
 
 @item
-Half-diminished seventh
+Half-diminished @*seventh
 @tab
 Diminished triad, @*minor seventh
 @tab
@@ -234,7 +234,7 @@ Diminished triad, @*minor seventh
 @end lilypond
 
 @item
-Minor-major seventh
+Minor-major @*seventh
 @tab
 Minor triad, @*major seventh
 @tab
@@ -378,7 +378,7 @@ Minor ninth, @*perfect eleventh
 @end lilypond
 
 @item
-Dominant thirteenth
+Dominant @*thirteenth
 @tab
 Dominant ninth, @*major thirteenth
 @tab
@@ -394,7 +394,7 @@ Dominant ninth, @*major thirteenth
 @end lilypond
 
 @item
-Dominant thirteenth
+Dominant @*thirteenth
 @tab
 Dominant eleventh, @*major thirteenth
 @tab

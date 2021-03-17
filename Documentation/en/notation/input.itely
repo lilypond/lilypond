@@ -2284,25 +2284,43 @@ Expressions tagged in this way can be selected or filtered out by
 name later, using either @code{\keepWithTag #'@var{name}} or
 @code{\removeWithTag #'@var{name}}.  The result of applying these filters
 to tagged music is as follows:
+
 @multitable @columnfractions .5 .5
 @headitem Filter
   @tab Result
+
 @item
-Tagged music preceded by @code{\keepWithTag #'@var{name}} or
-       @code{\keepWithTag #'(@var{name1} @var{name2}@dots{})}
-@tab Untagged music and music tagged with any of the given tag
-     names is included;
-     music tagged with any other tag name is excluded.
+Tagged music preceded by
+@example
+\keepWithTag #'@var{name}
+@end example
+@noindent
+or
+@example
+\keepWithTag #'(@var{name1} @var{name2}@dots{})
+@end example
+  @tab Untagged music and music tagged with any of the given tag
+       names is included;
+       music tagged with any other tag name is excluded.
+
 @item
-Tagged music preceded by @code{\removeWithTag #'@var{name}} or
-       @code{\removeWithTag #'(@var{name1} @var{name2}@dots{})}
-@tab Untagged music and music not tagged with any of the given tag names
-     is included; music tagged with any of the given tag names is
-     excluded.
+Tagged music preceded by
+@example
+\removeWithTag #'@var{name}
+@end example
+@noindent
+or
+@example
+\removeWithTag #'(@var{name1} @var{name2}@dots{})
+@end example
+  @tab Untagged music and music not tagged with any of the given tag names
+       is included; music tagged with any of the given tag names is
+       excluded.
+
 @item
-Tagged music not preceded by either @code{\keepWithTag} or
-@code{\removeWithTag}
-@tab All tagged and untagged music is included.
+Tagged music not preceded by either@*
+@code{\keepWithTag} or @code{\removeWithTag}
+  @tab All tagged and untagged music is included.
 @end multitable
 
 The arguments of the @code{\tag}, @code{\keepWithTag} and
@@ -3025,11 +3043,11 @@ you can use them in the same way as Gonville.
 
 That is, copy the
 @file{@var{fontname}-*.otf}
-files to @file{@dots{}/share/lilypond/current/fonts/otf} or
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
-If you have @file{@var{fontname}-*.svg} and @file{@var{fontname}-*.woff} files,
-copy them to @file{@dots{}/share/lilypond/current/fonts/svg} or
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+files to @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} or
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
+If you have @file{@var{fontname}-*@/.svg} and @file{@var{fontname}-*@/.woff} files,
+copy them to @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} or
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 
 Note: At the moment, LilyPond expects the font file names to have the following
 suffixes, all of which must be present in the above installation folder(s) to

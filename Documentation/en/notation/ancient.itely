@@ -849,8 +849,8 @@ Internals Reference:
 There is limited support for white mensural ligatures.
 
 To engrave white mensural ligatures, in the layout block, replace
-the @code{Ligature_bracket_engraver} with the
-@code{Mensural_ligature_engraver} in the @code{Voice}
+the @code{Ligature_@/bracket_@/engraver} with the
+@code{Mensural_@/ligature_@/engraver} in the @code{Voice}
 context:
 
 @example
@@ -1022,7 +1022,9 @@ line, as described in @ref{Clef}.  The note printed to the right
 side of each clef in the example column denotes the @code{c'} with
 respect to that clef.
 
-@multitable @columnfractions .4 .4 .2
+@need 1000
+@quotation
+@multitable @columnfractions .37 .36 .2
 @item
 @b{Description}
 @tab
@@ -1137,6 +1139,7 @@ hufnagel style combined do/fa clef
   c'
 @end lilypond
 @end multitable
+@end quotation
 
 @morerefs
 Music Glossary:
@@ -1572,7 +1575,9 @@ shows the code fragment that produces this ligature, using
 
 @b{Single-note neums}
 
-@multitable @columnfractions .4 .12 .48
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 @b{Basic} and @emph{Liquescent} forms
@@ -1714,11 +1719,14 @@ shows the code fragment that produces this ligature, using
 @tab
 
 @end multitable
+@end quotation
 
 @noindent
 @b{Two-note ligatures}
 
-@multitable @columnfractions .4 .12 .48
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 @b{Clivis vel Flexa}
@@ -1734,7 +1742,6 @@ shows the code fragment that produces this ligature, using
 @end lilypond
 @tab
 @code{\[ b \flexa g \]}
-
 
 @item
 @emph{Clivis Aucta Descendens}
@@ -1857,7 +1864,8 @@ shows the code fragment that produces this ligature, using
 @code{\[ \deminutum g \pes b \]}
 
 @item
-@emph{Pes Auctus Descendens Initio Debilis}
+@emph{Pes Auctus Descendens@*
+Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
@@ -1869,14 +1877,18 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \deminutum g \pes \auctum \descendens b \]}
+@code{\[ \deminutum g \pes \auctum@*
+\descendens b \]}
 
 @end multitable
+@end quotation
 
 @noindent
 @b{Multi-note ligatures}
 
-@multitable @columnfractions .4 .12 .48
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 @b{Torculus}
@@ -1906,7 +1918,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \pes b \flexa \auctum \descendens g \]}
+@code{\[ a \pes b \flexa \auctum@*
+\descendens g \]}
 
 @item
 @emph{Torculus Deminutus}
@@ -1939,7 +1952,8 @@ shows the code fragment that produces this ligature, using
 @code{\[ \deminutum a \pes b \flexa g \]}
 
 @item
-@emph{Torculus Auctus Descendens Initio Debilis}
+@emph{Torculus Auctus Descendens@*
+Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
@@ -1951,10 +1965,12 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \deminutum a \pes b \flexa \auctum \descendens g \]}
+@code{\[ \deminutum a \pes b \flexa \auctum@*
+\descendens g \]}
 
 @item
-@emph{Torculus Deminutus Initio Debilis}
+@emph{Torculus Deminutus@*
+Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
@@ -1966,7 +1982,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \deminutum a \pes b \flexa \deminutum g \]}
+@code{\[ \deminutum a \pes b \flexa@*
+\deminutum g \]}
 
 @item
 @b{Porrectus}
@@ -1996,7 +2013,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \flexa g \pes \auctum \descendens b \]}
+@code{\[ a \flexa g \pes \auctum@*
+\descendens b \]}
 
 @item
 @emph{Porrectus Deminutus}
@@ -2026,7 +2044,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \virga b \inclinatum a \inclinatum g \]}
+@code{\[ \virga b \inclinatum a@*
+\inclinatum g \]}
 
 @item
 @emph{Climacus Auctus}
@@ -2041,7 +2060,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \virga b \inclinatum a \inclinatum \auctum g \]}
+@code{\[ \virga b \inclinatum a@*
+\inclinatum \auctum g \]}
 
 @item
 @emph{Climacus Deminutus}
@@ -2056,7 +2076,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \virga b \inclinatum a \inclinatum \deminutum g \]}
+@code{\[ \virga b \inclinatum a@*
+\inclinatum \deminutum g \]}
 
 @item
 @b{Scandicus}
@@ -2086,7 +2107,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ g \pes a \pes \auctum \descendens b \]}
+@code{\[ g \pes a \pes@*
+\auctum \descendens b \]}
 
 @item
 @emph{Scandicus Deminutus}
@@ -2104,11 +2126,14 @@ shows the code fragment that produces this ligature, using
 @code{\[ g \pes a \pes \deminutum b \]}
 
 @end multitable
+@end quotation
 
 @noindent
 @b{Special Signs}
 
-@multitable @columnfractions .4 .12 .48
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 @b{Quilisma}
@@ -2138,7 +2163,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \quilisma g \pes \auctum \descendens b \]}
+@code{\[ \quilisma g \pes \auctum@*
+\descendens b \]}
 
 @item
 @b{Oriscus}
@@ -2183,7 +2209,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \oriscus g \pes \auctum \descendens b \]}
+@code{\[ \oriscus g \pes \auctum@*
+\descendens b \]}
 
 @item
 @b{Salicus}
@@ -2213,7 +2240,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ g \oriscus a \pes \auctum \descendens b \]}
+@code{\[ g \oriscus a \pes \auctum@*
+\descendens b \]}
 
 @item
 @b{(Apo)stropha}
@@ -2273,7 +2301,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \stropha b \stropha b \stropha b \]}
+@code{\[ \stropha b \stropha b@*
+\stropha b \]}
 
 @item
 @emph{Trigonus}
@@ -2289,9 +2318,11 @@ shows the code fragment that produces this ligature, using
 }
 @end lilypond
 @tab
-@code{\[ \stropha b \stropha b \stropha a \]}
+@code{\[ \stropha b \stropha b@*
+\stropha a \]}
 
 @end multitable
+@end quotation
 
 
 @predefined
@@ -2544,9 +2575,9 @@ chant. In LilyPond, melismata are treated as ligatures and the
 spacing is implemented by the @code{Kievan_ligature_engraver}.
 
 When the @code{KievanVoice} and @code{KievanStaff} contexts are used,
-the @code{Kievan_ligature_engraver} is enabled by default. In other
-contexts, it can be invoked by replacing the @code{Ligature_bracket_engraver}
-with the @code{Kievan_ligature_engraver} in the layout block:
+the @code{Kievan_@/ligature_@/engraver} is enabled by default.  In other
+contexts, it can be invoked by replacing the @code{Ligature_@/bracket_@/engraver}
+with the @code{Kievan_@/ligature_@/engraver} in the layout block:
 
 @example
 \layout @{

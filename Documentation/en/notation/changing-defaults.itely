@@ -3512,7 +3512,7 @@ Objects which support the @code{line-spanner-interface} include
 @end itemize
 
 The routine responsible for drawing the stencils for these spanners is
-@code{ly:line-spanner::print}.  This routine determines the
+@code{ly:@/line-@/spanner::@/print}.  This routine determines the
 exact location of the two end points and draws a line
 between them, in the style requested.  The locations of the two
 end points of the spanner are computed on-the-fly, but it is
@@ -3828,6 +3828,7 @@ by pre-defined functions, defined in @file{scm/output-lib.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 
+@quotation
 @multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {Before} {At no} {After}
 @headitem Function                   @tab Vector                 @tab Before @tab At no    @tab After
 @headitem form                       @tab form                   @tab break  @tab break    @tab break
@@ -3841,14 +3842,15 @@ will be visible in the positions shown at the head of the columns:
 @item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}     @tab no     @tab yes      @tab yes
 @item @code{all-invisible}           @tab @code{#(#f #f #f)}     @tab no     @tab no       @tab no
 @end multitable
+@end quotation
 
 The default settings of @code{break-visibility} depend on the
 layout object.  The following table shows all the layout objects
 of interest which are affected by @code{break-visibility} and the
 default setting of this property:
 
-@multitable @columnfractions .3 .3 .4
-
+@quotation
+@multitable {@code{DoublePercentRepeat}} {@b{Usual context}} {@code{begin-of-line-invisible}}
 @headitem Layout object   @tab Usual context  @tab Default setting
 
 @c omit Ambitus as it appears not to be affected by break-visibility -td
@@ -3868,8 +3870,8 @@ default setting of this property:
 @item @code{ClefModifier}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
-
 @end multitable
+@end quotation
 
 The example below shows the use of the vector form to control the
 visibility of bar lines:
@@ -3900,8 +3902,8 @@ line unless it is set to be different from @code{1}.
 @item Clef -- see the next section.
 
 @item Double percent repeats are either @emph{all printed} or
-@emph{all suppressed}.  Use @code{begin-of-line-invisible}
-to print them and @code{all-invisible} to suppress them.
+@emph{all suppressed}.  Use @code{begin-@/of-@/line-@/invisible}
+to print them and @code{all-@/invisible} to suppress them.
 
 @item Key signature -- see the next section.
 
@@ -4224,7 +4226,7 @@ Internals Reference:
 @subsection Aligning objects
 
 Graphical objects which support the @code{self-alignment-interface}
-and/or the @code{side-position-interface} can be aligned to a previously
+and/or the @code{side-@/position-@/interface} can be aligned to a previously
 placed object in a variety of ways.  For a list of these objects, see
 @rinternals{self-alignment-interface} and @rinternals{side-position-interface}.
 
@@ -4311,25 +4313,27 @@ determine where the object is to be placed, as follows:
 
 @c TODO add an example of each to the table
 
-@multitable @columnfractions .3 .3 .3
-@headitem @code{side-axis}  @tab @code{direction}  @tab
-@headitem property          @tab property          @tab Placement
+@quotation
+@multitable {@b{@code{side-axis} property}} {@b{@code{direction} property}} {@b{Placement}}
+@headitem @code{side-axis} property
+                            @tab @code{direction} property
+                                                   @tab Placement
 
 @item     @code{0}          @tab @code{-1}         @tab left
 @item     @code{0}          @tab @code{1}          @tab right
 @item     @code{1}          @tab @code{-1}         @tab below
 @item     @code{1}          @tab @code{1}          @tab above
-
 @end multitable
+@end quotation
 
 When @code{side-axis} is @code{0}, @code{X-offset} should be set to
-the procedure @code{ly:side-position-interface::x-aligned-side}.
+the procedure @code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.
 This procedure will return the correct value of @code{X-offset} to
 place the object to the left or right side of the parent according
 to value of @code{direction}.
 
 When @code{side-axis} is @code{1}, @code{Y-offset} should be set to
-the procedure @code{ly:side-position-interface::y-aligned-side}.
+the procedure @code{ly:@/side-@/position-@/interface::@/y-aligned-@/side}.
 This procedure will return the correct value of @code{Y-offset} to
 place the object to the top or bottom of the parent according
 to value of @code{direction}.
