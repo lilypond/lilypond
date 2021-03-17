@@ -62,11 +62,17 @@ FIXME: this should use ly:set-option interface instead.
 SCM
 check_debug_callback (SCM cb)
 {
+#ifdef DEBUG
   if (scm_is_false (cb))
     return SCM_EOL;
 
   LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
   return cb;
+#else
+  warning (_ ("To use grob debug callbacks, configure with --enable-checking"));
+  (void) cb;
+  return SCM_EOL;
+#endif
 }
 
 LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
