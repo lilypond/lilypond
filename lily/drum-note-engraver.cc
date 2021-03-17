@@ -18,8 +18,10 @@
 */
 
 #include "item.hh"
+#include "context.hh"
 #include "duration.hh"
 #include "engraver.hh"
+#include "international.hh"
 #include "note-column.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
@@ -93,6 +95,12 @@ Drum_notes_engraver::process_music ()
 
           if (scm_is_string (script))
             {
+              // Error out if script doesn't exist
+              if (scm_is_false (ly_assoc (
+                    script, get_property (context (), "scriptDefinitions"))))
+                ev->origin ()->error (_f ("unrecognised percussion sign: \"%s\"",
+                                          ly_scm2string (script)));
+
               Item *p = make_item ("Script", ev->self_scm ());
               make_script_from_event (p, context (), script,
                                       0);
