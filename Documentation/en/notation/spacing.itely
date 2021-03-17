@@ -344,8 +344,8 @@ Installed Files:
 scaled to the paper size, which may lead to unexpected behavior.
 See @ref{Automatic scaling to paper size}.}
 
-Default values (before scaling) are defined in
-@file{ly/paper-defaults-init.ly}.
+Default values (before scaling) are defined in file
+@file{ly/@/paper-defaults-init.ly}.
 
 @table @code
 @item paper-height
@@ -618,7 +618,7 @@ See @ref{Automatic scaling to paper size}.}
 @unnumberedsubsubsec @code{\paper} variables for widths and margins
 
 Default values (before scaling) that are not listed here are
-defined in @file{ly/paper-defaults-init.ly}.
+defined in file @file{ly/@/paper-defaults-init.ly}.
 
 @table @code
 
@@ -2478,7 +2478,7 @@ explained above is as a collection of settings that control the
 amount of vertical padding between staves and systems.
 
 It is possible to approach vertical spacing in a different way
-using @code{NonMusicalPaperColumn.line-break-system-details}.
+using property @code{NonMusicalPaperColumn.line-break-system-details}.
 While the flexible vertical spacing mechanisms specify vertical
 padding, @code{NonMusicalPaperColumn.line-break-system-details}
 can specify exact vertical positions on the page.
@@ -2814,7 +2814,7 @@ A listing of outside-staff-priorities may be found in
 @end lilypond
 
 The vertical padding around outside-staff objects
-can be controlled with @code{outside-staff-padding}.
+can be controlled with property @code{outside-staff-padding}.
 
 @lilypond[quote,ragged-right,verbatim,staffsize=18]
 \relative {

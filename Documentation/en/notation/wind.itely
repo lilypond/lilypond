@@ -413,9 +413,9 @@ they will not show up in the music output.
 
 Creating new diagrams is possible, although this will require
 Scheme ability and may not be accessible to all users.  The
-patterns for the diagrams are in
-@file{scm/define-woodwind-diagrams.scm} and
-@file{scm/display-woodwind-diagrams.scm}.
+patterns for the diagrams are in files
+@file{scm/define-@/woodwind-@/diagrams.scm} and
+@file{scm/display-@/woodwind-@/diagrams.scm}.
 
 @predefined
 @endpredefined

@@ -262,17 +262,18 @@ name which may clash, so
 @}
 @end example
 
-in source file @file{eightminiatures.ly}
-will produce
+@noindent
+in source file @file{eightminiatures.ly} produces
 
-@itemize
-@item
-@file{eightminiatures.pdf},
-@item
-@file{eightminiatures-1.pdf} and
-@item
-@file{eightminiatures-2.pdf}.
-@end itemize
+@example
+eightminiatures.pdf
+eightminiatures-1.pdf
+eightminiatures-2.pdf
+@end example
+
+@noindent
+as output files.
+
 
 @node Output file names
 @subsection Output file names
@@ -287,8 +288,15 @@ In the previous section, we saw how LilyPond prevents name-clashes when
 producing several outputs from a single source file.  You also have the
 ability to specify your own suffixes for each @code{\book} block, so
 for example you can produce files called
-@file{eightminiatures-Romanze.pdf}, @file{eightminiatures-Menuetto.pdf}
-and @file{eightminiatures-Nocturne.pdf} by adding a
+
+@example
+eightminiatures-Romanze.pdf
+eightminiatures-Menuetto.pdf
+eightminiatures-Nocturne.pdf
+@end example
+
+@noindent
+by adding a
 @code{\bookOutputSuffix} declaration inside each @code{\book} block.
 
 @example
@@ -2130,10 +2138,11 @@ Any @file{.ly} file can then include the entire library simply with
 \include "~/libA/libA.ly"
 @end example
 
-However, that behavior can be changed globally by passing the option
-@option{-drelative-includes=#f} option at the command line
-(or by adding @code{#(ly:set-option 'relative-includes #f)}
-at the top of the main input file).  In that case, each file will be
+@noindent
+However, that behavior can be changed globally by passing the
+command line option @option{-drelative-includes=#f},
+or by adding @code{#(ly:set-option 'relative-includes #f)}
+at the top of the main input file.  In that case, each file will be
 included relatively to the location of the main file, regardless
 of where its @code{\include} statement is located.
 Complex file structures, that require to @code{\include}
@@ -2973,21 +2982,35 @@ Here are a few sample bars of music set in LilyPond's Feta glyphs:
 
 @subsubheading Installation Instructions
 
+@itemize
+@item
 Download and extract the font files.
-Copy the
-@file{gonville-11.otf},
-@file{gonville-13.otf},
-@file{gonville-14.otf},
-@file{gonville-16.otf},
-@file{gonville-18.otf},
-@file{gonville-20.otf},
-@file{gonville-23.otf},
-@file{gonville-26.otf}, and @file{gonville-brace.otf}
-files to @file{@dots{}/share/lilypond/current/fonts/otf} or
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+
+@item
+Copy the files
+
+@example
+gonville-11.otf
+gonville-13.otf
+gonville-14.otf
+gonville-16.otf
+gonville-18.otf
+gonville-20.otf
+gonville-23.otf
+gonville-26.otf
+gonville-brace.otf
+@end example
+
+@noindent
+to directory @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} or
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
+
+@item
 If you have @file{gonville-*.svg} and @file{gonville-*.woff} files,
-copy them to @file{@dots{}/share/lilypond/current/fonts/svg} or
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+copy them to directory @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} or
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
+@end itemize
+
 For more information, see @rlearning{Other sources of information}.
 
 Note: @file{gonville-*.otf} files are
@@ -4052,10 +4075,10 @@ including a file in your main score.
 \include "event-listener.ly"
 @end example
 
-This will create file(s) called @file{FILENAME-STAFFNAME.notes} or
-@file{FILENAME-unnamed-staff.notes} for each staff.  Note that if
-you have multiple unnamed staves, the events for all staves will
-be mixed together in the same file.  The output looks like this:
+This creates file(s) called @file{FILENAME-@/STAFFNAME.notes} or
+@file{FILENAME-@/unnamed-@/staff.notes} for each staff.  Note that if
+you have multiple unnamed staves, the events for all staves are
+mixed together in the same file.  The output looks like this:
 
 @example
 0.000   note     57       4   p-c 2 12

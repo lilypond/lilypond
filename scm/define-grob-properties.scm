@@ -734,12 +734,19 @@ different voices. Default value@tie{}1.")
 ;;;
      (output-attributes ,list? "An alist of attributes for the grob, to
 be included in output files.  When the SVG typesetting backend is used,
-the attributes are assigned to a group (<g>) containing all of the
+the attributes are assigned to a group (@code{<g>}) containing all of the
 stencils that comprise a given grob.  For example,
-@code{'((id . 123) (class . foo) (data-whatever . @qq{bar}))} will produce
-@code{<g id=@qq{123} class=@qq{foo} data-whatever=@qq{bar}> @dots{} </g>}.
+@example
+'((id . 123) (class . foo) (data-whatever . \"bar\"))
+@end example
+@noindent
+produces
+@example
+<g id=\"123\" class=\"foo\" data-whatever=\"bar\"> @dots{} </g>
+@end example
+
 In the Postscript backend, where there is no way to group items, the
-setting of the output-attributes property will have no effect.")
+setting of the @code{output-@/attributes} property has no effect.")
      (outside-staff-horizontal-padding ,number? "By default, an
 outside-staff-object can be placed so that is it very close to another
 grob horizontally.  If this property is set, the outside-staff-object

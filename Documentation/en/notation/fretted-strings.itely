@@ -2248,7 +2248,7 @@ pitches of those strings are set. They will be printed below lowest line as:
 a, /a, //a, ///a, 4, 5, etc.
 
 @code{fret-letter-tablature-format} for @code{tablatureFormat} should be used,
-probably @code{fretLabels} for further customizing.
+probably also @code{fretLabels} for further customizing.
 
 @lilypond[quote,ragged-right,verbatim]
 m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }

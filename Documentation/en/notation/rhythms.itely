@@ -975,9 +975,9 @@ Markups can be added to multi-measure rests.
 }
 @end lilypond
 
-@warning{Markups and articulations attached to a multi-measure rest
-are objects of types @code{MultiMeasureRestText} and
-@code{MultiMeasureRestScript}, not @code{TextScript} and
+@warning{Markups and articulations attached to multi-measure rests
+are @code{MultiMeasureRestText} and
+@code{MultiMeasureRestScript} types, not @code{TextScript} and
 @code{Script}.  Overrides must
 be directed to the correct object, or they will be ignored.  See the
 following example:}

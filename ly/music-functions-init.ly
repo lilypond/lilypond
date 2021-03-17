@@ -617,8 +617,8 @@ compatible with the repeat command.")
 instrumentSwitch =
 #(define-music-function
    (name) (string?)
-   (_i "Switch instrument to @var{name}, which must be predefined with
-@code{\\addInstrumentDefinition}.")
+   (_i "Switch instrument to @var{name}, which must have been predefined with
+function @code{\\addInstrumentDefinition}.")
    (let* ((handle (assoc name instrument-definitions))
           (instrument-def (if handle (cdr handle) '())))
 

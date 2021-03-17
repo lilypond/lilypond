@@ -190,8 +190,8 @@ Separation_item::boxes (Grob *me, Grob *left)
 
 MAKE_DOCUMENTED_SCHEME_CALLBACK (Separation_item, print, 1,
                                  "Optional stencil for @code{PaperColumn} or"
-                                 "@code{NonMusicalPaperColumn}.\n"
-                                 "Draws the @code{horizontal-skylines} of each"
+                                 " @code{NonMusicalPaperColumn}.\n"
+                                 "This function draws @code{horizontal-skylines} of each"
                                  " @code{PaperColumn}, showing the shapes used"
                                  " to determine the minimum distances between"
                                  " @code{PaperColumns} at the note-spacing step,"

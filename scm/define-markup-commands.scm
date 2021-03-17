@@ -1806,8 +1806,8 @@ the line width, where @var{X} is the number of staff spaces.
   #:properties ((line-width)
                 (word-space)
                 (text-direction RIGHT))
-  "Internal markup list command used to define @code{\\justify-string} and
-@code{\\wordwrap-string}."
+  "Internal markup list command that is used to define @code{\\justify-string}
+and @code{\\wordwrap-string}."
   (let* ((para-strings (regexp-split
                         (string-regexp-substitute
                          "\r" "\n"
