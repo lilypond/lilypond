@@ -536,253 +536,196 @@ The chart below shows the predefined string tunings.
 @node Predefined paper sizes
 @appendixsec Predefined paper sizes
 
-Paper sizes are defined in @file{scm/paper.scm}
+Paper sizes are defined in file @file{scm/paper.scm}.
 
 @noindent
-@strong{The @qq{ISO 216} A Series}
-@table @code
-@item "a10"
-(26 x 37 mm)
-@item "a9"
-(37 x 52 mm)
-@item "a8"
-(52 x 74 mm)
-@item "a7"
-(74 x 105 mm)
-@item "a6"
-(105 x 148 mm)
-@item "a5"
-(148 x 210 mm)
-@item "a4"
-(210 x 297 mm)
-@item "a3"
-(297 x 420 mm)
-@item "a2"
-(420 x 594 mm)
-@item "a1"
-(594 x 841 mm)
-@item "a0"
-(841 x 1189 mm)
-@end table
+@strong{ISO 216, A series}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"a10"} @tab (26 x 37 mm)
+@item @code{"a9"}  @tab (37 x 52 mm)
+@item @code{"a8"}  @tab (52 x 74 mm)
+@item @code{"a7"}  @tab (74 x 105 mm)
+@item @code{"a6"}  @tab (105 x 148 mm)
+@item @code{"a5"}  @tab (148 x 210 mm)
+@item @code{"a4"}  @tab (210 x 297 mm)
+@item @code{"a3"}  @tab (297 x 420 mm)
+@item @code{"a2"}  @tab (420 x 594 mm)
+@item @code{"a1"}  @tab (594 x 841 mm)
+@item @code{"a0"}  @tab (841 x 1189 mm)
+@end multitable
+@end quotation
 
 @noindent
-@strong{The @qq{ISO 216} B Series}
-@table @code
-@item "b10"
-(31 x 44 mm)
-@item "b9"
-(44 x 62 mm)
-@item "b8"
-(62 x 88 mm)
-@item "b7"
-(88 x 125 mm)
-@item "b6"
-(125 x 176 mm)
-@item "b5"
-(176 x 250 mm)
-@item "b4"
-(250 x 353 mm)
-@item "b3"
-(353 x 500 mm)
-@item "b2"
-(500 x 707 mm)
-@item "b1"
-(707 x 1000 mm)
-@item "b0"
-(1000 x 1414 mm)
-@end table
+@strong{Two extended sizes as defined in DIN 476}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"2a0"} @tab (1189 x 1682 mm)
+@item @code{"4a0"} @tab (1682 x 2378 mm)
+@end multitable
+@end quotation
 
 @noindent
-@strong{Two extended sizes as defined in @qq{DIN 476}}
-@table @code
-@item "4a0"
-(1682 x 2378 mm)
-@item "2a0"
-(1189 x 1682 mm)
-@end table
+@strong{ISO 216, B series}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"b10"} @tab (31 x 44 mm)
+@item @code{"b9"} @tab (44 x 62 mm)
+@item @code{"b8"} @tab (62 x 88 mm)
+@item @code{"b7"} @tab (88 x 125 mm)
+@item @code{"b6"} @tab (125 x 176 mm)
+@item @code{"b5"} @tab (176 x 250 mm)
+@item @code{"b4"} @tab (250 x 353 mm)
+@item @code{"b3"} @tab (353 x 500 mm)
+@item @code{"b2"} @tab (500 x 707 mm)
+@item @code{"b1"} @tab (707 x 1000 mm)
+@item @code{"b0"} @tab (1000 x 1414 mm)
+@end multitable
+@end quotation
 
 @noindent
-@strong{@qq{ISO 269} standard C series}
-@table @code
-@item "c10"
-(28 x 40 mm)
-@item "c9"
-(40 x 57 mm)
-@item "c8"
-(57 x 81 mm)
-@item "c7"
-(81 x 114 mm)
-@item "c6"
-(114 x 162 mm)
-@item "c5"
-(162 x 229 mm)
-@item "c4"
-(229 x 324 mm)
-@item "c3"
-(324 x 458 mm)
-@item "c2"
-(458 x 648 mm)
-@item "c1"
-(648 x 917 mm)
-@item "c0"
-(917 x 1297 mm)
-@end table
+@strong{ISO 269, C series}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"c10"} @tab (28 x 40 mm)
+@item @code{"c9"}  @tab (40 x 57 mm)
+@item @code{"c8"}  @tab (57 x 81 mm)
+@item @code{"c7"}  @tab (81 x 114 mm)
+@item @code{"c6"}  @tab (114 x 162 mm)
+@item @code{"c5"}  @tab (162 x 229 mm)
+@item @code{"c4"}  @tab (229 x 324 mm)
+@item @code{"c3"}  @tab (324 x 458 mm)
+@item @code{"c2"}  @tab (458 x 648 mm)
+@item @code{"c1"}  @tab (648 x 917 mm)
+@item @code{"c0"}  @tab (917 x 1297 mm)
+@end multitable
+@end quotation
 
 @noindent
 @strong{North American paper sizes}
-@table @code
-@item "junior-legal"
-(8.0 x 5.0 in)
-@item "legal"
-(8.5 x 14.0 in)
-@item "ledger"
-(17.0 x 11.0 in)
-@item "letter"
-(8.5 x 11.0 in)
-@item "tabloid"
-(11.0 x 17.0 in)
-@item "11x17"
-(11.0 x 17.0 in)
-@item "17x11"
-(17.0 x 11.0 in)
-@end table
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"junior-legal"} @tab (5.0 x 8.0 in)
+@item @code{"legal"}        @tab (8.5 x 14.0 in)
+@item @code{"ledger"}       @tab (17.0 x 11.0 in)
+@item @code{"letter"}       @tab (8.5 x 11.0 in)
+@item @code{"tabloid"}      @tab (11.0 x 17.0 in)
+@item @code{"11x17"}        @tab (11.0 x 17.0 in)
+@item @code{"17x11"}        @tab (17.0 x 11.0 in)
+@end multitable
+@end quotation
 
 @noindent
-@strong{Government-letter by IEEE Printer Working Group, for children's
-writing}
-@table @code
-@item "government-letter"
-(8 x 10.5 in)
-@item "government-legal"
-(8.5 x 13.0 in)
-@item "philippine-legal"
-(8.5 x 13.0 in)
-@end table
+@strong{Sizes by IEEE Printer Working Group, for children's writing}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"government-letter"} @tab (8 x 10.5 in)
+@item @code{"government-legal"}  @tab (8.5 x 13.0 in)
+@item @code{"philippine-legal"}  @tab (8.5 x 13.0 in)
+@end multitable
+@end quotation
 
 @noindent
 @strong{ANSI sizes}
-@table @code
-@item "ansi a"
-(8.5 x 11.0 in)
-@item "ansi b"
-(17.0 x 11.0 in)
-@item "ansi c"
-(17.0 x 22.0 in)
-@item "ansi d"
-(22.0 x 34.0 in)
-@item "ansi e"
-(34.0 x 44.0 in)
-@item "engineering f"
-(28.0 x 40.0 in)
-@end table
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"ansi a"}        @tab (8.5 x 11.0 in)
+@item @code{"ansi b"}        @tab (11.0 x 17.0 in)
+@item @code{"ansi c"}        @tab (17.0 x 22.0 in)
+@item @code{"ansi d"}        @tab (22.0 x 34.0 in)
+@item @code{"ansi e"}        @tab (34.0 x 44.0 in)
+@item @code{"engineering f"} @tab (28.0 x 40.0 in)
+@end multitable
+@end quotation
 
 @noindent
-@strong{North American Architectural sizes}
-@table @code
-@item "arch a"
-(9.0 x 12.0 in)
-@item "arch b"
-(12.0 x 18.0 in)
-@item "arch c"
-(18.0 x 24.0 in)
-@item "arch d"
-(24.0 x 36.0 in)
-@item "arch e"
-(36.0 x 48.0 in)
-@item "arch e1"
-(30.0 x 42.0 in)
-@end table
+@strong{North American architectural sizes}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"arch a"}  @tab (9.0 x 12.0 in)
+@item @code{"arch b"}  @tab (12.0 x 18.0 in)
+@item @code{"arch c"}  @tab (18.0 x 24.0 in)
+@item @code{"arch d"}  @tab (24.0 x 36.0 in)
+@item @code{"arch e"}  @tab (36.0 x 48.0 in)
+@item @code{"arch e1"} @tab (30.0 x 42.0 in)
+@end multitable
+@end quotation
 
 @noindent
 @strong{Antique sizes still used in the United Kingdom}
-@table @code
-@item "statement"
-(5.5 x 8.5 in)
-@item "half letter"
-(5.5 x 8.5 in)
-@item "quarto"
-(8.0 x 10.0 in)
-@item "octavo"
-(6.75 x 10.5 in)
-@item "executive"
-(7.25 x 10.5 in)
-@item "monarch"
-(7.25 x 10.5 in)
-@item "foolscap"
-(8.27 x 13.0 in)
-@item "folio"
-(8.27 x 13.0 in)
-@item "super-b"
-(13.0 x 19.0 in)
-@item "post"
-(15.5 x 19.5 in)
-@item "crown"
-(15.0 x 20.0 in)
-@item "large post"
-(16.5 x 21.0 in)
-@item "demy"
-(17.5 x 22.5 in)
-@item "medium"
-(18.0 x 23.0 in)
-@item "broadsheet"
-(18.0 x 24.0 in)
-@item "royal"
-(20.0 x 25.0 in)
-@item "elephant"
-(23.0 x 28.0 in)
-@item "double demy"
-(22.5 x 35.0 in)
-@item "quad demy"
-(35.0 x 45.0 in)
-@item "atlas"
-(26.0 x 34.0 in)
-@item "imperial"
-(22.0 x 30.0 in)
-@item "antiquarian"
-(31.0 x 53.0 in)
-@end table
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"statement"}   @tab (5.5 x 8.5 in)
+@item @code{"half letter"} @tab (5.5 x 8.5 in)
+@item @code{"quarto"}      @tab (8.0 x 10.0 in)
+@item @code{"octavo"}      @tab (6.75 x 10.5 in)
+@item @code{"executive"}   @tab (7.25 x 10.5 in)
+@item @code{"monarch"}     @tab (7.25 x 10.5 in)
+@item @code{"foolscap"}    @tab (8.27 x 13.0 in)
+@item @code{"folio"}       @tab (8.27 x 13.0 in)
+@item @code{"super-b"}     @tab (13.0 x 19.0 in)
+@item @code{"post"}        @tab (15.5 x 19.5 in)
+@item @code{"crown"}       @tab (15.0 x 20.0 in)
+@item @code{"large post"}  @tab (16.5 x 21.0 in)
+@item @code{"demy"}        @tab (17.5 x 22.5 in)
+@item @code{"medium"}      @tab (18.0 x 23.0 in)
+@item @code{"broadsheet"}  @tab (18.0 x 24.0 in)
+@item @code{"royal"}       @tab (20.0 x 25.0 in)
+@item @code{"elephant"}    @tab (23.0 x 28.0 in)
+@item @code{"double demy"} @tab (22.5 x 35.0 in)
+@item @code{"quad demy"}   @tab (35.0 x 45.0 in)
+@item @code{"atlas"}       @tab (26.0 x 34.0 in)
+@item @code{"imperial"}    @tab (22.0 x 30.0 in)
+@item @code{"antiquarian"} @tab (31.0 x 53.0 in)
+@end multitable
+@end quotation
 
 @noindent
 @strong{PA4 based sizes}
-@table @code
-@item "pa0"
-(840 x 1120 mm)
-@item "pa1"
-(560 x 840 mm)
-@item "pa2"
-(420 x 560 mm)
-@item "pa3"
-(280 x 420 mm)
-@item "pa4"
-(210 x 280 mm)
-@item "pa5"
-(140 x 210 mm)
-@item "pa6"
-(105 x 140 mm)
-@item "pa7"
-(70 x 105 mm)
-@item "pa8"
-(52 x 70 mm)
-@item "pa9"
-(35 x 52 mm)
-@item "pa10"
-(26 x 35 mm)
-@end table
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"pa10"} @tab (26 x 35 mm)
+@item @code{"pa9"}  @tab (35 x 52 mm)
+@item @code{"pa8"}  @tab (52 x 70 mm)
+@item @code{"pa7"}  @tab (70 x 105 mm)
+@item @code{"pa6"}  @tab (105 x 140 mm)
+@item @code{"pa5"}  @tab (140 x 210 mm)
+@item @code{"pa4"}  @tab (210 x 280 mm)
+@item @code{"pa3"}  @tab (280 x 420 mm)
+@item @code{"pa2"}  @tab (420 x 560 mm)
+@item @code{"pa1"}  @tab (560 x 840 mm)
+@item @code{"pa0"}  @tab (840 x 1120 mm)
+@end multitable
+@end quotation
 
 @noindent
-@strong{Used in Southeast Asia and Australia}
-@table @code
-@item "f4"
-(210 x 330 mm)
-@end table
+@strong{Additional format for use in Southeast Asia and Australia}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"f4"} @tab (210 x 330 mm)
+@end multitable
+@end quotation
 
 @noindent
-@strong{Used for very small @code{@@lilypond} examples in the
-documentation based on a8 landscape.}
-@table @code
-@item "a8landscape"
-(74 x 52 mm)
-@end table
+@strong{For very small @code{@@lilypond} examples in the
+documentation (based on a8 landscape)}
+
+@quotation
+@multitable {@code{"government-letter"}} {(1189 x 1682 mm)}
+@item @code{"a8landscape"} @tab (74 x 52 mm)
+@end multitable
+@end quotation
 
 
 @node MIDI instruments
