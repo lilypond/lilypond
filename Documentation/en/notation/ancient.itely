@@ -1464,8 +1464,7 @@ between @code{\[@dots{}\]}.
 @c Regarding the @emph{punctum}, @code{b} and @code{\[ b \]} are
 @c equivalent.
 
-@noindent
-Single-note neumes:
+@subsubsubheading Single-note neumes
 
 @itemize
 @item The @emph{punctum} is the basic note shape (in the
@@ -1481,8 +1480,7 @@ lines on either side of the note.
 produced by the modifier @code{\virga}.
 @end itemize
 
-@noindent
-Ligatures
+@subsubsubheading Ligatures
 
 Unlike most other neumes notation systems, the typographical
 appearance of ligatures is not directly dictated by the input
@@ -1499,8 +1497,7 @@ separate the musical aspects of the input from the notation style
 of the output.  This way, the same input can be reused to typeset
 the same music in a different style of Gregorian chant notation.
 
-@noindent
-Liquescent neumes
+@subsubsubheading Liquescent neumes
 
 Another main category of notes in Gregorian chant is the so-called
 liquescent neumes.  They are used under certain circumstances at
@@ -1520,8 +1517,7 @@ of a single-note neume with @code{\auctum} and one of the direction
 markers @code{\descendens} or @code{\ascendens}, e.g.,
 @code{ \[ \auctum \descendens a \] }.
 
-@noindent
-Special signs
+@subsubsubheading Special signs
 
 A third category of signs is made up of a small number of signs
 with a special meaning (which, incidentally, in most cases is only
@@ -1573,7 +1569,7 @@ shows the code fragment that produces this ligature, using
 @code{g}, @code{a}, and @code{b} as example pitches.
 
 
-@b{Single-note neums}
+@subsubsubheading Single-note neumes
 
 @need 1000
 @quotation
@@ -1717,12 +1713,13 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
+@code{\[ \virga b' \]}
 
 @end multitable
 @end quotation
 
-@noindent
-@b{Two-note ligatures}
+
+@subsubsubheading Two-note ligatures
 
 @need 1000
 @quotation
@@ -1883,8 +1880,8 @@ Initio Debilis}
 @end multitable
 @end quotation
 
-@noindent
-@b{Multi-note ligatures}
+
+@subsubsubheading Multi-note ligatures
 
 @need 1000
 @quotation
@@ -2128,8 +2125,8 @@ Initio Debilis}
 @end multitable
 @end quotation
 
-@noindent
-@b{Special Signs}
+
+@subsubsubheading Special signs
 
 @need 1000
 @quotation
@@ -2163,7 +2160,7 @@ Initio Debilis}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \quilisma g \pes \auctum@*
+@code{\[ g \quilisma a \pes \auctum@*
 \descendens b \]}
 
 @item
@@ -2636,7 +2633,6 @@ Horizontal spacing of ligatures is poor.
 * Mensurstriche layout::
 * Transcribing Gregorian chant::
 * Ancient and modern from one source::
-* Editorial markings::
 @end menu
 
 Working with ancient music frequently involves particular tasks
@@ -2913,10 +2909,6 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
-
-
-@node Editorial markings
-@unnumberedsubsubsec Editorial markings
 
 
 @c @node Baroque rhythmic notation

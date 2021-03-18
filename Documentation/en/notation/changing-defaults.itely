@@ -2541,7 +2541,7 @@ as either a @code{\tweak} or @code{\override}.  The variations in
 usage are discussed after consideration is given to grob properties
 that may be used with @code{\offset}.
 
-@subsubsubheading{Properties which may be offset}
+@subsubsubheading Properties which may be offset
 
 Many, but not all, grob properties may be offset.  If @var{property}
 cannot be offset, the object will remain unchanged and a warning will
@@ -2626,7 +2626,7 @@ support for @q{nested properties}.
 
 @end itemize
 
-@subsubsubheading{\offset as an override}
+@subsubsubheading @code{\offset} as an override
 
 If @var{item} is a grob name like @code{Arpeggio} or
 @code{Staff.OttavaBracket}, the result is an @code{\override} of the
@@ -2721,7 +2721,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading{\offset as a tweak}
+@subsubsubheading @code{\offset} as a tweak
 
 If @var{item} is a music expression such as @code{(} or
 @code{\arpeggio}, the result is the same music expression with a tweak
@@ -2783,7 +2783,7 @@ to both members of a @code{number-pair}.)
 }
 @end lilypond
 
-@subsubsubheading{\offset with broken spanners}
+@subsubsubheading @code{\offset} with broken spanners
 
 Independently modifying segments of a spanner extending over a line
 break or breaks is also possible.  In this case, @var{offsets}
