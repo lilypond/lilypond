@@ -157,9 +157,9 @@
     ("b2" . (cons (* 500 mm) (* 707 mm)))
     ("b1" . (cons (* 707 mm) (* 1000 mm)))
     ("b0" . (cons (* 1000 mm) (* 1414 mm)))
-    ;; Below are two extended sizes defined in DIn 476
-    ("4a0" . (cons (* 1682 mm) (* 2378 mm)))
+    ;; Below are two extended sizes defined in DIN 476
     ("2a0" . (cons (* 1189 mm) (* 1682 mm)))
+    ("4a0" . (cons (* 1682 mm) (* 2378 mm)))
     ;; Below are ISO 269 standard C series
     ("c10" . (cons (* 28 mm) (* 40 mm)))
     ("c9" . (cons (* 40 mm) (* 57 mm)))
@@ -173,7 +173,7 @@
     ("c1" . (cons (* 648 mm) (* 917 mm)))
     ("c0" . (cons (* 917 mm) (* 1297 mm)))
     ;; Below are North American paper sizes
-    ("junior-legal" . (cons (* 8.0 in) (* 5.0 in)))
+    ("junior-legal" . (cons (* 5.0 in) (* 8.0 in)))
     ("legal" . (cons (* 8.5 in) (* 14.0 in)))
     ("letter" . (cons (* 8.5 in) (* 11.0 in)))
     ;; Ledger (17x11) is a 90 degree rotation of Tabloid
@@ -188,7 +188,7 @@
     ("philippine-legal" . (cons (* 8.5 in) (* 13.0 in)))
     ;; ANSI sizes
     ("ansi a" . (cons (* 8.5 in) (* 11.0 in)))
-    ("ansi b" . (cons (* 17.0 in) (* 11.0 in)))
+    ("ansi b" . (cons (* 11.0 in) (* 17.0 in)))
     ("ansi c" . (cons (* 17.0 in) (* 22.0 in)))
     ("ansi d" . (cons (* 22.0 in) (* 34.0 in)))
     ("ansi e" . (cons (* 34.0 in) (* 44.0 in)))
@@ -226,17 +226,17 @@
     ("imperial" . (cons (* 22.0 in) (* 30.0 in)))
     ("antiquarian" . (cons (* 31.0 in) (* 53.0 in)))
     ;; PA4 based sizes
-    ("pa0" . (cons (* 840 mm) (* 1120 mm)))
-    ("pa1" . (cons (* 560 mm) (* 840 mm)))
-    ("pa2" . (cons (* 420 mm) (* 560 mm)))
-    ("pa3" . (cons (* 280 mm) (* 420 mm)))
-    ("pa4" . (cons (* 210 mm) (* 280 mm)))
-    ("pa5" . (cons (* 140 mm) (* 210 mm)))
-    ("pa6" . (cons (* 105 mm) (* 140 mm)))
-    ("pa7" . (cons (* 70 mm) (* 105 mm)))
-    ("pa8" . (cons (* 52 mm) (* 70 mm)))
-    ("pa9" . (cons (* 35 mm) (* 52 mm)))
     ("pa10" . (cons (* 26 mm) (* 35 mm)))
+    ("pa9" . (cons (* 35 mm) (* 52 mm)))
+    ("pa8" . (cons (* 52 mm) (* 70 mm)))
+    ("pa7" . (cons (* 70 mm) (* 105 mm)))
+    ("pa6" . (cons (* 105 mm) (* 140 mm)))
+    ("pa5" . (cons (* 140 mm) (* 210 mm)))
+    ("pa4" . (cons (* 210 mm) (* 280 mm)))
+    ("pa3" . (cons (* 280 mm) (* 420 mm)))
+    ("pa2" . (cons (* 420 mm) (* 560 mm)))
+    ("pa1" . (cons (* 560 mm) (* 840 mm)))
+    ("pa0" . (cons (* 840 mm) (* 1120 mm)))
     ;; F4 used in southeast Asia and Australia
     ("f4" . (cons (* 210 mm) (* 330 mm)))
     ))
