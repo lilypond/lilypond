@@ -24,7 +24,6 @@
             page-printable-height
             layout->page-init
             page-force
-            page-penalty
             page-configuration
             page-lines
             page-page-number

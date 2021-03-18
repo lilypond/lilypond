@@ -472,17 +472,6 @@ messages into errors.")
 (define format
   ergonomic-simple-format)
 
-;; my display
-(define-public (myd k v)
-  (display k)
-  (display ": ")
-  (display v)
-  (display ", ")
-  v)
-
-(define-public (print . args)
-  (apply format (current-output-port) args))
-
 
 ;;; General settings.
 ;;;
@@ -515,12 +504,6 @@ messages into errors.")
     ;;       a newline in this case
     (if (ly:get-option 'verbose)
         (ly:progress "]\n"))))
-
-(define-public DOS
-  (let ((platform (string-tokenize
-                   (vector-ref (uname) 0) char-set:letter+digit)))
-    (if (null? (cdr platform)) #f
-        (member (string-downcase (cadr platform)) '("95" "98" "me")))))
 
 (define (slashify x)
   (if (string-index x #\\)
@@ -623,7 +606,6 @@ messages into errors.")
     "parser-clef"
     "layout-slur"
     "font"
-    "encoding"
 
     "bar-line"
     "flag-styles"

@@ -34,10 +34,6 @@
   (cons (* (car coord) scalar)
         (* (cdr coord) scalar)))
 
-(define (make-bezier point-0 point-1 point-2 point-3)
-  "Create a cubic bezier from the four control points."
-  (list point-0 point-1 point-2 point-3))
-
 (define (interpolated-control-points control-points split-value)
   "Interpolate @var{control-points} at @var{split-value}.  Return a
 set of control points that is one degree less than @var{control-points}."
@@ -74,32 +70,3 @@ element is the RHS spline."
                            (list-ref quad-points 2)
                            (list-ref bezier 3))))
     (cons left-side right-side)))
-
-(define (multi-split-bezier bezier start-t split-list)
-  "Split @var{bezier} at all the points listed in @var{split-list}.
-@var{bezier} has a parameter value that goes from @var{start-t} to 1.
-Returns a list of @var{(1+ (length split-list))} beziers."
-  (let* ((bezier-split (split-bezier bezier
-                                     (/ (- (car split-list) start-t)
-                                        (- 1 start-t))))
-         (left-bezier (car bezier-split))
-         (right-bezier (cdr bezier-split)))
-    (if (null? (cdr split-list))
-        bezier-split
-        (cons* left-bezier
-               (multi-split-bezier right-bezier
-                                   (car split-list)
-                                   (cdr split-list))))))
-
-
-(define (bezier-sandwich-list top-bezier bottom-bezier)
-  "create the list of control points for a bezier sandwich consisting
-of @var{top-bezier} and @var{bottom-bezier}."
-  (list (list-ref bottom-bezier 1)
-        (list-ref bottom-bezier 2)
-        (list-ref bottom-bezier 3)
-        (list-ref bottom-bezier 0)
-        (list-ref top-bezier 2)
-        (list-ref top-bezier 1)
-        (list-ref top-bezier 0)
-        (list-ref top-bezier 3)))
