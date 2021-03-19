@@ -952,6 +952,9 @@ PIDs or the number of the process."
                (ly:warning (_ "option 'debug-gc-object-lifetimes not supported on GUILE 2")))))
    (else #t))
 
+  ;; Do this relatively late (after forking for multiple jobs), so Pango
+  ;; can spawn threads (since version 1.48.3) without leading to hangs.
+  (ly:reset-all-fonts)
   (ly:parse-init "declarations-init.ly")
 
   (let* ((failed '())

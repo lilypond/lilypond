@@ -536,7 +536,6 @@ main_with_guile (void *, int, char **)
   init_fontconfig ();
 
   init_freetype ();
-  ly_reset_all_fonts ();
 
   /*
      We accept multiple independent music files on the command line to
