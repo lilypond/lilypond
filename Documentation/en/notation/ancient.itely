@@ -1024,7 +1024,7 @@ respect to that clef.
 
 @need 1000
 @quotation
-@multitable @columnfractions .37 .36 .2
+@multitable @columnfractions .4 .4 .2
 @item
 @b{Description}
 @tab
@@ -1573,7 +1573,7 @@ shows the code fragment that produces this ligature, using
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 @b{Basic} and @emph{Liquescent} forms
@@ -1723,7 +1723,7 @@ shows the code fragment that produces this ligature, using
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 @b{Clivis vel Flexa}
@@ -1885,7 +1885,7 @@ Initio Debilis}
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 @b{Torculus}
@@ -2130,7 +2130,7 @@ Initio Debilis}
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 @b{Quilisma}

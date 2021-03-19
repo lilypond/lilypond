@@ -1628,7 +1628,7 @@ aliases.
 For the @code{svg} backend:
 
 @indentedBlock
-@multitable @columnfractions .15 .30
+@multitable {@b{generic family}} {@b{SVG font family}}
 @headitem generic family @tab SVG font family
 @item roman @tab serif
 @item sans @tab sans-serif
@@ -1643,7 +1643,7 @@ For the @code{svg} backend:
 For other backends:
 
 @indentedBlock
-@multitable @columnfractions .15 .30 .45
+@multitable @columnfractions .17 .30 .45
 @headitem generic family
           @tab default font family alias
                     @tab font families contained in alias
