@@ -23,9 +23,10 @@
 #include "lily-proto.hh"
 #include "direction.hh"
 
-// what is the advantage not having these two as STATICs of GROB -- jcn
+// what is the advantage not having these three as STATICs of GROB -- jcn
 void set_grob_direction (Grob *, Direction);
 Direction get_grob_direction (Grob *);
+Direction get_strict_grob_direction (Grob *);
 
 #endif /* DIRECTIONAL_ELEMENT_HH */
 
