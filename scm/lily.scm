@@ -975,6 +975,11 @@ PIDs or the number of the process."
 
 
 (define-public (lilypond-all files)
+
+  ;; Do this relatively late (after forking for multiple jobs), so Pango
+  ;; can spawn threads (since version 1.48.3) without leading to hangs.
+  (ly:reset-all-fonts)
+
   (let* ((failed '())
          (separate-logs (ly:get-option 'separate-log-files))
          (ping-log
