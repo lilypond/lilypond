@@ -1,14 +1,14 @@
 # Esperanto translation of LilyPond.
-# Copyright (C) 2015, 2016, 2017, 2018 Free Software Foundation, Inc.
+# Copyright (C) 2015, 2016, 2017, 2018, 2020, 2021 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
-# Felipe Castro <fefcas@gmail.com>, 2012, 2013, 2015, 2016, 2017, 2018, 2020.
+# Felipe Castro <fefcas@gmail.com>, 2012, 2013, 2015, 2016, 2017, 2018, 2020, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.21.1\n"
+"Project-Id-Version: lilypond 2.21.7\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2020-10-11 11:02+0100\n"
-"PO-Revision-Date: 2020-08-15 10:55-0300\n"
+"PO-Revision-Date: 2021-03-16 21:40-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: book_base.py:49
 #, python-format
@@ -729,7 +729,7 @@ msgstr ""
 
 #: convertrules.py:3125
 msgid "Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"
-msgstr "Movigi grandon, dikecon, kaj grafikaĵon al atributoj.  Argumento devos esti simple la ŝlosilo-listo.\n"
+msgstr "Movigi grandon, dikecon, kaj grafikaĵon al atributoj.  Argumento devos esti simple la klavo-listo.\n"
 
 #: convertrules.py:3134
 msgid ""
@@ -839,7 +839,7 @@ msgstr "Flag.transparent kaj Flag.color heredas el Stem"
 
 #: convertrules.py:3884
 msgid "Staff-padding now controls the distance to the baseline, not the nearest point."
-msgstr "Liniaro-ŝovo nun regas la distancon al la bazlinio, ne al la plej proksima punkto."
+msgstr "Liniaro-ŝtopado nun regas la distancon al la bazlinio, ne al la plej proksima punkto."
 
 #: convertrules.py:4181
 msgid "Previously the \"id\" grob property (string) was used for SVG output."
@@ -875,7 +875,7 @@ msgstr "La lingvo ne subtenas la mikrotonojn en la muziko"
 
 #: musicexp.py:698
 msgid "Tuplet brackets of curved shape are not correctly implemented"
-msgstr "Opigaj rektkrampoj kun kurba formo ne estas realigita ĝuste"
+msgstr "Grupigaj rektkrampoj kun kurba formo ne estis realigataj ĝuste"
 
 #: musicexp.py:885
 #, python-format
@@ -905,7 +905,7 @@ msgstr "Ne eblas konverti la aliigon %s al esprimo de lilypond"
 #: musicxml.py:115
 #, python-format
 msgid "more than one child of class %s, all butthe first will be ignored"
-msgstr ""
+msgstr "pli ol unu ido el klaso %s, ĉiuj krom la unua estos ignorataj"
 
 #: musicxml.py:536
 msgid "Senza-misura time signatures are not yet supported!"
@@ -1091,7 +1091,7 @@ msgstr "Procezado de '%s'... "
 
 #: convert-ly.py:281
 msgid "Attempting conversion from `latin1'..."
-msgstr ""
+msgstr "Ni provas konverto el 'latin1'..."
 
 #: convert-ly.py:388
 #, python-format
@@ -1305,7 +1305,7 @@ msgstr "Eligo povos anstataŭigi enig-dosieron; uzu --output."
 #: lilypond-book.py:552
 #, python-format
 msgid "Reading `%s'"
-msgstr ""
+msgstr "Legado de '%s'"
 
 #: lilypond-book.py:558
 msgid "Dissecting..."
@@ -1314,7 +1314,7 @@ msgstr "Analizado..."
 #: lilypond-book.py:569
 #, python-format
 msgid "Processing include `%s'"
-msgstr ""
+msgstr "Procezado de inkluzivigo '%s'"
 
 #: lilypond-book.py:580
 #, python-format
@@ -1338,7 +1338,7 @@ msgstr "Difinado de eligo de LilyPond al --verbose, implicite de la agordoj de l
 #: lilypond-book.py:759
 #, python-format
 msgid "Compiling `%s'..."
-msgstr ""
+msgstr "Kompilado de '%s'..."
 
 #: midi2ly.py:98
 msgid "warning: "
@@ -1420,7 +1420,7 @@ msgstr "DAŬ*NUM/DEN"
 
 #: midi2ly.py:1167
 msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr "ebligi opigajn daŭrojn DAŬ*NUM/DEN"
+msgstr "ebligi grupigajn daŭrojn DAŬ*NUM/DEN"
 
 #: midi2ly.py:1177
 msgid "treat every text as a lyric"
@@ -1437,7 +1437,7 @@ msgstr "neniu dosiero estis indikata per la komandlinio."
 #: musicxml2ly.py:292
 #, python-format
 msgid "Encountered file created by %s, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"
-msgstr "Dosiero kreita de %s estis trovata, kiu enhavas malĝustan vostligan informon. Ĉiu vostliga informo en la dosiero MusicXML estos preteratentata"
+msgstr "Dosiero kreita de %s estis trovata, kiu enhavas malĝustan vostligan informon. Ĉiu vostliga informo en la dosiero MusicXML estos ignorata"
 
 #: musicxml2ly.py:338 musicxml2ly.py:341
 #, python-format
@@ -1465,7 +1465,7 @@ msgstr "nekonata etendig-tipo %s por %s"
 
 #: musicxml2ly.py:1605
 msgid "Unknown metronome mark, ignoring"
-msgstr "Nekonata metronoma marko, ni preteratentas"
+msgstr "Nekonata metronoma marko, ni ignoras"
 
 #: musicxml2ly.py:1611
 msgid "Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."
@@ -1553,7 +1553,7 @@ msgstr "uzi lxml.etree; tio uzos malpli da memoro kaj procezil-tempo"
 
 #: musicxml2ly.py:2928
 msgid "input file is a compressed MusicXML file (by default, activate if file extension is .mxl)"
-msgstr ""
+msgstr "enig-dosiero estas zip-densigita dosiero MusicXML (apriore aktivas se dosierfino estas .mxl)"
 
 #: musicxml2ly.py:2935
 msgid "convert pitches in relative mode (default)"
@@ -1581,15 +1581,15 @@ msgstr "ne konverti ĝustajn vertikalajn poziciojn de paŭzoj"
 
 #: musicxml2ly.py:2971
 msgid "ignore system breaks"
-msgstr "preteratenti sistem-saltojn"
+msgstr "ignori sistem-saltojn"
 
 #: musicxml2ly.py:2977
 msgid "ignore page breaks"
-msgstr "preterpasi paĝsaltojn"
+msgstr "ignori paĝsaltojn"
 
 #: musicxml2ly.py:2983
 msgid "ignore page margins"
-msgstr "preterpasi paĝmarĝenojn"
+msgstr "ignori paĝmarĝenojn"
 
 #: musicxml2ly.py:2989
 msgid "do not convert the exact page layout and breaks (shortcut for \"--nsb --npb --npm\" options)"
@@ -1830,7 +1830,7 @@ msgstr "objekto 'outside-staff' devas havi direkton, ni aprioras supren"
 
 #: axis-group-interface.cc:909
 msgid "Cannot set outside-staff-priority for element and elements' Y parent."
-msgstr ""
+msgstr "Ne povas difini 'outside-staff-priority' por elementoj kaj gepatroj de elementoj Y."
 
 #: bar-check-iterator.cc:84
 #, c-format
@@ -1962,7 +1962,7 @@ msgstr "Provo forigi neekzistantan aŭdanton."
 
 #: dispatcher.cc:291
 msgid "Already listening to dispatcher, ignoring request"
-msgstr "Jam aŭdadas la disdonilon, ni preteratentas la peton"
+msgstr "Jam aŭdadas la disdonilon, ni ignoras la peton"
 
 #: dots.cc:50
 #, c-format
@@ -2001,7 +2001,7 @@ msgstr "nefinigita etendigilo"
 
 #: fingering-column-engraver.cc:69
 msgid "Cannot add a fingering without a direction."
-msgstr ""
+msgstr "Ne eblas aldoni fingradon sen direkto."
 
 #: flag.cc:134
 #, c-format
@@ -2057,12 +2057,12 @@ msgstr "Devas esti piednota-evento."
 
 #: freetype.cc:40
 msgid "cannot initialize FreeType"
-msgstr ""
+msgstr "ne eblas ekigi FreeType"
 
 #: general-scheme.cc:100 midi-stream.cc:67
 #, c-format
 msgid "cannot rename `%s' to `%s'"
-msgstr ""
+msgstr "ne eblas renomigi '%s' al '%s'"
 
 #: general-scheme.cc:435
 #, c-format
@@ -2080,29 +2080,29 @@ msgstr "g_spawn_sync fiaskis (%d): %s: %s"
 
 #: general-scheme.cc:728
 msgid "Exiting current GhostScript instance...\n"
-msgstr ""
+msgstr "Ni ĉesas nunan aperon de GhostScript...\n"
 
 #: general-scheme.cc:765
 msgid "Mismatch of GhostScript arguments!\n"
-msgstr ""
+msgstr "Malkongruo de argumentoj de GhostScript!\n"
 
 #: general-scheme.cc:772
 #, c-format
 msgid "Starting GhostScript instance with arguments: %s\n"
-msgstr ""
+msgstr "Ni ekigas GhostScript-aperon per argumentoj: %s\n"
 
 #: general-scheme.cc:788
 msgid "Could not start GhostScript instance!"
-msgstr ""
+msgstr "Ne eblis ekigi GhostScript-aperon!"
 
 #: general-scheme.cc:801
 #, c-format
 msgid "Running GhostScript command: %s\n"
-msgstr ""
+msgstr "Plenumado de komando GhostScript: %s\n"
 
 #: general-scheme.cc:810
 msgid "Error when running GhostScript command!"
-msgstr ""
+msgstr "Eraro dum plenumado de komando GhostScript!"
 
 #: glissando-engraver.cc:161
 msgid "unterminated glissando"
@@ -2124,7 +2124,7 @@ msgstr "neniu muziko estis trovata en la partituro"
 #: gregorian-ligature-engraver.cc:73
 #, c-format
 msgid "\\%s ignored"
-msgstr "\\%s estis preteratentata"
+msgstr "\\%s estis ignorata"
 
 #: gregorian-ligature-engraver.cc:78
 #, c-format
@@ -2163,12 +2163,12 @@ msgstr "%s.%s ŝanĝis el interna voko"
 
 #: grob-scheme.cc:55
 msgid "typecheck failed"
-msgstr ""
+msgstr "tipo-kontrolo fiaskis"
 
 #: grob.cc:486
 #, c-format
 msgid "ignored infinite %s-offset"
-msgstr "preteratentis senliman %s-deŝovon"
+msgstr "ni ignoris senliman %s-deŝovon"
 
 #: guile-init.cc:73
 #, c-format
@@ -2185,7 +2185,7 @@ msgstr "tro malgranda 'decrescendo'"
 
 #: horizontal-bracket-engraver.cc:65
 msgid "do not have that many brackets"
-msgstr "ne estas tiom da krampoj"
+msgstr "ne estas tiom da rektkrampoj"
 
 #: horizontal-bracket-engraver.cc:74
 msgid "conflicting note group events"
@@ -2253,7 +2253,7 @@ msgstr "nefinigita kantligaturo"
 
 #: ligature-engraver.cc:217
 msgid "ignoring rest: ligature may not contain rest"
-msgstr "ni preteratentas paŭzon: kantligaturo ne povas enhavi paŭzon"
+msgstr "ni ignoras paŭzon: kantligaturo ne povas enhavi paŭzon"
 
 #: ligature-engraver.cc:218
 msgid "ligature was started here"
@@ -2262,7 +2262,7 @@ msgstr "kantligaturo estis komencata ĉi tie"
 #: lily-guile.cc:91
 #, c-format
 msgid "(load path: `%s', cwd: `%s')"
-msgstr ""
+msgstr "(ŝarg-vojo: '%s', nuna vojo: '%s')"
 
 #: lily-guile.cc:281
 #, c-format
@@ -2413,7 +2413,7 @@ msgstr "generi PDF-dosierojn (apriore)"
 
 #: main.cc:133
 msgid "generate SVG files "
-msgstr ""
+msgstr "generi dosierojn SVG "
 
 #: main.cc:137
 msgid "generate PNG files "
@@ -2513,7 +2513,7 @@ msgstr ""
 
 #: main.cc:201
 msgid "(ignored)"
-msgstr "(preteratentata)"
+msgstr "(ignorita)"
 
 #: main.cc:205
 msgid ""
@@ -2580,7 +2580,7 @@ msgstr "Ĉu vi trovis program-eraron? Bonvolu legi %s"
 
 #: main.cc:349
 msgid "linked against Ghostscript:"
-msgstr ""
+msgstr "bindita kun Ghostscript:"
 
 #: main.cc:406
 #, c-format
@@ -2629,7 +2629,7 @@ msgstr "ne eblas ŝanĝi aktualan dosierujon al: %s: %s"
 
 #: main.cc:669
 msgid "SVG backend requested; other formats will be ignored."
-msgstr ""
+msgstr "Interna interfaco por SVG estas postulata; aliaj formoj estos ignorataj."
 
 #: main.cc:685
 msgid "The --relocate option is no longer relevant."
@@ -2697,7 +2697,7 @@ msgstr "fiasko pro neatendita okazo"
 #: midi-cc-announcer.cc:105
 #, c-format
 msgid "ignoring out-of-range value change for MIDI property `%s'"
-msgstr "ni preteratentas valorajn ŝanĝojn for de intervalo por la atributo de MIDI '%s'"
+msgstr "ni ignoras valorajn ŝanĝojn for de intervalo por la atributo de MIDI '%s'"
 
 #: midi-item.cc:92
 #, c-format
@@ -2711,12 +2711,12 @@ msgstr "Takt-indiko kun pli ol 255 frapoj. Ni distranĉas"
 #: midi-stream.cc:57
 #, c-format
 msgid "cannot create temp file: %s: %s"
-msgstr ""
+msgstr "ne eblas krei provizoran dosieron: %s: %s"
 
 #: midi-stream.cc:79
 #, c-format
 msgid "cannot write to file: `%s': %s"
-msgstr ""
+msgstr "ne eblas skribi en dosiero: '%s': %s"
 
 #. LINE BREAKING
 #: minimal-page-breaking.cc:40 one-page-breaking.cc:74 paper-score.cc:118
@@ -2729,7 +2729,7 @@ msgstr "Kalkulado de paĝsaltoj..."
 
 #: multi-measure-rest.cc:161
 msgid "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
-msgstr "'usable-duration-logs' devas esti ne-malplena listo.  Ni revenas al plenaj paŭzoj."
+msgstr "'usable-duration-logs' devas esti ne-malplena listo.  Ni revenas al entjeraj paŭzoj."
 
 #: music.cc:150
 #, c-format
@@ -2802,82 +2802,82 @@ msgstr "tiparo '%s' indico %d ne havas tabelon 'CFF'"
 #: open-type-font-scheme.cc:409
 #, c-format
 msgid "font `%s': cannot open for reading"
-msgstr ""
+msgstr "tiparo '%s': ne eblas malfermi por legi"
 
 #: open-type-font-scheme.cc:420 open-type-font-scheme.cc:437
 #: open-type-font-scheme.cc:455
 #, c-format
 msgid "font `%s': cannot read field `%s'"
-msgstr ""
+msgstr "tiparo '%s': ne eblas legi kampon '%s'"
 
 #: open-type-font-scheme.cc:428
 #, c-format
 msgid "font `%s': not a font collection"
-msgstr ""
+msgstr "tiparo '%s': ne estas tipara specimenaro"
 
 #: open-type-font-scheme.cc:446
 #, c-format
 msgid "font `%s': invalid TTC header version"
-msgstr ""
+msgstr "tiparo '%s': malvalida versio de kapo TTC"
 
 #: open-type-font-scheme.cc:467
 #, c-format
 msgid "font `%s': index %d is too large, using index 0"
-msgstr ""
+msgstr "tiparo '%s': indico %d tro larĝas, ni uzas indicon 0"
 
 #: open-type-font-scheme.cc:478
 #, c-format
 msgid "font `%s': cannot read offset of subfont %d"
-msgstr ""
+msgstr "tiparo '%s': ne eblas legi deŝovon de subtiparo %d"
 
 #: open-type-font-scheme.cc:495 open-type-font-scheme.cc:533
 #: open-type-font-scheme.cc:556
 #, c-format
 msgid "font `%s': cannot read field `%s' of subfont %d"
-msgstr ""
+msgstr "tiparo '%s': ne eblas legi kampon '%s de subtiparo %d"
 
 #: open-type-font-scheme.cc:504
 #, c-format
 msgid "font `%s': invalid field `sfntVersion' in subfont %d"
-msgstr ""
+msgstr "tiparo '%s': malvalida kampo 'sfntVersion' en subtiparo %d"
 
 #: open-type-font-scheme.cc:513
 #, c-format
 msgid "subfont `%s': cannot open for writing"
-msgstr ""
+msgstr "subtiparo '%s': ne eblas malfermi por skribi"
 
 #: open-type-font-scheme.cc:523 open-type-font-scheme.cc:546
 #: open-type-font-scheme.cc:566
 #, c-format
 msgid "subfont `%s': cannot write field `%s'"
-msgstr ""
+msgstr "subtiparo '%s': ne eblas skribi kampon '%s'"
 
 #: open-type-font-scheme.cc:593
 #, c-format
 msgid "font `%s': cannot read field `%s' for table %u of subfont %d"
-msgstr ""
+msgstr "tiparo '%s': ne eblas legi kampon '%s' por tabelo %u de subtiparo %d"
 
 #: open-type-font-scheme.cc:608 open-type-font-scheme.cc:628
 #: open-type-font-scheme.cc:658 open-type-font-scheme.cc:683
 #, c-format
 msgid "subfont `%s': cannot write field `%s' for table `%s'"
-msgstr ""
+msgstr "subtiparo '%s': ne eblas skribi kampon '%s' por tabelo '%s'"
 
 #: open-type-font-scheme.cc:618 open-type-font-scheme.cc:638
 #: open-type-font-scheme.cc:668
 #, c-format
 msgid "font `%s': cannot read field `%s' for table `%s' of subfont %d"
-msgstr ""
+msgstr "tiparo '%s': ne eblas legi kampon '%s' por tabelo '%s de subtiparo %d"
 
 #: open-type-font-scheme.cc:709
 #, c-format
 msgid "font `%s': cannot read table `%s' of subfont %d"
-msgstr ""
+msgstr "tiparo '%s': ne eblas legi tabelon '%s' de subtiparo %d"
 
 #: open-type-font-scheme.cc:718
 #, c-format
 msgid "subfont `%s': cannot write table `%s'"
-msgstr ""
+msgstr "subtiparo '%s': ne eblas skribi tabelon '%s'"
 
 #: open-type-font.cc:55
 #, c-format
@@ -2916,7 +2916,7 @@ msgstr "ne eblas preni formon de tiparo %s"
 #: open-type-font.cc:170
 #, c-format
 msgid "cannot get CFF name from font %s"
-msgstr ""
+msgstr "ne eblas determini nomon CFF el la tiparo %s"
 
 #: open-type-font.cc:176
 #, c-format
@@ -2926,12 +2926,12 @@ msgstr "Anstataŭigi tiparnomon: %s => %s"
 #: open-type-font.cc:182
 #, c-format
 msgid "CFF name for font %s is the same."
-msgstr ""
+msgstr "CFF-nomo por tiparo %s samas."
 
 #: open-type-font.cc:216
 #, c-format
 msgid "cannot read CFF: %s"
-msgstr ""
+msgstr "ne eblas legi CFF: %s"
 
 #. FreeType 2.6 and 2.6.1 cannot get PS name from pure-CFF.
 #. (FreeType 2.5.5 and earlier does not have this issue.
@@ -2939,11 +2939,11 @@ msgstr ""
 #. So we need direct parsing of the 'CFF' table, in this case.
 #: open-type-font.cc:232
 msgid "Directly parsing 'CFF' table of font."
-msgstr ""
+msgstr "Senpere analizo de tabelo 'CFF' el tiparo."
 
 #: open-type-font.cc:270
 msgid "cannot get CFF name"
-msgstr ""
+msgstr "ne eblas determini CFF-nomon"
 
 #: open-type-font.cc:355
 #, c-format
@@ -2962,7 +2962,7 @@ msgstr "Esplorado pri la plej bona nombro da paĝoj..."
 
 #: optimal-page-breaking.cc:94
 msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
-msgstr "ne eblis kontentigi kaj 'systems-per-page' kaj 'page-count' samtempe, ni preteratentas 'systems-per-page'"
+msgstr "ne eblis kontentigi kaj 'systems-per-page' kaj 'page-count' samtempe, ni ignoras 'systems-per-page'"
 
 #: optimal-page-breaking.cc:116
 #, c-format
@@ -2999,11 +2999,11 @@ msgstr "sistemoj iras preter la paĝo pro malĝustaj paperaj agordoj, ni uzas ap
 
 #: page-breaking.cc:280
 msgid "ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"
-msgstr "ni preteratentas 'min-systems-per-page' kaj 'max-systems-per-page' ĉar 'systems-per-page' ne estis difinata"
+msgstr "ni ignoras 'min-systems-per-page' kaj 'max-systems-per-page' ĉar 'systems-per-page' ne estis difinata"
 
 #: page-breaking.cc:285
 msgid "min-systems-per-page is larger than max-systems-per-page, ignoring both values"
-msgstr "'min-systems-per-page' estas pli granda ol 'max-systems-per-page', ni preteratentas ambaŭ"
+msgstr "'min-systems-per-page' estas pli granda ol 'max-systems-per-page', ni ignoras ambaŭ"
 
 #: page-breaking.cc:656
 #, c-format
@@ -3116,7 +3116,7 @@ msgstr "perfortita salto estis preterpasata de iu evento, ĉu vi ne devus uzi ko
 #: paper-outputter.cc:127
 #, c-format
 msgid "Paper_outputter elapsed time: %.2f seconds"
-msgstr ""
+msgstr "Pasita tempo de Paper_outputter: %.2f sekundoj"
 
 #: paper-score.cc:130
 #, c-format
@@ -3129,7 +3129,7 @@ msgstr "Antaŭprocezado de grafikaj objektoj..."
 
 #: parenthesis-engraver.cc:71
 msgid "Don't know how to parenthesize spanners."
-msgstr ""
+msgstr "Ne scias kiel interkrampigi etendigilojn."
 
 #: parse-scm.cc:61
 msgid "GUILE signaled an error for the expression beginning here"
@@ -3179,7 +3179,7 @@ msgstr "ne eblas trovi komencon de piano-pedalo: '%s'"
 #: piano-pedal-engraver.cc:329
 #, c-format
 msgid "cannot find start of piano pedal bracket: `%s'"
-msgstr "ne eblas trovi la komencon de piano-pedala krampo: '%s'"
+msgstr "ne eblas trovi la komencon de piano-pedala rektkrampo: '%s'"
 
 #: program-option-scheme.cc:224
 #, c-format
@@ -3379,12 +3379,12 @@ msgstr "%s bezonas direkton por flanka ĝisrandigo"
 
 #: side-position-interface.cc:262
 msgid "cannot find skylines - strange alignment will follow"
-msgstr ""
+msgstr "ne eblas trovi liniparojn - strangaj laŭliniigoj sekvos"
 
 #: side-position-interface.cc:457
 #, c-format
 msgid "no side-axis setting found for grob %s."
-msgstr ""
+msgstr "neniu difino de 'side-axis' estis trovata por grob %s."
 
 #: skyline-pair.cc:140
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
@@ -3392,7 +3392,7 @@ msgstr "direkto ne povas esti CENTER en ly:skyline-pair::skyline"
 
 #: skyline.cc:543
 msgid "Cannot have negative horizon padding.  Junking."
-msgstr ""
+msgstr "Ne povas esti negativa horizona ŝtopado. Ni forĵetas."
 
 #: slur-engraver.cc:123
 #, c-format
@@ -3418,16 +3418,16 @@ msgstr "ne eblas finigi %s"
 
 #: slur-scoring.cc:364
 msgid "no viable slur configuration found"
-msgstr ""
+msgstr "neniu realigebla agordo por ligarko estis trovata"
 
 #: slur-scoring.cc:491
 msgid "slur trying to encompass an empty note column."
-msgstr ""
+msgstr "ligarko provas inkluzivi vakan kolumnon de noto."
 
 #: slur.cc:436
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
-msgstr "Preteratento de 'grob' por ligarko: %s. Ĉu 'avoid-slur' ne estas difinita?"
+msgstr "Ignoro de 'grob' por ligarko: %s. Ĉu 'avoid-slur' ne estas difinita?"
 
 #: source-file.cc:59
 #, c-format
@@ -3467,11 +3467,11 @@ msgstr "eble la enigo devus indiki polifoniajn voĉojn"
 
 #: stem-tremolo.cc:286
 msgid "Whole-note tremolo may collide with simultaneous notes."
-msgstr ""
+msgstr "Entjer-nota tremsono povas kolizii kun samtempaj notoj."
 
 #: stem-tremolo.cc:340
 msgid "stem tremolo has no note heads"
-msgstr ""
+msgstr "stanga tremsono havas neniun notkapon"
 
 #: stem.cc:133
 msgid "weird stem size, check for narrow beams"
@@ -3479,7 +3479,7 @@ msgstr "stranga grando de stango, kontrolu mallarĝajn vostligojn"
 
 #: stencil-integral.cc:484
 msgid "Malformed path for path stencil."
-msgstr ""
+msgstr "Misformita vojo por voja stencilo."
 
 #: stream-event.cc:130
 #, c-format
@@ -3539,7 +3539,7 @@ msgstr "stranga takt-indiko estis trovata: %d/%d"
 
 #: time-signature-engraver.cc:111
 msgid "mid-measure time signature without \\partial"
-msgstr ""
+msgstr "takt-indiko en mezo de mezuro sen \\partial"
 
 #: translator-ctors.cc:119
 #, c-format
@@ -3558,16 +3558,16 @@ msgstr "ne eblas trovi: '%s'"
 
 #: tuplet-engraver.cc:111
 msgid "No tuplet to end"
-msgstr "Neniu opigo por finigi"
+msgstr "Neniu grupigo por finigi"
 
 #: tuplet-engraver.cc:160
 msgid "omitting tuplet bracket with neither left nor right bound"
-msgstr ""
+msgstr "ni neglektas grupigan rektkrampon sen maldekstra nek dekstra ligo"
 
 #: vaticana-ligature-engraver.cc:387
 #, c-format
 msgid "ignored prefix(es) `%s' of this head according to restrictions of the selected ligature style"
-msgstr "preteratentita(j) prefikso(j) '%s' de tiu ĉi kapo akorde al la limigoj de la elektita kantligatura stilo"
+msgstr "ignorita(j) prefikso(j) '%s' de tiu ĉi kapo akorde al la limigoj de la elektita kantligatura stilo"
 
 #: vaticana-ligature-engraver.cc:453
 msgid "Ambiguous use of dots in ligature: there are multiple dotted notes with the same pitch.  The ligature should be split."
@@ -3592,7 +3592,7 @@ msgstr "kreskanta vatikana stilo 'flexa'"
 
 #: vertical-align-engraver.cc:106
 msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
-msgstr "Ni preteratentas Vertical_align_engraver en VerticalAxisGroup"
+msgstr "Ni ignoras Vertical_align_engraver en VerticalAxisGroup"
 
 #. fixme: be more verbose.
 #: volta-engraver.cc:100
@@ -3859,7 +3859,7 @@ msgstr "'~a' fiaskis (~a)\n"
 #: backend-library.scm:49
 #, scheme-format
 msgid "Preparing Ghostscript command to `~a': ~a"
-msgstr ""
+msgstr "Ni preparas komandon Ghostscript por '~a': ~a"
 
 #: backend-library.scm:125
 #, scheme-format
@@ -3881,7 +3881,7 @@ msgstr "Kopiado al '~a'...\n"
 #: backend-library.scm:284
 #, scheme-format
 msgid "can't create temp file for ~a after ~a times"
-msgstr ""
+msgstr "ne eblas krei provizoran dosieron por ~a post ~a fojoj"
 
 #: backend-library.scm:336
 #, scheme-format
@@ -3911,7 +3911,7 @@ msgstr "add-bar-glyph-print-procedure: signobildo '~a' devas esti unuopa signo A
 #: bar-line.scm:784
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
-msgstr "Neniu etendiga stang-signobildo estis difinata por stang-signobildo '~a'; ni preteratentas."
+msgstr "Neniu etendiga stang-signobildo estis difinata por stang-signobildo '~a'; ni ignoras."
 
 #: chord-entry.scm:57
 #, scheme-format
@@ -3921,7 +3921,7 @@ msgstr "Eventuala rubaĵo sekvanta akordon: ~A"
 #: color.scm:733
 #, scheme-format
 msgid "Requested color '~a' is not defined!"
-msgstr ""
+msgstr "Petita koloro '~a' ne estas difinita!"
 
 #: define-context-properties.scm:31 define-grob-properties.scm:21
 #: define-music-properties.scm:21 lily.scm:124
@@ -3947,11 +3947,11 @@ msgstr "Nedifinita patra event-klaso '~S'"
 #: define-grobs.scm:2991
 #, scheme-format
 msgid "Unknown class ~a"
-msgstr ""
+msgstr "Nekonata klaso ~a"
 
 #: define-markup-commands.scm:265
 msgid "Can't print a line - setting on/off to default"
-msgstr ""
+msgstr "Ne eblas printi linion - ni agordas on/off laŭ normo"
 
 #: define-markup-commands.scm:1312
 msgid "no systems found in \\score markup, does it have a \\layout block?"
@@ -3960,7 +3960,7 @@ msgstr "neniu sistemo estis trovata en markado \\score, ĉu ĝi havas blokon \\l
 #: define-markup-commands.scm:2455
 #, scheme-format
 msgid "Recursive definition of property ~a detected!"
-msgstr ""
+msgstr "Rikura difino de atributo ~a estis detektata!"
 
 #: define-markup-commands.scm:3170
 #, scheme-format
@@ -3970,7 +3970,7 @@ msgstr "Ne eblas trovi signobildon ~a"
 #: define-markup-commands.scm:3553
 #, scheme-format
 msgid "Unable to create slashed digit ~a"
-msgstr ""
+msgstr "Ne eblas krei ĉe-deklivan ciferon ~a"
 
 #: define-markup-commands.scm:3666
 #, scheme-format
@@ -3990,12 +3990,12 @@ msgstr "ne estas valida daŭro-ĉeno: ~a"
 #: define-markup-commands.scm:4161
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
-msgstr "ne estas valida daŭro-ĉeno: ~a - ni preteratentas"
+msgstr "ne estas valida daŭro-ĉeno: ~a - ni ignoras"
 
 #: define-music-callbacks.scm:87
 #, scheme-format
 msgid "Could not find ottavation markup for ~a octaves up."
-msgstr ""
+msgstr "Ne eblis trovi oktigan markadon por ~a oktoj supre."
 
 #: define-music-types.scm:815
 #, scheme-format
@@ -4028,12 +4028,12 @@ msgstr "Ne eblis trovi la lingvon '~a'.  Preterpaso."
 
 #: display-woodwind-diagrams.scm:1666
 msgid "woodwind markup error - invalid key or hole requested"
-msgstr ""
+msgstr "markada eraro de ligna blovinstrumento - malvalida klavo aŭ truo estis petata"
 
 #: display-woodwind-diagrams.scm:1946
 #, scheme-format
 msgid "~a is not a valid woodwind instrument."
-msgstr ""
+msgstr "~a ne estas valida ligna blovinstrumento."
 
 #: document-backend.scm:135
 #, scheme-format
@@ -4053,12 +4053,12 @@ msgstr "nekonata interfaco Grob: ~S"
 #: document-context-mods.scm:78
 #, scheme-format
 msgid "context modification `~a' not documented."
-msgstr ""
+msgstr "modifo de kunteksto '~a' ne estas dokumentita."
 
 #: document-identifiers.scm:56
 #, scheme-format
 msgid "music function `~a' not documented."
-msgstr ""
+msgstr "muzika funkcio '~a' ne estas dokumentita."
 
 #: documentation-lib.scm:62
 #, scheme-format
@@ -4088,7 +4088,7 @@ msgstr "flag-streko '~a' aŭ '~a' ne estis trovata"
 #: flag-styles.scm:169
 #, scheme-format
 msgid "flag ~a not found"
-msgstr ""
+msgstr "flago ~a ne estis trovata"
 
 #: framework-eps.scm:111
 #, scheme-format
@@ -4117,23 +4117,23 @@ msgstr "Ekigo de enkorpigita listo de CFF-tiparo."
 #: framework-ps.scm:284
 #, scheme-format
 msgid "Preparing font ~a in PostScript resource directory for subfont ~a of file `~a'..."
-msgstr ""
+msgstr "Ni preparas la tiparon ~a en risurca dosierujo PostScript por subtiparo ~a de dosiero '~a'..."
 
 #: framework-ps.scm:300 framework-ps.scm:314 framework-ps.scm:320
 #, scheme-format
 msgid "File `~a' already exists, skipping..."
-msgstr ""
+msgstr "Dosiero '~a' jam ekzistas, ni preterpasas..."
 
 #. TrueType fonts (TTF) and TrueType Collection (TTC)
 #: framework-ps.scm:306
 #, scheme-format
 msgid "Font ~a is TrueType font, skipping..."
-msgstr ""
+msgstr "Tiparo ~a estas TrueType, ni preterpasas..."
 
 #: framework-ps.scm:322
 #, scheme-format
 msgid "Font ~a cannot be used in PostScript resource directory because it is unknown format."
-msgstr ""
+msgstr "Ne eblas uzi la tiparon ~a en risurca dosierujo de PostScript ĉar ĝi prezentas nekonatan formon."
 
 #: framework-ps.scm:361
 #, scheme-format
@@ -4173,7 +4173,7 @@ msgstr "ni ne scias kiel enkorpigi la tiparon ~s ~s ~s"
 #: framework-ps.scm:545
 #, scheme-format
 msgid "Font file `~a' already exists, skipping..."
-msgstr ""
+msgstr "Tipardosiero '~a' jam ekzistas, ni preterpasas..."
 
 #: framework-ps.scm:551
 #, scheme-format
@@ -4183,32 +4183,32 @@ msgstr "Eksportado de tipardosiero '~a'."
 #: framework-ps.scm:580
 #, scheme-format
 msgid "Making PostScript resource directory `~a'."
-msgstr ""
+msgstr "Kreado de risurca dosierujo '~a' de PostScript."
 
 #: framework-ps.scm:583
 #, scheme-format
 msgid "PostScript resource directory `~a' already exists."
-msgstr ""
+msgstr "Risurca dosierujo '~a' de PostScript jam ekzistas."
 
 #: framework-ps.scm:585
 #, scheme-format
 msgid "Making CIDFont directory `~a'."
-msgstr ""
+msgstr "Kreado de dosierujo CIDFont '~a'."
 
 #: framework-ps.scm:588
 #, scheme-format
 msgid "CIDFont directory `~a' already exists."
-msgstr ""
+msgstr "Dosierujo CIDFont '~a' jam ekzistas."
 
 #: framework-ps.scm:590
 #, scheme-format
 msgid "Making Font directory `~a'."
-msgstr ""
+msgstr "Kreado de dosierujo Font '~a'."
 
 #: framework-ps.scm:593
 #, scheme-format
 msgid "Font directory `~a' already exists."
-msgstr ""
+msgstr "Tipara dosierujo '~a' jam ekzistas."
 
 #: framework-ps.scm:597
 #, scheme-format
@@ -4223,7 +4223,7 @@ msgstr "Tipara eksporta dosierujo '~a' jam ekzistas."
 #: framework-ps.scm:829
 #, scheme-format
 msgid "Layout output to `~a'..."
-msgstr ""
+msgstr "Aranĝa eligo al '~a'..."
 
 #: framework-ps.scm:997
 msgid ""
@@ -4261,12 +4261,12 @@ msgstr "Ĝisdatigo de tiparo al: ~a"
 #: fret-diagrams.scm:33
 #, scheme-format
 msgid "Possible typo in fret-diagram '~a'"
-msgstr ""
+msgstr "Ebla mistajpo en fret-diagramo '~a'"
 
 #: fret-diagrams.scm:958
 #, scheme-format
 msgid "String ~a out of range 1-~a, ignoring"
-msgstr ""
+msgstr "Kordo ~a for de rango 1-~a, ni ignoras"
 
 #: graphviz.scm:64
 #, scheme-format
@@ -4276,21 +4276,21 @@ msgstr "Skribado de grafikaĵo '~a'..."
 #: harp-pedals.scm:119
 #, scheme-format
 msgid "Unhandled entry in harp-pedal: ~a"
-msgstr ""
+msgstr "Netraktebla enigo en harp-pedalo: ~a"
 
 #: harp-pedals.scm:167
 #, scheme-format
 msgid "Harp pedal diagram contains ~a pedals rather than the usual 7."
-msgstr ""
+msgstr "Harp-pedala diagramo enhavas ~a pedalojn prefere ol la ordinara 7."
 
 #: harp-pedals.scm:170
 msgid "Harp pedal diagram does not contain a divider (usually after third pedal)."
-msgstr ""
+msgstr "Harp-pedala diagramo ne enhavas dividanton (ordinare post la tria pedalo)."
 
 #: harp-pedals.scm:172
 #, scheme-format
 msgid "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal."
-msgstr ""
+msgstr "Harp-pedala diagramo enhavas dividantojn ĉe pozicioj ~a. Ordinare, estas nur unu dividanto post la tria pedalo."
 
 #: layout-beam.scm:40
 #, scheme-format
@@ -4385,7 +4385,7 @@ msgstr ""
 #: lily.scm:960
 #, scheme-format
 msgid "Children ~a exited with errors."
-msgstr ""
+msgstr "Idoj ~a ĉesis kun eraroj."
 
 #: lily.scm:971 lily.scm:1057
 #, scheme-format
@@ -4469,16 +4469,20 @@ msgid ""
 "If @var{music} is a single pitch, inverts it about @var{around}\n"
 "and transposes from @var{around} to @var{to}."
 msgstr ""
+"Se @var{music} estas ununura tonalto, invertigi ĝin ĉe @var{around}\n"
+"kaj transponi el @var{around} al @var{to}."
 
 #: modal-transforms.scm:302
 msgid "Applies pitch-invert to all pitches in @var{music}."
-msgstr ""
+msgstr "Aplikas 'pitch-invert' al ĉiuj tonaltoj en @var{music}."
 
 #: modal-transforms.scm:309
 msgid ""
 "Transpose a note (numbered as @var{n}) in @var{direction}.\n"
 "@var{n} is zero-based and can be negative to count from the end."
 msgstr ""
+"Transponi noton (numerita kiel @var{n}) en @var{direction}.\n"
+"@var{n} estas nul-bazita kaj povas esti negativa por kalkuli el la fino malantaŭen."
 
 #: music-functions.scm:321
 #, scheme-format
@@ -4497,7 +4501,7 @@ msgstr "Pli da alternativoj ol ripetoj.  Forĵeto de kromaj alternativoj"
 #: music-functions.scm:420
 #, scheme-format
 msgid "unknown repeat-type ~a, ignoring."
-msgstr ""
+msgstr "nekonata ripeto-tipo '~a', ni ignoras."
 
 #: music-functions.scm:511
 #, scheme-format
@@ -4562,12 +4566,12 @@ msgstr "ni rezignas pri klonita grob-transformo"
 #: music-functions.scm:2474
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
-msgstr ""
+msgstr "apriora '~a de ~a estas ~a kaj ne povas esti deŝovo (offset)"
 
 #: music-functions.scm:2505
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
-msgstr ""
+msgstr "la property '~a de ~a ne povas esti deŝovo (offset)"
 
 #: music-functions.scm:2731
 #, scheme-format
@@ -4581,7 +4585,7 @@ msgstr "konfliktanta mark-grupo ~a"
 
 #: output-lib.scm:2068
 msgid "Please consider to increase 'minimum-length"
-msgstr ""
+msgstr "Bonvole konsideru alkrementi 'minimum-length"
 
 #: output-ps.scm:266 output-svg.scm:557
 #, scheme-format
@@ -4649,31 +4653,31 @@ msgstr "la citita muziko '~a' estas malplena"
 #: ps-to-png.scm:66
 #, scheme-format
 msgid "Unknown pixmap format ~a"
-msgstr ""
+msgstr "Nekonata formo de bilder-mapo ~a"
 
 #: ps-to-png.scm:157
 msgid "`anti-alias-factor' must be a positive integer <= 8"
-msgstr ""
+msgstr "'anti-alias-factor' devas esti pozitiva entjero <= 8"
 
 #: scheme-engravers.scm:96
 msgid "measure count left unfinished"
-msgstr ""
+msgstr "nombro de mezuroj estas ne kompletita"
 
 #: scheme-engravers.scm:111
 msgid "cannot find start of measure spanner"
-msgstr ""
+msgstr "ne eblas trovi komencon de mezur-etendigilo"
 
 #: scheme-engravers.scm:145
 msgid "unterminated measure spanner"
-msgstr ""
+msgstr "nefinigita mezur-etendigilo"
 
 #: scheme-engravers.scm:541
 msgid "unterminated DurationLine"
-msgstr ""
+msgstr "nefinigita 'DurationLine'"
 
 #: stencil.scm:749
 msgid "Both angle-increments and radial-increments must be positive numbers."
-msgstr ""
+msgstr "Kaj angul-inkrementoj kaj radius-inkrementoj devas esti pozitivaj numeroj."
 
 #: to-xml.scm:190
 #, scheme-format
@@ -4693,7 +4697,7 @@ msgstr "Mankas freto por tonalto ~a sur kordo ~a"
 #: translation-functions.scm:450
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
-msgstr ""
+msgstr "Malferma freto ĉe kordo ~a havas fingron de ~a"
 
 #: translation-functions.scm:493
 #, scheme-format
@@ -4720,7 +4724,7 @@ msgstr "Neniu kordo por tonalto ~a (je fretoj ~a)"
 
 #: translation-functions.scm:595
 msgid "additional bass strings are not supported by FretBoards"
-msgstr ""
+msgstr "aldonaj basaj kordoj ne estas subtenataj de FretBoards"
 
 #: translation-functions.scm:672
 #, scheme-format
@@ -4731,60 +4735,14 @@ msgstr ""
 "Neniu etikedo por freto ~a (sur kordo ~a);\n"
 "nur ~a fret-etikedoj estis provizataj"
 
-#, python-format
 #~ msgid "Scanning %s"
 #~ msgstr "Skanado de %s"
 
-#, python-format
 #~ msgid "Extracted %s"
 #~ msgstr "Eltirite %s"
 
-#, python-format
 #~ msgid "Writing fonts to %s"
 #~ msgstr "Skribado de tiparoj al %s"
-
-#~ msgid "input file is a zip-compressed MusicXML file"
-#~ msgstr "enig-dosiero estas zip-densigita dosiero MusicXML"
-
-#, python-format
-#~ msgid "Reading %s..."
-#~ msgstr "Legado de %s..."
-
-#, python-format
-#~ msgid "Compiling %s..."
-#~ msgstr "Kompilado %s..."
-
-#, python-format
-#~ msgid "Processing include: %s"
-#~ msgstr "Procezado de inkluzivigo: %s"
-
-#, c-format
-#~ msgid "Layout output to `%s'..."
-#~ msgstr "Aranĝa eligo al '%s'..."
-
-#, c-format
-#~ msgid "cannot read CFF %s: %s"
-#~ msgstr "ne eblas legi CFF %s: %s"
-
-#, c-format
-#~ msgid "Directly parsing 'CFF' table of font %s."
-#~ msgstr "Senpere analizo de tabelo 'CFF' el tiparo %s."
-
-#, c-format
-#~ msgid "cannot get font %s CFF name"
-#~ msgstr "ne eblas preni CFF-nomon de tiparo %s"
-
-#, c-format
-#~ msgid "(load path: `%s')"
-#~ msgstr "(ŝarg-vojo: '%s')"
-
-#, c-format
-#~ msgid "cannot open for write: %s: %s"
-#~ msgstr "ne eblas malfermi por skribi: %s: %s"
-
-#, c-format
-#~ msgid "cannot write to file: `%s'"
-#~ msgstr "ne eblas skribi en dosiero: '%s'"
 
 #~ msgid "drum %s type unknown, please add to instrument_drumtype_dict"
 #~ msgstr "nekonata tipo de tamburo %s, bonvolu aldoni al 'instrument_drumtype_dict'"
@@ -4864,9 +4822,6 @@ msgstr ""
 
 #~ msgid "missing stencil expression `~S'"
 #~ msgstr "mankas esprimo de stencilo '~S'"
-
-#~ msgid "Font file `~a' already exists, skipping."
-#~ msgstr "Tipardosiero '~a' jam ekzistas, ni preterpasas."
 
 #~ msgid "Copying `~a' to `~a'..."
 #~ msgstr "Kopiado de '~a' al '~a'..."
@@ -4959,9 +4914,6 @@ msgstr ""
 
 #~ msgid "score expected"
 #~ msgstr "estis atendata muzik-skribaĵo"
-
-#~ msgid "unknown repeat type `~S'"
-#~ msgstr "nekonata ripeto-tipo '~S'"
 
 #~ msgid "See define-music-types.scm for supported repeats"
 #~ msgstr "Vidu 'define-music-types.scm' por subtenataj ripetoj"
