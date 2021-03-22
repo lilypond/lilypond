@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.2"
+\version "2.23.1"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides, version-specific"
@@ -12,20 +12,19 @@
   texidoc = "
 By default, LilyPond does not allow the same articulation (e.g., an
 accent, a fermata, a flageolet, etc.) to be displayed above and below a
-note. For example, @code{c4_\\fermata^\\fermata} will only show a
-fermata below. The fermata above will simply be ignored.
+note. For example, @code{c4_\\fermata^\\fermata} only shows a fermata
+below. The fermata above gets simply ignored.
 
 However, one can stick scripts (just like fingerings) inside a chord,
 which means it is possible to have as many articulations as desired.
 This approach has the advantage that it ignores the stem and positions
 the articulation relative to the note head. This can be seen in the
 case of the flageolets in the snippet. To mimic the behaviour of
-scripts outside a chord, 'add-stem-support would be required.
+scripts outside a chord, @code{'add-stem-support} would be required.
 
-So, the solution is to write the note as a chord and add the
-articulations inside the @code{<...>}. The direction will always be
-above, but one can tweak this via a \\tweak:
-@code{<c-\\tweak direction #DOWN-\\fermata^\\fermata>}
+The solution is thus to write the note as a chord and add the
+articulations inside of @code{<...>}, using the direction modifiers
+@code{^} and @code{_} as appropriate.
 
 "
   doctitle = "Showing the same articulation above and below a note or chord"
@@ -35,13 +34,15 @@ above, but one can tweak this via a \\tweak:
 smallFlageolet = \tweak font-size #-2 \flageolet
 
 \relative c' {
-  s4^"Wrong:"
-  c4_\fermata^\fermata % The second fermata is ignored!
-  <e d'>4^\smallFlageolet_\smallFlageolet
+  <>^"Wrong"
+  c2_\fermata^\fermata % The second fermata is ignored!
+  <e d'>2^\smallFlageolet_\smallFlageolet
 
-  s4^"Works if written inside a chord:"
-  <e_\smallFlageolet d'^\smallFlageolet>4
-  <e_\flageolet d'^\flageolet>4
-  <e_\smallFlageolet^\smallFlageolet>4
-  <e_\fermata^\fermata>4
+  \stopStaff s1 \startStaff
+
+  <>^"Works if written inside a chord"
+  <e_\smallFlageolet d'^\smallFlageolet>2
+  <e_\flageolet d'^\flageolet>2
+  <e_\smallFlageolet^\smallFlageolet>2
+  <e_\fermata^\fermata>2
 }

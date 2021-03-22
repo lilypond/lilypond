@@ -4,17 +4,25 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.2"
+\version "2.23.1"
 
 \header {
   lsrtags = "rhythms"
 
   texidoc = "
-The global defaults for grace notes are stored in the identifiers
-@code{startGraceMusic}, @code{stopGraceMusic},
-@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
-@code{startAppoggiaturaMusic} and @code{stopAppoggiaturaMusic}, which
-are defined in the file @code{ly/grace-init.ly}.  By redefining them
+The global defaults for grace notes are stored in the following
+identifiers.
+
+@verbatim
+startGraceMusic
+stopGraceMusic
+startAcciaccaturaMusic
+stopAcciaccaturaMusic
+startAppoggiaturaMusic
+stopAppoggiaturaMusic
+@end verbatim
+
+They are defined in file @code{ly/grace-init.ly}.  By redefining them
 other effects may be obtained.
 
 "

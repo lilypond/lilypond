@@ -4,15 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.2"
+\version "2.23.1"
 
 \header {
   lsrtags = "rhythms"
 
   texidoc = "
-Beat grouping within a measure is controlled by the context property
-@code{beatStructure}.  Values of @code{beatStructure} are established
-for many time signatures in
+Beat grouping within a measure is controlled by the
+@code{beatStructure} context property.  Values of @code{beatStructure}
+are established for many time signatures in
 @code{scm/time-signature-settings.scm}.  Values of @code{beatStructure}
 can be changed or set with @code{\\set}. Alternatively, @code{\\time}
 can be used to both set the time signature and establish the beat

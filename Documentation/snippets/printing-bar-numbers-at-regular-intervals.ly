@@ -4,15 +4,15 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.2"
+\version "2.23.1"
 
 \header {
   lsrtags = "rhythms"
 
   texidoc = "
-Bar numbers can be printed at regular intervals by setting the property
-@code{barNumberVisibility}. Here the bar numbers are printed every two
-measures except at the end of the line.
+By setting the @code{barNumberVisibility} property, bar numbers can be
+printed at regular intervals. Here the bar numbers are printed every
+two measures except at the end of the line.
 
 "
   doctitle = "Printing bar numbers at regular intervals"

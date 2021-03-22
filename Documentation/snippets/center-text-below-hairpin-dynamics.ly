@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.2"
+\version "2.23.1"
 
 \header {
   lsrtags = "expressive-marks, really-cool, scheme-language, text"
@@ -22,6 +22,8 @@ normally printed, using some Scheme code.
   doctitle = "Center text below hairpin dynamics"
 } % begin verbatim
 
+\paper { tagline = ##f }
+
 hairpinWithCenteredText =
 #(define-music-function (text) (markup?)
   #{
@@ -30,17 +32,23 @@ hairpinWithCenteredText =
         (let* ((stencil (ly:hairpin::print grob))
                (par-y (ly:grob-parent grob Y))
                (dir (ly:grob-property par-y 'direction))
+               (staff-line-thickness
+                 (ly:output-def-lookup (ly:grob-layout grob) 'line-thickness))
                (new-stencil (ly:stencil-aligned-to
                  (ly:stencil-combine-at-edge
                    (ly:stencil-aligned-to stencil X CENTER)
                    Y dir
                    (ly:stencil-aligned-to
-                     (grob-interpret-markup grob text) X CENTER))
+                     (grob-interpret-markup
+                       grob
+                       (make-fontsize-markup
+                         (magnification->font-size
+                           (+ (ly:staff-symbol-staff-space grob)
+                              (/ staff-line-thickness 2)))
+                           text)) X CENTER))
                  X LEFT))
                (staff-space (ly:output-def-lookup
                  (ly:grob-layout grob) 'staff-space))
-               (staff-line-thickness
-                 (ly:output-def-lookup (ly:grob-layout grob) 'line-thickness))
                (par-x (ly:grob-parent grob X))
                (dyn-text (grob::has-interface par-x 'dynamic-text-interface))
                (dyn-text-stencil-x-length

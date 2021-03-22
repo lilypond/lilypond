@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.2"
+\version "2.23.1"
 
 \header {
   lsrtags = "paper-and-layout, text, titles"
@@ -23,7 +23,7 @@ A demonstration of all headers.
   composer = "composer"
   arranger = "arranger"
   instrument = "instrument"
-  metre = "metre"
+  meter = "meter"
   opus = "opus"
   piece = "piece"
   poet = "poet"
