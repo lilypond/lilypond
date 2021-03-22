@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.21.2"
+\version "2.23.1"
 
 \header {
   lsrtags = "connecting-notes, editorial-annotations, expressive-marks, really-simple"
