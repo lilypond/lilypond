@@ -143,9 +143,14 @@ Macro definitions that contain translatable text belong to file
 @c   ***** References *****
 
 @c References look better if section names (which can use `@code`
-@c and the like) are used instead of plain-text node names.
+@c and the like) are used instead of plain-text node names. However,
+@c the command is not supported by texi2html-1.82
+
+@ifnothtml
 
 @xrefautomaticsectiontitle on
+
+@end ifnothtml
 
 @c We introduce an additional cross-reference command `@iref`
 @c specifically taylored for the PDF version of the Internals
