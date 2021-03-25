@@ -888,9 +888,9 @@ no elements."
 (define-session volta-bracket-allow-volta-hook-list '())
 
 (define-public (volta-bracket::calc-hook-visibility bar-glyph)
-  "Determine the visibility of the volta bracket hook. It is called in
-@code{lily/volta-bracket.cc} and returns @code{#t} if @emph{no} hook
-should be drawn."
+  "Determine the visibility of the volta bracket end hook. It is
+called in @code{lily/volta-bracket.cc} and returns @code{#t} if
+@emph{no} hook should be drawn."
   (not (member bar-glyph volta-bracket-allow-volta-hook-list)))
 
 (define-public (ly:volta-bracket::calc-shorten-pair grob)
@@ -1060,12 +1060,10 @@ of the volta brackets relative to the bar lines."
 
 ;; volta hook settings
 (allow-volta-hook ":|.")
-(allow-volta-hook ".|:")
 (allow-volta-hook "|.")
 (allow-volta-hook ":..:")
 (allow-volta-hook ":|.|:")
 (allow-volta-hook ":|.:")
-(allow-volta-hook ".|")
 (allow-volta-hook ":|.S")
 (allow-volta-hook ":|.S-S")
 (allow-volta-hook ":|.S.|:")
