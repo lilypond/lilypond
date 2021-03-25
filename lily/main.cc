@@ -270,7 +270,7 @@ copyright ()
  */
 {
   /* Do not update the copyright years here, run `make grand-replace'  */
-  printf ("%s", (_f ("Copyright (c) %s by\n%s  and others.", "1996--2020",
+  printf ("%s", (_f ("Copyright (c) %s by\n%s  and others.", "1996--2021",
                      AUTHORS).c_str ()));
   printf ("\n");
 }
