@@ -3237,6 +3237,14 @@ are printed at all possible places:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-with-changing-regular-intervals.ly}
 
+@cindex bar number, broken measure
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-bar-numbers-for-broken-measures.ly}
+
+@cindex bar number, modulo bar number
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-bar-numbers-using-modulo-bar-number-visible.ly}
+
 @cindex measure number, style
 @cindex bar number, style
 @cindex style, bar number
