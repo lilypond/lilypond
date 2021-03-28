@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -183,12 +183,12 @@ mentionner le suffixe d'unité @code{\in} :
 @}
 @end example
 
-LilyPond accepte les suffixes d'unité @code{\mm}, @code{\cm},
-@code{\in} et @code{\pt}.  Ces unités sont des conversions de
-millimètres, répertoriées dans le fichier
-@file{ly/paper-defaults-init.ly}.  Pour plus de lisibilité, et bien que
-ce ne soit pas techniquement requis, nous vous conseillons d'ajouter
-@code{\mm} à votre code lorsque vous travaillez en millimètres.
+LilyPond accepte les suffixes d'unité @code{\mm}, @code{\cm}, @code{\in}
+et @code{\pt}. Ces unités sont des conversions de millimètres,
+répertoriées dans le fichier @file{ly/@/paper-@/defaults-@/init.ly}.
+Pour plus de lisibilité, et bien que ce ne soit pas techniquement
+requis, nous vous conseillons d'ajouter @code{\mm} à votre code lorsque
+vous travaillez en millimètres.
 
 Vous pouvez aussi définir les valeurs du bloc @code{\paper} à l'aide de
 fonctions Scheme.  Voici l'équivalent de l'exemple précédent :
@@ -255,14 +255,14 @@ qui s'inscrit au sein d'un bloc @code{\paper}.
 @end table
 
 La seule restriction à l'utilisation isolée de la fonction
-@code{set-default-paper-size} est qu'elle doit intervenir avant le
-premier bloc @code{\paper}.  @code{set-default-paper-size} fixe le
-format pour toutes les pages, alors que @code{set-paper-size} détermine
-le format des feuilles rattachées à un bloc @code{\paper} particulier.
-Ainsi, lorsque le bloc @code{\paper} se trouve en tête de fichier, le
-format du papier s'appliquera à toutes les pages ; si @code{\paper}
-apparaît dans un bloc @code{\book}, la taille ne s'appliquera qu'au
-@emph{book} en question.
+@code{set-@/default-@/paper-@/size} est qu'elle doit intervenir avant le
+premier bloc @code{\paper}. @code{set-@/default-@/paper-@/size} fixe le
+format pour toutes les pages, alors que @code{set-@/paper-@/size}
+détermine le format des feuilles rattachées à un bloc @code{\paper}
+particulier. Ainsi, lorsque le bloc @code{\paper} se trouve en tête de
+fichier, le format du papier s'appliquera à toutes les pages ; si
+@code{\paper} apparaît dans un bloc @code{\book}, la taille ne
+s'appliquera qu'au @emph{book} en question.
 
 À l'intérieur d'un bloc @code{\paper}, la fonction @code{set-paper-size}
 doit intervenir avant toute autre variable.  Les raisons à ceci sont
@@ -278,8 +278,8 @@ l'annexe @ref{Formats de papier prédéfinis}.
 
 La commande suivante, inscrite dans votre fichier, vous permettra
 d'ajouter votre format personnalisé à ceux déjà connus, puis d'y faire
-appel à l'aide des fonctions @code{set-default-paper-size} et
-@code{set-paper-size} :
+appel à l'aide des fonctions @code{set-@/default-@/paper-@/size} et
+@code{set-@/paper-@/size} :
 
 @example
 #(set! paper-alist
@@ -357,11 +357,11 @@ dimensionnements horizontaux @code{left-margin}, @code{right-margin},
 @ref{Variables d'espacement horizontal}.
 
 Les valeurs par défaut de ces dimensionnements sont contenues dans le
-fichier @file{ly/paper-defaults-init.ly} et utilisent les variables
-internes @code{top-margin-default}, @code{bottom-margin-default}, etc.
-correspondant au format par défaut -- papier A4 -- pour lequel
-@code{paper-height} est à @code{297\mm} et @code{paper-width} à
-@code{210\mm}.
+fichier @file{ly/@/paper-@/defaults-@/init.ly} et utilisent les
+variables internes @code{top-margin-default},
+@code{bottom-margin-default}, etc. correspondant au format par défaut --
+papier A4 -- pour lequel @code{paper-height} est à @code{297\mm} et
+@code{paper-width} à @code{210\mm}.
 
 @morerefs
 Manuel de notation :
@@ -585,7 +585,7 @@ bien que, dans les règles de nommage des variables qui suivent, le terme
 distances sont exprimées en espace de portée.
 
 Leurs valeurs par défaut sont inscrites dans le fichier
-@file{ly/paper-defaults-init.ly}.
+@file{ly/@/paper-@/defaults-@/init.ly}.
 
 @c TODO: Where do headers/footers fit in? -mp
 
@@ -863,7 +863,7 @@ Fichiers d'initialisation :
 @cindex indentation
 
 Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
-@file{ly/paper-defaults-init.ly}.
+@file{ly/@/paper-@/defaults-@/init.ly}.
 
 @table @code
 
@@ -975,19 +975,21 @@ Les valeurs par défaut sont définies dans le fichier
 @item page-breaking
 @funindex page-breaking
 
-L'algorithme de calcul des sauts de page à utiliser.  Vous avez le choix
-entre @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-page-breaking}, @code{ly:one-line-breaking},
-@code{ly:one-line-auto-height-breaking}, et @code{ly:optimal-breaking}.
-La valeur par défaut est @code{ly:optimal-breaking}.
+L'algorithme de calcul des sauts de page à utiliser. Vous avez le choix
+entre @code{ly:@/minimal-@/breaking},
+@code{ly:@/page-@/turn-@/breaking}, @code{ly:@/one-@/page-@/breaking},
+@code{ly:@/one-@/line-@/breaking},
+@code{ly:@/one-@/line-@/auto-@/height-@/breaking}, et
+@code{ly:o@/ptimal-@/breaking}. La valeur par défaut est
+@code{ly:@/optimal-@/breaking}.
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
 
 Cette variable permet de « tromper » l'algorithme de gestion des sauts
-de page quant à la valeur de @code{system-system-spacing}.  Ainsi,
-lorsque @code{page-breaking-system-system-spacing.padding} a une
-valeur nettement supérieure à @code{system-system-spacing.padding},
+de page quant à la valeur de @code{system-@/system-@/spacing}.  Ainsi,
+lorsque @code{page-@/breaking-@/system-@/system-@/spacing.padding} a une
+valeur nettement supérieure à @code{system-@/system-@/spacing.padding},
 l'algorithme en question aura tendance à disposer moins de systèmes sur
 une même page.  Cette variable est par défaut non définie.
 
@@ -1011,8 +1013,8 @@ de @code{10}.
 @end table
 
 Les variables qui suivent ne sont effectives que lorsque
-l'algorithme @code{page-breaking} adopte la fonction
-@code{ly:page-turn-breaking}.  Les sauts de page sont alors
+l'algorithme @code{page-@/breaking} adopte la fonction
+@code{ly:@/page-@/turn-@/breaking}.  Les sauts de page sont alors
 positionnés de sorte à minimiser le nombre de tournes.  Dans la
 mesure où il faut tourner la feuille pour passer d'une page
 impaire à une page paire, sera privilégiée une répartition qui
@@ -1038,8 +1040,8 @@ autres choix.
 @funindex blank-page-penalty
 
 Pénalité pour apparition d'une page blanche en cours de partition.
-L'attribution d'une valeur élevée à @code{blank-page-penalty}
-alors qu'a été activé @code{ly:page-turn-breaking} forcera
+L'attribution d'une valeur élevée à @code{blank-@/page-p@/enalty}
+alors qu'a été activé @code{ly:@/page-@/turn-@/breaking} forcera
 LilyPond à éviter de placer une page blanche au mileu de la
 partition, quitte à espacer d'autant plus la musique pour remplir
 cette page blanche et la suivante. La valeur par défaut est
@@ -1049,8 +1051,8 @@ de @code{5}.
 @funindex blank-last-page-penalty
 
 Pénalité pour fin de partition intervenant sur une page paire.
-L'attribution d'une valeur élevée à @code{blank-last-page-penalty}
-alors qu'a été activé @code{ly:page-turn-breaking} forcera
+L'attribution d'une valeur élevée à @code{blank-@/last-@/page-@/penalty}
+alors qu'a été activé @code{ly:@/page-@/turn-@/breaking} forcera
 LilyPond à éviter de terminer la partition sur une page paire,
 quitte à ajuster les espacements jusqu'à obtenir une page de plus
 ou une de moins.  La valeur par défaut est de @code{0}.
@@ -1060,7 +1062,7 @@ ou une de moins.  La valeur par défaut est de @code{0}.
 
 Pénalité pour apparition d'une page blanche entre deux partitions.  Sa
 valeur est par défaut inférieure à celle de
-@code{blank-page-penalty} ; nous préférons qu'une page blanche
+@code{blank-@/page-@/penalty} ; nous préférons qu'une page blanche
 s'insère après la fin de la partition plutôt qu'au milieu.  La
 valeur par défaut est de @code{2}.
 
@@ -2162,7 +2164,8 @@ Quant aux lignes rattachées à des portées -- lignes de non-portée -- le
 tableau suivant présente le @i{point de référence} pour chacune
 d'elles :
 
-@multitable {Ligne de non-portée} {Point de référence}
+@quotation
+@multitable {@b{Ligne de non-portée}} {mi-hauteur du « m »}
 @headitem Ligne de non-portée @tab Point de référence
 @item @code{ChordNames}  @tab ligne de base
 @item @code{NoteNames}   @tab ligne de base
@@ -2171,6 +2174,7 @@ d'elles :
 @item @code{FiguredBass} @tab point le plus haut
 @item @code{FretBoards}  @tab ligne supérieure
 @end multitable
+@end quotation
 
 En voici une représentation graphique :
 
@@ -2652,11 +2656,11 @@ rubriques précédentes, rien ne vaut une collection d'exemples illustrant
 les différentes mises au point du décalage vertical appliqué aux portées
 et systèmes distribués sur une page.
 
-Une autre approche de l'espacement vertical est le recours à
-@code{NonMusicalPaperColumn.line-break-system-details}.  Alors que
-@code{VerticalAxisGroup} et @code{\paper} gèrent un décalage vertical,
-@code{NonMusicalPaperColumn.line-break-system-details} spécifiera le
-positionnement vertical absolu sur la page.
+Une autre approche de l'espacement vertical est le recours à la
+propriété @code{NonMusicalPaperColumn.line-break-system-details}. Alors
+que @code{VerticalAxisGroup} et @code{\paper} gèrent un décalage
+vertical, @code{NonMusicalPaperColumn.line-break-system-details}
+spécifiera le positionnement vertical absolu sur la page.
 
 @code{NonMusicalPaperColumn.line-break-system-details} prend en charge
 une liste associative de quatre mises au point :

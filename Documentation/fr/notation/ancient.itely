@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -914,8 +914,8 @@ limitations.
 
 La gravure des ligatures mensurales blanches s'obtient après avoir
 remplacé, dans le contexte @code{Voice}, le
-@code{Ligature_bracket_engraver} par le
-@code{Mensural_ligature_engraver}, comme ici :
+@code{Ligature_@/bracket_@/engraver} par le
+@code{Mensural_@/ligature_@/engraver}, comme ici :
 
 @example
 \layout @{
@@ -971,7 +971,7 @@ Par exemple,
 @end lilypond
 
 Si on ne remplace pas le @code{Ligature_bracket_engraver}
-par le @code{Mensural_ligature_engraver}, on obtient
+par le @code{Mensural_@/ligature_@/engraver}, on obtient
 
 @lilypond[quote,ragged-right]
 \relative {
@@ -1088,7 +1088,9 @@ pouvez néanmoins forcer le positionnement du glyphe sur une ligne, comme
 expliqué à la section @ref{Clefs}.  Dans la colonne exemple, la note
 suivant la clef est un do médium.
 
-@multitable @columnfractions .4 .4 .2
+@need 1000
+@quotation
+@multitable @columnfractions .37 .36 .2
 @item
 @b{Description}
 @tab
@@ -1203,6 +1205,7 @@ Clef combinée ut/fa, style historique Hufnagel
   c'
 @end lilypond
 @end multitable
+@end quotation
 
 @morerefs
 Glossaire musicologique :
@@ -1632,7 +1635,9 @@ code ayant permis de générer la ligature, se basant ici sur sol, la, si.
 
 @b{Neumes simples}
 
-@multitable @columnfractions .4 .12 .48
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 Formes @b{Normale} et @emph{Liquescente}
@@ -1774,11 +1779,14 @@ Formes @b{Normale} et @emph{Liquescente}
 @tab
 
 @end multitable
+@end quotation
 
 @noindent
 @b{Ligatures sur deux notes}
 
-@multitable @columnfractions .4 .12 .48
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 @b{Clivis vel Flexa}
@@ -1915,7 +1923,8 @@ Formes @b{Normale} et @emph{Liquescente}
 @code{\[ \deminutum g \pes b \]}
 
 @item
-@emph{Pes Auctus Descendens Initio Debilis}
+@emph{Pes Auctus Descendens@*
+Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
@@ -1927,14 +1936,18 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \deminutum g \pes \auctum \descendens b \]}
+@code{\[ \deminutum g \pes \auctum@*
+\descendens b \]}
 
 @end multitable
+@end quotation
 
 @noindent
 @b{Ligatures sur plusieurs notes}
 
-@multitable @columnfractions .4 .12 .48
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 @b{Torculus}
@@ -1964,7 +1977,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \pes b \flexa \auctum \descendens g \]}
+@code{\[ a \pes b \flexa \auctum@*
+\descendens g \]}
 
 @item
 @emph{Torculus Deminutus}
@@ -1997,7 +2011,8 @@ Formes @b{Normale} et @emph{Liquescente}
 @code{\[ \deminutum a \pes b \flexa g \]}
 
 @item
-@emph{Torculus Auctus Descendens Initio Debilis}
+@emph{Torculus Auctus Descendens@*
+Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
@@ -2009,10 +2024,12 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \deminutum a \pes b \flexa \auctum \descendens g \]}
+@code{\[ \deminutum a \pes b \flexa \auctum@*
+\descendens g \]}
 
 @item
-@emph{Torculus Deminutus Initio Debilis}
+@emph{Torculus Deminutus@*
+Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
@@ -2024,7 +2041,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \deminutum a \pes b \flexa \deminutum g \]}
+@code{\[ \deminutum a \pes b \flexa@*
+\deminutum g \]}
 
 @item
 @b{Porrectus}
@@ -2054,7 +2072,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \flexa g \pes \auctum \descendens b \]}
+@code{\[ a \flexa g \pes \auctum@*
+\descendens b \]}
 
 @item
 @emph{Porrectus Deminutus}
@@ -2084,7 +2103,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \virga b \inclinatum a \inclinatum g \]}
+@code{\[ \virga b \inclinatum a@*
+\inclinatum g \]}
 
 @item
 @emph{Climacus Auctus}
@@ -2099,7 +2119,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \virga b \inclinatum a \inclinatum \auctum g \]}
+@code{\[ \virga b \inclinatum a@*
+\inclinatum \auctum g \]}
 
 @item
 @emph{Climacus Deminutus}
@@ -2114,7 +2135,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \virga b \inclinatum a \inclinatum \deminutum g \]}
+@code{\[ \virga b \inclinatum a@*
+\inclinatum \deminutum g \]}
 
 @item
 @b{Scandicus}
@@ -2144,7 +2166,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ g \pes a \pes \auctum \descendens b \]}
+@code{\[ g \pes a \pes@*
+\auctum \descendens b \]}
 
 @item
 @emph{Scandicus Deminutus}
@@ -2162,11 +2185,14 @@ Formes @b{Normale} et @emph{Liquescente}
 @code{\[ g \pes a \pes \deminutum b \]}
 
 @end multitable
+@end quotation
 
 @noindent
 @b{Signes spéciaux}
 
-@multitable @columnfractions .4 .2 .4
+@need 1000
+@quotation
+@multitable @columnfractions .35 .12 .48
 
 @item
 @b{Quilisma}
@@ -2196,7 +2222,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \quilisma g \pes \auctum \descendens b \]}
+@code{\[ \quilisma g \pes \auctum@*
+\descendens b \]}
 
 @item
 @b{Oriscus}
@@ -2241,7 +2268,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \oriscus g \pes \auctum \descendens b \]}
+@code{\[ \oriscus g \pes \auctum@*
+\descendens b \]}
 
 @item
 @b{Salicus}
@@ -2271,7 +2299,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ g \oriscus a \pes \auctum \descendens b \]}
+@code{\[ g \oriscus a \pes \auctum@*
+\descendens b \]}
 
 @item
 @b{(Apo)stropha}
@@ -2331,7 +2360,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \stropha b \stropha b \stropha b \]}
+@code{\[ \stropha b \stropha b@*
+\stropha b \]}
 
 @item
 @emph{Trigonus}
@@ -2347,9 +2377,11 @@ Formes @b{Normale} et @emph{Liquescente}
 }
 @end lilypond
 @tab
-@code{\[ \stropha b \stropha b \stropha a \]}
+@code{\[ \stropha b \stropha b@*
+\stropha a \]}
 
 @end multitable
+@end quotation
 
 @predefined
 LilyPond dispose des préfixes suivants :
@@ -2617,12 +2649,12 @@ unes des autres, les mélismes étant espacés les uns des autres.  Ceci
 permet au chantre d'identifier aisément les structures mélodiques d'un
 chant @emph{Znamenny}.  Les mélismes sont traites par LilyPond comme des
 ligatures dont l'espacement est géré par le
-@code{Kievan_ligature_engraver}.
+@code{Kievan_@/ligature_@/engraver}.
 
 Le @code{Kievan_ligature_engraver} est activé par défaut pour les
 contextes @code{KievanVoice} et @code{KievanStaff}.  Pour les autres
 contextes, il s'active au sein d'un bloc @code{layout} dans lequel est
-désactivé le @code{Ligature_bracket_engraver}.
+désactivé le @code{Ligature_@/bracket_@/engraver}.
 
 @example
 \layout @{

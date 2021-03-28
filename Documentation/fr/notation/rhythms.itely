@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c47715d189e3f415009d11a0ce5b10f3fb6bd39a
+   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2431,11 +2431,12 @@ ajouter, modifier ou supprimer @emph{a posteriori}.  Cela peut paraître
 fastidieux, mais toutes les règles de ligature devraient être appréciées
 avant de les spécifier.}
 
-Lorsqu'intervient un changement de métrique, les valeurs par défaut de
-@code{Timing.baseMoment}, @code{Timing.beatStructure} et
-@code{Timing.beamExceptions} sont réinitialisées.  Il suffit donc, pour
-revenir aux règles de ligature par défaut d'un contexte @code{Timing},
-de spécifier à nouveau la métrique.
+Lorsqu'intervient un changement de métrique, les valeurs par
+défaut de @code{Timing@/.baseMoment},
+@code{Timing@/.beatStructure} et @code{Timing@/.beamExceptions}
+sont réinitialisées. Il suffit donc, pour revenir aux règles de
+ligature par défaut d'un contexte @code{Timing}, de spécifier à
+nouveau la métrique.
 
 @lilypond[quote,verbatim]
 \relative a' {
@@ -3514,15 +3515,16 @@ est modifié pour imprimer un repère encadré.
 }
 @end lilypond
 
-Le fichier @file{scm/translation-functions.scm} comporte les
-définitions de @code{format-mark-letters} (comportement par défaut),
-@code{format-mark-box-letters}, @code{format-mark-numbers} et
-@code{format-mark-box-numbers}.  Vous pouvez vous en inspirer pour
+Le fichier @file{scm/translation-functions.scm} comporte les définitions
+de @code{format-@/mark-@/letters} (comportement par défaut),
+@code{format-@/mark-@/box-@/letters}, @code{format-@/mark-@/numbers} et
+@code{format-@/mark-@/box-@/numbers}. Vous pouvez vous en inspirer pour
 d'autres fonctions de formatage.
 
-@code{format-mark-barnumbers}, @code{format-mark-box-barnumbers} et
-@code{format-mark-circle-barnumbers} permettent d'imprimer le numéro
-de mesure au lieu des compteurs alphabétique ou numérique.
+@code{format-@/mark-@/barnumbers},
+@code{format-@/mark-@/box-@/barnumbers} et
+@code{format-@/mark-@/circle-@/barnumbers} permettent d'imprimer le
+numéro de mesure au lieu des compteurs alphabétique ou numérique.
 
 On peut aussi spécifier manuellement une marque de repère :
 
@@ -3564,11 +3566,11 @@ Pour connaître les différents symboles accessibles par
 
 Pour affiner le positionnement des repères, veuillez vous référer à
 @ref{Mise en forme du texte}, et tout particulièrement ce qui concerne
-la @code{break-alignable-interface} au chapitre
+la @code{break-@/alignable-@/interface} au chapitre
 @ref{Alignement des objets}.
 
 Les définitions @code{format-mark-numbers} et @code{format-mark-letters}
-sont inscrites dan le fichier @file{scm/translation-functions.scm}.
+sont inscrites dan le fichier @file{scm/@/translation-@/functions.scm}.
 Elles seront une source d'inspiration en matière de fonctions de
 formatage.
 

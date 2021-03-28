@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -454,8 +454,8 @@ un fichier les instructions
 De nouveaux diagrammes sont réalisables, bien que ceci requiert de
 maîtriser le langage Scheme et n'est pas à la portée de tous les
 utilisateurs.  Des gabarits sont contenus dans les fichiers
-@file{scm/define-woodwind-diagrams.scm} et
-@file{scm/display-woodwind-diagrams.scm}.
+@file{scm/@/define-@/woodwind-@/diagrams.scm} et
+@file{scm/@/display-@/woodwind-@/diagrams.scm}.
 
 @snippets
 

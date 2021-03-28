@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -820,11 +820,11 @@ basse, il sonnera donc une octave en dessous de ce qui est écrit.
 @end lilypond
 
 L'accordage par défaut est @code{guitar-tuning}_; il correspond à
-l'accordage standard d'une guitare : mi la ré sol si mi (EADGBE).
+l'accordage standard d'une guitare : mi la ré sol si mi @w{(EADGBE)}.
 D'autres accordages prédéfinis sont disponibles :
-@code{guitar-open-g-tuning}, @code{mandolin-tuning} et
-@code{banjo-open-g-tuning}.  Les accordages prédéfinis sont répertoriés
-dans le fichier @file{ly/string-tunings-init.ly}.
+@code{guitar-@/open-g-@/tuning}, @code{mandolin-@/tuning} et
+@code{banjo-@/open-g-@/tuning}. Les accordages prédéfinis sont
+répertoriés dans le fichier @file{ly/string-@/tunings-@/init.ly}.
 
 @cindex accordage personnalisé
 
@@ -1490,17 +1490,17 @@ des diagrammes d'accord stockés dans une table de correspondance :
 @end lilypond
 
 Les diagrammes d'accord définis par défaut sont dans le fichier
-@file{predefined-guitar-fretboards.ly}.  Les diagrammes d'accord sont
+@file{predefined-guitar-fretboards.ly}. Les diagrammes d'accord sont
 stockés en fonction des notes de l'accord ainsi que de l'accordage
-(@code{stringTunings}) utilisé.  Le fichier d'initialisation
-@file{predefined-guitar-fretboards.ly} contient les diagrammes d'accord
-prédéfinis uniquement pour l'accordage standard (@code{guitar-tuning}).
-Des diagrammes d'accords peuvent être définis pour d'autres instruments
-ou d'autres accordages en suivant les exemples du fichier
-@file{predefined-guitar-fretboards.ly}.
+(@code{stringTunings}) utilisé. Le fichier d'initialisation
+@file{predefined-@/guitar-@/fretboards.ly} contient les diagrammes
+d'accord prédéfinis uniquement pour l'accordage standard
+(@code{guitar-@/tuning}). Des diagrammes d'accords peuvent être définis
+pour d'autres instruments ou d'autres accordages en suivant les exemples
+du fichier @file{predefined-@/guitar-f@/retboards.ly}.
 
 Les diagrammes de fret propres au ukulele se trouvent dans le fichier
-@file{predefined-ukulele-fretboards.ly}.
+@file{predefined-@/ukulele-@/fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
@@ -2245,10 +2245,10 @@ music = {
 @funindex four-string-banjo
 
 LilyPond prend en charge un certain nombre d'accordages courants pour
-banjo : @code{banjo-c-tuning} sol do sol si ré (gCGBD),
-@code{banjo-modal-tuning} sol ré sol do ré (gDGCD),
-@code{banjo-open-d-tuning} la ré fa# la ré (aDF#AD) et
-@code{banjo-open-dm-tuning} la ré fa la ré (aDFAD).
+banjo : @code{banjo-@/c-tuning} sol do sol si ré @w{(gCGBD)},
+@code{banjo-@/modal-@/tuning} sol ré sol do ré @w{(gDGCD)},
+@code{banjo-@/open-@/d-tuning} la ré fa# la ré @w{(aDF#AD)} et
+@code{banjo-@/open-@/dm-tuning} la ré fa la ré @w{(aDFAD)}.
 
 Ces accordages peuvent être convertis pour banjo à quatre cordes au
 moyen de la fonction @code{four-string-banjo} :

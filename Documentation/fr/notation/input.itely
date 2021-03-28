@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c47715d189e3f415009d11a0ce5b10f3fb6bd39a
+   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -276,14 +276,11 @@ Ainsi, le fichier @file{huitminiatures.ly} qui contiendrait
 @noindent
 générera
 
-@itemize
-@item
+@example
 @file{huitminiatures.pdf},
-@item
-@file{huitminiatures-1.pdf} et
-@item
+@file{huitminiatures-1.pdf}
 @file{huitminiatures-2.pdf}.
-@end itemize
+@end example
 
 
 @node Nom des fichiers de sortie
@@ -301,8 +298,15 @@ Nous avons vu dans la rubrique précédente que LilyPond évite les
 conflits de nom des fichiers qu'il génère à partir d'une même source.
 Vous pouvez même définir vous-même le suffixe qui sera appliqué à chacun
 des blocs @code{\book}.  Ainsi, en reprenant l'exemple ci-avant, vous
-obtiendrez les fichiers @file{huitminiatures-Romance.pdf},
-@file{huitminiatures-Menuet.pdf} et @file{huitminiatures-Nocturne.pdf}
+obtiendrez les fichiers
+
+@example
+@file{huitminiatures-Romance.pdf}
+@file{huitminiatures-Menuet.pdf}
+@file{huitminiatures-Nocturne.pdf}
+@end example
+
+@noindent
 en ajoutant simplement une déclaration @code{\bookOutputSuffix} au sein
 de chaque bloc @code{\book}.
 
@@ -2407,23 +2411,44 @@ manière suivante :
   @tab Résultat
 
 @item
-Musique balisée précédée de @code{\keepWithTag #'@var{nom}} ou
-       @code{\keepWithTag #'(@var{nom1} @var{nom2}@dots{})}
-@tab Musique non balisée et musique balisée par l'un des noms de
+Musique balisée précédée de
+@example
+\keepWithTag #'@var{nom}
+@end example
+@noindent
+ou
+@example
+\keepWithTag #'(@var{nom1} @var{nom2}@dots{})
+@end example
+  @tab Musique non balisée et musique balisée par l'un des noms de
        balise fournis seront incluses ; la musique balisée
        autrement est exclue.
 
 @item
-Musique balisée précédée de @code{\removeWithTag #'@var{nom}} ou
-       @code{\removeWithTag #'(@var{nom1} @var{nom2}@dots{})}
-@tab Musique non balisée et fragments appelés autrement que par
+Musique balisée précédée de
+@example
+\removeWithTag #'@var{nom}
+@end example
+@noindent
+ou
+@example
+\removeWithTag #'(@var{nom1} @var{nom2}@dots{})
+@end example
+  @tab Musique non balisée et fragments appelés autrement que par
        l'un des noms fournis seront inclus ; la musique balisée
        par l'un des noms mentionnés est exclue.
 
 @item
-Musique balisée non précédée de @code{\keepWithTag} ou
-@code{\removeWithTag}
- @tab Musique balisée et non balisée seront incluses.
+Musique balisée non précédée de
+@example
+\keepWithTag
+@end example
+@noindent
+ou
+@example
+\removeWithTag
+@end example
+  @tab Musique balisée et non balisée seront incluses.
 
 @end multitable
 
@@ -3097,7 +3122,7 @@ Gonville est une alternative au jeu de glyphes @emph{Feta} inclus dans
 la fonte Emmentaler que LilyPond utilise par défaut.  Vous pouvez la
 télécharger à partir de
 @example
-@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
+@uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/, http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
 
 Voici quelques mesures utilisant la police Gonville :
@@ -3114,22 +3139,37 @@ Et ces même mesures avec les glyphes @emph{Feta} de LilyPond :
 @subsubheading Instructions d'installation
 @translationof Installation Instructions
 
+@itemize
+@item
 Téléchargez puis extrayez les fichiers de fonte.
+
+@item
 Copiez les fichiers
-@file{gonville-11.otf},
-@file{gonville-13.otf},
-@file{gonville-14.otf},
-@file{gonville-16.otf},
-@file{gonville-18.otf},
-@file{gonville-20.otf},
-@file{gonville-23.otf},
-@file{gonville-26.otf} et @file{gonville-brace.otf} dans
-@file{@dots{}/share/lilypond/current/fonts/otf} ou
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
+
+@example
+gonville-11.otf
+gonville-13.otf
+gonville-14.otf
+gonville-16.otf
+gonville-18.otf
+gonville-20.otf
+gonville-23.otf
+gonville-26.otf
+gonville-brace.otf
+@end example
+
+@noindent
+dans le dossier
+@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} ou
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
+
+@item
 Si vous disposez des fichiers @file{gonville-*.svg} et
 @file{gonville-*.woff}, copiez les dans
-@file{@dots{}/share/lilypond/current/fonts/svg} ou
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} ou
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
+@end itemize
+
 Pour de plus amples informations, reportez-vous à
 @rlearning{Autres sources de documentation}.
 
@@ -3189,12 +3229,12 @@ Si vous disposez d'autres fontes musicales telles que
 comparable à Gonville.
 
 Autrement dit, copiez les fichiers @file{@var{nomfonte}-*.otf} dans
-@file{@dots{}/share/lilypond/current/fonts/otf} ou
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/otf}.
-Si vous disposez de fichiers @file{@var{nomfonte}-*.svg} et
-@file{@var{nomfonte}-*.woff}, copiez les dans
-@file{@dots{}/share/lilypond/current/fonts/svg} ou
-@file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
+@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} ou
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
+Si vous disposez de fichiers @file{@var{nomfonte}-*@/.svg} et
+@file{@var{nomfonte}-*@/.woff}, copiez les dans
+@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} ou
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 
 Note : à ce jour, et pour fonctionner correctement, LilyPond requiert la
 présence des suffixes suivants dans les dossiers d'instalation :
@@ -4247,8 +4287,8 @@ spécifique :
 @end example
 
 Pour chaque portée que comporte votre partition, vous obtiendrez un
-fichier @file{NOMFICHIER-PORTÉENOMMÉE.notes} ou
-@file{NOMFICHIER-unnamed-staff.notes}.  Notez bien que si plusieurs
+fichier @file{NOMFICHIER-@/PORTÉENOMMÉE.notes} ou
+@file{NOMFICHIER-@/unnamed-@/staff.notes}.  Notez bien que si plusieurs
 portées ne sont pas explicitement nommées, tous leurs événements seront
 regroupés et mélangés dans le même fichier.  Le résultat ressemblera à
 ceci :
