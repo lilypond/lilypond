@@ -3379,7 +3379,7 @@ addition the @code{line-spanner-interface}.
 @node Using the spanner-interface
 @unnumberedsubsubsec Using the @code{spanner-interface}
 
-This interface provides two properties that apply to several spanners.
+This interface provides three properties that apply to several spanners.
 
 @subsubsubheading The @code{minimum-length} property
 
@@ -3391,6 +3391,7 @@ many spanners, as their length is determined by other considerations.
 A few examples where it is effective are shown below.
 
 @ignore
+About: 'minimum-length and 'minimum-length-after-break
 Works for:
   Tie
   MultiMeasureRest
@@ -3401,12 +3402,13 @@ Works for:
 Works as long as callback is made:
   Glissando
   Beam
+  TextSpanner
+  TrillSpanner
 
 Works not at all for:
   LyricSpace
   LyricHyphen
   LyricExtender
-  TextSpanner
   System
 
 @end ignore
@@ -3492,9 +3494,53 @@ e'8 e' e' e'
 e'8 e' e' e'
 @end lilypond
 
+@subsubsubheading The @code{minimum-length-after-break} property
+
+The property @code{minimum-length-after-break} can be
+used to stretch broken spanners starting after a line break.
+As for the @code{minimum-length} property, it is often needed to set the
+@code{springs-and-rods} property to @code{ly:spanner::set-spacing-rods}.
+
+@lilypond[verbatim,quote,ragged-right]
+{
+  \once \override Tie.minimum-length-after-break = 20
+  a1~
+  \break
+  a1
+
+  \once \override Slur.minimum-length-after-break = 20
+  a1(
+  \break
+  d'1)
+
+  \once \override TextSpanner.springs-and-rods =
+    #ly:spanner::set-spacing-rods
+  \once \override TextSpanner.minimum-length-after-break = 20
+  a1\startTextSpan
+  \break
+  a1\stopTextSpan
+
+  \once \override Hairpin.after-line-breaking = ##t
+  \once \override Hairpin.to-barline = ##f
+  \once \override Hairpin.minimum-length-after-break = 20
+  a1\<
+  \break
+  a1\!
+
+  \once \override Glissando.springs-and-rods =
+    #ly:spanner::set-spacing-rods
+  \once \override Glissando.breakable = ##t
+  \once \override Glissando.after-line-breaking = ##t
+  \once \override Glissando.minimum-length-after-break = 20
+  a1\glissando
+  \break
+  d'1
+}
+@end lilypond
+
 @subsubsubheading The @code{to-barline} property
 
-The second useful property of the @code{spanner-interface} is
+The third useful property of the @code{spanner-interface} is
 @code{to-barline}.  By default this is true, causing hairpins and
 other spanners which are terminated on the first note of a measure to
 end instead on the immediately preceding bar line.  If set to false,
