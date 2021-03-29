@@ -1,3 +1,5 @@
+\version "2.23.0"
+
 #(define (expect-equal description actual expected)
   (if (not (equal? actual expected))
    (ly:input-warning (*location*) "case: ~a
