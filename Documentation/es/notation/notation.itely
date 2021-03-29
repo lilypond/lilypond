@@ -26,12 +26,12 @@ Este capítulo explica cómo crear notación musical.
 * Texto::                   Añadir texto a las partituras.
 @end menu
 
-@include notation/pitches.itely
-@include notation/rhythms.itely
-@include notation/expressive.itely
-@include notation/repeats.itely
-@include notation/simultaneous.itely
-@include notation/staff.itely
-@include notation/editorial.itely
-@include notation/text.itely
+@include es/notation/pitches.itely
+@include es/notation/rhythms.itely
+@include es/notation/expressive.itely
+@include es/notation/repeats.itely
+@include es/notation/simultaneous.itely
+@include es/notation/staff.itely
+@include es/notation/editorial.itely
+@include es/notation/text.itely
 

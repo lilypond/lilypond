@@ -32,7 +32,7 @@ Copyright @copyright{} 1999--2021 por los autores.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include es/macros.itexi
 
 
 @lilyTitlePage{Utilización}
@@ -66,13 +66,13 @@ Apéndices
 @allowcodebreaks false
 @end iftex
 
-@include usage/running.itely
-@include usage/updating.itely
-@include usage/lilypond-book.itely
-@include usage/external.itely
-@include usage/suggestions.itely
+@include es/usage/running.itely
+@include es/usage/updating.itely
+@include es/usage/lilypond-book.itely
+@include es/usage/external.itely
+@include es/usage/suggestions.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node Índice de LilyPond
 @appendix Índice de LilyPond

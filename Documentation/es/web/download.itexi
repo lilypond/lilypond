@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/generating-output.itexi
+@include es/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond es un sistema de grabado musical @strong{basado en
@@ -551,6 +551,6 @@ haberla elegido, en @ref{Libertad}.
 @divClass{column-center-bottom}
 @subheading Licencia General Pública de GNU
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

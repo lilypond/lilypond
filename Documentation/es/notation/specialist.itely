@@ -34,13 +34,13 @@ frecuencia útiles en las partituras orquestales pueden verse en
 * Músicas del mundo::
 @end menu
 
-@include notation/vocal.itely
-@include notation/keyboards.itely
-@include notation/unfretted-strings.itely
-@include notation/fretted-strings.itely
-@include notation/percussion.itely
-@include notation/wind.itely
-@include notation/chords.itely
-@include notation/contemporary.itely
-@include notation/ancient.itely
-@include notation/world.itely
+@include es/notation/vocal.itely
+@include es/notation/keyboards.itely
+@include es/notation/unfretted-strings.itely
+@include es/notation/fretted-strings.itely
+@include es/notation/percussion.itely
+@include es/notation/wind.itely
+@include es/notation/chords.itely
+@include es/notation/contemporary.itely
+@include es/notation/ancient.itely
+@include es/notation/world.itely

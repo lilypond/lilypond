@@ -529,7 +529,7 @@ se refiere a la documentación generada.
 @divClass{column-center-bottom}
 @subheading Estado de la traducción
 
-@include translations.itexi
+@include es/translations.itexi
 
 @divEnd
 
@@ -623,6 +623,6 @@ nuestros motivos para haberla elegido, en @ref{Libertad}.
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd
