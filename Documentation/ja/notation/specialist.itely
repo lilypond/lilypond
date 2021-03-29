@@ -32,13 +32,13 @@
 * 世界の音楽::
 @end menu
 
-@include notation/vocal.itely
-@include notation/keyboards.itely
-@include notation/unfretted-strings.itely
-@include notation/fretted-strings.itely
-@include notation/percussion.itely
-@include notation/wind.itely
-@include notation/chords.itely
-@include notation/contemporary.itely
-@include notation/ancient.itely
-@include notation/world.itely
+@include ja/notation/vocal.itely
+@include ja/notation/keyboards.itely
+@include ja/notation/unfretted-strings.itely
+@include ja/notation/fretted-strings.itely
+@include ja/notation/percussion.itely
+@include ja/notation/wind.itely
+@include ja/notation/chords.itely
+@include ja/notation/contemporary.itely
+@include ja/notation/ancient.itely
+@include ja/notation/world.itely

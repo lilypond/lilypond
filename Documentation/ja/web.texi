@@ -15,7 +15,7 @@
 
 @set FDL
 @set web
-@include macros.itexi
+@include ja/macros.itexi
 @include weblinks.itexi
 
 
@@ -199,7 +199,7 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 @subheading ニュース
 
 @c TODO: generate this automatically, including RSS feed.
-@include web/news-headlines.itexi
+@include en/web/news-headlines.itexi
 
 @ref{News, その他のニュース...}
 
@@ -387,10 +387,10 @@ bug-lilypond メーリング リストにメッセージを送ってお知らせ
 @end macro
 @end ifnothtml
 
-@include web/introduction.itexi
-@include web/download.itexi
-@include web/manuals.itexi
-@include web/community.itexi
+@include ja/web/introduction.itexi
+@include ja/web/download.itexi
+@include ja/web/manuals.itexi
+@include ja/web/community.itexi
 
 
 @bye

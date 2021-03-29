@@ -30,7 +30,7 @@ Copyright @copyright{} 1999--2021 by the authors.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include ja/macros.itexi
 
 
 @c Translators: Masamichi Hosoda, Yoshiki Sawada
@@ -68,13 +68,13 @@ Copyright @copyright{} 1999--2021 by the authors.
 @allowcodebreaks false
 @end iftex
 
-@include usage/running.itely
-@include usage/updating.itely
-@include usage/lilypond-book.itely
-@include usage/external.itely
-@include usage/suggestions.itely
+@include ja/usage/running.itely
+@include ja/usage/updating.itely
+@include ja/usage/lilypond-book.itely
+@include ja/usage/external.itely
+@include ja/usage/suggestions.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node LilyPond インデックス
 @appendix LilyPond インデックス

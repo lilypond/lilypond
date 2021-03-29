@@ -29,7 +29,7 @@ Copyright @copyright{} 1998--2021 by the authors.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include ja/macros.itexi
 
 
 @c Translators: Masamichi Hosoda, Yoshiki Sawada
@@ -69,13 +69,13 @@ Copyright @copyright{} 1998--2021 by the authors.
 
 @c INCLUDES
 
-@include learning/tutorial.itely
-@include learning/common-notation.itely
-@include learning/fundamental.itely
-@include learning/tweaks.itely
+@include ja/learning/tutorial.itely
+@include ja/learning/common-notation.itely
+@include ja/learning/fundamental.itely
+@include ja/learning/tweaks.itely
 
-@include learning/templates.itely
-@include fdl.itexi
+@include ja/learning/templates.itely
+@include en/fdl.itexi
 
 
 @node LilyPond インデックス

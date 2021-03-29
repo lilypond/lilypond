@@ -29,11 +29,11 @@
 * テキスト::           楽譜にテキストを追加する
 @end menu
 
-@include notation/pitches.itely
-@include notation/rhythms.itely
-@include notation/expressive.itely
-@include notation/repeats.itely
-@include notation/simultaneous.itely
-@include notation/staff.itely
-@include notation/editorial.itely
-@include notation/text.itely
+@include ja/notation/pitches.itely
+@include ja/notation/rhythms.itely
+@include ja/notation/expressive.itely
+@include ja/notation/repeats.itely
+@include ja/notation/simultaneous.itely
+@include ja/notation/staff.itely
+@include ja/notation/editorial.itely
+@include ja/notation/text.itely

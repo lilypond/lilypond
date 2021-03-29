@@ -32,7 +32,7 @@ Copyright @copyright{} 1999--2021 by 著作者一同
 
 
 @set FDL
-@include macros.itexi
+@include ja/macros.itexi
 
 
 @c Translators: Yoshiki Sawada, Tomohiro Tatejima
@@ -76,20 +76,20 @@ Copyright @copyright{} 1999--2021 by 著作者一同
 
 @contents
 
-@include notation/notation.itely
-@include notation/specialist.itely
+@include ja/notation/notation.itely
+@include ja/notation/specialist.itely
 
-@include notation/input.itely
-@include notation/spacing.itely
+@include ja/notation/input.itely
+@include ja/notation/spacing.itely
 
-@include notation/changing-defaults.itely
-
-
-@include notation/notation-appendices.itely
-@include notation/cheatsheet.itely
+@include ja/notation/changing-defaults.itely
 
 
-@include fdl.itexi
+@include ja/notation/notation-appendices.itely
+@include ja/notation/cheatsheet.itely
+
+
+@include en/fdl.itexi
 
 
 @node LilyPond コマンド インデックス

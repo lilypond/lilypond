@@ -9,7 +9,7 @@
 
 @c Translators: Masamichi Hosoda, Yoshiki Sawada, Hiroshi Fukuhara
 
-@include included/generating-output.itexi
+@include ja/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond は @strong{テキスト ベース} の楽譜作成プログラムです。@c
@@ -585,6 +585,6 @@ GNU General Public License に基づいて公開されています。@c
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

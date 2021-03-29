@@ -9,9 +9,9 @@
 
 @c Translators: Masamichi Hosoda, Yoshiki Sawada
 
-@include included/authors.itexi
-@include included/gsoc.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/gsoc.itexi
+@include en/included/helpus.itexi
 
 @node コミュニティ
 @unnumbered コミュニティ
@@ -912,7 +912,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @unnumberedsec ニュース
 @translationof News
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading 古いニュース
@@ -1007,4 +1007,4 @@ LilyPond の開発手法はかなり複雑です。@c
 あります。
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

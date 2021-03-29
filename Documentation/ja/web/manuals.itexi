@@ -531,7 +531,7 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @divClass{column-center-bottom}
 @subheading 翻訳状況
 
-@include translations.itexi
+@include ja/translations.itexi
 
 @divEnd
 
@@ -628,6 +628,6 @@ GNU Free Documentation License に基づいて公開されています。@c
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd
