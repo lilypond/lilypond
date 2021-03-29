@@ -342,7 +342,12 @@ incipit =
             }
           #})
           (set! (ly:grob-property grob 'self-alignment-Y) #f)
-          (set! (ly:grob-property grob 'self-alignment-X) RIGHT)
+          ;; Do 'self-alignment-X RIGHT only for the first InstrumentName, which
+          ;; actually is the incipit. Otherwise self-alignment-X for the
+          ;; shortInstrumentName is not longer settable.
+          (let ((parts (ly:spanner-broken-into (ly:grob-original grob))))
+            (if (and (pair? parts) (equal? grob (car parts)))
+                (ly:grob-set-property! grob 'self-alignment-X RIGHT)))
           (system-start-text::print grob)))
   #}
 )
