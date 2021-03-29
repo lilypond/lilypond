@@ -31,13 +31,13 @@ bestimmtes Instrument oder einen Stil eingesetzt wird.
 * Weltmusik::
 @end menu
 
-@include notation/vocal.itely
-@include notation/keyboards.itely
-@include notation/unfretted-strings.itely
-@include notation/fretted-strings.itely
-@include notation/percussion.itely
-@include notation/wind.itely
-@include notation/chords.itely
-@include notation/contemporary.itely
-@include notation/ancient.itely
-@include notation/world.itely
+@include de/notation/vocal.itely
+@include de/notation/keyboards.itely
+@include de/notation/unfretted-strings.itely
+@include de/notation/fretted-strings.itely
+@include de/notation/percussion.itely
+@include de/notation/wind.itely
+@include de/notation/chords.itely
+@include de/notation/contemporary.itely
+@include de/notation/ancient.itely
+@include de/notation/world.itely

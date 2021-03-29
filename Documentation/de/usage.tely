@@ -27,7 +27,7 @@ Copyright @copyright{} 1999--2021 bei den Autoren.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include de/macros.itexi
 
 
 @c Translators: Till Paala
@@ -63,13 +63,13 @@ Anhänge
 @allowcodebreaks false
 @end iftex
 
-@include usage/running.itely
-@include usage/updating.itely
-@include usage/lilypond-book.itely
-@include usage/external.itely
-@include usage/suggestions.itely
+@include de/usage/running.itely
+@include de/usage/updating.itely
+@include de/usage/lilypond-book.itely
+@include de/usage/external.itely
+@include de/usage/suggestions.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node LilyPond-Index
 @appendix LilyPond-Index

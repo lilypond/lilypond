@@ -28,7 +28,7 @@ Copyright @copyright{} 1999--2021 bei den Autoren.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include de/macros.itexi
 
 
 @c Translators: Till Paala, Michael Gerdau
@@ -96,17 +96,17 @@ Anhänge
 
 @c INCLUDES
 
-@include learning/tutorial.itely
-@include learning/common-notation.itely
-@include learning/fundamental.itely
-@include learning/tweaks.itely
+@include de/learning/tutorial.itely
+@include de/learning/common-notation.itely
+@include de/learning/fundamental.itely
+@include de/learning/tweaks.itely
 @c @include learning/working.itely
 @c moved to application.tely
 
-@include learning/templates.itely
+@include de/learning/templates.itely
 @c @include learning/scheme-tutorial.itely
 @c moved to extending.tely
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node LilyPond-Index
 @appendix LilyPond-Index

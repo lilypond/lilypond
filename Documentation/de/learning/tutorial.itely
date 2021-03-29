@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@include included/generating-output.itexi
+@include de/included/generating-output.itexi
 
 @c \version "2.19.21"
 @c Translators: Till Paala, Reinhold Kainhofer, Michael Gerdau

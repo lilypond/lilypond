@@ -29,7 +29,7 @@ Copyright @copyright{} 1999--2021 bei den Autoren.
 
 
 @set FDL
-@include macros.itexi
+@include de/macros.itexi
 
 
 @lilyTitlePage{Notationsreferenz}
@@ -66,21 +66,21 @@ Anhänge
 @allowcodebreaks false
 @end iftex
 
-@include notation/notation.itely
-@include notation/specialist.itely
+@include de/notation/notation.itely
+@include de/notation/specialist.itely
 
-@include notation/input.itely
-@include notation/spacing.itely
+@include de/notation/input.itely
+@include de/notation/spacing.itely
 
-@include notation/changing-defaults.itely
+@include de/notation/changing-defaults.itely
 @c @include notation/programming-interface.itely
 @c moved to extending.tely
 
 
-@include notation/notation-appendices.itely
-@include notation/cheatsheet.itely
+@include de/notation/notation-appendices.itely
+@include de/notation/cheatsheet.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 
 @node Index der LilyPond-Befehle

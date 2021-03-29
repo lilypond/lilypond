@@ -9,7 +9,7 @@
 
 @c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
-@include included/generating-output.itexi
+@include de/included/generating-output.itexi
 
 @macro warningTextBased
 @warning{LilyPond ist ein @strong{textbasiertes} Notationsprogramm,
@@ -542,6 +542,6 @@ finden Sie in @ref{Freiheit}.
 @divClass{column-center-bottom}
 @subheading GNU General Public License
 
-@include gpl.itexi
+@include en/gpl.itexi
 
 @divEnd

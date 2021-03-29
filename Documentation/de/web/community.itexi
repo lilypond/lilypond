@@ -9,9 +9,9 @@
 
 @c Translators: Jonas Hahnfeld, Till Paala, Michael Gerdau
 
-@include included/authors.itexi
-@include included/gsoc.itexi
-@include included/helpus.itexi
+@include en/included/authors.itexi
+@include en/included/gsoc.itexi
+@include de/included/helpus.itexi
 
 @node Gemeinschaft
 @unnumbered Gemeinschaft
@@ -941,7 +941,7 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @unnumberedsec Neuigkeiten
 @translationof News
 
-@include web/news-new.itexi
+@include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading Vergangene Neuigkeiten
@@ -1038,4 +1038,4 @@ Vergangene Neuigkeiten bis zum Juli 2003.  Aktuellere Neuigkeiten sind auf der
 Seite @ref{Neuigkeiten}.
 @divEnd
 
-@include web/news-old.itexi
+@include en/web/news-old.itexi

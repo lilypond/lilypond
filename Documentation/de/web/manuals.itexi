@@ -534,7 +534,7 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @divClass{column-center-bottom}
 @subheading Status der Übersetzungen
 
-@include translations.itexi
+@include de/translations.itexi
 
 @divEnd
 
@@ -628,6 +628,6 @@ Lizenz und Gründe für ihre Benutzung finden sich in @ref{Freiheit}.
 @divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @divEnd

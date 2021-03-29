@@ -25,7 +25,7 @@ Copyright @copyright{} 2002--2021 bei den Autoren.
 @end macro
 
 @set FDL
-@include macros.itexi
+@include de/macros.itexi
 
 
 @lilyTitlePage{Aufsatz über den automatischen Musiksatz}
@@ -49,10 +49,10 @@ Copyright @copyright{} 2002--2021 bei den Autoren.
 @allowcodebreaks false
 @end iftex
 
-@include essay/engraving.itely
-@include essay/literature.itely
+@include de/essay/engraving.itely
+@include de/essay/literature.itely
 
-@include fdl.itexi
+@include en/fdl.itexi
 
 @node LilyPond-Index
 @appendix LilyPond-Index
