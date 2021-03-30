@@ -48,8 +48,9 @@ do
         then
             continue
         fi
-        cp ${LANG}/${DOC}-big-page.html ${DEST}/${DOC}-big-page.${html_suffix}
-        if [[ -f ${LANG}/${DOC}.pdf ]]
+   	sed -e 's#<!-- Created on .*by texi2html#<!-- Created by texi2html#g' \
+	    < ${LANG}/${DOC}-big-page.html >  ${DEST}/${DOC}-big-page.${html_suffix}
+	if [[ -f ${LANG}/${DOC}.pdf ]]
         then
             cp ${LANG}/${DOC}.pdf ${DEST}/${DOC}.${pdf_suffix}
         fi
