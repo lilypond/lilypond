@@ -259,7 +259,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
            " pitch @var{pit}.")
 {
   SCM newlist = SCM_EOL;
-  Pitch p (*unsmob<Pitch> (pit));
+  Pitch p (*LY_ASSERT_SMOB (Pitch, pit, 2));
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
