@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.23.2"
 
 \header {
 
@@ -8,7 +8,7 @@ informations from top- and booklevel stack correctly."
 
 }
 
-#(use-modules (scm display-lily))
+#(use-modules (lily display-lily))
 
 % Sample score, which adds a score (containing just one note) to the current
 % book/bookpart/at toplevel using scheme rather than the parser.

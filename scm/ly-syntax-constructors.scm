@@ -15,10 +15,10 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (scm ly-syntax-constructors)
+(define-module (lily ly-syntax-constructors)
   #:use-module (lily)
   #:use-module (srfi srfi-1)
-  #:use-module (scm display-lily))
+  #:use-module (lily display-lily))
 
 (define-public (music-function-call-error fun m)
   (let* ((sigcar (car (ly:music-function-signature fun)))

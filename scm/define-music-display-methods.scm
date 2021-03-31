@@ -9,7 +9,7 @@
 ;;; Display method implementation
 ;;;
 
-(define-module (scm display-lily))
+(define-module (lily display-lily))
 (use-modules ((ice-9 list)
               #:select (rassoc)))
 

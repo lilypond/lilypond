@@ -1,12 +1,12 @@
-\version "2.23.1"
+\version "2.23.2"
 
 \header {
   texidoc="Accordion register symbols are available in the
-@code{(scm accreg)} module as @code{\\markup} and as standalone
+@code{(lily accreg)} module as @code{\\markup} and as standalone
 music events."
 }
 
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 
 {
   \discant "131" s1_\markup { \discant "131" }

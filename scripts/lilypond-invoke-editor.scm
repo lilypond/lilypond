@@ -165,9 +165,9 @@ Options:
         (begin
           (show-help (current-error-port))
           (exit 2)))
-    (set! %load-path (cons LILYPOND_DATADIR %load-path))
+    (set! %load-path (cons (string-append LILYPOND_DATADIR "/scm") %load-path))
 
-    (primitive-eval '(use-modules (scm editor)))
+    (primitive-eval '(use-modules (lily editor)))
 
     (strip-framework-path "LD_LIBRARY_PATH")
     (let* ((uri (car files)))

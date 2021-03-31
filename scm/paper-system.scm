@@ -15,7 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (scm paper-system))
+(define-module (lily paper-system))
 
 (use-modules (lily)
              (srfi srfi-1)

@@ -17,9 +17,9 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.22"
+\version "2.23.2"
 
-#(use-modules (scm song))
+#(use-modules (lily song))
 #(use-modules (srfi srfi-39))
 
 % \festival "filename" { \tempo N = X } { music }

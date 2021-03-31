@@ -16,9 +16,9 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.22"
+\version "2.23.2"
 
-#(use-modules (scm graphviz))
+#(use-modules (lily graphviz))
 #(use-modules (ice-9 regex))
 
 #(define last-grob-action '())

@@ -16,8 +16,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;; for define-safe-public when byte-compiling using Guile V2
-(use-modules (scm safe-utility-defs))
+(use-modules (lily safe-utility-defs))
 
 (use-modules (ice-9 optargs))
 (use-modules (srfi srfi-11))
@@ -257,7 +256,7 @@ which often can be read back in order to generate an equivalent expression."
 ;;; Scheme music expression --> Lily-syntax-using string translator
 ;;;
 (use-modules (srfi srfi-39)
-             (scm display-lily))
+             (lily display-lily))
 
 (define*-public (display-lily-music expr #:optional (port (current-output-port)))
   "Display the music expression using LilyPond syntax"

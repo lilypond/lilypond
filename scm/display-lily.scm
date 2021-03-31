@@ -20,7 +20,7 @@
 ;;; some interesting music properties.
 
 
-(define-module (scm display-lily)
+(define-module (lily display-lily)
   #:use-module (ice-9 optargs)
   #:use-module (ice-9 format)
   #:use-module (ice-9 regex)

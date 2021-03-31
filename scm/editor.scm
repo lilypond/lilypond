@@ -15,7 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (scm editor))
+(define-module (lily editor))
 
 ;; Also for standalone use, so cannot include any lily modules.
 (use-modules

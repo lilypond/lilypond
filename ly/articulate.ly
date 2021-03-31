@@ -135,12 +135,12 @@
 %    customize its effect to user-settable repeat-types. Here the most general
 %    setting is hard-coded, resulting in unchanged behaviour.
 
-\version "2.19.22"
+\version "2.23.2"
 
 #(use-modules (srfi srfi-1))
 #(use-modules (srfi srfi-11))
 #(use-modules (ice-9 debug))
-#(use-modules (scm display-lily))
+#(use-modules (lily display-lily))
 
 % PARAMETERS
 % How much to compress notes marked Staccato.  CPE Bach says `as short as

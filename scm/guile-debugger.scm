@@ -23,7 +23,7 @@
 
 ;;; Code:
 
-(define-module (scm guile-debugger)
+(define-module (lily guile-debugger)
   #:use-module (ice-9 debugger)
   #:use-module (ice-9 debugging traps)
   #:use-module (ice-9 debugging trace)

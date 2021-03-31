@@ -29,15 +29,15 @@
 ;;;;   that will create a single SVG file containing all pages
 ;;;;   of output.  --pmccarty
 
-(define-module (scm framework-svg))
+(define-module (lily framework-svg))
 
 (use-modules
  (guile)
  (lily)
- (scm page)
- (scm paper-system)
- (scm output-svg)
- (scm clip-region)
+ (lily page)
+ (lily paper-system)
+ (lily output-svg)
+ (lily clip-region)
  (srfi srfi-1)
  (srfi srfi-2)
  (srfi srfi-13)

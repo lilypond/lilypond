@@ -86,7 +86,7 @@
                                (set! all-markup-list-commands
                                      (acons sym val all-markup-list-commands))))))
                     (module-public-interface m)))
- (cons (current-module) (map resolve-module '((lily) (scm accreg)))))
+ (cons (current-module) (map resolve-module '((lily) (lily accreg)))))
 
 (set! all-markup-commands (sort! all-markup-commands markup-name<?))
 (set! all-markup-list-commands (sort! all-markup-list-commands markup-name<?))

@@ -24,13 +24,13 @@
 ;;;;   * text setting, kerning.
 ;;;;   * document output-interface
 
-(define-module (scm output-ps))
+(define-module (lily output-ps))
 
 (use-modules (guile)
              (ice-9 optargs)
              (srfi srfi-1)
              (srfi srfi-13)
-             (scm framework-ps)
+             (lily framework-ps)
              (lily))
 
 ;;;

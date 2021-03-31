@@ -481,7 +481,7 @@ SCM
 Page_breaking::make_page (int page_num, bool last) const
 {
   bool last_part = ly_scm2bool (book_->paper_->c_variable ("is-last-bookpart"));
-  SCM mod = scm_c_resolve_module ("scm page");
+  SCM mod = scm_c_resolve_module ("lily page");
   SCM make_page_scm = scm_c_module_lookup (mod, "make-page");
 
   make_page_scm = scm_variable_ref (make_page_scm);
@@ -517,7 +517,7 @@ Page_breaking::page_height (int page_num, bool last) const
     return cache[page_num];
   else
     {
-      SCM mod = scm_c_resolve_module ("scm page");
+      SCM mod = scm_c_resolve_module ("lily page");
       SCM page = make_page (page_num, last);
       SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
       calc_height = scm_variable_ref (calc_height);

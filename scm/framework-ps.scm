@@ -15,18 +15,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (scm framework-ps))
+(define-module (lily framework-ps))
 
 ;;; this is still too big a mess.
 
 (use-modules (ice-9 string-fun)
              (guile)
-             (scm page)
-             (scm paper-system)
+             (lily page)
+             (lily paper-system)
              (srfi srfi-1)
              (srfi srfi-13)
-             (scm clip-region)
-             (scm output-ps)
+             (lily clip-region)
+             (lily output-ps)
              (lily))
 
 (define format ergonomic-simple-format)

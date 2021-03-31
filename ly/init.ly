@@ -17,7 +17,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.22"
+\version "2.23.2"
 
 #(cond-expand
   (guile-2
@@ -40,7 +40,7 @@
 #(define output-empty-score-list #f)
 #(define output-suffix #f)
 
-#(use-modules (scm clip-region))
+#(use-modules (lily clip-region))
 #(use-modules (srfi srfi-1))
 #(use-modules (ice-9 pretty-print))
 

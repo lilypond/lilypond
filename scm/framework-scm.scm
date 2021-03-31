@@ -18,7 +18,7 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(define-module (scm framework-scm))
+(define-module (lily framework-scm))
 
 (use-modules
  (ice-9 regex)
@@ -27,7 +27,7 @@
  (srfi srfi-1)
  (ice-9 pretty-print)
  (srfi srfi-13)
- (scm page)
+ (lily page)
  (lily))
 
 (define format ergonomic-simple-format)

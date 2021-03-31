@@ -18,7 +18,7 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(define-module (scm framework-null)
+(define-module (lily framework-null)
   #:export (output-framework)
   )
 

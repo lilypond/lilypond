@@ -1,11 +1,11 @@
-\version "2.21.0"
+\version "2.23.2"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
 %%%
 %%% Testing utilities
 %%%
-#(use-modules (scm display-lily))
+#(use-modules (lily display-lily))
 #(memoize-clef-names supported-clefs)
 #(define (parse-lily-and-compute-lily-string chr port)
   (let ((lily-string (call-with-output-string

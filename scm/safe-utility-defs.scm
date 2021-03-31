@@ -20,7 +20,7 @@
 ;;;      Date   16 October 2011
 ;;;
 
-(define-module (scm safe-utility-defs)
+(define-module (lily safe-utility-defs)
   #:use-module (ice-9 optargs)
   #:export (safe-objects)
   #:export-syntax (define-safe-public)

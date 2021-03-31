@@ -222,7 +222,7 @@ build-dir-setup: $(tree-share-prefix)/lilypond-force
 # Preparing LilyPond tree for build-dir exec
 link-tree: $(tree-share-prefix)/lilypond-force
 
-$(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
+$(tree-share-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 	$(call ly_progress,Making,$@,)
 	rm -rf $(tree-bin) $(tree-share)
 	mkdir -p $(tree-bin)
@@ -234,8 +234,9 @@ $(tree-share-prefix)/lilypond-force: GNUmakefile $(outdir)/VERSION
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
 			do ln -sf ../../scripts/$(outconfbase)/$$i . ; done
-	cd $(tree-share-prefix) && for i in ly ps python scm; do \
+	cd $(tree-share-prefix) && for i in ly ps python; do \
 		ln -s $(top-src-dir)/$$i; done
+	mkdir -p $(tree-share-prefix)/scm && ln -s $(top-src-dir)/scm $(tree-share-prefix)/scm/lily
 	touch $(tree-share-prefix)/lilypond-force
 
 link-mf-tree: $(tree-share-prefix)/mf-link-tree

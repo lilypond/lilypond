@@ -19,13 +19,13 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(define-module (scm song)
+(define-module (lily song)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-39)
   #:use-module (ice-9 optargs)
   #:use-module (ice-9 receive)
   #:use-module (lily)
-  #:use-module (scm song-util))
+  #:use-module (lily song-util))
 
 
 ;;; Configuration

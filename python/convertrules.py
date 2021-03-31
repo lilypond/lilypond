@@ -4308,6 +4308,7 @@ and
 
 @rule((2, 23, 2), r"""
 warn about behavior change of Melody_engraver with Stem.neutral-direction
+adapt module names to (lily) namespace
 """)
 def conv(s):
     # Detect changes to the Stem.neutral-direction property
@@ -4334,6 +4335,9 @@ def conv(s):
         stderr_write(NOT_SMART % "Stem.neutral-direction with Melody_engraver")
         stderr_write(melody_engraver_warning)
         stderr_write(UPDATE_MANUALLY)
+
+    s = re.sub(r'\(scm (accreg|display-lily|graphviz|guile-debugger|song|to-xml)\)',
+               r'(lily \1)', s)
     return s
 
 

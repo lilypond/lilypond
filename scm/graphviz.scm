@@ -16,7 +16,7 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(define-module (scm graphviz)
+(define-module (lily graphviz)
   #:use-module (lily)
   #:export
   (make-empty-graph add-node add-edge add-cluster

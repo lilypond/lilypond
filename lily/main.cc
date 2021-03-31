@@ -495,7 +495,6 @@ main_with_guile (void *, int, char **)
   string scm_pct_load_path = "%load-path";
   string scm_pct_load_compiled_path = "%load-compiled-path";
 
-  prepend_scheme_list (lilypond_datadir, scm_pct_load_path);
   prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
 #if 0

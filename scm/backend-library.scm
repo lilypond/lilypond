@@ -19,8 +19,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; backend helpers.
 
-(use-modules (scm ps-to-png)
-             (scm paper-system)
+(use-modules (lily ps-to-png)
+             (lily paper-system)
              (ice-9 optargs))
 
 (define-public (ly:system command)

@@ -24,7 +24,7 @@
 %%  For more information, see the Contributor's Guide.
 
 
-\version "2.16.0"
+\version "2.23.2"
 
 % define lilypond-module as a variable in the guile-user module and set
 % to the current Scheme module (which will be the lilypond top-level
@@ -43,9 +43,9 @@
 %
 % Ensure debugger definitions are available in lilypond-module and guile-user
 %
-#(use-modules (scm guile-debugger))
+#(use-modules (lily guile-debugger))
 #(ly:module-copy (resolve-module '(guile-user))
-                 (resolve-module '(scm guile-debugger)))
+                 (resolve-module '(lily guile-debugger)))
 #(top-repl)
 %
 % top-repl has re-set the module to guile-user,

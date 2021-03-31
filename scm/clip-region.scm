@@ -15,7 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (scm clip-region))
+(define-module (lily clip-region))
 
 (use-modules (lily))
 

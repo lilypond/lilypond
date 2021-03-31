@@ -180,7 +180,7 @@ Paper_book::output (SCM output_channel)
   if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
 
-  string mod_nm = "scm framework-" + get_output_backend_name ();
+  string mod_nm = "lily framework-" + get_output_backend_name ();
 
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
 
@@ -272,7 +272,7 @@ Paper_book::classic_output (SCM output)
     scopes = scm_cons (header_0_, scopes);
 
   string format = get_output_backend_name ();
-  string mod_nm = "scm framework-" + format;
+  string mod_nm = "lily framework-" + format;
 
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
@@ -652,7 +652,7 @@ Paper_book::pages ()
       pages_ = scm_call_1 (page_breaking, self_scm ());
 
       // Create all the page stencils.
-      SCM page_module = scm_c_resolve_module ("scm page");
+      SCM page_module = scm_c_resolve_module ("lily page");
       SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
       page_stencil = scm_variable_ref (page_stencil);
       for (SCM pages = pages_; scm_is_pair (pages); pages = scm_cdr (pages))

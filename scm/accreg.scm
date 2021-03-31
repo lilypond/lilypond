@@ -29,7 +29,7 @@
 ;; an empty chord but could conceivably become some kind of per-staff
 ;; rehearsal mark at one point of time.
 
-(define-module (scm accreg))
+(define-module (lily accreg))
 
 (use-modules (lily) (srfi srfi-1) (ice-9 optargs))
 
@@ -93,7 +93,7 @@ symbol.
 
 To make it available,
 @example
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 @end example
 is required near the top of your input file.
 
@@ -116,7 +116,7 @@ respectively rather than centered.
 Some examples are
 
 @lilypond[quote]
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 \\markup {
   \\center-column {
      \\discant \"1\"
@@ -181,7 +181,7 @@ register symbol.
 
 To make it available,
 @example
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 @end example
 is required near the top of your input file.
 
@@ -217,7 +217,7 @@ all.
 Available registrations are
 
 @lilypond[quote]
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 \\markup {
   \\center-column {
      \\stdBass \"Soprano\"
@@ -268,7 +268,7 @@ register symbol.
 
 To make it available,
 @example
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 @end example
 is required near the top of your input file.
 
@@ -300,7 +300,7 @@ instruments.
 Available registrations are
 
 @lilypond[quote]
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 \\markup {
   \\center-column {
      \\stdBassIV \"Soprano\"
@@ -353,7 +353,7 @@ register symbol.
 
 To make it available,
 @example
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 @end example
 is required near the top of your input file.
 
@@ -390,7 +390,7 @@ symbols is easier to resolve for the player than the other way round.
 Available registrations are
 
 @lilypond[quote]
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 \\markuplist \\justified-lines {
   \\center-column {
      \\stdBassV \"Bass/Alto\"
@@ -452,7 +452,7 @@ register symbol for six reed basses.
 
 To make it available,
 @example
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 @end example
 is required near the top of your input file.
 
@@ -482,7 +482,7 @@ bass notes at Alto pitch and chords at Soprano pitch.
 Available registrations are
 
 @lilypond[quote]
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 \\markup {
   \\center-column {
      \\stdBassVI \"Soprano\"
@@ -536,14 +536,14 @@ accordion register symbol for the usual two-reed layout.
 
 To make it available,
 @example
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 @end example
 is required near the top of your input file.
 
 Available registrations are
 
 @lilypond[quote]
-#(use-modules (scm accreg))
+#(use-modules (lily accreg))
 \\markup {
   \\center-column {
      \\freeBass \"1\"

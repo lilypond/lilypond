@@ -1,8 +1,8 @@
-\version "2.16.0"
+\version "2.23.2"
 
 testMusic =  { << c''4 \\ g'4 >> }
 
-#(use-modules (scm to-xml))
+#(use-modules (lily to-xml))
 
 #(ly:progress "\nXML:\n\n~A\n" (call-with-output-string (lambda (p) (music-to-xml testMusic p))))
 

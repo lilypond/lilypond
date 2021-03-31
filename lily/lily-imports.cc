@@ -40,7 +40,7 @@ Variable the_root_module ("the-root-module");
 
 namespace Display
 {
-Scm_module module ("scm display-lily");
+Scm_module module ("lily display-lily");
 
 Variable value_to_lily_string ("value->lily-string");
 }
@@ -124,7 +124,7 @@ Variable lset_union ("lset-union");
 
 namespace Syntax
 {
-Scm_module module ("scm ly-syntax-constructors");
+Scm_module module ("lily ly-syntax-constructors");
 
 Variable add_lyrics ("add-lyrics");
 Variable argument_error ("argument-error");

@@ -25,6 +25,8 @@
 ;; (define-public-macro _i (x) x)
 ;; Abbrv-PWR!
 
+(define-module (lily))
+
 (defmacro-public _i (x) x)
 
 ;; GUILE defaults to fixed seed.
@@ -440,8 +442,8 @@ messages into errors.")
              (srfi srfi-1)
              (srfi srfi-13)
              (srfi srfi-14)
-             (scm clip-region)
-             (scm safe-utility-defs))
+             (lily clip-region)
+             (lily safe-utility-defs))
 
 ;;; There are new modules defined in Guile V2.0 which we need to use.
 ;;
@@ -492,14 +494,15 @@ messages into errors.")
     (ly:set-option 'music-strings-to-paths #t))
 
 (define-public (ly:load x)
-  (let* ((file-name (%search-load-path x)))
+  (let* ((full-path (string-append "lily/" x))
+         (file-name (%search-load-path full-path)))
     (ly:debug "[~A" file-name)
     (if (not file-name)
         (ly:error (_ "cannot find: ~A") x))
     ;; FIXME: primitive-load-path may load a compiled version of the code;
     ;;        can this be detected and printed? If not, ly:load can be replaced
     ;;        by primitive-load-path right away.
-    (primitive-load-path x)  ;; to support Guile V2 autocompile
+    (primitive-load-path full-path)  ;; to support Guile V2 autocompile
     ;; TODO: Any chance to use ly:debug here? Need to extend it to prevent
     ;;       a newline in this case
     (if (ly:get-option 'verbose)
@@ -976,7 +979,7 @@ PIDs or the number of the process."
          (lambda () (ly:parse-file file-name))
          (lambda (x . args) (handler x file-name))))
 
-(use-modules (scm editor))
+(use-modules (lily editor))
 
 (define-public (gui-main files)
   (if (null? files)
