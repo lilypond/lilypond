@@ -858,6 +858,12 @@ skylines_from_stencil (SCM sten, SCM rot, Axis a)
 
   interpret_stencil_for_skyline (&lazy, Transform::identity,
                                  maybe_rotated.expr ());
+  if (lazy.empty () && !s->is_empty (X_AXIS) && !s->is_empty (Y_AXIS))
+    {
+      // Fallback, if we can't decide extents based on the
+      // expression. This happens with embedded-ps, for example.
+      lazy.add_box (Transform::identity, s->extent_box ());
+    }
   return lazy.to_pair ();
 }
 

@@ -40,7 +40,11 @@ class Lazy_skyline_pair
 
 public:
   Lazy_skyline_pair (Axis a) { a_ = a; }
-
+  bool empty () const {
+    return todo_.empty() &&
+      per_dir_todo_[UP].empty () && 
+      per_dir_todo_[DOWN].empty ();
+  }
   void add_segment (Transform const &tr, Offset p1, Offset p2)
   {
     todo_.push_back (Drul_array<Offset> (tr (p1), tr (p2)));
