@@ -79,6 +79,7 @@ Notation Reference:
 @ref{Custodes},
 @ref{Divisiones},
 @ref{Ligatures}.
+@endmorerefs
 
 
 @node Overview of the supported styles
@@ -161,6 +162,7 @@ wishes.
 Music Glossary:
 @rglos{mensural notation},
 @rglos{flag}.
+@endmorerefs
 
 
 @node Ancient notation---common features
@@ -197,6 +199,7 @@ Music Glossary:
 Notation Reference:
 @ref{Gregorian chant contexts},
 @ref{Mensural contexts}.
+@endmorerefs
 
 
 @node Ligatures
@@ -246,6 +249,7 @@ Music Glossary:
 Notation Reference:
 @ref{White mensural ligatures},
 @ref{Gregorian square neume ligatures}.
+@endmorerefs
 
 @knownissues
 Spacing required for ligatures is not currently implemented and, as
@@ -346,6 +350,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Custos}.
+@endmorerefs
 
 
 @node Typesetting mensural music
@@ -399,6 +404,7 @@ entering the chant, as the following excerpt demonstrates:
 @morerefs
 Music Glossary:
 @rglos{mensural notation}.
+@endmorerefs
 
 
 @node Mensural clefs
@@ -471,6 +477,7 @@ Internals Reference:
 @rinternals{Clef},
 @rinternals{ClefModifier},
 @rinternals{clef-interface}.
+@endmorerefs
 
 @knownissues
 The Mensural g clef is mapped to the Petrucci g clef.
@@ -573,6 +580,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Time signature}.
+@endmorerefs
 
 @knownissues
 Ratios of note durations cannot change with the time signature,
@@ -662,6 +670,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Note head styles}.
+@endmorerefs
 
 
 @node Mensural flags
@@ -695,6 +704,7 @@ There are no flags in Gregorian chant notation.
 Music Glossary:
 @rglos{mensural notation},
 @rglos{flag}.
+@endmorerefs
 
 @knownissues
 Vertically aligning each flag with a staff line assumes that stems
@@ -735,6 +745,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Ancient notation}.
+@endmorerefs
 
 @knownissues
 The glyph for the maxima rest in mensural style is actually a perfect
@@ -790,6 +801,7 @@ Notation Reference:
 
 Internals Reference:
 @rinternals{KeySignature}.
+@endmorerefs
 
 
 @node Annotational accidentals (musica ficta)
@@ -837,6 +849,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 Internals Reference:
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
+@endmorerefs
 
 
 @node White mensural ligatures
@@ -933,6 +946,7 @@ Music Glossary:
 Notation Reference:
 @ref{Gregorian square neume ligatures},
 @ref{Ligatures}.
+@endmorerefs
 
 @knownissues
 Horizontal spacing of ligatures may be poor.
@@ -967,6 +981,7 @@ Music Glossary:
 Notation Reference:
 @ref{White mensural ligatures},
 @ref{Ligatures}.
+@endmorerefs
 
 
 @node Gregorian chant contexts
@@ -1005,6 +1020,7 @@ the following excerpt demonstrates:
 
 @c @morerefs
 @c TODO: nothing here yet ...
+@c @endmorerefs
 
 
 @node Gregorian clefs
@@ -1147,6 +1163,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Clef}.
+@endmorerefs
 
 
 @node Gregorian accidentals and key signatures
@@ -1206,6 +1223,7 @@ Notation Reference:
 
 Internals Reference:
 @rinternals{KeySignature}.
+@endmorerefs
 
 
 @node Divisiones
@@ -1293,6 +1311,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/gregorian.ly}.
+@endmorerefs
 
 
 @node Gregorian articulation signs
@@ -1362,6 +1381,7 @@ Internals Reference:
 @rinternals{Script},
 @rinternals{ScriptEvent},
 @rinternals{Script_engraver}.
+@endmorerefs
 
 @knownissues
 Some articulations are vertically placed too closely to the
@@ -1399,6 +1419,7 @@ Internals Reference:
 
 Snippets:
 @rlsr{Ancient notation}.
+@endmorerefs
 
 
 @node Gregorian square neume ligatures
@@ -2371,6 +2392,7 @@ Notation Reference:
 @ref{Gregorian square neume ligatures},
 @ref{White mensural ligatures},
 @ref{Ligatures}.
+@endmorerefs
 
 @knownissues
 When an @code{\augmentum} dot appears at the end of the last staff
@@ -2432,6 +2454,7 @@ values, so you can immediately go ahead entering the chant:
 @morerefs
 Music Glossary:
 @rglos{kievan notation}.
+@endmorerefs
 
 @knownissues
 LilyPond supports Kievan notation of the Synodal style, as used in
@@ -2461,6 +2484,8 @@ Music Glossary:
 
 Notation Reference:
 @ref{Clef}.
+@endmorerefs
+
 
 @node Kievan notes
 @unnumberedsubsubsec Kievan notes
@@ -2501,6 +2526,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Note head styles}.
+@endmorerefs
 
 @knownissues
 LilyPond automatically determines if the stem up or stem down
@@ -2539,6 +2565,8 @@ Notation Reference:
 @ref{Accidentals},
 @ref{Automatic accidentals},
 @ref{The Emmentaler font}
+@endmorerefs
+
 
 @node Kievan bar line
 @unnumberedsubsubsec Kievan bar line
@@ -2557,6 +2585,7 @@ It can be invoked as @code{\bar "k"}.
 Notation Reference:
 @ref{Bars},
 @ref{The Emmentaler font}
+@endmorerefs
 
 
 @node Kievan melismata
@@ -2621,6 +2650,7 @@ Notation Reference:
 @ref{White mensural ligatures},
 @ref{Gregorian square neume ligatures},
 @ref{Ligatures}.
+@endmorerefs
 
 @knownissues
 Horizontal spacing of ligatures is poor.
@@ -2694,6 +2724,7 @@ produced.  If no instrument name is required then use
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs
 
 
 @node Mensurstriche layout
@@ -2720,6 +2751,7 @@ orientation aids that bar lines give.
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs
 
 
 @node Transcribing Gregorian chant
@@ -2898,6 +2930,7 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs
 
 
 @node Ancient and modern from one source
@@ -2909,6 +2942,7 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs
 
 
 @c @node Baroque rhythmic notation
@@ -2933,3 +2967,4 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs

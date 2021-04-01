@@ -858,6 +858,7 @@ TODO: Describe what @command{make} actually does.
 @morerefs
 @ref{Generating documentation} provides more info on the @command{make} targets
 used to build the LilyPond documentation.
+@endmorerefs
 
 
 @node Saving time with the -j option

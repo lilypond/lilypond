@@ -241,6 +241,7 @@ are detailed in @ruser{File structure}.
 @morerefs
 For a complete definition of the input format, see
 @ruser{File structure}.
+@endmorerefs
 
 
 @node Score is a (single) compound musical expression
@@ -386,6 +387,7 @@ on the same horizontal position in your text editor.
 
 @morerefs
 Notation Reference: @ruser{Structure of a score}.
+@endmorerefs
 
 
 @node Nesting music expressions
@@ -457,6 +459,8 @@ time signature and are usually in a smaller font.
 These require further commands which
 have not yet been introduced.  See @ref{Size of objects},
 and @ruser{Ossia staves}.
+@endmorerefs
+
 
 @node Structure of a note entry
 @subsection Structure of a note entry
@@ -500,6 +504,8 @@ Notation Reference:
 @ruser{Pitches},
 @ruser{Rhythms},
 @ruser{Expressive marks}.
+@endmorerefs
+
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
@@ -994,6 +1000,7 @@ created @q{across} voices.}
 
 @morerefs
 Notation Reference: @ruser{Multiple voices}.
+@endmorerefs
 
 
 @node Explicitly instantiating voices
@@ -1264,6 +1271,7 @@ Learning Manual:
 
 Notation Reference:
 @ruser{Multiple voices}.
+@endmorerefs
 
 
 @node Voices and vocals
@@ -1429,6 +1437,7 @@ VerseFour  =
 
 @morerefs
 Notation Reference: @ruser{Vocal music}.
+@endmorerefs
 
 
 @node Contexts and engravers
@@ -1520,6 +1529,7 @@ preceding word with no hyphen or underscore, e.g.,
 
 @morerefs
 Notation Reference: @ruser{Contexts explained}.
+@endmorerefs
 
 
 @node Creating contexts
@@ -1635,6 +1645,7 @@ use in the section on lyrics, see @ref{Voices and vocals}.
 
 @morerefs
 Notation Reference: @ruser{Creating and referencing contexts}.
+@endmorerefs
 
 
 @node Engravers explained
@@ -1719,6 +1730,7 @@ by modifying the action of Engravers.
 
 @morerefs
 Internals reference: @rinternals{Engravers and Performers}.
+@endmorerefs
 
 
 @node Modifying context properties
@@ -2038,6 +2050,7 @@ Notation Reference:
 Internals Reference:
 @rinternals{Contexts},
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 
 @node Adding and removing engravers
@@ -2197,6 +2210,7 @@ same way.
 @morerefs
 Notation Reference: @ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
+@endmorerefs
 
 @knownissues
 The @code{Stem_engraver} and @code{Beam_engraver} attach their
@@ -2409,6 +2423,7 @@ celloMusic = \relative {
 @morerefs
 The starting templates can be found in the @q{Templates} appendix,
 see @ref{Single staff templates}.
+@endmorerefs
 
 
 @node Four-part SATB vocal score
@@ -3073,6 +3088,8 @@ PedalOrganMusic = \relative {
 @morerefs
 Music Glossary:
 @rglos{system}.
+@endmorerefs
+
 
 @node Saving typing with variables and functions
 @subsection Saving typing with variables and functions
@@ -3354,4 +3371,4 @@ Notation Reference:
 @ruser{Writing parts},
 @ruser{Full measure rests},
 @ruser{Including LilyPond files}.
-
+@endmorerefs

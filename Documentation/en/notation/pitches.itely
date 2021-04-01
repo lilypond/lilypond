@@ -117,6 +117,7 @@ Music Glossary:
 
 Snippets:
 @rlsr{Pitches}.
+@endmorerefs
 
 
 @node Relative octave entry
@@ -330,6 +331,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{RelativeOctaveMusic}.
+@endmorerefs
 
 @cindex relative octave entry, and transposition
 @cindex transposition, and relative octave entry
@@ -472,6 +474,7 @@ Internals Reference:
 @rinternals{Accidental},
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
+@endmorerefs
 
 @cindex accidental, quarter-tone
 @cindex quarter-tone accidental
@@ -659,6 +662,7 @@ Installed Files:
 
 Snippets:
 @rlsr{Pitches}.
+@endmorerefs
 
 
 @node Changing multiple pitches
@@ -744,6 +748,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{RelativeOctaveCheck}.
+@endmorerefs
 
 
 @node Transpose
@@ -876,6 +881,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TransposedMusic}.
+@endmorerefs
 
 @funindex \transpose
 @funindex \chordmode
@@ -928,6 +934,7 @@ Notation Reference:
 @ref{Modal transformations},
 @ref{Retrograde},
 @ref{Transpose}.
+@endmorerefs
 
 
 @node Retrograde
@@ -964,6 +971,7 @@ Notation Reference:
 @ref{Inversion},
 @ref{Modal transformations},
 @ref{Transpose}.
+@endmorerefs
 
 
 @node Modal transformations
@@ -1104,6 +1112,7 @@ Notation Reference:
 @ref{Inversion},
 @ref{Retrograde},
 @ref{Transpose}.
+@endmorerefs
 
 
 @node Displaying pitches
@@ -1322,6 +1331,7 @@ Internals Reference:
 @rinternals{Clef},
 @rinternals{ClefModifier},
 @rinternals{clef-interface}.
+@endmorerefs
 
 @knownissues
 Ottavation numbers attached to clefs are treated as separate
@@ -1464,6 +1474,7 @@ Internals Reference:
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
 @rinternals{key-signature-interface}.
+@endmorerefs
 
 
 @node Ottava brackets
@@ -1576,6 +1587,7 @@ Internals Reference:
 @rinternals{Ottava_spanner_engraver},
 @rinternals{OttavaBracket},
 @rinternals{ottava-bracket-interface}.
+@endmorerefs
 
 
 @node Instrument transpositions
@@ -1681,6 +1693,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Pitches}.
+@endmorerefs
 
 
 @node Automatic accidentals
@@ -3021,6 +3034,7 @@ Internals Reference:
 @rinternals{AccidentalSuggestion},
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}.
+@endmorerefs
 
 @cindex accidental, and simultaneous notes
 @cindex simultaneous notes and accidentals
@@ -3147,6 +3161,7 @@ Internals Reference:
 @rinternals{AmbitusLine},
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
+@endmorerefs
 
 @knownissues
 There is no collision handling in the case of multiple per-voice
@@ -3276,6 +3291,7 @@ Internals Reference:
 @rinternals{LedgerLineSpanner},
 @rinternals{note-head-interface},
 @rinternals{ledger-line-spanner-interface}.
+@endmorerefs
 
 
 @node Easy notation note heads
@@ -3337,6 +3353,7 @@ Internals Reference:
 @rinternals{Note_heads_engraver},
 @rinternals{NoteHead},
 @rinternals{note-head-interface}.
+@endmorerefs
 
 
 @node Shape note heads
@@ -3464,6 +3481,7 @@ Internals Reference:
 @rinternals{Note_heads_engraver},
 @rinternals{NoteHead},
 @rinternals{note-head-interface}.
+@endmorerefs
 
 
 @node Improvisation
@@ -3508,3 +3526,4 @@ Internals Reference:
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
+@endmorerefs

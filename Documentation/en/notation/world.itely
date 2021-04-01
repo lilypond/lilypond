@@ -96,6 +96,7 @@ Notation Reference:
 @ref{Note names in other languages},
 @ref{Arabic music},
 @ref{Turkish classical music}.
+@endmorerefs
 
 
 @node Arabic music
@@ -167,6 +168,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Arabic note names
@@ -245,6 +247,7 @@ Installed Files:
 
 Snippets:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Arabic key signatures
@@ -377,6 +380,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{KeySignature}.
+@endmorerefs
 
 
 @node Arabic time signatures
@@ -424,6 +428,7 @@ Installed Files:
 
 Snippets:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Arabic music example
@@ -466,6 +471,7 @@ Installed Files:
 
 Snippets:
 @rlsr{World music}.
+@endmorerefs
 
 
 @node Further reading for Arabic music
@@ -581,6 +587,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Common notation for non-Western music}.
+@endmorerefs
 
 
 @node Turkish key signatures

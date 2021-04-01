@@ -81,6 +81,7 @@ Snippets:
 Internals Reference:
 @rinternals{Contexts},
 @rinternals{Engravers and Performers}.
+@endmorerefs
 
 
 @node Contexts explained
@@ -158,6 +159,8 @@ lyrics and music will get out of sync in Midi.
 Installed Files:
 @file{ly/engraver-init.ly}.
 @file{ly/performer-init.ly}.
+@endmorerefs
+
 
 @node Score - the master of all contexts
 @unnumberedsubsubsec Score - the master of all contexts
@@ -518,6 +521,7 @@ Learning Manual:
 Notation Reference:
 @ref{Changing just one specific context},
 @ref{Automatic syllable durations}.
+@endmorerefs
 
 
 @node Keeping contexts alive
@@ -819,6 +823,7 @@ the @code{Timing_translator} must come before the
 @morerefs
 Installed Files:
 @file{ly/engraver-init.ly}.
+@endmorerefs
 
 
 @node Changing context default settings
@@ -1112,6 +1117,8 @@ A predefined command such as @code{\dynamicUp}
 @morerefs
 Notation Reference:
 @ref{Input modes}
+@endmorerefs
+
 
 @node Order of precedence
 @unnumberedsubsubsec Order of precedence
@@ -1147,6 +1154,7 @@ Notation Reference:
 @ref{The set command},
 @ref{The override command},
 @ref{The layout block}.
+@endmorerefs
 
 
 @node Defining new contexts
@@ -1361,12 +1369,12 @@ should be repeated in a @code{\midi} block so that Midi output
 depends on the same context relations.
 
 @morerefs
-
 Internals Reference:
 @rinternals{Note_heads_engraver},
 @rinternals{Text_engraver},
 @rinternals{Rhythmic_column_engraver},
 @rinternals{Pitch_squash_engraver}.
+@endmorerefs
 
 
 @node Context layout order
@@ -1491,6 +1499,7 @@ Application Usage:
 
 Installed Files:
 @file{ly/engraver-init.ly}.
+@endmorerefs
 
 
 @node Explaining the Internals Reference
@@ -1955,6 +1964,7 @@ Internals Reference:
 @rinternals{OverrideProperty},
 @rinternals{RevertProperty},
 @rinternals{PropertySet}.
+@endmorerefs
 
 @knownissues
 The back-end is not very strict in type-checking object properties.
@@ -2097,6 +2107,7 @@ Translation @expansion{} Tunable context properties.
 @morerefs
 Internals Reference:
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 
 @node The override command
@@ -2260,6 +2271,7 @@ and the program reference.
 @morerefs
 Internals Reference:
 @rinternals{Backend}
+@endmorerefs
 
 
 @node The tweak command
@@ -2442,6 +2454,7 @@ Learning Manual:
 
 Extending LilyPond:
 @rextend{Displaying music expressions}.
+@endmorerefs
 
 @knownissues
 
@@ -3211,6 +3224,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Multiple voices}.
+@endmorerefs
 
 
 @node Distances and measurements
@@ -3270,6 +3284,7 @@ Learning Manual:
 Notation Reference:
 @ref{Page layout},
 @ref{Setting the staff size}.
+@endmorerefs
 
 
 @node Dimensions
@@ -3299,6 +3314,7 @@ staff-spaces.
 @morerefs
 Notation Reference:
 @ref{Distances and measurements}.
+@endmorerefs
 
 
 @node Staff symbol properties
@@ -3653,6 +3669,7 @@ Internals Reference:
 @rinternals{VoiceFollower},
 @rinternals{TrillSpanner},
 @rinternals{line-spanner-interface}.
+@endmorerefs
 
 
 @node Visibility of objects
@@ -4066,6 +4083,7 @@ associated with it.
 @morerefs
 Learning Manual:
 @rlearning{Visibility and color of objects}.
+@endmorerefs
 
 
 @node Line styles
@@ -4220,6 +4238,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{All layout objects}.
+@endmorerefs
 
 
 @node Aligning objects
@@ -4267,6 +4286,7 @@ Notation Reference:
 
 Extending LilyPond:
 @rextend{Callback functions}.
+@endmorerefs
 
 @menu
 * Setting X-offset and Y-offset directly::
@@ -4647,6 +4667,7 @@ Notation Reference:
 @ref{Text markup commands},
 @ref{The Emmentaler font},
 @ref{Graphic}.
+@endmorerefs
 
 
 @node Modifying shapes
@@ -4887,6 +4908,7 @@ required.
 @morerefs
 Internals Reference:
 @rinternals{TieColumn}.
+@endmorerefs
 
 
 @node Modifying broken spanners
@@ -5003,6 +5025,7 @@ properties accessed before line-breaking such as
 @morerefs
 Extending LilyPond:
 @rextend{Difficult tweaks}.
+@endmorerefs
 
 
 @node Unpure-pure containers
@@ -5200,6 +5223,7 @@ Installed Files:
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
+@endmorerefs
 
 
 @node Substitution function examples

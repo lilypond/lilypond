@@ -184,6 +184,7 @@ the types of objects and properties from their names.
 @morerefs
 Notation Reference:
 @ruser{Modifying properties}.
+@endmorerefs
 
 
 @node Tweaking methods
@@ -535,6 +536,8 @@ appearance may be modified in the usual way with
 @morerefs
 Notation Reference:
 @ruser{The tweak command}.
+@endmorerefs
+
 
 @node The single prefix
 @unnumberedsubsubsec The @code{\single} prefix
@@ -589,6 +592,7 @@ chord.  However, @code{\single} does not convert @code{\revert},
 Learning Manual:
 @ref{The tweak command},
 @ref{Using variables for layout adjustments}.
+@endmorerefs
 
 
 @node The Internals Reference manual
@@ -992,6 +996,7 @@ syllable and the terminating brace.}
 
 @morerefs
 Extending: @rextend{Scheme tutorial}.
+@endmorerefs
 
 
 @node Types of properties
@@ -1068,6 +1073,7 @@ preceded by an apostrophe
 
 @morerefs
 Extending: @rextend{Scheme tutorial}.
+@endmorerefs
 
 
 @node Appearance of objects
@@ -3988,6 +3994,7 @@ appears to cross voices:
 Learning Manual:
 @ref{The once prefix},
 @ref{The stencil property}.
+@endmorerefs
 
 
 @node Simulating a fermata in MIDI
@@ -4066,6 +4073,8 @@ second (with the stencil removed) does not.
 @morerefs
 Music Glossary:
 @rglos{system}.
+@endmorerefs
+
 
 @node Using variables for layout adjustments
 @subsection Using variables for layout adjustments

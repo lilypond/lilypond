@@ -91,6 +91,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Entering lyrics
@@ -211,6 +212,7 @@ Internals Reference:
 
 Snippets:
 @rlsr{Text}.
+@endmorerefs
 
 
 @node Aligning lyrics to a melody
@@ -338,6 +340,7 @@ Notation Reference:
 
 Internals Reference:
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Automatic syllable durations
@@ -503,6 +506,7 @@ Notation Reference:
 @ref{Extenders and hyphens},
 @ref{Keeping contexts alive},
 @ref{Placing lyrics vertically}.
+@endmorerefs
 
 
 @node Manual syllable durations
@@ -581,6 +585,7 @@ Notation Reference:
 Internals Reference:
 @rinternals{Lyrics},
 @rinternals{Voice}.
+@endmorerefs
 
 
 @node Multiple syllables to one note
@@ -616,6 +621,7 @@ the tilde symbol (@code{~}) to get a lyric tie.
 @morerefs
 Internals Reference:
 @rinternals{LyricCombineMusic}.
+@endmorerefs
 
 
 @node Multiple notes to one syllable
@@ -815,6 +821,7 @@ Notation Reference:
 
 Internals Reference:
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 @knownissues
 Extender lines under melismata are not created automatically; they
@@ -866,6 +873,7 @@ to be drawn in such situations.
 Internals Reference:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
+@endmorerefs
 
 
 @node Gradual changes of vowel
@@ -908,6 +916,7 @@ Musical Glossary:
 
 Internals Reference:
 @rinternals{VowelTransition}.
+@endmorerefs
 
 
 @node Techniques specific to lyrics
@@ -1005,6 +1014,7 @@ Notation Reference:
 Internals Reference:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Placing lyrics vertically
@@ -1140,6 +1150,7 @@ Learning Manual:
 Notation Reference:
 @ref{Context layout order},
 @ref{Creating and referencing contexts}.
+@endmorerefs
 
 
 @node Placing syllables horizontally
@@ -1647,6 +1658,7 @@ alternative sections these must be inserted manually.
 Notation Reference:
 @ref{Keeping contexts alive},
 @ref{Repeats}.
+@endmorerefs
 
 
 @node Divisi lyrics
@@ -2248,6 +2260,7 @@ text = \lyricmode {
 Internals Reference:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
+@endmorerefs
 
 
 @node Songs
@@ -2317,6 +2330,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Lead sheets
@@ -2335,6 +2349,7 @@ Lead sheets may be printed by combining vocal parts and
 @morerefs
 Notation Reference:
 @ref{Chord notation}.
+@endmorerefs
 
 
 @node Choral
@@ -2429,6 +2444,7 @@ Internals Reference:
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
+@endmorerefs
 
 
 @node Score layouts for choral
@@ -2522,6 +2538,7 @@ Notation Reference:
 Internals Reference:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @snippets
@@ -2537,6 +2554,7 @@ Internals Reference:
 @morerefs
 Notation Reference:
 @ref{Expressive marks as lines}.
+@endmorerefs
 
 
 @node Opera and stage musicals
@@ -2660,6 +2678,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Character names
@@ -2752,6 +2771,7 @@ Learning Manual:
 Notation Reference:
 @ref{Text},
 @ref{Text markup commands}.
+@endmorerefs
 
 
 @node Musical cues
@@ -2875,6 +2895,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{CueVoice}.
+@endmorerefs
 
 @knownissues
 @code{\cueDuring} automatically inserts a @code{CueVoice} context
@@ -2979,6 +3000,7 @@ Notation Reference:
 
 Internal Reference:
 @rinternals{LyricText}.
+@endmorerefs
 
 
 @node Chants psalms and hymns
@@ -3014,6 +3036,7 @@ Notation reference:
 
 Snippets:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Setting a chant
@@ -3321,6 +3344,7 @@ Notation Reference:
 @ref{Typesetting Gregorian chant},
 @ref{Unmetered music},
 @ref{Visibility of objects}.
+@endmorerefs
 
 
 @node Pointing a psalm
@@ -3481,6 +3505,7 @@ Learning Manual:
 Notation Reference:
 @ref{Fonts},
 @ref{Formatting text}.
+@endmorerefs
 
 
 @node Partial measures in hymn tunes
@@ -3513,7 +3538,4 @@ Ancient vocal music is supported, as explained in
 @morerefs
 Notation Reference:
 @ref{Ancient notation}.
-
-
-
-
+@endmorerefs

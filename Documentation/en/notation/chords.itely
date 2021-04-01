@@ -88,6 +88,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 Predefined shorthands for articulations and ornaments cannot be used
@@ -218,6 +219,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 Only one quality modifier should be used per chord, typically on the
@@ -377,6 +379,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 Each step can only be present in a chord once.  The following
@@ -426,6 +429,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Chords}.
+@endmorerefs
 
 
 @node Displaying chords
@@ -554,6 +558,7 @@ Internals Reference:
 @rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
+@endmorerefs
 
 @knownissues
 Chords containing inversions or altered bass notes are not named
@@ -801,6 +806,7 @@ Installed Files:
 
 Snippets:
 @rlsr{Chords}.
+@endmorerefs
 
 @knownissues
 Chord names are determined from both the pitches that are present
@@ -895,6 +901,7 @@ Music Glossary:
 
 Snippets:
 @rlsr{Chords}.
+@endmorerefs
 
 
 @node Entering figured bass
@@ -1097,6 +1104,7 @@ Internals Reference:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+@endmorerefs
 
 
 @node Displaying figured bass
@@ -1188,6 +1196,7 @@ Internals Reference:
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}.
+@endmorerefs
 
 @knownissues
 To ensure that continuation lines work properly, it is

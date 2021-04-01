@@ -183,6 +183,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node Paper size and automatic scaling
@@ -293,6 +294,7 @@ Notation Reference:
 
 Installed Files:
 @file{scm/paper.scm}.
+@endmorerefs
 
 
 @node Automatic scaling to paper size
@@ -335,6 +337,7 @@ Notation Reference:
 Installed Files:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
+@endmorerefs
 
 
 @node Fixed vertical spacing paper variables
@@ -393,6 +396,7 @@ Installed Files:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 The titles (from the @code{\header} block) are treated as a
@@ -598,6 +602,7 @@ Installed Files:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Horizontal spacing paper variables
@@ -720,6 +725,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 @knownissues
 Explicitly defined paper-sizes will override any user-defined left or
@@ -777,6 +783,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node paper variables for shifts and indents
@@ -827,6 +834,7 @@ Installed Files:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Other paper variables
@@ -879,6 +887,7 @@ This variable can also be set in a @code{\layout} block.
 @morerefs
 Notation Reference:
 @ref{Line breaking}.
+@endmorerefs
 
 
 @node paper variables for page breaking
@@ -987,6 +996,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node paper variables for page numbering
@@ -1037,6 +1047,7 @@ Default: @code{'arabic}.
 @morerefs
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 @knownissues
 Odd page numbers are always on the right.  If you want the
@@ -1099,6 +1110,7 @@ Installed Files:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 The default page header puts the page number and the @code{instrument}
@@ -1295,6 +1307,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Setting the staff size
@@ -1408,6 +1421,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 
@@ -1648,6 +1662,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{LineBreakEvent}.
+@endmorerefs
 
 @knownissues
 
@@ -1765,6 +1780,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 
@@ -1788,6 +1804,7 @@ concept of page turns.
 @morerefs
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Minimal page breaking
@@ -1811,6 +1828,7 @@ a lot of texts.  It is enabled using:
 @morerefs
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node One-page page breaking
@@ -1955,6 +1973,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 @knownissues
 Use only one @code{Page_turn_engraver} per score.  If there are
@@ -1967,6 +1986,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Vertical spacing
@@ -2317,6 +2337,7 @@ Internals Reference:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @node Spacing of ungrouped staves
@@ -2392,6 +2413,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{VerticalAxisGroup}.
+@endmorerefs
 
 
 @node Spacing of grouped staves
@@ -2462,6 +2484,7 @@ Snippets:
 Internals Reference:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @node Spacing of non-staff lines
@@ -2537,6 +2560,7 @@ Snippets:
 Internals Reference:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup}.
+@endmorerefs
 
 
 @node Explicit staff and system positioning
@@ -2831,6 +2855,7 @@ passed to these different settings will avoid this.
 @morerefs
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Vertical collision avoidance
@@ -2918,6 +2943,7 @@ to prevent it from getting too close to the ledger lines.
 @morerefs
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Horizontal spacing
@@ -3036,6 +3062,7 @@ Internals Reference:
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
+@endmorerefs
 
 @knownissues
 There is no convenient mechanism to manually override spacing.  The
@@ -3105,6 +3132,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{SpacingSpanner}.
+@endmorerefs
 
 
 @node Changing horizontal spacing
@@ -3197,6 +3225,7 @@ regard for clefs, bar lines, and grace notes,
 @morerefs
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Line width
@@ -3250,6 +3279,7 @@ paragraph, the last line simply takes its natural horizontal length.
 @morerefs
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Proportional notation
@@ -3594,6 +3624,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Fitting music onto fewer pages
@@ -3666,6 +3697,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs
 
 
 @node Changing spacing
@@ -3788,3 +3820,4 @@ Notation Reference:
 
 Snippets:
 @rlsr{Spacing}.
+@endmorerefs

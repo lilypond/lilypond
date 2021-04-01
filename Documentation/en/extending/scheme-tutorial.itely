@@ -798,6 +798,7 @@ reference material.
 @morerefs
 Extending:
 @ref{LilyPond Scheme syntax}.
+@endmorerefs
 
 
 @node Input variables and Scheme

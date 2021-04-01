@@ -299,6 +299,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{font-interface}.
+@endmorerefs
 
 @c The two issues mentioned below:
 @c https://sourceforge.net/p/testlilyissues/issues/3987/
@@ -409,6 +410,7 @@ Internals Reference:
 @rinternals{Fingering_engraver},
 @rinternals{New_fingering_engraver},
 @rinternals{Fingering}.
+@endmorerefs
 
 
 @node Gliding fingers
@@ -536,6 +538,7 @@ Internals Reference:
 @rinternals{Finger_glide_engraver},
 @rinternals{finger-glide-interface},
 @rinternals{FingerGlideSpanner}.
+@endmorerefs
 
 @knownissues
 Multiple glides with the same finger are not supported and lead to
@@ -614,6 +617,7 @@ Snippets:
 Internals Reference:
 @rinternals{Note_spacing_engraver},
 @rinternals{NoteSpacing}.
+@endmorerefs
 
 
 @node Coloring objects
@@ -746,6 +750,7 @@ tweak command}.
 
 Snippets:
 @rlsr{Editorial annotations}.
+@endmorerefs
 
 @cindex x11 color
 @cindex colored note in chord
@@ -810,6 +815,7 @@ Internals Reference:
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+@endmorerefs
 
 @knownissues
 Parenthesizing a chord prints parentheses around each individual
@@ -870,6 +876,7 @@ Internals Reference:
 @rinternals{Stem_engraver},
 @rinternals{Stem},
 @rinternals{stem-interface}.
+@endmorerefs
 
 
 @node Outside the staff
@@ -981,7 +988,6 @@ somechords = \relative c' {
 @end lilypond
 
 @morerefs
-
 Notation Reference:
 @ref{Note names in other languages}.
 
@@ -989,6 +995,7 @@ Internals Reference:
 @rinternals{NoteName},
 @rinternals{NoteNames},
 @rinternals{Note_name_engraver}.
+@endmorerefs
 
 
 @node Balloon help
@@ -1054,6 +1061,7 @@ Internals Reference:
 @rinternals{Balloon_engraver},
 @rinternals{BalloonTextItem},
 @rinternals{balloon-interface}.
+@endmorerefs
 
 
 @node Grid lines
@@ -1125,6 +1133,7 @@ Internals Reference:
 @rinternals{GridPoint},
 @rinternals{grid-line-interface},
 @rinternals{grid-point-interface}.
+@endmorerefs
 
 
 @node Analysis brackets
@@ -1196,3 +1205,4 @@ Internals Reference:
 @rinternals{HorizontalBracketText},
 @rinternals{horizontal-bracket-text-interface},
 @rinternals{Staff}.
+@endmorerefs

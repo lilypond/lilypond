@@ -188,6 +188,7 @@ Essay on automated music engraving:
 
 Snippets:
 @rlsr{Text}.
+@endmorerefs
 
 
 @node Text scripts
@@ -257,6 +258,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+@endmorerefs
 
 @cindex text, outside margin
 @cindex margin, text running over
@@ -351,6 +353,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextSpanner}.
+@endmorerefs
 
 
 @node Text marks
@@ -465,6 +468,7 @@ Internals Reference:
 @rinternals{MarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
+@endmorerefs
 
 
 @node Separate text
@@ -543,6 +547,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Formatting text
@@ -671,6 +676,7 @@ Snippets:
 
 Installed Files:
 @file{scm/markup.scm}.
+@endmorerefs
 
 @knownissues
 Syntax error messages for markup mode can be confusing.
@@ -871,6 +877,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+@endmorerefs
 
 @knownissues
 Using the font sizing commands @code{\teeny}, @code{\tiny},
@@ -1189,6 +1196,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Graphic notation inside markup
@@ -1354,6 +1362,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Music notation inside markup
@@ -1488,6 +1497,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+@endmorerefs
 
 @knownissues
 Vertical spacing of a @code{\score} inside a markup object is controlled
@@ -1552,6 +1562,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TextScript}.
+@endmorerefs
 
 @funindex \markuplist
 
@@ -1798,6 +1809,7 @@ Notation Reference:
 @ref{Rotating objects},
 @ref{Selecting font and font size},
 @ref{Font}.
+@endmorerefs
 
 
 @node Single entry fonts
@@ -1916,6 +1928,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Text}.
+@endmorerefs
 
 @c A source file gets never installed...
 @c Installed Files:
@@ -2056,6 +2069,7 @@ Notation Reference:
 @ref{Selecting font and font size},
 @ref{Font},
 @ref{Replacing the notation font}.
+@endmorerefs
 
 
 @node Music fonts

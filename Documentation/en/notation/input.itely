@@ -126,6 +126,7 @@ Learning Manual:
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
 @rlearning{Score is a (single) compound musical expression}.
+@endmorerefs
 
 
 @node Multiple scores in a book
@@ -553,6 +554,7 @@ Learning Manual:
 Notation Reference:
 @ref{Titles explained},
 @ref{The layout block}.
+@endmorerefs
 
 
 @node Titles and headers
@@ -756,6 +758,7 @@ Notation Reference:
 @ref{File structure},
 @ref{Default layout of bookpart and score titles},
 @ref{Custom layout for titles}.
+@endmorerefs
 
 
 @node Default layout of bookpart and score titles
@@ -881,6 +884,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/titling-init.ly}.
+@endmorerefs
 
 
 @node Default layout of headers and footers
@@ -977,6 +981,7 @@ footer and title text within the @code{\header} block.
 @morerefs
 Notation Reference:
 @ref{Formatting text}.
+@endmorerefs
 
 
 @node Custom layout for titles
@@ -1131,6 +1136,7 @@ them in the markup definition.
 @morerefs
 Notation Reference:
 @ref{Titles explained}.
+@endmorerefs
 
 
 @node Custom layout for headers and footers
@@ -1241,6 +1247,8 @@ Notation Reference:
 
 Installed Files:
 @file{../ly/titling-init.ly}.
+@endmorerefs
+
 
 @node Creating output file metadata
 @subsection Creating output file metadata
@@ -1734,6 +1742,7 @@ Internals Reference:
 @rinternals{FootnoteItem},
 @rinternals{FootnoteSpanner},
 @rinternals{Footnote_engraver}.
+@endmorerefs
 
 @knownissues
 Multiple footnotes for the same page can only be stacked, one above
@@ -2030,6 +2039,7 @@ the context of a table of contents.
 @morerefs
 Installed Files:
 @file{ly/toc-init.ly}.
+@endmorerefs
 
 @predefined
 @funindex \table-of-contents
@@ -2192,6 +2202,7 @@ Some simple examples of using @code{\include} are shown in
 Learning Manual:
 @rlearning{Other sources of information},
 @rlearning{Scores and parts}.
+@endmorerefs
 
 @knownissues
 If an included file is given a name which is the same as one in
@@ -2538,6 +2549,7 @@ Learning Manual:
 Notation Reference:
 @ref{Automatic part combining},
 @ref{Including LilyPond files}.
+@endmorerefs
 
 @knownissues
 Calling @code{\relative} on a music expression obtained by filtering
@@ -2575,6 +2587,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Including LilyPond files}.
+@endmorerefs
 
 
 @node Special characters
@@ -2777,6 +2790,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/text-replacements.ly}.
+@endmorerefs
 
 
 @node Controlling output
@@ -2835,6 +2849,7 @@ Notation Reference:
 
 Application Usage:
 @rprogram{Command-line usage}.
+@endmorerefs
 
 
 
@@ -2901,6 +2916,7 @@ Notation Reference:
 @ref{Interpretation contexts},
 @ref{Score - the master of all contexts},
 @ref{All context properties}.
+@endmorerefs
 
 
 @node Alternative output formats
@@ -3047,6 +3063,7 @@ Learning Manual:
 Notation Reference:
 @ref{The Emmentaler font},
 @ref{Entire document fonts}.
+@endmorerefs
 
 @knownissues
 Gonville cannot be used to typeset @q{Ancient Music} notation and it is
@@ -3242,6 +3259,7 @@ Notation Reference:
 
 Installed Files:
 @file{scm/midi.scm}.
+@endmorerefs
 
 @knownissues
 There are fifteen MIDI channels available and one additional channel
@@ -3420,6 +3438,7 @@ Notation Reference:
 
 Internals Reference:
 @rinternals{Dynamic_performer}.
+@endmorerefs
 
 
 @snippets
@@ -3498,6 +3517,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Dynamic_performer}.
+@endmorerefs
 
 @knownissues
 Some MIDI players do not always correctly handle tempo changes in the
@@ -3549,6 +3569,7 @@ Notation Reference:
 
 Installed Files:
 @file{scm/midi.scm}.
+@endmorerefs
 
 @knownissues
 Percussion instruments that are notated in a @code{DrumStaff}
@@ -3611,6 +3632,7 @@ unfolded repeats for correct MIDI output.
 @morerefs
 Notation Reference:
 @ref{Repeats}.
+@endmorerefs
 
 
 @node MIDI channel mapping
@@ -3892,6 +3914,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/articulate.ly}.
+@endmorerefs
 
 @warning{The @file{articulate} script may shorten chords, which might
 not be appropriate for some types of instrument, such as organ music.
@@ -3981,6 +4004,7 @@ Notation Reference:
 
 Installed Files:
 @file{ly/swing.ly}.
+@endmorerefs
 
 @knownissues
 @itemize

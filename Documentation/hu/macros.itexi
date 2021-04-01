@@ -170,6 +170,10 @@ A LilyPond @version{} verziójához
 @indent
 @end macro
 
+@macro endmorerefs
+@c TODO: Do the same as with the English version of this macro.
+@end macro
+
 
 @macro knownissues
 @subsubheading Ismert problémák és figyelmeztetések

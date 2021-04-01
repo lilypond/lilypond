@@ -137,6 +137,7 @@ Internals Reference:
 
 Snippets:
 @rlsr{Keyboards}.
+@endmorerefs
 
 
 @node Changing staff manually
@@ -270,6 +271,7 @@ Snippets:
 Internals Reference:
 @rinternals{Beam},
 @rinternals{ContextChange}.
+@endmorerefs
 
 @knownissues
 Beam collision avoidance does not work for automatic beams that end
@@ -372,6 +374,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{AutoChangeMusic}.
+@endmorerefs
 
 
 @knownissues
@@ -455,6 +458,7 @@ Snippets:
 Internals Reference:
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
+@endmorerefs
 
 
 @snippets
@@ -489,6 +493,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Stem}.
+@endmorerefs
 
 
 @node Piano
@@ -594,6 +599,7 @@ Internals Reference:
 @rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
+@endmorerefs
 
 
 @node Accordion
@@ -637,6 +643,7 @@ A complete list of all available accordion registers can be found in
 @morerefs
 Snippets:
 @rlsr{Keyboards}.
+@endmorerefs
 
 
 @node Harp
@@ -676,6 +683,7 @@ Notation Reference:
 @ref{Glissando},
 @ref{Arpeggio},
 @ref{Harmonics}.
+@endmorerefs
 
 
 @node Harp pedals
@@ -719,3 +727,4 @@ position (sharpened pitch), and @code{|} is the divider.  A prefixed
 Notation Reference:
 @ref{Text scripts},
 @ref{Instrument Specific Markup}.
+@endmorerefs

@@ -1317,6 +1317,7 @@ context is the top level notation context.
 
 @morerefs
 Internals Reference: @rinternals{Contexts}.
+@endmorerefs
 
 @node Flexible architecture
 @unnumberedsubsec Flexible architecture

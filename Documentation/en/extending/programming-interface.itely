@@ -184,7 +184,6 @@ For a list of available predefined type predicates, see
 @ruser{Predefined type predicates}.
 
 @morerefs
-
 Notation Reference:
 @ruser{Predefined type predicates}.
 
@@ -192,6 +191,8 @@ Installed Files:
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
+@endmorerefs
+
 
 @node Scheme function usage
 @subsection Scheme function usage
@@ -319,7 +320,6 @@ For a list of available type predicates, see
 @ruser{Predefined type predicates}.
 
 @morerefs
-
 Notation Reference:
 @ruser{Predefined type predicates}.
 
@@ -327,6 +327,7 @@ Installed Files:
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
+@endmorerefs
 
 
 @node Music function usage

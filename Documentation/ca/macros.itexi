@@ -224,6 +224,10 @@ Per a la versió del LilyPond @version{}
 @indent
 @end macro
 
+@macro endmorerefs
+@c TODO: Do the same as with the English version of this macro.
+@end macro
+
 
 @macro knownissues
 @subsubheading Advertiments i problemes coneguts

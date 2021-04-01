@@ -212,6 +212,7 @@ Learning Manual:
 @ref{Vocal ensembles templates},
 @ref{Extending the templates},
 @ref{Other sources of information}.
+@endmorerefs
 
 @knownissues
 The setting of the @code{TwoVoicesPerStaff} variable applies for the
@@ -328,6 +329,7 @@ Learning Manual:
 @ref{Vocal ensembles templates},
 @ref{Extending the templates},
 @ref{Other sources of information}.
+@endmorerefs
 
 @knownissues
 The setting of the various @code{...TwoVoicesPerStaff} variables apply

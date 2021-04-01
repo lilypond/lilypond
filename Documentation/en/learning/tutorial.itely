@@ -479,7 +479,7 @@ Here is a small example showing all these elements together:
 Notation Reference: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.
-
+@endmorerefs
 
 @node Working on input files
 @subsection Working on input files

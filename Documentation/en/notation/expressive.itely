@@ -300,6 +300,7 @@ Snippets:
 Internals Reference:
 @rinternals{Script},
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Dynamics
@@ -615,6 +616,7 @@ Internals Reference:
 @rinternals{Hairpin},
 @rinternals{DynamicLineSpanner},
 @rinternals{Dynamics}.
+@endmorerefs
 
 
 @node New dynamic marks
@@ -740,6 +742,7 @@ Extending LilyPond:
 
 Snippets:
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Expressive marks as curves
@@ -928,6 +931,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Slur}.
+@endmorerefs
 
 
 @node Phrasing slurs
@@ -1065,6 +1069,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{PhrasingSlur}.
+@endmorerefs
 
 
 @node Breath marks
@@ -1130,6 +1135,7 @@ Internals Reference:
 @rinternals{BreathingEvent},
 @rinternals{BreathingSign},
 @rinternals{Breathing_sign_engraver}.
+@endmorerefs
 
 
 @node Falls and doits
@@ -1169,6 +1175,7 @@ Music Glossary:
 
 Snippets:
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Expressive marks as lines
@@ -1284,6 +1291,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Glissando}.
+@endmorerefs
 
 @knownissues
 Printing text over the line (such as @notation{gliss.}) is not
@@ -1416,6 +1424,7 @@ Internals Reference:
 @rinternals{Arpeggio},
 @rinternals{Slur},
 @rinternals{PianoStaff}.
+@endmorerefs
 
 @knownissues
 Predefined commands such as @code{\arpeggioArrowUp} only
@@ -1594,3 +1603,4 @@ Snippets:
 
 Internals Reference:
 @rinternals{TrillSpanner}.
+@endmorerefs

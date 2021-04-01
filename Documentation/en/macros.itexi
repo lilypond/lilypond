@@ -194,7 +194,11 @@ For LilyPond version @version{}
 
 @macro morerefs
 @subsubheading See also
-@indent
+@raggedRight
+@end macro
+
+@macro endmorerefs
+@endRaggedRight
 @end macro
 
 

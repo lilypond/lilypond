@@ -443,6 +443,7 @@ Languages in this order.
 
 @morerefs
 @ref{Pitch names}.
+@endmorerefs
 
 
 @node a due
@@ -474,6 +475,7 @@ different players, or groups of players (@q{desks}).
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node accelerando
@@ -494,6 +496,7 @@ An increase in the tempo, abbreviated @notation{accel.}
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node accent
@@ -512,6 +515,7 @@ The stress of one tone over others.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node accessory
@@ -519,6 +523,7 @@ No cross-references.
 
 @morerefs
 @ref{ornament}.
+@endmorerefs
 
 
 @node acciaccatura
@@ -539,6 +544,7 @@ small eighth note (quaver) with a line drawn through the flag and stem.
 
 @morerefs
 @ref{appoggiatura}, @ref{grace notes}, @ref{mordent}, @ref{ornament}.
+@endmorerefs
 
 
 @node accidental
@@ -603,6 +609,7 @@ An accidental alters a note by:
 
 @morerefs
 @ref{alteration}, @ref{semitone}, @ref{whole tone}.
+@endmorerefs
 
 
 @node adagio
@@ -631,6 +638,7 @@ of sonatas, symphonies, etc.
 
 @morerefs
 @ref{andante}, @ref{largo}, @ref{sonata}.
+@endmorerefs
 
 
 @node al niente
@@ -674,6 +682,7 @@ Since one does not crescendo @emph{to} nothing, it is not correct to use
 
 @morerefs
 @ref{crescendo}, @ref{dal niente}, @ref{decrescendo}, @ref{hairpin}.
+@endmorerefs
 
 
 @node alla breve
@@ -705,6 +714,7 @@ is needed.
 @morerefs
 @ref{breve}, @ref{hemiola}, @ref{mensural notation}, @ref{note value},
 @ref{proportion}, @ref{whole note}.
+@endmorerefs
 
 
 @node allegro
@@ -724,6 +734,7 @@ quick tempo, especially the first and last movements of a sonata.
 
 @morerefs
 @ref{sonata}.
+@endmorerefs
 
 
 @node alteration
@@ -745,6 +756,7 @@ pitch.  It is established by an accidental.
 
 @morerefs
 @ref{accidental}.
+@endmorerefs
 
 
 @node alto
@@ -766,6 +778,7 @@ known as countertenor.
 
 @morerefs
 @ref{countertenor}.
+@endmorerefs
 
 
 @node alto clef
@@ -784,6 +797,7 @@ C clef setting middle C on the middle line of the staff.
 
 @morerefs
 @ref{C clef}.
+@endmorerefs
 
 
 @node ambitus
@@ -805,6 +819,7 @@ Sometimes anglicized to @emph{ambit} (pl. @emph{ambits}).
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node anacrusis
@@ -835,6 +850,7 @@ f,2. \bar "||"
 
 @morerefs
 @ref{measure}, @ref{meter}.
+@endmorerefs
 
 
 @node ancient minor scale
@@ -858,6 +874,7 @@ a1 b c d e f g a
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node andante
@@ -878,6 +895,7 @@ Walking tempo/character.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node appoggiatura
@@ -940,6 +958,7 @@ An appoggiatura may have more notes preceding the main note.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node arpeggio
@@ -989,6 +1008,7 @@ FI: arpeggio, murtosointu.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node articulation
@@ -1009,6 +1029,7 @@ examples of articulation.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node ascending interval
@@ -1027,6 +1048,7 @@ A distance between a starting lower note and a higher ending note.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node augmentation
@@ -1047,6 +1069,7 @@ This is a placeholder for augmentation (wrt mensural notation).
 
 @morerefs
 @ref{diminution}, @ref{mensural notation}.
+@endmorerefs
 
 
 @node augmented interval
@@ -1063,6 +1086,7 @@ FI: ylinouseva intervalli.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node autograph
@@ -1089,6 +1113,7 @@ emulate engraving.  This required more skill than did engraving.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node B
@@ -1107,6 +1132,7 @@ No cross-references.
 
 @morerefs
 @ref{H}, @ref{Pitch names}
+@endmorerefs
 
 
 @node backfall
@@ -1114,6 +1140,7 @@ No cross-references.
 
 @morerefs
 @ref{appoggiatura}.
+@endmorerefs
 
 
 @node bar
@@ -1121,6 +1148,7 @@ No cross-references.
 
 @morerefs
 @ref{measure}.
+@endmorerefs
 
 
 @node bar line
@@ -1142,6 +1170,7 @@ in otherwise-unmetered music).
 
 @morerefs
 @ref{measure}.
+@endmorerefs
 
 
 @node baritone
@@ -1162,6 +1191,7 @@ The male voice intermediate in pitch between the bass and the tenor.
 
 @morerefs
 @ref{bass}, @ref{tenor}.
+@endmorerefs
 
 
 @node baritone clef
@@ -1180,6 +1210,7 @@ C or F clef setting middle C on the upper staff line.
 
 @morerefs
 @ref{C clef}, @ref{F clef}.
+@endmorerefs
 
 
 @node bass
@@ -1205,6 +1236,7 @@ double bass.
 
 @morerefs
 @ref{strings}.
+@endmorerefs
 
 
 @node bass clef
@@ -1224,6 +1256,7 @@ A clef setting with middle C on the first top ledger line.
 @morerefs
 @ref{F clef},
 @ref{high bass clef}.
+@endmorerefs
 
 
 @node beam
@@ -1250,6 +1283,7 @@ g64-"1/64"[ s32 g64 s32 g64 s32 g64] s32
 
 @morerefs
 @ref{feathered beam}.
+@endmorerefs
 
 
 @node beat
@@ -1278,6 +1312,7 @@ g8 d' c | b c a | g4. \bar "||"
 
 @morerefs
 @ref{time signature}.
+@endmorerefs
 
 
 @node beat repeat
@@ -1285,6 +1320,7 @@ g8 d' c | b c a | g4. \bar "||"
 
 @morerefs
 @ref{percent repeat}.
+@endmorerefs
 
 
 @node bind
@@ -1292,6 +1328,7 @@ g8 d' c | b c a | g4. \bar "||"
 
 @morerefs
 @ref{tie}.
+@endmorerefs
 
 
 @node brace
@@ -1352,6 +1389,7 @@ Angular brackets for connecting parts in an orchestral or choral score:
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node bracket
@@ -1368,6 +1406,7 @@ FI: sulkumerkki.
 
 @morerefs
 @ref{brace}
+@endmorerefs
 
 
 @node brass
@@ -1389,6 +1428,7 @@ sousaphones and contrabass bugles are common.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node breath mark
@@ -1407,6 +1447,7 @@ Indication of where to breathe in vocal and wind instrument parts.
 
 @morerefs
 @ref{caesura}.
+@endmorerefs
 
 
 @node breve
@@ -1436,6 +1477,7 @@ g\breve
 
 @morerefs
 @ref{mensural notation}, @ref{note value}, @ref{semibreve}.
+@endmorerefs
 
 
 @node C
@@ -1454,6 +1496,7 @@ g\breve
 
 @morerefs
 @ref{Pitch names}.
+@endmorerefs
 
 
 @node C clef
@@ -1488,6 +1531,7 @@ lines.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node cadence
@@ -1504,6 +1548,7 @@ FI: kadenssi, lopuke.
 
 @morerefs
 @ref{harmonic cadence}, @ref{functional harmony}.
+@endmorerefs
 
 
 @node cadenza
@@ -1526,6 +1571,7 @@ most cadenzas have been written down by the composer.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node caesura
@@ -1547,6 +1593,7 @@ rest or a breath mark.
 
 @morerefs
 @ref{breath mark}.
+@endmorerefs
 
 
 @node canon
@@ -1563,6 +1610,7 @@ FI: kaanon, tarkka jäljittely.
 
 @morerefs
 @ref{counterpoint}.
+@endmorerefs
 
 
 @node cent
@@ -1583,6 +1631,7 @@ an octave (1/100 of an equally tempered semitone).
 
 @morerefs
 @ref{equal temperament}, @ref{semitone}.
+@endmorerefs
 
 
 @node central C
@@ -1590,6 +1639,7 @@ an octave (1/100 of an equally tempered semitone).
 
 @morerefs
 @ref{middle C}.
+@endmorerefs
 
 
 @node chord
@@ -1641,6 +1691,7 @@ minor.
 @morerefs
 @ref{functional harmony}, @ref{interval}, @ref{inversion}, @ref{quality},
 @ref{third}.
+@endmorerefs
 
 
 @node chromatic scale
@@ -1663,6 +1714,7 @@ c1 cis d dis e f fis g gis a ais b c
 
 @morerefs
 @ref{semitone}.
+@endmorerefs
 
 
 @node chromaticism
@@ -1681,6 +1733,7 @@ Using tones extraneous to a diatonic scale (minor, major).
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node church mode
@@ -1697,6 +1750,7 @@ FI: moodi, kirkkosävellaji.
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node clef
@@ -1919,6 +1973,7 @@ shown below, where the notes show an arpeggio on a C major chord.
 
 @morerefs
 @ref{C clef}, @ref{F clef}, @ref{G clef}.
+@endmorerefs
 
 
 @node cluster
@@ -1961,6 +2016,7 @@ pitch contained in the cluster would be notated as an ordinary note.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node comma
@@ -1981,6 +2037,7 @@ same note derived from some other tuning method.
 @morerefs
 @ref{didymic comma}, @ref{Pythagorean comma}, @ref{syntonic comma},
 @ref{temperament}.
+@endmorerefs
 
 
 @node common meter
@@ -1990,6 +2047,7 @@ Another name for @ref{common time}.
 
 @morerefs
 @ref{common time}, @ref{meter}.
+@endmorerefs
 
 
 @node Common Practice Period
@@ -2009,6 +2067,7 @@ This is a stub for Common Practice Period (CPP).
 
 @morerefs
 @ruser{Note names in other languages}.
+@endmorerefs
 
 
 @node common time
@@ -2028,6 +2087,7 @@ mensural notation.
 
 @morerefs
 @ref{mensural notation}, @ref{meter}.
+@endmorerefs
 
 
 @node complement
@@ -2044,6 +2104,7 @@ FI: täydentävä intervalli.
 
 @morerefs
 @ref{inverted interval}.
+@endmorerefs
 
 
 @node compound interval
@@ -2062,6 +2123,7 @@ Intervals larger than an octave.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node compound meter
@@ -2081,6 +2143,7 @@ A meter that includes a triplet subdivision within the beat, such as
 
 @morerefs
 @ref{meter}, @ref{simple meter}.
+@endmorerefs
 
 
 @node compound time
@@ -2122,6 +2185,7 @@ signatures.
 @ref{compound meter},
 @ref{meter},
 @ref{polymetric time signature}.
+@endmorerefs
 
 
 @node concert pitch
@@ -2185,6 +2249,7 @@ are, technically speaking, @emph{transposing instruments}:
 
 @morerefs
 @ref{transposing instrument}.
+@endmorerefs
 
 
 @node conjunct movement
@@ -2210,6 +2275,7 @@ g4 g g a | b2 a | g4 b a a | g1 \bar "||"
 
 @morerefs
 @ref{disjunct movement}.
+@endmorerefs
 
 
 @node consonance
@@ -2226,6 +2292,7 @@ FI: konsonanssi, sopusointi.
 
 @morerefs
 @ref{harmony}.
+@endmorerefs
 
 
 @node contralto
@@ -2242,6 +2309,7 @@ FI: kontra-altto.
 
 @morerefs
 @ref{alto}.
+@endmorerefs
 
 
 @node copying music
@@ -2257,6 +2325,7 @@ music typesetters.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node counterpoint
@@ -2317,6 +2386,7 @@ has been one of the most popular polyphonic composition methods.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node countertenor
@@ -2333,6 +2403,7 @@ FI: kontratenori.
 
 @morerefs
 @ref{contralto}.
+@endmorerefs
 
 
 @node crescendo
@@ -2358,6 +2429,7 @@ g4\< a b c | d1\! \bar "|."
 
 @morerefs
 @ref{decrescendo}, @ref{hairpin}.
+@endmorerefs
 
 
 @node cue-notes
@@ -2377,6 +2449,7 @@ playing.  Usually printed in a smaller type.
 
 @morerefs
 Compare: @ref{ossia}.
+@endmorerefs
 
 
 @node custos
@@ -2421,6 +2494,7 @@ they have survived only in special forms of musical notation such as the
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node cut time
@@ -2428,6 +2502,7 @@ No cross-references.
 
 @morerefs
 @ref{alla breve}.
+@endmorerefs
 
 
 @node D
@@ -2446,6 +2521,7 @@ No cross-references.
 
 @morerefs
 @ref{Pitch names}
+@endmorerefs
 
 
 @node da capo
@@ -2465,6 +2541,7 @@ the beginning to the end or to a certain place marked @emph{fine}.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node dal niente
@@ -2484,6 +2561,7 @@ that the sound should gradually increase from nothing.
 
 @morerefs
 @ref{al niente}.
+@endmorerefs
 
 
 @node dal segno
@@ -2517,6 +2595,7 @@ b4 a g2-\markup {
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node decrescendo
@@ -2541,6 +2620,7 @@ d4\> c b a | g1 \! \bar "|."
 
 @morerefs
 @ref{crescendo}, @ref{diminuendo}, @ref{hairpin}.
+@endmorerefs
 
 
 @node descending interval
@@ -2559,6 +2639,7 @@ A distance between a starting higher note and a lower ending note.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node diatonic scale
@@ -2729,6 +2810,7 @@ the 6th and 7th tone.
 
 @morerefs
 @ref{semitone}, @ref{whole tone}.
+@endmorerefs
 
 
 @node didymic comma
@@ -2736,6 +2818,7 @@ the 6th and 7th tone.
 
 @morerefs
 @ref{syntonic comma}.
+@endmorerefs
 
 
 @node diminished interval
@@ -2752,6 +2835,7 @@ FI: vähennetty intervalli.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node diminuendo
@@ -2770,6 +2854,7 @@ Abbreviated @emph{dim.} It indicates a decrease in tone volume.
 
 @morerefs
 @ref{decrescendo}.
+@endmorerefs
 
 
 @node diminution
@@ -2788,6 +2873,7 @@ This is a stub for diminution (@emph{wrt} mensural notation).
 
 @morerefs
 @ref{augmentation}, @ref{mensural notation}.
+@endmorerefs
 
 
 @node direct
@@ -2804,6 +2890,7 @@ FI: suora.
 
 @morerefs
 @ref{custos}.
+@endmorerefs
 
 
 @node disjunct movement
@@ -2832,6 +2919,7 @@ with conjunct movement.
 
 @morerefs
 @ref{conjunct movement}.
+@endmorerefs
 
 
 @node dissonance
@@ -2841,6 +2929,7 @@ Another name for @ref{dissonant interval}.
 
 @morerefs
 @ref{dissonant interval}, @ref{harmony}.
+@endmorerefs
 
 
 @node dissonant interval
@@ -2857,6 +2946,7 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 
 @morerefs
 @ref{harmony}.
+@endmorerefs
 
 
 @node divisio
@@ -2892,6 +2982,7 @@ TODO: musical example here?
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node doit
@@ -2911,6 +3002,7 @@ Indicator for an indeterminately rising pitch bend.  Compare with
 
 @morerefs
 @ref{fall}, @ref{glissando}.
+@endmorerefs
 
 
 @node dominant
@@ -2929,6 +3021,7 @@ The fifth @emph{scale degree} in @emph{functional harmony}.
 
 @morerefs
 @ref{functional harmony}, @ref{scale degree}.
+@endmorerefs
 
 
 @node dominant ninth chord
@@ -2945,6 +3038,7 @@ FI: dominanttinoonisointu.
 
 @morerefs
 @ref{chord}, @ref{functional harmony}.
+@endmorerefs
 
 
 @node dominant seventh chord
@@ -2961,6 +3055,7 @@ FI: dominanttiseptimisointu.
 
 @morerefs
 @ref{chord}, @ref{functional harmony}.
+@endmorerefs
 
 
 @node dorian mode
@@ -2977,6 +3072,7 @@ FI: doorinen moodi.
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node dot (augmentation dot)
@@ -2993,6 +3089,7 @@ FI: piste.
 
 @morerefs
 @ref{dotted note}, @ref{note value}.
+@endmorerefs
 
 
 @node dotted note
@@ -3009,6 +3106,7 @@ FI: pisteellinen nuotti.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node double appoggiatura
@@ -3025,6 +3123,7 @@ FI: kaksoisappoggiatura, kaksoisetuhele.
 
 @morerefs
 @ref{appoggiatura}.
+@endmorerefs
 
 
 @node double bar line
@@ -3043,6 +3142,7 @@ Indicates the end of a section within a movement.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node double dotted note
@@ -3059,6 +3159,7 @@ FI: kaksoispisteellinen nuotti.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node double flat
@@ -3075,6 +3176,7 @@ FI: kaksoisalennusmerkki.
 
 @morerefs
 @ref{accidental}.
+@endmorerefs
 
 
 @node double sharp
@@ -3091,6 +3193,7 @@ FI: kaksoisylennysmerkki.
 
 @morerefs
 @ref{accidental}.
+@endmorerefs
 
 
 @node double time signature
@@ -3107,6 +3210,7 @@ FI: kaksois-aika-arvomerkintä.
 
 @morerefs
 @ref{polymetric time signature}.
+@endmorerefs
 
 
 @node double trill
@@ -3125,6 +3229,7 @@ A simultaneous trill on two notes, usually in the distance of a third.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node duple meter
@@ -3141,6 +3246,7 @@ FI: kaksoistempo.
 
 @morerefs
 @ref{meter}.
+@endmorerefs
 
 
 @node duplet
@@ -3157,6 +3263,7 @@ FI: duoli.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node duration
@@ -3173,6 +3280,7 @@ FI: kesto, aika-arvo.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node dynamics
@@ -3194,6 +3302,7 @@ indicate this information are called dynamic marks.
 @morerefs
 @ref{piano}, @ref{forte}, @ref{crescendo}, @ref{decrescendo},
 @ref{diminuendo}.
+@endmorerefs
 
 
 @node E
@@ -3212,6 +3321,7 @@ indicate this information are called dynamic marks.
 
 @morerefs
 @ref{Pitch names}
+@endmorerefs
 
 
 @node ecclesiastical mode
@@ -3219,6 +3329,7 @@ indicate this information are called dynamic marks.
 
 @morerefs
 @ref{church mode}, @ref{diatonic scale}.
+@endmorerefs
 
 
 @node eighth note
@@ -3238,6 +3349,7 @@ indicate this information are called dynamic marks.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node eighth rest
@@ -3257,6 +3369,7 @@ indicate this information are called dynamic marks.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node elision
@@ -3282,6 +3395,7 @@ tie.
 
 @morerefs
 @ref{lyric tie}.
+@endmorerefs
 
 
 @node embellishment
@@ -3289,6 +3403,7 @@ tie.
 
 @morerefs
 @ref{ornament}.
+@endmorerefs
 
 
 @node engraving
@@ -3312,6 +3427,7 @@ plate of metal.  Now also the term for the art of music typesetting.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node enharmonic
@@ -3344,6 +3460,7 @@ names but equal pitch.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node equal temperament
@@ -3363,6 +3480,7 @@ which is precisely equal to 100 cents).
 
 @morerefs
 @ref{cent}, @ref{semitone}, @ref{temperament}.
+@endmorerefs
 
 
 @node expression mark
@@ -3390,6 +3508,7 @@ Performance indications concerning:
 
 @morerefs
 @ref{allegro}, @ref{andante}, @ref{crescendo}, @ref{forte}.
+@endmorerefs
 
 
 @node extender line
@@ -3445,6 +3564,7 @@ by the given number of octaves.
 @morerefs
 @ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octave mark},
 @ref{octave marking}.
+@endmorerefs
 
 
 @node F
@@ -3463,6 +3583,7 @@ by the given number of octaves.
 
 @morerefs
 @ref{Pitch names}
+@endmorerefs
 
 
 @node F clef
@@ -3511,6 +3632,7 @@ Double Bass).
 
 @morerefs
 @ref{baritone clef}, @ref{strings}.
+@endmorerefs
 
 
 @node fall
@@ -3530,6 +3652,7 @@ Indicator for an indeterminately falling pitch bend.  Compare with
 
 @morerefs
 @ref{doit}, @ref{glissando}.
+@endmorerefs
 
 
 @node feathered beam
@@ -3551,6 +3674,7 @@ of the piece.
 
 @morerefs
 Internals Reference: @ruser{Manual beams}
+@endmorerefs
 
 
 @node fermata
@@ -3577,6 +3701,7 @@ a4 b c2^\fermata
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node fifth
@@ -3593,6 +3718,7 @@ FI: kvintti.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node figured bass
@@ -3648,6 +3774,7 @@ played above the bass notes.
 
 @morerefs
 @ref{chord}, @ref{interval}.
+@endmorerefs
 
 
 @node fingering
@@ -3667,6 +3794,7 @@ fingers to use while playing a passage.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node flag
@@ -3693,6 +3821,7 @@ g64-"64th" s8
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node flageolet
@@ -3722,6 +3851,7 @@ Also:
 
 @morerefs
 @ref{articulation}, @ref{harmonics}.
+@endmorerefs
 
 
 @node flat
@@ -3738,6 +3868,7 @@ FI: alennusmerkki.
 
 @morerefs
 @ref{accidental}.
+@endmorerefs
 
 
 @node forefall
@@ -3745,6 +3876,7 @@ FI: alennusmerkki.
 
 @morerefs
 @ref{appoggiatura}.
+@endmorerefs
 
 
 @node forte
@@ -3770,6 +3902,7 @@ Abbreviated @notation{@b{f}}.  Variants include:
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node fourth
@@ -3786,6 +3919,7 @@ FI: kvartti.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node Frenched score
@@ -3811,6 +3945,7 @@ you may wish to procure a copy of their style manual.
 
 @morerefs
 @ref{Frenched staff}.
+@endmorerefs
 
 
 @node Frenched staff
@@ -3831,6 +3966,7 @@ for producing, for example, an @emph{ossia} staff.
 
 @morerefs
 @ref{ossia}.
+@endmorerefs
 
 
 @node Frenched staves
@@ -3853,6 +3989,7 @@ FI: fuuga.
 
 @morerefs
 @ref{counterpoint}.
+@endmorerefs
 
 
 @node functional harmony
@@ -3912,6 +4049,7 @@ the parallel minor scale, or the incomplete dominant seventh chord.
 @morerefs
 @ref{dominant}, @ref{incomplete dominant seventh chord},
 @ref{subdominant}, @ref{tonic}.
+@endmorerefs
 
 
 @node G
@@ -3930,6 +4068,7 @@ the parallel minor scale, or the incomplete dominant seventh chord.
 
 @morerefs
 @ref{Pitch names}
+@endmorerefs
 
 
 @node G clef
@@ -3973,6 +4112,7 @@ part in modern choral scores).
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node glissando
@@ -3991,6 +4131,7 @@ Letting the pitch slide fluently from one note to the other.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node grace notes
@@ -4010,6 +4151,7 @@ counted in the rhythm of the bar.
 
 @morerefs
 @ref{acciaccatura}, @ref{appoggiatura}, @ref{mordent}, @ref{ornament}.
+@endmorerefs
 
 
 @node grand staff
@@ -4028,6 +4170,7 @@ A combination of two staves with a brace.  Usually used for piano music.
 
 @morerefs
 @ref{brace}.
+@endmorerefs
 
 
 @node grave
@@ -4046,6 +4189,7 @@ FI: grave, raskaasti.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node gruppetto
@@ -4053,6 +4197,7 @@ No cross-references.
 
 @morerefs
 @ref{turn}.
+@endmorerefs
 
 
 @node H
@@ -4075,6 +4220,7 @@ usage.  In the standard usage of these countries, @notation{B} means
 
 @morerefs
 @ref{Pitch names}, @ref{B}.
+@endmorerefs
 
 
 @node hairpin
@@ -4091,6 +4237,7 @@ c1\!
 
 @morerefs
 @ref{crescendo}, @ref{decrescendo}.
+@endmorerefs
 
 
 @node half note
@@ -4110,6 +4257,7 @@ c1\!
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node half rest
@@ -4129,6 +4277,7 @@ c1\!
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node harmonic cadence
@@ -4169,6 +4318,7 @@ A sequence of chords that terminates a musical phrase or section.
 
 @morerefs
 @ref{functional harmony}.
+@endmorerefs
 
 
 @node harmonics
@@ -4197,6 +4347,7 @@ artificial harmonics, which are produced on stopped strings.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node harmony
@@ -4238,6 +4389,7 @@ For harmony that uses three or more notes, see @ref{chord}.
 
 @morerefs
 @ref{chord}.
+@endmorerefs
 
 
 @node hemiola
@@ -4284,6 +4436,8 @@ and is therefore a polymeter (second definition) of considerable antiquity.
 
 @morerefs
 @ref{mensural notation}, @ref{meter}, @ref{polymeter}, @ref{proportion}.
+@endmorerefs
+
 
 @node high bass clef
 @section high bass clef
@@ -4320,6 +4474,7 @@ print the modern version @code{\clef "bass^8"} but without the @code{8};
 
 @morerefs
 @ref{F clef}, @ref{bass clef}.
+@endmorerefs
 
 
 @node homophony
@@ -4339,6 +4494,7 @@ the same rhythm (more or less).  In contrast to @emph{polyphony}.
 
 @morerefs
 @ref{polyphony}.
+@endmorerefs
 
 
 @node hook
@@ -4346,6 +4502,7 @@ the same rhythm (more or less).  In contrast to @emph{polyphony}.
 
 @morerefs
 @ref{flag}.
+@endmorerefs
 
 
 @node hymn meter
@@ -4387,6 +4544,7 @@ easier reading, a hymn with a meter of 87.87.87.87 is usually written
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node incomplete dominant seventh chord
@@ -4406,6 +4564,7 @@ The remaining three tones build a diminished triad.
 
 @morerefs
 @ref{chord}, @ref{dominant seventh chord}, @ref{functional harmony}.
+@endmorerefs
 
 
 @node interval
@@ -4480,6 +4639,7 @@ The addition of such two intervals forms an octave.
 
 @morerefs
 @ref{enharmonic}, @ref{whole tone}.
+@endmorerefs
 
 
 @node inversion
@@ -4522,6 +4682,7 @@ unstable chord position.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node inverted interval
@@ -4546,6 +4707,7 @@ The difference between an interval and an octave.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node just intonation
@@ -4565,6 +4727,7 @@ natural fifths and thirds.
 
 @morerefs
 @ref{temperament}.
+@endmorerefs
 
 
 @node key
@@ -4584,6 +4747,7 @@ According to the 12@w{ }tones of the @emph{chromatic scale} there are
 
 @morerefs
 @ref{chromatic scale}, @ref{key signature}.
+@endmorerefs
 
 
 @node key signature
@@ -4603,6 +4767,8 @@ key of the music.
 
 @morerefs
 @ref{accidental}.
+@endmorerefs
+
 
 @node kievan notation
 @section kievan notation
@@ -4630,6 +4796,7 @@ parts.  Marked @notation{l.v.} in the score.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node largo
@@ -4666,6 +4833,7 @@ to the tonic scale degree.
 
 @morerefs
 @ref{scale degree}, @ref{semitone}.
+@endmorerefs
 
 
 @node ledger line
@@ -4690,6 +4858,7 @@ c''1
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node legato
@@ -4727,6 +4896,7 @@ notes, unlike (b) @notation{leggiero} or @notation{non-legato}, (c)
 
 @morerefs
 @ref{staccato}.
+@endmorerefs
 
 
 @node legato curve
@@ -4734,6 +4904,7 @@ notes, unlike (b) @notation{leggiero} or @notation{non-legato}, (c)
 
 @morerefs
 @ref{slur}, @ref{legato}.
+@endmorerefs
 
 
 @node leger line
@@ -4741,6 +4912,7 @@ notes, unlike (b) @notation{leggiero} or @notation{non-legato}, (c)
 
 @morerefs
 @ref{ledger line}.
+@endmorerefs
 
 
 @node ligature
@@ -4766,6 +4938,7 @@ patterns disappeared.
 
 @morerefs
 @ref{mensural notation}.
+@endmorerefs
 
 
 @node lilypond
@@ -4787,6 +4960,7 @@ Also, the name of a music typesetting program.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node line
@@ -4803,6 +4977,7 @@ FI: viiva, nuottiviiva.
 
 @morerefs
 @ref{staff}.
+@endmorerefs
 
 
 @node loco
@@ -4822,6 +4997,7 @@ written pitch.  Cancels octave mark (q.v.).
 
 @morerefs
 @ref{octave mark}, @ref{octave marking}.
+@endmorerefs
 
 
 @node long appoggiatura
@@ -4838,6 +5014,7 @@ FI: pitkä appoggiatura, pitkä etuhele.
 
 @morerefs
 @ref{appoggiatura}.
+@endmorerefs
 
 
 @node longa
@@ -4864,6 +5041,7 @@ g\longa g\breve
 
 @morerefs
 @ref{breve}, @ref{note value}.
+@endmorerefs
 
 
 @node lyric tie
@@ -4882,6 +5060,7 @@ FI: sidonta sanoituksessa.
 
 @morerefs
 @ref{elision}.
+@endmorerefs
 
 
 @node lyrics
@@ -4900,6 +5079,7 @@ FI: sanoitus.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node major
@@ -4916,6 +5096,7 @@ FI: duuri.
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node major interval
@@ -4932,6 +5113,7 @@ FI: suuri intervalli.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node maxima
@@ -4956,6 +5138,7 @@ proportion by default.
 
 @morerefs
 @ref{Duration names notes and rests}, @ref{longa}, @ref{note value}.
+@endmorerefs
 
 
 @node meantone temperament
@@ -4977,6 +5160,7 @@ keyboard instruments for performance of pre-1650 music.
 
 @morerefs
 @ref{cent}, @ref{temperament}.
+@endmorerefs
 
 
 @node measure
@@ -4997,6 +5181,7 @@ composition and are separated from each other by bar lines.
 
 @morerefs
 @ref{bar line}, @ref{beat}, @ref{meter}.
+@endmorerefs
 
 
 @node measure repeat
@@ -5004,6 +5189,7 @@ composition and are separated from each other by bar lines.
 
 @morerefs
 @ref{percent repeat}.
+@endmorerefs
 
 
 @node mediant
@@ -5030,6 +5216,7 @@ mediant (variant tonic).
 
 @morerefs
 @ref{chord}, @ref{functional harmony}, @ref{relative key}.
+@endmorerefs
 
 
 @node melisma
@@ -5049,6 +5236,7 @@ on one syllable, especially as applied to liturgical chant.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node melisma line
@@ -5067,6 +5255,7 @@ FI: melismaviiva.
 
 @morerefs
 @ref{extender line}.
+@endmorerefs
 
 
 @node melodic cadence
@@ -5074,6 +5263,7 @@ FI: melismaviiva.
 
 @morerefs
 @ref{cadenza}.
+@endmorerefs
 
 
 @node mensural notation
@@ -5120,6 +5310,7 @@ TODO: add to definition (including summary info on proportional notation)
 
 @morerefs
 @ref{augmentation}, @ref{diminution}, @ref{ligature}, @ref{proportion}.
+@endmorerefs
 @c TODO: more cross-references?
 
 
@@ -5235,6 +5426,7 @@ for @notation{cut time} (essentially, it has not lost its original meaning).
 
 @morerefs
 @ref{diminution}, @ref{proportion}, @ref{time signature}.
+@endmorerefs
 @c TODO: more cross-references?
 
 
@@ -5393,6 +5585,7 @@ TODO: add information from discussion on lilypond-user related to polymeter.
 
 @morerefs
 @ref{accent}, @ref{hemiola}, @ref{note value}, @ref{time signature}
+@endmorerefs
 
 
 @node metronome
@@ -5417,6 +5610,7 @@ sold many of them, and people had taken to calling it a Mälzel Metronome.
 
 @morerefs
 @ref{metronome mark}.
+@endmorerefs
 
 
 @node metronome mark
@@ -5437,6 +5631,7 @@ Exact tempo indication (in beats per minute).  Abbreviated @notation{M.M.} or
 
 @morerefs
 @ref{metronome}
+@endmorerefs
 
 
 @node metronomic indication
@@ -5444,6 +5639,7 @@ Exact tempo indication (in beats per minute).  Abbreviated @notation{M.M.} or
 
 @morerefs
 @ref{metronome mark}
+@endmorerefs
 
 
 @node mezzo
@@ -5482,6 +5678,7 @@ Used to qualify other indications, such as:
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node mezzo-soprano
@@ -5500,6 +5697,7 @@ The female voice between soprano and contralto.
 
 @morerefs
 @ref{soprano}, @ref{contralto}.
+@endmorerefs
 
 
 @node middle C
@@ -5525,6 +5723,7 @@ First C below the 440 Hz A.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node minor
@@ -5541,6 +5740,7 @@ FI: molli.
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node minor interval
@@ -5557,6 +5757,7 @@ FI: pieni intervalli.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node mixolydian mode
@@ -5564,6 +5765,7 @@ FI: pieni intervalli.
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node mode
@@ -5580,6 +5782,7 @@ FI: moodi, kirkkosävelasteikko.
 
 @morerefs
 @ref{church mode}, @ref{diatonic scale}.
+@endmorerefs
 
 
 @node modulation
@@ -5600,6 +5803,7 @@ key is major and to the @ref{relative key} if the key is minor.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node mordent
@@ -5616,6 +5820,7 @@ FI: mordent, korukuvio.
 @morerefs
 @ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
 @ref{ornament}.
+@endmorerefs
 
 
 @node motif
@@ -5623,6 +5828,7 @@ FI: mordent, korukuvio.
 
 @morerefs
 @ref{motive}.
+@endmorerefs
 
 
 @node motive
@@ -5660,6 +5866,7 @@ theme or subject.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node movement
@@ -5679,6 +5886,7 @@ several -- more or less -- independent pieces called movements.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node multi-measure rest
@@ -5711,6 +5919,7 @@ a1
 
 @morerefs
 @ref{longa}, @ref{breve}.
+@endmorerefs
 
 
 @node natural
@@ -5727,6 +5936,7 @@ FI: palautusmerkki.
 
 @morerefs
 @ref{accidental}.
+@endmorerefs
 
 
 @node neighbor tones
@@ -5746,6 +5956,7 @@ FI: ?.
 @morerefs
 @ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
 @ref{mordent}, @ref{ornament}.
+@endmorerefs
 
 
 @node ninth
@@ -5762,6 +5973,7 @@ FI: nooni.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node non-legato
@@ -5769,6 +5981,7 @@ FI: nooni.
 
 @morerefs
 @ref{legato}.
+@endmorerefs
 
 
 @node note
@@ -5791,6 +6004,7 @@ and hears a tone.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node note head
@@ -5813,6 +6027,7 @@ indicate the instrument.
 
 @morerefs
 @ref{clef}, @ref{flag}, @ref{staff}, @ref{stem}.
+@endmorerefs
 
 
 @node note names
@@ -5820,6 +6035,7 @@ indicate the instrument.
 
 @morerefs
 @ref{Pitch names}
+@endmorerefs
 
 
 @node note value
@@ -5903,6 +6119,7 @@ dotted notes are also frequently used.
 
 @morerefs
 @ref{common time}.
+@endmorerefs
 
 
 @node octavation
@@ -5910,6 +6127,7 @@ dotted notes are also frequently used.
 
 @morerefs
 @ref{octave marking}.
+@endmorerefs
 
 
 @node octave
@@ -5931,6 +6149,7 @@ bracket, or @notation{loco} see octave marking.
 
 @morerefs
 @ref{interval}, @ref{octave marking}.
+@endmorerefs
 
 
 @node octave mark
@@ -5987,6 +6206,7 @@ clefs.
 
 @morerefs
 @ref{F clef}, @ref{G clef}, @ref{loco}, @ref{octave marking}.
+@endmorerefs
 
 
 @node octave marking
@@ -6010,6 +6230,7 @@ For a list of the specific marks used, see @ref{octave mark}.
 
 @morerefs
 @ref{interval}, @ref{loco}, @ref{octave}, @ref{octave mark}.
+@endmorerefs
 
 
 @node octave sign
@@ -6017,6 +6238,7 @@ For a list of the specific marks used, see @ref{octave mark}.
 
 @morerefs
 @ref{octave mark}.
+@endmorerefs
 
 
 @node ornament
@@ -6075,6 +6297,7 @@ the @emph{prall} (inverted mordent).
 @morerefs
 @ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
 @ref{mordent}.
+@endmorerefs
 
 
 @node ossia
@@ -6095,6 +6318,7 @@ of the music, for example for small hands.
 
 @morerefs
 Compare: @ref{cue-notes}.
+@endmorerefs
 
 
 @node part
@@ -6121,6 +6345,7 @@ web.
 
 @morerefs
 @ref{counterpoint}
+@endmorerefs
 
 
 @node pause
@@ -6128,6 +6353,7 @@ web.
 
 @morerefs
 @ref{fermata}.
+@endmorerefs
 
 
 @node pennant
@@ -6135,6 +6361,7 @@ web.
 
 @morerefs
 @ref{flag}.
+@endmorerefs
 
 
 @node percent repeat
@@ -6165,6 +6392,7 @@ pattern to one or more measures.  There are other names for this symbol:
 @ref{repeat},
 @uref{http://www.music.vt.edu/musicdictionary/textr/Repeat.html,University of
 Vermont Music Dictionary}.
+@endmorerefs
 
 
 @node percussion
@@ -6187,6 +6415,7 @@ and xylophone.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node perfect interval
@@ -6203,6 +6432,7 @@ FI: puhdas intervalli.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node phrase
@@ -6221,6 +6451,7 @@ A natural division of the melodic line, comparable to a sentence of speech.
 
 @morerefs
 @ref{caesura}.
+@endmorerefs
 
 
 @node phrasing
@@ -6240,6 +6471,7 @@ melody.  Phrasing may be indicated by a @notation{slur}.
 
 @morerefs
 @ref{phrase}, @ref{slur}.
+@endmorerefs
 
 
 @node piano
@@ -6259,6 +6491,7 @@ FI, piano, hiljaa.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node pickup
@@ -6275,6 +6508,7 @@ FI: kohotahti.
 
 @morerefs
 @ref{anacrusis}.
+@endmorerefs
 
 
 @node pitch
@@ -6304,6 +6538,7 @@ association of a particular frequency with a particular pitch name, e.g., c' =
 
 @morerefs
 @ref{Pitch names}.
+@endmorerefs
 
 
 @node pizzicato
@@ -6323,6 +6558,7 @@ the strings.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node polymeter
@@ -6348,6 +6584,7 @@ parts.
 
 @morerefs
 @ref{polymetric} (adj.)
+@endmorerefs
 
 
 @node polymetric
@@ -6367,6 +6604,7 @@ simultaneously or in alternation.
 
 @morerefs
 @ref{polymeter} (noun)
+@endmorerefs
 
 
 @node polymetric time signature
@@ -6385,6 +6623,7 @@ A time signature that indicates regularly alternating polymetric time.
 
 @morerefs
 @ref{polymetric}.
+@endmorerefs
 
 
 @node polyphony
@@ -6404,6 +6643,7 @@ of a more or less pronounced individuality.
 
 @morerefs
 @ref{counterpoint}.
+@endmorerefs
 
 
 @node portato
@@ -6417,6 +6657,7 @@ without changing the bow's direction.  It is used for passages of a
 
 @morerefs
 @ref{legato}.
+@endmorerefs
 
 @node power chord
 @section power chord
@@ -6427,6 +6668,8 @@ guitar and high distortion.
 
 @morerefs
 @ref{chord}.
+@endmorerefs
+
 
 @node presto
 @section presto
@@ -6447,6 +6690,7 @@ denotes the highest possible degree of speed.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node proportion
@@ -6550,6 +6794,7 @@ another question:
 
 @morerefs
 @ref{mensural notation}.
+@endmorerefs
 
 
 @node Pythagorean comma
@@ -6575,6 +6820,7 @@ pitches is the Pythagorean comma.
 
 @morerefs
 @ref{cent}, @ref{temperament}.
+@endmorerefs
 
 
 @node quadruplet
@@ -6591,6 +6837,7 @@ FI: kvartoli.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node quality
@@ -6640,6 +6887,7 @@ except in jazz.
 
 @morerefs
 @ref{chord}.
+@endmorerefs
 
 
 @node quarter note
@@ -6659,6 +6907,7 @@ except in jazz.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node quarter rest
@@ -6678,6 +6927,7 @@ except in jazz.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node quarter tone
@@ -6696,6 +6946,7 @@ An interval equal to half a semitone.
 
 @morerefs
 @ref{interval}
+@endmorerefs
 
 
 @node quintuplet
@@ -6712,6 +6963,7 @@ FI: kvintoli.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node rallentando
@@ -6733,6 +6985,7 @@ to @notation{rall.}
 
 @morerefs
 @ref{ritardando}.
+@endmorerefs
 
 
 @node relative key
@@ -6763,6 +7016,7 @@ c1_"c minor" d es f g a! b! c
 
 @morerefs
 @ref{key}, @ref{key signature}, @ref{major}, @ref{minor}.
+@endmorerefs
 
 
 @node repeat
@@ -6790,6 +7044,7 @@ FI: toisto.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node rest
@@ -6809,6 +7064,7 @@ FI: tauko.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node rhythm
@@ -6841,6 +7097,7 @@ metrical unit (beat).
 
 @morerefs
 @ref{accent}, @ref{beat}, @ref{measure}, @ref{meter}.
+@endmorerefs
 
 
 @node ritardando
@@ -6862,6 +7119,7 @@ abbreviated to @notation{rit.} or @notation{ritard}.
 
 @morerefs
 @ref{rallentando}.
+@endmorerefs
 
 
 @node ritenuto
@@ -6880,6 +7138,7 @@ Immediate reduction of speed.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node scale
@@ -6896,6 +7155,7 @@ FI: asteikko, sävelasteikko.
 
 @morerefs
 @ref{diatonic scale}.
+@endmorerefs
 
 
 @node scale degree
@@ -6926,6 +7186,7 @@ scale as roots of chords.  The most important are degrees I = tonic
 
 @morerefs
 @ref{functional harmony}.
+@endmorerefs
 
 
 @node scordatura
@@ -6966,6 +7227,7 @@ the 16th Century and became commonplace in the 17th.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node score
@@ -6986,6 +7248,7 @@ one underneath the other on different staves @ref{staff}.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node second
@@ -7006,6 +7269,7 @@ second depends on the scale degrees in question.
 
 @morerefs
 @ref{diatonic scale}, @ref{interval}, @ref{semitone}, @ref{whole tone}.
+@endmorerefs
 
 
 @node semibreve
@@ -7030,6 +7294,7 @@ The semibreve is the basis for the @notation{tactus} in mensural notation
 
 @morerefs
 @ref{mensural notation}, @ref{note value}.
+@endmorerefs
 
 
 @node semitone
@@ -7055,6 +7320,7 @@ g1 gis s a bes s b! c
 
 @morerefs
 @ref{interval}, @ref{chromatic scale}.
+@endmorerefs
 
 
 @node seventh
@@ -7071,6 +7337,7 @@ FI: septimi.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node sextolet
@@ -7078,6 +7345,7 @@ FI: septimi.
 
 @morerefs
 @ref{sextuplet}, @ref{note value}.
+@endmorerefs
 
 
 @node sextuplet
@@ -7094,6 +7362,7 @@ FI: sekstoli.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node shake
@@ -7101,6 +7370,7 @@ FI: sekstoli.
 
 @morerefs
 @ref{trill}.
+@endmorerefs
 
 
 @node sharp
@@ -7117,6 +7387,7 @@ FI: korotusmerkki.
 
 @morerefs
 @ref{accidental}.
+@endmorerefs
 
 
 @node simile
@@ -7137,6 +7408,7 @@ etc.) as the music that precedes it.
 
 @morerefs
 TODO: Where else could I refer the reader?
+@endmorerefs
 
 
 @node simple meter
@@ -7156,6 +7428,7 @@ that does not include triplet subdivision of the beat.
 
 @morerefs
 @ref{compound meter}, @ref{meter}.
+@endmorerefs
 
 
 @node sixteenth note
@@ -7175,6 +7448,7 @@ that does not include triplet subdivision of the beat.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node sixteenth rest
@@ -7194,6 +7468,7 @@ that does not include triplet subdivision of the beat.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node sixth
@@ -7210,6 +7485,7 @@ FI: seksti.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node sixty-fourth note
@@ -7229,6 +7505,7 @@ FI: seksti.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node sixty-fourth rest
@@ -7248,6 +7525,7 @@ FI: seksti.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node slash repeat
@@ -7255,6 +7533,7 @@ FI: seksti.
 
 @morerefs
 @ref{percent repeat}.
+@endmorerefs
 
 
 @node slur
@@ -7275,6 +7554,7 @@ one breath in singing.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node solmization
@@ -7296,6 +7576,7 @@ General term for systems of designating the degrees of the
 
 @morerefs
 @ref{scale}, @ref{scale degree}.
+@endmorerefs
 
 
 @node sonata
@@ -7317,6 +7598,7 @@ called movements.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node sonata form
@@ -7347,6 +7629,7 @@ of these two.  The second theme is in another key, normally in the key of the
 @morerefs
 @ref{dominant}, @ref{major}, @ref{minor}, @ref{relative key}, @ref{sonata},
 @ref{symphony}, @ref{tonic}.
+@endmorerefs
 
 
 @node song texts
@@ -7354,6 +7637,7 @@ of these two.  The second theme is in another key, normally in the key of the
 
 @morerefs
 @ref{lyrics}.
+@endmorerefs
 
 
 @node soprano
@@ -7372,6 +7656,7 @@ The highest female voice.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node staccato
@@ -7400,6 +7685,7 @@ below the note head.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node staff
@@ -7426,6 +7712,7 @@ c4 e g c
 
 @morerefs
 @ref{system}.
+@endmorerefs
 
 
 @node staves
@@ -7433,6 +7720,7 @@ c4 e g c
 
 @morerefs
 @ref{staff}.
+@endmorerefs
 
 
 @node stem
@@ -7460,6 +7748,7 @@ whole note.
 
 @morerefs
 @ref{beam}.
+@endmorerefs
 
 
 @node stringendo
@@ -7479,6 +7768,7 @@ climax.
 
 @morerefs
 @ref{accelerando}.
+@endmorerefs
 
 
 @node strings
@@ -7499,6 +7789,7 @@ and double bass.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node strong beat
@@ -7515,6 +7806,7 @@ FI: tahdin vahva isku.
 
 @morerefs
 @ref{beat}, @ref{accent}, @ref{measure}, @ref{rhythm}.
+@endmorerefs
 
 
 @node subdominant
@@ -7533,6 +7825,7 @@ The fourth @notation{scale degree}.
 
 @morerefs
 @ref{functional harmony}, @ref{scale degree}.
+@endmorerefs
 
 
 @node submediant
@@ -7551,6 +7844,7 @@ The sixth @notation{scale degree}.
 
 @morerefs
 @ref{functional harmony}, @ref{scale degree}, @ref{superdominant}.
+@endmorerefs
 
 
 @node subtonic
@@ -7569,6 +7863,7 @@ The seventh @ref{scale degree}.
 
 @morerefs
 @ref{functional harmony}, @ref{scale degree}.
+@endmorerefs
 
 
 @node sul G
@@ -7588,6 +7883,7 @@ G string.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node superdominant
@@ -7606,6 +7902,7 @@ The sixth @ref{scale degree}.  Equivalent to the submediant, q.v.
 
 @morerefs
 @ref{functional harmony}, @ref{scale degree}, @ref{submediant}.
+@endmorerefs
 
 
 @node supertonic
@@ -7624,6 +7921,7 @@ The second @ref{scale degree}.
 
 @morerefs
 @ref{functional harmony}, @ref{scale degree}.
+@endmorerefs
 
 
 @node symphony
@@ -7642,6 +7940,7 @@ A symphony may be defined as a @emph{sonata} for orchestra.
 
 @morerefs
 @ref{sonata}.
+@endmorerefs
 
 
 @node syncopation
@@ -7673,6 +7972,7 @@ c4
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node syntonic comma
@@ -7699,6 +7999,7 @@ This comma is also known as the comma of Didymus, or didymic comma.
 
 @morerefs
 @ref{Pythagorean comma}
+@endmorerefs
 
 
 @node system
@@ -7719,6 +8020,7 @@ a section of the score spanning the width of a single page.
 
 @morerefs
 @ref{staff}.
+@endmorerefs
 
 
 @node temperament
@@ -7738,6 +8040,7 @@ pure intervals.
 
 @morerefs
 @ref{meantone temperament}, @ref{equal temperament}.
+@endmorerefs
 
 
 @node tempo indication
@@ -7759,6 +8062,7 @@ slowest to the quickest, as is indicated by tempo marks as @notation{largo},
 
 @morerefs
 @ref{adagio}, @ref{allegro}, @ref{andante}, @ref{largo}, @ref{presto}.
+@endmorerefs
 
 
 
@@ -7778,6 +8082,7 @@ The highest @q{natural} male voice (apart from @notation{countertenor}).
 
 @morerefs
 @ref{countertenor}.
+@endmorerefs
 
 
 @node tenth
@@ -7794,6 +8099,7 @@ FI: desimi.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node tenuto
@@ -7813,6 +8119,7 @@ length, although this can vary depending on the composer and era.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node third
@@ -7829,6 +8136,7 @@ FI: terssi.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node thirty-second note
@@ -7848,6 +8156,7 @@ FI: terssi.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node thirty-second rest
@@ -7867,6 +8176,7 @@ FI: terssi.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node thorough bass
@@ -7874,6 +8184,7 @@ FI: terssi.
 
 @morerefs
 @ref{figured bass}.
+@endmorerefs
 
 
 @node tie
@@ -7903,6 +8214,7 @@ g2 ~ g4. r8
 
 @morerefs
 @ref{meter}.
+@endmorerefs
 
 
 @node time signature
@@ -7923,6 +8235,7 @@ derived from mensural notation and proportions are also employed.
 
 @morerefs
 @ref{mensural notation}, @ref{mensuration sign}, @ref{meter}.
+@endmorerefs
 
 
 @node tone
@@ -7944,6 +8257,7 @@ Tone is a primary building material of music.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node tonic
@@ -7962,6 +8276,7 @@ The first @notation{scale degree}.
 
 @morerefs
 @ref{functional harmony}, @ref{scale degree}.
+@endmorerefs
 
 
 @node transposing instrument
@@ -8007,6 +8322,7 @@ instrument in B-flat.
 
 @morerefs
 @ref{concert pitch}.
+@endmorerefs
 
 
 @node transposition
@@ -8046,6 +8362,7 @@ relative pitches.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node treble clef
@@ -8062,6 +8379,7 @@ FI: diskanttiavain.
 
 @morerefs
 @ref{G clef}.
+@endmorerefs
 
 
 @node tremolo
@@ -8096,6 +8414,7 @@ in the distance of a third (@ref{interval}).
 
 @morerefs
 @ref{strings}
+@endmorerefs
 
 
 @node triad
@@ -8112,6 +8431,7 @@ FI: kolmisointu.
 
 @morerefs
 @ref{chord}.
+@endmorerefs
 
 
 @node trill
@@ -8128,6 +8448,7 @@ FI: trilli.
 
 @morerefs
 @ref{ornament}.
+@endmorerefs
 
 
 @node triple meter
@@ -8144,6 +8465,7 @@ FI: kolmijakoinen.
 
 @morerefs
 @ref{meter}.
+@endmorerefs
 
 
 @node triplet
@@ -8160,6 +8482,7 @@ FI: trioli.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node tritone
@@ -8176,6 +8499,7 @@ FI: tritonus.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node tuning fork
@@ -8196,6 +8520,7 @@ standard.  Tuning forks for other pitches are available.
 
 @morerefs
 @ref{middle C}.
+@endmorerefs
 
 
 @node tuplet
@@ -8216,6 +8541,7 @@ subdivisions.
 
 @morerefs
 @ref{triplet}, @ref{note value}.
+@endmorerefs
 
 
 @node turn
@@ -8232,6 +8558,7 @@ FI: korukuvio.
 
 @morerefs
 @ref{ornament}.
+@endmorerefs
 
 
 @node unison
@@ -8252,6 +8579,7 @@ pitch or in a different octave.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node upbeat
@@ -8268,6 +8596,7 @@ FI: kohotahti.
 
 @morerefs
 @ref{anacrusis}
+@endmorerefs
 
 
 @node voice
@@ -8301,6 +8630,7 @@ FI: ääni, lauluääni.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node volta
@@ -8321,6 +8651,7 @@ or second ending.  LilyPond extends this idea to any number, and allows any text
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node vowel transition
@@ -8340,6 +8671,7 @@ indicated by an arrow between syllables (see Gould, pp. 452--453).
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node weak beat
@@ -8356,6 +8688,7 @@ FI: tahdin heikko isku.
 
 @morerefs
 @ref{beat}, @ref{measure}, @ref{rhythm}.
+@endmorerefs
 
 
 @node whole note
@@ -8375,6 +8708,7 @@ FI: tahdin heikko isku.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node whole rest
@@ -8394,6 +8728,7 @@ FI: tahdin heikko isku.
 
 @morerefs
 @ref{note value}.
+@endmorerefs
 
 
 @node whole tone
@@ -8414,6 +8749,7 @@ black and white keys -- is a whole tone.
 
 @morerefs
 @ref{interval}.
+@endmorerefs
 
 
 @node woodwind
@@ -8435,6 +8771,7 @@ saxophone, and bassoon.
 
 @morerefs
 No cross-references.
+@endmorerefs
 
 
 @node Duration names notes and rests
@@ -8798,6 +9135,7 @@ send it to me, care of the lilypond-user discussion list.
 
 @morerefs
 @ref{mensural notation}
+@endmorerefs
 
 
 @node Pitch names
@@ -8882,6 +9220,7 @@ This is a stub for @code{bayati}.
 @morerefs
 Notation Reference:
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node iraq
@@ -8893,6 +9232,7 @@ This is a stub for @code{iraq}.
 @morerefs
 Notation Reference:
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node kurd
@@ -8904,6 +9244,7 @@ This is a stub for @code{kurd}.
 @morerefs
 Notation Reference:
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node makam
@@ -8915,6 +9256,7 @@ This is a stub for @code{makam}.
 @morerefs
 Notation Reference:
 @ruser{Turkish classical music}.
+@endmorerefs
 
 
 @node makamlar
@@ -8926,6 +9268,7 @@ This is a stub for @code{makamlar}.
 @morerefs
 Notation Reference:
 @ruser{Turkish classical music}.
+@endmorerefs
 
 
 @node maqam
@@ -8938,6 +9281,7 @@ This is a stub for @code{maqam}.
 Notation Reference:
 @ruser{Arabic music},
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node rast
@@ -8949,6 +9293,7 @@ This is a stub for @code{rast}.
 @morerefs
 Notation Reference:
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node semai
@@ -8960,6 +9305,7 @@ This is a stub for @code{semai}.
 @morerefs
 Notation Reference:
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node sikah
@@ -8971,6 +9317,7 @@ This is a stub for @code{sikah}.
 @morerefs
 Notation Reference:
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node taqasim
@@ -8982,6 +9329,7 @@ This is a stub for @code{taqasim}.
 @morerefs
 Notation Reference:
 @ruser{Arabic key signatures}.
+@endmorerefs
 
 
 @node Literature used

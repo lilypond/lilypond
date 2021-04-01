@@ -144,6 +144,7 @@ Internals Reference:
 @rinternals{MensuralStaff},
 @rinternals{VaticanaStaff},
 @rinternals{StaffSymbol}.
+@endmorerefs
 
 
 @node Grouping staves
@@ -278,7 +279,7 @@ Internals Reference:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
-
+@endmorerefs
 
 @node Nested staff groups
 @unnumberedsubsubsec Nested staff groups
@@ -336,6 +337,7 @@ Internals Reference:
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+@endmorerefs
 
 
 @node Separating systems
@@ -386,6 +388,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Staff notation}.
+@endmorerefs
 
 
 @node Modifying single staves
@@ -576,6 +579,7 @@ Snippets:
 Internals Reference:
 @rinternals{StaffSymbol},
 @rinternals{staff-symbol-interface}.
+@endmorerefs
 
 
 @node Ossia staves
@@ -733,6 +737,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{StaffSymbol}.
+@endmorerefs
 
 
 @node Hiding staves
@@ -1078,6 +1083,7 @@ Internals Reference:
 @rinternals{Staff_symbol_engraver},
 @rinternals{Axis_group_engraver},
 @rinternals{Keep_alive_together_engraver}.
+@endmorerefs
 
 @knownissues
 Removing @code{Staff_symbol_engraver} also hides bar lines.  If
@@ -1276,6 +1282,7 @@ Internals Reference:
 @rinternals{InstrumentName},
 @rinternals{PianoStaff},
 @rinternals{Staff}.
+@endmorerefs
 
 
 @node Quoting other voices
@@ -1463,6 +1470,7 @@ Internals Reference:
 @rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Only the contents of the first @code{Voice} occurring in an
@@ -1768,6 +1776,7 @@ Snippets:
 Internals Reference:
 @rinternals{CueVoice},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Collisions can occur with rests, when using @code{\cueDuring},
@@ -1887,3 +1896,4 @@ Internals Reference:
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
+@endmorerefs

@@ -114,6 +114,7 @@ effective in drawing attention to the missing @code{4} in bar 3.
 @morerefs
 Notation Reference:
 @ruser{Bar and bar number checks}.
+@endmorerefs
 
 
 @node Pitches and key signatures
@@ -266,6 +267,7 @@ Notation Reference:
 @ruser{Accidentals},
 @ruser{Automatic accidentals},
 @ruser{Key signature}.
+@endmorerefs
 
 
 @node Ties and slurs
@@ -371,7 +373,7 @@ Notation Reference:
 @ruser{Ties},
 @ruser{Slurs},
 @ruser{Phrasing slurs}.
-
+@endmorerefs
 
 @node Articulations and dynamics
 @subsection Articulations and dynamics
@@ -477,6 +479,7 @@ Notation Reference:
 @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions},
 @ruser{Dynamics}.
+@endmorerefs
 
 
 @node Adding text
@@ -507,6 +510,7 @@ a'2_\markup {
 @morerefs
 Notation Reference:
 @ruser{Writing text}.
+@endmorerefs
 
 
 @node Automatic and manual beams
@@ -561,6 +565,7 @@ on again.
 Notation Reference:
 @ruser{Automatic beams},
 @ruser{Manual beams}.
+@endmorerefs
 
 
 @node Advanced rhythmic commands
@@ -656,6 +661,7 @@ Notation Reference:
 @ruser{Grace notes},
 @ruser{Tuplets},
 @ruser{Upbeats}.
+@endmorerefs
 
 
 @node Multiple notes at once
@@ -925,6 +931,7 @@ every system and also controls the extent of bar lines.
 Notation Reference:
 @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
+@endmorerefs
 
 
 @node Combining notes into chords
@@ -968,6 +975,7 @@ ties with chords.  They must be placed outside the angle brackets.
 @morerefs
 Notation Reference:
 @ruser{Chorded notes}.
+@endmorerefs
 
 
 @node Single staff polyphony
@@ -996,6 +1004,8 @@ Learning Manual:
 
 Notation Reference:
 @ruser{Simultaneous notes}.
+@endmorerefs
+
 
 @node Songs
 @section Songs
@@ -1220,6 +1230,7 @@ Here's an example from Rossini's @notation{Figaro}, where
 @morerefs
 Notation Reference:
 @ruser{Vocal music}.
+@endmorerefs
 
 
 @node Lyrics to multiple staves
@@ -1264,6 +1275,7 @@ pieces with variables}.
 @morerefs
 Notation Reference:
 @ruser{Vocal music}.
+@endmorerefs
 
 
 @node Final touches

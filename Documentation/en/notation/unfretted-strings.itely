@@ -81,6 +81,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Unfretted strings}.
+@endmorerefs
 
 
 @node Bowing indications
@@ -138,6 +139,7 @@ Notation Reference:
 @ref{Articulations and ornamentations},
 @ref{String number indications},
 @ref{Slurs}.
+@endmorerefs
 
 
 @node Harmonics
@@ -209,6 +211,7 @@ Music Glossary:
 Notation Reference:
 @ref{Special note heads},
 @ref{References for unfretted strings}.
+@endmorerefs
 
 
 @node Snap (Bartok) pizzicato

@@ -194,6 +194,7 @@ Snippets:
 Internals Reference:
 @rinternals{Dots},
 @rinternals{DotColumn}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -372,6 +373,7 @@ Internals Reference:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+@endmorerefs
 
 
 @node Scaling durations
@@ -456,6 +458,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @knownissues
 The calculation of the position within a measure must take into
@@ -695,6 +698,7 @@ Internals Reference:
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}.
+@endmorerefs
 
 @knownissues
 Switching staves when a tie is active will not produce a slanted tie.
@@ -793,6 +797,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Rest}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -890,6 +895,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{SkipMusic}.
+@endmorerefs
 
 
 @node Full measure rests
@@ -1050,6 +1056,7 @@ Internals Reference:
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
+@endmorerefs
 
 @cindex fingering, and multi-measure rest
 @cindex multi-measure rest, and fingerings
@@ -1325,6 +1332,7 @@ Snippets:
 Internals Reference:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
+@endmorerefs
 
 
 @node Metronome marks
@@ -1462,6 +1470,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{MetronomeMark}.
+@endmorerefs
 
 
 @node Upbeats
@@ -1549,6 +1558,7 @@ Snippets:
 
 Internal Reference:
 @rinternals{Timing_translator}.
+@endmorerefs
 
 
 @node Unmetered music
@@ -1655,6 +1665,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @cindex cadenza, line breaks
 @cindex cadenza, page breaks
@@ -1841,6 +1852,7 @@ Internals Reference:
 @rinternals{Timing_translator},
 @rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
+@endmorerefs
 
 @knownissues
 Although notes that occur at the same moment in each of the different
@@ -1952,6 +1964,7 @@ Internals Reference:
 @rinternals{Rest_engraver},
 @rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
+@endmorerefs
 
 @knownissues
 For consistency with previous behavior, notes and rests with
@@ -2064,6 +2077,7 @@ Snippets:
 Internals Reference:
 @rinternals{RhythmicStaff},
 @rinternals{Pitch_squash_engraver}.
+@endmorerefs
 
 
 @node Beams
@@ -2173,6 +2187,7 @@ Internals Reference:
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
+@endmorerefs
 
 @knownissues
 The properties of a beam are determined at the @emph{start} of its
@@ -2523,6 +2538,7 @@ Internals Reference:
 @rinternals{Beam},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface}.
+@endmorerefs
 
 @knownissues
 If a score ends while an automatic beam has not been ended and is
@@ -2689,6 +2705,7 @@ Internals Reference:
 @rinternals{Beam_engraver},
 @rinternals{beam-interface},
 @rinternals{Stem_engraver}.
+@endmorerefs
 
 
 @node Feathered beams
@@ -2750,6 +2767,7 @@ note durations only approximately, but the MIDI output is exact.
 @morerefs
 Snippets:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @knownissues
 The @code{\featherDurations} command only works with very short
@@ -3169,6 +3187,7 @@ Internals Reference:
 @rinternals{BarLine} (created at @code{Staff} level),
 @rinternals{SpanBar} (across staves),
 @rinternals{Timing_translator} (for Timing properties).
+@endmorerefs
 
 
 @node Bar numbers
@@ -3274,6 +3293,7 @@ Snippets:
 Internals Reference:
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}.
+@endmorerefs
 
 @cindex bar number, collision
 @cindex collision, bar number
@@ -3372,6 +3392,7 @@ when it is processed.
 @morerefs
 Snippets:
 @rlsr{Rhythms}.
+@endmorerefs
 
 
 @node Rehearsal marks
@@ -3545,6 +3566,7 @@ Internals Reference:
 @rinternals{MarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
+@endmorerefs
 
 
 @node Special rhythmic concerns
@@ -3747,6 +3769,7 @@ Internals Reference:
 @rinternals{Grace_auto_beam_engraver},
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
+@endmorerefs
 
 
 @knownissues
@@ -3861,6 +3884,7 @@ Music Glossary:
 
 Snippets:
 @rlsr{Rhythms}.
+@endmorerefs
 
 
 @node Time administration
@@ -3950,3 +3974,4 @@ Snippets:
 Internals Reference:
 @rinternals{Timing_translator},
 @rinternals{Score}.
+@endmorerefs

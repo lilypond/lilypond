@@ -122,6 +122,7 @@ Snippets:
 Internals Reference:
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+@endmorerefs
 
 
 @cindex volta
@@ -491,6 +492,7 @@ Internals Reference:
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+@endmorerefs
 
 @knownissues
 @cindex repeat, ambiguous
@@ -663,6 +665,7 @@ Internals Reference:
 @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
+@endmorerefs
 
 
 @node Short repeats
@@ -790,6 +793,7 @@ Internals Reference:
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}.
+@endmorerefs
 
 @knownissues
 Percent repeats will not contain anything else apart from the percent
@@ -886,3 +890,4 @@ the last value is used:
 @morerefs
 Snippets:
 @rlsr{Repeats}.
+@endmorerefs

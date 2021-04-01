@@ -88,6 +88,7 @@ Notation Reference:
 @ref{List of articulations},
 @ref{Clef},
 @ref{Instrument transpositions}.
+@endmorerefs
 
 
 @node String number indications
@@ -159,6 +160,7 @@ Snippets:
 Internals Reference:
 @rinternals{StringNumber},
 @rinternals{Fingering}.
+@endmorerefs
 
 
 @node Default tablatures
@@ -723,6 +725,7 @@ Internals Reference:
 @rinternals{TabStaff},
 @rinternals{TabVoice},
 @rinternals{Beam}.
+@endmorerefs
 
 @knownissues
 Chords are not handled in a special way, and hence the automatic
@@ -976,6 +979,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Tab_note_heads_engraver}.
+@endmorerefs
 
 @knownissues
 Automatic tablature calculations do not work properly in most
@@ -1434,6 +1438,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{fret-diagram-interface}.
+@endmorerefs
 
 
 @node Predefined fret diagrams
@@ -1762,6 +1767,7 @@ Snippets:
 
 Internals Reference:
 @rinternals {fret-diagram-interface}.
+@endmorerefs
 
 
 @node Automatic fret diagrams
@@ -1918,6 +1924,7 @@ Snippets:
 
 Internals Reference:
 @rinternals {fret-diagram-interface}.
+@endmorerefs
 
 @knownissues
 Automatic fretboard calculations do not work properly for instruments
@@ -1982,6 +1989,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{StrokeFinger}.
+@endmorerefs
 
 
 @node Guitar
@@ -2030,6 +2038,7 @@ Notation Reference:
 Snippets:
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Indicating harmonics and dampened notes
@@ -2107,6 +2116,7 @@ Snippets:
 Notation Reference:
 @ref{Special note heads},
 @ref{Note head styles}.
+@endmorerefs
 
 
 @node Indicating power chords
@@ -2160,6 +2170,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Fretted strings}.
+@endmorerefs
 
 
 @node Banjo
@@ -2226,6 +2237,7 @@ Installed Files:
 
 Snippets:
 @rlsr{Fretted strings}.
+@endmorerefs
 
 
 @node Lute

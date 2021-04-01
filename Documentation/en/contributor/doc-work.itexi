@@ -1152,11 +1152,12 @@ main docs
 @@endpredefined
 @@snippets
 @@morerefs
+@@endmorerefs
 @@knownissues
 @end example
 
 @item
-You @emph{must} include a @@morerefs.
+You @emph{must} include a @@morerefs ... @@endmorerefs section.
 
 @itemize
 @item
@@ -1467,6 +1468,7 @@ the difficulty.
 
 @morerefs
 @ref{Adding and editing snippets}.
+@endmorerefs
 
 
 @node Scripts to ease doc work
@@ -2006,6 +2008,7 @@ counts of documentation files in this Guide.
 
 @morerefs
 @ref{Maintaining without updating translations}.
+@endmorerefs
 
 @node Updating documentation translation
 @unnumberedsubsubsec Updating documentation translation
@@ -2070,6 +2073,7 @@ no sense in their context.
 @morerefs
 @ref{Maintaining without updating translations},
 @ref{Adding and editing snippets}.
+@endmorerefs
 
 
 @node Updating translation committishes
@@ -2109,6 +2113,7 @@ sed -i -r 's/[0-9a-z]@{40@}/NEW-COMMITTISH/' *.texidoc
 
 @morerefs
 @ref{LSR work}.
+@endmorerefs
 
 @node Translations management policies
 @subsection Translations management policies
