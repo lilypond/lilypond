@@ -247,12 +247,9 @@ $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/we
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
 
 DOCUMENTATION_INCLUDE_DIRS = \
-  $(src-dir)/$(call target_language) \
   $(src-dir)/pictures \
   $(dir $@) \
   $(outdir)/en \
-  $(src-dir)/en \
-  $(src-dir)/en/included \
   $(outdir) \
   $(src-dir)
 
@@ -264,7 +261,6 @@ DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 LILYPOND_BOOK_INCLUDE_DIRS = \
   $(src-dir)/$(call target_language) \
   $(src-dir)/pictures \
-  $(src-dir)/en \
   $(src-dir)/en/included \
   $(src-dir)
 
