@@ -17,11 +17,11 @@
 
 @contents
 
-@include macros.itexi
+@include en/macros.itexi
 
 @node Compilation
 @chapter Compilation
 
-@include included/compile.itexi
+@include en/included/compile.itexi
 
 @bye

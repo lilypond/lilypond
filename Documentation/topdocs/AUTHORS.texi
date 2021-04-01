@@ -10,8 +10,8 @@
 
 @contents
 
-@include macros.itexi
-@include included/authors.itexi
+@include en/macros.itexi
+@include en/included/authors.itexi
 
 
 This file lists authors of LilyPond, and what they wrote.  This list
