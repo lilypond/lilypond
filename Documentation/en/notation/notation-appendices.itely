@@ -2682,6 +2682,8 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
+@node Percussion notes
+@appendixsec Percussion notes
 @cindex drum, various
 @cindex acoustic bass
 @cindex bass
@@ -2737,9 +2739,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex woodblock
 @cindex cuica
 @cindex triangle
-
-@node Percussion notes
-@appendixsec Percussion notes
 
 @multitable @columnfractions .22 .25 .25 .25
 
