@@ -79,7 +79,7 @@ void
 Melody_engraver::acknowledge_stem (Grob_info info)
 {
   auto *const stem = info.grob ();
-  if (!is_scm<Direction> (get_property_data (stem, "neutral-direction")))
+  if (scm_is_false (get_property (this, "suspendMelodyDecisions")))
     {
       extract_grob_set (stem, "rests", rests);
       if (rests.empty ())

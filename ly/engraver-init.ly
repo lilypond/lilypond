@@ -802,6 +802,8 @@ run."
   topLevelAlignment = ##t
 
   timing = ##t
+
+  suspendMelodyDecisions = ##f
 }
 
 

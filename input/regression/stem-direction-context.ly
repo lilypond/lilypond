@@ -8,7 +8,6 @@
 \version "2.19.21"
 \relative \new Voice \with {
      \consists "Melody_engraver"
-     \override Stem.neutral-direction = #'()
 } {
   c''4 b c b
   c c c c

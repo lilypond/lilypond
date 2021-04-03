@@ -98,7 +98,7 @@ Note_column::dir (Grob *me)
 {
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   if (has_interface<Stem> (stem))
-    return get_grob_direction (stem);
+    return get_strict_grob_direction (stem);
   else
     {
       extract_grob_set (me, "note-heads", heads);

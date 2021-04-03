@@ -528,7 +528,7 @@ Stem::calc_positioning_done (SCM smob)
   extract_grob_set (me, "note-heads", ro_heads);
   vector<Grob *> heads (ro_heads);
   std::sort (heads.begin (), heads.end (), position_less);
-  Direction dir = get_grob_direction (me);
+  Direction dir = get_strict_grob_direction (me);
 
   if (dir < 0)
     std::reverse (heads.begin (), heads.end ());
@@ -536,12 +536,6 @@ Stem::calc_positioning_done (SCM smob)
   Real thick = thickness (me);
 
   Grob *hed = support_head (me);
-  if (!dir)
-    {
-      programming_error ("Stem dir must be up or down.");
-      dir = UP;
-      set_grob_direction (me, dir);
-    }
 
   bool is_harmonic_centered = false;
   for (vsize i = 0; i < heads.size (); i++)

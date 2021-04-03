@@ -629,6 +629,9 @@ accidentals are typeset as suggestions above the note.  Setting it to
 @code{TabStaff} will print micro-tones as @samp{2½}")
      (suspendRestMerging ,boolean? "When using the Merge_rest_engraver do not
 merge rests when this is set to true.")
+     (suspendMelodyDecisions ,boolean? "When using the @code{Melody_engraver},
+stop changing orientation of stems based on the melody when this is set
+to true.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
 of the system/@/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")

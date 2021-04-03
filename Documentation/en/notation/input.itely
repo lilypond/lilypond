@@ -338,16 +338,13 @@ by using @code{\bookOutputName} declarations
 @}
 @end example
 
-The file above will produce these output files:
+The file above produces the following output files.
 
-@itemize
-@item
-@file{Romanze.pdf},
-@item
-@file{Menuetto.pdf} and
-@item
-@file{Nocturne.pdf}.
-@end itemize
+@example
+Romanze.pdf
+Menuetto.pdf
+Nocturne.pdf
+@end example
 
 
 @node File structure

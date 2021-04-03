@@ -4756,14 +4756,17 @@ SCM post_event_cons (SCM post_event, SCM tail)
 	}
 	if (!scm_is_pair (elts))
 		return tail;
+	elts = scm_reverse_x (elts, SCM_EOL);
 	for (SCM p = elts; scm_is_pair (p); p = scm_cdr (p))
 	{
 		Music *ev = unsmob<Music> (scm_car (p));
 		// tweaks are always collected in-order, newer tweaks
 		// nearer to the front of the list
 		if (scm_is_pair (tweaks))
-			set_property (ev, "tweaks",
-					  scm_reverse_x (tweaks, get_property (ev, "tweaks")));
+			set_property (ev,
+			              "tweaks",
+			              Srfi_1::append_reverse (tweaks,
+				                              get_property (ev, "tweaks")));
 		// other properties are applied last to first so that
 		// in case of duplicate properties, the actually
 		// current one survives

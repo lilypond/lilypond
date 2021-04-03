@@ -10,7 +10,6 @@ direction."
 
 \new Voice \with {
   \consists "Melody_engraver"
-  \override Stem.neutral-direction = #'()
 } \relative c'' {
   a2 \repeat volta 2 { b4_^ c | c2 } b4^^ a
 }

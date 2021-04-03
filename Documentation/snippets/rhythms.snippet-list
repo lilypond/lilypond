@@ -46,7 +46,9 @@ positioning-grace-notes-with-floating-space.ly
 positioning-multi-measure-rests.ly
 preventing-final-mark-from-removing-final-tuplet.ly
 printing-bar-numbers-at-regular-intervals.ly
+printing-bar-numbers-for-broken-measures.ly
 printing-bar-numbers-inside-boxes-or-circles.ly
+printing-bar-numbers-using-modulo-bar-number-visible.ly
 printing-bar-numbers-with-changing-regular-intervals.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 printing-music-with-different-time-signatures.ly

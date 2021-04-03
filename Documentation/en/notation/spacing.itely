@@ -1409,6 +1409,75 @@ Notation Reference:
 Snippets:
 @rlsr{Spacing}.
 
+@knownissues
+
+When using @code{\magnifyStaff} only for some staves in a @code{StaffGroup},
+@code{BarLine} grobs do not align any more, due to the changed
+@code{BarLine} properties @code{thick-thickness},
+@code{hair-thickness} and @code{kern}.
+
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup
+  <<
+    \new Staff \with { \magnifyStaff #1/2 } { b1 \bar "|." }
+    \new Staff { b }
+  >>
+@end lilypond
+
+You may want to cancel magnifying @code{BarLine} grobs, mimick them on the other
+staves or apply intermediate values for every @code{Staff}.
+
+@lilypond[quote,ragged-right,verbatim]
+#(define bar-line-props
+  '((BarLine thick-thickness)
+    (BarLine hair-thickness)
+    (BarLine kern)))
+
+mus = { b1 \bar "|."}
+
+\markup "Cancel \\magnifyStaff for bar lines:"
+\new StaffGroup
+  <<
+    \new Staff
+      \with {
+        \magnifyStaff
+        #1/2 #(revert-props 'magnifyStaff 0 bar-line-props)
+      }
+      \mus
+    \new Staff
+      \mus
+  >>
+
+\markup "Mimick \\magnifyStaff on other staves:"
+\new StaffGroup
+  <<
+    \new Staff
+      \with { \magnifyStaff #1/2 }
+      \mus
+    \new Staff
+      \with {
+        #(scale-props 'magnifyStaff 1/2 #t bar-line-props)
+      }
+      \mus
+  >>
+
+\markup "Apply an intermediate value to all staves:"
+\new StaffGroup
+  <<
+    \new Staff
+      \with {
+        \magnifyStaff #1/2
+        #(scale-props 'magnifyStaff 3/2 #t bar-line-props)
+      }
+      \mus
+    \new Staff
+      \with {
+        #(scale-props 'magnifyStaff 3/4 #t bar-line-props)
+      }
+      \mus
+  >>
+@end lilypond
+
 
 @node Breaks
 @section Breaks

@@ -24,16 +24,10 @@ if [ ! -e scripts/convert-ly.py ]; then
   exit 1
 fi
 
-### get the directories
-TOP_SRC_DIR=`pwd`
+### get the build directory
 if [ -z $LILYPOND_BUILD_DIR ]; then
   LILYPOND_BUILD_DIR=.
 fi
-
-### make sure convert-ly is up-to-date
-cd $LILYPOND_BUILD_DIR
-make python-modules
-cd $TOP_SRC_DIR
 
 ### update manuals
 find Documentation/ -path 'Documentation/snippets' -prune -o -name out -prune \

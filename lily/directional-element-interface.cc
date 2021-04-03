@@ -19,22 +19,56 @@
 
 #include "directional-element-interface.hh"
 #include "warn.hh"
+#include "international.hh"
 #include "grob.hh"
 
 Direction
-get_grob_direction (Grob *me)
+internal_get_grob_direction (Grob *me, bool strict)
 {
   SCM d = get_property (me, "direction");
   if (scm_is_eq (d, ly_symbol2scm ("calculation-in-progress")))
     {
-      programming_error ("Grob direction requested while calculation in"
-                         " progress.");
+      me->programming_error (_f ("direction of grob %s requested while "
+                                 "calculation in progress",
+                                 me->name ()));
       return UP;
     }
-  if (!is_scm<Direction> (d))
-    return CENTER;
+  auto dir = from_scm<Direction> (d, CENTER);
+  if (strict && (dir == CENTER))
+    {
+      me->warning (_f ("direction of grob %s must be UP or DOWN; using UP",
+                       me-> name()));
+      set_grob_direction (me, UP);
+      return UP;
+    }
 
   return from_scm<Direction> (d);
+}
+
+Direction
+get_grob_direction (Grob *me)
+{
+  return internal_get_grob_direction (me, false);
+}
+
+// Use this function when your call site cannot sensibly continue
+// with CENTER as a direction (e.g., when using the result as an
+// index to a Drul_array), to avoid crashes.  Stay with get_grob_direction
+// for grobs for which CENTER is a meaningful direction and the
+// absence of an explicitly set direction should be interpreted
+// like that.
+
+// TODO: should use the strict version in many more places
+
+// TODO: how to cater for cases where we should use, e.g.,
+// get_property_data?
+
+// TODO: add Scheme interface?
+
+Direction
+get_strict_grob_direction (Grob *me)
+{
+  return internal_get_grob_direction (me, true);
 }
 
 void

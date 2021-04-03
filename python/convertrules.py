@@ -4286,6 +4286,57 @@ def conv(s):
     return s
 
 
+melody_engraver_warning = r"""
+If you had
+
+  \override Stem.neutral-direction = #DOWN
+
+and
+
+  \override Stem.neutral-direction #'()
+
+to turn the use of the Melody_engraver off
+and on, respectively, you should instead use
+
+  \set suspendMelodyDecisions = ##t
+
+and
+
+  \set suspendMelodyDecisions = ##f
+
+"""
+
+@rule((2, 23, 2), r"""
+warn about behavior change of Melody_engraver with Stem.neutral-direction
+""")
+def conv(s):
+    # Detect changes to the Stem.neutral-direction property
+    # in conjunction with the Melody_engraver. The string
+    # "Stem.neutral-direction" is sufficient for the former,
+    # since there is no situation where \tweak neutral-direction ...
+    # would cause the property to end up on the Stem.
+    #
+    # Convert
+    #   \consists Melody_engraver
+    #   \override Stem.neutral-direction = #'()
+    # to just
+    #   \consists Melody_engraver
+    #
+    # Warn about other uses, it's too tricky to convert them
+    # (e.g., \tweak Stem.color \tweak Stem.neutral-direction #DOWN ...
+    # should become \once \set suspendMelodyDecisions = ##t \tweak Stem.color ...).
+    neutral_dir = r'Stem\.neutral-direction'
+    neutral_dir_override = r"\\override\s+{}\s+=\s+#'\(\)".format(neutral_dir)
+    melody_engraver = r'\\consists\s+"?Melody_engraver"?'
+    typical_usage = r'({})\s+{}'.format(melody_engraver, neutral_dir_override)
+    s = re.sub(typical_usage, r"\1", s)
+    if re.search(neutral_dir, s) and re.search('Melody_engraver', s):
+        stderr_write(NOT_SMART % "Stem.neutral-direction with Melody_engraver")
+        stderr_write(melody_engraver_warning)
+        stderr_write(UPDATE_MANUALLY)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

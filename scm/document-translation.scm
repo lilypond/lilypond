@@ -76,34 +76,47 @@
      "\n\n"
 
      (if in-which-contexts
-         (let* ((layout-alist (ly:output-description $defaultlayout))
-                (context-description-alist (map cdr layout-alist))
-                (contexts
+         (let* ((output-list
                  (append-map
-                  (lambda (x)
-                    (let* ((context (assoc-get 'context-name x))
-                           (group (assq-ref x 'group-type))
-                           (consists (append
-                                      (if group
-                                          (list group)
-                                          '())
-                                      (assoc-get 'consists x))))
-                      (if (member name-sym consists)
-                          (list context)
-                          '())))
-                  context-description-alist))
-                (context-list (human-listify (map ref-ify
-                                                  (sort
-                                                   (map symbol->string contexts)
-                                                   ly:string-ci<?)))))
+                  (lambda (output output-name)
+                    (let* ((output-alist (ly:output-description output))
+                           (context-description-alist (map cdr output-alist))
+                           (contexts
+                            (append-map
+                             (lambda (x)
+                               (let* ((context (assoc-get 'context-name x))
+                                      (group (assq-ref x 'group-type))
+                                      (consists (append
+                                                 (if group
+                                                     (list group)
+                                                     '())
+                                                 (assoc-get 'consists x))))
+                                 (if (member name-sym consists)
+                                     (list context)
+                                     '())))
+                             context-description-alist))
+                           (context-list (map ref-ify
+                                              (sort
+                                               (map symbol->string contexts)
+                                               ly:string-ci<?))))
+                      (if (null? context-list)
+                          '()
+                          (list (cons output-name (human-listify context-list))))))
+                  (list $defaultlayout $defaultmidi)
+                  (list "\\layout" "\\midi"))))
            (string-append
             "@code{" name-str "} "
-            (if (equal? context-list "none")
+            (if (null? output-list)
                 "is not part of any context"
                 (string-append
-                 "is part of the following context(s): "
-                 context-list))
-            "."))
+                 "is part of the following context(s) "
+                 (string-join
+                  (map
+                   (lambda (elt)
+                     (string-append "in @code{" (car elt) "}: " (cdr elt)))
+                   output-list)
+                  ";\n")
+                 "."))))
          "")
 
      "\n@endRaggedRight")))

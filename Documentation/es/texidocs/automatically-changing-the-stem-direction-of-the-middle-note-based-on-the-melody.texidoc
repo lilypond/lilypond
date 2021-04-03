@@ -3,8 +3,7 @@
 LilyPond puede alterar la dirección de la plica de las notas que van
 en la tercera línea de un pentagrama de forma que siga la melodía,
 mediante la adición del grabador @code{Melody_engraver} al contexto
-Voice y sobreescribiendo el valor de @code{neutral-direction} para el
-objeto Stem (plica).
+Voice.
 
 "
   doctitlees = "Cambiar la dirección de la plica de las notas de la tercera línea automáticamente, basado en la melodía"

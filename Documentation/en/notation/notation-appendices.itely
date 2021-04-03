@@ -1344,7 +1344,7 @@ The following table shows all the clef styles possible (including where
 @node Standard clefs
 @unnumberedsubsec Standard clefs
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Example
@@ -1534,7 +1534,7 @@ c1
 @node Percussion staff clef
 @unnumberedsubsec Percussion staff clef
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Example
@@ -1566,7 +1566,7 @@ c1
 @node Tab staff clefs
 @unnumberedsubsec Tab staff clefs
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Example
@@ -1612,9 +1612,9 @@ Output
 @node Ancient music clefs
 @unnumberedsubsec Ancient music clefs
 
-@strong{Gregorian}
+@unnumberedsubsubsec Gregorian
 
-@multitable @columnfractions .30 .20 .30 .20
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Example
@@ -1788,7 +1788,7 @@ Output
   c1
 @end lilypond
 @tab
-@code{\clef @* "hufnagel-do-fa"}
+@code{\clef "hufnagel-do-fa"}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #5
@@ -1801,9 +1801,9 @@ Output
 @end multitable
 
 
-@strong{Mensural}
+@unnumberedsubsubsec Mensural
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Example
@@ -2087,9 +2087,9 @@ Output
 @end multitable
 
 
-@strong{Kievan}
+@unnumberedsubsubsec Kievan
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Example
