@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
+   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1531,8 +1531,7 @@ répondre à la syntaxe @code{\[@dots{}\]}.
 @c Regarding the @emph{punctum}, @code{b} and @code{\[ b \]} are
 @c equivalent.
 
-@noindent
-Neumes simples :
+@subsubsubheading Neumes simples
 
 @itemize
 @item Le @emph{punctum} représente l'aspect standard d'une note -- dans
@@ -1547,8 +1546,7 @@ lui adjoindra une ligne verticale de part et d'autre.
 à l'aide du modificateur @code{\virga}.
 @end itemize
 
-@noindent
-Ligatures
+@subsubsubheading Ligatures
 
 Contrairement à la majorité des autres systèmes de notation neumatique,
 la manière de saisir les neumes n'a rien à voir avec leur apparence
@@ -1564,8 +1562,7 @@ musicaux de la source et le style de notation que nous voulons obtenir.
 De ce fait, la même source pourra être utilisée pour imprimer dans un
 autre style de notation grégorienne.
 
-@noindent
-Neumes liquescents
+@subsubsubheading Neumes liquescents
 
 Autre grande catégorie de notes que l'on trouve en grégorien, les neumes
 liquescents.  Ils s'utilisent dans certaines circonstances, quand
@@ -1587,8 +1584,7 @@ modifier l'aspect d'un neume sur note unique avec un @code{\auctum} tout
 en lui affectant une direction @code{\descendens} ou
 @code{\ascendens} : @code{\[ \auctum \descendens a \]}.
 
-@noindent
-Signes spéciaux
+@subsubsubheading Signes spéciaux
 
 Une troisième catégorie regroupe quelques signes dont la signification
 particulière diverge selon la source : la @emph{quilisma},
@@ -1633,11 +1629,11 @@ La première colonne énumère le nom des ligatures -- forme normale en
 gras et forme liquescente en italique. La troisième colonne contient le
 code ayant permis de générer la ligature, se basant ici sur sol, la, si.
 
-@b{Neumes simples}
+@subsubsubheading Neumes simples
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 Formes @b{Normale} et @emph{Liquescente}
@@ -1777,16 +1773,17 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
+@code{\[ \virga b' \]}
+
 
 @end multitable
 @end quotation
 
-@noindent
-@b{Ligatures sur deux notes}
+@subsubsubheading Ligatures sur deux notes
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 @b{Clivis vel Flexa}
@@ -1942,12 +1939,11 @@ Initio Debilis}
 @end multitable
 @end quotation
 
-@noindent
-@b{Ligatures sur plusieurs notes}
+@subsubsubheading Ligatures sur plusieurs notes
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 @b{Torculus}
@@ -2187,12 +2183,11 @@ Initio Debilis}
 @end multitable
 @end quotation
 
-@noindent
-@b{Signes spéciaux}
+@subsubsubheading Signes spéciaux
 
 @need 1000
 @quotation
-@multitable @columnfractions .35 .12 .48
+@multitable @columnfractions .35 .13 .52
 
 @item
 @b{Quilisma}
@@ -2222,7 +2217,7 @@ Initio Debilis}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ \quilisma g \pes \auctum@*
+@code{\[ g \quilisma g \pes \auctum@*
 \descendens b \]}
 
 @item
@@ -2715,7 +2710,6 @@ L'espacement des ligatures n'est pas des meilleurs.
 * Mise en forme de la musique mensurale::
 * Transcription de chant grégorien::
 * Éditions ancienne et moderne à partir d'une même source::
-* Notation éditoriale::
 @end menu
 
 Travailler sur de la musique ancienne requiert bien souvent des tâches
@@ -3006,13 +3000,6 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
-
-
-@node Notation éditoriale
-@unnumberedsubsubsec Notation éditoriale
-@translationof Editorial markings
-
-@emph{En cours de rédaction}
 
 
 @c @node Baroque rhythmic notation

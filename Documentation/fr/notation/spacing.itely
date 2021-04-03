@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
+   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1543,6 +1543,76 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+
+@knownissues
+
+Lorsque @code{\magnifyStaff} est utilisé au sein d'un @code{StaffGroup},
+les objets @code{BarLine} ne s'alignent plus, en raison des
+modifications apportées à leurs propriétés @code{thick-thickness},
+@code{hair-thickness} et @code{kern}.
+
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup
+  <<
+    \new Staff \with { \magnifyStaff #1/2 } { b1 \bar "|." }
+    \new Staff { b }
+  >>
+@end lilypond
+
+Vous pouvez opter pour annuler le redimensionnement des objets
+@code{BarLine}, l'imiter pour les autres portées, ou bien encore
+appliquer une valeur intermédiaire à toutes les portées.
+
+@lilypond[quote,ragged-right,verbatim]
+#(define bar-line-props
+  '((BarLine thick-thickness)
+    (BarLine hair-thickness)
+    (BarLine kern)))
+
+mus = { b1 \bar "|."}
+
+\markup "Annulation de \\magnifyStaff pour les barres de mesure :"
+\new StaffGroup
+  <<
+    \new Staff
+      \with {
+        \magnifyStaff
+        #1/2 #(revert-props 'magnifyStaff 0 bar-line-props)
+      }
+      \mus
+    \new Staff
+      \mus
+  >>
+
+\markup "Imitation de \\magnifyStaff dans les autres portées :"
+\new StaffGroup
+  <<
+    \new Staff
+      \with { \magnifyStaff #1/2 }
+      \mus
+    \new Staff
+      \with {
+        #(scale-props 'magnifyStaff 1/2 #t bar-line-props)
+      }
+      \mus
+  >>
+
+\markup "Application à tous de valeurs intermédiaires :"
+\new StaffGroup
+  <<
+    \new Staff
+      \with {
+        \magnifyStaff #1/2
+        #(scale-props 'magnifyStaff 3/2 #t bar-line-props)
+      }
+      \mus
+    \new Staff
+      \with {
+        #(scale-props 'magnifyStaff 3/4 #t bar-line-props)
+      }
+      \mus
+  >>
+@end lilypond
 
 
 @node Sauts

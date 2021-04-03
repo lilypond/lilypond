@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
+  Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -1409,7 +1409,7 @@ ainsi que la position du @emph{do médium} par rapport à la clef.
 @unnumberedsubsec Clefs standards
 @translationof Standard clefs
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Exemple
@@ -1595,7 +1595,7 @@ c1
 @unnumberedsubsec Clefs pour portée de percussions
 @translationof Percussion staff clef
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Exemple
@@ -1628,7 +1628,7 @@ c1
 @unnumberedsubsec Clefs pour tablatures
 @translationof Tab staff clefs
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Exemple
@@ -1675,9 +1675,9 @@ Résultat
 @unnumberedsubsec Clefs de musique ancienne
 @translationof Ancient music clefs
 
-@strong{Grégorien}
+@unnumberedsubsubsec Grégorien
 
-@multitable @columnfractions .30 .20 .30 .20
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Exemple
@@ -1849,7 +1849,7 @@ Résultat
   c1
 @end lilypond
 @tab
-@code{\clef @* "hufnagel-do-fa"}
+@code{\clef "hufnagel-do-fa"}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #5
@@ -1862,9 +1862,9 @@ Résultat
 @end multitable
 
 
-@strong{Mensural}
+@unnumberedsubsubsec Mensural
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Exemple
@@ -2142,9 +2142,9 @@ Résultat
 @end multitable
 
 
-@strong{Kiévien}
+@unnumberedsubsubsec Kiévien
 
-@multitable @columnfractions .30 .2 .30 .2
+@multitable @columnfractions .3 .18 .34 .18
 
 @headitem
 Exemple

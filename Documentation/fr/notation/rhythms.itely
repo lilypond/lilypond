@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
+   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3303,6 +3303,15 @@ numéros de mesure :
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-with-changing-regular-intervals.ly}
+
+@cindex numéro de mesure et mesure tronquée
+@cindex mesure tronquée et numéro de mesure
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-bar-numbers-for-broken-measures.ly}
+
+@cindex numéro de mesure
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-bar-numbers-using-modulo-bar-number-visible.ly}
 
 @cindex numéro de mesure, formatage
 @cindex formatage du numéro de mesure

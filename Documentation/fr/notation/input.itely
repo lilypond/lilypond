@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
+   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -351,14 +351,11 @@ le nom du fichier généré pour un bloc @code{\book} :
 
 Le traitement de ce fichier produira :
 
-@itemize
-@item
-@file{Romance.pdf},
-@item
-@file{Menuet.pdf} et
-@item
-@file{Nocturne.pdf}.
-@end itemize
+@example
+Romance.pdf
+Menuet.pdf
+Nocturne.pdf
+@end example
 
 
 @node Structure de fichier
