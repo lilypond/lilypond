@@ -1,8 +1,8 @@
-%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
+%% Translation of GIT committish: fd2ecbc25ed2bb74f10259c647a2f46797335d04
   texidocfr = "
 Les règles de ligature par mesure sont gérées par la propriété de
 contexte @code{beatStructure}. Ses valeurs par défaut sont répertoriées,
-par métrique, dans le fichier @code{scm/time-signature-settings.scm}.
+par métrique, dans le fichier @code{scm/time-@/signature-@/settings.scm}.
 Elles sont modifiables grâce à la commande @code{\\set}.
 
 La fonction Scheme @code{set-time-signature} permet quant à elle de

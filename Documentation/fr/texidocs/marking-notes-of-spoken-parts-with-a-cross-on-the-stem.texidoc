@@ -1,8 +1,0 @@
-%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
-  texidocfr = "
-Voici comment ajouter une croix aux hampes. Le début du fragment parlé
-est stipulé par une commande @code{\\speakOn}, et la fin par une
-commande @code{\\speakOff}.
-
-"
-  doctitlefr = "Adjonction d'une croix sur la hampe des notes d'un fragment parlé"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
+%% Translation of GIT committish: fd2ecbc25ed2bb74f10259c647a2f46797335d04
   texidocfr = "
 LilyPond ne permet pas, par défaut, qu'une même articulation (accent,
 flageolet, point d'orgue, etc.) se retrouve à la fois au-dessus et
@@ -12,7 +12,7 @@ ce qui, par voie de conséquence, permet de s'affranchir de la présence
 des hampes et de positionner l'articulation relativement à la tête de
 note comme dans le cas du flageolet ci-dessous. L'imitation du
 traitement d'un script externe à un accord requérant un
-@code{add-stem-support} demande de libeller la note comme étant un
+@code{'add-stem-support} demande de libeller la note comme étant un
 accord et d'ajouter les articulations au sein de la construction
 @code{<@dots{}>}.
 

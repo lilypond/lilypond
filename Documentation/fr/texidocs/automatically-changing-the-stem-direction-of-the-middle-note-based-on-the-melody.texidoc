@@ -1,9 +1,11 @@
-%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
+%% Translation of GIT committish: fd2ecbc25ed2bb74f10259c647a2f46797335d04
   texidocfr = "
 Afin de suivre la ligne mélodique, LilyPond peut inverser l'orientation
 de hampe de la note médiane, dès lors qu'aura été ajouté au contexte de
 voix le graveur @code{Melody_engraver}.
 
+La propriété de contexte @code{suspendMelodyDecisions} permet, si
+besoin, de désactiver temporairement ce comportement.
 "
 
   doctitlefr = "Changement automatique de l'orientation de hampe de la note médiane selon la mélodie"

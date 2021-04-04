@@ -1,4 +1,4 @@
-%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
+%% Translation of GIT committish: fd2ecbc25ed2bb74f10259c647a2f46797335d04
   texidocfr = "
 La commande @code{\\key} détermine la propriété @code{keyAlterations} d'un
 contexte @code{Staff}. Des armures inhabituelles peuvent être spécifiées
@@ -6,7 +6,11 @@ en modifiant directement cette propriété.
 
 Il s'agit en l'occurrence de définir une liste :
 
-@code{\\set Staff.keyAlterations = #`(((octave . pas) . altération) ((octave . pas) . altération) @dots{})}
+@verbatim
+\\set Staff.keyAlterations =
+  #`(((octave . pas) . altération) ((octave . pas) . altération)
+  @dots{})
+@end verbatim
 
 dans laquelle, et pour chaque élément, @code{octave} spécifie l'octave
 (0 pour celle allant du do médium au si supérieur), @code{pas} la note

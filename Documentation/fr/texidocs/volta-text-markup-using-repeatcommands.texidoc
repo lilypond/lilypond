@@ -1,8 +1,8 @@
-%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
+%% Translation of GIT committish: fd2ecbc25ed2bb74f10259c647a2f46797335d04
   texidocfr = "
 La commande @code{\\repeat volta} permet d'indiquer facilement des
 reprises. Il est certains cas où l'adjonction d'un texte sous forme de
-@code{\markup} nécessite cependant de recourir à la propriété de
+@code{\\markup} nécessite cependant de recourir à la propriété de
 contexte @code{repeatCommands}.
 
 Dans la mesure où l'argument de @code{repeatCommands} est constitué

@@ -1,7 +1,7 @@
-%% Translation of GIT committish: f010c2a7c76349c36368f38ac722aedc4443c8dd
+%% Translation of GIT committish: fd2ecbc25ed2bb74f10259c647a2f46797335d04
   texidocfr = "
 LilyPond imprime par défaut le numérateur de la fraction fournie en
-argument à la commande @code{\tuplet} du côté du crochet de n-olet.
+argument à la commande @code{\\tuplet} du côté du crochet de n-olet.
 
 Il est toutefois possible d'imprimer la fraction entière
 @var{num}:@var{den}, voire de ne rien imprimer du tout.

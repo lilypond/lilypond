@@ -1,0 +1,21 @@
+%% Translation of GIT committish: fd2ecbc25ed2bb74f10259c647a2f46797335d04
+  texidocfr = "
+Lorsque le reste de la division du numéro de la mesure courante par le
+premier argument de @code{modulo-bar-number-visible} égale le deuxième
+argument, LilyPond imprime le @code{BarNumber}.@*
+Ceci permet d'imprimer le numéro de mesure à un intervalle donné, par
+exemple :
+
+@itemize
+@item
+@code{(modulo-bar-number-visible 3 2)} -> affichage à 2, 5, 8…
+@item
+@code{(modulo-bar-number-visible 4 2)} -> affichage à 2, 6, 10…
+@item
+@code{(modulo-bar-number-visible 3 1)} -> affichage à 3, 5, 7…
+@item
+@code{(modulo-bar-number-visible 5 2)} -> affichage à 2, 7, 12…
+@end itemize
+
+"
+  doctitlefr = "Impression du numéro de mesure selon @code{modulo-bar-number-visible}"
