@@ -455,3 +455,9 @@ Beaming_options::Beaming_options ()
   subdivide_beams_ = false;
   strict_beat_beaming_ = false;
 }
+
+void
+Beaming_options::gc_mark() const
+{
+  scm_gc_mark (grouping_);
+}
