@@ -262,6 +262,7 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
   else
     assert (0);
 
+  scm_remember_upto_here_1 (s);
 }
 
 /* Concatenate all score or book part outputs into a Paper_book
