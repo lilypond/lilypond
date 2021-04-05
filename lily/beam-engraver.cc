@@ -72,6 +72,7 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void finalize () override;
+  void derived_mark () const override;
 
   void process_music ();
 
@@ -111,6 +112,13 @@ Beam_engraver::Beam_engraver (Context *c)
   stop_ev_ = 0;
   start_ev_ = 0;
   prev_start_ev_ = 0;
+}
+
+void
+Beam_engraver::derived_mark () const
+{
+  beaming_options_.gc_mark ();
+  finished_beaming_options_.gc_mark ();
 }
 
 void

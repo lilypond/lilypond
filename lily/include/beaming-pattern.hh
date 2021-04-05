@@ -35,6 +35,7 @@ struct Beaming_options
 
   Beaming_options ();
   void from_context (Context *);
+  void gc_mark () const;
 };
 
 struct Beam_rhythmic_element

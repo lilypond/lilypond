@@ -107,6 +107,8 @@ void
 Auto_beam_engraver::derived_mark () const
 {
   scm_gc_mark (beam_settings_);
+  beaming_options_.gc_mark ();
+  finished_beaming_options_.gc_mark ();
 }
 
 void
