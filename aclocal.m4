@@ -326,11 +326,6 @@ AC_DEFUN(STEPMAKE_END, [
     AC_CONFIG_FILES([config.make:config.make.in])
     AC_OUTPUT
 
-    if test -n "$GUILE_CONFIG"; then
-        echo
-        echo "WARNING: GUILE_CONFIG deprecated, consider using PKG_CONFIG_PATH instead"
-    fi
-
     if test -n "$OPTIONAL"; then
         echo
         echo "WARNING: Please consider installing optional programs or files: $OPTIONAL"
@@ -539,32 +534,8 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
                                    guile-2.2 .  If the respective .pc file
                                    cannot be found by pkgconfig,
                                    add its path to PKG_CONFIG_PATH]))dnl
-    AC_ARG_VAR(GUILE_CONFIG,
-               [guile-config executable, obsoleted by pkgconfig/GUILE_FLAVOR])dnl
 
-    if test -n "$GUILE_CONFIG"; then
-        AC_MSG_CHECKING([GUILE_CONFIG for GUILE_FLAVOR])
-        tmp_GUILE_FLAVOR="$($GUILE_CONFIG info guileversion)"
-        case $tmp_GUILE_FLAVOR in
-            *.*.*) # not a regexp, just a crude check
-                GUILE_FLAVOR=guile-"${tmp_GUILE_FLAVOR%.*}"
-                AC_MSG_RESULT([$GUILE_FLAVOR])
-                ;;
-            *)
-                AC_MSG_ERROR([\$GUILE_CONFIG info guileversion failed: $tmp_GUILE_FLAVOR])
-                ;;
-        esac
-        if test -z "$GUILE_CFLAGS"; then
-            AC_MSG_CHECKING([GUILE_CONFIG for GUILE_CFLAGS])
-            GUILE_CFLAGS=$($GUILE_CONFIG compile)
-            AC_MSG_RESULT([$GUILE_CFLAGS])
-        fi
-        if test -z "$GUILE_LIBS"; then
-            AC_MSG_CHECKING([GUILE_CONFIG for GUILE_LIBS])
-            GUILE_LIBS=$($GUILE_CONFIG link)
-            AC_MSG_RESULT([$GUILE_LIBS])
-        fi
-    elif test -n "$GUILE_FLAVOR"; then
+    if test -n "$GUILE_FLAVOR"; then
         PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR],
                             [true], [GUILE_FLAVOR="missing"])
     else
