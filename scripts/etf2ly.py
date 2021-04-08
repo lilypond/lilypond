@@ -51,8 +51,6 @@ import os
 import re
 import sys
 
-program_name = sys.argv[0]
-
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
            'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
@@ -1200,7 +1198,7 @@ class Etf_file:
 
 
 def identify():
-    sys.stderr.write("%s from LilyPond %s\n" % (program_name, version))
+    sys.stderr.write("%s from LilyPond %s\n" % (ly.program_name, version))
 
 
 def warranty():

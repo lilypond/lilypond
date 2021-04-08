@@ -58,7 +58,6 @@ version taken from the \\version command, to the current LilyPond version.''')
 copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
              'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
-program_name = os.path.basename(sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
@@ -66,7 +65,7 @@ authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 
 
 def identify():
-    ly.progress('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+    ly.progress('%s (GNU LilyPond) %s\n' % (ly.program_name, program_version))
 
 
 def warranty():

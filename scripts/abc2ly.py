@@ -94,9 +94,6 @@ import os
 import re
 import sys
 
-program_name = sys.argv[0]
-
-
 """
 @relocate-preamble@
 """
@@ -1433,7 +1430,7 @@ def parse_file(fn):
 
 def identify():
     if not global_options.quiet:
-        sys.stderr.write("%s from LilyPond %s\n" % (program_name, version))
+        sys.stderr.write("%s from LilyPond %s\n" % (ly.program_name, version))
 
 
 authors = """

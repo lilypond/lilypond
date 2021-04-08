@@ -61,7 +61,6 @@ bar_max = 0
 ################################################################
 
 
-program_name = sys.argv[0]
 program_version = '@TOPLEVEL_VERSION@'
 
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
@@ -72,7 +71,7 @@ errorport = sys.stderr
 
 def identify():
     sys.stdout.write('%s (GNU LilyPond) %s\n' %
-                     (program_name, program_version))
+                     (ly.program_name, program_version))
 
 
 def warranty():
@@ -1074,7 +1073,7 @@ def convert_midi(in_file, out_file):
         prev = t
 
     tag = '%% Lily was here -- automatically converted by %s from %s' % (
-        program_name, in_file)
+        ly.program_name, in_file)
 
     s = tag
     s += r'''
@@ -1229,7 +1228,7 @@ def do_options():
 
     if not args or args[0] == '-':
         opt_parser.print_help()
-        sys.stderr.write('\n%s: %s %s\n' % (program_name, _('error: '),
+        sys.stderr.write('\n%s: %s %s\n' % (ly.program_name, _('error: '),
                                             _('no files specified on command line.')))
         sys.exit(2)
 
