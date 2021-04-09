@@ -30,10 +30,6 @@ import sys
 import book_base
 import lilylib as ly
 
-progress = ly.progress
-warning = ly.warning
-error = ly.error
-debug = ly.debug_output
 
 
 ####################################################################
@@ -431,14 +427,14 @@ class LilypondSnippet (Snippet):
             (c_key, c_value) = classic_lilypond_book_compatibility(key, value)
             if c_key:
                 if c_value:
-                    warning(
+                    ly.warning(
                         _("deprecated ly-option used: %s=%s") % (key, value))
-                    warning(
+                    ly.warning(
                         _("compatibility mode translation: %s=%s") % (c_key, c_value))
                 else:
-                    warning(
+                    ly.warning(
                         _("deprecated ly-option used: %s") % key)
-                    warning(
+                    ly.warning(
                         _("compatibility mode translation: %s") % c_key)
                 (key, value) = (c_key, c_value)
             # Finally, insert the option:
@@ -555,7 +551,7 @@ class LilypondSnippet (Snippet):
                     break
 
             if not found and key not in simple_options and key not in self.snippet_options():
-                warning(_("ignoring unknown ly option: %s") % key)
+                ly.warning(_("ignoring unknown ly option: %s") % key)
 
         # URGS
         if RELATIVE in override and override[RELATIVE]:
@@ -626,7 +622,7 @@ class LilypondSnippet (Snippet):
             existing = open(filename, 'r', encoding='utf-8').read()
 
             if self.relevant_contents(existing) != self.relevant_contents(self.full_ly()):
-                warning("%s: duplicate filename but different contents of original file,\n\
+                ly.warning("%s: duplicate filename but different contents of original file,\n\
 printing diff against existing file." % filename)
                 encoded = self.full_ly().encode('utf-8')
                 cmd = 'diff -u %s -' % filename
@@ -642,7 +638,7 @@ printing diff against existing file." % filename)
     def link_all_output_files(self, output_dir, destination):
         existing, missing = self.all_output_files(output_dir)
         if missing:
-            error(_('Missing files: %s') % ', '.join(missing))
+            ly.error(_('Missing files: %s') % ', '.join(missing))
             raise CompileError(self.basename())
         for name in existing:
             if (self.global_options.use_source_file_names
@@ -680,7 +676,7 @@ printing diff against existing file." % filename)
                     except AttributeError:
                         shutil.copyfile(src, dst)
             except (IOError, OSError):
-                error(_('Could not overwrite file %s') % dst)
+                ly.error(_('Could not overwrite file %s') % dst)
                 raise CompileError(self.basename())
 
     def additional_files_to_consider(self, base, full):
@@ -777,7 +773,7 @@ printing diff against existing file." % filename)
         Returns:
           the filtered result
         """
-        debug(_("Running through filter `%s'") % cmd, True)
+        ly.debug_output(_("Running through filter `%s'") % cmd, True)
 
         closefds = True
         if sys.platform == "mingw32":
@@ -803,11 +799,11 @@ printing diff against existing file." % filename)
         if status or (not output and err):
             exit_status = status >> 8
             ly.error(_("`%s' failed (%d)") % (cmd, exit_status))
-            ly.error(_("The error log is as follows:"))
+            ly.error(_("The ly.error log is as follows:"))
             sys.stderr.write(err)
             exit(status)
 
-        debug('\n')
+        ly.debug_output('\n')
 
         return output
 
@@ -933,7 +929,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
             xml2ly_option_list.append('--compressed')
             self.compressed = True
         opts = " ".join(xml2ly_option_list)
-        progress(_("Converting MusicXML file `%s'...") % self.filename)
+        ly.progress(_("Converting MusicXML file `%s'...") % self.filename)
 
         cmd = 'musicxml2ly %s --out=- - ' % opts
         ly_code = self.filter_pipe(self.get_contents(), cmd).decode('utf-8')
@@ -961,7 +957,7 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
             diff_against_existing = self.filter_pipe(
                 self.get_contents(), 'diff -u %s - ' % xmlfilename)
             if diff_against_existing:
-                warning(_("%s: duplicate filename but different contents of original file,\n\
+                ly.warning(_("%s: duplicate filename but different contents of original file,\n\
 printing diff against existing file.") % xmlfilename)
                 sys.stderr.write(diff_against_existing.decode('utf-8'))
         else:
@@ -977,7 +973,7 @@ printing diff against existing file.") % xmlfilename)
             diff_against_existing = self.filter_pipe(
                 encoded, cmd).decode('utf-8')
             if diff_against_existing:
-                warning(_("%s: duplicate filename but different contents of converted lilypond file,\n\
+                ly.warning(_("%s: duplicate filename but different contents of converted lilypond file,\n\
 printing diff against existing file.") % filename)
                 sys.stderr.write(diff_against_existing.decode('utf-8'))
         else:

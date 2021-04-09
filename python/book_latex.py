@@ -30,11 +30,6 @@ import book_base
 import book_snippets
 import lilylib as ly
 
-progress = ly.progress
-warning = ly.warning
-error = ly.error
-debug = ly.debug_output
-
 
 # Recognize special sequences in the input.
 #
@@ -198,7 +193,7 @@ def get_latex_textwidth(source, global_options):
 
     m = re.search(r'''(?P<preamble>\\begin\s*{document})''', source)
     if m is None:
-        warning(_("cannot find \\begin{document} in LaTeX document"))
+        ly.warning(_("cannot find \\begin{document} in LaTeX document"))
         return textwidth
 
     preamble = source[:m.start(0)]
@@ -214,10 +209,10 @@ def get_latex_textwidth(source, global_options):
     tmp_handle.write(latex_document)
     tmp_handle.close()
 
-    progress(_("Running `%s' on file `%s' to detect default page settings.\n")
+    ly.progress(_("Running `%s' on file `%s' to detect default page settings.\n")
              % (global_options.latex_program, tmpfile))
     cmd = '%s %s' % (global_options.latex_program, tmpfile)
-    debug("Executing: %s\n" % cmd)
+    ly.debug_output("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
     run_env['TEXINPUTS'] = os.path.pathsep.join(
@@ -244,7 +239,7 @@ def get_latex_textwidth(source, global_options):
             del os.environ['TEXINPUTS']
         parameter_string = open(output_filename, encoding="utf8").read()
         if returncode != 0:
-            warning(_("Unable to auto-detect default settings:\n"))
+            ly.warning(_("Unable to auto-detect default settings:\n"))
         # clean up
         os.remove(output_filename)
         os.rmdir(output_dir)
@@ -256,7 +251,7 @@ def get_latex_textwidth(source, global_options):
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (parameter_string, error_string) = proc.communicate()
         if proc.returncode != 0:
-            warning(_("Unable to auto-detect default settings:\n%s")
+            ly.warning(_("Unable to auto-detect default settings:\n%s")
                     % error_string)
     os.unlink(tmpfile)
     if os.path.exists(auxfile):
@@ -279,18 +274,18 @@ def get_latex_textwidth(source, global_options):
     if m:
         textwidth = float(m.group(1))
     else:
-        warning(_("cannot detect textwidth from LaTeX"))
+        ly.warning(_("cannot detect textwidth from LaTeX"))
         return textwidth
 
-    debug('Detected values:')
-    debug('  columns = %s' % columns)
-    debug('  columnsep = %s' % columnsep)
-    debug('  textwidth = %s' % textwidth)
+    ly.debug_output('Detected values:')
+    ly.debug_output('  columns = %s' % columns)
+    ly.debug_output('  columnsep = %s' % columnsep)
+    ly.debug_output('  textwidth = %s' % textwidth)
 
     if m and columns:
         textwidth = (textwidth - columnsep) / columns
-        debug('Adjusted value:')
-        debug('  textwidth = %s' % textwidth)
+        ly.debug_output('Adjusted value:')
+        ly.debug_output('  textwidth = %s' % textwidth)
 
     return textwidth
 
