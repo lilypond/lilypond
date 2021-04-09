@@ -96,13 +96,6 @@ def debug_output(s, fullmessage=False, newline=True):
     print_logmessage("DEBUG", s, fullmessage, newline)
 
 
-def strip_extension(f, ext):
-    (p, e) = os.path.splitext(f)
-    if e == ext:
-        e = ''
-    return p + e
-
-
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):
         if heading:
@@ -124,7 +117,7 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
                                metavar)
 
     # Only use one level of indentation (even for groups and nested groups),
-    # since we don't indent the headeings, either
+    # since we don't indent the headings, either
     def indent(self):
         self.current_indent = self.indent_increment
         self.level += 1
