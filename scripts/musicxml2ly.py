@@ -3204,7 +3204,7 @@ def print_ly_additional_definitions(printer, filename=None):
         printer.print_verbatim(
             '%% additional definitions required by the score:')
         printer.newline()
-    for a in set(needed_additional_definitions):
+    for a in sorted(set(needed_additional_definitions)):
         printer.print_verbatim(additional_definitions.get(a, ''))
         printer.newline()
     printer.newline()
