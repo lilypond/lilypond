@@ -19,13 +19,9 @@
 import __main__
 import codecs
 import gettext
-import glob
 import optparse
 import os
-import re
-import shutil
 import sys
-import time
 
 sys.stdin = codecs.getreader('utf8')(sys.stdin.detach())
 sys.stdout = codecs.getwriter('utf8')(sys.stdout.detach())
