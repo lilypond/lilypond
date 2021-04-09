@@ -66,7 +66,6 @@ program_version = '@TOPLEVEL_VERSION@'
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
            'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
-errorport = sys.stderr
 
 
 def identify():
@@ -87,24 +86,6 @@ def warranty():
         '\n  '.join(authors),
         _('Distributed under terms of the GNU General Public License.'),
         _('It comes with NO WARRANTY.')))
-
-
-def progress(s):
-    errorport.write(s + '\n')
-
-
-def warning(s):
-    progress(_("warning: ") + s)
-
-
-def error(s):
-    progress(_("error: ") + s)
-    raise Exception(_("Exiting... "))
-
-
-def debug(s):
-    if global_options.debug:
-        progress("debug: " + s)
 
 
 def strip_extension(f, ext):
@@ -470,7 +451,7 @@ class EndOfTrack:
         return ''
 
 def get_voice(channel, music):
-    debug('channel: ' + str(channel) + '\n')
+    ly.debug_output('channel: ' + str(channel) + '\n')
     return unthread_notes(music)
 
 
@@ -503,17 +484,17 @@ class Channel:
 
             if (e[1][0] == midi.NOTE_OFF
                     or (e[1][0] == midi.NOTE_ON and e[1][2] == 0)):
-                debug('%d: NOTE OFF: %s' % (t, e[1][1]))
+                ly.debug_output('%d: NOTE OFF: %s' % (t, e[1][1]))
                 if not e[1][2]:
-                    debug('   ...treated as OFF')
+                    ly.debug_output('   ...treated as OFF')
                 end_note(pitches, notes, t, e[1][1])
 
             elif e[1][0] == midi.NOTE_ON:
                 if e[1][1] not in pitches:
-                    debug('%d: NOTE ON: %s' % (t, e[1][1]))
+                    ly.debug_output('%d: NOTE ON: %s' % (t, e[1][1]))
                     pitches[e[1][1]] = (t, e[1][2])
                 else:
-                    debug('...ignored')
+                    ly.debug_output('...ignored')
 
             # all include ALL_NOTES_OFF
             elif (e[1][0] >= midi.ALL_SOUND_OFF
@@ -806,7 +787,7 @@ def dump_voice(thread, skip):
                 d = time.bar_clocks() * bar_max - last_t
             lines[-1] = lines[-1] + dump_skip(skip, d)
         elif t - last_t < 0:
-            errorport.write('BUG: time skew')
+            ly.error('BUG: time skew')
 
         (s, last_bar_t, bar_count) = dump_bar_line(last_bar_t,
                                                    t, bar_count)
@@ -921,7 +902,7 @@ def dump_track(track, n):
                     s += '  \\voice' + vl + '\n'
                 else:
                     if not global_options.quiet:
-                        warning(
+                        ly.warning(
                             _('found more than 5 voices on a staff, expect bad output'))
             s += '  ' + dump_voice(voice, skip)
             s += '}\n\n'
@@ -1137,7 +1118,7 @@ def convert_midi(in_file, out_file):
 '''
 
     if not global_options.quiet:
-        progress(_("%s output to `%s'...") % ('LY', out_file))
+        ly.progress(_("%s output to `%s'...") % ('LY', out_file))
 
     if out_file == '-':
         handle = sys.stdout
