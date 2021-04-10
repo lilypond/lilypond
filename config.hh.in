@@ -2,8 +2,10 @@
 
 /* datadir */
 #define CONFIG_DATADIR "@CONFIG_DATADIR@"
+#define CONFIG_LIBDIR "@CONFIG_LIBDIR@"
 
 #define PACKAGE_DATADIR CONFIG_DATADIR "/lilypond"
+#define PACKAGE_LIBDIR CONFIG_LIBDIR "/lilypond"
 
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"

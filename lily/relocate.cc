@@ -222,6 +222,11 @@ setup_paths (char const *argv0_ptr)
                                        PACKAGE_DATADIR "/" TOPLEVEL_VERSION,
                                        prefix + "/share/lilypond/" TOPLEVEL_VERSION,
                                        prefix + "/share/lilypond/current");
+  lilypond_libdir = set_up_directory ("LILYPOND_LIBDIR",
+                                      "libdir",
+                                      PACKAGE_LIBDIR "/" TOPLEVEL_VERSION,
+                                      prefix + "/lib/lilypond/" TOPLEVEL_VERSION,
+                                      prefix + "/lib/lilypond/current");
   string localedir = set_up_directory ("LILYPOND_LOCALEDIR",
                                        "localedir",
                                        LOCALEDIR,

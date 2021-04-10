@@ -32,6 +32,7 @@ extern std::string output_name_global;
 extern bool be_safe_global;
 extern bool do_internal_type_checking_global;
 extern std::string lilypond_datadir;
+extern std::string lilypond_libdir;
 extern bool strict_infinity_checking;
 extern std::string init_scheme_code_global;
 extern std::string init_scheme_variables_global;

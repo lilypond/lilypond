@@ -55,3 +55,6 @@ File_path global_path;
    LILYPOND_DATADIR = /usr/share/lilypond
 */
 string lilypond_datadir;
+
+/* Where the compiled Guile modules live. */
+string lilypond_libdir;

@@ -493,35 +493,11 @@ main_with_guile (void *, int, char **)
       %load-compiled-path is the symbol Guile V2 searches for .go files
    */
   string scm_pct_load_path = "%load-path";
-  string scm_pct_load_compiled_path = "%load-compiled-path";
-
   prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
-#if 0
-  /* this code is dead, but keeping this around until we sort the
-     guile2/3 situation. */
-  /*
-    Just as ughy - prepend "/scm/out" onto GUILE V2+ %load-compiled-path
-    and set %compile-fallback-path to our scm/out directory
-  */
-  /*
-    %load-compiled-path is the symbol Guile V2 searches for .go files
-  */
-  prepend_scheme_list (lilypond_datadir + "/scm/out",
-                       scm_pct_load_compiled_path);
-  /*
-    %compile-fallback-path is the guile cache root for auto-compiled files
-  */
-
-  string scm_pct_fallback_path = "%compile-fallback-path";
-  string ly_scm_go_dir = lilypond_datadir + "/scm/out";
-  //string scm_pct_set_fallback = "(set! " + scm_pct_fallback_path +
-  //  " \"" + lilypond_datadir + "/scm/out\")";
-  //scm_c_eval_string (scm_pct_set_fallback.c_str() );
-  scm_primitive_eval
-  (scm_list_3 (scm_from_latin1_symbol ("set!"),
-               scm_from_latin1_symbol ("%compile-fallback-path"),
-               scm_from_locale_string (ly_scm_go_dir.c_str ())));
+#if GUILEV2
+  string scm_pct_load_compiled_path = "%load-compiled-path";
+  prepend_scheme_list (lilypond_libdir + "/ccache", scm_pct_load_compiled_path);
 #endif
 
   if (is_loglevel (LOG_DEBUG))

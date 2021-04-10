@@ -299,12 +299,38 @@ AC_DEFUN(STEPMAKE_DATADIR, [
 ])
 
 
+## ugh: cut & paste programming from datadir.
+AC_DEFUN(STEPMAKE_LIBDIR, [
+    presome=${exec_prefix}
+    if test "$presome" = "NONE"; then
+        presome=${prefix}
+    fi
+    if test "$presome" = "NONE"; then
+        presome=${ac_default_prefix}
+    fi
+
+    build_package_libdir=$ac_pwd/out/lib/$package
+
+    LIBDIR=`echo ${libdir} | sed "s!\\\${exec_prefix}!$presome!"`
+    BUILD_PACKAGE_LIBDIR=`echo ${build_package_libdir} | sed "s!\\\${exec_prefix}!$presome!"`
+
+    AC_SUBST(libdir)
+    AC_SUBST(build_package_libdir)
+    AC_DEFINE_UNQUOTED(CONFIG_LIBDIR, ["${LIBDIR}"])
+    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_LIBDIR, ["${BUILD_PACKAGE_LIBDIR}"])
+])
+
+
 AC_DEFUN(STEPMAKE_PREFIX_EXPAND_FIXUP, [
     # undo expanding of explicit --infodir=/usr/share
     # to ease install-time override with prefix=...
     strip=`echo $includedir | eval sed s@^$prefix@@`
     if test "$includedir" = "`eval echo $prefix$strip`"; then
         includedir='${prefix}'$strip''
+    fi
+    strip=`echo $libdir | eval sed s@^$exec_prefix@@`
+    if test "$libdir" = "`eval echo $exec_prefix$strip`"; then
+        libdir='${exec_prefix}'$strip''
     fi
     strip=`echo $infodir | eval sed s@^$datarootdir@@`
     if test "$infodir" = "`eval echo $datarootdir$strip`"; then
@@ -636,6 +662,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(ROOTSEP)
 
     STEPMAKE_DATADIR
+    STEPMAKE_LIBDIR
 ])
 
 
