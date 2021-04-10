@@ -2298,6 +2298,7 @@
      . (
         (beam-thickness . 0.48) ; staff-space
         (beam-width . ,ly:stem-tremolo::calc-width) ; staff-space
+        (cross-staff . ,ly:stem-tremolo::calc-cross-staff)
         (direction . ,ly:stem-tremolo::calc-direction)
         (parent-alignment-X . ,CENTER)
         (slope . ,ly:stem-tremolo::calc-slope)

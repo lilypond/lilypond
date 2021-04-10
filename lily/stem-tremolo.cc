@@ -34,6 +34,16 @@
 
 using std::vector;
 
+
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_cross_staff, 1)
+SCM
+Stem_tremolo::calc_cross_staff (SCM smob)
+{
+  Grob *me = unsmob<Grob> (smob);
+  Grob *stem = unsmob<Grob> (get_object (me, "stem"));
+  return get_property (stem, "cross-staff");
+}
+
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, 1)
 SCM
 Stem_tremolo::calc_slope (SCM smob)
