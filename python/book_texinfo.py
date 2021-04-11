@@ -34,12 +34,16 @@ import lilylib as ly
 
 TexInfo_snippet_res = {
     'include': r'''(?mx)
-          ^(?P<match>
-          @include\s+
-           (?P<filename>\S+))''',
+          ^
+          (?P<match>
+            @include
+            \s+
+            (?P<filename> \S+ )
+          )''',
 
     'lilypond': r'''(?smx)
-          ^ [^\n]*? (?! @c \s+ ) [^\n]*?
+          ^
+          [^\n]*? (?! @c \s+ ) [^\n]*?
           (?P<match>
             @lilypond
             \s*
@@ -70,11 +74,14 @@ TexInfo_snippet_res = {
           )''',
 
     'multiline_comment': r'''(?smx)
-          ^(?P<match>
-           (?P<code>
-           @ignore\s
-            .*?
-           @end\s+ignore))\s''',
+          ^
+          (?P<match>
+            (?P<code>
+              @ignore
+              \s .*?
+              @end \s+ ignore
+            )
+          ) \s''',
 
     'musicxml_file': r'''(?mx)
           ^
@@ -87,25 +94,31 @@ TexInfo_snippet_res = {
           )''',
 
     'singleline_comment': r'''(?mx)
-          ^.*
+          ^
+          .*
           (?P<match>
-           (?P<code>
-           @c([ \t][^\n]*|)\n))''',
+            (?P<code>
+              @c ( [ \t] [^\n]* | ) \n
+            )
+          )''',
 
     # Don't do this: It interferes with @code{@{}.
     #        'verb': r'''(?P<code>@code{.*?})''',
 
     'verbatim': r'''(?sx)
           (?P<match>
-           (?P<code>
-           @example
-            \s.*?
-           @end\s+example\s))''',
+            (?P<code>
+              @example
+              \s .*?
+              @end \s+ example \s
+            )
+          )''',
 
     'lilypondversion': r'''(?mx)
-         [^@](?P<match>
-          @lilypondversion)[^a-zA-Z]''',
-
+          [^@]
+          (?P<match> @lilypondversion )
+          [^a-zA-Z]
+          ''',
 }
 
 
