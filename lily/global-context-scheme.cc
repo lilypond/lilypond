@@ -34,7 +34,6 @@ LY_DEFINE (ly_format_output, "ly:format-output",
   auto *const g = LY_ASSERT_SMOB (Global_context, context, 1);
 
   SCM output = g->get_output ();
-  progress_indication ("\n");
 
   if (Music_output *od = unsmob<Music_output> (output))
     od->process ();

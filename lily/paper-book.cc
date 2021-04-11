@@ -283,7 +283,6 @@ Paper_book::classic_output (SCM output)
               self_scm (),
               scopes,
               dump_fields ());
-  progress_indication ("\n");
 }
 
 /* TODO: resurrect more complex user-tweaks for titling?  */

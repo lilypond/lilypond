@@ -161,10 +161,6 @@ print_message (int level, const string &location, string s, bool newline)
   if (newline && !message_newline)
     fputc ('\n', stderr);
 
-  /* Test if all silly progress_indication ("\n") can be dropped now.  */
-  if (s == "\n")
-    return;
-
   if (!location.empty ())
     s = location + ": " + s;
   fputs (s.c_str (), stderr);

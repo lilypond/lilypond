@@ -261,7 +261,6 @@ BOM_UTF8	\357\273\277
 	yy_pop_state ();
 	here_input().get_source_file ()->name_ = s;
 	message (_f ("Renaming input to: `%s'", s.c_str ()));
-	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
 		     ly_string2scm (s));

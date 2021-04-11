@@ -348,8 +348,6 @@
          (else))
         (display value port)
         (close-port port)))
-
-  (ly:progress "\n")
   "")
 
 (define-public (output-scopes scopes fields basename)

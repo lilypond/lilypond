@@ -312,7 +312,6 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
                    ly_symbol2string (sym).c_str (),
                    print_scm_val (val),
                    ly_scm2string (type_name).c_str ()));
-      progress_indication ("\n");
       return false;
     }
   return true;

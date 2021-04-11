@@ -249,7 +249,6 @@ Page_turn_page_breaking::solve ()
       calc_subproblem (i);
       progress_indication (string ("[") + std::to_string (i + 1) + "]");
     }
-  progress_indication ("\n");
 
   vector<Break_node> breaking;
   int i = static_cast<int> (state_.size ()) - 1;

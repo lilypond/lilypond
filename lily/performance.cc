@@ -120,7 +120,6 @@ Performance::write_output (string out, const string &performance_name) const
   message (_f ("MIDI output to `%s'...", out));
 
   output (midi_stream, performance_name);
-  progress_indication ("\n");
 
   SCM after_writing = midi_->c_variable ("after-writing");
   if (ly_is_procedure (after_writing))
