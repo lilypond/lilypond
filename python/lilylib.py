@@ -37,19 +37,18 @@ program_name = os.path.basename(sys.argv[0])
 #    debug
 
 # TODO: use the standard logging module
+_loglevels = {"NONE": 0, "ERROR": 1, "WARN": 2,
+              "BASIC": 3, "PROGRESS": 4, "INFO": 5, "DEBUG": 6}
 
-loglevels = {"NONE": 0, "ERROR": 1, "WARN": 2,
-             "BASIC": 3, "PROGRESS": 4, "INFO": 5, "DEBUG": 6}
-
-loglevel = loglevels["PROGRESS"]
+_loglevel = _loglevels["PROGRESS"]
 
 
 def set_loglevel(l):
-    global loglevel
-    newlevel = loglevels.get(l, -1)
+    global _loglevel
+    newlevel = _loglevels.get(l, -1)
     if newlevel > 0:
         debug_output(_("Setting loglevel to %s") % l)
-        loglevel = newlevel
+        _loglevel = newlevel
     else:
         error(_("Unknown or invalid loglevel '%s'") % l)
 
@@ -61,17 +60,17 @@ def handle_loglevel_option(option, opt_str, value, parser, *args):
         set_loglevel(args[0])
 
 
-def is_loglevel(l):
-    global loglevel
-    return loglevel >= loglevels[l]
+def _is_loglevel(l):
+    global _loglevel
+    return _loglevel >= _loglevels[l]
 
 
 def is_verbose():
-    return is_loglevel("DEBUG")
+    return _is_loglevel("DEBUG")
 
 
-def print_logmessage(level, s, fullmessage=True, newline=True):
-    if is_loglevel(level):
+def _print_logmessage(level, s, fullmessage=True, newline=True):
+    if _is_loglevel(level):
         if fullmessage:
             s = program_name + ": " + s + "\n"
         elif newline:
@@ -81,22 +80,22 @@ def print_logmessage(level, s, fullmessage=True, newline=True):
 
 
 def error(s):
-    print_logmessage("ERROR", _("error: %s") % s)
+    _print_logmessage("ERROR", _("error: %s") % s)
 
 
 def warning(s):
-    print_logmessage("WARN", _("warning: %s") % s)
+    _print_logmessage("WARN", _("warning: %s") % s)
 
 
 def progress(s, fullmessage=False, newline=True):
-    print_logmessage("PROGRESS", s, fullmessage, newline)
+    _print_logmessage("PROGRESS", s, fullmessage, newline)
 
 
 def debug_output(s, fullmessage=False, newline=True):
-    print_logmessage("DEBUG", s, fullmessage, newline)
+    _print_logmessage("DEBUG", s, fullmessage, newline)
 
 
-class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
+class _NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):
         if heading:
             return heading[0].upper() + heading[1:] + ':\n'
@@ -135,7 +134,7 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
         return description
 
 
-class NonEmptyOptionParser (optparse.OptionParser):
+class _NonEmptyOptionParser (optparse.OptionParser):
     "A subclass of OptionParser that gobbles empty string arguments."
 
     def parse_args(self, args=None, values=None):
@@ -144,7 +143,7 @@ class NonEmptyOptionParser (optparse.OptionParser):
 
 
 def get_option_parser(*args, **kwargs):
-    p = NonEmptyOptionParser(*args, **kwargs)
-    p.formatter = NonDentedHeadingFormatter()
+    p = _NonEmptyOptionParser(*args, **kwargs)
+    p.formatter = _NonDentedHeadingFormatter()
     p.formatter.set_parser(p)
     return p
