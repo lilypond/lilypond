@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.23.1\n"
+"Project-Id-Version: lilypond 2.23.2\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2021-03-21 11:24+0000\n"
+"POT-Creation-Date: 2021-04-11 12:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1794,23 +1794,23 @@ msgstr ""
 msgid "barcheck failed at: %s"
 msgstr ""
 
-#: beam-engraver.cc:148
+#: beam-engraver.cc:156
 msgid "already have a beam"
 msgstr ""
 
-#: beam-engraver.cc:235
+#: beam-engraver.cc:243
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:282 chord-tremolo-engraver.cc:148
+#: beam-engraver.cc:290 chord-tremolo-engraver.cc:148
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:293
+#: beam-engraver.cc:301
 msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:294
+#: beam-engraver.cc:302
 msgid "beam was started here"
 msgstr ""
 
@@ -1907,6 +1907,16 @@ msgstr ""
 #: custos.cc:88
 #, c-format
 msgid "custos `%s' not found"
+msgstr ""
+
+#: directional-element-interface.cc:31
+#, c-format
+msgid "direction of grob %s requested while calculation in progress"
+msgstr ""
+
+#: directional-element-interface.cc:39
+#, c-format
+msgid "direction of grob %s must be UP or DOWN; using UP"
 msgstr ""
 
 #: dispatcher.cc:80
@@ -2124,7 +2134,11 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob-property.cc:272
+#: grob-property.cc:72
+msgid "To use grob debug callbacks, configure with --enable-checking"
+msgstr ""
+
+#: grob-property.cc:290
 #, c-format
 msgid "%s.%s changed from inside callback"
 msgstr ""
@@ -2587,11 +2601,11 @@ msgstr ""
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:663
+#: main.cc:661
 msgid "SVG backend requested; other formats will be ignored."
 msgstr ""
 
-#: main.cc:679
+#: main.cc:677
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
@@ -3900,7 +3914,7 @@ msgstr ""
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
 
-#: chord-entry.scm:57
+#: chord-entry.scm:54
 #, scheme-format
 msgid "Spurious garbage following chord: ~A"
 msgstr ""
@@ -3911,22 +3925,22 @@ msgid "Requested color '~a' is not defined!"
 msgstr ""
 
 #: define-context-properties.scm:31 define-grob-properties.scm:21
-#: define-music-properties.scm:21 lily.scm:126
+#: define-music-properties.scm:21 lily.scm:128
 #, scheme-format
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:81
+#: define-event-classes.scm:82
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-event-classes.scm:115
+#: define-event-classes.scm:116
 #, scheme-format
 msgid "Cannot redefine event class `~S'"
 msgstr ""
 
-#: define-event-classes.scm:117
+#: define-event-classes.scm:118
 #, scheme-format
 msgid "Undefined parent event class `~S'"
 msgstr ""
@@ -3979,31 +3993,31 @@ msgstr ""
 msgid "Could not find ottavation markup for ~a octaves up."
 msgstr ""
 
-#: define-music-types.scm:879
+#: define-music-types.scm:883
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:882
+#: define-music-types.scm:886
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:902
+#: define-music-types.scm:906
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
 
-#: define-note-names.scm:1414
+#: define-note-names.scm:1413
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:1420
+#: define-note-names.scm:1419
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:1422
+#: define-note-names.scm:1421
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -4250,9 +4264,9 @@ msgstr ""
 msgid "String ~a out of range 1-~a, ignoring"
 msgstr ""
 
-#: graphviz.scm:64
+#: graphviz.scm:65
 #, scheme-format
-msgid "Writing graph `~a'..."
+msgid "Writing graph to `~a'...\n"
 msgstr ""
 
 #: harp-pedals.scm:119
@@ -4287,106 +4301,106 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:340
+#: lily-library.scm:339
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:348
+#: lily-library.scm:347
 msgid "Cannot determine contexts to modify"
 msgstr ""
 
-#: lily-library.scm:399
+#: lily-library.scm:398
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:415
+#: lily-library.scm:414
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:954
+#: lily-library.scm:953
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1048
+#: lily-library.scm:1047
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1073
+#: lily-library.scm:1072
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily.scm:118
+#: lily.scm:120
 msgid "call-after-session used after session start"
 msgstr ""
 
-#: lily.scm:123
+#: lily.scm:125
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:454
+#: lily.scm:456
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:457
+#: lily.scm:459
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:509
+#: lily.scm:501
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:849
+#: lily.scm:834
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:850
+#: lily.scm:835
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:915
+#: lily.scm:900
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:918
+#: lily.scm:903
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:922
+#: lily.scm:907
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:935 lily.scm:1010
+#: lily.scm:920 lily.scm:998
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:952
+#: lily.scm:937
 msgid "option 'debug-gc-object-lifetimes not supported on GUILE 2"
 msgstr ""
 
-#: lily.scm:972
+#: lily.scm:960
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
 
-#: lily.scm:1003
+#: lily.scm:991
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1020
+#: lily.scm:1008
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -4469,100 +4483,100 @@ msgid ""
 "@var{n} is zero-based and can be negative to count from the end."
 msgstr ""
 
-#: music-functions.scm:306
+#: music-functions.scm:305
 #, scheme-format
 msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
 msgstr ""
 
-#: music-functions.scm:319
+#: music-functions.scm:318
 msgid "alternative music expected"
 msgstr ""
 
-#: music-functions.scm:332
+#: music-functions.scm:331
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
-#: music-functions.scm:435
+#: music-functions.scm:434
 #, scheme-format
 msgid "unknown repeat-type ~a, ignoring."
 msgstr ""
 
-#: music-functions.scm:526
+#: music-functions.scm:525
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:550
+#: music-functions.scm:549
 #, scheme-format
 msgid "bad context property ~a"
 msgstr ""
 
-#: music-functions.scm:581
+#: music-functions.scm:580
 #, scheme-format
 msgid "bad music property ~a"
 msgstr ""
 
-#: music-functions.scm:900
+#: music-functions.scm:899
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:1007
+#: music-functions.scm:1006
 #, scheme-format
 msgid "Bad voice id: ~a"
 msgstr ""
 
-#: music-functions.scm:1018
+#: music-functions.scm:1017
 msgid "\\voices needs more ids"
 msgstr ""
 
-#: music-functions.scm:1037
+#: music-functions.scm:1036
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1403
+#: music-functions.scm:1402
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1541
+#: music-functions.scm:1540
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1604
+#: music-functions.scm:1603
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1605
+#: music-functions.scm:1604
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:2004
+#: music-functions.scm:2003
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2433
+#: music-functions.scm:2432
 msgid "giving up on cloned grob transform"
 msgstr ""
 
-#: music-functions.scm:2496
+#: music-functions.scm:2495
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
 msgstr ""
 
-#: music-functions.scm:2527
+#: music-functions.scm:2526
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
 msgstr ""
 
-#: music-functions.scm:2753
+#: music-functions.scm:2752
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2756
+#: music-functions.scm:2755
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
@@ -4605,23 +4619,23 @@ msgstr ""
 msgid "cannot find SVG font ~S"
 msgstr ""
 
-#: paper.scm:121
+#: paper.scm:120
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr ""
 
-#: paper.scm:322
+#: paper.scm:321
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:330
+#: paper.scm:329
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:349
+#: paper.scm:348
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
