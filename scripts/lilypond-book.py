@@ -143,16 +143,17 @@ def get_option_parser():
                              conflict_handler="resolve",
                              add_help_option=False)
 
-    p.add_option('-F', '--filter', metavar=_("FILTER"),
+    p.add_option('-F', '--filter',
+                 help=_("pipe snippets through FILTER "
+                        "[default: `convert-ly -n -']"),
+                 metavar=_("FILTER"),
                  action="store",
                  dest="filter_cmd",
-                 help=_(
-                     "pipe snippets through FILTER [default: `convert-ly -n -']"),
                  default=None)
 
     p.add_option('-f', '--format',
-                 help=_(
-                     "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"),
+                 help=_("use output format FORMAT (texi [default], "
+                        "texi-html, latex, html, docbook)"),
                  metavar=_("FORMAT"),
                  action='store')
 
@@ -160,93 +161,111 @@ def get_option_parser():
                  action="help",
                  help=_("show this help and exit"))
 
-    p.add_option("-I", '--include', help=_("add DIR to include path"),
+    p.add_option("-I", '--include',
+                 help=_("add DIR to include path"),
                  metavar=_("DIR"),
-                 action='append', dest='include_path',
+                 action='append',
+                 dest='include_path',
                  default=[])
 
     p.add_option('--info-images-dir',
                  help=_("format Texinfo output so that Info will "
                         "look for images of music in DIR"),
                  metavar=_("DIR"),
-                 action='store', dest='info_images_dir',
+                 action='store',
+                 dest='info_images_dir',
                  default='')
 
     p.add_option('--left-padding',
+                 help=_("pad left side of music to align music in spite "
+                        "of uneven bar numbers (in mm) [default: %default]"),
                  metavar=_("PAD"),
                  dest="padding_mm",
-                 help=_(
-                     "pad left side of music to align music in spite of uneven bar numbers (in mm)"),
                  type="float",
                  default=3.0)
 
     p.add_option('--lily-loglevel',
-                 help=_("Print lilypond log messages according to LOGLEVEL"),
+                 help=_("print lilypond log messages according to LOGLEVEL "
+                        "[default: %default]"),
                  metavar=_("LOGLEVEL"),
-                 action='store', dest='lily_loglevel',
+                 action='store',
+                 dest='lily_loglevel',
                  default=os.environ.get("LILYPOND_LOGLEVEL", None))
 
     p.add_option('--lily-output-dir',
-                 help=_("write lily-XXX files to DIR, link into --output dir"),
+                 help=_("write lily-XXX files to DIR, "
+                        "link into --output dir"),
                  metavar=_("DIR"),
-                 action='store', dest='lily_output_dir',
+                 action='store',
+                 dest='lily_output_dir',
                  default=None)
 
     p.add_option("-l", "--loglevel",
-                 help=_("Print log messages according to LOGLEVEL "
-                        "(NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"),
+                 help=_("print log messages according to LOGLEVEL "
+                        "(NONE, ERROR, WARNING, PROGRESS [default], DEBUG)"),
                  metavar=_("LOGLEVEL"),
                  action='callback',
                  callback=ly.handle_loglevel_option,
                  type='string')
 
-    p.add_option("-o", '--output', help=_("write output to DIR"),
+    p.add_option("-o", '--output',
+                 help=_("write output to DIR"),
                  metavar=_("DIR"),
-                 action='store', dest='output_dir',
+                 action='store',
+                 dest='output_dir',
                  default='')
 
-    p.add_option('-P', '--process', metavar=_("COMMAND"),
+    p.add_option('-P', '--process',
                  help=_("process ly_files using COMMAND FILE..."),
+                 metavar=_("COMMAND"),
                  action='store',
-                 dest='process_cmd', default='')
+                 dest='process_cmd',
+                 default='')
 
     p.add_option('--redirect-lilypond-output',
-                 help=_("Redirect the lilypond output"),
+                 help=_("redirect the lilypond output"),
                  action='store_true',
-                 dest='redirect_output', default=False)
+                 dest='redirect_output',
+                 default=False)
 
-    p.add_option('-s', '--safe', help=_("Compile snippets in safe mode"),
+    p.add_option('-s', '--safe',
+                 help=_("compile snippets in safe mode"),
                  action="store_true",
-                 default=False,
-                 dest="safe_mode")
+                 dest="safe_mode",
+                 default=False)
 
     p.add_option('--skip-lily-check',
                  help=_("do not fail if no lilypond output is found"),
                  metavar=_("DIR"),
-                 action='store_true', dest='skip_lilypond_run',
+                 action='store_true',
+                 dest='skip_lilypond_run',
                  default=False)
 
     p.add_option('--skip-png-check',
-                 help=_("do not fail if no PNG images are found for EPS files"),
+                 help=_("do not fail if no PNG images "
+                        "are found for EPS files"),
                  metavar=_("DIR"),
-                 action='store_true', dest='skip_png_check',
+                 action='store_true',
+                 dest='skip_png_check',
                  default=False)
 
     p.add_option('--use-source-file-names',
-                 help=_(
-                     "write snippet output files with the same base name as their source file"),
-                 action='store_true', dest='use_source_file_names',
+                 help=_("write snippet output files with the same "
+                        "base name as their source file"),
+                 action='store_true',
+                 dest='use_source_file_names',
                  default=False)
 
-    p.add_option('-V', '--verbose', help=_("be verbose"),
+    p.add_option('-V', '--verbose',
+                 help=_("be verbose"),
                  action="callback",
                  callback=ly.handle_loglevel_option,
                  callback_args=("DEBUG",))
 
     p.version = "@TOPLEVEL_VERSION@"
     p.add_option("--version",
-                 action="version",
-                 help=_("show version number and exit"))
+                 help=_("show version number and exit"),
+                 action="version")
 
     p.add_option('-w', '--warranty',
                  help=_("show warranty and copyright"),
@@ -254,20 +273,23 @@ def get_option_parser():
 
     group = OptionGroup(p, "Options only for the latex and texinfo backends")
     group.add_option('--latex-program',
-                     help=_("run executable PROG instead of latex, or in\n\
-case --pdf option is set instead of pdflatex"),
+                     help=_("run executable PROG instead of latex or, "
+                            "in case --pdf option is set, "
+                            "instead of pdflatex"),
                      metavar=_("PROG"),
-                     action='store', dest='latex_program',
+                     action='store',
+                     dest='latex_program',
                      default='latex')
     group.add_option('--texinfo-program',
                      help=_("run executable PROG instead of texi2pdf"),
                      metavar=_("PROG"),
-                     action='store', dest='texinfo_program',
+                     action='store',
+                     dest='texinfo_program',
                      default='texi2pdf')
     group.add_option('--pdf',
+                     help=_("create PDF files for use with pdftex"),
                      action="store_true",
                      dest="create_pdf",
-                     help=_("create PDF files for use with PDFTeX"),
                      default=False)
     p.add_option_group(group)
 
