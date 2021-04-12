@@ -756,9 +756,6 @@ def main():
                 _("Setting LilyPond's output to --verbose, implied by lilypond-book's setting"), True)
             global_options.process_cmd += " --verbose"
 
-    if global_options.padding_mm:
-        global_options.process_cmd += " -deps-box-padding=%f " % global_options.padding_mm
-
     global_options.process_cmd += " -dread-file-list -dno-strip-output-dir"
 
     if global_options.lily_output_dir:
