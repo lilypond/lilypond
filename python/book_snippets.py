@@ -462,8 +462,8 @@ class LilypondSnippet (Snippet):
 
         # also construct a list of all options (as strings) that influence the
         # visual appearance of the snippet
-        lst = [x_y for x_y in iter(self.option_dict.items(
-        )) if x_y[0] not in PROCESSING_INDEPENDENT_OPTIONS]
+        lst = [x_y for x_y in iter(self.option_dict.items())
+                     if x_y[0] not in PROCESSING_INDEPENDENT_OPTIONS]
         option_list = []
         for (key, value) in lst:
             if value is None:
@@ -479,10 +479,11 @@ class LilypondSnippet (Snippet):
         # #(define line-width (- line-width (* 3 mm)))
         # TODO: Junk this ugly hack if the code gets rewritten to concatenate
         # all settings before writing them in the \paper block.
+        #
         # if not LINE_WIDTH in self.option_dict:
-        # if not QUOTE in self.option_dict:
-        # self.option_dict[LINE_WIDTH] = "#(- paper-width \
-# left-margin-default right-margin-default)"
+        #     if not QUOTE in self.option_dict:
+        #         self.option_dict[LINE_WIDTH] = \
+        #           "#(- paper-width left-margin-default right-margin-default)"
 
     # Get a list of all options (as string) that influence the snippet appearance
 
