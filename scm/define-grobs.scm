@@ -1601,6 +1601,7 @@
         (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (lyric-hyphen-interface
+                                lyric-space-interface
                                 spanner-interface))))))
 
     (LyricText

@@ -296,6 +296,11 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'lyric-space-interface
+ "An invisible object that prevents lyric words from being spaced too closely."
+ '())
+
+(ly:add-interface
  'lyric-syllable-interface
  "A single piece of lyrics."
  '())
