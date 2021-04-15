@@ -58,6 +58,30 @@ Hyphen_engraver::Hyphen_engraver (Context *c)
 }
 
 void
+Hyphen_engraver::listen_hyphen (Stream_event *ev)
+{
+  ASSIGN_EVENT_ONCE (ev_, ev);
+}
+
+void
+Hyphen_engraver::listen_vowel_transition (Stream_event *ev)
+{
+  ASSIGN_EVENT_ONCE (ev_, ev);
+}
+
+void
+Hyphen_engraver::process_music ()
+{
+  if (ev_)
+    {
+      if (ev_->in_event_class ("vowel-transition-event"))
+        hyphen_ = make_spanner ("VowelTransition", ev_->self_scm ());
+      else
+        hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ());
+    }
+}
+
+void
 Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
 {
   Item *item = dynamic_cast<Item *> (i.grob ());
@@ -73,15 +97,29 @@ Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
 }
 
 void
-Hyphen_engraver::listen_hyphen (Stream_event *ev)
+Hyphen_engraver::stop_translation_timestep ()
 {
-  ASSIGN_EVENT_ONCE (ev_, ev);
-}
+  if (finished_hyphen_ && finished_hyphen_->get_bound (RIGHT))
+    {
+      finished_hyphen_ = nullptr;
+      finished_ev_ = nullptr;
+    }
 
-void
-Hyphen_engraver::listen_vowel_transition (Stream_event *ev)
-{
-  ASSIGN_EVENT_ONCE (ev_, ev);
+  if (finished_hyphen_ && hyphen_)
+    {
+      programming_error ("hyphen not finished yet");
+      finished_hyphen_ = nullptr;
+      finished_ev_ = nullptr;
+    }
+
+  if (hyphen_)
+    {
+      finished_hyphen_ = hyphen_;
+      finished_ev_ = ev_;
+    }
+
+  hyphen_ = nullptr;
+  ev_ = nullptr;
 }
 
 void
@@ -123,44 +161,6 @@ Hyphen_engraver::finalize ()
         }
       finished_hyphen_ = nullptr;
     }
-}
-
-void
-Hyphen_engraver::process_music ()
-{
-  if (ev_)
-    {
-      if (ev_->in_event_class ("vowel-transition-event"))
-        hyphen_ = make_spanner ("VowelTransition", ev_->self_scm ());
-      else
-        hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ());
-    }
-}
-
-void
-Hyphen_engraver::stop_translation_timestep ()
-{
-  if (finished_hyphen_ && finished_hyphen_->get_bound (RIGHT))
-    {
-      finished_hyphen_ = nullptr;
-      finished_ev_ = nullptr;
-    }
-
-  if (finished_hyphen_ && hyphen_)
-    {
-      programming_error ("hyphen not finished yet");
-      finished_hyphen_ = nullptr;
-      finished_ev_ = nullptr;
-    }
-
-  if (hyphen_)
-    {
-      finished_hyphen_ = hyphen_;
-      finished_ev_ = ev_;
-    }
-
-  hyphen_ = nullptr;
-  ev_ = nullptr;
 }
 
 void
