@@ -31,11 +31,11 @@
 
 class Hyphen_engraver : public Engraver
 {
-  Stream_event *ev_;
-  Stream_event *finished_ev_;
+  Stream_event *ev_ = nullptr;
+  Stream_event *finished_ev_ = nullptr;
 
-  Spanner *hyphen_;
-  Spanner *finished_hyphen_;
+  Spanner *hyphen_ = nullptr;
+  Spanner *finished_hyphen_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
@@ -55,10 +55,6 @@ protected:
 Hyphen_engraver::Hyphen_engraver (Context *c)
   : Engraver (c)
 {
-  hyphen_ = 0;
-  finished_hyphen_ = 0;
-  finished_ev_ = 0;
-  ev_ = 0;
 }
 
 void
@@ -112,7 +108,7 @@ Hyphen_engraver::finalize ()
           hyphen_->suicide ();
         }
 
-      hyphen_ = 0;
+      hyphen_ = nullptr;
     }
 
   if (finished_hyphen_)
@@ -125,7 +121,7 @@ Hyphen_engraver::finalize ()
             finished_hyphen_->warning (_ ("unterminated hyphen; removing"));
           finished_hyphen_->suicide ();
         }
-      finished_hyphen_ = 0;
+      finished_hyphen_ = nullptr;
     }
 }
 
@@ -146,15 +142,15 @@ Hyphen_engraver::stop_translation_timestep ()
 {
   if (finished_hyphen_ && finished_hyphen_->get_bound (RIGHT))
     {
-      finished_hyphen_ = 0;
-      finished_ev_ = 0;
+      finished_hyphen_ = nullptr;
+      finished_ev_ = nullptr;
     }
 
   if (finished_hyphen_ && hyphen_)
     {
       programming_error ("hyphen not finished yet");
-      finished_hyphen_ = 0;
-      finished_ev_ = 0;
+      finished_hyphen_ = nullptr;
+      finished_ev_ = nullptr;
     }
 
   if (hyphen_)
@@ -163,8 +159,8 @@ Hyphen_engraver::stop_translation_timestep ()
       finished_ev_ = ev_;
     }
 
-  hyphen_ = 0;
-  ev_ = 0;
+  hyphen_ = nullptr;
+  ev_ = nullptr;
 }
 
 void
