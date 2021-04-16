@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2021-03-23.21}
+\def\texinfoversion{2021-04-08.19}
 %
 % Copyright 1985, 1986, 1988, 1990-2021 Free Software Foundation, Inc.
 %
@@ -574,7 +574,7 @@
 
 
 % @end foo calls \checkenv and executes the definition of \Efoo.
-\parseargdef\end{
+\parseargdef\end{%
   \if 1\csname iscond.#1\endcsname
   \else
     % The general wording of \badenverr may not be ideal.
@@ -1862,19 +1862,23 @@ output) for that.)}
       \closein 1
     \endgroup
     %
-    \def\xetexpdfext{pdf}%
-    \ifx\xeteximgext\xetexpdfext
-      \XeTeXpdffile "#1".\xeteximgext ""
-    \else
-      \def\xetexpdfext{PDF}%
+    % Putting an \hbox around the image can prevent an over-long line
+    % after the image.
+    \hbox\bgroup
+      \def\xetexpdfext{pdf}%
       \ifx\xeteximgext\xetexpdfext
         \XeTeXpdffile "#1".\xeteximgext ""
       \else
-        \XeTeXpicfile "#1".\xeteximgext ""
+        \def\xetexpdfext{PDF}%
+        \ifx\xeteximgext\xetexpdfext
+          \XeTeXpdffile "#1".\xeteximgext ""
+        \else
+          \XeTeXpicfile "#1".\xeteximgext ""
+        \fi
       \fi
-    \fi
-    \ifdim \wd0 >0pt width \xeteximagewidth \fi
-    \ifdim \wd2 >0pt height \xeteximageheight \fi \relax
+      \ifdim \wd0 >0pt width \xeteximagewidth \fi
+      \ifdim \wd2 >0pt height \xeteximageheight \fi \relax
+    \egroup
   }
 \fi
 
