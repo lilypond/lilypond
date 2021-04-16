@@ -126,41 +126,39 @@ TexInfo_output = {
     book_snippets.FILTER: r'''@lilypond[%(options)s]
 %(code)s@end lilypond''',
 
-    book_snippets.OUTPUT: r'''
-@iftex
+    book_snippets.OUTPUT: r'''@iftex
 @include %(base)s-systems.texi
-@end iftex
-''',
+@end iftex''',
 
     book_snippets.OUTPUTIMAGE: r'''@noindent
 @ifinfo
 @image{%(info_image_path)s,,,%(alt)s,}
 @end ifinfo
 @html
-<p>
- <a href="%(base)s%(ext)s">
+%(para_pre)s<a href="%(base)s%(ext)s">
   <img align="middle"
        border="0"
        src="%(image)s"
-       alt="%(alt)s">
- </a>
-</p>
+       alt="%(alt)s"></a>%(para_post)s
 @end html
 ''',
 
-    book_snippets.PRINTFILENAME: '''
-@html
+    # URGH: The empty line after `</a>` is necessary for texi2html 1.82,
+    #       which swallows the last newline of the `@ifhtml` region.  The
+    #       `@html` environment should be replaced with `@inlineraw` for
+    #       recent `texi2any` versions.
+    book_snippets.PRINTFILENAME: '''@html
 <a href="%(base)s%(ext)s">
 @end html
 @file{%(filename)s}
 @html
 </a>
-@end html
-    ''',
+
+@end html''',
 
     book_snippets.QUOTE: r'''@quotation
-%(str)s@end quotation
-''',
+%(str)s
+@end quotation''',
 
     book_snippets.VERBATIM: r'''@verbatim
 %(verb)s@end verbatim
@@ -342,6 +340,19 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         rep['base'] = basename
         rep['filename'] = os.path.basename(snippet.filename)
         rep['ext'] = snippet.ext
+        if book_snippets.INLINE not in snippet.option_dict:
+            # URGH: For recent `texi2any` versions, both values must be
+            #       empty.
+            rep['para_pre'] = '<p>'
+            rep['para_post'] = '</p>'
+        else:
+            rep['para_pre'] = ''
+            # URGH: The empty line after `</a>` is necessary for texi2html
+            #       1.82, which swallows the last newline of the `@ifhtml`
+            #       region.  The `@html` environment should be replaced with
+            #       `@inlineraw` for recent `texi2any` versions.
+            rep['para_post'] = '\n'
+
         for image in snippet.get_images():
             rep1 = copy.copy(rep)
             rep1['base'] = os.path.splitext(image)[0]
@@ -385,6 +396,9 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
 
         s += self.output_print_filename(basename, snippet)
 
+        if book_snippets.INLINE not in snippet.option_dict:
+            s += '\n'
+
         substr = ''
         rep = snippet.get_replacements()
         if book_snippets.VERBATIM in snippet.option_dict:
@@ -395,8 +409,8 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
             substr = self.output[book_snippets.QUOTE] % {'str': substr}
         s += substr
 
-        # need par after image
-        s += '\n'
+        if book_snippets.INLINE not in snippet.option_dict:
+            s += '\n'
 
         return s
 

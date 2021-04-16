@@ -86,12 +86,9 @@ HTML_output = {
 </lilypond>
 ''',
 
-    book_snippets.AFTER: r'''
- </a>
-</p>''',
+    book_snippets.AFTER: r'''</a>''',
 
-    book_snippets.BEFORE: r'''<p>
- <a href="%(base)s%(ext)s">''',
+    book_snippets.BEFORE: r'''<a href="%(base)s%(ext)s">''',
 
     book_snippets.OUTPUT: r'''
   <img align="middle"
@@ -101,13 +98,12 @@ HTML_output = {
 
     book_snippets.PRINTFILENAME: '<p><tt><a href="%(base)s%(ext)s">%(filename)s</a></tt></p>',
 
-    book_snippets.QUOTE: r'''<blockquote>
-%(str)s
-</blockquote>
-''',
+    book_snippets.QUOTE: r'''<blockquote>%(str)s</blockquote>''',
 
-    book_snippets.VERBATIM: r'''<pre>
-%(verb)s</pre>''',
+    book_snippets.PARA: r'''<p>%(str)s</p>''',
+
+    book_snippets.VERBATIM: r'''<pre>%(verb)s</pre>
+''',
 
     book_snippets.VERSION: r'''%(program_version)s''',
 }
@@ -138,18 +134,12 @@ class BookHTMLOutputFormat (book_base.BookOutputFormat):
         else:
             return cmd
 
-    def snippet_output(self, basename, snippet):
+    def output_images(self, basename, snippet):
         s = ''
         rep = snippet.get_replacements()
         rep['base'] = basename
         rep['filename'] = os.path.basename(snippet.filename)
         rep['ext'] = snippet.ext
-        s += self.output_print_filename(basename, snippet)
-        if book_snippets.VERBATIM in snippet.option_dict:
-            rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
-            s += self.output[book_snippets.VERBATIM] % rep
-        if book_snippets.QUOTE in snippet.option_dict:
-            s = self.output[book_snippets.QUOTE] % {'str': s}
 
         s += self.output[book_snippets.BEFORE] % rep
         for image in snippet.get_images():
@@ -158,8 +148,28 @@ class BookHTMLOutputFormat (book_base.BookOutputFormat):
             (rep1['base'], rep1['ext']) = os.path.splitext(image)
             rep1['alt'] = snippet.option_dict[book_snippets.ALT]
             s += self.output[book_snippets.OUTPUT] % rep1
-
         s += self.output[book_snippets.AFTER] % rep
+        return s
+
+    def snippet_output(self, basename, snippet):
+        s = ''
+        s += self.output_print_filename(basename, snippet)
+        rep = snippet.get_replacements()
+
+        substr = ''
+        if book_snippets.VERBATIM in snippet.option_dict:
+            rep['verb'] = book_base.verbatim_html(snippet.verb_ly())
+            substr = self.output[book_snippets.VERBATIM] % rep
+
+        subsubstr = self.output_images(basename, snippet)
+        if book_snippets.INLINE not in snippet.option_dict:
+            subsubstr = self.output[book_snippets.PARA] % {'str': subsubstr}
+        substr += subsubstr
+
+        if book_snippets.QUOTE in snippet.option_dict:
+            substr = self.output[book_snippets.QUOTE] % {'str': substr}
+        s += substr
+
         return s
 
     def required_files(self, snippet, base, full, required_files):

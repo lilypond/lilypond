@@ -55,6 +55,7 @@ NOFRAGMENT = 'nofragment'
 NOGETTEXT = 'nogettext'
 NOINDENT = 'noindent'
 INDENT = 'indent'
+INLINE = 'inline'
 NORAGGED_RIGHT = 'noragged-right'
 NOTES = 'body'
 NOTIME = 'notime'
@@ -62,6 +63,7 @@ OUTPUT = 'output'
 OUTPUTIMAGE = 'outputimage'
 PAPER = 'paper'
 PAPERSIZE = 'papersize'
+PARA = 'para'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
 QUOTE = 'quote'
@@ -91,6 +93,7 @@ PROCESSING_INDEPENDENT_OPTIONS = (
 simple_options = [
     EXAMPLEINDENT,
     FRAGMENT,
+    INLINE,
     NOFRAGMENT,
     NOGETTEXT,
     NOINDENT,
@@ -568,6 +571,14 @@ class LilypondSnippet (Snippet):
         elif relative > 0:
             relative_quotes += "'" * relative
 
+        if INLINE in override:
+            # For inline images, try to make left and right padding equal,
+            # ignoring the `--left-padding` value.
+            #
+            # URGH Value 0 makes LilyPond apply no left padding at all, but
+            #      still having some right padding.  This is a bug (#6116).
+            override['padding_mm'] = 0.0001
+
         # put paper-size first, if it exists
         for i, elem in enumerate(compose_dict[PAPER]):
             if elem.startswith("#(set-paper-size"):
@@ -578,12 +589,14 @@ class LilypondSnippet (Snippet):
         layout_string = '\n  '.join(compose_dict[LAYOUT]) % override
         notes_string = '\n  '.join(compose_dict[NOTES]) % vars()
         preamble_string = '\n  '.join(compose_dict[PREAMBLE]) % override
-        padding_mm = self.global_options.padding_mm
+
+        padding_mm = override['padding_mm']
         if padding_mm != 0:
             padding_mm_string = \
                 "#(ly:set-option 'eps-box-padding %f)" % padding_mm
         else:
             padding_mm_string = ""
+
         if self.global_options.safe_mode:
             safe_mode_string = "#(ly:set-option 'safe #t)"
         else:
