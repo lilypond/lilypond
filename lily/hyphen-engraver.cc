@@ -93,7 +93,10 @@ Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
     hyphen_->set_bound (LEFT, item);
 
   if (finished_hyphen_)
-    finished_hyphen_->set_bound (RIGHT, item);
+    {
+      finished_hyphen_->set_bound (RIGHT, item);
+      announce_end_grob (dynamic_cast<Grob *> (finished_hyphen_), to_scm (item));
+    }
 }
 
 void
