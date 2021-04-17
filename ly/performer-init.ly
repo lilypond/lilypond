@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.16"
+\version "2.23.3"
 
 %%
 %% setup for Request->Element conversion.
@@ -169,22 +169,44 @@
 
 \context {
   \type "Performer_group"
-  \name GrandStaff
+  \name StaffGroup
+  \accepts ChoirStaff
   \accepts ChordNames
+  \accepts Devnull
   \accepts DrumStaff
   \accepts Dynamics
   \accepts FiguredBass
+  \accepts FretBoards
+  \accepts GrandStaff
+  \accepts GregorianTranscriptionStaff
+  \accepts KievanStaff
   \accepts Lyrics
+  \accepts MensuralStaff
+  \accepts NoteNames
+  \accepts OneStaff
+  \accepts PianoStaff
   \accepts RhythmicStaff
   \accepts Staff
+  \accepts StaffGroup
   \accepts TabStaff
+  \accepts VaticanaStaff
   \defaultchild Staff
+}
+
+\context {
+  \StaffGroup
+  \name GrandStaff
 }
 
 \context {
   \GrandStaff
   \name PianoStaff
   \alias GrandStaff
+}
+
+\context{
+  \StaffGroup
+  \name ChoirStaff
 }
 
 \context {
@@ -308,24 +330,6 @@
   \name Lyrics
 }
 
-\context{
-  \type "Performer_group"
-  \name ChoirStaff
-  \accepts ChoirStaff
-  \accepts ChordNames
-  \accepts FiguredBass
-  \accepts DrumStaff
-  \accepts Dynamics
-  \accepts GrandStaff
-  \accepts Lyrics
-  \accepts OneStaff
-  \accepts PianoStaff
-  \accepts RhythmicStaff
-  \accepts Staff
-  \accepts StaffGroup
-  \defaultchild Staff
-}
-
 \context {
   \type "Performer_group"
   \consists "Staff_performer"
@@ -340,25 +344,6 @@
   \alias Staff			% Catch Staff-level overrides like
 				% \key, \transposition
   \consists "Staff_performer"
-}
-
-\context {
-  \type "Performer_group"
-  \name StaffGroup
-  \accepts ChoirStaff
-  \accepts ChordNames
-  \accepts DrumStaff
-  \accepts FiguredBass
-  \accepts FretBoards
-  \accepts GrandStaff
-  \accepts Lyrics
-  \accepts OneStaff
-  \accepts PianoStaff
-  \accepts RhythmicStaff
-  \accepts Staff
-  \accepts StaffGroup
-  \accepts TabStaff
-  \defaultchild Staff
 }
 
 \context {

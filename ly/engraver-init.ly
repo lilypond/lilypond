@@ -16,7 +16,9 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.21.0"
+\version "2.23.3"
+
+%% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
 \context {
   \name "Global"
@@ -128,40 +130,6 @@
   clefGlyph = "clefs.percussion"
   clefPosition = #0
   \override Script.staff-padding = #0.75
-}
-
-
-\context {
-  \type "Engraver_group"
-  \name "ChoirStaff"
-  \consists "Vertical_align_engraver"
-  topLevelAlignment = ##f
-  localAlterations = #'()
-
-  \consists "Instrument_name_engraver"
-  \consists "System_start_delimiter_engraver"
-  systemStartDelimiter = #'SystemStartBracket
-  %% explicitly set instrument, so it is not inherited from the parent
-  instrumentName = #'()
-  shortInstrumentName = #'()
-  vocalName = #'()
-  shortVocalName = #'()
-
-  \accepts "ChoirStaff"
-  \accepts "ChordNames"
-  \accepts "DrumStaff"
-  \accepts "Dynamics"
-  \accepts "FiguredBass"
-  \accepts "GrandStaff"
-  \accepts "Lyrics"
-  \accepts "OneStaff"
-  \accepts "PianoStaff"
-  \accepts "RhythmicStaff"
-  \accepts "Staff"
-  \accepts "StaffGroup"
-  \defaultchild "Staff"
-  \description "Identical to @code{StaffGroup} except that the
-contained staves are not connected vertically."
 }
 
 \context{
@@ -311,57 +279,6 @@ multiple voices on the same staff."
   \remove "Cluster_spanner_engraver"
 }
 
-\context{
-  \type "Engraver_group"
-  \name "GrandStaff"
-  localAlterations = #'()
-
-  \description "A group of staves, with a brace on the left
-side, grouping the staves together.  The bar lines of the
-contained staves are connected vertically."
-
-  \consists "Instrument_name_engraver"
-  \consists "Span_bar_engraver"
-  %% The default for DynamicText.extra-spacing-width causes dynamics to
-  %% be placed across span bars, so switch it off:
-  \override DynamicText.extra-spacing-width = ##f
-  \consists "Span_bar_stub_engraver"
-  \consists "Span_arpeggio_engraver"
-  \consists "System_start_delimiter_engraver"
-  \consists "Vertical_align_engraver"
-  systemStartDelimiter = #'SystemStartBrace
-  topLevelAlignment = ##f
-  %% explicitly set instrument, so it is not inherited from the parent
-  instrumentName = #'()
-  shortInstrumentName = #'()
-
-  \defaultchild "Staff"
-  \accepts "ChordNames"
-  \accepts "DrumStaff"
-  \accepts "Dynamics"
-  \accepts "FiguredBass"
-  \accepts "Lyrics"
-  \accepts "RhythmicStaff"
-  \accepts "Staff"
-  \accepts "TabStaff"
-}
-
-\context{
-  \GrandStaff
-  \name "PianoStaff"
-  \alias "GrandStaff"
-
-  \description "Just like @code{GrandStaff}, but the staves are only removed
-together, never separately."
-
-  \consists "Vertical_align_engraver"
-  \consists "Keep_alive_together_engraver"
-  topLevelAlignment = ##f
-
-  instrumentName = #'()
-  shortInstrumentName = #'()
-}
-
 \context {
   \type "Engraver_group"
   \name "StaffGroup"
@@ -382,27 +299,81 @@ together, never separately."
   instrumentName = #'()
   shortInstrumentName = #'()
 
+  localAlterations = ##f
   \consists "System_start_delimiter_engraver"
 
   \defaultchild "Staff"
+  % Accept all kinds of contexts also accepted by Score.
   \accepts "ChoirStaff"
   \accepts "ChordNames"
+  \accepts "Devnull"
   \accepts "DrumStaff"
+  \accepts "Dynamics"
   \accepts "FiguredBass"
   \accepts "FretBoards"
   \accepts "GrandStaff"
+  \accepts "GregorianTranscriptionStaff"
+  \accepts "KievanStaff"
   \accepts "Lyrics"
+  \accepts "MensuralStaff"
+  \accepts "NoteNames"
   \accepts "OneStaff"
+  \accepts "PetrucciStaff"
   \accepts "PianoStaff"
   \accepts "RhythmicStaff"
   \accepts "Staff"
   \accepts "StaffGroup"
   \accepts "TabStaff"
+  \accepts "VaticanaStaff"
+
+  localAlterations = #'()
 
   \description "Groups staves while adding a bracket on the left
 side, grouping the staves together.  The bar lines of the contained
 staves are connected vertically.  @code{StaffGroup} only consists of
 a collection of staves, with a bracket in front and spanning bar lines."
+}
+
+\context{
+  \StaffGroup
+  \name "GrandStaff"
+
+  systemStartDelimiter = #'SystemStartBrace
+
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
+
+  localAlterations = #'()
+}
+
+\context{
+  \GrandStaff
+  \name "PianoStaff"
+  \alias "GrandStaff"
+
+  \description "Just like @code{GrandStaff}, but the staves are only removed
+together, never separately."
+
+  \consists "Keep_alive_together_engraver"
+
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
+}
+
+\context {
+  \StaffGroup
+  \name "ChoirStaff"
+  \remove "Span_bar_engraver"
+  %% explicitly set instrument, so it is not inherited from the parent
+  instrumentName = #'()
+  shortInstrumentName = #'()
+
+  localAlterations = #'()
+
+  \description "Identical to @code{StaffGroup} except that the
+contained staves are not connected vertically."
 }
 
 \context {
