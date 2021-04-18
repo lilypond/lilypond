@@ -132,6 +132,12 @@ arrow head of the @code{BendSpanner}.\n
     bend-me))
 
 (ly:add-interface
+ 'centered-text-interface
+ "A spanner that interprets a markup centered between two columns."
+ '(self-alignment-X
+   spacing-pair))
+
+(ly:add-interface
  'clef-modifier-interface
  "The number describing transposition of the clef, placed below
 or above clef sign. Usually this is 8 (octave transposition)
@@ -314,8 +320,7 @@ accidentals)."
  'measure-counter-interface
  "A counter for numbering measures."
  '(columns
-   count-from
-   spacing-pair))
+   count-from))
 
 (ly:add-interface
  'metronome-mark-interface

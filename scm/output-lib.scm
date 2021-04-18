@@ -1653,43 +1653,54 @@ parent or the parent has no setting."
         '(0 . 0))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; measure counter
+;; Centered text.
 
-(define-public (measure-counter-stencil grob)
-  "Print a number for a measure count.  Broken measures are numbered in
-parentheses."
-  (let* ((num (make-simple-markup
-               (number->string (ly:grob-property grob 'count-from))))
-         (orig (ly:grob-original grob))
-         (siblings (ly:spanner-broken-into orig)) ; have we been split?
-         (num
-          (if (or (null? siblings)
-                  (eq? grob (car siblings)))
-              num
-              (make-parenthesize-markup num)))
-         (num (grob-interpret-markup grob num))
-         (num (ly:stencil-aligned-to
-               num X (ly:grob-property grob 'self-alignment-X)))
+; TODO: could the same callback be used for other grobs that read spacing-pair?
+(define-public (centered-text-interface::print grob)
+  "Print some text between two non-musical columns according to the
+@code{spacing-pair} property."
+  (let* ((basic-stencil (ly:text-interface::print grob))
+         (X-alignment (ly:grob-property grob 'self-alignment-X))
+         (aligned-stencil (ly:stencil-aligned-to basic-stencil X X-alignment))
          (left-bound (ly:spanner-bound grob LEFT))
          (right-bound (ly:spanner-bound grob RIGHT))
          (refp (ly:grob-common-refpoint left-bound right-bound X))
+         (X-base-position (ly:grob-relative-coordinate grob refp X))
          (spacing-pair
           (ly:grob-property grob
                             'spacing-pair
                             '(break-alignment . break-alignment)))
          (ext-L (ly:paper-column::break-align-width left-bound
                                                     (car spacing-pair)))
+         (L-end (interval-end ext-L))
          (ext-R (ly:paper-column::break-align-width right-bound
                                                     (cdr spacing-pair)))
-         (num
-          (ly:stencil-translate-axis
-           num
-           (+ (* 0.5 (- (car ext-R)
-                        (cdr ext-L)))
-              (- (cdr ext-L)
-                 (ly:grob-relative-coordinate grob refp X)))
-           X)))
-    num))
+         (R-start (interval-start ext-R))
+         ; Amount of translation from our basic position to
+         ; the right of our left bound.
+         (to-left-bound (- L-end X-base-position))
+         ; From that to the middle between left and right bound.
+         (to-middle (* 0.5 (- R-start L-end))))
+    (ly:stencil-translate-axis
+      aligned-stencil
+      (+ to-left-bound to-middle)
+      X)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Measure counter.
+
+(define-public (measure-counter::text grob)
+  "A number for a measure count.  Broken measures are numbered in
+parentheses."
+   (let* ((number (ly:grob-property grob 'count-from))
+          (number-markup (number->string number))
+          (orig (ly:grob-original grob))
+          (siblings (ly:spanner-broken-into orig))) ; have we been split?
+     (if (or (null? siblings)
+             (eq? grob (car siblings)))
+         number-markup
+         (make-parenthesize-markup number-markup))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HorizontalBracketText
