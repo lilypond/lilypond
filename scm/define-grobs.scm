@@ -1712,7 +1712,7 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (flag-style . default)
         (outside-staff-horizontal-padding . 0.2)
-        (outside-staff-priority . 1000)
+        (outside-staff-priority . 1300)
         (padding . 0.8)
         (side-axis . ,Y)
         (stencil . ,ly:text-interface::print)
