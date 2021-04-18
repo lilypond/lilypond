@@ -65,6 +65,15 @@ which scares away people.
 
 @end ignore
 
+
+@item
+@command{lilypond-book} supports a new snippet option @option{inline} for
+inline music, that is, music snippets like
+@lilypond[inline,staffsize=11]{
+  { \time 2/4 r8 g'[ g' g'] | es'2 }
+}
+that appear within a paragraph of text.
+
 @item
 Bar numbers may be centered in their measure, as is common in film scores.
 

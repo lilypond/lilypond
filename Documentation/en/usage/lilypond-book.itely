@@ -739,6 +739,39 @@ without @code{\layout}, @code{\score}, etc.
 Do not add additional code to complete LilyPond code in music snippets.
 Since this is the default, @code{nofragment} is redundant normally.
 
+@item inline
+Set up snippet for inline use, that is, to be typeset within a paragraph.
+The snippet itself is formatted with a very small left padding
+(approximately the same as the right padding), ignoring the value given by
+the command line option @option{--left-padding}.
+
+For Texinfo output, it suppresses the insertion of a blank line before and
+after the snippet.  For HTML output, it suppresses the insertion of
+@code{<p>} before and @code{</p>} after the snippet.
+
+To actually make a snippet appear inline in @LaTeX{} and Texinfo mode, it is
+necessary to position it within a paragraph, avoiding an empty line before
+and after the snippet.  For example
+
+@example
+The motive
+\lilypond[inline,staffsize=11]@{
+  @{ \time 2/4 r8 g'[ g' g'] | es'2 @}
+@}
+is widely known.
+@end example
+
+@noindent
+becomes
+
+@indentedBlock
+The motive
+@lilypond[inline,staffsize=11]{
+  { \time 2/4 r8 g'[ g' g'] | es'2 }
+}
+is widely known.
+@endIndentedBlock
+
 @item indent=@var{size}\@var{unit}
 Set indentation of the first music system to @var{size}, using
 @var{unit} as units.  @var{unit} is one of the following strings:
