@@ -862,3 +862,42 @@ Engraver to print a BendSpanner.")))
    (properties-written . ())
    (description . "\
 Engraver to print a line between two @code{Fingering} grobs.")))
+
+; TODO: yet another engraver for alignment... Ultimately, it would be nice to
+; merge Dynamic_align_engraver, Piano_pedal_align_engraver and
+; Centered_bar_number_align_engraver.
+(define-public (Centered_bar_number_align_engraver context)
+  (let ((support-line #f))
+    (make-engraver
+      (acknowledgers
+        ((centered-bar-number-interface engraver grob source-engraver)
+           ; Create the support spanner on the fly when we meet a first
+           ; centered bar number, to avoid an extra grob in the most
+           ; common case.
+           (if (not support-line)
+               (begin
+                 (set! support-line
+                       (ly:engraver-make-grob engraver
+                                              'CenteredBarNumberLineSpanner
+                                              '()))
+                 (ly:spanner-set-bound!
+                   support-line
+                   LEFT
+                   (ly:context-property context 'currentCommandColumn))))
+           (ly:axis-group-interface::add-element support-line grob)))
+      ((finalize engraver)
+        (if support-line
+          (ly:spanner-set-bound!
+            support-line
+            RIGHT
+            (ly:context-property context 'currentCommandColumn)))))))
+
+(ly:register-translator
+ Centered_bar_number_align_engraver 'Centered_bar_number_align_engraver
+ '((grobs-created . (CenteredBarNumberLineSpanner))
+   (events-accepted . ())
+   (properties-read . (currentCommandColumn))
+   (properties-written . ())
+   (description . "Group measure-centered bar numbers in a
+@code{CenteredBarNumberLineSpanner} so they end up on the same
+vertical position.")))

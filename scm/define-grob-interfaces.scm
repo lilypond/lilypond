@@ -63,6 +63,11 @@ found in @file{scm/bar-line.scm}.
    thick-thickness))
 
 (ly:add-interface
+ 'bar-number-interface
+ "A bar number or bar number vertical support object."
+ '())
+
+(ly:add-interface
  'bass-figure-interface
  "A bass figure text."
  '(implicit))
@@ -130,6 +135,17 @@ arrow head of the @code{BendSpanner}.\n
     style
     direction
     bend-me))
+
+(ly:add-interface
+ 'centered-bar-number-interface
+ "A measure-centered bar number."
+ '())
+
+(ly:add-interface
+ 'centered-bar-number-line-spanner-interface
+ "An abstract object used to align centered bar numbers on the same
+vertical position."
+ '())
 
 (ly:add-interface
  'centered-text-interface

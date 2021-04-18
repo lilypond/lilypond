@@ -66,6 +66,24 @@ which scares away people.
 @end ignore
 
 @item
+Bar numbers may be centered in their measure, as is common in film scores.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    centerBarNumbers = ##t
+    barNumberVisibility = #all-bar-numbers-visible
+  }
+}
+
+<<
+  { \bar "" \repeat unfold 3 { c'4 d' e' f' } }
+  { \repeat unfold 3 { c'4 d' e' f' } }
+>>
+@end lilypond
+
+@item
 Adding the @code{Melody_engraver} to the @code{Voice} context now works
 out of the box to change the stem direction of the middle note according
 to the melody.  Previously, this required an additional override to

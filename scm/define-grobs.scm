@@ -292,7 +292,8 @@
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta .
               ((class . Item)
-               (interfaces . (break-alignable-interface
+               (interfaces . (bar-number-interface
+                              break-alignable-interface
                               font-interface
                               outside-staff-interface
                               self-alignment-interface
@@ -598,6 +599,44 @@
                                 font-interface
                                 outside-staff-interface
                                 text-interface))))))
+
+    (CenteredBarNumber
+     . (
+        (extra-spacing-width . (+inf.0 . -inf.0))
+        (font-family . roman)
+        ; This is intentionally bigger than BarNumber.
+        (font-size . 0)
+        (self-alignment-X . ,CENTER)
+        (stencil . ,centered-text-interface::print)
+        (meta .
+              ((class . Spanner)
+               (interfaces . (bar-number-interface
+                              centered-bar-number-interface
+                              centered-text-interface
+                              font-interface
+                              text-interface))))))
+
+    (CenteredBarNumberLineSpanner
+     . (
+        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (axes . (,Y))
+        (direction . ,UP)
+        (no-alignment . #t)
+        (outside-staff-priority . 1200)
+        (padding . 4)
+        (side-axis . ,Y)
+        (vertical-skylines . ,grob::always-vertical-skylines-from-element-stencils)
+        (X-extent . ,ly:axis-group-interface::width)
+        (Y-extent . ,axis-group-interface::height)
+        (Y-offset . ,side-position-interface::y-aligned-side)
+        (meta . ((class . Spanner)
+                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (interfaces . (axis-group-interface
+                                bar-number-interface
+                                centered-bar-number-line-spanner-interface
+                                outside-staff-interface
+                                side-position-interface))))))
 
     (ChordName
      . (

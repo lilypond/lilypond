@@ -59,6 +59,7 @@ line-arrows.ly
 making-an-object-invisible-with-the-transparent-property.ly
 making-glissandi-breakable.ly
 manually-controlling-beam-positions.ly
+measure-centered-bar-numbers.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 modifying-the-ottava-spanner-slope.ly
 moving-dotted-notes-in-polyphony.ly

@@ -186,6 +186,8 @@ halfway through the measure in triple time, which could look like 6/8.")
      (beatStructure ,list? "List of @code{baseMoment}s that are combined
 to make beats.")
 
+     (centerBarNumbers ,boolean? "Whether to center bar numbers in
+their measure instead of aligning them on the bar line.")
      (chordChanges ,boolean? "Only show changes in chords scheme?")
      (chordNameExceptions ,list? "An alist of chord exceptions.
 Contains @code{(@var{chord} . @var{markup})} entries.")

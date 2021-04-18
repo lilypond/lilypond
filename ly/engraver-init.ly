@@ -606,6 +606,7 @@ run."
   \consists "Concurrent_hairpin_engraver"
   \consists "Beam_collision_engraver"
   \consists "Footnote_engraver"
+  \consists "Centered_bar_number_align_engraver"
 
   \defaultchild "Staff"
 
@@ -668,6 +669,7 @@ run."
   alternativeRestores = #'(measurePosition measureLength lastChord)
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function
+  centerBarNumbers = ##f
   clefTranspositionFormatter = #clef-transposition-markup
   cueClefTranspositionFormatter = #clef-transposition-markup
   automaticBars = ##t

@@ -3285,6 +3285,9 @@ are printed at all possible places:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/removing-bar-numbers-from-a-score.ly}
 
+@cindex bar number, centered
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/measure-centered-bar-numbers.ly}
 
 @morerefs
 Snippets:
@@ -3292,7 +3295,10 @@ Snippets:
 
 Internals Reference:
 @rinternals{BarNumber},
-@rinternals{Bar_number_engraver}.
+@rinternals{CenteredBarNumber},
+@rinternals{CenteredBarNumberLineSpanner},
+@rinternals{Bar_number_engraver},
+@rinternals{Centered_bar_number_align_engraver}.
 @endmorerefs
 
 @cindex bar number, collision

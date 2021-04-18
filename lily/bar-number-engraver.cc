@@ -19,10 +19,13 @@
 
 #include "engraver.hh"
 
+#include "axis-group-interface.hh"
 #include "context.hh"
 #include "grob-array.hh"
 #include "item.hh"
+#include "side-position-interface.hh"
 #include "stream-event.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 
@@ -34,12 +37,16 @@
 class Bar_number_engraver : public Engraver
 {
 protected:
+  // A regular bar number.
   Item *text_ = nullptr;
+  // A centered bar number.
+  Spanner *span_ = nullptr;
   bool considered_numbering_ = false;
   bool must_consider_numbering_ = false;
 
 protected:
   void stop_translation_timestep ();
+  void create_bar_number (SCM);
   void acknowledge_bar_line (Grob_info);
   void process_acknowledged ();
   void consider_numbering ();
@@ -47,12 +54,38 @@ protected:
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };
 
+
+void
+Bar_number_engraver::create_bar_number (SCM text)
+{
+  if (scm_is_true (get_property (this, "centerBarNumbers")))
+    {
+      Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      span_ = make_spanner ("CenteredBarNumber", SCM_EOL);
+      span_->set_bound (LEFT, column);
+      set_property (span_, "text", text);
+    }
+  else
+    {
+      text_ = make_item ("BarNumber", SCM_EOL);
+      set_property (text_, "text", text);
+    }
+}
+
 void
 Bar_number_engraver::process_acknowledged ()
 {
   if (!considered_numbering_ && must_consider_numbering_)
     {
       considered_numbering_ = true;
+
+      // Time to terminate the previous spanner if applicable.
+      if (span_)
+        {
+          span_->set_bound (RIGHT, unsmob<Grob> (get_property (this, "currentCommandColumn")));
+          announce_end_grob (span_, SCM_EOL);
+          span_ = nullptr;
+        }
 
       SCM vis_p = get_property (this, "barNumberVisibility");
       if (ly_is_procedure (vis_p))
@@ -65,17 +98,17 @@ Bar_number_engraver::process_acknowledged ()
 
               if (from_scm<bool> (scm_call_2 (vis_p, bn, mp.smobbed_copy ())))
                 {
-                  text_ = make_item ("BarNumber", SCM_EOL);
                   SCM formatter = get_property (this, "barNumberFormatter");
+                  SCM formatted_text = SCM_EOL;
                   if (ly_is_procedure (formatter))
                     {
-                      set_property (text_, "text",
-                                    scm_call_4 (formatter,
-                                                bn,
-                                                mp.smobbed_copy (),
-                                                to_scm (get_alt_number () - 1),
-                                                context ()->self_scm ()));
+                      formatted_text = scm_call_4 (formatter,
+                                                   bn,
+                                                   mp.smobbed_copy (),
+                                                   to_scm (get_alt_number () - 1),
+                                                   context ()->self_scm ());
                     }
+                  create_bar_number (formatted_text);
                 }
             }
         }
@@ -140,17 +173,23 @@ ADD_TRANSLATOR (Bar_number_engraver,
                 " on top of all staves and appears only at the left side of"
                 " the staff.  "
                 "The staves are taken from @code{stavesFound}, which is "
-                " maintained by @ref{Staff_collecting_engraver}.",
+                " maintained by @ref{Staff_collecting_engraver}.  "
+                "This engraver usually creates @code{BarNumber} grobs,"
+                " but when @code{centerBarNumbers} is true, it makes"
+                " @code{CenteredBarNumber} grobs instead.",
 
                 /* create */
-                "BarNumber ",
+                "BarNumber "
+                "CenteredBarNumber ",
 
                 /* read */
                 "alternativeNumber "
                 "alternativeNumberingStyle "
                 "barNumberFormatter "
                 "barNumberVisibility "
+                "centerBarNumbers "
                 "currentBarNumber "
+                "currentCommandColumn "
                 "measurePosition "
                 "stavesFound ",
 
