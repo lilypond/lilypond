@@ -29,8 +29,9 @@ affected measures be repeated, however.  The user delimits the area to
 receive a count with @code{\\startMeasureCount} and
 @code{\\stopMeasureCount}."
   (let ((count-spanner '()) ; a single element of the count
+        (start-event #f)
         (go? #f) ; is the count in progress?
-        (stop? #f) ; do we end the count?
+        (stop-event #f)
         (last-measure-seen 0)
         (elapsed 0))
 
@@ -38,20 +39,13 @@ receive a count with @code{\\startMeasureCount} and
      (listeners
       ((measure-counter-event engraver event)
        (cond
-        ((and (= START (ly:event-property event 'span-direction))
-              go?)
-         (set! stop? #t)
-         (ly:input-warning
-          (ly:event-property event 'origin)
-          "count not ended before another begun"))
         ((= START (ly:event-property event 'span-direction))
-         (set! go? #t)
+         (set! start-event event)
          ;; initialize one less so first measure receives a count spanner
          (set! last-measure-seen
                (1- (ly:context-property context 'currentBarNumber))))
         ((= STOP (ly:event-property event 'span-direction))
-         (set! stop? #t)
-         (set! go? #f)))))
+         (set! stop-event event)))))
 
      ((process-music trans)
       (let ((col (ly:context-property context 'currentCommandColumn))
@@ -71,11 +65,15 @@ receive a count with @code{\\startMeasureCount} and
                     (ly:pointer-group-interface::add-grob count-spanner 'columns col)
                     (ly:engraver-announce-end-grob trans count-spanner col)
                     (set! count-spanner '())))
-              ;; If count is over, reset variables.
-              (if stop?
+              (if stop-event
                   (begin
-                    (set! elapsed 0)
-                    (set! stop? #f)))
+                    (set! go? #f)
+                    (set! elapsed 0)))
+              (if start-event
+                  (if go?
+                      (ly:event-warning start-event
+                                        "count not ended before another begun")
+                      (set! go? #t)))
               ;; If count is in progress, begin a count-spanner.
               (if go?
                   (let* ((c (ly:engraver-make-grob trans 'MeasureCounter col))
@@ -86,6 +84,10 @@ receive a count with @code{\\startMeasureCount} and
                     (set! count-spanner c)
                     (set! elapsed (1+ elapsed))))))
         (set! last-measure-seen current-bar)))
+
+     ((stop-translation-timestep trans)
+      (set! start-event #f)
+      (set! stop-event #f))
 
      ((finalize trans)
       (if go?
