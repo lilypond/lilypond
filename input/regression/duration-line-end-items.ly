@@ -15,15 +15,17 @@ Currently available are hooks (with settable direction) and arrows."
 lastEndStyle =
 #(define-music-function (end-style)(symbol?)
 #{
-  \override DurationLine.after-line-breaking =
+  \override DurationLine.stencil =
     #(lambda (grob)
       (let* ((orig (ly:grob-original grob))
-             (siblings (if (ly:grob? orig) (ly:spanner-broken-into orig) '()))
+             (siblings (if (ly:grob? orig)
+                           (ly:spanner-broken-into orig) '()))
              (last-grob (if (pair? siblings) (last siblings) #f)))
         (if last-grob
             (ly:grob-set-nested-property!
               last-grob
-              '(bound-details right-broken end-style) end-style))))
+              '(bound-details right-broken end-style) end-style))
+        duration-line::print))
 #})
 
 \layout {

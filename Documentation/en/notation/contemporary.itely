@@ -240,7 +240,7 @@ A workaround would be:
 lastEndStyle =
 #(define-music-function (end-style)(symbol?)
 #{
-  \override DurationLine.after-line-breaking =
+  \override DurationLine.stencil =
     #(lambda (grob)
       (let* ((orig (ly:grob-original grob))
              (siblings (if (ly:grob? orig)
@@ -249,7 +249,8 @@ lastEndStyle =
         (if last-grob
             (ly:grob-set-nested-property!
               last-grob
-              '(bound-details right-broken end-style) end-style))))
+              '(bound-details right-broken end-style) end-style))
+        duration-line::print))
 #})
 
 {
