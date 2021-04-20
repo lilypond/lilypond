@@ -151,7 +151,7 @@ None
 @tab
 The default action; produces a major triad.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1
@@ -163,7 +163,7 @@ m, m7
 @tab
 The minor chord.  This modifier lowers the 3rd.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:m c:m7
@@ -177,7 +177,7 @@ dim, dim7
 The diminished chord.  This modifier lowers the 3rd, 5th and (if
 present) the 7th step.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:dim c:dim7
@@ -189,7 +189,7 @@ aug
 @tab
 The augmented chord.  This modifier raises the 5th step.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:aug
@@ -203,7 +203,7 @@ The major 7th chord.  This modifier adds a raised 7th step.  The
 @code{7} following @code{maj} is optional.  Do NOT use this modifier
 to create a major triad.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:maj c:maj7
@@ -1027,7 +1027,7 @@ The table below summarizes the figure modifiers available.
 @tab
 Accidentals
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <7! 6+ 4-> <5++> <3-->
 }
@@ -1038,7 +1038,7 @@ Accidentals
 @tab
 Augmented and diminished steps
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <6\+ 5/> <7/>
 }
@@ -1049,7 +1049,7 @@ Augmented and diminished steps
 @tab
 Raised sixth step
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <6\\>
 }
@@ -1060,7 +1060,7 @@ Raised sixth step
 @tab
 End of continuation line
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 <<
   \figures {
     \bassFigureExtendersOn
