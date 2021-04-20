@@ -1429,10 +1429,16 @@ set to the @code{location} parameter."
   music)
 
 (define (recompute-music-length music)
+  ;; If the length property is set to a value inconsistent with the
+  ;; length callback, correct it.  In other words, avoid setting the
+  ;; length property when it doesn't need to be set.
   (let ((length-callback (ly:music-property music 'length-callback)))
     (if (procedure? length-callback)
-        (set! (ly:music-property music 'length)
-              (length-callback music))))
+        (let ((current-length (ly:music-property music 'length)))
+          (if (ly:moment? current-length)
+              (let ((new-length (length-callback music)))
+                (if (not (eq? current-length new-length))
+                    (set! (ly:music-property music 'length) new-length)))))))
   music)
 
 (define-public (make-duration-of-length moment)

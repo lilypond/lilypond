@@ -35,6 +35,24 @@ reported on stderr."
 #ZERO-MOMENT
 #ZERO-MOMENT
 
+\testStartAndLength \unfoldRepeats {
+  \repeat volta 3 s1*0
+}
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength \unfoldRepeats \removeWithTag "X" {
+  \repeat volta 3 s1*0
+}
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength \removeWithTag "X" \unfoldRepeats {
+  \repeat volta 3 s1*0
+}
+#ZERO-MOMENT
+#ZERO-MOMENT
+
 %% body is two grace notes in separate elements
 
 \testStartAndLength \repeat percent 3 { \grace c8 \grace d8 }
@@ -55,6 +73,24 @@ reported on stderr."
 #(ly:make-moment 0 -2/8)
 #ZERO-MOMENT
 
+\testStartAndLength \unfoldRepeats {
+  \repeat volta 3 { \grace c8 \grace d8 }
+}
+#(ly:make-moment 0 -6/8)
+#ZERO-MOMENT
+
+\testStartAndLength \unfoldRepeats \removeWithTag "X" {
+  \repeat volta 3 { \grace c8 \grace d8 }
+}
+#(ly:make-moment 0 -6/8)
+#ZERO-MOMENT
+
+\testStartAndLength \removeWithTag "X" \unfoldRepeats {
+  \repeat volta 3 { \grace c8 \grace d8 }
+}
+#(ly:make-moment 0 -6/8)
+#ZERO-MOMENT
+
 %% body is a grace note and a main note
 
 \testStartAndLength \repeat percent 3 { \grace c8 d4 }
@@ -73,6 +109,24 @@ reported on stderr."
 \testStartAndLength \repeat volta 3 { \grace c8 d4 }
 #(ly:make-moment 0 -1/8)
 #(ly:make-moment 1/4)
+
+\testStartAndLength \unfoldRepeats {
+  \repeat volta 3 { \grace c8 d4 }
+}
+#(ly:make-moment 0 -1/8)
+#(ly:make-moment 3/4)
+
+\testStartAndLength \unfoldRepeats \removeWithTag "X" {
+  \repeat volta 3 { \grace c8 d4 }
+}
+#(ly:make-moment 0 -1/8)
+#(ly:make-moment 3/4)
+
+\testStartAndLength \removeWithTag "X" \unfoldRepeats {
+  \repeat volta 3 { \grace c8 d4 }
+}
+#(ly:make-moment 0 -1/8)
+#(ly:make-moment 3/4)
 
 %% body has main time only
 
@@ -95,5 +149,17 @@ reported on stderr."
 \testStartAndLength \repeat volta 3 d4
 #ZERO-MOMENT
 #(ly:make-moment 1/4)
+
+\testStartAndLength \unfoldRepeats \repeat volta 3 d4
+#ZERO-MOMENT
+#(ly:make-moment 3/4)
+
+\testStartAndLength \unfoldRepeats \removeWithTag "X" \repeat volta 3 d4
+#ZERO-MOMENT
+#(ly:make-moment 3/4)
+
+\testStartAndLength \removeWithTag "X" \unfoldRepeats \repeat volta 3 d4
+#ZERO-MOMENT
+#(ly:make-moment 3/4)
 
 >>
