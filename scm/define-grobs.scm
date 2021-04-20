@@ -1675,6 +1675,9 @@
         (direction . ,UP)
         (font-encoding . fetaText)
         (font-size . -2)
+        ;; This ought to be an en dash rather than a mere dash, but it
+        ;; looks way too wide with fetaText.
+        (number-range-separator . "-")
         (outside-staff-horizontal-padding . 0.5)
         (outside-staff-priority . 750)
         (self-alignment-X . ,CENTER)
@@ -1683,6 +1686,8 @@
         (staff-padding . 0.5)
         (stencil . ,centered-text-interface::print)
         (text . ,measure-counter::text)
+        ;; For the space around the number-range-separator.
+        (word-space . 0.2)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (centered-text-interface

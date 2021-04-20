@@ -65,6 +65,41 @@ which scares away people.
 
 @end ignore
 
+@item
+Measure counts now take compressed multi-measure rests and
+alternatives into account.
+
+@lilypond
+\new Score \with {
+  \consists Measure_counter_engraver
+  \override MeasureCounter.font-encoding = #'latin1
+  \override MeasureCounter.font-size = 1
+  \override MeasureCounter.padding = 0.5
+  \override MeasureCounter.font-series = #'bold
+  alternativeNumberingStyle = #'numbers-with-letters
+}
+\new Voice \compressMMRests \relative {
+  c'4-. 4-. 4-. 4-.
+  r4 4-. 4-. r
+  \startMeasureCount
+  <<
+    { R1 }
+    \new CueVoice {
+      \voiceTwo
+      r4 c8( d) e-. g-.
+    }
+  >>
+  R1*2
+  \repeat volta 2 {
+    c,8( d e g) c,( d e g)
+  }
+  \alternative {
+    { c,8( d e g) c,( d e4) }
+    { c8\< d e g c2\! R1*2 \bar "|." }
+  }
+  \stopMeasureCount
+}
+@end lilypond
 
 @item
 @command{lilypond-book} now appends the current directory as the last

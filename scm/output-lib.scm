@@ -1691,15 +1691,27 @@ parent or the parent has no setting."
 
 (define-public (measure-counter::text grob)
   "A number for a measure count.  Broken measures are numbered in
-parentheses."
-   (let* ((number (ly:grob-property grob 'count-from))
-          (number-markup (number->string number))
+parentheses.  When the counter spans several measures (like with
+compressed multi-measure rests), it displays a measure range."
+   (let* ((left-number-text (ly:grob-property grob 'left-number-text))
+          (right-number-text (ly:grob-property grob 'right-number-text))
+          (left-markup
+            (if (markup? left-number-text) left-number-text empty-markup))
+          (sep-and-right-markup
+            (if (markup? right-number-text)
+                (make-line-markup
+                  (list
+                    (let ((sep (ly:grob-property grob 'number-range-separator)))
+                      (if (markup? sep) sep empty-markup))
+                    (if (markup? right-number-text) right-number-text empty-markup)))
+                empty-markup))
+          (text (make-line-markup (list left-markup sep-and-right-markup)))
           (orig (ly:grob-original grob))
           (siblings (ly:spanner-broken-into orig))) ; have we been split?
      (if (or (null? siblings)
              (eq? grob (car siblings)))
-         number-markup
-         (make-parenthesize-markup number-markup))))
+         text
+         (make-parenthesize-markup text))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

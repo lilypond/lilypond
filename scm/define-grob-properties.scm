@@ -594,6 +594,10 @@ takes a @code{StaffSymbol} grob and the vertical position of a note head
 as arguments and returns a list of ledger line positions.")
      (left-bound-info ,list? "An alist of properties for determining
 attachments of spanners to edges.")
+     (left-number-text ,markup? "For a measure counter, this is the
+formatted measure count.  When the measure counter extends over several
+measures (like with compressed multi-measure rests), it is the text
+on the left side of the dash.")
      (left-padding ,ly:dimension? "The amount of space that is put
 left to an object (e.g., a lyric extender).")
      (length ,ly:dimension? "User override for the stem length of
@@ -725,6 +729,9 @@ are this close or closer in units of @code{staff-space} will be
 identified as vertically colliding. Used by @code{Stem} grobs for notes
 in the same voice, and @code{NoteCollision} grobs for notes in
 different voices. Default value@tie{}1.")
+     (number-range-separator ,markup? "For a measure counter extending over
+several measures (like with compressed multi-measure rests), this is
+the separator between the two printed numbers.")
      (number-type ,symbol? "Numbering style. Choices include
 @code{roman-lower}, @code{roman-upper} and @code{arabic}.")
 
@@ -859,6 +866,9 @@ measure position) in the score.")
 attachments of spanners to edges.")
      (right-padding ,ly:dimension? "Space to insert on the right side
 of an object (e.g., between note and its accidentals).")
+     (right-number-text ,markup? "When the measure counter extends
+over several measures (like with compressed multi-measure rests), this
+is the text on the right side of the dash.  Usually unset.")
      (rotation ,list? "Number of degrees to rotate this object, and
 what point to rotate around.  For example, @code{'(45 0 0)} rotates
 by 45 degrees around the center of this object.")
