@@ -131,7 +131,10 @@ TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 ifeq ($(WEB_VERSION),yes)
 TEXI2HTML_FLAGS += -D web_version
 TEXI2PDF_LOCAL_FLAGS += -D web_version
-WEB_ENV=ONLY_WEB_VERSION=v$(MAJOR_VERSION).$(MINOR_VERSION)
+# As version, use the released $(VERSION_DEVEL) instead of the in-development
+# $(MAJOR_VERSION).$(MINOR_VERSION). This makes a difference after branching
+# for next stable release.
+WEB_ENV=ONLY_WEB_VERSION=v$(basename $(VERSION_DEVEL))
 endif
 
 SPLIT_HTML_MANUALS = $(TEXINFO_MANUALS)
