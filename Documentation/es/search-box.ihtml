@@ -3,23 +3,14 @@
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
-
-we depend on an external entity here, which we cannot control.  Suppose
-we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
-For some time, Google won't have the new location in its index, so the
-search would get nothing.  It would be better to keep "v2.15" in the
-search for a while and have a redirection from "v2.15" to "v2.17".
 -->
 
 <form action="https://www.google.com/search"
       method="get"
       name="search"
-      onSubmit="search.q.value='site:lilypond.org/doc/v2.23 '
-		+ search.brute_query.value"
-      onMouseMove="search.q.value='site:lilypond.org/doc/v2.23 '
-		   + search.brute_query.value"
-      onKeyUp="search.q.value='site:lilypond.org/doc/v2.23 '
-	       + search.brute_query.value">
+      onSubmit="search.q.value='{{site}} ' + search.brute_query.value"
+      onMouseMove="search.q.value='{{site}} ' + search.brute_query.value"
+      onKeyUp="search.q.value='{{site}} ' + search.brute_query.value">
   <input type="hidden" name="btnG" value="Búsqueda de Google">
   <input type="text" name="brute_query" onfocus="this.value=''" value="Buscar">
   <input type="hidden" name="q" value="">

@@ -1,12 +1,9 @@
 <form action="https://google.com/search"
       method="get"
       name="search"
-      onSubmit="search.q.value='site:lilypond.org/doc/v2.23 '
-		+ search.brute_query.value"
-      onMouseMove="search.q.value='site:lilypond.org/doc/v2.23 '
-		   + search.brute_query.value"
-      onKeyUp="search.q.value='site:lilypond.org/doc/v2.23 '
-	       + search.brute_query.value">
+      onSubmit="search.q.value='{{site}} ' + search.brute_query.value"
+      onMouseMove="search.q.value='{{site}} ' + search.brute_query.value"
+      onKeyUp="search.q.value='{{site}} ' + search.brute_query.value">
   <input type="hidden" name="btnG" value="Google keresés">
   <input type="text" name="brute_query" onfocus="this.value=''" value="Keresés">
   <input type="hidden" name="q" value="">

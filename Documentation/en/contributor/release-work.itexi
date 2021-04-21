@@ -405,8 +405,8 @@ numbers:
 @end example
 
 @item
-Update the version in @file{Documentation/en/search-box.ihtml} and all
-of its translations to 2.@var{NEW-DEVELOPMENT}.
+Update the version of the search boxes in the Table of Contents sidebar to
+2.@var{NEW-DEVELOPMENT} (in @file{Documentation/lilypond-texi2html.init}).
 
 @item
 Prevent crawlers from indexing the old documentation by adding lines
