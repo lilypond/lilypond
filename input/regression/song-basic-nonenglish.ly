@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.23.0"
 \header {
   texidoc="Festival song synthesis output supports
 non-english syllabels.
