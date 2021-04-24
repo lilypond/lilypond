@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.22.0\n"
+"Project-Id-Version: lilypond 2.22.1\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2021-01-10 14:22+0000\n"
+"POT-Creation-Date: 2021-04-24 14:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,18 +38,18 @@ msgstr ""
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:237 book_texinfo.py:247
+#: book_latex.py:238 book_texinfo.py:247
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:249 book_texinfo.py:259
+#: book_latex.py:250 book_texinfo.py:259
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
 "%s"
 msgstr ""
 
-#: book_latex.py:272
+#: book_latex.py:273
 msgid "cannot detect textwidth from LaTeX"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgstr ""
 #: convertrules.py:104 convertrules.py:1944 convertrules.py:2121
 #: convertrules.py:2245 convertrules.py:2587 convertrules.py:2904
 #: convertrules.py:3291 convertrules.py:3564 convertrules.py:3912
-#: convertrules.py:4272
+#: convertrules.py:4274
 msgid "bump version for release"
 msgstr ""
 
@@ -785,11 +785,11 @@ msgid ""
 "point."
 msgstr ""
 
-#: convertrules.py:4181
+#: convertrules.py:4183
 msgid "Previously the \"id\" grob property (string) was used for SVG output."
 msgstr ""
 
-#: convertrules.py:4183
+#: convertrules.py:4185
 msgid "Now \"output-attributes\" (association list) is used instead."
 msgstr ""
 
@@ -1476,7 +1476,7 @@ msgstr ""
 #: musicxml2ly.py:2897
 #, python-format
 msgid ""
-"Copyright (c) 2005--2020 by\n"
+"Copyright (c) 2005--2021 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -1792,23 +1792,23 @@ msgstr ""
 msgid "barcheck failed at: %s"
 msgstr ""
 
-#: beam-engraver.cc:148
+#: beam-engraver.cc:156
 msgid "already have a beam"
 msgstr ""
 
-#: beam-engraver.cc:235
+#: beam-engraver.cc:243
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:282 chord-tremolo-engraver.cc:149
+#: beam-engraver.cc:290 chord-tremolo-engraver.cc:149
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:293
+#: beam-engraver.cc:301
 msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:294
+#: beam-engraver.cc:302
 msgid "beam was started here"
 msgstr ""
 
@@ -1922,6 +1922,11 @@ msgstr ""
 #: dots.cc:50
 #, c-format
 msgid "dot `%s' not found"
+msgstr ""
+
+#: drum-note-engraver.cc:101
+#, c-format
+msgid "unrecognised percussion sign: \"%s\""
 msgstr ""
 
 #: dynamic-engraver.cc:169
@@ -2551,11 +2556,11 @@ msgstr ""
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:669
+#: main.cc:654
 msgid "SVG backend requested; other formats will be ignored."
 msgstr ""
 
-#: main.cc:685
+#: main.cc:670
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
@@ -2869,7 +2874,7 @@ msgstr ""
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:511 pango-font.cc:291
+#: open-type-font.cc:511 pango-font.cc:309
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -2996,35 +3001,35 @@ msgstr ""
 msgid "\tprevious break: %d"
 msgstr ""
 
-#: pango-font.cc:280
+#: pango-font.cc:298
 #, c-format
 msgid "no glyph for character U+%04X in font `%s'"
 msgstr ""
 
-#: pango-font.cc:307
+#: pango-font.cc:325
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
 "Skipping glyph U+%04X, file %s"
 msgstr ""
 
-#: pango-font.cc:334
+#: pango-font.cc:352
 #, c-format
 msgid ""
 "FT_Get_CID_From_Glyph_Index () error: %s\n"
 "Skipping glyph U+%04X, file %s"
 msgstr ""
 
-#: pango-font.cc:373
+#: pango-font.cc:391
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr ""
 
-#: pango-font.cc:423
+#: pango-font.cc:441
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
-#: pango-font.cc:457
+#: pango-font.cc:475
 #, c-format
 msgid ""
 "OpenType font feature `%s' cannot be used since this binary is configured "
@@ -3387,11 +3392,11 @@ msgstr ""
 msgid "maybe input should specify polyphonic voices"
 msgstr ""
 
-#: stem-tremolo.cc:286
+#: stem-tremolo.cc:296
 msgid "Whole-note tremolo may collide with simultaneous notes."
 msgstr ""
 
-#: stem-tremolo.cc:340
+#: stem-tremolo.cc:350
 msgid "stem tremolo has no note heads"
 msgstr ""
 
@@ -3413,12 +3418,12 @@ msgstr ""
 msgid "discarding event: `%s'"
 msgstr ""
 
-#: system.cc:197
+#: system.cc:195
 #, c-format
 msgid "Element count %zu"
 msgstr ""
 
-#: system.cc:531
+#: system.cc:529
 #, c-format
 msgid "Grob count %zu"
 msgstr ""
@@ -3478,11 +3483,11 @@ msgstr ""
 msgid "cannot find: `%s'"
 msgstr ""
 
-#: tuplet-engraver.cc:111
+#: tuplet-engraver.cc:112
 msgid "No tuplet to end"
 msgstr ""
 
-#: tuplet-engraver.cc:160
+#: tuplet-engraver.cc:161
 msgid "omitting tuplet bracket with neither left nor right bound"
 msgstr ""
 
@@ -3784,34 +3789,34 @@ msgstr ""
 msgid "`~a' failed (~a)\n"
 msgstr ""
 
-#: backend-library.scm:49
+#: backend-library.scm:52
 #, scheme-format
 msgid "Preparing Ghostscript command to `~a': ~a"
 msgstr ""
 
-#: backend-library.scm:125
+#: backend-library.scm:128
 #, scheme-format
 msgid "Converting to `~a'...\n"
 msgstr ""
 
 #. Do not try to guess the name of the png file,
 #. GS produces PNG files like BASE-page%d.png.
-#: backend-library.scm:155
+#: backend-library.scm:158
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr ""
 
-#: backend-library.scm:176
+#: backend-library.scm:179
 #, scheme-format
 msgid "Copying to `~a'...\n"
 msgstr ""
 
-#: backend-library.scm:284
+#: backend-library.scm:287
 #, scheme-format
 msgid "can't create temp file for ~a after ~a times"
 msgstr ""
 
-#: backend-library.scm:336
+#: backend-library.scm:339
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
@@ -3877,7 +3882,7 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-grobs.scm:2993
+#: define-grobs.scm:2994
 #, scheme-format
 msgid "Unknown class ~a"
 msgstr ""
@@ -3886,41 +3891,41 @@ msgstr ""
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1312
+#: define-markup-commands.scm:1314
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2457
+#: define-markup-commands.scm:2459
 #, scheme-format
 msgid "Recursive definition of property ~a detected!"
 msgstr ""
 
-#: define-markup-commands.scm:3172
+#: define-markup-commands.scm:3174
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3555
+#: define-markup-commands.scm:3557
 #, scheme-format
 msgid "Unable to create slashed digit ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3668
+#: define-markup-commands.scm:3670
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3669
+#: define-markup-commands.scm:3671
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3947
+#: define-markup-commands.scm:3949
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:4163
+#: define-markup-commands.scm:4165
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -4196,7 +4201,7 @@ msgstr ""
 msgid "Possible typo in fret-diagram '~a'"
 msgstr ""
 
-#: fret-diagrams.scm:973
+#: fret-diagrams.scm:975
 #, scheme-format
 msgid "String ~a out of range 1-~a, ignoring"
 msgstr ""
@@ -4318,17 +4323,17 @@ msgstr ""
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:971 lily.scm:1057
+#: lily.scm:971 lily.scm:1062
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1048
+#: lily.scm:1053
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1067
+#: lily.scm:1072
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
