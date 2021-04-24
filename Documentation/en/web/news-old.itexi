@@ -29,20 +29,35 @@ NOTE:
 @newsItem
 @subheading LilyPond 2.23.1 released  @emph{March 23, 2021}
 
-We are happy to announce the release of LilyPond
-2.23.1.  This is termed a development release, but these are usually
-reliable.  If you want to use the current stable version of LilyPond,
-we recommend using the 2.22.0 version.
+We are happy to announce the release of LilyPond 2.23.1. This is termed a 
+development release, but these are usually reliable. If you want to use the 
+current stable version of LilyPond, we recommend using the 2.22.0 version. 
 
 @newsEnd
 
 @newsItem
 @subheading LilyPond 2.23.0 released  @emph{January 24, 2021}
 
-We are happy to announce the release of LilyPond
-2.23.0.  This is termed a development release, but these are usually
-reliable.  If you want to use the current stable version of LilyPond,
-we recommend using the 2.22.0 version.
+We are happy to announce the release of LilyPond 2.23.0. This is termed a 
+development release, but these are usually reliable. If you want to use the 
+current stable version of LilyPond, we recommend using the 2.22.0 version. 
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.22.0 released!  @emph{January 10, 2021}
+
+We are proud to announce the release of GNU LilyPond 2.22.0. LilyPond is a 
+music engraving program devoted to producing the highest-quality sheet music 
+possible. It brings the aesthetics of traditionally engraved music to computer 
+printouts.
+
+This version includes improvements and fixes since the branching of the 
+previous stable release in August 2017 (even though the final 2.20.0 was 
+only released in March 2020). A list of added features and other user-visible 
+changes can be found at @uref{https://lilypond.org/doc/v2.22/Documentation/changes/}
+Behind the scenes, this release switches to Python 3 and includes a number of 
+performance improvements that should be noticeable for larger scores.
 
 @newsEnd
 
