@@ -538,7 +538,7 @@
                         (right-edge . (extra-space . 0.1))))
         (stencil . ,ly:text-interface::print)
         (text . ,(make-musicglyph-markup "scripts.rcomma"))
-        (Y-offset . ,ly:breathing-sign::offset-callback)
+        (Y-offset . ,(ly:make-unpure-pure-container ly:breathing-sign::offset-callback))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
