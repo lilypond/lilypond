@@ -577,6 +577,7 @@
      . (
         (break-align-symbol . breathing-sign)
         (break-visibility . ,begin-of-line-invisible)
+        (direction . ,UP)
         (non-musical . #t)
         (space-alist . (
                         (ambitus . (extra-space . 2.0))

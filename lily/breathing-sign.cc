@@ -198,12 +198,7 @@ Breathing_sign::offset_callback (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
 
-  Direction d = get_grob_direction (me);
-  if (!d)
-    {
-      d = UP;
-      set_grob_direction (me, d);
-    }
+  Direction d = get_strict_grob_direction (me);
 
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   if (staff)
