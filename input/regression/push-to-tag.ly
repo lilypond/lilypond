@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.23.3"
 
 \header{
   texidoc="
@@ -14,6 +14,7 @@ equivalent of
 \layout { ragged-right = ##t }
 
 test = { \tag #'here { \tag #'here <<c''>> }}
+testb = { \tag #'here { \tag #'here <c''> }}
 
 {
   \pushToTag #'here c'
@@ -21,6 +22,6 @@ test = { \tag #'here { \tag #'here <<c''>> }}
   \pushToTag #'here g' \test
   \appendToTag #'here c'
   \appendToTag #'here e'
-  \appendToTag #'here g' \test
+  \appendToTag #'here g' \testb
 }
 
