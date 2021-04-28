@@ -2521,10 +2521,24 @@ groups of the tags given in the command are visible.
 
 Sometimes you want to splice some music at a particular place in an
 existing music expression.  You can use @code{\pushToTag} and
-@code{\appendToTag} for adding material at the front or end of the
-@code{elements} of an existing music construct.  Not every music
-construct has @code{elements}, but sequential and simultaneous music are
-safe bets:
+@code{\appendToTag} for adding material at the front or end of
+various music constructs.  The supported places are
+
+@table @asis
+@item Sequential and simultaneous music
+If you tagged an entire @code{@{@dots{}@}} or @code{<<@dots{}>>}
+construct, you can add music expressions at its front or back.
+@item Chords
+If you tagged a chord @code{<@dots{}>}, you can either add notes
+at its front or back, or articulations for the whole chord.
+@item Notes and rests
+If you tagged a note (also inside of a chord) or a rest, you can
+add articulations to the front or back of its existing
+articulations.  Note that to add other @emph{notes}, you rather
+have to put the note inside of a chord and tag the @emph{chord}.
+Also note that you cannot tag a single @emph{articulation} and add
+to it since it isn't inherently a list.  Instead, tag the note.
+@end table
 
 @lilypond[verbatim,quote]
 music = { \tag #'here { \tag #'here <<c''>> } }
