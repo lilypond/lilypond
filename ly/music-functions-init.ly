@@ -133,13 +133,49 @@ form of a spanner event, @var{property} may also have the form
 appendToTag =
 #(define-music-function (tag more music)
    (symbol? ly:music? ly:music?)
-   (_i "Append @var{more} to the @code{elements} of all music
-expressions in @var{music} that are tagged with @var{tag}.")
+   (_i "Append @var{more} to the back of music tagged with @var{tag}.  A
+@code{post-event} can be added to the articulations of rhythmic events
+or chords; other expressions may be added to chords, sequential or
+simultaneous music.")
+   (define (add-right m more)
+     (cond
+      ((or (music-is-of-type? m 'sequential-music)
+           (music-is-of-type? m 'simultaneous-music))
+       (if (ly:event? more)
+           (begin
+             (ly:music-warning m (_ "\\appendToTag cannot append post-event"))
+             (ly:music-message m (_ "to this music")))
+           (set! (ly:music-property m 'elements)
+                 (append! (ly:music-property m 'elements) (list more)))))
+      ((music-is-of-type? m 'event-chord)
+       (cond ((ly:event? more)
+              (set! (ly:music-property m 'elements)
+                    (append! (ly:music-property m 'elements (list more)))))
+             ((music-is-of-type? more 'rhythmic-event)
+              (set! (ly:music-property m 'elements)
+                    (call-with-values (lambda ()
+                                        (break! ly:event?
+                                                (ly:music-property m 'elements)))
+                      (lambda (elts posts)
+                        (append! elts (cons more posts))))))
+             (else
+              (ly:music-warning more (_ "\\appendToTag cannot append this"))
+              (ly:music-message m (_ "to this event-chord")))))
+      ((music-is-of-type? m 'rhythmic-event)
+       (if (ly:event? more)
+           (set! (ly:music-property m 'articulations)
+                 (append! (ly:music-property m 'articulations) (list more)))
+           (begin
+             (ly:music-warning more (_ "\\appendToTag cannot append this music"))
+             (ly:music-message m (_ "to this rhythmic-event")))))
+      ((music-is-of-type? m 'music-wrapper-music)
+       (add-right (ly:music-property m 'element) more))
+      (else
+       (ly:input-warning (*location*) (_ "\\appendToTag failed:"))
+       (ly:music-message m (_ "No \\appendToTag destination")))))
    (music-map (lambda (m)
                 (if (memq tag (ly:music-property m 'tags))
-                    (set! (ly:music-property m 'elements)
-                          (append (ly:music-property m 'elements)
-                                  (list more))))
+                    (add-right m more))
                 m)
               music))
 
@@ -1533,12 +1569,49 @@ substitute for the built-in @code{\\unset} command.")
 pushToTag =
 #(define-music-function (tag more music)
    (symbol? ly:music? ly:music?)
-   (_i "Add @var{more} to the front of @code{elements} of all music
-expressions in @var{music} that are tagged with @var{tag}.")
+   (_i "Add @var{more} to the front of music tagged with @var{tag}.  A
+@code{post-event} can be added to the articulations of rhythmic events
+or chords; other expressions may be added to chords, sequential or
+simultaneous music.")
+   (define (add-left m more)
+     (cond
+      ((or (music-is-of-type? m 'sequential-music)
+           (music-is-of-type? m 'simultaneous-music))
+       (if (ly:event? more)
+           (begin
+             (ly:music-warning more (_ "\\pushToTag cannot push post-event"))
+             (ly:music-message m (_ "to this music")))
+           (set! (ly:music-property m 'elements)
+                 (cons more (ly:music-property m 'elements)))))
+      ((music-is-of-type? m 'event-chord)
+       (cond ((ly:event? more)
+              (set! (ly:music-property m 'elements)
+                    (call-with-values (lambda ()
+                                        (break! ly:event?
+                                                (ly:music-property m 'elements)))
+                      (lambda (elts posts)
+                        (append! elts (cons more posts))))))
+             ((music-is-of-type? more 'rhythmic-event)
+              (set! (ly:music-property m 'elements)
+                    (cons more (ly:music-property m 'elements))))
+             (else
+              (ly:music-warning more (_ "\\pushToTag cannot push this"))
+              (ly:music-message m (_ "to this event-chord")))))
+      ((music-is-of-type? m 'rhythmic-event)
+       (if (ly:event? more)
+           (set! (ly:music-property m 'articulations)
+                 (cons more (ly:music-property m 'articulations)))
+           (begin
+             (ly:music-warning more (_ "\\pushToTag cannot push this music"))
+             (ly:music-message m (_ "to this rhythmic-event")))))
+      ((music-is-of-type? m 'music-wrapper-music)
+       (add-left (ly:music-property m 'element) more))
+      (else
+       (ly:input-warning (*location*) (_ "\\pushToTag failed:"))
+       (ly:music-message m (_ "No \\pushToTag destination")))))
    (music-map (lambda (m)
                 (if (memq tag (ly:music-property m 'tags))
-                    (set! (ly:music-property m 'elements)
-                          (cons more (ly:music-property m 'elements))))
+                    (add-left m more))
                 m)
               music))
 
