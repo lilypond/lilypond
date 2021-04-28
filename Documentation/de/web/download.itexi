@@ -227,7 +227,7 @@ Für MacOS X 10.4--10.14 auf Intel-Prozessoren (for 10.15 siehe unten).
 @item
 @c file name is unpredictable, linking to main page
 Inoffizielle 64-bit Anwendung für macOS 10.15 verfügbar unter
-@uref{https://bintray.com/marnen/lilypond-darwin-64}.
+@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases}.
 
 @end itemize
 

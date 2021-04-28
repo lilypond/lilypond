@@ -239,7 +239,7 @@ Pour Mac OS X 10.4 à 10.14 tournant sur un processeur Intel
 @c file name is unpredictable, linking to main page
 Des paquetages 64 bits non officiels pour pour Mac OS 10.15 sont
 disponibles sur
-@uref{https://bintray.com/marnen/lilypond-darwin-64}.
+@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases}.
 
 @end itemize
 

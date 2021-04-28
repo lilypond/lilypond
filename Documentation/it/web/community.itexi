@@ -590,7 +590,7 @@ l'ultimo binario:
 @downloadDevelDarwinNormal
 
 @c file name is unpredictable, linking to main page
-@uref{https://bintray.com/marnen/lilypond-darwin-64,
+@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
 Mac OS X x86 64-bit (non ufficiale)}
 
 @downloadDevelWindows

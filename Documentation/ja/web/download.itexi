@@ -245,7 +245,7 @@ Intel CPU の Mac OS X 10.4--10.14 用 (10.15 については下記を参照)
 @item
 @sourceimage{logo-macosx,,}
 macOS 10.15 用の非公式の 64 ビット アプリケーション バンドルは、
-@uref{https://bintray.com/marnen/lilypond-darwin-64} から入手できます。
+@uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases} から入手できます。
 
 @end itemize
 

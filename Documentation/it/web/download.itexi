@@ -227,7 +227,7 @@ Per Mac OS X 10.4--10.14 con processore Intel (per la versione 10.15 vedi sotto)
 @sourceimage{logo-macosx,,}
 @c file name is unpredictable, linking to main page
 Dei bundle applicazione 64-bit (non ufficiali) per macOS 10.15 sono disponibili
-all'indirizzo @uref{https://bintray.com/marnen/lilypond-darwin-64}.
+all'indirizzo @uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases}.
 
 @end itemize
 
