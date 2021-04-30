@@ -611,9 +611,9 @@ para los nombres de acorde dados se pueden personalizar.
 
 El esquema de nomenclatura de acordes predeterminado es un sistema
 para música de Jazz, propuesto por Klaus Ignatzek (véase
-@ressay{Lista bibliográfica}. Se pueden implementar otros sistemas
-de nomenclatura de acordes mediante funciones de Scheme, como se
-muestra en el fragmento de código @qq{Chord names alternative}
+@ressay{Lista de referencias bibliográficas}. Se pueden implementar
+otros sistemas de nomenclatura de acordes mediante funciones de Scheme,
+como se muestra en el fragmento de código @qq{Chord names alternative}
 dentro de la sección @rlsr{Chords}.)).  Hay una lista de
 notaciones comunes para acordes de jazz en la tabla de la sección
 @ref{Cuadro de nombres de acordes}.
