@@ -166,8 +166,7 @@ Macro definitions that contain translatable text belong to file
 
 @ifclear snippets-sections
 @macro lydoctitle {TEXT}
-@need 600
-@emph{\TEXT\}
+@subsubsubheading{\TEXT\}
 @end macro
 @end ifclear
 
