@@ -144,7 +144,7 @@ offline_links_re = re.compile('''href=['"]\
 big_page_name_re = re.compile('''(.+?)-big-page''')
 
 
-def process_i18n_big_page_links(pages_dict, match, prefix, lang_ext):
+def process_i18n_links(pages_dict, match, prefix, lang_ext):
     big_page_name = big_page_name_re.match(match.group(1))
     if big_page_name:
         destination_path = os.path.normpath(os.path.join(
@@ -166,30 +166,16 @@ def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
         page_flavors[file_name] = [lang_ext,
                                    online_links_re.sub('\\1="\\2\\4"', content)]
     elif target == 'offline':
-        # in LANG doc index: don't rewrite .html suffixes
-        # as not all .LANG.html pages exist;
-        # the doc index should be translated and contain links
-        # with the right suffixes
-        # idem for NEWS
         if lang_ext == '':
             page_flavors[file_name] = [lang_ext, content]
         else:
-            # For saving bandwidth and disk space, we don't duplicate big pages
-            # in English, so we must process translated
-            # big pages links differently.
-            if 'big-page' in prefix:
-                page_flavors[file_name] = [lang_ext,
-                                           offline_links_re.sub(
-                                               lambda match:
-                                               process_i18n_big_page_links(
-                                                   pages_dict,
-                                                   match, prefix, lang_ext),
-                                               content)]
-            else:
-                page_flavors[file_name] = [lang_ext,
-                                           offline_links_re.sub(
-                                               'href="\\1.' + lang_ext
-                                               + '\\2\\3"', content)]
+            page_flavors[file_name] = [lang_ext,
+                                       offline_links_re.sub(
+                                           lambda match:
+                                           process_i18n_links(
+                                               pages_dict,
+                                               match, prefix, lang_ext),
+                                           content)]
     return page_flavors
 
 
