@@ -619,7 +619,7 @@ poder ajudar als nous col·laboradors, i per mantenir tot el
 sistema (més o menys) estable, hem escrit un manual per als
 col·laboradors.
 
-@docLinksBare{Guia del col·laborador, contribuïdor,
+@docLinksBare{Guia del col·laborador, contributor,
   @rcontribnamed{Top,Guía del col·laborador},
   @manualDevelContributorSplit,
   @manualDevelContributorBig,

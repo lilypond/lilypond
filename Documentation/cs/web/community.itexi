@@ -496,7 +496,7 @@ Abychom pomohli novým spolupracovníkům a celý systém udrželi (slušně)
 stálý, napsali jsme příručku pro vývojářské práce
 (jen v angličtině).
 
-@docLinksBare{Příručka pro vývojářské práce, přispěvatel,
+@docLinksBare{Příručka pro vývojářské práce, contributor,
   @rcontribnamed{Top,Příručka pro vývojářské práce},
   @manualDevelContributorSplit,
   @manualDevelContributorBig,
