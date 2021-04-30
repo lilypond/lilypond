@@ -39,6 +39,13 @@ AC_ARG_ENABLE(texi2html,
                     [build texi2html for HTML documentation.  Default: on])],
     [ENABLE_TEXI2HTML=$enableval])
 
+AC_ARG_WITH(extractpdfmark,
+    [AS_HELP_STRING([--with-extractpdfmark],
+                    [use extractpdfmark for PDF documentation.]
+                    [Default: check])],
+    [],
+    [with_extractpdfmark=check])
+
 AC_ARG_WITH(flexlexer-dir,
     [AS_HELP_STRING([--with-flexlexer-dir=DIR],
                     [location of FlexLexer.h.])],
@@ -343,7 +350,7 @@ STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, $DOCUMENTATION_REQUIRED, 9.03)
 GS_API=no
 AC_ARG_ENABLE(gs-api,
     [AS_HELP_STRING([--enable-gs-api],
-                    [Link to libgs and use Ghostscript API instead of invoking]
+                    [link to libgs and use Ghostscript API instead of invoking]
                     [the executable. Beware of licensing implications!]
                     [Default: off])],
     [GS_API=$enableval])
@@ -363,23 +370,39 @@ fi
 AC_SUBST(GS920)
 AC_SUBST(EXTRACTPDFMARK)
 AC_SUBST(USE_EXTRACTPDFMARK)
-STEPMAKE_PROGS(GS920, gs, OPTIONAL, 9.20)
-STEPMAKE_PROGS(EXTRACTPDFMARK, extractpdfmark, OPTIONAL)
-req=`STEPMAKE_NUMERIC_VERSION(9.20)`
-USE_EXTRACTPDFMARK=yes
-if test "$GS920_VERSION" -lt "$req"; then
-    GS920=
-    USE_EXTRACTPDFMARK=no
+
+if test "x$with_extractpdfmark" == "xyes"; then
+    EXTRACTPDFMARK_REQUIRED=REQUIRED
+else
+    EXTRACTPDFMARK_REQUIRED=OPTIONAL
 fi
-if test "$EXTRACTPDFMARK" == "false"; then
-    EXTRACTPDFMARK=
+
+if test "x$with_extractpdfmark" != "xno"; then
+    USE_EXTRACTPDFMARK=yes
+    STEPMAKE_PROGS(EXTRACTPDFMARK, extractpdfmark, $EXTRACTPDFMARK_REQUIRED)
+
+    STEPMAKE_PROGS(GS920, gs, OPTIONAL, 9.20)
+    req=`STEPMAKE_NUMERIC_VERSION(9.20)`
+    if test "$GS920_VERSION" -lt "$req"; then
+        GS920=
+        USE_EXTRACTPDFMARK=no
+    fi
+
+    if test "$EXTRACTPDFMARK" == "false"; then
+        EXTRACTPDFMARK=
+        USE_EXTRACTPDFMARK=no
+    fi
+
+    if test "$EXTRACTPDFMARK_REQUIRED" == "OPTIONAL"; then
+        if test -z "$EXTRACTPDFMARK" || test -z "GS920"; then
+            STEPMAKE_ADD_ENTRY(OPTIONAL,
+                ["(Using GhostScript >= 9.20 together with extractpdfmark"])
+            STEPMAKE_ADD_ENTRY(OPTIONAL,
+                [" can significantly reduce the size of the final PDF files.)"])
+        fi
+    fi
+else
     USE_EXTRACTPDFMARK=no
-fi
-if test "$USE_EXTRACTPDFMARK" != "yes"; then
-    STEPMAKE_ADD_ENTRY(OPTIONAL,
-        ["(Using GhostScript >= 9.20 together with extractpdfmark"])
-    STEPMAKE_ADD_ENTRY(OPTIONAL,
-        [" can significantly reduce the size of the final PDF files.)"])
 fi
 
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 6.1)
