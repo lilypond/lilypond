@@ -316,7 +316,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 
 @macro docLinkPdf{name,base,webLink}
-  @docLink{\base\.fr.pdf,\base\.pdf,\webLink\}
+  @docLink{\base\.pdf,\base\.pdf,\webLink\}
 @end macro
 
 

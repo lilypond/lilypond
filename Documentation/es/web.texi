@@ -312,7 +312,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @end macro
 
 @macro docLinkPdf{name,base,webLink}
-  @docLink{\base\.es.pdf,\base\.es.pdf,\webLink\}
+  @docLink{\base\.pdf,\base\.pdf,\webLink\}
 @end macro
 
 
@@ -331,7 +331,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   descárguelo como un archivo en formato PDF.
-  @*@ @ @emph{@docSize{(una sola descarga grande, \base\.es.pdf, )}}
+  @*@ @ @emph{@docSize{(una sola descarga grande, \base\.pdf, )}}
 
 @end itemize
 
