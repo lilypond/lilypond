@@ -439,12 +439,12 @@ Für LilyPond Version @version{}
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,essay-big-page,Aufsatz}
+@ref{\TEXT\,,,essay,Aufsatz}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,essay-big-page,Aufsatz}
+@ref{\TEXT\,,\DISPLAY\,essay,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}
