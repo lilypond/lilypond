@@ -372,6 +372,10 @@ together, never separately."
 
   localAlterations = #'()
 
+  %% StaffGroup sets this property for the sake of span
+  %% bars, but ChoirStaff does not have these.
+  \revert DynamicText.extra-spacing-width
+
   \description "Identical to @code{StaffGroup} except that the
 contained staves are not connected vertically."
 }
