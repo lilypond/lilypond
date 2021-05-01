@@ -36,12 +36,9 @@ error = ly.error
 ########################################################################
 
 
-def find_file(name, include_path, working_dir, raise_error=True):
-    assert working_dir
-    current_path = working_dir
-    for i in [current_path] + include_path:
+def find_file(name, include_path, raise_error=True):
+    for i in include_path:
         full = os.path.join(i, name)
-        full = os.path.normpath(os.path.join(current_path, full))
         if os.path.exists(full):
             return full
 
@@ -192,8 +189,7 @@ class BookOutputFormat:
         return []
 
     def input_fullname(self, input_filename):
-        return find_file(input_filename, self.global_options.include_path,
-                         self.global_options.original_dir)
+        return find_file(input_filename, self.global_options.include_path)
 
     def adjust_snippet_command(self, cmd):
         return cmd

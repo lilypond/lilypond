@@ -82,7 +82,6 @@ gettext.install('lilypond', '@localedir@')
 
 import lilylib as ly
 
-original_dir = os.getcwd()
 backend = 'ps'
 
 help_summary = (
@@ -463,13 +462,10 @@ def do_process_cmd_locked(snippets, options):
         progress(_("All snippets are up to date..."))
 
     progress(_("Linking files..."))
-    abs_lily_output_dir = os.path.join(
-        options.original_dir, options.lily_output_dir)
-    abs_output_dir = os.path.join(options.original_dir, options.output_dir)
-    if abs_lily_output_dir != abs_output_dir:
+    if options.lily_output_dir != options.output_dir:
         for snippet in snippets:
-            snippet.link_all_output_files(abs_lily_output_dir,
-                                          abs_output_dir)
+            snippet.link_all_output_files(options.lily_output_dir,
+                                          options.output_dir)
 
 
 ###
@@ -553,13 +549,6 @@ def do_file(input_filename, included=False):
         input_base = os.path.basename(
             os.path.splitext(input_filename)[0])
 
-    # don't complain when global_options.output_dir is existing
-    if not global_options.output_dir:
-        global_options.output_dir = os.getcwd()
-    else:
-        global_options.output_dir = os.path.abspath(global_options.output_dir)
-        os.makedirs(global_options.output_dir, 0o777, exist_ok=True)
-
     output_filename = os.path.join(global_options.output_dir,
                                    input_base + global_options.formatter.default_extension)
     if (os.path.exists(input_filename)
@@ -602,37 +591,6 @@ def do_file(input_filename, included=False):
         raise book_snippets.CompileError
 
 
-def adjust_include_path(path, outpath):
-    """Rewrite an include path relative to the dir where lilypond is launched.
-    Always use forward slashes since this is what lilypond expects."""
-    path = os.path.expanduser(path)
-    path = os.path.expandvars(path)
-    path = os.path.normpath(path)
-    if os.path.isabs(outpath):
-        return os.path.abspath(path).replace(os.path.sep, '/')
-    if os.path.isabs(path):
-        return path.replace(os.path.sep, '/')
-    return os.path.join(inverse_relpath(original_dir, outpath), path).replace(os.path.sep, '/')
-
-
-def inverse_relpath(path, relpath):
-    """Given two paths, the second relative to the first,
-    return the first path relative to the second.
-    Always use forward slashes since this is what lilypond expects."""
-    if os.path.isabs(relpath):
-        return os.path.abspath(path).replace(os.path.sep, '/')
-    relparts = ['']
-    parts = os.path.normpath(path).split(os.path.sep)
-    for part in os.path.normpath(relpath).split(os.path.sep):
-        if part == '..':
-            relparts.append(parts[-1])
-            parts.pop()
-        else:
-            relparts.append('..')
-            parts.append(part)
-    return '/'.join(relparts[::-1])
-
-
 def do_options():
     global global_options
 
@@ -641,27 +599,20 @@ def do_options():
 
     global_options.information = {
         'program_version': program_version, 'program_name': ly.program_name}
-    global_options.original_dir = original_dir
 
     if global_options.lily_output_dir:
         global_options.lily_output_dir = os.path.expanduser(
             global_options.lily_output_dir)
-        for i, path in enumerate(global_options.include_path):
-            global_options.include_path[i] = adjust_include_path(
-                path, global_options.lily_output_dir)
-        global_options.include_path.insert(0, inverse_relpath(
-            original_dir, global_options.lily_output_dir))
-
-    elif global_options.output_dir:
+    if global_options.output_dir:
         global_options.output_dir = os.path.expanduser(
             global_options.output_dir)
-        for i, path in enumerate(global_options.include_path):
-            global_options.include_path[i] = adjust_include_path(
-                path, global_options.output_dir)
-        global_options.include_path.insert(
-            0, inverse_relpath(original_dir, global_options.output_dir))
 
-    global_options.include_path.insert(0, "./")
+    # Compute absolute paths of include directories.
+    for i, path in enumerate(global_options.include_path):
+        global_options.include_path[i] = os.path.abspath(path)
+
+    # Prepend current directory (ABOUT TO CHANGE!)
+    global_options.include_path.insert(0, os.getcwd())
 
     if global_options.warranty:
         warranty()
@@ -758,14 +709,21 @@ def main():
 
     global_options.process_cmd += " -dread-file-list -dno-strip-output-dir"
 
+    # Store the original argument to construct the dependency file below.
+    relative_output_dir = global_options.output_dir
+
+    if global_options.output_dir:
+        global_options.output_dir = os.path.abspath(global_options.output_dir)
+        # Create the directory, but do not complain if it already exists.
+        os.makedirs(global_options.output_dir, exist_ok=True)
+    else:
+        global_options.output_dir = os.getcwd()
+
     if global_options.lily_output_dir:
         global_options.lily_output_dir = os.path.abspath(
             global_options.lily_output_dir)
     else:
-        global_options.lily_output_dir = os.path.abspath(
-            global_options.output_dir)
-
-    relative_output_dir = global_options.output_dir
+        global_options.lily_output_dir = global_options.output_dir
 
     identify()
     try:

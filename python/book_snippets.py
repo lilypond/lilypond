@@ -882,8 +882,9 @@ class LilypondFileSnippet (LilypondSnippet):
 
     def get_contents(self) -> bytes:
         if not self.contents:
-            self.contents = open(book_base.find_file(self.filename,
-                                                     self.global_options.include_path, self.global_options.original_dir), 'rb').read()
+            path = book_base.find_file(self.filename,
+                self.global_options.include_path)
+            self.contents = open(path, 'rb').read()
         return self.contents
 
     def get_snippet_code(self) -> str:
