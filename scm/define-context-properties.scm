@@ -401,11 +401,13 @@ This property is used for internal timekeeping, among others by the
      (keepAliveInterfaces ,list? "A list of symbols, signifying grob
 interfaces that are worth keeping a staff with @code{remove-empty} set
 around for.")
-     (keyAlterationOrder ,list? "An alist that defines in what order
-alterations should be printed.  The format is
+     (keyAlterationOrder ,list? "A list of pairs that defines in what
+order alterations should be printed.  The format of an entry is
 @code{(@var{step} . @var{alter})},
 where @var{step} is a number from 0 to@tie{}6 and
-@var{alter} from -2 (sharp) to 2 (flat).")
+@var{alter} from -1 (double flat) to 1 (double sharp),
+with exact rationals for alterations in between, e.g., 1/2
+for sharp.")
      (keyAlterations ,list? "The current key signature.  This is an alist
 containing @code{(@var{step} . @var{alter})} or
 @code{((@var{octave} . @var{step}) . @var{alter})}, where @var{step}
