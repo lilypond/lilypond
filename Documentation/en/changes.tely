@@ -67,6 +67,13 @@ which scares away people.
 
 
 @item
+@command{lilypond-book} now appends the current directory as the last
+entry to search for included files, instead of prepending it to the
+list of specified include paths.  This allows include directories to
+shadow files from the current directory, and will only be noticed if
+there are files with the same name in both.
+
+@item
 @command{lilypond-book} supports a new snippet option @option{inline} for
 inline music, that is, music snippets like
 @lilypond[inline,staffsize=11]{

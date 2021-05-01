@@ -611,8 +611,8 @@ def do_options():
     for i, path in enumerate(global_options.include_path):
         global_options.include_path[i] = os.path.abspath(path)
 
-    # Prepend current directory (ABOUT TO CHANGE!)
-    global_options.include_path.insert(0, os.getcwd())
+    # Append the current directory.
+    global_options.include_path.append(os.getcwd())
 
     if global_options.warranty:
         warranty()

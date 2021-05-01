@@ -258,10 +258,8 @@ DOCUMENTATION_INCLUDE_DIRS = \
 
 DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
-# Before calling lilypond-book, we change directory to $(outdir) which is
-# thereby prependend to the list of include directories. This also means
-# all other directories listed below must be absolute.
 LILYPOND_BOOK_INCLUDE_DIRS = \
+  $(outdir) \
   $(src-dir)/$(call target_language) \
   $(src-dir)/pictures \
   $(src-dir)/en/included \
