@@ -474,11 +474,16 @@ an error.
 @unnumberedsubsubsec Ties
 
 @cindex tie
-
 @funindex ~
 
 A tie connects two adjacent note heads of the same pitch.  The tie
 in effect extends the duration of a note.
+
+Ties that connect notes to nothing are called @dfn{laissez vibrer}
+articulation; @pxref{Laissez vibrer}, for the @code{\laissezVibrer}
+command.  Ties that connect nothing to notes (as needed in seconda
+volta sections, for example), can be entered with the @code{\repeatTie}
+command; @pxref{Repeat tie}.
 
 @warning{Ties should not be confused with @emph{slurs}, which
 indicate articulation, or @emph{phrasing slurs}, which indicate
@@ -539,6 +544,7 @@ the chord.
 @cindex tie, alternative endings
 @cindex tie, in repeats
 @cindex tie, repeating
+@cindex tie, from nothing
 @cindex volta bracket, and tie
 @cindex tie, and volta bracket
 @funindex \repeatTie
@@ -558,9 +564,10 @@ the repeated tie as follows:
 }
 @end lilypond
 
+@anchor{Laissez vibrer}
 @cindex laissez vibrer
 @cindex tie, laissez vibrer
-
+@cindex tie, to nothing
 @funindex \laissezVibrer
 
 @notation{L.v.}@: ties (@notation{laissez vibrer}) indicate that
