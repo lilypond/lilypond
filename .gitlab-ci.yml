@@ -22,7 +22,7 @@ stages:
   - website
 
 default:
-  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-16.04:20201121
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-18.04:20210502
   interruptible: true
 
 .if-default-branch: &if-default-branch
@@ -60,7 +60,7 @@ variables:
 # be set per runner and allows to enable parallel builds. For example, set its
 # value to "-j4 CPU_COUNT=4" in order to speed up the build.
 
-build:ubuntu-16.04:
+build:
   stage: build
   rules:
     - <<: *if-default-branch
@@ -78,14 +78,14 @@ build:ubuntu-16.04:
       - "build/out/lybook-db/**"
     expire_in: 1 week
 
-test:ubuntu-16.04:
+test:
   stage: test
   rules:
     - <<: *if-default-branch
       when: never
     - <<: *if-stable-branch
     - <<: *if-schedule-or-web
-  dependencies: [ "build:ubuntu-16.04" ]
+  dependencies: [ "build" ]
   script:
     - cd build
     - *touch-build
@@ -96,11 +96,11 @@ test:ubuntu-16.04:
     paths:
       - "**/*.fail.log"
 
-test-baseline:ubuntu-16.04:
+test-baseline:
   stage: test
   rules:
     - <<: *if-default-branch
-  dependencies: [ "build:ubuntu-16.04" ]
+  dependencies: [ "build" ]
   script:
     - cd build
     - *touch-build
@@ -113,11 +113,11 @@ test-baseline:ubuntu-16.04:
       - "test-baseline.tar.gz"
       - "**/*.fail.log"
 
-check:ubuntu-16.04:
+check:
   stage: test
   rules:
     - <<: *if-mr-to-default
-  dependencies: [ "build:ubuntu-16.04" ]
+  dependencies: [ "build" ]
   script:
     - cd build
     - *touch-build
@@ -133,7 +133,7 @@ check:ubuntu-16.04:
       - "test-results/**"
       - "**/*.fail.log"
 
-doc:ubuntu-16.04:
+doc:
   stage: documentation
   rules:
     - <<: *if-default-branch
@@ -141,7 +141,7 @@ doc:ubuntu-16.04:
     - <<: *if-mr-to-default
     - <<: *if-stable-branch
     - <<: *if-schedule-or-web
-  dependencies: [ "build:ubuntu-16.04" ]
+  dependencies: [ "build" ]
   script:
     - cd build
     - *touch-build
@@ -153,13 +153,13 @@ doc:ubuntu-16.04:
     paths:
       - "**/*.fail.log"
 
-website:ubuntu-16.04:
+website:
   stage: website
   rules:
     - <<: *if-default-branch
       when: manual
       allow_failure: true
-  dependencies: [ "build:ubuntu-16.04" ]
+  dependencies: [ "build" ]
   script:
     - cd build
     - *touch-build
