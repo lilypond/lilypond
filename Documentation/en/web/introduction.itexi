@@ -179,7 +179,7 @@ and slurs and beams are sloped, automatically!
 Put fragments of music into texts without cutting and pasting
 pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
 music to OpenOffice.org and LibreOffice with
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
 Plugins are also available to allow LilyPond code in various blogs and
 wikis, making online collaboration possible.
 
@@ -1507,7 +1507,7 @@ available for download at
 and @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 an OpenOffice.org extension that converts LilyPond files into images
 within OpenOffice.org documents.  Although this is no longer being
 developed, it appears to still work with version 4.

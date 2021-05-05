@@ -800,21 +800,21 @@ LilyPond 自体は他のフォーマットを一切サポートしませんが�
 テキストと楽譜を統合する手法を示します。
 
 @menu
-* LuaTex::
+* LuaTeX::
 * OpenOffice と LibreOffice::
 * 他のプログラム::
 @end menu
 
 
-@node LuaTex
-@subsection LuaTex
-@translationof LuaTex
+@node LuaTeX
+@subsection Lua@TeX{}
+@translationof LuaTeX
 
-@cindex LuaTex
+@cindex Lua@TeX{}
 @cindex lyluatex
 
 @code{lilypond-book} でも LilyPond 出力を組み込むことができますが、
-LuaTex を使用する場合、@c
+Lua@TeX{} を使用する場合、@c
 @uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}
 と呼ばれる代替プログラムがあります。
 

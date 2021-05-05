@@ -229,12 +229,12 @@ endif
 # LilyPond uses Cyrillic in its documentation; the used fonts are from the
 # LH family.  By default, its metrics files are generated on the fly, which
 # might cause problems in parallel make jobs.  For this reason we make
-# TeXLive generate the needed TFM files in advance.
+# TeX Live generate the needed TFM files in advance.
 pre-pdf:
-	$(call ly_info,Making latt1095.tfm in TeXLive (mktextfm))
+	$(call ly_info,Making latt1095.tfm in TeX Live (mktextfm))
 	$(buildscript-dir)/run-and-check.sh \
           "mktextfm latt1095" "$(outdir)/latt1095.mktextfm.log"
-	$(call ly_info,Making larm1095.tfm in TeXLive (mktextfm))
+	$(call ly_info,Making larm1095.tfm in TeX Live (mktextfm))
 	$(buildscript-dir)/run-and-check.sh \
           "mktextfm larm1095" "$(outdir)/larm1095.mktextfm.log"
 

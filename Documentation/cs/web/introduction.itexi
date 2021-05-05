@@ -1116,7 +1116,7 @@ Další informace k nastavení Emacsu a Vimu se nacházejí pod
 @sourceimage{logo-macosx,,}
 @uref{http://www.uoregon.edu/~koch/texshop}
 
-Editor TexShop pro MacOS@tie{}X lze rozšířit, tudíž
+Editor TeXShop pro MacOS@tie{}X lze rozšířit, tudíž
 umí spouštět LilyPond, @command{lilypond-book} a @command{convert-ly}
 z editoru.  K tomu se používá rozšíření,
 které je dostupné zde:

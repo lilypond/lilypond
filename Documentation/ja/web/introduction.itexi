@@ -198,7 +198,7 @@ LilyPond は最初から正しいフォーマットで出力します。@c
 楽譜の断片をテキストに入れることができます。@c
 @LaTeX{} や HTML に楽譜を垣根無く統合できますし、@c
 OOoLilyPond を使えば OpenOffice.org や LibreOffice に@c
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}で@c
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}で@c
 楽譜を追加することも出来ます。@c
 LilyPond のコードを様々なブログ、Wiki で使用可能にする@c
 プラグインがあり、オンラインでコラボレーションできます。@c
@@ -1496,7 +1496,7 @@ Vim をセットアップするための更なる情報が
 @subsubheading TeXShop
 @uref{http://pages.uoregon.edu/koch/texshop/}
 
-MacOS@tie{}X 用のエディタ TexShop を拡張して、
+MacOS@tie{}X 用のエディタ TeXShop を拡張して、
 エディタから LilyPond, @command{lilypond-book} それに
 @command{convert-ly} を実行させることができます。
 拡張機能は以下で入手できます:
@@ -1616,7 +1616,7 @@ KDE 3.5 用の LilyKDE3 と KDE 4.1 用の lilypond-KDE4 だけが存在しま�
 と @uref{http://canorus.org,Canorus} にフォークされました。
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 OpenOffice.org の拡張機能で、OpenOffice.org ドキュメント中@c
 で LilyPond ファイルを画像に変換できます。@c
 もう開発されていませんが、まだバージョン 4 で動作すると思われます。

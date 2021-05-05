@@ -200,8 +200,8 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
-be printed in the PDF output.  In this case XeTeX can be used instead.
+pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
 @example
@@ -209,7 +209,7 @@ sudo dnf install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
+Xe@TeX{} instead of pdf@TeX{} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 
@@ -275,8 +275,8 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
-be printed in the PDF output.  In this case XeTeX can be used instead.
+pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
 @example
@@ -284,7 +284,7 @@ sudo apt-get install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
+Xe@TeX{} instead of pdf@TeX{} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 
@@ -334,8 +334,8 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
-be printed in the PDF output.  In this case XeTeX can be used instead.
+pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
 @example
@@ -343,7 +343,7 @@ sudo zypper install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
+Xe@TeX{} instead of pdf@TeX{} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 @node Ubuntu
@@ -384,8 +384,8 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
-be printed in the PDF output.  In this case XeTeX can be used instead.
+pdf@TeX{} is used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
 @example
@@ -393,7 +393,7 @@ sudo apt-get install texlive-xetex
 @end example
 
 The scripts used to build the LilyPond documentation will use
-@code{XeTeX} instead of @code{pdfTeX} to generate the PDF documents if
+Xe@TeX{} instead of pdf@TeX{} to generate the PDF documents if
 it is available.  No additional configuration is required.}
 
 
@@ -451,7 +451,7 @@ The MetaFont binary (usually called @command{mf-nowin},
 @command{mf}, @command{mfw}, or @command{mfont}) and its support
 files are normally packaged along with @TeX{}.  Most GNU/Linux and
 other free software distributions already provide packages for
-@uref{https://tug.org/texlive, TeXLive}, see above.  TeXLive can
+@uref{https://tug.org/texlive, @TeX{} Live}, see above.  @TeX{} Live can
 can also be installed separately; it contains stand-alone binaries
 for most platforms.
 
@@ -604,17 +604,17 @@ Notation Reference shrinks from approx.@: 30@dmn{MB} to 7@dmn{MB}.
 @item
 Finally, to convert LilyPond's documentation (in texinfo format)
 to PDF files, including more than thousand PDF snippets generated
-by LilyPond, @uref{https://tug.org/xetex/, XeTeX} is used by
+by LilyPond, @uref{https://tug.org/xetex/, Xe@TeX{}} is used by
 default.  If not available,
-@uref{https://tug.org/applications/pdftex/index.html, pdfTeX} is
+@uref{https://tug.org/applications/pdftex/index.html, pdf@TeX{}} is
 tried instead, which might give inferior results, however -- for
 example, ligatures (fi, fl, ff, etc.) may not be printed in the
 PDF output.
 
-Not surprisingly, both XeTeX and pdfTeX are also part of TeXLive.
+Not surprisingly, both Xe@TeX{} and pdf@TeX{} are also part of @TeX{} Live.
 Most GNU/Linux and other free software distributions already
-provide packages for @uref{https://tug.org/texlive, TeXLive}, see
-above.  TeXLive can can also be installed separately; it contains
+provide packages for @uref{https://tug.org/texlive, @TeX{} Live}, see
+above.  @TeX{} Live can can also be installed separately; it contains
 stand-alone binaries for most platforms.
 
 @end itemize

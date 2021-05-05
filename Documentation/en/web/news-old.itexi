@@ -4556,7 +4556,7 @@ grace note spacing and tuplet brackets.  (@ref{Changes}, @ref{Old downloads})
 
 @newsItem
 @subheading LilyPond 2.9.12 available - @emph{July 18, 2006}
-This release supports pdftex for lilypond-book, and uses PdfTeX for
+This release supports @command{pdftex} for @command{lilypond-book}, and uses pdf@TeX{} for
 generating manuals, so page numbers and references are now clickable.
 (@ref{Changes}, @ref{Old downloads})
 @newsEnd

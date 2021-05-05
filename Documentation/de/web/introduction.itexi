@@ -184,7 +184,7 @@ richtig gekrümmt!
 
 Sie können Notenfragmente in einen Text einfügen, ohne Bilder auszuschneiden
 und einzufügen.  Mit LilyPond lassen sich Noten in @LaTeX{} oder HTML
-nahtlos einfügen und mit @uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond} auch in OpenOffice.org und LibreOffice Dokumente
+nahtlos einfügen und mit @uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond} auch in OpenOffice.org und LibreOffice Dokumente
 integrieren.  Es gibt auch Plugins, mit denen LilyPond Code für verschiedene
 Blogs und Wikis ermöglicht wird, sodass auch eine Zusammenarbeit online
 möglich wird.
@@ -1561,7 +1561,7 @@ Ableger existieren als
 und @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 ist eine OpenOffice.org Erweiterung die LilyPond Dateien in Grafiken
 in OpenOffice.org Dokumenten umwandelt.  Es wird zwarnicht mehr weiterentwickelt,
 scheint aber noch mit Version 4 zu laufen.

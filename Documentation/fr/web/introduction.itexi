@@ -202,7 +202,7 @@ Introduisez des fragments de partition musicale sans avoir besoin de
 copier-coller manuellement des images. Intégrez de façon transparente
 des partitions dans un document @LaTeX{} ou HTML, ou bien ajoutez des
 partitions dans un document OpenOffice.org ou LibreOffice avec
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
 
 Vous trouverez des greffons qui permettent d'insérer du code LilyPond
 dans des @emph{blogs} et @emph{wikis}, rendant ainsi possible le travail
@@ -1522,7 +1522,7 @@ chapitre @rprogram{LilyPond et les éditeurs de texte}.
 @subsubheading TeXShop
 @uref{http://pages.uoregon.edu/koch/texshop/}
 
-L'éditeur TexShop pour MacOS X peut être muni d'une extension pour
+L'éditeur TeXShop pour MacOS X peut être muni d'une extension pour
 lancer LilyPond, @command{lilypond-book} et @command{convert-ly},
 disponible à
 @example
@@ -1647,7 +1647,7 @@ qui importait
 et @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 extension pour OpenOffice.org convertit des fichiers LilyPond en image
 au sein de documents OpenOffice.org.  Bien qu'elle ne soit plus
 activement dévoloppée, cette extension est encore fonctionnelle avec

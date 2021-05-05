@@ -185,7 +185,7 @@ e le codette sono posizionate automaticamente!
 Inserisci frammenti di musica nel testo senza dover tagliare e incollare
 immagini.  Integra comodamente la musica in @LaTeX{} o HTML, o aggiungi la
 musica in OpenOffice.org e LibreOffice con
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
 Esistono anche dei plugin che permettono di usare l'input di LilyPond in blog e
 wiki, rendendo possibile la collaborazione online.
 
@@ -1446,7 +1446,7 @@ esportare in formato LilyPond, ma è un software ancora in beta.  Gli utenti
 che vogliono provarlo sono benvenuti.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 un'estensione di OpenOffice.org che converte i file di LilyPond in immagini
 incluse nei documenti di OpenOffice.org.  Sebbene non sia più sviluppato,
 sembra che funzioni ancora nella versione 4.

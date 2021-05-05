@@ -408,7 +408,7 @@ Scheme di LilyPond @code{-dmusic-@/font-@/encodings=@/'#f'} e
 @code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
 
 @item TeX
-Produce file ottimizzati per l'inclusione in documenti pdfTeX, LuaTeX o XeTeX.
+Produce file ottimizzati per l'inclusione in documenti pdf@TeX{}, Lua@TeX{} o Xe@TeX{}.
 
 L'uso di questo valore è equivalente a impostare le opzioni a linea di comando
 Scheme di LilyPond @code{-dmusic-@/font-@/encodings=@/'#t'} e

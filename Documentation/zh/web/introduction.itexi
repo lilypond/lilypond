@@ -1147,7 +1147,7 @@ More information on setting up Emacs and Vim can be found in
 @sourceimage{logo-macosx,,}
 @uref{http://www.uoregon.edu/~koch/texshop}
 
-The TexShop editor for Mac OS@tie{}X can be extended to run LilyPond,
+The TeXShop editor for Mac OS@tie{}X can be extended to run LilyPond,
 @command{lilypond-book} and @command{convert-ly} from within the editor,
 using the extensions available at:
 

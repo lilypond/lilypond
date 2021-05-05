@@ -433,7 +433,7 @@ LilyPond の Scheme コマンドラインオプション
 を指定した場合と同じです。
 
 @item TeX
-PdfTeX, LuaTeX, XeTeX
+pdf@TeX{}, Lua@TeX{}, Xe@TeX{}
 ドキュメントにインクルードされるのに最適化されたファイルを生成します。
 
 LilyPond の Scheme コマンドラインオプション

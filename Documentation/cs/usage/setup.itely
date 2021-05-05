@@ -136,7 +136,7 @@ Verschiedene Texteditoren haben Unterstützung für LilyPond.
 * Režim Emacs::
 * Režim Vim::
 * jEdit::
-* TexShop::
+* TeXShop::
 * TextMate::
 * LilyKDE::
 @end menu
@@ -218,12 +218,12 @@ Installationsanweisungen finden sich unter
 @uref{https://lilypondtool@/.organum@/.hu}
 
 
-@node TexShop
-@subsection TexShop
-@translationof TexShop
+@node TeXShop
+@subsection TeXShop
+@translationof TeXShop
 
 Der
-@uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}-Editor
+@uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TeXShop}-Editor
 für MacOS@tie{}X kann erweitert werden, um LilyPond, lilypond-book und convert-ly aus dem
 Editor heraus zu starten. Die Erweiterung findet sich unter
 @uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.

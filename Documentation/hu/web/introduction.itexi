@@ -871,13 +871,13 @@ A @uref{http://www.volny.cz/smilauer/rumor/,Rumor}t használja,
 Hasznos funkciója többek között, hogy a KDE fájlkezelőjéből több fájlt le
 lehet fordítani egyszerre a segítségével.
 
-@subsubheading TexShop
+@subsubheading TeXShop
 
 @sourceimage{logo-macosx,,}
 
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop}
 
-A Mac OS@tie{}X alá írt TexShop szerkesztő a
+A Mac OS@tie{}X alá írt TeXShop szerkesztő a
 @uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html#desktoppub}
 címen található kiterjesztésekkel képes futtatni a LilyPondot, valamint a
 @command{lilypond-book} és a @command{convert-ly} segédprogramokat.

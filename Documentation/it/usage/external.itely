@@ -774,21 +774,21 @@ Questa sezione presenta dei metodi per integrare testo e musica diversi
 dal metodo automatizzato di @command{lilypond-book}.
 
 @menu
-* LuaTex::
+* LuaTeX::
 * OpenOffice e LibreOffice::
 * Altri programmi::
 @end menu
 
-@node LuaTex
-@subsection LuaTex
-@translationof LuaTex
+@node LuaTeX
+@subsection Lua@TeX{}
+@translationof LuaTeX
 
-@cindex LuaTex
+@cindex Lua@TeX{}
 @cindex lyluatex
 
 Per integrare l'output di LilyPond in un documento, oltre a
 @code{lilypond-book}, esiste un programma alternativo che può
-essere usato con LuaTex:
+essere usato con Lua@TeX{}:
 @uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
 
 
@@ -803,7 +803,7 @@ essere usato con LuaTex:
 La notazione di LilyPond può essere aggiunta a OpenOffice.org e LibreOffice
 con @uref{https://github.com/openlilylib/LO-ly,OOoLilyPond},
 un'estensione di OpenOffice.org che converte i file di LilyPond in immagini
-incluse nei documenti di OpenOffice.org.  OoLilyPond funziona con le versioni
+incluse nei documenti di OpenOffice.org.  OOoLilyPond funziona con le versioni
 recenti di LibreOffice e OpenOffice, ma dovrebbe funzionare anche con versioni
 più vecchie. È stato testato con OpenOffice 2.4 e non sono emersi problemi.
 

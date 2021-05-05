@@ -402,8 +402,8 @@ line options @code{-dmusic-@/font-@/encodings=@/'#f'} and
 @code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
 
 @item TeX
-Produce files that are optimized for inclusion in pdfTeX, luatex, or
-XeTeX documents.
+Produce files that are optimized for inclusion in pdf@TeX{}, Lua@TeX{}, or
+Xe@TeX{} documents.
 
 Using this value is equivalent to setting LilyPond's Scheme command
 line options @code{-dmusic-@/font-@/encodings=@/'#t'} and

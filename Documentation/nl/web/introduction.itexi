@@ -1251,7 +1251,7 @@ vinden in @rprogram{Text editor support}.
 @sourceimage{logo-macosx,,}
 @uref{http://www.uoregon.edu/~koch/texshop}
 
-De TexShop-editor voor MacOS@tie{}X kan uitgebreid worden
+De TeXShop-editor voor MacOS@tie{}X kan uitgebreid worden
 voor het uitvoeren van LilyPond, @command{lilypond-book} en
 @command{convert-ly} vanuit de editor, door gebruik te maken
 van de uitbreidingen die beschikbaar zijn op:

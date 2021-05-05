@@ -337,7 +337,7 @@ wird eine Art der Erzeugung von Postscript- EPS- bzw. PDF-Dateien gewählt,
 die möglichst kleine Dateien erzeugt.
 
 Der Parameter @w{@code{TeX}} führt zu Dateien, die besonders gut zur
-Einbindung in  PdfTeX, LuaTeX oder XeTeX geeignet sind.
+Einbindung in pdf@TeX{}, Lua@TeX{} oder Xe@TeX{} geeignet sind.
 
 Sollen mehrere mit LilyPond erzeugt Dokumente in ein TeX-Dokument
 eingebunden werden, so bietet es sich an, @w{@code{TeX-GS}} zu verwenden

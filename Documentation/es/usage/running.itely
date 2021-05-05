@@ -450,7 +450,7 @@ línea de órdenes del Scheme de LilyPond a
 
 @item TeX
 Producir archivos que están optimizados para su inclusión dentro
-de documentos de pdfTeX, luatex o XeTeX.
+de documentos de pdf@TeX{}, Lua@TeX{} o Xe@TeX{}.
 
 La utilización de este valor equivale a fijar las opciones de la
 línea de órdenes del Scheme de LilyPond a

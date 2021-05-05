@@ -189,7 +189,7 @@ e barras de ligação são inclinados para baixo, automaticamente!
 Coloque fragmentos de música em textos sem recortar e colar fotos.
 Integre música ao @LaTeX{} ou HTML sem problemas, ou adicione música
 ao OpenOffice.org e ao LibreOffice com
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
 Plugins também estão disponíveis para permitir o código do LilyPond
 em vários blogs e wikis, possibilitando a colaboração on-line.
 
@@ -1512,7 +1512,7 @@ anteriores ainda estão disponíveis para download no
 e @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 uma extensão do OpenOffice.org que converte arquivos LilyPond em imagens
 nos documentos do OpenOffice.org. Embora isso não esteja mais sendo
 desenvolvido, parece ainda funcionar com a versão 4.

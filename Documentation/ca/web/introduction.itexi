@@ -191,7 +191,7 @@ Col·loqueu fragments de música dins de textos sense retallar i
 enganxeu imatges. Integreu música dins del @LaTeX{} i de l'HTML de forma
 senzilla, o afegiu música a documents de l'OpenOffice o del
 LibreOffice mitjançant
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
 També hi ha connectors o complements disponibles per permetre codi
 del LilyPond dins de diversos blogs i wikis, fent possible la
 col·laboració en línia.
@@ -1416,7 +1416,7 @@ Hi ha més informació sobre la configuració de l'Emacs i del Vim a
 @subsubheading TeXShop
 @uref{http://www.uoregon.edu/~koch/texshop}
 
-L'editor TexShop per a MacOS@tie{}X es pot estendre perquè executi
+L'editor TeXShop per a MacOS@tie{}X es pot estendre perquè executi
 el LilyPond @command{lilypond-book} i @command{convert-ly} des de
 dins de l'editor, utilitzant les extensions que estan disponibles a:
 
@@ -1538,7 +1538,7 @@ per a descarregar a
 i @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
 una extensió de l'OpenOffice.org que converteix fitxers del
 LilyPond a imatge dins de documents de l'OpenOffice .org.  Tot i
 que ja no s'està desenvolupant de forma activa, encara sembla

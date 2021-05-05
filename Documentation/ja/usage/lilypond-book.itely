@@ -40,7 +40,7 @@ Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} 
 適用することができます。
 
 @cindex texinfo
-@cindex LaTex
+@cindex LaTeX
 @cindex texinfo
 @cindex texi
 @cindex HTML
@@ -1184,7 +1184,7 @@ LilyPond ブロックの最初の @code{\score} だけが処理されます。
 
 @subsection LaTeX
 
-LilyPond 断片を LaTex ドキュメントに組み込むことができます。
+LilyPond 断片を LaTeX ドキュメントに組み込むことができます。
 
 @example
 \documentclass[]@{article@}
