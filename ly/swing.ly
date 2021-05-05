@@ -193,7 +193,7 @@ Ignore grace music. Do not unfold repeats for determining timings."
    "Based on a subdivision of the unit interval [0;1] into n =
 length(wlist) sub-intervals of equal width 1/n, calculate the
 necessary shifts of the sub-interval boundaries to make the relative
-lenghts of the sub-intervals correspond to the ratios of the numbers
+lengths of the sub-intervals correspond to the ratios of the numbers
 in wlist.
 
 Return a list of n-1 numbers."

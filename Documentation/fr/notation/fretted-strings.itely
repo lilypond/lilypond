@@ -2021,7 +2021,7 @@ la mesure où LilyPond est un éditeur de partitions, il n'est pas l'outil
 optimal pour des documents sans partition.  Une meilleure alternative
 serait de recourir à un traitement de texte, un éditeur de texte ou,
 pour les utilisateurs expérimentés, un logiciel typographique tel que
-GuitarTex.
+GuitarTeX.
 
 @menu
 * Indication de la position et du barré::

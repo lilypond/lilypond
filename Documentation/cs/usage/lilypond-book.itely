@@ -1187,7 +1187,7 @@ lilypond-book.
 @section Sdílení obsahu
 @translationof Sharing the table of contents
 
-Diese Funktionen existieren schon im OrchestraLily-Paket:
+Diese Funktionen existieren schon im OrchestralLily-Paket:
 
 @example
 @url{http://repo.or.cz/w/orchestrallily.git}

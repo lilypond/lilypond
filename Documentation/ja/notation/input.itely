@@ -2415,7 +2415,7 @@ music = \relative c'' {
 
 単一の音楽表記に複数の @code{\removeWithTag} フィルタを適用することによって、@c
 いくつかの異なる名前のタグが付いたセクションを排除することができます。または、@c
-@code{\removeWitTag} にタグのリストを与える表記を用いることもできます:
+@code{\removeWithTag} にタグのリストを与える表記を用いることもできます:
 
 @lilypond[verbatim,quote]
 music = \relative c'' {

@@ -251,7 +251,7 @@ Fragmente in einer Datenbank.  Die Möglichkeiten sind nur durch ihre Phantasie 
 LilyPond is kein monolithisches GUI Programm sondern ein Kommandozeilen Progrmm.
 Daher kann es auch von anderen Programmen verwendet werden.  So kann z.B. eine
 Webanwendung mit LilyPond's Notensatzfähikeiten erweitert werden.  Tatsächlich
-existieren verschiedene Online Werkzeuge, die LiylPond verwenden.
+existieren verschiedene Online Werkzeuge, die LilyPond verwenden.
 
 @c (TBD: Add a link to the new @ref{Applications} page.
 

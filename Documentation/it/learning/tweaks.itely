@@ -287,7 +287,7 @@ al suo valore predefinito.  Attenzione: non al suo valore precedente (nel caso
 siano stati inseriti vari comandi @code{\override}).  Impiega la seguente sintassi:
 
 @example
-\revert @var{Contesto}.@var{OggettoDiFormmattazione}.@var{proprietà-formattazione}
+\revert @var{Contesto}.@var{OggettoDiFormattazione}.@var{proprietà-formattazione}
 @end example
 
 Anche in questo caso, come per il comando @code{\override}, @var{Contesto} di

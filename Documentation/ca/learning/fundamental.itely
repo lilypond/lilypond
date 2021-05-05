@@ -3155,7 +3155,7 @@ violí = \relative @{
 @c TODO Replace the following with a better example  -td
 @c Skylining handles this correctly without padText
 
-Fins ara hem contemplat la substitució estàtica: quan el LilyPonod
+Fins ara hem contemplat la substitució estàtica: quan el LilyPond
 es troba amb @code{\padText}, el substitueix amb allò que hem
 definit que sigui (és a dir, tot el que està a la dreta de
 @code{padtext=}).
@@ -3182,7 +3182,7 @@ padText =
 @end lilypond
 
 La utilització d'identificadors també és una bona forma de reduir
-el treball si la sintaxis d'entrada del LilyPonod canvia (vegeu
+el treball si la sintaxis d'entrada del LilyPond canvia (vegeu
 @rprogram{Actualització de fitxers amb convert-ly}).  Si teniu una sola
 definició (com ara @code{\dolce}) per a tots els fitxers (vegeu
 @ref{Fulls d'estil}), i després la sintaxis es

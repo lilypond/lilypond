@@ -249,7 +249,7 @@ pot especificar donant valors a les variables
 @code{SopranoOneMusic}, @code{SopranoTwoMusic}, etc., amb les
 lletres a @code{SopranoOneLyrics}, @code{SopranoTwoLyrics}, etc.
 Es pot definir fins a quatre estrofes addicionals per a totes les
-parts usant les variables @code{SopranoONeLyricsOne}, estant les
+parts usant les variables @code{SopranoOneLyricsOne}, estant les
 altres definides de forma anàloga.
 
 Si s'estableix el valor de @code{TwoVoicesPerStaff} a @code{##t},

@@ -2,7 +2,7 @@
   texidocfr = "
 Il arrive, dans les partitions d'orchestre, qu'un instrument ou un
 groupe d'instruments ne joue pas pendant un moment et que leurs portées
-disparaisse pendant ce temps -- à l'aide de @code{\\removeEmptStaves}.
+disparaisse pendant ce temps -- à l'aide de @code{\\removeEmptyStaves}.
 
 Il est préférable, lorsque l'un d'entre eux reprend, d'imprimer @b{toutes
 les portées du groupe en question} grâce au

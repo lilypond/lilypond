@@ -1012,7 +1012,7 @@ aquestes dues propietats que són d'aplicació per a
 diferent quan es creen.
 
 Vejam ara si podem construir la instrucció @code{\override} per
-canviar la lletra a cursiva.  L'objecte és @code{LyrcText}, la
+canviar la lletra a cursiva.  L'objecte és @code{LyricText}, la
 propietat és @code{font-shape} i el valor és @code{italic}.  Igual
 que abans, ometrem el context.
 

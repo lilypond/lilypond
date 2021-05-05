@@ -3039,7 +3039,7 @@ Referenz der Interna:
 @knownissues
 Taktnummern können mit der oberen Ecke der Klammer zu Beginn des
 Systems zusammenstoßen.  Um das zu verhindert, kann die
-@code{padding}-Eigenschaft von @code{BarNumer} verwendet werden,
+@code{padding}-Eigenschaft von @code{BarNumber} verwendet werden,
 um die Zahl zu verschieben.  Für mehr Information siehe
 @rinternals{StaffGroup} und @rinternals{BarNumber}.
 

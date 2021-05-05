@@ -123,7 +123,7 @@ LilyPond-Eingabe einer gedruckten Partitur):
 Schreiben Sie ein System ihrer Quelle nach dem anderen
 (aber trotzdem nur einen Takt pro Textzeile) und überprüfen
 Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem
-@code{showLastLength}- oder @code{showFirstLenght}-Befehl können Sie den Übersetzungsprozess
+@code{showLastLength}- oder @code{showFirstLength}-Befehl können Sie den Übersetzungsprozess
 beschleunigen. Siehe auch
 @ruser{Korrigierte Musik überspringen}.
 

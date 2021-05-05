@@ -3165,7 +3165,7 @@ Scheme では、@strong{クロージャ} (@strong{closure}) は@c
 @cindex layout object (レイアウト オブジェクト)
 @cindex graphical object (グラフィカル オブジェクト)
 
-LilyPon のオブジェクトの内、
+LilyPond のオブジェクトの内、
 符頭、符幹、スラー、タイ、運指、音部記号などの、@c
 印刷される出力におけるアイテムを表すものは、@q{レイアウト オブジェクト}
 (@q{layout object}) またはよく @strong{グラフィカル オブジェクト}

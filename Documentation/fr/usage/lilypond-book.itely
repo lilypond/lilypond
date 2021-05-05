@@ -625,7 +625,7 @@ d'afficher le numéro de version de LilyPond.
 @translationof DocBook
 
 L'inclusion de documents LilyPond ne doit nuire en rien à la conformité
-du document DocBooK ; l'utilisation d'éditeurs spécialisés ainsi
+du document DocBook ; l'utilisation d'éditeurs spécialisés ainsi
 que d'outils de validation en sera ainsi préservée.  C'est la raison
 pour laquelle nous ne définirons pas de balise spécifique ; nous
 respecterons plutôt les conventions des éléments standard de DocBook.

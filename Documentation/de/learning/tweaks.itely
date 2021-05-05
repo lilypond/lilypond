@@ -2384,7 +2384,7 @@ Zum Beispiel bringt das Ändern von @code{outside-staff-priority}
 des @code{Hairpin}-(Dynamikklammer)-Objekts keine Änderung in der
 vertikalen Position von Crescendo-Klammern -- anstatt dessen muss
 @code{outside-staff-priority} des hiermit assoziierten
-@code{DynamicLineSpanne}-Objekts geändert werden.  Dieser
+@code{DynamicLineSpanner}-Objekts geändert werden.  Dieser
 @code{\override}-Befehl muss zu Beginn des Streckers gesetzt werden,
 welcher womöglich mehrere verbundene Dynamikklammern und Dynamikbezeichnung
 beinhaltet.
@@ -3310,7 +3310,7 @@ c'2\fermata
 b2\fermata
 @end lilypond
 
-@cindex MetronomMark, Beispiel zur Veränderung
+@cindex MetronomeMark, Beispiel zur Veränderung
 @cindex Verschiebungs-Eigenschaft, Beispiel
 @cindex padding (Verschiebuns-Eigenschaft), Beispiel
 

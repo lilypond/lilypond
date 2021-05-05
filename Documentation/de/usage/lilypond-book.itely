@@ -1322,7 +1322,7 @@ lilypond-book.
 @section Das Inhaltsverzeichnis flexibel einsetzen
 @translationof Sharing the table of contents
 
-Diese Funktionen existieren schon im OrchestraLily-Paket:
+Diese Funktionen existieren schon im OrchestralLily-Paket:
 
 @example
 @url{http://repo.or.cz/w/orchestrallily.git}

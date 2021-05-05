@@ -1661,7 +1661,7 @@ de partition.
 @cindex fonte, fichiers externes
 
 En sus de celles déjà installées sur le système, d'autres fontes peuvent
-s'ajouter au répertoire de FonConfig, ce qui les rendra donc disponibles
+s'ajouter au répertoire de FontConfig, ce qui les rendra donc disponibles
 pour les partitions LilyPond, à l'aide des commandes suivantes :
 
 @example

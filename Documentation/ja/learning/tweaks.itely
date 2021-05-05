@@ -1327,7 +1327,7 @@ LilyPond に読み込まれます。@c
 @code{TimeSignature} レイアウト オブジェクトのプロパティを見つけるために@c
 内部リファレンスの @q{すべてのレイアウト オブジェクト} ページに@c
 戻ってください。@c
-@code{TimeSigunature} は @code{Time_signature_engraver} によって作り出され、@c
+@code{TimeSignature} は @code{Time_signature_engraver} によって作り出され、@c
 さらに、@code{Time_signature_engraver} は @code{Staff} コンテキストに含まれ、@c
 さらに、@code{Staff} コンテキストは @code{grob-interface} を@c
 サポートしているということがわかります。@c

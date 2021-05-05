@@ -1004,9 +1004,9 @@ possible de l'imprimer sous la forme de tirets ou en pointillé :
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
 
-En utilisant @code{\phrasingslurHalfDashed}, la première moitié de la
+En utilisant @code{\phrasingSlurHalfDashed}, la première moitié de la
 liaison aura un trait discontinu et continu pour la seconde.  L'inverse
-s'obtient avec @code{\phrasingslurHalfSolid}.
+s'obtient avec @code{\phrasingSlurHalfSolid}.
 
 @lilypond[verbatim,quote]
 \relative {
