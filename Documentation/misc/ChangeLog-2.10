@@ -7742,7 +7742,7 @@
 
 2005-12-07  Heikki Junes  <hjunes@cc.hut.fi>
 
-	* Documentation/user/lilypond-book.itely: use `,´ after xref:
+	* Documentation/user/lilypond-book.itely: use `,' after xref:
 	See xref documentation, for example.
 
 2005-12-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
