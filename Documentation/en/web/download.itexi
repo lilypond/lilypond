@@ -229,6 +229,12 @@ Unofficial 64-bit application bundles for macOS 10.15 are
 available at
 @uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases}.
 
+@item
+@sourceimage{logo-macports,,}
+@uref{https://www.macports.org/,MacPorts}, a package manager
+for Mac OS, has a @uref{https://ports.macports.org/port/lilypond/summary,
+LilyPond port}.
+
 @end itemize
 
 @subsubheading Install

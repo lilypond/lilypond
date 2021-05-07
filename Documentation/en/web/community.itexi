@@ -589,6 +589,9 @@ the latest binary:
 @uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
 Mac OS X x86 64-bit (unofficial)}
 
+@uref{https://ports.macports.org/port/lilypond-devel/summary,
+MacPorts package}
+
 @downloadDevelWindows
 
 @downloadDevelSource
