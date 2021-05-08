@@ -345,7 +345,7 @@ install-info-images: $(INFO_FILES)
 ifeq ($(out),www)
 # remove $(infodir)/$(INFO_IMAGES_DIR) in case it is a symlink
 	rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
-ifneq ($(COPY_INFO_IMAGES),)
+ifneq ($(COPY_INFO_IMAGES),no)
 	$(INSTALLPY) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 	rsync --copy-links -r  $(outdir)/lilypond/?? $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 # There is probably an rsync invocation to just copy the png files,

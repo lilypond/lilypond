@@ -114,7 +114,10 @@ info:
 	$(MAKE) out=www -C Documentation info
 
 install-info:
-	$(MAKE) out=www -C Documentation install-info
+	$(MAKE) COPY_INFO_IMAGES=yes out=www -C Documentation install-info
+
+install-info-noimages:
+	$(MAKE) COPY_INFO_IMAGES=no out=www -C Documentation install-info
 
 uninstall-info:
 	$(MAKE) out=www -C Documentation uninstall-info
@@ -123,7 +126,7 @@ install-help2man:
 	$(MAKE) -C scripts man install-help2man
 	$(MAKE) -C lily man install-help2man
 
-install-doc: install-info install-WWW
+install-doc: install-info-noimages install-WWW
 
 uninstall-doc: uninstall-info uninstall-WWW
 
