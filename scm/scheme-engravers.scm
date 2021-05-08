@@ -978,3 +978,24 @@ Engraver to print a line between two @code{Fingering} grobs.")))
    (description . "Group measure-centered bar numbers in a
 @code{CenteredBarNumberLineSpanner} so they end up on the same
 vertical position.")))
+
+(define (Alteration_glyph_engraver context)
+  (make-engraver
+    (acknowledgers
+      ((accidental-switch-interface engraver grob source-engraver)
+         (let ((alteration-glyphs
+                 (ly:context-property context 'alterationGlyphs)))
+           (if alteration-glyphs
+               (ly:grob-set-property! grob
+                                      'alteration-glyph-name-alist
+                                      alteration-glyphs)))))))
+
+(ly:register-translator
+ Alteration_glyph_engraver 'Alteration_glyph_engraver
+ '((grobs-created . ())
+   (events-accepted . ())
+   (properties-read . (alterationGlyphs))
+   (properties-written . ())
+   (description . "Set the @code{glyph-name-alist} of all grobs having the
+@code{accidental-switch-interface} to the value of the context's
+@code{alterationGlyphs} property, when defined.")))

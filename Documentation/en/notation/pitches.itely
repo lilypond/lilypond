@@ -1126,6 +1126,7 @@ This section discusses how to alter the output of pitches.
 * Ottava brackets::
 * Instrument transpositions::
 * Automatic accidentals::
+* Alternate accidental glyphs::
 * Ambitus::
 @end menu
 
@@ -3088,6 +3089,91 @@ forget = #(define-music-function (music) (ly:music?) #{
   }
 }
 @end lilypond
+
+@node Alternate accidental glyphs
+@unnumberedsubsubsec Alternate accidental glyphs
+
+@cindex alternate accidental glyph
+@cindex accidental, alternate glyphs
+@cindex glyph, alternate accidentals
+
+Non-Western and ancient notation systems have their own accidentals.
+The glyphs are controlled through the @code{alterationGlyphs}
+property of the @code{Staff} context and similar context types.
+The predefined values for this property are listed in
+@ref{Accidental glyph sets}.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs = #alteration-vaticana-glyph-name-alist
+  }
+}
+
+{ ces' c' cis' }
+@end lilypond
+
+The property may also be set to a custom associative list mapping
+alterations to glyph names.  Alterations are given as fractions in
+tones.  Glyphs are listed at @ref{Accidental glyphs}.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs =
+      #'((-1/2 . "accidentals.flat.arrowdown")
+         (0 . "accidentals.natural.arrowup")
+         (1/2 . "accidentals.sharp.arrowup"))
+  }
+}
+
+{ ces' c' cis' }
+@end lilypond
+
+The @code{padding-pairs} property of @code{KeySignature} and
+@code{KeyCancellation} objects is an associative list mapping
+pairs of glyphs to the padding that should be added between
+these glyphs in key signatures.
+
+@lilypond[verbatim]
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs =
+      #'((-1/2 . "accidentals.flat.arrowdown")
+         (0 . "accidentals.natural.arrowup")
+         (1/2 . "accidentals.sharp.arrowup"))
+    \override KeySignature.padding-pairs =
+      #'((("accidentals.sharp.arrowup" . "accidentals.sharp.arrowup")
+            . 0.25)
+         (("accidentals.flat.arrowdown" . "accidentals.flat.arrowdown")
+            . 0.3))
+    \override KeyCancellation.padding-pairs =
+      #'((("accidentals.natural.arrowup" . "accidentals.natural.arrowup")
+            . 0.7))
+  }
+}
+
+{
+  \key cis \major
+  ces' c'
+  \key ces \major
+  cis'
+}
+@end lilypond
+
+@morerefs
+Notation Reference:
+@ref{Accidental glyph sets},
+@ref{Accidental glyphs}.
+
+Internals Reference:
+@rinternals{accidental-switch-interface},
+@rinternals{Alteration_glyph_engraver},
+@rinternals{key-signature-interface}.
+@endmorerefs
 
 
 @node Ambitus

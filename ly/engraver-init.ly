@@ -88,6 +88,7 @@
   \consists "Cue_clef_engraver"
   \consists "Fingering_column_engraver"
   \consists "Merge_mmrest_numbers_engraver"
+  \consists "Alteration_glyph_engraver"
 
   localAlterations = #'()
   createSpacing = ##t
@@ -508,6 +509,7 @@ printing of a single line of lyrics."
   \consists "Tie_engraver"
   \consists "Note_name_engraver"
   \consists "Separating_line_group_engraver"
+  \consists "Alteration_glyph_engraver"
 }
 
 \context {
@@ -522,6 +524,7 @@ printing of a single line of lyrics."
   \consists "Chord_name_engraver"
   \consists "Axis_group_engraver"
   %\consists "Note_spacing_engraver"
+  \consists "Alteration_glyph_engraver"
 
   \override VerticalAxisGroup.remove-first = ##t
   \override VerticalAxisGroup.remove-empty = ##t
@@ -709,6 +712,7 @@ run."
     (6 . ,DOUBLE-FLAT) (2 . ,DOUBLE-FLAT) (5 . ,DOUBLE-FLAT ) (1 . ,DOUBLE-FLAT) (4 . ,DOUBLE-FLAT) (0 . ,DOUBLE-FLAT) (3 . ,DOUBLE-FLAT)
     (3  . ,DOUBLE-SHARP) (0 . ,DOUBLE-SHARP) (4 . ,DOUBLE-SHARP) (1 . ,DOUBLE-SHARP) (5 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (6 . ,DOUBLE-SHARP)
   )
+  alterationGlyphs = ##f
 
   barCheckSynchronize = ##f
 
@@ -1038,8 +1042,7 @@ of Editio Vaticana."
   clefTransposition = #0
 
   %% Select vaticana style font.
-  \override KeySignature.alteration-glyph-name-alist = #alteration-vaticana-glyph-name-alist
-  \override Accidental.alteration-glyph-name-alist = #alteration-vaticana-glyph-name-alist
+  alterationGlyphs = #alteration-vaticana-glyph-name-alist
   \override Custos.style = #'vaticana
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
@@ -1135,9 +1138,7 @@ accommodated for typesetting a piece in mensural style."
 
   %% Select mensural style font.
   \override TimeSignature.style = #'mensural
-  \override KeySignature.alteration-glyph-name-alist = #alteration-mensural-glyph-name-alist
-  \override Accidental.alteration-glyph-name-alist = #alteration-mensural-glyph-name-alist
-  \override AccidentalSuggestion.alteration-glyph-name-alist = #alteration-mensural-glyph-name-alist
+  alterationGlyphs = #alteration-mensural-glyph-name-alist
   \override Custos.style = #'mensural
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
@@ -1221,7 +1222,7 @@ accommodated for typesetting a piece in Kievan style."
   \override Stem.stencil = ##f
   \override Flag.stencil = ##f
   \override Rest.style = #'mensural
-  \override Accidental.alteration-glyph-name-alist = #alteration-kievan-glyph-name-alist
+  alterationGlyphs = #alteration-kievan-glyph-name-alist
   \override Dots.style = #'kievan
   \override Slur.stencil = ##f
   \override Stem.length = #0.0

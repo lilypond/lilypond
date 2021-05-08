@@ -777,14 +777,8 @@ style.
 }
 @end lilypond
 
-The style for accidentals and key signatures is controlled by the
-@code{alteration-glyph-name-alist} property of the grobs @code{Accidental} and
-@code{KeySignature}, respectively; e.g.:
-
-@example
-\override Staff.Accidental.alteration-glyph-name-alist =
-  #alteration-mensural-glyph-name-alist
-@end example
+The way to use this style is covered in @ref{Alternate accidental glyphs}.
+It is the default in the @code{MenturalStaff} context.
 
 @morerefs
 Music Glossary:
@@ -797,6 +791,8 @@ Notation Reference:
 @ref{Pitches},
 @ref{Accidentals},
 @ref{Automatic accidentals},
+@ref{Alternate accidental glyphs},
+@ref{Accidental glyph sets},
 @ref{Key signature}.
 
 Internals Reference:
@@ -1201,14 +1197,8 @@ different style.
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
-The style for accidentals and key signatures is controlled by the
-@code{alteration-glyph-name-alist} property of the grobs @code{Accidental} and
-@code{KeySignature}, respectively; e.g.:
-
-@example
-\override Staff.Accidental.alteration-glyph-name-alist =
-  #alteration-mensural-glyph-name-alist
-@end example
+How to switch between styles is covered in
+@ref{Alternate accidental glyphs}.
 
 @morerefs
 Music Glossary:
@@ -1219,6 +1209,7 @@ Notation Reference:
 @ref{Pitches},
 @ref{Accidentals},
 @ref{Automatic accidentals},
+@ref{Alternate accidental glyphs},
 @ref{Key signature}.
 
 Internals Reference:
@@ -2541,8 +2532,6 @@ setting the @code{direction} property of the @code{Stem} object.
 @cindex accidental, Kievan
 @cindex Kievan accidental
 
-The @code{kievan} style for accidentals is selected with the
-@code{alteration-glyph-name-alist} property of the grob @code{Accidental}.
 The @code{kievan} style provides a sharp and a flat sign
 different from the default style.  There is no natural sign
 in Kievan notation.  The sharp sign is not used in Synodal music
@@ -2551,8 +2540,8 @@ primarily for the sake of compatibility.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.alteration-glyph-name-alist =
- #alteration-kievan-glyph-name-alist
+\set Staff.alterationGlyphs =
+  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond
 
@@ -2564,6 +2553,7 @@ Music Glossary:
 Notation Reference:
 @ref{Accidentals},
 @ref{Automatic accidentals},
+@ref{Alternate accidental glyphs},
 @ref{The Emmentaler font}
 @endmorerefs
 

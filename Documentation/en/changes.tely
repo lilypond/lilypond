@@ -66,6 +66,40 @@ which scares away people.
 @end ignore
 
 @item
+Support for alternate accidentals was improved.  Through the
+@code{alterationGlyphs} property of staff-like contexts,
+accidental glyphs may be set for all grobs at once
+(refer to @ruser{Alternate accidental glyphs}).
+
+@lilypond
+% Avoid unfortunate cropping of the arrow-sharp glyph…
+\markup \vspace #0.5
+
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs =
+      #'((-1/2 . "accidentals.flat.arrowdown")
+         (0 . "accidentals.natural.arrowup")
+         (1/2 . "accidentals.sharp.arrowup"))
+  }
+}
+
+\new Voice \with {
+  \consists Ambitus_engraver
+}
+{
+  \key g \major
+  ces''
+  \set suggestAccidentals = ##t
+  c''
+  \unset suggestAccidentals
+  \accidentalStyle teaching
+  fis''
+}
+@end lilypond
+
+@item
 Ottava brackets may apply to a single voice instead of the entire
 staff.  This used to require workarounds.
 

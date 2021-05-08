@@ -32,6 +32,11 @@ note)."
  '())
 
 (ly:add-interface
+ 'accidental-switch-interface
+ "Any object that prints one or several accidentals based on alterations."
+ '(alteration-glyph-name-alist))
+
+(ly:add-interface
  'ambitus-interface
  "The line between note heads for a pitch range."
  '(gap

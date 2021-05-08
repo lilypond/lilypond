@@ -57,6 +57,9 @@ additional pitches within a chord name.")
 vertical alignment.")
      (alignBelowContext ,string? "Where to insert newly created context in
 vertical alignment.")
+     (alterationGlyphs ,list? "Alist mapping alterations to accidental glyphs.
+Alterations are given as exact numbers, e.g., -1/2 for flat.  This applies
+to all grobs that can print accidentals.")
      (alternativeNumber ,integer? "When set, the index of the current
 @code{\\alternative} element, starting from one.  Not set outside of
 alternatives.  Note the distinction from volta number: an alternative

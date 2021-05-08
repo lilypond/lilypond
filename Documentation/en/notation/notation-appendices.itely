@@ -23,6 +23,7 @@
 * List of colors::
 * The Emmentaler font::
 * Note head styles::
+* Accidental glyph sets::
 * Clef styles::
 * Text markup commands::
 * Text markup list commands::
@@ -1271,6 +1272,17 @@ For more information see @ref{Formatting text}.
 The following styles may be used for note heads.
 
 @lilypondfile[noindent]{en/included/note-head-style.ly}
+
+
+@node Accidental glyph sets
+@appendixsec Accidental glyph sets
+
+@cindex glyph set, accidental
+@cindex accidental glyph set
+
+The following sets of accidental glyphs are available.
+
+@lilypondfile[noindent]{en/included/accidental-glyph-set.ly}
 
 
 @node Clef styles

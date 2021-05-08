@@ -40,6 +40,7 @@
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
+                                accidental-switch-interface
                                 inline-accidental-interface
                                 font-interface))))))
 
@@ -54,6 +55,7 @@
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
+                                accidental-switch-interface
                                 inline-accidental-interface
                                 font-interface))))))
 
@@ -92,6 +94,7 @@
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
                                 accidental-suggestion-interface
+                                accidental-switch-interface
                                 font-interface
                                 outside-staff-interface
                                 script-interface
@@ -132,6 +135,7 @@
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
+                                accidental-switch-interface
                                 break-aligned-interface
                                 font-interface
                                 side-position-interface))))))
@@ -198,7 +202,8 @@
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (balloon-interface
+                 (interfaces . (accidental-switch-interface
+                                balloon-interface
                                 font-interface
                                 text-interface))))))
 
@@ -213,7 +218,8 @@
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
         (Y-extent . ,balloon::height)
         (meta . ((class . Spanner)
-                 (interfaces . (balloon-interface
+                 (interfaces . (accidental-switch-interface
+                                balloon-interface
                                 font-interface
                                 text-interface))))))
 
@@ -300,7 +306,8 @@
         (stencil . ,ly:text-interface::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (bass-figure-interface
+                 (interfaces . (accidental-switch-interface
+                                bass-figure-interface
                                 font-interface
                                 rhythmic-grob-interface
                                 text-interface))))))
@@ -645,7 +652,8 @@
         (word-space . 0.0)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (chord-name-interface
+                 (interfaces . (accidental-switch-interface
+                                chord-name-interface
                                 font-interface
                                 outside-staff-interface
                                 rhythmic-grob-interface
@@ -749,7 +757,8 @@
         (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-switch-interface
+                                font-interface
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
@@ -1361,7 +1370,8 @@
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-switch-interface
+                                font-interface
                                 horizontal-bracket-text-interface
                                 outside-staff-interface
                                 self-alignment-interface
@@ -1378,7 +1388,8 @@
         (X-offset . ,system-start-text::calc-x-offset)
         (Y-offset . ,system-start-text::calc-y-offset)
         (meta . ((class . Spanner)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-switch-interface
+                                font-interface
                                 self-alignment-interface
                                 side-position-interface
                                 system-start-text-interface
@@ -1399,7 +1410,8 @@
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-switch-interface
+                                font-interface
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
@@ -1462,7 +1474,8 @@
         (meta . ((class . Item)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
-                 (interfaces . (break-aligned-interface
+                 (interfaces . (accidental-switch-interface
+                                break-aligned-interface
                                 font-interface
                                 key-cancellation-interface
                                 key-signature-interface
@@ -1495,7 +1508,8 @@
         (meta . ((class . Item)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
-                 (interfaces . (break-aligned-interface
+                 (interfaces . (accidental-switch-interface
+                                break-aligned-interface
                                 font-interface
                                 key-signature-interface
                                 pure-from-neighbor-interface
@@ -1704,7 +1718,8 @@
         (stencil . ,ly:measure-spanner::print)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-switch-interface
+                                font-interface
                                 measure-spanner-interface
                                 line-interface
                                 outside-staff-interface
@@ -1956,7 +1971,8 @@
         (stencil . ,ly:text-interface::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-switch-interface
+                                font-interface
                                 note-name-interface
                                 text-interface))))))
 
@@ -2129,7 +2145,8 @@
         (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (break-alignable-interface
+                 (interfaces . (accidental-switch-interface
+                                break-alignable-interface
                                 font-interface
                                 mark-interface
                                 outside-staff-interface
@@ -2702,7 +2719,8 @@
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (accidental-switch-interface
+                                font-interface
                                 instrument-specific-markup-interface
                                 outside-staff-interface
                                 self-alignment-interface
@@ -2825,6 +2843,7 @@
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
+                                accidental-switch-interface
                                 font-interface
                                 inline-accidental-interface
                                 side-position-interface
