@@ -3176,6 +3176,28 @@ the possible glyphs.
 
     glyph))
 
+(define-markup-command (accidental layout props alteration)
+  (exact-rational?)
+  #:category music
+  #:properties ((alteration-glyph-name-alist))
+  "Select an accidental glyph from an alteration, given as
+rational number.
+
+@lilypond[verbatim,quote]
+\\markup \\accidental #1/2
+@end lilypond"
+  (let* ((defs (ly:output-def-lookup layout 'font-defaults))
+         (glyph-alist (or alteration-glyph-name-alist
+                          (assq-ref defs 'alteration-glyph-name-alist))))
+    (interpret-markup layout props
+      (make-musicglyph-markup
+        (or
+          (assv-ref glyph-alist alteration)
+          (begin
+            (ly:warning (_ "no accidental glyph found for alteration ~a")
+                        alteration)
+            "noteheads.s1cross"))))))
+
 (define-markup-command (doublesharp layout props)
   ()
   #:category music
@@ -3187,8 +3209,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get 1 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup 1)))
 
 (define-markup-command (sesquisharp layout props)
   ()
@@ -3201,8 +3222,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup 3/4)))
 
 (define-markup-command (sharp layout props)
   ()
@@ -3215,8 +3235,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup 1/2)))
 
 (define-markup-command (semisharp layout props)
   ()
@@ -3229,8 +3248,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup 1/4)))
 
 (define-markup-command (natural layout props)
   ()
@@ -3243,8 +3261,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get 0 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup 0)))
 
 (define-markup-command (semiflat layout props)
   ()
@@ -3257,8 +3274,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup -1/4)))
 
 (define-markup-command (flat layout props)
   ()
@@ -3271,8 +3287,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup -1/2)))
 
 (define-markup-command (sesquiflat layout props)
   ()
@@ -3285,8 +3300,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup -3/4)))
 
 (define-markup-command (doubleflat layout props)
   ()
@@ -3299,8 +3313,7 @@ the possible glyphs.
 }
 @end lilypond"
   (interpret-markup layout props
-                    (make-musicglyph-markup
-                     (assoc-get -1 standard-alteration-glyph-name-alist ""))))
+    (make-accidental-markup -1)))
 
 (define-markup-command (with-color layout props color arg)
   (color? markup?)

@@ -181,9 +181,6 @@ turkishMakamGlyphs = #`(
        (,(- TANINI) . "accidentals.flatflat")
 )
 
-#(set! standard-alteration-glyph-name-alist
-       (append turkishMakamGlyphs
-               standard-alteration-glyph-name-alist))
 %{
 
 key signature definitions

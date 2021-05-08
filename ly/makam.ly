@@ -161,10 +161,6 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
        (-8/9 . "accidentals.flat.slashslash")
        (-1 . "accidentals.flatflat"))
 
-#(set! standard-alteration-glyph-name-alist
-       (append makamGlyphs
-               standard-alteration-glyph-name-alist))
-
 \paper {
   font-defaults.alteration-glyph-name-alist = \makamGlyphs
 }

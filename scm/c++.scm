@@ -33,9 +33,13 @@
   (and (pair? x)
        (index? (car x)) (index? (cdr x))))
 
+(define-public (exact-rational? x)
+  (and (rational? x)
+       (exact? x)))
+
 (define-public (rational-or-procedure? x)
   (or
-   (and (rational? x) (exact? x))
+   (exact-rational? x)
    (procedure? x)))
 
 (define-public (number-or-grob? x)

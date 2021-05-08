@@ -62,9 +62,7 @@
     (if (short-glyph? alteration)
         0.3
         0.6)
-    (make-musicglyph-markup
-     ;; FIXME -- use current alteration-glyph-name-alist here.
-     (assoc-get alteration standard-alteration-glyph-name-alist "")))))
+    (make-accidental-markup alteration))))
 
 (define (accidental->markup alteration)
   "Return accidental markup for ALTERATION."
