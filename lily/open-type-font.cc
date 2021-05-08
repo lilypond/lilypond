@@ -37,8 +37,11 @@
 #include "warn.hh"
 
 #include <cstdio>
+#include <utility>
 
 using std::map;
+using std::pair;
+using std::make_pair;
 using std::string;
 
 FT_Byte *
@@ -313,7 +316,17 @@ Open_type_font::derived_mark () const
   scm_gc_mark (lily_subfonts_);
 }
 
-Offset
+/*
+  Get stem attachment point for a note head glyph.  This reads either
+  attachment or attachment-down depending on the direction, for compliance
+  with SMuFL.  However, when d is DOWN and attachment-down is not found,
+  we fall back to rotating attachment around the note head's center, for
+  backwards compatibility with fonts created earlier than the introduction of
+  attachment-down.  We need the center of the note head for that, so we
+  just delegate the work to Note_head::get_stem_attachment.
+*/
+
+pair<Offset, bool>
 Open_type_font::attachment_point (const string &glyph_name, Direction d) const
 {
   SCM sym = ly_symbol2scm (glyph_name.c_str ());
@@ -321,20 +334,32 @@ Open_type_font::attachment_point (const string &glyph_name, Direction d) const
 
   Offset o;
   if (scm_is_false (entry))
-    return o;
+    return make_pair (o, false); // TODO: error out?
 
   SCM char_alist = entry;
   SCM att_scm;
-  if (d == UP)
-    att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment"),
-                                     char_alist));
-  else if (d == DOWN)
-    att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment-down"),
-                                     char_alist));
-  else
-    return o;
+  bool rotate = false;
+  if (d == DOWN)
+    {
+      att_scm = scm_assq_ref (char_alist, ly_symbol2scm ("attachment-down"));
+      if (scm_is_false (att_scm))
+        {
+          rotate = true;
+        }
+    }
 
-  return point_constant * from_scm<Offset> (att_scm);
+  if (d == UP || rotate)
+    {
+      att_scm = scm_assq_ref (char_alist, ly_symbol2scm ("attachment"));
+      if (scm_is_false (att_scm))
+        {
+          warning (_f ("no stem attachment found in font for glyph %s",
+                       glyph_name));
+          return make_pair (o, false);
+        }
+    }
+
+  return make_pair (point_constant * from_scm<Offset> (att_scm), rotate);
 }
 
 Box

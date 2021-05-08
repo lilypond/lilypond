@@ -23,6 +23,7 @@
 #include "font-metric.hh"
 
 #include <unordered_map>
+#include <utility>
 
 Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 void get_unicode_name (char *s, FT_ULong code);
@@ -61,7 +62,7 @@ public:
   static SCM make_otf (const std::string &);
   std::string font_name () const override;
   ~Open_type_font ();
-  Offset attachment_point (const std::string &, Direction) const override;
+  std::pair<Offset, bool> attachment_point (const std::string &, Direction) const override;
   size_t count () const override;
   Box get_indexed_char_dimensions (size_t) const override;
   Box get_unscaled_indexed_char_dimensions (size_t) const;

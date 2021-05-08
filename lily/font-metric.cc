@@ -27,6 +27,7 @@
 
 #include <cctype>
 #include <cmath>
+#include <utility>
 
 using std::string;
 
@@ -133,10 +134,10 @@ Font_metric::index_to_charcode (size_t i) const
   return i;
 }
 
-Offset
+std::pair<Offset, bool>
 Font_metric::attachment_point (const string &, Direction) const
 {
-  return Offset (0, 0);
+  return std::make_pair (Offset (0, 0), false);
 }
 
 SCM

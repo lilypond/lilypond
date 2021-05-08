@@ -24,6 +24,8 @@
 #include "program-option.hh"
 
 #include <cctype>
+#include <tuple>
+#include <utility>
 
 using std::string;
 
@@ -79,11 +81,13 @@ Modified_font_metric::count () const
   return orig_->count ();
 }
 
-Offset
+std::pair<Offset, bool>
 Modified_font_metric::attachment_point (const string &s, Direction d) const
 {
-  Offset o = orig_->attachment_point (s, d);
-  return o * magnification_;
+  Offset o;
+  bool rotate;
+  std::tie (o, rotate) = orig_->attachment_point (s, d);
+  return std::make_pair (o * magnification_, rotate);
 }
 
 Offset

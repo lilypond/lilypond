@@ -22,6 +22,8 @@
 
 #include "font-metric.hh"
 
+#include <utility>
+
 struct Preinit_Modified_font_metric
 {
   Font_metric *orig_;
@@ -39,7 +41,7 @@ public:
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const override;
   Offset get_indexed_wxwy (size_t) const override;
-  Offset attachment_point (const std::string &, Direction) const override;
+  std::pair<Offset, bool> attachment_point (const std::string &, Direction) const override;
   size_t name_to_index (std::string) const override;
   size_t index_to_charcode (size_t) const override;
   Font_metric *original_font () const;

@@ -28,6 +28,7 @@
 
 #include <limits>
 #include <map>
+#include <utility>
 
 static const size_t GLYPH_INDEX_INVALID (std::numeric_limits<size_t>::max());
 
@@ -56,7 +57,7 @@ public:
 
   virtual std::string font_name () const;
   virtual size_t count () const;
-  virtual Offset attachment_point (const std::string &, Direction) const;
+  virtual std::pair<Offset, bool> attachment_point (const std::string &, Direction) const;
   virtual Offset get_indexed_wxwy (size_t) const;
   virtual Box get_indexed_char_dimensions (size_t index) const;
   virtual size_t name_to_index (std::string) const = 0;

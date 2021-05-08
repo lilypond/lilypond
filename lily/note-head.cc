@@ -30,6 +30,8 @@
 #include <algorithm> //  min, max
 #include <cctype>
 #include <cmath>
+#include <tuple>
+#include <utility>
 
 using std::string;
 
@@ -176,7 +178,9 @@ Note_head::get_stem_attachment (Font_metric *fm, const string &key,
   if (k != GLYPH_INDEX_INVALID)
     {
       Box b = fm->get_indexed_char_dimensions (k);
-      Offset wxwy = fm->attachment_point (key, dir);
+      Offset wxwy;
+      bool rotate;
+      std::tie (wxwy, rotate) = fm->attachment_point (key, dir);
       for (int i = X_AXIS; i < NO_AXES; i++)
         {
           Axis a = Axis (i);
@@ -187,6 +191,8 @@ Note_head::get_stem_attachment (Font_metric *fm, const string &key,
               att[a] = (2 * (wxwy[a] - v.center ()) / v.length ());
             }
         }
+      if (rotate)
+        att = -att;
     }
 
   return att;
