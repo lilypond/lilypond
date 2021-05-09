@@ -347,10 +347,9 @@ ifeq ($(out),www)
 	rm -rf $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 ifneq ($(COPY_INFO_IMAGES),no)
 	$(INSTALLPY) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
-	rsync --copy-links -r  $(outdir)/lilypond/?? $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
-# There is probably an rsync invocation to just copy the png files,
-# but I am too lazy to try harder to find it.
-	find $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR) -type f -not -name '*.png' -delete
+	rsync --copy-links -r \
+		--include="*/" --include="*.png" --exclude="*" \
+		$(outdir)/lilypond/?? $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 else # !COPY_INFO_IMAGES
 	$(INSTALLPY) -d $(DESTDIR)$(infodir)
 	cd $(DESTDIR)$(infodir) && \
