@@ -1197,6 +1197,9 @@ Analysis brackets may be nested.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/analysis-brackets-with-labels.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/measure-spanner.ly}
+
 @morerefs
 Internals Reference:
 @rinternals{Horizontal_bracket_engraver},
@@ -1204,5 +1207,8 @@ Internals Reference:
 @rinternals{horizontal-bracket-interface},
 @rinternals{HorizontalBracketText},
 @rinternals{horizontal-bracket-text-interface},
+@rinternals{Measure_spanner_engraver},
+@rinternals{MeasureSpanner},
+@rinternals{measure-spanner-interface},
 @rinternals{Staff}.
 @endmorerefs
