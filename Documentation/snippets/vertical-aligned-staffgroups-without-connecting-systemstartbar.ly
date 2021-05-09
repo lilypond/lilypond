@@ -146,7 +146,7 @@ exercise =
     >>
 >>
 
-% Second StaffGRoup "simple Bach"
+% Second StaffGroup "simple Bach"
 
 sbI =
 \relative c' {

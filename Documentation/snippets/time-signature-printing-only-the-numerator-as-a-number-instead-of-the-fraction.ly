@@ -10,10 +10,11 @@
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
-Sometimes, a time signature should not print the whole fraction (e.g.
-7/4), but only the numerator (7 in this case). This can be easily done
-by using @code{\\override Staff.TimeSignature.style = #'single-digit}
-to change the style permanently. By using
+Sometimes, a time signature should not print the whole fraction (for
+example, 7/4), but only the numerator (digit@tie{}7 in this case). This
+can be easily done by using
+@code{\\override Staff.TimeSignature.style = #'single-digit} to change
+the style permanently. By using
 @code{\\revert Staff.TimeSignature.style}, this setting can be
 reversed. To apply the single-digit style to only one time signature,
 use the @code{\\override} command and prefix it with a @code{\\once}.

@@ -146,7 +146,7 @@ AccordionTab= { \dynamicUp
   \context {
     \Score
     % The vertical line (simulating a bar-line) in
-    % the staffBassRhytm is a gridline
+    % the staffBassRhythm is a gridline
     \consists "Grid_line_span_engraver"
   }
   \context {
@@ -203,10 +203,10 @@ AltOff = {
   \revert NoteHead.font-size
 }
 
-BassRhytm = {s4 s8 | c2 c2 | c2 s8 }
+BassRhythm = {s4 s8 | c2 c2 | c2 s8 }
 LyricBassRhythmI=  \lyricmode { c b | c }
 
-staffBassRhytm =
+staffBassRhythm =
 \new Staff = staffbass \with { \remove "Clef_engraver" } {
   % This is not a RhythmicStaff  because it must be possible to append lyrics.
 
@@ -217,11 +217,11 @@ staffBassRhytm =
   % Search for 'grid' in this page to find all related functions
   \time 4/4
   {
-    \context Voice = "VoiceBassRhytm"
+    \context Voice = "VoiceBassRhythm"
     \stemDown \AltOn #0.6
     \relative c''
     {
-      \BassRhytm
+      \BassRhythm
     }
     \AltOff
     \bar "|."
@@ -237,9 +237,9 @@ staffBassRhytm =
       \lyricsto melodyVoi \verse
     \staffAccordionMel
     \staffTabLine
-    \staffBassRhytm
-    \context Lyrics = "lBassRhytmAboveI"
+    \staffBassRhythm
+    \context Lyrics = "lBassRhythmAboveI"
       \with { alignAboveContext = staffbass }
-      \lyricsto VoiceBassRhytm \LyricBassRhythmI
+      \lyricsto VoiceBassRhythm \LyricBassRhythmI
   >>
 }
