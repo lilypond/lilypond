@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.23.1"
+\version "2.23.2"
 
 \header {
   lsrtags = "spacing, text, tweaks-and-overrides, vocal-music, workaround"
