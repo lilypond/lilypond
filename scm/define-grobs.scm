@@ -1815,7 +1815,6 @@
     (OttavaBracket
      . (
         (dash-fraction . 0.3)
-        (direction . ,UP)
         (edge-height . (0 . 0.8))
         (font-series . bold)
         (font-shape . italic)

@@ -74,8 +74,12 @@ Ottava_spanner_engraver::process_music ()
           set_property (span_, "text", ott);
 
           SCM offset (get_property (this, "middleCOffset"));
-          if (from_scm<double> (offset, 0) > 0)
-            set_property (span_, "direction", to_scm (DOWN));
+          // Respect user tweaks.
+          if (scm_is_null (get_property_data (span_, "direction")))
+            {
+              Direction d = (from_scm<double> (offset, 0) > 0) ? DOWN : UP;
+              set_property (span_, "direction", to_scm (d));
+            }
         }
     }
   last_ottavation_ = ott;
