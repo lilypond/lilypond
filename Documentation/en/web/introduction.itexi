@@ -1338,6 +1338,24 @@ a clickable version of LilyPond’s documentation.
 @divEnd
 
 @divClass{column-center-top}
+@subheading Word processor plug-ins
+
+@subsubheading OOoLilyPond
+
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+An OpenOffice.org extension that converts LilyPond files into images
+within OpenOffice.org documents.
+
+@divEnd
+
+
+@divClass{column-center-top}
 @subheading IDE Plug-ins
 
 @subsubheading Elysium
@@ -1505,12 +1523,6 @@ available for download at
 @uref{http://www.musicxml.com/,MusicXML}, has been forked into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.
-
-@item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
-an OpenOffice.org extension that converts LilyPond files into images
-within OpenOffice.org documents.  Although this is no longer being
-developed, it appears to still work with version 4.
 
 @item
 @uref{https://launchpad.net/rumor/,Rumor}, a realtime monophonic
