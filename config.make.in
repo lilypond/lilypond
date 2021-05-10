@@ -3,6 +3,7 @@
 # @configure_input@
 
 # replace -I with -isystem to suppress warnings in library headers
+FLEXLEXER_CPPFLAGS := $(patsubst -I%,-isystem%,@FLEXLEXER_CPPFLAGS@)
 FREETYPE2_CFLAGS := $(patsubst -I%,-isystem%,@FREETYPE2_CFLAGS@)
 GLIB_CFLAGS := $(patsubst -I%,-isystem%,@GLIB_CFLAGS@ @GOBJECT_CFLAGS@)
 GUILE_CFLAGS := $(patsubst -I%,-isystem%,@GUILE_CFLAGS@)
@@ -11,7 +12,7 @@ PANGO_FT2_CFLAGS := $(patsubst -I%,-isystem%,@PANGO_FT2_CFLAGS@)
 AR = @AR@
 BISON = @BISON@
 CC = @CC@
-CONFIG_CPPFLAGS = @CPPFLAGS@
+CONFIG_CPPFLAGS = $(FLEXLEXER_CPPFLAGS) @CPPFLAGS@
 CONFIG_CXXFLAGS = @CXXFLAGS@ $(GUILE_CFLAGS) $(FREETYPE2_CFLAGS) $(PANGO_FT2_CFLAGS)
 CONFIG_DEFINES = @DEFINES@
 CONFIG_LDFLAGS = @LDFLAGS@
