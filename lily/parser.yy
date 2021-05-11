@@ -29,6 +29,10 @@
 
 %{
 
+// generated code triggers a false positive in GCC 11
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98753
+#pragma GCC diagnostic ignored "-Wfree-nonheap-object"
+
 // generated code contains some useless casts
 #pragma GCC diagnostic ignored "-Wuseless-cast"
 
