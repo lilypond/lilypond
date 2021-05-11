@@ -84,6 +84,7 @@ Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
     }
 }
 
+// Clef, BarLine, etc. are break-aligned grobs
 void
 Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
 {
@@ -105,17 +106,23 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
       create_alignment ();
 
       // Create a single LeftEdge that appears to come from the same engraver
-      // as the first Clef/BarLine/etc. that we see.  This is questionable and
-      // may contribute to problems discussed in issue #5385.  Practically,
-      // this is probably fine for single-staff scores, but even in a
-      // single-staff score, break-aligned grobs might originate in different
-      // contexts; for example, by default, Clef_engraver is in Staff and
-      // Breathing_sign_engraver is in Voice.
+      // as the first staff-resident, break-aligned grob that we see.  This is
+      // questionable and may contribute to problems discussed in issue #5385.
+      // Practically, this is probably fine for single-staff scores.
+      //
+      // Break-aligned grobs can originate outside of a Staff context, but we
+      // don't want to create a LeftEdge then (issue #6134).  The createSpacing
+      // property tells us whether the grob originated within a Staff or
+      // similar context.
       if (!left_edge_)
         {
-          left_edge_ = inf.origin_engraver ()->make_item ("LeftEdge", SCM_EOL);
-          add_to_group (get_property (left_edge_, "break-align-symbol"),
-                        left_edge_);
+          auto *const eng = inf.origin_engraver ();
+          if (from_scm<bool> (get_property (eng, "createSpacing")))
+            {
+              left_edge_ = eng->make_item ("LeftEdge", SCM_EOL);
+              add_to_group (get_property (left_edge_, "break-align-symbol"),
+                            left_edge_);
+            }
         }
 
       add_to_group (align_name, item);
