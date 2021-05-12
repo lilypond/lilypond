@@ -276,16 +276,10 @@ class Chunk:
         return False
 
     def __init__(self):
-        self._input_fullpath = ''
         self._output_fullpath = ''
 
-    def set_document_fullpaths(self, in_fp: str, out_fp: str):
-        self._input_fullpath = in_fp
+    def set_output_fullpath(self, out_fp: str):
         self._output_fullpath = out_fp
-
-    def input_fullpath(self) -> str:
-        """The input file path where this chunk comes from."""
-        return self._input_fullpath
 
     def output_fullpath(self) -> str:
         """The output file path that this chunk belongs to."""

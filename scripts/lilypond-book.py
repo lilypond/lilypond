@@ -365,29 +365,12 @@ def process_snippets(cmd, outdated_dict,
     checksum = checksum.hexdigest()
 
     lily_output_dir = global_options.lily_output_dir
-    snippet_map_file = 'snippet-map-%s.ly' % checksum
-    snippet_map_path = os.path.join(lily_output_dir, snippet_map_file)
-
-    # Write snippet map.
-    with open(snippet_map_path, 'w', encoding='utf8') as snippet_map:
-        snippet_map.write("""
-
-#(define version-seen #t)
-#(define output-empty-score-list #f)
-""")
-
-        snippet_map.write("#(ly:add-file-name-alist '(\n")
-        for name in basenames:
-            snippet_map.write('("%s.ly" . "%s")\n' % (
-                name.replace('\\', '/'), outdated_dict[name].input_fullpath()))
-        snippet_map.write('))\n')
 
     # Write list of snippet names.
     snippet_names_file = 'snippet-names-%s.ly' % checksum
     snippet_names_path = os.path.join(lily_output_dir, snippet_names_file)
     with open(snippet_names_path, 'w', encoding='utf8') as snippet_names:
-        snippet_names.write('\n'.join(
-            [snippet_map_file] + [name + '.ly' for name in basenames]))
+        snippet_names.write('\n'.join([name + '.ly' for name in basenames]))
 
     # Run command.
     cmd = formatter.adjust_snippet_command(cmd)
@@ -397,7 +380,6 @@ def process_snippets(cmd, outdated_dict,
     system_in_directory(' '.join([cmd, snippet_names_arg]),
                         lily_output_dir,
                         logfile)
-    os.unlink(snippet_map_path)
     os.unlink(snippet_names_path)
 
 
@@ -522,7 +504,6 @@ def do_file(input_filename, included=False):
     input_absname = input_filename
     if not input_filename or input_filename == '-':
         in_handle = sys.stdin
-        input_fullname = '<stdin>'
     else:
         if os.path.exists(input_filename):
             input_fullname = input_filename
@@ -568,7 +549,7 @@ def do_file(input_filename, included=False):
         chunks = book_base.find_toplevel_snippets(
             source, global_options.formatter, global_options)
         for c in chunks:
-            c.set_document_fullpaths(input_fullname, output_filename)
+            c.set_output_fullpath(output_filename)
 
         # Let the formatter modify the chunks before further processing
         chunks = global_options.formatter.process_chunks(chunks)
