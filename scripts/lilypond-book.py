@@ -332,14 +332,13 @@ def command_name(cmd):
 def system_in_directory(cmd_str, directory, log_file):
     """Execute a command in a different directory."""
 
-    if global_options.redirect_output:
+    if ly.is_verbose():
+        ly.progress(_("Invoking `%s\'") % cmd_str)
+    elif global_options.redirect_output:
         ly.progress(_("Processing %s.ly") % log_file)
     else:
-        if ly.is_verbose():
-            ly.progress(_("Invoking `%s\'") % cmd_str)
-        else:
-            name = command_name(cmd_str)
-            ly.progress(_("Running %s...") % name)
+        name = command_name(cmd_str)
+        ly.progress(_("Running %s...") % name)
 
     output_location = None
     if global_options.redirect_output:
