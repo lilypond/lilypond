@@ -19,7 +19,6 @@
 
 #include "lily-parser.hh"
 
-#include "file-name-map.hh"
 #include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
@@ -116,8 +115,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       Sources sources;
       sources.set_path (&global_path);
 
-      string mapped_fn = map_file_name (file_name);
-      basic_progress (_f ("Processing `%s'", mapped_fn.c_str ()));
+      basic_progress (_f ("Processing `%s'", file_name.c_str ()));
 
       Lily_parser *parser = new Lily_parser (&sources);
 

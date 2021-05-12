@@ -22,7 +22,6 @@
 
 #include "config.hh"
 
-#include "file-name-map.hh"
 #include "international.hh"
 #include "misc.hh"
 #include "warn.hh"
@@ -180,7 +179,7 @@ Source_file::quote_input (char const *pos_str0) const
 string
 Source_file::name_string () const
 {
-  return map_file_name (name_);
+  return name_;
 }
 
 Source_file::~Source_file ()
