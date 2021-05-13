@@ -873,9 +873,10 @@ circle of diameter@tie{}0 (i.e., sharp corners).
 \\markup {
   \\filled-box #'(0 . 4) #'(0 . 4) #0
   \\filled-box #'(0 . 2) #'(-4 . 2) #0.4
+  \\combine
   \\filled-box #'(1 . 8) #'(0 . 7) #0.2
   \\with-color #white
-  \\filled-box #'(-4.5 . -2.5) #'(3.5 . 5.5) #0.7
+  \\filled-box #'(3.6 . 5.6) #'(3.5 . 5.5) #0.7
 }
 @end lilypond"
   (ly:round-filled-box
