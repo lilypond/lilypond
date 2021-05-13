@@ -1447,7 +1447,7 @@
      . (
         (break-align-symbol . key-cancellation)
         (break-visibility . ,begin-of-line-invisible)
-        (alteration-glyph-name-alist . ,cancellation-glyph-name-alist)
+        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (non-musical . #t)
         (flat-positions . (2 3 4 2 1 2 1))
         (sharp-positions . (4 5 4 2 3 2 3))

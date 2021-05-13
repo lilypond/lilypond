@@ -914,9 +914,6 @@ may or may not use it."
   (ly:make-unpure-pure-container
    ly:accidental-interface::height))
 
-(define-public cancellation-glyph-name-alist
-  '((0 . "accidentals.natural")))
-
 (define-public standard-alteration-glyph-name-alist
   '(
     ;; ordered for optimal performance.
