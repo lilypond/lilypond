@@ -57,9 +57,9 @@ upperStaff = \new VaticanaStaff = "upperStaff" <<
       \override NoteHead.style = #'vaticana.cephalicus
       es f
 
-      \override Staff.KeySignature.glyph-name-alist =
+      \override Staff.KeySignature.alteration-glyph-name-alist =
         #alteration-medicaea-glyph-name-alist
-      \override Staff.Accidental.glyph-name-alist =
+      \override Staff.Accidental.alteration-glyph-name-alist =
         #alteration-medicaea-glyph-name-alist
       \override Staff.Custos.style = #'medicaea
       \override NoteHead.style = #'medicaea.punctum
@@ -80,9 +80,9 @@ upperStaff = \new VaticanaStaff = "upperStaff" <<
       \override NoteHead.style = #'medicaea.rvirga
       e des ces
 
-      \override Staff.KeySignature.glyph-name-alist =
+      \override Staff.KeySignature.alteration-glyph-name-alist =
         #alteration-hufnagel-glyph-name-alist
-      \override Staff.Accidental.glyph-name-alist =
+      \override Staff.Accidental.alteration-glyph-name-alist =
         #alteration-hufnagel-glyph-name-alist
       \override Staff.Custos.style = #'hufnagel
       \override NoteHead.style = #'hufnagel.punctum
@@ -202,7 +202,7 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
     \context {
       \MensuralStaff
       \revert  BarLine.transparent
-      \override KeySignature.glyph-name-alist =
+      \override KeySignature.alteration-glyph-name-alist =
         #alteration-mensural-glyph-name-alist
       clefGlyph = #"clefs.petrucci.c2"
     }
@@ -210,7 +210,7 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
       \VaticanaStaff
       \revert  BarLine.transparent
       \override StaffSymbol.thickness = #2.0
-      \override KeySignature.glyph-name-alist =
+      \override KeySignature.alteration-glyph-name-alist =
         #alteration-vaticana-glyph-name-alist
       \override Custos.neutral-position = #4
     }

@@ -777,11 +777,11 @@ mensural スタイルにおけるマキシマ休符の形は、実際には完�
 @end lilypond
 
 臨時記号や調号のスタイルはそれぞれ、グラフィカル オブジェクト @code{Accidental} と
-@code{KeySignature} の @code{glyph-name-alist} プロパティでコントロール@c
+@code{KeySignature} の @code{alteration-glyph-name-alist} プロパティでコントロール@c
 されます。例えば:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -1194,11 +1194,11 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @c {ancient-accidentals.ly}
 
 臨時記号や調号のスタイルはそれぞれ、グラフィカル オブジェクト @code{Accidental} と
-@code{KeySignature} の @code{glyph-name-alist} プロパティでコントロール@c
+@code{KeySignature} の @code{alteration-glyph-name-alist} プロパティでコントロール@c
 されます。例えば:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -2481,7 +2481,7 @@ LilyPond は音符を描画する際に、符幹の向きが上か下かを自�
 @cindex accidental, Kievan (キエフ記譜法の臨時記号)
 @cindex Kievan accidental (キエフ記譜法の臨時記号)
 
-@code{Accidental} グラフィカル オブジェクトの @code{glyph-name-alist}
+@code{Accidental} グラフィカル オブジェクトの @code{alteration-glyph-name-alist}
 プロパティに @code{kievan} スタイルを選択することができます。@c
 @code{kievan} スタイルは、デフォルトと異なるシャープ記号やフラット記号を@c
 提供します。キエフ記譜法にはナチュラル記号は存在しません。@c
@@ -2491,7 +2491,7 @@ Synodal スタイルの音楽ではシャープ記号は使われませんが、
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.glyph-name-alist =
+\override Accidental.alteration-glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond

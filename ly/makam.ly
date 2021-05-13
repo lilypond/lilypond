@@ -168,10 +168,10 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
 \layout {
   \context {
     \Score
-    \override KeySignature.glyph-name-alist = \makamGlyphs
-    \override Accidental.glyph-name-alist = \makamGlyphs
-    \override AccidentalCautionary.glyph-name-alist = \makamGlyphs
-    \override TrillPitchAccidental.glyph-name-alist = \makamGlyphs
-    \override AmbitusAccidental.glyph-name-alist = \makamGlyphs
+    \override KeySignature.alteration-glyph-name-alist = \makamGlyphs
+    \override Accidental.alteration-glyph-name-alist = \makamGlyphs
+    \override AccidentalCautionary.alteration-glyph-name-alist = \makamGlyphs
+    \override TrillPitchAccidental.alteration-glyph-name-alist = \makamGlyphs
+    \override AmbitusAccidental.alteration-glyph-name-alist = \makamGlyphs
   }
 }

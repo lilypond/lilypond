@@ -821,12 +821,12 @@ extrae del estilo @code{vaticana}.
 @end lilypond
 
 El estilo de las alteraciones y de la armadura de la tonalidad se
-controlan a través de la propiedad @code{glyph-name-alist} de los
+controlan a través de la propiedad @code{alteration-glyph-name-alist} de los
 elementos gráficos @code{Accidental} y @code{KeySignature},
 respectivamente; p.ej.:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -1258,12 +1258,12 @@ contemplada, LilyPond cambia a un estilo diferente.
 @c {ancient-accidentals.ly}
 
 El estilo de las alteraciones y las armaduras de tonalidad se
-controla a través de la propiedad @code{glyph-name-alist} de los
+controla a través de la propiedad @code{alteration-glyph-name-alist} de los
 grobs (objetos gráficos) @rinternals{Accidental} y
 @rinternals{KeySignature}, respectivamente; p.ej.:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -2594,7 +2594,7 @@ propiedad @code{direction} del objeto @code{Stem}.
 @cindex kievano, alteraciones de
 
 El estilo @code{kievan} para las alteraciones accidentales se
-selecciona con la propiedad @code{glyph-name-alist} del grob
+selecciona con la propiedad @code{alteration-glyph-name-alist} del grob
 @code{Accidental}.  El estilo @code{kievan} provee unos signos de
 sostenido y de bemol diferentes del estilo predeterminado.  No
 esiste el becuadro en la notación kievana.  El símbolo del
@@ -2604,7 +2604,7 @@ efectos de compatibilidad.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.glyph-name-alist =
+\override Accidental.alteration-glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond

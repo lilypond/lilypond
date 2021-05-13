@@ -62,7 +62,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
 
   Skyline_pair sky (skylines_from_stencil (my_stencil->smobbed_copy (), get_property (me, "rotation"), Y_AXIS));
 
-  SCM alist = get_property (me, "glyph-name-alist");
+  SCM alist = get_property (me, "alteration-glyph-name-alist");
   SCM alt = get_property (me, "alteration");
   string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
                                          "");
@@ -123,7 +123,7 @@ Accidental_interface::print (SCM smob)
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  SCM alist = get_property (me, "glyph-name-alist");
+  SCM alist = get_property (me, "alteration-glyph-name-alist");
   SCM alt = get_property (me, "alteration");
   SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
   Stencil st;
@@ -164,7 +164,7 @@ ADD_INTERFACE (Accidental_interface,
                "alteration "
                "avoid-slur "
                "forced "
-               "glyph-name-alist "
+               "alteration-glyph-name-alist "
                "glyph-name "
                "hide-tied-accidental-after-break "
                "parenthesized "

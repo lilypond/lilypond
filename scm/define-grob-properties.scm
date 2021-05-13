@@ -477,7 +477,7 @@ bar line appearance in ASCII form.")
 In the context of (span) bar lines, @var{glyph-name} represents
 a processed form of @code{glyph}, where decisions about line breaking
 etc. are already taken.")
-     (glyph-name-alist ,list? "An alist of key-string pairs.")
+     (alteration-glyph-name-alist ,list? "An alist of key-string pairs.")
      (graphical ,boolean? "Display in graphical (vs. text) form.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
 

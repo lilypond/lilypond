@@ -4340,6 +4340,14 @@ def conv(s):
                r'(lily \1)', s)
     return s
 
+@rule((2, 23, 3), r"""
+glyph-name-alist -> alteration-glyph-name-alist
+""")
+def conv(s):
+    # The negative lookbehind assertion is to avoid matching
+    # standard-alteration-glyph-name-alist and similar.
+    s = re.sub(r"(?<!-)glyph-name-alist", "alteration-glyph-name-alist", s)
+    return s
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

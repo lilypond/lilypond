@@ -770,11 +770,11 @@ preso dallo stile @code{vaticana}.
 @end lilypond
 
 Lo stile di alterazioni e armature di chiave è controllato dalla proprietà
-@code{glyph-name-alist} dei grob @code{Accidental} e @code{KeySignature}.
+@code{alteration-glyph-name-alist} dei grob @code{Accidental} e @code{KeySignature}.
 Per esempio:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -1188,11 +1188,11 @@ stile diverso.
 @c {ancient-accidentals.ly}
 
 Lo stile per le alterazioni e le armature di chiave è controllato dalla
-proprietà @code{glyph-name-alist} dei grob @code{Accidental} e
+proprietà @code{alteration-glyph-name-alist} dei grob @code{Accidental} e
 @code{KeySignature}, rispettivamente; per esempio:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -2476,7 +2476,7 @@ singolo melisma.  Ciò si può fare manualmente impostando la proprietà
 @cindex Kiev, notazione di, alterazione
 
 Lo stile @code{kievan} per le alterazioni si seleziona tramite la proprietà
-@code{glyph-name-alist} del grob @code{Accidental}.
+@code{alteration-glyph-name-alist} del grob @code{Accidental}.
 Lo stile @code{kievan} fornisce un segno di diesis e di bemolle diversi
 dallo stile predefinito.  Nella notazione di Kiev non esiste il segno di
 bequadro.  Il segno di diesis non viene usato nella musica sinodale ma
@@ -2485,7 +2485,7 @@ soprattutto per garantire la compatibilità.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.glyph-name-alist =
+\override Accidental.alteration-glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond

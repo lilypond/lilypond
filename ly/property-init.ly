@@ -365,7 +365,7 @@ kievanOn = {
  \override Stem.stencil = ##f
  \override Flag.stencil = ##f
  \override Rest.style = #'mensural
- \override Accidental.glyph-name-alist = #alteration-kievan-glyph-name-alist
+ \override Accidental.alteration-glyph-name-alist = #alteration-kievan-glyph-name-alist
  \override Dots.style = #'kievan
  \override Slur.stencil = ##f
  \override Stem.length = #0.0
@@ -378,7 +378,7 @@ kievanOff = {
  \revert Stem.X-offset
  \revert Stem.stencil
  \revert Rest.style
- \revert Accidental.glyph-name-alist
+ \revert Accidental.alteration-glyph-name-alist
  \revert Dots.style
  \revert Slur.stencil
  \revert Flag.stencil

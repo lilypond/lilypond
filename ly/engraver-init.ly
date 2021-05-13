@@ -1038,8 +1038,8 @@ of Editio Vaticana."
   clefTransposition = #0
 
   %% Select vaticana style font.
-  \override KeySignature.glyph-name-alist = #alteration-vaticana-glyph-name-alist
-  \override Accidental.glyph-name-alist = #alteration-vaticana-glyph-name-alist
+  \override KeySignature.alteration-glyph-name-alist = #alteration-vaticana-glyph-name-alist
+  \override Accidental.alteration-glyph-name-alist = #alteration-vaticana-glyph-name-alist
   \override Custos.style = #'vaticana
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
@@ -1135,9 +1135,9 @@ accommodated for typesetting a piece in mensural style."
 
   %% Select mensural style font.
   \override TimeSignature.style = #'mensural
-  \override KeySignature.glyph-name-alist = #alteration-mensural-glyph-name-alist
-  \override Accidental.glyph-name-alist = #alteration-mensural-glyph-name-alist
-  \override AccidentalSuggestion.glyph-name-alist = #alteration-mensural-glyph-name-alist
+  \override KeySignature.alteration-glyph-name-alist = #alteration-mensural-glyph-name-alist
+  \override Accidental.alteration-glyph-name-alist = #alteration-mensural-glyph-name-alist
+  \override AccidentalSuggestion.alteration-glyph-name-alist = #alteration-mensural-glyph-name-alist
   \override Custos.style = #'mensural
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
@@ -1221,7 +1221,7 @@ accommodated for typesetting a piece in Kievan style."
   \override Stem.stencil = ##f
   \override Flag.stencil = ##f
   \override Rest.style = #'mensural
-  \override Accidental.glyph-name-alist = #alteration-kievan-glyph-name-alist
+  \override Accidental.alteration-glyph-name-alist = #alteration-kievan-glyph-name-alist
   \override Dots.style = #'kievan
   \override Slur.stencil = ##f
   \override Stem.length = #0.0

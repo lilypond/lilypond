@@ -43,11 +43,11 @@ HelmakamGlyphs = #'(
 \layout {
   \context {
     \Score
-    \override KeySignature #'glyph-name-alist = \HelmakamGlyphs
-    \override Accidental #'glyph-name-alist = \HelmakamGlyphs
-    \override AccidentalCautionary #'glyph-name-alist = \HelmakamGlyphs
-    \override TrillPitchAccidental #'glyph-name-alist = \HelmakamGlyphs
-    \override AmbitusAccidental #'glyph-name-alist = \HelmakamGlyphs
+    \override KeySignature #'alteration-glyph-name-alist = \HelmakamGlyphs
+    \override Accidental #'alteration-glyph-name-alist = \HelmakamGlyphs
+    \override AccidentalCautionary #'alteration-glyph-name-alist = \HelmakamGlyphs
+    \override TrillPitchAccidental #'alteration-glyph-name-alist = \HelmakamGlyphs
+    \override AmbitusAccidental #'alteration-glyph-name-alist = \HelmakamGlyphs
   }
 }
 

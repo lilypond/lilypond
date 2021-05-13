@@ -123,8 +123,8 @@ iraq = #`(
   \context {
     \Score
 
-    \override Accidental.glyph-name-alist = \TwentyFourTETglyphs
-    \override KeySignature.glyph-name-alist = \TwentyFourTETglyphs
+    \override Accidental.alteration-glyph-name-alist = \TwentyFourTETglyphs
+    \override KeySignature.alteration-glyph-name-alist = \TwentyFourTETglyphs
 
     keyAlterationOrder =
       #`(

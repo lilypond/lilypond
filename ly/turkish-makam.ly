@@ -604,11 +604,11 @@ key signature padding pairs
   (("accidentals.sharp.slashslashslash.stemstem" . "accidentals.flat.slashslash") . 0.0)
 )
 
-    \override KeySignature.glyph-name-alist = \turkishMakamGlyphs
-    \override Accidental.glyph-name-alist = \turkishMakamGlyphs
-    \override AccidentalCautionary.glyph-name-alist = \turkishMakamGlyphs
-    \override TrillPitchAccidental.glyph-name-alist = \turkishMakamGlyphs
-    \override AmbitusAccidental.glyph-name-alist = \turkishMakamGlyphs
+    \override KeySignature.alteration-glyph-name-alist = \turkishMakamGlyphs
+    \override Accidental.alteration-glyph-name-alist = \turkishMakamGlyphs
+    \override AccidentalCautionary.alteration-glyph-name-alist = \turkishMakamGlyphs
+    \override TrillPitchAccidental.alteration-glyph-name-alist = \turkishMakamGlyphs
+    \override AmbitusAccidental.alteration-glyph-name-alist = \turkishMakamGlyphs
   }
 }
 

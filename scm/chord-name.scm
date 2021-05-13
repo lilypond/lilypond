@@ -63,7 +63,7 @@
         0.3
         0.6)
     (make-musicglyph-markup
-     ;; FIXME -- use current glyph-name-alist here.
+     ;; FIXME -- use current alteration-glyph-name-alist here.
      (assoc-get alteration standard-alteration-glyph-name-alist "")))))
 
 (define (accidental->markup alteration)

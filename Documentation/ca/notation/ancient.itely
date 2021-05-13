@@ -858,12 +858,12 @@ l'estil @code{vaticana}.
 @end lilypond
 
 L'estil de les alteracions i de l'armadura de la tonalitat es
-controlen a través de la propietat @code{glyph-name-alist} dels
+controlen a través de la propietat @code{alteration-glyph-name-alist} dels
 elements gràfics @code{Accidental} i @code{KeySignature},
 respectivament; per exemple:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -1286,12 +1286,12 @@ suport, el LilyPond canvia a un estil diferent.
 @c {ancient-accidentals.ly}
 
 L'estil de les alteracions i les armadures de tonalitat es
-controla mitjanant la propietat @code{glyph-name-alist} dels
+controla mitjanant la propietat @code{alteration-glyph-name-alist} dels
 grobs (objectes gràfics) @rinternals{Accidental} i
 @rinternals{KeySignature}, respectivament; per exemple:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -2572,7 +2572,7 @@ melisma.  Això pot fer-se manualment fixant la propietat
 @cindex alteracions accidentals
 
 L'estil @code{kievan} per a les alteracions accidentals se
-selecciona amb la propietat @code{glyph-name-alist} del grob
+selecciona amb la propietat @code{alteration-glyph-name-alist} del grob
 @code{Accidental}.  L'estil @code{kievan} proveeix uns signes de
 sostingut i de bemoll diferents de l'estil predeterminat.  No
 existeix el becaire a la notació kievana.  El símbol del sostingut
@@ -2581,7 +2581,7 @@ més antics.  S'ha inclòs principalment a efectes de compatibilitat.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.glyph-name-alist =
+\override Accidental.alteration-glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond

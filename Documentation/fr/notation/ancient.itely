@@ -828,11 +828,11 @@ toutefois il était requis, le bécarre sera emprunté au style
 @end lilypond
 
 Pour disposer des formes anciennes d'altération, utilisez la propriété
-@code{glyph-name-alist} des objets graphiques @code{Accidental}
+@code{alteration-glyph-name-alist} des objets graphiques @code{Accidental}
 et @code{KeySignature}, comme ceci :
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -1270,11 +1270,11 @@ altération indisponible dans le style utilisé.
 @c {ancient-accidentals.ly}
 
 Pour disposer des formes anciennes d'altération, utilisez la propriété
-@code{glyph-name-alist} des objets graphiques @code{Accidental}
+@code{alteration-glyph-name-alist} des objets graphiques @code{Accidental}
 et @code{KeySignature}, comme ceci :
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -2613,7 +2613,7 @@ l'objet @code{Stem}.
 @cindex altération
 
 Le style d'altération propre à la notation kiévienne est accessible au
-travers de la propriété @code{glyph-name-alist} de l'objet
+travers de la propriété @code{alteration-glyph-name-alist} de l'objet
 @code{Accidental}.  Le style @code{kievan} dispose d'un dièse et d'un
 bémol, tous deux différents du style par défaut ; il n'y a pas de
 bécarre en notation kiévienne.  Bien que le dièse ne soit pas utilisé en
@@ -2622,7 +2622,7 @@ anciens.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.glyph-name-alist =
+\override Accidental.alteration-glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond

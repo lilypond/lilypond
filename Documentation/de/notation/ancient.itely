@@ -868,12 +868,12 @@ notiert wird, wird es aus dem @code{vaticana}-Stil gesetzt.
 @end lilypond
 
 Der Stil für Versetzungszeichen und Vorzeichen wird durch die
-@code{glyph-name-alist}-Eigenschaft der Grobs
+@code{alteration-glyph-name-alist}-Eigenschaft der Grobs
 @code{Accidental} und @code{KeySignature} bestimmt,
 also etwa folgendermaßen:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -1313,12 +1313,12 @@ anderen Stil.
 @c {ancient-accidentals.ly}
 
 Der Stil für Versetzungs- und Vorzeichen wird von der
-@code{glyph-name-alist}-Eigenschaft der Grobs
+@code{alteration-glyph-name-alist}-Eigenschaft der Grobs
 @code{Accidental} und @code{KeySignature}
 kontrolliert, beispielsweise:
 
 @example
-\override Staff.Accidental.glyph-name-alist =
+\override Staff.Accidental.alteration-glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -2641,7 +2641,7 @@ setzt.
 @cindex Versetzungszeichen, Kiever Notation
 
 Der Versetzungszeichenstil @code{kievan} wird durch die Eigenschaft
-@code{glyph-name-alist} des @code{Accidental}-Grobs ausgewählt.
+@code{alteration-glyph-name-alist} des @code{Accidental}-Grobs ausgewählt.
 Dieser Stil stellt ein Kreuz und ein B-Zeichen zur Verfügung, die
 sich von den Standardzeichen unterscheiden.  Es gibt kein Auflösungszeichen
 in der Kiever Notation.  Das Kreuz wird in der Synodalen Musik nicht
@@ -2650,7 +2650,7 @@ vor allem der Vollständigkeit halber eingesetzt.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.glyph-name-alist =
+\override Accidental.alteration-glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond

@@ -65,7 +65,7 @@ Key_signature_interface::print (SCM smob)
   SCM padding_pairs = get_property (me, "padding-pairs");
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  SCM alist = get_property (me, "glyph-name-alist");
+  SCM alist = get_property (me, "alteration-glyph-name-alist");
 
   for (SCM s = get_property (me, "alteration-alist"); scm_is_pair (s); s = scm_cdr (s))
     {
@@ -135,7 +135,7 @@ ADD_INTERFACE (Key_signature_interface,
                /* properties */
                "alteration-alist "
                "c0-position "
-               "glyph-name-alist "
+               "alteration-glyph-name-alist "
                "flat-positions "
                "sharp-positions "
                "padding "
