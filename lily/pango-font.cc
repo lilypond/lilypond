@@ -76,14 +76,20 @@ public:
   FTFace_accessor (PangoFcFont *pango_font)
   {
     pango_font_ = pango_font;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     // This is deprecated in Pango 1.44, but we still support 1.36.
     face_ = pango_fc_font_lock_face (pango_font);
+#pragma GCC diagnostic pop
   }
 
   ~FTFace_accessor ()
   {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     // Idem.
     pango_fc_font_unlock_face (pango_font_);
+#pragma GCC diagnostic pop
   }
 };
 
