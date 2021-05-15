@@ -30,9 +30,6 @@
              (srfi srfi-13)
              (lily))
 
-(define format
-  ergonomic-simple-format)
-
 (define framework-eps-module
   (current-module))
 

@@ -30,8 +30,6 @@
  (lily page)
  (lily))
 
-(define format ergonomic-simple-format)
-
 (define-public (output-framework basename book scopes fields)
   (let* ((file (open-output-file (format #f "~a.scm" basename))))
 

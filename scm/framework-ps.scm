@@ -29,8 +29,6 @@
              (lily output-ps)
              (lily))
 
-(define format ergonomic-simple-format)
-
 (define framework-ps-module (current-module))
 
 ;;(define pdebug stderr)

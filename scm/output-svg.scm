@@ -35,8 +35,8 @@
  (srfi srfi-1)
  (srfi srfi-13))
 
-(define fancy-format format)
-(define format ergonomic-simple-format)
+(define ice9-format format)
+(define format simple-format)
 
 (define lily-unit-length 1.7573)
 
@@ -108,7 +108,7 @@
   (* x x))
 
 (define (integer->entity integer)
-  (fancy-format "&#x~x;" integer))
+  (ice9-format "&#x~x;" integer))
 
 (define (char->entity char)
   (integer->entity (char->integer char)))

@@ -462,17 +462,8 @@ messages into errors.")
 ;; into Guile base code, like (ice-9 syncase).
 ;;
 
-(define-public fancy-format
-  format)
-
-(define-public (ergonomic-simple-format dest . rest)
-  "Like ice-9's @code{format}, but without the memory consumption."
-  (if (string? dest)
-      (apply simple-format #f dest rest)
-      (apply simple-format dest rest)))
-
-(define format
-  ergonomic-simple-format)
+(define ice9-format format)
+(define format simple-format)
 
 
 ;;; General settings.

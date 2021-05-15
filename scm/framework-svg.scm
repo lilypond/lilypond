@@ -43,8 +43,6 @@
  (srfi srfi-13)
  (ice-9 regex))
 
-(define format ergonomic-simple-format)
-
 (define (svg-begin . rest)
   (string-append
    (eo 'svg #t

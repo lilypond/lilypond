@@ -101,7 +101,7 @@ way the transposition number is displayed."
               (case ab
                 ((barnumbers) (number->string (ly:context-property context 'currentBarNumber)))
                 ((numbers) (number->string number))
-                ((roman) (fancy-format #f "~@r" number))
+                ((roman) (ice9-format #f "~@r" number))
                 (else (markgeneric-string number ab dl))))
              (the-cased-string
               (case lc
