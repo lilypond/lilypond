@@ -516,6 +516,12 @@ Paper_book::get_system_specs ()
           for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))
             {
               auto *t = unsmob<const Stencil> (scm_car (list));
+              if (!t)
+                {
+                  programming_error ("markup interpretation must yield stencil");
+                  continue;
+                }
+
               // TODO: init props
               Prob *ps = make_paper_system (SCM_EOL);
               set_property (ps, "page-break-permission",
