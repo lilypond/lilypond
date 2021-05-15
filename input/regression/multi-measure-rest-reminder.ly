@@ -61,7 +61,7 @@ multiMeasureReminderEngraver =
                   (begin
                    (ly:grob-suicide! grob)
                    "")
-                  (ly:format "(~a)"  (ly:grob-property grob 'measure-count))))))
+                  (format #f "(~a)" (ly:grob-property grob 'measure-count))))))
       (Y-extent . (0 . 0))
       (X-offset . 4)
       (X-extent . (0 . 0))

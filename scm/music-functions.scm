@@ -1399,7 +1399,7 @@ set to the @code{location} parameter."
               (set! (ly:music-property music 'quoted-events) quoted-vector)
               (set! (ly:music-property music 'iterator-ctor)
                     ly:quote-iterator::constructor))
-            (ly:music-warning music (ly:format (_ "cannot find quoted music: `~S'") quoted-name))))
+            (ly:music-warning music (format #f (_ "cannot find quoted music: `~S'") quoted-name))))
     music))
 (export quote-substitute)
 

@@ -23,7 +23,7 @@ informations from top- and booklevel stack correctly."
                                             'pitch scmpitch))))
                  (score (scorify-music music))
                  (layout (ly:output-def-clone $defaultlayout))
-                 (desc (markup #:large #:line ((ly:format "Score with a ~a"
+                 (desc (markup #:large #:line ((format #f "Score with a ~a"
                                 (note-name->lily-string scmpitch))))))
             (ly:score-add-output-def! score layout)
             (add-text desc)

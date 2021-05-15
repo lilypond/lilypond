@@ -108,26 +108,26 @@
            (filter
             string?
             (list
-             (ly:format "mark /OutputFile (~a)" pngn-gs)
+             (format #f "mark /OutputFile (~a)" pngn-gs)
              "/GraphicsAlphaBits 4 /TextAlphaBits 4"
              (if fit-page
                  ;; Get available resolution and magnify it according
                  ;; to `anti-alias-factor`.
-                 (ly:format "/HWResolution [ \
+                 (format #f "/HWResolution [ \
 currentpagedevice /HWResolution get 0 get ~a mul \
 currentpagedevice /HWResolution get 1 get ~a mul \
 ]"
                             anti-alias-factor anti-alias-factor)
-                 (ly:format "/HWResolution [~a ~a]"
+                 (format #f "/HWResolution [~a ~a]"
                             hw-resolution hw-resolution))
-             (ly:format "/DownScaleFactor ~a" anti-alias-factor)
+             (format #f "/DownScaleFactor ~a" anti-alias-factor)
              (if (or (not is-eps) fit-page)
-                 (ly:format "/PageSize [~a ~a]" width height))
+                 (format #f "/PageSize [~a ~a]" width height))
              ;; We use `findprotodevice` because `finddevice` always returns
              ;; the same device instance and we can't reset the page number of
              ;; the device. `findprotodevice copydevice` creates a new device
              ;; instance each time, which can reset the page number.
-             (ly:format "(~a) findprotodevice copydevice" pixmap-format)
+             (format #f "(~a) findprotodevice copydevice" pixmap-format)
              "putdeviceprops setdevice"
              ;; We want to use `selectdevice` instead of `setdevice` because
              ;; `setdevice` doesn't set some defaults. But using `selectdevice`
@@ -146,7 +146,7 @@ currentpagedevice /HWResolution get 1 get ~a mul \
              ;; (When setting -sOutputFile from the command line, this happens
              ;; in gs_main_add_outputfile_control_path.)
              "/.addcontrolpath where { pop"
-             (ly:format "/PermitFileWriting (~a*) .addcontrolpath"
+             (format #f "/PermitFileWriting (~a*) .addcontrolpath"
                         base-name-gs)
              "} if"
              (gs-safe-run tmp-name)))))
@@ -162,11 +162,11 @@ currentpagedevice /HWResolution get 1 get ~a mul \
 
      (map (lambda (n)
             (let*
-                ((src (ly:format "~a-page~a.~a" tmp-name (1+ n) extension))
+                ((src (format #f "~a-page~a.~a" tmp-name (1+ n) extension))
                  (dst
                   (if (or (not multi-page?) (and multi-page? rename-page-1))
-                      (ly:format "~a.~a" base-name extension)
-                      (ly:format "~a-page~a.~a" base-name (1+ n) extension))))
+                      (format #f "~a.~a" base-name extension)
+                      (format #f "~a-page~a.~a" base-name (1+ n) extension))))
               (ly:rename-file src dst)
               dst))
           (iota page-count))

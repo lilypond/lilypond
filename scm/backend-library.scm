@@ -86,7 +86,7 @@
   ;; releases.
   (string-join
    (list
-    (ly:format "(~a)" input)
+    (format #f "(~a)" input)
     "(r) file"
     (if (or (ly:get-option 'gs-api)
             (ly:get-option 'gs-load-fonts)
@@ -99,14 +99,14 @@
 
 (define-public (postscript->pdf paper-width paper-height
                                 base-name tmp-name is-eps)
-  (let* ((pdf-name (ly:format "~a.~a.pdf" tmp-name (random 1000000)))
+  (let* ((pdf-name (format #f "~a.~a.pdf" tmp-name (random 1000000)))
          (flush-name (string-append pdf-name ".flush"))
          (dest (string-append base-name ".pdf"))
          (output-file (string-join (string-split pdf-name #\%) "%%"))
          (run-strings
           (filter string?
                   (list
-                   (ly:format "mark /OutputFile (~a)" output-file)
+                   (format #f "mark /OutputFile (~a)" output-file)
                    ;; Ghostscript's default level may change with future
                    ;; releases, the current being 1.7 since 9.24. This
                    ;; results in a warning when embedding the produced PDF
@@ -137,7 +137,7 @@
           (ly:gs-api (gs-cmd-args is-eps #f)
                      (string-join
                       (list
-                       (ly:format "mark /OutputFile (~a)" flush-name)
+                       (format #f "mark /OutputFile (~a)" flush-name)
                        "(pdfwrite) finddevice putdeviceprops pop"
                        ;; see above
                        "(pdfwrite) selectdevice"
@@ -273,7 +273,7 @@
   (define (inner basename tries)
     (if (> tries 0)
         (let*
-            ((name (ly:format "~a-tmp-~a" basename (random 10000000)))
+            ((name (format #f "~a-tmp-~a" basename (random 10000000)))
              (port (create-file-exclusive name #o666))
              (bport #f))
 

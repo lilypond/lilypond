@@ -38,9 +38,9 @@
 ;;;
 
 (define (char font i)
-  (ly:format "~a (\\~a) show\n"
+  (format #f "~a (\\~,8f) show\n"
              (ps-font-command font)
-             (ly:inexact->string i 8)))
+             i))
 
 (define (circle radius thick fill)
   (ly:format
@@ -162,16 +162,16 @@
   (if (and (ly:get-option 'music-font-encodings) (string-startswith (ly:font-file-name font) "emmentaler"))
       (if (string-endswith (ly:font-file-name font)"-brace")
           (if (or (string-startswith glyph "brace1") (string-startswith glyph "brace2"))
-              (ly:format "~a-N ~a\n" (ps-font-command font) glyph)
+              (format #f "~a-N ~a\n" (ps-font-command font) glyph)
               (if (or (string-startswith glyph "brace3") (string-startswith glyph "brace4"))
-                  (ly:format "~a-S ~a\n" (ps-font-command font) glyph)
-                  (ly:format "~a-O ~a\n" (ps-font-command font) glyph)))
+                  (format #f "~a-S ~a\n" (ps-font-command font) glyph)
+                  (format #f "~a-O ~a\n" (ps-font-command font) glyph)))
           (if (string-startswith glyph "noteheads")
-              (ly:format "~a-N ~a\n" (ps-font-command font) glyph)
+              (format #f "~a-N ~a\n" (ps-font-command font) glyph)
               (if (or (string-startswith glyph "scripts") (string-startswith glyph "clefs"))
-                  (ly:format "~a-S ~a\n" (ps-font-command font) glyph)
-                  (ly:format "~a-O ~a\n" (ps-font-command font) glyph))))
-      (ly:format "~a /~a glyphshow\n" (ps-font-command font) glyph)))
+                  (format #f "~a-S ~a\n" (ps-font-command font) glyph)
+                  (format #f "~a-O ~a\n" (ps-font-command font) glyph))))
+      (format #f "~a /~a glyphshow\n" (ps-font-command font) glyph)))
 
 (define (no-origin)
   "")

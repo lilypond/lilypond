@@ -163,7 +163,7 @@
                 (ly:output-def-lookup paper 'output-scale))
                (ly:bp 1)))
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t)))
-    (ly:format "%%DocumentMedia: ~a ~2f ~2f ~a ~a ~a\n"
+    (format #f "%%DocumentMedia: ~a ~,2f ~,2f ~a ~a ~a\n"
                (ly:output-def-lookup paper 'papersizename)
                (if landscape? h w)
                (if landscape? w h)

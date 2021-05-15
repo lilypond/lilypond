@@ -89,7 +89,7 @@ tspan { white-space: pre; }
                 (mkdirs (string-append output-dir "/" (dirname url)) #o700)
                 (copy-file woff-file url)
                 (ly:progress "\n")))
-          (ly:format
+          (format #f
            "@font-face {
 font-family: '~a';
 font-weight: normal;

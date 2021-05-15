@@ -502,7 +502,7 @@
                                (string-append (ly-getcwd) "/" raw-file))))
 
                 (set! have-grob-cause? #t)
-                (ly:format "<a style=\"color:inherit;\" xlink:href=\"textedit://~a:~a:~a:~a\">\n"
+                (format #f "<a style=\"color:inherit;\" xlink:href=\"textedit://~a:~a:~a:~a\">\n"
                            ;; Backslashes are not valid
                            ;; file URI path separators.
                            (ly:string-percent-encode

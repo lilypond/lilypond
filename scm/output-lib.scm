@@ -584,13 +584,13 @@ and duration-log @var{log}."
        (rhythmic-location<=? b a)))
 
 (define-public (rhythmic-location->file-string a)
-  (ly:format "~a.~a.~a"
+  (format #f "~a.~a.~a"
              (car a)
              (ly:moment-main-numerator (cdr a))
              (ly:moment-main-denominator (cdr a))))
 
 (define-public (rhythmic-location->string a)
-  (ly:format "bar ~a ~a"
+  (format #f "bar ~a ~a"
              (car a)
              (ly:moment->string (cdr a))))
 

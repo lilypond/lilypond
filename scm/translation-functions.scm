@@ -62,7 +62,7 @@ way the transposition number is displayed."
                              ((pair? count)
                               ;; Thin Spaces U+2009 & En-dash U+2013
                               (make-simple-markup
-                               (ly:format "~a – ~a" (car count) (cdr count))))
+                               (format #f "~a – ~a" (car count) (cdr count))))
                              (else #f)))
          (note-markup (if (and (not hide-note) count-markup)
                           (list

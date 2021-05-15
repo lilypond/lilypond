@@ -395,7 +395,7 @@ bookoutput function"
                (if (null? defs)
                    (ly:music-warning
                     music
-                    (ly:format (_ "Cannot find context-def \\~a")
+                    (format #f (_ "Cannot find context-def \\~a")
                                (ly:music-property m 'context-type)))
                    (for-each
                     (lambda (entry)
@@ -800,10 +800,6 @@ as rectangular coordinates @code{(x-length . y-length)}."
      (number->string n8)
      (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
 
-(define-public (ly:inexact->string x radix)
-  (let ((n (inexact->exact x)))
-    (number->string n radix)))
-
 (define-public (ly:number-pair->string c)
   (string-append (ly:number->string (car c)) " "
                  (ly:number->string (cdr c))))
@@ -1068,7 +1064,7 @@ print a warning and set an optional @var{default}."
 
 (define-public (version-not-seen-message input-file-name)
   (ly:warning-located
-   (ly:format "~a:1" input-file-name)
+   (format #f "~a:1" input-file-name)
    (_ "no \\version statement found, please add~afor future compatibility")
    (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
 

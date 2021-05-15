@@ -916,10 +916,10 @@ with optional arrows of @code{max-size} on start and end controlled by
                               ((interval-empty? extent)
                                "empty")
                               (is-length
-                               (ly:format "~$" (interval-length extent)))
+                               (ice9-format #f "~,2f" (interval-length extent)))
                               (else
-                               (ly:format "(~$,~$)"
-                                          (car extent) (cdr extent)))))))
+                               (ice9-format #f "(~,2f,~,2f)"
+                                               (car extent) (cdr extent)))))))
               (arrows (ly:stencil-translate-axis
                        (dimension-arrows (cons 0 (interval-length extent)) 1.0)
                        (interval-start extent) Y)))
