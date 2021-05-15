@@ -29,13 +29,6 @@
 
 %{
 
-// generated code triggers a false positive in GCC 11
-// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98753
-#pragma GCC diagnostic ignored "-Wfree-nonheap-object"
-
-// generated code contains some useless casts
-#pragma GCC diagnostic ignored "-Wuseless-cast"
-
 #define yyerror Lily_parser::parser_error
 
 /* We use custom location type: Input objects */
@@ -244,6 +237,16 @@ SCM try_word_variants (SCM pred, SCM str);
 SCM try_string_variants (SCM pred, SCM str);
 SCM post_event_cons (SCM ev, SCM tail);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
+
+// generated code may trigger conversion warnings
+#pragma GCC diagnostic ignored "-Wconversion"
+
+// generated code triggers a false positive in GCC 11
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98753
+#pragma GCC diagnostic ignored "-Wfree-nonheap-object"
+
+// generated code contains some useless casts
+#pragma GCC diagnostic ignored "-Wuseless-cast"
 
 %}
 
