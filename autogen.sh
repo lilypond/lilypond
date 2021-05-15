@@ -60,8 +60,9 @@ if test -n "$CI" ; then
     conf_flags="$conf_flags --enable-gs-api"
     conf_flags="$conf_flags --disable-debugging"
 
-    # TODO: Treat more warnings as errors (in CI) as we eliminate them.
-    CFLAGS="$CFLAGS -Werror=format"
+    CFLAGS="$CFLAGS -Wall"
+    CFLAGS="$CFLAGS -Wextra"
+    CFLAGS="$CFLAGS -Werror"
     export CFLAGS
 fi
 
