@@ -180,9 +180,9 @@
   (ly:format " ~4f ~4f moveto\n" x y))
 
 (define (polygon points blot-diameter filled?)
-  (ly:format "~a ~4l ~a ~4f draw_polygon\n"
+  (ly:format "~a ~a ~a ~4f draw_polygon\n"
              (if filled? "true" "false")
-             points
+             (string-join (map (lambda (p) (ly:format "~4f" p)) points) " ")
              (- (/ (length points) 2) 1)
              blot-diameter))
 
@@ -192,8 +192,8 @@
          (width (- right (+ halfblot x)))
          (y (- halfblot bottom))
          (height (- top (+ halfblot y))))
-    (ly:format  "~4l draw_round_box\n"
-                (list width height x y blotdiam))))
+    (ly:format "~4f ~4f ~4f ~4f ~4f draw_round_box\n"
+               width height x y blotdiam)))
 
 ;; save current color on stack and set new color
 (define* (setcolor r #:optional (g #f) (b #f) (a #f))
@@ -204,18 +204,16 @@
                      (list r g b))))
          (colors (length colorlist)))
     (if (= colors 3)
-        (ly:format "gsave ~4l setrgbcolor\n" colorlist)
-        (ly:format "gsave ~4l setrgbacolor\n" colorlist))))
+        (apply ly:format "gsave ~4f ~4f ~4f setrgbcolor\n" colorlist)
+        (apply ly:format "gsave ~4f ~4f ~4f ~4f setrgbacolor\n" colorlist))))
 
 ;; restore color from stack
 (define (resetcolor) "grestore\n")
 
 ;; rotation around given point
 (define (setrotation ang x y)
-  (ly:format "gsave ~4l translate ~a rotate ~4l translate\n"
-             (list x y)
-             ang
-             (list (* -1 x) (* -1 y))))
+  (ly:format "gsave ~4f ~4f translate ~a rotate ~4f ~4f translate\n"
+             x y ang (- x) (- y)))
 
 (define (resetrotation ang x y)
   "grestore\n")
@@ -257,11 +255,10 @@
              )
 
           ;; WARNING: this is a vulnerability: a user can output arbitrary PS code here.
-          (cons (ly:format
-                 "~l ~a "
-                 args
-                 head)
-                (convert-path-exps (drop rest arity))))
+          (append
+           (map (lambda (a) (ly:format "~a" a)) args)
+           (list (symbol->string head))
+           (convert-path-exps (drop rest arity))))
         '()))
 
   (let ((cap-numeric (case cap ((butt) 0) ((round) 1) ((square) 2)
@@ -277,11 +274,11 @@
     (ly:format
      "gsave currentpoint translate
 ~a setlinecap ~a setlinejoin ~a setlinewidth
-~l ~a grestore\n"
+~a ~a grestore\n"
      cap-numeric
      join-numeric
      thickness
-     (convert-path-exps exps)
+     (string-join (convert-path-exps exps) " ")
      ;; print outline contour only if there is no fill or if
      ;; contour is explicitly requested with a thickness > 0
      (cond ((not fill?) "stroke")
@@ -289,8 +286,7 @@
            (else "fill")))))
 
 (define (setscale x y)
-  (ly:format "gsave ~4l scale\n"
-             (list x y)))
+  (ly:format "gsave ~4f ~4f scale\n" x y))
 
 (define (resetscale)
   "grestore\n")

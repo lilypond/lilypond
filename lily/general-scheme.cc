@@ -576,20 +576,6 @@ LY_DEFINE (ly_format, "ly:format",
             results.push_back (format_single_argument (arg, precision));
           else if (spec == 's' || spec == 'S')
             results.push_back (format_single_argument (arg, precision, true));
-          else if (spec == 'l')
-            {
-              SCM s = arg;
-              for (; scm_is_pair (s); s = scm_cdr (s))
-                {
-                  results.push_back (format_single_argument (scm_car (s), precision));
-                  if (!scm_is_null (scm_cdr (s)))
-                    results.push_back (" ");
-                }
-
-              if (!scm_is_null (s))
-                results.push_back (format_single_argument (s, precision));
-
-            }
         }
 
       i = tilde;
