@@ -52,7 +52,7 @@ protected:
 void
 Staff_symbol_engraver::derived_mark () const
 {
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (span_events_[d])
         scm_gc_mark (span_events_[d]->self_scm ());

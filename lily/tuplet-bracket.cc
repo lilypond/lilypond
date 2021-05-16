@@ -123,7 +123,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob *> const &cols,
     return 0;
 
   Drul_array<Grob *> beams;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     beams[d] = stems[d] ? Stem::get_beam (stems[d]) : 0;
 
   *equally_long = false;
@@ -155,7 +155,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
                              get_x_bound_item (me, RIGHT, dir));
 
   Drul_array<bool> connect_to_other (false, false);
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Direction break_dir = bounds[d]->break_status_dir ();
       Spanner *orig_spanner = me->original ();
@@ -214,7 +214,7 @@ Tuplet_bracket::calc_x_positions (SCM smob)
                 Drul_array<bool> (false, false));
 
   Interval x_span;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       x_span[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[d];
 
@@ -364,7 +364,7 @@ Tuplet_bracket::print (SCM smob)
   Interval positions = from_scm (scm_positions, Interval (0.0, 0.0));
 
   Drul_array<Offset> points;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     points[d] = Offset (x_span[d], positions[d]);
 
   Output_def *pap = me->layout ();
@@ -423,7 +423,7 @@ Tuplet_bracket::print (SCM smob)
             = from_scm (get_property (me, "connect-to-neighbor"),
                         Drul_array<bool> (false, false));
 
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             {
               if (connect_to_other[d])
                 {
@@ -461,7 +461,7 @@ Tuplet_bracket::print (SCM smob)
                                            Interval (-0.5, 0.5) * gap + 0.1,
                                            flare, shorten);
 
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             {
               if (!edge_stencils[d].is_empty ())
                 brack.add_stencil (edge_stencils[d]);
@@ -554,7 +554,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
                                 Note_column::get_stem (columns.back ()));
 
       Interval poss;
-      for (LEFT_and_RIGHT (side))
+      for (const auto side : {LEFT, RIGHT})
         {
           // Trigger setting of stem lengths if necessary.
           if (Grob *beam = Stem::get_beam (stems[side]))
@@ -637,7 +637,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       Real other_dy = positions[RIGHT] - positions[LEFT];
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Real y
             = tuplet_y.linear_combination (d * sign (other_dy));
@@ -780,7 +780,7 @@ Tuplet_bracket::get_default_dir (Grob *me)
           Direction d = Note_column::dir (columns[i]);
           extremal_positions[d] = minmax (d, 1.0 * Note_column::head_positions_interval (columns[i])[d], extremal_positions[d]);
         }
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         extremal_positions[d] = -d * (staff_extent[d] - extremal_positions[d]);
 
       return extremal_positions[UP] <= extremal_positions[DOWN] ? UP : DOWN;

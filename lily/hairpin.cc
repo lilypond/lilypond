@@ -68,7 +68,7 @@ Hairpin::broken_bound_padding (SCM smob)
 
   Grob *my_vertical_axis_group = Grob::get_vertical_axis_group (me);
   Drul_array<Grob *> vertical_axis_groups;
-  for (DOWN_and_UP (d))
+  for (const auto d : {DOWN, UP})
     vertical_axis_groups[d] = d == dir
                               ? sys->get_neighboring_staff (d, my_vertical_axis_group, me->spanned_rank_interval ())
                               : my_vertical_axis_group;
@@ -77,7 +77,7 @@ Hairpin::broken_bound_padding (SCM smob)
     return to_scm (0.0);
 
   Drul_array<Grob *> span_bars (0, 0);
-  for (DOWN_and_UP (d))
+  for (const auto d : {DOWN, UP})
     {
       extract_grob_set (vertical_axis_groups[d], "elements", elts);
       for (vsize i = elts.size (); i--;)
@@ -121,7 +121,7 @@ Hairpin::print (SCM smob)
 
   Drul_array<bool> broken;
   Drul_array<Item *> bounds;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       bounds[d] = me->get_bound (d);
       broken[d] = bounds[d]->break_status_dir () != CENTER;
@@ -163,7 +163,7 @@ Hairpin::print (SCM smob)
   auto endpoint_alignments = from_scm (get_property (me, "endpoint-alignments"),
                                        Drul_array<Real> (-1, 1));
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       const auto sanitized_alignment = sign (endpoint_alignments[d]);
       if (endpoint_alignments[d] != sanitized_alignment)
@@ -175,7 +175,7 @@ Hairpin::print (SCM smob)
         }
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *b = bounds[d];
       Interval e = Axis_group_interface::generic_bound_extent (b, common, X_AXIS);

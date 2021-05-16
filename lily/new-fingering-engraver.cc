@@ -325,7 +325,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     }
 
   Drul_array< vector<Finger_tuple> > vertical (down, up);
-  for (DOWN_and_UP (d))
+  for (const auto d : {DOWN, UP})
     {
       for (vsize i = 0; i < vertical[d].size (); i++)
         {

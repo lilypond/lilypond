@@ -389,7 +389,7 @@ Lookup::frame (Box b, Real thick, Real blot)
   for (Axis a = X_AXIS; a < NO_AXES; a = Axis (a + 1))
     {
       Axis o = Axis ((a + 1) % NO_AXES);
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Box edges;
           edges[a] = b[a][d] + 0.5 * thick * Interval (-1, 1);

@@ -318,7 +318,7 @@ Beam::calc_beaming (SCM smob)
                              this_dir);
 
           Slice new_slice;
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             {
               new_slice.set_empty ();
               for (SCM &s : ly_scm_list (index_get_cell (this_beaming, d)))
@@ -379,7 +379,7 @@ Beam::calc_beam_segments (SCM smob)
   extract_grob_set (me, "stems", stems);
 
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
 
   int gap_count = from_scm (get_property (me, "gap-count"), 0);
@@ -402,7 +402,7 @@ Beam::calc_beam_segments (SCM smob)
       Real stem_x = stem->relative_coordinate (commonx, X_AXIS);
       SCM beaming = get_property (stem, "beaming");
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           // Find the maximum and minimum beam ranks.
           // Given that RANKS is never reset to empty, the interval will always be
@@ -470,7 +470,7 @@ Beam::calc_beam_segments (SCM smob)
           // are looking at that edge of the beam segment that is furthest from its
           // stem).
           Beam_stem_segment const &seg = segs[j];
-          for (LEFT_and_RIGHT (event_dir))
+          for (const auto event_dir : {LEFT, RIGHT})
             {
               // TODO: make names clearer? --jneem
               // on_line_bound: whether the current segment is on the boundary of the WHOLE beam
@@ -606,7 +606,7 @@ Beam::calc_x_positions (SCM smob)
     {
       extract_grob_set (me, "stems", stems);
       Grob *common_x = common_refpoint_of_array (stems, me, X_AXIS);
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         x_positions[d] = me->relative_coordinate (common_x, X_AXIS);
     }
   return to_scm (x_positions);
@@ -642,7 +642,7 @@ Beam::print (SCM grob)
   */
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
 
   vector<Beam_segment> segments = get_beam_segments (me);
@@ -785,7 +785,7 @@ Beam::get_default_dir (Grob *me)
   for (vector<Grob *>::const_iterator s = stems.begin (); s != stems.end (); s++)
     {
       Interval positions = Stem::head_positions (*s);
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         {
           if (sign (positions[d]) == d)
             extremes[d] = d * std::max (d * positions[d], d * extremes[d]);
@@ -1157,7 +1157,7 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
       /*
         Don't overwrite user settings.
       */
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Grob *stem = stems[i];
           SCM beaming_prop = get_property (stem, "beaming");
@@ -1262,7 +1262,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Drul_array<Real> pos (from_scm (get_property (beam, "positions"),
                                   Drul_array<Real> (0, 0)));
 
-  for (LEFT_and_RIGHT (dir))
+  for (const auto dir : {LEFT, RIGHT})
     pos[dir] += beam->relative_coordinate (common_y, Y_AXIS);
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);

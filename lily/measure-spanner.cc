@@ -40,7 +40,7 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
                              me->get_bound (RIGHT));
   Drul_array<bool> connect_to_other (false, false);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Direction break_dir = bounds[d]->break_status_dir ();
       vsize neighbor_idx = me->get_break_index () - break_dir;
@@ -78,7 +78,7 @@ Measure_spanner::print (SCM smob)
   SCM sp = get_property (me, "spacing-pair");
   SCM align_syms;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       align_syms = (scm_is_pair (sp)
                     ? index_get_cell (sp, d)

@@ -46,7 +46,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
       std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
       Drul_array<Real> padding = {0.0, 0.0};
       Drul_array<Real> padding_broken = {0.0, 0.0};
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           SCM bounds = get_property (sp, "bound-details");
           SCM details = ly_assoc_get ((d == LEFT ? ly_symbol2scm ("left") : ly_symbol2scm ("right")),
@@ -105,7 +105,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
       rod.distance_ = from_scm<double> (minimum_length, 0);
       rod.item_drul_[LEFT] = sp->get_bound (LEFT);
       rod.item_drul_[RIGHT] = sp->get_bound (RIGHT);
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         rod.distance_ += padding[d];
       rod.distance_ += rod.bounds_protrusion ();
       rod.add_to_cols ();

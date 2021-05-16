@@ -117,7 +117,7 @@ Footnote_engraver::process_acknowledged ()
 {
   for (Spanner *sp : finished_spanners_)
     {
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Spanner *parent = dynamic_cast<Spanner *> (sp->get_parent (X_AXIS));
           Item *bound = parent->get_bound (d);

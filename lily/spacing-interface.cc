@@ -57,7 +57,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
 
   Drul_array<Grob *> columns (left_col, right_col);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       for (vsize i = 0; i < items[d].size (); i++)
         {

@@ -78,7 +78,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
 {
   Interval attachments (0, 0);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       auto i = chord_outlines_.find ({columns[d], d});
       if (i == chord_outlines_.end ())
@@ -246,7 +246,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
 
     }
 
-  for (DOWN_and_UP (updowndir))
+  for (const auto updowndir : {DOWN, UP})
     {
       Interval x;
       Interval y;
@@ -356,7 +356,7 @@ Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
 
   details_.from_grob (ties[0]);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       vector<Item *> bounds;
 
@@ -379,7 +379,7 @@ Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
       Tie_specification spec;
       spec.from_grob (tie);
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           spec.note_head_drul_[d] = Tie::head (tie, d);
           spec.column_ranks_[d] = Tie::get_column_rank (tie, d);
@@ -582,7 +582,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
         It would be better to check D against HEAD-DIRECTION if
         applicable.
       */
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Real y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
           if (get_stem_extent (conf->column_ranks_[d], d, X_AXIS).is_empty ()
@@ -647,7 +647,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
       penalty += p;
   }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (!spec.note_head_drul_[d])
         continue;
@@ -672,7 +672,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
       && ties_conf->size () == 1)
     {
       Drul_array<Grob *> stems (0, 0);
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           if (!spec.note_head_drul_[d])
             continue;
@@ -1057,7 +1057,7 @@ Tie_formatting_problem::generate_extremal_tie_variations (Ties_configuration con
   for (int i = 1; i <= details_.multi_tie_region_size_; i++)
     {
       Drul_array<Tie_configuration *> configs (0, 0);
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         {
           const Tie_configuration &config = boundary (ties, d, 0);
           if (config.dir_ == d
@@ -1094,7 +1094,7 @@ Tie_formatting_problem::generate_single_tie_variations (Ties_configuration const
     sz = 1;
   for (int i = 0; i < sz; i++)
     {
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           if (i == 0
               && ties[0].dir_ == d)

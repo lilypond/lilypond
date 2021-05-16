@@ -52,7 +52,7 @@ Staff_symbol::print (SCM smob)
   Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   t *= from_scm<double> (get_property (me, "thickness"), 1.0);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       SCM width_scm = get_property (me, "width");
       if (d == RIGHT && scm_is_number (width_scm))

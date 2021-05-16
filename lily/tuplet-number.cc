@@ -68,7 +68,7 @@ Tuplet_number::select_reference_stem (Grob *me_grob, vector<Grob *> const &cols)
   Drul_array<Item *> bounding_stems (Note_column::get_stem (cols[col_count / 2 - 1]),
                                      Note_column::get_stem (cols[col_count / 2]));
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     if (!bounding_stems[d])
       return bounding_stems[-d];
 
@@ -194,7 +194,7 @@ Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
      a paper column instead to determine the available space.  Padding is only
      considered in the case of a note column.
   */
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (adj_cols[d])
         available_ext[d] = Axis_group_interface::generic_bound_extent (adj_cols[d], commonx, X_AXIS)[-d] + (-d * padding);
@@ -271,7 +271,7 @@ Tuplet_number::calc_x_offset (SCM smob)
 
   Interval bound_poss;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (has_interface<Note_column> (bounds[d])
           && Note_column::get_stem (bounds[d]))
@@ -311,7 +311,7 @@ Tuplet_number::calc_x_offset (SCM smob)
 
   Interval cor (0.0, 0.0);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     if (adj_cols[d])
       {
         Interval nc_ext = adj_cols[d]->extent (commonx, X_AXIS);

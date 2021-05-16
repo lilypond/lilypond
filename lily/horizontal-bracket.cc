@@ -42,7 +42,7 @@ Horizontal_bracket::print (SCM smob)
       return SCM_EOL;
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *b = me->get_bound (d);
       if (b->break_status_dir ())

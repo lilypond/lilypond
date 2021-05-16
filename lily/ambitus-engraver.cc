@@ -72,7 +72,7 @@ Ambitus_engraver::create_ambitus ()
 {
   ambitus_ = make_item ("AmbitusLine", SCM_EOL);
   group_ = make_item ("Ambitus", SCM_EOL);
-  for (DOWN_and_UP (d))
+  for (const auto d : {DOWN, UP})
     {
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
@@ -179,7 +179,7 @@ Ambitus_engraver::finalize ()
 
       SCM layout_proc = get_property (this, "staffLineLayoutFunction");
 
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         {
           Pitch p = pitch_interval_[d];
 
@@ -230,7 +230,7 @@ Ambitus_engraver::finalize ()
     }
   else
     {
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         {
           accidentals_[d]->suicide ();
           heads_[d]->suicide ();

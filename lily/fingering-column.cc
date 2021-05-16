@@ -92,7 +92,7 @@ Fingering_column::do_y_positioning (Grob *me)
 
   // Try stacking the fingerings top-to-bottom, and then bottom-to-top.
   // Use the average of the resulting stacked locations as the final positions
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       Real stack_end = -d * infinity_f;
       Interval prev_x_ext;

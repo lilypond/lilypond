@@ -174,7 +174,7 @@ Multi_measure_rest_engraver::initialize_grobs ()
   /*
     Stack different scripts.
   */
-  for (DOWN_and_UP (d))
+  for (const auto d : {DOWN, UP})
     {
       SCM dir = to_scm (d);
       Grob *last = 0;

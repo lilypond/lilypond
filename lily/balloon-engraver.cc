@@ -82,7 +82,7 @@ Balloon_engraver::acknowledge_end_grob (Grob_info info)
   for (Spanner *sp : spanners_)
     if (sp->get_y_parent () == info.grob ())
       {
-        for (LEFT_and_RIGHT (d))
+        for (const auto d : {LEFT, RIGHT})
           sp->set_bound (d,
                          dynamic_cast<Spanner *> (info.grob ())->get_bound (d));
       }

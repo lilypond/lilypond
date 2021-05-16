@@ -51,7 +51,7 @@ Piano_pedal_bracket::print (SCM smob)
     common = common->common_refpoint (textbit, X_AXIS);
 
   Interval span_points (0, 0);
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *b = me->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;

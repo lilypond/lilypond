@@ -45,7 +45,7 @@ Multi_measure_rest::bar_width (Spanner *me)
 {
   SCM spacing_pair = get_property (me, "spacing-pair");
   Interval iv;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *col = me->get_bound (d)->get_column ();
       SCM align_sym

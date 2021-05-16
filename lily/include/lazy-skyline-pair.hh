@@ -86,7 +86,7 @@ public:
     p1 -= widen;
     p2 += widen;
 
-    for (DOWN_and_UP (d))
+    for (const auto d : {DOWN, UP})
       {
         per_dir_todo_[d].push_back (Drul_array<Offset> (p1 + d * pad, p2 + d * pad));
       }
@@ -108,7 +108,7 @@ public:
 
   void merge ()
   {
-    for (DOWN_and_UP (d))
+    for (const auto d : {DOWN, UP})
       {
         if (todo_.empty () && per_dir_todo_[d].empty ())
           continue;

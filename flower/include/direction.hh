@@ -41,10 +41,6 @@ operator - (Direction d)
   return Direction (- static_cast<int> (d)); // cast avoids recursion
 }
 
-#define UP_and_DOWN(d) auto d : {UP, DOWN}
-#define DOWN_and_UP(d) auto d : {DOWN, UP}
-#define LEFT_and_RIGHT(d) auto d : {LEFT, RIGHT}
-
 /**
    if d > 0: the max operator
    if d < 0: the min operator

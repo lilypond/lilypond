@@ -58,7 +58,7 @@ Interval_minefield::solve ()
       dirty = false;
       for (vsize i = 0; i < forbidden_intervals_.size (); i++)
         {
-          for (DOWN_and_UP (d))
+          for (const auto d : {DOWN, UP})
             {
               Interval feasible_widened = Interval (feasible_placements_[d], feasible_placements_[d]);
               feasible_widened.widen (bulk_ / 2.);

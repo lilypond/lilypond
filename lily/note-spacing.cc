@@ -222,7 +222,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   if (bar && dynamic_cast<Item *> (bar)->get_column () == rcolumn)
     bar_yextent = Staff_spacing::bar_y_positions (bar);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       vector<Grob *> const &items (ly_scm2link_array (props [d]));
       for (vsize i = 0; i < items.size (); i++)

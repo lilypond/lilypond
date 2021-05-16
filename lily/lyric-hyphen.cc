@@ -49,7 +49,7 @@ Lyric_hyphen::print (SCM smob)
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
 
   Interval span_points;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Interval iv = Axis_group_interface::generic_bound_extent (bounds[d], common, X_AXIS);
 
@@ -140,7 +140,7 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
   std::vector<Item *> cols (root->broken_col_range (bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
 
   rod.distance_ = from_scm<double> (get_property (me, "minimum-distance"), 0);
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     rod.item_drul_[d] = bounds[d];
   rod.distance_ += rod.bounds_protrusion ();
 

@@ -37,7 +37,7 @@ Rod::add_to_cols ()
       || !item_drul_[RIGHT])
     return;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Paper_column *pc = item_drul_[d]->get_column ();
       distance_ += -d * item_drul_[d]->relative_coordinate (pc, X_AXIS);
@@ -59,7 +59,7 @@ Rod::bounds_protrusion () const
 {
   // Return the distance that bounds protrude into rod
   Real w = 0;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (item_drul_[d])
         w += -d * item_drul_[d]->extent (item_drul_[d], X_AXIS)[-d];

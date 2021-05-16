@@ -275,7 +275,7 @@ Bezier::minmax (Axis ax, Real l, Real r, Direction d) const
 
   //  or intersections of the curve with the bounding lines at L and R.
   Interval lr (l, r);
-  for (LEFT_and_RIGHT (dir))
+  for (const auto dir : {LEFT, RIGHT})
     {
       vector<Real> v = get_other_coordinates (ax, lr[dir]);
       for (vsize i = v.size (); i--;)

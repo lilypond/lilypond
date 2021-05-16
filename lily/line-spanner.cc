@@ -280,7 +280,7 @@ Line_spanner::print (SCM smob)
 
   Drul_array<Offset> span_points;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Offset z (from_scm<double> (ly_assoc_get (ly_symbol2scm ("X"),
                                                 bounds[d], SCM_BOOL_F), 0.0),
@@ -299,7 +299,7 @@ Line_spanner::print (SCM smob)
   Real magstep
     = pow (2, from_scm<double> (get_property (me, "font-size"), 0.0) / 6);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       gaps[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("padding"),
                                                 bounds[d], SCM_BOOL_F), 0.0);
@@ -317,7 +317,7 @@ Line_spanner::print (SCM smob)
 
   if (!simple_y)
     {
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
     }
 
@@ -335,7 +335,7 @@ Line_spanner::print (SCM smob)
     }
 
   Stencil line;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       span_points[d] += -d * gaps[d] * magstep * dz.direction ();
 
@@ -357,7 +357,7 @@ Line_spanner::print (SCM smob)
         }
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (stencils[d] && ! stencils[d]->is_empty ())
         span_points[d] += dz_dir *

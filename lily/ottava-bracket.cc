@@ -56,7 +56,7 @@ Ottava_bracket::print (SCM smob)
   Output_def *layout = me->layout ();
 
   Drul_array<bool> broken;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *b = me->get_bound (d);
       broken[d] = (b->break_status_dir () != CENTER);
@@ -88,7 +88,7 @@ Ottava_bracket::print (SCM smob)
     TODO: we should check if there are ledgers, and modify length of
     the spanner to that.
   */
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *b = me->get_bound (d);
 
@@ -142,7 +142,7 @@ Ottava_bracket::print (SCM smob)
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                      Drul_array<Real> (0.0, 0.0));
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       edge_height[d] *= -get_grob_direction (me);
       if (broken[d])

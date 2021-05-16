@@ -119,7 +119,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   Interval extremal_span;
   extremal_span.set_empty ();
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     extremal_span.add_point (extremal_heights[d]);
   ret[-dir] = minmax (dir, extremal_span[-dir], ret[-dir]);
 
@@ -303,7 +303,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     return offset_scm;
 
   bool contains = false;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     contains |= slur_wid.contains (xext[d]);
 
   if (!contains)
@@ -322,7 +322,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   Real EPS = 1.0e-5;
   if (scm_is_eq (avoid, ly_symbol2scm ("outside")))
     {
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Real x = minmax (-d, xext[d], curve.control_[d == LEFT ? 0 : 3][X_AXIS] + -d * EPS);
           Real y = curve.get_other_coordinate (X_AXIS, x);
@@ -335,7 +335,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     {
       for (int a = X_AXIS; a < NO_AXES; a++)
         {
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             {
               vector<Real> coords = curve.get_other_coordinates (Axis (a), exts[a][d]);
               for (vsize i = 0; i < coords.size (); i++)

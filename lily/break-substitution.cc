@@ -220,7 +220,7 @@ item_system_range (Item *it)
     return System_range (st->get_rank (), st->get_rank ());
 
   System_range sr;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *bi = it->find_prebroken_piece (d);
       if (bi && bi->get_system ())

@@ -68,7 +68,7 @@ Tie_column::before_line_breaking (SCM smob)
   for (SCM s = get_property (me, "ties"); scm_is_pair (s); s = scm_cdr (s))
     {
       Spanner *tie = unsmob<Spanner> (scm_car (s));
-      for (LEFT_and_RIGHT (dir))
+      for (const auto dir : {LEFT, RIGHT})
         {
           if (dir * tie->get_bound (dir)->get_column ()->get_rank ()
               > dir * me->get_bound (dir)->get_column ()->get_rank ())

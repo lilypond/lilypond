@@ -257,8 +257,8 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
           cy[DOWN] = -bottom + radius;
           cy[UP] = top - radius;
 
-          for (DOWN_and_UP (v))
-            for (LEFT_and_RIGHT (h))
+          for (const auto v : {DOWN, UP})
+            for (const auto h : {LEFT, RIGHT})
               {
                 Offset last;
                 for (vsize i = 0; i <= (vsize) quantization; i++)

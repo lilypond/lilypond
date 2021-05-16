@@ -66,7 +66,7 @@ Figured_bass_continuation::print (SCM grob)
 
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
                                                         X_AXIS);
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *bound = me->get_bound (d);
       Direction extdir

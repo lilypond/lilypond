@@ -175,7 +175,7 @@ Slur_score_state::get_bound_info () const
 
   Direction dir = dir_;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       extremes[d].bound_ = slur_->get_bound (d);
       if (has_interface<Note_column> (extremes[d].bound_))
@@ -262,7 +262,7 @@ Slur_score_state::fill (Grob *me)
       common_[a] = common_refpoint_of_array (columns, me, a);
       common_[a] = common_refpoint_of_array (extra_objects, common_[a], a);
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           /*
             If bound is not in note-columns, we don't want to know about
@@ -308,7 +308,7 @@ Slur_score_state::fill (Grob *me)
               && !has_interface<Clef> (extra_encompass_infos_[i].grob_)
               && !extra_encompass_infos_[i].grob_->internal_has_interface (ly_symbol2scm ("time-signature-interface"))))
         {
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             additional_ys[d] = minmax (dir_,
                                        additional_ys[d],
                                        (dir_
@@ -321,7 +321,7 @@ Slur_score_state::fill (Grob *me)
         }
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     end_ys[d] += additional_ys[d];
 
   configurations_ = enumerate_attachments (end_ys);
@@ -331,7 +331,7 @@ Slur_score_state::fill (Grob *me)
   valid_ = true;
 
   musical_dy_ = 0.0;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (!is_broken_
           && extremes_[d].slur_head_)
@@ -478,7 +478,7 @@ Drul_array<Real>
 Slur_score_state::get_y_attachment_range () const
 {
   Drul_array<Real> end_ys;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (extremes_[d].note_column_)
         {
@@ -509,7 +509,7 @@ bool
 spanner_less (Spanner *s1, Spanner *s2)
 {
   Slice b1, b2;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       b1[d] = s1->get_bound (d)->get_column ()->get_rank ();
       b2[d] = s2->get_bound (d)->get_column ()->get_rank ();
@@ -523,7 +523,7 @@ Drul_array<Offset>
 Slur_score_state::get_base_attachments () const
 {
   Drul_array<Offset> base_attachment;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Grob *stem = extremes_[d].stem_;
       Grob *head = extremes_[d].slur_head_;
@@ -575,7 +575,7 @@ Slur_score_state::get_base_attachments () const
       base_attachment[d] = Offset (x, y);
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (!extremes_[d].note_column_ && !extremes_[d].slur_head_)
         {
@@ -610,7 +610,7 @@ Slur_score_state::get_base_attachments () const
         }
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       for (int a = X_AXIS; a < NO_AXES; a++)
         {
@@ -726,7 +726,7 @@ vector<unique_ptr<Slur_configuration>>
         {
 
           Drul_array<bool> attach_to_stem (false, false);
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             {
               os[d][X_AXIS] = base_attachments_[d][X_AXIS];
               if (extremes_[d].stem_
@@ -754,7 +754,7 @@ vector<unique_ptr<Slur_configuration>>
           if (dz[X_AXIS] < minimum_length
               || fabs (dz[Y_AXIS] / dz[X_AXIS]) > parameters_.max_slope_)
             {
-              for (LEFT_and_RIGHT (d))
+              for (const auto d : {LEFT, RIGHT})
                 {
                   if (extremes_[d].slur_head_
                       && !extremes_[d].slur_head_x_extent_.is_empty ())
@@ -766,7 +766,7 @@ vector<unique_ptr<Slur_configuration>>
             }
 
           dz = (os[RIGHT] - os[LEFT]).direction ();
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             {
               if (extremes_[d].slur_head_
                   && !attach_to_stem[d])
