@@ -106,8 +106,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
       Interval d = encompasses[i]->pure_y_extent (parent, start, end);
       if (!d.is_empty ())
         {
-          for (DOWN_and_UP (downup))
-            ret.add_point (d[dir]);
+          ret.add_point (d[dir]);
 
           if (extremal_heights[LEFT] == infinity_f)
             extremal_heights[LEFT] = d[dir];

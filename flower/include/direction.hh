@@ -33,17 +33,6 @@ enum Direction
   BIGGER = 1,
   START = -1,
   STOP = 1,
-
-  /*
-    This is necessary to safely write loops,
-    since
-
-    dir <= RIGHT
-
-    is otherwise transformed into true unconditionally.
-  */
-  DIRECTION_LIMIT = 2,
-  DIRECTION_NEG_LIMIT = -2,
 };
 
 inline Direction
@@ -52,14 +41,9 @@ operator - (Direction d)
   return Direction (- static_cast<int> (d)); // cast avoids recursion
 }
 
-#define UP_and_DOWN(d) \
-  Direction d = UP; d != CENTER; d = (d == UP ? DOWN : CENTER)
-
-#define DOWN_and_UP(d) \
-  Direction d = DOWN; d != CENTER; d = (d == DOWN ? UP : CENTER)
-
-#define LEFT_and_RIGHT(d) \
-  Direction d = LEFT; d != CENTER; d = (d == LEFT ? RIGHT : CENTER)
+#define UP_and_DOWN(d) auto d : {UP, DOWN}
+#define DOWN_and_UP(d) auto d : {DOWN, UP}
+#define LEFT_and_RIGHT(d) auto d : {LEFT, RIGHT}
 
 /**
    if d > 0: the max operator

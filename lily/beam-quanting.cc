@@ -796,19 +796,16 @@ Beam_scoring_problem::shift_region_to_valid ()
       if (collisions_[i].y_.length () < min_y_size)
         continue;
 
-      for (LEFT_and_RIGHT (d))
+      Real dy = slope * collisions_[i].x_;
+
+      Interval disallowed;
+      for (DOWN_and_UP (yd))
         {
-          Real dy = slope * collisions_[i].x_;
-
-          Interval disallowed;
-          for (DOWN_and_UP (yd))
-            {
-              Real left_y = collisions_[i].y_[yd] - dy;
-              disallowed[yd] = left_y;
-            }
-
-          forbidden_intervals.push_back (disallowed);
+          Real left_y = collisions_[i].y_[yd] - dy;
+          disallowed[yd] = left_y;
         }
+
+      forbidden_intervals.push_back (disallowed);
     }
 
   std::sort (forbidden_intervals.begin (), forbidden_intervals.end (),
