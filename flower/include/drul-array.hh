@@ -23,6 +23,8 @@
 #include "direction.hh"
 #include "real.hh"
 
+#include <cassert>
+
 /**
    Left/right or Up/down arrays. Drul is nicer sounding than udlr
 */

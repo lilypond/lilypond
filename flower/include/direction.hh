@@ -21,7 +21,6 @@
 #define DIRECTION_HH
 
 #include <algorithm>
-#include "axis.hh"
 
 enum Direction
 {
