@@ -28,8 +28,6 @@ enum Direction
   DOWN = -1,
   LEFT = -1,
   RIGHT = 1,
-  MIN = -1,
-  MAX = 1,
   CENTER = 0,
   SMALLER = -1,
   BIGGER = 1,

@@ -337,10 +337,10 @@ Dynamic_performer::equalize_volume (Real volume)
       Interval iv (Audio_span_dynamic::MINIMUM_VOLUME,
                    Audio_span_dynamic::MAXIMUM_VOLUME);
       if (scm_is_number (min))
-        iv[MIN] = scm_to_double (min);
+        iv[DOWN] = scm_to_double (min);
       if (scm_is_number (max))
-        iv[MAX] = scm_to_double (max);
-      volume = iv[MIN] + iv.length () * volume;
+        iv[UP] = scm_to_double (max);
+      volume = iv[DOWN] + iv.length () * volume;
     }
   else
     {
@@ -362,7 +362,7 @@ Dynamic_performer::equalize_volume (Real volume)
       if (is_number_pair (s))
         {
           Interval iv = from_scm<Interval> (s);
-          volume = iv[MIN] + iv.length () * volume;
+          volume = iv[DOWN] + iv.length () * volume;
         }
     }
   return std::max (std::min (volume, Audio_span_dynamic::MAXIMUM_VOLUME),

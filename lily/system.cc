@@ -556,7 +556,7 @@ System::post_processing ()
   if (iv.is_empty ())
     programming_error ("system with empty extent");
   else
-    translate_axis (-iv[MAX], Y_AXIS);
+    translate_axis (-iv[UP], Y_AXIS);
 
   /* Generate all stencils to trigger font loads.
      This might seem inefficient, but Stencils are cached per grob
