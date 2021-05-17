@@ -906,10 +906,6 @@ may or may not use it."
 (define-public (accidental-interface::calc-alteration grob)
   (ly:pitch-alteration (ly:event-property (event-cause grob) 'pitch)))
 
-(define-public (accidental-interface::glyph-name grob)
-  (assoc-get (ly:grob-property grob 'alteration)
-             standard-alteration-glyph-name-alist))
-
 (define-public accidental-interface::height
   (ly:make-unpure-pure-container
    ly:accidental-interface::height))

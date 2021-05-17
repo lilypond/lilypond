@@ -33,7 +33,6 @@
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
         (extra-spacing-width . (-0.2 . 0.0))
-        (glyph-name . ,accidental-interface::glyph-name)
         (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (stencil . ,ly:accidental-interface::print)
         (horizontal-skylines . ,(ly:make-unpure-pure-container ly:accidental-interface::horizontal-skylines))
