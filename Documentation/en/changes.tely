@@ -102,6 +102,10 @@ alternatives into account.
 @end lilypond
 
 @item
+The string tunings @code{banjo-double-c} and @code{banjo-double-d}
+were added.
+
+@item
 @command{lilypond-book} now appends the current directory as the last
 entry to search for included files, instead of prepending it to the
 list of specified include paths.  This allows include directories to

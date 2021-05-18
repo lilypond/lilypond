@@ -72,6 +72,8 @@ for documentation purposes.")
 \makeDefaultStringTuning #'banjo-modal-tuning \stringTuning <g' d g c' d'>
 \makeDefaultStringTuning #'banjo-open-d-tuning \stringTuning <a' d fis a d'>
 \makeDefaultStringTuning #'banjo-open-dm-tuning \stringTuning <a' d f a d'>
+\makeDefaultStringTuning #'banjo-double-c-tuning \stringTuning <g' c g c' d'>
+\makeDefaultStringTuning #'banjo-double-d-tuning \stringTuning <a' d g d' e'>
 
 %% ukulele tunings
 \makeDefaultStringTuning #'ukulele-tuning \stringTuning <g' c' e' a'>
