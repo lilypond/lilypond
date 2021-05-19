@@ -103,7 +103,7 @@ Note_column::dir (Grob *me)
     {
       extract_grob_set (me, "note-heads", heads);
       if (heads.size ())
-        return (Direction)sign (head_positions_interval (me).center ());
+        return Direction (head_positions_interval (me).center ());
     }
 
   if (has_interface<Note_column> (me))

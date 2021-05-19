@@ -176,7 +176,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
   if (line_dist < .5)
     return values;
 
-  Direction dir = (Direction)sign (pos - nearest_line);
+  const Direction dir (pos - nearest_line);
 
   if (scm_is_pair (ledger_positions))
     // custom ledger positions via StaffSymbol.ledger-positions

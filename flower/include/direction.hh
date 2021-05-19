@@ -21,25 +21,56 @@
 #define DIRECTION_HH
 
 #include <algorithm>
+#include <cmath>
 
-enum Direction
+// a direction on an unspecified axis, represented as {-1, 0, 1}
+class Direction final
 {
-  UP = 1,
-  DOWN = -1,
-  LEFT = -1,
-  RIGHT = 1,
-  CENTER = 0,
-  SMALLER = -1,
-  BIGGER = 1,
-  START = -1,
-  STOP = 1,
+public:
+  constexpr Direction () = default;
+
+  // Create a Direction from the sign of the input.
+
+  constexpr explicit Direction (int x)
+    : Direction (static_cast<long long> (x)) {}
+
+  constexpr explicit Direction (long x)
+    : Direction (static_cast<long long> (x)) {}
+
+  constexpr explicit Direction (long long x)
+    : _val (x ? ((x < 0) ? -1 : 1) : 0) {}
+
+  explicit Direction (const double &x)
+    : _val ((x != 0.0) ? (std::signbit (x) ? -1 : 1) : 0) {}
+
+  static constexpr Direction negative () { return Direction (-1); }
+  static constexpr Direction positive () { return Direction (1); }
+  static constexpr Direction zero () { return Direction (0); }
+
+  // Direction is copiable
+  Direction (const Direction &) = default;
+  Direction &operator =(const Direction &) = default;
+
+  // Implicit conversion to int keeps legacy code working, but it has its
+  // quirks.  All of these are true:
+  //
+  //     Direction (1) == 1
+  //     Direction (2) != 2
+  //     Direction (2) == 1
+  //
+  constexpr operator int () const { return _val; }
+
+  // unary minus reverses the direction
+  constexpr Direction operator -() const { return Direction (-_val); }
+
+  constexpr Direction operator *(Direction other) const
+  {
+    return Direction (_val * other._val);
+  }
+
+private:
+  int _val = 0;
 };
-
-inline Direction
-operator - (Direction d)
-{
-  return Direction (- static_cast<int> (d)); // cast avoids recursion
-}
 
 /**
    if d > 0: the max operator
@@ -47,10 +78,20 @@ operator - (Direction d)
 */
 template<class T> T minmax (Direction d, T a, T b)
 {
-  if (d == UP)
+  if (d == Direction::positive ())
     return std::max (a, b);
   else
     return std::min (a, b);
 }
+
+static constexpr auto UP = Direction::positive ();
+static constexpr auto DOWN = Direction::negative ();
+static constexpr auto LEFT = Direction::negative ();
+static constexpr auto RIGHT = Direction::positive ();
+static constexpr auto CENTER = Direction::zero ();
+static constexpr auto SMALLER = Direction::negative ();
+static constexpr auto BIGGER = Direction::positive ();
+static constexpr auto START = Direction::negative ();
+static constexpr auto STOP = Direction::positive ();
 
 #endif // DIRECTION_HH

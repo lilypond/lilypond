@@ -624,7 +624,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
   Real penalty = 0.0;
   Real curve_y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
   Real tie_y = spec.position_ * details_.staff_space_ * 0.5;
-  if (sign (curve_y - tie_y) != conf->dir_)
+  if (Direction (curve_y - tie_y) != conf->dir_)
     {
       Real p = details_.wrong_direction_offset_penalty_;
       if (ties_conf)
@@ -688,7 +688,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
                && get_grob_direction (stems[LEFT]) == get_grob_direction (stems[RIGHT]))
         tie_stem_dir_ok = conf->dir_ != get_grob_direction (stems[LEFT]);
       else if (spec.position_)
-        tie_position_dir_ok = conf->dir_ == sign (spec.position_);
+        tie_position_dir_ok = conf->dir_ == Direction (spec.position_);
 
       if (!tie_stem_dir_ok)
         ties_conf->add_score (details_.same_dir_as_stem_penalty_, "tie/stem dir");

@@ -807,7 +807,7 @@ Slur_score_state::get_extra_encompass_infos () const
 
           for (int k = 0; k < 3; k++)
             {
-              Direction hdir = Direction (k - 1);
+              const Direction hdir (k - 1);
 
               /*
                 Only take bound into account if small slur starts

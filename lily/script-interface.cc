@@ -67,15 +67,12 @@ Script_interface::calc_positioning_done (SCM smob)
 Direction
 Script_interface::get_direction (Grob *me)
 {
-  Direction relative_dir = Direction (1);
   SCM reldir = get_property (me, "side-relative-direction");
-  if (is_scm<Direction> (reldir))
-    relative_dir = from_scm<Direction> (reldir);
+  const auto relative_dir = from_scm<Direction> (reldir, Direction (1));
 
   SCM other_elt = get_object (me, "direction-source");
-  Grob *e = unsmob<Grob> (other_elt);
-  if (e)
-    return (Direction) (relative_dir * get_grob_direction (e));
+  if (auto *e = unsmob<Grob> (other_elt))
+    return relative_dir * get_grob_direction (e);
 
   return CENTER;
 }

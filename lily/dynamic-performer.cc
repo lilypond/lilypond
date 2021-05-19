@@ -296,7 +296,7 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
 
       // If the next dynamic is not specified or is inconsistent with the
       // direction of growth, choose a reasonable target.
-      if ((next_vol < 0) || (depart_dir_ != sign (next_vol - start_vol)))
+      if ((next_vol < 0) || (depart_dir_ != Direction (next_vol - start_vol)))
         {
           depart_vol = calc_departure_volume (depart_dir_,
                                               start_vol, start_vol,

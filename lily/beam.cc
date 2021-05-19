@@ -787,7 +787,7 @@ Beam::get_default_dir (Grob *me)
       Interval positions = Stem::head_positions (*s);
       for (const auto d : {DOWN, UP})
         {
-          if (sign (positions[d]) == d)
+          if (Direction (positions[d]) == d)
             extremes[d] = d * std::max (d * positions[d], d * extremes[d]);
         }
     }
@@ -829,13 +829,13 @@ Beam::get_default_dir (Grob *me)
 
   Direction dir = CENTER;
   Direction d = CENTER;
-  if ((d = (Direction) sign (count[UP] - count[DOWN])))
+  if ((d = Direction (count[UP] - count[DOWN])))
     dir = d;
   else if (count[UP]
            && count[DOWN]
-           && (d = (Direction) sign (total[UP] / count[UP] - total[DOWN] / count[DOWN])))
+           && (d = Direction (total[UP] / count[UP] - total[DOWN] / count[DOWN])))
     dir = d;
-  else if ((d = (Direction) sign (total[UP] - total[DOWN])))
+  else if ((d = Direction (total[UP] - total[DOWN])))
     dir = d;
   else
     dir = from_scm<Direction> (get_property (me, "neutral-direction"));

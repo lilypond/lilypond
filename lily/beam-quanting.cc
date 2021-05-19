@@ -537,8 +537,7 @@ Beam_scoring_problem::least_squares_positions ()
          For that case, we apply artificial slope */
       if (!ideal[LEFT] && chord.delta () && stem_infos_.size () == 2)
         {
-          /* FIXME. -> UP */
-          Direction d = (Direction) (sign (chord.delta ()) * UP);
+          const Direction d (chord.delta ());
           unquanted_y_[d] = Beam::get_beam_thickness (beam_) / 2;
           unquanted_y_[-d] = -unquanted_y_[d];
         }
@@ -1113,7 +1112,7 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
     always seems longer, reaching to the second, rather than squashed.
   */
   if (is_knee_ && count[LEFT] == count[RIGHT] && count[LEFT] == 1 && unquanted_y_.delta ())
-    score[Direction (sign (unquanted_y_.delta ()))] += score[Direction (sign (unquanted_y_.delta ()))] < 1.0 ? 0.01 : 0.0;
+    score[Direction (unquanted_y_.delta ())] += score[Direction (unquanted_y_.delta ())] < 1.0 ? 0.01 : 0.0;
 
   config->add (score[LEFT] + score[RIGHT], "L");
 }
