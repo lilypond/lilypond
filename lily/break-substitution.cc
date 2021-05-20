@@ -446,7 +446,7 @@ substitute_object_alist (SCM break_criterion, SCM alist, SCM *dest)
 
           Grob_array *new_arr = unsmob<Grob_array> (newval);
           // TODO: What if new_arr is null?
-          new_arr->filter_map_assign2 (*orig, substitute_grob, break_criterion);
+          new_arr->filter_map_assign (*orig, substitute_grob, break_criterion);
           val = newval;
         }
       else
@@ -486,8 +486,8 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
               set_object (sc, sym, newval);
             }
           Grob_array *new_arr = unsmob<Grob_array> (newval);
-          new_arr->filter_map_assign2 (*grob_array, substitute_grob,
-                                       break_criterion);
+          new_arr->filter_map_assign (*grob_array, substitute_grob,
+                                      break_criterion);
         }
       else
         {
