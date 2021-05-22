@@ -284,11 +284,16 @@ Spanner::spanner_length () const
 System *
 Spanner::get_system () const
 {
-  if (!spanned_drul_[LEFT] || !spanned_drul_[RIGHT])
-    return 0;
-  if (spanned_drul_[LEFT]->get_system () != spanned_drul_[RIGHT]->get_system ())
-    return 0;
-  return spanned_drul_[LEFT]->get_system ();
+  if (spanned_drul_[LEFT] && spanned_drul_[RIGHT])
+    {
+      if (auto *const system = spanned_drul_[LEFT]->get_system ())
+        {
+          if (system == spanned_drul_[RIGHT]->get_system ())
+            return system;
+        }
+    }
+
+  return nullptr;
 }
 
 Spanner *
