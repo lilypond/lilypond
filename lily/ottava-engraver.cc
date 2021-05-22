@@ -38,10 +38,10 @@ protected:
   void stop_translation_timestep ();
   void derived_mark () const override;
 private:
-  Spanner *span_;
-  Spanner *finished_;
+  Spanner *span_ = nullptr;
+  Spanner *finished_ = nullptr;
 
-  SCM last_ottavation_;
+  SCM last_ottavation_ = SCM_EOL;
 
   void typeset_all ();
 };
@@ -55,9 +55,6 @@ Ottava_spanner_engraver::derived_mark () const
 Ottava_spanner_engraver::Ottava_spanner_engraver (Context *c)
   : Engraver (c)
 {
-  finished_ = 0;
-  span_ = 0;
-  last_ottavation_ = SCM_EOL;
 }
 
 void
@@ -67,7 +64,7 @@ Ottava_spanner_engraver::process_music ()
   if (!scm_is_eq (ott, last_ottavation_))
     {
       finished_ = span_;
-      span_ = 0;
+      span_ = nullptr;
       if (Text_interface::is_markup (ott))
         {
           span_ = make_spanner ("OttavaBracket", SCM_EOL);
@@ -116,7 +113,7 @@ Ottava_spanner_engraver::typeset_all ()
             }
         }
 
-      finished_ = 0;
+      finished_ = nullptr;
     }
 }
 
