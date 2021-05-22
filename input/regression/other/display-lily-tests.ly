@@ -294,7 +294,7 @@ are reported on the stderr of this run."
 \test ##[ \quoteDuring "foo" { c4 d4 } #]
 
 %% \ottava
-\test ##[ \ottava #1 #]    % OttavaMusic
+\test ##[ \ottava #1 #]    % OttavaEvent
 
 %% \tweak
 \test ##[ < \tweak duration-log #2 c >4 #]

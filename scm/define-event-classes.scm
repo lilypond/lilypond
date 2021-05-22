@@ -31,7 +31,7 @@
                     extender-event span-event rhythmic-event dynamic-event
                     break-event label-event percent-event key-change-event
                     string-number-event stroke-finger-event tie-event
-                    part-combine-event
+                    part-combine-event ottava-event
                     beam-forbid-event script-event tempo-change-event
                     tremolo-event bend-after-event fingering-event
                     glissando-event harmonic-event hyphen-event
