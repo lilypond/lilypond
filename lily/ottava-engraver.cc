@@ -71,10 +71,11 @@ Ottava_spanner_engraver::process_music ()
       if (Text_interface::is_markup (ott))
         {
           span_ = make_spanner ("OttavaBracket", SCM_EOL);
-          set_property (span_, "text", ott);
+          // Respect user tweaks.
+          if (scm_is_null (get_property_data (span_, "text")))
+            set_property (span_, "text", ott);
 
           SCM offset (get_property (this, "middleCOffset"));
-          // Respect user tweaks.
           if (scm_is_null (get_property_data (span_, "direction")))
             {
               Direction d = (from_scm<double> (offset, 0) > 0) ? DOWN : UP;
