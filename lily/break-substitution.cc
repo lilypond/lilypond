@@ -21,9 +21,6 @@
 #include "system.hh"
 #include "grob-array.hh"
 
-#include <cstdio>
-#include <cstdlib>
-
 using std::vector;
 
 // TODO: int is wider than necessary.  Consider changing it to
@@ -233,18 +230,6 @@ item_system_range (Item *it)
   return sr;
 }
 
-System_range
-grob_system_range (Grob *g)
-{
-  // ugh: looks like a job for a virtual method
-  if (Spanner *s = dynamic_cast<Spanner *> (g))
-    return spanner_system_range (s);
-  else if (Item *it = dynamic_cast<Item *> (g))
-    return item_system_range (it);
-  else
-    return System_range ();
-}
-
 struct Substitution_entry
 {
   Grob *grob_;
@@ -256,7 +241,7 @@ struct Substitution_entry
   System::rank_type left_;
   System::rank_type right_;
 
-  void set (Grob *g, System_range sr)
+  Substitution_entry (Grob *g, const System_range &sr)
   {
     grob_ = g;
     /*
@@ -276,140 +261,86 @@ struct Substitution_entry
         right_ = static_cast<System::rank_type> (sr[RIGHT]);
       }
   }
-  Substitution_entry ()
-  {
-    grob_ = 0;
-    left_ = right_ = -2;
-  }
 
-  int length () { return right_ - left_; }
-  static int
-  item_compare (void const *a, void const *b)
+  bool operator <(Substitution_entry const &other) const
   {
-    return ((Substitution_entry *)a)->left_
-           - ((Substitution_entry *)b)->left_;
-  }
-
-  static int
-  spanner_compare (void const *a, void const *b)
-  {
-    return ((Substitution_entry *)a)->length ()
-           - ((Substitution_entry *)b)->length ();
+    return left_ < other.left_;
   }
 };
 
 bool
 Spanner::fast_substitute_grob_array (SCM sym,
-                                     Grob_array *grob_array)
+                                     Grob_array const *grob_array)
 {
-  vsize len = grob_array->size ();
-
   if (grob_array->ordered ())
     return false;
 
   // TODO: Was this chosen after profiling in 2005?  Maybe it should be
   // revisited.
-  if (len < 15)
+  if (grob_array->size () < 15)
     return false;
 
-  /*
-    We store items on the left, spanners on the right in this vector.
+  const auto system_range = spanner_system_range (this);
 
-    FIXME: will not multithread.
-  */
-  static Substitution_entry *vec;
-  static vsize vec_room;
-
-  if (vec_room < len)
+  std::vector<Substitution_entry> items;
+  std::vector<Grob *> spanners;
+  for (auto *g : grob_array->array_reference ())
     {
-      vec = (Substitution_entry *) realloc (vec, sizeof (Substitution_entry) * len);
-      vec_room = len;
+      if (auto *it = dynamic_cast<Item *> (g))
+        {
+          auto sr = item_system_range (it);
+          sr.intersect (system_range);
+          sr -= system_range[LEFT];
+          items.emplace_back (g, sr);
+        }
+      else
+        {
+          spanners.emplace_back (g);
+        }
     }
 
-  System_range system_range = spanner_system_range (this);
+  std::stable_sort (items.begin (), items.end ());
 
-  vsize spanner_index = len;
-  vsize item_index = 0;
-
-  for (vsize i = 0; i < grob_array->size (); i++)
+  vector<Interval_t<vsize>> item_indices (system_range.length () + 1);
+  for (vsize i = 0; i < items.size (); i++)
     {
-      Grob *g = grob_array->grob (i);
-
-      System_range sr = grob_system_range (g);
-      sr.intersect (system_range);
-
-      // ugh: maybe a job for a virtual method
-      vsize idx = 0;
-      if (dynamic_cast<Spanner *> (g))
-        idx = --spanner_index;
-      else if (dynamic_cast<Item *> (g))
-        idx = item_index++;
-
-      vec[idx].set (g, sr);
+      for (auto j = items[i].left_; j <= items[i].right_; ++j)
+        item_indices[j].add_point (i);
     }
 
-  qsort (vec, item_index,
-         sizeof (Substitution_entry), &Substitution_entry::item_compare);
+  // Sorting spanners is a waste of time: the staff-spanners screw up the
+  // ordering because they span the entire score.
 
-  vector<Interval_t<vsize>> item_indices;
-  vector<Interval_t<vsize>> spanner_indices;
-  for (int i = 0; i <= system_range.length (); i++)
-    {
-      item_indices.push_back (Interval_t<vsize> (len, 0));
-      spanner_indices.push_back (Interval_t<vsize> (len, 0));
-    }
-
-  vector<Interval_t<vsize>> *arrs[] = {&item_indices, &spanner_indices};
-
-  for (vsize i = 0; i < item_index; i++)
-    {
-      for (int j = vec[i].left_; j <= vec[i].right_; j++)
-        item_indices[j - system_range[LEFT]].add_point (i);
-    }
-
-  /*
-    sorting vec[spanner_index.. len]
-    is a waste of time -- the staff-spanners screw up the
-    ordering, since they go across the entire score.
-  */
-  for (vsize i = spanner_indices.size (); i--;)
-    spanner_indices[i] = Interval_t<vsize> (spanner_index, len - 1);
-
-  assert (item_index <= spanner_index);
-
-  assert ((broken_intos_.size () == (vsize)system_range.length () + 1)
+  assert ((broken_intos_.size ()
+           == static_cast<vsize> (system_range.length () + 1))
           || (broken_intos_.empty () && system_range.length () == 0));
-  for (vsize i = 0; i < broken_intos_.size (); i++)
-    {
-      Grob *sc = broken_intos_[i];
-      System *l = sc->get_system ();
 
+  for (vsize i = 0; i < broken_intos_.size (); ++i)
+    {
+      auto *const sc = broken_intos_[i];
       SCM newval = sc->internal_get_object (sym);
-      if (!unsmob<Grob_array> (newval))
+      auto *new_array = unsmob<Grob_array> (newval);
+      if (!new_array)
         {
           newval = Grob_array::make_array ();
           set_object (sc, sym, newval);
+          new_array = unsmob<Grob_array> (newval);
         }
 
-      Grob_array *new_array = unsmob<Grob_array> (newval);
-      for (int k = 0; k < 2; k++)
-        for (vsize j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
-          {
-            Grob *substituted = substitute_grob (l, vec[j].grob_);
-            if (substituted)
-              new_array->add (substituted);
-          }
+      auto *const system = sc->get_system ();
 
-#ifdef PARANOIA
-      printf ("%d (%d), sp %d (%d)\n",
-              item_indices [i].length (), item_index,
-              spanner_indices[i].length (), len - spanner_index);
+      for (auto j = item_indices[i][LEFT]; j <= item_indices[i][RIGHT]; ++j)
+        {
+          auto *og = items[j].grob_;
+          if (auto *g = substitute_grob (system, og))
+            new_array->add (g);
+        }
 
-      {
-        SCM l1 = substitute_grob_list (grob_list);
-        assert (scm_ilength (l1) == scm_ilength (newval));
-      }
-#endif
+      for (auto *og : spanners)
+        {
+          if (auto *g = substitute_grob (system, og))
+            new_array->add (g);
+        }
     }
 
   return true;

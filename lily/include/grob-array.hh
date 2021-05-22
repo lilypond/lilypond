@@ -47,6 +47,7 @@ public:
   void add (Grob *x) { grobs_.push_back (x); }
   void set_array (std::vector<Grob *> const &src) { grobs_ = src; }
   std::vector<Grob *> &array_reference () { return grobs_; }
+  const std::vector<Grob *> &array_reference () const { return grobs_; }
   std::vector<Grob *> const &array () const { return grobs_; }
   static SCM make_array ();
 
