@@ -926,6 +926,16 @@ robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
   return ext;
 }
 
+Interval
+robust_relative_pure_y_extent (Grob *me, Grob *refpoint, vsize start, vsize end)
+{
+  Interval ext = me->pure_y_extent (refpoint, start, end);
+  if (ext.is_empty ())
+    ext.add_point (me->pure_relative_y_coordinate (refpoint, start, end));
+
+  return ext;
+}
+
 // Checks whether there is a vertical alignment in the chain of
 // parents between this and commony.
 bool
