@@ -34,30 +34,33 @@ typedef Interval_t<int> System_range;
 /*
   Perform the substitution for a single grob.
 */
+template <class Criterion>
+static Grob *
+substitute_grob (Criterion, Grob *);
+
+template <>
 Grob *
-substitute_grob (SCM break_criterion, Grob *sc)
+substitute_grob (Direction d, Grob *sc)
 {
-  if (scm_is_integer (break_criterion))
+  if (auto *item = dynamic_cast<Item *> (sc))
     {
-      Item *i = dynamic_cast<Item *> (sc);
-      Direction d = from_scm<Direction> (break_criterion);
-      if (i && i->break_status_dir () != d)
-        {
-          Item *br = i->find_prebroken_piece (d);
-          return br;
-        }
+      if (item->break_status_dir () != d)
+        return item->find_prebroken_piece (d);
     }
-  else
+
+  return sc;
+}
+
+template <>
+Grob *
+substitute_grob (System *line, Grob *sc)
+{
+  if (sc->get_system () != line)
+    sc = sc->find_broken_piece (line);
+
+  /* now: !sc || (sc && sc->get_system () == line) */
+  if (sc)
     {
-      System *line
-        = unsmob<System> (break_criterion);
-      if (sc->get_system () != line)
-        sc = sc->find_broken_piece (line);
-
-      /* now: !sc || (sc && sc->get_system () == line) */
-      if (!sc)
-        return 0;
-
       /* now: sc && sc->get_system () == line */
       if (!line)
         return sc;
@@ -74,10 +77,9 @@ substitute_grob (SCM break_criterion, Grob *sc)
       if (sc->common_refpoint (line, X_AXIS)
           && sc->common_refpoint (line, Y_AXIS))
         return sc;
-      return 0;
     }
 
-  return sc;
+  return nullptr;
 }
 
 /*
@@ -94,15 +96,16 @@ substitute_grob (SCM break_criterion, Grob *sc)
   It would be nice if we could do this in-place partially.  We now
   generate a lot of garbage.
 */
-SCM
-do_break_substitution (SCM break_criterion, SCM src)
+template <class Crit>
+static SCM
+do_break_substitution (Crit break_criterion, SCM src)
 {
 again:
 
-  if (unsmob<Grob> (src))
+  if (auto *og = unsmob<Grob> (src))
     {
-      Grob *new_ptr = substitute_grob (break_criterion, unsmob<Grob> (src));
-      return new_ptr ? new_ptr->self_scm () : SCM_UNDEFINED;
+      auto *g = substitute_grob (break_criterion, og);
+      return g ? g->self_scm () : SCM_UNDEFINED;
     }
   else if (scm_is_vector (src))
     {
@@ -392,7 +395,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       for (int k = 0; k < 2; k++)
         for (vsize j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
           {
-            Grob *substituted = substitute_grob (l->self_scm (), vec[j].grob_);
+            Grob *substituted = substitute_grob (l, vec[j].grob_);
             if (substituted)
               new_array->add (substituted);
           }
@@ -425,8 +428,9 @@ Spanner::fast_substitute_grob_array (SCM sym,
   This becomes a problem if lily is linked against guile with
   pthreads. pthreads impose small limits on the stack size.
 */
-void
-substitute_object_alist (SCM break_criterion, SCM alist, SCM *dest)
+template <class Crit>
+static void
+substitute_object_alist (Crit break_criterion, SCM alist, SCM *dest)
 {
   SCM old = *dest;
   *dest = SCM_EOL;
@@ -446,7 +450,8 @@ substitute_object_alist (SCM break_criterion, SCM alist, SCM *dest)
 
           Grob_array *new_arr = unsmob<Grob_array> (newval);
           // TODO: What if new_arr is null?
-          new_arr->filter_map_assign (*orig, substitute_grob, break_criterion);
+          new_arr->filter_map_assign (*orig, substitute_grob<Crit>,
+                                      break_criterion);
           val = newval;
         }
       else
@@ -471,34 +476,39 @@ Spanner::substitute_one_mutable_property (SCM sym, SCM val)
   if (grob_array && fast_substitute_grob_array (sym, grob_array))
     return;
 
-  for (vsize i = 0; i < broken_intos_.size (); i++)
+  for (auto *sc : broken_intos_)
     {
-      Grob *sc = broken_intos_[i];
-      System *l = sc->get_system ();
-      SCM break_criterion = l->self_scm ();
+      auto *system = sc->get_system ();
 
       if (grob_array)
         {
           SCM newval = sc->internal_get_object (sym);
-          if (!unsmob<Grob_array> (newval))
+          auto *new_arr = unsmob<Grob_array> (newval);
+          if (!new_arr)
             {
               newval = Grob_array::make_array ();
               set_object (sc, sym, newval);
+              new_arr = unsmob<Grob_array> (newval);
             }
-          Grob_array *new_arr = unsmob<Grob_array> (newval);
-          new_arr->filter_map_assign (*grob_array, substitute_grob,
-                                      break_criterion);
+          new_arr->filter_map_assign (*grob_array, substitute_grob<System *>,
+                                      system);
         }
       else
         {
-          SCM newval = do_break_substitution (break_criterion, val);
+          SCM newval = do_break_substitution (system, val);
           set_object (sc, sym, newval);
         }
     }
 }
 
 void
-Grob::substitute_object_links (SCM crit, SCM orig)
+Grob::substitute_object_links (Direction crit, SCM orig)
+{
+  substitute_object_alist (crit, orig, &object_alist_);
+}
+
+void
+Grob::substitute_object_links (System *crit, SCM orig)
 {
   substitute_object_alist (crit, orig, &object_alist_);
 }

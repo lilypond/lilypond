@@ -251,9 +251,9 @@ Grob::handle_broken_dependencies ()
       && system
       && common_refpoint (system, X_AXIS)
       && common_refpoint (system, Y_AXIS))
-    substitute_object_links (system->self_scm (), object_alist_);
+    substitute_object_links (system, object_alist_);
   else if (dynamic_cast<System *> (this))
-    substitute_object_links (SCM_UNDEFINED, object_alist_);
+    substitute_object_links (nullptr, object_alist_);
   else
     /* THIS element is `invalid'; it has been removed from all
        dependencies, so let's junk the element itself.
@@ -291,7 +291,7 @@ Grob::handle_prebroken_dependencies ()
   if (original ())
     {
       Item *it = dynamic_cast<Item *> (this);
-      substitute_object_links (to_scm (it->break_status_dir ()),
+      substitute_object_links (it->break_status_dir (),
                                original ()->object_alist_);
     }
 }

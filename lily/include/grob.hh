@@ -59,7 +59,8 @@ protected:
   */
   SCM interfaces_;
 
-  void substitute_object_links (SCM, SCM);
+  void substitute_object_links (Direction, SCM);
+  void substitute_object_links (System *, SCM);
   Real get_offset (Axis a) const;
   SCM try_callback (SCM, SCM);
   SCM try_callback_on_alist (SCM *, SCM, SCM);
