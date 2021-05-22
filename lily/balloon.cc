@@ -101,7 +101,7 @@ Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   vsize start = from_scm<vsize> (start_scm);
   int end = scm_to_int (end_scm);
 
-  Interval y = p->pure_y_extent (p, start, end);
+  Interval y = robust_relative_pure_y_extent (p, p, start, end);
 
   Real off = me->relative_coordinate (p, Y_AXIS);
 

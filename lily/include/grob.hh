@@ -202,6 +202,7 @@ System *get_root_system (Grob *me);
 
 /* extents */
 Interval robust_relative_extent (Grob *, Grob *, Axis);
+Interval robust_relative_pure_y_extent (Grob *, Grob *, vsize, vsize);
 
 /* offset/extent callbacks. */
 void add_offset_callback (Grob *g, SCM proc, Axis a);
