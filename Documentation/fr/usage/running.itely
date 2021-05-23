@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e05800ca6450b5bf2e0e8a5ec0eeb22bce238202
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1680,3 +1680,4 @@ Manuel d'initiation :
 Manuel de notation :
 @ruser{Polyphonie sur une portée},
 @ruser{Résolution des collisions}.
+@endmorerefs

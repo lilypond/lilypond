@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
+    Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Notation de base pour percussions
@@ -137,6 +138,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Roulements de tambour
@@ -187,6 +189,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Hauteurs en percussions
@@ -204,6 +207,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Portées de percussion
@@ -457,6 +461,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Personnalisation de portées de percussion
@@ -470,7 +475,7 @@ Morceaux choisis :
 
 LilyPond offre la possibilité de construire son propre style de
 percussion grâce à une définition de la propriété @code{drumStyleTable}.
-Les notations existantes peut se redéfinir au travers d'une liste
+Les notations existantes peuvent se redéfinir au travers d'une liste
 associative dans laquelle chaque entrée doit comporter quatre éléments :
 un nom, le style de tête de note (ou @code{default}), un éventuel signe
 d'articulation (ou @code{#f} dans le cas contraire) et, enfin, le
@@ -592,6 +597,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{DrumStaff},
 @rinternals{DrumVoice}.
+@endmorerefs
 
 
 @node Notes fantômes
@@ -636,3 +642,4 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsr{Percussion}.
+@endmorerefs

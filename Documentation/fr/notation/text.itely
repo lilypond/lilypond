@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -207,6 +207,7 @@ Essai sur la gravure musicale automatisée :
 
 Morceaux choisis :
 @rlsr{Text}.
+@endmorerefs
 
 
 @node Commentaires textuels
@@ -280,6 +281,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
+@endmorerefs
 
 @cindex texte hors marges
 @cindex marge, texte qui dépasse
@@ -373,6 +375,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextSpanner}.
+@endmorerefs
 
 @knownissues
 LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
@@ -491,6 +494,7 @@ Référence des propriétés internes :
 @rinternals{MarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
+@endmorerefs
 
 
 @node Texte indépendant
@@ -566,6 +570,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Mise en forme du texte
@@ -707,6 +712,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
+@endmorerefs
 
 @knownissues
 Les messages d'erreur de syntaxe en mode @emph{markup} sont peu
@@ -915,6 +921,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
+@endmorerefs
 
 @knownissues
 Le recours aux commandes @code{\teeny}, @code{\tiny}, @code{\small},
@@ -1243,6 +1250,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Éléments graphiques dans du texte formaté
@@ -1412,6 +1420,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Notation musicale dans du texte formaté
@@ -1549,6 +1558,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
+@endmorerefs
 
 @knownissues
 L'espacement vertical d'un @code{\score} contenu dans un objet
@@ -1623,6 +1633,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Fontes
@@ -1702,7 +1713,7 @@ seront mappées selon des alias différents.
 Pour le moteur @code{svg} :
 
 @indentedBlock
-@multitable @columnfractions .15 .30
+@multitable {@b{Famille générique}} {@b{ Famille de fonte SVG}}
 @headitem Famille générique @tab Famille de fonte SVG
 @item @emph{roman} @tab serif
 @item @emph{sans} @tab sans-serif
@@ -1717,7 +1728,7 @@ Pour le moteur @code{svg} :
 Pour les autres moteurs :
 
 @indentedBlock
-@multitable @columnfractions .15 .30 .45
+@multitable @columnfractions .17 .30 .45
 @headitem Famille générique
           @tab Fonte par défaut (alias)
                      @tab Listes de définition des alias
@@ -1878,6 +1889,7 @@ Manuel de notation :
 @ref{Rotation des objets},
 @ref{Sélection de la fonte et de la taille},
 @rusernamed{Font,Fonte}.
+@endmorerefs
 
 
 @node Attribution d'une fonte en particulier
@@ -2001,6 +2013,7 @@ Morceaux choisis :
 @c A source file gets never installed...
 @c Fichiers d'initialisation :
 @c @file{lily/font-config-scheme.cc}.
+@endmorerefs
 
 
 @node Choix des fontes par défaut
@@ -2139,6 +2152,7 @@ Manuel de notation :
 @ref{Familles de fontes},
 @ref{Localisation des fontes}
 @ref{Sélection de la fonte et de la taille}.
+@endmorerefs
 
 
 @node Fontes musicales

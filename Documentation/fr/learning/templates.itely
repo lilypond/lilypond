@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -60,6 +60,7 @@ valorisé à @code{##f} ou @code{##t} selon le cas.
 * Gabarit pour chœur à quatre voix mixtes::
 * Gabarit pour double chœur à quatre voix mixtes::
 @end menu
+
 
 @node Gabarit pour chœur à quatre voix mixtes
 @appendixsubsec Gabarit pour chœur à quatre voix mixtes
@@ -224,6 +225,7 @@ Manuel d'initiation :
 @ref{Extension des modèles}.
 @ref{Modèles pour ensemble vocal},
 @ref{Organisation du code source avec des variables}.
+@endmorerefs
 
 @knownissues
 Les réglages de la variable @code{TwoVoicesPerStaff} (deux voix par
@@ -341,6 +343,7 @@ Manuel d'initiation :
 @ref{Extension des modèles}.
 @ref{Modèles pour ensemble vocal},
 @ref{Organisation du code source avec des variables}.
+@endmorerefs
 
 @knownissues
 Les réglages des variables @code{...TwoVoicesPerStaff} (deux voix par
@@ -434,11 +437,11 @@ sont pas réalisables avec ce gabarit préprogrammé.
 @appendixsec Modèles pour quatuor à cordes
 @translationof String quartet templates
 
-
 @menu
 * Quatuor à cordes simple::
 * Parties pour quatuor à cordes::
 @end menu
+
 
 @node Quatuor à cordes simple
 @appendixsubsec Quatuor à cordes simple

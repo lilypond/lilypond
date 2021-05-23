@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
+  Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -88,7 +88,7 @@ Tierce majeure @*et quinte juste
 @tab
 @code{c1:5}
 @tab
-@lilypond[line-width=2.1\cm,notime]
+@lilypond[inline,line-width=2.1\cm,notime]
 <<
   \chords { c1:5 }
   \chordmode { c1:5 }
@@ -104,7 +104,7 @@ Tierce mineure @*et quinte juste
 @tab
 @code{c1:m}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m }
   \chordmode { c1:m }
@@ -120,7 +120,7 @@ Tierce majeure et @*quinte augmentée
 @tab
 @code{c1:aug}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:aug }
   \chordmode { c1:aug }
@@ -136,7 +136,7 @@ Tierce mineure et @*quinte diminuée
 @tab
 @code{c1:dim}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:dim }
   \chordmode { c1:dim }
@@ -152,7 +152,7 @@ Triade majeure et @*septième mineure
 @tab
 @code{c1:7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:7 }
   \chordmode { c1:7 }
@@ -168,7 +168,7 @@ Triade majeure et @*septième majeure
 @tab
 @code{c1:maj7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj7 }
   \chordmode { c1:maj7 }
@@ -184,7 +184,7 @@ Triade mineure et @*septième mineure
 @tab
 @code{c1:m7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m7 }
   \chordmode { c1:m7 }
@@ -200,7 +200,7 @@ Triade diminuée et @*septième diminuée
 @tab
 @code{c1:dim7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:dim7}
   \chordmode { c1:dim7 }
@@ -216,7 +216,7 @@ Triade augmentée et @*septième mineure
 @tab
 @code{c1:aug7}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:aug7 }
   \chordmode { c1:aug7 }
@@ -232,7 +232,7 @@ Triade diminuée et @*septième mineure
 @tab
 @code{c1:m7.5-}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m7.5- }
   \chordmode { c1:m7.5- }
@@ -248,7 +248,7 @@ Triade mineure et @*septième majeure
 @tab
 @code{c1:m7+}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m7+ }
   \chordmode { c1:m7+ }
@@ -264,7 +264,7 @@ Triade majeure @*et sixte majeure
 @tab
 @code{c1:6}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:6 }
   \chordmode { c1:6 }
@@ -280,7 +280,7 @@ Triade mineure @*et sixte majeure
 @tab
 @code{c1:m6}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m6 }
   \chordmode { c1:m6 }
@@ -296,7 +296,7 @@ Septième de dominante @*et neuvième majeure
 @tab
 @code{c1:9}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:9 }
   \chordmode { c1:9 }
@@ -312,7 +312,7 @@ Septième majeure et @*neuvième majeure
 @tab
 @code{c1:maj9}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj9 }
   \chordmode { c1:maj9 }
@@ -328,7 +328,7 @@ Septième mineure et @*neuvième majeure
 @tab
 @code{c1:m9}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m9 }
   \chordmode { c1:m9 }
@@ -344,7 +344,7 @@ Neuvième de dominante @*et onzième juste
 @tab
 @code{c1:11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:11 }
   \chordmode { c1:11 }
@@ -360,7 +360,7 @@ Septième majeure, @*neuvième majeure et @*onzième juste
 @tab
 @code{c1:maj11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj11 }
   \chordmode { c1:maj11 }
@@ -376,7 +376,7 @@ Septième mineure, @*neuvième majeure et @*onzième juste
 @tab
 @code{c1:m11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m11 }
   \chordmode { c1:m11 }
@@ -392,7 +392,7 @@ Neuvième de dominante @*et treizième majeure
 @tab
 @code{c1:13}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:13 }
   \chordmode { c1:13 }
@@ -408,7 +408,7 @@ Onzième de dominante @*et treizième majeure
 @tab
 @code{c1:13.11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords{ c1:13.11 }
   \chordmode { c1:13.11 }
@@ -424,7 +424,7 @@ Septième majeure, neuvième, @*onzième et treizième majeures
 @tab
 @code{c1:maj13.11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:maj13.11 }
   \chordmode { c1:maj13.11 }
@@ -440,7 +440,7 @@ Septième mineure, neuvième, @*onzième et treizième majeures
 @tab
 @code{c1:m13.11}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:m13.11 }
   \chordmode { c1:m13.11 }
@@ -456,7 +456,7 @@ Seconde majeure @*et quinte juste
 @tab
 @code{c1:sus2}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:sus2 }
   \chordmode { c1:sus2 }
@@ -472,7 +472,7 @@ Quarte juste @*et quinte juste
 @tab
 @code{c1:sus4}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 <<
   \chords { c1:sus4 }
   \chordmode { c1:sus4 }
@@ -488,7 +488,7 @@ Quinte juste
 @tab
 @code{c1:5}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
 \chordmode { c1:5 }
 @end lilypond
 
@@ -501,7 +501,7 @@ Quinte juste @*et octave
 @tab
 @code{c1:5.8}
 @tab
-@lilypond[line-width=2.1\cm,noragged-right,notime]
+@lilypond[inline,line-width=2.1\cm,noragged-right,notime]
   \chordmode { c1:5.8 }
 @end lilypond
 
@@ -1052,7 +1052,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de clef
 @translationof Clef glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #clefs
@@ -1063,7 +1063,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de métrique
 @translationof Time Signature glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #timesig
@@ -1074,7 +1074,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de chiffre
 @translationof Number glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #numbers
@@ -1085,7 +1085,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes d'altération
 @translationof Accidental glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accidentals
@@ -1096,7 +1096,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de tête de note par défaut
 @translationof Default Notehead glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #default-noteheads
@@ -1107,7 +1107,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de tête de note spéciale
 @translationof Special Notehead glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #special-noteheads
@@ -1118,7 +1118,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de tête de note à forme variable
 @translationof Shape-note Notehead glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #shape-note-noteheads
@@ -1129,7 +1129,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de silence
 @translationof Rest glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #rests
@@ -1140,7 +1140,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de crochet de croche
 @translationof Flag glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #flags
@@ -1151,7 +1151,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de point
 @translationof Dot glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dots
@@ -1162,7 +1162,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de nuance
 @translationof Dynamic glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #dynamics
@@ -1173,7 +1173,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de script
 @translationof Script glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #scripts
@@ -1184,7 +1184,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de flèche
 @translationof Arrowhead glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #arrowheads
@@ -1195,7 +1195,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes d'extrémité d'accolade
 @translationof Bracket-tip glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #brackettips
@@ -1206,7 +1206,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de pédale
 @translationof Pedal glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #pedal
@@ -1217,7 +1217,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes d'accordéon
 @translationof Accordion glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #accordion
@@ -1228,7 +1228,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de liaison
 @translationof Tie glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #ties
@@ -1239,7 +1239,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style vaticana
 @translationof Vaticana glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #vaticana
@@ -1250,7 +1250,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style medicaea
 @translationof Medicaea glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #medicaea
@@ -1261,7 +1261,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style Hufnagel
 @translationof Hufnagel glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #hufnagel
@@ -1272,7 +1272,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style mensural
 @translationof Mensural glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #mensural
@@ -1283,7 +1283,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style néomensural
 @translationof Neomensural glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #neomensural
@@ -1294,7 +1294,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style Petrucci
 @translationof Petrucci glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #petrucci
@@ -1305,7 +1305,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style Solesmes
 @translationof Solesmes glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
             \doc-chars #solesmes
@@ -1316,7 +1316,7 @@ Pour de plus amples informations, reportez-vous au chapitre
 @unnumberedsubsec Glyphes de style kiévien
 @translationof Kievan Notation glyphs
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
 	     \doc-chars #kievan
@@ -1423,13 +1423,13 @@ Résultat
 @item
 @code{\clef G}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef G c1
 @end lilypond
 @tab
 @code{\clef "G2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef "G2"
 c1
 @end lilypond
@@ -1437,14 +1437,14 @@ c1
 @item
 @code{\clef treble}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef treble
 c1
 @end lilypond
 @tab
 @code{\clef violin}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef violin
 c1
 @end lilypond
@@ -1452,14 +1452,14 @@ c1
 @item
 @code{\clef french}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef french
 c1
 @end lilypond
 @tab
 @code{\clef GG}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef GG
 c1
 @end lilypond
@@ -1467,7 +1467,7 @@ c1
 @item
 @code{\clef tenorG}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenorG
 c1
 @end lilypond
@@ -1476,14 +1476,14 @@ c1
 @item
 @code{\clef soprano}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef soprano
 c1
 @end lilypond
 @tab
 @code{\clef mezzosoprano}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef mezzosoprano
 c1
 @end lilypond
@@ -1491,14 +1491,14 @@ c1
 @item
 @code{\clef C}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef C
 c1
 @end lilypond
 @tab
 @code{\clef alto}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef alto
 c1
 @end lilypond
@@ -1506,14 +1506,14 @@ c1
 @item
 @code{\clef tenor}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenor
 c1
 @end lilypond
 @tab
 @code{\clef baritone}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef baritone
 c1
 @end lilypond
@@ -1522,14 +1522,14 @@ c1
 @item
 @code{\clef varC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef varC
 c1
 @end lilypond
 @tab
 @code{\clef altovarC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef altovarC
 c1
 @end lilypond
@@ -1537,14 +1537,14 @@ c1
 @item
 @code{\clef tenorvarC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef tenorvarC
 c1
 @end lilypond
 @tab
 @code{\clef baritonevarC}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef baritonevarC
 c1
 @end lilypond
@@ -1552,14 +1552,14 @@ c1
 @item
 @code{\clef varbaritone}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef varbaritone
 c1
 @end lilypond
 @tab
 @code{\clef baritonevarF}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef baritonevarF
 c1
 @end lilypond
@@ -1567,14 +1567,14 @@ c1
 @item
 @code{\clef F}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef F
 c1
 @end lilypond
 @tab
 @code{\clef bass}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef bass
 c1
 @end lilypond
@@ -1582,7 +1582,7 @@ c1
 @item
 @code{\clef subbass}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef subbass
 c1
 @end lilypond
@@ -1609,14 +1609,14 @@ Résultat
 @item
 @code{\clef percussion}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef percussion
 c1
 @end lilypond
 @tab
 @code{\clef varpercussion}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \clef varpercussion
 c1
 @end lilypond
@@ -1647,7 +1647,7 @@ Résultat
 @}
 }
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \new TabStaff {
   \clef tab
   c1
@@ -1661,7 +1661,7 @@ Résultat
 @}
 }
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
 \new TabStaff {
   \clef moderntab
   c1
@@ -1691,7 +1691,7 @@ Résultat
 @item
 @code{\clef "vaticana-do1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-do1"
@@ -1701,7 +1701,7 @@ Résultat
 @tab
 @code{\clef "vaticana-do2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-do2"
@@ -1712,7 +1712,7 @@ Résultat
 @item
 @code{\clef "vaticana-do3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-do3"
@@ -1722,7 +1722,7 @@ Résultat
 @tab
 @code{\clef "vaticana-fa1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-fa1"
@@ -1733,7 +1733,7 @@ Résultat
 @item
 @code{\clef "vaticana-fa2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "vaticana-fa2"
@@ -1745,7 +1745,7 @@ Résultat
 @item
 @code{\clef "medicaea-do1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-do1"
@@ -1755,7 +1755,7 @@ Résultat
 @tab
 @code{\clef "medicaea-do2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-do2"
@@ -1766,7 +1766,7 @@ Résultat
 @item
 @code{\clef "medicaea-do3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-do3"
@@ -1776,7 +1776,7 @@ Résultat
 @tab
 @code{\clef "medicaea-fa1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-fa1"
@@ -1787,7 +1787,7 @@ Résultat
 @item
 @code{\clef "medicaea-fa2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "medicaea-fa2"
@@ -1799,7 +1799,7 @@ Résultat
 @item
 @code{\clef "hufnagel-do1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do1"
@@ -1809,7 +1809,7 @@ Résultat
 @tab
 @code{\clef "hufnagel-do2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do2"
@@ -1820,7 +1820,7 @@ Résultat
 @item
 @code{\clef "hufnagel-do3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do3"
@@ -1830,7 +1830,7 @@ Résultat
 @tab
 @code{\clef "hufnagel-fa1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-fa1"
@@ -1841,7 +1841,7 @@ Résultat
 @item
 @code{\clef "hufnagel-fa2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-fa2"
@@ -1851,7 +1851,7 @@ Résultat
 @tab
 @code{\clef "hufnagel-do-fa"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \override Staff.StaffSymbol.line-count = #5
   \override Staff.StaffSymbol.color = #red
   \clef "hufnagel-do-fa"
@@ -1878,7 +1878,7 @@ Résultat
 @item
 @code{\clef "mensural-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c1"
   \override NoteHead.style = #'mensural
   c1
@@ -1886,7 +1886,7 @@ Résultat
 @tab
 @code{\clef "mensural-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c2"
   \override NoteHead.style = #'mensural
   c1
@@ -1895,7 +1895,7 @@ Résultat
 @item
 @code{\clef "mensural-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c3"
   \override NoteHead.style = #'mensural
   c1
@@ -1903,7 +1903,7 @@ Résultat
 @tab
 @code{\clef "mensural-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c4"
   \override NoteHead.style = #'mensural
   c1
@@ -1912,7 +1912,7 @@ Résultat
 @item
 @code{\clef "mensural-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-c5"
   \override NoteHead.style = #'mensural
   c1
@@ -1922,7 +1922,7 @@ Résultat
 @item
 @code{\clef "mensural-f"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-f"
   \override NoteHead.style = #'mensural
   c1
@@ -1930,7 +1930,7 @@ Résultat
 @tab
 @code{\clef "mensural-g"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "mensural-g"
   \override NoteHead.style = #'mensural
   c1
@@ -1939,7 +1939,7 @@ Résultat
 @item
 @code{\clef "blackmensural-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c1"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1947,7 +1947,7 @@ Résultat
 @tab
 @code{\clef "blackmensural-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c2"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1956,7 +1956,7 @@ Résultat
 @item
 @code{\clef "blackmensural-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c3"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1964,7 +1964,7 @@ Résultat
 @tab
 @code{\clef "blackmensural-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c4"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1973,7 +1973,7 @@ Résultat
 @item
 @code{\clef "blackmensural-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "blackmensural-c5"
   \override NoteHead.style = #'blackmensural
   c1
@@ -1983,7 +1983,7 @@ Résultat
 @item
 @code{\clef "neomensural-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c1"
   \override NoteHead.style = #'neomensural
   c1
@@ -1991,7 +1991,7 @@ Résultat
 @tab
 @code{\clef "neomensural-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c2"
   \override NoteHead.style = #'neomensural
   c1
@@ -2000,7 +2000,7 @@ Résultat
 @item
 @code{\clef "neomensural-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c3"
   \override NoteHead.style = #'neomensural
   c1
@@ -2008,7 +2008,7 @@ Résultat
 @tab
 @code{\clef "neomensural-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c4"
   \override NoteHead.style = #'neomensural
   c1
@@ -2017,7 +2017,7 @@ Résultat
 @item
 @code{\clef "neomensural-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "neomensural-c5"
   \override NoteHead.style = #'neomensural
   c1
@@ -2027,7 +2027,7 @@ Résultat
 @item
 @code{\clef "petrucci-c1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c1"
   \override NoteHead.style = #'petrucci
   c1
@@ -2035,7 +2035,7 @@ Résultat
 @tab
 @code{\clef "petrucci-c2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c2"
   \override NoteHead.style = #'petrucci
   c1
@@ -2044,7 +2044,7 @@ Résultat
 @item
 @code{\clef "petrucci-c3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c3"
   \override NoteHead.style = #'petrucci
   c1
@@ -2052,7 +2052,7 @@ Résultat
 @tab
 @code{\clef "petrucci-c4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c4"
   \override NoteHead.style = #'petrucci
   c1
@@ -2061,7 +2061,7 @@ Résultat
 @item
 @code{\clef "petrucci-c5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-c5"
   \override NoteHead.style = #'petrucci
   c1
@@ -2071,7 +2071,7 @@ Résultat
 @item
 @code{\clef "petrucci-f"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f"
   \override NoteHead.style = #'petrucci
   c1
@@ -2079,7 +2079,7 @@ Résultat
 @tab
 @code{\clef "petrucci-f2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f2"
   \override NoteHead.style = #'petrucci
   c1
@@ -2088,7 +2088,7 @@ Résultat
 @item
 @code{\clef "petrucci-f3"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f3"
   \override NoteHead.style = #'petrucci
   c1
@@ -2096,7 +2096,7 @@ Résultat
 @tab
 @code{\clef "petrucci-f4"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f4"
   \override NoteHead.style = #'petrucci
   c1
@@ -2105,7 +2105,7 @@ Résultat
 @item
 @code{\clef "petrucci-f5"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-f5"
   \override NoteHead.style = #'petrucci
   c1
@@ -2115,7 +2115,7 @@ Résultat
 @item
 @code{\clef "petrucci-g1"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-g1"
   \override NoteHead.style = #'petrucci
   c1
@@ -2123,7 +2123,7 @@ Résultat
 @tab
 @code{\clef "petrucci-g2"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-g2"
   \override NoteHead.style = #'petrucci
   c1
@@ -2132,7 +2132,7 @@ Résultat
 @item
 @code{\clef "petrucci-g"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "petrucci-g"
   \override NoteHead.style = #'petrucci
   c1
@@ -2159,7 +2159,7 @@ Résultat
 @item
 @code{\clef "kievan-do"}
 @tab
-@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
   \clef "kievan-do"
   \override NoteHead.style = #'kievan
   c1
@@ -2209,7 +2209,7 @@ Les caractères sont ici inclus dans une boîte, de façon à mettre leur
 taille en évidence, et un léger décalage a été appliqué pour les
 décoller de l'encadrement.
 
-@lilypond[quote]
+@lilypond[inline,quote]
 \include "special-characters.ly"
 @end lilypond
 
@@ -2292,40 +2292,40 @@ columns - JL
 
 @item
 @code{\accent} ou @code{->}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\accent e,_\accent b'\accent
 @end lilypond
 @tab
 @code{\espressivo}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\espressivo e,_\espressivo b'\espressivo
 @end lilypond
 @tab
 @code{\marcato} ou @code{-^}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\marcato e,_\marcato b'\marcato
 @end lilypond
 @tab
 @code{\portato} ou @code{-_}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\portato e,_\portato b'\portato
 @end lilypond
 
 @item
 @code{\staccatissimo} ou @code{-!}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\staccatissimo e,_\staccatissimo b'\staccatissimo
 @end lilypond
 @tab
 @c These additional spaces improve the PDF version,
 @c without affecting the HTML rendering. -vv
 @code{    \staccato} ou @code{-.}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\staccato e,_\staccato b'\staccato
 @end lilypond
 @tab
 @code{\tenuto} ou @code{--}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\tenuto e,_\tenuto b'\tenuto
 @end lilypond
 
@@ -2359,85 +2359,85 @@ f^\tenuto e,_\tenuto b'\tenuto
 
 @item
 @code{\prall}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\prall e,_\prall b'\prall
 @end lilypond
 @tab
 @code{\prallup}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\prallup e,_\prallup b'\prallup
 @end lilypond
 @tab
 @code{\pralldown}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\pralldown e,_\pralldown b'\pralldown
 @end lilypond
 @tab
 @code{\upprall}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\upprall e,_\upprall b'\upprall
 @end lilypond
 
 @item
 @code{\downprall}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\downprall e,_\downprall b'\downprall
 @end lilypond
 @tab
 @code{\prallprall}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\prallprall e,_\prallprall b'\prallprall
 @end lilypond
 @tab
 @code{\lineprall}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\lineprall e,_\lineprall b'\lineprall
 @end lilypond
 @tab
 @code{\prallmordent}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\prallmordent e,_\prallmordent b'\prallmordent
 @end lilypond
 
 @item
 @code{\mordent}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\mordent e,_\mordent b'\mordent
 @end lilypond
 @tab
 @code{\upmordent}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\upmordent e,_\upmordent b'\upmordent
 @end lilypond
 @tab
 @code{\downmordent}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\downmordent e,_\downmordent b'\downmordent
 @end lilypond
 @tab
 @code{\trill}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\trill e,_\trill b'\trill
 @end lilypond
 
 @item
 @code{\turn}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\turn e,_\turn b'\reverseturn
 @end lilypond
 @tab
 @code{\reverseturn}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\reverseturn e,_\reverseturn b'\reverseturn
 @end lilypond
 @tab
 @code{\slashturn}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\slashturn e,_\slashturn b'\slashturn
 @end lilypond
 @tab
 @code{\haydnturn}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\haydnturn e,_\haydnturn b'\haydnturn
 @end lilypond
 
@@ -2463,37 +2463,37 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 
 @item
 @code{\veryshortfermata}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\veryshortfermata e,_\veryshortfermata b'\veryshortfermata
 @end lilypond
 @tab
 @code{\shortfermata}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\shortfermata e,_\shortfermata b'\shortfermata
 @end lilypond
 @tab
 @code{\fermata}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\fermata e,_\fermata b'\fermata
 @end lilypond
 @tab
 @code{\longfermata}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\longfermata e,_\longfermata b'\longfermata
 @end lilypond
 @item
 @code{\verylongfermata}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 @end lilypond
 @tab
 @code{\henzeshortfermata}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\henzeshortfermata e,_\henzeshortfermata b'\henzeshortfermata
 @end lilypond
 @tab
 @code{\henzelongfermata}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @end lilypond
 
@@ -2531,64 +2531,64 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 
 @item
 @code{\upbow}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\upbow e,_\upbow b'\upbow
 @end lilypond
 @tab
 @code{\downbow}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\downbow e,_\downbow b'\downbow
 @end lilypond
 @tab
 @code{\flageolet}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\flageolet e,_\flageolet b'\flageolet
 @end lilypond
 @tab
 @code{\open}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\open e,_\open b'\open
 @end lilypond
 
 @item
 @code{\halfopen}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\halfopen e,_\halfopen b'\halfopen
 @end lilypond
 @tab
 @code{\lheel}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\lheel e,_\lheel b'\lheel
 @end lilypond
 @tab
 @code{\rheel}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\rheel e,_\rheel b'\rheel
 @end lilypond
 @tab
 @code{\ltoe}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\ltoe e,_\ltoe b'\ltoe
 @end lilypond
 
 @item
 @code{\rtoe}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\rtoe e,_\rtoe b'\rtoe
 @end lilypond
 @tab
 @code{\snappizzicato}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\snappizzicato e,_\snappizzicato b'\snappizzicato
 @end lilypond
 @tab
 @code{\stopped} ou @code{-+}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\stopped e,_\stopped b'\stopped
 @end lilypond
 @tab
 @code{\thumb}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\thumb e,_\thumb b'\thumb
 @end lilypond
 
@@ -2608,17 +2608,17 @@ f^\thumb e,_\thumb b'\thumb
 
 @item
 @code{\segno}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\segno e,_\segno b'\segno
 @end lilypond
 @tab
 @code{\coda}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\coda e,_\coda b'\coda
 @end lilypond
 @tab
 @code{\varcoda}
-@lilypond[notime,relative=2]
+@lilypond[inline,notime,relative=2]
 f^\varcoda e,_\varcoda b'\varcoda
 @end lilypond
 
@@ -2640,26 +2640,26 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @item
 @code{\accentus}
-@lilypond[notime]
+@lilypond[inline,notime]
 \include "gregorian.ly"
 \new VaticanaStaff { e'^\accentus s4 f_\accentus s4 b\accentus}
 @end lilypond
 @tab
 @code{\circulus}
-@lilypond[notime]
+@lilypond[inline,notime]
 \include "gregorian.ly"
 \new VaticanaStaff { e'^\circulus s4 f_\circulus s4 b\circulus  }
 @end lilypond
 @tab
 @code{\ictus}
-@lilypond[notime]
+@lilypond[inline,notime]
 \include "gregorian.ly"
 \new VaticanaStaff { e'^\ictus s4 f_\ictus s4 b\ictus}
 @end lilypond
 
 @item
 @code{\semicirculus}
-@lilypond[notime]
+@lilypond[inline,notime]
 \include "gregorian.ly"
 \new VaticanaStaff {
   e'^\semicirculus s4 f_\semicirculus s4 b\semicirculus
@@ -2667,7 +2667,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end lilypond
 @tab
 @code{\signumcongruentiae}
-@lilypond[notime]
+@lilypond[inline,notime]
 \include "gregorian.ly"
 \new VaticanaStaff {
   e'^\signumcongruentiae s4
@@ -2740,390 +2740,390 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @item
 @code{bassdrum @* bd @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { bd4 bd1 }
 @end lilypond
 @tab
 @code{acousticbassdrum @* bda @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { bda4 bda1 }
 @end lilypond
 @tab
 @code{snare @* sn @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { sn4 sn1 }
 @end lilypond
 @tab
 @code{acousticsnare @* sna @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { sna4 sna1 }
 @end lilypond
 
 @item
 @code{electricsnare @* sne @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { sne4 sne1 }
 @end lilypond
 @tab
 @code{lowfloortom @* tomfl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tomfl4 tomfl1 }
 @end lilypond
 @tab
 @code{highfloortom @* tomfh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tomfh4 tomfh1 }
 @end lilypond
 @tab
 @code{lowtom @* toml @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { toml4 toml1 }
 @end lilypond
 
 @item
 @code{hightom @* tomh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tomh4 tomh1 }
 @end lilypond
 @tab
 @code{lowmidtom @* tomml @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tomml4 tomml1 }
 @end lilypond
 @tab
 @code{himidtom @* tommh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tommh4 tommh1 }
 @end lilypond
 @tab
 @code{highhat @* hh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { hh4 hh1 }
 @end lilypond
 
 @item
 @code{closedhihat @* hhc @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { hhc4 hhc1 }
 @end lilypond
 @tab
 @code{openhighhat @* hho @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { hho4 hho1 }
 @end lilypond
 @tab
 @code{halfopenhihat @* hhho @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { hhho4 hhho1 }
 @end lilypond
 @tab
 @code{pedalhihat @* hhp @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { hhp4 hhp1 }
 @end lilypond
 
 @item
 @code{crashcymbal @* cymc @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cymc4 cymc1 }
 @end lilypond
 @tab
 @code{crashcymbala @* cymca @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cymca4 cymca1 }
 @end lilypond
 @tab
 @code{crashcymbalb @* cymcb @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cymcb4 cymcb1 }
 @end lilypond
 @tab
 @code{ridecymbal @* cymr @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cymr4 cymr1 }
 @end lilypond
 
 @item
 @code{ridecymbala @* cymra @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cymra4 cymra1 }
 @end lilypond
 @tab
 @code{ridecymbalb @* cymrb @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cymrb4 cymrb1 }
 @end lilypond
 @tab
 @code{chinesecymbal @* cymch @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cymch4 cymch1 }
 @end lilypond
 @tab
 @code{splashcymbal @* cyms @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cyms4 cyms1 }
 @end lilypond
 
 @item
 @code{ridebell @* rb @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { rb4 rb1 }
 @end lilypond
 @tab
 @code{cowbell @* cb @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cb4 cb1 }
 @end lilypond
 @tab
 @code{hibongo @* boh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { boh4 boh1 }
 @end lilypond
 @tab
 @code{openhibongo @* boho @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { boho4 boho1 }
 @end lilypond
 
 @item
 @code{mutehibongo @* bohm @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { bohm4 bohm1 }
 @end lilypond
 @tab
 @code{lobongo @* bol @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { bol4 bol1 }
 @end lilypond
 @tab
 @code{openlobongo @* bolo @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { bolo4 bolo1 }
 @end lilypond
 @tab
 @code{mutelobongo @* bolm @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { bolm4 bolm1 }
 @end lilypond
 
 @item
 @code{hiconga @* cgh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cgh4 cgh1 }
 @end lilypond
 @tab
 @code{openhiconga @* cgho @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cgho4 cgho1 }
 @end lilypond
 @tab
 @code{mutehiconga @* cghm @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cghm4 cghm1 }
 @end lilypond
 @tab
 @code{loconga @* cgl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cgl4 cgl1 }
 @end lilypond
 
 @item
 @code{openloconga @* cglo @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cglo4 cglo1 }
 @end lilypond
 @tab
 @code{muteloconga @* cglm @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cglm4 cglm1 }
 @end lilypond
 @tab
 @code{hitimbale @* timh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { timh4 timh1 }
 @end lilypond
 @tab
 @code{lotimbale @* timl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { timl4 timl1 }
 @end lilypond
 
 @item
 @code{hiagogo @* agh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { agh4 agh1 }
 @end lilypond
 @tab
 @code{loagogo @* agl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { agl4 agl1 }
 @end lilypond
 @tab
 @code{sidestick @* ss @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { ss4 ss1 }
 @end lilypond
 @tab
 @code{hisidestick @* ssh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { ssh4 ssh1 }
 @end lilypond
 
 @item
 @code{losidestick @* ssl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { ssl4 ssl1 }
 @end lilypond
 @tab
 @code{guiro @* gui @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { gui4 gui1 }
 @end lilypond
 @tab
 @code{shortguiro @* guis @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { guis4 guis1 }
 @end lilypond
 @tab
 @code{longguiro @* guil @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { guil4 guil1 }
 @end lilypond
 
 @item
 @code{cabasa @* cab @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cab4 cab1 }
 @end lilypond
 @tab
 @code{maracas @* mar @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { mar4 mar1 }
 @end lilypond
 @tab
 @code{shortwhistle @* whs @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { whs4 whs1 }
 @end lilypond
 @tab
 @code{longwhistle @* whl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { whl4 whl1 }
 @end lilypond
 
 @item
 @code{handclap @* hc @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { hc4 hc1 }
 @end lilypond
 @tab
 @code{tambourine @* tamb @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tamb4 tamb1 }
 @end lilypond
 @tab
 @code{vibraslap @* vibs @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { vibs4 vibs1 }
 @end lilypond
 @tab
 @code{tamtam @* tt @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tt4 tt1 }
 @end lilypond
 
 @item
 @code{claves @* cl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cl4 cl1 }
 @end lilypond
 @tab
 @code{hiwoodblock @* wbh @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { wbh4 wbh1 }
 @end lilypond
 @tab
 @code{lowoodblock @* wbl @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { wbl4 wbl1 }
 @end lilypond
 @tab
 @code{opencuica @* cuio @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cuio4 cuio1 }
 @end lilypond
 
 @item
 @code{mutecuica @* cuim @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { cuim4 cuim1 }
 @end lilypond
 @tab
 @code{triangle @* tri @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { tri4 tri1 }
 @end lilypond
 @tab
 @code{opentriangle @* trio @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { trio4 trio1 }
 @end lilypond
 @tab
 @code{mutetriangle @* trim}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { trim4 trim1 }
 @end lilypond
 
 @item
 @code{oneup @* ua @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { ua4 ua1 }
 @end lilypond
 @tab
 @code{twoup @* ub @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { ub4 ub1 }
 @end lilypond
 @tab
 @code{threeup @* uc @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { uc4 uc1 }
 @end lilypond
 @tab
 @code{fourup @* ud @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { ud4 ud1 }
 @end lilypond
 
 @item
 @code{fiveup @* ue @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { ue4 ue1 }
 @end lilypond
 @tab
 @code{onedown @* da @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { da4 da1 }
 @end lilypond
 @tab
 @code{twodown @* db @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { db4 db1 }
 @end lilypond
 @tab
 @code{threedown @* dc @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { dc4 dc1 }
 @end lilypond
 
 @item
 @code{fourdown @* dd @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { dd4 dd1 }
 @end lilypond
 @tab
 @code{fivedown @* de @*}
-@lilypond[notime,ragged-right]
+@lilypond[inline,notime,ragged-right]
 \drums { de4 de1 }
 @end lilypond
 
@@ -3231,6 +3231,7 @@ un type de caractère.
 Manuel de notation :
 @ref{Fontes},
 @ref{Caractères spéciaux}.
+@endmorerefs
 
 
 @node grob (objet graphique)
@@ -3257,6 +3258,7 @@ Manuel d'initiation :
 Référence des propriétés internes :
 @rinternals{grob-interface},
 @rinternals{All layout objects}.
+@endmorerefs
 
 
 @node inaltérable
@@ -3282,6 +3284,7 @@ telles propriétés peuvent être adaptées par @code{\override} et
 @morerefs
 Manuel de notation :
 @ref{altérable}.
+@endmorerefs
 
 
 @node interface
@@ -3307,6 +3310,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{Graphical Object Interfaces}.
+@endmorerefs
 
 
 @node lexer (analyseur lexical)
@@ -3349,6 +3353,7 @@ altérables.
 @morerefs
 Manuel de notation :
 @ref{inaltérable}.
+@endmorerefs
 
 
 @node output-def (définition de sortie)
@@ -3497,6 +3502,7 @@ son stencil, est définie par l'interface @code{grob-interface}.
 @morerefs
 Référence des propriétés internes :
 @rinternals{grob-interface}.
+@endmorerefs
 
 
 @node Liste des propriétés de contexte

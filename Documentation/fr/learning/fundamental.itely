@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -264,6 +264,7 @@ plus de détails, voir
 @morerefs
 Pour une description complète du format des fichiers d'entrée, voir
 @ruser{Structure de fichier}.
+@endmorerefs
 
 
 @node La partition est une (unique) expression musicale composée
@@ -418,6 +419,7 @@ horizontal dans votre éditeur de texte !
 @morerefs
 Manuel de notation :
 @ruser{Structure d'une partition}.
+@endmorerefs
 
 
 @node Expressions musicales imbriquées
@@ -484,6 +486,7 @@ qui est le comportement par défaut.
 Les ossias apparaissent souvent sans clef ni métrique, et dans une
 taille plus petite.  Ceci requiert des commandes dont nous n'avons pas
 encore parlé.  Voir @ref{Taille des objets} et @ruser{Portées d'ossia}.
+@endmorerefs
 
 
 @node Structuration de la saisie des notes
@@ -528,6 +531,7 @@ Manuel de notation :
 @ruser{Hauteurs},
 @ruser{Rythme},
 @ruser{Signes d'interprétation}.
+@endmorerefs
 
 
 @node Non-imbrication des crochets et liaisons
@@ -1020,6 +1024,7 @@ passer d'une voix à l'autre.}
 @morerefs
 Manuel de notation :
 @ruser{Plusieurs voix}.
+@endmorerefs
 
 
 @node Instanciation explicite des voix
@@ -1296,6 +1301,7 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ruser{Plusieurs voix}.
+@endmorerefs
 
 
 @node Voix et paroles
@@ -1469,6 +1475,7 @@ VerseFour  =
 @morerefs
 Manuel de notation :
 @ruser{Musique vocale}.
+@endmorerefs
 
 
 @node Contextes et graveurs
@@ -1562,6 +1569,7 @@ ponctuation, comme par exemple @code{GregorianTranscriptionStaff}.
 @morerefs
 Manuel de notation :
 @ruser{Tout savoir sur les contextes}.
+@endmorerefs
 
 
 @node Création d'un contexte
@@ -1684,6 +1692,7 @@ référer à ce contexte particulier.
 @morerefs
 Manuel de notation :
 @ruser{Création et référencement d'un contexte}.
+@endmorerefs
 
 
 @node Tout savoir sur les graveurs
@@ -1770,6 +1779,7 @@ lorsqu'on modifie l'action des graveurs.
 @morerefs
 Référence des propriétés internes :
 @rinternals{Engravers and Performers}.
+@endmorerefs
 
 
 @node Modification des propriétés d'un contexte
@@ -2106,6 +2116,7 @@ Manuel de notation :
 Référence des propriétés internes :
 @rinternals{Contexts},
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 
 @node Ajout et suppression de graveurs
@@ -2269,6 +2280,7 @@ bloc @code{\context}.
 Manuel de notation :
 @ruser{Modification des greffons de contexte},
 @ruser{Modification des réglages par défaut d'un contexte}.
+@endmorerefs
 
 @knownissues
 Dans la mesure où les @code{Stem_engraver} et @code{Beam_engraver}
@@ -2485,6 +2497,7 @@ celloMusic = \relative {
 @morerefs
 Les patrons originaux sont disponibles à l'annexe
 @ref{Modèles pour portée unique}.
+@endmorerefs
 
 
 @node Partition pour chœur à quatre voix mixtes
@@ -3150,6 +3163,7 @@ PedalOrganMusic = \relative {
 @morerefs
 Glossaire musicologique :
 @rglosnamed{system,système}.
+@endmorerefs
 
 
 @node Économie de saisie grâce aux identificateurs et fonctions
@@ -3400,3 +3414,4 @@ Manuel de notation :
 @ruser{Insertion de fichiers LilyPond},
 @ruser{Silences valant une mesure},
 @ruser{Transposition}.
+@endmorerefs

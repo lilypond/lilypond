@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+    Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -103,6 +103,7 @@ Manuel de notation :
 @ref{Musique arabe},
 @ref{Musique classique turque},
 @ref{Nom des notes dans d'autres langues}.
+@endmorerefs
 
 
 @node Musique arabe
@@ -177,6 +178,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du monde}.
+@endmorerefs
 
 
 @node Noms des notes en arabe
@@ -253,6 +255,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du monde}.
+@endmorerefs
 
 
 @node Armures arabes
@@ -391,6 +394,7 @@ Référence des propriétés internes :
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du monde},
 @rlsrnamed{Pitches, Hauteurs}.
+@endmorerefs
 
 
 @node Métriques arabes
@@ -439,6 +443,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du monde}.
+@endmorerefs
 
 
 @node Exemple de musique arabe
@@ -484,6 +489,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{World music, Musiques du mondes}.
+@endmorerefs
 
 
 @node Lectures complémentaires pour la musique arabe
@@ -618,6 +624,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Noms des notes et altérations non-occidentaux}.
+@endmorerefs
 
 
 @node Armures turques

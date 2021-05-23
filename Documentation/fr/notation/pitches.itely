@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -127,6 +127,7 @@ Glossaire musicologique :
 
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
+@endmorerefs
 
 
 @node Octaves relatives
@@ -341,6 +342,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{RelativeOctaveMusic}.
+@endmorerefs
 
 
 @node Altérations
@@ -473,6 +475,7 @@ Références des propriétés internes :
 @rinternals{Accidental},
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
+@endmorerefs
 
 @cindex accidentel, quart de ton
 @cindex quart de ton
@@ -665,6 +668,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
+@endmorerefs
 
 
 @node Modification de plusieurs hauteurs
@@ -755,6 +759,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{RelativeOctaveCheck}.
+@endmorerefs
 
 
 @node Transposition
@@ -876,6 +881,7 @@ Morceaux choisis :
 
 Référence des propriété internes :
 @rinternals{TransposedMusic}.
+@endmorerefs
 
 @funindex \transpose
 @funindex \chordmode
@@ -929,6 +935,7 @@ Manuel de notation :
 @ref{Rétrogradation},
 @ref{Transformations modales},
 @ref{Transposition}.
+@endmorerefs
 
 
 @node Rétrogradation
@@ -968,6 +975,7 @@ Manuel de notation :
 @ref{Inversion},
 @ref{Transformations modales},
 @ref{Transposition}.
+@endmorerefs
 
 
 @node Transformations modales
@@ -1108,6 +1116,7 @@ Manuel de notation :
 @ref{Inversion},
 @ref{Rétrogradation},
 @ref{Transposition}.
+@endmorerefs
 
 
 @node Gravure des hauteurs
@@ -1310,6 +1319,7 @@ Référence des propriétés internes :
 @rinternals{Clef},
 @rinternals{ClefModifier},
 @rinternals{clef-interface}.
+@endmorerefs
 
 @knownissues
 L'indicateur d'octaviation attaché à la clef est un objet graphique en
@@ -1455,6 +1465,7 @@ Référence des propriétés internes :
 @rinternals{KeyChangeEvent},
 @rinternals{KeySignature},
 @rinternals{key-signature-interface}.
+@endmorerefs
 
 
 @node Marques d'octaviation
@@ -1569,6 +1580,7 @@ Référence des propriétés internes :
 @rinternals{Ottava_spanner_engraver},
 @rinternals{OttavaBracket},
 @rinternals{ottava-bracket-interface}.
+@endmorerefs
 
 
 @node Instruments transpositeurs
@@ -1673,6 +1685,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
+@endmorerefs
 
 
 @node Altérations accidentelles automatiques
@@ -3048,7 +3061,7 @@ Référence des propriétés internes :
 @rinternals{AccidentalSuggestion},
 @rinternals{AccidentalPlacement}.
 @rinternals{accidental-suggestion-interface}.
-
+@endmorerefs
 
 @cindex altération et notes simultanées
 @cindex notes simultanées et altération
@@ -3180,6 +3193,7 @@ Référence des propriétés internes :
 @rinternals{AmbitusLine},
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}.
+@endmorerefs
 
 @knownissues
 LilyPond ne gère pas les collisions entre plusieurs ambitus
@@ -3306,6 +3320,7 @@ Référence des propriétés internes :
 @rinternals{LedgerLineSpanner},
 @rinternals{note-head-interface},
 @rinternals{ledger-line-spanner-interface}.
+@endmorerefs
 
 
 @node Têtes de note avec nom de note
@@ -3361,6 +3376,7 @@ Référence des propriétés internes :
 @rinternals{Note_heads_engraver},
 @rinternals{NoteHead},
 @rinternals{note-head-interface}.
+@endmorerefs
 
 
 @node Têtes de note à forme variable
@@ -3490,6 +3506,7 @@ Référence des propriétés internes :
 @rinternals{Note_heads_engraver},
 @rinternals{NoteHead},
 @rinternals{note-head-interface}.
+@endmorerefs
 
 
 @node Improvisation
@@ -3536,3 +3553,4 @@ Référence des propriétés internes :
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
+@endmorerefs

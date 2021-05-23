@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -85,6 +85,7 @@ Manuel de notation :
 @ref{Métriques anciennes},
 @ref{Silences anciens},
 @ref{Têtes de note anciennes}.
+@endmorerefs
 
 
 @node Formes de notation ancienne prises en charge
@@ -170,6 +171,7 @@ silences du @emph{Classical} et des clefs du style @emph{Vaticana}.
 Glossaire musicologique :
 @rglos{flag},
 @rglos{mensural notation}.
+@endmorerefs
 
 
 @node Considérations communes aux musiques anciennes
@@ -210,6 +212,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Contextes du chant grégorien},
 @ref{Contextes de musique mensurale}.
+@endmorerefs
 
 
 @node Ligatures
@@ -258,6 +261,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Ligatures mensurales},
 @ref{Neumes et ligatures grégoriennes}.
+@endmorerefs
 
 @knownissues
 La gestion de l'espacement spécifique aux ligatures n'est à ce jour
@@ -286,6 +290,7 @@ qui produit le même résultat, et dont la pérennité est assurée.
 @c TODO: this does not seem to work at the moment.
 @c -- eo
 @end ignore
+
 
 @node Guidons
 @unnumberedsubsubsec Guidons
@@ -369,6 +374,7 @@ Référence des propriétés internes :
 
 Morceaux choisis :
 @rlsrnamed{Ancient notation, Musiques anciennes}.
+@endmorerefs
 
 
 @node Typographie de musique ancienne
@@ -424,6 +430,7 @@ lancer dans la saisie de votre chant comme ci-après :
 @morerefs
 Glossaire musicologique :
 @rglos{mensural notation}.
+@endmorerefs
 
 
 @node Clefs anciennes
@@ -493,6 +500,7 @@ Référence des propriétés internes :
 @rinternals{Clef_engraver},
 @rinternals{clef-interface},
 @rinternals{ClefModifier}.
+@endmorerefs
 
 @knownissues
 La clef de sol mensurale est calquée sur celle de Petrucci.
@@ -611,6 +619,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Métrique}.
+@endmorerefs
 
 @knownissues
 Les équivalences de durées de note ne sont pas modifiées par un
@@ -701,6 +710,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Têtes de note}.
+@endmorerefs
 
 
 @node Crochets anciens
@@ -737,6 +747,7 @@ Les crochets n'existent pas en notation grégorienne.
 Glossaire musicologique :
 @rglos{flag},
 @rglos{mensural notation}.
+@endmorerefs
 
 @knownissues
 L'alignement vertical des crochets par rapport aux lignes de la portée
@@ -781,6 +792,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Ancient notation,Notations anciennes}.
+@endmorerefs
 
 @knownissues
 En style mensural, LilyPond utilise pour un silence correspondant à une
@@ -839,6 +851,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{KeySignature}.
+@endmorerefs
 
 
 @node Altérations suggérées (musica ficta)
@@ -899,6 +912,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 Référence des propriétés internes :
 @rinternals{Accidental_engraver},
 @rinternals{AccidentalSuggestion}.
+@endmorerefs
 
 
 @node Ligatures mensurales
@@ -997,6 +1011,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Ligatures},
 @ref{Neumes et ligatures grégoriennes}.
+@endmorerefs
 
 @knownissues
 L'espacement horizontal peut laisser à désirer.
@@ -1032,6 +1047,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Ligatures},
 @ref{Ligatures mensurales}.
+@endmorerefs
 
 
 @node Contextes du chant grégorien
@@ -1070,6 +1086,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 
 @c @morerefs
 @c TODO: nothing here yet ...
+@c @endmorerefs
 
 
 @node Clefs grégoriennes
@@ -1104,7 +1121,7 @@ Clef d'ut, style des éditions vaticanes
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[fragment,notime]
+@lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
@@ -1119,7 +1136,7 @@ Clef de fa, style des éditions vaticanes
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[fragment,notime]
+@lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
@@ -1135,7 +1152,7 @@ Clef d'ut, style Editio Medicaea
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[fragment,notime]
+@lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
@@ -1150,7 +1167,7 @@ Clef de fa, style Editio Medicaea
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[fragment,notime]
+@lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
@@ -1166,7 +1183,7 @@ Clef d'ut, style historique Hufnagel
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[fragment,notime]
+@lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
@@ -1181,7 +1198,7 @@ Clef de fa, style historique Hufnagel
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[fragment,notime]
+@lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
@@ -1196,7 +1213,7 @@ Clef combinée ut/fa, style historique Hufnagel
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[fragment,notime]
+@lilypond[inline,fragment,notime]
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
@@ -1213,6 +1230,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Clefs}.
+@endmorerefs
 
 
 @node Altérations et armures grégoriennes
@@ -1273,6 +1291,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{KeySignature}.
+@endmorerefs
 
 
 @node Divisions
@@ -1360,6 +1379,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{gregorian.ly}.
+@endmorerefs
 
 
 @node Articulations grégoriennes
@@ -1429,6 +1449,7 @@ Référence des propriétés internes :
 @rinternals{Script},
 @rinternals{Script_engraver}.
 @rinternals{ScriptEvent}.
+@endmorerefs
 
 @knownissues
 Certaines articulations sont verticalement trop proches de leurs têtes
@@ -1467,6 +1488,7 @@ Référence des propriétés internes :
 
 Morceaux choisis :
 @rlsrnamed{Ancient notation,Musiques anciennes}.
+@endmorerefs
 
 
 @node Neumes et ligatures grégoriennes
@@ -1645,7 +1667,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @b{Punctum}
 @tab
-@lilypond[staffsize=26,line-width=1.5\cm]
+@lilypond[inline,staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1659,7 +1681,7 @@ Formes @b{Normale} et @emph{Liquescente}
 
 @item
 @tab
-@lilypond[staffsize=26,line-width=1.5\cm]
+@lilypond[inline,staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1673,7 +1695,7 @@ Formes @b{Normale} et @emph{Liquescente}
 
 @item
 @tab
-@lilypond[staffsize=26,line-width=1.5\cm]
+@lilypond[inline,staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1688,7 +1710,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Punctum Auctum Ascendens}
 @tab
-@lilypond[staffsize=26,line-width=2.5\cm]
+@lilypond[inline,staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1703,7 +1725,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Punctum Auctum Descendens}
 @tab
-@lilypond[staffsize=26,line-width=2.5\cm]
+@lilypond[inline,staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1718,7 +1740,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @b{Punctum inclinatum}
 @tab
-@lilypond[staffsize=26,line-width=1.5\cm]
+@lilypond[inline,staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1733,7 +1755,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Punctum Inclinatum Auctum}
 @tab
-@lilypond[staffsize=26,line-width=2.5\cm]
+@lilypond[inline,staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1748,7 +1770,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Punctum Inclinatum Parvum}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1763,7 +1785,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @b{Virga}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1788,7 +1810,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @b{Clivis vel Flexa}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1803,7 +1825,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Clivis Aucta Descendens}
 @tab
-@lilypond[staffsize=26,line-width=2.0\cm]
+@lilypond[inline,staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1817,7 +1839,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Clivis Aucta Ascendens}
 @tab
-@lilypond[staffsize=26,line-width=2.0\cm]
+@lilypond[inline,staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1832,7 +1854,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Cephalicus}
 @tab
-@lilypond[staffsize=26,line-width=2.0\cm]
+@lilypond[inline,staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1847,7 +1869,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @b{Podatus/Pes}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1862,7 +1884,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Pes Auctus Descendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1877,7 +1899,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Pes Auctus Ascendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1892,7 +1914,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Epiphonus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1907,7 +1929,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @item
 @emph{Pes Initio Debilis}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1923,7 +1945,7 @@ Formes @b{Normale} et @emph{Liquescente}
 @emph{Pes Auctus Descendens@*
 Initio Debilis}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1948,7 +1970,7 @@ Initio Debilis}
 @item
 @b{Torculus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1963,7 +1985,7 @@ Initio Debilis}
 @item
 @emph{Torculus Auctus Descendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1979,7 +2001,7 @@ Initio Debilis}
 @item
 @emph{Torculus Deminutus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -1994,7 +2016,7 @@ Initio Debilis}
 @item
 @emph{Torculus Initio Debilis}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2010,7 +2032,7 @@ Initio Debilis}
 @emph{Torculus Auctus Descendens@*
 Initio Debilis}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2027,7 +2049,7 @@ Initio Debilis}
 @emph{Torculus Deminutus@*
 Initio Debilis}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2043,7 +2065,7 @@ Initio Debilis}
 @item
 @b{Porrectus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2058,7 +2080,7 @@ Initio Debilis}
 @item
 @emph{Porrectus Auctus Descendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2074,7 +2096,7 @@ Initio Debilis}
 @item
 @emph{Porrectus Deminutus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2089,7 +2111,7 @@ Initio Debilis}
 @item
 @b{Climacus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2105,7 +2127,7 @@ Initio Debilis}
 @item
 @emph{Climacus Auctus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2121,7 +2143,7 @@ Initio Debilis}
 @item
 @emph{Climacus Deminutus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2137,7 +2159,7 @@ Initio Debilis}
 @item
 @b{Scandicus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2152,7 +2174,7 @@ Initio Debilis}
 @item
 @emph{Scandicus Auctus Descendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2168,7 +2190,7 @@ Initio Debilis}
 @item
 @emph{Scandicus Deminutus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2192,7 +2214,7 @@ Initio Debilis}
 @item
 @b{Quilisma}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2207,7 +2229,7 @@ Initio Debilis}
 @item
 @emph{Quilisma Pes Auctus Descendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2223,7 +2245,7 @@ Initio Debilis}
 @item
 @b{Oriscus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2238,7 +2260,7 @@ Initio Debilis}
 @item
 @emph{Pes Quassus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2253,7 +2275,7 @@ Initio Debilis}
 @item
 @emph{Pes Quassus Auctus Descendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2269,7 +2291,7 @@ Initio Debilis}
 @item
 @b{Salicus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2284,7 +2306,7 @@ Initio Debilis}
 @item
 @emph{Salicus Auctus Descendens}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2300,7 +2322,7 @@ Initio Debilis}
 @item
 @b{(Apo)stropha}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2315,7 +2337,7 @@ Initio Debilis}
 @item
 @emph{Stropha Aucta}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2330,7 +2352,7 @@ Initio Debilis}
 @item
 @b{Bistropha}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2345,7 +2367,7 @@ Initio Debilis}
 @item
 @b{Tristropha}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2361,7 +2383,7 @@ Initio Debilis}
 @item
 @emph{Trigonus}
 @tab
-@lilypond[staffsize=26,line-width=1.0\cm]
+@lilypond[inline,staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
   \relative {
@@ -2428,6 +2450,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Ligatures},
 @ref{Ligatures mensurales}.
+@endmorerefs
 
 @knownissues
 Lorsqu'un @code{\augmentum} apparaît dans une ligature en fin de
@@ -2498,6 +2521,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 @morerefs
 Glossaire musicologique :
 @rglosnamed{kievan notation, notation kiévienne}.
+@endmorerefs
 
 @knownissues
 LilyPond prend en charge la notation kiévienne du style synodal,
@@ -2530,6 +2554,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Clefs}.
+@endmorerefs
 
 
 @node Notes kiéviennes
@@ -2570,6 +2595,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Styles de tête de note}.
+@endmorerefs
 
 @knownissues
 LilyPond détermine automatiquement l'orientation des hampes.  Il est
@@ -2610,6 +2636,7 @@ Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
 @ref{La fonte Emmentaler}.
+@endmorerefs
 
 
 @node Barre de mesure kiévienne
@@ -2630,6 +2657,7 @@ d'un @code{\bar "k"}.
 Manuel de notation :
 @ref{Barres de mesure},
 @ref{La fonte Emmentaler}.
+@endmorerefs
 
 
 @node Mélismes kiéviens
@@ -2696,6 +2724,7 @@ Manuel de notation :
 @ref{Ligatures},
 @ref{Ligatures mensurales},
 @ref{Neumes et ligatures grégoriennes}.
+@endmorerefs
 
 @knownissues
 L'espacement des ligatures n'est pas des meilleurs.
@@ -2780,6 +2809,7 @@ faut cependant le définir avec @code{\set Staff.instrumentName = ""}.
 @c ... and reference to other sections ...
 Morceaux choisis :
 @rlsrnamed{Ancient notation, Notations anciennes}.
+@endmorerefs
 
 
 @node Mise en forme de la musique mensurale
@@ -2806,6 +2836,7 @@ constituer les barres de mesure.
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs
 
 
 @node Transcription de chant grégorien
@@ -2985,6 +3016,7 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs
 
 
 @node Éditions ancienne et moderne à partir d'une même source
@@ -3000,6 +3032,7 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs
 
 
 @c @node Baroque rhythmic notation
@@ -3023,3 +3056,4 @@ spirLyr = \lyricmode {
 
 @c @morerefs
 @c ... and reference to other sections ...
+@c @endmorerefs

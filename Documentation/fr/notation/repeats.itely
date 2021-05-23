@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -136,6 +136,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+@endmorerefs
 
 
 @node Répétitions simples
@@ -487,6 +488,7 @@ Référence des propriétés internes :
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
+@endmorerefs
 
 @knownissues
 @cindex reprise ambiguë
@@ -541,6 +543,7 @@ de clarté.
 Un bloc @code{\alternative} clôturé à l'intérieur même du bloc
 @code{\repeat} -- plutôt que venant après -- ne produira pas les barres
 de reprise attendues à la fin des alternatives.
+
 
 @node Indications de reprise manuelles
 @unnumberedsubsubsec Indications de reprise manuelles
@@ -654,6 +657,7 @@ Référence des propriétés internes :
 @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
+@endmorerefs
 
 
 @node Autres types de répétition
@@ -778,6 +782,7 @@ Référence des propriétés internes :
 @rinternals{PercentRepeatedMusic}.
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}.
+@endmorerefs
 
 @knownissues
 Les répétitions en pourcent ne peuvent contenir rien d'autre que
@@ -799,7 +804,6 @@ devra impérativement se traîter sous forme de construction parallèle,
   \repeat unfold 3 { \time 5/4 s4*5 \time 4/4 s1 }
 >>
 @end lilypond
-
 
 
 @node Répétitions en trémolo
@@ -879,6 +883,7 @@ utilisée.
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
+@endmorerefs
 
 @cindex tremolo, cross-staff
 @cindex cross-staff tremolo

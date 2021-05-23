@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -102,6 +102,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
+@endmorerefs
 
 
 @node Saisie des paroles
@@ -216,6 +217,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{LyricText}.
+@endmorerefs
 
 
 @node Alignement des paroles sur la mélodie
@@ -342,6 +344,7 @@ Manuel d'initiation :
 
 Référence des propriétés internes :
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Durée automatique des syllabes
@@ -510,6 +513,7 @@ Voici un exemple de cette manière de procéder :
 Manuel de notation :
 @ref{Conservation d'un contexte},
 @ref{Traits d'union et de prolongation}.
+@endmorerefs
 
 
 @node Durée explicite des syllabes
@@ -587,6 +591,7 @@ Manuel de notation :
 Référence des propriétés internes :
 @rinternals{Lyrics},
 @rinternals{Voice}.
+@endmorerefs
 
 
 @node Plusieurs syllabes sur une note
@@ -623,6 +628,7 @@ pour obtenir une liaison entre les syllabes.
 @morerefs
 Référence des propriétés internes :
 @rinternals{LyricCombineMusic}.
+@endmorerefs
 
 
 @node Plusieurs notes pour une même syllabe
@@ -825,6 +831,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 @knownissues
 Certains mélismes ne sont pas détectés automatiquement ; vous devrez
@@ -876,6 +883,7 @@ trait d'union en pareille situation.
 Référence des propriétés internes :
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}
+@endmorerefs
 
 
 @node Changement graduel de voyelle
@@ -919,6 +927,7 @@ Glossaire musicologique :
 
 Référence des propriétés internes :
 @rinternals{VowelTransition}.
+@endmorerefs
 
 
 
@@ -1022,6 +1031,7 @@ Manuel de notation :
 Référence des propriétés internes :
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Positionnement vertical des paroles
@@ -1158,6 +1168,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Création et référencement d'un contexte},
 @ref{Ordonnancement des contextes}.
+@endmorerefs
 
 
 @node Positionnement horizontal des syllabes
@@ -1664,6 +1675,7 @@ doivent être insérées manuellement :
 Manuel de notation :
 @ref{Conservation d'un contexte},
 @ref{Répétitions et reprises}.
+@endmorerefs
 
 
 @node Paroles alternatives
@@ -2302,6 +2314,7 @@ text = \lyricmode {
 Référence des propriétés internes :
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
+@endmorerefs
 
 
 @node Chansons
@@ -2378,6 +2391,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
+@endmorerefs
 
 
 @node Feuille de chant
@@ -2395,6 +2409,7 @@ chapitre @ref{Notation des accords}.
 @morerefs
 Manuel de notation :
 @ref{Notation des accords}.
+@endmorerefs
 
 
 @node Chorale
@@ -2498,6 +2513,7 @@ Référence des propriétés internes…:
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
+@endmorerefs
 
 
 @node Mise en forme d'une partition chorale
@@ -2595,6 +2611,7 @@ Manuel de notation :
 Référence des propriétés internes :
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @snippets
@@ -2606,6 +2623,7 @@ Référence des propriétés internes :
 @morerefs
 Manuel de notation :
 @ref{Signes d'interprétation sous forme de ligne}.
+@endmorerefs
 
 
 @node Opéras et musiques de scène
@@ -2742,6 +2760,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
+@endmorerefs
 
 
 @node Indication du rôle
@@ -2836,6 +2855,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Commandes pour markup},
 @ref{Texte}.
+@endmorerefs
 
 
 @node Citation-repère
@@ -2960,6 +2980,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{CueVoice}.
+@endmorerefs
 
 @knownissues
 @code{\cueDuring} crée automatiquement un contexte @code{CueVoice} qui
@@ -3071,6 +3092,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{LyricText}.
+@endmorerefs
 
 
 @node Chants liturgiques
@@ -3110,6 +3132,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
+@endmorerefs
 
 
 @node Cantiques et hymnes
@@ -3422,6 +3445,7 @@ Manuel de notation :
 @ref{Notations anciennes},
 @ref{Typographie du chant grégorien},
 @ref{Visibilité des objets}.
+@endmorerefs
 
 
 @node Psalmodie
@@ -3586,6 +3610,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Fontes},
 @ref{Mise en forme du texte}.
+@endmorerefs
 
 
 @node Mesure incomplète et musique liturgique
@@ -3620,3 +3645,4 @@ en détails au chapitre @ref{Notations anciennes}.
 @morerefs
 Manuel de notation :
 @ref{Notations anciennes}.
+@endmorerefs

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -162,6 +162,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{PianoStaff}.
+@endmorerefs
 
 
 @node Changement de portée manuel
@@ -298,6 +299,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Beam},
 @rinternals{ContextChange}.
+@endmorerefs
 
 @knownissues
 Dans la mesure où l'évitement de collision des ligatures ne fonctionne
@@ -404,7 +406,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{AutoChangeMusic}.
-
+@endmorerefs
 
 @knownissues
 
@@ -491,6 +493,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
+@endmorerefs
 
 @snippets
 
@@ -523,6 +526,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Stem}.
+@endmorerefs
 
 
 @node Piano
@@ -635,6 +639,7 @@ Référence des propriétés internes :
 @rinternals{UnaCordaPedal},
 @rinternals{UnaCordaEvent},
 @rinternals{UnaCordaPedalLineSpanner}.
+@endmorerefs
 
 
 @node Accordéon
@@ -674,6 +679,7 @@ Une liste des différents symboles est disponible à l'annexe
 @morerefs
 Morceaux choisis :
 @rlsr{Keyboards, Claviers}.
+@endmorerefs
 
 
 @node Harpe
@@ -719,6 +725,7 @@ Manuel de notation :
 @ref{Glissando},
 @ref{Harmoniques},
 @ref{Répétitions en trémolo}.
+@endmorerefs
 
 
 @node Pédales de harpe
@@ -769,3 +776,4 @@ Manuel de notation :
 @ref{Commentaires textuels},
 @rusernamed{Instrument Specific Markup,
 Markups spécifiques aux instruments (en anglais)}.
+@endmorerefs

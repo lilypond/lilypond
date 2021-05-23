@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -155,6 +155,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notes simultanées}.
+@endmorerefs
 
 @knownissues
 Un accord comportant plus de deux notes dans le même « espace de
@@ -279,6 +280,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/chord-repetition-init.ly}.
+@endmorerefs
 
 
 @node Expressions simultanées
@@ -398,6 +400,7 @@ Référence des propriétés internes :
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
+@endmorerefs
 
 @knownissues
 L'apparence d'un cluster sera extrêmement resserrée s'il ne comporte au
@@ -670,6 +673,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
+@endmorerefs
 
 
 @node Styles de voix
@@ -719,6 +723,7 @@ Manuel d'initiation :
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
+@endmorerefs
 
 
 @node Résolution des collisions
@@ -944,6 +949,7 @@ Référence des propriétés internes :
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
+@endmorerefs
 
 @cindex collision, ignorer
 
@@ -1222,6 +1228,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Les différentes commandes @code{\partCombine@dots{}} ne prennent en
@@ -1372,3 +1379,4 @@ Manuel d'initiation :
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes,Notation simultanée}.
+@endmorerefs

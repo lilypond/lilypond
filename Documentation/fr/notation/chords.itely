@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -101,6 +101,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
+@endmorerefs
 
 @knownissues
 Les raccourcis d'articulation ou d'ornementation ne sont pas disponibles
@@ -165,7 +166,7 @@ Néant
 @tab
 Action par défaut ; produit une triade majeure.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1
@@ -178,7 +179,7 @@ m, m7
 Accord mineur.  Ce modificateur abaisse la tierce, et la septième s'il y
 en a une.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:m c:m7
@@ -191,7 +192,7 @@ dim, dim7
 Accord diminué.  Ce modificateur minorise la tierce, diminue la quinte et
 la septième s'il y en a.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:dim c:dim7
@@ -203,7 +204,7 @@ aug
 @tab
 Accord augmenté.  Ce modificateur augmente la quinte.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:aug
@@ -217,7 +218,7 @@ Accord de septième majeure. Ce modificateur majorise la septième.  Le
 @code{7} à la suite du @code{maj} est facultatif.  Ce modificateur ne
 sert pas à créer une triade majeure.
 @tab
-@lilypond[line-width=4\cm, noragged-right]
+@lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
   \omit Staff.TimeSignature
   c1:maj c:maj7
@@ -233,6 +234,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
+@endmorerefs
 
 @knownissues
 Un accord ne devrait comporter qu'un seul modificateur de qualité.  La
@@ -387,6 +389,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
+@endmorerefs
 
 @knownissues
 Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi,
@@ -437,6 +440,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsr{Accords}.
+@endmorerefs
 
 
 @node Gravure des accords
@@ -569,6 +573,7 @@ Référence des propriétés internes :
 @rinternals{ChordNames},
 @rinternals{ChordName},
 @rinternals{Volta_engraver}.
+@endmorerefs
 
 @knownissues
 Un accord contenant un renversement ou dont la basse est changée ne sera
@@ -807,6 +812,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
+@endmorerefs
 
 @knownissues
 Les chiffrages d'accords ne sont déterminés que par la succession des
@@ -923,6 +929,7 @@ Glossaire musicologique :
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
+@endmorerefs
 
 
 @node Saisie de la basse chiffrée
@@ -1052,7 +1059,7 @@ disponibles :
 @tab
 Altérations
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <7! 6+ 4-> <5++> <3-->
 }
@@ -1063,7 +1070,7 @@ Altérations
 @tab
 Augmentation ou diminution d'un degré
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <6\+ 5/> <7/>
 }
@@ -1074,7 +1081,7 @@ Augmentation ou diminution d'un degré
 @tab
 Petite sixte
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 \figures {
   <6\\>
 }
@@ -1085,7 +1092,7 @@ Petite sixte
 @tab
 Terminaison d'une prolongation
 @tab
-@lilypond[line-width=4\cm]
+@lilypond[inline,line-width=4\cm]
 <<
   \figures {
     \bassFigureExtendersOn
@@ -1126,6 +1133,7 @@ Référence des propriétés internes :
 @rinternals{BassFigureContinuation},
 @rinternals{BassFigureLine},
 @rinternals{FiguredBass}.
+@endmorerefs
 
 
 @node Gravure de la basse chiffrée
@@ -1217,6 +1225,7 @@ Référence des propriétés internes :
 @rinternals{BassFigureContinuation},
 @rinternals{BassFigureLine},
 @rinternals{FiguredBass}.
+@endmorerefs
 
 @knownissues
 Les lignes de prolongation seront correctes dès lors que notes et

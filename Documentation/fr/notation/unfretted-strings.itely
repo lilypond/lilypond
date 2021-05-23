@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -95,6 +95,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Unfretted strings, Cordes non frettées}.
+@endmorerefs
 
 
 @node Indications d'archet
@@ -150,6 +151,7 @@ Manuel de notation :
 @ref{Articulations et ornements},
 @ref{Indications du numéro de corde},
 @ref{Liaisons d'articulation}.
+@endmorerefs
 
 
 @node Harmoniques
@@ -221,6 +223,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Références en matière de cordes non frettées},
 @ref{Têtes de note spécifiques}.
+@endmorerefs
 
 
 @node Snap (Bartók) pizzicato

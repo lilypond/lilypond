@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -204,6 +204,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Dots},
 @rinternals{DotColumn}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -393,6 +394,7 @@ Références des propriétés internes :
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+@endmorerefs
 
 
 @node Changement d'échelle des durées
@@ -482,6 +484,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
+@endmorerefs
 
 @knownissues
 Le calcul de la position au sein d'une mesure doit prendre en
@@ -728,6 +731,7 @@ Référence des propriétés internes :
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}.
+@endmorerefs
 
 @knownissues
 Un changement de portée, lorsqu'une liaison de tenue est active, ne
@@ -827,6 +831,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Rest}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -935,6 +940,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{SkipMusic}.
+@endmorerefs
 
 
 @node Silences valant une mesure
@@ -1096,6 +1102,7 @@ Référence des propriétés internes :
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
+@endmorerefs
 
 @cindex doigté et silence multimesure
 @cindex silence multimesure et doigté
@@ -1373,6 +1380,7 @@ Morceaux choisis :
 Références des propriétés internes :
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
+@endmorerefs
 
 
 @node Indication métronomique
@@ -1508,6 +1516,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{MetronomeMark}.
+@endmorerefs
 
 
 @node Levées
@@ -1594,6 +1603,7 @@ Morceaux choisis :
 
 Références des propriétés internes :
 @rinternals{Timing_translator}.
+@endmorerefs
 
 
 @node Musique sans métrique
@@ -1698,6 +1708,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
+@endmorerefs
 
 @cindex cadence et saut de ligne
 @cindex cadence et saut de page
@@ -1895,6 +1906,7 @@ Références des propriétés internes :
 @rinternals{Timing_translator},
 @rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
+@endmorerefs
 
 @knownissues
 Bien que les notes de différentes portées tombant au même moment seront
@@ -2009,6 +2021,7 @@ Références des propriétés internes :
 @rinternals{Rest_engraver},
 @rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
+@endmorerefs
 
 @knownissues
 Pour rester cohérent avec le comportement précédent, les notes ou
@@ -2117,6 +2130,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{RhythmicStaff}.
 @rinternals{Pitch_squash_engraver}.
+@endmorerefs
 
 
 @node Barres de ligature
@@ -2231,6 +2245,7 @@ Références des propriétés internes :
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
+@endmorerefs
 
 @knownissues
 Les propriétés d'une ligature sont déterminées @strong{dès le début} de
@@ -2588,6 +2603,7 @@ Référence des propriétés internes :
 @rinternals{Beam},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface}.
+@endmorerefs
 
 @knownissues
 Si une partition se termine alors qu'une ligature automatique est restée
@@ -2752,6 +2768,7 @@ Référence des propriétés internes :
 @rinternals{Beam_engraver},
 @rinternals{beam-interface},
 @rinternals{Stem_engraver}.
+@endmorerefs
 
 
 @node Liens de croches en soufflet
@@ -2814,6 +2831,7 @@ approximative, la sortie MIDI sera quant à elle parfaitement
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
+@endmorerefs
 
 @knownissues
 La commande @code{\featherDurations} ne permet de traiter que de très
@@ -3237,6 +3255,7 @@ Référence des propriétés internes :
 @rinternals{BarLine} (faisant partie du contexte @code{Staff}),
 @rinternals{SpanBar} (sur plusieurs portées),
 @rinternals{Timing_translator} (pour les propriétés liées au temps).
+@endmorerefs
 
 
 @node Numéros de mesure
@@ -3338,6 +3357,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{BarNumber},
 @rinternals{Bar_number_engraver}.
+@endmorerefs
 
 @knownissues
 @cindex numéro de mesure et collision
@@ -3433,6 +3453,7 @@ point (variable @code{currentBarNumber}) n'est pas égal à 123.
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
+@endmorerefs
 
 
 @node Indications de repère
@@ -3599,6 +3620,7 @@ Référence des propriétés internes :
 @rinternals{MarkEvent},
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
+@endmorerefs
 
 
 @node Fonctionnalités rythmiques particulières
@@ -3797,6 +3819,7 @@ Référence des propriétés internes :
 @rinternals{Grace_beam_engraver},
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
+@endmorerefs
 
 @knownissues
 
@@ -3916,6 +3939,7 @@ Glossaire musicologique :
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
+@endmorerefs
 
 
 @node Gestion du temps
@@ -4001,3 +4025,4 @@ Morceaux choisis :
 Références des propriétés internes :
 @rinternals{Timing_translator},
 @rinternals{Score}
+@endmorerefs

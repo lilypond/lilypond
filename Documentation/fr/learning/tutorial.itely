@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8f01bd05d0b8d3bba1d3887e349b70e15b4cf37f
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -539,6 +539,7 @@ Manuel de notation :
 @ruser{Écriture des silences},
 @ruser{Gravure du rythme},
 @ruser{Gravure des hauteurs}.
+@endmorerefs
 
 
 @node Travail sur les fichiers d'entrée

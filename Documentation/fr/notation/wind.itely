@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -130,6 +130,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
+@endmorerefs
 
 
 @node Doigtés pour vents
@@ -165,6 +166,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
+@endmorerefs
 
 
 @node Cornemuse
@@ -233,8 +235,9 @@ ou un défilé, peut survenir un sol aigu, au doux nom de
 « piobaireachd », et que l'on indiquera par @code{g-flat}.
 
 @morerefs
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
+@endmorerefs
 
 
 @node Exemple pour la cornemuse
@@ -287,6 +290,7 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}
+@endmorerefs
 
 
 @node Bois
@@ -454,8 +458,8 @@ un fichier les instructions
 De nouveaux diagrammes sont réalisables, bien que ceci requiert de
 maîtriser le langage Scheme et n'est pas à la portée de tous les
 utilisateurs.  Des gabarits sont contenus dans les fichiers
-@file{scm/@/define-@/woodwind-@/diagrams.scm} et
-@file{scm/@/display-@/woodwind-@/diagrams.scm}.
+@file{scm/define-@/woodwind-@/diagrams.scm} et
+@file{scm/display-@/woodwind-@/diagrams.scm}.
 
 @snippets
 
@@ -487,3 +491,4 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{TextScript},
 @rinternals{instrument-specific-markup-interface}.
+@endmorerefs

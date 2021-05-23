@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -319,6 +319,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{font-interface}.
+@endmorerefs
 
 @c The two issues mentioned below:
 @c https://sourceforge.net/p/testlilyissues/issues/3987/
@@ -429,6 +430,7 @@ Référence des propriétés internes :
 @rinternals{fingering-event},
 @rinternals{FingeringEvent},
 @rinternals{New_fingering_engraver}.
+@endmorerefs
 
 
 @node Glissement de doigt
@@ -558,6 +560,7 @@ Manuel des références internes :
 @rinternals{Finger_glide_engraver},
 @rinternals{finger-glide-interface},
 @rinternals{FingerGlideSpanner}.
+@endmorerefs
 
 @knownissues
 Un glissé mutiple sur un même doigt n'est pas autorisé et peut entraîner
@@ -637,6 +640,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Note_spacing_engraver},
 @rinternals{NoteSpacing}.
+@endmorerefs
 
 
 @node Coloration d'objets
@@ -774,6 +778,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
+@endmorerefs
 
 @cindex x11, couleur
 @cindex couleur, note d'un accord
@@ -840,6 +845,7 @@ Référence des propriétés internes :
 @rinternals{Parenthesis_engraver},
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}.
+@endmorerefs
 
 @knownissues
 Lorsqu'un accord est mis entre parenthèses, celles-ci s'appliquent
@@ -898,6 +904,7 @@ Référence des propriétés internes :
 @rinternals{Stem_engraver},
 @rinternals{Stem},
 @rinternals{stem-interface}.
+@endmorerefs
 
 
 @node Hors de la portée
@@ -1011,7 +1018,6 @@ somechords = \relative c' {
 @end lilypond
 
 @morerefs
-
 Manuel de notation :
 @ref{Nom des notes dans d'autres langues}.
 
@@ -1019,6 +1025,7 @@ Référence des propriété internes :
 @rinternals{NoteName},
 @rinternals{NoteNames},
 @rinternals{Note_name_engraver}.
+@endmorerefs
 
 
 @node Info-bulle
@@ -1089,6 +1096,7 @@ Référence des propriétés internes :
 @rinternals{Balloon_engraver},
 @rinternals{BalloonTextItem},
 @rinternals{balloon-interface}.
+@endmorerefs
 
 
 @node Quadrillage temporel
@@ -1161,6 +1169,7 @@ Référence des propriétés internes :
 @rinternals{GridPoint},
 @rinternals{grid-line-interface},
 @rinternals{grid-point-interface}.
+@endmorerefs
 
 
 @node Crochets d'analyse
@@ -1230,3 +1239,4 @@ Référence des propriétés internes :
 @rinternals{HorizontalBracketText},
 @rinternals{horizontal-bracket-text-interface},
 @rinternals{Staff}.
+@endmorerefs

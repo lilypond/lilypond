@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9dc7d7a787112a5517271a21ab43e307d7e59226
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -159,6 +159,7 @@ Référence des propriétés internes :
 @rinternals{MensuralStaff},
 @rinternals{VaticanaStaff},
 @rinternals{StaffSymbol}.
+@endmorerefs
 
 
 @node Regroupement de portées
@@ -292,6 +293,7 @@ Référence des propriétés internes :
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+@endmorerefs
 
 
 @node Imbrication de regroupements de portées
@@ -347,6 +349,7 @@ Référence des propriétés internes :
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
+@endmorerefs
 
 
 @node Séparation des systèmes
@@ -399,6 +402,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
+@endmorerefs
 
 
 @node Modification de portées individuelles
@@ -598,6 +602,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{StaffSymbol},
 @rinternals{staff-symbol-interface}.
+@endmorerefs
 
 
 @node Portées d'ossia
@@ -754,6 +759,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{StaffSymbol}.
+@endmorerefs
 
 
 @node Masquage de portées
@@ -1103,6 +1109,7 @@ Référence des propriétés internes :
 @rinternals{Staff},
 @rinternals{Staff_symbol_engraver},
 @rinternals{VerticalAxisGroup}.
+@endmorerefs
 
 @knownissues
 Supprimer le @code{Staff_symbol_engraver} aura pour effet de masquer les
@@ -1309,6 +1316,7 @@ Référence des propriétés internes :
 @rinternals{InstrumentName},
 @rinternals{PianoStaff},
 @rinternals{Staff}.
+@endmorerefs
 
 
 @node Citation d'autres voix
@@ -1380,6 +1388,7 @@ oboeNotes = \relative {
   >>
 }
 @end lilypond
+
 Lorsqu'une commande @code{\unfoldRepeats} est requise dans une
 expression musicale de telle sorte que la musique soit réimprimée par
 @code{\quoteDuring}, l'instruction @code{\addQuote} doit elle-mêeme
@@ -1497,6 +1506,7 @@ Référence des propriétés internes :
 @rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Seul le contenu de la première @code{Voice} rencontrée dans la
@@ -1802,6 +1812,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{CueVoice},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 La commande @code{\cueDuring} ne sait pas gérer les collisions de
@@ -1923,3 +1934,4 @@ Référence des propriétés internes :
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
+@endmorerefs

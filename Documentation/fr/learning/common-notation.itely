@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8f01bd05d0b8d3bba1d3887e349b70e15b4cf37f
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -124,6 +124,7 @@ votre attention l'absence du @code{4} à la troisième mesure.
 Manuel de notation :
 @ruser{Barres de mesure},
 @ruser{Vérification des limites et numéros de mesure}.
+@endmorerefs
 
 
 @node Hauteurs et armure
@@ -290,6 +291,7 @@ Manuel de notation :
 @ruser{Altérations},
 @ruser{Altérations accidentelles automatiques},
 @ruser{Armure}.
+@endmorerefs
 
 
 @node Liaisons
@@ -346,6 +348,7 @@ hauteur isolée et une durée isolée aura pour effet de ne produire qu'une
 seule note.  Autrement dit, @code{c4 a 8 8} sera interprété comme
 @code{c4 a8 a8}, non comme @code{c4 a4 a8 a8} ; écrivez plutôt
 @code{c4 a4 8 8}.
+
 
 @node Liaisons d'articulation
 @unnumberedsubsubsec Liaisons d'articulation
@@ -415,6 +418,7 @@ Manuel de notation :
 @ruser{Liaisons de prolongation},
 @ruser{Liaisons d'articulation},
 @ruser{Liaisons de phrasé}.
+@endmorerefs
 
 
 @node Articulations et nuances
@@ -535,6 +539,7 @@ Manuel de notation :
 @ruser{Articulations et ornements},
 @ruser{Doigtés},
 @ruser{Nuances}.
+@endmorerefs
 
 
 @node Ajout de texte
@@ -565,6 +570,7 @@ a'2_\markup {
 @morerefs
 Manuel de notation :
 @ruser{Ajout de texte}.
+@endmorerefs
 
 
 @node Barres de ligature automatiques et manuelles
@@ -621,6 +627,7 @@ entiers, utilisez la commande @code{\autoBeamOff}, et utilisez
 Manuel de notation :
 @ruser{Barres de ligature automatiques},
 @ruser{Barres de ligature manuelles}.
+@endmorerefs
 
 
 @node Commandes rythmiques avancées
@@ -723,6 +730,7 @@ Manuel de notation :
 @ruser{Notes d'ornement},
 @ruser{N-olets},
 @ruser{Levées}.
+@endmorerefs
 
 
 @node Notes simultanées
@@ -1011,6 +1019,7 @@ des barres de mesure.
 Manuel de notation :
 @ruser{Instruments utilisant des portées multiples},
 @ruser{Gravure des portées}.
+@endmorerefs
 
 
 @node Combinaison de notes en accords
@@ -1054,6 +1063,7 @@ durée, donc @emph{à l'extérieur} des chevrons.
 @morerefs
 Manuel de notation :
 @ruser{Notes en accords}.
+@endmorerefs
 
 
 @node Polyphonie sur une portée
@@ -1083,6 +1093,7 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ruser{Notes simultanées}.
+@endmorerefs
 
 
 @node Chansons
@@ -1310,6 +1321,7 @@ la syllabe @emph{al} est chantée sur la même note que @emph{go}.
 @morerefs
 Manuel de notation :
 @ruser{Musique vocale}.
+@endmorerefs
 
 
 @node Paroles pour plusieurs portées
@@ -1355,6 +1367,7 @@ détaillé plus loin dans
 @morerefs
 Manuel de notation :
 @ruser{Musique vocale}.
+@endmorerefs
 
 
 @node Dernières précisions

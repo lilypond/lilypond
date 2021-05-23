@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9b78f9a4ab0e076ffb03bfeb0cb959064072a72b
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -698,3 +698,4 @@ copy out\monprojet.pdf MonProjet.pdf
 Manuel d'utilisation :
 @ref{Utilisation en ligne de commande},
 @ref{lilypond-book}
+@endmorerefs

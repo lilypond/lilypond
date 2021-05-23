@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 448328d12310c0279765ffacd92cab16d1b71315
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -286,6 +286,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Script},
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Nuances
@@ -599,6 +600,7 @@ Référence des propriétés internes :
 @rinternals{Hairpin},
 @rinternals{DynamicLineSpanner},
 @rinternals{Dynamics}.
+@endmorerefs
 
 
 @node Personnalisation des indications de nuance
@@ -732,6 +734,7 @@ Morceaux choisis :
 
 Manuel d'extension :
 @rextend{Construction d'un markup en Scheme}.
+@endmorerefs
 
 
 @node Signes d'interprétation sous forme de courbe
@@ -928,6 +931,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Slur}.
+@endmorerefs
 
 
 @node Liaisons de phrasé
@@ -1068,6 +1072,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{PhrasingSlur}.
+@endmorerefs
 
 
 @node Signes de respiration
@@ -1136,6 +1141,7 @@ Référence des propriétés internes :
 @rinternals{BreathingEvent},
 @rinternals{BreathingSign},
 @rinternals{Breathing_sign_engraver}.
+@endmorerefs
 
 
 @node Chutes et sauts
@@ -1174,6 +1180,7 @@ Glossaire musical :
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
+@endmorerefs
 
 
 @node Signes d'interprétation sous forme de ligne
@@ -1293,6 +1300,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Glissando}.
+@endmorerefs
 
 @knownissues
 Il n'est pas possible d'imprimer un texte (tel que @notation{gliss.})
@@ -1425,6 +1433,7 @@ Référence des propriétés internes :
 @rinternals{Arpeggio},
 @rinternals{PianoStaff},
 @rinternals{Slur}.
+@endmorerefs
 
 @knownissues
 Les commandes prédéfinies telle que @code{\arpeggioArrowUp} s'appliquent
@@ -1603,3 +1612,4 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TrillSpanner}.
+@endmorerefs

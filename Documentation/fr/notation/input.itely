@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -133,6 +133,7 @@ Manuel d'initiation :
 @rlearning{La partition est une (unique) expression musicale composée},
 @rlearning{Les expressions musicales en clair},
 @rlearning{Travail sur les fichiers d'entrée}.
+@endmorerefs
 
 
 @node Plusieurs partitions dans un même ouvrage
@@ -570,6 +571,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Généralités en matière de titrages},
 @ref{Le bloc layout}.
+@endmorerefs
 
 
 @node Titres et entêtes
@@ -782,6 +784,7 @@ Manuel de notation :
 @ref{Mise en forme par défaut des titrages subalternes},
 @ref{Mise en forme personnalisée des titrages},
 @ref{Structure de fichier}.
+@endmorerefs
 
 
 @node Mise en forme par défaut des titrages subalternes
@@ -908,6 +911,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/titling-init.ly}.
+@endmorerefs
 
 
 @node Mise en forme par défaut des entête et pied de page
@@ -1010,6 +1014,7 @@ contenus dans un bloc @code{\header}.
 @morerefs
 Manuel de notation :
 @ref{Mise en forme du texte}.
+@endmorerefs
 
 
 @node Mise en forme personnalisée des titrages
@@ -1168,6 +1173,7 @@ faire référence dans la définition du @emph{markup}.
 @morerefs
 Manuel de notation :
 @ref{Généralités en matière de titrages}.
+@endmorerefs
 
 
 @node Mise en forme personnalisée des entête et pied de page
@@ -1284,6 +1290,7 @@ Manuel de notation :
 
 fichiers d'initialisation :
 @file{../ly/titling-init.ly}.
+@endmorerefs
 
 
 @node Création des métadonnées des fichiers de sortie
@@ -1825,6 +1832,7 @@ Référence des propriétés internes :
 @rinternals{FootnoteItem},
 @rinternals{FootnoteSpanner},
 @rinternals{Footnote_engraver}.
+@endmorerefs
 
 @knownissues
 Les notes de bas de page ne peuvent que s'empiler l'une au-dessus de
@@ -2145,6 +2153,7 @@ Cet exemple illustre par ailleurs l'utilisation de la commande
 @morerefs
 Fichiers d'initialisation :
 @file{../ly/toc-init.ly}.
+@endmorerefs
 
 
 @node Travail sur des fichiers texte
@@ -2295,6 +2304,7 @@ Vous trouverez quelques exemples simples d'utilisation de la commande
 Manuel d'initiation :
 @rlearning{Autres sources de documentation},
 @rlearning{Conducteurs et parties}.
+@endmorerefs
 
 @knownissues
 Lorsque vous incluez un fichier qui porte le même nom que l'un des
@@ -2669,6 +2679,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Insertion de fichiers LilyPond},
 @ref{Regroupement automatique de parties}.
+@endmorerefs
 
 @knownissues
 L'application d'un @code{\relative} à une expression musicale
@@ -2710,6 +2721,7 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Insertion de fichiers LilyPond}.
+@endmorerefs
 
 
 @node Caractères spéciaux
@@ -2918,6 +2930,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/text-replacements.ly}.
+@endmorerefs
 
 
 @node Contrôle des sorties
@@ -2979,6 +2992,7 @@ Manuel de notation :
 
 Manuel d'utilisation :
 @rprogram{Utilisation en ligne de commande}.
+@endmorerefs
 
 
 @node Ignorer des passages de la partition
@@ -3045,6 +3059,7 @@ Manuel de notation :
 @ref{Contextes d'interprétation},
 @ref{Liste des propriétés de contexte},
 @ref{Score -- le père de tous les contextes}.
+@endmorerefs
 
 
 @node Formats de sortie alternatifs
@@ -3209,6 +3224,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Choix des fontes par défaut},
 @ref{La fonte Emmentaler}.
+@endmorerefs
 
 @knownissues
 Gonville ne permet pas de générer de la notation ancienne, et certains
@@ -3415,6 +3431,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{scm/midi.scm}.
+@endmorerefs
 
 @knownissues
 Le standard MIDI dispose de 15 canaux plus un (le numéro 10) affecté aux
@@ -3497,6 +3514,8 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
+@endmorerefs
+
 
 @node Réglage du volume en MIDI
 @unnumberedsubsubsec Réglage du volume en MIDI
@@ -3606,6 +3625,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
+@endmorerefs
 
 @knownissues
 Les modifications apportées au volume MIDI n'interviennent que sur
@@ -3681,6 +3701,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
+@endmorerefs
 
 @knownissues
 Certains lecteurs MIDI ne rendent pas correctement les changements de
@@ -3740,6 +3761,7 @@ Référence des propriétés internes :
 
 Fichiers d'initialisation :
 @file{scm/midi.scm}.
+@endmorerefs
 
 @knownissues
 Les percussions gérées par un contexte @code{DrumStaff} sont affectées
@@ -3805,6 +3827,7 @@ soient mentionnée correctement dans @strong{toutes} les voix.
 @morerefs
 Manuel de notation  :
 @ref{Répétitions et reprises}.
+@endmorerefs
 
 
 @node Affectation des canaux MIDI
@@ -4087,6 +4110,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/articulate.ly}.
+@endmorerefs
 
 @warning{Dans la mesure où le script @file{articulate} tend à raccourcir
 les accords, certaines musiques, notamment pour l'orgue, paraîtront de
@@ -4178,6 +4202,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/swing.ly}.
+@endmorerefs
 
 @knownissues
 @itemize

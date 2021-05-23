@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -90,6 +90,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Contexts},
 @rinternals{Engravers and Performers}.
+@endmorerefs
 
 
 @node Tout savoir sur les contextes
@@ -181,6 +182,7 @@ le fichier Midi.
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly},
 @file{ly/performer-init.ly}.
+@endmorerefs
 
 
 @node Score -- le père de tous les contextes
@@ -561,6 +563,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Durée automatique des syllabes},
 @ref{Modification d'un contexte particulier}.
+@endmorerefs
 
 
 @node Conservation d'un contexte
@@ -868,6 +871,7 @@ le @code{Timing_translator} doit toujours précéder le
 @morerefs
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
+@endmorerefs
 
 
 @node Modification des réglages par défaut d'un contexte
@@ -1177,6 +1181,7 @@ en définissant directement une propriété de contexte :
 @morerefs
 Manuel de notation :
 @ref{Modes de saisie}.
+@endmorerefs
 
 
 @node Ordre de préséance
@@ -1215,6 +1220,7 @@ Manuel de notation :
 @ref{La commande de fixation (set)},
 @ref{Le bloc layout},
 @ref{Tout savoir sur les contextes}.
+@endmorerefs
 
 
 @node Définition de nouveaux contextes
@@ -1418,6 +1424,7 @@ Référence des propriétés internes :
 @rinternals{Pitch_squash_engraver},
 @rinternals{Rhythmic_column_engraver},
 @rinternals{Text_engraver}.
+@endmorerefs
 
 
 @node Ordonnancement des contextes
@@ -1546,6 +1553,7 @@ Manuel d'utilisation :
 
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
+@endmorerefs
 
 
 @node En quoi consiste la référence des propriétés internes
@@ -2088,6 +2096,7 @@ Référence des propriétés internes :
 @rinternals{OverrideProperty},
 @rinternals{PropertySet},
 @rinternals{RevertProperty}.
+@endmorerefs
 
 @knownissues
 La sous-couche Scheme ne vérifie pas la saisie des propriétés de façon
@@ -2245,6 +2254,7 @@ Manuel de notation :
 
 Référence des propriétés internes :
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 
 @node La commande de dérogation (override)
@@ -2415,6 +2425,7 @@ propriétés causant des désagréments.
 @morerefs
 Référence des propriétés internes :
 @rinternals{Backend}
+@endmorerefs
 
 
 @node La commande d'affinage (tweak)
@@ -2603,6 +2614,7 @@ Manuel d'initiation :
 
 Manuel d'extension :
 @rextend{Affichage d'expressions musicales}.
+@endmorerefs
 
 @knownissues
 
@@ -3454,6 +3466,7 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Plusieurs voix}.
+@endmorerefs
 
 
 @node Distances et unités de mesure
@@ -3517,6 +3530,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Définition de la taille de portée},
 @ref{Mise en forme de la page}.
+@endmorerefs
 
 
 @node Dimensions
@@ -3548,6 +3562,7 @@ référence de cet objet.
 @morerefs
 Manuel de notation :
 @ref{Distances et unités de mesure}.
+@endmorerefs
 
 
 @node Propriétés des symboles de la portée
@@ -3914,6 +3929,7 @@ Référence des propriétés internes :
 @rinternals{TextSpanner},
 @rinternals{TrillSpanner},
 @rinternals{VoiceFollower}.
+@endmorerefs
 
 
 @node Visibilité des objets
@@ -4348,6 +4364,7 @@ l'indication de transposition qui lui est attachée.
 @morerefs
 Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets}
+@endmorerefs
 
 
 @node Styles de ligne
@@ -4514,6 +4531,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{All layout objects}.
+@endmorerefs
 
 
 @node Alignement des objets
@@ -4575,6 +4593,7 @@ Manuel de notation :
 
 Manuel d'extension :
 @rextend{Fonctions de rappel}.
+@endmorerefs
 
 
 @node Détermination directe de X-offset et Y-offset
@@ -4969,6 +4988,7 @@ Manuel de notation :
 @rusernamed{Graphic, Graphisme},
 @ref{La fonte Emmentaler},
 @ref{Mise en forme du texte}.
+@endmorerefs
 
 
 @node Modification de l'allure des éléments
@@ -5218,6 +5238,7 @@ néanmoins influer sur la propriété @code{tie-configuration} de l'objet
 @morerefs
 Référence des propriétés internes :
 @rinternals{TieColumn}.
+@endmorerefs
 
 
 @node Modification de bandeaux avec rupture
@@ -5338,6 +5359,7 @@ bandeau qui sont traitées avant la procédure de saut de ligne, comme
 @morerefs
 Manuel d'extension :
 @rextend{Retouches complexes}.
+@endmorerefs
 
 
 @node Conteneurs requalifiants
@@ -5550,6 +5572,7 @@ Fichiers d'initialisation :
 @file{lily/music-scheme.cc},
 @file{scm/c++.scm},
 @file{scm/lily.scm}.
+@endmorerefs
 
 
 @node Exemples de fonction de substitution

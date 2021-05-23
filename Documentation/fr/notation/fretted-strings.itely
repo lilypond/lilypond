@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ee2d53eeef4717c2bb8a0945b19550d34876b174
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -98,6 +98,7 @@ Manuel de notation :
 @ref{Noms d'instrument},
 @ref{Résolution des collisions},
 @ref{Saisie de musique en parallèle}.
+@endmorerefs
 
 
 @node Indications du numéro de corde
@@ -178,6 +179,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{StringNumber},
 @rinternals{Fingering}.
+@endmorerefs
 
 
 @node Tablatures par défaut
@@ -747,6 +749,7 @@ Référence des propriétés internes :
 @rinternals{TabNoteHead},
 @rinternals{TabStaff},
 @rinternals{TabVoice}.
+@endmorerefs
 
 @knownissues
 Les accords ne subissent aucun traitement particulier ; de ce fait,
@@ -993,6 +996,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Tab_note_heads_engraver}.
+@endmorerefs
 
 @knownissues
 Le calcul automatique des tablatures se révèle inapproprié pour les
@@ -1463,6 +1467,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
+@endmorerefs
 
 
 @node Tablatures prédéfinies
@@ -1744,7 +1749,6 @@ d'accord donné, les propriétés de l'interface dépendent de
 
 @snippets
 
-
 @cindex diagramme de fret, personnalisation
 @cindex personnalisation, diagramme de fret
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1787,6 +1791,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
+@endmorerefs
 
 
 @node Tablatures automatiques
@@ -1941,6 +1946,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
+@endmorerefs
 
 @knownissues
 Le calcul automatique des diagrammes de fret se révèle inapproprié pour
@@ -2005,6 +2011,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{StrokeFinger}.
+@endmorerefs
 
 
 @node Guitare
@@ -2058,6 +2065,7 @@ Manuel de notation :
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées},
 @rlsrnamed{Expressive marks, Signes d'interprétation}.
+@endmorerefs
 
 
 @node Indication des harmoniques et notes étouffées
@@ -2137,6 +2145,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
+@endmorerefs
 
 
 @node Indication de power chord
@@ -2193,6 +2202,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
+@endmorerefs
 
 
 @node Banjo
@@ -2263,6 +2273,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
+@endmorerefs
 
 
 @node Luth

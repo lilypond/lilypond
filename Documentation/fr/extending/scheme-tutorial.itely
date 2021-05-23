@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 529eb23f3ddb597ae0738685d194cb88b4733054
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -885,6 +885,7 @@ littéralement recopié, mais plutôt une référence explicite.
 @morerefs
 Manuel d'extension :
 @ref{Syntaxe Scheme dans LilyPond}.
+@endmorerefs
 
 
 @node Saisie de variables et Scheme

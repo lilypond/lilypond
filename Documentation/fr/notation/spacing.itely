@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1bfb595cb5d91cd743b6c1ff31b6b7bb8cc31714
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -207,6 +207,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node Format du papier et adaptation automatique
@@ -328,6 +329,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{scm/paper.scm}.
+@endmorerefs
 
 
 @node Adaptation automatique au format
@@ -371,6 +373,7 @@ Manuel de notation :
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
+@endmorerefs
 
 
 @node Variables d'espacement vertical fixe
@@ -439,6 +442,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing, Espacements}.
+@endmorerefs
 
 @knownissues
 Les titrages (contenus dans le bloc @code{\header@{@}}) sont considérés
@@ -654,6 +658,7 @@ Morceaux choisis :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Variables d'espacement horizontal
@@ -789,6 +794,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 @knownissues
 La définition explicite d'un format de papier annulera tout réglage des
@@ -854,6 +860,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node Variables d'indentation et de décalage
@@ -906,6 +913,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing, Espacements}.
+@endmorerefs
 
 
 @node Autres variables du bloc paper
@@ -961,6 +969,7 @@ définie par défaut.  Cette variable peut se gérer au sein d'un bloc
 @morerefs
 Manuel de notation :
 @ref{Sauts de ligne}.
+@endmorerefs
 
 
 @node Variables de gestion des sauts de page
@@ -1080,6 +1089,7 @@ Manuel de notation :
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 
 @node Variables de gestion des numéros de page
@@ -1138,6 +1148,7 @@ Le type de chiffres à utiliser pour la numérotation : @code{roman-lower}
 @morerefs
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
+@endmorerefs
 
 @knownissues
 Les pages au numéro impair sont toujours à droite.  Pour que la musique
@@ -1203,6 +1214,7 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 @knownissues
 L'entête par défaut, formé d'une seule ligne, est constitué du numéro de
@@ -1420,6 +1432,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Définition de la taille de portée
@@ -1543,6 +1556,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 @knownissues
 
@@ -1789,6 +1803,7 @@ Référence des propriétés internes :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 @knownissues
 
@@ -1912,6 +1927,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 @knownissues
 
@@ -1939,6 +1955,7 @@ n'a aucune notion de ce qu'est une « tourne ».
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Minimisation des sauts de page
@@ -1965,6 +1982,7 @@ beaucoup de texte.  Il suffit de la mentionner au sein du bloc
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Présentation en page continue
@@ -2117,6 +2135,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 @knownissues
 Une partition ne devrait contenir qu'une seule instance du
@@ -2486,6 +2505,7 @@ Référence des propriétés internes :
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @node Espacement de portées isolées
@@ -2563,6 +2583,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{VerticalAxisGroup}.
+@endmorerefs
 
 
 @node Espacement de portées regroupées
@@ -2637,6 +2658,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @node Espacement des lignes rattachées à des portées
@@ -2714,6 +2736,7 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup}.
+@endmorerefs
 
 
 @node Positionnement explicite des portées et systèmes
@@ -3015,6 +3038,7 @@ quant aux différentes valeurs que vous affectez à ces réglages.
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Résolution des collisions verticales
@@ -3106,6 +3130,7 @@ supplémentaires.
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Espacement horizontal
@@ -3232,6 +3257,7 @@ Référence des propriétés internes :
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
+@endmorerefs
 
 @knownissues
 Il n'existe pas de mécanisme simple et efficace qui permette de
@@ -3300,6 +3326,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{SpacingSpanner}.
+@endmorerefs
 
 
 @node Modification de l'espacement horizontal
@@ -3400,6 +3427,7 @@ d'ornement qui pourraient apparaître :
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Largeur de ligne
@@ -3457,6 +3485,7 @@ paragraphe de texte, la dernière ligne s'arrête au dernier caractère.
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Notation proportionnelle
@@ -3843,6 +3872,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Réduction du nombre de pages de la partition
@@ -3919,6 +3949,7 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs
 
 
 @node Modification de l'espacement
@@ -4045,3 +4076,4 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+@endmorerefs

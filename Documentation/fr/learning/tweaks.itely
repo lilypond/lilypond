@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8f01bd05d0b8d3bba1d3887e349b70e15b4cf37f
+   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -203,6 +203,7 @@ fonction de son nom.
 @morerefs
 Manuel de notation :
 @ruser{Modification de propriétés}.
+@endmorerefs
 
 
 @node Méthodes de retouche
@@ -570,6 +571,7 @@ avec la commande @code{\override} :
 @morerefs
 Manuel de notation :
 @ruser{La commande d'affinage (tweak)}.
+@endmorerefs
 
 
 @node Le préfixe single
@@ -628,6 +630,7 @@ pas de convertir des @code{\revert}, @code{\set} ou @code{\unset} en
 Manuel d'initiation :
 @ref{La commande tweak},
 @ref{Utilisation de variables dans les retouches}.
+@endmorerefs
 
 
 @node Le manuel de référence des propriétés internes
@@ -1059,6 +1062,7 @@ espace entre la dernière syllabe et l'accolade fermante.}
 @morerefs
 Manuel d'extension :
 @rextend{Tutoriel Scheme}.
+@endmorerefs
 
 
 @node Types de propriétés
@@ -1132,6 +1136,7 @@ par des parenthèses et précédés par une apostrophe
 @morerefs
 Manuel d'extension :
 @rextend{Tutoriel Scheme}.
+@endmorerefs
 
 
 @node Apparence des objets
@@ -4162,6 +4167,7 @@ voix ; on a alors l'impression que la liaison couvre les deux voix.
 Manuel d'initiation :
 @ref{Le préfixe once},
 @ref{La propriété stencil}.
+@endmorerefs
 
 
 @node Rendu MIDI d'un point d'orgue
@@ -4242,6 +4248,7 @@ sa place.
 @morerefs
 Glossaire musicologique :
 @rglosnamed{system,système}.
+@endmorerefs
 
 
 @node Utilisation de variables dans les retouches
