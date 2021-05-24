@@ -449,16 +449,29 @@ Side_position_interface::set_axis (Grob *me, Axis a)
     }
 }
 
-Axis
-Side_position_interface::get_axis (Grob *me)
+static bool
+is_on_axis (Grob *me, Axis a)
 {
-  if (scm_is_number (get_property (me, "side-axis")))
-    return Axis (scm_to_int (get_property (me, "side-axis")));
+  SCM axis_scm = get_property (me, "side-axis");
+  if (is_scm<Axis> (axis_scm))
+    return from_scm<Axis> (axis_scm) == a;
 
   if (scm_is_true (get_property (me, "stencil")))
     me->programming_error (_f ("no side-axis setting found for grob %s.",
                                me->name ().c_str ()));
-  return NO_AXES;
+  return false;
+}
+
+bool
+Side_position_interface::is_on_x_axis (Grob *me)
+{
+  return is_on_axis (me, X_AXIS);
+}
+
+bool
+Side_position_interface::is_on_y_axis (Grob *me)
+{
+  return is_on_axis (me, Y_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, move_to_extremal_staff, 1);

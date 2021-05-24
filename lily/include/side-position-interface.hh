@@ -20,6 +20,7 @@
 #ifndef SIDE_POSITION_INTERFACE_HH
 #define SIDE_POSITION_INTERFACE_HH
 
+#include "axis.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
@@ -40,7 +41,8 @@ public:
 
   static SCM aligned_side (Grob *me, Axis a, bool pure, int start, int end, Real *current_off_ptr);
 
-  static Axis get_axis (Grob *);
+  static bool is_on_x_axis (Grob *);
+  static bool is_on_y_axis (Grob *);
   static void set_axis (Grob *, Axis);
   static void add_support (Grob *, Grob *);
   static void recursive_add_support (Grob *, Grob *);

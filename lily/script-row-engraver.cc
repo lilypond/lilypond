@@ -60,7 +60,7 @@ Script_row_engraver::stop_translation_timestep ()
     {
       for (vsize i = 0; i < scripts_.size (); i++)
         if (has_interface<Accidental_placement> (scripts_[i])
-            || Side_position_interface::get_axis (scripts_[i]) == X_AXIS)
+            || Side_position_interface::is_on_x_axis (scripts_[i]))
           Script_column::add_side_positioned (script_row_, scripts_[i]);
     }
 

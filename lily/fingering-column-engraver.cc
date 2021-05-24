@@ -60,7 +60,7 @@ Fingering_column_engraver::stop_translation_timestep ()
       Grob *item = possibles_[i];
       if (!Item::is_non_musical (item)
           && scm_is_true (get_property (item, "stencil"))
-          && Side_position_interface::get_axis (item) == X_AXIS)
+          && Side_position_interface::is_on_x_axis (item))
         {
           Direction d = from_scm (get_property (item, "direction"), CENTER);
           if (d)

@@ -134,8 +134,7 @@ Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
     {
       Grob *e = scripts_[i];
 
-      if (!e->get_x_parent ()
-          && Side_position_interface::get_axis (e) == Y_AXIS)
+      if (!e->get_x_parent () && Side_position_interface::is_on_y_axis (e))
         e->set_x_parent (inf.grob ());
 
       Side_position_interface::add_support (e, inf.grob ());

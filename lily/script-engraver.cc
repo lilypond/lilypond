@@ -238,8 +238,7 @@ Script_engraver::acknowledge_rhythmic_head (Grob_info info)
         {
           Grob *e = scripts_[i].script_;
 
-          if (Side_position_interface::get_axis (e) == X_AXIS
-              && !e->get_y_parent ())
+          if (Side_position_interface::is_on_x_axis (e) && !e->get_y_parent ())
             {
               e->set_y_parent (info.grob ());
             }
@@ -261,8 +260,7 @@ Script_engraver::acknowledge_note_column (Grob_info info)
     {
       Grob *e = scripts_[i].script_;
 
-      if (!e->get_x_parent ()
-          && Side_position_interface::get_axis (e) == Y_AXIS)
+      if (!e->get_x_parent () && Side_position_interface::is_on_y_axis (e))
         e->set_x_parent (info.grob ());
     }
 }
