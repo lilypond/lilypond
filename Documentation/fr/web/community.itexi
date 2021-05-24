@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 155b5640079e559e7379f0ff9aef158aec975dcc
+   Translation of GIT committish: c319eb9b3317034e8541de7fb97d0a1fe52f1ca5
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -642,6 +642,9 @@ travailler à partir des binaires les plus à jour :
 @c file name is unpredictable, linking to main page
 @uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases,
 Mac OS X x86 64-bit (non officiel)}
+
+@uref{https://ports.macports.org/port/lilypond-devel/summary,
+paquetage MacPorts}
 
 @downloadDevelWindows
 

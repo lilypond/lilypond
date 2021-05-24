@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 155b5640079e559e7379f0ff9aef158aec975dcc
+   Translation of GIT committish: c319eb9b3317034e8541de7fb97d0a1fe52f1ca5
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -202,7 +202,8 @@ Introduisez des fragments de partition musicale sans avoir besoin de
 copier-coller manuellement des images. Intégrez de façon transparente
 des partitions dans un document @LaTeX{} ou HTML, ou bien ajoutez des
 partitions dans un document OpenOffice.org ou LibreOffice avec
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,
+OOoLilyPond}.
 
 Vous trouverez des greffons qui permettent d'insérer du code LilyPond
 dans des @emph{blogs} et @emph{wikis}, rendant ainsi possible le travail
@@ -1461,6 +1462,26 @@ version cliquable de la documentation de LilyPond y est disponible.
 
 @divEnd
 
+
+@divClass{column-center-top}
+@subheading Greffons pour traitement de texte
+@c VO Word processor plug-ins
+
+@subsubheading OOoLilyPond
+
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+Cette extension pour OpenOffice.org convertit des fichiers LilyPond en
+images au sein de documents OpenOffice.org.
+
+@divEnd
+
+
 @divClass{column-center-top}
 @subheading Greffons pour EDI
 @c VO IDE Plug-ins
@@ -1645,13 +1666,6 @@ qui importait
 @uref{http://www.musicxml.com/, MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.
-
-@item
-@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond},
-extension pour OpenOffice.org convertit des fichiers LilyPond en image
-au sein de documents OpenOffice.org.  Bien qu'elle ne soit plus
-activement dévoloppée, cette extension est encore fonctionnelle avec
-la version 4.
 
 @item
 @uref{http://launchpad.net/rumor/,Rumor}, un convertisseur monophonique
