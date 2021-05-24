@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+    Translation of GIT committish: c52d78d34f84d0524472d006b9b60fb7388ac521
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -161,7 +161,18 @@ la mise en forme diverge quelque peu.}
 
 Un document destiné à être traité par @command{lilypond-book} peut tout à
 fait mélanger de la musique et du texte.
-Par exemple,
+Par exemple, en utilisant la syntaxe Texinfo,
+
+@example
+@@lilypond
+\relative @{
+  c'2 e2 \tuplet 3/2 @{ f8 a b @} a2 e4
+@}
+@@end lilypond
+@end example
+
+@noindent
+produit
 
 @lilypond
 \relative {
@@ -169,14 +180,34 @@ Par exemple,
 }
 @end lilypond
 
-Les options sont indiquées entre crochets.
+Les options permettant de contrôler l'apparence des extraits peuvent
+s'ajouter. Par exemple, en utilisant la syntaxe @LaTeX{},
 
-@lilypond[fragment,quote,staffsize=26,verbatim]
+@example
+\begin@{lilypond@}[fragment, quote, staffsize=26]
+c'4 f16
+\end@{lilypond@}
+@end example
+
+@noindent
+produit
+
+@lilypond[fragment,quote,staffsize=26]
 c'4 f16
 @end lilypond
 
-Des extraits plus conséquents peuvent faire l'objet d'un fichier
-indépendant, alors inclus avec @code{\lilypondfile}.
+Des extraits plus conséquents peuvent faire l'objet de fichiers
+indépendants, alors inclus avec @code{\lilypondfile}. Par exemple, en
+utilisantn la syntaxe HTML,
+
+@example
+<lilypondfile quote noindent>
+  snippets/screech-and-boink.ly
+</lilypondfile>
+@end example
+
+@noindent
+produit
 
 @lilypondfile[quote,noindent]{snippets/screech-and-boink.ly}
 
@@ -186,13 +217,9 @@ type @code{\book @{ @}}.
 
 @lilypond[papersize=a8,verbatim]
 \book{
-  \header{
-    title = "LilyPond fait ses gammes"
-  }
+  \header{ title = "LilyPond fait ses gammes" }
 
-  \relative {
-    c' d e f g a b c
-  }
+  \relative { c' d e f g a b c }
 }
 @end lilypond
 
@@ -231,7 +258,6 @@ Afin d'insérer de la musique dans vos fichiers @LaTeX{},
 suivants :
 
 @itemize
-
 @item
 la commande @code{\lilypond@{@dots{}@}} qui permet de directement saisir
 du code LilyPond simple ;
@@ -246,28 +272,26 @@ fichier LilyPond ;
 
 @item
 la commande @code{\musicxmlfile@{@dots{}@}} qui permet d'insérer un
-fichier MusicXML qui sera alors traité par @code{musicxml2ly} puis
+fichier MusicXML qui est alors traité par @code{musicxml2ly} puis
 @code{lilypond}.
-
 @end itemize
 
 Il suffit, pour inclure de la musique, d'utiliser l'une des instructions
 suivantes :
 
 @example
-\begin@{lilypond@}[liste,des,options]
+\begin@{lilypond@}[@var{liste},@var{des},@var{options}]
   VOTRE CODE LILYPOND
 \end@{lilypond@}
 
-\lilypond[liste,des,options]@{ VOTRE CODE LILYPOND @}
+\lilypond[@var{liste},@var{des},@var{options}]@{ VOTRE CODE LILYPOND @}
 
-\lilypondfile[liste,des,options]@{@var{fichier}@}
+\lilypondfile[@var{liste},@var{des},@var{options}]@{@var{fichier}@}
 
 \musicxmlfile[liste,des,options]@{@var{fichier}@}
 @end example
 
 @noindent
-
 Par ailleurs, la commande @code{\lilypondversion} vous permet d'afficher
 le numéro de version de LilyPond.
 Lancer @command{lilypond-book} produira un fichier qui sera ensuite
@@ -277,7 +301,7 @@ Voici quelques exemples.  L'environnement @code{lilypond}
 
 @example
 \begin@{lilypond@}[quote,fragment,staffsize=26]
-  c' d' e' f' g'2 g'2
+  c'4 d' e' f' g'2 g'2
 \end@{lilypond@}
 @end example
 
@@ -285,7 +309,7 @@ Voici quelques exemples.  L'environnement @code{lilypond}
 produit
 
 @lilypond[quote,fragment,staffsize=26]
-c' d' e' f' g'2 g'2
+c'4 d' e' f' g'2 g'2
 @end lilypond
 
 La version abrégée
@@ -305,11 +329,11 @@ accolades -- @code{@{} ou @code{@}} -- dans un
 @code{\lilypond@{@}} ; cette commande n'est donc pertinente que
 lorsque conjuguée à l'option @option{fragment}.
 
-La longueur par défaut des portées sera ajustée en fonction des
+La longueur par défaut des portées est détermine en fonction des
 commandes contenues dans le préambule du document -- ce qui précède la
 ligne @code{\begin@{document@}}.  La commande @code{lilypond-book} les
-transmet à @LaTeX{} afin de connaître la largeur du texte, et par voie
-de conséquence déterminer la longueur des portées.  Notez bien que cet
+transmet à @LaTeX{} afin de connaître la largeur du texte et, par voie
+de conséquence, déterminer la longueur des portées.  Notez bien que cet
 algorithme heuristique n'est pas infaillible ; vous devrez alors
 recourir à l'option @code{line-width}.
 
@@ -389,7 +413,7 @@ besoin :
 
 @example
 \def\betweenLilyPondSystem#1@{
-    \ifnum##1<2\else\expandafter\endinput\fi
+  \ifnum##1<2\else\expandafter\endinput\fi
 @}
 @end example
 
@@ -397,13 +421,12 @@ besoin :
 Étant donné que @code{\endinput} arrête immédiatement le traitement du
 fichier source en cours, l'insertion du @code{\expandafter} permet de
 repousser ce @code{\endinput} après le @code{\fi} ; la clause
-@w{@code{\if-\fi}} sera alors respectée.
+@w{@code{\if...}-@code{\fi}} sera alors respectée.
 
-Gardez à l'esprit que @code{\betweenLilyPondSystem} est effectif tant
-que @TeX{} n'est pas sorti du groupe en cours -- tel que
-l'environnement @LaTeX{} -- ou écrasé par une nouvelle définition pour
-la suite du document la plupart du temps.  Pour réinitialiser cette
-définition, insérez
+Gardez à l'esprit que @code{\betweenLilyPondSystem} est effectif jusqu'à
+la fin du groupe en cours -- tel que l'environnement @LaTeX{} -- ou
+écrasé par une nouvelle définition pour la suite du document la plupart
+du temps. Pour réinitialiser cette définition, insérez
 
 @example
 \let\betweenLilyPondSystem\undefined
@@ -416,8 +439,8 @@ La création d'une macro @TeX{} permet de se simplifier la vie :
 
 @example
 \def\onlyFirstNSystems#1@{
-    \def\betweenLilyPondSystem##1@{%
-      \ifnum##1<#1\else\expandafter\endinput\fi@}
+  \def\betweenLilyPondSystem##1@{%
+    \ifnum##1<#1\else\expandafter\endinput\fi@}
 @}
 @end example
 
@@ -454,7 +477,6 @@ Afin d'insérer de la musique dans vos fichiers Texinfo,
 suivants :
 
 @itemize
-
 @item
 la commande @code{@@lilypond@{@dots{}@}} qui permet de directement
 saisir du code LilyPond simple ;
@@ -469,9 +491,8 @@ fichier LilyPond ;
 
 @item
 la commande @code{@@musicxmlfile@{@dots{}@}} qui permet d'insérer un
-fichier MusicXML qui sera alors traité par @code{musicxml2ly} puis
+fichier MusicXML qui est alors traité par @code{musicxml2ly} puis
 @code{lilypond}.
-
 @end itemize
 
 
@@ -479,17 +500,18 @@ Il suffit, pour inclure de la musique, d'utiliser l'une des instructions
 suivantes dans votre fichier source :
 
 @example
-@@lilypond[liste,des,options]
+@@lilypond[@var{liste},@var{des},@var{options}]
   VOTRE CODE LILYPOND
 @@end lilypond
 
-@@lilypond[liste,des,options]@{ VOTRE CODE LILYPOND @}
+@@lilypond[@var{liste},@var{des},@var{options}]@{ VOTRE CODE LILYPOND @}
 
-@@lilypondfile[liste,des,options]@{@var{fichier}@}
+@@lilypondfile[@var{liste},@var{des},@var{options}]@{@var{fichier}@}
 
-@@musicxmlfile[liste,des,options]@{@var{fichier}@}
+@@musicxmlfile[@var{liste},@var{des},@var{options}]@{@var{fichier}@}
 @end example
 
+@noindent
 Par ailleurs, l'utilisation d'un @code{@@lilypondversion} permet
 d'afficher la version de LilyPond utilisée.
 
@@ -503,31 +525,34 @@ Info.
 En voici deux exemples.  Un environnement @code{lilypond}
 
 @example
-@@lilypond[fragment]
-c' d' e' f' g'2 g'
+@@lilypond[quote,fragment]
+c'4 d' e' f' g'2 g'
 @@end lilypond
 @end example
 
 @noindent
 produit
 
-@lilypond[fragment]
-c' d' e' f' g'2 g'
+@lilypond[quote,fragment]
+c'4 d' e' f' g'2 g'
 @end lilypond
 
 La version abrégée
 
 @example
-@@lilypond[fragment,staffsize=11]@{<c' e' g'>@}
+@@lilypond[quote,fragment,staffsize=11]@{<c' e' g'>@}
 @end example
 
 @noindent
 produit
 
-@lilypond[fragment,staffsize=11]{<c' e' g'>}
+@lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
 
-Contrairement à @LaTeX{}, @code{@@lilypond@{@dots{}@}} ne va pas
-intégrer d'image dans le document, mais générer un paragraphe.
+@morerefs
+Certaines options de la ligne de commande spécfifiques à
+@command{lilypon-book} et d'autres détails utiles aux documents Texinfo
+sont mentionnés dans @ref{Utilisation de lilypond-book}.
+@endmorerefs
 
 
 @node HTML
@@ -564,57 +589,52 @@ Il suffit, pour inclure de la musique, d'utiliser l'une des instructions
 suivantes dans votre fichier source :
 
 @example
-<lilypond liste des options>
+<lilypond @var{liste} @var{des} @var{options}>
   VOTRE CODE LILYPOND
 </lilypond>
 
-<lilypond liste des options: VOTRE CODE LILYPOND />
+<lilypond @var{liste} @var{des} @var{options}: VOTRE CODE LILYPOND />
 
-<lilypondfile liste des options>@var{fichier}</lilypondfile>
+<lilypondfile @var{liste} @var{des} @var{options}>@var{fichier}</lilypondfile>
 
-<musicxmlfile liste des options>@var{fichier}</musicxmlfile>
+<musicxmlfile @var{liste} @var{des} @var{options}>@var{fichier}</musicxmlfile>
 @end example
 
-Il suffit, pour inclure de la musique, d'utiliser
+@noindent
+Par ailleurs, l'utilisation d'un @code{<lilypondversion/>} permet
+d'afficher la version de LilyPond utilisée.
+
+Par exemple, l'anvironnement @code{lilypond}
 
 @example
-<lilypond fragment relative=2>
-\key c \minor c4 es g2
+<lilypond quote fragment staffsize=26>
+  c'4 d' e' f' g'2 g'
 </lilypond>
 @end example
 
 @noindent
-@command{lilypond-book} produira alors un fichier HTML contenant les
-balises d'image pour les fragments de musique :
+produit
 
-@lilypond[fragment,relative=2]
-\key c \minor c4 es g2
+@lilypond[quote,fragment,staffsize=26]
+  c'4 d' e' f' g'2 g'
 @end lilypond
 
-Pour insérer l'image au fil du texte, il suffit d'utiliser
-@code{<lilypond @dots{} />}, tout en séparant options et musique par un
-caractère deux points, comme ici :
+La version abrégée
 
 @example
-De la musique <lilypond relative=2: a b c/> au milieu d'une ligne de texte.
+<lilypond quote fragment staffsize=11: <c' e' g'> />
 @end example
 
-Lorsque l'inclusion concerne des fichiers indépendants, utilisez
+@noindent
+produit
 
-@example
-<lilypondfile @var{option1} @var{option2}@dots{}>@var{fichier}</lilypondfile>
-@end example
+@lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
 
-La syntaxe pour @code{<musicXmlfile>} est identique à celle de
-@code{<lilypondfile>}, à ceci près qu'elle fait référence à un fichier
-MusicXML plutôt qu'à un fichier LilyPond.
-
-Une liste des différentes options utilisables avec les balises
-@code{lilypond} et @code{lilypondfile} est disponible, à la rubrique
-@ref{Options applicables aux fragments de musique}.
-
-Par ailleurs, la commande @code{<lilypondversion/>} vous permet
-d'afficher le numéro de version de LilyPond.
+@morerefs
+Certaines options de la ligne de commande spécfifiques à
+@command{lilypon-book} et d'autres détails utiles aux documents HTML
+sont mentionnés dans @ref{Utilisation de lilypond-book}.
+@endmorerefs
 
 @cindex titrage et HTML
 @cindex prévisualisation d'image
@@ -634,12 +654,12 @@ respecterons plutôt les conventions des éléments standard de DocBook.
 
 @subheading Conventions communes
 
-Quel que soit le type d'extrait à inclure, nous utiliserons les
-éléments @code{mediaobject} et @code{inlinemediaobject}, de telle sorte
-que ces inclusions soient incorporées directement ou non dans le
-document final.  Les options de formatage des extraits en question sont
-fournies par la propriété @code{role} de l'élément central -- voir les
-paragraphes suivants.  Les balises sont déterminées de manière à ce que
+Quel que soit le type d'extrait à inclure, nous utiliserons les éléments
+@code{mediaobject} et @code{inlinemediaobject}, de telle sorte que ces
+inclusions soient incorporées directement ou non dans le document final.
+Les options de formatage des extraits en question sont toujours fournies
+par la propriété @code{role} de l'élément central -- voir les
+paragraphes suivants. Les balises sont déterminées de manière à ce que
 les éditeurs DocBook prennent en charge du mieux possible leur contenu.
 Les fichiers DocBook destinés à un traitement par
 @command{lilypond-book} doivent avoir une extension @file{.lyxml}.
@@ -647,14 +667,15 @@ Les fichiers DocBook destinés à un traitement par
 
 @subheading Inclusion d'un fichier LilyPond
 
-Il s'agit en fait du cas le plus simple.  Le fichier à inclure doit
+Il s'agit ici du cas le plus simple.  Le fichier à inclure doit
 avoir une extension @file{.ly} et sera inséré comme n'importe quel
 @code{imageobject}, en respectant la structure suivante :
 
 @example
 <mediaobject>
   <imageobject>
-    <imagedata fileref="music1.ly" role="printfilename" />
+    <imagedata fileref="music1.ly"
+               role="printfilename" />
   </imageobject>
 </mediaobject>
 @end example
@@ -665,14 +686,16 @@ Vous pouvez utiliser, en tant que balise externe, aussi bien
 
 @subheading Inclusion de code LilyPond
 
-L'inclusion de code LilyPond se réalise à l'aide d'un
+L'inclusion de code LilyPond se réalise à l'aide d'un environnement
 @code{programlisting} auquel on associe le langage @code{lilypond}.  En
 voici la syntaxe :
 
 @example
 <inlinemediaobject>
   <textobject>
-    <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
+    <programlisting language="lilypond"
+                    role="fragment verbatim staffsize=16
+                          ragged-right relative=2">
 \context Staff \with @{
   \remove "Time_signature_engraver"
   \remove "Clef_engraver"@}
@@ -773,8 +796,43 @@ c'4
 sans @code{\layout}, @code{\score}, etc.
 
 @item nofragment
-N'ajoute rien à ce qui se trouve dans l'environnement LilyPond.  À noter
+N'ajoute rien à ce qui se trouve dans l'environnement LilyPond. À noter
 qu'il s'agit de l'option par défaut.
+
+@item inline
+Traite l'extrait pour une utilisation en ligne, autrement dit au fil du
+texte d'un paragraphe. L'extrait en lui-même est formaté avec un léger
+décalage à gauche (à peu près équivalent à celui sur la droite) tout en
+ignorant la valeur de l'option en ligne de commande donnée à
+@option{--left-padding}.
+
+Dans le cas d'une sortie Texinfo, ceci supprime l'insertion d'une ligne
+vide avant et après l'extrait. Dans le cas d'une sortie HTML, ceci
+supprime l'ensertion des @code{<p>} et @code{</p>} encadrant l'extrait.
+
+Afin que l'extrait apparaisse réellement au fil du texte dans les
+modes @LaTeX{} et Texinfo, il est nécessaire de la positionner au sein
+même du paragraphe, autrement dit éviter toute ligne vide avant et après
+l'extrait. Par exemple,
+
+@example
+Le motif
+\lilypond[inline,staffsize=11]@{
+  @{ \time 2/4 r8 g'[ g' g'] | es'2 @}
+@}
+est bien connu.
+@end example
+
+@noindent
+devient
+
+@indentedBlock
+Le motif
+@lilypond[inline,staffsize=11]{
+  { \time 2/4 r8 g'[ g' g'] | es'2 }
+}
+est bien connu.
+@endIndentedBlock
 
 @item indent=@var{taille}\@var{unité}
 Définit l'indentation du premier système à @var{taille}, exprimée en
@@ -1046,10 +1104,11 @@ Pour plus de détails, consultez la documentation de Texinfo.
 @item -f @var{format}
 @itemx --format=@var{format}
 Spécifie le type de document à traiter : @code{html}, @code{latex},
-@code{texi} (valeur par défaut) ou @code{docbook}.  Lorsque cette
-option n'est pas mentionnée, @command{lilypond-book} tente de déterminer
-automatiquement le format -- voir @ref{Extensions de nom de fichier}.  À
-l'heure actuelle, @code{texi} est équivalant à @code{texi-html}.
+@code{texi} (valeur par défaut), @code{texi-html} ou @code{docbook}.
+Lorsque cette option n'est pas mentionnée, @command{lilypond-book} tente
+de déterminer automatiquement le format -- voir
+@ref{Extensions de nom de fichier}. À l'heure actuelle, @code{texi-html}
+est équivalant à @code{texi}.
 
 @c This complicated detail is not implemented, comment it out -jm
 @ignore
@@ -1068,14 +1127,17 @@ jour de LilyPond aux extraits avant de traiter le fichier :
 lilypond-book --filter='convert-ly --from=2.0.0 -' mon-book.tely
 @end example
 
+@code{lilypond-book} n'autorise pas l'utilisation conjointe des options
+@option{--filter} et @option{--process}.
+
 @item -h
 @itemx --help
 Affiche un bref résumé des options.
 
 @item -I @var{dir}
 @itemx --include=@var{répertoire}
-Ajoute @var{répertoire} au chemin des inclusions.  Si des extraits ont
-déjà été compilés dans l'un des répertoires inclus,
+Ajoute @var{répertoire} au chemin des inclusions.  Lorsque des extraits
+ont déjà été compilés dans l'un des répertoires inclus,
 @command{lilypond-book} ne les réécrira pas dans le répertoire de
 sortie ; il sera donc nécessaire, dans la suite du traitement par
 @command{makeinfo} ou @command{latex}, de penser à utiliser cette même
@@ -1105,17 +1167,19 @@ cd out
 @end example
 
 @item --skip-lily-check
-Désactive la mise en échec en l'absence de sortie de lilypond.@*
-Option utilisée pour la documentation au format Info sans images.
+Désactive la mise en échec en l'absence de sortie de LilyPond.@*
+Option utilisée pour générer la documentation de LilyPond au format Info
+sans images.
 
 @item --skip-png-check
 Désactive la mise en échec en l'absence d'images PNG correspondant aux
 fichiers EPS.@*
-Option utilisée pour la documentation au format Info sans images.
+Option utilisée pour générer la documentation de LilyPond au format Info
+sans images.
 
 @item --lily-output-dir=@var{rép}
-Écrit les fichiers lily-XXX dans @var{rép} et crée un lien vers le
-répertoire spécifié par @code{--output}.  Cette option permet
+Écrit les fichiers @file{lily-@var{XXX}} dans @var{rép} et crée un lien
+vers le répertoire spécifié par @code{--output}. Cette option permet
 d'économiser du temps lors de la génération de documents qui se trouvent
 dans différents répertoires et partagent un certain nombre d'extraits
 identiques.
@@ -1123,9 +1187,9 @@ identiques.
 @item --lily-loglevel=@var{loglevel}
 Détermine le degré de verbosité lors des appels à @command{lilypond}.
 Les valeurs autorisée de @var{loglevel} sont : @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{BASIC_PROGRESS}, @code{PROGRESS},
-@code{INFO} (par défaut) et @code{DEBUG}.  Lorsque cette option n'est
-pas activée, c'est le niveau déterminé par la variable d'environnement
+@code{ERROR}, @code{WARNING}, @code{BASIC}, @code{PROGRESS}, @code{INFO}
+(par défaut) et @code{DEBUG}. Lorsque cette option n'est pas activée,
+c'est le niveau déterminé par la variable d'environnement
 @code{LILYPOND_LOGLEVEL} qui sera utilisé.
 
 @item --info-images-dir=@var{répertoire}
@@ -1133,29 +1197,39 @@ Formate la sortie Texinfo de telle sorte que Info cherche les images
 de musique dans @var{répertoire}.
 
 @item --latex-program=@var{programme}
-Utilise l'exécutable @command{programme} en lieu et place de
+Utilise l'exécutable @command{@var{programme}} en lieu et place de
 @command{latex}.  C'est l'option que vous utiliserez si vous préférez
 @command{xelatex} par exemple.
 
 @item --left-padding=@var{distance}
-Décale les figures EPS de @var{distance} -- exprimée en millimètres
+Insère du blanc à gauche de l'extrait LilyPond. @var{distance} est
+arrondie à un multiple de @dfn{big point} (bp) -- le bp correspond à
+1/72 pouce, soit environ 0,353 @dmn{mm}. @var{distance} est exprimée en
+millimètres @emph{relativement au début de la portée}. Sa valeur est par
+défaut de 3,175 @dmn{mm}, ce qui correpond à 9 @dmn{bp}.
 (3 par défaut).  Cette option est utile lorsque les lignes de musique
 débordent sur la marge droite.
 
-Rappelez-vous que la largeur d'un système dépend des élément contenus
-dans sa marge gauche, tels que numéro de mesure et nom d'instrument.
-Cette option permet de « raccourcir » les lignes et de les décaler vers
-la droite, de la distance donnée en argument.
+Rappelez-vous que la largeur d'un système dépend des élément positionnés
+à sa gauche, tels que numéro de mesure et nom d'instrument. Le décalage
+détermine la distance minimale entre le bord de l'image et le début de
+la portée (non indentée), ce qui permet d'obtenir un alignement vertical
+correct des extraits dans le document maître.
+
+Cette option permet de « raccourcir » les lignes de portée et de les
+décaler vers la droite, de la distance donnée en argument.
 
 @item -P @var{commande}
 @itemx --process=@var{commande}
-Traite les extraits LilyPond avec @var{commande}.  Par défaut, il s'agit
-de @code{lilypond}.@*
+Traite les extraits LilyPond avec @command{@var{commande}}. Par défaut,
+il s'agit de @code{lilypond}.@*
 Rappelez-vous que @code{lilypond-book} ne peut en même temps traiter
 l'option @option{--filter} et l'option @option{--process}.
 
 @item --pdf
-Crée des fichiers PDF pour les retraiter avec PDF@LaTeX{}.
+Crée des fichiers PDF. Si cette option n'est pas ddéfinie, seuls seront
+générés des fichiers PNG et EPS. Cette option permet d'intégrer
+directement du PDF dans des fichiers @LaTeX{} ou Texinfo.
 
 @item --redirect-lilypond-output
 Le résultat des commandes est habituellement affiché dans le terminal.
