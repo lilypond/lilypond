@@ -201,7 +201,7 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
   auto *const ref = LY_ASSERT_SMOB (Grob, refp, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
-  Axis a = Axis (scm_to_int (axis));
+  const auto a = from_scm<Axis> (axis);
 
   if (ref->common_refpoint (sc, a) != ref)
     {
@@ -220,7 +220,7 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
   auto *const ref = LY_ASSERT_SMOB (Grob, refp, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
-  Axis a = Axis (scm_to_int (axis));
+  const auto a = from_scm<Axis> (axis);
 
   if (ref->common_refpoint (sc, a) != ref)
     {
@@ -240,7 +240,7 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
   auto *const ref = LY_ASSERT_SMOB (Grob, refp, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
-  Axis a = Axis (scm_to_int (axis));
+  const auto a = from_scm<Axis> (axis);
 
   if (ref->common_refpoint (sc, a) != ref)
     {
@@ -259,7 +259,7 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
 
-  Grob *par = sc->get_parent (Axis (scm_to_int (axis)));
+  Grob *par = sc->get_parent (from_scm<Axis> (axis));
   return par ? par->self_scm () : SCM_EOL;
 }
 
@@ -271,8 +271,7 @@ LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   auto *const parent = LY_ASSERT_SMOB (Grob, parent_grob, 3);
 
-  Axis a = Axis (scm_to_int (axis));
-  gr->set_parent (parent, a);
+  gr->set_parent (parent, from_scm<Axis> (axis));
   return SCM_UNSPECIFIED;
 }
 
@@ -325,7 +324,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
   LY_ASSERT_TYPE (scm_is_number, d, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, a, 3);
 
-  me->translate_axis (scm_to_double (d), Axis (scm_to_int (a)));
+  me->translate_axis (scm_to_double (d), from_scm<Axis> (a));
   return SCM_UNSPECIFIED;
 }
 
@@ -354,7 +353,7 @@ LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
 
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
-  Grob *refp = gr->common_refpoint (o, Axis (scm_to_int (axis)));
+  Grob *refp = gr->common_refpoint (o, from_scm<Axis> (axis));
   return refp ? refp->self_scm () : SCM_BOOL_F;
 }
 
@@ -367,7 +366,8 @@ LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
   auto *const ga = LY_ASSERT_SMOB (Grob_array, others, 2);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 3);
 
-  Grob *refp = common_refpoint_of_array (ga->array (), gr, Axis (scm_to_int (axis)));
+  const auto a = from_scm<Axis> (axis);
+  Grob *refp = common_refpoint_of_array (ga->array (), gr, a);
   return refp ? refp->self_scm () : SCM_BOOL_F;
 }
 

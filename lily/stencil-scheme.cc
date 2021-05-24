@@ -118,7 +118,7 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
 
   Real real_amount = scm_to_double (amount);
 
-  s.translate_axis (real_amount, Axis (scm_to_int (axis)));
+  s.translate_axis (real_amount, from_scm<Axis> (axis));
   return s.smobbed_copy ();
 }
 
@@ -152,7 +152,7 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
   auto *const s = LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
 
-  return to_scm (s->extent (Axis (scm_to_int (axis))));
+  return to_scm (s->extent (from_scm<Axis> (axis)));
 }
 
 LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
@@ -165,7 +165,7 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
   if (SCM_UNBNDP (axis))
     return scm_from_bool (s->is_empty ());
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
-  return scm_from_bool (s->is_empty (Axis (scm_to_int (axis))));
+  return scm_from_bool (s->is_empty (from_scm<Axis> (axis)));
 }
 
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
@@ -201,7 +201,7 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
     result = *s1;
 
   if (s2)
-    result.add_at_edge (Axis (scm_to_int (axis)),
+    result.add_at_edge (from_scm<Axis> (axis),
                         Direction (scm_to_int (direction)), *s2, p);
 
   scm_remember_upto_here_2 (first, second);
@@ -254,7 +254,7 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
     result = *s1;
 
   if (s2)
-    result.stack (Axis (scm_to_int (axis)),
+    result.stack (from_scm<Axis> (axis),
                   Direction (scm_to_int (direction)), *s2, p, d);
 
   scm_remember_upto_here_2 (first, second);
