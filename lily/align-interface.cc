@@ -42,10 +42,7 @@ Align_interface::align_to_minimum_distances (SCM smob)
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
-  SCM axis = scm_car (get_property (me, "axes"));
-  Axis ax = Axis (scm_to_int (axis));
-
-  Align_interface::align_elements_to_minimum_distances (me, ax);
+  Align_interface::align_elements_to_minimum_distances (me, axis (me));
 
   return SCM_BOOL_T;
 }
@@ -338,7 +335,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, vsize start, 
 Axis
 Align_interface::axis (Grob *me)
 {
-  return Axis (scm_to_int (scm_car (get_property (me, "axes"))));
+  return from_scm<Axis> (scm_car (get_property (me, "axes")), X_AXIS);
 }
 
 void
