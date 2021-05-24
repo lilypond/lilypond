@@ -79,7 +79,7 @@ Bezier::Bezier (const ly_scm_list &control_points)
 Real
 Bezier::get_other_coordinate (Axis a, Real x) const
 {
-  Axis other = Axis ((a + 1) % NO_AXES);
+  auto other = other_axis (a);
   vector<Real> ts = solve_point (a, x);
 
   if (ts.size () == 0)
@@ -297,9 +297,8 @@ Bezier::minmax (Axis ax, Real l, Real r, Direction d) const
 Interval
 Bezier::extent (Axis a) const
 {
-  int o = (a + 1) % NO_AXES;
   Offset d;
-  d[Axis (o)] = 1.0;
+  d[other_axis (a)] = 1.0;
   Interval iv;
   vector<Real> sols (solve_derivative (d));
   sols.push_back (1.0);

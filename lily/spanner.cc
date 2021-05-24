@@ -80,9 +80,9 @@ Spanner::do_break_processing ()
         Check if our parent in X-direction spans equally wide
         or wider than we do.
       */
-      for (int a = X_AXIS; a < NO_AXES; a++)
+      for (const auto a : {X_AXIS, Y_AXIS})
         {
-          if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
+          if (auto *parent = dynamic_cast<Spanner *> (get_parent (a)))
             parent_rank_slice.intersect (parent->spanned_rank_interval ());
         }
 

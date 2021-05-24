@@ -249,9 +249,9 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
         if (fake_collisions[j]->get_system () == beams[i]->get_system ())
           collisions.push_back (fake_collisions[j]);
 
-      Grob *common[2];
-      for (int a = 2; a--;)
-        common[a] = common_refpoint_of_array (stems, beams[i], Axis (a));
+      Grob *common[NO_AXES];
+      for (const auto a : {X_AXIS, Y_AXIS})
+        common[a] = common_refpoint_of_array (stems, beams[i], a);
 
       for (const auto d : {LEFT, RIGHT})
         common[X_AXIS] = beams[i]->get_bound (d)->common_refpoint (common[X_AXIS], X_AXIS);
@@ -347,7 +347,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
             continue;
 
           Box b;
-          for (Axis a = X_AXIS; a < NO_AXES; incr (a))
+          for (const auto a : {X_AXIS, Y_AXIS})
             b[a] = collisions[j]->extent (common[a], a);
 
           if (b[X_AXIS][RIGHT] < x_pos[LEFT] || b[X_AXIS][LEFT] > x_pos[RIGHT])

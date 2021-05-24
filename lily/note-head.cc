@@ -181,10 +181,8 @@ Note_head::get_stem_attachment (Font_metric *fm, const string &key,
       Offset wxwy;
       bool rotate;
       std::tie (wxwy, rotate) = fm->attachment_point (key, dir);
-      for (int i = X_AXIS; i < NO_AXES; i++)
+      for (const auto a : {X_AXIS, Y_AXIS})
         {
-          Axis a = Axis (i);
-
           Interval v = b[a];
           if (!v.is_empty ())
             {

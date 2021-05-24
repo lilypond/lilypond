@@ -188,9 +188,8 @@ Slur_score_state::get_bound_info () const
             {
               extremes[d].stem_dir_ = get_grob_direction (extremes[d].stem_);
 
-              for (int a = X_AXIS; a < NO_AXES; a++)
+              for (const auto ax : {X_AXIS, Y_AXIS})
                 {
-                  Axis ax = Axis (a);
                   Interval s = extremes[d].stem_->extent (common_[ax], ax);
                   if (extremes[d].flag_)
                     s.unite (extremes[d].flag_->extent (common_[ax], ax));
@@ -256,9 +255,8 @@ Slur_score_state::fill (Grob *me)
 
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
-  for (int i = X_AXIS; i < NO_AXES; i++)
+  for (const auto a : {X_AXIS, Y_AXIS})
     {
-      Axis a = (Axis)i;
       common_[a] = common_refpoint_of_array (columns, me, a);
       common_[a] = common_refpoint_of_array (extra_objects, common_[a], a);
 
@@ -612,9 +610,9 @@ Slur_score_state::get_base_attachments () const
 
   for (const auto d : {LEFT, RIGHT})
     {
-      for (int a = X_AXIS; a < NO_AXES; a++)
+      for (const auto a : {X_AXIS, Y_AXIS})
         {
-          Real &b = base_attachment[d][Axis (a)];
+          Real &b = base_attachment[d][a];
 
           if (!std::isfinite (b))
             {

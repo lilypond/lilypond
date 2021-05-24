@@ -17,10 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AXES_HH
-#define AXES_HH
-
-#include <cassert>
+#ifndef AXIS_HH
+#define AXIS_HH
 
 enum Axis
 {
@@ -29,20 +27,10 @@ enum Axis
   NO_AXES = 2,
 };
 
-static inline
-Axis
-incr (Axis &a)
-{
-  assert (a < NO_AXES);
-  a = Axis (int (a) + 1);
-  return a;
-}
-
-static inline
-Axis
+constexpr Axis
 other_axis (Axis a)
 {
   return a == Y_AXIS ? X_AXIS : Y_AXIS;
 }
 
-#endif // AXES_HH
+#endif // AXIS_HH

@@ -53,8 +53,7 @@ Line_interface::make_trill_line (Grob *me,
                                  Offset to)
 {
   Offset dz = (to - from);
-  Axis a = X_AXIS;
-  while (a < NO_AXES)
+  for (const auto a : {X_AXIS, Y_AXIS})
     {
       if (std::isinf (dz[a]) || std::isnan (dz[a]) || fabs (dz[a]) > 1e6)
         {
@@ -65,7 +64,6 @@ Line_interface::make_trill_line (Grob *me,
           if (strict_infinity_checking)
             scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
         }
-      incr (a);
     }
 
   Font_metric *fm = Font_interface::get_default_font (me);

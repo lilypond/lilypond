@@ -386,9 +386,9 @@ Stencil
 Lookup::frame (Box b, Real thick, Real blot)
 {
   Stencil m;
-  for (Axis a = X_AXIS; a < NO_AXES; a = Axis (a + 1))
+  for (const auto a : {X_AXIS, Y_AXIS})
     {
-      Axis o = Axis ((a + 1) % NO_AXES);
+      const auto o = other_axis (a);
       for (const auto d : {LEFT, RIGHT})
         {
           Box edges;

@@ -22,16 +22,16 @@
 void
 Box::translate (Offset o)
 {
-  for (Axis i = X_AXIS; i < NO_AXES; incr (i))
-    if (!is_empty (i))
-      interval_a_[i] += o[i];
+  for (const auto a : {X_AXIS, Y_AXIS})
+    if (!is_empty (a))
+      interval_a_[a] += o[a];
 }
 
 void
 Box::unite (Box b)
 {
-  for (Axis i = X_AXIS; i < NO_AXES; incr (i))
-    interval_a_[i].unite (b[i]);
+  for (const auto a : {X_AXIS, Y_AXIS})
+    interval_a_[a].unite (b[a]);
 }
 
 Real

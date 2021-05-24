@@ -199,13 +199,15 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
   set<Grob *> support = get_support_set (me);
 
-  Grob *common[2];
-  for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
-    common[ax] = common_refpoint_of_array (support,
-                                           (ax == a
-                                            ? me->get_parent (ax)
-                                            : me),
-                                           ax);
+  Grob *common[NO_AXES];
+  for (const auto ax : {X_AXIS, Y_AXIS})
+    {
+      common[ax] = common_refpoint_of_array (support,
+                                             (ax == a
+                                              ? me->get_parent (ax)
+                                              : me),
+                                             ax);
+    }
 
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
   bool quantize_position = from_scm<bool> (get_maybe_pure_property (me, "quantize-position", pure, start, end));

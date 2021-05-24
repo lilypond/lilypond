@@ -97,7 +97,7 @@ Grob::Grob (Grob const &s)
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
 
-  for (Axis a = X_AXIS; a < NO_AXES; incr (a))
+  for (const auto a : {X_AXIS, Y_AXIS})
     dim_cache_ [a] = s.dim_cache_ [a];
 
   interfaces_ = s.interfaces_;
@@ -274,7 +274,7 @@ Grob::suicide ()
   if (!is_live ())
     return;
 
-  for (int a = X_AXIS; a < NO_AXES; a++)
+  for (const auto a : {X_AXIS, Y_AXIS})
     dim_cache_[a].clear ();
 
   mutable_property_alist_ = SCM_EOL;
@@ -567,9 +567,8 @@ Grob::common_refpoint (Grob const *s, Axis a) const
 void
 Grob::fixup_refpoint ()
 {
-  for (int a = X_AXIS; a < NO_AXES; a++)
+  for (const auto ax : {X_AXIS, Y_AXIS})
     {
-      Axis ax = (Axis)a;
       Grob *parent = get_parent (ax);
 
       if (!parent)

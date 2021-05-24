@@ -616,8 +616,8 @@ System::get_paper_system ()
         continue;
 
       Offset o;
-      for (int a = X_AXIS; a < NO_AXES; a++)
-        o[Axis (a)] = g->relative_coordinate (this, Axis (a));
+      for (const auto a : {X_AXIS, Y_AXIS})
+        o[a] = g->relative_coordinate (this, a);
 
       Offset extra = from_scm (get_property (g, "extra-offset"),
                                Offset (0, 0))

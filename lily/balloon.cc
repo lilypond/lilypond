@@ -126,9 +126,8 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
 
   Offset z1;
 
-  for (int i = X_AXIS; i < NO_AXES; i++)
+  for (const auto a : {X_AXIS, Y_AXIS})
     {
-      Axis a ((Axis)i);
       z1[a] = b[a].linear_combination (sign (off[a]));
       text_stil.align_to (a, -sign (off[a]));
     }

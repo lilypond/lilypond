@@ -1086,9 +1086,9 @@ Beam::set_stem_lengths (SCM smob)
   if (!stems.size ())
     return posns;
 
-  Grob *common[2];
-  for (int a = 2; a--;)
-    common[a] = common_refpoint_of_array (stems, me, Axis (a));
+  Grob *common[NO_AXES];
+  for (const auto a : {X_AXIS, Y_AXIS})
+    common[a] = common_refpoint_of_array (stems, me, a);
 
   Drul_array<Real> pos = from_scm<Drul_array<Real>> (posns);
   Real staff_space = Staff_symbol_referencer::staff_space (me);

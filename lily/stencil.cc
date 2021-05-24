@@ -148,8 +148,7 @@ Stencil::rotate_degrees (Real a, Offset relative_off)
 void
 Stencil::translate (Offset o)
 {
-  Axis a = X_AXIS;
-  while (a < NO_AXES)
+  for (const auto a : {X_AXIS, Y_AXIS})
     {
       if (std::isinf (o[a])
           || std::isnan (o[a])
@@ -164,7 +163,6 @@ Stencil::translate (Offset o)
           if (strict_infinity_checking)
             scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
         }
-      incr (a);
     }
 
   if (!scm_is_null (expr_))

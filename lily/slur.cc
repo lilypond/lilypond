@@ -333,14 +333,14 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     }
   else
     {
-      for (int a = X_AXIS; a < NO_AXES; a++)
+      for (const auto a : {X_AXIS, Y_AXIS})
         {
           for (const auto d : {LEFT, RIGHT})
             {
-              vector<Real> coords = curve.get_other_coordinates (Axis (a), exts[a][d]);
+              vector<Real> coords = curve.get_other_coordinates (a, exts[a][d]);
               for (vsize i = 0; i < coords.size (); i++)
                 {
-                  do_shift = exts[(a + 1) % NO_AXES].contains (coords[i]);
+                  do_shift = exts[other_axis (a)].contains (coords[i]);
                   if (do_shift)
                     break;
                 }
