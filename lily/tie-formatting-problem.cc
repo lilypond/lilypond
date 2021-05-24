@@ -97,13 +97,6 @@ Tie_formatting_problem::Tie_formatting_problem ()
   use_horizontal_spacing_ = true;
 }
 
-Tie_formatting_problem::~Tie_formatting_problem ()
-{
-  for (Tie_configuration_map::const_iterator i (possibilities_.begin ());
-       i != possibilities_.end (); i++)
-    delete (*i).second;
-}
-
 void
 Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
                                                   Direction dir,
@@ -467,19 +460,23 @@ Tie_formatting_problem::get_configuration (int pos, Direction dir, Drul_array<in
   Tie_configuration_map::const_iterator f = possibilities_.find (key);
   if (f != possibilities_.end ())
     {
-      return (*f).second;
+      return f->second.get ();
     }
 
-  Tie_configuration *conf = generate_configuration (pos, dir, columns, tune_dy);
-  ((Tie_formatting_problem *) this)->possibilities_[key] = conf;
-  return conf;
+  // Does it actually make sense to call this function const?
+  auto *const me = const_cast<Tie_formatting_problem *> (this);
+
+  auto conf = generate_configuration (pos, dir, columns, tune_dy);
+  auto *alias = conf.get ();
+  me->possibilities_[key] = std::move (conf);
+  return alias;
 }
 
-Tie_configuration *
+std::unique_ptr<Tie_configuration>
 Tie_formatting_problem::generate_configuration (int pos, Direction dir,
                                                 Drul_array<int> columns, bool y_tune) const
 {
-  Tie_configuration *conf = new Tie_configuration;
+  std::unique_ptr<Tie_configuration> conf (new Tie_configuration);
   conf->position_ = pos;
   conf->dir_ = dir;
 

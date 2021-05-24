@@ -28,10 +28,12 @@
 
 #include <array>
 #include <map>
+#include <memory>
 #include <set>
 #include <vector>
 
-typedef std::map<std::array<int, 4>, Tie_configuration *> Tie_configuration_map;
+using Tie_configuration_map
+  = std::map<std::array<int, 4>, std::unique_ptr<Tie_configuration>>;
 
 struct Tie_configuration_variation
 {
@@ -64,7 +66,9 @@ class Tie_formatting_problem
   Grob *y_refpoint_;
 
   Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
-  Tie_configuration *generate_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
+  std::unique_ptr<Tie_configuration>
+  generate_configuration (int position, Direction dir, Drul_array<int> cols,
+                          bool tune_y) const;
 
   std::vector<Tie_configuration_variation> generate_collision_variations (Ties_configuration const &ties) const;
   std::vector<Tie_configuration_variation> generate_extremal_tie_variations (Ties_configuration const &ties) const;
@@ -92,7 +96,7 @@ public:
 
 public:
   Tie_formatting_problem ();
-  ~Tie_formatting_problem ();
+  ~Tie_formatting_problem () = default;
 
   Tie_specification get_tie_specification (int) const;
   Ties_configuration generate_optimal_configuration ();
