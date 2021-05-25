@@ -292,11 +292,17 @@ problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
-
+     (extroversion ,number? "For polygons, how the thickness of the
+line is spread on each side of the exact polygon whith ideal zero
+thickness.  If this is@tie{}0, the middle of line is on the polygon.
+If@tie{}1, the line sticks out of the polygon.  If@tie{}-1, the outer
+side of the line is exactly on the polygon.  Other numeric values
+are interpolated.")
 
 ;;;
 ;;; f
 ;;;
+     (filled ,boolean? "Whether an object is filled with ink.")
      (flag-count ,number? "The number of tremolo beams.")
      (flag-style ,symbol? "The style of the flag to be used with
 @code{MetronomeMark}. Available are @code{'modern-straight-flag},
@@ -923,6 +929,9 @@ it.")
 shortest note playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
+     (show-control-points ,boolean? "For grobs printing Bézier
+curves, setting this property to true causes the control points
+and control polygon to be drawn on the page for ease of tweaking.")
      (side-axis ,number? "If the value is @code{X} (or
 equivalently@tie{}@code{0}), the object is placed horizontally next to
 the other object.  If the value is @code{Y} or@tie{}@code{1}, it is
@@ -1280,6 +1289,8 @@ function is to protect objects from being garbage collected.")
      (bars ,ly:grob-array? "An array of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
      (beam-segments ,list? "Internal representation of beam segments.")
+     (bezier ,ly:grob? "A pointer to a Bézier curve, for use by
+control points and polygons.")
      (bound-alignment-interfaces ,list "Interfaces to be used
 for positioning elements that align with a column.")
      (bounded-by-me ,ly:grob-array? "An array of spanners that have this
@@ -1446,6 +1457,8 @@ of the group are @code{cross-staff}.")
 @var{strength}))} pairs.")
      (important-column-ranks ,vector? "A cache of columns that contain
 @code{items-worth-living} data.")
+     (index ,index? "For some grobs in a group, this is a
+number associated with the grob.")
      (interfaces ,list? "A list of symbols indicating the interfaces
 supported by this object.  It is initialized from the @code{meta} field.")
 

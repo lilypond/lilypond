@@ -66,6 +66,14 @@ which scares away people.
 @end ignore
 
 @item
+The new command @code{\vshape} is like @code{\shape}, but also shows
+the control points and polygon for easier tweaking.
+
+@lilypond[verbatim,quote]
+{ a1\vshape #'((0 . 0) (0 . 0.5) (0 . 0.9) (0 . 0.4))^( c'1) }
+@end lilypond
+
+@item
 Support for alternate accidentals was improved.  Through the
 @code{alterationGlyphs} property of staff-like contexts,
 accidental glyphs may be set for all grobs at once

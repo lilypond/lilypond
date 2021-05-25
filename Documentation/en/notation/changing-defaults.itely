@@ -4757,16 +4757,38 @@ note.
 Third-order or cubic Bézier curves are defined by four control
 points.  The first and fourth control points are precisely the
 starting and ending points of the curve.  The intermediate two
-control points define the shape.  Animations showing how the curve
-is drawn can be found on the web, but the following description
-may be helpful.  The curve starts from the first control point
-heading directly towards the second, gradually bending over to
-head towards the third and continuing to bend over to head towards
-the fourth, arriving there travelling directly from the third
+control points define the shape.  Animations showing how the
+curve is drawn can be found on the web, but the following
+description and image may be helpful.  The curve starts from the first
+control point heading directly towards the second, gradually bending
+over to head towards the third and continuing to bend over to head
+towards the fourth, arriving there travelling directly from the third
 control point.  The curve is entirely contained in the
-quadrilateral defined by the four control points.  Translations,
-rotations and scaling of the control points all result in exactly
-the same operations on the curve.
+quadrilateral defined by the four control points.
+
+@lilypond
+\markup \pad-around #0.5
+\score {
+  \new Staff \with {
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
+  }
+  \new Voice \with {
+    \hide NoteHead
+    \omit Stem
+  }
+  {
+    \vshape #'((-2 . 0) (-1 . 2) (1 . 1.5) (2 . -2)) Slur
+    c( c)
+  }
+}
+@end lilypond
+
+Translations, rotations and scaling of the control points all result in
+exactly the same operations on the curve.
+
+
 
 @subsubsubheading Specifying displacements from current control points
 
@@ -4841,9 +4863,23 @@ the alternative @code{\tweak} form:
 >>
 @end lilypond
 
-Changes to the horizontal positions of the control points may be made
-in the same way, and two different curves starting at the same
-musical moment may also be shaped:
+To aid the tweaking process, the @code{\vshape} function is provided.
+Its name means @emph{visual shape}: it acts exactly like @code{\shape},
+except that the control points and polygon are additionally displayed.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c''8(\( a) e4 gis a\)
+  \vshape #'((0 . -0.3) (0.5 . -0.2) (0.5 . -0.3) (0 . -0.7)) PhrasingSlur
+  c8(\( a) e4 gis a\)
+}
+@end lilypond
+
+It is advisable to start with @code{\vshape} and adjust until a satisfactory
+curve is obtained, then simply remove the @qq{v} letter in @code{\vshape}.
+
+Two different curves starting at the same musical moment may also
+be shaped:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative {

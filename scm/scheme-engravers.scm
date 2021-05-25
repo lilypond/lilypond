@@ -1056,3 +1056,87 @@ vertical position.")))
 If a grob has its @code{underlying-spanner} object set, the engraver tracks
 that spanner.  When it ends, the grob attached to it has its
 end announced too, and takes its bounds from the spanner.")))
+
+;; TODO: maybe use the same function for footnotes and balloons?
+(define (engraver-make-sticky-grob engraver item-type spanner-type victim cause)
+  "Create a grob sticking to another grob.  The other grob can be an item or
+a spanner, and the sticky grob is brewed with the same class, choosing
+between @code{item-type} and @code{spanner-type}.  The other grob is systematically
+made the Y@tie{}parent of the sticky grob.  On the X@tie{}axis, sticky items also
+have the other grob as parent.  Sticky spanners have the same bounds as
+the other grob, and their end is announced as soon as the other grob has
+its end announced."
+  (let* ((is-item (ly:item? victim))
+         (appropriate-type (if is-item item-type spanner-type))
+         (sticky-grob (ly:engraver-make-grob engraver appropriate-type cause)))
+    (ly:grob-set-parent! sticky-grob Y victim)
+    (if is-item
+        (ly:grob-set-parent! sticky-grob X victim)
+        (ly:grob-set-object! sticky-grob 'underlying-spanner victim))
+    sticky-grob))
+
+(define (Show_control_points_engraver context)
+  ;; The usual ties and slurs are spanners, but semi-ties
+  ;; (laissez vibrer and repeat ties) are items.  We create
+  ;; grobs of either class accordingly.
+  (let ((beziers-found '()))
+    (make-engraver
+      (acknowledgers
+        ;; Keep the origin engraver of each Bézier so as to
+        ;; create the control points from it.  Rationale:
+        ;; the engraver is in Score because otherwise its
+        ;; process-acknowledged slot could be called before
+        ;; the Tweak_engraver has had a chance to set
+        ;; the show-control-points property.  Having it
+        ;; in Score also makes \vshape work everywhere including
+        ;; in custom context types where (for instance) the
+        ;; Slur_engraver is consisted.  Creating the control
+        ;; points from the origin engraver allows overrides
+        ;; to be directed to the same context as slurs, and
+        ;; could be useful for a custom engraver acknowledging
+        ;; the control points.
+        ((bezier-curve-interface engraver bezier source-engraver)
+           (set! beziers-found
+                 (cons (cons bezier source-engraver)
+                       beziers-found))))
+      ((process-acknowledged engraver)
+         (for-each
+           (lambda (bezier-engraver-pair)
+             (let ((bezier (car bezier-engraver-pair))
+                   (source-engraver (cdr bezier-engraver-pair)))
+               (if (ly:grob-property bezier 'show-control-points #f)
+                   (begin
+                     ; Create control polygon.
+                     (let ((polygon
+                             (engraver-make-sticky-grob source-engraver
+                                                        'ControlPolygonItem
+                                                        'ControlPolygonSpanner
+                                                        bezier
+                                                        bezier)))
+                       (ly:grob-set-object! polygon 'bezier bezier))
+                     ; Create four control points.
+                     (for-each
+                       (lambda (i)
+                          (let ((point
+                                  (engraver-make-sticky-grob source-engraver
+                                                             'ControlPointItem
+                                                             'ControlPointSpanner
+                                                             bezier
+                                                             bezier)))
+                            (ly:grob-set-property! point 'index i)
+                            (ly:grob-set-object! point 'bezier bezier)))
+                       (iota 4))))))
+           beziers-found)
+         (set! beziers-found '())))))
+
+(ly:register-translator
+ Show_control_points_engraver 'Show_control_points_engraver
+ '((grobs-created . (ControlPolygonItem
+                     ControlPolygonSpanner
+                     ControlPointItem
+                     ControlPointSpanner))
+   (events-accepted . ())
+   (properties-read . ())
+   (properties-written . ())
+   (description . "Create grobs to visualize control points of Bézier
+curves (ties and slurs) for ease of tweaking.")))

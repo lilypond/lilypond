@@ -739,6 +739,74 @@
                  (interfaces . (cluster-beacon-interface
                                 rhythmic-grob-interface))))))
 
+    (ControlPointItem
+     . (
+        (color . "IndianRed")
+        (horizontal-skylines . #f)
+        (layer . 3)
+        (text . ,(make-draw-circle-markup 0.3 0.01 #t))
+        (stencil . ,ly:text-interface::print)
+        (vertical-skylines . #f)
+        (X-extent . #f)
+        (X-offset . ,(control-point::calc-offset X))
+        (Y-extent . #f)
+        (Y-offset . ,(control-point::calc-offset Y))
+        (meta . ((class . Item)
+                 (interfaces . (control-point-interface
+                                text-interface))))))
+
+    (ControlPointSpanner
+     . (
+        (color . "IndianRed")
+        (horizontal-skylines . #f)
+        (layer . 3)
+        (text . ,(make-draw-circle-markup 0.3 0.01 #t))
+        (stencil . ,ly:text-interface::print)
+        (vertical-skylines . #f)
+        (X-extent . #f)
+        (X-offset . ,(control-point::calc-offset X))
+        (Y-extent . #f)
+        (Y-offset . ,(control-point::calc-offset Y))
+        (meta . ((class . Spanner)
+                 (interfaces . (attached-spanner-interface
+                                control-point-interface
+                                text-interface))))))
+
+    (ControlPolygonItem
+     . (
+        (color . "BurlyWood")
+        (extroversion . 0.5)
+        (filled . #f)
+        (horizontal-skylines . #f)
+        (layer . 2)
+        (text . ,control-polygon::calc-text)
+        (thickness . 1.2)
+        (stencil . ,ly:text-interface::print)
+        (vertical-skylines . #f)
+        (X-extent . #f)
+        (Y-extent . #f)
+        (meta . ((class . Item)
+                 (interfaces . (control-polygon-interface
+                                text-interface))))))
+
+    (ControlPolygonSpanner
+     . (
+        (color . "BurlyWood")
+        (extroversion . 0.5)
+        (filled . #f)
+        (horizontal-skylines . #f)
+        (layer . 2)
+        (text . ,control-polygon::calc-text)
+        (thickness . 1.2)
+        (stencil . ,ly:text-interface::print)
+        (vertical-skylines . #f)
+        (X-extent . #f)
+        (Y-extent . #f)
+        (meta . ((class . Spanner)
+                 (interfaces . (attached-spanner-interface
+                                control-polygon-interface
+                                text-interface))))))
+
     (CombineTextScript
      . (
         (avoid-slur . outside)
@@ -1540,7 +1608,8 @@
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (semi-tie-interface
+                 (interfaces . (bezier-curve-interface
+                                semi-tie-interface
                                 tie-interface))))))
 
     (LaissezVibrerTieColumn
@@ -2106,7 +2175,8 @@
         (vertical-skylines . ,(ly:make-unpure-pure-container ly:slur::vertical-skylines ly:grob::pure-simple-vertical-skylines-from-extents))
         (Y-extent . ,slur::height)
         (meta . ((class . Spanner)
-                 (interfaces . (outside-staff-interface
+                 (interfaces . (bezier-curve-interface
+                                outside-staff-interface
                                 slur-interface))))))
 
     ;; an example of a text spanner
@@ -2182,7 +2252,8 @@
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (semi-tie-interface
+                 (interfaces . (bezier-curve-interface
+                                semi-tie-interface
                                 tie-interface))))))
 
     (RepeatTieColumn
@@ -2277,7 +2348,8 @@
         (vertical-skylines . ,(ly:make-unpure-pure-container ly:slur::vertical-skylines ly:grob::pure-simple-vertical-skylines-from-extents))
         (Y-extent . ,slur::height)
         (meta . ((class . Spanner)
-                 (interfaces . (outside-staff-interface
+                 (interfaces . (bezier-curve-interface
+                                outside-staff-interface
                                 slur-interface))))))
 
     (SostenutoPedal
@@ -2795,7 +2867,8 @@
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (thickness . 1.2)
         (meta . ((class . Spanner)
-                 (interfaces . (tie-interface))))))
+                 (interfaces . (bezier-curve-interface
+                                tie-interface))))))
 
     (TieColumn
      . (

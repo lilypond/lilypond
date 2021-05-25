@@ -586,6 +586,7 @@ run."
   \consists "Beam_collision_engraver"
   \consists "Footnote_engraver"
   \consists "Centered_bar_number_align_engraver"
+  \consists "Show_control_points_engraver"
 
   \defaultchild "Staff"
 

@@ -2168,6 +2168,12 @@ volta =
 Volta number begins at 1 and increases by 1 with each repetition.")
    (volta-spec-music volta-numbers music))
 
+vshape =
+#(define-music-function (offsets item)
+   (list? key-list-or-music?)
+   "Like @code{\\shape}, but additionally show control points for
+ease of tweaking."
+   (once (propertyTweak 'show-control-points #t (shape offsets item))))
 
 withMusicProperty =
 #(define-music-function (sym val music)

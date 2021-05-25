@@ -686,6 +686,9 @@ right (@var{dir}=+1)."
 (define coord-x car)
 (define coord-y cdr)
 
+(define (coord-axis coords axis)
+  ((if (eqv? axis X) car cdr) coords))
+
 (define (coord-operation operator operand coordinate)
   (if (pair? operand)
       (cons (operator (coord-x operand) (coord-x coordinate))

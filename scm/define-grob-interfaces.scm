@@ -148,6 +148,11 @@ arrow head of the @code{BendSpanner}.\n
     bend-me))
 
 (ly:add-interface
+ 'bezier-curve-interface
+ "A Bézier curve (tie, slur, etc.)"
+ '(show-control-points))
+
+(ly:add-interface
  'centered-bar-number-interface
  "A measure-centered bar number."
  '())
@@ -170,6 +175,18 @@ vertical position."
 or above clef sign. Usually this is 8 (octave transposition)
 or 15 (two octaves), but LilyPond allows any integer here."
  '(clef-alignments))
+
+(ly:add-interface
+ 'control-point-interface
+  "A grob used to visualize one control point of a Bézier curve
+(such as a tie or a slur), for ease of tweaking."
+  '(bezier index))
+
+(ly:add-interface
+ 'control-polygon-interface
+ "A grob used to visualize the control polygon of a Bézier curve
+(such as a tie or a slur), for ease of tweaking."
+ '(bezier extroversion filled))
 
 (ly:add-interface
  'duration-line-interface

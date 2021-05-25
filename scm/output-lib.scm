@@ -3012,6 +3012,21 @@ which is the default."
              (else (ly:line-spanner::print grob))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; control points and polygons
+
+(define-public ((control-point::calc-offset axis) grob)
+  (let* ((bezier (ly:grob-object grob 'bezier))
+         (control-points (ly:grob-property bezier 'control-points))
+         (index (ly:grob-property grob 'index))
+         (offset (list-ref control-points index)))
+    (coord-axis offset axis)))
+
+(define-public (control-polygon::calc-text grob)
+  (let* ((bezier (ly:grob-object grob 'bezier))
+         (control-points (ly:grob-property bezier 'control-points)))
+    (make-polygon-markup control-points)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro
 
 (defmacro-public make-engraver forms
