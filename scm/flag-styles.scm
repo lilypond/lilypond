@@ -93,7 +93,7 @@ All lengths are scaled according to the font size of the note."
              (offset-add flag-end thickness-offset)
              thickness-offset))
            (points (map (lambda (coord) (offset-add coord start)) raw-points))
-           (stencil (ly:round-filled-polygon points half-stem-thickness))
+           (stencil (ly:round-polygon points half-stem-thickness -1.0))
            ;; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflag stencil (- log 3) stencil spacing))
            (stroke-style (ly:grob-property grob 'stroke-style)))

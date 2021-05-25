@@ -4340,13 +4340,25 @@ def conv(s):
                r'(lily \1)', s)
     return s
 
+round_filled_polygon_warning = r"""
+ly:round-filled-polygon was renamed to ly:round-polygon and now takes
+an additional optional parameter specifying whether the polygon is filled.
+The default value of the extroversion optional parameter was changed from
+-1 to 0.
+"""
+
 @rule((2, 23, 3), r"""
 glyph-name-alist -> alteration-glyph-name-alist
+ly:round-filled-polygon -> ly:round-polygon
 """)
 def conv(s):
     # The negative lookbehind assertion is to avoid matching
     # standard-alteration-glyph-name-alist and similar.
     s = re.sub(r"(?<!-)glyph-name-alist", "alteration-glyph-name-alist", s)
+    if "ly:round-filled-polygon" in s:
+        stderr_write(NOT_SMART % "ly:round-filled-polygon")
+        stderr_write(round_filled_polygon_warning)
+        stderr_write(UPDATE_MANUALLY)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

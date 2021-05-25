@@ -145,6 +145,13 @@ determines the space between markups in @var{args}.
 ;; geometric shapes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; TODO: clean this up a bit.  User interfaces are not consistent.
+;; - filled is sometimes a parameter, sometimes a property. blot
+;;   likewise (called corner-radius for \rounded-box).
+;; - Not all \xxx commands that draw something around an argument
+;;   have a \draw-xxx counterpart drawing the shape in a standalone
+;;   fashion.
+
 (define-markup-command (draw-line layout props dest)
   (number-pair?)
   #:category graphic
@@ -412,6 +419,9 @@ controls what fraction of the page is taken up.
                                                     span-factor)
                                                  0))))
 
+;; FIXME: when thickness is exactly 0, the border doesn't look
+;; smooth at least in Frescobaldi's PDF viewer.  Not sure on
+;; which side the problem is. --Jean AS
 (define-markup-command (draw-circle layout props radius thickness filled)
   (number? number? boolean?)
   #:category graphic
@@ -430,11 +440,51 @@ optionally filled.
 @end lilypond"
   (make-circle-stencil radius thickness filled))
 
+(define-markup-command (polygon layout props points)
+  (number-pair-list?)
+  #:category graphic
+  #:properties ((extroversion 0) ; Same default as ly:round-polygon.
+                (filled #t)
+                (thickness 1))
+  "
+@cindex drawing polygon
+
+A polygon delimited by the list of @var{points}.  @var{extroversion}
+defines how the shape of the polygon is adapted to its thickness.
+If it is@tie{}0, the polygon is traced as-is.  If@tie{}-1, the outer side
+of the line is just on the given points.  If@tie{}1, the line has its
+inner side on the points.  The @var{thickness} property controls the
+thickness of the line; for filled polygons, this means the diameter
+of the blot.
+
+@lilypond[verbatim,quote]
+regularPentagon =
+#'((1 . 0) (0.31 . 0.95) (-0.81 . 0.59) (-0.81 . -0.59) (0.31 . -0.95))
+
+\\markup {
+  \\polygon #'((-1 . -1) (0 . -3) (2 . 2) (1 . 2))
+  \\override #'(filled . #f)
+    \\override #'(thickness . 2)
+      \\combine
+        \\with-color \"blue\"
+          \\polygon #regularPentagon
+        \\with-color \"red\"
+          \\override #'(extroversion . 1)
+            \\polygon #regularPentagon
+}
+@end lilypond"
+  (ly:round-polygon
+    points
+    (* thickness (ly:output-def-lookup layout 'line-thickness))
+    extroversion
+    filled))
+
 (define-markup-command (triangle layout props filled)
   (boolean?)
   #:category graphic
-  #:properties ((thickness 0.1)
-                (font-size 0))
+  #:properties ((extroversion 0)
+                (font-size 0)
+                (thickness 1))
   "
 @cindex drawing triangle, within text
 
@@ -451,15 +501,16 @@ A triangle, either filled or empty.
   ;; baseline-skip, which was only effective if the values for baseline-skip
   ;; and font-size were both close to their default values)
   (let ((ex (* (magstep font-size) 1.8)))
-    (ly:make-stencil
-     `(polygon (0.0 0.0
-                    ,ex 0.0
-                    ,(* 0.5 ex)
-                    ,(* 0.86 ex))
-               ,thickness
-               ,filled)
-     (cons 0 ex)
-     (cons 0 (* .86 ex)))))
+    (interpret-markup
+      layout
+      ; TODO: make 'filled' a property rather than a parameter?
+      (cons `((filled . ,filled))
+             props)
+      (make-polygon-markup
+        (list
+          (cons 0.0 0.0)
+          (cons ex 0.0)
+          (cons (* 0.5 ex) (* 0.86 ex)))))))
 
 (define-markup-command (circle layout props arg)
   (markup?)
@@ -3801,7 +3852,7 @@ mensural-flags.  Both are supplied for convenience.
              (offset-add flag-end thickness-offset)
              thickness-offset))
            (points (map (lambda (coord) (offset-add coord start)) raw-points))
-           (stencil (ly:round-filled-polygon points half-stem-thickness))
+           (stencil (ly:round-polygon points half-stem-thickness -1.0))
            ;; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflags stencil (- log 3) stencil spacing)))
       flag-stencil))

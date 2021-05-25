@@ -91,7 +91,7 @@ Lookup::rotated_box (Real slope, Real width, Real thick, Real blot)
   pts.push_back (Offset (width, -thick / 2) * rot);
   pts.push_back (Offset (width, thick / 2) * rot);
   pts.push_back (Offset (0, thick / 2) * rot);
-  return Lookup::round_filled_polygon (pts, blot);
+  return Lookup::round_polygon (pts, blot, -1.0, true);
 }
 
 Stencil
@@ -189,7 +189,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
 }
 
 /*
- * Create Stencil that represents a filled polygon with round edges.
+ * Create Stencil that represents a polygon with round edges.
  *
  * LIMITATIONS:
  *
@@ -215,10 +215,10 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  *
  * NOTE: Limitations (b) and (c) arise from the fact that round edges
  * are made by moulding sharp edges to round ones rather than adding
- * to a core filled polygon.  For details of these two different
+ * to a core polygon.  For details of these two different
  * approaches, see the thread upon the ledger lines patch that started
  * on March 25, 2002 on the devel mailing list.  The below version of
- * round_filled_polygon () sticks to the moulding model, which the
+ * round_polygon () sticks to the moulding model, which the
  * majority of the list participants finally voted for.  This,
  * however, results in the above limitations and a much increased
  * complexity of the algorithm, since it has to compute a shrinked
@@ -236,9 +236,10 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * outside of the given polygon.
  */
 Stencil
-Lookup::round_filled_polygon (vector<Offset> const &points,
-                              Real blotdiameter,
-                              Real extroversion)
+Lookup::round_polygon (vector<Offset> const &points,
+                       Real blotdiameter,
+                       Real extroversion,
+                       bool filled)
 {
   /* TODO: Maybe print a warning if one of the above limitations
      applies to the given polygon.  However, this is quite complicated
@@ -373,7 +374,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
   SCM polygon_scm = scm_list_4 (ly_symbol2scm ("polygon"),
                                 shrunk_points_scm,
                                 to_scm (blotdiameter),
-                                SCM_BOOL_T);
+                                to_scm (filled));
 
   Stencil polygon = Stencil (box, polygon_scm);
   return polygon;

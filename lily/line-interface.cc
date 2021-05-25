@@ -44,7 +44,7 @@ Line_interface::make_arrow (Offset begin, Offset end,
   for (vsize i = 0; i < points.size (); i++)
     points[i] = points[i] * dir + end;
 
-  return Lookup::round_filled_polygon (points, thick);
+  return Lookup::round_polygon (points, thick, -1.0);
 }
 
 Stencil
