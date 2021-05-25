@@ -51,9 +51,9 @@ using std::set;
 using std::string;
 using std::vector;
 
-template<typename T>
-T const &
-boundary (std::vector<T> const &v, int dir, vsize i)
+template<typename Container>
+auto
+boundary (const Container &v, int dir, vsize i)->decltype ( *&v[0])
 {
   assert (dir);
   return v[dir == -1 ? i : v.size () - 1 - i];

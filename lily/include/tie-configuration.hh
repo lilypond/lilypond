@@ -58,9 +58,7 @@ public:
                         Tie_configuration const &b);
 };
 
-// TODO: Avoid public inheritance from STL containers because they don't have
-// virtual destructors, which can lead to bugs if they are not used carefully.
-class Ties_configuration : public std::vector<Tie_configuration>
+class Ties_configuration : private std::vector<Tie_configuration>
 {
   Real score_;
   std::string score_card_;
@@ -79,6 +77,16 @@ public:
   std::string tie_card (vsize i) const { return tie_score_cards_[i]; }
   std::string complete_tie_card (vsize i) const;
   std::string complete_score_card () const;
+
+public: // exposed subset of vector interface
+  using vector::back;
+  using vector::begin;
+  using vector::empty;
+  using vector::end;
+  using vector::front;
+  using vector::operator [];
+  using vector::push_back;
+  using vector::size;
 };
 
 #endif /* TIE_CONFIGURATION_HH */
