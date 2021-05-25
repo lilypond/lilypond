@@ -26,15 +26,6 @@
 
 using std::string;
 
-int
-Tie_configuration::compare (Tie_configuration const &a,
-                            Tie_configuration const &b)
-{
-  if (a.position_ - b.position_)
-    return sign (a.position_ - b.position_);
-  return sign (a.dir_ - b.dir_);
-}
-
 Tie_configuration::Tie_configuration ()
 {
   dir_ = CENTER;

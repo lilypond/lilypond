@@ -53,13 +53,9 @@ public:
   Real height (Tie_details const &) const;
   int column_span_length () const;
 
-  static int compare (Tie_configuration const &a,
-                      Tie_configuration const &b);
   static Real distance (Tie_configuration const &a,
                         Tie_configuration const &b);
 };
-
-INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
 
 // TODO: Avoid public inheritance from STL containers because they don't have
 // virtual destructors, which can lead to bugs if they are not used carefully.
