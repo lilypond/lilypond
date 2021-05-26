@@ -208,11 +208,6 @@ Engraver_group::do_announces ()
   while (pending_grobs ());
 }
 
-Preinit_Engraver_group::Preinit_Engraver_group ()
-{
-  acknowledge_hash_table_drul_.set (SCM_EOL, SCM_EOL);
-}
-
 Engraver_group::Engraver_group ()
 {
   acknowledge_hash_table_drul_[LEFT] = scm_c_make_hash_table (61);

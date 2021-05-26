@@ -32,8 +32,6 @@ Preinit_Scheme_engraver::Preinit_Scheme_engraver ()
   initialize_function_ = SCM_EOL;
   finalize_function_ = SCM_EOL;
 
-  interface_acknowledger_hash_.set (SCM_EOL, SCM_EOL);
-
   per_instance_listeners_ = SCM_EOL;
   for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
     precomputable_methods_[i] = SCM_UNDEFINED;

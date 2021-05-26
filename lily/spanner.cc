@@ -249,7 +249,6 @@ Spanner::accepts_as_bound_paper_column (const Paper_column *col) const
 
 Preinit_Spanner::Preinit_Spanner ()
 {
-  spanned_drul_.set (0, 0);
   pure_property_cache_ = SCM_UNDEFINED;
 }
 

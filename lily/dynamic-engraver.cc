@@ -68,7 +68,6 @@ Dynamic_engraver::Dynamic_engraver (Context *c)
   script_ = 0;
   finished_spanner_ = 0;
   current_spanner_ = 0;
-  accepted_spanevents_drul_.set (0, 0);
   end_new_spanner_ = false;
 }
 

@@ -120,7 +120,6 @@ shrink_extra_weight (Real x, Real fac)
 
 Beam_configuration::Beam_configuration ()
 {
-  y = Drul_array<Real> (0.0, 0.0);
   demerits = 0.0;
   next_scorer_todo = ORIGINAL_DISTANCE;
 }

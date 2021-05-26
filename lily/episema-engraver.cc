@@ -57,7 +57,6 @@ Episema_engraver::Episema_engraver (Context *c)
   finished_ = 0;
   current_event_ = 0;
   span_ = 0;
-  event_drul_.set (0, 0);
 }
 
 void

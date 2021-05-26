@@ -93,8 +93,6 @@ Ambitus_engraver::Ambitus_engraver (Context *c)
   : Engraver (c)
 {
   ambitus_ = 0;
-  heads_.set (0, 0);
-  accidentals_.set (0, 0);
   group_ = 0;
   is_typeset_ = false;
   start_key_sig_ = SCM_EOL;

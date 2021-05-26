@@ -37,8 +37,7 @@ public:
 
 struct Preinit_Engraver_group
 {
-  Drul_array<SCM> acknowledge_hash_table_drul_;
-  Preinit_Engraver_group ();
+  Drul_array<SCM> acknowledge_hash_table_drul_ {SCM_EOL, SCM_EOL};
 };
 
 class Engraver_group : Preinit_Engraver_group, public Translator_group

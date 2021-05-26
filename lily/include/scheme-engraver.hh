@@ -31,7 +31,7 @@ struct Preinit_Scheme_engraver
   SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   // hashq table of interface-symbol -> scheme-function
-  Drul_array<SCM> interface_acknowledger_hash_;
+  Drul_array<SCM> interface_acknowledger_hash_ {SCM_EOL, SCM_EOL};
 
   // Alist of listened-symbol . scheme-function
   SCM per_instance_listeners_;

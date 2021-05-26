@@ -33,7 +33,6 @@ Tie_configuration::Tie_configuration ()
   delta_y_ = 0.0;
   score_ = 0.0;
   scored_ = false;
-  column_ranks_ = Drul_array<int> (0, 0);
 }
 
 void
