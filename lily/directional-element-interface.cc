@@ -26,13 +26,6 @@ Direction
 internal_get_grob_direction (Grob *me, bool strict)
 {
   SCM d = get_property (me, "direction");
-  if (scm_is_eq (d, ly_symbol2scm ("calculation-in-progress")))
-    {
-      me->programming_error (_f ("direction of grob %s requested while "
-                                 "calculation in progress",
-                                 me->name ()));
-      return UP;
-    }
   auto dir = from_scm<Direction> (d, CENTER);
   if (strict && (dir == CENTER))
     {
