@@ -174,9 +174,9 @@
 If @code{'elements} is empty return @code{'(0 . 0)}"
   ;; TODO make 'elements and/or 'X-extent optional to cover more use-cases?
   (let* ((grob-elts-array
-          (ly:grob-object grob 'elements))
+          (ly:grob-object grob 'elements #f))
          (grob-elts-list
-          (if (ly:grob-array? grob-elts-array)
+          (if grob-elts-array
               (ly:grob-array->list grob-elts-array)
               '()))
          (live-grobs
@@ -198,8 +198,8 @@ If @code{'elements} is empty return @code{'(0 . 0)}"
 ;; to the center of kievan noteheads. that is thus where the beams'
 ;; x extrema will fall
 (define-public (stem::kievan-offset-callback grob)
-  (let* ((note-heads (ly:grob-object grob 'note-heads))
-         (note-heads-grobs (if (not (null? note-heads))
+  (let* ((note-heads (ly:grob-object grob 'note-heads #f))
+         (note-heads-grobs (if note-heads
                                (ly:grob-array->list note-heads)
                                '()))
          (first-note-head (if (not (null? note-heads-grobs))
@@ -256,8 +256,8 @@ If @code{'elements} is empty return @code{'(0 . 0)}"
 
 (define-public (beam::get-kievan-quantized-positions grob)
   (let* ((pos (ly:grob-property grob 'positions))
-         (stems (ly:grob-object grob 'stems))
-         (stems-grobs (if (not (null? stems))
+         (stems (ly:grob-object grob 'stems #f))
+         (stems-grobs (if stems
                           (ly:grob-array->list stems)
                           '())))
     (for-each
@@ -517,8 +517,8 @@ and duration-log @var{log}."
                                 (char->integer #\A))))))
          (staff-space (ly:staff-symbol-staff-space grob))
          (line-thickness (ly:staff-symbol-line-thickness grob))
-         (stem (ly:grob-object grob 'stem))
-         (stem-thickness (* (if (ly:grob? stem)
+         (stem (ly:grob-object grob 'stem #f))
+         (stem-thickness (* (if stem
                                 (ly:grob-property stem 'thickness)
                                 1.3)
                             line-thickness))
@@ -1146,7 +1146,7 @@ If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
   (let* ((delta-y (* 0.5 (ly:grob-property spanner 'delta-position)))
          (left-span (ly:spanner-bound spanner LEFT))
          (dots (if (and (grob::has-interface left-span 'note-head-interface)
-                        (ly:grob? (ly:grob-object left-span 'dot)))
+                        (ly:grob-object left-span 'dot #f))
                    (ly:grob-object left-span 'dot) #f))
 
          (right-span (ly:spanner-bound spanner RIGHT))
@@ -1437,9 +1437,9 @@ parent or the parent has no setting."
   (ly:grob-property grob 'positioning-done)
   (let* ((shift-when-alone (ly:grob-property grob 'toward-stem-shift 0.0))
          (shift-in-column (ly:grob-property grob 'toward-stem-shift-in-column))
-         (script-column (ly:grob-object grob 'script-column))
+         (script-column (ly:grob-object grob 'script-column #f))
          (shift
-          (if (and (ly:grob? script-column)
+          (if (and script-column
                    (number? shift-in-column)
                    ;; ScriptColumn can contain grobs other than Script.
                    ;; These should not result in a shift.
@@ -1454,13 +1454,13 @@ parent or the parent has no setting."
          (note-head-location
           (ly:self-alignment-interface::aligned-on-x-parent grob))
          (note-head-grob (ly:grob-parent grob X))
-         (stem-grob (ly:grob-object note-head-grob 'stem)))
+         (stem-grob (ly:grob-object note-head-grob 'stem #f)))
 
     (+ note-head-location
        ;; If the script has the same direction as the stem, move the script
        ;; in accordance with the value of 'shift'.  Since scripts can also be
        ;; over skips, we need to check whether the grob has a stem at all.
-       (if (ly:grob? stem-grob)
+       (if stem-grob
            (let ((dir1 (ly:grob-property grob 'direction))
                  (dir2 (ly:grob-property stem-grob 'direction)))
              (if (equal? dir1 dir2)
@@ -1575,9 +1575,9 @@ parent or the parent has no setting."
 ;; it doesn't exceed maximum allowed value.
 
 (define-public (ambitus-line::calc-gap grob)
-  (let ((heads (ly:grob-object grob 'note-heads)))
+  (let ((heads (ly:grob-object grob 'note-heads #f)))
 
-    (if (and (ly:grob-array? heads)
+    (if (and heads
              (= (ly:grob-array-length heads) 2))
         (let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
                (head-down (ly:grob-array-ref heads 0))
@@ -1595,9 +1595,9 @@ parent or the parent has no setting."
 ;; Print a line connecting ambitus heads:
 
 (define-public (ambitus::print grob)
-  (let ((heads (ly:grob-object grob 'note-heads)))
+  (let ((heads (ly:grob-object grob 'note-heads #f)))
 
-    (if (and (ly:grob-array? heads)
+    (if (and heads
              (= (ly:grob-array-length heads) 2))
         (let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
                (head-down (ly:grob-array-ref heads 0))
@@ -1637,8 +1637,8 @@ parent or the parent has no setting."
 
 (define-public (semi-tie::calc-cross-staff grob)
   (let* ((note-head (ly:grob-object grob 'note-head))
-         (stem (ly:grob-object note-head 'stem)))
-    (and (ly:grob? stem)
+         (stem (ly:grob-object note-head 'stem #f)))
+    (and stem
          (ly:grob-property stem 'cross-staff #f))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1788,10 +1788,9 @@ intial starting and the final @code{NoteColumn}."
          (left-bound (ly:spanner-bound orig LEFT))
          (right-bound (ly:spanner-bound orig RIGHT))
          ;; get their NoteHeads
-         (left-note-heads-array (ly:grob-object left-bound 'note-heads))
-         (right-note-heads-array (ly:grob-object right-bound 'note-heads)))
-    (if (and (ly:grob-array? left-note-heads-array)
-             (ly:grob-array? right-note-heads-array))
+         (left-note-heads-array (ly:grob-object left-bound 'note-heads #f))
+         (right-note-heads-array (ly:grob-object right-bound 'note-heads #f)))
+    (if (and left-note-heads-array right-note-heads-array)
         (cons
           (ly:grob-array->list left-note-heads-array)
           (ly:grob-array->list right-note-heads-array))
@@ -1884,12 +1883,12 @@ Doesn't work for beams."
   (for-each
     (lambda (tab-note-head)
       (if (grob::has-interface tab-note-head 'tab-note-head-interface)
-          (let* ((stem (ly:grob-object tab-note-head 'stem))
-                 (flag (ly:grob-object stem 'flag))
-                 (dot (ly:grob-object tab-note-head 'dot)))
-            (if (ly:grob? stem) (ly:grob-set-property! stem 'transparent #t))
-            (if (ly:grob? flag) (ly:grob-set-property! flag 'transparent #t))
-            (if (ly:grob? dot) (ly:grob-set-property! dot 'transparent #t))
+          (let* ((stem (ly:grob-object tab-note-head 'stem #f))
+                 (flag (ly:grob-object stem 'flag #f))
+                 (dot (ly:grob-object tab-note-head 'dot #f)))
+            (if stem (ly:grob-set-property! stem 'transparent #t))
+            (if flag (ly:grob-set-property! flag 'transparent #t))
+            (if dot (ly:grob-set-property! dot 'transparent #t))
             (ly:grob-set-property! tab-note-head 'transparent #t))))
     tab-heads))
 
@@ -2515,11 +2514,11 @@ representing the amount a string is bent."
   "Return extent of the noteheads in the 'main column' (i.e., excluding any
 suspended noteheads), or extent of the rest (if there are no heads)."
   ;; Partial rewrite of a C++-procedure
-  (let* ((note-heads (ly:grob-object grob 'note-heads))
+  (let* ((note-heads (ly:grob-object grob 'note-heads #f))
          ;; stem is currently not needed, for now we let it in, commented
                                         ;(stem (ly:grob-object grob 'stem))
-         (rest (ly:grob-object grob 'rest)))
-    (cond ((ly:grob-array? note-heads)
+         (rest (ly:grob-object grob 'rest #f)))
+    (cond (note-heads
            (let (;; get the cdr from all note-heads-extents, where the car
                  ;; is zero
                  (n-h-right-coords
@@ -2531,7 +2530,7 @@ suspended noteheads), or extent of the rest (if there are no heads)."
              ;; better be paranoid, find the max of n-h-right-coords and return
              ;; a pair with (cons 0 <max>)
              (cons 0.0 (reduce max 0 n-h-right-coords))))
-          ((ly:grob? rest)
+          (rest
            (ly:grob-extent rest grob X))
           ;; better be paranoid again
           (else '(0 . 0)))))
@@ -2645,9 +2644,9 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
           (if (note-head-or-rest? left-bound)
               (ly:grob-parent left-bound X)
               left-bound))
-         (stem (ly:grob-object left-note-column 'stem))
+         (stem (ly:grob-object left-note-column 'stem #f))
          (stem-thick
-          (if (ly:grob? stem)
+          (if stem
               (ly:grob-property stem 'thickness)
               0))
          (dir (if (ly:grob? stem)
@@ -2718,9 +2717,9 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          (raw-left-Y
           (if (grob::has-interface left-bound-original 'note-column-interface)
               (let* ((nhds-array
-                      (ly:grob-object left-bound-original 'note-heads))
+                      (ly:grob-object left-bound-original 'note-heads #f))
                      (nhds-list
-                      (if (ly:grob-array? nhds-array)
+                      (if nhds-array
                           (ly:grob-array->list nhds-array)
                           '()))
                      (nhds-pos
@@ -2781,9 +2780,9 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          (adjust-for-arpeggio
           (if end-on-arpeggio?
               (let* ((conditional-elements
-                      (ly:grob-object right-bound 'conditional-elements))
+                      (ly:grob-object right-bound 'conditional-elements #f))
                      (cond-elts-list
-                      (if (ly:grob-array? conditional-elements)
+                      (if conditional-elements
                           (ly:grob-array->list conditional-elements)
                           '()))
                      (arpeggio-ls

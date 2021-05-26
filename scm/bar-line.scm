@@ -821,9 +821,9 @@ no elements."
           ;; model-bar takes the bar grob, if given.
           (for-each (lambda (bar)
                       (let ((ext (bar-line::bar-y-extent bar refp))
-                            (staff-symbol (ly:grob-object bar 'staff-symbol)))
+                            (staff-symbol (ly:grob-object bar 'staff-symbol #f)))
 
-                        (if (ly:grob? staff-symbol)
+                        (if staff-symbol
                             (let ((refp-extent (ly:grob-extent staff-symbol refp Y)))
 
                               (set! ext (interval-union ext refp-extent))

@@ -141,15 +141,24 @@ LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
 }
 
 LY_DEFINE (ly_grob_object, "ly:grob-object",
-           2, 0, 0, (SCM grob, SCM sym),
+           2, 1, 0, (SCM grob, SCM sym, SCM val),
            "Return the value of a pointer in grob @var{grob} of property"
-           " @var{sym}.  It returns @code{'()} (end-of-list) if @var{sym}"
-           " is undefined in @var{grob}.")
+           " @var{sym}.  When @var{sym} is undefined in @var{grob}, it"
+           " returns @var{val} if specified or @code{'()} (end-of-list)"
+           " otherwise.  The kind of properties this taps into differs"
+           " from regular properties.  It is used to store links between grobs,"
+           " either grobs or grob arrays.  For instance, a note head has a"
+           " @code{stem} property, the stem grob it belongs to.  Just"
+           " after line breaking, all those grobs are scanned and replaced"
+           " by their relevant broken versions when applicable.")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  return sc->internal_get_object (sym);
+  SCM object = sc->internal_get_object (sym);
+  if (scm_is_null (object))
+    return SCM_UNBNDP (val) ? SCM_EOL : val;
+  return object;
 }
 
 LY_DEFINE (ly_grob_set_object_x, "ly:grob-set-object!",
