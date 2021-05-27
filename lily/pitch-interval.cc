@@ -42,7 +42,7 @@ Pitch_interval::is_empty () const
 Drul_array<bool>
 Pitch_interval::add_point (Pitch p)
 {
-  Drul_array<bool> expansions (false, false);
+  Drul_array<bool> expansions;
   if (at (LEFT).tone_pitch () > p.tone_pitch ())
     {
       at (LEFT) = p;
@@ -77,7 +77,7 @@ Pitch_lexicographic_interval::is_empty () const
 Drul_array<bool>
 Pitch_lexicographic_interval::add_point (Pitch p)
 {
-  Drul_array<bool> expansions (false, false);
+  Drul_array<bool> expansions;
   if (at (LEFT) > p)
     {
       at (LEFT) = p;

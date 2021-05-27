@@ -658,7 +658,7 @@ Beam::print (SCM grob)
   if (!is_number_pair (posns))
     {
       programming_error ("no beam positions?");
-      pos = Drul_array<Real> (0.0, 0.0);
+      pos = {};
     }
   else
     pos = from_scm<Drul_array<Real>> (posns);
@@ -781,7 +781,7 @@ Beam::get_default_dir (Grob *me)
 {
   extract_grob_set (me, "stems", stems);
 
-  Drul_array<Real> extremes (0.0, 0.0);
+  Drul_array<Real> extremes;
   for (vector<Grob *>::const_iterator s = stems.begin (); s != stems.end (); s++)
     {
       Interval positions = Stem::head_positions (*s);
@@ -792,8 +792,8 @@ Beam::get_default_dir (Grob *me)
         }
     }
 
-  Drul_array<int> total (0, 0);
-  Drul_array<int> count (0, 0);
+  Drul_array<int> total;
+  Drul_array<int> count;
 
   bool force_dir = false;
   for (vsize i = 0; i < stems.size (); i++)

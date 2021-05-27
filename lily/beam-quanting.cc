@@ -269,7 +269,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
       Drul_array<Grob *> edge_stems (Beam::first_normal_stem (beams[i]),
                                      Beam::last_normal_stem (beams[i]));
 
-      Drul_array<bool> dirs_found (0, 0);
+      Drul_array<bool> dirs_found;
 
       Real my_y = beams[i]->relative_coordinate (common[Y_AXIS], Y_AXIS);
 
@@ -305,7 +305,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
             }
         }
 
-      edge_dirs_ = Drul_array<Direction> (CENTER, CENTER);
+      edge_dirs_ = {};
       normal_stem_count_ += Beam::normal_stem_count (beams[i]);
       if (normal_stem_count_)
         edge_dirs_ = Drul_array<Direction> (stem_infos_[0].dir_,
@@ -461,7 +461,7 @@ Beam_scoring_problem::no_visible_stem_positions ()
 {
   if (!head_positions_.size ())
     {
-      unquanted_y_ = Drul_array<Real> (0.0, 0.0);
+      unquanted_y_ = {};
       return;
     }
 
@@ -1072,8 +1072,8 @@ void
 Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
 {
   Real limit_penalty = parameters_.STEM_LENGTH_LIMIT_PENALTY;
-  Drul_array<Real> score (0, 0);
-  Drul_array<int> count (0, 0);
+  Drul_array<Real> score;
+  Drul_array<int> count;
 
   for (vsize i = 0; i < stem_xpositions_.size (); i++)
     {

@@ -723,7 +723,7 @@ vector<unique_ptr<Slur_configuration>>
       for (int j = 0; dir_ * os[RIGHT][Y_AXIS] <= dir_ * end_ys[RIGHT]; j++)
         {
 
-          Drul_array<bool> attach_to_stem (false, false);
+          Drul_array<bool> attach_to_stem;
           for (const auto d : {LEFT, RIGHT})
             {
               os[d][X_AXIS] = base_attachments_[d][X_AXIS];

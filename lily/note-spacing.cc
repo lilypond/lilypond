@@ -200,16 +200,15 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
                                    Real increment,
                                    Real *space)
 {
-  Drul_array<Direction> stem_dirs (CENTER, CENTER);
+  Drul_array<Direction> stem_dirs;
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;
   Drul_array<SCM> props (get_object (me, "left-items"),
                          get_object (me, "right-items"));
 
-  Drul_array<Spanner *> beams_drul (0, 0);
-  Drul_array<Grob *> stems_drul (0, 0);
+  Drul_array<Spanner *> beams_drul;
+  Drul_array<Grob *> stems_drul;
 
-  stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
   Interval intersect;
   Interval bar_xextent;
   Interval bar_yextent;

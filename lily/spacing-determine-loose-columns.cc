@@ -148,7 +148,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
                                               Drul_array<Item *> next_door,
                                               Spacing_options const *options)
 {
-  Drul_array<Real> dists (0, 0);
+  Drul_array<Real> dists;
 
   for (const auto d : {LEFT, RIGHT})
     {

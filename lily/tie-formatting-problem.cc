@@ -666,7 +666,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
   if (ties_conf
       && ties_conf->size () == 1)
     {
-      Drul_array<Grob *> stems (0, 0);
+      Drul_array<Grob *> stems;
       for (const auto d : {LEFT, RIGHT})
         {
           if (!spec.note_head_drul_[d])
@@ -1051,7 +1051,7 @@ Tie_formatting_problem::generate_extremal_tie_variations (Ties_configuration con
   vector<Tie_configuration_variation> vars;
   for (int i = 1; i <= details_.multi_tie_region_size_; i++)
     {
-      Drul_array<Tie_configuration *> configs (0, 0);
+      Drul_array<Tie_configuration *> configs;
       for (const auto d : {DOWN, UP})
         {
           const Tie_configuration &config = boundary (ties, d, 0);

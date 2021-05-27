@@ -154,7 +154,7 @@ Ottava_bracket::print (SCM smob)
 
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
     b = Bracket::make_bracket (me, Y_AXIS, Offset (bracket_span_points.length (), 0),
-                               edge_height, empty, flare, Drul_array<Real> (0, 0));
+                               edge_height, empty, flare, {});
 
   /*
    * The vertical lines should not take space, for the following scenario:

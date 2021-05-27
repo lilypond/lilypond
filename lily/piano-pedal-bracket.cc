@@ -35,13 +35,13 @@ Piano_pedal_bracket::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Spanner *orig = me->original ();
 
-  Drul_array<bool> broken (false, false);
   Drul_array<Real> height = from_scm (get_property (me, "edge-height"),
                                       Drul_array<Real> (0.0, 0.0));
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
                                        Drul_array<Real> (0.0, 0.0));
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                      Drul_array<Real> (0.0, 0.0));
+  Drul_array<bool> broken;
 
   Grob *common = me->get_bound (LEFT)
                  ->common_refpoint (me->get_bound (RIGHT), X_AXIS);

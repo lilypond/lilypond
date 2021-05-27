@@ -76,7 +76,7 @@ Hairpin::broken_bound_padding (SCM smob)
   if (!vertical_axis_groups[dir])
     return to_scm (0.0);
 
-  Drul_array<Grob *> span_bars (0, 0);
+  Drul_array<Grob *> span_bars;
   for (const auto d : {DOWN, UP})
     {
       extract_grob_set (vertical_axis_groups[d], "elements", elts);

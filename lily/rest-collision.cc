@@ -209,7 +209,7 @@ Rest_collision::calc_positioning_done (SCM smob)
         Rests and notes.
       */
       // Count how many rests we move
-      Drul_array<int> rcount (0, 0);
+      Drul_array<int> rcount;
 
       for (vsize i = 0; i < rests.size (); i++)
         {

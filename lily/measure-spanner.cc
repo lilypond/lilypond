@@ -38,7 +38,7 @@ Measure_spanner::calc_connect_to_neighbors (SCM smob)
 
   Drul_array<Item *> bounds (me->get_bound (LEFT),
                              me->get_bound (RIGHT));
-  Drul_array<bool> connect_to_other (false, false);
+  Drul_array<bool> connect_to_other;
 
   for (const auto d : {LEFT, RIGHT})
     {

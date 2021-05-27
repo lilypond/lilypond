@@ -282,7 +282,7 @@ Stem_tremolo::calc_direction (SCM smob)
   bool whole_note = Stem::duration_log (stem) <= 0;
   if (whole_note && has_interface<Note_collision_interface> (maybe_nc))
     {
-      Drul_array<bool> avoid_me (false, false);
+      Drul_array<bool> avoid_me;
       vector<int> all_nhps = Note_collision_interface::note_head_positions (maybe_nc);
       if (all_nhps[0] < nhp[0])
         avoid_me[DOWN] = true;

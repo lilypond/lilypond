@@ -154,7 +154,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
   Drul_array<Item *> bounds (get_x_bound_item (me, LEFT, dir),
                              get_x_bound_item (me, RIGHT, dir));
 
-  Drul_array<bool> connect_to_other (false, false);
+  Drul_array<bool> connect_to_other;
   for (const auto d : {LEFT, RIGHT})
     {
       Direction break_dir = bounds[d]->break_status_dir ();
@@ -753,7 +753,7 @@ Tuplet_bracket::calc_positions (SCM smob)
 Direction
 Tuplet_bracket::get_default_dir (Grob *me)
 {
-  Drul_array<int> dirs (0, 0);
+  Drul_array<int> dirs;
   extract_grob_set (me, "note-columns", columns);
   for (vsize i = 0; i < columns.size (); i++)
     {

@@ -290,10 +290,10 @@ Line_spanner::print (SCM smob)
       span_points[d] = z;
     }
 
-  Drul_array<Real> gaps (0, 0);
-  Drul_array<bool> arrows (0, 0);
-  Drul_array<const Stencil *> stencils (0, 0);
-  Drul_array<Grob *> common_y (0, 0);
+  Drul_array<Real> gaps;
+  Drul_array<bool> arrows;
+  Drul_array<const Stencil *> stencils;
+  Drul_array<Grob *> common_y;
 
   // For scaling of 'padding and 'stencil-offset
   Real magstep

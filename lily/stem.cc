@@ -227,7 +227,7 @@ Stem::extremal_heads (Grob *me)
   extpos[DOWN] = inf;
   extpos[UP] = -inf;
 
-  Drul_array<Grob *> exthead (0, 0);
+  Drul_array<Grob *> exthead;
   extract_grob_set (me, "note-heads", heads);
 
   for (vsize i = 0; i < heads.size (); i++)
