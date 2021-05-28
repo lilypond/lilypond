@@ -16,7 +16,7 @@
 %%%%
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
-\version "2.18.2"
+\version "2.23.3"
 \language "italiano" %Arabs usually use italian note names
 
 % Modern Arabic scores are written using a 24-TET tonal system.
@@ -116,16 +116,14 @@ iraq = #`(
   )
 
 
-
+\paper {
+  font-defaults.alteration-glyph-name-alist = \TwentyFourTETglyphs
+}
 
 % Layout settings
 \layout {
   \context {
     \Score
-
-    \override Accidental.alteration-glyph-name-alist = \TwentyFourTETglyphs
-    \override KeySignature.alteration-glyph-name-alist = \TwentyFourTETglyphs
-
     keyAlterationOrder =
       #`(
         (6 . ,FLAT) (2 . ,FLAT) (5 . ,FLAT ) (1 . ,FLAT)

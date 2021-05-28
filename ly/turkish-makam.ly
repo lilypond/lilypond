@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.82"
+\version "2.23.3"
 
 %{
 
@@ -486,6 +486,10 @@ dilkes=\yegah %\key d
 dilkeside=\yegah %\key d
 sultanirast=\yegah %\key d
 
+\paper {
+  font-defaults.alteration-glyph-name-alist = \turkishMakamGlyphs
+}
+
 \layout {
   \context {
     \Score
@@ -603,12 +607,6 @@ key signature padding pairs
   (("accidentals.sharp.slashslashslash.stemstem" . "accidentals.mirroredflat") . 0.0)
   (("accidentals.sharp.slashslashslash.stemstem" . "accidentals.flat.slashslash") . 0.0)
 )
-
-    \override KeySignature.alteration-glyph-name-alist = \turkishMakamGlyphs
-    \override Accidental.alteration-glyph-name-alist = \turkishMakamGlyphs
-    \override AccidentalCautionary.alteration-glyph-name-alist = \turkishMakamGlyphs
-    \override TrillPitchAccidental.alteration-glyph-name-alist = \turkishMakamGlyphs
-    \override AmbitusAccidental.alteration-glyph-name-alist = \turkishMakamGlyphs
   }
 }
 

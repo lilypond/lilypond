@@ -16,7 +16,7 @@
 %%  You should have received a copy of the GNU General Public License
 %%  along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.21.0"
+\version "2.23.3"
 \language "arabic"
 
 %% set pitch names.
@@ -40,15 +40,8 @@ HelmakamGlyphs = #'(
        (append HelmakamGlyphs
                standard-alteration-glyph-name-alist))
 
-\layout {
-  \context {
-    \Score
-    \override KeySignature #'alteration-glyph-name-alist = \HelmakamGlyphs
-    \override Accidental #'alteration-glyph-name-alist = \HelmakamGlyphs
-    \override AccidentalCautionary #'alteration-glyph-name-alist = \HelmakamGlyphs
-    \override TrillPitchAccidental #'alteration-glyph-name-alist = \HelmakamGlyphs
-    \override AmbitusAccidental #'alteration-glyph-name-alist = \HelmakamGlyphs
-  }
+\paper {
+  font-defaults.alteration-glyph-name-alist = \HelmakamGlyphs
 }
 
 %% The keys

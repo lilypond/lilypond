@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.22"
+\version "2.23.3"
 
 %{
 
@@ -165,13 +165,6 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
        (append makamGlyphs
                standard-alteration-glyph-name-alist))
 
-\layout {
-  \context {
-    \Score
-    \override KeySignature.alteration-glyph-name-alist = \makamGlyphs
-    \override Accidental.alteration-glyph-name-alist = \makamGlyphs
-    \override AccidentalCautionary.alteration-glyph-name-alist = \makamGlyphs
-    \override TrillPitchAccidental.alteration-glyph-name-alist = \makamGlyphs
-    \override AmbitusAccidental.alteration-glyph-name-alist = \makamGlyphs
-  }
+\paper {
+  font-defaults.alteration-glyph-name-alist = \makamGlyphs
 }

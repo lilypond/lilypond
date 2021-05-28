@@ -33,7 +33,6 @@
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
         (extra-spacing-width . (-0.2 . 0.0))
-        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (stencil . ,ly:accidental-interface::print)
         (horizontal-skylines . ,(ly:make-unpure-pure-container ly:accidental-interface::horizontal-skylines))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
@@ -49,7 +48,6 @@
         (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
-        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (parenthesized . #t)
         (stencil . ,ly:accidental-interface::print)
         (X-offset . ,ly:grob::x-parent-positioning)
@@ -81,7 +79,6 @@
         (alteration . ,accidental-interface::calc-alteration)
         (direction . ,UP)
         (font-size . -2)
-        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (outside-staff-priority . 0)
         (parent-alignment-X . ,CENTER)
         (script-priority . 0)
@@ -128,7 +125,6 @@
     (AmbitusAccidental
      . (
         (direction . ,LEFT)
-        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (padding . 0.5)
         (side-axis . ,X)
         (stencil . ,ly:accidental-interface::print)
@@ -1446,7 +1442,6 @@
      . (
         (break-align-symbol . key-cancellation)
         (break-visibility . ,begin-of-line-invisible)
-        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (non-musical . #t)
         (flat-positions . (2 3 4 2 1 2 1))
         (sharp-positions . (4 5 4 2 3 2 3))
@@ -1481,7 +1476,6 @@
         (break-align-anchor-alignment . ,RIGHT)
         (break-align-symbol . key-signature)
         (break-visibility . ,begin-of-line-visible)
-        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (non-musical . #t)
         (flat-positions . (2 3 4 2 1 2 1))
         (sharp-positions . (4 5 4 2 3 2 3))
@@ -2824,7 +2818,6 @@
      . (
         (direction . ,LEFT)
         (font-size . -4)
-        (alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (padding . 0.2)
         (side-axis . ,X)
         (stencil . ,ly:accidental-interface::print)

@@ -160,8 +160,20 @@
   %%
   %% Fonts
   %%
+  %% text-font-defaults is typically used as the last component of
+  %% the alist chains passed around to markup commands.  When a
+  %% grob interprets a markup, the alist chain consists in that
+  %% grob's properties, and the defaults.  When interpreting a
+  %% standalone markup, there are only the defaults.  Thus,
+  %% text-font-defaults defines defaults for markup properties.
+  %% font-defaults is used to select the font for grobs printed
+  %% in a musical font.  Moreover, grobs are free to look up properties
+  %% in these two alists (usually as fallbacks through the use
+  %% of alist chains).
   #(define font-defaults
-    '((font-family . feta) (font-encoding . fetaMusic)))
+    `((alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
+      (font-family . feta)
+      (font-encoding . fetaMusic)))
 
   % `latin1' is a dummy value for Pango fonts
   #(define text-font-defaults

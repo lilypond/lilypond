@@ -62,7 +62,10 @@ Accidental_interface::horizontal_skylines (SCM smob)
 
   Skyline_pair sky (skylines_from_stencil (my_stencil->smobbed_copy (), get_property (me, "rotation"), Y_AXIS));
 
-  SCM alist = get_property (me, "alteration-glyph-name-alist");
+  SCM props = Font_interface::music_font_alist_chain (me);
+  SCM alist = ly_chain_assoc_get (ly_symbol2scm ("alteration-glyph-name-alist"),
+                                  props,
+                                  SCM_EOL);
   SCM alt = get_property (me, "alteration");
   string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
                                          "");
@@ -122,10 +125,13 @@ Accidental_interface::print (SCM smob)
   Grob *me = unsmob<Grob> (smob);
 
   Font_metric *fm = Font_interface::get_default_font (me);
-
-  SCM alist = get_property (me, "alteration-glyph-name-alist");
+  SCM props = Font_interface::music_font_alist_chain (me);
+  SCM alist = ly_chain_assoc_get (ly_symbol2scm ("alteration-glyph-name-alist"),
+                                  props,
+                                  SCM_EOL);
   SCM alt = get_property (me, "alteration");
   SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
+
   Stencil st;
 
   if (!scm_is_string (glyph_name))
@@ -135,7 +141,12 @@ Accidental_interface::print (SCM smob)
       st = fm->find_by_name ("noteheads.s1cross");
     }
   else
-    st = fm->find_by_name (ly_scm2string (glyph_name));
+    {
+      string glyph_str = ly_scm2string (glyph_name);
+      st = fm->find_by_name (glyph_str);
+      if (st.is_empty ())
+        me->warning (_f ("cannot find glyph %s", glyph_str));
+    }
 
   if (from_scm<bool> (get_property (me, "restore-first")))
     {
