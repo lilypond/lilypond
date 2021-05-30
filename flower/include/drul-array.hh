@@ -20,10 +20,9 @@
 #ifndef DRUL_ARRAY_HH
 #define DRUL_ARRAY_HH
 
+#include "assert.hh"
 #include "direction.hh"
 #include "real.hh"
-
-#include <cassert>
 
 /**
    Left/right or Up/down arrays. Drul is nicer sounding than udlr
@@ -31,38 +30,47 @@
 template<class T>
 struct Drul_array
 {
+private:
   T array_[2];
+
+public:
+  // By default, value-initialize both elements.
+  constexpr Drul_array () : array_ {} {}
+  constexpr Drul_array (T const &t1, T const &t2) : array_ {t1, t2} {}
+  constexpr Drul_array (const Drul_array &) = default;
+  constexpr Drul_array (Drul_array &&) = default;
+  ~Drul_array () = default; // N.B. non-virtual
+
+  Drul_array &operator = (const Drul_array &) = default;
+  Drul_array &operator = (Drul_array &&) = default;
+
   T &at (Direction d)
   {
-    assert (d == 1 || d == -1);
-    return array_[d > 0];
+    return constexpr_assert (d), array_[d > 0];
   }
-  T const &at (Direction d) const
+
+  constexpr T const &at (Direction d) const
   {
-    assert (d == 1 || d == -1);
-    return array_[d > 0];
+    return constexpr_assert (d), array_[d > 0];
   }
+
   T &operator [] (Direction d)
   {
     return at (d);
   }
-  T const &operator [] (Direction d) const
+
+  constexpr T const &operator [] (Direction d) const
   {
     return at (d);
   }
-  Drul_array ()
-  {
-  }
-  Drul_array (T const &t1, T const &t2)
-  {
-    set (t1, t2);
-  }
+
   void set (T const &t1, T const &t2)
   {
     array_[0] = t1;
     array_[1] = t2;
   }
-  T delta () const
+
+  constexpr T delta () const
   {
     return at (RIGHT) - at (LEFT);
   }
@@ -78,7 +86,7 @@ scale_drul (Drul_array<T> *dr, T x)
 }
 
 template <>
-inline Real
+constexpr Real
 Drul_array<Real>::linear_combination (Real x) const
 {
   return ((1.0 - x) * at (LEFT)
