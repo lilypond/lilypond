@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
+    Translation of GIT committish: f8697bad07bbb4a765b3702a8675cdde2c35a0ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -116,6 +116,42 @@ il est d'usage dans les musiques de film.
   { \bar "" \repeat unfold 3 { c'4 d' e' f' } }
   { \repeat unfold 3 { c'4 d' e' f' } }
 >>
+@end lilypond
+
+@item
+Les compteurs de mesures prennent en considération les mesures à
+compter et les alternatives.
+
+@lilypond
+\new Score \with {
+  \consists Measure_counter_engraver
+  \override MeasureCounter.font-encoding = #'latin1
+  \override MeasureCounter.font-size = 1
+  \override MeasureCounter.padding = 0.5
+  \override MeasureCounter.font-series = #'bold
+  alternativeNumberingStyle = #'numbers-with-letters
+}
+\new Voice \compressMMRests \relative {
+  c'4-. 4-. 4-. 4-.
+  r4 4-. 4-. r
+  \startMeasureCount
+  <<
+    { R1 }
+    \new CueVoice {
+      \voiceTwo
+      r4 c8( d) e-. g-.
+    }
+  >>
+  R1*2
+  \repeat volta 2 {
+    c,8( d e g) c,( d e g)
+  }
+  \alternative {
+    { c,8( d e g) c,( d e4) }
+    { c8\< d e g c2\! R1*2 \bar "|." }
+  }
+  \stopMeasureCount
+}
 @end lilypond
 
 @end itemize
