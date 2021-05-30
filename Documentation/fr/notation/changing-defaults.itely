@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3624,7 +3624,7 @@ Tout extenseur dispose de la @code{spanner-interface}.  Quelques uns,
 tout particulièrement ceux chargés de dessiner une ligne droite entre
 deux objets, disposent aussi de la @code{line-spanner-interface}.
 
-+@menu
+@menu
 * Utilisation de spanner-interface::
 * Utilisation de line-spanner-interface::
 @end menu
@@ -3634,7 +3634,7 @@ deux objets, disposent aussi de la @code{line-spanner-interface}.
 @unnumberedsubsubsec Utilisation de @code{spanner-interface}
 @translationof Using the spanner-interface
 
-Cette interface fournit deux propriétés qui s'appliquent à certains
+Cette interface fournit trois propriétés qui s'appliquent à certains
 extenseurs.
 
 @subsubsubheading La propriété @code{minimum-length}
@@ -3647,22 +3647,24 @@ longueur dépend d'autres considérations.  Voici quelques exemples de
 mise en œuvre de cette propriété.
 
 @ignore
-Cette propriété est pleinement fonctionnelle pour :
+Les propriétés 'minimum-length and 'minimum-length-after-break sont
+pleinement fonctionnelle pour :
   Tie (liaison de prolongation)
   MultiMeasureRest (silence multimesures)
   Hairpin (soufflet)
   Slur (liaison d'articulation)
   PhrasingSlur (liaison de phrasé)
 
-Cette propriété est fonctionnelle en présence d'un @emph{callback} :
+Cette propriété est fonctionnelles en présence d'un @emph{callback} :
   Glissando
   Beam (ligature)
+  TextSpanner
+  TrillSpanner
 
 Cette propriété est sans effet sur :
   LyricSpace
   LyricHyphen
   LyricExtender
-  TextSpanner
   System
 
 @end ignore
@@ -3748,9 +3750,56 @@ e'8 e' e' e'
 e'8 e' e' e'
 @end lilypond
 
+
+@subsubsubheading La propriété @code{minimum-length-after-break}
+
+La propriété @code{minimum-length-after-break} peut s'utiliser pour
+dimensionner le tronçon d'extenseur placé après un saut de ligne. Tout
+comme avec la propriété @code{minimum-length}, elle est souvent
+nécessaire lors du réglage de la propriété @code{springs-and-rods}
+@code{ly:spanner::set-spacing-rods}.
+
+@lilypond[verbatim,quote,ragged-right]
+{
+  \once \override Tie.minimum-length-after-break = 20
+  a1~
+  \break
+  a1
+
+  \once \override Slur.minimum-length-after-break = 20
+  a1(
+  \break
+  d'1)
+
+  \once \override TextSpanner.springs-and-rods =
+    #ly:spanner::set-spacing-rods
+  \once \override TextSpanner.minimum-length-after-break = 20
+  a1\startTextSpan
+  \break
+  a1\stopTextSpan
+
+  \once \override Hairpin.after-line-breaking = ##t
+  \once \override Hairpin.to-barline = ##f
+  \once \override Hairpin.minimum-length-after-break = 20
+  a1\<
+  \break
+  a1\!
+
+  \once \override Glissando.springs-and-rods =
+    #ly:spanner::set-spacing-rods
+  \once \override Glissando.breakable = ##t
+  \once \override Glissando.after-line-breaking = ##t
+  \once \override Glissando.minimum-length-after-break = 20
+  a1\glissando
+  \break
+  d'1
+}
+@end lilypond
+
+
 @subsubsubheading La propriété @code{to-barline}
 
-La seconde propriété fournie par la @code{spanner-interface} est
+La troisième propriété fournie par la @code{spanner-interface} est
 @code{to-barline}.  Elle est activée par défaut, raison pour laquelle
 les soufflets et autres extenseurs finissant sur la première note d'une
 mesure s'arrêtent visuellement au niveau de la barre de mesure qui la

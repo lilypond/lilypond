@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2648,13 +2648,35 @@ regroupement mentionnées dans la commande seront visibles.
 @funindex \pushToTag
 @funindex \appendToTag
 @cindex raccordement dans une balise
+@cindex balise et raccordement
 
 Il peut arriver que vous ayez besoin de raccorder quelque chose en un
 point particulier d'une expression musicale.  Les commandes
 @code{\pushToTag} et @code{\appendToTag} permettent d'insérer du
-matériau, qu'il soit antérieur ou postérieur, à des @code{éléments}
-d'une construction musicale existante.  La musique séquentielle ou
-simultanée comporte assurément des @code{éléments} :
+matériau, qu'il soit antérieur ou postérieur, à des constructions
+musicales existantes. Les différentes possibilités sont les suivantes :
+
+@table @asis
+@item Musique séquencielle ou simultanée
+Lorsqu'a été balisée l'intégralité d'une construction @code{@{@dots{}@}}
+ou @code{<<@dots{}>>}, peuvent venir s'insérer, avant ou après, des
+expression musicales.
+
+@item Accords
+Lorsqu'a été balisé un accord @code{<@dots{}>},
+If you tagged a chord @code{<@dots{}>}, peuvent venir s'y ajouter, avant
+ou après, d'autres notes ou des articulations, ces dernières pour
+l'accord dans sa globalité.
+
+@item Notes et silences
+Lorsqu'a été balisée une note (y compris à l'intérieur d'un accord) ou
+un silence, peuvent venir s'y ajouter, avant ou après, d'autres
+articulations. Afin d'ajouter d'autres @emph{notes}, il est préférable
+de les placer dans une construction d'accord et baliser @emph{l'accord}.
+Notez bien qu'il n'est pas possible de baliser une simple
+@emph{articulation} et y ajouter quelque chose, puisqu'il ne s'agit pas
+d'une liste ; il vaut alors mieux baliser la note.
+@end table
 
 @lilypond[verbatim,quote]
 music = { \tag #'here { \tag #'here <<c''>> } }

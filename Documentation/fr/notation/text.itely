@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2164,22 +2164,24 @@ Manuel de notation :
 @funindex font-encoding
 @funindex font-interface
 
-LilyPond neither uses FontConfig nor Pango for accessing music
-notation fonts but handles them by itself.  As a consequence, the
-interface is different.  This section describes how to insert
-music symbols into markup strings.
+En matière de fonte musicale, LilyPond ne recourt ni à FontConfig, ni à
+Pango, mais les gère directement. Par voie de conséquence, l'interface
+est différente. Cette section décrit la manière d'insérer des symboles
+musicaux dans des chaînes de @emph{markup}.
 
-@cindex brace, various sizes
-@cindex font, non-text in markup
-@cindex non-text font, in markup
+@cindex accolade, tailles
+@cindex fonte non textuelle et @i{markup}
+@cindex non texte, fonte, @i{markup}
+@cindex @i{markup}, non texte, fonte
 
-Music notation fonts are a collection of specific glyphs that can
-be accessed with several @emph{encodings}.  The following syntax
-allows LilyPond's various Emmentaler glyphs@footnote{LilyPond's
-Emmentaler fonts contain three glyph sets: @emph{Feta} (for modern
-notation), @emph{Parmesan} (for ancient notation), and braces.
-Both Feta and Parmesan are accessed with the @q{fetaMusic}
-encoding.} to be used directly in markup mode:
+Les fontes de notation musicale sont des collections de glyphes
+accessibles selon divers @emph{encodages}. La syntaxe suivante permet
+d'accéder aux différents glyphes Emmentaler@footnote{Les fontes
+Emmentaler de LilyPond disposent de trois jeux de glyphes : @emph{Feta}
+pour la notation moderne, @emph{Parmesan} pour la notation ancienne, et
+des accolades (@emph{braces} en anglais). Feta et Parmesan sont toutes
+deux accesssibles avec l'encodage « fetamusic ».} directement en mode
+@i{markup} :
 
 @lilypond[quote,verbatim,fragment]
 a'1^\markup {
@@ -2195,14 +2197,14 @@ a'1^\markup {
 @end lilypond
 
 @noindent
-However, all these glyphs except the braces of various sizes are
-available using the simpler syntax described in @ref{Music
-notation inside markup}.
+Néanmoins, tous ces glyphes, à l'exception des accolades de différente
+taille, sont disponibles selon une syntaxe plus simple, indiquée dans
+@ref{Notation musicale dans du texte formaté}.
 
-When accessing braces with the @q{fetaBraces} encoding, the size
-of the brace is specified by the numerical part of the glyph name,
-in arbitrary units.  Any integer from 0 to 575 inclusive may be
-specified, with 0 giving the smallest brace.  The optimum value
-must be determined by trial and error.  These glyphs are all left
-braces; right braces may be obtained by rotation, @pxref{Rotating
-objects}.
+Lorsque l'on accède aux accolades avec l'encodage « fetaBraces », la
+taille de l'accolade est spécifiée par la partie numérique du nom de
+glyphe, en unité arbitraire. Il s'agit d'un entier, de 0 à 575 inclus,
+zéro procurant la plus petite accolade. La valeur optimale s'obtient par
+tâtonnement. Ces glyphes sont tous des accolades gauche (ouvrantes) ;
+une accolade droite (fermante) s'obtient par rotation
+@pxref{Rotation des objets}.

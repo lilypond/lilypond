@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -509,11 +509,17 @@ intermédiaire d'une valeur supérieure à 2^30, LilyPond s'arrêtera
 Une liaison de tenue (ou de prolongation) relie deux notes adjacentes de
 même hauteur.  Dans les faits, elle prolonge la durée d'une note.
 
+Une liaison de tenue sans note d'arrivée est une articulation de
+@dfn{laissez vibrer} -- @pxref{Laissez vibrer} pour la commande
+@code{\laissezVibrer}. Une liaison de tenue venant de nulle part,
+telles celles qui peuvent apparaître en début de section
+alternative, s'indiquent par la commande @code{\repeatTie} --
+@pxref{Tenue et reprise}.
+
 @warning{Une liaison de tenue ne doit pas être confondue avec une
 liaison d'@strong{articulation} ou de @strong{phrasé}.  Une liaison de
 tenue est un moyen parmi d'autres pour prolonger la durée d'une note,
 tout comme les points.}
-
 
 Une liaison de tenue s'indique au moyen d'un tilde (@code{~}) qui
 vient s'adjoindre à la première note de chacune des paires de
@@ -591,9 +597,9 @@ liée, la liaison doit être répétée, comme ici :
 }
 @end lilypond
 
+@anchor{Laissez vibrer}
 @cindex laissez vibrer
 @cindex liaison, laissez vibrer
-
 @funindex \laissezVibrer
 
 Les liaisons « Laissez vibrer » (@notation{L.v.}) sont utilisées pour
@@ -3350,13 +3356,20 @@ numéros de mesure :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/removing-bar-numbers-from-a-score.ly}
 
+@cindex numéro de mesure, centrage
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/measure-centered-bar-numbers.ly}
+
 @morerefs
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
 Référence des propriétés internes :
+@rinternals{Bar_number_engraver},
 @rinternals{BarNumber},
-@rinternals{Bar_number_engraver}.
+@rinternals{Centered_bar_number_align_engraver},
+@rinternals{CenteredBarNumber},
+@rinternals{CenteredBarNumberLineSpanner}.
 @endmorerefs
 
 @knownissues

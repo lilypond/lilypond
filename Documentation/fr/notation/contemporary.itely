@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1bee67bd97aa2672b518eff9ea24e3a023cc8702
+    Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -268,7 +268,7 @@ contournement pourrait ressembler à :
 lastEndStyle =
 #(define-music-function (end-style)(symbol?)
 #{
-  \override DurationLine.after-line-breaking =
+  \override DurationLine.stencil =
     #(lambda (grob)
       (let* ((orig (ly:grob-original grob))
              (siblings (if (ly:grob? orig)
@@ -277,7 +277,8 @@ lastEndStyle =
         (if last-grob
             (ly:grob-set-nested-property!
               last-grob
-              '(bound-details right-broken end-style) end-style))))
+              '(bound-details right-broken end-style) end-style))
+        duration-line::print))
 #})
 
 {

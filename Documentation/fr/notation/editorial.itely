@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1230,6 +1230,8 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/analysis-brackets-with-labels.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/measure-spanner.ly}
 
 @morerefs
 Référence des propriétés internes :
@@ -1238,5 +1240,8 @@ Référence des propriétés internes :
 @rinternals{horizontal-bracket-interface},
 @rinternals{HorizontalBracketText},
 @rinternals{horizontal-bracket-text-interface},
+@rinternals{Measure_spanner_engraver},
+@rinternals{MeasureSpanner},
+@rinternals{measure-spanner-interface},
 @rinternals{Staff}.
 @endmorerefs
