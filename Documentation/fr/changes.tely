@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f8697bad07bbb4a765b3702a8675cdde2c35a0ca
+    Translation of GIT committish: e4c918c46207e01dcde0a110aa6130cb17e25d35
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -291,6 +291,9 @@ Un
 @subsubheading Améliorations pour les cordes frettées ou non
 
 @itemize
+@item
+Ajout des accordages pour banjo @code{banjo-double-c} et
+@code{banjo-double-d}.
 
 @item
 Le nouvel objet graphique @code{FingerGlideSpanner} permet d'indiquer le

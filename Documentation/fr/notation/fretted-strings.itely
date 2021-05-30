@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: e4c918c46207e01dcde0a110aa6130cb17e25d35
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2252,13 +2252,18 @@ music = {
 @funindex banjo-modal-tuning
 @funindex banjo-open-d-tuning
 @funindex banjo-open-dm-tuning
+@funindex banjo-open-g-tuning
+@funindex banjo-double-c-tuning
+@funindex banjo-double-d-tuning
 @funindex four-string-banjo
 
 LilyPond prend en charge un certain nombre d'accordages courants pour
 banjo : @code{banjo-@/c-tuning} sol do sol si ré @w{(gCGBD)},
 @code{banjo-@/modal-@/tuning} sol ré sol do ré @w{(gDGCD)},
-@code{banjo-@/open-@/d-tuning} la ré fa# la ré @w{(aDF#AD)} et
-@code{banjo-@/open-@/dm-tuning} la ré fa la ré @w{(aDFAD)}.
+@code{banjo-@/open-@/d-tuning} la ré fa# la ré @w{(aDF#AD)},
+@code{banjo-@/open-@/dm-tuning} la ré fa la ré @w{(aDFAD)},
+@code{banjo-@/double-c-@/tuning} sol do sol do ré @w{(gCGCD)} et
+@code{banjo-@/double-d-@/tuning} la ré sol ré mi @w{(aDGDE)}.
 
 Ces accordages peuvent être convertis pour banjo à quatre cordes au
 moyen de la fonction @code{four-string-banjo} :
