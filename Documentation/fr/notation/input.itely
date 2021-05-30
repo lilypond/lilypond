@@ -2657,19 +2657,18 @@ matériau, qu'il soit antérieur ou postérieur, à des constructions
 musicales existantes. Les différentes possibilités sont les suivantes :
 
 @table @asis
-@item Musique séquencielle ou simultanée
+@item Musique séquentielle ou simultanée
 Lorsqu'a été balisée l'intégralité d'une construction @code{@{@dots{}@}}
 ou @code{<<@dots{}>>}, peuvent venir s'insérer, avant ou après, des
 expression musicales.
 
 @item Accords
-Lorsqu'a été balisé un accord @code{<@dots{}>},
-If you tagged a chord @code{<@dots{}>}, peuvent venir s'y ajouter, avant
+Lorsqu'a été balisé un accord @code{<@dots{}>}, peuvent venir s'y ajouter, avant
 ou après, d'autres notes ou des articulations, ces dernières pour
 l'accord dans sa globalité.
 
 @item Notes et silences
-Lorsqu'a été balisée une note (y compris à l'intérieur d'un accord) ou
+Lorsque la musique balisée est une note (y compris à l'intérieur d'un accord), ou
 un silence, peuvent venir s'y ajouter, avant ou après, d'autres
 articulations. Afin d'ajouter d'autres @emph{notes}, il est préférable
 de les placer dans une construction d'accord et baliser @emph{l'accord}.

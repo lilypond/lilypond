@@ -512,8 +512,8 @@ même hauteur.  Dans les faits, elle prolonge la durée d'une note.
 Une liaison de tenue sans note d'arrivée est une articulation de
 @dfn{laissez vibrer} -- @pxref{Laissez vibrer} pour la commande
 @code{\laissezVibrer}. Une liaison de tenue venant de nulle part,
-telles celles qui peuvent apparaître en début de section
-alternative, s'indiquent par la commande @code{\repeatTie} --
+comme celles qui peuvent apparaître en début de section
+alternative, s'indique par la commande @code{\repeatTie} --
 @pxref{Tenue et reprise}.
 
 @warning{Une liaison de tenue ne doit pas être confondue avec une
@@ -3644,8 +3644,8 @@ Référence des propriétés internes :
 @cindex mesure, compteur
 
 Les compteurs de mesure constituent un moyen de numéroter des mesures
-consécutives pour, par exemple, assister l'interprête dans le décompte
-de mesures lors des reprises. Cette fonctionnalité recquiert
+consécutives pour, par exemple, assister l'interprète dans le décompte
+de mesures lors des reprises. Cette fonctionnalité requiert
 l'adjonction du @code{Measure_counter_engraver} à un contexte du type
 @code{Staff} ou @code{Score}.
 
@@ -3694,8 +3694,8 @@ Le numéro des mesures tronquées se présente entre parenthèses.
 }
 @end lilypond
 
-La compression de silences multimesure reçoit un traîtement
-particulier : est présenté l'amplitude des mesures considérées.
+La compression de silences multimesure reçoit un traitement
+particulier : est présenté l'intervalle de mesures considéré.
 
 @lilypond[verbatim,quote]
 \layout {

@@ -3755,9 +3755,9 @@ e'8 e' e' e'
 
 La propriété @code{minimum-length-after-break} peut s'utiliser pour
 dimensionner le tronçon d'extenseur placé après un saut de ligne. Tout
-comme avec la propriété @code{minimum-length}, elle est souvent
-nécessaire lors du réglage de la propriété @code{springs-and-rods}
-@code{ly:spanner::set-spacing-rods}.
+comme la propriété @code{minimum-length}, elle nécessite souvent,
+pour prendre effet, de régler la propriété @code{springs-and-rods}
+sur @code{ly:spanner::set-spacing-rods}.
 
 @lilypond[verbatim,quote,ragged-right]
 {

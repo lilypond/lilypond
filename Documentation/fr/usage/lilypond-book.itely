@@ -198,7 +198,7 @@ c'4 f16
 
 Des extraits plus conséquents peuvent faire l'objet de fichiers
 indépendants, alors inclus avec @code{\lilypondfile}. Par exemple, en
-utilisantn la syntaxe HTML,
+utilisant la syntaxe HTML,
 
 @example
 <lilypondfile quote noindent>
@@ -329,7 +329,7 @@ accolades -- @code{@{} ou @code{@}} -- dans un
 @code{\lilypond@{@}} ; cette commande n'est donc pertinente que
 lorsque conjuguée à l'option @option{fragment}.
 
-La longueur par défaut des portées est détermine en fonction des
+La longueur par défaut des portées est déterminée en fonction des
 commandes contenues dans le préambule du document -- ce qui précède la
 ligne @code{\begin@{document@}}.  La commande @code{lilypond-book} les
 transmet à @LaTeX{} afin de connaître la largeur du texte et, par voie
@@ -549,8 +549,8 @@ produit
 @lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
 
 @morerefs
-Certaines options de la ligne de commande spécfifiques à
-@command{lilypon-book} et d'autres détails utiles aux documents Texinfo
+Certaines options de la ligne de commande spécifiques à
+@command{lilypond-book} et d'autres détails utiles aux documents Texinfo
 sont mentionnés dans @ref{Utilisation de lilypond-book}.
 @endmorerefs
 
@@ -604,7 +604,7 @@ suivantes dans votre fichier source :
 Par ailleurs, l'utilisation d'un @code{<lilypondversion/>} permet
 d'afficher la version de LilyPond utilisée.
 
-Par exemple, l'anvironnement @code{lilypond}
+Par exemple, l'environnement @code{lilypond}
 
 @example
 <lilypond quote fragment staffsize=26>
@@ -631,8 +631,8 @@ produit
 @lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
 
 @morerefs
-Certaines options de la ligne de commande spécfifiques à
-@command{lilypon-book} et d'autres détails utiles aux documents HTML
+Certaines options de la ligne de commande spécifiques à
+@command{lilypond-book} et d'autres détails utiles aux documents HTML
 sont mentionnés dans @ref{Utilisation de lilypond-book}.
 @endmorerefs
 
@@ -803,15 +803,15 @@ qu'il s'agit de l'option par défaut.
 Traite l'extrait pour une utilisation en ligne, autrement dit au fil du
 texte d'un paragraphe. L'extrait en lui-même est formaté avec un léger
 décalage à gauche (à peu près équivalent à celui sur la droite) tout en
-ignorant la valeur de l'option en ligne de commande donnée à
+ignorant la valeur donnée à l'option en ligne de commande
 @option{--left-padding}.
 
 Dans le cas d'une sortie Texinfo, ceci supprime l'insertion d'une ligne
 vide avant et après l'extrait. Dans le cas d'une sortie HTML, ceci
-supprime l'ensertion des @code{<p>} et @code{</p>} encadrant l'extrait.
+supprime l'insertion des @code{<p>} et @code{</p>} encadrant l'extrait.
 
 Afin que l'extrait apparaisse réellement au fil du texte dans les
-modes @LaTeX{} et Texinfo, il est nécessaire de la positionner au sein
+modes @LaTeX{} et Texinfo, il est nécessaire de le positionner au sein
 même du paragraphe, autrement dit éviter toute ligne vide avant et après
 l'extrait. Par exemple,
 
@@ -1203,15 +1203,13 @@ Utilise l'exécutable @command{@var{programme}} en lieu et place de
 
 @item --left-padding=@var{distance}
 Insère du blanc à gauche de l'extrait LilyPond. @var{distance} est
-arrondie à un multiple de @dfn{big point} (bp) -- le bp correspond à
+arrondie à une valeur entière en @dfn{big point} (bp) -- le bp correspond à
 1/72 pouce, soit environ 0,353 @dmn{mm}. @var{distance} est exprimée en
 millimètres @emph{relativement au début de la portée}. Sa valeur est par
 défaut de 3,175 @dmn{mm}, ce qui correpond à 9 @dmn{bp}.
-(3 par défaut).  Cette option est utile lorsque les lignes de musique
-débordent sur la marge droite.
 
 Rappelez-vous que la largeur d'un système dépend des élément positionnés
-à sa gauche, tels que numéro de mesure et nom d'instrument. Le décalage
+à sa gauche, tels que numéro de mesure et noms d'instrument. Le décalage
 détermine la distance minimale entre le bord de l'image et le début de
 la portée (non indentée), ce qui permet d'obtenir un alignement vertical
 correct des extraits dans le document maître.
@@ -1227,7 +1225,7 @@ Rappelez-vous que @code{lilypond-book} ne peut en même temps traiter
 l'option @option{--filter} et l'option @option{--process}.
 
 @item --pdf
-Crée des fichiers PDF. Si cette option n'est pas ddéfinie, seuls seront
+Crée des fichiers PDF. Si cette option n'est pas définie, seuls seront
 générés des fichiers PNG et EPS. Cette option permet d'intégrer
 directement du PDF dans des fichiers @LaTeX{} ou Texinfo.
 

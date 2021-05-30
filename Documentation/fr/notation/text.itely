@@ -2164,17 +2164,17 @@ Manuel de notation :
 @funindex font-encoding
 @funindex font-interface
 
-En matière de fonte musicale, LilyPond ne recourt ni à FontConfig, ni à
+En matière de fontes musicales, LilyPond ne recourt ni à FontConfig, ni à
 Pango, mais les gère directement. Par voie de conséquence, l'interface
 est différente. Cette section décrit la manière d'insérer des symboles
-musicaux dans des chaînes de @emph{markup}.
+musicaux en mode @emph{markup}.
 
 @cindex accolade, tailles
 @cindex fonte non textuelle et @i{markup}
 @cindex non texte, fonte, @i{markup}
 @cindex @i{markup}, non texte, fonte
 
-Les fontes de notation musicale sont des collections de glyphes
+Les fontes de notation musicale sont des ensembles de glyphes
 accessibles selon divers @emph{encodages}. La syntaxe suivante permet
 d'accéder aux différents glyphes Emmentaler@footnote{Les fontes
 Emmentaler de LilyPond disposent de trois jeux de glyphes : @emph{Feta}

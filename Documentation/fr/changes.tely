@@ -501,10 +501,10 @@ d'accolades dans les arguments des commandes @code{\lilypond} (pour
 @item
 @command{lilypond-book} ajoute désormais le répertoire courant comme
 dernière entrée pour la recherche des fichiers inclus, au lieu de le
-placer en premier dans la liste des chemins pécifiés. Ceci permet de
-pister les dossiers d'inclusion à partir du répertoire en cours et ne
-sera noté que dans le cas où exsitent des fichiers du même nom de part
-et d'autre.
+placer en premier dans la liste des chemins spécifiés. Ainsi, les
+fichiers situés dans les dossiers d'inclusion prennent le pas sur
+ceux du même nom dans le répertoire courant.  L'effet ne sera visible
+que dans le cas où existent des fichiers du même nom de part et d'autre.
 
 @item
 @command{lilypond-book} prend en charge la nouvelle option
