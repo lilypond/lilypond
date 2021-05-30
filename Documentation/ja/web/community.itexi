@@ -139,7 +139,7 @@ LSR から、@c
 我々の IRC チャネルでサポートが提供されています:
 
 @example
-@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
 @end example
 
 このチャネルはアーカイブされません。@c
@@ -147,13 +147,13 @@ LSR から、@c
 メーリング リストに投稿した方が良いでしょう。
 
 @html
-<form action="http://webchat.freenode.net"
+<form action="https://web.libera.chat"
       method="get"
       name="f_lily_irc"
   <label>irc name:
     <input name="nick" type="text" size="15" value="">
   </label>
-  <input name="channels" type="hidden" value="lilypond">
+  <input name="Channel" type="hidden" value="lilypond">
   <input type="submit" value="Join #lilypond IRC Chat">
 </form>
 

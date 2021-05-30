@@ -140,7 +140,7 @@ la nostra documentació oficial, a @ref{Snippets}.
 Hi existeix un cert grau de suport mitjançant el nostre canal d'IRC,
 
 @example
-@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
 @end example
 
 Aquest canal no té arxius públics, per la qual cosa qualsevol
@@ -148,13 +148,13 @@ qüestió que pogués ser d'utilitat per als altres usuaris s'hauria
 d'enviar preferentment a una de les llistes de correu.
 
 @html
-<form action="http://webchat.freenode.net"
+<form action="https://web.libera.chat"
       method="get"
       name="f_lily_irc"
   <label>nombre de IRC:
     <input name="nick" type="text" size="15" value="">
   </label>
-  <input name="channels" type="hidden" value="lilypond">
+  <input name="Channel" type="hidden" value="lilypond">
   <input type="submit" value="Unir-se al canal d'IRC #lilypond">
 </form>
 

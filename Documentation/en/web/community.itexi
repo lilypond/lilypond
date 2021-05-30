@@ -138,20 +138,20 @@ official documentation, in @ref{Snippets}.
 Some level of support is provided on our IRC channel,
 
 @example
-@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
 @end example
 
 This channel has no public archive, so any question that may
 be useful for others would better be posted to one of the mailing lists.
 
 @html
-<form action="http://webchat.freenode.net"
+<form action="https://web.libera.chat"
       method="get"
       name="f_lily_irc"
   <label>irc name:
     <input name="nick" type="text" size="15" value="">
   </label>
-  <input name="channels" type="hidden" value="lilypond">
+  <input name="Channel" type="hidden" value="lilypond">
   <input type="submit" value="Join #lilypond IRC Chat">
 </form>
 

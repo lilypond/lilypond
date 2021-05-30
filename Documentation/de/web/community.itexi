@@ -147,7 +147,7 @@ Dokumentation eingefügt, in @ref{Schnipsel}.
 Unterstützung können Sie auch auf unserem IRC-Kanal erhalten:
 
 @example
-@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
 @end example
 
 Dieser Kanal hat kein öffentliches Archiv, sodass jede Frage, die
@@ -155,13 +155,13 @@ auch für andere Benutzer nützlich sein könnte, besser auf der
 Mailingliste gestellt wird.
 
 @html
-<form action="http://webchat.freenode.net"
+<form action="https://web.libera.chat"
       method="get"
       name="f_lily_irc"
   <label>irc name:
     <input name="nick" type="text" size="15" value="">
   </label>
-  <input name="channels" type="hidden" value="lilypond">
+  <input name="Channel" type="hidden" value="lilypond">
   <input type="submit" value="#lilypond IRC Chat beitreten">
 </form>
 

@@ -155,7 +155,7 @@ sont directement inclus dans la documentation, volume
 Vous pouvez obtenir quelque support au travers de notre canal IRC :
 
 @example
-@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
 @end example
 
 Ce canal ne disposant pas d'archive publique, nous vous invitons à
@@ -163,13 +163,13 @@ plutôt utiliser les listes de diffusion pour toute question qui pourrait
 intéresser d'autres utilisateurs.
 
 @html
-<form action="http://webchat.freenode.net"
+<form action="https://web.libera.chat"
       method="get"
       name="f_lily_irc"
   <label>alias irc :
     <input name="nick" type="text" size="15" value="">
   </label>
-  <input name="channels" type="hidden" value="lilypond">
+  <input name="Channel" type="hidden" value="lilypond">
   <input type="submit" value="Rejoindre #lilypond IRC Chat">
 </form>
 

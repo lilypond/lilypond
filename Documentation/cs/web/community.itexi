@@ -133,7 +133,7 @@ dokumentaci, v @ref{Snippets}.
 Nějakou podporu můžete obdržet i na našem kanálu IRC:
 
 @example
-@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
 @end example
 
 Tento kanál nemá žádný veřejný archiv, takže každou otázku, která
@@ -141,13 +141,13 @@ by mohla být užitečná i pro další uživatele, by bylo lepší položit
 na jednom z poštovních seznamů.
 
 @html
-<form action="http://webchat.freenode.net"
+<form action="https://web.libera.chat"
       method="get"
       name="f_lily_irc"
   <label>irc name:
     <input name="nick" type="text" size="15" value="">
   </label>
-  <input name="channels" type="hidden" value="lilypond">
+  <input name="Channel" type="hidden" value="lilypond">
   <input type="submit" value="#lilypond IRC Chat beitreten">
 </form>
 

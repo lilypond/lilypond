@@ -143,7 +143,7 @@ incluyen en nuestra documentación oficial, en @ref{Fragmentos}.
 Existe un cierto grado de apoyo a través de nuestro canal de IRC,
 
 @example
-@uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
 @end example
 
 Este canal no tiene unos archivos públicos, por lo que cualquier
@@ -151,13 +151,13 @@ cuestión que pudiera ser de utilidad para los demás debiera
 preferentemente enviarse a una de las listas de correo.
 
 @html
-<form action="http://webchat.freenode.net"
+<form action="https://web.libera.chat"
       method="get"
       name="f_lily_irc"
   <label>Nombre de IRC:
     <input name="nick" type="text" size="15" value="">
   </label>
-  <input name="channels" type="hidden" value="lilypond">
+  <input name="Channel" type="hidden" value="lilypond">
   <input type="submit" value="Unirse al canal de IRC #lilypond">
 </form>
 
