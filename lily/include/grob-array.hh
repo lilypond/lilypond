@@ -47,6 +47,7 @@ public:
   void add (Grob *x) { grobs_.push_back (x); }
   void set_array (std::vector<Grob *> const &src) { grobs_ = src; }
   std::vector<Grob *> &array_reference () { return grobs_; }
+  const std::vector<Grob *> &array_reference () const { return grobs_; }
   std::vector<Grob *> const &array () const { return grobs_; }
   static SCM make_array ();
 
@@ -57,17 +58,37 @@ public:
   // Run a function on all grobs in this array.  If the function returns null,
   // remove the original grob, reducing the size of the array.  If the function
   // returns a Grob, replace the original grob with the returned Grob.
-  void filter_map (Grob * (*map_fun) (Grob *));
-
-  // Like filter_map, but with a SCM arg.
-  void filter_map2 (Grob * (*map_fun) (SCM, Grob *), SCM arg);
+  //
+  // Optional extra arguments to filter_map are passed to the provided mapping
+  // function ahead of the Grob.
+  template <class Fn, class... Args>
+  void filter_map (Fn &&fn, Args &&... args)
+  {
+    vsize new_size = 0;
+    for (auto *og : grobs_)
+      if (auto *g = std::forward<Fn>(fn) (std::forward<Args>(args)..., og))
+        grobs_[new_size++] = g;
+    grobs_.resize (new_size);
+    grobs_.shrink_to_fit ();
+  }
 
   // Like src.filter_map (f), but store the result in this array instead of
   // mutating the input.
-  void filter_map_assign (const Grob_array &src, Grob * (*map_fun) (Grob *));
-
-  // Like src.filter_map_assign, but curry an argument
-  void filter_map_assign2 (const Grob_array &src, Grob * (*map_fun) (SCM, Grob *), SCM);
+  template <class Fn, class... Args>
+  void filter_map_assign (const Grob_array &src, Fn &&fn, Args &&... args)
+  {
+    if (&src != this)
+      {
+        grobs_.clear ();
+        grobs_.reserve (src.grobs_.size ());
+        for (auto *og : src.grobs_)
+          if (auto *g = std::forward<Fn>(fn) (std::forward<Args>(args)..., og))
+            grobs_.push_back (g);
+        grobs_.shrink_to_fit ();
+      }
+    else
+      filter_map (std::forward<Fn>(fn), std::forward<Args>(args)...);
+  }
 };
 
 std::vector<Grob *> const &ly_scm2link_array (SCM x);

@@ -48,7 +48,7 @@ protected:
 Fingering_column_engraver::Fingering_column_engraver (Context *c)
   : Engraver (c)
 {
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     fingering_columns_[d] = 0;
 }
 
@@ -70,7 +70,7 @@ Fingering_column_engraver::stop_translation_timestep ()
         }
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (scripts_[d].size () < 2 && fingering_columns_[d])
         {
@@ -100,7 +100,7 @@ Fingering_column_engraver::acknowledge_finger (Grob_info inf)
 void
 Fingering_column_engraver::process_acknowledged ()
 {
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (possibles_.size () > 1 && !fingering_columns_[d])
         fingering_columns_[d] = make_item ("FingeringColumn", SCM_EOL);

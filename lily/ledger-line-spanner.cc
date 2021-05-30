@@ -44,7 +44,7 @@ set_rods (Drul_array<Interval> const &current_extents,
           Item *previous_column,
           Real min_length)
 {
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       if (!current_extents[d].is_empty ()
           && !previous_extents[d].is_empty ())
@@ -263,7 +263,7 @@ Ledger_line_spanner::print (SCM smob)
       if (last == reqs.end ())
         continue;
 
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         {
           // Some rank--> vdir--> reqs will be 'empty' because notes
           // will not be above AND below the staff for a given rank.
@@ -285,7 +285,7 @@ Ledger_line_spanner::print (SCM smob)
                    && !staff_extent.contains (i->second[d].max_position_
                                               - sign (i->second[d].max_position_)));
 
-              for (LEFT_and_RIGHT (which))
+              for (const auto which : {LEFT, RIGHT})
                 {
                   Ledger_request &lr = ((which == LEFT) ? * last : *i).second[d];
 
@@ -304,7 +304,7 @@ Ledger_line_spanner::print (SCM smob)
   for (Ledger_requests::iterator i (reqs.begin ());
        i != reqs.end (); i++)
     {
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         {
           Ledger_request &lr = i->second[d];
           for (vsize h = 0; h < lr.heads_.size (); h++)
@@ -358,7 +358,7 @@ Ledger_line_spanner::print (SCM smob)
 
   for (Ledger_requests::iterator i (reqs.begin ()); i != reqs.end (); i++)
     {
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         {
           std::map<Real, vector<Interval> > &lex = i->second[d].ledger_extents_;
           for (std::map<Real, vector<Interval> >::iterator k = lex.begin ();

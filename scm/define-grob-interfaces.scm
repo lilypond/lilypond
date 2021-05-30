@@ -336,7 +336,10 @@ accidentals)."
  'measure-counter-interface
  "A counter for numbering measures."
  '(columns
-   count-from))
+   count-from
+   left-number-text
+   number-range-separator
+   right-number-text))
 
 (ly:add-interface
  'metronome-mark-interface

@@ -955,7 +955,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
   Drul_array<vector<Skyline_pair> > all_v_skylines;
   Drul_array<vector<Real> > all_paddings;
   Drul_array<vector<Real> > all_horizon_paddings;
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       all_v_skylines[d].push_back (skylines);
       all_paddings[d].push_back (0);

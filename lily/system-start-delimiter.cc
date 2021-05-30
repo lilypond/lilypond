@@ -46,7 +46,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
                             Interval (-1, 1) * (height / 2 + overlap));
 
   Stencil bracket = Lookup::filled_box (bracket_line_extents);
-  for (DOWN_and_UP (d))
+  for (const auto d : {DOWN, UP})
     bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap);
 
   // The reference for positioning the delimiter in X-direction should

@@ -59,7 +59,8 @@ protected:
   */
   SCM interfaces_;
 
-  void substitute_object_links (SCM, SCM);
+  void substitute_object_links (Direction, SCM);
+  void substitute_object_links (System *, SCM);
   Real get_offset (Axis a) const;
   SCM try_callback (SCM, SCM);
   SCM try_callback_on_alist (SCM *, SCM, SCM);
@@ -203,6 +204,7 @@ System *get_root_system (Grob *me);
 
 /* extents */
 Interval robust_relative_extent (Grob *, Grob *, Axis);
+Interval robust_relative_pure_y_extent (Grob *, Grob *, vsize, vsize);
 
 /* offset/extent callbacks. */
 void add_offset_callback (Grob *g, SCM proc, Axis a);

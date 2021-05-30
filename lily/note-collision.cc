@@ -372,7 +372,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
 
   Drul_array<vector<Grob *> > clash_groups = get_clash_groups (me);
 
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       for (vsize i = clash_groups[d].size (); i--;)
         {
@@ -387,7 +387,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   SCM hand (forced_shift (me));
 
   Real wid = 0.0;
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       if (clash_groups[d].size ())
         {
@@ -449,7 +449,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
         }
     }
 
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       vector<Grob *> &clashes (clash_groups[d]);
       std::sort (clashes.begin (), clashes.end (), Note_column::shift_less);
@@ -471,7 +471,7 @@ Note_collision_interface::automatic_shift (Grob *me,
   Drul_array<vector<Slice> > extents;
   Drul_array<Slice> extent_union;
   Drul_array<vector<Grob *> > stems;
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         {
@@ -498,7 +498,7 @@ Note_collision_interface::automatic_shift (Grob *me,
    *   x|
   */
   Drul_array<vector<Real> > offsets;
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       Real offset = inner_offset;
       vector<int> shifts;
@@ -552,7 +552,7 @@ Note_collision_interface::automatic_shift (Grob *me,
           Side_position_interface::add_support (dc, stems[UP][j]);
     }
 
-  for (UP_and_DOWN (d))
+  for (const auto d : {UP, DOWN})
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         tups = scm_cons (scm_cons (clash_groups[d][i]->self_scm (),

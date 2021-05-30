@@ -53,17 +53,17 @@ Bracket::make_bracket (Grob *me, // for line properties.
 
   Drul_array<Offset> straight_corners = corners;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     straight_corners[d] += -d * shorten[d] / length * dz;
 
   if (!gap.is_empty ())
     {
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
     }
 
   Drul_array<Offset> flare_corners = straight_corners;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       flare_corners[d][bracket_axis] = straight_corners[d][bracket_axis];
       flare_corners[d][protrusion_axis] += height[d];
@@ -72,7 +72,7 @@ Bracket::make_bracket (Grob *me, // for line properties.
 
   Stencil m;
   if (!gap.is_empty ())
-    for (LEFT_and_RIGHT (d))
+    for (const auto d : {LEFT, RIGHT})
       m.add_stencil (Line_interface::line (me, straight_corners[d],
                                            gap_corners[d]));
   else
@@ -82,7 +82,7 @@ Bracket::make_bracket (Grob *me, // for line properties.
   if (scm_is_eq (get_property (me, "style"), ly_symbol2scm ("dashed-line"))
       && !from_scm<bool> (get_property (me, "dashed-edge")))
     set_property (me, "style", ly_symbol2scm ("line"));
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     m.add_stencil (Line_interface::line (me, straight_corners[d],
                                          flare_corners[d]));
   return m;
@@ -113,7 +113,7 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
     = from_scm (get_property (me, "connect-to-neighbor"),
                 Drul_array<bool> (false, false));
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (connect_to_other[d])
         {

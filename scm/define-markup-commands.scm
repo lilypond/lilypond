@@ -3808,8 +3808,23 @@ mensural-flags.  Both are supplied for convenience.
           (ly:output-def-lookup
            (ly:parser-lookup '$defaultpaper)
            'text-font-size 11))
-         (size-factor (magstep font-size))
          (blot (ly:output-def-lookup layout 'blot-diameter))
+         (layout-output-scale (ly:output-def-lookup layout 'output-scale))
+         (paper-output-scale
+           (ly:output-def-lookup
+            (ly:parser-lookup '$defaultpaper)
+            'output-scale))
+         (staff-space (ly:output-def-lookup layout 'staff-space))
+         ;; While `layout-set-staff-size', applied in a score-layout, changes
+         ;; staff-space, it does not change staff-space while applied in \paper
+         ;; of an explicit book.
+         ;; Thus we compare the actual staff-space with the values of
+         ;; output-scale from current layout and $defaultpaper
+         (size-factor
+           (if (eqv? (/ layout-output-scale paper-output-scale) staff-space)
+               (magstep font-size)
+               (/ (* paper-output-scale staff-space (magstep font-size))
+                  layout-output-scale)))
          (head-glyph-name
           (let ((result (get-glyph-name font
                                         (get-glyph-name-candidates

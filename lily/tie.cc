@@ -84,7 +84,7 @@ Tie::get_column_rank (Spanner *me, Direction d)
 int
 Tie::get_position (Spanner *me)
 {
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Grob *h = head (me, d);
       if (h)
@@ -115,7 +115,7 @@ Direction
 Tie::get_default_dir (Spanner *me)
 {
   Drul_array<Grob *> stems;
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Grob *one_head = head (me, d);
       if (!one_head)

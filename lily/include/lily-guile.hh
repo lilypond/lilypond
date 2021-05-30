@@ -41,6 +41,7 @@
 #define GUILE_ELLIPSIS
 #endif
 
+#include "axis.hh"
 #include "guile-compatibility.hh"
 #include "interval.hh"
 #include "lily-guile-macros.hh"

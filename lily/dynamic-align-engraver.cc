@@ -170,7 +170,7 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
   if (!line)
     return;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if ((d == LEFT && !line->get_bound (LEFT))
           || (end && d == RIGHT && !line->get_bound (RIGHT)))

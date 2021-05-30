@@ -115,7 +115,7 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
                 d * dot_product (z, dz_perp));
 
       bool close_to_edge = false;
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         close_to_edge = close_to_edge || -d * (p[X_AXIS] - curve_xext[d]) < close_to_edge_length;
 
       if (close_to_edge)
@@ -369,7 +369,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 
   bool too_close = false;
   for (vsize k = 0; k < forbidden_attachments.size (); k++)
-    for (LEFT_and_RIGHT (side))
+    for (const auto side : {LEFT, RIGHT})
       if ((forbidden_attachments[k] - attachment_[side]).length () < state.parameters_.slur_tie_extrema_min_distance_)
         {
           too_close = true;
@@ -394,7 +394,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
       bool found = false;
       Real y = 0.0;
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           /*
             We need to check for the bound explicitly, since the
@@ -456,7 +456,7 @@ Slur_configuration::score_edges (Slur_score_state const &state)
   Offset dz = attachment_[RIGHT]
               - attachment_[LEFT];
   Real slope = dz[Y_AXIS] / dz[X_AXIS];
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Real y = attachment_[d][Y_AXIS];
       Real dy = fabs (y - state.base_attachments_[d][Y_AXIS]);

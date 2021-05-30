@@ -150,7 +150,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 {
   Drul_array<Real> dists (0, 0);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Paper_column *lc = dynamic_cast<Paper_column *> ((d == LEFT) ? next_door[LEFT] : c);
       Paper_column *rc = dynamic_cast<Paper_column *> (d == LEFT ? c : next_door[RIGHT]);

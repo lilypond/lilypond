@@ -85,7 +85,7 @@ Item::break_breakable_item (System *sys)
   if (Item::is_non_musical (this))
     {
       Drul_array<Item *> new_copies;
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Item *item = clone ();
           sys->typeset_grob (item);
@@ -108,7 +108,7 @@ Item::find_broken_piece (System *l) const
   if (get_system () == l)
     return const_cast<Item *> (this);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Item *s = broken_to_drul_[d];
       if (s && s->get_system () == l)
@@ -166,14 +166,14 @@ spanned_time_interval (Item *l, Item *r)
   Drul_array<Item *> bounds (l, r);
   Interval_t<Moment> iv;
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (bounds[d] && bounds[d]->get_column ())
         iv[d] = robust_scm2moment (get_property (bounds[d]->get_column (), "when"),
                                    iv[d]);
     }
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (!bounds[d] || !bounds[d]->get_column ())
         iv[d] = iv[-d];

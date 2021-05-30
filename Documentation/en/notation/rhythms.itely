@@ -2789,6 +2789,7 @@ music snippets, and when numbers in the fraction are small.
 * Bar numbers::
 * Bar and bar number checks::
 * Rehearsal marks::
+* Measure counts::
 @end menu
 
 @node Bar lines
@@ -3580,6 +3581,140 @@ Internals Reference:
 @rinternals{Mark_engraver},
 @rinternals{RehearsalMark}.
 @endmorerefs
+
+
+@node Measure counts
+@unnumberedsubsubsec Measure counts
+
+@cindex measure counter
+
+Measure counts are a way to number consecutive measures, for example
+as an aid for musicians to count measures in written-out repeats.
+Using this feature requires adding the @code{Measure_counter_engraver}
+to a context type, usually @code{Staff} or @code{Score}.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+  }
+}
+
+\relative c' {
+  \time 6/8
+  \key e \minor
+  r4 a8 b c dis
+  \startMeasureCount
+  \repeat unfold 3 {
+    e8 b e g8. fis32 e dis8
+  }
+  \stopMeasureCount
+  b'4. r
+}
+@end lilypond
+
+Broken measures are numbered in parentheses.
+
+@lilypond[verbatim,quote]
+
+\layout {
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+  }
+}
+
+\relative c' {
+  \time 6/8
+  \key e \minor
+  r4 a8 b c dis
+  \startMeasureCount
+  e8 b e g8. fis32 e dis8
+  e8 b e \bar "" \break g8. fis32 e dis8
+  e8 b e g8. fis32 e dis8
+  \stopMeasureCount
+  b'4. r
+}
+@end lilypond
+
+Compressed multi-measure rests receive special treatment: the
+full measure range is shown.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+  }
+  \context {
+    \Voice
+    \override MultiMeasureRestNumber.direction = #DOWN
+  }
+}
+
+\compressMMRests {
+  \key e \minor
+  \startMeasureCount
+  \new CueVoice {
+    b4.( e'8) b8 r e' r
+  }
+  R1*2
+  \stopMeasureCount
+  g'2\> fis'2\!
+}
+@end lilypond
+
+Measure counters honor alternative numbering styles.  When the style
+is @code{numbers-with-letters}, they render best with a textual font.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    alternativeNumberingStyle = #'numbers-with-letters
+  }
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+    \override MeasureCounter.Y-offset = 6
+    \override MeasureCounter.font-encoding = #'latin1
+    \override MeasureCounter.font-size = 1
+  }
+}
+
+\relative c' {
+  \startMeasureCount
+  \repeat volta 2 {
+    c8 d e f c d e f
+  }
+  \alternative {
+    { e4 d c b }
+    { g'4 g c2 }
+  }
+  \bar "|."
+  \stopMeasureCount
+}
+@end lilypond
+
+@predefined
+@code{\startMeasureCount},
+@code{\stopMeasureCount}.
+@endpredefined
+
+@morerefs
+Notation Reference:
+@ref{Modifying context plug-ins},
+@ref{Compressing empty measures},
+@ref{Breaks},
+@ref{Bar numbers}.
+
+Internals Reference:
+@rinternals{Measure_counter_engraver},
+@rinternals{MeasureCounter},
+@rinternals{measure-counter-interface}.
+@endmorerefs
+
 
 
 @node Special rhythmic concerns

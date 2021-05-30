@@ -157,11 +157,11 @@ Rest_collision::calc_positioning_done (SCM smob)
             rests[d]->warning (_ ("cannot resolve rest collision: rest direction not set"));
         }
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         std::sort (ordered_rests[d].begin (), ordered_rests[d].end (),
                    rest_shift_less);
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           if (ordered_rests[d].size () < 1)
             {
@@ -190,7 +190,7 @@ Rest_collision::calc_positioning_done (SCM smob)
                              2 * int (ceil (diff)));
         }
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           for (vsize i = ordered_rests[d].size () - 1; i-- > 0;)
             {

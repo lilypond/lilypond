@@ -427,7 +427,7 @@ position_apes (Grob *me,
       for (vsize j = ape->grobs_.size (); j--;)
         ape->grobs_[j]->translate_axis (offset, X_AXIS);
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Real mh = ape->horizontal_skylines_[d].max_height ();
           if (!std::isinf (mh))

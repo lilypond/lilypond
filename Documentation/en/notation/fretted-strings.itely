@@ -2213,16 +2213,21 @@ music = {
 @cindex banjo tuning
 @cindex tuning, banjo
 
+@funindex banjo-open-g-tuning
 @funindex banjo-c-tuning
 @funindex banjo-modal-tuning
 @funindex banjo-open-d-tuning
 @funindex banjo-open-dm-tuning
+@funindex banjo-double-c-tuning
+@funindex banjo-double-d-tuning
 @funindex four-string-banjo
 
 A number of common tunings for the five-string banjo are predefined:
-@code{banjo-@/c-tuning} @w{(gCGBD)}, @code{banjo-@/modal-@/tuning} @w{(gDGCD)},
-@code{banjo-@/open-d-@/tuning} @w{(aDF#AD)}, and @code{banjo-@/open-dm-@/tuning}
-@w{(aDFAD)}.
+@code{banjo-@/open-g-@/tuning} @w{(gDGBD)}, @code{banjo-@/c-tuning}
+@w{(gCGBD)}, @code{banjo-@/modal-@/tuning} @w{(gDGCD)},
+@code{banjo-@/open-d-@/tuning} @w{(aDF#AD)}, @code{banjo-@/open-dm-@/tuning}
+@w{(aDFAD)}, @code{banjo-@/double-c-@/tuning} @w{(gCGCD)} and
+@code{banjo-@/double-d-@/tuning} @w{(aDGDE)}.
 
 These may be converted to four-string tunings using the
 @code{four-string-banjo} function:

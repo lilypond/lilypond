@@ -106,7 +106,7 @@ Ottava_spanner_engraver::typeset_all ()
 {
   if (finished_)
     {
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           if (!finished_->get_bound (RIGHT))
             {

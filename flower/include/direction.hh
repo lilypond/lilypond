@@ -21,7 +21,6 @@
 #define DIRECTION_HH
 
 #include <algorithm>
-#include "axis.hh"
 
 enum Direction
 {
@@ -29,24 +28,11 @@ enum Direction
   DOWN = -1,
   LEFT = -1,
   RIGHT = 1,
-  MIN = -1,
-  MAX = 1,
   CENTER = 0,
   SMALLER = -1,
   BIGGER = 1,
   START = -1,
   STOP = 1,
-
-  /*
-    This is necessary to safely write loops,
-    since
-
-    dir <= RIGHT
-
-    is otherwise transformed into true unconditionally.
-  */
-  DIRECTION_LIMIT = 2,
-  DIRECTION_NEG_LIMIT = -2,
 };
 
 inline Direction
@@ -54,15 +40,6 @@ operator - (Direction d)
 {
   return Direction (- static_cast<int> (d)); // cast avoids recursion
 }
-
-#define UP_and_DOWN(d) \
-  Direction d = UP; d != CENTER; d = (d == UP ? DOWN : CENTER)
-
-#define DOWN_and_UP(d) \
-  Direction d = DOWN; d != CENTER; d = (d == DOWN ? UP : CENTER)
-
-#define LEFT_and_RIGHT(d) \
-  Direction d = LEFT; d != CENTER; d = (d == LEFT ? RIGHT : CENTER)
 
 /**
    if d > 0: the max operator

@@ -331,7 +331,7 @@ Stem::internal_pure_height (Grob *me, bool calc_beam)
     {
       Interval overshoot;
       Direction dir = get_grob_direction (me);
-      for (DOWN_and_UP (d))
+      for (const auto d : {DOWN, UP})
         overshoot[d] = d == dir ? dir * infinity_f : iv[d];
 
       vector<Interval> heights;
@@ -380,7 +380,7 @@ Stem::cache_pure_height (Grob *me, Interval iv, Interval my_iv)
 {
   Interval overshoot;
   Direction dir = get_grob_direction (me);
-  for (DOWN_and_UP (d))
+  for (const auto d : {DOWN, UP})
     overshoot[d] = d == dir ? dir * infinity_f : my_iv[d];
 
   iv.intersect (overshoot);

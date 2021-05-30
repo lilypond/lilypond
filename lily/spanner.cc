@@ -48,7 +48,7 @@ Spanner::do_break_processing ()
       /*
         If we have a spanner spanning one column, we must break it
         anyway because it might provide a parent for another item.  */
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         {
           Item *bound = left->find_prebroken_piece (d);
           if (!bound)
@@ -91,7 +91,7 @@ Spanner::do_break_processing ()
           Drul_array<Item *> bounds;
           bounds[LEFT] = break_points[i - 1];
           bounds[RIGHT] = break_points[i];
-          for (LEFT_and_RIGHT (d))
+          for (const auto d : {LEFT, RIGHT})
             {
               if (!bounds[d]->get_system ())
                 bounds[d] = bounds[d]->find_prebroken_piece (- d);
@@ -146,7 +146,7 @@ Spanner::get_break_index () const
 void
 Spanner::set_my_columns ()
 {
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       if (!spanned_drul_[d]->get_system ())
         set_bound (d, spanned_drul_[d]->find_prebroken_piece (-d));
@@ -264,14 +264,14 @@ Spanner::spanner_length () const
       Drul_array<SCM> bounds (get_property (this, "left-bound-info"),
                               get_property (this, "right-bound-info"));
 
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         lr[d] = from_scm<double> (ly_assoc_get (ly_symbol2scm ("X"),
                                                 bounds[d], SCM_BOOL_F), -d);
     }
 
   if (lr.is_empty ())
     {
-      for (LEFT_and_RIGHT (d))
+      for (const auto d : {LEFT, RIGHT})
         lr[d] = spanned_drul_[d]->relative_coordinate (0, X_AXIS);
     }
 
@@ -284,11 +284,16 @@ Spanner::spanner_length () const
 System *
 Spanner::get_system () const
 {
-  if (!spanned_drul_[LEFT] || !spanned_drul_[RIGHT])
-    return 0;
-  if (spanned_drul_[LEFT]->get_system () != spanned_drul_[RIGHT]->get_system ())
-    return 0;
-  return spanned_drul_[LEFT]->get_system ();
+  if (spanned_drul_[LEFT] && spanned_drul_[RIGHT])
+    {
+      if (auto *const system = spanned_drul_[LEFT]->get_system ())
+        {
+          if (system == spanned_drul_[RIGHT]->get_system ())
+            return system;
+        }
+    }
+
+  return nullptr;
 }
 
 Spanner *
@@ -334,7 +339,7 @@ Spanner::derived_mark () const
 {
   scm_gc_mark (pure_property_cache_);
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     if (spanned_drul_[d])
       scm_gc_mark (spanned_drul_[d]->self_scm ());
   ;

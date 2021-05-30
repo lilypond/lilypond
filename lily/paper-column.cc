@@ -148,7 +148,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
   Drul_array<Grob *> cols (left, right);
   Drul_array<Skyline> skys = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
 
-  for (LEFT_and_RIGHT (d))
+  for (const auto d : {LEFT, RIGHT})
     {
       Skyline_pair *sp = unsmob<Skyline_pair> (get_property (cols[d], "horizontal-skylines"));
       if (sp)
