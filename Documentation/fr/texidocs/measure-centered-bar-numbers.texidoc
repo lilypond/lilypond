@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+  texidocfr = "
+
+Il est d'usage, dans les partitions de musique de film, de trouver les
+numéros de mesure centrés sur leur mesure. Ceci s'obtient en activant la
+propriété de contexte @code{centerBarNumbers}. Lorsque cette propriété
+est utilisée, le type de @emph{grob} (objet graphique) @code{BarNumber}
+est remplacé par @code{CenteredBarNumber} .
+
+L'exemple ci-dessous illustre plusieurs réglages : les numéros de mesure
+sont à la fois centrés, encadrés, et disposés sous les portées.
+"
+  doctitlefr = "Centrage des numéros de mesure"
