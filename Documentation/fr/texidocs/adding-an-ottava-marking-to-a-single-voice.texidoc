@@ -1,14 +1,10 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: 932cacc120cdac845e0da4cc5bdb7d68498f96a5
   texidocfr = "
 Lorsque plusieurs voix cohabitent sur une même portée, déterminer
-l'octaviation d'une voix affectera la position des notes de toutes les
+l'octaviation d'une voix affecte la position des notes de toutes les
 voix, jusqu'à la fin du crochet d'octaviation. Si l'octaviation ne doit
-s'appliquer qu'à une seule voix, les positionnements du do central
-(propriété @code{middleCPosition}) et du crochet d'octaviation peuvent
-s'indiquer explicitement. Dans l'exemple suivant, le
-@code{middleCPosition} qui a normalement une valeur de 6 en clef de fa
--- soit six crans au-dessus de la ligne médiane -- est déterminé à
-7 crans au-dessus (une octave) pour la durée de l'@emph{ottava}.
+s'appliquer qu'à une seule voix, le @code{Ottava_spanner_engraver}
+devrait être déplacé dans le contexte @code{Voice}.
 
 "
   doctitlefr = "Ajout d'une indication d'octave pour une seule voix"

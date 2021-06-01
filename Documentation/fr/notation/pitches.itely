@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 932cacc120cdac845e0da4cc5bdb7d68498f96a5
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1556,7 +1556,6 @@ retrouver le comportement par défaut.
 
 @cindex octaviation, une seule voix
 @cindex voix, octaviation d'une seule
-@funindex middleCPosition
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-an-ottava-marking-to-a-single-voice.ly}
 

@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e4c918c46207e01dcde0a110aa6130cb17e25d35
+    Translation of GIT committish: 932cacc120cdac845e0da4cc5bdb7d68498f96a5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -76,7 +76,6 @@ which scares away people.
 @subsubheading Améliorations de la représentation des hauteurs
 
 @itemize
-
 @item
 Dans le cadre de la fonte Emmentaler, les têtes de notes dont l'aspect
 est identique et pour lesquelles la seule différence réside dans
@@ -91,6 +90,53 @@ Par ailleurs, la propriété @code{stem-attachment} des objets graphiques
 @code{NoteHead} renvoie le point d'attachement réel selon l'orientation
 de hampe en lieu et place d'un hypothétique point d'attachement d'une
 hampe ascendante.
+
+
+@item
+Les crochets d'octaviation peuvent s'appliquer à une seule voix plutôt
+qu'à l'intégralité de la portée. Ceci demandait auparavant quelques
+circonvolutions.
+
+@example
+\layout @{
+  \context @{
+    \Staff
+    \remove Ottava_spanner_engraver
+  @}
+  \context @{
+    \Voice
+    \consists Ottava_spanner_engraver
+  @}
+@}
+@end example
+
+@lilypond
+\layout {
+  \context {
+    \Staff
+    \remove Ottava_spanner_engraver
+  }
+  \context {
+    \Voice
+    \consists Ottava_spanner_engraver
+  }
+}
+
+{
+  \clef bass
+  << { <g d'>1~ q2 <c' e'> }
+  \\
+    {
+      r2.
+      \ottava -1
+      <b,,, b,,>4 ~ |
+      q2
+      \ottava 0
+      <c e>2
+    }
+  >>
+}
+@end lilypond
 
 @end itemize
 
