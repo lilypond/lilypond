@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 155b5640079e559e7379f0ff9aef158aec975dcc
+   Translation of GIT committish: bf2eecf4f8f123dceb72bb0c2802cd133c507f08
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -241,6 +241,11 @@ Des paquetages 64 bits non officiels pour pour Mac OS 10.15 sont
 disponibles sur
 @uref{https://gitlab.com/marnen/lilypond-mac-builder/-/releases}.
 
+@item
+@sourceimage{logo-macports,,}
+@uref{https://www.macports.org/,MacPorts}, un gestionnaire de paquetages
+pour Mac OS, dispose de
+@uref{https://ports.macports.org/port/lilypond/summary, LilyPond port}.
 @end itemize
 
 @subsubheading Installation
