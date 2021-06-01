@@ -1,7 +1,7 @@
 \version "2.21.0"
 
 \header {
-  texidoc = "A voice starting with \ottava shouldn’t confuse ambitus."
+  texidoc = "A voice with \ottava shouldn’t confuse ambitus."
 }
 
 \layout {
@@ -15,6 +15,6 @@
   \clef alto
   \ottava 1
   d' b'
-  \ottava 0
+  \ottava 3
   g'
 }

@@ -66,6 +66,51 @@ which scares away people.
 @end ignore
 
 @item
+Ottava brackets may apply to a single voice instead of the entire
+staff.  This used to require workarounds.
+
+@example
+\layout @{
+  \context @{
+    \Staff
+    \remove Ottava_spanner_engraver
+  @}
+  \context @{
+    \Voice
+    \consists Ottava_spanner_engraver
+  @}
+@}
+@end example
+
+@lilypond
+\layout {
+  \context {
+    \Staff
+    \remove Ottava_spanner_engraver
+  }
+  \context {
+    \Voice
+    \consists Ottava_spanner_engraver
+  }
+}
+
+{
+  \clef bass
+  << { <g d'>1~ q2 <c' e'> }
+  \\
+    {
+      r2.
+      \ottava -1
+      <b,,, b,,>4 ~ |
+      q2
+      \ottava 0
+      <c e>2
+    }
+  >>
+}
+@end lilypond
+
+@item
 Measure counts now take compressed multi-measure rests and
 alternatives into account.
 

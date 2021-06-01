@@ -18,8 +18,11 @@
 */
 
 #include "engraver.hh"
+#include "context.hh"
+#include "international.hh"
 #include "item.hh"
 #include "note-column.hh"
+#include "pitch.hh"
 #include "protected-scm.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
@@ -31,17 +34,21 @@ public:
   TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);
 protected:
   void finalize () override;
+  void start_translation_timestep ();
 
+  void listen_ottava (Stream_event *);
   void acknowledge_note_column (Grob_info);
 
+  void create_spanner ();
   void process_music ();
   void stop_translation_timestep ();
   void derived_mark () const override;
 private:
-  Spanner *span_;
-  Spanner *finished_;
+  Stream_event *ottava_ev_ = nullptr;
+  SCM ottavation_ = SCM_EOL;
 
-  SCM last_ottavation_;
+  Spanner *span_ = nullptr;
+  Spanner *finished_ = nullptr;
 
   void typeset_all ();
 };
@@ -49,40 +56,75 @@ private:
 void
 Ottava_spanner_engraver::derived_mark () const
 {
-  scm_gc_mark (last_ottavation_);
+  scm_gc_mark (ottavation_);
 }
 
 Ottava_spanner_engraver::Ottava_spanner_engraver (Context *c)
   : Engraver (c)
 {
-  finished_ = 0;
-  span_ = 0;
-  last_ottavation_ = SCM_EOL;
+}
+
+void
+Ottava_spanner_engraver::start_translation_timestep ()
+{
+  set_property (context (), "ottavaStartNow", SCM_EOL);
+}
+
+void
+Ottava_spanner_engraver::listen_ottava (Stream_event *ev)
+{
+  ottavation_ = get_property (ev, "ottava-number");
+  SCM offset = to_scm (-7 * from_scm<int> (ottavation_));
+  set_property (context (), "middleCOffset", offset);
+  set_middle_C (context ());
+  ottava_ev_ = ev;
+}
+
+void
+Ottava_spanner_engraver::create_spanner ()
+{
+  span_ = make_spanner ("OttavaBracket", to_scm (ottava_ev_));
+
+  // Respect user tweaks.
+  if (scm_is_null (get_property_data (span_, "text")))
+    {
+      SCM ott = get_property (this, "ottavation");
+      if (scm_is_null (ott))
+        {
+          SCM markups = get_property (this, "ottavationMarkups");
+          ott = ly_assoc_get (ottavation_, markups, SCM_EOL);
+          if (scm_is_null (ott))
+            {
+              warning (_f ("Could not find ottavation markup for %d octaves up.",
+                           from_scm<int> (ottavation_)));
+              ott = ly_string2scm ("");
+            }
+        }
+      set_property (span_, "text", ott);
+    }
+
+  if (scm_is_null (get_property_data (span_, "direction")))
+    {
+      int offset = from_scm<int> (get_property (this, "middleCOffset"), 0);
+      Direction d = (offset > 0) ? DOWN : UP;
+      set_property (span_, "direction", to_scm (d));
+    }
 }
 
 void
 Ottava_spanner_engraver::process_music ()
 {
-  SCM ott = get_property (this, "ottavation");
-  if (!scm_is_eq (ott, last_ottavation_))
+  if (ottava_ev_)
     {
       finished_ = span_;
-      span_ = 0;
-      if (Text_interface::is_markup (ott))
-        {
-          span_ = make_spanner ("OttavaBracket", SCM_EOL);
-          set_property (span_, "text", ott);
+      span_ = nullptr;
 
-          SCM offset (get_property (this, "middleCOffset"));
-          // Respect user tweaks.
-          if (scm_is_null (get_property_data (span_, "direction")))
-            {
-              Direction d = (from_scm<double> (offset, 0) > 0) ? DOWN : UP;
-              set_property (span_, "direction", to_scm (d));
-            }
+      if (!from_scm<bool> (scm_zero_p (ottavation_)))
+        {
+          set_property (context (), "ottavaStartNow", SCM_BOOL_T);
+          create_spanner ();
         }
-    }
-  last_ottavation_ = ott;
+     }
 }
 
 void
@@ -115,7 +157,7 @@ Ottava_spanner_engraver::typeset_all ()
             }
         }
 
-      finished_ = 0;
+      finished_ = nullptr;
     }
 }
 
@@ -129,6 +171,7 @@ Ottava_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
+  ottava_ev_ = nullptr;
 }
 
 void
@@ -138,7 +181,6 @@ Ottava_spanner_engraver::finalize ()
   if (span_)
     finished_ = span_;
   typeset_all ();
-  last_ottavation_ = SCM_EOL;
 }
 
 #include "translator.icc"
@@ -146,6 +188,7 @@ Ottava_spanner_engraver::finalize ()
 void
 Ottava_spanner_engraver::boot ()
 {
+  ADD_LISTENER (Ottava_spanner_engraver, ottava);
   ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
 }
 

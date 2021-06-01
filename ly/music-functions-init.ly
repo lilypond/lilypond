@@ -1069,7 +1069,7 @@ override and proper tweak.")
 ottava =
 #(define-music-function (octave) (integer?)
    (_i "Set the octavation.")
-   (make-music 'OttavaMusic
+   (make-music 'OttavaEvent
                'ottava-number octave))
 
 overrideTimeSignatureSettings =

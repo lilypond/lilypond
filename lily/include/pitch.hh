@@ -109,4 +109,7 @@ extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
 extern SCM Pitch_type_p_proc;
 
+#include "context.hh"
+void set_middle_C (Context *context);
+
 #endif /* PITCH_HH */

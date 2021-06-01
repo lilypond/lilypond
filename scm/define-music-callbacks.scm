@@ -188,30 +188,6 @@ depth-first through MUSIC."
             'alternative-dir STOP ; ugly (see iterator)
             'elements alts)))))
 
-(define (make-ottava-set music)
-  "Set context properties for an ottava bracket."
-  (let ((octavation (ly:music-property music 'ottava-number)))
-    (list (context-spec-music
-           (make-apply-context
-            (lambda (context)
-              (let* ((offset (* -7 octavation))
-                     (markups (ly:context-property context 'ottavationMarkups))
-                     (ottavation-markup (assoc-get octavation markups)))
-                (set! (ly:context-property context 'middleCOffset) offset)
-                (set! (ly:context-property context 'ottavation) ottavation-markup)
-                ; For some cases it does not matter if the ottavation markup
-                ; needed for the current octavation is missing.
-                ; - if there is no octavation active
-                ; - if 'ottavationMarkups is not defined (e.g. for performers
-                ;   like in MIDI output)
-                ; Output a warning only if none of these conditions are true
-                (if (and (not (zero? octavation))
-                         (not (null? markups))
-                         (not (markup? ottavation-markup)))
-                    (ly:warning (_ "Could not find ottavation markup for ~a octaves up.") octavation))
-                (ly:set-middle-C! context))))
-           'Staff))))
-
 (define (make-time-signature-set music)
   "Set context properties for a time signature."
   (let* ((num (ly:music-property music 'numerator))

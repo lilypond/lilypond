@@ -117,7 +117,6 @@ Ambitus_engraver::stop_translation_timestep ()
     {
       SCM c_pos = get_property (this, "middleCPosition");
       SCM cue_pos = get_property (this, "middleCCuePosition");
-      SCM ottavation = get_property (this, "ottavation");
 
       /*
        * \ottava reads middleCClefPosition and overrides
@@ -129,7 +128,7 @@ Ambitus_engraver::stop_translation_timestep ()
        *     changes \ottava made but we can just read the
        *     clef position.
        */
-      if (Text_interface::is_markup (ottavation))
+      if (scm_is_eq (SCM_BOOL_T, get_property (this, "ottavaStartNow")))
         start_c0_ = from_scm (get_property (this, "middleCClefPosition"), 0);
       else if (scm_is_integer (c_pos) && !scm_is_integer (cue_pos))
         start_c0_ = scm_to_int (c_pos);

@@ -397,11 +397,9 @@ For iteration inside of chords, @xref{EventChord}.")
         (types . (post-event event note-grouping-event))
         ))
 
-    (OttavaMusic
+    (OttavaEvent
      . ((description . "Start or stop an ottava bracket.")
-        (iterator-ctor . ,ly:sequential-iterator::constructor)
-        (elements-callback . ,make-ottava-set)
-        (types . (ottava-music))
+        (types . (ottava-event event))
         ))
 
     (OverrideProperty

@@ -511,6 +511,8 @@ Changing this creates a new text spanner.")
      (ottavationMarkups ,list? "An alist defining the markups used
 for ottava brackets.  It contains entries of the form
 @code{(@var{number of octaves} . @var{markup})}.")
+     (ottavaStartNow ,boolean? "Is an ottava starting in this
+time step?")
      (output ,ly:music-output? "The output produced by a score-level
 translator during music interpretation.")
 

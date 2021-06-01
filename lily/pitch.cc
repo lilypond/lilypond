@@ -313,3 +313,18 @@ Pitch::negated () const
 {
   return pitch_interval (*this, Pitch ());
 }
+
+
+/* TODO: find a good place for this function */
+void
+set_middle_C (Context *c)
+{
+  int clef_pos = from_scm (get_property (c, "middleCClefPosition"), 0);
+  int offset = from_scm (get_property (c, "middleCOffset"), 0);
+  /* middleCCuePosition overrides the clef! */
+  SCM cue_pos = get_property (c, "middleCCuePosition");
+  if (scm_is_number (cue_pos))
+    clef_pos = from_scm (cue_pos, 0);
+
+  set_property (c, ly_symbol2scm ("middleCPosition"), to_scm (clef_pos + offset));
+}

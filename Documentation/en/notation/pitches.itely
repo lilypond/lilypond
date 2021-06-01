@@ -1561,7 +1561,6 @@ how to go back to the current default behavior:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-ottava-text.ly}
 
-@funindex middleCPosition
 @cindex ottava, for single voice
 @cindex voice, with ottavation
 @lilypondfile[verbatim,quote,texidoc,doctitle]
