@@ -46,7 +46,7 @@ public:
 protected:
   void acknowledge_glissando (Grob_info_t<Spanner>);
   void acknowledge_slur (Grob_info_t<Spanner>);
-  void acknowledge_tab_note_head (Grob_info);
+  void acknowledge_tab_note_head (Grob_info_t<Item>);
 
   void stop_translation_timestep ();
 };
@@ -63,9 +63,9 @@ Tab_tie_follow_engraver::acknowledge_glissando (Grob_info_t<Spanner> info)
 }
 
 void
-Tab_tie_follow_engraver::acknowledge_tab_note_head (Grob_info info)
+Tab_tie_follow_engraver::acknowledge_tab_note_head (Grob_info_t<Item> info)
 {
-  note_heads_.push_back (dynamic_cast<Item *> (info.grob ()));
+  note_heads_.push_back (info.grob ());
 }
 
 void

@@ -67,8 +67,8 @@ protected:
 
   void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_script (Grob_info);
-  void acknowledge_finger (Grob_info);
-  void acknowledge_string_number (Grob_info);
+  void acknowledge_finger (Grob_info_t<Item>);
+  void acknowledge_string_number (Grob_info_t<Item>);
   void add_script_to_all_tuplets (Item *);
   void listen_tuplet_span (Stream_event *);
   void finalize () override;
@@ -229,17 +229,15 @@ Tuplet_engraver::acknowledge_script (Grob_info inf)
 }
 
 void
-Tuplet_engraver::acknowledge_finger (Grob_info inf)
+Tuplet_engraver::acknowledge_finger (Grob_info_t<Item> inf)
 {
-  if (auto *item = dynamic_cast<Item *> (inf.grob ()))
-    add_script_to_all_tuplets (item);
+  add_script_to_all_tuplets (inf.grob ());
 }
 
 void
-Tuplet_engraver::acknowledge_string_number (Grob_info inf)
+Tuplet_engraver::acknowledge_string_number (Grob_info_t<Item> inf)
 {
-  if (auto *item = dynamic_cast<Item *> (inf.grob ()))
-    add_script_to_all_tuplets (item);
+  add_script_to_all_tuplets (inf.grob ());
 }
 
 void

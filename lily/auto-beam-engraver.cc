@@ -50,7 +50,7 @@ protected:
   void acknowledge_rest (Grob_info);
   void acknowledge_beam (Grob_info);
   void acknowledge_breathing_sign (Grob_info);
-  void acknowledge_stem (Grob_info);
+  void acknowledge_stem (Grob_info_t<Item>);
   void listen_beam_forbid (Stream_event *);
 
 private:
@@ -320,9 +320,9 @@ Auto_beam_engraver::acknowledge_rest (Grob_info /* info */)
 }
 
 void
-Auto_beam_engraver::acknowledge_stem (Grob_info info)
+Auto_beam_engraver::acknowledge_stem (Grob_info_t<Item> info)
 {
-  current_stem_ = dynamic_cast<Item *> (info.grob ());
+  current_stem_ = info.grob ();
 }
 
 void

@@ -45,7 +45,7 @@ public:
 protected:
   void listen_extender (Stream_event *);
   void listen_completize_extender (Stream_event *);
-  void acknowledge_lyric_syllable (Grob_info);
+  void acknowledge_lyric_syllable (Grob_info_t<Item>);
 
   void finalize () override;
 
@@ -91,9 +91,9 @@ Extender_engraver::process_music ()
 }
 
 void
-Extender_engraver::acknowledge_lyric_syllable (Grob_info i)
+Extender_engraver::acknowledge_lyric_syllable (Grob_info_t<Item> info)
 {
-  Item *item = dynamic_cast<Item *> (i.grob ());
+  auto *const item = info.grob ();
   if (extender_)
     extender_->set_bound (LEFT, item);
 

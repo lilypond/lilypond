@@ -48,7 +48,7 @@ public:
 
 protected:
 
-  void acknowledge_lyric_syllable (Grob_info);
+  void acknowledge_lyric_syllable (Grob_info_t<Item>);
   void listen_hyphen (Stream_event *);
   void listen_vowel_transition (Stream_event *);
 
@@ -100,9 +100,9 @@ Hyphen_engraver::process_music ()
 }
 
 void
-Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
+Hyphen_engraver::acknowledge_lyric_syllable (Grob_info_t<Item> info)
 {
-  syllable_ = dynamic_cast<Item *> (i.grob ());
+  syllable_ = info.grob ();
 
   if (!hyphen_)
     hyphen_ = make_spanner ("LyricSpace", syllable_->self_scm ());

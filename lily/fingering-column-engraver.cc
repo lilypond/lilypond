@@ -40,7 +40,7 @@ class Fingering_column_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Fingering_column_engraver);
 protected:
-  void acknowledge_finger (Grob_info);
+  void acknowledge_finger (Grob_info_t<Item>);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
@@ -90,11 +90,9 @@ Fingering_column_engraver::stop_translation_timestep ()
 }
 
 void
-Fingering_column_engraver::acknowledge_finger (Grob_info inf)
+Fingering_column_engraver::acknowledge_finger (Grob_info_t<Item> info)
 {
-  Item *thing = dynamic_cast<Item *> (inf.grob ());
-  if (thing)
-    possibles_.push_back (thing);
+  possibles_.push_back (info.grob ());
 }
 
 void

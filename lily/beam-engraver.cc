@@ -38,7 +38,7 @@
 class Beam_engraver : public Engraver
 {
 public:
-  void acknowledge_stem (Grob_info);
+  void acknowledge_stem (Grob_info_t<Item>);
   void acknowledge_rest (Grob_info);
   void listen_beam (Stream_event *);
 
@@ -263,7 +263,7 @@ Beam_engraver::acknowledge_rest (Grob_info info)
 }
 
 void
-Beam_engraver::acknowledge_stem (Grob_info info)
+Beam_engraver::acknowledge_stem (Grob_info_t<Item> info)
 {
   if (!beam_)
     return;
@@ -280,7 +280,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   if (scm_is_false (get_property_data (beam_, "stencil")))
     return;
 
-  Item *stem = dynamic_cast<Item *> (info.grob ());
+  auto *const stem = info.grob ();
   if (Stem::get_beam (stem))
     return;
 
