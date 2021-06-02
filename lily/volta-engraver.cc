@@ -47,7 +47,7 @@ public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
 protected:
 
-  void acknowledge_bar_line (Grob_info);
+  void acknowledge_bar_line (Grob_info_t<Item>);
   void listen_volta_span (Stream_event *);
   static std::string format_numbers (SCM volta_numbers);
 
@@ -300,16 +300,16 @@ Volta_engraver::process_music ()
 }
 
 void
-Volta_engraver::acknowledge_bar_line (Grob_info i)
+Volta_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
 {
-  Item *item = dynamic_cast<Item *> (i.grob ());
+  auto *const item = info.grob ();
   if (volta_bracket_)
     Volta_bracket_interface::add_bar (volta_bracket_, item);
   if (end_volta_bracket_)
     Volta_bracket_interface::add_bar (end_volta_bracket_, item);
 
   if (volta_spanner_)
-    Side_position_interface::add_support (volta_spanner_, i.grob ());
+    Side_position_interface::add_support (volta_spanner_, item);
 }
 
 void

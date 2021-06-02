@@ -43,7 +43,7 @@ class Span_bar_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
-  void acknowledge_bar_line (Grob_info);
+  void acknowledge_bar_line (Grob_info_t<Item>);
   void stop_translation_timestep ();
   void process_acknowledged ();
 };
@@ -56,11 +56,11 @@ Span_bar_engraver::Span_bar_engraver (Context *c)
 }
 
 void
-Span_bar_engraver::acknowledge_bar_line (Grob_info i)
+Span_bar_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
 {
-  if (!i.grob ()->internal_has_interface (ly_symbol2scm ("span-bar-interface")))
+  auto *const it = info.grob ();
+  if (!it->internal_has_interface (ly_symbol2scm ("span-bar-interface")))
     {
-      Item *it = dynamic_cast<Item *> (i.grob ());
       bars_.push_back (it);
 
       if (bars_.size () >= 2 && !spanbar_)

@@ -40,7 +40,7 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  void acknowledge_bar_line (Grob_info);
+  void acknowledge_bar_line (Grob_info_t<Item>);
 
   void derived_mark () const override;
 private:
@@ -92,10 +92,9 @@ Cue_clef_engraver::set_glyph ()
    ie. a breakpoint)
 */
 void
-Cue_clef_engraver::acknowledge_bar_line (Grob_info info)
+Cue_clef_engraver::acknowledge_bar_line (Grob_info_t<Item>)
 {
-  Item *item = dynamic_cast<Item *> (info.grob ());
-  if (item && scm_is_string (get_property (this, "cueClefGlyph")))
+  if (scm_is_string (get_property (this, "cueClefGlyph")))
     create_clef ();
 }
 

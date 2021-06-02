@@ -48,7 +48,7 @@ protected:
 
   void listen_key_change (Stream_event *);
   void acknowledge_clef (Grob_info);
-  void acknowledge_bar_line (Grob_info);
+  void acknowledge_bar_line (Grob_info_t<Item>);
 };
 
 void
@@ -139,7 +139,7 @@ Key_engraver::acknowledge_clef (Grob_info /* info */)
 }
 
 void
-Key_engraver::acknowledge_bar_line (Grob_info /* info */)
+Key_engraver::acknowledge_bar_line (Grob_info_t<Item> /* info */)
 {
   create_key (true);
 }

@@ -47,7 +47,7 @@ protected:
 protected:
   void stop_translation_timestep ();
   void create_bar_number (SCM);
-  void acknowledge_bar_line (Grob_info);
+  void acknowledge_bar_line (Grob_info_t<Item>);
   void process_acknowledged ();
   void consider_numbering ();
   int get_alt_number ();
@@ -121,7 +121,7 @@ Bar_number_engraver::Bar_number_engraver (Context *c)
 }
 
 void
-Bar_number_engraver::acknowledge_bar_line (Grob_info)
+Bar_number_engraver::acknowledge_bar_line (Grob_info_t<Item>)
 {
   must_consider_numbering_ = true;
 }

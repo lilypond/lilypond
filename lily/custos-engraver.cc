@@ -41,7 +41,7 @@ class Custos_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
   void start_translation_timestep ();
-  void acknowledge_bar_line (Grob_info);
+  void acknowledge_bar_line (Grob_info_t<Item>);
   void acknowledge_note_head (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
@@ -77,7 +77,7 @@ Custos_engraver::start_translation_timestep ()
 }
 
 void
-Custos_engraver::acknowledge_bar_line (Grob_info /* info */)
+Custos_engraver::acknowledge_bar_line (Grob_info_t<Item> /* info */)
 {
   // Custos is visible only at the end of a line, so we save work by creating
   // it only where a break is allowed.  Observing a BarLine tells us indirectly
