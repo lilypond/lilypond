@@ -280,7 +280,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       stem_posns[RIGHT] *= 2;
     }
 
-  if (stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
+  if (directed_opposite (stem_dirs[LEFT], stem_dirs[RIGHT]))
     {
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
         {
@@ -298,8 +298,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
     Only apply same direction correction if there are no
     accidentals sticking out of the right hand side.
   */
-  else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1
-           && !acc_right)
+  else if (directed_same (stem_dirs[LEFT], stem_dirs[RIGHT]) && !acc_right)
     correction = same_direction_correction (me, head_posns);
 
   *space += correction;

@@ -143,7 +143,10 @@ Item::break_visible (Grob *g)
   Item *it = dynamic_cast<Item *> (g);
   SCM vis = get_property (g, "break-visibility");
   if (scm_is_vector (vis))
-    return from_scm<bool> (scm_c_vector_ref (vis, it->break_status_dir () + 1));
+    {
+      const auto index = it->break_status_dir ().to_index ();
+      return from_scm<bool> (scm_c_vector_ref (vis, index));
+    }
   return true;
 }
 

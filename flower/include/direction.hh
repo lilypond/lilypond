@@ -68,9 +68,27 @@ public:
     return Direction (_val * other._val);
   }
 
+  // convert to a zero-based index: {negative->0, zero->1, positive->2}
+  constexpr size_t to_index () const
+  {
+    return _val + 1;
+  }
+
 private:
   int _val = 0;
 };
+
+// the directions are opposite and nonzero
+constexpr bool directed_opposite (Direction a, Direction b)
+{
+  return (a * b) < Direction::zero ();
+}
+
+// the directions are equal and nonzero
+constexpr bool directed_same (Direction a, Direction b)
+{
+  return (a * b) > Direction::zero ();
+}
 
 /**
    if d > 0: the max operator

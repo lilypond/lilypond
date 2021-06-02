@@ -54,6 +54,12 @@ static_assert (NEGA, "");
 static_assert (!ZERO, "");
 static_assert (POSI, "");
 
+// conversion to index
+
+static_assert (NEGA.to_index () == 0, "");
+static_assert (ZERO.to_index () == 1, "");
+static_assert (POSI.to_index () == 2, "");
+
 // negation
 
 static_assert (ZERO == -ZERO, "");
@@ -124,6 +130,26 @@ static_assert ((NEGA < ZERO) == true, "");
 static_assert ((ZERO < POSI) == true, "");
 static_assert ((POSI < ZERO) == false, "");
 static_assert ((ZERO < NEGA) == false, "");
+
+static_assert (directed_same (NEGA, NEGA) == true, "");
+static_assert (directed_same (NEGA, ZERO) == false, "");
+static_assert (directed_same (NEGA, POSI) == false, "");
+static_assert (directed_same (ZERO, NEGA) == false, "");
+static_assert (directed_same (ZERO, ZERO) == false, "");
+static_assert (directed_same (ZERO, POSI) == false, "");
+static_assert (directed_same (POSI, NEGA) == false, "");
+static_assert (directed_same (POSI, ZERO) == false, "");
+static_assert (directed_same (POSI, POSI) == true, "");
+
+static_assert (directed_opposite (NEGA, NEGA) == false, "");
+static_assert (directed_opposite (NEGA, ZERO) == false, "");
+static_assert (directed_opposite (NEGA, POSI) == true, "");
+static_assert (directed_opposite (ZERO, NEGA) == false, "");
+static_assert (directed_opposite (ZERO, ZERO) == false, "");
+static_assert (directed_opposite (ZERO, POSI) == false, "");
+static_assert (directed_opposite (POSI, NEGA) == true, "");
+static_assert (directed_opposite (POSI, ZERO) == false, "");
+static_assert (directed_opposite (POSI, POSI) == false, "");
 
 class Direction_test
 {

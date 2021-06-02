@@ -48,7 +48,7 @@ Break_alignment_interface::break_align_order (Item *me)
     return SCM_BOOL_F;
 
   SCM order = scm_vector_ref (order_vec,
-                              to_scm (me->break_status_dir () + 1));
+                              to_scm (me->break_status_dir ().to_index ()));
 
   return order;
 }
