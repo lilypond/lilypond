@@ -365,19 +365,29 @@ Registrator<Case, void> Test<Case, void>::s_Registrator;
 template <typename Expected, typename Actual>
 void equal (const Expected &e, const Actual &a, const char *at = "", const char *expr = "")
 {
-  if (e != a)
+  // We're checking operator==.  Don't assume equivalence with !operator!=
+  if (!(e == a))
     {
       throw failure (e, a, at, expr);
     }
 }
 inline void equal (double e, double a, const char *at = "", const char *expr = "")
 {
-  double max = std::abs (std::max (e, a));
-  max = max < 1.0 ? 1.0 : max;
-  if (std::abs (e - a) > std::numeric_limits<double>::epsilon () * max)
+  if (std::isfinite (e) && std::isfinite (a))
     {
-      throw failure (e, a, at, expr);
+      double max = std::abs (std::max (e, a));
+      max = max < 1.0 ? 1.0 : max;
+      if (std::abs (e - a) <= std::numeric_limits<double>::epsilon () * max)
+        {
+          return;
+        }
     }
+  else if (e == a)
+    {
+      return;
+    }
+
+  throw failure (e, a, at, expr);
 }
 inline void check (bool b, const char *at = "", const char *expr = "")
 {
@@ -390,19 +400,29 @@ inline void check (bool b, const char *at = "", const char *expr = "")
 template <typename Expected, typename Actual>
 void unequal (const Expected &e, const Actual &a, const char *at = "", const char *expr = "")
 {
-  if (e == a)
+  // We're checking operator!=.  Don't assume equivalence with !operator==.
+  if (!(e != a))
     {
       throw failure (e, a, at, expr);
     }
 }
 inline void unequal (double e, double a, const char *at = "", const char *expr = "")
 {
-  double max = std::abs (std::max (e, a));
-  max = max < 1.0 ? 1.0 : max;
-  if (std::abs (e - a) <= std::numeric_limits<double>::epsilon () * max)
+  if (std::isfinite (e) && std::isfinite (a))
     {
-      throw failure (e, a, at, expr);
+      double max = std::abs (std::max (e, a));
+      max = max < 1.0 ? 1.0 : max;
+      if (std::abs (e - a) > std::numeric_limits<double>::epsilon () * max)
+        {
+          return;
+        }
     }
+  else if (e != a)
+    {
+      return;
+    }
+
+  throw failure (e, a, at, expr);
 }
 
 template <typename T>
