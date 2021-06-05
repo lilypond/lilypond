@@ -102,6 +102,7 @@ private:
   Tests_t m_Tests;
   size_t m_fail;
   size_t m_pass;
+  bool m_verbose = true;
 private:
   Factory () {}
   ~Factory () {}
@@ -139,20 +140,37 @@ public:
           {
             try
               {
-                std::cout << std::endl << it->first << ' ' << std::flush;
+                if (m_verbose)
+                  {
+                    std::cout << std::endl << it->first << ' ' << std::flush;
+                  }
+
                 {
                   std::unique_ptr<ITest> test (it->second ());
                 }
-                std::cout << "[OK]" << std::flush;
+
+                if (m_verbose)
+                  {
+                    std::cout << "[OK]" << std::flush;
+                  }
+
                 ++m_pass;
               }
             catch (const std::exception &e)
               {
+                if (!m_verbose)
+                  {
+                    std::cout << std::flush << std::endl << it->first << ' ';
+                  }
                 std::cout << "[FAIL]\n  " << e.what () << std::flush;
                 ++m_fail;
               }
             catch (...)
               {
+                if (!m_verbose)
+                  {
+                    std::cout << std::flush << std::endl << it->first << ' ';
+                  }
                 std::cout << "[FAIL]\n  unknown exception" << std::flush;
                 ++m_fail;
               }
@@ -162,38 +180,62 @@ public:
   void Report ()
   {
     const size_t size = m_Tests.size ();
+    const size_t total = m_pass + m_fail;
     std::cout << std::endl;
-    std::cout << "[TOTAL](" << m_pass + m_fail << '/' << size << ")" << std::endl;
-    std::cout << "[OK](" << m_pass << '/' << size << ")" << std::endl;
+    if (m_verbose || (total < size))
+      {
+        std::cout << "[TOTAL](" << total << '/' << size << ")" << std::endl;
+      }
+    if (m_verbose)
+      {
+        std::cout << "[OK](" << m_pass << '/' << size << ")" << std::endl;
+      }
     if (m_fail)
       std::cout << "[FAIL](" << m_fail << '/' << size << ")" << std::endl;
   }
+  void SetVerbose (bool verbose = true)
+  {
+    m_verbose = verbose;
+  }
   int Main (int argc, const char *argv[])
   {
-    if (argc > 1
-        && (std::string (argv[1]) == "-h" || std::string (argv[1]) == "--help"))
+    int opti = 1;
+    for (/**/; (opti < argc) && (argv[opti][0] == '-'); ++opti)
       {
-        std::cout << "Yaffut - Yet Another Framework For Unit Testing.\n\n"
-                  "Usage: yaffut [OPTION] [Suite:|Suite::Test]...\n\n"
-                  "Options:\n"
-                  "  -h, --help  show this help\n"
-                  "  -l, --list  list test cases" << std::endl;
-        return 0;
-      }
-    if (argc > 1
-        && (std::string (argv[1]) == "-l" || std::string (argv[1]) == "--list"))
-      {
-        Factory::Instance ().List (argc > 2 ? argv[2] : "");
-        return 0;
+        const std::string opt (argv[opti]);
+
+        if ((opt == "-h") || (opt == "--help"))
+          {
+            std::cout << "Yaffut - Yet Another Framework For Unit Testing.\n\n"
+              "Usage: yaffut [OPTION] [Suite:|Suite::Test]...\n\n"
+              "Options:\n"
+              "  -h, --help   show this help\n"
+              "  -l, --list   list test cases\n"
+              "  -q, --quiet  do not mention passing tests\n";
+            return 0;
+          }
+        else if ((opt == "-l") || (opt == "--list"))
+          {
+            Factory::Instance ().List (argc > 2 ? argv[2] : "");
+            return 0;
+          }
+        else if ((opt == "-q" ) || (opt == "--quiet"))
+          {
+            Factory::Instance ().SetVerbose (false);
+          }
+        else
+          {
+            break;
+          }
       }
 
     const char *all[] = {"All"};
     const char **test = all;
     int num = 1;
-    if (1 < argc)
+    if (opti < argc)
       {
-        test = argv;
-        num = argc;
+        test = &argv[opti];
+        num = argc - opti;
       }
 
     for (int i = 0; i < num; ++i)
@@ -399,7 +441,6 @@ void assert_throw (void (*pf) (), const char *at = "")
 
 int main (int argc, const char *argv[])
 {
-  std::cout << "pid(" << getpid () << ")" << std::endl;
   return yaffut::Factory::Instance ().Main (argc, argv);
 };
 

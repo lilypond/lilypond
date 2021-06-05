@@ -28,7 +28,8 @@ $(TEST_EXECUTABLE): $(TEST_O_FILES) $(O_FILES)
 check: test
 
 test: $(TEST_EXECUTABLE)
-	$(TEST_EXECUTABLE)
+	$(call ly_progress,Running,$(TEST_EXECUTABLE),)
+	$(TEST_EXECUTABLE) $(if $(VERBOSE),,--quiet)
 
 AR=ar
 LIBRARY = $(outdir)/library.a
