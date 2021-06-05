@@ -39,7 +39,7 @@ Measure_grouping::print (SCM grob)
                                                         X_AXIS);
 
   Real right_point = robust_relative_extent (me->get_bound (RIGHT),
-                                             common, X_AXIS).linear_combination (CENTER);
+                                             common, X_AXIS).center ();
   Real left_point = me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
 
   Interval iv (left_point, right_point);

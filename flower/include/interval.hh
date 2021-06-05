@@ -35,17 +35,49 @@
 template<class T>
 struct Interval_t : private Drul_array<T>
 {
-  using Drul_array<T>::at;
-  using Drul_array<T>::operator [];
-  using Drul_array<T>::linear_combination;
+private:
+  using base_type = Drul_array<T>;
+  constexpr base_type const &self_as_array () const { return *this; }
 
+public:
+  using base_type::at;
+  using base_type::operator [];
+
+  // empty interval
+  Interval_t ()
+  {
+    set_empty ();
+  }
+
+  // degenerate interval (a point, if the argument is finite)
+  constexpr explicit Interval_t (T m) : Interval_t (m, m)
+  {
+  }
+
+  constexpr Interval_t (T m, T M) : base_type (m, M)
+  {
+  }
+
+  // Allow implicit conversion from another kind of Interval_t if its element
+  // type is convertible to this one's.
   template <typename T2>
-  Interval_t (Interval_t<T2> const &src) : Interval_t (src[LEFT], src[RIGHT])
+  constexpr Interval_t (Interval_t<T2> const &src)
+    : Interval_t (src[LEFT], src[RIGHT])
   {
   }
 
   static T infinity ();
-  T center () const;
+
+  T center () const
+  {
+    assert (!is_empty ());
+    return base_type::average ();
+  }
+
+  // Given x in [-1.0, 1.0], interpolate linearly between the values of the
+  // LEFT and RIGHT elements.  For other values, extrapolate linearly.
+  T linear_combination (Real) const;
+
   void translate (T t)
   {
     at (LEFT) += t;
@@ -111,18 +143,7 @@ struct Interval_t : private Drul_array<T>
   {
     return at (LEFT) > at (RIGHT);
   }
-  Interval_t ()
-  {
-    set_empty ();
-  }
-  Interval_t (Drul_array<T> const &src)
-    : Drul_array<T> (src)
-  {
-  }
 
-  Interval_t (T m, T M) : Drul_array<T> (m, M)
-  {
-  }
   Interval_t<T> &operator -= (T r)
   {
     *this += -r;
@@ -194,6 +215,25 @@ _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 
 TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare, template<class T>);
 
+template<>
+constexpr Real
+Interval_t<Real>::center () const
+{
+  // This specialization omits the assert () that is present in the default
+  // implementation so that iv.center () can be used in the same circumstances
+  // as iv.linear_combination (0).  A Real result can represent infinity or
+  // NaN, so there is no need to crash on empty, unbounded, or reversed
+  // intervals.
+  return base_type::average ();
+}
+
+template<>
+constexpr Real
+Interval_t<Real>::linear_combination (Real x) const
+{
+  return (((1.0 - x) * at (LEFT)) + ((x + 1.0) * at (RIGHT))) * 0.5;
+}
+
 template<class T>
 inline Interval_t<T>
 intersection (Interval_t<T> a, Interval_t<T> const &b)
@@ -247,14 +287,6 @@ inline
 Interval_t<T> operator * (Interval_t<T> i, T a)
 {
   return a * i;
-}
-
-template<class T>
-inline T
-Interval_t<T>::center () const
-{
-  assert (!is_empty ());
-  return (at (LEFT) + at (RIGHT)) / 2;
 }
 
 typedef Interval_t<Real> Interval;

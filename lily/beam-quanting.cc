@@ -284,7 +284,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           Beam_stem_end stem_end
             = Beam::calc_stem_y (beams[i], s, common,
                                  x_pos[LEFT], x_pos[RIGHT], CENTER,
-                                 Drul_array<Real> (0.0, 0.0), 0);
+                                 Interval (0), 0);
           Real y = stem_end.stem_y_;
           /* Remark:  French Beaming is irrelevant for beam quanting */
           base_lengths_.push_back (y / staff_space_);

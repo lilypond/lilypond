@@ -81,6 +81,12 @@ class Drul_array_test
     static_assert (arr[RIGHT] == 34, "");
   }
 
+  static void test_average ()
+  {
+    static_assert (Drul_array<int> {10, 15}.average () == 12, "");
+    static_assert (Drul_array<Real> {10, 11}.average () == 10.5, "");
+  }
+
   static void test_delta ()
   {
     constexpr Drul_array<int> arr {5, 8};

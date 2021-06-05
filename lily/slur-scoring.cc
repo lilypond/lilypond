@@ -552,13 +552,13 @@ Slur_score_state::get_base_attachments () const
           x
             = (fh ? fh->extent (common_[X_AXIS], X_AXIS)
                : extremes_[d].bound_->extent (common_[X_AXIS], X_AXIS))
-              .linear_combination (CENTER);
+              .center ();
           if (!std::isfinite (x))
             x = extremes_[d].note_column_->extent (common_[X_AXIS], X_AXIS)
-                .linear_combination (CENTER);
+                .center ();
           if (!std::isfinite (y))
             y = extremes_[d].note_column_->extent (common_[Y_AXIS], Y_AXIS)
-                .linear_combination (CENTER);
+                .center ();
         }
       else if (head)
         {

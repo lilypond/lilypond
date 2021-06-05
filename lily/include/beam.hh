@@ -102,7 +102,7 @@ private:
   static void set_stem_shorten (Grob *);
   static vsize forced_stem_count (Grob *);
   static Beam_stem_end calc_stem_y (Grob *, Grob *s, Grob **c, Real, Real,
-                                    Direction, Drul_array<Real> pos,
+                                    Direction, Interval pos,
                                     int french_count);
 };
 

@@ -551,8 +551,8 @@ Stem::calc_positioning_done (SCM smob)
 
       if (is_harmonic_centered)
         amount
-          = hed->extent (hed, X_AXIS).linear_combination (CENTER)
-            - heads[i]->extent (heads[i], X_AXIS).linear_combination (CENTER);
+          = hed->extent (hed, X_AXIS).center ()
+            - heads[i]->extent (heads[i], X_AXIS).center ();
 
       if (!std::isnan (amount)) // empty heads can produce NaN
         heads[i]->translate_axis (amount, X_AXIS);

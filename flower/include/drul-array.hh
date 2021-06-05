@@ -70,11 +70,16 @@ public:
     array_[1] = t2;
   }
 
+  // Compute the average of the elements.  Requires T to be divisible by int.
+  constexpr T average () const
+  {
+    return (at (RIGHT) + at (LEFT)) / 2;
+  }
+
   constexpr T delta () const
   {
     return at (RIGHT) - at (LEFT);
   }
-  Real linear_combination (Real x) const;
 };
 
 template<class T>
@@ -83,14 +88,6 @@ scale_drul (Drul_array<T> *dr, T x)
 {
   dr->at (LEFT) *= x;
   dr->at (RIGHT) *= x;
-}
-
-template <>
-constexpr Real
-Drul_array<Real>::linear_combination (Real x) const
-{
-  return ((1.0 - x) * at (LEFT)
-          + (x + 1.0) * at (RIGHT)) * 0.5;
 }
 
 #endif /* DRUL_ARRAY_HH */

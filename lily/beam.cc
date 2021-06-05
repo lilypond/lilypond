@@ -710,8 +710,8 @@ Beam::print (SCM grob)
 
       for (int j = 0; j < 2; j++)
         translations[j] = slope
-                          * (segments[idx[j]].horizontal_[LEFT] - span.linear_combination (CENTER))
-                          + pos.linear_combination (CENTER)
+                          * (segments[idx[j]].horizontal_[LEFT] - span.center ())
+                          + pos.average ()
                           + beam_dy * segments[idx[j]].vertical_count_;
 
       Real weighted_average = translations[0] * weights[LEFT] + translations[1] * weights[RIGHT];
@@ -1022,7 +1022,7 @@ Beam::quanting (SCM smob, SCM ys_scm, SCM align_broken_intos)
 Beam_stem_end
 Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
                    Real xl, Real xr, Direction feather_dir,
-                   Drul_array<Real> pos, int french_count)
+                   Interval pos, int french_count)
 {
   Beam_stem_end stem_end;
   Real beam_translation = get_beam_translation (me);
@@ -1090,9 +1090,13 @@ Beam::set_stem_lengths (SCM smob)
   for (const auto a : {X_AXIS, Y_AXIS})
     common[a] = common_refpoint_of_array (stems, me, a);
 
-  Drul_array<Real> pos = from_scm<Drul_array<Real>> (posns);
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  scale_drul (&pos, staff_space);
+  const auto staff_space = Staff_symbol_referencer::staff_space (me);
+  Interval pos;
+  {
+    Drul_array<Real> p = from_scm<Drul_array<Real>> (posns);
+    scale_drul (&p, staff_space);
+    pos = {p[LEFT], p[RIGHT]};
+  }
 
   bool gap = false;
   Real thick = 0.0;
