@@ -5,73 +5,10 @@ This chapter discusses miscellaneous administrative issues which
 don't fit anywhere else.
 
 @menu
-* Meta-policy for this document::
 * Environment variables::
 * Meisters::
 * Unsorted policies::
 @end menu
-
-@node Meta-policy for this document
-@section Meta-policy for this document
-
-The Contributor's Guide as a whole is still a work in progress,
-but some chapters are much more complete than others.  Chapters
-which are @qq{almost finished} should not have major changes
-without a discussion on @w{@code{-devel}}; in other chapters, a
-disorganized @qq{wiki-style dump} of information is encouraged.
-
-Do not change (other than spelling mistakes) without discussion:
-
-@itemize
-
-@item
-@ref{Introduction to contributing}
-
-@item
-@ref{Working with source code}
-
-@end itemize
-
-Please dump info in an appropriate @@section within these manuals,
-but discuss any large-scale reorganization:
-
-@itemize
-
-@item
-@ref{Compiling}
-
-@item
-@ref{Documentation work}
-
-@item
-@ref{Issues}
-
-@item
-@ref{Regression tests}
-
-@item
-@ref{Programming work}
-
-
-@end itemize
-
-Totally disorganized; do whatever the mao you want:
-
-@itemize
-
-@item
-@ref{Website work}
-
-@item
-@ref{LSR work}
-
-@item
-@ref{Release work}
-
-@item
-@ref{Administrative policies}
-
-@end itemize
 
 
 @node Environment variables
