@@ -165,11 +165,3 @@ Note that snapshots of third party files such as @file{texinfo.tex} should
 not be included in the automatic update; @file{grand-replace.py} ignores these
 files if they are listed in the variable @code{copied_files}.
 
-
-@subsubheading Push git access
-
-Git access is given out when a contributor has a significant
-record of patches being accepted without problems.  If existing
-developers are tired of pushing patches for a contributor, we'll
-discuss giving them push access.  Unsolicited requests from
-contributors for access will almost always be turned down.
