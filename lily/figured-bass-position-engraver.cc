@@ -43,8 +43,8 @@ protected:
   void acknowledge_stem (Grob_info);
   void acknowledge_end_slur (Grob_info);
   void acknowledge_end_tie (Grob_info);
-  void acknowledge_bass_figure_alignment (Grob_info);
-  void acknowledge_end_bass_figure_alignment (Grob_info);
+  void acknowledge_bass_figure_alignment (Grob_info_t<Spanner>);
+  void acknowledge_end_bass_figure_alignment (Grob_info_t<Spanner>);
 
   void finalize () override;
   void start_spanner ();
@@ -136,15 +136,17 @@ Figured_bass_position_engraver::stop_translation_timestep ()
 }
 
 void
-Figured_bass_position_engraver::acknowledge_end_bass_figure_alignment (Grob_info /* info */)
+Figured_bass_position_engraver::acknowledge_end_bass_figure_alignment
+(Grob_info_t<Spanner>)
 {
   stop_spanner ();
 }
 
 void
-Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info info)
+Figured_bass_position_engraver::acknowledge_bass_figure_alignment
+(Grob_info_t<Spanner> info)
 {
-  bass_figure_alignment_ = dynamic_cast<Spanner *> (info.grob ());
+  bass_figure_alignment_ = info.grob ();
   start_spanner ();
 }
 

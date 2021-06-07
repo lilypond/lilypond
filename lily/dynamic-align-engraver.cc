@@ -41,7 +41,7 @@ class Dynamic_align_engraver : public Engraver
   void acknowledge_stem (Grob_info);
   void acknowledge_dynamic (Grob_info);
   void acknowledge_footnote_spanner (Grob_info);
-  void acknowledge_end_dynamic (Grob_info);
+  void acknowledge_end_dynamic (Grob_info_t<Spanner>);
 
 protected:
   virtual void stop_translation_timestep ();
@@ -76,12 +76,9 @@ Dynamic_align_engraver::create_line_spanner (Grob *cause)
 }
 
 void
-Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info info)
+Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info_t<Spanner> info)
 {
-  Spanner *sp = dynamic_cast<Spanner *> (info.grob ());
-  if (!sp)
-    return;
-
+  auto *const sp = info.grob ();
   ended_.push_back (sp);
 
   if (!line_)

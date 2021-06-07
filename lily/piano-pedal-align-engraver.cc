@@ -79,10 +79,10 @@ protected:
   void finalize () override;
 
   void acknowledge_piano_pedal_script (Grob_info);
-  void acknowledge_piano_pedal_bracket (Grob_info);
+  void acknowledge_piano_pedal_bracket (Grob_info_t<Spanner>);
   void acknowledge_note_column (Grob_info_t<Item>);
 
-  void acknowledge_end_piano_pedal_bracket (Grob_info);
+  void acknowledge_end_piano_pedal_bracket (Grob_info_t<Spanner>);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -98,7 +98,7 @@ private:
   Pedal_align_info pedal_info_[NUM_PEDAL_TYPES];
   vector<Item *> supports_;
 
-  Pedal_type get_grob_pedal_type (Grob_info g);
+  Pedal_type get_grob_pedal_type (Stream_event *cause);
   Spanner *make_line_spanner (Pedal_type t, SCM);
 };
 
@@ -158,13 +158,13 @@ Piano_pedal_align_engraver::stop_translation_timestep ()
 }
 
 Piano_pedal_align_engraver::Pedal_type
-Piano_pedal_align_engraver::get_grob_pedal_type (Grob_info g)
+Piano_pedal_align_engraver::get_grob_pedal_type (Stream_event *cause)
 {
-  if (g.event_cause ()->in_event_class ("sostenuto-event"))
+  if (cause->in_event_class ("sostenuto-event"))
     return SOSTENUTO;
-  if (g.event_cause ()->in_event_class ("sustain-event"))
+  if (cause->in_event_class ("sustain-event"))
     return SUSTAIN;
-  if (g.event_cause ()->in_event_class ("una-corda-event"))
+  if (cause->in_event_class ("una-corda-event"))
     return UNA_CORDA;
 
   programming_error ("Unknown piano pedal type.  Defaulting to sustain");
@@ -206,27 +206,28 @@ Piano_pedal_align_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
 }
 
 void
-Piano_pedal_align_engraver::acknowledge_piano_pedal_bracket (Grob_info gi)
+Piano_pedal_align_engraver::acknowledge_piano_pedal_bracket
+(Grob_info_t<Spanner> gi)
 {
-  Pedal_type type = get_grob_pedal_type (gi);
+  Pedal_type type = get_grob_pedal_type (gi.event_cause ());
   Grob *sp = make_line_spanner (type, gi.grob ()->self_scm ());
 
   Axis_group_interface::add_element (sp, gi.grob ());
-  pedal_info_[type].carrying_spanner_ = dynamic_cast<Spanner *> (gi.grob ());
+  pedal_info_[type].carrying_spanner_ = gi.grob ();
 }
 
 void
-Piano_pedal_align_engraver::acknowledge_end_piano_pedal_bracket (Grob_info gi)
+Piano_pedal_align_engraver::acknowledge_end_piano_pedal_bracket
+(Grob_info_t<Spanner> gi)
 {
-  Pedal_type type = get_grob_pedal_type (gi);
-  pedal_info_[type].finished_carrying_spanner_
-    = dynamic_cast<Spanner *> (gi.grob ());
+  Pedal_type type = get_grob_pedal_type (gi.event_cause ());
+  pedal_info_[type].finished_carrying_spanner_ = gi.grob ();
 }
 
 void
 Piano_pedal_align_engraver::acknowledge_piano_pedal_script (Grob_info gi)
 {
-  Pedal_type type = get_grob_pedal_type (gi);
+  Pedal_type type = get_grob_pedal_type (gi.event_cause ());
 
   Grob *sp = make_line_spanner (type, gi.grob ()->self_scm ());
   Axis_group_interface::add_element (sp, gi.grob ());

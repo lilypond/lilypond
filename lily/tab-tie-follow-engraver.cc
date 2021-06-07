@@ -44,8 +44,8 @@ public:
   TRANSLATOR_DECLARATIONS (Tab_tie_follow_engraver);
 
 protected:
-  void acknowledge_glissando (Grob_info);
-  void acknowledge_slur (Grob_info);
+  void acknowledge_glissando (Grob_info_t<Spanner>);
+  void acknowledge_slur (Grob_info_t<Spanner>);
   void acknowledge_tab_note_head (Grob_info);
 
   void stop_translation_timestep ();
@@ -57,9 +57,9 @@ Tab_tie_follow_engraver::Tab_tie_follow_engraver (Context *c)
 }
 
 void
-Tab_tie_follow_engraver::acknowledge_glissando (Grob_info info)
+Tab_tie_follow_engraver::acknowledge_glissando (Grob_info_t<Spanner> info)
 {
-  glissandi_.push_back (dynamic_cast<Spanner *> (info.grob ()));
+  glissandi_.push_back (info.grob ());
 }
 
 void
@@ -69,9 +69,9 @@ Tab_tie_follow_engraver::acknowledge_tab_note_head (Grob_info info)
 }
 
 void
-Tab_tie_follow_engraver::acknowledge_slur (Grob_info info)
+Tab_tie_follow_engraver::acknowledge_slur (Grob_info_t<Spanner> info)
 {
-  slurs_.push_back (dynamic_cast<Spanner *> (info.grob ()));
+  slurs_.push_back (info.grob ());
 }
 
 void
