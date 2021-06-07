@@ -155,40 +155,55 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       SCM before_id = get_property (origin_ctx, "alignAboveContext");
       SCM after_id = get_property (origin_ctx, "alignBelowContext");
 
+      Align_interface::add_element (valign_, i.grob ());
+
+      if (scm_is_null (before_id) && scm_is_null (after_id))
+        return;
+
       SCM before = scm_hash_ref (id_to_group_hashtab_, before_id, SCM_BOOL_F);
       SCM after = scm_hash_ref (id_to_group_hashtab_, after_id, SCM_BOOL_F);
+
+      if (scm_is_false (before) && scm_is_false (after))
+        {
+          if (scm_is_string (before_id))
+             {
+               warning (_f ("alignAboveContext not found: %s",
+                            ly_scm2string (before_id)));
+             }
+          else
+             {
+               warning (_f ("alignBelowContext not found: %s",
+                            ly_scm2string (after_id)));
+             }
+          return;
+        }
 
       Grob *before_grob = unsmob<Grob> (before);
       Grob *after_grob = unsmob<Grob> (after);
 
-      Align_interface::add_element (valign_, i.grob ());
+      Grob_array *ga = unsmob<Grob_array> (get_object (valign_, "elements"));
+      vector<Grob *> &arr = ga->array_reference ();
 
-      if (before_grob || after_grob)
+      Grob *added = arr.back ();
+      arr.pop_back ();
+      for (vsize i = 0; i < arr.size (); i++)
         {
-          Grob_array *ga = unsmob<Grob_array> (get_object (valign_, "elements"));
-          vector<Grob *> &arr = ga->array_reference ();
-
-          Grob *added = arr.back ();
-          arr.pop_back ();
-          for (vsize i = 0; i < arr.size (); i++)
+          if (arr[i] == before_grob)
             {
-              if (arr[i] == before_grob)
-                {
-                  arr.insert (arr.begin () + i, added);
+              arr.insert (arr.begin () + i, added);
 
-                  /* Only set staff affinity if it already has one.  That way we won't
-                     set staff-affinity on things that don't want it (like staves). */
-                  if (scm_is_number (get_property (added, "staff-affinity")))
-                    set_property (added, "staff-affinity", to_scm (DOWN));
-                  break;
-                }
-              else if (arr[i] == after_grob)
-                {
-                  arr.insert (arr.begin () + i + 1, added);
-                  if (scm_is_number (get_property (added, "staff-affinity")))
-                    set_property (added, "staff-affinity", to_scm (UP));
-                  break;
-                }
+              /* Only set staff affinity if it already has one.  That way we won't
+                 set staff-affinity on things that don't want it (like staves). */
+              if (scm_is_number (get_property (added, "staff-affinity")))
+                set_property (added, "staff-affinity", to_scm (DOWN));
+              break;
+            }
+          else if (arr[i] == after_grob)
+            {
+              arr.insert (arr.begin () + i + 1, added);
+              if (scm_is_number (get_property (added, "staff-affinity")))
+                set_property (added, "staff-affinity", to_scm (UP));
+              break;
             }
         }
     }
