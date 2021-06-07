@@ -48,7 +48,8 @@ Optimal_page_breaking::solve ()
 
   Page_spacing_result best;
   SCM forced_page_count = book_->paper_->c_variable ("page-count");
-  vsize page_count = from_scm (forced_page_count, 1);
+  bool page_count_is_forced = scm_is_integer (forced_page_count);
+  vsize page_count;
   Line_division ideal_line_division = current_configuration (0);
   Line_division best_division = ideal_line_division;
   vsize min_sys_count = 1;
@@ -56,32 +57,23 @@ Optimal_page_breaking::solve ()
   // Note that system_count () only counts non-title systems.
   vsize ideal_sys_count = system_count ();
 
-  if (!scm_is_integer (forced_page_count))
+  if (page_count_is_forced)
     {
-      /* find out the ideal number of pages */
-      message (_ ("Finding the ideal number of pages..."));
-
-      best = space_systems_on_best_pages (0, first_page_num);
-
-      page_count = best.systems_per_page_.size ();
-      if (page_count == 0)
+      if (!from_scm<bool> (scm_positive_p (forced_page_count)))
         {
-          min_sys_count = 0;
+          warning (_ ("page-count must be positive"));
+          page_count_is_forced = false;
         }
       else
         {
-          min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
-
-          if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
-            min_sys_count -= best.systems_per_page_[page_count - 2];
-
-          if (min_sys_count > ideal_sys_count  // subtraction wrapped around
-              || min_sys_count <= 0)
-            min_sys_count = 1;
+          page_count = from_scm<vsize> (forced_page_count);
         }
     }
-  else
+
+  if (page_count_is_forced)
     {
+      /* page_count has been initialized in the check above. */
+
       /* If systems-per-page and page-count are both specified, we know exactly
          how many systems should be present. */
       if (systems_per_page () > 0)
@@ -109,6 +101,31 @@ Optimal_page_breaking::solve ()
          ideal line spacing doesn't fit on PAGE_COUNT pages */
       best = space_systems_on_n_pages (0, page_count, first_page_num);
     }
+  else
+    {
+      /* find out the ideal number of pages */
+      message (_ ("Finding the ideal number of pages..."));
+
+      best = space_systems_on_best_pages (0, first_page_num);
+
+      page_count = best.systems_per_page_.size ();
+      if (page_count == 0)
+        {
+          min_sys_count = 0;
+        }
+      else
+        {
+          min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
+
+          if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
+            min_sys_count -= best.systems_per_page_[page_count - 2];
+
+          if (min_sys_count > ideal_sys_count  // subtraction wrapped around
+              || min_sys_count <= 0)
+            min_sys_count = 1;
+        }
+    }
+
 
   if (page_count == 1)
     message (_ ("Fitting music on 1 page..."));
