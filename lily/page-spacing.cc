@@ -197,11 +197,12 @@ Page_spacer::solve (vsize page_count)
 
   if (std::isinf (state_.at (system, page_count - 1).demerits_))
     {
-      programming_error ("tried to space systems on a bad number of pages");
+      warning (_ ("tried to space systems on a bad number of pages"));
       /* Usually, this means that we tried to cram too many systems into
-         to few pages. To avoid crashing, we look for the largest number of
-         systems that we can fit properly onto the right number of pages.
-         All the systems that don't fit get tacked onto the last page.
+         to few pages (can happen if the requested page-count is unreasonable).
+         To avoid crashing, we look for the largest number of systems that
+         we can fit properly onto the right number of pages.  All the systems
+         that don't fit get tacked onto the last page.
       */
       vsize i;
       for (i = system; std::isinf (state_.at (i, page_count - 1).demerits_) && i; i--)

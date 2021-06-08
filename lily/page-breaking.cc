@@ -1236,11 +1236,22 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, int first
     }
 
   cache_line_details (configuration);
-  bool valid_n = (n >= min_page_count (configuration, first_page_num)
-                  && n <= cached_line_details_.size ());
 
-  if (!valid_n)
-    programming_error ("number of pages is out of bounds");
+  vsize min = min_page_count (configuration, first_page_num);
+  vsize max = cached_line_details_.size ();
+
+  bool valid_n = true;
+
+  if (n < min)
+    {
+      warning (_f ("too few pages: %ld (should have at least %ld)", n, min));
+      valid_n = false;
+    }
+  if (n > max)
+    {
+      warning (_f ("too many pages: %ld (should have at most %ld)", n, max));
+      valid_n = false;
+    }
 
   if (n == 1 && valid_n)
     ret = space_systems_on_1_page (cached_line_details_,
