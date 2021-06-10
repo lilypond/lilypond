@@ -72,7 +72,7 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
        * though), we have to prepend it manually. */
       if (g_without_BOM) // conversion to UTF-16be might have failed (shouldn't!)
         {
-          g = (char *)malloc ( sizeof (char) * (bytes_written + 3));
+          g = (char *)g_malloc ( sizeof (char) * (bytes_written + 3));
           char const *BOM = "\xFE\xFF";
           strcpy (g, BOM);
           memcpy (&g[2], g_without_BOM, bytes_written + 1); // Copy string + \0
@@ -90,7 +90,7 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
        * in a locale independent way.
        */
       SCM string = scm_from_latin1_stringn (g, bytes_written);
-      free (g);
+      g_free (g);
       return string;
     }
   else
