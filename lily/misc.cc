@@ -36,7 +36,7 @@ log_2 (double x)
 Real
 directed_round (Real f, Direction d)
 {
-  if (d < 0)
+  if (d < CENTER)
     return floor (f);
   else
     return ceil (f);

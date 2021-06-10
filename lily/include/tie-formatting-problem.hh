@@ -20,20 +20,22 @@
 #ifndef TIE_FORMATTING_PROBLEM_HH
 #define TIE_FORMATTING_PROBLEM_HH
 
+#include "direction.hh"
 #include "drul-array.hh"
 #include "skyline.hh"
 #include "tie-configuration.hh"
 #include "tie-details.hh"
 #include "tie-specification.hh"
 
-#include <array>
 #include <map>
 #include <memory>
 #include <set>
+#include <tuple>
 #include <vector>
 
+using Tie_configuration_map_key = std::tuple<int, Direction, int, int>;
 using Tie_configuration_map
-  = std::map<std::array<int, 4>, std::unique_ptr<Tie_configuration>>;
+  = std::map<Tie_configuration_map_key, std::unique_ptr<Tie_configuration>>;
 
 struct Tie_configuration_variation
 {
@@ -44,8 +46,9 @@ struct Tie_configuration_variation
   }
 };
 
-typedef std::map<std::array<int, 2>, Skyline> Chord_outline_map;
-typedef std::map<std::array<int, 2>, Box> Column_extent_map;
+typedef std::tuple<int, Direction> Tie_rank_and_dir;
+typedef std::map<Tie_rank_and_dir, Skyline> Chord_outline_map;
+typedef std::map<Tie_rank_and_dir, Box> Column_extent_map;
 typedef std::map<int, Slice> Position_extent_map;
 
 class Tie_formatting_problem

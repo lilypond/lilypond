@@ -60,10 +60,10 @@ Slur::calc_direction (SCM smob)
       return SCM_BOOL_F;
     }
 
-  Direction d = DOWN;
-  for (vsize i = 0; i < encompasses.size (); i++)
+  auto d = DOWN;
+  for (const auto &col : encompasses)
     {
-      if (Note_column::dir (encompasses[i]) < 0)
+      if (Note_column::dir (col) == DOWN)
         {
           d = UP;
           break;

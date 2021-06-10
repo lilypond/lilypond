@@ -39,24 +39,22 @@
 #include "output-def.hh"
 
 #include <algorithm>
-#include <array>
 #include <cmath>
 #include <cstdio>
 #include <set>
 #include <string>
 #include <vector>
 
-using std::array;
 using std::set;
 using std::string;
 using std::vector;
 
 template<typename Container>
 auto
-boundary (const Container &v, int dir, vsize i)->decltype ( *&v[0])
+boundary (const Container &v, Direction dir, vsize i)->decltype ( *&v[0])
 {
   assert (dir);
-  return v[dir == -1 ? i : v.size () - 1 - i];
+  return v[(dir == LEFT) ? i : v.size () - 1 - i];
 }
 
 void
@@ -144,7 +142,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
         }
     }
 
-  const array<int, 2> key {column_rank, dir};
+  const Tie_rank_and_dir key {column_rank, dir};
 
   if (stem)
     {
@@ -431,8 +429,8 @@ Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties, Directi
 
   set_chord_outline (heads, head_dir);
 
-  const array<int, 2> head_key {column_rank, head_dir};
-  const array<int, 2> open_key {column_rank, -head_dir};
+  const Tie_rank_and_dir head_key {column_rank, head_dir};
+  const Tie_rank_and_dir open_key {column_rank, -head_dir};
   Real extremal = chord_outlines_[head_key].max_height ();
 
   chord_outlines_[open_key] = Skyline (head_dir);
@@ -452,7 +450,7 @@ Tie_configuration *
 Tie_formatting_problem::get_configuration (int pos, Direction dir, Drul_array<int> columns,
                                            bool tune_dy) const
 {
-  const array<int, 4> key
+  const Tie_configuration_map_key key
   {
     pos, dir, columns[LEFT], columns[RIGHT]
   };

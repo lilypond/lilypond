@@ -46,12 +46,12 @@ public:
 
   T &at (Direction d)
   {
-    return constexpr_assert (d), array_[d > 0];
+    return constexpr_assert (d), array_[d > CENTER];
   }
 
   constexpr T const &at (Direction d) const
   {
-    return constexpr_assert (d), array_[d > 0];
+    return constexpr_assert (d), array_[d > CENTER];
   }
 
   T &operator [] (Direction d)

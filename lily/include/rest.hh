@@ -20,6 +20,7 @@
 #ifndef REST_HH
 #define REST_HH
 
+#include "direction.hh"
 #include "grob-interface.hh"
 
 class Grob;
@@ -31,7 +32,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   static std::string glyph_name (Grob *, int durlog, const std::string &style, bool, Real);
   static Real staff_position_internal (Grob *, int /* duration_log */,
-                                       int /* dir */);
+                                       Direction);
   static SCM brew_internal_stencil (Grob *, bool);
   static SCM generic_extent_callback (Grob *, Axis);
   static void translate (Grob *me, int dy);

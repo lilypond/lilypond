@@ -88,7 +88,7 @@ Dot_configuration::shifted (int k, Direction d) const
       }
   };
 
-  if (d > 0)
+  if (d > CENTER)
     {
       for (const auto &ent : *this)
         process_entry (ent);

@@ -260,7 +260,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   SCM mols = SCM_EOL;
   int symbol_count = 0;
   Real symbols_width = 0.0;
-  int dir = get_grob_direction (me);
+  const auto dir = get_grob_direction (me);
 
   SCM sp = get_property (me, "staff-position");
   Real pos;

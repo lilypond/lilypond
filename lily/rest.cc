@@ -45,7 +45,7 @@ Rest::y_offset_callback (SCM smob)
 }
 
 Real
-Rest::staff_position_internal (Grob *me, int duration_log, int dir)
+Rest::staff_position_internal (Grob *me, int duration_log, Direction dir)
 {
   if (!me)
     return 0;
@@ -104,7 +104,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
         lower voice semibreve rests generally hang a line lower
       */
 
-      if (dir < 0)
+      if (dir < CENTER)
         pos -= 2;
 
       /*
@@ -136,7 +136,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
      proper side of neutral before using it.
   */
 
-  Real neutral = staff_position_internal (me, duration_log, 0);
+  Real neutral = staff_position_internal (me, duration_log, CENTER);
 
   if (dir * (pos - neutral) > 0)
     return pos;

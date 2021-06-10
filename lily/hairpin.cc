@@ -55,7 +55,7 @@ Hairpin::broken_bound_padding (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
   Item *r_bound = me->get_bound (RIGHT);
-  if (r_bound->break_status_dir () != -1)
+  if (r_bound->break_status_dir () != LEFT)
     {
       me->warning (_ ("Asking for broken bound padding at a non-broken bound."));
       return to_scm (0.0);
@@ -82,7 +82,7 @@ Hairpin::broken_bound_padding (SCM smob)
       extract_grob_set (vertical_axis_groups[d], "elements", elts);
       for (vsize i = elts.size (); i--;)
         if (elts[i]->internal_has_interface (ly_symbol2scm ("bar-line-interface"))
-            && dynamic_cast<Item *> (elts[i])->break_status_dir () == -1)
+            && dynamic_cast<Item *> (elts[i])->break_status_dir () == LEFT)
           {
             SCM hsb = get_object (elts[i], "has-span-bar");
             if (!scm_is_pair (hsb))
@@ -284,7 +284,7 @@ Hairpin::print (SCM smob)
 
   if (width < 0)
     {
-      me->warning (_ ((grow_dir < 0) ? "decrescendo too small"
+      me->warning (_ ((grow_dir == SMALLER) ? "decrescendo too small"
                       : "crescendo too small"));
       width = 0;
     }
@@ -294,7 +294,7 @@ Hairpin::print (SCM smob)
 
   Real starth = 0;
   Real endh = 0;
-  if (grow_dir < 0)
+  if (grow_dir == SMALLER)
     {
       starth = continuing ? 2 * height / 3 : height;
       endh = continued ? height / 3 : 0.0;
@@ -317,9 +317,9 @@ Hairpin::print (SCM smob)
   Direction tip_dir = -grow_dir;
   if (circled_tip && !broken[tip_dir])
     {
-      if (grow_dir > 0)
+      if (grow_dir == BIGGER)
         x = rad * 2.0;
-      else if (grow_dir < 0)
+      else if (grow_dir == SMALLER)
         width -= rad * 2.0;
     }
   mol = Line_interface::line (me, Offset (x, starth), Offset (width, endh));

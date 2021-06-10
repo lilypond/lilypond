@@ -352,30 +352,30 @@ Break_aligned_interface::calc_joint_anchor_alignment (SCM grob)
   return to_scm (calc_joint_anchor_alignment (me));
 }
 
-int
+Direction
 Break_aligned_interface::calc_joint_anchor_alignment (Grob *me)
 {
   // If all elements with non-zero alignment agree in sign, return that
   // direction.  Otherwise, return center.  Just enough thought has been put
   // into this algorithm to serve our immediate needs.
-  int direction = CENTER;
+  auto direction = CENTER;
 
   extract_grob_set (me, "elements", elts);
   for (vsize i = 0; i < elts.size (); i++)
     {
       SCM s = get_property (elts[i], "break-align-anchor-alignment");
       double alignment = from_scm<double> (s, 0.0);
-      if (alignment < CENTER)
+      if (alignment < 0)
         {
           if (direction > CENTER)
             return CENTER; // conflict
-          direction = -1;
+          direction = LEFT;
         }
-      else if (alignment > CENTER)
+      else if (alignment > 0)
         {
           if (direction < CENTER)
             return CENTER; // conflict
-          direction = 1;
+          direction = RIGHT;
         }
     }
 

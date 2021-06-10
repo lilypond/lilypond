@@ -1046,9 +1046,9 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
     feather dir = -1, relx 0->1 : factor 1 -> 0
    */
   Real feather_factor = 1;
-  if (feather_dir > 0)
+  if (feather_dir > CENTER)
     feather_factor = relx;
-  else if (feather_dir < 0)
+  else if (feather_dir < CENTER)
     feather_factor = 1 - relx;
 
   stem_y += feather_factor * beam_translation
@@ -1415,7 +1415,7 @@ Beam::is_knee (Grob *me)
     return ly_scm2bool (k);
 
   bool knee = false;
-  int d = 0;
+  auto d = CENTER;
   extract_grob_set (me, "stems", stems);
   for (vsize i = stems.size (); i--;)
     {

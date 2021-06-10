@@ -360,10 +360,15 @@ grob_2D_less (Grob *g1, Grob *g2)
       sri[i] = gs[i]->spanned_rank_interval ()[LEFT];
       if (Spanner *s = dynamic_cast<Spanner *> (gs[i]))
         {
-          if (s->broken_intos_.size ())
-            s = (scm_to_int (get_property (s->broken_intos_[0], "spanner-placement")) == LEFT
-                 ? s->broken_intos_[0]
-                 : s->broken_intos_.back ());
+          if (!s->broken_intos_.empty ())
+            {
+              auto placement
+                = from_scm<Direction> (get_property (s->broken_intos_[0],
+                                                     "spanner-placement"));
+              s = (placement == LEFT)
+                  ? s->broken_intos_[0]
+                  : s->broken_intos_.back ();
+            }
           gs[i] = s;
           if (from_scm<double> (get_property (s, "X-offset"), 0.0) > 0)
             sri[i] = s->spanned_rank_interval ()[RIGHT];

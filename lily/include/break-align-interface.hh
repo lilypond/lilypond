@@ -20,6 +20,7 @@
 #ifndef BREAK_ALIGN_INTERFACE_HH
 #define BREAK_ALIGN_INTERFACE_HH
 
+#include "direction.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
@@ -41,7 +42,7 @@ struct Break_aligned_interface
   DECLARE_SCHEME_CALLBACK (calc_break_visibility, (SCM));
 
   DECLARE_SCHEME_CALLBACK (calc_joint_anchor_alignment, (SCM));
-  static int calc_joint_anchor_alignment (Grob *me);
+  static Direction calc_joint_anchor_alignment (Grob *me);
 };
 
 struct Break_alignable_interface

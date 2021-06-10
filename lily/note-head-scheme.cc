@@ -31,7 +31,7 @@ LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
   LY_ASSERT_TYPE (scm_is_string, glyph_name, 2);
 
   if (SCM_UNBNDP (direction))
-    direction = scm_from_int (UP);
+    direction = to_scm (UP);
   else
     LY_ASSERT_TYPE (is_scm<Direction>, direction, 3);
 

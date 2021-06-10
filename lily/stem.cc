@@ -530,7 +530,7 @@ Stem::calc_positioning_done (SCM smob)
   std::sort (heads.begin (), heads.end (), position_less);
   Direction dir = get_strict_grob_direction (me);
 
-  if (dir < 0)
+  if (dir < CENTER)
     std::reverse (heads.begin (), heads.end ());
 
   Real thick = thickness (me);
