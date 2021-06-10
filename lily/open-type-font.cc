@@ -37,6 +37,7 @@
 #include "warn.hh"
 
 #include <cstdio>
+#include <memory>
 #include <utility>
 
 using std::map;
@@ -44,7 +45,7 @@ using std::pair;
 using std::make_pair;
 using std::string;
 
-FT_Byte *
+std::unique_ptr<FT_Byte[]>
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {
   *length = 0;
@@ -53,13 +54,16 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   FT_Error error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
   if (!error_code)
     {
-      FT_Byte *buffer = (FT_Byte *) malloc (*length);
-      if (buffer == NULL)
+      std::unique_ptr<FT_Byte[]> buffer (new FT_Byte[*length]);
+      if (!buffer)
         error (_f ("cannot allocate %lu bytes", *length));
 
-      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length);
+      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer.get (), length);
       if (error_code)
-        error (_f ("cannot load font table: %s", tag_str));
+        {
+          error (_f ("cannot load font table: %s", tag_str));
+          buffer.reset ();
+        }
 
       return buffer;
     }
@@ -81,12 +85,12 @@ SCM
 load_scheme_table (char const *tag_str, FT_Face face)
 {
   FT_ULong length = 0;
-  FT_Byte *buffer = load_table (tag_str, face, &length);
+  auto buffer (load_table (tag_str, face, &length));
 
   SCM tab = SCM_EOL;
   if (buffer)
     {
-      string contents ((char const *)buffer, length);
+      string contents (reinterpret_cast<char const *> (buffer.get ()), length);
       contents = "(quote (" + contents + "))";
 
 #if GUILEV2
@@ -94,7 +98,6 @@ load_scheme_table (char const *tag_str, FT_Face face)
 #else
       tab = scm_c_eval_string (contents.c_str ());
 #endif
-      free (buffer);
     }
   return tab;
 }
@@ -110,11 +113,13 @@ Open_type_font::~Open_type_font ()
 string
 get_otf_table (FT_Face face, const string &tag)
 {
+  string ret;
   FT_ULong len;
-  FT_Byte *tab = load_table (tag.c_str (), face, &len);
-  string ret ((char const *) tab, len);
-  free (tab);
-
+  auto tab (load_table (tag.c_str (), face, &len));
+  if (tab)
+    {
+      ret.assign (reinterpret_cast<char const *> (tab.get ()), len);
+    }
   return ret;
 }
 

@@ -19,6 +19,7 @@
 
 #include "lily-guile.hh"
 #include "international.hh"
+#include "memory.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
@@ -34,10 +35,8 @@ display_fontset (FcFontSet *fs)
   int j;
   for (j = 0; j < fs->nfont; j++)
     {
-      FcChar8 *font;
+      unique_stdlib_ptr<FcChar8> font (FcNameUnparse (fs->fonts[j]));
       FcChar8 *str;
-
-      font = FcNameUnparse (fs->fonts[j]);
       if (FcPatternGetString (fs->fonts[j], FC_FILE, 0, &str) == FcResultMatch)
         retval += String_convert::form_string ("FILE %s\n", str);
       if (FcPatternGetString (fs->fonts[j], FC_INDEX, 0, &str) == FcResultMatch)
@@ -48,8 +47,8 @@ display_fontset (FcFontSet *fs)
                               "designsize", 0, &str) == FcResultMatch)
         retval += String_convert::form_string ("designsize %s\n ", str);
 
-      retval += String_convert::form_string ("%s\n", (const char *)font);
-      free (font);
+      retval += String_convert::form_string
+                ("%s\n", reinterpret_cast<const char *> (font.get ()));
     }
 
   return retval;

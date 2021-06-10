@@ -25,6 +25,7 @@
 #include "file-path.hh"
 #include "international.hh"
 #include "main.hh"
+#include "memory.hh"
 #include "misc.hh"
 #include "offset.hh"
 #include "pitch.hh"
@@ -133,12 +134,11 @@ ly_scm2string (SCM str)
 
   string result;
   size_t len;
-  char *c_string = scm_to_utf8_stringn (str, &len);
+  unique_stdlib_ptr<char> c_string (scm_to_utf8_stringn (str, &len));
   if (len)
     {
-      result.assign (c_string, len);
+      result.assign (c_string.get (), len);
     }
-  free (c_string);
   return result;
 }
 
@@ -148,10 +148,10 @@ ly_string2scm (string const &str)
   return scm_from_utf8_stringn (str.c_str (), str.length ());
 }
 
-char *
+unique_stdlib_ptr<char>
 ly_scm2str0 (SCM str)
 {
-  return scm_to_utf8_string (str);
+  return unique_stdlib_ptr<char> (scm_to_utf8_string (str));
 }
 
 /*

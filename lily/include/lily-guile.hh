@@ -42,6 +42,7 @@
 #endif
 
 #include "axis.hh"
+#include "memory.hh"
 #include "guile-compatibility.hh"
 #include "interval.hh"
 #include "lily-guile-macros.hh"
@@ -70,7 +71,7 @@ inline SCM ly_assoc (SCM key, SCM alist)
 SCM ly_assoc_get (SCM key, SCM alist, SCM default_value, SCM strict_checking = SCM_BOOL_F);
 SCM ly_memv (SCM, SCM);
 Slice int_list_to_slice (SCM l);
-char *ly_scm2str0 (SCM str);
+unique_stdlib_ptr<char> ly_scm2str0 (SCM str);
 
 std::string robust_scm2string (SCM, const std::string &);
 

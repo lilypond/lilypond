@@ -18,6 +18,7 @@
 */
 
 #include "international.hh"
+#include "memory.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
 
@@ -30,57 +31,47 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
            " with Byte-Order-Mark (BOM).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
-  char *p = ly_scm2str0 (str);
-  char *g = NULL;
-  char const *charset = "UTF-8"; // Input is ALWAYS UTF-8!
+
+  char *g = nullptr;
   gsize bytes_written = 0;
 
-#if 0
+  {
+    constexpr char charset[] = "UTF-8"; // Input is ALWAYS UTF-8!
+    auto p (ly_scm2str0 (str));
 
-  /* First, try to convert to ISO-8859-1 (no encodings required). This will
-   * fail, if the string contains accented characters, so we do not check
-   * for errors. */
-  g = g_convert (p, -1, "ISO-8859-1", charset, 0, &bytes_written, 0);
+    g = g_convert (p.get (), -1, "ASCII", charset, 0, &bytes_written, 0);
+    // We do not try ISO-8859-1 since a number of versions of Ghostscript
+    // versions fail to convert it to PDF.  ASCII and UTF-16BE work better with
+    // recent versions of Ghostscript.
 
-#else
-
-  /* In contrast to the above comment, we do _not_ try full ISO-8859-1
-   * since a number of Ghostscript versions fail to properly convert
-   * this into PDF.  UTF-16BE, in contrast, works better with recent
-   * versions of Ghostscript.
-   */
-
-  g = g_convert (p, -1, "ASCII", charset, 0, &bytes_written, 0);
-
-#endif
-
-  /* If that fails, we have to resolve to full UTF-16BE */
-  if (!g)
-    {
-      GError *e = NULL;
-      char *g_without_BOM = g_convert (p, -1, "UTF-16BE", charset, 0, &bytes_written, &e);
-      if (e != NULL)
-        {
-          warning (_f ("Conversion of string `%s' to UTF-16be failed: %s", p, e->message));
-          g_error_free (e);
-        }
-      /* UTF-16BE allows/recommends a byte-order-mark (BOM) of two bytes
-       * \xFE\xFF at the begin of the string. The pdfmark specification
-       * requires it and depends on it to distinguish PdfDocEncoding from
-       * UTF-16BE. As g_convert does not automatically prepend this BOM
-       * for UTF-16BE (only for UTF-16, which uses lower endian by default,
-       * though), we have to prepend it manually. */
-      if (g_without_BOM) // conversion to UTF-16be might have failed (shouldn't!)
-        {
-          g = (char *)g_malloc ( sizeof (char) * (bytes_written + 3));
-          char const *BOM = "\xFE\xFF";
-          strcpy (g, BOM);
-          memcpy (&g[2], g_without_BOM, bytes_written + 1); // Copy string + \0
-          g_free (g_without_BOM);
-          bytes_written += 2;
-        }
-    }
-  free (p);
+    if (!g) // ASCII not possible; resort to UTF-16BE
+      {
+        GError *e = NULL;
+        char *g_without_BOM = g_convert (p.get (), -1, "UTF-16BE", charset, 0,
+                                         &bytes_written, &e);
+        if (e != NULL)
+          {
+            warning (_f ("Conversion of string `%s' to UTF-16be failed: %s",
+                         p.get (), e->message));
+            g_error_free (e);
+          }
+        /* UTF-16BE allows/recommends a byte-order-mark (BOM) of two bytes
+         * \xFE\xFF at the begin of the string. The pdfmark specification
+         * requires it and depends on it to distinguish PdfDocEncoding from
+         * UTF-16BE. As g_convert does not automatically prepend this BOM
+         * for UTF-16BE (only for UTF-16, which uses lower endian by default,
+         * though), we have to prepend it manually. */
+        if (g_without_BOM) // conversion to UTF-16be might have failed (shouldn't!)
+          {
+            g = (char *)g_malloc ( sizeof (char) * (bytes_written + 3));
+            char const *BOM = "\xFE\xFF";
+            strcpy (g, BOM);
+            memcpy (&g[2], g_without_BOM, bytes_written + 1); // Copy string + \0
+            g_free (g_without_BOM);
+            bytes_written += 2;
+          }
+      }
+  }
 
   /* Convert back to SCM object and return it */
   if (g)

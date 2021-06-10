@@ -25,7 +25,9 @@
 #include "file-path.hh"
 #include "international.hh"
 #include "lily-guile.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
+#include "memory.hh"
 #include "misc.hh"
 #include "program-option.hh"
 #include "relocate.hh"
@@ -585,23 +587,17 @@ LY_DEFINE (ly_format, "ly:format",
     programming_error (string (__FUNCTION__)
                        + ": too many arguments");
 
+  // one wonders how much this extra walk actually saves
   vsize len = 0;
-  for (vsize i = 0; i < results.size (); i++)
-    len += results[i].size ();
+  for (const auto &r : results)
+    len += r.size ();
 
-  char *result = (char *) scm_malloc (len + 1);
-  char *ptr = result;
-  for (vsize i = 0; i < results.size (); i++)
-    {
-      // strcpy and strncpy cannot be used here
-      // because std::string may contain '\0' in its contents.
-      results[i].copy (ptr, results[i].size ());
-      ptr += results[i].size ();
-    }
-  *ptr = '\0';
+  string result;
+  result.reserve (len);
+  for (const auto &r : results)
+    result.append (r);
 
-  SCM ret = scm_from_utf8_stringn (result, len);
-  free (result);
+  SCM ret = scm_from_utf8_stringn (result.data (), result.size ());
   return ret;
 }
 
@@ -639,19 +635,27 @@ LY_DEFINE (ly_spawn, "ly:spawn",
 {
   LY_ASSERT_TYPE (scm_is_string, command, 1);
 
-  long argc = scm_is_pair (rest) ? scm_ilength (rest) : 0;
-  char **argv = new char *[argc + 2];
+  const auto argc = 1 + (scm_is_pair (rest) ? scm_ilength (rest) : 0);
 
-  int n = 0;
-  argv[n++] = ly_scm2str0 (command);
-  for (SCM s = rest; scm_is_pair (s); s = scm_cdr (s))
-    argv[n++] = ly_scm2str0 (scm_car (s));
-  argv[n] = 0;
+  // copy the command line (as individual arguments)
+  std::vector<unique_stdlib_ptr<char>> own_argv;
+  own_argv.reserve (argc);
+  own_argv.emplace_back (ly_scm2str0 (command));
+  for (SCM s : as_ly_scm_list (rest))
+    own_argv.emplace_back (ly_scm2str0 (s));
+
+  // create a C-style argv aliasing the arguments above
+  std::vector<char *> argv;
+  argv.reserve (own_argv.size () + 1);
+  for (const auto &p : own_argv)
+    argv.emplace_back (p.get ());
+  argv.emplace_back (nullptr);
 
   char *standard_output = 0;
   char *standard_error = 0;
   // Always get the pointer to the stdout/stderr messages
-  int exit_status = ly_run_command (argv, &standard_output, &standard_error);
+  const auto exit_status = ly_run_command (argv.data (),
+                                           &standard_output, &standard_error);
 
   if (standard_output && standard_error)
     {
@@ -661,10 +665,6 @@ LY_DEFINE (ly_spawn, "ly:spawn",
 
   g_free (standard_error);
   g_free (standard_output);
-
-  for (int i = 0; i < n; i++)
-    free (argv[i]);
-  delete[] argv;
 
   return to_scm (exit_status);
 }
@@ -701,56 +701,63 @@ LY_DEFINE (ly_gs_api, "ly:gs-api", 2, 0, 0, (SCM args, SCM run_string),
   LY_ASSERT_TYPE (scm_is_pair, args, 1);
   LY_ASSERT_TYPE (scm_is_string, run_string, 2);
 
-  // gsapi_init_with_args wants modifiable strings, so create local variables
-  // with copies of the content.
-  vector<char *> argv;
+  {
+    // gsapi_init_with_args wants modifiable strings, so create local variables
+    // with copies of the content.
+    std::vector<unique_stdlib_ptr<char>> own_argv;
 
-  // Ensure that the string of arguments is never empty.
-  string new_args (" ");
-  for (SCM s = args; scm_is_pair (s); s = scm_cdr (s))
-    {
-      char *a = ly_scm2str0 (scm_car (s));
-      argv.push_back (a);
-      new_args += string (a) + " ";
-    }
+    // Ensure that the string of arguments is never empty.
+    string new_args (" ");
+    for (SCM s : as_ly_scm_list (args))
+      {
+        auto a (ly_scm2str0 (s));
+        new_args += a.get ();
+        new_args += ' ';
+        own_argv.emplace_back (std::move (a));
+      }
 
-  if (gs_args.length () > 0)
-    {
-      assert (gs_inst != NULL);
-      if (gs_args != new_args)
-        {
-          debug_output (_ ("Mismatch of GhostScript arguments!\n"));
-          ly_shutdown_gs ();
-        }
-    }
+    if (gs_args.length () > 0)
+      {
+        assert (gs_inst != NULL);
+        if (gs_args != new_args)
+          {
+            debug_output (_ ("Mismatch of GhostScript arguments!\n"));
+            ly_shutdown_gs ();
+          }
+      }
 
-  if (gs_inst == NULL)
-    {
-      debug_output (_f ("Starting GhostScript instance with arguments: %s\n",
-                        new_args.c_str ()));
-      // Save current string of arguments to later compare if we need a new
-      // instance with different parameters.
-      gs_args = new_args;
+    if (gs_inst == NULL)
+      {
+        debug_output (_f ("Starting GhostScript instance with arguments: %s\n",
+                          new_args.c_str ()));
+        // Save current string of arguments to later compare if we need a new
+        // instance with different parameters.
+        gs_args = new_args;
 
-      int code = gsapi_new_instance (&gs_inst, NULL);
-      if (code == 0)
-        code = gsapi_set_arg_encoding (gs_inst, GS_ARG_ENCODING_UTF8);
-      int argc = static_cast<int>(argv.size ());
-      if (code == 0)
-        code = gsapi_init_with_args (gs_inst, argc, argv.data ());
+        int code = gsapi_new_instance (&gs_inst, NULL);
+        if (code == 0)
+          code = gsapi_set_arg_encoding (gs_inst, GS_ARG_ENCODING_UTF8);
+        if (code == 0)
+          {
+            // create a C-style argv aliasing the arguments above
+            std::vector<char *> argv;
+            argv.reserve (own_argv.size ());
+            for (const auto &p : own_argv)
+              argv.emplace_back (p.get ());
 
-      // Handle errors from above calls.
-      if (code < 0)
-        {
-          warning (_ ("Could not start GhostScript instance!"));
-          scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
-          return SCM_UNSPECIFIED;
-        }
-    }
+            const auto argc = static_cast<int> (argv.size ());
+            code = gsapi_init_with_args (gs_inst, argc, argv.data ());
+          }
 
-  // Free all converted strings.
-  for (char *a : argv)
-    free (a);
+        // Handle errors from above calls.
+        if (code < 0)
+          {
+            warning (_ ("Could not start GhostScript instance!"));
+            scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (run_string));
+            return SCM_UNSPECIFIED;
+          }
+      }
+  }
 
   // Construct the command.
   string command = ly_scm2string (run_string);
