@@ -207,11 +207,11 @@ public:
         if ((opt == "-h") || (opt == "--help"))
           {
             std::cout << "Yaffut - Yet Another Framework For Unit Testing.\n\n"
-              "Usage: yaffut [OPTION] [Suite:|Suite::Test]...\n\n"
-              "Options:\n"
-              "  -h, --help   show this help\n"
-              "  -l, --list   list test cases\n"
-              "  -q, --quiet  do not mention passing tests\n";
+                      "Usage: yaffut [OPTION] [Suite:|Suite::Test]...\n\n"
+                      "Options:\n"
+                      "  -h, --help   show this help\n"
+                      "  -l, --list   list test cases\n"
+                      "  -q, --quiet  do not mention passing tests\n";
             return 0;
           }
         else if ((opt == "-l") || (opt == "--list"))
@@ -219,7 +219,7 @@ public:
             Factory::Instance ().List (argc > 2 ? argv[2] : "");
             return 0;
           }
-        else if ((opt == "-q" ) || (opt == "--quiet"))
+        else if ((opt == "-q") || (opt == "--quiet"))
           {
             Factory::Instance ().SetVerbose (false);
           }
