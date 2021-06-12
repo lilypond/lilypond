@@ -78,6 +78,9 @@ static_assert (POSI * NEGA == NEGA, "");
 static_assert (POSI * ZERO == ZERO, "");
 static_assert (POSI * POSI == POSI, "");
 
+static_assert (directed_same (POSI * POSI, POSI),
+               "(Direction * Direction) should yield a Direction");
+
 // multiplication by an int
 
 static_assert (-3 * NEGA == 3, "");
@@ -195,6 +198,28 @@ TEST (Direction_test, copy_assign)
   Direction d;
   d = D;
   EQUAL (d, POSI);
+}
+
+TEST (Direction_test, mul_assign)
+{
+  Direction d = POSI;
+
+  d *= POSI;
+  EQUAL (d, POSI);
+
+  d *= NEGA;
+  EQUAL (d, NEGA);
+  d *= POSI;
+  EQUAL (d, NEGA);
+  d *= NEGA;
+  EQUAL (d, POSI);
+
+  d *= ZERO;
+  EQUAL (d, ZERO);
+  d *= NEGA;
+  EQUAL (d, ZERO);
+  d *= POSI;
+  EQUAL (d, ZERO);
 }
 
 // Multiplication by a negative Direction inverts a signed zero just like any

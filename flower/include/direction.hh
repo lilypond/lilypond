@@ -63,9 +63,16 @@ public:
   // unary minus reverses the direction
   constexpr Direction operator -() const { return Direction (-val_); }
 
+  // Multiplying two directions maintains the type as a Direction.  Multiplying
+  // by other types is supported via implicit conversion of Direction to int.
   constexpr Direction operator *(Direction other) const
   {
     return Direction (val_ * other.val_);
+  }
+
+  Direction &operator *=(Direction other)
+  {
+    return (*this = (*this) * other);
   }
 
   // convert to a zero-based index: {negative->0, zero->1, positive->2}
