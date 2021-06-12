@@ -259,13 +259,13 @@ class failure: public std::exception
 {
   std::string failure_;
 public:
-  template <typename Expected, typename Actual>
-  failure (const Expected &e, Actual &a, const char *at = "", const char *expr = "")
+  template <typename Left, typename Right>
+  failure (const Left &a, Right &b, const char *at = "", const char *expr = "")
   {
     std::ostringstream os;
-    os << at << expr << "\nexpected: "
-       << "(" << demangle<Expected>() << ") " << e
-       << " != actual: " << "(" << demangle<Actual>() << ") " << a;
+    os << at << expr
+       << "\nleft:  (" << demangle<Left>() << ") " << a
+       << "\nright: (" << demangle<Right>() << ") " << b;
     failure_ = os.str ();
   }
   failure (const char *at = "", const char *expr = "")
