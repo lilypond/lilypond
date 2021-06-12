@@ -32,10 +32,8 @@ class Balloon_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Balloon_engraver);
 
   void listen_annotate_output (Stream_event *);
-  void acknowledge_end_grob (Grob_info info);
   void acknowledge_grob (Grob_info) override;
   vector<Stream_event *> events_;
-  vector<Spanner *> spanners_;
   void stop_translation_timestep ();
 
   void balloonify (Grob *, Stream_event *);
@@ -61,36 +59,19 @@ Balloon_engraver::Balloon_engraver (Context *c)
 void
 Balloon_engraver::balloonify (Grob *g, Stream_event *event)
 {
+  Grob *balloon = nullptr;
   if (dynamic_cast<Item *> (g))
     {
-      Grob *b = make_item ("BalloonTextItem", event->self_scm ());
-      b->set_y_parent (g);
-      b->set_x_parent (g);
+      balloon = make_item ("BalloonTextItem", event->self_scm ());
+      balloon->set_x_parent (g);
     }
   else if (dynamic_cast<Spanner *> (g))
     {
-      Spanner *sp = make_spanner ("BalloonTextSpanner", event->self_scm ());
-      sp->set_y_parent (g);
-      spanners_.push_back (sp);
+      balloon = make_spanner ("BalloonTextSpanner", event->self_scm ());
+      // Delegate ending the balloon to the Spanner_tracking_engraver.
+      set_object (balloon, "underlying-spanner", to_scm (g));
     }
-}
-
-void
-Balloon_engraver::acknowledge_end_grob (Grob_info info)
-{
-  vector<Spanner *> next;
-  for (Spanner *sp : spanners_)
-    if (sp->get_y_parent () == info.grob ())
-      {
-        for (const auto d : {LEFT, RIGHT})
-          sp->set_bound (d,
-                         dynamic_cast<Spanner *> (info.grob ())->get_bound (d));
-      }
-    else
-      {
-        next.push_back (sp);
-      }
-  spanners_.swap (next);
+  balloon->set_y_parent (g);
 }
 
 void
@@ -121,7 +102,6 @@ Balloon_engraver::boot ()
 {
   ADD_LISTENER (Balloon_engraver, annotate_output);
   ADD_ACKNOWLEDGER (Balloon_engraver, grob);
-  ADD_END_ACKNOWLEDGER (Balloon_engraver, grob);
 }
 
 ADD_TRANSLATOR (Balloon_engraver,

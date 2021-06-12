@@ -999,3 +999,60 @@ vertical position.")))
    (description . "Set the @code{glyph-name-alist} of all grobs having the
 @code{accidental-switch-interface} to the value of the context's
 @code{alterationGlyphs} property, when defined.")))
+
+(define (Spanner_tracking_engraver context)
+  ;; Naming note: "spanner" is the grob we take care of
+  ;; (e.g., a footnote) and "underlying" is the grob that
+  ;; "spanner" is attached to (e.g., the annotated grob).
+  (let (
+        ;; Map underlying spanners to lists of (spanner . source-engraver)
+        ;; pairs.  We keep the source-engraver so we can announce the end
+        ;; from it rather than from this engraver.
+        (table (make-hash-table))
+        ;; List of potential underlying spanners for which we should end
+        ;; spanners in this time step.
+        (spanners-found '()))
+    (make-engraver
+      (acknowledgers
+        ((attached-spanner-interface engraver spanner source-engraver)
+           (let ((underlying (ly:grob-object spanner 'underlying-spanner)))
+             (if underlying
+                 (hashq-set! table
+                             underlying
+                             (cons (cons spanner source-engraver)
+                                   (hashq-ref table underlying '())))))))
+      (end-acknowledgers
+        ((spanner-interface engraver underlying source-engraver)
+           (set! spanners-found (cons underlying spanners-found))))
+      ((process-acknowledged engraver)
+         (for-each
+           (lambda (underlying)
+             (let ((spanners (hashq-ref table underlying)))
+               (if spanners
+                   (let ((left-bound (ly:spanner-bound underlying LEFT))
+                         (right-bound (ly:spanner-bound underlying RIGHT)))
+                     (for-each
+                       (lambda (spanner-engraver-pair)
+                         (let ((spanner (car spanner-engraver-pair))
+                               (source-engraver (cdr spanner-engraver-pair)))
+                           ;; TODO: fall back to currentMusicalColumn?  The old
+                           ;; Footnote_engraver code did this, but if a spanner
+                           ;; has no bounds by the time its end is announced,
+                           ;; shouldn't that get fixed?
+                           (ly:spanner-set-bound! spanner LEFT left-bound)
+                           (ly:spanner-set-bound! spanner RIGHT right-bound)
+                           (ly:engraver-announce-end-grob source-engraver spanner underlying)))
+                     spanners)))))
+           spanners-found)
+         (set! spanners-found '())))))
+
+(ly:register-translator
+ Spanner_tracking_engraver 'Spanner_tracking_engraver
+ '((grobs-created . ())
+   (events-accepted . ())
+   (properties-read . ())
+   (properties-written . ())
+   (description . "Helper for creating spanners attached to other spanners.
+If a grob has its @code{underlying-spanner} object set, the engraver tracks
+that spanner.  When it ends, the grob attached to it has its
+end announced too, and takes its bounds from the spanner.")))

@@ -29,31 +29,14 @@
 
 #include "translator.icc"
 
-#include <map>
-#include <utility>
-
 class Footnote_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Footnote_engraver);
 
   void acknowledge_grob (Grob_info) override;
-  void acknowledge_end_grob (Grob_info);
-  void process_acknowledged ();
-
-  // Map annotated grob to associated footnote spanner
-  std::map<Grob *, Spanner *> annotated_spanners_;
-  std::vector<Spanner *> finished_spanners_;
-
-  void finalize () override;
 
   void footnotify (Grob *, SCM);
 };
-
-void
-Footnote_engraver::finalize ()
-{
-  annotated_spanners_.clear ();
-}
 
 Footnote_engraver::Footnote_engraver (Context *c)
   : Engraver (c)
@@ -66,18 +49,16 @@ Footnote_engraver::footnotify (Grob *g, SCM cause)
   Grob *footnote = nullptr;
   if (dynamic_cast<Spanner *> (g))
     {
-      Spanner *b = make_spanner ("FootnoteSpanner", cause);
-      Grob *bound = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
-      b->set_bound (LEFT, bound);
-      annotated_spanners_.insert (std::make_pair (g, b));
-      footnote = b;
+      footnote = make_spanner ("FootnoteSpanner", cause);
+      // Delegate ending the footnote to the Spanner_tracking_engraver.
+      set_object (footnote, "underlying-spanner", to_scm (g));
     }
   else
     {
       footnote = make_item ("FootnoteItem", cause);
+      footnote->set_x_parent (g);
     }
   footnote->set_y_parent (g);
-  footnote->set_x_parent (g);
 }
 
 void
@@ -97,47 +78,13 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
 
       // This grob has exhausted its footnote
       set_property (info.grob (), "footnote-music", SCM_EOL);
-
-      return;
     }
-}
-
-void
-Footnote_engraver::acknowledge_end_grob (Grob_info info)
-{
-  auto it = annotated_spanners_.find (info.grob ());
-  if (it == annotated_spanners_.end ())
-    return;
-
-  finished_spanners_.push_back (it->second);
-}
-
-void
-Footnote_engraver::process_acknowledged ()
-{
-  for (Spanner *sp : finished_spanners_)
-    {
-      for (const auto d : {LEFT, RIGHT})
-        {
-          Spanner *parent = dynamic_cast<Spanner *> (sp->get_parent (X_AXIS));
-          Item *bound = parent->get_bound (d);
-          if (!bound)
-            {
-              bound
-                = unsmob<Item> (get_property (this, "currentMusicalColumn"));
-            }
-          sp->set_bound (d, bound);
-        }
-      announce_end_grob (sp, SCM_EOL);
-    }
-  finished_spanners_.clear ();
 }
 
 void
 Footnote_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (Footnote_engraver, grob);
-  ADD_END_ACKNOWLEDGER (Footnote_engraver, grob);
 }
 
 ADD_TRANSLATOR (Footnote_engraver,
@@ -149,7 +96,7 @@ ADD_TRANSLATOR (Footnote_engraver,
                 "FootnoteSpanner ",
 
                 /*read*/
-                "currentMusicalColumn ",
+                "",
 
                 /*write*/
                 ""

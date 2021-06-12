@@ -1403,6 +1403,9 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (tuplet-start ,boolean? "Is stem at the start of a tuplet?")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
 
+     (underlying-spanner ,ly:grob? "A spanner from which this spanner takes
+its bounds and announcement timing.")
+
      (vertical-alignment ,ly:grob? "The VerticalAlignment in a System.")
      (vertical-skyline-elements ,ly:grob-array? "An array of grobs
 used to create vertical skylines.")

@@ -219,6 +219,7 @@
         (Y-extent . ,balloon::height)
         (meta . ((class . Spanner)
                  (interfaces . (accidental-switch-interface
+                                attached-spanner-interface
                                 balloon-interface
                                 font-interface
                                 text-interface))))))
@@ -1232,7 +1233,8 @@
         (X-offset . ,(grob::calc-property-by-copy 'X-offset))
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
         (meta . ((class . Spanner)
-                 (interfaces . (balloon-interface
+                 (interfaces . (attached-spanner-interface
+                                balloon-interface
                                 footnote-interface
                                 footnote-spanner-interface
                                 font-interface

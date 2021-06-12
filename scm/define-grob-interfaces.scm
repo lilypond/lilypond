@@ -46,6 +46,12 @@ note)."
    thickness))
 
 (ly:add-interface
+ 'attached-spanner-interface
+ "A spanner that is attached to another spanner regarding bounds and
+announcement timing."
+ '(underlying-spanner))
+
+(ly:add-interface
  'bar-line-interface
  "Print a special bar symbol.  It replaces the regular bar
 symbol with a special symbol.  The argument @var{bartype}
