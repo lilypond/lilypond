@@ -129,7 +129,8 @@ ADD_TRANSLATOR (Balloon_engraver,
                 "Create balloon texts.",
 
                 /* create */
-                "BalloonTextItem ",
+                "BalloonTextItem "
+                "BalloonTextSpanner ",
 
                 /*read*/
                 "",
