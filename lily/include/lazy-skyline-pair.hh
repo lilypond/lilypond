@@ -25,10 +25,10 @@
 
 #include <vector>
 
-enum Orientation
+enum class Orientation
 {
-  CCW = DOWN,
-  CW = UP,
+  CCW = -1, // counterclockwise
+  CW = 1,   // clockwise
 };
 
 class Lazy_skyline_pair
@@ -54,7 +54,7 @@ public:
                             Offset p1, Offset p2)
   {
     Drul_array<Offset> seg (tr (p1), tr (p2));
-    if ((seg[LEFT][a_] > seg[RIGHT][a_]) == (orientation == CCW))
+    if ((seg[LEFT][a_] > seg[RIGHT][a_]) == (orientation == Orientation::CCW))
       {
         per_dir_todo_[(a_ == X_AXIS) ? UP : LEFT].push_back (seg);
       }
@@ -102,7 +102,7 @@ public:
                   };
     for (int i = 0; i < 4; i++)
       {
-        add_contour_segment (tr, CW, ps[i], ps[(i + 1) % 4]);
+        add_contour_segment (tr, Orientation::CW, ps[i], ps[(i + 1) % 4]);
       }
   }
 
