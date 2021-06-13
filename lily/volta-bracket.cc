@@ -88,7 +88,7 @@ Volta_bracket_interface::print (SCM smob)
   Drul_array<Real> shorten = from_scm (get_property (me, "shorten-pair"),
                                        Drul_array<Real> (0.0, 0.0));
 
-  scale_drul (&edge_height, -static_cast<Real> (get_grob_direction (me)));
+  scale_drul (&edge_height, -get_grob_direction (me));
 
   Interval empty;
   Offset start;

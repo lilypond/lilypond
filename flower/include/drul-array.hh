@@ -82,9 +82,9 @@ public:
   }
 };
 
-template<class T>
+template<class T1, class T2>
 void
-scale_drul (Drul_array<T> *dr, T x)
+scale_drul (Drul_array<T1> *dr, T2 x)
 {
   dr->at (LEFT) *= x;
   dr->at (RIGHT) *= x;

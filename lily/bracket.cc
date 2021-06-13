@@ -104,7 +104,7 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                        Drul_array<Real> (0.0, 0.0));
 
   // Make sure that it points in the correct direction:
-  scale_drul (&edge_height, static_cast<Real> (-dir));
+  scale_drul (&edge_height, -dir);
 
   Offset start;
   start[a] = length;
