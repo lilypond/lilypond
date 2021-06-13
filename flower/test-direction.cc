@@ -60,11 +60,18 @@ static_assert (NEGA.to_index () == 0, "");
 static_assert (ZERO.to_index () == 1, "");
 static_assert (POSI.to_index () == 2, "");
 
-// negation
+// unary +/-
 
-static_assert (ZERO == -ZERO, "");
-static_assert (NEGA == -POSI, "");
 static_assert (-NEGA == POSI, "");
+static_assert (-ZERO == ZERO, "");
+static_assert (-POSI == NEGA, "");
+
+static_assert (+NEGA == NEGA, "");
+static_assert (+ZERO == ZERO, "");
+static_assert (+POSI == POSI, "");
+
+static_assert (directed_opposite (+POSI, -POSI),
+               "unary +/- should yield a Direction");
 
 // multiplication by another Direction
 
@@ -167,6 +174,16 @@ public:
         return 0;
       case POSI:
         return 1;
+      }
+
+    // Alas, it would be nice to disallow conversion to int in this scenario
+    // because an impossible case shows the author wasn't thinking clearly.
+    switch (d)
+      {
+      case -666: // way, way DOWN
+        return false;
+      default:
+        return true;
       }
   }
 };
