@@ -293,8 +293,8 @@ Midi_piano_pedal::to_string () const
   else if (audio_->type_ == UNA_CORDA)
     str += static_cast<char> (0x43);
 
-  int pedal = ((1 - audio_->dir_) / 2) * 0x7f;
-  str += static_cast<char> (pedal);
+  const char pedal = (audio_->dir_ == LEFT) * 0x7f;
+  str += pedal;
   return str;
 }
 

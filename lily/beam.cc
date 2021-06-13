@@ -428,7 +428,7 @@ Beam::calc_beam_segments (SCM smob)
               Beam_stem_segment seg;
               seg.stem_ = stem;
               seg.stem_x_ = stem_x;
-              seg.rank_ = 2 * i + (d + 1) / 2;
+              seg.rank_ = 2 * i + (d == RIGHT);
               seg.width_ = stem_width;
               seg.stem_index_ = i;
               seg.dir_ = d;
