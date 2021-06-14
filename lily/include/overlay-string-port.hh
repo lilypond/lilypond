@@ -44,7 +44,7 @@ class Overlay_string_port
   static guile_port_t type_;
 
   const char *data_;
-  size_t pos_;
+  ssize_t pos_;
   ssize_t len_;
 
 #if GUILEV2
@@ -53,8 +53,9 @@ class Overlay_string_port
     if (pos_ >= len_)
       return 0;
 
-    if (n > len_ - pos_)
-      n = len_ - pos_;
+    size_t left = static_cast<size_t> (len_ - pos_);
+    if (n > left)
+      n = left;
 
     memcpy (SCM_BYTEVECTOR_CONTENTS (dest) + dest_off, data_ + pos_, n);
     pos_ += n;
