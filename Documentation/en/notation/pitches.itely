@@ -703,7 +703,7 @@ correction.
 
 @lilypond[verbatim,quote]
 \relative {
-  c''2 d='4 d
+  c''2 d='
   e2 f
 }
 @end lilypond
