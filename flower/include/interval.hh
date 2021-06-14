@@ -216,7 +216,7 @@ _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare, template<class T>);
 
 template<>
-constexpr Real
+inline Real
 Interval_t<Real>::center () const
 {
   // This specialization omits the assert () that is present in the default
@@ -228,7 +228,7 @@ Interval_t<Real>::center () const
 }
 
 template<>
-constexpr Real
+inline Real
 Interval_t<Real>::linear_combination (Real x) const
 {
   return (((1.0 - x) * at (LEFT)) + ((x + 1.0) * at (RIGHT))) * 0.5;
