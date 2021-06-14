@@ -71,7 +71,7 @@ public:
   // convert to a zero-based index: {negative->0, zero->1, positive->2}
   constexpr size_t to_index () const
   {
-    return _val + 1;
+    return static_cast<size_t> (_val + 1);
   }
 
 private:
