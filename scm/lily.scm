@@ -46,13 +46,16 @@
 
 (randomize-rand-seed)
 
-(read-enable 'positions)
 (cond-expand
  (guile-2
   (begin
-    (debug-enable 'backtrace)
-    (debug-set! show-file-name #t)))
- (else (debug-enable 'debug)))
+   ;; By default, we don't want scary backtraces.
+   (debug-disable 'backtrace)))
+ (else
+  (begin
+   (read-enable 'positions)
+   (debug-enable 'debug))
+  ))
 
 (define-public PLATFORM
   (string->symbol
@@ -475,8 +478,7 @@ messages into errors.")
 (if (or (ly:get-option 'verbose) (ly:get-option 'debug-eval))
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
-      (debug-enable 'backtrace)
-      (read-enable 'positions)))
+      (debug-enable 'backtrace)))
 
 (define music-string-to-path-backends
   '(svg))
