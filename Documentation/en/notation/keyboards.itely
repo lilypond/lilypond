@@ -476,10 +476,6 @@ Internals Reference:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
-For the time being, this engraver can not be specified by its name in
-double quotes.  Instead its name must be prefixed with a hash symbol
-(@code{#}) due to the way it is implemented.
-
 @cindex cross-staff arpeggio bracket
 @cindex arpeggio bracket, cross-staff
 @cindex bracket, cross-staff
