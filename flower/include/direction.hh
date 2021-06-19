@@ -38,10 +38,10 @@ public:
     : Direction (static_cast<long long> (x)) {}
 
   constexpr explicit Direction (long long x)
-    : _val (x ? ((x < 0) ? -1 : 1) : 0) {}
+    : val_ (x ? ((x < 0) ? -1 : 1) : 0) {}
 
   explicit Direction (const double &x)
-    : _val ((x != 0.0) ? (std::signbit (x) ? -1 : 1) : 0) {}
+    : val_ ((x != 0.0) ? (std::signbit (x) ? -1 : 1) : 0) {}
 
   static constexpr Direction negative () { return Direction (-1); }
   static constexpr Direction positive () { return Direction (1); }
@@ -58,24 +58,24 @@ public:
   //     Direction (2) != 2
   //     Direction (2) == 1
   //
-  constexpr operator int () const { return _val; }
+  constexpr operator int () const { return val_; }
 
   // unary minus reverses the direction
-  constexpr Direction operator -() const { return Direction (-_val); }
+  constexpr Direction operator -() const { return Direction (-val_); }
 
   constexpr Direction operator *(Direction other) const
   {
-    return Direction (_val * other._val);
+    return Direction (val_ * other.val_);
   }
 
   // convert to a zero-based index: {negative->0, zero->1, positive->2}
   constexpr size_t to_index () const
   {
-    return static_cast<size_t> (_val + 1);
+    return static_cast<size_t> (val_ + 1);
   }
 
 private:
-  int _val = 0;
+  int val_ = 0;
 };
 
 // the directions are opposite and nonzero
