@@ -48,11 +48,6 @@ longer needed."
                                           context)))))
 
 (define-public (Measure_counter_engraver context)
-  "This engraver numbers ranges of measures, which is useful in parts as an
-aid for counting repeated measures.  There is no requirement that the
-affected measures be repeated, however.  The user delimits the area to
-receive a count with @code{\\startMeasureCount} and
-@code{\\stopMeasureCount}."
   (let ((count-spanner '()) ; a single element of the count
         (start-event #f)
         (go? #f) ; is the count in progress?
@@ -265,12 +260,6 @@ end measures in response to @code{\\startMeasureSpanner} and
       (and (pred (car lst) (cadr lst)) (all-equal? (cdr lst) pred))))
 
 (define-public (Merge_mmrest_numbers_engraver context)
-  "Engraver to merge multi-measure rest numbers in multiple voices.
-
-This works by gathering all multi-measure rest numbers at a time step. If they
-all have the same text and there are at least two only the first one is retained
-and the others are hidden."
-
   (define (text-equal? a b)
     (equal?
      (ly:grob-property a 'text)
@@ -302,12 +291,6 @@ all have the same text and there are at least two only the first one is retained
 and the others are hidden.")))
 
 (define-public (Merge_rests_engraver context)
-  "Engraver to merge rests in multiple voices on the same staff.
-
-This works by gathering all rests at a time step. If they are all of the same
-length and there are at least two they are moved to the correct location as
-if there were one voice."
-
   (define (measure-count-eqv? a b)
     (eqv?
      (ly:grob-property a 'measure-count)
