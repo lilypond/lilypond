@@ -11,7 +11,7 @@
   lsrtags = "editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
-Text may be added to analysis brackets through the @code{text} property
+Text markup may be added to analysis brackets through the @code{text} property
 of the @code{HorizontalBracketText} grob.  Adding different texts to
 brackets beginning at the same time requires the @code{\\tweak} command.
 Bracket text will be parenthesized after a line break.

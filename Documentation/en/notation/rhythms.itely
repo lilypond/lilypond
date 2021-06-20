@@ -3213,7 +3213,7 @@ the first line.  The number itself is stored in the
 @code{currentBarNumber} property, which is normally updated
 automatically for every measure.  It may also be set manually:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   c1 c c c
   \break
@@ -3238,7 +3238,7 @@ number is visible or not.  The order of the three values is
 @code{beginning of line visible}.  In the following example bar numbers
 are printed at all possible places:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   \override Score.BarNumber.break-visibility = ##(#t #t #t)
   \set Score.currentBarNumber = #11
@@ -3665,8 +3665,8 @@ full measure range is shown.
 }
 @end lilypond
 
-Measure counters honor alternative numbering styles.  When the style
-is @code{numbers-with-letters}, they render best with a textual font.
+Measure counters honor alternative numbering styles.  If the style
+is @code{numbers-@/with-@/letters}, they render best with a textual font.
 
 @lilypond[verbatim,quote]
 \layout {
