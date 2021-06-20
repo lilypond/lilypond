@@ -827,9 +827,9 @@ toutefois il était requis, le bécarre sera emprunté au style
 }
 @end lilypond
 
-La manière d'utiliser ce style est abordé dans
+La manière d'utiliser ce style est abordée dans
 @ref{Glyphes d'altération alternatifs}. Il est activé par défaut
-dans un contexte @code{MenturalStaff}.
+dans un contexte @code{MensuralStaff}.
 
 @morerefs
 Glossaire musicologique :
@@ -842,7 +842,7 @@ Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
 @ref{Armure},
-@c @ ref{Glyphes d’altération},
+@ref{Glyphes d'altération alternatifs},
 @ref{Hauteurs},
 @ref{Jeux de glyphes d'altération}.
 

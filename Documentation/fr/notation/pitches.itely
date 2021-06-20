@@ -3148,10 +3148,12 @@ propres altérations. Leurs glyphes sont contrôlés par la propriété
 { ces' c' cis' }
 @end lilypond
 
-Cette propriété peut aussi servir à personnaliser la liste associative
-affectant une altération à un nom de glyphe. Les altération sont
-exprimées en fraction de ton entier. Les différents glyphes sont
-répertoriés à l'annexe @ref{Glyphes d'altération}.
+On peut également donner à cette propriété une valeur
+personnalisée sous la forme d'une liste associative
+affectant une altération à un nom de glyphe. Les
+altérations sont exprimées comme fractions d'un ton entier.
+Les différents glyphes sont répertoriés à l'annexe
+@ref{Glyphes d'altération}.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -3169,8 +3171,8 @@ répertoriés à l'annexe @ref{Glyphes d'altération}.
 
 La propriété @code{padding-pairs} des objets @code{KeySignature} et
 @code{KeyCancellation} est une liste associative affectant à une paire
-de glyphes les décalages qui doit s'appliquer à ces glyphes dans
-l'armure.
+de glyphes le décalage qui doit s'appliquer à ces glyphes lorsqu'ils
+apparaissent consécutivement dans l'armure.
 
 @lilypond[verbatim]
 \layout {

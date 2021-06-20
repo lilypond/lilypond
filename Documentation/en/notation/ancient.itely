@@ -778,7 +778,7 @@ style.
 @end lilypond
 
 The way to use this style is covered in @ref{Alternate accidental glyphs}.
-It is the default in the @code{MenturalStaff} context.
+It is the default in the @code{MensuralStaff} context.
 
 @morerefs
 Music Glossary:

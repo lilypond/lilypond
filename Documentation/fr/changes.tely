@@ -78,8 +78,8 @@ which scares away people.
 @itemize
 @item
 La prise en charge d'altérations alternatives s'améliore. Grâce à la
-propriété @code{alterationGlyphs} des conttextes de niveau portée,
-peuvent se définir globalement les glyphes à utiliser pour pour tous les
+propriété @code{alterationGlyphs} des contextes de niveau portée,
+peuvent se définir globalement les glyphes à utiliser pour tous les
 objets -- voir @ruser{Glyphes d'altération alternatifs}.
 
 @lilypond
