@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: 1c757b3de9f44555654bc7e76f5ef7e11f3e1155
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -827,14 +827,9 @@ toutefois il était requis, le bécarre sera emprunté au style
 }
 @end lilypond
 
-Pour disposer des formes anciennes d'altération, utilisez la propriété
-@code{alteration-glyph-name-alist} des objets graphiques @code{Accidental}
-et @code{KeySignature}, comme ceci :
-
-@example
-\override Staff.Accidental.alteration-glyph-name-alist =
-  #alteration-mensural-glyph-name-alist
-@end example
+La manière d'utiliser ce style est abordé dans
+@ref{Glyphes d'altération alternatifs}. Il est activé par défaut
+dans un contexte @code{MenturalStaff}.
 
 @morerefs
 Glossaire musicologique :
@@ -847,7 +842,9 @@ Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
 @ref{Armure},
-@ref{Hauteurs}.
+@c @ ref{Glyphes d’altération},
+@ref{Hauteurs},
+@ref{Jeux de glyphes d'altération}.
 
 Référence des propriétés internes :
 @rinternals{KeySignature}.
@@ -1269,14 +1266,8 @@ altération indisponible dans le style utilisé.
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
-Pour disposer des formes anciennes d'altération, utilisez la propriété
-@code{alteration-glyph-name-alist} des objets graphiques @code{Accidental}
-et @code{KeySignature}, comme ceci :
-
-@example
-\override Staff.Accidental.alteration-glyph-name-alist =
-  #alteration-mensural-glyph-name-alist
-@end example
+La manière de basculer entre les différentes formes est abordée
+dans @ref{Glyphes d'altération alternatifs}.
 
 @morerefs
 Glossaire musicologique :
@@ -1287,6 +1278,7 @@ Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
 @ref{Armure},
+@ref{Glyphes d'altération alternatifs},
 @ref{Hauteurs}.
 
 Référence des propriétés internes :
@@ -2612,18 +2604,16 @@ l'objet @code{Stem}.
 @cindex kiévienne, altération
 @cindex altération
 
-Le style d'altération propre à la notation kiévienne est accessible au
-travers de la propriété @code{alteration-glyph-name-alist} de l'objet
-@code{Accidental}.  Le style @code{kievan} dispose d'un dièse et d'un
-bémol, tous deux différents du style par défaut ; il n'y a pas de
-bécarre en notation kiévienne.  Bien que le dièse ne soit pas utilisé en
-notation synodale, on peut le trouver dans certains manuscrits plus
-anciens.
+Le style @code{kievan} dispose d'un dièse et d'un bémol, tous deux
+différents du style par défaut ; il n'y a pas de bécarre en
+notation kiévienne. Bien que le dièse ne soit pas utilisé en
+notation synodale, on peut le trouver dans certains manuscrits
+plus anciens.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
-\override Accidental.alteration-glyph-name-alist =
- #alteration-kievan-glyph-name-alist
+\set Staff.alterationGlyphs =
+  #alteration-kievan-glyph-name-alist
 bes' dis'
 @end lilypond
 
@@ -2635,6 +2625,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
+@ref{Glyphes d'altération alternatifs},
 @ref{La fonte Emmentaler}.
 @endmorerefs
 

@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 932cacc120cdac845e0da4cc5bdb7d68498f96a5
+    Translation of GIT committish: 1c757b3de9f44555654bc7e76f5ef7e11f3e1155
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -76,6 +76,40 @@ which scares away people.
 @subsubheading Améliorations de la représentation des hauteurs
 
 @itemize
+@item
+La prise en charge d'altérations alternatives s'améliore. Grâce à la
+propriété @code{alterationGlyphs} des conttextes de niveau portée,
+peuvent se définir globalement les glyphes à utiliser pour pour tous les
+objets -- voir @ruser{Glyphes d'altération alternatifs}.
+
+@lilypond
+% Avoid unfortunate cropping of the arrow-sharp glyph…
+\markup \vspace #0.5
+
+\layout {
+  \context {
+    \Staff
+    alterationGlyphs =
+      #'((-1/2 . "accidentals.flat.arrowdown")
+         (0 . "accidentals.natural.arrowup")
+         (1/2 . "accidentals.sharp.arrowup"))
+  }
+}
+
+\new Voice \with {
+  \consists Ambitus_engraver
+}
+{
+  \key g \major
+  ces''
+  \set suggestAccidentals = ##t
+  c''
+  \unset suggestAccidentals
+  \accidentalStyle teaching
+  fis''
+}
+@end lilypond
+
 @item
 Dans le cadre de la fonte Emmentaler, les têtes de notes dont l'aspect
 est identique et pour lesquelles la seule différence réside dans
