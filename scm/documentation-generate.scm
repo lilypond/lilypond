@@ -41,7 +41,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (display
- (slot-ref (all-scheme-functions-doc) 'text)
+ (slot-ref (all-functions-doc) 'text)
  (open-output-file "scheme-functions.tely"))
 
 ;;(display
@@ -164,7 +164,7 @@ This is the Internals Reference (IR) for version "
      (music-doc-node)
      (translation-doc-node)
      (backend-doc-node)
-     (all-scheme-functions-doc)
+     (all-functions-doc)
      (make <texi-node>
        #:appendix #t
        #:name "Indices"
