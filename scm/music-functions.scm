@@ -933,7 +933,7 @@ respective predecessor chord."
 
 (define-public (expand-repeat-notes! music)
   "Walks through @var{music} and gives pitchless notes (not having a
-pitch in code{pitch} or a drum type in @code{drum-type}) the pitch(es)
+pitch in @code{pitch} or a drum type in @code{drum-type}) the pitch(es)
 from the predecessor note/chord if available."
   (let ((last-pitch #f))
     (map-some-music
@@ -1467,15 +1467,17 @@ then revert skipTypesetting."
 
 (define (skip-as-needed music)
   "Replace MUSIC by
- << {  \\set skipTypesetting = ##f
+@example
+ << @{  \\set skipTypesetting = ##f
  LENGTHOF(\\showFirstLength)
  \\set skipTypesetting = ##t
- LENGTHOF(\\showLastLength) }
+ LENGTHOF(\\showLastLength) @}
  MUSIC >>
+@end example
  if appropriate.
 
- When only showFirstLength is set,
- the 'length property of the music is
+ When only @code{showFirstLength} is set,
+ the @code{length} property of the music is
  overridden to speed up compiling."
   (let*
       ((show-last (ly:parser-lookup 'showLastLength))
@@ -1724,13 +1726,13 @@ See @code{key-entry-notename} for details."
 
 (define (key-entry-bar-number entry)
   "Return the bar number of an entry in @code{localAlterations}
-or @code {#f} if the entry does not have a bar number.
+or @code{#f} if the entry does not have a bar number.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (caddr entry)))
 
 (define (key-entry-measure-position entry)
   "Return the measure position of an entry in @code{localAlterations}
-or @code {#f} if the entry does not have a measure position.
+or @code{#f} if the entry does not have a measure position.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (cdddr entry)))
 
@@ -2777,7 +2779,7 @@ there is a conflicting tag group definition."
 
 (define-public (tags-remove-predicate tags)
   "Returns a predicate that returns @code{#f} for any music that is to
-be removed by @{\\removeWithTag} on the given symbol or list of
+be removed by @code{\\removeWithTag} on the given symbol or list of
 symbols @var{tags}."
   (if (symbol? tags)
       (lambda (m)
@@ -2788,7 +2790,7 @@ symbols @var{tags}."
 
 (define-public (tags-keep-predicate tags)
   "Returns a predicate that returns @code{#f} for any music that is to
-be removed by @{\\keepWithTag} on the given symbol or list of symbols
+be removed by @code{\\keepWithTag} on the given symbol or list of symbols
 @var{tags}."
   (if (symbol? tags)
       (let ((group (tag-group-get tags)))

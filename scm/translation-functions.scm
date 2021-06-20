@@ -266,7 +266,7 @@ will affect the fret selection, as it specifies an open string.
 If @code{defined-strings} is @code{'()}, the context property
 @code{defaultStrings} will be used as a list of defined strings.
 Will look for predefined fretboards if @code{predefinedFretboardTable}
-is not @code {#f}.  If @var{rest} is present, it contains the
+is not @code{#f}.  If @var{rest} is present, it contains the
 @code{FretBoard} grob, and a fretboard will be
 created.  Otherwise, a list of @code{(string fret finger)} lists will
 be returned.

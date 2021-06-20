@@ -179,7 +179,7 @@ direction."
 (define (stencil-fretboard-offset stencil fretboard-axis orientation)
   "Return the stencil coordinates of the center of @var{stencil}
 in the @var{fretboard-axis} direction.  @var{fretboard-axis} may take
-@code{'fret} or @code{'string}.  @var{orientation is either @code{'normal},
+@code{'fret} or @code{'string}.  @var{orientation} is either @code{'normal},
 (the default), @code{'landscape} or @code{opposing-landscape}."
   ;; `fretboard-axis' and `orientation' is needed to let
   ;; `stencil-fretboard-extent' from above select property.

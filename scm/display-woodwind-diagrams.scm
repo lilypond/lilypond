@@ -49,7 +49,7 @@
 
 (define (get-spreadsheet-column column spreadsheet)
   "Gets all the values in @code{column} form @code{spreadsheet}
-   made by @{make-spreadsheet}.
+   made by @code{make-spreadsheet}.
    For example:
    @code{guile> (get-spreadsheet-column 'bar ((make-spreadsheet '(foo bar)) '((1 2) (3 4) (5 6))))}
    @code{(2 4 6)}"
@@ -72,7 +72,7 @@
 
 (define (get-named-spreadsheet-column column spreadsheet)
   "Gets all the values in @code{column} form @code{spreadsheet}
-   made by @{make-named-spreadsheet}.
+   made by @code{make-named-spreadsheet}.
    For example:
    @code{guile> (get-spreadsheet-column 'bar ((make-named-spreadsheet '(foo bar)) '((x . (1 2)) (y . (3 4)) (z . (5 6)))))}
    @code{((x . 2) (y . 4) (z . 6))}"

@@ -1310,15 +1310,16 @@ just the upper part is drawn.
 Returns a function that accepts a hairpin grob as an argument
 and draws the stencil based on its coordinates.
 
-@lilypond[verbatim,quote]
+@c @lilypond is not allowed in the IR.
+@example
 #(define simple-hairpin
   (elbowed-hairpin '((0 . 0)(1.0 . 1.0)) #t))
 
-\\relative c' {
+\\relative c' @{
   \\override Hairpin #'stencil = #simple-hairpin
   a\\p\\< a a a\\f
-}
-@end lilypond
+@}
+@end example
 "
   (define (scale-coords coords-list x y)
     (map
@@ -2566,7 +2567,7 @@ staff space.  @var{thick} is the used line thickness."
 
 (define-public (hook-stencil x y staff-space thick blot grob)
   "Returns a hook-stencil, where @var{x} determines the horizontal position and
-@var{y) determines the basic vertical position.
+@var{y} determines the basic vertical position.
 The final stencil is adjusted vertically using @var{staff-space}, which is
 @code{StaffSymbol}'s  staff space, and uses @var{blot}, which is the current
 @code{'blot-diameter}.  The stencil's thickness is usually taken from @var{grob}
