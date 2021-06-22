@@ -53,8 +53,8 @@ import glob
 import hashlib
 from optparse import OptionGroup
 import os
-import pipes
 import re
+import shlex
 import stat
 import subprocess
 import sys
@@ -316,8 +316,9 @@ if '@bindir@' == ('@' + 'bindir@') or not os.path.exists(lilypond_binary):
     lilypond_binary = 'lilypond'
 
 # Need to shell-quote, issue 3468
-
-lilypond_binary = pipes.quote(lilypond_binary)
+# FIXME: we should really pass argument lists
+# everywhere instead of playing with shell syntax.
+lilypond_binary = shlex.quote(lilypond_binary)
 
 global_options = None
 
