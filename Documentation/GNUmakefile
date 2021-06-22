@@ -780,11 +780,11 @@ endif # ISOLANG
 
 check-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --batch \
-	$(DOCUMENTATION_INCLUDES) $(auxpython-dir)/manuals_definitions.py
+    $(DOCUMENTATION_INCLUDES)
 
 fix-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --auto-fix \
-	$(DOCUMENTATION_INCLUDES) $(auxpython-dir)/manuals_definitions.py
+	$(DOCUMENTATION_INCLUDES)
 
 check-translation:
 	cd $(src-dir) \

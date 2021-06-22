@@ -28,7 +28,6 @@ import sys
 import re
 import os
 import optparse
-import imp
 
 outdir = 'out-www'
 
@@ -82,10 +81,20 @@ options.include_path.append(os.path.abspath(os.getcwd()))
 class InteractionError (Exception):
     pass
 
+references_dict = {
+    'changes': 'rchanges',
+    'contributor': 'rcontrib',
+    'essay': 'ressay',
+    'extending': 'rextend',
+    'learning': 'rlearning',
+    'music-glossary': 'rglos',
+    'notation': 'ruser',
+    'snippets': 'rlsr',
+    'usage': 'rprogram',
+    'internals': 'rinternals',
+}
 
-manuals_defs = imp.load_source('manuals_defs', files[0])
 manuals = {}
-
 
 def find_file(name, prior_directory='.'):
     p = os.path.join(prior_directory, name)
@@ -259,7 +268,7 @@ Included files that can be found in the include path are processed too.
     d['contents'] = {}
     d['newline_indices'] = {}
     d['comments_boundaries'] = {}
-    manual = manuals_defs.references_dict.get(name, '')
+    manual = references_dict.get(name, '')
     try:
         f = find_file(name + '.tely')
     except EnvironmentError as xxx_todo_changeme2:
@@ -286,7 +295,7 @@ Included files that can be found in the include path are processed too.
 log.write("Reading files...\n")
 
 manuals = dict([read_manual(name)
-                for name in list(manuals_defs.references_dict.keys())])
+                for name in list(references_dict.keys())])
 
 ref_fixes = set()
 bad_refs_count = 0
