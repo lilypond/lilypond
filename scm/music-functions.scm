@@ -68,16 +68,21 @@ music to have one of the types listed in @var{types}."
   "Apply @var{function} recursively to @var{music}, but refrain
 from mapping subexpressions of music that does not satisfy
 @var{descend?}."
+  (define (worker m)
+    (music-selective-map descend? function m))
   (if (descend? music)
-      (let ((es (ly:music-property music 'elements))
+      (let ((arts (ly:music-property music 'articulations))
+            (es (ly:music-property music 'elements))
             (e (ly:music-property music 'element)))
         (if (pair? es)
             (set! (ly:music-property music 'elements)
-                  (map (lambda (y)
-                         (music-selective-map descend? function y)) es)))
+                  (map worker es)))
+        (if (pair? arts)
+            (set! (ly:music-property music 'articulations)
+                  (map worker arts)))
         (if (ly:music? e)
             (set! (ly:music-property music 'element)
-                  (music-selective-map descend? function e)))))
+                  (worker e)))))
   (recompute-music-length (function music)))
 
 (define-public (music-map function music)
