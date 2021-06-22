@@ -195,10 +195,11 @@ Audio_tempo::Audio_tempo (int per_minute_4)
   per_minute_4_ = per_minute_4;
 }
 
-Audio_time_signature::Audio_time_signature (int beats, int one_beat)
+Audio_time_signature::Audio_time_signature (int beats, int one_beat, int base_moment_clocks)
 {
   beats_ = beats;
   one_beat_ = one_beat;
+  base_moment_clocks_ = base_moment_clocks;
 }
 
 Audio_text::Audio_text (Audio_text::Type type, const string &text_string)

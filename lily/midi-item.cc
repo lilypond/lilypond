@@ -162,8 +162,7 @@ Midi_key::to_string () const
 }
 
 Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
-  : audio_ (a),
-    clocks_per_1_ (18)
+  : audio_ (a)
 {
 }
 
@@ -184,7 +183,7 @@ Midi_time_signature::to_string () const
                    0x04,
                    uint8_t (num),
                    uint8_t (intlog2 (den)),
-                   uint8_t (clocks_per_1_),
+                   uint8_t (audio_->base_moment_clocks_),
                    8
                   };
   return string ((char *) out, sizeof (out));
