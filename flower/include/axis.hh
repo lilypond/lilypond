@@ -20,15 +20,13 @@
 #ifndef AXIS_HH
 #define AXIS_HH
 
-#include <cstddef>
-
 enum Axis
 {
   X_AXIS = 0,
   Y_AXIS = 1,
 };
 
-static constexpr std::size_t NO_AXES = 2;
+static constexpr unsigned NO_AXES = 2;
 
 constexpr Axis
 other_axis (Axis a)
