@@ -78,7 +78,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
 
   for (const auto d : {LEFT, RIGHT})
     {
-      auto i = chord_outlines_.find ({columns[d], d});
+      auto i = chord_outlines_.find (Tie_rank_and_dir (columns[d], d));
       if (i == chord_outlines_.end ())
         programming_error ("Cannot find chord outline");
       else
@@ -595,7 +595,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 Interval
 Tie_formatting_problem::get_head_extent (int col, Direction d, Axis a) const
 {
-  auto i = head_extents_.find ({col, d});
+  auto i = head_extents_.find (Tie_rank_and_dir (col, d));
   if (i != head_extents_.end ())
     return (*i).second[a];
   else
@@ -605,7 +605,7 @@ Tie_formatting_problem::get_head_extent (int col, Direction d, Axis a) const
 Interval
 Tie_formatting_problem::get_stem_extent (int col, Direction d, Axis a) const
 {
-  auto i = stem_extents_.find ({col, d});
+  auto i = stem_extents_.find (Tie_rank_and_dir (col, d));
   if (i != stem_extents_.end ())
     return (*i).second[a];
   else
