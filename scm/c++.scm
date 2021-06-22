@@ -52,7 +52,7 @@
   (and (list? x) (every number? x)))
 
 (define-public (index? x)
-  (and (integer? x) (>= x 0)))
+  (and (integer? x) (exact? x) (>= x 0)))
 
 (define-public (moment-pair? x)
   (and (pair? x)
@@ -64,8 +64,8 @@
 (define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
-(define-public (integer-or-markup? x)
-  (or (integer? x) (markup? x)))
+(define-public (index-or-markup? x)
+  (or (index? x) (markup? x)))
 
 (define-public (key? x)
   (or (symbol? x) (index? x)))

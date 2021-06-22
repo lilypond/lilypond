@@ -75,7 +75,7 @@ cautionary accidental.")
 
      (delta-step ,number? "How much should a fall change pitch?")
      (denominator ,integer? "Denominator in a time signature.")
-     (digit ,integer? "Digit for fingering.")
+     (digit ,index? "Digit for fingering.")
      (diminished ,boolean? "This bass figure should be slashed.")
      (direction ,ly:dir? "Print this up or down?")
      (drum-type ,symbol? "Which percussion instrument to play this note on.")
@@ -107,7 +107,7 @@ property, e.g., @code{(beamed-lengths details)}.")
      (iterator-ctor ,procedure? "Function to construct a
 @code{music-event-iterator} object for this music.")
 
-     (label ,integer-or-markup? "Label of a mark.")
+     (label ,index-or-markup? "Label of a mark.")
      (last-pitch ,ly:pitch? "The last pitch after relativization.")
      (length ,ly:moment? "The endpoint of this music.  This property
 is unhappily named in that it does not account for any initial grace
