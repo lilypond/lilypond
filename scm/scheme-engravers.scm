@@ -985,35 +985,35 @@ vertical position.")))
 
 (define (Spanner_tracking_engraver context)
   ;; Naming note: "spanner" is the grob we take care of
-  ;; (e.g., a footnote) and "underlying" is the grob that
+  ;; (e.g., a footnote) and "host" is the grob that
   ;; "spanner" is attached to (e.g., the annotated grob).
   (let (
-        ;; Map underlying spanners to lists of (spanner . source-engraver)
+        ;; Map host spanners to lists of (spanner . source-engraver)
         ;; pairs.  We keep the source-engraver so we can announce the end
         ;; from it rather than from this engraver.
         (table (make-hash-table))
-        ;; List of potential underlying spanners for which we should end
+        ;; List of potential host spanners for which we should end
         ;; spanners in this time step.
         (spanners-found '()))
     (make-engraver
       (acknowledgers
-        ((attached-spanner-interface engraver spanner source-engraver)
-           (let ((underlying (ly:grob-object spanner 'underlying-spanner)))
-             (if underlying
+        ((sticky-grob-interface engraver spanner source-engraver)
+           (let ((host (ly:grob-object spanner 'sticky-host)))
+             (if host
                  (hashq-set! table
-                             underlying
+                             host
                              (cons (cons spanner source-engraver)
-                                   (hashq-ref table underlying '())))))))
+                                   (hashq-ref table host '())))))))
       (end-acknowledgers
-        ((spanner-interface engraver underlying source-engraver)
-           (set! spanners-found (cons underlying spanners-found))))
+        ((spanner-interface engraver host source-engraver)
+           (set! spanners-found (cons host spanners-found))))
       ((process-acknowledged engraver)
          (for-each
-           (lambda (underlying)
-             (let ((spanners (hashq-ref table underlying)))
+           (lambda (host)
+             (let ((spanners (hashq-ref table host)))
                (if spanners
-                   (let ((left-bound (ly:spanner-bound underlying LEFT))
-                         (right-bound (ly:spanner-bound underlying RIGHT)))
+                   (let ((left-bound (ly:spanner-bound host LEFT))
+                         (right-bound (ly:spanner-bound host RIGHT)))
                      (for-each
                        (lambda (spanner-engraver-pair)
                          (let ((spanner (car spanner-engraver-pair))
@@ -1024,7 +1024,7 @@ vertical position.")))
                            ;; shouldn't that get fixed?
                            (ly:spanner-set-bound! spanner LEFT left-bound)
                            (ly:spanner-set-bound! spanner RIGHT right-bound)
-                           (ly:engraver-announce-end-grob source-engraver spanner underlying)))
+                           (ly:engraver-announce-end-grob source-engraver spanner host)))
                      spanners)))))
            spanners-found)
          (set! spanners-found '())))))
@@ -1036,9 +1036,10 @@ vertical position.")))
    (properties-read . ())
    (properties-written . ())
    (description . "Helper for creating spanners attached to other spanners.
-If a grob has its @code{underlying-spanner} object set, the engraver tracks
-that spanner.  When it ends, the grob attached to it has its
-end announced too, and takes its bounds from the spanner.")))
+If a grob with the @code{sticky-grob-interface} has its @code{sticky-host}
+object set, the engraver tracks that spanner.  When it ends, the grob
+attached to it has its end announced too, and takes its bounds from
+the spanner.")))
 
 ;; TODO: maybe use the same function for footnotes and balloons?
 (define (engraver-make-sticky-grob engraver item-type spanner-type victim cause)
@@ -1055,7 +1056,7 @@ its end announced."
     (ly:grob-set-parent! sticky-grob Y victim)
     (if is-item
         (ly:grob-set-parent! sticky-grob X victim)
-        (ly:grob-set-object! sticky-grob 'underlying-spanner victim))
+        (ly:grob-set-object! sticky-grob 'sticky-host victim))
     sticky-grob))
 
 (define (Show_control_points_engraver context)

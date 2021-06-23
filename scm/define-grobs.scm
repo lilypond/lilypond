@@ -219,9 +219,9 @@
         (Y-extent . ,balloon::height)
         (meta . ((class . Spanner)
                  (interfaces . (accidental-switch-interface
-                                attached-spanner-interface
                                 balloon-interface
                                 font-interface
+                                sticky-grob-interface
                                 text-interface))))))
 
     (BarLine
@@ -766,8 +766,8 @@
         (Y-extent . #f)
         (Y-offset . ,(control-point::calc-offset Y))
         (meta . ((class . Spanner)
-                 (interfaces . (attached-spanner-interface
-                                control-point-interface
+                 (interfaces . (control-point-interface
+                                sticky-grob-interface
                                 text-interface))))))
 
     (ControlPolygonItem
@@ -801,8 +801,8 @@
         (X-extent . #f)
         (Y-extent . #f)
         (meta . ((class . Spanner)
-                 (interfaces . (attached-spanner-interface
-                                control-polygon-interface
+                 (interfaces . (control-polygon-interface
+                                sticky-grob-interface
                                 text-interface))))))
 
     (CombineTextScript
@@ -1296,11 +1296,11 @@
         (X-offset . ,(grob::calc-property-by-copy 'X-offset))
         (Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
         (meta . ((class . Spanner)
-                 (interfaces . (attached-spanner-interface
-                                balloon-interface
+                 (interfaces . (balloon-interface
                                 footnote-interface
                                 footnote-spanner-interface
                                 font-interface
+                                sticky-grob-interface
                                 text-interface))))))
 
     (FretBoard

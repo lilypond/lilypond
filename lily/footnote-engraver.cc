@@ -51,7 +51,7 @@ Footnote_engraver::footnotify (Grob *g, SCM cause)
     {
       footnote = make_spanner ("FootnoteSpanner", cause);
       // Delegate ending the footnote to the Spanner_tracking_engraver.
-      set_object (footnote, "underlying-spanner", to_scm (g));
+      set_object (footnote, "sticky-host", to_scm (g));
     }
   else
     {

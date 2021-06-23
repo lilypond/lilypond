@@ -46,10 +46,10 @@ note)."
    thickness))
 
 (ly:add-interface
- 'attached-spanner-interface
+ 'sticky-grob-interface
  "A spanner that is attached to another spanner regarding bounds and
 announcement timing."
- '(underlying-spanner))
+ '(sticky-host))
 
 (ly:add-interface
  'bar-line-interface

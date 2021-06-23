@@ -69,7 +69,7 @@ Balloon_engraver::balloonify (Grob *g, Stream_event *event)
     {
       balloon = make_spanner ("BalloonTextSpanner", event->self_scm ());
       // Delegate ending the balloon to the Spanner_tracking_engraver.
-      set_object (balloon, "underlying-spanner", to_scm (g));
+      set_object (balloon, "sticky-host", to_scm (g));
     }
   balloon->set_y_parent (g);
 }

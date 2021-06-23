@@ -1404,6 +1404,7 @@ unpredictable in situations with lots of rhythmic diversity.  For predictable
 results, use @code{LEFT} and @code{RIGHT}.")
      (staff-grouper ,ly:grob? "The staff grouper we belong to.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
+     (sticky-host ,ly:grob? "The grob that a sticky grob attaches to.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
      (stems ,ly:grob-array? "An array of stem objects.")
 
@@ -1413,9 +1414,6 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplet-start ,boolean? "Is stem at the start of a tuplet?")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
-
-     (underlying-spanner ,ly:grob? "A spanner from which this spanner takes
-its bounds and announcement timing.")
 
      (vertical-alignment ,ly:grob? "The VerticalAlignment in a System.")
      (vertical-skyline-elements ,ly:grob-array? "An array of grobs
