@@ -19,6 +19,8 @@
 
 #include "engraver.hh"
 #include "grob.hh"
+#include "item.hh"
+#include "spanner.hh"
 
 LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
            3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
@@ -31,8 +33,47 @@ LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
   LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  Grob *g = en->internal_make_grob (grob_name, cause, "scheme", 0, "scheme");
-  return g->self_scm ();
+  return en->internal_make_indeterminate (grob_name,
+                                          cause,
+                                          "scheme",
+                                          0,
+                                          "scheme")->self_scm ();
+}
+
+LY_DEFINE (ly_engraver_make_item, "ly:engraver-make-item",
+           3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
+           "Same as @code{ly:engraver-make-grob}, but always"
+           " create a grob with the @code{Item} class.  This"
+           " is useful when the same grob definition is used"
+           " to create grobs of differing classes.")
+{
+  auto *const en = LY_ASSERT_SMOB (Engraver, engraver, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);
+  LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
+
+  return en->internal_make_item (grob_name,
+                                 cause,
+                                 "scheme",
+                                 0,
+                                 "scheme")->self_scm ();
+}
+
+LY_DEFINE (ly_engraver_make_spanner, "ly:engraver-make-spanner",
+           3, 0, 0, (SCM engraver, SCM grob_name, SCM cause),
+           "Same as @code{ly:engraver-make-grob}, but always"
+           " create a grob with the @code{Spanner} class.  This"
+           " is useful when the same grob definition is used"
+           " to create grobs of differing classes.")
+{
+  auto *const en = LY_ASSERT_SMOB (Engraver, engraver, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);
+  LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
+
+  return en->internal_make_spanner (grob_name,
+                                    cause,
+                                    "scheme",
+                                    0,
+                                    "scheme")->self_scm ();
 }
 
 LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",

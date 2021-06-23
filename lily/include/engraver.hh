@@ -31,10 +31,14 @@
 */
 class Engraver : public Translator
 {
-  Grob *internal_make_grob (SCM sym, SCM cause,
-                            char const *f, int l, char const *fun);
-  friend SCM ly_engraver_make_grob (SCM, SCM, SCM);
   friend class Engraver_group;
+
+private:
+  template<typename T> T *choose_grob_type (SCM klass, SCM props);
+  template<typename T> T *internal_make_grob (SCM sym, SCM cause,
+                                              char const *f, int l,
+                                              char const *fun);
+
 protected:
   /*
     take note of item/spanner
@@ -62,7 +66,8 @@ public:
                                   char const *f, int l, char const *fun);
   Paper_column *internal_make_column (SCM sym,
                                       char const *f, int l, char const *fun);
-
+  Grob *internal_make_indeterminate (SCM sym, SCM cause,
+                                     char const *f, int l, char const *fun);
   /**
      override other ctor
   */

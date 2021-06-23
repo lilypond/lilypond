@@ -31,8 +31,8 @@ class Item : public Grob
 {
   Drul_array<Item *> broken_to_drul_;
 
-  OVERRIDE_CLASS_NAME (Item);
 public:
+  OVERRIDE_CLASS_NAME (Item);
   Item (SCM);
   Item (Item const &);
 

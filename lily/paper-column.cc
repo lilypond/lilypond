@@ -86,6 +86,7 @@ Paper_column::Paper_column (SCM l)
 {
   system_ = 0;
   rank_ = -1;
+  interfaces_ = scm_cons (ly_symbol2scm ("paper-column-interface"), interfaces_);
 }
 
 Paper_column::Paper_column (Paper_column const &src)
@@ -93,6 +94,7 @@ Paper_column::Paper_column (Paper_column const &src)
 {
   system_ = 0;
   rank_ = src.rank_;
+  interfaces_ = scm_cons (ly_symbol2scm ("paper-column-interface"), interfaces_);
 }
 
 Moment
@@ -442,6 +444,8 @@ Paper_column::is_extraneous_column_from_ligature (Grob *me)
   return has_notehead;
 }
 
+
+
 ADD_INTERFACE (Paper_column,
                "@code{Paper_column} objects form the top-most X@tie{}parents"
                " for items.  There are two types of columns: musical and"
@@ -454,7 +458,10 @@ ADD_INTERFACE (Paper_column,
                " renumbered after line breaking.  Since many columns go"
                " unused, you should only use the rank field to get ordering"
                " information.  Two adjacent columns may have non-adjacent"
-               " numbers.",
+               " numbers.\n"
+               "\n"
+               "The @code{paper-column-interface} implies the"
+               " @iref{item-interface}.",
 
                /* properties */
                "between-cols "

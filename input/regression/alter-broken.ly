@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.4"
 
 \header {
   texidoc = "The command @code{\\alterBroken} may be used to override the
@@ -10,7 +10,8 @@ its usage with a variety of data types."
   ragged-right = ##t
 }
 
-#(ly:expect-warning (_ "not a spanner name"))
+#(ly:set-option 'warning-as-error)
+#(ly:expect-warning (_ "this ~a is not a spanner") 'NoteHead)
 
 \relative {
   d''4-\alterBroken #'positions #'((3 . 3) (5 . 5))
@@ -33,8 +34,8 @@ its usage with a variety of data types."
     \<
   d e
   % Since `NoteHead' is not the name of a spanner, the following has no
-  % effect on layout.  A warning (suppressed here) is issued.
-  \alterBroken #'color #`(,red ,blue) NoteHead
+  % effect on layout.  Warnings (suppressed here) are issued.
+  \once \alterBroken #'color #`(,red ,blue) NoteHead
   \once\alterBroken #'color #`(() ,blue) Tie
   \once\alterBroken #'control-points #'(
      ((1 . 3) (2 . 4) (3 . 4) (4 . 3))

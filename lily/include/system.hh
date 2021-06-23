@@ -37,9 +37,9 @@
 class System : public Spanner
 {
 public:
+  OVERRIDE_CLASS_NAME (System);
   // See Substitution_entry.
   typedef int16_t rank_type;
-  OVERRIDE_CLASS_NAME (System);
 
 private:
   rank_type rank_ = 0;

@@ -37,9 +37,9 @@ public:
   SCM mark_smob () const;
   static const char *const type_p_name_;
   virtual ~Grob ();
-private:
   VIRTUAL_CLASS_NAME (Grob);
 
+private:
   void init ();
 
 protected:

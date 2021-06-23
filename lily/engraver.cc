@@ -103,7 +103,64 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
   return SCM_UNSPECIFIED;
 }
 
+template<typename T>
+T *
+Engraver::choose_grob_type (SCM classes, SCM props)
+{
+  T *grob = new T (props);
+  const char *class_name = grob->class_name ();
+  if (!scm_is_true (scm_memq (ly_symbol2scm (class_name), classes)))
+    {
+      programming_error (_f ("grob %s created with disallowed class %s"
+                             " (expected any class in the list %s)",
+                             grob->name (),
+                             class_name,
+                             print_scm_val (classes)));
+    }
+  return grob;
+}
+
+template<>
 Grob *
+Engraver::choose_grob_type<Grob> (SCM classes, SCM props)
+{
+  if (!scm_is_pair (classes))
+    {
+      error (_f ("meta.classes must be non-empty list, found %s",
+                 print_scm_val (classes)));
+    }
+  if (!scm_is_null (scm_cdr (classes)))
+    {
+      error (_f ("must have only one element in meta.classes to create"
+                 " a grob without specifying the class"));
+    }
+  SCM klass = scm_car (classes);
+  Grob *grob;
+  if (scm_is_eq (klass, ly_symbol2scm ("Item")))
+    grob = new Item (props);
+  else if (scm_is_eq (klass, ly_symbol2scm ("Paper_column")))
+    grob = new Paper_column (props);
+  else if (scm_is_eq (klass, ly_symbol2scm ("Spanner")))
+    grob = new Spanner (props);
+  else
+    {
+      error (_f ("grob class should be 'Item, 'Spanner or 'Paper_column,"
+                 " found %s",
+                 print_scm_val (klass)));
+    }
+  return grob;
+}
+
+/* When T is Item, Paper_column or Spanner, return a pointer to an
+   instance of this class after having checked that the meta.classes
+   field does contain this class.  This is used by make_item,
+   make_spanner, make_column and the respective Scheme functions.
+
+   When T is Grob, the meta.classes field must be have only one element.
+   Make a grob with the corresponding class and return it as Grob *.
+   This is used by ly:engraver-make-grob. */
+template<typename T>
+T *
 Engraver::internal_make_grob (SCM symbol,
                               SCM cause,
                               char const *file,
@@ -117,25 +174,16 @@ Engraver::internal_make_grob (SCM symbol,
 #endif
 
   SCM props = Grob_property_info (context (), symbol).updated ();
-  Grob *grob = 0;
   if (!scm_is_pair (props))
     {
       error (_f ("No grob definition found for `%s’.",
                  ly_symbol2string (symbol)));
     }
-  else
-    {
-      SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
-      SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
 
-      if (scm_is_eq (klass, ly_symbol2scm ("Item")))
-        grob = new Item (props);
-      else if (scm_is_eq (klass, ly_symbol2scm ("Spanner")))
-        grob = new Spanner (props);
-      else if (scm_is_eq (klass, ly_symbol2scm ("Paper_column")))
-        grob = new Paper_column (props);
-    }
-  assert (grob);
+  SCM meta = scm_assq_ref (props, ly_symbol2scm ("meta"));
+  SCM classes = scm_assq_ref (meta, ly_symbol2scm ("classes"));
+
+  T *grob = choose_grob_type<T> (classes, props);
   announce_grob (grob, cause);
 
 #ifdef DEBUG
@@ -148,29 +196,35 @@ Engraver::internal_make_grob (SCM symbol,
   return grob;
 }
 
+
 Item *
 Engraver::internal_make_item (SCM x, SCM cause,
                               char const *file, int line, char const *fun)
 {
-  Item *it = dynamic_cast<Item *> (internal_make_grob (x, cause, file, line, fun));
-  assert (it);
-  return it;
+  return internal_make_grob<Item> (x, cause, file, line, fun);
 }
 
 Paper_column *
 Engraver::internal_make_column (SCM x, char const *file, int line, char const *fun)
 {
-  return dynamic_cast<Paper_column *> (internal_make_grob (x, SCM_EOL, file, line, fun));
+  return internal_make_grob<Paper_column> (x, SCM_EOL, file, line, fun);
 }
 
 Spanner *
 Engraver::internal_make_spanner (SCM x, SCM cause,
                                  char const *file, int line, char const *fun)
 {
-  Spanner *sp = dynamic_cast<Spanner *> (internal_make_grob (x, cause, file, line, fun));
-  assert (sp);
-  return sp;
+  return internal_make_grob<Spanner> (x, cause, file, line, fun);
 }
+
+Grob *
+Engraver::internal_make_indeterminate (SCM x, SCM cause,
+                                       char const *file, int line,
+                                       char const *fun)
+{
+  return internal_make_grob<Grob> (x, cause, file, line, fun);
+}
+
 
 bool
 ly_is_grob_cause (SCM obj)

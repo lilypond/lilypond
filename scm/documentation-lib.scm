@@ -22,7 +22,7 @@
 
 (cond-expand
  (guile-2 (use-modules (ice-9 curried-definitions)))
- (else))
+ (else (use-modules (ice-9 optargs))))
 
 (define-class <texi-node> ()
   (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)
@@ -164,10 +164,15 @@ environment."
 (define (interface-name name)
   name)
 
-(define (ref-ify x)
+(define* (ref-ify x #:optional title)
   "Return @iref{X}.  If mapping ref-ify to a list that needs to be sorted,
    sort the list first."
-  (string-append "@iref{" x "}"))
+  (string-append "@iref{"
+                 x
+                 (if title
+                     (string-append "," title)
+                     "")
+                 "}"))
 
 (define (human-listify lst)
   "Produce a textual enumeration from LST, a list of strings"

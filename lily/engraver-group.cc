@@ -129,14 +129,18 @@ Engraver_group::acknowledge_grobs ()
       else
         continue;
 
-      SCM ackhandle = scm_hashq_create_handle_x (acknowledge_hash_table_drul_[info.start_end ()],
-                                                 nm, SCM_BOOL_F);
+      // A grob's interface list depends on its definition, but also
+      // on its class (e.g., System adds system-interface and spanner-interface).
+      nm = scm_cons (ly_symbol2scm (info.grob ()->class_name ()), nm);
+
+      SCM ackhandle = scm_hash_create_handle_x (acknowledge_hash_table_drul_[info.start_end ()],
+                                                nm, SCM_BOOL_F);
 
       SCM acklist = scm_cdr (ackhandle);
 
       if (scm_is_false (acklist))
         {
-          SCM ifaces = scm_cdr (ly_assoc (ly_symbol2scm ("interfaces"), meta));
+          SCM ifaces = info.grob ()->interfaces ();
           acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
                                                     ifaces, info.start_end ());
 

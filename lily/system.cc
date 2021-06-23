@@ -51,12 +51,14 @@ System::System (System const &src)
   : Spanner (src)
 {
   init_elements ();
+  interfaces_ = scm_cons (ly_symbol2scm ("system-interface"), interfaces_);
 }
 
 System::System (SCM s)
   : Spanner (s)
 {
   init_elements ();
+  interfaces_ = scm_cons (ly_symbol2scm ("system-interface"), interfaces_);
 }
 
 void
@@ -1033,7 +1035,10 @@ System::get_nonspaceable_staves (SCM smob)
 ADD_INTERFACE (System,
                "This is the top-level object: Each object in a score"
                " ultimately has a @code{System} object as its X and"
-               " Y@tie{}parent.",
+               " Y@tie{}parent.\n"
+               "\n"
+               "The @code{system-interface} implies the"
+               " @iref{spanner-interface}.",
 
                /* properties */
                "all-elements "

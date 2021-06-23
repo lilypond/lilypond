@@ -3206,32 +3206,25 @@
     ))
 
 (define (completize-grob-entry x)
-  "Transplant assoc key into 'name entry of 'meta of X.  Set interfaces for Item, Spanner etc.
+  "Transplant assoc key into @code{meta.name} of @var{X}.
+Add @code{grob-interface}.  If @code{meta.class} is provided,
+turn it into a one-element list in @code{meta.classes}.
 "
-  ;;  (display (car x))
-  ;;  (newline)
   (let* ((name-sym  (car x))
          ;; Make (shallow) copies of the list and its items because we modify
          ;; them below.
          (grob-entry (map list-copy (cdr x)))
          (meta-entry (map list-copy (assoc-get 'meta grob-entry)))
-         (class (assoc-get 'class meta-entry))
+         (class-entry
+          (assoc-get 'class meta-entry #f))
          (ifaces-entry
           (assoc-get 'interfaces meta-entry)))
 
-    (cond
-     ((eq? 'Item class)
-      (set! ifaces-entry (cons 'item-interface ifaces-entry)))
-     ((eq? 'Spanner class)
-      (set! ifaces-entry (cons 'spanner-interface ifaces-entry)))
-     ((eq? 'Paper_column class)
-      (set! ifaces-entry (cons 'item-interface
-                               (cons 'paper-column-interface ifaces-entry))))
-     ((eq? 'System class)
-      (set! ifaces-entry (cons 'system-interface
-                               (cons 'spanner-interface ifaces-entry))))
-     (else
-      (ly:warning (_ "Unknown class ~a") class)))
+    (if class-entry
+        (set! meta-entry
+              (assoc-set! meta-entry
+                          'classes
+                          (list class-entry))))
 
     (set! ifaces-entry (uniq-list (sort ifaces-entry symbol<?)))
     (set! ifaces-entry (cons 'grob-interface ifaces-entry))

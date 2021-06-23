@@ -53,9 +53,8 @@ class Spanner : Preinit_Spanner, public Grob
 {
   vsize break_index_;
 
-  OVERRIDE_CLASS_NAME (Spanner);
-
 public:
+  OVERRIDE_CLASS_NAME (Spanner);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_normalized_endpoints, (SCM));
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));

@@ -111,24 +111,10 @@ form of a spanner event, @var{property} may also have the form
           (begin
             (ly:music-warning item (_ "not a spanner"))
             item))
-      (let* ((p (check-grob-path item
-                                 #:default 'Bottom
-                                 #:min 2
-                                 #:max 2))
-             (name (and p (second p)))
-             (description
-              (and name (assoc-get name all-grob-descriptions))))
-        (if (and description
-                 (member 'spanner-interface
-                         (assoc-get 'interfaces
-                                    (assoc-get 'meta description))))
-            (propertyOverride (append item (if (symbol? property)
-                                       (list property)
-                                       property))
-                      (value-for-spanner-piece arg))
-            (begin
-              (ly:input-warning (*location*) (_ "not a spanner name, `~a'") name)
-              (make-music 'Music))))))
+      (propertyOverride (append item (if (symbol? property)
+                                         (list property)
+                                         property))
+                        (value-for-spanner-piece arg))))
 
 appendToTag =
 #(define-music-function (tag more music)

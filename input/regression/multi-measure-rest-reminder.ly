@@ -7,7 +7,7 @@
   @code{ly:make-grob-properties}."
 }
 
-\version "2.21.0"
+\version "2.23.4"
 
 % On seeing the end of a multi measure rest, create a MultiMeasureRestReminder item.
 multiMeasureReminderEngraver =
@@ -68,7 +68,7 @@ multiMeasureReminderEngraver =
       (Y-offset . ,side-position-interface::y-aligned-side)
 
       (meta .
-       ((class . Item)
+       ((classes . (Item))
         ;; This is clumsy, but we have to repeat the name
         (name . MultiMeasureRestReminder)
         (interfaces . (break-alignable-interface

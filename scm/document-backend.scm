@@ -16,6 +16,9 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules ((ice-9 list)
+              #:select (rassoc)))
+
 (define (sort-grob-properties props)
   ;; force 'meta to the end of each prop-list
   (let ((meta (assoc 'meta props)))
@@ -86,6 +89,12 @@
                ifaces)))
  all-grob-descriptions)
 
+(define class-specific-interfaces
+  '((Item . item-interface)
+    (Spanner . spanner-interface)
+    (Paper_column . paper-column-interface)
+    (System . system-interface)))
+
 ;; First level Interface description
 (define (interface-doc interface)
   (let* ((name (symbol->string (car interface)))
@@ -104,11 +113,19 @@
               (interface-doc-string (cdr interface) '())
               "\n\n@raggedRight\n"
               "This grob interface "
-              (if (equal? interface-list "none")
-                  "is not used in any graphical object"
-                  (string-append
-                   "is used in the following graphical object(s): "
-                   interface-list))
+              (if (not (equal? interface-list "none"))
+                  (format #f
+                          "is used in the following graphical object(s): ~a"
+                          interface-list)
+                  (let ((class (rassoc (car interface)
+                                       class-specific-interfaces
+                                       eq?)))
+                    (if class
+                        (format
+                          #f
+                          "is added dynamically to grobs of class @code{~a}"
+                          (car class))
+                        "is not used in any graphical object")))
               "."
               "\n@endRaggedRight"))))
 
@@ -127,7 +144,6 @@ node."
 
   (let* ((meta (assoc-get 'meta description))
          (name (assoc-get 'name meta))
-         ;;       (bla (display name))
          (ifaces (map lookup-interface (assoc-get 'interfaces meta)))
          (ifacedoc (map ref-ify
                         (sort
@@ -137,6 +153,14 @@ node."
                                     (ly:error (_ "pair expected in doc ~s") name)))
                               ifaces)
                          ly:string-ci<?)))
+         (classes (assoc-get 'classes meta))
+         (class-list (map
+                       (lambda (class)
+                         (ref-ify
+                           (symbol->string
+                             (assoc-get class class-specific-interfaces))
+                           (symbol->string class)))
+                       classes))
          (engravers (filter
                      (lambda (x) (engraver-makes-grob? name x))
                      all-engravers-list))
@@ -168,8 +192,13 @@ node."
        "\n\n@raggedRight\n"
        "This object supports the following interface(s):\n"
        (human-listify ifacedoc)
-       "."
-       "\n@endRaggedRight"))))
+       ".\n\n"
+       (if (eqv? 1 (length class-list))
+           (format #f "This object is of class ~a." (first class-list))
+           (format #f
+                   "This object can be of either of the following classes: ~a."
+                   (human-listify class-list)))
+       "\n\n@endRaggedRight"))))
 
 (define (all-grobs-doc)
   (make <texi-node>
