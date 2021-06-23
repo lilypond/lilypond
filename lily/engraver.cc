@@ -120,8 +120,8 @@ Engraver::internal_make_grob (SCM symbol,
   Grob *grob = 0;
   if (!scm_is_pair (props))
     {
-      error (to_string ("No grob definition found for `%s’.",
-                        ly_symbol2string (symbol).c_str ()));
+      error (_f ("No grob definition found for `%s’.",
+                 ly_symbol2string (symbol)));
     }
   else
     {
