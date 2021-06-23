@@ -1,0 +1,691 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
+
+@ignore
+    Translation of GIT committish: 81069a4f47ec2ab1da4c740110fb00c5419c3116
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Chengrui Li
+
+@include en/included/generating-output.itexi
+
+@c \version "2.19.21"
+
+@node 教程
+@chapter 教程
+@translationof Tutorial
+
+这一章是使用 LilyPond 的基本介绍.
+
+@menu
+* 编译文件::
+* 如何写输入文件::
+* 处理报错::
+* 如何阅读教程::
+@end menu
+
+@node 编译文件
+@section 编译文件
+@translationof Compiling a file
+
+这一节介绍了 @qq{编译}---处理你写的
+LilyPond 输入文件从而生成输出文件.
+
+@menu
+* 进行输入::
+* MacOS X::
+* Windows::
+* 命令行::
+@end menu
+
+@node 进行输入
+@subsection 进行输入
+@translationof Entering input
+
+@cindex compiling (编译)
+@cindex first example (第一个例子)
+@cindex example, first (第一个例子)
+@cindex case sensitive (大小写敏感)
+
+@menu
+* 生成输出::
+@end menu
+
+@qq{编译} 说的是处理 LilyPond 格式的输入文件从而生成输出文件的过程。输出文件
+一般是 PDF 格式（用于打印或直接浏览）、MIDI 格式（用于演奏）、或 PNG 格式（用于在线使用）。LilyPond 的输入文件就是简单的文本文件。
+
+这个例子展示了一个简单的输入文件：
+
+@example
+\version "@w{@version{}}"
+@{
+  c' e' g' e'
+@}
+@end example
+
+图形输出为：
+
+@c  in this case we don't want verbatim
+@lilypond[quote]
+{
+  c' e' g' e'
+}
+@end lilypond
+
+@warning{ LilyPond 中的注释和歌词总是要用 @w{@strong{@{ 大括号 @}}} 括起来。大括号两侧也要加入空格以避免产生歧义，除非它处于行首或行末。在本教程的某些例子中它们可能被忽略了，但是你打谱的时候不要忘了用大括号！关于本教程中例子展示的更多信息，见 @ref{如何写输入文件}.}
+
+此外，LilyPond 的输入是 @strong{大小写敏感的}。
+@w{@samp{@{ c d e @}}} is 有效输入；@w{@samp{@{ C D E @}}} 会报错。
+
+
+@smallspace
+
+@node 生成输出
+@unnumberedsubsubsec 生成输出
+@translationof Producing output
+
+@cindex PDF file (PDF 文件)
+@cindex viewing music (预览音乐)
+@cindex text editors (文本编辑器)
+
+生成输出文件的方法取决于你电脑的操作系统和你使用的程序。
+
+@itemize
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,}}
+@ref{MacOS X, MacOS X} (图形化界面)
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,}}
+@ref{Windows, Microsoft Windows} (图形化界面)
+
+@item
+@ref{Command-line, @sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+}
+@ref{Command-line, 任何操作系统} (命令提示行)
+
+@end itemize
+
+有很多其他的文本编辑器提供对 LilyPond 特定的支持。更多信息，见
+@rweb{Easier editing}.
+
+@warning{当你第一次运行 LilyPond 的时候，可能会花费及分成，因为要先分析你系统中所有的文字。之后 LilyPond 的运行就会快得多了！}
+
+
+@node MacOS X
+@subsection MacOS X
+@translationof MacOS X
+
+@cindex running LilyPond under MacOS X (在 Mac OS X 下运行 LilyPond)
+@cindex MacOS X, running LilyPond (在 Mac OS X 下运行 LilyPond)
+
+@lilypadOSX
+
+
+@node Windows
+@subsection Windows
+@translationof Windows
+
+@cindex running LilyPond under Windows (在 Windows 下运行 LilyPond)
+@cindex Windows, running LilyPond (在 Windows 下运行 LilyPond)
+
+@lilypadWindows
+
+
+@node 命令行
+@subsection 命令行
+@translationof Command-line
+
+@cindex running LilyPond under Unix (在 Unix 环境下运行 LilyPond)
+@cindex Unix, running LilyPond (在 Unix 环境下运行 LilyPond)
+
+@lilypadCommandLine
+
+@node 如何写输入文件
+@section 如何写输入文件
+@translationof How to write input files
+
+本节将会介绍介绍一些 LilyPond 的基本语法，帮助你开始写输入文件。
+
+@menu
+* 简单记谱法::
+* 处理输入文件::
+@end menu
+
+
+@node 简单记谱法
+@subsection 简单记谱法
+@translationof Simple notation
+
+@cindex simple notation (简单记谱法)
+@cindex notation, simple (简单记谱法)
+
+@menu
+* 音高::
+* 时值 (节奏)::
+* 休止符::
+* 拍子记号::
+* 速度记号::
+* 谱号（音部记号）::
+* 所有的都放在一起::
+@end menu
+
+LilyPond 会自动添加一些记谱元素。下面的例子中，我们只指定了四个音高，但是 LilyPond 已经为我们加上了谱号，拍子记号和节奏。
+
+@lilypond[verbatim,quote]
+{
+  c' e' g' e'
+}
+@end lilypond
+
+@noindent
+这些东西都是可以手动更改的，但是大多数情况下这些自动生成的东西十分有用。
+
+
+@node 音高
+@unnumberedsubsubsec 音高
+@translationof Pitches
+
+@cindex pitches (音高)
+@cindex relative mode (相对模式)
+@cindex quote, single (单引号)
+@cindex comma (逗号)
+@cindex accidentals and relative mode (变音记号和相对模式)
+@cindex relative mode, and accidentals (变音记号和相对模式)
+
+@funindex \relative
+@funindex '
+@funindex ,
+
+Music Glossary: @rglos{pitch}, @rglos{interval},
+@rglos{scale}, @rglos{middle C}, @rglos{octave},
+@rglos{accidental}.
+
+LilyPond 用小写字母表示音高。
+本节中所有例子中的音名都用荷兰命名系统（对应钢琴上的白键 c-b）. 然而 LilyPond 也支持很多不同的命名方法，比如英语，或者唱名
+@q{Fixed-Do} (do-re-mi-...).
+See @ruser{Note names in other languages}.
+字母 @code{c} 到@tie{}@code{b} 表示 @notation{中央 C} 下面的一个 @q{小八度}。加上 @code{'}
+或者@tie{}@code{,} 的后缀表示高八度或低八度。
+下面是一段从 @notation{middle C} 开始的音阶和琶音：
+
+@lilypond[verbatim,quote]
+{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+@end lilypond
+
+最简单的输入音符的方法是用 @code{\relative} （相对）模式.
+这个模式中，系统会自动认为下一个音符总是处在与上一个音符最近的那个八度位置上。即它会位于上一个音符的上下三个谱表范围内。我们开始输入一段最基本的音乐，一段 @notation{音阶}，其中每一个音符都是比上一个音符高一个谱表距离。
+
+@lilypond[verbatim,quote]
+\relative {
+  c' d e f
+  g a b c
+}
+@end lilypond
+
+初始音符是 @notation{中央 C}，记为 @code{c'}.
+每一个后继音符都被放在与上一个音符最近的位置上 -- 换句话说，第一个 
+@code{c} 是与中央 C 最近的 C。之后是与前面的 C 最近的 D。我们仍然可以使用 @code{\relative} 相对模式，写一段音高变化更大的旋律：
+
+@lilypond[verbatim,quote]
+\relative {
+  d' f a g
+  c b f d
+}
+@end lilypond
+
+@noindent
+前面的例子中，第一个音符 -- @code{d'} 有一个单引号
+@code{'} 标记 -- 表示处在中央 C 到上面的 B 之间的这个八度中的 D。
+
+通过从第一个音符中添加或移除单引号 @code{'} 或逗号 @code{,} 我们可以更改起始的八度。
+
+@lilypond[verbatim,quote]
+\relative {
+  e'' c a c
+}
+@end lilypond
+
+相对模式一开始可能有点乱，但确实是最方便的输入旋律的方法。接下来我们看一下实际应用中相对模式到底如何计算的。从一个高音谱中中间线上的 B 开始，向上可以达到在其上三个谱表距离之内的 C, D, E，向下可以达到在其下三个谱表距离之内的 A, G, F。所以如果 B 后面跟的是 C, D, E，它们就会被默认是在 B 之上的，如果后面跟的是 A, G, F，它们就会被默认是在 B 之下的。
+
+@lilypond[verbatim,quote]
+\relative {
+  b' c % c is 1 staff space up, so is the c above
+  b d  % d is 2 up or 5 down, so is the d above
+  b e  % e is 3 up or 4 down, so is the e above
+  b a  % a is 6 up or 1 down, so is the a below
+  b g  % g is 5 up or 2 down, so is the g below
+  b f  % f is 4 up or 3 down, so is the f below
+}
+@end lilypond
+
+不管这些音符是被升了还是降了，结果都是一样的，只取决于其本身在谱子上的位置。@notation{变音记号} 在计算相对位置时会
+@strong{完全被忽略掉}。
+谱表上处于任何位置的谱线之间的距离计算总是等价的。
+
+使音程大于三个谱线距离，我们可以通过加入一个 @code{'} 来对这个音符进一步升高一个 @notation{八度}；可以通过加入一个逗号 @code{,} 来对这个音符进一步降低一个 @notation{八度}。
+
+@lilypond[verbatim,quote]
+\relative {
+  a' a, c' f,
+  g g'' a,, f'
+}
+@end lilypond
+
+@noindent
+要改变两个或（或更多!）八度，可以用多个 @code{''} 或 @code{,,} -- 但要注意这里是两个单引号 @code{''} 而不是一个双引号 @code{"}@tie{}!
+@c " - keeps quotes in order for context-sensitive editor -td
+
+@node 时值 (节奏)
+@unnumberedsubsubsec 时值 (节奏)
+@translationof Durations (rhythms)
+
+@cindex note durations (音符时值)
+@cindex durations (时值)
+@cindex rhythms (节奏)
+@cindex whole note (全音符)
+@cindex half note (二分音符)
+@cindex quarter note (四分音符)
+@cindex dotted note (附点音符)
+@cindex notating durations (时值记法)
+
+音乐术语：@rglos{beam}, @rglos{duration},
+@rglos{whole note}, @rglos{half note}, @rglos{quarter note},
+@rglos{dotted note}.
+
+@c 连音 (beam), 时值 (duration), 全音符 (whole note), 半音符 (half note),
+@c 四分音符 (quarter note), 附点音符 (dotted note)
+
+一个音符的 @notation{时值} 由音符后面的数字确定：@code{1} 为@notation{全音符}，@code{2} 为@notation{半音符}，@code{4} 为@notation{四分音符}，以此类推。@notation{连音}会自动生成.
+
+如果你不指定时值，那么该音符的时值就会和上一个音符一样。第一个音符如果不加声明，则默认为四分音符。
+
+@lilypond[verbatim,quote]
+\relative {
+  a'1
+  a2 a4 a8 a
+  a16 a a a a32 a a a a64 a a a a a a a a2
+}
+@end lilypond
+
+要写@notation{附点音符}，只需要在时值数字后面加一个 @code{.} 就可以了。浮点音符的点前面必须有数字。
+
+@lilypond[verbatim,quote]
+\relative {
+  a'4 a a4. a8
+  a8. a16 a a8. a8 a4.
+}
+@end lilypond
+
+@node 休止符
+@unnumberedsubsubsec 休止符
+@translationof Rests
+
+@cindex rest (休止符)
+@cindex notating rests (休止符记法)
+
+音乐术语：@rglos{rest}.
+@c 休止符 (rest)
+
+@notation{休止符}用 @code{r}@tie{} 表示：
+
+@lilypond[verbatim,quote]
+\relative {
+  a'4 r r2
+  r8 a r4 r4. r8
+}
+@end lilypond
+
+
+@node 拍子记号
+@unnumberedsubsubsec 拍子记号
+@translationof Time signature
+
+@cindex time signature (拍子记号)
+
+@funindex \time
+
+音乐术语：@rglos{time signature}.
+@c 拍子记号 (time signature)
+
+@notation{拍子记号}用 @code{\time} 命令设置：
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 3/4
+  a'4 a a
+  \time 6/8
+  a4. a
+  \time 4/4
+  a4 a a a
+}
+@end lilypond
+
+@node 速度记号
+@unnumberedsubsubsec 速度记号
+@translationof Tempo marks
+
+@cindex tempo marks (速度记号)
+@cindex metronome marks (节拍器记号)
+
+@funindex \tempo
+@c 速度记号 (tempo)
+
+音乐术语：@rglos{tempo indication}, @rglos{metronome}.
+
+@notation{速度记号}和@notation{节拍器记号}用 @code{\tempo} 命令设置：
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 3/4
+  \tempo "Andante"
+  a'4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
+  a4 a a a
+}
+@end lilypond
+
+
+@node 谱号（音部记号）
+@unnumberedsubsubsec 谱号（音部记号）
+@translationof Clef
+
+@cindex clef (谱号)
+@cindex treble (高音谱号)
+@cindex alto (中音谱号)
+@cindex tenor (次中音谱号)
+@cindex bass (低音谱号)
+
+@funindex \clef
+
+音乐术语：@rglos{clef}.
+@c 谱号 (clef)
+
+@notation{谱号}用 @code{\clef} 命令设置：
+
+@lilypond[verbatim,quote]
+\relative {
+  \clef "treble"
+  c'1
+  \clef "alto"
+  c1
+  \clef "tenor"
+  c1
+  \clef "bass"
+  c1
+}
+@end lilypond
+
+
+@node 所有的都放在一起
+@unnumberedsubsubsec 所有的都放在一起
+@translationof All together
+
+下面这个例子把我们现在学过的元素都用上了：
+
+@lilypond[verbatim,quote]
+\relative {
+  \clef "bass"
+  \time 3/4
+  \tempo "Andante" 4 = 120
+  c,2 e8 c'
+  g'2.
+  f4 e d
+  c4 c, r
+}
+@end lilypond
+
+
+@morerefs
+记谱法参考：@ruser{Writing pitches},
+@ruser{Writing rhythms}, @ruser{Writing rests},
+@ruser{Time signature}, @ruser{Clef}.
+
+
+@node 处理输入文件
+@subsection 处理输入文件
+@translationof Working on input files
+
+@cindex curly braces
+@cindex braces, curly
+@cindex comments
+@cindex line comment
+@cindex comment, line
+@cindex block comment
+@cindex comment, line
+@cindex case sensitive
+@cindex whitespace insensitive
+@cindex expressions
+@cindex versioning
+@cindex version
+@cindex version number
+
+@funindex \version
+@funindex { ... }
+@funindex %
+@funindex %@{ ... %@}
+
+LilyPond 输入文件和很多编程语言的源文件非常类似。他们都包含版本声明，都是区分大小写的，都会自动忽略掉空格。表达式用大括号 @w{@code{@{ @}}} 组织，注释用 @code{%} 或 @w{@code{%@{ @dots{} %@}}}@tie{} 表示。
+
+如果你不理解前面所说的，也没有关系！下面就会一一解释他们的意思：
+
+@itemize
+
+@item
+@strong{版本声明}:
+每一个 LilyPond 文件都会带有一个版本声明。版本声明是一行
+
+@example
+\version "@w{@version{}}"
+@end example
+
+依惯例，版本声明会放在 LilyPond 文件的最开头。
+
+版本声明非常重要，原因有二。一是它能够使得 LilyPond 语法更新自动应用在输入文件上。二是它指明了编译这份文件所需的 LilyPond 版本。
+
+如果输入文件中忘记标版本声明了，LilyPond 会在编译文件时给出警告。
+
+@item
+@strong{大小写敏感}:
+小写 (e.g. @w{@code{a, b, s, t}}) 和大写 (e.g. @w{@code{A, B, S, T}}) 的效果是不一样的。音符都是用小写字母表示的：@w{@samp{@{ c d e @}}} 是有效的输入；
+@w{@samp{@{ C D E @}}} 会报错。
+
+@item
+@strong{空格不敏感}:
+多少个空格（或制表符或换行）都不重要（不起作用）。下面这三个都是一样的效果：@w{@samp{@{ c4 d e @}}}，
+@w{@samp{@{ c4 @tie{} @tie{} @tie{} d e @}}} 和：
+
+@example
+@{ c4                       d
+                   e   @}
+@end example
+
+@noindent
+当然，最后一个写法很不易读。所以最好在一个代码块中加入两个空格（或一个制表符）的缩进：
+
+@example
+@{
+  c4 d e
+@}
+@end example
+
+然而，空格@emph{是}需要用来分隔不同语法元素的。换句话说，空格总可以@emph{多加}，但不一定能@emph{省略}。因为缺失必要的空格分隔会导致出现奇怪的错误，所以强烈建议在每一个语法元素前后都加上空格，和前后语法元素隔开；比如每个大括号前后都加上空格。
+
+@item
+@strong{表达式}:
+每条 LilyPond 输入都需要用
+@strong{@{@tie{}大括号@tie{}@}} 括起来。这些大括号告诉 LilyPond 括号里的输入是一个单独的音乐表达式，就像数学中的小括号 @code{()} 一样。
+这些括号两侧都需要加入空格以避免歧义，除非是在行首或行末。
+
+一个 LilyPond 指令后面跟的大括号内的简单表达式（如 @q{@w{@code{\relative @{ @dots{} @}}}}）也会被视为单一音乐表达式。
+
+@cindex comments
+@cindex line comment
+@cindex block comment
+@item
+@strong{Comments}:
+注释是为了让人们读懂音乐输入而写的标记；注释会在语法分析中被忽略掉，所以不会对输出结果产生影响。注释有两种类型：百分号
+@code{%} 是单行注释；该行在 @code{%} 后的内容都会被编译器忽略。依惯例，单行注释都加在要说明的代码之@emph{上}。
+
+@example
+a4 a a a
+% this comment refers to the Bs
+b2 b
+@end example
+
+注释块标记表明一大段音乐输入都是注释。所有在 @code{%@{} 和 @code{%@}} 之间的内容都会被忽略。然而，注释块不能@q{嵌套}。这意味着你不能把注释块放在另一个注释块内。如果你这样尝试的话，第一个 @code{%@}} 会终止 @emph{这两个}注释块。下面是展示可能用到注释块情形：
+
+@example
+% notes for twinkle twinkle follow
+  c4 c g' g a a g2
+
+%@{
+  This line, and the notes below are ignored,
+  since they are in a block comment.
+
+  f4 f e e d d c2
+%@}
+@end example
+
+@end itemize
+
+
+@node 处理报错
+@section 处理报错
+@translationof Dealing with errors
+
+@cindex troubleshooting (解决问题)
+
+有时候 LilyPond 没有输出你想要的结果。这一节会为你通过一些链接帮助你解决这些你可能遇到的问题。
+
+
+@menu
+* 一般解决问题的方法::
+* 常见的错误::
+@end menu
+
+@node 一般解决问题的方法
+@subsection 一般解决问题的方法
+@translationof General troubleshooting tips
+
+解决 LilyPond 的问题对于熟悉使用图形化交互界面的人来说可能很具有挑战性，因为无效的输入文件可能会被创建。当这种情况发生时，一个符合逻辑的方法就是最好的确定并解决问题的方法。@rprogram{Troubleshooting} 中提供了一些指导，可以帮你学会这些方法。
+
+
+@node 常见的错误
+@subsection 常见的错误
+@translationof Some common errors
+
+@cindex common errors (常见的错误)
+@cindex errors, common (常见的错误)
+
+有一些常见错误，仅靠显示的简单报错信息也很难解决。这些在 @rprogram{Common errors} 中有具体说明。
+
+
+
+@node 如何阅读教程
+@section 如何阅读教程
+@translationof How to read the manuals
+
+这一节展示了如何高效阅读文档，并介绍了一些在线版本中有用的交互性特征。
+
+@menu
+* 忽略掉的内容::
+* 可以点开的例子::
+* 手册概览::
+@end menu
+
+
+@node 忽略掉的内容
+@subsection 忽略掉的内容
+@translationof Omitted material
+
+
+@cindex how to read the manual (如何阅读手册)
+@cindex manual, reading (手册，阅读)
+@cindex reading the manual (阅读手册)
+@cindex examples, clickable (例子，可以点开看)
+@cindex clickable examples (可以点开看的例子)
+@cindex tips for constructing files (创建文件的小提示)
+@cindex templates (模板)
+@cindex constructing files, tips (创建文件，小提示)
+@cindex files, tips for constructing (文件，创建小提示)
+
+LilyPond 必须写在 @code{@{ @}} 或 @q{@w{@code{\relative @{ @dots{} @}}}} 中，正如 @ref{Working on input files} 中所说的。教程的后面部分，会涉及一些简短的例子，会忽略掉这种符号。如果你想复制这些例子的话，你可以直接复制这些例子，但需要把它们粘贴在 @code{@{} 和 @code{@}} 中。
+
+@example
+@{
+  @dots{}example goes here@dots{}
+@}
+@end example
+
+当然，要记住每一个 LilyPond 文件都需要有 @code{\version} 声明。由于教程中的例子都是片段而非文件， @code{\version} 声明也忽略掉了。但你需要在实际使用中加上这个版本声明。
+
+@node 可以点开的例子
+@subsection 可以点开的例子
+@translationof Clickable examples
+
+@warning{这一特征只在 HTML 教程中有。}
+
+很多人学编程都是通过不断地尝试探索。学 LilyPond 也是一样的。如果你点击 HTML 版本教程的图片，你可以看到生成图片中例子所对应的原始的 LilyPond 输入。试试下面这个图像吧：
+
+@c no verbatim here
+@lilypond[quote]
+\relative {
+  c''4-\markup { \bold \huge {点这。} }
+}
+@end lilypond
+
+复制粘贴 "ly snippet" 部分的内容，得到的是一个用于实验的模板。如果想得到完全一样的输出结果（包括行距等等），就要复制粘贴 "Start cut-&-pastable section" 之后的全部内容。
+
+
+@ignore
+This is item 825
+
+@n ode 键盘跳转
+@s ubsection 键盘跳转
+
+@warning{This features is only available in the HTML manuals.}
+
+@c TODO: once this is figured out, insert it here.
+
+We are currently working on this feature.
+@end ignore
+
+@node 手册概览
+@subsection 手册概览
+@translationof Overview of manuals
+
+LilyPond 有很多文档。新用户可能有时候不知道应该阅读哪一部分，并且有时候会跳过重要的部分。
+
+@warning{请不用跳过文档中重要的部分。不然你会发现后面的章节会非常难理解。}
+
+@itemize
+
+@item
+@strong{在做 @emph{任何事} 之前}：请阅读 Learning
+manual's @ref{教程} 和 @ref{Common notation}。如果你遇到了你不认识的音乐术语，请看 @rglosnamed{Top, Glossary}.
+
+@item
+@strong{在写一段完整音乐之前}：阅读学习教程的 @ref{Fundamental concepts}。之后，你可能会想去看 @rusernamed{Top, Notation reference} 部分的相关章节。
+
+@item
+@strong{在改变默认输出之前}：阅读学习教程 @ref{Tweaking output} 部分。
+
+@item
+@strong{在做大项目之前}: 阅读用户手文档的 @rprogram{Suggestions for writing files} 部分。
+
+@end itemize
+
+
+

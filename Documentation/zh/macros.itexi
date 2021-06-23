@@ -202,7 +202,11 @@ LilyPond 版本 @version{}
 
 @macro morerefs
 @subsubheading 参见
-@indent
+@raggedRight
+@end macro
+
+@macro endmorerefs
+@endRaggedRight
 @end macro
 
 
