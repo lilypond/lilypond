@@ -20,9 +20,10 @@
 #ifndef DRUL_ARRAY_HH
 #define DRUL_ARRAY_HH
 
-#include "assert.hh"
 #include "direction.hh"
 #include "real.hh"
+
+#include <cassert>
 
 /**
    Left/right or Up/down arrays. Drul is nicer sounding than udlr
@@ -46,12 +47,14 @@ public:
 
   T &at (Direction d)
   {
-    return constexpr_assert (d), array_[d > CENTER];
+    assert (d);
+    return array_[d > CENTER];
   }
 
-  constexpr T const &at (Direction d) const
+  T const &at (Direction d) const
   {
-    return constexpr_assert (d), array_[d > CENTER];
+    assert (d);
+    return array_[d > CENTER];
   }
 
   T &operator [] (Direction d)
@@ -64,6 +67,26 @@ public:
     return at (d);
   }
 
+  T &front () // at (Direction::negative ())
+  {
+    return array_[0];
+  }
+
+  constexpr T const &front () const // at (Direction::negative ())
+  {
+    return array_[0];
+  }
+
+  T &back () // at (Direction::positive ())
+  {
+    return array_[1];
+  }
+
+  constexpr T const &back () const // at (Direction::positive ())
+  {
+    return array_[1];
+  }
+
   void set (T const &t1, T const &t2)
   {
     array_[0] = t1;
@@ -73,12 +96,12 @@ public:
   // Compute the average of the elements.  Requires T to be divisible by int.
   constexpr T average () const
   {
-    return (at (RIGHT) + at (LEFT)) / 2;
+    return (back () + front ()) / 2;
   }
 
   constexpr T delta () const
   {
-    return at (RIGHT) - at (LEFT);
+    return back () - front ();
   }
 };
 
@@ -86,8 +109,8 @@ template<class T1, class T2>
 void
 scale_drul (Drul_array<T1> *dr, T2 x)
 {
-  dr->at (LEFT) *= x;
-  dr->at (RIGHT) *= x;
+  dr->front () *= x;
+  dr->back () *= x;
 }
 
 #endif /* DRUL_ARRAY_HH */

@@ -26,59 +26,59 @@ class Drul_array_test
   static void test_init_default_int ()
   {
     constexpr Drul_array<int> arr;
-    static_assert (arr[LEFT] == 0, "");
-    static_assert (arr[RIGHT] == 0, "");
+    static_assert (arr.front () == 0, "");
+    static_assert (arr.back () == 0, "");
   }
 
   static void test_init_default_dir ()
   {
     constexpr Drul_array<Direction> arr;
-    static_assert (arr[LEFT] == CENTER, "");
-    static_assert (arr[RIGHT] == CENTER, "");
+    static_assert (arr.front () == CENTER, "");
+    static_assert (arr.back () == CENTER, "");
   }
 
   static void test_init_default_class ()
   {
     struct AdHoc { int val = 42; };
     constexpr Drul_array<AdHoc> arr;
-    static_assert (arr[LEFT].val == 42, "");
-    static_assert (arr[RIGHT].val == 42, "");
+    static_assert (arr.front ().val == 42, "");
+    static_assert (arr.back ().val == 42, "");
   }
 
   static void test_init_value_int ()
   {
     constexpr Drul_array<int> arr {};
-    static_assert (arr[LEFT] == 0, "");
-    static_assert (arr[RIGHT] == 0, "");
+    static_assert (arr.front () == 0, "");
+    static_assert (arr.back () == 0, "");
   }
 
   static void test_init_value_dir ()
   {
     constexpr Drul_array<Direction> arr {};
-    static_assert (arr[LEFT] == CENTER, "");
-    static_assert (arr[RIGHT] == CENTER, "");
+    static_assert (arr.front () == CENTER, "");
+    static_assert (arr.back () == CENTER, "");
   }
 
   static void test_init_value_class ()
   {
     struct AdHoc { int val = 42; };
     constexpr Drul_array<AdHoc> arr {};
-    static_assert (arr[LEFT].val == 42, "");
-    static_assert (arr[RIGHT].val == 42, "");
+    static_assert (arr.front ().val == 42, "");
+    static_assert (arr.back ().val == 42, "");
   }
 
   static void test_init_list ()
   {
     constexpr Drul_array<int> arr {12, 34};
-    static_assert (arr.at (LEFT) == 12, "");
-    static_assert (arr.at (RIGHT) == 34, "");
+    static_assert (arr.front () == 12, "");
+    static_assert (arr.back () == 34, "");
   }
 
   static void test_init_list_assign ()
   {
     constexpr Drul_array<int> arr = {12, 34};
-    static_assert (arr[LEFT] == 12, "");
-    static_assert (arr[RIGHT] == 34, "");
+    static_assert (arr.front () == 12, "");
+    static_assert (arr.back () == 34, "");
   }
 
   static void test_average ()
@@ -94,6 +94,20 @@ class Drul_array_test
   }
 };
 
+TEST (Drul_array_test, const_access)
+{
+  constexpr Drul_array<int> arr {12, 34};
+
+  EQUAL (12, arr.at (LEFT));
+  EQUAL (34, arr.at (RIGHT));
+
+  EQUAL (12, arr[LEFT]);
+  EQUAL (34, arr[RIGHT]);
+
+  EQUAL (12, arr.front ());
+  EQUAL (34, arr.back ());
+}
+
 TEST (Drul_array_test, mutable_access)
 {
   Drul_array<int> arr {12, 34};
@@ -105,8 +119,18 @@ TEST (Drul_array_test, mutable_access)
 
   ++arr.at (RIGHT);
 
-  EQUAL (11, arr[LEFT]);
-  EQUAL (35, arr[RIGHT]);
+  EQUAL (11, arr.at (LEFT));
+  EQUAL (35, arr.at (RIGHT));
+
+  ++arr.front ();
+
+  EQUAL (12, arr.front ());
+  EQUAL (35, arr.back ());
+
+  --arr.back ();
+
+  EQUAL (12, arr.front ());
+  EQUAL (34, arr.back ());
 }
 
 TEST (Drul_array_test, scaling)
