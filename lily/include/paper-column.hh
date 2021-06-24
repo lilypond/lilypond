@@ -38,7 +38,7 @@ class Paper_column : public Item
     column is
   */
   System *system_;
-
+  OVERRIDE_CLASS_NAME (Paper_column);
 public:
   Paper_column (SCM);
   Paper_column (Paper_column const &);
