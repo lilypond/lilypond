@@ -98,7 +98,7 @@ old news, etc.
 @unnumberedsec Contact
 
 
-@divClass{column-left-bottom}
+@divClass{column-left-top}
 @subheading User Discussions and Help
 
 @subsubheading User mailing list: @code{lilypond-user@@gnu.org}
@@ -111,14 +111,36 @@ each other.
 lilypond-user subscribe and info}
 
 @uref{http://lists.gnu.org/archive/html/lilypond-user/,
-user archive1}
+user archive@tie{}1}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
-archive2}
+archive@tie{}2}
 @end quotation
 
 @warning{When asking questions, please use @ref{Tiny examples}!}
 
-@subsubheading LilyPond Snippet Repository
+@subsubheading Other languages
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+French mailing list}
+
+@uref{https://lilypondforum.de/,
+German forum}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+Italian mailing list}
+
+@uref{http://groups.google.com/group/lilypond-brasil,
+Portuguese group}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+Spanish mailing list}
+@end quotation
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading LilyPond Snippet Repository
 
 The LilyPond Snippet Repository is a large collection of
 user-submitted examples, which can freely be copied and used
@@ -131,9 +153,69 @@ and add your own!
 
 Particularly instructive examples from LSR are included in our
 official documentation, in @ref{Snippets}.
+@divEnd
 
 
-@subsubheading IRC
+@divClass{column-right-bottom}
+@subheading Developer Discussions and Translations
+
+@subsubheading Developer mailing list: @code{lilypond-devel@@gnu.org}
+
+Developer discussions take place on this list. Patches can also be sent
+here.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+lilypond-devel subscribe and info}
+
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+devel archive@tie{}1}
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
+archive@tie{}2}
+@end quotation
+
+
+@subsubheading Bug mailing list: @code{bug-lilypond@@gnu.org}
+
+Bug reports and discussions should be sent here.  Do not send patches
+to this list.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+bug-lilypond subscribe and info}
+
+@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+bug archive@tie{}1}
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
+archive@tie{}2}
+@end quotation
+
+@warning{Before sending a message to the bug list, please read our
+guidelines for @ref{Bug reports}.}
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Release announcements
+
+@subsubheading Releases mailing list: @code{info-lilypond@@gnu.org}
+
+This mailing list is a low-volume, read-only list that receives
+notifications of new releases.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+info-lilypond subscribe and info}
+
+@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+info archive 1}
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+archive 2}
+@end quotation
+@divEnd
+
+@divClass{column-left-top}
+@subheading IRC
 
 Some level of support is provided on our IRC channel,
 
@@ -166,27 +248,11 @@ be useful for others would better be posted to one of the mailing lists.
   document.forms["f_lily_irc"].nick.value = username;
 </script>
 @end html
-
-@subsubheading Other languages
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-French mailing list}
-
-@uref{https://lilypondforum.de/,
-German forum}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
-Italian mailing list}
-
-@uref{http://groups.google.com/group/lilypond-brasil,
-Portuguese group}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-Spanish mailing list}
-@end quotation
 @divEnd
 
+@c Currently inactive and inaccessible
+
+@ignore
 
 @divClass{column-right-top}
 @subheading The LilyPond Blog
@@ -197,74 +263,9 @@ Read our community blog, @q{Scores of Beauty}:
 @uref{https://lilypondblog.org}
 @end example
 
-@subsubheading Releases mailing list: @code{info-lilypond@@gnu.org}
-
-This mailing list is a low-volume, read-only list which receives
-notifications of new releases.
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
-info-lilypond subscribe and info}
-
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
-info archive1}
-@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
-archive2}
-@end quotation
-
-
 @divEnd
 
-
-@divClass{column-right-bottom}
-@subheading Developer Discussions and Translations
-
-@subsubheading Developer mailing list: @code{lilypond-devel@@gnu.org}
-
-Developer discussions take place on this list. Patches can also be sent
-here.
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
-lilypond-devel subscribe and info}
-
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
-devel archive1}
-@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
-archive2}
-@end quotation
-
-
-@subsubheading Bug mailing list: @code{bug-lilypond@@gnu.org}
-
-Bug reports and discussions should be sent here.  Do not send patches
-to this list.
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
-bug-lilypond subscribe and info}
-
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
-bug archive1}
-@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
-archive2}
-@end quotation
-
-@warning{Before sending a message to the bug list, please read our
-guidelines for @ref{Bug reports}.}
-
-
-@subsubheading Translation mailing list: @code{translations@@lilynet.org}
-
-All discussions about translating LilyPond manuals should be sent here.
-Do not send patches to this list.
-
-@quotation
-@uref{https://lilypond-translations.3384276.n2.nabble.com/,
-Translation mailing list archive}
-@end quotation
-
-@divEnd
+@end ignore
 
 
 @node Tiny examples
