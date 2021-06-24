@@ -628,7 +628,7 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 
 内部リファレンス:
 @rinternals{Parenthesis_engraver},
-@rinternals{ParenthesesItem},
+@rinternals{Parentheses},
 @rinternals{parentheses-interface}
 
 @knownissues

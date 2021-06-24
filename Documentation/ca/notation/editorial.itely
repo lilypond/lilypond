@@ -653,7 +653,7 @@ Fragments de codi:
 
 Referència de funcionament intern:
 @rinternals{Parenthesis_engraver},
-@rinternals{ParenthesesItem},
+@rinternals{Parentheses},
 @rinternals{parentheses-interface}.
 
 @knownissues

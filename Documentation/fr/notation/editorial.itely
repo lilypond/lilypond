@@ -843,7 +843,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Parenthesis_engraver},
-@rinternals{ParenthesesItem},
+@rinternals{Parentheses},
 @rinternals{parentheses-interface}.
 @endmorerefs
 

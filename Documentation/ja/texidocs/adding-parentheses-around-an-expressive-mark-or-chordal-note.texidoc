@@ -1,6 +1,6 @@
 %% Translation of GIT committish: a8a85e19654e46d725563e6deba44083ef137a2c
   texidocja = "
 @code{\\parenthesize} 関数は、オブジェクトを括弧で囲む@c
-特殊な調整関数です。Grob は @code{ParenthesesItem} になります。
+特殊な調整関数です。Grob は @code{Parentheses} になります。
 "
   doctitleja = "発想記号や和音の音符に括弧を追加する"

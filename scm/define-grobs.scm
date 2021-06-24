@@ -2029,17 +2029,17 @@
                                 separation-item-interface
                                 spaceable-grob-interface))))))
 
-    (ParenthesesItem
+    (Parentheses
      . (
         (font-size . -6)
         (padding . 0.2)
-        (stencil . ,parentheses-item::print)
-        (stencils . ,parentheses-item::calc-parenthesis-stencils)
+        (stencil . ,parentheses-interface::print)
+        (stencils . ,parentheses-interface::calc-parenthesis-stencils)
         ;; X-extent needs to be non-empty in order to allow proper
-        ;; horizontal attachment.  ParenthesesItem does not reserve
+        ;; horizontal attachment.  Parentheses does not reserve
         ;; space of its own, however.
         (X-extent . (0 . 0))
-        (Y-extent . ,parentheses-item::y-extent)
+        (Y-extent . ,parentheses-interface::y-extent)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 parentheses-interface))))))
@@ -2853,7 +2853,7 @@
         (padding . 0.3)
         (side-axis . ,X)
         (stencil . ,parenthesize-elements)
-        (stencils . ,parentheses-item::calc-parenthesis-stencils)
+        (stencils . ,parentheses-interface::calc-parenthesis-stencils)
         (X-offset . ,ly:side-position-interface::x-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)

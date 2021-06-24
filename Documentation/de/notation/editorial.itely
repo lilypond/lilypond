@@ -440,7 +440,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{Parenthesis_engraver},
-@rinternals{ParenthesesItem},
+@rinternals{Parentheses},
 @rinternals{parentheses-interface}.
 
 @knownissues

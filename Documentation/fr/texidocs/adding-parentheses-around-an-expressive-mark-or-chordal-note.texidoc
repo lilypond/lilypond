@@ -2,7 +2,7 @@
   texidocfr = "
 La fonction @code{\\parenthesize}, qui permet de mettre un objet entre
 parenthèses, a ceci de particulier qu'elle est associée à un objet
-graphique @code{ParenthesesItem}.
+graphique @code{Parentheses}.
 
 "
   doctitlefr = "Mise entre parenthèses d'un signe d'interprétation ou d'une note d'un accord"

@@ -824,7 +824,7 @@ caused indirectly by events.
   \new CueVoice {
     s2
     \voiceOne
-    \once \override Staff.ParenthesesItem.font-size = 3
+    \once \override Staff.Parentheses.font-size = 3
     \parenthesize Staff.CueClef
     \cueClef treble
     e'8 f a g
@@ -838,7 +838,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Parenthesis_engraver},
-@rinternals{ParenthesesItem},
+@rinternals{Parentheses},
 @rinternals{parentheses-interface}.
 @endmorerefs
 

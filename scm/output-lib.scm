@@ -970,14 +970,14 @@ may or may not use it."
 ;; * Pitch Trill Heads
 ;; * Parentheses
 
-(define-public (parentheses-item::calc-parenthesis-stencils grob)
+(define-public (parentheses-interface::calc-parenthesis-stencils grob)
   (let* ((font (ly:grob-default-font grob))
          (lp (ly:font-get-glyph font "accidentals.leftparen"))
          (rp (ly:font-get-glyph font "accidentals.rightparen")))
 
     (list lp rp)))
 
-(define-public (parentheses-item::calc-angled-bracket-stencils grob)
+(define-public (parentheses-interface::calc-angled-bracket-stencils grob)
   (let* ((parent (ly:grob-parent grob Y))
          (y-extent (ly:grob-extent parent parent Y))
          (half-thickness 0.05) ; should it be a property?
@@ -1015,7 +1015,7 @@ may or may not use it."
     (list (stencil-whiteout-box lp)
           (stencil-whiteout-box rp))))
 
-(define-public (parentheses-item::y-extent grob) (ly:grob::stencil-height grob))
+(define-public (parentheses-interface::y-extent grob) (ly:grob::stencil-height grob))
 
 (define-public (parenthesize-elements grob . rest)
   (let* ((refp (if (null? rest)
@@ -1044,7 +1044,7 @@ may or may not use it."
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))))
 
 
-(define-public (parentheses-item::print me)
+(define-public (parentheses-interface::print me)
   (let* ((elts (ly:grob-object me 'elements))
          (y-ref (ly:grob-common-refpoint-of-array me elts Y))
          (x-ref (ly:grob-common-refpoint-of-array me elts X))

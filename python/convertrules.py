@@ -4375,6 +4375,8 @@ def conv(s):
     item_spanner = (r"(ControlPoint|ControlPolygon|Footnote|BalloonText)"
                     r"(Item|Spanner)")
     s = re.sub(item_spanner, r"\1", s)
+    s = re.sub("ParenthesesItem", "Parentheses", s)
+    s = re.sub("parentheses-item::", "parentheses-interface::", s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

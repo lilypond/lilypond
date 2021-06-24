@@ -531,7 +531,7 @@ printing of a single line of lyrics."
   \override VerticalAxisGroup.staff-affinity = #DOWN
   \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.padding = #0.5
   \override VerticalAxisGroup.nonstaff-nonstaff-spacing.padding = #0.5
-  \override ParenthesesItem.font-size = #1.5
+  \override Parentheses.font-size = #1.5
 }
 
 \context {

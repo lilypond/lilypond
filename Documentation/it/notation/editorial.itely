@@ -623,7 +623,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{Parenthesis_engraver},
-@rinternals{ParenthesesItem},
+@rinternals{Parentheses},
 @rinternals{parentheses-interface}.
 
 @knownissues

@@ -697,7 +697,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Parenthesis_engraver},
-@rinternals{ParenthesesItem},
+@rinternals{Parentheses},
 @rinternals{parentheses-interface}.
 
 @knownissues
