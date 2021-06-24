@@ -1592,7 +1592,7 @@ suppressed:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " The second note" } e
     c4
-    \once \override Score.FootnoteItem.annotation-line = ##f
+    \once \override Score.Footnote.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
   }
@@ -1739,8 +1739,7 @@ Notation Reference:
 
 Internals Reference:
 @rinternals{FootnoteEvent},
-@rinternals{FootnoteItem},
-@rinternals{FootnoteSpanner},
+@rinternals{Footnote},
 @rinternals{Footnote_engraver}.
 @endmorerefs
 

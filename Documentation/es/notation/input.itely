@@ -1682,7 +1682,7 @@ une el objeto marcado con su marca:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " La segunda nota" } e
     c4
-    \once \override Score.FootnoteItem.annotation-line = ##f
+    \once \override Score.Footnote.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
   }
@@ -1838,8 +1838,7 @@ Referencia de la notación:
 
 Referencia de funcionamiento interno:
 @rinternals{FootnoteEvent},
-@rinternals{FootnoteItem},
-@rinternals{FootnoteSpanner},
+@rinternals{Footnote},
 @rinternals{Footnote_engraver}.
 
 @knownissues

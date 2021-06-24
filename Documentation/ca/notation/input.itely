@@ -1637,7 +1637,7 @@ uneix l'objecte marcat amb la seva marca:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " La segona nota" } e
     c4
-    \once \override Score.FootnoteItem.annotation-line = ##f
+    \once \override Score.Footnote.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
   }
@@ -1792,8 +1792,7 @@ Referència de la notació:
 
 Referència de funcionament intern:
 @rinternals{FootnoteEvent},
-@rinternals{FootnoteItem},
-@rinternals{FootnoteSpanner},
+@rinternals{Footnote},
 @rinternals{Footnote_engraver}.
 
 @knownissues

@@ -1597,7 +1597,7 @@ si può sopprimere la linea che collega l'oggetto commentato al segno:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " La seconda nota" } e
     c4
-    \once \override Score.FootnoteItem.annotation-line = ##f
+    \once \override Score.Footnote.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editoriale" } \p
   }
@@ -1748,8 +1748,7 @@ Guida alla notazione:
 
 Guida al funzionamento interno:
 @rinternals{FootnoteEvent},
-@rinternals{FootnoteItem},
-@rinternals{FootnoteSpanner},
+@rinternals{Footnote},
 @rinternals{Footnote_engraver}.
 
 @knownissues

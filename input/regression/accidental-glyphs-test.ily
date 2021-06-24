@@ -44,7 +44,7 @@ test =
                \accidentalStyle forget
                \set suggestAccidentals = ##t
                $pitch-high
-               % BalloonTextItem
+               % BalloonText
                \balloonGrobText
                  Rest
                  #'(2 . 2)

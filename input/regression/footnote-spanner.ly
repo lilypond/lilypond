@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.4"
 \header {
   texidoc = "Footnotes are annotated at the correct place, and the
 annotation goes to the correct page."
@@ -37,7 +37,7 @@ b c d a
 b c d a
 b c d a\!
 
-\once \override Score.FootnoteSpanner.spanner-placement = #RIGHT
+\once \override Score.Footnote.spanner-placement = #RIGHT
 b4-\single\footnote
               \markup { \tiny "2." }
               #'(0.5 . 0.5)

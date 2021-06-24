@@ -593,7 +593,7 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{Balloon_engraver},
-@rinternals{BalloonTextItem},
+@rinternals{BalloonText},
 @rinternals{balloon-interface}.
 
 

@@ -272,12 +272,7 @@ setting of @code{details.bow-direction}.
  '(automatically-numbered
    footnote
    footnote-text
-   numbering-assertion-function))
-
-(ly:add-interface
- 'footnote-spanner-interface
- "Make a footnote spanner."
- '(footnote-text
+   numbering-assertion-function
    spanner-placement))
 
 (ly:add-interface

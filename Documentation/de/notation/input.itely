@@ -1469,8 +1469,7 @@ Notationsreferenz:
 
 Referenz der Interna:
 @rinternals{FootnoteEvent},
-@rinternals{FootnoteItem},
-@rinternals{FootnoteSpanner},
+@rinternals{Footnote},
 @rinternals{Footnote_engraver}.
 
 @knownissues

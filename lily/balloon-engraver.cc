@@ -35,8 +35,6 @@ class Balloon_engraver : public Engraver
   void acknowledge_grob (Grob_info) override;
   vector<Stream_event *> events_;
   void stop_translation_timestep ();
-
-  void balloonify (Grob *, Stream_event *);
 };
 
 void
@@ -57,24 +55,6 @@ Balloon_engraver::Balloon_engraver (Context *c)
 }
 
 void
-Balloon_engraver::balloonify (Grob *g, Stream_event *event)
-{
-  Grob *balloon = nullptr;
-  if (dynamic_cast<Item *> (g))
-    {
-      balloon = make_item ("BalloonTextItem", event->self_scm ());
-      balloon->set_x_parent (g);
-    }
-  else if (dynamic_cast<Spanner *> (g))
-    {
-      balloon = make_spanner ("BalloonTextSpanner", event->self_scm ());
-      // Delegate ending the balloon to the Spanner_tracking_engraver.
-      set_object (balloon, "sticky-host", to_scm (g));
-    }
-  balloon->set_y_parent (g);
-}
-
-void
 Balloon_engraver::acknowledge_grob (Grob_info info)
 {
   Stream_event *cause = info.event_cause ();
@@ -82,10 +62,11 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
   SCM arts = cause ? get_property (cause, "articulations") : SCM_EOL;
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
-      Stream_event *e = unsmob<Stream_event> (scm_car (s));
+      SCM e_scm = scm_car (s);
+      Stream_event *e = unsmob<Stream_event> (e_scm);
       if (e->in_event_class ("annotate-output-event"))
         {
-          balloonify (info.grob (), e);
+          make_sticky ("BalloonText", info.grob (), e_scm);
         }
     }
 
@@ -93,7 +74,7 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
     {
       if (info.grob ()->name ()
           == ly_symbol2string (get_property (ev, "symbol")))
-        balloonify (info.grob (), ev);
+        make_sticky ("BalloonText", info.grob (), ev->self_scm ());
     }
 }
 
@@ -109,8 +90,7 @@ ADD_TRANSLATOR (Balloon_engraver,
                 "Create balloon texts.",
 
                 /* create */
-                "BalloonTextItem "
-                "BalloonTextSpanner ",
+                "BalloonText",
 
                 /*read*/
                 "",

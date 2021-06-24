@@ -791,7 +791,7 @@ Fragments de codi:
 
 Referència de funcionament intern:
 @rinternals{Balloon_engraver},
-@rinternals{BalloonTextItem},
+@rinternals{BalloonText},
 @rinternals{balloon-interface}.
 
 

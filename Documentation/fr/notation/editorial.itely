@@ -1094,7 +1094,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{Balloon_engraver},
-@rinternals{BalloonTextItem},
+@rinternals{BalloonText},
 @rinternals{balloon-interface}.
 @endmorerefs
 

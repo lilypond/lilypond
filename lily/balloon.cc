@@ -32,9 +32,10 @@ class Balloon_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (print_spanner, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_spanner_height, (SCM, SCM, SCM));
 
+  static Stencil print_balloon_item (Item *me);
+  static Stencil print_balloon_spanner (Spanner *me);
   static Stencil internal_balloon_print (Grob *me, Box b, Offset off);
 };
 
@@ -43,54 +44,61 @@ SCM
 Balloon_interface::print (SCM smob)
 {
   Grob *me = unsmob<Grob> (smob);
-
+  Stencil result;
   if (Item *item = dynamic_cast<Item *> (me))
-    if (!item->break_visible ())
-      return SCM_EOL;
+    {
+      result = print_balloon_item (item);
+    }
+  else if (Spanner *spanner = dynamic_cast<Spanner *> (me))
+    {
+      result = print_balloon_spanner (spanner);
+    }
+  return result.smobbed_copy ();
+}
 
-  Grob *p = me->get_x_parent ();
+Stencil
+Balloon_interface::print_balloon_item (Item *item)
+{
+  Grob *p = item->get_x_parent ();
 
-  Offset off (me->relative_coordinate (p, X_AXIS),
-              me->relative_coordinate (p, Y_AXIS));
+  Offset off (item->relative_coordinate (p, X_AXIS),
+              item->relative_coordinate (p, Y_AXIS));
   Box b (robust_relative_extent (p, p, X_AXIS),
          robust_relative_extent (p, p, Y_AXIS));
 
-  return internal_balloon_print (me, b, off).smobbed_copy ();
+  return internal_balloon_print (item, b, off);
 }
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, print_spanner, 1);
-SCM
-Balloon_interface::print_spanner (SCM smob)
+Stencil
+Balloon_interface::print_balloon_spanner (Spanner *spanner)
 {
-  Spanner *me = unsmob<Spanner> (smob);
-
-  if (Spanner *orig = me->original ())
+  if (Spanner *orig = spanner->original ())
     {
-      Direction spanner_placement = from_scm (get_property (me, "spanner-placement"), LEFT);
+      Direction spanner_placement = from_scm (get_property (spanner, "spanner-placement"), LEFT);
 
       Spanner *wanted = (spanner_placement != RIGHT)
                         ? orig->broken_intos_[0]
                         : orig->broken_intos_.back ();
 
-      if (me != wanted)
-        return SCM_EOL;
+      if (spanner != wanted)
+        return Stencil ();
     }
 
-  Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());
+  Spanner *p = dynamic_cast<Spanner *> (spanner->get_y_parent ());
 
   if (!p)
-    return SCM_EOL;
+    return Stencil ();
 
-  Offset off (me->relative_coordinate (me->get_bound (LEFT), X_AXIS),
-              me->relative_coordinate (p, Y_AXIS));
+  Offset off (spanner->relative_coordinate (spanner->get_bound (LEFT), X_AXIS),
+              spanner->relative_coordinate (p, Y_AXIS));
   Box b (robust_relative_extent (p, p, X_AXIS),
          robust_relative_extent (p, p, Y_AXIS));
-  return internal_balloon_print (me, b, off).smobbed_copy ();
+  return internal_balloon_print (spanner, b, off);
 }
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height, 3);
+MAKE_SCHEME_CALLBACK (Balloon_interface, pure_spanner_height, 3);
 SCM
-Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+Balloon_interface::pure_spanner_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   Grob *me = unsmob<Grob> (smob);
   Spanner *p = dynamic_cast<Spanner *> (me->get_y_parent ());

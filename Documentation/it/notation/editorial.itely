@@ -766,7 +766,7 @@ Frammenti:
 
 Guida al funzionamento interno:
 @rinternals{Balloon_engraver},
-@rinternals{BalloonTextItem},
+@rinternals{BalloonText},
 @rinternals{balloon-interface}.
 
 

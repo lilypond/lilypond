@@ -4365,12 +4365,14 @@ def conv(s):
 ly:context-now -> ly:context-current-moment
 ControlPointItem, ControlPointSpanner -> ControlPoint
 ControlPolygonItem, ControlPolygonSpanner -> ControlPolygon
+FootnoteItem, FootnoteSpanner -> Footnote
+BalloonTextItem, BalloonTextSpanner -> BalloonText
 """)
 def conv(s):
     s = re.sub("ly:context-now", "ly:context-current-moment", s)
     # It's unlikely that users would have wanted different settings
     # for the item type and the spanner type, so this should be reasonable.
-    item_spanner = (r"(ControlPoint|ControlPolygon)"
+    item_spanner = (r"(ControlPoint|ControlPolygon|Footnote|BalloonText)"
                     r"(Item|Spanner)")
     s = re.sub(item_spanner, r"\1", s)
     return s

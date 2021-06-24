@@ -1059,7 +1059,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{Balloon_engraver},
-@rinternals{BalloonTextItem},
+@rinternals{BalloonText},
 @rinternals{balloon-interface}.
 @endmorerefs
 

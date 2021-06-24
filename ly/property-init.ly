@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.21.0"
+\version "2.23.4"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
@@ -115,12 +115,12 @@ autoBeamOff = \set autoBeaming = ##f
 %% balloon length
 
 balloonLengthOn = {
-  \override BalloonTextItem.extra-spacing-width = #'(0 . 0)
-  \override BalloonTextItem.extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override BalloonText.extra-spacing-width = #'(0 . 0)
+  \override BalloonText.extra-spacing-height = #'(-inf.0 . +inf.0)
 }
 balloonLengthOff = {
-  \override BalloonTextItem.extra-spacing-width = #'(+inf.0 . -inf.0)
-  \override BalloonTextItem.extra-spacing-height = #'(0 . 0)
+  \override BalloonText.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override BalloonText.extra-spacing-height = #'(0 . 0)
 }
 
 

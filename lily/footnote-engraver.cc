@@ -34,8 +34,6 @@ class Footnote_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Footnote_engraver);
 
   void acknowledge_grob (Grob_info) override;
-
-  void footnotify (Grob *, SCM);
 };
 
 Footnote_engraver::Footnote_engraver (Context *c)
@@ -43,23 +41,6 @@ Footnote_engraver::Footnote_engraver (Context *c)
 {
 }
 
-void
-Footnote_engraver::footnotify (Grob *g, SCM cause)
-{
-  Grob *footnote = nullptr;
-  if (dynamic_cast<Spanner *> (g))
-    {
-      footnote = make_spanner ("FootnoteSpanner", cause);
-      // Delegate ending the footnote to the Spanner_tracking_engraver.
-      set_object (footnote, "sticky-host", to_scm (g));
-    }
-  else
-    {
-      footnote = make_item ("FootnoteItem", cause);
-      footnote->set_x_parent (g);
-    }
-  footnote->set_y_parent (g);
-}
 
 void
 Footnote_engraver::acknowledge_grob (Grob_info info)
@@ -74,7 +55,7 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
           return;
         }
 
-      footnotify (info.grob (), mus->to_event ()->unprotect ());
+      make_sticky ("Footnote", info.grob (), mus->to_event ()->unprotect ());
 
       // This grob has exhausted its footnote
       set_property (info.grob (), "footnote-music", SCM_EOL);
@@ -92,8 +73,7 @@ ADD_TRANSLATOR (Footnote_engraver,
                 "Create footnote texts.",
 
                 /* create */
-                "FootnoteItem "
-                "FootnoteSpanner ",
+                "Footnote",
 
                 /*read*/
                 "",

@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.4"
 \header {
   texidoc = "This is an example of automatic footnote numbering
 where the number is not reset on each page.  It uses the default
@@ -38,7 +38,7 @@ footnotes.
 \markup { h i }
 
 \relative c' {
-  \once \override Score.FootnoteItem.numbering-assertion-function =
+  \once \override Score.Footnote.numbering-assertion-function =
     #(lambda (grob) (make-footnote-numbering-assertion-function 3))
   \footnote #'(1 . -1) \markup { j } NoteHead
   a b c d
@@ -52,10 +52,10 @@ footnotes.
 
 \relative {
   d'4 e
-  \once \override Score.FootnoteItem.numbering-assertion-function =
+  \once \override Score.Footnote.numbering-assertion-function =
     #(lambda (grob) (make-footnote-numbering-assertion-function 5))
   < f \footnote #'(1 . -1) \markup { n } a c >
-  \once \override Score.FootnoteSpanner.numbering-assertion-function =
+  \once \override Score.Footnote.numbering-assertion-function =
     #(simultaneous-footnote-numbering-assertion-function 6 7)
   a8-\footnote #'(1 . 1) \markup { p } \<
   -\footnote #'(1 . 1) \markup { o } [ b c d ] a4 b c |
