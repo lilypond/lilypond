@@ -66,6 +66,16 @@ which scares away people.
 @end ignore
 
 @item
+Parenthesizing spanners is supported.
+
+@lilypond
+{
+  c'\parenthesize\< d'2.\!
+  \parenthesize R1
+}
+@end lilypond
+
+@item
 A @qq{time-based} version of the @code{\parenthesize} command was
 added.  It takes a grob path: @code{\parenthesize @var{GrobName}}
 or @code{\parenthesize @var{ContextName}.@var{GrobName}}.  It acts

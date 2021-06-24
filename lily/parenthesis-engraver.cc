@@ -54,28 +54,19 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
       // way to merge the two.
       && !has_interface<Accidental_interface> (g))
     {
-      if (Item *victim = dynamic_cast<Item *> (g))
-        {
-          auto *const eng = info.origin_engraver ();
-          Item *paren = eng->make_item ("Parentheses", victim->self_scm ());
-          Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
+       auto *const eng = info.origin_engraver ();
+       Grob *paren = eng->make_sticky ("Parentheses", g, g->self_scm ());
+       Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), g);
 
-          paren->set_y_parent (victim);
+       Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
+                   + from_scm<double> (get_property (g, "font-size"), 0.0);
+       set_property (paren, "font-size", to_scm (size));
 
-          Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
-                      + from_scm<double> (get_property (victim, "font-size"), 0.0);
-          set_property (paren, "font-size", to_scm (size));
+       /*
+         TODO?
 
-          /*
-            TODO?
-
-            enlarge victim to allow for parentheses space?
-          */
-        }
-      else
-        {
-          info.grob ()->warning (_ ("Don't know how to parenthesize spanners."));
-        }
+         enlarge victim to allow for parentheses space?
+       */
     }
 }
 

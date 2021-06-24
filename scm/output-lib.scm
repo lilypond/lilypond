@@ -1017,11 +1017,8 @@ may or may not use it."
 
 (define-public (parentheses-interface::y-extent grob) (ly:grob::stencil-height grob))
 
-(define-public (parenthesize-elements grob . rest)
-  (let* ((refp (if (null? rest)
-                   grob
-                   (car rest)))
-         (elts (ly:grob-array->list (ly:grob-object grob 'elements)))
+(define-public (parenthesize-elements grob)
+  (let* ((elts (ly:grob-array->list (ly:grob-object grob 'elements)))
          (get-friends
           (lambda (g)
             (let ((syms (ly:grob-property g 'parenthesis-friends '()))
@@ -1032,31 +1029,34 @@ may or may not use it."
                                    ((ly:grob-array? f) (ly:grob-array->list f))
                                    (else '()))))))
               (apply append (map get-friend syms)))))
-         (friends (apply append elts (map get-friends elts)))
-         (x-ext (ly:relative-group-extent friends refp X))
+         (parenthesized-elts
+           (ly:grob-list->grob-array
+             (apply append elts (map get-friends elts))))
+         (refp (ly:grob-common-refpoint-of-array grob parenthesized-elts X))
+         (x-ext (ly:relative-group-extent parenthesized-elts refp X))
+         (padding (ly:grob-property grob 'padding 0.1))
+         (wide-ext (interval-widen x-ext padding))
+         (my-x (ly:grob-relative-coordinate grob refp X))
          (stencils (ly:grob-property grob 'stencils))
          (lp (car stencils))
-         (rp (cadr stencils))
-         (padding (ly:grob-property grob 'padding 0.1)))
-
+         (rp (cadr stencils)))
     (ly:stencil-add
-     (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
-     (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))))
+     (ly:stencil-translate-axis lp (interval-start wide-ext) X)
+     (ly:stencil-translate-axis rp (interval-end wide-ext) X))))
 
-
-(define-public (parentheses-interface::print me)
-  (let* ((elts (ly:grob-object me 'elements))
-         (y-ref (ly:grob-common-refpoint-of-array me elts Y))
-         (x-ref (ly:grob-common-refpoint-of-array me elts X))
-         (stencil (parenthesize-elements me x-ref))
-         (elt-y-ext (ly:relative-group-extent elts y-ref Y))
-         (y-center (interval-center elt-y-ext)))
-
-    (ly:stencil-translate
-     stencil
-     (cons
-      (- (ly:grob-relative-coordinate me x-ref X))
-      (- y-center (ly:grob-relative-coordinate me y-ref Y))))))
+(define-public (parentheses-interface::print grob)
+  (let* ((y-parent (ly:grob-parent grob Y))
+         ;; The Y alignment is based on elements and not parenthesized-elements.
+         ;; We don't want the friends, or parenthesized notes with a flat would
+         ;; look bad.
+         (elts (ly:grob-object grob 'elements))
+         (refp (ly:grob-common-refpoint-of-array grob elts Y))
+         (stencil (parenthesize-elements grob))
+         (y-ext (ly:relative-group-extent elts refp Y))
+         (y-center (interval-center y-ext))
+         (my-y (ly:grob-relative-coordinate grob refp Y))
+         (translation (- y-center my-y)))
+    (ly:stencil-translate-axis stencil translation Y)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

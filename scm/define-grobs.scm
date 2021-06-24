@@ -2040,9 +2040,10 @@
         ;; space of its own, however.
         (X-extent . (0 . 0))
         (Y-extent . ,parentheses-interface::y-extent)
-        (meta . ((class . Item)
+        (meta . ((classes . (Item Spanner))
                  (interfaces . (font-interface
-                                parentheses-interface))))))
+                                parentheses-interface
+                                sticky-grob-interface))))))
 
     (PercentRepeat
      . (
