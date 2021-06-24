@@ -19,6 +19,7 @@
 
 #include "grob-array.hh"
 #include "grob.hh"
+#include "international.hh"
 
 Grob_array::Grob_array ()
 {
@@ -78,8 +79,17 @@ grob_list_to_grob_array (SCM lst)
 {
   SCM arr_scm = Grob_array::make_array ();
   Grob_array *ga = unsmob<Grob_array> (arr_scm);
-  for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    ga->add (unsmob<Grob> (scm_car (s)));
+  SCM s = lst;
+  for (; scm_is_pair (s); s = scm_cdr (s))
+    {
+      Grob *g = unsmob<Grob> (scm_car (s));
+      if (!g)
+        warning (_f ("ly:grob-list->grob-array encountered a non-grob object"));
+      else
+        ga->add (g);
+    }
+  if (!scm_is_null (s))
+    warning (_f ("ly:grob-list->grob-array expected a list"));
   return arr_scm;
 }
 

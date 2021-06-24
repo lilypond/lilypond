@@ -55,3 +55,11 @@ LY_DEFINE (ly_grob_array_2_list, "ly:grob-array->list",
 
   return grob_array_to_list (me);
 }
+
+LY_DEFINE (ly_grob_list_2_grob_array, "ly:grob-list->grob-array",
+           1, 0, 0,
+           (SCM grob_list),
+           "Convert a Scheme list of grobs to a grob array.")
+{
+  return grob_list_to_grob_array (grob_list);
+}
