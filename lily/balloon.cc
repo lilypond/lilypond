@@ -45,7 +45,7 @@ Balloon_interface::print (SCM smob)
   Grob *me = unsmob<Grob> (smob);
 
   if (Item *item = dynamic_cast<Item *> (me))
-    if (!Item::break_visible (item))
+    if (!item->break_visible ())
       return SCM_EOL;
 
   Grob *p = me->get_x_parent ();

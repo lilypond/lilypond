@@ -29,8 +29,8 @@
 class Break_alignment_interface
 {
 public:
-  static std::vector<Grob *> ordered_elements (Grob *me);
-  static void add_element (Grob *me, Grob *add);
+  static std::vector<Grob *> ordered_elements (Item *me);
+  static void add_element (Item *me, Item *add);
   static SCM break_align_order (Item *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
 };
@@ -48,7 +48,7 @@ struct Break_aligned_interface
 struct Break_alignable_interface
 {
   DECLARE_SCHEME_CALLBACK (find_parent, (SCM grob));
-  static Grob *find_parent (Grob *me);
+  static Item *find_parent (Grob *me);
 
   DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element));
 };

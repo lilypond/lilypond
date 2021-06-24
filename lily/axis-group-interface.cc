@@ -47,27 +47,6 @@ using std::pair;
 using std::string;
 using std::vector;
 
-/* gets the relevant version of `g` in the context of a line running
-   from `start` to `end` */
-Grob *
-pure_subst_prebroken_piece (Grob *g, vsize start, vsize end)
-{
-  Item *it = dynamic_cast<Item *> (g);
-  if (!it)
-    return g;
-
-  if (it->get_column ()->get_rank () == int (start))
-    {
-      return it->find_prebroken_piece (RIGHT);
-    }
-  if (it->get_column ()->get_rank () == int (end))
-    {
-      return it->find_prebroken_piece (LEFT);
-    }
-
-  return it;
-}
-
 Real Axis_group_interface::default_outside_staff_padding_ = 0.46;
 
 Real
@@ -319,8 +298,8 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
           vsize visibility_end = j + 2 < ranks.size () ? ranks[j + 2] : end;
 
           Grob *maybe_subst
-            = pure_subst_prebroken_piece (g, start, visibility_end);
-          if (Item::break_visible (maybe_subst))
+            = g->pure_find_visible_prebroken_piece (start, visibility_end);
+          if (maybe_subst)
             {
               Interval dims = maybe_subst->pure_y_extent (common, start, end);
               if (!dims.is_empty ())
@@ -377,13 +356,14 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
   extract_grob_set (me, "pure-relevant-grobs", elts);
 
   Interval r;
-  for (vsize i = 0; i < elts.size (); i++)
+  for (auto *g : elts)
     {
-      Grob *g = pure_subst_prebroken_piece (elts[i], start, end);
+      g = g->pure_find_visible_prebroken_piece (start, end);
+      if (!g)
+        continue;
 
       Interval_t<int> rank_span = g->spanned_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
-          && Item::break_visible (g)
           && !(from_scm<bool> (get_property (g, "cross-staff"))
                && has_interface<Stem> (g)))
         {

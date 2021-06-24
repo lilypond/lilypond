@@ -265,7 +265,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
           */
           end_of_line_visible = item->break_status_dir () == LEFT;
 
-          if (!Item::break_visible (item))
+          if (!item->break_visible ())
             continue;
           // safeguard to bring down the column rank so that end of line footnotes show up on the correct line
           if (pos == int (start) && item->break_status_dir () != RIGHT)

@@ -139,6 +139,11 @@ public:
   virtual void handle_prebroken_dependencies ();
   virtual bool internal_set_as_bound_of_spanner (Spanner *, Direction) { return false; }
 
+  // get the relevant piece of this grob in the context of a line running from
+  // `start` to `end` -- nullptr if the grob would not be visible
+  virtual Grob *
+  pure_find_visible_prebroken_piece (vsize start, vsize end) const = 0;
+
   /* printing */
   const Stencil *get_stencil () const;
   Stencil get_print_stencil () const;

@@ -133,21 +133,38 @@ void
 Item::handle_prebroken_dependencies ()
 {
   Grob::handle_prebroken_dependencies ();
-  if (!Item::break_visible (this))
+  if (!break_visible ())
     suicide ();
 }
 
 bool
-Item::break_visible (Grob *g)
+Item::break_visible () const
 {
-  Item *it = dynamic_cast<Item *> (g);
-  SCM vis = get_property (g, "break-visibility");
+  SCM vis = get_property (this, "break-visibility");
   if (scm_is_vector (vis))
     {
-      const auto index = it->break_status_dir ().to_index ();
+      const auto index = break_status_dir ().to_index ();
       return from_scm<bool> (scm_c_vector_ref (vis, index));
     }
   return true;
+}
+
+Item *
+Item::pure_find_visible_prebroken_piece (vsize start, vsize end) const
+{
+  auto *it = const_cast<Item *> (this);
+
+  const auto rank = static_cast<vsize> (get_column ()->get_rank ());
+  if (rank == start)
+    {
+      it = find_prebroken_piece (RIGHT);
+    }
+  else if (rank == end)
+    {
+      it = find_prebroken_piece (LEFT);
+    }
+
+  return it->break_visible () ? it : nullptr;
 }
 
 bool

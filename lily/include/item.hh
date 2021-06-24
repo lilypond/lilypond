@@ -44,7 +44,7 @@ public:
   }
 
   static bool is_non_musical (Grob *);
-  static bool break_visible (Grob *);
+  bool break_visible () const;
 
   bool is_broken () const;
 
@@ -54,6 +54,9 @@ public:
   {
     return !d ? const_cast<Item *> (this) : broken_to_drul_[d];
   }
+
+  Item *
+  pure_find_visible_prebroken_piece (vsize start, vsize end) const override;
 
   Item *find_broken_piece (System *) const override;
   System *get_system () const override;

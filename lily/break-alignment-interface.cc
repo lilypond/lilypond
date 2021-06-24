@@ -23,6 +23,7 @@
 #include "axis-group-interface.hh"
 #include "dimensions.hh"
 #include "international.hh"
+#include "ly-scm-list.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
@@ -42,6 +43,9 @@ using std::vector;
 SCM
 Break_alignment_interface::break_align_order (Item *me)
 {
+  if (!me)
+    return SCM_BOOL_F;
+
   SCM order_vec = get_property (me, "break-align-orders");
   if (!scm_is_vector (order_vec)
       || scm_c_vector_length (order_vec) < 3)
@@ -54,9 +58,8 @@ Break_alignment_interface::break_align_order (Item *me)
 }
 
 vector<Grob *>
-Break_alignment_interface::ordered_elements (Grob *grob)
+Break_alignment_interface::ordered_elements (Item *me)
 {
-  Item *me = dynamic_cast<Item *> (grob);
   extract_grob_set (me, "elements", elts);
 
   SCM order = break_align_order (me);
@@ -88,7 +91,7 @@ Break_alignment_interface::ordered_elements (Grob *grob)
 }
 
 void
-Break_alignment_interface::add_element (Grob *me, Grob *toadd)
+Break_alignment_interface::add_element (Item *me, Item *toadd)
 {
   Align_interface::add_element (me, toadd);
 }
@@ -97,8 +100,7 @@ MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done, 1)
 SCM
 Break_alignment_interface::calc_positioning_done (SCM smob)
 {
-  Grob *grob = unsmob<Grob> (smob);
-  Item *me = dynamic_cast<Item *> (grob);
+  auto *const me = unsmob<Item> (smob);
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
@@ -265,38 +267,42 @@ SCM
 Break_alignable_interface::find_parent (SCM grob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
-  Grob *alignment_parent = find_parent (me);
+  auto *const alignment_parent = find_parent (me);
   return alignment_parent ? alignment_parent->self_scm () : SCM_BOOL_F;
 }
 
-Grob *
+Item *
 Break_alignable_interface::find_parent (Grob *me)
 {
-  Item *alignment = dynamic_cast<Item *> (me->get_x_parent ());
+  auto *const alignment = dynamic_cast<Item *> (me->get_x_parent ());
   if (!has_interface<Break_alignment_interface> (alignment))
-    return 0;
+    return nullptr;
 
+  auto elements = Break_alignment_interface::ordered_elements (alignment);
+  if (elements.empty ())
+    return nullptr;
+
+  Item *break_aligned_grob = nullptr;
   SCM symbol_list = get_property (me, "break-align-symbols");
-  vector<Grob *> elements = Break_alignment_interface::ordered_elements (alignment);
-  if (elements.size () == 0)
-    return 0;
-
-  Grob *break_aligned_grob = 0;
-  for (; scm_is_pair (symbol_list); symbol_list = scm_cdr (symbol_list))
+  for (SCM sym : as_ly_scm_list (symbol_list))
     {
-      SCM sym = scm_car (symbol_list);
-      for (vsize i = 0; i < elements.size (); i++)
+      for (auto *g : elements)
         {
-          if (scm_is_eq (sym, get_property (elements[i], "break-align-symbol")))
+          if (scm_is_eq (sym, get_property (g, "break-align-symbol")))
             {
-              if (Item::break_visible (elements[i])
-                  // TODO SCM: simplify syntax?
-                  && !elements[i]->extent (elements[i], X_AXIS).is_empty ())
+              // Someone would have to do something unusual in Scheme to get a
+              // Spanner here.
+              if (auto *it = dynamic_cast<Item *> (g))
                 {
-                  return elements[i];
+                  if (it->break_visible ()
+                      // TODO SCM: simplify syntax?
+                      && !it->extent (it, X_AXIS).is_empty ())
+                    {
+                      return it;
+                    }
+                  else if (!break_aligned_grob)
+                    break_aligned_grob = it;
                 }
-              else if (!break_aligned_grob)
-                break_aligned_grob = elements[i];
             }
         }
     }
@@ -309,7 +315,7 @@ SCM
 Break_alignable_interface::self_align_callback (SCM grob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
-  Grob *alignment_parent = find_parent (me);
+  auto *const alignment_parent = find_parent (me);
   if (!alignment_parent)
     return to_scm (0);
 
