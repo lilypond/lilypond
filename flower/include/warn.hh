@@ -44,7 +44,7 @@ extern int loglevel;
 extern bool warning_as_error;
 
 /* output messages, in decreasing order of importance */
-void error (std::string s, const std::string &location = ""); // Fatal error, exits lilypond!
+[[noreturn]] void error (std::string s, const std::string &location = ""); // Fatal error, exits lilypond!
 void programming_error (const std::string &s, const std::string &location = "");
 void non_fatal_error (const std::string &, const std::string &location = "");
 void warning (const std::string &s, const std::string &location = "");

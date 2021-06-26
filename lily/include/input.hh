@@ -43,7 +43,7 @@ public:
   size_t size () const { return static_cast<size_t> (end_ - start_); }
 
   void set (Source_file *, char const *, char const *);
-  void error (const std::string &) const;
+  [[noreturn]] void error (const std::string &) const;
   void programming_error (const std::string &) const;
   void non_fatal_error (const std::string &) const;
   void warning (const std::string &) const;

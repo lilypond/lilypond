@@ -21,7 +21,7 @@
 #include "input.hh"
 #include "warn.hh"
 
-void
+[[noreturn]] void
 Diagnostics::error (const std::string &arg) const
 {
   if (Input *input = origin ())

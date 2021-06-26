@@ -175,7 +175,7 @@ print_message (int level, const string &location, string s, bool newline)
  */
 
 /* Display a fatal error message.  Also exits lilypond.  */
-void
+[[noreturn]] void
 error (string s, const string &location)
 {
   print_message (LOG_ERROR, location, _f ("fatal error: %s", s) + "\n");

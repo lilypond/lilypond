@@ -81,7 +81,7 @@ Input::message_location () const
   return (source_file_) ? location_string () : "";
 }
 
-void
+[[noreturn]] void
 Input::error (const string &s) const
 {
   ::error (message_string (s), message_location ());

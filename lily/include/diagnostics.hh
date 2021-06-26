@@ -30,7 +30,7 @@ class Diagnostics
 protected:
   virtual Input *origin () const = 0;
 public:
-  void error (const std::string &) const;
+  [[noreturn]] void error (const std::string &) const;
   void programming_error (const std::string &) const;
   void non_fatal_error (const std::string &) const;
   void warning (const std::string &) const;
