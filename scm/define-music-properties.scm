@@ -32,8 +32,6 @@
      (alteration ,number? "Alteration for figured bass.")
      (alternative-dir ,ly:dir? "Indicates if an AlternativeMusic is the
 First (-1), Middle (0), or Last (1) of group of alternate endings.")
-     (alternative-increment ,integer? "The number of times an alternative's
-lettering should be incremented.")
      (articulation-type ,string? "Key for script definitions alist.
 
 TODO: Consider making type into symbol.")

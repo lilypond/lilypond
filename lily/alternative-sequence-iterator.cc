@@ -124,7 +124,7 @@ Alternative_sequence_iterator::report_alternative_event (Music *element,
         ev->set_spot (*origin);
     }
   set_property (ev, "alternative-dir", to_scm (d));
-  set_property (ev, "alternative-increment", scm_length (volta_nums));
+  set_property (ev, "volta-numbers", volta_nums);
   report_event (ev);
   ev->unprotect ();
 }

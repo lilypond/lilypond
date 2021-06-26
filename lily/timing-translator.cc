@@ -97,7 +97,7 @@ Timing_translator::process_music ()
           set_property (context (), "alternativeNumber", to_scm (alt_number_));
           // will need to add this on the next alternative
           alt_number_increment_
-            = from_scm (get_property (alt_event_, "alternative-increment"), 1);
+            = scm_ilength (get_property (alt_event_, "volta-numbers"));
         }
       else
         {
