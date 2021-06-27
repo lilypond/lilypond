@@ -23,45 +23,50 @@
 
 class Time_signature_performer : public Performer
 {
-public:
-  TRANSLATOR_DECLARATIONS (Time_signature_performer);
-  ~Time_signature_performer ();
+  Audio_time_signature *audio_;
+  SCM last_time_fraction_;
+  SCM time_cause_;
 
 protected:
-
+  void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
-  void derived_mark () const override;
-  SCM prev_fraction_;
-private:
-
-  Audio_time_signature *audio_;
+public:
+  TRANSLATOR_DECLARATIONS (Time_signature_performer);
+  void listen_time_signature (Stream_event *);
 };
 
 void
 Time_signature_performer::derived_mark () const
 {
-  scm_gc_mark (prev_fraction_);
+  scm_gc_mark (last_time_fraction_);
+  scm_gc_mark (time_cause_);
 }
 
 Time_signature_performer::Time_signature_performer (Context *c)
   : Performer (c)
 {
-  prev_fraction_ = SCM_BOOL_F;
   audio_ = 0;
+  time_cause_ = SCM_EOL;
+  last_time_fraction_ = SCM_BOOL_F;
 }
 
-Time_signature_performer::~Time_signature_performer ()
+void
+Time_signature_performer::listen_time_signature (Stream_event *ev)
 {
+  time_cause_ = ev->self_scm ();
 }
 
 void
 Time_signature_performer::process_music ()
 {
+  if (audio_)
+    return;
+
   SCM fr = get_property (this, "timeSignatureFraction");
-  if (scm_is_pair (fr) && !ly_is_equal (fr, prev_fraction_))
+  if (scm_is_pair (fr) && !ly_is_equal (fr, last_time_fraction_))
     {
-      prev_fraction_ = fr;
+      last_time_fraction_ = fr;
       int b = scm_to_int (scm_car (fr));
       int o = scm_to_int (scm_cdr (fr));
 
@@ -74,10 +79,8 @@ Time_signature_performer::process_music ()
 void
 Time_signature_performer::stop_translation_timestep ()
 {
-  if (audio_)
-    {
-      audio_ = 0;
-    }
+  audio_ = 0;
+  time_cause_ = SCM_EOL;
 }
 
 #include "translator.icc"
@@ -85,7 +88,7 @@ Time_signature_performer::stop_translation_timestep ()
 void
 Time_signature_performer::boot ()
 {
-
+  ADD_LISTENER (Time_signature_performer, time_signature);
 }
 
 ADD_TRANSLATOR (Time_signature_performer,
@@ -96,7 +99,7 @@ ADD_TRANSLATOR (Time_signature_performer,
                 "",
 
                 /* read */
-                "",
+                "timeSignatureFraction ",
 
                 /* write */
                 ""
