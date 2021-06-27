@@ -64,7 +64,16 @@ Time_signature_performer::process_music ()
     return;
 
   SCM fr = get_property (this, "timeSignatureFraction");
-  if (scm_is_pair (fr) && !ly_is_equal (fr, last_time_fraction_))
+  // If there is a \time event, we emit the time signature even if it
+  // is the same as previously.  Midi may need it in some cases.
+  // In particular:
+  //
+  // TODO: when a \partial command runs out, the time signature should
+  // get reemitted at the start of the next bar in order to have MIDI
+  // devices resynchronise to the meter.  \partial has no viable
+  // representation in Midi.
+  if (scm_is_pair (fr) && (unsmob<Stream_event> (time_cause_)
+                           || !ly_is_equal (fr, last_time_fraction_)))
     {
       last_time_fraction_ = fr;
       int b = scm_to_int (scm_car (fr));
@@ -93,7 +102,9 @@ Time_signature_performer::boot ()
 
 ADD_TRANSLATOR (Time_signature_performer,
                 /* doc */
-                "",
+                "Creates a MIDI time signature whenever"
+                " @code{timeSignatureFraction} changes or a @code{\\time} command"
+                " is issued.",
 
                 /* create */
                 "",
