@@ -354,7 +354,7 @@ $(outdir)/%.itexi: bib/%.bib
 	$(call ly_progress,Making,$@,< bib)
 	BSTINPUTS=$(src-dir)/essay \
 	  $(PYTHON) $(buildscript-dir)/bib2texi.py \
-	              -s $(top-src-dir)/Documentation/lily-bib -o $@ -q $<
+	    -s $(top-src-dir)/Documentation/lily-bib -o $@ -q $<
 
 $(DOC_TELY_FILES:%.tely=$(outdir)/%.texi):
 
@@ -775,16 +775,16 @@ ifneq ($(ISOLANG),)
 
   snippet-update:
 	  $(PYTHON) $(auxscript-dir)/update-snippets.py \
-	              user $(ISOLANG) '*.itely'
+	    user $(ISOLANG) '*.itely'
 endif # ISOLANG
 
 check-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --batch \
-    $(DOCUMENTATION_INCLUDES)
+	  $(DOCUMENTATION_INCLUDES)
 
 fix-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --auto-fix \
-	$(DOCUMENTATION_INCLUDES)
+	  $(DOCUMENTATION_INCLUDES)
 
 check-translation:
 	cd $(src-dir) \
