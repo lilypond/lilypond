@@ -118,11 +118,12 @@ Mark_engraver::process_music ()
         automatic marks.
       */
 
-      SCM m = get_property (mark_ev_, "label");
+      SCM m = get_property (mark_ev_, "text");
       SCM proc = get_property (this, "markFormatter");
-      if (!Text_interface::is_markup (m)
+      if (scm_is_null (m)
           && ly_is_procedure (proc))
         {
+          m = get_property (mark_ev_, "label");
           if (!scm_is_number (m))
             m = get_property (this, "rehearsalMark");
 

@@ -107,7 +107,7 @@ property, e.g., @code{(beamed-lengths details)}.")
      (iterator-ctor ,procedure? "Function to construct a
 @code{music-event-iterator} object for this music.")
 
-     (label ,index-or-markup? "Label of a mark.")
+     (label ,index? "Sequence number of a mark.  1 is first.")
      (last-pitch ,ly:pitch? "The last pitch after relativization.")
      (length ,ly:moment? "The endpoint of this music.  This property
 is unhappily named in that it does not account for any initial grace

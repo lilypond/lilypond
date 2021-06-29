@@ -185,9 +185,9 @@ are reported on the stderr of this run."
 \test ##[ | #]						% BarCheck
 
 %% Marks
-\test ##[ \mark \default #]			% MarkEvent
-\test ##[ \mark #3 #]
-\test ##[ \mark "Z" #]
+\test ##[ \mark \default #]			% RehearsalMarkEvent
+\test ##[ \mark #3 #]				% RehearsalMarkEvent
+\test ##[ \mark "Z" #]				% AdHocMarkEvent
 \test ##[ \mark \markup \italic "X" #]
 \test ##[ \mark "Allegro" #]
 \test ##[ \tempo 4 = 120 #]			% MetronomeChangeEvent

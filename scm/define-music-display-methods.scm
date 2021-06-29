@@ -557,7 +557,11 @@ expression."
 (define-display-method RepeatedChord (chord)
   (music->lily-string (ly:music-property chord 'element)))
 
-(define-display-method MarkEvent (mark)
+(define-display-method AdHocMarkEvent (mark)
+  (string-append "\\mark "
+                 (markup->lily-string (ly:music-property mark 'text))))
+
+(define-display-method RehearsalMarkEvent (mark)
   (let ((label (ly:music-property mark 'label #f)))
     (string-append "\\mark "
                    (if label (value->lily-string label) "\\default"))))

@@ -47,6 +47,7 @@
                     duration-line-event fine-event))
 
     (layout-instruction-event . (apply-output-event))
+    (mark-event . (ad-hoc-mark-event rehearsal-mark-event))
     (script-event . (articulation-event text-script-event))
     (part-combine-event . (solo-one-event solo-two-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))

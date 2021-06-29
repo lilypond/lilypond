@@ -425,8 +425,8 @@ denoting alteration.  For alterations, use symbols, e.g.
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
      (markFormatter ,procedure? "A procedure taking as arguments the
-context and the rehearsal mark.  It should return the formatted mark as
-a markup object.")
+context and the sequence number of the rehearsal mark.  It should
+return the formatted mark as a markup object.")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
      (measureLength ,ly:moment? "Length of one measure in the current

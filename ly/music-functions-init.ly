@@ -900,10 +900,16 @@ makeClusters =
 
 mark =
 #(define-music-function (label) ((index-or-markup?))
-   (_i "Make the music for the \\mark command.")
-   (if label
-       (make-music 'MarkEvent 'label label)
-       (make-music 'MarkEvent)))
+   (_i "Create a rehearsal mark.  If @var{label} is an integer, create the
+rehearsal mark for the given sequence number.  If @var{label} is
+@code{\\default}, create the next sequential rehearsal mark.  If
+@var{label} is markup, use it for the mark.")
+   (cond ((not label)
+          (make-music 'RehearsalMarkEvent))
+         ((index? label)
+          (make-music 'RehearsalMarkEvent 'label label))
+         (else
+          (make-music 'AdHocMarkEvent 'text label))))
 
 markupMap =
 #(define-music-function (path markupfun music)

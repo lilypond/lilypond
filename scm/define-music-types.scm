@@ -31,6 +31,16 @@ Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
         (types . (post-event event dynamic-event absolute-dynamic-event))
         ))
 
+    (AdHocMarkEvent
+     . ((description . "Insert markup as a rehearsal mark without advancing
+the rehearsal mark sequence.
+
+Syntax: @code{\\mark} @var{markup}
+
+Example: @code{\\mark \"A\"}")
+        (types . (ad-hoc-mark-event mark-event event))
+        ))
+
     (AlternativeEvent
      . ((description . "Create an alternative event.")
         (types . (event alternative-event))
@@ -325,15 +335,6 @@ i.e., @code{\\lyrics @{ twinkle4 twinkle4 @} }.")
         (types . (rhythmic-event lyric-event event))
         ))
 
-    (MarkEvent
-     . ((description . "Insert a rehearsal mark.
-
-Syntax: @code{\\mark} @var{marker}
-
-Example: @code{\\mark \"A\"}")
-        (types . (mark-event event))
-        ))
-
     (MeasureSpannerEvent
      . ((description . "Used to signal the start and end of a measure
 spanner.")
@@ -508,6 +509,15 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
         (length-callback . ,ly:music-wrapper::length-callback)
         (start-callback . ,ly:music-wrapper::start-callback)
         (types . (music-wrapper-music))
+        ))
+
+    (RehearsalMarkEvent
+     . ((description . "Insert a rehearsal mark.
+
+Syntax: @code{\\mark} @var{marker}
+
+Example: @code{\\mark \"A\"}")
+        (types . (rehearsal-mark-event mark-event event))
         ))
 
     (RelativeOctaveCheck
