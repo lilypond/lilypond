@@ -25,4 +25,4 @@
 @@uref{news.html#LilyPond-2_002e22_002e1-released-April-25_002c-2021,
   LilyPond 2.22.1 released - @emph{April 25, 2021}}
 
-end ifset
+@end ifset
