@@ -8,6 +8,16 @@
 
 @c used for news about the upcoming release; see CG on Release Work
 
+
+@newsItem
+@subheading LilyPond 2.23.3 released  @emph{July 4, 2021}
+
+We are happy to announce the release of LilyPond 2.23.3. This is termed a 
+development release, but these are usually reliable. If you want to use the 
+current stable version of LilyPond, we recommend using the 2.22.1 version. 
+
+@newsEnd
+
 @newsItem
 @subheading LilyPond 2.22.1 released!  @emph{April 25, 2021}
 
@@ -18,15 +28,6 @@ printouts.
 
 This version includes improvements and fixes since the release of the 
 previous stable release in January 2021.
-
-@newsEnd
-
-@newsItem
-@subheading LilyPond 2.23.2 released  @emph{April 11, 2021}
-
-We are happy to announce the release of LilyPond 2.23.2. This is termed a 
-development release, but these are usually reliable. If you want to use the 
-current stable version of LilyPond, we recommend using the 2.22.0 version. 
 
 @newsEnd
 
