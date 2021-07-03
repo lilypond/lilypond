@@ -364,9 +364,9 @@ class SystemLink:
 
 
 def scheme_float(s):
-    if 'nan' not in s:
-        return float(s)
-    return float(s.split('.')[0])
+    if ('nan' in s) or ('inf' in s):
+        s = s.split('.')[0]
+    return float(s)
 
 
 def read_signature_file(name):
