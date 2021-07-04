@@ -4361,6 +4361,13 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+@rule((2, 23, 4), r"""
+ly:context-now -> ly:context-current-moment
+""")
+def conv(s):
+    s = re.sub("ly:context-now", "ly:context-current-moment", s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

@@ -55,7 +55,7 @@
   ;;
   ;;
   ;; Don't start auto beams on grace notes
-  (and (or (zero? (ly:moment-grace (ly:context-now context)))
+  (and (or (zero? (ly:moment-grace (ly:context-current-moment context)))
            (!= dir START))
        (let* ((base-length (cond ((get 'baseMoment #f) => ly:moment-main)
                                  (else 1/4)))

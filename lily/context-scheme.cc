@@ -173,14 +173,6 @@ LY_DEFINE (ly_context_find, "ly:context-find",
   return tr ? tr->self_scm () : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_context_now, "ly:context-now",
-           1, 0, 0, (SCM context),
-           "Return @code{now-moment} of context @var{context}.")
-{
-  auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
-  return ctx->now_mom ().smobbed_copy ();
-}
-
 LY_DEFINE (ly_context_event_source, "ly:context-event-source",
            1, 0, 0, (SCM context),
            "Return @code{event-source} of context @var{context}.")
