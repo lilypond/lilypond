@@ -175,7 +175,7 @@ struct Accidental_result
 static
 Accidental_result
 check_pitch_against_rules (Pitch const &pitch, Context *origin,
-                           SCM rules, int bar_number, SCM measurepos)
+                           SCM rules, int bar_number)
 {
   Accidental_result result;
   SCM pitch_scm = pitch.smobbed_copy ();
@@ -190,8 +190,8 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
       SCM rule = scm_car (rules);
       if (ly_is_procedure (rule))
         {
-          SCM rule_result_scm = scm_call_4 (rule, origin->self_scm (),
-                                            pitch_scm, barnum_scm, measurepos);
+          SCM rule_result_scm = scm_call_3 (rule, origin->self_scm (),
+                                            pitch_scm, barnum_scm);
           Accidental_result rule_result (rule_result_scm);
 
           result.need_acc |= rule_result.need_acc;
@@ -223,7 +223,6 @@ Accidental_engraver::process_acknowledged ()
     {
       SCM accidental_rules = get_property (this, "autoAccidentals");
       SCM cautionary_rules = get_property (this, "autoCautionaries");
-      SCM measure_position = get_property (this, "measurePosition");
       int barnum = measure_number (context ());
 
       for (vsize i = 0; i < accidentals_.size (); i++)
@@ -239,10 +238,12 @@ Accidental_engraver::process_acknowledged ()
           if (!pitch)
             continue;
 
-          Accidental_result acc = check_pitch_against_rules (*pitch, origin, accidental_rules,
-                                                             barnum, measure_position);
-          Accidental_result caut = check_pitch_against_rules (*pitch, origin, cautionary_rules,
-                                                              barnum, measure_position);
+          Accidental_result acc = check_pitch_against_rules (*pitch, origin,
+                                                             accidental_rules,
+                                                             barnum);
+          Accidental_result caut = check_pitch_against_rules (*pitch, origin,
+                                                              cautionary_rules,
+                                                              barnum);
 
           bool cautionary = from_scm<bool> (get_property (note, "cautionary"));
           if (caut.score () > acc.score ())
@@ -412,9 +413,9 @@ Accidental_engraver::stop_translation_timestep ()
       Rational a = pitch->get_alteration ();
       SCM key = scm_cons (to_scm (o), to_scm (n));
 
-      Moment end_mp = measure_position (context (),
-                                        unsmob<Duration> (get_property (note, "duration")));
-      SCM position = scm_cons (to_scm (barnum), end_mp.smobbed_copy ());
+      Duration *dur = unsmob<Duration> (get_property (note, "duration"));
+      Moment end_mom = note_end_mom (context (), dur);
+      SCM position = scm_cons (to_scm (barnum), end_mom.smobbed_copy ());
 
       SCM localsig = SCM_EOL;
       while (origin

@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.23.4"
 
 \header {
   texidoc = "Test all available accidental styles."

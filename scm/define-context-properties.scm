@@ -112,9 +112,6 @@ The pitch of the note to be evaluated.
 @item barnum
 The current bar number.
 
-@item measurepos
-The current measure position.
-
 @end table
 
 The procedure returns a pair of booleans.  The first states whether an extra

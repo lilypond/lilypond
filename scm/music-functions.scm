@@ -1677,7 +1677,7 @@ also get an accidental."
 
     (cons need-restore need-accidental)))
 
-(define ((make-accidental-rule octaveness laziness) context pitch barnum measurepos)
+(define ((make-accidental-rule octaveness laziness) context pitch barnum)
   "Create an accidental rule that makes its decision based on the octave of
 the note and a laziness value.
 
@@ -1697,7 +1697,7 @@ immediately', that is, only look at key signature.  @code{#t} is `forever'."
   (check-pitch-against-signature context pitch barnum laziness octaveness #f))
 (export make-accidental-rule)
 
-(define ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum measurepos)
+(define ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum)
   "Variation on function make-accidental-rule that creates an dodecaphonic
 accidental rule."
 
@@ -1712,7 +1712,7 @@ key signatures or to indicate an explicit accidental.
 
 The @samp{cdr} of the entry is either a rational @code{alter} indicating
 a key signature alteration, or of the form
-@code{(alter . (barnum . measurepos))} indicating an alteration caused by
+@code{(alter . (barnum . end-mom))} indicating an alteration caused by
 an accidental in music."
   (if (pair? (car entry))
       (cdar entry)
@@ -1730,9 +1730,9 @@ or @code{#f} if the entry does not have a bar number.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (caddr entry)))
 
-(define (key-entry-measure-position entry)
-  "Return the measure position of an entry in @code{localAlterations}
-or @code{#f} if the entry does not have a measure position.
+(define (key-entry-end-mom entry)
+  "Return the end moment of an entry in @code{localAlterations}
+or @code{#f} if the entry does not have an end moment.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (cdddr entry)))
 
@@ -1766,7 +1766,7 @@ If no matching entry is found, @var{#f} is returned."
              entry
              (find-pitch-entry (cdr keysig) pitch accept-global accept-local)))))
 
-(define-public (neo-modern-accidental-rule context pitch barnum measurepos)
+(define-public (neo-modern-accidental-rule context pitch barnum)
   "An accidental rule that typesets an accidental if it differs from the
 key signature @emph{and} does not directly follow a note on the same
 staff line.  This rule should not be used alone because it does neither
@@ -1778,12 +1778,14 @@ look at bar lines nor different accidentals at the same note name."
         (let* ((global-entry (find-pitch-entry keysig pitch #t #f))
                (key-acc (key-entry-alteration global-entry))
                (acc (ly:pitch-alteration pitch))
-               (entrymp (key-entry-measure-position entry))
-               (entrybn (key-entry-bar-number entry)))
+               (entry-end-mom (key-entry-end-mom entry))
+               (entry-bn (key-entry-bar-number entry))
+               (now (ly:context-current-moment context)))
           (cons #f (not (or (equal? acc key-acc)
-                            (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
+                            (and (equal? entry-bn barnum)
+                                 (equal? entry-end-mom now)))))))))
 
-(define-public (dodecaphonic-no-repeat-rule context pitch barnum measurepos)
+(define-public (dodecaphonic-no-repeat-rule context pitch barnum)
   "An accidental rule that typesets an accidental before every
 note (just as in the dodecaphonic accidental style) @emph{except} if
 the note is immediately preceded by a note with the same pitch. This
@@ -1792,31 +1794,35 @@ is a common accidental style in contemporary notation."
          (entry (find-pitch-entry keysig pitch #f #t)))
     (if (not entry)
         (cons #f #t)
-        (let ((entrymp (key-entry-measure-position entry))
-              (entrybn (key-entry-bar-number entry))
-              (entryalt (key-entry-alteration entry))
-              (alt (ly:pitch-alteration pitch)))
-          (cons #t
-                (not (and (equal? entrybn barnum)
-                          (or (equal? measurepos entrymp)
-                              (ly:moment<? measurepos entrymp))
-                          (equal? entryalt alt))))))))
+        (let ((entry-end-mom (key-entry-end-mom entry))
+              (entry-bn (key-entry-bar-number entry))
+              (entry-alt (key-entry-alteration entry))
+              (alt (ly:pitch-alteration pitch))
+              (now (ly:context-current-moment context)))
+          (cons #t ; FIXME: why is this different from dodecaphonic? --JeanAS
+                (not (and (equal? entry-bn barnum)
+                          (or (equal? now entry-end-mom)
+                              (ly:moment<? now entry-end-mom))
+                          (equal? entry-alt alt))))))))
 
-(define-public (teaching-accidental-rule context pitch barnum measurepos)
+(define-public (teaching-accidental-rule context pitch barnum)
   "An accidental rule that typesets a cautionary accidental if it is
 included in the key signature @emph{and} does not directly follow a note
 on the same staff line."
   (let* ((keysig (ly:context-property context 'localAlterations))
-         (entry (find-pitch-entry keysig pitch #t #t)))
+         (entry (find-pitch-entry keysig pitch #t #t))
+         (now (ly:context-current-moment context)))
     (if (not entry)
         (cons #f #f)
         (let* ((global-entry (find-pitch-entry keysig pitch #f #f))
                (key-acc (key-entry-alteration global-entry))
                (acc (ly:pitch-alteration pitch))
-               (entrymp (key-entry-measure-position entry))
-               (entrybn (key-entry-bar-number entry)))
+               (entry-end-mom (key-entry-end-mom entry))
+               (entry-bn (key-entry-bar-number entry))
+               (now (ly:context-current-moment context)))
           (cons #f (not (or (equal? acc key-acc)
-                            (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
+                            (and (equal? entry-bn barnum)
+                                 (equal? entry-end-mom now)))))))))
 
 (define-session-public accidental-styles
   ;; An alist containing specification for all accidental styles.
@@ -1885,7 +1891,7 @@ on the same staff line."
     ;; Accidentals as they were common in dodecaphonic music with no tonality.
     ;; Each note gets one accidental.
     (dodecaphonic #f
-                  (Staff ,(lambda (c p bn mp) '(#f . #t)))
+                  (Staff ,(lambda (c p bn) '(#f . #t)))
                   ())
     ;; As in dodecaphonic style with the exception that immediately
     ;; repeated notes (in the same voice) don't get an accidental
@@ -2021,7 +2027,7 @@ as a context."
 
 Elements of @code{'localAlterations} corresponding to local
 alterations of the key signature have the form
-@code{'((octave . notename) . (alter barnum . measurepos))}.
+@code{'((octave . notename) . (alter barnum . end-mom))}.
 Replace them with a version where @code{alter} is set to @code{'clef}
 to force a repetition of accidentals.
 

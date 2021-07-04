@@ -252,7 +252,7 @@ Grob *get_current_note_head (Context *voice);
 Grob *get_current_rest (Context *voice);
 
 Moment measure_position (Context const *context);
-Moment measure_position (Context const *context, Duration const *dur);
+Moment note_end_mom (Context const *context, Duration const *dur);
 Rational measure_length (Context const *context);
 int measure_number (Context const *context);
 

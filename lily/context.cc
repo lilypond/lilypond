@@ -32,6 +32,7 @@
 #include "translator-group.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+#include "duration.hh"
 
 using std::string;
 using std::vector;
@@ -894,17 +895,16 @@ measure_position (Context const *context)
   return m;
 }
 
-/* Finds the measure position after a note of length DUR that
-   begins at the current measure position. */
+// Find the moment where a note of duration dur happening now will end.
 Moment
-measure_position (Context const *context, Duration const *dur)
+note_end_mom (Context const *context, Duration const *dur)
 {
-  Moment pos = measure_position (context);
+  Moment now = context->now_mom ();
   Rational dur_length = dur ? dur->get_length () : Rational (0);
 
-  Moment end_pos = pos.grace_part_ < Rational (0)
-                   ? Moment (pos.main_part_, pos.grace_part_ + dur_length)
-                   : Moment (pos.main_part_ + dur_length, 0);
+  Moment end_pos = now.grace_part_ < Rational (0)
+                   ? Moment (now.main_part_, now.grace_part_ + dur_length)
+                   : Moment (now.main_part_ + dur_length, 0);
 
   return end_pos;
 }
