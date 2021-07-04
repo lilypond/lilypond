@@ -30,24 +30,28 @@ MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
 SCM
 Self_alignment_interface::y_aligned_on_self (SCM element)
 {
-  return aligned_on_self (unsmob<Grob> (element), Y_AXIS, false, 0, 0);
+  auto *const me = LY_ASSERT_SMOB (Grob, element, 1);
+  return to_scm (aligned_on_self (me, Y_AXIS, false, 0, 0));
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_aligned_on_self, 1);
 SCM
 Self_alignment_interface::x_aligned_on_self (SCM element)
 {
-  return aligned_on_self (unsmob<Grob> (element), X_AXIS, false, 0, 0);
+  auto *const me = LY_ASSERT_SMOB (Grob, element, 1);
+  return to_scm (x_aligned_on_self (me));
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self, 3);
 SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
-  return aligned_on_self (unsmob<Grob> (smob), Y_AXIS, true, from_scm (start, 0), from_scm (end, INT_MAX));
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return to_scm (pure_y_aligned_on_self (me, from_scm (start, 0),
+                                         from_scm (end, INT_MAX)));
 }
 
-SCM
+Real
 Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
 {
   SCM align = (a == X_AXIS)
@@ -59,7 +63,7 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
       // Empty extent doesn't mean an error - we simply don't align such grobs.
       // However, empty extent and non-empty stencil would be suspicious.
       if (!ext.is_empty ())
-        return to_scm (- ext.linear_combination (scm_to_double (align)));
+        return - ext.linear_combination (scm_to_double (align));
       else
         {
           auto *st = me->get_stencil ();
@@ -67,44 +71,48 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int star
             warning (me->name () + " has empty extent and non-empty stencil.");
         }
     }
-  return to_scm (0.0);
+  return 0.0;
 }
 
-SCM
-Self_alignment_interface::centered_on_object (Grob *him, Axis a)
+Real
+Self_alignment_interface::centered_on_self (Grob *me, Axis a)
 {
-  return to_scm (robust_relative_extent (him, him, a).center ());
+  return robust_relative_extent (me, me, a).center ();
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_x_parent, 1);
 SCM
 Self_alignment_interface::centered_on_x_parent (SCM smob)
 {
-  return centered_on_object (unsmob<Grob> (smob)->get_x_parent (), X_AXIS);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return to_scm (centered_on_self (me->get_x_parent (), X_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_y_parent, 1);
 SCM
 Self_alignment_interface::centered_on_y_parent (SCM smob)
 {
-  return centered_on_object (unsmob<Grob> (smob)->get_y_parent (), Y_AXIS);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return to_scm (centered_on_self (me->get_y_parent (), Y_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent, 1);
 SCM
 Self_alignment_interface::aligned_on_x_parent (SCM smob)
 {
-  return aligned_on_parent (unsmob<Grob> (smob), X_AXIS);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return to_scm (aligned_on_parent (me, X_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_y_parent, 1);
 SCM
 Self_alignment_interface::aligned_on_y_parent (SCM smob)
 {
-  return aligned_on_parent (unsmob<Grob> (smob), Y_AXIS);
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  return to_scm (aligned_on_parent (me, Y_AXIS));
 }
 
-SCM
+Real
 Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 {
   Grob *him = me->get_parent (a);
@@ -167,7 +175,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
         }
     }
 
-  return to_scm (x);
+  return x;
 }
 
 void

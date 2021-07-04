@@ -309,13 +309,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
             }
           else
             {
-              SCM self_align_y
+              auto self_align_y
                 = Self_alignment_interface::aligned_on_parent (f, Y_AXIS);
               SCM yoff = get_property (f, "Y-offset");
               if (scm_is_number (yoff))
-                self_align_y = to_scm (scm_to_double (self_align_y)
-                                       + scm_to_double (yoff));
-              set_property (f, "Y-offset", self_align_y);
+                self_align_y = self_align_y + scm_to_double (yoff);
+              set_property (f, "Y-offset", to_scm (self_align_y));
             }
 
           Side_position_interface::set_axis (f, X_AXIS);
