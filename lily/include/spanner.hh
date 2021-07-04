@@ -25,6 +25,8 @@
 
 #include <vector>
 
+class Engraver;
+
 /** A symbol which is attached between two columns. A spanner is a
     symbol which spans across several columns, so its final appearance
     can only be calculated after the breaking problem is solved.
@@ -103,6 +105,9 @@ public:
 
   SCM get_cached_pure_property (SCM sym, vsize start, vsize end);
   void cache_pure_property (SCM sym, vsize start, vsize end, SCM value);
+  Spanner *make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
+                                  char const *file, int line,
+                                  char const *fun) override;
 
 protected:
   void set_my_columns ();

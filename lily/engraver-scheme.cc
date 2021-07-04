@@ -76,6 +76,27 @@ LY_DEFINE (ly_engraver_make_spanner, "ly:engraver-make-spanner",
                                     "scheme")->self_scm ();
 }
 
+LY_DEFINE (ly_engraver_make_sticky, "ly:engraver-make-sticky",
+           4, 0, 0, (SCM engraver, SCM grob_name, SCM host, SCM cause),
+           "Utility function to create a grob sticking to another grob."
+           " This acts like either @code{ly:engraver-make-item}"
+           " or @code{ly:engraver-make-spanner}, depending on the class"
+           " of the host.  Additionally, the host is made the parent"
+           " of the newly created sticky grob on the Y@tie{}axis and,"
+           " for items, on the X@tie{}axis.  Sticky spanners take"
+           " their bounds from their host and their end is announced"
+           " with the end of the host.\n"
+           "\n"
+           " Sticky grobs must have the @rinternals{sticky-grob-interface}.")
+{
+  auto *const en = LY_ASSERT_SMOB (Engraver, engraver, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);
+  auto *const h = LY_ASSERT_SMOB (Grob, host, 3);
+  LY_ASSERT_TYPE (ly_is_grob_cause, cause, 4);
+  Grob *g = en->internal_make_sticky (grob_name, h, cause, "scheme", 0, "scheme");
+  return g->self_scm ();
+}
+
 LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
            3, 0, 0, (SCM engraver, SCM grob, SCM cause),
            "Announce the end of a grob (i.e., the end of a spanner)"

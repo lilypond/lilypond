@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.23.4"
 
 \header {
   texidoc = "The @code{\vshape} command acts like the @code{\shape}
@@ -23,7 +23,7 @@ testVshape = \vshape #'((0 . 0) (1 . 0) (2 . 0) (3 . 0)) \etc
 
   % \override works without specifying Score context
   % (even though the engraver actually lives in Score).
-  \once \override ControlPolygonSpanner.thickness = 10
+  \once \override ControlPolygon.thickness = 10
   c1\testVshape\( c\)
 
   c1\testVshape\laissezVibrer

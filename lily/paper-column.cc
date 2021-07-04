@@ -22,8 +22,10 @@
 #include "axis-group-interface.hh"
 #include "bar-line.hh"
 #include "break-align-interface.hh"
+#include "engraver.hh"
 #include "font-interface.hh"
 #include "grob-array.hh"
+#include "international.hh"
 #include "lookup.hh"
 #include "moment.hh"
 #include "output-def.hh"
@@ -442,6 +444,17 @@ Paper_column::is_extraneous_column_from_ligature (Grob *me)
         }
     }
   return has_notehead;
+}
+
+[[noreturn]] Paper_column *
+Paper_column::make_sticky_same_type (Engraver * /*eng*/, SCM /*type*/,
+                                     SCM /*cause*/, char const * /*file*/,
+                                     int /*line*/, char const * /*fun*/)
+{
+  error (_f ("refusing to create a grob sticking to Paper_column"
+             " grob %s; paper columns should not be created from"
+             " custom engravers.",
+             this->name ()));
 }
 
 

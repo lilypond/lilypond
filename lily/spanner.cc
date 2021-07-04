@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "engraver.hh"
 #include "moment.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
@@ -562,6 +563,17 @@ Spanner::cache_pure_property (SCM sym, vsize start, vsize end, SCM val)
   scm_hash_set_x (pure_property_cache_,
                   make_pure_property_cache_key (sym, start, end),
                   val);
+}
+
+Spanner *
+Spanner::make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
+                                char const *file, int line, char const *fun)
+{
+  Spanner *g = eng->internal_make_spanner (type, cause, file, line, fun);
+  g->set_y_parent (this);
+  // Delegate ending the sticky spanner and setting its bounds
+  // to the Spanner_tracking_engraver.
+  return g;
 }
 
 ADD_INTERFACE (Spanner,

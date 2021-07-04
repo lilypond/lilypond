@@ -27,6 +27,7 @@
 #include "system.hh"
 #include "pointer-group-interface.hh"
 #include "moment.hh"
+#include "engraver.hh"
 
 Item::Item (SCM s)
   : Grob (s)
@@ -230,6 +231,16 @@ Item::cache_pure_height (Interval height)
 {
   cached_pure_height_ = height;
   cached_pure_height_valid_ = true;
+}
+
+Item *
+Item::make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
+                             char const *file, int line, char const *fun)
+{
+  Item *g = eng->internal_make_item (type, cause, file, line, fun);
+  g->set_x_parent (this);
+  g->set_y_parent (this);
+  return g;
 }
 
 ADD_INTERFACE (Item,

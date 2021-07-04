@@ -21,6 +21,8 @@
 
 #include "grob.hh"
 
+class Engraver;
+
 /**
    A horizontally fixed size element of the score.
 
@@ -37,6 +39,9 @@ public:
   Item (Item const &);
 
   Item *clone () const override { return new Item (*this); }
+  Item *make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
+                               char const *file, int line,
+                               char const *fun) override;
   Item *original () const
   {
     // safe: if there is an original, it is because this was cloned from it

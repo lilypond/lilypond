@@ -102,6 +102,9 @@ public:
   Grob (SCM basic_props);
   Grob (Grob const &);
   virtual Grob *clone () const = 0;
+  virtual Grob *make_sticky_same_type (Engraver *eng, SCM type, SCM cause,
+                                       char const *file, int line,
+                                       char const *fun) = 0;
 
   /* forced death */
   void suicide ();

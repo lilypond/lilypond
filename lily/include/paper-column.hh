@@ -24,6 +24,8 @@
 #include "moment.hh"
 #include "rod.hh"
 
+class Engraver;
+
 class Paper_column : public Item
 {
   /* Columns are sequentially numbered on creation. 0 is the
@@ -44,6 +46,10 @@ public:
   Paper_column (Paper_column const &);
 
   Paper_column *clone () const override { return new Paper_column (*this); }
+  [[noreturn]] Paper_column *make_sticky_same_type (Engraver *eng, SCM type,
+                                                    SCM cause, char const *file,
+                                                    int line, char const *fun)
+                                                    override;
   Paper_column *original () const
   {
     // safe: if there is an original, it is because this was cloned from it

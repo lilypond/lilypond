@@ -737,7 +737,7 @@
                  (interfaces . (cluster-beacon-interface
                                 rhythmic-grob-interface))))))
 
-    (ControlPointItem
+    (ControlPoint
      . (
         (color . "IndianRed")
         (horizontal-skylines . #f)
@@ -749,28 +749,12 @@
         (X-offset . ,(control-point::calc-offset X))
         (Y-extent . #f)
         (Y-offset . ,(control-point::calc-offset Y))
-        (meta . ((class . Item)
-                 (interfaces . (control-point-interface
-                                text-interface))))))
-
-    (ControlPointSpanner
-     . (
-        (color . "IndianRed")
-        (horizontal-skylines . #f)
-        (layer . 3)
-        (text . ,(make-draw-circle-markup 0.3 0.01 #t))
-        (stencil . ,ly:text-interface::print)
-        (vertical-skylines . #f)
-        (X-extent . #f)
-        (X-offset . ,(control-point::calc-offset X))
-        (Y-extent . #f)
-        (Y-offset . ,(control-point::calc-offset Y))
-        (meta . ((class . Spanner)
+        (meta . ((classes . (Item Spanner))
                  (interfaces . (control-point-interface
                                 sticky-grob-interface
                                 text-interface))))))
 
-    (ControlPolygonItem
+    (ControlPolygon
      . (
         (color . "BurlyWood")
         (extroversion . 0.5)
@@ -783,24 +767,7 @@
         (vertical-skylines . #f)
         (X-extent . #f)
         (Y-extent . #f)
-        (meta . ((class . Item)
-                 (interfaces . (control-polygon-interface
-                                text-interface))))))
-
-    (ControlPolygonSpanner
-     . (
-        (color . "BurlyWood")
-        (extroversion . 0.5)
-        (filled . #f)
-        (horizontal-skylines . #f)
-        (layer . 2)
-        (text . ,control-polygon::calc-text)
-        (thickness . 1.2)
-        (stencil . ,ly:text-interface::print)
-        (vertical-skylines . #f)
-        (X-extent . #f)
-        (Y-extent . #f)
-        (meta . ((class . Spanner)
+        (meta . ((classes . (Item Spanner))
                  (interfaces . (control-polygon-interface
                                 sticky-grob-interface
                                 text-interface))))))

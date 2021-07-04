@@ -225,6 +225,21 @@ Engraver::internal_make_indeterminate (SCM x, SCM cause,
   return internal_make_grob<Grob> (x, cause, file, line, fun);
 }
 
+Grob *
+Engraver::internal_make_sticky (SCM x, Grob *host, SCM cause,
+                                char const *file, int line, char const *fun)
+{
+  Grob *sticky = host->make_sticky_same_type (this, x, cause,
+                                              file, line, fun);
+  if (!sticky->internal_has_interface (ly_symbol2scm ("sticky-grob-interface")))
+    {
+      programming_error (_f ("sticky grob %s created with a type that does"
+                             " not have the sticky-grob-interface",
+                             sticky->name ()));
+    }
+  set_object (sticky, "sticky-host", host->self_scm ());
+  return sticky;
+}
 
 bool
 ly_is_grob_cause (SCM obj)

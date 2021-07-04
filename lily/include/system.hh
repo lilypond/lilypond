@@ -29,6 +29,8 @@
 #include <limits>
 #include <vector>
 
+class Engraver;
+
 /*
   If you keep following offset reference points, you will always end
   up at the root object. This root object is called @ref{System}, and it
@@ -122,6 +124,10 @@ public:
   Interval rest_of_line_pure_height (vsize start, vsize end);
   Interval pure_refpoint_extent (vsize start, vsize end);
   void collect_labels (Grob const *, SCM *);
+  [[noreturn]] System *make_sticky_same_type (Engraver *eng, SCM type,
+                                              SCM cause, char const *file,
+                                              int line, char const *fun)
+                                              override;
 
 protected:
   void derived_mark () const override;

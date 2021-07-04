@@ -47,8 +47,9 @@ note)."
 
 (ly:add-interface
  'sticky-grob-interface
- "A spanner that is attached to another spanner regarding bounds and
-announcement timing."
+ "A grob that is attached to another grob.  Grobs type having this
+interface can be either items or spanners, depending on the class
+of their host."
  '(sticky-host))
 
 (ly:add-interface

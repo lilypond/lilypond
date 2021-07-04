@@ -4363,9 +4363,16 @@ def conv(s):
 
 @rule((2, 23, 4), r"""
 ly:context-now -> ly:context-current-moment
+ControlPointItem, ControlPointSpanner -> ControlPoint
+ControlPolygonItem, ControlPolygonSpanner -> ControlPolygon
 """)
 def conv(s):
     s = re.sub("ly:context-now", "ly:context-current-moment", s)
+    # It's unlikely that users would have wanted different settings
+    # for the item type and the spanner type, so this should be reasonable.
+    item_spanner = (r"(ControlPoint|ControlPolygon)"
+                    r"(Item|Spanner)")
+    s = re.sub(item_spanner, r"\1", s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

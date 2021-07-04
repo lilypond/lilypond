@@ -23,6 +23,7 @@
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "break-align-interface.hh"
+#include "engraver.hh"
 #include "grob-array.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
@@ -1030,6 +1031,15 @@ SCM
 System::get_nonspaceable_staves (SCM smob)
 {
   return get_maybe_spaceable_staves (smob, NONSPACEABLE_STAVES);
+}
+
+[[noreturn]] System *
+System::make_sticky_same_type (Engraver * /*eng*/, SCM /*type*/,
+                              SCM /*cause*/, char const * /*file*/,
+                              int /*line*/, char const * /*fun*/)
+{
+  error (_ ("refusing to create a grob sticking to a System"
+            " grob; systems should not be created from custom engravers."));
 }
 
 ADD_INTERFACE (System,
