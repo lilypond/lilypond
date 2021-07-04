@@ -1804,6 +1804,7 @@ both staves.
 
 
 @c don't use verbatim in this table.
+@c See regression test accidental-styles.ly.
 @table @code
 @item default
 
