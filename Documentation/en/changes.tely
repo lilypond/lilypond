@@ -66,6 +66,23 @@ which scares away people.
 @end ignore
 
 @item
+The same grob definition can now be used to create grobs of
+different classes (@code{Item}, @code{Spanner}, @code{Paper_column},
+@code{System}).  As part of this change, the grob types
+@code{FootnoteItem} and @code{FootnoteSpanner} were consolidated
+into a single type @code{Footnote}.  Similarly, @code{BalloonTextSpanner}
+and @code{BalloonTextItem} are unified into @code{BalloonText}.
+
+When the grob definition does not mandate a class, engravers should
+choose what class to create a grob with.  For authors of Scheme
+engravers, this means using either @code{ly:engraver-make-item} or
+@code{ly:engraver-make-spanner}.  The utility function
+@code{ly:engraver-make-sticky} is provided to support the
+frequent case of @emph{sticky} grobs, such as footnotes and balloons.
+It creates a grob with the same class as another grob and
+administrates parents and bounds.
+
+@item
 The new command @code{\vshape} is like @code{\shape}, but also shows
 the control points and polygon for easier tweaking.
 
