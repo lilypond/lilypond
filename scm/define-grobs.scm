@@ -459,8 +459,7 @@
         (stencil . ,bend::print)
         (thickness . 2.0)
         (meta . ((class . Spanner)
-                 (interfaces . (bend-after-interface
-                                spanner-interface))))))
+                 (interfaces . (bend-after-interface))))))
 
     (BendSpanner
      . (
@@ -510,7 +509,6 @@
                                 font-interface
                                 line-spanner-interface
                                 outside-staff-interface
-                                spanner-interface
                                 text-interface
                                 text-script-interface))))))
 
@@ -1036,8 +1034,7 @@
         (zigzag-length . 1)
         (zigzag-width . 1)
         (meta . ((class . Spanner)
-                 (interfaces . (spanner-interface
-                                line-interface
+                 (interfaces . (line-interface
                                 line-spanner-interface
                                 duration-line-interface
                                 font-interface
@@ -1148,7 +1145,6 @@
                                 ;; as their controlling element
                                 ;; so, they do not need the
                                 ;; outside-staff-interface
-                                spanner-interface
                                 text-interface))))))
 
 
@@ -1245,8 +1241,7 @@
         (zigzag-width . 1)
         (meta . ((class . Spanner)
                  (interfaces . (finger-glide-interface
-                                line-spanner-interface
-                                spanner-interface))))))
+                                line-spanner-interface))))))
 
     (Flag
      . (
@@ -1361,8 +1356,7 @@
         (spacing-increment . 0.8)
         (meta . ((class . Spanner)
                  (interfaces . (grace-spacing-interface
-                                spacing-options-interface
-                                spanner-interface))))))
+                                spacing-options-interface))))))
 
     (GridLine
      . (
@@ -1407,8 +1401,7 @@
                                 hairpin-interface
                                 line-interface
                                 outside-staff-interface
-                                self-alignment-interface
-                                spanner-interface))))))
+                                self-alignment-interface))))))
 
     (HorizontalBracket
      . (
@@ -1425,8 +1418,7 @@
                  (interfaces . (horizontal-bracket-interface
                                 line-interface
                                 outside-staff-interface
-                                side-position-interface
-                                spanner-interface))))))
+                                side-position-interface))))))
 
     (HorizontalBracketText
      . (
@@ -1707,8 +1699,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 lyric-hyphen-interface
-                                lyric-interface
-                                spanner-interface))))))
+                                lyric-interface))))))
 
     (LyricSpace
      . (
@@ -1719,8 +1710,7 @@
         (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (lyric-hyphen-interface
-                                lyric-space-interface
-                                spanner-interface))))))
+                                lyric-space-interface))))))
 
     (LyricText
      . (
@@ -1973,7 +1963,6 @@
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 font-interface
-                                paper-column-interface
                                 separation-item-interface
                                 spaceable-grob-interface))))))
 
@@ -2106,7 +2095,6 @@
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 font-interface
-                                paper-column-interface
                                 separation-item-interface
                                 spaceable-grob-interface))))))
 
@@ -2668,7 +2656,6 @@
                                       (vertical-skyline-elements . ,ly:system::vertical-skyline-elements)
                                       (vertical-alignment . ,ly:system::get-vertical-alignment)))
                  (interfaces . (axis-group-interface
-                                system-interface
                                 outside-staff-axis-group-interface))))))
 
     (SystemStartBar
@@ -3214,8 +3201,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
                                 line-spanner-interface
-                                lyric-interface
-                                spanner-interface))))))
+                                lyric-interface))))))
 
     ))
 
