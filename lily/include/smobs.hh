@@ -307,6 +307,8 @@ void unprotect_smob (SCM smob);
 
 class Smob_core
 {
+private:
+  static size_t count;
 protected:
   SCM self_scm_;
   Smob_core () : self_scm_ (SCM_UNDEFINED)
@@ -315,7 +317,6 @@ protected:
     maybe_grow_heap ();
   };
   ~Smob_core () { count--; }
-  static size_t count;
   void maybe_grow_heap ();
 public:
   SCM self_scm () const { return self_scm_; }
