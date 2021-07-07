@@ -187,7 +187,6 @@ session has started."
 (cond-expand
  (guile-2
   (define root-module (resolve-module '() #f))
-  (define global-modules (module-submodules root-module))
   (define session-modules #f))
  (else))
 (define first-session-done? #f)
@@ -220,7 +219,7 @@ session has started."
   ;; hash-table after processing each file.
   (cond-expand
    (guile-2
-    (set! session-modules (hash-map->list cons global-modules)))
+    (set! session-modules (hash-map->list cons (module-submodules root-module))))
    (else))
 
   ;; Extract changes made to variables after defining them
