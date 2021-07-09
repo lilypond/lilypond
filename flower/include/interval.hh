@@ -27,6 +27,7 @@
 #include "std-string.hh"
 #include "drul-array.hh"
 
+#include <algorithm>
 #include <cmath>
 
 /* A T interval.  This represents the closed interval [left,right].
@@ -44,9 +45,8 @@ public:
   using base_type::operator [];
 
   // empty interval
-  Interval_t ()
+  Interval_t () : base_type (infinity (), -infinity ())
   {
-    set_empty ();
   }
 
   // degenerate interval (a point, if the argument is finite)
@@ -62,11 +62,20 @@ public:
   // type is convertible to this one's.
   template <typename T2>
   constexpr Interval_t (Interval_t<T2> const &src)
-    : Interval_t (src[LEFT], src[RIGHT])
+    : base_type (src.left (), src.right ())
   {
   }
 
+  // maximum positive value
   static T infinity ();
+
+  // interval of maximum extent
+  static Interval_t longest ()
+  {
+    // The name full () was avoided because it sounds like a predicate next to
+    // STL empty ().
+    return {-infinity (), infinity ()};
+  }
 
   T center () const
   {
@@ -74,41 +83,66 @@ public:
     return base_type::average ();
   }
 
-  // Given x in [-1.0, 1.0], interpolate linearly between the values of the
-  // LEFT and RIGHT elements.  For other values, extrapolate linearly.
-  T linear_combination (Real) const;
+  T &left ()
+  {
+    return base_type::front ();
+  }
+
+  constexpr T const &left () const
+  {
+    return base_type::front ();
+  }
+
+  // Given x in [-1.0, 1.0], interpolate linearly between the left and right
+  // bounds of this Interval.  For other values, extrapolate linearly.
+  T linear_combination (Real x) const;
+
+  T &right ()
+  {
+    return base_type::back ();
+  }
+
+  constexpr T const &right () const
+  {
+    return base_type::back ();
+  }
 
   void translate (T t)
   {
-    at (LEFT) += t;
-    at (RIGHT) += t;
+    left () += t;
+    right () += t;
   }
   void widen (T t)
   {
-    at (LEFT) -= t;
-    at (RIGHT) += t;
+    left () -= t;
+    right () += t;
   }
 
   T distance (T t) const
   {
-    if (t > at (RIGHT))
-      return T (t - at (RIGHT));
-    else if (t < at (LEFT))
-      return T (at (LEFT) - t);
+    if (t > right ())
+      return T (t - right ());
+    else if (t < left ())
+      return T (left () - t);
     else
       return T (0);
   }
-  /**
-     PRE
-     *this and h are comparable
-     */
+
+  // Lengthen this Interval by the minimum amount necessary to include all
+  // points in h.
   void unite (Interval_t<T> h);
+
+  // Shorten this Interval by the minimum amount necessary to exclude all
+  // points that are not in h; in other words, keep what overlaps with h.
   void intersect (Interval_t<T> h);
+
+  // Lengthen this Interval by the minimum amount necessary to include p.
   void add_point (T p)
   {
-    at (LEFT) = std::min (at (LEFT), p);
-    at (RIGHT) = std::max (at (RIGHT), p);
+    left () = std::min (left (), p);
+    right () = std::max (right (), p);
   }
+
   T length () const;
 
   void set_empty ();
@@ -139,9 +173,9 @@ public:
     return iv;
   }
 
-  bool is_empty () const
+  constexpr bool is_empty () const
   {
-    return at (LEFT) > at (RIGHT);
+    return left () > right ();
   }
 
   Interval_t<T> &operator -= (T r)
@@ -152,8 +186,8 @@ public:
 
   Interval_t<T> &operator += (T r)
   {
-    at (LEFT) += r;
-    at (RIGHT) += r;
+    left () += r;
+    right () += r;
     return *this;
   }
 
@@ -162,8 +196,8 @@ public:
   {
     if (!is_empty ())
       {
-        at (LEFT) *= r;
-        at (RIGHT) *= r;
+        left () *= r;
+        right () *= r;
         if (r < T (0))
           swap ();
       }
@@ -175,22 +209,23 @@ public:
   bool contains (T r) const;
   void negate ()
   {
-    T r = -at (LEFT);
-    T l = -at (RIGHT);
-    at (LEFT) = l;
-    at (RIGHT) = r;
+    T r = -left ();
+    T l = -right ();
+    left () = l;
+    right () = r;
   }
 
   void swap ()
   {
-    T t = at (LEFT);
-    at (LEFT) = at (RIGHT);
-    at (RIGHT) = t;
+    T t = left ();
+    left () = right ();
+    right () = t;
   }
 
-  static bool left_less (Interval_t<T> const &a, Interval_t<T> const &b)
+  static constexpr bool left_less (Interval_t<T> const &a,
+                                   Interval_t<T> const &b)
   {
-    return a[LEFT] < b[LEFT];
+    return a.left () < b.left ();
   }
 };
 
@@ -231,7 +266,7 @@ template<>
 inline Real
 Interval_t<Real>::linear_combination (Real x) const
 {
-  return (((1.0 - x) * at (LEFT)) + ((x + 1.0) * at (RIGHT))) * 0.5;
+  return (((1.0 - x) * left ()) + ((x + 1.0) * right ())) * 0.5;
 }
 
 template<class T>
@@ -287,6 +322,13 @@ inline
 Interval_t<T> operator * (Interval_t<T> i, T a)
 {
   return a * i;
+}
+
+template <class T>
+inline std::string
+to_string (Interval_t<T> const &i)
+{
+  return i.to_string ();
 }
 
 typedef Interval_t<Real> Interval;
