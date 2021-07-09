@@ -128,12 +128,8 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
   auto *tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
-  SCM val;
-  tr = tr->where_defined (name, &val);
-  if (tr)
-    return tr->self_scm ();
-
-  return SCM_EOL;
+  tr = where_defined (tr, name);
+  return tr ? tr->self_scm () : SCM_EOL;
 }
 
 LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,

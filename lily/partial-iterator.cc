@@ -45,9 +45,7 @@ Partial_iterator::process (Moment m)
       Moment length = Moment (dur->get_length ());
 
       SCM mp_scm = SCM_EOL;
-      Context *timing
-        = get_context ()->where_defined (ly_symbol2scm ("measurePosition"),
-                                         &mp_scm);
+      auto *timing = where_defined (get_context (), "measurePosition", &mp_scm);
 
       if (!timing)
         programming_error ("missing Timing in \\partial");

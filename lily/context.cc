@@ -261,7 +261,7 @@ SCM
 Context::make_revert_finalization (SCM sym)
 {
   SCM val = SCM_UNDEFINED;
-  if (here_defined (sym, &val))
+  if (here_defined (this, sym, &val))
     {
       return scm_list_4 (ly_context_set_property_x_proc,
                          self_scm (), sym, val);
@@ -556,7 +556,7 @@ Context::get_user_accessible_interpreter ()
   PROPERTIES
 */
 Context *
-Context::where_defined (SCM sym, SCM *value) const
+Context::internal_where_defined (SCM sym, SCM *value) const
 {
 #ifdef DEBUG
   if (profile_property_accesses)
@@ -564,15 +564,15 @@ Context::where_defined (SCM sym, SCM *value) const
 #endif
 
   if (properties_dict ()->try_retrieve (sym, value))
-    return (Context *)this;
+    return const_cast<Context *>(this);
 
-  return (parent_) ? parent_->where_defined (sym, value) : 0;
+  return parent_ ? parent_->internal_where_defined (sym, value) : nullptr;
 }
 
 /* Quick variant of where_defined.  Checks only the context itself. */
 
 bool
-Context::here_defined (SCM sym, SCM *value) const
+Context::internal_here_defined (SCM sym, SCM *value) const
 {
 #ifdef DEBUG
   if (profile_property_accesses)

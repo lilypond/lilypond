@@ -135,8 +135,7 @@ Accidental_engraver::update_local_key_signature (SCM new_sig)
     cross-staff accidentals after key-sig-changes.
   */
 
-  SCM val;
-  while (trans && trans->here_defined (ly_symbol2scm ("localAlterations"), &val))
+  while (trans && here_defined (trans, "localAlterations"))
     {
       set_property (trans, "localAlterations", ly_deep_copy (last_keysig_));
       trans = trans->get_parent ();
@@ -418,8 +417,7 @@ Accidental_engraver::stop_translation_timestep ()
       SCM position = scm_cons (to_scm (barnum), end_mom.smobbed_copy ());
 
       SCM localsig = SCM_EOL;
-      while (origin
-             && origin->where_defined (ly_symbol2scm ("localAlterations"), &localsig))
+      while (origin && where_defined (origin, "localAlterations", &localsig))
         {
           bool change = false;
           if (accidentals_[i].tied_

@@ -74,7 +74,7 @@ Bar_engraver::process_acknowledged ()
       considered_bar_ = true;
 
       SCM wb = SCM_EOL;
-      auto *wbc = context ()->where_defined (ly_symbol2scm ("whichBar"), &wb);
+      auto *const wbc = where_defined (context (), "whichBar", &wb);
       if (scm_is_string (wb))
         {
           // Map the default bar type from its value in the same context in

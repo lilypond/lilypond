@@ -82,8 +82,7 @@ Repeat_acknowledge_engraver::Repeat_acknowledge_engraver (Context *c)
 void
 Repeat_acknowledge_engraver::start_translation_timestep ()
 {
-  SCM rc;
-  Context *tr = context ()->where_defined (ly_symbol2scm ("repeatCommands"), &rc);
+  auto *tr = where_defined (context (), "repeatCommands");
   if (!tr)
     tr = context ();
 

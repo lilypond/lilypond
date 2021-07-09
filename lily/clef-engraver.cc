@@ -179,8 +179,7 @@ Clef_engraver::inspect_clef_properties ()
 
   if (from_scm<bool> (force_clef))
     {
-      SCM prev;
-      Context *w = context ()->where_defined (ly_symbol2scm ("forceClef"), &prev);
+      auto *const w = where_defined (context (), "forceClef");
       set_property (w, "forceClef", SCM_EOL);
     }
 }

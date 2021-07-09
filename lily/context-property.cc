@@ -124,7 +124,7 @@ Grob_property_info::find ()
   if (props_)
     return *this;
   SCM res = SCM_UNDEFINED;
-  if (Context *c = context_->where_defined (symbol_, &res))
+  if (auto *const c = where_defined (context_, symbol_, &res))
     if (c != context_)
       return Grob_property_info (c, symbol_, unsmob<Grob_properties> (res));
   props_ = unsmob<Grob_properties> (res);
@@ -137,7 +137,7 @@ Grob_property_info::check ()
   if (props_)
     return true;
   SCM res = SCM_UNDEFINED;
-  if (context_->here_defined (symbol_, &res))
+  if (here_defined (context_, symbol_, &res))
     props_ = unsmob<Grob_properties> (res);
   return props_;
 }
@@ -163,8 +163,7 @@ Grob_property_info::create ()
   /*
     Don't mess with MIDI.
   */
-  if (g == context_
-      || !g->here_defined (symbol_, &current_context_val))
+  if ((g == context_) || !here_defined (g, symbol_, &current_context_val))
     return false;
 
   Grob_properties *def = unsmob<Grob_properties> (current_context_val);

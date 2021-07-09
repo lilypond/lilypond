@@ -83,7 +83,7 @@ Alternative_sequence_iterator::add_repeat_command (SCM what)
 {
   SCM reps = ly_symbol2scm ("repeatCommands");
   SCM current_reps = SCM_EOL;
-  Context *where = get_context ()->where_defined (reps, &current_reps);
+  auto *const where = where_defined (get_context (), reps, &current_reps);
 
   if (where && ly_cheap_is_list (current_reps))
     {
@@ -176,7 +176,7 @@ Alternative_sequence_iterator::save_context_properties ()
   for (SCM sym : as_ly_scm_list (prop_syms))
     {
       SCM val = SCM_EOL;
-      if (auto *const c = get_context ()->where_defined (sym, &val))
+      if (auto *const c = where_defined (get_context (), sym, &val))
         {
           alt_restores_
             = scm_cons (scm_list_3 (c->self_scm (), sym, val),
