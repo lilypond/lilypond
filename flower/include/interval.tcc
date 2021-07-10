@@ -74,10 +74,7 @@ template<class T>
 T
 Interval_t<T>::length () const
 {
-  if (right () <= left ())
-    return T (0);
-  else
-    return right () - left ();
+  return !is_empty () ? (right () - left ()) : T (0);
 }
 
 template<class T>

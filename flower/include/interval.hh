@@ -143,6 +143,11 @@ public:
     right () = std::max (right (), p);
   }
 
+  // Notes:
+  // * The length of an interval with a NaN bound is NaN.
+  // * A point interval has a length of zero but is not empty.
+  // * (-infinity, -infinity) has undefined length but is nonempty.
+  // * (infinity, infinity) has undefined length but is nonempty.
   T length () const;
 
   void set_empty ();
@@ -173,6 +178,11 @@ public:
     return iv;
   }
 
+  // Notes:
+  // * An interval with a NaN bound is considered nonempty.
+  // * A point interval has a length of zero but is not empty.
+  // * (-infinity, -infinity) has undefined length but is nonempty.
+  // * (infinity, infinity) has undefined length but is nonempty.
   constexpr bool is_empty () const
   {
     return left () > right ();

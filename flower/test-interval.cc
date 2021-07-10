@@ -417,11 +417,10 @@ TEST (Interval_test, length)
 
 TEST (Interval_test, length_double_infinity)
 {
-  if (false) // TODO: (-infinity) - (-infinity) is undefined
-    {
-      Interval iv {-INFINITY, -INFINITY};
-      CHECK (std::isnan (iv.length ()));
-    }
+  {
+    Interval iv {-INFINITY, -INFINITY};
+    CHECK (std::isnan (iv.length ()));
+  }
 
   {
     Interval iv {-INFINITY, 0};
@@ -453,11 +452,10 @@ TEST (Interval_test, length_double_infinity)
     EQUAL (iv.length (), 0);
   }
 
-  if (false) // TODO: infinity - infinity is undefined
-    {
-      Interval iv {INFINITY, INFINITY};
-      CHECK (std::isnan (iv.length ()));
-    }
+  {
+    Interval iv {INFINITY, INFINITY};
+    CHECK (std::isnan (iv.length ()));
+  }
 }
 
 TEST (Interval_test, length_double_nan)
