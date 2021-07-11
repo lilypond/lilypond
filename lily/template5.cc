@@ -23,22 +23,5 @@
 
 #include "interval.tcc"
 
-using std::string;
-
-template<>
-Rational
-Interval_t<Rational>::infinity ()
-{
-  return Rational::infinity ();
-}
-
 template INTERVAL__INSTANTIATE (Rational);
-
-template<>
-Moment
-Interval_t<Moment>::infinity ()
-{
-  return Moment::infinity ();
-}
-
 template INTERVAL__INSTANTIATE (Moment);

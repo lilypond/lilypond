@@ -25,6 +25,7 @@
 
 #include <chrono>
 #include <cmath>
+#include <limits>
 #include <string>
 
 namespace
@@ -48,6 +49,9 @@ public:
 
   // conversion
   constexpr explicit Mint (int v) : v_ (v) {}
+
+  // special values
+  static constexpr M infinity () { return M (100); }
 
   // assignment
   M &operator = (const M &) = default;
@@ -81,13 +85,6 @@ public:
 
 }
 
-template<>
-Mint
-Interval_t<Mint>::infinity ()
-{
-  return Mint (100);
-}
-
 static inline std::ostream &
 operator << (std::ostream &os, Mint m) // for Yaffut
 {
@@ -100,7 +97,6 @@ using IVM = Interval_t<Mint>;
 
 class Interval_test
 {
-#if 0 // TODO: constexpr construction needs constexpr infinity ()
   static void test_init_default ()
   {
     constexpr IVM iv;
@@ -108,10 +104,8 @@ class Interval_test
     static_assert (iv.left () == Mint (100), "");
     static_assert (iv.right () == Mint (-100), "");
 
-    static_assert (iv.is_empty (), "");
-    static_assert (iv.length () == 0, "");
+    static_assert (iv.length () == Mint (0), "");
   }
-#endif
 
   static void test_init_point ()
   {
@@ -120,7 +114,6 @@ class Interval_test
     static_assert (iv.left () == Mint (23), "");
     static_assert (iv.right () == Mint (23), "");
 
-    static_assert (!iv.is_empty (), "");
     static_assert (iv.length () == Mint (0), "");
   }
 
@@ -131,7 +124,6 @@ class Interval_test
     static_assert (iv.left () == Mint (10), "");
     static_assert (iv.right () == Mint (20), "");
 
-    static_assert (!iv.is_empty (), "");
     static_assert (iv.length () == Mint (10), "");
   }
 
@@ -142,7 +134,6 @@ class Interval_test
     static_assert (iv.left () == Mint (40), "");
     static_assert (iv.right () == Mint (30), "");
 
-    static_assert (iv.is_empty (), "");
     static_assert (iv.length () == Mint (0), "");
   }
 
@@ -163,6 +154,13 @@ class Interval_test
     static_assert (test_iv.right () == 3, "");
 
     return input_iv; // implicitly converted
+  }
+
+  static void test_longest ()
+  {
+    constexpr auto iv = IVM::longest ();
+    static_assert (iv.left () == Mint (-100), "");
+    static_assert (iv.right () == Mint (100), "");
   }
 
   static void test_std_chrono_time_point ()
@@ -214,13 +212,7 @@ TEST (Interval_test, center)
 
 // contains
 
-// TODO: constexpr construction needs constexpr infinity ()
-// static_assert (IVM ().contains (Mint (0)) == false, "");
-TEST (Interval_test, contains_empty)
-{
-  const IVM iv;
-  CHECK (!iv.contains (Mint (0)));
-}
+static_assert (IVM ().contains (Mint (0)) == false, "");
 
 static_assert (IVM (Mint (4)).contains (Mint (3)) == false, "");
 static_assert (IVM (Mint (4)).contains (Mint (4)) == true, "");
@@ -238,10 +230,130 @@ class Interval_math_test
 protected:
   using IVT = Interval_t<T>;
 
-  static T neg_infinity () { return -IVT::infinity (); }
-  static T pos_infinity () { return IVT::infinity (); }
+  static constexpr T neg_infinity () { return Interval_traits<T>::min (); }
+  static constexpr T pos_infinity () { return Interval_traits<T>::max (); }
 
 protected:
+  void test_add_point ()
+  {
+    // empty; add -inf
+    {
+      IVT iv; // empty
+      iv.add_point (neg_infinity ());
+      EQUAL (iv.left (), neg_infinity ());
+      EQUAL (iv.right (), neg_infinity ());
+    }
+
+    // empty; add 0
+    {
+      IVT iv; // empty
+      iv.add_point (T (0));
+      EQUAL (iv.left (), T (0));
+      EQUAL (iv.right (), T (0));
+      EQUAL (iv.length (), T (0));
+    }
+
+    // empty; add +inf
+    {
+      IVT iv; // empty
+      iv.add_point (pos_infinity ());
+      EQUAL (iv.left (), pos_infinity ());
+      EQUAL (iv.right (), pos_infinity ());
+    }
+
+    // full; add -inf
+    {
+      IVT iv = IVT::longest ();
+      iv.add_point (neg_infinity ());
+      EQUAL (iv.left (), neg_infinity ());
+      EQUAL (iv.right (), pos_infinity ());
+    }
+
+    // full; add 0
+    {
+      IVT iv = IVT::longest ();
+      iv.add_point (T (0));
+      EQUAL (iv.left (), neg_infinity ());
+      EQUAL (iv.right (), pos_infinity ());
+    }
+
+    // full; add +inf
+    {
+      IVT iv = IVT::longest ();
+      iv.add_point (pos_infinity ());
+      EQUAL (iv.left (), neg_infinity ());
+      EQUAL (iv.right (), pos_infinity ());
+    }
+
+    // nonempty, nonfull; add -inf
+    {
+      IVT iv {T (10), T (20)};
+      iv.add_point (neg_infinity ());
+      EQUAL (iv.left (), neg_infinity ());
+      EQUAL (iv.right (), T (20));
+    }
+
+    // nonempty, nonfull; add point < left
+    {
+      IVT iv {T (10), T (20)};
+      iv.add_point (T (1));
+      EQUAL (iv.left (), T (1));
+      EQUAL (iv.right (), T (20));
+    }
+
+    // nonempty, nonfull; add point already in interval
+    {
+      IVT iv {T (10), T (20)};
+      iv.add_point ( T (0));
+      EQUAL (iv.left (), T (0));
+      EQUAL (iv.right (), T (20));
+    }
+
+    // nonempty, nonfull; add point > right
+    {
+      IVT iv {T (10), T (20)};
+      iv.add_point (T (21));
+      EQUAL (iv.left (), T (10));
+      EQUAL (iv.right (), T (21));
+    }
+
+    // nonempty, nonfull; add +inf
+    {
+      IVT iv {T (10), T (20)};
+      iv.add_point (pos_infinity ());
+      EQUAL (iv.left (), T (10));
+      EQUAL (iv.right (), pos_infinity ());
+    }
+  }
+
+  void test_empty ()
+  {
+    constexpr auto z = T (0);
+    constexpr auto p = pos_infinity ();
+
+    static_assert (IVT {}.is_empty () == true, "");
+
+    static_assert (IVT {z}.is_empty () == false, "");
+    static_assert (IVT {p}.is_empty () == false, "");
+
+    static_assert (IVT {z, z}.is_empty () == false, "");
+    static_assert (IVT {z, p}.is_empty () == false, "");
+    static_assert (IVT {p, z}.is_empty () == true, "");
+    static_assert (IVT {p, p}.is_empty () == false, "");
+
+    constexpr auto n = neg_infinity ();
+    if (z != n) // more cases for signed types
+      {
+        CHECK (IVT (n).is_empty () == false);
+
+        CHECK (IVT (n, n).is_empty () == false);
+        CHECK (IVT (n, z).is_empty () == false);
+        CHECK (IVT (n, p).is_empty () == false);
+        CHECK (IVT (z, n).is_empty () == true);
+        CHECK (IVT (p, n).is_empty () == true);
+      }
+  }
+
   void test_intersect ()
   {
     // empty v. full
@@ -262,6 +374,15 @@ protected:
       EQUAL (iv.right (), neg_infinity ());
     }
 
+    // empty v. empty
+    {
+      IVT iv; // empty
+      iv.intersect (IVT ());
+      // as empty as empty can be
+      EQUAL (iv.left (), pos_infinity ());
+      EQUAL (iv.right (), neg_infinity ());
+    }
+
     // full v. empty
     {
       IVT iv = IVT::longest ();
@@ -277,6 +398,14 @@ protected:
       iv.intersect ({T (12), T (34)});
       EQUAL (iv.left (), T (12));
       EQUAL (iv.right (), T (34));
+    }
+
+    // full v. full
+    {
+      IVT iv = IVT::longest ();
+      iv.intersect (IVT::longest ());
+      EQUAL (iv.left (), neg_infinity ());
+      EQUAL (iv.right (), pos_infinity ());
     }
 
     // nonempty, nonfull
@@ -315,6 +444,15 @@ protected:
       EQUAL (iv.right (), T (34));
     }
 
+    // empty v. empty
+    {
+      IVT iv; // empty
+      iv.unite (IVT ());
+      // as empty as empty can be
+      EQUAL (iv.left (), pos_infinity ());
+      EQUAL (iv.right (), neg_infinity ());
+    }
+
     // full v. empty
     {
       IVT iv = IVT::longest ();
@@ -327,6 +465,14 @@ protected:
     {
       IVT iv = IVT::longest ();
       iv.unite ({T (12), T (34)});
+      EQUAL (iv.left (), neg_infinity ());
+      EQUAL (iv.right (), pos_infinity ());
+    }
+
+    // full v. full
+    {
+      IVT iv = IVT::longest ();
+      iv.unite (IVT::longest ());
       EQUAL (iv.left (), neg_infinity ());
       EQUAL (iv.right (), pos_infinity ());
     }
@@ -350,12 +496,47 @@ protected:
   }
 };
 
+TEST (Interval_math_test<Mint>, add_point_mint)
+{
+  test_add_point ();
+}
+
+TEST (Interval_math_test<double>, add_point_double)
+{
+  test_add_point ();
+}
+
+TEST (Interval_math_test<vsize>, add_point_vsize)
+{
+  test_add_point ();
+}
+
+TEST (Interval_math_test<Mint>, empty_mint)
+{
+  test_empty ();
+}
+
+TEST (Interval_math_test<double>, empty_double)
+{
+  test_empty ();
+}
+
+TEST (Interval_math_test<vsize>, empty_vsize)
+{
+  test_empty ();
+}
+
 TEST (Interval_math_test<Mint>, intersect_mint)
 {
   test_intersect ();
 }
 
 TEST (Interval_math_test<double>, intersect_double)
+{
+  test_intersect ();
+}
+
+TEST (Interval_math_test<vsize>, intersect_vsize)
 {
   test_intersect ();
 }
@@ -370,14 +551,10 @@ TEST (Interval_math_test<double>, unite_double)
   test_unite ();
 }
 
-static_assert (Interval {-INFINITY, -INFINITY}.is_empty () == false, "");
-static_assert (Interval {-INFINITY, 0}.is_empty () == false, "");
-static_assert (Interval {-INFINITY, INFINITY}.is_empty () == false, "");
-static_assert (Interval {0, -INFINITY}.is_empty () == true, "");
-static_assert (Interval {0, INFINITY}.is_empty () == false, "");
-static_assert (Interval {INFINITY, -INFINITY}.is_empty () == true, "");
-static_assert (Interval {INFINITY, 0}.is_empty () == true, "");
-static_assert (Interval {INFINITY, INFINITY}.is_empty () == false, "");
+TEST (Interval_math_test<vsize>, unite_vsize)
+{
+  test_unite ();
+}
 
 TEST (Interval_test, is_empty_double_nan)
 {
@@ -424,13 +601,6 @@ TEST (Interval_test, is_empty_double_nan)
     constexpr Interval iv {NAN, NAN};
     CHECK (!iv.is_empty ());
   }
-}
-
-// TODO: constexpr construction needs constexpr infinity ()
-TEST (Interval_test, length_empty)
-{
-  const IVM iv;
-  EQUAL (iv.length (), Mint (0));
 }
 
 TEST (Interval_test, length_double_infinity)
@@ -499,13 +669,6 @@ TEST (Interval_test, length_double_nan)
   }
 }
 
-TEST (Interval_test, longest)
-{
-  const auto iv = IVM::longest ();
-  EQUAL (iv.left (), Mint (-100));
-  EQUAL (iv.right (), Mint (100));
-}
-
 TEST (Interval_test, set_empty)
 {
   IVM iv {Mint (-33), Mint (33)};
@@ -520,36 +683,6 @@ TEST (Interval_test, set_full)
   iv.set_full ();
   EQUAL (iv.left (), Mint (-100));
   EQUAL (iv.right (), Mint (100));
-}
-
-TEST (Interval_test, unite)
-{
-  const IVM empty_iv;
-  const auto full_iv = IVM::longest ();
-
-  {
-    auto iv = empty_iv;
-    iv.unite (empty_iv);
-    CHECK (iv.is_empty ());
-  }
-
-  {
-    auto iv = empty_iv;
-    iv.unite (full_iv);
-    CHECK (!iv.is_empty ());
-  }
-
-  {
-    auto iv = full_iv;
-    iv.unite (empty_iv);
-    CHECK (!iv.is_empty ());
-  }
-
-  {
-    auto iv = full_iv;
-    iv.unite (full_iv);
-    CHECK (!iv.is_empty ());
-  }
 }
 
 TEST (Interval_test, convert_to_string)

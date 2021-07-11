@@ -21,29 +21,6 @@
 
 #include "interval.tcc"
 
-using std::string;
-
-template<>
-Real
-Interval_t<Real>::infinity ()
-{
-  return HUGE_VAL;
-}
-
-template<>
-int
-Interval_t<int>::infinity ()
-{
-  return INT_MAX;
-}
-
-template<>
-size_t
-Interval_t<size_t>::infinity ()
-{
-  return ULONG_MAX;
-}
-
 template INTERVAL__INSTANTIATE (int);
 template INTERVAL__INSTANTIATE (size_t);
 template INTERVAL__INSTANTIATE (Real);

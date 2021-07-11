@@ -24,15 +24,14 @@
 #include "config.hh"
 
 #include "flower-proto.hh"
+#include "interval-traits.hh"
 #include "std-string.hh"
 #include "drul-array.hh"
 
 #include <algorithm>
-#include <cmath>
 
-/* A T interval.  This represents the closed interval [left,right].
-   No invariants.  T must be a totally ordered ring (with division, anyway ..)
-   At instantiation, the function infinity () has to be defined explicitly. */
+// A T interval.  This represents the closed interval [left,right].
+// No invariants.  T must be a totally ordered ring (with division, anyway ..)
 template<class T>
 struct Interval_t : private Drul_array<T>
 {
@@ -45,7 +44,8 @@ public:
   using base_type::operator [];
 
   // empty interval
-  Interval_t () : base_type (infinity (), -infinity ())
+  constexpr Interval_t ()
+    : base_type (Interval_traits<T>::max (), Interval_traits<T>::min ())
   {
   }
 
@@ -66,15 +66,12 @@ public:
   {
   }
 
-  // maximum positive value
-  static T infinity ();
-
   // interval of maximum extent
-  static Interval_t longest ()
+  static constexpr Interval_t longest ()
   {
     // The name full () was avoided because it sounds like a predicate next to
     // STL empty ().
-    return {-infinity (), infinity ()};
+    return {Interval_traits<T>::min (), Interval_traits<T>::max ()};
   }
 
   T center () const
@@ -165,14 +162,14 @@ public:
 
   void set_empty ()
   {
-    left () = infinity ();
-    right () = -infinity ();
+    left () = Interval_traits<T>::max ();
+    right () = Interval_traits<T>::min ();
   }
 
   void set_full ()
   {
-    left () = -infinity ();
-    right () = infinity ();
+    left () = Interval_traits<T>::min ();
+    right () = Interval_traits<T>::max ();
   }
 
   /* Unites h and this interval, but in such a way
