@@ -177,7 +177,6 @@ ADD_INTERFACE (Accidental_interface,
                "forced "
                "alteration-glyph-name-alist "
                "hide-tied-accidental-after-break "
-               "parenthesized "
                "restore-first "
                "tie "
               );

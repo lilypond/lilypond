@@ -807,6 +807,31 @@ a hyphen is needed before the @code{\parenthesize} command.
 }
 @end lilypond
 
+A second form of the @code{\parenthesize} command involves
+a grob path: either @code{\parenthesize @var{ContextName}.@var{GrobName}}
+or just @code{\parenthesize @var{GrobName}} (the latter implying
+the bottommost context, typically @code{Voice}).  This should be
+added before the musical moment, like a @code{\once \override}.
+This form makes it possible to parenthesize grobs that are only
+caused indirectly by events.
+
+@lilypond[verbatim,quote]
+\new Staff \relative <<
+  {
+    \parenthesize NoteHead
+    c'1
+  }
+  \new CueVoice {
+    s2
+    \voiceOne
+    \once \override Staff.ParenthesesItem.font-size = 3
+    \parenthesize Staff.CueClef
+    \cueClef treble
+    e'8 f a g
+  }
+>>
+@end lilypond
+
 @morerefs
 Snippets:
 @rlsr{Editorial annotations}.

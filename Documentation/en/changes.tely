@@ -66,6 +66,24 @@ which scares away people.
 @end ignore
 
 @item
+A @qq{time-based} version of the @code{\parenthesize} command was
+added.  It takes a grob path: @code{\parenthesize @var{GrobName}}
+or @code{\parenthesize @var{ContextName}.@var{GrobName}}.  It acts
+like a @code{\once \override}.  This interface complements the
+already existing form @code{\parenthesize @var{event}}, in a fashion
+similar to @code{\footnote}.
+
+@lilypond[verbatim,quote]
+{
+  \parenthesize NoteHead
+  c'1
+  \parenthesize Staff.KeySignature
+  \key g \major
+  c'1
+}
+@end lilypond
+
+@item
 The same grob definition can now be used to create grobs of
 different classes (@code{Item}, @code{Spanner}, @code{Paper_column},
 @code{System}).  As part of this change, the grob types

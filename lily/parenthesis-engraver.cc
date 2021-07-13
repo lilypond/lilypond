@@ -20,6 +20,7 @@
 
 #include "engraver.hh"
 
+#include "accidental-interface.hh"
 #include "international.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
@@ -44,32 +45,36 @@ Parenthesis_engraver::Parenthesis_engraver (Context *c)
 void
 Parenthesis_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Stream_event *ev = info.event_cause ())
+  Grob *g = info.grob ();
+  if (from_scm<bool> (get_property (g, "parenthesized"))
+      // AccidentalCautionary has its own implementation
+      // of parentheses.  It changes the stencil, which
+      // is important for accidental placement, but won't
+      // work with parenthesis friends.  TODO: find a nice
+      // way to merge the two.
+      && !has_interface<Accidental_interface> (g))
     {
-      if (from_scm<bool> (get_property (ev, "parenthesize")))
+      if (Item *victim = dynamic_cast<Item *> (g))
         {
-          if (Item *victim = dynamic_cast<Item *> (info.grob ()))
-            {
-              auto *const eng = info.origin_engraver ();
-              Item *paren = eng->make_item ("ParenthesesItem", victim->self_scm ());
-              Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
+          auto *const eng = info.origin_engraver ();
+          Item *paren = eng->make_item ("ParenthesesItem", victim->self_scm ());
+          Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
 
-              paren->set_y_parent (victim);
+          paren->set_y_parent (victim);
 
-              Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
-                          + from_scm<double> (get_property (victim, "font-size"), 0.0);
-              set_property (paren, "font-size", to_scm (size));
+          Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
+                      + from_scm<double> (get_property (victim, "font-size"), 0.0);
+          set_property (paren, "font-size", to_scm (size));
 
-              /*
-                TODO?
+          /*
+            TODO?
 
-                enlarge victim to allow for parentheses space?
-              */
-            }
-          else
-            {
-              info.grob ()->warning (_ ("Don't know how to parenthesize spanners."));
-            }
+            enlarge victim to allow for parentheses space?
+          */
+        }
+      else
+        {
+          info.grob ()->warning (_ ("Don't know how to parenthesize spanners."));
         }
     }
 }

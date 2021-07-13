@@ -1273,21 +1273,10 @@ change to the following voice."
                            (_ "ignoring parallel music without barchecks")))))
 
 parenthesize =
-#(define-music-function (arg) (ly:music?)
-   (_i "Tag @var{arg} to be parenthesized.")
-
-   (if (memq 'event-chord (ly:music-property arg 'types))
-       ;; arg is an EventChord -> set the parenthesize property
-       ;; on all child notes and rests
-       (for-each
-        (lambda (ev)
-          (if (or (memq 'note-event (ly:music-property ev 'types))
-                  (memq 'rest-event (ly:music-property ev 'types)))
-              (set! (ly:music-property ev 'parenthesize) #t)))
-        (ly:music-property arg 'elements))
-       ;; No chord, simply set property for this expression:
-       (set! (ly:music-property arg 'parenthesize) #t))
-   arg)
+#(define-music-function (arg) (symbol-list-or-music?)
+   (_i "Tag @var{arg} to be parenthesized.  @var{arg} may
+be either a music event or a grob path.")
+   (once (propertyTweak 'parenthesized #t arg)))
 
 #(define (make-directed-part-combine-music direction chord-range part1 part2
           one-context-settings
