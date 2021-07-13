@@ -144,6 +144,32 @@ public:
       visit (this);
   }
 
+  Music_iterator *get_parent () const { return parent_; }
+
+  // Scoped property access: look in this iterator's music, then search the
+  // ancestors up to the top.
+  SCM internal_get_property (SCM name_sym) const
+  {
+    SCM value = SCM_EOL;
+    internal_where_defined (name_sym, &value);
+    return value;
+  }
+
+  // Scoped property access: look in this iterator's music, then search the
+  // ancestors up to the top.  Return the iterator whose music has the named
+  // property (null if none does).  Optionally get the value of the property.
+  Music_iterator *internal_where_defined (SCM name_sym, SCM *value) const;
+  Music_iterator *internal_where_defined (SCM name_sym) const
+  {
+    SCM value;
+    return internal_where_defined (name_sym, &value);
+  }
+
+  // Scoped search for taggged music: look in this iterator's music, then
+  // search the ancestors up to the top.  Return the first iterator whose music
+  // is tagged with the given tag.  If none is found, return this iterator.
+  Music_iterator *where_tagged (SCM tag_sym) const;
+
 protected:
   Music_iterator ();
 
@@ -170,13 +196,6 @@ protected:
   void descend_to_user_accessible_context ();
 
   virtual void do_quit ();
-
-  // (const until we have a need to change it)
-  const Music_iterator *get_parent () const { return parent_; }
-
-  // Scoped property access: look in this iterator's music, then search the
-  // ancestors up to the top.
-  SCM internal_get_property (SCM name_sym) const;
 
 private:
   static SCM create_iterator (Music_iterator *parent, Music *mus);

@@ -64,6 +64,9 @@ TODO: Use SpanEvents?")
 
      (cautionary ,boolean? "If set, this alteration needs a
 cautionary accidental.")
+     (change-tag ,symbol? "Tag identifying the musical scope of a
+context change.  The change applies to the nearest enclosing music
+with this tag.")
      (change-to-id ,string? "Name of the context to change to.")
      (change-to-type ,symbol? "Type of the context to change to.")
      (class ,symbol? "The class name of an event class.")

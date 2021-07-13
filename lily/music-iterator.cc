@@ -239,19 +239,54 @@ Music_iterator::descend_to_child (Context *child_report)
     set_context (child_report);
 }
 
-SCM
-Music_iterator::internal_get_property (SCM sym) const
+Music_iterator *
+Music_iterator::internal_where_defined (SCM sym, SCM *value_out) const
 {
   // TODO: Abstract Context property features into a reusable base class?
-  for (auto scope = this; scope; scope = scope->parent_)
+  for (auto scope = const_cast<Music_iterator *> (this);
+       scope;
+       scope = scope->parent_)
     {
       if (auto m = scope->get_music ())
         {
           SCM val = get_property (m, sym);
           if (!scm_is_null (val))
-            return val;
+            {
+              if (value_out)
+                *value_out = val;
+              return scope;
+            }
         }
     }
 
-  return SCM_EOL;
+  if (value_out)
+    *value_out = SCM_EOL;
+  return nullptr;
+}
+
+Music_iterator *
+Music_iterator::where_tagged (SCM tag_sym) const
+{
+  Music_iterator *scope = const_cast<Music_iterator *> (this);
+
+  if (scm_is_symbol (tag_sym))
+    {
+      for (Music_iterator *candidate = scope; candidate; /**/)
+        {
+          SCM tags = SCM_EOL;
+          candidate = where_defined (candidate, "tags", &tags);
+          if (candidate)
+            {
+              if (scm_is_true (scm_member (tag_sym, tags)))
+                {
+                  scope = candidate;
+                  break;
+                }
+              else
+                candidate = candidate->get_parent ();
+            }
+        }
+    }
+
+  return scope;
 }

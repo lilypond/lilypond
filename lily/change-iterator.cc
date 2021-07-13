@@ -96,8 +96,9 @@ Change_iterator::change_to (Music_iterator &it,
       auto *const dest = find_context_near (it.get_context (), to_type, to_id);
       if (dest)
         {
-          // Effect the change for this iterator and its children.
-          it.preorder_walk ([last, dest] (Music_iterator * iter)
+          auto *scope
+            = it.where_tagged (get_property (it.get_music (), "change-tag"));
+          scope->preorder_walk ([last, dest] (Music_iterator * iter)
           {
             Change_iterator::change (iter, last, dest);
           });
