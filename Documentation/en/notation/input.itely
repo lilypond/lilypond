@@ -1747,9 +1747,6 @@ Internals Reference:
 Multiple footnotes for the same page can only be stacked, one above
 the other; they cannot be printed on the same line.
 
-Footnotes cannot be attached to @code{MultiMeasureRests} or
-automatic beams or lyrics.
-
 Footnote marks may collide with staves, @code{\markup} objects, other
 footnote marks and annotation lines.
 
