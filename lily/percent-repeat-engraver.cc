@@ -36,18 +36,18 @@ public:
   TRANSLATOR_DECLARATIONS (Percent_repeat_engraver);
 
 protected:
-  Stream_event *percent_event_;
+  Stream_event *percent_event_ = nullptr;
 
   // moment (global time) where percent started
   Moment start_mom_;
   // moment (global time) where percent should end
   Moment stop_mom_;
 
-  Spanner *percent_;
-  Spanner *percent_counter_;
+  Spanner *percent_ = nullptr;
+  Spanner *percent_counter_ = nullptr;
 
-  Grob *first_command_column_;
-  Moment command_moment_;
+  Grob *first_command_column_ = nullptr;
+  Moment command_moment_ {-1};
 
   void initialize () override;
   void finalize () override;
@@ -62,12 +62,6 @@ protected:
 Percent_repeat_engraver::Percent_repeat_engraver (Context *c)
   : Engraver (c)
 {
-  percent_ = 0;
-  percent_counter_ = 0;
-  percent_event_ = 0;
-
-  first_command_column_ = 0;
-  command_moment_ = Moment (-1);
 }
 
 void
@@ -107,7 +101,7 @@ Percent_repeat_engraver::maybe_start ()
     {
       if (percent_)
         typeset_perc ();
-      percent_event_ = 0;
+      percent_event_ = nullptr;
     }
 }
 
@@ -161,7 +155,7 @@ Percent_repeat_engraver::process_music ()
           percent_counter_->set_x_parent (percent_);
         }
       else
-        percent_counter_ = 0;
+        percent_counter_ = nullptr;
     }
 }
 
@@ -182,11 +176,11 @@ Percent_repeat_engraver::typeset_perc ()
   Grob *col = first_command_column_;
 
   percent_->set_bound (RIGHT, col);
-  percent_ = 0;
+  percent_ = nullptr;
 
   if (percent_counter_)
     percent_counter_->set_bound (RIGHT, col);
-  percent_counter_ = 0;
+  percent_counter_ = nullptr;
 }
 
 void

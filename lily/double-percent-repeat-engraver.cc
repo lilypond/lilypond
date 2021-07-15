@@ -33,7 +33,7 @@ public:
   TRANSLATOR_DECLARATIONS (Double_percent_repeat_engraver);
 
 protected:
-  Stream_event *percent_event_;
+  Stream_event *percent_event_ = nullptr;
 
   // moment (global time) where percent started
   Moment start_mom_;
@@ -46,7 +46,6 @@ protected:
 Double_percent_repeat_engraver::Double_percent_repeat_engraver (Context *c)
   : Engraver (c)
 {
-  percent_event_ = 0;
 }
 
 void
@@ -90,7 +89,7 @@ Double_percent_repeat_engraver::process_music ()
         }
       // forbid breaks on a % line
       set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
-      percent_event_ = 0;
+      percent_event_ = nullptr;
     }
 }
 
