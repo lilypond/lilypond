@@ -554,9 +554,7 @@ Pango_font::text_stencil (Output_def * /* state */,
                             ly_string2scm (str),
                             dest.expr ());
 
-      Box b (Interval (0, 0), Interval (0, 0));
-      b.unite (dest.extent_box ());
-      return Stencil (b, exp);
+      return Stencil (dest.extent_box (), exp);
     }
 
   return dest;
