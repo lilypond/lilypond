@@ -234,17 +234,7 @@ Text_interface::internal_interpret_markup (Output_def *layout,
                                            SCM props, SCM markup)
 {
   if (scm_is_string (markup))
-    {
-      /*
-        Setting markup variables to an empty string "" is commonly used
-        in paper and layout properties; such variables must be treated
-        exactly like #f, and return an empty stencil. -vv
-      */
-      if (scm_is_true (scm_string_null_p (markup)))
-        return Stencil ().smobbed_copy ();
-      else
-        return interpret_string (to_scm (layout), props, markup);
-    }
+    return interpret_string (to_scm (layout), props, markup);
   else if (is_markup (markup))
     {
       SCM func = scm_car (markup);
