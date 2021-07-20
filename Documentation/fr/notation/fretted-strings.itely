@@ -80,8 +80,8 @@ cordes frettées :
 intervenir sur des accords arpégés ou des trémolos.  Reportez-vous au
 chapitre @ref{Liaisons de prolongation}.
 
-@item Des indications quant au support polyphonique se trouvent au
-chapitre @ref{Résolution des collisions}.
+@item Des indications quant à la prise en charge de la polyphonie se
+trouvent au chapitre @ref{Résolution des collisions}.
 
 @item La notation des sons harmoniques se trouve à la section
 @ref{Harmoniques}.
@@ -93,6 +93,7 @@ Manuel de notation :
 @ref{Arpèges},
 @ref{Clefs},
 @ref{Doigtés},
+@ref{Instruments transpositeurs},
 @ref{Liaisons de prolongation},
 @ref{Liste des signes d'articulation},
 @ref{Noms d'instrument},
@@ -110,12 +111,9 @@ Manuel de notation :
 @cindex numéro de corde ou doigté
 @cindex doigté ou numéro de corde
 
-Une corde sur laquelle une note doit être jouée peut être indiquée
+La corde sur laquelle une note doit être jouée peut être indiquée
 en attachant @code{\@var{numéro}} à cette note prise dans une
 construction de type accord @code{<>}.
-
-@warning{Les numéros de corde @strong{doivent} être définis dans une
-construction de type accord même s'il n'y a qu'une seule note.}
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
@@ -125,10 +123,10 @@ c4\5 e\4 g2\3
 
 Quand les indications de doigté et de numéro de corde sont attachées à
 une même note, leur positionnement se fera en fonction de l'ordre dans
-lequel elles apparaissent dans le code et @strong{uniquement} si elles
-interviennent au sein d'une construction d'accord : le positionnement
-des doigtés est géré différemment selon qu'ils s'appliquent à l'accord
-entier ou à des notes isolées indépendantes d'un accord.
+lequel elles apparaissent dans le code, mais @strong{uniquement} si
+elles interviennent au sein d'une construction d'accord.  En effet, le
+positionnement des doigtés est géré différemment lorsqu'ils
+sont attachés à des notes isolées indépendantes d'un accord.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
@@ -157,12 +155,9 @@ a\3
 g1\4
 @end lilypond
 
-@snippets
-
-La plupart des comportements en matière d'indications de numéro de
-corde, à savoir l'objet @code{StringNumber}, et y compris leur
-positionnement, est comparable au traitement des doigtés -- voir
-@ref{Doigtés}.
+Le traitement des numéros de corde, objets @code{StringNumber},
+et notamment leur positionnement, est comparable à celui des
+doigtés -- voir @ref{Doigtés}.
 
 @predefined
 @code{\arabicStringNumbers},
@@ -201,8 +196,8 @@ corde et à quelle case chaque note doit être jouée.  Des notes devant
 Par défaut, la première corde est la plus aiguë et correspond à la ligne
 supérieure du @code{TabStaff}.  Les cordes suivent par défaut
 l'accordage traditionnel d'une guitare (à six cordes).  Les notes sont
-imprimées sous forme de tablature, dans les contextes @code{TabStaff} et
-@code{TabVoice} qui comportent une clef spécifique ajoutée
+imprimées sous forme de tablature dans les contextes @code{TabStaff} et
+@code{TabVoice}, qui comportent une clef spécifique ajoutée
 automatiquement.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -237,9 +232,8 @@ symbols = {
 
 Pour obtenir les symboles de notation habituelle dans une tablature, il
 faut appliquer la commande @code{\tabFullNotation} au contexte
-@code{TabStaff}.  Vous noterez par ailleurs que les blanches sont
-affublées d'une double hampe afin de ne pas les confondre avec des
-noires.
+@code{TabStaff}.  Vous noterez que les blanches sont affublées d'une
+double hampe afin qu'elles ne se confondent pas avec des noires.
 
 @lilypond[quote,ragged-right,verbatim]
 symbols = {
