@@ -49,7 +49,7 @@ particularités communes aux différents instruments à cordes frettées.
 * Indications du numéro de corde::
 * Tablatures par défaut::
 * Tablatures personnalisées::
-* Tablatures sous forme d'étiquette::
+* Tablatures sous forme d'étiquettes::
 * Tablatures prédéfinies::
 * Tablatures automatiques::
 * Doigtés pour la main droite::
@@ -1004,8 +1004,8 @@ instruments dont l'ordre des cordes ne correspond pas à l'ordre des
 hauteurs, comme le ukulele.
 
 
-@node Tablatures sous forme d'étiquette
-@unnumberedsubsubsec Tablatures sous forme d'étiquette
+@node Tablatures sous forme d'étiquettes
+@unnumberedsubsubsec Tablatures sous forme d'étiquettes
 @translationof Fret diagram markups
 
 @cindex fret, diagramme

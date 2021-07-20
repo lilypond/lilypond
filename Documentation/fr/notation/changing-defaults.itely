@@ -3269,7 +3269,7 @@ dès lors que les notes ou accords auront été saisis en mode note ou
 accord puis rendus dans un contexte @code{FretBoards} -- voir
 @ref{Tablatures automatiques}.  Ils peuvent aussi se gérer sous forme de
 @emph{markups} créés par la commande @code{\fret-diagram} -- voir
-@ref{Tablatures sous forme d'étiquette}.
+@ref{Tablatures sous forme d'étiquettes}.
 
 
 @subsubsubheading Mode paroles
