@@ -28,23 +28,25 @@
 #include "music.hh"
 #include "warn.hh"
 
+#include <string>
+
 class Quote_iterator final : public Music_wrapper_iterator
 {
 public:
   Quote_iterator () = default;
-  Moment vector_moment (vsize idx) const;
   Context_handle quote_handle_;
 
-  Moment start_moment_;
-  Moment stop_moment_;
+  // zero moment of this music in the timeline of the score; unknown until the
+  // first call to process ()
+  Moment zero_mom_ = -Moment::infinity ();
   SCM event_vector_ = SCM_EOL;
-  vsize event_idx_ = VPOS;
-  vsize end_idx_ = 0;
+  vsize event_idx_ = 0; // left closed
+  vsize end_idx_ = 0; // right open
+  bool first_time_ = true;
 
   SCM transposed_musics_ = SCM_EOL;
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
-  bool quote_ok () const;
   bool accept_music_type (Stream_event *, bool is_cue = true) const;
 
 protected:
@@ -89,25 +91,24 @@ Quote_iterator::derived_mark () const
   scm_gc_mark (transposed_musics_);
 }
 
+// lower bound: binary search returning the index of the first element that is
+// not less than the key
 vsize
-binsearch_scm_vector (SCM vec, SCM key, bool (*is_less) (SCM a, SCM b))
+binsearch_scm_vector (SCM vec, SCM key, bool is_less (SCM a, SCM b))
 {
   vsize lo = 0;
   vsize hi = scm_c_vector_length (vec);
 
-  /* binary search */
-  do
+  while (lo < hi)
     {
       vsize cmp = (lo + hi) / 2;
 
       SCM when = scm_caar (scm_c_vector_ref (vec, cmp));
-      bool result = (*is_less) (key, when);
-      if (result)
-        hi = cmp;
+      if (is_less (when, key))
+        lo = cmp + 1;
       else
-        lo = cmp;
+        hi = cmp;
     }
-  while (hi - lo > 1);
 
   return lo;
 }
@@ -146,83 +147,83 @@ Quote_iterator::create_contexts ()
   quote_handle_.set_context (cue_context);
 }
 
-bool
-Quote_iterator::quote_ok () const
-{
-  return (event_idx_ != VPOS
-          && scm_is_vector (event_vector_)
-          && event_idx_ <= end_idx_
-
-          /*
-            Don't quote the grace notes leading to an unquoted note.
-          */
-          && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_);
-}
-
 Moment
 Quote_iterator::pending_moment () const
 {
   Moment m = Music_wrapper_iterator::pending_moment ();
 
-  /*
-    In case event_idx_ < 0, we're not initted yet, and the wrapped
-    music expression determines the starting moment.
-  */
-  if (quote_ok ())
-    m = std::min (m, vector_moment (event_idx_) - start_moment_);
+  if (event_idx_ < end_idx_)
+    {
+      SCM entry = scm_c_vector_ref (event_vector_, event_idx_);
+      if (auto *const event_mom = unsmob<Moment> (scm_caar (entry)))
+        {
+          // If event_mom is not a moment, process () should issue a diagnostic
+          // later, so just ignore it here.
+          m = std::min (m, *event_mom - zero_mom_);
+        }
+    }
 
   return m;
-}
-
-Moment
-Quote_iterator::vector_moment (vsize idx) const
-{
-  SCM entry = scm_c_vector_ref (event_vector_, idx);
-  return *unsmob<Moment> (scm_caar (entry));
 }
 
 void
 Quote_iterator::process (Moment m)
 {
-  // process the wrapped music, if any remains
-  {
-    const auto &pm = Music_wrapper_iterator::pending_moment ();
-    if (pm < Moment::infinity ())
-      Music_wrapper_iterator::process (m);
-  }
+  if (Music_wrapper_iterator::pending_moment () <= m)
+    Music_wrapper_iterator::process (m);
 
-  if (!scm_is_vector (event_vector_))
-    return;
-
-  if (event_idx_ == VPOS)
+  if (first_time_)
     {
-      event_idx_ = binsearch_scm_vector (event_vector_,
-                                         get_context ()->now_mom ().smobbed_copy (),
-                                         &moment_less);
-      start_moment_ = get_context ()->now_mom () - music_start_mom ();
-      stop_moment_ = start_moment_ + get_music ()->get_length ();
+      first_time_ = false;
 
-      end_idx_ = binsearch_scm_vector (event_vector_,
-                                       stop_moment_.smobbed_copy (),
-                                       &moment_less);
+      // start moment of this music in the timeline of the score
+      const auto start_mom = get_context ()->now_mom ();
+
+      zero_mom_ = start_mom - music_start_mom ();
+
+      if (scm_is_vector (event_vector_))
+        {
+          // To quote grace notes, the user currently has to provide grace time
+          // in the wrapped music.  It would be nicer to include all grace
+          // notes leading into the quote automatically.  That likely requires
+          // an infrastructure to precompute the start moment (at least the
+          // main part) before the first call to pending_moment ().  It
+          // possibly also requires improvements to handle music where the
+          // grace part of the start moment is unknown prior to iteration.
+          event_idx_ = binsearch_scm_vector (event_vector_,
+                                             start_mom.smobbed_copy (),
+                                             moment_less);
+
+          // end moment of this music, excluding any grace notes leading to an
+          // unquoted note
+          const Moment end_mom (zero_mom_.main_part_
+                                + music_get_length ().main_part_,
+                                -Rational::infinity ());
+
+          end_idx_ = binsearch_scm_vector (event_vector_,
+                                           end_mom.smobbed_copy (),
+                                           moment_less);
+        }
     }
 
-  m += start_moment_;
-  while (event_idx_ <= end_idx_)
-    {
-      Moment em = vector_moment (event_idx_);
-      if (em > m)
-        return;
-
-      if (em == m)
-        break;
-
-      event_idx_++;
-    }
-
-  if (quote_ok ())
+  m = zero_mom_ + m;
+  for (/**/; event_idx_ < end_idx_; ++event_idx_)
     {
       SCM entry = scm_c_vector_ref (event_vector_, event_idx_);
+
+      if (auto *const event_mom = unsmob<Moment> (scm_caar (entry)))
+        {
+          if (*event_mom > m) // not time to process this entry yet
+            return;
+        }
+      else
+        {
+          std::string s ("expected moment in event vector: ");
+          s += ly_scm_write_string (scm_caar (entry));
+          programming_error (s);
+          continue;
+        }
+
       Pitch *quote_pitch = unsmob<Pitch> (scm_cdar (entry));
 
       /*
@@ -271,8 +272,6 @@ Quote_iterator::process (Moment m)
               quote_handle_.get_context ()->event_source ()->broadcast (ev);
             }
         }
-
-      event_idx_++;
     }
 }
 
