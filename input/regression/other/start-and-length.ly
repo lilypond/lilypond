@@ -1,0 +1,79 @@
+\version "2.23.4"
+
+\header {
+  texidoc = "This tests the calculation of music start and length for
+various kinds of music.  Problems are reported on stderr."
+}
+
+\include "testing-functions.ily"
+#(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning (_ "skipping zero-duration score"))
+#(ly:expect-warning (_ "to suppress this, consider adding a spacer rest"))
+
+\fixed c' <<
+
+\testStartAndLength \partial 1*0
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength { \partial 1*0 }
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength << \partial 1*0 >>
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength \partial 8
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength { \partial 8 }
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength << \partial 8 >>
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength <d>8
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength { <d>8 }
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength { <d>8 q }
+#ZERO-MOMENT
+#(ly:make-moment 1/4 0)
+
+\testStartAndLength c8
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength { c8 }
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength << c8 >>
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength { c8 c4 }
+#ZERO-MOMENT
+#(ly:make-moment 3/8)
+
+\testStartAndLength << c8 c4 >>
+#ZERO-MOMENT
+#(ly:make-moment 1/4)
+
+\testStartAndLength \times 2/3 c4.
+#ZERO-MOMENT
+#(ly:make-moment 1/4)
+
+\testStartAndLength \tuplet 3/2 4 c4.
+#ZERO-MOMENT
+#(ly:make-moment 1/4)
+
+>>
