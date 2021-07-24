@@ -20,7 +20,9 @@
 #ifndef DURATION_HH
 #define DURATION_HH
 
-#include "moment.hh"
+#include "smobs.hh"
+
+#include "rational.hh"
 
 /**
    A musical duration.

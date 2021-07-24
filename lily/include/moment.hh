@@ -21,6 +21,7 @@
 #define MOMENT_HH
 
 #include "smobs.hh"
+
 #include "rational.hh"
 
 /**

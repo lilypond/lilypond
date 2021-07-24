@@ -19,7 +19,9 @@
 */
 
 #include "duration.hh"
+
 #include "misc.hh"
+#include "moment.hh"
 
 MAKE_SCHEME_CALLBACK (Duration, less_p, 2);
 SCM
