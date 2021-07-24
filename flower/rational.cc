@@ -55,15 +55,6 @@ Rational::operator double () const
   return 0.0;
 }
 
-#ifdef STREAM_SUPPORT
-ostream &
-operator << (ostream &o, Rational r)
-{
-  o << r.string ();
-  return o;
-}
-#endif
-
 Rational
 Rational::abs () const
 {
@@ -90,8 +81,18 @@ Rational::Rational (I64 n, I64 d)
   // use sign of n when d=0
   sign_ = ::sign (n) * (std::signbit (d) ? -1 : 1);
   num_ = static_cast<U64> (::abs (n));
-  den_ = static_cast<U64> (::abs (d));
-  normalize ();
+  if (n || d)
+    {
+      den_ = static_cast<U64> (::abs (d));
+      normalize ();
+    }
+  else
+    {
+      // Treat initialization with {0, 0} as if it were {0} because parts of
+      // LilyPond depend on this behavior.  It would make more sense to treat
+      // {0, 0} as NaN, but it might not be easy to change.
+      den_ = 1;
+    }
 }
 
 Rational::Rational (long long n)
@@ -120,7 +121,8 @@ Rational
 Rational::mod_rat (Rational div) const
 {
   Rational r (*this);
-  r = (r / div - r.div_rat (div)) * div;
+  if (!isinf (div))
+    r = (r / div - r.div_rat (div)) * div;
   return r;
 }
 
@@ -173,26 +175,34 @@ b3:
 void
 Rational::normalize ()
 {
-  if (!sign_)
+  if (den_)
     {
-      den_ = 1;
-      num_ = 0;
+      if (!sign_)
+        {
+          den_ = 1;
+          num_ = 0;
+        }
+      else if (!num_)
+        {
+          sign_ = 0;
+          den_ = 1;
+        }
+      else
+        {
+          I64 g = gcd (num_, den_);
+
+          num_ /= g;
+          den_ /= g;
+        }
     }
-  else if (!den_)
+  else if (num_)
     {
       *this = std::signbit (sign_) ? -infinity () : infinity ();
     }
-  else if (!num_)
+  else // NaN mustn't keep sign 0
     {
-      sign_ = 0;
-      den_ = 1;
-    }
-  else
-    {
-      I64 g = gcd (num_, den_);
-
-      num_ /= g;
-      den_ /= g;
+      if (!sign_)
+        sign_ = 1;
     }
 }
 int
@@ -276,6 +286,11 @@ Rational::Rational (double x)
           *this = std::signbit (x) ? -infinity () : infinity ();
           return;
         }
+      else if (std::isnan (x))
+        {
+          *this = nan ();
+          return;
+        }
 
       sign_ = ::sign (x);
       x *= sign_;
@@ -311,12 +326,6 @@ Rational::Rational (double x)
     }
 }
 
-void
-Rational::invert ()
-{
-  std::swap (num_, den_);
-}
-
 Rational &
 Rational::operator *= (Rational r)
 {
@@ -338,8 +347,21 @@ exit_func:
 Rational &
 Rational::operator /= (Rational r)
 {
-  r.invert ();
-  return (*this *= r);
+  if (isinf (r))
+    {
+      r = {};
+    }
+  else
+    {
+      std::swap (r.num_, r.den_);
+      if (!r.den_)
+        {
+          if (!r.sign_)
+            r.sign_ = 1; // NaN mustn't have sign = 0
+        }
+    }
+
+  return *this *= r;
 }
 
 void
@@ -361,6 +383,11 @@ Rational::to_string () const
   if (isinf (*this))
     {
       return string (sign_ > 0 ? "" : "-") + "infinity";
+    }
+
+  if (isnan (*this))
+    {
+      return string (sign_ > 0 ? "" : "-") + "nan";
     }
 
   string s = std::to_string (num ());

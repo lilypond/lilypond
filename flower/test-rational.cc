@@ -25,7 +25,14 @@
 #include <cmath>
 #include <cstdint>
 #include <limits>
+#include <ostream>
 #include <type_traits>
+
+std::ostream &
+operator << (std::ostream &os, const Rational &r) // for Yaffut
+{
+  return os << to_string (r);
+}
 
 class Rational_test
 {
@@ -129,11 +136,13 @@ TEST (Rational_test, init_zero_over_zero)
 {
   const Rational r (0, 0);
   EQUAL (0, r.sign ());
+  CHECK (isfinite (r));
   CHECK (!isinf (r));
-  if (false) // TODO: Rational (0, 0) -> NaN
-    {
-      CHECK (std::isnan (static_cast<double> (r))); // TODO: etc.
-    }
+  CHECK (!isnan (r));
+
+  CHECK (!static_cast<bool> (r));
+
+  CHECK (!std::isnan (static_cast<double> (r)));
 }
 
 TEST (Rational_test, init_pos_over_zero)
@@ -188,6 +197,45 @@ TEST (Rational_test, init_float_neg_inf)
   CHECK (std::signbit (d));
 }
 
+TEST (Rational_test, init_float_nan)
+{
+  const Rational r (NAN);
+  UNEQUAL (0, r.sign ());
+  CHECK (!isfinite (r));
+  CHECK (!isinf (r));
+  CHECK (isnan (r));
+
+  CHECK (static_cast<bool> (r));
+
+  CHECK (std::isnan (static_cast<double> (r)));
+}
+
+TEST (Rational_test, neg_nan)
+{
+  constexpr auto r = -Rational::nan ();
+  UNEQUAL (0, r.sign ());
+  CHECK (!isfinite (r));
+  CHECK (!isinf (r));
+  CHECK (isnan (r));
+
+  CHECK (static_cast<bool> (r));
+
+  CHECK (std::isnan (static_cast<double> (r)));
+}
+
+TEST (Rational_test, pos_nan)
+{
+  constexpr auto r = Rational::nan ();
+  UNEQUAL (0, r.sign ());
+  CHECK (!isfinite (r));
+  CHECK (!isinf (r));
+  CHECK (isnan (r));
+
+  CHECK (static_cast<bool> (r));
+
+  CHECK (std::isnan (static_cast<double> (r)));
+}
+
 TEST (Rational_test, neg_infinity)
 {
   constexpr auto r = -Rational::infinity ();
@@ -216,6 +264,198 @@ TEST (Rational_test, addition)
   CHECK (z + r == r);
   CHECK (z + inf == inf);
   CHECK (inf + z == inf);
+}
+
+TEST (Rational_test, multiplication)
+{
+  const struct
+  {
+    Rational multiplier;
+    Rational multiplicand;
+    Rational product;
+  } cases []
+  =
+  {
+    {Rational::infinity (), 5, Rational::infinity ()},
+    // TODO: {Rational::infinity (), 0, Rational::nan ()},
+    {-Rational::infinity (), 6, -Rational::infinity ()},
+    // with NaN
+    {Rational::nan (), Rational::nan (), Rational::nan ()},
+    {Rational::nan (), -Rational::infinity (), Rational::nan ()},
+    {Rational::nan (), -10, Rational::nan ()},
+    {Rational::nan (), 0, Rational::nan ()},
+    {Rational::nan (), 10, Rational::nan ()},
+    {Rational::nan (), Rational::infinity (), Rational::nan ()},
+  };
+
+  for (const auto &c : cases)
+    {
+      try
+        {
+          const auto actual_double = static_cast<double> (c.multiplicand)
+                                     * static_cast<double> (c.multiplier);
+          const auto expected_double = static_cast<double> (c.product);
+
+          if (!std::isnan (actual_double))
+            {
+              EQUAL (actual_double, expected_double);
+              EQUAL (c.multiplier * c.multiplicand, c.product);
+              EQUAL (c.multiplicand * c.multiplier, c.product);
+            }
+          else // NaN is not comparable
+            {
+              CHECK (std::isnan (expected_double));
+              CHECK (isnan (c.product));
+              CHECK (isnan (c.multiplier * c.multiplicand));
+              CHECK (isnan (c.multiplicand * c.multiplier));
+            }
+        }
+      catch (yaffut::failure &)
+        {
+          std::cout << '\n'
+                    << "multiplier = " << c.multiplier << '\n'
+                    << "multiplicand = " << c.multiplicand << '\n';
+          throw;
+        }
+    }
+}
+
+TEST (Rational_test, division)
+{
+  const struct
+  {
+    Rational dividend;
+    Rational divisor;
+    Rational quotient;
+  } cases []
+  =
+  {
+    // basic
+    {Rational (5, 4), Rational (2, 10), Rational (25, 4)},
+    // by zero
+    {-Rational::infinity (), 0, -Rational::infinity ()},
+    {-1, 0, -Rational::infinity ()},
+    {0, 0, Rational::nan ()},
+    {1, 0, Rational::infinity ()},
+    {Rational::infinity (), 0, Rational::infinity ()},
+    // by infinities
+    {-3, -Rational::infinity (), 0},
+    {-2, Rational::infinity (), 0},
+    {0, -Rational::infinity (), 0},
+    {0, Rational::infinity (), 0},
+    {2, -Rational::infinity (), 0},
+    {3, Rational::infinity (), 0},
+    // with NaN
+    {Rational::nan (), Rational::nan (), Rational::nan ()},
+    {Rational::nan (), -Rational::infinity (), Rational::nan ()},
+    {Rational::nan (), -10, Rational::nan ()},
+    {Rational::nan (), 0, Rational::nan ()},
+    {Rational::nan (), 10, Rational::nan ()},
+    {Rational::nan (), Rational::infinity (), Rational::nan ()},
+    {-Rational::infinity (), Rational::nan (), Rational::nan ()},
+    {-10, Rational::nan (), Rational::nan ()},
+    {0, Rational::nan (), Rational::nan ()},
+    {10, Rational::nan (), Rational::nan ()},
+    {Rational::infinity (), Rational::nan (), Rational::nan ()},
+  };
+
+  for (const auto &c : cases)
+    {
+      try
+        {
+          const auto actual_double = static_cast<double> (c.dividend)
+                                     / static_cast<double> (c.divisor);
+          const auto expected_double = static_cast<double> (c.quotient);
+
+          if (!std::isnan (actual_double))
+            {
+              EQUAL (actual_double, expected_double);
+              EQUAL (c.dividend / c.divisor, c.quotient);
+            }
+          else // NaN is not comparable
+            {
+              CHECK (std::isnan (expected_double));
+              CHECK (isnan (c.quotient));
+              CHECK (isnan (c.dividend / c.divisor));
+            }
+        }
+      catch (yaffut::failure &)
+        {
+          std::cout << '\n'
+                    << "dividend = " << c.dividend << '\n'
+                    << "divisor = " << c.divisor << '\n';
+          throw;
+        }
+    }
+}
+
+TEST (Rational_test, modulo)
+{
+  const struct
+  {
+    Rational dividend;
+    Rational divisor;
+    Rational modulus;
+  } cases []
+  =
+  {
+    // basic
+    {52, 17, 1},
+    {Rational (5, 4), Rational (1, 5), Rational (1, 20)},
+    // zero % nonzero = 0
+    {0, -Rational::infinity (), 0},
+    {0, 123, 0},
+    {0, Rational::infinity (), 0},
+    // finite x % infinity = x
+    {-2, -Rational::infinity (), -2},
+    {-2, Rational::infinity (), -2},
+    {3, -Rational::infinity (), 3},
+    {3, Rational::infinity (), 3},
+    // with NaN
+    {Rational::nan (), Rational::nan (), Rational::nan ()},
+    {Rational::nan (), -Rational::infinity (), Rational::nan ()},
+    {Rational::nan (), -10, Rational::nan ()},
+    {Rational::nan (), 0, Rational::nan ()},
+    {Rational::nan (), 10, Rational::nan ()},
+    {Rational::nan (), Rational::infinity (), Rational::nan ()},
+    {-Rational::infinity (), Rational::nan (), Rational::nan ()},
+    {-10, Rational::nan (), Rational::nan ()},
+    {0, Rational::nan (), Rational::nan ()},
+    {10, Rational::nan (), Rational::nan ()},
+    {Rational::infinity (), Rational::nan (), Rational::nan ()},
+  };
+
+  for (const auto &c : cases)
+    {
+      try
+        {
+          const auto actual_double
+            = std::fmod (static_cast<double> (c.dividend),
+                         static_cast<double> (c.divisor));
+          const auto expected_double = static_cast<double> (c.modulus);
+
+          if (!std::isnan (actual_double))
+            {
+              EQUAL (actual_double, expected_double);
+              EQUAL (c.dividend % c.divisor, c.modulus);
+            }
+          else // NaN is not comparable
+            {
+              CHECK (std::isnan (expected_double));
+              CHECK (isnan (c.modulus));
+              CHECK (isnan (c.dividend / c.divisor));
+            }
+        }
+      catch (yaffut::failure &)
+        {
+          std::cout << '\n'
+                    << "dividend = " << c.dividend << '\n'
+                    << "divisor = " << c.divisor << '\n';
+          throw;
+        }
+    }
+
+  CHECK (isnan (Rational (0) / Rational (0)));
 }
 
 TEST (Rational_test, trunc_int)

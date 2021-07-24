@@ -51,7 +51,6 @@ private:
   void normalize ();
 
 public:
-  void invert ();
   I64 numerator () const { return sign_ * static_cast<I64> (num_); }
   I64 denominator () const { return static_cast<I64> (den_); }
   I64 num () const { return numerator (); }
@@ -65,8 +64,6 @@ public:
   Rational abs () const;
   void negate ();
 
-  // TODO: Returning true for 0/0 would be analogous to floating-point types,
-  // but changing it might have significant side effects.
   explicit operator bool () const { return sign_ != 0; }
   explicit operator double () const;
 
@@ -78,6 +75,9 @@ public:
   // positive infinity
   static constexpr Rational infinity () { return { 2, 1, 1 }; }
 
+  // not-a-number
+  static constexpr Rational nan () { return { 1, 0, 0 }; }
+
   // Allow implicit conversion from integer.  All of these must be defined or
   // deleted to avoid ambiguity.  "long long" is specified by the C++ standard
   // to be at least 64 bits wide, which is what we are storing.
@@ -88,7 +88,9 @@ public:
   Rational (unsigned long n) : Rational (static_cast<unsigned long long> (n)) {}
   Rational (unsigned long long);
 
+  // n.b. {0, 0} is treated as zero rather than NaN
   explicit Rational (I64, I64);
+
   explicit Rational (double);
   Rational (Rational const &r) = default;
   Rational &operator = (Rational const &r) = default;
@@ -102,10 +104,14 @@ public:
   int sign () const;
   std::string to_string () const;
 
+  // false for positive infinity, negative infinity, or not-a-number
+  friend bool isfinite (Rational const &r) { return r.den_ && !isinf (r); }
+
   // true for positive or negative infinity
-  // TODO: Consider isfinite(const Rational&) would likely make more sense in
-  // some cases, even though Rational doesn't properly represent NaN yet.
   friend bool isinf (Rational const &r) { return r.sign_ / 2; }
+
+  // true for not-a-number
+  friend bool isnan (Rational const &r) { return !r.den_; }
 };
 
 #include "arithmetic-operator.hh"
@@ -120,11 +126,6 @@ INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 
 int compare (Rational const &, Rational const &);
 int sign (Rational r);
-
-#if 0
-ostream &
-operator << (ostream &, Rational);
-#endif
 
 inline std::string
 to_string (Rational const &r)
