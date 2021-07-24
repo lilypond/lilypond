@@ -69,7 +69,7 @@ class Completion_heads_engraver : public Engraver
   Rational do_nothing_until_;
   Rational factor_;
 
-  Moment next_moment (Rational const &);
+  Rational next_moment (Rational const &);
   Item *make_note_head (Stream_event *);
 
 public:
@@ -100,59 +100,72 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
   Moment musiclen = get_event_length (ev, now);
 
   note_end_mom_ = std::max (note_end_mom_, (now + musiclen));
-  do_nothing_until_ = Rational (0, 0);
+  do_nothing_until_ = 0;
 }
 
 /*
   The duration _until_ the next bar line or completion unit
 */
-Moment
+Rational
 Completion_heads_engraver::next_moment (Rational const &note_len)
 {
-  Moment *e = unsmob<Moment> (get_property (this, "measurePosition"));
-  Moment *l = unsmob<Moment> (get_property (this, "measureLength"));
-  if (!e || !l || !from_scm<bool> (get_property (this, "timing")))
+  // TODO: This looks like a copy & paste from Completion_rest_engraver.
+  Rational result;
+
+  if (!from_scm<bool> (get_property (this, "timing")))
     {
-      return Moment (0, 0);
+      return result;
     }
 
-  Moment result = *l - *e;
-  if (result < 0)
+  auto *const mpos = unsmob<Moment> (get_property (this, "measurePosition"));
+  auto *const mlen = unsmob<Moment> (get_property (this, "measureLength"));
+  if (!mpos || !mlen)
+    {
+      return result; // programming error?
+    }
+
+  if (*mpos > *mlen)
     {
       programming_error ("invalid measure position: "
-                         + e->to_string () + " of " + l->to_string ());
-      return 0;
+                         + to_string (*mpos) + " of " + to_string (*mlen));
+      return result;
     }
-  Moment const *unit = unsmob<Moment> (get_property (this, "completionUnit"));
 
-  if (unit)
+  result = mlen->main_part_ - mpos->main_part_;
+
+  Rational unit;
+  if (auto *const u = unsmob<Moment> (get_property (this, "completionUnit")))
     {
-      Rational const now_unit = e->main_part_ / unit->main_part_;
-      if (now_unit.den () > 1)
+      unit = u->main_part_;
+    }
+  else
+    {
+      return result;
+    }
+
+  Rational const now_unit = mpos->main_part_ / unit;
+  if (now_unit.den () > 1)
+    {
+      /*
+        within a unit - go to the end of that
+      */
+      result = unit * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
+    }
+  else
+    {
+      /*
+        at the beginning of a unit:
+        take a power-of-two number of units, but not more than required,
+        since then the Duration constructor destroys the unit structure
+      */
+      if (note_len < result)
+        result = note_len;
+      Rational const step_unit = result / unit;
+      if (step_unit.den () < step_unit.num ())
         {
-          /*
-            within a unit - go to the end of that
-          */
-          auto r = unit->main_part_
-                   * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
-          result = Moment (r);
-        }
-      else
-        {
-          /*
-            at the beginning of a unit:
-            take a power-of-two number of units, but not more than required,
-            since then the Duration constructor destroys the unit structure
-          */
-          if (note_len < result.main_part_)
-            result.main_part_ = note_len;
-          Rational const step_unit = result.main_part_ / unit->main_part_;
-          if (step_unit.den () < step_unit.num ())
-            {
-              int const log2
-                = intlog2 (int (step_unit.num () / step_unit.den ()));
-              result.main_part_ = unit->main_part_ * Rational (1 << log2);
-            }
+          int const log2
+            = intlog2 (int (step_unit.num () / step_unit.den ()));
+          result = unit * Rational (1 << log2);
         }
     }
 
@@ -183,7 +196,7 @@ Completion_heads_engraver::process_music ()
 
   is_first_ = false;
 
-  Moment now = now_mom ();
+  const auto &now = now_mom ();
   if (do_nothing_until_ > now.main_part_)
     return;
 
@@ -209,10 +222,11 @@ Completion_heads_engraver::process_music ()
       factor_ = from_scm<Rational> (factor, note_dur.factor ());
       left_to_do_ = orig->get_length ();
     }
-  Moment nb = next_moment (note_dur.get_length ());
-  if (nb.main_part_ && nb < Moment (note_dur.get_length ()))
+
+  if (const auto &nb = next_moment (note_dur.get_length ()))
     {
-      note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
+      if (nb < note_dur.get_length ())
+        note_dur = Duration (nb / factor_, false).compressed (factor_);
     }
 
   do_nothing_until_ = now.main_part_ + note_dur.get_length ();
@@ -238,7 +252,7 @@ Completion_heads_engraver::process_music ()
         tie event should be processed.
       */
       set_property (event, "autosplit-end",
-                    ly_bool2scm (left_to_do_ - note_dur.get_length () > Rational (0)));
+                    ly_bool2scm (left_to_do_ > note_dur.get_length ()));
 
       Item *note = make_note_head (event);
       if (need_clone)
@@ -269,8 +283,8 @@ Completion_heads_engraver::process_music ()
   /*
     don't do complicated arithmetic with grace notes.
   */
-  if (orig && now_mom ().grace_part_)
-    left_to_do_ = Rational (0, 0);
+  if (orig && now.grace_part_)
+    left_to_do_ = 0;
 }
 
 void
