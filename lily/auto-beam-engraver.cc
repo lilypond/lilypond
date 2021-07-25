@@ -208,7 +208,8 @@ Auto_beam_engraver::begin_beam ()
   stems_.clear ();
   grouping_ = new Beaming_pattern ();
   beaming_options_.from_context (context ());
-  beam_settings_ = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
+  beam_settings_ = Grob_property_info (context (),
+                                       ly_symbol2scm ("Beam")).updated ();
 
   beam_start_context_.set_context (context ()->get_parent ());
   beam_start_location_
@@ -387,7 +388,9 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
   if (!busy ())
     return;
 
-  grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
+  const auto stem_location = now - beam_start_moment_ + beam_start_location_;
+  grouping_->add_stem (stem_location.grace_part_ ? stem_location.grace_part_
+                       : stem_location.main_part_,
                        durlog - 2,
                        Stem::is_invisible (stem),
                        stem_duration->factor (),
@@ -418,7 +421,7 @@ Auto_beam_engraver::recheck_beam ()
   for (vsize i = 0; (i + 1) < stems_.size (); /*in body*/)
     {
       found_end = test_moment (STOP,
-                               grouping_->end_moment (i),
+                               Moment (grouping_->end_moment (i)),
                                shortest_mom_);
       if (!found_end)
         i++;

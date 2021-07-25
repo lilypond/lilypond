@@ -295,7 +295,6 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 
   Duration *stem_duration = unsmob<Duration> (get_property (ev, "duration"));
   int durlog = stem_duration->duration_log ();
-  //int durlog = unsmob<Duration> (get_property (ev, "duration"))->duration_log ();
   if (durlog <= 2)
     {
       ev->warning (_ ("stem does not fit in beam"));
@@ -311,8 +310,9 @@ Beam_engraver::acknowledge_stem (Grob_info info)
     set_grob_direction (stem, forced_direction_);
 
   set_property (stem, "duration-log", to_scm (durlog));
-  Moment stem_location = now - beam_start_mom_ + beam_start_location_;
-  beam_info_->add_stem (stem_location,
+  const auto stem_location = now - beam_start_mom_ + beam_start_location_;
+  beam_info_->add_stem (stem_location.grace_part_ ? stem_location.grace_part_
+                        : stem_location.main_part_,
                         std::max (durlog - 2, 0),
                         Stem::is_invisible (stem),
                         stem_duration->factor (),
