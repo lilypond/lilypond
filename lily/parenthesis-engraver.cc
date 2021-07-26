@@ -87,8 +87,8 @@ Parenthesis_engraver::boot ()
 
 ADD_TRANSLATOR (Parenthesis_engraver,
                 /* doc */
-                "Parenthesize objects whose music cause has the"
-                " @code{parenthesize} property.",
+                "Parenthesize objects whose @code{parenthesize} property"
+                " is @code{#t}.",
 
                 /* create */
                 "ParenthesesItem ",
