@@ -59,7 +59,11 @@ Midi_stream::Midi_stream (const string &file_name)
 
 Midi_stream::~Midi_stream ()
 {
-  close (out_file_);
+  if (close (out_file_))
+    {
+      string msg (strerror (errno));
+      error (_f ("error writing MIDI file: %s", msg.c_str ()));
+    }
 
   if (!rename_file (tmp_file_name_.c_str (), dest_file_name_.c_str ()))
     {
@@ -75,8 +79,8 @@ Midi_stream::write (const string &str)
   size_t written = ::write (out_file_, str.data (), count);
 
   if (written != count)
-    warning (_f ("cannot write to file: `%s': %s", tmp_file_name_.c_str ()),
-             strerror (errno));
+    error (_f ("cannot write to file: `%s': %s", tmp_file_name_.c_str ()),
+           strerror (errno));
 }
 
 void
