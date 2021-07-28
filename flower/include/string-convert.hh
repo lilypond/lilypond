@@ -12,7 +12,7 @@
 #include "std-string.hh"
 
 /** The functor string_convert handles all conversions to/from std::string
-    (some time, anyway).  The class is quite empty from data view.  */
+    (some time, anyway).  The class is empty from data view.  */
 class String_convert
 {
   static int hex2bin (std::string hex_string, std::string &bin_string_r);
@@ -30,6 +30,7 @@ public:
   static std::string int_string (int i, char const *fmt = 0);
   static std::string to_lower (std::string s);
   static std::string to_upper (std::string s);
+  static std::string percent_encode (std::string const &s);
 };
 
 #endif // __STRING_CONVERT_HH //

@@ -205,3 +205,46 @@ String_convert::be_u24 (uint32_t u)
   r[2] = uint8_t (u);
   return string (reinterpret_cast<char*> (r), 3);
 }
+
+bool
+is_not_escape_character (Byte c)
+{
+  switch (c)
+    {
+    case '-':
+    case '.':
+    case '/':
+    case '0' ... '9':
+    case ':':
+    case 'A' ... 'Z':
+    case '_':
+    case 'a' ... 'z':
+      return true;
+    }
+
+  return false;
+}
+
+string
+String_convert::percent_encode (const string &orig_str)
+{
+  string new_str;
+  vsize i = 0;
+  vsize n = orig_str.size ();
+
+  while (i < n)
+    {
+      Byte cur = orig_str[i];
+
+      if (is_not_escape_character (cur))
+        new_str += cur;
+      else
+        {
+          new_str += '%';
+          new_str += String_convert::bin2hex (cur);
+        }
+
+      i++;
+    }
+  return new_str;
+}

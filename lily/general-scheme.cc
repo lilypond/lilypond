@@ -205,25 +205,6 @@ LY_DEFINE (ly_string_substitute, "ly:string-substitute",
   return ly_string2scm (ss);
 }
 
-bool
-is_not_escape_character (Byte c)
-{
-  switch (c)
-    {
-    case '-':
-    case '.':
-    case '/':
-    case '0'...'9':
-    case ':':
-    case 'A'...'Z':
-    case '_':
-    case 'a'...'z':
-      return true;
-    }
-
-  return false;
-}
-
 LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
            1, 0, 0, (SCM str),
            "Encode all characters in string @var{str} with hexadecimal"
@@ -234,25 +215,7 @@ LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
   string orig_str = ly_scm2string (str);
-  string new_str = "";
-
-  vsize i = 0;
-  vsize n = orig_str.size ();
-
-  while (i < n)
-    {
-      Byte cur = orig_str[i];
-
-      if (is_not_escape_character (cur))
-        new_str += cur;
-      else
-        {
-          new_str += '%';
-          new_str += String_convert::bin2hex (cur);
-        }
-
-      i++;
-    }
+  string new_str = String_convert::percent_encode (orig_str);
 
   return ly_string2scm (new_str);
 }
