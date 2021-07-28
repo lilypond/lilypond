@@ -64,7 +64,7 @@ public:
   ssize_t end_line_number () const;
   ssize_t end_column_number () const;
 
-  void get_counts (ssize_t *, ssize_t *, ssize_t *, ssize_t *) const;
+  void get_counts (ssize_t *line, ssize_t *chr, ssize_t *col, ssize_t *byte_col) const;
 
   Input &operator = (Input const &) = default;
   Input (Input const &i) = default;
