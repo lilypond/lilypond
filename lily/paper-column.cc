@@ -96,7 +96,6 @@ Paper_column::Paper_column (Paper_column const &src)
 {
   system_ = 0;
   rank_ = src.rank_;
-  interfaces_ = scm_cons (ly_symbol2scm ("paper-column-interface"), interfaces_);
 }
 
 Moment

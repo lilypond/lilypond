@@ -52,7 +52,6 @@ System::System (System const &src)
   : Spanner (src)
 {
   init_elements ();
-  interfaces_ = scm_cons (ly_symbol2scm ("system-interface"), interfaces_);
 }
 
 System::System (SCM s)

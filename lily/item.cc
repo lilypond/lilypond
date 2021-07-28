@@ -45,7 +45,6 @@ Item::Item (Item const &s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
   cached_pure_height_valid_ = false;
-  interfaces_ = scm_cons (ly_symbol2scm ("item-interface"), interfaces_);
 }
 
 bool

@@ -241,7 +241,6 @@ Spanner::Spanner (Spanner const &s)
   : Grob (s)
 {
   break_index_ = 0;
-  interfaces_ = scm_cons (ly_symbol2scm ("spanner-interface"), interfaces_);
 }
 
 /*
