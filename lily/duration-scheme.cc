@@ -160,3 +160,13 @@ LY_DEFINE (ly_duration_scale, "ly:duration-scale",
 
   return to_scm (r);
 }
+
+LY_DEFINE (ly_duration_compress, "ly:duration-compress",
+           2, 0, 0, (SCM dur, SCM factor),
+           "Compress @var{dur} by rational @var{factor}.")
+{
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  LY_ASSERT_TYPE (is_scm<Rational>, factor, 2);
+
+  return a->compressed (from_scm<Rational> (factor)).smobbed_copy ();
+}

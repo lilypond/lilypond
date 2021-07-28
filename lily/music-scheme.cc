@@ -190,19 +190,6 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   return sc->self_scm ();
 }
 
-LY_DEFINE (ly_music_compress, "ly:music-compress",
-           2, 0, 0, (SCM m, SCM factor),
-           "Compress music object@tie{}@var{m} by scale @var{factor}.")
-{
-  auto *const sc = LY_ASSERT_SMOB (Music, m, 1);
-  SCM_ASSERT_TYPE (scm_is_true (Lily::scale_p (factor)),
-                   factor, SCM_ARG2, __FUNCTION__,
-                   "non-negative rational, fraction, or moment");
-
-  sc->compress (from_scm<Rational> (Lily::scale_to_factor (factor)));
-  return m;
-}
-
 LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",
            2, 0, 0, (SCM music, SCM pitch),
            "Make @var{music} relative to @var{pitch},"

@@ -2057,6 +2057,20 @@ Entries that conform with the current key signature are not invalidated."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-public (ly:music-compress mus scale)
+  "Compress @var{mus} by @var{scale}."
+  (let ((factor (scale->factor scale)))
+    ;; compress the 'duration property of all elements recursively
+    (for-some-music
+     (lambda (m)
+       (let ((d (ly:music-property m 'duration)))
+         (if (ly:duration? d)
+             (set! (ly:music-property m 'duration)
+                   (ly:duration-compress d factor)))
+         #f))
+     mus)
+    mus))
+
 (define-public (skip-of-length mus)
   "Create a skip of exactly the same length as @var{mus}."
   (let* ((skip

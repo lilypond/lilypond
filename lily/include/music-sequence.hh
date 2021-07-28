@@ -46,6 +46,5 @@ public:
 SCM ly_transpose_key_alist (SCM l, SCM pit);
 Pitch music_list_to_relative (SCM l, Pitch p, bool ret_first);
 void transpose_music_list (SCM, Pitch);
-void compress_music_list (SCM, Rational);
 
 #endif

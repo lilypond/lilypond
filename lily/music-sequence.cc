@@ -155,18 +155,6 @@ music_list_to_relative (SCM l, Pitch p, bool ret_first)
   return (ret_first) ? first : last;
 }
 
-void
-compress_music_list (SCM l, Rational m)
-{
-  for (auto *mus : as_ly_smob_list<Music> (l))
-    {
-      if (!mus)
-        programming_error ("Music sequence should have music elements");
-      else
-        mus->compress (m);
-    }
-}
-
 Moment
 Music_sequence::minimum_start (SCM l)
 {

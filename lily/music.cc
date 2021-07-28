@@ -179,21 +179,6 @@ Music::to_relative_octave (Pitch last)
   return generic_to_relative_octave (last);
 }
 
-void
-Music::compress (Rational factor)
-{
-  SCM elt = get_property (this, "element");
-
-  if (Music *m = unsmob<Music> (elt))
-    m->compress (factor);
-
-  compress_music_list (get_property (this, "elements"), factor);
-  Duration *d = unsmob<Duration> (get_property (this, "duration"));
-  if (d)
-    set_property (this, "duration",
-                  d->compressed (factor).smobbed_copy ());
-}
-
 /*
   This mutates alist.  Hence, make sure that it is not shared
 */
