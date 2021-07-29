@@ -157,3 +157,9 @@ Font_metric::text_stencil (Output_def *state,
   programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }
+
+Real
+Font_metric::magnification () const
+{
+  return from_scm<Real> (scm_cdr (description_));
+}

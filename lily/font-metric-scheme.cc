@@ -137,7 +137,7 @@ LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  return scm_cdr (fm->description_);
+  return to_scm (fm->magnification ());
 }
 
 LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,

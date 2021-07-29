@@ -67,6 +67,8 @@ public:
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const;
 
+  Real magnification () const;
+
 private:
   /* No copying, no implicit copy constructor.  */
   Font_metric (Font_metric const &);
