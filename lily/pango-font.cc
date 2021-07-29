@@ -431,13 +431,10 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
                                                  ps_name,
                                                  face_index);
 
-      SCM expr = scm_list_n (ly_symbol2scm ("glyph-string"),
-                             self_scm (),
-                             ly_string2scm (ps_name),
-                             to_scm (size),
-                             scm_from_bool (cid_keyed),
-                             glyph_exprs,
-                             SCM_UNDEFINED);
+      SCM expr = scm_list_n (
+        ly_symbol2scm ("glyph-string"), self_scm (), ly_string2scm (ps_name),
+        to_scm (size), scm_from_bool (cid_keyed), glyph_exprs,
+        ly_string2scm (file_name), to_scm (face_index), SCM_UNDEFINED);
 
       return Stencil (b, expr);
     }

@@ -418,7 +418,7 @@
 (define (embedded-svg string)
   string)
 
-(define (embedded-glyph-string pango-font font size cid glyphs)
+(define (embedded-glyph-string pango-font font size cid glyphs file-name face-index)
   (define path "")
   (if (= 1 (length glyphs))
       (set! path (music-string-to-path font size (car glyphs)))
@@ -434,7 +434,7 @@
   (set! next-horiz-adv 0.0)
   path)
 
-(define (woff-glyph-string pango-font font-name size cid? w-h-x-y-named-glyphs)
+(define (woff-glyph-string pango-font font-name size cid? w-h-x-y-named-glyphs file-name face-index)
   (let* ((name-style (font-name-style font-name))
          (family-designsize (regexp-exec (make-regexp "(.*)-([0-9]*)")
                                          font-name))

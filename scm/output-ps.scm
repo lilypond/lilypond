@@ -89,7 +89,9 @@
                       postscript-font-name
                       size
                       cid?
-                      w-x-y-named-glyphs)
+                      w-x-y-named-glyphs
+                      file-name 
+                      face-index)
   (define (glyph-spec w h x y g) ; h not used
     (let ((prefix (if (string? g) "/" "")))
       (ly:format "~4f ~4f ~4f ~a~a" w x y prefix g)))
