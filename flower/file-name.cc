@@ -21,9 +21,8 @@
 #include "file-name.hh"
 #include "std-vector.hh"
 
-#include <cstdio>
 #include <cerrno>
-#include <unistd.h>
+#include <cstdio>
 #include <limits.h>
 
 #include "config.hh"
@@ -186,6 +185,30 @@ bool
 File_name::is_absolute () const
 {
   return is_absolute_;
+}
+
+File_name
+File_name::absolute (string const &cwd) const
+{
+  if (is_absolute_)
+    return *this;
+
+  File_name abs;
+  File_name cwd_name (cwd + "/file.ext");
+
+  abs.is_absolute_ = true;
+  /*
+    See
+    https://devblogs.microsoft.com/oldnewthing/20101011-00/?p=12563
+    for more background on cwd per drive.
+   */
+  abs.root_ = cwd_name.root_;
+  abs.dir_ = cwd_name.dir_;
+  if (!dir_.empty ())
+    abs.dir_ += "/" + dir_;
+  abs.base_ = base_;
+  abs.ext_ = ext_;
+  return abs;
 }
 
 File_name

@@ -51,6 +51,7 @@ public:
 
   File_name (std::string = "");
 
+  File_name absolute (std::string const &cwd) const;
   bool is_absolute () const;
   std::string to_string () const;
   File_name canonicalized () const;

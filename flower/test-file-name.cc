@@ -101,3 +101,20 @@ TEST_STRING (File_name, Canonicalize_8, "./../")
   string s = canonicalized ().to_string ();
   EQUAL ("..", s);
 }
+
+TEST (File_name, absolute)
+{
+  EQUAL (File_name ("abc/def.g").absolute ("/home").to_string (),
+         "/home/abc/def.g");
+
+  EQUAL (File_name ("c:/abc/def.g").absolute ("/home").to_string (),
+         "c:/abc/def.g");
+  EQUAL (File_name ("/abc/def.g").absolute ("/home").to_string (),
+         "/abc/def.g");
+  EQUAL (File_name ("/def.g").absolute ("/home").to_string (), "/def.g");
+  EQUAL (File_name ("def.g").absolute ("/home").to_string (), "/home/def.g");
+  EQUAL (File_name ("c:abc/def.g").absolute ("c:/home").to_string (),
+         "c:/home/abc/def.g");
+  EQUAL (File_name ("d:abc/def.g").absolute ("c:/home").to_string (),
+         "c:/home/abc/def.g");
+}

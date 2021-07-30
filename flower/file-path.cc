@@ -42,9 +42,10 @@
 #endif
 
 #include <algorithm>
-#include <cstdio>
 #include <cerrno>
+#include <cstdio>
 #include <memory>
+#include <unistd.h>
 
 using std::string;
 using std::vector;
