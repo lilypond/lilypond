@@ -33,12 +33,6 @@ static constexpr Real infinity_f = INFINITY;
 
 using std::abs; // TODO: replace abs (x) with std::abs (x) and remove this
 
-inline Real
-distance (Real x, Real y)
-{
-  return std::abs (x - y);
-}
-
 template<class T>
 inline int
 sign (T x)
