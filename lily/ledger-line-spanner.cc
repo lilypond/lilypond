@@ -329,9 +329,8 @@ Ledger_line_spanner::print (SCM smob)
                   // (Only happens for the furthest note in the column.)
                   if (l == 0 && !acc_extent.is_empty ())
                     {
-                      Real dist
-                        = Drul_array<Real> (acc_extent[RIGHT],
-                                            head_size[LEFT]).average ();
+                      const auto dist
+                        = (acc_extent.right () + head_size.left ()) / 2;
 
                       Real left_shorten = std::max (-ledger_size[LEFT] + dist, 0.0);
                       x_extent[LEFT] += left_shorten;

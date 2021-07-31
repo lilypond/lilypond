@@ -711,7 +711,7 @@ Beam::print (SCM grob)
       for (int j = 0; j < 2; j++)
         translations[j] = slope
                           * (segments[idx[j]].horizontal_[LEFT] - span.center ())
-                          + pos.average ()
+                          + ((pos.front () + pos.back ()) / 2)
                           + beam_dy * segments[idx[j]].vertical_count_;
 
       Real weighted_average = translations[0] * weights[LEFT] + translations[1] * weights[RIGHT];

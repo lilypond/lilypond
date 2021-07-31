@@ -80,7 +80,7 @@ public:
   T center () const
   {
     assert (!is_empty ());
-    return base_type::average ();
+    return (left () + right ()) / 2;
   }
 
   T &left ()
@@ -269,7 +269,7 @@ Interval_t<Real>::center () const
   // as iv.linear_combination (0).  A Real result can represent infinity or
   // NaN, so there is no need to crash on empty, unbounded, or reversed
   // intervals.
-  return base_type::average ();
+  return (left () + right ()) / 2;
 }
 
 template<>

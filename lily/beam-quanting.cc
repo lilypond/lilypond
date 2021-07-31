@@ -55,6 +55,13 @@ using std::string;
 using std::unique_ptr;
 using std::vector;
 
+// Compute the increase from dr.front () to dr.back ().
+static constexpr Real
+delta (const Drul_array<Real> &dr)
+{
+  return dr.back () - dr.front ();
+}
+
 Real
 get_detail (SCM alist, SCM sym, Real def)
 {
@@ -151,7 +158,7 @@ Beam_configuration::new_config (Drul_array<Real> start,
 Real
 Beam_scoring_problem::y_at (Real x, Beam_configuration const *p) const
 {
-  return p->y[LEFT] + x * p->y.delta () / x_span_;
+  return p->y[LEFT] + x * delta (p->y) / x_span_;
 }
 
 /****************************************************************/
@@ -523,7 +530,7 @@ Beam_scoring_problem::least_squares_positions ()
   Real slope = 0;
   Real dy = 0;
   Real ldy = 0.0;
-  if (!ideal.delta ())
+  if (!delta (ideal))
     {
       Drul_array<Real> chord (chord_start_y_[0],
                               chord_start_y_.back ());
@@ -532,12 +539,12 @@ Beam_scoring_problem::least_squares_positions ()
          slightly sloped.
 
          However, if both stems reach middle line,
-         ideal[LEFT] == ideal[RIGHT] and ideal.delta () == 0.
+         ideal[LEFT] == ideal[RIGHT] and delta (ideal) == 0.
 
          For that case, we apply artificial slope */
-      if (!ideal[LEFT] && chord.delta () && stem_infos_.size () == 2)
+      if (!ideal[LEFT] && delta (chord) && stem_infos_.size () == 2)
         {
-          const Direction d (chord.delta ());
+          const Direction d (delta (chord));
           unquanted_y_[d] = Beam::get_beam_thickness (beam_) / 2;
           unquanted_y_[-d] = -unquanted_y_[d];
         }
@@ -1111,8 +1118,12 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
     we choose the quanting in the direction of the slope so that the first stem
     always seems longer, reaching to the second, rather than squashed.
   */
-  if (is_knee_ && count[LEFT] == count[RIGHT] && count[LEFT] == 1 && unquanted_y_.delta ())
-    score[Direction (unquanted_y_.delta ())] += score[Direction (unquanted_y_.delta ())] < 1.0 ? 0.01 : 0.0;
+  if (is_knee_ && (count[LEFT] == count[RIGHT]) && (count[LEFT] == 1))
+    {
+      const Direction d (delta (unquanted_y_));
+      if (d)
+        score[d] += (score[d] < 1.0) ? 0.01 : 0.0;
+    }
 
   config->add (score[LEFT] + score[RIGHT], "L");
 }
@@ -1120,8 +1131,8 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
 void
 Beam_scoring_problem::score_slope_direction (Beam_configuration *config) const
 {
-  Real dy = config->y.delta ();
-  Real damped_dy = unquanted_y_.delta ();
+  Real dy = delta (config->y);
+  Real damped_dy = delta (unquanted_y_);
   Real dem = 0.0;
   /*
     DAMPING_DIRECTION_PENALTY is a very harsh measure, while for
@@ -1150,7 +1161,7 @@ Beam_scoring_problem::score_slope_direction (Beam_configuration *config) const
 void
 Beam_scoring_problem::score_slope_musical (Beam_configuration *config) const
 {
-  Real dy = config->y.delta ();
+  Real dy = delta (config->y);
   Real dem = parameters_.MUSICAL_DIRECTION_FACTOR
              * std::max (0.0, (fabs (dy) - fabs (musical_dy_)));
   config->add (dem, "Sm");
@@ -1160,8 +1171,8 @@ Beam_scoring_problem::score_slope_musical (Beam_configuration *config) const
 void
 Beam_scoring_problem::score_slope_ideal (Beam_configuration *config) const
 {
-  Real dy = config->y.delta ();
-  Real damped_dy = unquanted_y_.delta ();
+  Real dy = delta (config->y);
+  Real damped_dy = delta (unquanted_y_);
   Real dem = 0.0;
 
   Real slope_penalty = parameters_.IDEAL_SLOPE_FACTOR;
@@ -1190,7 +1201,7 @@ my_modf (Real x)
 void
 Beam_scoring_problem::score_horizontal_inter_quants (Beam_configuration *config) const
 {
-  if (config->y.delta () == 0.0
+  if (delta (config->y) == 0.0
       && abs (config->y[LEFT]) < staff_radius_ * staff_space_)
     {
       Real yshift = config->y[LEFT] - 0.5 * staff_space_;
@@ -1207,7 +1218,7 @@ Beam_scoring_problem::score_horizontal_inter_quants (Beam_configuration *config)
 void
 Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
 {
-  Real dy = config->y.delta ();
+  Real dy = delta (config->y);
 
   Real extra_demerit
     = parameters_.SECONDARY_BEAM_DEMERIT

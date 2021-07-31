@@ -92,17 +92,6 @@ public:
     array_[0] = t1;
     array_[1] = t2;
   }
-
-  // Compute the average of the elements.  Requires T to be divisible by int.
-  constexpr T average () const
-  {
-    return (back () + front ()) / 2;
-  }
-
-  constexpr T delta () const
-  {
-    return back () - front ();
-  }
 };
 
 template<class T1, class T2>

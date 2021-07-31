@@ -80,18 +80,6 @@ class Drul_array_test
     static_assert (arr.front () == 12, "");
     static_assert (arr.back () == 34, "");
   }
-
-  static void test_average ()
-  {
-    static_assert (Drul_array<int> {10, 15}.average () == 12, "");
-    static_assert (Drul_array<Real> {10, 11}.average () == 10.5, "");
-  }
-
-  static void test_delta ()
-  {
-    constexpr Drul_array<int> arr {5, 8};
-    static_assert (arr.delta () == (8 - 5), "");
-  }
 };
 
 TEST (Drul_array_test, const_access)
