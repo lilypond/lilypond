@@ -605,16 +605,14 @@
    `(ry . ,(/ blot-diameter 2))
    '(fill . "currentColor")))
 
-(define* (setcolor r #:optional (g #f) (b #f) (a #f))
+(define* (setcolor r g b #:optional (a #f))
   (string-append
    "<g color=\""
-   (if (string? r)
-       r
-       (if a
+       (if (and (number? a) (< a 1.0))
            (ly:format "rgba(~4f%, ~4f%, ~4f%, ~4f%)"
                       (* 100 r) (* 100 g) (* 100 b) (* 100 a))
            (ly:format "rgb(~4f%, ~4f%, ~4f%)"
-                      (* 100 r) (* 100 g) (* 100 b))))
+                      (* 100 r) (* 100 g) (* 100 b)))
    "\">\n"))
 
 ;; rotate around given point

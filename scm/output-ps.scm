@@ -196,16 +196,10 @@
                width height x y blotdiam)))
 
 ;; save current color on stack and set new color
-(define* (setcolor r #:optional (g #f) (b #f) (a #f))
-  (let* ((colorlist
-           (if (string? r)
-               (css->colorlist r)
-               (if a (list r g b a)
-                     (list r g b))))
-         (colors (length colorlist)))
-    (if (= colors 3)
-        (apply ly:format "gsave ~4f ~4f ~4f setrgbcolor\n" colorlist)
-        (apply ly:format "gsave ~4f ~4f ~4f ~4f setrgbacolor\n" colorlist))))
+(define* (setcolor r g b #:optional (a #f))
+  (if (and (number? a) (< a 1.0))
+      (ly:format "gsave ~4f ~4f ~4f ~4f setrgbacolor\n" r g b a)
+      (ly:format "gsave ~4f ~4f ~4f setrgbcolor\n" r g b)))
 
 ;; restore color from stack
 (define (resetcolor) "grestore\n")

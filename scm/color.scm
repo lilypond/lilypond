@@ -702,6 +702,12 @@
      (silver 0.752941176470588 0.752941176470588 0.752941176470588)
      (teal 0 0.501960784313725 0.501960784313725))))
 
+(define-public (reset-stencil-colors)
+  (ly:set-color-names (map (lambda (entry)
+                             (cons (symbol->string (car entry))
+                                   (cdr entry)))
+                           css-color-list)))
+
 (define (make-color-handler color-list)
   (let
       ((color-table (make-hash-table 31)))

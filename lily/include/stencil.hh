@@ -88,7 +88,8 @@ public:
   Box extent_box () const;
   bool is_empty () const;
   bool is_empty (Axis) const;
-  Stencil in_color (Real r, Real g, Real b) const;
+  Stencil in_color (Real r, Real g, Real b, Real a = 1.0) const;
+  Stencil in_color (std::string const &css_color) const;
   Stencil with_outline (Stencil const &ol) const;
 };
 

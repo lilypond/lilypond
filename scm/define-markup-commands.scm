@@ -3388,10 +3388,7 @@ Draw @var{arg} in color specified by @var{color}.
   blue
 }
 @end lilypond"
-  (let ((stil (interpret-markup layout props arg)))
-    (ly:make-stencil (list 'color color (ly:stencil-expr stil))
-                     (ly:stencil-extent stil X)
-                     (ly:stencil-extent stil Y))))
+    (stencil-with-color (interpret-markup layout props arg) color))
 
 (define-markup-command (tied-lyric layout props str)
   (string?)

@@ -708,9 +708,10 @@ producing a new stencil."
                  (interval-widen xext ideal-thickness)
                  (interval-widen yext ideal-thickness)
                  ideal-blot))
-         (inner (ly:make-stencil (list 'color (x11-color 'white)
-                                       (ly:stencil-expr (ly:round-filled-box
-                                                         xext yext (- ideal-blot ideal-thickness)))))))
+         (inner (ly:make-stencil (ly:stencil-in-color
+                                  (ly:round-filled-box
+                                   xext yext (- ideal-blot ideal-thickness))
+                                   "white"))))
     (set! stencil (ly:stencil-add outer inner))
     stencil))
 
@@ -732,12 +733,10 @@ box, remains the same."
     replaced-stil))
 
 (define-public (stencil-with-color stencil color)
-  (if (color? color)
-      (ly:make-stencil
-       (list 'color color (ly:stencil-expr stencil))
-       (ly:stencil-extent stencil X)
-       (ly:stencil-extent stencil Y))
-      stencil))
+  (cond
+   ((string? color) (ly:stencil-in-color stencil color))
+   (color (apply ly:stencil-in-color stencil color))
+   (else stencil)))
 
 (define*-public (stencil-whiteout-outline
                  stil #:optional (thickness 0.3) (color white)
