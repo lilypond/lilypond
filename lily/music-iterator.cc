@@ -107,13 +107,7 @@ Music_iterator::substitute_context (Context *f, Context *t)
     {
       if (get_own_context () == f)
         set_own_context (t);
-      derived_substitute (f, t);
     }
-}
-
-void
-Music_iterator::derived_substitute (Context *, Context *)
-{
 }
 
 /* Descend to a bottom context; implicitly create a new one if necessary */

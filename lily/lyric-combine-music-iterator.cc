@@ -55,8 +55,9 @@ protected:
   void process (Moment) override;
   bool run_always () const override;
   void derived_mark () const override;
-  void derived_substitute (Context *, Context *) override;
+  void substitute_context (Context *, Context *) override;
   void set_music_context (Context *to);
+  void preorder_walk (const std::function <void (Music_iterator *)> &) override;
 private:
   bool start_new_syllable () const;
   Context *find_voice ();
@@ -162,14 +163,25 @@ Lyric_combine_music_iterator::derived_mark ()const
 }
 
 void
-Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
+Lyric_combine_music_iterator::substitute_context (Context *f, Context *t)
 {
+  if (f != t)
+    {
+      Music_iterator::substitute_context (f, t);
+      if (lyrics_context_ && (lyrics_context_ == f))
+        lyrics_context_ = t;
+      if (music_context_ && (music_context_ == f))
+        set_music_context (t);
+    }
+}
+
+void
+Lyric_combine_music_iterator::preorder_walk
+(const std::function <void (Music_iterator *)> &visit)
+{
+  Music_iterator::preorder_walk (visit);
   if (lyric_iter_)
-    lyric_iter_->substitute_context (f, t);
-  if (lyrics_context_ && lyrics_context_ == f)
-    lyrics_context_ = t;
-  if (music_context_ && music_context_ == f)
-    set_music_context (t);
+    lyric_iter_->preorder_walk (visit);
 }
 
 void

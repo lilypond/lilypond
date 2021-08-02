@@ -29,7 +29,6 @@ class Simultaneous_music_iterator : public Music_iterator
 public:
   Simultaneous_music_iterator () = default;
   Simultaneous_music_iterator (Simultaneous_music_iterator const &);
-  void derived_substitute (Context *f, Context *t) override;
   void derived_mark () const override;
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Simultaneous_music_iterator);
@@ -37,6 +36,8 @@ public:
   Moment pending_moment () const override;
   void do_quit () override;
   bool run_always () const override;
+
+  void preorder_walk (const std::function <void (Music_iterator *)> &) override;
 
 protected:
   void create_children () override;

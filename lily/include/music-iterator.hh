@@ -25,6 +25,8 @@
 #include "virtual-methods.hh"
 #include "context-handle.hh"
 
+#include <functional>
+
 /**
    ---
 
@@ -95,6 +97,11 @@ public:
   Context *get_own_context () const { return handle_.get_context (); }
   void set_own_context (Context *c) { handle_.set_context (c); }
 
+  // Replace this iterator's references to one context with another.  This is
+  // not recursive.  Subclasses that track multiple contexts should override
+  // this to consider them all.
+  virtual void substitute_context (Context *from, Context *to);
+
   // Create an iterator that has no parent.
   static SCM create_top_iterator (Music *mus)
   {
@@ -109,8 +116,7 @@ public:
 
   void init_context (Context *);
   void quit ();
-  void substitute_context (Context *from, Context *to);
-  virtual void derived_substitute (Context *, Context *);
+
   virtual Moment pending_moment () const;
   bool ok () const
   {
@@ -125,6 +131,19 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
 
   Music *get_music () const;
+
+  // Call the given function on this iterator and then on all of its children.
+  //
+  // Subclasses with child iterators must override this method, call the
+  // inherited implementation first, and then call preorder_walk for each
+  // child.
+  virtual void
+  preorder_walk (const std::function <void (Music_iterator *)> &visit)
+  {
+    if (visit)
+      visit (this);
+  }
+
 protected:
   Music_iterator ();
 

@@ -36,9 +36,17 @@ private:
 void
 Part_combine_part_iterator::change_to (const string &id)
 {
-  Context *voice = find_voice (id);
-  if (voice)
-    substitute_context (get_context (), voice);
+  if (auto *const to = find_voice (id))
+    {
+      auto *const from = get_context ();
+      if (from != to)
+        {
+          preorder_walk ([from, to] (Music_iterator * iter)
+          {
+            iter->substitute_context (from, to);
+          });
+        }
+    }
   else
     {
       string s = "can not find Voice context: ";

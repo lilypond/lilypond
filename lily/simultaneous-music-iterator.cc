@@ -32,10 +32,12 @@ Simultaneous_music_iterator::derived_mark () const
 }
 
 void
-Simultaneous_music_iterator::derived_substitute (Context *f, Context *t)
+Simultaneous_music_iterator::preorder_walk
+(const std::function <void (Music_iterator *)> &visit)
 {
+  Music_iterator::preorder_walk (visit);
   for (auto *child : children_list_)
-    child->substitute_context (f, t);
+    child->preorder_walk (visit);
 }
 
 void

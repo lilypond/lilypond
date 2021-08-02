@@ -44,10 +44,12 @@ Sequential_iterator::derived_mark () const
 }
 
 void
-Sequential_iterator::derived_substitute (Context *f, Context *t)
+Sequential_iterator::preorder_walk
+(const std::function <void (Music_iterator *)> &visit)
 {
+  Music_iterator::preorder_walk (visit);
   if (iter_)
-    iter_->substitute_context (f, t);
+    iter_->preorder_walk (visit);
 }
 
 void

@@ -41,10 +41,12 @@ Music_wrapper_iterator::derived_mark () const
 }
 
 void
-Music_wrapper_iterator::derived_substitute (Context *f, Context *t)
+Music_wrapper_iterator::preorder_walk
+(const std::function <void (Music_iterator *)> &visit)
 {
+  Music_iterator::preorder_walk (visit);
   if (child_iter_)
-    child_iter_->substitute_context (f, t);
+    child_iter_->preorder_walk (visit);
 }
 
 void

@@ -36,11 +36,12 @@ public:
 
   Context *get_context () const override;
   void set_context (Context *trans) override;
-  void derived_substitute (Context *f, Context *t) override;
   void derived_mark () const override;
   Moment pending_moment () const override;
   void do_quit () override;
   bool run_always () const override;
+
+  void preorder_walk (const std::function <void (Music_iterator *)> &) override;
 
 protected:
   void create_children () override;
