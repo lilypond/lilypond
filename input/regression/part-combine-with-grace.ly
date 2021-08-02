@@ -8,7 +8,7 @@
 \score {
   \new Voice = "v" {
     r2
-    \partCombine { \grace g'8 e'4 \grace g'8 e'4 }
+    \partCombine { \grace { a'8 g'8 } e'4 \grace g'8 e'4 }
                  { \grace e'8 c'4 \grace e'8 c'4 }
   }
 }
