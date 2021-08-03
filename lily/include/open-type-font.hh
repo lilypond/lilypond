@@ -56,6 +56,10 @@ public:
   SCM get_char_table () const;
   SCM glyph_list () const;
 
+  /* handle to the underlying font data: callers should have shorter
+     lifetime than the Open_type_font */
+  FT_Face freetype_handle () const { return face_; }
+
   void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr, size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   std::string get_otf_table (const std::string &tag) const;

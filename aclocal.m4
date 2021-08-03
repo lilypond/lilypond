@@ -857,6 +857,18 @@ AC_DEFUN(STEPMAKE_GOBJECT, [
     fi
 ])
 
+AC_DEFUN(STEPMAKE_CAIRO, [
+    PKG_CHECK_MODULES(CAIRO, $1 >= $3, have_cairo=yes, true)
+    if test "$have_cairo" = yes; then
+        AC_DEFINE(HAVE_CAIRO)
+        AC_SUBST(CAIRO_CFLAGS)
+        AC_SUBST(CAIRO_LIBS)
+    else
+        r="cairo-devel"
+        ver="`$PKG_CONFIG --modversion $1`"
+        STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    fi
+])
 
 AC_DEFUN(STEPMAKE_FREETYPE2, [
     PKG_CHECK_MODULES(FREETYPE2, $1 >= $3, have_freetype2=yes, true)

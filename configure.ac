@@ -323,6 +323,19 @@ STEPMAKE_FREETYPE2(freetype2, REQUIRED, 2.3.9)
 STEPMAKE_GLIB(glib-2.0, REQUIRED, 2.38)
 STEPMAKE_GOBJECT(gobject-2.0, REQUIRED, 2.38)
 
+CAIRO_BACKEND=no
+AC_ARG_ENABLE(cairo-backend,
+    [AS_HELP_STRING([--enable-cairo-backend],
+                    [enable the cairo output backend (-dbackend=cairo)]
+                    [Default: off])],
+    [CAIRO_BACKEND=$enableval])
+AC_SUBST(CAIRO_BACKEND)
+
+if test "$CAIRO_BACKEND" = "yes"; then
+    STEPMAKE_CAIRO(cairo, REQUIRED, 1.8.8)
+    AC_DEFINE(CAIRO_BACKEND)
+fi
+
 STEPMAKE_WINDOWS
 
 # guile executable for lilypond-invoke-editor. We don't care about the

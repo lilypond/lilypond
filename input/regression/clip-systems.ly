@@ -72,13 +72,24 @@ origScore = \score{
 #(ly:set-option 'clip-systems #f)
 #(define output-suffix #f)
 
+clipname = "from-2.0.1-to-4.0.1-clip.eps"
+
+clipMarkup = \markup { \epsfile #X #30.0 #(format #f "~a-1-~a" (ly:parser-output-name) clipname) }
+
+% Not supported in the cairo backend. Allow compiling
+% input/regression/*.ly by substituting the \epsfile markup
+
+#(if (eq? (ly:get-option 'backend) 'cairo)
+  (set! clipMarkup "WARNING: clip-systems not supported under cairo"))
+
+
 \book {
   \score { \origScore }
   \markup { \bold \fontsize #6 clips }
   \score {
     \lyrics {
-      \markup { from-2.0.1-to-4.0.1-clip.eps }
-      \markup { \epsfile #X #30.0 #(format #f "~a-1-from-2.0.1-to-4.0.1-clip.eps" (ly:parser-output-name)) }
+      \markup { \clipname }
+      \clipMarkup
     }
   }
 }

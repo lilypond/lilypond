@@ -648,7 +648,10 @@ parse_argv (int argc, char **argv)
               || string (opt->longname_str0_) == "ps")
             add_output_format (opt->longname_str0_);
           else if (string (opt->longname_str0_) == "svg")
-            init_scheme_variables_global += "(backend . svg)\n";
+            {
+              init_scheme_variables_global += "(backend . svg)\n";
+              add_output_format (opt->longname_str0_);
+            }
           else if (string (opt->longname_str0_) == "relocate")
             warning (_ ("The --relocate option is no longer relevant."));
           break;
