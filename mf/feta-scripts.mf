@@ -1460,7 +1460,7 @@ fet_beginchar ("Segno", "segno");
 
   swoosh := subpath (0, ta) of pata
             -- subpath (tb, 2) of patb;
-  draw swoosh
+  fill swoosh
        .. swoosh scaled -1 shifted (-feta_eps, -feta_eps)
        .. cycle;
 
