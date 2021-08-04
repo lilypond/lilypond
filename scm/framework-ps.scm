@@ -80,7 +80,7 @@
      ((string? val) (string-append "(" val ")"))
      ((symbol? val) (symbol->string val))
      ((number? val) (number->string val))
-     (else "")))
+     (else "null")))
 
   (define (output-entry ps-key ly-key)
     (string-append
