@@ -277,6 +277,8 @@ fet_beginchar ("accordion register bayanbass", "bayanbass")
   bot z7 = (w - lt / 2, 2 lh - d);
   bot z8 = (w - lt / 2, 3 lh - d);
 
+  labels (range 1 thru 8);
+
   draw z1
        -- z5;
   draw z2
@@ -503,6 +505,8 @@ fet_beginchar ("accordion push", "push");
        ((z2 - se_offset)
         -- (z3 - se_offset));
 
+  labels (1, 2, 3, 4);
+
   fill z1 + ne_offset
        -- z2 + ne_offset
        .. rt z2 {down}
@@ -552,6 +556,8 @@ fet_beginchar ("accordion pull", "pull");
 
   x5 = x1;
   y5 = y4;
+
+  labels (1, 2, 3, 4);
 
   fill z1 + penradius * right {up}
        -- z2 + penradius * right {up}

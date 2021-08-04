@@ -555,7 +555,7 @@ fet_beginchar ("Thumb", "thumb");
 
   labels (5);
 
-  draw_brush (z4r, 1.4 thin, z5, brush_thick);
+  draw_brush (z4r, 1.4 thin, z5, brush_thick, 0);
 fet_endchar;
 
 
@@ -639,14 +639,14 @@ fet_beginchar ("staccato dot", "staccato");
 fet_endchar;
 
 
-def draw_staccatissimo =
+def draw_staccatissimo (expr show_labels) =
   save radius, height;
   height# = .8 staff_space#;
   radius# = linethickness# + .1 staff_space#;
   define_whole_blacker_pixels (radius);
   define_pixels (height);
 
-  draw_brush ((0, 0), linethickness, (0, height), 2 radius);
+  draw_brush ((0, 0), linethickness, (0, height), 2 radius, show_labels);
 
   set_char_box (radius#, radius#,
                 blot_diameter# / 2, height# + radius#);
@@ -654,12 +654,12 @@ enddef;
 
 
 fet_beginchar ("staccatissimo/martellato up", "ustaccatissimo");
-  draw_staccatissimo;
+  draw_staccatissimo (1);
 fet_endchar;
 
 
 fet_beginchar ("staccatissimo/martellato down", "dstaccatissimo");
-  draw_staccatissimo;
+  draw_staccatissimo (0);
   y_mirror_char;
 fet_endchar;
 
@@ -837,7 +837,8 @@ fet_beginchar ("halfopen (unstopped)", "halfopen");
             .. cycle;
 
   draw_brush ((-w * factor, -h * factor), slash,
-              (w * factor, h * factor), slash);
+              (w * factor, h * factor), slash,
+              1);
 fet_endchar;
 
 
@@ -875,7 +876,8 @@ fet_beginchar ("halfopen vertical", "halfopenvertical");
             .. cycle;
 
   draw_brush ((0, -h * factor), slash,
-              (0, h * factor), slash);
+              (0, h * factor), slash,
+              1);
 fet_endchar;
 
 
@@ -1084,20 +1086,20 @@ def draw_haydnturn (expr height_factor) =
        .. swoosh scaled -1 shifted (-feta_eps, -feta_eps)
        .. cycle;
 
-  clearxy;
-
   pickup pencircle scaled turn_stemwidth;
 
-  top y1 = h;
-  bot y2 = -d;
-  x1 = x2;
-  x2 = 0;
+  top y4 = h;
+  bot y5 = -d;
+  x4 = x5;
+  x5 = 0;
 
-  draw_gridline (z2, z1, turn_stemwidth);
+  draw_gridline (z5, z4, turn_stemwidth);
 enddef;
 
 fet_beginchar ("Haydn ornament", "haydnturn");
   draw_haydnturn (2);
+  penlabels (1, 2, 3);
+  labels (4, 5);
 fet_endchar;
 
 
@@ -1688,7 +1690,7 @@ fet_beginchar ("Left Comma", "lcomma");
 fet_endchar;
 
 
-def draw_varcomma =
+def draw_varcomma (expr show_labels) =
   save thick, thin, ht, wd, alpha;
 
   alpha := 35;
@@ -1703,18 +1705,18 @@ def draw_varcomma =
   z1 = (-b, -d);
   z2 = (w, h);
 
-  draw_brush (z1, thin, z2, thick);
+  draw_brush (z1, thin, z2, thick, show_labels);
 enddef;
 
 
 fet_beginchar ("Right Varied Comma", "rvarcomma");
-  draw_varcomma;
+  draw_varcomma (1);
   labels (1, 2);
 fet_endchar;
 
 
 fet_beginchar ("Left Varied Comma", "lvarcomma");
-  draw_varcomma;
+  draw_varcomma (0);
   xy_mirror_char;
 fet_endchar;
 

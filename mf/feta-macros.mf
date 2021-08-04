@@ -291,25 +291,30 @@ def draw_gridline (expr bottom_left, top_right, thickness) =
 enddef;
 
 
-def draw_brush (expr a, w, b, v) =
+def draw_brush (expr a, w, b, v, show_labels) =
   save x, y;
 
-  z1 = a;
-  z2 = b;
-  z3 = z4 = z1;
-  z5 = z6 = z2;
+  z1' = a;
+  z2' = b;
+  z3' = z4' = z1';
+  z5' = z6' = z2';
 
-  penpos3 (w, angle (z2 - z1) + 90);
-  penpos4 (w, angle (z2 - z1));
-  penpos5 (v, angle (z1 - z2) + 90);
-  penpos6 (v, angle (z1 - z2));
+  penpos3' (w, angle (z2' - z1') + 90);
+  penpos4' (w, angle (z2' - z1'));
+  penpos5' (v, angle (z1' - z2') + 90);
+  penpos6' (v, angle (z1' - z2'));
 
-  fill z3r{z3r - z5l}
-       .. z4l
-       .. {z5r - z3l}z3l
-       .. z5r{z5r - z3l}
-       .. z6l
-       .. {z3r - z5l}z5l
+  if show_labels = 1:
+    labels (1', 2');
+    penlabels (3', 4', 5', 6');
+  fi;
+
+  fill z3'r{z3'r - z5'l}
+       .. z4'l
+       .. {z5'r - z3'l}z3'l
+       .. z5'r{z5'r - z3'l}
+       .. z6'l
+       .. {z3'r - z5'l}z5'l
        .. cycle;
 enddef;
 
@@ -385,14 +390,6 @@ def flare_path (expr pos, alpha, beta, line, flare, direction) =
 
     p
   endgroup
-enddef;
-
-
-def brush (expr a, w, b, v) =
-  begingroup;
-    draw_brush (a, w, b, v);
-    penlabels (3, 4, 5, 6);
-  endgroup;
 enddef;
 
 
