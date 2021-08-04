@@ -71,10 +71,10 @@ Interval_t<T>::set_full ()
 }
 
 template<class T>
-T
-Interval_t<T>::length () const
+auto
+Interval_t<T>::length () const->difference_type
 {
-  return !is_empty () ? (right () - left ()) : T (0);
+  return !is_empty () ? (right () - left ()) : difference_type (0);
 }
 
 template<class T>

@@ -38,7 +38,7 @@ struct Interval_t : private Drul_array<T>
 {
 private:
   using base_type = Drul_array<T>;
-  constexpr base_type const &self_as_array () const { return *this; }
+  using difference_type = decltype (T () - T ());
 
 public:
   using base_type::at;
@@ -80,7 +80,7 @@ public:
   T center () const
   {
     assert (!is_empty ());
-    return (left () + right ()) / 2;
+    return unchecked_center ();
   }
 
   T &left ()
@@ -107,25 +107,27 @@ public:
     return base_type::back ();
   }
 
-  void translate (T t)
+  template <typename T2>
+  Interval_t<T> &translate (const T2 &t)
   {
-    left () += t;
-    right () += t;
+    return *this += t;
   }
-  void widen (T t)
+
+  template <typename T2>
+  void widen (const T2 &t)
   {
     left () -= t;
     right () += t;
   }
 
-  T distance (T t) const
+  difference_type distance (T t) const
   {
     if (t > right ())
-      return T (t - right ());
+      return t - right ();
     else if (t < left ())
-      return T (left () - t);
+      return left () - t;
     else
-      return T (0);
+      return difference_type (0);
   }
 
   // Lengthen this Interval by the minimum amount necessary to include all
@@ -148,7 +150,7 @@ public:
   // * A point interval has a length of zero but is not empty.
   // * (-infinity, -infinity) has undefined length but is nonempty.
   // * (infinity, infinity) has undefined length but is nonempty.
-  T length () const;
+  difference_type length () const;
 
   void set_empty ();
   void set_full ();
@@ -162,9 +164,8 @@ public:
   void
   unite_disjoint (Interval_t h, Padding padding, Direction d)
   {
-    T dir = d;
-    T translation = dir * (at (d) + dir * padding - h.at (-d));
-    if (translation > T (0))
+    const auto translation (d * (at (d) + d * padding - h.at (-d)));
+    if (translation > decltype (translation) (0))
       h.translate (translation);
     unite (h);
   }
@@ -188,13 +189,15 @@ public:
     return left () > right ();
   }
 
-  Interval_t<T> &operator -= (T r)
+  template <typename T2>
+  Interval_t<T> &operator -= (T2 r)
   {
     *this += -r;
     return *this;
   }
 
-  Interval_t<T> &operator += (T r)
+  template <typename T2>
+  Interval_t<T> &operator += (const T2 &r)
   {
     left () += r;
     right () += r;
@@ -237,6 +240,14 @@ public:
   {
     return a.left () < b.left ();
   }
+
+private:
+  constexpr T unchecked_center () const
+  {
+    // Subtracting T() allows averaging types that support subtraction but not
+    // addition, e.g. std::chrono::time_point<>.
+    return T (((left () - T ()) + (right () - T ())) / 2);
+  }
 };
 
 /**
@@ -269,7 +280,7 @@ Interval_t<Real>::center () const
   // as iv.linear_combination (0).  A Real result can represent infinity or
   // NaN, so there is no need to crash on empty, unbounded, or reversed
   // intervals.
-  return (left () + right ()) / 2;
+  return unchecked_center ();
 }
 
 template<>
@@ -295,9 +306,9 @@ Interval_t<T> operator + (T a, Interval_t<T> i)
   return i;
 }
 
-template<class T>
+template<class T, class T2>
 inline
-Interval_t<T> operator - (Interval_t<T> i, T a)
+Interval_t<T> operator - (Interval_t<T> i, T2 a)
 {
   i += -a;
   return i;
@@ -312,11 +323,11 @@ Interval_t<T> operator - (T a, Interval_t<T> i)
   return i;
 }
 
-template<class T>
+template<class T, class T2>
 inline
-Interval_t<T> operator + (Interval_t<T> i, T a)
+Interval_t<T> operator + (Interval_t<T> i, T2 a)
 {
-  return a + i;
+  return i += a;
 }
 
 template<class T>

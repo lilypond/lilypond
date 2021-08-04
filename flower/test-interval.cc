@@ -23,6 +23,7 @@
 
 #include "yaffut.hh"
 
+#include <chrono>
 #include <cmath>
 #include <string>
 
@@ -158,6 +159,36 @@ class Interval_test
     static_assert (test_iv.right () == 3, "");
 
     return input_iv; // implicitly converted
+  }
+
+  static void test_std_chrono_time_point ()
+  {
+    using Clock = std::chrono::steady_clock;
+    constexpr Clock::duration d (0);
+    constexpr Clock::time_point tp (d);
+
+    Interval_t<Clock::time_point> iv {tp, tp};
+
+    // Checking arithmetic is a job for other test cases.  The goal here is to
+    // show that that the types (dimensions) are correct.
+    static_cast<void> (iv = (iv += d));
+    static_cast<void> (iv = (iv -= d));
+    static_cast<void> (iv = intersection (iv, iv));
+    static_cast<void> (iv = iv + d);
+    static_cast<void> (iv = iv - d);
+    static_cast<void> (iv = iv.union_disjoint (iv, d, Direction::positive ()));
+    static_cast<void> (iv.center () == tp);
+    static_cast<void> (iv.contains (tp));
+    static_cast<void> (iv.distance (tp) == d);
+    static_cast<void> (iv.intersect (iv));
+    static_cast<void> (iv.is_empty ());
+    static_cast<void> (iv.left_less (iv, iv));
+    static_cast<void> (iv.length () == d);
+    static_cast<void> (iv.swap ());
+    static_cast<void> (iv.translate (d));
+    static_cast<void> (iv.unite (iv));
+    static_cast<void> (iv.unite_disjoint (iv, d, Direction::negative ()));
+    static_cast<void> (iv.widen (d));
   }
 };
 
