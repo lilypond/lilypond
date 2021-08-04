@@ -318,5 +318,3 @@ black_notehead_width# := charwd;
 
 define_pixels (slash_thick);
 define_whole_vertical_pixels (noteheight);
-
-

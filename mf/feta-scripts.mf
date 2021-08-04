@@ -1443,6 +1443,7 @@ fet_beginchar ("Segno", "segno");
   save pata, ta, patb, tb, swoosh;
   path pata, patb, swoosh;
   numeric ta, tb;
+
   pata := z1l{curl 0}
           .. z2l
           .. z3l{right}
@@ -1450,9 +1451,11 @@ fet_beginchar ("Segno", "segno");
           .. z5l
           .. z6l;
   patb := z4r
-            .. z3r{left}
-            .. z2r{down};
+          .. z3r{left}
+          .. z2r{down};
+
   (ta, tb) = pata intersectiontimes patb;
+
   swoosh := subpath (0, ta) of pata
             -- subpath (tb, 2) of patb;
   draw swoosh
@@ -1465,7 +1468,7 @@ fet_beginchar ("Segno", "segno");
   z8r = (w, h);
 
   penstroke z7e
-          -- z8e;
+            -- z8e;
 
   pickup pencircle scaled 2 thin;
   drawdot (-x2r, pointheight);

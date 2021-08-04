@@ -887,5 +887,4 @@ fet_beginchar ("1024th rest", "10");
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
-
 fet_endgroup ("rests");

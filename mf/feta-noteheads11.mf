@@ -1,5 +1,6 @@
 % Produce font files at specified size.
 
 design_size := 11.22;
+
 input feta-noteheads-generic;
 end.

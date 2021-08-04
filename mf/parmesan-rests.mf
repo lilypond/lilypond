@@ -425,5 +425,4 @@ fet_beginchar ("Mensural 16th rest", "4mensural");
   labels (1, 2, 3, 4, 5, 6, 7);
 fet_endchar;
 
-
 fet_endgroup ("rests")

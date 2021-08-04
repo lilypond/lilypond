@@ -399,5 +399,4 @@ neomensural_timesig ("Mensural 6/8 meter", "neomensural68alt",
 neomensural_timesig ("Mensural 2/4 meter", "neomensural24",
                      false, true, true, false);
 
-
 fet_endgroup ("timesig");

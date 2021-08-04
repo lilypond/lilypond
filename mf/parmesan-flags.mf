@@ -316,5 +316,4 @@ fet_beginchar ("64th Mensural Flag (down)", "mensurald26");
   draw_mensural_flag (anywhere, 4, dir_down);
 fet_endchar;
 
-
 fet_endgroup ("flags");

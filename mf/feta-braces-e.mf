@@ -1,5 +1,6 @@
 % Feta (not the Font-En-Tja) music font --  next 256 braces
 
 font_count := 4;
+
 input feta-braces-generic;
 end.

@@ -1,5 +1,6 @@
 % Feta (not the Font-En-Tja) music font --  256 smallest braces
 
 font_count := 0;
+
 input feta-braces-generic;
 end.

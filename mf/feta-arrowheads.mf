@@ -164,5 +164,4 @@ fet_beginchar ("close", "close.1M1");
   currentpicture := currentpicture rotated -90;
 fet_endchar;
 
-
 fet_endgroup ("arrowheads");
