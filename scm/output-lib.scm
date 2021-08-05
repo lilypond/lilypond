@@ -1037,12 +1037,13 @@ may or may not use it."
          (padding (ly:grob-property grob 'padding 0.1))
          (wide-ext (interval-widen x-ext padding))
          (my-x (ly:grob-relative-coordinate grob refp X))
+         (parenthesis-positions (coord-translate wide-ext (- my-x)))
          (stencils (ly:grob-property grob 'stencils))
          (lp (car stencils))
          (rp (cadr stencils)))
     (ly:stencil-add
-     (ly:stencil-translate-axis lp (interval-start wide-ext) X)
-     (ly:stencil-translate-axis rp (interval-end wide-ext) X))))
+     (ly:stencil-translate-axis lp (interval-start parenthesis-positions) X)
+     (ly:stencil-translate-axis rp (interval-end parenthesis-positions) X))))
 
 (define-public (parentheses-interface::print grob)
   (let* ((y-parent (ly:grob-parent grob Y))
