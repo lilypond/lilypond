@@ -3032,6 +3032,14 @@ which is the default."
     (make-polygon-markup control-points)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; sticky grobs
+
+(define-public ((sticky-grob-interface::inherit-property property) grob)
+  (ly:grob-property
+    (ly:grob-object grob 'sticky-host)
+    property))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro
 
 (defmacro-public make-engraver forms

@@ -195,6 +195,8 @@
      . (
         (annotation-balloon . #t)
         (annotation-line . #t)
+        (break-visibility . ,(sticky-grob-interface::inherit-property
+                               'break-visibility))
         (extra-spacing-width . (+inf.0 . -inf.0))
         (stencil . ,ly:balloon-interface::print)
         (text . ,(grob::calc-property-by-copy 'text))
@@ -1216,8 +1218,8 @@
         (annotation-balloon . #f)
         (annotation-line . #t)
         (automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
-        (break-visibility . ,(grob::inherit-parent-property
-                              X 'break-visibility))
+        (break-visibility . ,(sticky-grob-interface::inherit-property
+                               'break-visibility))
         (footnote . #t)
         (footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
         (spanner-placement . ,LEFT)
@@ -2031,6 +2033,8 @@
 
     (Parentheses
      . (
+        (break-visibility . ,(sticky-grob-interface::inherit-property
+                               'break-visibility))
         (font-size . -6)
         (padding . 0.2)
         (stencil . ,parentheses-interface::print)

@@ -8,6 +8,7 @@ definition does not mandate a particular grob class."
 }
 
 #(define (prepare-balloon balloon parent class sgn)
+   (ly:grob-set-object! balloon 'sticky-host parent)
    (ly:grob-set-parent! balloon Y parent)
    (ly:grob-set-property!
      balloon
@@ -48,7 +49,6 @@ definition does not mandate a particular grob class."
                 (lambda (spanner)
                   (let ((balloon
                           (ly:engraver-make-spanner engraver 'BalloonText spanner)))
-                    (ly:grob-set-object! balloon 'sticky-host spanner)
                     (prepare-balloon balloon spanner 'Spanner -1)))
                 spanners)
               (set! spanners '())))))
