@@ -2992,6 +2992,30 @@ which is the default."
     property))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; pitched trills
+
+;; Why not ly:axis-group-interface::pure-height?  The latter callback is
+;; designed for vertical axis group spanners, filtering out grobs not in
+;; the [start, end] interval.  That's not correct for TrillPitchGroup,
+;; a horizontal axis group item (remember that item pure heights are assumed
+;; not to depend on start and end, and cached once and for all).
+
+;; TODO: perhaps this could be incorporated into the axis-group-interface too?
+(define-public (trill-pitch-group::pure-height grob start end)
+  (let* ((vertical-axis-group (ly:grob-parent grob Y))
+         (elements (ly:grob-array->list (ly:grob-object grob 'elements)))
+         (pure-group-extent
+           (reduce interval-union
+                   empty-interval
+                   (map
+                    (lambda (elt)
+                      (ly:grob-pure-height elt vertical-axis-group 0 0))
+                    elements)))
+         ;; It would be crazy to make this nonzero, but anyway.
+         (my-pure-coord (ly:grob-pure-property grob 'Y-offset 0 0 0.0)))
+    (coord-translate pure-group-extent (- my-pure-coord))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro
 
 (defmacro-public make-engraver forms

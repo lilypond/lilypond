@@ -150,13 +150,9 @@ Separation_item::boxes (Grob *me, Grob *left)
       if (pc != il->get_column ())
         continue;
 
-      /* ugh. We want to exclude groups of grobs (so that we insert each grob
-         individually into the skyline instead of adding a single box that
-         bounds all of them). However, we can't exclude an axis-group that
-         adds to its childrens' stencil. Currently, this is just TrillPitchGroup;
-         hence the check for note-head-interface. */
-      if (has_interface<Axis_group_interface> (il)
-          && !has_interface<Note_head> (il))
+      // Exclude groups of grobs, so as to insert a box for each contained grob
+      // into the skyline instead of a single box that bounds all of them.
+      if (has_interface<Axis_group_interface> (il))
         continue;
 
       Interval y (il->pure_y_extent (ycommon, 0, very_large));

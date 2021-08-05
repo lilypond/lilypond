@@ -51,6 +51,7 @@ private:
   Item *trill_head_;
   Item *trill_group_;
   Item *trill_accidental_;
+  Item *trill_parentheses_;
 
   vector<Grob *> heads_;
 
@@ -141,7 +142,6 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
                         + c0));
 
   trill_group_ = make_item ("TrillPitchGroup", ev->self_scm ());
-  trill_group_->set_y_parent (trill_head_);
 
   Axis_group_interface::add_element (trill_group_, trill_head_);
 
@@ -157,6 +157,14 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
       trill_accidental_->set_y_parent (trill_head_);
       Axis_group_interface::add_element (trill_group_, trill_accidental_);
     }
+
+  trill_parentheses_ = make_item ("TrillPitchParentheses", trill_head_->self_scm ());
+  Pointer_group_interface::add_grob (trill_parentheses_,
+                                     ly_symbol2scm ("elements"),
+                                     trill_head_);
+  trill_parentheses_->set_x_parent (trill_head_);
+  trill_parentheses_->set_y_parent (trill_head_);
+  Axis_group_interface::add_element (trill_group_, trill_parentheses_);
 }
 
 void

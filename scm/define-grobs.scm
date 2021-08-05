@@ -2853,27 +2853,25 @@
      . (
         (axes . (,X))
         (direction . ,RIGHT)
-        (font-size . -4)
         ;; minimum shift to the right, in case the parent note has no stem
         (minimum-space . 2.5)
         (horizon-padding . 0.1) ; to avoid interleaving with augmentation dots
         (padding . 0.3)
         (side-axis . ,X)
-        (stencil . ,parenthesize-elements)
-        (stencils . ,parentheses-interface::calc-parenthesis-stencils)
+        (X-extent . ,ly:axis-group-interface::width)
         (X-offset . ,ly:side-position-interface::x-aligned-side)
-        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-extent . ,(ly:make-unpure-pure-container
+                       ly:axis-group-interface::height
+                       trill-pitch-group::pure-height))
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
-                                font-interface
-                                note-head-interface
-                                parentheses-interface
                                 side-position-interface))))))
 
     (TrillPitchHead
      . (
         (duration-log . 2)
         (font-size . -4)
+        (parenthesis-friends . (accidental-grob))
         (stencil . ,ly:note-head::print)
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
@@ -2883,6 +2881,24 @@
                                 pitched-trill-interface
                                 rhythmic-head-interface
                                 staff-symbol-referencer-interface))))))
+
+    (TrillPitchParentheses
+     . (
+        ;; This is different from Parentheses, which has -6 plus the font size
+        ;; of its host.
+        (font-size . -4)
+        ;; This default comes from a time when parentheses were baked into
+        ;; TrillPitchGroup and the padding defined both the inner padding
+        ;; of the parentheses and the padding of the whole group from the
+        ;; main note column.  It could be revisited (Parentheses has 0.2).
+        (padding . 0.3)
+        (stencil . ,parentheses-interface::print)
+        (stencils . ,parentheses-interface::calc-parenthesis-stencils)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (meta . ((class . Item)
+                 (interfaces . (font-interface
+                                parentheses-interface
+                                pitched-trill-interface))))))
 
     (TrillSpanner
      . (

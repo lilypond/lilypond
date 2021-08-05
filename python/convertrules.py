@@ -4361,6 +4361,23 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+trill_pitch_group_re = r"""TrillPitchGroup\.
+(
+  font # recognize all font-something properties
+  | color
+  | extra-offset
+  | layer
+  | output-attributes
+  | rotation
+  | stencil
+  | stencils
+  | transparent
+  | whiteout # also whiteout-style
+)
+"""
+
+repl = r"TrillPitchParentheses.\1"
+
 @rule((2, 23, 4), r"""
 ly:context-now -> ly:context-current-moment
 ControlPointItem, ControlPointSpanner -> ControlPoint
@@ -4377,6 +4394,7 @@ def conv(s):
     s = re.sub(item_spanner, r"\1", s)
     s = re.sub("ParenthesesItem", "Parentheses", s)
     s = re.sub("parentheses-item::", "parentheses-interface::", s)
+    s = re.sub(trill_pitch_group_re, repl, s, flags=re.VERBOSE)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)
