@@ -1,0 +1,1 @@
+prependdir PATH=$INSTALLER_PREFIX/libexec

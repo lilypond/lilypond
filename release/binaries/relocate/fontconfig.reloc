@@ -1,0 +1,2 @@
+set? FONTCONFIG_FILE=$INSTALLER_PREFIX/etc/fonts/fonts.conf
+set? FONTCONFIG_PATH=$INSTALLER_PREFIX/etc/fonts

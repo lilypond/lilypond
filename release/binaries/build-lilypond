@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+import argparse
+import logging
+import os
+import sys
+
+from lib import Config, LilyPond, LilyPondPackager
+
+cpus = os.cpu_count() or 1
+
+parser = argparse.ArgumentParser(description="Build LilyPond")
+parser.add_argument("--debug", help="show debugging messages", action="store_true")
+parser.add_argument("--jobs", help="number of simultaneous jobs", default=cpus)
+parser.add_argument("archive", help="the archive with LilyPond's source code")
+args = parser.parse_args()
+
+# Show only INFO messages by default
+if not args.debug:
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
+else:
+    logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
+
+c = Config(".", jobs=args.jobs)
+lilypond = LilyPond(args.archive)
+
+logging.info("Building %s", lilypond)
+if not lilypond.prepare_sources(c):
+    sys.exit(1)
+if not lilypond.build(c):
+    log_path = lilypond.log_path(c)
+    logging.info("See %s for more information", log_path)
+    sys.exit(1)
+
+packager = LilyPondPackager(lilypond, c)
+packager.package_tar()

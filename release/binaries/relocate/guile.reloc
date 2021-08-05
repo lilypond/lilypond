@@ -1,0 +1,2 @@
+prependdir GUILE_LOAD_PATH=$INSTALLER_PREFIX/share/guile/2.2
+prependdir GUILE_LOAD_COMPILED_PATH=$INSTALLER_PREFIX/lib/guile/2.2/ccache
