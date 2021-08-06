@@ -825,6 +825,9 @@ If unset, the value from @code{self-alignment-X} property will be
 used.")
      (parent-alignment-Y ,number? "Like @code{parent-alignment-X}
 but for the Y@tie{}axis.")
+     (parenthesis-id ,symbol? "When parenthesized grobs created in the
+same time step have this property, there is one set of parentheses for
+each group of grobs having the same value.")
      (parenthesis-friends ,list? "A list of Grob types, as symbols.
 When parentheses enclose a Grob that has 'parenthesis-friends, the
 parentheses widen to include any child Grobs with type among

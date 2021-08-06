@@ -66,6 +66,21 @@ which scares away people.
 @end ignore
 
 @item
+Parenthesizing chords is supported.  Currently, the font size of the
+parentheses has to adjusted manually.
+
+@lilypond
+\new Voice {
+  \tweak Parentheses.font-size -2 \parenthesize <a'' b''>2
+  <<
+    { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
+    { \parenthesize ees' }
+    { \tweak Parentheses.font-size -2 \parenthesize <c'' e''> }
+  >>
+}
+@end lilypond
+
+@item
 Parenthesizing spanners is supported.
 
 @lilypond

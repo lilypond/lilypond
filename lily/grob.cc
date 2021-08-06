@@ -795,6 +795,7 @@ ADD_INTERFACE (Grob,
                "minimum-X-extent "
                "minimum-Y-extent "
                "output-attributes "
+               "parenthesis-id "
                "parenthesis-friends "
                "parenthesized "
                "pure-Y-offset-in-progress "

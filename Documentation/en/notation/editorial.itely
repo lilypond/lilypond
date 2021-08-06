@@ -807,6 +807,28 @@ a hyphen is needed before the @code{\parenthesize} command.
 }
 @end lilypond
 
+When @code{\parenthesize} applies to a chord, all of its notes
+are enclosed in the parentheses.
+
+@lilypond
+\relative c' {
+  \parenthesize <e f>
+}
+@end lilypond
+
+To parenthesize only certain notes in a chord, use a parallel music
+construct @code{<< @dots{} >>}.
+
+@lilypond
+\new Voice \relative c {
+  <<
+    { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
+    { \parenthesize ees' }
+    { \tweak Parentheses.font-size -2 \parenthesize <c' e> }
+  >>
+}
+@end lilypond
+
 A second form of the @code{\parenthesize} command involves
 a grob path: either @code{\parenthesize @var{ContextName}.@var{GrobName}}
 or just @code{\parenthesize @var{GrobName}} (the latter implying
@@ -843,10 +865,9 @@ Internals Reference:
 @endmorerefs
 
 @knownissues
-Parenthesizing a chord prints parentheses around each individual
-note, instead of a single large parenthesis around the entire
-chord.
-
+Currently, the @code{font-size} property of the @code{Parentheses}
+grob has to be adjusted manually to obtain correctly sized parentheses
+on chords and some other objects.
 
 @node Stems
 @unnumberedsubsubsec Stems

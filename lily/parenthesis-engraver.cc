@@ -34,12 +34,24 @@ class Parenthesis_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Parenthesis_engraver);
 
 protected:
+  // When we see parenthesis-id set, we make a single Parentheses grob
+  // for all grobs having the same value.  This alist maps IDs (symbols)
+  // to Parentheses grobs.  It is reset after each time step.
+  SCM id_alist_ = SCM_EOL;
+  void derived_mark () const override;
   void acknowledge_grob (Grob_info) override;
+  void stop_translation_timestep ();
 };
 
 Parenthesis_engraver::Parenthesis_engraver (Context *c)
   : Engraver (c)
 {
+}
+
+void
+Parenthesis_engraver::derived_mark () const
+{
+  scm_gc_mark (id_alist_);
 }
 
 void
@@ -54,8 +66,29 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
       // way to merge the two.
       && !has_interface<Accidental_interface> (g))
     {
-       auto *const eng = info.origin_engraver ();
-       Grob *paren = eng->make_sticky ("Parentheses", g, g->self_scm ());
+       SCM id = get_property (g, "parenthesis-id");
+       bool must_add_to_alist = false;
+       Grob *paren = nullptr;
+       if (scm_is_symbol (id))
+         {
+           SCM maybe_paren = scm_assq_ref (id_alist_, id);
+           if (scm_is_true (maybe_paren))
+             paren = unsmob<Grob> (maybe_paren);
+           else
+             must_add_to_alist = true;
+         }
+       if (!paren)
+         {
+           Engraver *const eng = info.origin_engraver ();
+           paren = eng->make_sticky ("Parentheses", g, g->self_scm ());
+         }
+       if (must_add_to_alist)
+         {
+           // No need for scm_assq_set_x: we already know that the
+           // id is not a key in the alist.
+           id_alist_ = scm_acons (id, paren->self_scm (), id_alist_);
+         }
+
        Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), g);
 
        Real size = from_scm<double> (get_property (paren, "font-size"), 0.0)
@@ -68,6 +101,12 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
          enlarge victim to allow for parentheses space?
        */
     }
+}
+
+void
+Parenthesis_engraver::stop_translation_timestep ()
+{
+  id_alist_ = SCM_EOL;
 }
 
 void

@@ -1276,7 +1276,13 @@ parenthesize =
 #(define-music-function (arg) (symbol-list-or-music?)
    (_i "Tag @var{arg} to be parenthesized.  @var{arg} may
 be either a music event or a grob path.")
-   (once (propertyTweak 'parenthesized #t arg)))
+   (let ((maybe-with-id (if (and (ly:music? arg)
+                                 (music-is-of-type? arg 'event-chord))
+                            (tweak 'parenthesis-id
+                                   (gensym "unique-parenthesis-id")
+                                   arg)
+                            arg)))
+     (once (propertyTweak 'parenthesized #t maybe-with-id))))
 
 #(define (make-directed-part-combine-music direction chord-range part1 part2
           one-context-settings
