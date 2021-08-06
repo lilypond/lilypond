@@ -36,6 +36,42 @@ various kinds of music.  Problems are reported on stderr."
 #ZERO-MOMENT
 #ZERO-MOMENT
 
+\testStartAndLength r8
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength { r8 }
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength << r8 >>
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength s8
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength { s8 }
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength << s8 >>
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength \skip 8
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength { \skip 8 }
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
+\testStartAndLength << \skip 8 >>
+#ZERO-MOMENT
+#(ly:make-moment 1/8 0)
+
 \testStartAndLength <d>8
 #ZERO-MOMENT
 #(ly:make-moment 1/8 0)

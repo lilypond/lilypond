@@ -36,6 +36,42 @@ various kinds of grace music.  Problems are reported on stderr."
 #ZERO-MOMENT
 #ZERO-MOMENT
 
+\testStartAndLength \grace r8
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace { r8 }
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace << r8 >>
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace s8
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace { s8 }
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace << s8 >>
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace \skip 8
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace { \skip 8 }
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
+\testStartAndLength \grace << \skip 8 >>
+#(ly:make-moment 0 -1/8)
+#ZERO-MOMENT
+
 \testStartAndLength \grace <d>8
 #(ly:make-moment 0 -1/8)
 #ZERO-MOMENT
