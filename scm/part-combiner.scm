@@ -47,7 +47,7 @@
           (if (ly:duration<? d1 d2) d2 d1)
           d1)))
 
-  (fold duration-max (ly:make-duration 0 0 0) (events vs)))
+  (fold duration-max ZERO-DURATION (events vs)))
 
 ;; Return the moment that the longest event in the Voice-state ends.
 (define-method (end-moment (vs <Voice-state>))

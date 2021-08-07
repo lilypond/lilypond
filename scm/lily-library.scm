@@ -83,6 +83,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; durations
 
+;; Do not confuse this with (ly:make-duration 0 0), which is the
+;; duration of a whole note.
+(define-public ZERO-DURATION (ly:make-duration 0 0 0))
+
 (define-public (duration-log-factor lognum)
   "Given a logarithmic duration number, return the length of the duration,
 as a number of whole notes."
