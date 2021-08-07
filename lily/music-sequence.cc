@@ -38,27 +38,17 @@ transpose_music_list (SCM lst, Pitch rq)
 Moment
 Music_sequence::cumulative_length (SCM l)
 {
-  Moment cumulative;
-  Moment last_len;
+  Moment length;
 
   for (auto *mus : as_ly_smob_list<const Music> (l))
     {
       if (!mus)
         programming_error ("Music sequence should have music elements");
       else
-        {
-          Moment l = mus->get_length ();
-          if (last_len.grace_part_ && l.main_part_)
-            last_len.grace_part_ = Rational (0);
-          cumulative += last_len;
-          last_len = l;
-        }
+        length += mus->get_length ();
     }
 
-  last_len.grace_part_ = Rational (0);
-  cumulative += last_len;
-
-  return cumulative;
+  return length;
 }
 
 Moment
