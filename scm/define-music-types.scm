@@ -624,7 +624,6 @@ Syntax: @code{s4} for a skip equivalent to a quarter rest.")
 print anything, and also does not create staves or voices implicitly.
 
 Syntax: @code{\\skip} @var{duration}")
-        (length-callback . ,ly:music-duration-length)
         (iterator-ctor . ,ly:simple-music-iterator::constructor)
         (types . (event skip-event))
         ))
