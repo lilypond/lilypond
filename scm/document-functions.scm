@@ -35,9 +35,14 @@
                              'pre "" 'post)
    'pre " " 'post))
 
+;; If there is `::` in the function name, insert a breakpoint to avoid
+;; overlong index entries that would otherwise stick out to the right
+;; in the two-column output of the PDF documentation.
 (define (document-function name arguments doc-string)
   (string-append
-   "@defun " (symbol->string name) " " arguments "\n"
+   "@defun " (regexp-substitute/global #f "::" (symbol->string name)
+                                       'pre "::@/" 'post)
+   " " arguments "\n"
    doc-string
    "\n@end defun\n\n"))
 
