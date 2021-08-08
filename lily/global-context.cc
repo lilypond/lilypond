@@ -188,6 +188,7 @@ Global_context::iterate (Music *music, bool force_found_music)
 
       iter->quit ();
       scm_remember_upto_here_1 (protected_iter);
+      check_removal ();
       send_stream_event (this, "Finish", 0);
     }
 

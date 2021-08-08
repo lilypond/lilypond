@@ -49,10 +49,6 @@
 
   (fold duration-max ZERO-DURATION (events vs)))
 
-;; Return the moment that the longest event in the Voice-state ends.
-(define-method (end-moment (vs <Voice-state>))
-  (ly:moment-add (moment vs) (ly:duration-length (duration vs))))
-
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
     (ly:in-event-class? x 'note-event))
@@ -157,16 +153,6 @@ return the previous voice state."
                           #:tuning (cdar v)
                           #:events (map car (cdr v))))
                       (reverse evl))))
-
-    ;; add an entry with no events at the moment the last event ends
-    (if (pair? states)
-        (let ((last-real-event (car states)))
-          (set! states
-                (cons (make <Voice-state>
-                        #:moment (end-moment last-real-event)
-                        #:tuning (tuning last-real-event)
-                        #:events '())
-                      states))))
 
     ;; TODO: Add an entry at +inf.0 and see if it allows us to remove
     ;; the many instances of conditional code handling the case that
@@ -311,6 +297,17 @@ LilyPond version 2.8 and earlier."
                (accumulate-event-listener
                 (lambda (ev)
                   (set! acc (cons (cons ev #t) acc))))
+               (remove-context-listener
+                (lambda (ev)
+                  "Add a final entry to record the end moment."
+                  (let ((this-moment (cons (cons
+                                            now-mom
+                                            #f ; instrumentTransposition
+                                            )
+                                           '() ; events
+                                           )))
+                    (set-cdr! this-moment-list
+                              (cons this-moment (cdr this-moment-list))))))
                (save-acc-listener
                 (lambda (tev)
                   (if (pair? acc)
@@ -326,6 +323,8 @@ LilyPond version 2.8 and earlier."
                         (set! acc '()))))))
             (ly:add-listener accumulate-event-listener
                              (ly:context-event-source child) 'StreamEvent)
+            (ly:add-listener remove-context-listener
+                             (ly:context-event-source child) 'RemoveContext)
             (ly:add-listener save-acc-listener
                              (ly:context-event-source global) 'OneTimeStep)))))
     (ly:add-listener new-context-listener
@@ -946,7 +945,12 @@ the mark when there are no spanners active.
          (listener (ly:parser-lookup 'partCombineListener))
          (context-list (reverse (recording-group-emulate ctx-spec listener)))
          (raw-voice (assoc voicename context-list))
-         (quote-contents (and raw-voice (cdr raw-voice))))
+         (quote-contents (and raw-voice (reverse! (cdr raw-voice)))))
+
+    (define (has-events? e)
+      (and (pair? e)
+           (pair? (car e))
+           (pair? (cdar e))))
 
     ;; If the context-specced quoted music does not contain anything, try to
     ;; use the first child, i.e. the next in context-list after voicename
@@ -954,15 +958,18 @@ the mark when there are no spanners active.
     ;;
     ;; Note that if raw-voice is #f, so is quote-contents, in which
     ;; case the following loop is skipped.
-    (if (null? quote-contents)
+    (if (not (has-events? quote-contents))
         (let find-non-empty ((current-tail (member raw-voice context-list)))
           ;; if voice has contents, use them, otherwise check next ctx
-          (cond ((null? current-tail) #f)
-                ((and (pair? (car current-tail))
-                      (pair? (cdar current-tail)))
-                 (set! quote-contents (cdar current-tail)))
-                (else (find-non-empty (cdr current-tail))))))
+          (if (null? current-tail)
+              #f
+              (let ((candidate (and (pair? (car current-tail))
+                                    (pair? (cdar current-tail))
+                                    (reverse! (cdar current-tail)))))
+                (if (has-events? candidate)
+                    (set! quote-contents candidate)
+                    (find-non-empty (cdr current-tail)))))))
 
-    (if (pair? quote-contents)
-        (hash-set! tab name (list->vector (reverse! quote-contents)))
+    (if (has-events? quote-contents)
+        (hash-set! tab name (list->vector quote-contents))
         (ly:music-warning mus (_ "quoted music `~a' is empty") name))))
