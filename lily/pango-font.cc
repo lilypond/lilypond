@@ -113,7 +113,6 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
   // resolution * output_scale)
   //
   //  --hwn
-  output_scale_ = output_scale;
   scale_ = INCH_TO_BP
            / (static_cast<Real> (PANGO_SCALE)
               * static_cast<Real> (PANGO_RESOLUTION) * output_scale);
