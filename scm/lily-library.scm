@@ -473,8 +473,8 @@ in list @var{keys}.
 
 For example:
 @example
-@code{guile> (map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))}
-@code{((a . -1) (b . 2) (c . 3) (d . 4)}
+(map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))
+   @result{} ((a . -1) (b . 2) (c . 3) (d . 4))
 @end example"
   (define (map-selected-alist-keys-helper key alist)
     (map
