@@ -128,7 +128,7 @@ Episema_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
-  event_drul_.set (0, 0);
+  event_drul_ = {};
 }
 
 void

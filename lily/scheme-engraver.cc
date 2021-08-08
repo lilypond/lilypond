@@ -105,7 +105,7 @@ Scheme_engraver::Scheme_engraver (SCM definition, Context *c)
                                         definition, SCM_EOL));
 
   per_instance_listeners_ = listeners;
-  interface_acknowledger_hash_.set (hash1, hash2);
+  interface_acknowledger_hash_ = {hash1, hash2};
 
   // It's not defined whether Scheme_engraver::derived_mark is already
   // active while the construction is underway, so we make sure we

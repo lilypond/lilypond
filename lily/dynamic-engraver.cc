@@ -217,7 +217,7 @@ Dynamic_engraver::stop_translation_timestep ()
                  unsmob<Grob> (get_property (this, "currentMusicalColumn")));
   script_ = 0;
   script_event_ = 0;
-  accepted_spanevents_drul_.set (0, 0);
+  accepted_spanevents_drul_ = {};
   finished_spanner_ = 0;
   end_new_spanner_ = false;
 }

@@ -87,11 +87,6 @@ public:
     return array_[1];
   }
 
-  void set (T const &t1, T const &t2)
-  {
-    array_[0] = t1;
-    array_[1] = t2;
-  }
 };
 
 template<class T1, class T2>

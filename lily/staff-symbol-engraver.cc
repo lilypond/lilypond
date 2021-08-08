@@ -140,7 +140,7 @@ Staff_symbol_engraver::stop_translation_timestep ()
       && span_)
     first_start_ = false;
 
-  span_events_.set (0, 0);
+  span_events_ = {};
   stop_spanner ();
 }
 
