@@ -109,6 +109,7 @@ class Interval_test
     static_assert (iv.right () == Mint (-100), "");
 
     static_assert (iv.is_empty (), "");
+    static_assert (iv.length () == 0, "");
   }
 #endif
 
@@ -120,6 +121,7 @@ class Interval_test
     static_assert (iv.right () == Mint (23), "");
 
     static_assert (!iv.is_empty (), "");
+    static_assert (iv.length () == Mint (0), "");
   }
 
   static void test_init_list ()
@@ -130,6 +132,7 @@ class Interval_test
     static_assert (iv.right () == Mint (20), "");
 
     static_assert (!iv.is_empty (), "");
+    static_assert (iv.length () == Mint (10), "");
   }
 
   static void test_init_list_assign ()
@@ -140,6 +143,7 @@ class Interval_test
     static_assert (iv.right () == Mint (30), "");
 
     static_assert (iv.is_empty (), "");
+    static_assert (iv.length () == Mint (0), "");
   }
 
   static Interval_t<int> test_init_implicit_conversion ()
@@ -218,16 +222,15 @@ TEST (Interval_test, contains_empty)
   CHECK (!iv.contains (Mint (0)));
 }
 
-TEST (Interval_test, contains_nonempty)
-{
-  const IVM iv {Mint (-22), Mint (7)};
-  CHECK (!iv.contains (Mint (-23)));
-  CHECK (iv.contains (Mint (-22)));
-  CHECK (iv.contains (Mint (0)));
-  CHECK (iv.contains (Mint (4)));
-  CHECK (iv.contains (Mint (7)));
-  CHECK (!iv.contains (Mint (8)));
-}
+static_assert (IVM (Mint (4)).contains (Mint (3)) == false, "");
+static_assert (IVM (Mint (4)).contains (Mint (4)) == true, "");
+static_assert (IVM (Mint (4)).contains (Mint (5)) == false, "");
+
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-23)) == false, "");
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-22)) == true, "");
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (0)) == true, "");
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (7)) == true, "");
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (8)) == false, "");
 
 template <typename T>
 class Interval_math_test
@@ -423,27 +426,11 @@ TEST (Interval_test, is_empty_double_nan)
   }
 }
 
-TEST (Interval_test, length)
+// TODO: constexpr construction needs constexpr infinity ()
+TEST (Interval_test, length_empty)
 {
-  {
-    const IVM iv;
-    EQUAL (iv.length (), Mint (0));
-  }
-
-  {
-    const IVM iv (Mint (4));
-    EQUAL (iv.length (), Mint (0));
-  }
-
-  {
-    const IVM iv {Mint (5), Mint (8)};
-    EQUAL (iv.length (), Mint (3));
-  }
-
-  {
-    const IVM iv {Mint (1), Mint (-1)};
-    EQUAL (iv.length (), Mint (0));
-  }
+  const IVM iv;
+  EQUAL (iv.length (), Mint (0));
 }
 
 TEST (Interval_test, length_double_infinity)

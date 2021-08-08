@@ -55,45 +55,6 @@ Interval__compare (Interval_t<T> const &a, Interval_t<T> const &b)
 }
 
 template<class T>
-void
-Interval_t<T>::set_empty ()
-{
-  left () = (T) infinity ();
-  right () = (T) - infinity ();
-}
-
-template<class T>
-void
-Interval_t<T>::set_full ()
-{
-  left () = (T) - infinity ();
-  right () = (T) infinity ();
-}
-
-template<class T>
-auto
-Interval_t<T>::length () const->difference_type
-{
-  return !is_empty () ? (right () - left ()) : difference_type (0);
-}
-
-template<class T>
-void
-Interval_t<T>::unite (Interval_t<T> h)
-{
-  left () = std::min (h.left (), left ());
-  right () = std::max (h.right (), right ());
-}
-
-template<class T>
-void
-Interval_t<T>::intersect (Interval_t<T> h)
-{
-  left () = std::max (h.left (), left ());
-  right () = std::min (h.right (), right ());
-}
-
-template<class T>
 std::string
 Interval_t<T>::to_string () const
 {
@@ -105,13 +66,6 @@ Interval_t<T>::to_string () const
   using std::to_string;
   std::string s ("[");
   return s + to_string (left ()) + ',' + to_string (right ()) + ']';
-}
-
-template<class T>
-bool
-Interval_t<T>::contains (T r) const
-{
-  return r >= left () && r <= right ();
 }
 
 #define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;                  \

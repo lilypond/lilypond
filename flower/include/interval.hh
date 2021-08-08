@@ -132,11 +132,19 @@ public:
 
   // Lengthen this Interval by the minimum amount necessary to include all
   // points in h.
-  void unite (Interval_t<T> h);
+  void unite (Interval_t<T> h)
+  {
+    left () = std::min (h.left (), left ());
+    right () = std::max (h.right (), right ());
+  }
 
   // Shorten this Interval by the minimum amount necessary to exclude all
   // points that are not in h; in other words, keep what overlaps with h.
-  void intersect (Interval_t<T> h);
+  void intersect (Interval_t<T> h)
+  {
+    left () = std::max (h.left (), left ());
+    right () = std::min (h.right (), right ());
+  }
 
   // Lengthen this Interval by the minimum amount necessary to include p.
   void add_point (T p)
@@ -150,10 +158,22 @@ public:
   // * A point interval has a length of zero but is not empty.
   // * (-infinity, -infinity) has undefined length but is nonempty.
   // * (infinity, infinity) has undefined length but is nonempty.
-  difference_type length () const;
+  constexpr difference_type length () const
+  {
+    return !is_empty () ? (right () - left ()) : difference_type (0);
+  }
 
-  void set_empty ();
-  void set_full ();
+  void set_empty ()
+  {
+    left () = infinity ();
+    right () = -infinity ();
+  }
+
+  void set_full ()
+  {
+    left () = -infinity ();
+    right () = infinity ();
+  }
 
   /* Unites h and this interval, but in such a way
    that h will lie in a particular direction from this
@@ -219,7 +239,11 @@ public:
 
   std::string to_string () const;
 
-  bool contains (T r) const;
+  constexpr bool contains (T r) const
+  {
+    return r >= left () && r <= right ();
+  }
+
   void negate ()
   {
     T r = -left ();
