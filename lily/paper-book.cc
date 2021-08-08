@@ -452,13 +452,14 @@ Paper_book::get_system_specs ()
   SCM labels = SCM_EOL;
   for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
     {
-      if (ly_is_module (scm_car (s)))
+      SCM elem = scm_car (s);
+      if (ly_is_module (elem))
         {
-          header = scm_car (s);
+          header = elem;
           if (scm_is_null (header_0_))
             header_0_ = header;
         }
-      else if (Page_marker *page_marker = unsmob<Page_marker> (scm_car (s)))
+      else if (Page_marker *page_marker = unsmob<Page_marker> (elem))
         {
           /* page markers are used to set page breaking/turning permission,
              or to place bookmarking labels */
@@ -476,7 +477,7 @@ Paper_book::get_system_specs ()
               labels = scm_cons (page_marker->label (), labels);
             }
         }
-      else if (Music_output *mop = unsmob<Music_output> (scm_car (s)))
+      else if (Music_output *mop = unsmob<Music_output> (elem))
         {
           if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
             {
@@ -506,11 +507,10 @@ Paper_book::get_system_specs ()
               */
             }
         }
-      else if (Text_interface::is_markup_list (scm_car (s)))
+      else if (Text_interface::is_markup_list (elem))
         {
           SCM texts = Lily::interpret_markup_list (paper_->self_scm (),
-                                                   page_properties,
-                                                   scm_car (s));
+                                                   page_properties, elem);
           Prob *first = 0;
           Prob *last = 0;
           for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))

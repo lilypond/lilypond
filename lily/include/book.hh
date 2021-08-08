@@ -33,8 +33,9 @@ public:
   virtual ~Book ();
   SCM header_;
   Output_def *paper_;
-  SCM scores_;
-  SCM bookparts_;
+
+  SCM scores_;                  // SCM list; reverse order (most recently added first)
+  SCM bookparts_;               // SCM list; reverse order (most recently added first)
   SCM input_location_;
 
   Book (Book const &);

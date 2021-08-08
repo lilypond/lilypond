@@ -216,10 +216,12 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Outpu
   output_paper_book->bookparts_ = scm_reverse_x (output_paper_book->bookparts_, SCM_EOL);
 }
 
+/* process one entry of scores_ */
 void
-Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
+Book::process_score (SCM score_scm, Paper_book *output_paper_book,
+                     Output_def *layout)
 {
-  if (Score *score = unsmob<Score> (scm_car (s)))
+  if (Score *score = unsmob<Score> (score_scm))
     {
       SCM outputs = score
                     ->book_rendering (output_paper_book->paper_, layout);
@@ -256,13 +258,13 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
           outputs = scm_cdr (outputs);
         }
     }
-  else if (Text_interface::is_markup_list (scm_car (s))
-           || unsmob<Page_marker> (scm_car (s)))
-    output_paper_book->add_score (scm_car (s));
+  else if (Text_interface::is_markup_list (score_scm)
+           || unsmob<Page_marker> (score_scm))
+    output_paper_book->add_score (score_scm);
   else
     assert (0);
 
-  scm_remember_upto_here_1 (s);
+  scm_remember_upto_here_1 (score_scm);
 }
 
 /* Concatenate all score or book part outputs into a Paper_book
@@ -305,7 +307,7 @@ Book::process (Output_def *default_paper,
       /* Render in order of parsing.  */
       for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
         {
-          process_score (s, paper_book, default_layout);
+          process_score (scm_car (s), paper_book, default_layout);
         }
     }
 
