@@ -158,7 +158,7 @@ a list of @var{paddings}."
        paddings)))
 
 (define-public (centered-stencil stencil)
-  "Center stencil @var{stencil} in both the X and Y directions."
+  "Center stencil @var{stencil} in both the x and y@tie{}directions."
   (ly:stencil-aligned-to (ly:stencil-aligned-to stencil X CENTER) Y CENTER))
 
 (define-public (stack-lines dir padding baseline stils)

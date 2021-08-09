@@ -20,7 +20,7 @@
 
 (define-public (ly:all-stencil-commands)
   "Return the list of stencil commands that can be
-defined in the output modules (@file{output-*.scm})."
+defined in the output modules (in files @file{output-*.scm})."
   (let*
       ((commands '(blank
                    char
@@ -63,7 +63,7 @@ defined in the output modules (@file{output-*.scm})."
 
 (define-public (ly:all-output-backend-commands)
   "Return the list of extra output backend commands that
-are used internally in @file{lily/@/stencil-interpret.cc}."
+are used internally in file @file{lily/@/stencil-interpret.cc}."
   '(color
     combine-stencil
     delay-stencil-evaluation

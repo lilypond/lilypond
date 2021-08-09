@@ -151,6 +151,7 @@
   "Set up music fonts.
 
 Arguments:
+
 @itemize
 @item
 @var{node} is the font tree to modify.
@@ -160,15 +161,16 @@ Arguments:
 
 @item
 @var{name} is the basename for the music font.
-@file{@var{name}-<designsize>.otf} should be the music font,
+@file{@var{name}-<designsize>.otf} should be the music font.
 
 @item
 @var{brace} is the basename for the brace font.
 @file{@var{brace}-brace.otf} should have piano braces.
 
 @item
-@var{design-size-alist} is a list of @code{(rounded . designsize)}.
-@code{rounded} is a suffix for font filenames, while @code{designsize}
+@var{design-size-alist} is a list of @code{(@var{rounded} .
+@var{designsize})}.
+@var{rounded} is a suffix for font filenames, while @var{designsize}
 should be the actual design size.  The latter is used for text fonts
 loaded through pango/@/fontconfig.
 

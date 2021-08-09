@@ -338,7 +338,9 @@ LilyPond version 2.8 and earlier."
     context-list))
 
 (define-public (determine-split-list evl1 evl2 chord-range)
-  "@var{evl1} and @var{evl2} should be ascending. @var{chord-range} is a pair of numbers (min . max) defining the distance in steps between notes that may be combined into a chord or unison."
+  "Event lists @var{evl1} and @var{evl2} should be ascending.
+@var{chord-range} is a pair of numbers @code{(min . max)} defining the distance
+in steps between notes that may be combined into a chord or unison."
   (let* ((pc-debug #f)
          (voice-state-vec1 (make-voice-states evl1))
          (voice-state-vec2 (make-voice-states evl2))

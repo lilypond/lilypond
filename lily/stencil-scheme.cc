@@ -32,9 +32,10 @@ using std::vector;
 
 LY_DEFINE (ly_angle, "ly:angle",
            1, 1, 0, (SCM x, SCM y),
-           "Calculates angle in degrees of given vector.  With one argument,"
-           " @var{x} is a number pair indicating the vector.  With two"
-           " arguments, @var{x} and @var{y} specify the respective coordinates.")
+           "Calculate angle in degrees of given vector.  With one argument,"
+           " @var{x}@tie{}is a number pair indicating the vector.  With two"
+           " arguments, @var{x} and@tie{}@var{y} specify the respective"
+           " coordinates.")
 {
   Offset off;
   if (SCM_UNBNDP (y))
@@ -74,7 +75,7 @@ LY_DEFINE (ly_length, "ly:length",
 
 LY_DEFINE (ly_directed, "ly:directed",
            1, 1, 0, (SCM direction, SCM magnitude),
-           "Calculates an @code{(x . y)} pair with optional @var{magnitude}"
+           "Calculate an @code{(x . y)} pair with optional @var{magnitude}"
            " (defaulting to @code{1.0}) and @var{direction} specified either"
            " as an angle in degrees or a coordinate pair giving the direction. "
            " If @var{magnitude} is a pair, the respective coordinates are"

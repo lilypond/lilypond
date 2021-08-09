@@ -26,7 +26,7 @@
     (grob-interpret-markup grob fraction-markup)))
 
 (define-public (add-simple-time-signature-style style proc)
-  "Specify the procedure @code{proc} returning markup for a time signature
+  "Specify the procedure @var{proc} returning markup for a time signature
 style @var{style}.  The procedure is called with one argument, the
 pair @code{(@var{numerator} . @var{denominator})}."
   (set! time-signature-style-markup-procedures

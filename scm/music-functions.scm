@@ -138,7 +138,7 @@ First it recurses over the children, then the function is applied to
   (music-selective-filter ly:music? pred? music))
 
 (define*-public (display-music music #:optional (port (current-output-port)))
-  "Display music, not done with @code{music-map} for clarity of
+  "Display @var{music}, not done with @code{music-map} for clarity of
 presentation."
   (display music port)
   (display ": { " port)
@@ -252,7 +252,7 @@ equivalent to @var{obj}, that is, for a music expression, a
 
 (use-modules (ice-9 pretty-print))
 (define*-public (display-scheme-music obj #:optional (port (current-output-port)))
-  "Displays `obj', typically a music expression, in a friendly fashion,
+  "Display @var{obj}, typically a music expression, in a friendly fashion,
 which often can be read back in order to generate an equivalent expression."
   (pretty-print (music->make-music obj) port)
   (newline port))
@@ -264,7 +264,7 @@ which often can be read back in order to generate an equivalent expression."
              (lily display-lily))
 
 (define*-public (display-lily-music expr #:optional (port (current-output-port)))
-  "Display the music expression using LilyPond syntax"
+  "Display the music expression @var{expr} using LilyPond syntax."
   (memoize-clef-names supported-clefs)
   (parameterize ((*indent* 0)
                  (*omit-duration* #f))
@@ -457,11 +457,10 @@ If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
 (define-safe-public (check-grob-path path . rest)
   "Check a grob path specification @var{path}, a symbol list (or a
 single symbol), for validity and possibly complete it.  Returns the
-completed specification, or @code{#f} if invalid.  If optional
-@var{parser} is given, a syntax error is raised in that case,
-optionally using @var{location}.  If an optional keyword argument
+completed specification, or @code{#f} if invalid, optionally using
+@var{location} for an error message.  If an optional keyword argument
 @code{#:start @var{start}} is given, the parsing starts at the given
-index in the sequence @samp{Context.Grob.property.sub-property...},
+index in the sequence @samp{Context.@/Grob.@/property.@/sub-property...},
 with the default of @samp{0} implying the full path.
 
 If there is no valid first element of @var{path} fitting at the given
@@ -536,7 +535,7 @@ respectively."
   "Check a context property path specification @var{path}, a symbol
 list (or a single symbol), for validity and possibly complete it.
 Returns the completed specification, or @code{#f} when rising an
-error (using optionally @code{location})."
+error (using optionally @var{location})."
   (let* ((path (if (symbol? path) (list path) path)))
     ;; A Guile 1.x bug specific to optargs precludes moving the
     ;; defines out of the let
@@ -562,7 +561,7 @@ error (using optionally @code{location})."
   "Check a music property path specification @var{path}, a symbol
 list (or a single symbol), for validity and possibly complete it.
 Returns the completed specification, or @code{#f} when rising an
-error (using optionally @code{location})."
+error (using optionally @var{location})."
   (define (property? s)
     (object-property s 'music-type?))
   (define (unspecial? s)
@@ -691,7 +690,7 @@ making it possible to @code{\\revert} to any previous value afterwards."
 
 
 (define-safe-public (context-spec-music m context #:optional id mods)
-  "Add \\context @var{context} = @var{id} \\with @var{mods} to @var{m}."
+  "Add @code{\\context @var{context} = @var{id} \\with @var{mods}} to @var{m}."
   (let ((cm (make-music 'ContextSpeccedMusic
                         'element m
                         'context-type context)))
@@ -830,7 +829,7 @@ chords."
 ;;; expanding repeat chords
 (define-public (copy-repeat-chord original-chord repeat-chord duration
                                   event-types)
-  "Copies all events in @var{event-types} (be sure to include
+  "Copy all events in @var{event-types} (be sure to include
 @code{rhythmic-events}) from @var{original-chord} over to
 @var{repeat-chord} with their articulations filtered as well.  Any
 duration is replaced with the specified @var{duration}."
@@ -1349,6 +1348,8 @@ set to the @code{location} parameter."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Urgh.  This documentation string is completely incomprehensible – right
+;; now, `quote-substitute` is undocumented.
 (define-public (cue-substitute quote-music)
   "Must happen after @code{quote-substitute}."
 
@@ -2769,7 +2770,7 @@ scaling, then does the equivalent of a
 (call-after-session (lambda () (hash-clear! tag-groups)))
 
 (define-public (define-tag-group tags)
-  "Define a tag-group consisting of the given @var{tags}, a@tie{}list
+  "Define a tag group consisting of the given @var{tags}, a@tie{}list
 of symbols.  Returns @code{#f} if successful, and an error message if
 there is a conflicting tag group definition."
   (cond ((not (symbol-list? tags)) (format #f (_ "not a symbol list: ~a") tags))

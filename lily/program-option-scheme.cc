@@ -230,13 +230,15 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 }
 
 LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
-           "The Scheme options specified on command-line with @option{-d}.")
+           "The Scheme options specified on the command line with"
+           " option @option{-d}.")
 {
   return ly_string2scm (init_scheme_variables_global);
 }
 
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
-           "The Scheme code specified on command-line with @option{-e}.")
+           "The Scheme code specified on the command line with"
+           " option @option{-e}.")
 {
   return ly_string2scm (init_scheme_code_global);
 }

@@ -105,8 +105,8 @@ the numeric factor by which they increase the duration."
 
 (define-public (duration-length dur)
   "Return the overall length of a duration, as a number of whole
-notes.  (Not to be confused with ly:duration-length, which returns a
-less-useful moment object.)"
+notes.  (Not to be confused with @code{ly:duration-length}, which returns a
+less useful @code{Moment} object.)"
   (ly:moment-main (ly:duration-length dur)))
 
 (define-public (duration-visual dur)
@@ -139,11 +139,11 @@ This supports historic use of @code{Completion_heads_engraver} to split
 ;; parser <-> output hooks.
 
 (define-public (collect-bookpart-for-book book-part)
-  "Toplevel book-part handler."
+  "Top-level book-part handler."
   (define (add-bookpart book-part)
     (ly:parser-define! 'toplevel-bookparts
                        (cons book-part (ly:parser-lookup 'toplevel-bookparts))))
-  ;; If toplevel scores have been found before this \bookpart,
+  ;; If top-level scores have been found before this \bookpart,
   ;; add them first to a dedicated bookpart
   (if (pair? (ly:parser-lookup 'toplevel-scores))
       (begin
@@ -258,7 +258,7 @@ bookoutput function"
 (define-public (print-book-with-defaults-as-systems book)
   (print-book-with book ly:book-process-to-systems))
 
-;; Add a score to the current bookpart, book or toplevel
+;; Add a score to the current bookpart, book or top-level.
 (define-public (add-score score)
   (cond
    ((ly:parser-lookup '$current-bookpart)
@@ -502,7 +502,7 @@ For example:
 
 ;; todo: code dup with C++.
 (define-safe-public (alist->hash-table lst)
-  "Convert alist to table"
+  "Convert alist @var{lst} to a table."
   (let ((m (make-hash-table (length lst))))
     ;; first association wins.
     (for-each (lambda (k-v) (hashq-create-handle! m (car k-v) (cdr k-v))) lst)
@@ -738,7 +738,8 @@ right (@var{dir}=+1)."
 (define-public THREE-PI-OVER-TWO (* 3 PI-OVER-TWO))
 
 (define-public (cyclic-base-value value cycle)
-  "Take @var{value} and modulo-maps it between 0 and base @var{cycle}."
+  "Take @var{value} (for example, an angle) and modulo-maps it between 0
+and base @var{cycle}."
   (cond ((< value 0)
          (cyclic-base-value (+ value cycle) cycle))
         ((>= value cycle)
@@ -746,11 +747,11 @@ right (@var{dir}=+1)."
         (else value)))
 
 (define-public (angle-0-2pi angle)
-  "Take @var{angle} (in radians) and maps it between 0 and 2pi."
+  "Take @var{angle} (in radians) and map it between 0 and 2pi."
   (cyclic-base-value angle TWO-PI))
 
 (define-public (angle-0-360 angle)
-  "Take @var{angle} (in degrees) and maps it between 0 and 360 degrees."
+  "Take @var{angle} (in degrees) and map it between 0 and 360 degrees."
   (cyclic-base-value angle 360.0))
 
 (define-public PI-OVER-180  (/ PI 180))

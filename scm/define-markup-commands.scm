@@ -644,7 +644,7 @@ in the PDF backend.
     (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
 
 (define-public (book-first-page layout props)
-  "Return the @code{'first-page-number} of the entire book"
+  "Return the @code{'first-page-number} of the entire book."
   (define (ancestor layout)
     "Return the topmost layout ancestor"
     (let ((parent (ly:output-def-parent layout)))

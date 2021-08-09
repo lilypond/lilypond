@@ -264,14 +264,16 @@ specified strings @code{defined-strings} and
 specified fingerings @code{defined-fingers}.  Only a fingering of@tie{}0
 will affect the fret selection, as it specifies an open string.
 If @code{defined-strings} is @code{'()}, the context property
-@code{defaultStrings} will be used as a list of defined strings.
-Will look for predefined fretboards if @code{predefinedFretboardTable}
+@code{defaultStrings} is used as a list of defined strings.
+Looks for predefined fretboards if @code{predefinedFretboardTable}
 is not @code{#f}.  If @var{rest} is present, it contains the
-@code{FretBoard} grob, and a fretboard will be
-created.  Otherwise, a list of @code{(string fret finger)} lists will
-be returned.
+@code{FretBoard} grob, and a fretboard gets
+created.  Otherwise, a list of @code{(string fret finger)} lists
+is returned.
+
 If the context-property @code{supportNonIntegerFret} is set @code{#t},
-micro-tones are supported for TabStaff, but not not for FretBoards."
+micro-tones are supported for @code{TabStaff}, but not not for
+@code{FretBoards}."
 
   ;;  helper functions
   (define (barre-list string-frets)

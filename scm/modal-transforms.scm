@@ -106,10 +106,10 @@ concatenate the results.  Knows nothing of LilyPond internals."
 
 (define-public (change-pitches music converter)
   "Recurse through @var{music}, applying @var{converter} to pitches.
-Converter is typically a transposer or an inverter as defined above in
-this module, but may be user-defined.  The converter function must take
-a single pitch as its argument and return a new pitch.  These are
-LilyPond scheme pitches, e.g. @code{(ly:make-pitch 0 2 0)}
+@var{converter} is typically a transposer or an inverter (see file
+@file{scm/@/modal-transforms.scm}), but may be user-defined.  The converter
+function must take a single pitch as its argument and return a new pitch.
+These are LilyPond Scheme pitches, e.g., @code{(ly:make-pitch 0 2 0)}.
 "
   (let ((elements (ly:music-property music 'elements))
         (element (ly:music-property music 'element))

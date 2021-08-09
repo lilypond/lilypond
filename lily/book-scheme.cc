@@ -83,6 +83,7 @@ LY_DEFINE (ly_book_process, "ly:book-process",
   return SCM_UNSPECIFIED;
 }
 
+// Urgh: Fix documentation.  Right now, it is the same as `ly:book-process`.
 LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
            4, 0, 0, (SCM book_smob,
                      SCM default_paper,

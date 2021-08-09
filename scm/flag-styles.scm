@@ -36,10 +36,10 @@
 The stroke starts for up-flags at `upper-end-of-flag + (0,length/2)'
 and ends at `(0, vertical-center-of-flag-end) - (flag-x-width/2,
 flag-x-width + flag-thickness)'.  Here `length' is the
-whole length, while `flag-x-width' is just the x-extent and thus depends on
-the angle!  Other combinations don't look as good.
+whole length, while `flag-x-width' is just the x@tie{}extent and thus
+depends on the angle!  Other combinations don't look as good.
 
-For down-stems the y-coordinates are simply mirrored."
+For down-stems the y@tie{}coordinates are simply mirrored."
   (let* ((stem-grob (ly:grob-parent grob X))
          (start (offset-add offset (cons 0  (* (/ length 2) dir))))
          (end (offset-add (cons 0 (cdr offset))
@@ -223,7 +223,7 @@ stencil."
 
 
 (define-public (default-flag grob)
-  "Create a flag stencil for the stem.  Its style will be derived from the
+  "Create a flag stencil for the stem.  Its style is derived from the
 @code{'style} Flag property.  By default, @code{lilypond} uses a
 C++ Function (which is slightly faster) to do exactly the same as this
 function.  However, if one wants to modify the default flags, this function

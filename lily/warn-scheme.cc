@@ -34,7 +34,8 @@ using std::string;
 LY_DEFINE (ly_error, "ly:error",
            1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue the error @var{str}."
-           "  The error is formatted with @code{format} and @var{rest}.")
+           "  The error is formatted with @code{format}; @var{rest} holds"
+           " the formatting arguments (if any).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -45,8 +46,8 @@ LY_DEFINE (ly_error, "ly:error",
 LY_DEFINE (ly_programming_error, "ly:programming-error",
            1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue the internal warning"
-           "  @var{str}.  The message is formatted with @code{format}"
-           " and @var{rest}.")
+           " @var{str}.  The message is formatted with @code{format};"
+           " @var{rest} holds the formatting arguments (if any).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -57,7 +58,8 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 LY_DEFINE (ly_warning, "ly:warning",
            1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue the warning @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
+           "  The message is formatted with @code{format}; @var{rest} holds"
+           " the formatting arguments (if any).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -68,7 +70,8 @@ LY_DEFINE (ly_warning, "ly:warning",
 LY_DEFINE (ly_progress, "ly:progress",
            1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to print progress @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
+           "  The message is formatted with @code{format}; @var{rest} holds"
+           " the formatting arguments (if any).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -79,8 +82,9 @@ LY_DEFINE (ly_progress, "ly:progress",
 
 LY_DEFINE (ly_basic_progress, "ly:basic-progress",
            1, 0, 1, (SCM str, SCM rest),
-           "A Scheme callable function to issue a basic progress message @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
+           "A Scheme callable function to issue a basic progress message"
+           " @var{str}.  The message is formatted with @code{format};"
+           " @var{rest} holds the formatting arguments (if any).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -91,7 +95,8 @@ LY_DEFINE (ly_basic_progress, "ly:basic-progress",
 LY_DEFINE (ly_message, "ly:message",
            1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue the message @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
+           "  The message is formatted with @code{format}; @var{rest} holds"
+           " the formatting arguments (if any).")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -102,7 +107,8 @@ LY_DEFINE (ly_message, "ly:message",
 LY_DEFINE (ly_debug, "ly:debug",
            1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to issue a debug message @var{str}."
-           "  The message is formatted with @code{format} and @var{rest}.")
+           "  The message is formatted with @code{format}; @var{rest} holds"
+           " the formatting arguments (if any).")
 {
   // TODO: Add the newline flag!
   LY_ASSERT_TYPE (scm_is_string, str, 1);
@@ -115,7 +121,8 @@ LY_DEFINE (ly_warning_located, "ly:warning-located",
            2, 0, 1, (SCM location, SCM str, SCM rest),
            "A Scheme callable function to issue the warning @var{str} at"
            " the specified location in an input file."
-           "  The message is formatted with @code{format} and @var{rest}.")
+           "  The message is formatted with @code{format}; @var{rest} holds"
+           " the formatting arguments (if any).")
 {
   LY_ASSERT_TYPE (scm_is_string, location, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);

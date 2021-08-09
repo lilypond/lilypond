@@ -1252,7 +1252,7 @@ If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
   "Monitor left bound of @code{DynamicTextSpanner} for absolute dynamics.
 If found, ensure @code{DynamicText} does not collide with spanner text by
 changing @code{'attach-dir} and @code{'padding}.  Reads the
-@code{'right-padding} property of @code{DynamicText} to fine tune space
+@code{'right-padding} property of @code{DynamicText} to fine-tune space
 between the two text elements."
   (let ((left-bound (ly:spanner-bound grob LEFT)))
     (if (grob::has-interface left-bound 'dynamic-text-interface)
@@ -1297,8 +1297,8 @@ gets layout information from @var{grob}"
 
 (define ((elbowed-hairpin coords mirrored?) grob)
   "Create hairpin based on a list of @var{coords} in @code{(cons x y)}
-form.  @code{x} is the portion of the width consumed for a given line
-and @code{y} is the portion of the height.  For example,
+form.  @code{x}@tie{}is the portion of the width consumed for a given line
+and @code{y}@tie{}is the portion of the height.  For example,
 @code{'((0 . 0) (0.3 . 0.7) (0.8 . 0.9) (1.0 . 1.0))} means that at the point
 where the hairpin has consumed 30% of its width, it must
 be at 70% of its height.  Once it is to 80% width, it
@@ -1306,8 +1306,10 @@ must be at 90% height.  It finishes at 100% width and 100% height.
 If @var{coords} does not begin with @code{'(0 . 0)} the final hairpin may have
 an open tip.  For example '(0 . 0.5) will cause an open end of 50% of the usual
 height.
-@var{mirrored?} indicates if the hairpin is mirrored over the Y-axis or if
-just the upper part is drawn.
+
+@var{mirrored?} indicates if the hairpin is mirrored over the y@tie{}axis or
+if just the upper part is drawn.
+
 Returns a function that accepts a hairpin grob as an argument
 and draws the stencil based on its coordinates.
 
@@ -1835,7 +1837,7 @@ them as a pair."
     (cons sorted-left-pitches sorted-right-pitches)))
 
 (define-public (bend::target-cautionary spanner)
-  "Sets @code{'display-cautionary} of all relevant note heads of spanners right
+  "Set @code{'display-cautionary} of all relevant note heads of spanners right
 bound to true.  As a result they appear parenthesized.
 This procedure is the default value of @code{'before-line-breaking}."
   (let* ((all-right-note-heads (cdr (get-bound-note-heads spanner)))
@@ -1847,7 +1849,7 @@ This procedure is the default value of @code{'before-line-breaking}."
        right-note-heads)))
 
 (define-public (bend::text-string spanner)
-  "Takes a spanner-grob, calculates a list with the quarter tone diffs between
+  "Take a spanner grob and calculate a list with the quarter tone diffs between
 the pitches of starting and ending bound.  Because bending to different amounts
 is very unlikely, only the first element of this list is returned as a string."
   (let* ((sorted-left-right-pitches (bounding-note-heads-pitches spanner))
@@ -1892,10 +1894,10 @@ Doesn't work for beams."
 
 (define-public (bend::calc-bend-x-end
            bend-spanner top-left-tab-nhd top-right-tab-nhd)
-  "Calculates the ending X-coordinate of @var{bend-spanner}.  At the line end
-take the items of @code{BreakAlignGroup} into account and a little padding.
-Ends an unbroken spanner or the last of a broken one in the middle of the
-topmost note head of its bounding note column."
+  "Calculate the ending x@tie{}coordinate of @var{bend-spanner}.  At the line
+end, take the items of @code{BreakAlignGroup} into account and a little
+bit of padding.  Ends an unbroken spanner or the last of a broken one in the
+middle of the topmost note head of its bounding note column."
   (let ((top-right-tab-nhd-x-ext
           (ly:grob-extent top-right-tab-nhd top-right-tab-nhd X))
         (curve-x-padding-line-end
@@ -1967,14 +1969,14 @@ topmost note head of its bounding note column."
 
 (define-public (bend::calc-bend-x-begin
            bend-spanner bounding-noteheads factor quarter-tone-diffs)
-  "Calculates the starting values in X-direction of the bend.
-After a line break, the values from the right bound are taken minus 1.5
-staff-spaces.
-For bends-down or if grob-property @code{'style} equals to @code{'pre-bend},
+  "Calculate the starting values in x@tie{}direction of the bend.
+After a line break, the values from the right bound are taken minus
+1.5@tie{}staff spaces.
+For bends-down or if grob property @code{'style} equals to @code{'pre-bend},
 @code{'hold} or @code{'pre-bend-hold}, @code{interval-center} is applied the
 topmost note head of the starting note heads.
 In any other case the right edge of the starting note head is used.  The value
-of @code{BendSpanner.details.horizontal-left-padding} is added, which may be
+of @code{BendSpanner.@/details.@/horizontal-left-padding} is added, which may be
 changed by an appropriate override.
 Returns a list of the same length as the amount of bend-starting note heads."
   (let* ((staff-space (ly:staff-symbol-staff-space bend-spanner))
@@ -2078,8 +2080,8 @@ padding is added."
 
 (define-public (bend::arrow-head-stencil
             thickness x-y-coords height width dir)
-  "Returns an arrow head stencil.  Calculated from the given dimensions
-@var{height} and @var{width}, translated to @var{x-y-coords}, the end of
+  "Return an arrow head stencil, calculated from the given dimensions
+@var{height} and @var{width}, and translated to @var{x-y-coords}, the end of
 the bend-spanners (curved) line."
   (let* ((pts-list
            (list
@@ -2204,7 +2206,7 @@ The descending y@tie{}value of the end point of the curves is taken from
     (apply ly:stencil-add curve-stils)))
 
 (define-public (bend-spanner::print grob)
-  "Returns the final stencil.  A line and curve, arrow head and a text
+  "Return the final stencil.  A line and curve, an arrow head and a text
 representing the amount a string is bent."
   (let* (;; We need to get _all_ bounding tab-note-heads to calculate the
          ;; correct vertical position of the end of a down-spanner not only the
@@ -2542,7 +2544,7 @@ suspended noteheads), or extent of the rest (if there are no heads)."
 ;;;; This lowers the hurdle to change those stencil-definitions for the user, if
 ;;;; he wants to.
 (define-public (arrow-stencil x y thick staff-space grob)
-  "Returns a right-pointing, filled arrow-head, where @var{x} determines the basic
+  "Return a right-pointing, filled arrow-head, where @var{x} determines the basic
 horizontal position and @var{y} determines the basic vertical position.
 Both values are adjusted using @var{staff-space}, which is @code{StaffSymbol}'s
 staff space.  @var{thick} is the used line thickness."

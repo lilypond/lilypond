@@ -184,7 +184,7 @@ annotation char from string @var{str}."
 (define-public (define-bar-line bar-glyph eol-glyph bol-glyph span-glyph)
   "Define a bar glyph @var{bar-glyph} and its substitute at the end of
 a line (@var{eol-glyph}), at the beginning of a new line (@var{bol-glyph})
-and as a span bar (@var{span-glyph}) respectively."
+and as a span bar (@var{span-glyph}), respectively."
   ;; the last argument may not include annotations
   (check-for-annotation span-glyph)
   ;; only the last argument may call for replacements
@@ -544,7 +544,7 @@ drawn by the procedure associated with glyph @var{glyph}."
 ;; This code should not be included in ly:bar-line::calc-bar-extent, because
 ;; this may confuse the drawing functions for dashed and dotted bar lines.
 (define-public (bar-line::widen-bar-extent-on-span grob extent)
-  "Widens the bar line @var{extent} towards span bars adjacent to grob @var{grob}."
+  "Widen the bar line @var{extent} towards span bars adjacent to grob @var{grob}."
   (let ((staff-symbol (get-staff-symbol grob))
         (has-span-bar (ly:grob-object grob 'has-span-bar)))
 
@@ -674,8 +674,9 @@ the correct placement of bar numbers, etc."
     anchor))
 
 (define-public (bar-line::calc-glyph-name-for-direction glyph dir)
-  "Determine the @code{glyph-name} of the bar line glyph for direction
-@var{dir} depending on the line break status."
+  "Return the glyph name of the bar line glyph object for direction
+@var{dir} (@code{LEFT} = end of line, @code{CENTER} = middle of line,
+@code{RIGHT} = start of line)."
   (let* ((result (assoc-get glyph bar-glyph-alist))
          (glyph-name (if (= dir CENTER)
                          glyph
@@ -686,8 +687,8 @@ the correct placement of bar numbers, etc."
     glyph-name))
 
 (define-public (bar-line::calc-glyph-name grob)
-  "Determine the @code{glyph-name} of the bar line depending on the
-line break status."
+  "Return the name of the bar line glyph printed by @var{grob}.  This function
+is a wrapper for @code{bar-line::@/calc-glyph-name-@/for-direction}."
   (let* ((glyph (ly:grob-property grob 'glyph))
          (dir (ly:item-break-dir grob)))
     (bar-line::calc-glyph-name-for-direction glyph dir)))

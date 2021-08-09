@@ -18,7 +18,7 @@
 (use-modules (lily safe-utility-defs) (ice-9 receive))
 
 (define-public (construct-chord-elements root duration modifications)
-  "Build a chord on root using modifiers in @var{modifications}.
+  "Build a chord on @var{root} using modifiers in @var{modifications}.
 @code{NoteEvents} have duration @var{duration}.
 
 Notes: Natural 11 is left from chord if not explicitly specified.

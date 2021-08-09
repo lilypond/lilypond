@@ -64,8 +64,8 @@ LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
 
 LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",
            2, 0, 0, (SCM grob, SCM grob_element),
-           "Set @var{grob} the parent of @var{grob-element} on all axes of"
-           " @var{grob}.")
+           "Set @var{grob} as the parent of @var{grob-element} on all axes"
+           " of @var{grob}.")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const elem = LY_ASSERT_SMOB (Grob, grob_element, 2);

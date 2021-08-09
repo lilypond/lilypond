@@ -161,7 +161,7 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
            (SCM key, SCM alist, SCM default_value, SCM strict_checking),
            "Return value if @var{key} in @var{alist}, else @var{default-value}"
            " (or @code{#f} if not specified).  If @var{strict-checking} is set"
-           " to @code{#t} and @var{key} is not in @var{alist}, a programming_error"
+           " to @code{#t} and @var{key} is not in @var{alist}, a programming error"
            " is output.")
 {
   LY_ASSERT_TYPE (ly_cheap_is_list, alist, 2);
@@ -392,7 +392,7 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
            "Return value for @var{key} from a list of alists @var{achain}."
            "  If no entry is found, return @var{default-value} or @code{#f} if"
            " @var{default-value} is not specified.  With @var{strict-checking}"
-           " set to @code{#t}, a programming_error is output in such cases.")
+           " set to @code{#t}, a programming error is output in such cases.")
 {
   if (scm_is_pair (achain))
     {
