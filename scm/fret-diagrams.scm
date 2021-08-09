@@ -900,9 +900,9 @@ at @var{fret}."
     (ly:stencil-aligned-to fret-diagram-stencil X alignment)))
 
 (define (fret-parse-definition-string props definition-string)
-  "Parse a fret diagram string and return a pair containing:
-@var{props}, modified as necessary by the @var{definition-string}
-a fret-indication list with the appropriate values"
+  "Parse a fret diagram string and return a pair containing
+@var{props}, modified as necessary by the @var{definition-string},
+and a fret indication list with the appropriate values."
   (let* ((fret-count 4)
          (string-count 6)
          (fret-range (cons 1 fret-count))
@@ -997,9 +997,10 @@ a fret-indication list with the appropriate values"
 
 (define-public
   (fret-parse-terse-definition-string props definition-string)
-  "Parse a fret diagram string that uses terse syntax; return a pair containing:
-@var{props}, modified to include the string-count determined by the
-definition-string, and a fret-indication list with the appropriate values"
+  "Parse a fret diagram string that uses terse syntax; return a pair containing
+@var{props}, modified to include the string-count determined by
+@var{definition-string}, and a fret indication list with the appropriate
+values."
   ;; TODO -- change syntax to fret\string-finger
 
   (let* ((details (merge-details 'fret-diagram-details props '()))

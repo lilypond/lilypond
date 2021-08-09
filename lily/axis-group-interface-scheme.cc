@@ -51,7 +51,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
 LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
            2, 0, 0, (SCM grob, SCM common),
            "Determine the extent of @var{grob} relative to @var{common} along"
-           " the X axis, finding its extent as a bound when it a has"
+           " the x@tie{}axis, finding its extent as a bound when it a has"
            " @code{bound-alignment-interfaces} property list set and"
            " otherwise the full extent.")
 {

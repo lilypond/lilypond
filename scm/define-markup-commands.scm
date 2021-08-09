@@ -1136,7 +1136,8 @@ Use a stencil as markup.
   (make-regexp "%%BoundingBox:[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)"))
 
 (define-public (get-postscript-bbox string)
-  "Extract the bbox from STRING, or return #f if not present."
+  "Extract the bounding box from @var{string}, or return @code{#f} if not
+present."
   (let*
       ((match (regexp-exec bbox-regexp string)))
 

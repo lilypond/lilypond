@@ -804,7 +804,7 @@ inside of and outside of chord construct."
         (revert-head-style heads)))))
 
 (define-public (get-tweakable-music mus)
-  "When tweaking music, returns a list of music expressions where the
+  "When tweaking music, return a list of music expressions where the
 tweaks should be applied.  Relevant for music wrappers and event
 chords."
   (cond ((music-is-of-type? mus 'music-wrapper-music)
@@ -883,7 +883,7 @@ duration is replaced with the specified @var{duration}."
 
 
 (define-public (expand-repeat-chords! event-types music)
-  "Walks through @var{music} and fills repeated chords (notable by
+  "Walk through @var{music} and fill repeated chords (notable by
 having a duration in @code{duration}) with the notes from their
 respective predecessor chord."
   (let loop ((music music) (last-chord #f))
@@ -931,7 +931,7 @@ respective predecessor chord."
 ;;; music function has already run.
 
 (define-public (expand-repeat-notes! music)
-  "Walks through @var{music} and gives pitchless notes (not having a
+  "Walk through @var{music} and give pitchless notes (not having a
 pitch in @code{pitch} or a drum type in @code{drum-type}) the pitch(es)
 from the predecessor note/chord if available."
   (let ((last-pitch #f))
@@ -1752,7 +1752,7 @@ For convenience, returns @code{0} if entry is @code{#f}."
 by notename and octave.  Alteration is not considered.
 @var{accept-global} states whether key signature entries should be included.
 @var{accept-local} states whether local accidentals should be included.
-If no matching entry is found, @var{#f} is returned."
+If no matching entry is found, @code{#f} is returned."
   (and (pair? keysig)
        (let* ((entry (car keysig))
               (entryoct (key-entry-octave entry))
@@ -2222,7 +2222,7 @@ are expanded using the default settings of the parser."
                    (ly:music-property music 'elements))))))))
 
 (define-public (event-chord-reduce music)
-  "Reduces event chords in @var{music} to their first note event,
+  "Reduce event chords in @var{music} to their first note event,
 retaining only the chord articulations.  Returns the modified music."
   (map-some-music
    (lambda (m)
@@ -2557,9 +2557,9 @@ Offsets are restricted to immutable properties and values of type @code{number},
 ;; defined as a function instead of a list because the
 ;; all-grob-descriptions alist is not available yet
 (define-public (find-named-props prop-name grob-descriptions)
-  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  When
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  If
 @var{grob-descriptions} is equal to the @code{all-grob-descriptions}
-alist (defined in @file{scm/define-grobs.scm}), this will find all grobs
+alist (defined in @file{scm/define-grobs.scm}), this finds all grobs
 that can have a value for the @var{prop-name} property, and return them
 as a list in the following format:
 @example

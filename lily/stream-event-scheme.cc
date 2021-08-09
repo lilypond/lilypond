@@ -65,7 +65,7 @@ LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
 
 LY_DEFINE (ly_event_deep_copy, "ly:event-deep-copy",
            1, 0, 0, (SCM m),
-           "Copy @var{m} and all sub expressions of@tie{}@var{m}.")
+           "Copy @var{m} and all sub-expressions of@tie{}@var{m}.")
 {
   SCM copy = m;
   if (Stream_event *ev = unsmob<Stream_event> (m))

@@ -383,8 +383,8 @@
     to-dump-systems))
 
 (define-public (font-name-split font-name)
-  "Return @code{(FONT-NAME . DESIGN-SIZE)} from @var{font-name} string
-or @code{#f}."
+  "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
+string or @code{#f}."
   (let ((match (regexp-exec (make-regexp "(.*)-([0-9]*)") font-name)))
     (if (regexp-match? match)
         (cons (match:substring match 1) (match:substring match 2))

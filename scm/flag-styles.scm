@@ -110,17 +110,17 @@ All lengths are scaled according to the font size of the note."
 
 (define-public (modern-straight-flag grob)
   "Modern straight flag style (for composers like Stockhausen, Boulez, etc.).
-The angles are 18 and 22 degrees and thus smaller than for the ancient style
-of Bach, etc."
+The angles are 18 and 22@tie{}degrees and thus smaller than for the ancient
+style of Bach, etc."
   ((straight-flag 0.55 1 -18 1.1 22 1.2) grob))
 
 (define-public (old-straight-flag grob)
   "Old straight flag style (for composers like Bach).  The angles of the
-flags are both 45 degrees."
+flags are both 45@tie{}degrees."
   ((straight-flag 0.55 1 -45 1.2 45 1.4) grob))
 
 (define-public (flat-flag grob)
-  "Flat flag style.  The angles of the flags are both 0 degrees"
+  "Flat flag style.  The angles of the flags are both 0@tie{}degrees."
   ((straight-flag 0.55 1.0 0 1.0 0 1.0) grob))
 
 

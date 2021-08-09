@@ -112,7 +112,7 @@
 
 
 (define-public (extract-beam-exceptions music)
-  "Creates a value useful for setting @code{beamExceptions} from @var{music}."
+  "Create a value useful for setting @code{beamExceptions} from @var{music}."
   (define (car> a b) (> (car a) (car b)))
   (define (beatify! lst)
     ;; takes a collection of end points, sorts them, and returns the

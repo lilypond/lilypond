@@ -135,7 +135,7 @@ LY_DEFINE (ly_expect_warning, "ly:expect-warning",
            1, 0, 1, (SCM str, SCM rest),
            "A Scheme callable function to register a warning to be expected"
            " and subsequently suppressed.  If the warning is not encountered,"
-           " a warning about the missing warning will be shown.  The message"
+           " a warning about the missing warning is shown.  The message"
            " should be translated with @code{(_ ...)} and changing parameters"
            " given after the format string.")
 {

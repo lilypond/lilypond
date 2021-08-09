@@ -133,7 +133,7 @@ LY_DEFINE (ly_font_name, "ly:font-name",
 LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
            (SCM font),
            "Given the font metric @var{font}, return the"
-           " magnification, relative to the current output-scale.")
+           " magnification, relative to the current @code{output-scale}.")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
@@ -143,7 +143,7 @@ LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
            (SCM font),
            "Given the font metric @var{font}, return the"
-           " design size, relative to the current output-scale.")
+           " design size, relative to the current @code{output-scale}.")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 

@@ -100,8 +100,8 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
            2, 0, 0, (SCM score, SCM layout),
            "Run @var{score} through @var{layout} (an output definition)"
-           " scaled to correct output-scale already, returning a list of"
-           " layout-lines.")
+           " scaled to correct @code{output-scale} already, returning a list"
+           " of layout lines.")
 {
   auto *const sc = LY_ASSERT_SMOB (Score, score, 1);
   auto *const od = LY_ASSERT_SMOB (Output_def, layout, 2);

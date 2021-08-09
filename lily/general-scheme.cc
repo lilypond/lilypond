@@ -324,7 +324,8 @@ LY_DEFINE (ly_protects, "ly:protects",
 
 LY_DEFINE (ly_gettext, "ly:gettext",
            1, 0, 0, (SCM original),
-           "A Scheme wrapper function for @code{gettext}.")
+           "A Scheme wrapper function for @code{gettext} (to translate"
+           " messages).")
 {
   LY_ASSERT_TYPE (scm_is_string, original, 1);
   return ly_string2scm (_ (ly_scm2string (original).c_str ()));
@@ -382,7 +383,9 @@ LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
 
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
            0, 0, 0, (),
-           "Return effective prefix.")
+           "Return effective prefix.  For example, if LilyPond Scheme files"
+           " are stored in directory @file{/foo/bar/scm} and PS files in"
+           " @file{/foo/bar/ps}, the effective prefix is @file{/foo/bar}.")
 {
   return ly_string2scm (lilypond_datadir);
 }
@@ -529,8 +532,8 @@ format_single_argument (SCM arg, int precision, bool escape = false)
 
 LY_DEFINE (ly_format, "ly:format",
            1, 0, 1, (SCM str, SCM rest),
-           "LilyPond specific format, supporting @code{~a} and @code{~[0-9]f}."
-           "  Basic support for @code{~s} is also provided.")
+           "LilyPond specific format function, supporting @code{~a} and"
+           " @code{~[0-9]f}.  Basic support for @code{~s} is also provided.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 

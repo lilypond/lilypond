@@ -127,7 +127,7 @@ const char
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
            1, 0, 0, (SCM def),
-           "Return the output-scale for output definition @var{def}.")
+           "Return the @code{output-scale} for output definition @var{def}.")
 {
   auto *const b = LY_ASSERT_SMOB (Output_def, def, 1);
   return to_scm (output_scale (b));

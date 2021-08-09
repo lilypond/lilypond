@@ -132,7 +132,7 @@ LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
 
 LY_DEFINE (ly_get_font_format, "ly:get-font-format",
            1, 1, 0, (SCM font_file_name, SCM idx),
-           "Get the font format for @var{font_file_name},"
+           "Get the font format for @var{font-file-name},"
            " returning it as a symbol.  The optional"
            " @var{idx} argument is useful for TrueType Collections (TTC) and"
            " OpenType/CFF collections (OTC) only;"
@@ -178,7 +178,7 @@ LY_DEFINE (ly_get_font_format, "ly:get-font-format",
 
 LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
            1, 1, 0, (SCM font_file_name, SCM idx),
-           "Does the font for @var{font_file_name} have glyph names?"
+           "Does the font for @var{font-file-name} have glyph names?"
            "  The optional @var{idx} argument is useful for"
            " TrueType Collections (TTC) and"
            " OpenType/CFF collections (OTC) only;"
@@ -224,7 +224,7 @@ LY_DEFINE (ly_has_glyph_names_p, "ly:has-glyph-names?",
 
 LY_DEFINE (ly_get_cff_offset, "ly:get-cff-offset",
            1, 1, 0, (SCM font_file_name, SCM idx),
-           "Get the offset of 'CFF' table for @var{font_file_name},"
+           "Get the offset of the `CFF' table for @var{font-file-name},"
            " returning it as an integer.  The optional"
            " @var{idx} argument is useful for"
            " OpenType/CFF collections (OTC) only;"
@@ -385,8 +385,8 @@ LY_DEFINE (ly_extract_subfont_from_collection,
            3, 0, 0, (SCM collection_file_name, SCM idx, SCM subfont_file_name),
            "Extract the subfont of index @var{idx} in"
            " TrueType collection (TTC) or OpenType/CFF collection (OTC) file"
-           " @var{collection_file_name} and write it to file"
-           " @var{subfont_file_name}.")
+           " @var{collection-file-name} and write it to file"
+           " @var{subfont-file-name}.")
 {
   LY_ASSERT_TYPE (scm_is_string, collection_file_name, 1);
   LY_ASSERT_TYPE (scm_is_integer, idx, 2);

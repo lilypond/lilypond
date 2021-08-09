@@ -79,14 +79,14 @@ LY_DEFINE (ly_make_music, "ly:make-music",
 
 LY_DEFINE (ly_music_p, "ly:music?",
            1, 0, 0, (SCM obj),
-           "Is @var{obj} a music object?")
+           "Is @var{obj} a @code{Music} object?")
 {
   return ly_bool2scm (unsmob<Music> (obj));
 }
 
 LY_DEFINE (ly_event_p, "ly:event?",
            1, 0, 0, (SCM obj),
-           "Is @var{obj} a proper (non-rhythmic) event object?")
+           "Is @var{obj} a proper (non-rhythmic) @code{Event} object?")
 {
   if (Music *m = unsmob<Music> (obj))
     {

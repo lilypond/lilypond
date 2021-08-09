@@ -43,7 +43,7 @@
         '())))
 
 (define-public (grob::when grob)
-  "Return the global timestep (a moment) of grob @var{grob}."
+  "Return the global timestep (a @code{Moment}) of grob @var{grob}."
   (let* (; all grobs support either spanner- or item-interface
          (item (if (grob::has-interface grob 'spanner-interface)
                    (ly:spanner-bound grob LEFT)
@@ -171,7 +171,7 @@
 (define-public (grob-elts::X-extent grob)
   "Take the grob @var{grob}, get its @code{'elements}, calculate their
 @code{'X-extent} and return the minimum and maximum value as a pair.
-If @code{'elements} is empty return @code{'(0 . 0)}"
+If @code{'elements} is empty return @code{'(0 . 0)}."
   ;; TODO make 'elements and/or 'X-extent optional to cover more use-cases?
   (let* ((grob-elts-array
           (ly:grob-object grob 'elements #f))
@@ -1079,14 +1079,14 @@ may or may not use it."
 ;;
 
 (define-public (grob::compose-function func data)
-  "This creates a callback entity to be stored in a grob property,
+  "Create a callback entity @var{func} to be stored in a grob property,
 based on the grob property data @var{data} (which can be plain data, a
-callback itself, or an unpure-pure-container).
+callback itself, or an unpure-pure container).
 
-Function or unpure-pure-container @var{func} accepts a grob and a
+Function or unpure-pure container @var{func} accepts a grob and a
 value and returns another value.  Depending on the type of @var{data},
 @var{func} is used for building a grob callback or an
-unpure-pure-container."
+unpure-pure container."
   (if (or (ly:unpure-pure-container? func)
           (ly:unpure-pure-container? data))
       (ly:make-unpure-pure-container
@@ -1099,13 +1099,13 @@ unpure-pure-container."
 ;; Don't use define* since then we can't start the body with define in
 ;; Guile-1.8: crazy bug.
 (define-public (grob::offset-function func data . rest)
-  "This creates a callback entity to be stored in a grob property,
+  "Create a callback entity @var{func} to be stored in a grob property,
 based on the grob property data @var{data} (which can be plain data, a
-callback itself, or an unpure-pure-container).
+callback itself, or an unpure-pure container).
 
 Function @var{func} accepts a grob and returns a value that is added
 to the value resulting from @var{data}.  Optional argument @var{plus}
-defaults to @code{+} but may be changed to allow for using a different
+defaults to @samp{+} but may be changed to allow for using a different
 underlying accumulation.
 
 If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
@@ -1781,8 +1781,8 @@ pitches from the two sub-lists."
        (ly:pitch-quartertones top-starting-pitch))))
 
 (define-public (get-bound-note-heads spanner)
-  "Takes a spanner grob and returns a pair containing all note heads of the
-intial starting and the final @code{NoteColumn}."
+  "Take a spanner grob and return a pair containing all note heads of the
+initial starting and the final @code{NoteColumn}."
   (let* ((orig (ly:grob-original spanner))
          ;; get the bend-spanner's starting/ending NoteColumns
          (left-bound (ly:spanner-bound orig LEFT))
@@ -2572,8 +2572,8 @@ staff space.  @var{thick} is the used line thickness."
      1 1 #t)))
 
 (define-public (hook-stencil x y staff-space thick blot grob)
-  "Returns a hook-stencil, where @var{x} determines the horizontal position and
-@var{y} determines the basic vertical position.
+  "Return a hook stencil where @var{x} determines the horizontal position and
+@var{y}@tie{}determines the basic vertical position.
 The final stencil is adjusted vertically using @var{staff-space}, which is
 @code{StaffSymbol}'s  staff space, and uses @var{blot}, which is the current
 @code{'blot-diameter}.  The stencil's thickness is usually taken from @var{grob}

@@ -981,7 +981,7 @@ applied to function @var{getter}.")
   (string<? (symbol->string (car lst)) (symbol->string (car r))))
 
 (define-public (eval-carefully symbol module . default)
-  "Check whether all symbols in expr @var{symbol} are reachable
+  "Check whether all symbols in expression @var{symbol} are reachable
 in module @var{module}.  In that case evaluate, otherwise
 print a warning and set an optional @var{default}."
   (let* ((unavailable? (lambda (sym)

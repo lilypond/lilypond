@@ -26,13 +26,15 @@
   (string->symbol (string-concatenate (map symbol->string names))))
 
 (define-public (function-chain arg function-list)
-  "Applies a list of functions in @var{function-list} to @var{arg}.
+  "Apply a list of functions in @var{function-list} to @var{arg}.
 Each element of @var{function-list} is structured @code{(cons function
 '(arg2 arg3 ...))}.  If function takes arguments besides @var{arg}, they
-are provided in @var{function-list}.
+are provided in @var{function-list}.  Example:
 
-Example: Executing @samp{(function-chain 1 `((,+ 1) (,- 2) (,+ 3) (,/)))}
-returns @samp{1/3}."
+@example
+(function-chain 1 `((,+ 1) (,- 2) (,+ 3) (,/)))
+   @result{} 1/3
+@end example"
   (fold
    (lambda (fun arg) (apply (car fun) arg (cdr fun)))
    arg

@@ -262,8 +262,8 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
 
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
            2, 0, 0, (SCM grob, SCM axis),
-           "Get the parent of @var{grob}.  @var{axis} is 0 for the X-axis,"
-           " 1@tie{}for the Y-axis.")
+           "Get the parent of @var{grob}.  @var{axis} is @code{0} for the"
+           " x@tie{}axis, @code{1}@tie{}for the y@tie{}axis.")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -274,7 +274,8 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 
 LY_DEFINE (ly_grob_set_parent_x, "ly:grob-set-parent!",
            3, 0, 0, (SCM grob, SCM axis, SCM parent_grob),
-           "Set @var{parent-grob} the parent of grob @var{grob} in axis @var{axis}.")
+           "Set @var{parent-grob} as the parent of grob @var{grob} in axis"
+           " @var{axis}.")
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -417,7 +418,7 @@ LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-gro
 
 LY_DEFINE (ly_grob_spanned_rank_interval, "ly:grob-spanned-rank-interval",
            1, 0, 0, (SCM grob),
-           "Returns a pair with the @code{rank} of the furthest left"
+           "Return a pair with the @code{rank} of the furthest left"
            " column and the @code{rank} of the furthest right column"
            " spanned by @code{grob}.")
 {
