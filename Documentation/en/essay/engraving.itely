@@ -367,9 +367,9 @@ the upper two measures, however, form down-stem/@/up-stem clumps of
 notes.  A master engraver would adjust the spacing as needed to please
 the eye.
 
-The spacing algorithms in LilyPond even take the barlines into account,
+The spacing algorithms in LilyPond even take the bar lines into account,
 which is why the final up-stem in the properly spaced example has been
-given a little more space before the barline to keep it from looking
+given a little more space before the bar line to keep it from looking
 crowded.  A down-stem would not need this adjustment.
 
 @node Ledger lines

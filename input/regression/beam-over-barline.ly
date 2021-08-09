@@ -1,7 +1,7 @@
 
 \version "2.19.21"
 \header {
-  texidoc = "Explicit beams may cross barlines. "
+  texidoc = "Explicit beams may cross bar lines."
 }
 \layout { ragged-right= ##t }
 

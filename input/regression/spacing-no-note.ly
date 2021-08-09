@@ -1,8 +1,8 @@
 \header {
 
   texidoc = "In the absence of NoteSpacings, wide objects still get
-extra space. In this case, the slash before the barline gets a little
-more space. "
+extra space.  In this case, the slash before the bar line gets a little
+more space."
 
 }
 \layout { ragged-right  = ##t }

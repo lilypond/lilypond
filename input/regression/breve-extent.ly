@@ -3,7 +3,7 @@
 \header  {
   texidoc = "LilyPond knows that breves and longas are wider than whole notes
   (because of vertical lines on their sides).  Breves and longas don't collide
-  with accidentals, barlines, neighbor notes etc.  The distance between
+  with accidentals, bar lines, neighbor notes, etc.  The distance between
   accidental and note is the same for whole notes, breves and longas."
 }
 

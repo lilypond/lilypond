@@ -5,8 +5,8 @@
   texidoc = "Prefatory items maintain sufficient separation from
   musical notation for readability, even in tight spacing.
   The notes should remain generally on the correct side of the
-  time signature, key signature and barlines.  A key change to
-  G major should be legible."
+  time signature, key signature and bar lines.  A key change to
+  G@tie{}major should be legible."
 
 }
 

@@ -3,8 +3,8 @@
 
 \header{
   texidoc=" The number of stafflines of a staff can be set.  Ledger
-lines both on note heads and rests, as well as barlines, are
-adjusted accordingly.  "
+lines both on note heads and rests, as well as bar lines, are
+adjusted accordingly."
 }
 
 

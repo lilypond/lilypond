@@ -1,5 +1,5 @@
 \header {
-  texidoc = "Slurs avoid clefs, but don't avoid barlines."
+  texidoc = "Slurs avoid clefs, but don't avoid bar lines."
   }
 
 \paper {

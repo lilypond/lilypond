@@ -4,8 +4,8 @@
 
   texidoc = "Distances between prefatory items (e.g. clef, bar,
 etc.)  are determined by engraving standards.  These distances depend
-on which items are combined.  Mid-line, the order for clef and
-bar-line is different from the start of line.
+on which items are combined.  Mid-line, the order for clefs and
+bar lines is different from the start of line.
 "
 
 }

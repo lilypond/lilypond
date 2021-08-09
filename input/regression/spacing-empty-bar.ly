@@ -1,7 +1,7 @@
 \version "2.16.0"
 
 \header {
-  texidoc = "Empty barlines do not affect spacing."
+  texidoc = "Empty bar lines do not affect spacing."
 }
 
 {

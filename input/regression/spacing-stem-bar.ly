@@ -2,8 +2,8 @@
 \version "2.19.21"
 \header {
 
-  texidoc = "Upstem notes before a barline are printed with some extra
-space. This is an optical correction similar to juxtaposed stems.
+  texidoc = "Upstem notes before a bar line are printed with some extra
+space.  This is an optical correction similar to juxtaposed stems.
 "
 
 }

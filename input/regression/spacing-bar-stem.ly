@@ -1,7 +1,7 @@
 
 \header {
-  texidoc = "Downstem notes following a barline are
-printed with some extra space. This is an optical correction similar
+  texidoc = "Downstem notes following a bar line are
+printed with some extra space.  This is an optical correction similar
 to juxtaposed stems.
 
 The bar upstem should be approx 1.1 staff space, the bar downstem 1.3

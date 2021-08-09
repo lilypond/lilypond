@@ -1,8 +1,8 @@
 \header{
 
   texidoc = "Skyline horizontal spacing may fold non-adjacent columns
-together, but they still do not collide. In this case, the arpeggio
-and the barline do not collide."
+together, but they still do not collide.  In this case, the arpeggio
+and the bar line do not collide."
 
 }
 

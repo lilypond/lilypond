@@ -1,7 +1,7 @@
 \version "2.17.30"
 
 \header {
-  texidoc = "An empty barline does not confuse the spacing engine too much.
+  texidoc = "An empty bar line does not confuse the spacing engine too much.
 The two scores should look approximately the same."
 }
 

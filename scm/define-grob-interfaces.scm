@@ -448,7 +448,7 @@ interesting enough to maintain a hara-kiri staff."
 
 (ly:add-interface
  'span-bar-interface
- "A bar line that is spanned between other barlines.
+ "A bar line that is spanned between other bar lines.
   This interface is used for bar lines that connect different
   staves."
  '(glyph-name

@@ -2,8 +2,8 @@
 
 \header{
     texidoc="The page-turn breaker will put a page turn after
-a rest unless there is a 'special' barline within the rest,
-in which case the turn will go after the special barline.
+a rest unless there is a 'special' bar line within the rest,
+in which case the turn will go after the special bar line.
 "
 }
 

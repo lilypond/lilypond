@@ -2,9 +2,9 @@
 \version "2.19.21"
 \header{
 texidoc="
-Key signatures may appear on key changes, even without a barline.  
+Key signatures may appear on key changes, even without a bar line.
 In the case of a line break, the restoration accidentals are printed at 
-end of a line. If @code{createKeyOnClefChange} is set, key signatures
+end of a line.  If @code{createKeyOnClefChange} is set, key signatures
 are created also on a clef change.
 "
 }

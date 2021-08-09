@@ -3,7 +3,7 @@
 \header {
 
   texidoc = "Falls and doits can be created with bendAfter. They run
- to the next note, or to the next barline. Microtone bends (i.e. 
+ to the next note, or to the next bar line.  Microtone bends (i.e.,
  \bendAfter #3.5) are also supported."
 
 }

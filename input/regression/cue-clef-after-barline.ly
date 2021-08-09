@@ -1,9 +1,7 @@
 \version "2.21.0"
 
 \header {
-  texidoc = "
-Cue clefs can be printed after a barline.
-"
+  texidoc = "Cue clefs can be printed after a bar line."
 }
 
 instrument = \relative {

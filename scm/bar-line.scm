@@ -42,7 +42,7 @@ and the dimensions of the extent into account."
     blot))
 
 (define-public (bar-line::draw-filled-box x-ext y-ext thickness extent grob)
-  "Return a straight bar-line created by @code{ly:round-filled-box} looking at
+  "Return a straight bar line created by @code{ly:round-filled-box} looking at
 @var{x-ext}, @var{y-ext}, @var{thickness}.  The blot is calculated by
 @code{bar-line::calc-blot}, which needs @var{extent} and @var{grob}.
 @var{y-ext} is not necessarily of same value as @var{extent}."
@@ -647,7 +647,7 @@ drawn by the procedure associated with glyph @var{glyph}."
 
 (define-public (ly:bar-line::calc-anchor grob)
   "Calculate the anchor position of a bar line. The anchor is used for
-the correct placement of bar numbers etc."
+the correct placement of bar numbers, etc."
   (let* ((bar-glyph (ly:grob-property grob 'glyph-name ""))
          (bar-glyph-list (string->string-list (strip-string-annotation bar-glyph)))
          (span-glyph (assoc-get bar-glyph span-bar-glyph-alist bar-glyph))
@@ -674,8 +674,8 @@ the correct placement of bar numbers etc."
     anchor))
 
 (define-public (bar-line::calc-glyph-name-for-direction glyph dir)
-  "Determine the @code{glyph-name} of the bar line depending on the
-line break status."
+  "Determine the @code{glyph-name} of the bar line glyph for direction
+@var{dir} depending on the line break status."
   (let* ((result (assoc-get glyph bar-glyph-alist))
          (glyph-name (if (= dir CENTER)
                          glyph

@@ -2,8 +2,8 @@
 
 \header{
   texidoc="
-Volta (Semi folded) behavior.  Voltas can start on non-barline moments.
-If they don't barlines should still be shown.
+Volta (Semi folded) behavior.  Voltas can start on non-bar line moments.
+If they don't bar lines should still be shown.
 "
 }
 
@@ -13,7 +13,7 @@ If they don't barlines should still be shown.
 #(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
 
 \context Voice \relative {
-  %% repeat non aligning with barlines.
+  %% repeat non aligning with bar lines.
   \repeat volta 3 { c''^"3x 0alt" d e }
   %% less alts than body
   \repeat volta 4 { c^"4x 2alt" d } \alternative { e f }

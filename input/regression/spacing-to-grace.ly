@@ -2,7 +2,7 @@
 \version "2.19.21"
 \header {
 
-  texidoc ="Space from a normal note (or barline) to a grace note is
+  texidoc ="Space from a normal note (or bar line) to a grace note is
     smaller than to a normal note."
   
 }
