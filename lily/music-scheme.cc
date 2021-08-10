@@ -150,17 +150,18 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
 
 LY_DEFINE (ly_set_origin_x, "ly:set-origin!",
            1, 1, 0, (SCM m, SCM origin),
-           "This sets the origin given in @var{origin} to @var{m}. "
-           " @var{m} will typically be a music expression or a list"
+           "Set the origin given in @var{origin} to @var{m}."
+           "  @var{m} is typically a music expression or a list"
            " of music.  List structures are searched recursively,"
            " but recursion stops at the changed music expressions"
-           " themselves. "
-           " @var{origin} is generally of type @code{ly:input-location?},"
+           " themselves.\n"
+           "\n"
+           "@var{origin} is generally of type @code{ly:input-location?},"
            " defaulting to @code{(*location*)}.  Other valid values for"
            " @code{origin} are a music expression which is then used as"
            " the source of location information, or @code{#f}"
-           " or @code{'()} in which case no action is performed. "
-           " The return value is @var{m} itself.")
+           " or @code{'()} in which case no action is performed."
+           "  The return value is @var{m} itself.")
 {
   if (SCM_UNBNDP (origin))
     origin = scm_fluid_ref (Lily::f_location);

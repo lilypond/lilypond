@@ -76,7 +76,7 @@
         (ly:moment-main-denominator moment)))
 
 (define-public (seconds->moment s context)
-  "Return a moment equivalent to s seconds at the current tempo."
+  "Return a moment equivalent to @var{s}@tie{}seconds at the current tempo."
   (ly:moment-mul (ly:context-property context 'tempoWholesPerMinute)
                  (ly:make-moment (/ s 60))))
 
@@ -581,9 +581,12 @@ for comparisons."
 
 (define-public (split-list-by-separator lst pred)
   "Split @var{lst} at each element that satisfies @var{pred}, and return
-the parts (with the separators removed) as a list of lists.  For example,
-executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
-@samp{((a) (b c) (d))}."
+the parts (with the separators removed) as a list of lists.  Example:
+
+@example
+(split-list-by-separator '(a 0 b c 1 d) number?)
+   @result{} ((a) (b c) (d))
+@end example"
   (call-with-values (lambda () (break pred lst))
     (lambda (head tail)
       (cons head
@@ -785,7 +788,8 @@ as rectangular coordinates @code{(x-length . y-length)}."
   (equal? prefix (substring/shared s 0 (min (string-length s) (string-length prefix)))))
 
 (define-public (remove-whitespace strg)
-  "Remove characters satisfying @code{char-whitespace?} from string @var{strg}"
+  "Remove characters satisfying @code{char-whitespace?} from string
+@var{strg}."
   (cond-expand
    (guile-2 (string-delete char-whitespace? strg))
    (else (string-delete strg char-whitespace?))))
@@ -1076,7 +1080,7 @@ print a warning and set an optional @var{default}."
    (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
 
 (define-public (output-module? module)
-  "Returns @code{#t} if @var{module} belongs to an output module
+  "Return @code{#t} if @var{module} belongs to an output module
 usually carrying context definitions (@code{\\midi} or
 @code{\\layout})."
   (or (module-ref module 'is-midi #f)

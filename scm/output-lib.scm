@@ -443,7 +443,7 @@ If @code{'elements} is empty return @code{'(0 . 0)}."
 ;; markup commands \note and \note-by-number
 (define-public (select-head-glyph style log)
   "Select a note head glyph string based on note head style @var{style}
-and duration-log @var{log}."
+and duration log @var{log}."
   (if (symbol? style)
       (case style
         ;; "default" style is directly handled in note-head.cc as a

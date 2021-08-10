@@ -140,7 +140,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 }
 
 LY_DEFINE (ly_parse_init, "ly:parse-init", 1, 0, 0, (SCM name),
-           "Parse the init file @code{name}.")
+           "Parse the init file @var{name}.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   string file = ly_scm2string (name);
@@ -303,7 +303,8 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 
 LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
            0, 1, 0, (SCM parser),
-           "Return the base name of the output file.  If @code{parser} is left off, use currently active parser.")
+           "Return the base name of the output file.  If @var{parser} is left"
+           " off, use currently active parser.")
 {
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);

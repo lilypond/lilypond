@@ -92,8 +92,8 @@ static Protected_scm creation_callback (SCM_EOL);
 
 LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
            1, 0, 0, (SCM cb),
-           "Specify a procedure that will be called every time a new grob"
-           " is created.  The callback will receive as arguments the grob"
+           "Specify a procedure that gets called every time a new grob"
+           " is created.  The callback receives as arguments the grob"
            " that was created, the name of the C++ source file that caused"
            " the grob to be created, and the corresponding line number in"
            " the C++ source file.  Call with @code{#f} as argument to unset"

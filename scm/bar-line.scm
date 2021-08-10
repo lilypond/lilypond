@@ -706,9 +706,9 @@ is a wrapper for @code{bar-line::@/calc-glyph-name-@/for-direction}."
 ;; span bar callbacks
 
 (define-public (ly:span-bar::calc-glyph-name grob)
-  "Return the @code{'glyph-name} of the corresponding BarLine grob.
-The corresponding SpanBar glyph is computed within
-@code{span-bar::compound-bar-line}."
+  "Return the @code{'glyph-name} of the corresponding @code{BarLine} grob.
+The corresponding @code{SpanBar} glyph is computed within
+@code{span-bar::@/compound-bar-line}."
   (let* ((elts (ly:grob-object grob 'elements))
          (pos (1- (ly:grob-array-length elts)))
          (glyph-name '()))
@@ -725,7 +725,7 @@ The corresponding SpanBar glyph is computed within
     glyph-name))
 
 (define-public (ly:span-bar::width grob)
-  "Compute the width of the SpanBar stencil."
+  "Compute the width of the @code{SpanBar} stencil."
   (let ((width (cons 0 0)))
 
     (if (grob::is-live? grob)
@@ -738,7 +738,7 @@ The corresponding SpanBar glyph is computed within
     width))
 
 (define-public (ly:span-bar::before-line-breaking grob)
-  "A dummy callback that kills the Grob @var{grob} if it contains
+  "A dummy callback that kills the @code{Grob} @var{grob} if it contains
 no elements."
   (let ((elts (ly:grob-object grob 'elements)))
 

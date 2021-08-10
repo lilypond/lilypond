@@ -109,9 +109,9 @@ Sources::~Sources ()
 
 LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
            (SCM parser_smob),
-           "A list of input files that have been opened up to here, "
-           "including the files that have been closed already. "
-           "a PARSER may optionally be specified.")
+           "Return a list of input files that have been opened up to here,"
+           " including the files that have been closed already."
+           "  A parser, @var{parser-smob}, may optionally be specified.")
 {
   if (SCM_UNBNDP (parser_smob))
     parser_smob = scm_fluid_ref (Lily::f_parser);

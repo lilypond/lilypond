@@ -91,7 +91,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
            " interpreted with it.  The context is returned in its"
            " final state.\n"
            "\n"
-           "Optionally, this routine takes an object-key to"
+           "Optionally, this routine takes an object key to"
            " to uniquely identify the score block containing it.")
 {
   auto *const music = LY_ASSERT_SMOB (Music, mus, 1);

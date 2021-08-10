@@ -38,7 +38,7 @@ LY_DEFINE (ly_page_turn_breaking, "ly:page-turn-breaking",
 LY_DEFINE (ly_optimal_breaking, "ly:optimal-breaking",
            1, 0, 0, (SCM pb),
            "Optimally break (pages and lines) the @code{Paper_book} object"
-           " @var{pb} to minimize badness in bother vertical and horizontal"
+           " @var{pb} to minimize badness for both vertical and horizontal"
            " spacing.")
 {
   Optimal_page_breaking b (unsmob<Paper_book> (pb));
@@ -57,7 +57,7 @@ LY_DEFINE (ly_minimal_breaking, "ly:minimal-breaking",
 
 LY_DEFINE (ly_one_page_breaking, "ly:one-page-breaking",
            1, 0, 0, (SCM pb),
-           "Put each score on a single page.  The paper-height settings"
+           "Put each score on a single page.  The @code{paper-height} settings"
            " are modified so each score fits on one page, and the"
            " height of the page matches the height of the full score.")
 {
@@ -68,7 +68,7 @@ LY_DEFINE (ly_one_page_breaking, "ly:one-page-breaking",
 LY_DEFINE (ly_one_line_breaking, "ly:one-line-breaking",
            1, 0, 0, (SCM pb),
            "Put each score on a single line, and put each line on its own"
-           " page.  Modify the paper-width setting so that every page"
+           " page.  Modify the @code{paper-width} setting so that every page"
            " is wider than the widest line.")
 {
   One_line_page_breaking b (unsmob<Paper_book> (pb));
@@ -78,8 +78,8 @@ LY_DEFINE (ly_one_line_breaking, "ly:one-line-breaking",
 LY_DEFINE (ly_one_line_auto_height_breaking, "ly:one-line-auto-height-breaking",
            1, 0, 0, (SCM pb),
            "Put each score on a single line, and put each line on its own"
-           " page.  Modify the paper-width setting so that every page"
-           " is wider than the widest line. Modify the paper-height"
+           " page.  Modify the @code{paper-width} setting so that every page"
+           " is wider than the widest line.  Modify the @code{paper-height}"
            " setting to fit the height of the tallest line.")
 {
   One_line_auto_height_breaking b (unsmob<Paper_book> (pb));

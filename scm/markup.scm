@@ -60,9 +60,9 @@ Example:
   (cons (acons key val (car chain)) (cdr chain)))
 
 (define-public (stack-stencil-line space stencils)
-  "Adjoin a list of @var{stencils} along the X axis, leaving
+  "Adjoin a list of @var{stencils} along the x@tie{}axis, leaving
 @var{space} between the end of each stencil and the beginning of the
-following stencil.  Stencils with empty Y extent are not given
+following stencil.  Stencils with empty y@tie{}extent are not given
 @var{space} before them and don't avoid overlapping other stencils."
   (stack-stencils X RIGHT space (filter ly:stencil? stencils)))
 

@@ -110,7 +110,7 @@ LY_DEFINE (ly_directed, "ly:directed",
 
 LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
            3, 0, 0, (SCM stil, SCM amount, SCM axis),
-           "Return a copy of @var{stil} but translated by @var{amount}"
+           "Return a copy of stencil @var{stil} but translated by @var{amount}"
            " in @var{axis} direction.")
 {
   auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
@@ -126,7 +126,7 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
 
 LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
            2, 0, 0, (SCM stil, SCM offset),
-           "Return a @var{stil}, but translated by @var{offset}"
+           "Return a copy of stencil @var{stil} but translated by @var{offset}"
            " (a pair of numbers).")
 {
   auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
@@ -139,7 +139,7 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
 
 LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
            1, 0, 0, (SCM stil),
-           "Return the expression of @var{stil}.")
+           "Return the expression of stencil @var{stil}.")
 {
   auto *const s = LY_ASSERT_SMOB (const Stencil, stil, 1);
   return s->expr ();
@@ -147,9 +147,9 @@ LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
 
 LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
            2, 0, 0, (SCM stil, SCM axis),
-           "Return a pair of numbers signifying the extent of @var{stil} in"
-           " @var{axis} direction (@code{0} or @code{1} for x and"
-           " y@tie{}axis, respectively).")
+           "Return a pair of numbers signifying the extent of stencil"
+           " @var{stil} in @var{axis} direction (@code{0} or@tie{}@code{1} for"
+           " x and y@tie{}axis, respectively).")
 {
   auto *const s = LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -175,11 +175,11 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
                      SCM second,
                      SCM padding),
            "Construct a stencil by putting @var{second} next to @var{first}."
-           "  @var{axis} can be 0 (x-axis) or@tie{}1 (y-axis)."
-           "  @var{direction} can be -1 (left or down) or@tie{}1 (right or"
-           " up).  The stencils are juxtaposed with @var{padding} as extra"
-           " space.  @var{first} and @var{second} may also be @code{'()} or"
-           " @code{#f}.")
+           "  @var{axis} can be @code{0} (x@tie{}axis) or@tie{}@code{1}"
+           " (y@tie{}axis).  @var{direction} can be @code{-1} (left or down)"
+           " or@tie{}@code{1} (right or up).  The stencils are juxtaposed with"
+           " @var{padding} as extra space.  @var{first} and @var{second} may"
+           " also be @code{'()} or @code{#f}.")
 {
   auto *const s1 = unsmob<const Stencil> (first);
   auto *const s2 = unsmob<const Stencil> (second);
@@ -217,13 +217,15 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
                      SCM padding,
                      SCM mindist),
            "Construct a stencil by stacking @var{second} next to @var{first}."
-           "  @var{axis} can be 0 (x-axis) or@tie{}1 (y-axis)."
-           "  @var{direction} can be -1 (left or down) or@tie{}1 (right or"
-           " up).  The stencils are juxtaposed with @var{padding} as extra"
-           " space.  @var{first} and @var{second} may also be @code{'()} or"
-           " @code{#f}.  As opposed to @code{ly:stencil-combine-at-edge},"
-           " metrics are suited for successively accumulating lines of"
-           " stencils.  Also, @var{second} stencil is drawn last.\n\n"
+           "  @var{axis} can be @code{0} (x@tie{}axis) or@tie{}@code{1}"
+           " (y@tie{}axis).  @var{direction} can be @code{-1} (left or down)"
+           " or@tie{}@code{1} (right or up).  The stencils are juxtaposed with"
+           " @var{padding} as extra space.  @var{first} and @var{second} may"
+           " also be @code{'()} or @code{#f}.  As opposed to"
+           " @code{ly:@/stencil-combine-at-edge}, metrics are suited for"
+           " successively accumulating lines of stencils.  Also, @var{second}"
+           " stencil is drawn last.\n"
+           "\n"
            "If @var{mindist} is specified, reference points are placed"
            " apart at least by this distance.  If either of the stencils"
            " is spacing, @var{padding} and @var{mindist} do not apply.")
@@ -339,9 +341,10 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
 
 LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
            3, 0, 0, (SCM stil, SCM axis, SCM dir),
-           "Align @var{stil} using its own extents.  @var{dir} is a number."
-           "  @w{@code{-1}} and @code{1} are left and right, respectively."
-           "  Other values are interpolated (so @code{0} means the center).")
+           "Align stencil @var{stil} using its own extents.  @var{dir} is a"
+           " number.  @w{@code{-1}} and @code{1} are left and right,"
+           " respectively.  Other values are interpolated (so @code{0} means"
+           " the center).")
 {
   auto target = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
@@ -354,10 +357,10 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
 
 LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
            2, 3, 0, (SCM stc, SCM r, SCM g, SCM b, SCM a),
-           "Put @var{stc} in a different color."
-           "Accepts either three values for @var{r},"
-           "@var{g}, @var{b} and an optional value"
-           "for @var{a}, or a single CSS-like string.")
+           "Put stencil @var{stc} in a different color."
+           "  Accepts either three values for @var{r},"
+           " @var{g}, @var{b} and an optional value"
+           " for @var{a}, or a single CSS-like string.")
 {
   auto *const stil = LY_ASSERT_SMOB (const Stencil, stc, 1);
   SCM color;
@@ -398,9 +401,9 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 
 LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
            4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
-           "Return a stencil @var{stil} rotated @var{angle} degrees around"
-           " the relative offset (@var{x}, @var{y}).  E.g., an offset of"
-           " (-1, 1) will rotate the stencil around the left upper corner.")
+           "Return a stencil @var{stil} rotated by @var{angle} degrees around"
+           " the relative offset @w{(@var{x}, @var{y})}.  E.g., an offset of"
+           " @w{(-1, 1)} rotates the stencil around the left upper corner.")
 {
   auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
@@ -416,8 +419,8 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
 
 LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
            4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
-           "Return a stencil @var{stil} rotated @var{angle} degrees around"
-           " point (@var{x}, @var{y}), given in absolute coordinates.")
+           "Return a stencil @var{stil} rotated by @var{angle} degrees around"
+           " point @w{(@var{x}, @var{y})}, given in absolute coordinates.")
 {
   auto s = *LY_ASSERT_SMOB (const Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
@@ -451,8 +454,9 @@ LY_DEFINE (ly_round_polygon, "ly:round-polygon",
            "Make a @code{Stencil} object that prints a black polygon with"
            " corners at the points defined by @var{points} (list of coordinate"
            " pairs) and roundness @var{blot}.  Optional"
-           "@var{extroversion} shifts the outline outward, with the"
-           "default of@tie{}0 keeping the middle of the line just on the polygon.")
+           " @var{extroversion} shifts the outline outward, with the"
+           " default of@tie{}0 keeping the middle of the line just on the"
+           " polygon.")
 {
   SCM_ASSERT_TYPE (scm_ilength (points) > 0, points, SCM_ARG1, __FUNCTION__, "list of coordinate pairs");
   LY_ASSERT_TYPE (scm_is_number, blot, 2);
@@ -505,7 +509,7 @@ LY_DEFINE (ly_all_stencil_expressions, "ly:all-stencil-expressions",
 LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
            3, 0, 0, (SCM stil, SCM x, SCM y),
            "Scale stencil @var{stil} using the horizontal and vertical"
-           " scaling factors @var{x} and @var{y}.  Negative values will"
+           " scaling factors @var{x} and@tie{}@var{y}.  Negative values"
            " flip or mirror @var{stil} without changing its origin;"
            " this may result in collisions unless it is repositioned.")
 {

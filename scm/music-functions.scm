@@ -2003,7 +2003,7 @@ on the same staff line."
 
 (define-public (set-accidental-style style . rest)
   "Set accidental style to @var{style}.  Optionally take a context
-argument, e.g. @code{'Staff} or @code{'Voice}.  The context defaults
+argument, e.g., @code{'Staff} or @code{'Voice}.  The context defaults
 to @code{Staff}, except for piano styles, which use @code{GrandStaff}
 as a context."
   (let ((spec (assoc-get style accidental-styles)))
@@ -2406,7 +2406,7 @@ other stems just because of that."
         (for-each (make-stem-span! stems trans) roots))))
 
 (define-public (Span_stem_engraver ctx)
-  "Connect cross-staff stems to the stems above in the system"
+  "Connect cross-staff stems to the stems above in the system."
   (let ((stems '()))
     (make-engraver
      ;; Record all stems for the given moment

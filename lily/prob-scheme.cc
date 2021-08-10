@@ -35,7 +35,7 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 */
 LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
            2, 1, 0, (SCM obj, SCM sym),
-           "Is boolean prop @var{sym} of @var{sym} set?")
+           "Is boolean prop @var{sym} of @var{obj} set?")
 {
   return scm_equal_p (SCM_BOOL_T, ly_prob_property (obj, sym, SCM_BOOL_F));
 }
@@ -62,7 +62,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
            2, 0, 0,
            (SCM obj, SCM type),
-           "Is @var{obj} the specified prob-type?")
+           "Is @var{obj} the specified prob type?")
 {
   auto *prob = unsmob<Prob> (obj);
   return scm_from_bool (prob && scm_is_eq (prob->type (), type));

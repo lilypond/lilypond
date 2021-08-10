@@ -103,7 +103,7 @@
   (layout-set-absolute-staff-size (* (eval 'pt (current-module)) sz)))
 
 (define-safe-public (set-global-staff-size sz)
-  "Set the default staff size, where SZ is thought to be in PT."
+  "Set the default staff size, where @var{sz} is thought to be in points."
   (let* ((current-mod (current-module))
          (pap (ly:parser-lookup '$defaultpaper))
          (in-layout? (or (module-defined? current-mod 'is-paper)
@@ -348,7 +348,7 @@ unless explicitly overridden in the name."
       (ly:warning (_ "Must use #(set-paper-size .. ) within \\paper { ... }"))))
 
 (define-public (scale-layout paper scale)
-  "Return a clone of the paper, scaled by the given scale factor."
+  "Return a clone of @var{paper}, scaled by the given scale factor."
   (let* ((new-paper (ly:output-def-clone paper))
          (dim-vars (ly:output-def-lookup paper 'dimension-variables))
          (old-scope (ly:output-def-scope paper))

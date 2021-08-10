@@ -54,9 +54,9 @@ LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
 
 LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
            1, 0, 0, (SCM grob),
-           "Returns the current staff-line thickness in the staff"
+           "Return the current staff line thickness in the staff"
            " associated with @var{grob}, expressed as a multiple of the"
-           " current staff-space height.")
+           " current staff space height.")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
   Real thickness = Staff_symbol_referencer::line_thickness (g);
@@ -65,9 +65,9 @@ LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
 
 LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
            1, 0, 0, (SCM grob),
-           "Returns the current staff-space height in the staff"
+           "Return the current staff space height in the staff"
            " associated with @var{grob}, expressed as a multiple of the"
-           " default height of a staff-space in the traditional"
+           " default height of a staff space in the traditional"
            " five-line staff.")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
@@ -77,7 +77,7 @@ LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
 
 LY_DEFINE (ly_staff_symbol_staff_radius, "ly:staff-symbol-staff-radius",
            1, 0, 0, (SCM grob),
-           "Returns the radius of the staff associated with"
+           "Return the radius of the staff associated with"
            " @var{grob}.")
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);

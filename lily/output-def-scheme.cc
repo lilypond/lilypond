@@ -144,7 +144,7 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
            2, 0, 0, (SCM def, SCM chain),
            "Find a font metric in output definition @var{def} satisfying"
-           " the font-qualifiers in alist chain @var{chain}, and return"
+           " the font qualifiers in alist chain @var{chain}, and return"
            " it.  (An alist chain is a list of alists, containing grob"
            " properties.)")
 {

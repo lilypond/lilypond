@@ -180,7 +180,7 @@ get_help_string ()
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 1, 0, (SCM port),
            "Print @code{ly:set-option} usage.  Optional @var{port} argument"
-           "for the destination defaults to current output port.")
+           " for the destination defaults to current output port.")
 {
   SCM str = scm_from_locale_string (get_help_string ().c_str ());
   scm_write_line (str, port);

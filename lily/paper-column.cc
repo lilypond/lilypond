@@ -212,8 +212,8 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
 
 LY_DEFINE (ly_paper_column__break_align_width, "ly:paper-column::break-align-width",
            2, 0, 0, (SCM col, SCM align_syms),
-           "Determine the extent along the X-axis of a grob used for"
-           " break-alignment organized by column @var{col}. The grob is"
+           "Determine the extent along the x@tie{}axis of a grob used for"
+           " break alignment organized by column @var{col}.  The grob is"
            " specified by @var{align-syms}, which contains either a"
            " single @code{break-align-symbol} or a list of such"
            " symbols.")
@@ -258,8 +258,8 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
 */
 MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, 1,
                                  "Optional stencil for @code{PaperColumn} or"
-                                 " @code{NonMusicalPaperColumn}.\n"
-                                 "Draws the @code{rank number} of each column,"
+                                 " @code{NonMusicalPaperColumn}."
+                                 "  Draws the @dfn{rank number} of each column,"
                                  " its moment in time, a blue arrow showing the"
                                  " ideal distance, and a red arrow showing the"
                                  " minimum distance between columns.");

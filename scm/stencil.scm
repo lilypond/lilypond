@@ -162,7 +162,7 @@ a list of @var{paddings}."
   (ly:stencil-aligned-to (ly:stencil-aligned-to stencil X CENTER) Y CENTER))
 
 (define-public (stack-lines dir padding baseline stils)
-  "Stack vertically with a baseline skip."
+  "Stack stencils vertically with a baseline skip."
   (reduce-right
    (lambda (next back) (ly:stencil-stack next Y dir back padding baseline))
    empty-stencil
@@ -742,11 +742,14 @@ box, remains the same."
 (define*-public (stencil-whiteout-outline
                  stil #:optional (thickness 0.3) (color white)
                  (angle-increments 16) (radial-increments 1))
-  "This function works by creating a series of white or @var{color}
+  "White-out a stencil by surrounding it with white (or @var{color}) around
+its outline.
+
+This function works by creating a series of white or @var{color}
 stencils radially offset from the original stencil with angles from
 0 to 2*pi, at an increment of @code{angle-inc}, and with radii
 from @code{radial-inc} to @var{thickness}.  @var{thickness} is how big
-the white outline is, as a multiple of line-thickness.
+the white outline is, as a multiple of @code{line-thickness}.
 @var{radial-increments} is how many copies of the white stencil we make
 on our way out to thickness.  @var{angle-increments} is how many copies
 of the white stencil we make between 0 and 2*pi."
@@ -789,8 +792,12 @@ of the white stencil we make between 0 and 2*pi."
            stil)))))
 
 (define*-public (stencil-whiteout-box stil
-                                      #:optional (thickness 0) (blot 0) (color white))
-  "@var{thickness} is how far, as a multiple of line-thickness,
+                                      #:optional (thickness 0) (blot 0)
+                                      (color white))
+  "White-out a stencil by printing it on top of a white (or @var{color})
+rectangle.
+
+@var{thickness} is how far, as a multiple of @code{line-thickness},
 the white outline extends past the extents of stencil @var{stil}."
   (let*
       ((x-ext (interval-widen (ly:stencil-extent stil X) thickness))
@@ -801,13 +808,16 @@ the white outline extends past the extents of stencil @var{stil}."
      stil)))
 
 (define*-public (stencil-whiteout stil
-                                  #:optional style thickness (line-thickness 0.1))
-  "@var{style}, @var{thickness} and @var{line-thickness} are optional
-arguments. If set, @var{style} determines the shape of the white
+                                  #:optional style thickness
+                                  (line-thickness 0.1))
+  "White-out a stencil (i.e., add a white background around it).
+
+@var{style}, @var{thickness} and @var{line-thickness} are optional
+arguments.  If set, @var{style} determines the shape of the white
 background.  Given @code{'outline} the white background is produced
 by @code{stencil-whiteout-outline}, given @code{'rounded-box} it is
 produced by @code{stencil-whiteout-box} with rounded corners, given
-other arguments (e.g. @code{'box}) or when unspecified it defaults to
+other arguments (e.g., @code{'box}) or when unspecified it defaults to
 @code{stencil-whiteout-box} with square corners.  If @var{thickness} is
 specified it determines how far, as a multiple of @var{line-thickness},
 the white background extends past the extents of stencil @var{stil}.  If

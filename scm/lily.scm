@@ -206,9 +206,8 @@ session has started."
            )))
    lilypond-declarations))
 
+;; Save identifiers for use with `session-replay`.
 (define-public (session-save)
-  "Save identifiers for use with session-replay."
-  
   ;; lilypond-exports is no longer needed since we will grab its
   ;; values from (current-module).
   (set! lilypond-exports #f)
@@ -744,7 +743,7 @@ messages into errors.")
     (,ly:otf-font? . "OpenType font")
     (,ly:output-def? . "output definition")
     (,ly:page-marker? . "page marker")
-    (,ly:pango-font? . "pango font")
+    (,ly:pango-font? . "Pango font")
     (,ly:paper-book? . "paper book")
     (,ly:paper-system? . "paper-system Prob")
     (,ly:pitch? . "pitch")

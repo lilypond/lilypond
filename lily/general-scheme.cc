@@ -70,9 +70,9 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 LY_DEFINE (ly_rename_file, "ly:rename-file",
            2, 0, 0, (SCM oldname, SCM newname),
            "Rename @var{oldname} to @var{newname}. In contrast to Guile's"
-           " rename-file, this replaces the destination if it already exists."
-           " On Windows, fall back to copying the file contents if"
-           " @var{newname} cannot be deleted.")
+           " @code{rename-file} function, this replaces the destination if"
+           " it already exists.  On Windows, fall back to copying the file"
+           " contents if @var{newname} cannot be deleted.")
 {
   LY_ASSERT_TYPE (scm_is_string, oldname, 1);
   LY_ASSERT_TYPE (scm_is_string, newname, 1);
@@ -228,7 +228,7 @@ LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
            1, 0, 0, (SCM str),
            "Encode all characters in string @var{str} with hexadecimal"
            " percent escape sequences, with the following exceptions:"
-           " characters @w{@code{-},} @code{.}, @code{/}, and @code{_}; and"
+           " characters @w{@code{-./_}} and"
            " characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
@@ -333,8 +333,8 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 
 LY_DEFINE (ly_output_formats, "ly:output-formats",
            0, 0, 0, (),
-           "Formats passed to @option{--format} as a list of strings,"
-           " used for the output.")
+           "Formats passed to command line option @option{--format} as a list"
+           " of strings, used for the output.")
 {
   vector<string> output_formats = string_split (output_format_global, ',');
 
@@ -425,8 +425,9 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 
 LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
            1, 1, 0, (SCM fd_or_file_name, SCM mode),
-           "Redirect stderr to @var{fd} if the first parameter is an integer,"
-           " or to @var{file-name}, opened with @var{mode}.")
+           "Redirect standard error output (stderr) to file descriptor"
+           " @var{fd} if the first parameter is an integer,"
+           " or to file @var{file-name}, opened with @var{mode}.")
 {
   fflush (stderr);
 
@@ -631,9 +632,9 @@ ly_run_command (char *argv[], char **standard_output, char **standard_error)
 
 LY_DEFINE (ly_spawn, "ly:spawn",
            1, 0, 1, (SCM command, SCM rest),
-           "Simple interface to g_spawn_sync"
-           " @var{str}."
-           "  The error is formatted with @code{format} and @var{rest}.")
+           "Simple Scheme interface to the GLib function @code{g_spawn_sync}."
+           "  If an error occurs, format it with @code{format} and"
+           " @var{rest}.")
 
 {
   LY_ASSERT_TYPE (scm_is_string, command, 1);

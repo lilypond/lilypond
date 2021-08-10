@@ -172,10 +172,15 @@ pitch@tie{}D instead of `re'."
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the default should also be reversed --hwn
 (define-safe-public (sequential-music-to-chord-exceptions seq . rest)
-  "Transform sequential music SEQ of type @code{<<c d e>>-\\markup@{ foobar @}}
-to @code{(cons CDE-PITCHES FOOBAR-MARKUP)}, or to @code{(cons DE-PITCHES
-FOOBAR-MARKUP)} if @var{OMIT-ROOT} is given and non-false.
-"
+  "Transform sequential music @var{seq} of type
+
+@example
+@code{<<c d e>>-\\markup@{ foobar @}}
+@end example
+
+to @code{(cons @var{cde-pitches} @var{foobar-markup})}, or to
+@code{(cons @var{de-pitches} @var{foobar-markup})} if @var{omit-root} is given
+and non-false."
 
   (define (chord-to-exception-entry m)
     (let* ((elts (ly:music-property m 'elements))

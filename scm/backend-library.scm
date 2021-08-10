@@ -395,13 +395,13 @@ string or @code{#f}."
 ;; Example of a pango-physical-font
 ;; ("Emmentaler-11" "/home/janneke/vc/lilypond/out/share/lilypond/current/fonts/otf/emmentaler-11.otf" 0)
 (define-public (pango-pf-font-name pango-pf)
-  "Return the font-name of the pango physical font @var{pango-pf}."
+  "Return the font name of the Pango physical font @var{pango-pf}."
   (list-ref pango-pf 0))
 (define-public (pango-pf-file-name pango-pf)
-  "Return the file-name of the pango physical font @var{pango-pf}."
+  "Return the file name of the Pango physical font @var{pango-pf}."
   (list-ref pango-pf 1))
 (define-public (pango-pf-fontindex pango-pf)
-  "Return the fontindex of the pango physical font @var{pango-pf}."
+  "Return the font index of the Pango physical font @var{pango-pf}."
   (list-ref pango-pf 2))
 
 (define (pango-font-name pango-font)

@@ -190,11 +190,11 @@ Separation_item::boxes (Grob *me, Grob *left)
 
 MAKE_DOCUMENTED_SCHEME_CALLBACK (Separation_item, print, 1,
                                  "Optional stencil for @code{PaperColumn} or"
-                                 " @code{NonMusicalPaperColumn}.\n"
-                                 "This function draws @code{horizontal-skylines} of each"
+                                 " @code{NonMusicalPaperColumn}."
+                                 "  This function draws @code{horizontal-skylines} of each"
                                  " @code{PaperColumn}, showing the shapes used"
                                  " to determine the minimum distances between"
-                                 " @code{PaperColumns} at the note-spacing step,"
+                                 " @code{PaperColumns} at the note spacing step,"
                                  " before staves have been spaced (vertically)"
                                  " on the page.")
 SCM

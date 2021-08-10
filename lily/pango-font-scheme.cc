@@ -29,7 +29,7 @@
 LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
            1, 0, 0,
            (SCM f),
-           "Is @var{f} a pango font?")
+           "Is @var{f} a Pango font?")
 {
   return scm_from_bool (unsmob<Pango_font> (f));
 }

@@ -21,7 +21,7 @@
 
 LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
            2, 0, 0, (SCM p, SCM delta),
-           "Transpose @var{p} by the amount @var{delta},"
+           "Transpose pitch@tie{}@var{p} by the amount @var{delta},"
            " where @var{delta} is relative to middle@tie{}C.")
 {
   auto *const t = LY_ASSERT_SMOB (Pitch, p, 1);
@@ -54,7 +54,7 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
 
 LY_DEFINE (ly_pitch_negate, "ly:pitch-negate", 1, 0, 0,
            (SCM p),
-           "Negate @var{p}.")
+           "Negate pitch@tie{}@var{p}.")
 {
   auto *const pp = LY_ASSERT_SMOB (Pitch, p, 1);
   return pp->negated ().smobbed_copy ();
@@ -99,7 +99,7 @@ LY_DEFINE (ly_pitch_notename, "ly:pitch-notename",
 
 LY_DEFINE (ly_pitch_tones, "ly:pitch-tones",
            1, 0, 0, (SCM pp),
-           "Calculate the number of tones of@tie{}@var{pp} from"
+           "Calculate the number of tones of pitch @var{pp} from"
            " middle@tie{}C as a rational number.")
 {
   auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
@@ -108,7 +108,7 @@ LY_DEFINE (ly_pitch_tones, "ly:pitch-tones",
 
 LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
            1, 0, 0, (SCM pp),
-           "Calculate the number of quarter tones of@tie{}@var{pp} from"
+           "Calculate the number of quarter tones of pitch @var{pp} from"
            " middle@tie{}C.")
 {
   auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);
@@ -118,7 +118,7 @@ LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
 
 LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
            1, 0, 0, (SCM pp),
-           "Calculate the number of semitones of@tie{}@var{pp} from"
+           "Calculate the number of semitones of pitch @var{pp} from"
            " middle@tie{}C.")
 {
   auto *const p = LY_ASSERT_SMOB (Pitch, pp, 1);

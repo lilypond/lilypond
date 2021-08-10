@@ -32,9 +32,9 @@ LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
 
 LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
            2, 0, 0, (SCM sys1, SCM sys2),
-           "Measure the minimum distance between these two paper-systems,"
-           " using their stored skylines if possible and falling back to"
-           " their extents otherwise.")
+           "Measure the minimum distance between two paper system @code{Prob}s"
+           " @var{sys1} and @var{sys2}, using their stored skylines if"
+           " possible and falling back to their extents otherwise.")
 {
   Real ret = 0;
   Prob *p1 = unsmob<Prob> (sys1);
