@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2021-04-08.19}
+\def\texinfoversion{2021-08-10.14}
 %
 % Copyright 1985, 1986, 1988, 1990-2021 Free Software Foundation, Inc.
 %
@@ -1000,6 +1000,14 @@ where each line of input produces a line of output.}
   \global\let\indent = \ptexindent
   \global\let\noindent = \ptexnoindent
   \global\everypar = {}%
+}
+
+% leave vertical mode without cancelling any first paragraph indent
+\gdef\imageindent{%
+  \toks0=\everypar
+  \everypar={}%
+  \ptexnoindent
+  \global\everypar=\toks0
 }
 
 
@@ -7584,6 +7592,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 %
 \def\printdefunline#1#2{%
   \begingroup
+    \plainfrenchspacing
     % call \deffnheader:
     #1#2 \endheader
     % common ending:
@@ -9409,7 +9418,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   % On the other hand, if we are in the case of @center @image, we don't
   %  want to start a paragraph, which will create a hsize-width box and
   %  eradicate the centering.
-  \ifx\centersub\centerV\else \noindent \fi
+  \ifx\centersub\centerV \else \imageindent \fi
   %
   % Output the image.
   \ifpdf
@@ -11601,3 +11610,4 @@ directory should work if nowhere else does.}
 @c vim:sw=2:
 
 @enablebackslashhack
+
