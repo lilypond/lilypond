@@ -143,8 +143,9 @@ void Smob_base<Super>::init ()
     {
       SCM subr = scm_c_define_gsubr (Super::type_p_name_, 1, 0, 0,
                                      (scm_t_subr) smob_p);
-      std::string fundoc = std::string ("Is @var{x} a @code{") + smob_name_
-                           + "} object?";
+      // TODO: make this work with gettext.
+      std::string fundoc = std::string ("Is @var{x} a smob object of class"
+                                        " @code{" + smob_name_ + "}?");
       ly_add_function_documentation (subr, Super::type_p_name_, "(SCM x)",
                                      fundoc.c_str ());
       scm_c_export (Super::type_p_name_, NULL);
