@@ -27,10 +27,10 @@ using std::string;
 
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 1, 0,
            (SCM port, SCM alist, SCM default_callback),
-           "Create an outputter dumping to @code{port}. @code{alist} should map "
-           "symbols to procedures. See @code{output-ps.scm} for an example. "
-           "If @code{default_callback} is given, it is called for unsupported "
-           "expressions")
+           "Create an outputter dumping to @var{port}.  @var{alist} should map"
+           " symbols to procedures.  See file @file{output-ps.scm} for an"
+           " example.  If @var{default-callback} is given, it is called for"
+           " unsupported expressions.")
 {
   LY_ASSERT_TYPE (ly_is_port, port, 1);
   LY_ASSERT_TYPE (ly_cheap_is_list, alist, 2);

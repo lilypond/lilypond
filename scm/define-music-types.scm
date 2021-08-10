@@ -872,19 +872,21 @@ brackets start and stop.")
 (define-safe-public (make-music name . music-properties)
   "Create a music object of given name, and set its properties
 according to @code{music-properties}, a list of alternating property symbols
-and values. E.g:
+and values.  Example:
+
 @example
-  (make-music 'OverrideProperty
-              'symbol 'Stem
-              'grob-property 'thickness
-              'grob-value (* 2 1.5))
+(make-music 'OverrideProperty
+            'symbol 'Stem
+            'grob-property 'thickness
+            'grob-value (* 2 1.5))
 @end example
+
 Instead of a successive symbol and value, an entry in the list may
 also be an alist or a music object in which case its elements,
 respectively its @emph{mutable} property list (properties not inherent
-to the type of the music object) will get taken.
+to the type of the music object), are taken.
 
-The argument list will be interpreted left-to-right, so later entries
+The argument list will be interpreted left to right, so later entries
 override earlier ones."
   (if (not (symbol? name))
       (ly:error (_ "symbol expected: ~S") name))

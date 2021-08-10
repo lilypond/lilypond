@@ -73,8 +73,10 @@ LY_DEFINE (ly_input_file_line_char_column,
 LY_DEFINE (ly_input_both_locations,
            "ly:input-both-locations",
            1, 0, 0, (SCM sip),
-           "Return input location in @var{sip} as"
-           " @code{(file-name first-line first-column last-line last-column)}.")
+           "Return input location in @var{sip} as\n"
+           "@example\n"
+           "(file-name first-line first-column last-line last-column)\n"
+           "@end example")
 {
 
   auto *const ip = LY_ASSERT_SMOB (Input, sip, 1);

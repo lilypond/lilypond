@@ -1270,9 +1270,10 @@ between the two text elements."
                                              (+ my-padding script-padding)))))))
 
 (define-public (make-connected-line points grob)
-  "Takes a list of points, @var{points}.
-Returns a line connecting @var{points}, using @code{ly:line-interface::line},
-gets layout information from @var{grob}"
+  "Take a list of points, @var{points}.
+Return a line connecting @var{points},
+using @code{ly:@/line-interface::@/line} and getting layout information from
+@var{grob}."
   (define (connected-points grob ls pts)
     (if (not (pair? (cdr pts)))
         (reduce ly:stencil-add empty-stencil ls)
@@ -2511,7 +2512,7 @@ representing the amount a string is bent."
 
 ;; helper
 (define-public (note-column::main-extent grob)
-  "Return extent of the noteheads in the 'main column' (i.e., excluding any
+  "Return extent of the noteheads in the @q{main column} (i.e., excluding any
 suspended noteheads), or extent of the rest (if there are no heads)."
   ;; Partial rewrite of a C++-procedure
   (let* ((note-heads (ly:grob-object grob 'note-heads #f))

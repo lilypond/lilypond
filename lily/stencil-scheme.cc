@@ -54,9 +54,10 @@ LY_DEFINE (ly_angle, "ly:angle",
 
 LY_DEFINE (ly_length, "ly:length",
            1, 1, 0, (SCM x, SCM y),
-           "Calculates magnitude of given vector.  With one argument,"
-           " @var{x} is a number pair indicating the vector.  With two"
-           " arguments, @var{x} and @var{y} specify the respective coordinates.")
+           "Calculate magnitude of given vector.  With one argument,"
+           " @var{x}@tie{}is a number pair indicating the vector.  With two"
+           " arguments, @var{x}@tie{}and@tie{}@var{y} specify the respective"
+           " coordinates.")
 {
   Offset off;
   if (SCM_UNBNDP (y))

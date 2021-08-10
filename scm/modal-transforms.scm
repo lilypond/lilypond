@@ -169,20 +169,20 @@ Typically used to construct a scale for input to
 ;; ------------- PUBLIC FUNCTIONS -----------------------------
 
 (define-public (make-modal-transposer from to scale)
-  "Wrapper function for transposer-factory."
+  "Wrapper function for @code{transposer-factory}."
   (let ((transposer (transposer-factory (make-extended-scale scale))))
     (lambda (p)
       (transposer from to p))))
 
 (define-public (make-modal-inverter around to scale)
-  "Wrapper function for inverter-factory"
+  "Wrapper function for @code{inverter-factory}."
   (let ((inverter (inverter-factory (make-extended-scale scale))))
     (lambda (p)
       (inverter around to p))))
 
 
 (define-public (retrograde-music music)
-  "Returns @var{music} in retrograde (reversed) order."
+  "Return @var{music} in retrograde (reversed) order."
   ;; Included here to allow this module to provide a complete set of
   ;; common formal operations on motives, i.e transposition,
   ;; inversion and retrograding.

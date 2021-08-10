@@ -48,10 +48,10 @@ It starts at point @var{start}, ends at point @var{stop}.
 The higher the value of number @var{angularity}, the more angular the shape of
 the bow.
 @var{bow-height} determines the height of the bow.
-@var{orientation} determines, whether the bow is concave or convex.
+@var{orientation} determines whether the bow is concave or convex.
 Both variables are supplied to support independent usage.
 
-Done by calculating a horizontal unit-bow first, then moving all control-points
+Done by calculating a horizontal unit bow first, then moving all control points
 to the correct positions.
 Limitation: s-curves are currently not supported.
 "
@@ -224,7 +224,7 @@ the more angular the shape of the parenthesis."
     stencil))
 
 (define-public (make-line-stencil width startx starty endx endy)
-  "Make a line stencil of given linewidth and set its extents accordingly."
+  "Make a line stencil of given line width and set its extents accordingly."
   (let ((xext (cons (min startx endx) (max startx endx)))
         (yext (cons (min starty endy) (max starty endy))))
     (ly:make-stencil
@@ -257,9 +257,9 @@ the more angular the shape of the parenthesis."
      (cons (- out-radius) out-radius))))
 
 (define-public (make-oval-stencil x-radius y-radius thickness fill)
-  "Make an oval from two Bezier curves, of x@tie{}radius @var{x-radius},
-y@tie{}radius @code{y-radius}, and thickness @var{thickness} with fill
-defined by @code{fill}."
+  "Make an oval from two Bézier curves, of x@tie{}radius @var{x-radius},
+y@tie{}radius @var{y-radius}, and thickness @var{thickness} with fill
+defined by @var{fill}."
   (let*
       ((x-out-radius (+ x-radius (/ thickness 2.0)))
        (y-out-radius (+ y-radius (/ thickness 2.0)))
@@ -277,18 +277,17 @@ defined by @code{fill}."
      (cons (- x-out-radius) x-out-radius)
      (cons (- y-out-radius) y-out-radius))))
 
-(define-public
-  (make-partial-ellipse-stencil
-   x-radius y-radius start-angle end-angle thick connect fill)
-  "Create an elliptical arc
-@var{x-radius} is the X radius of the arc.
-@var{y-radius} is the Y radius of the arc.
-@var{start-angle} is the starting angle of the arc in degrees.
-@var{end-angle} is the ending angle of the arc in degrees.
+(define-public (make-partial-ellipse-stencil
+                x-radius y-radius start-angle end-angle thick connect fill)
+  "Create an elliptical arc.
+@var{x-radius} is the x@tie{}radius of the arc.
+@var{y-radius} is the y@tie{}radius of the arc.
+@var{start-angle} is the starting angle of the arc (in degrees).
+@var{end-angle} is the ending angle of the arc (in degrees).
 @var{thick} is the thickness of the line.
-@var{connect} is a boolean flag indicating if the end should
+@var{connect} is a boolean flag indicating whether the end should
 be connected to the start by a line.
-@var{fill} is a boolean flag indicating if the shape should be filled."
+@var{fill} is a boolean flag indicating whether the shape should be filled."
   (define (make-radius-list x-radius y-radius)
     "Makes a list of angle/radius pairs at intervals of PI/2 for
 the partial ellipse until 7*PI/2.  For example, in pseudo-code:
@@ -480,12 +479,20 @@ then reduce using @var{min-max}:
                      (reverse (cdr (reverse pointlist)))) pointlist))))
 
 (define-public (make-path-stencil path thickness x-scale y-scale fill)
-  "Make a stencil based on the path described by the list @var{path},
-with thickness @var{thickness}, and scaled by @var{x-scale} in the X
-direction and @var{y-scale} in the Y direction.  @var{fill} is a boolean
-argument that specifies if the path should be filled.  Valid path
-commands are: moveto rmoveto lineto rlineto curveto rcurveto closepath,
-and their standard SVG single letter equivalents: M m L l C c Z z."
+  "Make a stencil based on the path described by the list @var{path}, with
+thickness @var{thickness}, and scaled by @var{x-scale} in the x@tie{}direction
+and @var{y-scale} in the y@tie{}direction.  @var{fill} is a boolean argument
+that specifies whether the path should be filled.  Valid path commands are
+
+@example
+moveto rmoveto lineto rlineto curveto rcurveto closepath
+@end example
+
+and their standard SVG single-letter equivalents
+
+@example
+M m L l C c Z z
+@end example"
 
   (define (convert-path path origin previous-point)
     "Recursive function to standardize command names and
@@ -577,10 +584,10 @@ coordinates for the previous point in the path."
 (define-public (make-connected-path-stencil pointlist thickness
                                             x-scale y-scale connect fill)
   "Make a connected path described by the list @var{pointlist}, beginning
-at point '(0 . 0), with thickness @var{thickness}, and scaled by
-@var{x-scale} in the X direction and @var{y-scale} in the Y direction.
-@var{connect} and @var{fill} are boolean arguments that specify if the
-path should be connected or filled, respectively."
+at point @w{(0, 0)}, with thickness @var{thickness}, and scaled by
+@var{x-scale} in the x@tie{}direction and @var{y-scale} in the
+y@tie{}direction.  @var{connect} and @var{fill} are boolean arguments that
+specify whether the path should be connected or filled, respectively."
   (make-path-stencil
    (concatenate
     (append

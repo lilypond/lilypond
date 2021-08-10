@@ -42,10 +42,11 @@ Transform::call (SCM arg)
 
 LY_DEFINE (ly_make_transform, "ly:make-transform",
            0, 6, 0, (SCM xx, SCM yx, SCM xy, SCM yy, SCM x0, SCM y0),
-           "Create a transform.  Without options, it is an identity transform.\n"
-           "Given four arguments @var{xx}, @var{yx}, @var{xy}, and @var{yy},"
-           " it is a linear transform, given six arguments (with @var{x0}"
-           " and @var{y0} last), it is an affine transform.\n"
+           "Create a transform.  Without options, it is the identity"
+           " transform.  Given four arguments @var{xx}, @var{yx}, @var{xy},"
+           " and @var{yy}, it is a linear transform.  Given six arguments"
+           " (with @var{x0} and @var{y0} last), it is an affine transform.\n"
+           "\n"
            "Transforms can be called as functions on other transforms"
            " (concatening them) or on points given either as complex"
            " number or real number pair.  See also @code{ly:make-rotation},"
@@ -75,13 +76,13 @@ LY_DEFINE (ly_make_transform, "ly:make-transform",
 
 LY_DEFINE (ly_make_scaling, "ly:make-scaling",
            1, 1, 0, (SCM scale, SCM scaley),
-           "Create a scaling transform from argument @var{scale} and optionally @var{scaley}.\n"
-           "When both arguments are given, they must be real and give the scale"
-           " in @var{x} and @var{y} direction.  If only @var{scale} is given,"
-           " it may also be complex to indicate a scaled rotation in the manner"
-           " of complex number rotations, or a pair of reals for specifying"
-           " different scales in @var{x} and @var{y} direction like with the"
-           " first calling convention.")
+           "Create a scaling transform from argument @var{scale} and"
+           " optionally @var{scaley}.  When both arguments are given, they"
+           " must be real and give the scale in x and y@tie{}direction.  If"
+           " only @var{scale} is given, it may also be complex to indicate a"
+           " scaled rotation in the manner of complex number rotations, or a"
+           " pair of reals for specifying different scales in x and"
+           " y@tie{}direction like with the first calling convention.")
 {
   if (SCM_UNBNDP (scaley))
     {
@@ -109,7 +110,7 @@ LY_DEFINE (ly_make_rotation, "ly:make-rotation",
            "Make a transform rotating by @var{angle} in degrees.\n"
            "If @var{center} is given as a pair of coordinates,"
            " it is the center of the rotation, otherwise the rotation"
-           " is around (0 . 0).")
+           " is around @w{(0, 0)}.")
 {
   LY_ASSERT_TYPE (scm_is_real, angle, 1);
   if (!SCM_UNBNDP (center))

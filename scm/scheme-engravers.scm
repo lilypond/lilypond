@@ -16,7 +16,7 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-public (ly:make-listener callback)
-  "This is a compatibility wrapper for creating a \"listener\" for use
+  "This is a compatibility wrapper for creating a @q{listener} for use
 with @code{ly:add-listener} from a @var{callback} taking a single
 argument.  Since listeners are equivalent to callbacks, this is no
 longer needed."

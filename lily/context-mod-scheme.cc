@@ -42,7 +42,7 @@ LY_DEFINE (ly_add_context_mod, "ly:add-context-mod",
 
 LY_DEFINE (ly_make_context_mod, "ly:make-context-mod",
            0, 1, 0, (SCM mod_list),
-           "Creates a context modification, optionally initialized"
+           "Create a context modification, optionally initialized"
            " via the list of modifications @var{mod-list}.")
 {
   if (!SCM_UNBNDP (mod_list))

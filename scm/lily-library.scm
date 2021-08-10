@@ -469,9 +469,8 @@ bookoutput function"
 
 (define-public (map-selected-alist-keys function keys alist)
   "Return @var{alist} with @var{function} applied to all of the values
-in list @var{keys}.
+in list @var{keys}.  Example:
 
-For example:
 @example
 (map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))
    @result{} ((a . -1) (b . 2) (c . 3) (d . 4))
@@ -535,7 +534,7 @@ For example:
   (map cons lst (iota (length lst) 1)))
 
 (define-public (list-join lst intermediate)
-  "Put @var{intermediate} between all elts of @var{lst}."
+  "Put @var{intermediate} between all elements of @var{lst}."
 
   (fold-right
    (lambda (elem prev)
@@ -618,7 +617,7 @@ executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
   (cons (- expr) expr))
 
 (define-public (interval-length x)
-  "Length of the number-pair @var{x}, if an interval."
+  "Length of the number pair @var{x}, if an interval."
   (max 0 (- (cdr x) (car x))))
 
 (define-public (ordered-cons a b)
@@ -629,15 +628,15 @@ executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
   ((if (= dir RIGHT) cdr car) interval))
 
 (define-public (interval-index interval dir)
-  "Interpolate @var{interval} between between left (@var{dir}=-1) and
-right (@var{dir}=+1)."
+  "Interpolate @var{interval} between between left (@var{dir}=@code{-1}) and
+right (@var{dir}=@code{+1})."
 
   (* (+  (interval-start interval) (interval-end interval)
          (* dir (- (interval-end interval) (interval-start interval))))
      0.5))
 
 (define-public (interval-center x)
-  "Center the number-pair @var{x}, if an interval."
+  "Center the number pair @var{x}, if an interval."
   (if (interval-empty? x)
       0.0
       (/ (+ (car x) (cdr x)) 2)))
@@ -873,11 +872,11 @@ Handy for debugging, possibly turned off."
 ;; numbering styles
 
 (define-public (number-format number-type num . custom-format)
-  "Print NUM accordingly to the requested NUMBER-TYPE.
-Choices include @code{roman-lower} (by default),
-@code{roman-upper}, @code{arabic} and @code{custom}.
-In the latter case, CUSTOM-FORMAT must be supplied
-and will be applied to NUM."
+  "Print @var{num} according to the requested @var{number-type}.
+Choices include @code{roman-lower} (the default),
+@code{roman-upper}, @code{arabic}, and @code{custom}.
+For @code{custom}, @var{custom-format} must be present;
+it gets applied to @var{num}."
   (cond
    ((equal? number-type 'roman-lower)
     (ice9-format #f "~(~@r~)" num))

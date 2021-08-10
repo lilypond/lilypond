@@ -31,12 +31,12 @@
                               ly:music-set-property!))
 
 (define-safe-public (music-is-of-type? mus type)
-  "Does @code{mus} belong to the music class @code{type}?"
+  "Does @var{mus} belong to the music class @var{type}?"
   (memq type (ly:music-property mus 'types)))
 
 (eval-early
  (define-safe-public (music-type-predicate types)
-   "Returns a predicate function that can be used for checking
+   "Return a predicate function that can be used for checking
 music to have one of the types listed in @var{types}."
    (if (cheap-list? types)
        (lambda (m)
@@ -588,7 +588,7 @@ error (using optionally @var{location})."
 
 (define-public (make-grob-property-set grob gprop val)
   "Make a @code{Music} expression that overrides a @var{gprop} to
-@var{val} in @var{grob}.  Does a pop first, i.e. this is not a
+@var{val} in @var{grob}.  Does a pop first, i.e., this is not a
 @code{\\temporary \\override}."
   (make-music 'OverrideProperty
               'symbol grob
@@ -1086,9 +1086,12 @@ number, that's where numbering starts."
   "Clone @var{music} and set properties according to
 @var{music-properties}, a list of alternating property symbols and
 values:
-@example\n(music-clone start-span 'span-direction STOP)
+
+@example
+(music-clone start-span 'span-direction STOP)
 @end example
-Only properties that are not overriden by @var{music-properties} are
+
+Only properties that are not overridden by @var{music-properties} are
 actually fully cloned."
   (let ((old-props (list-copy (ly:music-mutable-properties music)))
         (new-props '())

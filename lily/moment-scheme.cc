@@ -22,18 +22,18 @@
 /* TODO: add optional factor argument. */
 LY_DEFINE (ly_make_moment, "ly:make-moment",
            1, 3, 0, (SCM m, SCM g, SCM gn, SCM gd),
-           "Create the moment with rational main timing @var{m},"
+           "Create a moment with rational main timing @var{m},"
            " and optional grace timing @var{g}.\n"
            "\n"
            "A @dfn{moment} is a point in musical time.  It consists of"
-           " a pair of rationals (@var{m},@tie{}@var{g}), where @var{m} is"
+           " a pair of rationals @w{(@var{m}, @var{g})}, where @var{m} is"
            " the timing for the main notes, and @var{g} the timing for"
            " grace notes.  In absence of grace notes, @var{g}@tie{}is zero.\n"
            "\n"
            "For compatibility reasons, it is possible to write two"
            " numbers specifying numerator and denominator instead of"
-           " the rationals.  These forms cannot be mixed, and the two-"
-           "argument form is disambiguated by the sign of the second"
+           " the rationals.  These forms cannot be mixed, and the"
+           " two-argument form is disambiguated by the sign of the second"
            " argument: if it is positive, it can only be a denominator"
            " and not a grace timing."
           )

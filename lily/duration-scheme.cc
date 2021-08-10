@@ -51,7 +51,8 @@ LY_DEFINE (ly_duration_less_p, "ly:duration<?",
 
 LY_DEFINE (ly_make_duration, "ly:make-duration",
            1, 3, 0, (SCM length, SCM dotcount, SCM num, SCM den),
-           "@var{length} is the negative logarithm (base 2) of the duration:"
+           "Make a duration.  @var{length} is the negative logarithm"
+           " (base@tie{}2) of the duration:"
            " 1@tie{}is a half note, 2@tie{}is a quarter note, 3@tie{}is an"
            " eighth note, etc.  The number of dots after the note is given by"
            " the optional argument @var{dotcount}.\n"

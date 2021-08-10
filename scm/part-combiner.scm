@@ -808,7 +808,7 @@ the mark when there are no spanners active.
                 (solo2   . (solo   SoloTwoEvent Solo2))))))
 
 (define-public (make-part-combine-marks state-machine split-list)
-  "Generate a sequence of part combiner events from a split list"
+  "Generate a sequence of part combiner events from a split list."
 
   (define (get-state state-name)
     (assq-ref state-machine state-name))
@@ -911,7 +911,7 @@ the mark when there are no spanners active.
                  (unisilence    . (shared . Promoted))))))
 
 (define-public (make-part-combine-context-changes state-machine split-list)
-  "Generate a sequence of part combiner context changes from a split list"
+  "Generate a sequence of part combiner context changes from a split list."
 
   (define (get-state state-name)
     (assq-ref state-machine state-name))

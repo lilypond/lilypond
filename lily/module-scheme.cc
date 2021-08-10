@@ -83,7 +83,7 @@ LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
            2, 1, 0,
            (SCM modules, SCM sym, SCM def),
            "Look up @var{sym} in the list @var{modules},"
-           " returning the first occurence.  If not found, return"
+           " returning the first occurrence.  If not found, return"
            " @var{def} or @code{#f} if @var{def} isn't specified.")
 {
   for (SCM s = modules; scm_is_pair (s); s = scm_cdr (s))

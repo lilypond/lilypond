@@ -827,11 +827,13 @@ conversion, into a function converting semitone numbers (absolute
 pitch missing enharmonic information) back into note values.
 
 For a key signature without accidentals
+
 @example
 c cis d es e f fis g gis a bes b
 @end example
-might be a good choice, covering Bb major to A major and their
-parallel keys, and melodic/harmonic C minor to A minor."
+
+might be a good choice, covering Bb@tie{}major to A@tie{}major and their
+parallel keys, and melodic/@/harmonic C@tie{}minor to A@tie{}minor."
   ;; TODO: short-circuit lcm calculation once we know it will be large
   (let* ((size (apply lcm (map (lambda (pitch)
                                  (denominator (/ (ly:pitch-tones pitch) 6)))

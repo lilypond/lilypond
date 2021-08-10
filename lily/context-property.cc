@@ -110,7 +110,7 @@ Grob_properties::mark_smob () const
 
 LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties",
            1, 0, 0, (SCM alist),
-           "This packages the given property list @var{alist} in"
+           "Package the given property list @var{alist} in"
            " a grob property container stored in a context property"
            " with the name of a grob.")
 {

@@ -268,7 +268,9 @@
       (copy-file from-name to-name)))
 
 (define-public (make-tmpfile basename)
-  "Returns a temp file as port. If basename is #f, a file under $TMPDIR is created."
+  "Return a temporary file (as a Scheme port).  If @var{basename} is @code{#f},
+a file in the directory given by the environment variable @code{$TMPDIR} is
+created."
   (define max-try 10)
   (define (inner basename tries)
     (if (> tries 0)

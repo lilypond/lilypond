@@ -216,12 +216,13 @@ interpreted, returns a list of stencils instead of a single one"
 (define-public markup-list-function? (make-object-property))
 
 (define-public (markup-command-list? x)
-  "Determine if `x' is a markup command list, ie. a list composed of
+  "Check whether @var{x} is a markup command list, i.e., a list composed of
 a markup list function and its arguments."
   (and (pair? x) (markup-list-function? (car x))))
 
 (define-public (markup-list? arg)
-  "Return a true value if `x' is a list of markups or markup command lists."
+  "Return a true value if @var{x} is a list of markups or markup command
+lists."
   (define (markup-list-inner? lst)
     (or (null? lst)
         (and (or (markup? (car lst)) (markup-command-list? (car lst)))

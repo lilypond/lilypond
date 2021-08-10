@@ -26,7 +26,7 @@
 LY_DEFINE (ly_make_book, "ly:make-book",
            2, 0, 1, (SCM paper, SCM header, SCM scores),
            "Make a @code{\\book} of @var{paper} and @var{header}"
-           " (which may be @code{#f} as well) containing @code{\\scores}.")
+           " (which may be @code{#f} as well) containing @code{\\score}s.")
 {
   auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 1);
 
@@ -45,7 +45,7 @@ LY_DEFINE (ly_make_book, "ly:make-book",
 
 LY_DEFINE (ly_make_book_part, "ly:make-book-part",
            1, 0, 0, (SCM scores),
-           "Make a @code{\\bookpart} containing @code{\\scores}.")
+           "Make a @code{\\bookpart} containing @code{\\score}s.")
 {
   Book *book = new Book;
   book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
