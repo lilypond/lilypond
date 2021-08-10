@@ -30,7 +30,7 @@ LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa",
            1, 0, 0, (SCM type1_file_name),
            "Convert the contents of a Type@tie{}1 font in PFB format"
            " to PFA format.  If the file is already in PFA format,"
-           " pass through it.")
+           " pass it through.")
 {
   LY_ASSERT_TYPE (scm_is_string, type1_file_name, 1);
 

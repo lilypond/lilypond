@@ -244,7 +244,8 @@ LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
 }
 
 LY_DEFINE (ly_verbose_output_p, "ly:verbose-output?", 0, 0, 0, (),
-           "Was verbose output requested, i.e. loglevel at least @code{DEBUG}?")
+           "Was verbose output requested, i.e., is the log level at least"
+           " @code{DEBUG}?")
 {
   return scm_from_bool (is_loglevel (LOG_DEBUG));
 }

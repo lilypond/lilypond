@@ -155,8 +155,8 @@ LY_DEFINE (ly_check_expected_warnings, "ly:check-expected-warnings",
 
 LY_DEFINE (ly_translate_cpp_warning_scheme, "ly:translate-cpp-warning-scheme",
            1, 0, 0, (SCM str),
-           "Translates a string in C++ printf format and modifies it to use"
-           " it for scheme formatting.")
+           "Translate a string in C++ @code{printf} format and modify it to"
+           " use it for Scheme formatting.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   string s = _ (ly_scm2string (str).c_str ());

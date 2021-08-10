@@ -441,7 +441,7 @@ If @var{types} is an empty list, @code{repeated-music} is taken, unfolding all."
     music))
 
 (define-public (unfold-repeats-fully music)
-  "Unfolds repeats and expands the resulting @code{unfolded-repeated-music}."
+  "Unfold repeats and expand the resulting @code{unfolded-repeated-music}."
   (map-some-music
    (lambda (m)
      (and (music-is-of-type? m 'unfolded-repeated-music)
@@ -2792,7 +2792,7 @@ there is a conflicting tag group definition."
   (hashq-ref tag-groups tag))
 
 (define-public (tags-remove-predicate tags)
-  "Returns a predicate that returns @code{#f} for any music that is to
+  "Return a predicate that returns @code{#f} for any music that is to
 be removed by @code{\\removeWithTag} on the given symbol or list of
 symbols @var{tags}."
   (if (symbol? tags)
@@ -2803,7 +2803,7 @@ symbols @var{tags}."
                   (ly:music-property m 'tags))))))
 
 (define-public (tags-keep-predicate tags)
-  "Returns a predicate that returns @code{#f} for any music that is to
+  "Return a predicate that returns @code{#f} for any music that is to
 be removed by @code{\\keepWithTag} on the given symbol or list of symbols
 @var{tags}."
   (if (symbol? tags)

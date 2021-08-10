@@ -553,9 +553,8 @@ in list @var{keys}.  Example:
           (else (loop (car x) (loop (cdr x) tail))))))
 
 (define-public (uniq-list lst)
-  "Uniq @var{lst}, assuming that it is sorted.  Uses @code{equal?}
-for comparisons."
-
+  "Remove doublets from list @var{lst} (i.e., make its elements unique),
+assuming that it is sorted.  Uses @code{equal?} for comparisons."
   (reverse!
    (fold (lambda (x acc)
            (if (null? acc)

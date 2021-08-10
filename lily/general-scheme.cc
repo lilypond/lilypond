@@ -228,7 +228,7 @@ LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode",
            1, 0, 0, (SCM str),
            "Encode all characters in string @var{str} with hexadecimal"
            " percent escape sequences, with the following exceptions:"
-           " characters @w{@code{-./_}} and"
+           " characters @w{@samp{-./_}} and"
            " characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
@@ -285,7 +285,7 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
 }
 
 LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
-           "Return the current lilypond version as a list, e.g.,"
+           "Return the current LilyPond version as a list, e.g.,"
            " @code{(1 3 127 uu1)}.")
 {
   char const *vs = "\'(" MAJOR_VERSION " " MINOR_VERSION " " PATCH_LEVEL " " MY_PATCH_LEVEL ")";
