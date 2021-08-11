@@ -699,7 +699,7 @@ cordes disposades en ordre d'alçada.
 L'alçada d'una corda dins d'una llista d'alçades de cordes d'un
 és un objecte alçada del LilyPond.  Els objectes alçada es creen
 amb la funció de l'Scheme @code{ly:make-pitch} (vegeu
-@ref{Funcions de l'Scheme}).
+@rinternals{Funcions de l'Scheme}).
 
 @code{\stringTuning} crea aquest objecte a partir de l'entrada
 d'acords.
@@ -784,8 +784,7 @@ mus = \relative {
 @morerefs
 Referència de la notació:
 @ref{Escriptura d'octava absoluta},
-@ref{Diagrames predefinits de trasts},
-@ref{Funcions de l'Scheme}.
+@ref{Diagrames predefinits de trasts}.
 
 Fitxers instal·lats:
 @file{ly/string-tunings-init.ly},
@@ -795,6 +794,7 @@ Fragments de codi:
 @rlsr{Fretted strings}.
 
 Referència de funcionament intern:
+@rinternals{Funcions de l'Scheme},
 @rinternals{Tab_note_heads_engraver}.
 
 @knownissues

@@ -34,12 +34,9 @@
 * Llista d'articulacions::
 * Notes de percussió::
 * Glossari tècnic::
-* Totes les propietats de context::
-* Propietats de disposició::
 * Funcions musicals disponibles::
 * Identificadors de modificació de contextos::
 * Predicats de tipus predefinits::
-* Funcions de l'Scheme::
 @end menu
 
 
@@ -3379,20 +3376,6 @@ Referència de funcionament intern:
 @rinternals{grob-interface}.
 
 
-@node Totes les propietats de context
-@appendixsec Totes les propietats de context
-@translationof All context properties
-
-@include en/context-properties.tely
-
-
-@node Propietats de disposició
-@appendixsec Propietats de disposició
-@translationof Layout properties
-
-@include en/layout-properties.tely
-
-
 @node Funcions musicals disponibles
 @appendixsec Funcions musicals disponibles
 @translationof Available music functions
@@ -3415,10 +3398,3 @@ de context dins d'un bloc @code{\layout} o @code{\with}.
 @translationof Predefined type predicates
 
 @include en/type-predicates.tely
-
-
-@node Funcions de l'Scheme
-@appendixsec Funcions de l'Scheme
-@translationof Scheme functions
-
-@include en/scheme-functions.tely

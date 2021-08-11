@@ -732,7 +732,7 @@ più alta a quella più bassa, con l'eccezione di alcuni strumenti
 
 Un'altezza in una lista per accordatura, nella terminologia di
 LilyPond, è un oggetto altezza, creato dalla funzione Scheme
-@code{ly:make-pitch} (vedi @ref{Funzioni Scheme}).
+@code{ly:make-pitch} (vedi @rinternals{Funzioni Scheme}).
 
 @code{\stringTuning} crea tale oggetto a partire da un accordo.
 
@@ -819,8 +819,7 @@ mus = \relative {
 @morerefs
 Guida alla notazione:
 @ref{Ottava assoluta},
-@ref{Diagrammi dei tasti predefiniti},
-@ref{Funzioni Scheme}.
+@ref{Diagrammi dei tasti predefiniti}.
 
 File installati:
 @file{ly/string-tunings-init.ly},
@@ -830,7 +829,8 @@ Frammenti:
 @rlsr{Fretted strings}.
 
 Guida al funzionamento interno:
-@rinternals{Tab_note_heads_engraver}.
+@rinternals{Tab_note_heads_engraver},
+@rinternals{Funzioni Scheme}.
 
 @knownissues
 I calcoli automatici dell'intavolatura non funzionano correttamente

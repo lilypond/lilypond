@@ -32,12 +32,9 @@
 * Liste der Artikulationszeichen::
 * Schlagzeugnoten::
 * Technisches Glossar::
-* Alle Kontexteigenschaften::
-* Eigenschaften des Layouts::
 * Erhältliche Musikfunktionen::
 * Bezeichner zur Kontextveränderung::
 * Vordefinierte Typprädikate::
-* Scheme-Funktionen::
 @end menu
 
 @node Liste der Akkordbezeichnungen
@@ -2039,19 +2036,6 @@ Referenz der Interna:
 @rinternals{grob-interface}.
 
 
-@node Alle Kontexteigenschaften
-@appendixsec Alle Kontexteigenschaften
-@translationof All context properties
-
-@include en/context-properties.tely
-
-
-@node Eigenschaften des Layouts
-@appendixsec Eigenschaften des Layouts
-@translationof Layout properties
-
-@include en/layout-properties.tely
-
 @node Erhältliche Musikfunktionen
 @appendixsec Erhältliche Musikfunktionen
 @translationof Available music functions
@@ -2074,11 +2058,3 @@ von @code{\layout} oder @code{\with} vorzunehmen:
 @translationof Predefined type predicates
 
 @include en/type-predicates.tely
-
-
-
-@node Scheme-Funktionen
-@appendixsec Scheme-Funktionen
-@translationof Scheme functions
-
-@include en/scheme-functions.tely

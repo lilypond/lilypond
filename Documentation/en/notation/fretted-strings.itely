@@ -885,7 +885,7 @@ from highest pitch to lowest pitch, but some instruments
 
 A string pitch in a string tuning list is a LilyPond pitch
 object.  Pitch objects are created with the Scheme function
-@code{ly:make-pitch} (see @ref{Scheme functions}).
+@code{ly:make-pitch} (see @rinternals{Scheme functions}).
 
 @code{\stringTuning} creates such an object from chord input.
 
@@ -967,8 +967,7 @@ mus = \relative {
 @morerefs
 Notation Reference:
 @ref{Absolute octave entry},
-@ref{Predefined fret diagrams},
-@ref{Scheme functions}.
+@ref{Predefined fret diagrams}.
 
 Installed Files:
 @file{ly/string-tunings-init.ly},
@@ -978,7 +977,8 @@ Snippets:
 @rlsr{Fretted strings}.
 
 Internals Reference:
-@rinternals{Tab_note_heads_engraver}.
+@rinternals{Tab_note_heads_engraver},
+@rinternals{Scheme functions}.
 @endmorerefs
 
 @knownissues

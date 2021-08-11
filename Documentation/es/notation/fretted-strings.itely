@@ -1,3 +1,4 @@
+
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
@@ -722,7 +723,7 @@ tienen las cuerdas dispuestas en orden de altura.
 La altura de una cuerda dentro de una lista de alturas de cuerdas
 es un objeto altura de LilyPond.  Los objetos altura se crean con
 la función de Scheme @code{ly:make-pitch} (véase
-@ref{Funciones de Scheme}).
+@rinternals{Funciones de Scheme}).
 
 @code{\stringTuning} crea dicho objeto a partir de la entrada de
 acordes.
@@ -808,8 +809,7 @@ mus = \relative {
 @morerefs
 Referencia de la notación:
 @ref{Escritura de octava absoluta},
-@ref{Diagramas predefinidos de trastes},
-@ref{Funciones de Scheme}.
+@ref{Diagramas predefinidos de trastes}.
 
 Archivos instalados:
 @file{ly/string-tunings-init.ly},
@@ -819,7 +819,8 @@ Fragmentos de código:
 @rlsr{Fretted strings}.
 
 Referencia de funcionamiento interno:
-@rinternals{Tab_note_heads_engraver}.
+@rinternals{Tab_note_heads_engraver},
+@rinternals{Funciones de Scheme}.
 
 @knownissues
 Los cálculos de tablatura automáticos no funcionan bien en la

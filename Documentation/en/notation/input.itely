@@ -2924,8 +2924,10 @@ new setting will take effect only at the point in time where
 @morerefs
 Notation Reference:
 @ref{Interpretation contexts},
-@ref{Score - the master of all contexts},
-@ref{All context properties}.
+@ref{Score - the master of all contexts}.
+
+Internals Reference:
+@rinternals{All context properties}.
 @endmorerefs
 
 

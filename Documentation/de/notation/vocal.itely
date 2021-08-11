@@ -2588,13 +2588,14 @@ der Figur angezeigt werden kann.
 @morerefs
 Notationsreferenz:
 @ref{Instrumentenbezeichnungen},
-@ref{Scheme-Funktionen},
 @ref{Text},
 @ref{Textbeschriftungsbefehle}.
 
 LilyPond Erweitern:
 @rextend{Beschriftungskonstruktionen in Scheme}.
 
+Referenz der Interna:
+@rinternals{Scheme-Funktionen}.
 
 @node Musikalische Stichnoten
 @unnumberedsubsubsec Musikalische Stichnoten

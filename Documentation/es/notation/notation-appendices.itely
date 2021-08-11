@@ -31,12 +31,9 @@
 * Lista de articulaciones::
 * Notas de percusión::
 * Glosario técnico::
-* Todas las propiedades de contexto::
-* Propiedades de disposición::
 * Funciones musicales disponibles::
 * Identificadores de modificación de contextos::
 * Predicados de tipo predefinidos::
-* Funciones de Scheme::
 @end menu
 
 
@@ -3626,20 +3623,6 @@ Referencia de funcionamiento interno:
 @rinternals{grob-interface}.
 
 
-@node Todas las propiedades de contexto
-@appendixsec Todas las propiedades de contexto
-@translationof All context properties
-
-@include en/context-properties.tely
-
-
-@node Propiedades de disposición
-@appendixsec Propiedades de disposición
-@translationof Layout properties
-
-@include en/layout-properties.tely
-
-
 @node Funciones musicales disponibles
 @appendixsec Funciones musicales disponibles
 @translationof Available music functions
@@ -3663,10 +3646,3 @@ modificaciones de contexto dentro de un bloque @code{\layout} o
 @translationof Predefined type predicates
 
 @include en/type-predicates.tely
-
-
-@node Funciones de Scheme
-@appendixsec Funciones de Scheme
-@translationof Scheme functions
-
-@include en/scheme-functions.tely

@@ -16,14 +16,11 @@ Files to be excluded (not available in git):
 @exclude colorado.itexi
 @exclude computer-notation.itexi
 @exclude context-mod-identifiers.tely
-@exclude context-properties.tely
 @exclude engravingbib.itexi
 @exclude identifiers.tely
-@exclude layout-properties.tely
 @exclude markup-commands.tely
 @exclude markup-list-commands.tely
 @exclude others-did.itexi
-@exclude scheme-functions.tely
 @exclude type-predicates.tely
 @exclude version.itexi
 @exclude weblinks.itexi

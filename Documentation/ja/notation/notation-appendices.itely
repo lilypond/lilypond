@@ -34,12 +34,9 @@
 * アーティキュレーションの一覧::
 * 打楽器の音符::
 * 技術用語集::
-* コンテキスト プロパティの一覧::
-* レイアウト プロパティの一覧::
 * 音楽関数の一覧::
 * コンテキストを変更する識別子::
 * 定義された型述語::
-* Scheme 関数::
 @end menu
 
 
@@ -3403,24 +3400,6 @@ grob とステンシルを繋ぐ役目を果たします。
 @rinternals{grob-interface}
 
 
-@node コンテキスト プロパティの一覧
-@appendixsec コンテキスト プロパティの一覧
-@translationof All context properties
-
-システムの制約により、以下の一覧は英語での提供となります。
-
-@include en/context-properties.tely
-
-
-@node レイアウト プロパティの一覧
-@appendixsec レイアウト プロパティの一覧
-@translationof Layout properties
-
-システムの制約により、以下の一覧は英語での提供となります。
-
-@include en/layout-properties.tely
-
-
 @node 音楽関数の一覧
 @appendixsec 音楽関数の一覧
 @translationof Available music functions
@@ -3447,12 +3426,3 @@ grob とステンシルを繋ぐ役目を果たします。
 システムの制約により、以下の一覧は英語での提供となります。
 
 @include en/type-predicates.tely
-
-
-@node Scheme 関数
-@appendixsec Scheme 関数
-@translationof Scheme functions
-
-システムの制約により、以下の一覧は英語での提供となります。
-
-@include en/scheme-functions.tely

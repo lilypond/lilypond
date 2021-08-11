@@ -698,7 +698,7 @@ mynotes = {
 弦チューニング リストの中の弦ピッチは 1 つ 1 つが
 LilyPond ピッチ オブジェクトです。@c
 ピッチ オブジェクトは Scheme 関数 @code{ly:make-pitch}
-(@ref{Scheme functions} を参照してください) で作成されます。@c
+(@rinternals{Scheme functions} を参照してください) で作成されます。@c
 
 @code{\stringTuning} は和音構造から弦チューニング リストを作成します。
 
@@ -780,8 +780,7 @@ mus = \relative {
 @morerefs
 記譜法リファレンス:
 @ref{Absolute octave entry},
-@ref{Predefined fret diagrams},
-@ref{Scheme functions}
+@ref{Predefined fret diagrams}.
 
 インストールされているファイル:
 @file{ly/string-tunings-init.ly}
@@ -791,7 +790,8 @@ mus = \relative {
 @rlsr{Fretted strings}
 
 内部リファレンス:
-@rinternals{Tab_note_heads_engraver}
+@rinternals{Tab_note_heads_engraver},
+@rinternals{Scheme functions}.
 
 @knownissues
 ウクレレなどのように弦がピッチ順に並んでいない楽器では、大抵の場合、

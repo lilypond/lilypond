@@ -3077,8 +3077,10 @@ d'instrument qui interviendraient avant que @code{skipTypesetting} ne
 @morerefs
 Manuel de notation :
 @ref{Contextes d'interprétation},
-@ref{Liste des propriétés de contexte},
 @ref{Score -- le père de tous les contextes}.
+
+Référence des propriétés internes :
+@rinternals{Liste des propriétés de contexte}.
 @endmorerefs
 
 

@@ -34,12 +34,9 @@
 * Liste des signes d'articulation::
 * Notes utilisées en percussion::
 * Glossaire technique::
-* Liste des propriétés de contexte::
-* Propriétés de mise en forme::
 * Fonctions musicales prédéfinies::
 * Identificateurs de modification de contexte::
 * Types de prédicats prédéfinis::
-* Fonctions Scheme::
 @end menu
 
 
@@ -3518,20 +3515,6 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Liste des propriétés de contexte
-@appendixsec Liste des propriétés de contexte
-@translationof All context properties
-
-@include en/context-properties.tely
-
-
-@node Propriétés de mise en forme
-@appendixsec Propriétés de mise en forme
-@translationof Layout properties
-
-@include en/layout-properties.tely
-
-
 @node Fonctions musicales prédéfinies
 @appendixsec Fonctions musicales prédéfinies
 @translationof Available music functions
@@ -3554,10 +3537,3 @@ d'un bloc @code{\layout} ou @code{\with}.
 @translationof Predefined type predicates
 
 @include en/type-predicates.tely
-
-
-@node Fonctions Scheme
-@appendixsec Fonctions Scheme
-@translationof Scheme functions
-
-@include en/scheme-functions.tely

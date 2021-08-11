@@ -31,12 +31,9 @@
 * List of articulations::
 * Percussion notes::
 * Technical glossary::
-* All context properties::
-* Layout properties::
 * Available music functions::
 * Context modification identifiers::
 * Predefined type predicates::
-* Scheme functions::
 @end menu
 
 
@@ -3480,18 +3477,6 @@ Internals Reference:
 @endmorerefs
 
 
-@node All context properties
-@appendixsec All context properties
-
-@include en/context-properties.tely
-
-
-@node Layout properties
-@appendixsec Layout properties
-
-@include en/layout-properties.tely
-
-
 @node Available music functions
 @appendixsec Available music functions
 
@@ -3509,9 +3494,3 @@ within a @code{\layout} or @code{\with} block.
 @appendixsec Predefined type predicates
 
 @include en/type-predicates.tely
-
-
-@node Scheme functions
-@appendixsec Scheme functions
-
-@include en/scheme-functions.tely

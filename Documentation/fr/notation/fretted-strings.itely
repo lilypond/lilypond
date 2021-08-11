@@ -896,7 +896,7 @@ instruments (comme le ukulele) n'ont pas les cordes classées par hauteur.
 
 Chaque hauteur de corde incluse dans un accordage est un objet LilyPond
 de type @emph{pitch}.  Les objets @emph{pitch} sont créés par la fonction
-@code{ly:make-pitch} -- voir @ref{Fonctions Scheme}.
+@code{ly:make-pitch} -- voir @rinternals{Fonctions Scheme}.
 
 La fonction @code{\stringTuning} permet de créer de tels objets à partir
 de la saisie d'un accord.
@@ -977,7 +977,6 @@ mus = \relative {
 
 @morerefs
 Manuel de notation :
-@ref{Fonctions Scheme},
 @ref{Hauteurs avec octave absolue},
 @ref{Tablatures prédéfinies}.
 
@@ -989,7 +988,8 @@ Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
 Référence des propriétés internes :
-@rinternals{Tab_note_heads_engraver}.
+@rinternals{Tab_note_heads_engraver},
+@rinternals{Fonctions Scheme}.
 @endmorerefs
 
 @knownissues

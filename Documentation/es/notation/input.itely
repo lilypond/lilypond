@@ -3061,8 +3061,10 @@ tendrá efecto solamente en el punto temporal en que
 @morerefs
 Referencia de la notación:
 @ref{Contextos de interpretación},
-@ref{Score. El contexto maestro},
-@ref{Todas las propiedades de contexto}.
+@ref{Score. El contexto maestro}.
+
+Referencia de funcionamiento interno:
+@rinternals{Todas las propiedades de contexto}.
 
 
 @node Formatos de salida alternativos

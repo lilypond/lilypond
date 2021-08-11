@@ -40,10 +40,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(display
- (slot-ref (all-functions-doc) 'text)
- (open-output-file "scheme-functions.tely"))
-
 ;;(display
 ;; (markup-doc-string)
 ;; (open-output-file "markup-commands.tely"))
@@ -76,14 +72,6 @@
 (display
  context-mods-doc-string
  (open-output-file "context-mod-identifiers.tely"))
-
-(display
- (backend-properties-doc-string all-user-grob-properties)
- (open-output-file "layout-properties.tely"))
-
-(display
- (translation-properties-doc-string all-user-translation-properties)
- (open-output-file "context-properties.tely"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
