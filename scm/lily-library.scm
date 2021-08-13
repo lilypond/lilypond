@@ -970,17 +970,24 @@ applied to function @var{getter}.")
           (set! start (1+ compare))))
         (binary-search start end getter target-val))))
 
-(define-public (car< a b)
-  (< (car a) (car b)))
+(define-public ((comparator-from-key key cmp) a b)
+  "Return a comparator function that applies @var{key} to the two
+elements and compares the results using @var{cmp}.  Especially
+useful for sorting."
+  (cmp (key a)
+       (key b)))
 
-(define-public (car<= a b)
-  (<= (car a) (car b)))
+(define-public car<
+  (comparator-from-key car <))
 
-(define-public (symbol<? lst r)
-  (string<? (symbol->string lst) (symbol->string r)))
+(define-public car<=
+  (comparator-from-key car <=))
 
-(define-public (symbol-key<? lst r)
-  (string<? (symbol->string (car lst)) (symbol->string (car r))))
+(define-public symbol<?
+  (comparator-from-key symbol->string string<?))
+
+(define-public symbol-key<?
+  (comparator-from-key car symbol<?))
 
 (define-public (eval-carefully symbol module . default)
   "Check whether all symbols in expression @var{symbol} are reachable

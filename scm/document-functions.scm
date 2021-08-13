@@ -136,10 +136,6 @@
       alist)))
 
 ;; We want to sort without taking the ly: prefix into account.
-(define ((compare-func-from-key key comp) a b)
-  (comp (key a)
-        (key b)))
-
 (define (no-ly-prefix-key name-doc-alist-entry)
   (let* ((name (car name-doc-alist-entry)))
     (if (string-startswith name "ly:")
@@ -153,9 +149,7 @@
              all-scheme-function-docs-alist))
          (sorted-alist
            (sort all-function-doc-alists
-                 (compare-func-from-key
-                   no-ly-prefix-key
-                   ly:string-ci<?)))
+                 (comparator-from-key no-ly-prefix-key ly:string-ci<?)))
          (formatted-docs
            (map cdr sorted-alist)))
     (make <texi-node>
