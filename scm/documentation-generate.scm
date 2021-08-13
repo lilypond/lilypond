@@ -36,7 +36,8 @@
                     "document-identifiers"
                     "document-context-mods"
                     "document-backend"
-                    "document-markup"))
+                    "document-markup"
+                    "document-outside-staff-priorities"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -73,7 +74,10 @@
  context-mods-doc-string
  (open-output-file "context-mod-identifiers.tely"))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(display
+ outside-staff-priorities-doc-string
+ (open-output-file "outside-staff-priorities.tely"))
+
 
 (define file-name "internals")
 (define outname (string-append file-name ".texi"))

@@ -30,6 +30,7 @@
 * List of special characters::
 * List of articulations::
 * Percussion notes::
+* Default values for outside-staff-priority::
 * Technical glossary::
 * Available music functions::
 * Context modification identifiers::
@@ -3144,6 +3145,16 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 
 @end multitable
+
+
+@node Default values for outside-staff-priority
+@appendixsec Default values for @code{outside-staff-priority}
+
+The following table shows the default @code{outside-staff-priority} of
+all outside-staff grobs.  Objects with smaller values are placed closer
+to the staff.
+
+@include en/outside-staff-priorities.tely
 
 
 @node Technical glossary
