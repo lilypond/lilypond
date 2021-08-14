@@ -35,7 +35,6 @@ class Audio_staff;
 class Audio_tempo;
 class Audio_text;
 class Audio_time_signature;
-class Auto_change_iterator;
 class Axis_group_engraver;
 class Bar_engraver;
 class Beaming_pattern;

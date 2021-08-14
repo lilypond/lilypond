@@ -89,15 +89,6 @@ See the Notation Reference for details.")
         (types . (post-event event articulation-event script-event))
         ))
 
-    (AutoChangeMusic
-     . ((description . "Used for making voices that switch between
-piano staves automatically.")
-        (iterator-ctor . ,ly:auto-change-iterator::constructor)
-        (start-callback . ,ly:music-wrapper::start-callback)
-        (length-callback . ,ly:music-wrapper::length-callback)
-        (types . (music-wrapper-music auto-change-instruction))
-        ))
-
     (BarCheck
      . ((description . "Check whether this music coincides with
 the start of the measure.")

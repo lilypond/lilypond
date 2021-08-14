@@ -211,7 +211,7 @@ autoChange =
   ((ly:pitch?) (ly:context-mod?) (ly:context-mod?) ly:music?)
   (_i "Make voices that switch between staves automatically.  As an option the
 pitch where to switch staves may be specified.  The clefs for the staves are
-optional as well.  Setting clefs  works only for implicitly instantiated
+optional as well.  Setting clefs works only for implicitly instantiated
 staves.")
   (let ;; keep the contexts alive for the full duration
        ((skip (make-duration-of-length (ly:music-length music)))

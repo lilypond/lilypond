@@ -24,9 +24,18 @@
     (if (and (pair? ref-pitch) (car ref-pitch))
         (ly:pitch-steps (car ref-pitch))
         0))
-  (define (generate-split-list change-moment prev-dir event-list acc)
+  (define (generate-change-music-list
+           prev-change-mom prev-dir rest-mom event-list acc)
+    "@var{prev-change-mom} is the moment (relative to the start of the
+auto-change music) of the previous change added to @var{acc}.
+@var{rest-mom} is the moment (relative to the start of the auto-change
+music) of a potential change at a rest, which is being deferred until
+the direction of subsequent notes is seen.
+"
     (if (null? event-list)
-        acc
+        ;; add a final skip so that the length of the music is correct
+        (cons (skip-of-moment-span prev-change-mom rest-mom) acc)
+        ;; event-list is not empty yet
         (let* ((now-tun (caar event-list))
                (evs (map car (cdar event-list)))
                (now (car now-tun))
@@ -43,31 +52,49 @@
           ;; tail recursive.
           (if (and (not (= dir 0))
                    (not (= dir prev-dir)))
-              (generate-split-list #f
-                                   dir
-                                   (cdr event-list)
-                                   (cons (cons
-                                          (if change-moment
-                                              change-moment
-                                              now)
-                                          (if (< dir 0) 'down 'up)) acc))
-              (generate-split-list
-               (if pitch #f (if change-moment change-moment now))
-               dir
+              (let* ((change-mom (or rest-mom now))
+                     (skip-music
+                      (skip-of-moment-span prev-change-mom change-mom))
+                     (change-music (make-music
+                                    'ContextChange
+                                    'change-tag '$autoChange
+                                    'change-to-type 'Staff
+                                    'change-to-id (if (< dir 0) "down" "up"))))
+                (generate-change-music-list now
+                                     dir
+                                     #f
+                                     (cdr event-list)
+                                     (cons change-music
+                                           (cons skip-music
+                                                 acc))))
+              (generate-change-music-list
+               prev-change-mom
+               prev-dir
+               (if pitch #f (or rest-mom now))
                (cdr event-list) acc)))))
 
-  (let* ((m (make-music 'AutoChangeMusic))
-         (m1 (context-spec-music (make-non-relative-music music) 'Voice ""))
-         (context-list
-          (recording-group-emulate m1
-                                   (ly:parser-lookup 'partCombineListener)))
-         (rev (reverse! (cdar context-list)))
-         (split (reverse! (generate-split-list
-                           #f
-                           0
-                           rev
-                           '())
-                          '())))
-    (set! (ly:music-property m 'element) m1)
-    (set! (ly:music-property m 'context-change-list) split)
-    m))
+  (let* ((context-list
+          (recording-group-emulate
+           (context-spec-music (make-non-relative-music music) 'Voice "")
+           (ly:parser-lookup 'partCombineListener)))
+         (changes (reverse! (generate-change-music-list
+                             (ly:music-start music)
+                             0
+                             #f
+                             (reverse! (cdar context-list))
+                             '())
+                            '())))
+    ;; \autoChange depends on Simultaneous_music_iterator's processing
+    ;; its children in order (at each timestep) so that context
+    ;; changes occur before notation events.  If
+    ;; Simultaneous_music_iterator's behavior is ever changed, this
+    ;; will need to be changed too.
+    ;;
+    ;; TODO: Is non-relative music necessary here, or only for the
+    ;; analysis above?
+    (context-spec-music
+     (make-music 'SimultaneousMusic
+                 'elements (list (make-sequential-music changes)
+                                 (make-non-relative-music music))
+                 'tags '($autoChange))
+     'Voice "")))

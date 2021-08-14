@@ -648,11 +648,6 @@ expression."
 ;;; Staff switches
 ;;;
 
-(define-display-method AutoChangeMusic (m)
-  (format #f "\\autoChange ~a"
-          (music->lily-string
-           (ly:music-property (ly:music-property m 'element) 'element))))
-
 (define-display-method ContextChange (m)
   (format #f "\\change ~a = \"~a\""
           (ly:music-property m 'change-to-type)
@@ -1171,20 +1166,25 @@ Otherwise, return #f."
 
 ;; \autoChange
 (define-extra-display-method SimultaneousMusic (expr)
-  (with-music-match (expr (music 'SimultaneousMusic
-                                 elements ((music 'ContextSpeccedMusic
-                                                  context-id "up"
-                                                  context-type 'Staff
-                                                  element ?ac-music)
-                                           (music 'ContextSpeccedMusic
-                                                  context-id "up"
-                                                  context-type 'Staff)
-                                           (music 'ContextSpeccedMusic
-                                                  context-id "down"
-                                                  context-type 'Staff))))
-                    (with-music-match (?ac-music (music 'AutoChangeMusic))
-                                      (format #f "~a"
-                                              (music->lily-string ?ac-music)))))
+  (with-music-match
+   (expr (music 'SimultaneousMusic
+                elements ((music 'ContextSpeccedMusic
+                                 context-id "up"
+                                 context-type 'Staff
+                                 element ?ac-music)
+                          (music 'ContextSpeccedMusic
+                                 context-id "up"
+                                 context-type 'Staff)
+                          (music 'ContextSpeccedMusic
+                                 context-id "down"
+                                 context-type 'Staff))))
+   (with-music-match
+    (?ac-music (music 'ContextSpeccedMusic
+                      element (music 'SimultaneousMusic
+                                     tags (list '$autoChange)
+                                     elements (?changes
+                                               ?inner-music))))
+    (format #f "\\autoChange ~a" (music->lily-string ?inner-music)))))
 
 ;; \addlyrics
 (define-extra-display-method SimultaneousMusic (expr)
