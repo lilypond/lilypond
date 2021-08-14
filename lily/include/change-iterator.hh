@@ -35,7 +35,9 @@ public:
                                 SCM to_type, const std::string &to_id);
 
 private:
+  static void change (Music_iterator *it, Context *source, Context *target);
   void error (const std::string &);
+  Music_iterator *find_scope (SCM tag);
 };
 
 #endif

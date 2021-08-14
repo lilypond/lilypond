@@ -741,18 +741,6 @@ Context::disconnect_from_parent ()
 }
 
 Context *
-find_context_above_by_parent_type (Context *where, SCM parent_type)
-{
-  while (Context *parent = where->get_parent ())
-    {
-      if (parent->is_alias (parent_type))
-        return where;
-      where = parent;
-    }
-  return 0;
-}
-
-Context *
 find_top_context (Context *where)
 {
   Context *top = where;

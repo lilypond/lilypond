@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "change-iterator.hh"
 #include "change-sequence-iterator.hh"
-#include "context.hh"
 
 using std::string;
 
@@ -30,41 +30,12 @@ public:
 
 private:
   void change_to (const string &id) override;
-  Context *find_voice (const string &id);
 };
 
 void
 Part_combine_part_iterator::change_to (const string &id)
 {
-  if (auto *const to = find_voice (id))
-    {
-      auto *const from = get_context ();
-      if (from != to)
-        {
-          preorder_walk ([from, to] (Music_iterator * iter)
-          {
-            iter->substitute_context (from, to);
-          });
-        }
-    }
-  else
-    {
-      string s = "can not find Voice context: ";
-      s += id;
-      programming_error (s);
-    }
-}
-
-Context *
-Part_combine_part_iterator::find_voice (const string &id)
-{
-  // Find a Voice among the siblings of the current context.  (Well, this might
-  // also find a sibling's descendant, but that should not be a problem.)
-  Context *c = get_context ()->get_parent ();
-  if (c)
-    return find_context_below (c, ly_symbol2scm ("Voice"), id);
-  programming_error ("no parent context");
-  return 0;
+  Change_iterator::change_to (*get_child (), ly_symbol2scm ("Voice"), id);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Part_combine_part_iterator);

@@ -46,6 +46,41 @@ Change_iterator::error (const string &reason)
   warning (warn1);
 }
 
+void
+Change_iterator::change (Music_iterator *it, Context *source, Context *target)
+{
+  if (it->get_context () == source)
+    {
+      // The iterator's immediate context is the one to be changed.  This can't
+      // be done by pruning and grafting contexts; the iterator must be changed
+      // to refer to the new context.
+      it->substitute_context (source, target);
+    }
+  else
+    {
+      // The iterator's context might be a descendant of the one to be changed.
+      // Find the branch to prune, if any, and announce the change.
+      for (auto *branch = it->get_context ();
+           auto *const parent = branch->get_parent ();
+           branch = parent)
+        {
+          if (parent == target)
+            {
+              break; // already in its proper place
+            }
+
+          if (parent == source)
+            {
+              send_stream_event (branch, "ChangeParent",
+                                 it->origin (),
+                                 ly_symbol2scm ("context"),
+                                 to_scm (target));
+              break;
+            }
+        }
+    }
+}
+
 string
 Change_iterator::change_to (Music_iterator &it,
                             SCM to_type,
@@ -53,16 +88,19 @@ Change_iterator::change_to (Music_iterator &it,
 {
   string result; // error message
 
-  // Find the context that should have its parent changed.
-  Context *last = find_context_above_by_parent_type (it.get_context (), to_type);
+  // Find the context to change from.
+  auto *const last = it.get_context ()->find_context (UP, to_type, "");
   if (last)
     {
-      // Find the new parent.
-      Context *dest = find_context_near (it.get_context (), to_type, to_id);
+      // Find the context to change to.
+      auto *const dest = find_context_near (it.get_context (), to_type, to_id);
       if (dest)
         {
-          send_stream_event (last, "ChangeParent", it.origin (),
-                             ly_symbol2scm ("context"), dest->self_scm ());
+          // Effect the change for this iterator and its children.
+          it.preorder_walk ([last, dest] (Music_iterator * iter)
+          {
+            Change_iterator::change (iter, last, dest);
+          });
         }
       else
         {
@@ -70,16 +108,11 @@ Change_iterator::change_to (Music_iterator &it,
                           Context::diagnostic_id (to_type, to_id).c_str ()));
         }
     }
-  else if (it.get_context ()->is_alias (to_type))
-    {
-      // No enclosing context of the right kind was found
-      // and the iterator's immediate context is the kind that was sought.
-
-      result = _f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ());
-    }
   else
-    /* FIXME: incomprehensible message */
-    result = _ ("none of these in my family");
+    {
+      it.warning (_f ("cannot find context to change from: %s",
+                      Context::diagnostic_id (to_type, "").c_str ()));
+    }
 
   return result;
 }

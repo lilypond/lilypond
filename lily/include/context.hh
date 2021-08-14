@@ -232,11 +232,6 @@ find_context_above (Context *where, SCM type_sym, const std::string &id = "")
   return where ? where->find_context (UP, type_sym, id) : nullptr;
 }
 
-// Search for a context of the given type starting from the given context and
-// moving toward the root of the tree.  If found, return its child that was
-// found on the way there.
-Context *find_context_above_by_parent_type (Context *where, SCM parent_type);
-
 // abbreviate calling where->find_context when where might be null
 inline Context *
 find_context_below (Context *where, SCM type_sym, const std::string &id)
