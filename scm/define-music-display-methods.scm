@@ -1054,19 +1054,28 @@ Otherwise, return #f."
 
 ;;; \partCombine
 (define-display-method PartCombineMusic (expr)
-  (let ((dir (ly:music-property expr 'direction)))
-    (format #f "\\partCombine~a ~a~a~a"
-            (cond ((equal? dir UP) "Up")
-                  ((equal? dir DOWN) "Down")
-                  (else ""))
-            (music->lily-string (car (ly:music-property expr 'elements)))
-            (new-line->lily-string)
-            (music->lily-string (cadr (ly:music-property expr 'elements))))))
-
-(define-display-method PartCombinePartMusic (expr)
-  (with-music-match ((ly:music-property expr 'element)
-                     (music 'ContextSpeccedMusic element ?part))
-                    (format #f "~a" (music->lily-string ?part))))
+  (with-music-match
+   (expr (music 'PartCombineMusic
+                direction ?dir
+                elements ((music 'ContextSpeccedMusic
+                                 element
+                                 (music 'SimultaneousMusic
+                                        tags (list '$partCombine)
+                                        elements (?part-one-changes
+                                                  ?part-one)))
+                          (music 'ContextSpeccedMusic
+                                 element
+                                 (music 'SimultaneousMusic
+                                        tags (list '$partCombine)
+                                        elements (?part-two-changes
+                                                  ?part-two))))))
+   (format #f "\\partCombine~a ~a~a~a"
+           (cond ((equal? ?dir UP) "Up")
+                 ((equal? ?dir DOWN) "Down")
+                 (else ""))
+           (music->lily-string ?part-one)
+           (new-line->lily-string)
+           (music->lily-string ?part-two))))
 
 (define-extra-display-method ContextSpeccedMusic (expr)
   "If `expr' is a \\partCombine expression, return \"\\partCombine ...\".

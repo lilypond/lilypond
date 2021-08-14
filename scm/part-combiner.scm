@@ -915,9 +915,15 @@ the mark when there are no spanners active.
   (define (get-state state-name)
     (assq-ref state-machine state-name))
 
-  (let ((change-list '())
-        (prev-voice #f)
-        (state (get-state 'Initial)))
+  (let* ((change-list '())
+         (prev-moment
+          ;; the start moment is in the first entry of the split list
+          (if (and (pair? split-list) (pair? (car split-list)))
+              (caar split-list)
+              ZERO-MOMENT))
+         (prev-change-moment prev-moment)
+         (prev-voice #f)
+         (state (get-state 'Initial)))
 
     (define (handle-split split)
       (let* ((moment (car split))
@@ -927,12 +933,29 @@ the mark when there are no spanners active.
                   (next-state-name (cdr action)))
               (if (not (eq? voice prev-voice))
                   (begin
-                    (set! change-list (cons (cons moment voice) change-list))
+                    (set! change-list
+                          (cons (skip-of-moment-span prev-change-moment moment)
+                                change-list))
+                    (set! change-list
+                          (cons (make-music
+                                 'ContextChange
+                                 'change-tag '$partCombine
+                                 'change-to-type 'Voice
+                                 'change-to-id (symbol->string voice))
+                                change-list))
+                    (set! prev-change-moment moment)
                     (set! prev-voice voice)))
+              (set! prev-moment moment)
               (set! state (get-state next-state-name))))))
 
+    ;; (display split-list)
     (for-each handle-split split-list)
-    (reverse! change-list)))
+    ;; add a final skip so that the length of the music is correct
+    (set! change-list (cons (skip-of-moment-span prev-change-moment prev-moment)
+                            change-list))
+    (let ((result (make-sequential-music (reverse! change-list))))
+      ;; (display-lily-music result)
+      result)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

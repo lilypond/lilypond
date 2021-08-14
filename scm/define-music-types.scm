@@ -434,14 +434,6 @@ as separate voices.")
         (iterator-ctor . ,ly:part-combine-iterator::constructor)
         ))
 
-    (PartCombinePartMusic
-     . ((description . "A part to be combined with other parts on a staff.")
-        (length-callback . ,ly:music-wrapper::length-callback)
-        (start-callback . ,ly:music-wrapper::start-callback)
-        (iterator-ctor . ,ly:part-combine-part-iterator::constructor)
-        (types . (part-combine-part-music music-wrapper-music))
-        ))
-
     (PercentEvent
      . ((description . "Used internally to signal percent repeats.")
         (types . (event percent-event rhythmic-event))

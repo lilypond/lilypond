@@ -1290,11 +1290,15 @@ be either a music event or a grob path.")
           shared-context-settings)
 
    (let* ((pc-music (make-music 'PartCombineMusic))
-          (m1 (context-spec-music (make-non-relative-music part1) 'Voice "one"))
-          (m2 (context-spec-music (make-non-relative-music part2) 'Voice "two"))
           (listener (ly:parser-lookup 'partCombineListener))
-          (evs2 (recording-group-emulate m2 listener))
-          (evs1 (recording-group-emulate m1 listener))
+          (evs2 (recording-group-emulate
+                 (context-spec-music (make-non-relative-music part2)
+                                     'Voice "two")
+                 listener))
+          (evs1 (recording-group-emulate
+                 (context-spec-music (make-non-relative-music part1)
+                                     'Voice "one")
+                 listener))
           (split-list
            (determine-split-list (reverse! (assoc-get "one" evs1 '()) '())
                                  (reverse! (assoc-get "two" evs2 '()) '())
@@ -1305,21 +1309,33 @@ be either a music event or a grob path.")
           (skip (make-skip-music (make-duration-of-length
                                   (if (ly:moment<? L1 L2) L2 L1)))))
 
+     ;; \partCombine depends on Simultaneous_music_iterator's
+     ;; processing its children in order (at each timestep) so that
+     ;; context changes occur before notation events.  If
+     ;; Simultaneous_music_iterator's behavior is ever changed, this
+     ;; will need to be changed too.
+     (define (make-part-music initial-voice-name changes notation)
+       (context-spec-music
+        ;; TODO: Is non-relative music necessary here, or only for the
+        ;; analysis above?
+        (make-music 'SimultaneousMusic
+                    'elements (list changes (make-non-relative-music notation))
+                    'tags '($partCombine))
+        'Voice initial-voice-name))
+
      (set! (ly:music-property pc-music 'elements)
-           (list (make-music
-                  'PartCombinePartMusic
-                  'element m1
-                  'context-change-list
+           (list (make-part-music
+                  "one"
                   (make-part-combine-context-changes
                    default-part-combine-context-change-state-machine-one
-                   split-list))
-                 (make-music
-                  'PartCombinePartMusic
-                  'element m2
-                  'context-change-list
+                   split-list)
+                  part1)
+                 (make-part-music
+                  "two"
                   (make-part-combine-context-changes
                    default-part-combine-context-change-state-machine-two
-                   split-list))))
+                   split-list)
+                  part2)))
 
      (set! (ly:music-property pc-music 'direction) direction)
 
