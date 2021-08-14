@@ -17,7 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "change-iterator.hh"
+#include "simple-music-iterator.hh"
 
 #include "context.hh"
 #include "input.hh"
@@ -25,26 +25,18 @@
 #include "music.hh"
 #include "warn.hh"
 
-using std::string;
-
-void
-Change_iterator::error (const string &reason)
+class Change_iterator final : public Simple_music_iterator
 {
-  string to_type = ly_symbol2string (get_property (get_music (), "change-to-type"));
-  string to_id = ly_scm2string (get_property (get_music (), "change-to-id"));
+public:
+  /* constructor is public */
+  void process (Moment) override;
+  DECLARE_SCHEME_CALLBACK (constructor, ());
+  OVERRIDE_CLASS_NAME (Change_iterator);
 
-  string warn1 = _f ("cannot change `%s' to `%s'", to_type, to_id)
-                 + ": " + reason;
-
-  /*
-    GUHG!
-  */
-  string warn2 = "Change_iterator::process (): "
-                 + get_context ()->context_name () + " = `"
-                 + get_context ()->id_string () + "': ";
-  ::warning (warn2);
-  warning (warn1);
-}
+private:
+  static void change (Music_iterator *it, Context *source, Context *target);
+  Music_iterator *find_scope (SCM tag);
+};
 
 void
 Change_iterator::change (Music_iterator *it, Context *source, Context *target)
@@ -81,52 +73,38 @@ Change_iterator::change (Music_iterator *it, Context *source, Context *target)
     }
 }
 
-string
-Change_iterator::change_to (Music_iterator &it,
-                            SCM to_type,
-                            const string &to_id)
+void
+Change_iterator::process (Moment m)
 {
-  string result; // error message
+  SCM to_type = get_property (get_music (), "change-to-type");
+  auto to_id = ly_scm2string (get_property (get_music (), "change-to-id"));
 
   // Find the context to change from.
-  auto *const last = it.get_context ()->find_context (UP, to_type, "");
+  auto *const last = get_context ()->find_context (UP, to_type, "");
   if (last)
     {
       // Find the context to change to.
-      auto *const dest = find_context_near (it.get_context (), to_type, to_id);
+      auto *const dest = find_context_near (get_context (), to_type, to_id);
       if (dest)
         {
           auto *scope
-            = it.where_tagged (get_property (it.get_music (), "change-tag"));
-          scope->preorder_walk ([last, dest] (Music_iterator * iter)
+            = where_tagged (get_property (get_music (), "change-tag"));
+          scope->preorder_walk ([last, dest] (Music_iterator *iter)
           {
             Change_iterator::change (iter, last, dest);
           });
         }
       else
         {
-          it.warning (_f ("cannot find context to change to: %s",
-                          Context::diagnostic_id (to_type, to_id).c_str ()));
+          warning (_f ("cannot find context to change to: %s",
+                       Context::diagnostic_id (to_type, to_id).c_str ()));
         }
     }
   else
     {
-      it.warning (_f ("cannot find context to change from: %s",
-                      Context::diagnostic_id (to_type, "").c_str ()));
+      warning (_f ("cannot find context to change from: %s",
+                   Context::diagnostic_id (to_type, "").c_str ()));
     }
-
-  return result;
-}
-
-void
-Change_iterator::process (Moment m)
-{
-  SCM to_type = get_property (get_music (), "change-to-type");
-  string to_id = ly_scm2string (get_property (get_music (), "change-to-id"));
-
-  string msg = change_to (*this, to_type, to_id);
-  if (!msg.empty ())
-    error (msg);
 
   Simple_music_iterator::process (m);
 }
