@@ -41,9 +41,9 @@ Paper_book::Paper_book ()
   header_ = SCM_EOL;
   header_0_ = SCM_EOL;
   pages_ = SCM_BOOL_F;
-  scores_ = SCM_EOL;
-  bookparts_ = SCM_EOL;
   performances_ = SCM_EOL;
+  print_elements_ = SCM_EOL;
+  print_bookparts_ = false;
   systems_ = SCM_BOOL_F;
 
   paper_ = 0;
@@ -68,8 +68,7 @@ Paper_book::mark_smob () const
   scm_gc_mark (header_0_);
   scm_gc_mark (pages_);
   scm_gc_mark (performances_);
-  scm_gc_mark (scores_);
-  scm_gc_mark (bookparts_);
+  scm_gc_mark (print_elements_);
   return systems_;
 }
 
@@ -96,13 +95,14 @@ dump_fields ()
 void
 Paper_book::add_score (SCM s)
 {
-  scores_ = scm_cons (s, scores_);
+  print_elements_ = scm_cons (s, print_elements_);
 }
 
 void
 Paper_book::add_bookpart (SCM p)
 {
-  bookparts_ = scm_cons (p, bookparts_);
+  print_bookparts_ = true;
+  print_elements_ = scm_cons (p, print_elements_);
 }
 
 void
@@ -126,9 +126,9 @@ Paper_book::output_aux (SCM output_channel,
       *first_performance_number += scm_ilength (performances_);
     }
 
-  if (scm_is_pair (bookparts_))
+  if (print_bookparts_)
     {
-      for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
+      for (SCM p = print_elements_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob<Paper_book> (scm_car (p)))
           {
             bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
@@ -140,7 +140,7 @@ Paper_book::output_aux (SCM output_channel,
     }
   else
     {
-      if (scm_is_null (scores_))
+      if (scm_is_null (print_elements_))
         return 0;
       paper_->set_variable (ly_symbol2scm ("first-page-number"),
                             to_scm (*first_page_number));
@@ -450,7 +450,7 @@ Paper_book::get_system_specs ()
 
   SCM header = SCM_EOL;
   SCM labels = SCM_EOL;
-  for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = scm_reverse (print_elements_); scm_is_pair (s); s = scm_cdr (s))
     {
       SCM elem = scm_car (s);
       if (ly_is_module (elem))
@@ -580,10 +580,10 @@ Paper_book::systems ()
     return systems_;
 
   systems_ = SCM_EOL;
-  if (scm_is_pair (bookparts_))
+  if (print_bookparts_)
     {
       SCM system_list = SCM_EOL;
-      for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
+      for (SCM p = print_elements_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob<Paper_book> (scm_car (p)))
           system_list = scm_cons (pbookpart->systems (), system_list);
       systems_ = scm_append (scm_reverse_x (system_list, SCM_EOL));
@@ -644,14 +644,14 @@ Paper_book::pages ()
     return pages_;
 
   pages_ = SCM_EOL;
-  if (scm_is_pair (bookparts_))
+  if (print_bookparts_)
     {
-      for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
+      for (SCM p = print_elements_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob<Paper_book> (scm_car (p)))
           pages_ = scm_cons (pbookpart->pages (), pages_);
       pages_ = scm_append (scm_reverse_x (pages_, SCM_EOL));
     }
-  else if (scm_is_pair (scores_))
+  else if (scm_is_pair (print_elements_))
     {
       SCM page_breaking = paper_->c_variable ("page-breaking");
       pages_ = scm_call_1 (page_breaking, self_scm ());

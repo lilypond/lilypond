@@ -43,8 +43,10 @@ private:
 public:
   SCM header_;
   SCM header_0_;
-  SCM scores_;
-  SCM bookparts_;
+
+  SCM print_elements_;
+  bool print_bookparts_;
+  
   Paper_book *parent_;
   Output_def *paper_;
 

@@ -213,7 +213,8 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Outpu
         }
     }
   /* In a Paper_book, bookparts are stored in straight order */
-  output_paper_book->bookparts_ = scm_reverse_x (output_paper_book->bookparts_, SCM_EOL);
+  output_paper_book->print_elements_
+    = scm_reverse_x (output_paper_book->print_elements_, SCM_EOL);
 }
 
 /* process one entry of scores_ */
