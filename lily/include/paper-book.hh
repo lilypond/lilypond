@@ -45,21 +45,22 @@ private:
   void add_score_title (SCM);
   SCM get_score_title (SCM);
 
+  Paper_book *parent_;
+  Output_def *paper_;
 public:
   SCM header_;
   SCM header_0_;
 
-  Paper_book *parent_;
-  Output_def *paper_;
+  Paper_book (Output_def *paper, Paper_book *parent_part);
 
-  Paper_book ();
-
-  Output_def *top_paper ();
-
+  Output_def *top_paper () const;
+  Output_def *paper () const { return paper_; }
+  
   void add_score (SCM);
   void add_bookpart (SCM);
   void add_performance (SCM);
 
+  SCM get_scopes() const;
   SCM performances () const;
   SCM systems ();
   SCM pages ();

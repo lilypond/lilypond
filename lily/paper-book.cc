@@ -36,7 +36,7 @@
 using std::string;
 using std::vector;
 
-Paper_book::Paper_book ()
+Paper_book::Paper_book (Output_def *paper, Paper_book *parent_part)
 {
   header_ = SCM_EOL;
   header_0_ = SCM_EOL;
@@ -51,6 +51,15 @@ Paper_book::Paper_book ()
   paper_ = 0;
   parent_ = 0;
   smobify_self ();
+
+  Real scale = scm_to_double (paper->c_variable ("output-scale"));
+  paper_ = scale_output_def (paper, scale);
+  paper_->unprotect ();
+  if (parent_part)
+    {
+      parent_ = parent_part;
+      paper_->parent_ = parent_part->paper_;
+    }
 }
 
 Paper_book::~Paper_book ()
@@ -75,7 +84,7 @@ Paper_book::mark_smob () const
 }
 
 Output_def *
-Paper_book::top_paper ()
+Paper_book::top_paper () const
 {
   Output_def *paper = paper_;
   while (paper->parent_)
@@ -706,4 +715,18 @@ SCM
 Paper_book::performances () const
 {
   return performances_;
+}
+
+SCM
+Paper_book::get_scopes () const
+{
+  SCM scopes = SCM_EOL;
+  if (parent_)
+    {
+      scopes = parent_->get_scopes ();
+    }
+  if (ly_is_module (header_))
+    scopes = scm_cons (header_, scopes);
+
+  return scopes;
 }

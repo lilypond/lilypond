@@ -74,7 +74,8 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
                                                int page_number)
 {
   vsize min_p_count = min_page_count (configuration, page_number);
-  bool auto_first = from_scm<bool> (book_->paper_->c_variable ("auto-first-page-number"));
+  bool auto_first
+    = from_scm<bool> (book_->paper ()->c_variable ("auto-first-page-number"));
 
   /* If [START, END] does not contain an intermediate
      breakpoint, we may need to consider solutions that result in a bad turn.
@@ -157,7 +158,8 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       if (start > 0 && best.demerits_ < state_[start - 1].demerits_)
         continue;
 
-      int p_num = from_scm (book_->paper_->c_variable ("first-page-number"), 1);
+      int p_num
+        = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
       if (start > 0)
         {
           /* except possibly for the first page, enforce the fact that first_page_number_
@@ -299,8 +301,8 @@ Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems
 
   /* this should only actually modify first-page-number if
      auto-first-page-number was true. */
-  book_->paper_->set_variable (ly_symbol2scm ("first-page-number"),
-                               to_scm (soln[0].first_page_number_));
+  book_->paper ()->set_variable (ly_symbol2scm ("first-page-number"),
+                                 to_scm (soln[0].first_page_number_));
   return Page_breaking::make_pages (lines_per_page, systems);
 }
 

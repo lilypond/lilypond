@@ -84,10 +84,12 @@ One_line_page_breaking::solve ()
   // Alter paper-width so that it is large enough to fit every system.
   // TODO: it might be nice to allow different pages to have different widths.
   // This would need support in the backends (eg. framework-ps.scm).
-  Real right_margin = from_scm<double> (book_->paper_->c_variable ("right-margin"), 0.0);
-  Real left_margin = from_scm<double> (book_->paper_->c_variable ("left-margin"), 0.0);
+  Real right_margin
+    = from_scm<double> (book_->paper ()->c_variable ("right-margin"), 0.0);
+  Real left_margin
+    = from_scm<double> (book_->paper ()->c_variable ("left-margin"), 0.0);
   Real width = max_width + right_margin + left_margin;
-  book_->paper_->set_variable (ly_symbol2scm ("paper-width"), to_scm (width));
+  book_->paper ()->set_variable (ly_symbol2scm ("paper-width"), to_scm (width));
 
   return scm_reverse_x (all_pages, SCM_EOL);
 }

@@ -130,7 +130,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter, Paper_boo
     we need to do this first so that we can line them up
   */
 
-  Output_def *paper = pb->paper_;
+  Output_def *paper = pb->paper ();
 
   if (!paper)
     {
@@ -349,8 +349,10 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil foot, Paper
 {
 
   bool footnotes_found = false;
-  Real footnote_padding = from_scm<double> (pb->paper_->c_variable ("footnote-padding"), 0.0);
-  Real footnote_footer_padding = from_scm<double> (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
+  Real footnote_padding
+    = from_scm<double> (pb->paper ()->c_variable ("footnote-padding"), 0.0);
+  Real footnote_footer_padding = from_scm<double> (
+    pb->paper ()->c_variable ("footnote-footer-padding"), 0.0);
 
   footnotes = scm_reverse (footnotes);
 
@@ -370,7 +372,7 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil foot, Paper
 
   if (footnotes_found)
     {
-      Stencil separator = get_footnote_separator_stencil (pb->paper_);
+      Stencil separator = get_footnote_separator_stencil (pb->paper ());
       if (!separator.is_empty ())
         foot.add_at_edge (Y_AXIS, UP, separator, footnote_padding);
     }
@@ -397,7 +399,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
       Stencil foot_stencil = foot ? *foot : Stencil ();
 
-      if (pb && pb->paper_)
+      if (pb && pb->paper ())
         {
           SCM footnotes = get_footnotes_from_lines (systems);
           foot_stencil = add_footnotes_to_footer (footnotes, foot_stencil, pb);
@@ -427,9 +429,9 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
   // top of the page. Similarly for last_bottom_spacing.
   SCM top_system_spacing = SCM_EOL;
   SCM last_bottom_spacing = SCM_EOL;
-  if (pb && pb->paper_)
+  if (pb && pb->paper ())
     {
-      Output_def *paper = pb->paper_;
+      Output_def *paper = pb->paper ();
       system_system_spacing = paper->c_variable ("system-system-spacing");
       score_system_spacing = paper->c_variable ("score-system-spacing");
       markup_system_spacing = paper->c_variable ("markup-system-spacing");

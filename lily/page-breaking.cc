@@ -253,15 +253,22 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
 {
   book_ = pb;
   system_count_ = 0;
-  paper_height_ = from_scm<double> (pb->paper_->c_variable ("paper-height"), 1.0);
-  ragged_ = from_scm<bool> (pb->paper_->c_variable ("ragged-bottom"));
-  ragged_last_ = from_scm<bool> (pb->paper_->c_variable ("ragged-last-bottom"));
-  systems_per_page_ = std::max (0, from_scm (pb->paper_->c_variable ("systems-per-page"), 0));
-  max_systems_per_page_ = std::max (0, from_scm (pb->paper_->c_variable ("max-systems-per-page"), 0));
-  min_systems_per_page_ = std::max (0, from_scm (pb->paper_->c_variable ("min-systems-per-page"), 0));
-  orphan_penalty_ = from_scm (pb->paper_->c_variable ("orphan-penalty"), 100000);
+  paper_height_
+    = from_scm<double> (pb->paper ()->c_variable ("paper-height"), 1.0);
+  ragged_ = from_scm<bool> (pb->paper ()->c_variable ("ragged-bottom"));
+  ragged_last_
+    = from_scm<bool> (pb->paper ()->c_variable ("ragged-last-bottom"));
+  systems_per_page_
+    = std::max (0, from_scm (pb->paper ()->c_variable ("systems-per-page"), 0));
+  max_systems_per_page_ = std::max (
+    0, from_scm (pb->paper ()->c_variable ("max-systems-per-page"), 0));
+  min_systems_per_page_ = std::max (
+    0, from_scm (pb->paper ()->c_variable ("min-systems-per-page"), 0));
+  orphan_penalty_
+    = from_scm (pb->paper ()->c_variable ("orphan-penalty"), 100000);
 
-  Stencil footnote_separator = Page_layout_problem::get_footnote_separator_stencil (pb->paper_);
+  Stencil footnote_separator
+    = Page_layout_problem::get_footnote_separator_stencil (pb->paper ());
 
   if (!footnote_separator.is_empty ())
     {
@@ -273,11 +280,15 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
   else
     footnote_separator_stencil_height_ = 0.0;
 
-  footnote_padding_ = from_scm<double> (pb->paper_->c_variable ("footnote-padding"), 0.0);
-  in_note_padding_ = from_scm<double> (pb->paper_->c_variable ("in-note-padding"), 0.0);
-  footnote_footer_padding_ = from_scm<double> (pb->paper_->c_variable ("footnote-footer-padding"), 0.0);
+  footnote_padding_
+    = from_scm<double> (pb->paper ()->c_variable ("footnote-padding"), 0.0);
+  in_note_padding_
+    = from_scm<double> (pb->paper ()->c_variable ("in-note-padding"), 0.0);
+  footnote_footer_padding_ = from_scm<double> (
+    pb->paper ()->c_variable ("footnote-footer-padding"), 0.0);
 
-  footnote_number_raise_ = from_scm<double> (pb->paper_->c_variable ("footnote-number-raise"), 0.0);
+  footnote_number_raise_ = from_scm<double> (
+    pb->paper ()->c_variable ("footnote-number-raise"), 0.0);
 
   if (systems_per_page_ && (max_systems_per_page_ || min_systems_per_page_))
     {
@@ -480,7 +491,8 @@ Page_breaking::systems ()
 SCM
 Page_breaking::make_page (int page_num, bool last) const
 {
-  bool last_part = ly_scm2bool (book_->paper_->c_variable ("is-last-bookpart"));
+  bool last_part
+    = ly_scm2bool (book_->paper ()->c_variable ("is-last-bookpart"));
   SCM mod = scm_c_resolve_module ("lily page");
   SCM make_page_scm = scm_c_module_lookup (mod, "make-page");
 
@@ -600,7 +612,7 @@ Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
     return SCM_EOL;
 
   int first_page_number
-    = from_scm (book_->paper_->c_variable ("first-page-number"), 1);
+    = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
   bool reset_footnotes_on_new_page = from_scm<bool> (book_->top_paper ()->c_variable ("reset-footnotes-on-new-page"));
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
@@ -1022,9 +1034,10 @@ Page_breaking::cache_line_details (vsize configuration_index)
           else
             {
               assert (div[i] == 0);
-              uncompressed_line_details_.push_back (system_specs_[sys].prob_
-                                                    ? Line_details (system_specs_[sys].prob_, book_->paper_)
-                                                    : Line_details ());
+              uncompressed_line_details_.push_back (
+                system_specs_[sys].prob_
+                  ? Line_details (system_specs_[sys].prob_, book_->paper ())
+                  : Line_details ());
             }
         }
       cached_line_details_ = compress_lines (uncompressed_line_details_);
@@ -1284,7 +1297,7 @@ Page_breaking::blank_page_penalty () const
   if (Paper_score *ps = system_specs_[pos.system_spec_index_].pscore_)
     return from_scm<double> (ps->layout ()->lookup_variable (penalty_sym), 0.0);
 
-  return from_scm<double> (book_->paper_->lookup_variable (penalty_sym), 0.0);
+  return from_scm<double> (book_->paper ()->lookup_variable (penalty_sym), 0.0);
 }
 
 // If systems_per_page_ is positive, we don't really try to space on N
@@ -1333,7 +1346,8 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   m_res = finalize_spacing_result (configuration, m_res);
   n_res = finalize_spacing_result (configuration, n_res);
 
-  Real page_spacing_weight = from_scm<double> (book_->paper_->c_variable ("page-spacing-weight"), 10);
+  Real page_spacing_weight = from_scm<double> (
+    book_->paper ()->c_variable ("page-spacing-weight"), 10);
   n_res.demerits_ += penalty_for_fewer_pages * page_spacing_weight;
 
   if (n_res.force_.size ())
@@ -1480,7 +1494,8 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
   Real line_force = 0;
   Real line_penalty = 0;
   Real page_demerits = res.penalty_;
-  Real page_weighting = from_scm<double> (book_->paper_->c_variable ("page-spacing-weight"), 10);
+  Real page_weighting = from_scm<double> (
+    book_->paper ()->c_variable ("page-spacing-weight"), 10);
 
   for (vsize i = 0; i < uncompressed_line_details_.size (); i++)
     {
@@ -1687,9 +1702,9 @@ Page_breaking::last_break_position () const
 Real
 Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 {
-  SCM first_system_spacing = book_->paper_->c_variable ("top-system-spacing");
+  SCM first_system_spacing = book_->paper ()->c_variable ("top-system-spacing");
   if (line.title_)
-    first_system_spacing = book_->paper_->c_variable ("top-markup-spacing");
+    first_system_spacing = book_->paper ()->c_variable ("top-markup-spacing");
 
   Real min_distance = -infinity_f;
   Real padding = 0;
@@ -1709,7 +1724,7 @@ Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 Real
 Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
 {
-  SCM last_system_spacing = book_->paper_->c_variable ("last-bottom-spacing");
+  SCM last_system_spacing = book_->paper ()->c_variable ("last-bottom-spacing");
   Real min_distance = -infinity_f;
   Real padding = 0;
 

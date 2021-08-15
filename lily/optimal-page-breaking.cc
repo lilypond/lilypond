@@ -42,12 +42,13 @@ Optimal_page_breaking::solve ()
 {
   vsize end = last_break_position ();
   vsize max_sys_count = max_system_count (0, end);
-  int first_page_num = from_scm (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_num
+    = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
 
   set_to_ideal_line_configuration (0, end);
 
   Page_spacing_result best;
-  SCM forced_page_count = book_->paper_->c_variable ("page-count");
+  SCM forced_page_count = book_->paper ()->c_variable ("page-count");
   bool page_count_is_forced = scm_is_integer (forced_page_count);
   vsize page_count;
   Line_division ideal_line_division = current_configuration (0);

@@ -68,7 +68,7 @@ One_page_breaking::solve ()
   // TEMPORARILY SET VERY LARGE PAPER HEIGHT
   // Stencil::translate throws a programming error (for the tagline
   // position) if this is set any larger than 1e6
-  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), to_scm (1e6));
+  book_->paper ()->set_variable (ly_symbol2scm ("paper-height"), to_scm (1e6));
 
   // LINE BREAKING
   message (_ ("Calculating line breaks..."));
@@ -78,7 +78,8 @@ One_page_breaking::solve ()
 
   // PAGE BREAKING
   message (_ ("Fitting music on 1 page..."));
-  int first_page_num = from_scm (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_num
+    = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
   Page_spacing_result res = space_systems_on_n_pages (0, 1, first_page_num);
   SCM lines = systems ();
   SCM pages = make_pages (res.systems_per_page_, lines);
@@ -131,7 +132,7 @@ One_page_breaking::solve ()
     }
 
   // HANDLE LAST-BOTTOM-SPACING
-  SCM last_bottom = book_->paper_->c_variable ("last-bottom-spacing");
+  SCM last_bottom = book_->paper ()->c_variable ("last-bottom-spacing");
 
   SCM padding = read_spacing_alist (last_bottom, ly_symbol2scm ("padding"));
   lowest_bound += scm_to_double (padding);
@@ -161,13 +162,13 @@ One_page_breaking::solve ()
   auto *foot_stil = unsmob<const Stencil> (get_property (page_pb, "foot-stencil"));
   Real foot_height = foot_stil->extent (Y_AXIS).length ();
 
-  SCM top_margin = book_->paper_->c_variable ("top-margin");
-  SCM bottom_margin = book_->paper_->c_variable ("bottom-margin");
+  SCM top_margin = book_->paper ()->c_variable ("top-margin");
+  SCM bottom_margin = book_->paper ()->c_variable ("bottom-margin");
   SCM margins = scm_sum (top_margin, bottom_margin);
 
   SCM ppr_height = scm_sum (margins, to_scm (lowest_bound + foot_height));
 
-  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), ppr_height);
+  book_->paper ()->set_variable (ly_symbol2scm ("paper-height"), ppr_height);
 
   // bottom-edge determines placement of footer (tagline, footnotes, etc.)
   set_property (page_pb, "bottom-edge", scm_difference (ppr_height, bottom_margin));

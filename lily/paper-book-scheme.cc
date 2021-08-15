@@ -34,15 +34,7 @@ LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
 {
   auto *const book = LY_ASSERT_SMOB (Paper_book, pb, 1);
 
-  SCM scopes = SCM_EOL;
-  if (book->parent_)
-    {
-      scopes = ly_paper_book_scopes (book->parent_->self_scm ());
-    }
-  if (ly_is_module (book->header_))
-    scopes = scm_cons (book->header_, scopes);
-
-  return scopes;
+  return book->get_scopes ();
 }
 
 LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances",
@@ -67,7 +59,7 @@ LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
            " in @code{Paper_book} object @var{pb}.")
 {
   auto *const pbook = LY_ASSERT_SMOB (Paper_book, pb, 1);
-  return pbook->paper_->self_scm ();
+  return pbook->paper ()->self_scm ();
 }
 
 LY_DEFINE (ly_paper_book_header, "ly:paper-book-header",

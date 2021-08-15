@@ -221,8 +221,7 @@ Book::process_score (SCM score_scm, Paper_book *output_paper_book,
 {
   if (Score *score = unsmob<Score> (score_scm))
     {
-      SCM outputs = score
-                    ->book_rendering (output_paper_book->paper_, layout);
+      SCM outputs = score->book_rendering (output_paper_book->paper (), layout);
 
       while (scm_is_pair (outputs))
         {
@@ -281,17 +280,8 @@ Book::process (Output_def *default_paper,
   if (!paper)
     return 0;
 
-  Paper_book *paper_book = new Paper_book ();
-  Real scale = scm_to_double (paper->c_variable ("output-scale"));
-  Output_def *scaled_bookdef = scale_output_def (paper, scale);
-  paper_book->paper_ = scaled_bookdef;
-  if (parent_part)
-    {
-      paper_book->parent_ = parent_part;
-      paper_book->paper_->parent_ = parent_part->paper_;
-    }
+  Paper_book *paper_book = new Paper_book (paper, parent_part);
   paper_book->header_ = header_;
-  scaled_bookdef->unprotect ();
 
   if (scm_is_pair (bookparts_))
     {
@@ -300,7 +290,7 @@ Book::process (Output_def *default_paper,
     }
   else
     {
-      paper_book->paper_->normalize ();
+      paper_book->paper ()->normalize ();
       /* Process scores */
       /* Render in order of parsing.  */
       for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
