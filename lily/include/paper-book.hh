@@ -35,7 +35,12 @@ public:
 private:
   SCM systems_;
   SCM pages_;
+
   SCM performances_;
+  SCM *performances_tail_;
+  SCM print_elements_;
+  SCM *print_elements_tail_;
+  bool print_bookparts_;
 
   void add_score_title (SCM);
   SCM get_score_title (SCM);
@@ -44,9 +49,6 @@ public:
   SCM header_;
   SCM header_0_;
 
-  SCM print_elements_;
-  bool print_bookparts_;
-  
   Paper_book *parent_;
   Output_def *paper_;
 

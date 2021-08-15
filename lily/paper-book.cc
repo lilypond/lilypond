@@ -42,7 +42,9 @@ Paper_book::Paper_book ()
   header_0_ = SCM_EOL;
   pages_ = SCM_BOOL_F;
   performances_ = SCM_EOL;
+  performances_tail_ = &performances_;
   print_elements_ = SCM_EOL;
+  print_elements_tail_ = &print_elements_;
   print_bookparts_ = false;
   systems_ = SCM_BOOL_F;
 
@@ -92,23 +94,30 @@ dump_fields ()
   return fields;
 }
 
+static void
+append_scm_list (SCM **tail_ptr, SCM s)
+{
+  **tail_ptr = scm_cons (s, SCM_EOL);
+  *tail_ptr = SCM_CDRLOC (**tail_ptr);
+}
+
 void
 Paper_book::add_score (SCM s)
 {
-  print_elements_ = scm_cons (s, print_elements_);
+  append_scm_list (&print_elements_tail_, s);
 }
 
 void
 Paper_book::add_bookpart (SCM p)
 {
   print_bookparts_ = true;
-  print_elements_ = scm_cons (p, print_elements_);
+  append_scm_list (&print_elements_tail_, p);
 }
 
 void
 Paper_book::add_performance (SCM s)
 {
-  performances_ = scm_cons (s, performances_);
+  append_scm_list (&performances_tail_, s);
 }
 
 long
@@ -432,6 +441,8 @@ SCM
 Paper_book::get_system_specs ()
 {
   SCM system_specs = SCM_EOL;
+  SCM last_system_spec = SCM_BOOL_F;
+  SCM *system_specs_tail = &system_specs;
 
   Stencil title = book_title ();
   if (!title.is_empty ())
@@ -441,7 +452,8 @@ Paper_book::get_system_specs ()
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
 
-      system_specs = scm_cons (ps->self_scm (), system_specs);
+      append_scm_list (&system_specs_tail, ps->self_scm ());
+      last_system_spec = ps->self_scm ();
       ps->unprotect ();
     }
 
@@ -450,8 +462,9 @@ Paper_book::get_system_specs ()
 
   SCM header = SCM_EOL;
   SCM labels = SCM_EOL;
-  for (SCM s = scm_reverse (print_elements_); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = print_elements_; scm_is_pair (s); s = scm_cdr (s))
     {
+      // in order iteration.
       SCM elem = scm_car (s);
       if (ly_is_module (elem))
         {
@@ -466,8 +479,8 @@ Paper_book::get_system_specs ()
           if (scm_is_symbol (page_marker->permission_symbol ()))
             {
               /* set previous element page break or turn permission */
-              if (scm_is_pair (system_specs))
-                set_page_permission (scm_car (system_specs),
+              if (scm_is_true (last_system_spec))
+                set_page_permission (last_system_spec,
                                      page_marker->permission_symbol (),
                                      page_marker->permission_value ());
             }
@@ -483,20 +496,23 @@ Paper_book::get_system_specs ()
             {
               SCM title = get_score_title (header);
 
-              if (scm_is_pair (system_specs))
-                set_system_penalty (scm_car (system_specs), header);
+              if (scm_is_true (last_system_spec))
+                // update prev system-spec
+                set_system_penalty (last_system_spec, header);
 
               if (unsmob<Prob> (title))
                 {
-                  system_specs = scm_cons (title, system_specs);
+                  append_scm_list (&system_specs_tail, title);
+                  last_system_spec = title;
                   unsmob<Prob> (title)->unprotect ();
                 }
 
               header = SCM_EOL;
-              system_specs = scm_cons (pscore->self_scm (), system_specs);
+              append_scm_list (&system_specs_tail, pscore->self_scm ());
+              last_system_spec = pscore->self_scm ();
               if (scm_is_pair (labels))
                 {
-                  set_labels (scm_car (system_specs), labels);
+                  set_labels (pscore->self_scm (), labels);
                   labels = SCM_EOL;
                 }
             }
@@ -545,12 +561,13 @@ Paper_book::get_system_specs ()
                   //Place closely to previous line, no stretching.
                   set_property (ps, "tight-spacing", SCM_BOOL_T);
                 }
-              system_specs = scm_cons (ps->self_scm (), system_specs);
+              append_scm_list (&system_specs_tail, ps->self_scm ());
+              last_system_spec = ps->self_scm ();
               ps->unprotect ();
 
               if (scm_is_pair (labels))
                 {
-                  set_labels (scm_car (system_specs), labels);
+                  set_labels (ps->self_scm (), labels);
                   labels = SCM_EOL;
                 }
               // FIXME: figure out penalty.
@@ -569,7 +586,6 @@ Paper_book::get_system_specs ()
         assert (0);
     }
 
-  system_specs = scm_reverse_x (system_specs, SCM_EOL);
   return system_specs;
 }
 
@@ -580,13 +596,14 @@ Paper_book::systems ()
     return systems_;
 
   systems_ = SCM_EOL;
+  SCM *systems_tail = &systems_;
   if (print_bookparts_)
     {
-      SCM system_list = SCM_EOL;
       for (SCM p = print_elements_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob<Paper_book> (scm_car (p)))
-          system_list = scm_cons (pbookpart->systems (), system_list);
-      systems_ = scm_append (scm_reverse_x (system_list, SCM_EOL));
+          for (SCM sys = pbookpart->systems (); scm_is_pair (sys);
+               sys = scm_cdr (sys))
+            append_scm_list (&systems_tail, scm_car (sys));
     }
   else
     {
@@ -596,17 +613,15 @@ Paper_book::systems ()
           if (Paper_score * pscore
               = unsmob<Paper_score> (scm_car (s)))
             {
-              SCM system_list
-                = scm_vector_to_list (pscore->get_paper_systems ());
-
-              systems_ = scm_reverse_x (system_list, systems_);
+              for (SCM t = scm_vector_to_list (pscore->get_paper_systems ());
+                   scm_is_pair (t); t = scm_cdr (t))
+                append_scm_list (&systems_tail, scm_car (t));
             }
           else
             {
-              systems_ = scm_cons (scm_car (s), systems_);
+              append_scm_list (&systems_tail, scm_car (s));
             }
         }
-      systems_ = scm_reverse_x (systems_, SCM_EOL);
 
       /* backwards compatibility for the old page breaker */
       int i = 0;
@@ -644,12 +659,14 @@ Paper_book::pages ()
     return pages_;
 
   pages_ = SCM_EOL;
+  SCM *pages_tail = &pages_;
   if (print_bookparts_)
     {
       for (SCM p = print_elements_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob<Paper_book> (scm_car (p)))
-          pages_ = scm_cons (pbookpart->pages (), pages_);
-      pages_ = scm_append (scm_reverse_x (pages_, SCM_EOL));
+          for (SCM pg = pbookpart->pages (); scm_is_pair (pg);
+               pg = scm_cdr (pg))
+            append_scm_list (&pages_tail, scm_car (pg));
     }
   else if (scm_is_pair (print_elements_))
     {
@@ -672,13 +689,14 @@ Paper_book::pages ()
       if (scm_is_false (systems_))
         {
           systems_ = SCM_EOL;
+          SCM *systems_tail = &systems_;
           for (SCM p = pages_; scm_is_pair (p); p = scm_cdr (p))
             {
               Prob *page = unsmob<Prob> (scm_car (p));
-              SCM systems = get_property (page, "lines");
-              systems_ = scm_cons (systems, systems_);
+              for (SCM sys = get_property (page, "lines"); scm_is_pair (sys);
+                   sys = scm_cdr (sys))
+                append_scm_list (&systems_tail, scm_car (sys));
             }
-          systems_ = scm_append (scm_reverse_x (systems_, SCM_EOL));
         }
     }
   return pages_;
@@ -687,5 +705,5 @@ Paper_book::pages ()
 SCM
 Paper_book::performances () const
 {
-  return scm_reverse (performances_);
+  return performances_;
 }
