@@ -197,6 +197,8 @@
         (annotation-line . #t)
         (break-visibility . ,(sticky-grob-interface::inherit-property
                                'break-visibility))
+        (cross-staff . ,(sticky-grob-interface::inherit-property
+                          'cross-staff))
         (extra-spacing-width . (+inf.0 . -inf.0))
         (stencil . ,ly:balloon-interface::print)
         (text . ,(grob::calc-property-by-copy 'text))
