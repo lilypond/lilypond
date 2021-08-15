@@ -28,7 +28,6 @@
 #include "lily-imports.hh"
 #include "lily-version.hh"
 #include "output-def.hh"
-#include "paper-book.hh"
 #include "paper-system.hh"
 #include "scm-hash.hh"
 #include "stencil-interpret.hh"

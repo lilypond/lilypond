@@ -24,7 +24,6 @@
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
 #include "overlay-string-port.hh"
-#include "paper-book.hh"
 #include "source-file.hh"
 
 #include <cstdio>

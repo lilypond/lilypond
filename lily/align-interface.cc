@@ -24,7 +24,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "page-layout-problem.hh"
-#include "paper-book.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"

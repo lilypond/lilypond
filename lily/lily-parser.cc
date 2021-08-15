@@ -28,7 +28,6 @@
 #include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
-#include "paper-book.hh"
 #include "parser.hh"
 #include "score.hh"
 #include "source-file.hh"

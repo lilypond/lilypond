@@ -24,7 +24,6 @@
 #include "international.hh"
 #include "misc.hh"
 #include "output-def.hh"
-#include "paper-book.hh"
 #include "paper-column.hh"
 #include "scm-hash.hh"
 #include "score.hh"

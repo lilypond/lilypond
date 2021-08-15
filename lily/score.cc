@@ -29,7 +29,6 @@
 #include "ly-module.hh"
 #include "music.hh"
 #include "output-def.hh"
-#include "paper-book.hh"
 #include "paper-score.hh"
 #include "warn.hh"
 

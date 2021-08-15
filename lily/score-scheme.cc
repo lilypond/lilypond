@@ -23,8 +23,6 @@
 #include "output-def.hh"
 #include "global-context.hh"
 #include "music-output.hh"
-#include "paper-score.hh"
-#include "paper-book.hh"
 
 LY_DEFINE (ly_make_score, "ly:make-score",
            1, 0, 0,
