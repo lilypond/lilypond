@@ -249,8 +249,12 @@ Page_turn_engraver::stop_translation_timestep ()
     {
       Rational now = now_mom ().main_part_;
       Real pen = penalty ((now_mom () - rest_begin_).main_part_ + repeat_begin_rest_length_);
-      Moment *m = unsmob<Moment> (get_property (this, "minimumRepeatLengthForPageTurn"));
-      if (m && *m > (now_mom () - repeat_begin_))
+
+      const auto minimumRepeatLengthForPageTurn
+        = robust_scm2moment (get_property (this,
+                                           "minimumRepeatLengthForPageTurn"),
+                             -Moment::infinity ());
+      if (minimumRepeatLengthForPageTurn > (now_mom () - repeat_begin_))
         pen = infinity_f;
 
       if (pen == infinity_f)
