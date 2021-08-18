@@ -21,11 +21,6 @@
 
 #include "audio-item.hh"
 
-Audio_column::Audio_column (Moment when)
-{
-  when_ = when;
-}
-
 void
 Audio_column::add_audio_item (Audio_item *l)
 {
@@ -33,21 +28,8 @@ Audio_column::add_audio_item (Audio_item *l)
   l->audio_column_ = this;
 }
 
-Moment
-Audio_column::when () const
-{
-  return when_;
-}
-
 int
 Audio_column::ticks () const
 {
   return moment_to_ticks (when_);
 }
-
-void
-Audio_column::offset_when (Moment m)
-{
-  when_ += m;
-}
-

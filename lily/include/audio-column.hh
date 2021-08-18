@@ -33,16 +33,16 @@
 class Audio_column : public Audio_element
 {
 public:
-  Audio_column (Moment when);
+  Audio_column (Moment when) : when_ (when) {}
 
   void add_audio_item (Audio_item *i);
-  Moment when () const;
+  Moment when () const { return when_; }
 
   std::vector<Audio_item *> audio_items_;
   Moment when_;
   int ticks () const;
 protected:
-  void offset_when (Moment m);
+  void offset_when (Moment d) { when_ += d; }
   friend class Score_performer;
 
 };
