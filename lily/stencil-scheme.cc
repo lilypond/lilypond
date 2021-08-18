@@ -399,7 +399,7 @@ LY_DEFINE (ly_set_color_names, "ly:set-color-names", 1, 0, 0, (SCM alist),
                                   1, scm_cdr (entry), "list of 3 or 4 numbers");
         }
 
-      named_colors[ly_scm2string (name)] = color;
+      named_colors[String_convert::to_lower (ly_scm2string (name))] = color;
     }
 
   return SCM_UNSPECIFIED;
@@ -467,7 +467,7 @@ Stencil::in_color (std::string const &name) const
         }
     }
   else
-    c = named_colors[name];
+    c = named_colors[String_convert::to_lower (name)];
 
   return in_color (c.rgba_[0], c.rgba_[1], c.rgba_[2], c.rgba_[3]);
 }

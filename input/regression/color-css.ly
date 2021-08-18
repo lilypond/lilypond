@@ -22,8 +22,9 @@ darkgreen = "#080"
 \relative {
   %% color codes may be passed as a variable.
   \override Accidental.color = \darkgreen
-  %% CSS predefined color names may be used.
-  \override Beam.color = "aqua"
+  %% CSS predefined color names may be used. Names are
+  %% case-insensitive
+  \override Beam.color = "aqUA"
   %% rgb-color lists are supported, and may
   %% include an alpha channel.
   \override NoteHead.color = #(rgb-color 0.5 0.5 0 1)
