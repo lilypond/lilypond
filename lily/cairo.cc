@@ -52,6 +52,8 @@
 #include <cairo.h>
 #include <glib.h>
 
+#include <png.h>
+
 #include <algorithm>
 #include <functional>
 #include <string>
@@ -64,6 +66,7 @@ enum Cairo_output_format
   UNKNOWN = 0,
   PDF,
   SVG,
+  PNG,
   PS,
 };
 
@@ -71,6 +74,7 @@ static std::unordered_map<std::string, Cairo_output_format> output_formats = {
   {"svg", SVG},
   {"pdf", PDF},
   {"ps", PS},
+  {"png", PNG},
 };
 
 std::string
@@ -125,16 +129,21 @@ class Cairo_outputter : public Stencil_sink
   cairo_t *context_ = nullptr;
 
   std::string outfile_basename_;
+  std::string filename_;
 
   SCM point_and_click_;
   int current_page_number_; // starts at 1
   int page_count_;
 
+  // png specific data
+  unsigned int png_height_;
+  unsigned int png_width_;
+
   SCM output (SCM scm) override;
   void check_errors ();
+  void png_write ();
 
   // drawing routines:
-
   void show_named_glyph (SCM scaledname, SCM glyphname);
   void print_glyphs (SCM size, SCM glyphs, SCM filename, SCM index);
   void path (SCM thickness, SCM exps, SCM cap, SCM join, SCM filled);
@@ -207,6 +216,37 @@ Cairo_outputter::check_errors ()
         warning (
           _f ("Cairo surface status '%s'", cairo_status_to_string (status)));
     }
+}
+
+void
+png_error (png_structp, png_const_charp err_msg)
+{
+  if (err_msg)
+    error (_f ("libpng error: '%s'", err_msg));
+  else
+    error (_f ("libpng error, no details given."));
+}
+
+void
+Cairo_outputter::png_write ()
+{
+  unsigned char *data = cairo_image_surface_get_data (surface_);
+  png_structp png = png_create_write_struct (PNG_LIBPNG_VER_STRING, nullptr,
+                                             png_error, png_error);
+  if (!png)
+    error ("png_create_write_struct() failed");
+
+  png_image image = {};
+  image.version = PNG_IMAGE_VERSION;
+  image.width = png_width_;
+  image.height = png_height_;
+  image.format = PNG_FORMAT_RGBA;
+
+  if (!png_image_write_to_file (&image, filename_.c_str (), 0, data, 0, NULL))
+    {
+      error (_f ("error writing %s", filename_.c_str ()));
+    }
+  png_destroy_write_struct (&png, NULL);
 }
 
 cairo_font_face_t *
@@ -484,9 +524,11 @@ Cairo_outputter::finish_page ()
 {
   cairo_show_page (context_);
   check_errors ();
-  if (format_ == SVG)
+  if (format_ == PNG || format_ == SVG)
     {
       cairo_surface_flush (surface_);
+      if (format_ == PNG)
+        png_write ();
       cairo_surface_finish (surface_);
       check_errors ();
       cairo_surface_destroy (surface_);
@@ -499,27 +541,34 @@ Cairo_outputter::finish_page ()
 void
 Cairo_outputter::create_surface ()
 {
-  std::string filename = outfile_basename_;
-  if (format_ == SVG)
-    filename += "-" + std::to_string (current_page_number_);
-  filename += "." + format_name (format_);
+  filename_ = outfile_basename_;
+  if (format_ == SVG || format_ == PNG)
+    filename_ += "-" + std::to_string (current_page_number_);
+  filename_ += "." + format_name (format_);
 
-  message (_f ("Output to `%s'...\n", filename.c_str ()));
+  message (_f ("Output to `%s'...\n", filename_.c_str ()));
 
   switch (format_)
     {
     case SVG:
-      surface_ = cairo_svg_surface_create (filename.c_str (), paper_width_,
+      surface_ = cairo_svg_surface_create (filename_.c_str (), paper_width_,
                                            paper_height_);
       context_ = cairo_create (surface_);
       break;
     case PDF:
-      surface_ = cairo_pdf_surface_create (filename.c_str (), paper_width_,
+      surface_ = cairo_pdf_surface_create (filename_.c_str (), paper_width_,
                                            paper_height_);
       context_ = cairo_create (surface_);
       break;
+    case PNG:
+      surface_ = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, png_width_,
+                                             png_height_);
+      context_ = cairo_create (surface_);
+      cairo_scale (context_, png_height_ / paper_height_,
+                   png_width_ / paper_width_);
+      break;
     case PS:
-      surface_ = cairo_ps_surface_create (filename.c_str (), paper_width_,
+      surface_ = cairo_ps_surface_create (filename_.c_str (), paper_width_,
                                           paper_height_);
       context_ = cairo_create (surface_);
       break;
@@ -535,7 +584,7 @@ Cairo_outputter::showpage ()
 {
   finish_page ();
   current_page_number_++;
-  if (format_ == SVG && current_page_number_ <= page_count_)
+  if ((format_ == SVG || format_ == PNG) && current_page_number_ <= page_count_)
     {
       create_surface ();
     }
@@ -1000,6 +1049,10 @@ Cairo_outputter::Cairo_outputter (Cairo_output_format format,
   paper_width_ = w;
   paper_height_ = h;
   scale_factor_ = scale / bigpoint_constant;
+
+  int png_dpi = from_scm<int> (ly_get_option (ly_symbol2scm ("resolution")));
+  png_height_ = (int) round (paper_height_ / 72.0 * png_dpi);
+  png_width_ = (int) round (paper_width_ / 72.0 * png_dpi);
 }
 
 void

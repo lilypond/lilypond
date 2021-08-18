@@ -870,6 +870,19 @@ AC_DEFUN(STEPMAKE_CAIRO, [
     fi
 ])
 
+AC_DEFUN(STEPMAKE_LIBPNG, [
+    PKG_CHECK_MODULES(LIBPNG, $1 >= $3, have_libpng=yes, true)
+    if test "$have_libpng" = yes; then
+        AC_DEFINE(HAVE_LIBPNG)
+        AC_SUBST(LIBPNG_CFLAGS)
+        AC_SUBST(LIBPNG_LIBS)
+    else
+        r="libpng-devel"
+        ver="`$PKG_CONFIG --modversion $1`"
+        STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    fi
+])
+
 AC_DEFUN(STEPMAKE_FREETYPE2, [
     PKG_CHECK_MODULES(FREETYPE2, $1 >= $3, have_freetype2=yes, true)
     if test "$have_freetype2" = yes; then
