@@ -448,8 +448,7 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
       || !Paper_column::is_used (next))
     return false;
 
-  Moment dt
-    = Paper_column::when_mom (next) - Paper_column::when_mom (col);
+  const auto dt = Paper_column::when_mom (next) - Paper_column::when_mom (col);
 
   Moment *len = unsmob<Moment> (get_property (left, "measure-length"));
   if (!len)
@@ -483,7 +482,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
       && fills_measure (me, l, r))
     full_measure_space = from_scm<double> (get_property (l, "full-measure-extra-space"), 1.0);
 
-  Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
+  const auto dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
 
   if (dt == Moment (0, 0))
     {

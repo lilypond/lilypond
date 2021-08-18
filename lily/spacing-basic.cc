@@ -63,7 +63,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
       return spring;
     }
 
-  Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
+  const auto dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
   Real ideal;
 
   if (dt == Moment (0, 0))
@@ -80,7 +80,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
   return Spring (ideal, min_dist);
 }
 
-static Moment *
+static Moment
 get_measure_length (Paper_column *column)
 {
   Grob *sys = column->get_x_parent ();
@@ -91,14 +91,15 @@ get_measure_length (Paper_column *column)
 
   do
     {
-      if (Moment *len = unsmob<Moment> (get_property (cols[col_idx], "measure-length")))
+      if (auto *len = unsmob<Moment> (get_property (cols[col_idx],
+                                                    "measure-length")))
         {
-          return len;
+          return *len;
         }
     }
   while (col_idx-- != 0);
 
-  return 0;
+  return Moment::infinity ();
 }
 
 /* Basic spring based on duration alone */
@@ -108,22 +109,18 @@ Spacing_spanner::note_spacing (Grob * /* me */,
                                Paper_column *rc,
                                Spacing_options const *options)
 {
-  Moment shortest_playing_len = 0;
-  SCM s = get_property (lc, "shortest-playing-duration");
-
-  if (unsmob<Moment> (s))
-    shortest_playing_len = *unsmob<Moment> (s);
-
-  if (! shortest_playing_len)
+  auto shortest_playing_len
+    = robust_scm2moment (get_property (lc, "shortest-playing-duration"), 0);
+  if (shortest_playing_len < 0)
     {
       programming_error ("cannot find a ruling note at: " + Paper_column::when_mom (lc).to_string ());
       shortest_playing_len = 1;
     }
 
-  Moment lwhen = Paper_column::when_mom (lc);
-  Moment rwhen = Paper_column::when_mom (rc);
+  const auto &lwhen = Paper_column::when_mom (lc);
+  const auto &rwhen = Paper_column::when_mom (rc);
 
-  Moment delta_t = rwhen - lwhen;
+  auto delta_t = rwhen - lwhen;
 
   /*
     when toying with mmrests, it is possible to have musical
@@ -134,16 +131,16 @@ Spacing_spanner::note_spacing (Grob * /* me */,
     property in paper-column.
   */
 
-  if (Moment *measure_len = get_measure_length (lc))
-    {
-      delta_t = std::min (delta_t, *measure_len);
+  {
+    const auto mlen = get_measure_length (lc);
+    delta_t = std::min (delta_t, mlen);
 
-      /*
-        The following is an extra safety measure, such that
-        the length of a mmrest event doesn't cause havoc.
-      */
-      shortest_playing_len = std::min (shortest_playing_len, *measure_len);
-    }
+    /*
+      The following is an extra safety measure, such that
+      the length of a mmrest event doesn't cause havoc.
+    */
+    shortest_playing_len = std::min (shortest_playing_len, mlen);
+  }
 
   Spring ret;
   if (delta_t.main_part_ && !lwhen.grace_part_)
