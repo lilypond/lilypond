@@ -58,7 +58,7 @@ Rest_collision_engraver::process_acknowledged ()
 {
   vsize rest_count = 0;
   set<Grob *> columns;
-  Moment now = now_mom ();
+  auto now = now_mom ();
 
   for (SCM s = get_property (this, "busyGrobs"); scm_is_pair (s); s = scm_cdr (s))
     {

@@ -37,7 +37,7 @@ Grid_point_engraver::process_music ()
   SCM grid_interval = get_property (this, "gridInterval");
   if (Moment *mom = unsmob<Moment> (grid_interval))
     {
-      Moment now = now_mom ();
+      auto now = now_mom ();
 
       if (!now.main_part_.mod_rat (mom->main_part_))
         make_item ("GridPoint", SCM_EOL);

@@ -86,8 +86,8 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
   if (ev
       && !gi.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
     {
-      Moment n = now_mom ();
-      Moment l = get_event_length (ev, n);
+      auto n = now_mom ();
+      auto l = get_event_length (ev, n);
 
       if (!l)
         return;
@@ -126,7 +126,7 @@ Grob_pq_engraver::process_acknowledged ()
 void
 Grob_pq_engraver::stop_translation_timestep ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
   SCM start_busy = get_property (this, "busyGrobs");
   SCM busy = start_busy;
   while (scm_is_pair (busy) && *unsmob<Moment> (scm_caar (busy)) == now)
@@ -137,7 +137,7 @@ Grob_pq_engraver::stop_translation_timestep ()
 void
 Grob_pq_engraver::start_translation_timestep ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
 
   SCM start_busy = get_property (this, "busyGrobs");
   SCM busy = start_busy;

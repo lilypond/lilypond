@@ -96,8 +96,8 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
   note_events_.push_back (ev);
 
   is_first_ = true;
-  Moment now = now_mom ();
-  Moment musiclen = get_event_length (ev, now);
+  auto now = now_mom ();
+  auto musiclen = get_event_length (ev, now);
 
   note_end_mom_ = std::max (note_end_mom_, (now + musiclen));
   do_nothing_until_ = 0;
@@ -311,7 +311,7 @@ Completion_heads_engraver::stop_translation_timestep ()
 void
 Completion_heads_engraver::start_translation_timestep ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
   if (note_end_mom_.main_part_ <= now.main_part_)
     {
       note_events_.clear ();

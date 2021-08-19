@@ -186,7 +186,7 @@ Spacing_engraver::add_starter_duration (Grob_info i)
       Stream_event *r = i.event_cause ();
       if (r && r->in_event_class ("rhythmic-event"))
         {
-          Moment len = get_event_length (r, now_);
+          auto len = get_event_length (r, now_);
           Rhythmic_tuple t (i, now_mom () + len);
           now_durations_.push_back (t);
         }
@@ -221,7 +221,7 @@ Spacing_engraver::stop_translation_timestep ()
       Stream_event *ev = playing_durations_[i].info_.event_cause ();
       if (ev)
         {
-          Moment m = get_event_length (ev);
+          auto m = get_event_length (ev);
           shortest_playing = std::min (shortest_playing, m);
         }
     }
@@ -229,7 +229,7 @@ Spacing_engraver::stop_translation_timestep ()
 
   for (vsize i = 0; i < now_durations_.size (); i++)
     {
-      Moment m = get_event_length (now_durations_[i].info_.event_cause ());
+      auto m = get_event_length (now_durations_[i].info_.event_cause ());
       if (m)
         {
           starter = std::min (starter, m);

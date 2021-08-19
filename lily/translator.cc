@@ -262,7 +262,7 @@ get_event_length (Stream_event *e)
 Moment
 get_event_length (Stream_event *e, Moment now)
 {
-  Moment len = get_event_length (e);
+  auto len = get_event_length (e);
 
   if (now.grace_part_)
     {

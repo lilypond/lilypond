@@ -90,7 +90,7 @@ public:
 bool
 Beam_engraver::valid_start_point ()
 {
-  Moment n = now_mom ();
+  auto n = now_mom ();
 
   return n.grace_part_ == Rational (0);
 }
@@ -268,7 +268,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   if (!beam_)
     return;
 
-  Moment now = now_mom ();
+  auto now = now_mom ();
   if (!valid_start_point ())
     return;
 
@@ -364,7 +364,7 @@ Grace_beam_engraver::Grace_beam_engraver (Context *c)
 bool
 Grace_beam_engraver::valid_start_point ()
 {
-  Moment n = now_mom ();
+  auto n = now_mom ();
 
   return n.grace_part_ != Rational (0);
 }

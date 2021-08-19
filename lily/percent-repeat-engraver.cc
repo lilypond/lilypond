@@ -110,7 +110,7 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
 {
   if (!percent_event_)
     {
-      Moment body_length = get_event_length (ev);
+      auto body_length = get_event_length (ev);
       start_mom_ = now_mom ();
       stop_mom_ = now_mom () + body_length;
       find_global_context ()->add_moment_to_process (stop_mom_);

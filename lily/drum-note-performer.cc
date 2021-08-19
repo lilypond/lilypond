@@ -65,7 +65,7 @@ Drum_note_performer::process_music ()
         {
           SCM articulations = get_property (n, "articulations");
           Stream_event *tie_event = 0;
-          Moment len = get_event_length (n, now_mom ());
+          auto len = get_event_length (n, now_mom ());
           int velocity = 0;
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {

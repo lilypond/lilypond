@@ -90,7 +90,7 @@ Grace_engraver::process_music ()
 void
 Grace_engraver::consider_change_grace_settings ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
 
   if (!now.grace_part_)
     {

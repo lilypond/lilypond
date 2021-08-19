@@ -46,7 +46,7 @@ Forbid_line_break_engraver::start_translation_timestep ()
   */
   SCM busy = get_property (this, "busyGrobs");
 
-  Moment now = now_mom ();
+  auto now = now_mom ();
   while (scm_is_pair (busy) && unsmob<Moment> (scm_caar (busy))->main_part_ == now.main_part_)
     busy = scm_cdr (busy);
 

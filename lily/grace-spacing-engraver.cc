@@ -47,7 +47,7 @@ Grace_spacing_engraver::Grace_spacing_engraver (Context *c)
 void
 Grace_spacing_engraver::process_music ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
   if (!last_moment_.grace_part_ and now.grace_part_)
     {
       grace_spacing_ = make_spanner ("GraceSpacing", SCM_EOL);

@@ -114,7 +114,7 @@ Timing_translator::stop_translation_timestep ()
       && !from_scm<bool> (get_property (this, "skipBars")))
     {
       auto barleft = Moment (measure_length ()) - measure_position (context ());
-      Moment now = now_mom ();
+      auto now = now_mom ();
 
       if (barleft > Moment (0))
         {

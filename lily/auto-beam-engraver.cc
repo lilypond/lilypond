@@ -114,7 +114,7 @@ Auto_beam_engraver::derived_mark () const
 void
 Auto_beam_engraver::process_music ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
   /*
     don't beam over skips
   */
@@ -365,7 +365,7 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
   /*
     ignore interspersed grace notes.
   */
-  Moment now = now_mom ();
+  auto now = now_mom ();
   if (!is_same_grace_state (beam_start_location_, now))
     return;
 
@@ -493,7 +493,7 @@ Auto_beam_engraver::process_acknowledged ()
       current_stem_ = nullptr;
     }
 
-  Moment now = now_mom ();
+  auto now = now_mom ();
   if (extend_mom_ > now)
     return;
 
@@ -582,7 +582,7 @@ Grace_auto_beam_engraver::is_same_grace_state (Moment, Moment)
 void
 Grace_auto_beam_engraver::process_music ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
   // Update last_grace_start_ and last_grace_position_ only when the
   // main time advances.
   if (now.main_part_ > last_grace_start_.main_part_)

@@ -240,7 +240,7 @@ Tie_engraver::start_translation_timestep ()
 {
   if (heads_to_tie_.size () && !from_scm<bool> (get_property (this, "tieWaitForNote")))
     {
-      Moment now = now_mom ();
+      auto now = now_mom ();
       for (vsize i = heads_to_tie_.size (); i--;)
         {
           if (now > heads_to_tie_[i].end_moment_)
@@ -323,7 +323,7 @@ Tie_engraver::process_acknowledged ()
                                          ? tie_event->self_scm ()
                                          : tie_stream_event->self_scm ());
 
-          Moment end = now_mom ();
+          auto end = now_mom ();
           if (end.grace_part_)
             {
               end.grace_part_ += get_event_length (left_ev).main_part_;

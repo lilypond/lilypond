@@ -121,7 +121,7 @@ Tuplet_engraver::process_music ()
   /*
     This may happen if the end of a tuplet is part of a quoted voice.
    */
-  Moment now = now_mom ();
+  auto now = now_mom ();
   for (vsize i = tuplets_.size (); i--;)
     {
       if (tuplets_[i].stop_moment_ == now)

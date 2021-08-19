@@ -62,7 +62,7 @@ Measure_grouping_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
 void
 Measure_grouping_engraver::process_music ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
   if (grouping_ && now.main_part_ >= stop_grouping_mom_ && !now.grace_part_)
     {
       auto *col = unsmob<Grob> (get_property (this, "currentMusicalColumn"));

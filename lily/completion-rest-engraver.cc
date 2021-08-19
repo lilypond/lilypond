@@ -92,8 +92,8 @@ Completion_rest_engraver::listen_rest (Stream_event *ev)
   rest_events_.push_back (ev);
 
   is_first_ = true;
-  Moment now = now_mom ();
-  Moment musiclen = get_event_length (ev, now);
+  auto now = now_mom ();
+  auto musiclen = get_event_length (ev, now);
 
   rest_end_mom_ = std::max (rest_end_mom_, (now + musiclen));
   do_nothing_until_ = 0;
@@ -270,7 +270,7 @@ Completion_rest_engraver::stop_translation_timestep ()
 void
 Completion_rest_engraver::start_translation_timestep ()
 {
-  Moment now = now_mom ();
+  auto now = now_mom ();
   if (rest_end_mom_.main_part_ <= now.main_part_)
     {
       rest_events_.clear ();
