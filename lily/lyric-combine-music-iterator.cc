@@ -310,7 +310,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
           || (busy_moment_ >= pending_grace_moment_))
       && lyric_iter_->ok ())
     {
-      Moment now = music_context_->now_mom ();
+      const auto now = music_context_->now_mom ();
       if (now.grace_part_ && !from_scm<bool> (get_property (lyrics_context_, "includeGraceNotes")))
         {
           pending_grace_moment_ = now;
@@ -322,7 +322,7 @@ Lyric_combine_music_iterator::process (Moment /* when */)
           pending_grace_moment_.main_part_ = Rational::infinity ();
         }
 
-      Moment m = lyric_iter_->pending_moment ();
+      const auto m = lyric_iter_->pending_moment ();
       set_property (lyrics_context_, ly_symbol2scm ("associatedVoiceContext"),
                     music_context_->self_scm ());
       lyric_iter_->process (m);

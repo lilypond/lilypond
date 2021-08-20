@@ -108,8 +108,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
               && ly_is_equal (get_property (right_mus, "pitch"),
                               get_property (left_mus, "pitch")))
             {
-              // (*it).moment_ already stores the end of the tied note!
-              Moment skip = now_mom () - (*it).end_moment_;
+              // it->moment_ already stores the end of the tied note!
+              const auto skip = now_mom () - it->end_moment_;
               an->tie_to (th, skip);
               heads_to_tie_.erase (it);
               return;
@@ -131,8 +131,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
           if (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
               && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
             {
-              // (*it).moment_ already stores the end of the tied note!
-              Moment skip = now_mom () - (*it).end_moment_;
+              // it->moment_ already stores the end of the tied note!
+              const auto skip = now_mom () - it->end_moment_;
               an->tie_to (th, skip);
               heads_to_tie_.erase (it);
               return;

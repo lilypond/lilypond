@@ -85,7 +85,7 @@ Tuplet_iterator::create_event (Direction d)
 Moment
 Tuplet_iterator::pending_moment () const
 {
-  Moment next_mom = Music_wrapper_iterator::pending_moment ();
+  auto next_mom = Music_wrapper_iterator::pending_moment ();
   if (next_mom < Moment::infinity ())
     {
       next_mom = std::min (next_mom, next_split_mom_);

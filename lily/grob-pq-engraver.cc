@@ -86,19 +86,10 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
   if (ev
       && !gi.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
     {
-      auto n = now_mom ();
-      auto l = get_event_length (ev, n);
-
-      if (!l)
-        return;
-
-      Moment end = n + l;
-
-      Grob_pq_entry e;
-      e.grob_ = gi.grob ();
-      e.end_ = end;
-
-      started_now_.push_back (e);
+      const auto now = now_mom ();
+      const auto len = get_event_length (ev, now);
+      if (len)
+        started_now_.emplace_back (Grob_pq_entry {gi.grob (), now + len});
     }
 }
 

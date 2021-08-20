@@ -113,13 +113,13 @@ Timing_translator::stop_translation_timestep ()
   if (from_scm<bool> (get_property (this, "timing"))
       && !from_scm<bool> (get_property (this, "skipBars")))
     {
-      auto barleft = Moment (measure_length ()) - measure_position (context ());
-      auto now = now_mom ();
+      const auto barleft = Moment (measure_length ())
+                           - measure_position (context ());
 
       if (barleft > Moment (0))
         {
-          Moment nextmom = now + barleft;
-          nextmom.grace_part_ = Rational (0);
+          auto nextmom = now_mom () + barleft;
+          nextmom.grace_part_ = 0;
           find_global_context ()->add_moment_to_process (nextmom);
         }
     }
@@ -235,8 +235,8 @@ Timing_translator::start_translation_timestep ()
 {
   Global_context *global = find_global_context ();
 
-  Moment now = global->now_mom ();
-  Moment dt = now - global->previous_moment ();
+  const auto now = global->now_mom ();
+  auto dt = now - global->previous_moment ();
   if (dt < Moment (0))
     {
       programming_error ("moving backwards in time");
@@ -259,7 +259,7 @@ Timing_translator::start_translation_timestep ()
 
   if (from_scm<bool> (get_property (this, "timing")))
     {
-      Rational len = measure_length ();
+      const auto len = measure_length ();
 
       mp += dt.main_part_;
 

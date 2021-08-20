@@ -899,7 +899,7 @@ measure_position (Context const *context)
 Moment
 note_end_mom (Context const *context, Duration const *dur)
 {
-  Moment now = context->now_mom ();
+  const auto now = context->now_mom ();
   Rational dur_length = dur ? dur->get_length () : Rational (0);
 
   Moment end_pos = now.grace_part_ < Rational (0)

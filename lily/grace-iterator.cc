@@ -24,8 +24,7 @@
 void
 Grace_iterator::process (Moment m)
 {
-  Moment main;
-  main.main_part_ = -music_start_mom ().grace_part_ + m.grace_part_;
+  Moment main (-music_start_mom ().grace_part_ + m.grace_part_);
 
   // GraceChange is announced in order to make the Grace_engraver able
   // to distinguish \stemNeutral \grace { ... and \grace { \stemNeutral ...
@@ -50,10 +49,10 @@ Grace_iterator::process (Moment m)
 Moment
 Grace_iterator::pending_moment () const
 {
-  Moment cp = Music_wrapper_iterator::pending_moment ();
+  auto cp = Music_wrapper_iterator::pending_moment ();
   if (!isinf (cp.main_part_))
     {
-      cp = Moment (0, music_start_mom ().grace_part_ + cp.main_part_);
+      cp = {0, music_start_mom ().grace_part_ + cp.main_part_};
     }
   return cp;
 }

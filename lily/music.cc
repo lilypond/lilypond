@@ -96,7 +96,8 @@ Music::get_length () const
   if (ly_is_procedure (length_callback_))
     {
       SCM res = scm_call_1 (length_callback_, self_scm ());
-      return *unsmob<Moment> (res);
+      if (auto *mom = unsmob<Moment> (res))
+        return *mom;
     }
 
   return Moment (0);
@@ -109,11 +110,11 @@ Music::start_mom () const
   if (ly_is_procedure (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
-      return *unsmob<Moment> (res);
+      if (auto *mom = unsmob<Moment> (res))
+        return *mom;
     }
 
-  Moment m;
-  return m;
+  return Moment (0);
 }
 
 void

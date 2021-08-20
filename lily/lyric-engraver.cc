@@ -131,7 +131,7 @@ get_voice_to_lyrics (Context *lyrics)
 Grob *
 get_current_note_head (Context *voice)
 {
-  Moment now = voice->now_mom ();
+  const auto now = voice->now_mom ();
   for (SCM s = get_property (voice, "busyGrobs");
        scm_is_pair (s); s = scm_cdr (s))
     {
@@ -145,9 +145,7 @@ get_current_note_head (Context *voice)
 
       // It's a bit irritating that we just have the length and
       // duration of the Grob.
-      Moment end_from_now
-        = get_event_length (g->event_cause (), now)
-          + now;
+      const auto end_from_now = now + get_event_length (g->event_cause (), now);
       // We cannot actually include more than a single grace note
       // using busyGrobs on ungraced lyrics since a grob ending on
       // grace time will just have disappeared from busyGrobs by the

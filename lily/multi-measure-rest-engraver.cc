@@ -88,7 +88,7 @@ Multi_measure_rest_engraver::listen_multi_measure_rest (Stream_event *ev)
   /* FIXME: Should use ASSIGN_EVENT_ONCE. Can't do that yet because of
      the kill-mm-rests hack in part-combine-iterator. */
   rest_ev_ = ev;
-  const Moment now (now_mom ());
+  const auto now = now_mom ();
   stop_moment_ = now + get_event_length (rest_ev_, now);
   /*
   if (ASSIGN_EVENT_ONCE (rest_ev_, ev))

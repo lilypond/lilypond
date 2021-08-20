@@ -150,7 +150,7 @@ Quote_iterator::create_contexts ()
 Moment
 Quote_iterator::pending_moment () const
 {
-  Moment m = Music_wrapper_iterator::pending_moment ();
+  auto m = Music_wrapper_iterator::pending_moment ();
 
   if (event_idx_ < end_idx_)
     {

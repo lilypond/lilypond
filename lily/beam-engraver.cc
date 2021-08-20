@@ -161,8 +161,8 @@ Beam_engraver::process_music ()
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
 
-      Moment mp (robust_scm2moment (get_property (this, "measurePosition"),
-                                    Moment (0)));
+      const auto mp (robust_scm2moment (get_property (this, "measurePosition"),
+                                        Moment (0)));
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
@@ -310,7 +310,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
     set_grob_direction (stem, forced_direction_);
 
   set_property (stem, "duration-log", to_scm (durlog));
-  const auto stem_location = now - beam_start_mom_ + beam_start_location_;
+  const auto stem_location = beam_start_location_ + (now - beam_start_mom_);
   beam_info_->add_stem (stem_location.grace_part_ ? stem_location.grace_part_
                         : stem_location.main_part_,
                         std::max (durlog - 2, 0),
