@@ -354,15 +354,14 @@ created."
 
 (define-public (output-scopes scopes fields basename)
   (define (output-scope scope)
-    (string-concatenate
-     (module-map
-      (lambda (sym var)
-        (let ((val (if (variable-bound? var) (variable-ref var) "")))
+    (module-map
+     (lambda (sym var)
+       (let ((val (if (variable-bound? var) (variable-ref var) "")))
           (if (and (memq sym fields) (string? val))
               (header-to-file basename sym val))
           ""))
-      scope)))
-  (string-concatenate (map output-scope scopes)))
+      scope))
+  (for-each output-scope scopes))
 
 (define-public (relevant-book-systems book)
   (let ((systems (ly:paper-book-systems book)))
