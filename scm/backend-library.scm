@@ -353,15 +353,15 @@ created."
   "")
 
 (define-public (output-scopes scopes fields basename)
-  (define (output-scope scope)
-    (module-map
-     (lambda (sym var)
-       (let ((val (if (variable-bound? var) (variable-ref var) "")))
-          (if (and (memq sym fields) (string? val))
-              (header-to-file basename sym val))
-          ""))
-      scope))
-  (for-each output-scope scopes))
+  (define rev-scopes (reverse scopes))
+  (for-each
+   (lambda (field)
+     (let*
+         ((val (ly:modules-lookup rev-scopes field #f)))
+       (if val
+           (header-to-file basename field val))
+       ))
+   fields))
 
 (define-public (relevant-book-systems book)
   (let ((systems (ly:paper-book-systems book)))
