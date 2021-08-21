@@ -744,8 +744,47 @@ class Python(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://www.python.org/ftp/python/{self.version}/{self.archive}"
 
+    def apply_patches(self, c: Config):
+        # setup.py tries to build extension based on software installed in the
+        # global system directories, and there is no option to build some of
+        # them selectively. Instead we empty the script and enable what we need
+        # in Modules/Setup below. This has the additional advantage that the
+        # modules are built statically into libpython and not dynamically loaded
+        # from lib-dynload/.
+        setup_py = os.path.join(self.src_directory(c), "setup.py")
+        with open(setup_py, "w"):
+            pass
+
+        def patch_setup(content: str) -> str:
+            for module in [
+                "array",
+                "math",
+                # Needed for fractions
+                "_contextvars",
+                # Needed for hashlib
+                "_md5",
+                "_sha1",
+                "_sha256",
+                "_sha512",
+                "_sha3",
+                "_blake2",
+                # Needed for subprocess
+                "_posixsubprocess",
+                "select",
+                # Needed for tempfile
+                "_random",
+                # Needed for zipfile
+                "binascii",
+                "_struct",
+            ]:
+                content = content.replace("#" + module, module)
+            return content
+
+        self.patch_file(c, os.path.join("Modules", "Setup"), patch_setup)
+
     def configure_args(self, c: Config) -> str:
         return [
+            "--with-ensurepip=no",
             # Prevent that configure searches for libcrypt.
             "ac_cv_search_crypt=no",
             "ac_cv_search_crypt_r=no",

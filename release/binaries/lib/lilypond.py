@@ -207,15 +207,8 @@ class LilyPondPackager:
             "idlelib",
             # 2to3
             "lib2to3",
-            # The build system installs pip and setuptools.
-            "site-packages",
         ]:
             shutil.rmtree(os.path.join(python_libdir, directory))
-
-        # Strip dynamically linked and loaded libraries.
-        python_dynload = os.path.join(python_libdir, "lib-dynload")
-        for library in glob.glob(os.path.join(python_dynload, "*.so")):
-            strip(library)
 
     def _create_wrapper(self, script: str, shebang: str, wrapper_template: str):
         bin_path = os.path.join(self.package_dir, "bin", script)
