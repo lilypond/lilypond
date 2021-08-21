@@ -11,9 +11,7 @@ import logging
 import os
 import shutil
 import subprocess
-import tarfile
 from typing import Callable, Dict, List, Optional
-import urllib.parse
 import urllib.request
 
 from .config import Config
@@ -118,11 +116,7 @@ class Package:
 
         # Do not use c.dependencies_src_dir directly, sub-classes may override.
         extract_dir = os.path.dirname(self.src_directory(c))
-        with tarfile.open(archive, "r") as tar:
-            # Find all members that will end up in the source directory. This
-            # also protects against archives with absolute or relative paths.
-            members = [m for m in tar.getmembers() if m.name.startswith(self.directory)]
-            tar.extractall(extract_dir, members)
+        shutil.unpack_archive(archive, extract_dir)
 
         self.apply_patches(c)
 

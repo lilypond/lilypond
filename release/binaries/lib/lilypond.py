@@ -13,6 +13,8 @@ from .build import Package, ConfigurePackage
 from .config import Config
 from .dependencies import all_dependencies
 from .dependencies import freetype, fontconfig, ghostscript, glib, guile, pango, python
+from .fonts import all_fonts
+from .fonts import texgyre, urwbase35
 
 
 class LilyPond(ConfigurePackage):
@@ -85,11 +87,17 @@ class LilyPond(ConfigurePackage):
         return env
 
     def configure_args(self, c: Config) -> List[str]:
+        texgyre_install = texgyre.install_directory(c)
+        urwbase35_install = urwbase35.install_directory(c)
         return [
             # Include the static version of libstdc++.
             "--enable-static-gxx",
             # Disable the documentation.
             "--disable-documentation",
+            # Ideally LilyPond's configure should not know about fonts, and the
+            # build system should not copy the .otf files without their license.
+            f"--with-texgyre-dir={texgyre_install}",
+            f"--with-urwotf-dir={urwbase35_install}",
         ]
 
     @property
@@ -255,7 +263,7 @@ exec "$root/libexec/guile" "$root/libexec/%s" "$@"
         destination = os.path.join(self.package_dir, "licenses")
         os.makedirs(destination)
 
-        for package in all_dependencies + [self.lilypond]:
+        for package in all_dependencies + all_fonts + [self.lilypond]:
             package.copy_license_files(destination, self.c)
 
     def prepare_package(self):
