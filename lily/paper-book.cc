@@ -194,9 +194,7 @@ Paper_book::output (SCM output_channel)
                    &first_performance_number))
     return;
 
-  SCM scopes = SCM_EOL;
-  if (ly_is_module (header_))
-    scopes = scm_cons (header_, scopes);
+  dump_header_fields (output_channel, false);
 
   string mod_nm = "lily framework-" + get_output_backend_name ();
 
@@ -210,11 +208,7 @@ Paper_book::output (SCM output_channel)
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_4 (func,
-                      output_channel,
-                      self_scm (),
-                      scopes,
-                      dump_fields ());
+          scm_call_2 (func, output_channel, self_scm ());
         }
       else
         warning (_f ("program option -dprint-pages not supported by backend `%s'",
@@ -229,11 +223,7 @@ Paper_book::output (SCM output_channel)
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_4 (func,
-                      output_channel,
-                      self_scm (),
-                      scopes,
-                      dump_fields ());
+          scm_call_2 (func, output_channel, self_scm ());
         }
       else
         warning (_f ("program option -dpreview not supported by backend `%s'",
@@ -248,11 +238,7 @@ Paper_book::output (SCM output_channel)
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
-          scm_call_4 (func,
-                      output_channel,
-                      self_scm (),
-                      scopes,
-                      dump_fields ());
+          scm_call_2 (func, output_channel, self_scm ());
         }
       else
         warning (_f ("program option -dcrop not supported by backend `%s'",
@@ -277,18 +263,29 @@ Paper_book::classic_output_aux (SCM output,
 }
 
 void
+Paper_book::dump_header_fields (SCM basename, bool classic)
+{
+  SCM scopes = SCM_EOL;
+  if (classic && ly_is_module (header_0_))
+    scopes = scm_cons (header_0_, scopes);
+  if (ly_is_module (header_))
+    scopes = scm_cons (header_, scopes);
+
+  SCM fields = SCM_EOL;
+  for (string field : dump_header_fieldnames_global)
+    {
+      fields = scm_cons (ly_symbol2scm (field.c_str ()), fields);
+    }
+
+  scm_call_3 (Lily::output_scopes, scopes, fields, basename);
+}
+
+void
 Paper_book::classic_output (SCM output)
 {
   long first_performance_number = 0;
   classic_output_aux (output, &first_performance_number);
-
-  SCM scopes = SCM_EOL;
-  if (ly_is_module (header_))
-    scopes = scm_cons (header_, scopes);
-
-  if (ly_is_module (header_0_))
-    scopes = scm_cons (header_0_, scopes);
-
+  dump_header_fields (output, true);
   string format = get_output_backend_name ();
   string mod_nm = "lily framework-" + format;
 
@@ -296,11 +293,7 @@ Paper_book::classic_output (SCM output)
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
   func = scm_variable_ref (func);
-  scm_call_4 (func,
-              output,
-              self_scm (),
-              scopes,
-              dump_fields ());
+  scm_call_2 (func, output, self_scm ());
 }
 
 /* TODO: resurrect more complex user-tweaks for titling?  */

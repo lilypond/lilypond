@@ -1172,9 +1172,8 @@ output_cairo_format (Cairo_output_format format, SCM basename, SCM paper_book)
 
 #endif // CAIRO_BACKEND
 
-LY_DEFINE (ly_output_cairo, "ly:output-cairo", 4, 0, 0,
-           (SCM basename, SCM paper_book, SCM scopes, SCM fields),
-           "dump book through cairo backend")
+LY_DEFINE (ly_output_cairo, "ly:output-cairo", 2, 0, 0,
+           (SCM basename, SCM paper_book), "dump book through cairo backend")
 {
 #if CAIRO_BACKEND
   for (auto const &fmt : string_split (output_format_global, ','))
@@ -1190,7 +1189,5 @@ LY_DEFINE (ly_output_cairo, "ly:output-cairo", 4, 0, 0,
   (void) basename;
   (void) paper_book;
 #endif // CAIRO_BACKEND
-  (void) scopes;
-  (void) fields;
   return SCM_UNSPECIFIED;
 }

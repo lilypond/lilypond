@@ -42,6 +42,7 @@ private:
   SCM *print_elements_tail_;
   bool print_bookparts_;
 
+  void dump_header_fields (SCM basename, bool classic);
   void add_score_title (SCM);
   SCM get_score_title (SCM);
 

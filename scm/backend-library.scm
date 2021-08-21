@@ -353,11 +353,10 @@ created."
   "")
 
 (define-public (output-scopes scopes fields basename)
-  (define rev-scopes (reverse scopes))
   (for-each
    (lambda (field)
      (let*
-         ((val (ly:modules-lookup rev-scopes field #f)))
+         ((val (ly:modules-lookup scopes field #f)))
        (if val
            (header-to-file basename field val))
        ))

@@ -134,8 +134,7 @@ alignment."
         ;; this file is present.
         (write-file count-system-port "count"))))
 
-(define-public (output-classic-framework basename book scopes fields)
-  (output-scopes scopes fields basename)
+(define-public (output-classic-framework basename book)
   (if (ly:get-option 'dump-signatures)
       (write-system-signatures basename (ly:paper-book-systems book) 1))
   (dump-stencils-as-EPSes (map paper-system-stencil
@@ -143,8 +142,7 @@ alignment."
                           book
                           basename))
 
-(define-public (output-framework basename book scopes fields)
-  (output-scopes scopes fields basename)
+(define-public (output-framework basename book) 
   (if (ly:get-option 'clip-systems)
       (clip-system-EPSes basename book))
   (if (ly:get-option 'dump-signatures)

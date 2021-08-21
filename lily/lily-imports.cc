@@ -96,6 +96,7 @@ Variable midi_program ("midi-program");
 Variable module_export_all_x ("module-export-all!");
 #endif
 Variable f_parser ("%parser");
+Variable output_scopes ("output-scopes");
 Variable percussion_p ("percussion?");
 Variable pitchnames ("pitchnames");
 Variable pure_chain_offset_callback ("pure-chain-offset-callback");

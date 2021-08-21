@@ -279,7 +279,7 @@ src: url('~a');
                      system-list)))
               score-system-list)))
 
-(define (output-framework basename book scopes fields)
+(define (output-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
          (page-stencils (map page-stencil (ly:paper-book-pages book)))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
@@ -297,7 +297,7 @@ src: url('~a');
        (dump-page paper filename page page-number page-count))
      page-stencils)))
 
-(define-public (output-classic-framework basename book scopes fields)
+(define-public (output-classic-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
          (page-stencils (map paper-system-stencil (ly:paper-book-systems book)))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
@@ -315,7 +315,7 @@ src: url('~a');
        (dump-page paper filename page page-number page-count))
      page-stencils)))
 
-(define (output-preview-framework basename book scopes fields)
+(define (output-preview-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
          (systems (relevant-book-systems book))
          (to-dump-systems (relevant-dump-systems systems)))
@@ -325,7 +325,7 @@ src: url('~a');
                                        (reverse to-dump-systems)))
                   (format #f "~a.preview.svg" basename))))
 
-(define (output-crop-framework basename book scopes fields)
+(define (output-crop-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
          (systems (relevant-book-systems book))
          (page-stencils (stack-stencils Y DOWN 0.0

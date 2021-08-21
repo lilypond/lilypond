@@ -105,6 +105,7 @@ extern Variable midi_program;
 extern Variable module_export_all_x;
 #endif
 extern Variable f_parser;
+extern Variable output_scopes;
 extern Variable percussion_p;
 extern Variable pitchnames;
 extern Variable pure_chain_offset_callback;

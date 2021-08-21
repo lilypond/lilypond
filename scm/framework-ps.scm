@@ -754,7 +754,7 @@ mark {ly~a_stream} /CLOSE pdfmark
               (length (assoc-get 'children alist))))))
      sorted-page-numbers)))
 
-(define-public (output-framework basename book scopes fields)
+(define-public (output-framework basename book)
   (let* ((port (make-tmpfile basename))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
@@ -773,7 +773,6 @@ mark {ly~a_stream} /CLOSE pdfmark
         (clip-system-EPSes basename book))
     (if (ly:get-option 'dump-signatures)
         (write-system-signatures basename (ly:paper-book-systems book) 1))
-    (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
@@ -944,7 +943,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                      system-list)))
               score-system-list)))
 
-(define-public (output-preview-framework basename book scopes fields)
+(define-public (output-preview-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
          (systems (relevant-book-systems book))
          (to-dump-systems (relevant-dump-systems systems)))
@@ -961,7 +960,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                         #t
                         )))
 
-(define-public (output-crop-framework basename book scopes fields)
+(define-public (output-crop-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
          (systems (relevant-book-systems book)))
     (dump-stencil-as-EPS paper
@@ -1012,7 +1011,7 @@ mark {ly~a_stream} /CLOSE pdfmark
 (define-public (convert-to-ps book base-name tmp-name is-eps)
   (postscript->ps base-name tmp-name is-eps))
 
-(define-public (output-classic-framework basename book scopes fields)
+(define-public (output-classic-framework basename book)
   (ly:error (_ "\nThe PostScript backend does not support the
 system-by-system output.  For that, use the EPS backend instead,
 
