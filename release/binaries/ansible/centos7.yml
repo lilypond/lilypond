@@ -1,0 +1,51 @@
+- name: CentOS 7
+  hosts: lily_centos7
+  tasks:
+    - name: Enable EPEL repository
+      yum:
+        name: epel-release
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+    - name: Install packages
+      yum:
+        name:
+          - bison
+          - flex
+          - fontforge
+          - gcc
+          - gcc-c++
+          - gperf
+          - m4
+          - ninja-build
+          - perl
+          - python-setuptools
+          - python3
+          - t1utils
+          - texlive-kpathsea-bin
+          - texlive-metafont-bin
+          - texlive-metapost
+    - name: Create directory for TexLive 2020
+      file:
+        path: /usr/local/texlive/2020
+        state: directory
+    - name: Install MetaPost from TexLive 2020
+      unarchive:
+        src: ftp://tug.org/historic/systems/texlive/2020/tlnet-final/archive/metapost.x86_64-linux.tar.xz
+        dest: /usr/local/texlive/2020
+        remote_src: yes
+    - name: Create configuration for MetaPost
+      copy:
+        content: "MPINPUTS = .;/usr/share/texlive/texmf-dist/metapost//"
+        dest: /usr/local/texlive/2020/bin/x86_64-linux/texmf.cnf
+    - name: Create link to MetaPost
+      file:
+        src: /usr/local/texlive/2020/bin/x86_64-linux/mpost
+        dest: /usr/local/bin/mpost
+        state: link
+    - name: Install Python packages
+      pip:
+        executable: pip3
+        name:
+          - meson==0.59.0
