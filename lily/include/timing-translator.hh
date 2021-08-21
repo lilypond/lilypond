@@ -38,9 +38,6 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
-public:
-  Rational measure_length () const;
-
 private:
   bool measure_started_ = false;
 

@@ -113,7 +113,7 @@ Timing_translator::stop_translation_timestep ()
   if (from_scm<bool> (get_property (this, "timing"))
       && !from_scm<bool> (get_property (this, "skipBars")))
     {
-      const auto barleft = Moment (measure_length ())
+      const auto barleft = Moment (measure_length (context ()))
                            - measure_position (context ());
 
       if (barleft > Moment (0))
@@ -215,16 +215,6 @@ Timing_translator::initialize ()
                 get_property (timing, "autoBeaming"));
 }
 
-Rational
-Timing_translator::measure_length () const
-{
-  SCM l = get_property (this, "measureLength");
-  if (unsmob<Moment> (l))
-    return unsmob<Moment> (l)->main_part_;
-  else
-    return Rational (1);
-}
-
 Timing_translator::Timing_translator (Context *c)
   : Translator (c)
 {
@@ -259,7 +249,7 @@ Timing_translator::start_translation_timestep ()
 
   if (from_scm<bool> (get_property (this, "timing")))
     {
-      const auto len = measure_length ();
+      const auto len = measure_length (context ());
 
       mp += dt.main_part_;
 
