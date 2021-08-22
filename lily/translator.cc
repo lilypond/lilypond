@@ -252,7 +252,7 @@ generic_get_acknowledger (SCM sym, SCM ack_hash)
 Moment
 get_event_length (Stream_event *e)
 {
-  return robust_scm2moment (get_property (e, "length"), 0);
+  return from_scm (get_property (e, "length"), Moment (0));
 }
 
 Moment

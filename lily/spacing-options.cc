@@ -38,8 +38,9 @@ Spacing_options::init_from_grob (Grob *me)
     = from_scm<bool> (get_property (me, "strict-grace-spacing"));
   shortest_duration_space_ = from_scm<double> (get_property (me, "shortest-duration-space"), 1);
 
-  Moment shortest_dur = robust_scm2moment (get_property (me, "common-shortest-duration"),
-                                           Moment (Rational (1, 8), Rational (1, 16)));
+  const auto shortest_dur
+    = from_scm (get_property (me, "common-shortest-duration"),
+                Moment (Rational (1, 8), Rational (1, 16)));
 
   if (shortest_dur.main_part_)
     global_shortest_ = shortest_dur.main_part_;

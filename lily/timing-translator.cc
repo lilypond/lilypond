@@ -243,7 +243,7 @@ Timing_translator::start_translation_timestep ()
 
   Rational mp;
   {
-    auto mom = robust_scm2moment (get_property (this, "measurePosition"), now);
+    auto mom = from_scm (get_property (this, "measurePosition"), now);
     mp = mom.main_part_;
   }
 

@@ -80,8 +80,8 @@ Time_signature_performer::process_music ()
       int b = scm_to_int (scm_car (fr));
       int o = scm_to_int (scm_cdr (fr));
       static const Moment quarter = Moment (Rational (1, 4));
-      Moment base_moment = robust_scm2moment (get_property (this, "baseMoment"),
-                                              quarter);
+      const auto base_moment = from_scm (get_property (this, "baseMoment"),
+                                         quarter);
       Rational base_moment_clocks = 96 * base_moment.main_part_;
       SCM common_beat = SCM_INUM0;
       for (SCM p = get_property (this, "beatStructure"); scm_is_pair (p); p = scm_cdr (p))

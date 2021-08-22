@@ -19,6 +19,7 @@
 
 #include "moment.hh"
 
+#include "lily-guile.hh"
 #include "warn.hh"
 
 using std::string;
@@ -127,16 +128,6 @@ operator << (ostream &os, Moment const &m)
   return os;
 }
 #endif
-
-Moment
-robust_scm2moment (SCM m, Moment d)
-{
-  Moment *p = unsmob<Moment> (m);
-  if (!p)
-    return d;
-  else
-    return *p;
-}
 
 bool
 moment_less (SCM a, SCM b)

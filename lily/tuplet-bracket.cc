@@ -354,8 +354,8 @@ Tuplet_bracket::print (SCM smob)
     {
       auto *const start_col = me->get_bound (LEFT)->get_column ();
       auto *const end_col = me->get_bound (RIGHT)->get_column ();
-      auto start_mom = robust_scm2moment (get_property (start_col, "when"), 0);
-      auto end_mom = robust_scm2moment (get_property (end_col, "when"), 0);
+      auto start_mom = from_scm (get_property (start_col, "when"), Moment (0));
+      auto end_mom = from_scm (get_property (end_col, "when"), Moment (0));
       if (start_mom == end_mom)
         bracket_visibility = false;
     }

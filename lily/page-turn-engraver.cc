@@ -148,7 +148,8 @@ Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 Real
 Page_turn_engraver::penalty (Rational rest_len)
 {
-  Rational min_turn = robust_scm2moment (get_property (this, "minimumPageTurnLength"), Moment (1)).main_part_;
+  const auto min_turn = from_scm (get_property (this, "minimumPageTurnLength"),
+                                  Moment (1)).main_part_;
 
   return (rest_len < min_turn) ? infinity_f : 0;
 }
@@ -251,9 +252,9 @@ Page_turn_engraver::stop_translation_timestep ()
       Real pen = penalty ((now_mom () - rest_begin_).main_part_ + repeat_begin_rest_length_);
 
       const auto minimumRepeatLengthForPageTurn
-        = robust_scm2moment (get_property (this,
-                                           "minimumRepeatLengthForPageTurn"),
-                             -Moment::infinity ());
+        = from_scm (get_property (this,
+                                  "minimumRepeatLengthForPageTurn"),
+                    -Moment::infinity ());
       if (minimumRepeatLengthForPageTurn > (now_mom () - repeat_begin_))
         pen = infinity_f;
 

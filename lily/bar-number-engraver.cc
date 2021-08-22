@@ -93,8 +93,8 @@ Bar_number_engraver::process_acknowledged ()
           SCM bn = get_property (this, "currentBarNumber");
           if (scm_is_number (bn))
             {
-              auto mp
-                = robust_scm2moment (get_property (this, "measurePosition"), 0);
+              const auto mp (from_scm (get_property (this, "measurePosition"),
+                                       Moment (0)));
 
               if (from_scm<bool> (scm_call_2 (vis_p, bn, mp.smobbed_copy ())))
                 {

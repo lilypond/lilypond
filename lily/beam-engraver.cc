@@ -161,8 +161,8 @@ Beam_engraver::process_music ()
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
 
-      const auto mp (robust_scm2moment (get_property (this, "measurePosition"),
-                                        Moment (0)));
+      const auto mp (from_scm (get_property (this, "measurePosition"),
+                               Moment (0)));
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();

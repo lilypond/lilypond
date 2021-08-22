@@ -110,7 +110,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
                                Spacing_options const *options)
 {
   auto shortest_playing_len
-    = robust_scm2moment (get_property (lc, "shortest-playing-duration"), 0);
+    = from_scm (get_property (lc, "shortest-playing-duration"), Moment (0));
   if (shortest_playing_len < 0)
     {
       programming_error ("cannot find a ruling note at: " + Paper_column::when_mom (lc).to_string ());

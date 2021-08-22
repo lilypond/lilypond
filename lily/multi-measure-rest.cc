@@ -373,8 +373,8 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
     {
       Spacing_options options;
       options.init_from_grob (me);
-      Moment mlen = robust_scm2moment (get_property (li, "measure-length"),
-                                       Moment (1));
+      const auto mlen = from_scm (get_property (li, "measure-length"),
+                                  Moment (1));
       length += from_scm<double> (get_property (li, "full-measure-extra-space"), 0.0)
                 + options.get_duration_space (mlen.main_part_)
                 + (from_scm<double> (get_property (me, "space-increment"), 0.0)

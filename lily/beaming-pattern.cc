@@ -422,10 +422,10 @@ Beaming_options::from_context (Context *context)
   grouping_ = get_property (context, "beatStructure");
   subdivide_beams_ = from_scm<bool> (get_property (context, "subdivideBeams"));
   strict_beat_beaming_ = from_scm<bool> (get_property (context, "strictBeatBeaming"));
-  base_moment_ = robust_scm2moment (get_property (context, "baseMoment"),
-                                    Moment (1, 4)).main_part_;
-  measure_length_ = robust_scm2moment (get_property (context, "measureLength"),
-                                       Moment (4, 4)).main_part_;
+  base_moment_ = from_scm (get_property (context, "baseMoment"),
+                           Moment (1, 4)).main_part_;
+  measure_length_ = from_scm (get_property (context, "measureLength"),
+                              Moment (4, 4)).main_part_;
 }
 
 Beaming_options::Beaming_options ()

@@ -77,9 +77,11 @@ Drum_note_performer::process_music ()
                 tie_event = ev;
               SCM f = get_property (ev, "midi-length");
               if (ly_is_procedure (f))
-                len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
-                                                     context ()->self_scm ()),
-                                         len);
+                {
+                  len = from_scm (scm_call_2 (f, len.smobbed_copy (),
+                                              context ()->self_scm ()),
+                                  len);
+                }
               velocity += from_scm (get_property (ev, "midi-extra-velocity"), 0);
             }
 

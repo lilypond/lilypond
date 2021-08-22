@@ -59,7 +59,7 @@ Partial_iterator::process (Moment m)
         }
       else
         {
-          auto mp = robust_scm2moment (mp_scm, 0);
+          auto mp = from_scm (mp_scm, Moment (0));
           mp.main_part_ = 0;
           set_property
           (timing, "measurePosition", (mp - length).smobbed_copy ());
@@ -80,7 +80,7 @@ Partial_iterator::finalization (SCM timing_scm, SCM length_scm)
   auto *const timing = LY_ASSERT_SMOB (Context, timing_scm, 1);
   auto *const length = LY_ASSERT_SMOB (Moment, length_scm, 2);
 
-  Moment mp = robust_scm2moment (get_property (timing, "measurePosition"), 0);
+  auto mp = from_scm (get_property (timing, "measurePosition"), Moment (0));
   mp.main_part_ = measure_length (timing);
   set_property (timing, "measurePosition", (mp - *length).smobbed_copy ());
   timing->unset_property (ly_symbol2scm ("partialBusy"));

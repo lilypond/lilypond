@@ -40,7 +40,7 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
 {
   LY_ASSERT_TYPE (is_scm<Rational>, m, 1);
   if (SCM_UNBNDP (g))
-    return Moment (from_scm<Rational> (m)).smobbed_copy ();
+    return to_scm (Moment (from_scm<Rational> (m)));
 
   if (SCM_UNBNDP (gn))
     {
@@ -49,11 +49,11 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
         {
           LY_ASSERT_TYPE (scm_is_integer, m, 1);
           LY_ASSERT_TYPE (scm_is_integer, g, 2);
-          return Moment (Rational (scm_to_int64 (m),
-                                   scm_to_int64 (g))).smobbed_copy ();
+          return to_scm (Moment (Rational (scm_to_int64 (m),
+                                           scm_to_int64 (g))));
         }
-      return Moment (from_scm<Rational> (m),
-                     from_scm<Rational> (g)).smobbed_copy ();
+      return to_scm (Moment (from_scm<Rational> (m),
+                             from_scm<Rational> (g)));
     }
 
   LY_ASSERT_TYPE (scm_is_integer, m, 1);
@@ -67,8 +67,8 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
       grace_den = scm_to_int64 (gd);
     }
 
-  return Moment (Rational (scm_to_int64 (m), scm_to_int64 (g)),
-                 Rational (grace_num, grace_den)).smobbed_copy ();
+  return to_scm (Moment (Rational (scm_to_int64 (m), scm_to_int64 (g)),
+                         Rational (grace_num, grace_den)));
 }
 
 LY_DEFINE (ly_moment_sub, "ly:moment-sub",
@@ -78,7 +78,7 @@ LY_DEFINE (ly_moment_sub, "ly:moment-sub",
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
-  return (*ma - *mb).smobbed_copy ();
+  return to_scm (*ma - *mb);
 }
 
 LY_DEFINE (ly_moment_add, "ly:moment-add",
@@ -88,7 +88,7 @@ LY_DEFINE (ly_moment_add, "ly:moment-add",
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
-  return (*ma + *mb).smobbed_copy ();
+  return to_scm (*ma + *mb);
 }
 
 LY_DEFINE (ly_moment_mul, "ly:moment-mul",
@@ -98,7 +98,7 @@ LY_DEFINE (ly_moment_mul, "ly:moment-mul",
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
-  return (*ma * mb->main_part_).smobbed_copy ();
+  return to_scm (*ma * mb->main_part_);
 }
 
 LY_DEFINE (ly_moment_div, "ly:moment-div",
@@ -108,7 +108,7 @@ LY_DEFINE (ly_moment_div, "ly:moment-div",
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
-  return (*ma / mb->main_part_).smobbed_copy ();
+  return to_scm (*ma / mb->main_part_);
 }
 
 LY_DEFINE (ly_moment_mod, "ly:moment-mod",
@@ -118,7 +118,7 @@ LY_DEFINE (ly_moment_mod, "ly:moment-mod",
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
-  return (*ma % mb->main_part_).smobbed_copy ();
+  return to_scm (*ma % mb->main_part_);
 }
 
 LY_DEFINE (ly_moment_grace, "ly:moment-grace",

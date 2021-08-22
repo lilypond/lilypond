@@ -22,6 +22,7 @@
 
 #include "smobs.hh"
 
+#include "lily-guile.hh"
 #include "rational.hh"
 
 /**
@@ -88,7 +89,20 @@ public:
 int compare (Moment const &, Moment const &);
 INSTANTIATE_COMPARE (Moment const &, Moment::compare);
 
-Moment robust_scm2moment (SCM, Moment);
+template <>
+inline Moment
+from_scm<Moment> (SCM const &s, Moment fallback)
+{
+  if (auto *m = unsmob<Moment> (s))
+    return *m;
+  return fallback;
+}
+
+template <> inline SCM
+to_scm<Moment> (Moment const &m)
+{
+  return m.smobbed_copy ();
+}
 
 #ifdef STREAM_SUPPORT
 ostream &operator << (ostream &, Moment const &);

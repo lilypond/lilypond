@@ -85,8 +85,7 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
       Tuplet_description d;
       d.event_ = ev;
 
-      d.length_ = robust_scm2moment (get_property (d.event_, "length"),
-                                     Moment (0));
+      d.length_ = from_scm (get_property (d.event_, "length"), Moment (0));
       d.start_moment_ = now_mom ();
       d.stop_moment_ = now_mom () + d.length_;
 

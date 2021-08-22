@@ -190,8 +190,10 @@ spanned_time_interval (Item *l, Item *r)
   for (const auto d : {LEFT, RIGHT})
     {
       if (bounds[d] && bounds[d]->get_column ())
-        iv[d] = robust_scm2moment (get_property (bounds[d]->get_column (), "when"),
-                                   iv[d]);
+        {
+          iv[d] = from_scm (get_property (bounds[d]->get_column (), "when"),
+                            iv[d]);
+        }
     }
 
   for (const auto d : {LEFT, RIGHT})

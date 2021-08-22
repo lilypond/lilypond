@@ -31,7 +31,7 @@ LY_DEFINE (ly_music_length, "ly:music-length",
            " it as a @code{Moment} object.")
 {
   auto *const sc = LY_ASSERT_SMOB (Music, mus, 1);
-  return sc->get_length ().smobbed_copy ();
+  return to_scm (sc->get_length ());
 }
 
 LY_DEFINE (ly_music_property, "ly:music-property",
@@ -60,7 +60,7 @@ LY_DEFINE (ly_music_start, "ly:music-start",
            " it as a @code{Moment} object.")
 {
   auto *const sc = LY_ASSERT_SMOB (Music, mus, 1);
-  return sc->start_mom ().smobbed_copy ();
+  return to_scm (sc->start_mom ());
 }
 
 /* todo:  property args */
@@ -217,7 +217,7 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
     len = Moment (d->get_length ());
   else
     programming_error ("music has no duration");
-  return len.smobbed_copy ();
+  return to_scm (len);
 }
 
 LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
