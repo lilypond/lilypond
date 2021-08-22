@@ -1043,15 +1043,13 @@ Cairo_outputter::Cairo_outputter (Cairo_output_format format,
   current_page_number_ = 1;
   page_count_ = page_count;
 
-  Real scale = paper->get_dimension (ly_symbol2scm ("output-scale"));
-  Real w = scale * paper->get_dimension (ly_symbol2scm ("paper-width"))
-           / bigpoint_constant;
-  Real h = scale * paper->get_dimension (ly_symbol2scm ("paper-height"))
-           / bigpoint_constant;
+  scale_factor_
+    = paper->get_dimension (ly_symbol2scm ("output-scale")) / bigpoint_constant;
+  paper_width_ = paper->get_dimension (ly_symbol2scm ("paper-width"));
+  paper_height_ = paper->get_dimension (ly_symbol2scm ("paper-height"));
 
-  paper_width_ = w;
-  paper_height_ = h;
-  scale_factor_ = scale / bigpoint_constant;
+  paper_width_ *= scale_factor_;
+  paper_height_ *= scale_factor_;
 
   int png_dpi = from_scm<int> (ly_get_option (ly_symbol2scm ("resolution")));
   png_height_ = (int) round (paper_height_ / 72.0 * png_dpi);
