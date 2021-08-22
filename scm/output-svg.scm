@@ -74,7 +74,9 @@
   (string-append "<g" attributes-string ">\n"))
 
 (define-public (comment s)
-  (string-append "<!-- " s " -->\n"))
+  (if (string-null? s)
+      ""
+      (string-append "<!-- " s " -->\n")))
 
 (define-public (entity entity string tNewline . attributes-alist)
   (if (string-null? string)

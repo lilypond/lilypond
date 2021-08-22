@@ -217,7 +217,6 @@ of layout settings just like markups inside the music"
       ((paper-book (page-property page 'paper-book))
        (prop (lambda (sym) (page-property page sym)))
        (layout (ly:paper-book-paper paper-book))
-       (scopes (ly:paper-book-scopes paper-book))
        (lines (page-lines page))
        (number (page-page-number page))
 
@@ -337,7 +336,11 @@ of layout settings just like markups inside the music"
     (if (annotate? layout)
         (set! page-stencil (annotate-page layout page-stencil)))
 
-    page-stencil))
+    (ly:make-stencil
+     (ly:stencil-expr page-stencil)
+     (cons 0 (ly:output-def-lookup layout 'paper-width))
+     (cons (- (ly:output-def-lookup layout 'paper-height)) 0))
+    ))
 
 
 (define-public (page-stencil page)

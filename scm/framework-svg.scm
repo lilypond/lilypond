@@ -115,38 +115,10 @@ src: url('~a');
   (define-fonts paper svg-define-font svg-define-font))
 
 (define (dump-page paper filename page page-number page-count)
-  (let* ((outport (cond-expand
-                   (guile-2 (open-output-file filename #:encoding "UTF-8"))
-                   (else (open-file filename "wb"))))
+  (dump-stencil paper page filename
+                (format #f "Page: ~S/~S" page-number page-count)))
 
-         (outputter (ly:make-paper-outputter outport stencil-dispatch-alist))
-         (dump (lambda (str) (display str (ly:outputter-port outputter))))
-         (lookup (lambda (x) (ly:output-def-lookup paper x)))
-         (unit-length (lookup 'output-scale))
-         (output-scale (* lily-unit->mm-factor unit-length))
-         (device-width (lookup 'paper-width))
-         (device-height (lookup 'paper-height))
-         (page-width (* output-scale device-width))
-         (page-height (* output-scale device-height))
-         (eval-svg (lambda (expr)
-                     (ly:outputter-output-scheme outputter expr))))
-
-    (if (ly:get-option 'svg-woff)
-        (eval-svg `(set-paper ,paper)))
-    (dump (svg-begin page-width page-height
-                     0 0 device-width device-height))
-    (if (ly:get-option 'svg-woff)
-        (eval-svg `(set-paper #f)))
-    (if (ly:get-option 'svg-woff)
-        (dump (woff-header paper (dirname filename))))
-    (dump (style-defs-end))
-    (dump (comment (format #f "Page: ~S/~S" page-number page-count)))
-    (eval-svg `(set-unit-length ,unit-length))
-    (ly:outputter-dump-stencil outputter page)
-    (dump (svg-end))
-    (ly:outputter-close outputter)))
-
-(define (dump-preview paper stencil filename)
+(define (dump-stencil paper stencil filename comment-str)
   (let* ((outputter (ly:make-paper-outputter
                      (cond-expand
                       (guile-2 (open-output-file filename #:encoding "UTF-8"))
@@ -176,6 +148,7 @@ src: url('~a');
     (if (ly:get-option 'svg-woff)
         (dump (woff-header paper (dirname filename))))
     (dump (style-defs-end))
+    (dump (comment comment-str))
     (eval-svg `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter stencil)
     (dump (svg-end))
@@ -319,11 +292,12 @@ src: url('~a');
   (let* ((paper (ly:paper-book-paper book))
          (systems (relevant-book-systems book))
          (to-dump-systems (relevant-dump-systems systems)))
-    (dump-preview paper
+    (dump-stencil paper
                   (stack-stencils Y DOWN 0.0
                                   (map paper-system-stencil
                                        (reverse to-dump-systems)))
-                  (format #f "~a.preview.svg" basename))))
+                  (format #f "~a.preview.svg" basename)
+                  "")))
 
 (define (output-crop-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
@@ -331,4 +305,4 @@ src: url('~a');
          (page-stencils (stack-stencils Y DOWN 0.0
                                         (map paper-system-stencil
                                              (reverse (reverse systems))))))
-    (dump-preview paper page-stencils (format #f "~a.cropped.svg" basename))))
+    (dump-stencil paper page-stencils (format #f "~a.cropped.svg" basename) "")))
