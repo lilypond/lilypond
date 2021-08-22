@@ -331,5 +331,4 @@ src: url('~a');
          (page-stencils (stack-stencils Y DOWN 0.0
                                         (map paper-system-stencil
                                              (reverse (reverse systems))))))
-    (if (ly:get-option 'clip-systems) (clip-system-SVG basename book))
     (dump-preview paper page-stencils (format #f "~a.cropped.svg" basename))))
