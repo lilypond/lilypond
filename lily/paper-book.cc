@@ -136,7 +136,7 @@ Paper_book::output_aux (SCM output_channel,
                         long *first_page_number,
                         long *first_performance_number)
 {
-  long page_nb = 0;
+  long page_number = 0;
   if (scm_is_pair (performances_))
     {
       Lily::write_performances_midis (performances (),
@@ -151,10 +151,9 @@ Paper_book::output_aux (SCM output_channel,
         if (Paper_book *pbookpart = unsmob<Paper_book> (scm_car (p)))
           {
             bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
-            page_nb += pbookpart->output_aux (output_channel,
-                                              is_last_part,
-                                              first_page_number,
-                                              first_performance_number);
+            page_number += pbookpart->output_aux (output_channel, is_last_part,
+                                                  first_page_number,
+                                                  first_performance_number);
           }
     }
   else
@@ -166,10 +165,10 @@ Paper_book::output_aux (SCM output_channel,
       paper_->set_variable (ly_symbol2scm ("is-last-bookpart"),
                             ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
-      page_nb = scm_ilength (pages ());
-      *first_page_number += page_nb;
+      page_number = scm_ilength (pages ());
+      *first_page_number += page_number;
     }
-  return page_nb;
+  return page_number;
 }
 
 void
