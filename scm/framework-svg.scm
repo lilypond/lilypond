@@ -247,10 +247,9 @@ src: url('~a');
                      system-list)))
               score-system-list)))
 
-(define (output-framework basename book paper)
-  (let* ((page-stencils (map page-stencil (ly:paper-book-pages book)))
-         (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
-         (page-count (length page-stencils))
+(define (output-stencils basename stencils header paper)
+  (let* ((page-number (1- (ly:output-def-lookup paper 'first-page-number)))
+         (page-count (length stencils))
          (filename "")
          (file-suffix (lambda (num)
                         (if (= page-count 1) "" (format #f "-~a" num)))))
@@ -262,7 +261,7 @@ src: url('~a');
                               (file-suffix page-number)))
        (dump-stencil paper page filename
                      (format #f "Page: ~S/~S" page-number page-count)))
-     page-stencils)))
+     stencils)))
 
 (define (output-preview-framework basename book paper)
   (let* ((systems (relevant-book-systems book))

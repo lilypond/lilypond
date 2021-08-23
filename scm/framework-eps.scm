@@ -133,9 +133,8 @@ alignment."
                           paper
                           basename))
 
-(define-public (output-framework basename book paper) 
-  (dump-stencils-as-EPSes (map page-stencil
-                               (ly:paper-book-pages book))
+(define-public (output-stencils basename stencils header paper) 
+  (dump-stencils-as-EPSes stencils
                           paper
                           basename))
 

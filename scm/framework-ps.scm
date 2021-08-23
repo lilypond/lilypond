@@ -754,15 +754,13 @@ mark {ly~a_stream} /CLOSE pdfmark
               (length (assoc-get 'children alist))))))
      sorted-page-numbers)))
 
-(define-public (output-framework basename book paper)
+(define-public (output-stencils basename stencils header paper)
   (let* ((port (make-tmpfile basename))
          (tmp-name (port-filename port))
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
-         (header (ly:paper-book-header book))
-         (page-stencils (map page-stencil (ly:paper-book-pages book)))
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
-         (page-count (length page-stencils)))
+         (page-count (length stencils)))
     (cond-expand
      (guile-2 (set-port-encoding! port "Latin1"))
      (else))
@@ -776,7 +774,7 @@ mark {ly~a_stream} /CLOSE pdfmark
      (lambda (page)
        (set! page-number (1+ page-number))
        (dump-page outputter page page-number page-count landscape?))
-     page-stencils)
+     stencils)
     (if (ly:get-option 'outline-bookmarks)
         (dump-pdf-bookmarks
          (ly:output-def-lookup paper 'label-alist-table)

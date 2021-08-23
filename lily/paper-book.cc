@@ -203,14 +203,23 @@ Paper_book::output (SCM output_channel)
 
   if (get_program_option ("print-pages"))
     {
-      SCM framework = ly_module_lookup (mod,
-                                        ly_symbol2scm ("output-framework"));
+      SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencils"));
 
       if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
+
+          SCM stencils = SCM_EOL;
+          for (SCM s = pages (); scm_is_pair (s); s = scm_cdr (s))
+            {
+              stencils = scm_cons (
+                get_property (unsmob<Prob> (scm_car (s)), "stencil"), stencils);
+            }
+          stencils = scm_reverse_x (stencils, SCM_EOL);
+
           // TODO - paper or top_paper?
-          scm_call_3 (func, output_channel, self_scm (), paper ()->self_scm ());
+          scm_call_4 (func, output_channel, stencils, header_,
+                      paper ()->self_scm ());
         }
       else
         warning (_f ("program option -dprint-pages not supported by backend `%s'",

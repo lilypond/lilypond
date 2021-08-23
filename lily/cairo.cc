@@ -1165,22 +1165,19 @@ Cairo_outputter::output (SCM expr)
 }
 
 void
-output_cairo_format (Cairo_output_format format, SCM basename,
-                     Paper_book *paper_book, Output_def *paper)
+output_cairo_format (Cairo_output_format format, SCM basename, SCM stencils,
+                     SCM header, Output_def *paper)
 {
   Cpu_timer timer;
-  SCM pages = paper_book->pages ();
   Cairo_outputter outputter (format, ly_scm2string (basename),
-                             from_scm<int> (scm_length (pages)), paper);
+                             from_scm<int> (scm_length (stencils)), paper);
 
   outputter.create_surface ();
-  outputter.handle_metadata (paper_book->header_);
+  outputter.handle_metadata (header);
 
-  for (SCM p = pages; scm_is_pair (p); p = scm_cdr (p))
+  for (SCM p = stencils; scm_is_pair (p); p = scm_cdr (p))
     {
-      const Stencil *stencil = unsmob<const Stencil> (
-        ly_prob_property (scm_car (p), ly_symbol2scm ("stencil"), SCM_BOOL_F));
-
+      const Stencil *stencil = unsmob<const Stencil> (scm_car (p));
       interpret_stencil_expression (stencil->expr (), &outputter,
                                     Offset (0, 0));
       outputter.showpage ();
@@ -1194,25 +1191,27 @@ output_cairo_format (Cairo_output_format format, SCM basename,
 
 #endif // CAIRO_BACKEND
 
-LY_DEFINE (ly_output_cairo, "ly:output-cairo", 3, 0, 0,
-           (SCM basename, SCM paper_book, SCM paper),
+LY_DEFINE (ly_output_cairo, "ly:output-cairo", 4, 0, 0,
+           (SCM basename, SCM stencils, SCM header, SCM paper),
            "dump book through cairo backend")
 {
+  (void) basename;
+  (void) stencils;
+  (void) header;
+  (void) paper;
+
 #if CAIRO_BACKEND
-  auto *const pbook = LY_ASSERT_SMOB (Paper_book, paper_book, 2);
-  auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 3);
+  auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 4);
   for (auto const &fmt : string_split (output_format_global, ','))
     {
       Cairo_output_format f = parse_format (fmt);
       if (f == UNKNOWN)
         warning (_f ("unknown output format %s", fmt.c_str ()));
       else
-        output_cairo_format (f, basename, pbook, odef);
+        output_cairo_format (f, basename, stencils, header, odef);
     }
 #else
   error ("compiled without CAIRO_BACKEND");
-  (void) basename;
-  (void) paper_book;
 #endif // CAIRO_BACKEND
   return SCM_UNSPECIFIED;
 }
