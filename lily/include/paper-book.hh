@@ -43,6 +43,7 @@ private:
   bool print_bookparts_;
 
   void dump_header_fields (SCM basename, bool classic);
+  void dump_signatures (SCM basename);
   void add_score_title (SCM);
   SCM get_score_title (SCM);
 

@@ -771,8 +771,6 @@ mark {ly~a_stream} /CLOSE pdfmark
     (initialize-font-embedding)
     (if (ly:get-option 'clip-systems)
         (clip-system-EPSes basename book))
-    (if (ly:get-option 'dump-signatures)
-        (write-system-signatures basename (ly:paper-book-systems book) 1))
     (display (file-header paper page-count #t) port)
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong

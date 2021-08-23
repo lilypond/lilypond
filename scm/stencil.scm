@@ -1051,17 +1051,6 @@ grestore
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; output signatures.
 
-(define-public (write-system-signatures basename paper-systems count)
-  (if (pair? paper-systems)
-      (begin
-        (let*
-            ((outname (simple-format #f "~a-~a.signature" basename count)) )
-
-          (ly:message "Writing ~a" outname)
-          (write-system-signature outname (car paper-systems))
-          (write-system-signatures basename (cdr paper-systems) (1+ count))
-          ))))
-
 (use-modules (lily paper-system))
 
 (define-public (write-system-signature filename paper-system)
