@@ -63,10 +63,6 @@ alignment."
   (define create-aux-files
     (ly:get-option 'aux-files))
 
-  (define (dump-infinite-stack-EPS stencils)
-    (let* ((dump-me (stack-stencils Y DOWN 2.0 stencils)))
-      (dump-stencil-as-EPS paper dump-me basename #t)))
-
   (define (dump-counted-stencil stencil-count-pair)
     "Return EPS filename."
     (let* ((stencil (car stencil-count-pair))
@@ -79,7 +75,7 @@ alignment."
   ;; main body
   ;; First, create the output, then if necessary, individual staves and
   ;; finally write some auxiliary files if desired
-  (dump-infinite-stack-EPS stencils)
+  (dump-stencil-as-EPS paper (stack-stencils Y DOWN 2.0 stencils) basename #t)
   (postprocess-output book framework-eps-module (ly:output-formats)
                       basename
                       (format #f "~a.eps" basename)
