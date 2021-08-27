@@ -855,7 +855,8 @@ mark {ly~a_stream} /CLOSE pdfmark
     (ly:rename-file tmp-name dest-name)
     ))
 
-(define (clip-systems-to-region basename paper systems region do-pdf do-png)
+(define (clip-systems-to-region-stencils basename systems region)
+  "Returns NAME . STENCIL alist"
   (let* ((extents-system-pairs
           (filtered-map (lambda (paper-system)
                           (let* ((x-ext (system-clipped-x-extent
@@ -866,7 +867,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                                 #f)))
                         systems))
          (count 0))
-    (for-each
+    (map
      (lambda (ext-system-pair)
        (let* ((xext (car ext-system-pair))
               (paper-system (cdr ext-system-pair))
@@ -877,37 +878,26 @@ mark {ly~a_stream} /CLOSE pdfmark
                             (format #f "~a-~a" basename count)
                             basename)))
          (set! count (1+ count))
-         (dump-stencil-as-EPS-with-bbox paper
-                                        (paper-system-stencil paper-system)
-                                        filename
-                                        (ly:get-option 'include-eps-fonts)
-                                        bbox)
-         (if do-pdf
-             (postscript->pdf 0 0 filename (format #f "~a.eps" filename) #t))
-         (if do-png
-             (postscript->png (ly:get-option 'resolution) 0 0 bbox
-                              filename (format #f "~a.eps" filename) #t))))
+         (cons filename
+               (ly:make-stencil (ly:stencil-expr (paper-system-stencil paper-system))
+                                xext yext))))
+
      extents-system-pairs)))
 
-(define-public (output-clipped-systems basename systems)
-  (define do-pdf
-    (member "pdf" (ly:output-formats)))
-  (define do-png
-    (member "png" (ly:output-formats)))
-
-  (define (clip-score-systems basename systems)
-    (let* ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
-           (regions (ly:output-def-lookup layout 'clip-regions)))
-      (for-each
+(define (output-clipped-systems-stencils basename systems)
+  (define (clip-score-systems-stencils basename systems)
+    (let*
+        ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
+         (regions (ly:output-def-lookup layout 'clip-regions)))
+      (apply append (map
        (lambda (region)
-         (clip-systems-to-region
+         (clip-systems-to-region-stencils
           (format #f "~a-from-~a-to-~a-clip"
                   basename
                   (rhythmic-location->file-string (car region))
                   (rhythmic-location->file-string (cdr region)))
-          layout systems region
-          do-pdf do-png))
-       regions)))
+          systems region))
+       regions))))
 
   ;; partition in system lists sharing their layout blocks
   (let* ((count 0)
@@ -924,16 +914,26 @@ mark {ly~a_stream} /CLOSE pdfmark
        system)
      #f
      systems)
-    (for-each (lambda (system-list)
+
+    (apply append (map (lambda (system-list)
                 ;; filter out headers and top-level markup
                 (if (pair? system-list)
-                    (clip-score-systems
+                    (clip-score-systems-stencils
                      (if (> count 0)
                          (format #f "~a-~a" basename count)
                          basename)
                      system-list)))
-              score-system-list)))
+                       score-system-list))))
 
+(define (output-clipped-systems basename systems)
+  (let* ((layout (ly:grob-layout (paper-system-system-grob (car systems)))))
+
+  (for-each
+   (lambda (name-stencil)
+     (let* ((basename (car name-stencil))
+            (stencil (cdr name-stencil)))
+       (output-stencil basename stencil layout)))
+   (output-clipped-systems-stencils basename systems))))
 
 (define-public (output-stencil basename stencil paper)
   (dump-stencil-as-EPS paper
