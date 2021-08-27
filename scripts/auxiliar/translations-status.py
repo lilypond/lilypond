@@ -384,13 +384,7 @@ class TelyDocument (object):
         if m:
             self.language = m.group(1)
 
-        dir = os.path.dirname(filename).split('/')[0]
-        if len(dir) == 2:
-            dir += '/'
-        else:
-            dir = ''
-        included_files = [dir + t
-                          for t in include_re.findall(self.contents)]
+        included_files = include_re.findall(self.contents)
         self.included_files = [p for p in included_files if os.path.exists(p)]
 
     def get_level(self):
