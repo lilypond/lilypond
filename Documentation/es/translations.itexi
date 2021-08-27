@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Thu Jan 28 20:53:10 UTC 2021
+@emph{Actualizado en Fri Aug 27 20:46:02 UTC 2021
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -47,17 +47,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #6fff29">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1141
 @tab Francisco Vila
 @tab 
 @tab 
@@ -74,17 +74,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 1 Grabado musical
 @*
-5315
+5318
 @tab Francisco Vila
 @tab 
 @tab 
@@ -101,11 +101,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #39ff22">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -167,17 +167,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #68ff28">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1141
 @tab Francisco Vila
 @tab 
 @tab 
@@ -194,17 +194,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 A Tutorial de Scheme
 @*
-6331
+6332
 @tab Francisco Vila
 @tab 
 @tab 
@@ -231,7 +231,7 @@ sí
 @item
 1 Interfaces para programadores
 @*
-5769
+5771
 @tab Francisco Vila
 @tab 
 @tab 
@@ -287,17 +287,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #83fe2c">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1141
 @tab Francisco Vila
 @tab 
 @tab 
@@ -314,17 +314,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 1 Tutorial
 @*
-2536
+2537
 @tab Francisco Vila
 @tab 
 @tab 
@@ -341,17 +341,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 2 Notación corriente
 @*
-4517
+4529
 @tab Francisco Vila
 @tab 
 @tab 
@@ -378,7 +378,7 @@ sí
 @item
 3 Conceptos fundamentales
 @*
-11590
+11605
 @tab Francisco Vila
 @tab 
 @tab 
@@ -405,7 +405,7 @@ sí
 @item
 4 Trucar la salida
 @*
-16603
+16466
 @tab Francisco Vila
 @tab 
 @tab 
@@ -422,17 +422,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 A Plantillas
 @*
-1236
+1238
 @tab Francisco Vila
 @tab 
 @tab 
@@ -449,7 +449,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialmente</span>
+<span style="background-color: #47ff24">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -488,88 +488,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab pre-GDP
-@item
-LilyPond --- \TITLE\
-@*
-1139
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab pre-GDP
-@item
-1 Notación musical
-@*
-91
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab pre-GDP
-@item
-1.1 Alturas
-@*
-5594
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #62ff28">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -577,9 +496,9 @@ parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
-1.2 Duraciones
+LilyPond --- \TITLE\
 @*
-7196
+1141
 @tab Francisco Vila
 @tab 
 @tab 
@@ -604,9 +523,90 @@ parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
+1 Notación musical
+@*
+91
+@tab Francisco Vila
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sí</span>
+@end html
+@end ifhtml
+@ifnothtml
+sí
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #b2fe32">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+1.1 Alturas
+@*
+5720
+@tab Francisco Vila
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sí</span>
+@end html
+@end ifhtml
+@ifnothtml
+sí
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+1.2 Duraciones
+@*
+7387
+@tab Francisco Vila
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sí</span>
+@end html
+@end ifhtml
+@ifnothtml
+sí
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #40fe23">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pre-GDP
+@item
 1.3 Expresiones
 @*
-1946
+1949
 @tab Francisco Vila
 @tab 
 @tab 
@@ -633,7 +633,7 @@ parcialmente
 @item
 1.4 Repeticiones
 @*
-1316
+1291
 @tab Francisco Vila
 @tab 
 @tab 
@@ -650,7 +650,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #fff53e">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -660,7 +660,7 @@ parcialmente
 @item
 1.5 Notas simultáneas
 @*
-3001
+3007
 @tab Francisco Vila
 @tab 
 @tab 
@@ -687,7 +687,7 @@ parcialmente
 @item
 1.6 Notación de los pentagramas
 @*
-3361
+3358
 @tab Francisco Vila
 @tab 
 @tab 
@@ -714,7 +714,7 @@ parcialmente
 @item
 1.7 Anotaciones editoriales
 @*
-2008
+2110
 @tab Francisco Vila
 @tab 
 @tab 
@@ -731,7 +731,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">parcialmente</span>
+<span style="background-color: #76fe2a">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -741,7 +741,7 @@ parcialmente
 @item
 1.8 Texto
 @*
-4432
+4443
 @tab Francisco Vila
 @tab 
 @tab 
@@ -758,7 +758,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">parcialmente</span>
+<span style="background-color: #c0ff34">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -785,17 +785,44 @@ sí
 @ifhtml
 
 @html
+<span style="background-color: #cdfe36">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+2.1 Música vocal
+@*
+5260
+@tab Francisco Vila
+@tab 
+@tab 
+@ifhtml
+
+@html
 <span style="background-color: #1fff1f">sí</span>
 @end html
 @end ifhtml
 @ifnothtml
 sí
 @end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
 @tab pre-GDP
 @item
-2.1 Música vocal
+2.2 Teclados y otros instrumentos de varios pentagramas
 @*
-5243
+907
 @tab Francisco Vila
 @tab 
 @tab 
@@ -820,9 +847,9 @@ parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
-2.2 Teclados y otros instrumentos de varios pentagramas
+2.3 Instrumentos de cuerda sin trastes
 @*
-902
+281
 @tab Francisco Vila
 @tab 
 @tab 
@@ -847,36 +874,9 @@ parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
-2.3 Instrumentos de cuerda sin trastes
-@*
-279
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab pre-GDP
-@item
 2.4 Instrumentos de cuerda con trastes
 @*
-3362
+3381
 @tab Francisco Vila
 @tab 
 @tab 
@@ -893,7 +893,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialmente</span>
+<span style="background-color: #54ff26">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -903,7 +903,7 @@ parcialmente
 @item
 2.5 Percusión
 @*
-1020
+1027
 @tab Francisco Vila
 @tab 
 @tab 
@@ -930,7 +930,34 @@ parcialmente
 @item
 2.6 Instrumentos de viento
 @*
-349
+353
+@tab Francisco Vila
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sí</span>
+@end html
+@end ifhtml
+@ifnothtml
+sí
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+2.7 Notación de acordes
+@*
+2182
 @tab Francisco Vila
 @tab 
 @tab 
@@ -948,33 +975,6 @@ sí
 
 @html
 <span style="background-color: #33ff21">parcialmente</span>
-@end html
-@end ifhtml
-@ifnothtml
-parcialmente
-@end ifnothtml
-@tab pre-GDP
-@item
-2.7 Notación de acordes
-@*
-2176
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1001,7 +1001,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">parcialmente</span>
+<span style="background-color: #8aff2d">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1011,7 +1011,7 @@ parcialmente
 @item
 2.9 Notación antigua
 @*
-5546
+5565
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1028,7 +1028,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #54ff26">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1038,7 +1038,7 @@ parcialmente
 @item
 2.10 Músicas del mundo
 @*
-2004
+2009
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1065,7 +1065,7 @@ parcialmente
 @item
 3 Entrada y salida generales
 @*
-14207
+14352
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1082,7 +1082,7 @@ parcialmente (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #39ff22">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1092,7 +1092,34 @@ parcialmente
 @item
 4 Problemas de espaciado
 @*
-11164
+11207
+@tab Francisco Vila
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sí</span>
+@end html
+@end ifhtml
+@ifnothtml
+sí
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #47ff24">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+5 Cambiar los valores por omisión
+@*
+16755
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1117,36 +1144,9 @@ parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
-5 Cambiar los valores por omisión
-@*
-17137
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #25fe1f">parcialmente</span>
-@end html
-@end ifhtml
-@ifnothtml
-parcialmente
-@end ifnothtml
-@tab pre-GDP
-@item
 A Tablas del manual sobre notación
 @*
-3912
+3927
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1163,7 +1163,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #8aff2d">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1190,11 +1190,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #7dff2b">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -1239,7 +1239,7 @@ parcialmente
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1141
 @tab Han-Wen Nienhuys
 @tab 
 @tab 
@@ -1256,11 +1256,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -1295,44 +1295,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #76fe2a">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
-1139
-@tab Francisco Vila
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sí</span>
-@end html
-@end ifhtml
-@ifnothtml
-sí
-@end ifnothtml
-@tab pre-GDP
-@item
-1 Ejecutar LilyPond
-@*
-7167
+1141
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1350,6 +1323,33 @@ sí
 
 @html
 <span style="background-color: #2cff20">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+1 Ejecutar LilyPond
+@*
+7152
+@tab Francisco Vila
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sí</span>
+@end html
+@end ifhtml
+@ifnothtml
+sí
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1386,7 +1386,7 @@ sí
 @item
 3 Ejecución de @command{lilypond-book}
 @*
-4253
+4477
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1403,7 +1403,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #b2fe32">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1430,17 +1430,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 5 Sugerencias para escribir archivos de entrada
 @*
-2797
+2798
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1496,7 +1496,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">parcialmente</span>
+<span style="background-color: #8aff2d">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1506,7 +1506,7 @@ parcialmente
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1141
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1523,17 +1523,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 Introducción
 @*
-6073
+6069
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1550,17 +1550,17 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #25fe1f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 Descarga
 @*
-1099
+1113
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1577,11 +1577,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #40fe23">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1614,7 +1614,7 @@ sí
 @item
 Comunidad
 @*
-2186
+2153
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1631,7 +1631,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialmente</span>
+<span style="background-color: #91ff2e">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml

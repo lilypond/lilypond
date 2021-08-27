@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Última atualização em Thu Jan 28 20:53:10 UTC 2021
+@emph{Última atualização em Fri Aug 27 20:46:02 UTC 2021
 }
 @multitable @columnfractions  0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666 0.16666666666666666
 
@@ -47,7 +47,7 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">parcialmente</span>
+<span style="background-color: #a5ff31">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -57,7 +57,7 @@ parcialmente
 @item
 LilyPond --- \TITLE\
 @*
-1139
+1141
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -74,7 +74,7 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialmente</span>
+<span style="background-color: #4efe25">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -84,7 +84,34 @@ parcialmente
 @item
 Introdução
 @*
-6073
+6069
+@tab Rafael Fontenelle
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sim</span>
+@end html
+@end ifhtml
+@ifnothtml
+sim
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #83fe2c">parcialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialmente
+@end ifnothtml
+@tab pré-GDP
+@item
+Download
+@*
+1113
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -102,33 +129,6 @@ sim
 
 @html
 <span style="background-color: #7dff2b">parcialmente</span>
-@end html
-@end ifhtml
-@ifnothtml
-parcialmente
-@end ifnothtml
-@tab pré-GDP
-@item
-Download
-@*
-1099
-@tab Rafael Fontenelle
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">sim</span>
-@end html
-@end ifhtml
-@ifnothtml
-sim
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #5bff27">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ parcialmente
 @item
 Comunidade
 @*
-2186
+2153
 @tab Rafael Fontenelle
 @tab 
 @tab 
@@ -182,7 +182,7 @@ sim
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">parcialmente</span>
+<span style="background-color: #b9ff33">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
