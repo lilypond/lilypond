@@ -142,9 +142,6 @@ alignment."
 (define convert-to-pdf
   convert-to-pdf)
 
-(define output-clipped-systems
-  output-clipped-systems)
-
 (define convert-to-ps
   convert-to-ps)
 

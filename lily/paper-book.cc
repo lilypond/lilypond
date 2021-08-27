@@ -226,49 +226,43 @@ Paper_book::output (SCM output_channel)
                      get_output_backend_name ()));
     }
 
-  if (get_program_option ("clip-systems"))
-    {
-      SCM framework
-        = ly_module_lookup (mod, ly_symbol2scm ("output-clipped-systems"));
+  if (!get_program_option ("preview") && !get_program_option ("crop")
+      && !get_program_option ("clip-systems"))
+    return;
 
-      if (scm_is_true (framework))
-        {
-          SCM func = scm_variable_ref (framework);
-          scm_call_2 (func, output_channel, systems ());
-        }
-      else
-        warning (
-          _f ("program option -dclip-systems not supported by backend `%s'",
-              get_output_backend_name ()));
+  SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencil"));
+  if (scm_is_false (framework))
+    {
+      warning (_f ("program option -dclip-systems/-dcrop/-dpreview not "
+                   "supported by backend `%s'",
+                   get_output_backend_name ()));
+      return;
     }
 
-  if (get_program_option ("preview") || get_program_option ("crop"))
+  SCM func = scm_variable_ref (framework);
+
+  if (get_program_option ("clip-systems"))
     {
-      SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencil"));
+      SCM name_stencil_alist
+        = Lily::clipped_systems_stencils (output_channel, systems ());
 
-      if (scm_is_false (framework))
-        warning (
-          _f ("program option -dcrop/-dpreview not supported by backend `%s'",
-              get_output_backend_name ()));
-      else
-        {
-          SCM func = scm_variable_ref (framework);
+      for (SCM p = name_stencil_alist; scm_is_pair (p); p = scm_cdr (p))
+        scm_call_3 (func, scm_caar (p), scm_cdar (p), paper_->self_scm ());
+    }
 
-          std::string basename = ly_scm2string (output_channel);
-          if (get_program_option ("preview"))
-            {
+  std::string basename = ly_scm2string (output_channel);
+  if (get_program_option ("preview"))
+    {
 
-              scm_call_3 (func, ly_string2scm (basename + ".preview"),
-                          Lily::generate_preview_stencil (self_scm ()),
-                          paper ()->self_scm ());
-            }
-          if (get_program_option ("crop"))
-            {
-              scm_call_3 (func, ly_string2scm (basename + ".crop"),
-                          Lily::generate_crop_stencil (self_scm ()),
-                          paper ()->self_scm ());
-            }
-        }
+      scm_call_3 (func, ly_string2scm (basename + ".preview"),
+                  Lily::generate_preview_stencil (self_scm ()),
+                  paper ()->self_scm ());
+    }
+  if (get_program_option ("crop"))
+    {
+      scm_call_3 (func, ly_string2scm (basename + ".crop"),
+                  Lily::generate_crop_stencil (self_scm ()),
+                  paper ()->self_scm ());
     }
 }
 

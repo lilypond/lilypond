@@ -398,6 +398,76 @@ created."
      (stack-stencils Y DOWN 0.0
                      (map paper-system-stencil
                           (reverse (reverse systems))))))
+
+(define (clip-systems-to-region-stencils basename systems region)
+  "Returns NAME . STENCIL alist"
+  (let* ((extents-system-pairs
+          (filtered-map (lambda (paper-system)
+                          (let* ((x-ext (system-clipped-x-extent
+                                         (paper-system-system-grob paper-system)
+                                         region)))
+                            (if x-ext
+                                (cons x-ext paper-system)
+                                #f)))
+                        systems))
+         (count 0))
+    (map
+     (lambda (ext-system-pair)
+       (let* ((xext (car ext-system-pair))
+              (paper-system (cdr ext-system-pair))
+              (yext (paper-system-extent paper-system Y))
+              (bbox (list (car xext) (car yext)
+                          (cdr xext) (cdr yext)))
+              (filename (if (< 0 count)
+                            (format #f "~a-~a" basename count)
+                            basename)))
+         (set! count (1+ count))
+         (cons filename
+               (ly:make-stencil (ly:stencil-expr (paper-system-stencil paper-system))
+                                xext yext))))
+
+     extents-system-pairs)))
+
+(define (clipped-systems-stencils basename systems)
+  (define (clip-score-systems-stencils basename systems)
+    (let*
+        ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
+         (regions (ly:output-def-lookup layout 'clip-regions)))
+      (apply append (map
+       (lambda (region)
+         (clip-systems-to-region-stencils
+          (format #f "~a-from-~a-to-~a-clip"
+                  basename
+                  (rhythmic-location->file-string (car region))
+                  (rhythmic-location->file-string (cdr region)))
+          systems region))
+       regions))))
+
+  ;; partition in system lists sharing their layout blocks
+  (let* ((count 0)
+         (score-system-list '()))
+    (fold
+     (lambda (system last-system)
+       (if (not (and last-system
+                     (equal? (paper-system-layout last-system)
+                             (paper-system-layout system))))
+           (set! score-system-list (cons '() score-system-list)))
+       (if (paper-system-layout system)
+           (set-car! score-system-list (cons system (car score-system-list))))
+       ;; pass value.
+       system)
+     #f
+     systems)
+
+    (apply append (map (lambda (system-list)
+                ;; filter out headers and top-level markup
+                (if (pair? system-list)
+                    (clip-score-systems-stencils
+                     (if (> count 0)
+                         (format #f "~a-~a" basename count)
+                         basename)
+                     system-list)))
+                       score-system-list))))
   
 (define-public (font-name-split font-name)
   "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
