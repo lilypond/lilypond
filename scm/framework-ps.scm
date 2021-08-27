@@ -813,7 +813,7 @@ mark {ly~a_stream} /CLOSE pdfmark
             (car yext) (cdr xext) (cdr yext)))))
     (dump-stencil-as-EPS-with-bbox paper dump-me filename load-fonts bbox)))
 
-(define-public (dump-stencil-as-EPS-with-bbox paper dump-me filename
+(define (dump-stencil-as-EPS-with-bbox paper dump-me filename
                                               load-fonts
                                               bbox)
   "Create an EPS file from stencil @var{dump-me} to @var{filename}.
