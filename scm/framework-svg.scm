@@ -270,24 +270,6 @@ src: url('~a');
        (dump-page paper filename page page-number page-count))
      page-stencils)))
 
-(define-public (output-classic-framework basename book)
-  (let* ((paper (ly:paper-book-paper book))
-         (page-stencils (map paper-system-stencil (ly:paper-book-systems book)))
-         (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
-         (page-count (length page-stencils))
-         (filename "")
-         (file-suffix (lambda (num)
-                        (if (= page-count 1) "" (format #f "-~a" num)))))
-    (if (ly:get-option 'clip-systems) (clip-system-SVG basename book))
-    (for-each
-     (lambda (page)
-       (set! page-number (1+ page-number))
-       (set! filename (format #f "~a~a.svg"
-                              basename
-                              (file-suffix page-number)))
-       (dump-page paper filename page page-number page-count))
-     page-stencils)))
-
 (define (output-preview-framework basename book)
   (let* ((paper (ly:paper-book-paper book))
          (systems (relevant-book-systems book))
