@@ -134,8 +134,6 @@ alignment."
                           basename))
 
 (define-public (output-framework basename book paper) 
-  (if (ly:get-option 'clip-systems)
-      (clip-system-EPSes basename book))
   (dump-stencils-as-EPSes (map page-stencil
                                (ly:paper-book-pages book))
                           paper
@@ -144,6 +142,9 @@ alignment."
 ;; redefine to imports from framework-ps
 (define convert-to-pdf
   convert-to-pdf)
+
+(define output-clipped-systems
+  output-clipped-systems)
 
 (define convert-to-ps
   convert-to-ps)

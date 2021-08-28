@@ -208,7 +208,7 @@ src: url('~a');
                             filename bbox)))
      extents-system-pairs)))
 
-(define (clip-system-SVG basename systems)
+(define-public (output-clipped-systems basename systems)
   (define (clip-score-systems basename systems)
     (let* ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
            (regions (ly:output-def-lookup layout 'clip-regions)))
@@ -254,8 +254,6 @@ src: url('~a');
          (filename "")
          (file-suffix (lambda (num)
                         (if (= page-count 1) "" (format #f "-~a" num)))))
-    (if (ly:get-option 'clip-systems) (clip-system-SVG basename
-                                                       (ly:paper-book-systems book)))
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))

@@ -20,3 +20,5 @@
 (use-modules (lily))
 
 (define-public output-framework ly:output-cairo)
+
+;; TODO - implement output-clipped-systems 

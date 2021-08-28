@@ -217,6 +217,22 @@ Paper_book::output (SCM output_channel)
                      get_output_backend_name ()));
     }
 
+  if (get_program_option ("clip-systems"))
+    {
+      SCM framework
+        = ly_module_lookup (mod, ly_symbol2scm ("output-clipped-systems"));
+
+      if (scm_is_true (framework))
+        {
+          SCM func = scm_variable_ref (framework);
+          scm_call_2 (func, output_channel, systems ());
+        }
+      else
+        warning (
+          _f ("program option -dclip-systems not supported by backend `%s'",
+              get_output_backend_name ()));
+    }
+
   if (get_program_option ("preview"))
     {
       SCM framework

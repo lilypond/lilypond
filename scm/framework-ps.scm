@@ -767,8 +767,6 @@ mark {ly~a_stream} /CLOSE pdfmark
      (guile-2 (set-port-encoding! port "Latin1"))
      (else))
     (initialize-font-embedding)
-    (if (ly:get-option 'clip-systems)
-        (clip-system-EPSes basename (ly:paper-book-systems book)))
     (display (file-header paper page-count #t) port)
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
@@ -893,7 +891,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                               filename (format #f "~a.eps" filename) #t))))
      extents-system-pairs)))
 
-(define-public (clip-system-EPSes basename systems)
+(define-public (output-clipped-systems basename systems)
   (define do-pdf
     (member "pdf" (ly:output-formats)))
   (define do-png
