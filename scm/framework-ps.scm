@@ -693,6 +693,7 @@
         (metadata-lookup-output 'pdfsubject 'subject "Subject")
         (metadata-lookup-output 'pdfkeywords 'keywords "Keywords")
         (metadata-lookup-output 'pdfmodDate 'modDate "ModDate")
+        (metadata-lookup-output 'pdfcreationDate 'creationDate "CreationDate")
         (metadata-lookup-output 'pdfsubtitle 'subtitle "Subtitle")
         (metadata-lookup-output 'pdfcomposer 'composer "Composer")
         (metadata-lookup-output 'pdfarranger 'arranger "Arranger")

@@ -996,7 +996,8 @@ static std::unordered_map<std::string, cairo_pdf_metadata_t> metadata_keys = {
   {"keywords", CAIRO_PDF_METADATA_KEYWORDS},
   {"subject", CAIRO_PDF_METADATA_SUBJECT},
   {"title", CAIRO_PDF_METADATA_TITLE},
-  {"timestamp", CAIRO_PDF_METADATA_CREATE_DATE},
+  {"modDate", CAIRO_PDF_METADATA_MOD_DATE},
+  {"creationDate", CAIRO_PDF_METADATA_CREATE_DATE},
 };
 
 void
