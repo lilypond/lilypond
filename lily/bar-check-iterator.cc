@@ -33,6 +33,9 @@ public:
   void process (Moment) override;
   Bar_check_iterator ();
   DECLARE_SCHEME_CALLBACK (constructor, ());
+
+private:
+  void check ();
 };
 
 IMPLEMENT_CTOR_CALLBACK (Bar_check_iterator);
@@ -42,45 +45,43 @@ Bar_check_iterator::Bar_check_iterator ()
 }
 
 void
+Bar_check_iterator::check ()
+{
+  auto *const tr = get_context ();
+
+  if (from_scm<bool> (get_property (tr, "ignoreBarChecks")))
+    return;
+
+  SCM mp_scm = SCM_EOL;
+  auto *const timing = where_defined (tr, "measurePosition", &mp_scm);
+  if (!timing)
+    return;
+
+  const auto mp = from_scm (mp_scm, Moment ());
+  if (!mp.main_part_) // at start of measure: check passed
+    return;
+
+  bool warn = true;
+  if (from_scm<bool> (get_property (tr, "barCheckSynchronize")))
+    {
+      set_property (timing, "measurePosition", to_scm (Moment ()));
+    }
+  else
+    {
+      if (mp == from_scm (get_property (tr, "barCheckLastFail"), Moment ()))
+        warn = false;
+      else
+        set_property (tr, "barCheckLastFail", mp_scm);
+    }
+
+  if (warn)
+    warning (_f ("barcheck failed at: %s", to_string (mp)));
+}
+
+void
 Bar_check_iterator::process (Moment m)
 {
+  if (!has_started ())
+    check ();
   Simple_music_iterator::process (m);
-  if (!m)
-    {
-      Context *tr = get_context ();
-
-      SCM check = get_property (tr, "ignoreBarChecks");
-      if (from_scm<bool> (check))
-        return;
-
-      SCM mp = get_property (tr, "measurePosition");
-      SCM sync = get_property (tr, "barCheckSynchronize");
-
-      Moment *where = unsmob<Moment> (mp);
-      if (!where)
-        return;
-
-      if (where->main_part_)
-        {
-          bool warn = true;
-          if (from_scm<bool> (sync))
-            {
-              tr = where_defined (tr, "measurePosition");
-              Moment zero;
-              set_property (tr, "measurePosition", zero.smobbed_copy ());
-            }
-          else
-            {
-              SCM lf = get_property (tr, "barCheckLastFail");
-              if (unsmob<Moment> (lf)
-                  && *unsmob<Moment> (lf) == *where)
-                warn = false;
-              else
-                set_property (tr, "barCheckLastFail", mp);
-            }
-
-          if (warn)
-            warning (_f ("barcheck failed at: %s", where->to_string ()));
-        }
-    }
 }
