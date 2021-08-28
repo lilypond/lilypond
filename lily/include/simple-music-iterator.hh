@@ -34,11 +34,17 @@ private:
 protected:
   OVERRIDE_CLASS_NAME (Simple_music_iterator);
 
-  bool has_started () const { return pending_moment_ > Moment (0); }
+  bool has_started () const { return pending_moment_ > music_start_mom (); }
 
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Simple_music_iterator () = default;
+
+  void create_children () override
+  {
+    Music_iterator::create_children ();
+    pending_moment_ = music_start_mom ();
+  }
 
   void process (Moment m) override
   {
