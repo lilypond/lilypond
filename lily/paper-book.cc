@@ -225,10 +225,6 @@ Paper_book::output (SCM output_channel)
                      get_output_backend_name ()));
     }
 
-  if (!get_program_option ("preview") && !get_program_option ("crop")
-      && !get_program_option ("clip-systems"))
-    return;
-
   SCM framework = ly_module_lookup (mod, ly_symbol2scm ("output-stencil"));
   if (scm_is_false (framework))
     {
@@ -239,7 +235,6 @@ Paper_book::output (SCM output_channel)
     }
 
   SCM func = scm_variable_ref (framework);
-
   if (get_program_option ("clip-systems"))
     {
       SCM name_stencil_alist
@@ -257,12 +252,16 @@ Paper_book::output (SCM output_channel)
                   Lily::generate_preview_stencil (self_scm ()),
                   paper ()->self_scm ());
     }
+
   if (get_program_option ("crop"))
     {
       scm_call_3 (func, ly_string2scm (basename + ".cropped"),
                   Lily::generate_crop_stencil (self_scm ()),
                   paper ()->self_scm ());
     }
+
+  if (get_program_option ("aux-files"))
+    Lily::write_lilypond_book_aux_files (output_channel, scm_length (pages ()));
 }
 
 void
@@ -332,6 +331,9 @@ Paper_book::classic_output (SCM output)
 
   func = scm_variable_ref (func);
   scm_call_3 (func, output, self_scm (), paper ()->self_scm ());
+
+  if (get_program_option ("aux-files"))
+    Lily::write_lilypond_book_aux_files (output, scm_length (systems ()));
 }
 
 /* TODO: resurrect more complex user-tweaks for titling?  */

@@ -89,43 +89,7 @@ alignment."
             (for-each (lambda (y) (postscript->pdf 0 0
                                                    (dir-basename y ".eps")
                                                    y #t))
-                      eps-files))))
-
-  ;; Now, write some aux files if requested: .texi, .tex and .count
-  ;; for direct inclusion into latex and texinfo
-  (if create-aux-files
-      (let* ((write-file (lambda (str-port ext)
-                           (if create-aux-files
-                               (let* ((name (format #f "~a-systems.~a" basename ext))
-                                      (port (make-tmpfile name)))
-                                 (ly:message (_ "Writing ~a...") name)
-                                 (display (get-output-string str-port) port)
-                                 (close-port-rename port name)))))
-             (tex-system-port (open-output-string))
-             (texi-system-port (open-output-string))
-             (count-system-port (open-output-string)))
-        (for-each (lambda (c)
-                    (if (< 0 c)
-                        (format tex-system-port
-                                "\\ifx\\betweenLilyPondSystem \\undefined
-  \\linebreak
-\\else
-  \\expandafter\\betweenLilyPondSystem{~a}%
-\\fi
-" c))
-                    (format tex-system-port "\\includegraphics{~a-~a}%\n"
-                            basename (1+ c))
-                    (format texi-system-port "@image{~a-~a}\n"
-                            basename (1+ c)))
-                  (iota (length stencils)))
-        (display "@c eof\n" texi-system-port)
-        (display "% eof\n" tex-system-port)
-        (format count-system-port "~a" (length stencils))
-        (write-file texi-system-port "texi")
-        (write-file tex-system-port "tex")
-        ;; do this as the last action so we know the rest is complete if
-        ;; this file is present.
-        (write-file count-system-port "count"))))
+                      eps-files)))))
 
 (define-public (output-classic-framework basename book paper)
   (dump-stencils-as-EPSes (map paper-system-stencil

@@ -318,6 +318,39 @@ created."
              (file-exists? tmp-name))
         (delete-file tmp-name))))
 
+(define (write-lilypond-book-aux-files basename count)
+  (let* ((write-file (lambda (str-port ext)
+                           (let* ((name (format #f "~a-systems.~a" basename ext))
+                                  (port (make-tmpfile name)))
+                             (ly:message (_ "Writing ~a...") name)
+                             (display (get-output-string str-port) port)
+                             (close-port-rename port name))))
+         (tex-system-port (open-output-string))
+         (texi-system-port (open-output-string))
+         (count-system-port (open-output-string)))
+    (for-each (lambda (c)
+                (if (< 0 c)
+                    (format tex-system-port
+                            "\\ifx\\betweenLilyPondSystem \\undefined
+  \\linebreak
+\\else
+  \\expandafter\\betweenLilyPondSystem{~a}%
+\\fi
+" c))
+                (format tex-system-port "\\includegraphics{~a-~a}%\n"
+                        basename (1+ c))
+                (format texi-system-port "@image{~a-~a}\n"
+                        basename (1+ c)))
+              (iota count))
+    (display "@c eof\n" texi-system-port)
+    (display "% eof\n" tex-system-port)
+    (format count-system-port "~a" count)
+    (write-file texi-system-port "texi")
+    (write-file tex-system-port "tex")
+    ;; do this as the last action so we know the rest is complete if
+    ;; this file is present.
+    (write-file count-system-port "count")))
+
 (define-public (completize-formats formats is-eps)
   (define new-fmts '())
   (if (and is-eps (member "eps" formats))
