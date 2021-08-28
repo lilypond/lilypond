@@ -307,17 +307,6 @@ diese Schriftarten einfach aus dem LilyPond-Verzeichnis (normalerweise
 kopiert werden.  Die SVG-Ausgabe sollte mit allen SVG-Editoren oder
 Betrachtungsprogrammen kompatibel sein.
 
-@cindex Scheme-dump
-
-@item scm
-gibt die rohen Scheme-basierenden Zeichenbefehle aus, wie sie intern von
-LilyPond benutzt werden.
-
-@cindex Scheme dump
-
-@item null
-Keine Partitur wird ausgegeben, hat gleichen Effekt wie @code{-dno-print-pages}.
-
 @end table
 
 Beispiel: @code{lilypond -dbackend=svg @var{Dateiname}.ly}

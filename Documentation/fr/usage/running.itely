@@ -590,13 +590,6 @@ page (système) fera l'objet d'un fichier @file{EPS} particulier, sans
 fontes, auquel sera associé un fichier @file{EPS} qui, lui, contiendra
 toutes les pages (systèmes) et les fontes.
 
-@item null
-Ne génère aucun fichier imprimable.  Cette option est équivalente à
-@code{-dno-print-pages}.
-
-@item scm
-Recopie littéralement les commandes Scheme internes de formatage.
-
 @item svg
 Génère du @emph{Scalable Vector Graphics}.  Cette option permet de
 créer un fichier SVG par page.  Les glyphes musicaux sont codés en tant

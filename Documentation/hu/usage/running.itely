@@ -248,15 +248,6 @@ másolni ezeket a program könyvtárából (tipikusan
 Az SVG kimenet szabványos, így bármilyen, ezt a formátumot olvasni képes
 programmal megnyitható.
 
-@item scm
-
-@cindex Scheme kiíratás
-
-A belső Scheme rajzolóparancsok szó szerinti kiírása.
-
-@item null
-
-Nincs kimenet; ugyanaz a hatása, mint a @code{-dno-print-pages} opciónak.
 @end table
 
 Példa: @code{lilypond -dbackend=svg @var{fájlnév}.ly}

@@ -565,13 +565,6 @@ ogni pagina crea sia un singolo file con tutte le pagine e i tipi di carattere
 inclusi sia file EPS (Encapsulated PostScript) separati per ogni pagina
 ma senza i tipi di caratteri inclusi.
 
-@item null
-Non genera la stampa della partitura.  Produce lo stesso effetto
-di @code{-dno-print-pages}.
-
-@item scm
-Estrae i comandi di disegno grezzi e interni, basati su Scheme.
-
 @item svg
 Scalable Vector Graphics.
 Viene creato un singolo file SVG per ogni pagina dell'output.  I glifi

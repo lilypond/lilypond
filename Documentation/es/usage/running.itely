@@ -616,14 +616,6 @@ un solo archivo con todas las ṕaginas y fuentes tipográficas
 incluidas y como archivos Postscript separados para cada página
 pero sin las fuentes tipográficas incluidas.
 
-@item null
-No producir ninguna partitura impresa a la salida; tiene el mismo
-efecto que @code{-dno-print-pages}.
-
-@item scm
-Volcado de las instrucciones de dibujo internas basadas en Scheme, en
-bruto.
-
 @item svg
 Gráficos vectoriales escalables.  Por cada página de la salida, se
 crea un solo archivo @code{SVG}.  Los glifos musicales se

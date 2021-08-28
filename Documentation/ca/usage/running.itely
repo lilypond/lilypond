@@ -425,11 +425,6 @@ sistemes que inclouen els tipus de lletra.  Utilitzat com a opció
 predeterminada per part de @command{lilypond-book}.
 
 @item
-@tab @code{null}
-@tab No produeixes cap partitura impresa a la sortida; té el
-mateix efecte que @code{-dno-print-pages}.
-
-@item
 @tab @code{svg}
 @tab Gràfics vectorials escalables.  Crea un únic fitxer
 @code{SVG}, sense tipus tipogràfics de lletra incrustats, per a
@@ -443,13 +438,8 @@ ser compatible amb qualsevol editor o client de SVG.  També hi ha
 una opció @code{svg-woff} (vegeu més avall) per usar els fitxers
 de tipus de lletra woff al @q{rerefons} SVG.
 
-@item
-@tab @code{scm}
-@tab Bolcat de les instruccions de dibuix internes basades en
-Scheme, en brut.
-
 @item @code{check-internal-types}
-n@tab @code{#f}
+@tab @code{#f}
 @tab Comprova el tipus de cada assignació de propietats.
 
 @item @code{clip-systems} (retalla els sistemes de pentagrames)

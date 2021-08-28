@@ -559,13 +559,6 @@ every page as both a single file with all pages and fonts included and
 as separate encapsulated PostScript files for each page but without fonts
 included.
 
-@item null
-Do not output a printed score.  This has the same effect as
-@code{-dno-print-pages}.
-
-@item scm
-This dumps out the raw, internal Scheme-based drawing commands.
-
 @item svg
 Scalable Vector Graphics.
 A single SVG file is created for every page of output.  Music glyphs
