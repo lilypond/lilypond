@@ -496,7 +496,12 @@ created."
                          basename)
                      system-list)))
                        score-system-list))))
-  
+
+(define (generate-system-stencils paper-book)
+  "Generate list of stencils for lilypond-book output" 
+  (map paper-system-stencil
+       (ly:paper-book-systems paper-book)))
+
 (define-public (font-name-split font-name)
   "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
 string or @code{#f}."

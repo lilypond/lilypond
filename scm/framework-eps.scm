@@ -91,9 +91,8 @@ alignment."
                                                    y #t))
                       eps-files)))))
 
-(define-public (output-classic-framework basename book paper)
-  (dump-stencils-as-EPSes (map paper-system-stencil
-                               (ly:paper-book-systems book))
+(define-public (output-classic-framework basename stencils paper)
+  (dump-stencils-as-EPSes stencils
                           paper
                           basename))
 

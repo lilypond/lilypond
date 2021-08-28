@@ -65,6 +65,7 @@ Variable default_time_signature_settings ("default-time-signature-settings");
 Variable define_markup_command_internal ("define-markup-command-internal");
 Variable generate_crop_stencil ("generate-crop-stencil");
 Variable generate_preview_stencil ("generate-preview-stencil");
+Variable generate_system_stencils ("generate-system-stencils");
 Variable grob_compose_function ("grob::compose-function");
 Variable grob_offset_function ("grob::offset-function");
 Variable hash_table_to_alist ("hash-table->alist");

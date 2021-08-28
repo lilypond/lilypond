@@ -328,9 +328,17 @@ Paper_book::classic_output (SCM output)
 
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
+  if (scm_is_false (func))
+    {
+      warning (_f ("lilypond-book output not supported by backend `%s'",
+                   get_output_backend_name ()));
+      return;
+    }
 
   func = scm_variable_ref (func);
-  scm_call_3 (func, output, self_scm (), paper ()->self_scm ());
+
+  SCM stencils = Lily::generate_system_stencils (self_scm ());
+  scm_call_3 (func, output, stencils, paper ()->self_scm ());
 
   if (get_program_option ("aux-files"))
     Lily::write_lilypond_book_aux_files (output, scm_length (systems ()));
