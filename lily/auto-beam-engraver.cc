@@ -54,10 +54,10 @@ protected:
   void listen_beam_forbid (Stream_event *);
 
 private:
-  virtual bool test_moment (Direction, Moment, Moment);
+  virtual bool test_moment (Direction, Moment, Rational);
   bool busy () const { return beam_start_moment_ < Moment::infinity (); }
-  void consider_begin (Moment, Moment);
-  void consider_end (Moment, Moment);
+  void consider_begin (Moment, Rational);
+  void consider_end (Moment, Rational);
   Spanner *create_beam ();
   void begin_beam ();
   void end_beam ();
@@ -71,9 +71,9 @@ private:
   bool force_end_ = false;
   bool considered_bar_ = false;
   /*
-    shortest_mom_ is the shortest note in the beam.
+    shortest_dur_ is the shortest note in the beam.
   */
-  Moment shortest_mom_ {Rational (1, 4)};
+  Rational shortest_dur_ {1, 4};
   Spanner *finished_beam_ = nullptr;
   // This engraver is designed to operate in Voice context, so we expect only
   // one stem per timestep.
@@ -138,17 +138,17 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 }
 
 bool
-Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
+Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Rational dur)
 {
   return scm_is_true (scm_call_4 (get_property (this, "autoBeamCheck"),
                                   context ()->self_scm (),
                                   to_scm (dir),
                                   test_mom.smobbed_copy (),
-                                  dur.smobbed_copy ()));
+                                  Moment (dur).smobbed_copy ()));
 }
 
 void
-Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
+Auto_beam_engraver::consider_begin (Moment test_mom, Rational dur)
 {
   if (!busy () && !forbid_
       && from_scm<bool> (get_property (this, "autoBeaming"))
@@ -159,7 +159,7 @@ Auto_beam_engraver::consider_begin (Moment test_mom, Moment dur)
 }
 
 void
-Auto_beam_engraver::consider_end (Moment test_mom, Moment dur)
+Auto_beam_engraver::consider_end (Moment test_mom, Rational dur)
 {
   if (busy ())
     {
@@ -229,7 +229,7 @@ Auto_beam_engraver::junk_beam ()
   grouping_ = 0;
   beam_settings_ = SCM_EOL;
 
-  shortest_mom_ = Moment (Rational (1, 4));
+  shortest_dur_ = Rational (1, 4);
 }
 
 bool
@@ -262,7 +262,7 @@ Auto_beam_engraver::end_beam ()
     }
 
   beam_start_context_.set_context (NULL);
-  shortest_mom_ = Moment (Rational (1, 4));
+  shortest_dur_ = Rational (1, 4);
 }
 
 void
@@ -369,20 +369,20 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
   if (!is_same_grace_state (beam_start_location_, now))
     return;
 
-  Moment dur (stem_duration->get_length ());
-  Moment measure_now = measure_position (context ());
+  const auto dur = stem_duration->get_length ();
+  const auto measure_now = measure_position (context ());
   bool recheck_needed = false;
 
-  if (dur < shortest_mom_)
+  if (dur < shortest_dur_)
     {
       /* new shortest moment, so store it and set recheck_needed */
-      shortest_mom_ = dur;
+      shortest_dur_ = dur;
       recheck_needed = true;
     }
 
-  /* end should be based on shortest_mom_, begin should be
+  /* end should be based on shortest_dur_, begin should be
      based on current duration  */
-  consider_end (measure_now, shortest_mom_);
+  consider_end (measure_now, shortest_dur_);
   consider_begin (measure_now, dur);
 
   if (!busy ())
@@ -411,32 +411,27 @@ Auto_beam_engraver::recheck_beam ()
     first part of the beam and reset the current beam to just
     the last part of the beam
   */
-  Beaming_pattern *new_grouping_ = 0;
   vector<Item *> new_stems;
-  Moment temporary_shortest_mom;
-  SCM temporary_beam_settings;
-
-  bool found_end;
 
   for (vsize i = 0; (i + 1) < stems_.size (); /*in body*/)
     {
-      found_end = test_moment (STOP,
-                               Moment (grouping_->end_moment (i)),
-                               shortest_mom_);
+      const bool found_end = test_moment (STOP,
+                                          Moment (grouping_->end_moment (i)),
+                                          shortest_dur_);
       if (!found_end)
         i++;
       else
         {
           /*
-            Save the current beam settings and shortest_mom_
+            Save the current beam settings and shortest_dur_
             Necessary because end_beam destroys them
           */
-          temporary_shortest_mom = shortest_mom_;
-          temporary_beam_settings = beam_settings_;
+          const auto saved_shortest_dur = shortest_dur_;
+          const auto saved_beam_settings = beam_settings_;
 
           /* Eliminate (and save) the items no longer part of the first beam */
 
-          new_grouping_ = grouping_->split_pattern (i);
+          auto *const new_grouping_ = grouping_->split_pattern (i);
           new_stems.insert (new_stems.end (),
                             std::next (stems_.begin (), i + 1),
                             stems_.end ());
@@ -449,15 +444,13 @@ Auto_beam_engraver::recheck_beam ()
           stems_ = std::move (new_stems);
           new_stems.clear ();
           grouping_ = new_grouping_;
-          shortest_mom_ = temporary_shortest_mom;
-          beam_settings_ = temporary_beam_settings;
+          shortest_dur_ = saved_shortest_dur;
+          beam_settings_ = saved_beam_settings;
           beam_start_moment_ = now_mom ();
 
           i = 0;
         }
-
     }
-
 }
 
 void
@@ -482,7 +475,7 @@ Auto_beam_engraver::process_acknowledged ()
 
       if (busy () && scm_is_string (get_property (this, "whichBar")))
         {
-          consider_end (measure_position (context ()), shortest_mom_);
+          consider_end (measure_position (context ()), shortest_dur_);
           junk_beam ();
         }
     }
@@ -501,7 +494,7 @@ Auto_beam_engraver::process_acknowledged ()
     {
       if (!process_acknowledged_count_)
         {
-          consider_end (measure_position (context ()), shortest_mom_);
+          consider_end (measure_position (context ()), shortest_dur_);
         }
       else if (process_acknowledged_count_ > 1)
         {
@@ -562,7 +555,7 @@ private:
   Moment last_grace_position_; // Measure position of same
   void process_music () override;
   bool is_same_grace_state (Moment, Moment) override;
-  bool test_moment (Direction, Moment, Moment) override;
+  bool test_moment (Direction, Moment, Rational) override;
 };
 
 Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)
@@ -595,7 +588,7 @@ Grace_auto_beam_engraver::process_music ()
 }
 
 bool
-Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment)
+Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Rational)
 {
   // If no grace group started this main moment, we have no business
   // beaming.  Same if we have left the original main time step.
