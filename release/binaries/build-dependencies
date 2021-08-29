@@ -5,7 +5,7 @@ import logging
 import os
 import sys
 
-from lib import Config, all_dependencies
+from lib import Config, all_dependencies, all_fonts
 
 cpus = os.cpu_count() or 1
 
@@ -23,8 +23,8 @@ else:
 c = Config(".", jobs=args.jobs)
 c.create_directories()
 
-logging.info("Downloading source code...")
-for package in all_dependencies:
+logging.info("Downloading files...")
+for package in all_dependencies + all_fonts:
     package.download(c)
 
 if not args.debug:
@@ -39,3 +39,10 @@ for package in all_dependencies:
         log_path = package.log_path(c)
         logging.info("See %s for more information", log_path)
         sys.exit(1)
+
+for font in all_fonts:
+    logging.info("Extracting font %s", font)
+    if not font.prepare_sources(c):
+        sys.exit(1)
+    # Can never fail
+    font.build(c)
