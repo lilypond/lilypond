@@ -115,17 +115,10 @@ Audio_span_dynamic::Audio_span_dynamic (Moment mom, Real volume)
   set_volume (volume, volume);
 }
 
-Moment
-remap_grace_duration (Moment m)
-{
-  return Moment (m.main_part_ + Rational (9, 40) * m.grace_part_,
-                 Rational (0));
-}
-
 Real
 moment_to_real (Moment m)
 {
-  return static_cast<Real> (remap_grace_duration (m).main_part_);
+  return static_cast<Real> (m.main_part_ + Rational (9, 40) * m.grace_part_);
 }
 
 int
