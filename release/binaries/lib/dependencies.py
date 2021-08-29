@@ -29,6 +29,15 @@ from .build import Package, ConfigurePackage, MesonPackage
 from .config import Config
 
 
+def copy_slice(src: str, dst: str, lines: slice):
+    """Copy a slice of lines from src to dst."""
+    with open(src, "r", encoding="utf-8") as src_file:
+        content = src_file.readlines()
+    content = content[lines]
+    with open(dst, "w", encoding="utf-8") as dst_file:
+        dst_file.writelines(content)
+
+
 class Expat(ConfigurePackage):
     @property
     def version(self) -> str:
@@ -338,12 +347,9 @@ class Zlib(ConfigurePackage):
         return ["--static"]
 
     def copy_license_files(self, destination: str, c: Config):
-        readme_path = os.path.join(self.src_directory(c), "README")
-        with open(readme_path) as readme:
-            notice = readme.readlines()[-38:]
-        readme_path = os.path.join(destination, f"{self.directory}.README")
-        with open(readme_path, "w") as readme:
-            readme.writelines(notice)
+        readme_src = os.path.join(self.src_directory(c), "README")
+        readme_dst = os.path.join(destination, f"{self.directory}.README")
+        copy_slice(readme_src, readme_dst, slice(-38, None))
 
     def __str__(self) -> str:
         return f"zlib {self.version}"
@@ -424,12 +430,9 @@ class Bdwgc(ConfigurePackage):
         return ["--disable-docs"]
 
     def copy_license_files(self, destination: str, c: Config):
-        readme_path = os.path.join(self.src_directory(c), "README.md")
-        with open(readme_path) as readme:
-            notice = readme.readlines()[-48:]
-        readme_path = os.path.join(destination, f"{self.directory}.README")
-        with open(readme_path, "w") as readme:
-            readme.writelines(notice)
+        readme_src = os.path.join(self.src_directory(c), "README.md")
+        readme_dst = os.path.join(destination, f"{self.directory}.README")
+        copy_slice(readme_src, readme_dst, slice(-48, None))
 
     def __str__(self) -> str:
         return f"bdwgc {self.version}"
@@ -462,12 +465,9 @@ class GMP(ConfigurePackage):
     def copy_license_files(self, destination: str, c: Config):
         super().copy_license_files(destination, c)
 
-        readme_path = os.path.join(self.src_directory(c), "README")
-        with open(readme_path) as readme:
-            notice = readme.readlines()[0:27]
-        readme_path = os.path.join(destination, f"{self.directory}.README")
-        with open(readme_path, "w") as readme:
-            readme.writelines(notice)
+        readme_src = os.path.join(self.src_directory(c), "README")
+        readme_dst = os.path.join(destination, f"{self.directory}.README")
+        copy_slice(readme_src, readme_dst, slice(0, 27))
 
     def __str__(self) -> str:
         return f"GMP {self.version}"
@@ -528,12 +528,9 @@ class Libunistring(ConfigurePackage):
     def copy_license_files(self, destination: str, c: Config):
         super().copy_license_files(destination, c)
 
-        readme_path = os.path.join(self.src_directory(c), "README")
-        with open(readme_path) as readme:
-            notice = readme.readlines()[47:63]
-        readme_path = os.path.join(destination, f"{self.directory}.README")
-        with open(readme_path, "w") as readme:
-            readme.writelines(notice)
+        readme_src = os.path.join(self.src_directory(c), "README")
+        readme_dst = os.path.join(destination, f"{self.directory}.README")
+        copy_slice(readme_src, readme_dst, slice(47, 63))
 
     def __str__(self) -> str:
         return f"libunistring {self.version}"
