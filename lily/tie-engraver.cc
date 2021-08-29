@@ -323,16 +323,8 @@ Tie_engraver::process_acknowledged ()
                                          ? tie_event->self_scm ()
                                          : tie_stream_event->self_scm ());
 
-          auto end = now_mom ();
-          if (end.grace_part_)
-            {
-              end.grace_part_ += get_event_length (left_ev).main_part_;
-            }
-          else
-            {
-              end += get_event_length (left_ev);
-            }
-          event_tup.end_moment_ = end;
+          const auto now = now_mom ();
+          event_tup.end_moment_ = now + get_event_length (left_ev, now);
 
           new_heads_to_tie.push_back (event_tup);
         }
