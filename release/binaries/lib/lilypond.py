@@ -239,13 +239,13 @@ class LilyPondPackager:
         bin_path = os.path.join(self.package_dir, "bin", script)
         libexec_path = os.path.join(self.libexec_dir, script)
 
-        with open(bin_path) as orig:
+        with open(bin_path, "r", encoding="utf-8") as orig:
             orig_lines = orig.readlines()
         new_lines = [shebang + "\n"] + orig_lines[1:]
-        with open(libexec_path, "w") as new:
+        with open(libexec_path, "w", encoding="utf-8") as new:
             new.writelines(new_lines)
 
-        with open(bin_path, "w") as wrapper:
+        with open(bin_path, "w", encoding="utf-8") as wrapper:
             wrapper.write(wrapper_template % script)
 
         chmod_x(bin_path)

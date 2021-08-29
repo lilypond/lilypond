@@ -766,7 +766,7 @@ class Python(ConfigurePackage):
         # modules are built statically into libpython and not dynamically loaded
         # from lib-dynload/.
         setup_py = os.path.join(self.src_directory(c), "setup.py")
-        with open(setup_py, "w"):
+        with open(setup_py, "w", encoding="utf-8"):
             pass
 
         def patch_setup(content: str) -> str:

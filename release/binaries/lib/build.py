@@ -110,10 +110,10 @@ class Package:
     def patch_file(self, c: Config, filename: str, patch: Callable[[str], str]):
         """Patch the content of a file with the given lambda."""
         filename = os.path.join(self.src_directory(c), filename)
-        with open(filename, "r") as old:
+        with open(filename, "r", encoding="utf-8") as old:
             content = old.read()
         content = patch(content)
-        with open(filename, "w") as new:
+        with open(filename, "w", encoding="utf-8") as new:
             new.write(content)
 
     def apply_patches(self, c: Config):
@@ -223,7 +223,7 @@ class ConfigurePackage(Package):
         build_env = self.build_env(c)
 
         # Set up the log file.
-        with open(self.log_path(c), "w") as log:
+        with open(self.log_path(c), "w", encoding="utf-8") as log:
 
             def run(args: List[str]) -> subprocess.CompletedProcess:
                 formatted_args = "' '".join(args)
@@ -296,7 +296,7 @@ class MesonPackage(Package):
         build_env = self.build_env(c)
 
         # Set up the log file.
-        with open(self.log_path(c), "w") as log:
+        with open(self.log_path(c), "w", encoding="utf-8") as log:
 
             def run(args: List[str]) -> subprocess.CompletedProcess:
                 formatted_args = "' '".join(args)
