@@ -515,44 +515,16 @@ Pango_font::text_stencil (Output_def * /* state */,
 
   g_object_unref (layout);
 
-  string name = get_output_backend_name ();
-  string output_mod = "lily output-" + name;
-  SCM mod = scm_c_resolve_module (output_mod.c_str ());
-
-  bool has_utf8_string = false;
-
-  if (ly_is_module (mod))
+  if (!music_string || !music_strings_to_paths)
     {
-      SCM utf8_string = ly_module_lookup (mod, ly_symbol2scm ("utf-8-string"));
-      /*
-        has_utf8_string should only be true when utf8_string is a
-        variable that is bound to a *named* procedure, i.e. not a
-        lambda expression.
-      */
-      if (scm_is_true (utf8_string)
-          && scm_is_true (scm_procedure_name (SCM_VARIABLE_REF (utf8_string))))
-        has_utf8_string = true;
-    }
-
-  bool to_paths = music_strings_to_paths;
-
-  /*
-    Backends with the utf-8-string expression use it when
-      1) the -dmusic-strings-to-paths option is set
-         and `str' is not a music string, or
-      2) the -dmusic-strings-to-paths option is not set.
-  */
-  if (has_utf8_string && ((to_paths && !music_string) || !to_paths))
-    {
-      // For Pango based backends, we take a shortcut.
+      // Encapsulate to allow a short-cut for backends that also use
+      // Pango for rendering.
       SCM exp = scm_list_4 (ly_symbol2scm ("utf-8-string"),
                             ly_string2scm (description_string ()),
                             ly_string2scm (str),
                             dest.expr ());
-
-      return Stencil (dest.extent_box (), exp);
+      dest = Stencil (dest.extent_box (), exp);
     }
-
   return dest;
 }
 

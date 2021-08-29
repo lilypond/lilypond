@@ -1138,6 +1138,8 @@ Cairo_outputter::output (SCM expr)
     set_scale (arg[0], arg[1]);
   else if (head == ly_symbol2scm ("resetscale"))
     reset_scale ();
+  else if (head == ly_symbol2scm ("utf-8-string"))
+    return SCM_BOOL_F;
 
   return SCM_UNSPECIFIED;
 }
