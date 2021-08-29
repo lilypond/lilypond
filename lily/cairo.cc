@@ -601,6 +601,13 @@ Cairo_outputter::create_surface (Stencil const *stencil, int page_number)
                                                png_height_);
         context_ = cairo_create (surface_);
         cairo_scale (context_, png_dpi / 72.0, png_dpi / 72.0);
+
+        cairo_save (context_);
+        // TODO - make transparency/background tunable. White
+        // background is easier for visual inspection
+        cairo_set_source_rgba (context_, 1, 1, 1, 1);
+        cairo_paint (context_);
+        cairo_restore (context_);
         break;
       }
     case PS:
