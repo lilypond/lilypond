@@ -662,14 +662,14 @@ in the PDF backend.
 Add a link to the page holding label @var{label} around @var{arg}.  This
 only works in the PDF backend.
 
-@lilypond[verbatim,quote]
+@verbatim
 \\markup {
   \\with-link #'label {
     \\italic { This links to the page
                containing the label... }
   }
 }
-@end lilypond"
+@end verbatim"
   (let* ((arg-stencil (interpret-markup layout props arg))
          (x-ext (ly:stencil-extent arg-stencil X))
          (y-ext (ly:stencil-extent arg-stencil Y)))

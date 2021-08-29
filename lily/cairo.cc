@@ -922,6 +922,9 @@ Cairo_outputter::grob_cause (SCM offset, SCM grob_scm)
 void
 Cairo_outputter::page_link (SCM target, SCM varx, SCM vary)
 {
+  if (!is_scm<int> (target))
+    return;
+
   int page = from_scm<int> (target);
   Real x = from_scm<Real> (scm_car (varx));
   Real y = from_scm<Real> (scm_car (vary));
