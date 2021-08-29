@@ -255,8 +255,28 @@ Cairo_outputter::cairo_font_for_ft_font (FT_Face face)
   cairo_font_face_t *cairo_font_face = cairo_fonts_[face];
   if (!cairo_font_face)
     {
+      static const cairo_user_data_key_t ukey = {};
       cairo_font_face = cairo_ft_font_face_create_for_ft_face (face, 0);
       cairo_fonts_[face] = cairo_font_face;
+
+      // We get a mixture of fonts owned by us (text fonts) and owned
+      // externally (the music font). At the same time, Cairo holds on
+      // to an internal cache of cairo_font_face_ts and their
+      // associated FT_Face, which may live past the Cairo context and
+      // surface.  This means we can't simply discard all the owned
+      // fonts in the destructor, because Cairo may reuse them for the
+      // next document or next page, leading to odd artifacts.  We
+      // solve this by handling FT_Face lifetime with a finalizer
+      // (cairo_destroy_func_t), that is balanced with a refcount
+      // increase.  The call to open_ft_face for owned text fonts is
+      // balanced with FT_Done_Face calls in ~Cairo_outputter.
+      FT_Reference_Face (face);
+
+      if (cairo_font_face_set_user_data (cairo_font_face, &ukey, face,
+                                         (cairo_destroy_func_t) FT_Done_Face))
+        {
+          programming_error ("cairo_font_face_set_user_data failed");
+        }
     }
 
   return cairo_font_face;
