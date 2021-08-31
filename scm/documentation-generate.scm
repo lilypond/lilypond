@@ -37,7 +37,8 @@
                     "document-context-mods"
                     "document-backend"
                     "document-markup"
-                    "document-outside-staff-priorities"))
+                    "document-outside-staff-priorities"
+                    "hyphenate-internal-words"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -78,6 +79,9 @@
  outside-staff-priorities-doc-string
  (open-output-file "outside-staff-priorities.tely"))
 
+(display
+ hyphenation-rules-string
+ (open-output-file "hyphenation.itexi"))
 
 (define file-name "internals")
 (define outname (string-append file-name ".texi"))

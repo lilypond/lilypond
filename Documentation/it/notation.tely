@@ -28,7 +28,9 @@ Copyright @copyright{} 1999--2021 degli autori.
 
 @set FDL
 @include it/macros.itexi
-
+@iftex
+@include en/hyphenation.itexi
+@end iftex
 
 @c Translators: Federico Bruni
 

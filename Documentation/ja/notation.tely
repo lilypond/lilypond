@@ -33,7 +33,9 @@ Copyright @copyright{} 1999--2021 by 著作者一同
 
 @set FDL
 @include ja/macros.itexi
-
+@iftex
+@include en/hyphenation.itexi
+@end iftex
 
 @c Translators: Yoshiki Sawada, Tomohiro Tatejima
 @c Translation status: post-GDP

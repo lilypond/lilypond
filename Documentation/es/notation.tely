@@ -33,7 +33,9 @@ Copyright @copyright{} 1998--2021 por los autores.
 
 @set FDL
 @include es/macros.itexi
-
+@iftex
+@include en/hyphenation.itexi
+@end iftex
 
 @c Translators: Francisco Vila
 

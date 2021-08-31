@@ -711,9 +711,10 @@ define per_lang_dep
     $(outdir)/computer-notation.itexi \
     $(outdir)/engravingbib.itexi
 
-  # `notation.tely` includes, via `notation/notation-appendices.itely`, many
-  # generated files (like `markup-commands.tely`).  These are the result of
-  # processing `ly/generate-documentation.ly` for `internals.texi` (see above).
+  # `notation.tely` includes generated files, including `hyphenation.itexi`,
+  # as well as many like `markup-commands.tely` via
+  # `notation/notation-appendices.itely`.  These are the result of processing
+  # `ly/generate-documentation.ly` for `internals.texi` (see above).
   $(outdir)/$(1)/notation.texi: $(outdir)/en/internals.texi
 
   $(foreach D, \

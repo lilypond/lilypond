@@ -37,6 +37,9 @@ Copyright @copyright{} 1999--2021 pels autors.
 
 @set FDL
 @include ca/macros.itexi
+@iftex
+@include en/hyphenation.itexi
+@end iftex
 
 
 @c Translators: Walter Garcia-Fontes

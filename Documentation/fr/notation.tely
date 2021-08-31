@@ -31,6 +31,9 @@ Copyright @copyright{} 1998--2021 par les auteurs.
 
 @set FDL
 @include fr/macros.itexi
+@iftex
+@include en/hyphenation.itexi
+@end iftex
 
 @c @direntry has not been added yet, as Emacs and standalone Info have
 @c no i18n support -JM

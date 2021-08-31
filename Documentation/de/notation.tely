@@ -30,7 +30,9 @@ Copyright @copyright{} 1999--2021 bei den Autoren.
 
 @set FDL
 @include de/macros.itexi
-
+@iftex
+@include en/hyphenation.itexi
+@end iftex
 
 @lilyTitlePage{Notationsreferenz}
 

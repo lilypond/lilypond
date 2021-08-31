@@ -33,6 +33,9 @@ Copyright @copyright{} 1998--2021 by the authors.
 
 @set FDL
 @include en/macros.itexi
+@iftex
+@include en/hyphenation.itexi
+@end iftex
 
 
 @lilyTitlePage{Notation Reference}
