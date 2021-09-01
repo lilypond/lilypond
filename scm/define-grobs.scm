@@ -127,9 +127,6 @@
 
     (AmbitusAccidental
      . (
-        (direction . ,LEFT)
-        (padding . 0.5)
-        (side-axis . ,X)
         (stencil . ,ly:accidental-interface::print)
         (X-offset . ,ly:grob::x-parent-positioning)
         (Y-extent . ,accidental-interface::height)
@@ -137,8 +134,7 @@
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
                                 break-aligned-interface
-                                font-interface
-                                side-position-interface))))))
+                                font-interface))))))
 
     (AmbitusLine
      . (

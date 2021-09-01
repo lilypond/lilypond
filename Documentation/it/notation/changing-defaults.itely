@@ -2923,7 +2923,6 @@ dell'oggetto genitore.  In questo caso @w{@code{-1}} o @code{LEFT} significano
 
 @ignore
 These all have side-axis set to #X
-AmbitusAccidental - direction has no effect
 Arpeggio - works
 StanzaNumber - not tried
 TrillPitchAccidental - not tried

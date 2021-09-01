@@ -3194,7 +3194,6 @@ left of the parent.  In this case @w{@code{-1}} or @code{LEFT} means
 
 @ignore
 These all have side-axis set to #X
-AmbitusAccidental - direction has no effect
 Arpeggio - works
 StanzaNumber - not tried
 TrillPitchAccidental - not tried

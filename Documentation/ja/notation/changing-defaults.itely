@@ -3322,7 +3322,6 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 
 @ignore
 These all have side-axis set to #X
-AmbitusAccidental - direction has no effect
 Arpeggio - works
 StanzaNumber - not tried
 TrillPitchAccidental - not tried
