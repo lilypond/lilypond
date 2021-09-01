@@ -1602,5 +1602,10 @@ Snippets:
 @rlsr{Expressive marks}.
 
 Internals Reference:
-@rinternals{TrillSpanner}.
+@rinternals{TrillSpanner},
+@rinternals{TrillPitchHead},
+@rinternals{TrillPitchAccidental},
+@rinternals{TrillPitchParentheses},
+@rinternals{TrillPitchGroup},
+@rinternals{Pitched_trill_engraver}.
 @endmorerefs
