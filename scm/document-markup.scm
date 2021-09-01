@@ -121,7 +121,14 @@
     #:desc ""
     #:text "The following commands can all be used inside @code{\\markup @{ @}}."
     #:children (let* (;; when a new category is defined, update `ordered-categories'
-                      (ordered-categories '(font align graphic music instrument-specific-markup accordion-registers other))
+                      (ordered-categories '(font
+                                            align
+                                            graphic
+                                            music
+                                            conditionals
+                                            instrument-specific-markup
+                                            accordion-registers
+                                            other))
                       (raw-categories
                        (fold (lambda (next union)
                                (let ((cat (markup-function-category next)))

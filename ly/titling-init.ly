@@ -5,6 +5,56 @@
     (use-modules (ice-9 curried-definitions)))
   (else))
 
+#(define (on-first-page layout props)
+  "Whether the markup is printed on the first page of the book."
+  (= (chain-assoc-get 'page:page-number props -1)
+     (book-first-page layout props)))
+
+#(define (on-last-page layout props)
+  "Whether the markup is printed on the last page of the book."
+  (and (chain-assoc-get 'page:is-bookpart-last-page props #f)
+       (chain-assoc-get 'page:is-last-bookpart props #f)))
+
+#(define (on-first-page-of-part layout props)
+  "Whether the markup is printed on the first page of the book part."
+  (= (chain-assoc-get 'page:page-number props -1)
+     (ly:output-def-lookup layout 'first-page-number)))
+
+#(define (on-last-page-of-part layout props)
+  "Whether the markup is printed on the last page of the book part."
+  (chain-assoc-get 'page:is-bookpart-last-page props #f))
+
+#(define on-page
+  (define-scheme-function (number) (index?)
+    "Whether the markup is printed on page @var{number}."
+    (lambda (layout props)
+      (= (chain-assoc-get 'page:page-number props -1) number))))
+
+#(define (single-page layout props)
+  "Whether the output is on a single page."
+  (and (on-first-page layout props)
+       (on-last-page layout props)))
+
+#(define (should-print-page-numbers-global layout props)
+  "Whether the @code{print-@/page-@/numbers} setting of the
+@code{\\paper} block is true.  This does not necessarily mean that
+the page number should be printed on the current page due to the
+special case of the first page in a book."
+  (eq? #t (ly:output-def-lookup layout 'print-page-number)))
+
+#(define (should-print-page-number layout props)
+  "Whether the page number should be printed on this page.  This depends
+on the settings @code{print-@/page-@/numbers} and
+@code{print-@/first-@/page-@/number} of the @code{\\paper} block."
+  (and (eq? #t (ly:output-def-lookup layout 'print-page-number))
+       (or (not (on-first-page layout props))
+           (eq? #t (ly:output-def-lookup layout 'print-first-page-number)))))
+
+#(define (should-print-all-headers layout props)
+  "Whether the @code{print-@/all-@/headers} variable from the
+@code{\\paper} or @code{\\layout} block is true."
+  (eq? #t (ly:output-def-lookup layout 'print-all-headers)))
+
 slashSeparator = \markup {
   \center-align
   \vcenter \combine
@@ -28,11 +78,6 @@ tagline = \markup {
     }
   }
 }
-
-#(define (print-all-headers layout props arg)
-  (if (eq? (ly:output-def-lookup layout 'print-all-headers) #t)
-   (interpret-markup layout props arg)
-   empty-stencil))
 
 bookTitleMarkup = \markup {
   \override #'(baseline-skip . 3.5)
@@ -66,7 +111,7 @@ bookTitleMarkup = \markup {
 }
 
 scoreTitleMarkup = \markup { \column {
-  \on-the-fly \print-all-headers { \bookTitleMarkup \hspace #1 }
+  \if \should-print-all-headers { \bookTitleMarkup \hspace #1 }
   \fill-line {
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -74,93 +119,19 @@ scoreTitleMarkup = \markup { \column {
 }
 }
 
-%% Book first page and last page predicates
-#(define (book-first-page? layout props)
-   "Return #t iff the current page number, got from @code{props}, is the
-book first one."
-   (= (chain-assoc-get 'page:page-number props -1)
-      (book-first-page layout props)))
-
-#(define (book-last-page? layout props)
-   "Return #t iff the current page number, got from @code{props}, is the
-book last one."
-   (and (chain-assoc-get 'page:is-bookpart-last-page props #f)
-        (chain-assoc-get 'page:is-last-bookpart props #f)))
-
-#(define (first-page layout props arg)
-  (if (book-first-page? layout props)
-      (interpret-markup layout props arg)
-      empty-stencil))
-
-#(define (last-page layout props arg)
-  (if (book-last-page? layout props)
-      (interpret-markup layout props arg)
-      empty-stencil))
-
-#(define (not-first-page layout props arg)
-  (if (not (book-first-page? layout props))
-      (interpret-markup layout props arg)
-      empty-stencil))
-
-#(define ((on-page nmbr) layout props arg)
- (if (= (chain-assoc-get 'page:page-number props -1) nmbr)
-   (interpret-markup layout props arg)
-   empty-stencil))
-
-%% Bookpart first page and last page predicates
-#(define (part-first-page? layout props)
-  (= (chain-assoc-get 'page:page-number props -1)
-     (ly:output-def-lookup layout 'first-page-number)))
-
-#(define (part-last-page? layout props)
-  (chain-assoc-get 'page:is-bookpart-last-page props #f))
-
-#(define (part-first-page layout props arg)
-  (if (part-first-page? layout props)
-      (interpret-markup layout props arg)
-      empty-stencil))
-
-#(define (not-part-first-page layout props arg)
-  (if (not (part-first-page? layout props))
-      (interpret-markup layout props arg)
-      empty-stencil))
-
-#(define (part-last-page layout props arg)
-  (if (part-last-page? layout props)
-      (interpret-markup layout props arg)
-      empty-stencil))
-
-%% unused
-#(define (not-single-page layout props arg)
-  (if (not (and (book-first-page? layout props)
-                (book-last-page? layout props)))
-   (interpret-markup layout props arg)
-   empty-stencil))
-
-#(define (create-page-number-stencil layout props arg)
-  (if (eq? (ly:output-def-lookup layout 'print-page-number) #t)
-   (interpret-markup layout props arg)
-   empty-stencil))
-
-#(define (print-page-number-check-first layout props arg)
-  (if (or (not (book-first-page? layout props))
-          (eq? (ly:output-def-lookup layout 'print-first-page-number) #t))
-   (create-page-number-stencil layout props arg)
-   empty-stencil))
-
 oddHeaderMarkup = \markup
 \fill-line {
   ""
-  \on-the-fly #not-part-first-page \fromproperty #'header:instrument
-  \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
+  \unless \on-first-page-of-part \fromproperty #'header:instrument
+  \if \should-print-page-number \fromproperty #'page:page-number-string
 }
 
 %% evenHeaderMarkup would inherit the value of
 %% oddHeaderMarkup if it were not defined here
 evenHeaderMarkup = \markup
 \fill-line {
-  \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
-  \on-the-fly #not-part-first-page \fromproperty #'header:instrument
+  \if \should-print-page-number \fromproperty #'page:page-number-string
+  \unless \on-first-page-of-part \fromproperty #'header:instrument
   ""
 }
 
@@ -168,11 +139,11 @@ oddFooterMarkup = \markup {
   \column {
     \fill-line {
       %% Copyright header field only on first page in each bookpart.
-      \on-the-fly #part-first-page \fromproperty #'header:copyright
+      \if \on-first-page-of-part \fromproperty #'header:copyright
     }
     \fill-line {
       %% Tagline header field only on last page in the book.
-      \on-the-fly #last-page \fromproperty #'header:tagline
+      \if \on-last-page \fromproperty #'header:tagline
     }
   }
 }

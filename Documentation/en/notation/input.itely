@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.23.4"
 
 @node General input and output
 @chapter General input and output
@@ -1009,7 +1009,7 @@ The default settings for @code{scoreTitleMarkup} as defined in
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
-  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \if \should-print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -1159,47 +1159,23 @@ variables:
 @end itemize
 
 @cindex markup, conditional
-@funindex \on-the-fly
+@funindex \if
+@funindex \unless
 
-The @code{\markup} command @code{\on-the-fly} can be used to add
-markup conditionally to header and footer text defined within the
-@code{\paper} block, using the following syntax:
+The @code{\markup} command @code{\if} can be used to add markup
+conditionally to header and footer text defined within the
+@code{\paper} block, using the following syntax within
+@code{\markup}:
 
 @example
-variable = \markup @{
-  @dots{}
-  \on-the-fly  \@var{procedure}  @var{markup}
-  @dots{}
-@}
+\if @var{condition} @var{argument}
 @end example
 
-The @var{procedure} is called each time the @code{\markup} command
-in which it appears is evaluated.  The @var{procedure} should test
-for a particular condition and interpret (i.e., print) the
-@var{markup} argument if and only if the condition is true.
-
-A number of ready-made procedures for testing various conditions are
-provided:
-
-@quotation
-@multitable {print-page-number-check-first-----} {should this page be printed-----}
-
-@headitem  Procedure name           @tab  Condition tested
-
-@item print-page-number-check-first @tab  should this page number be printed?
-@item create-page-number-stencil    @tab  print-page-numbers true?
-@item print-all-headers             @tab  print-all-headers true?
-@item first-page                    @tab  first page in the book?
-@item not-first-page                @tab  not first page in the book?
-@item (on-page nmbr)                @tab  page number = nmbr?
-@item last-page                     @tab  last page in the book?
-@item part-first-page               @tab  first page in the book part?
-@item not-part-first-page           @tab  not first page in the book part?
-@item part-last-page                @tab  last page in the book part?
-@item not-single-page               @tab  pages in book part > 1?
-
-@end multitable
-@end quotation
+The @var{condition} is tested each time the markup is interpreted.  The
+resulting markup is @var{argument} if the condition is true, but empty if false.
+Typical conditions include tests for page numbers (first page, last page,
+specific page, @dots{}).  To test for the condition being false, replace
+@code{\if} with @code{\unless}.
 
 The following example centers page numbers at the bottom of every
 page.  First, the default settings for @code{oddHeaderMarkup} and
@@ -1217,7 +1193,7 @@ same layout by defining it as @code{\oddFooterMarkup}:
     evenHeaderMarkup = \markup \null
     oddFooterMarkup = \markup {
       \fill-line {
-        \on-the-fly \print-page-number-check-first
+        \if \should-print-page-number
         \fromproperty #'page:page-number-string
       }
     }
@@ -1229,21 +1205,36 @@ same layout by defining it as @code{\oddFooterMarkup}:
 }
 @end lilypond
 
-Several @code{\on-the-fly} conditions can be combined with an
-@q{and} operation, for example,
+Here is a list of all predefined procedures available for use with
+@code{\if} and @code{\unless}.
 
-@example
-  \on-the-fly \first-page
-  \on-the-fly \last-page
-  @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
-@end example
+@quotation
+@multitable {@code{\should-print-page-numbers-global}} {Print the number of the current page?}
 
-determines if the output is a single page.
+@headitem Syntax                       @tab  Condition tested
+@item @code{\on-first-page}            @tab  First page in the book?
+@item @code{\on-last-page}             @tab  Last page in the book?
+@item @code{\on-first-page-of-part}    @tab  First page in the book part?
+@item @code{\on-last-page-of-part}     @tab  Last page in the book part?
+@item @code{\on-page @var{n}}          @tab  On page number @var{n}?
+@item @code{\single-page}              @tab  Does the book fit on just one page?
+@item @code{\should-print-page-numbers-global} @tab  Print page numbers in the book?
+  @footnote{@code{\should-@/print-@/page-@/numbers-@/global} can differ from
+  @code{\should-@/print-@/page-@/number} for the first page in the book,
+  depending on the @code{print-@/first-@/page-@/number} setting  of the
+  @code{\paper} block.}
+@item @code{\should-print-page-number} @tab Print the number of the current page?
+@item @code{\should-print-all-headers} @tab Is @code{print-all-headers} true?
+
+@end multitable
+@end quotation
+
 
 @morerefs
 Notation Reference:
 @ref{Titles explained},
-@ref{Default layout of bookpart and score titles}.
+@ref{Default layout of bookpart and score titles},
+@ref{Conditionals}.
 
 Installed Files:
 @file{../ly/titling-init.ly}.

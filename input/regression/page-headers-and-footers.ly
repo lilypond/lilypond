@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.23.4"
 
 \header {
 
@@ -14,10 +14,12 @@
     \override #'(baseline-skip . 2.5)
     \center-column {
       \box \fill-line { \teeny " " " " }
-      \on-the-fly #first-page "first-page-header-text"
-      \on-the-fly #not-first-page \fromproperty #'page:page-number-string
-      \on-the-fly #(on-page 2) "page-2-header-text"
-      \on-the-fly #last-page "last-page-header-text"
+      \if \on-first-page
+        "first-page-header-text"
+      \unless \on-first-page
+        \fromproperty #'page:page-number-string
+      \if \on-page #2 "page-2-header-text"
+      \if \on-last-page "last-page-header-text"
     }
   }
 
@@ -26,9 +28,9 @@
   oddFooterMarkup = \markup \fill-line {
     \override #'(baseline-skip . 1)
     \center-column {
-	\on-the-fly #first-page "first-page-footer-text"
-	\on-the-fly #last-page "last-page-footer-text"
-	\on-the-fly #(on-page 2) "page-2-footer-text"
+	\if \on-first-page "first-page-footer-text"
+	\if \on-last-page "last-page-footer-text"
+	\if \on-page #2 "page-2-footer-text"
 	\box \fill-line { \teeny " " " " }
     }
   }

@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.4"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -1044,7 +1044,7 @@ définis dans le fichier @file{ly/titling-init.ly} :
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
-  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \if \should-print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -1259,7 +1259,7 @@ Enfin, nous appliquons le même paramétrage au @code{\oddFooterMarkup}.
     evenHeaderMarkup = \markup \null
     oddFooterMarkup = \markup {
       \fill-line {
-        \on-the-fly \print-page-number-check-first
+        \if \should-print-page-number
         \fromproperty #'page:page-number-string
       }
     }
@@ -1275,8 +1275,8 @@ Plusieurs conditions @code{\on-the-fly} mentionnées l'une à la suite de
 l'autre se cumulent.  Ainsi, par exemple,
 
 @example
-  \on-the-fly \first-page
-  \on-the-fly \last-page
+  \if \on-first-page
+  \if \on-last-page
   @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 

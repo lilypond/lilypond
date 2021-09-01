@@ -4912,6 +4912,70 @@ The @code{key} is the string to be replaced by the @code{value} string.
     props)
    arg))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; conditionals
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (if layout props condition? argument)
+  (procedure? markup?)
+  #:category conditionals
+  "Test @var{condition}, and only insert @var{argument} if it is true.
+The condition is provided as a procedure taking an output definition
+and a property alist chain.  The procedure is applied, and its result
+determines whether to print the markup.  This command is most useful inside
+@code{odd@/Header@/Markup} or similar.  Here is an example printing page
+numbers in bold:
+
+@example
+\\paper @{
+  oddHeaderMarkup =
+    \\markup \\fill-line @{
+      \"\"
+      \\if #print-page-number
+           \\bold \\fromproperty #'page:page-number-string
+    @}
+  evenHeaderMarkup =
+    \\markup \\fill-line @{
+      \\if #print-page-number
+           \\bold \\fromproperty #'page:page-number-string
+      \"\"
+    @}
+@}
+@end example"
+  (if (condition? layout props)
+      (interpret-markup layout props argument)
+      empty-stencil))
+
+(define-markup-command (unless layout props condition? argument)
+  (procedure? markup?)
+  #:category conditionals
+  "Similar to @code{\\if}, printing the argument if the condition
+is false.
+
+The following example shows how to print the copyright notice on
+all pages but the last instead of just the first page.
+
+@example
+\\paper @{
+  oddFooterMarkup = \\markup @{
+    \\unless #on-last-page-of-part \\fill-line @{
+      \\fromproperty #'header:copyright
+    @}
+  @}
+@}
+
+\\header @{
+  copyright = \"© LilyPond Authors. License: GFDL.\"
+  tagline = \"© LilyPond Authors.  Documentation placed
+under the GNU Free Documentation License
+version 1.3.\"
+@}
+@end example"
+  (if (condition? layout props)
+      empty-stencil
+      (interpret-markup layout props argument)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

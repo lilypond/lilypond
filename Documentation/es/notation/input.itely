@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.23.4"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -1059,7 +1059,7 @@ como están definidos en el archivo @file{ly/titling-init.ly} son:
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
-  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \if \should-print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -1277,7 +1277,7 @@ como @code{\oddFooterMarkup}:
     evenHeaderMarkup = \markup \null
     oddFooterMarkup = \markup {
       \fill-line {
-        \on-the-fly \print-page-number-check-first
+        \if \should-print-page-number
         \fromproperty #'page:page-number-string
       }
     }
@@ -1293,8 +1293,8 @@ Se pueden combinar varias condiciones de @code{\on-the-fly} con
 un operador @q{and}, por ejemplo:
 
 @example
-  \on-the-fly \first-page
-  \on-the-fly \last-page
+  \if \on-first-page
+  \if \on-last-page
   @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 

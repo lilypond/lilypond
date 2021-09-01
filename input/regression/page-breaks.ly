@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.23.4"
 
 \header {
 
@@ -33,7 +33,7 @@
       \bookTitleMarkup
     }
   }
-  oddHeaderMarkup = \markup \on-the-fly #not-first-page {
+  oddHeaderMarkup = \markup \unless \on-first-page {
     \override #'(baseline-skip . -3)
     \column {
       \box \fill-line { \teeny " " " " }

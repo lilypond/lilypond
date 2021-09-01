@@ -1,5 +1,5 @@
 
-\version "2.19.22"
+\version "2.23.4"
 
 \layout {
   indent = #0
@@ -35,10 +35,10 @@
   evenHeaderMarkup = \markup \fill-line { " " }
   oddFooterMarkup = \markup {
     \fill-line {
-      \bold \fontsize #3 \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string } }
+      \bold \fontsize #3 \if \should-print-page-number \fromproperty #'page:page-number-string } }
   evenFooterMarkup = \markup {
     \fill-line {
-      \bold \fontsize #3 \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string } }
+      \bold \fontsize #3 \if \should-print-page-number \fromproperty #'page:page-number-string } }
   printfirst-page-number = ##t
   print-page-number = ##t
   ragged-last-bottom = ##t
