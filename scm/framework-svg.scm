@@ -114,10 +114,6 @@ src: url('~a');
   (set! output-dir dir)
   (define-fonts paper svg-define-font svg-define-font))
 
-(define (dump-page paper filename page page-number page-count)
-  (dump-stencil paper page filename
-                (format #f "Page: ~S/~S" page-number page-count)))
-
 (define (dump-stencil paper stencil filename comment-str)
   (let* ((outputter (ly:make-paper-outputter
                      (cond-expand
@@ -212,7 +208,7 @@ src: url('~a');
                             filename bbox)))
      extents-system-pairs)))
 
-(define (clip-system-SVG basename paper-book)
+(define (clip-system-SVG basename systems)
   (define (clip-score-systems basename systems)
     (let* ((layout (ly:grob-layout (paper-system-system-grob (car systems))))
            (regions (ly:output-def-lookup layout 'clip-regions)))
@@ -227,8 +223,7 @@ src: url('~a');
        regions)))
 
   ;; partition in system lists sharing their layout blocks
-  (let* ((systems (ly:paper-book-systems paper-book))
-         (count 0)
+  (let* ((count 0)
          (score-system-list '()))
     (fold
      (lambda (system last-system)
@@ -260,14 +255,16 @@ src: url('~a');
          (filename "")
          (file-suffix (lambda (num)
                         (if (= page-count 1) "" (format #f "-~a" num)))))
-    (if (ly:get-option 'clip-systems) (clip-system-SVG basename book))
+    (if (ly:get-option 'clip-systems) (clip-system-SVG basename
+                                                       (ly:paper-book-systems book)))
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
        (set! filename (format #f "~a~a.svg"
                               basename
                               (file-suffix page-number)))
-       (dump-page paper filename page page-number page-count))
+       (dump-stencil paper page filename
+                     (format #f "Page: ~S/~S" page-number page-count)))
      page-stencils)))
 
 (define (output-preview-framework basename book)

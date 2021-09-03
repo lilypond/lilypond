@@ -311,12 +311,12 @@ created."
   (inner basename max-try))
 
 
-(define-public (postprocess-output paper-book module formats
+(define-public (postprocess-output paper module formats
                                    base-name tmp-name is-eps)
   (let* ((completed (completize-formats formats is-eps)))
     (for-each (lambda (f)
                 ((eval (string->symbol (format #f "convert-to-~a" f)) module)
-                 paper-book base-name tmp-name is-eps)) completed)
+                 paper base-name tmp-name is-eps)) completed)
     (if (and (ly:get-option 'delete-intermediate-files)
              (or (not is-eps)
                  (not (member "ps" completed)))

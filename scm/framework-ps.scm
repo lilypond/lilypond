@@ -760,7 +760,6 @@ mark {ly~a_stream} /CLOSE pdfmark
          (outputter (ly:make-paper-outputter port stencil-dispatch-alist))
          (paper (ly:paper-book-paper book))
          (header (ly:paper-book-header book))
-         (systems (ly:paper-book-systems book))
          (page-stencils (map page-stencil (ly:paper-book-pages book)))
          (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
          (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
@@ -770,7 +769,7 @@ mark {ly~a_stream} /CLOSE pdfmark
      (else))
     (initialize-font-embedding)
     (if (ly:get-option 'clip-systems)
-        (clip-system-EPSes basename book))
+        (clip-system-EPSes basename (ly:paper-book-systems paper-book)))
     (display (file-header paper page-count #t) port)
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
@@ -788,7 +787,7 @@ mark {ly~a_stream} /CLOSE pdfmark
          port))
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
-    (postprocess-output book framework-ps-module (ly:output-formats)
+    (postprocess-output paper framework-ps-module (ly:output-formats)
                         basename tmp-name #f)))
 
 (define-public (dump-stencil-as-EPS paper dump-me filename
@@ -895,7 +894,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                               filename (format #f "~a.eps" filename) #t))))
      extents-system-pairs)))
 
-(define-public (clip-system-EPSes basename paper-book)
+(define-public (clip-system-EPSes basename systems)
   (define do-pdf
     (member "pdf" (ly:output-formats)))
   (define do-png
@@ -916,8 +915,7 @@ mark {ly~a_stream} /CLOSE pdfmark
        regions)))
 
   ;; partition in system lists sharing their layout blocks
-  (let* ((systems (ly:paper-book-systems paper-book))
-         (count 0)
+  (let* ((count 0)
          (score-system-list '()))
     (fold
      (lambda (system last-system)
@@ -951,7 +949,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                                               (reverse to-dump-systems)))
                          (format #f "~a.preview" basename)
                          #t)
-    (postprocess-output book framework-ps-module
+    (postprocess-output paper framework-ps-module
                         (cons "png" (ly:output-formats))
                         (format #f "~a.preview" basename)
                         (format #f "~a.preview.eps" basename)
@@ -967,7 +965,7 @@ mark {ly~a_stream} /CLOSE pdfmark
                                               (reverse (reverse systems))))
                          (format #f "~a.cropped" basename)
                          #t)
-    (postprocess-output book framework-ps-module
+    (postprocess-output paper framework-ps-module
                         (cons "png" (ly:output-formats))
                         (format #f "~a.cropped" basename)
                         (format #f "~a.cropped.eps" basename)
@@ -987,16 +985,14 @@ mark {ly~a_stream} /CLOSE pdfmark
          (h (if landscape paper-width paper-height)))
     (cons w h)))
 
-(define-public (convert-to-pdf book base-name tmp-name is-eps)
-  (let* ((defs (ly:paper-book-paper book))
-         (width-height (output-width-height defs))
+(define-public (convert-to-pdf paper base-name tmp-name is-eps)
+  (let* ((width-height (output-width-height paper))
          (width (car width-height))
          (height (cdr width-height)))
     (postscript->pdf width height base-name tmp-name is-eps)))
 
-(define-public (convert-to-png book base-name tmp-name is-eps)
-  (let* ((defs (ly:paper-book-paper book))
-         (width-height (output-width-height defs))
+(define-public (convert-to-png paper base-name tmp-name is-eps)
+  (let* ((width-height (output-width-height paper))
          (width (car width-height))
          (height (cdr width-height))
          (resolution (ly:get-option 'resolution))
@@ -1006,7 +1002,7 @@ mark {ly~a_stream} /CLOSE pdfmark
          (bbox (get-postscript-bbox (car (string-split header #\nul)))))
     (postscript->png resolution width height bbox base-name tmp-name is-eps)))
 
-(define-public (convert-to-ps book base-name tmp-name is-eps)
+(define-public (convert-to-ps paper base-name tmp-name is-eps)
   (postscript->ps base-name tmp-name is-eps))
 
 (define-public (output-classic-framework basename book)

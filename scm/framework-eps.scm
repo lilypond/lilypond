@@ -53,12 +53,9 @@ alignment."
           (ly:stencil-extent stil Y)))
        stencils))
 
-(define (dump-stencils-as-EPSes stencils book basename)
+(define (dump-stencils-as-EPSes stencils paper basename)
   (define do-pdf
     (member  "pdf" (ly:output-formats)))
-
-  (define paper
-    (ly:paper-book-paper book))
 
   (define create-aux-files
     (ly:get-option 'aux-files))
@@ -76,7 +73,7 @@ alignment."
   ;; First, create the output, then if necessary, individual staves and
   ;; finally write some auxiliary files if desired
   (dump-stencil-as-EPS paper (stack-stencils Y DOWN 2.0 stencils) basename #t)
-  (postprocess-output book framework-eps-module (ly:output-formats)
+  (postprocess-output paper framework-eps-module (ly:output-formats)
                       basename
                       (format #f "~a.eps" basename)
                       #t)
@@ -133,7 +130,7 @@ alignment."
 (define-public (output-classic-framework basename book)
   (dump-stencils-as-EPSes (map paper-system-stencil
                                (ly:paper-book-systems book))
-                          book
+                          (ly:paper-book-paper book)
                           basename))
 
 (define-public (output-framework basename book) 
@@ -141,7 +138,7 @@ alignment."
       (clip-system-EPSes basename book))
   (dump-stencils-as-EPSes (map page-stencil
                                (ly:paper-book-pages book))
-                          book
+                          (ly:paper-book-paper book)
                           basename))
 
 ;; redefine to imports from framework-ps
