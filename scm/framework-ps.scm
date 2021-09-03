@@ -947,18 +947,6 @@ mark {ly~a_stream} /CLOSE pdfmark
                       #t
                       ))
 
-(define-public (output-preview-framework basename book paper)
-  (output-stencil
-   (format #f "~a.preview" basename)
-   (generate-preview-stencil book)
-   paper))
-    
-(define-public (output-crop-framework basename book paper)
-  (output-stencil
-   (format #f "~a.cropped" basename)
-   (generate-crop-stencil book)
-   paper))
-     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (output-width-height defs)

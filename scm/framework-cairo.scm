@@ -22,3 +22,6 @@
 (define-public output-stencils ly:output-cairo)
 
 ;; TODO - implement output-clipped-systems 
+
+(define-public (output-stencil basename stencil paper)
+  (ly:output-cairo basename (list stencil) #f paper))

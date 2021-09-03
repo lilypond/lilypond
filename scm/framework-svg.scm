@@ -262,16 +262,4 @@ src: url('~a');
        (output-stencil filename page paper))
      stencils)))
 
-(define-public (output-preview-framework basename book paper)
-    (output-stencil
-     (format #f "~a.preview" basename)
-     (generate-preview-stencil book)
-     paper))
-    
-
-(define-public (output-crop-framework basename book paper)
-    (output-stencil
-     (format #f "~a.cropped" basename)
-     (generate-crop-stencil book)
-     paper))
      
