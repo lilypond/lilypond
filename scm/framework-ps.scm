@@ -900,16 +900,3 @@ mark {ly~a_stream} /CLOSE pdfmark
 (define-public (convert-to-ps paper base-name tmp-name is-eps)
   (postscript->ps base-name tmp-name is-eps))
 
-(define-public (output-classic-framework basename book paper)
-  (ly:error (_ "\nThe PostScript backend does not support the
-system-by-system output.  For that, use the EPS backend instead,
-
-  lilypond -dbackend=eps FILE
-
-If you have cut & pasted a lilypond fragment from a webpage, be sure
-to only remove anything before
-
-  %% ****************************************************************
-  %% Start cut-&-pastable-section
-  %% ****************************************************************
-")))
