@@ -291,6 +291,63 @@ class Ghostscript(ConfigurePackage):
 ghostscript = Ghostscript()
 
 
+class Gettext(ConfigurePackage):
+    def enabled(self, c: Config) -> bool:
+        return c.is_freebsd()
+
+    @property
+    def version(self) -> str:
+        return "0.21"
+
+    @property
+    def directory(self) -> str:
+        return f"gettext-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.xz"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://ftp.gnu.org/gnu/gettext/{self.archive}"
+
+    def apply_patches(self, c: Config):
+        # localcharset.c defines locale_charset, which is also provided by
+        # Guile. However, Guile has a modification to this file so we really
+        # need to build that version.
+        def patch_makefile(content: str) -> str:
+            return content.replace("localcharset.lo", "")
+
+        makefile = os.path.join("gettext-runtime", "intl", "Makefile.in")
+        self.patch_file(c, makefile, patch_makefile)
+
+        def patch_dcigettext(content: str) -> str:
+            return content.replace("locale_charset ()", "NULL")
+
+        dcigettext = os.path.join("gettext-runtime", "intl", "dcigettext.c")
+        self.patch_file(c, dcigettext, patch_dcigettext)
+
+    @property
+    def configure_script(self) -> str:
+        return os.path.join("gettext-runtime", "configure")
+
+    def configure_args(self, c: Config) -> List[str]:
+        return ["--disable-java"]
+
+    def get_env_variables(self, c: Config) -> Dict[str, str]:
+        """Return environment variables to make libintl available."""
+        gettext_install = self.install_directory(c)
+        return {
+            "CPATH": os.path.join(gettext_install, "include"),
+            "LIBRARY_PATH": os.path.join(gettext_install, "lib"),
+        }
+
+    def __str__(self) -> str:
+        return f"gettext {self.version}"
+
+gettext = Gettext()
+
+
 class Libffi(ConfigurePackage):
     @property
     def version(self) -> str:
@@ -375,7 +432,17 @@ class GLib(MesonPackage):
         return f"https://download.gnome.org/sources/glib/{major_version}/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
-        return [libffi, zlib]
+        gettext_dep = []
+        if c.is_freebsd():
+            gettext_dep = [gettext]
+        return gettext_dep + [libffi, zlib]
+
+    def build_env(self, c: Config) -> Dict[str, str]:
+        env = super().build_env(c)
+        if c.is_freebsd():
+            # Make meson find libintl.
+            env.update(gettext.get_env_variables(c))
+        return env
 
     def meson_args(self, c: Config) -> List[str]:
         return [
@@ -576,6 +643,13 @@ class Guile(ConfigurePackage):
         pkgconfig = os.path.join("meta", f"guile-{self.major_version}.pc.in")
         self.patch_file(c, pkgconfig, patch_pkgconfig)
 
+        # Fix non-portable invocation of inplace sed.
+        def patch_inplace_sed(content: str) -> str:
+            return content.replace("$(SED) -i", "$(SED)")
+
+        libguile_makefile_in = os.path.join("libguile", "Makefile.in")
+        self.patch_file(c, libguile_makefile_in, patch_inplace_sed)
+
     def dependencies(self, c: Config) -> List[Package]:
         return [bdwgc, libffi, libtool, libunistring, gmp]
 
@@ -698,6 +772,13 @@ class Pango(MesonPackage):
         major_version = ".".join(self.version.split(".")[0:2])
         return f"http://ftp.gnome.org/pub/GNOME/sources/pango/{major_version}/{self.archive}"
 
+    def apply_patches(self, c: Config):
+        # Disable tests, fail to build on FreeBSD.
+        def patch_meson_build(content: str) -> str:
+            return content.replace("subdir('tests')", "")
+
+        self.patch_file(c, "meson.build", patch_meson_build)
+
     def dependencies(self, c: Config) -> List[Package]:
         return [fontconfig, freetype, fribidi, glib, harfbuzz]
 
@@ -819,6 +900,7 @@ all_dependencies: List[Package] = [
     util_linux,
     fontconfig,
     ghostscript,
+    gettext,
     libffi,
     zlib,
     glib,

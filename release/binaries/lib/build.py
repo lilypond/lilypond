@@ -151,6 +151,11 @@ class Package:
         if os.path.isdir(lib_pkgconfig):
             return lib_pkgconfig
 
+        # On FreeBSD, meson puts pkgconfig files into libdata/.
+        libdata_pkgconfig = os.path.join(self.install_directory(c), "libdata", "pkgconfig")
+        if os.path.isdir(libdata_pkgconfig):
+            return libdata_pkgconfig
+
         return None
 
     def collect_pkgconfig_paths(self, c: Config) -> List[str]:

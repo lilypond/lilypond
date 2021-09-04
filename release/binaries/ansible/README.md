@@ -18,8 +18,16 @@ An exmple `inventory.ini` could look like this:
 ```
 [lily_centos7]
 root@Lily-CentOS7
+
+[lily_freebsd12]
+root@Lily-FreeBSD12
 ```
 
-The first line, `[lily_centos7]`, is the group name and **must not be changed**.
-The second line (and any additional entry) is a list of hosts passed to `ssh`.
+The lines with square brackets, such as `[lily_centos7]`, set the group name and **must not be changed**.
+The following line gives the host passed to `ssh`.
 Make sure that this works without password and logs into the `root` account (in order to install packages).
+
+For FreeBSD, the initial setup requires some manual steps:
+1. `freebsd-update fetch` and `freebsd-update install` to update the base OS.
+2. `pkg install python` to set up the package management tool and install the Python interpreter used by Ansible.
+For maintenance repeat the first step once in a while, and watch out for new point releases that need to be installed via `freebsd-update upgrade -r 12.x`.

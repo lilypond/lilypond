@@ -29,7 +29,7 @@ from typing import Dict, List
 from .build import Package, ConfigurePackage
 from .config import Config
 from .dependencies import all_dependencies
-from .dependencies import freetype, fontconfig, ghostscript, glib, guile, pango, python
+from .dependencies import freetype, fontconfig, ghostscript, gettext, glib, guile, pango, python
 from .fonts import all_fonts
 from .fonts import texgyre, urwbase35
 
@@ -88,7 +88,10 @@ class LilyPond(ConfigurePackage):
         raise NotImplementedError
 
     def dependencies(self, c: Config) -> List[Package]:
-        return [freetype, fontconfig, ghostscript, glib, guile, pango, python]
+        gettext_dep = []
+        if c.is_freebsd():
+            gettext_dep = [gettext]
+        return gettext_dep + [freetype, fontconfig, ghostscript, glib, guile, pango, python]
 
     @property
     def configure_default_static(self) -> bool:
@@ -100,6 +103,8 @@ class LilyPond(ConfigurePackage):
         env["GHOSTSCRIPT"] = ghostscript.exe_path(c)
         env["GUILE"] = guile.exe_path(c)
         env["PYTHON"] = python.exe_path(c)
+        if c.is_freebsd():
+            env.update(gettext.get_env_variables(c))
         return env
 
     def configure_args(self, c: Config) -> List[str]:
