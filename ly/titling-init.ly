@@ -132,9 +132,8 @@ book last one."
 
 %% unused
 #(define (not-single-page layout props arg)
-  (if (not (and (= (chain-assoc-get 'page:page-number props -1)
-                   (ly:output-def-lookup layout 'first-page-number))
-               (chain-assoc-get 'page:last? props -1)))
+  (if (not (and (book-first-page? layout props)
+                (book-last-page? layout props)))
    (interpret-markup layout props arg)
    empty-stencil))
 
