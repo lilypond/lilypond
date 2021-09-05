@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: cb9cdb8c5539994bc4763a23f043a34dc25a3fda
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2266,9 +2266,10 @@ définie dans la @code{grob-interface} ; elle est donc une
 propriété commune à tous les objets de rendu.  Par défaut, elle
 est réglée sur @code{#f} pour tous les objets de la portée, et
 porte une valeur numérique appropriée à chacun des objets
-extérieurs à la portée, à mesure qu'ils sont créés.  Le tableau
-suivant montre la valeur numérique par défaut pour quelques-uns
-des objets extérieurs à la portée les plus courant.
+extérieurs à la portée, à mesure qu'ils sont créés.  Une
+@rusernamed{Valeurs par défaut de outside-staff-priority,
+annexe spécifique} recense les différents objets concernés, avec leur
+valeur par défaut.
 
 @cindex spanners
 @cindex bandeaux
@@ -2287,63 +2288,6 @@ c'est sur celui-ci que doit porter l'effet de
 @code{outside-staff-priority}.  L'instruction dérogatoire se place au
 début du bandeau qui constitue une ligne de base susceptible de contenir
 plusieurs soufflets ou indications de nuance.
-
-@multitable @columnfractions .3 .15 .45
-@headitem Objet de rendu
-  @tab Priorité
-  @tab Contrôle la position de
-@item @code{RehearsalMark}
-  @tab @code{1500}
-  @tab Repère
-@item @code{MetronomeMark}
-  @tab @code{1000}
-  @tab Indication métronomique
-@item @code{SostenutoPedalLineSpanner}
-  @tab @code{1000}
-  @tab Indication de pédale
-@item @code{SustainPedalLineSpanner}
-  @tab @code{1000}
-  @tab
-@item @code{UnaCordaPedalLineSpanner}
-  @tab @code{1000}
-  @tab
-@item @code{MeasureCounter}
-  @tab @code{750}
-  @tab Numéro de mesure
-@item @code{VoltaBracketSpanner}
-  @tab @code{600}
-  @tab Bandeau de répétition
-@item @code{InstrumentSwitch}
-  @tab @code{500}
-  @tab Texte de changement d'instrument
-@item @code{TextScript}
-  @tab @code{450}
-  @tab Texte des @emph{markups} (ou étiquettes)
-@item @code{MultiMeasureRestText}
-  @tab @code{450}
-  @tab Texte sur les silences multimesures
-@item @code{CombineTextScript}
-  @tab @code{450}
-  @tab Texte de parties combinées
-@item @code{OttavaBracket}
-  @tab @code{400}
-  @tab Indication d'octaviation
-@item @code{TextSpanner}
-  @tab @code{350}
-  @tab Bandeau ou extension de texte
-@item @code{DynamicLineSpanner}
-  @tab @code{250}
-  @tab Toutes les marques de nuances
-@item @code{BarNumber}
-  @tab @code{100}
-  @tab Numéro de mesure
-@item @code{TrillSpanner}
-  @tab @code{50}
-  @tab Bandeau de trille
-@item @code{AccidentalSuggestion}
-  @tab @code{0}
-  @tab Altération suggérée
-@end multitable
 
 Voici un exemple qui montre le placement par défaut de certains
 d'entre eux.
@@ -2397,14 +2341,15 @@ Il montre aussi comment créer des marques d'octaviation.
 @cindex marques de repère, modification du positionnement
 
 Si les valeurs de @code{outside-staff-priority} par défaut ne donnent
-pas les résultats escomptés, il suffit de modifier la priorité
-de l'un de ces objets.  Supposons que vous vouliez placer l'indication
-d'octaviation sous le bandeau de texte, dans l'exemple précédent.  Tout
+pas les résultats escomptés, il suffit de modifier la priorité de l'un
+de ces objets. Supposons que vous vouliez placer l'indication
+d'octaviation sous le bandeau de texte, dans l'exemple précédent. Tout
 ce que nous devons faire, c'est regarder la priorité de
 @code{OttavaBracket} dans la Référence des propriétés internes ou dans
-le tableau plus haut, et la ramener à une valeur plus basse que celle de
-@code{TextSpanner}, en gardant à l'esprit que @code{OttavaBracket} est
-créé dans le contexte @code{Staff} :
+@ruser{Valeurs par défaut de outside-staff-priority}, et la ramener à
+une valeur plus basse que celle de @code{TextSpanner}, en gardant à
+l'esprit que @code{OttavaBracket} est créé dans le contexte
+@code{Staff} :
 
 @cindex TextSpanner, exemple de dérogation
 @cindex bound-details, exemple d'utilisation de la propriété

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fbc2894a5734230cec0fb96f519c472737e185f4
+   Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -508,11 +508,6 @@ Référence des propriétés internes :
 @funindex Span_stem_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
-
-Il n'est pas possible, à l'heure actuelle et en raison de la manière
-dont il a été implémenté, de spécifier ce graveur en le mettant entre
-guillements ; il faut le mentionner en faisant précéder son nom d'un
-symbole @emph{hash} (un @code{#}).
 
 @cindex crochet d'arpeggio interportée
 @cindex arpeggio, crochet interportée

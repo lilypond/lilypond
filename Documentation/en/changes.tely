@@ -67,7 +67,7 @@ which scares away people.
 
 @item
 Parenthesizing chords is supported.  Currently, the font size of the
-parentheses has to adjusted manually.
+parentheses has to be adjusted manually.
 
 @lilypond
 \new Voice {

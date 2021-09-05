@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
+   Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1828,17 +1828,14 @@ Manuel de notation :
 @ref{Unicode}.
 
 Référence des propriétés internes :
-@rinternals{FootnoteEvent},
 @rinternals{Footnote},
+@rinternals{FootnoteEvent},
 @rinternals{Footnote_engraver}.
 @endmorerefs
 
 @knownissues
 Les notes de bas de page ne peuvent que s'empiler l'une au-dessus de
 l'autre ; elles ne seront jamais présentées à la queue leu leu.
-
-Silences multimesures, ligatures automatiques et paroles ne peuvent se
-voir affecter de note de bas de page.
 
 Les notes de bas de page peuvent générer des chevauchements quand elles
 sont trop nombreuses sur une même page.
@@ -3080,7 +3077,7 @@ Manuel de notation :
 @ref{Score -- le père de tous les contextes}.
 
 Référence des propriétés internes :
-@rinternals{Liste des propriétés de contexte}.
+@rinternalsnamed{All context properties, Liste des propriétés de contexte}.
 @endmorerefs
 
 

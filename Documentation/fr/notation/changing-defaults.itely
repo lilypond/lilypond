@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
+   Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -5084,14 +5084,35 @@ unique note.
 @c VO  Cubic Bézier curves
 
 Quatre points définissent une courbe de Bézier cubique. Les premier et
-quatrième points sont les points de départ et d'arrivée de la
-courbe ; les deux autres points de contrôle -- P1 et P2 -- en
-détermineront l'allure.  La courbe se trace en partant du point P0, en
-se dirigeant vers P1 et en arrivant au point P3 selon la direction
-@w{P2-P3}.  La courbe est à l'intérieur de l'enveloppe convexe des
-points de contrôle.  Tout déplacement (translation, rotation,
-échelonnement) des points de contrôle sera répercuté sur le dessin
-de la courbe.
+quatrième points sont les points de départ et d'arrivée de la courbe ;
+les deux autres points de contrôle -- P1 et P2 -- en détermineront
+l'allure. On peut trouver sur le @emph{web} des animations à propos du
+dessin de telles courbes ; la description qui suit en propose un aperçu.
+La courbe se trace en partant du point P0, en se dirigeant vers P1 et en
+arrivant au point P3 selon la direction @w{P2-P3}. La courbe est à
+l'intérieur du quadrilatère défini par les points de contrôle.
+
+@lilypond
+\markup \pad-around #0.5
+\score {
+  \new Staff \with {
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
+  }
+  \new Voice \with {
+    \hide NoteHead
+    \omit Stem
+  }
+  {
+    \vshape #'((-2 . 0) (-1 . 2) (1 . 1.5) (2 . -2)) Slur
+    c( c)
+  }
+}
+@end lilypond
+
+Tout déplacement (translation, rotation, échelonnement) des points de
+contrôle sera répercuté sur le dessin de la courbe.
 
 
 @subsubsubheading Spécification de l'ajustement des points de contrôle
@@ -5173,9 +5194,26 @@ fois en utilisant la formulation d'affinage -- la forme @code{\tweak} :
 >>
 @end lilypond
 
-L'adaptation du positionnement horizontal des points de contrôle
-se réalise de la même manière, ce qui permet de gérer le galbe de
-deux courbes débutant au même instant musical :
+LilyPond dispose de la fonction @code{\vshape} qui apporte une
+assistance dans cette procédure d'affinage. Son nom signifie
+@emph{visual shape}. Elle agit exactement comme la fonction
+@code{\shape}, à ceci près que seront aussi affichés les points de
+contrôle et le polygone.
+
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c''8(\( a) e4 gis a\)
+  \vshape #'((0 . -0.3) (0.5 . -0.2) (0.5 . -0.3) (0 . -0.7)) PhrasingSlur
+  c8(\( a) e4 gis a\)
+}
+@end lilypond
+
+Il est conseillé de commencer avec @code{\vshape} et d'ajuster jusqu'à
+obtenir un galbe satisfaisant, puis de simplement supprimer le « v » de
+@code{\vshape}.
+
+Il est possible de gérer distinctement le galbe de deux courbes débutant
+au même instant musical :
 
 @lilypond[verbatim,quote,ragged-right]
 \relative {
@@ -5206,8 +5244,8 @@ Regalber les deux moitiés de la liaison rend plus évident le fait
 qu'elle s'étend par delà le saut de ligne :
 
 @lilypond[verbatim,quote,ragged-right]
-% () may be used as a shorthand for ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
-% if any of the segments does not need to be changed
+% () peut faire office de raccourci à ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
+% lorsque l'un des segments ne nécéssite pas de modification
 \relative c' {
   \shape #'(
              (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))

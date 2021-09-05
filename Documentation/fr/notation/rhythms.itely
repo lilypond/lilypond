@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: f8697bad07bbb4a765b3702a8675cdde2c35a0ca
+   Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3305,7 +3305,7 @@ visible ou non.  Les valeurs sont rangées dans l'ordre suivant :
 @code{visible en début de ligne}.  Voici comment imprimer partout les
 numéros de mesure :
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   \override Score.BarNumber.break-visibility = ##(#t #t #t)
   \set Score.currentBarNumber = #11
@@ -3723,7 +3723,7 @@ particulier : est présenté l'intervalle de mesures considéré.
 
 Les compteurs de mesures prennent en considération le style de
 numérotation des alternatives. Lorsque le style est réglé sur
-@code{numbers-with-letters}, leur rendu est meilleur avec une fonte
+@code{numbers-@/with-@/letters}, leur rendu est meilleur avec une fonte
 textuelle.
 
 @lilypond[verbatim,quote]

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 92e46a9470eee535bffb627ca3ab51a1b13fe6c6
+   Translation of GIT committish: 81f979cc9169a07d910d6ae498dcb88b94cd1cd0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -111,11 +111,11 @@ aux cours des versions précédentes, actualités passée, etc.
 @translationof Contact
 
 
-@divClass{column-left-bottom}
+@divClass{column-left-top}
 @subheading Discuter entre utilisateurs et demander de l'aide
 @c VO User Discussions and Help
 
-@subsubheading Liste de diffusion des utilisateurs : @code{lilypond-user@@gnu.org}
+@subsubheading Liste de diffusion des utilisateurs : @code{lilypond-user@@gnu.org}
 
 Cette liste de diffusion @strong{anglophone} est le lieu privilégié des
 utilisateurs pour discuter et s'entraider.
@@ -125,16 +125,42 @@ utilisateurs pour discuter et s'entraider.
 page de souscription à lilypond-user}
 
 @uref{http://lists.gnu.org/archive/html/lilypond-user/,
-archive1 de la liste},
+archive@tie{}1 de la liste},
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
-archive2},
+archive@tie{}2},
 @end quotation
 
 @warning{Lorsque vous posez une question, merci de fournir des
 @ref{Exemples minimalistes} !}
 
 
-@subsubheading LilyPond Snippet Repository
+@subsubheading Autres langues
+
+@quotation
+@uref{http://groups.google.com/group/lilypond-brasil,
+Groupe des utilisateurs brésiliens}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+Liste de diffusion francophone}
+
+@uref{https://lilypondforum.de/,
+Forum germanophone}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+Liste de diffusion hispanophone}
+
+@uref{http://www.lilypondforum.nl/,
+Forum hollandais}
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
+Liste de diffusion italophone}
+
+@end quotation
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading LilyPond Snippet Repository
 
 Le LilyPond Snippet Repository regroupe des exemples de situations
 particulières auxquelles ont été confrontés les utilisateurs de LilyPond.
@@ -148,9 +174,73 @@ pas à apporter votre concours à cette banque de trucs et astuces !
 Un certain nombre d'exemples issus du LSR et particulièrement pertinents
 sont directement inclus dans la documentation, volume
 @ref{Morceaux choisis}.
+@divEnd
 
 
-@subsubheading IRC
+@divClass{column-right-bottom}
+@subheading Contacter les développeurs ou les traducteurs
+@c VO Developer Discussions and Translations
+
+@subsubheading Liste de diffusion des développeurs : @code{lilypond-devel@@gnu.org}
+
+C'est sur cette liste que se tiennent les discussions ayant trait au
+développement.  C'est aussi à cette liste que peuvent être adressés les
+patches.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
+Page de souscription à lilypond-devel}
+
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
+archive@tie{}1 de la liste},
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
+archive@tie{}2},
+@end quotation
+
+
+@subsubheading Liste de diffusion des bogues : @code{bug-lilypond@@gnu.org}
+
+Cette liste @strong{anglophone} est tout spécialement consacrée
+signalements et discussions à propos des bogues ou limitations.  Elle
+n'est pas destinée à recevoir des patches.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
+page de souscription à bug-lilypond}
+
+@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
+archive1 de la liste},
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
+archive2},
+@end quotation
+
+@warning{Les directives à suivre pour poster un message sur cette
+liste sont répertoriées dans @ref{Signalement de bogue}.}
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Annonce des livraisons
+
+@subsubheading Liste de diffusion des versions : @code{info-lilypond@@gnu.org}
+
+Cette liste de diffusion est en lecture seule.  Son but est de notifier
+la mise à disposition des versions.
+
+@quotation
+@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
+page de souscription à info-lilypond}
+
+@uref{http://lists.gnu.org/archive/html/info-lilypond/,
+archive@tie{}1 de la liste},
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+archive@tie{}2},
+@end quotation
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading IRC
 
 Vous pouvez obtenir quelque support au travers de notre canal IRC :
 
@@ -184,33 +274,11 @@ intéresser d'autres utilisateurs.
   document.forms["f_lily_irc"].nick.value = username;
 </script>
 @end html
-
-
-@subsubheading Autres langues
-
-@quotation
-@uref{http://groups.google.com/group/lilypond-brasil,
-Groupe des utilisateurs brésiliens}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-Liste de diffusion francophone}
-
-@uref{https://lilypondforum.de/,
-Forum germanophone}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-Liste de diffusion hispanophone}
-
-@uref{http://www.lilypondforum.nl/,
-Forum hollandais}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-it,
-Liste de diffusion italophone}
-
-@end quotation
-
 @divEnd
 
+@c Currently inactive and inaccessible
+
+@ignore
 
 @divClass{column-right-top}
 @subheading Le @emph{blog} de LilyPond
@@ -221,77 +289,9 @@ Beauty », est une ressource de grande valeur.
 @example
 @uref{https://lilypondblog.org}
 @end example
-
-@subsubheading Liste de diffusion des versions : @code{info-lilypond@@gnu.org}
-
-Cette liste de diffusion est en lecture seule.  Son but est de notifier
-la mise à disposition des versions.
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
-page de souscription à info-lilypond}
-
-@uref{http://lists.gnu.org/archive/html/info-lilypond/,
-archive1 de la liste},
-@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
-archive2},
-@end quotation
-
 @divEnd
 
-
-@divClass{column-right-bottom}
-@subheading Contacter les développeurs ou les traducteurs
-@c VO Developer Discussions and Translations
-
-@subsubheading Liste de diffusion des développeurs : @code{lilypond-devel@@gnu.org}
-
-C'est sur cette liste que se tiennent les discussions ayant trait au
-développement.  C'est aussi à cette liste que peuvent être adressés les
-patches.
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
-Page de souscription à lilypond-devel}
-
-@uref{http://lists.gnu.org/archive/html/lilypond-devel/,
-archive1 de la liste},
-@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
-archive2},
-@end quotation
-
-
-@subsubheading Liste de diffusion des bogues : @code{bug-lilypond@@gnu.org}
-
-Cette liste @strong{anglophone} est tout spécialement consacrée
-signalements et discussions à propos des bogues ou limitations.  Elle
-n'est pas destinée à recevoir des patches.
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
-page de souscription à bug-lilypond}
-
-@uref{http://lists.gnu.org/archive/html/bug-lilypond/,
-archive1 de la liste},
-@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
-archive2},
-@end quotation
-
-@warning{Les directives à suivre pour poster un message sur cette
-liste sont répertoriées dans @ref{Signalement de bogue}.}
-
-
-@subsubheading Liste de diffusion des traductions : @code{translations@@lilynet.org}
-
-C'est sur cette liste que se tiennent les discussions ayant trait aux
-traductions des manuels.  Merci de n'y adresser aucun patche.
-
-@quotation
-@uref{https://lilypond-translations.3384276.n2.nabble.com/,
-Translation mailing list archive}
-@end quotation
-
-@divEnd
+@end ignore
 
 
 @node Exemples minimalistes

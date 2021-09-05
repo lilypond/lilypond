@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e4c918c46207e01dcde0a110aa6130cb17e25d35
+   Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -988,8 +988,8 @@ Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 
 Référence des propriétés internes :
-@rinternals{Tab_note_heads_engraver},
-@rinternals{Fonctions Scheme}.
+@rinternalsnamed{Scheme functions, Fonctions Scheme},
+@rinternals{Tab_note_heads_engraver}.
 @endmorerefs
 
 @knownissues

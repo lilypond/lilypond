@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 1c757b3de9f44555654bc7e76f5ef7e11f3e1155
+  Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -33,6 +33,7 @@
 * Liste des caractères spéciaux::
 * Liste des signes d'articulation::
 * Notes utilisées en percussion::
+* Valeurs par défaut de outside-staff-priority::
 * Glossaire technique::
 * Fonctions musicales prédéfinies::
 * Identificateurs de modification de contexte::
@@ -3139,6 +3140,18 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 
 @end multitable
+
+
+@node Valeurs par défaut de outside-staff-priority
+@appendixsec Valeurs par défaut de @code{outside-staff-priority}
+@translationof Default values for outside-staff-priority
+
+Le tableau suivant indique la valeur par défaut de la propriété
+@code{outside-staff-priority} de tous les objets graphiques extérieurs à
+la portée. Au plus la valeur est faible, au plus l'objet est proche de
+la portée.
+
+@include en/outside-staff-priorities.tely
 
 
 @node Glossaire technique

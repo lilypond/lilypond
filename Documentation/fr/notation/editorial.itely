@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 6c74e3eb3c7efa1d7cf8c53632cab1ed70d1d8b3
+   Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -837,8 +837,57 @@ doit cependant être précédée d'un tiret.
 }
 @end lilypond
 
+Lorsque @code{\parenthesize} s'applique à un accord, toutes ses notes
+seront mises dans une seule paire de parenthèses.
+
+@lilypond
+\relative c' {
+  \parenthesize <e f>
+}
+@end lilypond
+
+Lorsque seulement certaines notes d'un accord doivent être mises entre
+parenthèses, est requise l'utilisation d'une contruction en parallèle
+@w{@code{<< @dots{} >>}}.
+
+@lilypond
+\new Voice \relative c {
+  <<
+    { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
+    { \parenthesize ees' }
+    { \tweak Parentheses.font-size -2 \parenthesize <c' e> }
+  >>
+}
+@end lilypond
+
+Une deuxième forme de la commande @code{\parenthesize} implique un
+chemin vers un objet graphique : @code{\parenthesize
+@var{NomContexte}.@var{NomGrob}}, voire même @code{\parenthesize
+@var{NomGrob}} dès lors que l'objet à parenthéser est créé dans le contexte le plus bas
+(typiquement @code{Voice}). La commande doit alors se libeller avant le
+moment musical, à l'instar d'un @code{\once \override}. Cette forme rend
+possible la mise entre parenthèses des objets dont l'origine n'est pas
+directement liée à un événement.
+
+@lilypond[verbatim,quote]
+\new Staff \relative <<
+  {
+    \parenthesize NoteHead
+    c'1
+  }
+  \new CueVoice {
+    s2
+    \voiceOne
+    \once \override Staff.Parentheses.font-size = 3
+    \parenthesize Staff.CueClef
+    \cueClef treble
+    e'8 f a g
+  }
+>>
+@end lilypond
+
 @morerefs
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 
 Référence des propriétés internes :
@@ -848,9 +897,9 @@ Référence des propriétés internes :
 @endmorerefs
 
 @knownissues
-Lorsqu'un accord est mis entre parenthèses, celles-ci s'appliquent
-individuellement à chacune des notes le composant, alors qu'on
-attendrait une seule paire de parenthèses encadrant tout l'accord.
+La propriété @code{font-size} de l'objet graphique @code{Parentheses}
+doit, à ce jour, être ajustée manuellement afin d'obtenir une taille de
+parenthèses correcte dans le cas des accords entre autres.
 
 
 @node Hampes

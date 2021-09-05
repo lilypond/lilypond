@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 7798429d60ba0d70cb640109f4965ba1454aca7e
+%% Translation of GIT committish: b4e832ac8cbf344011cb5f8fe9df0706ed0aa2f2
   texidocfr = "
-Du texte peut venir s'ajouter aux crochets d'analyse grâce à la
-propriété @code{texte} de l'objet graphique
+Un @emph{markup} textuel peut venir s'ajouter aux crochets d'analyse
+grâce à la propriété @code{texte} de l'objet graphique
 @code{HorizontalBracketText}. Plusieurs crochets présents en un même
 moment requièrent d'utiliser la commande @code{\\tweak}. Le texte ajouté
 sera répété, entre parenthèse, après un saut de ligne.

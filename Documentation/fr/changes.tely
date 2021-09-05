@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1c757b3de9f44555654bc7e76f5ef7e11f3e1155
+    Translation of GIT committish: bf2618d0675d0da74c01ae6ee93b9d222c6d1152
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -255,6 +255,15 @@ l'aide d'une dérogation à la propriété @code{endpoint-alignments}.
 }
 @end lilypond
 
+@item
+La nouvelle commande @code{\vshape} se comporte comme @code{\shape}, à
+ceci près qu'elle affiche les points de contrôle et le polygone qui les
+enveloppe, afin de faciliter les ajustements.
+
+@lilypond[verbatim,quote]
+{ a1\vshape #'((0 . 0) (0 . 0.5) (0 . 0.9) (0 . 0.4))^( c'1) }
+@end lilypond
+
 @end itemize
 
 
@@ -315,16 +324,58 @@ désactiver temporairement ce comportement, tout comme le faisait
 
 @end itemize
 
-@ignore
+
 @subsubheading Améliorations en matière d'annotations éditoriales
 
 @itemize
 
 @item
-Le
+Il est désormais possible de placer un accord entre parenthèses.
+Toutefois, la taille de la fonte utlisée pour les parenthèses devra être
+ajustée manuellement.
+
+@lilypond
+\new Voice {
+  \tweak Parentheses.font-size -2 \parenthesize <a'' b''>2
+  <<
+    { \tweak Parentheses.font-size 0 \parenthesize <ces des> }
+    { \parenthesize ees' }
+    { \tweak Parentheses.font-size -2 \parenthesize <c'' e''> }
+  >>
+}
+@end lilypond
+
+@item
+Les objets étendus peuvent être mis entre parenthèses.
+
+@lilypond
+{
+  c'\parenthesize\< d'2.\!
+  \parenthesize R1
+}
+@end lilypond
+
+@item
+Une version « temporelle » de la commande @code{\parenthesize} est
+disponible. Elle prend en considération le chemin vers un objet
+graphique : @code{\parenthesize @var{NomGrob}} ou @code{\parenthesize
+@var{ContextName}.@var{GrobName}}. Cette commande se comporte comme un
+@code{\once \override}. Cette interface vient en complément de la forme
+déjà disponible @code{\parenthesize @var{événement}}, de manière
+identique à @code{\footnote}.
+
+@lilypond[verbatim,quote]
+{
+  \parenthesize NoteHead
+  c'1
+  \parenthesize Staff.KeySignature
+  \key g \major
+  c'1
+}
+@end lilypond
 
 @end itemize
-@end ignore
+
 
 @subsubheading Améliorations en matière de mise en forme du texte
 
@@ -472,16 +523,31 @@ Un
 @subheading Nouveautés en matière d'entrée et sortie
 @c VO New for input and output
 
-@ignore
+
 @subsubheading Améliorations pour la structure
 
 @itemize
 
 @item
-Un
+Une même définition d'objet graphique peut désormais s'utiliser pour
+créer des @emph{grobs} de classe différente (@code{Item},
+@code{Spanner}, @code{Paper_column}, @code{System}). Dans le cadre de
+cette évolution, les types de @emph{grob} @code{FootnoteItem} et
+@code{FootnoteSpanner} ont été rassemblés en un unique
+type @code{Footnote}. De la même manière, @code{BalloonTextSpanner} et
+@code{BalloonTextItem} ont été unifiés en @code{BalloonText}.
+
+Lorsque la définition du @emph{grob} ne requiert pas de classe, les
+graveurs doivent décider de la classe à utiliser pour créer le
+@emph{grob}. Pour ceux qui créent leurs propres graveurs en Scheme, cela
+signifie qu'il faudra utiliser soit @code{ly:engraver-make-item}, soit
+@code{ly:engraver-make-spanner}. La fonction utilitaire
+@code{ly:engraver-make-sticky} permet de prendre en charge le cas des
+@emph{sticky grobs} tels que notes de bas de page et infobulles. Elle
+crée un @emph{grob} de la même classe qu'un autre et gère la parenté et
+les attachements.
 
 @end itemize
-@end ignore
 
 
 @ignore
