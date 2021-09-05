@@ -581,12 +581,18 @@ Cairo_outputter::create_surface ()
       context_ = cairo_create (surface_);
       break;
     case PNG:
-      surface_ = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, png_width_,
-                                             png_height_);
-      context_ = cairo_create (surface_);
-      cairo_scale (context_, png_height_ / paper_height_,
-                   png_width_ / paper_width_);
-      break;
+      {
+        int png_dpi
+          = from_scm<int> (ly_get_option (ly_symbol2scm ("resolution")));
+        png_height_
+          = std::max ((int) round (paper_height_ / 72.0 * png_dpi), 1);
+        png_width_ = std::max ((int) round (paper_width_ / 72.0 * png_dpi), 1);
+        surface_ = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, png_width_,
+                                               png_height_);
+        context_ = cairo_create (surface_);
+        cairo_scale (context_, png_dpi / 72.0, png_dpi / 72.0);
+        break;
+      }
     case PS:
       surface_ = cairo_ps_surface_create (filename_.c_str (), paper_width_,
                                           paper_height_);
@@ -1072,9 +1078,8 @@ Cairo_outputter::Cairo_outputter (Cairo_output_format format,
   paper_width_ *= scale_factor_;
   paper_height_ *= scale_factor_;
 
-  int png_dpi = from_scm<int> (ly_get_option (ly_symbol2scm ("resolution")));
-  png_height_ = (int) round (paper_height_ / 72.0 * png_dpi);
-  png_width_ = (int) round (paper_width_ / 72.0 * png_dpi);
+  png_height_ = 0;
+  png_width_ = 0;
 }
 
 void
